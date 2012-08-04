@@ -1,9 +1,16 @@
-{% if latest_poll_list %}
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} {% trans "Workout list" %}{% endblock %}
+
+{% block content %}
+{% if latest_workouts_list %}
     <ul>
-    {% for workout in latest_poll_list %}
+    {% for workout in latest_workouts_list %}
         <li><a href="/workout/{{ workout.id }}/view">{{ workout.creation_date }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
     <p>No workouts are available.</p>
 {% endif %}
+{% endblock %}

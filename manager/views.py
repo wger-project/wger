@@ -21,7 +21,7 @@ from manager.models import TrainingSchedule
 
 def index(request):
     latest_trainings = TrainingSchedule.objects.all().order_by('-creation_date')[:5]
-    return render_to_response('index.html', {'latest_poll_list': latest_trainings})
+    return render_to_response('index.html', {'latest_workouts_list': latest_trainings})
     
 
 def add(request):

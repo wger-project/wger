@@ -1,6 +1,10 @@
+{% extends "base.html" %}
 {% load i18n %} 
 
-<h1>{% trans "Workout for" %} {{ workout.creation_date }}</h1>
+{% block title %}{% trans "Workout for" %} {{ workout.creation_date }}{% endblock %}
+
+{% block content %}
+<h1> {% trans "Workout for" %} {{ workout.creation_date }}</h1>
 <ul>
 {% for day in workout.day_set.all %}
     <li>
@@ -24,7 +28,7 @@
                         {% endfor %}
                         -->
 
-                        {% for setting in exercise.setting_set.all %}
+                        {% for setting in exercise.setting_set.filter %}
                             {{ set.sets }} x <!--x {{setting.reps}} @ {{setting.weight}}-->
 
                             {% for individual_setting in setting.individual_exercises.all %}
@@ -41,3 +45,4 @@
     </li>
 {% endfor %}
 </ul>
+{% endblock %}
