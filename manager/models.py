@@ -14,13 +14,16 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.db import models
+from django.utils.translation import ugettext as _
+
 import calendar
 
 class TrainingSchedule(models.Model):
     """Model for a training schedule
     """
-    creation_date = models.DateField('creation date', auto_now_add=True)
-    comment = models.CharField(max_length=100, blank=True)
+    creation_date = models.DateField(_('Creation date'), auto_now_add=True)
+    comment = models.CharField(_('Comment'), max_length=100, blank=True)
+
     
     def __unicode__(self):
         """Return a more human-readable representation
@@ -40,8 +43,8 @@ class Day(models.Model):
     CHOICES = DAYS_OF_WEEK_CHOICES
 
     training = models.ForeignKey(TrainingSchedule)
-    description = models.CharField(max_length=100)
-    day = models.IntegerField(max_length=1, choices=CHOICES)
+    description = models.CharField(_('Description'), max_length=100)
+    day = models.IntegerField(_('Day'), max_length=1, choices=CHOICES)
     
     def __unicode__(self):
         """Return a more human-readable representation
@@ -53,7 +56,10 @@ class Day(models.Model):
 class ExerciseCategory(models.Model):
     """Model for an exercise category
     """
-    name = models.CharField(max_length=100)
+    name = models.CharField(_('Name'), max_length=100)
+    
+    class Meta:
+        verbose_name_plural = _("Exercise Categories")
     
     def __unicode__(self):
         """Return a more human-readable representation
@@ -66,8 +72,7 @@ class Exercise(models.Model):
     """Model for an exercise
     """
     category = models.ForeignKey(ExerciseCategory)
-    
-    name = models.CharField(max_length=200)
+    name = models.CharField(_('Name'), max_length=200)
     
     def __unicode__(self):
         """Return a more human-readable representation
@@ -80,7 +85,7 @@ class ExerciseComment(models.Model):
     """Model for an exercise comment
     """
     exercise = models.ForeignKey(Exercise)
-    comment = models.CharField(max_length=200, blank=True)
+    comment = models.CharField(_('Comment'), max_length=200, blank=True)
     
     def __unicode__(self):
         """Return a more human-readable representation
@@ -94,8 +99,8 @@ class Set(models.Model):
     """
 
     excersise_day = models.ForeignKey(Day)
-    exercises = models.ManyToManyField(Exercise) #, through=Settings)
-    order = models.IntegerField(max_length=1, blank=True)
+    exercises = models.ManyToManyField(Exercise)
+    order = models.IntegerField(_('Order'), max_length=1, blank=True)
     
     def __unicode__(self):
         """Return a more human-readable representation
@@ -104,14 +109,13 @@ class Set(models.Model):
 
 
 
-class IndividualSettings(models.Model):
-    """Settings for an exercise (weight, reps, etc.)
+class IndividualSetting(models.Model):
+    """Setting for an exercise on a set (weight, reps, etc.)
     """
     
     weight = models.IntegerField()
     reps = models.IntegerField()
-    comment = models.CharField(max_length=100, blank=True)
-    
+    comment = models.CharField(_('Comment'), max_length=100, blank=True)
     
     def __unicode__(self):
         """Return a more human-readable representation
@@ -120,15 +124,15 @@ class IndividualSettings(models.Model):
 
 
 
-class Settings(models.Model):
+class Setting(models.Model):
     """Settings for an exercise (weight, reps, etc.)
     """
     
     sets = models.ForeignKey(Set)
     exercises = models.ForeignKey(Exercise)
-    individual_exercises = models.ManyToManyField(IndividualSettings)
+    individual_exercises = models.ManyToManyField(IndividualSetting)
     
-    comment = models.CharField(max_length=100, blank=True)
+    comment = models.CharField(_('Comment'), max_length=100, blank=True)
     
     
     def __unicode__(self):
