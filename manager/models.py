@@ -42,9 +42,9 @@ class Day(models.Model):
     """
     CHOICES = DAYS_OF_WEEK_CHOICES
 
-    training = models.ForeignKey(TrainingSchedule, verbose_name=_('Training'))
-    description = models.CharField(max_length=100, verbose_name=_('Description'))
-    day = models.IntegerField(max_length=1, choices=CHOICES, verbose_name=_('Day'))
+    training = models.ForeignKey(TrainingSchedule, verbose_name =_ ('Training'))
+    description = models.CharField(max_length=100, verbose_name =_ ('Description'))
+    day = models.IntegerField(max_length=1, choices=CHOICES, verbose_name =_ ('Day'))
     
     def __unicode__(self):
         """Return a more human-readable representation
@@ -71,8 +71,8 @@ class ExerciseCategory(models.Model):
 class Exercise(models.Model):
     """Model for an exercise
     """
-    category = models.ForeignKey(ExerciseCategory, verbose_name=_('Category'))
-    name = models.CharField(max_length=200, verbose_name=_('Name'))
+    category = models.ForeignKey(ExerciseCategory, verbose_name =_ ('Category'))
+    name = models.CharField(max_length=200, verbose_name =_ ('Name'))
     
     def __unicode__(self):
         """Return a more human-readable representation
@@ -84,8 +84,8 @@ class Exercise(models.Model):
 class ExerciseComment(models.Model):
     """Model for an exercise comment
     """
-    exercise = models.ForeignKey(Exercise, verbose_name=_('Exercise'))
-    comment = models.CharField(max_length=200, blank=True, verbose_name=_('Comment'))
+    exercise = models.ForeignKey(Exercise, verbose_name =_ ('Exercise'))
+    comment = models.CharField(max_length=200, blank=True, verbose_name =_ ('Comment'))
     
     def __unicode__(self):
         """Return a more human-readable representation
@@ -98,14 +98,15 @@ class Set(models.Model):
     """Model for a set of exercises
     """
 
-    excersise_day = models.ForeignKey(Day, verbose_name=_('Exercise day'))
-    exercises = models.ManyToManyField(Exercise, verbose_name=_('Exercises'))
-    order = models.IntegerField(max_length=1, blank=True, verbose_name=_('Order'))
+    exerciseday = models.ForeignKey(Day, verbose_name =_ ('Exercise day'))
+    exercises = models.ManyToManyField(Exercise, verbose_name =_ ('Exercises'))
+    order = models.IntegerField(max_length=1, blank=True, null=True, verbose_name =_ ('Order')) #TODO: null=True???
+    sets = models.IntegerField(verbose_name =_ ('Sets'))
     
     def __unicode__(self):
         """Return a more human-readable representation
         """
-        return "Set %d for %s" % (self.order, unicode(self.excersise_day))
+        return "Set %s for %s" % (self.order or '-/-', unicode(self.exerciseday))
 
 
 
@@ -113,14 +114,14 @@ class IndividualSetting(models.Model):
     """Setting for an exercise on a set (weight, reps, etc.)
     """
     
-    weight = models.IntegerField(verbose_name=_('Weight'))
-    reps = models.IntegerField(verbose_name=_('Repetitions'))
-    comment = models.CharField(max_length=100, blank=True, verbose_name=_('Comment'))
+    weight = models.IntegerField(verbose_name =_ ('Weight'))
+    reps = models.IntegerField(verbose_name =_ ('Repetitions'))
+    comment = models.CharField(max_length=100, blank=True, verbose_name =_ ('Comment'))
     
     def __unicode__(self):
         """Return a more human-readable representation
         """
-        return "weight: %s, reps: %s" % (self.weight, self.reps)
+        return "reps: %s" % (self.reps)
 
 
 
@@ -128,11 +129,11 @@ class Setting(models.Model):
     """Settings for an exercise (weight, reps, etc.)
     """
     
-    sets = models.ForeignKey(Set, verbose_name=_('Sets'))
-    exercises = models.ForeignKey(Exercise, verbose_name=_('Exercises'))
-    individual_exercises = models.ManyToManyField(IndividualSetting, verbose_name=_('Individual Exercises'))
+    sets = models.ForeignKey(Set, verbose_name =_ ('Sets'))
+    exercises = models.ForeignKey(Exercise, verbose_name =_ ('Exercises'))
+    individual_exercises = models.ManyToManyField(IndividualSetting, verbose_name =_ ('Individual Exercises'))
     
-    comment = models.CharField(max_length=100, blank=True, verbose_name=_('Comment'))
+    comment = models.CharField(max_length=100, blank=True, verbose_name =_ ('Comment'))
     
     
     def __unicode__(self):

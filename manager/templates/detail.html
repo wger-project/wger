@@ -1,0 +1,43 @@
+{% load i18n %} 
+
+<h1>{% trans "Workout for" %} {{ workout.creation_date }}</h1>
+<ul>
+{% for day in workout.day_set.all %}
+    <li>
+        {{ day.description }}:
+
+        <ul>
+        {% for set in day.set_set.all %}
+            <li>
+                {{ set.order }}:
+
+                <ul>
+                {% for exercise in set.exercises.all %}
+                    <li>
+                        {{ exercise }}:
+                        <br>
+
+                        <!-- Comments to the exercise -->
+                        <!--
+                        {% for comment in exercise.exercisecomment_set.all %}
+                            {{comment}}
+                        {% endfor %}
+                        -->
+
+                        {% for setting in exercise.setting_set.all %}
+                            {{ set.sets }} x <!--x {{setting.reps}} @ {{setting.weight}}-->
+
+                            {% for individual_setting in setting.individual_exercises.all %}
+                                {{individual_setting.reps}} <!--@ {{individual_setting.weight}}-->
+                            {% endfor %}
+ 
+                        {% endfor %}
+                    </li>
+                {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+        </ul>
+    </li>
+{% endfor %}
+</ul>

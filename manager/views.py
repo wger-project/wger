@@ -12,4 +12,21 @@
 # 
 # You should have received a copy of the GNU Affero General Public License
 
-# Create your views here.
+from django.shortcuts import render_to_response
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
+from django.http import Http404
+from manager.models import TrainingSchedule
+
+
+def index(request):
+    latest_trainings = TrainingSchedule.objects.all().order_by('-creation_date')[:5]
+    return render_to_response('index.html', {'latest_poll_list': latest_trainings})
+    
+
+def add(request):
+    return HttpResponse("Hello, world. You're at the add method.")
+
+def view_workout(request, id):
+    p = get_object_or_404(TrainingSchedule, pk=id)
+    return render_to_response('detail.html', {'workout': p})
