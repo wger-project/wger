@@ -12,7 +12,9 @@
 # 
 # You should have received a copy of the GNU Affero General Public License
 
-from manager.models import Exercise, ExerciseComment, ExerciseCategory, Day, TrainingSchedule, Set
+from manager.models import Exercise, ExerciseComment, ExerciseCategory, Day, TrainingSchedule, \
+                           Set, IndividualSettings, Settings
+
 from django.contrib import admin
 
 class ExerciseCommentInline(admin.TabularInline): #admin.StackedInline
@@ -32,3 +34,6 @@ admin.site.register(Day)
 
 admin.site.register(Exercise, ExerciseAdmin)
 admin.site.register(ExerciseCategory)
+admin.site.register(IndividualSettings)
+admin.site.register(Settings)
+

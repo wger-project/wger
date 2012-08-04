@@ -20,7 +20,7 @@ class TrainingSchedule(models.Model):
     """Model for a training schedule
     """
     creation_date = models.DateField('creation date', auto_now_add=True)
-    comment = models.CharField(max_length=100)
+    comment = models.CharField(max_length=100, blank=True)
     
     def __unicode__(self):
         """Return a more human-readable representation
@@ -48,6 +48,8 @@ class Day(models.Model):
         """
         return "%s for TP %s" % (self.description, unicode(self.training))
 
+
+
 class ExerciseCategory(models.Model):
     """Model for an exercise category
     """
@@ -57,7 +59,9 @@ class ExerciseCategory(models.Model):
         """Return a more human-readable representation
         """
         return self.name
-        
+
+
+
 class Exercise(models.Model):
     """Model for an exercise
     """
@@ -70,45 +74,13 @@ class Exercise(models.Model):
         """
         return self.name
 
-class Settings(models.Model):
-    """Settings for an exercise (weight, reps, etc.)
-    """
-    
-    sets = models.ForeignKey('Set')
-    exercises = models.ForeignKey(Exercise)
-    weight = models.IntegerField()
-    reps = models.IntegerField()
-    comment = models.CharField(max_length=100)
-    
-    
-    #def __unicode__(self):
-        #"""Return a more human-readable representation
-        #"""
-        #return "settings for %s for TP %s" % (self.description, unicode(self.training))
-
-class Set(models.Model):
-    """Model for a set of exercises
-    """
-
-    excersise_day = models.ForeignKey(Day)
-    exercises = models.ManyToManyField(Exercise, through=Settings)
-    order = models.IntegerField(max_length=1)
-    
-    def __unicode__(self):
-        """Return a more human-readable representation
-        """
-        return "Set %d for %s" % (self.order, unicode(self.excersise_day))
-
-        
-
-
 
 
 class ExerciseComment(models.Model):
     """Model for an exercise comment
     """
     exercise = models.ForeignKey(Exercise)
-    comment = models.CharField(max_length=200)
+    comment = models.CharField(max_length=200, blank=True)
     
     def __unicode__(self):
         """Return a more human-readable representation
@@ -116,3 +88,50 @@ class ExerciseComment(models.Model):
         return self.comment
 
 
+
+class Set(models.Model):
+    """Model for a set of exercises
+    """
+
+    excersise_day = models.ForeignKey(Day)
+    exercises = models.ManyToManyField(Exercise) #, through=Settings)
+    order = models.IntegerField(max_length=1, blank=True)
+    
+    def __unicode__(self):
+        """Return a more human-readable representation
+        """
+        return "Set %d for %s" % (self.order, unicode(self.excersise_day))
+
+
+
+class IndividualSettings(models.Model):
+    """Settings for an exercise (weight, reps, etc.)
+    """
+    
+    weight = models.IntegerField()
+    reps = models.IntegerField()
+    comment = models.CharField(max_length=100, blank=True)
+    
+    
+    def __unicode__(self):
+        """Return a more human-readable representation
+        """
+        return "weight: %s, reps: %s" % (self.weight, self.reps)
+
+
+
+class Settings(models.Model):
+    """Settings for an exercise (weight, reps, etc.)
+    """
+    
+    sets = models.ForeignKey(Set)
+    exercises = models.ForeignKey(Exercise)
+    individual_exercises = models.ManyToManyField(IndividualSettings)
+    
+    comment = models.CharField(max_length=100, blank=True)
+    
+    
+    def __unicode__(self):
+        """Return a more human-readable representation
+        """
+        return "setings for %s" % (unicode(self.exercises),)
