@@ -25,7 +25,7 @@ def index(request):
     
 
 def add(request):
-    return HttpResponse("Hello, world. You're at the add method.")
+    return render_to_response('add.html')
 
 def view_workout(request, id):
     p = get_object_or_404(TrainingSchedule, pk=id)
