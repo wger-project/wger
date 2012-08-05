@@ -6,19 +6,19 @@
 {% block content %}
 <h1> {% trans "Workout for" %} {{ workout.creation_date }}</h1>
 <ul>
-{% for day in workout.day_set.all %}
+{% for day in workout.day_set.select_related %}
     <li>
-        {{ day.description }}:
+        {{ day.description }} (Day-ID: {{ day.id }}):
 
         <ul>
-        {% for set in day.set_set.all %}
+        {% for set in day.set_set.select_related %}
             <li>
-                {{ set.order }}:
+                {{ set.order }} (Set-ID: {{ set.id }}):
 
                 <ul>
-                {% for exercise in set.exercises.all %}
+                {% for exercise in set.exercises.select_related %}
                     <li>
-                        {{ exercise }}:
+                        {{ exercise }} (exercise-ID: {{ exercise.id }}):
                         <br>
 
                         <!-- Comments to the exercise -->
@@ -28,13 +28,22 @@
                         {% endfor %}
                         -->
 
-                        {% for setting in exercise.setting_set.filter %}
-                            {{ set.sets }} x <!--x {{setting.reps}} @ {{setting.weight}}-->
+                        
+                        {% for setting in exercise.setting_set.all %}
 
-                            {% for individual_setting in setting.individual_exercises.all %}
-                                {{individual_setting.reps}} <!--@ {{individual_setting.weight}}-->
+                        {% comment %}
+                            TODO: solution with 'if' is ugly and bad!
+                        {% endcomment %}
+                        {% if setting.sets_id == set.id %}
+                            {{ set.sets }} (Set-ID: {{ set.id }})
+                            x 
+
+                            {% for individual_setting in setting.individual_exercises.select_related %}
+                                {{individual_setting.reps}}
+                                (IndividualSetting-ID: {{ individual_setting.id }})
+                                <!--@ {{individual_setting.weight}}-->
                             {% endfor %}
- 
+                        {% endif %}
                         {% endfor %}
                     </li>
                 {% endfor %}
