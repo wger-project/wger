@@ -1,0 +1,93 @@
+/**
+ * "Yet Another Multicolumn Layout" - YAML CSS Framework
+ *
+ * draft 960.gs port - 12 columns
+ *
+ * @copyright       Copyright 2005-2012, Dirk Jesse
+ * @license         CC-BY 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                  YAML-CDL (http://www.yaml.de/license.html)
+ * @link            http://www.yaml.de
+ * @package         yaml
+ * @version         v4.0.1
+ * @revision        $Revision: 724 $
+ * @lastmodified    $Date: 2012-03-03 11:45:41 +0100 (Sa, 03 Mrz 2012) $
+ */
+
+@media screen {
+
+	/* Layout Module Configuration */
+    .ym-wrapper {
+		width: 960px;
+		margin: 0 auto;
+    }
+
+	/* 960.gs port for YAML 4 */
+	.ym-g960-1 { width: 80px; }
+	.ym-g960-2 { width: 160px; }
+	.ym-g960-3 { width: 240px; }
+	.ym-g960-4 { width: 320px; }
+	.ym-g960-5 { width: 400px; }
+	.ym-g960-6 { width: 480px; }
+	.ym-g960-7 { width: 560px; }
+	.ym-g960-8 { width: 640px; }
+	.ym-g960-9 { width: 720px; }
+	.ym-g960-10 { width: 800px; }
+	.ym-g960-11 { width: 880px; }
+	.ym-g960-12 { width: 960px; }
+
+	.ym-push-1,
+	.ym-push-2,
+	.ym-push-3,
+	.ym-push-4,
+	.ym-push-5,
+	.ym-push-6,
+	.ym-push-7,
+	.ym-push-8,
+	.ym-push-9,
+	.ym-push-10,
+	.ym-push-11,
+	.ym-pull-1,
+	.ym-pull-2,
+	.ym-pull-3,
+	.ym-pull-4,
+	.ym-pull-5,
+	.ym-pull-6,
+	.ym-pull-7,
+	.ym-pull-8,
+	.ym-pull-9,
+	.ym-pull-10,
+	.ym-pull-11 {
+		position: relative;
+	}
+
+	.ym-push-1 { left: 80px; }
+	.ym-push-2 { left: 160px; }
+	.ym-push-3 { left: 240px; }
+	.ym-push-4 { left: 320px; }
+	.ym-push-5 { left: 400px; }
+	.ym-push-6 { left: 480px; }
+	.ym-push-7 { left: 560px; }
+	.ym-push-8 { left: 640px; }
+	.ym-push-9 { left: 720px; }
+	.ym-push-10 { left: 800px; }
+	.ym-push-11 { left: 880px; }
+
+	.ym-pull-1 { left: -80px; }
+	.ym-pull-2 { left: -160px; }
+	.ym-pull-3 { left: -240px; }
+	.ym-pull-4 { left: -320px; }
+	.ym-pull-5 { left: -400px; }
+	.ym-pull-6 { left: -480px; }
+	.ym-pull-7 { left: -560px; }
+	.ym-pull-8 { left: -640px; }
+	.ym-pull-9 { left: -720px; }
+	.ym-pull-10 { left: -800px; }
+	.ym-pull-11 { left: -880px; }
+
+	.ym-gbox {
+		padding-left: 0;
+		padding-right: 0;
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+}

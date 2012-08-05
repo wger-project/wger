@@ -1,0 +1,423 @@
+/**
+ * "Yet Another Multicolumn Layout" - YAML CSS Framework
+ *
+ * YAML form theme: "gray-theme"
+ *
+ * @copyright			 Copyright 2005-2012, Dirk Jesse
+ * @license				 CC-BY 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                       YAML-CDL (http://www.yaml.de/license.html)
+ * @link                 http://www.yaml.de
+ * @package				 yaml
+ * @version              v4.0.1
+ * @revision             $Revision: 729 $
+ * @lastmodified         $Date: 2012-03-03 13:20:39 +0100 (Sa, 03 Mrz 2012) $
+ */
+
+@media screen and (min-width: 0px){
+
+	/**
+	* @section general width settings for formular elements in modern browsers
+	*          switching to CSS3 box modell "border-box" for perfect flexible forms
+	*
+	* Styling for: <labels>, <input>, <textarea> and <select>
+	*
+	*/
+
+	.ym-form input,
+	.ym-form input,
+	.ym-form textarea,
+	.ym-form select {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-ms-box-sizing: border-box;
+		box-sizing: border-box;
+		width:60%;
+	}
+
+	.ym-columnar label {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-ms-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+
+	.ym-columnar .ym-fbox-select select,
+	.ym-columnar .ym-fbox-text input,
+	.ym-columnar .ym-fbox-text textarea { width:70%; }
+
+	.ym-full .ym-fbox-select select,
+	.ym-full .ym-fbox-text input,
+	.ym-full .ym-fbox-text textarea { width:100%; }
+}
+
+@media screen, projection {
+
+	/**
+	* @section general form styling
+	*
+	* Styling for: <form>, <fieldset>, <legend>, <label> and rows (class="ym-fbox-[xxx]")
+	*
+	*/
+	.ym-form {
+		background:#f4f4f4;
+		border:2px #fff solid;
+		margin: 1.5em 0 0 0;
+		padding: 0;
+		-webkit-box-shadow: 0 0 4px #ddd;
+		-moz-box-shadow: 0 0 4px #ddd;
+		box-shadow: 0 0 4px #ddd;
+	}
+
+	.ym-form fieldset {
+		position:static;
+		background:transparent;
+		margin: 0.75em 0 0.75em 0;
+		padding: 0 0.5em;
+	}
+
+	.ym-form legend {
+		background:transparent;
+		color:#000;
+		font-size:1.2em;
+		line-height:1.25em;
+		font-weight:bold;
+		padding:0 0.5em;
+	}
+
+	.ym-form label {
+		color:#666;
+		line-height: 1.5em;
+	}
+
+	.ym-label {
+		color: #666;
+		padding-top: 0.25em;
+	}
+
+	.ym-form .ym-form div.ym-fbox-check:focus + label {
+		color:#000;
+	}
+
+	/* styling containing DIV elements | Gestaltung der kapselnden DIV-Elemente */
+	.ym-form div.ym-fbox-text,
+	.ym-form div.ym-fbox-select,
+	.ym-form div.ym-fbox-check,
+	.ym-form div.ym-fbox-button {
+		padding: 0.3em 1em;
+		margin-bottom: 0.5em;
+	}
+
+	.ym-form div.ym-fbox-button {
+		background: #ececec;
+		border-top: 1px #e0e0e0 solid;
+		padding:0 1em 1.5em 1em;
+		margin: 0;
+	}
+
+	.ym-form .ym-gbox {
+		padding: 0 0.5em;
+		margin-right: 0;
+	}
+
+	.ym-form h6 {
+		color: #000;
+		margin: 1em 0 0 1em;
+	}
+
+	/**
+	* @section styling form elements
+	*
+	* Styling for: Input, Textarea, Select ...
+	*
+	*/
+
+	/* styling standard form elements with 'almost' equal flexible width */
+	/* Gestaltung der einzelnen Formularelemente mit annähend gleicher Breite */
+	.ym-form .ym-fbox-text input,
+	.ym-form .ym-fbox-text textarea {
+		line-height: 1em;
+		padding: 0.25em 0.3em;
+		margin-top: -2px;
+	}
+
+	.ym-form .ym-fbox-select select {
+		line-height: 1em;
+		padding: 0.25em 2px 0.25em 1px;
+		margin-top: -2px;
+	}
+
+	/* proportional fonts for all form elements */
+	.ym-form input,
+	.ym-form textarea,
+	.ym-form select,
+	.ym-form optgroup {
+		font-family:Arial, Helvetica, sans-serif;
+		-webkit-box-shadow: inset 0 0 4px #eee;
+		-moz-box-shadow: inset 0 0 4px #eee;
+		box-shadow: inset 0 0 4px #eee;
+	}
+
+	.ym-form optgroup {
+		font-style:normal;
+		font-weight:bold;
+	}
+
+	.ym-form .ym-fbox-text input,
+	.ym-form .ym-fbox-text textarea,
+	.ym-form .ym-fbox-select select {
+		border:1px solid #ddd;
+	}
+
+	/* General form styling	| Allgemeine Formatierung des Formulars */
+	.ym-form .ym-message {
+		color:#666;
+		margin-bottom:0.5em;
+	}
+
+	/* Highlight mandatory fields | Pflichtfeldkennzeichnung hervorheben */
+	.ym-form .ym-required {
+		color:#800;
+		font-weight:bold;
+	}
+
+	/* form validation highlight colors */
+	.ym-form input:valid,
+	.ym-form textarea:valid { background-color: #fff; }
+	.ym-form input:invalid,
+	.ym-form textarea:invalid { background-color: #fdd; }
+
+	/**
+	* @section error messages
+	*
+	*/
+
+	.ym-form .ym-error label {
+		color:#800;
+		font-weight:normal;
+	}
+
+	.ym-form .ym-error input,
+	.ym-form .ym-error select,
+	.ym-form .ym-error textarea {
+		border: 1px #800 solid;
+	}
+
+	.ym-form .ym-error input:hover,
+	.ym-form .ym-error input:focus,
+	.ym-form .ym-error select:hover,
+	.ym-form .ym-error select:focus,
+	.ym-form .ym-error textarea:hover,
+	.ym-form .ym-error textarea:focus {
+		border: 1px #800 solid !important;
+	}
+
+	.ym-form .ym-error .ym-message {
+		color:#800;
+		font-weight: bold;
+		margin-top: 0;
+	}
+
+	/* :hover and :focus status on form fields | Effekt zur Hervorhebung von Formularfeldern bei :hover oder :focus */
+	.ym-form div.ym-fbox-text input:focus,
+	.ym-form div select:focus,
+	.ym-form div textarea:focus,
+	.ym-form div.ym-fbox-text input:hover,
+	.ym-form div select:hover,
+	.ym-form div textarea:hover,
+	.ym-form div.ym-fbox-text input:active,
+	.ym-form div select:active,
+	.ym-form div textarea:active {
+		border:1px #888 solid;
+		background:#fff;
+	}
+
+	/**
+	* @section Buttons
+	*
+	* inspired from: Catalin Rosu (http://www.red-team-design.com/just-another-awesome-css3-buttons)
+	*/
+
+	.ym-button,
+	.ym-form button,
+	.ym-form input[type="button"],
+	.ym-form input[type="reset"],
+	.ym-form input[type="submit"] {
+		display: inline-block;
+		white-space: nowrap;
+		background-color: #ccc;
+		background-image: -webkit-linear-gradient(top, #eee, #ccc);
+		background-image: -moz-linear-gradient(top, #eee, #ccc);
+		background-image: -ms-linear-gradient(top, #eee, #ccc);
+		background-image: -o-linear-gradient(top, #eee, #ccc);
+		background-image: linear-gradient(top, #eee, #ccc);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#eeeeee', EndColorStr='#cccccc');
+		border: 1px solid #777;
+		-webkit-border-radius: .2em;
+		-moz-border-radius: .2em;
+		border-radius: .2em;
+		-webkit-box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.15);
+		-moz-box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.15);
+		box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.15);
+		color: #333 !important;
+		cursor: pointer;
+		font: normal 1em/2em Arial, Helvetica;
+		margin: 1.5em 0.75em 0 0;
+		padding: 0 1.5em;
+		overflow: visible; /* removes extra side spacing in IE */
+		text-decoration: none !important;
+		text-shadow: 0 1px 0 rgba(255,255,255,.8);
+	}
+
+	.ym-form button:hover,
+	.ym-form input[type="button"]:hover,
+	.ym-form input[type="reset"]:hover,
+	.ym-form input[type="submit"]:hover,
+	.ym-button:hover {
+		background-color: #ddd;
+		background-image: -webkit-linear-gradient(top, #fafafa, #ddd);
+		background-image: -moz-linear-gradient(top, #fafafa, #ddd);
+		background-image: -ms-linear-gradient(top, #fafafa, #ddd);
+		background-image: -o-linear-gradient(top, #fafafa, #ddd);
+		background-image: linear-gradient(top, #fafafa, #ddd);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fafafa', EndColorStr='#dddddd');
+	}
+
+	.ym-form button:active,
+	.ym-form input[type="button"]:active,
+	.ym-form input[type="reset"]:active,
+	.ym-form input[type="submit"]:active,
+	.ym-button:active {
+		background-color: #bbb;
+		background-image: -webkit-linear-gradient(top, #ccc, #bbb);
+		background-image: -moz-linear-gradient(top, #ccc, #bbb);
+		background-image: -ms-linear-gradient(top, #ccc, #bbb);
+		background-image: -o-linear-gradient(top, #ccc, #bbb);
+		background-image: linear-gradient(top, #ccc, #bbb);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#cccccc', EndColorStr='#bbbbbb');
+		box-shadow: 2px 2px 3px rgba(0,0,0,.2) inset;
+		position: relative;
+		top: 1px;
+	}
+
+	.ym-form button:focus,
+	.ym-form input[type="button"]:focus,
+	.ym-form input[type="reset"]:focus,
+	.ym-form input[type="submit"]:focus,
+	.ym-button:focus {
+		outline: 0;
+		background: #fafafa;
+	}
+
+	/* pseudo elements don't work on input */
+	.ym-form button:before,
+	.ym-button:before {
+		background: #ccc;
+		background: rgba(0,0,0,.1);
+		float: left;
+		width: 1em;
+		text-align: center;
+		font-size: 1.5em;
+		margin: 0 1em 0 -1em;
+		padding: 0 .2em;
+		-moz-box-shadow: 1px 0 0 rgba(0,0,0,.5), 2px 0 0 rgba(255,255,255,.5);
+		-webkit-box-shadow: 1px 0 0 rgba(0,0,0,.5), 2px 0 0 rgba(255,255,255,.5);
+		box-shadow: 1px 0 0 rgba(0,0,0,.5), 2px 0 0 rgba(255,255,255,.5);
+		-moz-border-radius: .15em 0 0 .15em;
+		-webkit-border-radius: .15em 0 0 .15em;
+		border-radius: .15em 0 0 .15em;
+		pointer-events: none;
+	}
+
+	.ym-add:before { content: "\271A"; }
+	.ym-delete:before { content: "\2718"; }
+	.ym-edit:before { content: "\270E"; }
+	.ym-email:before { content: "\2709"; }
+	.ym-like:before { content: "\2764"; }
+	.ym-next:before { content: "\279C"; }
+	.ym-play:before { content: "\25B6"; }
+	.ym-save:before { content: "\2714"; }
+	.ym-spark:before { content: "\2737"; }
+	.ym-star:before { content: "\2605"; }
+
+	/* removes extra inner spacing in Firefox */
+	.ym-form button::-moz-focus-inner {
+		border: 0;
+		padding: 0;
+	}
+
+	/* If line-height can't be modified, then fix Firefox spacing with padding */
+	.ym-form input[type=button]::-moz-focus-inner,
+	.ym-form input[type=reset]::-moz-focus-inner,
+	.ym-form input[type=submit]::-moz-focus-inner {
+		padding: .4em;
+	}
+
+	/* The disabled styles */
+	.ym-form button[disabled],
+	.ym-form button[disabled]:hover,
+	.ym-form input[type=button][disabled],
+	.ym-form input[type=button][disabled]:hover,
+	.ym-form input[type=reset][disabled],
+	.ym-form input[type=reset][disabled]:hover,
+	.ym-form input[type=submit][disabled],
+	.ym-form input[type=submit][disabled]:hover,
+	.ym-button.ym-disabled,
+	.ym-button.ym-disabled:hover {
+		background: #eee;
+		color: #aaa !important;
+		border-color: #aaa;
+		cursor: default;
+		text-shadow: none;
+		position: static;
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+	}
+
+	/* ie6 support styles - redefined buttons, because of missing support for attribute selectors */
+	* html .ym-button,
+	* html .ym-form button {
+		display: inline-block;
+		white-space: nowrap;
+		background-color: #ccc;
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#eeeeee', EndColorStr='#cccccc');
+		border: 1px solid #777;
+		color: #333 !important;
+		cursor: pointer;
+		font: normal 1em/2em Arial, Helvetica;
+		margin: 1.5em 0.75em 0 0;
+		padding: 0 1.5em;
+		overflow: visible; /* removes extra side spacing in IE */
+		text-decoration: none !important;
+	}
+
+	* html .ym-form button:focus,
+	* html .ym-button:focus {
+		outline: 0;
+		background: #fafafa;
+	}
+
+	* html .ym-form button:hover,
+	* html .ym-button:hover {
+		background-color: #ddd;
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fafafa', EndColorStr='#dddddd');
+	}
+
+	* html .ym-form button:active,
+	* html .ym-button:active {
+		background-color: #bbb;
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#cccccc', EndColorStr='#bbbbbb');
+		position: relative;
+		top: 1px;
+	}
+
+	* html .ym-button.ym-disabled,
+	* html .ym-button.ym-disabled:hover {
+		background: #eee;
+		color: #aaa !important;
+		border-color: #aaa;
+		cursor: default;
+		text-shadow: none;
+		position: static;
+	}
+}

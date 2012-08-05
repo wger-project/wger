@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>Demo: Custom Grid Layout &ndash; YAML CSS Framework</title>
+
+	<!-- Mobile viewport optimisation -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- (en) Add your meta data here -->
+	<!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
+
+	<link href="./css/custom-grids.css" rel="stylesheet" type="text/css"/>
+	<!--[if lte IE 7]>
+	<link href="../yaml/core/iehacks.css" rel="stylesheet" type="text/css" />
+	<![endif]-->
+
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<script src="../lib/jquery-1.7.1.min.js"></script>
+	<script src="../docs/assets/js/jquery.gridbuilder.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			$("#main .ym-wrapper").gridBuilder({
+				color: '#eee', // color of the primary gridlines
+				secondaryColor: '#f9f9f9', // color of the secondary gridlines
+				vertical: 21, // height of the vertical rhythm
+				horizontal: 60, // width of horizontal strokes
+				gutter: 20, // width of the gutter between strokes
+			});
+		});
+	</script>
+</head>
+<body>
+
+<div id="main">
+	<div class="ym-wrapper">
+		<h1 class="ym-gbox">YAML 4 &ndash; Custom Grids</h1>
+		<p class="ym-gbox">YAML 4 provides several custom grid configurations, eg. a port of the  960 Grid System. This example is responsive too and linearizes its content on screen widths lower than 760 Pixels. Of course, you should adjust this to your individual needs.</p>
+		<h2 class="ym-gbox">12 Column Grid</h2>
+		<div class="ym-gbox">940</div>
+		<div class="ym-grid linearize-level-1">
+			<div class="ym-g960-1 ym-gl"><div class="ym-gbox">60</div></div>
+			<div class="ym-g960-11 ym-gl"><div class="ym-gbox">860</div></div>
+			<div class="ym-g960-2 ym-gl"><div class="ym-gbox">140</div></div>
+			<div class="ym-g960-10 ym-gl"><div class="ym-gbox">780</div></div>
+			<div class="ym-g960-3 ym-gl"><div class="ym-gbox">220</div></div>
+			<div class="ym-g960-9 ym-gl"><div class="ym-gbox">700</div></div>
+			<div class="ym-g960-4 ym-gl"><div class="ym-gbox">300</div></div>
+			<div class="ym-g960-8 ym-gl"><div class="ym-gbox">620</div></div>
+			<div class="ym-g960-5 ym-gl"><div class="ym-gbox">380</div></div>
+			<div class="ym-g960-7 ym-gl"><div class="ym-gbox">540</div></div>
+			<div class="ym-g960-6 ym-gl"><div class="ym-gbox">460</div></div>
+			<div class="ym-g960-6 ym-gl"><div class="ym-gbox">460</div></div>
+		</div>
+
+		<h3 class="ym-gbox">Push &amp; Pull Classes Available</h3>
+		<div class="ym-grid linearize-level-1">
+			<div class="ym-g960-1 ym-gl"><div class="ym-gbox">60</div></div>
+		</div>
+		<div class="ym-grid linearize-level-1">
+			<div class="ym-g960-1 ym-push-1 ym-gl"><div class="ym-gbox">60</div></div>
+		</div>
+		<div class="ym-grid linearize-level-1">
+			<div class="ym-g960-1 ym-push-2 ym-gl"><div class="ym-gbox">60</div></div>
+		</div>
+		<div class="ym-grid linearize-level-1">
+			<div class="ym-g960-1 ym-push-3 ym-gl"><div class="ym-gbox">60</div></div>
+		</div>
+		<div class="ym-grid linearize-level-1">
+			<div class="ym-g960-1 ym-push-4 ym-gl"><div class="ym-gbox">60</div></div>
+		</div>
+		<div class="ym-grid linearize-level-1">
+			<div class="ym-g960-1 ym-push-5 ym-gl"><div class="ym-gbox">60</div></div>
+		</div>
+		<div class="ym-grid linearize-level-1">
+			<div class="ym-g960-1 ym-push-6 ym-gl"><div class="ym-gbox">60</div></div>
+		</div>
+		<div class="ym-grid linearize-level-1">
+			<div class="ym-g960-1 ym-push-7 ym-gl"><div class="ym-gbox">60</div></div>
+		</div>
+		<div class="ym-grid linearize-level-1">
+			<div class="ym-g960-1 ym-push-8 ym-gl"><div class="ym-gbox">60</div></div>
+		</div>
+		<div class="ym-grid linearize-level-1">
+			<div class="ym-g960-1 ym-push-9 ym-gl"><div class="ym-gbox">60</div></div>
+		</div>
+		<div class="ym-grid linearize-level-1">
+			<div class="ym-g960-1 ym-push-10 ym-gl"><div class="ym-gbox">60</div></div>
+		</div>
+		<div class="ym-grid linearize-level-1">
+			<div class="ym-g960-1 ym-push-11 ym-gl"><div class="ym-gbox">60</div></div>
+		</div>
+		<div class="ym-grid linearize-level-1">
+			<div class="ym-g960-3 ym-gl">
+				<div class="ym-gbox">220</div></div>
+			<div class="ym-g960-3 ym-gl">
+				<div class="ym-gbox">220</div></div>
+			<div class="ym-g960-1 ym-gl">
+				<div class="ym-gbox">60</div></div>
+			<div class="ym-g960-5 ym-gl">
+				<div class="ym-gbox">380</div></div>
+		</div>
+		<div class="ym-grid linearize-level-1">
+			<div class="ym-g960-1 ym-gl">
+				<div class="ym-gbox">60</div></div>
+			<div class="ym-g960-5 ym-gl">
+				<div class="ym-gbox">380</div></div>
+			<div class="ym-g960-3 ym-gl">
+				<div class="ym-gbox">220</div></div>
+			<div class="ym-g960-3 ym-gl">
+				<div class="ym-gbox">220
+		</div></div></div>
+	</div>
+</div>
+</body>
+</html>

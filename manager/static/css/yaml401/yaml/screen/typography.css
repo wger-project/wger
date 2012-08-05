@@ -1,0 +1,469 @@
+/**
+ * "Yet Another Multicolumn Layout" - YAML CSS Framework
+ *
+ * (en) Uniform design of standard content elements
+ * (de) Einheitliche Standardformatierungen für die wichtigten Inhalts-Elemente
+ *
+ * @copyright       Copyright 2005-2012, Dirk Jesse
+ * @license         CC-BY 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                  YAML-CDL (http://www.yaml.de/license.html)
+ * @link            http://www.yaml.de
+ * @package         yaml
+ * @version         v4.0.1
+ * @revision        $Revision: 724 $
+ * @lastmodified    $Date: 2012-03-03 11:45:41 +0100 (Sa, 03 Mrz 2012) $
+ * @appdef yaml
+ */
+
+@media all {
+
+	/**
+	* @section global typography settings
+	*
+	* vertical rhythm settings (based on em-unit)
+	* -------------------------------------------
+	* basefont-size: 14px (87.5%)
+	* line-height  : 21px (factor: 1.5)
+	*/
+
+	/* (en) reset font size for all elements to standard (16 Pixel) */
+	/* (de) Alle Schriftgrößen auf Standardgröße (16 Pixel) zurücksetzen */
+	html * { font-size:100%; }
+
+	/**
+	* (en) reset monospaced elements to font size 16px in all browsers
+	* (de) Schriftgröße von monospaced Elemente in allen Browsern auf 16 Pixel setzen
+	*
+	* @see: http://webkit.org/blog/67/strange-medium/
+	*/
+
+	textarea,
+	pre,
+	code,
+	kbd,
+	samp,
+	var,
+	tt {
+		font-family:Consolas, "Lucida Console", "Andale Mono", "Bitstream Vera Sans Mono", "Courier New", Courier;
+	}
+
+	/* (en) base layout gets standard font size 14px */
+	/* (de) Basis-Layout erhält Standardschriftgröße von 14 Pixeln */
+	body {
+		font-family: "Droid Serif", Georgia, "Times New Roman", Times, serif;
+		font-size:87.50%; /* base: 14px */
+		color:#444;
+
+		/* (en) Prevent auto-scaling of text in mobile webkit browsers */
+		/* (de) Automatische Schriftvergrößerung in mobilen Webkit-Browsern vermeiden */
+		-webkit-text-size-adjust:100%;
+	}
+
+	/*--- Headings | Überschriften ------------------------------------------------------------------------*/
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: "Droid Sans", Arial, Helvetica, sans-serif;
+		font-weight: 400;
+		color:#161e21;
+		margin:0;
+	}
+
+	h1 {
+		font-size:350%;
+		line-height: 0.8571em;
+		margin: 0.4286em 0 0;
+	}
+
+	h2 {
+		font-size:250%;
+		line-height: 1.2em;
+		margin: 0.6em 0 0 0;
+	}
+
+	h3 {
+		font-size:175%;
+		line-height: 0.8571em;
+		margin:0.8571em 0 0 0;
+	}
+
+	h4 {
+		font-size:133.33%;
+		line-height: 1.125em;
+		margin:1.125em 0 0 0;
+	}
+
+	h5 {
+		font-size:116.67%;
+		line-height: 1.2857em;
+		margin: 1.2857em 0 0 0;
+	}
+
+	h6 {
+		font-weight: bold;
+		font-size:100%;
+		line-height: 1.5em;
+		margin: 1.5em 0 0 0;
+	}
+
+	/* --- Lists | Listen  -------------------------------------------------------------------------------- */
+
+	ul,
+	ol,
+	dl {
+		font-size:1em;
+		line-height:1.5em;
+		margin: 1.5em 0 0 1em;
+	}
+
+	ul {
+		list-style-type:disc;
+	}
+
+	ol {
+		list-style-type:decimal;
+	}
+
+	ul ul {
+		list-style-type:circle;
+		margin-top:0;
+	}
+
+	ol ol {
+		list-style-type:lower-latin;
+		margin-top:0;
+	}
+
+	ol ul {
+		list-style-type:circle;
+		margin-top:0;
+	}
+
+	li {
+		font-size:1em;
+		line-height:1.5em;
+		margin-left:0.8em;
+	}
+
+	dt { font-weight:bold; }
+
+	dd { margin:0 0 1.5em 0.8em; }
+
+	/* --- general text formatting | Allgemeine Textauszeichnung ------------------------------------------ */
+
+	p {
+		font-size:1em;
+		line-height:1.5em;
+		margin: 1.5em 0 0 0;
+	}
+
+	blockquote, cite, q {
+		font-family: Georgia, "Times New Roman", Times, serif;
+		font-style:italic;
+	}
+
+	blockquote {
+		margin:1.5em 0 0 1.5em;
+		color:#666;
+	}
+
+	strong, b { font-weight:bold; }
+
+	em, i { font-style:italic; }
+
+	big {
+		font-size:116.667%;
+	}
+
+	small {
+		font-size:85.71%;
+	}
+
+	pre,
+	code,
+	kbd,
+	tt,
+	samp,
+	var {
+		font-size:100%;
+	}
+
+	pre {
+		line-height:1.5em;
+		margin: 1.5em 0 0 0;
+		white-space: pre;
+		white-space: pre-wrap;
+		word-wrap: break-word;
+	}
+	pre, code { color:#800; }
+
+	kbd, samp, var, tt {
+		color:#666;
+		font-weight:bold;
+	}
+
+	var, dfn { font-style:italic; }
+
+	acronym, abbr {
+		border-bottom:1px #aaa dotted;
+		font-variant:small-caps;
+		letter-spacing:.07em;
+		cursor:help;
+	}
+
+	sub,
+	sup {
+		font-size: 75%;
+		line-height: 0;
+		position: relative;
+		vertical-align: baseline;
+	}
+
+	sup { top: -0.5em; }
+	sub { bottom: -0.25em; }
+
+	mark {
+		background: #ff0;
+		color: #000;
+	}
+
+	hr {
+		color:#fff;
+		background:transparent;
+		margin:0 0 0.75em 0;
+		padding:0 0 0.75em 0;
+		border:0;
+		border-bottom:1px #eee solid;
+	}
+
+	/*--- Links ----------------------------------------------------------------------------------------- */
+
+	a {
+		color:#4D87C7;
+		background:transparent;
+		text-decoration:none;
+	}
+
+	a:active { outline: none; }
+
+	/* (en) maximum constrast for tab focus - change with great care */
+	/* (en) Maximaler Kontrast für Tab Focus - Ändern Sie diese Regel mit Bedacht */
+	a:hover,
+	a:focus {
+		background-color: #4D87C7;
+		color:#fff;
+		text-decoration:none;
+	}
+
+	/* --- images ------------------ */
+
+	img,
+	figure {
+		margin: 0;
+	}
+
+	.flexible {
+		margin-top: 1.5em;
+		max-width: 100%;
+		height: auto;
+	}
+
+	* html .flexible {	/* IE6 support */
+		width: 98%;		/* 2% space for borders */
+	}
+
+	.bordered {
+		margin-top: 1.5em;
+		border: 2px #eee solid;
+		border: 2px rgba(255,255,255,1) solid;
+		-webkit-box-shadow: 0 0 3px rgba(0,0,0,.25);
+		-moz-box-shadow: 0 0 3px rgba(0,0,0,.25);
+		box-shadow: 0 0 3px rgba(0,0,0,.25);
+	}
+
+	/**
+	* ----------------------------------------------------------------------- #
+	*
+	* Generic Content Classes
+	*
+	* (en) standard classes for positioning and highlighting
+	* (de) Standardklassen zur Positionierung und Hervorhebung
+	*
+	* @section content-generic-classes
+	*/
+	.highlight {
+		color:#c30;
+	}
+
+	.dimmed {
+		color:#888;
+	}
+
+	.box {
+		border-radius: 0.3em;
+		border-width: 1px;
+		border-style: solid;
+		border-color: #888;
+		border-color: rgba(0,0,0,.3);
+		-webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
+		-moz-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
+		box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
+		color: #444;
+		color: rgba(0,0,0,.8);
+		padding: 1.4286em;
+		margin: 1.5em 0 0 0;
+	}
+
+	.box > *:first-child {
+		margin-top: 0;
+	}
+
+	.label {
+		font-family: Verdana, Geneva, sans-serif;
+		padding: 1px 6px 2px;
+		display: inline-block;
+		vertical-align:middle;
+		letter-spacing: normal;
+		white-space:nowrap;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		border-radius: 3px;
+		background: #06C;
+		color: #fff;
+		font-size: 10px;
+		line-height: 12px;
+	}
+
+	.info {
+		background:#f4f4f4;
+	}
+
+	.success {
+		background:#8c8;
+	}
+
+	.warning {
+		background:#cc8;
+	}
+
+	.error {
+		background:#c88;
+	}
+
+	.float-left {
+		float:left;
+		display:inline;
+		margin: 1.5em 1em 0 0;
+	}
+
+	.float-right {
+		float:right;
+		display:inline;
+		margin: 1.5em 0 0 1em;
+	}
+
+	.center {
+		display:block;
+		text-align:center;
+		margin: 1.5em auto 0 auto;
+	}
+
+	/**
+	* ------------------------------------------------------------------------------------------------- #
+	*
+	* Tables | Tabellen
+	*
+	* (en) Generic classes for table-width and design definition
+	* (de) Generische Klassen für die Tabellenbreite und Gestaltungsvorschriften für Tabellen
+	*
+	* @section content-tables
+	*/
+
+	table {
+		width:100%;
+		border-collapse:collapse;
+		margin: 1.3571em 0 0 0;
+		color:#333;
+		border-top: 1px #ccc solid;
+		border-bottom: 1px #ccc solid;
+	}
+
+	table.narrow {
+		margin:  1.4286em 0 0 0;
+	}
+
+	table.narrow th,
+	table.narrow td {
+		padding: 0 0.5em;
+		line-height: 1.4286em;
+	}
+
+	table.bordertable {
+		border:1px #ccc solid;
+	}
+
+	table caption {
+		font-variant:small-caps;
+	}
+
+	th, td {
+		line-height: 1.5em;
+		vertical-align: top;
+		padding: 0.7143em 0.5em;
+	}
+
+	th *:first-child,
+	td *:first-child {
+		margin-top: 0;
+	}
+
+	th.nowrap,
+	td.nowrap {
+		white-space: nowrap;
+	}
+
+	thead th {
+		text-align: left;
+		color:#000;
+		border-bottom:2px #000 solid;
+	}
+
+	.bordertable thead th {
+		background:#e0e0e0;
+		border-right:1px #ccc solid;
+		border-bottom:1px #ccc solid;
+	}
+
+	.bordertable tbody th[scope="row"] {
+		background:#f0f0f0;
+	}
+
+	tbody th {
+		text-align: left;
+		border-top:1px solid #ccc;
+		text-align:left;
+	}
+
+	.bordertable tbody th {
+		border-right:1px solid #ccc;
+	}
+
+	tbody td {
+		text-align: left;
+		border-top:1px solid #ccc;
+	}
+
+	.bordertable tbody td {
+		border-right:1px solid #ccc;
+	}
+
+	/* highlight row on mouse over */
+	tbody tr:hover th,
+	tbody tr:hover td {
+		background:#f8f8f8;
+	}
+}

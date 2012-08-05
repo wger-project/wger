@@ -1,0 +1,136 @@
+/**
+ * "Yet Another Multicolumn Layout" - YAML CSS Framework
+ *
+ * (en) Styles for Accessible-Tabs plugin for jQuery
+ * (de) Gestaltung des Acessible-Tabs Plugins für jQuery
+ *
+ * @copyright       Copyright 2005-2012, Dirk Jesse
+ * @license         CC-BY 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                  YAML-CDL (http://www.yaml.de/license.html)
+ * @link            http://www.yaml.de
+ * @package         yaml
+ * @version         v4.0.1
+ * @revision        $Revision: 724 $
+ * @lastmodified    $Date: 2012-03-03 11:45:41 +0100 (Sa, 03 Mrz 2012) $
+ */
+
+@media screen, projection {
+
+	.jquery_tabs {
+		margin:1.5em 0 0;
+	}
+
+	.jquery_tabs ul.tabs-list {
+		display:table;
+		font-size:1em;
+		line-height:1.5em;
+		list-style-type:none;
+		margin: 0;
+		position:relative;
+		z-index:1;
+	}
+
+	.jquery_tabs ul.tabs-list li a {
+		font-size:1em;
+		line-height: 1.5em;
+		padding:0.75em;
+	}
+
+	.jquery_tabs .tabhead {
+		position:absolute;
+		left:-32768px; /* LTR */
+	}
+
+	.jquery_tabs .content {
+		border-top:1px #ccc solid;
+		clear:both;
+		padding: 0;
+		position:relative;
+		top:-1px;
+		margin-bottom:-1px;
+	}
+
+	.jquery_tabs ul.tabs-list li {
+		border:0 none;
+		display:inline;
+		float:left;
+		margin:0 0.3em 0 0;
+		padding:0;
+	}
+
+	.jquery_tabs ul.tabs-list li a {
+		background: transparent;
+		color:#008;
+		display:block;
+		float:left;
+		font-weight:normal;
+		margin:0;
+	}
+
+	.jquery_tabs ul.tabs-list li a:focus,
+	.jquery_tabs ul.tabs-list li a:hover,
+	.jquery_tabs ul.tabs-list li a:active {
+		background:#eee;
+		border-radius: 0.2em 0.2em 0 0;
+		color:#000;
+		font-weight:normal;
+		outline: 0 none;
+		text-decoration:none;
+	}
+
+	.jquery_tabs ul.tabs-list li.current a,
+	.jquery_tabs ul.tabs-list li.current a:focus,
+	.jquery_tabs ul.tabs-list li.current a:hover,
+	.jquery_tabs ul.tabs-list li.current a:active {
+		background:#fff;
+		border:1px #ccc solid;
+		border-bottom:0 none;
+		border-radius: 0.2em 0.2em 0 0;
+		color:#000;
+		font-weight:bold;
+		text-decoration:none;
+	}
+
+	.jquery_tabs .current-info,
+	.jquery_tabs .accessibletabsanchor {
+		left:-999em;
+		position:absolute;
+	}
+
+	/**
+	* Avoid margin collapsing to enable correct sync of all tabs
+	*
+	* @workaround
+	* @affected all browsers
+	* @css-for all browsers
+	* @valid yes
+	*/
+
+	.jquery_tabs .tab-content {
+		border-bottom: 1px transparent solid;
+		border-top: 1px transparent solid;
+		*overflow:hidden;
+	}
+
+	/* IE < 7 don't support transparent borders */
+	* html .jquery_tabs .tab-content {
+		border-bottom: 1px #fff solid;
+		border-top: 1px #fff solid;
+	}
+
+	/**
+	* Containing floats adjustment and stability fixes for Internet Explorer
+	*
+	* @workaround
+	* @affected IE 5.x/Win, IE6, IE7
+	* @css-for IE 5.x/Win, IE6, IE7
+	* @valid no
+	*/
+
+	* html .jquery_tabs .content { z-index:-1; }
+
+	* html .jquery_tabs { zoom:1; width:auto; position:relative; }
+	*+html .jquery_tabs { zoom:1; width:auto; }
+
+	.jquery_tabs * { zoom:1; }
+}

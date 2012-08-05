@@ -1,0 +1,30 @@
+/**
+ * "Yet Another Multicolumn Layout" - YAML CSS Framework
+ *
+ * central stylesheet
+ *
+ * @copyright       Copyright 2005-2012, Dirk Jesse
+ * @license         CC-BY 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                  YAML-CDL (http://www.yaml.de/license.html)
+ * @link            http://www.yaml.de
+ * @package         yaml
+ * @version         4.0
+ * @revision        $Revision:426 $
+ * @lastmodified    $Date: 2012-01-10 18:05:42 +0100 (Di, 10 Jan 2012) $
+ */
+
+/* import core styles | Basis-Stylesheets einbinden */
+@import url(../../../yaml/core/base.css);
+
+/* import screen layout | Screen-Layout einbinden */
+@import url(../../../yaml/navigation/vlist.css);
+@import url(../../../yaml/navigation/hlist.css);
+@import url(../../../yaml/forms/gray-theme.css);
+@import url(../../../yaml/add-ons/accessible-tabs/tabs.css);
+@import url(../../../yaml/add-ons/microformats/microformats.css);
+
+@import url(../../../yaml/screen/typography.css);
+@import url(screen.css);
+
+/* import print layout | Druck-Layout einbinden */
+@import url(../../../yaml/print/print.css);

@@ -1,0 +1,33 @@
+/**
+ * "Yet Another Multicolumn Layout" - YAML CSS Framework
+ *
+ * central stylesheet - layout example "rtl-support"
+ *
+ * @copyright       Copyright 2005-2012, Dirk Jesse
+ * @license         CC-BY 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                  YAML-CDL (http://www.yaml.de/license.html)
+ * @link            http://www.yaml.de
+ * @package         yaml
+ * @version         v4.0.1
+ * @lastmodified    $Date: 2012-01-04 23:58:27 +0100 (Mi, 04 Jan 2012) $
+ */
+
+/* Google Font API */
+@import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic,700|Droid+Sans:700);
+
+/* import core styles | Basis-Stylesheets einbinden */
+@import url(../../yaml/core/base.css);
+@import url(../../yaml/add-ons/rtl-support/core/base-rtl.css);
+
+/* import screen layout | Screen-Layout einbinden */
+@import url(../../yaml/navigation/hlist.css);
+@import url(../../yaml/add-ons/rtl-support/navigation/hlist-rtl.css);
+@import url(../../yaml/forms/gray-theme.css);
+
+@import url(../../yaml/screen/typography.css);
+@import url(../../yaml/add-ons/rtl-support/screen/typography-rtl.css);
+
+@import url(screen/screen-rtl-support.css);
+
+/* import print layout | Druck-Layout einbinden */
+@import url(../../yaml/print/print.css);

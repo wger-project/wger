@@ -1,0 +1,175 @@
+
+/**
+ * "Yet Another Multicolumn Layout" - YAML CSS Framework
+ *
+ * (en) YAML-Addon:Microformats Support
+ * (de) YAML-Addon:Unterstützung für Microformate
+ *
+ * @note            Many thanks to Michael Jendryschik (http://jendryschik.de/) for contribution
+ *
+ * @copyright       Copyright 2005-2012, Dirk Jesse
+ * @license         CC-BY 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                  YAML-CDL (http://www.yaml.de/license.html)
+ * @link            http://www.yaml.de
+ * @package         yaml
+ * @version         v4.0.1
+ * @revision        $Revision: 724 $
+ * @lastmodified    $Date:2009-07-05 12:18:40 +0200 (So, 05. Jul 2009) $
+ */
+
+/* hCards + hCalendars */
+
+@media all {
+
+	.vcard,
+	.vevent {
+		line-height: 1.5em;
+		border:2px solid #e0e7b8 !important;
+		padding:30px 5px 5px 5px !important;
+		border-radius:8px;
+		-moz-border-radius:8px;
+		-webkit-border-radius:8px;
+		margin: 1.5em 0 0 0 !important;
+		/* small IE-Fix for background images */
+		zoom:1;
+	}
+
+	span.vcard,
+	span.vevent {
+		padding:2px 1px 2px 70px !important;
+		margin:0 2px 0 !important;
+	}
+
+	.vcard {
+		background:#f8f8ec url(icons/hcard.png) 5px 5px no-repeat !important;
+	}
+
+	.vcard a {
+		padding-left:11px;
+		background:url(icons/external_link.png) top left no-repeat;
+		color:#679A06;
+	}
+
+	.vcard .adr {
+		display:block;
+		margin:0.5em 0;
+	}
+
+	.vcard .email {
+		font-family:Consolas, "Lucida Console", "Andale Mono", "Bitstream Vera Sans Mono", "Courier New", Courier;
+	}
+
+	.vevent {
+		background:#f8f8ec url(icons/hcalendar.png) 5px 5px no-repeat !important;
+	}
+
+	.vevent a {
+		padding-left:11px;
+		background:url(icons/external_link.png) top left no-repeat;
+		color:#679A06;
+	}
+
+	.vevent p {
+		margin: 0;
+	}
+
+	.vevent .description {
+		display:block;
+		margin-top:1em;
+	}
+
+	.vevent .location {
+		display:block;
+		color:#679A06;
+	}
+
+	.vevent .summary {
+		display:block;
+		color:#679A06;
+		font-weight:bold;
+	}
+
+	/* XFN relationship */
+
+	a.xfnRelationship {
+		padding-right:26px;
+		background-image:url(icons/xfn/xfn-small.png);
+		background-repeat: no-repeat;
+		background-position: right;
+	}
+
+	a.xfnRelationship[rel~="colleague"],
+	a.xfnRelationship[rel~="co-worker"] {
+		padding-right:21px;
+		background-image:url(icons/xfn/xfn-colleague.png);
+	}
+
+	a.xfnRelationship[rel~="met"] {
+		padding-right:32px;
+		background-image:url(icons/icon-xfn.png);
+	}
+
+	a.xfnRelationship[rel~="colleague"][rel~="met"],
+	a.xfnRelationship[rel~="co-worker"][rel~="met"] {
+		padding-right:26px;
+		background-image:url(icons/xfn/xfn-colleague-met.png);
+	}
+
+	a.xfnRelationship[rel~="friend"] {
+		padding-right:21px;
+		background-image:url(icons/xfn/xfn-friend.png);
+	}
+
+	a.xfnRelationship[rel~="friend"][rel~="met"] {
+		padding-right:26px;
+		background-image:url(icons/xfn/xfn-friend-met.png);
+	}
+
+	a.xfnRelationship[rel~="sweetheart"] {
+		padding-right:21px;
+		background-image:url(icons/xfn/xfn-sweetheart.png);
+	}
+
+	a.xfnRelationship[rel~="sweetheart"][rel~="met"] {
+		padding-right:26px;
+		background-image:url(icons/xfn/xfn-sweetheart-met.png);
+	}
+
+	a.xfnRelationship[rel~="child"] {
+		padding-right:21px;
+		background-image:url(icons/xfn/xfn-child.png);
+	}
+
+	a.xfnRelationship[rel~="parent"] {
+		padding-right:21px;
+		background-image:url(icons/xfn/xfn-parent.png);
+	}
+
+	a.xfnRelationship[rel~="spouse"] {
+		padding-right:21px;
+		background-image:url(icons/xfn/xfn-spouse.png);
+	}
+
+	a.xfnRelationship[rel~="me"] {
+		padding-right:21px;
+		background-image:url(icons/xfn/xfn-me.png);
+	}
+
+	/* rel-tag */
+
+	a[rel~="tag"] {
+		padding-right:32px;
+		background-image:url(icons/icon-rel-tag.png);
+		background-repeat: no-repeat;
+		background-position: right;
+	}
+
+	/* geo */
+
+	abbr[class~="geo"] {
+		padding-right:32px;
+		background:url(icons/icon-geo.png) no-repeat right;
+		border:none;
+		cursor:default;
+	}
+}

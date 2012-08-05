@@ -1,10 +1,71 @@
-{% load i18n %} 
-
+{% load i18n %}
+{% load staticfiles %} 
+<!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <meta name="author" content="Roland Geider">
+
+    <link rel="stylesheet" type="text/css" href="{% static "css/yaml/demos/css/flexible-grids.css" %} "> <!-- CSS framework for the layout -->
+    <link rel="stylesheet" type="text/css" href="{% static "css/yaml/custom-yaml.css" %}">              <!-- customisations for yaml -->
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    {% block content %}{% endblock %}
+<header>
+    <div class="ym-wrapper">
+            <div class="ym-wbox">
+                    <h1>Workout manager</h1>
+            </div>
+    </div>
+</header>
+<nav id="nav">
+        <div class="ym-wrapper">
+                <div class="ym-hlist">
+                        <ul>
+                                <li class="active"><strong>Active</strong></li>
+                                <li><a href="#">Link</a></li>
+                                <li><a href="#">Link</a></li>
+                                <li><a href="#">Link</a></li>
+                                <li><a href="#">Link</a></li>
+                        </ul>
+                        <form class="ym-searchform">
+                                <input class="ym-searchfield" type="search" placeholder="Search..." />
+                                <input class="ym-searchbutton" type="submit" value="Search" />
+                        </form>
+                </div>
+        </div>
+</nav>
+
+<div id="main">
+        <div class="ym-wrapper">
+                <div class="ym-wbox">
+                        <section class="ym-grid linearize-level-1">
+                                <article class="ym-g66 ym-gl content">
+                                        <div class="ym-gbox-left ym-clearfix">
+                                                {% block content %}{% endblock %}
+                                        </div>
+                                </article>
+                                <aside class="ym-g33 ym-gr">
+                                        <div class="ym-gbox-right ym-clearfix">
+                                                <h3>A Simple Sidebar </h3>
+                                                <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices  posuere cubilia Curae; Cras ornare mattis nunc. Mauris venenatis, pede  sed aliquet vehicula, lectus tellus pulvinar neque, non cursus sem nisi vel augue.</p>
+                                                <p>Mauris a lectus. Aliquam erat volutpat. Phasellus ultrices mi a sapien. Nunc rutrum egestas lorem. Duis ac sem sagittis elit tincidunt gravida. Mauris a lectus. Aliquam erat volutpat. Phasellus ultrices mi a sapien. Nunc rutrum egestas lorem. Duis ac sem sagittis elit tincidunt gravida.</p>
+                                        </div>
+                                </aside>
+                        </section>
+                </div>
+        </div>
+</div>
+
+
+
+<footer>
+        <div class="ym-wrapper">
+                <div class="ym-wbox">
+                        <p>© Company 2012 &ndash; Layout based on <a href="http://www.yaml.de">YAML</a></p>
+                </div>
+        </div>
+</footer>
 </body>
 </html>
