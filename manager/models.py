@@ -117,6 +117,7 @@ class IndividualSetting(models.Model):
     weight = models.IntegerField(verbose_name =_ ('Weight'))
     reps = models.IntegerField(verbose_name =_ ('Repetitions'))
     comment = models.CharField(max_length=100, blank=True, verbose_name =_ ('Comment'))
+    order = models.IntegerField(max_length=1, blank=True, verbose_name =_ ('Order'))
     
     def __unicode__(self):
         """Return a more human-readable representation
@@ -129,6 +130,7 @@ class Setting(models.Model):
     """Settings for an exercise (weight, reps, etc.)
     """
     
+    reps = models.IntegerField(verbose_name =_ ('Repetitions'))
     sets = models.ForeignKey(Set, verbose_name =_ ('Sets'))
     exercises = models.ForeignKey(Exercise, verbose_name =_ ('Exercises'))
     individual_exercises = models.ManyToManyField(IndividualSetting, verbose_name =_ ('Individual Exercises'))
