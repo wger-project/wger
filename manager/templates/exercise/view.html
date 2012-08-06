@@ -26,10 +26,23 @@
 </form>
 
 <p><em>Form to add comment goes here</em></p>
-
 <ul>
+
 {% for comment in exercise.exercisecomment_set.all %}
-    <li>{{ comment }}</li>
+    <li>
+        {% if comment_edit.id == comment.id %}
+        <form action="/exercise/view/{{ exercise.id }}/edit/comment/{{ comment.id }}" method="post">
+            {% csrf_token %}
+            {{ comment_edit_form.as_p }}
+            <input type="submit" value="Submit" />
+        </form>
+        {% else %}
+        {{ comment.id }}
+        <a href="/exercise/comment/delete/{{ comment.id }}" title="{% trans "Delete" %}">[x]</a>
+        <a href="/exercise/view/{{ exercise.id }}/edit/comment/{{ comment.id }}" title="{% trans "Edit" %}">[e]</a>
+        {{ comment }}
+        {% endif %}
+    </li>
 {% empty %}
     <li>{% trans "Sorry, no comments for this exercise yet!" %}</li>
 {% endfor %}
