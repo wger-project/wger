@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n %} 
+{% load staticfiles %}
+
+<!--
+        Title
+-->
+{% block title %}{% trans "Exercise details" %}{% endblock %}
+
+
+<!--
+        Main Content
+-->
+{% block content %}
+
+<h2>{{ exersise.name }}</h2>
+
+<p><a href="/exercise/edit/{{ exersise.id }}">{% trans "Edit" %}</a></p>
+
+<p>{% trans "All comments for this exersise" %}</p>
+
+<p><em>Form to add comment goes here</em></p>
+
+<ul>
+{% for comment in exersise.exercisecomment_set.all %}
+    <li>{{ comment }}</li>
+{% empty %}
+    <li>{% trans "Sorry, no comments for this exersise yet!" %}</li>
+{% endfor %}
+</ul>
+
+
+
+
+
+
+{% endblock %}
+
+
+<!--
+        Side bar?
+-->

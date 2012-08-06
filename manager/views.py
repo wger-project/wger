@@ -35,8 +35,16 @@ class WorkoutForm(ModelForm):
 def index(request):
     latest_trainings = TrainingSchedule.objects.all().order_by('-creation_date')[:5]
     return render_to_response('index.html', {'latest_workouts_list': latest_trainings})
-    
 
+    
+# ************************
+# Workout functions
+# ************************
+    
+def view_workout(request, id):
+    p = get_object_or_404(TrainingSchedule, pk=id)
+    return render_to_response('detail.html', {'workout': p})
+    
 def add(request):
     template_data = {}
     template_data.update(csrf(request))
@@ -74,6 +82,10 @@ def add_step_4(request):
 
 
 
+# ************************
+# Exercise functions
+# ************************
+
 def exercise_overview(request):
     """Overview with all exercises
     """
@@ -92,7 +104,12 @@ def exercise_overview(request):
     logger.debug(template_data)
     
     return render_to_response('exersise/overview.html', template_data)
+
     
-def view_workout(request, id):
-    p = get_object_or_404(TrainingSchedule, pk=id)
-    return render_to_response('detail.html', {'workout': p})
+def exercise_view(request, id):
+    exersise = get_object_or_404(Exercise, pk=id)
+    return render_to_response('exersise/view.html', {'exersise': exersise})
+
+def exercise_edit(request, id):
+    exersise = get_object_or_404(Exercise, pk=id)
+    return render_to_response('exersise/edit.html', {'exersise': exersise})
