@@ -23,6 +23,7 @@ from django.core.context_processors import csrf
 
 from manager.models import TrainingSchedule
 from manager.models import Exercise
+from manager.models import ExerciseComment
 
 
 logger = logging.getLogger('workout_manager.custom')
@@ -86,9 +87,14 @@ def add_step_4(request):
 # Exercise functions
 # ************************
 
+class ExerciseCommentForm(ModelForm):
+    class Meta:
+        model = ExerciseComment
+
 def exercise_overview(request):
     """Overview with all exercises
     """
+    
     
     template_data = {}
     ex_data = {}
@@ -107,9 +113,35 @@ def exercise_overview(request):
 
     
 def exercise_view(request, id):
-    exersise = get_object_or_404(Exercise, pk=id)
-    return render_to_response('exercise/view.html', {'exersise': exersise})
+    """ Detail view for an exercise
+    """
+    template_data = {}
+    
+    # Load the exercise itself
+    exercise = get_object_or_404(Exercise, pk=id)
+    template_data['exercise'] = exercise
+    
+    # We can create comments from this page, so look for Posts
+    template_data.update(csrf(request))
+    if request.method == 'POST':
+        
+        comment_form = ExerciseCommentForm(request.POST)
+        comment_form.exercise = exercise
+        #logger.debug(comment_form)
+        #logger.debug(comment_form.errors)
+        new_comment = comment_form.save(commit=False)
+        new_comment.exercise = exercise
+        new_comment.save()
+        return HttpResponseRedirect('/exercise/view/%s' % id)
+    else:
+        comment_form = WorkoutForm()
+    
+    template_data['comment_form'] = comment_form
+    
+    # Render
+    return render_to_response('exercise/view.html', template_data)
+
 
 def exercise_edit(request, id):
-    exersise = get_object_or_404(Exercise, pk=id)
-    return render_to_response('exercise/edit.html', {'exersise': exersise})
+    exercise = get_object_or_404(Exercise, pk=id)
+    return render_to_response('exercise/edit.html', {'exercise': exercise})

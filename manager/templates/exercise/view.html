@@ -13,19 +13,28 @@
 -->
 {% block content %}
 
-<h2>{{ exersise.name }}</h2>
+<h2>{{ exercise.name }}</h2>
 
-<p><a href="/exercise/edit/{{ exersise.id }}">{% trans "Edit" %}</a></p>
+<p><a href="/exercise/edit/{{ exercise.id }}">{% trans "Edit" %}</a></p>
 
-<p>{% trans "All comments for this exersise" %}</p>
+<p>{% trans "All comments for this exercise" %}</p>
+
+<form action="/exercise/view/{{ exercise.id }}" method="post">
+<div style="display:none">
+    <input type="hidden" value="{{ exercise.id }}" name="exercise">
+</div>
+{% csrf_token %}
+{{ comment_form.as_p }}
+<input type="submit" value="Submit" />
+</form>
 
 <p><em>Form to add comment goes here</em></p>
 
 <ul>
-{% for comment in exersise.exercisecomment_set.all %}
+{% for comment in exercise.exercisecomment_set.all %}
     <li>{{ comment }}</li>
 {% empty %}
-    <li>{% trans "Sorry, no comments for this exersise yet!" %}</li>
+    <li>{% trans "Sorry, no comments for this exercise yet!" %}</li>
 {% endfor %}
 </ul>
 
