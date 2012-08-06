@@ -1,0 +1,155 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-06 20:05+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: manager/models.py:24
+msgid "Creation date"
+msgstr ""
+
+#: manager/models.py:25 manager/models.py:88 manager/models.py:119
+#: manager/models.py:138
+msgid "Comment"
+msgstr ""
+
+#: manager/models.py:45
+msgid "Training"
+msgstr ""
+
+#: manager/models.py:46
+msgid "Description"
+msgstr ""
+
+#: manager/models.py:47
+msgid "Day"
+msgstr ""
+
+#: manager/models.py:59 manager/models.py:75
+msgid "Name"
+msgstr ""
+
+#: manager/models.py:62
+msgid "Exercise Categories"
+msgstr ""
+
+#: manager/models.py:74
+msgid "Category"
+msgstr ""
+
+#: manager/models.py:87
+msgid "Exercise"
+msgstr ""
+
+#: manager/models.py:101
+msgid "Exercise day"
+msgstr ""
+
+#: manager/models.py:102 manager/models.py:135 manager/templates/base.html:50
+#: manager/templates/exercise/overview.html:8
+#: manager/templates/exercise/overview.html:16
+msgid "Exercises"
+msgstr ""
+
+#: manager/models.py:103 manager/models.py:120
+msgid "Order"
+msgstr ""
+
+#: manager/models.py:104 manager/models.py:134
+msgid "Sets"
+msgstr ""
+
+#: manager/models.py:117
+msgid "Weight"
+msgstr ""
+
+#: manager/models.py:118 manager/models.py:133
+msgid "Repetitions"
+msgstr ""
+
+#: manager/models.py:136
+msgid "Individual Exercises"
+msgstr ""
+
+#: manager/templates/add.html:8 manager/templates/add.html.py:19
+#: manager/templates/exercise/add_exersise.html:8
+#: manager/templates/exercise/add_exersise.html:19
+msgid "Add a new Workout"
+msgstr ""
+
+#: manager/templates/add.html:27
+#: manager/templates/exercise/add_exersise.html:27
+msgid "Days"
+msgstr ""
+
+#: manager/templates/add.html:31
+#: manager/templates/exercise/add_exersise.html:31
+msgid "Sets on days"
+msgstr ""
+
+#: manager/templates/add.html:34
+#: manager/templates/exercise/add_exersise.html:34
+msgid "Exercises on set"
+msgstr ""
+
+#: manager/templates/add.html:43
+#: manager/templates/exercise/add_exersise.html:43
+msgid "Settings for set"
+msgstr ""
+
+#: manager/templates/base.html:48
+msgid "Add workout"
+msgstr ""
+
+#: manager/templates/base.html:49
+msgid "Admin"
+msgstr ""
+
+#: manager/templates/detail.html:4 manager/templates/detail.html.py:7
+msgid "Workout for"
+msgstr ""
+
+#: manager/templates/index.html:4
+msgid "Workout list"
+msgstr ""
+
+#: manager/templates/exercise/edit.html:8
+#: manager/templates/exercise/view.html:8
+msgid "Exercise details"
+msgstr ""
+
+#: manager/templates/exercise/edit.html:16
+#: manager/templates/exercise/view.html:18
+#: manager/templates/exercise/view.html:42
+msgid "Edit"
+msgstr ""
+
+#: manager/templates/exercise/overview.html:18
+msgid "Add new exercise"
+msgstr ""
+
+#: manager/templates/exercise/view.html:20
+msgid "All comments for this exercise"
+msgstr ""
+
+#: manager/templates/exercise/view.html:41
+msgid "Delete"
+msgstr ""
+
+#: manager/templates/exercise/view.html:47
+msgid "Sorry, no comments for this exercise yet!"
+msgstr ""
