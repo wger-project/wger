@@ -19,20 +19,14 @@
 
 <p>{% trans "All comments for this exercise" %}</p>
 
-<form action="/exercise/view/{{ exercise.id }}" method="post">
-{% csrf_token %}
-{{ comment_form.as_p }}
-<input type="submit" value="Submit" />
-</form>
-
 <ul>
 {% for comment in exercise.exercisecomment_set.all %}
     <li>
         {% if comment_edit.id == comment.id %}
         <form action="/exercise/view/{{ exercise.id }}/edit/comment/{{ comment.id }}" method="post">
             {% csrf_token %}
-            {{ comment_edit_form.as_p }}
-            <input type="submit" value="Submit" />
+            {{ comment_edit_form.comment }}
+            <input type="submit" value="{% trans "Save" %}" />
         </form>
         {% else %}
         {{ comment.id }}
@@ -46,8 +40,14 @@
 {% endfor %}
 </ul>
 
-
-
+<h3>{% trans "Add new comment" %}</h3>
+<form action = "/exercise/view/{{ exercise.id }}"
+      method = "post"
+      id = "new_comment_form">
+{% csrf_token %}
+{{ comment_form.comment }}
+<input type="submit" value="{% trans "Save" %}" />
+</form>
 
 
 
