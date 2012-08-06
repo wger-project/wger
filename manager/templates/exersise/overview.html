@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n %} 
+{% load staticfiles %}
+
+<!--
+        Title
+-->
+{% block title %}{% trans "Exercises" %}{% endblock %}
+
+
+<!--
+        Main Content
+-->
+{% block content %}
+
+<h2> {% trans "Exercises" %} </h2>
+
+<a href="exercise/add">{% trans "Add new exercise" %}</a>
+
+<table>
+{% for category_id, category_data in exercises.items %}
+<tr>
+    <th>{{ category_data.category.name }} (ID {{ category_id }})</th>
+</tr>
+
+    {% for exercise in category_data.exercises %}
+        <tr>
+            <td>
+                <a href="/exercise/detail/{{ exercise.id }}">{{ exercise.name }}</a>
+            </td>
+        <tr>
+    {% endfor %}
+
+{% endfor %}
+</table>
+
+{% endblock %}
+
+
+<!--
+        Side bar?
+-->
