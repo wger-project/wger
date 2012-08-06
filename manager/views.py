@@ -103,13 +103,13 @@ def exercise_overview(request):
     template_data['exercises'] = ex_data
     logger.debug(template_data)
     
-    return render_to_response('exersise/overview.html', template_data)
+    return render_to_response('exercise/overview.html', template_data)
 
     
 def exercise_view(request, id):
     exersise = get_object_or_404(Exercise, pk=id)
-    return render_to_response('exersise/view.html', {'exersise': exersise})
+    return render_to_response('exercise/view.html', {'exersise': exersise})
 
 def exercise_edit(request, id):
     exersise = get_object_or_404(Exercise, pk=id)
-    return render_to_response('exersise/edit.html', {'exersise': exersise})
+    return render_to_response('exercise/edit.html', {'exersise': exersise})
