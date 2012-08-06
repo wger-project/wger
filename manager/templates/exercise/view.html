@@ -25,9 +25,7 @@
 <input type="submit" value="Submit" />
 </form>
 
-<p><em>Form to add comment goes here</em></p>
 <ul>
-
 {% for comment in exercise.exercisecomment_set.all %}
     <li>
         {% if comment_edit.id == comment.id %}
