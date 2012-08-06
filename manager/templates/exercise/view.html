@@ -20,9 +20,6 @@
 <p>{% trans "All comments for this exercise" %}</p>
 
 <form action="/exercise/view/{{ exercise.id }}" method="post">
-<div style="display:none">
-    <input type="hidden" value="{{ exercise.id }}" name="exercise">
-</div>
 {% csrf_token %}
 {{ comment_form.as_p }}
 <input type="submit" value="Submit" />

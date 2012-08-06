@@ -90,6 +90,7 @@ def add_step_4(request):
 class ExerciseCommentForm(ModelForm):
     class Meta:
         model = ExerciseComment
+        exclude=('exercise',)
 
 def exercise_overview(request):
     """Overview with all exercises
@@ -134,7 +135,7 @@ def exercise_view(request, id):
         new_comment.save()
         return HttpResponseRedirect('/exercise/view/%s' % id)
     else:
-        comment_form = WorkoutForm()
+        comment_form = ExerciseCommentForm()
     
     template_data['comment_form'] = comment_form
     
