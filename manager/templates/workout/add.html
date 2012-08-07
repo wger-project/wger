@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load i18n %} 
+{% load staticfiles %}
+
+<!--
+        Title
+-->
+{% block title %}{% trans "Add a new Workout" %}{% endblock %}
+
+
+<!--
+        Main Content
+-->
+{% block content %}
+<h1> {% trans "Add a new Workout" %}</h1>
+
+<form action="/workout/add" method="post">
+    {% csrf_token %}
+    {{ workout_form.as_p }}
+    <input type="submit" value="Submit" />
+</form>
+
+<form action="/workout/add" method="post">
+    {% csrf_token %}
+    {{ day_form.as_p }}
+    <input type="submit" value="Submit" />
+</form>
+
+
+{% endblock %}
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}
+<h3>{% trans "Steps" %}</h3>
+<ol>
+    <li><strong>{% trans "Days" %}</strong></li>
+    <li>{% trans "Sets on days" %}</li>
+    <li>{% trans "Exercises on set" %}</li>
+    <li>{% trans "Settings for set" %}</li>
+</ol>
+
+{% endblock %}
