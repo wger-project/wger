@@ -86,7 +86,7 @@ def add_step_4(request):
 # ************************
 
 def exercisecomment_delete(request, id):
-    # Load the exercise itself
+    # Load the comment
     comment = get_object_or_404(ExerciseComment, pk=id)
     exercise_id = comment.exercise.id
     comment.delete()
@@ -177,16 +177,22 @@ def exercise_view(request, id, comment_id=None):
     return render_to_response('exercise/view.html', template_data)
 
 
-def exercise_edit(request, id):
+def exercise_edit(request, id=None):
     template_data = {}
     template_data.update(csrf(request))
     
-    exercise = get_object_or_404(Exercise, pk=id)
+    if not id:
+        exercise = Exercise()
+    else:
+        exercise = get_object_or_404(Exercise, pk=id)
     template_data['exercise'] = exercise
     
+    logger.debug(exercise)
     if request.method == 'POST':
         exercise_form = ExerciseForm(request.POST, instance=exercise)
         exercise = exercise_form.save()
+        logger.debug(exercise)
+        id = exercise.id
         return HttpResponseRedirect('/exercise/view/%s' % id)
     else:
         exercise_form = ExerciseForm(instance=exercise)
@@ -194,3 +200,11 @@ def exercise_edit(request, id):
     template_data['edit_form'] = exercise_form
     
     return render_to_response('exercise/edit.html', template_data)
+
+
+def exercise_delete(request, id):
+    # Load the exercise
+    exercise = get_object_or_404(Exercise, pk=id)
+    exercise.delete()
+    
+    return HttpResponseRedirect('/exercise/overview/')

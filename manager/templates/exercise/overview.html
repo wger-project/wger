@@ -15,7 +15,9 @@
 
 <h2> {% trans "Exercises" %} </h2>
 
-<a href="exercise/add">{% trans "Add new exercise" %}</a>
+<p>
+    <a href="/exercise/edit">{% trans "Add new exercise" %}</a>
+</p>
 
 <table>
 {% for category_id, category_data in exercises.items %}
