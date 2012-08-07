@@ -24,14 +24,10 @@ from django.core.context_processors import csrf
 from manager.models import TrainingSchedule
 from manager.models import Exercise
 from manager.models import ExerciseComment
+from manager.models import Day
 
 
 logger = logging.getLogger('workout_manager.custom')
-
-class WorkoutForm(ModelForm):
-    class Meta:
-        model = TrainingSchedule
-
 
 def index(request):
     latest_trainings = TrainingSchedule.objects.all().order_by('-creation_date')[:5]
@@ -41,14 +37,38 @@ def index(request):
 # ************************
 # Workout functions
 # ************************
-    
+class WorkoutForm(ModelForm):
+    class Meta:
+        model = TrainingSchedule
+
+class DayForm(ModelForm):
+    class Meta:
+        model = Day
+
+
 def view_workout(request, id):
     p = get_object_or_404(TrainingSchedule, pk=id)
-    return render_to_response('detail.html', {'workout': p})
+    return render_to_response('workout/view.html', {'workout': p})
     
 def add(request):
+    
+    workout = TrainingSchedule()
+    workout.save()
+    
+    return HttpResponseRedirect('/workout/%s/view/' % workout.id)
+    
     template_data = {}
     template_data.update(csrf(request))
+    
+    
+    
+    if request.method == 'POST':
+        day_form = DayForm(request.POST)
+        new_days = day_form.save()
+        #return HttpResponseRedirect('/workout/add/step/2')
+    else:
+        day_form = DayForm()
+    template_data['day_form'] = day_form
     
     if request.method == 'POST':
         workout_form = WorkoutForm(request.POST)
@@ -63,22 +83,22 @@ def add(request):
     
     template_data['workout_form'] = workout_form
     
-    return render_to_response('add.html', template_data)
+    return render_to_response('workout/add.html', template_data)
 
 def add_step_2(request):
     template_data = {}
     
-    return render_to_response('add.html', template_data)
+    return render_to_response('workout/add.html', template_data)
 
 def add_step_3(request):
     template_data = {}
     
-    return render_to_response('add.html', template_data)
+    return render_to_response('workout/add.html', template_data)
 
 def add_step_4(request):
     template_data = {}
     
-    return render_to_response('add.html', template_data)
+    return render_to_response('workout/add.html', template_data)
 
 
 # ************************

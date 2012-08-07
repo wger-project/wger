@@ -4,20 +4,35 @@
 {% block title %}{% trans "Workout for" %} {{ workout.creation_date }}{% endblock %}
 
 {% block content %}
-<h1> {% trans "Workout for" %} {{ workout.creation_date }}</h1>
-<ul>
-{% for day in workout.day_set.select_related %}
-    <li>
-        {{ day.description }} (Day-ID: {{ day.id }}):
+<h2> {% trans "Workout for" %} {{ workout.creation_date }}</h2>
 
+
+{% for day in workout.day_set.select_related %}
+<table>
+<thead>
+    <tr>
+        <th>{{ day.description }} (Day-ID: {{ day.id }})</th>
+        <th style="text-align:right">
+            <a href="">[x]</a>
+            <a href="">[e]</a>
+        </th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td colspan="2">
         <ul>
         {% for set in day.set_set.select_related %}
             <li>
+                <a href="">[x]</a>
+                <a href="">[e]</a>
                 {{ set.order }} (Set-ID: {{ set.id }}):
 
                 <ul>
                 {% for exercise in set.exercises.select_related %}
                     <li>
+                        <a href="">[x]</a>
+                        <a href="">[e]</a>
                         {{ exercise }} (exercise-ID: {{ exercise.id }}):
                         <br>
 
@@ -51,7 +66,15 @@
             </li>
         {% endfor %}
         </ul>
-    </li>
+    </td>
+    </tr>
+</tbody>
+</table>
+{% empty %}
+<p class="box warning">
+    {% trans "No days for this workout, use link to add one." %}
+</p>
 {% endfor %}
-</ul>
+<p><a href="#">{% trans "Add training day" %}</a></p>
+
 {% endblock %}
