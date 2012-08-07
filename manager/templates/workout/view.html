@@ -19,15 +19,15 @@
     </tr>
 </thead>
 <tbody>
-    <tr>
-        <td colspan="2">
-        <ul>
         {% for set in day.set_set.select_related %}
-            <li>
+        <tr>
+            <td >{{ set.order }} (Set-ID: {{ set.id }}):</td>
+            <td style="text-align:right">
                 <a href="">[x]</a>
                 <a href="">[e]</a>
-                {{ set.order }} (Set-ID: {{ set.id }}):
-
+            </td>
+        <tr>
+            <td colspan="2">
                 <ul>
                 {% for exercise in set.exercises.select_related %}
                     <li>
@@ -59,25 +59,27 @@
                                 <!--@ {{individual_setting.weight}}-->
                             {% endfor %}
                         {% endif %}
-                        {% endfor %}
+                        {% endfor %} <!--for setting in exercise-->
                     </li>
-                {% endfor %}
+                {% endfor %} <!--for exercise in set-->
                 </ul>
-            </li>
-        {% endfor %}
-        </ul>
+        {% endfor %} <!--for set in day-->
     </td>
     </tr>
 </tbody>
 </table>
+
 {% empty %}
 <p class="box warning">
     {% trans "No days for this workout, use link to add one." %}
 </p>
 {% endfor %}
+
+
 <p><a href="/workout/{{ workout.id}}/edit/day">{% trans "Add training day" %}</a></p>
 
-{% endblock %}
+{% endblock %} <!--day in workout-->
+
 
 
 <!--
