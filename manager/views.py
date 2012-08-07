@@ -41,11 +41,6 @@ class WorkoutForm(ModelForm):
     class Meta:
         model = TrainingSchedule
 
-class DayForm(ModelForm):
-    class Meta:
-        model = Day
-
-
 def view_workout(request, id):
     p = get_object_or_404(TrainingSchedule, pk=id)
     return render_to_response('workout/view.html', {'workout': p})
@@ -85,22 +80,45 @@ def add(request):
     
     return render_to_response('workout/add.html', template_data)
 
-def add_step_2(request):
+
+
+# ************************
+# Day functions
+# ************************
+class DayForm(ModelForm):
+    class Meta:
+        model = Day
+        exclude=('training',)
+
+def edit_day(request, id, day_id=None):
     template_data = {}
+    template_data.update(csrf(request))
     
-    return render_to_response('workout/add.html', template_data)
-
-def add_step_3(request):
-    template_data = {}
+    # Load workout
+    workout = get_object_or_404(TrainingSchedule, pk=id)
+    template_data['workout'] = workout
     
-    return render_to_response('workout/add.html', template_data)
-
-def add_step_4(request):
-    template_data = {}
+    # Load day
+    if not day_id:
+        day = Day()
+    else:
+        day = get_object_or_404(Day, pk=day_id)
+    template_data['day'] = day
     
-    return render_to_response('workout/add.html', template_data)
-
-
+    # Process request
+    if request.method == 'POST':
+        day_form = DayForm(request.POST, instance=day)
+        day = day_form.save(commit=False)
+        day.training = workout
+        day.save()
+        
+        return HttpResponseRedirect('/workout/%s/view/' % id)
+    else:
+        day_form = DayForm(instance=day)
+    template_data['day_form'] = day_form
+    
+    return render_to_response('day/edit.html', template_data)
+    
 # ************************
 # Exercise comment functions
 # ************************
@@ -131,7 +149,6 @@ class ExerciseForm(ModelForm):
 def exercise_overview(request):
     """Overview with all exercises
     """
-    
     
     template_data = {}
     ex_data = {}
@@ -167,7 +184,6 @@ def exercise_view(request, id, comment_id=None):
     if request.method == 'POST' and not comment_id:
         comment_form = ExerciseCommentForm(request.POST)
         comment_form.exercise = exercise
-        #logger.debug(comment_form.errors)
         new_comment = comment_form.save(commit=False)
         new_comment.exercise = exercise
         new_comment.save()
@@ -207,11 +223,9 @@ def exercise_edit(request, id=None):
         exercise = get_object_or_404(Exercise, pk=id)
     template_data['exercise'] = exercise
     
-    logger.debug(exercise)
     if request.method == 'POST':
         exercise_form = ExerciseForm(request.POST, instance=exercise)
         exercise = exercise_form.save()
-        logger.debug(exercise)
         id = exercise.id
         return HttpResponseRedirect('/exercise/view/%s' % id)
     else:
