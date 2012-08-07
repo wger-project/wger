@@ -155,6 +155,9 @@ def edit_set(request, id, day_id, set_id=None):
         workout_set.exerciseday = day
         workout_set.save()
         
+        # The exercises are ManyToMany in DB, so we have to save with this function
+        set_form.save_m2m()
+        
         return HttpResponseRedirect('/workout/%s/view/' % id)
     else:
         set_form = SetForm(instance=workout_set)
