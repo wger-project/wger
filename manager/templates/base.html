@@ -34,59 +34,68 @@
 <body>
 <header>
     <div class="ym-wrapper">
-            <div class="ym-wbox">
-                    <h1>Workout manager</h1>
-            </div>
+        <div class="ym-wbox">
+            <h1>{% trans "Workout manager" %}</h1>
+        </div>
     </div>
 </header>
 <nav id="nav">
-        <div class="ym-wrapper">
-                <div class="ym-hlist">
-                        <ul>
+    <div class="ym-wrapper">
+        <div class="ym-hlist">
+            <ul>
 <!--                                 <li class="active"><strong>Active</strong></li> -->
-                                <li><a href="/">Start</a></li>
-                                <li><a href="/workout/add">{% trans "Add workout" %}</a></li>
-                                <li><a href="/admin/">{% trans "Admin" %} </a></li>
-                                <li><a href="/exercise/overview/">{% trans "Exercises" %}</a></li>
-                                <li><a href="/login">Login etc</a></li>
-                        </ul>
-                        <form class="ym-searchform">
-                                <input class="ym-searchfield" type="search" placeholder="Search..." />
-                                <input class="ym-searchbutton" type="submit" value="Search" />
-                        </form>
-                </div>
+                <li><a href="/">Start</a></li>
+                <li><a href="/workout/add">{% trans "Add workout" %}</a></li>
+                <li><a href="/admin/">{% trans "Admin" %} </a></li>
+                <li><a href="/exercise/overview/">{% trans "Exercises" %}</a></li>
+                <li><a href="/login">Login etc</a></li>
+            </ul>
+            <form class="ym-searchform">
+                <input class="ym-searchfield" type="search" placeholder="{% trans "Search" %}" />
+                <input class="ym-searchbutton" type="submit" value="{% trans "Search" %}" />
+            </form>
         </div>
+    </div>
 </nav>
 
 <div id="main">
-        <div class="ym-wrapper">
-                <div class="ym-wbox">
-                        <section class="ym-grid linearize-level-1">
-                                <article class="ym-g66 ym-gl content">
-                                        <div class="ym-gbox-left ym-clearfix">
-                                                {% block content %}{% endblock %}
-                                        </div>
-                                </article>
-                                <aside class="ym-g33 ym-gr">
-                                        <div class="ym-gbox-right ym-clearfix">
-                                                <h3>A Simple Sidebar </h3>
-                                                <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices  posuere cubilia Curae; Cras ornare mattis nunc. Mauris venenatis, pede  sed aliquet vehicula, lectus tellus pulvinar neque, non cursus sem nisi vel augue.</p>
-                                                <p>Mauris a lectus. Aliquam erat volutpat. Phasellus ultrices mi a sapien. Nunc rutrum egestas lorem. Duis ac sem sagittis elit tincidunt gravida. Mauris a lectus. Aliquam erat volutpat. Phasellus ultrices mi a sapien. Nunc rutrum egestas lorem. Duis ac sem sagittis elit tincidunt gravida.</p>
-                                        </div>
-                                </aside>
-                        </section>
-                </div>
+    <div class="ym-wrapper">
+        <div class="ym-wbox">
+            <section class="ym-grid linearize-level-1">
+                <article class="ym-g66 ym-gl content">
+                    <div class="ym-gbox-left ym-clearfix">
+                        {% block content %}{% endblock %}
+                    </div>
+                </article>
+                <aside class="ym-g33 ym-gr">
+                    <div class="ym-gbox-right ym-clearfix">
+                        {% block sidebar %}
+                        <h3>A Simple Sidebar </h3>
+                        <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+                        posuere cubilia Curae; Cras ornare mattis nunc. Mauris venenatis, pede 
+                        sed aliquet vehicula, lectus tellus pulvinar neque, non cursus sem nisi
+                        vel augue.</p>
+
+                        <p>Mauris a lectus. Aliquam erat volutpat. Phasellus ultrices mi a sapien.
+                        Nunc rutrum egestas lorem. Duis ac sem sagittis elit tincidunt gravida.
+                        Mauris a lectus. Aliquam erat volutpat. Phasellus ultrices mi a sapien.
+                        Nunc rutrum egestas lorem. Duis ac sem sagittis elit tincidunt gravida.</p>
+                        {% endblock %}
+                    </div>
+                </aside>
+            </section>
         </div>
+    </div>
 </div>
 
 
 
 <footer>
-        <div class="ym-wrapper">
-                <div class="ym-wbox">
-                        <p>© Roland Geider &ndash; Layout based on <a href="http://www.yaml.de">YAML</a></p>
-                </div>
+    <div class="ym-wrapper">
+        <div class="ym-wbox">
+            <p>© Roland Geider &ndash; Layout based on <a href="http://www.yaml.de">YAML</a></p>
         </div>
+    </div>
 </footer>
 </body>
 </html>
