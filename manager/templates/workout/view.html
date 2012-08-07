@@ -24,7 +24,7 @@
             <td >{{ set.order }} (Set-ID: {{ set.id }}):</td>
             <td style="text-align:right">
                 <a href="">[x]</a>
-                <a href="">[e]</a>
+                <a href="/workout/{{ workout.id}}/day/{{ day.id }}/edit/set/{{ set.id }}">[e]</a>
             </td>
         <tr>
             <td colspan="2">
@@ -63,15 +63,26 @@
                     </li>
                 {% endfor %} <!--for exercise in set-->
                 </ul>
+        {% empty %}
+        <tr>
+            <td colspan="2">
+                <div class="box warning">
+                {% trans "No sets for this day." %} {% trans "Use link to add one." %}
+                </div>
         {% endfor %} <!--for set in day-->
-    </td>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <a href="/workout/{{ workout.id}}/day/{{ day.id }}/edit/set">{% trans "Add workout set" %}</a>
+        </td>
     </tr>
 </tbody>
 </table>
 
 {% empty %}
 <p class="box warning">
-    {% trans "No days for this workout, use link to add one." %}
+    {% trans "No days for this workout." %} {% trans "Use link to add one." %}
 </p>
 {% endfor %}
 

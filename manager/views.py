@@ -25,6 +25,7 @@ from manager.models import TrainingSchedule
 from manager.models import Exercise
 from manager.models import ExerciseComment
 from manager.models import Day
+from manager.models import Set
 
 
 logger = logging.getLogger('workout_manager.custom')
@@ -118,7 +119,50 @@ def edit_day(request, id, day_id=None):
     template_data['day_form'] = day_form
     
     return render_to_response('day/edit.html', template_data)
+
+
+# ************************
+# Set functions
+# ************************
+class SetForm(ModelForm):
+    class Meta:
+        model = Set
+        exclude = ('exerciseday', )
+
+def edit_set(request, id, day_id, set_id=None):
+    template_data = {}
+    template_data.update(csrf(request))
     
+    # Load workout
+    workout = get_object_or_404(TrainingSchedule, pk=id)
+    template_data['workout'] = workout
+    
+    # Load day
+    day = get_object_or_404(Day, pk=day_id)
+    template_data['day'] = day
+    
+    # Load set
+    if not set_id:
+        workout_set = Set()
+    else:
+        workout_set = get_object_or_404(Set, pk=set_id)
+    template_data['set'] = workout_set
+    
+    # Process request
+    if request.method == 'POST':
+        set_form = SetForm(request.POST, instance=workout_set)
+        workout_set = set_form.save(commit=False)
+        workout_set.exerciseday = day
+        workout_set.save()
+        
+        return HttpResponseRedirect('/workout/%s/view/' % id)
+    else:
+        set_form = SetForm(instance=workout_set)
+    template_data['set_form'] = set_form
+    
+    return render_to_response('set/edit.html', template_data)
+
+
 # ************************
 # Exercise comment functions
 # ************************
