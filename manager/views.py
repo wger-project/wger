@@ -104,6 +104,10 @@ class ExerciseCommentForm(ModelForm):
         model = ExerciseComment
         exclude=('exercise',)
 
+class ExerciseForm(ModelForm):
+    class Meta:
+        model = Exercise
+
 def exercise_overview(request):
     """Overview with all exercises
     """
@@ -174,5 +178,19 @@ def exercise_view(request, id, comment_id=None):
 
 
 def exercise_edit(request, id):
+    template_data = {}
+    template_data.update(csrf(request))
+    
     exercise = get_object_or_404(Exercise, pk=id)
-    return render_to_response('exercise/edit.html', {'exercise': exercise})
+    template_data['exercise'] = exercise
+    
+    if request.method == 'POST':
+        exercise_form = ExerciseForm(request.POST, instance=exercise)
+        exercise = exercise_form.save()
+        return HttpResponseRedirect('/exercise/view/%s' % id)
+    else:
+        exercise_form = ExerciseForm(instance=exercise)
+    
+    template_data['edit_form'] = exercise_form
+    
+    return render_to_response('exercise/edit.html', template_data)

@@ -15,7 +15,12 @@
 
 <h2>{% trans "Edit" %} {{ exercise.name }}</h2>
 
-<p>Edit exercise</p>
+
+<form action="/exercise/edit/{{ exercise.id }}" method="post">
+    {% csrf_token %}
+    {{ edit_form.as_p }}
+    <input type="submit" value="{% trans "Save" %}" />
+</form>
 
 
 {% endblock %}

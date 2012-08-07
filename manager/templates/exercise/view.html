@@ -14,10 +14,12 @@
 {% block content %}
 
 <h2>{{ exercise.name }}</h2>
-
 <p><a href="/exercise/edit/{{ exercise.id }}">{% trans "Edit" %}</a></p>
 
-<p>{% trans "All comments for this exercise" %}</p>
+<p>{% trans "Category" %}: <strong>{{ exercise.category.name }}</strong></p>
+
+
+<p>{% trans "All comments for this exercise" %}:</p>
 
 <ul>
 {% for comment in exercise.exercisecomment_set.all %}
@@ -29,7 +31,6 @@
             <input type="submit" value="{% trans "Save" %}" />
         </form>
         {% else %}
-        {{ comment.id }}
         <a href="/exercise/comment/delete/{{ comment.id }}" title="{% trans "Delete" %}">[x]</a>
         <a href="/exercise/view/{{ exercise.id }}/edit/comment/{{ comment.id }}" title="{% trans "Edit" %}">[e]</a>
         {{ comment }}
