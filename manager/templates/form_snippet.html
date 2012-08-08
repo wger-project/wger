@@ -1,6 +1,7 @@
+{% load i18n %}
 <tr>
     <td style="text-align:right;">
-        {{ field.label }}
+        {% trans field.label %}
         
     </td>
     <td>
@@ -10,7 +11,7 @@
         {% if field.help_text %}<p class="dimmed">{{ field.help_text }}</p>{% endif %}
         <div class="ym-fbox-text ym-error">
             {% for error in field.errors %}
-                <p class="ym-message">{{ error }}</p>
+                <p class="ym-message">{% trans error %}</p>
             {% endfor %}
         </div>
     </td>
