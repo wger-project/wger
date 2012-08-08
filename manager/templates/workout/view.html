@@ -21,20 +21,18 @@
 <tbody>
         {% for set in day.set_set.select_related %}
         <tr>
-            <td >{{ set.order }} <!--(Set-ID: {{ set.id }})--></td>
-            <td style="text-align:right">
+            <td >{{ set.order }} <!--(Set-ID: {{ set.id }})-->
                 <a href="">[x]</a>
                 <a href="/workout/{{ workout.id}}/day/{{ day.id }}/edit/set/{{ set.id }}">[e]</a>
             </td>
-        <tr>
-            <td colspan="2">
+            <td>
                 <ul>
                 {% for exercise in set.exercises.select_related %}
                     <li>
                         <a href="">[x]</a>
                         <a href="">[e]</a>
-                        {{ exercise }} <!--(exercise-ID: {{ exercise.id }})-->
-                        <br>
+                        {{ exercise }}: <!--(exercise-ID: {{ exercise.id }})-->
+                        
 
                         <!-- Comments to the exercise -->
                         <!--
@@ -108,5 +106,8 @@
     <li>{% trans "Exercises on set" %}</li>
     <li>{% trans "Settings for set" %}</li>
 </ol>
+
+<h3>{% trans "Options" %}</h3>
+<a href="">{% trans "Download as PDF" %}</a>
 
 {% endblock %}
