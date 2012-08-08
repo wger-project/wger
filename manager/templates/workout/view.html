@@ -43,20 +43,19 @@
 
                         
                         {% for setting in exercise.setting_set.all %}
+                            {% comment %}
+                                TODO: solution with 'if' is ugly and bad!
+                            {% endcomment %}
+                            {% if setting.sets_id == set.id %}
+                                {{ set.sets }} <!--(Set-ID: {{ set.id }})-->
+                                x 
 
-                        {% comment %}
-                            TODO: solution with 'if' is ugly and bad!
-                        {% endcomment %}
-                        {% if setting.sets_id == set.id %}
-                            {{ set.sets }} <!--(Set-ID: {{ set.id }})-->
-                            x 
-
-                            {% for individual_setting in setting.individual_exercises.select_related %}
-                                {{individual_setting.reps}}
-                                <!--(IndividualSetting-ID: {{ individual_setting.id }})-->
-                                <!--@ {{individual_setting.weight}}-->
-                            {% endfor %}
-                        {% endif %}
+                                {% for individual_setting in setting.individual_exercises.select_related %}
+                                    {{individual_setting.reps}}
+                                    <!--(IndividualSetting-ID: {{ individual_setting.id }})-->
+                                    <!--@ {{individual_setting.weight}}-->
+                                {% endfor %}
+                            {% endif %}
                         {% empty %}
                             <div class="box warning">
                                 {% trans "No settings for this exercise." %} {% trans "Use link to add one." %}
