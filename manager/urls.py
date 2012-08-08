@@ -2,6 +2,9 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('manager.views',
     url(r'^$', 'index'),
+    url(r'^login$', 'login'),
+    url(r'^logout$', 'logout'),
+    
     url(r'^workout/add$', 'add'),
     url(r'^workout/(?P<id>\d+)/view/$', 'view_workout'),
     url(r'^workout/(?P<id>\d+)/edit/day/(?P<day_id>\d*)$', 'edit_day'),

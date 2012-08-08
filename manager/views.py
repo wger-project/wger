@@ -20,6 +20,8 @@ from django.http import HttpResponseRedirect
 from django.http import Http404
 from django.forms import ModelForm
 from django.core.context_processors import csrf
+from django.contrib.auth import authenticate, login, logout
+
 
 from manager.models import TrainingSchedule
 from manager.models import Exercise
@@ -32,11 +34,25 @@ from manager.models import Setting
 
 logger = logging.getLogger('workout_manager.custom')
 
+# ************************
+# Misc functions
+# ************************
 def index(request):
+    """Show the index page, in our case, a list of workouts
+    """
     latest_trainings = TrainingSchedule.objects.all().order_by('-creation_date')[:5]
     return render_to_response('index.html', {'latest_workouts_list': latest_trainings})
 
-    
+def loging(request):
+    """Login the user and redirect it
+    """
+    pass
+
+def logout(request):
+    """Logout the
+    """
+    logout(request)
+
 # ************************
 # Workout functions
 # ************************
