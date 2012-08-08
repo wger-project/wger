@@ -25,36 +25,8 @@
 {% csrf_token %}
 {{ edit_form.non_field_errors }}
 <table>
-    <tr>
-        <td>
-            {% trans edit_form.category.label %}
-        </td>
-        <td>
-            <div class="ym-fbox-select">
-            {{ edit_form.category }}
-            </div>
-            <div class="ym-fbox-text ym-error">
-                {% for error in edit_form.category.errors %}
-                <p class="ym-message">{% trans error %}</p>
-                {% endfor %}
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            {% trans edit_form.name.label %}
-        </td>
-        <td>
-            <div class="ym-fbox-text">
-            {{ edit_form.name }}
-            </div>
-            <div class="ym-fbox-text ym-error">
-                {% for error in edit_form.name.errors %}
-                <p class="ym-message">{% trans error %}</p>
-                {% endfor %}
-            </div>
-        </td>
-    </tr>
+    {% include "form_snippet.html" with field=edit_form.category css_class="ym-fbox-select" %}
+    {% include "form_snippet.html" with field=edit_form.name %}
     <tr>
         <td><input type="submit" value="{% trans "Save" %}" /></td>
         <td></td>

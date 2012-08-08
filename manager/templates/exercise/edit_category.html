@@ -27,7 +27,7 @@
     {% csrf_token %}
     {{ category_form.non_field_errors }}
 <table>
-    {% include "form_snippet.html" with field=category_form.name css_class="ym-fbox-text" %}
+    {% include "form_snippet.html" with field=category_form.name %}
     <tr>
         <td><input type="submit" value="{% trans "Save" %}" /></td>
         <td></td>

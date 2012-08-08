@@ -4,7 +4,7 @@
         <p class="dimmed">{{ field.help_text }}</p>
     </td>
     <td>
-        <div class="{{css_class}}">
+        <div class="{{css_class|default:"ym-fbox-text"}}">
         {{ field }}
         </div>
         <div class="ym-fbox-text ym-error">
