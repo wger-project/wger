@@ -312,9 +312,11 @@ def exercise_category_edit(request, id):
     
     if request.method == 'POST':
         category_form = ExerciseCategoryForm(request.POST, instance=category)
-        category = category_form.save()
         
-        return HttpResponseRedirect('/exercise/overview/')
+        # If the data is valid, save and redirect
+        if category_form.is_valid():
+            category = category_form.save()
+            return HttpResponseRedirect('/exercise/overview/')
     else:
         category_form = ExerciseCategoryForm(instance=category)
     
