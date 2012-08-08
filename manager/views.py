@@ -322,6 +322,13 @@ def exercise_category_edit(request, id):
     return render_to_response('exercise/edit_category.html', template_data)
 
 
+def exercise_category_delete(request, id):
+    # Load the category
+    category = get_object_or_404(ExerciseCategory, pk=id)
+    category.delete()
+    
+    return HttpResponseRedirect('/exercise/overview/')
+
 # ************************
 # Settings functions
 # ************************
