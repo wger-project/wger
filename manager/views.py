@@ -281,9 +281,10 @@ def exercise_edit(request, id=None):
     
     if request.method == 'POST':
         exercise_form = ExerciseForm(request.POST, instance=exercise)
-        exercise = exercise_form.save()
-        id = exercise.id
-        return HttpResponseRedirect('/exercise/view/%s' % id)
+        if exercise_form.is_valid():
+            exercise = exercise_form.save()
+            id = exercise.id
+            return HttpResponseRedirect('/exercise/view/%s' % id)
     else:
         exercise_form = ExerciseForm(instance=exercise)
     
