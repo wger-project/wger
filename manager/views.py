@@ -61,43 +61,18 @@ class WorkoutForm(ModelForm):
         model = TrainingSchedule
 
 def view_workout(request, id):
+    """Show the workout with the given ID
+    """
     p = get_object_or_404(TrainingSchedule, pk=id)
     return render_to_response('workout/view.html', {'workout': p})
     
 def add(request):
-    
+    """Add a new workout and redirect to its page
+    """
     workout = TrainingSchedule()
     workout.save()
     
     return HttpResponseRedirect('/workout/%s/view/' % workout.id)
-    
-    template_data = {}
-    template_data.update(csrf(request))
-    
-    
-    
-    if request.method == 'POST':
-        day_form = DayForm(request.POST)
-        new_days = day_form.save()
-        #return HttpResponseRedirect('/workout/add/step/2')
-    else:
-        day_form = DayForm()
-    template_data['day_form'] = day_form
-    
-    if request.method == 'POST':
-        workout_form = WorkoutForm(request.POST)
-        new_workout = workout_form.save()
-        return HttpResponseRedirect('/workout/add/step/2')
-    else:
-        workout_form = WorkoutForm()
-    
-    exercises = Exercise.objects.all()
-    template_data['exercises'] = exercises
-    
-    
-    template_data['workout_form'] = workout_form
-    
-    return render_to_response('workout/add.html', template_data)
 
 
 
@@ -110,6 +85,8 @@ class DayForm(ModelForm):
         exclude=('training',)
 
 def edit_day(request, id, day_id=None):
+    """Edits/creates a day
+    """
     template_data = {}
     template_data.update(csrf(request))
     
@@ -142,6 +119,9 @@ def edit_day(request, id, day_id=None):
     return render_to_response('day/edit.html', template_data)
 
 def delete_day(request, id, day_id):
+    """Deletes the day with ID day_id belonging to workout with ID id
+    """
+    
     # Load the day
     day = get_object_or_404(Day, pk=day_id)
     day.delete()
@@ -158,6 +138,9 @@ class SetForm(ModelForm):
         exclude = ('exerciseday', )
 
 def edit_set(request, id, day_id, set_id=None):
+    """ Edits/creates a set
+    """
+    
     template_data = {}
     template_data.update(csrf(request))
     
@@ -197,6 +180,9 @@ def edit_set(request, id, day_id, set_id=None):
     return render_to_response('set/edit.html', template_data)
 
 def delete_set(request, id, day_id, set_id):
+    """ Deletes the given set
+    """
+    
     # Load the set
     set_obj = get_object_or_404(Set, pk=set_id)
     set_obj.delete()
