@@ -121,6 +121,13 @@ def edit_day(request, id, day_id=None):
     
     return render_to_response('day/edit.html', template_data)
 
+def delete_day(request, id, day_id):
+    # Load the day
+    day = get_object_or_404(Day, pk=day_id)
+    day.delete()
+    
+    return HttpResponseRedirect('/workout/%s/view/' % id)
+
 
 # ************************
 # Set functions

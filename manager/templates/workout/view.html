@@ -13,24 +13,26 @@
     <tr>
         <th>{{ day.description }} <!--(Day-ID: {{ day.id }})--></th>
         <th style="text-align:right">
-            <a href="">[x]</a>
-            <a href="/workout/{{ workout.id}}/edit/day/{{ day.id }}">[e]</a>
+            <a href="/workout/{{ workout.id}}/delete/day/{{ day.id }}"
+               title="{% trans "Delete" %}">[x]</a>
+            <a href="/workout/{{ workout.id}}/edit/day/{{ day.id }}"
+               title="{% trans "Edit" %}">[e]</a>
         </th>
     </tr>
 </thead>
 <tbody>
         {% for set in day.set_set.select_related %}
         <tr>
-            <td >{{ set.order }} <!--(Set-ID: {{ set.id }})-->
-                <a href="/workout/{{ workout.id}}/day/{{ day.id }}/delete/set/{{ set.id }}">[x]</a>
-                <a href="/workout/{{ workout.id}}/day/{{ day.id }}/edit/set/{{ set.id }}">[e]</a>
+            <td >{{ set.order }}<br> <!--(Set-ID: {{ set.id }})-->
+                <a href="/workout/{{ workout.id}}/day/{{ day.id }}/delete/set/{{ set.id }}"
+                   title="{% trans "Delete" %}">[x]</a>
+                <a href="/workout/{{ workout.id}}/day/{{ day.id }}/edit/set/{{ set.id }}"
+                   title="{% trans "Edit" %}">[e]</a>
             </td>
             <td>
                 <ul>
                 {% for exercise in set.exercises.select_related %}
                     <li>
-                        <a href="">[x]</a>
-                        <a href="">[e]</a>
                         {{ exercise }}: <!--(exercise-ID: {{ exercise.id }})-->
                         
 
@@ -41,15 +43,13 @@
                         {% endfor %}
                         -->
 
-                        
+                        {{ set.sets }} x <!--(Set-ID: {{ set.id }})-->
                         {% for setting in exercise.setting_set.all %}
                             {% comment %}
                                 TODO: solution with 'if' is ugly and bad!
                             {% endcomment %}
+                            
                             {% if setting.sets_id == set.id %}
-                                {{ set.sets }} <!--(Set-ID: {{ set.id }})-->
-                                x 
-
                                 {% for individual_setting in setting.individual_exercises.select_related %}
                                     {{individual_setting.reps}}
                                     <!--(IndividualSetting-ID: {{ individual_setting.id }})-->
