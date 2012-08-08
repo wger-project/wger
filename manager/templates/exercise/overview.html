@@ -21,20 +21,20 @@
 </p>
 
 <table>
-{% for category_id, category_data in exercises.items %}
+{% for category in categories %}
 <tr>
     <th>
-        {{ category_data.category.name }} <!--(ID {{ category_id }})-->
+        {{ category.name }} <!--(ID {{ category.id}})-->
     </th>
     <td style="text-align: right;">
-        <a href="/exercise/category/delete/{{ category_id}}"
+        <a href="/exercise/category/delete/{{ category.id }}"
            title="{% trans "Delete" %}">[x]</a>
-        <a href="/exercise/category/edit/{{ category_id }}"
+        <a href="/exercise/category/edit/{{ category.id }}"
            title="{% trans "Edit" %}">[e]</a>
     </td>
 </tr>
 
-    {% for exercise in category_data.exercises %}
+    {% for exercise in category.exercise_set.all %}
         <tr>
             <td colspan="2">
                 <a href="/exercise/view/{{ exercise.id }}">{{ exercise.name }}</a>

@@ -217,17 +217,7 @@ def exercise_overview(request):
     """
     
     template_data = {}
-    ex_data = {}
-    
-    # Gather all exercises and group them by category
-    for i in Exercise.objects.all().order_by('category'):
-        if not ex_data.get(i.category.id):
-            ex_data[i.category.id] = {'category': i.category, 'exercises': []}
-        
-        ex_data[i.category.id]['exercises'].append(i)
-
-    template_data['exercises'] = ex_data
-    logger.debug(template_data)
+    template_data['categories'] = ExerciseCategory.objects.all()
     
     return render_to_response('exercise/overview.html', template_data)
 
