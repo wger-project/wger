@@ -26,22 +26,8 @@
       id="category_edit_form">
     {% csrf_token %}
     {{ category_form.non_field_errors }}
-    <table>
-        <tr>
-            <td>
-                {% trans category_form.name.label %}
-            </td>
-            <td>
-                <div class="ym-fbox-text">
-                {{ category_form.name }}
-                </div>
-                <div class="ym-fbox-text ym-error">
-                    {% for error in category_form.name.errors %}
-                    <p class="ym-message">{% trans error %}</p>
-                    {% endfor %}
-                </div>
-            </td>
-        </tr>
+<table>
+    {% include "form_snippet.html" with field=category_form.name css_class="ym-fbox-text" %}
     <tr>
         <td><input type="submit" value="{% trans "Save" %}" /></td>
         <td></td>

@@ -1,0 +1,16 @@
+<tr>
+    <td>
+        {{ field.label }}
+        <p class="dimmed">{{ field.help_text }}</p>
+    </td>
+    <td>
+        <div class="{{css_class}}">
+        {{ field }}
+        </div>
+        <div class="ym-fbox-text ym-error">
+            {% for error in field.errors %}
+                <p class="ym-message">{{ error }}</p>
+            {% endfor %}
+        </div>
+    </td>
+</tr>
