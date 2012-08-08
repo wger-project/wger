@@ -13,16 +13,53 @@
 -->
 {% block content %}
 
-<h2>{% trans "Edit" %} {{ exercise.name }}</h2>
+<h2>{% if exercise.id %}
+        {% trans "Edit" %} {{ exercise.name }}
+    {% else %}
+        {% trans "New exercise" %}
+    {% endif %}
+</h2>
 
-{% if exercise.id %}
-<form action="/exercise/edit/{{ exercise.id }}" method="post">
-{% else %}
-<form action="/exercise/edit/" method="post">
-{% endif %}
-    {% csrf_token %}
-    {{ edit_form.as_p }}
-    <input type="submit" value="{% trans "Save" %}" />
+
+<form action="/exercise/edit/{% if exercise.id %}{{ exercise.id }}{% endif %}" method="post" class="ym-form">
+{% csrf_token %}
+{{ edit_form.non_field_errors }}
+<table>
+    <tr>
+        <td>
+            {% trans edit_form.category.label %}
+        </td>
+        <td>
+            <div class="ym-fbox-select">
+            {{ edit_form.category }}
+            </div>
+            <div class="ym-fbox-text ym-error">
+                {% for error in edit_form.category.errors %}
+                <p class="ym-message">{% trans error %}</p>
+                {% endfor %}
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {% trans edit_form.name.label %}
+        </td>
+        <td>
+            <div class="ym-fbox-text">
+            {{ edit_form.name }}
+            </div>
+            <div class="ym-fbox-text ym-error">
+                {% for error in edit_form.name.errors %}
+                <p class="ym-message">{% trans error %}</p>
+                {% endfor %}
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td><input type="submit" value="{% trans "Save" %}" /></td>
+        <td></td>
+    </tr>
+</table>
 </form>
 
 
