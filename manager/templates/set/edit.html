@@ -17,8 +17,8 @@
 <form action="/workout/{{ workout.id}}/day/{{ day.id }}/edit/set/{% if set.id %}{{ set.id }}{% endif %}"
       method="post"
       class="ym-form">
+{% csrf_token %}
 <table>
-    {% csrf_token %}
     {% include "form_snippet.html" with field=set_form.exercises css_class="ym-fbox-select" %}
     {% include "form_snippet.html" with field=set_form.order %}
     {% include "form_snippet.html" with field=set_form.sets %}
