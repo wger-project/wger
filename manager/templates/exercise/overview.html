@@ -40,6 +40,14 @@
                 <a href="/exercise/view/{{ exercise.id }}">{{ exercise.name }}</a>
             </td>
         <tr>
+    {% empty %}
+        <tr>
+            <td colspan="2">
+                <div class="box warning">
+                    {% trans "No exercises in this category." %} {% trans "Use link to add one." %}
+                </div>
+            </td>
+        <tr>
     {% endfor %}
 
 {% endfor %}
