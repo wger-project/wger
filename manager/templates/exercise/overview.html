@@ -36,15 +36,19 @@
 
     {% for exercise in category.exercise_set.all %}
         <tr>
-            <td colspan="2">
+            <td>
                 <a href="/exercise/view/{{ exercise.id }}">{{ exercise.name }}</a>
+            </td>
+            <td style="text-align:right;">
+                <a href="/exercise/edit/{{ exercise.id }}"
+                   title="{% trans "Edit" %}">[e]</a>
             </td>
         <tr>
     {% empty %}
         <tr>
             <td colspan="2">
                 <div class="box warning">
-                    {% trans "No exercises in this category." %} {% trans "Use link to add one." %}
+                    {% trans "No exercises in this category. Add or edit an exercise and set its category" %} 
                 </div>
             </td>
         <tr>
