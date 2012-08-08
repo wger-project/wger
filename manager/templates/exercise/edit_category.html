@@ -12,16 +12,41 @@
 -->
 {% block content %}
 
-<h2>{% trans "Edit" %} {{ category.name }}</h2>
+<h2>
+<h2>{% if category.id %}
+        {% trans "Edit" %} {{ category.name }}
+    {% else %}
+        {% trans "New category" %}
+    {% endif %}
+</h2>
 
-{% if category.id %}
-<form action="/exercise/category/edit/{{ category.id }}" method="post">
-{% else %}
-<form action="/exercise/category/edit/" method="post">
-{% endif %}
+<form action="/exercise/category/edit/{% if category.id %}{{ category.id }}{% endif %}"
+      method="post"
+      class="ym-form"
+      id="category_edit_form">
     {% csrf_token %}
-    {{ category_form.as_p }}
-    <input type="submit" value="{% trans "Save" %}" />
+    {{ category_form.non_field_errors }}
+    <table>
+        <tr>
+            <td>
+                {% trans category_form.name.label %}
+            </td>
+            <td>
+                <div class="ym-fbox-text">
+                {{ category_form.name }}
+                </div>
+                <div class="ym-fbox-text ym-error">
+                    {% for error in category_form.name.errors %}
+                    <p class="ym-message">{% trans error %}</p>
+                    {% endfor %}
+                </div>
+            </td>
+        </tr>
+    <tr>
+        <td><input type="submit" value="{% trans "Save" %}" /></td>
+        <td></td>
+    </tr>
+</table>
 </form>
 
 
