@@ -27,8 +27,10 @@
         {{ category_data.category.name }} <!--(ID {{ category_id }})-->
     </th>
     <td style="text-align: right;">
-        <a href="/exercise/category/delete/{{ category_id}}">[x]</a>
-        <a href="/exercise/category/edit/{{ category_id }}">[e]</a>
+        <a href="/exercise/category/delete/{{ category_id}}"
+           title="{% trans "Delete" %}">[x]</a>
+        <a href="/exercise/category/edit/{{ category_id }}"
+           title="{% trans "Edit" %}">[e]</a>
     </td>
 </tr>
 
