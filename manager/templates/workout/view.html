@@ -11,7 +11,7 @@
 <table>
 <thead>
     <tr>
-        <th>{{ day.description }} (Day-ID: {{ day.id }})</th>
+        <th>{{ day.description }} <!--(Day-ID: {{ day.id }})--></th>
         <th style="text-align:right">
             <a href="">[x]</a>
             <a href="/workout/{{ workout.id}}/edit/day/{{ day.id }}">[e]</a>
@@ -21,7 +21,7 @@
 <tbody>
         {% for set in day.set_set.select_related %}
         <tr>
-            <td >{{ set.order }} (Set-ID: {{ set.id }}):</td>
+            <td >{{ set.order }} <!--(Set-ID: {{ set.id }})--></td>
             <td style="text-align:right">
                 <a href="">[x]</a>
                 <a href="/workout/{{ workout.id}}/day/{{ day.id }}/edit/set/{{ set.id }}">[e]</a>
@@ -33,7 +33,7 @@
                     <li>
                         <a href="">[x]</a>
                         <a href="">[e]</a>
-                        {{ exercise }} (exercise-ID: {{ exercise.id }}):
+                        {{ exercise }} <!--(exercise-ID: {{ exercise.id }})-->
                         <br>
 
                         <!-- Comments to the exercise -->
@@ -50,15 +50,19 @@
                             TODO: solution with 'if' is ugly and bad!
                         {% endcomment %}
                         {% if setting.sets_id == set.id %}
-                            {{ set.sets }} (Set-ID: {{ set.id }})
+                            {{ set.sets }} <!--(Set-ID: {{ set.id }})-->
                             x 
 
                             {% for individual_setting in setting.individual_exercises.select_related %}
                                 {{individual_setting.reps}}
-                                (IndividualSetting-ID: {{ individual_setting.id }})
+                                <!--(IndividualSetting-ID: {{ individual_setting.id }})-->
                                 <!--@ {{individual_setting.weight}}-->
                             {% endfor %}
                         {% endif %}
+                        {% empty %}
+                            <div class="box warning">
+                                {% trans "No settings for this exercise." %} {% trans "Use link to add one." %}
+                            </div>
                         {% endfor %} <!--for setting in exercise-->
                     </li>
                 {% endfor %} <!--for exercise in set-->
