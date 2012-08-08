@@ -111,11 +111,14 @@ def edit_day(request, id, day_id=None):
     # Process request
     if request.method == 'POST':
         day_form = DayForm(request.POST, instance=day)
-        day = day_form.save(commit=False)
-        day.training = workout
-        day.save()
         
-        return HttpResponseRedirect('/workout/%s/view/' % id)
+        # If the data is valid, save and redirect
+        if day_form.is_valid():
+            day = day_form.save(commit=False)
+            day.training = workout
+            day.save()
+            
+            return HttpResponseRedirect('/workout/%s/view/' % id)
     else:
         day_form = DayForm(instance=day)
     template_data['day_form'] = day_form
@@ -160,14 +163,17 @@ def edit_set(request, id, day_id, set_id=None):
     # Process request
     if request.method == 'POST':
         set_form = SetForm(request.POST, instance=workout_set)
-        workout_set = set_form.save(commit=False)
-        workout_set.exerciseday = day
-        workout_set.save()
         
-        # The exercises are ManyToMany in DB, so we have to save with this function
-        set_form.save_m2m()
-        
-        return HttpResponseRedirect('/workout/%s/view/' % id)
+        # If the data is valid, save and redirect
+        if set_form.is_valid():
+            workout_set = set_form.save(commit=False)
+            workout_set.exerciseday = day
+            workout_set.save()
+            
+            # The exercises are ManyToMany in DB, so we have to save with this function
+            set_form.save_m2m()
+            
+            return HttpResponseRedirect('/workout/%s/view/' % id)
     else:
         set_form = SetForm(instance=workout_set)
     template_data['set_form'] = set_form
@@ -240,10 +246,13 @@ def exercise_view(request, id, comment_id=None):
     if request.method == 'POST' and not comment_id:
         comment_form = ExerciseCommentForm(request.POST)
         comment_form.exercise = exercise
-        new_comment = comment_form.save(commit=False)
-        new_comment.exercise = exercise
-        new_comment.save()
-        return HttpResponseRedirect('/exercise/view/%s' % id)
+        
+        # If the data is valid, save and redirect
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.exercise = exercise
+            new_comment.save()
+            return HttpResponseRedirect('/exercise/view/%s' % id)
     else:
         comment_form = ExerciseCommentForm()
 
@@ -256,11 +265,13 @@ def exercise_view(request, id, comment_id=None):
         template_data['comment_edit_form'] = comment_edit_form
         
         if request.method == 'POST':
-            logger.debug(exercise_comment.id)
             comment_form = ExerciseCommentForm(request.POST, instance=exercise_comment)
-            comment = comment_form.save(commit=False)
-            comment.save()
-            return HttpResponseRedirect('/exercise/view/%s' % id)
+            
+            # If the data is valid, save and redirect
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.save()
+                return HttpResponseRedirect('/exercise/view/%s' % id)
         
     
     template_data['comment_form'] = comment_form
@@ -281,6 +292,8 @@ def exercise_edit(request, id=None):
     
     if request.method == 'POST':
         exercise_form = ExerciseForm(request.POST, instance=exercise)
+        
+        # If the data is valid, save and redirect
         if exercise_form.is_valid():
             exercise = exercise_form.save()
             id = exercise.id
