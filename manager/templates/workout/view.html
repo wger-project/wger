@@ -22,7 +22,7 @@
         {% for set in day.set_set.select_related %}
         <tr>
             <td >{{ set.order }} <!--(Set-ID: {{ set.id }})-->
-                <a href="">[x]</a>
+                <a href="/workout/{{ workout.id}}/day/{{ day.id }}/delete/set/{{ set.id }}">[x]</a>
                 <a href="/workout/{{ workout.id}}/day/{{ day.id }}/edit/set/{{ set.id }}">[e]</a>
             </td>
             <td>

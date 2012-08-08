@@ -26,6 +26,7 @@ from manager.models import Exercise
 from manager.models import ExerciseComment
 from manager.models import Day
 from manager.models import Set
+from manager.models import Setting
 
 
 logger = logging.getLogger('workout_manager.custom')
@@ -165,6 +166,12 @@ def edit_set(request, id, day_id, set_id=None):
     
     return render_to_response('set/edit.html', template_data)
 
+def delete_set(request, id, day_id, set_id):
+    # Load the set
+    set_obj = get_object_or_404(Set, pk=set_id)
+    set_obj.delete()
+    
+    return HttpResponseRedirect('/workout/%s/view/' % id)
 
 # ************************
 # Exercise comment functions
@@ -289,3 +296,54 @@ def exercise_delete(request, id):
     exercise.delete()
     
     return HttpResponseRedirect('/exercise/overview/')
+
+
+
+
+
+# ************************
+# Settings functions
+# ************************
+class SettingForm(ModelForm):
+    class Meta:
+        model = Setting
+        #exclude = ('exerciseday', )
+
+
+
+
+def edit_setting(request, id, set_id, setting_id=None):
+    template_data = {}
+    template_data.update(csrf(request))
+    
+    # Load workout
+    workout = get_object_or_404(TrainingSchedule, pk=id)
+    template_data['workout'] = workout
+    
+    # Load set
+    set_obj = get_object_or_404(Set, pk=day_id)
+    template_data['set'] = set_obj
+    
+    # Load setting
+    if not setting_id:
+        setting = Setting()
+    else:
+        setting = get_object_or_404(Setting, pk=setting_id)
+    template_data['setting'] = setting
+    
+    # Process request
+    if request.method == 'POST':
+        setting_form = SettingForm(request.POST, instance=setting)
+        setting = setting_form.save(commit=False)
+        #setting.exerciseday = day
+        setting.save()
+        
+        # The exercises are ManyToMany in DB, so we have to save with this function
+        #set_form.save_m2m()
+        
+        return HttpResponseRedirect('/workout/%s/view/' % id)
+    else:
+        setting_form = SettingForm(instance=setting)
+    template_data['setting_form'] = setting_form
+    
+    return render_to_response('setting/edit.html', template_data)
