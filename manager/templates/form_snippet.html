@@ -1,12 +1,13 @@
 <tr>
-    <td>
+    <td style="text-align:right;">
         {{ field.label }}
-        <p class="dimmed">{{ field.help_text }}</p>
+        
     </td>
     <td>
         <div class="{{css_class|default:"ym-fbox-text"}}">
         {{ field }}
         </div>
+        {% if field.help_text %}<p class="dimmed">{{ field.help_text }}</p>{% endif %}
         <div class="ym-fbox-text ym-error">
             {% for error in field.errors %}
                 <p class="ym-message">{{ error }}</p>
