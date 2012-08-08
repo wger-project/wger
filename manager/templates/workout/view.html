@@ -19,8 +19,8 @@
                title="{% trans "Edit" %}">[e]</a>
         </th>
     </tr>
-</thead>
-<tbody>
+    </thead>
+    <tbody>
         {% for set in day.set_set.select_related %}
         <tr>
             <td >{{ set.order }}<br> <!--(Set-ID: {{ set.id }})-->
@@ -76,9 +76,9 @@
         <tr>
             <td colspan="2">
                 <a href="/workout/{{ workout.id}}/day/{{ day.id }}/edit/set">{% trans "Add workout set" %}</a>
-        </td>
-    </tr>
-</tbody>
+            </td>
+        </tr>
+    </tbody>
 </table>
 
 {% empty %}

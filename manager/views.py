@@ -24,6 +24,7 @@ from django.core.context_processors import csrf
 from manager.models import TrainingSchedule
 from manager.models import Exercise
 from manager.models import ExerciseComment
+from manager.models import ExerciseCategory
 from manager.models import Day
 from manager.models import Set
 from manager.models import Setting
@@ -207,6 +208,10 @@ class ExerciseForm(ModelForm):
     class Meta:
         model = Exercise
 
+class ExerciseCategoryForm(ModelForm):
+    class Meta:
+        model = ExerciseCategory
+
 def exercise_overview(request):
     """Overview with all exercises
     """
@@ -304,8 +309,27 @@ def exercise_delete(request, id):
     
     return HttpResponseRedirect('/exercise/overview/')
 
-
-
+def exercise_category_edit(request, id):
+    template_data = {}
+    template_data.update(csrf(request))
+    
+    if not id:
+        category = ExerciseCategory()
+    else:
+        category = get_object_or_404(ExerciseCategory, pk=id)
+    template_data['category'] = category
+    
+    if request.method == 'POST':
+        category_form = ExerciseCategoryForm(request.POST, instance=category)
+        category = category_form.save()
+        
+        return HttpResponseRedirect('/exercise/overview/')
+    else:
+        category_form = ExerciseCategoryForm(instance=category)
+    
+    template_data['category_form'] = category_form
+    
+    return render_to_response('exercise/edit_category.html', template_data)
 
 
 # ************************

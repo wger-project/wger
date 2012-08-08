@@ -16,18 +16,25 @@
 <h2> {% trans "Exercises" %} </h2>
 
 <p>
-    <a href="/exercise/edit">{% trans "Add new exercise" %}</a>
+    <a href="/exercise/edit">{% trans "Add new exercise" %}</a> |
+    <a href="/exercise/category/edit">{% trans "Add category" %}</a>
 </p>
 
 <table>
 {% for category_id, category_data in exercises.items %}
 <tr>
-    <th>{{ category_data.category.name }} (ID {{ category_id }})</th>
+    <th>
+        {{ category_data.category.name }} <!--(ID {{ category_id }})-->
+    </th>
+    <td style="text-align: right;">
+        <a href="/exercise/category/delete/{{ category_id}}">[x]</a>
+        <a href="/exercise/category/edit/{{ category_id }}">[e]</a>
+    </td>
 </tr>
 
     {% for exercise in category_data.exercises %}
         <tr>
-            <td>
+            <td colspan="2">
                 <a href="/exercise/view/{{ exercise.id }}">{{ exercise.name }}</a>
             </td>
         <tr>
