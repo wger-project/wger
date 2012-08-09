@@ -11,7 +11,7 @@ urlpatterns = patterns('manager.views',
     url(r'^workout/(?P<id>\d+)/delete/day/(?P<day_id>\d+)$', 'delete_day'),
     url(r'^workout/(?P<id>\d+)/day/(?P<day_id>\d+)/edit/set/(?P<set_id>\d*)$', 'edit_set'),
     url(r'^workout/(?P<id>\d+)/day/(?P<day_id>\d+)/delete/set/(?P<set_id>\d+)$', 'delete_set'),
-    url(r'^workout/(?P<id>\d+)/set/(?P<set_id>\d+)/edit/setting/(?P<setting_id>\d*)$', 'edit_setting'),
+    url(r'^workout/(?P<id>\d+)/set/(?P<set_id>\d+)/exercise/(?P<exercise_id>\d+)/edit/setting/(?P<setting_id>\d*)$', 'edit_setting'),
     
     url(r'^exercise/overview/$', 'exercise_overview'),
     url(r'^exercise/view/(?P<id>\d+)$', 'exercise_view'),

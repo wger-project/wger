@@ -358,12 +358,12 @@ def exercise_category_delete(request, id):
 class SettingForm(ModelForm):
     class Meta:
         model = Setting
-        #exclude = ('exerciseday', )
+        exclude = ('sets', 'exercises')
 
 
 
 
-def edit_setting(request, id, set_id, setting_id=None):
+def edit_setting(request, id, set_id, exercise_id, setting_id=None):
     template_data = {}
     template_data.update(csrf(request))
     
@@ -372,8 +372,13 @@ def edit_setting(request, id, set_id, setting_id=None):
     template_data['workout'] = workout
     
     # Load set
-    set_obj = get_object_or_404(Set, pk=day_id)
+    set_obj = get_object_or_404(Set, pk=set_id)
     template_data['set'] = set_obj
+    
+    # Load exercise
+    exercise = get_object_or_404(Exercise, pk=exercise_id)
+    template_data['exercise'] = exercise
+    
     
     # Load setting
     if not setting_id:
@@ -384,15 +389,14 @@ def edit_setting(request, id, set_id, setting_id=None):
     
     # Process request
     if request.method == 'POST':
-        setting_form = SettingForm(request.POST, instance=setting)
-        setting = setting_form.save(commit=False)
-        #setting.exerciseday = day
-        setting.save()
-        
-        # The exercises are ManyToMany in DB, so we have to save with this function
-        #set_form.save_m2m()
-        
-        return HttpResponseRedirect('/workout/%s/view/' % id)
+        setting_form = SettingForm(request.POST, instance = setting)
+        if setting_form.is_valid():
+            setting = setting_form.save(commit=False)
+            setting.sets = set_obj
+            setting.exercises = exercise
+            setting.save()
+            
+            return HttpResponseRedirect('/workout/%s/view/' % id)
     else:
         setting_form = SettingForm(instance=setting)
     template_data['setting_form'] = setting_form
