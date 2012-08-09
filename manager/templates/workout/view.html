@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %} 
+{% load manager_extras %} 
 
 {% block title %}{% trans "Workout for" %} {{ workout.creation_date }}{% endblock %}
 
@@ -11,7 +12,7 @@
 <table>
 <thead>
     <tr>
-        <th>{{ day.description }} <!--(Day-ID: {{ day.id }})--></th>
+        <th>{{ day.description }}<!--(Day-ID: {{ day.id }})--></th>
         <th style="text-align:right">
             <a href="/workout/{{ workout.id}}/delete/day/{{ day.id }}"
                title="{% trans "Delete" %}">[x]</a>
@@ -44,18 +45,16 @@
                         -->
 
                         {{ set.sets }} x <!--(Set-ID: {{ set.id }})-->
-                        {% for setting in exercise.setting_set.all %}
-                            {% comment %}
-                                TODO: solution with 'if' is ugly and bad!
-                            {% endcomment %}
-                            
-                            {% if setting.sets_id == set.id %}
-                                {% for individual_setting in setting.individual_exercises.select_related %}
-                                    {{individual_setting.reps}}
-                                    <!--(IndividualSetting-ID: {{ individual_setting.id }})-->
-                                    <!--@ {{individual_setting.weight}}-->
-                                {% endfor %}
-                            {% endif %}
+
+                        {% comment %}
+                            get_current_settings only does a exercise.setting_set.filter(sets_id=set_id) ugly and bad!
+                        {% endcomment %}
+                        {% for setting in exercise|get_current_settings:set.id %}
+                            {% for individual_setting in setting.individual_exercises.select_related %}
+                                {{individual_setting.reps}}
+                                <!--(IndividualSetting-ID: {{ individual_setting.id }})-->
+                                <!--@ {{individual_setting.weight}}-->
+                            {% endfor %}
                         {% empty %}
                             <div class="box warning">
                                 {% trans "No settings for this exercise." %} {% trans "Use link to add one." %}

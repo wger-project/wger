@@ -63,8 +63,13 @@ class WorkoutForm(ModelForm):
 def view_workout(request, id):
     """Show the workout with the given ID
     """
-    p = get_object_or_404(TrainingSchedule, pk=id)
-    return render_to_response('workout/view.html', {'workout': p})
+    template_data = {}
+    
+    workout = get_object_or_404(TrainingSchedule, pk=id)
+    template_data['workout'] = workout
+    
+    #days = workout.day_set.all()
+    return render_to_response('workout/view.html', template_data)
     
 def add(request):
     """Add a new workout and redirect to its page
