@@ -9,7 +9,7 @@
 
 
 {% for day in workout.day_set.select_related %}
-<table>
+<table class="bordertable">
 <thead>
     <tr>
         <th>{{ day.description }}<!--(Day-ID: {{ day.id }})--></th>
@@ -44,6 +44,8 @@
                         {% endfor %}
                         -->
 
+                        <a href="/workout/{{ workout.id}}/day/{{ set.id }}/edit/settings/"
+                           title="{% trans "Edit" %}">[e]</a>
                         {{ set.sets }} x <!--(Set-ID: {{ set.id }})-->
 
                         {% comment %}
@@ -51,7 +53,7 @@
                         {% endcomment %}
                         {% for setting in exercise|get_current_settings:set.id %}
                             {% for individual_setting in setting.individual_exercises.select_related %}
-                                {{individual_setting.reps}}
+                                {{ individual_setting.reps }}
                                 <!--(IndividualSetting-ID: {{ individual_setting.id }})-->
                                 <!--@ {{individual_setting.weight}}-->
                             {% endfor %}
