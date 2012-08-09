@@ -53,7 +53,6 @@
                         {% endcomment %}
                         {% for setting in exercise|get_current_settings:set.id %}
                             {{ setting.reps }}
-                            {% endfor %}-->
                         {% empty %}
                             <div class="box warning">
                                 {% trans "No settings for this exercise." %} {% trans "Use link to add one." %}
