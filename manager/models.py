@@ -126,4 +126,4 @@ class Setting(models.Model):
     def __unicode__(self):
         """Return a more human-readable representation
         """
-        return "reps for %s" % (self.reps,)
+        return "settings for exercise %s in set %s" % (self.exercises.id, self.sets.id)
