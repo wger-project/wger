@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load i18n %} 
-{% load staticfiles %}
 
 <!--
         Title
@@ -21,7 +20,9 @@
 </h2>
 
 
-<form action="/exercise/edit/{% if exercise.id %}{{ exercise.id }}{% endif %}" method="post" class="ym-form">
+<form action="/exercise/edit/{% if exercise.id %}{{ exercise.id }}{% endif %}"
+      method="post"
+      class="ym-form">
 {% csrf_token %}
 {{ edit_form.non_field_errors }}
 <table>
