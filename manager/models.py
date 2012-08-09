@@ -113,22 +113,6 @@ class Set(models.Model):
 
 
 
-class IndividualSetting(models.Model):
-    """Setting for an exercise on a set (weight, reps, etc.)
-    """
-    
-    weight = models.IntegerField(verbose_name =_ ('Weight'))
-    reps = models.IntegerField(verbose_name =_ ('Repetitions'))
-    comment = models.CharField(max_length=100, blank=True, verbose_name =_ ('Comment'))
-    order = models.IntegerField(max_length=1, blank=True, verbose_name =_ ('Order'))
-    
-    def __unicode__(self):
-        """Return a more human-readable representation
-        """
-        return "reps: %s" % (self.reps)
-
-
-
 class Setting(models.Model):
     """Settings for an exercise (weight, reps, etc.)
     """
@@ -136,7 +120,8 @@ class Setting(models.Model):
     reps = models.IntegerField(verbose_name =_ ('Repetitions'))
     sets = models.ForeignKey(Set, verbose_name =_ ('Sets'))
     exercises = models.ForeignKey(Exercise, verbose_name =_ ('Exercises'))
-    individual_exercises = models.ManyToManyField(IndividualSetting, verbose_name =_ ('Individual Exercises'))
+    #individual_exercises = models.ForeignKey(IndividualSetting, verbose_name =_ ('Individual Exercises'))
+    #individual_exercises = models.ManyToManyField(IndividualSetting, verbose_name =_ ('Individual Exercises'))
     
     comment = models.CharField(max_length=100, blank=True, verbose_name =_ ('Comment'))
     
@@ -145,3 +130,18 @@ class Setting(models.Model):
         """Return a more human-readable representation
         """
         return "setings for %s" % (unicode(self.exercises),)
+
+class IndividualSetting(models.Model):
+    """Setting for an exercise on a set (weight, reps, etc.)
+    """
+    
+    setting = models.ForeignKey(Setting, verbose_name = _('Setting'))
+    weight = models.IntegerField(verbose_name = _('Weight'))
+    reps = models.IntegerField(verbose_name = _('Repetitions'))
+    comment = models.CharField(max_length=100, blank=True, verbose_name = _('Comment'))
+    order = models.IntegerField(max_length=1, blank=True, verbose_name = _('Order'))
+    
+    def __unicode__(self):
+        """Return a more human-readable representation
+        """
+        return "reps: %s" % (self.reps)

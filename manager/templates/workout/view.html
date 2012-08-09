@@ -52,7 +52,7 @@
                             get_current_settings only does a exercise.setting_set.filter(sets_id=set_id) ugly and bad!
                         {% endcomment %}
                         {% for setting in exercise|get_current_settings:set.id %}
-                            {% for individual_setting in setting.individual_exercises.select_related %}
+                            {% for individual_setting in setting.individualsetting_set.select_related %}
                                 {{ individual_setting.reps }}
                                 <!--(IndividualSetting-ID: {{ individual_setting.id }})-->
                                 <!--@ {{individual_setting.weight}}-->
