@@ -44,8 +44,6 @@
                         {% endfor %}
                         -->
 
-                        <a href="/workout/{{ workout.id}}/set/{{ set.id }}/exercise/{{ exercise.id }}/edit/setting/"
-                           title="{% trans "Edit" %}">[e]</a>
                         {{ set.sets }} x <!--(Set-ID: {{ set.id }})-->
 
                         {% comment %}
@@ -59,6 +57,10 @@
                                 {% trans "No settings for this exercise." %} {% trans "Use link to add one." %}
                             </div>
                         {% endfor %} <!--for setting in exercise-->
+                        <a href="/workout/{{ workout.id}}/set/{{ set.id }}/exercise/{{ exercise.id }}/edit/setting/"
+                           title="{% trans "Edit" %}">[e]</a>
+                        <a href="/workout/{{ workout.id}}/set/{{ set.id }}/exercise/{{ exercise.id }}/delete/setting/"
+                           title="{% trans "Delete" %}">[x]</a>
                     </li>
                 {% endfor %} <!--for exercise in set-->
                 </ul>
