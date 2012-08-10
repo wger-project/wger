@@ -19,6 +19,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import Http404
 from django.forms import ModelForm
+from django.forms.models import modelformset_factory
 from django.core.context_processors import csrf
 from django.contrib.auth import authenticate, login, logout
 
@@ -360,9 +361,6 @@ class SettingForm(ModelForm):
         model = Setting
         exclude = ('sets', 'exercises')
 
-
-
-
 def edit_setting(request, id, set_id, exercise_id, setting_id=None):
     template_data = {}
     template_data.update(csrf(request))
@@ -371,9 +369,13 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
     workout = get_object_or_404(TrainingSchedule, pk=id)
     template_data['workout'] = workout
     
-    # Load set
+    # Load set and the FormSet
     set_obj = get_object_or_404(Set, pk=set_id)
     template_data['set'] = set_obj
+    
+    SettingFormSet = modelformset_factory(Setting,
+                                          exclude = ('sets', 'exercises'),
+                                          max_num=int(set_obj.sets))
     
     # Load exercise
     exercise = get_object_or_404(Exercise, pk=exercise_id)
@@ -389,16 +391,19 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
     
     # Process request
     if request.method == 'POST':
-        setting_form = SettingForm(request.POST, instance = setting)
+        
+        # Process the FormSet, setting the set and the exercise
+        setting_form = SettingFormSet(request.POST)
         if setting_form.is_valid():
-            setting = setting_form.save(commit=False)
-            setting.sets = set_obj
-            setting.exercises = exercise
-            setting.save()
+            instances = setting_form.save(commit=False)
+            for settinh_instance in instances:
+                settinh_instance.sets = set_obj
+                settinh_instance.exercises = exercise
+                settinh_instance.save()
             
             return HttpResponseRedirect('/workout/%s/view/' % id)
     else:
-        setting_form = SettingForm(instance=setting)
+        setting_form = SettingFormSet(queryset=Setting.objects.filter(exercises_id=exercise.id, sets_id=set_obj.id))
     template_data['setting_form'] = setting_form
     
     return render_to_response('setting/edit.html', template_data)
