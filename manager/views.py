@@ -80,6 +80,15 @@ def add(request):
     
     return HttpResponseRedirect('/workout/%s/view/' % workout.id)
 
+def delete_workout(request, id):
+    """Deletes the workout with ID id
+    """
+    
+    # Load the workout
+    workout = get_object_or_404(TrainingSchedule, pk=id)
+    workout.delete()
+    
+    return HttpResponseRedirect('/')
 
 
 # ************************
