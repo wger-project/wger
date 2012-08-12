@@ -110,16 +110,17 @@ def pdf_workout(request, id):
     set_markers = []
     exercise_markers = []
     nr_of_weeks = 7
+    first_weight_column = 3
     
     
     # Days
     for day in workout.day_set.select_related():
         day_markers.append(len(data))
         
-        #P = Paragraph('''<para align=center><strong>%s</strong></para>''' % day.description,
-        #              styleSheet["Normal"])
+        P = Paragraph('<para align="center"><strong>%s</strong></para>' % day.description,
+                      styleSheet["Normal"])
         
-        data.append([_(calendar.day_name[day.day]), day.description])
+        data.append([P])
         data.append([_('Nr.'), _('Exercise'), _('Reps')] + [_('Weight')] * nr_of_weeks)
         
         # Sets
@@ -136,39 +137,38 @@ def pdf_workout(request, id):
                 for setting in exercise.setting_set.filter(sets_id = set_obj.id):
                     setting_data.append(setting.reps)
                
-                out = set_obj.sets + ' x ' + '-'.join(setting_data)
-                data.append([set_obj.order, exercise.name, out] + [''] * nr_of_weeks)
+                
+                out = set_obj.sets + 'x ' + ', '.join(setting_data)
+                data.append([set_obj.order, Paragraph(exercise.name, styleSheet["Normal"]), out] + [''] * nr_of_weeks)
         data.append(['', '', _('Impression')])
-    logger.debug(data)
-    logger.debug(day_markers)
-    #I = Image('replogo.gif')
-    #I.drawHeight = 1.25*cm*I.drawHeight / I.drawWidth
-    #I.drawWidth = 1.25*cm
-    P0 = Paragraph('''
-                <b>A pa<font color=red>r</font>a<i>graph</i></b>
-                <super><font color=yellow>1</font></super>''',
-                styleSheet["BodyText"])
-    P = Paragraph('''
-        <para align=center spaceb=3>The <b>ReportLab Left
-        <font color=red>Logo</font></b>
-        Image</para>''',
-        styleSheet["BodyText"])
     
     # Set general table styles
+    table_style = []
     table_style = [('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                    ('BOX', (0,0), (-1,-1), 0.25, colors.black)]
     
     # Set specific styles, e.g. background for title cells
+    previous_marker = 0
     for marker in day_markers:
+        # Set background colour for headings
         table_style.append(('BACKGROUND', (0, marker), (-1, marker), colors.green))
         table_style.append(('BOX', (0, marker), (-1, marker), 1.25, colors.black))
-        table_style.append(('SPAN', (1, marker), (-1, marker)))
+        
+        # Make the headings span the whole width
+        table_style.append(('SPAN', (0, marker), (-1, marker)))
 
     
     table_style.append
     t = Table(data, style = table_style)
     
-    t._argW[3]=2 * cm
+    # Manually set the width of thecolumns
+    for i in range(first_weight_column, nr_of_weeks + first_weight_column):
+        t._argW[i] = 1.8 * cm
+    
+    t._argW[0] = 0.7 * cm
+    t._argW[1] = 3.1 * cm
+    t._argW[2] = 2.5 * cm
+
     elements.append(t)
     #t=Table(data,style=[('GRID',(1,1),(-2,-2),1,colors.green),
                         #('BOX',(0,0),(1,-1),2,colors.red),
