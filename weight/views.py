@@ -12,6 +12,7 @@
 # 
 # You should have received a copy of the GNU Affero General Public License
 
+import logging
 import datetime
 
 from django.shortcuts import render_to_response
@@ -21,6 +22,9 @@ from django.forms import ModelForm
 from django.core.context_processors import csrf
 
 from weight.models import WeightEntry
+
+
+logger = logging.getLogger('workout_manager.custom')
 
 class WeightForm(ModelForm):
     class Meta:
@@ -61,7 +65,16 @@ def overview(request):
     """Shows an overview of weight data
     """
     template_data = {}
+    weights = WeightEntry.objects.all()
+    template_data['weights'] = weights
     
-    template_data['weights'] = WeightEntry.objects.all()
+    # Process the data to pass it to the JS libraries to generate an SVG image
+    data_y = ', '.join([str(i.weight) for i in weights])
+    data_x = ', '.join(["new Date(%s, %s, %s)" % (i.creation_date.year,
+                                                  i.creation_date.month,
+                                                  i.creation_date.day) for i in weights])
+    
+    template_data['data_x'] = data_x
+    template_data['data_y'] = data_y
     
     return render_to_response('overview.html', template_data)
