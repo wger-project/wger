@@ -1,0 +1,1 @@
+jquery.wijmo-open.all.2.1.6.min.js
