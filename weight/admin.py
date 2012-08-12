@@ -11,20 +11,10 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU Affero General Public License
-# along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.db import models
+from weight.models import WeightEntry
 
-from django.utils.translation import ugettext as _
+from django.contrib import admin
 
-class WeightEntry(models.Model):
-    """Model for a weight point
-    """
-    creation_date = models.DateField(_('Creation date'))
-    weight = models.FloatField(_('Weight'))
 
-    
-    def __unicode__(self):
-        """Return a more human-readable representation
-        """
-        return "%s: %s kg" % (self.creation_date, self.weight)
+admin.site.register(WeightEntry)

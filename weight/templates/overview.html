@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n %} 
+
+<!--
+        Title
+-->
+{% block title %}{% trans "Exercise details" %}{% endblock %}
+
+
+<!--
+        Main Content
+-->
+{% block content %}
+
+<h2>{% if exercise.id %}
+        {% trans "Edit" %} {{ exercise.name }}
+    {% else %}
+        {% trans "New exercise" %}
+    {% endif %}
+</h2>
+
+
+{% for entry in weights %}
+{{ entry }}
+{% endfor %}
+
+
+{% endblock %}
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}{% endblock %}
