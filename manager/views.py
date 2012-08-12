@@ -375,7 +375,8 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
     
     SettingFormSet = modelformset_factory(Setting,
                                           exclude = ('sets', 'exercises'),
-                                          max_num=int(set_obj.sets))
+                                          max_num = int(set_obj.sets),
+                                          extra = int(set_obj.sets))
     
     # Load exercise
     exercise = get_object_or_404(Exercise, pk=exercise_id)
