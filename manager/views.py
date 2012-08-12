@@ -32,6 +32,7 @@ from manager.models import Day
 from manager.models import Set
 from manager.models import Setting
 
+from reportlab.pdfgen import canvas
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -69,9 +70,32 @@ def view_workout(request, id):
     workout = get_object_or_404(TrainingSchedule, pk=id)
     template_data['workout'] = workout
     
-    #days = workout.day_set.all()
     return render_to_response('workout/view.html', template_data)
+
+def pdf_workout(request, id):
+    """Generates a PDF with the contents of the given workout
+    """
     
+    #Load the workout
+    workout = get_object_or_404(TrainingSchedule, pk=id)
+    
+    # Create the HttpResponse object with the appropriate PDF headers.
+    response = HttpResponse(mimetype='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=workout.pdf'
+    
+    # Create the PDF object, using the response object as its "file."
+    p = canvas.Canvas(response)
+
+    # Draw things on the PDF. Here's where the PDF generation happens.
+    # See the ReportLab documentation for the full list of functionality.
+    p.drawString(100, 100, "Hello world.")
+
+    # Close the PDF object cleanly, and we're done.
+    p.showPage()
+    p.save()
+    return response
+    
+
 def add(request):
     """Add a new workout and redirect to its page
     """

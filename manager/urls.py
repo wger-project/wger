@@ -6,6 +6,7 @@ urlpatterns = patterns('manager.views',
     url(r'^logout$', 'logout'),
     
     url(r'^workout/add$', 'add'),
+    url(r'^workout/(?P<id>\d+)/pdf/$', 'pdf_workout'),
     url(r'^workout/(?P<id>\d+)/view/$', 'view_workout'),
     url(r'^workout/(?P<id>\d+)/delete/$', 'delete_workout'),
     url(r'^workout/(?P<id>\d+)/edit/day/(?P<day_id>\d*)$', 'edit_day'),
