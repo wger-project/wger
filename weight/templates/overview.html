@@ -52,7 +52,7 @@
                 showChartLabels: false,
                 hint: {
                     content: function () {
-                        return this.x + ',  ' + this.y + ' kg'
+                        return this.x.toLocaleDateString() + ',  ' + this.y + ' kg'
                     },
                     contentStyle: {
                         "font-size": "10pt"
