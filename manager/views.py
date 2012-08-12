@@ -33,6 +33,7 @@ from manager.models import Set
 from manager.models import Setting
 
 from reportlab.pdfgen import canvas
+from reportlab.platypus import *
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -71,9 +72,14 @@ def view_workout(request, id):
     template_data['workout'] = workout
     
     return render_to_response('workout/view.html', template_data)
-
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.pagesizes import A4, cm
+from reportlab.platypus import Image, Paragraph, SimpleDocTemplate, Table
+from reportlab.lib import colors
 def pdf_workout(request, id):
     """Generates a PDF with the contents of the given workout
+    
+    from http://www.blog.pythonlibrary.org/2010/09/21/reportlab-tables-creating-tables-in-pdfs-with-python/
     """
     
     #Load the workout
@@ -84,15 +90,84 @@ def pdf_workout(request, id):
     response['Content-Disposition'] = 'attachment; filename=workout.pdf'
     
     # Create the PDF object, using the response object as its "file."
-    p = canvas.Canvas(response)
+    doc = SimpleDocTemplate(response, pagesize=A4)
+    # container for the 'Flowable' objects
+    elements = []
+    
+    styleSheet = getSampleStyleSheet()
+    data = []
+    
+    # Iterate through the Workout
+    day_markers = []
+    set_markers = []
+    exercise_markers = []
+    for day in workout.day_set.select_related():
+        day_markers.append(len(data))
+        data.append([day.description, day.day])
+        
+        
+        for set_obj in day.set_set.select_related():
+            set_markers.append(len(data))
+            data.append([set_obj.order])
+            
+            
+            for exercise in set_obj.exercises.select_related():
+                exercise_markers.append(len(data))
+                data.append([exercise.name, set_obj.sets])
+                
+                
+                for setting in exercise.setting_set.filter(sets_id=set_obj.id):
+                    data.append([setting.reps])
+                    
+    logger.debug(data)
+    logger.debug(day_markers)
+    #I = Image('replogo.gif')
+    #I.drawHeight = 1.25*cm*I.drawHeight / I.drawWidth
+    #I.drawWidth = 1.25*cm
+    P0 = Paragraph('''
+                <b>A pa<font color=red>r</font>a<i>graph</i></b>
+                <super><font color=yellow>1</font></super>''',
+                styleSheet["BodyText"])
+    P = Paragraph('''
+        <para align=center spaceb=3>The <b>ReportLab Left
+        <font color=red>Logo</font></b>
+        Image</para>''',
+        styleSheet["BodyText"])
+    
+    table_style = [('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                   ('BOX', (0,0), (-1,-1), 0.25, colors.black)]
+    
+    for marker in day_markers:
+        table_style.append(('BACKGROUND', (0, marker), (1, marker), colors.green))
+    
+    table_style.append
+    t=Table(data, style=table_style)
+    #t=Table(data,style=[('GRID',(1,1),(-2,-2),1,colors.green),
+                        #('BOX',(0,0),(1,-1),2,colors.red),
+                        #('LINEABOVE',(1,2),(-2,2),1,colors.blue),
+                        #('LINEBEFORE',(2,1),(2,-2),1,colors.pink),
+                        #('BACKGROUND', (0, 0), (0, 1), colors.pink),
+                        #('BACKGROUND', (1, 1), (1, 2), colors.lavender),
+                        #('BACKGROUND', (2, 2), (2, 3), colors.orange),
+                        #('BOX',(0,0),(-1,-1),2,colors.black),
+                        #('GRID',(0,0),(-1,-1),0.5,colors.black),
+                        #('VALIGN',(3,0),(3,0),'BOTTOM'),
+                        #('BACKGROUND',(3,0),(3,0),colors.limegreen),
+                        #('BACKGROUND',(3,1),(3,1),colors.khaki),
+                        #('ALIGN',(3,1),(3,1),'CENTER'),
+                        #('BACKGROUND',(3,2),(3,2),colors.beige),
+                        #('ALIGN',(3,2),(3,2),'LEFT'),
+    #])
+    #t._argW[3]=1.5*cm
+    
+    elements.append(t)
+    # write the document to disk
+    doc.build(elements)
 
-    # Draw things on the PDF. Here's where the PDF generation happens.
-    # See the ReportLab documentation for the full list of functionality.
-    p.drawString(100, 100, "Hello world.")
 
     # Close the PDF object cleanly, and we're done.
-    p.showPage()
-    p.save()
+    #p.showPage()
+    #p.save()
     return response
     
 
