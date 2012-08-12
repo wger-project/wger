@@ -79,7 +79,9 @@ from reportlab.lib import colors
 def pdf_workout(request, id):
     """Generates a PDF with the contents of the given workout
     
-    from http://www.blog.pythonlibrary.org/2010/09/21/reportlab-tables-creating-tables-in-pdfs-with-python/
+    See also
+    * http://www.blog.pythonlibrary.org/2010/09/21/reportlab-tables-creating-tables-in-pdfs-with-python/
+    * http://www.reportlab.com/apis/reportlab/dev/platypus.html
     """
     
     #Load the workout
@@ -101,24 +103,28 @@ def pdf_workout(request, id):
     day_markers = []
     set_markers = []
     exercise_markers = []
+    
+    # Days
     for day in workout.day_set.select_related():
         day_markers.append(len(data))
         data.append([day.description, day.day])
         
-        
+        # Sets
         for set_obj in day.set_set.select_related():
             set_markers.append(len(data))
-            data.append([set_obj.order])
             
-            
+            # Exercises
             for exercise in set_obj.exercises.select_related():
                 exercise_markers.append(len(data))
-                data.append([exercise.name, set_obj.sets])
+                setting_data = []
                 
                 
+                # Settings
                 for setting in exercise.setting_set.filter(sets_id=set_obj.id):
-                    data.append([setting.reps])
-                    
+                    setting_data.append(setting.reps)
+               
+                out = set_obj.sets + ' x ' + ' - '.join(setting_data)
+                data.append([set_obj.order, exercise.name, out ])
     logger.debug(data)
     logger.debug(day_markers)
     #I = Image('replogo.gif')
@@ -138,7 +144,9 @@ def pdf_workout(request, id):
                    ('BOX', (0,0), (-1,-1), 0.25, colors.black)]
     
     for marker in day_markers:
-        table_style.append(('BACKGROUND', (0, marker), (1, marker), colors.green))
+        table_style.append(('BACKGROUND', (0, marker), (-1, marker), colors.green))
+        table_style.append(('BOX', (0,marker), (-1,marker), 1.25, colors.black))
+        
     
     table_style.append
     t=Table(data, style=table_style)
