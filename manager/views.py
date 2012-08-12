@@ -397,10 +397,10 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
         setting_form = SettingFormSet(request.POST)
         if setting_form.is_valid():
             instances = setting_form.save(commit=False)
-            for settinh_instance in instances:
-                settinh_instance.sets = set_obj
-                settinh_instance.exercises = exercise
-                settinh_instance.save()
+            for setting_instance in instances:
+                setting_instance.sets = set_obj
+                setting_instance.exercises = exercise
+                setting_instance.save()
             
             return HttpResponseRedirect('/workout/%s/view/' % id)
     else:
