@@ -47,7 +47,7 @@
                         {{ set.sets }} x <!--(Set-ID: {{ set.id }})-->
 
                         {% comment %}
-                            get_current_settings only does a exercise.setting_set.filter(sets_id=set_id) ugly and bad!
+                            get_current_settings only does a exercise.setting_set.filter(sets_id=set_id)
                         {% endcomment %}
                         {% for setting in exercise|get_current_settings:set.id %}
                             {{ setting.reps }}
