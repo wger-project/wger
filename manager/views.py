@@ -12,6 +12,7 @@
 # 
 # You should have received a copy of the GNU Affero General Public License
 import logging
+import calendar
 
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
@@ -22,6 +23,7 @@ from django.forms import ModelForm
 from django.forms.models import modelformset_factory
 from django.core.context_processors import csrf
 from django.contrib.auth import authenticate, login, logout
+from django.utils.translation import ugettext as _
 
 
 from manager.models import TrainingSchedule
@@ -92,7 +94,12 @@ def pdf_workout(request, id):
     response['Content-Disposition'] = 'attachment; filename=workout.pdf'
     
     # Create the PDF object, using the response object as its "file."
-    doc = SimpleDocTemplate(response, pagesize=A4)
+    doc = SimpleDocTemplate(response,
+                            pagesize = A4,
+                            title = _('Workout'),
+                            author = _('Workout Manager'),
+                            subject = _('Workout for XYZ'))
+
     # container for the 'Flowable' objects
     elements = []
     
@@ -103,11 +110,14 @@ def pdf_workout(request, id):
     day_markers = []
     set_markers = []
     exercise_markers = []
+    nr_of_weeks = 7
+    
     
     # Days
     for day in workout.day_set.select_related():
         day_markers.append(len(data))
-        data.append([day.description, day.day])
+        data.append([_(calendar.day_name[day.day]), day.description])
+        data.append([_('Nr.'), _('Exercise'), _('Reps')] + [_('Weight')] * nr_of_weeks)
         
         # Sets
         for set_obj in day.set_set.select_related():
@@ -120,11 +130,12 @@ def pdf_workout(request, id):
                 
                 
                 # Settings
-                for setting in exercise.setting_set.filter(sets_id=set_obj.id):
+                for setting in exercise.setting_set.filter(sets_id = set_obj.id):
                     setting_data.append(setting.reps)
                
-                out = set_obj.sets + ' x ' + ' - '.join(setting_data)
-                data.append([set_obj.order, exercise.name, out ])
+                out = set_obj.sets + ' x ' + '-'.join(setting_data)
+                data.append([set_obj.order, exercise.name, out] + [''] * nr_of_weeks)
+        data.append(['', '', _('Impression')])
     logger.debug(data)
     logger.debug(day_markers)
     #I = Image('replogo.gif')
@@ -149,7 +160,9 @@ def pdf_workout(request, id):
         
     
     table_style.append
-    t=Table(data, style=table_style)
+    t = Table(data, style = table_style)
+    t._argW[3]=2 * cm
+    elements.append(t)
     #t=Table(data,style=[('GRID',(1,1),(-2,-2),1,colors.green),
                         #('BOX',(0,0),(1,-1),2,colors.red),
                         #('LINEABOVE',(1,2),(-2,2),1,colors.blue),
@@ -168,14 +181,10 @@ def pdf_workout(request, id):
     #])
     #t._argW[3]=1.5*cm
     
-    elements.append(t)
-    # write the document to disk
+    
+    # write the document and send the response to the browser
     doc.build(elements)
 
-
-    # Close the PDF object cleanly, and we're done.
-    #p.showPage()
-    #p.save()
     return response
     
 
