@@ -408,3 +408,13 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
     template_data['setting_form'] = setting_form
     
     return render_to_response('setting/edit.html', template_data)
+
+def delete_setting(request, id, set_id, exercise_id):
+    # Load the workout
+    workout = get_object_or_404(TrainingSchedule, pk=id)
+    
+    settings = Setting.objects.filter(exercises_id=exercise_id, sets_id=set_id)
+    settings.delete()
+    
+    return HttpResponseRedirect('/workout/%s/view/' % id)
+
