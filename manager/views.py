@@ -34,8 +34,10 @@ from manager.models import Day
 from manager.models import Set
 from manager.models import Setting
 
-from reportlab.pdfgen import canvas
-from reportlab.platypus import *
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.pagesizes import A4, cm
+from reportlab.platypus import Image, Paragraph, SimpleDocTemplate, Table
+from reportlab.lib import colors
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -74,10 +76,7 @@ def view_workout(request, id):
     template_data['workout'] = workout
     
     return render_to_response('workout/view.html', template_data)
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.lib.pagesizes import A4, cm
-from reportlab.platypus import Image, Paragraph, SimpleDocTemplate, Table
-from reportlab.lib import colors
+
 def pdf_workout(request, id):
     """Generates a PDF with the contents of the given workout
     
@@ -116,6 +115,10 @@ def pdf_workout(request, id):
     # Days
     for day in workout.day_set.select_related():
         day_markers.append(len(data))
+        
+        #P = Paragraph('''<para align=center><strong>%s</strong></para>''' % day.description,
+        #              styleSheet["Normal"])
+        
         data.append([_(calendar.day_name[day.day]), day.description])
         data.append([_('Nr.'), _('Exercise'), _('Reps')] + [_('Weight')] * nr_of_weeks)
         
@@ -151,16 +154,20 @@ def pdf_workout(request, id):
         Image</para>''',
         styleSheet["BodyText"])
     
+    # Set general table styles
     table_style = [('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                    ('BOX', (0,0), (-1,-1), 0.25, colors.black)]
     
+    # Set specific styles, e.g. background for title cells
     for marker in day_markers:
         table_style.append(('BACKGROUND', (0, marker), (-1, marker), colors.green))
-        table_style.append(('BOX', (0,marker), (-1,marker), 1.25, colors.black))
-        
+        table_style.append(('BOX', (0, marker), (-1, marker), 1.25, colors.black))
+        table_style.append(('SPAN', (1, marker), (-1, marker)))
+
     
     table_style.append
     t = Table(data, style = table_style)
+    
     t._argW[3]=2 * cm
     elements.append(t)
     #t=Table(data,style=[('GRID',(1,1),(-2,-2),1,colors.green),
