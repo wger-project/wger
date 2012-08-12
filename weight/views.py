@@ -63,6 +63,9 @@ def add(request, id=None):
 
 def overview(request):
     """Shows an overview of weight data
+    
+    More info about the JS can be found here:
+        * http://wijmo.com/wiki/index.php/Scatterchart
     """
     template_data = {}
     weights = WeightEntry.objects.all()
