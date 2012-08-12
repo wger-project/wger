@@ -1,0 +1,45 @@
+{
+	"name": "globalize",
+	"version": "0.1.0pre",
+	"description": "New age globalization and localization. Formats and parses strings, dates and numbers in over 350 cultures.",
+	"keywords": [
+		"utility",
+		"globalization", "internationalization", "multilingualization", "localization",
+		"g11n", "i18n", "m17n", "L10n",
+		"localize", "format", "parse", "translate",
+		"strings", "numbers", "dates", "times",
+		"calendars", "cultures", "languages", "locales"
+	],
+	"homepage": "http://wiki.jqueryui.com/Globalize",
+	"author": "The jQuery Project",
+	"contributors": [
+		"Dave Reed <dareed@microsoft.com> (http://weblogs.asp.net/infinitiesloop)",
+		"Richard D. Worth <rdworth@gmail.com> (http://rdworth.org)",
+		"Jörn Zaefferer <joern.zaefferer@gmail.com> (http://bassistance.de)",
+		"Legal-Box <legalbox@eric.brechemier.name> (http://www.legal-box.com)",
+		"Nikolaus Graf (http://www.nikgraf.com)",
+		"Tobie Langel <tobie.langel@gmail.com> (http://tobielangel.com)",
+		"Boris Moore <borismoore@gmail.com> (http://www.borismoore.com)"
+	],
+	"files": [
+		"./lib/cultures"
+	],
+	"main": "./lib/globalize.js",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/jquery/globalize.git"
+	},
+	"bugs": {
+		"web": "http://github.com/jquery/globalize/issues"
+	},
+	"directories": {
+		"lib": "./lib",
+		"examples": "./examples"
+	},
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://jquery.org/license"
+		}
+	]
+}
