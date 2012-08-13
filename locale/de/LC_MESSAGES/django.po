@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-06 20:14+0200\n"
+"POT-Creation-Date: 2012-08-13 18:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,131 +20,300 @@ msgstr ""
 "X-Language: de_DE\n"
 "X-Source-Language: C\n"
 
-#: models.py:24
+#: manager/models.py:24 weight/models.py:23
 msgid "Creation date"
 msgstr "Datum Erstellung"
 
-#: models.py:25 models.py:88 models.py:119 models.py:138
+#: manager/models.py:25 manager/models.py:92 manager/models.py:125
 msgid "Comment"
 msgstr "Kommentar"
 
-#: models.py:45
+#: manager/models.py:45
 msgid "Training"
 msgstr "Training"
 
-#: models.py:46
+#: manager/models.py:47
 msgid "Description"
 msgstr "Beschreibung"
 
-#: models.py:47
+#: manager/models.py:48
+msgid ""
+"Ususally a description about what parts are trained, like \"Arms\" or \"Pull "
+"Day\""
+msgstr ""
+
+#: manager/models.py:49
 msgid "Day"
 msgstr "Tag"
 
-#: models.py:59 models.py:75
+#: manager/models.py:61 manager/models.py:77
 msgid "Name"
 msgstr "Name"
 
-#: models.py:62
+#: manager/models.py:64
 msgid "Exercise Categories"
 msgstr "Kategorie Übung"
 
-#: models.py:74
+#: manager/models.py:76 manager/templates/exercise/view.html:22
 msgid "Category"
 msgstr "Kategorie"
 
-#: models.py:87
+#: manager/models.py:89 manager/views.py:124
 msgid "Exercise"
 msgstr "Übung"
 
-#: models.py:101
+#: manager/models.py:93
+#, fuzzy
+msgid "Some comment about how to correctly do this exercise"
+msgstr "Alle Kommentare für diese Übung"
+
+#: manager/models.py:106
 msgid "Exercise day"
 msgstr "Übungstag"
 
-#: models.py:102 models.py:135 templates/base.html:50
-#: templates/exercise/overview.html:8 templates/exercise/overview.html:16
+#: manager/models.py:107 manager/models.py:123 manager/templates/base.html:50
+#: manager/templates/exercise/overview.html:8
+#: manager/templates/exercise/overview.html:16
 msgid "Exercises"
 msgstr "Übungen"
 
-#: models.py:103 models.py:120
+#: manager/models.py:108
 msgid "Order"
 msgstr "Reihenfolge"
 
-#: models.py:104 models.py:134
+#: manager/models.py:109 manager/models.py:122
 msgid "Sets"
 msgstr "Satz"
 
-#: models.py:117
-msgid "Weight"
-msgstr "Gewicht"
-
-#: models.py:118 models.py:133
+#: manager/models.py:124
 msgid "Repetitions"
 msgstr "Wiederholungen"
 
-#: models.py:136
-msgid "Individual Exercises"
-msgstr "Individuelle Übung"
+#: manager/views.py:98
+#, fuzzy
+msgid "Workout"
+msgstr "Trainingsplan für"
 
-#: templates/add.html:8 templates/add.html.py:19
-#: templates/exercise/add_exersise.html:8
-#: templates/exercise/add_exersise.html:19
+#: manager/views.py:99
+#, fuzzy
+msgid "Workout Manager"
+msgstr "Trainingsplan für"
+
+#: manager/views.py:100
+#, fuzzy
+msgid "Workout for XYZ"
+msgstr "Trainingsplan für"
+
+#: manager/views.py:124
+msgid "Nr."
+msgstr ""
+
+#: manager/views.py:124
+msgid "Reps"
+msgstr ""
+
+#: manager/views.py:124 manager/templates/base.html:49 weight/models.py:24
+msgid "Weight"
+msgstr "Gewicht"
+
+#: manager/views.py:143
+msgid "Impression"
+msgstr ""
+
+#: manager/templates/base.html:40
+#, fuzzy
+msgid "Workout manager"
+msgstr "Trainingsplan für"
+
+#: manager/templates/base.html:52
+msgid "Admin"
+msgstr ""
+
+#: manager/templates/base.html:56 manager/templates/base.html.py:57
+msgid "Search"
+msgstr ""
+
+#: manager/templates/index.html:4
+msgid "Workout list"
+msgstr "Liste der Trainingspläne"
+
+#: manager/templates/index.html:16
+msgid "Add workout"
+msgstr "Trainingsplan hinzufügen"
+
+#: manager/templates/day/edit.html:7
+msgid "Day details"
+msgstr ""
+
+#: manager/templates/day/edit.html:15 manager/templates/exercise/edit.html:16
+#: manager/templates/exercise/edit_category.html:17
+#: manager/templates/exercise/overview.html:33
+#: manager/templates/exercise/overview.html:44
+#: manager/templates/exercise/view.html:18
+#: manager/templates/exercise/view.html:38 manager/templates/set/edit.html:15
+#: manager/templates/setting/edit.html:15
+#: manager/templates/workout/view.html:20
+#: manager/templates/workout/view.html:31
+#: manager/templates/workout/view.html:62 weight/templates/edit.html:16
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: manager/templates/day/edit.html:26 manager/templates/exercise/edit.html:32
+#: manager/templates/exercise/edit_category.html:32
+#: manager/templates/exercise/view.html:34
+#: manager/templates/exercise/view.html:53 manager/templates/set/edit.html:27
+#: manager/templates/setting/edit.html:32 weight/templates/edit.html:32
+msgid "Save"
+msgstr ""
+
+#: manager/templates/exercise/add_exersise.html:8
+#: manager/templates/exercise/add_exersise.html:19
 msgid "Add a new Workout"
 msgstr "Trainingsplan hinzufügen"
 
-#: templates/add.html:27 templates/exercise/add_exersise.html:27
+#: manager/templates/exercise/add_exersise.html:29
+#: manager/templates/workout/view.html:105
 msgid "Days"
 msgstr "Tage"
 
-#: templates/add.html:31 templates/exercise/add_exersise.html:31
+#: manager/templates/exercise/add_exersise.html:33
+#: manager/templates/workout/view.html:106
 msgid "Sets on days"
 msgstr ""
 
-#: templates/add.html:34 templates/exercise/add_exersise.html:34
+#: manager/templates/exercise/add_exersise.html:36
+#: manager/templates/workout/view.html:107
 #, fuzzy
 msgid "Exercises on set"
 msgstr "Übungen"
 
-#: templates/add.html:43 templates/exercise/add_exersise.html:43
+#: manager/templates/exercise/add_exersise.html:45
+#: manager/templates/workout/view.html:108
 msgid "Settings for set"
 msgstr ""
 
-#: templates/base.html:48
-msgid "Add workout"
-msgstr "Trainingsplan hinzufügen"
-
-#: templates/base.html:49
-msgid "Admin"
-msgstr ""
-
-#: templates/detail.html:4 templates/detail.html.py:7
-msgid "Workout for"
-msgstr "Trainingsplan für"
-
-#: templates/index.html:4
-msgid "Workout list"
-msgstr "Liste der Trainingspläne"
-
-#: templates/exercise/edit.html:8 templates/exercise/view.html:8
+#: manager/templates/exercise/edit.html:7
+#: manager/templates/exercise/view.html:8 weight/templates/edit.html:7
+#: weight/templates/overview.html:8
 msgid "Exercise details"
 msgstr "Übungsdetails"
 
-#: templates/exercise/edit.html:16 templates/exercise/view.html:18
-#: templates/exercise/view.html.py:42
-msgid "Edit"
-msgstr "Bearbeiten"
+#: manager/templates/exercise/edit.html:18 weight/templates/edit.html:18
+#, fuzzy
+msgid "New exercise"
+msgstr "Neue Übung hinzufügen"
 
-#: templates/exercise/overview.html:18
+#: manager/templates/exercise/edit_category.html:7
+#, fuzzy
+msgid "Category details"
+msgstr "Kategorie"
+
+#: manager/templates/exercise/edit_category.html:19
+#, fuzzy
+msgid "New category"
+msgstr "Kategorie"
+
+#: manager/templates/exercise/overview.html:19
 msgid "Add new exercise"
 msgstr "Neue Übung hinzufügen"
 
-#: templates/exercise/view.html:20
-msgid "All comments for this exercise"
-msgstr "Alle Kommentare für diese Übung"
+#: manager/templates/exercise/overview.html:20
+#, fuzzy
+msgid "Add category"
+msgstr "Kategorie"
 
-#: templates/exercise/view.html:41
+#: manager/templates/exercise/overview.html:31
+#: manager/templates/exercise/view.html:19
+#: manager/templates/exercise/view.html:37
+#: manager/templates/workout/view.html:18
+#: manager/templates/workout/view.html:29
+#: manager/templates/workout/view.html:64
 msgid "Delete"
 msgstr "Löschen"
 
-#: templates/exercise/view.html:47
+#: manager/templates/exercise/overview.html:51
+msgid ""
+"No exercises in this category. Add or edit an exercise and set its category"
+msgstr ""
+
+#: manager/templates/exercise/view.html:25
+msgid "All comments for this exercise"
+msgstr "Alle Kommentare für diese Übung"
+
+#: manager/templates/exercise/view.html:43
 msgid "Sorry, no comments for this exercise yet!"
 msgstr "Tut mir leid, keine Kommentare für diese Übung!"
+
+#: manager/templates/exercise/view.html:47
+#, fuzzy
+msgid "Add new comment"
+msgstr "Neue Übung hinzufügen"
+
+#: manager/templates/set/edit.html:7 manager/templates/setting/edit.html:7
+#, fuzzy
+msgid "Set details"
+msgstr "Übungsdetails"
+
+#: manager/templates/workout/view.html:5 manager/templates/workout/view.html:8
+msgid "Workout for"
+msgstr "Trainingsplan für"
+
+#: manager/templates/workout/view.html:58
+#, fuzzy
+msgid "No settings for this exercise."
+msgstr "Alle Kommentare für diese Übung"
+
+#: manager/templates/workout/view.html:58
+#: manager/templates/workout/view.html:72
+#: manager/templates/workout/view.html:87
+msgid "Use link to add one."
+msgstr ""
+
+#: manager/templates/workout/view.html:72
+msgid "No sets for this day."
+msgstr ""
+
+#: manager/templates/workout/view.html:79
+#, fuzzy
+msgid "Add workout set"
+msgstr "Trainingsplan hinzufügen"
+
+#: manager/templates/workout/view.html:87
+msgid "No days for this workout."
+msgstr ""
+
+#: manager/templates/workout/view.html:92
+msgid "Add training day"
+msgstr ""
+
+#: manager/templates/workout/view.html:93
+msgid "Delete this workout"
+msgstr ""
+
+#: manager/templates/workout/view.html:103
+msgid "Steps"
+msgstr ""
+
+#: manager/templates/workout/view.html:111
+#, fuzzy
+msgid "Options"
+msgstr "Wiederholungen"
+
+#: manager/templates/workout/view.html:112
+msgid "Download as PDF"
+msgstr ""
+
+#: weight/templates/overview.html:97
+msgid "Weight overview"
+msgstr ""
+
+#: weight/templates/overview.html:103
+msgid "Add weight entry"
+msgstr ""
+
+#: weight/templates/overview.html:112
+msgid "Filter options"
+msgstr ""
+
+#~ msgid "Individual Exercises"
+#~ msgstr "Individuelle Übung"
