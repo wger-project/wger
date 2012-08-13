@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-13 18:06+0200\n"
+"POT-Creation-Date: 2012-08-13 18:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,9 +63,8 @@ msgid "Exercise"
 msgstr "Übung"
 
 #: manager/models.py:93
-#, fuzzy
 msgid "Some comment about how to correctly do this exercise"
-msgstr "Alle Kommentare für diese Übung"
+msgstr "Ein Kommenter über die korrekte Durchführung der Übung "
 
 #: manager/models.py:106
 msgid "Exercise day"
@@ -90,14 +89,12 @@ msgid "Repetitions"
 msgstr "Wiederholungen"
 
 #: manager/views.py:98
-#, fuzzy
 msgid "Workout"
-msgstr "Trainingsplan für"
+msgstr "Trainingsplan"
 
 #: manager/views.py:99
-#, fuzzy
 msgid "Workout Manager"
-msgstr "Trainingsplan für"
+msgstr "Trainingsplan Manager"
 
 #: manager/views.py:100
 #, fuzzy
@@ -110,20 +107,20 @@ msgstr ""
 
 #: manager/views.py:124
 msgid "Reps"
-msgstr ""
+msgstr "Wdh"
 
 #: manager/views.py:124 manager/templates/base.html:49 weight/models.py:24
+#: weight/templates/overview.html:28 weight/templates/overview.html.py:68
 msgid "Weight"
 msgstr "Gewicht"
 
 #: manager/views.py:143
 msgid "Impression"
-msgstr ""
+msgstr "Eindruck"
 
 #: manager/templates/base.html:40
-#, fuzzy
 msgid "Workout manager"
-msgstr "Trainingsplan für"
+msgstr "Trainingsplanmanager"
 
 #: manager/templates/base.html:52
 msgid "Admin"
@@ -183,9 +180,8 @@ msgstr ""
 
 #: manager/templates/exercise/add_exersise.html:36
 #: manager/templates/workout/view.html:107
-#, fuzzy
 msgid "Exercises on set"
-msgstr "Übungen"
+msgstr ""
 
 #: manager/templates/exercise/add_exersise.html:45
 #: manager/templates/workout/view.html:108
@@ -199,28 +195,24 @@ msgid "Exercise details"
 msgstr "Übungsdetails"
 
 #: manager/templates/exercise/edit.html:18 weight/templates/edit.html:18
-#, fuzzy
 msgid "New exercise"
-msgstr "Neue Übung hinzufügen"
+msgstr "Neue Übung"
 
 #: manager/templates/exercise/edit_category.html:7
-#, fuzzy
 msgid "Category details"
-msgstr "Kategorie"
+msgstr "Kategoriedetails"
 
 #: manager/templates/exercise/edit_category.html:19
-#, fuzzy
 msgid "New category"
-msgstr "Kategorie"
+msgstr "Neue Kategorie"
 
 #: manager/templates/exercise/overview.html:19
 msgid "Add new exercise"
 msgstr "Neue Übung hinzufügen"
 
 #: manager/templates/exercise/overview.html:20
-#, fuzzy
 msgid "Add category"
-msgstr "Kategorie"
+msgstr "Kategorie hinzufügen"
 
 #: manager/templates/exercise/overview.html:31
 #: manager/templates/exercise/view.html:19
@@ -235,6 +227,8 @@ msgstr "Löschen"
 msgid ""
 "No exercises in this category. Add or edit an exercise and set its category"
 msgstr ""
+"Keine Übungen in dieser Kategorie. Editiere oder füge eine neue Übung hinzu "
+"und setze die Kategorie"
 
 #: manager/templates/exercise/view.html:25
 msgid "All comments for this exercise"
@@ -245,75 +239,71 @@ msgid "Sorry, no comments for this exercise yet!"
 msgstr "Tut mir leid, keine Kommentare für diese Übung!"
 
 #: manager/templates/exercise/view.html:47
-#, fuzzy
 msgid "Add new comment"
-msgstr "Neue Übung hinzufügen"
+msgstr "Kommentar hinzufügen"
 
 #: manager/templates/set/edit.html:7 manager/templates/setting/edit.html:7
-#, fuzzy
 msgid "Set details"
-msgstr "Übungsdetails"
+msgstr ""
 
 #: manager/templates/workout/view.html:5 manager/templates/workout/view.html:8
 msgid "Workout for"
 msgstr "Trainingsplan für"
 
 #: manager/templates/workout/view.html:58
-#, fuzzy
 msgid "No settings for this exercise."
-msgstr "Alle Kommentare für diese Übung"
+msgstr ""
 
 #: manager/templates/workout/view.html:58
 #: manager/templates/workout/view.html:72
 #: manager/templates/workout/view.html:87
 msgid "Use link to add one."
-msgstr ""
+msgstr "Benutzen Sie den Verweis zum Hinzufügen."
 
 #: manager/templates/workout/view.html:72
 msgid "No sets for this day."
-msgstr ""
+msgstr "Keine Sätze für diesen Tag."
 
 #: manager/templates/workout/view.html:79
-#, fuzzy
 msgid "Add workout set"
-msgstr "Trainingsplan hinzufügen"
+msgstr "Satz hinzufügen"
 
 #: manager/templates/workout/view.html:87
 msgid "No days for this workout."
-msgstr ""
+msgstr "Keine Tage für diesen Trainingsplan."
 
 #: manager/templates/workout/view.html:92
 msgid "Add training day"
-msgstr ""
+msgstr "Trainingstag hinzufügen"
 
 #: manager/templates/workout/view.html:93
 msgid "Delete this workout"
-msgstr ""
+msgstr "Trainingsplan löschen"
 
 #: manager/templates/workout/view.html:103
 msgid "Steps"
-msgstr ""
+msgstr "Schritte"
 
 #: manager/templates/workout/view.html:111
-#, fuzzy
 msgid "Options"
-msgstr "Wiederholungen"
+msgstr "Optionen"
 
 #: manager/templates/workout/view.html:112
 msgid "Download as PDF"
+msgstr "Als PDF runterladen"
+
+#: weight/templates/overview.html:42
+msgid "Date"
 msgstr ""
 
 #: weight/templates/overview.html:97
 msgid "Weight overview"
-msgstr ""
+msgstr "Gewichtsübersicht"
 
 #: weight/templates/overview.html:103
 msgid "Add weight entry"
-msgstr ""
+msgstr "Gewicht eintragen"
 
 #: weight/templates/overview.html:112
 msgid "Filter options"
-msgstr ""
-
-#~ msgid "Individual Exercises"
-#~ msgstr "Individuelle Übung"
+msgstr "Filteroptionen"
