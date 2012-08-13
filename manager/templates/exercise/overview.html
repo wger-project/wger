@@ -20,20 +20,23 @@
     <a href="/exercise/category/edit">{% trans "Add category" %}</a>
 </p>
 
-<table class="narrow">
+
 {% for category in categories %}
+<table class="narrow">
+<thead>
 <tr>
     <th>
         {{ category.name }} <!--(ID {{ category.id}})-->
     </th>
-    <td style="text-align: right;">
+    <th style="text-align: right; width: 10%;">
         <a href="/exercise/category/delete/{{ category.id }}"
            title="{% trans "Delete" %}">[x]</a>
         <a href="/exercise/category/edit/{{ category.id }}"
            title="{% trans "Edit" %}">[e]</a>
-    </td>
+    </th>
 </tr>
-
+</thead>
+<tbody>
     {% for exercise in category.exercise_set.all %}
         <tr>
             <td>
@@ -47,15 +50,17 @@
     {% empty %}
         <tr>
             <td colspan="2">
+                <p></p>
                 <div class="box warning">
                     {% trans "No exercises in this category. Add or edit an exercise and set its category" %} 
                 </div>
             </td>
         <tr>
     {% endfor %}
-
-{% endfor %}
+</tbody>
 </table>
+{% endfor %}
+
 
 {% endblock %}
 
