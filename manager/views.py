@@ -24,6 +24,7 @@ from django.forms import ModelForm
 from django.forms.models import modelformset_factory
 from django.core.context_processors import csrf
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import permission_required, login_required
 from django.utils.translation import ugettext as _
 
 
@@ -45,6 +46,7 @@ logger = logging.getLogger('workout_manager.custom')
 # ************************
 # Misc functions
 # ************************
+@login_required
 def index(request):
     """Show the index page, in our case, a list of workouts
     """
@@ -68,6 +70,7 @@ class WorkoutForm(ModelForm):
     class Meta:
         model = TrainingSchedule
 
+@login_required
 def view_workout(request, id):
     """Show the workout with the given ID
     """
@@ -78,6 +81,7 @@ def view_workout(request, id):
     
     return render_to_response('workout/view.html', template_data)
 
+@login_required
 def pdf_workout(request, id):
     """Generates a PDF with the contents of the given workout
     
@@ -194,8 +198,8 @@ def pdf_workout(request, id):
     doc.build(elements)
 
     return response
-    
 
+@permission_required('manager.change_trainingschedule')
 def add(request):
     """Add a new workout and redirect to its page
     """
@@ -204,6 +208,7 @@ def add(request):
     
     return HttpResponseRedirect('/workout/%s/view/' % workout.id)
 
+@permission_required('manager.delete_trainingschedule')
 def delete_workout(request, id):
     """Deletes the workout with ID id
     """
@@ -223,6 +228,7 @@ class DayForm(ModelForm):
         model = Day
         exclude=('training',)
 
+@permission_required('manager.change_day')
 def edit_day(request, id, day_id=None):
     """Edits/creates a day
     """
@@ -257,6 +263,7 @@ def edit_day(request, id, day_id=None):
     
     return render_to_response('day/edit.html', template_data)
 
+@permission_required('manager.delete_day')
 def delete_day(request, id, day_id):
     """Deletes the day with ID day_id belonging to workout with ID id
     """
@@ -276,6 +283,7 @@ class SetForm(ModelForm):
         model = Set
         exclude = ('exerciseday', )
 
+@permission_required('manager.change_set')
 def edit_set(request, id, day_id, set_id=None):
     """ Edits/creates a set
     """
@@ -318,6 +326,7 @@ def edit_set(request, id, day_id, set_id=None):
     
     return render_to_response('set/edit.html', template_data)
 
+@permission_required('manager.delete_set')
 def delete_set(request, id, day_id, set_id):
     """ Deletes the given set
     """
@@ -331,7 +340,7 @@ def delete_set(request, id, day_id, set_id):
 # ************************
 # Exercise comment functions
 # ************************
-
+@permission_required('manager.add_exercisecomment')
 def exercisecomment_delete(request, id):
     # Load the comment
     comment = get_object_or_404(ExerciseComment, pk=id)
@@ -420,7 +429,7 @@ def exercise_view(request, id, comment_id=None):
     # Render
     return render_to_response('exercise/view.html', template_data)
 
-
+@permission_required('manager.change_exercise')
 def exercise_edit(request, id=None):
     template_data = {}
     template_data.update(csrf(request))
@@ -446,7 +455,7 @@ def exercise_edit(request, id=None):
     
     return render_to_response('exercise/edit.html', template_data)
 
-
+@permission_required('manager.delete_exercise')
 def exercise_delete(request, id):
     # Load the exercise
     exercise = get_object_or_404(Exercise, pk=id)
@@ -454,6 +463,7 @@ def exercise_delete(request, id):
     
     return HttpResponseRedirect('/exercise/overview/')
 
+@permission_required('manager.change_exercisecategory')
 def exercise_category_edit(request, id):
     template_data = {}
     template_data.update(csrf(request))
@@ -478,7 +488,7 @@ def exercise_category_edit(request, id):
     
     return render_to_response('exercise/edit_category.html', template_data)
 
-
+@permission_required('manager.delete_exercisecategory')
 def exercise_category_delete(request, id):
     # Load the category
     category = get_object_or_404(ExerciseCategory, pk=id)
@@ -519,6 +529,7 @@ class SettingForm(ModelForm):
         model = Setting
         exclude = ('sets', 'exercises')
 
+@permission_required('manager.change_setting')
 def edit_setting(request, id, set_id, exercise_id, setting_id=None):
     template_data = {}
     template_data.update(csrf(request))
@@ -567,6 +578,7 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
     
     return render_to_response('setting/edit.html', template_data)
 
+@permission_required('manager.delete_setting')
 def delete_setting(request, id, set_id, exercise_id):
     """Deletes all the settings belonging to set_id and exercise_id
     """
