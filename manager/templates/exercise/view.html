@@ -14,10 +14,6 @@
 {% block content %}
 
 <h2>{{ exercise.name }}</h2>
-<p>
-    <a href="/exercise/edit/{{ exercise.id }}">{% trans "Edit" %}</a> |
-    <a href="/exercise/delete/{{ exercise.id }}">{% trans "Delete" %}</a>
-</p>
 
 <p>{% trans "Category" %}: <strong>{{ exercise.category.name }}</strong></p>
 
@@ -61,3 +57,11 @@
 <!--
         Side bar?
 -->
+{% block sidebar %}
+    <h3>{% trans "Options" %}</h3>
+
+    <p>
+        <a href="/exercise/edit/{{ exercise.id }}">{% trans "Edit" %}</a> |
+        <a href="/exercise/delete/{{ exercise.id }}">{% trans "Delete" %}</a>
+    </p>
+{% endblock %}
