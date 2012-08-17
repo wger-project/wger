@@ -8,6 +8,18 @@
 {% block title %}{% trans "Exercises" %}{% endblock %}
 
 
+
+{% block header %}
+jquery-ui-1.8.23.custom
+<script src="{% static "js/jquery-ui.js" %}"></script>
+<script>
+        $(document).ready(function() {
+                $( "#tabs" ).tabs();
+        });
+</script>
+{% endblock %}
+
+
 <!--
         Main Content
 -->
@@ -20,46 +32,46 @@
     <a href="/exercise/category/edit">{% trans "Add category" %}</a>
 </p>
 
+<div id="tabs">
+    <ul>
+        {% for category in categories %}
+        <li><a href="#cat{{ category.id }}">{{ category.name }}</a></li>
+        {% empty %}
+        <li>{% trans "No category. Use link to create one" %} </li>
+        {% endfor %}
+    </ul>
 
-{% for category in categories %}
-<table class="narrow">
-<thead>
-<tr>
-    <th>
-        {{ category.name }} <!--(ID {{ category.id}})-->
-    </th>
-    <th style="text-align: right; width: 10%;">
-        <a href="/exercise/category/delete/{{ category.id }}"
-           title="{% trans "Delete" %}">[x]</a>
-        <a href="/exercise/category/edit/{{ category.id }}"
-           title="{% trans "Edit" %}">[e]</a>
-    </th>
-</tr>
-</thead>
-<tbody>
-    {% for exercise in category.exercise_set.all %}
-        <tr>
-            <td>
-                <a href="/exercise/view/{{ exercise.id }}">{{ exercise.name }}</a>
-            </td>
-            <td style="text-align:right;">
-                <a href="/exercise/edit/{{ exercise.id }}"
-                   title="{% trans "Edit" %}">[e]</a>
-            </td>
-        <tr>
-    {% empty %}
-        <tr>
-            <td colspan="2">
-                <p></p>
-                <div class="box warning">
-                    {% trans "No exercises in this category. Add or edit an exercise and set its category" %} 
-                </div>
-            </td>
-        <tr>
+    {% for category in categories %}
+    <div id="cat{{ category.id }}">
+        <table class="narrow">
+        <tbody>
+            {% for exercise in category.exercise_set.all %}
+                <tr>
+                    <td>
+                        <a href="/exercise/view/{{ exercise.id }}">{{ exercise.name }}</a>
+                    </td>
+                    <td style="text-align:right;">
+                        <a href="/exercise/edit/{{ exercise.id }}"
+                        title="{% trans "Edit" %}">[e]</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td>
+                        <div class="box warning">
+                            {% trans "No exercises in this category. Add or edit an exercise and set its category" %} 
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
     {% endfor %}
-</tbody>
-</table>
-{% endfor %}
+</div>
+
+
+
 
 
 {% endblock %}
