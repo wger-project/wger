@@ -53,7 +53,7 @@ def index(request):
     latest_trainings = TrainingSchedule.objects.all().order_by('-creation_date')[:5]
     return render_to_response('index.html', {'latest_workouts_list': latest_trainings})
 
-def loging(request):
+def login(request):
     """Login the user and redirect it
     """
     pass
