@@ -60,8 +60,13 @@
                         <a href="/exercise/view/{{ exercise.id }}">{{ exercise.name }}</a>
                     </td>
                     <td style="text-align:right;">
-                        <a href="/exercise/edit/{{ exercise.id }}"
-                        title="{% trans "Edit" %}">[e]</a>
+                        <div class="editoptions">
+                            <a href="/exercise/edit/{{ exercise.id }}"
+                            title="{% trans "Edit" %}">[e]</a>
+
+                            <a href="/exercise/delete/{{ exercise.id }}"
+                            title="{% trans "Delete" %}">[x]</a>
+                        </div>
                     </td>
                 </tr>
             {% empty %}
@@ -83,7 +88,7 @@
 
 
 <!--
-        Side bar?
+        Side bar
 -->
 {% block sidebar %}
     <h3>{% trans "Options" %}</h3>

@@ -1,0 +1,13 @@
+/*
+ * Hide the edit options (edit, delete) on tables, only show them when the mouse is over the row
+ */
+div.editoptions
+{
+    visibility: hidden;
+}
+
+tbody tr:hover td div.editoptions
+{
+    visibility: visible;
+}
+
