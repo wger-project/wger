@@ -60,8 +60,10 @@ class ExerciseCategory(models.Model):
     """
     name = models.CharField(_('Name'), max_length=100)
     
+    # Metaclass to set some other properties
     class Meta:
         verbose_name_plural = _("Exercise Categories")
+        ordering = ["name", ]
     
     def __unicode__(self):
         """Return a more human-readable representation
@@ -76,12 +78,14 @@ class Exercise(models.Model):
     category = models.ForeignKey(ExerciseCategory, verbose_name = _('Category'))
     name = models.CharField(max_length=200, verbose_name = _('Name'))
     
+    # Metaclass to set some other properties
+    class Meta:
+        ordering = ["name", ]
+    
     def __unicode__(self):
         """Return a more human-readable representation
         """
         return self.name
-
-
 
 class ExerciseComment(models.Model):
     """Model for an exercise comment
