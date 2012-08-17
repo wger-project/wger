@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 import logging
 import calendar
+import json
 
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
@@ -484,6 +485,31 @@ def exercise_category_delete(request, id):
     category.delete()
     
     return HttpResponseRedirect('/exercise/overview/')
+
+def exercise_search(request):
+    """Search an exercise, return the result as a JSON list
+    """
+    
+    if request.is_ajax():
+        q = request.GET.get('term', '')
+        
+        # Perform the search
+        exercises = Exercise.objects.filter(name__icontains = q )[:20]
+        results = []
+        for exercise in exercises:
+            exercise_json = {}
+            exercise_json['id'] = exercise.id
+            exercise_json['name'] = exercise.name
+            exercise_json['value'] = exercise.name
+            results.append(exercise_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+
+    # Return the results to the server
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
+
 
 # ************************
 # Settings functions

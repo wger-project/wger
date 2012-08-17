@@ -10,12 +10,26 @@
 
 
 {% block header %}
-jquery-ui-1.8.23.custom
 <script src="{% static "js/jquery-ui.js" %}"></script>
 <script>
         $(document).ready(function() {
-                $( "#tabs" ).tabs();
+
+            // Init the tabs for the exercises
+            $( "#tabs" ).tabs();
+
+            // Init the autocompleter
+            $("#exercise-search").autocomplete({
+                    source: "/exercise/search/",
+                    minLength: 2,
+                    select: function(event, ui) {
+                        
+                        // Redirect to exercise after clicking on a result
+                        window.location.href = '/exercise/view/' + ui.item.id
+                    }
+                });
+
         });
+
 </script>
 {% endblock %}
 
@@ -26,11 +40,6 @@ jquery-ui-1.8.23.custom
 {% block content %}
 
 <h2> {% trans "Exercises" %} </h2>
-
-<p>
-    <a href="/exercise/edit">{% trans "Add new exercise" %}</a> |
-    <a href="/exercise/category/edit">{% trans "Add category" %}</a>
-</p>
 
 <div id="tabs">
     <ul>
@@ -70,13 +79,30 @@ jquery-ui-1.8.23.custom
     {% endfor %}
 </div>
 
-
-
-
-
 {% endblock %}
 
 
 <!--
         Side bar?
 -->
+{% block sidebar %}
+    <h3>{% trans "Options" %}</h3>
+
+    <p>
+        <a href="/exercise/edit">{% trans "Add new exercise" %}</a> |
+        <a href="/exercise/category/edit">{% trans "Add category" %}</a>
+    </p>
+
+    <h3>{% trans "Search" %}</h3>
+
+    <div class="ui-widget">
+    <input id="exercise-search">
+    </div>
+
+    <div>
+        <p class="dimmed">
+        {% trans "Use the search box to search the name of any exercise." %}
+        </p>
+    </div>
+
+{% endblock %}

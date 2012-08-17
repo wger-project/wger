@@ -18,6 +18,7 @@ urlpatterns = patterns('manager.views',
     
     
     url(r'^exercise/overview/$', 'exercise_overview'),
+    url(r'^exercise/search/$', 'exercise_search'),
     url(r'^exercise/view/(?P<id>\d+)$', 'exercise_view'),
     url(r'^exercise/view/(?P<id>\d+)/edit/comment/(?P<comment_id>\d+)$', 'exercise_view'),
     url(r'^exercise/edit/(?P<id>\d*)$', 'exercise_edit'),
