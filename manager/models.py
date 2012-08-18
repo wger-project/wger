@@ -16,6 +16,8 @@
 from django.db import models
 from django.utils.translation import ugettext as _
 
+from exercises.models import Exercise
+
 import calendar
 
 class TrainingSchedule(models.Model):
@@ -52,54 +54,6 @@ class Day(models.Model):
         """Return a more human-readable representation
         """
         return "%s for TP %s" % (self.description, unicode(self.training))
-
-
-
-class ExerciseCategory(models.Model):
-    """Model for an exercise category
-    """
-    name = models.CharField(_('Name'), max_length=100)
-    
-    # Metaclass to set some other properties
-    class Meta:
-        verbose_name_plural = _("Exercise Categories")
-        ordering = ["name", ]
-    
-    def __unicode__(self):
-        """Return a more human-readable representation
-        """
-        return self.name
-
-
-
-class Exercise(models.Model):
-    """Model for an exercise
-    """
-    category = models.ForeignKey(ExerciseCategory, verbose_name = _('Category'))
-    name = models.CharField(max_length=200, verbose_name = _('Name'))
-    
-    # Metaclass to set some other properties
-    class Meta:
-        ordering = ["name", ]
-    
-    def __unicode__(self):
-        """Return a more human-readable representation
-        """
-        return self.name
-
-class ExerciseComment(models.Model):
-    """Model for an exercise comment
-    """
-    exercise = models.ForeignKey(Exercise, verbose_name = _('Exercise'))
-    comment = models.CharField(max_length=200,
-                               blank=True,
-                               verbose_name = _('Comment'),
-                               help_text=_('Some comment about how to correctly do this exercise'))
-    
-    def __unicode__(self):
-        """Return a more human-readable representation
-        """
-        return self.comment
 
 
 

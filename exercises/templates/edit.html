@@ -28,6 +28,7 @@
 <table>
     {% include "form_snippet.html" with field=edit_form.category css_class="ym-fbox-select" %}
     {% include "form_snippet.html" with field=edit_form.name %}
+    {% include "form_snippet.html" with field=edit_form.description %}
     <tr>
         <td><input type="submit" value="{% trans "Save" %}" /></td>
         <td></td>

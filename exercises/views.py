@@ -28,9 +28,9 @@ from django.contrib.auth.decorators import permission_required, login_required
 from django.utils.translation import ugettext as _
 
 
-from manager.models import Exercise
-from manager.models import ExerciseComment
-from manager.models import ExerciseCategory
+from exercises.models import Exercise
+from exercises.models import ExerciseComment
+from exercises.models import ExerciseCategory
 
 logger = logging.getLogger('workout_manager.custom')
 

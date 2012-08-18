@@ -16,45 +16,6 @@
 from django.db import models
 from django.utils.translation import ugettext as _
 
-import calendar
-
-class TrainingSchedule(models.Model):
-    """Model for a training schedule
-    """
-    creation_date = models.DateField(_('Creation date'), auto_now_add=True)
-    comment = models.CharField(_('Comment'), max_length=100, blank=True)
-
-    
-    def __unicode__(self):
-        """Return a more human-readable representation
-        """
-        return str(self.creation_date)
-
-
-# Mhh...
-DAYS_OF_WEEK_CHOICES = []
-cal = calendar.Calendar()
-for i in cal.iterweekdays():
-     DAYS_OF_WEEK_CHOICES.append((int(i), calendar.day_name[i]))
-
-class Day(models.Model):
-    """Model for a training day
-    """
-    CHOICES = DAYS_OF_WEEK_CHOICES
-
-    training = models.ForeignKey(TrainingSchedule, verbose_name = _('Training'))
-    description = models.CharField(max_length=100,
-                                   verbose_name = _('Description'),
-                                   help_text=_('Ususally a description about what parts are trained, like "Arms" or "Pull Day"'))
-    day = models.IntegerField(max_length=1, choices=CHOICES, verbose_name = _('Day'))
-    
-    def __unicode__(self):
-        """Return a more human-readable representation
-        """
-        return "%s for TP %s" % (self.description, unicode(self.training))
-
-
-
 class ExerciseCategory(models.Model):
     """Model for an exercise category
     """
@@ -76,7 +37,10 @@ class Exercise(models.Model):
     """Model for an exercise
     """
     category = models.ForeignKey(ExerciseCategory, verbose_name = _('Category'))
-    name = models.CharField(max_length=200, verbose_name = _('Name'))
+    description = models.CharField(max_length = 2000,
+                                   blank = True,
+                                   verbose_name = _('Description'))
+    name = models.CharField(max_length = 200, verbose_name = _('Name'))
     
     # Metaclass to set some other properties
     class Meta:
@@ -100,36 +64,3 @@ class ExerciseComment(models.Model):
         """Return a more human-readable representation
         """
         return self.comment
-
-
-
-class Set(models.Model):
-    """Model for a set of exercises
-    """
-
-    exerciseday = models.ForeignKey(Day, verbose_name = _('Exercise day'))
-    exercises = models.ManyToManyField(Exercise, verbose_name = _('Exercises'))
-    order = models.IntegerField(max_length=1, blank=True, null=True, verbose_name = _('Order')) #TODO: null=True???
-    sets = models.IntegerField(verbose_name = _('Sets'))
-    
-    def __unicode__(self):
-        """Return a more human-readable representation
-        """
-        return "Set %s for %s" % (self.order or '-/-', unicode(self.exerciseday))
-
-
-
-class Setting(models.Model):
-    """Settings for an exercise (weight, reps, etc.)
-    """
-    
-    sets = models.ForeignKey(Set, verbose_name = _('Sets'))
-    exercises = models.ForeignKey(Exercise, verbose_name = _('Exercises'))
-    reps = models.IntegerField(verbose_name = _('Repetitions'))
-    comment = models.CharField(max_length=100, blank=True, verbose_name = _('Comment'))
-    
-    
-    def __unicode__(self):
-        """Return a more human-readable representation
-        """
-        return "settings for exercise %s in set %s" % (self.exercises.id, self.sets.id)

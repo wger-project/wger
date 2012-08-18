@@ -28,12 +28,13 @@ from django.utils.translation import ugettext as _
 
 
 from manager.models import TrainingSchedule
-from manager.models import Exercise
-from manager.models import ExerciseComment
-from manager.models import ExerciseCategory
 from manager.models import Day
 from manager.models import Set
 from manager.models import Setting
+
+from exercises.models import Exercise
+from exercises.models import ExerciseComment
+from exercises.models import ExerciseCategory
 
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.pagesizes import A4, cm
