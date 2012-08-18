@@ -12,25 +12,51 @@
 {% block header %}
 <script src="{% static "js/jquery-ui.js" %}"></script>
 <script>
-        $(document).ready(function() {
+$(document).ready(function() {
 
-            // Init the tabs for the exercises
-            $( "#tabs" ).tabs();
+    // Init the tabs for the exercises
+    $( "#tabs" ).tabs();
 
-            // Init the autocompleter
-            $("#exercise-search").autocomplete({
-                    source: "{% url manager.views.exercise_search %}",
-                    minLength: 2,
-                    select: function(event, ui) {
-                        
-                        // Redirect to exercise after clicking on a result
-                        // Path is hard coded here, because we can't use the url-tag
-                        window.location.href = '/exercise/view/' + ui.item.id
-                    }
-                });
-
+    // Init the autocompleter
+    $("#exercise-search").autocomplete({
+            source: "{% url manager.views.exercise_search %}",
+            minLength: 2,
+            select: function(event, ui) {
+                
+                // Redirect to exercise after clicking on a result
+                // Path is hard coded here, because we can't use the url-tag
+                window.location.href = '/exercise/view/' + ui.item.id
+            }
         });
 
+    // Initialise a modal dialog
+    $("#dialog-confirm").dialog({
+                autoOpen: false,
+                width: 400,
+                modal: true,
+    });
+
+
+    // Show the dialog when a user wants to delete an exercise
+    $(".delete-exercise").click(function(e) {
+        e.preventDefault();
+        var targetUrl = $(this).attr("href");
+
+        $("#dialog-confirm").dialog({
+            buttons : {
+                {% trans "Confirm" %}: function() {
+                    window.location.href = targetUrl;
+                },
+                {% trans "Cancel" %} : function() {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $("#dialog-confirm").dialog("open");
+    });
+
+});
 </script>
 {% endblock %}
 
@@ -41,6 +67,14 @@
 {% block content %}
 
 <h2> {% trans "Exercises" %} </h2>
+
+<div id="dialog-confirm" title="{% trans 'Really delete exercise?' %}">
+        <p>
+            <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+            {% trans "Deleting the exercise will also delete it from all workouts." %}
+            {% trans "Are you sure?" %}
+        </p>
+</div>
 
 <div id="tabs">
     <ul>
@@ -63,10 +97,11 @@
                     <td style="text-align:right;">
                         <div class="editoptions">
                             <a href="{% url manager.views.exercise_edit exercise.id %}"
-                            title="{% trans "Edit" %}">[e]</a>
+                               title="{% trans 'Edit' %}">[e]</a>
 
                             <a href="{% url manager.views.exercise_delete exercise.id %}"
-                            title="{% trans "Delete" %}">[x]</a>
+                               title="{% trans 'Delete' %}"
+                               class="delete-exercise">[x]</a>
                         </div>
                     </td>
                 </tr>
