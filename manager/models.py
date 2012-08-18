@@ -15,6 +15,7 @@
 
 from django.db import models
 from django.utils.translation import ugettext as _
+from django.contrib.auth.models import User
 
 from exercises.models import Exercise
 
@@ -25,6 +26,7 @@ class TrainingSchedule(models.Model):
     """
     creation_date = models.DateField(_('Creation date'), auto_now_add=True)
     comment = models.CharField(_('Comment'), max_length=100, blank=True)
+    user = models.ForeignKey(User, verbose_name = _('User'))
 
     
     def __unicode__(self):
