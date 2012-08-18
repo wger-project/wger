@@ -19,7 +19,7 @@ $(document).ready(function() {
 
     // Init the autocompleter
     $("#exercise-search").autocomplete({
-            source: "{% url manager.views.exercise_search %}",
+            source: "{% url exercises.views.exercise_search %}",
             minLength: 2,
             select: function(event, ui) {
                 
@@ -92,14 +92,14 @@ $(document).ready(function() {
             {% for exercise in category.exercise_set.all %}
                 <tr>
                     <td>
-                        <a href="{% url manager.views.exercise_view exercise.id %}">{{ exercise.name }}</a>
+                        <a href="{% url exercises.views.exercise_view exercise.id %}">{{ exercise.name }}</a>
                     </td>
                     <td style="text-align:right;">
                         <div class="editoptions">
-                            <a href="{% url manager.views.exercise_edit exercise.id %}"
+                            <a href="{% url exercises.views.exercise_edit exercise.id %}"
                                title="{% trans 'Edit' %}">[e]</a>
 
-                            <a href="{% url manager.views.exercise_delete exercise.id %}"
+                            <a href="{% url exercises.views.exercise_delete exercise.id %}"
                                title="{% trans 'Delete' %}"
                                class="delete-exercise">[x]</a>
                         </div>
@@ -117,7 +117,7 @@ $(document).ready(function() {
         </tbody>
         </table>
 
-<!--         <a href="{% url manager.views.exercise_category_edit category.id %}">[e]</a> -->
+<!--         <a href="{% url exercises.views.exercise_category_edit category.id %}">[e]</a> -->
     </div>
     {% endfor %}
 </div>
@@ -132,8 +132,8 @@ $(document).ready(function() {
     <h3>{% trans "Options" %}</h3>
 
     <p>
-        <a href="{% url manager.views.exercise_edit None %}">{% trans "Add new exercise" %}</a> |
-        <a href="{% url manager.views.exercise_category_edit None %}">{% trans "Add category" %}</a>
+        <a href="{% url exercises.views.exercise_edit None %}">{% trans "Add new exercise" %}</a> |
+        <a href="{% url exercises.views.exercise_category_edit None %}">{% trans "Add category" %}</a>
     </p>
 
     <h3>{% trans "Search" %}</h3>
