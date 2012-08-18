@@ -14,10 +14,12 @@
     <tr>
         <th>{{ day.description }}<!--(Day-ID: {{ day.id }})--></th>
         <th style="text-align:right">
-            <a href="/workout/{{ workout.id}}/delete/day/{{ day.id }}"
-               title="{% trans "Delete" %}">[x]</a>
-            <a href="/workout/{{ workout.id}}/edit/day/{{ day.id }}"
-               title="{% trans "Edit" %}">[e]</a>
+            <div class="editoptions">
+                <a href="/workout/{{ workout.id}}/delete/day/{{ day.id }}"
+                   title="{% trans "Delete" %}">[x]</a>
+                <a href="/workout/{{ workout.id}}/edit/day/{{ day.id }}"
+                   title="{% trans "Edit" %}">[e]</a>
+            </div>
         </th>
     </tr>
     </thead>
@@ -25,10 +27,12 @@
         {% for set in day.set_set.select_related %}
         <tr>
             <td >{{ set.order }}<br> <!--(Set-ID: {{ set.id }})-->
-                <a href="/workout/{{ workout.id}}/day/{{ day.id }}/delete/set/{{ set.id }}"
-                   title="{% trans "Delete" %}">[x]</a>
-                <a href="/workout/{{ workout.id}}/day/{{ day.id }}/edit/set/{{ set.id }}"
-                   title="{% trans "Edit" %}">[e]</a>
+                <div class="editoptions">
+                    <a href="/workout/{{ workout.id}}/day/{{ day.id }}/delete/set/{{ set.id }}"
+                       title="{% trans "Delete" %}">[x]</a>
+                    <a href="/workout/{{ workout.id}}/day/{{ day.id }}/edit/set/{{ set.id }}"
+                       title="{% trans "Edit" %}">[e]</a>
+                </div>
             </td>
             <td>
                 <ul>
@@ -57,10 +61,12 @@
                                 {% trans "No settings for this exercise." %} {% trans "Use link to add one." %}
                             </div>
                         {% endfor %} <!--for setting in exercise-->
-                        <a href="/workout/{{ workout.id}}/set/{{ set.id }}/exercise/{{ exercise.id }}/edit/setting/"
-                           title="{% trans "Edit" %}">[e]</a>
-                        <a href="/workout/{{ workout.id}}/set/{{ set.id }}/exercise/{{ exercise.id }}/delete/setting"
-                           title="{% trans "Delete" %}">[x]</a>
+                        <div class="editoptions">
+                            <a href="/workout/{{ workout.id}}/set/{{ set.id }}/exercise/{{ exercise.id }}/edit/setting/"
+                               title="{% trans "Edit" %}">[e]</a>
+                            <a href="/workout/{{ workout.id}}/set/{{ set.id }}/exercise/{{ exercise.id }}/delete/setting"
+                               title="{% trans "Delete" %}">[x]</a>
+                        </div>
                     </li>
                 {% endfor %} <!--for exercise in set-->
                 </ul>

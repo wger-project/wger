@@ -6,7 +6,7 @@ div.editoptions
     visibility: hidden;
 }
 
-tbody tr:hover td div.editoptions
+tr:hover div.editoptions, tbody tr:hover td div.editoptions
 {
     visibility: visible;
 }
