@@ -24,3 +24,8 @@ tr:hover div.editoptions, tbody tr:hover td div.editoptions
 {
     width: 10%;
 }
+
+.align-right
+{
+    text-align: right;
+}

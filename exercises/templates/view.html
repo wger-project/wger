@@ -19,27 +19,41 @@
 
 <p>{{ exercise.description }}</p>
 
-<p>{% trans "All comments for this exercise" %}:</p>
-
-<ul>
+<table>
+    <thead>
+        <tr>
+            <th colspan="2">{% trans "All comments for this exercise" %}</th>
+        </tr>
+    </thead>
+    <tbody>
 {% for comment in exercise.exercisecomment_set.all %}
-    <li>
-        {% if comment_edit.id == comment.id %}
-        <form action="{% url exercises.views.exercise_view exercise.id comment.id %}" method="post">
-            {% csrf_token %}
-            {{ comment_edit_form.comment }}
-            <input type="submit" value="{% trans "Save" %}" />
-        </form>
-        {% else %}
-        <a href="{% url exercises.views.exercisecomment_delete comment.id %}" title="{% trans "Delete" %}">[x]</a>
-        <a href="{% url exercises.views.exercise_view exercise.id comment.id %}" title="{% trans "Edit" %}">[e]</a>
-        {{ comment }}
-        {% endif %}
-    </li>
+    <tr>
+        <td>
+            {% if comment_edit.id == comment.id %}
+            <form action="{% url exercises.views.exercise_view exercise.id comment.id %}" method="post">
+                {% csrf_token %}
+                {{ comment_edit_form.comment }}
+                <input type="submit" value="{% trans "Save" %}" />
+            </form>
+            {% else %}
+            {{ comment }}
+            {% endif %}
+        </td>
+        <td class="align-right">
+            <div class="editoptions">
+                <a href="{% url exercises.views.exercisecomment_delete comment.id %}" title="{% trans "Delete" %}">[x]</a>
+                <a href="{% url exercises.views.exercise_view exercise.id comment.id %}" title="{% trans "Edit" %}">[e]</a>
+            </div>
+        </td>
+    </tr>
 {% empty %}
-    <li>{% trans "Sorry, no comments for this exercise yet!" %}</li>
+    <tr>
+        <td>{% trans "Sorry, no comments for this exercise yet!" %}</td>
+    </tr>
 {% endfor %}
 </ul>
+    </tbody>
+</table>
 
 <h3>{% trans "Add new comment" %}</h3>
 <form action = "{% url exercises.views.exercise_view exercise.id %}"
