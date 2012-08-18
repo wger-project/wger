@@ -155,7 +155,7 @@ def exercise_edit(request, id=None):
     
     template_data['edit_form'] = exercise_form
     
-    return render_to_response('exercise_edit.html', template_data)
+    return render_to_response('edit_exercise.html', template_data)
 
 @permission_required('manager.delete_exercise')
 def exercise_delete(request, id):
