@@ -10,7 +10,7 @@
 <script>
 $(document).ready(function() {
 
-    $("#workout-table tbody").sortable({
+    $(".workout-table tbody").sortable({
         handle: 'td:first',
         update : function (event, ui) {
                 
@@ -19,7 +19,7 @@ $(document).ready(function() {
                 
                 day_id = day_element.match(/\d+/);
 
-                order = $("#workout-table tbody").sortable('toArray');
+                order = $(".workout-table tbody").sortable('toArray');
 
                 //$("#ajax-info").show();
                 //$("#ajax-info").addClass('success');
@@ -35,7 +35,7 @@ $(document).ready(function() {
 <h2> {% trans "Workout for" %} {{ workout.creation_date }}</h2>
 
 {% for day in workout.day_set.select_related %}
-<table class="bordertable" id="workout-table">
+<table class="bordertable workout-table">
 <thead>
     <tr id="day-{{ day.id }}">
         <th>{{ day.description }}<!--(Day-ID: {{ day.id }})--></th>
@@ -121,7 +121,6 @@ $(document).ready(function() {
 
 
 <p><a href="{% url manager.views.edit_day workout.id day.id %}">{% trans "Add training day" %}</a></p>
-<p><a href="{% url manager.views.delete_workout workout.id %}">{% trans "Delete this workout" %}</a></p>
 
 {% endblock %} <!--day in workout-->
 
@@ -141,5 +140,9 @@ $(document).ready(function() {
 
 <h3>{% trans "Options" %}</h3>
 <a href="{% url manager.views.pdf_workout workout.id %}">{% trans "Download as PDF" %}</a>
+
+
+<h3>{% trans "Delete" %}</h3>
+<a href="{% url manager.views.delete_workout workout.id %}">{% trans "Delete this workout" %}</a>
 
 {% endblock %}
