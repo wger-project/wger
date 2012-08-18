@@ -19,3 +19,8 @@ tr:hover div.editoptions, tbody tr:hover td div.editoptions
 .invisible{
     display: none;
 }
+
+.ym-g10
+{
+    width: 10%;
+}
