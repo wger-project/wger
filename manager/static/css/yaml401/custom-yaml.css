@@ -11,3 +11,11 @@ tr:hover div.editoptions, tbody tr:hover td div.editoptions
     visibility: visible;
 }
 
+
+
+/*
+ * Own classes
+ */
+.invisible{
+    display: none;
+}

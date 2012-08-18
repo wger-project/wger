@@ -21,7 +21,9 @@ $(document).ready(function() {
 
                 order = $("#workout-table tbody").sortable('toArray');
 
-                $("#ajax-info").load("/workout/api/edit-set" + "?do=set_order&day_id=" + day_id + "&order=" + order);
+                //$("#ajax-info").show();
+                //$("#ajax-info").addClass('success');
+                //$("#ajax-info").load("/workout/api/edit-set" + "?do=set_order&day_id=" + day_id + "&order=" + order);
         }
         
     }).disableSelection();
@@ -31,8 +33,6 @@ $(document).ready(function() {
 
 {% block content %}
 <h2> {% trans "Workout for" %} {{ workout.creation_date }}</h2>
-
-<div id="ajax-info"></div>
 
 {% for day in workout.day_set.select_related %}
 <table class="bordertable" id="workout-table">
