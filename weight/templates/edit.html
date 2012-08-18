@@ -4,7 +4,7 @@
 <!--
         Title
 -->
-{% block title %}{% trans "Exercise details" %}{% endblock %}
+{% block title %}{% trans "Weight entry" %}{% endblock %}
 
 
 <!--
@@ -12,12 +12,7 @@
 -->
 {% block content %}
 
-<h2>{% if exercise.id %}
-        {% trans "Edit" %} {{ exercise.name }}
-    {% else %}
-        {% trans "New exercise" %}
-    {% endif %}
-</h2>
+<h2>{% trans "Weight entry" %}</h2>
 
 
 <form action="/weight/add/{% if weight.id %}{{ weigth.id }}{% endif %}"

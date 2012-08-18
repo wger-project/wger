@@ -80,4 +80,4 @@ def overview(request):
     template_data['data_x'] = data_x
     template_data['data_y'] = data_y
     
-    return render_to_response('overview.html', template_data)
+    return render_to_response('weight_overview.html', template_data)

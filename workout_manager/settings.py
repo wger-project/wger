@@ -114,7 +114,6 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     '/media/multimedia/www/workout_manager/workout_manager/manager/templates',
-    '/media/multimedia/www/workout_manager/workout_manager/exercises/templates'
 )
 
 INSTALLED_APPS = (
