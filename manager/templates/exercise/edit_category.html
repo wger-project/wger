@@ -20,7 +20,7 @@
     {% endif %}
 </h2>
 
-<form action="/exercise/category/edit/{% if category.id %}{{ category.id }}{% endif %}"
+<form action="{% url manager.views.exercise_category_edit category.id %}"
       method="post"
       class="ym-form"
       id="category_edit_form">

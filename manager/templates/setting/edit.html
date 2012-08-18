@@ -15,7 +15,7 @@
 <h2>{% trans "Edit" %} {{ day.description }}</h2>
 
 
-<form action="/workout/{{ workout.id}}/set/{{ set.id }}/exercise/{{ exercise.id }}/edit/setting/{% if setting.id %}{{ setting.id }}{% endif %}"
+<form action="{% url manager.views.edit_setting workout.id set.id exercise.id None %}"
       method="post"
       class="ym-form">
     {% csrf_token %}

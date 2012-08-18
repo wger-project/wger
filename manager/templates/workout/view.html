@@ -15,9 +15,9 @@
         <th>{{ day.description }}<!--(Day-ID: {{ day.id }})--></th>
         <th style="text-align:right">
             <div class="editoptions">
-                <a href="/workout/{{ workout.id}}/delete/day/{{ day.id }}"
+                <a href="{% url manager.views.delete_day workout.id day.id %}"
                    title="{% trans "Delete" %}">[x]</a>
-                <a href="/workout/{{ workout.id}}/edit/day/{{ day.id }}"
+                <a href="{% url manager.views.edit_day workout.id day.id %}"
                    title="{% trans "Edit" %}">[e]</a>
             </div>
         </th>
@@ -28,9 +28,9 @@
         <tr>
             <td >{{ set.order }}<br> <!--(Set-ID: {{ set.id }})-->
                 <div class="editoptions">
-                    <a href="/workout/{{ workout.id}}/day/{{ day.id }}/delete/set/{{ set.id }}"
+                    <a href="{% url manager.views.delete_set workout.id day.id set.id %}"
                        title="{% trans "Delete" %}">[x]</a>
-                    <a href="/workout/{{ workout.id}}/day/{{ day.id }}/edit/set/{{ set.id }}"
+                    <a href="{% url manager.views.edit_set workout.id day.id set.id %}"
                        title="{% trans "Edit" %}">[e]</a>
                 </div>
             </td>
@@ -62,9 +62,9 @@
                             </div>
                         {% endfor %} <!--for setting in exercise-->
                         <div class="editoptions">
-                            <a href="/workout/{{ workout.id}}/set/{{ set.id }}/exercise/{{ exercise.id }}/edit/setting/"
+                            <a href="{% url manager.views.edit_setting workout.id set.id exercise.id None %}"
                                title="{% trans "Edit" %}">[e]</a>
-                            <a href="/workout/{{ workout.id}}/set/{{ set.id }}/exercise/{{ exercise.id }}/delete/setting"
+                            <a href="{% url manager.views.edit_setting workout.id set.id exercise.id None %}"
                                title="{% trans "Delete" %}">[x]</a>
                         </div>
                     </li>
@@ -81,7 +81,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <a href="/workout/{{ workout.id}}/day/{{ day.id }}/edit/set">{% trans "Add workout set" %}</a>
+                <a href="{% url manager.views.edit_set workout.id day.id None %}">{% trans "Add workout set" %}</a>
             </td>
         </tr>
     </tbody>
@@ -94,8 +94,8 @@
 {% endfor %}
 
 
-<p><a href="/workout/{{ workout.id}}/edit/day">{% trans "Add training day" %}</a></p>
-<p><a href="/workout/{{ workout.id}}/delete">{% trans "Delete this workout" %}</a></p>
+<p><a href="{% url manager.views.edit_day workout.id day.id %}">{% trans "Add training day" %}</a></p>
+<p><a href="{% url manager.views.delete_workout workout.id %}">{% trans "Delete this workout" %}</a></p>
 
 {% endblock %} <!--day in workout-->
 
@@ -114,6 +114,6 @@
 </ol>
 
 <h3>{% trans "Options" %}</h3>
-<a href="/workout/{{ workout.id }}/pdf">{% trans "Download as PDF" %}</a>
+<a href="{% url manager.views.pdf_workout workout.id %}">{% trans "Download as PDF" %}</a>
 
 {% endblock %}
