@@ -1,17 +1,45 @@
 {% extends "base.html" %}
 {% load i18n %} 
+{% load staticfiles %}
 {% load manager_extras %} 
 
 {% block title %}{% trans "Workout for" %} {{ workout.creation_date }}{% endblock %}
 
+{% block header %}
+<script src="{% static "js/jquery-ui.js" %}"></script>
+<script>
+$(document).ready(function() {
+
+    $("#workout-table tbody").sortable({
+        handle: 'td:first',
+        update : function (event, ui) {
+                
+                // Monkey around the HTML, till we find the IDs of the set and the day
+                set_element = ui.item.attr("id") //set-xy
+                day_element = ui.item.parent().parent().find('tr').first().attr('id'); //day-xy
+                
+                day_id = day_element.match(/\d+/);
+
+                order = $("#workout-table tbody").sortable('toArray');
+
+                $("#ajax-info").load("/workout/api/edit-set" + "?do=set_order&day_id=" + day_id + "&order=" + order);
+                //load("" + order);
+        }
+        
+    }).disableSelection();
+ });
+</script>
+{% endblock %}
+
 {% block content %}
 <h2> {% trans "Workout for" %} {{ workout.creation_date }}</h2>
 
+<div id="ajax-info"></div>
 
 {% for day in workout.day_set.select_related %}
-<table class="bordertable">
+<table class="bordertable" id="workout-table">
 <thead>
-    <tr>
+    <tr id="day-{{ day.id }}">
         <th>{{ day.description }}<!--(Day-ID: {{ day.id }})--></th>
         <th style="text-align:right">
             <div class="editoptions">
@@ -25,8 +53,8 @@
     </thead>
     <tbody>
         {% for set in day.set_set.select_related %}
-        <tr>
-            <td >{{ set.order }}<br> <!--(Set-ID: {{ set.id }})-->
+        <tr id="set-{{ set.id }}">
+            <td>{{ set.order }}<br> <!--(Set-ID: {{ set.id }})-->
                 <div class="editoptions">
                     <a href="{% url manager.views.delete_set workout.id day.id set.id %}"
                        title="{% trans "Delete" %}">[x]</a>

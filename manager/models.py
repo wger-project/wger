@@ -112,6 +112,10 @@ class Set(models.Model):
     order = models.IntegerField(max_length=1, blank=True, null=True, verbose_name = _('Order')) #TODO: null=True???
     sets = models.IntegerField(verbose_name = _('Sets'))
     
+    # Metaclass to set some other properties
+    class Meta:
+        ordering = ["order", ]
+    
     def __unicode__(self):
         """Return a more human-readable representation
         """

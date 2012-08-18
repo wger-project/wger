@@ -13,7 +13,6 @@
 # You should have received a copy of the GNU Affero General Public License
 import logging
 import calendar
-import json
 
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
@@ -394,6 +393,26 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
     
     return render_to_response('setting/edit.html', template_data)
 
+@permission_required('manager.change_setting')
+def api_edit_set(request):
+    if request.is_ajax():
+        if request.GET.get('do') == 'set_order':
+            day_id = request.GET.get('day_id')
+            new_set_order = request.GET.get('order')
+            
+            data = new_set_order
+            order = 0
+            for i in new_set_order.strip(',').split(','):
+                set_id = i.split('-')[1]
+                order += 1
+                
+                set_obj = get_object_or_404(Set, pk=set_id, exerciseday=day_id)
+                set_obj.order = order
+                set_obj.save()
+                
+                
+            return HttpResponse('Success')
+
 @permission_required('manager.delete_setting')
 def delete_setting(request, id, set_id, exercise_id):
     """Deletes all the settings belonging to set_id and exercise_id
@@ -407,4 +426,3 @@ def delete_setting(request, id, set_id, exercise_id):
     settings.delete()
     
     return HttpResponseRedirect('/workout/%s/view/' % id)
-
