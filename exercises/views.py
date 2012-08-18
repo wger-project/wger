@@ -21,6 +21,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import Http404
 from django.forms import ModelForm
+from django.forms import Textarea
 from django.forms.models import modelformset_factory
 from django.core.context_processors import csrf
 from django.contrib.auth import authenticate, login, logout
@@ -60,6 +61,10 @@ class ExerciseCommentForm(ModelForm):
 class ExerciseForm(ModelForm):
     class Meta:
         model = Exercise
+        
+        widgets = {
+            'description': Textarea(attrs={'cols': 80, 'rows': 10}),
+        }
 
 class ExerciseCategoryForm(ModelForm):
     class Meta:
@@ -150,7 +155,7 @@ def exercise_edit(request, id=None):
     
     template_data['edit_form'] = exercise_form
     
-    return render_to_response('edit.html', template_data)
+    return render_to_response('exercise_edit.html', template_data)
 
 @permission_required('manager.delete_exercise')
 def exercise_delete(request, id):
