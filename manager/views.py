@@ -400,6 +400,9 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
 
 @permission_required('manager.change_setting')
 def api_edit_set(request):
+    """ Allows to edit the order of the sets via an AJAX call
+    """
+    
     if request.is_ajax():
         if request.GET.get('do') == 'set_order':
             day_id = request.GET.get('day_id')
@@ -417,6 +420,28 @@ def api_edit_set(request):
                 
                 
             return HttpResponse(_('Success'))
+
+@permission_required('manager.change_setting')
+def api_edit_setting(request):
+    """ Allows to edit the order of the setting inside a set via an AJAX call
+    """
+    
+    if request.is_ajax():
+        if request.GET.get('do') == 'set_order':
+            new_setting_order = request.GET.get('order')
+            
+            order = 0
+            for i in new_setting_order.strip(',').split(','):
+                setting_id = i.split('-')[1]
+                order += 1
+                
+                setting_obj = get_object_or_404(Setting, pk=setting_id)
+                setting_obj.order = order
+                setting_obj.save()
+                
+                
+            return HttpResponse(_('Success'))
+
 
 @permission_required('manager.delete_setting')
 def delete_setting(request, id, set_id, exercise_id):

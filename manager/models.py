@@ -86,10 +86,15 @@ class Setting(models.Model):
     set = models.ForeignKey(Set, verbose_name = _('Sets'))
     exercise = models.ForeignKey(Exercise, verbose_name = _('Exercises'))
     reps = models.IntegerField(verbose_name = _('Repetitions'))
+    order = models.IntegerField(blank = True, verbose_name = _('Repetitions'))
     comment = models.CharField(max_length=100, blank=True, verbose_name = _('Comment'))
+    
+    # Metaclass to set some other properties
+    class Meta:
+        ordering = ["order", "id"]
     
     
     def __unicode__(self):
         """Return a more human-readable representation
         """
-        return "settings for exercise %s in set %s" % (self.exercises.id, self.sets.id)
+        return "settings for exercise %s in set %s" % (self.exercise.id, self.set.id)

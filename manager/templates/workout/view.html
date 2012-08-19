@@ -10,6 +10,7 @@
 <script>
 $(document).ready(function() {
 
+	// Allow the sets to be sortable
     $(".workout-table tbody").sortable({
         handle: 'td.ym-g10',
         update : function (event, ui) {
@@ -17,6 +18,8 @@ $(document).ready(function() {
                 // Monkey around the HTML, till we find the IDs of the set and the day
                 day_element = ui.item.parent().parent().find('tr').first().attr('id'); //day-xy
                 day_id = day_element.match(/\d+/);
+                
+                // returns something in the form "set-1,set-2,set-3,"
                 order = $( this ).sortable('toArray');
 
                 //$("#ajax-info").show();
@@ -25,6 +28,18 @@ $(document).ready(function() {
         }
         
     })
+    
+    // Allow the settings within an exercise to be sortable
+	$(".settings-list").sortable({
+		update : function (event, ui) {
+			// returns something in the form "setting-1,setting-2,setting-3,"
+			order = $( this ).sortable('toArray');
+			
+			//$("#ajax-info").show();
+            //$("#ajax-info").addClass('success');
+            $("#ajax-info").load("/workout/api/edit-settting" + "?do=set_order&order=" + order);
+		}
+	});
  });
 </script>
 {% endblock %}
@@ -59,9 +74,9 @@ $(document).ready(function() {
                 </div>
             </td>
             <td>
-                <ul>
+                <ul class="exercise-list">
                 {% for exercise in set.exercises.select_related %}
-                    <li>
+                    <li id="exercise-{{ exercise.id }}">
                         {{ exercise }}: <!--(exercise-ID: {{ exercise.id }})-->
                         
 
@@ -72,19 +87,25 @@ $(document).ready(function() {
                         {% endfor %}
                         -->
 
-                        {{ set.sets }} x <!--(Set-ID: {{ set.id }})-->
+                        {{ set.sets }} x
 
                         {% comment %}
                             get_current_settings only does a exercise.setting_set.filter(set_id=set_id)
                         {% endcomment %}
+                        
+                        <span class="settings-list">
                         {% for setting in exercise|get_current_settings:set.id %}
+                        	<!--(Setting-ID: {{ setting.id }})-->
+                        	<span id="setting-{{setting.id}}">
                             {{ setting.reps }}
                             {% if not forloop.last %} – {% endif %}
+                            </span>
                         {% empty %}
                             <div class="box warning">
                                 {% trans "No settings for this exercise." %} {% trans "Use link to add one." %}
                             </div>
                         {% endfor %} <!--for setting in exercise-->
+                        </span>
                         <div class="editoptions">
                             <a href="{% url manager.views.edit_setting workout.id set.id exercise.id None %}"
                                title="{% trans "Edit" %}">[e]</a>
