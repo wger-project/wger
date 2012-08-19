@@ -139,10 +139,10 @@ def pdf_workout(request, id):
                 
                 
                 # Settings
-                for setting in exercise.setting_set.filter(sets_id = set_obj.id):
-                    setting_data.append(setting.reps)
-               
-                
+                for setting in exercise.setting_set.filter(set_id = set_obj.id):
+                    setting_data.append(str(setting.reps))
+                    
+
                 out = set_obj.sets + 'x ' + ', '.join(setting_data)
                 data.append([set_obj.order, Paragraph(exercise.name, styleSheet["Normal"]), out] + [''] * nr_of_weeks)
         data.append(['', '', _('Impression')])
@@ -343,7 +343,7 @@ def delete_set(request, id, day_id, set_id):
 class SettingForm(ModelForm):
     class Meta:
         model = Setting
-        exclude = ('sets', 'exercises')
+        exclude = ('set', 'exercise')
 
 @permission_required('manager.change_setting')
 def edit_setting(request, id, set_id, exercise_id, setting_id=None):
@@ -359,7 +359,7 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
     template_data['set'] = set_obj
     
     SettingFormSet = modelformset_factory(Setting,
-                                          exclude = ('sets', 'exercises'),
+                                          exclude = ('set', 'exercise'),
                                           max_num = int(set_obj.sets),
                                           extra = int(set_obj.sets))
     
@@ -381,15 +381,19 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
         # Process the FormSet, setting the set and the exercise
         setting_form = SettingFormSet(request.POST)
         if setting_form.is_valid():
+            
             instances = setting_form.save(commit=False)
             for setting_instance in instances:
-                setting_instance.sets = set_obj
-                setting_instance.exercises = exercise
+                setting_instance.set = set_obj
+                setting_instance.exercise = exercise
                 setting_instance.save()
             
             return HttpResponseRedirect('/workout/%s/view/' % id)
+        else:
+            pass
+            #logger.debug(setting_form.errors)
     else:
-        setting_form = SettingFormSet(queryset=Setting.objects.filter(exercises_id=exercise.id, sets_id=set_obj.id))
+        setting_form = SettingFormSet(queryset=Setting.objects.filter(exercise_id=exercise.id, set_id=set_obj.id))
     template_data['setting_form'] = setting_form
     
     return render_to_response('setting/edit.html', template_data)
@@ -423,7 +427,7 @@ def delete_setting(request, id, set_id, exercise_id):
     workout = get_object_or_404(TrainingSchedule, pk=id)
     
     # Delete all settings
-    settings = Setting.objects.filter(exercises_id=exercise_id, sets_id=set_id)
+    settings = Setting.objects.filter(exercise_id=exercise_id, set_id=set_id)
     settings.delete()
     
     return HttpResponseRedirect('/workout/%s/view/' % id)

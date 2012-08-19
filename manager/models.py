@@ -83,8 +83,8 @@ class Setting(models.Model):
     """Settings for an exercise (weight, reps, etc.)
     """
     
-    sets = models.ForeignKey(Set, verbose_name = _('Sets'))
-    exercises = models.ForeignKey(Exercise, verbose_name = _('Exercises'))
+    set = models.ForeignKey(Set, verbose_name = _('Sets'))
+    exercise = models.ForeignKey(Exercise, verbose_name = _('Exercises'))
     reps = models.IntegerField(verbose_name = _('Repetitions'))
     comment = models.CharField(max_length=100, blank=True, verbose_name = _('Comment'))
     
