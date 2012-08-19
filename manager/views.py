@@ -412,7 +412,7 @@ def api_edit_set(request):
                 set_obj.save()
                 
                 
-            return HttpResponse('Success')
+            return HttpResponse(_('Success'))
 
 @permission_required('manager.delete_setting')
 def delete_setting(request, id, set_id, exercise_id):
