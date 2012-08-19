@@ -16,10 +16,8 @@ $(document).ready(function() {
                 
                 // Monkey around the HTML, till we find the IDs of the set and the day
                 day_element = ui.item.parent().parent().find('tr').first().attr('id'); //day-xy
-                
                 day_id = day_element.match(/\d+/);
-
-                order = $(".workout-table tbody").sortable('toArray');
+                order = $( this ).sortable('toArray');
 
                 //$("#ajax-info").show();
                 //$("#ajax-info").addClass('success');
