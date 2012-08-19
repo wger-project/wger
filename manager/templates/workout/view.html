@@ -13,6 +13,7 @@ $(document).ready(function() {
 	// Allow the sets to be sortable
     $(".workout-table tbody").sortable({
         handle: 'td.ym-g10',
+        revert: true,
         update : function (event, ui) {
                 
                 // Monkey around the HTML, till we find the IDs of the set and the day
@@ -31,6 +32,13 @@ $(document).ready(function() {
     
     // Allow the settings within an exercise to be sortable
 	$(".settings-list").sortable({
+		placeholder: 'sortable-settings',
+		revert: true,
+		tolerance: 'pointer',
+		helper: function(event, ui) {
+			//return ui;
+			return $('<div class="sortable-settings-drag">' + ui.html() + '</div>');
+		},
 		update : function (event, ui) {
 			// returns something in the form "setting-1,setting-2,setting-3,"
 			order = $( this ).sortable('toArray');

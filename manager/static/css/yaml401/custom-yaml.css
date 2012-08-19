@@ -29,3 +29,17 @@ tr:hover div.editoptions, tbody tr:hover td div.editoptions
 {
     text-align: right;
 }
+
+.sortable-settings
+{
+	border: 1px solid black;
+}
+
+.sortable-settings-drag
+{
+	padding-left: 1em;
+	padding-right: 1em;
+	background-color: #babdb6; /* #888a85;*/
+	/*text-align:center;*/
+	border-bottom:1px solid black;
+}
