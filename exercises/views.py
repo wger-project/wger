@@ -27,8 +27,10 @@ from django.core.context_processors import csrf
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import permission_required, login_required
 from django.utils.translation import ugettext as _
+from django.utils import translation
 
 
+from exercises.models import Language
 from exercises.models import Exercise
 from exercises.models import ExerciseComment
 from exercises.models import ExerciseCategory
@@ -73,9 +75,11 @@ class ExerciseCategoryForm(ModelForm):
 def exercise_overview(request):
     """Overview with all exercises
     """
+    #TODO: check that this works on edge cases
+    language = get_object_or_404(Language, short_name = translation.get_language())
     
     template_data = {}
-    template_data['categories'] = ExerciseCategory.objects.all()
+    template_data['categories'] = ExerciseCategory.objects.filter(language = language.id)
     
     return render_to_response('overview.html', template_data)
 
