@@ -16,6 +16,22 @@
 from django.db import models
 from django.utils.translation import ugettext as _
 
+class Language(models.Model):
+    """Language of an item (exercise, workout, etc.)
+    """
+    
+    #e.g. 'de'
+    short_name = models.CharField(max_length = 2, verbose_name = _('Language short name'))
+    
+    #e.g. 'Deutsch'
+    full_name  = models.CharField(max_length = 30, verbose_name = _('Language full name'))
+    
+    def __unicode__(self):
+        """Return a more human-readable representation
+        """
+        return "%s (%s)" % (self.full_name, self.short_name)
+
+
 class ExerciseCategory(models.Model):
     """Model for an exercise category
     """
@@ -41,6 +57,7 @@ class Exercise(models.Model):
                                    blank = True,
                                    verbose_name = _('Description'))
     name = models.CharField(max_length = 200, verbose_name = _('Name'))
+    language = models.ForeignKey(Language, verbose_name = _('Language'))
     
     # Metaclass to set some other properties
     class Meta:
