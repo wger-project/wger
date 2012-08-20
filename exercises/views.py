@@ -71,6 +71,8 @@ class ExerciseForm(ModelForm):
 class ExerciseCategoryForm(ModelForm):
     class Meta:
         model = ExerciseCategory
+        exclude=('language',)
+        
 
 def exercise_overview(request):
     """Overview with all exercises
@@ -185,8 +187,20 @@ def exercise_category_edit(request, id):
         
         # If the data is valid, save and redirect
         if category_form.is_valid():
-            category = category_form.save()
+            
+            # Load the language
+            language = get_object_or_404(Language, short_name = translation.get_language())
+            language_obj = get_object_or_404(Language, pk=language.id)
+            
+            # Save the category
+            category = category_form.save(commit=False)
+            category.language = language_obj
+            category.save()
+            
             return HttpResponseRedirect('/exercise/overview/')
+        else:
+            pass
+            #logger.debug(category_form.errors)
     else:
         category_form = ExerciseCategoryForm(instance=category)
     
