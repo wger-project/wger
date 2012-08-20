@@ -36,6 +36,7 @@ class ExerciseCategory(models.Model):
     """Model for an exercise category
     """
     name = models.CharField(_('Name'), max_length=100)
+    language = models.ForeignKey(Language, verbose_name = _('Language'))
     
     # Metaclass to set some other properties
     class Meta:
@@ -57,7 +58,6 @@ class Exercise(models.Model):
                                    blank = True,
                                    verbose_name = _('Description'))
     name = models.CharField(max_length = 200, verbose_name = _('Name'))
-    language = models.ForeignKey(Language, verbose_name = _('Language'))
     
     # Metaclass to set some other properties
     class Meta:
