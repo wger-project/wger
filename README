@@ -1,1 +1,20 @@
-README goes here
+Workout Manager
+===============
+
+Workout Manager is a simple web application written using python and django
+that lets you manage your exercises and workouts. It can generate a PDF with
+the training schedule suitable for printing and keeping a log about the
+progress.
+
+It also has a simple module that lets you keep an eye on your weight. It
+ouputs a plot, so you can assess at a glance whether you will be reaching your
+goals.
+
+
+Licence
+=======
+
+The code itself is licenced under the Affero GPL 3 or later
+
+The initial exercise data is licensed additionally under a Creative Commons
+Attribution Share-Alike (CC-BY-SA) 3.0
