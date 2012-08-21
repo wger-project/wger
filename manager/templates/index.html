@@ -11,7 +11,11 @@
     {% endfor %}
     </ul>
 {% else %}
-    <p>No workouts are available.</p>
+    <div class="box warning">
+        {% trans "No workouts found." %} {% trans "Use link to add one." %} 
+    </div>
+
+    <p></p>
 {% endif %}
 <p><a href="/workout/add">{% trans "Add workout" %}</a></p>
 {% endblock %}
