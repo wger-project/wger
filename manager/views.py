@@ -204,6 +204,7 @@ def add(request):
     """Add a new workout and redirect to its page
     """
     workout = TrainingSchedule()
+    workout.user = request.user
     workout.save()
     
     return HttpResponseRedirect('/workout/%s/view/' % workout.id)
