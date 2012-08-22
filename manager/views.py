@@ -22,10 +22,13 @@ from django.http import Http404
 from django.forms import ModelForm
 from django.forms.models import modelformset_factory
 from django.core.context_processors import csrf
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import permission_required, login_required
 from django.utils.translation import ugettext as _
 
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as django_login
+from django.contrib.auth import logout as django_logout
+from django.contrib.auth.forms import AuthenticationForm
 
 from manager.models import TrainingSchedule
 from manager.models import Day
@@ -53,15 +56,44 @@ def index(request):
     latest_trainings = TrainingSchedule.objects.all().order_by('-creation_date')[:5]
     return render_to_response('index.html', {'latest_workouts_list': latest_trainings})
 
+
 def login(request):
     """Login the user and redirect it
     """
-    pass
+    template_data = {}
+    template_data.update(csrf(request))
+    
+    template_data['form'] = AuthenticationForm()
+    
+    if request.method == 'POST':
+        authentication_form = AuthenticationForm(data=request.POST)
+        
+        # If the data is valid, log in and redirect
+        if authentication_form.is_valid():
+            username = authentication_form.cleaned_data['username']
+            password = authentication_form.cleaned_data['password']
+            
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    django_login(request, user)
+                    
+                    # Redirect to the start page.
+                    return HttpResponseRedirect('/')
+                else:
+                    # Return a disabled account error message
+                    pass
+            else:
+                # Return an invalid login error message.
+                pass
+
+    return render_to_response('login.html', template_data)
 
 def logout(request):
-    """Logout the
+    """Logout the user
     """
-    logout(request)
+    django_logout(request)
+    return HttpResponseRedirect('/login')
 
 # ************************
 # Workout functions

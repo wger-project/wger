@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} {% trans "Login" %}{% endblock %}
+
+
+{% block content %}
+
+<form action="{% url manager.views.login %}"
+      method="post"
+      class="ym-form">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+<table>
+{% include "form_snippet.html" with field=form.username %}
+{% include "form_snippet.html" with field=form.password %}
+    <tr>
+        <td><input type="submit" value='{% trans "Login" %}' /></td>
+        <td></td>
+    </tr>
+</table>
+</form>
+{% endblock %}
