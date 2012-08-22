@@ -60,7 +60,7 @@ $(document).ready(function() {
 <thead>
     <tr id="day-{{ day.id }}">
         <th>{{ day.description }}<!--(Day-ID: {{ day.id }})--></th>
-        <th style="text-align:right">
+        <th class="ym-g10" style="text-align:right">
             <div class="editoptions">
                 <a href="{% url manager.views.delete_day workout.id day.id %}"
                    title="{% trans "Delete" %}">[x]</a>
