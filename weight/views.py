@@ -20,6 +20,7 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.forms import ModelForm
 from django.core.context_processors import csrf
+from django.contrib.auth.decorators import permission_required, login_required
 
 from weight.models import WeightEntry
 
@@ -30,6 +31,7 @@ class WeightForm(ModelForm):
     class Meta:
         model = WeightEntry
 
+@login_required
 def add(request, id=None):
     """Add a weight entry
     """
@@ -61,6 +63,7 @@ def add(request, id=None):
     
     return render_to_response('edit.html', template_data)
 
+@login_required
 def overview(request):
     """Shows an overview of weight data
     
