@@ -15,6 +15,7 @@ import logging
 import calendar
 import json
 
+from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
@@ -83,7 +84,9 @@ def exercise_overview(request):
     template_data = {}
     template_data['categories'] = ExerciseCategory.objects.filter(language = language.id)
     
-    return render_to_response('overview.html', template_data)
+    return render_to_response('overview.html',
+                              template_data,
+                              context_instance=RequestContext(request))
 
     
 def exercise_view(request, id, comment_id=None):
@@ -135,7 +138,9 @@ def exercise_view(request, id, comment_id=None):
     template_data['comment_form'] = comment_form
     
     # Render
-    return render_to_response('view.html', template_data)
+    return render_to_response('view.html',
+                              template_data,
+                              context_instance=RequestContext(request))
 
 @permission_required('manager.change_exercise')
 def exercise_edit(request, id=None):
@@ -161,7 +166,9 @@ def exercise_edit(request, id=None):
     
     template_data['edit_form'] = exercise_form
     
-    return render_to_response('edit_exercise.html', template_data)
+    return render_to_response('edit_exercise.html',
+                              template_data,
+                              context_instance=RequestContext(request))
 
 @permission_required('manager.delete_exercise')
 def exercise_delete(request, id):
@@ -206,7 +213,9 @@ def exercise_category_edit(request, id):
     
     template_data['category_form'] = category_form
     
-    return render_to_response('edit_category.html', template_data)
+    return render_to_response('edit_category.html',
+                              template_data,
+                              context_instance=RequestContext(request))
 
 @permission_required('manager.delete_exercisecategory')
 def exercise_category_delete(request, id):

@@ -15,6 +15,7 @@
 import logging
 import datetime
 
+from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
@@ -61,7 +62,9 @@ def add(request, id=None):
         weight_form = WeightForm()
     template_data['weight_form'] = weight_form
     
-    return render_to_response('edit.html', template_data)
+    return render_to_response('edit.html',
+                              template_data,
+                              context_instance=RequestContext(request))
 
 @login_required
 def overview(request):
@@ -83,4 +86,6 @@ def overview(request):
     template_data['data_x'] = data_x
     template_data['data_y'] = data_y
     
-    return render_to_response('weight_overview.html', template_data)
+    return render_to_response('weight_overview.html',
+                              template_data,
+                              context_instance=RequestContext(request))

@@ -14,6 +14,7 @@
 import logging
 import calendar
 
+from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
@@ -54,7 +55,9 @@ def index(request):
     """Show the index page, in our case, a list of workouts
     """
     latest_trainings = TrainingSchedule.objects.all().order_by('-creation_date')[:5]
-    return render_to_response('index.html', {'latest_workouts_list': latest_trainings})
+    return render_to_response('index.html',
+                              {'latest_workouts_list': latest_trainings},
+                              context_instance=RequestContext(request))
 
 
 def login(request):
@@ -87,7 +90,9 @@ def login(request):
                 # Return an invalid login error message.
                 pass
 
-    return render_to_response('login.html', template_data)
+    return render_to_response('login.html',
+                              template_data,
+                              context_instance=RequestContext(request))
 
 def logout(request):
     """Logout the user
@@ -111,7 +116,9 @@ def view_workout(request, id):
     workout = get_object_or_404(TrainingSchedule, pk=id)
     template_data['workout'] = workout
     
-    return render_to_response('workout/view.html', template_data)
+    return render_to_response('workout/view.html', 
+                              template_data,
+                              context_instance=RequestContext(request))
 
 @login_required
 def pdf_workout(request, id):
@@ -294,7 +301,9 @@ def edit_day(request, id, day_id=None):
         day_form = DayForm(instance=day)
     template_data['day_form'] = day_form
     
-    return render_to_response('day/edit.html', template_data)
+    return render_to_response('day/edit.html',
+                              template_data,
+                              context_instance=RequestContext(request))
 
 @permission_required('manager.delete_day')
 def delete_day(request, id, day_id):
@@ -357,7 +366,9 @@ def edit_set(request, id, day_id, set_id=None):
         set_form = SetForm(instance=workout_set)
     template_data['set_form'] = set_form
     
-    return render_to_response('set/edit.html', template_data)
+    return render_to_response('set/edit.html',
+                              template_data,
+                              context_instance=RequestContext(request))
 
 @permission_required('manager.delete_set')
 def delete_set(request, id, day_id, set_id):
@@ -429,7 +440,9 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
         setting_form = SettingFormSet(queryset=Setting.objects.filter(exercise_id=exercise.id, set_id=set_obj.id))
     template_data['setting_form'] = setting_form
     
-    return render_to_response('setting/edit.html', template_data)
+    return render_to_response('setting/edit.html',
+                              template_data,
+                              context_instance=RequestContext(request))
 
 @permission_required('manager.change_setting')
 def api_edit_set(request):
