@@ -48,12 +48,25 @@ $(document).ready(function() {
             $("#ajax-info").load("/workout/api/edit-settting" + "?do=set_order&order=" + order);
 		}
 	});
+	
+	// Show/Hide the comments to the exercises
+	$("#exercise-comments-toggle").click(function(e) {
+	    e.preventDefault();
+	    $(".exercise-comments").toggle();
+	    });
  });
 </script>
 {% endblock %}
 
 {% block content %}
 <h2> {% trans "Workout for" %} {{ workout.creation_date }}</h2>
+
+
+<div>
+<a id="exercise-comments-toggle" href="#">
+    {% trans "Show/Hide exercise comments" %}
+</a>
+</div>
 
 {% for day in workout.day_set.select_related %}
 <table class="bordertable workout-table">
@@ -86,14 +99,6 @@ $(document).ready(function() {
                 {% for exercise in set.exercises.select_related %}
                     <li id="exercise-{{ exercise.id }}">
                         {{ exercise }}: <!--(exercise-ID: {{ exercise.id }})-->
-                        
-
-                        <!-- Comments to the exercise -->
-                        <!--
-                        {% for comment in exercise.exercisecomment_set.all %}
-                            {{comment}}
-                        {% endfor %}
-                        -->
 
                         {{ set.sets }} x
 
@@ -114,6 +119,19 @@ $(document).ready(function() {
                             </div>
                         {% endfor %} <!--for setting in exercise-->
                         </span>
+                        
+                        
+                        <!-- Comments to the exercise -->
+                        
+                            <div class="exercise-comments dimmed">
+                            <ul>
+                            {% for comment in exercise.exercisecomment_set.all %}
+                                <li>{{comment}}</li>
+                            {% endfor %}
+                            </ul>
+                            </div>
+                        
+                        
                         <div class="editoptions">
                             <a href="{% url manager.views.edit_setting workout.id set.id exercise.id None %}"
                                title="{% trans "Edit" %}">[e]</a>
