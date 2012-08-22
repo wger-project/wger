@@ -98,7 +98,7 @@ $(document).ready(function() {
                 <ul class="exercise-list">
                 {% for exercise in set.exercises.select_related %}
                     <li id="exercise-{{ exercise.id }}">
-                        {{ exercise }}:
+                        <a href="{% url exercises.views.exercise_view exercise.id %}">{{ exercise }}</a>:
 
                         {{ set.sets }} x
 
