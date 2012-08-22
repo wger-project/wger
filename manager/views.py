@@ -182,7 +182,7 @@ def pdf_workout(request, id):
                     setting_data.append(str(setting.reps))
                     
 
-                out = set_obj.sets + 'x ' + ', '.join(setting_data)
+                out = str(set_obj.sets) + 'x ' + ', '.join(setting_data)
                 data.append([set_obj.order, Paragraph(exercise.name, styleSheet["Normal"]), out] + [''] * nr_of_weeks)
         data.append(['', '', _('Impression')])
     
