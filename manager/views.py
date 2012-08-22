@@ -54,7 +54,7 @@ logger = logging.getLogger('workout_manager.custom')
 def index(request):
     """Show the index page, in our case, a list of workouts
     """
-    latest_trainings = TrainingSchedule.objects.all().order_by('-creation_date')[:5]
+    latest_trainings = TrainingSchedule.objects.filter(user=request.user).order_by('-creation_date')[:5]
     return render_to_response('index.html',
                               {'latest_workouts_list': latest_trainings},
                               context_instance=RequestContext(request))
