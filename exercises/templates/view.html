@@ -40,10 +40,12 @@
             {% endif %}
         </td>
         <td class="align-right">
+        {% if perms.exercises %}
             <div class="editoptions">
                 <a href="{% url exercises.views.exercisecomment_delete comment.id %}" title="{% trans "Delete" %}">[x]</a>
                 <a href="{% url exercises.views.exercise_view exercise.id comment.id %}" title="{% trans "Edit" %}">[e]</a>
             </div>
+         {% endif %}
         </td>
     </tr>
 {% empty %}
@@ -73,10 +75,12 @@
         Side bar?
 -->
 {% block sidebar %}
+{% if perms.exercises %}
     <h3>{% trans "Options" %}</h3>
 
     <p>
         <a href="{% url exercises.views.exercise_edit exercise.id %}">{% trans "Edit" %}</a> |
         <a href="{% url exercises.views.exercise_delete exercise.id %}">{% trans "Delete" %}</a>
     </p>
+{% endif %}
 {% endblock %}
