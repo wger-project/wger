@@ -120,24 +120,25 @@ $(document).ready(function() {
                         {% endfor %} <!--for setting in exercise-->
                         </span>
                         
+                        <span class="editoptions">
+                            <a href="{% url manager.views.edit_setting workout.id set.id exercise.id None %}"
+                               title="{% trans "Edit" %}">[e]</a>
+                            <a href="{% url manager.views.edit_setting workout.id set.id exercise.id None %}"
+                               title="{% trans "Delete" %}">[x]</a>
+                        </span>
+                        
                         
                         <!-- Comments to the exercise -->
-                        
-                            <div class="exercise-comments dimmed">
+                        <div class="exercise-comments dimmed">
                             <ul>
                             {% for comment in exercise.exercisecomment_set.all %}
                                 <li>{{comment}}</li>
                             {% endfor %}
                             </ul>
-                            </div>
-                        
-                        
-                        <div class="editoptions">
-                            <a href="{% url manager.views.edit_setting workout.id set.id exercise.id None %}"
-                               title="{% trans "Edit" %}">[e]</a>
-                            <a href="{% url manager.views.edit_setting workout.id set.id exercise.id None %}"
-                               title="{% trans "Delete" %}">[x]</a>
                         </div>
+                        
+                        
+                        
                     </li>
                 {% endfor %} <!--for exercise in set-->
                 </ul>

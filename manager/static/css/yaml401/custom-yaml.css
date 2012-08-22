@@ -1,12 +1,12 @@
 /*
  * Hide the edit options (edit, delete) on tables, only show them when the mouse is over the row
  */
-div.editoptions
+.editoptions
 {
     visibility: hidden;
 }
 
-tr:hover div.editoptions, tbody tr:hover td div.editoptions
+tr:hover .editoptions, tbody tr:hover td .editoptions
 {
     visibility: visible;
 }
