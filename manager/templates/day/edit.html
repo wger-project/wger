@@ -14,7 +14,7 @@
 
 <h2>{% trans "Edit" %} {{ day.description }}</h2>
 
-<form action="{% url manager.views.edit_day workout.id day.id %}"
+<form action="{% url manager.views.edit_day id=workout.id day_id=day.id %}"
       method="post"
       class="ym-form">
 {% csrf_token %}

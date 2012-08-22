@@ -280,7 +280,8 @@ def edit_day(request, id, day_id=None):
     template_data['workout'] = workout
     
     # Load day
-    if not day_id:
+    # We check for string 'None' because we might get this from the template
+    if not day_id or day_id == 'None':
         day = Day()
     else:
         day = get_object_or_404(Day, pk=day_id)
