@@ -142,7 +142,7 @@ def exercise_view(request, id, comment_id=None):
                               template_data,
                               context_instance=RequestContext(request))
 
-@permission_required('manager.change_exercise')
+@permission_required('exercises.change_exercise')
 def exercise_edit(request, id=None):
     template_data = {}
     template_data.update(csrf(request))
@@ -170,7 +170,7 @@ def exercise_edit(request, id=None):
                               template_data,
                               context_instance=RequestContext(request))
 
-@permission_required('manager.delete_exercise')
+@permission_required('exercises.delete_exercise')
 def exercise_delete(request, id):
     # Load the exercise
     exercise = get_object_or_404(Exercise, pk=id)
@@ -178,7 +178,7 @@ def exercise_delete(request, id):
     
     return HttpResponseRedirect('/exercise/overview/')
 
-@permission_required('manager.change_exercisecategory')
+@permission_required('exercises.change_exercisecategory')
 def exercise_category_edit(request, id):
     template_data = {}
     template_data.update(csrf(request))
@@ -217,7 +217,7 @@ def exercise_category_edit(request, id):
                               template_data,
                               context_instance=RequestContext(request))
 
-@permission_required('manager.delete_exercisecategory')
+@permission_required('exercises.delete_exercisecategory')
 def exercise_category_delete(request, id):
     # Load the category
     category = get_object_or_404(ExerciseCategory, pk=id)
