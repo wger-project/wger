@@ -427,11 +427,19 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
         setting_form = SettingFormSet(request.POST)
         if setting_form.is_valid():
             
+            order = 1
             instances = setting_form.save(commit=False)
             for setting_instance in instances:
                 setting_instance.set = set_obj
                 setting_instance.exercise = exercise
+                
+                # Manualy set the order, the user can later use drag&drop to change this
+                if not setting_instance.order:
+                    setting_instance.order = order
+                
                 setting_instance.save()
+                
+                order += 1
             
             return HttpResponseRedirect('/workout/%s/view/' % id)
         else:
