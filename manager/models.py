@@ -25,7 +25,7 @@ class TrainingSchedule(models.Model):
     """Model for a training schedule
     """
     creation_date = models.DateField(_('Creation date'), auto_now_add=True)
-    comment = models.CharField(_('Comment'), max_length=100, blank=True)
+    comment = models.TextField(_('Comment'), max_length=100, blank=True)
     user = models.ForeignKey(User, verbose_name = _('User'))
 
     
