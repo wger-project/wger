@@ -98,7 +98,7 @@ $(document).ready(function() {
                 <ul class="exercise-list">
                 {% for exercise in set.exercises.select_related %}
                     <li id="exercise-{{ exercise.id }}">
-                        {{ exercise }}: <!--(exercise-ID: {{ exercise.id }})-->
+                        {{ exercise }}:
 
                         {{ set.sets }} x
 
@@ -108,7 +108,6 @@ $(document).ready(function() {
                         
                         <span class="settings-list">
                         {% for setting in exercise|get_current_settings:set.id %}
-                        	<!--(Setting-ID: {{ setting.id }})-->
                         	<span id="setting-{{setting.id}}">
                             {{ setting.reps }}
                             {% if not forloop.last %} – {% endif %}
