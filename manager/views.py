@@ -324,7 +324,7 @@ def delete_day(request, id, day_id):
 class SetForm(ModelForm):
     class Meta:
         model = Set
-        exclude = ('exerciseday', )
+        exclude = ('exerciseday', 'order',)
 
 @permission_required('manager.change_set')
 def edit_set(request, id, day_id, set_id=None):

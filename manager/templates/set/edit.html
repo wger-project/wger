@@ -20,7 +20,6 @@
 {% csrf_token %}
 <table>
     {% include "form_snippet.html" with field=set_form.exercises css_class="ym-fbox-select" %}
-    {% include "form_snippet.html" with field=set_form.order %}
     {% include "form_snippet.html" with field=set_form.sets %}
     
     <tr>
