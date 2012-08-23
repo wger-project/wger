@@ -19,6 +19,7 @@ from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+from django.http import HttpResponseForbidden
 from django.http import Http404
 from django.forms import ModelForm
 from django.forms.models import modelformset_factory
@@ -313,9 +314,13 @@ def delete_day(request, id, day_id):
     
     # Load the day
     day = get_object_or_404(Day, pk=day_id)
-    day.delete()
     
-    return HttpResponseRedirect('/workout/%s/view/' % id)
+    # Check if the user is the owner of the object
+    if day.training.user == request.user:
+        day.delete()
+        return HttpResponseRedirect('/workout/%s/view/' % id)
+    else:
+        return HttpResponseForbidden()
 
 
 # ************************
@@ -378,9 +383,15 @@ def delete_set(request, id, day_id, set_id):
     
     # Load the set
     set_obj = get_object_or_404(Set, pk=set_id)
-    set_obj.delete()
     
-    return HttpResponseRedirect('/workout/%s/view/' % id)
+    # Check if the user is the owner of the object
+    if set_obj.exerciseday.training.user == request.user:
+        set_obj.delete()
+        return HttpResponseRedirect('/workout/%s/view/' % id)
+    else:
+        return HttpResponseForbidden()
+    
+    
 
 # ************************
 # Settings functions
@@ -470,9 +481,14 @@ def api_edit_set(request):
                 order += 1
                 
                 set_obj = get_object_or_404(Set, pk=set_id, exerciseday=day_id)
-                set_obj.order = order
-                set_obj.save()
                 
+                # Check if the user is the owner of the object
+                if set_obj.exerciseday.training.user == request.user:
+                    set_obj.order = order
+                    set_obj.save()
+                else:
+                    return HttpResponseForbidden()
+                 
                 
             return HttpResponse(_('Success'))
 
@@ -491,8 +507,13 @@ def api_edit_setting(request):
                 order += 1
                 
                 setting_obj = get_object_or_404(Setting, pk=setting_id)
-                setting_obj.order = order
-                setting_obj.save()
+                
+                # Check if the user is the owner of the object
+                if setting_obj.set.exerciseday.training.user == request.user:
+                    setting_obj.order = order
+                    setting_obj.save()
+                else:
+                    return HttpResponseForbidden()
                 
                 
             return HttpResponse(_('Success'))
