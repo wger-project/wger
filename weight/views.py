@@ -31,6 +31,7 @@ logger = logging.getLogger('workout_manager.custom')
 class WeightForm(ModelForm):
     class Meta:
         model = WeightEntry
+        exclude=('user',)
 
 @login_required
 def add(request, id=None):
@@ -54,7 +55,7 @@ def add(request, id=None):
         # If the data is valid, save and redirect
         if weight_form.is_valid():
             weight = weight_form.save(commit=False)
-            
+            weight.user = request.user
             weight.save()
             
             return HttpResponseRedirect('/weight/overview/')
@@ -74,7 +75,7 @@ def overview(request):
         * http://wijmo.com/wiki/index.php/Scatterchart
     """
     template_data = {}
-    weights = WeightEntry.objects.all()
+    weights = WeightEntry.objects.filter(user = request.user)
     template_data['weights'] = weights
     
     # Process the data to pass it to the JS libraries to generate an SVG image

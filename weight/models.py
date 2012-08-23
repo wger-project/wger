@@ -15,6 +15,7 @@
 
 from django.db import models
 
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
 class WeightEntry(models.Model):
@@ -22,6 +23,7 @@ class WeightEntry(models.Model):
     """
     creation_date = models.DateField(_('Creation date'))
     weight = models.FloatField(_('Weight'))
+    user = models.ForeignKey(User, verbose_name = _('User'))
 
     
     def __unicode__(self):
