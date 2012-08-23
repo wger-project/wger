@@ -409,6 +409,34 @@ def delete_set(request, id, day_id, set_id):
     else:
         return HttpResponseForbidden()
     
+@login_required
+def api_edit_set(request):
+    """ Allows to edit the order of the sets via an AJAX call
+    """
+    
+    if request.is_ajax():
+        if request.GET.get('do') == 'set_order':
+            day_id = request.GET.get('day_id')
+            new_set_order = request.GET.get('order')
+            
+            data = new_set_order
+            order = 0
+            for i in new_set_order.strip(',').split(','):
+                set_id = i.split('-')[1]
+                order += 1
+                
+                set_obj = get_object_or_404(Set, pk=set_id, exerciseday=day_id)
+                
+                # Check if the user is the owner of the object
+                if set_obj.exerciseday.training.user == request.user:
+                    set_obj.order = order
+                    set_obj.save()
+                else:
+                    return HttpResponseForbidden()
+                 
+                
+            return HttpResponse(_('Success'))
+
     
 
 # ************************
@@ -481,34 +509,6 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
     return render_to_response('setting/edit.html',
                               template_data,
                               context_instance=RequestContext(request))
-
-@login_required
-def api_edit_set(request):
-    """ Allows to edit the order of the sets via an AJAX call
-    """
-    
-    if request.is_ajax():
-        if request.GET.get('do') == 'set_order':
-            day_id = request.GET.get('day_id')
-            new_set_order = request.GET.get('order')
-            
-            data = new_set_order
-            order = 0
-            for i in new_set_order.strip(',').split(','):
-                set_id = i.split('-')[1]
-                order += 1
-                
-                set_obj = get_object_or_404(Set, pk=set_id, exerciseday=day_id)
-                
-                # Check if the user is the owner of the object
-                if set_obj.exerciseday.training.user == request.user:
-                    set_obj.order = order
-                    set_obj.save()
-                else:
-                    return HttpResponseForbidden()
-                 
-                
-            return HttpResponse(_('Success'))
 
 @login_required
 def api_edit_setting(request):
