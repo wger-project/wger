@@ -276,7 +276,7 @@ def edit_day(request, id, day_id=None):
     template_data.update(csrf(request))
     
     # Load workout
-    workout = get_object_or_404(TrainingSchedule, pk=id)
+    workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
     template_data['workout'] = workout
     
     # Load day
@@ -335,7 +335,7 @@ def edit_set(request, id, day_id, set_id=None):
     template_data.update(csrf(request))
     
     # Load workout
-    workout = get_object_or_404(TrainingSchedule, pk=id)
+    workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
     template_data['workout'] = workout
     
     # Load day
@@ -396,7 +396,7 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
     template_data.update(csrf(request))
     
     # Load workout
-    workout = get_object_or_404(TrainingSchedule, pk=id)
+    workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
     template_data['workout'] = workout
     
     # Load set and the FormSet
@@ -504,7 +504,7 @@ def delete_setting(request, id, set_id, exercise_id):
     """
     
     # Load the workout
-    workout = get_object_or_404(TrainingSchedule, pk=id)
+    workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
     
     # Delete all settings
     settings = Setting.objects.filter(exercise_id=exercise_id, set_id=set_id)
