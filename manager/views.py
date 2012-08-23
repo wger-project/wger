@@ -113,7 +113,7 @@ def view_workout(request, id):
     """
     template_data = {}
     
-    workout = get_object_or_404(TrainingSchedule, pk=id)
+    workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
     template_data['workout'] = workout
     
     return render_to_response('workout/view.html', 
@@ -130,7 +130,7 @@ def pdf_workout(request, id):
     """
     
     #Load the workout
-    workout = get_object_or_404(TrainingSchedule, pk=id)
+    workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
     
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(mimetype='application/pdf')
@@ -254,7 +254,7 @@ def delete_workout(request, id):
     """
     
     # Load the workout
-    workout = get_object_or_404(TrainingSchedule, pk=id)
+    workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
     workout.delete()
     
     return HttpResponseRedirect('/')
