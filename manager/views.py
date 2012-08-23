@@ -261,6 +261,24 @@ def delete_workout(request, id):
     return HttpResponseRedirect('/')
 
 
+@login_required
+def api_user_preferences(request):
+    """ Allows the user to edit its preferences via AJAX calls
+    """
+    
+    if request.is_ajax():
+    
+        # Show comments on workout view
+        if request.GET.get('do') == 'set_show-comments':
+            new_value = request.GET.get('show')
+            
+            profile = request.user.get_profile()
+            profile.show_comments = new_value
+            profile.save()
+                
+            return HttpResponse(_('Success'))
+
+
 # ************************
 # Day functions
 # ************************
@@ -348,7 +366,7 @@ def edit_set(request, id, day_id, set_id=None):
     template_data['day'] = day
     
     # Load set
-    if not set_id:
+    if not set_id or set_id == 'None':
         workout_set = Set()
     else:
         workout_set = get_object_or_404(Set, pk=set_id)

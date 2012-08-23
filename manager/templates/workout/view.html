@@ -45,22 +45,29 @@ $(document).ready(function() {
 			
 			//$("#ajax-info").show();
             //$("#ajax-info").addClass('success');
-            $("#ajax-info").load("/workout/api/edit-settting" + "?do=set_order&order=" + order);
+            $("#ajax-info").load("/workout/api/edit-settting?do=set_order&order=" + order);
 		}
 	});
 	
 	// Show/Hide the comments to the exercises
 	$("#exercise-comments-toggle").click(function(e) {
 	    e.preventDefault();
+	    
 	    $(".exercise-comments").toggle();
+	    $("#ajax-info").load("/workout/api/user-preferences?do=set_show-comments&show=" + true);
 	    });
+	{% if user.userprofile.show_comments %}
+        $(".exercise-comments").show();
+    {% else %}
+        $(".exercise-comments").hide();
+    {% endif %}
+    
  });
 </script>
 {% endblock %}
 
 {% block content %}
 <h2> {% trans "Workout for" %} {{ workout.creation_date }}</h2>
-
 
 <div>
 <a id="exercise-comments-toggle" href="#">
