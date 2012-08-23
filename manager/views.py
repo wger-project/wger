@@ -270,7 +270,7 @@ def api_user_preferences(request):
     
         # Show comments on workout view
         if request.GET.get('do') == 'set_show-comments':
-            new_value = request.GET.get('show')
+            new_value = int(request.GET.get('show'))
             
             profile = request.user.get_profile()
             profile.show_comments = new_value

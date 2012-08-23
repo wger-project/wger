@@ -50,17 +50,32 @@ $(document).ready(function() {
 	});
 	
 	// Show/Hide the comments to the exercises
+	{% if user.userprofile.show_comments %}
+		showComment = 1;
+        $(".exercise-comments").show();
+    {% else %}
+    	showComment = 0;
+        $(".exercise-comments").hide();
+    {% endif %}
+	
 	$("#exercise-comments-toggle").click(function(e) {
 	    e.preventDefault();
 	    
-	    $(".exercise-comments").toggle();
-	    $("#ajax-info").load("/workout/api/user-preferences?do=set_show-comments&show=" + true);
+	    
+	    if ( showComment == 0 )
+	    {
+	 		$('.exercise-comments').show();
+	 		showComment = 1;
+		}
+		else if ( showComment == 1 )
+		{
+	  		$('.exercise-comments').hide();
+	  		showComment = 0;
+		}
+	    
+	    $("#ajax-info").load("/workout/api/user-preferences?do=set_show-comments&show=" + showComment);
 	    });
-	{% if user.userprofile.show_comments %}
-        $(".exercise-comments").show();
-    {% else %}
-        $(".exercise-comments").hide();
-    {% endif %}
+	
     
  });
 </script>
