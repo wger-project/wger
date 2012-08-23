@@ -13,15 +13,17 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
-import datetime
+import csv
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.forms import ModelForm
 from django.core.context_processors import csrf
-from django.contrib.auth.decorators import permission_required, login_required
+from django.contrib.auth.decorators import login_required
+from django.utils.translation import ugettext as _
 
 from weight.models import WeightEntry
 
@@ -67,6 +69,28 @@ def add(request, id=None):
                               template_data,
                               context_instance=RequestContext(request))
 
+@login_required
+def export_csv(request):
+    """Exports the saved weight data as a CSV file
+    """
+    
+    # Prepare the response headers
+    filename = "%s-%s" % (_('weightdata'), request.user.username)
+    response = HttpResponse(mimetype='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=%s.csv' % filename
+    
+    # Convert all weight data to CSV
+    writer = csv.writer(response)
+    
+    weights = WeightEntry.objects.filter(user = request.user)
+    writer.writerow([_('Weight'), _('Date')]) 
+    
+    for entry in weights:
+        writer.writerow([entry.weight, entry.creation_date])
+    
+    # Send the data to the browser
+    return response
+    
 @login_required
 def overview(request):
     """Shows an overview of weight data
