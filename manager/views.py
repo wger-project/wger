@@ -238,7 +238,7 @@ def pdf_workout(request, id):
 
     return response
 
-@permission_required('manager.change_trainingschedule')
+@login_required
 def add(request):
     """Add a new workout and redirect to its page
     """
@@ -248,7 +248,7 @@ def add(request):
     
     return HttpResponseRedirect('/workout/%s/view/' % workout.id)
 
-@permission_required('manager.delete_trainingschedule')
+@login_required
 def delete_workout(request, id):
     """Deletes the workout with ID id
     """
@@ -268,7 +268,7 @@ class DayForm(ModelForm):
         model = Day
         exclude=('training',)
 
-@permission_required('manager.change_day')
+@login_required
 def edit_day(request, id, day_id=None):
     """Edits/creates a day
     """
@@ -306,7 +306,7 @@ def edit_day(request, id, day_id=None):
                               template_data,
                               context_instance=RequestContext(request))
 
-@permission_required('manager.delete_day')
+@login_required
 def delete_day(request, id, day_id):
     """Deletes the day with ID day_id belonging to workout with ID id
     """
@@ -326,7 +326,7 @@ class SetForm(ModelForm):
         model = Set
         exclude = ('exerciseday', 'order',)
 
-@permission_required('manager.change_set')
+@login_required
 def edit_set(request, id, day_id, set_id=None):
     """ Edits/creates a set
     """
@@ -371,7 +371,7 @@ def edit_set(request, id, day_id, set_id=None):
                               template_data,
                               context_instance=RequestContext(request))
 
-@permission_required('manager.delete_set')
+@login_required
 def delete_set(request, id, day_id, set_id):
     """ Deletes the given set
     """
@@ -390,7 +390,7 @@ class SettingForm(ModelForm):
         model = Setting
         exclude = ('set', 'exercise')
 
-@permission_required('manager.change_setting')
+@login_required
 def edit_setting(request, id, set_id, exercise_id, setting_id=None):
     template_data = {}
     template_data.update(csrf(request))
@@ -453,7 +453,7 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
                               template_data,
                               context_instance=RequestContext(request))
 
-@permission_required('manager.change_setting')
+@login_required
 def api_edit_set(request):
     """ Allows to edit the order of the sets via an AJAX call
     """
@@ -476,7 +476,7 @@ def api_edit_set(request):
                 
             return HttpResponse(_('Success'))
 
-@permission_required('manager.change_setting')
+@login_required
 def api_edit_setting(request):
     """ Allows to edit the order of the setting inside a set via an AJAX call
     """
@@ -498,7 +498,7 @@ def api_edit_setting(request):
             return HttpResponse(_('Success'))
 
 
-@permission_required('manager.delete_setting')
+@login_required
 def delete_setting(request, id, set_id, exercise_id):
     """Deletes all the settings belonging to set_id and exercise_id
     """
