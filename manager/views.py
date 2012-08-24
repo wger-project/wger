@@ -304,11 +304,11 @@ def edit_day(request, id, day_id=None):
         day = Day()
     else:
         day = get_object_or_404(Day, pk=day_id)
+        
+        # Check that the day belongs to the workout
+        if day.training.id != workout.id:  
+            return HttpResponseForbidden()
     template_data['day'] = day
-    
-    # Check that the day belongs to the workout
-    if day.training.id != workout.id:  
-        return HttpResponseForbidden()
     
     # Process request
     if request.method == 'POST':
