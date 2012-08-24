@@ -306,6 +306,10 @@ def edit_day(request, id, day_id=None):
         day = get_object_or_404(Day, pk=day_id)
     template_data['day'] = day
     
+    # Check that the day belongs to the workout
+    if day.training.id != workout.id:  
+        return HttpResponseForbidden()
+    
     # Process request
     if request.method == 'POST':
         day_form = DayForm(request.POST, instance=day)
@@ -371,6 +375,11 @@ def edit_set(request, id, day_id, set_id=None):
     else:
         workout_set = get_object_or_404(Set, pk=set_id)
     template_data['set'] = workout_set
+    
+    
+    # Check if all objects belong to the workout
+    if day.training.id != workout.id or workout_set.exerciseday.id != day.id:  
+        return HttpResponseForbidden()
     
     # Process request
     if request.method == 'POST':
@@ -469,6 +478,10 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
     exercise = get_object_or_404(Exercise, pk=exercise_id)
     template_data['exercise'] = exercise
     
+    
+    # Check that the set belongs to the workout
+    if set_obj.exerciseday.training.id != workout.id:  
+        return HttpResponseForbidden()
     
     # Load setting
     if not setting_id:
