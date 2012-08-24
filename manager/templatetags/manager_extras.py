@@ -10,3 +10,10 @@ def get_current_settings(exercise, set_id):
     and we are only interested on the settings that belong to the current set
     """
     return exercise.setting_set.filter(set_id=set_id)
+
+@register.inclusion_tag('tags/render_day.html')
+def render_day(day):
+    """Renders a day as it will be displayed in the workout overview
+    """
+    return {'day':     day,
+            'workout': day.training }

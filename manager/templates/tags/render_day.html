@@ -1,0 +1,91 @@
+{% load i18n %} 
+{% load manager_extras %}
+
+<table class="bordertable workout-table">
+<thead>
+    <tr id="day-{{ day.id }}">
+        <th>{{ day.description }}<!--(Day-ID: {{ day.id }})--></th>
+        <th style="text-align:right">
+            <div class="editoptions">
+                <a href="{% url manager.views.delete_day workout.id day.id %}"
+                   title="{% trans "Delete" %}">[x]</a>
+                <a href="{% url manager.views.edit_day workout.id day.id %}"
+                   title="{% trans "Edit" %}">[e]</a>
+            </div>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for set in day.set_set.select_related %}
+        <tr id="set-{{ set.id }}">
+            <td class="ym-g10">{{ forloop.counter }}<br> <!--(Set-ID: {{ set.id }})-->
+                <div class="editoptions">
+                    <a href="{% url manager.views.delete_set workout.id day.id set.id %}"
+                       title="{% trans "Delete" %}">[x]</a>
+                    <a href="{% url manager.views.edit_set workout.id day.id set.id %}"
+                       title="{% trans "Edit" %}">[e]</a>
+                </div>
+            </td>
+            <td>
+                <ul class="exercise-list">
+                {% for exercise in set.exercises.select_related %}
+                    <li id="exercise-{{ exercise.id }}">
+                        <a href="{% url exercises.views.exercise_view exercise.id %}">{{ exercise }}</a>:
+
+                        {{ set.sets }} x
+
+                        {% comment %}
+                            get_current_settings only does a exercise.setting_set.filter(set_id=set_id)
+                        {% endcomment %}
+                        
+                        <span class="settings-list">
+                        {% for setting in exercise|get_current_settings:set.id %}
+                        	<span id="setting-{{setting.id}}">
+                            {{ setting.reps }}
+                            {% if not forloop.last %} – {% endif %}
+                            </span>
+                        {% empty %}
+                            <div class="box warning">
+                                {% trans "No settings for this exercise." %} {% trans "Use link to add one." %}
+                            </div>
+                        {% endfor %} <!--for setting in exercise-->
+                        </span>
+                        
+                        <span class="editoptions">
+                            <a href="{% url manager.views.edit_setting workout.id set.id exercise.id None %}"
+                               title="{% trans "Edit" %}">[e]</a>
+                            <a href="{% url manager.views.edit_setting workout.id set.id exercise.id None %}"
+                               title="{% trans "Delete" %}">[x]</a>
+                        </span>
+                        
+                        
+                        <!-- Comments to the exercise -->
+                        <div class="exercise-comments dimmed">
+                            <ul>
+                            {% for comment in exercise.exercisecomment_set.all %}
+                                <li>{{comment}}</li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                        
+                        
+                        
+                    </li>
+                {% endfor %} <!--for exercise in set-->
+                </ul>
+        {% empty %}
+        <tr>
+            <td colspan="2">
+                <div class="box warning">
+                {% trans "No sets for this day." %} {% trans "Use link to add one." %}
+                </div>
+        {% endfor %} <!--for set in day-->
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <a href="{% url manager.views.edit_set workout.id day.id None %}">{% trans "Add workout set" %}</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
