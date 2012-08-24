@@ -24,7 +24,7 @@ from django.http import Http404
 from django.forms import ModelForm
 from django.forms.models import modelformset_factory
 from django.core.context_processors import csrf
-from django.contrib.auth.decorators import permission_required, login_required
+from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
 
 from django.contrib.auth import authenticate
