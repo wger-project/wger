@@ -404,12 +404,16 @@ def edit_set(request, id, day_id, set_id=None):
         workout_set = Set()
     else:
         workout_set = get_object_or_404(Set, pk=set_id)
+        
+        # Check if all objects belong to the workout
+        if workout_set.exerciseday.id != day.id:  
+            return HttpResponseForbidden()
     template_data['set'] = workout_set
     
-    
     # Check if all objects belong to the workout
-    if day.training.id != workout.id or workout_set.exerciseday.id != day.id:  
+    if day.training.id != workout.id:
         return HttpResponseForbidden()
+    
     
     # Process request
     if request.method == 'POST':
@@ -529,8 +533,6 @@ def api_edit_set(request):
                 #                  new settings: are called 'new-setting-UUID1, new-setting-UUID2, etc.'
                 for i in request.POST:
                     order_counter += 1
-                    #logger.debug(request.POST)
-                    
                     
                     # old settings, update
                     if i.startswith('setting'):
