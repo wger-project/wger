@@ -13,21 +13,20 @@ $(document).ready(function() {
 <table class="bordertable workout-table" id="table-day-{{ day.id }}">
 <thead>
     <tr id="day-{{ day.id }}">
-        <th>{{ day.description }}<!--(Day-ID: {{ day.id }})--></th>
-        <th style="text-align:right">
-            <div class="editoptions">
+        <th colspan="2">{{ day.description }}
+            <span class="editoptions" style="float: right;">
                 <a href="{% url manager.views.delete_day workout.id day.id %}"
                    title="{% trans "Delete" %}">[x]</a>
                 <a href="{% url manager.views.edit_day workout.id day.id %}"
                    title="{% trans "Edit" %}">[e]</a>
-            </div>
+            </span>
         </th>
     </tr>
     </thead>
     <tbody>
         {% for set in day.set_set.select_related %}
         <tr id="set-{{ set.id }}">
-            <td class="ym-g10">{{ forloop.counter }}<br> <!--(Set-ID: {{ set.id }})-->
+            <td class="ym-g10">{{ forloop.counter }}<br>
                 <div class="editoptions">
                     <a href="{% url manager.views.delete_set workout.id day.id set.id %}"
                        title="{% trans "Delete" %}">[x]</a>
@@ -69,7 +68,6 @@ $(document).ready(function() {
                         </span>
                         
                         
-                        <!-- Comments to the exercise -->
                         <div class="exercise-comments dimmed">
                             <ul>
                             {% for comment in exercise.exercisecomment_set.all %}
