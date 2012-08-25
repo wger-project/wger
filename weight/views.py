@@ -42,6 +42,7 @@ def add(request, id=None):
     
     template_data = {}
     template_data.update(csrf(request))
+    template_data['active_tab'] = 'weight'
     
     # Load weight
     if id:
@@ -101,6 +102,7 @@ def overview(request):
     template_data = {}
     weights = WeightEntry.objects.filter(user = request.user)
     template_data['weights'] = weights
+    template_data['active_tab'] = 'weight'
     
     # Process the data to pass it to the JS libraries to generate an SVG image
     data_y = ', '.join([str(i.weight) for i in weights])

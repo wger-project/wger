@@ -83,6 +83,7 @@ def exercise_overview(request):
     
     template_data = {}
     template_data['categories'] = ExerciseCategory.objects.filter(language = language.id)
+    template_data['active_tab'] = 'exercises'
     
     return render_to_response('overview.html',
                               template_data,
@@ -98,6 +99,7 @@ def exercise_view(request, id, comment_id=None):
     # Load the exercise itself
     exercise = get_object_or_404(Exercise, pk=id)
     template_data['exercise'] = exercise
+    template_data['active_tab'] = 'exercises'
     
     #
     # We can create and edit comments from this page, so look for Posts
@@ -146,6 +148,7 @@ def exercise_view(request, id, comment_id=None):
 def exercise_edit(request, id=None):
     template_data = {}
     template_data.update(csrf(request))
+    template_data['active_tab'] = 'exercises'
     
     if not id:
         exercise = Exercise()
@@ -182,6 +185,7 @@ def exercise_delete(request, id):
 def exercise_category_edit(request, id):
     template_data = {}
     template_data.update(csrf(request))
+    template_data['active_tab'] = 'exercises'
     
     if not id:
         category = ExerciseCategory()

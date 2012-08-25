@@ -55,9 +55,15 @@ logger = logging.getLogger('workout_manager.custom')
 def index(request):
     """Show the index page, in our case, a list of workouts
     """
+    
+    template_data = {}
+    template_data['active_tab'] = 'workout'
+    
     latest_trainings = TrainingSchedule.objects.filter(user=request.user).order_by('-creation_date')[:5]
+    template_data['latest_workouts_list'] = latest_trainings
+    
     return render_to_response('index.html',
-                              {'latest_workouts_list': latest_trainings},
+                              template_data,
                               context_instance=RequestContext(request))
 
 
@@ -66,6 +72,7 @@ def login(request):
     """
     template_data = {}
     template_data.update(csrf(request))
+    template_data['active_tab'] = 'workout'
     
     template_data['form'] = AuthenticationForm()
     
@@ -113,6 +120,7 @@ def view_workout(request, id):
     """Show the workout with the given ID
     """
     template_data = {}
+    template_data['active_tab'] = 'workout'
     
     workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
     template_data['workout'] = workout
@@ -293,6 +301,7 @@ def edit_day(request, id, day_id=None):
     """
     template_data = {}
     template_data.update(csrf(request))
+    template_data['active_tab'] = 'workout'
     
     # Load workout
     workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
@@ -353,7 +362,6 @@ def view_day(request, id):
     """
     template_data = {}
     
-    
     # Load day and check if its workout belongs to the user
     day = get_object_or_404(Day, pk=id)
     if day.training.user != request.user:
@@ -383,6 +391,7 @@ def edit_set(request, id, day_id, set_id=None):
     
     template_data = {}
     template_data.update(csrf(request))
+    template_data['active_tab'] = 'workout'
     
     # Load workout
     workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
@@ -483,6 +492,7 @@ class SettingForm(ModelForm):
 def edit_setting(request, id, set_id, exercise_id, setting_id=None):
     template_data = {}
     template_data.update(csrf(request))
+    template_data['active_tab'] = 'workout'
     
     # Load workout
     workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
