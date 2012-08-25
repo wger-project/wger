@@ -8,8 +8,8 @@
 {% block header %}
 <script src="{% static "js/jquery-ui.js" %}"></script>
 <script>
-$(document).ready(function() {
-
+function setup_sortable()
+{
 	// Allow the sets to be sortable
     $(".workout-table tbody").sortable({
         handle: 'td.ym-g10',
@@ -25,10 +25,25 @@ $(document).ready(function() {
 
                 //$("#ajax-info").show();
                 //$("#ajax-info").addClass('success');
-                $("#ajax-info").load("/workout/api/edit-set" + "?do=set_order&day_id=" + day_id + "&order=" + order);
+                $.get("/workout/api/edit-set" + "?do=set_order&day_id=" + day_id + "&order=" + order)
+                
+                
+                // TODO: it seems to be necessary to call the view two times before it returns
+                //       current data.
+                $.get("/workout/day/view/" + day_id);
+                $("#div-day-" + day_id).load("/workout/day/view/" + day_id);
         }
         
     })
+}
+
+
+$(document).ready(function() {
+
+	
+	// Allow the sets to be sortable
+	setup_sortable();
+    
     
     // Allow the settings within an exercise to be sortable
 	$(".settings-list").sortable({
@@ -91,7 +106,9 @@ $(document).ready(function() {
 </div>
 
 {% for day in workout.day_set.select_related %}
-	{% render_day day %}
+	<div id="div-day-{{ day.id }}">
+		{% render_day day %}
+	</div>
 {% empty %}
 <p class="box warning">
     {% trans "No days for this workout." %} {% trans "Use link to add one." %}

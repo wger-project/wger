@@ -1,7 +1,16 @@
 {% load i18n %} 
 {% load manager_extras %}
 
-<table class="bordertable workout-table">
+<script>
+$(document).ready(function() {
+
+	// Call the setup function to allow the sets to be sortable again after loading this
+	// view via AJAX
+    setup_sortable();
+})
+</script>
+
+<table class="bordertable workout-table" id="table-day-{{ day.id }}">
 <thead>
     <tr id="day-{{ day.id }}">
         <th>{{ day.description }}<!--(Day-ID: {{ day.id }})--></th>

@@ -345,6 +345,29 @@ def delete_day(request, id, day_id):
         return HttpResponseForbidden()
 
 
+@login_required
+def view_day(request, id):
+    """Renders a day as shown in the workout overview.
+    
+    This function is to be used with AJAX calls.
+    """
+    template_data = {}
+    
+    
+    # Load day and check if its workout belongs to the user
+    day = get_object_or_404(Day, pk=id)
+    if day.training.user != request.user:
+        return HttpResponseForbidden()
+    
+    template_data['day'] = day
+    
+    for set in day.set_set.select_related():
+        logger.debug("Set-ID: %s, order: %s" % (set.id, set.order))
+    
+    return render_to_response('day/view.html',
+                              template_data,
+                              context_instance=RequestContext(request))
+
 # ************************
 # Set functions
 # ************************
