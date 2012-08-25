@@ -408,6 +408,7 @@ def edit_set(request, id, day_id, set_id=None):
         # Check if all objects belong to the workout
         if workout_set.exerciseday.id != day.id:  
             return HttpResponseForbidden()
+    
     template_data['set'] = workout_set
     
     # Check if all objects belong to the workout
@@ -495,12 +496,13 @@ def api_edit_set(request):
             exercise_id = request.GET.get('exercise')
             exercise = get_object_or_404(Exercise, pk=exercise_id)
             
+            
             # Allow editing settings/repetitions that are not yet associated with the set
-            # We calculate here how many are there already [.filter(...)]and how many there could
+            #
+            # We calculate here how many are there already [.filter(...)] and how many there could
             # be at all (workout_set.sets)
             current_settings = exercise.setting_set.filter(set_id=set_id).count()
             diff = int(workout_set.sets) - current_settings
-            
             
             # If there are 'free slots', create some UUIDs for them, this gives them unique form
             # names in the HTML and makes our lifes easier
@@ -513,14 +515,14 @@ def api_edit_set(request):
             # Process request
             if request.method == 'POST':
                 
+                new_exercise_id = request.POST.get('exercises')
+                new_exercise = get_object_or_404(Exercise, pk=new_exercise_id)
+                
+                
                 set_form = SetForm(request.POST, instance=workout_set)
                 if set_form.is_valid():
                     set_form.save()
-                    
-                    # TODO: when changing the exercise, the ManyToMany relations get lost
-                    
-                    # The exercises are ManyToMany in DB, so we have to save with this function
-                    #set_form.save_m2m()
+
                 else:
                     logger.debug(set_form.errors)
                 
@@ -529,8 +531,8 @@ def api_edit_set(request):
                 # settings get a number that puts them at the end
                 order_counter = 1
                 
-                # The input fields for settings are called 'setting-x, setting-y, etc.',
-                #                  new settings: are called 'new-setting-UUID1, new-setting-UUID2, etc.'
+                # input fields for settings  'setting-x, setting-y, etc.',
+                #              new settings: 'new-setting-UUID1, new-setting-UUID2, etc.'
                 for i in request.POST:
                     order_counter += 1
                     
@@ -538,6 +540,7 @@ def api_edit_set(request):
                     if i.startswith('setting'):
                         setting_id = int(i.split('-')[-1])
                         setting = get_object_or_404(Setting, pk=setting_id)
+                        
                         
                         # Check if the new value is empty (the user wants the setting deleted)
                         # We don't check more, if the user enters a string, it won't be converted
@@ -547,14 +550,16 @@ def api_edit_set(request):
                         else:
                             reps = int(request.POST[i])
                             setting.reps = reps
+                            setting.exercise = new_exercise
                             setting.save()
+                            
                     
                     # new settings, create object and save
                     if i.startswith('new-setting') and request.POST[i]:
                         reps = int(request.POST[i])
                         
                         setting = Setting()
-                        setting.exercise = exercise
+                        setting.exercise = new_exercise
                         setting.set = workout_set
                         setting.reps = reps
                         setting.order = order_counter
