@@ -35,15 +35,6 @@ function setup_sortable()
         }
         
     })
-}
-
-
-$(document).ready(function() {
-
-	
-	// Allow the sets to be sortable
-	setup_sortable();
-    
     
     // Allow the settings within an exercise to be sortable
 	$(".settings-list").sortable({
@@ -58,11 +49,28 @@ $(document).ready(function() {
 			// returns something in the form "setting-1,setting-2,setting-3,"
 			order = $( this ).sortable('toArray');
 			
+			// Load the day-ID
+            day_element = ui.item.parents('table').find('tr').attr('id'); //day-xy
+            day_id = day_element.match(/\d+/);
+			
 			//$("#ajax-info").show();
             //$("#ajax-info").addClass('success');
             $("#ajax-info").load("/workout/api/edit-settting?do=set_order&order=" + order);
+            
+            // TODO: it seems to be necessary to call the view two times before it returns
+            //       current data.
+            $.get("/workout/day/view/" + day_id);
+            $("#div-day-" + day_id).load("/workout/day/view/" + day_id);
 		}
 	});
+}
+
+
+$(document).ready(function() {
+
+	
+	// Allow the sets to be sortable
+	setup_sortable();
 	
 	// Show/Hide the comments to the exercises
 	{% if user.userprofile.show_comments %}
