@@ -456,6 +456,8 @@ def api_edit_set(request):
     """
     
     if request.is_ajax():
+        
+        # Set the order of the reps
         if request.GET.get('do') == 'set_order':
             day_id = request.GET.get('day_id')
             new_set_order = request.GET.get('order')
@@ -477,6 +479,47 @@ def api_edit_set(request):
                  
                 
             return HttpResponse(_('Success'))
+        
+        if request.GET.get('do') == 'edit_set':
+            template_data = {}
+            template_data.update(csrf(request))
+            
+            
+            set_id = request.GET.get('set')
+            workout_set = get_object_or_404(Set, pk=set_id)
+            template_data['set'] = workout_set
+            
+            exercise_id = request.GET.get('exercise')
+            exercise = get_object_or_404(Exercise, pk=exercise_id)
+            
+            # Process request
+            if request.method == 'POST':
+                logger.debug(request.POST)
+                
+                set_form = SetForm(request.POST, instance=workout_set)
+                if set_form.is_valid():
+                    set_form.save()
+                    
+                    # The exercises are ManyToMany in DB, so we have to save with this function
+                    #set_form.save_m2m()
+                else:
+                    logger.debug(set_form.errors)
+                    
+                # The settings are sent as a list 'setting-x, setting-y, etc.'
+                for i in request.POST:
+                    if 'setting' in i:
+                        reps = int(request.POST[i])
+                        setting_id = int(i.split('-')[-1])
+                        setting = get_object_or_404(Setting, pk=setting_id)
+                        setting.reps = reps
+                        setting.save() 
+            
+            
+            template_data['exercise'] = exercise
+            
+            return render_to_response('setting/ajax_edit.html',
+                              template_data,
+                              context_instance=RequestContext(request))
 
     
 

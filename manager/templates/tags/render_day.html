@@ -62,7 +62,8 @@ $(document).ready(function() {
                         
                         <span class="editoptions">
                             <a href="{% url manager.views.edit_setting workout.id set.id exercise.id None %}"
-                               title="{% trans "Edit" %}">[e]</a>
+                               title="{% trans "Edit" %}"
+                               class="ajax-set-edit">[e]</a>
                             <a href="{% url manager.views.edit_setting workout.id set.id exercise.id None %}"
                                title="{% trans "Delete" %}">[x]</a>
                         </span>

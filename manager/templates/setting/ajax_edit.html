@@ -1,0 +1,88 @@
+{% load i18n %} 
+{% load manager_extras %}
+
+<script>
+$(document).ready(function() {
+
+	// Call the setup function to allow the sets to be sortable again after loading this
+	// view via AJAX
+	// Editing of set
+	$(".ajax-form-cancel").click(function(e) {
+	    e.preventDefault();
+    	$("#div-day-" + {{set.exerciseday.id}}).load("/workout/day/view/" + {{set.exerciseday.id}});
+    	alert(1);
+    	
+    	setup_ajax_set_edit();
+ 	})
+ 	
+ 	// Send the Form
+ 	$('.ajax-form-set-edit').submit(function(e) {
+	  e.preventDefault();
+	  
+	  url = "/workout/api/edit-set?do=edit_set&set=" + {{set.id}} + "&exercise=" + {{exercise.id}}
+	  form_data = $(this).serialize();
+	  $.post( url, form_data);
+	  
+	  $("#div-day-" + {{set.exerciseday.id}}).load("/workout/day/view/" + {{set.exerciseday.id}});
+    	//alert(1);
+    	
+	  setup_ajax_set_edit();
+	});
+ 	
+ 	// Init the autocompleter
+    $(".ajax-form-exercise-list").autocomplete({
+            source: "{% url exercises.views.exercise_search %}",
+            minLength: 2,
+            select: function(event, ui) {
+
+                // After clicking on a result set the value of the hidden field
+                $('#set-{{set.id}}-exercercise-id-hidden').val(ui.item.id);
+            }
+        });
+})
+</script>
+
+<form action="{% url manager.views.api_edit_set %}?do=edit_set&amp;set={{set.id}}&amp;exercise={{exercise.id}}"
+      method="post"
+      class="ajax-form-set-edit">
+    {% csrf_token %}
+    {{ setting_form.management_form }}
+    {{ setting_form.non_field_errors }}
+    
+    <span class="ui-widget">
+		<input type="hidden"
+			   name="exercises"
+			   value="{{exercise.id}}"
+			   id="set-{{set.id}}-exercercise-id-hidden">
+    	<input type="text"
+    		   name="exercise_name"
+    		   value="{{exercise.name}}"
+    		   class="ajax-form-exercise-list"
+    		   id="set-{{set.id}}-exercercise-id">:
+    </span>
+    
+    <input type="text" name="sets" value="{{ set.sets }}" maxlength="2" style="width: 2em;">
+    x
+    <!-- |get_current_settings:set.id -->
+    {% for setting in exercise|get_current_settings:set.id %}
+    	<input type="text" name="setting-{{setting.id}}" value="{{ setting.reps }}" maxlength="2" style="width: 2em;">
+    	{% if not forloop.last %} – {% endif %}
+	{% endfor %}
+	
+    
+    
+    
+
+    {% for form in setting_form %}
+        {{ form.id }} <!-- Needed for FormSets --> 
+        {% include "form_snippet.html" with field=form.reps %}
+        <!--{% include "form_snippet.html" with field=form.comment %}-->
+    {% endfor %}
+    
+	<input type="submit"
+	 	   value="{% trans 'Save' %}"
+	 	   class="ajax-form-submit" />
+	<input type="submit"
+   		  value="{% trans "Cancel" %}"
+   		  class="ajax-form-cancel" />
+</form>

@@ -65,12 +65,33 @@ function setup_sortable()
 	});
 }
 
+// Editing of sets
+function setup_ajax_set_edit()
+{
+	$(".ajax-set-edit").click(function(e) {
+	    e.preventDefault();
+	    
+	    set_element = $(this).parents('tr').attr('id');
+	    set_id = set_element.match(/\d+/);
+	    
+	    exercise_id = $(this).parents('li').attr('id').match(/\d+/);
+	    
+	    
+	    $($(this).parents('li')).load("/workout/api/edit-set?do=edit_set&set=" + set_id + "&exercise=" + exercise_id);
+	    
+	    //alert(1);
+	});
+}
+
 
 $(document).ready(function() {
 
 	
 	// Allow the sets to be sortable
 	setup_sortable();
+	
+	// Editing of sets
+	setup_ajax_set_edit();
 	
 	// Show/Hide the comments to the exercises
 	{% if user.userprofile.show_comments %}
@@ -98,8 +119,6 @@ $(document).ready(function() {
 	    
 	    $("#ajax-info").load("/workout/api/user-preferences?do=set_show-comments&show=" + showComment);
 	    });
-	
-    
  });
 </script>
 {% endblock %}
