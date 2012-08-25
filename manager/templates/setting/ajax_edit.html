@@ -65,12 +65,10 @@ $(document).ready(function() {
     
     {% for setting in exercise|get_current_settings:set.id %}
     	<input type="text" name="setting-{{setting.id}}" value="{{ setting.reps }}" maxlength="2" style="width: 2em;">
-    	{% if not forloop.last %} – {% endif %}
 	{% endfor %}
 	
 	{% for setting in new_settings %}
     	<input type="text" name="new-setting-{{setting}}" value="" maxlength="2" style="width: 2em;">
-    	{% if not forloop.last %} – {% endif %}
 	{% endfor %}
 	
     
