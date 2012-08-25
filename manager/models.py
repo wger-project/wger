@@ -17,6 +17,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator
 
 
 from exercises.models import Exercise
@@ -60,15 +61,14 @@ class Day(models.Model):
         return "%s for TP %s" % (self.description, unicode(self.training))
 
 
-
 class Set(models.Model):
     """Model for a set of exercises
     """
 
     exerciseday = models.ForeignKey(Day, verbose_name = _('Exercise day'))
     exercises = models.ManyToManyField(Exercise, verbose_name = _('Exercises'))
-    order = models.IntegerField(max_length=1, blank=True, null=True, verbose_name = _('Order')) #TODO: null=True???
-    sets = models.IntegerField(verbose_name = _('Sets'))
+    order = models.IntegerField(max_length = 1, blank = True, null = True, verbose_name = _('Order')) #TODO: null=True???
+    sets = models.IntegerField(validators = [MaxValueValidator(6)], verbose_name = _('Sets'))
     
     # Metaclass to set some other properties
     class Meta:
@@ -87,7 +87,7 @@ class Setting(models.Model):
     
     set = models.ForeignKey(Set, verbose_name = _('Sets'))
     exercise = models.ForeignKey(Exercise, verbose_name = _('Exercises'))
-    reps = models.IntegerField(verbose_name = _('Repetitions'))
+    reps = models.IntegerField(validators = [MaxValueValidator(40)], verbose_name = _('Repetitions'))
     order = models.IntegerField(blank = True, verbose_name = _('Repetitions'))
     comment = models.CharField(max_length=100, blank=True, verbose_name = _('Comment'))
     
