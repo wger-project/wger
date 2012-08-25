@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 import logging
 import calendar
+import uuid
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -369,9 +370,6 @@ def view_day(request, id):
     
     template_data['day'] = day
     
-    for set in day.set_set.select_related():
-        logger.debug("Set-ID: %s, order: %s" % (set.id, set.order))
-    
     return render_to_response('day/view.html',
                               template_data,
                               context_instance=RequestContext(request))
@@ -480,11 +478,12 @@ def api_edit_set(request):
                 
             return HttpResponse(_('Success'))
         
+        # This part is responsible for the in-place editing of the sets and settings
         if request.GET.get('do') == 'edit_set':
             template_data = {}
             template_data.update(csrf(request))
             
-            
+            # Load the objects
             set_id = request.GET.get('set')
             workout_set = get_object_or_404(Set, pk=set_id)
             template_data['set'] = workout_set
@@ -492,27 +491,72 @@ def api_edit_set(request):
             exercise_id = request.GET.get('exercise')
             exercise = get_object_or_404(Exercise, pk=exercise_id)
             
+            # Allow editing settings/repetitions that are not yet associated with the set
+            # We calculate here how many are there already [.filter(...)]and how many there could
+            # be at all (workout_set.sets)
+            current_settings = exercise.setting_set.filter(set_id=set_id).count()
+            diff = int(workout_set.sets) - current_settings
+            
+            
+            # If there are 'free slots', create some UUIDs for them, this gives them unique form
+            # names in the HTML and makes our lifes easier
+            new_settings = []
+            if diff > 0:
+                new_settings = [uuid.uuid4() for i in range(0, diff)]
+            template_data['new_settings'] = new_settings
+            
+            
             # Process request
             if request.method == 'POST':
-                logger.debug(request.POST)
                 
                 set_form = SetForm(request.POST, instance=workout_set)
                 if set_form.is_valid():
                     set_form.save()
                     
+                    # TODO: when changing the exercise, the ManyToMany relations get lost
+                    
                     # The exercises are ManyToMany in DB, so we have to save with this function
                     #set_form.save_m2m()
                 else:
                     logger.debug(set_form.errors)
-                    
-                # The settings are sent as a list 'setting-x, setting-y, etc.'
+                
+                # Init a counter for the order in case we have to set it for new settings
+                # We don't actually care how hight the counter actually is, as long as the new
+                # settings get a number that puts them at the end
+                order_counter = 1
+                
+                # The input fields for settings are called 'setting-x, setting-y, etc.',
+                #                  new settings: are called 'new-setting-UUID1, new-setting-UUID2, etc.'
                 for i in request.POST:
-                    if 'setting' in i:
-                        reps = int(request.POST[i])
+                    order_counter += 1
+                    #logger.debug(request.POST)
+                    
+                    
+                    # old settings, update
+                    if i.startswith('setting'):
                         setting_id = int(i.split('-')[-1])
                         setting = get_object_or_404(Setting, pk=setting_id)
+                        
+                        # Check if the new value is empty (the user wants the setting deleted)
+                        # We don't check more, if the user enters a string, it won't be converted
+                        # and nothing will happen
+                        if request.POST[i] == '':
+                            setting.delete()
+                        else:
+                            reps = int(request.POST[i])
+                            setting.reps = reps
+                            setting.save()
+                    
+                    # new settings, create object and save
+                    if i.startswith('new-setting') and request.POST[i]:
+                        reps = int(request.POST[i])
+                        
+                        setting = Setting()
+                        setting.exercise = exercise
+                        setting.set = workout_set
                         setting.reps = reps
-                        setting.save() 
+                        setting.order = order_counter
+                        setting.save()
             
             
             template_data['exercise'] = exercise

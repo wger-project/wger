@@ -46,8 +46,6 @@ $(document).ready(function() {
       method="post"
       class="ajax-form-set-edit">
     {% csrf_token %}
-    {{ setting_form.management_form }}
-    {{ setting_form.non_field_errors }}
     
     <span class="ui-widget">
 		<input type="hidden"
@@ -63,21 +61,18 @@ $(document).ready(function() {
     
     <input type="text" name="sets" value="{{ set.sets }}" maxlength="2" style="width: 2em;">
     x
-    <!-- |get_current_settings:set.id -->
+    
+    
     {% for setting in exercise|get_current_settings:set.id %}
     	<input type="text" name="setting-{{setting.id}}" value="{{ setting.reps }}" maxlength="2" style="width: 2em;">
     	{% if not forloop.last %} – {% endif %}
 	{% endfor %}
 	
-    
-    
-    
-
-    {% for form in setting_form %}
-        {{ form.id }} <!-- Needed for FormSets --> 
-        {% include "form_snippet.html" with field=form.reps %}
-        <!--{% include "form_snippet.html" with field=form.comment %}-->
-    {% endfor %}
+	{% for setting in new_settings %}
+    	<input type="text" name="new-setting-{{setting}}" value="" maxlength="2" style="width: 2em;">
+    	{% if not forloop.last %} – {% endif %}
+	{% endfor %}
+	
     
 	<input type="submit"
 	 	   value="{% trans 'Save' %}"
