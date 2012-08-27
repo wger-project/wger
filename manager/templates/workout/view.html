@@ -18,11 +18,6 @@ $(document).ready(function() {
 	// Allow the sets to be sortable
 	setup_sortable();
 	
-	setup_ajax_set_edit();
-	
-	// Editing of sets
-	//setup_ajax_set_edit();
-	
 	// Show/Hide the comments to the exercises
 	{% if user.userprofile.show_comments %}
 		showComment = 1;
