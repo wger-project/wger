@@ -418,6 +418,7 @@ def edit_set(request, id, day_id, set_id=None):
     
     # Process request
     if request.method == 'POST':
+        
         set_form = SetForm(request.POST, instance=workout_set)
         
         # If the data is valid, save and redirect
@@ -515,15 +516,22 @@ def api_edit_set(request):
             # Process request
             if request.method == 'POST':
                 
-                new_exercise_id = request.POST.get('exercises')
+                new_exercise_id = request.POST.get('current_exercise')
                 new_exercise = get_object_or_404(Exercise, pk=new_exercise_id)
                 
+                # When there is more than one exercise per set, we need to manually set and replace
+                # the IDs here, otherwise they get lost
+                request_copy = request.POST
+                request_copy = request_copy.copy()
                 
-                set_form = SetForm(request.POST, instance=workout_set)
+                exercise_list = [ i for i in request_copy.getlist('exercises') if i != exercise_id]
+                request_copy.setlist('exercises', exercise_list)
+                request_copy.update({'exercises': new_exercise_id})
+                
+                
+                set_form = SetForm(request_copy, instance=workout_set)
+                
                 if set_form.is_valid():
-                    
-                    # TODO: when there is more than one exercise per set, we need to
-                    # manually set them here, otherwise they get lost!
                     set_form.save()
 
                 else:

@@ -18,10 +18,20 @@ $(document).ready(function() {
     {% csrf_token %}
     
     <span class="ui-widget">
-		<input type="hidden"
-			   name="exercises"
-			   value="{{exercise.id}}"
+    	{% for current_exercise in set.exercises.all %}
+    	{% if current_exercise.id == exercise.id %}
+    	<input type="hidden"
+			   name="current_exercise"
+			   value="{{current_exercise.id}}"
 			   id="set-{{set.id}}-exercercise-id-hidden">
+    	{% endif %}
+    	
+    	<input type="hidden"
+			   name="exercises"
+			   value="{{current_exercise.id}}">
+    	{% endfor%}
+    	
+		
     	<input type="text"
     		   name="exercise_name"
     		   value="{{exercise.name}}"
