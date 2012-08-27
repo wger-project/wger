@@ -6,39 +6,9 @@ $(document).ready(function() {
 
 	// Call the setup function to allow the sets to be sortable again after loading this
 	// view via AJAX
-	// Editing of set
-	$(".ajax-form-cancel").click(function(e) {
-	    e.preventDefault();
-    	$("#div-day-" + {{set.exerciseday.id}}).load("/workout/day/view/" + {{set.exerciseday.id}});
-    	alert(1);
-    	
-    	setup_ajax_set_edit();
- 	})
- 	
- 	// Send the Form
- 	$('.ajax-form-set-edit').submit(function(e) {
-	  e.preventDefault();
-	  
-	  url = "/workout/api/edit-set?do=edit_set&set=" + {{set.id}} + "&exercise=" + {{exercise.id}}
-	  form_data = $(this).serialize();
-	  $.post( url, form_data);
-	  
-	  $("#div-day-" + {{set.exerciseday.id}}).load("/workout/day/view/" + {{set.exerciseday.id}});
-    	//alert(1);
-    	
-	  setup_ajax_set_edit();
-	});
- 	
- 	// Init the autocompleter
-    $(".ajax-form-exercise-list").autocomplete({
-            source: "{% url exercises.views.exercise_search %}",
-            minLength: 2,
-            select: function(event, ui) {
-
-                // After clicking on a result set the value of the hidden field
-                $('#set-{{set.id}}-exercercise-id-hidden').val(ui.item.id);
-            }
-        });
+	setup_inplace_editing();
+	
+	
 })
 </script>
 

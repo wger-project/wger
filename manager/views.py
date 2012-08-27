@@ -521,6 +521,9 @@ def api_edit_set(request):
                 
                 set_form = SetForm(request.POST, instance=workout_set)
                 if set_form.is_valid():
+                    
+                    # TODO: when there is more than one exercise per set, we need to
+                    # manually set them here, otherwise they get lost!
                     set_form.save()
 
                 else:
