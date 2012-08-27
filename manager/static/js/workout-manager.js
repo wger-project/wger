@@ -133,7 +133,7 @@ function setup_inplace_editing()
 		
 		// Init the autocompleter
 	    $(".ajax-form-exercise-list").autocomplete({
-	            source: "{% url exercises.views.exercise_search %}",
+	            source: "/exercise/search/",
 	            minLength: 2,
 	            select: function(event, ui) {
 	
