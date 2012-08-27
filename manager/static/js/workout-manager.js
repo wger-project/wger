@@ -104,7 +104,7 @@ function toggle_comments()
 
 function setup_inplace_editing()
 {
-	$(".ajax-form-cancel").each(function(index) {
+	$(".ajax-form-cancel").each(function(index, element) {
 		
 		
 		exercise_id = $(this).parents('li').attr('id').match(/\d+/);
@@ -112,16 +112,13 @@ function setup_inplace_editing()
 		set_id = $(this).parents('tr').attr('id').match(/\d+/);
 		
 		// Editing of set
-		$(".ajax-form-cancel").click(function(e) {
+		$(element).click(function(e) {
 		    e.preventDefault();
 	    	$("#div-day-" + day_id).load("/workout/day/view/" + day_id);
-
-	    	setup_sortable();
-			setup_ajax_set_edit();
 	 	})
 	 	
 	 	// Send the Form
-	 	$('.ajax-form-set-edit').submit(function(e) {
+	 	$(element).submit(function(e) {
 		  e.preventDefault();
 		  
 		  url = "/workout/api/edit-set?do=edit_set&set=" + set_id + "&exercise=" + exercise_id
@@ -132,7 +129,7 @@ function setup_inplace_editing()
         });
 		
 		// Init the autocompleter
-	    $(".ajax-form-exercise-list").autocomplete({
+	    $(element).autocomplete({
 	            source: "/exercise/search/",
 	            minLength: 2,
 	            select: function(event, ui) {
