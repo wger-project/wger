@@ -87,7 +87,7 @@ a {
     visibility: hidden;
 }
 
-.editoptions img
+a img
 {
 	filter: grayscale(100%);
 	-webkit-filter: grayscale(100%);
@@ -96,7 +96,7 @@ a {
 	-o-filter: grayscale(100%);
 }
 
-.editoptions img:hover
+a:hover img
 {
 	filter: grayscale(0%);
 	-webkit-filter: grayscale(0%);
