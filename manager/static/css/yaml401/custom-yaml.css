@@ -1,4 +1,11 @@
 /*
+ * 
+ * This file contains slight modifications to the YAML theme
+ * 
+ */
+
+
+/*
  * Hide the edit options (edit, delete) on tables, only show them when the mouse is over the row
  */
 .editoptions
@@ -12,6 +19,41 @@ tr:hover .editoptions, tbody tr:hover td .editoptions
 }
 
 
+/*
+ * Deactivate the default background color on hover
+ */
+.ui-tabs-nav a:hover, 
+.ui-tabs-nav a:focus {
+		background-color: transparent;
+	}
+
+
+/*
+ * Use colour from the Tango palette for links 
+ */
+
+a {
+	color: #3465a4;
+}
+/*
+ * Use colours from the Tango palette for the info, warning and error boxes 
+ */
+
+.info {
+		background: #babdb6;
+	}
+
+.warning {
+		background: #fcaf3e
+	}
+
+.success {
+		background: #8ae234;
+	}
+
+.error {
+		background: #ef2929;
+	}
 
 /*
  * Own classes
