@@ -118,7 +118,7 @@ function setup_inplace_editing()
 	 	})
 	 	
 	 	// Send the Form
-	 	$(element).submit(function(e) {
+	 	$('.ajax-form-set-edit').submit(function(e) {
 		  e.preventDefault();
 		  
 		  url = "/workout/api/edit-set?do=edit_set&set=" + set_id + "&exercise=" + exercise_id
@@ -129,7 +129,7 @@ function setup_inplace_editing()
         });
 		
 		// Init the autocompleter
-	    $(element).autocomplete({
+	    $(".ajax-form-exercise-list").autocomplete({
 	            source: "/exercise/search/",
 	            minLength: 2,
 	            select: function(event, ui) {
