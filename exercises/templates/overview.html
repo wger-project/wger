@@ -135,8 +135,24 @@ $(document).ready(function() {
     <h3>{% trans "Options" %}</h3>
 
     <p>
-        <a href="{% url exercises.views.exercise_edit None %}">{% trans "Add new exercise" %}</a> |
-        <a href="{% url exercises.views.exercise_category_edit None %}">{% trans "Add category" %}</a>
+        <a href="{% url exercises.views.exercise_edit None %}">
+        	<img src="{% static 'images/icons/new.svg' %}"
+                            width="32"
+                            height="32"
+                            alt="{% trans 'Add new exercise' %}"
+                            title="{% trans 'Add new exercise' %}">
+        	{% trans "Add new exercise" %}
+        	</a>
+	</p>
+	<p>
+        <a href="{% url exercises.views.exercise_category_edit None %}">
+        	<img src="{% static 'images/icons/folder-new.svg' %}"
+                            width="32"
+                            height="32"
+                            alt="{% trans 'Add category' %}"
+                            title="{% trans 'Add category' %}">
+        	{% trans "Add category" %}
+        	</a>
     </p>
 {% endif %}
 

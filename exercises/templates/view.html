@@ -79,8 +79,22 @@
     <h3>{% trans "Options" %}</h3>
 
     <p>
-        <a href="{% url exercises.views.exercise_edit exercise.id %}">{% trans "Edit" %}</a> |
-        <a href="{% url exercises.views.exercise_delete exercise.id %}">{% trans "Delete" %}</a>
+        <a href="{% url exercises.views.exercise_edit exercise.id %}">
+            <img src="{% static "images/icons/edit.svg" %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Edit' %}">
+            {% trans "Edit" %}
+        </a>
+    </p>
+    <p>
+        <a href="{% url exercises.views.exercise_delete exercise.id %}">
+    	<img src="{% static "images/icons/trash.svg" %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Delete' %}">
+    	    {% trans "Delete" %}
+	    </a>
     </p>
 {% endif %}
 {% endblock %}

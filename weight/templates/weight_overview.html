@@ -110,6 +110,15 @@
 <p>Filter widgets etc come here</p>
 
 <h3>{% trans "Options" %}</h3>
-<p><a href="{% url weight.views.export_csv %}">{% trans "Export as CSV" %}</a></p>
+<p>
+    <a href="{% url weight.views.export_csv %}">
+    <img src="{% static 'images/icons/document.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Export as CSV' %}"
+         title="{% trans 'Export as CSV' %}">
+        {% trans "Export as CSV" %}
+    </a>
+</p>
 
 {% endblock %}

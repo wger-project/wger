@@ -1,4 +1,5 @@
 {% load i18n %} 
+{% load staticfiles %}
 {% load manager_extras %}
 
 <script>
@@ -18,9 +19,19 @@ $(document).ready(function() {
         <th colspan="2">{{ day.description }}
             <span class="editoptions" style="float: right;">
                 <a href="{% url manager.views.delete_day workout.id day.id %}"
-                   title="{% trans "Delete" %}">[x]</a>
+                   title="{% trans 'Delete' %}">
+                       <img src="{% static "images/icons/trash.svg" %}"
+                            width="22"
+                            height="22"
+                            alt="{% trans 'Delete' %}">
+                </a>
                 <a href="{% url manager.views.edit_day workout.id day.id %}"
-                   title="{% trans "Edit" %}">[e]</a>
+                   title="{% trans 'Edit' %}">
+                       <img src="{% static "images/icons/edit.svg" %}"
+                            width="22"
+                            height="22"
+                            alt="{% trans 'Edit' %}">
+                </a>
             </span>
         </th>
     </tr>
@@ -31,9 +42,19 @@ $(document).ready(function() {
             <td class="ym-g10">{{ forloop.counter }}<br>
                 <div class="editoptions">
                     <a href="{% url manager.views.delete_set workout.id day.id set.id %}"
-                       title="{% trans "Delete" %}">[x]</a>
+                       title="{% trans 'Delete' %}">
+                        <img src="{% static "images/icons/trash.svg" %}"
+                            width="16"
+                            height="16"
+                            alt="{% trans 'Delete' %}">
+                    </a>
                     <a href="{% url manager.views.edit_set workout.id day.id set.id %}"
-                       title="{% trans "Edit" %}">[e]</a>
+                       title="{% trans 'Edit' %}">
+                        <img src="{% static "images/icons/edit.svg" %}"
+                            width="16"
+                            height="16"
+                            alt="{% trans 'Edit' %}">
+                    </a>
                 </div>
             </td>
             <td>
@@ -64,9 +85,19 @@ $(document).ready(function() {
                         <span class="editoptions">
                             <a href="{% url manager.views.edit_setting workout.id set.id exercise.id None %}"
                                title="{% trans "Edit" %}"
-                               class="ajax-set-edit">[e]</a>
+                               class="ajax-set-edit">
+                                <img src="{% static "images/icons/trash.svg" %}"
+		                             width="16"
+		                             height="16"
+		                             alt="{% trans 'Delete' %}">
+                            </a>
                             <a href="{% url manager.views.edit_setting workout.id set.id exercise.id None %}"
-                               title="{% trans "Delete" %}">[x]</a>
+                               title="{% trans "Delete" %}">
+                               <img src="{% static "images/icons/edit.svg" %}"
+                                    width="16"
+                                    height="16"
+                                    alt="{% trans 'Edit' %}">
+                            </a>
                         </span>
                         
                         

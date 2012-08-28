@@ -4,15 +4,6 @@
  * 
  */
 
-
-/*
- * Hide the edit options (edit, delete) on tables, only show them when the mouse is over the row
- */
-.editoptions
-{
-    visibility: hidden;
-}
-
 tr:hover .editoptions, tbody tr:hover td .editoptions
 {
     visibility: visible;
@@ -22,10 +13,11 @@ tr:hover .editoptions, tbody tr:hover td .editoptions
 /*
  * Deactivate the default background color on hover
  */
+.editoptions a:hover,
 .ui-tabs-nav a:hover, 
 .ui-tabs-nav a:focus {
 		background-color: transparent;
-	}
+}
 
 
 /*
@@ -41,19 +33,19 @@ a {
 
 .info {
 		background: #babdb6;
-	}
+}
 
 .warning {
 		background: #fcaf3e
-	}
+}
 
 .success {
 		background: #8ae234;
-	}
+}
 
 .error {
 		background: #ef2929;
-	}
+}
 
 /*
  * Own classes
@@ -84,4 +76,31 @@ a {
 	background-color: #babdb6; /* #888a85;*/
 	/*text-align:center;*/
 	border-bottom:1px solid black;
+}
+
+
+/*
+ * Hide the edit options (edit, delete) on tables, only show them when the mouse is over the row
+ */
+.editoptions
+{
+    visibility: hidden;
+}
+
+.editoptions img
+{
+	filter: grayscale(100%);
+	-webkit-filter: grayscale(100%);
+	-moz-filter: grayscale(100%);
+	-ms-filter: grayscale(100%);
+	-o-filter: grayscale(100%);
+}
+
+.editoptions img:hover
+{
+	filter: grayscale(0%);
+	-webkit-filter: grayscale(0%);
+	-moz-filter: grayscale(0%);
+	-ms-filter: grayscale(0%);
+	-o-filter: grayscale(0%);	
 }
