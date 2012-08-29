@@ -1,0 +1,94 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-30 00:05+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+msgid "Language short name"
+msgstr "Name der Sprache - lang"
+
+msgid "Language full name"
+msgstr "Name der Sprache - kurz"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Language"
+msgstr "Sprache"
+
+msgid "Exercise Categories"
+msgstr "Kategorie Übung"
+
+msgid "Category"
+msgstr "Kategorie"
+
+msgid "Some comment about how to correctly do this exercise"
+msgstr "Ein Kommenter über die korrekte Durchführung der Übung "
+
+msgid "Category details"
+msgstr "Kategoriedetails"
+
+msgid "New category"
+msgstr "Neue Kategorie"
+
+msgid "Exercise details"
+msgstr "Übungsdetails"
+
+msgid "New exercise"
+msgstr "Neue Übung"
+
+msgid "Confirm"
+msgstr "Bestätigen"
+
+msgid "Really delete exercise?"
+msgstr "Übung wirklich löschen?"
+
+msgid "Deleting the exercise will also delete it from all workouts."
+msgstr ""
+"Das Löschen der Übung wird sie auch aus allen Trainingsplänen entfernen."
+
+msgid "Are you sure?"
+msgstr "Sind Sie sicher?"
+
+#, fuzzy
+msgid "No category. Use link to create one"
+msgstr "Benutzen Sie den Verweis zum Hinzufügen"
+
+msgid ""
+"No exercises in this category. Add or edit an exercise and set its "
+"category"
+msgstr ""
+"Keine Übungen in dieser Kategorie. Editiere oder füge eine neue Übung "
+"hinzu und setze die Kategorie"
+
+msgid "Add new exercise"
+msgstr "Neue Übung hinzufügen"
+
+msgid "Add category"
+msgstr "Kategorie hinzufügen"
+
+msgid "Use the search box to search the name of any exercise."
+msgstr "Benutzen Sie die Suchmaske um nach Übungsnamen zu suchen."
+
+msgid "All comments for this exercise"
+msgstr "Alle Kommentare für diese Übung"
+
+msgid "Sorry, no comments for this exercise yet!"
+msgstr "Tut mir leid, keine Kommentare für diese Übung!"
+
+msgid "Add new comment"
+msgstr "Kommentar hinzufügen"

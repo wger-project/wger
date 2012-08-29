@@ -151,7 +151,7 @@ def pdf_workout(request, id):
                             pagesize = A4,
                             title = _('Workout'),
                             author = _('Workout Manager'),
-                            subject = _('Workout for XYZ'))
+                            subject = _('Workout for %s') % request.user.username)
 
     # container for the 'Flowable' objects
     elements = []
