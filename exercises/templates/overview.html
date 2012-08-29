@@ -81,7 +81,7 @@ $(document).ready(function() {
         {% for category in categories %}
         <li><a href="#cat{{ category.id }}">{{ category.name }}</a></li>
         {% empty %}
-        <li>{% trans "No category." %} {% trans "Use link to create one" %} </li>
+        <li>{% trans "No categories." %} {% trans "Use link to create one" %}</li>
         {% endfor %}
     </ul>
 
