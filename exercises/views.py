@@ -82,6 +82,8 @@ def exercise_overview(request):
     language = get_object_or_404(Language, short_name = translation.get_language())
     
     template_data = {}
+    template_data.update(csrf(request))
+    
     template_data['categories'] = ExerciseCategory.objects.filter(language = language.id)
     template_data['active_tab'] = 'exercises'
     
@@ -233,11 +235,13 @@ def exercise_search(request):
     """Search an exercise, return the result as a JSON list
     """
     
+    # Perform the search
+    q = request.GET.get('term', '')
+    exercises = Exercise.objects.filter(name__icontains = q )[:20]
+    
+    # AJAX-request, this comes from the autocompleter. Create a list and send it back as JSON
     if request.is_ajax():
-        q = request.GET.get('term', '')
         
-        # Perform the search
-        exercises = Exercise.objects.filter(name__icontains = q )[:20]
         results = []
         for exercise in exercises:
             exercise_json = {}
@@ -246,9 +250,19 @@ def exercise_search(request):
             exercise_json['value'] = exercise.name
             results.append(exercise_json)
         data = json.dumps(results)
+        
+        # Return the results to the server
+        mimetype = 'application/json'
+        return HttpResponse(data, mimetype)
+    
+    # Usual search (perhaps JS disabled), present the results as normal HTML page
     else:
-        data = 'fail'
+        template_data = {}
+        template_data.update(csrf(request))
+        template_data['exercises'] = exercises
+        template_data['search_term'] = q
+        return render_to_response('exercise_search.html',
+                                  template_data,
+                                  context_instance=RequestContext(request))
 
-    # Return the results to the server
-    mimetype = 'application/json'
-    return HttpResponse(data, mimetype)
+    

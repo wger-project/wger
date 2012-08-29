@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+<!--
+        Title
+-->
+{% block title %}{% trans "Search results" %}{% endblock %}
+
+
+<!--
+        Main Content
+-->
+{% block content %}
+
+<h2>{% trans "Search results" %} - &quot;{{ search_term }}&quot;</h2>
+
+<form action="{% url exercises.views.exercise_search %}"
+      method="get"
+      id="exercise_search_form">
+    {% csrf_token %}
+    <input name="term" id="exercise-search">
+</form>
+
+<ul>
+{% for exercise in exercises %}
+    <li><a href="{% url exercises.views.exercise_view exercise.id %}">{{ exercise.name }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}{% endblock %}

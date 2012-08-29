@@ -16,6 +16,9 @@ $(document).ready(function() {
 
     // Init the tabs for the exercises
     $( "#tabs" ).tabs();
+    
+    // Prevent the form from being submited if JavaScript is enabled
+    $("#exercise_search_form").submit(function() {return false;});
 
     // Init the autocompleter
     $("#exercise-search").autocomplete({
@@ -142,7 +145,7 @@ $(document).ready(function() {
                             alt="{% trans 'Add new exercise' %}"
                             title="{% trans 'Add new exercise' %}">
         	{% trans "Add new exercise" %}
-        	</a>
+        </a>
 	</p>
 	<p>
         <a href="{% url exercises.views.exercise_category_edit None %}">
@@ -152,14 +155,19 @@ $(document).ready(function() {
                             alt="{% trans 'Add category' %}"
                             title="{% trans 'Add category' %}">
         	{% trans "Add category" %}
-        	</a>
+        </a>
     </p>
 {% endif %}
 
     <h3>{% trans "Search" %}</h3>
 
     <div class="ui-widget">
-    <input id="exercise-search">
+        <form action="{% url exercises.views.exercise_search %}"
+              method="get"
+              id="exercise_search_form">
+            {% csrf_token %}
+            <input name="term" id="exercise-search">
+       </form>
     </div>
 
     <div>
