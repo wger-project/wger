@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-30 00:12+0200\n"
+"POT-Creation-Date: 2012-08-30 00:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -128,6 +128,10 @@ msgstr "Ausloggen"
 #: templates/base.html:111
 msgid "Released under the Affero GPL"
 msgstr "Unter der Affero GPL veröffentlicht"
+
+#: templates/base.html:113
+msgid "Layout based on <a href='http://www.yaml.de'>YAML</a>"
+msgstr "Layout basiert auf <a href='http://www.yaml.de'>YAML</a>"
 
 #: templates/index.html:4
 msgid "Workout list"
