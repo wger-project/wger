@@ -1,10 +1,24 @@
 {% extends "base.html" %}
-{% load i18n %} 
+{% load i18n %}
+{% load staticfiles %} 
+
+{% block header %}
+<script src="{% static "js/tinymce/tiny_mce.js" %}"></script>
+<script type="text/javascript">
+tinyMCE.init({
+        // General options
+        mode : "textareas",
+        theme : "simple"
+     });
+</script>      
+{% endblock %}
 
 <!--
         Title
 -->
 {% block title %}{% trans "Exercise details" %}{% endblock %}
+
+
 
 
 <!--

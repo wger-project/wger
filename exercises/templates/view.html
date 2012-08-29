@@ -17,7 +17,7 @@
 
 <p>{% trans "Category" %}: <strong>{{ exercise.category.name }}</strong></p>
 
-<p>{{ exercise.description }}</p>
+<p>{{ exercise.description|safe }}</p>
 
 <table>
     <thead>
