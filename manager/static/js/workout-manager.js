@@ -140,3 +140,15 @@ function setup_inplace_editing()
 	        });
 	});
 }
+
+
+/*
+ * Init calls for tinyMCE editor
+ */
+function init_tinymce () {
+    tinyMCE.init({
+    // General options
+        mode : "textareas",
+        theme : "simple"
+    });
+}

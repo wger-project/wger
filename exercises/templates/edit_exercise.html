@@ -4,12 +4,9 @@
 
 {% block header %}
 <script src="{% static "js/tinymce/tiny_mce.js" %}"></script>
+<script src="{% static "js/workout-manager.js" %}"></script>
 <script type="text/javascript">
-tinyMCE.init({
-        // General options
-        mode : "textareas",
-        theme : "simple"
-     });
+init_tinymce();
 </script>      
 {% endblock %}
 

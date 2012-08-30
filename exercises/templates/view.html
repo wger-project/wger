@@ -2,6 +2,41 @@
 {% load i18n %} 
 {% load staticfiles %}
 
+
+{% block header %}
+<script src="{% static "js/jquery-ui.js" %}"></script>
+<script src="{% static "js/tinymce/tiny_mce.js" %}"></script>
+<script src="{% static "js/workout-manager.js" %}"></script>
+
+<script>
+$(document).ready(function() {
+// Initialise a modal dialog
+    $("#ajax-info").dialog({
+                autoOpen: false,
+                width: 600,
+                modal: true,
+    });
+
+
+    // Load the edit dialog when a user wants to edit an exercise
+    $(".modal-dialog").click(function(e) {
+        e.preventDefault();
+        targetUrl = $(this).attr("href");
+
+		$("#ajax-info").load(targetUrl + " .ym-form", function() {
+  		
+  		// Initialise the WYSIWYG editor
+        init_tinymce();
+        }
+  	);
+        $("#ajax-info").dialog("open");
+        
+        
+    });
+});
+
+</script>
+{% endblock %}
 <!--
         Title
 -->
@@ -67,6 +102,12 @@
 </form>
 
 
+<div class="apple_overlay" id="overlay" title="Basic dialog">
+  <!-- the external content is loaded inside this tag -->
+  <div class="contentWrap"></div>
+</div>
+
+<div id="exposeMask"></div>
 
 {% endblock %}
 
@@ -77,19 +118,20 @@
 {% block sidebar %}
 {% if perms.exercises %}
     <h3>{% trans "Options" %}</h3>
-
     <p>
-        <a href="{% url exercises.views.exercise_edit exercise.id %}">
-            <img src="{% static "images/icons/edit.svg" %}"
+        <a href="{% url exercises.views.exercise_edit exercise.id %}"
+           class="modal-dialog">
+            <img src="{% static 'images/icons/edit.svg' %}"
                  width="32"
                  height="32"
-                 alt="{% trans 'Edit' %}">
+                 alt="{% trans 'Edit' %}"
+                 >
             {% trans "Edit" %}
         </a>
     </p>
     <p>
         <a href="{% url exercises.views.exercise_delete exercise.id %}">
-    	<img src="{% static "images/icons/trash.svg" %}"
+    	<img src="{% static 'images/icons/trash.svg' %}"
              width="32"
              height="32"
              alt="{% trans 'Delete' %}">
