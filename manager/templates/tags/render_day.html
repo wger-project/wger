@@ -40,7 +40,7 @@ $(document).ready(function() {
         {% for set in day.set_set.select_related %}
         <tr id="set-{{ set.id }}">
             <td class="ym-g10">{{ forloop.counter }}<br>
-                <div class="editoptions">
+                <div class="editoptions set-options">
                     <a href="{% url manager.views.delete_set workout.id day.id set.id %}"
                        title="{% trans 'Delete' %}">
                         <img src="{% static "images/icons/trash.svg" %}"
