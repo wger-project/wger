@@ -183,12 +183,14 @@ function form_modal_dialog()
 
 		$("#ajax-info").load(targetUrl + " .ym-form", function() {
   		
-  		// Initialise the WYSIWYG editor
-        init_tinymce();
+  		    // Initialise the WYSIWYG editor
+            init_tinymce();
+        
+            // Open the dialog
+            $("#ajax-info").dialog("open");
         });
     
-        // Open the dialog
-        $("#ajax-info").dialog("open");
+        
         
         
     });
