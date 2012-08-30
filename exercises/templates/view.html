@@ -10,29 +10,9 @@
 
 <script>
 $(document).ready(function() {
-// Initialise a modal dialog
-    $("#ajax-info").dialog({
-                autoOpen: false,
-                width: 600,
-                modal: true,
-    });
-
-
-    // Load the edit dialog when a user wants to edit an exercise
-    $(".modal-dialog").click(function(e) {
-        e.preventDefault();
-        targetUrl = $(this).attr("href");
-
-		$("#ajax-info").load(targetUrl + " .ym-form", function() {
-  		
-  		// Initialise the WYSIWYG editor
-        init_tinymce();
-        }
-  	);
-        $("#ajax-info").dialog("open");
-        
-        
-    });
+	
+	// Init the modal dialog to edit the exercise
+	form_modal_dialog();
 });
 
 </script>

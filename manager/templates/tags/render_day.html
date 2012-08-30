@@ -10,6 +10,10 @@ $(document).ready(function() {
     setup_sortable();
 	setup_ajax_set_edit();
 	setup_inplace_editing();
+	
+	// Init the modal dialog to edit the exercise
+	form_modal_dialog();
+
 })
 </script>
 
@@ -26,7 +30,8 @@ $(document).ready(function() {
                             alt="{% trans 'Delete' %}">
                 </a>
                 <a href="{% url manager.views.edit_day workout.id day.id %}"
-                   title="{% trans 'Edit' %}">
+                   title="{% trans 'Edit' %}"
+                   class="modal-dialog">
                        <img src="{% static 'images/icons/edit.svg' %}"
                             width="22"
                             height="22"

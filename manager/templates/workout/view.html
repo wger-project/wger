@@ -10,11 +10,12 @@
 <script src="{% static 'js/workout-manager.js' %}"></script>
 <script>
 
-
-
 $(document).ready(function() {	
 	// Allow the sets to be sortable
 	setup_sortable();
+	
+	// Init the modal dialog to edit the exercise
+	form_modal_dialog();
 	
 	// Show/Hide the comments to the exercises
 	{% if user.userprofile.show_comments %}

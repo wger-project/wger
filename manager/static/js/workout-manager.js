@@ -155,3 +155,35 @@ function init_tinymce () {
         theme : "simple"
     });
 }
+
+
+/*
+ * Open a modal dialog for editing
+ */
+function form_modal_dialog()
+{
+    // Initialise a modal dialog
+    $("#ajax-info").dialog({
+                autoOpen: false,
+                width: 600,
+                modal: true,
+    });
+
+
+    // Load the edit dialog when the user clicks on an edit link
+    $(".modal-dialog").click(function(e) {
+        e.preventDefault();
+        targetUrl = $(this).attr("href");
+
+		$("#ajax-info").load(targetUrl + " .ym-form", function() {
+  		
+  		// Initialise the WYSIWYG editor
+        init_tinymce();
+        });
+    
+        // Open the dialog
+        $("#ajax-info").dialog("open");
+        
+        
+    });
+}
