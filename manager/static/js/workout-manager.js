@@ -9,8 +9,11 @@
  */
 function setup_sortable()
 {
+	// Hide the edit options for the set, this is done with the in-place editing
+	$(".set-options").hide();
+	
     $(".workout-table tbody").sortable({
-        handle: 'td.ym-g10',
+        handle: '.dragndrop-handle',
         revert: true,
         update : function (event, ui) {
                 // Monkey around the HTML, till we find the IDs of the set and the day

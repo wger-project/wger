@@ -39,7 +39,7 @@ $(document).ready(function() {
     <tbody>
         {% for set in day.set_set.select_related %}
         <tr id="set-{{ set.id }}">
-            <td class="ym-g10">{{ forloop.counter }}<br>
+            <td class="ym-g10">{{ forloop.counter }}
                 <div class="editoptions set-options">
                     <a href="{% url manager.views.delete_set workout.id day.id set.id %}"
                        title="{% trans 'Delete' %}">
@@ -56,6 +56,14 @@ $(document).ready(function() {
                             alt="{% trans 'Edit' %}">
                     </a>
                 </div>
+                <div class="editoptions">
+                <img src="{% static "images/icons/move.svg" %}"
+                     width="22"
+                     height="22"
+                     alt="{% trans 'Move me' %}"
+                     title="{% trans 'Move me' %}"
+                     class="dragndrop-handle">
+                 </div>
             </td>
             <td>
                 <ul class="exercise-list">
