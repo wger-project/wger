@@ -149,11 +149,16 @@ function setup_inplace_editing()
  * Init calls for tinyMCE editor
  */
 function init_tinymce () {
-    tinyMCE.init({
-    // General options
-        mode : "textareas",
-        theme : "simple"
-    });
+	
+	// Only try to init it on pages that loaded it (so they probably need it)
+	if (tinyMCE)
+	{
+        tinyMCE.init({
+            // General options
+            mode : "textareas",
+            theme : "simple"
+        });
+   }
 }
 
 
