@@ -150,7 +150,7 @@ function setup_inplace_editing()
  */
 function init_tinymce () {
 	
-	// Only try to init it on pages that loaded it (so they probably need it)
+	// Only try to init it on pages that loaded its JS file (so they probably need it)
 	if (typeof tinyMCE != 'undefined')
 	{
         tinyMCE.init({
@@ -172,6 +172,7 @@ function form_modal_dialog()
                 autoOpen: false,
                 width: 600,
                 modal: true,
+                position: 'top'
     });
 
 
