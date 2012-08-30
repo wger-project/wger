@@ -151,7 +151,7 @@ function setup_inplace_editing()
 function init_tinymce () {
 	
 	// Only try to init it on pages that loaded it (so they probably need it)
-	if (tinyMCE)
+	if (typeof tinyMCE != 'undefined')
 	{
         tinyMCE.init({
             // General options
