@@ -77,8 +77,8 @@ $(document).ready(function() {
         <td class="align-right">
         {% if perms.exercises %}
             <div class="editoptions">
-                <a href="{% url exercises.views.exercisecomment_delete comment.id %}" title="{% trans "Delete" %}">[x]</a>
-                <a href="{% url exercises.views.exercise_view exercise.id comment.id %}" title="{% trans "Edit" %}">[e]</a>
+                <a href="{% url exercises.views.exercisecomment_delete comment.id %}" title="{% trans 'Delete' %}">[x]</a>
+                <a href="{% url exercises.views.exercise_view exercise.id comment.id %}" title="{% trans 'Edit' %}">[e]</a>
             </div>
          {% endif %}
         </td>
@@ -100,14 +100,6 @@ $(document).ready(function() {
 {{ comment_form.comment }}
 <input type="submit" value="{% trans "Save" %}" />
 </form>
-
-
-<div class="apple_overlay" id="overlay" title="Basic dialog">
-  <!-- the external content is loaded inside this tag -->
-  <div class="contentWrap"></div>
-</div>
-
-<div id="exposeMask"></div>
 
 {% endblock %}
 

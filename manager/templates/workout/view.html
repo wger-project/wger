@@ -6,8 +6,8 @@
 {% block title %}{% trans "Workout for" %} {{ workout.creation_date }}{% endblock %}
 
 {% block header %}
-<script src="{% static "js/jquery-ui.js" %}"></script>
-<script src="{% static "js/workout-manager.js" %}"></script>
+<script src="{% static 'js/jquery-ui.js' %}"></script>
+<script src="{% static 'js/workout-manager.js' %}"></script>
 <script>
 
 
@@ -70,7 +70,7 @@ $(document).ready(function() {
 
 <h3>{% trans "Options" %}</h3>
 <a href="{% url manager.views.pdf_workout workout.id %}">
-	<img src="{% static "images/icons/document.svg" %}"
+	<img src="{% static 'images/icons/document.svg' %}"
                             width="32"
                             height="32"
                             alt="{% trans 'Download as PDF' %}"
@@ -81,7 +81,7 @@ $(document).ready(function() {
 
 <h3>{% trans "Delete" %}</h3>
 <a href="{% url manager.views.delete_workout workout.id %}">
-	<img src="{% static "images/icons/trash.svg" %}"
+	<img src="{% static 'images/icons/trash.svg' %}"
                             width="32"
                             height="32"
                             alt="{% trans 'Delete' %}">

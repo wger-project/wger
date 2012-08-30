@@ -7,7 +7,7 @@
 {% if latest_workouts_list %}
     <ul>
     {% for workout in latest_workouts_list %}
-        <li><a href="/workout/{{ workout.id }}/view">{{ workout.creation_date }}</a></li>
+        <li><a href="{% url manager.views.view_workout workout.id %}">{{ workout.creation_date }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
@@ -15,7 +15,6 @@
         {% trans "No workouts found." %} {% trans "Use link to add one." %} 
     </div>
 
-    <p></p>
 {% endif %}
-<p><a href="/workout/add">{% trans "Add workout" %}</a></p>
+<p><a href="{% url manager.views.add %}">{% trans "Add workout" %}</a></p>
 {% endblock %}
