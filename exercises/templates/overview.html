@@ -10,9 +10,13 @@
 
 
 {% block header %}
-<script src="{% static "js/jquery-ui.js" %}"></script>
+<script src="{% static 'js/jquery-ui.js' %}"></script>
+<script src="{% static 'js/tinymce/tiny_mce.js' %}"></script>
+<script src="{% static 'js/workout-manager.js' %}"></script>
 <script>
 $(document).ready(function() {
+	
+	form_modal_dialog();
 
     // Init the tabs for the exercises
     $( "#tabs" ).tabs();
@@ -101,7 +105,8 @@ $(document).ready(function() {
                 	{% if perms.exercises %}
                         <div class="editoptions">
                             <a href="{% url exercises.views.exercise_edit exercise.id %}"
-                               title="{% trans 'Edit' %}">[e]</a>
+                               title="{% trans 'Edit' %}"
+                               class="modal-dialog">[e]</a>
 
                             <a href="{% url exercises.views.exercise_delete exercise.id %}"
                                title="{% trans 'Delete' %}"
@@ -138,7 +143,8 @@ $(document).ready(function() {
     <h3>{% trans "Options" %}</h3>
 
     <p>
-        <a href="{% url exercises.views.exercise_edit None %}">
+        <a href="{% url exercises.views.exercise_edit None %}"
+           class="modal-dialog">
         	<img src="{% static 'images/icons/new.svg' %}"
                             width="32"
                             height="32"
@@ -148,7 +154,8 @@ $(document).ready(function() {
         </a>
 	</p>
 	<p>
-        <a href="{% url exercises.views.exercise_category_edit None %}">
+        <a href="{% url exercises.views.exercise_category_edit None %}"
+           class="modal-dialog">
         	<img src="{% static 'images/icons/folder-new.svg' %}"
                             width="32"
                             height="32"
