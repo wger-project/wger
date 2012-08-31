@@ -156,7 +156,9 @@ function init_tinymce () {
         tinyMCE.init({
             // General options
             mode : "textareas",
-            theme : "simple"
+            theme : "simple",
+            width : "100%",
+            height : "200"
         });
    }
 }

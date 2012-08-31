@@ -48,6 +48,15 @@ a {
 }
 
 /*
+ * Set the width of form elements to 100%
+ * 
+ * Most forms will be edited on a JQuery dialog window and this makes it more readable
+ */
+.ym-form input, .ym-form input, .ym-form textarea, .ym-form select {
+    width: 100%;
+}
+
+/*
  * Own classes
  */
 .invisible{
