@@ -21,7 +21,9 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.forms import ModelForm
 from django.forms import Textarea
+from django.forms import ModelChoiceField
 from django.core.context_processors import csrf
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import permission_required
 from django.utils.translation import ugettext as _
 from django.utils import translation
@@ -33,6 +35,29 @@ from exercises.models import ExerciseComment
 from exercises.models import ExerciseCategory
 
 logger = logging.getLogger('workout_manager.custom')
+
+# ************************
+# Language functions
+# ************************
+
+def load_language():
+    """Returns the currently used language, e.g. to load appropriate exercises
+    """
+    # TODO: perhaps store a language preference in the user's profile?
+    
+    # Read the first part of a composite language, e.g. 'de-at'
+    used_language = translation.get_language().split('-')[0]
+    #logger.debug("Used language: %s" % used_language)
+    
+    try:
+        language =  Language.objects.get(short_name=used_language)
+    
+    # No luck, load english as our fall-back language
+    except ObjectDoesNotExist:
+        language =  Language.objects.get(short_name="en")
+    
+    return language
+
 
 # ************************
 # Exercise comment functions
@@ -51,19 +76,12 @@ def exercisecomment_delete(request, id):
 # ************************
 # Exercise functions
 # ************************
-
 class ExerciseCommentForm(ModelForm):
     class Meta:
         model = ExerciseComment
         exclude=('exercise',)
 
-class ExerciseForm(ModelForm):
-    class Meta:
-        model = Exercise
-        
-        widgets = {
-            'description': Textarea(attrs={'cols': 80, 'rows': 10}),
-        }
+
 
 class ExerciseCategoryForm(ModelForm):
     class Meta:
@@ -75,7 +93,7 @@ def exercise_overview(request):
     """Overview with all exercises
     """
     #TODO: check that this works on edge cases
-    language = get_object_or_404(Language, short_name = translation.get_language())
+    language = load_language()
     
     template_data = {}
     template_data.update(csrf(request))
@@ -91,6 +109,7 @@ def exercise_overview(request):
 def exercise_view(request, id, comment_id=None):
     """ Detail view for an exercise
     """
+    
     template_data = {}
     template_data['comment_edit'] = False
     
@@ -144,6 +163,24 @@ def exercise_view(request, id, comment_id=None):
 
 @permission_required('exercises.change_exercise')
 def exercise_edit(request, id=None):
+    
+    # Define the exercise form here because only at this point during the request have we access to
+    # the currently used language. In other places Django defaults to 'en-us'. Since we only use it
+    # here, it's OK 
+    class ExerciseForm(ModelForm):
+        language = load_language()
+        category = ModelChoiceField(queryset=ExerciseCategory.objects.filter(language = language.id))
+            
+        class Meta:
+            model = Exercise
+            
+            widgets = {
+                'description': Textarea(attrs={'cols': 80, 'rows': 10}),
+            }
+    
+    
+    
+    
     template_data = {}
     template_data.update(csrf(request))
     template_data['active_tab'] = 'exercises'
@@ -198,12 +235,11 @@ def exercise_category_edit(request, id):
         if category_form.is_valid():
             
             # Load the language
-            language = get_object_or_404(Language, short_name = translation.get_language())
-            language_obj = get_object_or_404(Language, pk=language.id)
+            language = load_language()
             
             # Save the category
             category = category_form.save(commit=False)
-            category.language = language_obj
+            category.language = language
             category.save()
             
             return HttpResponseRedirect('/exercise/overview/')
@@ -260,5 +296,3 @@ def exercise_search(request):
         return render_to_response('exercise_search.html',
                                   template_data,
                                   context_instance=RequestContext(request))
-
-    
