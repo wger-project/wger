@@ -12,7 +12,6 @@
 # 
 # You should have received a copy of the GNU Affero General Public License
 import logging
-import calendar
 import json
 
 from django.template import RequestContext
@@ -20,13 +19,10 @@ from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from django.http import Http404
 from django.forms import ModelForm
 from django.forms import Textarea
-from django.forms.models import modelformset_factory
 from django.core.context_processors import csrf
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import permission_required, login_required
+from django.contrib.auth.decorators import permission_required
 from django.utils.translation import ugettext as _
 from django.utils import translation
 

@@ -12,7 +12,6 @@
 # 
 # You should have received a copy of the GNU Affero General Public License
 import logging
-import calendar
 import uuid
 
 from django.template import RequestContext
@@ -21,7 +20,6 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
-from django.http import Http404
 from django.forms import ModelForm
 from django.forms.models import modelformset_factory
 from django.core.context_processors import csrf
@@ -39,12 +37,10 @@ from manager.models import Set
 from manager.models import Setting
 
 from exercises.models import Exercise
-from exercises.models import ExerciseComment
-from exercises.models import ExerciseCategory
 
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.pagesizes import A4, cm
-from reportlab.platypus import Image, Paragraph, SimpleDocTemplate, Table
+from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
 from reportlab.lib import colors
 
 logger = logging.getLogger('workout_manager.custom')
