@@ -29,6 +29,10 @@ class NutritionPlan(models.Model):
     user = models.ForeignKey(User, verbose_name = _('User'))
     language = models.ForeignKey(Language, verbose_name = _('Language'))
     creation_date = models.DateField(_('Creation date'), auto_now_add=True)
+    description = models.TextField(max_length = 2000,
+                                   blank = True,
+                                   verbose_name = _('Description'),
+                                   help_text = _('A description of the goal of the plan, e.g. "Gain mass" or "Prepare for summer"'))
 
     def __unicode__(self):
         """Return a more human-readable representation

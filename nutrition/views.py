@@ -32,6 +32,11 @@ from exercises.views import load_language
 logger = logging.getLogger('workout_manager.custom')
 
 
+class PlanForm(ModelForm):
+    class Meta:
+        model = NutritionPlan
+        exclude=('user', 'language', )
+
 @login_required
 def overview(request):
     template_data = {}
@@ -71,6 +76,39 @@ def view(request, id):
     return render_to_response('view_nutrition_plan.html', 
                               template_data,
                               context_instance=RequestContext(request))
+
+@login_required
+def edit_plan(request, id):
+    """Edits a nutrition plan
+    """
+    template_data = {}
+    template_data['active_tab'] = 'nutrition'
+    
+    # Load the plan
+    plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
+    template_data['plan'] = plan
+    
+    # Process request
+    if request.method == 'POST':
+        form = PlanForm(request.POST, instance=plan)
+        
+        # If the data is valid, save and redirect
+        if form.is_valid():
+            plan = form.save(commit=False)
+            #plan.language = load_language()
+            plan.save()
+            
+            return HttpResponseRedirect('/nutrition/%s/view/' % id)
+    else:
+        form = PlanForm(instance=plan)
+    template_data['form'] = form
+    
+    
+    return render_to_response('edit_plan.html', 
+                              template_data,
+                              context_instance=RequestContext(request))
+
+
 
 # ************************
 # Meal functions
