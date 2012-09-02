@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% trans "Details for nutrition plan" %}{% endblock %}
+
+
+{% block content %}
+
+<h2>{% trans "Details for nutrition plan" %}</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th colspan="2">header</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for meal in plan.meal_set.select_related %}
+    <tr>
+        <td>
+            <a href="{% url nutrition.views.edit_meal_item plan.id meal.id None %}">{{ forloop.counter }}</a>
+        </td>
+        <td>
+             <ul>
+            {% for item in meal.mealitem_set.select_related %}
+                <li>
+                    {% if item.amount_gramm %}
+                        {{ item.amount_gramm }} gr.
+                    {% else %}
+                        {{ item.amount_freetext }}
+                    {% endif %}
+                    
+                    {{ item.ingredient }}
+                </li>
+            {% endfor %}
+            </ul>
+        </td>
+    </tr>
+
+{% empty %}
+     <div class="box warning">
+         {% trans "No meals for this plan." %} {% trans "Use link to add one." %}
+     </div>
+
+{% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url nutrition.views.edit_meal plan.id None %}">{% trans "Add a new meal" %}</a>
+
+{% endblock %}

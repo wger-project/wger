@@ -8,4 +8,5 @@ urlpatterns = patterns('',
     url(r'^', include('manager.urls')),
     url(r'^', include('exercises.urls')),
     url(r'^', include('weight.urls')),
+    url(r'^', include('nutrition.urls')),
 )

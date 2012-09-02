@@ -133,6 +133,7 @@ INSTALLED_APPS = (
     'manager',
     'weight',
     'exercises',
+    'nutrition',
 )
 
 # A sample logging configuration. The only tangible logging

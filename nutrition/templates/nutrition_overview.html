@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% trans "Nutrition overview" %}{% endblock %}
+
+
+{% block content %}
+
+<h2>{% trans "Your nutrition plans" %}</h2>
+
+<ul>
+{% for plan in plans %}
+    <li>
+        <a href="{% url nutrition.views.view plan.id %}">{{ plan }}</a>
+    </li>
+{% empty %}
+    <li>
+        <div class="box warning">
+            {% trans "No nutrition plans." %} {% trans "Use link to add one." %}
+        </div>
+    </li>
+{% endfor %}
+</ul>
+
+<a href="{% url nutrition.views.add %}">{% trans "Add nutrition plan" %}</a>
+{% endblock %}
