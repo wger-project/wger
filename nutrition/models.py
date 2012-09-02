@@ -42,6 +42,7 @@ class Meal(models.Model):
     
     plan = models.ForeignKey(NutritionPlan, verbose_name = _('Nutrition plan'))
     order = models.IntegerField(max_length = 1, blank = True, verbose_name = _('Order'))
+    time = models.TimeField(null = True, blank = True, verbose_name = _('Time (approx)'))
         
     def __unicode__(self):
         """Return a more human-readable representation

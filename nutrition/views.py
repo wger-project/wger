@@ -45,16 +45,6 @@ def overview(request):
                               template_data,
                               context_instance=RequestContext(request))
 
-class MealForm(ModelForm):
-    class Meta:
-        model = Meal
-        exclude=('plan',)
-
-class MealItemForm(ModelForm):
-    class Meta:
-        model = MealItem
-        exclude=('meal', 'order')
-
 @login_required
 def add(request):
     """Add a new nutrition plan and redirect to its page
@@ -82,8 +72,63 @@ def view(request, id):
                               template_data,
                               context_instance=RequestContext(request))
 
+# ************************
+# Meal functions
+# ************************
+
+class MealForm(ModelForm):
+    class Meta:
+        model = Meal
+        exclude=('plan',)
+
+class MealItemForm(ModelForm):
+    class Meta:
+        model = MealItem
+        exclude=('meal', 'order')
+
 @login_required
-def edit_meal(request, id, meal_id=None):
+def edit_meal(request, id, meal_id):
+    """Form to add a meal to a plan
+    """
+    template_data = {}
+    template_data['active_tab'] = 'nutrition'
+    
+    # Load the plan
+    plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
+    template_data['plan'] = plan
+    
+    # Load the meal
+    meal = get_object_or_404(Meal, pk=meal_id)
+    template_data['meal'] = meal
+    
+    if meal.plan != plan:
+        return HttpResponseForbidden()
+    
+    
+    # Process request
+    if request.method == 'POST':
+        meal_form = MealForm(request.POST, instance=meal)
+        
+        # If the data is valid, save and redirect
+        if meal_form.is_valid():
+            meal_item = meal_form.save(commit=False)
+            meal_item.order = 1
+            meal_item.save()
+            
+            return HttpResponseRedirect('/nutrition/%s/view/' % id)
+    else:
+        meal_form = MealForm(instance=meal)
+    template_data['form'] = meal_form
+    
+    
+    return render_to_response('edit_meal.html', 
+                              template_data,
+                              context_instance=RequestContext(request))
+    
+
+
+@login_required
+def add_meal(request, id, meal_id=None):
     """Form to add a meal to a plan
     """
     template_data = {}
@@ -99,7 +144,44 @@ def edit_meal(request, id, meal_id=None):
     meal.save()
     
     return HttpResponseRedirect('/nutrition/%s/view/' % plan.id)
+
+@login_required
+def delete_meal(request, id):
+    """Deletes the meal with the given ID
+    """
     
+    # Load the meal
+    meal = get_object_or_404(Meal, pk=id)
+    plan = meal.plan
+    
+    # Only delete if the user is the owner
+    if plan.user == request.user:
+        meal.delete()
+        return HttpResponseRedirect('/nutrition/%s/view/' % plan.id)
+    else:
+        return HttpResponseForbidden()
+
+
+
+# ************************
+# Meal ingredient functions
+# ************************
+
+@login_required
+def delete_meal_item(request, item_id):
+    """Deletes the meal ingredient with the given ID
+    """
+    
+    # Load the item
+    item = get_object_or_404(MealItem, pk=item_id)
+    plan = item.meal.plan
+    
+    # Only delete if the user is the owner
+    if plan.user == request.user:
+        item.delete()
+        return HttpResponseRedirect('/nutrition/%s/view/' % plan.id)
+    else:
+        return HttpResponseForbidden()
 
 @login_required
 def edit_meal_item(request, id, meal_id, item_id=None):
@@ -146,6 +228,6 @@ def edit_meal_item(request, id, meal_id, item_id=None):
         meal_form = MealItemForm(instance=meal_item)
     template_data['form'] = meal_form
     
-    return render_to_response('edit_meal.html', 
+    return render_to_response('edit_meal_item.html', 
                               template_data,
                               context_instance=RequestContext(request))

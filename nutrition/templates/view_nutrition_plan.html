@@ -5,6 +5,19 @@
 {% block title %}{% trans "Details for nutrition plan" %}{% endblock %}
 
 
+{% block header %}
+<script src="{% static 'js/jquery-ui.js' %}"></script>
+<script src="{% static 'js/workout-manager.js' %}"></script>
+<script>
+$(document).ready(function() {
+    // Init the modal dialog to edit the exercise
+    form_modal_dialog();
+});
+</script>
+{% endblock %}
+
+
+
 {% block content %}
 
 <h2>{% trans "Details for nutrition plan" %}</h2>
@@ -19,7 +32,26 @@
 {% for meal in plan.meal_set.select_related %}
     <tr>
         <td>
-            <a href="{% url nutrition.views.edit_meal_item plan.id meal.id None %}">{{ forloop.counter }}</a>
+            {{ forloop.counter }}
+            {% if meal.time %}<br>{{meal.time|time:"H:i"}}{% endif %}
+            
+            <div class="editoptions">
+                <a href="{% url nutrition.views.delete_meal meal.id %}"
+                   title="{% trans 'Delete' %}">
+                   <img src="{% static 'images/icons/trash.svg' %}"
+                        width="16"
+                        height="16"
+                        alt="{% trans 'Delete' %}">
+                </a>
+                <a href="{% url nutrition.views.edit_meal plan.id meal.id %}"
+                   title="{% trans 'Edit' %}"
+                   class="modal-dialog">
+                    <img src="{% static 'images/icons/edit.svg' %}"
+                         width="16"
+                         height="16"
+                         alt="{% trans 'Edit' %}">
+                </a>
+            </div>
         </td>
         <td>
              <ul>
@@ -32,8 +64,39 @@
                     {% endif %}
                     
                     {{ item.ingredient }}
+                    
+                    <span class="editoptions">
+                        <a href="{% url nutrition.views.delete_meal_item item.id %}"
+                           title="{% trans 'Delete' %}">
+                           <img src="{% static 'images/icons/trash.svg' %}"
+                                width="16"
+                                height="16"
+                                alt="{% trans 'Delete' %}">
+                        </a>
+                        <a href="{% url nutrition.views.edit_meal_item plan.id meal.id item.id %}"
+                           title="{% trans 'Edit' %}"
+                           class="modal-dialog">
+                            <img src="{% static 'images/icons/edit.svg' %}"
+                                 width="16"
+                                 height="16"
+                                 alt="{% trans 'Edit' %}">
+                        </a>
+                    </span>
                 </li>
+            {% empty %}
+                <div class="box warning">
+                   {% trans "No items for this meal." %} {% trans "Use link to add one." %}
+                </div>
             {% endfor %}
+                <a href="{% url nutrition.views.edit_meal_item plan.id meal.id None %}"
+                   title="{% trans 'Add' %}"
+                   class="modal-dialog">
+                    <img src="{% static 'images/icons/edit.svg' %}"
+                         width="16"
+                         height="16"
+                         alt="{% trans 'Add' %}">
+                    {% trans "Add item to meal" %}
+               </a>
             </ul>
         </td>
     </tr>
@@ -47,6 +110,6 @@
     </tbody>
 </table>
 
-<a href="{% url nutrition.views.edit_meal plan.id None %}">{% trans "Add a new meal" %}</a>
+<a href="{% url nutrition.views.add_meal plan.id %}">{% trans "Add a new meal" %}</a>
 
 {% endblock %}
