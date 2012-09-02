@@ -26,17 +26,18 @@ $(document).ready(function() {
 <p class="dimmed">{{plan.description}}</p>
 {% endif %}
 
-<table>
+<table class="bordertable">
     <thead>
         <tr>
-            <th colspan="2">header</th>
+            <th class="ym-g15">{% trans "Meal" %}</th>
+            <th>{% trans "Contents" %}</th>
         </tr>
     </thead>
     <tbody>
 {% for meal in plan.meal_set.select_related %}
     <tr>
         <td>
-            {{ forloop.counter }}
+            {% trans "Nr."%} {{ forloop.counter }}
             {% if meal.time %} &ndash; {{meal.time|time:"H:i"}}{% endif %}
             
             <div class="editoptions">
@@ -45,7 +46,8 @@ $(document).ready(function() {
                    <img src="{% static 'images/icons/trash.svg' %}"
                         width="16"
                         height="16"
-                        alt="{% trans 'Delete' %}">
+                        alt="{% trans 'Delete meal' %}"
+                        title="{% trans 'Delete meal' %}">
                 </a>
                 <a href="{% url nutrition.views.edit_meal plan.id meal.id %}"
                    title="{% trans 'Edit' %}"
@@ -53,8 +55,18 @@ $(document).ready(function() {
                     <img src="{% static 'images/icons/edit.svg' %}"
                          width="16"
                          height="16"
-                         alt="{% trans 'Edit' %}">
+                         alt="{% trans 'Edit meal' %}"
+                         title="{% trans 'Edit meal' %}">
                 </a>
+                <a href="{% url nutrition.views.edit_meal_item plan.id meal.id None %}"
+                   title="{% trans 'Add' %}"
+                   class="modal-dialog">
+                    <img src="{% static 'images/icons/add.svg' %}"
+                         width="16"
+                         height="16"
+                         alt="{% trans 'Add item to meal' %}"
+                         title="{% trans 'Add item to meal' %}">
+               </a>
             </div>
         </td>
         <td>
@@ -62,7 +74,7 @@ $(document).ready(function() {
             {% for item in meal.mealitem_set.select_related %}
                 <li>
                     {% if item.amount_gramm %}
-                        {{ item.amount_gramm }} gr.
+                        {{ item.amount_gramm }}g
                     {% else %}
                         {{ item.amount_freetext }}
                     {% endif %}
@@ -92,17 +104,6 @@ $(document).ready(function() {
                    {% trans "No items for this meal." %} {% trans "Use link to add one." %}
                 </div>
             {% endfor %}
-                <div class="editoptions">
-                <a href="{% url nutrition.views.edit_meal_item plan.id meal.id None %}"
-                   title="{% trans 'Add' %}"
-                   class="modal-dialog">
-                    <img src="{% static 'images/icons/edit.svg' %}"
-                         width="16"
-                         height="16"
-                         alt="{% trans 'Add' %}">
-                    {% trans "Add item to meal" %}
-               </a>
-              </div>
             </ul>
         </td>
     </tr>
@@ -113,46 +114,61 @@ $(document).ready(function() {
      </div>
 
 {% endfor %}
+        <tr>
+            <td colspan="2">
+            <a href="{% url nutrition.views.add_meal plan.id %}">
+                <img src="{% static 'images/icons/edit.svg' %}"
+                     width="16"
+                     height="16"
+                     alt="{% trans 'Add a new meal' %}"
+                     title="{% trans 'Add a new meal' %}">
+                {% trans "Add a new meal" %}
+            </a>
+            &ndash; {% trans "After adding, edit to set the time." %}
+            </td>
+        <tr>
     </tbody>
 </table>
 
-<a href="{% url nutrition.views.add_meal plan.id %}">
-    <img src="{% static 'images/icons/edit.svg' %}"
-         width="16"
-         height="16"
-        alt="{% trans 'Add' %}">
-    {% trans "Add a new meal" %}
-</a>
-
-
-<table>
-    <thead>
-        <tr>
-            <th colspan="2">{% trans "Nutritional data" %}</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>{% trans "Energy" %}</td>
-            <td>{{nutritonal_data.energy}} kcal</td>
-        </tr>
-        <tr>
-            <td>{% trans "Protein" %}</td>
-            <td>{{nutritonal_data.protein}} g</td>
-        </tr>
-        <tr>
-            <td>{% trans "Carbohydrates" %}</td>
-            <td>{{nutritonal_data.carbohydrates}} g</td>
-        </tr>
-    </tbody>
-</table>
 
 {% endblock %}
 
 
 
 {% block sidebar %}
+<h3>{% trans "Nutritional data" %}</h3>
+<table>
+    <tbody>
+        <tr>
+            <td>{% trans "Energy" %}</td>
+            <td>{{nutritional_data.energy}} kcal</td>
+        </tr>
+        <tr>
+            <td>{% trans "Protein" %}</td>
+            <td>{{nutritional_data.protein}} g</td>
+        </tr>
+        <tr>
+            <td>{% trans "Carbohydrates" %}</td>
+            <td>{{nutritional_data.carbohydrates}} g</td>
+        </tr>
+        <tr>
+            <td>{% trans "Fat" %}</td>
+            <td>{{nutritional_data.fat}} g</td>
+        </tr>
+        <tr>
+            <td>{% trans "Fibres" %}</td>
+            <td>{{nutritional_data.fibres}} g</td>
+        </tr>
+        <tr>
+            <td>{% trans "Natrium" %}</td>
+            <td>{{nutritional_data.natrium}} g</td>
+        </tr>
+    </tbody>
+</table>
+
+
 <h3>{% trans "Options" %}</h3>
+<p>
 <a href="{% url nutrition.views.edit_plan plan.id %}"
    class="modal-dialog">
     <img src="{% static 'images/icons/edit.svg' %}"
@@ -161,4 +177,16 @@ $(document).ready(function() {
          alt="{% trans 'Edit nutrition plan' %}">
     {% trans "Edit nutrition plan" %}
 </a>
+</p>
+
+<p>
+<a href="{% url manager.views.pdf_workout 1 %}">
+    <img src="{% static 'images/icons/save.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Download as PDF' %}"
+         title="{% trans 'Download as PDF' %}">
+    {% trans "Download as PDF" %}
+</a>
+</p>
 {% endblock %}
