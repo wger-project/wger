@@ -67,7 +67,7 @@ $(document).ready(function() {
                         {{ item.amount_freetext }}
                     {% endif %}
                     
-                    {{ item.ingredient }}
+                    {{ item.ingredient.name }}
                     
                     <span class="editoptions">
                         <a href="{% url nutrition.views.delete_meal_item item.id %}"
@@ -123,6 +123,29 @@ $(document).ready(function() {
         alt="{% trans 'Add' %}">
     {% trans "Add a new meal" %}
 </a>
+
+
+<table>
+    <thead>
+        <tr>
+            <th colspan="2">{% trans "Nutritional data" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{% trans "Energy" %}</td>
+            <td>{{nutritonal_data.energy}} kcal</td>
+        </tr>
+        <tr>
+            <td>{% trans "Protein" %}</td>
+            <td>{{nutritonal_data.protein}} g</td>
+        </tr>
+        <tr>
+            <td>{% trans "Carbohydrates" %}</td>
+            <td>{{nutritonal_data.carbohydrates}} g</td>
+        </tr>
+    </tbody>
+</table>
 
 {% endblock %}
 

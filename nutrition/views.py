@@ -73,6 +73,19 @@ def view(request, id):
     plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
     template_data['plan'] = plan
     
+    # Sum the nutrional info
+    nutritional_info = {'energy': 0,
+                        'protein': 0,
+                        'carbohydrates': 0}
+    for meal in plan.meal_set.select_related():
+        for item in meal.mealitem_set.select_related():
+            if item.ingredient and item.amount_gramm:
+                nutritional_info['energy'] += item.ingredient.energy * item.amount_gramm / 100
+                nutritional_info['protein'] += item.ingredient.protein  * item.amount_gramm / 100
+                nutritional_info['carbohydrates'] += item.ingredient.carbohydrates  * item.amount_gramm / 100
+    template_data['nutritonal_data'] = nutritional_info
+    
+    
     return render_to_response('view_nutrition_plan.html', 
                               template_data,
                               context_instance=RequestContext(request))

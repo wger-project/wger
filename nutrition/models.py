@@ -39,6 +39,45 @@ class NutritionPlan(models.Model):
         """
         return "Nutrition plan for %s, %s" % (self.user, self.creation_date)
 
+class Ingredient(models.Model):
+    """ An ingredient, with some approximate nutrition values
+    """
+    
+    name = models.CharField(max_length=100,
+                            verbose_name = _('Name'),)
+    energy = models.IntegerField(blank = True,
+                                 verbose_name = _('Energy'),
+                                 help_text = _('In kcal per 100g'))
+    
+    protein = models.FloatField(blank = True,
+                                verbose_name = _('Protein'),
+                                help_text = _('In g per 100g of product'))
+    
+    carbohydrates = models.FloatField(blank = True,
+                                        verbose_name = _('Carbohydrates'),
+                                        help_text = _('In g per 100g of product'))
+    
+    fat = models.FloatField(blank = True,
+                              verbose_name = _('Fat'),
+                              help_text = _('In g per 100g of product'))
+    
+    fibres = models.FloatField(blank = True,
+                                 verbose_name = _('Fibres'),
+                                 help_text = _('In g per 100g of product'))
+    
+    fibres = models.FloatField(blank = True,
+                                 verbose_name = _('Fibres'),
+                                 help_text = _('In g per 100g of product'))
+    
+    natrium = models.FloatField(blank = True,
+                                  verbose_name = _('Natrium'),
+                                  help_text = _('In g per 100g of product'))
+    
+    def __unicode__(self):
+        """Return a more human-readable representation
+        """
+        return "%s" % (self.name, )
+
 
 class Meal(models.Model):
     """ A meal
@@ -65,7 +104,11 @@ class MealItem(models.Model):
                                        blank = True,
                                        verbose_name = _('Amount (freetext)'),
                                        help_text = _('The amount in another unit, e.g. "a spoonfull" or "3 pieces"'))
-    ingredient = models.CharField(max_length=100, verbose_name = _('Ingredient'))
+    ingredient_freetext = models.CharField(max_length=100,
+                                           blank = True,
+                                           verbose_name = _('Ingredient'),
+                                           help_text = _('If the ingredient is not in the system, enter the name here'))
+    ingredient = models.ForeignKey(Ingredient, verbose_name = _('Ingredient'))
     
     def __unicode__(self):
         """Return a more human-readable representation
