@@ -71,22 +71,22 @@ $(document).ready(function() {
 
 <h3>{% trans "Options" %}</h3>
 <a href="{% url manager.views.pdf_workout workout.id %}">
-	<img src="{% static 'images/icons/document.svg' %}"
-                            width="32"
-                            height="32"
-                            alt="{% trans 'Download as PDF' %}"
-                            title="{% trans 'Download as PDF' %}">
-	{% trans "Download as PDF" %}
-	</a>
+    <img src="{% static 'images/icons/document.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Download as PDF' %}"
+         title="{% trans 'Download as PDF' %}">
+    {% trans "Download as PDF" %}
+</a>
 
 
 <h3>{% trans "Delete" %}</h3>
 <a href="{% url manager.views.delete_workout workout.id %}">
-	<img src="{% static 'images/icons/trash.svg' %}"
-                            width="32"
-                            height="32"
-                            alt="{% trans 'Delete' %}">
-	{% trans "Delete this workout" %}
-	</a>
+    <img src="{% static 'images/icons/trash.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Delete' %}">
+    {% trans "Delete this workout" %}
+</a>
 
 {% endblock %}
