@@ -26,6 +26,8 @@ from django.forms import ModelForm
 from nutrition.models import NutritionPlan
 from nutrition.models import Meal
 from nutrition.models import MealItem
+from nutrition.models import Ingredient
+
 
 from exercises.views import load_language
 
@@ -288,5 +290,75 @@ def edit_meal_item(request, id, meal_id, item_id=None):
     template_data['form'] = meal_form
     
     return render_to_response('edit_meal_item.html', 
+                              template_data,
+                              context_instance=RequestContext(request))
+
+# ************************
+# Ingredient functions
+# ************************
+def ingredient_overview(request):
+    """Show an overview of all ingredients
+    """
+    template_data = {}
+    template_data['active_tab'] = 'nutrition'
+    
+    ingredients  = Ingredient.objects.all()
+    template_data['ingredients'] = ingredients
+    
+    return render_to_response('ingredient_overview.html',
+                              template_data,
+                              context_instance=RequestContext(request))
+    
+def ingredient_view(request, id):
+    template_data = {}
+    template_data['active_tab'] = 'nutrition'
+    
+    ingredient = get_object_or_404(Ingredient, pk=id)
+    template_data['ingredient'] = ingredient
+    
+    return render_to_response('view_ingredient.html', 
+                              template_data,
+                              context_instance=RequestContext(request))
+
+def delete_ingredient(request, id):
+    pass
+
+class IngredientForm(ModelForm):
+    class Meta:
+        model = Ingredient
+        exclude=('language',)
+
+def ingredient_edit(request, id=None):
+    """Edit view for an ingredient
+    """
+    template_data = {}
+    template_data['active_tab'] = 'nutrition'
+    
+    # Load the ingredient
+    if id:
+        ingredient = get_object_or_404(Ingredient, pk=id)
+        template_data['ingredient'] = plan
+    else:
+        ingredient = Ingredient()
+    
+    
+    
+    # Process request
+    if request.method == 'POST':
+        form = IngredientForm(request.POST, instance=ingredient)
+        
+        # If the data is valid, save and redirect
+        if form.is_valid():
+            ingredient = form.save(commit=False)
+            #ingrent.order = 1
+            ingredient.save()
+            
+            return HttpResponseRedirect('/nutrition/ingredient/view/%s' % ingredient.id)
+    else:
+        form = IngredientForm(instance=ingredient)
+    template_data['form'] = form
+    
+    
+    return render_to_response('edit_ingredient.html', 
                               template_data,
                               context_instance=RequestContext(request))

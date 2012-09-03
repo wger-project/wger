@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{{ingredient.name}}{% endblock %}
+
+
+{% block header %}
+<script src="{% static 'js/jquery-ui.js' %}"></script>
+<script src="{% static 'js/workout-manager.js' %}"></script>
+<script>
+$(document).ready(function() {
+    // Init the modal dialog to edit the exercise
+    form_modal_dialog();
+});
+</script>
+{% endblock %}
+
+
+
+{% block content %}
+
+<h2>{{ingredient.name}}</h2>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                {{ingredient.name}}
+            </th>
+            <th>
+                <div class="editoptions">
+                
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{% trans "Energy" %}</td>
+            <td>{{ingredient.energy}} kcal</td>
+        </tr>
+        <tr>
+            <td>{% trans "Protein" %}</td>
+            <td>{{ingredient.protein}} g</td>
+        </tr>
+        <tr>
+            <td>{% trans "Carbohydrates" %}</td>
+            <td>{{ingredient.carbohydrates}} g</td>
+        </tr>
+        <tr>
+            <td>{% trans "Fat" %}</td>
+            <td>{{ingredient.fat}} g</td>
+        </tr>
+        <tr>
+            <td>{% trans "Fibres" %}</td>
+            <td>{{ingredient.fibres}} g</td>
+        </tr>
+        <tr>
+            <td>{% trans "Natrium" %}</td>
+            <td>{{ingredient.natrium}} g</td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}
+
+
+
+{% block sidebar %}
+<h3>{% trans "Options" %}</h3>
+
+<p>
+<a href="{% url nutrition.views.delete_ingredient ingredient.id %}"
+   title="{% trans 'Delete ingredient' %}">
+   <img src="{% static 'images/icons/trash.svg' %}"
+        width="32"
+        height="32"
+        alt="{% trans 'Delete ingredient' %}"
+        title="{% trans 'Delete ingredient' %}">
+    {% trans 'Delete ingredient' %}
+</a>
+</p>
+
+<p>
+<a href="{% url nutrition.views.ingredient_edit ingredient.id %}"
+   title="{% trans 'Edit ingredient' %}"
+   class="modal-dialog">
+    <img src="{% static 'images/icons/edit.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Edit ingredient' %}"
+         title="{% trans 'Edit ingredient' %}">
+{% trans 'Edit ingredient' %}
+</a>
+</p>
+
+{% endblock %}

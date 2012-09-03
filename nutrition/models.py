@@ -45,15 +45,18 @@ class Ingredient(models.Model):
     
     name = models.CharField(max_length=100,
                             verbose_name = _('Name'),)
-    energy = models.IntegerField(blank = True,
+    
+    #language = models.ForeignKey(Language, verbose_name = _('Language'))
+    
+    energy = models.IntegerField(
                                  verbose_name = _('Energy'),
                                  help_text = _('In kcal per 100g'))
     
-    protein = models.FloatField(blank = True,
+    protein = models.FloatField(
                                 verbose_name = _('Protein'),
                                 help_text = _('In g per 100g of product'))
     
-    carbohydrates = models.FloatField(blank = True,
+    carbohydrates = models.FloatField(
                                         verbose_name = _('Carbohydrates'),
                                         help_text = _('In g per 100g of product'))
     
@@ -62,16 +65,14 @@ class Ingredient(models.Model):
                               help_text = _('In g per 100g of product'))
     
     fibres = models.FloatField(blank = True,
-                                 verbose_name = _('Fibres'),
-                                 help_text = _('In g per 100g of product'))
-    
-    fibres = models.FloatField(blank = True,
-                                 verbose_name = _('Fibres'),
-                                 help_text = _('In g per 100g of product'))
+                               null = True,
+                               verbose_name = _('Fibres'),
+                               help_text = _('In g per 100g of product'))
     
     natrium = models.FloatField(blank = True,
-                                  verbose_name = _('Natrium'),
-                                  help_text = _('In g per 100g of product'))
+                                null = True,
+                                verbose_name = _('Natrium'),
+                                help_text = _('In g per 100g of product'))
     
     def __unicode__(self):
         """Return a more human-readable representation

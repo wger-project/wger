@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% trans "Ingredient overview" %}{% endblock %}
+
+{% block header %}
+<script src="{% static 'js/jquery-ui.js' %}"></script>
+<script src="{% static 'js/workout-manager.js' %}"></script>
+<script>
+$(document).ready(function() {
+    // Init the modal dialog to edit the exercise
+    form_modal_dialog();
+});
+</script>
+{% endblock %}
+
+{% block content %}
+
+<h2>{% trans "Ingredient overview" %}</h2>
+
+<ul>
+{% for ingredient in ingredients %}
+    <li>
+        <a href="{% url nutrition.views.ingredient_view ingredient.id %}">{{ ingredient.name }}</a>
+    </li>
+{% empty %}
+    <li>
+        <div class="box warning">
+            {% trans "No ingredients." %} {% trans "Use link to add one." %}
+        </div>
+    </li>
+{% endfor %}
+</ul>
+
+<a href="{% url nutrition.views.ingredient_edit None %}"
+   class="modal-dialog">{% trans "Add ingredient" %}</a>
+{% endblock %}
