@@ -299,10 +299,12 @@ def edit_meal_item(request, id, meal_id, item_id=None):
 def ingredient_overview(request):
     """Show an overview of all ingredients
     """
+    language = load_language()
+    
     template_data = {}
     template_data['active_tab'] = 'nutrition'
     
-    ingredients  = Ingredient.objects.all()
+    ingredients  = Ingredient.objects.filter(language = language.id)
     template_data['ingredients'] = ingredients
     
     return render_to_response('ingredient_overview.html',
@@ -321,7 +323,13 @@ def ingredient_view(request, id):
                               context_instance=RequestContext(request))
 
 def delete_ingredient(request, id):
-    pass
+    """Deletes the ingredient with the given ID
+    """
+    # Load the meal and redirect
+    ingredient = get_object_or_404(Ingredient, pk=id)
+    ingredient.delete()
+    
+    return HttpResponseRedirect('/nutrition/ingredient/overview/')
 
 class IngredientForm(ModelForm):
     class Meta:
@@ -331,13 +339,14 @@ class IngredientForm(ModelForm):
 def ingredient_edit(request, id=None):
     """Edit view for an ingredient
     """
+    
     template_data = {}
     template_data['active_tab'] = 'nutrition'
     
     # Load the ingredient
     if id:
         ingredient = get_object_or_404(Ingredient, pk=id)
-        template_data['ingredient'] = plan
+        template_data['ingredient'] = ingredient
     else:
         ingredient = Ingredient()
     
@@ -349,8 +358,10 @@ def ingredient_edit(request, id=None):
         
         # If the data is valid, save and redirect
         if form.is_valid():
+            language = load_language()
+            
             ingredient = form.save(commit=False)
-            #ingrent.order = 1
+            ingredient.language = language
             ingredient.save()
             
             return HttpResponseRedirect('/nutrition/ingredient/view/%s' % ingredient.id)

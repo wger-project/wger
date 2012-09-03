@@ -55,11 +55,11 @@ $(document).ready(function() {
         </tr>
         <tr>
             <td>{% trans "Fibres" %}</td>
-            <td>{{ingredient.fibres}} g</td>
+            <td>{% if ingredient.fibres %}{{ingredient.fibres}} g{% else %}-/-{% endif %}</td>
         </tr>
         <tr>
             <td>{% trans "Natrium" %}</td>
-            <td>{{ingredient.natrium}} g</td>
+            <td>{% if ingredient.natrium %}{{ingredient.natrium}} g{% else %}-/-{% endif %}</td>
         </tr>
     </tbody>
 </table>

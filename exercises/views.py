@@ -92,7 +92,6 @@ class ExerciseCategoryForm(ModelForm):
 def exercise_overview(request):
     """Overview with all exercises
     """
-    #TODO: check that this works on edge cases
     language = load_language()
     
     template_data = {}

@@ -46,7 +46,7 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=100,
                             verbose_name = _('Name'),)
     
-    #language = models.ForeignKey(Language, verbose_name = _('Language'))
+    language = models.ForeignKey(Language, verbose_name = _('Language'))
     
     energy = models.IntegerField(
                                  verbose_name = _('Energy'),
