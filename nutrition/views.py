@@ -12,10 +12,12 @@
 # 
 # You should have received a copy of the GNU Affero General Public License
 import logging
+import json
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.core.context_processors import csrf
@@ -377,3 +379,39 @@ def ingredient_edit(request, id=None):
     return render_to_response('edit_ingredient.html', 
                               template_data,
                               context_instance=RequestContext(request))
+
+
+def ingredient_search(request):
+    """Search for an exercise, return the result as a JSON list or as HTML page, depending on how
+    the function was invoked
+    """
+    
+    # Perform the search
+    q = request.GET.get('term', '')
+    ingredients = Ingredient.objects.filter(name__icontains = q )[:20]
+    
+    # AJAX-request, this comes from the autocompleter. Create a list and send it back as JSON
+    if request.is_ajax():
+        
+        results = []
+        for ingredient in ingredients:
+            ingredient_json = {}
+            ingredient_json['id'] = ingredient.id
+            ingredient_json['name'] = ingredient.name
+            ingredient_json['value'] = ingredient.name
+            results.append(ingredient_json)
+        data = json.dumps(results)
+        
+        # Return the results to the server
+        mimetype = 'application/json'
+        return HttpResponse(data, mimetype)
+    
+    # Usual search (perhaps JS disabled), present the results as normal HTML page
+    else:
+        template_data = {}
+        template_data.update(csrf(request))
+        template_data['ingredients'] = ingredients
+        template_data['search_term'] = q
+        return render_to_response('ingredient_search.html',
+                                  template_data,
+                                  context_instance=RequestContext(request))

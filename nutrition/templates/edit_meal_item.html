@@ -5,6 +5,28 @@
 {% block title %}{% trans "Edit meal" %}{% endblock %}
 
 
+{% block header %}
+<script src="{% static 'js/jquery-ui.js' %}"></script>
+<script src="{% static 'js/workout-manager.js' %}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    // Init the autocompleter
+    $("#id_ingredient_freetext").autocomplete({
+        source: "{% url nutrition.views.ingredient_search %}",
+        minLength: 2,
+        select: function(event, ui) {
+            
+            // TODO: do something with the result
+            // result ID can be accessed with ui.item.id
+        }
+    });
+});
+</script>
+{% endblock %}
+
+
+
+
 {% block content %}
 
 <h2>{% trans "Edit meal" %}</h2>
@@ -17,7 +39,9 @@
 <table>
     {% include "form_snippet.html" with field=form.amount_gramm %}
     {% include "form_snippet.html" with field=form.amount_freetext %}
+    {% comment %}
     {% include "form_snippet.html" with field=form.ingredient css_class="ym-fbox-select" %}
+    {% endcomment %}
     {% include "form_snippet.html" with field=form.ingredient_freetext %}
     <tr>
         <td><input type="submit" value="{% trans "Save" %}" /></td>
