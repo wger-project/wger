@@ -91,8 +91,12 @@ def view(request, id):
                 nutritional_info['protein'] += item.ingredient.protein  * item.amount_gramm / 100
                 nutritional_info['carbohydrates'] += item.ingredient.carbohydrates  * item.amount_gramm / 100
                 nutritional_info['fat'] += item.ingredient.fat  * item.amount_gramm / 100
-                nutritional_info['fibres'] += item.ingredient.fibres  * item.amount_gramm / 100
-                nutritional_info['natrium'] += item.ingredient.natrium  * item.amount_gramm / 100
+                
+                if item.ingredient.fibres:
+                    nutritional_info['fibres'] += item.ingredient.fibres  * item.amount_gramm / 100
+                
+                if item.ingredient.natrium:
+                    nutritional_info['natrium'] += item.ingredient.natrium  * item.amount_gramm / 100
     template_data['nutritional_data'] = nutritional_info
     
     
