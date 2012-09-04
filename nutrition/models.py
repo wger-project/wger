@@ -43,6 +43,11 @@ class Ingredient(models.Model):
     """ An ingredient, with some approximate nutrition values
     """
     
+    # Metaclass to set some other properties
+    class Meta:
+        ordering = ["name", ]
+    
+    
     name = models.CharField(max_length=100,
                             verbose_name = _('Name'),)
     
