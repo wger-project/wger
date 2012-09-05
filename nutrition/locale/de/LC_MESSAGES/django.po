@@ -1,0 +1,265 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-09-05 22:53+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: models.py:29
+msgid "User"
+msgstr ""
+
+#: models.py:30 models.py:54
+msgid "Language"
+msgstr ""
+
+#: models.py:31
+msgid "Creation date"
+msgstr ""
+
+#: models.py:34
+msgid "Description"
+msgstr ""
+
+#: models.py:35
+msgid ""
+"A description of the goal of the plan, e.g. \"Gain mass\" or \"Prepare for "
+"summer\""
+msgstr ""
+
+#: models.py:52
+msgid "Name"
+msgstr ""
+
+#: models.py:57 templates/view_ingredient.html:41
+#: templates/view_nutrition_plan.html:154
+msgid "Energy"
+msgstr ""
+
+#: models.py:58
+msgid "In kcal per 100g"
+msgstr ""
+
+#: models.py:61 templates/view_ingredient.html:45
+#: templates/view_nutrition_plan.html:158
+msgid "Protein"
+msgstr ""
+
+#: models.py:62 models.py:66 models.py:70 models.py:75 models.py:80
+msgid "In g per 100g of product"
+msgstr ""
+
+#: models.py:65 templates/view_ingredient.html:49
+#: templates/view_nutrition_plan.html:162
+msgid "Carbohydrates"
+msgstr ""
+
+#: models.py:69 templates/view_ingredient.html:53
+#: templates/view_nutrition_plan.html:166
+msgid "Fat"
+msgstr ""
+
+#: models.py:74 templates/view_ingredient.html:57
+#: templates/view_nutrition_plan.html:170
+msgid "Fibres"
+msgstr ""
+
+#: models.py:79 templates/view_ingredient.html:61
+#: templates/view_nutrition_plan.html:174
+msgid "Natrium"
+msgstr ""
+
+#: models.py:92 models.py:106
+msgid "Nutrition plan"
+msgstr ""
+
+#: models.py:93 models.py:107
+msgid "Order"
+msgstr ""
+
+#: models.py:94
+msgid "Time (approx)"
+msgstr ""
+
+#: models.py:108
+msgid "Amount in gramms"
+msgstr ""
+
+#: models.py:111
+msgid "Amount (freetext)"
+msgstr ""
+
+#: models.py:112
+msgid "The amount in another unit, e.g. \"a spoonfull\" or \"3 pieces\""
+msgstr ""
+
+#: models.py:115 models.py:117
+msgid "Ingredient"
+msgstr ""
+
+#: models.py:116
+msgid "If the ingredient is not in the system, enter the name here"
+msgstr ""
+
+#: views.py:167
+msgid "Workout"
+msgstr ""
+
+#: views.py:168
+msgid "Workout Manager"
+msgstr ""
+
+#: views.py:169
+#, python-format
+msgid "Nutritional plan %s"
+msgstr ""
+
+#: templates/edit_ingredient.html:5 templates/edit_ingredient.html.py:10
+#: templates/edit_meal.html:5 templates/edit_meal.html.py:10
+#: templates/edit_meal_item.html:5 templates/edit_meal_item.html.py:24
+#: templates/edit_plan.html:5 templates/edit_plan.html.py:10
+#: templates/view_nutrition_plan.html:69 templates/view_nutrition_plan.html:70
+msgid "Edit meal"
+msgstr ""
+
+#: templates/edit_ingredient.html:26 templates/edit_meal.html:20
+#: templates/edit_meal_item.html:42 templates/edit_plan.html:20
+msgid "Save"
+msgstr ""
+
+#: templates/ingredient_overview.html:5 templates/ingredient_overview.html:20
+msgid "Ingredient overview"
+msgstr ""
+
+#: templates/ingredient_overview.html:30
+msgid "No ingredients."
+msgstr ""
+
+#: templates/ingredient_overview.html:30 templates/nutrition_overview.html:20
+#: templates/view_nutrition_plan.html:115
+#: templates/view_nutrition_plan.html:124
+msgid "Use link to add one."
+msgstr ""
+
+#: templates/ingredient_overview.html:37
+msgid "Add ingredient"
+msgstr ""
+
+#: templates/ingredient_search.html:7 templates/ingredient_search.html:15
+msgid "Search results"
+msgstr ""
+
+#: templates/nutrition_overview.html:5
+msgid "Nutrition overview"
+msgstr ""
+
+#: templates/nutrition_overview.html:10
+msgid "Your nutrition plans"
+msgstr ""
+
+#: templates/nutrition_overview.html:20
+msgid "No nutrition plans."
+msgstr ""
+
+#: templates/nutrition_overview.html:26
+msgid "Add nutrition plan"
+msgstr ""
+
+#: templates/view_ingredient.html:72 templates/view_nutrition_plan.html:181
+msgid "Options"
+msgstr ""
+
+#: templates/view_ingredient.html:76 templates/view_ingredient.html.py:80
+#: templates/view_ingredient.html:81 templates/view_ingredient.html.py:82
+msgid "Delete ingredient"
+msgstr ""
+
+#: templates/view_ingredient.html:88 templates/view_ingredient.html.py:93
+#: templates/view_ingredient.html:94 templates/view_ingredient.html.py:95
+msgid "Edit ingredient"
+msgstr ""
+
+#: templates/view_nutrition_plan.html:5 templates/view_nutrition_plan.html:34
+msgid "Details for nutrition plan"
+msgstr ""
+
+#: templates/view_nutrition_plan.html:43
+msgid "Meal"
+msgstr ""
+
+#: templates/view_nutrition_plan.html:44
+msgid "Contents"
+msgstr ""
+
+#: templates/view_nutrition_plan.html:51
+msgid "Nr."
+msgstr ""
+
+#: templates/view_nutrition_plan.html:56 templates/view_nutrition_plan.html:97
+#: templates/view_nutrition_plan.html:101
+msgid "Delete"
+msgstr ""
+
+#: templates/view_nutrition_plan.html:60 templates/view_nutrition_plan.html:61
+msgid "Delete meal"
+msgstr ""
+
+#: templates/view_nutrition_plan.html:64
+#: templates/view_nutrition_plan.html:104
+#: templates/view_nutrition_plan.html:109
+msgid "Edit"
+msgstr ""
+
+#: templates/view_nutrition_plan.html:73
+msgid "Add"
+msgstr ""
+
+#: templates/view_nutrition_plan.html:78 templates/view_nutrition_plan.html:79
+msgid "Add item to meal"
+msgstr ""
+
+#: templates/view_nutrition_plan.html:115
+msgid "No items for this meal."
+msgstr ""
+
+#: templates/view_nutrition_plan.html:124
+msgid "No meals for this plan."
+msgstr ""
+
+#: templates/view_nutrition_plan.html:134
+#: templates/view_nutrition_plan.html:135
+#: templates/view_nutrition_plan.html:136
+msgid "Add a new meal"
+msgstr ""
+
+#: templates/view_nutrition_plan.html:138
+msgid "After adding, edit to set the time."
+msgstr ""
+
+#: templates/view_nutrition_plan.html:150
+msgid "Nutritional data"
+msgstr ""
+
+#: templates/view_nutrition_plan.html:188
+#: templates/view_nutrition_plan.html:189
+msgid "Edit nutrition plan"
+msgstr ""
+
+#: templates/view_nutrition_plan.html:199
+#: templates/view_nutrition_plan.html:200
+#: templates/view_nutrition_plan.html:201
+msgid "Download as PDF"
+msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-30 00:07+0200\n"
+"POT-Creation-Date: 2012-09-05 22:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgstr "Gewichtseintrag"
 msgid "Save"
 msgstr ""
 
-#: templates/weight_overview.html:94
+#: templates/weight_overview.html:8 templates/weight_overview.html.py:94
 msgid "Weight overview"
 msgstr "Gewichtsübersicht"
 
@@ -63,7 +63,7 @@ msgstr "Filteroptionen"
 msgid "Options"
 msgstr "Optionen"
 
-#: templates/weight_overview.html:118 templates/weight_overview.html.py:119
-#: templates/weight_overview.html:120
+#: templates/weight_overview.html:119 templates/weight_overview.html.py:120
+#: templates/weight_overview.html:121
 msgid "Export as CSV"
 msgstr "Als CSV-Datei exportieren"
