@@ -22,6 +22,7 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.core.context_processors import csrf
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 from django.forms import ModelForm
 
 
@@ -330,6 +331,7 @@ def ingredient_view(request, id):
                               template_data,
                               context_instance=RequestContext(request))
 
+@permission_required('nutrition.delete_ingredient')
 def delete_ingredient(request, id):
     """Deletes the ingredient with the given ID
     """
@@ -344,6 +346,7 @@ class IngredientForm(ModelForm):
         model = Ingredient
         exclude=('language',)
 
+@permission_required('nutrition.change_ingredient')
 def ingredient_edit(request, id=None):
     """Edit view for an ingredient
     """
