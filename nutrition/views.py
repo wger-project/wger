@@ -278,6 +278,11 @@ def edit_meal_item(request, id, meal_id, item_id=None):
 
     template_data['meal_item'] = meal_item
     
+    # Check that javascript is activated This is used to hide the drop down list with the
+    # ingredients and use the autocompleter version instead. This is not only nicer but also much
+    # faster as the ingredient list from USDA is many thosand entries long.
+    js_active = request.GET.get('js', False)
+    template_data['js_active'] = js_active
     
     
     # Process request

@@ -23,7 +23,7 @@ $(document).ready(function() {
 
 <h2>{% trans "Edit meal" %}</h2>
 
-<form action="{% url nutrition.views.edit_meal_item plan.id meal.id meal_item.id%}"
+<form action="{% url nutrition.views.edit_meal_item plan.id meal.id meal_item.id%}{% if js_active %}?js=on{% endif %}"
       method="post"
       class="ym-form">
 {% csrf_token %}
@@ -31,12 +31,13 @@ $(document).ready(function() {
 <table>
     {% include "form_snippet.html" with field=form.amount_gramm %}
     {% include "form_snippet.html" with field=form.amount_freetext %}
-    {% comment %}
-    {% include "form_snippet.html" with field=form.ingredient css_class="ym-fbox-select" %}
-    {% endcomment %}
+    {% if js_active %}
+        <input type="hidden" id="id_ingredient" name="ingredient">
+        {% include "form_snippet.html" with field=form.ingredient_freetext %}
+    {% else %}
+        {% include "form_snippet.html" with field=form.ingredient css_class="ym-fbox-select" %}
+    {% endif %}
     
-    <input type="hidden" id="id_ingredient" name="ingredient">
-    {% include "form_snippet.html" with field=form.ingredient_freetext %}
     <tr>
         <td><input type="submit" value="{% trans "Save" %}" /></td>
         <td></td>
