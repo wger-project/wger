@@ -398,7 +398,7 @@ def ingredient_search(request):
     
     # Perform the search
     q = request.GET.get('term', '')
-    ingredients = Ingredient.objects.filter(name__icontains = q )[:20]
+    ingredients = Ingredient.objects.filter(name__icontains = q )
     
     # AJAX-request, this comes from the autocompleter. Create a list and send it back as JSON
     if request.is_ajax():
