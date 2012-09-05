@@ -11,15 +11,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
     // Init the autocompleter
-    $("#id_ingredient_freetext").autocomplete({
-        source: "{% url nutrition.views.ingredient_search %}",
-        minLength: 2,
-        select: function(event, ui) {
-            
-            // TODO: do something with the result
-            // result ID can be accessed with ui.item.id
-        }
-    });
+    init_ingredient_autocompleter();
 });
 </script>
 {% endblock %}

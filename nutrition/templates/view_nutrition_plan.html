@@ -9,8 +9,14 @@
 <script src="{% static 'js/jquery-ui.js' %}"></script>
 <script src="{% static 'js/workout-manager.js' %}"></script>
 <script>
+function custom_modal_init()
+{
+    // Init the autocompleter after loading the modal dialog
+    init_ingredient_autocompleter();
+}
+
 $(document).ready(function() {
-    // Init the modal dialog to edit the exercise
+    // Init the modal dialog to open forms in a window
     form_modal_dialog();
 });
 </script>
