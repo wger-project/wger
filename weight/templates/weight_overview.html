@@ -111,8 +111,9 @@
 
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url weight.views.export_csv %}">
-    <img src="{% static 'images/icons/document.svg' %}"
+    <a href="{% url weight.views.export_csv %}"
+       target="_blank">
+    <img src="{% static 'images/icons/save.svg' %}"
          width="32"
          height="32"
          alt="{% trans 'Export as CSV' %}"
