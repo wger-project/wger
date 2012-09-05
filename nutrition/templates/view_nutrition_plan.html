@@ -191,7 +191,8 @@ $(document).ready(function() {
 </p>
 
 <p>
-<a href="{% url nutrition.views.export_pdf plan.id %}">
+<a href="{% url nutrition.views.export_pdf plan.id %}"
+   target="_blank">
     <img src="{% static 'images/icons/save.svg' %}"
          width="32"
          height="32"

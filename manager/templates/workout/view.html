@@ -70,7 +70,8 @@ $(document).ready(function() {
 </ol>
 
 <h3>{% trans "Options" %}</h3>
-<a href="{% url manager.views.pdf_workout workout.id %}">
+<a href="{% url manager.views.pdf_workout workout.id %}"
+   target="_blank">
     <img src="{% static 'images/icons/document.svg' %}"
          width="32"
          height="32"
