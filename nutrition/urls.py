@@ -21,8 +21,8 @@ urlpatterns = patterns('nutrition.views',
     url(r'^nutrition/ingredient/overview/$', 'ingredient_overview'),
     url(r'^nutrition/ingredient/view/(?P<id>\d+)$', 'ingredient_view'),
     url(r'^nutrition/ingredient/edit/(?P<id>\w*)$', 'ingredient_edit'),
-    url(r'^nutrition/ingredient/delete/(?P<id>\w*)$', 'delete_ingredient'),
+    url(r'^nutrition/ingredient/delete/(?P<id>\d+)$', 'delete_ingredient'),
     url(r'^nutrition/ingredient/search/$', 'ingredient_search'),
-    #url(r'^nutrition/export_pdf/$', 'export_pdf'),
+    url(r'^nutrition/export_pdf/(?P<id>\d+)$', 'export_pdf'),
 
 )

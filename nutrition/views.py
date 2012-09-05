@@ -24,18 +24,26 @@ from django.core.context_processors import csrf
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 from django.forms import ModelForm
-
+from django.utils.translation import ugettext as _
 
 from nutrition.models import NutritionPlan
 from nutrition.models import Meal
 from nutrition.models import MealItem
 from nutrition.models import Ingredient
 
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.pagesizes import A4, cm
+from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
+from reportlab.lib import colors
 
 from exercises.views import load_language
 
 logger = logging.getLogger('workout_manager.custom')
 
+
+# ************************
+# Plan functions
+# ************************
 
 class PlanForm(ModelForm):
     class Meta:
@@ -138,6 +146,84 @@ def edit_plan(request, id):
                               template_data,
                               context_instance=RequestContext(request))
 
+def export_pdf(request, id):
+    """Generates a PDF with the contents of a nutrition plan
+    
+    See also
+    * http://www.blog.pythonlibrary.org/2010/09/21/reportlab-tables-creating-tables-in-pdfs-with-python/
+    * http://www.reportlab.com/apis/reportlab/dev/platypus.html
+    """
+    
+    #Load the workout
+    plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
+    
+    # Create the HttpResponse object with the appropriate PDF headers.
+    response = HttpResponse(mimetype='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=plan.pdf'
+    
+    # Create the PDF object, using the response object as its "file."
+    doc = SimpleDocTemplate(response,
+                            pagesize = A4,
+                            title = _('Workout'),
+                            author = _('Workout Manager'),
+                            subject = _('Nutritional plan %s') % request.user.username)
+
+    # container for the 'Flowable' objects
+    elements = []
+    
+    styleSheet = getSampleStyleSheet()
+    data = []
+    
+    # Iterate through the Plan
+    meal_markers = []
+    ingredient_markers = []
+    
+    
+    # Meals
+    for meal in plan.meal_set.select_related():
+        meal_markers.append(len(data))
+    
+        P = Paragraph('<para align="center"><strong>%s</strong></para>' % meal.time,
+                      styleSheet["Normal"])
+    
+        data.append([P])
+        
+        # Ingredients
+        for item in meal.mealitem_set.select_related():
+            ingredient_markers.append(len(data))
+            
+            P = Paragraph('<para>%s</para>' % item.ingredient.name,
+                          styleSheet["Normal"])
+            data.append([item.amount_gramm, P])
+    
+    # Set general table styles
+    table_style = []
+    table_style = [('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                   ('BOX', (0,0), (-1,-1), 0.25, colors.black)]
+    
+    # Set specific styles, e.g. background for title cells
+    previous_marker = 0
+    for marker in meal_markers:
+        # Set background colour for headings
+        table_style.append(('BACKGROUND', (0, marker), (-1, marker), colors.green))
+        table_style.append(('BOX', (0, marker), (-1, marker), 1.25, colors.black))
+        
+        # Make the headings span the whole width
+        table_style.append(('SPAN', (0, marker), (-1, marker)))
+
+    
+    t = Table(data, style = table_style)
+    
+    # Manually set the width of the columns
+    t._argW[0] = 2 * cm
+
+    
+
+    # write the document and send the response to the browser
+    elements.append(t)
+    doc.build(elements)
+
+    return response
 
 
 # ************************
@@ -318,7 +404,9 @@ def ingredient_overview(request):
     template_data = {}
     template_data['active_tab'] = 'nutrition'
     
-    ingredients  = Ingredient.objects.filter(language = language.id)
+    #ingredients  = Ingredient.objects.filter(language = language.id)
+    ingredients  = Ingredient.objects.all()
+    
     template_data['ingredients'] = ingredients
     
     return render_to_response('ingredient_overview.html',
