@@ -106,11 +106,11 @@ class MealItem(models.Model):
     meal = models.ForeignKey(Meal, verbose_name = _('Nutrition plan'))
     order = models.IntegerField(max_length = 1, blank = True, verbose_name = _('Order'))
     amount_gramm = models.IntegerField(max_length=4, blank = True, verbose_name = _('Amount in gramms'))
-    amount_freetext = models.CharField(max_length=100,
+    amount_freetext = models.CharField(max_length=30,
                                        blank = True,
                                        verbose_name = _('Amount (freetext)'),
                                        help_text = _('The amount in another unit, e.g. "a spoonfull" or "3 pieces"'))
-    ingredient_freetext = models.CharField(max_length=100,
+    ingredient_freetext = models.CharField(max_length=150,
                                            blank = True,
                                            verbose_name = _('Ingredient'),
                                            help_text = _('If the ingredient is not in the system, enter the name here'))
