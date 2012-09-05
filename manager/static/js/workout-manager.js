@@ -209,12 +209,12 @@ function init_ingredient_autocompleter()
 {
     // Init the autocompleter
     $("#id_ingredient_freetext").autocomplete({
-        source: "/nutrition/ingredient/search/%}",
+        source: "/nutrition/ingredient/search/",
         minLength: 2,
         select: function(event, ui) {
             
-            // TODO: do something with the result
-            // result ID can be accessed with ui.item.id
+            // After clicking on a result set the value of the hidden field
+            $('#id_ingredient').val(ui.item.id);
         }
     });
 }

@@ -34,6 +34,8 @@ $(document).ready(function() {
     {% comment %}
     {% include "form_snippet.html" with field=form.ingredient css_class="ym-fbox-select" %}
     {% endcomment %}
+    
+    <input type="hidden" id="id_ingredient" name="ingredient">
     {% include "form_snippet.html" with field=form.ingredient_freetext %}
     <tr>
         <td><input type="submit" value="{% trans "Save" %}" /></td>

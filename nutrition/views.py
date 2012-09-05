@@ -291,6 +291,8 @@ def edit_meal_item(request, id, meal_id, item_id=None):
             meal_item.save()
             
             return HttpResponseRedirect('/nutrition/%s/view/' % id)
+        #else:
+        #    logger.debug(meal_form.errors)
     else:
         meal_form = MealItemForm(instance=meal_item)
     template_data['form'] = meal_form
