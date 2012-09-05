@@ -187,6 +187,13 @@ function form_modal_dialog()
   		
   		    // Initialise the WYSIWYG editor
             init_tinymce();
+            
+            // Call other custom initialisation functions
+            // (e.g. if the form as an autocompleter, it has to be initliasided again)
+            if (typeof custom_modal_init != "undefined")
+            {
+                custom_modal_init();
+            }
         
             // Open the dialog
             $("#ajax-info").dialog("open");
@@ -197,3 +204,4 @@ function form_modal_dialog()
         
     });
 }
+
