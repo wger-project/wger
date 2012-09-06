@@ -110,14 +110,14 @@ class MealItem(models.Model):
                                        blank = True,
                                        validators = [MaxValueValidator(1000)],
                                        verbose_name = _('Amount in gramms'))
-    amount_freetext = models.CharField(max_length=30,
-                                       blank = True,
-                                       verbose_name = _('Amount (freetext)'),
-                                       help_text = _('The amount in another unit, e.g. "a spoonfull" or "3 pieces"'))
-    ingredient_freetext = models.CharField(max_length=150,
-                                           blank = True,
-                                           verbose_name = _('Ingredient'),
-                                           help_text = _('If the ingredient is not in the system, enter the name here'))
+    #amount_freetext = models.CharField(max_length=30,
+    #                                   blank = True,
+    #                                   verbose_name = _('Amount (freetext)'),
+    #                                   help_text = _('The amount in another unit, e.g. "a spoonfull" or "3 pieces"'))
+    #ingredient_freetext = models.CharField(max_length=150,
+    #                                       blank = True,
+    #                                       verbose_name = _('Ingredient'),
+    #                                       help_text = _('If the ingredient is not in the system, enter the name here'))
     ingredient = models.ForeignKey(Ingredient, verbose_name = _('Ingredient'))
     
     def __unicode__(self):

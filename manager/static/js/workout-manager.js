@@ -208,7 +208,7 @@ function form_modal_dialog()
 function init_ingredient_autocompleter()
 {
     // Init the autocompleter
-    $("#id_ingredient_freetext").autocomplete({
+    $("#id_ingredient_searchfield").autocomplete({
         source: "/nutrition/ingredient/search/",
         minLength: 2,
         select: function(event, ui) {

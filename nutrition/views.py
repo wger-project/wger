@@ -217,7 +217,6 @@ def export_pdf(request, id):
     # Manually set the width of the columns
     t._argW[0] = 2 * cm
 
-    
 
     # write the document and send the response to the browser
     elements.append(t)
@@ -381,6 +380,8 @@ def edit_meal_item(request, id, meal_id, item_id=None):
         # autocompleter, in case of errors (max. gramms reached), we need to set the ID manually
         # so the user can simply submit again.
         template_data['ingredient'] = request.POST.get('ingredient', '')
+        
+        template_data['ingredient_searchfield'] = request.POST.get('ingredient_searchfield', '')
         
         
         # If the data is valid, save and redirect
