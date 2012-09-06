@@ -27,7 +27,7 @@ $(document).ready(function() {
     <thead>
         <tr>
             <th>
-                {{ingredient.name}}
+                {% trans "Macronutrients" %}
             </th>
             <th>
                 <div class="editoptions">
@@ -53,6 +53,23 @@ $(document).ready(function() {
             <td>{% trans "Fat" %}</td>
             <td>{{ingredient.fat}} g</td>
         </tr>
+    </tbody>
+</table>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                {% trans "Others" %}
+            </th>
+            <th>
+                <div class="editoptions">
+                
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
         <tr>
             <td>{% trans "Fibres" %}</td>
             <td>{% if ingredient.fibres %}{{ingredient.fibres}} g{% else %}-/-{% endif %}</td>
