@@ -148,7 +148,14 @@ $(document).ready(function() {
 
 {% block sidebar %}
 <h3>{% trans "Nutritional data" %}</h3>
-<table>
+<table id="nutritional-data-macronutrients">
+    <thead>
+        <tr>
+            <th colspan="2">
+                {% trans "Macronutrients" %}
+            </th>
+        </tr>
+    </thead>
     <tbody>
         <tr>
             <td>{% trans "Energy" %}</td>
@@ -166,6 +173,18 @@ $(document).ready(function() {
             <td>{% trans "Fat" %}</td>
             <td>{{nutritional_data.fat}} g</td>
         </tr>
+    </tbody>
+</table>
+
+<table id="nutritional-data-others">
+    <thead>
+        <tr>
+            <th colspan="2">
+                {% trans "Others" %}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
         <tr>
             <td>{% trans "Fibres" %}</td>
             <td>{{nutritional_data.fibres}} g</td>
@@ -176,6 +195,7 @@ $(document).ready(function() {
         </tr>
     </tbody>
 </table>
+
 
 
 <h3>{% trans "Options" %}</h3>
