@@ -221,4 +221,15 @@ $(document).ready(function() {
     {% trans "Download as PDF" %}
 </a>
 </p>
+
+<p>
+<a href="{% url nutrition.views.ingredient_overview %}">
+    <img src="{% static 'images/icons/save.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Ingrdient overview' %}"
+         title="{% trans 'Ingredient overview' %}">
+    {% trans "Ingredient overview" %}
+</a>
+</p>
 {% endblock %}
