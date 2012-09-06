@@ -73,7 +73,12 @@ def login(request):
     
     template_data['form'] = AuthenticationForm()
     
+    # Read out where the user came from so we can redirect him after logging in
+    redirect_target = request.GET.get('next')
+    template_data['redirect_target'] = redirect_target
+    
     if request.method == 'POST':
+        redirect_target = request.POST.get('redirect_target', '/')
         authentication_form = AuthenticationForm(data=request.POST)
         
         # If the data is valid, log in and redirect
@@ -86,8 +91,11 @@ def login(request):
                 if user.is_active:
                     django_login(request, user)
                     
-                    # Redirect to the start page.
-                    return HttpResponseRedirect('/')
+                    # Redirect to where the user came from
+                    
+                    logger.debug("target: %s" % redirect_target)
+                    
+                    return HttpResponseRedirect(redirect_target)
                 else:
                     # Return a disabled account error message
                     pass
@@ -208,7 +216,7 @@ def pdf_workout(request, id):
         table_style.append(('SPAN', (0, marker), (-1, marker)))
 
     
-    table_style.append
+    #table_style.append
     t = Table(data, style = table_style)
     
     # Manually set the width of thecolumns
