@@ -194,7 +194,7 @@ def export_pdf(request, id):
             
             P = Paragraph('<para>%s</para>' % item.ingredient.name,
                           styleSheet["Normal"])
-            data.append([item.amount_gramm, P])
+            data.append(["%sg" % item.amount_gramm, P])
     
     # Set general table styles
     table_style = []
