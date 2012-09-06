@@ -32,7 +32,7 @@ $(document).ready(function() {
     {% include "form_snippet.html" with field=form.amount_gramm %}
     {% include "form_snippet.html" with field=form.amount_freetext %}
     {% if js_active %}
-        <input type="hidden" id="id_ingredient" name="ingredient">
+        <input type="hidden" id="id_ingredient" name="ingredient" value="{{ingredient}}">
         {% include "form_snippet.html" with field=form.ingredient_freetext %}
     {% else %}
         {% include "form_snippet.html" with field=form.ingredient css_class="ym-fbox-select" %}

@@ -361,6 +361,8 @@ def edit_meal_item(request, id, meal_id, item_id=None):
         meal_item = MealItem()
     else:
         meal_item = get_object_or_404(MealItem, pk=item_id)
+        template_data['ingredient'] = meal_item.ingredient.id
+        
 
     template_data['meal_item'] = meal_item
     
@@ -374,6 +376,12 @@ def edit_meal_item(request, id, meal_id, item_id=None):
     # Process request
     if request.method == 'POST':
         meal_form = MealItemForm(request.POST, instance=meal_item)
+        
+        # Pass the ingredient ID back to the template, this is originally set by the JQuery
+        # autocompleter, in case of errors (max. gramms reached), we need to set the ID manually
+        # so the user can simply submit again.
+        template_data['ingredient'] = request.POST.get('ingredient', '')
+        
         
         # If the data is valid, save and redirect
         if meal_form.is_valid():
