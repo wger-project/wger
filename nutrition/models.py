@@ -16,10 +16,11 @@
 
 from django.db import models
 
-from exercises.models import Language
-
+from django.core.validators import MaxValueValidator
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
+
+from exercises.models import Language
 
 
 class NutritionPlan(models.Model):
@@ -105,7 +106,10 @@ class MealItem(models.Model):
     
     meal = models.ForeignKey(Meal, verbose_name = _('Nutrition plan'))
     order = models.IntegerField(max_length = 1, blank = True, verbose_name = _('Order'))
-    amount_gramm = models.IntegerField(max_length=4, blank = True, verbose_name = _('Amount in gramms'))
+    amount_gramm = models.IntegerField(max_length=4,
+                                       blank = True,
+                                       validators = [MaxValueValidator(1000)],
+                                       verbose_name = _('Amount in gramms'))
     amount_freetext = models.CharField(max_length=30,
                                        blank = True,
                                        verbose_name = _('Amount (freetext)'),
