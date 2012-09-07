@@ -81,7 +81,7 @@ msgid "Workout Manager"
 msgstr "Trainingsplan Manager"
 
 #: views.py:150
-#, fuzzy, python-format
+#, python-format
 msgid "Workout for %s"
 msgstr "Trainingsplan für %s"
 
@@ -118,9 +118,8 @@ msgid "Workouts"
 msgstr "Trainingspläne"
 
 #: templates/base.html:52
-#, fuzzy
 msgid "Nutrition"
-msgstr "Wiederholungen"
+msgstr "Ernährung"
 
 #: templates/base.html:58 templates/login.html:4 templates/login.html.py:18
 msgid "Login"

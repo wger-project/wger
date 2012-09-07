@@ -247,7 +247,7 @@ msgstr "Neue Mahlzeit hinzufügen"
 
 #: templates/view_nutrition_plan.html:138
 msgid "After adding, edit to set the time."
-msgstr "Nach dem Hinzufpgen, bearbeiten um die Uhrzeit zu setzen."
+msgstr "Nach dem Hinzufügen, bearbeiten um die Uhrzeit zu setzen."
 
 #: templates/view_nutrition_plan.html:150
 msgid "Nutritional data"
