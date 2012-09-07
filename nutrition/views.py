@@ -180,10 +180,14 @@ def export_pdf(request, id):
     
     
     # Meals
+    i = 0
     for meal in plan.meal_set.select_related():
+        i += 1
+        
         meal_markers.append(len(data))
     
-        P = Paragraph('<para align="center"><strong>%s</strong></para>' % meal.time,
+        P = Paragraph('<para align="center"><strong>%s - %s</strong></para>' %
+                        (i, meal.time or '-/-'),
                       styleSheet["Normal"])
     
         data.append([P])
