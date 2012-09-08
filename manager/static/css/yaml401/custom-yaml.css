@@ -16,7 +16,7 @@ tr:hover .editoptions, tbody tr:hover td .editoptions
 .editoptions a:hover,
 .ui-tabs-nav a:hover, 
 .ui-tabs-nav a:focus {
-		background-color: transparent;
+    background-color: transparent;
 }
 
 
@@ -25,26 +25,26 @@ tr:hover .editoptions, tbody tr:hover td .editoptions
  */
 
 a {
-	color: #3465a4;
+    color: #3465a4;
 }
 /*
  * Use colours from the Tango palette for the info, warning and error boxes 
  */
 
 .info {
-		background: #babdb6;
+    background: #babdb6;
 }
 
 .warning {
-		background: #fcaf3e
+    background: #fcaf3e
 }
 
 .success {
-		background: #8ae234;
+    background: #8ae234;
 }
 
 .error {
-		background: #ef2929;
+    background: #ef2929;
 }
 
 /*
@@ -80,16 +80,16 @@ a {
 
 .sortable-settings
 {
-	border: 1px solid black;
+    border: 1px solid black;
 }
 
 .sortable-settings-drag
 {
-	padding-left: 1em;
-	padding-right: 1em;
-	background-color: #babdb6; /* #888a85;*/
-	/*text-align:center;*/
-	border-bottom:1px solid black;
+    padding-left: 1em;
+    padding-right: 1em;
+    background-color: #babdb6; /* #888a85;*/
+    /*text-align:center;*/
+    border-bottom:1px solid black;
 }
 
 
@@ -103,38 +103,39 @@ a {
 
 a img
 {
-	filter: grayscale(100%);
-	-webkit-filter: grayscale(100%);
-	-moz-filter: grayscale(100%);
-	-ms-filter: grayscale(100%);
-	-o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
 }
 
 a:hover img
 {
-	filter: grayscale(0%);
-	-webkit-filter: grayscale(0%);
-	-moz-filter: grayscale(0%);
-	-ms-filter: grayscale(0%);
-	-o-filter: grayscale(0%);	
+    filter: grayscale(0%);
+    -webkit-filter: grayscale(0%);
+    -moz-filter: grayscale(0%);
+    -ms-filter: grayscale(0%);
+    -o-filter: grayscale(0%);	
 }
 
 
 header
 {
-	background-color: transparent;
+    background-color: transparent;
 }
 
 header h1
 {
-	margin: 0px;
+    margin: 0px;
 }
 
 /*
  * Style the header
  */
-header div.ym-wbox{
-	background-color: #204A87;
+header div.ym-wbox
+{
+    background-color: #204A87;
     border: 1px solid black;
     border-radius: 6px;
     margin-bottom: 1em;
@@ -153,7 +154,8 @@ header div.ym-wbox{
 /*
  * Set the sizes for the background where the muscles are shown on the exercise view page
  */
-.muscle-background{
+div.muscle-background
+{
     width: 200px;
     height: 369px;
     background-repeat: no-repeat; 
