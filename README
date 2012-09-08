@@ -95,11 +95,11 @@ You can now access the site with your browser: `http://localhost:8000/`
 
 For this, load these fixtures, *in this order*, as some dependend on each other:
 
-* `manage.py loaddata languages` (this is specially important, things depend on the language table)
-* `manage.py loaddata muscles`
-* `manage.py loaddata categories`
-* `manage.py loaddata exercises`
-* `manage.py loaddata ingredients`
+* ``manage.py loaddata languages`` (this is specially important, things depend on the language table)
+* ``manage.py loaddata muscles``
+* ``manage.py loaddata categories``
+* ``manage.py loaddata exercises``
+* ``manage.py loaddata ingredients``
 
 
 Compatibility
@@ -130,7 +130,7 @@ details.
 Contact
 -------
 
-Feel free to write me an email (roland @ NO!SPAM! geider.net) if you found this useful or if there
+Feel free to write me an email (``roland @ NO!SPAM! geider.net``) if you found this useful or if there
 was something that didn't behave as you expected. Alternatively, you can also open a ticket on
 the bitbucket tracker: https://bitbucket.org/rolandgeider/workout_manager/issues
 
