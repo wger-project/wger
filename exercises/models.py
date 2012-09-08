@@ -42,6 +42,10 @@ class Muscle(models.Model):
     # Whether to use the front or the back image for background
     is_front = models.BooleanField(default=1)
     
+    # Metaclass to set some other properties
+    class Meta:
+        ordering = ["name", ]
+    
     def __unicode__(self):
         """Return a more human-readable representation
         """
