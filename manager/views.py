@@ -38,6 +38,10 @@ from manager.models import Setting
 
 from exercises.models import Exercise
 
+from nutrition.models import NutritionPlan
+
+from weight.models import WeightEntry
+
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.pagesizes import A4, cm
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
@@ -58,6 +62,13 @@ def index(request):
     
     latest_trainings = TrainingSchedule.objects.filter(user=request.user).order_by('-creation_date')[:5]
     template_data['latest_workouts_list'] = latest_trainings
+    
+    plans  = NutritionPlan.objects.filter(user = request.user)
+    template_data['plans'] = plans
+    
+    weight  = WeightEntry.objects.filter(user = request.user).latest('creation_date')
+    template_data['weight'] = weight
+    
     
     return render_to_response('index.html',
                               template_data,
