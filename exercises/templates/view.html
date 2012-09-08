@@ -89,13 +89,6 @@ $(document).ready(function() {
 -->
 {% block sidebar %}
 
-<style>
-.test{
-	width: 200px;
-	height: 362px;
-	background-repeat: no-repeat; 
-}
-</style>
 
 {% if exercise.muscles.all %}
 <h3>{% trans "Muscles" %}</h3>
@@ -106,7 +99,7 @@ $(document).ready(function() {
 <div class="ym-grid linearize-level-1">
     <div class="ym-g50 ym-gl">
         <div class="ym-gbox-left">
-            <div id="muscle-front" class="test" style="background-image: {% for background in muscle_backgrounds %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+            <div id="muscle-front" class="muscle-background" style="background-image: {% for background in muscle_backgrounds %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
             </div>
         </div>
     </div>
