@@ -1,0 +1,18 @@
+[
+    {
+        "pk": 1, 
+        "model": "exercises.language", 
+        "fields": {
+            "full_name": "Deutsch", 
+            "short_name": "de"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "exercises.language", 
+        "fields": {
+            "full_name": "English", 
+            "short_name": "en"
+        }
+    }
+]

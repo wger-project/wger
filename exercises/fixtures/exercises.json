@@ -1,0 +1,1214 @@
+[ 
+    {
+        "pk": 5, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 2, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Ausfallschritte im Gehen"
+        }
+    }, 
+    {
+        "pk": 55, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 2, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Ausfallschritte stehend"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 7, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "Bankdr\u00fccken LH"
+        }
+    }, 
+    {
+        "pk": 38, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 1, 
+            "muscles": [
+                5
+            ], 
+            "description": "", 
+            "name": "Bankdr\u00fccken eng"
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 2, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Beinbeuger liegend"
+        }
+    }, 
+    {
+        "pk": 72, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 2, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Beinbeuger stehend"
+        }
+    }, 
+    {
+        "pk": 35, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 4, 
+            "muscles": [
+                6
+            ], 
+            "description": "", 
+            "name": "Beinheben aufrecht"
+        }
+    }, 
+    {
+        "pk": 34, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 4, 
+            "muscles": [
+                6
+            ], 
+            "description": "", 
+            "name": "Beinheben liegend"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 2, 
+            "muscles": [
+                10
+            ], 
+            "description": "", 
+            "name": "Beinpresse"
+        }
+    }, 
+    {
+        "pk": 54, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 2, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Beinpresse eng"
+        }
+    }, 
+    {
+        "pk": 39, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 2, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Beinstrecker"
+        }
+    }, 
+    {
+        "pk": 69, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 2, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Beinstrecker einbeinig"
+        }
+    }, 
+    {
+        "pk": 44, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 1, 
+            "muscles": [
+                1
+            ], 
+            "description": "", 
+            "name": "Bizeps Cursl mit \u00df-Stange "
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 1, 
+            "muscles": [
+                1
+            ], 
+            "description": "", 
+            "name": "Bizeps KH-Curls"
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 1, 
+            "muscles": [
+                1
+            ], 
+            "description": "", 
+            "name": "Bizeps LH-Curls"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 1, 
+            "muscles": [
+                1
+            ], 
+            "description": "", 
+            "name": "Bizeps am Kabel"
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 7, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "Butterfly"
+        }
+    }, 
+    {
+        "pk": 52, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 7, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "Butterfly eng"
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 5, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Butterfly reverse"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 4, 
+            "muscles": [
+                6
+            ], 
+            "description": "", 
+            "name": "Crunches"
+        }
+    }, 
+    {
+        "pk": 33, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 4, 
+            "muscles": [
+                6
+            ], 
+            "description": "", 
+            "name": "Crunches am Seil"
+        }
+    }, 
+    {
+        "pk": 56, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 4, 
+            "muscles": [
+                6
+            ], 
+            "description": "", 
+            "name": "Crunches am Stuhl"
+        }
+    }, 
+    {
+        "pk": 51, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 4, 
+            "muscles": [
+                6
+            ], 
+            "description": "", 
+            "name": "Crunches an Maschine"
+        }
+    }, 
+    {
+        "pk": 32, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 4, 
+            "muscles": [
+                6
+            ], 
+            "description": "", 
+            "name": "Crunches an Negativbank"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 1, 
+            "muscles": [
+                1
+            ], 
+            "description": "", 
+            "name": "Curls"
+        }
+    }, 
+    {
+        "pk": 74, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 8, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Curls"
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 1, 
+            "muscles": [
+                5
+            ], 
+            "description": "", 
+            "name": "Dips"
+        }
+    }, 
+    {
+        "pk": 68, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 1, 
+            "muscles": [
+                5
+            ], 
+            "description": "", 
+            "name": "Dips zwischen 2 B\u00e4nke"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 3, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Einarmiges rudern KH"
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 7, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "Fliegende KH Flachbank"
+        }
+    }, 
+    {
+        "pk": 73, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 7, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "Fliegende KH Schr\u00e4gbank"
+        }
+    }, 
+    {
+        "pk": 58, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 1, 
+            "muscles": [
+                5
+            ], 
+            "description": "", 
+            "name": "Frenchpress KH"
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 1, 
+            "muscles": [
+                5
+            ], 
+            "description": "", 
+            "name": "Frenchpress \u00df-Stange"
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 5, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Frontdr\u00fccken KH"
+        }
+    }, 
+    {
+        "pk": 65, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 5, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Frontheben am Kabel"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 3, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Frontziehen breit"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 3, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Frontziehen eng"
+        }
+    }, 
+    {
+        "pk": 50, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 3, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Good Mornings"
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 6, 
+            "muscles": [
+                7
+            ], 
+            "description": "", 
+            "name": "Hackenschmidt"
+        }
+    }, 
+    {
+        "pk": 46, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 1, 
+            "muscles": [
+                1
+            ], 
+            "description": "", 
+            "name": "Hammercurls"
+        }
+    }, 
+    {
+        "pk": 60, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 3, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Hyperextensions"
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 1, 
+            "muscles": [
+                1
+            ], 
+            "description": "", 
+            "name": "KH an Scottmaschine"
+        }
+    }, 
+    {
+        "pk": 71, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 7, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "Kabelcross"
+        }
+    }, 
+    {
+        "pk": 36, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 3, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Klimmz\u00fcge"
+        }
+    }, 
+    {
+        "pk": 48, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 3, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Klimmz\u00fcge an Maschine"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 2, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Kniebeuge"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 3, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Kreuzheben"
+        }
+    }, 
+    {
+        "pk": 37, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 3, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Long-Pulley"
+        }
+    }, 
+    {
+        "pk": 49, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 3, 
+            "muscles": [], 
+            "description": "", 
+            "name": "MGM-Maschine"
+        }
+    }, 
+    {
+        "pk": 43, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 5, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Nackenziehen"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 7, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "Negativ Bankdr\u00fccken"
+        }
+    }, 
+    {
+        "pk": 42, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 5, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Rudern aufgelegt"
+        }
+    }, 
+    {
+        "pk": 62, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 5, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Rudern aufrecht \u00df-Stange"
+        }
+    }, 
+    {
+        "pk": 59, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 3, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Rudern vorgebeugt LH"
+        }
+    }, 
+    {
+        "pk": 70, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 3, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Rudern vorgebeugt LH reverse"
+        }
+    }, 
+    {
+        "pk": 64, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 2, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Rumpfbeugen"
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 7, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "Schr\u00e4gbankdr\u00fccken KH"
+        }
+    }, 
+    {
+        "pk": 41, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 7, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "Schr\u00e4gbankdr\u00fccken LH"
+        }
+    }, 
+    {
+        "pk": 61, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 3, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Schr\u00e4gbankdr\u00fccken MP"
+        }
+    }, 
+    {
+        "pk": 66, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 5, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Schulterdr\u00fccken MP"
+        }
+    }, 
+    {
+        "pk": 67, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 5, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Schulterheben MP"
+        }
+    }, 
+    {
+        "pk": 53, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 5, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Schultermaschine"
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 5, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Seitheben KH"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 5, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Shrugs"
+        }
+    }, 
+    {
+        "pk": 57, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 4, 
+            "muscles": [
+                6
+            ], 
+            "description": "", 
+            "name": "Sit Ups"
+        }
+    }, 
+    {
+        "pk": 75, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 9, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Something something"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 1, 
+            "muscles": [
+                5
+            ], 
+            "description": "", 
+            "name": "Trizeps Seildr\u00fccken"
+        }
+    }, 
+    {
+        "pk": 63, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 1, 
+            "muscles": [
+                5
+            ], 
+            "description": "", 
+            "name": "Trizeps Seildr\u00fccken mit Stange"
+        }
+    }, 
+    {
+        "pk": 45, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 1, 
+            "muscles": [
+                5
+            ], 
+            "description": "", 
+            "name": "Trizepsdr\u00fccken KH \u00fcber Kopf"
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 1, 
+            "muscles": [
+                5
+            ], 
+            "description": "", 
+            "name": "Trizepsmaschine"
+        }
+    }, 
+    {
+        "pk": 31, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 7, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "Umsetzen"
+        }
+    }, 
+    {
+        "pk": 47, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 5, 
+            "muscles": [], 
+            "description": "", 
+            "name": "Vorgebeugtes Seitheben"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 6, 
+            "muscles": [
+                7
+            ], 
+            "description": "", 
+            "name": "Wadenheben sitzend"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 6, 
+            "muscles": [
+                7
+            ], 
+            "description": "", 
+            "name": "Wadenheben stehend"
+        }
+    }, 
+    {
+        "pk": 40, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 7, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "\u00dcberzugmaschine"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "test 123", 
+            "exercise": 8
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "qwe", 
+            "exercise": 8
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": " wndqw dnwnqw duqddqnd qw ndiuqw diuw dniuq d", 
+            "exercise": 8
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "dadsa", 
+            "exercise": 3
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": " sds dsad", 
+            "exercise": 3
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Nach innen drehen, die Ellenbogen zeigen zum Knie", 
+            "exercise": 33
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Brust raus, Kopf nach hinten", 
+            "exercise": 10
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Mit Schwung nach unten ziehen", 
+            "exercise": 10
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Unten 1 Sekunde Pause, oben, 3", 
+            "exercise": 7
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Kopf in Nacken", 
+            "exercise": 36
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Brust raus", 
+            "exercise": 36
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Ellenbogen nach hinten", 
+            "exercise": 36
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Brust raus", 
+            "exercise": 59
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Keinen Bucken machen!", 
+            "exercise": 59
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Schnell nach oben ziehen", 
+            "exercise": 59
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Gerade sitzen", 
+            "exercise": 10
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Bank leicht schr\u00e4g", 
+            "exercise": 19
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Ellenbogen nach vorne", 
+            "exercise": 19
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Knie nach au\u00dfen", 
+            "exercise": 6
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Ellenbogen am K\u00f6rper, nicht bewegen", 
+            "exercise": 46
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Beine ausstrecken, F\u00fc\u00dfe zusammen", 
+            "exercise": 46
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Arme oben nicht ganz ausstrecken", 
+            "exercise": 15
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Nach unten gehen, bis die Schenkel parallel zum Boden sind", 
+            "exercise": 7
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Vorderen Fu\u00df ca 50% drau\u00dfen (schwebend)", 
+            "exercise": 72
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Brust raus", 
+            "exercise": 72
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Gerade sitzen", 
+            "exercise": 49
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Brust raus", 
+            "exercise": 49
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Fl\u00fcssige Bewegung, keine Pausen oben oder unten", 
+            "exercise": 6
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Ellenbogen nach au\u00dfen", 
+            "exercise": 66
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Beine nicht ganz ausstrecken", 
+            "exercise": 35
+        }
+    }, 
+    {
+        "pk": 31, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Arme angewinkelt", 
+            "exercise": 73
+        }
+    }, 
+    {
+        "pk": 32, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Arme nicht zu weit nach unten", 
+            "exercise": 73
+        }
+    }, 
+    {
+        "pk": 33, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Arme nicht durchstrecken", 
+            "exercise": 68
+        }
+    }, 
+    {
+        "pk": 34, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Ellenbogen nach hinten", 
+            "exercise": 68
+        }
+    }, 
+    {
+        "pk": 35, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Ellenbogen nach au\u00dfen", 
+            "exercise": 42
+        }
+    }, 
+    {
+        "pk": 36, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Arme hochziehen bis zum Kinn", 
+            "exercise": 62
+        }
+    }, 
+    {
+        "pk": 37, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Eher einen engen Griff machen", 
+            "exercise": 62
+        }
+    }, 
+    {
+        "pk": 38, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Wenn oben, die H\u00e4nde zeigen nach unten", 
+            "exercise": 20
+        }
+    }, 
+    {
+        "pk": 39, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Brust raus, Kopf nach hinten", 
+            "exercise": 48
+        }
+    }, 
+    {
+        "pk": 40, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "R\u00fccken gerade", 
+            "exercise": 48
+        }
+    }, 
+    {
+        "pk": 41, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Brust raus", 
+            "exercise": 70
+        }
+    }, 
+    {
+        "pk": 42, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Fast horizontal vorgebeugt", 
+            "exercise": 70
+        }
+    }, 
+    {
+        "pk": 43, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Zum Bauchnabel ziehen, nicht weiter oben", 
+            "exercise": 70
+        }
+    }, 
+    {
+        "pk": 44, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Oben 1-2 Sekunden halten", 
+            "exercise": 60
+        }
+    }, 
+    {
+        "pk": 45, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Brust raus", 
+            "exercise": 37
+        }
+    }, 
+    {
+        "pk": 46, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Zum Bauchnabel ziehen, nicht weiter oben", 
+            "exercise": 37
+        }
+    }, 
+    {
+        "pk": 47, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Fl\u00fcssige Bewegung, keine Pausen oben oder unten", 
+            "exercise": 24
+        }
+    }, 
+    {
+        "pk": 48, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Fl\u00fcssige Bewegung, keine Pausen oben oder unten", 
+            "exercise": 2
+        }
+    }
+]
