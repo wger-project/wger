@@ -25,6 +25,9 @@ class WeightEntry(models.Model):
     weight = models.FloatField(_('Weight'))
     user = models.ForeignKey(User, verbose_name = _('User'))
 
+     # Metaclass to set some other properties
+    class Meta:
+        ordering = ["creation_date", ]
     
     def __unicode__(self):
         """Return a more human-readable representation
