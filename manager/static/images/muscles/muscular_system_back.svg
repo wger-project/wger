@@ -10,11 +10,11 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="200"
-   height="369.0256"
+   height="369.03"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="Neues Dokument 1">
+   sodipodi:docname="muscular_system_back.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -36,8 +36,8 @@
      fit-margin-bottom="0"
      inkscape:window-width="844"
      inkscape:window-height="577"
-     inkscape:window-x="511"
-     inkscape:window-y="129"
+     inkscape:window-x="341"
+     inkscape:window-y="112"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
@@ -47,7 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -55,7 +55,7 @@
      inkscape:label="Ebene 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-54.28571,-335.71932)">
+     transform="translate(-54.28571,-335.71492)">
     <g
        id="g3024"
        transform="translate(-195.71429,-12.142857)">
