@@ -12,7 +12,11 @@
 # 
 # You should have received a copy of the GNU Affero General Public License
 
-from exercises.models import Language, Exercise, ExerciseComment, ExerciseCategory
+from exercises.models import Language
+from exercises.models import Exercise
+from exercises.models import ExerciseComment
+from exercises.models import ExerciseCategory
+from exercises.models import Muscle
 
 from django.contrib import admin
 class ExerciseCommentInline(admin.TabularInline): #admin.StackedInline
@@ -27,4 +31,5 @@ class ExerciseAdmin(admin.ModelAdmin):
 admin.site.register(Exercise, ExerciseAdmin)
 admin.site.register(ExerciseCategory)
 admin.site.register(Language)
+admin.site.register(Muscle)
 

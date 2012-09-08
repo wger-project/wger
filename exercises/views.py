@@ -121,6 +121,25 @@ def exercise_view(request, id, comment_id=None):
     # We can create and edit comments from this page, so look for Posts
     template_data.update(csrf(request))
     
+    # Create the backgrounds that show what muscles the exercise works on
+    backgrounds = []
+    is_front = True
+    for muscle in exercise.muscles.all():
+        # In theory some muscles associated with the exercercise could be for the front, others for
+        # the back. But this shoult not happen in practice, so it's OK
+        is_front = muscle.is_front
+        
+        backgrounds.append('images/muscles/main/muscle-%s.svg' % muscle.id)
+    
+    # Append the correct "main" background, with the silhouette of the human body
+    if is_front:
+        backgrounds.append('images/muscles/muscular_system_front.svg')
+    else:
+        backgrounds.append('images/muscles/muscular_system_back.svg')
+    
+    template_data['muscle_backgrounds'] = backgrounds
+    
+    
     # Adding a new comment
     if request.method == 'POST' and not comment_id:
         comment_form = ExerciseCommentForm(request.POST)

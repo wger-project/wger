@@ -32,6 +32,22 @@ class Language(models.Model):
         return "%s (%s)" % (self.full_name, self.short_name)
 
 
+class Muscle(models.Model):
+    """Muscle an exercise works out
+    """
+    
+    # Name, in latin, e.g. "Pectoralis major"
+    name = models.CharField(max_length = 50, verbose_name = _('Name'))
+    
+    # Whether to use the front or the back image for background
+    is_front = models.BooleanField(default=1)
+    
+    def __unicode__(self):
+        """Return a more human-readable representation
+        """
+        return self.name
+
+
 class ExerciseCategory(models.Model):
     """Model for an exercise category
     """
@@ -58,6 +74,8 @@ class Exercise(models.Model):
                                    blank = True,
                                    verbose_name = _('Description'))
     name = models.CharField(max_length = 200, verbose_name = _('Name'))
+    
+    muscles = models.ManyToManyField(Muscle, verbose_name = _('Muscles'))
     
     # Metaclass to set some other properties
     class Meta:
