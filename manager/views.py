@@ -130,6 +130,31 @@ def view_workout(request, id):
     workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
     template_data['workout'] = workout
     
+    
+    # TODO: this can't be performant, see if it makes problems
+    # Create the backgrounds that show what muscles the workout will work on
+    backgrounds_front = []
+    backgrounds_back = []
+    is_front = True
+    for day in workout.day_set.select_related():
+        for set in day.set_set.select_related():
+            for exercise in set.exercises.select_related():
+                for muscle in exercise.muscles.all():
+                    logger.debug(exercise)
+                    
+                    if muscle.is_front:
+                        backgrounds_front.append('images/muscles/main/muscle-%s.svg' % muscle.id)
+                    else:
+                        backgrounds_back.append('images/muscles/main/muscle-%s.svg' % muscle.id)
+    
+    # Append the correct "main" background, with the silhouette of the human body
+    backgrounds_front.append('images/muscles/muscular_system_front.svg')
+    backgrounds_back.append('images/muscles/muscular_system_back.svg')
+    
+    template_data['muscle_backgrounds_front'] = backgrounds_front
+    template_data['muscle_backgrounds_back'] = backgrounds_back
+    
+    
     return render_to_response('workout/view.html', 
                               template_data,
                               context_instance=RequestContext(request))

@@ -62,12 +62,39 @@ $(document).ready(function() {
 -->
 {% block sidebar %}
 <h3>{% trans "Steps" %}</h3>
+
 <ol>
-    <li>{% trans "Days" %}</li>
-    <li>{% trans "Sets on days" %}</li>
-    <li>{% trans "Exercises on set" %}</li>
-    <li>{% trans "Settings for set" %}</li>
+    <li>{% trans "Add training days" %}</li>
+    <li>{% trans "Add working sets to days" %}</li>
+    <li>{% trans "Edit exercise settings for sets" %}</li>
 </ol>
+
+
+<h3>{% trans "Muscles trained" %}</h3>
+
+<p>
+    {% trans "Image show combined muscles as trained by the exercises on the workout." %}
+    {% trans "A darker colour indicates a higher number of exercises that train that specific part." %}
+</p>
+
+<div class="ym-grid linearize-level-1">
+    <div class="ym-g50 ym-gl">
+        <div class="ym-gbox-left">
+            <div id="muscle-front"
+                 class="muscle-background"
+                 style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+            </div>
+        </div>
+    </div>
+    <div class="ym-g50 ym-gr">
+        <div class="ym-gbox-right">
+            <div id="muscle-front"
+                     class="muscle-background"
+                     style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+            </div>
+        </div>
+    </div>
+</div>
 
 <h3>{% trans "Options" %}</h3>
 <a href="{% url manager.views.pdf_workout workout.id %}"
