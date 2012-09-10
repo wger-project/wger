@@ -72,35 +72,50 @@ as expected or if you are using a different setup.
 
 In short, these are the steps to perform for an installation on a linux machine, with python already
 installed. I personally like installing my development files on a virtualenv, it helps keep the
-system more or less clean and are very easy to set up.::
+system more or less clean and are very easy to set up. ::
 
-$ virtualenv python-django
-$ source python-django/bin/activate
-$ pip install django
-$ pip install reportlab
-$ hg clone https://rolandgeider@bitbucket.org/rolandgeider/workout_manager
+ $ sudo apt-get install python-virtualenv
+ $ mkdir manager
+ $ cd manager
+ $ virtualenv python-django
+ $ source python-django/bin/activate
+ $ pip install django
+ $ pip install reportlab
+ $ python
+ >>> import django
+
+If the import worked, everything is set up.
+
+Now let's install the application itself ::
+
+ $ hg clone https://rolandgeider@bitbucket.org/rolandgeider/workout_manager
+ $ cd workout_manager/workout_manager
+ $ mv settings.sample.py settings.py
+
+Edit settings.py, setting the type of database you want to use. The fastest to set up is Sqlite, but
+you can use whatever Django supports. Initialise the database and create a super user::
+
+ $ cd ..
+ $ python manage.py syncdb
+
+Now you are ready to go, the application is installed and can be used. However, an application like
+this without data is not interesting, so you should load some initial data to populate the categories,
+etc.
+
+For this, load these fixtures, *in this order*, as some dependend on each other:
+
+* ``python manage.py loaddata languages`` (this is specially important, things depend on the language table)
+* ``python manage.py loaddata muscles``
+* ``python manage.py loaddata categories``
+* ``python manage.py loaddata exercises``
+* ``python manage.py loaddata ingredients``
 
 Now, run the server::
 
 $ cd workout_manager
 $ python manage.py runserver
 
-Now you are ready to go, the application is installed and can be used. However, an application like
-this without data is not interesting, so you should load some initial data to populate the categories,
-etc.
-
-
-
 You can now access the site with your browser: `http://localhost:8000/`
-
-For this, load these fixtures, *in this order*, as some dependend on each other:
-
-* ``manage.py loaddata languages`` (this is specially important, things depend on the language table)
-* ``manage.py loaddata muscles``
-* ``manage.py loaddata categories``
-* ``manage.py loaddata exercises``
-* ``manage.py loaddata ingredients``
-
 
 Compatibility
 -------------
