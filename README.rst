@@ -102,13 +102,14 @@ Now you are ready to go, the application is installed and can be used. However, 
 this without data is not interesting, so you should load some initial data to populate the categories,
 etc.
 
-For this, load these fixtures, *in this order*, as some dependend on each other:
+For this, load these fixtures, *in this order*, as some dependend on each other (specially the
+languages) ::
 
-* ``python manage.py loaddata languages`` (this is specially important, things depend on the language table)
-* ``python manage.py loaddata muscles``
-* ``python manage.py loaddata categories``
-* ``python manage.py loaddata exercises``
-* ``python manage.py loaddata ingredients``
+ $ python manage.py loaddata languages
+ $ python manage.py loaddata muscles
+ $ python manage.py loaddata categories
+ $ python manage.py loaddata exercises
+ $ python manage.py loaddata ingredients
 
 Now, run the server::
 
