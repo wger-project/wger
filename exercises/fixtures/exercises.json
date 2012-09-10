@@ -4,7 +4,10 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 2, 
-            "muscles": [], 
+            "muscles": [
+                8, 
+                10
+            ], 
             "description": "", 
             "name": "Ausfallschritte im Gehen"
         }
@@ -14,7 +17,10 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 2, 
-            "muscles": [], 
+            "muscles": [
+                8, 
+                10
+            ], 
             "description": "", 
             "name": "Ausfallschritte stehend"
         }
@@ -48,7 +54,9 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 2, 
-            "muscles": [], 
+            "muscles": [
+                11
+            ], 
             "description": "", 
             "name": "Beinbeuger liegend"
         }
@@ -58,7 +66,9 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 2, 
-            "muscles": [], 
+            "muscles": [
+                11
+            ], 
             "description": "", 
             "name": "Beinbeuger stehend"
         }
@@ -104,7 +114,9 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 2, 
-            "muscles": [], 
+            "muscles": [
+                10
+            ], 
             "description": "", 
             "name": "Beinpresse eng"
         }
@@ -400,7 +412,9 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 3, 
-            "muscles": [], 
+            "muscles": [
+                12
+            ], 
             "description": "", 
             "name": "Frontziehen breit"
         }
@@ -410,7 +424,9 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 3, 
-            "muscles": [], 
+            "muscles": [
+                12
+            ], 
             "description": "", 
             "name": "Frontziehen eng"
         }
@@ -488,7 +504,9 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 3, 
-            "muscles": [], 
+            "muscles": [
+                12
+            ], 
             "description": "", 
             "name": "Klimmz\u00fcge"
         }
@@ -498,7 +516,9 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 3, 
-            "muscles": [], 
+            "muscles": [
+                12
+            ], 
             "description": "", 
             "name": "Klimmz\u00fcge an Maschine"
         }
@@ -508,7 +528,9 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 2, 
-            "muscles": [], 
+            "muscles": [
+                10
+            ], 
             "description": "", 
             "name": "Kniebeuge"
         }
@@ -518,7 +540,11 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 3, 
-            "muscles": [], 
+            "muscles": [
+                8, 
+                12, 
+                10
+            ], 
             "description": "", 
             "name": "Kreuzheben"
         }
@@ -528,7 +554,9 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 3, 
-            "muscles": [], 
+            "muscles": [
+                12
+            ], 
             "description": "", 
             "name": "Long-Pulley"
         }
@@ -538,7 +566,9 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 3, 
-            "muscles": [], 
+            "muscles": [
+                12
+            ], 
             "description": "", 
             "name": "MGM-Maschine"
         }
@@ -590,7 +620,9 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 3, 
-            "muscles": [], 
+            "muscles": [
+                12
+            ], 
             "description": "", 
             "name": "Rudern vorgebeugt LH"
         }
@@ -600,7 +632,9 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 3, 
-            "muscles": [], 
+            "muscles": [
+                12
+            ], 
             "description": "", 
             "name": "Rudern vorgebeugt LH reverse"
         }
@@ -609,8 +643,10 @@
         "pk": 64, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 2, 
-            "muscles": [], 
+            "category": 4, 
+            "muscles": [
+                6
+            ], 
             "description": "", 
             "name": "Rumpfbeugen"
         }
@@ -643,8 +679,10 @@
         "pk": 61, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 3, 
-            "muscles": [], 
+            "category": 7, 
+            "muscles": [
+                4
+            ], 
             "description": "", 
             "name": "Schr\u00e4gbankdr\u00fccken MP"
         }
@@ -1209,6 +1247,38 @@
         "fields": {
             "comment": "Fl\u00fcssige Bewegung, keine Pausen oben oder unten", 
             "exercise": 2
+        }
+    }, 
+    {
+        "pk": 49, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "F\u00fc\u00dfe zusammen, nicht wie beim Ausfallschritt", 
+            "exercise": 28
+        }
+    }, 
+    {
+        "pk": 50, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Arme eher zusammen, direkt unterm dem Ellenbogen auf die Bank", 
+            "exercise": 28
+        }
+    }, 
+    {
+        "pk": 51, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Fl\u00fcssige Bewegung, keine Pausen oben oder unten", 
+            "exercise": 28
+        }
+    }, 
+    {
+        "pk": 52, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Arme ganz ausstrecken", 
+            "exercise": 28
         }
     }
 ]

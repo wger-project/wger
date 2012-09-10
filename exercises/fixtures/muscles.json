@@ -16,6 +16,14 @@
         }
     }, 
     {
+        "pk": 11, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": false, 
+            "name": "Biceps femoris"
+        }
+    }, 
+    {
         "pk": 7, 
         "model": "exercises.muscle", 
         "fields": {
@@ -32,6 +40,14 @@
         }
     }, 
     {
+        "pk": 12, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": false, 
+            "name": "Latissimus dorsi"
+        }
+    }, 
+    {
         "pk": 4, 
         "model": "exercises.muscle", 
         "fields": {
@@ -44,7 +60,7 @@
         "model": "exercises.muscle", 
         "fields": {
             "is_front": true, 
-            "name": "Quadriceps"
+            "name": "Quadriceps femoris"
         }
     }, 
     {
