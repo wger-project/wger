@@ -44,7 +44,7 @@ from nutrition.models import NutritionPlan
 from weight.models import WeightEntry
 
 from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.lib.pagesizes import A4, cm
+from reportlab.lib.pagesizes import A4, cm, landscape, portrait
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
 from reportlab.lib import colors
 
@@ -192,7 +192,7 @@ def pdf_workout(request, id):
     
     # Create the PDF object, using the response object as its "file."
     doc = SimpleDocTemplate(response,
-                            pagesize = A4,
+                            pagesize = landscape(A4),
                             title = _('Workout'),
                             author = _('Workout Manager'),
                             subject = _('Workout for %s') % request.user.username)
@@ -207,7 +207,7 @@ def pdf_workout(request, id):
     day_markers = []
     set_markers = []
     exercise_markers = []
-    nr_of_weeks = 7
+    nr_of_weeks = 8
     first_weight_column = 3
     
     
@@ -259,13 +259,13 @@ def pdf_workout(request, id):
     #table_style.append
     t = Table(data, style = table_style)
     
-    # Manually set the width of thecolumns
+    # Manually set the width of the columns
     for i in range(first_weight_column, nr_of_weeks + first_weight_column):
-        t._argW[i] = 1.8 * cm
+        t._argW[i] = 2.1 * cm
     
     t._argW[0] = 0.7 * cm
-    t._argW[1] = 3.1 * cm
-    t._argW[2] = 2.5 * cm
+    t._argW[1] = 4 * cm
+    t._argW[2] = 3 * cm
 
     elements.append(t)
     #t=Table(data,style=[('GRID',(1,1),(-2,-2),1,colors.green),
