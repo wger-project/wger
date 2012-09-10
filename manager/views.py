@@ -23,6 +23,7 @@ from django.http import HttpResponseForbidden
 from django.forms import ModelForm
 from django.forms.models import modelformset_factory
 from django.core.context_processors import csrf
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
 
@@ -66,7 +67,10 @@ def index(request):
     plans  = NutritionPlan.objects.filter(user = request.user)
     template_data['plans'] = plans
     
-    weight  = WeightEntry.objects.filter(user = request.user).latest('creation_date')
+    try:
+        weight  = WeightEntry.objects.filter(user = request.user).latest('creation_date')
+    except ObjectDoesNotExist:
+        weight = False
     template_data['weight'] = weight
     
     
@@ -741,3 +745,4 @@ def delete_setting(request, id, set_id, exercise_id):
     settings.delete()
     
     return HttpResponseRedirect('/workout/%s/view/' % id)
+
