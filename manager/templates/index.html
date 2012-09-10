@@ -59,11 +59,11 @@
                     {% trans "No nutrition plans." %} {% trans "Use link to add one." %} 
                 </div>
             {% endif %}
-            
+            {% if weight %}
             <p>
                 {% trans "Your current weight is: "%} <strong>{{weight.weight}} kg.</strong>
             </p>
-            
+            {% endif %}
         </div>
     </div>
 </div>
