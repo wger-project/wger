@@ -96,6 +96,7 @@ def login(request):
     if request.method == 'POST':
         redirect_target = request.POST.get('redirect_target')
         authentication_form = AuthenticationForm(data=request.POST)
+        template_data['form'] = authentication_form
         
         # Default redirection target is the index page
         if not redirect_target:
@@ -119,7 +120,7 @@ def login(request):
             else:
                 # Return an invalid login error message.
                 pass
-
+    
     template_data['redirect_target'] = redirect_target
     
     return render_to_response('login.html',

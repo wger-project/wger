@@ -10,13 +10,17 @@
       method="post"
       class="ym-form">
       {% csrf_token %}
-      {{ form.non_field_errors }}
+      <div class="ym-fbox-text ym-error">
+          <div class="ym-message">
+              {{ form.non_field_errors }}
+          </div>
+       </div>
       <input type="hidden" name="redirect_target" value="{{redirect_target}}">
 <table>
 {% include "form_snippet.html" with field=form.username %}
 {% include "form_snippet.html" with field=form.password %}
     <tr>
-        <td><input type="submit" value='{% trans "Login" %}' /></td>
+        <td><input type="submit" value="{% trans 'Login' %}" /></td>
         <td></td>
     </tr>
 </table>
