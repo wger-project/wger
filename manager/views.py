@@ -91,12 +91,15 @@ def login(request):
     template_data['form'] = AuthenticationForm()
     
     # Read out where the user came from so we can redirect him after logging in
-    redirect_target = request.GET.get('next')
-    template_data['redirect_target'] = redirect_target
+    redirect_target = request.GET.get('next', '')
     
     if request.method == 'POST':
-        redirect_target = request.POST.get('redirect_target', '/')
+        redirect_target = request.POST.get('redirect_target')
         authentication_form = AuthenticationForm(data=request.POST)
+        
+        # Default redirection target is the index page
+        if not redirect_target:
+            redirect_target = '/'
         
         # If the data is valid, log in and redirect
         if authentication_form.is_valid():
@@ -109,9 +112,6 @@ def login(request):
                     django_login(request, user)
                     
                     # Redirect to where the user came from
-                    
-                    #logger.debug("target: %s" % redirect_target)
-                    
                     return HttpResponseRedirect(redirect_target)
                 else:
                     # Return a disabled account error message
@@ -120,6 +120,8 @@ def login(request):
                 # Return an invalid login error message.
                 pass
 
+    template_data['redirect_target'] = redirect_target
+    
     return render_to_response('login.html',
                               template_data,
                               context_instance=RequestContext(request))
