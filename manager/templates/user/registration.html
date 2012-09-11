@@ -5,8 +5,8 @@
 
 
 {% block content %}
-<h3>{% trans "Login" %}</h3>
-<form action="{% url manager.views.login %}"
+
+<form action="{% url manager.views.registration %}"
       method="post"
       class="ym-form">
       {% csrf_token %}
@@ -14,19 +14,12 @@
       <input type="hidden" name="redirect_target" value="{{redirect_target}}">
 <table>
 {% include "form_snippet.html" with field=form.username %}
-{% include "form_snippet.html" with field=form.password %}
+{% include "form_snippet.html" with field=form.password1 %}
+{% include "form_snippet.html" with field=form.password2 %}
     <tr>
         <td><input type="submit" value='{% trans "Login" %}' /></td>
         <td></td>
     </tr>
 </table>
 </form>
-
-
-{% endblock %}
-
-
-{% block sidebar %}
-<h3>{% trans "No account?" %}</h3>
-<p><a href="{% url manager.views.registration %}">{% trans "Register" %}</a></p>
 {% endblock %}

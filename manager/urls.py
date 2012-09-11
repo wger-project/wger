@@ -4,6 +4,7 @@ urlpatterns = patterns('manager.views',
     url(r'^$', 'index'),
     url(r'^login$', 'login'),
     url(r'^logout$', 'logout'),
+    url(r'^registration$', 'registration'),
     
     url(r'^workout/add$', 'add'),
     url(r'^workout/(?P<id>\d+)/pdf/$', 'pdf_workout'),

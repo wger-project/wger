@@ -30,7 +30,9 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as django_login
 from django.contrib.auth import logout as django_logout
+from django.contrib.auth.models import User as Django_User
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm
 
 from manager.models import TrainingSchedule
 from manager.models import Day
@@ -108,7 +110,7 @@ def login(request):
                     
                     # Redirect to where the user came from
                     
-                    logger.debug("target: %s" % redirect_target)
+                    #logger.debug("target: %s" % redirect_target)
                     
                     return HttpResponseRedirect(redirect_target)
                 else:
@@ -127,6 +129,40 @@ def logout(request):
     """
     django_logout(request)
     return HttpResponseRedirect('/login')
+
+
+def registration(request):
+    """Login the user and redirect it
+    """
+    template_data = {}
+    template_data.update(csrf(request))
+    template_data['active_tab'] = 'workout'
+    
+    template_data['form'] = UserCreationForm()
+    
+    if request.method == 'POST':
+        #redirect_target = request.POST.get('redirect_target', '/')
+        form = UserCreationForm(data=request.POST)
+        
+        # If the data is valid, log in and redirect
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = Django_User.objects.create_user(username,
+                                                   '',
+                                                   password1)
+            user.save()
+            user = authenticate(username=username, password=password)
+            django_login(request, user)
+            return HttpResponseRedirect('/')
+        else:
+            logger.debug(form.errors)
+
+    return render_to_response('user/registration.html',
+                              template_data,
+                              context_instance=RequestContext(request))
+
+
 
 # ************************
 # Workout functions
