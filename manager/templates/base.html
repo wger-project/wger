@@ -54,11 +54,13 @@
             
             
             <ul style="float:right;">
+            <li {% if active_tab == 'user' %}class="active"{% endif %}>
             {% if not user.username %}
-                <li><a href="{% url manager.views.login %}">{% trans "Login" %}</a></li>
+                <a href="{% url manager.views.login %}">{% trans "Login" %}</a>
             {% else %}
-                <li {% if active_tab == 'user' %}class="active"{% endif %}><a href="{% url manager.views.preferences %}">{% trans "My preferences" %}: {{ user.username }}</a></li>
+                <a href="{% url manager.views.preferences %}">{% trans "My preferences" %}: {{ user.username }}</a>
             {% endif %}
+            </li>
             </ul>
         </div>
     </div>
