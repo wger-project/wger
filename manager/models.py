@@ -31,7 +31,8 @@ class TrainingSchedule(models.Model):
     comment = models.CharField(verbose_name = _('Description'),
                                max_length=100,
                                blank=True,
-                               help_text = _('A short description of the aim of the workout'))
+                               help_text = _('''A short description of the goal of the workout.
+For example 'Focus on back' or 'Week 1 of program xy'.'''))
     user = models.ForeignKey(User, verbose_name = _('User'))
 
     
