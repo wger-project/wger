@@ -111,7 +111,8 @@ class UserProfile(models.Model):
     #
 
     # Show exercise comments on workout view    
-    show_comments = models.BooleanField()
+    show_comments = models.BooleanField(verbose_name = _('Show exercise comments'),
+                        help_text=_('Check to show exercise comments on the workout view'))
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
