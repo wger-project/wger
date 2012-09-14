@@ -189,11 +189,9 @@ def preferences(request):
         form.user = request.user
         # Save the data if it validates
         if form.is_valid():
-            user_preferences = form.save(commit=False)
-            user_preferences.user = request.user
-            user_preferences.save()
-        else:
-            logger.debug(form.errors)
+            form.save()
+        #else:
+        #    logger.debug(form.errors)
    
     return render_to_response('user/preferences.html',
                               template_data,
