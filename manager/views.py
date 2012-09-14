@@ -435,6 +435,16 @@ def api_user_preferences(request):
             profile.save()
                 
             return HttpResponse(_('Success'))
+        
+        # Show ingredients in english
+        elif request.GET.get('do') == 'set_english-ingredients':
+            new_value = int(request.GET.get('show'))
+            
+            profile = request.user.get_profile()
+            profile.show_english_ingredients = new_value
+            profile.save()
+                
+            return HttpResponse(_('Success'))
 
 
 # ************************

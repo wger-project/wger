@@ -98,6 +98,10 @@ def view(request, id):
     plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
     template_data['plan'] = plan
     
+    # Load the language and pass it to the template
+    language = load_language()
+    template_data['language'] = language
+    
     # Sum the nutrional info
     nutritional_info = {'energy': 0,
                         'protein': 0,

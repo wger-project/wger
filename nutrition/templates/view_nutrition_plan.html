@@ -17,6 +17,17 @@ function custom_modal_init()
 
 $(document).ready(function() {
 
+    // Check if the user wants to see ingredients in english
+    set_english_ingredients();
+    
+    {% if user.userprofile.show_english_ingredients %}
+        useEnglishIngredients = 1;
+        $('#english-ingredients-status').html('ON')
+    {% else %}
+        useEnglishIngredients = 0;
+        $('#english-ingredients-status').html('OFF')
+    {% endif %}
+
     // Add a flag indicating we are using javascript. Depending on this we show a drop down list
     // with the ingredients or use an autocompleter
     $('.edit-meal').each(function(element){
@@ -143,6 +154,13 @@ $(document).ready(function() {
     </tbody>
 </table>
 
+{% if language.short_name != 'en' %}
+    <p>
+    {% trans "If you find the ingredient list too short, you might want to activate the preference to also show English ingredients." %}
+    <a href="{% url manager.views.preferences %}" id="ajax-english-ingredients">{% trans "That's done here" %}</a>:
+    <span id="english-ingredients-status"></span>
+    </p>
+{% endif %}
 
 {% endblock %}
 

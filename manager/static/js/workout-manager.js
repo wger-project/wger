@@ -84,6 +84,11 @@ function setup_ajax_set_edit()
 	});
 }
 
+/*
+ * 
+ * Functions related to the user's preferences
+ * 
+ */
 function toggle_comments()
 {
 	$("#exercise-comments-toggle").click(function(e) {
@@ -102,8 +107,30 @@ function toggle_comments()
 		}
 	    
 	    $("#ajax-info").load("/workout/api/user-preferences?do=set_show-comments&show=" + showComment);
+	});
+}
+
+function set_english_ingredients()
+{
+    $("#ajax-english-ingredients").click(function(e) {
+        e.preventDefault();
+        
+        
+        if ( useEnglishIngredients == 0 )
+        {
+            $('#english-ingredients-status').html('ON')
+            useEnglishIngredients = 1;
+        }
+        else if ( useEnglishIngredients == 1 )
+        {
+             $('#english-ingredients-status').html('OFF')
+             useEnglishIngredients = 0;
+        }
+        
+        $("#ajax-info").load("/workout/api/user-preferences?do=set_english-ingredients&show=" + useEnglishIngredients);
     });
 }
+
 
 function setup_inplace_editing()
 {
