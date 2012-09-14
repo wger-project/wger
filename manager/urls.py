@@ -8,6 +8,7 @@ urlpatterns = patterns('manager.views',
     url(r'^user/preferences$', 'preferences'),
     
     url(r'^workout/add$', 'add'),
+    url(r'^workout/edit/(?P<id>\d+)$', 'edit_workout'),
     url(r'^workout/(?P<id>\d+)/pdf/$', 'pdf_workout'),
     url(r'^workout/(?P<id>\d+)/view/$', 'view_workout'),
     url(r'^workout/(?P<id>\d+)/delete/$', 'delete_workout'),

@@ -204,6 +204,7 @@ def preferences(request):
 class WorkoutForm(ModelForm):
     class Meta:
         model = TrainingSchedule
+        exclude = ('user',)
 
 @login_required
 def view_workout(request, id):
@@ -382,6 +383,40 @@ def delete_workout(request, id):
     workout.delete()
     
     return HttpResponseRedirect('/')
+
+
+def edit_workout(request, id):
+    """Edits a workout
+    """
+    template_data = {}
+    template_data.update(csrf(request))
+    template_data['active_tab'] = 'workout'
+    
+    # Load workout
+    workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
+    template_data['workout'] = workout
+    
+    # Process request
+    if request.method == 'POST':
+        form = WorkoutForm(request.POST, instance=workout)
+        form.user = request.user
+        
+        # If the data is valid, save and redirect
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/workout/%s/view/' % id)
+        
+        #else:
+        #    logger.debug(form.errors)
+    else:
+        form = WorkoutForm(instance=workout)
+    
+    template_data['form'] = form
+    
+    return render_to_response('workout/edit.html',
+                              template_data,
+                              context_instance=RequestContext(request))
+
 
 
 @login_required

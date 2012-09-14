@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n %} 
+
+<!--
+        Title
+-->
+{% block title %}{% trans "Edit workout" %}{% endblock %}
+
+
+<!--
+        Main Content
+-->
+{% block content %}
+
+<h2>{% trans "Edit workout" %}</h2>
+
+<form action="{% url manager.views.edit_workout workout.id %}"
+      method="post"
+      class="ym-form">
+{% csrf_token %}
+{{ day_form.non_field_errors }}
+<table>
+    {% include "form_snippet.html" with field=form.comment %}
+    <tr>
+        <td><input type="submit" value="{% trans "Save" %}" /></td>
+        <td></td>
+    </tr>
+</table>
+</form>
+
+
+{% endblock %}
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}
+{% endblock %}

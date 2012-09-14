@@ -34,6 +34,8 @@ $(document).ready(function() {
 {% block content %}
 <h2> {% trans "Workout for" %} {{ workout.creation_date }}</h2>
 
+<p class="dimmed">{{workout.comment}}</p>
+
 <div>
 <a id="exercise-comments-toggle" href="#">
     {% trans "Show/Hide exercise comments" %}
@@ -53,7 +55,11 @@ $(document).ready(function() {
 
 <p><a href="{% url manager.views.edit_day workout.id day.id %}">{% trans "Add training day" %}</a></p>
 
-{% endblock %} <!--day in workout-->
+
+<p><a href="{% url manager.views.edit_workout workout.id %}"
+      class="modal-dialog">{% trans "Edit workout" %}</a></p>
+
+{% endblock %}
 
 
 
@@ -97,6 +103,7 @@ $(document).ready(function() {
 </div>
 
 <h3>{% trans "Options" %}</h3>
+<p>
 <a href="{% url manager.views.pdf_workout workout.id %}"
    target="_blank">
     <img src="{% static 'images/icons/save.svg' %}"
@@ -106,15 +113,27 @@ $(document).ready(function() {
          title="{% trans 'Download as PDF' %}">
     {% trans "Download as PDF" %}
 </a>
+</p>
 
+<p>
+<a href="{% url manager.views.edit_workout workout.id %}"
+   class="modal-dialog">
+   <img src="{% static 'images/icons/edit.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Edit workout' %}"
+         title="{% trans 'Edit workout' %}">
+   {% trans "Edit workout" %}
+</a>
+</p>
 
-<h3>{% trans "Delete" %}</h3>
+<p>
 <a href="{% url manager.views.delete_workout workout.id %}">
     <img src="{% static 'images/icons/trash.svg' %}"
          width="32"
          height="32"
-         alt="{% trans 'Delete' %}">
+         alt="{% trans 'Delete this workout' %}">
     {% trans "Delete this workout" %}
 </a>
-
+</p>
 {% endblock %}
