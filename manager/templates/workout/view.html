@@ -34,13 +34,12 @@ $(document).ready(function() {
 {% block content %}
 <h2> {% trans "Workout for" %} {{ workout.creation_date }}</h2>
 
-<p class="dimmed">{{workout.comment}}</p>
-
-<div>
-<a id="exercise-comments-toggle" href="#">
-    {% trans "Show/Hide exercise comments" %}
-</a>
-</div>
+{% if workout.comment %}
+<p>
+    <strong>{% trans "Goal" %}:</strong>
+    <span class="dimmed">{{workout.comment}}</span>
+</p>
+{% endif %}
 
 {% for day in workout.day_set.select_related %}
 	<div id="div-day-{{ day.id }}">
@@ -53,7 +52,18 @@ $(document).ready(function() {
 {% endfor %}
 
 
-<p><a href="{% url manager.views.edit_day workout.id day.id %}">{% trans "Add training day" %}</a></p>
+<p>
+<a href="{% url manager.views.edit_day workout.id day.id %}">
+    {% trans "Add training day" %}
+</a>
+
+|
+<a id="exercise-comments-toggle" href="#">
+    {% trans "Show/Hide exercise comments" %}
+</a>
+
+
+</p>
 {% endblock %}
 
 
