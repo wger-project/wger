@@ -57,7 +57,7 @@
             {% if not user.username %}
                 <li><a href="{% url manager.views.login %}">{% trans "Login" %}</a></li>
             {% else %}
-                <li><a href="{% url manager.views.logout %}">{% trans "Logout" %}: {{ user.username }}</a></li>
+                <li {% if active_tab == 'user' %}class="active"{% endif %}><a href="{% url manager.views.preferences %}">{% trans "My preferences" %}: {{ user.username }}</a></li>
             {% endif %}
             </ul>
         </div>

@@ -38,6 +38,7 @@ from manager.models import TrainingSchedule
 from manager.models import Day
 from manager.models import Set
 from manager.models import Setting
+from manager.models import UserProfile
 
 from exercises.models import Exercise
 
@@ -55,6 +56,12 @@ logger = logging.getLogger('workout_manager.custom')
 # ************************
 # Misc functions
 # ************************
+class UserPreferencesForm(ModelForm):
+    class Meta:
+        model = UserProfile
+        exclude = ('user',)
+
+
 @login_required
 def index(request):
     """Show the index page, in our case, a list of workouts
@@ -86,7 +93,7 @@ def login(request):
     """
     template_data = {}
     template_data.update(csrf(request))
-    template_data['active_tab'] = 'workout'
+    template_data['active_tab'] = 'user'
     
     template_data['form'] = AuthenticationForm()
     
@@ -135,11 +142,11 @@ def logout(request):
 
 
 def registration(request):
-    """Login the user and redirect it
+    """A form to allow for registration of new users
     """
     template_data = {}
     template_data.update(csrf(request))
-    template_data['active_tab'] = 'workout'
+    template_data['active_tab'] = 'user'
     
     template_data['form'] = UserCreationForm()
     
@@ -165,6 +172,32 @@ def registration(request):
                               template_data,
                               context_instance=RequestContext(request))
 
+def preferences(request):
+    """An overview of all user preferences
+    """
+    template_data = {}
+    template_data.update(csrf(request))
+    template_data['active_tab'] = 'user'
+    
+    template_data['form'] = UserPreferencesForm(instance=request.user.get_profile())
+    
+    if request.method == 'POST':
+    
+        form = UserPreferencesForm(data=request.POST, instance=request.user.get_profile())
+        template_data['form'] = form
+        
+        form.user = request.user
+        # Save the data if it validates
+        if form.is_valid():
+            user_preferences = form.save(commit=False)
+            user_preferences.user = request.user
+            user_preferences.save()
+        else:
+            logger.debug(form.errors)
+   
+    return render_to_response('user/preferences.html',
+                              template_data,
+                              context_instance=RequestContext(request))
 
 
 # ************************

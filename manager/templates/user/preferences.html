@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} {% trans "Login" %}{% endblock %}
+
+
+{% block content %}
+
+<form action="{% url manager.views.preferences %}"
+      method="post"
+      class="ym-form">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+<table>
+{% include "form_snippet.html" with field=form.show_comments %}
+    <tr>
+        <td><input type="submit" value='{% trans "Save" %}' /></td>
+        <td></td>
+    </tr>
+</table>
+</form>
+{% endblock %}
+
+{% block sidebar %}
+<a href="{% url manager.views.logout %}">{% trans "Logout" %}</a>
+{% endblock %}
