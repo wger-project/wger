@@ -47,7 +47,10 @@ $(document).ready(function() {
 <h2>{% trans "Details for nutrition plan" %}</h2>
 
 {% if plan.description %}
-<p class="dimmed">{{plan.description}}</p>
+<p>
+    <strong>{% trans "Goal" %}:</strong>
+    <span class="dimmed">{{plan.description}}</span>
+</p>
 {% endif %}
 
 <table class="bordertable">
