@@ -17,6 +17,8 @@ function custom_modal_init()
 
 $(document).ready(function() {
 
+    // Add a flag indicating we are using javascript. Depending on this we show a drop down list
+    // with the ingredients or use an autocompleter
     $('.edit-meal').each(function(element){
         $(this).attr('href', $(this).attr('href') + '?js=on')
     })
