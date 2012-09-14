@@ -55,9 +55,9 @@
             
             <ul style="float:right;">
             {% if not user.username %}
-                <li><a href="/">{% trans "Login" %}</a></li>
+                <li><a href="{% url manager.views.login %}">{% trans "Login" %}</a></li>
             {% else %}
-                <li><a href="/logout">{% trans "Logout" %}: {{ user.username }}</a></li>
+                <li><a href="{% url manager.views.logout %}">{% trans "Logout" %}: {{ user.username }}</a></li>
             {% endif %}
             </ul>
         </div>
@@ -109,7 +109,7 @@
     <div class="ym-wrapper">
         <div class="ym-wbox">
             <a href="https://bitbucket.org/rolandgeider/workout_manager">
-            <img src="/static/images/agplv3-88x31.png" alt="{% trans 'Released under the Affero GPL' %}">
+            <img src="{% static 'images/agplv3-88x31.png' %}" alt="{% trans 'Released under the Affero GPL' %}">
             </a>
             © <a href="mailto:roland@NO!SPAM!geider.net">Roland Geider</a>
             &ndash; {% trans "Layout based on <a href='http://www.yaml.de'>YAML</a>" %}
