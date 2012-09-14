@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %} {% trans "Login" %}{% endblock %}
+{% block title %}{% trans "Preferences" %}{% endblock %}
 
 
 {% block content %}
+
+<h2>{% trans "Preferences" %}</h2>
 
 <form action="{% url manager.views.preferences %}"
       method="post"
@@ -13,6 +15,7 @@
       {{ form.non_field_errors }}
 <table>
 {% include "form_snippet.html" with field=form.show_comments %}
+{% include "form_snippet.html" with field=form.show_english_ingredients %}
     <tr>
         <td><input type="submit" value='{% trans "Save" %}' /></td>
         <td></td>
