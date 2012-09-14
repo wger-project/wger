@@ -37,6 +37,8 @@ from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
 from reportlab.lib import colors
 
 from exercises.views import load_language
+from exercises.views import load_ingredient_languages
+
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -423,14 +425,16 @@ def edit_meal_item(request, id, meal_id, item_id=None):
 def ingredient_overview(request):
     """Show an overview of all ingredients
     """
-    language = load_language()
     
     template_data = {}
     template_data['active_tab'] = 'nutrition'
     
-    #ingredients  = Ingredient.objects.filter(language = language.id)
-    ingredients  = Ingredient.objects.all()
-    
+    # Filter the ingredients the user will see by its language
+    # (the user can also want to see ingredients in English, see load_ingredient_languages)
+    languages = load_ingredient_languages(request)
+            
+    # Load the ingredients
+    ingredients  = Ingredient.objects.filter(language__in = languages)
     template_data['ingredients'] = ingredients
     
     return render_to_response('ingredient_overview.html',
@@ -507,10 +511,13 @@ def ingredient_search(request):
     """Search for an exercise, return the result as a JSON list or as HTML page, depending on how
     the function was invoked
     """
+    # Filter the ingredients the user will see by its language
+    # (the user can also want to see ingredients in English, see load_ingredient_languages)
+    languages = load_ingredient_languages(request)
     
     # Perform the search
     q = request.GET.get('term', '')
-    ingredients = Ingredient.objects.filter(name__icontains = q )
+    ingredients = Ingredient.objects.filter(name__icontains = q, language__in = languages)
     
     # AJAX-request, this comes from the autocompleter. Create a list and send it back as JSON
     if request.is_ajax():
