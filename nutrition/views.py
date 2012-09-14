@@ -75,6 +75,16 @@ def add(request):
     
     return HttpResponseRedirect('/nutrition/%s/view/' % plan.id)
 
+@login_required
+def delete_plan(request, id):
+    """Deletes the nutritional plan with the given ID
+    """
+    
+    # Load the plan
+    plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
+    plan.delete()
+    
+    return HttpResponseRedirect('/')
 
 @login_required
 def view(request, id):

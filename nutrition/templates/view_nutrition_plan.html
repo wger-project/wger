@@ -223,6 +223,16 @@ $(document).ready(function() {
 </p>
 
 <p>
+<a href="{% url nutrition.views.delete_plan plan.id %}">
+    <img src="{% static 'images/icons/trash.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Delete nutrition plan' %}">
+    {% trans "Delete nutrition plan" %}
+</a>
+</p>
+
+<p>
 <a href="{% url nutrition.views.ingredient_overview %}">
     <img src="{% static 'images/icons/list.svg' %}"
          width="32"

@@ -5,8 +5,9 @@ urlpatterns = patterns('nutrition.views',
     
     # Plans
     url(r'^nutrition/add/$', 'add'),
-    url(r'^nutrition/(?P<id>\d+)/view/$', 'view'),
-    url(r'^nutrition/(?P<id>\d+)/edit/plan/$', 'edit_plan'),
+    url(r'^nutrition/(?P<id>\d+)/view/$', 'view'),    
+    url(r'^nutrition/(?P<id>\d+)/delete/$', 'delete_plan'),
+    url(r'^nutrition/(?P<id>\d+)/edit/$', 'edit_plan'),
     
     # Meals
     url(r'^nutrition/(?P<id>\d+)/edit/meal/(?P<meal_id>\w*)$', 'edit_meal'),
