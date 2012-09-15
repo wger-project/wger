@@ -58,15 +58,15 @@
             {% if not user.username %}
                 <a href="{% url manager.views.login %}">{% trans "Login" %}</a>
             {% else %}
-                <a href="{% url manager.views.preferences %}">{% trans "My preferences" %}: {{ user.username }}</a>
+                <a href="{% url manager.views.preferences %}">{% trans "My preferences" %}</a>
             </li>
             <li>
                 <a href="{% url manager.views.logout %}">
                 <img src="{% static 'images/icons/logout.svg' %}"
                      width="18"
                      height="18"
-                     alt="{% trans 'Logout' %}"
-                     title="{% trans 'Logout' %}">
+                     alt="{% trans 'Logout' %}: {{ user.username }}"
+                     title="{% trans 'Logout' %}: {{ user.username }}">
                 </a>
             {% endif %}
             </li>
