@@ -1,8 +1,7 @@
 {% load i18n %}
-<tr>
+<tr id="form-{{field.name}}">
     <td style="text-align:right;">
         {% trans field.label %}
-        
     </td>
     <td>
         <div class="{{css_class|default:"ym-fbox-text"}}">
