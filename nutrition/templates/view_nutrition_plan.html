@@ -22,10 +22,10 @@ $(document).ready(function() {
     
     {% if user.userprofile.show_english_ingredients %}
         useEnglishIngredients = 1;
-        $('#english-ingredients-status').html('ON')
+        $('#english-ingredients-status').attr("src", "{% static 'images/icons/status-on.svg' %}");
     {% else %}
         useEnglishIngredients = 0;
-        $('#english-ingredients-status').html('OFF')
+        $('#english-ingredients-status').attr("src", "{% static 'images/icons/status-off.svg' %}");
     {% endif %}
 
     // Add a flag indicating we are using javascript. Depending on this we show a drop down list
@@ -161,7 +161,11 @@ $(document).ready(function() {
     <p>
     {% trans "If you find the ingredient list too short, you might want to activate the preference to also show English ingredients." %}
     <a href="{% url manager.views.preferences %}" id="ajax-english-ingredients">{% trans "That's done here" %}</a>:
-    <span id="english-ingredients-status"></span>
+    <img src="{% static 'images/icons/status-on.svg' %}"
+         width="20"
+         height="20"
+         alt="{% trans 'Delete nutrition plan' %}"
+         id="english-ingredients-status">
     </p>
 {% endif %}
 

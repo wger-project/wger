@@ -118,12 +118,12 @@ function set_english_ingredients()
         
         if ( useEnglishIngredients == 0 )
         {
-            $('#english-ingredients-status').html('ON')
+            $('#english-ingredients-status').attr("src", "/static/images/icons/status-on.svg");
             useEnglishIngredients = 1;
         }
         else if ( useEnglishIngredients == 1 )
         {
-             $('#english-ingredients-status').html('OFF')
+             $('#english-ingredients-status').attr("src", "/static/images/icons/status-off.svg");
              useEnglishIngredients = 0;
         }
         
