@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load staticfiles %}
 
-{% block title %}{% trans "Nutrition overview" %}{% endblock %}
+{% block title %}{% trans "Your nutrition plans" %}{% endblock %}
 
 
 {% block content %}
@@ -12,7 +12,14 @@
 <ul>
 {% for plan in plans %}
     <li>
-        <a href="{% url nutrition.views.view plan.id %}">{{ plan }}</a>
+        <a href="{% url nutrition.views.view plan.id %}">
+            {% if plan.description %}
+                {{ plan.description }}
+            {% else %}
+                {% trans "Nutrition plan" %}
+            {% endif %}
+        </a>
+        – {{ plan.creation_date }} 
     </li>
 {% empty %}
     <li>
@@ -23,5 +30,7 @@
 {% endfor %}
 </ul>
 
-<a href="{% url nutrition.views.add %}">{% trans "Add nutrition plan" %}</a>
+<p>
+    <a href="{% url nutrition.views.add %}">{% trans "Add nutrition plan" %}</a>
+</p>
 {% endblock %}
