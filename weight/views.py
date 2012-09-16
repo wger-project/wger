@@ -14,6 +14,7 @@
 
 import logging
 import csv
+import json
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -46,7 +47,7 @@ def add(request, id=None):
     
     # Load weight
     if id:
-        weight = get_object_or_404(WeightEntry, pk=id)
+        weight = get_object_or_404(WeightEntry, pk=id, user=request.user)
     else:
         weight = WeightEntry()
     template_data['weight'] = weight
@@ -62,8 +63,10 @@ def add(request, id=None):
             weight.save()
             
             return HttpResponseRedirect('/weight/overview/')
+        else:
+            logger.debug(weight_form.errors)
     else:
-        weight_form = WeightForm()
+        weight_form = WeightForm(instance=weight)
     template_data['weight_form'] = weight_form
     
     return render_to_response('edit.html',
@@ -112,6 +115,15 @@ def overview(request):
     
     template_data['data_x'] = data_x
     template_data['data_y'] = data_y
+    
+    
+    # Make a mapping between index and ID, this is used to edit the entries
+    mapping = {}
+    index = 0
+    for i in weights:
+        mapping[index] = i.id
+        index += 1
+    template_data['index_mapping'] = json.dumps(mapping)
     
     return render_to_response('weight_overview.html',
                               template_data,

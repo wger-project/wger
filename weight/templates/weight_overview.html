@@ -11,17 +11,33 @@
         Header data
 -->
 {% block header %}
-<script src="{% static "js/jquery-ui.js" %}"></script>
-<script src="{% static "js/jquery-globalize/lib/globalize.js" %}"></script>
-<script src="{% static "js/raphael.js" %}"></script>
-<script src="{% static "js/jquery.wijmo-complete.js" %}"></script>
-<script src="{% static "js/jquery.wijmo-open.js" %}"></script>
-<script id="scriptInit" type="text/javascript">
+<script src="{% static 'js/jquery-ui.js' %}"></script>
+<script src="{% static 'js/workout-manager.js' %}"></script>
+<script src="{% static 'js/jquery-globalize/lib/globalize.js' %}"></script>
+<script src="{% static 'js/raphael.js' %}"></script>
+<script src="{% static 'js/jquery.wijmo-complete.js' %}"></script>
+<script src="{% static 'js/jquery.wijmo-open.js' %}"></script>
+
+<script type="text/javascript">
+// This provides a mapping between the index and the entry-ID
+index_mapping = {{index_mapping|safe}};
+
         $(document).ready(function () {
- 
+
+// Initialise a modal dialog
+    $("#ajax-info").dialog({
+                autoOpen: false,
+                width: 600,
+                modal: true,
+                position: 'top'
+    });
+
             $("#wijscatterchartDefault").wijscatterchart({
                 header: {
                     //text: "Title"
+                },
+                click: function(e, data) {
+                    scatterplot_modal_dialog(index_mapping[data.index]);
                 },
                 axis: {
                     y: {
@@ -82,7 +98,7 @@
                 ]
             });
         });
-    </script>
+</script>
 {% endblock %}
 
 
@@ -96,8 +112,13 @@
 <div id="wijscatterchartDefault"></div>
 
 
-
+<p>
 <a href="{% url weight.views.add None %}">{% trans "Add weight entry" %}</a>
+</p>
+
+<p>
+    <em>{% trans "You can click on a value on the chart to edit it. "%}</em>
+</p>
 
 {% endblock %}
 

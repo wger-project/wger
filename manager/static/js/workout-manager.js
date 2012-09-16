@@ -227,6 +227,16 @@ function form_modal_dialog()
     });
 }
 
+function scatterplot_modal_dialog(id)
+{
+        targetUrl = '/weight/add/' + id
+        
+        $("#ajax-info").load(targetUrl + " .ym-form", function() {
+            // Open the dialog
+            $("#ajax-info").dialog("open");
+        });
+}
+
 function init_ingredient_autocompleter()
 {
     // Init the autocompleter
