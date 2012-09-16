@@ -210,9 +210,8 @@ function form_modal_dialog()
         e.preventDefault();
         targetUrl = $(this).attr("href");
 
-		$("#ajax-info").load(targetUrl + " .ym-form", function() {
-  		
-  		    // Initialise the WYSIWYG editor
+        $("#ajax-info").load(targetUrl + " .ym-form", function() {
+            // Initialise the WYSIWYG editor
             init_tinymce();
             
             // Call other custom initialisation functions
@@ -225,10 +224,6 @@ function form_modal_dialog()
             // Open the dialog
             $("#ajax-info").dialog("open");
         });
-    
-        
-        
-        
     });
 }
 
