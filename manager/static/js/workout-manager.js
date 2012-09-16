@@ -215,7 +215,7 @@ function form_modal_dialog()
             init_tinymce();
             
             // Call other custom initialisation functions
-            // (e.g. if the form as an autocompleter, it has to be initliasided again)
+            // (e.g. if the form as an autocompleter, it has to be initialised again)
             if (typeof custom_modal_init != "undefined")
             {
                 custom_modal_init();
