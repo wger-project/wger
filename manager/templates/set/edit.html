@@ -1,11 +1,57 @@
 {% extends "base.html" %}
-{% load i18n %} 
+{% load i18n %}
+{% load staticfiles %}
 
 <!--
         Title
 -->
 {% block title %}{% trans "Set details" %}{% endblock %}
 
+<!--
+        Header
+-->
+{% block header %}
+<script src="{% static 'js/jquery-ui.js' %}"></script>
+<script src="{% static 'js/workout-manager.js' %}"></script>
+
+<script>
+function add_exercise(exercise)
+{
+    result_div = '<div id="DIV-ID" class="ajax-exercise-select"> \
+<a href="#">[x]</a> EXERCISE \
+<input type="hidden" name="exercises" value="EXCERCISE-ID"> \
+</div>';
+    
+    result_div = result_div.replace('DIV-ID', hex_random());
+    result_div = result_div.replace('EXERCISE', exercise.value);
+    result_div = result_div.replace('EXCERCISE-ID', exercise.id); 
+    
+    $(result_div).prependTo("#exercise-search-log");
+    $("#exercise-search-log").scrollTop(0);
+}
+
+$(document).ready(function() {
+
+    $('#form-exercises').remove();
+    
+    // Init the autocompleter
+    $("#exercise-search").autocomplete({
+            source: "{% url exercises.views.exercise_search %}",
+            minLength: 2,
+            select: function(event, ui) {
+
+                add_exercise( ui.item );
+                
+                $(".ajax-exercise-select a").click(function(e) {
+                    e.preventDefault();
+                    $(this).parent('div').remove();
+                });
+            }
+        });
+});
+</script>
+
+{% endblock %}
 
 <!--
         Main Content
@@ -14,11 +60,29 @@
 
 <h2>{% trans "Edit" %} {{ day.description }}</h2>
 
+
 <form action="{% url manager.views.edit_set workout.id day.id set.id %}"
       method="post"
       class="ym-form">
 {% csrf_token %}
 <table>
+
+    
+    
+    <tr id="form-{{field.name}}">
+        <td style="text-align:right;">
+            aaaa
+        </td>
+        <td>
+            <div class="ym-fbox-text">
+                 <input type="text" id="exercise-search">
+             </div>
+            <div id="exercise-search-log"></div>
+            
+        </td>
+    </tr>
+    
+    
     {% include "form_snippet.html" with field=set_form.exercises css_class="ym-fbox-select" %}
     {% include "form_snippet.html" with field=set_form.sets %}
     

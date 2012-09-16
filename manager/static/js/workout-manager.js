@@ -250,3 +250,11 @@ function init_ingredient_autocompleter()
         }
     });
 }
+
+
+function hex_random()
+{
+    return Math.floor(
+        Math.random() * 0x10000 /* 65536 */
+    ).toString(16);
+}
