@@ -252,9 +252,40 @@ function init_ingredient_autocompleter()
 }
 
 
+/*
+ * Returns a random hex string. This is useful, e.g. to add a unique ID to generated
+ * HTML elements
+ */
 function hex_random()
 {
     return Math.floor(
         Math.random() * 0x10000 /* 65536 */
     ).toString(16);
 }
+
+
+/*
+ * Template-like function that adds form elements to the ajax exercise selection
+ * in the edit set page
+ */
+function add_exercise(exercise)
+{
+    result_div = '<div id="DIV-ID" class="ajax-exercise-select"> \
+<a href="#"> \
+<img src="/static/images/icons/status-off.svg" \
+     width="14" \
+     height="14" \
+     alt="Delete"> \
+</a> EXERCISE \
+<input type="hidden" name="exercises" value="EXCERCISE-ID"> \
+</div>';
+    
+    // Replace the values into the 'template'
+    result_div = result_div.replace('DIV-ID', hex_random());
+    result_div = result_div.replace('EXERCISE', exercise.value);
+    result_div = result_div.replace('EXCERCISE-ID', exercise.id); 
+    
+    $(result_div).prependTo("#exercise-search-log");
+    $("#exercise-search-log").scrollTop(0);
+}
+
