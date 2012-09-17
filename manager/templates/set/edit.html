@@ -18,10 +18,16 @@
 function add_exercise(exercise)
 {
     result_div = '<div id="DIV-ID" class="ajax-exercise-select"> \
-<a href="#">[x]</a> EXERCISE \
+<a href="#"> \
+<img src="{% static "images/icons/status-off.svg" %}" \
+     width="14" \
+     height="14" \
+     alt="{% trans "Delete" %}"> \
+</a> EXERCISE \
 <input type="hidden" name="exercises" value="EXCERCISE-ID"> \
 </div>';
     
+    // Replace the values into the 'template'
     result_div = result_div.replace('DIV-ID', hex_random());
     result_div = result_div.replace('EXERCISE', exercise.value);
     result_div = result_div.replace('EXCERCISE-ID', exercise.id); 
@@ -32,16 +38,20 @@ function add_exercise(exercise)
 
 $(document).ready(function() {
 
+    // The multi-select exercise list is not needed if javascript is activated
     $('#form-exercises').remove();
     
-    // Init the autocompleter
+    // Initialise the autocompleter
     $("#exercise-search").autocomplete({
             source: "{% url exercises.views.exercise_search %}",
             minLength: 2,
             select: function(event, ui) {
 
-                add_exercise( ui.item );
+                // Add the exercise to the list
+                add_exercise(ui.item);
                 
+                // Remove the result div (also contains the hidden form element) when the user
+                // clicks on the delete link
                 $(".ajax-exercise-select a").click(function(e) {
                     e.preventDefault();
                     $(this).parent('div').remove();
@@ -69,16 +79,15 @@ $(document).ready(function() {
 
     
     
-    <tr id="form-{{field.name}}">
+    <tr id="form-ajax-{{set_form.exercises.name}}">
         <td style="text-align:right;">
-            aaaa
+            {% trans set_form.exercises.label %}
         </td>
         <td>
             <div class="ym-fbox-text">
                  <input type="text" id="exercise-search">
-             </div>
+            </div>
             <div id="exercise-search-log"></div>
-            
         </td>
     </tr>
     
