@@ -46,13 +46,7 @@ $(document).ready(function() {
         <tr id="set-{{ set.id }}">
             <td class="ym-g10">{{ forloop.counter }}
                 <div class="editoptions set-options">
-                    <a href="{% url manager.views.delete_set workout.id day.id set.id %}"
-                       title="{% trans 'Delete' %}">
-                        <img src="{% static 'images/icons/trash.svg' %}"
-                            width="16"
-                            height="16"
-                            alt="{% trans 'Delete' %}">
-                    </a>
+                    
                     <a href="{% url manager.views.edit_set workout.id day.id set.id %}"
                        title="{% trans 'Edit' %}">
                         <img src="{% static 'images/icons/edit.svg' %}"
@@ -68,6 +62,13 @@ $(document).ready(function() {
                      alt="{% trans 'Move me' %}"
                      title="{% trans 'Move me' %}"
                      class="dragndrop-handle">
+                 <a href="{% url manager.views.delete_set workout.id day.id set.id %}"
+                    title="{% trans 'Delete' %}">
+                        <img src="{% static 'images/icons/trash.svg' %}"
+                             width="16"
+                             height="16"
+                             alt="{% trans 'Delete' %}">
+                </a>
                  </div>
             </td>
             <td>
