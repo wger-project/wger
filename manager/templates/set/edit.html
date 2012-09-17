@@ -12,11 +12,23 @@
 -->
 {% block header %}
 <script src="{% static 'js/jquery-ui.js' %}"></script>
+<script src="{% static 'js/jquery.validate.js' %}"></script>
 <script src="{% static 'js/workout-manager.js' %}"></script>
 
 <script>
 
 $(document).ready(function() {
+    // Validate the form with JQuery
+    $(".ym-form").validate({
+                    rules: {
+                        sets: {
+                            required: true,
+                            number: true,
+                            max: 6
+                        }
+                    }
+                    
+                    });
 
     // The multi-select exercise list is not needed if javascript is activated
     $('#form-exercises').remove();
