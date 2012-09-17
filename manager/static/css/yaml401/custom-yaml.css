@@ -160,3 +160,10 @@ div.muscle-background
     height: 369px;
     background-repeat: no-repeat; 
 }
+
+/*
+ * Set an additional padding to the generated DIV on the edit set page
+ */
+#exercise-search-log{
+    padding-left: 1em;
+}
