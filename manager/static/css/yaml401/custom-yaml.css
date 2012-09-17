@@ -34,7 +34,8 @@ tr:hover .editoptions, tbody tr:hover td .editoptions
  */
 .editoptions a:hover,
 .ui-tabs-nav a:hover, 
-.ui-tabs-nav a:focus {
+.ui-tabs-nav a:focus,
+.ajax-exercise-select a:hover {
     background-color: transparent;
 }
 
