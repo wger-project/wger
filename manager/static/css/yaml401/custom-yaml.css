@@ -1,7 +1,26 @@
-/*
+/**************************************************************
  * 
  * This file contains slight modifications to the YAML theme
- * 
+ * or other YAML elements
+ *
+ **************************************************************/
+
+
+/*
+    This file is part of Workout Manager
+
+    Workout Manager is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Workout Manager is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with Workout Manager. If not, see <http://www.gnu.org/licenses/>.
  */
 
 tr:hover .editoptions, tbody tr:hover td .editoptions
@@ -56,68 +75,6 @@ a {
     width: 100%;
 }
 
-/*
- * Own classes
- */
-.invisible{
-    display: none;
-}
-
-.ym-g10
-{
-    width: 10%;
-}
-
-.ym-g15
-{
-    width: 15%;
-}
-
-.align-right
-{
-    text-align: right;
-}
-
-.sortable-settings
-{
-    border: 1px solid black;
-}
-
-.sortable-settings-drag
-{
-    padding-left: 1em;
-    padding-right: 1em;
-    background-color: #babdb6; /* #888a85;*/
-    /*text-align:center;*/
-    border-bottom:1px solid black;
-}
-
-
-/*
- * Hide the edit options (edit, delete) on tables, only show them when the mouse is over the row
- */
-.editoptions
-{
-    visibility: hidden;
-}
-
-a img
-{
-    filter: grayscale(100%);
-    -webkit-filter: grayscale(100%);
-    -moz-filter: grayscale(100%);
-    -ms-filter: grayscale(100%);
-    -o-filter: grayscale(100%);
-}
-
-a:hover img
-{
-    filter: grayscale(0%);
-    -webkit-filter: grayscale(0%);
-    -moz-filter: grayscale(0%);
-    -ms-filter: grayscale(0%);
-    -o-filter: grayscale(0%);	
-}
 
 
 header
@@ -148,22 +105,4 @@ header div.ym-wbox
     
     /* make space for the logo */
     padding-left: 100px;
-}
-
-
-/*
- * Set the sizes for the background where the muscles are shown on the exercise view page
- */
-div.muscle-background
-{
-    width: 200px;
-    height: 369px;
-    background-repeat: no-repeat; 
-}
-
-/*
- * Set an additional padding to the generated DIV on the edit set page
- */
-#exercise-search-log{
-    padding-left: 1em;
 }
