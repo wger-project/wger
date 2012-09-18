@@ -14,15 +14,9 @@
 <script src="{% static 'js/jquery-ui.js' %}"></script>
 <script src="{% static 'js/workout-manager.js' %}"></script>
 <script src="{% static 'js/jquery-globalize/lib/globalize.js' %}"></script>
-<script src="{% static 'js/raphael.js' %}"></script>
-<script src="{% static 'js/jquery.wijmo-complete.js' %}"></script>
-<script src="{% static 'js/jquery.wijmo-open.js' %}"></script>
 
 <script type="text/javascript">
-// This provides a mapping between the index and the entry-ID
-index_mapping = {{index_mapping|safe}};
-
-        $(document).ready(function () {
+$(document).ready(function () {
 
 // Initialise a modal dialog
     $("#ajax-info").dialog({
@@ -32,71 +26,6 @@ index_mapping = {{index_mapping|safe}};
                 position: 'top'
     });
 
-            $("#wijscatterchartDefault").wijscatterchart({
-                header: {
-                    //text: "Title"
-                },
-                click: function(e, data) {
-                    scatterplot_modal_dialog(index_mapping[data.index]);
-                },
-                axis: {
-                    y: {
-                        text: '{% trans "Weight" %} (kg)',
-                        labels: {
-                            style: {
-                                fill: "#7f7f7f",
-                                "font-size": "11pt"
-                            }
-                        },
-                        gridMajor: {
-                            style: { stroke: "#353539", "stroke-dasharray": "- " }
-                        },
-                        tickMajor: { position: "outside", style: { stroke: "#7f7f7f"} },
-                        tickMinor: { position: "outside", style: { stroke: "#7f7f7f"} }
-                    },
-                    x: {
-                        text: '{% trans "Date" %}',
-                        labels: {
-                            style: {
-                                fill: "#7f7f7f",
-                                "font-size": "11pt",
-                                rotation: -45
-                            }
-                        },
-                        tickMajor: { position: "outside", style: { stroke: "#7f7f7f"} }
-                    }
-                },
-                showChartLabels: false,
-                hint: {
-                    content: function () {
-                        return this.x.toLocaleDateString() + ',  ' + this.y + ' kg'
-                    },
-                    contentStyle: {
-                        "font-size": "10pt"
-                    },
-                    offsetY: -10
-                },
-                legend: {
-                    visible: false
-                },
-                seriesList: [
-                    {
-                        label: '{% trans "Weight" %}',
-                        legendEntry: true,
-                        data: {
-                            x: [{{ data_x }}],
-                            y: [{{ data_y }}]
-                        },
-                        visible: true,
-                        markerType: "circle"
-                    }
-                ],
-                seriesStyles: [{
-                    fill: "#5c3566",
-                    stroke: "#5c3566"
-                }
-                ]
-            });
         });
 </script>
 {% endblock %}
@@ -108,9 +37,6 @@ index_mapping = {{index_mapping|safe}};
 {% block content %}
 
 <h2>{% trans "Weight overview" %}</h2>
-
-<div id="wijscatterchartDefault"></div>
-
 
 <p>
 <a href="{% url weight.views.add None %}">{% trans "Add weight entry" %}</a>
