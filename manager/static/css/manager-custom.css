@@ -112,23 +112,28 @@ div.muscle-background
  */
 
 .axis path, .axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
 }
 
 .area {
-  fill: lightsteelblue;
+    fill: lightsteelblue;
 }
 
 .line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
 }
 
 .dot {
-  fill: white;
-  stroke: steelblue;
-  stroke-width: 1.5px;
+    fill: white;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+circle:hover{
+    fill: #204a87;
+    stroke: #204a87;
 }
