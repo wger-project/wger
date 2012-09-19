@@ -26,6 +26,7 @@ function getDate(d) {
     return new Date(d);
 }
 
+
 $(document).ready(function () {
 
 // Initialise a modal dialog
@@ -107,7 +108,7 @@ svg.selectAll(".dot")
     .attr("id", function(d) { return d.id; })
     .attr("cx", line.x())
     .attr("cy", line.y())
-    .attr("r", 3.5);
+    .attr("r", 5);
 
 
 // Make the circles clickable: open their edit dialog
