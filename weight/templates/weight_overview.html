@@ -16,33 +16,6 @@
 <script src="{% static 'js/d3.js' %}"></script>
 <script src="{% static 'js/jquery-globalize/lib/globalize.js' %}"></script>
 
-<style>
-
-.axis path, .axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.area {
-  fill: lightsteelblue;
-}
-
-.line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
-}
-
-.dot {
-  fill: white;
-  stroke: steelblue;
-  stroke-width: 1.5px;
-}
-
-</style>
-
-
 
 
 <script type="text/javascript">
@@ -89,7 +62,7 @@ var yAxis = d3.svg.axis()
     .orient("left");
 
 var line = d3.svg.line()
-    .x(function(d) { return x(getDate(d.x)); })  
+    .x(function(d) { return x(getDate(d.x)); })
     .y(function(d) { return y(d.y); });
 
 var area = d3.svg.area()
