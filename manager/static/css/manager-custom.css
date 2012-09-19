@@ -137,3 +137,7 @@ circle:hover{
     fill: #204a87;
     stroke: #204a87;
 }
+
+circle{
+    cursor: pointer;
+}
