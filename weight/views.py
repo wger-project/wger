@@ -108,13 +108,18 @@ def overview(request):
     template_data['active_tab'] = 'weight'
     
     # Process the data to pass it to the JS libraries to generate an SVG image
+    chart_data = "[\n"
+    j = 0
+    for i in weights:
+        chart_data += '{x: %s, y: %s},\n' % (j, i.weight) 
+        j += 1
     data_y = ', '.join([str(i.weight) for i in weights])
     data_x = ', '.join(["new Date(%s, %s, %s)" % (i.creation_date.year,
                                                   i.creation_date.month,
                                                   i.creation_date.day) for i in weights])
-    
-    template_data['data_x'] = data_x
-    template_data['data_y'] = data_y
+    chart_data = chart_data.rstrip(',')
+    chart_data += "]"
+    template_data['chart_data'] = chart_data
     
     
     # Make a mapping between index and ID, this is used to edit the entries
