@@ -56,6 +56,8 @@ $(document).ready(function () {
                 position: 'top'
     });
 
+	
+
 function getDate(d) {
     return new Date(d);
 }
@@ -123,11 +125,16 @@ svg.selectAll(".dot")
     .data(data.filter(function(d) { return d.y; }))
   .enter().append("circle")
     .attr("class", "dot")
-    //.attr("id", ....)
+    .attr("id", function(d) { return d.id; })
     .attr("cx", line.x())
     .attr("cy", line.y())
     .attr("r", 3.5);
 
+
+$('circle').click(function(e) {
+        entry_id = $(this).attr('id').match(/\d+/);
+        scatterplot_modal_dialog(entry_id);
+    });
 
 });
 </script>
