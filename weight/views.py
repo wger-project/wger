@@ -97,10 +97,11 @@ def export_csv(request):
     
 @login_required
 def overview(request):
-    """Shows an overview of weight data
+    """Shows a plot with the weight data
     
-    More info about the JS can be found here:
-        * http://wijmo.com/wiki/index.php/Scatterchart
+    More info about the D3 library can be found here:
+        * https://github.com/mbostock/d3
+        * http://d3js.org/
     """
     template_data = {}
     weights = WeightEntry.objects.filter(user = request.user)
@@ -109,15 +110,14 @@ def overview(request):
     
     # Process the data to pass it to the JS libraries to generate an SVG image
     chart_data = "[\n"
-    j = 0
+    
     for i in weights:
-        chart_data += '{x: "%(month)s/%(month)s/%(year)s", y: %(weight)s, id: %(id)s},\n' % {
+        chart_data += '{x: "%(month)s/%(day)s/%(year)s", y: %(weight)s, id: %(id)s},\n' % {
                             'year': i.creation_date.year,
                             'month': i.creation_date.month,
                             'day': i.creation_date.day,
                             'weight': i.weight,
-                            'id': i.id}
-        j += 1
+                            'id': '"entry-%s"' % i.id}
     
     chart_data = chart_data.rstrip(',')
     chart_data += "]"
