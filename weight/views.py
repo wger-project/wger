@@ -111,24 +111,17 @@ def overview(request):
     chart_data = "[\n"
     j = 0
     for i in weights:
-        chart_data += '{x: %s, y: %s},\n' % (j, i.weight) 
+        chart_data += '{x: "%(month)s/%(month)s/%(year)s", y: %(weight)s, id: %(id)s},\n' % {
+                            'year': i.creation_date.year,
+                            'month': i.creation_date.month,
+                            'day': i.creation_date.day,
+                            'weight': i.weight,
+                            'id': i.id}
         j += 1
-    data_y = ', '.join([str(i.weight) for i in weights])
-    data_x = ', '.join(["new Date(%s, %s, %s)" % (i.creation_date.year,
-                                                  i.creation_date.month,
-                                                  i.creation_date.day) for i in weights])
+    
     chart_data = chart_data.rstrip(',')
     chart_data += "]"
     template_data['chart_data'] = chart_data
-    
-    
-    # Make a mapping between index and ID, this is used to edit the entries
-    mapping = {}
-    index = 0
-    for i in weights:
-        mapping[index] = i.id
-        index += 1
-    template_data['index_mapping'] = json.dumps(mapping)
     
     return render_to_response('weight_overview.html',
                               template_data,

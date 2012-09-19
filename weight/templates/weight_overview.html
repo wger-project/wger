@@ -56,15 +56,22 @@ $(document).ready(function () {
                 position: 'top'
     });
 
+function getDate(d) {
+    return new Date(d);
+}
 
-var data = {{chart_data}};
+var data = {{chart_data|safe}};
+
+
+var minDate = getDate(data[0].x),
+    maxDate = getDate(data[data.length-1].x);
 
 var margin = {top: 10, right: 10, bottom: 20, left: 40},
     width = 600 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
-var x = d3.scale.linear()
-    .domain([0, 35])
+var x = d3.time.scale()
+    .domain([minDate, maxDate])
     .range([0, width]);
 
 var y = d3.scale.linear()
@@ -74,13 +81,14 @@ var y = d3.scale.linear()
 var xAxis = d3.svg.axis()
     .scale(x)
     .orient("bottom");
+    //.ticks(d3.time.days);
 
 var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left");
 
 var line = d3.svg.line()
-    .x(function(d) { return x(d.x); })
+    .x(function(d) { return x(getDate(d.x)); })  
     .y(function(d) { return y(d.y); });
 
 var area = d3.svg.area()
