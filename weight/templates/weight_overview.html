@@ -19,6 +19,13 @@
 
 
 <script type="text/javascript">
+// Simple helper function that simply returns the y component of an entry
+function y_value(d) { return d.y; }
+
+function getDate(d) {
+    return new Date(d);
+}
+
 $(document).ready(function () {
 
 // Initialise a modal dialog
@@ -29,11 +36,6 @@ $(document).ready(function () {
                 position: 'top'
     });
 
-	
-
-function getDate(d) {
-    return new Date(d);
-}
 
 var data = {{chart_data|safe}};
 
@@ -49,8 +51,12 @@ var x = d3.time.scale()
     .domain([minDate, maxDate])
     .range([0, width]);
 
+var min_y_value = d3.min(data, y_value) - 1;
+var max_y_value = d3.max(data, y_value) + 1;
+
+
 var y = d3.scale.linear()
-    .domain([75, 85])
+    .domain([min_y_value, max_y_value])
     .range([height, 0]);
 
 var xAxis = d3.svg.axis()
@@ -68,7 +74,7 @@ var line = d3.svg.line()
 var area = d3.svg.area()
     .x(line.x())
     .y1(line.y())
-    .y0(y(75));
+    .y0(y(min_y_value));
 
 var svg = d3.select("#weight_diagram").append("svg")
     .datum(data)
@@ -104,6 +110,7 @@ svg.selectAll(".dot")
     .attr("r", 3.5);
 
 
+// Make the circles clickable: open their edit dialog
 $('circle').click(function(e) {
         entry_id = $(this).attr('id').match(/\d+/);
         scatterplot_modal_dialog(entry_id);
