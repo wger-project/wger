@@ -118,12 +118,13 @@ class UserProfile(models.Model):
     show_comments = models.BooleanField(verbose_name = _('Show exercise comments'),
                         help_text=_('Check to show exercise comments on the workout view'))
     
-    # Also show english ingredients while composing a nutritional plan
+    # Also show ingredients in english while composing a nutritional plan
     # (obviously this is only meaningful if the user has a language other than english)
-    show_english_ingredients = models.BooleanField(verbose_name = _('Show english ingredients'),
-                        help_text=_('''Check to also show english ingredients. These ingredients
-are extracted from a list provided by the US Department of Agriculture. It is extremely complete,
-with around 7000 entries, but can be somewhat overwhelming and make the search difficult.'''))
+    show_english_ingredients = models.BooleanField(verbose_name = _('Also use ingredients in English'),
+                        help_text=_('''Check to also show ingredients in English while creating
+a nutriotional plan. These ingredients are extracted from a list provided by the US Department
+of Agriculture. It is extremely complete, with around 7000 entries, but can be somewhat
+overwhelming and make the search difficult.'''))
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
