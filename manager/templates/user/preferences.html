@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load staticfiles %}
 
 {% block title %}{% trans "Preferences" %}{% endblock %}
 
@@ -25,5 +26,14 @@
 {% endblock %}
 
 {% block sidebar %}
-<a href="{% url manager.views.logout %}">{% trans "Logout" %}</a>
+<h3>{% trans "Options" %}</h3>
+<p>
+    <a href="{% url manager.views.logout %}">
+    <img src="{% static 'images/icons/logout.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Logout' %}"
+         title="{% trans 'Logout' %}">
+    {% trans "Logout" %}</a>
+</p>
 {% endblock %}

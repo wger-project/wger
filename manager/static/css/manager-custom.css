@@ -104,3 +104,40 @@ div.muscle-background
 #exercise-search-log{
     padding-left: 1em;
 }
+
+
+
+/*
+ * Styling for the SVG elements on the weight chart
+ */
+
+.axis path, .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.area {
+    fill: lightsteelblue;
+}
+
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+.dot {
+    fill: white;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+circle:hover{
+    fill: #204a87;
+    stroke: #204a87;
+}
+
+circle{
+    cursor: pointer;
+}
