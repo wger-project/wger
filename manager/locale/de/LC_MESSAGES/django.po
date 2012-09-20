@@ -237,7 +237,7 @@ msgid ""
 "goal."
 msgstr ""
 "Nach dem hinzufügen eines Training- oder Ernährungsplanes, kann man sie "
-"bearbeiten, um ein Ziel oder Bescreibung zu setzen"
+"bearbeiten, um ein Ziel oder Beschreibung zu setzen"
 
 #: templates/login.html:34
 msgid "No account?"
