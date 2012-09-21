@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 import logging
 import uuid
+import datetime
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -66,8 +67,6 @@ def index(request):
     
     template_data = {}
     template_data['active_tab'] = 'user'
-
-    template_data['weekdays'] = DAYS_OF_WEEK_CHOICES
     
     current_workout = TrainingSchedule.objects.filter(user=request.user).latest('creation_date')
     template_data['current_workout'] = current_workout
@@ -75,6 +74,23 @@ def index(request):
     plan = NutritionPlan.objects.filter(user = request.user).latest('creation_date')
     template_data['plan'] = plan
     
+    # Format a bit the days so it doesn't have to be done in the template
+    week_day_result = []
+    for i, j in DAYS_OF_WEEK_CHOICES:
+        day_has_workout = False
+        for day in current_workout.day_set.select_related():
+            if day.day == i:
+                day_has_workout = True
+                week_day_result.append((_(j), day.description, True))
+                break
+            
+        if not day_has_workout:
+            week_day_result.append((_(j), _('Rest day'), False))
+    
+    template_data['weekdays'] = week_day_result
+
+    
+    # Load the nutritional info
     template_data['nutritional_info'] = plan.get_nutritional_values()
     
     

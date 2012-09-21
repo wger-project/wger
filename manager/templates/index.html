@@ -25,15 +25,13 @@
             
             
             <ul>
-                {% for i, j in weekdays %}
+                {% for day, exercise, is_workout in weekdays %}
                 <li>
-                    {{ j }}:
+                    {{ day }}:
+                    {% if not is_workout %}<span class="dimmed">{% endif%}
+                    {{ exercise }} 
+                    {% if not is_workout %}</span>{% endif%}
                     
-                    {% for day in current_workout.day_set.select_related %}
-                        {% if day.day == i %}                
-                            {{ day.description }}
-                        {% endif %}
-                    {% endfor %}
                 </li>
                 {% endfor %}
             </ul>
