@@ -47,27 +47,23 @@
     <div class="ym-wrapper">
         <div class="ym-hlist">
             <ul>
-                <li {% if active_tab == 'workout'   %}class="active"{% endif %}><a href="/">{% trans "Workouts" %}</a></li>
-                <li {% if active_tab == 'exercises' %}class="active"{% endif %}><a href="/exercise/overview/">{% trans "Exercises" %}</a></li>
-                <li {% if active_tab == 'weight'    %}class="active"{% endif %}><a href="/weight/overview/">{% trans "Weight" %} </a></li>
-                <li {% if active_tab == 'nutrition' %}class="active"{% endif %}><a href="/nutrition/overview/">{% trans "Nutrition" %} </a></li>
+                <li {% if active_tab == 'user' %}class="active"{% endif %}>
+            {% if not user.username %}
+                <a href="{% url manager.views.login %}">{% trans "Login" %}</a>
+            {% else %}
+                <a href="{% url manager.views.preferences %}">{% trans "Dashboard" %}</a>
+                </li>
+                <li {% if active_tab == 'workout'   %}class="active"{% endif %}><a href="{% url manager.views.index %}">{% trans "Workouts" %}</a></li>
+                <li {% if active_tab == 'exercises' %}class="active"{% endif %}><a href="{% url exercises.views.exercise_overview %}">{% trans "Exercises" %}</a></li>
+                <li {% if active_tab == 'weight'    %}class="active"{% endif %}><a href="{% url weight.views.overview %}">{% trans "Weight" %} </a></li>
+                <li {% if active_tab == 'nutrition' %}class="active"{% endif %}><a href="{% url nutrition.views.overview %}">{% trans "Nutrition" %} </a></li>
             </ul>
             
             
             <ul style="float:right;">
-            <li {% if active_tab == 'user' %}class="active"{% endif %}>
-            {% if not user.username %}
-                <a href="{% url manager.views.login %}">{% trans "Login" %}</a>
-            {% else %}
-                <a href="{% url manager.views.preferences %}">{% trans "My preferences" %}</a>
-            </li>
             <li>
                 <a href="{% url manager.views.logout %}">
-                <img src="{% static 'images/icons/logout.svg' %}"
-                     width="18"
-                     height="18"
-                     alt="{% trans 'Logout' %}: {{ user.username }}"
-                     title="{% trans 'Logout' %}: {{ user.username }}">
+                {% trans 'Logout' %}
                 </a>
             {% endif %}
             </li>

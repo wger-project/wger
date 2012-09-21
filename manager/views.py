@@ -68,7 +68,7 @@ def index(request):
     """
     
     template_data = {}
-    template_data['active_tab'] = 'workout'
+    template_data['active_tab'] = 'user'
     
     latest_trainings = TrainingSchedule.objects.filter(user=request.user).order_by('-creation_date')[:5]
     template_data['latest_workouts_list'] = latest_trainings
