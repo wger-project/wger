@@ -27,6 +27,12 @@ class NutritionPlan(models.Model):
     """ A nutrition plan
     """
     
+    # Metaclass to set some other properties
+    class Meta:
+        
+        # Order by creation_date, descending (oldest first)
+        ordering = ["-creation_date", ]
+    
     user = models.ForeignKey(User, verbose_name = _('User'))
     language = models.ForeignKey(Language, verbose_name = _('Language'))
     creation_date = models.DateField(_('Creation date'), auto_now_add=True)

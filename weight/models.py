@@ -27,6 +27,8 @@ class WeightEntry(models.Model):
 
      # Metaclass to set some other properties
     class Meta:
+        
+        # Order by creation_date, ascending (oldest last), better for diagram
         ordering = ["creation_date", ]
     
     def __unicode__(self):
