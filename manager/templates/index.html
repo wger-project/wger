@@ -59,7 +59,22 @@
                         {% trans "Nutrition plan" %}
                     {% endif %}
                </a>
-               <br> – {{ plan.creation_date }} 
+               <br> – {{ plan.creation_date }}
+               
+               <ul>
+                   <li>
+                       {% trans "Energy" %}: {{nutritional_info.energy}} kcal
+                   </li>
+                   <li>
+                       {% trans "Protein" %}: {{nutritional_info.protein}} g
+                   </li>
+                   <li>
+                       {% trans "Carbohydrates" %}: {{nutritional_info.carbohydrates}} g
+                   </li>
+                   <li>
+                       {% trans "Fat" %}: {{nutritional_info.fat}} g
+                   </li>
+               </ul>
 
             {% else %}
                 <div class="box warning">

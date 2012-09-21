@@ -75,6 +75,9 @@ def index(request):
     plan = NutritionPlan.objects.filter(user = request.user).latest('creation_date')
     template_data['plan'] = plan
     
+    template_data['nutritional_info'] = plan.get_nutritional_values()
+    
+    
     try:
         weight  = WeightEntry.objects.filter(user = request.user).latest('creation_date')
     except ObjectDoesNotExist:
