@@ -57,11 +57,6 @@ logger = logging.getLogger('workout_manager.custom')
 # ************************
 # Misc functions
 # ************************
-class UserPreferencesForm(ModelForm):
-    class Meta:
-        model = UserProfile
-        exclude = ('user',)
-
 
 @login_required
 def index(request):
@@ -90,23 +85,14 @@ def index(request):
     return render_to_response('index.html',
                               template_data,
                               context_instance=RequestContext(request))
+# ************************
+# User functions
+# ************************
 
-
-def overview(request):
-    """An overview of all the user's workouts
-    """
-    
-    template_data = {}
-    template_data['active_tab'] = 'workout'
-    
-    latest_trainings = TrainingSchedule.objects.filter(user=request.user).order_by('-creation_date')[:5]
-    template_data['workouts'] = latest_trainings
-    
-    return render_to_response('workout/overview.html',
-                              template_data,
-                              context_instance=RequestContext(request))
-
-    
+class UserPreferencesForm(ModelForm):
+    class Meta:
+        model = UserProfile
+        exclude = ('user',)
 
 def login(request):
     """Login the user and redirect it
@@ -225,6 +211,22 @@ class WorkoutForm(ModelForm):
     class Meta:
         model = TrainingSchedule
         exclude = ('user',)
+
+
+@login_required
+def overview(request):
+    """An overview of all the user's workouts
+    """
+    
+    template_data = {}
+    template_data['active_tab'] = 'workout'
+    
+    latest_trainings = TrainingSchedule.objects.filter(user=request.user).order_by('-creation_date')[:5]
+    template_data['workouts'] = latest_trainings
+    
+    return render_to_response('workout/overview.html',
+                              template_data,
+                              context_instance=RequestContext(request))
 
 @login_required
 def view_workout(request, id):
