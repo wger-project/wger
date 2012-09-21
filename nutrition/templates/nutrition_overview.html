@@ -29,8 +29,18 @@
     </li>
 {% endfor %}
 </ul>
+{% endblock %}
 
+
+{% block sidebar%}
+<h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url nutrition.views.add %}">{% trans "Add nutrition plan" %}</a>
+    <a href="{% url nutrition.views.add %}">
+    <img src="{% static 'images/icons/new.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Add nutrition plan' %}"
+         title="{% trans 'Add nutrition plan' %}">
+        {% trans "Add nutrition plan" %}</a>
 </p>
 {% endblock %}
