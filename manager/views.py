@@ -88,6 +88,22 @@ def index(request):
                               context_instance=RequestContext(request))
 
 
+def overview(request):
+    """An overview of all the user's workouts
+    """
+    
+    template_data = {}
+    template_data['active_tab'] = 'workout'
+    
+    latest_trainings = TrainingSchedule.objects.filter(user=request.user).order_by('-creation_date')[:5]
+    template_data['workouts'] = latest_trainings
+    
+    return render_to_response('workout/overview.html',
+                              template_data,
+                              context_instance=RequestContext(request))
+
+    
+
 def login(request):
     """Login the user and redirect it
     """

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% trans "Your workouts" %}{% endblock %}
+
+
+{% block content %}
+
+<h2>{% trans "Your workouts" %}</h2>
+
+<ul>
+{% for workout in workouts %}
+    <li>
+        <a href="{% url manager.views.view_workout workout.id %}">
+            {% if workout.comment %}
+                {{ workout.comment }}
+            {% else %}
+                {% trans "Workout plan" %}
+            {% endif %}
+        </a>
+        – {{ workout.creation_date }} 
+    </li>
+{% empty %}
+    <li>
+        <div class="box warning">
+            {% trans "No workouts found." %} {% trans "Use link to add one." %}
+        </div>
+    </li>
+{% endfor %}
+</ul>
+
+<p>
+    <a href="{% url nutrition.views.add %}">{% trans "Add nutrition plan" %}</a>
+</p>
+{% endblock %}
