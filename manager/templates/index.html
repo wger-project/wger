@@ -12,21 +12,32 @@
 <div class="ym-grid linearize-level-1">
     <div class="ym-g50 ym-gl">
         <div class="ym-gbox-left">
-            <h2>{% trans "Your workouts"%}</h2>
-            {% if latest_workouts_list %}
-                <ul>
-                {% for workout in latest_workouts_list %}
-                    <li><a href="{% url manager.views.view_workout workout.id %}">
-                        {% if workout.comment %}
-                            {{ workout.comment }}
-                        {% else %}
-                            {% trans "Workout" %}
+            <h2>{% trans "Current workout"%}</h2>
+            {% if current_workout %}
+            <a href="{% url manager.views.view_workout current_workout.id %}">
+                {% if current_workout.comment %}
+                    {{ current_workout.comment }}
+                {% else %}
+                    {% trans "Workout" %}
+                {% endif %}
+            </a>
+                – {{ current_workout.creation_date }}
+            
+            
+            <ul>
+                {% for i in weekdays %}
+                <li>
+                    {{ i }}:
+                    
+                    {% for day in current_workout.day_set.select_related %}
+                        {% if day.day == forloop.parentloop.counter %}                
+                            {{ day.description }}
                         {% endif %}
-                        </a>
-                        <br> – {{ workout.creation_date }}
-                    </li>
+                    {% endfor %}
+                </li>
                 {% endfor %}
-                </ul>
+            </ul>
+             
             {% else %}
                 <div class="box warning">
                     {% trans "No workouts found." %} {% trans "Use link to add one." %} 

@@ -64,14 +64,26 @@ class UserPreferencesForm(ModelForm):
 
 @login_required
 def index(request):
-    """Show the index page, in our case, a list of workouts
+    """Show the index page, in our case, the last workout and nutriotion plan
+    and the current weight
     """
     
     template_data = {}
     template_data['active_tab'] = 'user'
+
+    weekdays = (_('Monday'),
+                _('Tuesday'),
+                _('Wednesday'),
+                _('Thursday'),
+                _('Friday'),
+                _('Saturday'),
+                _('Sunday'),
+                )
+        
+    template_data['weekdays'] = weekdays
     
-    latest_trainings = TrainingSchedule.objects.filter(user=request.user).order_by('-creation_date')[:5]
-    template_data['latest_workouts_list'] = latest_trainings
+    current_workout = TrainingSchedule.objects.filter(user=request.user).latest('creation_date')
+    template_data['current_workout'] = current_workout
     
     plans  = NutritionPlan.objects.filter(user = request.user)
     template_data['plans'] = plans
