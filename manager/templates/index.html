@@ -104,4 +104,13 @@
 {% endblock %}
 
 
+{% block sidebar %}
+
+<h3>{% trans "Options" %}</h3>
+<p>
+<a href="{% url manager.views.preferences %}">{% trans "My preferences" %}</a>
+</p>
+
+{% endblock %}
+
 
