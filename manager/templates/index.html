@@ -97,8 +97,8 @@
                 <img src="{% static 'images/icons/new.svg' %}"
                      width="32"
                      height="32"
-                     alt="{% trans 'Add new exercise' %}"
-                     title="{% trans 'Add new exercise' %}">
+                     alt="{% trans 'Add workout' %}"
+                     title="{% trans 'Add workout' %}">
                 {% trans "Add workout" %}</a>
             </p>
         </div>
@@ -110,8 +110,8 @@
                 <img src="{% static 'images/icons/new.svg' %}"
                      width="32"
                      height="32"
-                     alt="{% trans 'Add new exercise' %}"
-                     title="{% trans 'Add new exercise' %}">
+                     alt="{% trans 'Add nutrition plan' %}"
+                     title="{% trans 'Add nutrition plan' %}">
                     {% trans "Add nutrition plan" %}</a>
             </p>
         </div>
@@ -121,12 +121,11 @@
 <p>
      <em>{% trans "After adding a workout or a nutritional plan, you can edit them to set a goal." %}</em>
 </p>
-
 {% endblock %}
 
 
-{% block sidebar %}
 
+{% block sidebar %}
 <h3>{% trans "Options" %}</h3>
 <p>
 <a href="{% url manager.views.preferences %}">
@@ -137,7 +136,4 @@
      title="{% trans 'My preferences' %}">
 {% trans "My preferences" %}</a>
 </p>
-
 {% endblock %}
-
-
