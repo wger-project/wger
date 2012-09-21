@@ -130,7 +130,13 @@
 
 <h3>{% trans "Options" %}</h3>
 <p>
-<a href="{% url manager.views.preferences %}">{% trans "My preferences" %}</a>
+<a href="{% url manager.views.preferences %}">
+<img src="{% static 'images/icons/preferences.svg' %}"
+     width="32"
+     height="32"
+     alt="{% trans 'My preferences' %}"
+     title="{% trans 'My preferences' %}">
+{% trans "My preferences" %}</a>
 </p>
 
 {% endblock %}
