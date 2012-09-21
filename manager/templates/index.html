@@ -27,8 +27,9 @@
             <ul>
                 {% for day, exercise, is_workout in weekdays %}
                 <li>
-                    {{ day }}:
                     {% if not is_workout %}<span class="dimmed">{% endif%}
+                    {{ day }}:
+                    
                     {{ exercise }} 
                     {% if not is_workout %}</span>{% endif%}
                     
