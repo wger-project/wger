@@ -13,16 +13,27 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+import logging
+
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator
 
-
 from exercises.models import Exercise
 
-import calendar
+logger = logging.getLogger('workout_manager.custom')
+
+# Days of the week
+DAYS_OF_WEEK_CHOICES = [(1, _('Monday')),
+                        (2, _('Tuesday')),
+                        (3, _('Wednesday')),
+                        (4, _('Thursday')),
+                        (5, _('Friday')),
+                        (6, _('Saturday')),
+                        (7, _('Sunday'))]
+
 
 class TrainingSchedule(models.Model):
     """Model for a training schedule
@@ -40,13 +51,6 @@ For example 'Focus on back' or 'Week 1 of program xy'.'''))
         """Return a more human-readable representation
         """
         return str(self.creation_date)
-
-
-# Mhh...
-DAYS_OF_WEEK_CHOICES = []
-cal = calendar.Calendar()
-for i in cal.iterweekdays():
-     DAYS_OF_WEEK_CHOICES.append((int(i), calendar.day_name[i]))
 
 class Day(models.Model):
     """Model for a training day
