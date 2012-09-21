@@ -25,12 +25,12 @@
             
             
             <ul>
-                {% for i in weekdays %}
+                {% for i, j in weekdays %}
                 <li>
-                    {{ i }}:
+                    {{ j }}:
                     
                     {% for day in current_workout.day_set.select_related %}
-                        {% if day.day == forloop.parentloop.counter %}                
+                        {% if day.day == i %}                
                             {{ day.description }}
                         {% endif %}
                     {% endfor %}

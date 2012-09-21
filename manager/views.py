@@ -34,6 +34,7 @@ from django.contrib.auth.models import User as Django_User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
 
+from manager.models import DAYS_OF_WEEK_CHOICES
 from manager.models import TrainingSchedule
 from manager.models import Day
 from manager.models import Set
@@ -71,16 +72,7 @@ def index(request):
     template_data = {}
     template_data['active_tab'] = 'user'
 
-    weekdays = (_('Monday'),
-                _('Tuesday'),
-                _('Wednesday'),
-                _('Thursday'),
-                _('Friday'),
-                _('Saturday'),
-                _('Sunday'),
-                )
-        
-    template_data['weekdays'] = weekdays
+    template_data['weekdays'] = DAYS_OF_WEEK_CHOICES
     
     current_workout = TrainingSchedule.objects.filter(user=request.user).latest('creation_date')
     template_data['current_workout'] = current_workout
