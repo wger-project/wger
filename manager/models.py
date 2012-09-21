@@ -55,13 +55,12 @@ For example 'Focus on back' or 'Week 1 of program xy'.'''))
 class Day(models.Model):
     """Model for a training day
     """
-    CHOICES = DAYS_OF_WEEK_CHOICES
 
     training = models.ForeignKey(TrainingSchedule, verbose_name = _('Training'))
     description = models.CharField(max_length=100,
                                    verbose_name = _('Description'),
                                    help_text=_('Ususally a description about what parts are trained, like "Arms" or "Pull Day"'))
-    day = models.IntegerField(max_length=1, choices=CHOICES, verbose_name = _('Day'))
+    day = models.IntegerField(max_length=1, choices=DAYS_OF_WEEK_CHOICES, verbose_name = _('Day'))
     
     def __unicode__(self):
         """Return a more human-readable representation
