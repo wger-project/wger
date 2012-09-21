@@ -12,7 +12,7 @@
 <div class="ym-grid linearize-level-1">
     <div class="ym-g50 ym-gl">
         <div class="ym-gbox-left">
-            <h2>{% trans "Current workout"%}</h2>
+            <h2>{% trans "Workout"%}</h2>
             {% if current_workout %}
             <a href="{% url manager.views.view_workout current_workout.id %}">
                 {% if current_workout.comment %}
@@ -21,7 +21,7 @@
                     {% trans "Workout" %}
                 {% endif %}
             </a>
-                – {{ current_workout.creation_date }}
+            <br> – {{ current_workout.creation_date }}
             
             
             <ul>
@@ -49,22 +49,18 @@
         <div class="ym-gbox-right">
             
             
-            <h2>{% trans "Your diet plans"%}</h2>
+            <h2>{% trans "Nutrition plan"%}</h2>
             
-            {% if plans %}
-                <ul>
-                {% for plan in plans  %}
-                    <li><a href="{% url nutrition.views.view plan.id %}">
-                        {% if plan.description %}
-                            {{ plan.description }}
-                        {% else %}
-                            {% trans "Nutrition plan" %}
-                        {% endif %}
-                       </a>
-                       <br> – {{ plan.creation_date }} 
-                    </li>
-                {% endfor %}
-                </ul>
+            {% if plan %}
+                <a href="{% url nutrition.views.view plan.id %}">
+                    {% if plan.description %}
+                        {{ plan.description }}
+                    {% else %}
+                        {% trans "Nutrition plan" %}
+                    {% endif %}
+               </a>
+               <br> – {{ plan.creation_date }} 
+
             {% else %}
                 <div class="box warning">
                     {% trans "No nutrition plans." %} {% trans "Use link to add one." %} 

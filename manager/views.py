@@ -72,8 +72,8 @@ def index(request):
     current_workout = TrainingSchedule.objects.filter(user=request.user).latest('creation_date')
     template_data['current_workout'] = current_workout
     
-    plans  = NutritionPlan.objects.filter(user = request.user)
-    template_data['plans'] = plans
+    plan = NutritionPlan.objects.filter(user = request.user).latest('creation_date')
+    template_data['plan'] = plan
     
     try:
         weight  = WeightEntry.objects.filter(user = request.user).latest('creation_date')
