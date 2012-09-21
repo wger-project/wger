@@ -46,7 +46,7 @@ def add(request, id=None):
     template_data['active_tab'] = 'weight'
     
     # Load weight
-    if id:
+    if id and id != 'None':
         weight = get_object_or_404(WeightEntry, pk=id, user=request.user)
     else:
         weight = WeightEntry()
