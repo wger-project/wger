@@ -190,10 +190,7 @@ def registration(request):
     template_data.update(csrf(request))
     template_data['active_tab'] = 'user'
     
-    template_data['form'] = UserCreationForm()
-    
     if request.method == 'POST':
-        #redirect_target = request.POST.get('redirect_target', '/')
         form = UserCreationForm(data=request.POST)
         
         # If the data is valid, log in and redirect
@@ -207,7 +204,11 @@ def registration(request):
             user = authenticate(username=username, password=password)
             django_login(request, user)
             return HttpResponseRedirect('/')
+    else:
+        form = UserCreationForm()
 
+    template_data['form'] = form
+    
     return render_to_response('user/registration.html',
                               template_data,
                               context_instance=RequestContext(request))
