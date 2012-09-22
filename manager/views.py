@@ -526,7 +526,7 @@ def edit_day(request, id, day_id=None):
     workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
     template_data['workout'] = workout
     
-    # Calculate the free days
+    # Calculate the used days
     used_days = []
     for day in workout.day_set.all():
         for weekday in day.day.all():
