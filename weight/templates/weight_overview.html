@@ -29,13 +29,8 @@ function getDate(d) {
 
 $(document).ready(function () {
 
-// Initialise a modal dialog
-    $("#ajax-info").dialog({
-                autoOpen: false,
-                width: 600,
-                modal: true,
-                position: 'top'
-    });
+    // Init the modal dialog
+    form_modal_dialog();
 
 
 var data = {{chart_data|safe}};
@@ -132,7 +127,7 @@ $('circle').click(function(e) {
 <div id="weight_diagram"></div>
 
 <p>
-<a href="{% url weight.views.add None %}">{% trans "Add weight entry" %}</a>
+<a href="{% url weight.views.add None %}" class="modal-dialog">{% trans "Add weight entry" %}</a>
 </p>
 
 <p>
