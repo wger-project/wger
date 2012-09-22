@@ -37,6 +37,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
 
 from manager.models import DAYS_OF_WEEK_CHOICES
+from manager.models import DaysOfWeek
 from manager.models import TrainingSchedule
 from manager.models import Day
 from manager.models import Set
@@ -525,6 +526,18 @@ def edit_day(request, id, day_id=None):
     workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
     template_data['workout'] = workout
     
+    # Calculate the free days
+    used_days = []
+    for day in workout.day_set.all():
+        for weekday in day.day.all():
+            if day.id != int(day_id):
+                logger.debug("day.id: %s, day_id: %s" % (day.id, day_id))
+                used_days.append(weekday.id)
+    used_days.sort()
+    logger.debug(used_days)
+    
+    
+    
     # Load day
     # We check for string 'None' because we might get this from the template
     if not day_id or day_id == 'None':
@@ -536,6 +549,7 @@ def edit_day(request, id, day_id=None):
         if day.training.id != workout.id:  
             return HttpResponseForbidden()
     template_data['day'] = day
+    
     
     # Process request
     if request.method == 'POST':
@@ -552,6 +566,11 @@ def edit_day(request, id, day_id=None):
             return HttpResponseRedirect('/workout/%s/view/' % id)
     else:
         day_form = DayForm(instance=day)
+    
+    # Set here the query set to filter out used days of the week
+    # (used in the sense that other training days on the same workout already have them set)
+    day_form.fields['day'].queryset=DaysOfWeek.objects.exclude(id__in=used_days)
+        
     template_data['day_form'] = day_form
     
     return render_to_response('day/edit.html',
