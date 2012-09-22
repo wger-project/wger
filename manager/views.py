@@ -69,32 +69,45 @@ def index(request):
     template_data = {}
     template_data['active_tab'] = 'user'
     
-    current_workout = TrainingSchedule.objects.filter(user=request.user).latest('creation_date')
+    try:
+        current_workout = TrainingSchedule.objects.filter(user=request.user).latest('creation_date')
+        template_data['current_workout'] = current_workout
+    except ObjectDoesNotExist:
+        current_workout = False
     template_data['current_workout'] = current_workout
     
-    plan = NutritionPlan.objects.filter(user = request.user).latest('creation_date')
+    
+    try:
+        plan = NutritionPlan.objects.filter(user = request.user).latest('creation_date')
+    except ObjectDoesNotExist:
+        plan = False
     template_data['plan'] = plan
     
-    # Format a bit the days so it doesn't have to be done in the template
-    week_day_result = []
-    for i, j in DAYS_OF_WEEK_CHOICES:
-        day_has_workout = False
-        for day in current_workout.day_set.select_related():
-            for day_of_week in day.day.select_related():
-                if day_of_week.id == i:
-                    day_has_workout = True
-                    week_day_result.append((_(j), day.description, True))
-                    break
-            
-            
-        if not day_has_workout:
-            week_day_result.append((_(j), _('Rest day'), False))
     
-    template_data['weekdays'] = week_day_result
-
-    
-    # Load the nutritional info
-    template_data['nutritional_info'] = plan.get_nutritional_values()
+    if current_workout:
+        
+        # Format a bit the days so it doesn't have to be done in the template
+        week_day_result = []
+        for i, j in DAYS_OF_WEEK_CHOICES:
+            day_has_workout = False
+            for day in current_workout.day_set.select_related():
+                for day_of_week in day.day.select_related():
+                    if day_of_week.id == i:
+                        day_has_workout = True
+                        week_day_result.append((_(j), day.description, True))
+                        break
+                
+                
+            if not day_has_workout:
+                week_day_result.append((_(j), _('Rest day'), False))
+        
+        template_data['weekdays'] = week_day_result
+        
+        
+    if plan:
+        
+        # Load the nutritional info
+        template_data['nutritional_info'] = plan.get_nutritional_values()
     
     
     try:
