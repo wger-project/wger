@@ -106,6 +106,7 @@ For this, load these fixtures, *in this order*, as some dependend on each other 
 languages) ::
 
  $ python manage.py loaddata languages
+ $ python manage.py loaddata days_of_week
  $ python manage.py loaddata muscles
  $ python manage.py loaddata categories
  $ python manage.py loaddata exercises
