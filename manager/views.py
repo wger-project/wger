@@ -522,8 +522,12 @@ def edit_day(request, id, day_id=None):
     used_days = []
     for day in workout.day_set.all():
         for weekday in day.day.all():
-            if day.id != int(day_id):
-                used_days.append(weekday.id)
+            try:
+                if day.id != int(day_id):
+                    used_days.append(weekday.id)
+            # We didnt' get a valid integer as id (perhaps because this is a new day)
+            except ValueError:
+                pass
     used_days.sort()
 
     
