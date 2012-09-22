@@ -63,8 +63,6 @@ def add(request, id=None):
             weight.save()
             
             return HttpResponseRedirect('/weight/overview/')
-        else:
-            logger.debug(weight_form.errors)
     else:
         weight_form = WeightForm(instance=weight)
     template_data['weight_form'] = weight_form

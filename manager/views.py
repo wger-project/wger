@@ -207,8 +207,6 @@ def registration(request):
             user = authenticate(username=username, password=password)
             django_login(request, user)
             return HttpResponseRedirect('/')
-        else:
-            logger.debug(form.errors)
 
     return render_to_response('user/registration.html',
                               template_data,
@@ -232,8 +230,6 @@ def preferences(request):
         # Save the data if it validates
         if form.is_valid():
             form.save()
-        #else:
-        #    logger.debug(form.errors)
    
     return render_to_response('user/preferences.html',
                               template_data,
@@ -284,7 +280,6 @@ def view_workout(request, id):
         for set in day.set_set.select_related():
             for exercise in set.exercises.select_related():
                 for muscle in exercise.muscles.all():
-                    logger.debug(exercise)
                     
                     if muscle.is_front:
                         backgrounds_front.append('images/muscles/main/muscle-%s.svg' % muscle.id)
@@ -463,9 +458,6 @@ def edit_workout(request, id):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/workout/%s/view/' % id)
-        
-        #else:
-        #    logger.debug(form.errors)
     else:
         form = WorkoutForm(instance=workout)
     
@@ -531,10 +523,9 @@ def edit_day(request, id, day_id=None):
     for day in workout.day_set.all():
         for weekday in day.day.all():
             if day.id != int(day_id):
-                logger.debug("day.id: %s, day_id: %s" % (day.id, day_id))
                 used_days.append(weekday.id)
     used_days.sort()
-    logger.debug(used_days)
+
     
     
     
@@ -771,9 +762,6 @@ def api_edit_set(request):
                 
                 if set_form.is_valid():
                     set_form.save()
-
-                else:
-                    logger.debug(set_form.errors)
                 
                 # Init a counter for the order in case we have to set it for new settings
                 # We don't actually care how hight the counter actually is, as long as the new
@@ -888,9 +876,6 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
                 order += 1
             
             return HttpResponseRedirect('/workout/%s/view/' % id)
-        else:
-            pass
-            #logger.debug(setting_form.errors)
     else:
         setting_form = SettingFormSet(queryset=Setting.objects.filter(exercise_id=exercise.id, set_id=set_obj.id))
     template_data['setting_form'] = setting_form

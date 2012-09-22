@@ -283,9 +283,6 @@ def exercise_category_edit(request, id):
             category.save()
             
             return HttpResponseRedirect('/exercise/overview/')
-        else:
-            pass
-            #logger.debug(category_form.errors)
     else:
         category_form = ExerciseCategoryForm(instance=category)
     
