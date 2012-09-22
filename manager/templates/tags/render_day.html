@@ -20,7 +20,16 @@ $(document).ready(function() {
 <table class="bordertable workout-table" id="table-day-{{ day.id }}">
 <thead>
     <tr id="day-{{ day.id }}">
-        <th colspan="2">{{ day.description }}
+        <th colspan="2">
+            {% for day_of_week in day.day.select_related %}
+                {% trans day_of_week.day_of_week %}
+                {% if not forloop.last %}, {% endif %}
+                {% if forloop.last %}–{% endif %}
+            {% endfor %}
+            
+            {{ day.description }}
+            
+            
             <span class="editoptions" style="float: right;">
                 <a href="{% url manager.views.delete_day workout.id day.id %}"
                    title="{% trans 'Delete' %}">
