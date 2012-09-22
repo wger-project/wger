@@ -23,6 +23,7 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.forms import ModelForm
 from django.forms.models import modelformset_factory
+from django.forms import SelectMultiple
 from django.core.context_processors import csrf
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
@@ -495,6 +496,7 @@ class DayForm(ModelForm):
     class Meta:
         model = Day
         exclude=('training',)
+        
 
 @login_required
 def edit_day(request, id, day_id=None):
@@ -529,6 +531,8 @@ def edit_day(request, id, day_id=None):
             day = day_form.save(commit=False)
             day.training = workout
             day.save()
+            
+            day_form.save_m2m()
             
             return HttpResponseRedirect('/workout/%s/view/' % id)
     else:

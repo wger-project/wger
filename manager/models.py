@@ -58,6 +58,23 @@ For example 'Focus on back' or 'Week 1 of program xy'.'''))
         """
         return str(self.creation_date)
 
+class DaysOfWeek(models.Model):
+    """Model for the days of the week
+    
+    This model is needed so that 'Day' can have multiple days of the week selected
+    """
+
+    day_of_week = models.IntegerField(max_length=1,
+                              choices=DAYS_OF_WEEK_CHOICES,
+                              verbose_name = _('Day of the week'))
+    
+    
+    def __unicode__(self):
+        """Return a more human-readable representation
+        """
+        return self.day_of_week
+
+
 class Day(models.Model):
     """Model for a training day
     """
@@ -66,7 +83,8 @@ class Day(models.Model):
     description = models.CharField(max_length=100,
                                    verbose_name = _('Description'),
                                    help_text=_('Ususally a description about what parts are trained, like "Arms" or "Pull Day"'))
-    day = models.IntegerField(max_length=1, choices=DAYS_OF_WEEK_CHOICES, verbose_name = _('Day'))
+    day = models.ManyToManyField(DaysOfWeek,
+                                 verbose_name = _('Day'))
     
     def __unicode__(self):
         """Return a more human-readable representation
