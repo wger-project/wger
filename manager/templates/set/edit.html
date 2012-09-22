@@ -16,40 +16,8 @@
 <script src="{% static 'js/workout-manager.js' %}"></script>
 
 <script>
-
 $(document).ready(function() {
-    // Validate the form with JQuery
-    $(".ym-form").validate({
-                    rules: {
-                        sets: {
-                            required: true,
-                            number: true,
-                            max: 6
-                        }
-                    }
-                    
-                    });
-
-    // The multi-select exercise list is not needed if javascript is activated
-    $('#form-exercises').remove();
-    
-    // Initialise the autocompleter
-    $("#exercise-search").autocomplete({
-            source: "{% url exercises.views.exercise_search %}",
-            minLength: 2,
-            select: function(event, ui) {
-
-                // Add the exercise to the list
-                add_exercise(ui.item);
-                
-                // Remove the result div (also contains the hidden form element) when the user
-                // clicks on the delete link
-                $(".ajax-exercise-select a").click(function(e) {
-                    e.preventDefault();
-                    $(this).parent('div').remove();
-                });
-            }
-        });
+    init_edit_set();
 });
 </script>
 

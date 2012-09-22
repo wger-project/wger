@@ -17,11 +17,11 @@ function setup_sortable()
         revert: true,
         update : function (event, ui) {
                 // Monkey around the HTML, till we find the IDs of the set and the day
-                day_element = ui.item.parent().parent().find('tr').first().attr('id'); //day-xy
-                day_id = day_element.match(/\d+/);
+                var day_element = ui.item.parent().parent().find('tr').first().attr('id'); //day-xy
+                var day_id = day_element.match(/\d+/);
                 
                 // returns something in the form "set-1,set-2,set-3,"
-                order = $( this ).sortable('toArray');
+                var order = $( this ).sortable('toArray');
 
                 //$("#ajax-info").show();
                 //$("#ajax-info").addClass('success');
@@ -47,11 +47,11 @@ function setup_sortable()
 		},
 		update : function (event, ui) {
 			// returns something in the form "setting-1,setting-2,setting-3,"
-			order = $( this ).sortable('toArray');
+			var order = $( this ).sortable('toArray');
 			
 			// Load the day-ID
-            day_element = ui.item.parents('table').find('tr').attr('id'); //day-xy
-            day_id = day_element.match(/\d+/);
+            var day_element = ui.item.parents('table').find('tr').attr('id'); //day-xy
+            var day_id = day_element.match(/\d+/);
 			
 			//$("#ajax-info").show();
             //$("#ajax-info").addClass('success');
@@ -74,10 +74,10 @@ function setup_ajax_set_edit()
 	$(".ajax-set-edit").click(function(e) {
 	    e.preventDefault();
 	    
-	    set_element = $(this).parents('tr').attr('id');
-	    set_id = set_element.match(/\d+/);
+	    var set_element = $(this).parents('tr').attr('id');
+	    var set_id = set_element.match(/\d+/);
 	    
-	    exercise_id = $(this).parents('li').attr('id').match(/\d+/);
+	    var exercise_id = $(this).parents('li').attr('id').match(/\d+/);
 	    
 	    
 	    $($(this).parents('li')).load("/workout/api/edit-set?do=edit_set&set=" + set_id + "&exercise=" + exercise_id);
@@ -137,9 +137,9 @@ function setup_inplace_editing()
 	$(".ajax-form-cancel").each(function(index, element) {
 		
 		
-		exercise_id = $(this).parents('li').attr('id').match(/\d+/);
-		day_id = $(this).parents('table').attr('id').match(/\d+/);
-		set_id = $(this).parents('tr').attr('id').match(/\d+/);
+		var exercise_id = $(this).parents('li').attr('id').match(/\d+/);
+		var day_id = $(this).parents('table').attr('id').match(/\d+/);
+		var set_id = $(this).parents('tr').attr('id').match(/\d+/);
 		
 		// Editing of set
 		$(element).click(function(e) {
@@ -208,7 +208,7 @@ function form_modal_dialog()
     // Load the edit dialog when the user clicks on an edit link
     $(".modal-dialog").click(function(e) {
         e.preventDefault();
-        targetUrl = $(this).attr("href");
+        var targetUrl = $(this).attr("href");
 
         $("#ajax-info").load(targetUrl + " .ym-form", function() {
             // Initialise the WYSIWYG editor
@@ -229,7 +229,7 @@ function form_modal_dialog()
 
 function scatterplot_modal_dialog(id)
 {
-        targetUrl = '/weight/add/' + id
+        var targetUrl = '/weight/add/' + id
         
         $("#ajax-info").load(targetUrl + " .ym-form", function() {
             // Open the dialog
@@ -270,7 +270,7 @@ function hex_random()
  */
 function add_exercise(exercise)
 {
-    result_div = '<div id="DIV-ID" class="ajax-exercise-select"> \
+    var result_div = '<div id="DIV-ID" class="ajax-exercise-select"> \
 <a href="#"> \
 <img src="/static/images/icons/status-off.svg" \
      width="14" \
@@ -289,3 +289,40 @@ function add_exercise(exercise)
     $("#exercise-search-log").scrollTop(0);
 }
 
+
+
+function init_edit_set()
+{
+    // Validate the form with JQuery
+    $(".ym-form").validate({
+                    rules: {
+                        sets: {
+                            required: true,
+                            number: true,
+                            max: 6
+                        }
+                    }
+                    
+                    });
+
+    // The multi-select exercise list is not needed if javascript is activated
+    $('#form-exercises').remove();
+    
+    // Initialise the autocompleter
+    $("#exercise-search").autocomplete({
+            source: "/exercise/search/",
+            minLength: 2,
+            select: function(event, ui) {
+
+                // Add the exercise to the list
+                add_exercise(ui.item);
+                
+                // Remove the result div (also contains the hidden form element) when the user
+                // clicks on the delete link
+                $(".ajax-exercise-select a").click(function(e) {
+                    e.preventDefault();
+                    $(this).parent('div').remove();
+                });
+            }
+        });
+}

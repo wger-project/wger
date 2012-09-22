@@ -4,15 +4,15 @@
 
 <script>
 $(document).ready(function() {
-
-	// Call the setup function to allow the sets to be sortable again after loading this
-	// view via AJAX
+    
+    // Call the setup function to allow the sets to be sortable again after loading this
+    // view via AJAX
     setup_sortable();
-	setup_ajax_set_edit();
-	setup_inplace_editing();
-	
-	// Init the modal dialog to edit the exercise
-	form_modal_dialog();
+    setup_ajax_set_edit();
+    setup_inplace_editing();
+    
+    // Init the modal dialog to edit the exercise
+    form_modal_dialog();
 
 })
 </script>
@@ -117,9 +117,9 @@ $(document).ready(function() {
                                title="{% trans 'Edit' %}"
                                class="ajax-set-edit">
                                 <img src="{% static 'images/icons/edit.svg' %}"
-		                             width="16"
-		                             height="16"
-		                             alt="{% trans 'Edit' %}">
+                                     width="16"
+                                     height="16"
+                                     alt="{% trans 'Edit' %}">
                             </a>
                         </span>
                         
@@ -149,7 +149,7 @@ $(document).ready(function() {
         <tr>
             <td colspan="2">
                 <a href="{% url manager.views.edit_set workout.id day.id None %}"
-                   class="modal-dialog">{% trans "Add workout set" %}</a>
+                   >{% trans "Add workout set" %}</a>
             </td>
         </tr>
     </tbody>
