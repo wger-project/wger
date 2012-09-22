@@ -38,6 +38,12 @@ DAYS_OF_WEEK_CHOICES = [(1, _('Monday')),
 class TrainingSchedule(models.Model):
     """Model for a training schedule
     """
+    
+    # Metaclass to set some other properties
+    class Meta:
+        ordering = ["-creation_date", ]
+    
+    
     creation_date = models.DateField(_('Creation date'), auto_now_add=True)
     comment = models.TextField(verbose_name = _('Description'),
                                max_length=100,

@@ -240,7 +240,7 @@ def overview(request):
     template_data = {}
     template_data['active_tab'] = 'workout'
     
-    latest_trainings = TrainingSchedule.objects.filter(user=request.user).order_by('-creation_date')[:5]
+    latest_trainings = TrainingSchedule.objects.filter(user=request.user)
     template_data['workouts'] = latest_trainings
     
     return render_to_response('workout/overview.html',
