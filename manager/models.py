@@ -64,9 +64,8 @@ class DaysOfWeek(models.Model):
     This model is needed so that 'Day' can have multiple days of the week selected
     """
 
-    day_of_week = models.IntegerField(max_length=1,
-                              choices=DAYS_OF_WEEK_CHOICES,
-                              verbose_name = _('Day of the week'))
+    day_of_week = models.CharField(max_length=9,
+                                   verbose_name = _('Day of the week'))
     
     
     def __unicode__(self):
