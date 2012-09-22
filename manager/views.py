@@ -80,10 +80,12 @@ def index(request):
     for i, j in DAYS_OF_WEEK_CHOICES:
         day_has_workout = False
         for day in current_workout.day_set.select_related():
-            if day.day == i:
-                day_has_workout = True
-                week_day_result.append((_(j), day.description, True))
-                break
+            for day_of_week in day.day.select_related():
+                if day_of_week.id == i:
+                    day_has_workout = True
+                    week_day_result.append((_(j), day.description, True))
+                    break
+            
             
         if not day_has_workout:
             week_day_result.append((_(j), _('Rest day'), False))
