@@ -52,6 +52,7 @@
                 <a href="{% url manager.views.login %}">{% trans "Login" %}</a>
             {% else %}
                 <a href="{% url manager.views.index %}">{% trans "Dashboard" %}</a>
+            {% endif %}
                 </li>
                 <li {% if active_tab == 'workout'   %}class="active"{% endif %}><a href="{% url manager.views.overview %}">{% trans "Workouts" %}</a></li>
                 <li {% if active_tab == 'exercises' %}class="active"{% endif %}><a href="{% url exercises.views.exercise_overview %}">{% trans "Exercises" %}</a></li>
@@ -65,7 +66,6 @@
                 <a href="{% url manager.views.logout %}">
                 {% trans 'Logout' %}
                 </a>
-            {% endif %}
             </li>
             </ul>
         </div>
