@@ -220,17 +220,18 @@ def preferences(request):
     template_data.update(csrf(request))
     template_data['active_tab'] = 'user'
     
-    template_data['form'] = UserPreferencesForm(instance=request.user.get_profile())
-    
     if request.method == 'POST':
     
         form = UserPreferencesForm(data=request.POST, instance=request.user.get_profile())
-        template_data['form'] = form
-        
         form.user = request.user
+        
         # Save the data if it validates
         if form.is_valid():
             form.save()
+    else:
+        form = UserPreferencesForm(instance=request.user.get_profile())
+   
+    template_data['form'] = form
    
     return render_to_response('user/preferences.html',
                               template_data,
