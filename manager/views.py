@@ -11,6 +11,7 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU Affero General Public License
+
 import logging
 import uuid
 import datetime
@@ -63,7 +64,7 @@ logger = logging.getLogger('workout_manager.custom')
 
 @login_required
 def index(request):
-    """Show the index page, in our case, the last workout and nutriotion plan
+    """Show the index page, in our case, the last workout and nutritional plan
     and the current weight
     """
     
