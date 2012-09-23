@@ -148,7 +148,7 @@ class UserProfile(models.Model):
     # (obviously this is only meaningful if the user has a language other than english)
     show_english_ingredients = models.BooleanField(verbose_name = _('Also use ingredients in English'),
                         help_text=_('''Check to also show ingredients in English while creating
-a nutriotional plan. These ingredients are extracted from a list provided by the US Department
+a nutritional plan. These ingredients are extracted from a list provided by the US Department
 of Agriculture. It is extremely complete, with around 7000 entries, but can be somewhat
 overwhelming and make the search difficult.'''))
 
