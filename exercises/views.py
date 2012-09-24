@@ -299,7 +299,7 @@ def exercise_category_delete(request, id):
     category = get_object_or_404(ExerciseCategory, pk=id)
     category.delete()
     
-    return HttpResponseRedirect(reverse('exercises.views.exercise_overview')
+    return HttpResponseRedirect(reverse('exercises.views.exercise_overview'))
 
 def exercise_search(request):
     """Search an exercise, return the result as a JSON list
