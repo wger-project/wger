@@ -21,6 +21,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.core.context_processors import csrf
+from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 from django.forms import ModelForm
@@ -75,7 +76,7 @@ def add(request):
     plan.language = load_language()
     plan.save()
     
-    return HttpResponseRedirect('/nutrition/%s/view/' % plan.id)
+    return HttpResponseRedirect(reverse('nutrition.views.view', kwargs= {'id': plan.id}))
 
 @login_required
 def delete_plan(request, id):
@@ -86,7 +87,7 @@ def delete_plan(request, id):
     plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
     plan.delete()
     
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect(reverse('manager.views.index'))
 
 @login_required
 def view(request, id):
@@ -131,7 +132,7 @@ def edit_plan(request, id):
             #plan.language = load_language()
             plan.save()
             
-            return HttpResponseRedirect('/nutrition/%s/view/' % id)
+            return HttpResponseRedirect(reverse('nutrition.views.view', kwargs= {'id': id}))
     else:
         form = PlanForm(instance=plan)
     template_data['form'] = form
@@ -267,7 +268,7 @@ def edit_meal(request, id, meal_id):
             meal_item.order = 1
             meal_item.save()
             
-            return HttpResponseRedirect('/nutrition/%s/view/' % id)
+            return HttpResponseRedirect(reverse('nutrition.views.view', kwargs= {'id': id}))
     else:
         meal_form = MealForm(instance=meal)
     template_data['form'] = meal_form
@@ -295,7 +296,7 @@ def add_meal(request, id, meal_id=None):
     meal.order = 1
     meal.save()
     
-    return HttpResponseRedirect('/nutrition/%s/view/' % plan.id)
+    return HttpResponseRedirect(reverse('nutrition.views.view', kwargs= {'id': plan.id}))
 
 @login_required
 def delete_meal(request, id):
@@ -309,7 +310,7 @@ def delete_meal(request, id):
     # Only delete if the user is the owner
     if plan.user == request.user:
         meal.delete()
-        return HttpResponseRedirect('/nutrition/%s/view/' % plan.id)
+        return HttpResponseRedirect(reverse('nutrition.views.view', kwargs= {'id': plan.id}))
     else:
         return HttpResponseForbidden()
 
@@ -331,7 +332,7 @@ def delete_meal_item(request, item_id):
     # Only delete if the user is the owner
     if plan.user == request.user:
         item.delete()
-        return HttpResponseRedirect('/nutrition/%s/view/' % plan.id)
+        return HttpResponseRedirect(reverse('nutrition.views.view', kwargs= {'id': plan.id}))
     else:
         return HttpResponseForbidden()
 
@@ -391,7 +392,7 @@ def edit_meal_item(request, id, meal_id, item_id=None):
             meal_item.order = 1
             meal_item.save()
             
-            return HttpResponseRedirect('/nutrition/%s/view/' % id)
+            return HttpResponseRedirect(reverse('nutrition.views.view', kwargs= {'id': id}))
         
     else:
         meal_form = MealItemForm(instance=meal_item)
@@ -442,7 +443,7 @@ def delete_ingredient(request, id):
     ingredient = get_object_or_404(Ingredient, pk=id)
     ingredient.delete()
     
-    return HttpResponseRedirect('/nutrition/ingredient/overview/')
+    return HttpResponseRedirect(reverse('nutrition.views.ingredient_overview'))
 
 class IngredientForm(ModelForm):
     class Meta:
@@ -478,7 +479,7 @@ def ingredient_edit(request, id=None):
             ingredient.language = language
             ingredient.save()
             
-            return HttpResponseRedirect('/nutrition/ingredient/view/%s' % ingredient.id)
+            return HttpResponseRedirect(reverse('nutrition.views.ingredient_view', kwargs= {'id': ingredient.id}))
     else:
         form = IngredientForm(instance=ingredient)
     template_data['form'] = form
