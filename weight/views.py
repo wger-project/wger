@@ -23,6 +23,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.forms import ModelForm
 from django.core.context_processors import csrf
+from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
 
@@ -62,7 +63,7 @@ def add(request, id=None):
             weight.user = request.user
             weight.save()
             
-            return HttpResponseRedirect('/weight/overview/')
+            return HttpResponseRedirect(reverse('weight.views.overview'))
     else:
         weight_form = WeightForm(instance=weight)
     template_data['weight_form'] = weight_form
