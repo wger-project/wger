@@ -26,6 +26,7 @@ from django.forms.models import modelformset_factory
 from django.forms import SelectMultiple
 from django.core.context_processors import csrf
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
 
@@ -149,7 +150,7 @@ def login(request):
         
         # Default redirection target is the index page
         if not redirect_target:
-            redirect_target = '/'
+            redirect_target = reverse('manager.views.index')
         
         # If the data is valid, log in and redirect
         if authentication_form.is_valid():
@@ -203,7 +204,7 @@ def registration(request):
             user.save()
             user = authenticate(username=username, password=password)
             django_login(request, user)
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect(reverse('manager.views.index'))
     else:
         form = UserCreationForm()
 
@@ -426,7 +427,7 @@ def add(request):
     workout.user = request.user
     workout.save()
     
-    return HttpResponseRedirect('/workout/%s/view/' % workout.id)
+    return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs= {'id': workout.id}))
 
 @login_required
 def delete_workout(request, id):
@@ -437,7 +438,7 @@ def delete_workout(request, id):
     workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
     workout.delete()
     
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect(reverse('manager.views.index'))
 
 
 def edit_workout(request, id):
@@ -459,7 +460,7 @@ def edit_workout(request, id):
         # If the data is valid, save and redirect
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/workout/%s/view/' % id)
+            return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs= {'id': id}))
     else:
         form = WorkoutForm(instance=workout)
     
@@ -560,7 +561,7 @@ def edit_day(request, id, day_id=None):
             
             day_form.save_m2m()
             
-            return HttpResponseRedirect('/workout/%s/view/' % id)
+            return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs= {'id': id}))
     else:
         day_form = DayForm(instance=day)
     
@@ -585,7 +586,7 @@ def delete_day(request, id, day_id):
     # Check if the user is the owner of the object
     if day.training.user == request.user:
         day.delete()
-        return HttpResponseRedirect('/workout/%s/view/' % id)
+        return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs= {'id': id}))
     else:
         return HttpResponseForbidden()
 
@@ -665,7 +666,7 @@ def edit_set(request, id, day_id, set_id=None):
             # The exercises are ManyToMany in DB, so we have to save with this function
             set_form.save_m2m()
             
-            return HttpResponseRedirect('/workout/%s/view/' % id)
+            return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs= {'id': id}))
     else:
         set_form = SetForm(instance=workout_set)
     template_data['set_form'] = set_form
@@ -685,7 +686,7 @@ def delete_set(request, id, day_id, set_id):
     # Check if the user is the owner of the object
     if set_obj.exerciseday.training.user == request.user:
         set_obj.delete()
-        return HttpResponseRedirect('/workout/%s/view/' % id)
+        return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs= {'id': id}))
     else:
         return HttpResponseForbidden()
     
@@ -881,7 +882,7 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
                 
                 order += 1
             
-            return HttpResponseRedirect('/workout/%s/view/' % id)
+            return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs= {'id': id}))
     else:
         setting_form = SettingFormSet(queryset=Setting.objects.filter(exercise_id=exercise.id, set_id=set_obj.id))
     template_data['setting_form'] = setting_form
@@ -929,5 +930,5 @@ def delete_setting(request, id, set_id, exercise_id):
     settings = Setting.objects.filter(exercise_id=exercise_id, set_id=set_id)
     settings.delete()
     
-    return HttpResponseRedirect('/workout/%s/view/' % id)
+    return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs= {'id': id}))
 
