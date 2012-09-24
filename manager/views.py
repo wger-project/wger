@@ -71,6 +71,7 @@ def index(request):
     template_data = {}
     template_data['active_tab'] = 'user'
     
+    # Load the last workout, if one exists
     try:
         current_workout = TrainingSchedule.objects.filter(user=request.user).latest('creation_date')
         template_data['current_workout'] = current_workout
@@ -78,12 +79,19 @@ def index(request):
         current_workout = False
     template_data['current_workout'] = current_workout
     
-    
+    # Load the last nutritional plan, if one exists
     try:
         plan = NutritionPlan.objects.filter(user = request.user).latest('creation_date')
     except ObjectDoesNotExist:
         plan = False
     template_data['plan'] = plan
+    
+    # Load the last logged weight entry, if one exists
+    try:
+        weight  = WeightEntry.objects.filter(user = request.user).latest('creation_date')
+    except ObjectDoesNotExist:
+        weight = False
+    template_data['weight'] = weight
     
     
     if current_workout:
@@ -112,13 +120,6 @@ def index(request):
         template_data['nutritional_info'] = plan.get_nutritional_values()
     
     
-    try:
-        weight  = WeightEntry.objects.filter(user = request.user).latest('creation_date')
-    except ObjectDoesNotExist:
-        weight = False
-    template_data['weight'] = weight
-    
-    
     return render_to_response('index.html',
                               template_data,
                               context_instance=RequestContext(request))
@@ -134,6 +135,7 @@ class UserPreferencesForm(ModelForm):
 def login(request):
     """Login the user and redirect it
     """
+    
     template_data = {}
     template_data.update(csrf(request))
     template_data['active_tab'] = 'user'
@@ -181,7 +183,7 @@ def logout(request):
     """Logout the user
     """
     django_logout(request)
-    return HttpResponseRedirect('/login')
+    return HttpResponseRedirect(reverse('manager.views.login'))
 
 
 def registration(request):
