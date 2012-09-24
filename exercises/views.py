@@ -24,6 +24,7 @@ from django.forms import Textarea
 from django.forms import ModelChoiceField
 from django.core.context_processors import csrf
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import permission_required
 from django.utils.translation import ugettext as _
 from django.utils import translation
@@ -91,7 +92,7 @@ def exercisecomment_delete(request, id):
     exercise_id = comment.exercise.id
     comment.delete()
     
-    return HttpResponseRedirect('/exercise/view/%s' % exercise_id)
+    return HttpResponseRedirect(reverse('exercises.views.exercise_view', kwargs= {'id': exercise_id}))
     
     
 
@@ -172,7 +173,7 @@ def exercise_view(request, id, comment_id=None):
             new_comment = comment_form.save(commit=False)
             new_comment.exercise = exercise
             new_comment.save()
-            return HttpResponseRedirect('/exercise/view/%s' % id)
+            return HttpResponseRedirect(reverse('exercises.views.exercise_view', kwargs= {'id': id}))
     else:
         comment_form = ExerciseCommentForm()
 
@@ -191,7 +192,7 @@ def exercise_view(request, id, comment_id=None):
             if comment_form.is_valid():
                 comment = comment_form.save(commit=False)
                 comment.save()
-                return HttpResponseRedirect('/exercise/view/%s' % id)
+                return HttpResponseRedirect(reverse('exercises.views.exercise_view', kwargs= {'id': id}))
         
     
     template_data['comment_form'] = comment_form
@@ -238,7 +239,7 @@ def exercise_edit(request, id=None):
         if exercise_form.is_valid():
             exercise = exercise_form.save()
             id = exercise.id
-            return HttpResponseRedirect('/exercise/view/%s' % id)
+            return HttpResponseRedirect(reverse('exercises.views.exercise_view', kwargs= {'id': id}))
     else:
         exercise_form = ExerciseForm(instance=exercise)
     
@@ -254,7 +255,7 @@ def exercise_delete(request, id):
     exercise = get_object_or_404(Exercise, pk=id)
     exercise.delete()
     
-    return HttpResponseRedirect('/exercise/overview/')
+    return HttpResponseRedirect(reverse('exercises.views.exercise_overview'))
 
 @permission_required('exercises.change_exercisecategory')
 def exercise_category_edit(request, id):
@@ -282,7 +283,7 @@ def exercise_category_edit(request, id):
             category.language = language
             category.save()
             
-            return HttpResponseRedirect('/exercise/overview/')
+            return HttpResponseRedirect(reverse('exercises.views.exercise_overview'))
     else:
         category_form = ExerciseCategoryForm(instance=category)
     
@@ -298,7 +299,7 @@ def exercise_category_delete(request, id):
     category = get_object_or_404(ExerciseCategory, pk=id)
     category.delete()
     
-    return HttpResponseRedirect('/exercise/overview/')
+    return HttpResponseRedirect(reverse('exercises.views.exercise_overview')
 
 def exercise_search(request):
     """Search an exercise, return the result as a JSON list
