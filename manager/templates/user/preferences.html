@@ -36,5 +36,13 @@
          title="{% trans 'Logout' %}">
     {% trans "Logout" %}</a>
 </p>
-<p><a href="{% url manager.views.change_password %}">{% trans "Change password" %}</a></p>
+<p>
+    <a href="{% url manager.views.change_password %}">
+    <img src="{% static 'images/icons/preferences.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Change password' %}"
+         title="{% trans 'Change password' %}">
+    {% trans "Change password" %}</a>
+</p>
 {% endblock %}
