@@ -1,12 +1,19 @@
 from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('manager.views',
+
+    # The index page
     url(r'^$', 'index'),
+    
+    # User
     url(r'^login$', 'login'),
     url(r'^logout$', 'logout'),
     url(r'^user/registration$', 'registration'),
     url(r'^user/preferences$', 'preferences'),
+    url(r'^user/password/change$', 'change_password'),
     
+    
+    # Workout
     url(r'^workout/overview$', 'overview'),
     url(r'^workout/add$', 'add'),
     url(r'^workout/edit/(?P<id>\d+)$', 'edit_workout'),

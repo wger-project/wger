@@ -37,6 +37,7 @@ from django.contrib.auth import logout as django_logout
 from django.contrib.auth.models import User as Django_User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import PasswordChangeForm
 
 from manager.models import DAYS_OF_WEEK_CHOICES
 from manager.models import DaysOfWeek
@@ -179,6 +180,33 @@ def login(request):
     return render_to_response('login.html',
                               template_data,
                               context_instance=RequestContext(request))
+
+def change_password(request):
+    """Change the user's password
+    """
+    
+    template_data = {}
+    template_data.update(csrf(request))
+    template_data['active_tab'] = 'user'
+    
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, data=request.POST)
+        
+        # If the data is valid, change the password redirect
+        if form.is_valid():
+            request.user.set_password('new password')
+            request.user.save()
+        
+            return HttpResponseRedirect(reverse('manager.views.index'))
+    else:
+        form = PasswordChangeForm(request.user)
+
+    template_data['form'] = form
+    
+    return render_to_response('user/change_password.html',
+                              template_data,
+                              context_instance=RequestContext(request))
+
 
 def logout(request):
     """Logout the user
