@@ -37,8 +37,8 @@ from reportlab.lib.pagesizes import A4, cm
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
 from reportlab.lib import colors
 
-from exercises.views import load_language
-from exercises.views import load_ingredient_languages
+from manager.utils import load_language
+from manager.utils import load_ingredient_languages
 
 
 logger = logging.getLogger('workout_manager.custom')
