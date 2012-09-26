@@ -26,7 +26,18 @@ from django.core.urlresolvers import reverse
 from exercises.models import Exercise
         
 class ExercisesViewsTestCase(TestCase):
-    fixtures = ['test-exercises', ]
+    fixtures = ['tests-user-data', 'test-exercises', ]
+    
+    def user_login(self, user='admin'):
+        """Login the user, by default as 'admin'
+        """
+        response = self.client.post(reverse('manager.views.login'), 
+                                    {'username': '%s' % user,
+                                     'password': '%(user)s%(user)s' % {'user': user}})
+    def user_logout(self):
+        """Visit the logout page
+        """
+        response = self.client.get(reverse('manager.views.logout'))
 
     def test_exercise_index(self):
         """Tests the exercise overview page"""
@@ -102,6 +113,74 @@ class ExercisesViewsTestCase(TestCase):
         response = self.client.post(reverse('exercises.views.exercise_view', kwargs={'id': 1}), 
                                     {'comment': 'a new cool comment'})
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(len(comments), 2)
+        #self.assertEqual(len(comments), 2)
         
-      
+
+    def add_exercise_user_fail(self):
+        """Tests to perform on users that can't edit exercises
+        """
+        
+        # Add an exercise
+        count_before = Exercise.objects.count()
+        response = self.client.post(reverse('exercises.views.exercise_edit', kwargs= {'id': ''}), 
+                                        {'category': 2,
+                                         'name': 'my test exercise',
+                                         'muscles': [1, 2]})
+        count_after = Exercise.objects.count()
+        
+        # Exercise was not added
+        self.assertEqual(count_before, count_after)
+        
+        self.assertTrue('login' in response['location'])
+
+    def test_add_exercise_user_no_rights(self):
+        """Tests adding an exercise with a user without enough rights to do this"""
+        
+        self.user_login('test')
+        self.add_exercise_user_fail()
+        self.user_logout()
+    
+    def test_add_exercise_no_user(self):
+        """Tests adding an exercise with a logged out (anonymous) user"""
+        
+        self.user_logout()
+        self.add_exercise_user_fail()
+        self.user_logout()
+        
+        
+    def test_add_exercise_administrator_user(self):
+        """Tests adding an exercise with a user with enough rights to do this"""
+        
+        # Log in as 'admin'
+        self.user_login()
+        
+        # Add an exercise
+        response = self.client.post(reverse('exercises.views.exercise_edit', kwargs= {'id': ''}), 
+                                        {'category': 2,
+                                         'name': 'my test exercise',
+                                         'muscles': [1, 2]})
+        self.assertEqual(response.status_code, 302)
+        
+        self.assertEqual(Exercise.objects.count(), 4, 'Exercise was not added')
+        
+        response = self.client.get(reverse('exercises.views.exercise_view', kwargs={'id': 4}))
+        self.assertEqual(response.status_code, 200)
+        
+        # Wrong category
+        response = self.client.post(reverse('exercises.views.exercise_edit', kwargs= {'id': ''}), 
+                                        {'category': 111,
+                                         'name': 'my test exercise',
+                                         'muscles': [1, 2]})
+        self.assertTrue(response.context['edit_form'].errors['category'])
+        
+        
+        # No muscles
+        response = self.client.post(reverse('exercises.views.exercise_edit', kwargs= {'id': ''}), 
+                                        {'category': 1,
+                                         'name': 'my test exercise',
+                                         'muscles': []})
+        self.assertTrue(response.context['edit_form'].errors['muscles'])
+        
+        #print response.context['edit_form'].errors
+        #print response['location']
+        
