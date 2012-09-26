@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from django.utils import translation
+from django.core.exceptions import ObjectDoesNotExist
 
 from exercises.models import Language
 
