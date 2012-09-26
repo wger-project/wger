@@ -95,7 +95,6 @@ class ExerciseComment(models.Model):
     """
     exercise = models.ForeignKey(Exercise, verbose_name = _('Exercise'))
     comment = models.CharField(max_length=200,
-                               blank=True,
                                verbose_name = _('Comment'),
                                help_text=_('Some comment about how to correctly do this exercise'))
     
