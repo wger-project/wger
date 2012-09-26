@@ -171,13 +171,6 @@ def exercise_edit(request, id=None):
             
         class Meta:
             model = Exercise
-            
-            widgets = {
-                'description': Textarea(attrs={'cols': 80, 'rows': 10}),
-            }
-    
-    
-    
     
     template_data = {}
     template_data.update(csrf(request))
