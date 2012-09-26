@@ -95,8 +95,42 @@ class ExercisesViewsTestCase(TestCase):
         response = self.client.get(reverse('exercises.views.exercise_view', kwargs={'id': 42}))
         self.assertEqual(response.status_code, 404)
         
-    def test_exercisecomment(self):
+        
+    def exercisecomment_fail(self):
+        """Tests the exercise comments (fails because of permissions)"""
+        
+        # Load the exercise
+        exercise_1 = Exercise.objects.get(pk=1)
+        comments = exercise_1.exercisecomment_set.all()
+        self.assertEqual(len(comments), 1)
+        
+        # Post a comment
+        response = self.client.post(reverse('exercises.views.exercise_view', kwargs={'id': 1}), 
+                                    {'comment': 'a new cool comment'})
+        self.assertEqual(response.status_code, 200)
+        
+        comments = exercise_1.exercisecomment_set.all()
+        self.assertEqual(len(comments), 1)
+
+    
+    def test_exercisecomment_no_authorized(self):
         """Tests the exercise comments"""
+        
+        self.user_login('test')
+        self.exercisecomment_fail()
+        self.user_logout()
+    
+    def test_exercisecomment_not_logged_in(self):
+        """Tests the exercise comments"""
+        
+        self.user_logout()
+        self.exercisecomment_fail()
+        
+    
+    def test_exercisecomment_authorized(self):
+        """Tests the exercise comments"""
+        
+        self.user_login()
         
         # Load the exercise
         exercise_1 = Exercise.objects.get(pk=1)
@@ -106,16 +140,25 @@ class ExercisesViewsTestCase(TestCase):
         comment_1 = comments[0]
         self.assertEqual(comment_1.id, 1)
         self.assertEqual(comment_1.comment, "test 123")
-        
         self.assertEqual(len(comments), 1)
         
         # Post a comment
         response = self.client.post(reverse('exercises.views.exercise_view', kwargs={'id': 1}), 
                                     {'comment': 'a new cool comment'})
-        self.assertEqual(response.status_code, 302)
-        #self.assertEqual(len(comments), 2)
+        comments = exercise_1.exercisecomment_set.all()
         
-
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(len(comments), 2)
+        
+        # Post an empty comment and check it doesn't get added
+        response = self.client.post(reverse('exercises.views.exercise_view', kwargs={'id': 1}), 
+                                    {'comment': ''})
+        comments = exercise_1.exercisecomment_set.all()
+        
+        self.assertEqual(len(comments), 2)
+        self.user_logout()
+        
+        
     def add_exercise_user_fail(self):
         """Tests to perform on users that can't edit exercises
         """
@@ -131,7 +174,7 @@ class ExercisesViewsTestCase(TestCase):
         # Exercise was not added
         self.assertEqual(count_before, count_after)
         
-        self.assertTrue('login' in response['location'])
+        self.assertTrue(reverse('manager.views.login') in response['location'])
 
     def test_add_exercise_user_no_rights(self):
         """Tests adding an exercise with a user without enough rights to do this"""
@@ -155,19 +198,25 @@ class ExercisesViewsTestCase(TestCase):
         self.user_login()
         
         # Add an exercise
-        response = self.client.post(reverse('exercises.views.exercise_edit', kwargs= {'id': ''}), 
+        response = self.client.post(reverse('exercises.views.exercise_edit', kwargs = {'id': ''}), 
                                         {'category': 2,
                                          'name': 'my test exercise',
                                          'muscles': [1, 2]})
         self.assertEqual(response.status_code, 302)
-        
         self.assertEqual(Exercise.objects.count(), 4, 'Exercise was not added')
         
-        response = self.client.get(reverse('exercises.views.exercise_view', kwargs={'id': 4}))
+        # Exercise was saved
+        response = self.client.get(reverse('exercises.views.exercise_view', kwargs = {'id': 4}))
         self.assertEqual(response.status_code, 200)
         
+        # Navigation tab
+        self.assertEqual(response.context['active_tab'], 'exercises')
+        
+        exercise_1 = Exercise.objects.get(pk = 4)
+        self.assertEqual(exercise_1.name, 'my test exercise')
+        
         # Wrong category
-        response = self.client.post(reverse('exercises.views.exercise_edit', kwargs= {'id': ''}), 
+        response = self.client.post(reverse('exercises.views.exercise_edit', kwargs = {'id': ''}), 
                                         {'category': 111,
                                          'name': 'my test exercise',
                                          'muscles': [1, 2]})
@@ -175,7 +224,7 @@ class ExercisesViewsTestCase(TestCase):
         
         
         # No muscles
-        response = self.client.post(reverse('exercises.views.exercise_edit', kwargs= {'id': ''}), 
+        response = self.client.post(reverse('exercises.views.exercise_edit', kwargs = {'id': ''}), 
                                         {'category': 1,
                                          'name': 'my test exercise',
                                          'muscles': []})
