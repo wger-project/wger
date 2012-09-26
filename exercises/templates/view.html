@@ -72,6 +72,7 @@ $(document).ready(function() {
     </tbody>
 </table>
 
+{% if perms.exercises %}
 <h3>{% trans "Add new comment" %}</h3>
 <form action = "{% url exercises.views.exercise_view exercise.id %}"
       method = "post"
@@ -80,6 +81,7 @@ $(document).ready(function() {
 {{ comment_form.comment }}
 <input type="submit" value="{% trans "Save" %}" />
 </form>
+{% endif %}
 
 {% endblock %}
 
