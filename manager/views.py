@@ -231,7 +231,7 @@ def registration(request):
             password = form.cleaned_data['password1']
             user = Django_User.objects.create_user(username,
                                                    '',
-                                                   password1)
+                                                   password)
             user.save()
             user = authenticate(username=username, password=password)
             django_login(request, user)
