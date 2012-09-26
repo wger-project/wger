@@ -120,39 +120,42 @@ def exercise_view(request, id, comment_id=None):
     template_data['muscle_backgrounds'] = backgrounds
     
     
-    # Adding a new comment
-    if request.method == 'POST' and not comment_id:
-        comment_form = ExerciseCommentForm(request.POST)
-        comment_form.exercise = exercise
+    # Only users with the appropriate permissions can work with comments
+    if request.user.has_perm('exercises.add_exercisecomment'):
         
-        # If the data is valid, save and redirect
-        if comment_form.is_valid():
-            new_comment = comment_form.save(commit=False)
-            new_comment.exercise = exercise
-            new_comment.save()
-            return HttpResponseRedirect(reverse('exercises.views.exercise_view', kwargs= {'id': id}))
-    else:
-        comment_form = ExerciseCommentForm()
-
-    # Editing a comment
-    if comment_id:
-        exercise_comment = get_object_or_404(ExerciseComment, pk=comment_id)
-        template_data['comment_edit'] = exercise_comment
-        
-        comment_edit_form = ExerciseCommentForm(instance=exercise_comment)
-        template_data['comment_edit_form'] = comment_edit_form
-        
-        if request.method == 'POST':
-            comment_form = ExerciseCommentForm(request.POST, instance=exercise_comment)
+        # Adding a new comment
+        if request.method == 'POST' and not comment_id:
+            comment_form = ExerciseCommentForm(request.POST)
+            comment_form.exercise = exercise
             
             # If the data is valid, save and redirect
             if comment_form.is_valid():
-                comment = comment_form.save(commit=False)
-                comment.save()
+                new_comment = comment_form.save(commit=False)
+                new_comment.exercise = exercise
+                new_comment.save()
                 return HttpResponseRedirect(reverse('exercises.views.exercise_view', kwargs= {'id': id}))
-        
+        else:
+            comment_form = ExerciseCommentForm()
     
-    template_data['comment_form'] = comment_form
+        # Editing a comment
+        if comment_id:
+            exercise_comment = get_object_or_404(ExerciseComment, pk=comment_id)
+            template_data['comment_edit'] = exercise_comment
+            
+            comment_edit_form = ExerciseCommentForm(instance=exercise_comment)
+            template_data['comment_edit_form'] = comment_edit_form
+            
+            if request.method == 'POST':
+                comment_form = ExerciseCommentForm(request.POST, instance=exercise_comment)
+                
+                # If the data is valid, save and redirect
+                if comment_form.is_valid():
+                    comment = comment_form.save(commit=False)
+                    comment.save()
+                    return HttpResponseRedirect(reverse('exercises.views.exercise_view', kwargs= {'id': id}))
+            
+        
+        template_data['comment_form'] = comment_form
     
     # Render
     return render_to_response('view.html',
