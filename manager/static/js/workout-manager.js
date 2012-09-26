@@ -71,6 +71,9 @@ function setup_sortable()
  */
 function setup_ajax_set_edit()
 {
+    // Unbind all other click events so we don't do this more than once
+    $(".ajax-set-edit").off();
+    
     $(".ajax-set-edit").click(function(e) {
         e.preventDefault();
         
@@ -204,6 +207,8 @@ function form_modal_dialog()
                 position: 'top'
     });
 
+    // Unbind all other click events so we don't do this more than once
+    $(".modal-dialog").off();
 
     // Load the edit dialog when the user clicks on an edit link
     $(".modal-dialog").click(function(e) {
