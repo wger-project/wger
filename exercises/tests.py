@@ -24,8 +24,8 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 
 from exercises.models import Exercise
-        
-class ExercisesViewsTestCase(TestCase):
+
+class WorkoutManagerTestCase(TestCase):
     fixtures = ['tests-user-data', 'test-exercises', ]
     
     def user_login(self, user='admin'):
@@ -39,6 +39,9 @@ class ExercisesViewsTestCase(TestCase):
         """
         response = self.client.get(reverse('manager.views.logout'))
 
+        
+class ExerciseIndexTestCase(WorkoutManagerTestCase):
+   
     def test_exercise_index(self):
         """Tests the exercise overview page"""
         
@@ -95,7 +98,9 @@ class ExercisesViewsTestCase(TestCase):
         response = self.client.get(reverse('exercises.views.exercise_view', kwargs={'id': 42}))
         self.assertEqual(response.status_code, 404)
         
-        
+
+class ExercisecommentsTestCase(WorkoutManagerTestCase):
+    
     def exercisecomment_fail(self):
         """Tests the exercise comments (fails because of permissions)"""
         
@@ -158,9 +163,13 @@ class ExercisesViewsTestCase(TestCase):
         self.assertEqual(len(comments), 2)
         self.user_logout()
         
-        
+class ExercisesTestCase(WorkoutManagerTestCase):
+    """Exercise test case"""
+    
+    
     def add_exercise_user_fail(self):
-        """Tests to perform on users that can't edit exercises
+        """Helper function to test adding exercises by users that aren't
+        authorized
         """
         
         # Add an exercise
@@ -192,7 +201,7 @@ class ExercisesViewsTestCase(TestCase):
         
         
     def test_add_exercise_administrator_user(self):
-        """Tests adding an exercise with a user with enough rights to do this"""
+        """Tests adding/editing an exercise with a user with enough rights to do this"""
         
         # Log in as 'admin'
         self.user_login()
@@ -215,21 +224,81 @@ class ExercisesViewsTestCase(TestCase):
         exercise_1 = Exercise.objects.get(pk = 4)
         self.assertEqual(exercise_1.name, 'my test exercise')
         
-        # Wrong category
+        # Wrong category - adding
         response = self.client.post(reverse('exercises.views.exercise_edit', kwargs = {'id': ''}), 
                                         {'category': 111,
                                          'name': 'my test exercise',
                                          'muscles': [1, 2]})
         self.assertTrue(response.context['edit_form'].errors['category'])
         
+        # Wrong category - editing
+        response = self.client.post(reverse('exercises.views.exercise_edit', kwargs = {'id': '1'}), 
+                                        {'category': 111,
+                                         'name': 'my test exercise',
+                                         'muscles': [1, 2]})
+        self.assertTrue(response.context['edit_form'].errors['category'])
         
-        # No muscles
+        
+        # No muscles - adding
         response = self.client.post(reverse('exercises.views.exercise_edit', kwargs = {'id': ''}), 
                                         {'category': 1,
                                          'name': 'my test exercise',
                                          'muscles': []})
         self.assertTrue(response.context['edit_form'].errors['muscles'])
         
+        # No muscles - editing
+        response = self.client.post(reverse('exercises.views.exercise_edit', kwargs = {'id': '1'}), 
+                                        {'category': 1,
+                                         'name': 'my test exercise',
+                                         'muscles': []})
+        self.assertTrue(response.context['edit_form'].errors['muscles'])
+        
+        
         #print response.context['edit_form'].errors
         #print response['location']
+        
+        self.user_logout()
+
+
+    def delete_exercise(self, fail=True):
+        """Helper function to test deleling exercises"""
+        
+        # The exercise exists
+        response = self.client.get(reverse('exercises.views.exercise_view', kwargs={'id': 3}))
+        self.assertEqual(response.status_code, 200)
+        
+        # Delete the exercise
+        count_before = Exercise.objects.count()
+        response = self.client.get(reverse('exercises.views.exercise_delete', kwargs={'id': 3}))
+        count_after = Exercise.objects.count()
+        
+        # There is a redirect
+        self.assertEqual(response.status_code, 302)
+        
+        # Check the deletion
+        if fail:
+            self.assertEqual(count_before, count_after, 'Exercise was deleted')
+        else:
+            self.assertTrue(count_before > count_after, 'Exercise was not deleted')
+        
+        
+    def test_delete_exercise_anonymous(self):
+        """Test deleting an exercise by an anonymous user"""
+        
+        self.delete_exercise()
+        
+        
+    def test_delete_exercise_unauthorized(self):
+        """Test deleting an exercise by an unauthorized user"""
+        
+        self.user_login('test')
+        self.delete_exercise()
+        self.user_logout()
+    
+    def test_delete_exercise_authorized(self):
+        """Test deleting an exercise by an authorized user"""
+                
+        self.user_login()
+        self.delete_exercise(fail=False)        
+        self.user_logout()
         
