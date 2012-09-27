@@ -115,17 +115,28 @@
 
 <footer>
     <div class="ym-wrapper">
-        <div class="ym-wbox">
-            <a href="https://bitbucket.org/rolandgeider/workout_manager" class="no-hover">
-            <img src="{% static 'images/agplv3-88x31.png' %}"
-                 alt="{% trans 'Released under the Affero GPL' %}"
-                 title="{% trans 'Released under the Affero GPL' %}">
-            </a>
-            
-            © <a href="mailto:roland@NO!SPAM!geider.net">Roland Geider</a>
-            – {{version}}
-            – {% trans "Layout based on <a href='http://www.yaml.de'>YAML</a>" %}
+    <div class="ym-wbox">
+        <div class="ym-grid linearize-level-1">
+            <div class="ym-g10 ym-gl">
+                <a href="https://bitbucket.org/rolandgeider/workout_manager" class="no-hover">
+                    <img src="{% static 'images/agplv3-88x31.png' %}"
+                         alt="{% trans 'Released under the Affero GPL' %}"
+                         title="{% trans 'Released under the Affero GPL' %}">
+                </a>
+            </div>
+            <div class="ym-g40 ym-gl">
+                <div class="ym-gbox-left">
+                © <a href="mailto:roland@NO!SPAM!geider.net">Roland Geider</a>
+                – {% trans "Layout based on <a href='http://www.yaml.de'>YAML</a>" %}
+                </div>
+            </div>
+            <div class="ym-g50 ym-gr align-right">
+                <div class="ym-gbox-right">
+                    <em class="dimmed">{{version}}</em>
+                </div>
+            </div>
         </div>
+    </div>
     </div>
 </footer>
 </body>
