@@ -239,7 +239,12 @@ function scatterplot_modal_dialog(id)
         $("#ajax-info").load(targetUrl + " .ym-form", function() {
             // Open the dialog
             $("#ajax-info").dialog("open");
+            
+            // Initialise the datepicker for the modal dialog
+            init_weight_datepicker();
         });
+        
+        
 }
 
 function init_ingredient_autocompleter()
@@ -330,4 +335,9 @@ function init_edit_set()
                 });
             }
         });
+}
+
+function init_weight_datepicker()
+{
+    $( "#id_creation_date" ).datepicker({ dateFormat: "dd.mm.yy" });
 }

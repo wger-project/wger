@@ -19,6 +19,12 @@
 
 
 <script type="text/javascript">
+
+// Initialise the datepicker for the modal dialog
+function custom_modal_init()
+{
+    init_weight_datepicker();
+}
 // Simple helper function that simply returns the y component of an entry
 function y_value(d) { return d.y; }
 
@@ -111,7 +117,6 @@ $('circle').click(function(e) {
         entry_id = $(this).attr('id').match(/\d+/);
         scatterplot_modal_dialog(entry_id);
     });
-
 });
 </script>
 {% endblock %}
