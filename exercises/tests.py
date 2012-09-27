@@ -201,7 +201,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         
         
     def test_add_exercise_administrator_user(self):
-        """Tests adding an exercise with a user with enough rights to do this"""
+        """Tests adding/editing an exercise with a user with enough rights to do this"""
         
         # Log in as 'admin'
         self.user_login()
@@ -224,48 +224,72 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         exercise_1 = Exercise.objects.get(pk = 4)
         self.assertEqual(exercise_1.name, 'my test exercise')
         
-        # Wrong category
+        # Wrong category - adding
         response = self.client.post(reverse('exercises.views.exercise_edit', kwargs = {'id': ''}), 
                                         {'category': 111,
                                          'name': 'my test exercise',
                                          'muscles': [1, 2]})
         self.assertTrue(response.context['edit_form'].errors['category'])
         
+        # Wrong category - editing
+        response = self.client.post(reverse('exercises.views.exercise_edit', kwargs = {'id': '1'}), 
+                                        {'category': 111,
+                                         'name': 'my test exercise',
+                                         'muscles': [1, 2]})
+        self.assertTrue(response.context['edit_form'].errors['category'])
         
-        # No muscles
+        
+        # No muscles - adding
         response = self.client.post(reverse('exercises.views.exercise_edit', kwargs = {'id': ''}), 
                                         {'category': 1,
                                          'name': 'my test exercise',
                                          'muscles': []})
         self.assertTrue(response.context['edit_form'].errors['muscles'])
         
+        # No muscles - editing
+        response = self.client.post(reverse('exercises.views.exercise_edit', kwargs = {'id': '1'}), 
+                                        {'category': 1,
+                                         'name': 'my test exercise',
+                                         'muscles': []})
+        self.assertTrue(response.context['edit_form'].errors['muscles'])
+        
+        
         #print response.context['edit_form'].errors
         #print response['location']
         
         self.user_logout()
 
+
     def delete_exercise(self, fail=True):
         """Helper function to test deleling exercises"""
         
+        # The exercise exists
+        response = self.client.get(reverse('exercises.views.exercise_view', kwargs={'id': 3}))
+        self.assertEqual(response.status_code, 200)
+        
+        # Delete the exercise
         count_before = Exercise.objects.count()
         response = self.client.get(reverse('exercises.views.exercise_delete', kwargs={'id': 3}))
         count_after = Exercise.objects.count()
         
-        if fail:
-            self.assertEqual(count_before, count_after)
-        else:
-            self.assertTrue(count_before > count_after)
-        
+        # There is a redirect
         self.assertEqual(response.status_code, 302)
+        
+        # Check the deletion
+        if fail:
+            self.assertEqual(count_before, count_after, 'Exercise was deleted')
+        else:
+            self.assertTrue(count_before > count_after, 'Exercise was not deleted')
+        
         
     def test_delete_exercise_anonymous(self):
         """Test deleting an exercise by an anonymous user"""
         
         self.delete_exercise()
         
+        
     def test_delete_exercise_unauthorized(self):
         """Test deleting an exercise by an unauthorized user"""
-        
         
         self.user_login('test')
         self.delete_exercise()
