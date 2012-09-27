@@ -26,6 +26,13 @@ LOGIN_URL = '/login'
 # Model for the user profile
 AUTH_PROFILE_MODULE = 'manager.UserProfile'
 
+# Set the context processors
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'manager.context_processor.processor',
+    'django.contrib.auth.context_processors.auth',
+)
+
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
