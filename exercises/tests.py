@@ -24,8 +24,8 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 
 from exercises.models import Exercise
-        
-class ExercisesViewsTestCase(TestCase):
+
+class WorkoutManagerTestCase(TestCase):
     fixtures = ['tests-user-data', 'test-exercises', ]
     
     def user_login(self, user='admin'):
@@ -39,6 +39,9 @@ class ExercisesViewsTestCase(TestCase):
         """
         response = self.client.get(reverse('manager.views.logout'))
 
+        
+class ExerciseIndexTestCase(WorkoutManagerTestCase):
+   
     def test_exercise_index(self):
         """Tests the exercise overview page"""
         
@@ -95,7 +98,9 @@ class ExercisesViewsTestCase(TestCase):
         response = self.client.get(reverse('exercises.views.exercise_view', kwargs={'id': 42}))
         self.assertEqual(response.status_code, 404)
         
-        
+
+class ExercisecommentsTestCase(WorkoutManagerTestCase):
+    
     def exercisecomment_fail(self):
         """Tests the exercise comments (fails because of permissions)"""
         
@@ -158,9 +163,13 @@ class ExercisesViewsTestCase(TestCase):
         self.assertEqual(len(comments), 2)
         self.user_logout()
         
-        
+class ExercisesTestCase(WorkoutManagerTestCase):
+    """Exercise test case"""
+    
+    
     def add_exercise_user_fail(self):
-        """Tests to perform on users that can't edit exercises
+        """Helper function to test adding exercises by users that aren't
+        authorized
         """
         
         # Add an exercise
@@ -232,4 +241,40 @@ class ExercisesViewsTestCase(TestCase):
         
         #print response.context['edit_form'].errors
         #print response['location']
+        
+        self.user_logout()
+
+    def delete_exercise(self, fail=True):
+        """Helper function to test deleling exercises"""
+        
+        count_before = Exercise.objects.count()
+        response = self.client.get(reverse('exercises.views.exercise_delete', kwargs={'id': 3}))
+        count_after = Exercise.objects.count()
+        
+        if fail:
+            self.assertEqual(count_before, count_after)
+        else:
+            self.assertTrue(count_before > count_after)
+        
+        self.assertEqual(response.status_code, 302)
+        
+    def test_delete_exercise_anonymous(self):
+        """Test deleting an exercise by an anonymous user"""
+        
+        self.delete_exercise()
+        
+    def test_delete_exercise_unauthorized(self):
+        """Test deleting an exercise by an unauthorized user"""
+        
+        
+        self.user_login('test')
+        self.delete_exercise()
+        self.user_logout()
+    
+    def test_delete_exercise_authorized(self):
+        """Test deleting an exercise by an authorized user"""
+                
+        self.user_login()
+        self.delete_exercise(fail=False)        
+        self.user_logout()
         
