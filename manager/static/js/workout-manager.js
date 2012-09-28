@@ -303,6 +303,7 @@ function init_edit_set()
 {
     // Validate the form with JQuery
     $(".ym-form").validate({
+                    errorClass:'form-error',
                     rules: {
                         sets: {
                             required: true,

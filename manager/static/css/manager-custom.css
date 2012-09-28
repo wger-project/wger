@@ -141,3 +141,23 @@ circle:hover{
 circle{
     cursor: pointer;
 }
+
+
+/*
+ * Classes Error form
+ * 
+ * 'form-error' is inserted by the JQuery form validator and the styling
+ * is copied from the yaml ones, for consistency
+ */
+.ym-form .form-error {
+    color: #880000;
+}
+.ym-form label.form-error {
+    font-weight: bold;
+}
+
+.ym-form input.form-error {
+    box-shadow: none;
+    background-color: #880000;
+    color: black;
+}
