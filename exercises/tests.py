@@ -349,3 +349,60 @@ class ExerciseCategoryTestCase(WorkoutManagerTestCase):
         self.delete_category()
         self.user_logout()
     
+    
+    def edit_category(self, fail = False):
+        """Helper function to test editing categories"""
+        
+        category = ExerciseCategory.objects.get(pk = 3)
+        old_name = category.name
+        
+        response = self.client.post(reverse('exercises.views.exercise_category_edit',
+                                           kwargs={'id': 3}),
+                                   {'name': 'A different name'})
+        
+        # There is a redirect
+        self.assertEqual(response.status_code, 302)
+        
+        category = ExerciseCategory.objects.get(pk = 3)
+        new_name = category.name
+        
+        
+        # Did it work
+        if fail:
+            self.assertEqual(old_name,
+                             new_name,
+                             'Category was edited by unauthorzed user')
+        else:
+            self.assertTrue(old_name != new_name,
+                            'Category wasnt deleted by unauthorzed user')
+        
+        
+        # No name
+        if not fail:
+            response = self.client.post(reverse('exercises.views.exercise_category_edit',
+                                           kwargs={'id': 3}),
+                                        {'name': ''})
+
+            self.assertTrue(response.context['category_form'].errors['name'])
+        
+    def test_edit_category_unauthorized(self):
+        """Test deleting a category by an unauthorized user"""
+        
+        self.user_login('test')
+        self.edit_category(fail=True)
+        self.user_logout()
+    
+    def test_edit_category_anonymous(self):
+        """Test deleting a category by an anonymous user"""
+        
+        self.user_logout()
+        self.edit_category(fail=True)
+        self.user_logout()
+    
+    def test_edit_category_authorized(self):
+        """Test deleting a category by an authorized user"""
+        
+        self.user_login()
+        self.edit_category()
+        self.user_logout()
+    
