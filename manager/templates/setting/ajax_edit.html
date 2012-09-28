@@ -4,12 +4,10 @@
 <script>
 $(document).ready(function() {
 
-	// Call the setup function to allow the sets to be sortable again after loading this
-	// view via AJAX
+	// Call the setup function to allow the sets to be sortable again after
+	// loading this view via AJAX
 	setup_inplace_editing();
-	
-	
-})
+});
 </script>
 
 <form action="{% url manager.views.api_edit_set %}?do=edit_set&amp;set={{set.id}}&amp;exercise={{exercise.id}}"
@@ -44,11 +42,19 @@ $(document).ready(function() {
     
     
     {% for setting in exercise|get_current_settings:set.id %}
-    	<input type="text" name="setting-{{setting.id}}" value="{{ setting.reps }}" maxlength="2" style="width: 2em;">
+    	<input type="text"
+    	       name="setting-{{setting.id}}"
+    	       value="{{ setting.reps }}"
+    	       maxlength="2"
+    	       style="width: 2em;">
 	{% endfor %}
 	
 	{% for setting in new_settings %}
-    	<input type="text" name="new-setting-{{setting}}" value="" maxlength="2" style="width: 2em;">
+    	<input type="text"
+    	       name="new-setting-{{setting}}"
+    	       value=""
+    	       maxlength="2"
+    	       style="width: 2em;">
 	{% endfor %}
 	
     
