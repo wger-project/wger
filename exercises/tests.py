@@ -32,13 +32,12 @@ class WorkoutManagerTestCase(TestCase):
     def user_login(self, user='admin'):
         """Login the user, by default as 'admin'
         """
-        response = self.client.post(reverse('manager.views.login'), 
-                                    {'username': '%s' % user,
-                                     'password': '%(user)s%(user)s' % {'user': user}})
+        self.client.login(username=user, password='%(user)s%(user)s' % {'user': user})
+        
     def user_logout(self):
         """Visit the logout page
         """
-        response = self.client.get(reverse('manager.views.logout'))
+        self.client.logout()
 
         
 class ExerciseIndexTestCase(WorkoutManagerTestCase):
