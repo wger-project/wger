@@ -61,6 +61,7 @@
             </ul>
             
             
+            {% if user.username %}
             <ul style="float:right;">
             <li>
                 <a href="{% url manager.views.logout %}">
@@ -68,6 +69,7 @@
                 </a>
             </li>
             </ul>
+            {% endif %}
         </div>
     </div>
 </nav>
