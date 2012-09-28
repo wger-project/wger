@@ -330,6 +330,10 @@ function init_edit_set()
                     e.preventDefault();
                     $(this).parent('div').remove();
                 });
+                
+                // Reset the autocompleter
+                $(this).val("");
+                return false;
             }
         });
 }
