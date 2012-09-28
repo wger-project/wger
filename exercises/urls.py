@@ -7,7 +7,11 @@ urlpatterns = patterns('exercises.views',
     url(r'^exercise/view/(?P<id>\d+)/edit/comment/(?P<comment_id>\d+)$', 'exercise_view'),
     url(r'^exercise/edit/(?P<id>\d*)$', 'exercise_edit'),
     url(r'^exercise/delete/(?P<id>\d*)$', 'exercise_delete'),
+    
+    # Comments
     url(r'^exercise/comment/delete/(?P<id>\d+)$', 'exercisecomment_delete'),
+    
+    # Categories
     url(r'^exercise/category/edit/(?P<id>\d*)$', 'exercise_category_edit'),
     url(r'^exercise/category/delete/(?P<id>\d*)$', 'exercise_category_delete'),
     

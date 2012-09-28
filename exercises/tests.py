@@ -24,6 +24,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 
 from exercises.models import Exercise
+from exercises.models import ExerciseCategory
 
 class WorkoutManagerTestCase(TestCase):
     fixtures = ['tests-user-data', 'test-exercises', ]
@@ -261,7 +262,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
 
 
     def delete_exercise(self, fail=True):
-        """Helper function to test deleling exercises"""
+        """Helper function to test deleting exercises"""
         
         # The exercise exists
         response = self.client.get(reverse('exercises.views.exercise_view', kwargs={'id': 3}))
@@ -301,4 +302,50 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         self.user_login()
         self.delete_exercise(fail=False)        
         self.user_logout()
+
+class ExerciseCategoryTestCase(WorkoutManagerTestCase):
+    """Exercise category test case"""
+  
+    def delete_category(self, fail = False):
+        """Helper function to test deleting categories"""
         
+        # Delete the category
+        count_before =  ExerciseCategory.objects.count()
+        response = self.client.get(reverse('exercises.views.exercise_category_delete',
+                                           kwargs={'id': 4}))
+        count_after = ExerciseCategory.objects.count()
+        
+        # There is a redirect
+        self.assertEqual(response.status_code, 302)
+        
+        # Check the deletion
+        if fail:
+            self.assertEqual(count_before,
+                             count_after,
+                             'Category was deleted by unauthorzed user')
+        else:
+            self.assertTrue(count_before > count_after,
+                            'Category was not deleted by authorized user')
+        
+        
+    def test_delete_category_unauthorized(self):
+        """Test deleting a category by an unauthorized user"""
+        
+        self.user_login('test')
+        self.delete_category(fail=True)
+        self.user_logout()
+    
+    def test_delete_category_anonymous(self):
+        """Test deleting a category by an anonymous user"""
+        
+        self.user_logout()
+        self.delete_category(fail=True)
+        self.user_logout()
+    
+    def test_delete_category_authorized(self):
+        """Test deleting a category by an authorized user"""
+        
+        self.user_login()
+        self.delete_category()
+        self.user_logout()
+    

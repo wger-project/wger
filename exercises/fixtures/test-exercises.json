@@ -62,6 +62,14 @@
             "name": "Yet another category", 
             "language": 2
         }
+    },
+    {
+        "pk": 4, 
+        "model": "exercises.exercisecategory", 
+        "fields": {
+            "name": "I will be deleted", 
+            "language": 1
+        }
     }, 
     {
         "pk": 1, 
