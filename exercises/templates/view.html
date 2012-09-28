@@ -9,6 +9,12 @@
 <script src="{% static "js/workout-manager.js" %}"></script>
 
 <script>
+function custom_modal_init()
+{
+    // Set up the tinyMCE editor on modal dialogs
+    init_tinymce();
+}
+
 $(document).ready(function() {
 	
 	// Init the modal dialog to edit the exercise

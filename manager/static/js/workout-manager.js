@@ -216,9 +216,6 @@ function form_modal_dialog()
         var targetUrl = $(this).attr("href");
 
         $("#ajax-info").load(targetUrl + " .ym-form", function() {
-            // Initialise the WYSIWYG editor
-            init_tinymce();
-            
             // Call other custom initialisation functions
             // (e.g. if the form as an autocompleter, it has to be initialised again)
             if (typeof custom_modal_init != "undefined")
