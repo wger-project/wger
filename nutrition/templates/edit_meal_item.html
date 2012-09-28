@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load staticfiles %}
 
-{% block title %}{% trans "Edit meal" %}{% endblock %}
+{% block title %}{% trans "Edit meal item" %}{% endblock %}
 
 
 {% block header %}
@@ -21,7 +21,7 @@ $(document).ready(function() {
 
 {% block content %}
 
-<h2>{% trans "Edit meal" %}</h2>
+<h2>{% trans "Edit meal item" %}</h2>
 
 <form action="{% url nutrition.views.edit_meal_item plan.id meal.id meal_item.id%}{% if js_active %}?js=on{% endif %}"
       method="post"

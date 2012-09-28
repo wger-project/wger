@@ -2,12 +2,12 @@
 {% load i18n %}
 {% load staticfiles %}
 
-{% block title %}{% trans "Edit meal" %}{% endblock %}
+{% block title %}{% trans "Edit nutritional plan" %}{% endblock %}
 
 
 {% block content %}
 
-<h2>{% trans "Edit meal" %}</h2>
+<h2>{% trans "Edit nutritional plan" %}</h2>
 
 <form action="{% url nutrition.views.edit_plan plan.id %}"
       method="post"
