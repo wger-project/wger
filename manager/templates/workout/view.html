@@ -7,8 +7,14 @@
 
 {% block header %}
 <script src="{% static 'js/jquery-ui.js' %}"></script>
+<script src="{% static 'js/jquery.validate.js' %}"></script>
 <script src="{% static 'js/workout-manager.js' %}"></script>
 <script>
+function custom_modal_init()
+{
+    // Set up the edit set functions on modal dialogs
+    init_edit_set();
+}
 
 $(document).ready(function() {	
 	// Allow the sets to be sortable
