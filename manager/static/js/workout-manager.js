@@ -215,7 +215,7 @@ function form_modal_dialog()
         e.preventDefault();
         var targetUrl = $(this).attr("href");
 
-        $("#ajax-info").load(targetUrl + " .ym-form", function() {
+        $("#ajax-info").load(targetUrl + " .ym-form", function(responseText, textStatus) {
             // Call other custom initialisation functions
             // (e.g. if the form as an autocompleter, it has to be initialised again)
             if (typeof custom_modal_init != "undefined")
@@ -223,7 +223,8 @@ function form_modal_dialog()
                 custom_modal_init();
             }
         
-            // Open the dialog
+            // Set its title and open the dialog
+            $("#ajax-info").dialog({title: $(responseText).find("#main-content h2").html()});
             $("#ajax-info").dialog("open");
         });
     });
