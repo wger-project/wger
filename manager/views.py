@@ -352,6 +352,10 @@ def pdf_workout(request, id):
     # Create the PDF object, using the response object as its "file."
     doc = SimpleDocTemplate(response,
                             pagesize = landscape(A4),
+                            leftMargin = cm,
+                            rightMargin = cm,
+                            topMargin = 0.5 * cm,
+                            bottomMargin = 0.5 * cm,
                             title = _('Workout'),
                             author = _('Workout Manager'),
                             subject = _('Workout for %s') % request.user.username)
@@ -359,34 +363,64 @@ def pdf_workout(request, id):
     # container for the 'Flowable' objects
     elements = []
     
+    # stylesheet
     styleSheet = getSampleStyleSheet()
+    
+    # table data, here we will put the workout info
     data = []
     
-    # Iterate through the Workout
+    
+    # Init several counters and markers, this will be used after the iteration to
+    # set different borders and colours
     day_markers = []
-    set_markers = []
-    exercise_markers = []
+    exercise_markers = {}
+    row_count = 1
+    group_exercise_marker = {}
+    group_day_marker = {}
+    
+    # Set the number of weeks for this workout
+    # (sets number of columns for the weight/date log)
     nr_of_weeks = 8
+    
+    # Set the first column of the weight log, depends on design
     first_weight_column = 3
     
     
+    #
+    # Iterate through the Workout
+    #
+    
     # Days
     for day in workout.day_set.select_related():
+        set_count = 1
         day_markers.append(len(data))
+        group_day_marker[day.id] = {'start': row_count, 'end': row_count}
         
-        P = Paragraph('<para align="center"><strong>%s</strong></para>' % day.description,
+        if not exercise_markers.get(day.id):
+            exercise_markers[day.id] = []
+        
+        days_of_week = [_(day_of_week.day_of_week) for day_of_week in day.day.select_related()]
+        
+        P = Paragraph('<para align="center">%(days)s: <strong>%(description)s</strong></para>' %
+                                        {'days' : ' , '.join(days_of_week),
+                                         'description': day.description},
                       styleSheet["Normal"])
         
         data.append([P])
+        data.append(['', '', _('Date')] + [''] * nr_of_weeks)
         data.append([_('Nr.'), _('Exercise'), _('Reps')] + [_('Weight')] * nr_of_weeks)
+        row_count += 3
         
         # Sets
         for set_obj in day.set_set.select_related():
-            set_markers.append(len(data))
+            group_exercise_marker[set_obj.id] = {'start': row_count, 'end': row_count}
             
             # Exercises
             for exercise in set_obj.exercises.select_related():
-                exercise_markers.append(len(data))
+                
+                group_exercise_marker[set_obj.id]['end'] = row_count
+                
+                exercise_markers[day.id].append(row_count)
                 setting_data = []
                 
                 
@@ -400,26 +434,64 @@ def pdf_workout(request, id):
                     
 
                 out = str(set_obj.sets) + 'x ' + ', '.join(setting_data)
-                data.append([set_obj.order, Paragraph(exercise.name, styleSheet["Normal"]), out] + [''] * nr_of_weeks)
+                data.append([set_count, Paragraph(exercise.name, styleSheet["Normal"]), out] + [''] * nr_of_weeks)
+                row_count += 1
+            set_count += 1
+        
         data.append(['', '', _('Impression')])
+        row_count += 1
+        
+        set_count += 1
+        group_day_marker[day.id]['end'] =  row_count
+        
+        #data.append([''])
+        #row_count += 1
     
     # Set general table styles
-    table_style = []
-    table_style = [('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-                   ('BOX', (0,0), (-1,-1), 0.25, colors.black)]
+    table_style = [
+                    ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                    ('BOX', (0,0), (-1,-1), 1.25, colors.black),
+                   ]
     
     # Set specific styles, e.g. background for title cells
     previous_marker = 0
     for marker in day_markers:
         # Set background colour for headings
-        table_style.append(('BACKGROUND', (0, marker), (-1, marker), colors.green))
+        table_style.append(('BACKGROUND', (0, marker), (-1, marker), colors.darkolivegreen))
         table_style.append(('BOX', (0, marker), (-1, marker), 1.25, colors.black))
         
         # Make the headings span the whole width
         table_style.append(('SPAN', (0, marker), (-1, marker)))
 
+    # Combine the cells for exercises on the same set
+    for marker in group_exercise_marker:
+        start_marker = group_exercise_marker[marker]['start'] -1
+        end_marker = group_exercise_marker[marker]['end'] -1
+        
+        table_style.append(('VALIGN',(0, start_marker),(0, end_marker),'MIDDLE'))
+        table_style.append(('SPAN', (0, start_marker), (0, end_marker)))
     
-    #table_style.append
+    # Set an alternating background colour for rows
+    for i in exercise_markers:
+        counter = 1
+        for j in exercise_markers[i]:
+            if not j % 2:
+                table_style.append(('BACKGROUND', (1, j -1), (-1, j -1), colors.lavender))
+            counter += 1
+    
+    
+    # TODO: this only makes sense if the "empty" cells can be made less high
+    #       than the others, otherwise it takes too much space!
+    # Draw borders and grids around the days
+    #for marker in group_day_marker:
+    #    start_marker = group_day_marker[marker]['start']
+    #    end_marker = group_day_marker[marker]['end']
+    #    
+    #    table_style.append(('INNERGRID', (0, start_marker), (-1,end_marker -2 ), 0.25, colors.black))
+    #    table_style.append(('BOX', (0, start_marker), (-1, end_marker -2), 1.25, colors.black))
+        
+    
+    # Set the table data
     t = Table(data, style = table_style)
     
     # Manually set the width of the columns
@@ -427,28 +499,11 @@ def pdf_workout(request, id):
         t._argW[i] = 2.1 * cm
     
     t._argW[0] = 0.7 * cm
-    t._argW[1] = 4 * cm
+    t._argW[1] = 5 * cm
     t._argW[2] = 3 * cm
 
+    # Set the elements to our document
     elements.append(t)
-    #t=Table(data,style=[('GRID',(1,1),(-2,-2),1,colors.green),
-                        #('BOX',(0,0),(1,-1),2,colors.red),
-                        #('LINEABOVE',(1,2),(-2,2),1,colors.blue),
-                        #('LINEBEFORE',(2,1),(2,-2),1,colors.pink),
-                        #('BACKGROUND', (0, 0), (0, 1), colors.pink),
-                        #('BACKGROUND', (1, 1), (1, 2), colors.lavender),
-                        #('BACKGROUND', (2, 2), (2, 3), colors.orange),
-                        #('BOX',(0,0),(-1,-1),2,colors.black),
-                        #('GRID',(0,0),(-1,-1),0.5,colors.black),
-                        #('VALIGN',(3,0),(3,0),'BOTTOM'),
-                        #('BACKGROUND',(3,0),(3,0),colors.limegreen),
-                        #('BACKGROUND',(3,1),(3,1),colors.khaki),
-                        #('ALIGN',(3,1),(3,1),'CENTER'),
-                        #('BACKGROUND',(3,2),(3,2),colors.beige),
-                        #('ALIGN',(3,2),(3,2),'LEFT'),
-    #])
-    #t._argW[3]=1.5*cm
-    
     
     # write the document and send the response to the browser
     doc.build(elements)
