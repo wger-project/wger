@@ -95,7 +95,12 @@ $(document).ready(function() {
                         <span class="settings-list">
                         {% for setting in exercise|get_current_settings:set.id %}
                         	<span id="setting-{{setting.id}}">
-                            {{ setting.reps }}
+                            
+                            {% if setting.reps == 99 %}
+                                 ∞
+                            {%else%}
+                                {{setting.reps}}
+                            {%endif%}
                             {% if not forloop.last %} – {% endif %}
                             </span>
                         {% empty %}

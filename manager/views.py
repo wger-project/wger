@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # This file is part of Workout Manager.
 # 
 # Workout Manager is free software: you can redistribute it and/or modify
@@ -391,7 +393,11 @@ def pdf_workout(request, id):
                 
                 # Settings
                 for setting in exercise.setting_set.filter(set_id = set_obj.id):
-                    setting_data.append(str(setting.reps))
+                    if setting.reps == 99:
+                        repetitions = '∞'
+                    else:
+                        repetitions = str(setting.reps)
+                    setting_data.append(repetitions)
                     
 
                 out = str(set_obj.sets) + 'x ' + ', '.join(setting_data)
