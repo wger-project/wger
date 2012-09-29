@@ -25,27 +25,54 @@ function custom_modal_init()
 {
     init_weight_datepicker();
 }
+
+
 $(document).ready(function () {
 
-$.getJSON("/weight/api/get_weight_data/", function(json) {
-    weight_chart(json);
-});
+    // Load the chart data, without arguments this returns all weight entries
+    var date_min = $("#weight_filter_from").val();
+    var date_max = $("#weight_filter_to").val();
+    var filter_data = {}
+    if( date_min  && date_max)
+    {
+        filter_data = {'date_min': date_min,
+                       'date_max': date_max}
+    }
+    
+    $.getJSON("/weight/api/get_weight_data/", filter_data, function(json) {
+        weight_chart(json);
+    });
+    
+    // Add datepickers to the filter elements
+    $("#weight_filter_from").datepicker({ dateFormat: "yy-mm-dd",
+                                          minDate: {{min_date}}
+                                      });
+    $("#weight_filter_to").datepicker({ dateFormat: "yy-mm-dd",
+                                        maxDate: {{max_date}}
+                                     });
+    
+    // Process the filter
+    $("#weight_diagram_refresh").click(function(e) {
+        
+        e.preventDefault();
+        
+        var date_min = $("#weight_filter_from").val();
+        var date_max = $("#weight_filter_to").val();
 
-$("#weight_filter_from").datepicker({ dateFormat: "dd.mm.yy",
-                                      minDate: {{min_date}}
-                                  });
-$("#weight_filter_to").datepicker({ dateFormat: "dd.mm.yy",
-                                    maxDate: {{max_date}}
-                                 });
-
+        $.getJSON("/weight/api/get_weight_data/",
+                    {'date_min': date_min,
+                     'date_max': date_max},
+                     function(json) {
+                        weight_chart(json);
+                });
+        
+        
+    });
+    
     // Init the modal dialog
     form_modal_dialog();
-
-
-
-
-
-//alert(data);
+    
+    
 
 
 });
@@ -91,7 +118,7 @@ $("#weight_filter_to").datepicker({ dateFormat: "dd.mm.yy",
        name="weight_filter_to"
        maxlength="9"
        style="width: 6em;">
-<input class="ajax-form-submit" type="submit" value="{% trans 'Filter' %}">
+<input class="ajax-form-submit" id="weight_diagram_refresh" type="submit" value="{% trans 'Filter' %}">
 
 </form>
 

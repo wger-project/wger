@@ -397,6 +397,10 @@ function weight_chart(data)
         .y1(line.y())
         .y0(y(min_y_value));
     
+    // Reset the content of weight_diagram, otherwise if there is a filter
+    // a new SVG will be appended to it
+    $("#weight_diagram").html("");
+    
     var svg = d3.select("#weight_diagram").append("svg")
         .datum(data)
         .attr("width", width + margin.left + margin.right)
