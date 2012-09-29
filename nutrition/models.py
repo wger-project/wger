@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # This file is part of Workout Manager.
 # 
 # Workout Manager is free software: you can redistribute it and/or modify
