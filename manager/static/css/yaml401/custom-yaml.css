@@ -91,14 +91,12 @@ header h1
 }
 
 /*
- * Style the header
+ * ********************************************
+ * Set some style for the site's design
+ * ********************************************
  */
 header div.ym-wbox
 {
-    background-color: #204A87;
-    border: 1px solid black;
-    border-radius: 6px;
-    margin-bottom: 1em;
     margin-top: 1em;
     
     /* set the application logo as a background */
@@ -108,4 +106,23 @@ header div.ym-wbox
     
     /* make space for the logo */
     padding-left: 100px;
+}
+
+/*
+ * Set a minimum height for the page
+ */
+#main-sidebar{
+    min-height: 35em;
+}
+
+body{
+    background-color: #204A87;
+}
+
+#main{
+    background-color: #FFFFFF;
+}
+
+footer{
+    border-bottom: 1px solid black;
 }
