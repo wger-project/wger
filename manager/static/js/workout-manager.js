@@ -344,3 +344,96 @@ function init_weight_datepicker()
 {
     $( "#id_creation_date" ).datepicker({ dateFormat: "dd.mm.yy" });
 }
+
+
+
+/*
+ * 
+ * D3js functions
+ * 
+ */
+// Simple helper function that simply returns the y component of an entry
+function y_value(d) { return d.y; }
+
+function getDate(d) {
+    return new Date(d);
+}
+
+function weight_chart(data)
+{
+    var minDate = getDate(data[0].x),
+        maxDate = getDate(data[data.length-1].x);
+    
+    var margin = {top: 10, right: 10, bottom: 20, left: 40},
+        width = 600 - margin.left - margin.right,
+        height = 300 - margin.top - margin.bottom;
+    
+    var x = d3.time.scale()
+        .domain([minDate, maxDate])
+        .range([0, width]);
+    
+    var min_y_value = d3.min(data, y_value) - 1;
+    var max_y_value = d3.max(data, y_value) + 1;
+    
+    
+    var y = d3.scale.linear()
+        .domain([min_y_value, max_y_value])
+        .range([height, 0]);
+    
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+        
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left");
+    
+    var line = d3.svg.line()
+        .x(function(d) { return x(getDate(d.x)); })
+        .y(function(d) { return y(d.y); });
+    
+    var area = d3.svg.area()
+        .x(line.x())
+        .y1(line.y())
+        .y0(y(min_y_value));
+    
+    var svg = d3.select("#weight_diagram").append("svg")
+        .datum(data)
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    
+    svg.append("path")
+        .attr("class", "area")
+        .attr("d", area);
+    
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+    
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis);
+    
+    svg.append("path")
+        .attr("class", "line")
+        .attr("d", line);
+    
+    svg.selectAll(".dot")
+        .data(data.filter(function(d) { return d.y; }))
+      .enter().append("circle")
+        .attr("class", "dot")
+        .attr("id", function(d) { return d.id; })
+        .attr("cx", line.x())
+        .attr("cy", line.y())
+        .attr("r", 5);
+    
+    
+    // Make the circles clickable: open their edit dialog
+    $('circle').click(function(e) {
+            entry_id = $(this).attr('id').match(/\d+/);
+            scatterplot_modal_dialog(entry_id);
+        });
+}

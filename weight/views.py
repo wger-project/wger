@@ -28,6 +28,8 @@ from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
+from django.db.models import Min
+from django.db.models import Max
 
 from weight.models import WeightEntry
 
@@ -105,25 +107,45 @@ def overview(request):
         * http://d3js.org/
     """
     template_data = {}
-    weights = WeightEntry.objects.filter(user = request.user)
-    template_data['weights'] = weights
     template_data['active_tab'] = 'weight'
     
-    # Process the data to pass it to the JS libraries to generate an SVG image
-    chart_data = "[\n"
-    
-    for i in weights:
-        chart_data += '{x: "%(month)s/%(day)s/%(year)s", y: %(weight)s, id: %(id)s},\n' % {
-                            'year': i.creation_date.year,
-                            'month': i.creation_date.month,
-                            'day': i.creation_date.day,
-                            'weight': i.weight,
-                            'id': '"entry-%s"' % i.id}
-    
-    chart_data = chart_data.rstrip(',')
-    chart_data += "]"
-    template_data['chart_data'] = chart_data
-    
+    min_date = WeightEntry.objects.filter(user = request.user).aggregate(Min('creation_date'))['creation_date__min']
+    max_date = WeightEntry.objects.filter(user = request.user).aggregate(Max('creation_date'))['creation_date__max']
+    template_data['min_date'] = 'new Date(%(year)s, %(month)s, %(day)s)' % {'year': min_date.year,
+                                                                            'month': min_date.month,
+                                                                            'day': min_date.day}
+    template_data['max_date'] = 'new Date(%(year)s, %(month)s, %(day)s)' % {'year': max_date.year,
+                                                                            'month': max_date.month,
+                                                                            'day': max_date.day}
     return render_to_response('weight_overview.html',
                               template_data,
                               context_instance=RequestContext(request))
+
+@login_required
+def get_weight_data(request):
+    # Process the data to pass it to the JS libraries to generate an SVG image
+    
+    if request.is_ajax():
+        date_min = request.GET.get('date_min', False)
+        date_max = request.GET.get('date_max', True)
+        
+        if date_min and date_max:
+            weights = WeightEntry.objects.filter(user = request.user,
+                                                 creation_date__range=(date_min, date_max))
+        else:
+            weights = WeightEntry.objects.filter(user = request.user)
+        
+        chart_data = []
+        
+        for i in weights:
+            chart_data.append({'x': "%(month)s/%(day)s/%(year)s" % {
+                                    'year': i.creation_date.year,
+                                    'month': i.creation_date.month,
+                                    'day': i.creation_date.day},
+                               'y': i.weight,
+                               'id': i.id})
+        
+        
+        # Return the results to the server
+        mimetype = 'application/json'
+        return HttpResponse(json.dumps(chart_data), mimetype)
