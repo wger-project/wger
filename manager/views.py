@@ -102,18 +102,18 @@ def index(request):
         
         # Format a bit the days so it doesn't have to be done in the template
         week_day_result = []
-        for i, j in DAYS_OF_WEEK_CHOICES:
+        for week in DaysOfWeek.objects.all():
             day_has_workout = False
             for day in current_workout.day_set.select_related():
                 for day_of_week in day.day.select_related():
-                    if day_of_week.id == i:
+                    if day_of_week.id == week.id:
                         day_has_workout = True
-                        week_day_result.append((_(j), day.description, True))
+                        week_day_result.append((_(week.day_of_week), day.description, True))
                         break
                 
                 
             if not day_has_workout:
-                week_day_result.append((_(j), _('Rest day'), False))
+                week_day_result.append((_(week.day_of_week), _('Rest day'), False))
         
         template_data['weekdays'] = week_day_result
         

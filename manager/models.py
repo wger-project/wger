@@ -27,15 +27,6 @@ from exercises.models import Exercise
 
 logger = logging.getLogger('workout_manager.custom')
 
-# Days of the week
-DAYS_OF_WEEK_CHOICES = [(1, _('Monday')),
-                        (2, _('Tuesday')),
-                        (3, _('Wednesday')),
-                        (4, _('Thursday')),
-                        (5, _('Friday')),
-                        (6, _('Saturday')),
-                        (7, _('Sunday'))]
-
 
 class TrainingSchedule(models.Model):
     """Model for a training schedule
