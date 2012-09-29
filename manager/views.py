@@ -41,7 +41,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import PasswordChangeForm
 
-from manager.models import DAYS_OF_WEEK_CHOICES
 from manager.models import DaysOfWeek
 from manager.models import TrainingSchedule
 from manager.models import Day
