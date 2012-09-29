@@ -16,25 +16,25 @@ $(document).ready(function() {
     {% csrf_token %}
     
     <span class="ui-widget">
-    	{% for current_exercise in set.exercises.all %}
-    	{% if current_exercise.id == exercise.id %}
-    	<input type="hidden"
-			   name="current_exercise"
-			   value="{{current_exercise.id}}"
-			   id="set-{{set.id}}-exercercise-id-hidden">
-    	{% endif %}
-    	
-    	<input type="hidden"
-			   name="exercises"
-			   value="{{current_exercise.id}}">
-    	{% endfor%}
-    	
-		
-    	<input type="text"
-    		   name="exercise_name"
-    		   value="{{exercise.name}}"
-    		   class="ajax-form-exercise-list"
-    		   id="set-{{set.id}}-exercercise-id">:
+        {% for current_exercise in set.exercises.all %}
+        {% if current_exercise.id == exercise.id %}
+        <input type="hidden"
+            name="current_exercise"
+               value="{{current_exercise.id}}"
+               id="set-{{set.id}}-exercercise-id-hidden">
+        {% endif %}
+        
+        <input type="hidden"
+               name="exercises"
+               value="{{current_exercise.id}}">
+        {% endfor%}
+        
+        
+        <input type="text"
+               name="exercise_name"
+               value="{{exercise.name}}"
+               class="ajax-form-exercise-list"
+               id="set-{{set.id}}-exercercise-id">:
     </span>
     
     <input type="text" name="sets" value="{{ set.sets }}" maxlength="2" style="width: 2em;">
@@ -42,26 +42,26 @@ $(document).ready(function() {
     
     
     {% for setting in exercise|get_current_settings:set.id %}
-    	<input type="text"
-    	       name="setting-{{setting.id}}"
-    	       value="{{ setting.reps }}"
-    	       maxlength="2"
-    	       style="width: 2em;">
-	{% endfor %}
-	
-	{% for setting in new_settings %}
-    	<input type="text"
-    	       name="new-setting-{{setting}}"
-    	       value=""
-    	       maxlength="2"
-    	       style="width: 2em;">
-	{% endfor %}
-	
+        <input type="text"
+               name="setting-{{setting.id}}"
+               value="{{ setting.reps }}"
+               maxlength="2"
+               style="width: 2em;">
+    {% endfor %}
     
-	<input type="submit"
-	 	   value="{% trans 'Save' %}"
-	 	   class="ajax-form-submit" />
-	<input type="submit"
-   		  value="{% trans 'Cancel' %}"
-   		  class="ajax-form-cancel" />
+    {% for setting in new_settings %}
+        <input type="text"
+               name="new-setting-{{setting}}"
+               value=""
+               maxlength="2"
+               style="width: 2em;">
+    {% endfor %}
+    
+    
+    <input type="submit"
+           value="{% trans 'Save' %}"
+           class="ajax-form-submit" />
+    <input type="submit"
+          value="{% trans 'Cancel' %}"
+          class="ajax-form-cancel" />
 </form>
