@@ -26,20 +26,9 @@ from django.core.urlresolvers import reverse
 from exercises.models import Exercise
 from exercises.models import ExerciseCategory
 
-class WorkoutManagerTestCase(TestCase):
-    fixtures = ['tests-user-data', 'test-exercises', ]
-    
-    def user_login(self, user='admin'):
-        """Login the user, by default as 'admin'
-        """
-        self.client.login(username=user, password='%(user)s%(user)s' % {'user': user})
-        
-    def user_logout(self):
-        """Visit the logout page
-        """
-        self.client.logout()
+from exercises.tests.testcase import WorkoutManagerTestCase
 
-        
+
 class ExerciseIndexTestCase(WorkoutManagerTestCase):
    
     def test_exercise_index(self):
@@ -301,107 +290,3 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         self.user_login()
         self.delete_exercise(fail=False)        
         self.user_logout()
-
-class ExerciseCategoryTestCase(WorkoutManagerTestCase):
-    """Exercise category test case"""
-  
-    def delete_category(self, fail = False):
-        """Helper function to test deleting categories"""
-        
-        # Delete the category
-        count_before =  ExerciseCategory.objects.count()
-        response = self.client.get(reverse('exercises.views.exercise_category_delete',
-                                           kwargs={'id': 4}))
-        count_after = ExerciseCategory.objects.count()
-        
-        # There is a redirect
-        self.assertEqual(response.status_code, 302)
-        
-        # Check the deletion
-        if fail:
-            self.assertEqual(count_before,
-                             count_after,
-                             'Category was deleted by unauthorzed user')
-        else:
-            self.assertTrue(count_before > count_after,
-                            'Category was not deleted by authorized user')
-        
-        
-    def test_delete_category_unauthorized(self):
-        """Test deleting a category by an unauthorized user"""
-        
-        self.user_login('test')
-        self.delete_category(fail=True)
-        self.user_logout()
-    
-    def test_delete_category_anonymous(self):
-        """Test deleting a category by an anonymous user"""
-        
-        self.user_logout()
-        self.delete_category(fail=True)
-        self.user_logout()
-    
-    def test_delete_category_authorized(self):
-        """Test deleting a category by an authorized user"""
-        
-        self.user_login()
-        self.delete_category()
-        self.user_logout()
-    
-    
-    def edit_category(self, fail = False):
-        """Helper function to test editing categories"""
-        
-        category = ExerciseCategory.objects.get(pk = 3)
-        old_name = category.name
-        
-        response = self.client.post(reverse('exercises.views.exercise_category_edit',
-                                           kwargs={'id': 3}),
-                                   {'name': 'A different name'})
-        
-        # There is a redirect
-        self.assertEqual(response.status_code, 302)
-        
-        category = ExerciseCategory.objects.get(pk = 3)
-        new_name = category.name
-        
-        
-        # Did it work
-        if fail:
-            self.assertEqual(old_name,
-                             new_name,
-                             'Category was edited by unauthorzed user')
-        else:
-            self.assertTrue(old_name != new_name,
-                            'Category wasnt deleted by unauthorzed user')
-        
-        
-        # No name
-        if not fail:
-            response = self.client.post(reverse('exercises.views.exercise_category_edit',
-                                           kwargs={'id': 3}),
-                                        {'name': ''})
-
-            self.assertTrue(response.context['category_form'].errors['name'])
-        
-    def test_edit_category_unauthorized(self):
-        """Test deleting a category by an unauthorized user"""
-        
-        self.user_login('test')
-        self.edit_category(fail=True)
-        self.user_logout()
-    
-    def test_edit_category_anonymous(self):
-        """Test deleting a category by an anonymous user"""
-        
-        self.user_logout()
-        self.edit_category(fail=True)
-        self.user_logout()
-    
-    def test_edit_category_authorized(self):
-        """Test deleting a category by an authorized user"""
-        
-        self.user_login()
-        self.edit_category()
-        self.user_logout()
-    
