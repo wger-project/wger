@@ -382,6 +382,7 @@ function weight_chart(data)
     
     var xAxis = d3.svg.axis()
         .scale(x)
+        .ticks(6)
         .orient("bottom");
         
     var yAxis = d3.svg.axis()
