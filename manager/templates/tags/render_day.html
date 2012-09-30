@@ -86,7 +86,7 @@ $(document).ready(function() {
                     <li id="exercise-{{ exercise.id }}">
                         <a href="{% url exercises.views.exercise_view exercise.id %}">{{ exercise }}</a>:
 
-                        {{ set.sets }} x
+                        {{ set.sets }} ×
 
                         {% comment %}
                             get_current_settings only does a exercise.setting_set.filter(set_id=set_id)
