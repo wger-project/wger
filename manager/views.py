@@ -41,6 +41,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import PasswordChangeForm
 
+from workout_manager import get_version
+
 from manager.models import DaysOfWeek
 from manager.models import TrainingSchedule
 from manager.models import Day
@@ -427,7 +429,7 @@ def pdf_workout(request, id):
         
         # Note: the _('Date') will be on the 3rd cell, but since we make a span
         #       over 3 cells, the value has to be on the 1st one
-        data.append([_('Date'), '', ''] + [''] * nr_of_weeks)
+        data.append([_('Date') + ' ', '', ''] + [''] * nr_of_weeks)
         data.append([_('Nr.'), _('Exercise'), _('Reps')] + [_('Weight')] * nr_of_weeks)
         row_count += 3
         
@@ -453,7 +455,14 @@ def pdf_workout(request, id):
                     setting_data.append(repetitions)
                     
 
-                out = str(set_obj.sets) + 'x ' + ', '.join(setting_data)
+                # If there are more than 1 settings, don't output the repetitions
+                # e.g. "4 x 8 8 10 10" is shown only as "8 8 10 10", after all
+                # those 4 sets are not done four times!
+                if len(setting_data) > 1:
+                    out = ', '.join(setting_data)
+                else:
+                    out = str(set_obj.sets) + ' × ' + setting_data[0]
+                
                 data.append([set_count, Paragraph(exercise.name, style), out] + [''] * nr_of_weeks)
                 row_count += 1
             set_count += 1
@@ -475,7 +484,11 @@ def pdf_workout(request, id):
                     ('BOX', (0,0), (-1,-1), 1.25, colors.black),
                     ('FONT', (0, 0), (-1, -1), 'Helvetica'),
                     ('FONTSIZE', (0, 0), (-1, -1), 8),
-                    ('VALIGN',(0, 0),(-1, -1),'MIDDLE')
+                    ('VALIGN',(0, 0),(-1, -1),'MIDDLE'),
+                    ('LEFTPADDING', (0, 0), (-1, -1), 2),
+                    ('RIGHTPADDING', (0, 0), (-1, -1), 0),
+                    ('TOPPADDING', (0, 0), (-1, -1), 3),
+                    ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
                    ]
     
     # Set specific styles, e.g. background for title cells
@@ -484,6 +497,7 @@ def pdf_workout(request, id):
         # Set background colour for headings
         table_style.append(('BACKGROUND', (0, marker), (-1, marker), colors.darkolivegreen))
         table_style.append(('BOX', (0, marker), (-1, marker), 1.25, colors.black))
+        table_style.append(('BOX', (0, marker), (-1, marker + 2), 1.25, colors.black))
         
         # Make the headings span the whole width
         table_style.append(('SPAN', (0, marker), (-1, marker)))
@@ -530,15 +544,33 @@ def pdf_workout(request, id):
     
     # Manually set the width of the columns
     for i in range(first_weight_column, nr_of_weeks + first_weight_column):
-        t._argW[i] = 2 * cm
+        t._argW[i] = 1.8 * cm # Columns for entering the log
     
-    t._argW[0] = 0.6 * cm
-    t._argW[1] = 3.4 * cm
-    t._argW[2] = 2.2 * cm
+    t._argW[0] = 0.6 * cm # Exercise numbering
+    t._argW[1] = 3.5 * cm # Name of exercise
+    t._argW[2] = 1.9 * cm # Repetitions
 
     # Set the elements to our document
     elements.append(t)
     
+    # Footer, add filler paragraph
+    P = Paragraph('<para> </para>', styleSheet["Normal"])
+    elements.append(P)
+    
+    # Print date
+    P = Paragraph('<para align="left">Printed on the <b>%(created)s</b></para>' %
+                        {'created' : workout.creation_date.strftime("%d.%m.%Y")},
+                  styleSheet["Normal"])
+    elements.append(P)
+    
+    # A little advertisement
+    P = Paragraph('<para align="left">%(created)s - v%(version)s</para>' %
+                        {'created' : _("Created with Workout Manager"),
+                         'version': get_version()},
+                  styleSheet["Normal"])
+    elements.append(P)
+    
+
     # write the document and send the response to the browser
     doc.build(elements)
 
