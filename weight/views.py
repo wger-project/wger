@@ -111,12 +111,14 @@ def overview(request):
     
     min_date = WeightEntry.objects.filter(user = request.user).aggregate(Min('creation_date'))['creation_date__min']
     max_date = WeightEntry.objects.filter(user = request.user).aggregate(Max('creation_date'))['creation_date__max']
-    template_data['min_date'] = 'new Date(%(year)s, %(month)s, %(day)s)' % {'year': min_date.year,
-                                                                            'month': min_date.month,
-                                                                            'day': min_date.day}
-    template_data['max_date'] = 'new Date(%(year)s, %(month)s, %(day)s)' % {'year': max_date.year,
-                                                                            'month': max_date.month,
-                                                                            'day': max_date.day}
+    if min_date:
+        template_data['min_date'] = 'new Date(%(year)s, %(month)s, %(day)s)' % {'year': min_date.year,
+                                                                                'month': min_date.month,
+                                                                                'day': min_date.day}
+    if max_date:
+        template_data['max_date'] = 'new Date(%(year)s, %(month)s, %(day)s)' % {'year': max_date.year,
+                                                                                'month': max_date.month,
+                                                                                'day': max_date.day}
     return render_to_response('weight_overview.html',
                               template_data,
                               context_instance=RequestContext(request))
