@@ -870,7 +870,10 @@ def api_edit_set(request):
             # names in the HTML and makes our lifes easier
             new_settings = []
             if diff > 0:
-                new_settings = [uuid.uuid4() for i in range(0, diff)]
+                
+                # Note: use UUIDs version 1 because they are monotonously increasing
+                #       and the order of the fields later is important
+                new_settings = [uuid.uuid1() for i in range(0, diff)]
             template_data['new_settings'] = new_settings
             
             
@@ -899,6 +902,7 @@ def api_edit_set(request):
                 # We don't actually care how hight the counter actually is, as long as the new
                 # settings get a number that puts them at the end
                 order_counter = 1
+                new_settings = []
                 
                 # input fields for settings  'setting-x, setting-y, etc.',
                 #              new settings: 'new-setting-UUID1, new-setting-UUID2, etc.'
@@ -923,17 +927,23 @@ def api_edit_set(request):
                             setting.save()
                             
                     
-                    # new settings, create object and save
+                    # New settings, put in a list, see below
                     if i.startswith('new-setting') and request.POST[i]:
-                        reps = int(request.POST[i])
                         
-                        setting = Setting()
-                        setting.exercise = new_exercise
-                        setting.set = workout_set
-                        setting.reps = reps
-                        setting.order = order_counter
-                        setting.save()
-            
+                        new_settings.append(i)
+                
+                # new settings, sort by name (important to keep the order as
+                # it was inputted in the website),create object and save
+                new_settings.sort()
+                for i in new_settings:
+                    reps = int(request.POST[i])
+                        
+                    setting = Setting()
+                    setting.exercise = new_exercise
+                    setting.set = workout_set
+                    setting.reps = reps
+                    setting.order = order_counter
+                    setting.save()
             
             template_data['exercise'] = exercise
             
