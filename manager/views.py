@@ -478,8 +478,6 @@ def pdf_workout(request, id):
                     ('VALIGN',(0, 0),(-1, -1),'MIDDLE')
                    ]
     
-    logger.debug(group_day_marker)
-    
     # Set specific styles, e.g. background for title cells
     previous_marker = 0
     for marker in day_markers:
