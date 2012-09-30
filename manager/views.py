@@ -55,6 +55,7 @@ from nutrition.models import NutritionPlan
 from weight.models import WeightEntry
 
 from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.pagesizes import A4, cm, landscape, portrait
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
 from reportlab.lib import colors
@@ -351,7 +352,8 @@ def pdf_workout(request, id):
     
     # Create the PDF object, using the response object as its "file."
     doc = SimpleDocTemplate(response,
-                            pagesize = landscape(A4),
+                            pagesize = A4,
+                            #pagesize = landscape(A4),
                             leftMargin = cm,
                             rightMargin = cm,
                             topMargin = 0.5 * cm,
@@ -365,6 +367,21 @@ def pdf_workout(request, id):
     
     # stylesheet
     styleSheet = getSampleStyleSheet()
+    
+    style = ParagraphStyle(
+        name = 'Normal',
+        #fontName='Helvetica-Bold',
+        fontSize = 8,
+        )
+    
+    # Set the widths and heights of rows and columns
+    # TODO: if the height is set here, there is no automatic scaling when e.g.
+    #       the exercise names are too long. This should be fixed, till then set
+    #       to None for automatic scaling
+    #rowheights = (13)
+    colwidths = None
+    rowheights = None
+    
     
     # table data, here we will put the workout info
     data = []
@@ -380,7 +397,7 @@ def pdf_workout(request, id):
     
     # Set the number of weeks for this workout
     # (sets number of columns for the weight/date log)
-    nr_of_weeks = 8
+    nr_of_weeks = 7
     
     # Set the first column of the weight log, depends on design
     first_weight_column = 3
@@ -402,7 +419,7 @@ def pdf_workout(request, id):
         days_of_week = [_(day_of_week.day_of_week) for day_of_week in day.day.select_related()]
         
         P = Paragraph('<para align="center">%(days)s: <strong>%(description)s</strong></para>' %
-                                        {'days' : ' , '.join(days_of_week),
+                                        {'days' : ', '.join(days_of_week),
                                          'description': day.description},
                       styleSheet["Normal"])
         
@@ -437,7 +454,7 @@ def pdf_workout(request, id):
                     
 
                 out = str(set_obj.sets) + 'x ' + ', '.join(setting_data)
-                data.append([set_count, Paragraph(exercise.name, styleSheet["Normal"]), out] + [''] * nr_of_weeks)
+                data.append([set_count, Paragraph(exercise.name, style), out] + [''] * nr_of_weeks)
                 row_count += 1
             set_count += 1
         
@@ -456,6 +473,9 @@ def pdf_workout(request, id):
     table_style = [
                     ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                     ('BOX', (0,0), (-1,-1), 1.25, colors.black),
+                    ('FONT', (0, 0), (-1, -1), 'Helvetica'),
+                    ('FONTSIZE', (0, 0), (-1, -1), 8),
+                    ('VALIGN',(0, 0),(-1, -1),'MIDDLE')
                    ]
     
     logger.debug(group_day_marker)
@@ -492,31 +512,31 @@ def pdf_workout(request, id):
             counter += 1
     
     
-    # TODO: this only makes sense if the "empty" cells can be made less high
-    #       than the others, otherwise it takes too much space!
-    # Draw borders and grids around the days
+    # Make the 'impression' span 3 cells and align it to the right
     for marker in group_day_marker:
         start_marker = group_day_marker[marker]['start']
         end_marker = group_day_marker[marker]['end']
         
-        # Make the impression span 3 cells and align it to the right
         table_style.append(('ALIGN', (0, end_marker - 2), (2, end_marker - 2), 'RIGHT'))
-        table_style.append(('SPAN', (0, end_marker - 2), (2, end_marker - 2)))
+    
+    #  TODO: this only makes sense if the "empty" cells can be made less high
+    #       than the others, otherwise it takes too much space!
+    # Draw borders and grids around the daystable_style.append(('SPAN', (0, end_marker - 2), (2, end_marker - 2)))
     #    
     #    table_style.append(('INNERGRID', (0, start_marker), (-1,end_marker -2 ), 0.25, colors.black))
     #    table_style.append(('BOX', (0, start_marker), (-1, end_marker -2), 1.25, colors.black))
         
     
     # Set the table data
-    t = Table(data, style = table_style)
+    t = Table(data, colwidths, rowheights, style = table_style)
     
     # Manually set the width of the columns
     for i in range(first_weight_column, nr_of_weeks + first_weight_column):
-        t._argW[i] = 2.3 * cm
+        t._argW[i] = 2 * cm
     
-    t._argW[0] = 0.7 * cm
-    t._argW[1] = 5 * cm
-    t._argW[2] = 3 * cm
+    t._argW[0] = 0.6 * cm
+    t._argW[1] = 3.4 * cm
+    t._argW[2] = 2.2 * cm
 
     # Set the elements to our document
     elements.append(t)
