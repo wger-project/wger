@@ -460,8 +460,8 @@ def pdf_workout(request, id):
         
         # Note: as above with _('Date'), the _('Impression') has to be here on
         #       the 1st cell so it is shown after adding a span
-        data.append([_('Impression'), '', ''])
-        row_count += 1
+        #data.append([_('Impression'), '', ''])
+        #row_count += 1
         
         set_count += 1
         group_day_marker[day.id]['end'] =  row_count
@@ -515,7 +515,7 @@ def pdf_workout(request, id):
         start_marker = group_day_marker[marker]['start']
         end_marker = group_day_marker[marker]['end']
         
-        table_style.append(('ALIGN', (0, end_marker - 2), (2, end_marker - 2), 'RIGHT'))
+        #table_style.append(('ALIGN', (0, end_marker - 2), (2, end_marker - 2), 'RIGHT'))
     
     #  TODO: this only makes sense if the "empty" cells can be made less high
     #       than the others, otherwise it takes too much space!
