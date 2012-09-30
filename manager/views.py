@@ -404,6 +404,13 @@ def pdf_workout(request, id):
     # Set the first column of the weight log, depends on design
     first_weight_column = 3
     
+    # Background color for days
+    # Reportlab doesn't use the HTML hexadecimal format, but has a range of
+    # 0 till 1, so we have to convert here.
+    header_colour = colors.Color(int('73', 16) / 255.0,
+                                 int('8a', 16) / 255.0,
+                                 int('5f', 16) / 255.0)
+    
     
     #
     # Iterate through the Workout
@@ -495,7 +502,7 @@ def pdf_workout(request, id):
     previous_marker = 0
     for marker in day_markers:
         # Set background colour for headings
-        table_style.append(('BACKGROUND', (0, marker), (-1, marker), colors.darkolivegreen))
+        table_style.append(('BACKGROUND', (0, marker), (-1, marker), header_colour))
         table_style.append(('BOX', (0, marker), (-1, marker), 1.25, colors.black))
         table_style.append(('BOX', (0, marker), (-1, marker + 2), 1.25, colors.black))
         
