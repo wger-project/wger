@@ -90,7 +90,10 @@ class Set(models.Model):
 
     exerciseday = models.ForeignKey(Day, verbose_name = _('Exercise day'))
     exercises = models.ManyToManyField(Exercise, verbose_name = _('Exercises'))
-    order = models.IntegerField(max_length = 1, blank = True, verbose_name = _('Order'))
+    order = models.IntegerField(max_length = 1,
+                                blank = True,
+                                null = True,
+                                verbose_name = _('Order'))
     sets = models.IntegerField(validators = [MaxValueValidator(6)], verbose_name = _('Sets'))
     
     # Metaclass to set some other properties
