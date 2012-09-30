@@ -407,7 +407,10 @@ def pdf_workout(request, id):
                       styleSheet["Normal"])
         
         data.append([P])
-        data.append(['', '', _('Date')] + [''] * nr_of_weeks)
+        
+        # Note: the _('Date') will be on the 3rd cell, but since we make a span
+        #       over 3 cells, the value has to be on the 1st one
+        data.append([_('Date'), '', ''] + [''] * nr_of_weeks)
         data.append([_('Nr.'), _('Exercise'), _('Reps')] + [_('Weight')] * nr_of_weeks)
         row_count += 3
         
@@ -438,7 +441,9 @@ def pdf_workout(request, id):
                 row_count += 1
             set_count += 1
         
-        data.append(['', '', _('Impression')])
+        # Note: as above with _('Date'), the _('Impression') has to be here on
+        #       the 1st cell so it is shown after adding a span
+        data.append([_('Impression'), '', ''])
         row_count += 1
         
         set_count += 1
@@ -453,6 +458,8 @@ def pdf_workout(request, id):
                     ('BOX', (0,0), (-1,-1), 1.25, colors.black),
                    ]
     
+    logger.debug(group_day_marker)
+    
     # Set specific styles, e.g. background for title cells
     previous_marker = 0
     for marker in day_markers:
@@ -462,6 +469,11 @@ def pdf_workout(request, id):
         
         # Make the headings span the whole width
         table_style.append(('SPAN', (0, marker), (-1, marker)))
+        
+        # Make the date span 3 cells and align it to the right
+        table_style.append(('ALIGN', (0, marker + 1), (2, marker +1), 'RIGHT'))
+        table_style.append(('SPAN', (0, marker +1), (2, marker + 1)))
+        
 
     # Combine the cells for exercises on the same set
     for marker in group_exercise_marker:
@@ -483,9 +495,13 @@ def pdf_workout(request, id):
     # TODO: this only makes sense if the "empty" cells can be made less high
     #       than the others, otherwise it takes too much space!
     # Draw borders and grids around the days
-    #for marker in group_day_marker:
-    #    start_marker = group_day_marker[marker]['start']
-    #    end_marker = group_day_marker[marker]['end']
+    for marker in group_day_marker:
+        start_marker = group_day_marker[marker]['start']
+        end_marker = group_day_marker[marker]['end']
+        
+        # Make the impression span 3 cells and align it to the right
+        table_style.append(('ALIGN', (0, end_marker - 2), (2, end_marker - 2), 'RIGHT'))
+        table_style.append(('SPAN', (0, end_marker - 2), (2, end_marker - 2)))
     #    
     #    table_style.append(('INNERGRID', (0, start_marker), (-1,end_marker -2 ), 0.25, colors.black))
     #    table_style.append(('BOX', (0, start_marker), (-1, end_marker -2), 1.25, colors.black))
@@ -496,7 +512,7 @@ def pdf_workout(request, id):
     
     # Manually set the width of the columns
     for i in range(first_weight_column, nr_of_weeks + first_weight_column):
-        t._argW[i] = 2.1 * cm
+        t._argW[i] = 2.3 * cm
     
     t._argW[0] = 0.7 * cm
     t._argW[1] = 5 * cm
