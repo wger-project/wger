@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-14 21:42+0200\n"
+"POT-Creation-Date: 2012-10-01 09:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,125 +18,137 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: models.py:30
+#: models.py:38
 msgid "User"
 msgstr "Benutzer"
 
-#: models.py:31 models.py:55
+#: models.py:39 models.py:89
 msgid "Language"
 msgstr "Sprache"
 
-#: models.py:32
+#: models.py:40
 msgid "Creation date"
 msgstr "Erstellungsdatum"
 
-#: models.py:35
+#: models.py:43
 msgid "Description"
 msgstr "Beschreibung"
 
-#: models.py:36
+#: models.py:44
 msgid ""
 "A description of the goal of the plan, e.g. \"Gain mass\" or \"Prepare for "
 "summer\""
 msgstr ""
 "Eine Beschreibung des Ernährungplanes, z.B. \"Vorbereitung für den Sommer\""
 
-#: models.py:53
+#: models.py:87
 msgid "Name"
 msgstr ""
 
-#: models.py:58 templates/view_ingredient.html:41
-#: templates/view_nutrition_plan.html:161
+#: models.py:92 templates/view_ingredient.html:41
+#: templates/view_nutrition_plan.html:188
 msgid "Energy"
 msgstr "Energie"
 
-#: models.py:59
+#: models.py:93
 msgid "In kcal per 100g"
 msgstr "In kcal pro 100g"
 
-#: models.py:62 templates/view_ingredient.html:45
-#: templates/view_nutrition_plan.html:165
+#: models.py:96 templates/view_ingredient.html:45
+#: templates/view_nutrition_plan.html:192
 msgid "Protein"
 msgstr "Eiweiß"
 
-#: models.py:63 models.py:67 models.py:71 models.py:76 models.py:81
+#: models.py:97 models.py:101 models.py:105 models.py:110 models.py:115
 msgid "In g per 100g of product"
 msgstr "In g pro 100g Produkt"
 
-#: models.py:66 templates/view_ingredient.html:49
-#: templates/view_nutrition_plan.html:169
+#: models.py:100 templates/view_ingredient.html:49
+#: templates/view_nutrition_plan.html:196
 msgid "Carbohydrates"
 msgstr "Kohlenhydrate"
 
-#: models.py:70 templates/view_ingredient.html:53
-#: templates/view_nutrition_plan.html:173
+#: models.py:104 templates/view_ingredient.html:53
+#: templates/view_nutrition_plan.html:200
 msgid "Fat"
 msgstr "Fett"
 
-#: models.py:75 templates/view_ingredient.html:74
-#: templates/view_nutrition_plan.html:189
+#: models.py:109 templates/view_ingredient.html:74
+#: templates/view_nutrition_plan.html:216
 msgid "Fibres"
 msgstr "Ballastoffe"
 
-#: models.py:80 templates/view_ingredient.html:78
-#: templates/view_nutrition_plan.html:193
+#: models.py:114 templates/view_ingredient.html:78
+#: templates/view_nutrition_plan.html:220
 msgid "Natrium"
 msgstr "Natrium"
 
-#: models.py:93 models.py:107
+#: models.py:127 models.py:141 templates/nutrition_overview.html:19
 msgid "Nutrition plan"
 msgstr "Ernährungsplan"
 
-#: models.py:94 models.py:108
+#: models.py:128 models.py:142
 msgid "Order"
 msgstr "Reihenfolge"
 
-#: models.py:95
+#: models.py:129
 msgid "Time (approx)"
 msgstr "Uhrzeit (ca.)"
 
-#: models.py:112
+#: models.py:146
 msgid "Amount in gramms"
 msgstr "Menge in Gramm"
 
-#: models.py:121
+#: models.py:155
 msgid "Ingredient"
 msgstr "Zutat"
 
-#: views.py:167
+#: views.py:165
 msgid "Workout"
 msgstr ""
 
-#: views.py:168
+#: views.py:166
 msgid "Workout Manager"
 msgstr ""
 
-#: views.py:169
+#: views.py:167
 #, python-format
 msgid "Nutritional plan %s"
 msgstr "Ernährungplan für %s"
 
 #: templates/edit_ingredient.html:5 templates/edit_ingredient.html.py:10
-#: templates/edit_meal.html:5 templates/edit_meal.html.py:10
-#: templates/edit_meal_item.html:5 templates/edit_meal_item.html.py:24
-#: templates/edit_plan.html:5 templates/edit_plan.html.py:10
-#: templates/view_nutrition_plan.html:69 templates/view_nutrition_plan.html:70
-msgid "Edit meal"
-msgstr "Mahlzeit bearbeiten"
+#: templates/view_ingredient.html:105 templates/view_ingredient.html.py:110
+#: templates/view_ingredient.html:111 templates/view_ingredient.html.py:112
+msgid "Edit ingredient"
+msgstr "Zutat bearbeiten"
 
 #: templates/edit_ingredient.html:26 templates/edit_meal.html:20
 #: templates/edit_meal_item.html:52 templates/edit_plan.html:20
 msgid "Save"
 msgstr ""
 
-#: templates/edit_meal_item.html:40
+#: templates/edit_meal.html:5 templates/edit_meal.html.py:10
+#: templates/view_nutrition_plan.html:85 templates/view_nutrition_plan.html:86
+msgid "Edit meal"
+msgstr "Mahlzeit bearbeiten"
+
+#: templates/edit_meal_item.html:5 templates/edit_meal_item.html.py:24
 #, fuzzy
+msgid "Edit meal item"
+msgstr "Mahlzeit bearbeiten"
+
+#: templates/edit_meal_item.html:40
 msgid "Ingredient name"
-msgstr "Zutat"
+msgstr "Name der Zutat"
+
+#: templates/edit_plan.html:5 templates/edit_plan.html.py:10
+msgid "Edit nutritional plan"
+msgstr "Ernährungplan bearbeiten"
 
 #: templates/ingredient_overview.html:5 templates/ingredient_overview.html:20
-#: templates/view_nutrition_plan.html:231
-#: templates/view_nutrition_plan.html:232
+#: templates/view_nutrition_plan.html:267
+#: templates/view_nutrition_plan.html:268
+#: templates/view_nutrition_plan.html:269
 msgid "Ingredient overview"
 msgstr "Zutatenübersicht"
 
@@ -144,9 +156,9 @@ msgstr "Zutatenübersicht"
 msgid "No ingredients."
 msgstr "Keine Zutaten"
 
-#: templates/ingredient_overview.html:30 templates/nutrition_overview.html:20
-#: templates/view_nutrition_plan.html:115
-#: templates/view_nutrition_plan.html:124
+#: templates/ingredient_overview.html:30 templates/nutrition_overview.html:27
+#: templates/view_nutrition_plan.html:131
+#: templates/view_nutrition_plan.html:140
 msgid "Use link to add one."
 msgstr ""
 
@@ -158,121 +170,126 @@ msgstr "Zutat hinzufügen"
 msgid "Search results"
 msgstr ""
 
-#: templates/nutrition_overview.html:5
-msgid "Nutrition overview"
-msgstr "Ernährungsübersicht"
-
-#: templates/nutrition_overview.html:10
+#: templates/nutrition_overview.html:5 templates/nutrition_overview.html:10
 msgid "Your nutrition plans"
 msgstr "Ihre ernährungspläne"
 
-#: templates/nutrition_overview.html:20
+#: templates/nutrition_overview.html:27
 msgid "No nutrition plans."
 msgstr "Keine Ernährungspläne"
 
-#: templates/nutrition_overview.html:26
+#: templates/nutrition_overview.html:36 templates/view_ingredient.html:89
+#: templates/view_nutrition_plan.html:228
+msgid "Options"
+msgstr ""
+
+#: templates/nutrition_overview.html:42 templates/nutrition_overview.html:43
+#: templates/nutrition_overview.html:44
 msgid "Add nutrition plan"
 msgstr "Ernährungsplan hinzufügen"
 
-#: templates/view_ingredient.html:30 templates/view_nutrition_plan.html:155
-#, fuzzy
+#: templates/view_ingredient.html:30 templates/view_nutrition_plan.html:182
 msgid "Macronutrients"
-msgstr "Inhalt"
+msgstr "Makronährstoffe"
 
-#: templates/view_ingredient.html:63 templates/view_nutrition_plan.html:183
+#: templates/view_ingredient.html:63 templates/view_nutrition_plan.html:210
 msgid "Others"
-msgstr ""
-
-#: templates/view_ingredient.html:89 templates/view_nutrition_plan.html:201
-msgid "Options"
-msgstr ""
+msgstr "Andere"
 
 #: templates/view_ingredient.html:93 templates/view_ingredient.html.py:97
 #: templates/view_ingredient.html:98 templates/view_ingredient.html.py:99
 msgid "Delete ingredient"
 msgstr "Zutat entfernen"
 
-#: templates/view_ingredient.html:105 templates/view_ingredient.html.py:110
-#: templates/view_ingredient.html:111 templates/view_ingredient.html.py:112
-msgid "Edit ingredient"
-msgstr "Zutat bearbeiten"
-
-#: templates/view_nutrition_plan.html:5 templates/view_nutrition_plan.html:34
+#: templates/view_nutrition_plan.html:5 templates/view_nutrition_plan.html:47
 msgid "Details for nutrition plan"
 msgstr "Details für Ernährungsplan"
 
-#: templates/view_nutrition_plan.html:43
+#: templates/view_nutrition_plan.html:51
+msgid "Goal"
+msgstr ""
+
+#: templates/view_nutrition_plan.html:59
 msgid "Meal"
 msgstr "Mahlzeit"
 
-#: templates/view_nutrition_plan.html:44
+#: templates/view_nutrition_plan.html:60
 msgid "Contents"
 msgstr "Inhalt"
 
-#: templates/view_nutrition_plan.html:51
+#: templates/view_nutrition_plan.html:67
 msgid "Nr."
 msgstr ""
 
-#: templates/view_nutrition_plan.html:56 templates/view_nutrition_plan.html:97
-#: templates/view_nutrition_plan.html:101
+#: templates/view_nutrition_plan.html:72
+#: templates/view_nutrition_plan.html:113
+#: templates/view_nutrition_plan.html:117
 msgid "Delete"
 msgstr ""
 
-#: templates/view_nutrition_plan.html:60 templates/view_nutrition_plan.html:61
+#: templates/view_nutrition_plan.html:76 templates/view_nutrition_plan.html:77
 msgid "Delete meal"
 msgstr "Mahlzeit löschen"
 
-#: templates/view_nutrition_plan.html:64
-#: templates/view_nutrition_plan.html:104
-#: templates/view_nutrition_plan.html:109
+#: templates/view_nutrition_plan.html:80
+#: templates/view_nutrition_plan.html:120
+#: templates/view_nutrition_plan.html:125
 msgid "Edit"
 msgstr ""
 
-#: templates/view_nutrition_plan.html:73
+#: templates/view_nutrition_plan.html:89
 msgid "Add"
 msgstr ""
 
-#: templates/view_nutrition_plan.html:78 templates/view_nutrition_plan.html:79
+#: templates/view_nutrition_plan.html:94 templates/view_nutrition_plan.html:95
 msgid "Add item to meal"
 msgstr ""
 
-#: templates/view_nutrition_plan.html:115
+#: templates/view_nutrition_plan.html:131
 msgid "No items for this meal."
 msgstr ""
 
-#: templates/view_nutrition_plan.html:124
+#: templates/view_nutrition_plan.html:140
 msgid "No meals for this plan."
 msgstr "Keine Mahlzeiten für diesen Ernährungsplan"
 
-#: templates/view_nutrition_plan.html:134
-#: templates/view_nutrition_plan.html:135
-#: templates/view_nutrition_plan.html:136
+#: templates/view_nutrition_plan.html:150
+#: templates/view_nutrition_plan.html:151
+#: templates/view_nutrition_plan.html:152
 msgid "Add a new meal"
 msgstr "Neue Mahlzeit hinzufügen"
 
-#: templates/view_nutrition_plan.html:138
+#: templates/view_nutrition_plan.html:154
 msgid "After adding, edit to set the time."
 msgstr "Nach dem Hinzufügen, bearbeiten um die Uhrzeit zu setzen."
 
-#: templates/view_nutrition_plan.html:150
+#: templates/view_nutrition_plan.html:162
+msgid ""
+"If you find the ingredient list too short, you might want to activate the "
+"preference to also show English ingredients."
+msgstr ""
+
+#: templates/view_nutrition_plan.html:163
+msgid "That's done here"
+msgstr "Das wird hier gemacht"
+
+#: templates/view_nutrition_plan.html:167
+#: templates/view_nutrition_plan.html:257
+#: templates/view_nutrition_plan.html:258
+msgid "Delete nutrition plan"
+msgstr "Ernährungplan löschen"
+
+#: templates/view_nutrition_plan.html:177
 msgid "Nutritional data"
 msgstr "Ernährungswerte"
 
-#: templates/view_nutrition_plan.html:208
-#: templates/view_nutrition_plan.html:209
-msgid "Edit nutrition plan"
-msgstr "Ernährungplan bearbeiten"
-
-#: templates/view_nutrition_plan.html:219
-#: templates/view_nutrition_plan.html:220
-#: templates/view_nutrition_plan.html:221
+#: templates/view_nutrition_plan.html:235
+#: templates/view_nutrition_plan.html:236
+#: templates/view_nutrition_plan.html:237
 msgid "Download as PDF"
 msgstr ""
 
-#: templates/view_nutrition_plan.html:230
-#, fuzzy
-msgid "Ingrdient overview"
-msgstr "Zutatenübersicht"
-
-#~ msgid "Amount (freetext)"
-#~ msgstr "Menge (Freitext)"
+#: templates/view_nutrition_plan.html:247
+#: templates/view_nutrition_plan.html:248
+msgid "Edit nutrition plan"
+msgstr "Ernährungplan bearbeiten"

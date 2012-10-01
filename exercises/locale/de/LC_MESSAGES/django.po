@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-14 21:42+0200\n"
+"POT-Creation-Date: 2012-10-01 09:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,48 +18,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: models.py:24
+#: models.py:26
 msgid "Language short name"
 msgstr "Name der Sprache - lang"
 
-#: models.py:27
+#: models.py:29
 msgid "Language full name"
 msgstr "Name der Sprache - kurz"
 
-#: models.py:40 models.py:58 models.py:80
+#: models.py:42 models.py:60 models.py:82
 msgid "Name"
 msgstr "Name"
 
-#: models.py:59
+#: models.py:61
 msgid "Language"
 msgstr "Sprache"
 
-#: models.py:63
+#: models.py:65
 msgid "Exercise Categories"
 msgstr "Kategorie Übung"
 
-#: models.py:76 templates/view.html:33
+#: models.py:78 templates/view.html:39
 msgid "Category"
 msgstr "Kategorie"
 
-#: models.py:79
+#: models.py:81
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
-#: models.py:82 templates/view.html:94
+#: models.py:84 templates/view.html:102
 msgid "Muscles"
-msgstr ""
+msgstr "Muskeln"
 
-#: models.py:96
-#, fuzzy
+#: models.py:98
 msgid "Exercise"
-msgstr "Neue Übung"
-
-#: models.py:99
-msgid "Comment"
-msgstr ""
+msgstr "Übung"
 
 #: models.py:100
+msgid "Comment"
+msgstr "Kommentar"
+
+#: models.py:101
 msgid "Some comment about how to correctly do this exercise"
 msgstr "Ein Kommenter über die korrekte Durchführung der Übung "
 
@@ -68,8 +67,8 @@ msgid "Category details"
 msgstr "Kategoriedetails"
 
 #: templates/edit_category.html:16 templates/edit_exercise.html:27
-#: templates/overview.html:108 templates/view.html:61
-#: templates/view.html.py:126 templates/view.html:128
+#: templates/overview.html:108 templates/view.html:67
+#: templates/view.html.py:134 templates/view.html:136
 msgid "Edit"
 msgstr ""
 
@@ -78,7 +77,7 @@ msgid "New category"
 msgstr "Neue Kategorie"
 
 #: templates/edit_category.html:30 templates/edit_exercise.html:45
-#: templates/view.html:51 templates/view.html.py:81
+#: templates/view.html:57 templates/view.html.py:88
 msgid "Save"
 msgstr ""
 
@@ -92,12 +91,11 @@ msgstr "Neue Übung"
 
 #: templates/exercise_search.html:7 templates/exercise_search.html.py:15
 msgid "Search results"
-msgstr ""
+msgstr "Suchergebnisse"
 
 #: templates/overview.html:8 templates/overview.html.py:76
-#, fuzzy
 msgid "Exercises"
-msgstr "Übungsdetails"
+msgstr "Übungen"
 
 #: templates/overview.html:54
 msgid "Confirm"
@@ -105,7 +103,7 @@ msgstr "Bestätigen"
 
 #: templates/overview.html:57
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: templates/overview.html:78
 msgid "Really delete exercise?"
@@ -121,17 +119,15 @@ msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
 
 #: templates/overview.html:91
-#, fuzzy
 msgid "No categories."
-msgstr "Neue Kategorie"
+msgstr "Keine Kategorien."
 
 #: templates/overview.html:91
-#, fuzzy
 msgid "Use link to create one"
 msgstr "Benutzen Sie den Verweis zum Hinzufügen"
 
-#: templates/overview.html:112 templates/view.html:60
-#: templates/view.html.py:136 templates/view.html:137
+#: templates/overview.html:112 templates/view.html:66
+#: templates/view.html.py:144 templates/view.html:145
 msgid "Delete"
 msgstr ""
 
@@ -142,7 +138,7 @@ msgstr ""
 "Keine Übungen in dieser Kategorie. Editiere oder füge eine neue Übung hinzu "
 "und setze die Kategorie"
 
-#: templates/overview.html:143 templates/view.html:119
+#: templates/overview.html:143 templates/view.html:127
 msgid "Options"
 msgstr ""
 
@@ -164,18 +160,18 @@ msgstr ""
 msgid "Use the search box to search the name of any exercise."
 msgstr "Benutzen Sie die Suchmaske um nach Übungsnamen zu suchen."
 
-#: templates/view.html:40
+#: templates/view.html:46
 msgid "All comments for this exercise"
 msgstr "Alle Kommentare für diese Übung"
 
-#: templates/view.html:68
+#: templates/view.html:74
 msgid "Sorry, no comments for this exercise yet!"
 msgstr "Tut mir leid, keine Kommentare für diese Übung!"
 
-#: templates/view.html:75
+#: templates/view.html:82
 msgid "Add new comment"
 msgstr "Kommentar hinzufügen"
 
-#: templates/view.html:96
+#: templates/view.html:104
 msgid "The diagram shows the most used muscles on this exercise"
-msgstr ""
+msgstr "Das diagram zeigt die meistbeanspruchten Muskeln"
