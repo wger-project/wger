@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-01 09:18+0200\n"
+"POT-Creation-Date: 2012-10-01 18:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,19 +97,16 @@ msgid "Also use ingredients in English"
 msgstr "Auch Zutaten auf Englisch anzeigen"
 
 #: models.py:146
-#, fuzzy
 msgid ""
 "Check to also show ingredients in English while creating\n"
-"a nutritional plan. These ingredients are extracted from a list provided by "
-"the US Department\n"
-"of Agriculture. It is extremely complete, with around 7000 entries, but can "
-"be somewhat\n"
-"overwhelming and make the search difficult."
+"a nutritional plan. These ingredients are extracted from a list provided\n"
+"by the US Department of Agriculture. It is extremely complete, with around\n"
+"7000 entries, but can be somewhat overwhelming and make the search difficult."
 msgstr ""
 "Auswählen, um auch Zutaten auf englisch anzuzeigen beim erstellen eines "
-"Ernährungsplanes. Diese Zutaten stammen aus einer Liste des "
-"amerikanischenLandwirtschaftsministerium. Diese hat etwa 7000 Einträge und "
-"ist extremvollständig, kann aber die Suche etwas unübersichtlich machen."
+"Ernährungsplanes. Diese Zutaten stammen aus einer Liste des amerikanischen "
+"Landwirtschaftsministerium. Diese hat etwa 7000 Einträge und ist extrem "
+"vollständig, kann aber die Suche etwas unübersichtlich machen."
 
 #: views.py:118
 msgid "Rest day"
@@ -293,7 +290,7 @@ msgid "Edit"
 msgstr "Bearbeiten"
 
 #: templates/day/edit.html:26 templates/set/edit.html:59
-#: templates/setting/ajax_edit.html:62 templates/setting/edit.html:32
+#: templates/setting/ajax_edit.html:71 templates/setting/edit.html:32
 #: templates/user/preferences.html:21 templates/workout/edit.html:25
 msgid "Save"
 msgstr ""
@@ -302,7 +299,7 @@ msgstr ""
 msgid "Set details"
 msgstr "Details für Satz"
 
-#: templates/setting/ajax_edit.html:65
+#: templates/setting/ajax_edit.html:74
 msgid "Cancel"
 msgstr "Abbrechen"
 
