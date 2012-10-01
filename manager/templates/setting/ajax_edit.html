@@ -37,8 +37,16 @@ $(document).ready(function() {
                id="set-{{set.id}}-exercercise-id">:
     </span>
     
-    <input type="text" name="sets" value="{{ set.sets }}" maxlength="2" style="width: 2em;">
-    x
+    {% comment %}
+        TODO: see if there is a better way to show and edit the sets
+              for an exercise. The way this worked, a user had to change the sets,
+              save, and edit again. Not very user friendly.
+    {% endcomment%}
+    <input type="hidden" name="sets" value="{{ set.sets }}" maxlength="2" style="width: 2em;">
+    <!--
+    {{ set.sets }}
+    ×
+    -->
     
     
     {% for setting in exercise|get_current_settings:set.id %}
