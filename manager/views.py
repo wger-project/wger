@@ -565,8 +565,8 @@ def pdf_workout(request, id):
     elements.append(P)
     
     # Print date
-    P = Paragraph('<para align="left">Printed on the <b>%(created)s</b></para>' %
-                        {'created' : workout.creation_date.strftime("%d.%m.%Y")},
+    P = Paragraph('<para align="left">%(created)s</para>' %
+                        {'created' : _("Printed on the <b>%s</b>") % workout.creation_date.strftime("%d.%m.%Y")},
                   styleSheet["Normal"])
     elements.append(P)
     
