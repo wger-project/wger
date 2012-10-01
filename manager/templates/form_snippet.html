@@ -15,6 +15,6 @@
             {% endfor %}
         </div>
         
-        {% if field.help_text %}<p class="dimmed">{{ field.help_text }}</p>{% endif %}
+        {% if field.help_text %}<p class="dimmed">{% trans field.help_text %}</p>{% endif %}
     </td>
 </tr>
