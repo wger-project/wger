@@ -9,27 +9,29 @@
 
 <h2>{% trans "Your nutrition plans" %}</h2>
 
-<ul>
-{% for plan in plans %}
-    <li>
-        <a href="{% url nutrition.views.view plan.id %}">
-            {% if plan.description %}
-                {{ plan.description }}
-            {% else %}
-                {% trans "Nutrition plan" %}
-            {% endif %}
-        </a>
-        – {{ plan.creation_date }} 
-    </li>
-{% empty %}
-    <li>
-        <div class="box warning">
-            {% trans "No nutrition plans." %} {% trans "Use link to add one." %}
-        </div>
-    </li>
-{% endfor %}
-</ul>
+{% if plans %}
+    <ul>
+    {% for plan in plans %}
+        <li>
+            <a href="{% url nutrition.views.view plan.id %}">
+                {% if plan.description %}
+                    {{ plan.description }}
+                {% else %}
+                    {% trans "Nutrition plan" %}
+                {% endif %}
+            </a>
+            – {{ plan.creation_date }} 
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <div class="box warning">
+        {% trans "No nutrition plans." %} {% trans "Use link to add one." %}
+    </div>
+{% endif %}
+
 {% endblock %}
+
 
 
 {% block sidebar%}
