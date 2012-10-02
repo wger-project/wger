@@ -14,6 +14,12 @@
 <script src="{% static 'js/tinymce/tiny_mce.js' %}"></script>
 <script src="{% static 'js/workout-manager.js' %}"></script>
 <script>
+
+function custom_modal_init()
+{
+    init_tinymce();
+}
+
 $(document).ready(function() {
 	
 	form_modal_dialog();
