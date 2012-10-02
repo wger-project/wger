@@ -19,20 +19,32 @@ $(document).ready(function() {
 
 <h2>{% trans "Ingredient overview" %}</h2>
 
+{% if ingredients %}
 <ul>
 {% for ingredient in ingredients %}
     <li>
         <a href="{% url nutrition.views.ingredient_view ingredient.id %}">{{ ingredient.name }}</a>
     </li>
-{% empty %}
-    <li>
-        <div class="box warning">
-            {% trans "No ingredients." %} {% trans "Use link to add one." %}
-        </div>
-    </li>
 {% endfor %}
 </ul>
+{% else %}
+    <div class="box warning">
+        {% trans "No ingredients." %} {% trans "Use link to add one." %}
+    </div>
+{% endif %}
 
-<a href="{% url nutrition.views.ingredient_edit None %}"
-   class="modal-dialog">{% trans "Add ingredient" %}</a>
+{% endblock %}
+
+{% block sidebar %}
+<h3>{% trans "Options" %}</h3>
+<p>
+    <a href="{% url nutrition.views.ingredient_edit None %}">
+       <img src="{% static 'images/icons/new.svg' %}"
+            width="32"
+            height="32"
+            alt="{% trans 'Add ingredient' %}"
+            title="{% trans 'Add ingredient' %}">
+       {% trans "Add ingredient" %}
+       </a>
+</p>
 {% endblock %}
