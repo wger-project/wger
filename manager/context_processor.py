@@ -18,5 +18,9 @@ from workout_manager import get_version
 
 def processor(request):
     return {
-        'version' : get_version()
+        # Application version
+        'version' : get_version(),
+        
+        # Do not track header
+        'DNT': request.META['HTTP_DNT']
     }
