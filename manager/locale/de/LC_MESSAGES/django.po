@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-01 18:18+0200\n"
+"POT-Creation-Date: 2012-10-02 09:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,12 +112,12 @@ msgstr ""
 msgid "Rest day"
 msgstr "Ruhetag"
 
-#: views.py:363 templates/index.html:15 templates/index.html.py:21
-#: templates/workout/overview.html:20
+#: views.py:353 views.py:363 templates/index.html:15
+#: templates/index.html.py:21 templates/workout/overview.html:20
 msgid "Workout"
 msgstr "Trainingsplan"
 
-#: views.py:364
+#: views.py:364 views.py:575
 msgid "Workout Manager"
 msgstr "Trainingsplan Manager"
 
@@ -148,12 +148,8 @@ msgstr "Gewicht"
 
 #: views.py:569
 #, python-format
-msgid "Printed on the <b>%s</b>"
-msgstr "Gedruckt am <b>%s</b>"
-
-#: views.py:575
-msgid "Created with Workout Manager"
-msgstr "Erstellt mit Trainingsplanmanager"
+msgid "Created on the <b>%s</b>"
+msgstr "Erstellt am <b>%s</b>"
 
 #: views.py:654 views.py:664 views.py:885 views.py:1092
 msgid "Success"
@@ -394,7 +390,7 @@ msgid ""
 "Images show combined muscles as trained by the exercises on the workout."
 msgstr ""
 "Das Bild zeigt die kombinierten Muskeln, wie sie von den Übungen traniert "
-"werden"
+"werden."
 
 #: templates/workout/view.html:97
 msgid ""

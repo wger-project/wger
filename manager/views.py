@@ -350,7 +350,7 @@ def pdf_workout(request, id):
     
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(mimetype='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename=workout.pdf'
+    response['Content-Disposition'] = 'attachment; filename=%s.pdf' % _('Workout')
     
     # Create the PDF object, using the response object as its "file."
     doc = SimpleDocTemplate(response,
@@ -566,13 +566,13 @@ def pdf_workout(request, id):
     
     # Print date
     P = Paragraph('<para align="left">%(created)s</para>' %
-                        {'created' : _("Printed on the <b>%s</b>") % workout.creation_date.strftime("%d.%m.%Y")},
+                        {'created' : _("Created on the <b>%s</b>") % workout.creation_date.strftime("%d.%m.%Y")},
                   styleSheet["Normal"])
     elements.append(P)
     
     # A little advertisement
     P = Paragraph('<para align="left">%(created)s - v%(version)s</para>' %
-                        {'created' : _("Created with Workout Manager"),
+                        {'created' : _("Workout Manager"),
                          'version': get_version()},
                   styleSheet["Normal"])
     elements.append(P)
