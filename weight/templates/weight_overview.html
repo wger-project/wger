@@ -33,42 +33,41 @@ $(document).ready(function () {
     var date_min = $("#weight_filter_from").val();
     var date_max = $("#weight_filter_to").val();
     var filter_data = {}
-    if( date_min  && date_max)
+    if( date_min && date_max)
     {
         filter_data = {'date_min': date_min,
                        'date_max': date_max}
-    
-        $.getJSON("/weight/api/get_weight_data/", filter_data, function(json) {
-            weight_chart(json);
-        });
-        
-        // Add datepickers to the filter elements
-        
-        $("#weight_filter_from").datepicker({ dateFormat: "yy-mm-dd",
-                                              {% if min_date %}minDate: {{ min_date }}{% endif %}
-                                          });
-        $("#weight_filter_to").datepicker({ dateFormat: "yy-mm-dd",
-                                            {% if max_date %}maxDate: {{max_date}}{% endif %}
-                                         });
-        
-        // Process the filter
-        $("#weight_diagram_refresh").click(function(e) {
-            
-            e.preventDefault();
-            
-            var date_min = $("#weight_filter_from").val();
-            var date_max = $("#weight_filter_to").val();
-
-            $.getJSON("/weight/api/get_weight_data/",
-                        {'date_min': date_min,
-                         'date_max': date_max},
-                         function(json) {
-                            weight_chart(json);
-                    });
-            
-            
-        });
     }
+    
+    $.getJSON("/weight/api/get_weight_data/", filter_data, function(json) {
+        weight_chart(json);
+    });
+        
+    // Add datepickers to the filter elements
+    
+    $("#weight_filter_from").datepicker({ dateFormat: "yy-mm-dd",
+                                          {% if min_date %}minDate: {{ min_date }}{% endif %}
+                                      });
+    $("#weight_filter_to").datepicker({ dateFormat: "yy-mm-dd",
+                                        {% if max_date %}maxDate: {{max_date}}{% endif %}
+                                     });
+    
+    // Process the filter
+    $("#weight_diagram_refresh").click(function(e) {
+        
+        e.preventDefault();
+        
+        var date_min = $("#weight_filter_from").val();
+        var date_max = $("#weight_filter_to").val();
+
+        $.getJSON("/weight/api/get_weight_data/",
+                    {'date_min': date_min,
+                     'date_max': date_max},
+                     function(json) {
+                        weight_chart(json);
+                }); 
+    });
+
     
     // Init the modal dialog
     form_modal_dialog();

@@ -361,6 +361,12 @@ function getDate(d) {
 
 function weight_chart(data)
 {
+    // Return if there is no data to process
+    if(data == '')
+    {
+        return;
+    }
+    
     var minDate = getDate(data[0].x),
         maxDate = getDate(data[data.length-1].x);
     
