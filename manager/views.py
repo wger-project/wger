@@ -496,7 +496,9 @@ def pdf_workout(request, id):
                     ('FONT', (0, 0), (-1, -1), 'Helvetica'),
                     ('FONTSIZE', (0, 0), (-1, -1), 8),
                     ('VALIGN',(0, 0),(-1, -1),'MIDDLE'),
-                    ('LEFTPADDING', (0, 0), (-1, -1), 2),
+                    
+                    #Note: a padding of 3 seems to be the default
+                    ('LEFTPADDING', (0, 0), (-1, -1), 2), 
                     ('RIGHTPADDING', (0, 0), (-1, -1), 0),
                     ('TOPPADDING', (0, 0), (-1, -1), 3),
                     ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
@@ -561,23 +563,33 @@ def pdf_workout(request, id):
     t._argW[1] = 3.5 * cm # Name of exercise
     t._argW[2] = 1.9 * cm # Repetitions
 
-    # Set the elements to our document
+    #
+    # Add all elements to the document
+    # 
+    
+    # Set the title (if available)
+    if workout.comment:
+        P = Paragraph('<para align="center"><strong>%(description)s</strong></para>' %
+                                            {'description' : workout.comment},
+                          styleSheet["Normal"])
+        elements.append(P)
+    
+        # Filler
+        P = Paragraph('<para> </para>', styleSheet["Normal"])
+        elements.append(P)
+
+    # Append the table
     elements.append(t)
     
     # Footer, add filler paragraph
     P = Paragraph('<para> </para>', styleSheet["Normal"])
     elements.append(P)
     
-    # Print date
-    P = Paragraph('<para align="left">%(created)s</para>' %
-                        {'created' : _("Created on the <b>%s</b>") % workout.creation_date.strftime("%d.%m.%Y")},
-                  styleSheet["Normal"])
-    elements.append(P)
-    
-    # A little advertisement
-    P = Paragraph('<para align="left">%(created)s - v%(version)s</para>' %
-                        {'created' : _("Workout Manager"),
-                         'version': get_version()},
+    # Print date and info
+    P = Paragraph('<para align="left">%(date)s - %(created)s v%(version)s</para>' %
+                    {'date' : _("Created on the <b>%s</b>") % workout.creation_date.strftime("%d.%m.%Y"),
+                     'created' : _("Workout Manager"),
+                     'version': get_version()},
                   styleSheet["Normal"])
     elements.append(P)
     
