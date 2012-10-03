@@ -465,10 +465,14 @@ def pdf_workout(request, id):
                 # If there are more than 1 settings, don't output the repetitions
                 # e.g. "4 x 8 8 10 10" is shown only as "8 8 10 10", after all
                 # those 4 sets are not done four times!
-                if len(setting_data) > 1:
-                    out = ', '.join(setting_data)
-                else:
+                if len(setting_data) == 0:
+                    out = '' # nothing set
+                    
+                elif len(setting_data) == 1:
                     out = str(set_obj.sets) + ' × ' + setting_data[0]
+                    
+                elif len(setting_data) > 1:
+                    out = ', '.join(setting_data)
                 
                 data.append([set_count, Paragraph(exercise.name, style), out] + [''] * nr_of_weeks)
                 row_count += 1
