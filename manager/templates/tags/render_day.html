@@ -113,11 +113,6 @@ $(document).ready(function() {
                             {% if not forloop.last %} – {% endif %}
                             </span>
                         {% empty %}
-                            <!-- No settings, call the AJAX editing -->
-                            <script id='111222'>
-                                // TODO: this won't work well if there are duplicate exercises
-                                load_edit_set($("#exercise-{{ exercise.id }}"), {{set.id}}, {{exercise.id}});
-                            </script>
                             <div class="box warning">
                                 {% trans "No settings for this exercise." %} {% trans "Use link to add one." %}
                             </div>
