@@ -588,7 +588,7 @@ def pdf_workout(request, id):
     # Print date and info
     P = Paragraph('<para align="left">%(date)s - %(created)s v%(version)s</para>' %
                     {'date' : _("Created on the <b>%s</b>") % workout.creation_date.strftime("%d.%m.%Y"),
-                     'created' : _("Workout Manager"),
+                     'created' : "Workout Manager",
                      'version': get_version()},
                   styleSheet["Normal"])
     elements.append(P)
