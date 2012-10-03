@@ -161,3 +161,11 @@ circle{
     background-color: #880000;
     color: black;
 }
+
+
+/*
+ * Add a shadow to the application name
+ */
+header h1{
+    text-shadow: 2px 3px 3px #292929;
+}
