@@ -77,14 +77,16 @@ function setup_ajax_set_edit()
     $(".ajax-set-edit").click(function(e) {
         e.preventDefault();
         
-        var set_element = $(this).parents('tr').attr('id');
-        var set_id = set_element.match(/\d+/);
-        
+        var set_id = $(this).parents('tr').attr('id').match(/\d+/);
         var exercise_id = $(this).parents('li').attr('id').match(/\d+/);
         
-        
-        $($(this).parents('li')).load("/workout/api/edit-set?do=edit_set&set=" + set_id + "&exercise=" + exercise_id);
+        load_edit_set($(this).parents('li'), set_id, exercise_id)
     });
+}
+
+function load_edit_set(element, set_id, exercise_id)
+{
+    $(element).load("/workout/api/edit-set?do=edit_set&set=" + set_id + "&exercise=" + exercise_id);
 }
 
 /*
