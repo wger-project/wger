@@ -22,5 +22,5 @@ def processor(request):
         'version' : get_version(),
         
         # Do not track header
-        'DNT': request.META['HTTP_DNT']
+        'DNT': request.META.get('HTTP_DNT', False)
     }
