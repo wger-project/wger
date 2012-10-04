@@ -8,6 +8,8 @@ urlpatterns = patterns('nutrition.views',
     url(r'^nutrition/(?P<id>\d+)/view/$', 'view'),    
     url(r'^nutrition/(?P<id>\d+)/delete/$', 'delete_plan'),
     url(r'^nutrition/(?P<id>\d+)/edit/$', 'edit_plan'),
+    url(r'^nutrition/(?P<id>\d+)/pdf/$', 'export_pdf'),
+
     
     # Meals
     url(r'^nutrition/(?P<id>\d+)/edit/meal/(?P<meal_id>\w*)$', 'edit_meal'),
@@ -24,6 +26,5 @@ urlpatterns = patterns('nutrition.views',
     url(r'^nutrition/ingredient/edit/(?P<id>\w*)$', 'ingredient_edit'),
     url(r'^nutrition/ingredient/delete/(?P<id>\d+)$', 'delete_ingredient'),
     url(r'^nutrition/ingredient/search/$', 'ingredient_search'),
-    url(r'^nutrition/export_pdf/(?P<id>\d+)$', 'export_pdf'),
-
+    
 )
