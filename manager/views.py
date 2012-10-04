@@ -393,7 +393,6 @@ def pdf_workout(request, id):
     # set different borders and colours
     day_markers = []
     exercise_markers = {}
-    row_count = 1
     group_exercise_marker = {}
     group_day_marker = {}
     
@@ -420,7 +419,7 @@ def pdf_workout(request, id):
     for day in workout.day_set.select_related():
         set_count = 1
         day_markers.append(len(data))
-        group_day_marker[day.id] = {'start': row_count, 'end': row_count}
+        group_day_marker[day.id] = {'start': len(data), 'end': len(data)}
         
         if not exercise_markers.get(day.id):
             exercise_markers[day.id] = []
@@ -438,18 +437,17 @@ def pdf_workout(request, id):
         #       over 3 cells, the value has to be on the 1st one
         data.append([_('Date') + ' ', '', ''] + [''] * nr_of_weeks)
         data.append([_('Nr.'), _('Exercise'), _('Reps')] + [_('Weight')] * nr_of_weeks)
-        row_count += 3
         
         # Sets
         for set_obj in day.set_set.select_related():
-            group_exercise_marker[set_obj.id] = {'start': row_count, 'end': row_count}
+            group_exercise_marker[set_obj.id] = {'start': len(data), 'end': len(data)}
             
             # Exercises
             for exercise in set_obj.exercises.select_related():
                 
-                group_exercise_marker[set_obj.id]['end'] = row_count
+                group_exercise_marker[set_obj.id]['end'] = len(data)
                 
-                exercise_markers[day.id].append(row_count)
+                exercise_markers[day.id].append(len(data))
                 setting_data = []
                 
                 
@@ -475,19 +473,16 @@ def pdf_workout(request, id):
                     out = ', '.join(setting_data)
                 
                 data.append([set_count, Paragraph(exercise.name, style), out] + [''] * nr_of_weeks)
-                row_count += 1
             set_count += 1
         
         # Note: as above with _('Date'), the _('Impression') has to be here on
         #       the 1st cell so it is shown after adding a span
         #data.append([_('Impression'), '', ''])
-        #row_count += 1
         
         set_count += 1
-        group_day_marker[day.id]['end'] =  row_count
+        group_day_marker[day.id]['end'] =  len(data)
         
         #data.append([''])
-        #row_count += 1
     
     # Set general table styles
     table_style = [
@@ -522,8 +517,8 @@ def pdf_workout(request, id):
 
     # Combine the cells for exercises on the same set
     for marker in group_exercise_marker:
-        start_marker = group_exercise_marker[marker]['start'] -1
-        end_marker = group_exercise_marker[marker]['end'] -1
+        start_marker = group_exercise_marker[marker]['start']
+        end_marker = group_exercise_marker[marker]['end']
         
         table_style.append(('VALIGN',(0, start_marker),(0, end_marker),'MIDDLE'))
         table_style.append(('SPAN', (0, start_marker), (0, end_marker)))
