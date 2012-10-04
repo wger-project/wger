@@ -318,11 +318,17 @@ def view_workout(request, id):
         for set in day.set_set.select_related():
             for exercise in set.exercises.select_related():
                 for muscle in exercise.muscles.all():
+                    muscle_bg = 'images/muscles/main/muscle-%s.svg' % muscle.id
                     
-                    if muscle.is_front:
-                        backgrounds_front.append('images/muscles/main/muscle-%s.svg' % muscle.id)
-                    else:
-                        backgrounds_back.append('images/muscles/main/muscle-%s.svg' % muscle.id)
+                    # Add the muscles to the background list, but only once.
+                    #
+                    # While the combining effect (the more often a muscle gets
+                    # added, the more intense the colour) is interesting, the
+                    # end result is a very unnatural, very bright colour.
+                    if muscle.is_front and muscle_bg not in backgrounds_front:
+                        backgrounds_front.append(muscle_bg)
+                    elif not muscle.is_front and muscle_bg not in backgrounds_back:
+                        backgrounds_back.append(muscle_bg)
     
     # Append the correct "main" background, with the silhouette of the human body
     backgrounds_front.append('images/muscles/muscular_system_front.svg')
