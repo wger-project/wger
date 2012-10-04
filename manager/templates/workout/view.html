@@ -3,7 +3,7 @@
 {% load staticfiles %}
 {% load manager_extras %} 
 
-{% block title %}{% trans "Workout for" %} {{ workout.creation_date }}{% endblock %}
+{% block title %}{% trans "Workout" %} – {{ workout.creation_date }}{% endblock %}
 
 {% block header %}
 <script src="{% static 'js/jquery-ui.js' %}"></script>
@@ -38,7 +38,8 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block content %}
-<h2> {% trans "Workout for" %} {{ workout.creation_date }}</h2>
+<h2>{% trans "Workout" %} – {{ workout.creation_date }}</h2>
+
 
 {% if workout.comment %}
 <p>

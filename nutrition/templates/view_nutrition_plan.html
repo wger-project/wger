@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load staticfiles %}
 
-{% block title %}{% trans "Details for nutrition plan" %}{% endblock %}
+{% block title %}{% trans "Nutrition plan" %} – {{ plan.creation_date}}{% endblock %}
 
 
 {% block header %}
@@ -43,8 +43,7 @@ $(document).ready(function() {
 
 
 {% block content %}
-
-<h2>{% trans "Details for nutrition plan" %}</h2>
+<h2>{% trans "Nutrition plan" %} – {{ plan.creation_date}}</h2>
 
 {% if plan.description %}
 <p>
