@@ -1,1 +1,11 @@
-404!!!
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% trans "Page not found" %}{% endblock %}
+
+{% block header %}
+<h2>{% trans "Page not found" %}</h2>
+
+<p>{% trans "The page you requested does not exist." %}</p>
+{% endblock %}

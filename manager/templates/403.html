@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% trans "Forbidden!" %}{% endblock %}
+
+{% block header %}
+<h2>{% trans "Forbidden!" %}</h2>
+
+<p>{% trans "Something happened that is not allowed." %}</p>
+{% endblock %}
