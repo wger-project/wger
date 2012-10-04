@@ -57,6 +57,14 @@
     border-bottom:1px solid black;
 }
 
+/*
+ * Set a more appropriate cursor to the drag'n'drop handle on the
+ * workout view
+ */
+.dragndrop-handle{
+    cursor:move
+}
+
 
 /*
  * Hide the edit options (edit, delete) on tables, only show them when the mouse is over the row
