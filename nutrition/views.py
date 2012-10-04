@@ -29,6 +29,8 @@ from django.contrib.auth.decorators import permission_required
 from django.forms import ModelForm
 from django.utils.translation import ugettext as _
 
+from workout_manager import get_version
+
 from nutrition.models import NutritionPlan
 from nutrition.models import Meal
 from nutrition.models import MealItem
@@ -168,6 +170,14 @@ def export_pdf(request, id):
                             author = _('Workout Manager'),
                             subject = _('Nutritional plan %s') % request.user.username)
 
+    # Background colour for header
+    # Reportlab doesn't use the HTML hexadecimal format, but has a range of
+    # 0 till 1, so we have to convert here.
+    header_colour = colors.Color(int('73', 16) / 255.0,
+                                 int('8a', 16) / 255.0,
+                                 int('5f', 16) / 255.0)
+    
+    
     # container for the 'Flowable' objects
     elements = []
     
@@ -186,10 +196,15 @@ def export_pdf(request, id):
         
         meal_markers.append(len(data))
     
-        P = Paragraph('<para align="center"><strong>%s - %s</strong></para>' %
-                        (i, meal.time or '-/-'),
+        if meal.time:
+            P = Paragraph('<para align="center"><strong>%(meal_nr)s</strong></para>' %
+                        {'meal_nr': i},
                       styleSheet["Normal"])
-    
+        else:
+            P = Paragraph('<para align="center"><strong>%(meal_nr)s - %(meal_time)s</strong></para>' %
+                        {'meal_nr': i,
+                         'meal_time': meal.time},
+                      styleSheet["Normal"])
         data.append([P])
         
         # Ingredients
@@ -201,15 +216,16 @@ def export_pdf(request, id):
             data.append(["%sg" % item.amount_gramm, P])
     
     # Set general table styles
-    table_style = []
-    table_style = [('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-                   ('BOX', (0,0), (-1,-1), 0.25, colors.black)]
+    table_style = [
+                    #('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                    #('BOX', (0,0), (-1,-1), 0.25, colors.black)
+                    ]
     
     # Set specific styles, e.g. background for title cells
     previous_marker = 0
     for marker in meal_markers:
         # Set background colour for headings
-        table_style.append(('BACKGROUND', (0, marker), (-1, marker), colors.green))
+        table_style.append(('BACKGROUND', (0, marker), (-1, marker), header_colour))
         table_style.append(('BOX', (0, marker), (-1, marker), 1.25, colors.black))
         
         # Make the headings span the whole width
@@ -222,8 +238,35 @@ def export_pdf(request, id):
     t._argW[0] = 2 * cm
 
 
-    # write the document and send the response to the browser
+    # Set the title (if available)
+    if plan.description:
+        P = Paragraph('<para align="center"><strong>%(description)s</strong></para>' %
+                                            {'description' : plan.description},
+                          styleSheet["Normal"])
+        elements.append(P)
+    
+        # Filler
+        P = Paragraph('<para> </para>', styleSheet["Normal"])
+        elements.append(P)
+
+
+
+    # append the table to the document
     elements.append(t)
+    
+    
+    # Footer, add filler paragraph
+    P = Paragraph('<para> </para>', styleSheet["Normal"])
+    elements.append(P)
+    
+    # Print date and info
+    P = Paragraph('<para align="left">%(date)s - %(created)s v%(version)s</para>' %
+                    {'date' : _("Created on the <b>%s</b>") % plan.creation_date.strftime("%d.%m.%Y"),
+                     'created' : "Workout Manager",
+                     'version': get_version()},
+                  styleSheet["Normal"])
+    elements.append(P)
+    
     doc.build(elements)
 
     return response
