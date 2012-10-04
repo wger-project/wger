@@ -115,6 +115,9 @@ header div.ym-wbox
     min-height: 35em;
 }
 
+/*
+ * Set background colours for the main elements
+ */
 body{
     background-color: #204A87;
 }
