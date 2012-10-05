@@ -121,13 +121,6 @@ $(document).ready(function() {
                         
                         <span class="editoptions">
                             <a href="{% url manager.views.edit_setting workout.id set.id exercise.id None %}"
-                               title="{% trans 'Delete' %}">
-                               <img src="{% static 'images/icons/trash.svg' %}"
-                                    width="16"
-                                    height="16"
-                                    alt="{% trans 'Delete' %}">
-                            </a>
-                            <a href="{% url manager.views.edit_setting workout.id set.id exercise.id None %}"
                                title="{% trans 'Edit' %}"
                                class="ajax-set-edit">
                                 <img src="{% static 'images/icons/edit.svg' %}"
