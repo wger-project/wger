@@ -78,15 +78,54 @@ function setup_ajax_set_edit()
         e.preventDefault();
         
         var set_id = $(this).parents('tr').attr('id').match(/\d+/);
-        var exercise_id = $(this).parents('li').attr('id').match(/\d+/);
+        var exercise_id = $(this).parents('.ajax-set-edit-target').attr('id').match(/\d+/);
         
-        load_edit_set($(this).parents('li'), set_id, exercise_id)
+        load_edit_set($(this).parents('.ajax-set-edit-target'), set_id, exercise_id)
     });
 }
 
 function load_edit_set(element, set_id, exercise_id)
 {
     $(element).load("/workout/api/edit-set?do=edit_set&set=" + set_id + "&exercise=" + exercise_id);
+}
+
+function setup_inplace_editing()
+{
+    $(".ajax-form-cancel").each(function(index, element) {
+        
+        
+        var exercise_id = $(this).parents('.ajax-set-edit-target').attr('id').match(/\d+/);
+        var day_id = $(this).parents('table').attr('id').match(/\d+/);
+        var set_id = $(this).parents('tr').attr('id').match(/\d+/);
+        
+        // Editing of set
+        $(element).click(function(e) {
+            e.preventDefault();
+            $("#div-day-" + day_id).load("/workout/day/view/" + day_id);
+        })
+        
+        // Send the Form
+        $('.ajax-form-set-edit').submit(function(e) {
+          e.preventDefault();
+          
+          url = "/workout/api/edit-set?do=edit_set&set=" + set_id + "&exercise=" + exercise_id
+          form_data = $(this).serialize();
+          $.post( url, form_data);
+          
+          $("#div-day-" + day_id).load("/workout/day/view/" + day_id);
+        });
+        
+        // Init the autocompleter
+        $(".ajax-form-exercise-list").autocomplete({
+                source: "/exercise/search/",
+                minLength: 2,
+                select: function(event, ui) {
+    
+                    // After clicking on a result set the value of the hidden field
+                    $('#set-' + set_id + '-exercercise-id-hidden').val(ui.item.id);
+                }
+            });
+    });
 }
 
 /*
@@ -133,46 +172,6 @@ function set_english_ingredients()
         }
         
         $("#ajax-info").load("/workout/api/user-preferences?do=set_english-ingredients&show=" + useEnglishIngredients);
-    });
-}
-
-
-function setup_inplace_editing()
-{
-    $(".ajax-form-cancel").each(function(index, element) {
-        
-        
-        var exercise_id = $(this).parents('li').attr('id').match(/\d+/);
-        var day_id = $(this).parents('table').attr('id').match(/\d+/);
-        var set_id = $(this).parents('tr').attr('id').match(/\d+/);
-        
-        // Editing of set
-        $(element).click(function(e) {
-            e.preventDefault();
-            $("#div-day-" + day_id).load("/workout/day/view/" + day_id);
-        })
-        
-        // Send the Form
-        $('.ajax-form-set-edit').submit(function(e) {
-          e.preventDefault();
-          
-          url = "/workout/api/edit-set?do=edit_set&set=" + set_id + "&exercise=" + exercise_id
-          form_data = $(this).serialize();
-          $.post( url, form_data);
-          
-          $("#div-day-" + day_id).load("/workout/day/view/" + day_id);
-        });
-        
-        // Init the autocompleter
-        $(".ajax-form-exercise-list").autocomplete({
-                source: "/exercise/search/",
-                minLength: 2,
-                select: function(event, ui) {
-    
-                    // After clicking on a result set the value of the hidden field
-                    $('#set-' + set_id + '-exercercise-id-hidden').val(ui.item.id);
-                }
-            });
     });
 }
 

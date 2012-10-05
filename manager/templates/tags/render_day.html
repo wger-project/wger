@@ -83,7 +83,7 @@ $(document).ready(function() {
             <td>
                 <div class="exercise-list">
                 {% for exercise in set.exercises.select_related %}
-                    <div id="exercise-{{ exercise.id }}">
+                    <div id="exercise-{{ exercise.id }}" class="ajax-set-edit-target">
                         <a href="{% url exercises.views.exercise_view exercise.id %}">{{ exercise }}</a>:
 
                         {% comment %}
