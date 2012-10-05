@@ -26,6 +26,18 @@
         }
     }, 
     {
+        "pk": 77, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 7, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "Bankdr\u00fccken KH"
+        }
+    }, 
+    {
         "pk": 15, 
         "model": "exercises.exercise", 
         "fields": {
@@ -606,6 +618,18 @@
         }
     }, 
     {
+        "pk": 79, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 5, 
+            "muscles": [
+                9
+            ], 
+            "description": "", 
+            "name": "Rudern aufrecht MP"
+        }
+    }, 
+    {
         "pk": 62, 
         "model": "exercises.exercise", 
         "fields": {
@@ -698,6 +722,18 @@
         }
     }, 
     {
+        "pk": 78, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 5, 
+            "muscles": [
+                9
+            ], 
+            "description": "", 
+            "name": "Schulterheben KH"
+        }
+    }, 
+    {
         "pk": 67, 
         "model": "exercises.exercise", 
         "fields": {
@@ -757,6 +793,18 @@
             "muscles": [], 
             "description": "", 
             "name": "Something something"
+        }
+    }, 
+    {
+        "pk": 76, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 3, 
+            "muscles": [
+                12
+            ], 
+            "description": "", 
+            "name": "T-Bar rudern (breit)"
         }
     }, 
     {
@@ -1279,6 +1327,46 @@
         "fields": {
             "comment": "Arme ganz ausstrecken", 
             "exercise": 28
+        }
+    }, 
+    {
+        "pk": 53, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "aa", 
+            "exercise": 38
+        }
+    }, 
+    {
+        "pk": 54, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "R\u00fccken gerade, keinen Buckel machen!", 
+            "exercise": 76
+        }
+    }, 
+    {
+        "pk": 55, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Oben keine Pause, sofort wieder runter.", 
+            "exercise": 55
+        }
+    }, 
+    {
+        "pk": 56, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Etwas in die Knie gehen und nach hinten ziehen", 
+            "exercise": 76
+        }
+    }, 
+    {
+        "pk": 57, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Schnell nach untern ziehen.", 
+            "exercise": 33
         }
     }
 ]
