@@ -26,13 +26,8 @@ $(document).ready(function() {
 <table>
     <thead>
         <tr>
-            <th>
+            <th colspan="2">
                 {% trans "Macronutrients" %}
-            </th>
-            <th>
-                <div class="editoptions">
-                
-                </div>
             </th>
         </tr>
     </thead>
@@ -50,8 +45,16 @@ $(document).ready(function() {
             <td>{{ingredient.carbohydrates}} g</td>
         </tr>
         <tr>
+            <td style="padding-left: 3em;">{% trans "Sugar content in carbohydrates" %}</td>
+            <td>{{ingredient.carbohydrates_sugar}} g</td>
+        </tr>
+        <tr>
             <td>{% trans "Fat" %}</td>
             <td>{{ingredient.fat}} g</td>
+        </tr>
+        <tr>
+            <td style="padding-left: 3em;">{% trans "Saturated fat content in fats" %}</td>
+            <td>{{ingredient.fat_saturated}} g</td>
         </tr>
     </tbody>
 </table>
@@ -59,13 +62,8 @@ $(document).ready(function() {
 <table>
     <thead>
         <tr>
-            <th>
+            <th colspan="2">
                 {% trans "Others" %}
-            </th>
-            <th>
-                <div class="editoptions">
-                
-                </div>
             </th>
         </tr>
     </thead>

@@ -82,11 +82,10 @@ class Ingredient(models.Model):
     class Meta:
         ordering = ["name", ]
     
+    language = models.ForeignKey(Language, verbose_name = _('Language'))
     
     name = models.CharField(max_length=100,
                             verbose_name = _('Name'),)
-    
-    language = models.ForeignKey(Language, verbose_name = _('Language'))
     
     energy = models.IntegerField(
                                  verbose_name = _('Energy'),
@@ -99,10 +98,18 @@ class Ingredient(models.Model):
     carbohydrates = models.FloatField(
                                         verbose_name = _('Carbohydrates'),
                                         help_text = _('In g per 100g of product'))
+                                        
+    carbohydrates_sugar = models.FloatField(
+                                        verbose_name = _('Sugar content in carbohydrates'),
+                                        help_text = _('In g per 100g of product'))
     
     fat = models.FloatField(blank = True,
                               verbose_name = _('Fat'),
                               help_text = _('In g per 100g of product'))
+    
+    fat_saturated = models.FloatField(
+                                    verbose_name = _('Saturated fat content in fats'),
+                                    help_text = _('In g per 100g of product'))
     
     fibres = models.FloatField(blank = True,
                                null = True,
