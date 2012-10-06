@@ -65,7 +65,12 @@ class NutritionPlan(models.Model):
                     nutritional_info['energy'] += item.ingredient.energy * item.amount_gramm / 100
                     nutritional_info['protein'] += item.ingredient.protein  * item.amount_gramm / 100
                     nutritional_info['carbohydrates'] += item.ingredient.carbohydrates  * item.amount_gramm / 100
+                    if item.ingredient.carbohydrates_sugar:
+                        nutritional_info['carbohydrates_sugar'] += item.ingredient.carbohydrates_sugar  * item.amount_gramm / 100
+                    
                     nutritional_info['fat'] += item.ingredient.fat  * item.amount_gramm / 100
+                    if item.ingredient.fat_saturated:
+                        nutritional_info['fat_saturated'] += item.ingredient.fat_saturated  * item.amount_gramm / 100
                     
                     if item.ingredient.fibres:
                         nutritional_info['fibres'] += item.ingredient.fibres  * item.amount_gramm / 100
@@ -99,17 +104,19 @@ class Ingredient(models.Model):
                                         verbose_name = _('Carbohydrates'),
                                         help_text = _('In g per 100g of product'))
                                         
-    carbohydrates_sugar = models.FloatField(
-                                        verbose_name = _('Sugar content in carbohydrates'),
-                                        help_text = _('In g per 100g of product'))
+    carbohydrates_sugar = models.FloatField(blank = True,
+                                            null = True,
+                                            verbose_name = _('Sugar content in carbohydrates'),
+                                            help_text = _('In g per 100g of product'))
     
     fat = models.FloatField(blank = True,
                               verbose_name = _('Fat'),
                               help_text = _('In g per 100g of product'))
     
-    fat_saturated = models.FloatField(
-                                    verbose_name = _('Saturated fat content in fats'),
-                                    help_text = _('In g per 100g of product'))
+    fat_saturated = models.FloatField(blank = True,
+                                      null = True,
+                                      verbose_name = _('Saturated fat content in fats'),
+                                      help_text = _('In g per 100g of product'))
     
     fibres = models.FloatField(blank = True,
                                null = True,
@@ -117,9 +124,9 @@ class Ingredient(models.Model):
                                help_text = _('In g per 100g of product'))
     
     sodium = models.FloatField(blank = True,
-                                null = True,
-                                verbose_name = _('Sodium'),
-                                help_text = _('In g per 100g of product'))
+                               null = True,
+                               verbose_name = _('Sodium'),
+                               help_text = _('In g per 100g of product'))
     
     def __unicode__(self):
         """Return a more human-readable representation

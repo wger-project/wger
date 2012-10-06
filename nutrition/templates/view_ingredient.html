@@ -22,6 +22,7 @@ $(document).ready(function() {
 
 <h2>{{ingredient.name}}</h2>
 
+<p>{% trans "Nutritional values in 100g of product." %}</p>
 
 <table>
     <thead>
@@ -73,8 +74,8 @@ $(document).ready(function() {
             <td>{% if ingredient.fibres %}{{ingredient.fibres}} g{% else %}-/-{% endif %}</td>
         </tr>
         <tr>
-            <td>{% trans "Natrium" %}</td>
-            <td>{% if ingredient.natrium %}{{ingredient.natrium}} g{% else %}-/-{% endif %}</td>
+            <td>{% trans "Sodium" %}</td>
+            <td>{% if ingredient.sodium %}{{ingredient.sodium}} g{% else %}-/-{% endif %}</td>
         </tr>
     </tbody>
 </table>
