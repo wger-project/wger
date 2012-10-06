@@ -116,9 +116,9 @@ class Ingredient(models.Model):
                                verbose_name = _('Fibres'),
                                help_text = _('In g per 100g of product'))
     
-    natrium = models.FloatField(blank = True,
+    sodium = models.FloatField(blank = True,
                                 null = True,
-                                verbose_name = _('Natrium'),
+                                verbose_name = _('Sodium'),
                                 help_text = _('In g per 100g of product'))
     
     def __unicode__(self):
