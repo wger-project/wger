@@ -1,4 +1,4 @@
-[ 
+[
     {
         "pk": 5, 
         "model": "exercises.exercise", 
@@ -154,6 +154,42 @@
         }
     }, 
     {
+        "pk": 88, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 8, 
+            "muscles": [
+                5
+            ], 
+            "description": "", 
+            "name": "Bench press narrow grip"
+        }
+    }, 
+    {
+        "pk": 80, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 8, 
+            "muscles": [
+                1
+            ], 
+            "description": "", 
+            "name": "Biceps curls with SZ-bar"
+        }
+    }, 
+    {
+        "pk": 74, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 8, 
+            "muscles": [
+                1
+            ], 
+            "description": "", 
+            "name": "Biceps curls with barbell"
+        }
+    }, 
+    {
         "pk": 44, 
         "model": "exercises.exercise", 
         "fields": {
@@ -162,7 +198,7 @@
                 1
             ], 
             "description": "", 
-            "name": "Bizeps Cursl mit \u00df-Stange "
+            "name": "Bizeps Curls mit \u00df-Stange "
         }
     }, 
     {
@@ -199,6 +235,18 @@
             ], 
             "description": "", 
             "name": "Bizeps am Kabel"
+        }
+    }, 
+    {
+        "pk": 81, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 8, 
+            "muscles": [
+                1
+            ], 
+            "description": "", 
+            "name": "Bizeps curls with dumbbell"
         }
     }, 
     {
@@ -240,6 +288,18 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 4, 
+            "muscles": [
+                6
+            ], 
+            "description": "", 
+            "name": "Crunches"
+        }
+    }, 
+    {
+        "pk": 91, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 10, 
             "muscles": [
                 6
             ], 
@@ -296,6 +356,30 @@
         }
     }, 
     {
+        "pk": 94, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 10, 
+            "muscles": [
+                6
+            ], 
+            "description": "", 
+            "name": "Crunches on machine"
+        }
+    }, 
+    {
+        "pk": 92, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 10, 
+            "muscles": [
+                6
+            ], 
+            "description": "", 
+            "name": "Crunches with cable"
+        }
+    }, 
+    {
         "pk": 2, 
         "model": "exercises.exercise", 
         "fields": {
@@ -303,16 +387,6 @@
             "muscles": [
                 1
             ], 
-            "description": "", 
-            "name": "Curls"
-        }
-    }, 
-    {
-        "pk": 74, 
-        "model": "exercises.exercise", 
-        "fields": {
-            "category": 8, 
-            "muscles": [], 
             "description": "", 
             "name": "Curls"
         }
@@ -330,6 +404,30 @@
         }
     }, 
     {
+        "pk": 82, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 8, 
+            "muscles": [
+                5
+            ], 
+            "description": "", 
+            "name": "Dips"
+        }
+    }, 
+    {
+        "pk": 83, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 8, 
+            "muscles": [
+                5
+            ], 
+            "description": "", 
+            "name": "Dips between two benches"
+        }
+    }, 
+    {
         "pk": 68, 
         "model": "exercises.exercise", 
         "fields": {
@@ -339,6 +437,18 @@
             ], 
             "description": "", 
             "name": "Dips zwischen 2 B\u00e4nke"
+        }
+    }, 
+    {
+        "pk": 87, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 8, 
+            "muscles": [
+                1
+            ], 
+            "description": "", 
+            "name": "Dumbbells on scott machine"
         }
     }, 
     {
@@ -373,6 +483,30 @@
             ], 
             "description": "", 
             "name": "Fliegende KH Schr\u00e4gbank"
+        }
+    }, 
+    {
+        "pk": 84, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 8, 
+            "muscles": [
+                5
+            ], 
+            "description": "", 
+            "name": "French press (skullcrusher) SZ-bar"
+        }
+    }, 
+    {
+        "pk": 85, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 8, 
+            "muscles": [
+                5
+            ], 
+            "description": "", 
+            "name": "French press (skullcrusher) dumbbells"
         }
     }, 
     {
@@ -454,22 +588,22 @@
         }
     }, 
     {
-        "pk": 23, 
-        "model": "exercises.exercise", 
-        "fields": {
-            "category": 6, 
-            "muscles": [
-                7
-            ], 
-            "description": "", 
-            "name": "Hackenschmidt"
-        }
-    }, 
-    {
         "pk": 46, 
         "model": "exercises.exercise", 
         "fields": {
             "category": 1, 
+            "muscles": [
+                1
+            ], 
+            "description": "", 
+            "name": "Hammercurls"
+        }
+    }, 
+    {
+        "pk": 86, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 8, 
             "muscles": [
                 1
             ], 
@@ -605,6 +739,18 @@
             ], 
             "description": "", 
             "name": "Negativ Bankdr\u00fccken"
+        }
+    }, 
+    {
+        "pk": 93, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 10, 
+            "muscles": [
+                6
+            ], 
+            "description": "", 
+            "name": "Negative crunches"
         }
     }, 
     {
@@ -786,13 +932,15 @@
         }
     }, 
     {
-        "pk": 75, 
+        "pk": 95, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 9, 
-            "muscles": [], 
+            "category": 10, 
+            "muscles": [
+                6
+            ], 
             "description": "", 
-            "name": "Something something"
+            "name": "Sit-ups"
         }
     }, 
     {
@@ -805,6 +953,30 @@
             ], 
             "description": "", 
             "name": "T-Bar rudern (breit)"
+        }
+    }, 
+    {
+        "pk": 89, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 8, 
+            "muscles": [
+                5
+            ], 
+            "description": "", 
+            "name": "Triceps extensions on cable"
+        }
+    }, 
+    {
+        "pk": 90, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 8, 
+            "muscles": [
+                5
+            ], 
+            "description": "", 
+            "name": "Triceps extensions on cable with bar"
         }
     }, 
     {
@@ -875,6 +1047,18 @@
             "muscles": [], 
             "description": "", 
             "name": "Vorgebeugtes Seitheben"
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 6, 
+            "muscles": [
+                7
+            ], 
+            "description": "", 
+            "name": "Wadenheben an Hackenschmidt"
         }
     }, 
     {

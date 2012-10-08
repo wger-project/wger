@@ -1,5 +1,13 @@
 [
     {
+        "pk": 10, 
+        "model": "exercises.exercisecategory", 
+        "fields": {
+            "name": "Abs", 
+            "language": 2
+        }
+    }, 
+    {
         "pk": 1, 
         "model": "exercises.exercisecategory", 
         "fields": {
@@ -12,6 +20,14 @@
         "model": "exercises.exercisecategory", 
         "fields": {
             "name": "Arms", 
+            "language": 2
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "exercises.exercisecategory", 
+        "fields": {
+            "name": "Back", 
             "language": 2
         }
     }, 
@@ -40,6 +56,22 @@
         }
     }, 
     {
+        "pk": 14, 
+        "model": "exercises.exercisecategory", 
+        "fields": {
+            "name": "Calves", 
+            "language": 2
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "exercises.exercisecategory", 
+        "fields": {
+            "name": "Chest", 
+            "language": 2
+        }
+    }, 
+    {
         "pk": 9, 
         "model": "exercises.exercisecategory", 
         "fields": {
@@ -61,6 +93,14 @@
         "fields": {
             "name": "Schultern", 
             "language": 1
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "exercises.exercisecategory", 
+        "fields": {
+            "name": "Shoulders", 
+            "language": 2
         }
     }, 
     {
