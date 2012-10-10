@@ -183,10 +183,15 @@ def exercise_edit(request, id=None):
     template_data.update(csrf(request))
     template_data['active_tab'] = 'exercises'
     
-    if not id or id == 'None':
-        exercise = Exercise()
-    else:
+    # If the object is new, we will receice a 'None' (string) as the ID
+    # from the template, so we check for it (ValueError) and for an actual
+    # None (TypeError)
+    try:
+        int(id)
         exercise = get_object_or_404(Exercise, pk=id)
+    except ValueError, TypeError:
+        exercise = Exercise()
+    
     template_data['exercise'] = exercise
     
     if request.method == 'POST':

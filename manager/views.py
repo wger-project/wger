@@ -720,14 +720,20 @@ def edit_day(request, id, day_id=None):
     
     # Load day
     # We check for string 'None' because we might get this from the template
-    if not day_id or day_id == 'None':
-        day = Day()
-    else:
+    
+    # If the object is new, we will receice a 'None' (string) as the ID
+    # from the template, so we check for it (ValueError) and for an actual
+    # None (TypeError)
+    try:
+        int(day_id)
         day = get_object_or_404(Day, pk=day_id)
         
         # Check that the day belongs to the workout
         if day.training.id != workout.id:  
             return HttpResponseForbidden()
+    except ValueError, TypeError:
+        day = Day()
+    
     template_data['day'] = day
     
     
@@ -819,14 +825,19 @@ def edit_set(request, id, day_id, set_id=None):
     template_data['day'] = day
     
     # Load set
-    if not set_id or set_id == 'None':
-        workout_set = Set()
-    else:
+    
+    # If the object is new, we will receice a 'None' (string) as the ID
+    # from the template, so we check for it (ValueError) and for an actual
+    # None (TypeError)
+    try:
+        int(set_id)
         workout_set = get_object_or_404(Set, pk=set_id)
         
         # Check if all objects belong to the workout
         if workout_set.exerciseday.id != day.id:  
             return HttpResponseForbidden()
+    except ValueError, TypeError:
+        workout_set = Set()
     
     template_data['set'] = workout_set
     

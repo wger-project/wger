@@ -51,10 +51,17 @@ def add(request, id=None):
     template_data['active_tab'] = 'weight'
     
     # Load weight
-    if id and id != 'None':
+    
+    # If the object is new, we will receice a 'None' (string) as the ID
+    # from the template, so we check for it (ValueError) and for an actual
+    # None (TypeError)
+    try:
+        int(id)
         weight = get_object_or_404(WeightEntry, pk=id, user=request.user)
-    else:
+    
+    except ValueError, TypeError:
         weight = WeightEntry()
+    
     template_data['weight'] = weight
     
     # Process request

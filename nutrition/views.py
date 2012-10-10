@@ -403,13 +403,17 @@ def edit_meal_item(request, id, meal_id, item_id=None):
     
     
     # Load the meal item
-    if not item_id or item_id == 'None':
-        meal_item = MealItem()
-    else:
+    # If the object is new, we will receice a 'None' (string) as the ID
+    # from the template, so we check for it (ValueError) and for an actual
+    # None (TypeError)
+    try:
+        int(item_id)
         meal_item = get_object_or_404(MealItem, pk=item_id)
         template_data['ingredient'] = meal_item.ingredient.id
         template_data['ingredient_searchfield'] = meal_item.ingredient.name
         
+    except ValueError, TypeError:
+        meal_item = MealItem()
 
     template_data['meal_item'] = meal_item
     
