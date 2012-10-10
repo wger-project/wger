@@ -108,10 +108,11 @@ $(document).ready(function() {
     {% trans "The diagram shows the most used muscles on this exercise" %}
 </p>
 
+{% if muscle_backgrounds_front %}
 <div class="ym-grid linearize-level-1">
     <div class="ym-g50 ym-gl">
         <div class="ym-gbox-left">
-            <div id="muscle-front" class="muscle-background" style="background-image: {% for background in muscle_backgrounds %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+            <div id="muscle-front" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
             </div>
         </div>
     </div>
@@ -119,12 +120,40 @@ $(document).ready(function() {
         <div class="ym-gbox-right">
             <ul>
                 {% for muscle in exercise.muscles.all %}
+                {% if muscle.is_front %}
                 <li>{{muscle.name}}</li>
+                {% endif %}
                 {% endfor %}
             </ul>
         </div>
     </div>
 </div>
+{% endif %}
+
+
+{% if muscle_backgrounds_back %}
+<div class="ym-grid linearize-level-1">
+    <div class="ym-g50 ym-gl">
+        <div class="ym-gbox-left">
+            <div id="muscle-front" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+            </div>
+        </div>
+    </div>
+    <div class="ym-g40 ym-gr">
+        <div class="ym-gbox-right">
+            <ul>
+                {% for muscle in exercise.muscles.all %}
+                {% if not muscle.is_front %}
+                <li>{{muscle.name}}</li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
 {% endif %}
 
 {% if perms.exercises %}

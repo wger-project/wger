@@ -104,23 +104,25 @@ def exercise_view(request, id, comment_id=None):
     template_data.update(csrf(request))
     
     # Create the backgrounds that show what muscles the exercise works on
-    backgrounds = []
-    is_front = True
+    backgrounds_back = []
+    backgrounds_front = []
+    
     for muscle in exercise.muscles.all():
-        # In theory some muscles associated with the exercercise could be for the front, others for
-        # the back. But this shoult not happen in practice, so it's OK
-        is_front = muscle.is_front
+        if muscle.is_front:
+            backgrounds_front.append('images/muscles/main/muscle-%s.svg' % muscle.id)
+        else:
+            backgrounds_back.append('images/muscles/main/muscle-%s.svg' % muscle.id)
         
-        backgrounds.append('images/muscles/main/muscle-%s.svg' % muscle.id)
+    # Append the "main" background, with the silhouette of the human body
+    # This has to happen as the last step, so it is rendered behind the muscles.
+    if backgrounds_front: 
+        backgrounds_front.append('images/muscles/muscular_system_front.svg')
+  
+    if backgrounds_back:
+        backgrounds_back.append('images/muscles/muscular_system_back.svg')
     
-    # Append the correct "main" background, with the silhouette of the human body
-    if is_front:
-        backgrounds.append('images/muscles/muscular_system_front.svg')
-    else:
-        backgrounds.append('images/muscles/muscular_system_back.svg')
-    
-    template_data['muscle_backgrounds'] = backgrounds
-    
+    template_data['muscle_backgrounds_front'] = backgrounds_front
+    template_data['muscle_backgrounds_back'] = backgrounds_back
     
     # Only users with the appropriate permissions can work with comments
     if request.user.has_perm('exercises.add_exercisecomment'):
