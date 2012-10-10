@@ -183,7 +183,7 @@ def exercise_edit(request, id=None):
     template_data.update(csrf(request))
     template_data['active_tab'] = 'exercises'
     
-    if not id:
+    if not id or id == 'None':
         exercise = Exercise()
     else:
         exercise = get_object_or_404(Exercise, pk=id)

@@ -31,7 +31,7 @@ init_tinymce();
 </h2>
 
 
-<form action="/exercise/edit/{% if exercise.id %}{{ exercise.id }}{% endif %}"
+<form action="{% url exercises.views.exercise_edit id=exercise.id %}"
       method="post"
       class="ym-form">
 {% csrf_token %}
