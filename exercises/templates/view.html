@@ -71,23 +71,27 @@ $(document).ready(function() {
     </tr>
 {% empty %}
     <tr>
-        <td>{% trans "Sorry, no comments for this exercise yet!" %}</td>
+        <td>{% trans "No comments for this exercise" %}</td>
     </tr>
 {% endfor %}
-</ul>
+{% if perms.exercises %}
+<tr>
+    <td>
+    <strong>{% trans "Add new comment" %}</strong>
+    <form action = "{% url exercises.views.exercise_view exercise.id %}"
+          method = "post"
+          id = "new_comment_form">
+    {% csrf_token %}
+    {{ comment_form.comment }}
+    <input type="submit" value="{% trans "Save" %}" />
+    </form>
+    </td>
+</tr>
+{% endif %}
+
+
     </tbody>
 </table>
-
-{% if perms.exercises %}
-<h3>{% trans "Add new comment" %}</h3>
-<form action = "{% url exercises.views.exercise_view exercise.id %}"
-      method = "post"
-      id = "new_comment_form">
-{% csrf_token %}
-{{ comment_form.comment }}
-<input type="submit" value="{% trans "Save" %}" />
-</form>
-{% endif %}
 
 {% endblock %}
 
