@@ -89,7 +89,7 @@ class Ingredient(models.Model):
     
     language = models.ForeignKey(Language, verbose_name = _('Language'))
     
-    name = models.CharField(max_length=100,
+    name = models.CharField(max_length=200,
                             verbose_name = _('Name'),)
     
     energy = models.IntegerField(
