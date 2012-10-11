@@ -166,6 +166,54 @@
         }
     }, 
     {
+        "pk": 96, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 11, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "Benchpress barbells"
+        }
+    }, 
+    {
+        "pk": 97, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 11, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "Benchpress bumbbells"
+        }
+    }, 
+    {
+        "pk": 109, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 12, 
+            "muscles": [
+                12
+            ], 
+            "description": "", 
+            "name": "Bent over rowing"
+        }
+    }, 
+    {
+        "pk": 110, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 12, 
+            "muscles": [
+                12
+            ], 
+            "description": "", 
+            "name": "Bent over rowing reverse"
+        }
+    }, 
+    {
         "pk": 80, 
         "model": "exercises.exercise", 
         "fields": {
@@ -262,6 +310,18 @@
         }
     }, 
     {
+        "pk": 98, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 11, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "Butterfly"
+        }
+    }, 
+    {
         "pk": 52, 
         "model": "exercises.exercise", 
         "fields": {
@@ -274,6 +334,18 @@
         }
     }, 
     {
+        "pk": 99, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 11, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "Butterfly narrow grip"
+        }
+    }, 
+    {
         "pk": 21, 
         "model": "exercises.exercise", 
         "fields": {
@@ -281,6 +353,18 @@
             "muscles": [], 
             "description": "", 
             "name": "Butterfly reverse"
+        }
+    }, 
+    {
+        "pk": 104, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 14, 
+            "muscles": [
+                7
+            ], 
+            "description": "", 
+            "name": "Calf raises on Hackenschmitt machine"
         }
     }, 
     {
@@ -392,6 +476,42 @@
         }
     }, 
     {
+        "pk": 105, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 12, 
+            "muscles": [
+                12
+            ], 
+            "description": "", 
+            "name": "Deadlifts"
+        }
+    }, 
+    {
+        "pk": 100, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 11, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "Decline bench press barbell"
+        }
+    }, 
+    {
+        "pk": 101, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 11, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "Decline bench press bumbbell"
+        }
+    }, 
+    {
         "pk": 29, 
         "model": "exercises.exercise", 
         "fields": {
@@ -437,6 +557,30 @@
             ], 
             "description": "", 
             "name": "Dips zwischen 2 B\u00e4nke"
+        }
+    }, 
+    {
+        "pk": 112, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 9, 
+            "muscles": [
+                10
+            ], 
+            "description": "", 
+            "name": "Dumbbell lunges standing"
+        }
+    }, 
+    {
+        "pk": 113, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 9, 
+            "muscles": [
+                10
+            ], 
+            "description": "", 
+            "name": "Dumbbell lunges walking"
         }
     }, 
     {
@@ -588,6 +732,18 @@
         }
     }, 
     {
+        "pk": 116, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 9, 
+            "muscles": [
+                11
+            ], 
+            "description": "", 
+            "name": "Good mornings"
+        }
+    }, 
+    {
         "pk": 46, 
         "model": "exercises.exercise", 
         "fields": {
@@ -696,6 +852,54 @@
         }
     }, 
     {
+        "pk": 117, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 9, 
+            "muscles": [
+                11
+            ], 
+            "description": "", 
+            "name": "Leg curls (sitting)"
+        }
+    }, 
+    {
+        "pk": 118, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 9, 
+            "muscles": [
+                11
+            ], 
+            "description": "", 
+            "name": "Leg curls (standing)"
+        }
+    }, 
+    {
+        "pk": 115, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 9, 
+            "muscles": [
+                10
+            ], 
+            "description": "", 
+            "name": "Leg presses (narrow)"
+        }
+    }, 
+    {
+        "pk": 114, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 9, 
+            "muscles": [
+                10
+            ], 
+            "description": "", 
+            "name": "Leg presses (wide)"
+        }
+    }, 
+    {
         "pk": 37, 
         "model": "exercises.exercise", 
         "fields": {
@@ -751,6 +955,18 @@
             ], 
             "description": "", 
             "name": "Negative crunches"
+        }
+    }, 
+    {
+        "pk": 107, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 12, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "Pull-ups"
         }
     }, 
     {
@@ -900,6 +1116,18 @@
         }
     }, 
     {
+        "pk": 108, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 12, 
+            "muscles": [
+                12
+            ], 
+            "description": "", 
+            "name": "Seated Rowing"
+        }
+    }, 
+    {
         "pk": 20, 
         "model": "exercises.exercise", 
         "fields": {
@@ -910,11 +1138,35 @@
         }
     }, 
     {
+        "pk": 119, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 13, 
+            "muscles": [
+                2
+            ], 
+            "description": "", 
+            "name": "Shoulder press"
+        }
+    }, 
+    {
         "pk": 8, 
         "model": "exercises.exercise", 
         "fields": {
             "category": 5, 
             "muscles": [], 
+            "description": "", 
+            "name": "Shrugs"
+        }
+    }, 
+    {
+        "pk": 120, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 13, 
+            "muscles": [
+                2
+            ], 
             "description": "", 
             "name": "Shrugs"
         }
@@ -944,6 +1196,42 @@
         }
     }, 
     {
+        "pk": 103, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 14, 
+            "muscles": [
+                7
+            ], 
+            "description": "", 
+            "name": "Sitting calf raises"
+        }
+    }, 
+    {
+        "pk": 111, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 9, 
+            "muscles": [
+                10
+            ], 
+            "description": "", 
+            "name": "Squats"
+        }
+    }, 
+    {
+        "pk": 102, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 14, 
+            "muscles": [
+                7
+            ], 
+            "description": "", 
+            "name": "Standing calf raises"
+        }
+    }, 
+    {
         "pk": 76, 
         "model": "exercises.exercise", 
         "fields": {
@@ -953,6 +1241,18 @@
             ], 
             "description": "", 
             "name": "T-Bar rudern (breit)"
+        }
+    }, 
+    {
+        "pk": 106, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 12, 
+            "muscles": [
+                12
+            ], 
+            "description": "", 
+            "name": "T-bar rowing"
         }
     }, 
     {
