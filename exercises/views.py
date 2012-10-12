@@ -269,7 +269,8 @@ def exercise_search(request):
     
     # Perform the search
     q = request.GET.get('term', '')
-    exercises = Exercise.objects.filter(name__icontains = q )
+    user_language = load_language()
+    exercises = Exercise.objects.filter(name__icontains = q, category__language_id = user_language )
     
     # AJAX-request, this comes from the autocompleter. Create a list and send it back as JSON
     if request.is_ajax():
