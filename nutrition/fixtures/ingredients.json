@@ -1840,6 +1840,22 @@
         }
     }, 
     {
+        "pk": 8236, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Ananas", 
+            "language": 1, 
+            "sodium": 0.001, 
+            "energy": 50, 
+            "fat": 0.12, 
+            "carbohydrates_sugar": 9.85, 
+            "fat_saturated": 0.009, 
+            "fibres": 1.4, 
+            "protein": 0.54, 
+            "carbohydrates": 13.12
+        }
+    }, 
+    {
         "pk": 689, 
         "model": "nutrition.ingredient", 
         "fields": {
@@ -22496,6 +22512,22 @@
         }
     }, 
     {
+        "pk": 8228, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Bier", 
+            "language": 1, 
+            "sodium": 0.004, 
+            "energy": 43, 
+            "fat": 0.0, 
+            "carbohydrates_sugar": 0.0, 
+            "fat_saturated": 0.0, 
+            "fibres": null, 
+            "protein": 0.46, 
+            "carbohydrates": 3.55
+        }
+    }, 
+    {
         "pk": 8208, 
         "model": "nutrition.ingredient", 
         "fields": {
@@ -23197,6 +23229,22 @@
             "fibres": 5.3, 
             "protein": 1.1, 
             "carbohydrates": 12.19
+        }
+    }, 
+    {
+        "pk": 8231, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Bratkartoffeln", 
+            "language": 1, 
+            "sodium": 0.021, 
+            "energy": 198, 
+            "fat": 0.1, 
+            "carbohydrates_sugar": 1.4, 
+            "fat_saturated": 0.026, 
+            "fibres": 7.9, 
+            "protein": 4.29, 
+            "carbohydrates": 46.06
         }
     }, 
     {
@@ -24813,6 +24861,22 @@
             "fibres": 0.0, 
             "protein": 2.98, 
             "carbohydrates": 5.24
+        }
+    }, 
+    {
+        "pk": 8242, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Brokkoli, gekocht mit Salz", 
+            "language": 1, 
+            "sodium": 0.262, 
+            "energy": 35, 
+            "fat": 0.41, 
+            "carbohydrates_sugar": 1.39, 
+            "fat_saturated": 0.079, 
+            "fibres": 3.3, 
+            "protein": 2.38, 
+            "carbohydrates": 7.18
         }
     }, 
     {
@@ -47376,6 +47440,22 @@
         }
     }, 
     {
+        "pk": 8221, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Corned Beef (Aufschnitt)", 
+            "language": 1, 
+            "sodium": 1.0, 
+            "energy": 110, 
+            "fat": 2.5, 
+            "carbohydrates_sugar": 0.6, 
+            "fat_saturated": 1.0, 
+            "fibres": 0.5, 
+            "protein": 21.0, 
+            "carbohydrates": 0.7
+        }
+    }, 
+    {
         "pk": 7865, 
         "model": "nutrition.ingredient", 
         "fields": {
@@ -52893,6 +52973,38 @@
             "fibres": 0.0, 
             "protein": 4.6, 
             "carbohydrates": 31.68
+        }
+    }, 
+    {
+        "pk": 8239, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Erdbeeren", 
+            "language": 1, 
+            "sodium": 0.001, 
+            "energy": 32, 
+            "fat": 0.3, 
+            "carbohydrates_sugar": 4.89, 
+            "fat_saturated": 0.015, 
+            "fibres": 2.0, 
+            "protein": 0.67, 
+            "carbohydrates": 7.68
+        }
+    }, 
+    {
+        "pk": 8237, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Erdn\u00fcsse, ger\u00f6stet, mit Salz", 
+            "language": 1, 
+            "sodium": 0.679, 
+            "energy": 585, 
+            "fat": 49.66, 
+            "carbohydrates_sugar": 4.18, 
+            "fat_saturated": 6.893, 
+            "fibres": 8.0, 
+            "protein": 23.68, 
+            "carbohydrates": 21.51
         }
     }, 
     {
@@ -64896,6 +65008,22 @@
         }
     }, 
     {
+        "pk": 8222, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Harzer K\u00e4se", 
+            "language": 1, 
+            "sodium": 1.5, 
+            "energy": 121, 
+            "fat": 0.5, 
+            "carbohydrates_sugar": 0.0, 
+            "fat_saturated": 0.3, 
+            "fibres": 0.0, 
+            "protein": 29.0, 
+            "carbohydrates": 0.0
+        }
+    }, 
+    {
         "pk": 7894, 
         "model": "nutrition.ingredient", 
         "fields": {
@@ -72144,6 +72272,38 @@
         }
     }, 
     {
+        "pk": 8233, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Kartoffeln, gekocht", 
+            "language": 1, 
+            "sodium": 0.24, 
+            "energy": 87, 
+            "fat": 0.1, 
+            "carbohydrates_sugar": 0.87, 
+            "fat_saturated": 0.026, 
+            "fibres": 2.0, 
+            "protein": 1.87, 
+            "carbohydrates": 20.13
+        }
+    }, 
+    {
+        "pk": 8232, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Kartoffelp\u00fcree, hausgemacht, ohne Butter", 
+            "language": 1, 
+            "sodium": 0.302, 
+            "energy": 83, 
+            "fat": 0.57, 
+            "carbohydrates_sugar": 1.48, 
+            "fat_saturated": 0.302, 
+            "fibres": 1.5, 
+            "protein": 1.91, 
+            "carbohydrates": 17.57
+        }
+    }, 
+    {
         "pk": 5802, 
         "model": "nutrition.ingredient", 
         "fields": {
@@ -72973,6 +73133,22 @@
             "fibres": 0.0, 
             "protein": 14.8, 
             "carbohydrates": 3.15
+        }
+    }, 
+    {
+        "pk": 8234, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Lachs", 
+            "language": 1, 
+            "sodium": 0.061, 
+            "energy": 206, 
+            "fat": 12.35, 
+            "carbohydrates_sugar": 0.0, 
+            "fat_saturated": 2.504, 
+            "fibres": null, 
+            "protein": 22.1, 
+            "carbohydrates": 0.0
         }
     }, 
     {
@@ -77296,6 +77472,22 @@
         }
     }, 
     {
+        "pk": 8223, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Limburger 20% i.Tr.", 
+            "language": 1, 
+            "sodium": 0.8, 
+            "energy": 194, 
+            "fat": 9.5, 
+            "carbohydrates_sugar": 0.1, 
+            "fat_saturated": 6.6, 
+            "fibres": 0.01, 
+            "protein": 27.0, 
+            "carbohydrates": 0.1
+        }
+    }, 
+    {
         "pk": 2281, 
         "model": "nutrition.ingredient", 
         "fields": {
@@ -79789,6 +79981,22 @@
             "fibres": 3.0, 
             "protein": 0.5, 
             "carbohydrates": 12.5
+        }
+    }, 
+    {
+        "pk": 8229, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Mandeln", 
+            "language": 1, 
+            "sodium": 0.01, 
+            "energy": 633, 
+            "fat": 54.9, 
+            "carbohydrates_sugar": 5.9, 
+            "fat_saturated": 4.7, 
+            "fibres": 8.2, 
+            "protein": 24.9, 
+            "carbohydrates": 5.9
         }
     }, 
     {
@@ -94032,6 +94240,22 @@
         }
     }, 
     {
+        "pk": 8240, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Pflaumen", 
+            "language": 1, 
+            "sodium": null, 
+            "energy": 46, 
+            "fat": 0.28, 
+            "carbohydrates_sugar": 9.92, 
+            "fat_saturated": 0.017, 
+            "fibres": 1.4, 
+            "protein": 0.7, 
+            "carbohydrates": 11.42
+        }
+    }, 
+    {
         "pk": 928, 
         "model": "nutrition.ingredient", 
         "fields": {
@@ -95997,6 +96221,22 @@
             "fibres": 4.0, 
             "protein": 1.67, 
             "carbohydrates": 18.7
+        }
+    }, 
+    {
+        "pk": 8230, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Pommes Frites", 
+            "language": 1, 
+            "sodium": 0.314, 
+            "energy": 292, 
+            "fat": 14.53, 
+            "carbohydrates_sugar": 0.28, 
+            "fat_saturated": 2.666, 
+            "fibres": 3.5, 
+            "protein": 3.65, 
+            "carbohydrates": 36.6
         }
     }, 
     {
@@ -106048,6 +106288,22 @@
         }
     }, 
     {
+        "pk": 8225, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Roggenvollkornbrot", 
+            "language": 1, 
+            "sodium": null, 
+            "energy": 193, 
+            "fat": 1.1, 
+            "carbohydrates_sugar": 0.0, 
+            "fat_saturated": 0.0, 
+            "fibres": null, 
+            "protein": 5.4, 
+            "carbohydrates": 35.7
+        }
+    }, 
+    {
         "pk": 8196, 
         "model": "nutrition.ingredient", 
         "fields": {
@@ -106461,6 +106717,22 @@
             "fibres": 11.8, 
             "protein": 10.88, 
             "carbohydrates": 75.43
+        }
+    }, 
+    {
+        "pk": 8235, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "R\u00e4ucherlachs", 
+            "language": 1, 
+            "sodium": 0.784, 
+            "energy": 117, 
+            "fat": 4.32, 
+            "carbohydrates_sugar": 0.0, 
+            "fat_saturated": 0.929, 
+            "fibres": null, 
+            "protein": 18.28, 
+            "carbohydrates": 0.0
         }
     }, 
     {
@@ -109933,6 +110205,22 @@
             "fibres": 0.9, 
             "protein": 15.05, 
             "carbohydrates": 4.65
+        }
+    }, 
+    {
+        "pk": 8227, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Schokolade, 70-85% Kakao", 
+            "language": 1, 
+            "sodium": 0.02, 
+            "energy": 598, 
+            "fat": 42.63, 
+            "carbohydrates_sugar": 23.99, 
+            "fat_saturated": 24.489, 
+            "fibres": 10.9, 
+            "protein": 7.79, 
+            "carbohydrates": 45.9
         }
     }, 
     {
@@ -118224,6 +118512,22 @@
         }
     }, 
     {
+        "pk": 8241, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Spargel", 
+            "language": 1, 
+            "sodium": 0.002, 
+            "energy": 20, 
+            "fat": 0.12, 
+            "carbohydrates_sugar": 1.88, 
+            "fat_saturated": 0.04, 
+            "fibres": 2.1, 
+            "protein": 2.2, 
+            "carbohydrates": 3.88
+        }
+    }, 
+    {
         "pk": 279, 
         "model": "nutrition.ingredient", 
         "fields": {
@@ -123869,6 +124173,38 @@
             "fibres": 0.0, 
             "protein": 4.78, 
             "carbohydrates": 12.27
+        }
+    }, 
+    {
+        "pk": 8238, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Trauben", 
+            "language": 1, 
+            "sodium": 0.002, 
+            "energy": 69, 
+            "fat": 0.16, 
+            "carbohydrates_sugar": 15.48, 
+            "fat_saturated": 0.054, 
+            "fibres": 0.9, 
+            "protein": 0.72, 
+            "carbohydrates": 18.1
+        }
+    }, 
+    {
+        "pk": 8226, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Traubenzucker (Dextrose)", 
+            "language": 1, 
+            "sodium": 0.0, 
+            "energy": 368, 
+            "fat": 0.0, 
+            "carbohydrates_sugar": 92.0, 
+            "fat_saturated": 0.0, 
+            "fibres": 0.0, 
+            "protein": 0.0, 
+            "carbohydrates": 92.0
         }
     }, 
     {
@@ -131486,5 +131822,21 @@
             "protein": 0.26, 
             "carbohydrates": 13.81
         }
-    }
+    }, 
+    {
+        "pk": 8224, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "\u00d6l", 
+            "language": 1, 
+            "sodium": 0.0, 
+            "energy": 900, 
+            "fat": 100.0, 
+            "carbohydrates_sugar": 0.0, 
+            "fat_saturated": 12.0, 
+            "fibres": 0.0, 
+            "protein": 0.0, 
+            "carbohydrates": 0.0
+        }
+    } 
 ]
