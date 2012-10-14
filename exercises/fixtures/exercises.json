@@ -214,6 +214,18 @@
         }
     }, 
     {
+        "pk": 129, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 8, 
+            "muscles": [
+                1
+            ], 
+            "description": "", 
+            "name": "Biceps curl with cable"
+        }
+    }, 
+    {
         "pk": 80, 
         "model": "exercises.exercise", 
         "fields": {
@@ -235,6 +247,18 @@
             ], 
             "description": "", 
             "name": "Biceps curls with barbell"
+        }
+    }, 
+    {
+        "pk": 81, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 8, 
+            "muscles": [
+                1
+            ], 
+            "description": "", 
+            "name": "Biceps curls with dumbbell"
         }
     }, 
     {
@@ -283,18 +307,6 @@
             ], 
             "description": "", 
             "name": "Bizeps am Kabel"
-        }
-    }, 
-    {
-        "pk": 81, 
-        "model": "exercises.exercise", 
-        "fields": {
-            "category": 8, 
-            "muscles": [
-                1
-            ], 
-            "description": "", 
-            "name": "Bizeps curls with dumbbell"
         }
     }, 
     {
@@ -351,6 +363,18 @@
         "fields": {
             "category": 5, 
             "muscles": [], 
+            "description": "", 
+            "name": "Butterfly reverse"
+        }
+    }, 
+    {
+        "pk": 124, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 13, 
+            "muscles": [
+                2
+            ], 
             "description": "", 
             "name": "Butterfly reverse"
         }
@@ -485,6 +509,18 @@
             ], 
             "description": "", 
             "name": "Deadlifts"
+        }
+    }, 
+    {
+        "pk": 121, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 11, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "Decline Benchpress"
         }
     }, 
     {
@@ -627,6 +663,18 @@
             ], 
             "description": "", 
             "name": "Fliegende KH Schr\u00e4gbank"
+        }
+    }, 
+    {
+        "pk": 122, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 11, 
+            "muscles": [
+                4
+            ], 
+            "description": "", 
+            "name": "Fly with cable"
         }
     }, 
     {
@@ -778,6 +826,18 @@
         }
     }, 
     {
+        "pk": 128, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 12, 
+            "muscles": [
+                9
+            ], 
+            "description": "", 
+            "name": "Hyperextensions"
+        }
+    }, 
+    {
         "pk": 28, 
         "model": "exercises.exercise", 
         "fields": {
@@ -876,6 +936,18 @@
         }
     }, 
     {
+        "pk": 130, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 9, 
+            "muscles": [
+                10
+            ], 
+            "description": "", 
+            "name": "Leg press on Hackenschmidt machine"
+        }
+    }, 
+    {
         "pk": 115, 
         "model": "exercises.exercise", 
         "fields": {
@@ -897,6 +969,30 @@
             ], 
             "description": "", 
             "name": "Leg presses (wide)"
+        }
+    }, 
+    {
+        "pk": 125, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 10, 
+            "muscles": [
+                6
+            ], 
+            "description": "", 
+            "name": "Leg raises, lying"
+        }
+    }, 
+    {
+        "pk": 126, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 10, 
+            "muscles": [
+                6
+            ], 
+            "description": "", 
+            "name": "Leg raises, standing"
         }
     }, 
     {
@@ -1146,7 +1242,19 @@
                 2
             ], 
             "description": "", 
-            "name": "Shoulder press"
+            "name": "Shoulder press, barbells"
+        }
+    }, 
+    {
+        "pk": 123, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 13, 
+            "muscles": [
+                2
+            ], 
+            "description": "", 
+            "name": "Shoulder press, dumbbells"
         }
     }, 
     {
@@ -1337,6 +1445,18 @@
             ], 
             "description": "", 
             "name": "Umsetzen"
+        }
+    }, 
+    {
+        "pk": 127, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 13, 
+            "muscles": [
+                2
+            ], 
+            "description": "", 
+            "name": "Upright Row"
         }
     }, 
     {
