@@ -196,7 +196,7 @@ def export_pdf(request, id):
         
         meal_markers.append(len(data))
     
-        if meal.time:
+        if not meal.time:
             P = Paragraph('<para align="center"><strong>%(meal_nr)s</strong></para>' %
                         {'meal_nr': i},
                       styleSheet["Normal"])
