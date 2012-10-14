@@ -54,9 +54,11 @@ class NutritionPlan(models.Model):
         nutritional_info = {'energy': 0,
                             'protein': 0,
                             'carbohydrates': 0,
+                            'carbohydrates_sugar': 0,
                             'fat': 0,
+                            'fat_saturated': 0,
                             'fibres': 0,
-                            'natrium': 0}
+                            'sodium': 0}
         for meal in self.meal_set.select_related():
             for item in meal.mealitem_set.select_related():
                 
@@ -75,8 +77,8 @@ class NutritionPlan(models.Model):
                     if item.ingredient.fibres:
                         nutritional_info['fibres'] += item.ingredient.fibres  * item.amount_gramm / 100
                     
-                    if item.ingredient.natrium:
-                        nutritional_info['natrium'] += item.ingredient.natrium  * item.amount_gramm / 100
+                    if item.ingredient.sodium:
+                        nutritional_info['sodium'] += item.ingredient.sodium  * item.amount_gramm / 100
         return nutritional_info
     
 class Ingredient(models.Model):
