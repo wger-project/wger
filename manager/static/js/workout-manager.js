@@ -343,7 +343,7 @@ function init_edit_set()
 
 function init_weight_datepicker()
 {
-    $( "#id_creation_date" ).datepicker({ dateFormat: "dd.mm.yy" });
+    $( "#id_creation_date" ).datepicker({ dateFormat: "yy-mm-dd" });
 }
 
 
