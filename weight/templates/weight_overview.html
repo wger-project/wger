@@ -12,6 +12,9 @@
 -->
 {% block header %}
 <script src="{% static 'js/jquery-ui.js' %}"></script>
+{% if language.short_name == 'de' %}
+<script src="{% static 'js/jquery.ui.datepicker-de.js' %}"></script>
+{% endif %}
 <script src="{% static 'js/workout-manager.js' %}"></script>
 <script src="{% static 'js/d3.js' %}"></script>
 <script src="{% static 'js/jquery-globalize/lib/globalize.js' %}"></script>

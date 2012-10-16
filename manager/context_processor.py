@@ -16,11 +16,16 @@
 
 from workout_manager import get_version
 
+from manager.utils import load_language
+
 def processor(request):
     return {
         # Application version
         'version' : get_version(),
         
         # Do not track header
-        'DNT': request.META.get('HTTP_DNT', False)
+        'DNT': request.META.get('HTTP_DNT', False),
+        
+        # User language
+        'language': load_language()
     }
