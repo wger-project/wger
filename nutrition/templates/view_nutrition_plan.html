@@ -196,8 +196,16 @@ $(document).ready(function() {
             <td>{{nutritional_data.carbohydrates|floatformat}} g</td>
         </tr>
         <tr>
+            <td style="padding-left: 2em;">{% trans "Sugar content in carbohydrates" %}</td>
+            <td>{{nutritional_data.carbohydrates_sugar|floatformat}} g</td>
+        </tr>
+        <tr>
             <td>{% trans "Fat" %}</td>
             <td>{{nutritional_data.fat|floatformat}} g</td>
+        </tr>
+        <tr>
+            <td style="padding-left: 2em;">{% trans "Saturated fat content in fats" %}</td>
+            <td>{{nutritional_data.fat_saturated|floatformat}} g</td>
         </tr>
     </tbody>
 </table>
