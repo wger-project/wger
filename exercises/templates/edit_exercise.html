@@ -13,9 +13,13 @@ init_tinymce();
 <!--
         Title
 -->
-{% block title %}{% trans "Exercise details" %}{% endblock %}
-
-
+{% block title %}
+    {% if exercise.id %}
+        {% blocktrans with exercisename=exercise.name %}Edit {{exercisename}}{% endblocktrans %} 
+    {% else %}
+        {% trans "New exercise" %}
+    {% endif %}
+{% endblock %}
 
 
 <!--
@@ -23,8 +27,9 @@ init_tinymce();
 -->
 {% block content %}
 
-<h2>{% if exercise.id %}
-        {% trans "Edit" %} {{ exercise.name }}
+<h2>
+    {% if exercise.id %}
+        {% blocktrans with exercisename=exercise.name %}Edit {{exercisename}}{% endblocktrans %}
     {% else %}
         {% trans "New exercise" %}
     {% endif %}
