@@ -185,19 +185,19 @@ $(document).ready(function() {
     <tbody>
         <tr>
             <td>{% trans "Energy" %}</td>
-            <td>{{nutritional_data.energy}} kcal</td>
+            <td>{{nutritional_data.energy|floatformat}} kcal</td>
         </tr>
         <tr>
             <td>{% trans "Protein" %}</td>
-            <td>{{nutritional_data.protein}} g</td>
+            <td>{{nutritional_data.protein|floatformat}} g</td>
         </tr>
         <tr>
             <td>{% trans "Carbohydrates" %}</td>
-            <td>{{nutritional_data.carbohydrates}} g</td>
+            <td>{{nutritional_data.carbohydrates|floatformat}} g</td>
         </tr>
         <tr>
             <td>{% trans "Fat" %}</td>
-            <td>{{nutritional_data.fat}} g</td>
+            <td>{{nutritional_data.fat|floatformat}} g</td>
         </tr>
     </tbody>
 </table>
@@ -213,11 +213,11 @@ $(document).ready(function() {
     <tbody>
         <tr>
             <td>{% trans "Fibres" %}</td>
-            <td>{{nutritional_data.fibres}} g</td>
+            <td>{{nutritional_data.fibres|floatformat}} g</td>
         </tr>
         <tr>
             <td>{% trans "Sodium" %}</td>
-            <td>{{nutritional_data.sodium}} g</td>
+            <td>{{nutritional_data.sodium|floatformat}} g</td>
         </tr>
     </tbody>
 </table>
