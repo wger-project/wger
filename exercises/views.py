@@ -182,6 +182,7 @@ class YamlFormMixin(ModelFormMixin):
     select_lists = []
     static_files = []
     custom_js = ''
+    form_action = ''
     
     def get_context_data(self, **kwargs):
         '''
@@ -212,6 +213,13 @@ class YamlFormMixin(ModelFormMixin):
         # Custom JS code on form (autocompleter, editor, etc.)
         context['custom_js'] = self.custom_js
         
+        # When viewing the page on it's own, this is not necessary, but when
+        # opening it on a modal dialog, we need to make sure the information
+        # reaches the correct controller
+        #logger.debug(reverse('exercises.views.exercise_overview'))
+        #logger.debug(self.object.get_absolute_url())
+        #context['form_action'] = 'self.form_action'
+        #logger.debug(context)
         return context
 
 class ExercisesUpdateView(YamlFormMixin, UpdateView):
@@ -238,7 +246,7 @@ class ExercisesDeleteView(YamlFormMixin, DeleteView):
     def dispatch(self, *args, **kwargs):
         return super(ExercisesDeleteView, self).dispatch(*args, **kwargs)
 
-
+        
 class ExerciseUpdateView(ExercisesUpdateView):
     model = Exercise
     
@@ -252,7 +260,27 @@ class ExerciseUpdateView(ExercisesUpdateView):
                     'js/workout-manager.js']
         
     custom_js = 'init_tinymce();'
+    
+    def get_form_class(self):
         
+        # Define the exercise form here because only at this point during the request
+        # have we access to the currently used language. In other places Django defaults
+        # to 'en-us'.
+        class ExerciseForm(ModelForm):
+            language = load_language()
+            category = ModelChoiceField(queryset=ExerciseCategory.objects.filter(language = language.id))
+            class Meta:
+                model = Exercise 
+        
+        return ExerciseForm
+    
+    def get_context_data(self, **kwargs):
+        context = super(ExerciseUpdateView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('exercise-edit', kwargs={'pk': self.object.id})
+        
+        return context
+
+
 class ExerciseAddView(ExercisesCreateView):
     model = Exercise
     
@@ -266,10 +294,52 @@ class ExerciseAddView(ExercisesCreateView):
                     'js/workout-manager.js']
         
     custom_js = 'init_tinymce();'
+    
+    def get_form_class(self):
+        
+        # Define the exercise form here because only at this point during the request
+        # have we access to the currently used language. In other places Django defaults
+        # to 'en-us'.
+        class ExerciseForm(ModelForm):
+            language = load_language()
+            category = ModelChoiceField(queryset=ExerciseCategory.objects.filter(language = language.id))
+            class Meta:
+                model = Exercise 
+        
+        return ExerciseForm
+    
+    
+    def get_context_data(self, **kwargs):
+        context = super(ExerciseAddView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('exercise-add')
+        
+        return context
+    
+    
 
 class ExerciseDeleteView(ExercisesDeleteView):
     model = Exercise
 
+
+class ExerciseCategoryAddView(ExercisesCreateView):
+    model = ExerciseCategory
+    form_fields = ['name']
+    
+    def get_context_data(self, **kwargs):
+        context = super(ExerciseCategoryAddView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('exercisecategory-add')
+        
+        return context
+
+class ExerciseCategoryUpdateView(ExercisesUpdateView):
+    model = ExerciseCategory
+    form_fields = ['name']
+
+    def get_context_data(self, **kwargs):
+        context = super(ExerciseCategoryUpdateView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('exercisecategory-edit', kwargs={'pk': self.object.id})
+        
+        return context
 
 @permission_required('exercises.delete_exercise')
 def exercise_delete(request, id):
@@ -278,42 +348,6 @@ def exercise_delete(request, id):
     exercise.delete()
     
     return HttpResponseRedirect(reverse('exercises.views.exercise_overview'))
-
-@permission_required('exercises.change_exercisecategory')
-def exercise_category_edit(request, id):
-    template_data = {}
-    template_data.update(csrf(request))
-    template_data['active_tab'] = 'exercises'
-    
-    if not id:
-        category = ExerciseCategory()
-    else:
-        category = get_object_or_404(ExerciseCategory, pk=id)
-    template_data['category'] = category
-    
-    if request.method == 'POST':
-        category_form = ExerciseCategoryForm(request.POST, instance=category)
-        
-        # If the data is valid, save and redirect
-        if category_form.is_valid():
-            
-            # Load the language
-            language = load_language()
-            
-            # Save the category
-            category = category_form.save(commit=False)
-            category.language = language
-            category.save()
-            
-            return HttpResponseRedirect(reverse('exercises.views.exercise_overview'))
-    else:
-        category_form = ExerciseCategoryForm(instance=category)
-    
-    template_data['category_form'] = category_form
-    
-    return render_to_response('edit_category.html',
-                              template_data,
-                              context_instance=RequestContext(request))
 
 @permission_required('exercises.delete_exercisecategory')
 def exercise_category_delete(request, id):

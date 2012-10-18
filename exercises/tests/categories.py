@@ -81,8 +81,8 @@ class ExerciseCategoryTestCase(WorkoutManagerTestCase):
         category = ExerciseCategory.objects.get(pk = 3)
         old_name = category.name
         
-        response = self.client.post(reverse('exercises.views.exercise_category_edit',
-                                           kwargs={'id': 3}),
+        response = self.client.post(reverse('exercisecategory-edit',
+                                           kwargs={'pk': 3}),
                                    {'name': 'A different name'})
         
         # There is a redirect
@@ -104,8 +104,8 @@ class ExerciseCategoryTestCase(WorkoutManagerTestCase):
         
         # No name
         if not fail:
-            response = self.client.post(reverse('exercises.views.exercise_category_edit',
-                                           kwargs={'id': 3}),
+            response = self.client.post(reverse('exercisecategory-edit',
+                                           kwargs={'pk': 3}),
                                         {'name': ''})
 
             self.assertTrue(response.context['category_form'].errors['name'])

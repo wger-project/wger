@@ -133,7 +133,7 @@ $(document).ready(function() {
         </tbody>
         </table>
 
-<!--         <a href="{% url exercises.views.exercise_category_edit category.id %}">[e]</a> -->
+<!--         <a href="{% url exercisecategory-edit category.id %}">[e]</a> -->
     </div>
     {% endfor %}
 </div>
@@ -160,7 +160,7 @@ $(document).ready(function() {
         </a>
 	</p>
 	<p>
-        <a href="{% url exercises.views.exercise_category_edit None %}"
+        <a href="{% url exercisecategory-add %}"
            class="modal-dialog">
         	<img src="{% static 'images/icons/folder-new.svg' %}"
                             width="32"

@@ -3,6 +3,8 @@ from django.conf.urls import patterns, include, url
 from exercises.views import ExerciseUpdateView
 from exercises.views import ExerciseAddView
 from exercises.views import ExerciseDeleteView
+from exercises.views import ExerciseCategoryAddView
+from exercises.views import ExerciseCategoryUpdateView
 
 urlpatterns = patterns('exercises.views',
     url(r'^exercise/overview/$', 'exercise_overview'),
@@ -20,7 +22,9 @@ urlpatterns = patterns('exercises.views',
     url(r'^exercise/comment/(?P<id>\d+)/delete/$', 'exercisecomment_delete'),
     
     # Categories
-    url(r'^exercise/category/(?P<id>\d*)/edit/$', 'exercise_category_edit'),
+    url(r'^exercise/category/(?P<pk>\d+)/edit/$', ExerciseCategoryUpdateView.as_view(), name='exercisecategory-edit'),
+    url(r'^exercise/category/add/$', ExerciseCategoryAddView.as_view(), name='exercisecategory-add'),
+    #url(r'^exercise/category/(?P<id>\d*)/edit/$', 'exercise_category_edit'),
     url(r'^exercise/category/(?P<id>\d*)/delete/$', 'exercise_category_delete'),
     
 )
