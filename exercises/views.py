@@ -29,6 +29,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import permission_required
 from django.utils.translation import ugettext as _
+from django.utils.decorators import method_decorator
 from django.utils import translation
 
 from django.views.generic import DeleteView
@@ -216,13 +217,26 @@ class YamlFormMixin(ModelFormMixin):
 class ExercisesUpdateView(YamlFormMixin, UpdateView):
     active_tab = 'exercises'
     
+    @method_decorator(permission_required('exercises.change_exercise'))
+    def dispatch(self, *args, **kwargs):
+        return super(ExercisesUpdateView, self).dispatch(*args, **kwargs)
+    
 class ExercisesCreateView(YamlFormMixin, CreateView):
     active_tab = 'exercises'
+    
+    @method_decorator(permission_required('exercises.change_exercise'))
+    def dispatch(self, *args, **kwargs):
+        return super(ExercisesCreateView, self).dispatch(*args, **kwargs)
 
 class ExercisesDeleteView(YamlFormMixin, DeleteView):
     active_tab = 'exercises'
     #template_name = ''
-    success_url = reverse('exercises.views.exercise_overview')
+    #success_url = reverse('exercises.views.exercise_overview')
+    success_url = '/'
+    
+    @method_decorator(permission_required('exercises.delete_exercise'))
+    def dispatch(self, *args, **kwargs):
+        return super(ExercisesDeleteView, self).dispatch(*args, **kwargs)
 
 
 class ExerciseUpdateView(ExercisesUpdateView):
