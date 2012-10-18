@@ -17,6 +17,8 @@
 
 from django.db import models
 from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+
 
 class Language(models.Model):
     """Language of an item (exercise, workout, etc.)
@@ -87,6 +89,10 @@ class Exercise(models.Model):
     class Meta:
         ordering = ["name", ]
     
+    
+    def get_absolute_url(self):
+        return reverse('exercises.views.exercise_view', kwargs= {'id': self.id})
+        
     def __unicode__(self):
         """Return a more human-readable representation
         """
