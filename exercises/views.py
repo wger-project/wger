@@ -31,6 +31,10 @@ from django.contrib.auth.decorators import permission_required
 from django.utils.translation import ugettext as _
 from django.utils import translation
 
+from django.views.generic import CreateView
+from django.views.generic import UpdateView
+from django.views.generic.edit import ModelFormMixin
+
 from manager.utils import load_language
 
 from exercises.models import Language
@@ -166,6 +170,86 @@ def exercise_view(request, id, comment_id=None):
                               template_data,
                               context_instance=RequestContext(request))
 
+
+class YamlFormMixin(ModelFormMixin):
+    template_name = 'form.html'
+    
+    active_tab = ''
+    form_fields = []
+    active_tab = ''
+    select_lists = []
+    static_files = []
+    custom_js = ''
+    
+    def get_context_data(self, **kwargs):
+        '''
+        Set necessary template data to correctly render the form
+        '''
+        
+        # Call the base implementation first to get a context
+        context = super(YamlFormMixin, self).get_context_data(**kwargs)
+        
+        # CSRF token
+        context.update(csrf(self.request))
+        
+        # Active tab, on top navigation
+        context['active_tab'] = self.active_tab
+    
+        # Form fields are listed here, otherwise the order from the model is
+        # used. The list comprehension is to avoid weird problems with django's
+        # template when accessing the fields with "form.fieldname"
+        context['form_fields'] = [kwargs['form'][i] for i in self.form_fields]
+        
+        # Drop down lists get a special CSS class, there doesn't seem to be
+        # another way of detecting them
+        context['select_lists'] = self.select_lists
+    
+        # List of additional JS static files, will be passed to {% static %}
+        context['static_files'] = self.static_files
+       
+        # Custom JS code on form (autocompleter, editor, etc.)
+        context['custom_js'] = self.custom_js
+        
+        return context
+
+class ExercisesUpdateView(YamlFormMixin, UpdateView):
+    active_tab = 'exercises'
+    
+class ExercisesCreateView(YamlFormMixin, CreateView):
+    active_tab = 'exercises'
+
+
+
+class ExerciseUpdateView(ExercisesUpdateView):
+    model = Exercise
+    
+    form_fields = ['name',
+                   'category',
+                   'muscles',
+                   'description']
+    
+    select_lists = ['category']
+    static_files = ['js/tinymce/tiny_mce.js', 
+                    'js/workout-manager.js']
+        
+    custom_js = 'init_tinymce();'
+        
+class ExerciseAddView(ExercisesCreateView):
+    model = Exercise
+    
+    form_fields = ['name',
+                   'category',
+                   'muscles',
+                   'description']
+    
+    select_lists = ['category']
+    static_files = ['js/tinymce/tiny_mce.js', 
+                    'js/workout-manager.js']
+        
+    custom_js = 'init_tinymce();'
+
+    
+
 @permission_required('exercises.change_exercise')
 def exercise_edit(request, id=None):
     
@@ -205,9 +289,40 @@ def exercise_edit(request, id=None):
     else:
         exercise_form = ExerciseForm(instance=exercise)
     
-    template_data['edit_form'] = exercise_form
+    #template_data['edit_form'] = exercise_form
     
-    return render_to_response('edit_exercise.html',
+    #
+    # Pass settings to the form template
+    #
+    if exercise.id:
+        template_data['title'] = _('Edit %(exercisename)s') % {'exercisename': exercise.name}
+    else:
+        template_data['title'] = _('New exercise')
+    
+    template_data['form_action'] = reverse('exercises.views.exercise_edit',
+                                           kwargs = {'id': exercise.id})
+    
+    # Form fields are listed here, otherwise the order from the model is
+    # used. The list comprehension is to avoid weird problems with django's
+    # template when accessing the fields with "form.fieldname"
+    template_data['form_fields'] = [exercise_form[i] for i in [
+                                        'name',
+                                        'category',
+                                        'muscles',
+                                        'description'
+                                        ]
+                                    ]
+    
+    # Drop down lists get a special CSS class
+    template_data['select_lists'] = ['category']
+    
+    template_data['static_files'] = ['js/tinymce/tiny_mce.js', 
+                                     'js/workout-manager.js']
+    
+    # Custom JS code on form (autocompleter, editor, etc.)
+    template_data['custom_js'] = 'init_tinymce();'
+    
+    return render_to_response('form.html',
                               template_data,
                               context_instance=RequestContext(request))
 
