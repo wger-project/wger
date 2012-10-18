@@ -158,7 +158,7 @@ $(document).ready(function() {
 {% if perms.exercises %}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url exercises.views.exercise_edit exercise.id %}"
+    <a href="{% url exercise-edit exercise.id %}"
        class="modal-dialog">
         <img src="{% static 'images/icons/edit.svg' %}"
              width="32"
@@ -169,7 +169,7 @@ $(document).ready(function() {
     </a>
 </p>
 <p>
-    <a href="{% url exercises.views.exercise_delete exercise.id %}">
+    <a href="{% url exercise-delete exercise.id %}">
 	<img src="{% static 'images/icons/trash.svg' %}"
          width="32"
          height="32"

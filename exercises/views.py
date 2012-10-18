@@ -31,6 +31,7 @@ from django.contrib.auth.decorators import permission_required
 from django.utils.translation import ugettext as _
 from django.utils import translation
 
+from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
 from django.views.generic.edit import ModelFormMixin
@@ -218,6 +219,10 @@ class ExercisesUpdateView(YamlFormMixin, UpdateView):
 class ExercisesCreateView(YamlFormMixin, CreateView):
     active_tab = 'exercises'
 
+class ExercisesDeleteView(YamlFormMixin, DeleteView):
+    active_tab = 'exercises'
+    #template_name = ''
+    success_url = reverse('exercises.views.exercise_overview')
 
 
 class ExerciseUpdateView(ExercisesUpdateView):
@@ -247,6 +252,9 @@ class ExerciseAddView(ExercisesCreateView):
                     'js/workout-manager.js']
         
     custom_js = 'init_tinymce();'
+
+class ExerciseDeleteView(ExercisesDeleteView):
+    model = Exercise
 
     
 
