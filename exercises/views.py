@@ -30,6 +30,7 @@ from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import permission_required
 from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy
 from django.utils.decorators import method_decorator
 from django.utils import translation
 
@@ -184,6 +185,7 @@ class YamlFormMixin(ModelFormMixin):
     static_files = []
     custom_js = ''
     form_action = ''
+    title = ''
     
     def get_context_data(self, **kwargs):
         '''
@@ -199,10 +201,14 @@ class YamlFormMixin(ModelFormMixin):
         # Active tab, on top navigation
         context['active_tab'] = self.active_tab
     
-        # Form fields are listed here, otherwise the order from the model is
-        # used. The list comprehension is to avoid weird problems with django's
-        # template when accessing the fields with "form.fieldname"
-        context['form_fields'] = [kwargs['form'][i] for i in self.form_fields]
+        # Custom order for form fields. The list comprehension is to avoid
+        # weird problems with django's template when accessing the fields with "form.fieldname"
+        if self.form_fields:
+            context['form_fields'] = [kwargs['form'][i] for i in self.form_fields]
+        
+        # Use the the order as defined in the model
+        else:
+            context['form_fields'] = kwargs['form']
         
         # Drop down lists get a special CSS class, there doesn't seem to be
         # another way of detecting them
@@ -218,6 +224,9 @@ class YamlFormMixin(ModelFormMixin):
         # opening it on a modal dialog, we need to make sure the POST request
         # reaches the correct controller
         context['form_action'] = self.form_action
+        
+        # Set the title
+        context['title'] = self.title
         
         return context
 
@@ -294,6 +303,9 @@ class ExerciseAddView(ExercisesCreateView):
                     'js/workout-manager.js']
         
     custom_js = 'init_tinymce();'
+    title = ugettext_lazy('Add exercise')
+    form_action = reverse_lazy('exercise-add')
+         
     
     def get_form_class(self):
         '''
@@ -312,15 +324,6 @@ class ExerciseAddView(ExercisesCreateView):
         
         return ExerciseForm
     
-    
-    def get_context_data(self, **kwargs):
-        context = super(ExerciseAddView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercise-add')
-        context['title'] = _('Add exercise')
-        
-        return context
-    
-
 class ExerciseDeleteView(ExercisesDeleteView):
     model = Exercise
 
@@ -328,16 +331,10 @@ class ExerciseDeleteView(ExercisesDeleteView):
 class ExerciseCategoryAddView(ExercisesCreateView):
     model = ExerciseCategory
     form_class = ExerciseCategoryForm
-    form_fields = ['name']
     success_url = reverse_lazy('exercises.views.exercise_overview')
+    title = ugettext_lazy('Add category')
+    form_action = reverse_lazy('exercisecategory-add')
     
-    def get_context_data(self, **kwargs):
-        context = super(ExerciseCategoryAddView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercisecategory-add')
-        context['title'] = _('Add category')
-        
-        return context
-
     def form_valid(self, form):
         form.instance.language = load_language()
     
@@ -347,7 +344,6 @@ class ExerciseCategoryAddView(ExercisesCreateView):
 class ExerciseCategoryUpdateView(ExercisesUpdateView):
     model = ExerciseCategory
     form_class = ExerciseCategoryForm
-    form_fields = ['name']
     success_url = reverse_lazy('exercises.views.exercise_overview')
 
     def get_context_data(self, **kwargs):
