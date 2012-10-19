@@ -32,7 +32,7 @@
       method="post"
       class="ym-form">
 {% csrf_token %}
-{{ edit_form.non_field_errors }}
+{{ form.non_field_errors }}
 <table>
     {% for current_field in form_fields %}
         {% if current_field.name in select_lists %}
