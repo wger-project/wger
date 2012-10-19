@@ -26,7 +26,7 @@ from django.core.urlresolvers import reverse
 from exercises.models import Exercise
 from exercises.models import ExerciseCategory
 
-from exercises.tests.testcase import WorkoutManagerTestCase
+from manager.tests.testcase import WorkoutManagerTestCase
 
 class ExerciseCategoryTestCase(WorkoutManagerTestCase):
     """Exercise category test case"""
