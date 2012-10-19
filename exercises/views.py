@@ -216,10 +216,6 @@ class YamlFormMixin(ModelFormMixin):
         # When viewing the page on it's own, this is not necessary, but when
         # opening it on a modal dialog, we need to make sure the information
         # reaches the correct controller
-        #logger.debug(reverse('exercises.views.exercise_overview'))
-        #logger.debug(self.object.get_absolute_url())
-        #context['form_action'] = 'self.form_action'
-        #logger.debug(context)
         return context
 
 class ExercisesUpdateView(YamlFormMixin, UpdateView):
@@ -277,6 +273,7 @@ class ExerciseUpdateView(ExercisesUpdateView):
     def get_context_data(self, **kwargs):
         context = super(ExerciseUpdateView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('exercise-edit', kwargs={'pk': self.object.id})
+        context['title'] = _('Edit %s') % self.object.name
         
         return context
 
@@ -296,10 +293,14 @@ class ExerciseAddView(ExercisesCreateView):
     custom_js = 'init_tinymce();'
     
     def get_form_class(self):
+        '''
+        Define the form used for editing
         
-        # Define the exercise form here because only at this point during the request
-        # have we access to the currently used language. In other places Django defaults
-        # to 'en-us'.
+        This is donw here because only at this point during the request have
+        we access to the currently used language. In other places Django defaults
+        to 'en-us'.
+        '''
+        
         class ExerciseForm(ModelForm):
             language = load_language()
             category = ModelChoiceField(queryset=ExerciseCategory.objects.filter(language = language.id))
@@ -312,6 +313,7 @@ class ExerciseAddView(ExercisesCreateView):
     def get_context_data(self, **kwargs):
         context = super(ExerciseAddView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('exercise-add')
+        context['title'] = _('Add exercise')
         
         return context
     
@@ -328,8 +330,12 @@ class ExerciseCategoryAddView(ExercisesCreateView):
     def get_context_data(self, **kwargs):
         context = super(ExerciseCategoryAddView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('exercisecategory-add')
+        context['title'] = _('Add category')
         
         return context
+
+    def get_success_url(self):
+        return reverse('exercises.views.exercise_overview')
 
 class ExerciseCategoryUpdateView(ExercisesUpdateView):
     model = ExerciseCategory
@@ -338,8 +344,12 @@ class ExerciseCategoryUpdateView(ExercisesUpdateView):
     def get_context_data(self, **kwargs):
         context = super(ExerciseCategoryUpdateView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('exercisecategory-edit', kwargs={'pk': self.object.id})
+        context['title'] = _('Edit %s') % self.object.name
         
         return context
+        
+    def get_success_url(self):
+        return reverse('exercises.views.exercise_overview')
 
 @permission_required('exercises.delete_exercise')
 def exercise_delete(request, id):
