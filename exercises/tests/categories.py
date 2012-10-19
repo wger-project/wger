@@ -108,7 +108,7 @@ class ExerciseCategoryTestCase(WorkoutManagerTestCase):
                                            kwargs={'pk': 3}),
                                         {'name': ''})
 
-            self.assertTrue(response.context['category_form'].errors['name'])
+            self.assertTrue(response.context['form'].errors['name'])
         
     def test_edit_category_unauthorized(self):
         """Test deleting a category by an unauthorized user"""
