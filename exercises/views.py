@@ -27,6 +27,7 @@ from django.forms import ModelChoiceField
 from django.core.context_processors import csrf
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import permission_required
 from django.utils.translation import ugettext as _
 from django.utils.decorators import method_decorator
@@ -214,8 +215,10 @@ class YamlFormMixin(ModelFormMixin):
         context['custom_js'] = self.custom_js
         
         # When viewing the page on it's own, this is not necessary, but when
-        # opening it on a modal dialog, we need to make sure the information
+        # opening it on a modal dialog, we need to make sure the POST request
         # reaches the correct controller
+        context['form_action'] = self.form_action
+        
         return context
 
 class ExercisesUpdateView(YamlFormMixin, UpdateView):
@@ -234,14 +237,14 @@ class ExercisesCreateView(YamlFormMixin, CreateView):
 
 class ExercisesDeleteView(YamlFormMixin, DeleteView):
     active_tab = 'exercises'
-    #template_name = ''
-    #success_url = reverse('exercises.views.exercise_overview')
     success_url = '/'
     
     @method_decorator(permission_required('exercises.delete_exercise'))
     def dispatch(self, *args, **kwargs):
         return super(ExercisesDeleteView, self).dispatch(*args, **kwargs)
 
+    def get_success_url(self):
+        return reverse('exercises.views.exercise_overview')
         
 class ExerciseUpdateView(ExercisesUpdateView):
     model = Exercise
@@ -317,7 +320,6 @@ class ExerciseAddView(ExercisesCreateView):
         
         return context
     
-    
 
 class ExerciseDeleteView(ExercisesDeleteView):
     model = Exercise
@@ -325,7 +327,9 @@ class ExerciseDeleteView(ExercisesDeleteView):
 
 class ExerciseCategoryAddView(ExercisesCreateView):
     model = ExerciseCategory
+    form_class = ExerciseCategoryForm
     form_fields = ['name']
+    success_url = reverse_lazy('exercises.views.exercise_overview')
     
     def get_context_data(self, **kwargs):
         context = super(ExerciseCategoryAddView, self).get_context_data(**kwargs)
@@ -334,12 +338,17 @@ class ExerciseCategoryAddView(ExercisesCreateView):
         
         return context
 
-    def get_success_url(self):
-        return reverse('exercises.views.exercise_overview')
+    def form_valid(self, form):
+        form.instance.language = load_language()
+    
+        return super(ExerciseCategoryAddView, self).form_valid(form)
+
 
 class ExerciseCategoryUpdateView(ExercisesUpdateView):
     model = ExerciseCategory
+    form_class = ExerciseCategoryForm
     form_fields = ['name']
+    success_url = reverse_lazy('exercises.views.exercise_overview')
 
     def get_context_data(self, **kwargs):
         context = super(ExerciseCategoryUpdateView, self).get_context_data(**kwargs)
@@ -348,9 +357,12 @@ class ExerciseCategoryUpdateView(ExercisesUpdateView):
         
         return context
         
-    def get_success_url(self):
-        return reverse('exercises.views.exercise_overview')
+    def form_valid(self, form):
+        form.instance.language = load_language()
+        
+        return super(ExerciseCategoryUpdateView, self).form_valid(form)
 
+        
 @permission_required('exercises.delete_exercise')
 def exercise_delete(request, id):
     # Load the exercise

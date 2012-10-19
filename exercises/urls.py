@@ -25,6 +25,6 @@ urlpatterns = patterns('exercises.views',
     url(r'^exercise/category/(?P<pk>\d+)/edit/$', ExerciseCategoryUpdateView.as_view(), name='exercisecategory-edit'),
     url(r'^exercise/category/add/$', ExerciseCategoryAddView.as_view(), name='exercisecategory-add'),
     #url(r'^exercise/category/(?P<id>\d*)/edit/$', 'exercise_category_edit'),
-    url(r'^exercise/category/(?P<id>\d*)/delete/$', 'exercise_category_delete'),
+    url(r'^exercise/category/(?P<id>\d+)/delete/$', 'exercise_category_delete'),
     
 )
