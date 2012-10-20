@@ -198,7 +198,7 @@ def change_password(request):
         
         # If the data is valid, change the password redirect
         if form.is_valid():
-            request.user.set_password(form.data['new_password1'])
+            request.user.set_password(form.cleaned_data['new_password1'])
             request.user.save()
         
             return HttpResponseRedirect(reverse('manager.views.index'))
