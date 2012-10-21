@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-12 09:22+0200\n"
+"POT-Creation-Date: 2012-10-21 11:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,9 +112,9 @@ msgstr ""
 msgid "Rest day"
 msgstr "Ruhetag"
 
-#: views.py:359 views.py:369 templates/index.html:15
-#: templates/index.html.py:21 templates/workout/overview.html:21
-#: templates/workout/view.html:6 templates/workout/view.html.py:41
+#: views.py:359 views.py:369 templates/index.html:15 templates/index.html.py:21
+#: templates/workout/overview.html:21 templates/workout/view.html:6
+#: templates/workout/view.html.py:41
 msgid "Workout"
 msgstr "Trainingsplan"
 
@@ -210,6 +210,12 @@ msgstr "Unter der Affero GPL veröffentlicht"
 msgid "Layout based on <a href='http://www.yaml.de'>YAML</a>"
 msgstr "Layout basiert auf <a href='http://www.yaml.de'>YAML</a>"
 
+#: templates/form.html:45 templates/day/edit.html:26 templates/set/edit.html:59
+#: templates/setting/ajax_edit.html:71 templates/setting/edit.html:32
+#: templates/user/preferences.html:21 templates/workout/edit.html:25
+msgid "Save"
+msgstr ""
+
 #: templates/index.html:5
 msgid "Workout list"
 msgstr "Liste der Trainingspläne"
@@ -223,8 +229,7 @@ msgid "No workouts found."
 msgstr "Keine Trainingspläne gefunden."
 
 #: templates/index.html:42 templates/index.html.py:80
-#: templates/tags/render_day.html:119 templates/tags/render_day.html.py:153
-#: templates/workout/overview.html:34 templates/workout/view.html:57
+#: templates/workout/overview.html:34
 msgid "Use link to add one."
 msgstr "Benutzen Sie den Verweis zum Hinzufügen."
 
@@ -250,7 +255,7 @@ msgstr ""
 
 #: templates/index.html:80
 msgid "No nutrition plans."
-msgstr "Keine Ernährungspläne"
+msgstr "Keine Ernährungspläne."
 
 #: templates/index.html:85
 msgid "Your current weight is: "
@@ -262,8 +267,7 @@ msgstr "Ihr aktuelles Gewicht ist: "
 msgid "Add workout"
 msgstr "Trainingsplan hinzufügen"
 
-#: templates/index.html:113 templates/index.html.py:114
-#: templates/index.html:115
+#: templates/index.html:113 templates/index.html.py:114 templates/index.html:115
 msgid "Add nutrition plan"
 msgstr "Ernährungsplan hinzufügen"
 
@@ -273,15 +277,14 @@ msgid ""
 "goal."
 msgstr ""
 "Nach dem hinzufügen eines Training- oder Ernährungsplanes, kann man sie "
-"bearbeiten, um ein Ziel oder Beschreibung zu setzen"
+"bearbeiten, um ein Ziel oder Beschreibung zu setzen."
 
 #: templates/index.html:129 templates/user/preferences.html:29
-#: templates/workout/overview.html:43 templates/workout/view.html:119
+#: templates/workout/overview.html:43 templates/workout/view.html:122
 msgid "Options"
 msgstr "Optionen"
 
-#: templates/index.html:135 templates/index.html.py:136
-#: templates/index.html:137
+#: templates/index.html:135 templates/index.html.py:136 templates/index.html:137
 msgid "My preferences"
 msgstr "Meine Einstellungen"
 
@@ -290,7 +293,7 @@ msgid "No account?"
 msgstr "Kein Account?"
 
 #: templates/login.html:35 templates/user/change_password.html:21
-#: templates/user/registration.html:20
+#: templates/user/registration.html:20 templates/user/reset_password.html:18
 msgid "Register"
 msgstr "Registrieren"
 
@@ -301,16 +304,10 @@ msgstr "Details für Tag"
 #: templates/day/edit.html:15 templates/set/edit.html:31
 #: templates/setting/edit.html:15 templates/tags/render_day.html:42
 #: templates/tags/render_day.html.py:47 templates/tags/render_day.html:60
-#: templates/tags/render_day.html.py:64 templates/tags/render_day.html:126
-#: templates/tags/render_day.html.py:131
+#: templates/tags/render_day.html.py:64 templates/tags/render_day.html:130
+#: templates/tags/render_day.html.py:135
 msgid "Edit"
 msgstr "Bearbeiten"
-
-#: templates/day/edit.html:26 templates/set/edit.html:59
-#: templates/setting/ajax_edit.html:71 templates/setting/edit.html:32
-#: templates/user/preferences.html:21 templates/workout/edit.html:25
-msgid "Save"
-msgstr ""
 
 #: templates/set/edit.html:8 templates/setting/edit.html:7
 msgid "Set details"
@@ -330,20 +327,29 @@ msgid "Move me"
 msgstr "Bewege mich"
 
 #: templates/tags/render_day.html:119
-msgid "No settings for this exercise."
-msgstr "Keine Wiederholungen für diese Übung."
+msgid "This exercise has no settings."
+msgstr "Diese Übung hat keine Einstellungen."
 
-#: templates/tags/render_day.html:153
+#: templates/tags/render_day.html:122
+msgid "Edit them now."
+msgstr "Jetzt editieren."
+
+#: templates/tags/render_day.html:157
 msgid "No sets for this day."
 msgstr "Keine Sätze für diesen Tag."
 
-#: templates/tags/render_day.html:161
+#: templates/tags/render_day.html:159
+msgid "Add one now."
+msgstr "Jetzt hinzufügen."
+
+#: templates/tags/render_day.html:168
 msgid "Add workout set"
 msgstr "Satz hinzufügen"
 
 #: templates/user/change_password.html:4 templates/user/change_password.html:8
 #: templates/user/preferences.html:44 templates/user/preferences.html.py:45
-#: templates/user/preferences.html:46
+#: templates/user/preferences.html:46 templates/user/reset_password.html:4
+#: templates/user/reset_password.html:8
 msgid "Change password"
 msgstr "Passwort ändern"
 
@@ -352,8 +358,8 @@ msgid "Preferences"
 msgstr "Einstellungen"
 
 #: templates/workout/edit.html:7 templates/workout/edit.html.py:15
-#: templates/workout/view.html:138 templates/workout/view.html.py:139
-#: templates/workout/view.html:140
+#: templates/workout/view.html:141 templates/workout/view.html.py:142
+#: templates/workout/view.html:143
 msgid "Edit workout"
 msgstr "Trainingsplan bearbeiten"
 
@@ -369,50 +375,53 @@ msgstr "Ziel"
 msgid "No days for this workout."
 msgstr "Keine Tage für diesen Trainingsplan."
 
-#: templates/workout/view.html:64
+#: templates/workout/view.html:59 templates/workout/view.html.py:67
 msgid "Add training day"
 msgstr "Trainingstag hinzufügen"
 
-#: templates/workout/view.html:69
+#: templates/workout/view.html:72
 msgid "Show/Hide exercise comments"
 msgstr "Kommentare der Übungen ein/ausblenden"
 
-#: templates/workout/view.html:82
+#: templates/workout/view.html:85
 msgid "Steps"
 msgstr "Schritte"
 
-#: templates/workout/view.html:85
+#: templates/workout/view.html:88
 msgid "Add training days"
 msgstr "Trainingstag hinzufügen"
 
-#: templates/workout/view.html:86
+#: templates/workout/view.html:89
 msgid "Add working sets to days"
 msgstr "Sätze zu den Tagen hinzufügen"
 
-#: templates/workout/view.html:88
+#: templates/workout/view.html:91
 msgid "Set the repetitions for each set"
 msgstr "Wiederholungen für den Satz eingeben"
 
-#: templates/workout/view.html:89
+#: templates/workout/view.html:92
 msgid "use '99' for 'all repetitions you can do'"
 msgstr "benutzen Sie '99' für 'So viele Wiederholungen wie es geht'"
 
-#: templates/workout/view.html:94
+#: templates/workout/view.html:97
 msgid "Muscles trained"
 msgstr "Trainierte Muskeln"
 
-#: templates/workout/view.html:97
+#: templates/workout/view.html:100
 msgid ""
 "Images show combined muscles as trained by the exercises on the workout."
 msgstr ""
 "Das Bild zeigt die kombinierten Muskeln, wie sie von den Übungen traniert "
 "werden."
 
-#: templates/workout/view.html:126 templates/workout/view.html.py:127
-#: templates/workout/view.html:128
+#: templates/workout/view.html:129 templates/workout/view.html.py:130
+#: templates/workout/view.html:131
 msgid "Download as PDF"
 msgstr "Als PDF runterladen"
 
-#: templates/workout/view.html:149 templates/workout/view.html.py:150
+#: templates/workout/view.html:152 templates/workout/view.html.py:153
 msgid "Delete this workout"
 msgstr "Trainingsplan löschen"
+
+#~ msgid "No settings for this exercise."
+#~ msgstr "Keine Wiederholungen für diese Übung."

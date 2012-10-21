@@ -114,7 +114,11 @@ $(document).ready(function() {
                             </span>
                         {% empty %}
                             <div class="box warning">
-                                {% trans "No settings for this exercise." %} {% trans "Use link to add one." %}
+                                {% trans "This exercise has no settings." %} 
+                                <a href="{% url manager.views.edit_setting workout.id set.id exercise.id None %}"
+                                   class="ajax-set-edit">
+                                {% trans "Edit them now."%}
+                            </a>
                             </div>
                         {% endfor %} <!--for setting in exercise-->
                         </span>
@@ -148,7 +152,10 @@ $(document).ready(function() {
         <tr>
             <td colspan="2">
                 <div class="box warning">
-                {% trans "No sets for this day." %} {% trans "Use link to add one." %}
+                    {% trans "No sets for this day." %}
+                    <a href="{% url manager.views.edit_set workout.id day.id None %}"
+                       class="modal-dialog">{% trans "Add one now." %}
+                    </a>
                 </div>
         {% endfor %} <!--for set in day-->
             </td>

@@ -177,3 +177,14 @@ circle{
 header h1{
     text-shadow: 2px 3px 3px #292929;
 }
+
+
+/*
+ * Links in warning boxes get a different style, the default blue doesn't match
+ * well with orange
+ */
+div.warning a, div.warning a:hover, div.warning a:active{
+    color: black;
+    text-decoration: underline;
+    background-color: transparent;
+}
