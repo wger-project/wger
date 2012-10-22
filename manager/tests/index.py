@@ -60,7 +60,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('manager.views.index'))
         
         if logged_in:
-            # There is nothing else to send to the template
+            # There is something to send to the template
             self.assertFalse(response.context['weight'])
             self.assertTrue(response.context['current_workout'])
             self.assertFalse(response.context['plan'])
@@ -78,7 +78,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('manager.views.index'))
         
         if logged_in:
-            # There is nothing else to send to the template
+            # There is something to send to the template
             self.assertFalse(response.context['weight'])
             self.assertTrue(response.context['current_workout'])
             self.assertTrue(response.context['plan'])
@@ -99,7 +99,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('manager.views.index'))
         
         if logged_in:
-            # There is nothing else to send to the template
+            # There is something to send to the template
             self.assertTrue(response.context['weight'])
             self.assertTrue(response.context['current_workout'])
             self.assertTrue(response.context['plan'])
