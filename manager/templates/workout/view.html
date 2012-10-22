@@ -53,12 +53,12 @@ $(document).ready(function() {
 		{% render_day day %}
 	</div>
 {% empty %}
-<p class="box warning">
+<div class="box warning">
     {% trans "No days for this workout." %}
     <a href="{% url manager.views.edit_day workout.id None %}" class="modal-dialog">
-    {% trans "Add training day" %}
+    {% trans "Add training day." %}
     </a>
-</p>
+</div>
 {% endfor %}
 
 
