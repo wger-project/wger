@@ -32,11 +32,32 @@ class AddWorkoutTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('manager.views.add'))
         count_after = TrainingSchedule.objects.count()
         
-        if logged_in:
-            self.assertGreater(count_after, count_before)
-        else:
+        # There is always a redirect
+        self.assertEqual(response.status_code, 302)       
+        
+        
+        # Test creating workout
+        if not logged_in:
+            
             self.assertEqual(count_before, count_after)
             self.assertEqual(count_after, 0)
+            self.assertTemplateUsed('login.html')    
+            
+        else:    
+            self.assertGreater(count_after, count_before)
+            self.assertTemplateUsed('workout/view.html')    
+        
+        # Test accessing workout 
+        response = self.client.get(reverse('manager.views.view_workout', kwargs={'id': 1}))
+        
+        if logged_in:
+            workout = TrainingSchedule.objects.get(pk = 1)
+            self.assertEqual(response.context['workout'], workout)
+            self.assertEqual(response.status_code, 200)       
+        else:
+            self.assertEqual(response.status_code, 302)
+            #workout = TrainingSchedule.objects.get(pk = 1)
+            
         
         
     def test_create_workout_anonymous(self):
