@@ -63,8 +63,12 @@ $(document).ready(function() {
         <td class="align-right">
         {% if perms.exercises %}
             <div class="editoptions">
-                <a href="{% url exercises.views.exercisecomment_delete comment.id %}" title="{% trans 'Delete' %}">[x]</a>
-                <a href="{% url exercises.views.exercise_view exercise.id comment.id %}" title="{% trans 'Edit' %}">[e]</a>
+                <a href="{% url exercises.views.exercisecomment_delete comment.id %}"
+                   title="{% trans 'Delete' %}"
+                   >[x]</a>
+                <a href="{% url exercisecomment-edit comment.id %}"
+                   title="{% trans 'Edit' %}"
+                   class="modal-dialog">[e]</a>
             </div>
          {% endif %}
         </td>
@@ -74,24 +78,19 @@ $(document).ready(function() {
         <td>{% trans "No comments for this exercise" %}</td>
     </tr>
 {% endfor %}
-{% if perms.exercises %}
-<tr>
-    <td>
-    <strong>{% trans "Add new comment" %}</strong>
-    <form action = "{% url exercises.views.exercise_view exercise.id %}"
-          method = "post"
-          id = "new_comment_form">
-    {% csrf_token %}
-    {{ comment_form.comment }}
-    <input type="submit" value="{% trans "Save" %}" />
-    </form>
-    </td>
-</tr>
-{% endif %}
-
-
     </tbody>
 </table>
+
+
+
+{% if perms.exercises %}
+<p>
+    <a href="{% url exercisecomment-add exercise.id %}"
+       title="{% trans 'Add' %}"
+       class="modal-dialog">{% trans "Add new comment" %}</a>
+</p>
+{% endif %}
+
 {% endblock %}
 
 

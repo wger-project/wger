@@ -37,7 +37,6 @@ from django.utils import translation
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
-from django.views.generic.edit import ModelFormMixin
 
 from manager.utils import load_language
 
@@ -45,6 +44,8 @@ from exercises.models import Language
 from exercises.models import Exercise
 from exercises.models import ExerciseComment
 from exercises.models import ExerciseCategory
+
+from workout_manager.generic_views import YamlFormMixin
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -60,7 +61,6 @@ def exercisecomment_delete(request, id):
     comment.delete()
     
     return HttpResponseRedirect(reverse('exercises.views.exercise_view', kwargs= {'id': exercise_id}))
-    
     
 
 # ************************
@@ -107,10 +107,6 @@ def exercise_view(request, id, comment_id=None):
     template_data['exercise'] = exercise
     template_data['active_tab'] = 'exercises'
     
-    #
-    # We can create and edit comments from this page, so look for Posts
-    template_data.update(csrf(request))
-    
     # Create the backgrounds that show what muscles the exercise works on
     backgrounds_back = []
     backgrounds_front = []
@@ -132,130 +128,20 @@ def exercise_view(request, id, comment_id=None):
     template_data['muscle_backgrounds_front'] = backgrounds_front
     template_data['muscle_backgrounds_back'] = backgrounds_back
     
-    # Only users with the appropriate permissions can work with comments
-    if request.user.has_perm('exercises.add_exercisecomment'):
-        
-        # Adding a new comment
-        if request.method == 'POST' and not comment_id:
-            comment_form = ExerciseCommentForm(request.POST)
-            comment_form.exercise = exercise
-            
-            # If the data is valid, save and redirect
-            if comment_form.is_valid():
-                new_comment = comment_form.save(commit=False)
-                new_comment.exercise = exercise
-                new_comment.save()
-                return HttpResponseRedirect(reverse('exercises.views.exercise_view', kwargs= {'id': id}))
-        else:
-            comment_form = ExerciseCommentForm()
     
-        # Editing a comment
-        if comment_id:
-            exercise_comment = get_object_or_404(ExerciseComment, pk=comment_id)
-            template_data['comment_edit'] = exercise_comment
-            
-            comment_edit_form = ExerciseCommentForm(instance=exercise_comment)
-            template_data['comment_edit_form'] = comment_edit_form
-            
-            if request.method == 'POST':
-                comment_form = ExerciseCommentForm(request.POST, instance=exercise_comment)
-                
-                # If the data is valid, save and redirect
-                if comment_form.is_valid():
-                    comment = comment_form.save(commit=False)
-                    comment.save()
-                    return HttpResponseRedirect(reverse('exercises.views.exercise_view', kwargs= {'id': id}))
-            
-        
-        template_data['comment_form'] = comment_form
     
     # Render
     return render_to_response('view.html',
                               template_data,
                               context_instance=RequestContext(request))
 
-
-class YamlFormMixin(ModelFormMixin):
-    template_name = 'form.html'
-    
-    active_tab = ''
-    form_fields = []
-    active_tab = ''
-    select_lists = []
-    static_files = []
-    custom_js = ''
-    form_action = ''
-    title = ''
-    
-    def get_context_data(self, **kwargs):
-        '''
-        Set necessary template data to correctly render the form
-        '''
-        
-        # Call the base implementation first to get a context
-        context = super(YamlFormMixin, self).get_context_data(**kwargs)
-        
-        # CSRF token
-        context.update(csrf(self.request))
-        
-        # Active tab, on top navigation
-        context['active_tab'] = self.active_tab
-    
-        # Custom order for form fields. The list comprehension is to avoid
-        # weird problems with django's template when accessing the fields with "form.fieldname"
-        if self.form_fields:
-            context['form_fields'] = [kwargs['form'][i] for i in self.form_fields]
-        
-        # Use the the order as defined in the model
-        else:
-            context['form_fields'] = kwargs['form']
-        
-        # Drop down lists get a special CSS class, there doesn't seem to be
-        # another way of detecting them
-        context['select_lists'] = self.select_lists
-    
-        # List of additional JS static files, will be passed to {% static %}
-        context['static_files'] = self.static_files
-       
-        # Custom JS code on form (autocompleter, editor, etc.)
-        context['custom_js'] = self.custom_js
-        
-        # When viewing the page on it's own, this is not necessary, but when
-        # opening it on a modal dialog, we need to make sure the POST request
-        # reaches the correct controller
-        context['form_action'] = self.form_action
-        
-        # Set the title
-        context['title'] = self.title
-        
-        return context
-
-class ExercisesUpdateView(YamlFormMixin, UpdateView):
+class ExercisesEditAddView(YamlFormMixin):
+    """
+    Generic view to subclass from for exercise adding and editing, since they share all
+    this settings
+    """
     active_tab = 'exercises'
     
-    @method_decorator(permission_required('exercises.change_exercise'))
-    def dispatch(self, *args, **kwargs):
-        return super(ExercisesUpdateView, self).dispatch(*args, **kwargs)
-    
-class ExercisesCreateView(YamlFormMixin, CreateView):
-    active_tab = 'exercises'
-    
-    @method_decorator(permission_required('exercises.change_exercise'))
-    def dispatch(self, *args, **kwargs):
-        return super(ExercisesCreateView, self).dispatch(*args, **kwargs)
-
-class ExercisesDeleteView(YamlFormMixin, DeleteView):
-    active_tab = 'exercises'
-    success_url = '/'
-    
-    @method_decorator(permission_required('exercises.delete_exercise'))
-    def dispatch(self, *args, **kwargs):
-        return super(ExercisesDeleteView, self).dispatch(*args, **kwargs)
-
-    def get_success_url(self):
-        return reverse('exercises.views.exercise_overview')
-        
-class ExerciseUpdateView(ExercisesUpdateView):
     model = Exercise
     
     form_fields = ['name',
@@ -281,6 +167,11 @@ class ExerciseUpdateView(ExercisesUpdateView):
                 model = Exercise 
         
         return ExerciseForm
+
+class ExerciseUpdateView(ExercisesEditAddView, UpdateView):
+    """
+    Generic view to update an existing exercise
+    """
     
     def get_context_data(self, **kwargs):
         context = super(ExerciseUpdateView, self).get_context_data(**kwargs)
@@ -289,46 +180,27 @@ class ExerciseUpdateView(ExercisesUpdateView):
         
         return context
 
-
-class ExerciseAddView(ExercisesCreateView):
-    model = Exercise
+class ExerciseAddView(ExercisesEditAddView, CreateView):
+    """
+    Generic view to add a new exercise
+    """
     
-    form_fields = ['name',
-                   'category',
-                   'muscles',
-                   'description']
+    pass
     
-    select_lists = ['category']
-    static_files = ['js/tinymce/tiny_mce.js', 
-                    'js/workout-manager.js']
-        
-    custom_js = 'init_tinymce();'
-    title = ugettext_lazy('Add exercise')
-    form_action = reverse_lazy('exercise-add')
-         
+class ExerciseDeleteView(YamlFormMixin, DeleteView):
+    """
+    Generic view to delete an existing exercise
+    """
     
-    def get_form_class(self):
-        '''
-        Define the form used for editing
-        
-        This is donw here because only at this point during the request have
-        we access to the currently used language. In other places Django defaults
-        to 'en-us'.
-        '''
-        
-        class ExerciseForm(ModelForm):
-            language = load_language()
-            category = ModelChoiceField(queryset=ExerciseCategory.objects.filter(language = language.id))
-            class Meta:
-                model = Exercise 
-        
-        return ExerciseForm
-    
-class ExerciseDeleteView(ExercisesDeleteView):
     model = Exercise
 
 
-class ExerciseCategoryAddView(ExercisesCreateView):
+class ExerciseCategoryAddView(YamlFormMixin, CreateView):
+    """
+    Generic view to add a new exercise category
+    """
+    
+    active_tab = 'exercises'
     model = ExerciseCategory
     form_class = ExerciseCategoryForm
     success_url = reverse_lazy('exercises.views.exercise_overview')
@@ -341,11 +213,17 @@ class ExerciseCategoryAddView(ExercisesCreateView):
         return super(ExerciseCategoryAddView, self).form_valid(form)
 
 
-class ExerciseCategoryUpdateView(ExercisesUpdateView):
+class ExerciseCategoryUpdateView(YamlFormMixin, UpdateView):
+    """
+    Generic view to update an existing exercise category
+    """
+    
+    active_tab = 'exercises'
     model = ExerciseCategory
     form_class = ExerciseCategoryForm
     success_url = reverse_lazy('exercises.views.exercise_overview')
 
+    # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(ExerciseCategoryUpdateView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('exercisecategory-edit', kwargs={'pk': self.object.id})
@@ -358,7 +236,37 @@ class ExerciseCategoryUpdateView(ExercisesUpdateView):
         
         return super(ExerciseCategoryUpdateView, self).form_valid(form)
 
+class ExerciseCommentEditView(YamlFormMixin, UpdateView):
+    """
+    Generic view to update an existing exercise comment
+    """
+    
+    active_tab = 'exercises'
+    model = ExerciseComment
+    form_class = ExerciseCommentForm
         
+    def get_success_url(self):
+        return reverse('exercises.views.exercise_view', kwargs ={'id': self.object.exercise.id})
+
+
+class ExerciseCommentAddView(YamlFormMixin, CreateView):
+    """
+    Generic view to add a new exercise comment
+    """
+    
+    active_tab = 'exercises'
+    model = ExerciseComment
+    form_class = ExerciseCommentForm
+    
+    def form_valid(self, form):
+        form.instance.exercise = Exercise.objects.get(pk = self.kwargs['exercise_pk'])
+    
+        return super(ExerciseCommentAddView, self).form_valid(form)
+    
+    def get_success_url(self):
+        return reverse('exercises.views.exercise_view', kwargs ={'id': self.object.exercise.id})
+
+
 @permission_required('exercises.delete_exercise')
 def exercise_delete(request, id):
     # Load the exercise

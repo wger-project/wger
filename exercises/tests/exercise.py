@@ -137,7 +137,7 @@ class ExercisecommentsTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(comments), 1)
         
         # Post a comment
-        response = self.client.post(reverse('exercises.views.exercise_view', kwargs={'id': 1}), 
+        response = self.client.post(reverse('exercisecomment-add', kwargs={'exercise_pk': 1}),
                                     {'comment': 'a new cool comment'})
         comments = exercise_1.exercisecomment_set.all()
         
@@ -145,7 +145,7 @@ class ExercisecommentsTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(comments), 2)
         
         # Post an empty comment and check it doesn't get added
-        response = self.client.post(reverse('exercises.views.exercise_view', kwargs={'id': 1}), 
+        response = self.client.post(reverse('exercisecomment-add', kwargs={'exercise_pk': 1}), 
                                     {'comment': ''})
         comments = exercise_1.exercisecomment_set.all()
         
