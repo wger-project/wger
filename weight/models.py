@@ -23,8 +23,8 @@ from django.utils.translation import ugettext_lazy as _
 class WeightEntry(models.Model):
     """Model for a weight point
     """
-    creation_date = models.DateField(_('Creation date'))
-    weight = models.FloatField(_('Weight'))
+    creation_date = models.DateField(verbose_name = _('Date'))
+    weight = models.FloatField(verbose_name = _('Weight'))
     user = models.ForeignKey(User, verbose_name = _('User'))
 
      # Metaclass to set some other properties
