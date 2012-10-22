@@ -32,11 +32,32 @@ class AddWorkoutTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('manager.views.add'))
         count_after = TrainingSchedule.objects.count()
         
-        if logged_in:
-            self.assertTrue(count_after > count_before)
-        else:
+        # There is always a redirect
+        self.assertEqual(response.status_code, 302)       
+        
+        
+        # Test creating workout
+        if not logged_in:
+            
             self.assertEqual(count_before, count_after)
-            self.assertTrue(count_after == 0)
+            self.assertEqual(count_after, 0)
+            self.assertTemplateUsed('login.html')    
+            
+        else:    
+            self.assertGreater(count_after, count_before)
+            self.assertTemplateUsed('workout/view.html')    
+        
+        # Test accessing workout 
+        response = self.client.get(reverse('manager.views.view_workout', kwargs={'id': 1}))
+        
+        if logged_in:
+            workout = TrainingSchedule.objects.get(pk = 1)
+            self.assertEqual(response.context['workout'], workout)
+            self.assertEqual(response.status_code, 200)       
+        else:
+            self.assertEqual(response.status_code, 302)
+            #workout = TrainingSchedule.objects.get(pk = 1)
+            
         
         
     def test_create_workout_anonymous(self):
@@ -44,14 +65,15 @@ class AddWorkoutTestCase(WorkoutManagerTestCase):
         
         self.user_logout()
         self.create_workout()
-        self.user_logout()
     
     
     def test_create_workout_logged_in(self):
         '''Test creating a workout a logged in user'''
+        
         self.user_login()
         self.create_workout(logged_in = True)
         self.user_logout()
+
 
 class WorkoutOverviewTestCase(WorkoutManagerTestCase):
     """Tests the workout overview"""
@@ -73,12 +95,10 @@ class WorkoutOverviewTestCase(WorkoutManagerTestCase):
         self.assertFalse(response.context['workouts'])
         
         
-        
     def test_dashboard_anonymous(self):
         '''Test creating a workout as anonymous user'''
         self.user_logout()
         self.get_wotkout_overview()
-        self.user_logout()
     
     
     def test_dashboard_logged_in(self):

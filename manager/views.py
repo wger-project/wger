@@ -756,7 +756,6 @@ def edit_day(request, id, day_id=None):
     # Set here the query set to filter out used days of the week
     # (used in the sense that other training days on the same workout already have them set)
     day_form.fields['day'].queryset=DaysOfWeek.objects.exclude(id__in=used_days)
-    logger.debug(day_form.fields['day'])
         
     template_data['day_form'] = day_form
     

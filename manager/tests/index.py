@@ -35,9 +35,9 @@ class DashboardTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('manager.views.index'))
         
         if logged_in:
-        
             # Page exists
             self.assertEqual(response.status_code, 200)
+            self.assertTemplateUsed('index.html')
             
             # Correct tab is selected
             self.assertEqual(response.context['active_tab'], 'user')
@@ -50,6 +50,64 @@ class DashboardTestCase(WorkoutManagerTestCase):
         else:
             # Anonymous users are redirected to the login page
             self.assertEqual(response.status_code, 302)
+            self.assertTemplateUsed('login.html')    
+        
+        
+        #
+        # Now, with workout
+        #
+        self.client.get(reverse('manager.views.add'))
+        response = self.client.get(reverse('manager.views.index'))
+        
+        if logged_in:
+            # There is something to send to the template
+            self.assertFalse(response.context['weight'])
+            self.assertTrue(response.context['current_workout'])
+            self.assertFalse(response.context['plan'])
+            
+        else:
+            # Anonymous users are still redirected to the login page
+            self.assertEqual(response.status_code, 302)
+            self.assertTemplateUsed('login.html')    
+        
+        
+        #
+        # Now, with nutrition plan
+        #
+        self.client.get(reverse('nutrition.views.add'))
+        response = self.client.get(reverse('manager.views.index'))
+        
+        if logged_in:
+            # There is something to send to the template
+            self.assertFalse(response.context['weight'])
+            self.assertTrue(response.context['current_workout'])
+            self.assertTrue(response.context['plan'])
+            
+        else:
+            # Anonymous users are still redirected to the login page
+            self.assertEqual(response.status_code, 302)
+            self.assertTemplateUsed('login.html')    
+        
+        
+        #
+        # Now, with weight
+        #
+        self.client.post(reverse('weight.views.add', kwargs={'id': None}),
+                        {'weight': 100,
+                         'creation_date': '2012-01-01'},
+                        )
+        response = self.client.get(reverse('manager.views.index'))
+        
+        if logged_in:
+            # There is something to send to the template
+            self.assertTrue(response.context['weight'])
+            self.assertTrue(response.context['current_workout'])
+            self.assertTrue(response.context['plan'])
+            
+        else:
+            # Anonymous users are still redirected to the login page
+            self.assertEqual(response.status_code, 302)
+            self.assertTemplateUsed('login.html')    
         
         
     def test_dashboard_anonymous(self):
@@ -57,8 +115,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
         
         self.user_logout()
         self.dashboard()
-        self.user_logout()
-    
+        
     
     def test_dashboard_logged_in(self):
         '''Test index page a logged in user'''
