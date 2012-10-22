@@ -33,10 +33,10 @@ class AddWorkoutTestCase(WorkoutManagerTestCase):
         count_after = TrainingSchedule.objects.count()
         
         if logged_in:
-            self.assertTrue(count_after > count_before)
+            self.assertGreater(count_after, count_before)
         else:
             self.assertEqual(count_before, count_after)
-            self.assertTrue(count_after == 0)
+            self.assertEqual(count_after, 0)
         
         
     def test_create_workout_anonymous(self):
@@ -44,14 +44,15 @@ class AddWorkoutTestCase(WorkoutManagerTestCase):
         
         self.user_logout()
         self.create_workout()
-        self.user_logout()
     
     
     def test_create_workout_logged_in(self):
         '''Test creating a workout a logged in user'''
+        
         self.user_login()
         self.create_workout(logged_in = True)
         self.user_logout()
+
 
 class WorkoutOverviewTestCase(WorkoutManagerTestCase):
     """Tests the workout overview"""
@@ -73,12 +74,10 @@ class WorkoutOverviewTestCase(WorkoutManagerTestCase):
         self.assertFalse(response.context['workouts'])
         
         
-        
     def test_dashboard_anonymous(self):
         '''Test creating a workout as anonymous user'''
         self.user_logout()
         self.get_wotkout_overview()
-        self.user_logout()
     
     
     def test_dashboard_logged_in(self):
