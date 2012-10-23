@@ -104,7 +104,7 @@ class ExerciseComment(models.Model):
     exercise = models.ForeignKey(Exercise, verbose_name = _('Exercise'))
     comment = models.CharField(max_length=200,
                                verbose_name = _('Comment'),
-                               help_text=_('Some comment about how to correctly do this exercise'))
+                               help_text=_('A comment about how to correctly do this exercise.'))
     
     def __unicode__(self):
         """Return a more human-readable representation

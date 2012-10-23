@@ -42,7 +42,7 @@
         {% endif %}
     {% endfor %}
     <tr>
-        <td colspan="2"><input type="submit" value="{% trans 'Save' %}" /></td>
+        <td colspan="2"><input type="submit" value="{% trans 'Save' %}"></td>
     </tr>
 </table>
 </form>
@@ -52,4 +52,4 @@
 <!--
         Side bar
 -->
-{% block sidebar %}{{sidebar}}{% endblock %}
+{% block sidebar %}{{sidebar|safe}}{% endblock %}

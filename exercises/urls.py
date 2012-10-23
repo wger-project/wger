@@ -1,7 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import permission_required
 
-
 from exercises.views import ExerciseUpdateView
 from exercises.views import ExerciseAddView
 from exercises.views import ExerciseDeleteView
@@ -11,6 +10,7 @@ from exercises.views import ExerciseCategoryUpdateView
 
 from exercises.views import ExerciseCommentAddView
 from exercises.views import ExerciseCommentEditView
+
 
 urlpatterns = patterns('exercises.views',
     url(r'^exercise/overview/$', 'exercise_overview'),
@@ -28,7 +28,6 @@ urlpatterns = patterns('exercises.views',
     #    name='exercise-delete'),
     url(r'^exercise/(?P<id>\d*)/delete/$', 'exercise_delete', name = 'exercise-delete'),
     
-    
     # Comments
     url(r'^exercise/(?P<exercise_pk>\d+)/comment/add/$',
         permission_required('exercises.change_exercise')(ExerciseCommentAddView.as_view()),
@@ -45,6 +44,5 @@ urlpatterns = patterns('exercises.views',
     url(r'^exercise/category/add/$',
         permission_required('exercises.change_exercise')(ExerciseCategoryAddView.as_view()),
         name = 'exercisecategory-add'),
-    url(r'^exercise/category/(?P<id>\d+)/delete/$', 'exercise_category_delete'),
-    
+    url(r'^exercise/category/(?P<id>\d+)/delete/$', 'exercise_category_delete'),   
 )
