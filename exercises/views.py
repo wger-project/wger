@@ -244,9 +244,18 @@ class ExerciseCommentEditView(YamlFormMixin, UpdateView):
     active_tab = 'exercises'
     model = ExerciseComment
     form_class = ExerciseCommentForm
-        
+    title = ugettext_lazy('Edit exercise comment')
+    
     def get_success_url(self):
         return reverse('exercises.views.exercise_view', kwargs ={'id': self.object.exercise.id})
+
+    # Send some additional data to the template
+    def get_context_data(self, **kwargs):
+        context = super(ExerciseCommentEditView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('exercisecomment-edit',
+                                         kwargs={'pk': self.object.id})
+         
+        return context
 
 
 class ExerciseCommentAddView(YamlFormMixin, CreateView):
@@ -257,6 +266,7 @@ class ExerciseCommentAddView(YamlFormMixin, CreateView):
     active_tab = 'exercises'
     model = ExerciseComment
     form_class = ExerciseCommentForm
+    title = ugettext_lazy('Add exercise comment')
     
     def form_valid(self, form):
         form.instance.exercise = Exercise.objects.get(pk = self.kwargs['exercise_pk'])
@@ -267,6 +277,14 @@ class ExerciseCommentAddView(YamlFormMixin, CreateView):
         return reverse('exercises.views.exercise_view', kwargs ={'id': self.object.exercise.id})
 
 
+    # Send some additional data to the template
+    def get_context_data(self, **kwargs):
+        context = super(ExerciseCommentAddView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('exercisecomment-add',
+                                         kwargs={'exercise_pk': self.kwargs['exercise_pk']})
+         
+        return context
+    
 @permission_required('exercises.delete_exercise')
 def exercise_delete(request, id):
     # Load the exercise
