@@ -107,11 +107,21 @@ $(document).ready(function() {
                         <div class="editoptions">
                             <a href="{% url exercise-edit exercise.id %}"
                                title="{% trans 'Edit' %}"
-                               class="modal-dialog">[e]</a>
+                               class="modal-dialog">
+                               <img src="{% static 'images/icons/edit.svg' %}"
+                                    width="16"
+                                    height="16"
+                                    alt="{% trans 'Edit' %}">
+                               </a>
 
                             <a href="{% url exercise-delete exercise.id %}"
                                title="{% trans 'Delete' %}"
-                               class="delete-exercise">[x]</a>
+                               class="delete-exercise">
+                               <img src="{% static 'images/icons/trash.svg' %}"
+                                    width="16"
+                                    height="16"
+                                    alt="{% trans 'Delete' %}">
+                               </a>
                         </div>
                     {% endif %}
                     </td>
