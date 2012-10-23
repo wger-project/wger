@@ -216,6 +216,14 @@ function form_modal_dialog()
         e.preventDefault();
         var targetUrl = $(this).attr("href");
 
+        // Show a loader while we fetch the real page
+        $("#ajax-info").html('<div style="text-align:center;">'+
+                                '<img src="/static/images/loader.svg" ' +
+                                     'width="48" ' +
+                                     'height="48"> ' +
+                             '</div>');
+        $("#ajax-info").dialog("open");
+        
         $("#ajax-info").load(targetUrl + " .ym-form", function(responseText, textStatus) {
             // Call other custom initialisation functions
             // (e.g. if the form as an autocompleter, it has to be initialised again)
@@ -226,7 +234,7 @@ function form_modal_dialog()
         
             // Set its title and open the dialog
             $("#ajax-info").dialog({title: $(responseText).find("#main-content h2").html()});
-            $("#ajax-info").dialog("open");
+            //$("#ajax-info").dialog("open");
         });
     });
 }
