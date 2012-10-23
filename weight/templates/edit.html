@@ -7,7 +7,10 @@
 
 
 {% block header %}
-<script src="{% static 'js/jquery-ui.js' %}"></script>
+{% if language.short_name == 'de' %}
+<script src="{% static 'js/jquery.ui.datepicker-de.js' %}"></script>
+{% endif %}
+
 <script>
 $(document).ready(function () {
         init_weight_datepicker();

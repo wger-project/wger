@@ -6,7 +6,6 @@
 {% block title %}{% trans "Workout" %} – {{ workout.creation_date }}{% endblock %}
 
 {% block header %}
-<script src="{% static 'js/jquery-ui.js' %}"></script>
 <script src="{% static 'js/jquery.validate.js' %}"></script>
 <script>
 function custom_modal_init()
@@ -18,9 +17,6 @@ function custom_modal_init()
 $(document).ready(function() {	
 	// Allow the sets to be sortable
 	setup_sortable();
-	
-	// Init the modal dialog to edit the exercise
-	form_modal_dialog();
 	
 	// Show/Hide the comments to the exercises
 	{% if user.userprofile.show_comments %}

@@ -31,9 +31,17 @@
 
 
     <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.js' %}"></script>
     <script src="{% static 'js/workout-manager.js' %}"></script>
     {% block header %}{% endblock %}
  
+    <script>
+    $(document).ready(function() {
+	    // Init the modal dialog for editing forms
+	    form_modal_dialog();
+     });
+    </script>
+
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>

@@ -4,7 +4,6 @@
 
 
 {% block header %}
-<script src="{% static 'js/jquery-ui.js' %}"></script>
 <script src="{% static 'js/tinymce/tiny_mce.js' %}"></script>
 
 <script>
@@ -13,13 +12,6 @@ function custom_modal_init()
     // Set up the tinyMCE editor on modal dialogs
     init_tinymce();
 }
-
-$(document).ready(function() {
-	
-	// Init the modal dialog to edit the exercise
-	form_modal_dialog();
-});
-
 </script>
 {% endblock %}
 <!--

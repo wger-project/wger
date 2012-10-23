@@ -4,18 +4,8 @@
 
 {% block title %}{% trans "Ingredient overview" %}{% endblock %}
 
-{% block header %}
-<script src="{% static 'js/jquery-ui.js' %}"></script>
-<script>
-$(document).ready(function() {
-    // Init the modal dialog to edit the exercise
-    form_modal_dialog();
-});
-</script>
-{% endblock %}
 
 {% block content %}
-
 <h2>{% trans "Ingredient overview" %}</h2>
 
 {% if ingredients %}

@@ -6,7 +6,6 @@
 
 
 {% block header %}
-<script src="{% static 'js/jquery-ui.js' %}"></script>
 <script>
 function custom_modal_init()
 {
@@ -32,9 +31,6 @@ $(document).ready(function() {
     $('.edit-meal').each(function(element){
         $(this).attr('href', $(this).attr('href') + '?js=on')
     })
-
-    // Init the modal dialog to open forms in a window
-    form_modal_dialog();
 });
 </script>
 {% endblock %}

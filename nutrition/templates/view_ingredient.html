@@ -5,18 +5,6 @@
 {% block title %}{{ingredient.name}}{% endblock %}
 
 
-{% block header %}
-<script src="{% static 'js/jquery-ui.js' %}"></script>
-<script>
-$(document).ready(function() {
-    // Init the modal dialog to edit the exercise
-    form_modal_dialog();
-});
-</script>
-{% endblock %}
-
-
-
 {% block content %}
 
 <h2>{{ingredient.name}}</h2>
