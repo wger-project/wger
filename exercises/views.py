@@ -150,8 +150,7 @@ class ExercisesEditAddView(YamlFormMixin):
                    'description']
     
     select_lists = ['category']
-    static_files = ['js/tinymce/tiny_mce.js', 
-                    'js/workout-manager.js']
+    static_files = ['js/tinymce/tiny_mce.js']
         
     custom_js = 'init_tinymce();'
     
