@@ -151,7 +151,7 @@ class ExercisesEditAddView(YamlFormMixin):
     
     select_lists = ['category']
     static_files = ['js/tinymce/tiny_mce.js']
-        
+    title = ugettext_lazy('Add exercise')    
     custom_js = 'init_tinymce();'
     
     def get_form_class(self):
