@@ -222,6 +222,7 @@ function form_modal_dialog()
                                      'width="48" ' +
                                      'height="48"> ' +
                              '</div>');
+        $("#ajax-info").dialog({title: 'Loading...'});
         $("#ajax-info").dialog("open");
         
         $("#ajax-info").load(targetUrl + " .ym-form", function(responseText, textStatus) {
