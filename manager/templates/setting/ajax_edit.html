@@ -33,7 +33,7 @@ $(document).ready(function() {
         <input type="text"
                name="exercise_name"
                value="{{exercise.name}}"
-               class="ajax-form-exercise-list"
+               class="ajax-form-exercise-list ajax-form-element"
                id="set-{{set.id}}-exercercise-id">:
     </span>
     
@@ -54,7 +54,8 @@ $(document).ready(function() {
                name="setting-{{setting.id}}"
                value="{{ setting.reps }}"
                maxlength="2"
-               style="width: 2em;">
+               style="width: 2em;"
+               class="ajax-form-element">
     {% endfor %}
     
     {% for setting in new_settings %}
@@ -62,7 +63,8 @@ $(document).ready(function() {
                name="new-setting-{{setting}}"
                value=""
                maxlength="2"
-               style="width: 2em;">
+               style="width: 2em;"
+               class="ajax-form-element">
     {% endfor %}
     
     
