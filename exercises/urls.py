@@ -23,10 +23,9 @@ urlpatterns = patterns('exercises.views',
     url(r'^exercise/(?P<pk>\d+)/edit/$',
         permission_required('exercises.change_exercise')(ExerciseUpdateView.as_view()),
         name = 'exercise-edit'),
-    #url(r'^exercise/(?P<pk>\d+)/delete/$',
-    #    permission_required('exercises.change_exercise')(ExerciseDeleteView.as_view()),
-    #    name='exercise-delete'),
-    url(r'^exercise/(?P<id>\d*)/delete/$', 'exercise_delete', name = 'exercise-delete'),
+    url(r'^exercise/(?P<pk>\d+)/delete/$',
+        permission_required('exercises.change_exercise')(ExerciseDeleteView.as_view()),
+        name='exercise-delete'),
     
     # Comments
     url(r'^exercise/(?P<exercise_pk>\d+)/comment/add/$',

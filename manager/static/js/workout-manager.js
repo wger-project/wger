@@ -240,6 +240,7 @@ function form_modal_dialog()
     });
 }
 
+
 function scatterplot_modal_dialog(id)
 {
         var targetUrl = '/weight/add/' + id

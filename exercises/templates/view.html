@@ -160,7 +160,8 @@ function custom_modal_init()
     </a>
 </p>
 <p>
-    <a href="{% url exercise-delete exercise.id %}">
+    <a href="{% url exercise-delete exercise.id %}"
+       class="modal-dialog">
 	<img src="{% static 'images/icons/trash.svg' %}"
          width="32"
          height="32"

@@ -36,34 +36,6 @@ $(document).ready(function() {
                 window.location.href = '/exercise/' + ui.item.id + '/view/'
             }
         });
-
-    // Initialise a modal dialog
-    $("#dialog-confirm").dialog({
-                autoOpen: false,
-                width: 400,
-                modal: true,
-    });
-
-
-    // Show the dialog when a user wants to delete an exercise
-    $(".delete-exercise").click(function(e) {
-        e.preventDefault();
-        var targetUrl = $(this).attr("href");
-
-        $("#dialog-confirm").dialog({
-            buttons : {
-                {% trans "Confirm" %}: function() {
-                    window.location.href = targetUrl;
-                },
-                {% trans "Cancel" %} : function() {
-                    $(this).dialog("close");
-                }
-            }
-        });
-
-        $("#dialog-confirm").dialog("open");
-    });
-
 });
 </script>
 {% endblock %}
@@ -75,14 +47,6 @@ $(document).ready(function() {
 {% block content %}
 
 <h2> {% trans "Exercises" %} </h2>
-
-<div id="dialog-confirm" title="{% trans 'Really delete exercise?' %}" class="invisible">
-        <p>
-            <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
-            {% trans "Deleting the exercise will also delete it from all workouts." %}
-            {% trans "Are you sure?" %}
-        </p>
-</div>
 
 <div id="tabs">
     <ul>
@@ -116,7 +80,7 @@ $(document).ready(function() {
 
                             <a href="{% url exercise-delete exercise.id %}"
                                title="{% trans 'Delete' %}"
-                               class="delete-exercise">
+                               class="delete-exercise modal-dialog">
                                <img src="{% static 'images/icons/trash.svg' %}"
                                     width="16"
                                     height="16"

@@ -46,6 +46,7 @@ from exercises.models import ExerciseComment
 from exercises.models import ExerciseCategory
 
 from workout_manager.generic_views import YamlFormMixin
+from workout_manager.generic_views import YamlDeleteMixin
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -184,15 +185,27 @@ class ExerciseAddView(ExercisesEditAddView, CreateView):
     Generic view to add a new exercise
     """
     
-    pass
+    form_action = reverse_lazy('exercise-add')
     
-class ExerciseDeleteView(YamlFormMixin, DeleteView):
+class ExerciseDeleteView(YamlDeleteMixin, DeleteView):
     """
     Generic view to delete an existing exercise
     """
     
     model = Exercise
-
+    template_name = 'delete.html'
+    template_name_suffix = ''
+    success_url = reverse_lazy('exercises.views.exercise_overview')
+    
+    # Send some additional data to the template
+    def get_context_data(self, **kwargs):
+        context = super(ExerciseDeleteView, self).get_context_data(**kwargs)
+        
+        context['title'] = _('Delete %s?') % self.object.name
+        context['form_action'] = reverse('exercise-delete', kwargs={'pk': self.kwargs['pk']})
+    
+        return context
+    
 
 class ExerciseCategoryAddView(YamlFormMixin, CreateView):
     """
@@ -284,14 +297,6 @@ class ExerciseCommentAddView(YamlFormMixin, CreateView):
          
         return context
     
-@permission_required('exercises.delete_exercise')
-def exercise_delete(request, id):
-    # Load the exercise
-    exercise = get_object_or_404(Exercise, pk=id)
-    exercise.delete()
-    
-    return HttpResponseRedirect(reverse('exercises.views.exercise_overview'))
-
 @permission_required('exercises.delete_exercisecategory')
 def exercise_category_delete(request, id):
     # Load the category

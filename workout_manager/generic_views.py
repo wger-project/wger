@@ -71,3 +71,34 @@ class YamlFormMixin(ModelFormMixin):
         context['title'] = self.title
         
         return context
+        
+class YamlDeleteMixin(ModelFormMixin):
+    template_name = 'delete.html'
+    
+    active_tab = ''
+    form_action = ''
+    title = ''
+    
+    def get_context_data(self, **kwargs):
+        '''
+        Set necessary template data to correctly render the form
+        '''
+        
+        # Call the base implementation first to get a context
+        context = super(YamlDeleteMixin, self).get_context_data(**kwargs)
+        
+        # CSRF token
+        context.update(csrf(self.request))
+        
+        # Active tab, on top navigation
+        context['active_tab'] = self.active_tab
+    
+        # When viewing the page on it's own, this is not necessary, but when
+        # opening it on a modal dialog, we need to make sure the POST request
+        # reaches the correct controller
+        context['form_action'] = self.form_action
+        
+        # Set the title
+        context['title'] = self.title
+        
+        return context
