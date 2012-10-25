@@ -1,4 +1,7 @@
 from django.conf.urls import patterns, include, url
+from django.contrib.auth.decorators import permission_required
+
+from nutrition.views import IngredientDeleteView
 
 urlpatterns = patterns('nutrition.views',
     url(r'^nutrition/overview/$', 'overview'),
@@ -20,9 +23,12 @@ urlpatterns = patterns('nutrition.views',
     url(r'^nutrition/delete/meal/item/(?P<item_id>\d+)$', 'delete_meal_item'),
     
     # Ingredients
+    url(r'^nutrition/ingredient/(?P<pk>\d+)/deleteGV/$',
+        permission_required('exercises.change_exercise')(IngredientDeleteView.as_view()),
+        name='ingredient-delete'),
+    
     url(r'^nutrition/ingredient/overview/$', 'ingredient_overview'),
     url(r'^nutrition/ingredient/(?P<id>\d+)/view/$', 'ingredient_view'),
     url(r'^nutrition/ingredient/(?P<id>\w*)/edit/$', 'ingredient_edit'),
-    url(r'^nutrition/ingredient/(?P<id>\d+)/delete/$', 'delete_ingredient'),
     url(r'^nutrition/ingredient/search/$', 'ingredient_search'),   
 )

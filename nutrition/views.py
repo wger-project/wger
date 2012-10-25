@@ -24,12 +24,19 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 from django.forms import ModelForm
 from django.utils.translation import ugettext as _
 
+from django.views.generic import DeleteView
+from django.views.generic import CreateView
+from django.views.generic import UpdateView
+
 from workout_manager import get_version
+from workout_manager.generic_views import YamlFormMixin
+from workout_manager.generic_views import YamlDeleteMixin
 
 from nutrition.models import NutritionPlan
 from nutrition.models import Meal
@@ -43,7 +50,6 @@ from reportlab.lib import colors
 
 from manager.utils import load_language
 from manager.utils import load_ingredient_languages
-
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -486,15 +492,26 @@ def ingredient_view(request, id):
                               template_data,
                               context_instance=RequestContext(request))
 
-@permission_required('nutrition.delete_ingredient')
-def delete_ingredient(request, id):
-    """Deletes the ingredient with the given ID
+
+
+class IngredientDeleteView(YamlDeleteMixin, DeleteView):
     """
-    # Load the meal and redirect
-    ingredient = get_object_or_404(Ingredient, pk=id)
-    ingredient.delete()
+    Generic view to delete an existing ingredient
+    """
     
-    return HttpResponseRedirect(reverse('nutrition.views.ingredient_overview'))
+    model = Ingredient
+    template_name = 'delete.html'
+    template_name_suffix = ''
+    success_url = reverse_lazy('nutrition.views.ingredient_overview')
+    
+    # Send some additional data to the template
+    def get_context_data(self, **kwargs):
+        context = super(IngredientDeleteView, self).get_context_data(**kwargs)
+        
+        context['title'] = _('Delete %s?') % self.object.name
+        context['form_action'] = reverse('ingredient-delete', kwargs={'pk': self.kwargs['pk']})
+    
+        return context
 
 class IngredientForm(ModelForm):
     class Meta:
