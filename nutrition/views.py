@@ -501,8 +501,8 @@ class IngredientDeleteView(YamlDeleteMixin, DeleteView):
     
     model = Ingredient
     template_name = 'delete.html'
-    template_name_suffix = ''
     success_url = reverse_lazy('nutrition.views.ingredient_overview')
+    
     
     # Send some additional data to the template
     def get_context_data(self, **kwargs):

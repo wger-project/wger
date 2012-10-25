@@ -91,6 +91,9 @@ class Exercise(models.Model):
     
     
     def get_absolute_url(self):
+        """
+        Returns the canonical URL to view an exercise
+        """
         return reverse('exercises.views.exercise_view', kwargs= {'id': self.id})
         
     def __unicode__(self):

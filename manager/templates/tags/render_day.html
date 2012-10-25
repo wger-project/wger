@@ -84,7 +84,7 @@ $(document).ready(function() {
                 <div class="exercise-list">
                 {% for exercise in set.exercises.select_related %}
                     <div id="exercise-{{ exercise.id }}" class="ajax-set-edit-target">
-                        <a href="{% url exercises.views.exercise_view exercise.id %}">{{ exercise }}</a>:
+                        <a href="{{ exercise.get_abolute_url }}">{{ exercise }}</a>:
 
                         {% comment %}
                             If there are more than 1 settings, don't output the repetitions

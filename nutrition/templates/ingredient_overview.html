@@ -12,7 +12,7 @@
 <ul>
 {% for ingredient in ingredients %}
     <li>
-        <a href="{% url nutrition.views.ingredient_view ingredient.id %}">{{ ingredient.name }}</a>
+        <a href="{{ ingredient.get_absolute_url }}">{{ ingredient.name }}</a>
     </li>
 {% endfor %}
 </ul>

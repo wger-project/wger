@@ -19,6 +19,7 @@
 from django.db import models
 
 from django.core.validators import MaxValueValidator
+from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
@@ -48,6 +49,13 @@ class NutritionPlan(models.Model):
         """
         return "Nutrition plan for %s, %s" % (self.user, self.creation_date)
 
+
+    def get_absolute_url(self):
+        """
+        Returns the canonical URL to view this object
+        """
+        return reverse('nutrition.views.view', kwargs= {'id': self.id})
+    
 
     def get_nutritional_values(self):
         # Sum the nutrional info
@@ -129,6 +137,13 @@ class Ingredient(models.Model):
                                null = True,
                                verbose_name = _('Sodium'),
                                help_text = _('In g per 100g of product'))
+    
+    def get_absolute_url(self):
+        """
+        Returns the canonical URL to view this object
+        """
+        return reverse('nutrition.views.ingredient_view', kwargs= {'id': self.id})
+    
     
     def __unicode__(self):
         """Return a more human-readable representation

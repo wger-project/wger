@@ -22,6 +22,8 @@ from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator
+from django.core.urlresolvers import reverse
+
 
 from exercises.models import Exercise
 
@@ -45,6 +47,12 @@ class TrainingSchedule(models.Model):
 For example 'Focus on back' or 'Week 1 of program xy'.'''))
     user = models.ForeignKey(User, verbose_name = _('User'))
 
+    
+    def get_absolute_url(self):
+        """
+        Returns the canonical URL to view a workout
+        """
+        return reverse('manager.views.view_workout', kwargs= {'id': self.id})
     
     def __unicode__(self):
         """Return a more human-readable representation
