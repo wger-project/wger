@@ -36,7 +36,7 @@ $(document).ready(function () {
     {% include "form_snippet.html" with field=weight_form.weight %}
     {% include "form_snippet.html" with field=weight_form.creation_date %}
     <tr>
-        <td><input type="submit" value="{% trans "Save" %}" /></td>
+        <td><input type="submit" value="{% trans "Save" %}" id="form-save"></td>
         <td></td>
     </tr>
 </table>

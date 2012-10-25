@@ -81,7 +81,7 @@ $(document).ready(function () {
 <h2>{% trans "Weight overview" %}</h2>
 
 {% if not min_date %}
-<div class="box warning">
+<div class="box warning" id="weight-box-warning">
     {% trans "There is no chart here because there are no weight entries." %}
     {% trans "Use link to add one." %}
 </div>
@@ -90,7 +90,9 @@ $(document).ready(function () {
 <div id="weight_diagram"></div>
 
 <p>
-<a href="{% url weight.views.add None %}" class="modal-dialog">{% trans "Add weight entry" %}</a>
+<a href="{% url weight.views.add None %}"
+   class="modal-dialog"
+   id="add-weight-entry">{% trans "Add weight entry" %}</a>
 </p>
 
 <p>
