@@ -15,30 +15,10 @@ from manager.tests.testcase import WorkoutManagerLiveServerTestCase
 
 class WeigtTest(WorkoutManagerLiveServerTestCase):
 
-    
-    def test_weight_index_empty(self):
-        """
-        Tests that the weight overview page has no content if there are no
-        weight entries
-        """
-        
-        self.user_login()
-        self.browser.get(self.live_server_url + reverse('weight.views.overview'))
-        
-        # No diagram
-        svg = self.browser.find_elements_by_tag_name('svg')
-        self.assertFalse(svg)
-        
-        # Warning box
-        warning_box = self.browser.find_elements_by_id('weight-box-warning')
-        self.assertTrue(warning_box)
-
     def add_weight_entry(self, weight=80, day_index=0):
         """
-        Tests that it's possible to add a weight entry and that this appears
-        in the overview
+        Helper function that adds a weight entry
         """
-        
         
         
         # Clink on the link and enter the weight in the modal dialog
@@ -74,6 +54,24 @@ class WeigtTest(WorkoutManagerLiveServerTestCase):
         save_button = dialog_content.find_element_by_id('form-save')
         save_button.click()
     
+    
+    def test_weight_index_empty(self):
+        """
+        Tests that the weight overview page has no content if there are no
+        weight entries
+        """
+        
+        self.user_login()
+        self.browser.get(self.live_server_url + reverse('weight.views.overview'))
+        
+        # No diagram
+        svg = self.browser.find_elements_by_tag_name('svg')
+        self.assertFalse(svg)
+        
+        # Warning box
+        warning_box = self.browser.find_elements_by_id('weight-box-warning')
+        self.assertTrue(warning_box)
+    
     def test_add_weight_entry(self):
         """
         Tests that it's possible to add a weight entry and that this appears
@@ -106,3 +104,47 @@ class WeigtTest(WorkoutManagerLiveServerTestCase):
         # There is no warning box anymore
         warning_box = self.browser.find_elements_by_id('weight-box-warning')
         self.assertFalse(warning_box)
+        
+        
+    def test_filter(self):
+        """
+        Tests that it's possible to filter the weight entries
+        """
+        
+        # Create some entries
+        self.user_login()
+        self.browser.get(self.live_server_url + reverse('weight.views.overview'))
+        self.add_weight_entry(70, 0)
+        self.add_weight_entry(71, 1)
+        self.add_weight_entry(76, 2)
+        self.add_weight_entry(80, 3)
+        self.add_weight_entry(86, 4)
+        self.add_weight_entry(81, 5)
+        self.add_weight_entry(83, 7)
+        
+        
+        svg_points_orig = self.browser.find_elements_by_tag_name('circle')
+        
+        # Set the dates
+        date_from = self.browser.find_elements_by_id('weight_filter_from')[0]
+        date_to = self.browser.find_elements_by_id('weight_filter_to')[0]
+        
+        # Open the datepicker and select the first element for from date
+        date_from.click()
+        datepicker_div = self.browser.find_elements_by_id('ui-datepicker-div')[0]
+        day = datepicker_div.find_elements_by_tag_name('tbody')[0].find_elements_by_tag_name('a')[0]
+        day.click()
+        
+        # Open the datepicker and select the 3rd element for to date
+        date_to.click()
+        datepicker_div = self.browser.find_elements_by_id('ui-datepicker-div')[0]
+        day = datepicker_div.find_elements_by_tag_name('tbody')[0].find_elements_by_tag_name('a')[3]
+        day.click()
+        
+        # Filter
+        refresh_button = self.browser.find_elements_by_id('weight_diagram_refresh')[0]
+        refresh_button.click()
+        
+        # There is a diagram less data points
+        svg_points = self.browser.find_elements_by_tag_name('circle')
+        self.assertTrue(len(svg_points) <= len(svg_points_orig))
