@@ -243,7 +243,7 @@ function form_modal_dialog()
 
 function scatterplot_modal_dialog(id)
 {
-        var targetUrl = '/weight/edit/' + id + '/'
+        var targetUrl = '/weight/' + id + '/edit/'
         
         $("#ajax-info").load(targetUrl + " .ym-form", function() {
             // Open the dialog
