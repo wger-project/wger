@@ -26,12 +26,20 @@ from django.http import HttpResponseRedirect
 from django.forms import ModelForm
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy
 from django.db.models import Min
 from django.db.models import Max
 
+from django.views.generic import DeleteView
+from django.views.generic import CreateView
+from django.views.generic import UpdateView
+
 from weight.models import WeightEntry
+
+from workout_manager.generic_views import YamlFormMixin
 
 
 logger = logging.getLogger('workout_manager.custom')
@@ -41,47 +49,49 @@ class WeightForm(ModelForm):
         model = WeightEntry
         exclude=('user',)
 
-@login_required
-def add(request, id=None):
-    """Add a weight entry
+class WeightAddView(YamlFormMixin, CreateView):
     """
-    
-    template_data = {}
-    template_data.update(csrf(request))
-    template_data['active_tab'] = 'weight'
-    
-    # Load weight
-    
-    # If the object is new, we will receice a 'None' (string) as the ID
-    # from the template, so we check for it (ValueError) and for an actual
-    # None (TypeError)
-    try:
-        int(id)
-        weight = get_object_or_404(WeightEntry, pk=id, user=request.user)
-    
-    except ValueError, TypeError:
-        weight = WeightEntry()
-    
-    template_data['weight'] = weight
-    
-    # Process request
-    if request.method == 'POST':
-        weight_form = WeightForm(request.POST, instance=weight)
+    Generic view to add a new weight entry
+    """
+    active_tab = 'weight'
+    model = WeightEntry
+    form_class = WeightForm   
+    custom_js = '''$(document).ready(function () {
+        init_weight_datepicker();
+    });'''
+    title = ugettext_lazy('Add weight entry')
+    form_action = reverse_lazy('weight-add')
+    success_url = reverse_lazy('weight.views.overview')
+      
+  
+    def form_valid(self, form):
+        """
+        Set the owner of the entry here
+        """
         
-        # If the data is valid, save and redirect
-        if weight_form.is_valid():
-            weight = weight_form.save(commit=False)
-            weight.user = request.user
-            weight.save()
-            
-            return HttpResponseRedirect(reverse('weight.views.overview'))
-    else:
-        weight_form = WeightForm(instance=weight)
-    template_data['weight_form'] = weight_form
-    
-    return render_to_response('edit.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+        form.instance.user = self.request.user
+        return super(WeightAddView, self).form_valid(form)
+
+
+class WeightUpdateView(YamlFormMixin, UpdateView):
+    """
+    Generic view to edit an existing weight entry
+    """
+    active_tab = 'weight'
+    model = WeightEntry
+    form_class = WeightForm
+    custom_js = '''$(document).ready(function () {
+        init_weight_datepicker();
+    });'''
+    success_url = reverse_lazy('weight.views.overview')
+      
+  
+    def get_context_data(self, **kwargs):
+        context = super(WeightUpdateView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('weight-edit', kwargs={'pk': self.object.id})
+        context['title'] = _('Edit weight entry for the %s') % self.object.creation_date
+        
+        return context
 
 @login_required
 def export_csv(request):
