@@ -188,3 +188,13 @@ div.warning a, div.warning a:hover, div.warning a:active{
     text-decoration: underline;
     background-color: transparent;
 }
+
+/*
+ * Category heading for the ajax autocompleter
+ */
+.ui-autocomplete-category {
+    font-weight: bold;
+    padding: .2em .4em;
+    margin: .8em 0 .2em;
+    line-height: 1.5;
+}

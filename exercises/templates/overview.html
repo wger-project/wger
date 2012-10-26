@@ -26,7 +26,7 @@ $(document).ready(function() {
     $("#exercise_search_form").submit(function() {return false;});
 
     // Init the autocompleter
-    $("#exercise-search").autocomplete({
+    $("#exercise-search").catcomplete({
             source: "{% url exercises.views.exercise_search %}",
             minLength: 2,
             select: function(event, ui) {

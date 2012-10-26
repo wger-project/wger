@@ -5,6 +5,25 @@
 
 
 /*
+ * Define an own widget, which is basically an autocompleter that groups
+ * results by category
+ */
+$.widget( "custom.catcomplete", $.ui.autocomplete, {
+        _renderMenu: function( ul, items ) {
+            var that = this,
+                currentCategory = "";
+            $.each( items, function( index, item ) {
+                if ( item.category != currentCategory ) {
+                    ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" );
+                    currentCategory = item.category;
+                }
+                that._renderItemData( ul, item );
+            });
+        }
+    });
+
+
+/*
  * Setup JQuery sortables to make the sets sortable
  */
 function setup_sortable()
@@ -116,7 +135,7 @@ function setup_inplace_editing()
         });
         
         // Init the autocompleter
-        $(".ajax-form-exercise-list").autocomplete({
+        $(".ajax-form-exercise-list").catcomplete({
                 source: "/exercise/search/",
                 minLength: 2,
                 select: function(event, ui) {
@@ -259,7 +278,7 @@ function scatterplot_modal_dialog(id)
 function init_ingredient_autocompleter()
 {
     // Init the autocompleter
-    $("#id_ingredient_searchfield").autocomplete({
+    $("#id_ingredient_searchfield").catcomplete({
         source: "/nutrition/ingredient/search/",
         minLength: 2,
         select: function(event, ui) {
@@ -308,8 +327,6 @@ function add_exercise(exercise)
     $("#exercise-search-log").scrollTop(0);
 }
 
-
-
 function init_edit_set()
 {
     // Validate the form with JQuery
@@ -328,8 +345,8 @@ function init_edit_set()
     // The multi-select exercise list is not needed if javascript is activated
     $('#form-exercises').remove();
     
-    // Initialise the autocompleter
-    $("#exercise-search").autocomplete({
+    // Initialise the autocompleter (our widget, defined above)
+    $("#exercise-search").catcomplete({
             source: "/exercise/search/",
             minLength: 2,
             select: function(event, ui) {
