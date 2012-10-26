@@ -113,14 +113,21 @@ $(document).ready(function () {
        id="weight_filter_from"
        name="weight_filter_from"
        maxlength="9"
-       style="width: 6em;">
+       style="width: 6em;"
+       class="ajax-form-element">
+
 {% trans "till" %}
 <input type="text"
        id="weight_filter_to"
        name="weight_filter_to"
        maxlength="9"
-       style="width: 6em;">
-<input class="ajax-form-submit" id="weight_diagram_refresh" type="submit" value="{% trans 'Filter' %}">
+       style="width: 6em;"
+       class="ajax-form-element">
+
+<input class="ajax-form-submit"
+       id="weight_diagram_refresh"
+       type="submit"
+       value="{% trans 'Filter' %}">
 
 </form>
 
