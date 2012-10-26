@@ -20,7 +20,15 @@ function custom_modal_init()
 
 $(document).ready(function() {
     // Init the tabs for the exercises
-    $( "#tabs" ).tabs();
+    $( "#tabs" ).tabs({
+    
+        // On selecting a category, set the values to edit it
+        select: function(event, ui) {
+                category_id = ui.tab.id.match(/\d+/);
+                $("#current-category-name").html($("#cat-" + category_id).html());
+                $("#current-category-edit").attr("href", "/exercise/category/" + category_id + "/edit/");
+            }
+    });
     
     // Prevent the form from being submited if JavaScript is enabled
     $("#exercise_search_form").submit(function() {return false;});
@@ -51,7 +59,7 @@ $(document).ready(function() {
 <div id="tabs">
     <ul>
         {% for category in categories %}
-        <li><a href="#cat{{ category.id }}">{{ category.name }}</a></li>
+        <li><a href="#cat{{ category.id }}" id="cat-{{ category.id }}">{{ category.name }}</a></li>
         {% empty %}
         <li>{% trans "No categories." %} {% trans "Use link to create one" %}</li>
         {% endfor %}
@@ -116,7 +124,7 @@ $(document).ready(function() {
 {% block sidebar %}
 {% if perms.exercises %}
     <h3>{% trans "Options" %}</h3>
-
+	
     <p>
         <a href="{% url exercise-add %}"
            class="modal-dialog">
@@ -127,6 +135,21 @@ $(document).ready(function() {
                             title="{% trans 'Add new exercise' %}">
         	{% trans "Add new exercise" %}
         </a>
+	</p>
+	<p>
+        {% with category=categories|first %}
+        <a href="{% url exercisecategory-edit category.id %}"
+           class="modal-dialog"
+           id="current-category-edit">
+        	<img src="{% static 'images/icons/edit.svg' %}"
+                            width="32"
+                            height="32"
+                            alt="{% trans 'Edit category' %}"
+                            title="{% trans 'Edit category' %}">
+        	{% trans "Edit category:" %}
+        	<span id="current-category-name">{{category.name}}</span>
+        </a>
+        {% endwith %}
 	</p>
 	<p>
         <a href="{% url exercisecategory-add %}"
