@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %} 
+
+<!--
+        Title
+-->
+{% block title %}{{title}}{% endblock %}
+
+
+<!--
+        Main Content
+-->
+{% block content %}
+<h2>{{title}}</h2>
+
+
+<form action="{{form_action}}"
+      method="post"
+      class="ym-form">
+    {% csrf_token %}
+    <p>{% trans "Are you sure you want to delete this? This action cannot be undone." %}</p>
+    <p>{{ delete_message }}</p>
+    <p><input type="submit" value="{% trans 'Delete' %}"></p>
+</form>
+{% endblock %}
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}{{sidebar|safe}}{% endblock %}
