@@ -4,6 +4,7 @@ when you run "manage.py test".
 
 Replace this with more appropriate tests for your application.
 """
+import logging
 
 from django.test import TestCase
 from django.test import LiveServerTestCase
@@ -12,6 +13,9 @@ from django.core.urlresolvers import reverse
 from selenium.webdriver.common.keys import Keys
 
 from manager.tests.testcase import WorkoutManagerLiveServerTestCase
+
+logger = logging.getLogger('workout_manager.custom')
+
 
 class WeigtTest(WorkoutManagerLiveServerTestCase):
 
@@ -105,24 +109,20 @@ class WeigtTest(WorkoutManagerLiveServerTestCase):
         warning_box = self.browser.find_elements_by_id('weight-box-warning')
         self.assertFalse(warning_box)
         
+        #
+        # Edit 
+        #
         
-    def test_filter(self):
-        """
-        Tests that it's possible to filter the weight entries
-        """
+        # Note: it seems selenium can't click on SVG elements
+        #svg_points[0].click()
+        #modal_dialog = self.browser.find_elements_by_class_name('ui-dialog')[0]
+        #weight_entry = self.browser.find_elements_by_id('id_weight')
+        #self.assertTrue(weight_entry)
+        #self.assertTrue(weight_entry[0].value, 70)
         
-        # Create some entries
-        self.user_login()
-        self.browser.get(self.live_server_url + reverse('weight.views.overview'))
-        self.add_weight_entry(70, 0)
-        self.add_weight_entry(71, 1)
-        self.add_weight_entry(76, 2)
-        self.add_weight_entry(80, 3)
-        self.add_weight_entry(86, 4)
-        self.add_weight_entry(81, 5)
-        self.add_weight_entry(83, 7)
-        
-        
+        #
+        # Filter the results
+        #
         svg_points_orig = self.browser.find_elements_by_tag_name('circle')
         
         # Set the dates
