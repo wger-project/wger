@@ -140,7 +140,8 @@ $(document).ready(function() {
 </p>
 
 <p>
-<a href="{% url manager.views.delete_workout workout.id %}">
+<a href="{% url workout-delete workout.id %}"
+   class="modal-dialog">
     <img src="{% static 'images/icons/trash.svg' %}"
          width="32"
          height="32"

@@ -283,6 +283,33 @@ def preferences(request):
                               template_data,
                               context_instance=RequestContext(request))
 
+@login_required
+def api_user_preferences(request):
+    """ Allows the user to edit its preferences via AJAX calls
+    """
+    
+    if request.is_ajax():
+    
+        # Show comments on workout view
+        if request.GET.get('do') == 'set_show-comments':
+            new_value = int(request.GET.get('show'))
+            
+            profile = request.user.get_profile()
+            profile.show_comments = new_value
+            profile.save()
+                
+            return HttpResponse(_('Success'))
+        
+        # Show ingredients in english
+        elif request.GET.get('do') == 'set_english-ingredients':
+            new_value = int(request.GET.get('show'))
+            
+            profile = request.user.get_profile()
+            profile.show_english_ingredients = new_value
+            profile.save()
+                
+            return HttpResponse(_('Success'))
+
 
 # ************************
 # Workout functions
@@ -620,18 +647,30 @@ def add(request):
     
     return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs= {'id': workout.id}))
 
-@login_required
-def delete_workout(request, id):
-    """Deletes the workout with ID id
+
+class WorkoutDeleteView(YamlDeleteMixin, DeleteView):
+    """
+    Generic view to delete a workout routine
     """
     
-    # Load the workout
-    workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
-    workout.delete()
+    active_tab = WORKOUT_TAB
+    model = TrainingSchedule
+    success_url = reverse_lazy('manager.views.overview')
+    title = ugettext_lazy('Delete workout')
+
+    # Send some additional data to the template
+    def get_context_data(self, **kwargs):
+        context = super(WorkoutDeleteView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('workout-delete',
+                                         kwargs={'pk': self.object.id})
+         
+        return context
     
-    return HttpResponseRedirect(reverse('manager.views.index'))
-
-
+    # Check that only the owner can access this
+    def get_object(self, queryset = None):
+        return get_object_or_404(TrainingSchedule,
+                                 pk = self.kwargs['pk'],
+                                 user = self.request.user)
 
 class WorkoutEditView(YamlFormMixin, UpdateView):
     """
@@ -651,35 +690,11 @@ class WorkoutEditView(YamlFormMixin, UpdateView):
          
         return context
 
-
-
-@login_required
-def api_user_preferences(request):
-    """ Allows the user to edit its preferences via AJAX calls
-    """
-    
-    if request.is_ajax():
-    
-        # Show comments on workout view
-        if request.GET.get('do') == 'set_show-comments':
-            new_value = int(request.GET.get('show'))
-            
-            profile = request.user.get_profile()
-            profile.show_comments = new_value
-            profile.save()
-                
-            return HttpResponse(_('Success'))
-        
-        # Show ingredients in english
-        elif request.GET.get('do') == 'set_english-ingredients':
-            new_value = int(request.GET.get('show'))
-            
-            profile = request.user.get_profile()
-            profile.show_english_ingredients = new_value
-            profile.save()
-                
-            return HttpResponse(_('Success'))
-
+    # Check that only the owner can access this
+    def get_object(self, queryset = None):
+        return get_object_or_404(TrainingSchedule,
+                                 pk = self.kwargs['pk'],
+                                 user = self.request.user)
 
 # ************************
 # Day functions
