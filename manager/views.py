@@ -429,7 +429,7 @@ class WorkoutEditView(YamlFormMixin, UpdateView):
 
     # Check that only the owner can access this
     def get_object(self, queryset = None):
-        return get_object_or_404(TrainingSchedule,
+        return get_object_or_404(self.model,
                                  pk = self.kwargs['pk'],
                                  user = self.request.user)
 

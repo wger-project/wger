@@ -1,21 +1,36 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import login_required
 
 from nutrition.views import IngredientDeleteView
+from nutrition.views import PlanDeleteView
+from nutrition.views import PlanEditView
+from nutrition.views import MealCreateView
+from nutrition.views import MealEditView
+
 
 urlpatterns = patterns('nutrition.views',
     url(r'^nutrition/overview/$', 'overview'),
     
     # Plans
     url(r'^nutrition/add/$', 'add'),
-    url(r'^nutrition/(?P<id>\d+)/view/$', 'view'),    
-    url(r'^nutrition/(?P<id>\d+)/delete/$', 'delete_plan'),
-    url(r'^nutrition/(?P<id>\d+)/edit/$', 'edit_plan'),
+    url(r'^nutrition/(?P<id>\d+)/view/$', 'view'),
+    url(r'^nutrition/(?P<pk>\d+)/delete/$',
+        login_required(PlanDeleteView.as_view()),
+        name='nutrition-delete'),
+    url(r'^nutrition/(?P<pk>\d+)/edit/$',
+        login_required(PlanEditView.as_view()),
+        name='nutrition-edit'),
     url(r'^nutrition/(?P<id>\d+)/pdf/$', 'export_pdf'),
     
     # Meals
-    url(r'^nutrition/(?P<id>\d+)/edit/meal/(?P<meal_id>\w*)$', 'edit_meal'),
-    url(r'^nutrition/(?P<id>\d+)/add/meal/$', 'add_meal'),
+    url(r'^nutrition/(?P<plan_pk>\d+)/meal/add/$',
+        login_required(MealCreateView.as_view()),
+        name='meal-add'),
+    url(r'^nutrition/meal/(?P<pk>\d+)/edit/$',
+        login_required(MealEditView.as_view()),
+        name='meal-edit'),
+    
     url(r'^nutrition/(?P<id>\d+)/delete/meal/$', 'delete_meal'),
     
     # Meal items
@@ -30,5 +45,5 @@ urlpatterns = patterns('nutrition.views',
     url(r'^nutrition/ingredient/overview/$', 'ingredient_overview'),
     url(r'^nutrition/ingredient/(?P<id>\d+)/view/$', 'ingredient_view'),
     url(r'^nutrition/ingredient/(?P<id>\w*)/edit/$', 'ingredient_edit'),
-    url(r'^nutrition/ingredient/search/$', 'ingredient_search'),   
+    url(r'^nutrition/ingredient/search/$', 'ingredient_search'),
 )

@@ -29,14 +29,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 from django.forms import ModelForm
 from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy
 
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
-
-from workout_manager import get_version
-from workout_manager.generic_views import YamlFormMixin
-from workout_manager.generic_views import YamlDeleteMixin
 
 from nutrition.models import NutritionPlan
 from nutrition.models import Meal
@@ -51,7 +48,11 @@ from reportlab.lib import colors
 from manager.utils import load_language
 from manager.utils import load_ingredient_languages
 
+from workout_manager import get_version
 from workout_manager.constants import NUTRITION_TAB
+from workout_manager.generic_views import YamlFormMixin
+from workout_manager.generic_views import YamlDeleteMixin
+
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -90,16 +91,54 @@ def add(request):
     
     return HttpResponseRedirect(reverse('nutrition.views.view', kwargs= {'id': plan.id}))
 
-@login_required
-def delete_plan(request, id):
-    """Deletes the nutritional plan with the given ID
+class PlanDeleteView(YamlDeleteMixin, DeleteView):
+    """
+    Generic view to delete a nutritional plan
     """
     
-    # Load the plan
-    plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
-    plan.delete()
+    active_tab = NUTRITION_TAB
+    model = NutritionPlan
+    success_url = reverse_lazy('nutrition.views.overview')
+    title = ugettext_lazy('Delete nutritional plan?')
+
+    # Send some additional data to the template
+    def get_context_data(self, **kwargs):
+        context = super(PlanDeleteView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('nutrition-delete',
+                                         kwargs={'pk': self.object.id})
+         
+        return context
     
-    return HttpResponseRedirect(reverse('manager.views.index'))
+    # Check that only the owner can access this
+    def get_object(self, queryset = None):
+        return get_object_or_404(self.model,
+                                 pk = self.kwargs['pk'],
+                                 user = self.request.user)
+
+class PlanEditView(YamlFormMixin, UpdateView):
+    """
+    Generic view to update an existing nutritional plan
+    """
+    
+    active_tab = NUTRITION_TAB
+    model = NutritionPlan
+    form_class = PlanForm
+    title = ugettext_lazy('Add a new nutritional plan')
+
+    # Send some additional data to the template
+    def get_context_data(self, **kwargs):
+        context = super(PlanEditView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('nutrition-edit',
+                                         kwargs={'pk': self.object.id})
+         
+        return context
+
+    # Check that only the owner can access this
+    def get_object(self, queryset = None):
+        return get_object_or_404(self.model,
+                                 pk = self.kwargs['pk'],
+                                 user = self.request.user)
+
 
 @login_required
 def view(request, id):
@@ -120,37 +159,6 @@ def view(request, id):
     template_data['nutritional_data'] = plan.get_nutritional_values()
     
     return render_to_response('view_nutrition_plan.html', 
-                              template_data,
-                              context_instance=RequestContext(request))
-
-@login_required
-def edit_plan(request, id):
-    """Edits a nutrition plan
-    """
-    template_data = {}
-    template_data['active_tab'] = NUTRITION_TAB
-    
-    # Load the plan
-    plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
-    template_data['plan'] = plan
-    
-    # Process request
-    if request.method == 'POST':
-        form = PlanForm(request.POST, instance=plan)
-        
-        # If the data is valid, save and redirect
-        if form.is_valid():
-            plan = form.save(commit=False)
-            #plan.language = load_language()
-            plan.save()
-            
-            return HttpResponseRedirect(reverse('nutrition.views.view', kwargs= {'id': id}))
-    else:
-        form = PlanForm(instance=plan)
-    template_data['form'] = form
-    
-    
-    return render_to_response('edit_plan.html', 
                               template_data,
                               context_instance=RequestContext(request))
 
@@ -287,71 +295,73 @@ def export_pdf(request, id):
 class MealForm(ModelForm):
     class Meta:
         model = Meal
-        exclude=('plan',)
+        exclude=('plan', 'order')
 
 class MealItemForm(ModelForm):
     class Meta:
         model = MealItem
         exclude=('meal', 'order')
 
-@login_required
-def edit_meal(request, id, meal_id):
-    """Form to add a meal to a plan
+
+class MealCreateView(YamlFormMixin, CreateView):
     """
-    template_data = {}
-    template_data['active_tab'] = NUTRITION_TAB
+    Generic view to add a new meal to a nutrition plan
+    """
     
-    # Load the plan
-    plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
-    template_data['plan'] = plan
+    active_tab = NUTRITION_TAB
+    model = Meal
+    form_class = MealForm
+    title = ugettext_lazy('Add new meal')
     
-    # Load the meal
-    meal = get_object_or_404(Meal, pk=meal_id)
-    template_data['meal'] = meal
+    def form_valid(self, form):
+        plan = get_object_or_404(NutritionPlan, pk = self.kwargs['plan_pk'], user=self.request.user)
+        form.instance.plan = plan
+        form.instance.order = 1
+        return super(MealCreateView, self).form_valid(form)
     
-    if meal.plan != plan:
-        return HttpResponseForbidden()
+    def get_success_url(self):
+        return reverse('nutrition.views.view', kwargs ={'id': self.object.plan.id})
+
+    # Send some additional data to the template
+    def get_context_data(self, **kwargs):
+        context = super(MealCreateView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('meal-add',
+                                         kwargs={'plan_pk': self.kwargs['plan_pk']})
+         
+        return context
+
+
+class MealEditView(YamlFormMixin, UpdateView):
+    """
+    Generic view to update an existing meal
+    """
     
+    active_tab = NUTRITION_TAB
+    model = Meal
+    form_class = MealForm
+    title = ugettext_lazy('Edit meal')
     
-    # Process request
-    if request.method == 'POST':
-        meal_form = MealForm(request.POST, instance=meal)
+    def get_success_url(self):
+        return reverse('nutrition.views.view', kwargs ={'id': self.object.plan.id})
+
+    # Send some additional data to the template
+    def get_context_data(self, **kwargs):
+        context = super(MealEditView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('meal-edit',
+                                         kwargs={'pk': self.object.id})
+         
+        return context
+
+    # Check that only the owner can access this
+    def get_object(self, queryset = None):
+        meal = get_object_or_404(self.model,
+                                 pk = self.kwargs['pk'])
         
-        # If the data is valid, save and redirect
-        if meal_form.is_valid():
-            meal_item = meal_form.save(commit=False)
-            meal_item.order = 1
-            meal_item.save()
-            
-            return HttpResponseRedirect(reverse('nutrition.views.view', kwargs= {'id': id}))
-    else:
-        meal_form = MealForm(instance=meal)
-    template_data['form'] = meal_form
-    
-    
-    return render_to_response('edit_meal.html', 
-                              template_data,
-                              context_instance=RequestContext(request))
-    
-
-
-@login_required
-def add_meal(request, id, meal_id=None):
-    """Form to add a meal to a plan
-    """
-    template_data = {}
-    template_data['active_tab'] = NUTRITION_TAB
-    
-    # Load the plan
-    plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
-    template_data['plan'] = plan
-    
-    meal = Meal()
-    meal.plan = plan
-    meal.order = 1
-    meal.save()
-    
-    return HttpResponseRedirect(reverse('nutrition.views.view', kwargs= {'id': plan.id}))
+        # TODO: check this
+        if meal.plan.user != self.request.user:
+            return HttpResponseForbidden()
+        else:
+            return meal
 
 @login_required
 def delete_meal(request, id):

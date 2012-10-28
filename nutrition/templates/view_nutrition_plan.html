@@ -70,7 +70,7 @@ $(document).ready(function() {
                         alt="{% trans 'Delete meal' %}"
                         title="{% trans 'Delete meal' %}">
                 </a>
-                <a href="{% url nutrition.views.edit_meal plan.id meal.id %}"
+                <a href="{% url meal-edit meal.id %}"
                    title="{% trans 'Edit' %}"
                    class="modal-dialog">
                     <img src="{% static 'images/icons/edit.svg' %}"
@@ -137,7 +137,8 @@ $(document).ready(function() {
 {% empty %}
      <div class="box warning">
          {% trans "No meals for this plan." %}
-         <a href="{% url nutrition.views.add_meal plan.id %}">
+         <a href="{% url meal-add plan.id %}"
+            class="modal-dialog">
                 {% trans "Add one now." %}
             </a>
      </div>
@@ -145,7 +146,8 @@ $(document).ready(function() {
 {% endfor %}
         <tr>
             <td colspan="2">
-            <a href="{% url nutrition.views.add_meal plan.id %}">
+            <a href="{% url meal-add plan.id %}"
+               class="modal-dialog">
                 <img src="{% static 'images/icons/edit.svg' %}"
                      width="16"
                      height="16"
@@ -249,7 +251,7 @@ $(document).ready(function() {
 </p>
 
 <p>
-<a href="{% url nutrition.views.edit_plan plan.id %}"
+<a href="{% url nutrition-edit plan.id %}"
    class="modal-dialog">
     <img src="{% static 'images/icons/edit.svg' %}"
          width="32"
@@ -260,7 +262,8 @@ $(document).ready(function() {
 </p>
 
 <p>
-<a href="{% url nutrition.views.delete_plan plan.id %}">
+<a href="{% url nutrition-delete plan.id %}"
+   class="modal-dialog">
     <img src="{% static 'images/icons/trash.svg' %}"
          width="32"
          height="32"
