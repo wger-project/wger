@@ -15,10 +15,16 @@
 <h2>{{title}}</h2>
 
 
+
 <form action="{{form_action}}"
       method="post"
       class="ym-form">
     {% csrf_token %}
+    <img src="{% static  'images/icons/warning.svg' %}"
+         width="48"
+         height="48"
+         class="flexible float-left"
+         alt="{% trans "Are you sure you want to delete this? This action cannot be undone." %}">
     <p>{% trans "Are you sure you want to delete this? This action cannot be undone." %}</p>
     <p>{{ delete_message }}</p>
     <p><input type="submit" value="{% trans 'Delete' %}"></p>
