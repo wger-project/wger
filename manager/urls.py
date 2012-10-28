@@ -29,7 +29,6 @@ urlpatterns = patterns('manager.views',
         name = 'workout-delete'),
     
     
-    url(r'^workout/(?P<id>\d+)/pdf/$', 'pdf_workout'),
     url(r'^workout/(?P<id>\d+)/view/$', 'view_workout'),
     url(r'^workout/(?P<id>\d+)/edit/day/(?P<day_id>\w*)$', 'edit_day'),
     url(r'^workout/(?P<id>\d+)/delete/day/(?P<day_id>\d+)$', 'delete_day'),
@@ -43,3 +42,7 @@ urlpatterns = patterns('manager.views',
     url(r'^workout/api/edit-settting$', 'api_edit_setting'),
     url(r'^workout/api/user-preferences$', 'api_user_preferences'),
 )
+
+# PDF stuff is different file
+urlpatterns = urlpatterns + patterns('manager.pdf',
+     url(r'^workout/(?P<id>\d+)/pdf/$', 'workout_log'))
