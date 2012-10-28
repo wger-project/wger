@@ -52,8 +52,65 @@ logger = logging.getLogger('workout_manager.custom')
 
 
 # ************************
-# Exercise comment functions
+#    Exercise comments
 # ************************
+class ExerciseCommentForm(ModelForm):
+    class Meta:
+        model = ExerciseComment
+        exclude=('exercise',)     
+
+
+class ExerciseCommentEditView(YamlFormMixin, UpdateView):
+    """
+    Generic view to update an existing exercise comment
+    """
+    
+    active_tab = 'exercises'
+    model = ExerciseComment
+    form_class = ExerciseCommentForm
+    title = ugettext_lazy('Edit exercise comment')
+    
+    def get_success_url(self):
+        return reverse('exercises.views.exercise_view', kwargs ={'id': self.object.exercise.id})
+
+    # Send some additional data to the template
+    def get_context_data(self, **kwargs):
+        context = super(ExerciseCommentEditView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('exercisecomment-edit',
+                                         kwargs={'pk': self.object.id})
+         
+        return context
+
+
+class ExerciseCommentAddView(YamlFormMixin, CreateView):
+    """
+    Generic view to add a new exercise comment
+    """
+    
+    active_tab = 'exercises'
+    model = ExerciseComment
+    form_class = ExerciseCommentForm
+    title = ugettext_lazy('Add exercise comment')
+    
+    def form_valid(self, form):
+        form.instance.exercise = Exercise.objects.get(pk = self.kwargs['exercise_pk'])
+    
+        return super(ExerciseCommentAddView, self).form_valid(form)
+    
+    def get_success_url(self):
+        return reverse('exercises.views.exercise_view', kwargs ={'id': self.object.exercise.id})
+
+
+    # Send some additional data to the template
+    def get_context_data(self, **kwargs):
+        context = super(ExerciseCommentAddView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('exercisecomment-add',
+                                         kwargs={'exercise_pk': self.kwargs['exercise_pk']})
+         
+        return context
+
+
+
 @permission_required('manager.add_exercisecomment')
 def exercisecomment_delete(request, id):
     # Load the comment
@@ -62,24 +119,12 @@ def exercisecomment_delete(request, id):
     comment.delete()
     
     return HttpResponseRedirect(reverse('exercises.views.exercise_view', kwargs= {'id': exercise_id}))
-    
+
+
 
 # ************************
-# Exercise functions
+#         Exercises
 # ************************
-class ExerciseCommentForm(ModelForm):
-    class Meta:
-        model = ExerciseComment
-        exclude=('exercise',)
-
-
-
-class ExerciseCategoryForm(ModelForm):
-    class Meta:
-        model = ExerciseCategory
-        exclude=('language',)
-        
-
 def exercise_overview(request):
     """Overview with all exercises
     """
@@ -206,6 +251,53 @@ class ExerciseDeleteView(YamlDeleteMixin, DeleteView):
         return context
     
 
+def exercise_search(request):
+    """Search an exercise, return the result as a JSON list
+    """
+    
+    # Perform the search
+    q = request.GET.get('term', '')
+    user_language = load_language()
+    exercises = Exercise.objects.filter(name__icontains = q, category__language_id = user_language )\
+                                .order_by('category__name', 'name')
+    
+    # AJAX-request, this comes from the autocompleter. Create a list and send it back as JSON
+    if request.is_ajax():
+        
+        results = []
+        for exercise in exercises:
+            exercise_json = {}
+            exercise_json['id'] = exercise.id
+            exercise_json['name'] = exercise.name
+            exercise_json['value'] = exercise.name
+            exercise_json['category'] = exercise.category.name
+            
+            results.append(exercise_json)
+        data = json.dumps(results)
+        
+        # Return the results to the server
+        mimetype = 'application/json'
+        return HttpResponse(data, mimetype)
+    
+    # Usual search (perhaps JS disabled), present the results as normal HTML page
+    else:
+        template_data = {}
+        template_data.update(csrf(request))
+        template_data['exercises'] = exercises
+        template_data['search_term'] = q
+        return render_to_response('exercise_search.html',
+                                  template_data,
+                                  context_instance=RequestContext(request))
+
+# ************************
+#   Exercise categories
+# ************************
+class ExerciseCategoryForm(ModelForm):
+    class Meta:
+        model = ExerciseCategory
+        exclude=('language',)
+
+
 class ExerciseCategoryAddView(YamlFormMixin, CreateView):
     """
     Generic view to add a new exercise category
@@ -247,54 +339,6 @@ class ExerciseCategoryUpdateView(YamlFormMixin, UpdateView):
         
         return super(ExerciseCategoryUpdateView, self).form_valid(form)
 
-class ExerciseCommentEditView(YamlFormMixin, UpdateView):
-    """
-    Generic view to update an existing exercise comment
-    """
-    
-    active_tab = 'exercises'
-    model = ExerciseComment
-    form_class = ExerciseCommentForm
-    title = ugettext_lazy('Edit exercise comment')
-    
-    def get_success_url(self):
-        return reverse('exercises.views.exercise_view', kwargs ={'id': self.object.exercise.id})
-
-    # Send some additional data to the template
-    def get_context_data(self, **kwargs):
-        context = super(ExerciseCommentEditView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercisecomment-edit',
-                                         kwargs={'pk': self.object.id})
-         
-        return context
-
-
-class ExerciseCommentAddView(YamlFormMixin, CreateView):
-    """
-    Generic view to add a new exercise comment
-    """
-    
-    active_tab = 'exercises'
-    model = ExerciseComment
-    form_class = ExerciseCommentForm
-    title = ugettext_lazy('Add exercise comment')
-    
-    def form_valid(self, form):
-        form.instance.exercise = Exercise.objects.get(pk = self.kwargs['exercise_pk'])
-    
-        return super(ExerciseCommentAddView, self).form_valid(form)
-    
-    def get_success_url(self):
-        return reverse('exercises.views.exercise_view', kwargs ={'id': self.object.exercise.id})
-
-
-    # Send some additional data to the template
-    def get_context_data(self, **kwargs):
-        context = super(ExerciseCommentAddView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercisecomment-add',
-                                         kwargs={'exercise_pk': self.kwargs['exercise_pk']})
-         
-        return context
 
 class ExerciseCategoryDeleteView(YamlDeleteMixin, DeleteView):
     """
@@ -313,42 +357,3 @@ class ExerciseCategoryDeleteView(YamlDeleteMixin, DeleteView):
         context['form_action'] = reverse('exercise-delete', kwargs={'pk': self.kwargs['pk']})
     
         return context
-
-
-def exercise_search(request):
-    """Search an exercise, return the result as a JSON list
-    """
-    
-    # Perform the search
-    q = request.GET.get('term', '')
-    user_language = load_language()
-    exercises = Exercise.objects.filter(name__icontains = q, category__language_id = user_language )\
-                                .order_by('category__name', 'name')
-    
-    # AJAX-request, this comes from the autocompleter. Create a list and send it back as JSON
-    if request.is_ajax():
-        
-        results = []
-        for exercise in exercises:
-            exercise_json = {}
-            exercise_json['id'] = exercise.id
-            exercise_json['name'] = exercise.name
-            exercise_json['value'] = exercise.name
-            exercise_json['category'] = exercise.category.name
-            
-            results.append(exercise_json)
-        data = json.dumps(results)
-        
-        # Return the results to the server
-        mimetype = 'application/json'
-        return HttpResponse(data, mimetype)
-    
-    # Usual search (perhaps JS disabled), present the results as normal HTML page
-    else:
-        template_data = {}
-        template_data.update(csrf(request))
-        template_data['exercises'] = exercises
-        template_data['search_term'] = q
-        return render_to_response('exercise_search.html',
-                                  template_data,
-                                  context_instance=RequestContext(request))
