@@ -252,15 +252,22 @@ def workout_log(request, id):
         
     
     # Set the table data
-    t = Table(data, colwidths, rowheights, style = table_style)
+    if data:
+        logger.debug(data)
+        t = Table(data, colwidths, rowheights, style = table_style)
+        
+        # Manually set the width of the columns
+        for i in range(first_weight_column, nr_of_weeks + first_weight_column):
+            t._argW[i] = 1.8 * cm # Columns for entering the log
+            
+        t._argW[0] = 0.6 * cm # Exercise numbering
+        t._argW[1] = 3.5 * cm # Name of exercise
+        t._argW[2] = 1.9 * cm # Repetitions
     
-    # Manually set the width of the columns
-    for i in range(first_weight_column, nr_of_weeks + first_weight_column):
-        t._argW[i] = 1.8 * cm # Columns for entering the log
-    
-    t._argW[0] = 0.6 * cm # Exercise numbering
-    t._argW[1] = 3.5 * cm # Name of exercise
-    t._argW[2] = 1.9 * cm # Repetitions
+    # There is nothing to output
+    else:
+        t = Paragraph(_('<i>This is an empty workout, what did you expect on the PDF?</i>'),
+                      styleSheet["Normal"])
 
     #
     # Add all elements to the document
