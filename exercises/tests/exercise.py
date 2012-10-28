@@ -258,7 +258,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         
         # Delete the exercise
         count_before = Exercise.objects.count()
-        response = self.client.get(reverse('exercises.views.exercise_delete', kwargs={'id': 3}))
+        response = self.client.post(reverse('exercise-delete', kwargs={'pk': 3}))
         count_after = Exercise.objects.count()
         
         # There is a redirect
