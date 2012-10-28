@@ -40,6 +40,7 @@ from django.views.generic import UpdateView
 from weight.models import WeightEntry
 
 from workout_manager.generic_views import YamlFormMixin
+from workout_manager.constants import WEIGHT_TAB
 
 
 logger = logging.getLogger('workout_manager.custom')
@@ -53,7 +54,7 @@ class WeightAddView(YamlFormMixin, CreateView):
     """
     Generic view to add a new weight entry
     """
-    active_tab = 'weight'
+    active_tab = WEIGHT_TAB
     model = WeightEntry
     form_class = WeightForm   
     custom_js = '''$(document).ready(function () {
@@ -77,7 +78,7 @@ class WeightUpdateView(YamlFormMixin, UpdateView):
     """
     Generic view to edit an existing weight entry
     """
-    active_tab = 'weight'
+    active_tab = WEIGHT_TAB
     model = WeightEntry
     form_class = WeightForm
     custom_js = '''$(document).ready(function () {
@@ -124,7 +125,7 @@ def overview(request):
         * http://d3js.org/
     """
     template_data = {}
-    template_data['active_tab'] = 'weight'
+    template_data['active_tab'] = WEIGHT_TAB
     
     min_date = WeightEntry.objects.filter(user = request.user).aggregate(Min('creation_date'))['creation_date__min']
     max_date = WeightEntry.objects.filter(user = request.user).aggregate(Max('creation_date'))['creation_date__max']

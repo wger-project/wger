@@ -51,6 +51,8 @@ from reportlab.lib import colors
 from manager.utils import load_language
 from manager.utils import load_ingredient_languages
 
+from workout_manager.constants import NUTRITION_TAB
+
 logger = logging.getLogger('workout_manager.custom')
 
 
@@ -67,7 +69,7 @@ class PlanForm(ModelForm):
 def overview(request):
     template_data = {}
     template_data.update(csrf(request))
-    template_data['active_tab'] = 'nutrition'
+    template_data['active_tab'] = NUTRITION_TAB
     
     plans  = NutritionPlan.objects.filter(user = request.user)
     template_data['plans'] = plans
@@ -104,7 +106,7 @@ def view(request, id):
     """Show the nutrition plan with the given ID
     """
     template_data = {}
-    template_data['active_tab'] = 'nutrition'
+    template_data['active_tab'] = NUTRITION_TAB
     
     plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
     template_data['plan'] = plan
@@ -126,7 +128,7 @@ def edit_plan(request, id):
     """Edits a nutrition plan
     """
     template_data = {}
-    template_data['active_tab'] = 'nutrition'
+    template_data['active_tab'] = NUTRITION_TAB
     
     # Load the plan
     plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
@@ -297,7 +299,7 @@ def edit_meal(request, id, meal_id):
     """Form to add a meal to a plan
     """
     template_data = {}
-    template_data['active_tab'] = 'nutrition'
+    template_data['active_tab'] = NUTRITION_TAB
     
     # Load the plan
     plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
@@ -338,7 +340,7 @@ def add_meal(request, id, meal_id=None):
     """Form to add a meal to a plan
     """
     template_data = {}
-    template_data['active_tab'] = 'nutrition'
+    template_data['active_tab'] = NUTRITION_TAB
     
     # Load the plan
     plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
@@ -394,7 +396,7 @@ def edit_meal_item(request, id, meal_id, item_id=None):
     """Form to add a meal to a plan
     """
     template_data = {}
-    template_data['active_tab'] = 'nutrition'
+    template_data['active_tab'] = NUTRITION_TAB
     
     # Load the plan
     plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
@@ -467,7 +469,7 @@ def ingredient_overview(request):
     """
     
     template_data = {}
-    template_data['active_tab'] = 'nutrition'
+    template_data['active_tab'] = NUTRITION_TAB
     
     # Filter the ingredients the user will see by its language
     # (the user can also want to see ingredients in English, see load_ingredient_languages)
@@ -483,7 +485,7 @@ def ingredient_overview(request):
     
 def ingredient_view(request, id):
     template_data = {}
-    template_data['active_tab'] = 'nutrition'
+    template_data['active_tab'] = NUTRITION_TAB
     
     ingredient = get_object_or_404(Ingredient, pk=id)
     template_data['ingredient'] = ingredient
@@ -524,7 +526,7 @@ def ingredient_edit(request, id=None):
     """
     
     template_data = {}
-    template_data['active_tab'] = 'nutrition'
+    template_data['active_tab'] = NUTRITION_TAB
     
     # Load the ingredient
     if id:

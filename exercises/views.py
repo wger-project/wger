@@ -47,6 +47,8 @@ from exercises.models import ExerciseCategory
 
 from workout_manager.generic_views import YamlFormMixin
 from workout_manager.generic_views import YamlDeleteMixin
+from workout_manager.constants import EXERCISE_TAB
+
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -65,7 +67,7 @@ class ExerciseCommentEditView(YamlFormMixin, UpdateView):
     Generic view to update an existing exercise comment
     """
     
-    active_tab = 'exercises'
+    active_tab = EXERCISE_TAB
     model = ExerciseComment
     form_class = ExerciseCommentForm
     title = ugettext_lazy('Edit exercise comment')
@@ -87,7 +89,7 @@ class ExerciseCommentAddView(YamlFormMixin, CreateView):
     Generic view to add a new exercise comment
     """
     
-    active_tab = 'exercises'
+    active_tab = EXERCISE_TAB
     model = ExerciseComment
     form_class = ExerciseCommentForm
     title = ugettext_lazy('Add exercise comment')
@@ -134,7 +136,7 @@ def exercise_overview(request):
     template_data.update(csrf(request))
     
     template_data['categories'] = ExerciseCategory.objects.filter(language = language.id)
-    template_data['active_tab'] = 'exercises'
+    template_data['active_tab'] = EXERCISE_TAB
     
     return render_to_response('overview.html',
                               template_data,
@@ -151,7 +153,7 @@ def exercise_view(request, id, comment_id=None):
     # Load the exercise itself
     exercise = get_object_or_404(Exercise, pk=id)
     template_data['exercise'] = exercise
-    template_data['active_tab'] = 'exercises'
+    template_data['active_tab'] = EXERCISE_TAB
     
     # Create the backgrounds that show what muscles the exercise works on
     backgrounds_back = []
@@ -186,8 +188,7 @@ class ExercisesEditAddView(YamlFormMixin):
     Generic view to subclass from for exercise adding and editing, since they share all
     this settings
     """
-    active_tab = 'exercises'
-    
+    active_tab = EXERCISE_TAB    
     model = Exercise
     
     form_fields = ['name',
@@ -238,6 +239,7 @@ class ExerciseDeleteView(YamlDeleteMixin, DeleteView):
     """
     
     model = Exercise
+    active_tab = EXERCISE_TAB
     success_url = reverse_lazy('exercises.views.exercise_overview')
     delete_message = ugettext_lazy('This will delete the exercise from all workouts.')
     
@@ -303,7 +305,7 @@ class ExerciseCategoryAddView(YamlFormMixin, CreateView):
     Generic view to add a new exercise category
     """
     
-    active_tab = 'exercises'
+    active_tab = EXERCISE_TAB
     model = ExerciseCategory
     form_class = ExerciseCategoryForm
     success_url = reverse_lazy('exercises.views.exercise_overview')
@@ -321,7 +323,7 @@ class ExerciseCategoryUpdateView(YamlFormMixin, UpdateView):
     Generic view to update an existing exercise category
     """
     
-    active_tab = 'exercises'
+    active_tab = EXERCISE_TAB
     model = ExerciseCategory
     form_class = ExerciseCategoryForm
     success_url = reverse_lazy('exercises.views.exercise_overview')

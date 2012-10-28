@@ -62,6 +62,10 @@ from reportlab.lib.pagesizes import A4, cm, landscape, portrait
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
 from reportlab.lib import colors
 
+from workout_manager.constants import WORKOUT_TAB
+from workout_manager.constants import USER_TAB
+
+
 logger = logging.getLogger('workout_manager.custom')
 
 # ************************
@@ -75,7 +79,7 @@ def index(request):
     """
     
     template_data = {}
-    template_data['active_tab'] = 'user'
+    template_data['active_tab'] = USER_TAB
     
     # Load the last workout, if one exists
     try:
@@ -144,7 +148,7 @@ def login(request):
     
     template_data = {}
     template_data.update(csrf(request))
-    template_data['active_tab'] = 'user'
+    template_data['active_tab'] = USER_TAB
     
     template_data['form'] = AuthenticationForm()
     
@@ -191,7 +195,7 @@ def change_password(request):
     
     template_data = {}
     template_data.update(csrf(request))
-    template_data['active_tab'] = 'user'
+    template_data['active_tab'] = USER_TAB
     
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, data=request.POST)
@@ -224,7 +228,7 @@ def registration(request):
     """
     template_data = {}
     template_data.update(csrf(request))
-    template_data['active_tab'] = 'user'
+    template_data['active_tab'] = USER_TAB
     
     if request.method == 'POST':
         form = UserCreationForm(data=request.POST)
@@ -254,7 +258,7 @@ def preferences(request):
     """
     template_data = {}
     template_data.update(csrf(request))
-    template_data['active_tab'] = 'user'
+    template_data['active_tab'] = USER_TAB
     
     if request.method == 'POST':
     
@@ -289,7 +293,7 @@ def overview(request):
     """
     
     template_data = {}
-    template_data['active_tab'] = 'workout'
+    template_data['active_tab'] = WORKOUT_TAB
     
     latest_trainings = TrainingSchedule.objects.filter(user=request.user)
     template_data['workouts'] = latest_trainings
@@ -303,7 +307,7 @@ def view_workout(request, id):
     """Show the workout with the given ID
     """
     template_data = {}
-    template_data['active_tab'] = 'workout'
+    template_data['active_tab'] = WORKOUT_TAB
     
     workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
     template_data['workout'] = workout
@@ -627,7 +631,7 @@ def edit_workout(request, id):
     """
     template_data = {}
     template_data.update(csrf(request))
-    template_data['active_tab'] = 'workout'
+    template_data['active_tab'] = WORKOUT_TAB
     
     # Load workout
     workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
@@ -696,7 +700,7 @@ def edit_day(request, id, day_id=None):
     """
     template_data = {}
     template_data.update(csrf(request))
-    template_data['active_tab'] = 'workout'
+    template_data['active_tab'] = WORKOUT_TAB
     
     # Load workout
     workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
@@ -813,7 +817,7 @@ def edit_set(request, id, day_id, set_id=None):
     
     template_data = {}
     template_data.update(csrf(request))
-    template_data['active_tab'] = 'workout'
+    template_data['active_tab'] = WORKOUT_TAB
     
     # Load workout
     workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
@@ -1033,7 +1037,7 @@ class SettingForm(ModelForm):
 def edit_setting(request, id, set_id, exercise_id, setting_id=None):
     template_data = {}
     template_data.update(csrf(request))
-    template_data['active_tab'] = 'workout'
+    template_data['active_tab'] = WORKOUT_TAB
     
     # Load workout
     workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
