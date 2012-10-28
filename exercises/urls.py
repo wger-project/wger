@@ -7,16 +7,18 @@ from exercises.views import ExerciseDeleteView
 
 from exercises.views import ExerciseCategoryAddView
 from exercises.views import ExerciseCategoryUpdateView
+from exercises.views import ExerciseCategoryDeleteView
 
 from exercises.views import ExerciseCommentAddView
 from exercises.views import ExerciseCommentEditView
 
 
 urlpatterns = patterns('exercises.views',
+
+    # Exercises
     url(r'^exercise/overview/$', 'exercise_overview'),
     url(r'^exercise/search/$', 'exercise_search'),
     url(r'^exercise/(?P<id>\d+)/view/$', 'exercise_view'),
-    
     url(r'^exercise/add/$',
         permission_required('exercises.change_exercise')(ExerciseAddView.as_view()),
         name = 'exercise-add'),
@@ -43,5 +45,7 @@ urlpatterns = patterns('exercises.views',
     url(r'^exercise/category/add/$',
         permission_required('exercises.change_exercise')(ExerciseCategoryAddView.as_view()),
         name = 'exercisecategory-add'),
-    url(r'^exercise/category/(?P<id>\d+)/delete/$', 'exercise_category_delete'),   
+    url(r'^exercise/category/(?P<pk>\d+)/delete/$',
+        permission_required('exercises.change_exercise')(ExerciseCategoryDeleteView.as_view()),
+        name = 'exercisecategory-delete'),   
 )

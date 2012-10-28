@@ -78,6 +78,9 @@ class YamlDeleteMixin(ModelFormMixin):
     active_tab = ''
     form_action = ''
     title = ''
+    delete_message = ''
+    template_name = 'delete.html'
+    
     
     def get_context_data(self, **kwargs):
         '''
@@ -100,5 +103,8 @@ class YamlDeleteMixin(ModelFormMixin):
         
         # Set the title
         context['title'] = self.title
+        
+        # Additional delete message
+        context['delete_message'] = self.delete_message
         
         return context

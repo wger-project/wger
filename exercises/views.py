@@ -193,15 +193,14 @@ class ExerciseDeleteView(YamlDeleteMixin, DeleteView):
     """
     
     model = Exercise
-    template_name = 'delete.html'
-    template_name_suffix = ''
     success_url = reverse_lazy('exercises.views.exercise_overview')
+    delete_message = ugettext_lazy('This will delete the exercise from all workouts.')
     
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(ExerciseDeleteView, self).get_context_data(**kwargs)
         
-        context['title'] = _('Delete %s?') % self.object.name
+        context['title'] = _('Delete exercise %s?') % self.object.name
         context['form_action'] = reverse('exercise-delete', kwargs={'pk': self.kwargs['pk']})
     
         return context
@@ -296,14 +295,25 @@ class ExerciseCommentAddView(YamlFormMixin, CreateView):
                                          kwargs={'exercise_pk': self.kwargs['exercise_pk']})
          
         return context
+
+class ExerciseCategoryDeleteView(YamlDeleteMixin, DeleteView):
+    """
+    Generic view to delete an existing exercise category
+    """
     
-@permission_required('exercises.delete_exercisecategory')
-def exercise_category_delete(request, id):
-    # Load the category
-    category = get_object_or_404(ExerciseCategory, pk=id)
-    category.delete()
+    model = ExerciseCategory
+    success_url = reverse_lazy('exercises.views.exercise_overview')
+    delete_message = ugettext_lazy('This will also delete all exercises in this category.')
     
-    return HttpResponseRedirect(reverse('exercises.views.exercise_overview'))
+    # Send some additional data to the template
+    def get_context_data(self, **kwargs):
+        context = super(ExerciseCategoryDeleteView, self).get_context_data(**kwargs)
+        
+        context['title'] = _('Delete category %s?') % self.object.name
+        context['form_action'] = reverse('exercise-delete', kwargs={'pk': self.kwargs['pk']})
+    
+        return context
+
 
 def exercise_search(request):
     """Search an exercise, return the result as a JSON list

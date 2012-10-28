@@ -154,7 +154,7 @@ $(document).ready(function() {
 	</p>
 	<p>
         {% with category=categories|first %}
-        <a href="{% url exercises.views.exercise_category_delete category.id %}"
+        <a href="{% url exercisecategory-delete category.id %}"
            class="modal-dialog"
            id="current-category-delete">
         	<img src="{% static 'images/icons/trash.svg' %}"
