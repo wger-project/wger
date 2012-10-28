@@ -30,7 +30,9 @@ from django.forms import SelectMultiple
 from django.core.context_processors import csrf
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as django_login
@@ -41,7 +43,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import PasswordChangeForm
 
-from workout_manager import get_version
+from django.views.generic import DeleteView
+from django.views.generic import CreateView
+from django.views.generic import UpdateView
 
 from manager.models import DaysOfWeek
 from manager.models import TrainingSchedule
@@ -62,9 +66,11 @@ from reportlab.lib.pagesizes import A4, cm, landscape, portrait
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
 from reportlab.lib import colors
 
+from workout_manager import get_version
 from workout_manager.constants import WORKOUT_TAB
 from workout_manager.constants import USER_TAB
-
+from workout_manager.generic_views import YamlFormMixin
+from workout_manager.generic_views import YamlDeleteMixin
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -626,34 +632,24 @@ def delete_workout(request, id):
     return HttpResponseRedirect(reverse('manager.views.index'))
 
 
-def edit_workout(request, id):
-    """Edits a workout
+
+class WorkoutEditView(YamlFormMixin, UpdateView):
     """
-    template_data = {}
-    template_data.update(csrf(request))
-    template_data['active_tab'] = WORKOUT_TAB
+    Generic view to update an existing workout routine
+    """
     
-    # Load workout
-    workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
-    template_data['workout'] = workout
-    
-    # Process request
-    if request.method == 'POST':
-        form = WorkoutForm(request.POST, instance=workout)
-        form.user = request.user
-        
-        # If the data is valid, save and redirect
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs= {'id': id}))
-    else:
-        form = WorkoutForm(instance=workout)
-    
-    template_data['form'] = form
-    
-    return render_to_response('workout/edit.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+    active_tab = WORKOUT_TAB
+    model = TrainingSchedule
+    form_class = WorkoutForm
+    title = ugettext_lazy('Edit workout')
+
+    # Send some additional data to the template
+    def get_context_data(self, **kwargs):
+        context = super(WorkoutEditView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('workout-edit',
+                                         kwargs={'pk': self.object.id})
+         
+        return context
 
 
 

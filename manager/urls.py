@@ -1,4 +1,7 @@
 from django.conf.urls import patterns, include, url
+from django.contrib.auth.decorators import login_required
+
+from manager.views import WorkoutEditView
 
 urlpatterns = patterns('manager.views',
 
@@ -16,7 +19,11 @@ urlpatterns = patterns('manager.views',
     # Workout
     url(r'^workout/overview$', 'overview'),
     url(r'^workout/add$', 'add'),
-    url(r'^workout/edit/(?P<id>\d+)$', 'edit_workout'),
+    
+    url(r'^workout/(?P<pk>\d+)/edit/$',
+        login_required(WorkoutEditView.as_view()),
+        name = 'workout-edit'),
+    
     url(r'^workout/(?P<id>\d+)/pdf/$', 'pdf_workout'),
     url(r'^workout/(?P<id>\d+)/view/$', 'view_workout'),
     url(r'^workout/(?P<id>\d+)/delete/$', 'delete_workout'),
