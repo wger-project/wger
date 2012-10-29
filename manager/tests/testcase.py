@@ -39,7 +39,7 @@ class WorkoutManagerLiveServerTestCase(LiveServerTestCase):
     Live server test case, will be used with the selenium webdriver
     """
     
-    fixtures = ['tests-user-data', 'test-exercises', ]
+    fixtures = ['tests-user-data', 'test-exercises', 'tests-ingredients']
     
 
     def setUp(self):
@@ -59,12 +59,13 @@ class WorkoutManagerLiveServerTestCase(LiveServerTestCase):
         self.browser.quit()
         
     
-    def user_login(self, user='admin'):
+    def user_login(self, user='admin', explicit_login=True):
         """
         Login the user
         """
         
-        self.browser.get(self.live_server_url + reverse('manager.views.login'))
+        if explicit_login:
+            self.browser.get(self.live_server_url + reverse('manager.views.login'))
         username_field = self.browser.find_element_by_id('id_username')
         username_field.send_keys('admin')
         

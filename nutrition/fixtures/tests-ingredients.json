@@ -1,0 +1,34 @@
+[
+    {
+        "pk": 1, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Test ingredient 1", 
+            "language": 2, 
+            "sodium": 0.549, 
+            "energy": 176, 
+            "fat": 8.19, 
+            "carbohydrates_sugar": 0.0, 
+            "fat_saturated": 3.244, 
+            "fibres": 0.0, 
+            "protein": 25.63, 
+            "carbohydrates": 0.0
+        }
+    },
+    {
+        "pk": 2, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Ingredient, test, 2, organic, raw", 
+            "language": 2, 
+            "sodium": 0.1, 
+            "energy": 300, 
+            "fat": 9, 
+            "carbohydrates_sugar": 1, 
+            "fat_saturated": 3, 
+            "fibres": 5.0, 
+            "protein": 25.63, 
+            "carbohydrates": 0.0
+        }
+    } 
+]

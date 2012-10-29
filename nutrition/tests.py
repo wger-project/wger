@@ -28,12 +28,13 @@ logger = logging.getLogger('workout_manager.custom')
 
 class NutritionTest(WorkoutManagerLiveServerTestCase):
 
-    def create_plan(self, time='8:00'):
+    def test_create_plan(self):
         """
-        Helper function that creates a nutrition plan
+        Tests that it's possible to create a complete nutritional plan
         """
         
         self.browser.get(self.live_server_url + reverse('nutrition.views.overview'))
+        self.user_login(explicit_login=False)
         
         # No plans, there is a warning box
         box = self.browser.find_elements_by_id('nutrition-box-warning')
@@ -44,13 +45,11 @@ class NutritionTest(WorkoutManagerLiveServerTestCase):
         self.assertTrue(create_link)
         create_link[0].click()
         
-        # TODO: check that we are redirected to the correct URL
-        
         # No meals, there is a warning box
         box = self.browser.find_elements_by_id('meal-box-warning')[0]
         self.assertTrue(box)
         
-        # Clink on the link and enter the weight in the modal dialog
+        # Clink on the link and enter the time in the modal dialog
         create_link = box.find_elements_by_tag_name('a')
         self.assertTrue(create_link)
         create_link[0].click()
@@ -58,11 +57,10 @@ class NutritionTest(WorkoutManagerLiveServerTestCase):
         # Check that there is a modal dialog
         (dialog_title, dialog_content) = self.check_modal_dialog()
         
-        
-        # Put some number into the weight input
+        # Put some number into the time field
         weight_input = dialog_content.find_elements_by_id('id_time')[0]
         self.assertTrue(weight_input)
-        weight_input.send_keys(time)
+        weight_input.send_keys('8:00')
         
         save_button = dialog_content.find_element_by_id('form-save')
         save_button.click()
@@ -72,25 +70,41 @@ class NutritionTest(WorkoutManagerLiveServerTestCase):
         self.assertFalse(box)
         
         # There is now 1 warning box for ingredients
-        box = self.browser.find_elements_by_class_name('ingredient-box-warning')[0]
-        self.assertTrue(box)
+        box = self.browser.find_elements_by_class_name('ingredient-box-warning')
+        self.assertEqual(len(box), 1)
         
         # Click on the link to add a new ingredient
-        create_link = box.find_elements_by_tag_name('a')[0]
+        create_link = box[0].find_elements_by_tag_name('a')[0]
         self.assertTrue(create_link)
         create_link.click()
         
         # Check that there is a modal dialog
         (dialog_title, dialog_content) = self.check_modal_dialog()
         
-
-    def test_create_plan(self):
-        """
-        Tests that it's possible to add a weight entry and that this appears
-        in the overview
-        """
+        # Set the data
+        #id_amount_gramm
+        amount_input = dialog_content.find_elements_by_id('id_amount_gramm')[0]
+        self.assertTrue(amount_input)
+        amount_input.send_keys('150')
         
-        self.user_login()
-        self.browser.get(self.live_server_url + reverse('nutrition.views.overview'))
-        self.create_plan()
-    
+        ingredient_autocomplete = dialog_content.find_elements_by_id('id_ingredient_searchfield')[0]
+        self.assertTrue(ingredient_autocomplete)
+        
+        #We want to find "Ingredient, test, 2, organic, raw"
+        # TODO: the autocompleter doesnt open
+        ingredient_autocomplete.send_keys('raw')
+        autocompleter_input = dialog_content.find_elements_by_id('ui-id-6')[0]
+        self.assertTrue(amount_input, 'Ingredient autocompleter not found')
+        # thre is one result
+        autocompleter_result = self.browser.find_elements_by_class_name('ui-menu-item')
+        self.assertEqual(len(autocompleter_result), 1)
+        
+        #
+        
+        save_button = dialog_content.find_element_by_id('form-save')
+        save_button.click()
+        
+        
+        
+        # TODO
+        self.assertTrue(False, 'TODO: continue here')
