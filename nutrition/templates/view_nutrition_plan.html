@@ -121,7 +121,7 @@ $(document).ready(function() {
                     </span>
                 </li>
             {% empty %}
-                <div class="box warning">
+                <div class="box warning ingredient-box-warning">
                    {% trans "No items for this meal." %}
                    <a href="{% url nutrition.views.edit_meal_item plan.id meal.id item.id %}"
                            title="{% trans 'Edit' %}"
@@ -135,7 +135,7 @@ $(document).ready(function() {
     </tr>
 
 {% empty %}
-     <div class="box warning">
+     <div class="box warning" id="meal-box-warning">
          {% trans "No meals for this plan." %}
          <a href="{% url meal-add plan.id %}"
             class="modal-dialog">

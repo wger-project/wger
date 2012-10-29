@@ -79,3 +79,21 @@ class WorkoutManagerLiveServerTestCase(LiveServerTestCase):
         
         self.browser.get(self.live_server_url + reverse('manager.views.logout'))
     
+    def check_modal_dialog(self):
+        """
+        Helper function that checks the modal dialogs
+        """
+        
+        # There is a modal dialog
+        modal_dialog = self.browser.find_elements_by_class_name('ui-dialog')[0]
+        self.assertTrue(modal_dialog)
+        
+        # Found the title
+        dialog_title = modal_dialog.find_elements_by_id('ui-id-1')[0]
+        self.assertTrue(dialog_title)
+        
+        # Found the content
+        dialog_content = modal_dialog.find_elements_by_id('ajax-info')[0]
+        self.assertTrue(dialog_content)
+        
+        return(dialog_title, dialog_content)
