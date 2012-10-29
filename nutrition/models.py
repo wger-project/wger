@@ -155,6 +155,11 @@ class Meal(models.Model):
     """ A meal
     """
     
+    # Metaclass to set some other properties
+    class Meta:
+        ordering = ["time", ]
+    
+    
     plan = models.ForeignKey(NutritionPlan, verbose_name = _('Nutrition plan'))
     order = models.IntegerField(max_length = 1, blank = True, verbose_name = _('Order'))
     time = models.TimeField(null = True, blank = True, verbose_name = _('Time (approx)'))
