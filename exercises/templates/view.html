@@ -31,48 +31,36 @@ function custom_modal_init()
 
 <p>{{ exercise.description|safe }}</p>
 
-<table>
-    <thead>
-        <tr>
-            <th colspan="2">{% trans "All comments for this exercise" %}</th>
-        </tr>
-    </thead>
-    <tbody>
-{% for comment in exercise.exercisecomment_set.all %}
-        <tr>
-        <td>
-            {{ comment }}
-        </td>
-        <td class="align-right">
-        {% if perms.exercises %}
-            <div class="editoptions">
-                <a href="{% url exercises.views.exercisecomment_delete comment.id %}"
-                   title="{% trans 'Delete' %}">
-                   <img src="{% static 'images/icons/trash.svg' %}"
-                        width="16"
-                        height="16"
-                        alt="{% trans 'Delete' %}">
-                </a>
-                <a href="{% url exercisecomment-edit comment.id %}"
-                   title="{% trans 'Edit' %}"
-                   class="modal-dialog">
-                   <img src="{% static 'images/icons/edit.svg' %}"
-                        width="16"
-                        height="16"
-                        alt="{% trans 'Edit' %}">
-                </a>
-            </div>
-         {% endif %}
-        </td>
-    </tr>
-{% empty %}
-    <tr>
-        <td>{% trans "No comments for this exercise" %}</td>
-    </tr>
-{% endfor %}
-    </tbody>
-</table>
+{% if exercise.exercisecomment_set.all %}
+<h3>{% trans "All comments for this exercise" %}</h3>
 
+<ul>
+{% for comment in exercise.exercisecomment_set.all %}
+    <li>
+        {{ comment }}
+        {% if perms.exercises %}
+        <span class="editoptions">
+            <a href="{% url exercises.views.exercisecomment_delete comment.id %}"
+               title="{% trans 'Delete' %}">
+               <img src="{% static 'images/icons/trash.svg' %}"
+                    width="16"
+                    height="16"
+                    alt="{% trans 'Delete' %}">
+            </a>
+            <a href="{% url exercisecomment-edit comment.id %}"
+               title="{% trans 'Edit' %}"
+               class="modal-dialog">
+               <img src="{% static 'images/icons/edit.svg' %}"
+                    width="16"
+                    height="16"
+                    alt="{% trans 'Edit' %}">
+            </a>
+        </span>
+        {% endif %}
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
 
 
 {% if perms.exercises %}
@@ -82,6 +70,7 @@ function custom_modal_init()
        class="modal-dialog">{% trans "Add new comment" %}</a>
 </p>
 {% endif %}
+
 
 {% endblock %}
 

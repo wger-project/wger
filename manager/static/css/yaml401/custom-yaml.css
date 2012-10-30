@@ -23,7 +23,7 @@
     along with Workout Manager. If not, see <http://www.gnu.org/licenses/>.
  */
 
-tr:hover .editoptions, tbody tr:hover td .editoptions
+tr:hover .editoptions, tbody tr:hover td .editoptions, ul:hover .editoptions 
 {
     visibility: visible;
 }
