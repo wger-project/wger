@@ -2,6 +2,8 @@ from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.decorators import login_required
 
+from nutrition.views import IngredientCreateView
+from nutrition.views import IngredientEditView
 from nutrition.views import IngredientDeleteView
 from nutrition.views import PlanDeleteView
 from nutrition.views import PlanEditView
@@ -38,12 +40,19 @@ urlpatterns = patterns('nutrition.views',
     url(r'^nutrition/delete/meal/item/(?P<item_id>\d+)$', 'delete_meal_item'),
     
     # Ingredients
-    url(r'^nutrition/ingredient/(?P<pk>\d+)/deleteGV/$',
+    url(r'^nutrition/ingredient/(?P<pk>\d+)/delete/$',
         permission_required('exercises.change_exercise')(IngredientDeleteView.as_view()),
         name='ingredient-delete'),
     
+    url(r'^nutrition/ingredient/(?P<pk>\d+)/edit/$',
+        permission_required('exercises.change_exercise')(IngredientEditView.as_view()),
+        name='ingredient-edit'),
+    
+    url(r'^nutrition/ingredient/add/$',
+        permission_required('exercises.change_exercise')(IngredientCreateView.as_view()),
+        name='ingredient-add'),
+    
     url(r'^nutrition/ingredient/overview/$', 'ingredient_overview'),
     url(r'^nutrition/ingredient/(?P<id>\d+)/view/$', 'ingredient_view'),
-    url(r'^nutrition/ingredient/(?P<id>\w*)/edit/$', 'ingredient_edit'),
     url(r'^nutrition/ingredient/search/$', 'ingredient_search'),
 )

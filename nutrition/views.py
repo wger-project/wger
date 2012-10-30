@@ -505,6 +505,11 @@ def ingredient_view(request, id):
                               context_instance=RequestContext(request))
 
 
+class IngredientForm(ModelForm):
+    class Meta:
+        model = Ingredient
+        exclude=('language',)
+
 
 class IngredientDeleteView(YamlDeleteMixin, DeleteView):
     """
@@ -525,49 +530,41 @@ class IngredientDeleteView(YamlDeleteMixin, DeleteView):
     
         return context
 
-class IngredientForm(ModelForm):
-    class Meta:
-        model = Ingredient
-        exclude=('language',)
 
-@permission_required('nutrition.change_ingredient')
-def ingredient_edit(request, id=None):
-    """Edit view for an ingredient
+class IngredientEditView(YamlFormMixin, UpdateView):
+    """
+    Generic view to update an existing ingredient
     """
     
-    template_data = {}
-    template_data['active_tab'] = NUTRITION_TAB
+    active_tab = NUTRITION_TAB
+    model = Ingredient
+    form_class = IngredientForm
+    title = ugettext_lazy('Add a new ingredient')
+
+    # Send some additional data to the template
+    def get_context_data(self, **kwargs):
+        context = super(IngredientEditView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('ingredient-edit',
+                                         kwargs={'pk': self.object.id})
+         
+        return context
+
+
+class IngredientCreateView(YamlFormMixin, CreateView):    
+    """
+    Generic view to add a new ingredient
+    """
     
-    # Load the ingredient
-    if id:
-        ingredient = get_object_or_404(Ingredient, pk=id)
-        template_data['ingredient'] = ingredient
-    else:
-        ingredient = Ingredient()
+    active_tab = NUTRITION_TAB
+    model = Ingredient
+    form_class = IngredientForm
+    title = ugettext_lazy('Add a new ingredient')
+    form_action = reverse_lazy('ingredient-add')
     
-    
-    
-    # Process request
-    if request.method == 'POST':
-        form = IngredientForm(request.POST, instance=ingredient)
-        
-        # If the data is valid, save and redirect
-        if form.is_valid():
-            language = load_language()
-            
-            ingredient = form.save(commit=False)
-            ingredient.language = language
-            ingredient.save()
-            
-            return HttpResponseRedirect(reverse('nutrition.views.ingredient_view', kwargs= {'id': ingredient.id}))
-    else:
-        form = IngredientForm(instance=ingredient)
-    template_data['form'] = form
-    
-    
-    return render_to_response('edit_ingredient.html', 
-                              template_data,
-                              context_instance=RequestContext(request))
+    def form_valid(self, form):
+        form.instance.language = load_language()
+        return super(IngredientCreateView, self).form_valid(form)
+
 
 
 def ingredient_search(request):
