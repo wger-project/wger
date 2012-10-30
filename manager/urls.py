@@ -15,8 +15,7 @@ urlpatterns = patterns('manager.views',
     url(r'^user/registration$', 'registration'),
     url(r'^user/preferences$', 'preferences'),
     url(r'^user/password/change$', 'change_password'),
-    
-    
+        
     # Workout
     url(r'^workout/overview$', 'overview'),
     url(r'^workout/add$', 'add'),
@@ -27,7 +26,6 @@ urlpatterns = patterns('manager.views',
     url(r'^workout/(?P<pk>\d+)/delete/$',
         login_required(WorkoutDeleteView.as_view()),
         name = 'workout-delete'),
-    
     
     url(r'^workout/(?P<id>\d+)/view/$', 'view_workout'),
     url(r'^workout/(?P<id>\d+)/edit/day/(?P<day_id>\w*)$', 'edit_day'),
@@ -43,6 +41,6 @@ urlpatterns = patterns('manager.views',
     url(r'^workout/api/user-preferences$', 'api_user_preferences'),
 )
 
-# PDF stuff is different file
+# PDF stuff is in a different file
 urlpatterns = urlpatterns + patterns('manager.pdf',
      url(r'^workout/(?P<id>\d+)/pdf/$', 'workout_log'))

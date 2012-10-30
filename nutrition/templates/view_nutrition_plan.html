@@ -104,7 +104,8 @@ $(document).ready(function() {
                     
                     <span class="editoptions">
                         <a href="{% url nutrition.views.delete_meal_item item.id %}"
-                           title="{% trans 'Delete' %}">
+                           title="{% trans 'Delete' %}"
+                           class="delete-mealitem">
                            <img src="{% static 'images/icons/trash.svg' %}"
                                 width="16"
                                 height="16"
@@ -112,7 +113,7 @@ $(document).ready(function() {
                         </a>
                         <a href="{% url nutrition.views.edit_meal_item plan.id meal.id item.id %}"
                            title="{% trans 'Edit' %}"
-                           class="modal-dialog edit-meal">
+                           class="modal-dialog edit-mealitem">
                             <img src="{% static 'images/icons/edit.svg' %}"
                                  width="16"
                                  height="16"

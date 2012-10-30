@@ -30,7 +30,7 @@ $(document).ready(function() {
     {% include "form_snippet.html" with field=form.amount_gramm %}
     {% if js_active %}
         <input type="hidden" id="id_ingredient" name="ingredient" value="{{ingredient}}">
-        {% else %}
+    {% else %}
         {% include "form_snippet.html" with field=form.ingredient css_class="ym-fbox-select" %}
     {% endif %}
     <tr>
