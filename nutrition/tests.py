@@ -91,20 +91,20 @@ class NutritionTest(WorkoutManagerLiveServerTestCase):
         self.assertTrue(ingredient_autocomplete)
         
         #We want to find "Ingredient, test, 2, organic, raw"
-        # TODO: the autocompleter doesnt open
+        ingredient_autocomplete.click()
         ingredient_autocomplete.send_keys('raw')
-        autocompleter_input = dialog_content.find_elements_by_id('ui-id-6')[0]
+        autocompleter_input = self.browser.find_elements_by_class_name('ui-autocomplete')[0]
         self.assertTrue(amount_input, 'Ingredient autocompleter not found')
-        # thre is one result
+        # there is one result
         autocompleter_result = self.browser.find_elements_by_class_name('ui-menu-item')
         self.assertEqual(len(autocompleter_result), 1)
-        
-        #
+        autocompleter_result[0].click()
         
         save_button = dialog_content.find_element_by_id('form-save')
         save_button.click()
         
+        # Warning box for ingredients has disappeared
+        box = self.browser.find_elements_by_class_name('ingredient-box-warning')
+        self.assertFalse(box)
         
         
-        # TODO
-        self.assertTrue(False, 'TODO: continue here')
