@@ -47,7 +47,10 @@ class WorkoutManagerLiveServerTestCase(LiveServerTestCase):
         Set up out testing browser
         """
         
-        self.browser = webdriver.Firefox()
+        profile = webdriver.FirefoxProfile()
+        profile.set_preference("intl.accept_languages", "en")
+        
+        self.browser = webdriver.Firefox(profile)
         self.browser.implicitly_wait(3)
         
         
