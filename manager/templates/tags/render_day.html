@@ -38,7 +38,7 @@ $(document).ready(function() {
                             height="22"
                             alt="{% trans 'Delete' %}">
                 </a>
-                <a href="{% url manager.views.edit_day workout.id day.id %}"
+                <a href="{% url day-edit day.id %}"
                    title="{% trans 'Edit' %}"
                    class="modal-dialog">
                        <img src="{% static 'images/icons/edit.svg' %}"

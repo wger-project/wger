@@ -394,21 +394,9 @@ class WorkoutDeleteView(YamlDeleteMixin, DeleteView):
     model = TrainingSchedule
     success_url = reverse_lazy('manager.views.overview')
     title = ugettext_lazy('Delete workout')
-
-    # Send some additional data to the template
-    def get_context_data(self, **kwargs):
-        context = super(WorkoutDeleteView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('workout-delete',
-                                         kwargs={'pk': self.object.id})
-         
-        return context
+    form_action_urlname = 'workout-delete'
     
-    # Check that only the owner can access this
-    def get_object(self, queryset = None):
-        return get_object_or_404(TrainingSchedule,
-                                 pk = self.kwargs['pk'],
-                                 user = self.request.user)
-
+    
 class WorkoutEditView(YamlFormMixin, UpdateView):
     """
     Generic view to update an existing workout routine
@@ -418,21 +406,9 @@ class WorkoutEditView(YamlFormMixin, UpdateView):
     model = TrainingSchedule
     form_class = WorkoutForm
     title = ugettext_lazy('Edit workout')
-
-    # Send some additional data to the template
-    def get_context_data(self, **kwargs):
-        context = super(WorkoutEditView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('workout-edit',
-                                         kwargs={'pk': self.object.id})
-         
-        return context
-
-    # Check that only the owner can access this
-    def get_object(self, queryset = None):
-        return get_object_or_404(self.model,
-                                 pk = self.kwargs['pk'],
-                                 user = self.request.user)
-
+    form_action_urlname = 'workout-edit'
+    
+    
 # ************************
 # Day functions
 # ************************
@@ -442,78 +418,79 @@ class DayForm(ModelForm):
         exclude=('training',)
         
 
-@login_required
-def edit_day(request, id, day_id=None):
-    """Edits/creates a day
+class DayView(YamlFormMixin, UpdateView):
     """
-    template_data = {}
-    template_data.update(csrf(request))
-    template_data['active_tab'] = WORKOUT_TAB
+    Base generic view for exercise day
+    """
     
-    # Load workout
-    workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
-    template_data['workout'] = workout
+    active_tab = WORKOUT_TAB
+    model = Day
+    form_class = DayForm
     
-    # Calculate the used days
-    used_days = []
-    for day in workout.day_set.all():
-        for weekday in day.day.all():
-            try:
-                if day.id != int(day_id):
-                    used_days.append(weekday.id)
-            # We didnt' get a valid integer as id, probably because this is a new day,
-            # so add weekday to the list anyway
-            except ValueError:
-                used_days.append(weekday.id)
-    used_days.sort()
+    def get_success_url(self):
+        return reverse('manager.views.view_workout', kwargs ={'id': self.object.training.id})
 
     
-    
-    
-    # Load day
-    # We check for string 'None' because we might get this from the template
-    
-    # If the object is new, we will receice a 'None' (string) as the ID
-    # from the template, so we check for it (ValueError) and for an actual
-    # None (TypeError)
-    try:
-        int(day_id)
-        day = get_object_or_404(Day, pk=day_id)
+    def get_form(self, form_class):
+        """
+        Filter the days of the week that are alreeady used by other days"""
         
-        # Check that the day belongs to the workout
-        if day.training.id != workout.id:  
-            return HttpResponseForbidden()
-    except ValueError, TypeError:
-        day = Day()
-    
-    template_data['day'] = day
-    
-    
-    # Process request
-    if request.method == 'POST':
-        day_form = DayForm(request.POST, instance=day)
+        # Get the form
+        form  = super(DayView, self).get_form(form_class)
         
-        # If the data is valid, save and redirect
-        if day_form.is_valid():
-            day = day_form.save(commit=False)
-            day.training = workout
-            day.save()
-            
-            day_form.save_m2m()
-            
-            return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs= {'id': id}))
-    else:
-        day_form = DayForm(instance=day)
-    
-    # Set here the query set to filter out used days of the week
-    # (used in the sense that other training days on the same workout already have them set)
-    day_form.fields['day'].queryset=DaysOfWeek.objects.exclude(id__in=used_days)
+        # Calculate the used days ('used' by other days in the same workout)
+        if self.object:
+            workout = self.object.training
+        else:
+            workout = TrainingSchedule.objects.get(pk = self.kwargs['pk'])
         
-    template_data['day_form'] = day_form
+        used_days = []
+        for day in workout.day_set.all():
+            for weekday in day.day.all():
+                if not self.object or day.id != self.object.id:
+                    used_days.append(weekday.id)        
+        used_days.sort()
+        
+        # Set the queryset for day
+        form.fields['day'].queryset = DaysOfWeek.objects.exclude(id__in=used_days)
+        
+        return form 
+
+
+
+
+class DayEditView(DayView, UpdateView):
+    """
+    Generic view to update an existing exercise day
+    """
     
-    return render_to_response('day/edit.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+    title = ugettext_lazy('Edit workout day')
+    form_action_urlname = 'day-edit'
+    
+
+class DayCreateView(DayView, CreateView):
+    """
+    Generic view to add a new exercise day
+    """
+    
+    title = ugettext_lazy('Add workout day')
+    
+    def form_valid(self, form):
+        """
+        Set the workout this day belongs to
+        """
+        form.instance.workout = TrainingSchedule.objects.get(pk = self.kwargs['pk'])
+        return super(DayCreateView, self).form_valid(form)
+    
+    # Send some additional data to the template
+    def get_context_data(self, **kwargs):
+        context = super(DayCreateView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('day-add',
+                                         kwargs={'pk': self.kwargs['pk']})
+         
+        return context
+
+    
 
 @login_required
 def delete_day(request, id, day_id):
