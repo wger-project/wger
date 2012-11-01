@@ -58,6 +58,13 @@ For example 'Focus on back' or 'Week 1 of program xy'.'''))
         """Return a more human-readable representation
         """
         return str(self.creation_date)
+        
+    def get_owner_object(self):
+        """
+        Returns the object that has owner information
+        """
+        return self
+
 
 class DaysOfWeek(models.Model):
     """Model for the days of the week
@@ -87,10 +94,16 @@ class Day(models.Model):
                                  verbose_name = _('Day'))
     
     def __unicode__(self):
-        """Return a more human-readable representation
+        """
+        Return a more human-readable representation
         """
         return "%s for TP %s" % (self.description, unicode(self.training))
-
+        
+    def get_owner_object(self):
+        """
+        Returns the object that has owner information
+        """
+        return self.training
 
 class Set(models.Model):
     """Model for a set of exercises
@@ -113,6 +126,11 @@ class Set(models.Model):
         """
         return "Set %s for %s" % (self.order or '-/-', unicode(self.exerciseday))
 
+    def get_owner_object(self):
+        """
+        Returns the object that has owner information
+        """
+        return self.exerciseday.training
 
 
 class Setting(models.Model):
@@ -135,6 +153,12 @@ class Setting(models.Model):
         """
         return "settings for exercise %s in set %s" % (self.exercise.id, self.set.id)
 
+    def get_owner_object(self):
+        """
+        Returns the object that has owner information
+        """
+        return self.set.exerciseday.training
+
 
 class UserProfile(models.Model):
     # This field is required.
@@ -156,6 +180,8 @@ a nutritional plan. These ingredients are extracted from a list provided
 by the US Department of Agriculture. It is extremely complete, with around
 7000 entries, but can be somewhat overwhelming and make the search difficult.'''))
 
+
+# Every new user gets a profile
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)

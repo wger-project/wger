@@ -71,6 +71,13 @@ class ExerciseCategory(models.Model):
         """Return a more human-readable representation
         """
         return self.name
+        
+    def get_owner_object(self):
+        """
+        Category has no owner information
+        """
+        return False
+
 
 
 
@@ -101,6 +108,14 @@ class Exercise(models.Model):
         """
         return self.name
 
+
+    def get_owner_object(self):
+        """
+        Exercise has no owner information
+        """
+        return False
+
+
 class ExerciseComment(models.Model):
     """Model for an exercise comment
     """
@@ -113,3 +128,10 @@ class ExerciseComment(models.Model):
         """Return a more human-readable representation
         """
         return self.comment
+        
+    def get_owner_object(self):
+        """
+        Comment has no owner information
+        """
+        return self
+

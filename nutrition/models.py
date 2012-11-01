@@ -88,6 +88,14 @@ class NutritionPlan(models.Model):
                     if item.ingredient.sodium:
                         nutritional_info['sodium'] += item.ingredient.sodium  * item.amount_gramm / 100
         return nutritional_info
+        
+        
+    def get_owner_object(self):
+        """
+        Returns the object that has owner information
+        """
+        return self
+
     
 class Ingredient(models.Model):
     """ An ingredient, with some approximate nutrition values
@@ -151,6 +159,13 @@ class Ingredient(models.Model):
         return "%s" % (self.name, )
 
 
+    def get_owner_object(self):
+        """
+        Ingredient has no owner information
+        """
+        return False
+
+
 class Meal(models.Model):
     """ A meal
     """
@@ -168,6 +183,13 @@ class Meal(models.Model):
         """Return a more human-readable representation
         """
         return "%s Meal" % (self.order,)
+
+
+    def get_owner_object(self):
+        """
+        Returns the object that has owner information
+        """
+        return self.plan
 
 
 class MealItem(models.Model):
@@ -194,3 +216,10 @@ class MealItem(models.Model):
         """Return a more human-readable representation
         """
         return "%s %s %s" % (self.order, self.amount_gramm or self.amount_freetext, self.ingredient)
+        
+    def get_owner_object(self):
+        """
+        Returns the object that has owner information
+        """
+        return self.meal.plan
+
