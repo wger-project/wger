@@ -14,6 +14,9 @@
 # 
 # You should have received a copy of the GNU Affero General Public License
 
+from django.http import HttpResponseForbidden
+
+from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
 from django.views.generic.edit import ModelFormMixin
 
@@ -27,6 +30,7 @@ class YamlFormMixin(ModelFormMixin):
     static_files = []
     custom_js = ''
     form_action = ''
+    form_action_urlname = ''
     title = ''
     
     def get_context_data(self, **kwargs):
@@ -65,12 +69,48 @@ class YamlFormMixin(ModelFormMixin):
         # When viewing the page on it's own, this is not necessary, but when
         # opening it on a modal dialog, we need to make sure the POST request
         # reaches the correct controller
-        context['form_action'] = self.form_action
+        if self.form_action_urlname:
+            context['form_action'] = reverse('day-edit', kwargs={'pk': self.object.id})
+        elif self.form_action:
+            context['form_action'] = self.form_action
         
         # Set the title
         context['title'] = self.title
         
         return context
+    
+    def get_owner_object(self):
+        """
+        Returns the object that has a user associated with it.
+        
+        This is used in the dispatch method to check that only the owner of an
+        object can edit it.
+        """
+        return False
+    
+    
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Custom dispatch method.
+        
+        This basically only checks for ownerships of editable/deletable
+        objects and return a HttpResponseForbidden response if the user
+        is not the owner.
+        """
+        
+        # These seem to be necessary if for calling get_object
+        self.kwargs = kwargs
+        self.request = request
+        owner_object = self.get_object().get_owner_object()
+        
+        # Nothing to see, please move along
+        if owner_object and owner_object.user != self.request.user:
+            return HttpResponseForbidden()
+       
+        # Dispatch normally
+        return super(YamlFormMixin, self).dispatch(request, *args, **kwargs)
+    
+        
         
 class YamlDeleteMixin(ModelFormMixin):
     template_name = 'delete.html'
@@ -108,3 +148,26 @@ class YamlDeleteMixin(ModelFormMixin):
         context['delete_message'] = self.delete_message
         
         return context
+    
+        
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Custom dispatch method.
+        
+        This basically only checks for ownerships of editable/deletable
+        objects and return a HttpResponseForbidden response if the user
+        is not the owner.
+        """
+        
+        # These seem to be necessary if for calling get_object
+        self.kwargs = kwargs
+        self.request = request
+        owner_object = self.get_object().get_owner_object()
+        
+        # Nothing to see, please move along
+        if owner_object and owner_object.user != self.request.user:
+            return HttpResponseForbidden()
+       
+        # Dispatch normally
+        return super(YamlDeleteMixin, self).dispatch(request, *args, **kwargs)
+    
