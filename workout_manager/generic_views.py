@@ -97,8 +97,12 @@ class YamlFormMixin(ModelFormMixin):
         if self.owner_object:
             owner_object = self.owner_object['class'].objects.get(pk = kwargs[self.owner_object['pk']])
         else:
-            owner_object = self.get_object().get_owner_object()
-        
+            # On CreateViews we don't have an object, so just ignore it
+            try:
+                owner_object = self.get_object().get_owner_object()
+            except AttributeError:
+                owner_object = False
+                
         # Nothing to see, please move along
         if owner_object and owner_object.user != self.request.user:
             return HttpResponseForbidden()
