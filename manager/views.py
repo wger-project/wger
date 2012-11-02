@@ -185,7 +185,7 @@ def login(request):
     
     template_data['redirect_target'] = redirect_target
     
-    return render_to_response('login.html',
+    return render_to_response('user/login.html',
                               template_data,
                               context_instance=RequestContext(request))
 
