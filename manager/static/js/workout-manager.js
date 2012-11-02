@@ -278,7 +278,7 @@ function scatterplot_modal_dialog(id)
 function init_ingredient_autocompleter()
 {
     // Init the autocompleter
-    $("#id_ingredient_searchfield").catcomplete({
+    $("#id_ingredient_searchfield").autocomplete({
         source: "/nutrition/ingredient/search/",
         minLength: 2,
         select: function(event, ui) {
