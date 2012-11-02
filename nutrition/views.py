@@ -193,7 +193,7 @@ def export_pdf(request, id):
         else:
             P = Paragraph('<para align="center"><strong>%(meal_nr)s - %(meal_time)s</strong></para>' %
                         {'meal_nr': i,
-                         'meal_time': meal.time},
+                         'meal_time': meal.time.strftime("%H:%M")},
                       styleSheet["Normal"])
         data.append([P])
         
