@@ -65,13 +65,13 @@
                        {% trans "Energy" %}: {{nutritional_info.energy}} kcal
                    </li>
                    <li>
-                       {% trans "Protein" %}: {{nutritional_info.protein}} g
+                       {% trans "Protein" %}: {{nutritional_info.protein|floatformat}} g
                    </li>
                    <li>
-                       {% trans "Carbohydrates" %}: {{nutritional_info.carbohydrates}} g
+                       {% trans "Carbohydrates" %}: {{nutritional_info.carbohydrates|floatformat}} g
                    </li>
                    <li>
-                       {% trans "Fat" %}: {{nutritional_info.fat}} g
+                       {% trans "Fat" %}: {{nutritional_info.fat|floatformat}} g
                    </li>
                </ul>
 
