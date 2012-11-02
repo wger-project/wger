@@ -17,8 +17,9 @@
 {% include "form_snippet.html" with field=form.password1 %}
 {% include "form_snippet.html" with field=form.password2 %}
     <tr>
-        <td><input type="submit" value='{% trans "Register" %}' /></td>
-        <td></td>
+        <td colspan="2">
+            <input type="submit" value="{% trans 'Save' %}" id="form-save">
+        </td>
     </tr>
 </table>
 </form>

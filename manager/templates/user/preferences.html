@@ -18,8 +18,9 @@
 {% include "form_snippet.html" with field=form.show_comments %}
 {% include "form_snippet.html" with field=form.show_english_ingredients %}
     <tr>
-        <td><input type="submit" value='{% trans "Save" %}' /></td>
-        <td></td>
+        <td colspan="2">
+            <input type="submit" value="{% trans 'Save' %}" id="form-save">
+        </td>
     </tr>
 </table>
 </form>
