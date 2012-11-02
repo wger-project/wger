@@ -482,7 +482,7 @@ class DayCreateView(DayView, CreateView):
         """
         Set the workout this day belongs to
         """
-        form.instance.workout = TrainingSchedule.objects.get(pk = self.kwargs['workout_pk'])
+        form.instance.training = TrainingSchedule.objects.get(pk = self.kwargs['workout_pk'])
         return super(DayCreateView, self).form_valid(form)
     
     # Send some additional data to the template

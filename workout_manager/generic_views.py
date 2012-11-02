@@ -71,7 +71,7 @@ class YamlFormMixin(ModelFormMixin):
         # opening it on a modal dialog, we need to make sure the POST request
         # reaches the correct controller
         if self.form_action_urlname:
-            context['form_action'] = reverse('day-edit', kwargs={'pk': self.object.id})
+            context['form_action'] = reverse(self.form_action_urlname, kwargs={'pk': self.object.id})
         elif self.form_action:
             context['form_action'] = self.form_action
         
