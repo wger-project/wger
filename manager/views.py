@@ -418,7 +418,7 @@ class DayForm(ModelForm):
         exclude=('training',)
         
 
-class DayView(YamlFormMixin, UpdateView):
+class DayView(YamlFormMixin):
     """
     Base generic view for exercise day
     """
@@ -442,7 +442,7 @@ class DayView(YamlFormMixin, UpdateView):
         if self.object:
             workout = self.object.training
         else:
-            workout = TrainingSchedule.objects.get(pk = self.kwargs['pk'])
+            workout = TrainingSchedule.objects.get(pk = self.kwargs['workout_pk'])
         
         used_days = []
         for day in workout.day_set.all():
@@ -474,20 +474,22 @@ class DayCreateView(DayView, CreateView):
     """
     
     title = ugettext_lazy('Add workout day')
+    owner_object = {'pk': 'workout_pk', 'class': TrainingSchedule}
+    
+    
     
     def form_valid(self, form):
         """
         Set the workout this day belongs to
         """
-        form.instance.workout = TrainingSchedule.objects.get(pk = self.kwargs['pk'])
+        form.instance.workout = TrainingSchedule.objects.get(pk = self.kwargs['workout_pk'])
         return super(DayCreateView, self).form_valid(form)
     
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(DayCreateView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('day-add',
-                                         kwargs={'pk': self.kwargs['pk']})
-         
+                                         kwargs={'workout_pk': self.kwargs['workout_pk']}) 
         return context
 
     

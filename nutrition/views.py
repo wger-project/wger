@@ -100,20 +100,7 @@ class PlanDeleteView(YamlDeleteMixin, DeleteView):
     model = NutritionPlan
     success_url = reverse_lazy('nutrition.views.overview')
     title = ugettext_lazy('Delete nutritional plan?')
-
-    # Send some additional data to the template
-    def get_context_data(self, **kwargs):
-        context = super(PlanDeleteView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('nutrition-delete',
-                                         kwargs={'pk': self.object.id})
-         
-        return context
-    
-    # Check that only the owner can access this
-    def get_object(self, queryset = None):
-        return get_object_or_404(self.model,
-                                 pk = self.kwargs['pk'],
-                                 user = self.request.user)
+    form_action_urlname = 'nutrition-delete'
 
 class PlanEditView(YamlFormMixin, UpdateView):
     """
@@ -124,20 +111,7 @@ class PlanEditView(YamlFormMixin, UpdateView):
     model = NutritionPlan
     form_class = PlanForm
     title = ugettext_lazy('Add a new nutritional plan')
-
-    # Send some additional data to the template
-    def get_context_data(self, **kwargs):
-        context = super(PlanEditView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('nutrition-edit',
-                                         kwargs={'pk': self.object.id})
-         
-        return context
-
-    # Check that only the owner can access this
-    def get_object(self, queryset = None):
-        return get_object_or_404(self.model,
-                                 pk = self.kwargs['pk'],
-                                 user = self.request.user)
+    form_action_urlname = 'nutrition-edit'
 
 
 @login_required
@@ -312,6 +286,7 @@ class MealCreateView(YamlFormMixin, CreateView):
     model = Meal
     form_class = MealForm
     title = ugettext_lazy('Add new meal')
+    owner_object = {'pk': 'plan_pk', 'class': NutritionPlan}
     
     def form_valid(self, form):
         plan = get_object_or_404(NutritionPlan, pk = self.kwargs['plan_pk'], user=self.request.user)
@@ -340,29 +315,12 @@ class MealEditView(YamlFormMixin, UpdateView):
     model = Meal
     form_class = MealForm
     title = ugettext_lazy('Edit meal')
-    
+    form_action_urlname = 'meal-edit'
+ 
     def get_success_url(self):
         return reverse('nutrition.views.view', kwargs ={'id': self.object.plan.id})
 
-    # Send some additional data to the template
-    def get_context_data(self, **kwargs):
-        context = super(MealEditView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('meal-edit',
-                                         kwargs={'pk': self.object.id})
-         
-        return context
-
-    # Check that only the owner can access this
-    def get_object(self, queryset = None):
-        meal = get_object_or_404(self.model,
-                                 pk = self.kwargs['pk'])
-        
-        # TODO: check this
-        if meal.plan.user != self.request.user:
-            return HttpResponseForbidden()
-        else:
-            return meal
-
+   
 @login_required
 def delete_meal(request, id):
     """Deletes the meal with the given ID
@@ -540,14 +498,7 @@ class IngredientEditView(YamlFormMixin, UpdateView):
     model = Ingredient
     form_class = IngredientForm
     title = ugettext_lazy('Add a new ingredient')
-
-    # Send some additional data to the template
-    def get_context_data(self, **kwargs):
-        context = super(IngredientEditView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('ingredient-edit',
-                                         kwargs={'pk': self.object.id})
-         
-        return context
+    form_action_urlname = 'ingredient-edit'
 
 
 class IngredientCreateView(YamlFormMixin, CreateView):    

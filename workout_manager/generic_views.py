@@ -32,6 +32,7 @@ class YamlFormMixin(ModelFormMixin):
     form_action = ''
     form_action_urlname = ''
     title = ''
+    owner_object = False
     
     def get_context_data(self, **kwargs):
         '''
@@ -77,17 +78,7 @@ class YamlFormMixin(ModelFormMixin):
         # Set the title
         context['title'] = self.title
         
-        return context
-    
-    def get_owner_object(self):
-        """
-        Returns the object that has a user associated with it.
-        
-        This is used in the dispatch method to check that only the owner of an
-        object can edit it.
-        """
-        return False
-    
+        return context 
     
     def dispatch(self, request, *args, **kwargs):
         """
@@ -98,10 +89,15 @@ class YamlFormMixin(ModelFormMixin):
         is not the owner.
         """
         
-        # These seem to be necessary if for calling get_object
+        # These seem to be necessary for calling get_object
         self.kwargs = kwargs
         self.request = request
-        owner_object = self.get_object().get_owner_object()
+       
+        # For new objects, we have to manually load the owner object 
+        if self.owner_object:
+            owner_object = self.owner_object['class'].objects.get(pk = kwargs[self.owner_object['pk']])
+        else:
+            owner_object = self.get_object().get_owner_object()
         
         # Nothing to see, please move along
         if owner_object and owner_object.user != self.request.user:
