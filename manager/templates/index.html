@@ -82,7 +82,7 @@
             {% endif %}
             {% if weight %}
             <p>
-                {% trans "Your current weight is: "%} <strong>{{weight.weight}} kg.</strong>
+                {% trans "Your current weight is: "%} <strong>{{weight.weight|floatformat}} kg.</strong>
             </p>
             {% endif %}
         </div>
