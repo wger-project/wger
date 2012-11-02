@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-01 09:04+0200\n"
+"POT-Creation-Date: 2012-11-02 16:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: models.py:26
-msgid "Creation date"
-msgstr "Erstelldatum"
+#: models.py:26 views.py:111
+msgid "Date"
+msgstr "Datum"
 
-#: models.py:27 views.py:93
+#: models.py:27 views.py:111
 msgid "Weight"
 msgstr "Gewicht"
 
@@ -30,55 +30,64 @@ msgstr "Gewicht"
 msgid "User"
 msgstr "Benutzer"
 
-#: views.py:85
-msgid "weightdata"
-msgstr "Gewichtsdaten"
-
-#: views.py:93
-msgid "Date"
-msgstr "Datum"
-
-#: templates/edit.html:6 templates/edit.html.py:25
-msgid "Weight entry"
-msgstr "Gewichtseintrag"
-
-#: templates/edit.html:37
-msgid "Save"
-msgstr ""
-
-#: templates/weight_overview.html:8 templates/weight_overview.html.py:88
-msgid "Weight overview"
-msgstr "Gewichtsübersicht"
-
-#: templates/weight_overview.html:93
+#: views.py:63 templates/weight_overview.html:95
 msgid "Add weight entry"
 msgstr "Gewichtseintrag hinzufügen"
 
-#: templates/weight_overview.html:97
+#: views.py:93
+#, python-format
+msgid "Edit weight entry for the %s"
+msgstr "Gewichtseintrag für den %s bearbeiten"
+
+#: views.py:103
+msgid "weightdata"
+msgstr "Gewichtsdaten"
+
+#: templates/edit.html:6 templates/edit.html.py:27
+msgid "Weight entry"
+msgstr "Gewichtseintrag"
+
+#: templates/edit.html:39
+msgid "Save"
+msgstr ""
+
+#: templates/weight_overview.html:8 templates/weight_overview.html.py:81
+msgid "Weight overview"
+msgstr "Gewichtsübersicht"
+
+#: templates/weight_overview.html:85
+msgid "There is no chart here because there are no weight entries."
+msgstr "Es gibt kein Diagramm hier weil es keine Gewichtseinträge gibt."
+
+#: templates/weight_overview.html:86
+msgid "Use link to add one."
+msgstr ""
+
+#: templates/weight_overview.html:99
 msgid "You can click on a value on the chart to edit it. "
 msgstr "Clicken Sie auf ein Wert auf dem Diagramm um ihn zu editieren"
 
-#: templates/weight_overview.html:107
+#: templates/weight_overview.html:109
 msgid "Filter options"
 msgstr "Filteroptionen"
 
-#: templates/weight_overview.html:109
+#: templates/weight_overview.html:111
 msgid "from"
 msgstr "von"
 
-#: templates/weight_overview.html:115
+#: templates/weight_overview.html:119
 msgid "till"
 msgstr "bis"
 
-#: templates/weight_overview.html:121
+#: templates/weight_overview.html:130
 msgid "Filter"
 msgstr "Filtern"
 
-#: templates/weight_overview.html:125
+#: templates/weight_overview.html:134
 msgid "Options"
 msgstr "Optionen"
 
-#: templates/weight_overview.html:132 templates/weight_overview.html.py:133
-#: templates/weight_overview.html:134
+#: templates/weight_overview.html:141 templates/weight_overview.html.py:142
+#: templates/weight_overview.html:143
 msgid "Export as CSV"
 msgstr "Als CSV-Datei exportieren"
