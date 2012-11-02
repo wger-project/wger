@@ -425,12 +425,14 @@ function weight_chart(data)
     
     var line = d3.svg.line()
         .x(function(d) { return x(getDate(d.x)); })
-        .y(function(d) { return y(d.y); });
+        .y(function(d) { return y(d.y); })
+        .interpolate('cardinal');
     
     var area = d3.svg.area()
         .x(line.x())
         .y1(line.y())
-        .y0(y(min_y_value));
+        .y0(y(min_y_value))
+        .interpolate('cardinal');
     
     // Reset the content of weight_diagram, otherwise if there is a filter
     // a new SVG will be appended to it
