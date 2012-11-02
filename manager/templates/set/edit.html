@@ -5,7 +5,7 @@
 <!--
         Title
 -->
-{% block title %}{% trans "Set details" %}{% endblock %}
+{% block title %}{% trans "Edit" %} {{ day.description }}{% endblock %}
 
 <!--
         Header
@@ -47,15 +47,15 @@ $(document).ready(function() {
             </div>
             <div id="exercise-search-log"></div>
         </td>
-    </tr>
-    
-    
+    </tr>    
+
     {% include "form_snippet.html" with field=set_form.exercises css_class="ym-fbox-select" %}
     {% include "form_snippet.html" with field=set_form.sets %}
     
     <tr>
-        <td><input type="submit" value="{% trans 'Save' %}" /></td>
-        <td></td>
+        <td colspan="2">
+            <input type="submit" value="{% trans 'Save' %}" id="form-save">
+        </td>
     </tr>
 </table>
 </form>
