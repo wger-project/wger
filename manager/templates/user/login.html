@@ -6,6 +6,7 @@
 
 
 {% block header %}
+<link rel="stylesheet" href="{% static 'css/persona-buttons.css' %}" />
 <script type="text/javascript">
     $(document).ready(function() {
           $('#browserid').bind('click', function(e) {
@@ -47,15 +48,19 @@
 </form>
 
 <h2>{% trans "or" %}</h2>
-   <a id="browserid" href="#">{% trans "Sign In with Persona (BrowserID)" %}</a>
+   <a id="browserid"
+      href="#"
+      class="persona-button dark">
+      <span>{% trans "Sign in with your Email" %}</span>
+   </a>
    <form method="POST" action="{% url browserid_verify %}">
        {% csrf_token %}
        {{ browserid_form.as_p }}
    </form>
 <p>
-    {% blocktrans %}Persona replaces multiple passwords, you don't need to remember a new password
+    {% blocktrans %}Persona (BrowserID) replaces multiple passwords, you don't need to remember a new password
     for this site. For more information, please take a look at the
-    <a href="https://login.persona.org/">the persona website</a>.{% endblocktrans %}
+    <a href="https://login.persona.org/">the Persona website</a>.{% endblocktrans %}
 </p>
 {% endif %}
 
