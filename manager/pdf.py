@@ -253,7 +253,6 @@ def workout_log(request, id):
     
     # Set the table data
     if data:
-        logger.debug(data)
         t = Table(data, colwidths, rowheights, style = table_style)
         
         # Manually set the width of the columns
