@@ -14,11 +14,12 @@ urlpatterns = patterns('manager.views',
     url(r'^$', 'index'),
     
     # User
-    url(r'^login$', 'login'),
-    url(r'^logout$', 'logout'),
+    url(r'^login$', 'login', name='login'),
+    url(r'^logout$', 'logout', name='logout'),
     url(r'^user/registration$', 'registration'),
     url(r'^user/preferences$', 'preferences'),
     url(r'^user/password/change$', 'change_password'),
+    
         
     # Workout
     url(r'^workout/overview$', 'overview'),
@@ -60,3 +61,24 @@ urlpatterns = patterns('manager.views',
 # PDF stuff is in a different file
 urlpatterns = urlpatterns + patterns('manager.pdf',
      url(r'^workout/(?P<id>\d+)/pdf/$', 'workout_log'))
+
+# Password reset is implemented by Django, no need to cook our own soup here
+# (besides the templates)
+urlpatterns = urlpatterns + patterns('',
+    url(r'^user/password/reset/$',
+        'django.contrib.auth.views.password_reset',
+        {'template_name': 'user/password_reset_form.html'},
+        name='password_reset'),
+    url(r'^user/password/reset/done/$',
+        'django.contrib.auth.views.password_reset_done',
+        {'template_name': 'user/password_reset_done.html'},
+        name='password_reset_done'),
+    url(r'^user/password/reset/check/(?P<uidb36>[0-9A-Za-z]{1,13})-(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        'django.contrib.auth.views.password_reset_confirm',
+        {'template_name': 'user/password_reset_confirm.html'},
+        name='password_reset_confirm'),
+    url(r'^user/password/reset/complete/$',
+        'django.contrib.auth.views.password_reset_complete',
+        {'template_name': 'user/password_reset_complete.html'},
+        name='password_reset_complete'),
+    )
