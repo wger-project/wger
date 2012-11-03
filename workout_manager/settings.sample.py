@@ -30,6 +30,7 @@ AUTH_PROFILE_MODULE = 'manager.UserProfile'
 TEMPLATE_CONTEXT_PROCESSORS = (
     'manager.context_processor.processor',
     'django.contrib.auth.context_processors.auth',
+    'django_browserid.context_processors.browserid_form',
 )
 
 
@@ -128,6 +129,7 @@ TEMPLATE_DIRS = (
 
 INSTALLED_APPS = (
     'django.contrib.auth',
+    'django_browserid',  # Load after auth to monkey-patch it.
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
@@ -142,6 +144,13 @@ INSTALLED_APPS = (
     'exercises',
     'nutrition',
 )
+
+AUTHENTICATION_BACKENDS = (
+    'django_browserid.auth.BrowserIDBackend',
+)
+
+# This is needed for Mozilla's BrowserID
+SITE_URL = 'http://mysite'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

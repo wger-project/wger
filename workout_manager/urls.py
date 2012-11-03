@@ -9,4 +9,5 @@ urlpatterns = patterns('',
     url(r'^', include('exercises.urls')),
     url(r'^', include('weight.urls')),
     url(r'^', include('nutrition.urls')),
+    url(r'^browserid/', include('django_browserid.urls')),
 )
