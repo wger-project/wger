@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load staticfiles %}
 
 {% block title %} {% trans "Login" %}{% endblock %}
 
@@ -33,10 +34,24 @@
 
 {% block sidebar %}
 <h3>{% trans "No account?" %}</h3>
-<p><a href="{% url manager.views.registration %}">{% trans "Register" %}</a></p>
+<p>
+    <a href="{% url manager.views.registration %}">
+        <img src="{% static 'images/icons/register.svg' %}"
+         width="48"
+         height="48"
+         alt="{% trans 'Register' %}">
+        {% trans "Register" %}</a>
+</p>
 
 <h3>{% trans "Forgot password?" %}</h3>
-<p><a href="{% url django.contrib.auth.views.password_reset %}">{% trans "Reset password" %}</a></p>
+<p>
+    <a href="{% url django.contrib.auth.views.password_reset %}">
+        <img src="{% static 'images/icons/reset-password.svg' %}"
+         width="48"
+         height="48"
+         alt="{% trans 'Reset password' %}">
+        {% trans "Reset password" %}</a>
+</p>
 
 
 
