@@ -23,6 +23,9 @@ DATABASES = {
 # Login-URL
 LOGIN_URL = '/login'
 
+# Redirect here after sucessfull login
+LOGIN_REDIRECT_URL = '/'
+
 # Model for the user profile
 AUTH_PROFILE_MODULE = 'manager.UserProfile'
 
