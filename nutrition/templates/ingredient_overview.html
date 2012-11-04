@@ -22,6 +22,26 @@
     </div>
 {% endif %}
 
+
+<div style="padding-top:3em;"></div>
+<div class="pagination">
+    {% if ingredients.has_previous %}
+        <a href="?page={{ ingredients.previous_page_number }}" class="page gradient">{% trans "previous" %}</a>
+    {% endif %}
+
+    {% for i in ingredients.paginator.page_range %}
+        {% if ingredients.number != i %}
+            <a href="?page={{ i }}" class="page gradient">{{i}}</a>
+        {% else %}
+            <span class="page active">{{i}}</span>
+        {% endif %}
+    {% endfor %}
+    
+    {% if ingredients.has_next %}
+        <a href="?page={{ ingredients.next_page_number }}" class="page gradient">{%trans "next" %}</a>
+    {% endif %}
+</div>
+
 {% endblock %}
 
 {% block sidebar %}

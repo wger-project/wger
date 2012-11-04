@@ -25,15 +25,18 @@ from django.http import HttpResponseForbidden
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 from django.forms import ModelForm
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
+
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
+
 
 from nutrition.models import NutritionPlan
 from nutrition.models import Meal
@@ -444,7 +447,20 @@ def ingredient_overview(request):
     languages = load_ingredient_languages(request)
             
     # Load the ingredients
-    ingredients  = Ingredient.objects.filter(language__in = languages)
+    ingredients_list  = Ingredient.objects.filter(language__in = languages)
+    
+    # Show 25 ingredients per page
+    paginator = Paginator(ingredients_list, 25)
+    page = request.GET.get('page')
+    try:
+        ingredients = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        ingredients = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        ingredients = paginator.page(paginator.num_pages)
+    
     template_data['ingredients'] = ingredients
     
     return render_to_response('ingredient_overview.html',
