@@ -7,20 +7,6 @@
 
 {% block header %}
 <link rel="stylesheet" href="{% static 'css/persona-buttons.css' %}" />
-<script type="text/javascript">
-    $(document).ready(function() {
-          $('#browserid').bind('click', function(e) {
-                e.preventDefault();
-                navigator.id.get(function(assertion) {
-                if (assertion) {
-                    var $e = $('#id_assertion');
-                    $e.val(assertion.toString());
-                    $e.parent().submit();
-                }
-            });
-        });
-    });
-</script>
 {% endblock %}
 
 {% block content %}
@@ -48,12 +34,12 @@
 </form>
 
 <h2>{% trans "or" %}</h2>
-   <a id="browserid"
+   <a id="browserid-login"
       href="#"
       class="persona-button dark">
       <span>{% trans "Sign in with your Email" %}</span>
    </a>
-   <form method="POST" action="{% url browserid_verify %}">
+   <form method="POST" action="{% url browserid_verify %}" id="browserid-form">
        {% csrf_token %}
        {{ browserid_form.as_p }}
    </form>

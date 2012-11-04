@@ -37,9 +37,44 @@
     {% block header %}{% endblock %}
  
     <script>
+    navigator.id.watch({
+      loggedInUser: {% if user.is_authenticated %}"{{user.email}}"{% else %}null{% endif %},
+      onlogin: function(assertion) {
+                
+        var $e = $('#id_assertion');
+        $e.val(assertion.toString());
+        
+        $.ajax({
+          type: 'POST',
+          url: $('#browserid-form').attr('action'),
+          data: $('#browserid-form').serialize(),
+          success: function(res, status, xhr) { window.location = '/'; },
+          error: function(xhr, status, err) { alert("login failure: " + err); }
+        });
+      },
+      onlogout: function() {
+        $.ajax({
+          type: 'POST',
+          url: '/logout',
+          success: function(res, status, xhr) { window.location.reload(); },
+          error: function(xhr, status, err) { alert("logout failure: " + err); }
+        });
+      }
+    });
+    
+    
     $(document).ready(function() {
-	    // Init the modal dialog for editing forms
-	    form_modal_dialog();
+          
+        $('#browserid-login').bind('click', function(e) {
+                navigator.id.request({siteName: 'Workout Manager'});
+            });
+        
+        $('#logout').bind('click', function(e) {
+                navigator.id.logout();
+            });
+        
+        // Init the modal dialog for editing forms
+        form_modal_dialog();
      });
     </script>
 
@@ -74,7 +109,7 @@
             {% if user.username %}
             <ul style="float:right;">
             <li>
-                <a href="{% url manager.views.logout %}">
+                <a href="{% url manager.views.logout %}" id="logout">
                 {% trans 'Logout' %}
                 </a>
             </li>
