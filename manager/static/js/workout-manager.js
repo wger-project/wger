@@ -478,3 +478,24 @@ function weight_chart(data)
             scatterplot_modal_dialog(entry_id);
         });
 }
+
+
+/*
+ * 
+ * Helper function to load the target of a link into the main-content DIV (the
+ * main left colum)
+ * 
+ */
+function load_maincontent()
+{
+    // TODO: see what can be done about browser history and current URL
+    $(".load-maincontent").click(function(e) {
+        e.preventDefault();
+        var targetUrl = $(this).attr("href");
+        
+        $.get(targetUrl, function(data) {
+            $('#main-content').html($(data).find('#main-content'));
+            load_maincontent();
+        });
+    });
+}
