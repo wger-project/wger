@@ -29,8 +29,9 @@
         <a href="?page={{ ingredients.previous_page_number }}"
            class="page gradient load-maincontent">{% trans "previous" %}</a>
     {% endif %}
+    
 
-    {% for i in ingredients.paginator.page_range %}
+    {% for i in page_range %}
         {% if ingredients.number != i %}
             <a href="?page={{ i }}"
                class="page gradient load-maincontent">{{i}}</a>

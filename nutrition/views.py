@@ -461,6 +461,32 @@ def ingredient_overview(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         ingredients = paginator.page(paginator.num_pages)
     
+    # The English ingredient list has more than 8000 items, which results in over 300 pages.
+    # We muck around here to remove the ones not inmediately 'around' the current page
+    # TODO: move this to a file as a helper function
+    max_total_pages = 10
+    pages_around_current = 5
+    
+    if paginator.num_pages > max_total_pages:
+        
+        start_page = ingredients.number - pages_around_current
+        for i in range(ingredients.number - pages_around_current, ingredients.number +1):
+            if i > 0:
+                start_page = i
+                break
+        
+        end_page = ingredients.number + pages_around_current
+        for i in range(ingredients.number, ingredients.number + pages_around_current):
+            if i > paginator.num_pages:
+                end_page = i
+                
+                break
+        
+        page_range = range(start_page, end_page)
+    else:
+        page_range = paginator.page_range
+    
+    template_data['page_range'] = page_range
     template_data['ingredients'] = ingredients
     
     return render_to_response('ingredient_overview.html',
