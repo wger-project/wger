@@ -37,6 +37,17 @@
     <script src="{% static 'js/browserid.js' %}"></script>
     
     {% block header %}{% endblock %}
+    
+    <script>
+    $(document).ready(function() {
+        
+        // Init the modal dialog for editing forms
+        form_modal_dialog();
+        
+        // Initialise the hook to reload the main-content
+        load_maincontent();
+     });
+    </script>
  
     
     <title>{% block title %}{% endblock %}</title>
