@@ -48,8 +48,12 @@
             },
 
             onlogout: function() {
-                // TODO: Detect if logout button was a link and follow its href
-                // if possible.
+                $.ajax({
+                  type: 'GET',
+                  url: '/logout',
+                  success: function(res, status, xhr) { window.location.reload(); },
+                  error: function(xhr, status, err) { alert("logout failure: " + err); }
+                });
             }
         });
     });
