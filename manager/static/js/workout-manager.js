@@ -494,7 +494,7 @@ function load_maincontent()
         var targetUrl = $(this).attr("href");
         
         $.get(targetUrl, function(data) {
-            $('#main-content').html($(data).find('#main-content'));
+            $('#main-content').html($(data).find('#main-content').html());
             load_maincontent();
         });
     });
