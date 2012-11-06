@@ -33,7 +33,8 @@
 </table>
 </form>
 
-<h2>{% trans "or" %}</h2>
+<div style="text-align:center;">
+<h2>— {% trans "or" %} —</h2>
    <a id="browserid-login"
       href="#"
       class="persona-button dark browserid-login"
@@ -44,10 +45,13 @@
        {% csrf_token %}
        {{ browserid_form.as_p }}
    </form>
+</div>
+
 <p>
-    {% blocktrans %}Persona (BrowserID) replaces multiple passwords, you don't need to remember a new password
-    for this site. For more information, please take a look at the
-    <a href="https://login.persona.org/">the Persona website</a>.{% endblocktrans %}
+    {% blocktrans %}Persona (BrowserID) replaces multiple passwords, you don't
+    need to remember a new password for this site. For more information, please
+    take a look at the <a href="https://login.persona.org/" target="_blank">the
+    Persona website</a>.{% endblocktrans %}
 </p>
 {% endif %}
 
