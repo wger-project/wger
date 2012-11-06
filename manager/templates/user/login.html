@@ -34,17 +34,18 @@
 </form>
 
 <div style="text-align:center;">
-<h2>— {% trans "or" %} —</h2>
-   <a id="browserid-login"
-      href="#"
-      class="persona-button dark browserid-login"
-      data-site-name="Workout Manager">
-      <span>{% trans "Sign in with your Email" %}</span>
-   </a>
-   <form method="POST" action="{% url browserid_verify %}" id="browserid-form">
-       {% csrf_token %}
-       {{ browserid_form.as_p }}
-   </form>
+<h3>— {% trans "or" %} —</h3>
+    <div style="padding-top:1em;"></div>
+    <a id="browserid-login"
+       href="#"
+       class="persona-button dark browserid-login"
+       data-site-name="Workout Manager">
+        <span>{% trans "Sign in with your Email" %}</span>
+    </a>
+    <form method="POST" action="{% url browserid_verify %}" id="browserid-form">
+        {% csrf_token %}
+        {{ browserid_form.as_p }}
+    </form>
 </div>
 
 <p>
