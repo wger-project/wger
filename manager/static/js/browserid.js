@@ -34,11 +34,12 @@
         });
 
         $('.browserid-logout').bind('click', function(e) {
-            e.preventDefault();
-            navigator.id.logout(); // Clears User Agent BrowserID state.
+            // Clears User Agent BrowserID state.
+            navigator.id.logout();
         });
 
         navigator.id.watch({
+            
             onlogin: function(assertion) {
                 if (assertion) {
                     var $e = $('#id_assertion');
@@ -48,12 +49,8 @@
             },
 
             onlogout: function() {
-                $.ajax({
-                  type: 'GET',
-                  url: '/logout',
-                  success: function(res, status, xhr) { window.location.reload(); },
-                  error: function(xhr, status, err) { alert("logout failure: " + err); }
-                });
+                // No functionality here
+                //console.debug('navigator.id.watch onLogout'); 
             }
         });
     });
