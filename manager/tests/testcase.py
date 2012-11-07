@@ -68,7 +68,7 @@ class WorkoutManagerLiveServerTestCase(LiveServerTestCase):
         """
         
         if explicit_login:
-            self.browser.get(self.live_server_url + reverse('manager.views.login'))
+            self.browser.get(self.live_server_url + reverse('login'))
         username_field = self.browser.find_element_by_id('id_username')
         username_field.send_keys('admin')
         

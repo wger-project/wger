@@ -12,7 +12,7 @@
 {% block content %}
 {% if not user.is_authenticated %}
 <h2>{% trans "Login" %}</h2>
-<form action="{% url manager.views.login %}"
+<form action="{% url login %}"
       method="post"
       class="ym-form">
       {% csrf_token %}

@@ -170,9 +170,8 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         count_after = Exercise.objects.count()
         
         # Exercise was not added
-        self.assertEqual(count_before, count_after)
-        
-        self.assertTrue(reverse('manager.views.login') in response['location'])
+        self.assertEqual(count_before, count_after)        
+        self.assertTrue('login' in response['location'])
 
     def test_add_exercise_user_no_rights(self):
         """Tests adding an exercise with a user without enough rights to do this"""

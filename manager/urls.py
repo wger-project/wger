@@ -1,11 +1,15 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse_lazy
 
 from manager.views import WorkoutEditView
 from manager.views import WorkoutDeleteView
 
 from manager.views import DayEditView
 from manager.views import DayCreateView
+
+from workout_manager.constants import USER_TAB
+
 
 
 urlpatterns = patterns('manager.views',
@@ -14,12 +18,9 @@ urlpatterns = patterns('manager.views',
     url(r'^$', 'index', name='index'),
     
     # User
-    url(r'^login$', 'login', name='login'),
     url(r'^logout$', 'logout', name='logout'),
     url(r'^user/registration$', 'registration'),
     url(r'^user/preferences$', 'preferences'),
-    url(r'^user/password/change$', 'change_password'),
-    
     
     # Workout
     url(r'^workout/overview$', 'overview'),
@@ -61,6 +62,19 @@ urlpatterns = urlpatterns + patterns('manager.pdf',
 # Password reset is implemented by Django, no need to cook our own soup here
 # (besides the templates)
 urlpatterns = urlpatterns + patterns('',
+    url(r'^login/$',
+        'django.contrib.auth.views.login',
+        {'template_name': 'user/login.html',
+         'extra_context': {'active_tab': USER_TAB}},
+        name='login'),
+
+    url(r'^user/password/change$',
+        'django.contrib.auth.views.password_change',
+        {'template_name' : 'user/change_password.html',
+          'post_change_redirect' : reverse_lazy('index'),
+          'extra_context' : {'active_tab': USER_TAB}},
+        name='change-password'),
+    
     url(r'^user/password/reset/$',
         'django.contrib.auth.views.password_reset',
         {'template_name': 'user/password_reset_form.html'},

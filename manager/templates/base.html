@@ -67,9 +67,9 @@
             <ul>
                 <li {% if active_tab == 'user' %}class="active"{% endif %}>
             {% if not user.username %}
-                <a href="{% url manager.views.login %}">{% trans "Login" %}</a>
+                <a href="{% url login %}">{% trans "Login" %}</a>
             {% else %}
-                <a href="{% url manager.views.index %}">{% trans "Dashboard" %}</a>
+                <a href="{% url index %}">{% trans "Dashboard" %}</a>
             {% endif %}
                 </li>
                 <li {% if active_tab == 'workout'   %}class="active"{% endif %}><a href="{% url manager.views.overview %}">{% trans "Workouts" %}</a></li>

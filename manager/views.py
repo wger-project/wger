@@ -150,27 +150,15 @@ def login(request):
     Small wrapper around the django login view
     """
     
-    template_context = django_loginview(request, template_name = 'user/login.html')
-    template_context['active_tab'] = USER_TAB
-    return template_context
-    
-def change_password(request):
-    """
-    Small wrapper around django's change password view
-    """
-    
-    template_context = django_pwchange(request,
-                                       template_name = 'user/change_password.html',
-                                       post_change_redirect = reverse('index'))
-    template_context['active_tab'] = USER_TAB
-    return template_context
-    
+    return django_loginview(request,
+                            template_name = 'user/login.html',
+                            extra_context = {'active_tab': USER_TAB})
 
 def logout(request):
     """Logout the user
     """
     django_logout(request)
-    return HttpResponseRedirect(reverse('manager.views.login'))
+    return HttpResponseRedirect(reverse('login'))
 
 
 def registration(request):
