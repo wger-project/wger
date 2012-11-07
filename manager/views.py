@@ -42,6 +42,7 @@ from django.contrib.auth.models import User as Django_User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.views import login as django_loginview
 
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
@@ -143,52 +144,14 @@ class UserPreferencesForm(ModelForm):
         exclude = ('user',)
 
 def login(request):
-    """Login the user and redirect it
+    """
+    Small wrapper around the django login view
     """
     
-    template_data = {}
-    template_data.update(csrf(request))
-    template_data['active_tab'] = USER_TAB
+    template_context = django_loginview(request, template_name = 'user/login.html')
+    template_context['active_tab'] = USER_TAB
+    return template_context
     
-    template_data['form'] = AuthenticationForm()
-    
-    # Read out where the user came from so we can redirect him after logging in
-    redirect_target = request.GET.get('next', '')
-    
-    if request.method == 'POST':
-        redirect_target = request.POST.get('redirect_target')
-        authentication_form = AuthenticationForm(data=request.POST)
-        template_data['form'] = authentication_form
-        
-        # Default redirection target is the index page
-        if not redirect_target:
-            redirect_target = reverse('manager.views.index')
-        
-        # If the data is valid, log in and redirect
-        if authentication_form.is_valid():
-            username = authentication_form.cleaned_data['username']
-            password = authentication_form.cleaned_data['password']
-            
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                if user.is_active:
-                    django_login(request, user)
-                    
-                    # Redirect to where the user came from
-                    return HttpResponseRedirect(redirect_target)
-                else:
-                    # Return a disabled account error message
-                    pass
-            else:
-                # Return an invalid login error message.
-                pass
-    
-    template_data['redirect_target'] = redirect_target
-    
-    return render_to_response('user/login.html',
-                              template_data,
-                              context_instance=RequestContext(request))
-
 def change_password(request):
     """Change the user's password
     """
