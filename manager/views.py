@@ -43,6 +43,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import login as django_loginview
+from django.contrib.auth.views import password_change as django_pwchange
+
 
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
@@ -153,31 +155,16 @@ def login(request):
     return template_context
     
 def change_password(request):
-    """Change the user's password
+    """
+    Small wrapper around django's change password view
     """
     
-    template_data = {}
-    template_data.update(csrf(request))
-    template_data['active_tab'] = USER_TAB
+    template_context = django_pwchange(request,
+                                       template_name = 'user/change_password.html',
+                                       post_change_redirect = reverse('index'))
+    template_context['active_tab'] = USER_TAB
+    return template_context
     
-    if request.method == 'POST':
-        form = PasswordChangeForm(request.user, data=request.POST)
-        
-        # If the data is valid, change the password redirect
-        if form.is_valid():
-            request.user.set_password(form.cleaned_data['new_password1'])
-            request.user.save()
-        
-            return HttpResponseRedirect(reverse('manager.views.index'))
-    else:
-        form = PasswordChangeForm(request.user)
-
-    template_data['form'] = form
-    
-    return render_to_response('user/change_password.html',
-                              template_data,
-                              context_instance=RequestContext(request))
-
 
 def logout(request):
     """Logout the user

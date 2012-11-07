@@ -11,7 +11,7 @@ from manager.views import DayCreateView
 urlpatterns = patterns('manager.views',
 
     # The index page
-    url(r'^$', 'index'),
+    url(r'^$', 'index', name='index'),
     
     # User
     url(r'^login$', 'login', name='login'),
