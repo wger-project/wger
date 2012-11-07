@@ -17,13 +17,23 @@
 <table>
 {% include "form_snippet.html" with field=form.show_comments %}
 {% include "form_snippet.html" with field=form.show_english_ingredients %}
+</table>
+
+
+<h3>{% trans "Email" %}</h3>
+
+{{ email_form.non_field_errors }}
+<table>
+{% include "form_snippet.html" with field=email_form.email %}
     <tr>
         <td colspan="2">
-            <input type="submit" value="{% trans 'Save' %}" id="form-save">
+            <input type="submit" value="{% trans 'Save' %}">
         </td>
     </tr>
 </table>
 </form>
+
+
 {% endblock %}
 
 {% block sidebar %}

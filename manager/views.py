@@ -18,6 +18,7 @@ import logging
 import uuid
 import datetime
 
+ 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
@@ -25,8 +26,10 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.forms import ModelForm
+from django.forms import EmailField
 from django.forms.models import modelformset_factory
 from django.forms import SelectMultiple
+from django.forms import ValidationError
 from django.core.context_processors import csrf
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
@@ -42,6 +45,7 @@ from django.contrib.auth.models import User as Django_User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import PasswordChangeForm
+
 from django.contrib.auth.views import login as django_loginview
 from django.contrib.auth.views import password_change as django_pwchange
 
@@ -160,6 +164,27 @@ def logout(request):
     django_logout(request)
     return HttpResponseRedirect(reverse('login'))
 
+class UserEmailForm(ModelForm):
+    email = EmailField(label=_("Email"),
+                       help_text = _("Completely optional, but needed to reset your password "
+                                     "in case you forget it."),
+                       required = False)
+    
+    def clean_email(self):
+        # Email must be unique systemwide
+        email = self.cleaned_data["email"]
+        logger.debug(email)
+        if not email:
+            logger.debug(11111)
+            return email
+        try:
+            Django_User.objects.get(email=email)
+        except Django_User.DoesNotExist:
+            return email
+        raise ValidationError(_("This email is already used."))
+
+class RegistrationForm(UserCreationForm, UserEmailForm):
+    pass
 
 def registration(request):
     """A form to allow for registration of new users
@@ -169,27 +194,30 @@ def registration(request):
     template_data['active_tab'] = USER_TAB
     
     if request.method == 'POST':
-        form = UserCreationForm(data=request.POST)
+        form = RegistrationForm(data=request.POST)
         
         # If the data is valid, log in and redirect
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
+            email = form.cleaned_data['email']
             user = Django_User.objects.create_user(username,
-                                                   '',
+                                                   email,
                                                    password)
             user.save()
             user = authenticate(username=username, password=password)
             django_login(request, user)
-            return HttpResponseRedirect(reverse('manager.views.index'))
+            return HttpResponseRedirect(reverse('index'))
     else:
-        form = UserCreationForm()
+        form = RegistrationForm()
 
     template_data['form'] = form
     
     return render_to_response('user/registration.html',
                               template_data,
                               context_instance=RequestContext(request))
+
+
 
 def preferences(request):
     """An overview of all user preferences
@@ -198,6 +226,7 @@ def preferences(request):
     template_data.update(csrf(request))
     template_data['active_tab'] = USER_TAB
     
+    # Process the preferences form
     if request.method == 'POST':
     
         form = UserPreferencesForm(data=request.POST, instance=request.user.get_profile())
@@ -209,7 +238,24 @@ def preferences(request):
     else:
         form = UserPreferencesForm(instance=request.user.get_profile())
    
+   
+    # Process the email form
+    #
+    # this is a bit ugly, but we need to take special care here, only instatiating
+    # the form when the user changes its password, otherwise the email form will
+    # check the adress for uniqueness and fail, because it will find one user (the
+    # current one) using it. But if he changes it, we want to check that nobody else
+    # has that email
+    if request.method == 'POST' and request.POST["email"] != request.user.email:
+        email_form = UserEmailForm(data=request.POST, instance=request.user)
+        if email_form.is_valid():
+            request.user.email = email_form.cleaned_data['email']
+            request.user.save()
+    else:
+        email_form = UserEmailForm(instance=request.user)
+   
     template_data['form'] = form
+    template_data['email_form'] = email_form
    
     return render_to_response('user/preferences.html',
                               template_data,
