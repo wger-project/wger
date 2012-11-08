@@ -17,7 +17,7 @@
     {% endfor %}
     
     {% if page.has_next %}
-        <a href="?page={{ ingredients.next_page_number }}"
+        <a href="?page={{ page.next_page_number }}"
            class="page gradient load-maincontent">{%trans "next" %}</a>
     {% endif %}
 </div>

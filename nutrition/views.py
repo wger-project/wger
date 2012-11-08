@@ -55,6 +55,7 @@ from workout_manager import get_version
 from workout_manager.constants import NUTRITION_TAB
 from workout_manager.generic_views import YamlFormMixin
 from workout_manager.generic_views import YamlDeleteMixin
+from workout_manager import helpers 
 
 
 logger = logging.getLogger('workout_manager.custom')
@@ -446,48 +447,12 @@ def ingredient_overview(request):
     # (the user can also want to see ingredients in English, see load_ingredient_languages)
     languages = load_ingredient_languages(request)
             
-    # Load the ingredients
+    # Load the ingredients and paginate it
     ingredients_list  = Ingredient.objects.filter(language__in = languages)
     
-    # Show 25 ingredients per page
-    paginator = Paginator(ingredients_list, 25)
-    page = request.GET.get('page')
-    try:
-        ingredients = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        ingredients = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        ingredients = paginator.page(paginator.num_pages)
-    
-    # The English ingredient list has more than 8000 items, which results in over 300 pages.
-    # We muck around here to remove the ones not inmediately 'around' the current page
-    # TODO: move this to a file as a helper function
-    max_total_pages = 10
-    pages_around_current = 5
-    
-    if paginator.num_pages > max_total_pages:
-        
-        start_page = ingredients.number - pages_around_current
-        for i in range(ingredients.number - pages_around_current, ingredients.number +1):
-            if i > 0:
-                start_page = i
-                break
-        
-        end_page = ingredients.number + pages_around_current
-        for i in range(ingredients.number, ingredients.number + pages_around_current):
-            if i > paginator.num_pages:
-                end_page = i
-                
-                break
-        
-        page_range = range(start_page, end_page)
-    else:
-        page_range = paginator.page_range
-    
-    template_data['page_range'] = page_range
-    template_data['ingredients'] = ingredients
+    pagination = helpers.pagination(ingredients_list, request.GET.get('page'))
+    template_data['page_range'] = pagination['page_range']
+    template_data['ingredients'] = pagination['page']
     
     return render_to_response('ingredient_overview.html',
                               template_data,
