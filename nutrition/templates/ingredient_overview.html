@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load staticfiles %}
+{% load manager_extras %} 
+
 
 {% block title %}{% trans "Ingredient overview" %}{% endblock %}
 
@@ -10,11 +12,11 @@
 
 {% if ingredients %}
 <ul>
-{% for ingredient in ingredients %}
+    {% for ingredient in ingredients %}
     <li>
         <a href="{{ ingredient.get_absolute_url }}">{{ ingredient.name }}</a>
     </li>
-{% endfor %}
+    {% endfor %}
 </ul>
 {% else %}
     <div class="box warning">
@@ -24,27 +26,8 @@
 
 
 <div style="padding-top:3em;"></div>
-<div class="pagination">
-    {% if ingredients.has_previous %}
-        <a href="?page={{ ingredients.previous_page_number }}"
-           class="page gradient load-maincontent">{% trans "previous" %}</a>
-    {% endif %}
-    
+{% pagination ingredients page_range %} 
 
-    {% for i in page_range %}
-        {% if ingredients.number != i %}
-            <a href="?page={{ i }}"
-               class="page gradient load-maincontent">{{i}}</a>
-        {% else %}
-            <span class="page active">{{i}}</span>
-        {% endif %}
-    {% endfor %}
-    
-    {% if ingredients.has_next %}
-        <a href="?page={{ ingredients.next_page_number }}"
-           class="page gradient load-maincontent">{%trans "next" %}</a>
-    {% endif %}
-</div>
 
 {% endblock %}
 

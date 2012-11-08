@@ -17,3 +17,12 @@ def render_day(day):
     """
     return {'day':     day,
             'workout': day.training }
+
+
+@register.inclusion_tag('tags/pagination.html')
+def pagination(page, page_range):
+    """
+    Renders the necessary links to paginating a long list
+    """
+    return {'page':       page,
+            'page_range': page_range }
