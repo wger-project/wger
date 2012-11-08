@@ -5,6 +5,17 @@
 (function($) {
     'use strict';
 
+    // If there are problems initialising the browserID javascript
+    // don't try to setup the watchers
+    try{
+        navigator.id.watch;
+    }
+    catch(error)
+    {
+        console.debug('navigator.id not available. Login with Persona not possible.');
+        return;
+    }
+    
     $(function() {
         var requestOptions = [
             'siteName',
