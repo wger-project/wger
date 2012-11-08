@@ -1,24 +1,34 @@
 {% load i18n %}
 
 <div class="pagination">
+
+<ul class="pagination">
     {% if page.has_previous %}
+    <li class="previous">
         <a href="?page={{ page.previous_page_number }}"
-           class="page gradient load-maincontent">{% trans "previous" %}</a>
+           class="load-maincontent">« {% trans "previous" %}</a>
+    </li>
     {% endif %}
     
-
     {% for i in page_range %}
         {% if page.number != i %}
+            <li>
             <a href="?page={{ i }}"
-               class="page gradient load-maincontent">{{i}}</a>
+               class="load-maincontent">{{i}}</a>
+           </li>
         {% else %}
-            <span class="page active">{{i}}</span>
+            <li class="active">
+            {{i}}
+            </li>
         {% endif %}
     {% endfor %}
     
     {% if page.has_next %}
+        <li class="next">
         <a href="?page={{ page.next_page_number }}"
-           class="page gradient load-maincontent">{%trans "next" %}</a>
+           class="load-maincontent">{%trans "next" %}»</a>
+        </li>
     {% endif %}
+</ul>
 </div>
 
