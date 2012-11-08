@@ -4,7 +4,7 @@
 
 <ul class="pagination">
     {% if page.has_previous %}
-    <li class="previous">
+    <li>
         <a href="?page={{ page.previous_page_number }}"
            class="load-maincontent">« {% trans "previous" %}</a>
     </li>
@@ -24,7 +24,7 @@
     {% endfor %}
     
     {% if page.has_next %}
-        <li class="next">
+        <li>
         <a href="?page={{ page.next_page_number }}"
            class="load-maincontent">{%trans "next" %}»</a>
         </li>

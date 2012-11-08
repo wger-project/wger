@@ -215,27 +215,11 @@ ul.pagination li{
     margin: 0;
     padding: 0;
     list-style: none;
-    margin-right: 0.7em;
-    
+    margin-right: 0.5em;
 }
 
 ul.pagination a{
-    margin-right: 0.7em;
-}
-
-ul.pagination .previous,
-ul.pagination .next {
-    color: #888888
-    display: block;
-    float: left;
-    font-weight: bold;
-    padding: 3px 4px;
-    border-radius: 3px;
-}
-
-ul.pagination .next a,
-ul.pagination .previous a {
-    font-weight: bold;
+    margin-right: 0.5em;
 }
 
 ul.pagination .active{
@@ -244,15 +228,24 @@ ul.pagination .active{
     font-weight: bold;
     display: block;
     float: left;
-    padding: 3px 7px;
+    padding: 3px 9px;
     border-radius: 3px;
+    border: 1px solid black;
 }
 
 ul.pagination a:link,
 ul.pagination a:visited {
+    box-shadow: 0 0 4px #EEEEEE inset;
     color: #0e509e
     display: block;
     float: left;
     padding: 3px 9px;
     border-radius: 3px;
+    border: 1px solid #d3d7cf;
+}
+
+ul.pagination a:hover
+{
+    border: 1px solid #2e3436;
+    box-shadow: 0 0 4px #3465a4 inset;    
 }
