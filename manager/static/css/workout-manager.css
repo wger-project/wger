@@ -249,3 +249,15 @@ ul.pagination a:hover
     border: 1px solid #2e3436;
     box-shadow: 0 0 4px #3465a4 inset;    
 }
+
+/*
+ * 
+ * Give the result list from the autocompleter a maximum size
+ * 
+ */
+.ui-autocomplete {
+    max-height: 500px;
+    max-width: 500px;
+    overflow-y: auto;
+    overflow-x: hidden; /* prevent horizontal scrollbar */
+}
