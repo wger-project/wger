@@ -193,10 +193,33 @@ div.warning a, div.warning a:hover, div.warning a:active{
  * Category heading for the ajax autocompleter
  */
 .ui-autocomplete-category {
+    margin:0;
+    text-align: center;
+    zoom: 1;
+    float: left;
+    clear: left;
+    width: 100%;
     font-weight: bold;
-    padding: .2em .4em;
-    margin: .8em 0 .2em;
-    line-height: 1.5;
+    background-color: #D3D7CF;
+    border-bottom: 1px solid #888a85;
+}
+
+/*
+ * Give the result list from the autocompleter a maximum size
+ */
+.ui-autocomplete {
+    max-height: 500px;
+    max-width: 500px;
+    overflow-y: auto;
+    overflow-x: hidden; /* prevent horizontal scrollbar */
+}
+
+/*
+ * Give odd child's a different background colour (thanks CSS3!)
+ */
+.ui-autocomplete li.ui-menu-item:nth-child(odd)
+{
+    background: #eeeeec;
 }
 
 
@@ -248,16 +271,4 @@ ul.pagination a:hover
 {
     border: 1px solid #2e3436;
     box-shadow: 0 0 4px #3465a4 inset;    
-}
-
-/*
- * 
- * Give the result list from the autocompleter a maximum size
- * 
- */
-.ui-autocomplete {
-    max-height: 500px;
-    max-width: 500px;
-    overflow-y: auto;
-    overflow-x: hidden; /* prevent horizontal scrollbar */
 }
