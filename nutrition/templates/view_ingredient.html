@@ -72,6 +72,7 @@
 
 
 {% block sidebar %}
+{% if perms.exercises %}
 <h3>{% trans "Options" %}</h3>
 
 <p>
@@ -98,5 +99,6 @@
 {% trans 'Edit ingredient' %}
 </a>
 </p>
+{% endif %}
 
 {% endblock %}

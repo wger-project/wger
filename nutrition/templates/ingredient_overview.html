@@ -32,6 +32,7 @@
 {% endblock %}
 
 {% block sidebar %}
+{% if perms.exercises %}
 <h3>{% trans "Options" %}</h3>
 <p>
     <a href="{% url ingredient-add %}">
@@ -43,4 +44,5 @@
        {% trans "Add ingredient" %}
        </a>
 </p>
+{% endif %}
 {% endblock %}
