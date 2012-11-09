@@ -81,6 +81,7 @@ h1,
 
 body {
 	font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
+	color: black; /* Open Sans Light is very thin, black looks better here */
 }
 
 
