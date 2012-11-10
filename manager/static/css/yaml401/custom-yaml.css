@@ -1,11 +1,3 @@
-/**************************************************************
- * 
- * This file contains slight modifications to the YAML theme
- * or other YAML elements
- *
- **************************************************************/
-
-
 /*
     This file is part of Workout Manager
 
@@ -21,80 +13,39 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with Workout Manager. If not, see <http:/www.gnu.org/licenses/>.
- */
+*/
 
 
-/* font-face kit by Fonts2u - http://www.fonts2u.com */
-@font-face {
-    font-family:"Open Sans Light";
-        src:url("/static/fonts/OpenSans-Light.eot?") format("eot"),
-            url("/static/fonts/OpenSans-Light.woff") format("woff"),
-            url("/static/fonts/OpenSans-Light.ttf") format("truetype"),
-            url("/static/fonts/OpenSans-Light.svg#OpenSans-Light") format("svg");
-    font-weight:normal;
-    font-style:normal;
-}
+/**************************************************************
+ * 
+ * This file contains slight modifications to the YAML theme
+ * or other YAML elements
+ *
+ **************************************************************/
 
-
-@font-face {
-    font-family:"Open Sans";
-        src:url("/static/fonts/OpenSans-Regular.eot?") format("eot"),
-            url("/static/fonts/OpenSans-Regular.woff") format("woff"),
-            url("/static/fonts/OpenSans-Regular.ttf") format("truetype"),
-            url("/static/fonts/OpenSans-Regular.svg#OpenSans") format("svg");
-    font-weight:normal;
-    font-style:normal;
-}
-
-﻿/* font-face kit by Fonts2u - http://www.fonts2u.com 
-@font-face {
-    font-family:"Open Sans Bold";
-        src:url("OpenSans-Bold.eot?") format("eot"),
-            url("OpenSans-Bold.woff") format("woff"),
-            url("OpenSans-Bold.ttf") format("truetype"),
-            url("OpenSans-Bold.svg#OpenSans-Bold") format("svg");
-    font-weight:normal;
-    font-style:normal;
-}
-
-
-@font-face {
-    font-family:"Open Sans";
-        src:url("/static/fonts/OpenSans-Regular.eot?") format("eot"),
-            url("/static/fonts/OpenSans-Regular.woff") format("woff"),
-            url("/static/fonts/OpenSans-Regular.ttf") format("truetype"),
-            url("/static/fonts/OpenSans-Regular.svg#OpenSans") format("svg");
-    font-weight:normal;
-    font-style:normal;
-}
-﻿*/
 
 h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
-		font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
-		font-weight: 300;
-	}
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
+	font-weight: 300;
+}
 
 body {
 	font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
 	color: black; /* Open Sans Light is very thin, black looks better here */
 }
 
-
-.ui-widget {
-    font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
-}
-.ui-widget input,
-.ui-widget select,
-.ui-widget textarea,
-.ui-widget button {
-    font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
+table {
+    color: black;
 }
 
+nav {
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+}
 
 
 tr:hover .editoptions, tbody tr:hover td .editoptions, ul:hover .editoptions 
