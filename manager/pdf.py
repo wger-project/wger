@@ -80,14 +80,6 @@ def workout_log(request, id):
         fontSize = 8,
         )
     
-    # Set the widths and heights of rows and columns
-    # TODO: if the height is set here, there is no automatic scaling when e.g.
-    #       the exercise names are too long. This should be fixed, till then set
-    #       to None for automatic scaling
-    #rowheights = (13)
-    colwidths = None
-    rowheights = None
-    
     
     # table data, here we will put the workout info
     data = []
@@ -184,19 +176,24 @@ def workout_log(request, id):
         #data.append([_('Impression'), '', ''])
         
         set_count += 1
+        data.append([''])
         group_day_marker[day.id]['end'] =  len(data)
         
-        #data.append([''])
+        # Set the widths and heights of rows and columns
+        # Note: 'None' is treated as 'automatic'. Either there is only one value for the whole list
+        #       or exactly one for every row/column
+        colwidths = None
+        rowheights = [None] * len(data)
     
     # Set general table styles
     table_style = [
-                    ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-                    ('BOX', (0,0), (-1,-1), 1.25, colors.black),
+                    #('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                    #('BOX', (0,0), (-1,-1), 1.25, colors.black),
                     ('FONT', (0, 0), (-1, -1), 'Helvetica'),
                     ('FONTSIZE', (0, 0), (-1, -1), 8),
                     ('VALIGN',(0, 0),(-1, -1),'MIDDLE'),
                     
-                    #Note: a padding of 3 seems to be the default
+                    # Note: a padding of 3 seems to be the default
                     ('LEFTPADDING', (0, 0), (-1, -1), 2), 
                     ('RIGHTPADDING', (0, 0), (-1, -1), 0),
                     ('TOPPADDING', (0, 0), (-1, -1), 3),
@@ -213,6 +210,12 @@ def workout_log(request, id):
         
         # Make the headings span the whole width
         table_style.append(('SPAN', (0, marker), (-1, marker)))
+        
+        # Make the space between days span the whole width
+        table_style.append(('SPAN', (0, marker -1), (-1, marker -1)))
+        
+        # Manually set 
+        rowheights[marker - 1] = 5
         
         # Make the date span 3 cells and align it to the right
         table_style.append(('ALIGN', (0, marker + 1), (2, marker +1), 'RIGHT'))
@@ -242,13 +245,11 @@ def workout_log(request, id):
         end_marker = group_day_marker[marker]['end']
         
         #table_style.append(('ALIGN', (0, end_marker - 2), (2, end_marker - 2), 'RIGHT'))
-    
-    #  TODO: this only makes sense if the "empty" cells can be made less high
-    #       than the others, otherwise it takes too much space!
-    # Draw borders and grids around the daystable_style.append(('SPAN', (0, end_marker - 2), (2, end_marker - 2)))
-    #    
-    #    table_style.append(('INNERGRID', (0, start_marker), (-1,end_marker -2 ), 0.25, colors.black))
-    #    table_style.append(('BOX', (0, start_marker), (-1, end_marker -2), 1.25, colors.black))
+        
+        
+        # There is an empty cell between the day blocks, set a border around them
+        table_style.append(('INNERGRID', (0, start_marker), (-1,end_marker -2 ), 0.25, colors.black))
+        table_style.append(('BOX', (0, start_marker), (-1, end_marker -2), 1.25, colors.black))
         
     
     # Set the table data
