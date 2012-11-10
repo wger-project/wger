@@ -143,7 +143,8 @@ def workout_log(request, id):
                 
                 group_exercise_marker[set_obj.id]['end'] = len(data)
                 
-                exercise_markers[day.id].append(len(data))
+                 # Note: '+1' here because there's an emtpy cell between days
+                exercise_markers[day.id].append(len(data) + 1)
                 setting_data = []
                 
                 
