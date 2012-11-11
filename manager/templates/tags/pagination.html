@@ -3,12 +3,15 @@
 <div class="pagination">
 
 <ul class="pagination">
-    {% if page.has_previous %}
+    
     <li>
-        <a href="?page={{ page.previous_page_number }}"
-           class="load-maincontent">« {% trans "previous" %}</a>
+        {% if page.has_previous %}
+            <a href="?page={{ page.previous_page_number }}"
+               class="load-maincontent">« {% trans "previous" %}</a>
+        {% else %}
+            <span class="deactivated">« {% trans "previous" %}</span>
+        {% endif %}
     </li>
-    {% endif %}
     
     {% for i in page_range %}
         {% if page.number != i %}
@@ -23,12 +26,14 @@
         {% endif %}
     {% endfor %}
     
-    {% if page.has_next %}
-        <li>
+    <li>
+        {% if page.has_next %}
         <a href="?page={{ page.next_page_number }}"
            class="load-maincontent">{%trans "next" %} »</a>
-        </li>
-    {% endif %}
+        {% else %}
+            <span class="deactivated">{%trans "next" %} »</span>
+        {% endif %}
+    </li>
 </ul>
 </div>
 

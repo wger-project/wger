@@ -272,13 +272,13 @@ div.warning a, div.warning a:hover, div.warning a:active{
 }
 
 ul.pagination li{
-    /*border: 0;*/
     margin: 0;
     padding: 0;
     list-style: none;
     margin-right: 0.5em;
 }
 
+ul.pagination .deactivated,
 ul.pagination a{
     margin-right: 0.5em;
 }
@@ -294,10 +294,21 @@ ul.pagination .active{
     border: 1px solid black;
 }
 
+ul.pagination .deactivated{
+    background: #D3D7CF;
+    color: #555753;
+    display: block;
+    float: left;
+    padding: 3px 9px;
+    border-radius: 3px;
+    border: 1px solid #D3D7CF;
+}
+
+
 ul.pagination a:link,
 ul.pagination a:visited {
     box-shadow: 0 0 4px #EEEEEE inset;
-    color: #0e509e
+    color: #0e509e;
     display: block;
     float: left;
     padding: 3px 9px;
