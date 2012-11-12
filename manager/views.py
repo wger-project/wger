@@ -362,12 +362,9 @@ def copy_workout(request, pk):
     """
     Makes a copy of a workout
     """
-    template_data = {}
-    template_data['active_tab'] = WORKOUT_TAB
     
     workout = get_object_or_404(TrainingSchedule, pk=pk, user=request.user)
-    template_data['workout'] = workout
-
+    
     # Copy workout
     days = workout.day_set.all()
     
