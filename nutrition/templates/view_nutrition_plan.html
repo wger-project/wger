@@ -262,6 +262,17 @@ $(document).ready(function() {
 </a>
 </p>
 
+
+<p>
+<a href="{% url nutrition-copy plan.id %}">
+    <img src="{% static 'images/icons/edit.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Copy nutrition plan' %}">
+    {% trans "Copy nutrition plan" %}
+</a>
+</p>
+
 <p>
 <a href="{% url nutrition-delete plan.id %}"
    class="modal-dialog">

@@ -140,6 +140,42 @@ def view(request, id):
                               template_data,
                               context_instance=RequestContext(request))
 
+@login_required
+def copy(request, pk):
+    """
+    Copy the nutrition plan
+    """
+    
+    plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
+    
+    
+    # Copy plan
+    meals = plan.meal_set.all()
+    
+    plan_copy = plan
+    plan_copy.pk = None
+    plan_copy.save()
+    
+    # Copy the meals
+    for meal in meals:
+        meal_items = meal.mealitem_set.all()
+        
+        meal_copy = meal
+        meal_copy.pk = None
+        meal_copy.plan = plan_copy
+        meal_copy.save()
+        
+        # Copy the individual meal entries
+        for item in meal_items:
+            item_copy = item
+            item_copy.pk = None
+            item_copy.meal = meal_copy
+            item.save()
+    
+    # Redirect
+    return HttpResponseRedirect(reverse('nutrition.views.view', kwargs= {'id': plan.id}))
+
+
 def export_pdf(request, id):
     """Generates a PDF with the contents of a nutrition plan
     

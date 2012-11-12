@@ -17,6 +17,10 @@ urlpatterns = patterns('nutrition.views',
     # Plans
     url(r'^nutrition/add/$', 'add'),
     url(r'^nutrition/(?P<id>\d+)/view/$', 'view'),
+    url(r'^nutrition/(?P<pk>\d+)/copy/$',
+        'copy',
+        name = 'nutrition-copy'),
+    
     url(r'^nutrition/(?P<pk>\d+)/delete/$',
         login_required(PlanDeleteView.as_view()),
         name='nutrition-delete'),
