@@ -14,11 +14,15 @@
 # 
 # You should have received a copy of the GNU Affero General Public License
 
+import logging
+
 from django.http import HttpResponseForbidden
 
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
 from django.views.generic.edit import ModelFormMixin
+
+logger = logging.getLogger('workout_manager.custom')
 
 class YamlFormMixin(ModelFormMixin):
     template_name = 'form.html'
@@ -74,7 +78,7 @@ class YamlFormMixin(ModelFormMixin):
             context['form_action'] = reverse(self.form_action_urlname, kwargs={'pk': self.object.id})
         elif self.form_action:
             context['form_action'] = self.form_action
-        
+            
         # Set the title
         context['title'] = self.title
         
@@ -139,7 +143,11 @@ class YamlDeleteMixin(ModelFormMixin):
         # When viewing the page on it's own, this is not necessary, but when
         # opening it on a modal dialog, we need to make sure the POST request
         # reaches the correct controller
-        context['form_action'] = self.form_action
+        if self.form_action_urlname:
+            context['form_action'] = reverse(self.form_action_urlname, kwargs={'pk': self.object.id})
+        elif self.form_action:
+            context['form_action'] = self.form_action
+            
         
         # Set the title
         context['title'] = self.title
