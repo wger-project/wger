@@ -357,6 +357,59 @@ def view_workout(request, id):
                               template_data,
                               context_instance=RequestContext(request))
 
+@login_required
+def copy_workout(request, pk):
+    """
+    Makes a copy of a workout
+    """
+    template_data = {}
+    template_data['active_tab'] = WORKOUT_TAB
+    
+    workout = get_object_or_404(TrainingSchedule, pk=pk, user=request.user)
+    template_data['workout'] = workout
+
+    # Copy workout
+    days = workout.day_set.all()
+    
+    workout_copy = workout
+    workout_copy.pk = None
+    workout_copy.save()
+    
+    # Copy the days
+    for day in days:
+        sets = day.set_set.all()
+        
+        day_copy = day
+        day_copy.pk = None
+        day_copy.training = workout_copy
+        day_copy.save()
+        
+        # Copy the sets
+        for current_set in sets:
+            current_set_id = current_set.id
+            exercises = current_set.exercises.all()
+            
+            current_set_copy = current_set
+            current_set_copy.pk = None
+            current_set_copy.exerciseday = day_copy
+            current_set_copy.save()
+            
+            # Exercises has Many2Many relationship
+            current_set_copy.exercises = exercises
+            
+            # Go through the exercises
+            for exercise in exercises:
+                settings = exercise.setting_set.filter(set_id=current_set_id)
+            
+                # Copy the settings
+                for setting in settings:
+                    setting_copy = setting
+                    setting_copy.pk = None
+                    setting_copy.set = current_set_copy
+                    setting_copy.save()
+    
+    return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs= {'id': workout.id}))
+
 
 @login_required
 def add(request):

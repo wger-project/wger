@@ -140,6 +140,18 @@ $(document).ready(function() {
 </p>
 
 <p>
+<a href="{% url workout-copy workout.id %}">
+   <img src="{% static 'images/icons/edit.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Copy workout' %}"
+         title="{% trans 'Copy workout' %}">
+   {% trans "Copy workout" %}
+</a>
+</p>
+
+
+<p>
 <a href="{% url workout-delete workout.id %}"
    class="modal-dialog">
     <img src="{% static 'images/icons/trash.svg' %}"

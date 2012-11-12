@@ -25,6 +25,10 @@ urlpatterns = patterns('manager.views',
     # Workout
     url(r'^workout/overview$', 'overview'),
     url(r'^workout/add$', 'add'),
+    url(r'^workout/(?P<pk>\d+)/copy/$',
+        'copy_workout',
+        name = 'workout-copy'),
+    
     url(r'^workout/(?P<pk>\d+)/edit/$',
         login_required(WorkoutEditView.as_view()),
         name = 'workout-edit'),
