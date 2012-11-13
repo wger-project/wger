@@ -215,7 +215,7 @@ function init_tinymce () {
 
 
 /*
- * Open a modal dialog for editing
+ * Open a modal dialog for form editing
  */
 function form_modal_dialog()
 {
@@ -252,24 +252,23 @@ function form_modal_dialog()
                 custom_modal_init();
             }
         
-            // Set its title and open the dialog
+            // Set the new title
             $("#ajax-info").dialog({title: $(responseText).find("#main-content h2").html()});
-            //$("#ajax-info").dialog("open");
         });
     });
 }
 
-
+/*
+ * Open a modal dialog for editing weight entries from the weight chart
+ */
 function scatterplot_modal_dialog(id)
 {
         var targetUrl = '/weight/' + id + '/edit/'
         
-        
         $("#ajax-info").load(targetUrl + " .ym-form", function(responseText, textStatus) {
             
-            // Set the title and open the dialog
+            // Set the new title
             $("#ajax-info").dialog({title: $(responseText).find("#main-content h2").html()});
-            $("#ajax-info").dialog("open");
             
             // Initialise the datepicker for the modal dialog
             init_weight_datepicker();
@@ -475,6 +474,15 @@ function weight_chart(data)
     
     // Make the circles clickable: open their edit dialog
     $('circle').click(function(e) {
+            $("#ajax-info").html('<div style="text-align:center;">'+
+                                '<img src="/static/images/loader.svg" ' +
+                                     'width="48" ' +
+                                     'height="48"> ' +
+                             '</div>');
+            $("#ajax-info").dialog({title: 'Loading...'});
+            $("#ajax-info").dialog("open");
+            
+            
             entry_id = $(this).attr('id').match(/\d+/);
             scatterplot_modal_dialog(entry_id);
         });
