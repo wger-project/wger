@@ -254,6 +254,52 @@ function form_modal_dialog()
         
             // Set the new title
             $("#ajax-info").dialog({title: $(responseText).find("#main-content h2").html()});
+            
+            
+            // If there is a form in the modal dialog (there usually is) prevent the submit
+            // button from submitting it and do it here with an AJAX request. If there
+            // are errors (there is an element with the class 'ym-error' in the result)
+            // reload the content back into the dialog so the user can correct the entries.
+            // If there isn't assume all was saved correctly and load that result into the
+            // page's main DIV (#main-content). All this must be done like this because there
+            // doesn't seem to be any reliable and easy way to detect redirects with AJAX.
+            if ($(responseText).find(".ym-form").length > 0)
+            {
+                form = $("#ajax-info").find(".ym-form");
+                submit = $(form).find("#form-save");
+                console.log('found form in modal dialog');
+                
+                submit.click(function(e) {
+                    e.preventDefault();
+                    console.log('clicked on submit');
+                    form_action = form.attr('action');
+                    
+                    // OK, we did the POST, what do we do with the result?
+                    $.post(form_action, form.serialize(), function(data) {
+                      
+                      if($(data).find('.ym-form .ym-error').length > 0)
+                      {
+                          // TODO: we must do the same again here, binding the click-event,
+                          //       checking for errors, etc, so move this out to a function
+                          //       and call itself here again.
+                          
+                          console.log('There was an error in the form');
+                          $("#ajax-info .ym-form").html($(data).find('.ym-form'));
+                      }
+                      else
+                      {
+                          // TODO: we must re-initialise all JS from #main-content again
+                          
+                          console.log('No errors found, yipeee');
+                          $("#ajax-info").dialog("close");
+                          $("#main-content").html($(data).find('#main-content'));
+                      }
+                      
+                      
+                      
+                    });
+                });
+            }
         });
     });
 }
