@@ -120,18 +120,6 @@ header h1
  * Set some style for the site's design
  * ********************************************
  */
-header div.ym-wbox
-{
-    margin-top: 1em;
-    
-    /* set the application logo as a background */
-    background-image: url("/static/images/icons/emblem.svg");
-    background-repeat: no-repeat;
-    background-size: 82px 82px;
-    
-    /* make space for the logo */
-    padding-left: 100px;
-}
 
 /*
  * Set a minimum height for the page

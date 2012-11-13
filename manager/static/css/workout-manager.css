@@ -216,6 +216,24 @@ header h1{
 	font-weight: 300;
 }
 
+header span.name{
+    text-shadow: 2px 3px 3px #292929;
+    font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
+	font-weight: 300;
+	font-size:   350%;
+	color:       white;
+	font-style:  italic;
+}
+
+
+header span.regular{
+    text-shadow: 2px 3px 3px #292929;
+    font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
+	font-weight: 300;
+	font-size:   350%;
+	color:       white;
+}
+
 
 /*
  * Links in warning boxes get a different style, the default blue doesn't match
