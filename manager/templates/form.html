@@ -3,9 +3,8 @@
 {% load staticfiles %} 
 
 {% block header %}
-{% for file in static_files %}
-    <script src="{% static file %}"></script>
-{% endfor %}
+
+{{ form.media }}
 
 {% if custom_js %}
 <script type="text/javascript">

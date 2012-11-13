@@ -31,7 +31,6 @@ class YamlFormMixin(ModelFormMixin):
     form_fields = []
     active_tab = ''
     select_lists = []
-    static_files = []
     custom_js = ''
     form_action = ''
     form_action_urlname = ''
@@ -65,9 +64,6 @@ class YamlFormMixin(ModelFormMixin):
         # another way of detecting them
         context['select_lists'] = self.select_lists
     
-        # List of additional JS static files, will be passed to {% static %}
-        context['static_files'] = self.static_files
-       
         # Custom JS code on form (autocompleter, editor, etc.)
         context['custom_js'] = self.custom_js
         

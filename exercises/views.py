@@ -197,7 +197,6 @@ class ExercisesEditAddView(YamlFormMixin):
                    'description']
     
     select_lists = ['category']
-    static_files = ['js/tinymce/tiny_mce.js']
     title = ugettext_lazy('Add exercise')    
     custom_js = 'init_tinymce();'
     
@@ -210,7 +209,10 @@ class ExercisesEditAddView(YamlFormMixin):
             language = load_language()
             category = ModelChoiceField(queryset=ExerciseCategory.objects.filter(language = language.id))
             class Meta:
-                model = Exercise 
+                model = Exercise
+
+            class Media:
+                js = {'js/tinymce/tiny_mce.js'} 
         
         return ExerciseForm
 
