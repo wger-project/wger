@@ -264,15 +264,16 @@ function scatterplot_modal_dialog(id)
 {
         var targetUrl = '/weight/' + id + '/edit/'
         
-        $("#ajax-info").load(targetUrl + " .ym-form", function() {
-            // Open the dialog
+        
+        $("#ajax-info").load(targetUrl + " .ym-form", function(responseText, textStatus) {
+            
+            // Set the title and open the dialog
+            $("#ajax-info").dialog({title: $(responseText).find("#main-content h2").html()});
             $("#ajax-info").dialog("open");
             
             // Initialise the datepicker for the modal dialog
             init_weight_datepicker();
         });
-        
-        
 }
 
 function init_ingredient_autocompleter()
