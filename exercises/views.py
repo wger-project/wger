@@ -212,7 +212,7 @@ class ExercisesEditAddView(YamlFormMixin):
                 model = Exercise
 
             class Media:
-                js = {'js/tinymce/tiny_mce.js'} 
+                js = ('js/tinymce/tiny_mce.js') 
         
         return ExerciseForm
 
