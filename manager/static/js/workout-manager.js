@@ -265,44 +265,59 @@ function form_modal_dialog()
             // doesn't seem to be any reliable and easy way to detect redirects with AJAX.
             if ($(responseText).find(".ym-form").length > 0)
             {
-                form = $("#ajax-info").find(".ym-form");
-                submit = $(form).find("#form-save");
-                console.log('found form in modal dialog');
-                
-                submit.click(function(e) {
-                    e.preventDefault();
-                    console.log('clicked on submit');
-                    form_action = form.attr('action');
-                    
-                    // OK, we did the POST, what do we do with the result?
-                    $.post(form_action, form.serialize(), function(data) {
-                      
-                      if($(data).find('.ym-form .ym-error').length > 0)
-                      {
-                          // TODO: we must do the same again here, binding the click-event,
-                          //       checking for errors, etc, so move this out to a function
-                          //       and call itself here again.
-                          
-                          console.log('There was an error in the form');
-                          $("#ajax-info .ym-form").html($(data).find('.ym-form'));
-                      }
-                      else
-                      {
-                          // TODO: we must re-initialise all JS from #main-content again
-                          
-                          console.log('No errors found, yipeee');
-                          $("#ajax-info").dialog("close");
-                          $("#main-content").html($(data).find('#main-content'));
-                      }
-                      
-                      
-                      
-                    });
-                });
+                modal_dialog_form_edit();
             }
         });
     });
 }
+
+
+function modal_dialog_form_edit()
+{
+    form = $("#ajax-info").find(".ym-form");
+    submit = $(form).find("#form-save");
+    console.log('found form in modal dialog');
+    
+    submit.click(function(e) {
+        e.preventDefault();
+        console.log('clicked on submit');
+        form_action = form.attr('action');
+        
+        // OK, we did the POST, what do we do with the result?
+        $.post(form_action, form.serialize(), function(data) {
+          
+            if($(data).find('.ym-form .ym-error').length > 0)
+            {
+                // we must do the same with the new form as before, binding the click-event,
+                // checking for errors etc, so it calls itself here again.
+              
+                console.log('There was an error in the form');
+                $("#ajax-info .ym-form").html($(data).find('.ym-form').html());
+                modal_dialog_form_edit();
+            }
+            else
+            {
+                console.log('No errors found, yipeee');
+                $("#ajax-info").dialog("close");
+                $("#content-wrapper").html($(data).find('#content-wrapper').html());
+             
+                // re-initialise all JS from #main-content again 
+                if (typeof custom_modal_init != "undefined")
+                {
+                    console.log('Calling custom_modal_init()');
+                    custom_modal_init();
+                }
+                form_modal_dialog();
+                
+                // TODO: this is not enough, many pages need custom functions to
+                //       work correctly, custom_modal_dialog only fixes the JS needed
+                //       inside the modal dialog
+            }
+        });
+    });
+
+}
+
 
 /*
  * Open a modal dialog for editing weight entries from the weight chart
