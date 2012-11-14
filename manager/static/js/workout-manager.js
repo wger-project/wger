@@ -276,42 +276,45 @@ function modal_dialog_form_edit()
 {
     form = $("#ajax-info").find(".ym-form");
     submit = $(form).find("#form-save");
-    console.log('found form in modal dialog');
     
     submit.click(function(e) {
         e.preventDefault();
-        console.log('clicked on submit');
         form_action = form.attr('action');
+        form_data = form.serialize();
+        
+        // Unbind all click elements, so the form doesn't get submitted twice
+        // if the user clicks 2 times on the button (while there is already a request
+        // happening in the background)
+        submit.off();
+        
+        // Show a loader while we fetch the real page
+        $("#ajax-info .ym-form").html('<div style="text-align:center;">'+
+                                '<img src="/static/images/loader.svg" ' +
+                                     'width="48" ' +
+                                     'height="48"> ' +
+                             '</div>');
+        $("#ajax-info").dialog({title: 'Processing...'}); // TODO: translate this
+        
         
         // OK, we did the POST, what do we do with the result?
-        $.post(form_action, form.serialize(), function(data) {
+        $.post(form_action, form_data, function(data) {
           
             if($(data).find('.ym-form .ym-error').length > 0)
             {
                 // we must do the same with the new form as before, binding the click-event,
                 // checking for errors etc, so it calls itself here again.
               
-                console.log('There was an error in the form');
                 $("#ajax-info .ym-form").html($(data).find('.ym-form').html());
+                $("#ajax-info").dialog({title: $(responseText).find("#main-content h2").html()});
+            
                 modal_dialog_form_edit();
             }
             else
             {
-                console.log('No errors found, yipeee');
                 $("#ajax-info").dialog("close");
-                $("#content-wrapper").html($(data).find('#content-wrapper').html());
-             
-                // re-initialise all JS from #main-content again 
-                if (typeof custom_modal_init != "undefined")
-                {
-                    console.log('Calling custom_modal_init()');
-                    custom_modal_init();
-                }
-                form_modal_dialog();
                 
-                // TODO: this is not enough, many pages need custom functions to
-                //       work correctly, custom_modal_dialog only fixes the JS needed
-                //       inside the modal dialog
+                // Note: loading the new page like this executes all its JS code
+                $('body').html(data);
             }
         });
     });
