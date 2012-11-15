@@ -39,12 +39,24 @@ $(document).ready(function() {
     
     <tr id="form-ajax-{{set_form.exercises.name}}">
         <td style="text-align:right;">
+            {% if set_form.exercises.errors %}<div class="ym-fbox-text ym-error"><span class="ym-message">{% endif %}
             {% trans set_form.exercises.label %}
+            {% if set_form.exercises.errors %}</span></div>{% endif %}
         </td>
         <td>
-            <div class="ym-fbox-text">
+            <div class="ym-fbox-text {% if set_form.exercises.errors %}ym-error{% endif %}">
                  <input type="text" id="exercise-search">
             </div>
+            
+            {% if set_form.exercises.errors %}
+            <div class="ym-fbox-text ym-error">
+                {% for error in set_form.exercises.errors %}
+                    <p class="ym-message">{% trans error %}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        
+            
             <div id="exercise-search-log"></div>
         </td>
     </tr>    
