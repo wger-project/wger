@@ -390,9 +390,6 @@ function init_edit_set()
                     
                     });
 
-    // The multi-select exercise list is not needed if javascript is activated
-    $('#form-exercises').remove();
-    
     // Initialise the autocompleter (our widget, defined above)
     $("#exercise-search").catcomplete({
             source: "/exercise/search/",

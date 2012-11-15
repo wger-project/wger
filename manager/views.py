@@ -72,6 +72,8 @@ from workout_manager.constants import WORKOUT_TAB
 from workout_manager.constants import USER_TAB
 from workout_manager.generic_views import YamlFormMixin
 from workout_manager.generic_views import YamlDeleteMixin
+from workout_manager.widgets import ExerciseAjaxSelect
+
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -566,10 +568,22 @@ def view_day(request, id):
 # ************************
 # Set functions
 # ************************
+
 class SetForm(ModelForm):
     class Meta:
         model = Set
         exclude = ('exerciseday', 'order',)
+        widgets = {
+                'exercises': ExerciseAjaxSelect(),
+        }
+        
+    # We need to overwrite the init method here because otherwise Django
+    # will outut a default help text, regardless of the widget used
+    # https://code.djangoproject.com/ticket/9321 
+    def __init__(self, *args, **kwargs):
+        super(SetForm, self).__init__(*args, **kwargs)
+        self.fields['exercises'].help_text = _('You can search for more than one exercise, '
+                                            'they will be grouped together for a superset.')
 
 @login_required
 def edit_set(request, id, day_id, set_id=None):
