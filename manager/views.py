@@ -73,6 +73,7 @@ from workout_manager.constants import USER_TAB
 from workout_manager.generic_views import YamlFormMixin
 from workout_manager.generic_views import YamlDeleteMixin
 from workout_manager.widgets import ExerciseAjaxSelect
+from workout_manager.widgets import TranslatedSelectMultiple
 
 
 logger = logging.getLogger('workout_manager.custom')
@@ -452,6 +453,10 @@ class DayForm(ModelForm):
     class Meta:
         model = Day
         exclude=('training',)
+        
+        widgets = {
+                    'day': TranslatedSelectMultiple()
+        }
         
 
 class DayView(YamlFormMixin):

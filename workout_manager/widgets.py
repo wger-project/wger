@@ -14,10 +14,13 @@
 # 
 # You should have received a copy of the GNU Affero General Public License
 
+from itertools import chain
 
+from django.forms.widgets import SelectMultiple
 from django.forms.widgets import Widget
 from django.forms.util import flatatt
-from itertools import chain
+
+from django.utils.translation import ugettext as _
 from django.utils.encoding import force_unicode
 from django.utils.html import escape
 from django.utils.html import conditional_escape
@@ -93,3 +96,13 @@ class ExerciseAjaxSelect(Widget):
             return data.getlist(name)
         return data.get(name, None)
 
+class TranslatedSelectMultiple(SelectMultiple):
+    '''
+    A SelectMultiple widget that translates the options
+    '''
+
+    def render_option(self, selected_choices, option_value, option_label):
+        return super(TranslatedSelectMultiple, self).render_option(selected_choices,
+                                                                   option_value,
+                                                                   _(option_label))
+        
