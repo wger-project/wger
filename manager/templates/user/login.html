@@ -21,7 +21,7 @@
               {{ form.non_field_errors }}
           </div>
        </div>
-      <input type="hidden" name="redirect_target" value="{{redirect_target}}">
+      <input type="hidden" name="next" value="{{next}}">
 <table>
 {% include "form_snippet.html" with field=form.username %}
 {% include "form_snippet.html" with field=form.password %}
