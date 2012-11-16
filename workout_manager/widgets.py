@@ -45,11 +45,12 @@ class ExerciseAjaxSelect(SelectMultiple):
         output.append(u'<input type="text" id="exercise-search">')
         output.append(u'</div>')
         
+        output.append('<div id="exercise-search-log">')
         options = self.render_options(choices, value)
         if options:
-            output.append(options)
+            output.append(options) 
+        output.append('</div>')
         
-        output.append('<div id="exercise-search-log"></div>')
         return mark_safe(u'\n'.join(output))
 
 
@@ -67,7 +68,7 @@ class ExerciseAjaxSelect(SelectMultiple):
         if option_value in selected_choices:
             
             return u'''
-                    <div id="as(div_id)s" class="ajax-exercise-select"> 
+                    <div id="a%(div_id)s" class="ajax-exercise-select"> 
                         <a href="#"> 
                         <img src="/static/images/icons/status-off.svg" 
                              width="14" 

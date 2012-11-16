@@ -42,6 +42,12 @@
     <script>
     $(document).ready(function() {
         
+        if (typeof custom_page_init != "undefined")
+        {
+            custom_page_init();
+        }
+            
+        
         // Init the modal dialog for editing forms
         form_modal_dialog();
         

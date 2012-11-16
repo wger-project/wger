@@ -305,7 +305,7 @@ function modal_dialog_form_edit()
                 // checking for errors etc, so it calls itself here again.
               
                 $("#ajax-info .ym-form").html($(data).find('.ym-form').html());
-                $("#ajax-info").dialog({title: $(responseText).find("#main-content h2").html()});
+                $("#ajax-info").dialog({title: $(data).find("#main-content h2").html()});
             
                 modal_dialog_form_edit();
             }
@@ -316,6 +316,20 @@ function modal_dialog_form_edit()
                 // Note: loading the new page like this executes all its JS code
                 $('body').html(data);
             }
+            
+            // Call other custom initialisation functions
+            // (e.g. if the form as an autocompleter, it has to be initialised again)
+            if (typeof custom_modal_init != "undefined")
+            {
+                custom_modal_init();
+            }
+            
+            if (typeof custom_page_init != "undefined")
+            {
+                custom_page_init();
+            }
+            
+            
         });
     });
 
@@ -378,7 +392,7 @@ function add_exercise(exercise)
 function init_edit_set()
 {
     // Validate the form with JQuery
-    $(".ym-form").validate({
+    $(".ym-formAAAA").validate({
                     errorClass:'form-error',
                     rules: {
                         sets: {
@@ -390,8 +404,6 @@ function init_edit_set()
                     
                     });
 
-    // Initialise the autocompleter (our widget, defined above)
-    $("#exercise-search").catcomplete({
             source: "/exercise/search/",
             minLength: 2,
             select: function(event, ui) {
