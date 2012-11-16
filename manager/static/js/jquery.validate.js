@@ -1,1 +1,0 @@
-jquery.validate.1.10.0.min.js

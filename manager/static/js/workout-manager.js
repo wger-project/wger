@@ -391,19 +391,8 @@ function add_exercise(exercise)
 
 function init_edit_set()
 {
-    // Validate the form with JQuery
-    $(".ym-formAAAA").validate({
-                    errorClass:'form-error',
-                    rules: {
-                        sets: {
-                            required: true,
-                            number: true,
-                            max: 6
-                        }
-                    }
-                    
-                    });
-
+    // Initialise the autocompleter (our widget, defined above)
+    $("#exercise-search").catcomplete({
             source: "/exercise/search/",
             minLength: 2,
             select: function(event, ui) {
@@ -411,18 +400,18 @@ function init_edit_set()
                 // Add the exercise to the list
                 add_exercise(ui.item);
                 
-                // Remove the result div (also contains the hidden form element) when the user
-                // clicks on the delete link
-                $(".ajax-exercise-select a").click(function(e) {
-                    e.preventDefault();
-                    $(this).parent('div').remove();
-                });
-                
                 // Reset the autocompleter
                 $(this).val("");
                 return false;
             }
         });
+    
+    // Remove the result div (also contains the hidden form element) when the user
+    // clicks on the delete link
+    $(".ajax-exercise-select a").click(function(e) {
+        e.preventDefault();
+        $(this).parent('div').remove();
+    });
 }
 
 function init_weight_datepicker()
