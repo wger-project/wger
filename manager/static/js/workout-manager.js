@@ -400,14 +400,22 @@ function init_edit_set()
                 // Add the exercise to the list
                 add_exercise(ui.item);
                 
+                // Remove the result div (also contains the hidden form element) when the user
+                // clicks on the delete link
+                $(".ajax-exercise-select a").click(function(e) {
+                    e.preventDefault();
+                    $(this).parent('div').remove();
+                });
+                
                 // Reset the autocompleter
                 $(this).val("");
                 return false;
             }
         });
     
-    // Remove the result div (also contains the hidden form element) when the user
-    // clicks on the delete link
+    // Remove the result div again
+    // TODO: it seems it's necessary to have this twice, see if there's a better
+    //       way to handle it 
     $(".ajax-exercise-select a").click(function(e) {
         e.preventDefault();
         $(this).parent('div').remove();
