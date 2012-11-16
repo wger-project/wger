@@ -13,7 +13,7 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU Affero General Public License
-
+import uuid
 from itertools import chain
 
 from django.forms.widgets import SelectMultiple
@@ -30,20 +30,12 @@ from django.utils.datastructures import MergeDict
 
 
 
-class ExerciseAjaxSelect(Widget):
+class ExerciseAjaxSelect(SelectMultiple):
     '''
     Custom widget that allows to select exercises from an autocompleter
     
     This is basically modified MultipleSelect widget 
     '''
-    
-    def __init__(self, attrs=None, choices=()):
-        super(ExerciseAjaxSelect, self).__init__(attrs)
-        # choices can be any iterable, but we may need to render this widget
-        # multiple times. Thus, collapse it into a list so it can be consumed
-        # more than once.
-        self.choices = list(choices)
-
     
     def render(self, name, value, attrs=None, choices=()):
         if value is None: value = []
@@ -75,7 +67,7 @@ class ExerciseAjaxSelect(Widget):
         if option_value in selected_choices:
             
             return u'''
-                    <div id="DIV-ID" class="ajax-exercise-select"> 
+                    <div id="as(div_id)s" class="ajax-exercise-select"> 
                         <a href="#"> 
                         <img src="/static/images/icons/status-off.svg" 
                              width="14" 
@@ -85,17 +77,14 @@ class ExerciseAjaxSelect(Widget):
                         <input type="hidden" name="exercises" value="%(id)s"> 
                     </div>
             ''' % { 'value': conditional_escape(force_unicode(option_label)),
-                    'id':    escape(option_value)
+                    'id':    escape(option_value),
+                    'div_id': uuid.uuid4()
             }
             
         else:
             return ''
     
-    def value_from_datadict(self, data, files, name):
-        if isinstance(data, (MultiValueDict, MergeDict)):
-            return data.getlist(name)
-        return data.get(name, None)
-
+   
 class TranslatedSelectMultiple(SelectMultiple):
     '''
     A SelectMultiple widget that translates the options
