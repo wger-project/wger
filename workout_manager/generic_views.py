@@ -117,6 +117,7 @@ class YamlDeleteMixin(ModelFormMixin):
     
     active_tab = ''
     form_action = ''
+    form_action_urlname = ''
     title = ''
     delete_message = ''
     template_name = 'delete.html'
