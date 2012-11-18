@@ -19,6 +19,7 @@ import uuid
 import datetime
 
 from django.http import HttpResponse
+from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
@@ -65,7 +66,7 @@ def workout_log(request, id):
                             topMargin = 0.5 * cm,
                             bottomMargin = 0.5 * cm,
                             title = _('Workout'),
-                            author = _('Workout Manager'),
+                            author = 'wger Workout Manager',
                             subject = _('Workout for %s') % request.user.username)
 
     # container for the 'Flowable' objects
@@ -293,10 +294,18 @@ def workout_log(request, id):
     elements.append(P)
     
     # Print date and info
-    P = Paragraph('<para align="left">%(date)s - %(created)s v%(version)s</para>' %
-                    {'date' : _("Created on the <b>%s</b>") % workout.creation_date.strftime("%d.%m.%Y"),
-                     'created' : "Workout Manager",
-                     'version': get_version()},
+    P = Paragraph('''<para align="left">
+                        %(date)s -
+                        <a href="%(url)s">%(url)s</a> -
+                        %(created)s
+                        %(version)s
+                    </para>''' %
+                    {'date'    : _("Created on the <b>%s</b>") % datetime.date.today().strftime("%d.%m.%Y"),
+                     'created' : "wger Workout Manager",
+                     'version' : get_version(),
+                     'url'     : request.build_absolute_uri(reverse('manager.views.view_workout',
+                                                               kwargs={'id': workout.id})),
+                     },
                   styleSheet["Normal"])
     elements.append(P)
     
