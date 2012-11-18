@@ -27,5 +27,8 @@ def processor(request):
         'DNT': request.META.get('HTTP_DNT', False),
         
         # User language
-        'language': load_language()
+        'language': load_language(),
+        
+        # The current request
+        'request': request
     }
