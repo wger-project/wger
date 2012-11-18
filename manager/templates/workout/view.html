@@ -139,7 +139,8 @@ $(document).ready(function() {
 </p>
 
 <p>
-<a href="{% url workout-copy workout.id %}">
+<a href="{% url workout-copy workout.id %}"
+   class="modal-dialog">
    <img src="{% static 'images/icons/copy.svg' %}"
          width="32"
          height="32"
