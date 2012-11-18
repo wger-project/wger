@@ -198,7 +198,7 @@ function set_english_ingredients()
 /*
  * Init calls for tinyMCE editor
  */
-function init_tinymce () {
+function init_tinymce() {
     
     // Only try to init it on pages that loaded its JS file (so they probably need it)
     if (typeof tinyMCE != 'undefined')
