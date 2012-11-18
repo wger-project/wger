@@ -138,8 +138,7 @@ function custom_modal_init()
 {% if perms.exercises %}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url exercise-edit exercise.id %}"
-       class="modal-dialog">
+    <a href="{% url exercise-edit exercise.id %}">
         <img src="{% static 'images/icons/edit.svg' %}"
              width="32"
              height="32"

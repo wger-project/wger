@@ -79,8 +79,7 @@ $(document).ready(function() {
                 	{% if perms.exercises %}
                         <div class="editoptions">
                             <a href="{% url exercise-edit exercise.id %}"
-                               title="{% trans 'Edit' %}"
-                               class="modal-dialog">
+                               title="{% trans 'Edit' %}">
                                <img src="{% static 'images/icons/edit.svg' %}"
                                     width="16"
                                     height="16"
