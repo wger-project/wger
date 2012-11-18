@@ -25,17 +25,21 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
-from django.forms import ModelForm
-from django.forms import EmailField
-from django.forms.models import modelformset_factory
-from django.forms import SelectMultiple
-from django.forms import ValidationError
 from django.core.context_processors import csrf
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
+
+from django.forms import Form
+from django.forms import ModelForm
+from django.forms import EmailField
+from django.forms import CharField
+from django.forms import SelectMultiple
+from django.forms import ValidationError
+from django.forms.models import modelformset_factory
+
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as django_login
@@ -45,10 +49,8 @@ from django.contrib.auth.models import User as Django_User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import PasswordChangeForm
-
 from django.contrib.auth.views import login as django_loginview
 from django.contrib.auth.views import password_change as django_pwchange
-
 
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
@@ -360,6 +362,12 @@ def view_workout(request, id):
                               template_data,
                               context_instance=RequestContext(request))
 
+
+class WorkoutCopyForm(Form):
+    comment = CharField(max_length = 100,
+                        help_text  = _('The goal or description of the new workout.'),
+                        required   = False)
+
 @login_required
 def copy_workout(request, pk):
     """
@@ -368,47 +376,69 @@ def copy_workout(request, pk):
     
     workout = get_object_or_404(TrainingSchedule, pk=pk, user=request.user)
     
-    # Copy workout
-    days = workout.day_set.all()
-    
-    workout_copy = workout
-    workout_copy.pk = None
-    workout_copy.save()
-    
-    # Copy the days
-    for day in days:
-        sets = day.set_set.all()
+    # Process request
+    if request.method == 'POST':
+        workout_form = WorkoutCopyForm(request.POST)
         
-        day_copy = day
-        day_copy.pk = None
-        day_copy.training = workout_copy
-        day_copy.save()
+        if workout_form.is_valid():
         
-        # Copy the sets
-        for current_set in sets:
-            current_set_id = current_set.id
-            exercises = current_set.exercises.all()
+            # Copy workout
+            days = workout.day_set.all()
             
-            current_set_copy = current_set
-            current_set_copy.pk = None
-            current_set_copy.exerciseday = day_copy
-            current_set_copy.save()
+            workout_copy = workout
+            workout_copy.pk = None
+            workout_copy.comment = workout_form.cleaned_data['comment']
+            workout_copy.save()
             
-            # Exercises has Many2Many relationship
-            current_set_copy.exercises = exercises
-            
-            # Go through the exercises
-            for exercise in exercises:
-                settings = exercise.setting_set.filter(set_id=current_set_id)
-            
-                # Copy the settings
-                for setting in settings:
-                    setting_copy = setting
-                    setting_copy.pk = None
-                    setting_copy.set = current_set_copy
-                    setting_copy.save()
+            # Copy the days
+            for day in days:
+                sets = day.set_set.all()
+                
+                day_copy = day
+                day_copy.pk = None
+                day_copy.training = workout_copy
+                day_copy.save()
+                
+                # Copy the sets
+                for current_set in sets:
+                    current_set_id = current_set.id
+                    exercises = current_set.exercises.all()
+                    
+                    current_set_copy = current_set
+                    current_set_copy.pk = None
+                    current_set_copy.exerciseday = day_copy
+                    current_set_copy.save()
+                    
+                    # Exercises has Many2Many relationship
+                    current_set_copy.exercises = exercises
+                    
+                    # Go through the exercises
+                    for exercise in exercises:
+                        settings = exercise.setting_set.filter(set_id=current_set_id)
+                    
+                        # Copy the settings
+                        for setting in settings:
+                            setting_copy = setting
+                            setting_copy.pk = None
+                            setting_copy.set = current_set_copy
+                            setting_copy.save()
+                            
+            return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs= {'id': workout.id}))
+    else:
+        workout_form = WorkoutCopyForm({'comment' : workout.comment})
+        
+        template_data = {}
+        template_data.update(csrf(request))
+        template_data['title']       = _('Copy workout')
+        template_data['form']        = workout_form
+        template_data['form_action'] = reverse('workout-copy', kwargs= {'pk': workout.id})
+        template_data['form_fields'] = [workout_form['comment']]
     
-    return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs= {'id': workout.id}))
+        return render_to_response('form.html',
+                              template_data,
+                              context_instance=RequestContext(request))
+
+    
 
 
 @login_required
