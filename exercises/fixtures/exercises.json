@@ -1,5 +1,129 @@
 [
     {
+        "pk": 10, 
+        "model": "exercises.exercisecategory", 
+        "fields": {
+            "name": "Abs", 
+            "language": 2
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "exercises.exercisecategory", 
+        "fields": {
+            "name": "Arme", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "exercises.exercisecategory", 
+        "fields": {
+            "name": "Arms", 
+            "language": 2
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "exercises.exercisecategory", 
+        "fields": {
+            "name": "Back", 
+            "language": 2
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "exercises.exercisecategory", 
+        "fields": {
+            "name": "Bauch", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "exercises.exercisecategory", 
+        "fields": {
+            "name": "Beine", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "exercises.exercisecategory", 
+        "fields": {
+            "name": "Brust", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "exercises.exercisecategory", 
+        "fields": {
+            "name": "Calves", 
+            "language": 2
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "exercises.exercisecategory", 
+        "fields": {
+            "name": "Chest", 
+            "language": 2
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "exercises.exercisecategory", 
+        "fields": {
+            "name": "Legs", 
+            "language": 2
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "exercises.exercisecategory", 
+        "fields": {
+            "name": "R\u00fccken", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "exercises.exercisecategory", 
+        "fields": {
+            "name": "Schultern", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "exercises.exercisecategory", 
+        "fields": {
+            "name": "Shoulders", 
+            "language": 2
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "exercises.exercisecategory", 
+        "fields": {
+            "name": "Waden", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 135, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 1, 
+            "muscles": [
+                5
+            ], 
+            "description": "", 
+            "name": "Ausfallschritt Trizepsdr\u00fccken \u00fc. Kopf, \u00df-Stange"
+        }
+    }, 
+    {
         "pk": 5, 
         "model": "exercises.exercise", 
         "fields": {
@@ -71,6 +195,18 @@
             ], 
             "description": "", 
             "name": "Beinbeuger liegend"
+        }
+    }, 
+    {
+        "pk": 133, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 2, 
+            "muscles": [
+                11
+            ], 
+            "description": "", 
+            "name": "Beinbeuger sitzend"
         }
     }, 
     {
@@ -816,6 +952,18 @@
         }
     }, 
     {
+        "pk": 134, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 1, 
+            "muscles": [
+                1
+            ], 
+            "description": "", 
+            "name": "Hammercurls am Seil"
+        }
+    }, 
+    {
         "pk": 60, 
         "model": "exercises.exercise", 
         "fields": {
@@ -1005,6 +1153,18 @@
             ], 
             "description": "", 
             "name": "Long-Pulley"
+        }
+    }, 
+    {
+        "pk": 136, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 3, 
+            "muscles": [
+                12
+            ], 
+            "description": "", 
+            "name": "Long-Pulley (eng)"
         }
     }, 
     {
@@ -1234,6 +1394,18 @@
         }
     }, 
     {
+        "pk": 132, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 5, 
+            "muscles": [
+                2
+            ], 
+            "description": "", 
+            "name": "Seitheben am Kabel, einarmig"
+        }
+    }, 
+    {
         "pk": 119, 
         "model": "exercises.exercise", 
         "fields": {
@@ -1258,16 +1430,6 @@
         }
     }, 
     {
-        "pk": 8, 
-        "model": "exercises.exercise", 
-        "fields": {
-            "category": 5, 
-            "muscles": [], 
-            "description": "", 
-            "name": "Shrugs"
-        }
-    }, 
-    {
         "pk": 120, 
         "model": "exercises.exercise", 
         "fields": {
@@ -1277,6 +1439,30 @@
             ], 
             "description": "", 
             "name": "Shrugs"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 5, 
+            "muscles": [
+                2
+            ], 
+            "description": "", 
+            "name": "Shrugs (Schulterheben) mit KH"
+        }
+    }, 
+    {
+        "pk": 137, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 5, 
+            "muscles": [
+                2
+            ], 
+            "description": "", 
+            "name": "Shrugs (Schulterheben) mit LH"
         }
     }, 
     {
@@ -1506,6 +1692,19 @@
         }
     }, 
     {
+        "pk": 131, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 10, 
+            "muscles": [
+                2, 
+                1
+            ], 
+            "description": "", 
+            "name": "test"
+        }
+    }, 
+    {
         "pk": 40, 
         "model": "exercises.exercise", 
         "fields": {
@@ -1515,46 +1714,6 @@
             ], 
             "description": "", 
             "name": "\u00dcberzugmaschine"
-        }
-    }, 
-    {
-        "pk": 1, 
-        "model": "exercises.exercisecomment", 
-        "fields": {
-            "comment": "test 123", 
-            "exercise": 8
-        }
-    }, 
-    {
-        "pk": 2, 
-        "model": "exercises.exercisecomment", 
-        "fields": {
-            "comment": "qwe", 
-            "exercise": 8
-        }
-    }, 
-    {
-        "pk": 3, 
-        "model": "exercises.exercisecomment", 
-        "fields": {
-            "comment": " wndqw dnwnqw duqddqnd qw ndiuqw diuw dniuq d", 
-            "exercise": 8
-        }
-    }, 
-    {
-        "pk": 4, 
-        "model": "exercises.exercisecomment", 
-        "fields": {
-            "comment": "dadsa", 
-            "exercise": 3
-        }
-    }, 
-    {
-        "pk": 5, 
-        "model": "exercises.exercisecomment", 
-        "fields": {
-            "comment": " sds dsad", 
-            "exercise": 3
         }
     }, 
     {
@@ -1931,14 +2090,6 @@
         "fields": {
             "comment": "Arme ganz ausstrecken", 
             "exercise": 28
-        }
-    }, 
-    {
-        "pk": 53, 
-        "model": "exercises.exercisecomment", 
-        "fields": {
-            "comment": "aa", 
-            "exercise": 38
         }
     }, 
     {
