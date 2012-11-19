@@ -550,13 +550,18 @@ function weight_chart(data)
  */
 function load_maincontent()
 {
-    // TODO: see what can be done about browser history and current URL
     $(".load-maincontent").click(function(e) {
         e.preventDefault();
         var targetUrl = $(this).attr("href");
         
         $.get(targetUrl, function(data) {
+            // Load the data
             $('#main-content').html($(data).find('#main-content').html());
+            
+            // Update the browser's history
+            current_url = $(data).find("#current-url").html();
+            history.pushState({}, "", current_url);
+                
             load_maincontent();
         });
     });
