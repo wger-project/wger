@@ -160,6 +160,39 @@ class Setting(models.Model):
         return self.set.exerciseday.training
 
 
+class WorkoutLog(models.Model):
+    """
+    A log entry for an exercise
+    """
+    
+    user = models.ForeignKey(User, verbose_name = _('User'))
+    exercise = models.ForeignKey(Exercise, verbose_name = _('Exercise'))
+    workout = models.ForeignKey(TrainingSchedule, verbose_name = _('Workout'))
+    
+    reps = models.IntegerField(verbose_name = _('Repetitions'))
+    weight = models.IntegerField(verbose_name = _('Weight'))
+    date = models.DateField(verbose_name = _('Date'))
+    
+    # Metaclass to set some other properties
+    class Meta:
+        ordering = ["date"]
+    
+    
+    def __unicode__(self):
+        """
+        Return a more human-readable representation
+        """
+        return "Log entry: %s - %s kg on %s" % (self.reps,
+                                                self.weight,
+                                                self.date)
+
+    def get_owner_object(self):
+        """
+        Returns the object that has owner information
+        """
+        return self
+
+
 class UserProfile(models.Model):
     # This field is required.
     user = models.OneToOneField(User)

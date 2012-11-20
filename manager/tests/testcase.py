@@ -21,7 +21,10 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 class WorkoutManagerTestCase(TestCase):
-    fixtures = ['tests-user-data', 'test-exercises', ]
+    fixtures = ['tests-user-data',
+                'test-exercises',
+                'tests-ingredients',
+                'tests-days-of-week']
     
     def user_login(self, user='admin'):
         """Login the user, by default as 'admin'
@@ -39,7 +42,10 @@ class WorkoutManagerLiveServerTestCase(LiveServerTestCase):
     Live server test case, will be used with the selenium webdriver
     """
     
-    fixtures = ['tests-user-data', 'test-exercises', 'tests-ingredients']
+    fixtures = ['tests-user-data',
+                'test-exercises',
+                'tests-ingredients',
+                'tests-days-of-week']
     
 
     def setUp(self):
@@ -60,7 +66,7 @@ class WorkoutManagerLiveServerTestCase(LiveServerTestCase):
         """
         
         self.browser.quit()
-        
+        #pass
     
     def user_login(self, user='admin', explicit_login=True):
         """

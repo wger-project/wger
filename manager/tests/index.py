@@ -92,7 +92,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
         #
         # Now, with weight
         #
-        self.client.post(reverse('weight.views.add', kwargs={'id': None}),
+        self.client.post(reverse('weight-add'),
                         {'weight': 100,
                          'creation_date': '2012-01-01'},
                         )

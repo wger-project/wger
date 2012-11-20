@@ -35,7 +35,13 @@ urlpatterns = patterns('manager.views',
     url(r'^workout/(?P<pk>\d+)/delete/$',
         login_required(WorkoutDeleteView.as_view()),
         name = 'workout-delete'),
-    url(r'^workout/(?P<id>\d+)/view/$', 'view_workout'),
+    url(r'^workout/(?P<id>\d+)/view/$',
+        'view_workout',
+        name = 'workout-view'),
+    url(r'^workout/(?P<pk>\d+)/log/$',
+        'workout_log_overview',
+        name = 'workout-log'), 
+    
     
     # Days
     url(r'^workout/day/(?P<pk>\d+)/edit/$',
@@ -46,6 +52,9 @@ urlpatterns = patterns('manager.views',
         name = 'day-add'),
     url(r'^workout/(?P<id>\d+)/delete/day/(?P<day_id>\d+)$', 'delete_day'),
     url(r'^workout/day/view/(?P<id>\d+)$', 'view_day'),
+    url(r'^workout/(?P<workout_pk>\d+)/day/log/$',
+        login_required(DayCreateView.as_view()),
+        name = 'day-log'),
     
     # Sets and Settings
     url(r'^workout/(?P<id>\d+)/day/(?P<day_id>\d+)/edit/set/(?P<set_id>\w*)$', 'edit_set'),

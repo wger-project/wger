@@ -949,3 +949,7 @@ def delete_setting(request, id, set_id, exercise_id):
     
     return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs= {'id': id}))
 
+
+
+def workout_log_overview(request):
+    pass

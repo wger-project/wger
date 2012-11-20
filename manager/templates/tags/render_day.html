@@ -46,6 +46,14 @@ $(document).ready(function() {
                             height="22"
                             alt="{% trans 'Edit' %}">
                 </a>
+                <a href="{% url day-log day.id %}"
+                   title="{% trans 'Add log' %}"
+                   class="modal-dialog">
+                       <img src="{% static 'images/icons/statistics.svg' %}"
+                            width="22"
+                            height="22"
+                            alt="{% trans 'Add log' %}">
+                </a>
             </span>
         </th>
     </tr>
