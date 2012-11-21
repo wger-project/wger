@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-<h2>{% trans "Weight log for workout" %} – {{ workout.creation_date }}</h2>
+<h2>{% trans "Weight log for workout" %} {{ workout.id }}</h2>
 
 
 {% if workout.comment %}
@@ -19,9 +19,63 @@
 </p>
 {% endif %}
 
-<table>
+{% for day in workout.day_set.select_related %}
+    <div id="div-day-{{ day.id }}">
+        <h3>{{ day.description }}</h3>
+        {% for set in day.set_set.select_related %}
+            {% for exercise in set.exercises.select_related %}
+                <h5>{{ exercise.name }}</h5>
+                
+                
+                {% regroup workout.workoutlog_set.all by date as workout_log %}
+                <!-- Nested tables, ugh! -->
+                <table>
+                    <tr>
+                    {% for day in workout_log %}
+                       <td>
+                            <table class="narrow">
+                                <tr>
+                                    <th colspan="2">{{day.grouper|date:"d.m.Y" }}</th>
+                                </tr>
+                                {% for entry in day.list %}
+                                <tr>
+                                    {% if entry.exercise == exercise %}
+                                        <td>{{entry.reps}} {% trans "Reps" %}</td>
+                                        <td>{{entry.weight}}</td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </td>
+                    {% endfor %}
+                    </tr>
+                </table>
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% empty %}
+<div class="box warning">
+    {% trans "No days for this workout." %}
+    <a href="{% url day-add workout.id %}" class="modal-dialog">
+    {% trans "Add training day." %}
+    </a>
+</div>
+{% endfor %}
+
+
+
+<table class="bordertable narrow">
+<thead>
+    <tr>
+        <th>Name</th>
+        <th>Datum</th>
+        <th>Reps</th>
+        <th>Weight</th>
+    </tr>
+</thead>
 {% for log_entry in workout.workoutlog_set.all %}
     <tr>
+        <td>{{log_entry.exercise.name}}</td>
         <td>{{log_entry.date}}</td>
         <td>{{log_entry.reps}}</td>
         <td>{{log_entry.weight}}</td>
@@ -38,5 +92,10 @@
         Side bar
 -->
 {% block sidebar %}
-
+<h3>{% trans "Options" %}</h3>
+<p>
+<a href="{% url workout-view workout.id %}">
+    {% trans "Back to workout" %}
+</a>
+</p>
 {% endblock %}
