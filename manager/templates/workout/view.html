@@ -43,9 +43,9 @@ $(document).ready(function() {
 {% endif %}
 
 {% for day in workout.day_set.select_related %}
-	<div id="div-day-{{ day.id }}">
-		{% render_day day %}
-	</div>
+    <div id="div-day-{{ day.id }}">
+        {% render_day day %}
+    </div>
 {% empty %}
 <div class="box warning">
     {% trans "No days for this workout." %}
