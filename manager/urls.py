@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse_lazy
 
 from manager.views import WorkoutEditView
 from manager.views import WorkoutDeleteView
+from manager.views import WorkoutLogDetailView
 
 from manager.views import DayEditView
 from manager.views import DayCreateView
@@ -39,7 +40,7 @@ urlpatterns = patterns('manager.views',
         'view_workout',
         name = 'workout-view'),
     url(r'^workout/(?P<pk>\d+)/log/$',
-        'workout_log_overview',
+        login_required(WorkoutLogDetailView.as_view()),
         name = 'workout-log'), 
     
     

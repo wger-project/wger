@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n %} 
+{% load staticfiles %}
+{% load manager_extras %} 
+
+{% block title %}{% trans "Weight log for workout" %} – {{ workout.creation_date }}{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+<h2>{% trans "Weight log for workout" %} – {{ workout.creation_date }}</h2>
+
+
+{% if workout.comment %}
+<p>
+    <strong>{% trans "Goal" %}:</strong>
+    <span class="dimmed">{{workout.comment}}</span>
+</p>
+{% endif %}
+
+<table>
+{% for log_entry in workout.workoutlog_set.all %}
+    <tr>
+        <td>{{log_entry.date}}</td>
+        <td>{{log_entry.reps}}</td>
+        <td>{{log_entry.weight}}</td>
+    </tr>
+{% endfor %}
+</table>
+
+
+{% endblock %}
+
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}
+
+{% endblock %}

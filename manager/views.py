@@ -55,6 +55,7 @@ from django.contrib.auth.views import password_change as django_pwchange
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
+from django.views.generic import DetailView
 
 from manager.models import DaysOfWeek
 from manager.models import TrainingSchedule
@@ -951,5 +952,17 @@ def delete_setting(request, id, set_id, exercise_id):
 
 
 
-def workout_log_overview(request):
-    pass
+# ************************
+# Log functions
+# ************************
+
+class WorkoutLogDetailView(DetailView):
+    '''
+    An overview of the workout's log
+    '''
+    
+    # TODO: check ownership
+    
+    model = TrainingSchedule
+    template_name = 'workout/log.html'
+    context_object_name = 'workout'

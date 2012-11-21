@@ -1,3 +1,4 @@
+
 # This file is part of Workout Manager.
 # 
 # Workout Manager is free software: you can redistribute it and/or modify
@@ -12,7 +13,7 @@
 # 
 # You should have received a copy of the GNU Affero General Public License
 
-from manager.models import Day, TrainingSchedule, Set, Setting
+from manager.models import Day, TrainingSchedule, Set, Setting, WorkoutLog
 
 from django.contrib import admin
 
@@ -23,7 +24,7 @@ from django.contrib import admin
 admin.site.register(TrainingSchedule)
 admin.site.register(Set)
 admin.site.register(Day)
-
+admin.site.register(WorkoutLog)
 
 admin.site.register(Setting)
 
