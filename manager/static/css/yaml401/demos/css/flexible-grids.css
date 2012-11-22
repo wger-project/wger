@@ -13,7 +13,7 @@
  */
 
 /* import core styles | Basis-Stylesheets einbinden */
-@import url(../../yaml/core/base.css);
+@import url(../../yaml/core/base.min.css);
 
 /* import screen layout | Screen-Layout einbinden */
 @import url(../../yaml/navigation/hlist.css);
