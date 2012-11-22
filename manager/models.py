@@ -175,7 +175,7 @@ class WorkoutLog(models.Model):
     
     # Metaclass to set some other properties
     class Meta:
-        ordering = ["date"]
+        ordering = ["date", "reps"]
     
     
     def __unicode__(self):

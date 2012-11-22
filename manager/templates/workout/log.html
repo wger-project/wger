@@ -19,21 +19,24 @@
 </p>
 {% endif %}
 
+{% regroup workout.workoutlog_set.all by date as workout_log %}
+
+
 {% for day in workout.day_set.select_related %}
     <div id="div-day-{{ day.id }}">
         <h3>{{ day.description }}</h3>
         {% for set in day.set_set.select_related %}
             {% for exercise in set.exercises.select_related %}
                 <h5>{{ exercise.name }}</h5>
-                
-                
-                {% regroup workout.workoutlog_set.all by date as workout_log %}
+
                 <!-- Nested tables, ugh! -->
-                <table>
+                <div style="overflow-x: auto;">
+                <table class="noborder" style="border: 0 none;">
                     <tr>
                     {% for day in workout_log %}
-                       <td>
-                            <table class="narrow">
+                        
+                        <td style="padding: 0em; border-top-width: 0px;">
+                            <table class="narrow" style="width: 8em;">
                                 <tr>
                                     <th colspan="2">{{day.grouper|date:"d.m.Y" }}</th>
                                 </tr>
@@ -50,6 +53,7 @@
                     {% endfor %}
                     </tr>
                 </table>
+                </div>
             {% endfor %}
         {% endfor %}
     </div>
