@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %} 
+{% load staticfiles %}
+{% load manager_extras %} 
+
+{% block title %}{% trans "Weight log for workout" %} – {{ workout.creation_date }}{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+<h2>{% trans "Weight log for workout" %} {{ workout.id }}</h2>
+
+<form action="" method="POST">
+{% csrf_token %}
+<table>
+{{formset.management_form}}
+{% for form in formset %}
+    {{ form.as_table }}
+{% endfor %}
+<tr>
+    <td colspan="2">
+        <input type="submit" value="{% trans 'Save' %}" id="form-save">
+    </td>
+</tr>
+</table>
+</form>
+
+{% endblock %}

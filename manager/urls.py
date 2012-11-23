@@ -53,8 +53,8 @@ urlpatterns = patterns('manager.views',
         name = 'day-add'),
     url(r'^workout/(?P<id>\d+)/delete/day/(?P<day_id>\d+)$', 'delete_day'),
     url(r'^workout/day/view/(?P<id>\d+)$', 'view_day'),
-    url(r'^workout/(?P<workout_pk>\d+)/day/log/$',
-        login_required(DayCreateView.as_view()),
+    url(r'^workout/day/(?P<pk>\d+)/log/add/$',
+        'workout_log_add',
         name = 'day-log'),
     
     # Sets and Settings

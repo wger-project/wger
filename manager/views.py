@@ -63,6 +63,7 @@ from manager.models import Day
 from manager.models import Set
 from manager.models import Setting
 from manager.models import UserProfile
+from manager.models import WorkoutLog
 
 from exercises.models import Exercise
 
@@ -955,6 +956,70 @@ def delete_setting(request, id, set_id, exercise_id):
 # ************************
 # Log functions
 # ************************
+
+WorkoutLogFormSet = modelformset_factory(WorkoutLog,
+                                         exclude=('user',
+                                                 'workout'),
+                                         extra = 4)
+
+
+def workout_log_add(request, pk):
+    '''
+    Add a new workout log
+    '''
+    template_data = {}
+    template_data.update(csrf(request))
+    template_data['active_tab'] = WORKOUT_TAB
+    
+    day = get_object_or_404(Day, pk=pk)
+    if day.get_owner_object().user != request.user:
+        return HttpResponseForbidden()
+    
+    nr_of_exercises = 0
+    for exercise_set in day.set_set.all():
+        nr_of_exercises = nr_of_exercises + len(exercise_set.exercises.all())
+    
+    logger.debug(nr_of_exercises)
+    
+    if request.method == 'POST':
+        formset = WorkoutLogFormSet(data=request.POST)
+        
+        # If the data is valid, log in and redirect
+        if formset.is_valid():
+            instances = formset.save(commit = False)
+            for instance in instances:
+                instance.user = request.user
+                instance.workout = day.training
+                instance.save()
+            
+            return HttpResponseRedirect(reverse('workout-view', kwargs={'pk': day.training.id}))
+        else:
+            logger.debug(formset.errors)
+    else:
+        formset = WorkoutLogFormSet(queryset=WorkoutLog.objects.filter(exercise = -1),
+                                    initial = [{'date': datetime.date.today()},
+                                               {'date': datetime.date.today()},
+                                               {'date': datetime.date.today()},
+                                               {'date': datetime.date.today()},
+                                              ]
+                                   )
+
+    template_data['formset'] = formset
+    
+    return render_to_response('day/log.html',
+                              template_data,
+                              context_instance=RequestContext(request))
+
+    
+class WorkoutLogCreateView(YamlFormMixin, CreateView):
+    '''
+    Add a new workout log
+    '''
+    
+    model = WorkoutLog
+    #form_class = WorkoutLogFormSet
+    template_name = 'form.html'
+    
 
 class WorkoutLogDetailView(DetailView):
     '''
