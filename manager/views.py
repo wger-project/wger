@@ -35,6 +35,7 @@ from django.utils.translation import ugettext_lazy
 from django.forms import Form
 from django.forms import ModelForm
 from django.forms import EmailField
+from django.forms import DateField
 from django.forms import CharField
 from django.forms import SelectMultiple
 from django.forms import ValidationError
@@ -956,12 +957,8 @@ def delete_setting(request, id, set_id, exercise_id):
 # ************************
 # Log functions
 # ************************
-
-WorkoutLogFormSet = modelformset_factory(WorkoutLog,
-                                         exclude=('user',
-                                                 'workout'),
-                                         extra = 4)
-
+class HelperDateForm(Form):
+    date = DateField()
 
 def workout_log_add(request, pk):
     '''
@@ -971,55 +968,108 @@ def workout_log_add(request, pk):
     template_data.update(csrf(request))
     template_data['active_tab'] = WORKOUT_TAB
     
+    # Load the day and check ownership
     day = get_object_or_404(Day, pk=pk)
     if day.get_owner_object().user != request.user:
         return HttpResponseForbidden()
     
-    nr_of_exercises = 0
+    # We need several lists here because we need to assign specific form to each
+    # exercise: the entries for weight and repetitions have no indicator to which
+    # exercise they belong besides the form-ID, from Django's formset
+    counter = 0
+    max_sets = 0
+    total_sets = 0
+    exercise_list = {}
+    form_to_exercise = {}
+    
     for exercise_set in day.set_set.all():
-        nr_of_exercises = nr_of_exercises + len(exercise_set.exercises.all())
-    
-    logger.debug(nr_of_exercises)
-    
-    if request.method == 'POST':
-        formset = WorkoutLogFormSet(data=request.POST)
-        
-        # If the data is valid, log in and redirect
-        if formset.is_valid():
-            instances = formset.save(commit = False)
-            for instance in instances:
-                instance.user = request.user
-                instance.workout = day.training
-                instance.save()
+        for exercise in exercise_set.exercises.all():
             
-            return HttpResponseRedirect(reverse('workout-view', kwargs={'pk': day.training.id}))
-        else:
-            logger.debug(formset.errors)
-    else:
-        formset = WorkoutLogFormSet(queryset=WorkoutLog.objects.filter(exercise = -1),
-                                    initial = [{'date': datetime.date.today()},
-                                               {'date': datetime.date.today()},
-                                               {'date': datetime.date.today()},
-                                               {'date': datetime.date.today()},
-                                              ]
-                                   )
+            # Maximum possible values
+            total_sets = total_sets + int(exercise_set.sets)
+            
+            # Needed to calculate the colspan in the template
+            if total_sets > max_sets:
+                max_sets = total_sets
+            counter_before = counter
+            counter = counter + int(exercise_set.sets) - 1
+            form_id_range = range(counter_before, counter +1)
+            
+            # Add to list
+            exercise_list[exercise.id] = {'obj' : exercise,
+                                          'sets': int(exercise_set.sets),
+                                          'form_ids': form_id_range}
+            
+            counter = counter + 1
+            # Helper mapping form-ID <--> Exercise
+            for id in form_id_range:
+                form_to_exercise[id] = exercise
 
+    # Define the formset here because now we know the value to pass to 'extra'
+    WorkoutLogFormSet = modelformset_factory(WorkoutLog,
+                                         exclude=('user',
+                                                  'workout',
+                                                  'date'),
+                                         extra = total_sets)
+    # Process the request
+    if request.method == 'POST':
+        
+        # Make a copy of the POST data and go through it. The reason for this is
+        # that the form expects a value for the exercise which is not present in
+        # the form (for space and usability reasons)
+        
+        post_copy = request.POST.copy()
+        
+        for form_id in form_to_exercise:
+            if post_copy.get('form-%s-weight' % form_id) or post_copy.get('form-%s-reps' % form_id):
+                #logger.debug('Setting exercise %s for form %s' % (form_to_exercise[form_id].id, form_id)) 
+                post_copy['form-%s-exercise' % form_id] = form_to_exercise[form_id].id
+        
+        # Pass the new data to the forms
+        formset = WorkoutLogFormSet(data = post_copy)
+        dateform = HelperDateForm(data = post_copy)
+
+        if dateform.is_valid():
+            log_date = dateform.cleaned_data['date']
+        
+            # If the data is valid, save and redirect to log overview page
+            if formset.is_valid():
+                instances = formset.save(commit = False)
+                for instance in instances:
+                    
+                    instance.user     = request.user
+                    instance.workout  = day.training
+                    instance.date     = log_date
+                    instance.save()
+                
+                return HttpResponseRedirect(reverse('workout-log', kwargs={'pk': day.training.id}))
+            else:
+                logger.debug(formset.errors)
+    else:
+        # Initialise the formset with a queryset that won't return any objects
+        # (we only add new logs here and that seems to be the fastest way)
+        formset = WorkoutLogFormSet(queryset=WorkoutLog.objects.filter(exercise = -1))
+        dateform = HelperDateForm(initial={'date': datetime.date.today()})
+
+    
+    # Pass the correct forms to the exercise list
+    for exercise in exercise_list:
+        
+        form_id_from = min(exercise_list[exercise]['form_ids'])
+        form_id_to = max(exercise_list[exercise]['form_ids'])
+        exercise_list[exercise]['forms'] = formset[form_id_from:form_id_to +1]
+        
+
+    template_data['max_sets'] = max_sets
+    template_data['exercises'] = exercise_list
     template_data['formset'] = formset
+    template_data['dateform'] = dateform
+    template_data['form_action'] = reverse('day-log', kwargs = {'pk': pk})
     
     return render_to_response('day/log.html',
                               template_data,
                               context_instance=RequestContext(request))
 
-    
-class WorkoutLogCreateView(YamlFormMixin, CreateView):
-    '''
-    Add a new workout log
-    '''
-    
-    model = WorkoutLog
-    #form_class = WorkoutLogFormSet
-    template_name = 'form.html'
-    
 
 class WorkoutLogDetailView(DetailView):
     '''
