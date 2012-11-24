@@ -3,42 +3,28 @@
 {% load staticfiles %}
 {% load manager_extras %} 
 
-{% block title %}{% trans "Weight log for workout" %} – {{ workout.creation_date }}{% endblock %}
+{% block title %}{% trans "New weight log" %}  – {{day.description}}{% endblock %}
 
 {% block header %}
-<style type="text/css" media="screen">
-.workout-log-table .narrow-input
-{
-    width: 3em;
-}
-
-.ym-form .workout-log-table div.ym-fbox-text{
-    padding: 0em 0.3em;
-}
-</style>
+{% if language.short_name == 'de' %}
+<script src="{% static 'js/jquery.ui.datepicker-de.js' %}"></script>
+{% endif %}
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function () {
+    $( "#id_date" ).datepicker({ dateFormat: "yy-mm-dd" });
+});
+</script>
 
 {% endblock %}
 
 {% block content %}
-<h2>{% trans "Weight log for workout" %} {{ workout.id }}</h2>
+<h2>{% trans "New weight log" %}  – {{day.description}}</h2>
 
 <form action="{{form_action}}" method="POST" class="ym-form">
 {% csrf_token %}
 {{formset.management_form}}
 
-
-
-
-
 <table class="workout-log-table">
-
-<!--
-{% if formset.errors %}
-    {% for error in formset.errors %}
-        {{error}}
-    {% endfor %}
-{% endif %}
--->
 <tr>
     <td>
         {{dateform.date.label}}
@@ -47,11 +33,17 @@
         <div class= "ym-fbox-text {% if dateform.date.errors %}ym-error{% endif %}">
         {{dateform.date}}
         </div>
+        
+        <div class="ym-fbox-text {% if dateform.date.errors %}ym-error{% endif %}">
+             <span class="ym-message">{{dateform.date.errors}}</span>
+         </div>
     </td>
 </tr>
+</table>
 
-
-
+<h3>{% trans "Exercises" %}</h3>
+<table class="workout-log-table">
+<tr>
 {% for key, value in exercises.items %}
 <tr>
     <td style="width:25%;">
@@ -61,24 +53,34 @@
     
     <td>
         <div class= "ym-fbox-text narrow-input {% if form.reps.errors %}ym-error{% endif %}">
-        {{form.reps}} {% trans "Reps" %}
+        {{form.reps}}
         </div>
+        <div class="ym-fbox-text {% if form.reps.errors %}ym-error{% endif %}">
+             <span class="ym-message">{% trans "Reps" %}</span>
+         </div>
     </td>
     <td>
         <div class= "ym-fbox-text narrow-input {% if form.weight.errors %}ym-error{% endif %}">
-        {{form.weight}} kg.
+        {{form.weight}}
         </div>
+        
+        <div class="ym-fbox-text {% if form.weight.errors %}ym-error{% endif %}">
+             <span class="ym-message">kg.</span>
+         </div>
     </td>
     {% endfor %}
 </tr>
+{% empty %}
+    <div class="box warning" id="weight-box-warning">
+    {% trans "Add exercises to this training day before adding a log." %}
+    
+    <a href="{% url workout-view day.training.id %}">
+    {% trans "Back to workout" %}
+    </a>
+    
+    </div>
 {% endfor %}
 
-
-{% comment %}
-{% for form in formset %}
-    {{ form.as_table }}
-{% endfor %}
-{% endcomment %}
 <tr>
     <td colspan="{{max_sets}}">
         <input type="submit" value="{% trans 'Save' %}" id="form-save">
@@ -87,4 +89,14 @@
 </table>
 </form>
 
+{% endblock %}
+
+
+{% block sidebar %}
+<h3>{% trans "Options" %}</h3>
+<p>
+<a href="{% url workout-view day.training.id %}">
+    {% trans "Back to workout" %}
+</a>
+</p>
 {% endblock %}

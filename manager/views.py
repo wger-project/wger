@@ -1058,8 +1058,8 @@ def workout_log_add(request, pk):
         form_id_from = min(exercise_list[exercise]['form_ids'])
         form_id_to = max(exercise_list[exercise]['form_ids'])
         exercise_list[exercise]['forms'] = formset[form_id_from:form_id_to +1]
-        
 
+    template_data['day'] = day
     template_data['max_sets'] = max_sets
     template_data['exercises'] = exercise_list
     template_data['formset'] = formset

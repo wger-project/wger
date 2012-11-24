@@ -23,6 +23,10 @@
 
 
 
+/**************************************************************
+ * Font definitions
+ **************************************************************/
+
 /* font-face kit by Fonts2u - http://www.fonts2u.com */
 @font-face {
     font-family:"Open Sans Light";
@@ -151,9 +155,9 @@ div.muscle-background
 
 
 
-/*
+/**************************************************************
  * Styling for the SVG elements on the weight chart
- */
+ **************************************************************/
 
 .axis path, .axis line {
     fill: none;
@@ -187,9 +191,12 @@ circle{
 }
 
 
-/*
+
+/**************************************************************
  * Classes Error form
- * 
+ **************************************************************/
+
+/* 
  * 'form-error' is inserted by the JQuery form validator and the styling
  * is copied from the yaml ones, for consistency
  */
@@ -206,6 +213,19 @@ circle{
     color: black;
 }
 
+.workout-log-table .narrow-input
+{
+    width: 3em;
+}
+
+.ym-form .workout-log-table div.ym-fbox-text{
+    padding: 0em 0.3em;
+}
+
+
+/**************************************************************
+ * Header
+ **************************************************************/
 
 /*
  * Add a shadow to the application name
@@ -213,24 +233,24 @@ circle{
 header h1{
     text-shadow: 2px 3px 3px #292929;
     font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
-	font-weight: 300;
+    font-weight: 300;
 }
 
 header span.name{
     text-shadow: 2px 3px 3px #292929;
     font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
-	font-weight: 300;
-	font-size:   350%;
-	color:       white;
+    font-weight: 300;
+    font-size:   350%;
+    color:       white;
 }
 
 
 header span.regular{
     text-shadow: 2px 3px 3px #292929;
     font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
-	font-weight: 300;
-	font-size:   350%;
-	color:       white;
+    font-weight: 300;
+    font-size:   350%;
+    color:       white;
 }
 
 
@@ -244,6 +264,10 @@ div.warning a, div.warning a:hover, div.warning a:active{
     background-color: transparent;
 }
 
+
+/**************************************************************
+ * Autocompleter
+ **************************************************************/
 /*
  * Category heading for the ajax autocompleter
  */
@@ -278,11 +302,9 @@ div.warning a, div.warning a:hover, div.warning a:active{
 }
 
 
-/*
- * 
+/**************************************************************
  * Pagination styles
- * 
- */
+ **************************************************************/
 .pagination a:hover
 {
     color:black;
