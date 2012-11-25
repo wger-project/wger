@@ -19,49 +19,53 @@
 </p>
 {% endif %}
 
-{% regroup workout.workoutlog_set.all by date as workout_log %}
 
-{% for day in workout.day_set.select_related %}
-    <div id="div-day-{{ day.id }}">
-        <h3>{{ day.description }}</h3>
-        {% for set in day.set_set.select_related %}
-            {% for exercise in set.exercises.select_related %}
-                <p><a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a></p>
-               
-                <!-- Nested tables, ugh! -->
-                <div style="overflow-x: auto;">
-                <table class="noborder" style="border: 0 none;">
+{% for day, exercise_log in workout_log.items %}
+<h3>{{ day.description }}</h3>
+
+<p>
+<a href="{% url day-log day.id %}"
+   title="{% trans 'Add weight log to this day' %}">
+       <img src="{% static 'images/icons/statistics.svg' %}"
+            width="32"
+            height="32"
+            alt="{% trans 'Add weight log to this day' %}">
+    {% trans 'Add weight log to this day' %}
+</a>
+</p>
+
+    {% for exercise, date_list in exercise_log.items %}
+        <p><a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a></p>
+        
+        {% if date_list.items %}
+        <div style="overflow-x: auto;">
+        <table class="noborder" style="border: 0 none; width: 7.5em;">
+            <tr>
+            {% for date, entry_list in date_list.items %}
+            <td style="padding: 0em; border-top-width: 0px;">
+                <table class="narrow" style="width: 7.5em;">
                     <tr>
-                    {% for day in workout_log %}
-                        
-                        <td style="padding: 0em; border-top-width: 0px;">
-                            <table class="narrow" style="width: 7em;">
-                                <tr>
-                                    <th>{{day.grouper|date:"d.m.Y" }}</th>
-                                </tr>
-                                {% for entry in day.list %}
-                                <tr>
-                                    {% if entry.exercise == exercise %}
-                                        <td>{{entry.reps}} {% trans "Reps" %} × {{entry.weight}}</td>
-                                    {% endif %}
-                                </tr>
-                                {% endfor %}
-                            </table>
-                        </td>
-                    {% endfor %}
+                        <th>{{date|date:"d.m.Y"}}</th>
                     </tr>
+                    {% for entry in entry_list %}
+                        <tr>
+                            <td>{{entry.reps}} {% trans "Reps" %} × {{entry.weight}}</td>
+                        </tr>
+                    {% endfor %}
                 </table>
-                </div>
+            </td>
             {% endfor %}
-        {% endfor %}
-    </div>
-{% empty %}
-<div class="box warning">
-    {% trans "No days for this workout." %}
-    <a href="{% url day-add workout.id %}" class="modal-dialog">
-    {% trans "Add training day." %}
-    </a>
-</div>
+            </tr>
+        </table>
+        </div>
+        {% else %}
+        <p><em>{% trans "No weight entries here." %}</em></p>
+        {% endif %}
+    {% empty%}
+    <p>
+        <em>{% trans "No exercises for this day." %}</em>
+    </p>
+    {% endfor %}
 {% endfor %}
 
 
@@ -84,7 +88,6 @@
     </tr>
 {% endfor %}
 </table>
-
 
 {% endblock %}
 

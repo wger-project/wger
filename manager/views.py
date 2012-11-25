@@ -967,6 +967,7 @@ def workout_log_add(request, pk):
     '''
     Add a new workout log
     '''
+    
     template_data = {}
     template_data.update(csrf(request))
     template_data['active_tab'] = WORKOUT_TAB
@@ -1077,3 +1078,50 @@ class WorkoutLogDetailView(DetailView):
     model = TrainingSchedule
     template_name = 'workout/log.html'
     context_object_name = 'workout'
+    
+    def get_context_data(self,**kwargs):
+        
+        # Call the base implementation first to get a context
+        context =super(WorkoutLogDetailView, self).get_context_data(**kwargs)
+        
+        # Active tab
+        context['active_tab'] = WORKOUT_TAB
+        
+        # Process the log entries so they are easier to show on template and can be used
+        # as input for the D3.js diagrams
+        workout_log = {}
+        for day in self.object.day_set.select_related():
+            workout_log[day] = {}
+            
+            
+            for set in day.set_set.select_related():
+                exercise_log = {}
+                
+                for exercise in set.exercises.select_related():
+                    logger.debug(exercise)
+                    exercise_log[exercise] = []
+                    entry_log = {}
+                    entry_log_by_reps = {}
+                    
+                    for entry in exercise.workoutlog_set.all():
+                        if not entry_log.get(entry.date):
+                            entry_log[entry.date] = []
+                        entry_log[entry.date].append(entry)
+                        
+                        if not entry_log_by_reps.get(entry.reps):
+                            entry_log_by_reps[entry.reps] = []
+                        entry_log_by_reps[entry.reps].append(entry)
+
+                    logger.debug(entry_log_by_reps)
+                    if entry_log:
+                        exercise_log[exercise].append(entry_log)
+                    else:
+                        logger.debug('entry log empty for exercise %s' % exercise)
+            
+                    if exercise_log:
+                        workout_log[day][exercise] = entry_log
+        
+        context['workout_log'] = workout_log
+        #logger.debug(workout_log)
+        
+        return context
