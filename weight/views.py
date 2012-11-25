@@ -24,6 +24,7 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.forms import ModelForm
+from django.forms import DateField
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
@@ -41,11 +42,13 @@ from weight.models import WeightEntry
 
 from workout_manager.generic_views import YamlFormMixin
 from workout_manager.constants import WEIGHT_TAB
+from workout_manager.constants import DATE_FORMATS
 
 
 logger = logging.getLogger('workout_manager.custom')
 
 class WeightForm(ModelForm):
+    creation_date = DateField(input_formats=DATE_FORMATS)
     class Meta:
         model = WeightEntry
         exclude=('user',)

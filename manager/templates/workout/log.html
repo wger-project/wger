@@ -21,7 +21,6 @@
 
 {% regroup workout.workoutlog_set.all by date as workout_log %}
 
-
 {% for day in workout.day_set.select_related %}
     <div id="div-day-{{ day.id }}">
         <h3>{{ day.description }}</h3>

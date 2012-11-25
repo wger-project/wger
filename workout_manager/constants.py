@@ -15,8 +15,20 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
+# Navigation
 WORKOUT_TAB = 'workout'
 EXERCISE_TAB = 'exercises'
 WEIGHT_TAB = 'weight'
 NUTRITION_TAB = 'nutrition'
 USER_TAB = 'user'
+
+# Valid date formats
+DATE_FORMATS = [
+                '%d.%m.%Y', # '25.10.2012'
+                '%d.%m.%y', # '25.10.12'
+                 
+                '%m/%d/%Y', # '10/25/2012'
+                '%m/%d/%y', # '10/25/12'
+                
+                '%Y-%m-%d', # '2012-10-25'
+                ]

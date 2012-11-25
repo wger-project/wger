@@ -75,6 +75,7 @@ from weight.models import WeightEntry
 from workout_manager import get_version
 from workout_manager.constants import WORKOUT_TAB
 from workout_manager.constants import USER_TAB
+from workout_manager.constants import DATE_FORMATS
 from workout_manager.generic_views import YamlFormMixin
 from workout_manager.generic_views import YamlDeleteMixin
 from workout_manager.widgets import ExerciseAjaxSelect
@@ -181,9 +182,7 @@ class UserEmailForm(ModelForm):
     def clean_email(self):
         # Email must be unique systemwide
         email = self.cleaned_data["email"]
-        logger.debug(email)
         if not email:
-            logger.debug(11111)
             return email
         try:
             Django_User.objects.get(email=email)
@@ -958,7 +957,10 @@ def delete_setting(request, id, set_id, exercise_id):
 # Log functions
 # ************************
 class HelperDateForm(Form):
-    date = DateField()
+    '''
+    A helper form with only a date input
+    '''
+    date = DateField(input_formats=DATE_FORMATS)
 
 def workout_log_add(request, pk):
     '''
@@ -1021,8 +1023,7 @@ def workout_log_add(request, pk):
         post_copy = request.POST.copy()
         
         for form_id in form_to_exercise:
-            if post_copy.get('form-%s-weight' % form_id) or post_copy.get('form-%s-reps' % form_id):
-                #logger.debug('Setting exercise %s for form %s' % (form_to_exercise[form_id].id, form_id)) 
+            if post_copy.get('form-%s-weight' % form_id) or post_copy.get('form-%s-reps' % form_id): 
                 post_copy['form-%s-exercise' % form_id] = form_to_exercise[form_id].id
         
         # Pass the new data to the forms
@@ -1043,8 +1044,6 @@ def workout_log_add(request, pk):
                     instance.save()
                 
                 return HttpResponseRedirect(reverse('workout-log', kwargs={'pk': day.training.id}))
-            else:
-                logger.debug(formset.errors)
     else:
         # Initialise the formset with a queryset that won't return any objects
         # (we only add new logs here and that seems to be the fastest way)
