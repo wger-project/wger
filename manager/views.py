@@ -39,6 +39,7 @@ from django.forms import EmailField
 from django.forms import DateField
 from django.forms import CharField
 from django.forms import SelectMultiple
+from django.forms import DecimalField
 from django.forms import ValidationError
 from django.forms.models import modelformset_factory
 
@@ -963,6 +964,21 @@ class HelperDateForm(Form):
     '''
     date = DateField(input_formats=DATE_FORMATS)
 
+
+class WorkoutLogForm(ModelForm):
+    '''
+    Helper form for a WorkoutLog.
+    
+    The field for the weight is overwritten here, activating localization (so a
+    German user can  use ',' as the separator)
+    '''
+    weight = DecimalField(decimal_places = 2,
+                          max_digits = 5,
+                          localize=True)
+    
+    class Meta:
+        model = WorkoutLog
+
 def workout_log_add(request, pk):
     '''
     Add a new workout log
@@ -1006,6 +1022,7 @@ def workout_log_add(request, pk):
 
     # Define the formset here because now we know the value to pass to 'extra'
     WorkoutLogFormSet = modelformset_factory(WorkoutLog,
+                                         form = WorkoutLogForm,
                                          exclude=('user',
                                                   'workout',
                                                   'date'),

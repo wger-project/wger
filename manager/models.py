@@ -170,7 +170,9 @@ class WorkoutLog(models.Model):
     workout = models.ForeignKey(TrainingSchedule, verbose_name = _('Workout'))
     
     reps = models.IntegerField(verbose_name = _('Repetitions'))
-    weight = models.IntegerField(verbose_name = _('Weight'))
+    weight = models.DecimalField(decimal_places = 2,
+                                 max_digits = 5,
+                                 verbose_name = _('Weight'))
     date = models.DateField(verbose_name = _('Date'))
     
     # Metaclass to set some other properties
