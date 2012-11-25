@@ -6,6 +6,7 @@
 {% block title %}{% trans "Weight log for workout" %} – {{ workout.creation_date }}{% endblock %}
 
 {% block header %}
+<script src="{% static 'js/d3.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -18,7 +19,6 @@
     <span class="dimmed">{{workout.comment}}</span>
 </p>
 {% endif %}
-
 
 {% for day, exercise_log in workout_log.items %}
 <h3>{{ day.description }}</h3>
@@ -37,30 +37,37 @@
     {% for exercise, date_list in exercise_log.items %}
         <p><a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a></p>
         
-        {% if date_list.items %}
+        {% if date_list.log_by_date %}
         <div style="overflow-x: auto;">
         <table class="noborder" style="border: 0 none; width: 7.5em;">
             <tr>
-            {% for date, entry_list in date_list.items %}
+            {% with list=date_list.log_by_date %}
+            {% for date, entry_list in list.items %}
             <td style="padding: 0em; border-top-width: 0px;">
                 <table class="narrow" style="width: 7.5em;">
                     <tr>
                         <th>{{date|date:"d.m.Y"}}</th>
                     </tr>
                     {% for entry in entry_list %}
-                        <tr>
-                            <td>{{entry.reps}} {% trans "Reps" %} × {{entry.weight}}</td>
-                        </tr>
+                    <tr>
+                        <td>{{entry.reps}} {% trans "Reps" %} × {{entry.weight}}</td>
+                    </tr>
                     {% endfor %}
                 </table>
             </td>
             {% endfor %}
+            {% endwith %}
             </tr>
         </table>
         </div>
         {% else %}
         <p><em>{% trans "No weight entries here." %}</em></p>
         {% endif %}
+    
+    {% with list=date_list.log_by_reps %}
+    
+    {% endwith %}
+    
     {% empty%}
     <p>
         <em>{% trans "No exercises for this day." %}</em>

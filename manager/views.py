@@ -1115,11 +1115,11 @@ class WorkoutLogDetailView(DetailView):
                     logger.debug(entry_log_by_reps)
                     if entry_log:
                         exercise_log[exercise].append(entry_log)
-                    else:
-                        logger.debug('entry log empty for exercise %s' % exercise)
             
                     if exercise_log:
-                        workout_log[day][exercise] = entry_log
+                        workout_log[day][exercise] = {}
+                        workout_log[day][exercise]['log_by_date'] = entry_log
+                        workout_log[day][exercise]['log_by_reps'] = entry_log_by_reps
         
         context['workout_log'] = workout_log
         #logger.debug(workout_log)
