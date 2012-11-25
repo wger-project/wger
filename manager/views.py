@@ -31,6 +31,7 @@ from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
+from django.utils.formats import date_format
 
 from django.forms import Form
 from django.forms import ModelForm
@@ -1048,7 +1049,9 @@ def workout_log_add(request, pk):
         # Initialise the formset with a queryset that won't return any objects
         # (we only add new logs here and that seems to be the fastest way)
         formset = WorkoutLogFormSet(queryset=WorkoutLog.objects.filter(exercise = -1))
-        dateform = HelperDateForm(initial={'date': datetime.date.today()})
+        
+        formatted_date = date_format(datetime.date.today(), "SHORT_DATE_FORMAT")
+        dateform = HelperDateForm(initial={'date': formatted_date})
 
     
     # Pass the correct forms to the exercise list
