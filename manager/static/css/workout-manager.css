@@ -213,13 +213,23 @@ circle{
     color: black;
 }
 
+
+/*
+ * Workout log entry page needs the horizontal space
+ */
 .workout-log-table .narrow-input
 {
     width: 3em;
+    
 }
 
 .ym-form .workout-log-table div.ym-fbox-text{
-    padding: 0em 0.3em;
+    padding: 0em;
+}
+
+.ym-form .workout-log-table td{
+    padding-left: 0em;
+    padding-right: 0em;
 }
 
 

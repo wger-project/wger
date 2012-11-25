@@ -9,7 +9,7 @@
 {% if language.short_name == 'de' %}
 <script src="{% static 'js/jquery.ui.datepicker-de.js' %}"></script>
 {% endif %}
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
 $(document).ready(function () {
     $( "#id_date" ).datepicker();
 });
@@ -20,7 +20,7 @@ $(document).ready(function () {
 {% block content %}
 <h2>{% trans "New weight log" %}  – {{day.description}}</h2>
 
-<form action="{{form_action}}" method="POST" class="ym-form">
+<form action="{{form_action}}" method="POST" class="ym-form" style="overflow-x: auto;">
 {% csrf_token %}
 {{formset.management_form}}
 
@@ -29,7 +29,7 @@ $(document).ready(function () {
     <td>
         {{dateform.date.label}}
     </td>
-    <td colspan="{{max_sets}}">
+    <td >
         <div class= "ym-fbox-text {% if dateform.date.errors %}ym-error{% endif %}">
         {{dateform.date}}
         </div>
@@ -43,19 +43,18 @@ $(document).ready(function () {
 
 <h3>{% trans "Exercises" %}</h3>
 <table class="workout-log-table">
-<tr>
 {% for key, value in exercises.items %}
 <tr>
-    <td style="width:25%;">
+    <td style="max-width: 5em; padding-right:0.4em;">
         {{value.obj.name}}
     </td>
-    {% for form in value.forms %}
     
-    <td>
+    {% for form in value.forms %}
+    <td class="narrow-input">
         <div class= "ym-fbox-text narrow-input {% if form.reps.errors %}ym-error{% endif %}">
         {{form.reps}}
         </div>
-        <div class="ym-fbox-text {% if form.reps.errors %}ym-error{% endif %}">
+        <div class="ym-fbox-text narrow-input {% if form.reps.errors %}ym-error{% endif %}">
              <span class="ym-message">{% trans "Reps" %}</span>
          </div>
     </td>
@@ -64,13 +63,16 @@ $(document).ready(function () {
         {{form.weight}}
         </div>
         
-        <div class="ym-fbox-text {% if form.weight.errors %}ym-error{% endif %}">
+        <div class="ym-fbox-text narrow-input {% if form.weight.errors %}ym-error{% endif %}" >
              <span class="ym-message">kg.</span>
          </div>
     </td>
     {% endfor %}
+    
 </tr>
 {% empty %}
+<tr>
+    <td>
     <div class="box warning" id="weight-box-warning">
     {% trans "Add exercises to this training day before adding a log." %}
     
@@ -79,11 +81,15 @@ $(document).ready(function () {
     </a>
     
     </div>
+    </td>
+</tr>
 {% endfor %}
+</table>
 
+<table>
 <tr>
-    <td colspan="{{max_sets}}">
-        <input type="submit" value="{% trans 'Save' %}" id="form-save">
+    <td style="text-align:center;">
+        <input type="submit" value="{% trans 'Save' %}" id="form-save" style="width: 95%;">
     </td>
 </tr>
 </table>

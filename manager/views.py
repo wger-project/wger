@@ -980,7 +980,6 @@ def workout_log_add(request, pk):
     # exercise: the entries for weight and repetitions have no indicator to which
     # exercise they belong besides the form-ID, from Django's formset
     counter = 0
-    max_sets = 0
     total_sets = 0
     exercise_list = {}
     form_to_exercise = {}
@@ -990,10 +989,6 @@ def workout_log_add(request, pk):
             
             # Maximum possible values
             total_sets = total_sets + int(exercise_set.sets)
-            
-            # Needed to calculate the colspan in the template
-            if total_sets > max_sets:
-                max_sets = total_sets
             counter_before = counter
             counter = counter + int(exercise_set.sets) - 1
             form_id_range = range(counter_before, counter +1)
@@ -1062,7 +1057,6 @@ def workout_log_add(request, pk):
         exercise_list[exercise]['forms'] = formset[form_id_from:form_id_to +1]
 
     template_data['day'] = day
-    template_data['max_sets'] = max_sets
     template_data['exercises'] = exercise_list
     template_data['formset'] = formset
     template_data['dateform'] = dateform
