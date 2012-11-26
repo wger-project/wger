@@ -33,6 +33,7 @@ from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 from django.utils.decorators import method_decorator
 from django.utils import translation
+from django.utils.datastructures import SortedDict
 
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
@@ -182,7 +183,7 @@ def exercise_view(request, id, comment_id=None):
     # Load log
     logs = WorkoutLog.objects.filter(user = request.user,
                                      exercise = exercise)
-    entry_log = {}
+    entry_log = SortedDict()
     
     for entry in logs:
         if not entry_log.get(entry.date):

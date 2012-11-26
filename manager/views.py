@@ -32,6 +32,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 from django.utils.formats import date_format
+from django.utils.datastructures import SortedDict
 
 from django.forms import Form
 from django.forms import ModelForm
@@ -1116,8 +1117,8 @@ class WorkoutLogDetailView(DetailView):
                 
                 for exercise in set.exercises.select_related():
                     exercise_log[exercise] = []
-                    entry_log = {}
-                    entry_log_by_reps = {}
+                    entry_log = SortedDict()
+                    entry_log_by_reps = SortedDict()
                     
                     for entry in exercise.workoutlog_set.all():
                         if not entry_log.get(entry.date):
