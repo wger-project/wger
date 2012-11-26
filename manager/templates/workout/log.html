@@ -3,14 +3,14 @@
 {% load staticfiles %}
 {% load manager_extras %} 
 
-{% block title %}{% trans "Weight log for workout" %} – {{ workout.creation_date }}{% endblock %}
+{% block title %}{% trans "Weight log for workout" %}{% endblock %}
 
 {% block header %}
 <script src="{% static 'js/d3.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-<h2>{% trans "Weight log for workout" %} {{ workout.id }}</h2>
+<h2>{% trans "Weight log for workout" %}</h2>
 
 
 {% if workout.comment %}
@@ -21,7 +21,7 @@
 {% endif %}
 
 {% for day, exercise_log in workout_log.items %}
-<h3>{{ day.description }}</h3>
+<h3 style="border-bottom: 1px solid  rgb(224, 224, 224);">{{ day.description }}</h3>
 
 <p>
 <a href="{% url day-log day.id %}"
@@ -75,26 +75,6 @@
     {% endfor %}
 {% endfor %}
 
-
-
-<table class="bordertable narrow">
-<thead>
-    <tr>
-        <th>Name</th>
-        <th>Datum</th>
-        <th>Reps</th>
-        <th>Weight</th>
-    </tr>
-</thead>
-{% for log_entry in workout.workoutlog_set.all %}
-    <tr>
-        <td>{{log_entry.exercise.name}}</td>
-        <td>{{log_entry.date}}</td>
-        <td>{{log_entry.reps}}</td>
-        <td>{{log_entry.weight}}</td>
-    </tr>
-{% endfor %}
-</table>
 
 {% endblock %}
 
