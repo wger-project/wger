@@ -40,6 +40,8 @@ from django.views.generic import UpdateView
 
 from manager.utils import load_language
 
+from manager.models import WorkoutLog
+
 from exercises.models import Language
 from exercises.models import Exercise
 from exercises.models import ExerciseComment
@@ -175,6 +177,19 @@ def exercise_view(request, id, comment_id=None):
     
     template_data['muscle_backgrounds_front'] = backgrounds_front
     template_data['muscle_backgrounds_back'] = backgrounds_back
+    
+    
+    # Load log
+    logs = WorkoutLog.objects.filter(user = request.user,
+                                     exercise = exercise)
+    entry_log = {}
+    
+    for entry in logs:
+        if not entry_log.get(entry.date):
+            entry_log[entry.date] = []
+        entry_log[entry.date].append(entry)
+        
+    template_data['logs'] = entry_log
     
     
     

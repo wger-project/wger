@@ -1115,7 +1115,6 @@ class WorkoutLogDetailView(DetailView):
                 exercise_log = {}
                 
                 for exercise in set.exercises.select_related():
-                    logger.debug(exercise)
                     exercise_log[exercise] = []
                     entry_log = {}
                     entry_log_by_reps = {}
@@ -1129,7 +1128,6 @@ class WorkoutLogDetailView(DetailView):
                             entry_log_by_reps[entry.reps] = []
                         entry_log_by_reps[entry.reps].append(entry)
 
-                    logger.debug(entry_log_by_reps)
                     if entry_log:
                         exercise_log[exercise].append(entry_log)
             
@@ -1139,6 +1137,5 @@ class WorkoutLogDetailView(DetailView):
                         workout_log[day][exercise]['log_by_reps'] = entry_log_by_reps
         
         context['workout_log'] = workout_log
-        #logger.debug(workout_log)
         
         return context

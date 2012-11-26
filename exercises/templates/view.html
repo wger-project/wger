@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %} 
 {% load staticfiles %}
+{% load manager_extras %} 
 
 
 {% block header %}
@@ -71,6 +72,13 @@ function custom_modal_init()
 </p>
 {% endif %}
 
+
+{% if logs %}
+<h3>{% trans "Weight log" %}</h3>
+
+{% render_weight_log logs %}
+
+{% endif %}
 
 {% endblock %}
 
