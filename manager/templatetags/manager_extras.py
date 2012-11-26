@@ -26,3 +26,12 @@ def pagination(page, page_range):
     """
     return {'page':       page,
             'page_range': page_range }
+            
+            
+@register.inclusion_tag('tags/render_weight_log.html')
+def render_weight_log(log):
+    """
+    Renders a weight log series
+    """
+    
+    return {'log': log}

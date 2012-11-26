@@ -1,0 +1,22 @@
+{% load i18n %}
+<div style="overflow-x: auto;">
+<table class="noborder" style="border: 0 none; width: 7.5em;">
+    <tr>
+    {% for date, entry_list in log.items %}
+    <td style="padding: 0em; border-top-width: 0px;">
+        <table class="narrow" style="width: 7.5em;">
+            <tr>
+                <th>{{date|date:"d.m.Y"}}</th>
+            </tr>
+            {% for entry in entry_list %}
+            <tr>
+                <td>{{entry.reps}} {% trans "Reps" %} × {{entry.weight}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </td>
+    {% endfor %}
+    </tr>
+</table>
+</div>
+
