@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load staticfiles %} 
+{% load staticfiles %}
+{% load manager_extras %}
 
 {% block header %}
 
@@ -35,9 +36,9 @@
 <table>
     {% for current_field in form_fields %}
         {% if current_field.name in select_lists %}
-            {% include "form_snippet.html" with field=current_field css_class="ym-fbox-select" %}
+            {% yaml_form_field current_field "ym-fbox-select" %}
         {% else %}
-            {% include "form_snippet.html" with field=current_field %}
+            {% yaml_form_field current_field %}
         {% endif %}
     {% endfor %}
     <tr>

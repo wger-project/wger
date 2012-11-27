@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load staticfiles %}
+{% load manager_extras %} 
 
 
 {% block title %}{% trans "Weight entry" %}{% endblock %}
@@ -33,8 +34,8 @@ $(document).ready(function () {
 {% csrf_token %}
 {{ weight_form.non_field_errors }}
 <table>
-    {% include "form_snippet.html" with field=weight_form.weight %}
-    {% include "form_snippet.html" with field=weight_form.creation_date %}
+    {% yaml_form_field weight_form.weight %}
+    {% yaml_form_field weight_form.creation_date %}
     <tr>
         <td><input type="submit" value="{% trans "Save" %}" id="form-save"></td>
         <td></td>

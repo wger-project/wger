@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load staticfiles %}
+{% load manager_extras %}
 
 {% block title %}{% trans "Preferences" %}{% endblock %}
 
@@ -15,8 +16,8 @@
       {% csrf_token %}
       {{ form.non_field_errors }}
 <table>
-{% include "form_snippet.html" with field=form.show_comments %}
-{% include "form_snippet.html" with field=form.show_english_ingredients %}
+{% yaml_form_field form.show_comments %}
+{% yaml_form_field form.show_english_ingredients %}
 </table>
 
 
@@ -24,7 +25,7 @@
 
 {{ email_form.non_field_errors }}
 <table>
-{% include "form_snippet.html" with field=email_form.email %}
+{% yaml_form_field form.email_form.email %}
     <tr>
         <td colspan="2">
             <input type="submit" value="{% trans 'Save' %}">

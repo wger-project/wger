@@ -35,3 +35,13 @@ def render_weight_log(log):
     """
     
     return {'log': log}
+    
+    
+@register.inclusion_tag('tags/yaml_form_element.html')
+def yaml_form_field(field, css_class = 'ym-fbox-text'):
+    """
+    Renders a form field in a <tr> with all necessary CSS
+    """
+    
+    return {'field':     field,
+            'css_class': css_class}

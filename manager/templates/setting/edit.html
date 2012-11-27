@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %} 
+{% load manager_extras %}
+
 
 <!--
         Title
@@ -25,8 +27,7 @@
 <table>
     {% for form in setting_form %}
         {{ form.id }} <!-- Needed for FormSets --> 
-        {% include "form_snippet.html" with field=form.reps %}
-        <!--{% include "form_snippet.html" with field=form.comment %}-->
+        {% yaml_form_field form.reps %}
     {% endfor %}
    <tr>
         <td><input type="submit" value="{% trans 'Save' %}" /></td>

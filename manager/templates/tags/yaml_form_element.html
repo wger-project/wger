@@ -6,7 +6,7 @@
     {% if field.errors %}</span></div>{% endif %}
     </td>
     <td>
-        <div class="{{css_class|default:'ym-fbox-text'}} {% if field.errors %}ym-error{% endif %}">
+        <div class="{{css_class}} {% if field.errors %}ym-error{% endif %}">
         {{ field }}
         </div>
         

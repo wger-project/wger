@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load manager_extras %}
 
 {% block title %} {% trans "Login" %}{% endblock %}
 
@@ -13,10 +14,10 @@
       {{ form.non_field_errors }}
       <input type="hidden" name="redirect_target" value="{{redirect_target}}">
 <table>
-{% include "form_snippet.html" with field=form.username %}
-{% include "form_snippet.html" with field=form.password1 %}
-{% include "form_snippet.html" with field=form.password2 %}
-{% include "form_snippet.html" with field=form.email %}
+{% yaml_form_field form.username %}
+{% yaml_form_field form.password1 %}
+{% yaml_form_field form.password2 %}
+{% yaml_form_field form.email %}
     <tr>
         <td colspan="2">
             <input type="submit" value="{% trans 'Save' %}" id="form-save">

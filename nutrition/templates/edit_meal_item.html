@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load staticfiles %}
+{% load manager_extras %} 
+
 
 {% block title %}{% trans "Edit meal item" %}{% endblock %}
 
@@ -27,11 +29,11 @@ $(document).ready(function() {
 {% csrf_token %}
 {{ form.non_field_errors }}
 <table>
-    {% include "form_snippet.html" with field=form.amount_gramm %}
+    {% yaml_form_field form.amount_gramm %}
     {% if js_active %}
         <input type="hidden" id="id_ingredient" name="ingredient" value="{{ingredient}}">
     {% else %}
-        {% include "form_snippet.html" with field=form.ingredient css_class="ym-fbox-select" %}
+        {% yaml_form_field form.amount_gramm form.ingredient "ym-fbox-select"%}
     {% endif %}
     <tr>
         <td style="text-align:right;">
