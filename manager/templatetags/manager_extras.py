@@ -5,7 +5,7 @@ register = template.Library()
 @register.filter(name='get_current_settings')
 def get_current_settings(exercise, set_id):
     """Does a filter on the sets
-    
+
     We need to do this here because it's not possible to pass arguments to function in the template,
     and we are only interested on the settings that belong to the current set
     """
@@ -26,22 +26,22 @@ def pagination(page, page_range):
     """
     return {'page':       page,
             'page_range': page_range }
-            
-            
+
+
 @register.inclusion_tag('tags/render_weight_log.html')
 def render_weight_log(log):
     """
     Renders a weight log series
     """
-    
+
     return {'log': log}
-    
-    
+
+
 @register.inclusion_tag('tags/yaml_form_element.html')
 def yaml_form_field(field, css_class = 'ym-fbox-text'):
     """
     Renders a form field in a <tr> with all necessary CSS
     """
-    
+
     return {'field':     field,
             'css_class': css_class}

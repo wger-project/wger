@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import permission_required
 
 from exercises.views import ExerciseUpdateView
@@ -21,31 +21,31 @@ urlpatterns = patterns('exercises.views',
     url(r'^exercise/(?P<id>\d+)/view/$', 'exercise_view'),
     url(r'^exercise/add/$',
         permission_required('exercises.change_exercise')(ExerciseAddView.as_view()),
-        name = 'exercise-add'),
+        name='exercise-add'),
     url(r'^exercise/(?P<pk>\d+)/edit/$',
         permission_required('exercises.change_exercise')(ExerciseUpdateView.as_view()),
-        name = 'exercise-edit'),
+        name='exercise-edit'),
     url(r'^exercise/(?P<pk>\d+)/delete/$',
         permission_required('exercises.change_exercise')(ExerciseDeleteView.as_view()),
         name='exercise-delete'),
-    
+
     # Comments
     url(r'^exercise/(?P<exercise_pk>\d+)/comment/add/$',
         permission_required('exercises.change_exercise')(ExerciseCommentAddView.as_view()),
-        name = 'exercisecomment-add'),
+        name='exercisecomment-add'),
     url(r'^exercise/comment/(?P<pk>\d+)/edit/$',
         permission_required('exercises.change_exercise')(ExerciseCommentEditView.as_view()),
-        name = 'exercisecomment-edit'),
+        name='exercisecomment-edit'),
     url(r'^exercise/comment/(?P<id>\d+)/delete/$', 'exercisecomment_delete'),
-    
+
     # Categories
     url(r'^exercise/category/(?P<pk>\d+)/edit/$',
         permission_required('exercises.change_exercise')(ExerciseCategoryUpdateView.as_view()),
-        name = 'exercisecategory-edit'),
+        name='exercisecategory-edit'),
     url(r'^exercise/category/add/$',
         permission_required('exercises.change_exercise')(ExerciseCategoryAddView.as_view()),
-        name = 'exercisecategory-add'),
+        name='exercisecategory-add'),
     url(r'^exercise/category/(?P<pk>\d+)/delete/$',
         permission_required('exercises.change_exercise')(ExerciseCategoryDeleteView.as_view()),
-        name = 'exercisecategory-delete'),   
+        name='exercisecategory-delete'),
 )
