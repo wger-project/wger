@@ -219,8 +219,12 @@ def registration(request):
         form = RegistrationForm()
 
     template_data['form'] = form
+    template_data['title'] = _('Register')
+    template_data['form_fields'] = [i for i in form]
+    template_data['form_action'] = reverse('manager.views.registration')
+    template_data['submit_text'] = _('Register')
 
-    return render_to_response('user/registration.html',
+    return render_to_response('form.html',
                               template_data,
                               context_instance=RequestContext(request))
 

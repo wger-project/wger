@@ -17,6 +17,7 @@
 import logging
 
 from django.http import HttpResponseForbidden
+from django.utils.translation import ugettext_lazy
 
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
@@ -36,6 +37,7 @@ class YamlFormMixin(ModelFormMixin):
     form_action_urlname = ''
     title = ''
     owner_object = False
+    submit_text = ugettext_lazy('Save')
     
     def get_context_data(self, **kwargs):
         '''
@@ -77,6 +79,10 @@ class YamlFormMixin(ModelFormMixin):
             
         # Set the title
         context['title'] = self.title
+        
+        # Text used in the submit button
+        context['submit_text'] = self.submit_text
+        
         
         return context 
     
