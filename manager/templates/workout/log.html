@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% load i18n %} 
+{% load i18n %}
 {% load staticfiles %}
-{% load manager_extras %} 
+{% load manager_extras %}
 
 {% block title %}{% trans "Weight log for workout" %}{% endblock %}
 
@@ -36,19 +36,21 @@
 
     {% for exercise, date_list in exercise_log.items %}
         <p><a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a></p>
-        
+
         {% if date_list.log_by_date %}
             {% with list=date_list.log_by_date %}
-                {% render_weight_log list %}
-            {% endwith %}    
+                {% render_weight_log list date_list.div_uuid %}
+
+                <script>
+                $(document).ready(function() {
+                weight_log_chart({{date_list.chart_data|safe}}, "{{date_list.div_uuid}}")
+                });
+                </script>
+            {% endwith %}
         {% else %}
         <p><em>{% trans "No weight entries here." %}</em></p>
         {% endif %}
-    
-    {% with list=date_list.log_by_reps %}
-    
-    {% endwith %}
-    
+
     {% empty%}
     <p>
         <em>{% trans "No exercises for this day." %}</em>

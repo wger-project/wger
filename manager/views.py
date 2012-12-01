@@ -1101,16 +1101,26 @@ class WorkoutLogDetailView(DetailView):
                 for exercise in set.exercises.select_related():
                     exercise_log[exercise] = []
                     entry_log = SortedDict()
-                    entry_log_by_reps = SortedDict()
+                    reps = []
+                    chart_data = []
+                    logs = exercise.workoutlog_set.all()
 
-                    for entry in exercise.workoutlog_set.all():
+                    for entry in logs:
+                        if entry.reps not in reps:
+                            reps.append(entry.reps)
+
                         if not entry_log.get(entry.date):
                             entry_log[entry.date] = []
                         entry_log[entry.date].append(entry)
 
-                        if not entry_log_by_reps.get(entry.reps):
-                            entry_log_by_reps[entry.reps] = []
-                        entry_log_by_reps[entry.reps].append(entry)
+                    for entry in logs:
+                        temp = {'date': '%s' % entry.date}
+                        for rep in reps:
+                            if entry.reps == rep:
+                                temp[rep] = entry.weight
+                            else:
+                                temp[rep] = 0
+                        chart_data.append(temp)
 
                     if entry_log:
                         exercise_log[exercise].append(entry_log)
@@ -1118,7 +1128,9 @@ class WorkoutLogDetailView(DetailView):
                     if exercise_log:
                         workout_log[day][exercise] = {}
                         workout_log[day][exercise]['log_by_date'] = entry_log
-                        workout_log[day][exercise]['log_by_reps'] = entry_log_by_reps
+                        workout_log[day][exercise]['div_uuid'] = 'id-' + str(uuid.uuid4())
+                        workout_log[day][exercise]['chart_data'] = chart_data
+                        logger.debug(chart_data)
 
         context['workout_log'] = workout_log
 

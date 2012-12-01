@@ -77,13 +77,13 @@ function custom_modal_init()
 
 <h3>{% trans "Weight log" %}</h3>
 
-{% render_weight_log logs %}
+{% render_weight_log logs svg_uuid %}
 <script src="{% static 'js/d3.js' %}"></script>
 <script src="{% static 'js/jquery-globalize/lib/globalize.js' %}"></script>
 
 <script>
 $(document).ready(function() {
-weight_log_chart({{json|safe}}, 'aaa')
+weight_log_chart({{json|safe}}, "{{svg_uuid}}")
 });
 </script>
 

@@ -29,12 +29,13 @@ def pagination(page, page_range):
 
 
 @register.inclusion_tag('tags/render_weight_log.html')
-def render_weight_log(log):
+def render_weight_log(log, div_uuid):
     """
     Renders a weight log series
     """
 
-    return {'log': log}
+    return {'log': log,
+            'div_uuid': div_uuid}
 
 
 @register.inclusion_tag('tags/yaml_form_element.html')
