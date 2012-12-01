@@ -5,8 +5,8 @@
 
 {% endblock %}
 
-<div style="overflow-x: auto;">
-<table class="noborder" style="border: 0 none; width: 7.5em;">
+<div style="overflow-x: auto;" class="weight-chart-table">
+<table class="noborder" style="border: 0 none; width: 7.5em; display:none;" id="table-{{div_uuid}}">
     <tr>
     {% for date, entry_list in log.items %}
     <td style="padding: 0em; border-top-width: 0px;">
@@ -25,5 +25,10 @@
     </tr>
 </table>
 </div>
-<div id="{{div_uuid}}"></div>
+
+<div class="weight-chart-table-toggle" data-toggle-target="table-{{div_uuid}}">
+<a href="#">{% trans "Toggle data table" %}</a>
+</div>
+
+<div id="svg-{{div_uuid}}"></div>
 

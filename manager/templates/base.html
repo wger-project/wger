@@ -25,7 +25,7 @@
     -->
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/yaml/demos/css/flexible-grids.css' %} "> <!-- CSS framework for the layout -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/yaml/custom-yaml.css' %}">               <!-- Customisations for yaml      -->    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/yaml/custom-yaml.css' %}">               <!-- Customisations for yaml      -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager.css' %}">                <!-- Own CSS classes and styles      -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui.css' %}">                      <!-- CSS for JQuery UI elements   -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui-custom.css' %}">                      <!-- Customization for JQuery CSS   -->
@@ -36,27 +36,30 @@
     <script src="{% static 'js/workout-manager.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/ubuntu-unity.js' %}"    type="text/javascript"></script>
     <script src="{% static 'js/browserid.js' %}"       type="text/javascript"></script>
-    
+
     {% block header %}{% endblock %}
-    
+
     <script>
     $(document).ready(function() {
-        
+
         if (typeof custom_page_init != "undefined")
         {
             custom_page_init();
         }
-            
-        
+
+
         // Init the modal dialog for editing forms
         form_modal_dialog();
-        
+
         // Initialise the hook to reload the main-content
         load_maincontent();
+
+        // Toggle weight chart tables
+        toggle_weight_log_table();
      });
     </script>
- 
-    
+
+
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
@@ -84,8 +87,8 @@
                 <li {% if active_tab == 'weight'    %}class="active"{% endif %}><a href="{% url weight.views.overview %}">{% trans "Weight" %} </a></li>
                 <li {% if active_tab == 'nutrition' %}class="active"{% endif %}><a href="{% url nutrition.views.overview %}">{% trans "Nutrition" %} </a></li>
             </ul>
-            
-            
+
+
             {% if user.username %}
             <ul style="float:right;">
             <li>
@@ -105,7 +108,7 @@
             <div class="ym-grid linearize-level-1">
                 <article class="ym-g80 ym-gl">
                     <div class="ym-gbox-left box invisible" id="ajax-info">
-                        
+
                     </div>
                 </article>
             </div>

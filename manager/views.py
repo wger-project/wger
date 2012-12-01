@@ -1128,7 +1128,7 @@ class WorkoutLogDetailView(DetailView):
                     if exercise_log:
                         workout_log[day][exercise] = {}
                         workout_log[day][exercise]['log_by_date'] = entry_log
-                        workout_log[day][exercise]['div_uuid'] = 'id-' + str(uuid.uuid4())
+                        workout_log[day][exercise]['div_uuid'] = str(uuid.uuid4())
                         workout_log[day][exercise]['chart_data'] = chart_data
                         logger.debug(chart_data)
 

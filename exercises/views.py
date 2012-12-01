@@ -201,7 +201,7 @@ def exercise_view(request, id, comment_id=None):
 
     template_data['logs'] = entry_log
     template_data['json'] = chart_data
-    template_data['svg_uuid'] = 'id-' + str(uuid.uuid4())
+    template_data['svg_uuid'] = str(uuid.uuid4())
 
     # Render
     return render_to_response('view.html',

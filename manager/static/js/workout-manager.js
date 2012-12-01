@@ -573,7 +573,7 @@ function weight_log_chart(data, div_id)
         .x(function(d) { return x(d.date); })
         .y(function(d) { return y(d.weight); });
 
-    var svg = d3.select("#" + div_id).append("svg")
+    var svg = d3.select("#svg-" + div_id).append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
@@ -658,6 +658,15 @@ function weight_log_chart(data, div_id)
           .text(function(d) { return d.name; });
 }
 
+function toggle_weight_log_table()
+{
+    $(".weight-chart-table-toggle").click(function(e) {
+        e.preventDefault();
+        target = $(this).data('toggleTarget');
+        console.log(target);
+        $('#' + target).toggle({effect: 'fade', duration: 600});
+        });
+}
 
 /*
  *
