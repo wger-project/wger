@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% load i18n %} 
+{% load i18n %}
 {% load staticfiles %}
-{% load manager_extras %} 
+{% load manager_extras %}
 
 
 {% block header %}
@@ -74,9 +74,20 @@ function custom_modal_init()
 
 
 {% if logs %}
+
 <h3>{% trans "Weight log" %}</h3>
 
 {% render_weight_log logs %}
+<script src="{% static 'js/d3.js' %}"></script>
+<script src="{% static 'js/jquery-globalize/lib/globalize.js' %}"></script>
+
+<script>
+$(document).ready(function() {
+weight_log_chart({{json|safe}}, 'aaa')
+});
+</script>
+
+
 
 {% endif %}
 

@@ -1,6 +1,6 @@
-/* 
- * Own functions 
- * 
+/*
+ * Own functions
+ *
  */
 
 
@@ -38,23 +38,23 @@ function setup_sortable()
                 // Monkey around the HTML, till we find the IDs of the set and the day
                 var day_element = ui.item.parent().parent().find('tr').first().attr('id'); //day-xy
                 var day_id = day_element.match(/\d+/);
-                
+
                 // returns something in the form "set-1,set-2,set-3,"
                 var order = $( this ).sortable('toArray');
 
                 //$("#ajax-info").show();
                 //$("#ajax-info").addClass('success');
                 $.get("/workout/api/edit-set" + "?do=set_order&day_id=" + day_id + "&order=" + order)
-                
-                
+
+
                 // TODO: it seems to be necessary to call the view two times before it returns
                 //       current data.
                 $.get("/workout/day/view/" + day_id);
                 $("#div-day-" + day_id).load("/workout/day/view/" + day_id);
         }
-        
+
     })
-    
+
     // Allow the settings within an exercise to be sortable
     $(".settings-list").sortable({
         placeholder: 'sortable-settings',
@@ -67,7 +67,7 @@ function setup_sortable()
         update : function (event, ui) {
             // returns something in the form "setting-1,setting-2,setting-3,"
             var order = $( this ).sortable('toArray');
-        
+
             // Load the day-ID
             var day_element = ui.item.parents('table').find('tr').attr('id'); //day-xy
             var day_id = day_element.match(/\d+/);
@@ -75,7 +75,7 @@ function setup_sortable()
             //$("#ajax-info").show();
             //$("#ajax-info").addClass('success');
             $("#ajax-info").load("/workout/api/edit-settting?do=set_order&order=" + order);
-            
+
             // TODO: it seems to be necessary to call the view two times before it returns
             //       current data.
             $.get("/workout/day/view/" + day_id);
@@ -92,13 +92,13 @@ function setup_ajax_set_edit()
 {
     // Unbind all other click events so we don't do this more than once
     $(".ajax-set-edit").off();
-    
+
     $(".ajax-set-edit").click(function(e) {
         e.preventDefault();
-        
+
         var set_id = $(this).parents('tr').attr('id').match(/\d+/);
         var exercise_id = $(this).parents('.ajax-set-edit-target').attr('id').match(/\d+/);
-        
+
         load_edit_set($(this).parents('.ajax-set-edit-target'), set_id, exercise_id)
     });
 }
@@ -111,35 +111,35 @@ function load_edit_set(element, set_id, exercise_id)
 function setup_inplace_editing()
 {
     $(".ajax-form-cancel").each(function(index, element) {
-        
-        
+
+
         var exercise_id = $(this).parents('.ajax-set-edit-target').attr('id').match(/\d+/);
         var day_id = $(this).parents('table').attr('id').match(/\d+/);
         var set_id = $(this).parents('tr').attr('id').match(/\d+/);
-        
+
         // Editing of set
         $(element).click(function(e) {
             e.preventDefault();
             $("#div-day-" + day_id).load("/workout/day/view/" + day_id);
         })
-        
+
         // Send the Form
         $('.ajax-form-set-edit').submit(function(e) {
           e.preventDefault();
-          
+
           url = "/workout/api/edit-set?do=edit_set&set=" + set_id + "&exercise=" + exercise_id
           form_data = $(this).serialize();
           $.post( url, form_data);
-          
+
           $("#div-day-" + day_id).load("/workout/day/view/" + day_id);
         });
-        
+
         // Init the autocompleter
         $(".ajax-form-exercise-list").catcomplete({
                 source: "/exercise/search/",
                 minLength: 2,
                 select: function(event, ui) {
-    
+
                     // After clicking on a result set the value of the hidden field
                     $('#set-' + set_id + '-exercercise-id-hidden').val(ui.item.id);
                 }
@@ -148,16 +148,16 @@ function setup_inplace_editing()
 }
 
 /*
- * 
+ *
  * Functions related to the user's preferences
- * 
+ *
  */
 function toggle_comments()
 {
     $("#exercise-comments-toggle").click(function(e) {
         e.preventDefault();
-        
-        
+
+
         if ( showComment == 0 )
         {
             $('.exercise-comments').show();
@@ -168,7 +168,7 @@ function toggle_comments()
             $('.exercise-comments').hide();
             showComment = 0;
         }
-        
+
         $("#ajax-info").load("/workout/api/user-preferences?do=set_show-comments&show=" + showComment);
     });
 }
@@ -177,8 +177,8 @@ function set_english_ingredients()
 {
     $("#ajax-english-ingredients").click(function(e) {
         e.preventDefault();
-        
-        
+
+
         if ( useEnglishIngredients == 0 )
         {
             $('#english-ingredients-status').attr("src", "/static/images/icons/status-on.svg");
@@ -189,7 +189,7 @@ function set_english_ingredients()
              $('#english-ingredients-status').attr("src", "/static/images/icons/status-off.svg");
              useEnglishIngredients = 0;
         }
-        
+
         $("#ajax-info").load("/workout/api/user-preferences?do=set_english-ingredients&show=" + useEnglishIngredients);
     });
 }
@@ -199,7 +199,7 @@ function set_english_ingredients()
  * Init calls for tinyMCE editor
  */
 function init_tinymce() {
-    
+
     // Only try to init it on pages that loaded its JS file (so they probably need it)
     if (typeof tinyMCE != 'undefined')
     {
@@ -243,7 +243,7 @@ function form_modal_dialog()
                              '</div>');
         $("#ajax-info").dialog({title: 'Loading...'});
         $("#ajax-info").dialog("open");
-        
+
         $("#ajax-info").load(targetUrl + " .ym-form", function(responseText, textStatus) {
             // Call other custom initialisation functions
             // (e.g. if the form as an autocompleter, it has to be initialised again)
@@ -251,11 +251,11 @@ function form_modal_dialog()
             {
                 custom_modal_init();
             }
-        
+
             // Set the new title
             $("#ajax-info").dialog({title: $(responseText).find("#main-content h2").html()});
-            
-            
+
+
             // If there is a form in the modal dialog (there usually is) prevent the submit
             // button from submitting it and do it here with an AJAX request. If there
             // are errors (there is an element with the class 'ym-error' in the result)
@@ -276,17 +276,17 @@ function modal_dialog_form_edit()
 {
     form = $("#ajax-info").find(".ym-form");
     submit = $(form).find("#form-save");
-    
+
     submit.click(function(e) {
         e.preventDefault();
         form_action = form.attr('action');
         form_data = form.serialize();
-        
+
         // Unbind all click elements, so the form doesn't get submitted twice
         // if the user clicks 2 times on the button (while there is already a request
         // happening in the background)
         submit.off();
-        
+
         // Show a loader while we fetch the real page
         $("#ajax-info .ym-form").html('<div style="text-align:center;">'+
                                 '<img src="/static/images/loader.svg" ' +
@@ -294,25 +294,25 @@ function modal_dialog_form_edit()
                                      'height="48"> ' +
                              '</div>');
         $("#ajax-info").dialog({title: 'Processing...'}); // TODO: translate this
-        
-        
+
+
         // OK, we did the POST, what do we do with the result?
         $.post(form_action, form_data, function(data) {
-          
+
             if($(data).find('.ym-form .ym-error').length > 0)
             {
                 // we must do the same with the new form as before, binding the click-event,
                 // checking for errors etc, so it calls itself here again.
-              
+
                 $("#ajax-info .ym-form").html($(data).find('.ym-form').html());
                 $("#ajax-info").dialog({title: $(data).find("#main-content h2").html()});
-            
+
                 modal_dialog_form_edit();
             }
             else
             {
                 $("#ajax-info").dialog("close");
-                
+
                 // If there  was a redirect we must change the URL of the browser. Otherwise
                 // a reload would not change the adress bar, but the content would.
                 // Since it is not possible to get this URL from the AJAX request, we read it out
@@ -322,24 +322,24 @@ function modal_dialog_form_edit()
                 {
                     history.pushState({}, "", current_url);
                 }
-                
+
                 // Note: loading the new page like this executes all its JS code
                 $('body').html(data);
             }
-            
+
             // Call other custom initialisation functions
             // (e.g. if the form as an autocompleter, it has to be initialised again)
             if (typeof custom_modal_init != "undefined")
             {
                 custom_modal_init();
             }
-            
+
             if (typeof custom_page_init != "undefined")
             {
                 custom_page_init();
             }
-            
-            
+
+
         });
     });
 
@@ -354,7 +354,7 @@ function init_ingredient_autocompleter()
         source: "/nutrition/ingredient/search/",
         minLength: 2,
         select: function(event, ui) {
-            
+
             // After clicking on a result set the value of the hidden field
             $('#id_ingredient').val(ui.item.id);
         }
@@ -389,12 +389,12 @@ function add_exercise(exercise)
 </a> EXERCISE \
 <input type="hidden" name="exercises" value="EXCERCISE-ID"> \
 </div>';
-    
+
     // Replace the values into the 'template'
     result_div = result_div.replace('DIV-ID', hex_random());
     result_div = result_div.replace('EXERCISE', exercise.value);
-    result_div = result_div.replace('EXCERCISE-ID', exercise.id); 
-    
+    result_div = result_div.replace('EXCERCISE-ID', exercise.id);
+
     $(result_div).prependTo("#exercise-search-log");
     $("#exercise-search-log").scrollTop(0);
 }
@@ -409,23 +409,23 @@ function init_edit_set()
 
                 // Add the exercise to the list
                 add_exercise(ui.item);
-                
+
                 // Remove the result div (also contains the hidden form element) when the user
                 // clicks on the delete link
                 $(".ajax-exercise-select a").click(function(e) {
                     e.preventDefault();
                     $(this).parent('div').remove();
                 });
-                
+
                 // Reset the autocompleter
                 $(this).val("");
                 return false;
             }
         });
-    
+
     // Remove the result div again
     // TODO: it seems it's necessary to have this twice, see if there's a better
-    //       way to handle it 
+    //       way to handle it
     $(".ajax-exercise-select a").click(function(e) {
         e.preventDefault();
         $(this).parent('div').remove();
@@ -440,9 +440,9 @@ function init_weight_datepicker()
 
 
 /*
- * 
+ *
  * D3js functions
- * 
+ *
  */
 // Simple helper function that simply returns the y component of an entry
 function y_value(d) { return d.y; }
@@ -458,110 +458,227 @@ function weight_chart(data)
     {
         return;
     }
-    
+
     var minDate = getDate(data[0].x),
         maxDate = getDate(data[data.length-1].x);
-    
+
     var margin = {top: 10, right: 10, bottom: 20, left: 40},
         width = 600 - margin.left - margin.right,
         height = 300 - margin.top - margin.bottom;
-    
+
     var x = d3.time.scale()
         .domain([minDate, maxDate])
         .range([0, width]);
-    
+
     var min_y_value = d3.min(data, y_value) - 1;
     var max_y_value = d3.max(data, y_value) + 1;
-    
-    
+
+
     var y = d3.scale.linear()
         .domain([min_y_value, max_y_value])
         .range([height, 0]);
-    
+
     var xAxis = d3.svg.axis()
         .scale(x)
         .ticks(6)
         .orient("bottom");
-        
+
     var yAxis = d3.svg.axis()
         .scale(y)
         .orient("left");
-    
+
     var line = d3.svg.line()
         .x(function(d) { return x(getDate(d.x)); })
         .y(function(d) { return y(d.y); })
         .interpolate('cardinal');
-    
+
     var area = d3.svg.area()
         .x(line.x())
         .y1(line.y())
         .y0(y(min_y_value))
         .interpolate('cardinal');
-    
+
     // Reset the content of weight_diagram, otherwise if there is a filter
     // a new SVG will be appended to it
     $("#weight_diagram").html("");
-    
+
     var svg = d3.select("#weight_diagram").append("svg")
         .datum(data)
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    
+
     svg.append("path")
         .attr("class", "area")
         .attr("d", area);
-    
+
     svg.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis);
-    
+
     svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
-    
+
     svg.append("path")
         .attr("class", "line")
         .attr("d", line);
-    
+
     svg.selectAll(".dot")
         .data(data.filter(function(d) { return d.y; }))
       .enter().append("circle")
         .attr("class", "dot modal-dialog")
-        .attr("href", function(d) { return '/weight/' + d.id + '/edit/'; })  
+        .attr("href", function(d) { return '/weight/' + d.id + '/edit/'; })
         .attr("id", function(d) { return d.id; })
         .attr("cx", line.x())
         .attr("cy", line.y())
         .attr("r", 5);
-    
-    
+
+
     // Make the circles clickable: open their edit dialog
     form_modal_dialog();
 }
 
 
+function weight_log_chart(data, div_id)
+{
+    var margin = {top: 20, right: 80, bottom: 30, left: 50},
+        width = 700 - margin.left - margin.right,
+        height = 200 - margin.top - margin.bottom;
+
+    var parseDate = d3.time.format("%Y-%m-%d").parse;
+
+    var x = d3.time.scale()
+        .range([0, width]);
+
+    var y = d3.scale.linear()
+        .range([height, 0]);
+
+    var color = d3.scale.category10();
+
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .ticks(6)
+        .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .ticks(6)
+        .orient("left");
+
+    var line = d3.svg.line()
+        .interpolate("basis")
+        .x(function(d) { return x(d.date); })
+        .y(function(d) { return y(d.weight); });
+
+    var svg = d3.select("#" + div_id).append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+      color.domain(d3.keys(data[0]).filter(function(key){
+                                      //console.log(key);
+                                          return key !== "date";
+                                          })
+                          );
+
+      data.forEach(function(d) {
+        d.date = parseDate(d.date);
+      });
+
+
+      var reps = color.domain().map(function(name) {
+
+       temp_values = data.filter(function(d) {
+              return(+d[name] > 0);
+              });
+
+        filtered_values = temp_values.map(function(d) {
+            return {date: d.date, weight: +d[name]};
+            });
+
+        return {
+          name: name,
+          values: filtered_values
+        };
+      });
+
+
+      x.domain(d3.extent(data, function(d) { return d.date; }));
+
+      y.domain([
+        d3.min(reps, function(c) { return d3.min(c.values, function(v) { return v.weight; }); }),
+        d3.max(reps, function(c) { return d3.max(c.values, function(v) { return v.weight; }); })
+      ]);
+
+      svg.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + height + ")")
+          .call(xAxis);
+
+      svg.append("g")
+          .attr("class", "y axis")
+          .call(yAxis)
+        .append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em");
+          //.style("text-anchor", "end")
+          //.text("Weight");
+
+      var log_series = svg.selectAll(".log_series")
+          .data(reps)
+        .enter().append("g")
+          .attr("class", "log_series");
+
+      log_series.append("path")
+          .attr("class", "line")
+          .attr("d", function(d) { return line(d.values); })
+          .style("stroke", function(d) { return color(d.name); });
+
+
+    /*
+        log_series.append("circle")
+            .attr("class", "dot")
+            .attr("cx", line.x())
+            .attr("cy", line.y())
+            .attr("r", 5)
+            .style("stroke", function(d) { return color(d.name); });
+    */
+
+      log_series.append("text")
+          .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
+          .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.weight) + ")"; })
+          .attr("x", 3)
+          .attr("dy", ".35em")
+          .text(function(d) { return d.name; });
+}
+
+
 /*
- * 
+ *
  * Helper function to load the target of a link into the main-content DIV (the
  * main left colum)
- * 
+ *
  */
 function load_maincontent()
 {
     $(".load-maincontent").click(function(e) {
         e.preventDefault();
         var targetUrl = $(this).attr("href");
-        
+
         $.get(targetUrl, function(data) {
             // Load the data
             $('#main-content').html($(data).find('#main-content').html());
-            
+
             // Update the browser's history
             current_url = $(data).find("#current-url").html();
             history.pushState({}, "", current_url);
-                
+
             load_maincontent();
         });
     });

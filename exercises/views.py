@@ -121,7 +121,6 @@ def exercisecomment_delete(request, id):
     return HttpResponseRedirect(reverse('exercises.views.exercise_view', kwargs={'id': exercise_id}))
 
 
-
 # ************************
 #         Exercises
 # ************************
@@ -179,12 +178,28 @@ def exercise_view(request, id, comment_id=None):
                                      exercise=exercise)
     entry_log = SortedDict()
 
+    chart_data = []
+    reps = []
     for entry in logs:
+        if entry.reps not in reps:
+            reps.append(entry.reps)
+
         if not entry_log.get(entry.date):
             entry_log[entry.date] = []
         entry_log[entry.date].append(entry)
 
+    for entry in logs:
+        temp = {'date': '%s' % entry.date}
+        for rep in reps:
+            if entry.reps == rep:
+                temp[rep] = entry.weight
+            else:
+                temp[rep] = 0
+
+        chart_data.append(temp)
+
     template_data['logs'] = entry_log
+    template_data['json'] = chart_data
 
     # Render
     return render_to_response('view.html',
