@@ -1133,5 +1133,7 @@ class WorkoutLogDetailView(DetailView):
                         logger.debug(chart_data)
 
         context['workout_log'] = workout_log
+        context['reps'] = _("Reps")
+
 
         return context

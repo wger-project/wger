@@ -17,7 +17,7 @@
 
 
 /**************************************************************
- * 
+ *
  * This file contains slight modifications to the YAML theme
  * or other YAML elements
  *
@@ -48,7 +48,7 @@ nav {
 }
 
 
-tr:hover .editoptions, tbody tr:hover td .editoptions, ul:hover .editoptions 
+tr:hover .editoptions, tbody tr:hover td .editoptions, ul:hover .editoptions
 {
     visibility: visible;
 }
@@ -58,7 +58,7 @@ tr:hover .editoptions, tbody tr:hover td .editoptions, ul:hover .editoptions
  * Deactivate the default background color on hover
  */
 .editoptions a:hover,
-.ui-tabs-nav a:hover, 
+.ui-tabs-nav a:hover,
 .ui-tabs-nav a:focus,
 .ajax-exercise-select a:hover,
 .no-hover a:hover,
@@ -68,18 +68,18 @@ tr:hover .editoptions, tbody tr:hover td .editoptions, ul:hover .editoptions
 
 
 /*
- * Use colour from the Tango palette for links 
+ * Use colour from the Tango palette for links
  */
 
 a {
     color: #3465a4;
 }
 /*
- * Use colours from the Tango palette for the info, warning and error boxes 
+ * Use colours from the Tango palette for the info, warning and error boxes
  */
 
 .info {
-    background: #babdb6;
+    background: #eeeeec;
 }
 
 .warning {
@@ -96,7 +96,7 @@ a {
 
 /*
  * Set the width of form elements to 100%
- * 
+ *
  * Most forms will be edited on a JQuery dialog window and this makes it more readable
  */
 .ym-form input, .ym-form input, .ym-form textarea, .ym-form select {

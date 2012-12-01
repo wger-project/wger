@@ -16,7 +16,7 @@
 */
 
 /**************************************************************
- * 
+ *
  * This file contains custom classes and styles
  *
  **************************************************************/
@@ -143,7 +143,7 @@ div.muscle-background
 {
     width: 200px;
     height: 369px;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
 }
 
 /*
@@ -196,7 +196,7 @@ circle{
  * Classes Error form
  **************************************************************/
 
-/* 
+/*
  * 'form-error' is inserted by the JQuery form validator and the styling
  * is copied from the yaml ones, for consistency
  */
@@ -220,7 +220,7 @@ circle{
 .workout-log-table .narrow-input
 {
     width: 3em;
-    
+
 }
 
 .ym-form .workout-log-table div.ym-fbox-text{
@@ -268,7 +268,8 @@ header span.regular{
  * Links in warning boxes get a different style, the default blue doesn't match
  * well with orange
  */
-div.warning a, div.warning a:hover, div.warning a:active{
+div.warning a, div.warning a:hover, div.warning a:active,
+div.info a, div.info a:hover, div.info a:active{
     color: black;
     text-decoration: underline;
     background-color: transparent;
@@ -368,5 +369,5 @@ ul.pagination a:visited {
 ul.pagination a:hover
 {
     border: 1px solid #2e3436;
-    box-shadow: 0 0 4px #3465a4 inset;    
+    box-shadow: 0 0 4px #3465a4 inset;
 }

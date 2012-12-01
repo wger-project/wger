@@ -21,7 +21,7 @@
 {% endif %}
 
 {% for day, exercise_log in workout_log.items %}
-<h3 style="border-bottom: 1px solid  rgb(224, 224, 224);">{{ day.description }}</h3>
+<h3>{{ day.description }}</h3>
 
 <p>
 <a href="{% url day-log day.id %}"
@@ -35,7 +35,9 @@
 </p>
 
     {% for exercise, date_list in exercise_log.items %}
-        <p><a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a></p>
+    <div class="box info" style="text-align: center;">
+        <a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a>
+    </div>
 
         {% if date_list.log_by_date %}
             {% with list=date_list.log_by_date %}
@@ -43,7 +45,7 @@
 
                 <script>
                 $(document).ready(function() {
-                weight_log_chart({{date_list.chart_data|safe}}, "{{date_list.div_uuid}}")
+                weight_log_chart({{date_list.chart_data|safe}}, "{{date_list.div_uuid}}", "{{reps}}")
                 });
                 </script>
             {% endwith %}
@@ -70,6 +72,10 @@
 <h3>{% trans "Options" %}</h3>
 <p>
 <a href="{% url workout-view workout.id %}">
+    <img src="{% static 'images/icons/list.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Back to workout' %}">
     {% trans "Back to workout" %}
 </a>
 </p>

@@ -4,6 +4,16 @@
 {% block header %}
 
 {% endblock %}
+<div class="weight-chart-table-toggle" data-toggle-target="table-{{div_uuid}}">
+<p>
+    <a href="#">
+    <img src="{% static 'images/icons/toggle.svg' %}"
+            width="16"
+            height="16"
+            alt="{% trans 'Toggle data table' %}">
+    {% trans "Toggle data table" %}</a>
+</p>
+</div>
 
 <div style="overflow-x: auto;" class="weight-chart-table">
 <table class="noborder" style="border: 0 none; width: 7.5em; display:none;" id="table-{{div_uuid}}">
@@ -26,9 +36,4 @@
 </table>
 </div>
 
-<div class="weight-chart-table-toggle" data-toggle-target="table-{{div_uuid}}">
-<a href="#">{% trans "Toggle data table" %}</a>
-</div>
-
 <div id="svg-{{div_uuid}}"></div>
-

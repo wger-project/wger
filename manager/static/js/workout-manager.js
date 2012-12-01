@@ -542,7 +542,7 @@ function weight_chart(data)
 }
 
 
-function weight_log_chart(data, div_id)
+function weight_log_chart(data, div_id, reps_i18n)
 {
     var margin = {top: 20, right: 80, bottom: 30, left: 50},
         width = 700 - margin.left - margin.right,
@@ -655,7 +655,7 @@ function weight_log_chart(data, div_id)
           .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.weight) + ")"; })
           .attr("x", 3)
           .attr("dy", ".35em")
-          .text(function(d) { return d.name; });
+          .text(function(d) { return d.name + " " + reps_i18n; });
 }
 
 function toggle_weight_log_table()
