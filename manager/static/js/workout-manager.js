@@ -545,7 +545,7 @@ function weight_chart(data)
 function weight_log_chart(data, div_id, reps_i18n)
 {
     var margin = {top: 20, right: 80, bottom: 30, left: 50},
-        width = 700 - margin.left - margin.right,
+        width = 600 - margin.left - margin.right,
         height = 200 - margin.top - margin.bottom;
 
     var parseDate = d3.time.format("%Y-%m-%d").parse;
