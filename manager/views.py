@@ -1130,7 +1130,6 @@ class WorkoutLogDetailView(DetailView):
                         workout_log[day][exercise]['log_by_date'] = entry_log
                         workout_log[day][exercise]['div_uuid'] = str(uuid.uuid4())
                         workout_log[day][exercise]['chart_data'] = chart_data
-                        logger.debug(chart_data)
 
         context['workout_log'] = workout_log
         context['reps'] = _("Reps")
