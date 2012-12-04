@@ -1075,8 +1075,6 @@ class WorkoutLogDetailView(DetailView):
     An overview of the workout's log
     '''
 
-    # TODO: check ownership
-
     model = TrainingSchedule
     template_name = 'workout/log.html'
     context_object_name = 'workout'
@@ -1136,3 +1134,16 @@ class WorkoutLogDetailView(DetailView):
 
 
         return context
+    
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Check for ownership
+        """
+        
+        workout = TrainingSchedule.objects.get(pk = kwargs['pk'])
+        if workout.user != request.user:
+            return HttpResponseForbidden()
+       
+        # Dispatch normally
+        return super(WorkoutLogDetailView, self).dispatch(request, *args, **kwargs)
+    
