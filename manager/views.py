@@ -1101,8 +1101,8 @@ class WorkoutLogDetailView(DetailView):
                     entry_log = SortedDict()
                     reps = []
                     chart_data = []
-                    logs = exercise.workoutlog_set.all()
-
+                    logs = exercise.workoutlog_set.filter(user=self.request.user)
+                    
                     for entry in logs:
                         if entry.reps not in reps:
                             reps.append(entry.reps)
