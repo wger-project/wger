@@ -40,7 +40,7 @@ class AddWorkoutTestCase(WorkoutManagerTestCase):
         if not logged_in:
             
             self.assertEqual(count_before, count_after)
-            self.assertEqual(count_after, 0)
+            self.assertEqual(count_after, 3)
             self.assertTemplateUsed('login.html')    
             
         else:    
@@ -91,8 +91,8 @@ class WorkoutOverviewTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 302)
             return
         
-        # No data sent to the template
-        self.assertFalse(response.context['workouts'])
+        # There are workouts sent to the template
+        self.assertTrue(response.context['workouts'])
         
         
     def test_dashboard_anonymous(self):

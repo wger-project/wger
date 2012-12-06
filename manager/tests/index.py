@@ -42,10 +42,10 @@ class DashboardTestCase(WorkoutManagerTestCase):
             # Correct tab is selected
             self.assertEqual(response.context['active_tab'], 'user')
             
-            # There is nothing else to send to the template
-            self.assertEqual(response.context['weight'], False)
-            self.assertEqual(response.context['current_workout'], False)
-            self.assertEqual(response.context['plan'], False)
+            # Check data sent to the template
+            self.assertFalse(response.context['weight'])
+            self.assertTrue(response.context['current_workout'])
+            self.assertFalse(response.context['plan'])
             
         else:
             # Anonymous users are redirected to the login page
