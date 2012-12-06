@@ -78,10 +78,10 @@ class AddWorkoutTestCase(WorkoutManagerTestCase):
 class WorkoutOverviewTestCase(WorkoutManagerTestCase):
     """Tests the workout overview"""
     
-    def get_wotkout_overview(self, logged_in = False):
+    def get_workout_overview(self, logged_in = False):
         """Helper function to test the workout overview"""
         
-        response = self.client.post(reverse('manager.views.overview'))
+        response = self.client.get(reverse('manager.views.overview'))
         
         # Page exists
         if logged_in:
@@ -98,13 +98,13 @@ class WorkoutOverviewTestCase(WorkoutManagerTestCase):
     def test_dashboard_anonymous(self):
         '''Test creating a workout as anonymous user'''
         self.user_logout()
-        self.get_wotkout_overview()
+        self.get_workout_overview()
     
     
     def test_dashboard_logged_in(self):
         '''Test creating a workout a logged in user'''
         self.user_login()
-        self.get_wotkout_overview(logged_in = True)
+        self.get_workout_overview(logged_in = True)
         self.user_logout()
 
 
