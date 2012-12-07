@@ -639,21 +639,28 @@ function weight_log_chart(data, div_id, reps_i18n)
           .attr("class", "line")
           .attr("d", function(d) { return line(d.values); })
           .style("stroke", function(d) { return color(d.name); });
+    
+        reps.forEach(function(d){
+            color_name = d.name 
+            temp_name = hex_random();
+            
+            svg.selectAll(".dot" + temp_name)
+              .data(d.values)
+            .enter().append("circle")
+              .attr("class", "dot")
+              .attr("cx", line.x())
+              .attr("cy", line.y()) 
+              .attr("r", 5)
+              .style("stroke", function(d) {
+                return color(color_name);
+              });
+        });
 
-
-    /*
-        log_series.append("circle")
-            .attr("class", "dot")
-            .attr("cx", line.x())
-            .attr("cy", line.y())
-            .attr("r", 5)
-            .style("stroke", function(d) { return color(d.name); });
-    */
 
       log_series.append("text")
           .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
           .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.weight) + ")"; })
-          .attr("x", 3)
+          .attr("x", 6)
           .attr("dy", ".35em")
           .text(function(d) { return d.name + " " + reps_i18n; });
 }
