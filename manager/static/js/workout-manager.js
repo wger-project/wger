@@ -616,8 +616,10 @@ function weight_log_chart(data, div_id, reps_i18n)
 
       x.domain(d3.extent(data, function(d) { return d.date; }));
 
+      // Add 1 kg of "breathing room" on the min value, so the diagrams don't
+      // too flat
       y.domain([
-        d3.min(reps, function(c) { return d3.min(c.values, function(v) { return v.weight; }); }),
+        d3.min(reps, function(c) { return d3.min(c.values, function(v) { return v.weight - 1; }); }),
         d3.max(reps, function(c) { return d3.max(c.values, function(v) { return v.weight; }); })
       ]);
 
