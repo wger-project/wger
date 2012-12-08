@@ -32,15 +32,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 from django.utils.formats import date_format
-from django.utils.datastructures import SortedDict
 
-from django.forms import Form
-from django.forms import ModelForm
-from django.forms import EmailField
-from django.forms import DateField
-from django.forms import CharField
-from django.forms import DecimalField
-from django.forms import ValidationError
 from django.forms.models import modelformset_factory
 
 
@@ -49,7 +41,7 @@ from django.contrib.auth import login as django_login
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User as Django_User
-from django.contrib.auth.forms import UserCreationForm
+
 from django.contrib.auth.views import login as django_loginview
 
 from django.views.generic import DeleteView
@@ -62,7 +54,6 @@ from manager.models import TrainingSchedule
 from manager.models import Day
 from manager.models import Set
 from manager.models import Setting
-from manager.models import UserProfile
 from manager.models import WorkoutLog
 
 from exercises.models import Exercise
@@ -71,13 +62,20 @@ from nutrition.models import NutritionPlan
 
 from weight.models import WeightEntry
 
+from manager.forms import UserPreferencesForm
+from manager.forms import UserEmailForm
+from manager.forms import RegistrationForm
+from manager.forms import DayForm
+from manager.forms import WorkoutForm
+from manager.forms import WorkoutCopyForm
+from manager.forms import SetForm
+from manager.forms import HelperDateForm
+from manager.forms import WorkoutLogForm
+
 from workout_manager.constants import WORKOUT_TAB
 from workout_manager.constants import USER_TAB
-from workout_manager.constants import DATE_FORMATS
 from workout_manager.generic_views import YamlFormMixin
 from workout_manager.generic_views import YamlDeleteMixin
-from workout_manager.widgets import ExerciseAjaxSelect
-from workout_manager.widgets import TranslatedSelectMultiple
 
 
 logger = logging.getLogger('workout_manager.custom')
@@ -148,12 +146,6 @@ def index(request):
 # ************************
 # User functions
 # ************************
-class UserPreferencesForm(ModelForm):
-    class Meta:
-        model = UserProfile
-        exclude = ('user',)
-
-
 def login(request):
     """
     Small wrapper around the django login view
@@ -169,28 +161,6 @@ def logout(request):
     """
     django_logout(request)
     return HttpResponseRedirect(reverse('login'))
-
-
-class UserEmailForm(ModelForm):
-    email = EmailField(label=_("Email"),
-                       help_text=_("Completely optional, but needed to reset your password "
-                                     "in case you forget it."),
-                       required=False)
-
-    def clean_email(self):
-        # Email must be unique systemwide
-        email = self.cleaned_data["email"]
-        if not email:
-            return email
-        try:
-            Django_User.objects.get(email=email)
-        except Django_User.DoesNotExist:
-            return email
-        raise ValidationError(_("This email is already used."))
-
-
-class RegistrationForm(UserCreationForm, UserEmailForm):
-    pass
 
 
 def registration(request):
@@ -302,12 +272,6 @@ def api_user_preferences(request):
 # ************************
 # Workout functions
 # ************************
-class WorkoutForm(ModelForm):
-    class Meta:
-        model = TrainingSchedule
-        exclude = ('user',)
-
-
 @login_required
 def overview(request):
     """An overview of all the user's workouts
@@ -322,6 +286,7 @@ def overview(request):
     return render_to_response('workout/overview.html',
                               template_data,
                               context_instance=RequestContext(request))
+
 
 @login_required
 def view_workout(request, id):
@@ -363,12 +328,6 @@ def view_workout(request, id):
     return render_to_response('workout/view.html',
                               template_data,
                               context_instance=RequestContext(request))
-
-
-class WorkoutCopyForm(Form):
-    comment = CharField(max_length=100,
-                        help_text=('The goal or description of the new workout.'),
-                        required=False)
 
 
 @login_required
@@ -480,16 +439,6 @@ class WorkoutEditView(YamlFormMixin, UpdateView):
 # ************************
 # Day functions
 # ************************
-class DayForm(ModelForm):
-    class Meta:
-        model = Day
-        exclude = ('training',)
-
-        widgets = {
-                    'day': TranslatedSelectMultiple()
-        }
-
-
 class DayView(YamlFormMixin):
     """
     Base generic view for exercise day
@@ -600,22 +549,6 @@ def view_day(request, id):
 # ************************
 # Set functions
 # ************************
-class SetForm(ModelForm):
-    class Meta:
-        model = Set
-        exclude = ('exerciseday', 'order',)
-        widgets = {
-                'exercises': ExerciseAjaxSelect(),
-        }
-
-    # We need to overwrite the init method here because otherwise Django
-    # will outut a default help text, regardless of the widget used
-    # https://code.djangoproject.com/ticket/9321
-    def __init__(self, *args, **kwargs):
-        super(SetForm, self).__init__(*args, **kwargs)
-        self.fields['exercises'].help_text=_('You can search for more than one exercise, '
-                                           'they will be grouped together for a superset.')
-
 @login_required
 def edit_set(request, id, day_id, set_id=None):
     """ Edits/creates a set
@@ -828,12 +761,6 @@ def api_edit_set(request):
 # ************************
 # Settings functions
 # ************************
-class SettingForm(ModelForm):
-    class Meta:
-        model = Setting
-        exclude = ('set', 'exercise')
-
-
 @login_required
 def edit_setting(request, id, set_id, exercise_id, setting_id=None):
     template_data = {}
@@ -943,30 +870,6 @@ def delete_setting(request, id, set_id, exercise_id):
 # ************************
 # Log functions
 # ************************
-class HelperDateForm(Form):
-    '''
-    A helper form with only a date input
-    '''
-    date = DateField(input_formats=DATE_FORMATS)
-
-
-class WorkoutLogForm(ModelForm):
-    '''
-    Helper form for a WorkoutLog.
-
-    The field for the weight is overwritten here, activating localization (so a
-    German user can  use ',' as the separator)
-    '''
-    weight = DecimalField(decimal_places=2,
-                          max_digits=5,
-                          localize=True)
-
-    class Meta:
-        model = WorkoutLog
-        exclude = ('user',
-                 'workout',
-                 'exercise')
-
 class WorkoutLogUpdateView(YamlFormMixin, UpdateView):
     """
     Generic view to edit an existing workout log weight entry
