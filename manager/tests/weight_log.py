@@ -70,14 +70,12 @@ class WeightLogTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 302)
             self.assertGreater(count_after, count_before)
 
-
     def test_add_weight_log_anonymous(self):
         '''
         Tests adding weight log entries as an anonymous user
         '''
 
         self.add_weight_log(fail=True)
-
 
     def test_add_weight_log_owner(self):
         '''
@@ -86,7 +84,6 @@ class WeightLogTestCase(WorkoutManagerTestCase):
 
         self.user_login('admin')
         self.add_weight_log(fail=False)
-
 
     def test_add_weight_log_other(self):
         '''
@@ -126,14 +123,12 @@ class WeightLogEntryTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 302)
             self.assertEqual(date_after, datetime.date(2012, 1, 1))
 
-
     def test_edit_log_entry_anonymous(self):
         '''
         Tests editing a weight log entries as an anonymous user
         '''
 
         self.edit_log_entry(fail=True)
-
 
     def test_edit_log_entry_owner(self):
         '''
@@ -143,7 +138,6 @@ class WeightLogEntryTestCase(WorkoutManagerTestCase):
         self.user_login('admin')
         self.edit_log_entry(fail=False)
 
-
     def test_edit_log_entry_other(self):
         '''
         Tests editing a weight log entries as a logged user not owning the data
@@ -151,7 +145,6 @@ class WeightLogEntryTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         self.edit_log_entry(fail=True)
-
 
 
 class WorkoutLogLiveServerTestCase(WorkoutManagerLiveServerTestCase):
