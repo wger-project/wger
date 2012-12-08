@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
+import datetime
 
 from django.core.urlresolvers import reverse
 
@@ -26,7 +27,7 @@ logger = logging.getLogger('workout_manager.custom')
 
 class WeightLogTestCase(WorkoutManagerTestCase):
     '''
-    Tests the weight log functionalit
+    Tests the weight log functionality
     '''
 
     def add_weight_log(self, fail=True):
@@ -78,9 +79,9 @@ class WeightLogTestCase(WorkoutManagerTestCase):
         self.add_weight_log(fail=True)
 
 
-    def test_add_weight_log_logged_in(self):
+    def test_add_weight_log_owner(self):
         '''
-        Tests adding weight log entries as a logged in user
+        Tests adding weight log entries as the owner user
         '''
 
         self.user_login('admin')
@@ -94,6 +95,63 @@ class WeightLogTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         self.add_weight_log(fail=True)
+
+
+class WeightLogEntryTestCase(WorkoutManagerTestCase):
+    '''
+    Tests editing individual weight log entries
+    '''
+
+    def edit_log_entry(self, fail=True):
+        '''
+        Helper function to test edit log entries
+        '''
+
+        date_before = WorkoutLog.objects.get(pk=1).date
+        response = self.client.post(reverse('workout-log-edit', kwargs={'pk': 1}),
+                                    {'date': '2012-01-01',
+                                     'reps': 10,
+                                     'weight': 10,
+                                     })
+
+        date_after = WorkoutLog.objects.get(pk=1).date
+
+        if fail:
+            # Logged out users get a 302 redirect to login page
+            # Users not owning the workout, a 403, forbidden
+            self.assertTrue(response.status_code in (302, 403))
+            self.assertEqual(date_before, date_after)
+
+        else:
+            self.assertEqual(response.status_code, 302)
+            self.assertEqual(date_after, datetime.date(2012, 1, 1))
+
+
+    def test_edit_log_entry_anonymous(self):
+        '''
+        Tests editing a weight log entries as an anonymous user
+        '''
+
+        self.edit_log_entry(fail=True)
+
+
+    def test_edit_log_entry_owner(self):
+        '''
+        Tests editing a weight log entries as the owner user
+        '''
+
+        self.user_login('admin')
+        self.edit_log_entry(fail=False)
+
+
+    def test_edit_log_entry_other(self):
+        '''
+        Tests editing a weight log entries as a logged user not owning the data
+        '''
+
+        self.user_login('test')
+        self.edit_log_entry(fail=True)
+
 
 
 class WorkoutLogLiveServerTestCase(WorkoutManagerLiveServerTestCase):

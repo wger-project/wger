@@ -47,7 +47,7 @@ class WorkoutManagerLiveServerTestCase(LiveServerTestCase):
                 'test-exercises',
                 'tests-ingredients',
                 'tests-days-of-week',
-                'tests-workouts')
+                'tests-workout-data')
 
 
     def setUp(self):

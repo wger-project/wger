@@ -133,7 +133,7 @@
         }
     },
     {
-        "pk": 1, 
+        "pk": 4, 
         "model": "manager.workoutlog", 
         "fields": {
             "weight": 30, 
