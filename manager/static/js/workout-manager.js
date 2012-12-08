@@ -437,6 +437,10 @@ function init_weight_datepicker()
     $( "#id_creation_date" ).datepicker();
 }
 
+function init_weight_log_datepicker()
+{
+    $( "#id_date" ).datepicker();
+}
 
 
 /*

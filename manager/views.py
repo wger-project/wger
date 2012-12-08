@@ -974,6 +974,9 @@ class WorkoutLogUpdateView(YamlFormMixin, UpdateView):
     active_tab = WORKOUT_TAB
     model = WorkoutLog
     form_class = WorkoutLogForm
+    custom_js = '''$(document).ready(function () {
+        init_weight_log_datepicker();
+    });'''
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutLogUpdateView, self).get_context_data(**kwargs)

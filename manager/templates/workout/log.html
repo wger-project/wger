@@ -7,6 +7,18 @@
 
 {% block header %}
 <script src="{% static 'js/d3.js' %}"></script>
+
+{% if language.short_name == 'de' %}
+<script src="{% static 'js/jquery.ui.datepicker-de.js' %}"></script>
+{% endif %}
+
+<script type="text/javascript">
+// Initialise the datepicker for the modal dialog
+function custom_modal_init()
+{
+    init_weight_log_datepicker();
+}
+</script>
 {% endblock %}
 
 {% block content %}
@@ -84,5 +96,9 @@
 <p>{% blocktrans %}
 This page shows the weight logs belonging to this workout only. Click on an
 exercise to see all the historical data for it.
+{% endblocktrans %}</p>
+
+<p>{% blocktrans %}
+Click on a value on a chart to edit the log entry.
 {% endblocktrans %}</p>
 {% endblock %}
