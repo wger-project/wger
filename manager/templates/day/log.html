@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% load i18n %} 
+{% load i18n %}
 {% load staticfiles %}
-{% load manager_extras %} 
+{% load manager_extras %}
 
 {% block title %}{% trans "New weight log" %}  – {{day.description}}{% endblock %}
 
@@ -33,7 +33,7 @@ $(document).ready(function () {
         <div class= "ym-fbox-text {% if dateform.date.errors %}ym-error{% endif %}">
         {{dateform.date}}
         </div>
-        
+
         <div class="ym-fbox-text {% if dateform.date.errors %}ym-error{% endif %}">
              <span class="ym-message">{{dateform.date.errors}}</span>
          </div>
@@ -48,7 +48,7 @@ $(document).ready(function () {
     <td style="max-width: 5em; padding-right:0.4em;">
         {{value.obj.name}}
     </td>
-    
+
     {% for form in value.forms %}
     <td class="narrow-input">
         <div class= "ym-fbox-text narrow-input {% if form.reps.errors %}ym-error{% endif %}">
@@ -62,24 +62,24 @@ $(document).ready(function () {
         <div class= "ym-fbox-text narrow-input {% if form.weight.errors %}ym-error{% endif %}">
         {{form.weight}}
         </div>
-        
+
         <div class="ym-fbox-text narrow-input {% if form.weight.errors %}ym-error{% endif %}" >
              <span class="ym-message">kg.</span>
          </div>
     </td>
     {% endfor %}
-    
+
 </tr>
 {% empty %}
 <tr>
     <td>
     <div class="box warning" id="weight-box-warning">
     {% trans "Add exercises to this training day before adding a log." %}
-    
+
     <a href="{% url workout-view day.training.id %}">
     {% trans "Back to workout" %}
     </a>
-    
+
     </div>
     </td>
 </tr>
@@ -102,6 +102,10 @@ $(document).ready(function () {
 <h3>{% trans "Options" %}</h3>
 <p>
 <a href="{% url workout-view day.training.id %}">
+    <img src="{% static 'images/icons/list.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Back to workout' %}">
     {% trans "Back to workout" %}
 </a>
 </p>
