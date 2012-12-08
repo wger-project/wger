@@ -449,7 +449,7 @@ class DayView(YamlFormMixin):
     form_class = DayForm
 
     def get_success_url(self):
-        return reverse('manager.views.view_workout', kwargs={'id': self.object.training.id})
+        return reverse('manager.views.view_workout', kwargs={'id': self.object.training_id})
 
     def get_form(self, form_class):
         """
@@ -889,7 +889,7 @@ class WorkoutLogUpdateView(YamlFormMixin, UpdateView):
         return context
 
     def get_success_url(self):
-        return reverse('workout-log', kwargs={'pk': self.object.workout.id})
+        return reverse('workout-log', kwargs={'pk': self.object.workout_id})
 
 
 def workout_log_add(request, pk):
@@ -970,7 +970,7 @@ def workout_log_add(request, pk):
                     instance.date     = log_date
                     instance.save()
 
-                return HttpResponseRedirect(reverse('workout-log', kwargs={'pk': day.training.id}))
+                return HttpResponseRedirect(reverse('workout-log', kwargs={'pk': day.training_id}))
     else:
         # Initialise the formset with a queryset that won't return any objects
         # (we only add new logs here and that seems to be the fastest way)
