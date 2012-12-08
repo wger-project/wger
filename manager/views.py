@@ -963,6 +963,27 @@ class WorkoutLogForm(ModelForm):
 
     class Meta:
         model = WorkoutLog
+        exclude = ('user',
+                 'workout',
+                 'exercise')
+
+class WorkoutLogUpdateView(YamlFormMixin, UpdateView):
+    """
+    Generic view to edit an existing workout log weight entry
+    """
+    active_tab = WORKOUT_TAB
+    model = WorkoutLog
+    form_class = WorkoutLogForm
+
+    def get_context_data(self, **kwargs):
+        context = super(WorkoutLogUpdateView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('workout-log-edit', kwargs={'pk': self.object.id})
+        context['title'] = _('Edit log entry for %s') % self.object.exercise.name
+
+        return context
+
+    def get_success_url(self):
+        return reverse('workout-log', kwargs={'pk': self.object.workout.id})
 
 
 def workout_log_add(request, pk):
@@ -1102,7 +1123,7 @@ class WorkoutLogDetailView(DetailView):
                     reps = []
                     chart_data = []
                     logs = exercise.workoutlog_set.filter(user=self.request.user)
-                    
+
                     for entry in logs:
                         if entry.reps not in reps:
                             reps.append(entry.reps)
@@ -1112,7 +1133,8 @@ class WorkoutLogDetailView(DetailView):
                         entry_log[entry.date].append(entry)
 
                     for entry in logs:
-                        temp = {'date': '%s' % entry.date}
+                        temp = {'date': '%s' % entry.date,
+                                'id': 'workout-log-%s' % entry.id}
                         for rep in reps:
                             if entry.reps == rep:
                                 temp[rep] = entry.weight
@@ -1134,16 +1156,16 @@ class WorkoutLogDetailView(DetailView):
 
 
         return context
-    
+
     def dispatch(self, request, *args, **kwargs):
         """
         Check for ownership
         """
-        
+
         workout = TrainingSchedule.objects.get(pk = kwargs['pk'])
         if workout.user != request.user:
             return HttpResponseForbidden()
-       
+
         # Dispatch normally
         return super(WorkoutLogDetailView, self).dispatch(request, *args, **kwargs)
-    
+

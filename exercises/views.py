@@ -190,7 +190,8 @@ def exercise_view(request, id, comment_id=None):
         entry_log[entry.date].append(entry)
 
     for entry in logs:
-        temp = {'date': '%s' % entry.date}
+        temp = {'date': '%s' % entry.date,
+                'id': 'workout-log-%s' % entry.id}
         for rep in reps:
             if entry.reps == rep:
                 temp[rep] = entry.weight

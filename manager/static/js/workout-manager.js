@@ -583,7 +583,7 @@ function weight_log_chart(data, div_id, reps_i18n)
 
       color.domain(d3.keys(data[0]).filter(function(key){
                                       //console.log(key);
-                                          return key !== "date";
+                                          return ($.inArray(key, ['date', 'id']) == -1);
                                           })
                           );
 
@@ -599,7 +599,9 @@ function weight_log_chart(data, div_id, reps_i18n)
               });
 
         filtered_values = temp_values.map(function(d) {
-            return {date: d.date, weight: +d[name]};
+            return {date: d.date,
+                    weight: +d[name],
+                    log_id: d.id};
             });
 
         return {
@@ -607,7 +609,6 @@ function weight_log_chart(data, div_id, reps_i18n)
           values: filtered_values
         };
       });
-
 
       x.domain(d3.extent(data, function(d) { return d.date; }));
 
@@ -649,9 +650,11 @@ function weight_log_chart(data, div_id, reps_i18n)
             svg.selectAll(".dot" + temp_name)
               .data(d.values)
             .enter().append("circle")
-              .attr("class", "dot " + color_class)
+              .attr("class", "dot modal-dialog " + color_class)
               .attr("cx", line.x())
               .attr("cy", line.y())
+              .attr("id", function(d) { return d.log_id; })
+              .attr("href", function(d) { return '/workout/log/edit-entry/' +  d.log_id.match(/\d+/); })
               .attr("r", 5)
               .style("stroke", function(d) {
                 return color(color_name);
@@ -665,6 +668,9 @@ function weight_log_chart(data, div_id, reps_i18n)
           .attr("x", 6)
           .attr("dy", ".35em")
           .text(function(d) { return d.name + " " + reps_i18n; });
+
+    // Make the circles clickable: open their edit dialog
+    form_modal_dialog();
 }
 
 function toggle_weight_log_table()
