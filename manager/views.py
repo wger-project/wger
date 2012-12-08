@@ -1111,9 +1111,10 @@ class WorkoutLogDetailView(DetailView):
         # Active tab
         context['active_tab'] = WORKOUT_TAB
 
-        # Process the log entries so they are easier to show on template and can be used
-        # as input for the D3.js diagrams
+        # Prepare the entries for rendering and the D3 chart
         workout_log = {}
+        entry = WorkoutLog()
+
         for day in self.object.day_set.select_related():
             workout_log[day] = {}
 
@@ -1122,29 +1123,8 @@ class WorkoutLogDetailView(DetailView):
 
                 for exercise in set.exercises.select_related():
                     exercise_log[exercise] = []
-                    entry_log = SortedDict()
-                    reps = []
-                    chart_data = []
                     logs = exercise.workoutlog_set.filter(user=self.request.user)
-
-                    for entry in logs:
-                        if entry.reps not in reps:
-                            reps.append(entry.reps)
-
-                        if not entry_log.get(entry.date):
-                            entry_log[entry.date] = []
-                        entry_log[entry.date].append(entry)
-
-                    for entry in logs:
-                        temp = {'date': '%s' % entry.date,
-                                'id': 'workout-log-%s' % entry.id}
-                        for rep in reps:
-                            if entry.reps == rep:
-                                temp[rep] = entry.weight
-                            else:
-                                temp[rep] = 0
-                        chart_data.append(temp)
-
+                    entry_log, chart_data = entry.process_log_entries(logs)
                     if entry_log:
                         exercise_log[exercise].append(entry_log)
 
@@ -1157,7 +1137,6 @@ class WorkoutLogDetailView(DetailView):
         context['workout_log'] = workout_log
         context['reps'] = _("Reps")
 
-
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -1165,7 +1144,7 @@ class WorkoutLogDetailView(DetailView):
         Check for ownership
         """
 
-        workout = TrainingSchedule.objects.get(pk = kwargs['pk'])
+        workout = TrainingSchedule.objects.get(pk=kwargs['pk'])
         if workout.user != request.user:
             return HttpResponseForbidden()
 

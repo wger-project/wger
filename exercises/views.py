@@ -174,31 +174,12 @@ def exercise_view(request, id, comment_id=None):
     template_data['muscle_backgrounds_front'] = backgrounds_front
     template_data['muscle_backgrounds_back'] = backgrounds_back
 
-    # Load log
+    # Load log and prepare the entries for rendering and the D3 chart
+    entry = WorkoutLog()
     logs = WorkoutLog.objects.filter(user=request.user,
                                      exercise=exercise)
-    entry_log = SortedDict()
 
-    chart_data = []
-    reps = []
-    for entry in logs:
-        if entry.reps not in reps:
-            reps.append(entry.reps)
-
-        if not entry_log.get(entry.date):
-            entry_log[entry.date] = []
-        entry_log[entry.date].append(entry)
-
-    for entry in logs:
-        temp = {'date': '%s' % entry.date,
-                'id': 'workout-log-%s' % entry.id}
-        for rep in reps:
-            if entry.reps == rep:
-                temp[rep] = entry.weight
-            else:
-                temp[rep] = 0
-
-        chart_data.append(temp)
+    entry_log, chart_data = entry.process_log_entries(logs)
 
     template_data['logs'] = entry_log
     template_data['json'] = chart_data

@@ -20,6 +20,7 @@ import logging
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
+from django.utils.datastructures import SortedDict
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator
 from django.core.urlresolvers import reverse
@@ -189,6 +190,37 @@ class WorkoutLog(models.Model):
         Returns the object that has owner information
         """
         return self
+
+    def process_log_entries(self, logs):
+        '''
+        Processes and regroups a list of log entries so they can be rendered
+        and passed to the D3 library to render a chart
+        '''
+        reps = []
+        entry_log = SortedDict()
+        chart_data = []
+
+        # Group by date
+        for entry in logs:
+            if entry.reps not in reps:
+                reps.append(entry.reps)
+
+            if not entry_log.get(entry.date):
+                entry_log[entry.date] = []
+            entry_log[entry.date].append(entry)
+
+        # Group by repetition and return as a dictionary
+        for entry in logs:
+            temp = {'date': '%s' % entry.date,
+                    'id': 'workout-log-%s' % entry.id}
+            for rep in reps:
+                if entry.reps == rep:
+                    temp[rep] = entry.weight
+                else:
+                    temp[rep] = 0
+            chart_data.append(temp)
+
+        return (entry_log, chart_data)
 
 
 class UserProfile(models.Model):
