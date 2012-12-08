@@ -569,7 +569,8 @@ function weight_log_chart(data, div_id, reps_i18n)
         .orient("left");
 
     var line = d3.svg.line()
-        .interpolate("basis")
+        .interpolate("cardinal")
+        .tension(0.6)
         .x(function(d) { return x(d.date); })
         .y(function(d) { return y(d.weight); });
 
@@ -639,17 +640,18 @@ function weight_log_chart(data, div_id, reps_i18n)
           .attr("class", "line")
           .attr("d", function(d) { return line(d.values); })
           .style("stroke", function(d) { return color(d.name); });
-    
+
         reps.forEach(function(d){
-            color_name = d.name 
+            color_name = d.name
             temp_name = hex_random();
-            
+            color_class = 'color-' + color(color_name).replace('#', '');
+
             svg.selectAll(".dot" + temp_name)
               .data(d.values)
             .enter().append("circle")
-              .attr("class", "dot")
+              .attr("class", "dot " + color_class)
               .attr("cx", line.x())
-              .attr("cy", line.y()) 
+              .attr("cy", line.y())
               .attr("r", 5)
               .style("stroke", function(d) {
                 return color(color_name);
