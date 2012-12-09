@@ -684,8 +684,7 @@ function toggle_weight_log_table()
     $(".weight-chart-table-toggle").click(function(e) {
         e.preventDefault();
         target = $(this).data('toggleTarget');
-        console.log(target);
-        $('#' + target).toggle({effect: 'fade', duration: 600});
+        $('#' + target).toggle({effect: 'blind', duration: 600});
         });
 }
 
