@@ -16,6 +16,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
+import json
 
 from django.db import models
 from django.db.models.signals import post_save
@@ -220,7 +221,7 @@ class WorkoutLog(models.Model):
                     temp[rep] = 0
             chart_data.append(temp)
 
-        return (entry_log, chart_data)
+        return (entry_log, json.dumps(chart_data))
 
 
 class UserProfile(models.Model):
