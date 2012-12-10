@@ -466,11 +466,16 @@ function weight_chart(data)
     var minDate = getDate(data[0].x),
         maxDate = getDate(data[data.length-1].x);
 
-    var margin = {top: 10, right: 10, bottom: 20, left: 40},
+    var margin = {top: 10, right: 10, bottom: 150, left: 40},
+        margin2 = {top: 270, right: 10, bottom: 50, left: 40},
         width = 600 - margin.left - margin.right,
-        height = 300 - margin.top - margin.bottom;
+        height = 400 - margin.top - margin.bottom;
+        height2 = 390 - margin2.top - margin2.bottom;
 
     var x = d3.time.scale()
+        .domain([minDate, maxDate])
+        .range([0, width]);
+    var x2 = d3.time.scale()
         .domain([minDate, maxDate])
         .range([0, width]);
 
@@ -481,9 +486,17 @@ function weight_chart(data)
     var y = d3.scale.linear()
         .domain([min_y_value, max_y_value])
         .range([height, 0]);
+    var y2 = d3.scale.linear()
+        .domain([min_y_value, max_y_value])
+        .range([height2, 0]);
 
     var xAxis = d3.svg.axis()
         .scale(x)
+        .ticks(6)
+        .orient("bottom");
+
+    var xAxis2 = d3.svg.axis()
+        .scale(x2)
         .ticks(6)
         .orient("bottom");
 
@@ -491,15 +504,30 @@ function weight_chart(data)
         .scale(y)
         .orient("left");
 
+    var brush = d3.svg.brush()
+        .x(x2)
+        .on("brush", brush);
+
     var line = d3.svg.line()
         .x(function(d) { return x(getDate(d.x)); })
         .y(function(d) { return y(d.y); })
+        .interpolate('cardinal');
+
+    var line2 = d3.svg.line()
+        .x(function(d) { return x2(getDate(d.x)); })
+        .y(function(d) { return y2(d.y); })
         .interpolate('cardinal');
 
     var area = d3.svg.area()
         .x(line.x())
         .y1(line.y())
         .y0(y(min_y_value))
+        .interpolate('cardinal');
+
+    var area2 = d3.svg.area()
+        .x(line2.x())
+        .y1(line2.y())
+        .y0(y2(min_y_value))
         .interpolate('cardinal');
 
     // Reset the content of weight_diagram, otherwise if there is a filter
@@ -513,24 +541,37 @@ function weight_chart(data)
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    svg.append("path")
+    svg.append("defs").append("clipPath")
+        .attr("id", "clip")
+      .append("rect")
+        .attr("width", width)
+        .attr("height", height);
+
+    var focus = svg.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var context = svg.append("g")
+        .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+
+    focus.append("path")
         .attr("class", "area")
+        .attr("clip-path", "url(#clip)")
         .attr("d", area);
 
-    svg.append("g")
+    focus.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis);
 
-    svg.append("g")
+    focus.append("g")
         .attr("class", "y axis")
         .call(yAxis);
 
-    svg.append("path")
+    focus.append("path")
         .attr("class", "line")
         .attr("d", line);
 
-    svg.selectAll(".dot")
+    focus.selectAll(".dot")
         .data(data.filter(function(d) { return d.y; }))
       .enter().append("circle")
         .attr("class", "dot modal-dialog")
@@ -540,10 +581,42 @@ function weight_chart(data)
         .attr("cy", line.y())
         .attr("r", 5);
 
+    context.append("path")
+        .attr("class", "area")
+        .attr("d", area2);
+
+    context.append("path")
+        .attr("class", "line")
+        .attr("d", line2);
+
+    context.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height2 + ")")
+      .call(xAxis2);
+
+    context.append("g")
+          .attr("class", "x brush")
+          .call(brush)
+        .selectAll("rect")
+          .attr("y", -6)
+          .attr("height", height2 + 7);
+
+  function brush() {
+      x.domain(brush.empty() ? x2.domain() : brush.extent());
+      focus.select("path").attr("d", area);
+      focus.select(".line").attr("d", line);
+
+      focus.selectAll(".dot")
+          .attr("cx", line.x())
+          .attr("cy", line.y());
+
+      focus.select(".x.axis").call(xAxis);
+    }
 
     // Make the circles clickable: open their edit dialog
     form_modal_dialog();
 }
+
 
 
 function weight_log_chart(data, div_id, reps_i18n)

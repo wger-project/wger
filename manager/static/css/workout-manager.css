@@ -190,6 +190,12 @@ circle{
     cursor: pointer;
 }
 
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+
 // Color series from d3.scale.category10()
 circle.color-1f77b4:hover
 {
