@@ -467,7 +467,7 @@ function weight_chart(data)
         maxDate = getDate(data[data.length-1].x);
 
     var margin = {top: 10, right: 10, bottom: 150, left: 40},
-        margin2 = {top: 270, right: 10, bottom: 50, left: 40},
+        margin2 = {top: 290, right: 10, bottom: 50, left: 40},
         width = 600 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
         height2 = 390 - margin2.top - margin2.bottom;
