@@ -569,6 +569,7 @@ function weight_chart(data)
 
     focus.append("path")
         .attr("class", "line")
+        .attr("clip-path", "url(#clip)")
         .attr("d", line);
 
     focus.selectAll(".dot")
