@@ -14,8 +14,10 @@
 # 
 # You should have received a copy of the GNU Affero General Public License
 
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import decimal
+import json
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def pagination(object_list,
                request_page,
@@ -66,3 +68,18 @@ def pagination(object_list,
     # OK, return
     return({'page': paginated_page,
             'page_range': page_range})
+            
+
+class DecimalJsonEncoder(json.JSONEncoder):
+    '''
+    Custom JSON encoder.
+    
+    This class is needed because we store some data as a decimal (e.g. the
+    individual weight entries in the workout log) and they need to be
+    processed, json.dumps() doesn't work on them
+    '''
+    def _iterencode(self, o, markers=None):
+        if isinstance(o, decimal.Decimal):
+            return (str(o) for o in [o])
+            
+        return super(DecimalJsonEncoder, self)._iterencode(o, markers)

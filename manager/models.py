@@ -29,6 +29,8 @@ from django.core.urlresolvers import reverse
 
 from exercises.models import Exercise
 
+from workout_manager.helpers import DecimalJsonEncoder
+
 logger = logging.getLogger('workout_manager.custom')
 
 
@@ -221,7 +223,7 @@ class WorkoutLog(models.Model):
                     temp[rep] = 0
             chart_data.append(temp)
 
-        return (entry_log, json.dumps(chart_data))
+        return (entry_log, json.dumps(chart_data, cls=DecimalJsonEncoder))
 
 
 class UserProfile(models.Model):
