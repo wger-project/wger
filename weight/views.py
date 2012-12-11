@@ -17,8 +17,7 @@
 import logging
 import csv
 import json
-import StringIO
-import datetime
+
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -43,6 +42,7 @@ from django.views.generic import CreateView
 from django.views.generic import UpdateView
 
 from weight.models import WeightEntry
+from weight import helpers
 
 from workout_manager.generic_views import YamlFormMixin
 from workout_manager.constants import WEIGHT_TAB
@@ -181,49 +181,32 @@ def get_weight_data(request):
         return HttpResponse(json.dumps(chart_data), mimetype)
 
 
-
-CSV_SEPARATORS = ((';', 'semi colon (;)'),
-                 ('\t', 'tabulator'))
+CSV_DATE_FORMAT = (
+                    ('%d.%m.%Y', 'DD.MM.YYYY (30.01.2012)'),
+                    ('%d.%m.%y', 'DD.MM.YY (30.01.12)'),
+                    ('%Y-%m-%d', 'YYYY-MM-DD (2012-01-30)'),
+                    ('%y-%m-%d', 'YY-MM-DD (12-01-30)'),
+                    ('%m/%d/%Y', 'MM/DD/YYYY (01/30/2012)'),
+                    ('%m/%d/%y', 'MM/DD/YY (01/30/12)'),
+                  )
 
 class WeightCsvImportForm(Form):
     '''
     A helper form with only a textarea
     '''
     csv_input = CharField(widget=Textarea)
-    separator = forms.ChoiceField(choices=CSV_SEPARATORS)
-        
-    
-def parse_weight_csv(request, cleaned_data):
+    date_format = forms.ChoiceField(choices=CSV_DATE_FORMAT)
 
-    try:
-        dialect = csv.Sniffer().sniff(cleaned_data['csv_input'])
-    except csv.Error:
-        logger.debug('Error while sniffing CSV format')
-        dialect='excel'
-    
-    # csv.reader expects a file-like object, so use StringIO
-    parsed_csv = csv.reader(StringIO.StringIO(cleaned_data['csv_input']),
-                            dialect)
 
-    weight_list = []
-    for row in parsed_csv:
-        parsed_date = datetime.datetime.strptime(row[0], '%Y-%m-%d')
-        parsed_weight = int(row[1])
-        weight_list.append(WeightEntry(creation_date=parsed_date,
-                                       weight=parsed_weight,
-                                       user=request.user))       
-    return weight_list    
-    
-        
 class WeightCsvImportFormPreview(FormPreview):
     preview_template = 'import_csv_preview.html'
     form_template = 'import_csv_form.html'
-    
+
     def get_context(self, request, form):
         '''
         Context for template rendering.
         '''
-        
+
         return {'form': form,
                 'stage_field': self.unused_name('stage'),
                 'state': self.state,
@@ -231,11 +214,11 @@ class WeightCsvImportFormPreview(FormPreview):
                 'form_action': reverse('weight-import-csv')}
 
     def process_preview(self, request, form, context):
-        context['weight_list'] = parse_weight_csv(request, form.cleaned_data)
+        context['weight_list'], context['error_list'] = helpers.parse_weight_csv(request, form.cleaned_data)
         return context
-        
+
     def done(self, request, cleaned_data):
-        weight_list = parse_weight_csv(request, cleaned_data)
+        weight_list, error_list = helpers.parse_weight_csv(request, cleaned_data)
         WeightEntry.objects.bulk_create(weight_list)
         return HttpResponseRedirect(reverse('weight-overview'))
-    
+

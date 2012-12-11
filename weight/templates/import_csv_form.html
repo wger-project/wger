@@ -2,11 +2,10 @@
 {% load manager_extras %}
 {% load i18n %}
 
-{% block title %}{% trans "Import CSV file" %}{% endblock %}
+{% block title %}{% trans "Import weight logs" %}{% endblock %}
 
 {% block content %}
-<h2>{% trans "Import CSV file" %}</h2>
-
+<h2>{% trans "Import weight logs" %}</h2>
 
 <form action="{{form_action}}"
       method="post"
@@ -16,7 +15,8 @@
 <input type="hidden" name="{{ stage_field }}" value="1" />
 <table>
     {% yaml_form_field form.csv_input %}
-    {% yaml_form_field form.separator "ym-fbox-select" %}
+    {% yaml_form_field form.date_format "ym-fbox-select" %}
+
     <tr>
         <td colspan="2">
             <input type="submit" value="{% trans 'Submit' %}" id="form-save">
@@ -24,6 +24,20 @@
     </tr>
 </table>
 </form>
+{% endblock %}
 
+
+{% block sidebar %}
+<p>{% blocktrans %}Use this import field to import your weight logs into Workout
+Manager.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}You can copy and paste from your spreadsheet into the text input,
+the system will try to guess the format to import. The only things to consider is
+that the first column is the <strong>date</strong>, the second the <strong>weight</strong>.
+All further columns are ignored.
+{% endblocktrans %}</p>
+
+<p>{% blocktrans %}If there are errors, you can correct or discard them in a
+second step.{% endblocktrans %}</p>
 
 {% endblock %}
