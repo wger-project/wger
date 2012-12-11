@@ -466,8 +466,8 @@ function weight_chart(data)
     var minDate = getDate(data[0].x),
         maxDate = getDate(data[data.length-1].x);
 
-    var margin = {top: 10, right: 10, bottom: 150, left: 20},
-        margin2 = {top: 290, right: 10, bottom: 50, left: 20},
+    var margin = {top: 10, right: 10, bottom: 150, left: 30},
+        margin2 = {top: 290, right: 10, bottom: 50, left: 30},
         width = 600 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
         height2 = 390 - margin2.top - margin2.bottom;
@@ -537,9 +537,7 @@ function weight_chart(data)
     var svg = d3.select("#weight_diagram").append("svg")
         .datum(data)
         .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr("height", height + margin.top + margin.bottom);
 
     svg.append("defs").append("clipPath")
         .attr("id", "clip")
