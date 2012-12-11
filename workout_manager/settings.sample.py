@@ -21,7 +21,7 @@ DATABASES = {
 }
 
 # Login-URL
-LOGIN_URL = '/login'
+LOGIN_URL = '/login/'
 
 # Redirect here after sucessfull login
 LOGIN_REDIRECT_URL = '/'
