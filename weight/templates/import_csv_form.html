@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load manager_extras %}
+{% load i18n %}
+
+{% block title %}{% trans "Import CSV file" %}{% endblock %}
+
+{% block content %}
+<h2>{% trans "Import CSV file" %}</h2>
+
+
+<form action="{{form_action}}"
+      method="post"
+      class="ym-form">
+{% csrf_token %}
+{{ form.non_field_errors }}
+<input type="hidden" name="{{ stage_field }}" value="1" />
+<table>
+    {% yaml_form_field form.csv_input %}
+    {% yaml_form_field form.separator "ym-fbox-select" %}
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="{% trans 'Submit' %}" id="form-save">
+        </td>
+    </tr>
+</table>
+</form>
+
+
+{% endblock %}

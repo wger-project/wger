@@ -126,4 +126,17 @@ on the background resets it.
     </a>
 </p>
 
+<p>
+    <a href="{% url weight-import-csv %}"
+       target="_blank">
+    <img src="{% static 'images/icons/save.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Export as CSV' %}"
+         title="{% trans 'Export as CSV' %}">
+        {% trans "Import CSV" %}
+    </a>
+</p>
+
+
 {% endblock %}
