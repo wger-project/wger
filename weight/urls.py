@@ -18,7 +18,7 @@ urlpatterns = patterns('weight.views',
 
     url(r'^weight/export-csv/$', 'export_csv'),
     url(r'^weight/import-csv/$',
-        WeightCsvImportFormPreview(WeightCsvImportForm),
+        login_required(WeightCsvImportFormPreview(WeightCsvImportForm)),
         name='weight-import-csv'),
     
     url(r'^weight/overview/$',
