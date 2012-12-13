@@ -152,7 +152,7 @@ def muscle_overview(request):
     template_data = {}
     template_data.update(csrf(request))
 
-    template_data['muscle_list'] =  Muscle.objects.filter().order_by('-is_front')
+    template_data['muscle_list'] =  Muscle.objects.filter().order_by('-is_front', 'name')
     template_data['language'] = language
     template_data['active_tab'] = EXERCISE_TAB
 

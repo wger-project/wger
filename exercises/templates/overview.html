@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %} 
+{% load i18n %}
 {% load staticfiles %}
 
 <!--
@@ -21,7 +21,7 @@ function custom_modal_init()
 $(document).ready(function() {
     // Init the tabs for the exercises
     $( "#tabs" ).tabs({
-    
+
         // On selecting a category, set the values to edit it
         select: function(event, ui) {
                 category_id = ui.tab.id.match(/\d+/);
@@ -30,7 +30,7 @@ $(document).ready(function() {
                 $("#current-category-delete").attr("href", "/exercise/category/" + category_id + "/delete/");
             }
     });
-    
+
     // Prevent the form from being submited if JavaScript is enabled
     $("#exercise_search_form").submit(function() {return false;});
 
@@ -39,7 +39,7 @@ $(document).ready(function() {
             source: "{% url exercises.views.exercise_search %}",
             minLength: 2,
             select: function(event, ui) {
-                
+
                 // Redirect to exercise after clicking on a result
                 // Path is hard coded here, because we can't use the url-tag
                 window.location.href = '/exercise/' + ui.item.id + '/view/'
@@ -102,7 +102,7 @@ $(document).ready(function() {
                 <tr>
                     <td>
                         <div class="box warning">
-                            {% trans "No exercises in this category. Add or edit an exercise and set its category" %} 
+                            {% trans "No exercises in this category. Add or edit an exercise and set its category" %}
                         </div>
                     </td>
                 </tr>
@@ -122,21 +122,35 @@ $(document).ready(function() {
         Side bar
 -->
 {% block sidebar %}
+<h3>{% trans "Muscles" %}</h3>
+<p>
+<a href="{% url muscle-overview %}">
+<img src="{% static '/static/images/muscles/muscular_system_front.svg' %}"
+                    width="19"
+                    height="36"
+                    alt="{% trans 'Muscle overview' %}"
+                    title="{% trans 'Muscle overview' %}">
+{% trans "Muscle overview" %}
+</a>
+</p>
+
+
+
 {% if perms.exercises %}
     <h3>{% trans "Options" %}</h3>
-	
+
     <p>
         <a href="{% url exercise-add %}"
            class="modal-dialog">
-        	<img src="{% static 'images/icons/new.svg' %}"
+        <img src="{% static 'images/icons/new.svg' %}"
                             width="32"
                             height="32"
                             alt="{% trans 'Add new exercise' %}"
                             title="{% trans 'Add new exercise' %}">
         	{% trans "Add new exercise" %}
         </a>
-	</p>
-	<p>
+        </p>
+        <p>
         {% with category=categories|first %}
         <a href="{% url exercisecategory-edit category.id %}"
            class="modal-dialog"
@@ -150,8 +164,8 @@ $(document).ready(function() {
         	<span class="current-category-name">{{category.name}}</span>
         </a>
         {% endwith %}
-	</p>
-	<p>
+        </p>
+        <p>
         {% with category=categories|first %}
         <a href="{% url exercisecategory-delete category.id %}"
            class="modal-dialog"
@@ -161,12 +175,12 @@ $(document).ready(function() {
                             height="32"
                             alt="{% trans 'Delete category' %}"
                             title="{% trans 'Delete category' %}">
-        	{% trans "Delete category" %}:
-        	<span class="current-category-name">{{category.name}}</span>
+        {% trans "Delete category" %}:
+        <span class="current-category-name">{{category.name}}</span>
         </a>
         {% endwith %}
-	</p>
-	<p>
+        </p>
+        <p>
         <a href="{% url exercisecategory-add %}"
            class="modal-dialog">
         	<img src="{% static 'images/icons/folder-new.svg' %}"
@@ -174,7 +188,7 @@ $(document).ready(function() {
                             height="32"
                             alt="{% trans 'Add category' %}"
                             title="{% trans 'Add category' %}">
-        	{% trans "Add category" %}
+         {% trans "Add category" %}
         </a>
     </p>
 {% endif %}
