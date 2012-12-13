@@ -199,10 +199,12 @@ class WorkoutLog(models.Model):
         Processes and regroups a list of log entries so they can be rendered
         and passed to the D3 library to render a chart
         '''
+        
         reps = []
         entry_log = SortedDict()
         chart_data = []
-
+        max_weight = {}
+        
         # Group by date
         for entry in logs:
             if entry.reps not in reps:
@@ -212,17 +214,34 @@ class WorkoutLog(models.Model):
                 entry_log[entry.date] = []
             entry_log[entry.date].append(entry)
 
-        # Group by repetition and return as a dictionary
+            # Find the maximum weight per date per repetition.
+            # If on a day there are several entries with the same number of
+            # repetitions, but different weights, only the entry with the
+            # higher weight is shown in the chart
+            if not max_weight.get(entry.date):
+                max_weight[entry.date] = {entry.reps: entry.weight}
+            
+            if not max_weight[entry.date].get(entry.reps):
+                max_weight[entry.date][entry.reps] = entry.weight
+
+            if entry.weight > max_weight[entry.date][entry.reps]:
+                  max_weight[entry.date][entry.reps] = entry.weight
+
+        # Group by repetitions
         for entry in logs:
             temp = {'date': '%s' % entry.date,
                     'id': 'workout-log-%s' % entry.id}
+             
             for rep in reps:
                 if entry.reps == rep:
-                    temp[rep] = entry.weight
+                    
+                    # Only add if entry is the maximum for the day
+                    if entry.weight == max_weight[entry.date][entry.reps]: 
+                        temp[rep] = entry.weight
                 else:
                     temp[rep] = 0
             chart_data.append(temp)
-
+        
         return (entry_log, json.dumps(chart_data, cls=DecimalJsonEncoder))
 
 

@@ -92,13 +92,16 @@ function custom_modal_init()
 </a>
 </p>
 
-<h3>{% trans "Note" %}</h3>
-<p>{% blocktrans %}
-This page shows the weight logs belonging to this workout only. Click on an
-exercise to see all the historical data for it.
-{% endblocktrans %}</p>
+<h3>{% trans "Notes" %}</h3>
+<p>{% blocktrans %}This page shows the weight logs belonging to this workout
+only. Click on an exercise to see all the historical data for
+it.{% endblocktrans %}</p>
 
-<p>{% blocktrans %}
-Click on a value on a chart to edit the log entry.
-{% endblocktrans %}</p>
+<p>{% blocktrans %}Click on a value on a chart to edit the log
+entry.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}If on a single day there is more than one entry with the
+same number of repetitions, but different weights, only the entry with the
+higher weight is shown in the diagram.{% endblocktrans %}</p>
+
 {% endblock %}
