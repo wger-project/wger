@@ -43,6 +43,7 @@ from manager.models import WorkoutLog
 from exercises.models import Exercise
 from exercises.models import ExerciseComment
 from exercises.models import ExerciseCategory
+from exercises.models import Muscle
 
 from workout_manager.generic_views import YamlFormMixin
 from workout_manager.generic_views import YamlDeleteMixin
@@ -140,6 +141,24 @@ def exercise_overview(request):
                               template_data,
                               context_instance=RequestContext(request))
 
+
+def muscle_overview(request):
+    '''
+    Overview of all muscles
+    '''
+
+    language = load_language()
+
+    template_data = {}
+    template_data.update(csrf(request))
+
+    template_data['muscle_list'] =  Muscle.objects.filter().order_by('-is_front')
+    template_data['language'] = language
+    template_data['active_tab'] = EXERCISE_TAB
+
+    return render_to_response('muscle_overview.html',
+                              template_data,
+                              context_instance=RequestContext(request))
 
 def exercise_view(request, id, comment_id=None):
     """ Detail view for an exercise

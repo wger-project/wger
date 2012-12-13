@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+<!--
+        Title
+-->
+{% block title %}{% trans "Muscle overview" %}{% endblock %}
+
+
+{% block header %}
+<script>
+$(document).ready(function() {
+    $('.muscle').hover(function(e) {
+            e.preventDefault();
+            var div_id = $(this).data('target');
+            var is_front = ($(this).data('isFront') == 'True') ? 'front' : 'back';
+            var muscle_id = div_id.match(/\d+/);
+
+            // Reset all other highlighted muscles
+            $('.muscle').css('background-color', 'transparent');
+            $('.muscle').css('font-weight', 'normal');
+
+            // Hightligh the current one
+            $(this).css('font-weight', 'bold');
+            $(this).css('background-color', '#eeeeec');
+
+            // Set the corresponding background
+            $('#muscle-system').css('background-image',
+                                    'url(/static/images/muscles/main/muscle-' + muscle_id + '.svg),'
+                                  + 'url(/static/images/muscles/muscular_system_' + is_front + '.svg)');
+
+            // Show the corresponding exercises
+            $('.exercise-list').hide();
+            $('#' + div_id).show();
+        });
+});
+</script>
+{% endblock %}
+
+
+<!--
+        Main Content
+-->
+{% block content %}
+
+<h2>{% trans "Muscle overview" %} </h2>
+
+
+<div class="ym-grid linearize-level-1">
+    <div class="ym-g33 ym-gl">
+        <div class="ym-gbox-left">
+            {% regroup muscle_list by is_front as test %}
+            {% for group in test %}
+                {% if group.grouper %}
+                    <h3>{% trans "Front" %}</h3>
+                {% else %}
+                    <h3>{% trans "Back" %}</h3>
+                {% endif %}
+
+                <ul id="muscle-list">
+                {% for muscle in group.list %}
+                <li class="muscle"
+                    data-target="muscle-{{muscle.id}}"
+                    data-is-front="{{muscle.is_front}}">{{muscle.name}}</li>
+                {% endfor %}
+                </ul>
+            {% endfor %}
+
+        </div>
+    </div>
+    <div class="ym-g33 ym-gl">
+        <div class="ym-gbox-left">
+            {% for muscle in muscle_list %}
+                <div id="muscle-{{muscle.id}}" style="display:none;" class="exercise-list">
+                    <h3>{% trans "Exercises" %}</h3>
+                    <ul>
+                        {% for exercise in muscle.exercise_set.all %}
+                        {% if exercise.category.language == language %}
+                        <li>
+                            <a href="{{exercise.get_absolute_url}}">{{exercise}}</a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="ym-g33 ym-gr">
+        <div class="ym-gbox-right">
+            <h3 style="text-align:center;">{% trans "Muscles" %}</h3>
+            <div id="muscle-system"
+                 class="muscle-background"
+                 style="background-image: url('/static/images/muscles/muscular_system_front.svg');">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}
+{% endblock %}

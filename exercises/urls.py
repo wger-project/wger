@@ -17,6 +17,9 @@ urlpatterns = patterns('exercises.views',
 
     # Exercises
     url(r'^exercise/overview/$', 'exercise_overview'),
+    url(r'^exercise/muscle/overview/$',
+        'muscle_overview',
+        name='muscle-overview'),
     url(r'^exercise/search/$', 'exercise_search'),
     url(r'^exercise/(?P<id>\d+)/view/$', 'exercise_view'),
     url(r'^exercise/add/$',
