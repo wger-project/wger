@@ -142,23 +142,26 @@ def exercise_overview(request):
                               context_instance=RequestContext(request))
 
 
-def muscle_overview(request):
+from django.views.generic import ListView
+
+class MuscleListView(ListView):
     '''
-    Overview of all muscles
+    Overview of all muscles and their exercises
     '''
+    model = Muscle
+    queryset = Muscle.objects.all().order_by('-is_front', 'name'),
+    context_object_name = 'muscle_list'
+    template_name = 'muscle_overview.html'
 
-    language = load_language()
-
-    template_data = {}
-    template_data.update(csrf(request))
-
-    template_data['muscle_list'] =  Muscle.objects.filter().order_by('-is_front', 'name')
-    template_data['language'] = language
-    template_data['active_tab'] = EXERCISE_TAB
-
-    return render_to_response('muscle_overview.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+    def get_context_data(self, **kwargs):
+        '''
+        Set the language and navigation tab
+        '''
+        context = super(MuscleListView, self).get_context_data(**kwargs)
+        context['language'] = load_language()
+        context['active_tab'] = EXERCISE_TAB
+        
+        return context
 
 def exercise_view(request, id, comment_id=None):
     """ Detail view for an exercise

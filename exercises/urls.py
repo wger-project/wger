@@ -12,13 +12,14 @@ from exercises.views import ExerciseCategoryDeleteView
 from exercises.views import ExerciseCommentAddView
 from exercises.views import ExerciseCommentEditView
 
+from exercises.views import MuscleListView
 
 urlpatterns = patterns('exercises.views',
 
     # Exercises
     url(r'^exercise/overview/$', 'exercise_overview'),
     url(r'^exercise/muscle/overview/$',
-        'muscle_overview',
+        MuscleListView.as_view(),
         name='muscle-overview'),
     url(r'^exercise/search/$', 'exercise_search'),
     url(r'^exercise/(?P<id>\d+)/view/$', 'exercise_view'),
