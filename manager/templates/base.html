@@ -118,7 +118,7 @@
                         <!--
                             This is needed as a clutch for us to handle redirects with AJAX
                         -->
-                        <div id="current-url" style="display:none;">{{request.get_full_path}}</div>
+                        <div id="current-url" data-current-url="{{request.get_full_path}}"></div>
                         {% block content %}{% endblock %}
                     </div>
                 </article>
