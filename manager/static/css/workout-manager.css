@@ -61,6 +61,13 @@
 }
 
 
+/*
+ * Images in links are vertically aligned
+ */
+
+a img{
+    vertical-align: middle;
+}
 
 /*
  * "invisible" elements, simply hidden (they still take all the space)
