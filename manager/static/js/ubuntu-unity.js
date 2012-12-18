@@ -40,10 +40,10 @@ function makeRedirector(link) {
 // Do the actual integration, not much to do though
 function unityReady() {
     Unity.Launcher.removeActions();
-    Unity.Launcher.addAction("Workouts", makeRedirector('http://gargancjan.lem:8000/workout/overview'));
-    Unity.Launcher.addAction("Weight chart", makeRedirector('http://gargancjan.lem:8000/weight/overview/'));
-    Unity.Launcher.addAction("Add weight entry", makeRedirector('http://gargancjan.lem:8000/weight/add/'));
-    Unity.Launcher.addAction("Nutrition plans", makeRedirector('http://gargancjan.lem:8000/nutrition/overview/'));
+    Unity.Launcher.addAction("Workouts", makeRedirector('http://wger.de/workout/overview'));
+    Unity.Launcher.addAction("Weight chart", makeRedirector('http://wger.de/weight/overview/'));
+    Unity.Launcher.addAction("Add weight entry", makeRedirector('http://wger.de/weight/add/'));
+    Unity.Launcher.addAction("Nutrition plans", makeRedirector('http://wger.de/nutrition/overview/'));
 }
 
 // If we are using Ubuntu, call the Init method for Unity, otherwise, do nothing

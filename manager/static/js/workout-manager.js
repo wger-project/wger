@@ -317,7 +317,7 @@ function modal_dialog_form_edit()
                 // a reload would not change the adress bar, but the content would.
                 // Since it is not possible to get this URL from the AJAX request, we read it out
                 // from a hidden HTML DIV in the document...
-                current_url = $(data).find("#current-url").html();
+                current_url = $(data).find("#current-url").data('currentUrl');
                 if(document.URL.indexOf(current_url))
                 {
                     history.pushState({}, "", current_url);
@@ -778,7 +778,7 @@ function load_maincontent()
             $('#main-content').html($(data).find('#main-content').html());
 
             // Update the browser's history
-            current_url = $(data).find("#current-url").html();
+            current_url = $(data).find("#current-url").data('currentUrl');
             history.pushState({}, "", current_url);
 
             load_maincontent();
