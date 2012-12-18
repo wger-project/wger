@@ -778,7 +778,7 @@ function load_maincontent()
             $('#main-content').html($(data).find('#main-content').html());
 
             // Update the browser's history
-            current_url = $(data).find("#current-url").html();
+            current_url = $(data).find("#current-url").data('currentUrl');
             history.pushState({}, "", current_url);
 
             load_maincontent();
