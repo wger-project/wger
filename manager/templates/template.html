@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+{% load i18n %}
+{% load staticfiles %}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <meta name="author" content="Roland Geider">
+
+    <!--
+    This file is part of Workout Manager
+
+    Workout Manager is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Workout Manager is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with Workout Manager. If not, see <http://www.gnu.org/licenses/>.
+    -->
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/yaml/demos/css/flexible-grids.css' %} "> <!-- CSS framework for the layout -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/yaml/custom-yaml.css' %}">               <!-- Customisations for yaml      -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager.css' %}">                <!-- Own CSS classes and styles      -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui.css' %}">                      <!-- CSS for JQuery UI elements   -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui-custom.css' %}">                      <!-- Customization for JQuery CSS   -->
+
+
+    <script src="{% static 'js/jquery.js' %}"          type="text/javascript"></script>
+    <script src="{% static 'js/jquery-ui.js' %}"       type="text/javascript"></script>
+    <script src="{% static 'js/workout-manager.js' %}" type="text/javascript"></script>
+
+    {% block header %}{% endblock %}
+
+    <script>
+    $(document).ready(function() {
+
+        if (typeof custom_page_init != "undefined")
+        {
+            custom_page_init();
+        }
+
+
+        // Init the modal dialog for editing forms
+        form_modal_dialog();
+
+        // Initialise the hook to reload the main-content
+        load_maincontent();
+
+        // Toggle weight chart tables
+        toggle_weight_log_table();
+     });
+    </script>
+
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<header>
+    <div class="ym-wrapper">
+        <div class="ym-wbox">
+            <span class="name">wger</span>
+            <span class="regular">| Workout Manager</span>
+        </div>
+    </div>
+</header>
+<nav id="nav">
+    <div class="ym-wrapper">
+        <div class="ym-hlist">
+            <ul>
+                <li {% if active_tab == 'user' %}class="active"{% endif %}>
+            {% if not user.username %}
+                <a href="{% url login %}">{% trans "Login" %}</a>
+            {% else %}
+                <a href="{% url index %}">{% trans "Dashboard" %}</a>
+            {% endif %}
+                </li>
+                <li {% if active_tab == 'workout'   %}class="active"{% endif %}><a href="{% url manager.views.overview %}">{% trans "Workouts" %}</a></li>
+                <li {% if active_tab == 'exercises' %}class="active"{% endif %}><a href="{% url exercises.views.exercise_overview %}">{% trans "Exercises" %}</a></li>
+                <li {% if active_tab == 'weight'    %}class="active"{% endif %}><a href="{% url weight.views.overview %}">{% trans "Weight" %} </a></li>
+                <li {% if active_tab == 'nutrition' %}class="active"{% endif %}><a href="{% url nutrition.views.overview %}">{% trans "Nutrition" %} </a></li>
+            </ul>
+
+
+            {% if user.username %}
+            <ul style="float:right;">
+            <li>
+                <a href="{% url manager.views.logout %}" id="logout" class="browserid-logout">
+                {% trans 'Logout' %}
+                </a>
+            </li>
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+<div id="main">
+    <div class="ym-wrapper">
+        <section >
+            <div class="ym-grid linearize-level-1">
+                <article class="ym-g80 ym-gl">
+                    <div class="ym-gbox-left box invisible" id="ajax-info">
+
+                    </div>
+                </article>
+            </div>
+        </section>
+        <div class="ym-wbox" id="content-wrapper">
+            <section class="ym-grid linearize-level-1">
+                {% block template %}{% endblock %}
+            </section>
+        </div>
+    </div>
+</div>
+
+
+
+<footer>
+    <div class="ym-wrapper">
+    <div class="ym-wbox">
+        <div class="ym-grid linearize-level-1">
+            <div class="ym-g10 ym-gl">
+                <a href="https://bitbucket.org/rolandgeider/workout_manager" class="no-hover">
+                    <img src="{% static 'images/agplv3-88x31.png' %}"
+                         width="88"
+                         height="31"
+                         alt="{% trans 'Released under the Affero GPL' %}"
+                         title="{% trans 'Released under the Affero GPL' %}">
+                </a>
+            </div>
+            <div class="ym-g40 ym-gl">
+                <div class="ym-gbox-left">
+                © <a href="mailto:roland@NO!SPAM!geider.net">Roland Geider</a>
+                – {% trans "Layout based on <a href='http://www.yaml.de'>YAML</a>" %}
+                </div>
+            </div>
+            <div class="ym-g50 ym-gr align-right">
+                <div class="ym-gbox-right">
+                    <em class="dimmed">{{version}}</em>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</footer>
+<script src="https://login.persona.org/include.js" type="text/javascript"></script>
+<script src="{% static 'js/browserid.js' %}"       type="text/javascript"></script>
+<script src="{% static 'js/ubuntu-unity.js' %}"    type="text/javascript"></script>
+</body>
+</html>
