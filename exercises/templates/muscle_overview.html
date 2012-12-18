@@ -25,6 +25,7 @@ $(document).ready(function() {
         $(this).css('font-weight', 'bold');
         $(this).css('background-color', '#eeeeec');
 
+
         // Set the corresponding background
         $('#muscle-system').css('background-image',
                                 'url(/static/images/muscles/main/muscle-' + muscle_id + '.svg),'
@@ -71,6 +72,7 @@ $(document).ready(function() {
                 <ul id="muscle-list">
                 {% for muscle in group.list %}
                 <li class="muscle"
+                    style="line-height:2em;"
                     data-target="muscle-{{muscle.id}}"
                     data-is-front="{{muscle.is_front}}">{{muscle.name}}</li>
                 {% endfor %}
