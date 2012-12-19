@@ -196,12 +196,16 @@ def exercise_view(request, id, comment_id=None):
     template_data['muscle_backgrounds_front'] = backgrounds_front
     template_data['muscle_backgrounds_back'] = backgrounds_back
 
-    # Load log and prepare the entries for rendering and the D3 chart
+    # If the user is logged in, load the log and prepare the entries for
+    # rendering in the D3 chart
     entry = WorkoutLog()
-    logs = WorkoutLog.objects.filter(user=request.user,
-                                     exercise=exercise)
+    entry_log = []
+    chart_data = []
+    if request.user.is_authenticated():
+        logs = WorkoutLog.objects.filter(user=request.user,
+                                         exercise=exercise)
 
-    entry_log, chart_data = entry.process_log_entries(logs)
+        entry_log, chart_data = entry.process_log_entries(logs)
 
     template_data['logs'] = entry_log
     template_data['json'] = chart_data
