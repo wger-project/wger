@@ -122,20 +122,6 @@ $(document).ready(function() {
         Side bar
 -->
 {% block sidebar %}
-<h3>{% trans "Muscles" %}</h3>
-<p>
-<a href="{% url muscle-overview %}">
-<img src="{% static '/static/images/muscles/muscular_system_front.svg' %}"
-                    width="19"
-                    height="36"
-                    alt="{% trans 'Muscle overview' %}"
-                    title="{% trans 'Muscle overview' %}">
-{% trans "Muscle overview" %}
-</a>
-</p>
-
-
-
 {% if perms.exercises %}
     <h3>{% trans "Options" %}</h3>
 
