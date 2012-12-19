@@ -157,6 +157,7 @@
         </section>
         <div class="ym-wbox" id="content-wrapper">
             <section class="ym-grid linearize-level-1">
+                <div id="current-url" data-current-url="{{request.get_full_path}}"></div>
                 {% block template %}{% endblock %}
             </section>
         </div>

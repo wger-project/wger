@@ -2,10 +2,6 @@
 {% block template %}
     <article class="ym-grid ym-gl content">
         <div class="ym-gbox-left ym-clearfix" id="main-content">
-            <!--
-                This is needed as a clutch for us to handle redirects with AJAX
-            -->
-            <div id="current-url" data-current-url="{{request.get_full_path}}"></div>
             {% block content %}{% endblock %}
         </div>
     </article>
