@@ -435,3 +435,34 @@ ul.pagination a:hover
     border: 1px solid #2e3436;
     box-shadow: 0 0 4px #3465a4 inset;
 }
+
+
+/**************************************************************
+ * Muscle overview
+ **************************************************************/
+.muscle-list{
+    list-style-type: none;
+    margin-left: 0px;
+}
+
+.muscle{
+    line-height:2em;
+    margin-left: 0px;
+    padding-left: 0.3em;
+}
+
+.muscle-inactive{
+    background-color: transparent;
+    font-weight: normal;
+    border: 1px solid transparent;
+    box-shadow: none;
+    border-radius: 0px;
+}
+
+.muscle-active{
+    font-weight: bold;
+    background-color: #eeeeec;
+    border: 1px solid #babdb6;
+    box-shadow: inset 0 0 4px #d3d7cf;
+    border-radius: 3px;
+}

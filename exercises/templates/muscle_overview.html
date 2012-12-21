@@ -18,13 +18,13 @@ $(document).ready(function() {
         var muscle_id = div_id.match(/\d+/);
 
         // Reset all other highlighted muscles
-        $('.muscle').css('background-color', 'transparent');
-        $('.muscle').css('font-weight', 'normal');
-
+        $('.muscle').removeClass('muscle-active');
+        $('.muscle').addClass('muscle-inactive');
+        
         // Hightligh the current one
-        $(this).css('font-weight', 'bold');
-        $(this).css('background-color', '#eeeeec');
-
+        $(this).removeClass('muscle-inactive');
+        $(this).addClass('muscle-active');
+        
 
         // Set the corresponding background
         $('#muscle-system').css('background-image',
@@ -72,7 +72,6 @@ $(document).ready(function() {
                 <ul class="muscle-list">
                 {% for muscle in group.list %}
                 <li class="muscle"
-                    style="line-height:2em;"
                     data-target="muscle-{{muscle.id}}"
                     data-is-front="{{muscle.is_front}}">{{muscle.name}}</li>
                 {% endfor %}
