@@ -203,7 +203,7 @@ circle{
   shape-rendering: crispEdges;
 }
 
-// Color series from d3.scale.category10()
+/* Color series from d3.scale.category10() */
 circle.color-1f77b4:hover
 {
     fill: #1f77b4;
