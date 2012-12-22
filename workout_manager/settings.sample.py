@@ -44,7 +44,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = None 
+TIME_ZONE = None
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -146,7 +146,13 @@ INSTALLED_APPS = (
     'weight',
     'exercises',
     'nutrition',
+
+    # reCaptcha support, see https://github.com/praekelt/django-recaptcha
+    'captcha',
 )
+
+RECAPTCHA_PUBLIC_KEY = ''
+RECAPTCHA_PRIVATE_KEY = ''
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',

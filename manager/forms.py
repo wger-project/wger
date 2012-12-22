@@ -31,6 +31,8 @@ from django.contrib.auth.models import User as Django_User
 
 from django.utils.translation import ugettext as _
 
+from captcha.fields import ReCaptchaField
+
 from manager.models import UserProfile
 from manager.models import TrainingSchedule
 from manager.models import Day
@@ -67,7 +69,9 @@ class UserEmailForm(ModelForm):
 
 
 class RegistrationForm(UserCreationForm, UserEmailForm):
-    pass
+    captcha = ReCaptchaField(attrs={'theme': 'clean'},
+                             label=_('Confirmation text'),
+                             help_text=_('As a security measure, please enter the previous words'),)
 
 
 class WorkoutForm(ModelForm):
