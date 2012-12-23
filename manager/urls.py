@@ -96,14 +96,17 @@ urlpatterns = urlpatterns + patterns('',
         'django.contrib.auth.views.password_reset',
         {'template_name': 'user/password_reset_form.html'},
         name='password_reset'),
+
     url(r'^user/password/reset/done/$',
         'django.contrib.auth.views.password_reset_done',
         {'template_name': 'user/password_reset_done.html'},
         name='password_reset_done'),
+
     url(r'^user/password/reset/check/(?P<uidb36>[0-9A-Za-z]{1,13})-(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         'django.contrib.auth.views.password_reset_confirm',
         {'template_name': 'user/password_reset_confirm.html'},
         name='password_reset_confirm'),
+
     url(r'^user/password/reset/complete/$',
         'django.contrib.auth.views.password_reset_complete',
         {'template_name': 'user/password_reset_complete.html'},
