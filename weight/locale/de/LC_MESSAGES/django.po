@@ -8,48 +8,189 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-02 16:23+0100\n"
+"POT-Creation-Date: 2012-12-23 17:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Roland Geider <roland@wger.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: German\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: models.py:26 views.py:111
+#: models.py:27 views.py:120 templates/import_csv_preview.html:17
+#: templates/import_csv_preview.html:46
 msgid "Date"
 msgstr "Datum"
 
-#: models.py:27 views.py:111
+#: models.py:28 views.py:120 templates/import_csv_preview.html:18
+#: templates/import_csv_preview.html:47
 msgid "Weight"
 msgstr "Gewicht"
 
-#: models.py:28
+#: models.py:29
 msgid "User"
 msgstr "Benutzer"
 
-#: views.py:63 templates/weight_overview.html:95
+#: views.py:73 templates/weight_overview.html:95
 msgid "Add weight entry"
 msgstr "Gewichtseintrag hinzufügen"
 
-#: views.py:93
+#: views.py:101
 #, python-format
 msgid "Edit weight entry for the %s"
 msgstr "Gewichtseintrag für den %s bearbeiten"
 
-#: views.py:103
+#: views.py:112
 msgid "weightdata"
 msgstr "Gewichtsdaten"
 
-#: templates/edit.html:6 templates/edit.html.py:27
+#: views.py:197
+msgid "Input"
+msgstr "Eingabe"
+
+#: views.py:198
+msgid "Date format"
+msgstr "Datumsformat"
+
+#: templates/edit.html:7 templates/edit.html.py:28
 msgid "Weight entry"
 msgstr "Gewichtseintrag"
 
-#: templates/edit.html:39
+#: templates/edit.html:40
 msgid "Save"
+msgstr "Speichern"
+
+#: templates/import_csv_form.html:5 templates/import_csv_form.html.py:8
+msgid "Import weight logs"
+msgstr "Gewichtseinträge importieren"
+
+#: templates/import_csv_form.html:22
+msgid "Submit"
+msgstr "Abschicken"
+
+#: templates/import_csv_form.html:31
+msgid ""
+"Use this import field to import your weight logs into Workout\n"
+"Manager."
 msgstr ""
+"Benutzen Sie das Importfeld, um bestehende Gewichtseinträge "
+"nach wger Workout Manager zu importieren."
+
+#: templates/import_csv_form.html:34
+msgid ""
+"You can copy and paste from your spreadsheet into the text input,\n"
+"the system will try to guess the format to import. The only things to "
+"consider is\n"
+"that the first column is the <strong>date</strong>, the second the "
+"<strong>weight</strong>.\n"
+"All further columns are ignored.\n"
+msgstr ""
+"Sie können per Copy-und-Paste von einer bestehenden Tabelle Einträge in das "
+"Textfeld übertragen, das System wird versuchen, das richtige Format zu "
+"erraten. Das Einzige, was Sie beachten müssen, ist, dass die <strong>erste "
+"Spalte</strong> das Datum sein muss, die <strong>zweite Spalte</strong>, "
+"das Gewicht. Weitere Angaben werden ignoriert.\n"
+
+
+#: templates/import_csv_form.html:40
+msgid ""
+"If there are errors, you can correct or discard them in a\n"
+"second step."
+msgstr ""
+"Falls Fehler passieren, so können diese in einem zweiten Schritt "
+"bearbeitet oder ignoriert werden."
+
+#: templates/import_csv_preview.html:5 templates/import_csv_preview.html:11
+msgid "Preview imported CSV entries"
+msgstr "Vorschau der zu importierenden Einträge"
+
+#: templates/import_csv_preview.html:13
+msgid "Sucessfully converted values"
+msgstr "Erfolgreich konvertierte Werte"
+
+#: templates/import_csv_preview.html:14
+msgid "The following values could be converted."
+msgstr "Diese Werte konnten erfolgreich konvertiert werden."
+
+#: templates/import_csv_preview.html:30
+msgid "Errors"
+msgstr "Fehler"
+
+#: templates/import_csv_preview.html:33
+msgid "The following values could not be converted."
+msgstr "Diese Werte konnten nicht konvertiert werden."
+
+#: templates/import_csv_preview.html:35
+msgid ""
+"These values could not be converted to a weight log entry.\n"
+"    The reasons for this could be anything from an unrecognised date or "
+"number\n"
+"    format, a problem with the encoding or something else. Please check "
+"that\n"
+"    there are no obvious errors in the list (and correct them if there "
+"are!)\n"
+"    and try to import the list again."
+msgstr ""
+"Diese Werte konnten nicht in ein Gewichtseintrag konvertiert "
+"werden. Mögliche Gründe dafür können sehr unterschliedlich sein, von einem "
+"falsch erkannten Zahlen- oder Datumsformat oder Zeichenkodierung oder auch "
+"was ganz anderes. Bitte überprüfen Sie, dass die Liste keine offensichtliche "
+"Fehler hat (und korrigieren Sie diese in diesem Fall!) und versuchen "
+"sie den Importvorgang nochmal." 
+
+
+#: templates/import_csv_preview.html:41
+msgid ""
+"Remember that the expected structure is <strong>date</strong>\n"
+"    on the first columns and <strong>weight</strong> on the second."
+msgstr ""
+"Zur Erinnerung: das erwartete Format is <strong>erste Spalte</strong>: Datum, "
+"<strong>zweite Spalte</strong>: Gewicht."
+
+
+#: templates/import_csv_preview.html:58
+msgid "There were no errors, all entries could be converted!"
+msgstr "Keine Fehler, alle Einträge konnten erfolgreich konvertiert werden!"
+
+#: templates/import_csv_preview.html:62
+msgid "Import all successfully converted entries"
+msgstr "Alle erfolgreich konvertierte Einträge importieren"
+
+#: templates/import_csv_preview.html:63
+msgid ""
+"Continue here if you want to import into your weight log all\n"
+"entries that were sucessfully converted. All entries that produced an error\n"
+"will simply be ignored. It's up to you to decide whether they are useful\n"
+"(unrecognised entries) or not (e.g. headers, comments, etc.)."
+msgstr ""
+"Fahren Sie hier fort, falls Sie alle erfolgreich konvertierte Einträge "
+"in Ihre Gewichtsübersicht importieren wollen. Alle anderen, "
+"die einen Fehler verurchat hatten, werden einfach ignoriert. Sie müssen "
+"hier entscheiden, ob sie nützlich sind (nicht erkannte Einträge) oder "
+"nicht (Kommentare, Überschriften, usw.)."
+
+
+#: templates/import_csv_preview.html:76
+msgid "Import"
+msgstr "Importieren"
+
+#: templates/import_csv_preview.html:81
+msgid "Or try it again"
+msgstr "Oder nochmal versuchen"
+
+#: templates/import_csv_preview.html:83
+msgid ""
+"You can correct the list here and re-submit it as often as\n"
+"you want."
+msgstr ""
+"Sie können die Liste korrigieren und so oft zur Konvertierung "
+"abschicken, wie Sie möchten."
+
+
+#: templates/import_csv_preview.html:97
+msgid "Re-Submit"
+msgstr "Wieder abschicken"
 
 #: templates/weight_overview.html:8 templates/weight_overview.html.py:81
 msgid "Weight overview"
@@ -71,23 +212,28 @@ msgstr "Clicken Sie auf ein Wert auf dem Diagramm um ihn zu editieren"
 msgid "Filter options"
 msgstr "Filteroptionen"
 
-#: templates/weight_overview.html:111
-msgid "from"
-msgstr "von"
+#: templates/weight_overview.html:110
+msgid ""
+"\n"
+"Use the second chart to pan or zoom by clicking and dragging the selection. "
+"Clicking\n"
+"on the background resets it.\n"
+msgstr ""
+"\n"
+"Benutzen Sie das zweite Diagramm, um rein- oder rauszuzoomen indem Sie "
+"die Auswahl ziehen. Ein Click in den Hintergrund setzt die Ansicht "
+"zurück.\n"
 
-#: templates/weight_overview.html:119
-msgid "till"
-msgstr "bis"
-
-#: templates/weight_overview.html:130
-msgid "Filter"
-msgstr "Filtern"
-
-#: templates/weight_overview.html:134
+#: templates/weight_overview.html:116
 msgid "Options"
 msgstr "Optionen"
 
-#: templates/weight_overview.html:141 templates/weight_overview.html.py:142
-#: templates/weight_overview.html:143
+#: templates/weight_overview.html:123 templates/weight_overview.html.py:124
+#: templates/weight_overview.html:125
 msgid "Export as CSV"
 msgstr "Als CSV-Datei exportieren"
+
+#: templates/weight_overview.html:134 templates/weight_overview.html.py:135
+#: templates/weight_overview.html:136
+msgid "Import from spreadsheet"
+msgstr "Aus Tabellenkalkulation importieren"

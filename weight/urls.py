@@ -8,23 +8,23 @@ from weight.views import WeightCsvImportForm
 
 urlpatterns = patterns('weight.views',
 
-    url(r'^weight/add/$',
+    url(r'^add/$',
         login_required(WeightAddView.as_view()),
         name='weight-add'),
 
-    url(r'^weight/(?P<pk>\d+)/edit/$',
+    url(r'^(?P<pk>\d+)/edit/$',
         login_required(WeightUpdateView.as_view()),
         name='weight-edit'),
 
-    url(r'^weight/export-csv/$', 'export_csv'),
-    url(r'^weight/import-csv/$',
+    url(r'^export-csv/$', 'export_csv'),
+    url(r'^import-csv/$',
         login_required(WeightCsvImportFormPreview(WeightCsvImportForm)),
         name='weight-import-csv'),
     
-    url(r'^weight/overview/$',
+    url(r'^overview/$',
         'overview',
         name='weight-overview'),
-    url(r'^weight/api/get_weight_data/$', 'get_weight_data'),
+    url(r'^api/get_weight_data/$', 'get_weight_data'),
 
 
 )
