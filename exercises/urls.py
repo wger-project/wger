@@ -18,10 +18,12 @@ urlpatterns = patterns('exercises.views',
 
     # Exercises
     url(r'^overview/$', 'exercise_overview'),
+
     url(r'^muscle/overview/$',
         MuscleListView.as_view(),
         name='muscle-overview'),
     url(r'^search/$', 'exercise_search'),
+    url(r'^(?P<id>\d+)/view/(?P<slug>[-\w]+)/$', 'exercise_view'),
     url(r'^(?P<id>\d+)/view/$', 'exercise_view'),
     url(r'^add/$',
         permission_required('exercises.change_exercise')(ExerciseAddView.as_view()),

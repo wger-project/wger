@@ -16,6 +16,8 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.db import models
+from django.template.defaultfilters import slugify # django.utils.text.slugify in django 1.5!
+
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
@@ -83,7 +85,6 @@ class ExerciseCategory(models.Model):
         """
         return False
 
-
 class Exercise(models.Model):
     """Model for an exercise
     """
@@ -106,7 +107,8 @@ class Exercise(models.Model):
         """
         Returns the canonical URL to view an exercise
         """
-        return reverse('exercises.views.exercise_view', kwargs={'id': self.id})
+        return reverse('exercises.views.exercise_view', kwargs={'id': self.id,
+                                                                'slug': slugify(self.name)})
 
     def __unicode__(self):
         """Return a more human-readable representation

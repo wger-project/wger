@@ -160,12 +160,14 @@ class MuscleListView(ListView):
         context = super(MuscleListView, self).get_context_data(**kwargs)
         context['language'] = load_language()
         context['active_tab'] = EXERCISE_TAB
-        
+
         return context
 
-def exercise_view(request, id, comment_id=None):
-    """ Detail view for an exercise
-    """
+
+def exercise_view(request, id, slug=None):
+    '''
+    Detail view for an exercise
+    '''
 
     template_data = {}
     template_data['comment_edit'] = False
