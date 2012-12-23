@@ -16,7 +16,7 @@ from workout_manager.constants import USER_TAB
 urlpatterns = patterns('manager.views',
 
     # The index page
-    url(r'^$', 'index', name='index'),
+    url(r'^dashboard/$', 'index', name='index'),
 
     # User
     url(r'^logout$', 'logout', name='logout'),
