@@ -84,17 +84,16 @@
                     <div class="nav-collapse collapse">
                         <ul class="nav">
                             <li {% if active_tab == 'user' %}class="active"{% endif %}>
-                            {% if not user.username %}
+                            {% if not user.is_authenticated %}
                                 <a href="{% url login %}">{% trans "Login" %}</a>
                             {% else %}
                                 <a href="{% url index %}">{% trans "Dashboard" %}</a>
                             {% endif %}
                             </li>
 
-
+                            {% if user.is_authenticated %}
                             <li {% if active_tab == 'workout'   %}class="active"{% endif %}><a href="{% url manager.views.overview %}">{% trans "Workouts" %}</a></li>
-
-
+                            {% endif %}
 
                             <li class="dropdown {% if active_tab == 'exercises' %}active{% endif %}">
                                 <a href="{% url exercises.views.exercise_overview %}"
@@ -106,6 +105,7 @@
                                 </ul>
                             </li>
 
+                            {% if user.is_authenticated %}
                             <li class="dropdown{% if active_tab == 'weight'    %} active{% endif %}">
 
                                 <a href="{% url weight.views.overview %}"
@@ -116,14 +116,16 @@
                                     <li><a href="{% url weight-add %}">{% trans "Add weight entry" %}</a></li>
                                 </ul>
                             </li>
-
+                            {% endif %}
 
                             <li class="dropdown {% if active_tab == 'nutrition' %}active{% endif %}">
                                 <a href="{% url nutrition.views.overview %}"
                                    class="dropdown-toggle"
                                    data-toggle="dropdown">{% trans "Nutrition" %} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
+                                {% if user.is_authenticated %}
                                     <li><a href="{% url nutrition.views.overview %}">{% trans "Nutrition plans" %} </a></li>
+                                {% endif %}
                                     <li><a href="{% url nutrition.views.ingredient_overview %}">{% trans "Ingredient overview" %}</a></li>
                                 </ul>
                             </li>
@@ -159,7 +161,7 @@
             <section class="ym-grid linearize-level-1">
                 <div id="current-url" data-current-url="{{request.get_full_path}}"></div>
                 {% if user.get_profile.is_temporary %}
-                    <div class="box info" style="padding:0.6em; margin: 0em;">
+                    <div class="box info" style="padding:0.6em; margin: 0em 0em 1em 0em;">
                     {% trans "You are using a temporary account, this user will be deleted after some time."%}
                     </div>
                 {% endif %}
