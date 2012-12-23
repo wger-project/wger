@@ -73,6 +73,15 @@
         {% trans "Register" %}</a>
 </p>
 
+<p>
+    <a href="{% url demo-account %}">
+        <img src="{% static 'images/icons/register.svg' %}"
+         width="48"
+         height="48"
+         alt="{% trans 'Demo access' %}">
+        {% trans "Demo access" %}</a>
+</p>
+
 <h3>{% trans "Forgot password?" %}</h3>
 <p>
     <a href="{% url django.contrib.auth.views.password_reset %}">

@@ -199,12 +199,12 @@ class WorkoutLog(models.Model):
         Processes and regroups a list of log entries so they can be rendered
         and passed to the D3 library to render a chart
         '''
-        
+
         reps = []
         entry_log = SortedDict()
         chart_data = []
         max_weight = {}
-        
+
         # Group by date
         for entry in logs:
             if entry.reps not in reps:
@@ -220,7 +220,7 @@ class WorkoutLog(models.Model):
             # higher weight is shown in the chart
             if not max_weight.get(entry.date):
                 max_weight[entry.date] = {entry.reps: entry.weight}
-            
+
             if not max_weight[entry.date].get(entry.reps):
                 max_weight[entry.date][entry.reps] = entry.weight
 
@@ -231,23 +231,26 @@ class WorkoutLog(models.Model):
         for entry in logs:
             temp = {'date': '%s' % entry.date,
                     'id': 'workout-log-%s' % entry.id}
-             
+
             for rep in reps:
                 if entry.reps == rep:
-                    
+
                     # Only add if entry is the maximum for the day
-                    if entry.weight == max_weight[entry.date][entry.reps]: 
+                    if entry.weight == max_weight[entry.date][entry.reps]:
                         temp[rep] = entry.weight
                 else:
                     temp[rep] = 0
             chart_data.append(temp)
-        
+
         return (entry_log, json.dumps(chart_data, cls=DecimalJsonEncoder))
 
 
 class UserProfile(models.Model):
     # This field is required.
     user = models.OneToOneField(User)
+
+    # Flag to mark a temporary user (demo account)
+    is_temporary = models.BooleanField(default=False)
 
     #
     # User preferences
@@ -264,6 +267,12 @@ class UserProfile(models.Model):
 a nutritional plan. These ingredients are extracted from a list provided
 by the US Department of Agriculture. It is extremely complete, with around
 7000 entries, but can be somewhat overwhelming and make the search difficult.'''))
+
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return "Profile for user %s" % (self.user)
 
 
 # Every new user gets a profile

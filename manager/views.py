@@ -17,6 +17,7 @@
 import logging
 import uuid
 import datetime
+import random
 
 
 from django.template import RequestContext
@@ -71,6 +72,9 @@ from manager.forms import WorkoutCopyForm
 from manager.forms import SetForm
 from manager.forms import HelperDateForm
 from manager.forms import WorkoutLogForm
+from manager.forms import DemoUserForm
+
+from manager.utils import load_language
 
 from workout_manager.constants import WORKOUT_TAB
 from workout_manager.constants import USER_TAB
@@ -195,6 +199,95 @@ def registration(request):
     template_data['submit_text'] = _('Register')
 
     return render_to_response('form.html',
+                              template_data,
+                              context_instance=RequestContext(request))
+
+
+def create_demo_user(request):
+    '''
+    Creates a demo user and adds some initial data
+    '''
+
+    template_data = {}
+    template_data.update(csrf(request))
+    template_data['active_tab'] = USER_TAB
+
+    if request.method == 'POST':
+        form = DemoUserForm(data=request.POST)
+
+        # If the data is valid, create a user, log in and redirect
+        if form.is_valid():
+            username = uuid.uuid4().hex[:-2]
+            password = uuid.uuid4().hex[:-2]
+            email = ''
+            user = Django_User.objects.create_user(username,
+                                                   email,
+                                                   password)
+            user.save()
+            user_profile = user.get_profile()
+            user_profile.is_temporary = True
+            user_profile.save()
+
+            #
+            # Create some initial data
+            #
+
+            # Workout and exercises
+            workout = TrainingSchedule(user=user,
+                                       comment=_('Sample workout'))
+            workout.save()
+            monday = DaysOfWeek.objects.get(pk=1)
+            day = Day(training=workout,
+                      description=_('Sample day'))
+            day.save()
+            day.day.add(monday)
+
+            # Biceps curls with dumbbell
+            if(load_language().short_name == 'de'):
+                exercise = Exercise.objects.get(pk=26)
+            else:
+                exercise = Exercise.objects.get(pk=81)
+            day_set = Set(exerciseday=day,
+                          sets=4)
+            day_set.save()
+            day_set.exercises.add(exercise)
+
+            setting = Setting(set=day_set,
+                            exercise=exercise,
+                            reps=8,
+                            order=1)
+            setting.save()
+
+            # Weight log entries
+            for reps in (7, 8, 9, 10):
+                for i in range(1, 8):
+                    log = WorkoutLog(user=user,
+                                     exercise=exercise,
+                                     workout=workout,
+                                     reps=reps,
+                                     weight=30 - reps + random.randint(1, 5),
+                                     date=datetime.date.today() - datetime.timedelta(weeks=i))
+                    log.save()
+
+            # Weight entries
+            for i in range(1, 20):
+                entry = WeightEntry(user=user,
+                                 weight=80 + 0.5*i + random.randint(1, 3),
+                                 creation_date=datetime.date.today() - datetime.timedelta(days=i))
+                entry.save()
+
+
+
+            user = authenticate(username=username, password=password)
+            django_login(request, user)
+            return HttpResponseRedirect(reverse('index'))
+    else:
+        form = DemoUserForm()
+
+    template_data['form'] = form
+    template_data['submit_text'] = _('Register')
+
+    return render_to_response('user/demo.html',
                               template_data,
                               context_instance=RequestContext(request))
 

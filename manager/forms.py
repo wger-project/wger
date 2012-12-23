@@ -47,7 +47,7 @@ from workout_manager.constants import DATE_FORMATS
 class UserPreferencesForm(ModelForm):
     class Meta:
         model = UserProfile
-        exclude = ('user',)
+        exclude = ('user', 'is_temporary')
 
 
 class UserEmailForm(ModelForm):
@@ -73,6 +73,11 @@ class RegistrationForm(UserCreationForm, UserEmailForm):
                              label=_('Confirmation text'),
                              help_text=_('As a security measure, please enter the previous words'),)
 
+
+class DemoUserForm(Form):
+    captcha = ReCaptchaField(attrs={'theme': 'clean'},
+                             label=_('Confirmation text'),
+                             help_text=_('As a security measure, please enter the previous words'),)
 
 class WorkoutForm(ModelForm):
     class Meta:

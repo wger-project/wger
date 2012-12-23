@@ -2,6 +2,8 @@ from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
 
+from django.views.generic import TemplateView
+
 from manager.views import WorkoutEditView
 from manager.views import WorkoutDeleteView
 from manager.views import WorkoutLogDetailView
@@ -21,6 +23,10 @@ urlpatterns = patterns('manager.views',
     # User
     url(r'^logout$', 'logout', name='logout'),
     url(r'^user/registration$', 'registration'),
+    url(r'^user/demo-account$',
+        'create_demo_user',
+        name='demo-account'),
+
     url(r'^user/preferences$', 'preferences'),
 
     # Workout

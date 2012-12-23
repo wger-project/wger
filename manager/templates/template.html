@@ -158,6 +158,11 @@
         <div class="ym-wbox" id="content-wrapper">
             <section class="ym-grid linearize-level-1">
                 <div id="current-url" data-current-url="{{request.get_full_path}}"></div>
+                {% if user.get_profile.is_temporary %}
+                    <div class="box info" style="padding:0.6em; margin: 0em;">
+                    {% trans "You are using a temporary account, this user will be deleted after some time."%}
+                    </div>
+                {% endif %}
                 {% block template %}{% endblock %}
             </section>
         </div>
