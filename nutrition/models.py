@@ -200,7 +200,7 @@ class MealItem(models.Model):
     def __unicode__(self):
         """Return a more human-readable representation
         """
-        return "%s %s %s" % (self.order, self.amount_gramm or self.amount_freetext, self.ingredient)
+        return "%sg ingredient %s" % (self.amount_gramm, self.ingredient_id)
 
     def get_owner_object(self):
         """

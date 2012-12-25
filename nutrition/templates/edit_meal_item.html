@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load staticfiles %}
-{% load manager_extras %} 
+{% load manager_extras %}
 
 
 {% block title %}{% trans "Edit meal item" %}{% endblock %}
@@ -33,11 +33,12 @@ $(document).ready(function() {
     {% if js_active %}
         <input type="hidden" id="id_ingredient" name="ingredient" value="{{ingredient}}">
     {% else %}
-        {% yaml_form_field form.amount_gramm form.ingredient "ym-fbox-select"%}
+        {% yaml_form_field form.amount_gramm %}
+        {% yaml_form_field form.ingredient %}
     {% endif %}
     <tr>
         <td style="text-align:right;">
-            {% trans "Ingredient name" %}    
+            {% trans "Ingredient name" %}
         </td>
         <td>
             <div class="ym-fbox-text">
