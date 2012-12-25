@@ -35,11 +35,12 @@ function custom_modal_init()
 
 <p>{{ exercise.description|safe }}</p>
 
-{% if exercise.exercisecomment_set.all %}
+{% with comments=exercise.exercisecomment_set.all %}
+{% if comments %}
 <h3>{% trans "All comments for this exercise" %}</h3>
 
 <ul>
-{% for comment in exercise.exercisecomment_set.all %}
+{% for comment in comments %}
     <li>
         {{ comment }}
         {% if perms.exercises %}
@@ -65,6 +66,7 @@ function custom_modal_init()
 {% endfor %}
 </ul>
 {% endif %}
+{% endwith %}
 
 
 {% if perms.exercises %}
@@ -102,8 +104,8 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 -->
 {% block sidebar %}
 
-
-{% if exercise.muscles.all %}
+{% with muscles=exercise.muscles.all %}
+{% if muscles %}
 <h3>{% trans "Muscles" %}</h3>
 <p>
     {% trans "The diagram shows the most used muscles on this exercise" %}
@@ -120,7 +122,7 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
     <div class="ym-g40 ym-gr">
         <div class="ym-gbox-right">
             <ul>
-                {% for muscle in exercise.muscles.all %}
+                {% for muscle in muscles %}
                 {% if muscle.is_front %}
                 <li>{{muscle.name}}</li>
                 {% endif %}
@@ -143,7 +145,7 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
     <div class="ym-g40 ym-gr">
         <div class="ym-gbox-right">
             <ul>
-                {% for muscle in exercise.muscles.all %}
+                {% for muscle in muscles %}
                 {% if not muscle.is_front %}
                 <li>{{muscle.name}}</li>
                 {% endif %}
@@ -154,8 +156,8 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 </div>
 {% endif %}
 
-
 {% endif %}
+{% endwith %}
 
 {% if perms.exercises %}
 <h3>{% trans "Options" %}</h3>
