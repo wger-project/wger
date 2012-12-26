@@ -50,7 +50,6 @@ from manager.utils import load_language
 from manager.utils import load_ingredient_languages
 
 from workout_manager import get_version
-from workout_manager.constants import NUTRITION_TAB
 from workout_manager.generic_views import YamlFormMixin
 from workout_manager.generic_views import YamlDeleteMixin
 from workout_manager import helpers
@@ -73,7 +72,6 @@ class PlanForm(ModelForm):
 def overview(request):
     template_data = {}
     template_data.update(csrf(request))
-    template_data['active_tab'] = NUTRITION_TAB
 
     plans = NutritionPlan.objects.filter(user=request.user)
     template_data['plans'] = plans
@@ -101,7 +99,6 @@ class PlanDeleteView(YamlDeleteMixin, DeleteView):
     Generic view to delete a nutritional plan
     """
 
-    active_tab = NUTRITION_TAB
     model = NutritionPlan
     success_url = reverse_lazy('nutrition.views.overview')
     title = ugettext_lazy('Delete nutritional plan?')
@@ -113,7 +110,6 @@ class PlanEditView(YamlFormMixin, UpdateView):
     Generic view to update an existing nutritional plan
     """
 
-    active_tab = NUTRITION_TAB
     model = NutritionPlan
     form_class = PlanForm
     title = ugettext_lazy('Add a new nutritional plan')
@@ -125,7 +121,6 @@ def view(request, id):
     """Show the nutrition plan with the given ID
     """
     template_data = {}
-    template_data['active_tab'] = NUTRITION_TAB
 
     plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
     template_data['plan'] = plan
@@ -317,7 +312,6 @@ class MealCreateView(YamlFormMixin, CreateView):
     Generic view to add a new meal to a nutrition plan
     """
 
-    active_tab = NUTRITION_TAB
     model = Meal
     form_class = MealForm
     title = ugettext_lazy('Add new meal')
@@ -346,7 +340,6 @@ class MealEditView(YamlFormMixin, UpdateView):
     Generic view to update an existing meal
     """
 
-    active_tab = NUTRITION_TAB
     model = Meal
     form_class = MealForm
     title = ugettext_lazy('Edit meal')
@@ -398,7 +391,6 @@ def edit_meal_item(request, id, meal_id, item_id=None):
     """Form to add a meal to a plan
     """
     template_data = {}
-    template_data['active_tab'] = NUTRITION_TAB
 
     # Load the plan
     plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
@@ -469,7 +461,6 @@ def ingredient_overview(request):
     """
 
     template_data = {}
-    template_data['active_tab'] = NUTRITION_TAB
 
     # Filter the ingredients the user will see by its language
     # (the user can also want to see ingredients in English, see load_ingredient_languages)
@@ -489,7 +480,6 @@ def ingredient_overview(request):
 
 def ingredient_view(request, id):
     template_data = {}
-    template_data['active_tab'] = NUTRITION_TAB
 
     ingredient = get_object_or_404(Ingredient, pk=id)
     template_data['ingredient'] = ingredient
@@ -529,7 +519,6 @@ class IngredientEditView(YamlFormMixin, UpdateView):
     Generic view to update an existing ingredient
     """
 
-    active_tab = NUTRITION_TAB
     model = Ingredient
     form_class = IngredientForm
     title = ugettext_lazy('Add a new ingredient')
@@ -541,7 +530,6 @@ class IngredientCreateView(YamlFormMixin, CreateView):
     Generic view to add a new ingredient
     """
 
-    active_tab = NUTRITION_TAB
     model = Ingredient
     form_class = IngredientForm
     title = ugettext_lazy('Add a new ingredient')

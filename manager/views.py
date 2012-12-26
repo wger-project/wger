@@ -76,8 +76,6 @@ from manager.forms import DemoUserForm
 
 from manager.utils import load_language
 
-from workout_manager.constants import WORKOUT_TAB
-from workout_manager.constants import USER_TAB
 from workout_manager.generic_views import YamlFormMixin
 from workout_manager.generic_views import YamlDeleteMixin
 
@@ -96,7 +94,6 @@ def index(request):
     """
 
     template_data = {}
-    template_data['active_tab'] = USER_TAB
 
     # Load the last workout, if one exists
     try:
@@ -156,8 +153,7 @@ def login(request):
     """
 
     return django_loginview(request,
-                            template_name='user/login.html',
-                            extra_context={'active_tab': USER_TAB})
+                            template_name='user/login.html')
 
 
 def logout(request):
@@ -172,7 +168,6 @@ def registration(request):
     """
     template_data = {}
     template_data.update(csrf(request))
-    template_data['active_tab'] = USER_TAB
 
     if request.method == 'POST':
         form = RegistrationForm(data=request.POST)
@@ -210,7 +205,6 @@ def create_demo_user(request):
 
     template_data = {}
     template_data.update(csrf(request))
-    template_data['active_tab'] = USER_TAB
 
     if request.method == 'POST':
         form = DemoUserForm(data=request.POST)
@@ -297,7 +291,6 @@ def preferences(request):
     """
     template_data = {}
     template_data.update(csrf(request))
-    template_data['active_tab'] = USER_TAB
 
     # Process the preferences form
     if request.method == 'POST':
@@ -371,7 +364,6 @@ def overview(request):
     """
 
     template_data = {}
-    template_data['active_tab'] = WORKOUT_TAB
 
     latest_trainings = TrainingSchedule.objects.filter(user=request.user)
     template_data['workouts'] = latest_trainings
@@ -386,7 +378,6 @@ def view_workout(request, id):
     """Show the workout with the given ID
     """
     template_data = {}
-    template_data['active_tab'] = WORKOUT_TAB
 
     workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
     template_data['workout'] = workout
@@ -510,7 +501,6 @@ class WorkoutDeleteView(YamlDeleteMixin, DeleteView):
     Generic view to delete a workout routine
     """
 
-    active_tab = WORKOUT_TAB
     model = TrainingSchedule
     success_url = reverse_lazy('manager.views.overview')
     title = ugettext_lazy('Delete workout')
@@ -522,7 +512,6 @@ class WorkoutEditView(YamlFormMixin, UpdateView):
     Generic view to update an existing workout routine
     """
 
-    active_tab = WORKOUT_TAB
     model = TrainingSchedule
     form_class = WorkoutForm
     title = ugettext_lazy('Edit workout')
@@ -537,7 +526,6 @@ class DayView(YamlFormMixin):
     Base generic view for exercise day
     """
 
-    active_tab = WORKOUT_TAB
     model = Day
     form_class = DayForm
 
@@ -649,7 +637,6 @@ def edit_set(request, id, day_id, set_id=None):
 
     template_data = {}
     template_data.update(csrf(request))
-    template_data['active_tab'] = WORKOUT_TAB
 
     # Load workout
     workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
@@ -858,7 +845,6 @@ def api_edit_set(request):
 def edit_setting(request, id, set_id, exercise_id, setting_id=None):
     template_data = {}
     template_data.update(csrf(request))
-    template_data['active_tab'] = WORKOUT_TAB
 
     # Load workout
     workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
@@ -967,7 +953,6 @@ class WorkoutLogUpdateView(YamlFormMixin, UpdateView):
     """
     Generic view to edit an existing workout log weight entry
     """
-    active_tab = WORKOUT_TAB
     model = WorkoutLog
     form_class = WorkoutLogForm
     custom_js = '''$(document).ready(function () {
@@ -992,7 +977,6 @@ def workout_log_add(request, pk):
 
     template_data = {}
     template_data.update(csrf(request))
-    template_data['active_tab'] = WORKOUT_TAB
 
     # Load the day and check ownership
     day = get_object_or_404(Day, pk=pk)
@@ -1103,9 +1087,6 @@ class WorkoutLogDetailView(DetailView):
 
         # Call the base implementation first to get a context
         context = super(WorkoutLogDetailView, self).get_context_data(**kwargs)
-
-        # Active tab
-        context['active_tab'] = WORKOUT_TAB
 
         # Prepare the entries for rendering and the D3 chart
         workout_log = {}
