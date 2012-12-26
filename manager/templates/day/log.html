@@ -27,7 +27,7 @@ $(document).ready(function () {
 <table class="workout-log-table">
 <tr>
     <td>
-        {{dateform.date.label}}
+        {% trans dateform.date.label %}
     </td>
     <td >
         <div class= "ym-fbox-text {% if dateform.date.errors %}ym-error{% endif %}">
