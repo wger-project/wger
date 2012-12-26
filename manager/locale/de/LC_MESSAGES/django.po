@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-08 18:37+0100\n"
+"POT-Creation-Date: 2012-12-26 10:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,15 +20,44 @@ msgstr ""
 "X-Language: de_DE\n"
 "X-Source-Language: C\n"
 
-#: models.py:42
-msgid "Creation date"
-msgstr "Datum Erstellung"
+#: forms.py:54 templates/user/preferences.html:24
+msgid "Email"
+msgstr ""
 
-#: models.py:43 models.py:91
+#: forms.py:55
+msgid ""
+"Completely optional, but needed to reset your password in case you forget it."
+msgstr "Komplett optional, aber nötig, um das Passwort zurückzusetzen."
+
+#: forms.py:68
+msgid "This email is already used."
+msgstr "Diese Emailadresse wird bereits verwendet."
+
+#: forms.py:73 forms.py:79
+msgid "Confirmation text"
+msgstr "Text bestätigen"
+
+#: forms.py:74 forms.py:80
+msgid "As a security measure, please enter the previous words"
+msgstr "Als Sicherheitsmaßnahme gegen Spam, geben Sie bitte die vorherigen Wörter ein"
+
+#: forms.py:117
+msgid ""
+"You can search for more than one exercise, they will be grouped together for "
+"a superset."
+msgstr ""
+"Sie können mehr als eine Übung auswählen/suchen, sie werden dann z.B. für "
+"einen Supersatz gruppiert."
+
+#: models.py:45
+msgid "Creation date"
+msgstr "Datum"
+
+#: models.py:46 models.py:92
 msgid "Description"
 msgstr "Beschreibung"
 
-#: models.py:46
+#: models.py:49
 msgid ""
 "A short description or goal of the workout.\n"
 "For example 'Focus on back' or 'Week 1 of program xy'."
@@ -36,19 +65,19 @@ msgstr ""
 "Eine kurze Beschreibung oder Ziel des Trainingplans.\n"
 " Zum Beispiel 'Fokus auf Rücken' oder 'Woche 1 von Programm XY'."
 
-#: models.py:48
+#: models.py:51 models.py:169
 msgid "User"
 msgstr "Benutzer"
 
-#: models.py:76
+#: models.py:78
 msgid "Day of the week"
 msgstr "Wochentag"
 
-#: models.py:89
+#: models.py:90
 msgid "Training"
 msgstr "Training"
 
-#: models.py:92
+#: models.py:93
 msgid ""
 "Ususally a description about what parts are trained, like \"Arms\" or \"Pull "
 "Day\""
@@ -56,47 +85,66 @@ msgstr ""
 "Normalerweise eine Beschreibung der Muskeln, die trainiert werden wie z.B. "
 "\"Arme\" oder \"Drücktag\""
 
-#: models.py:94
+#: models.py:95
 msgid "Day"
 msgstr "Tag"
 
-#: models.py:112
+#: models.py:114
 msgid "Exercise day"
 msgstr "Übungstag"
 
-#: models.py:113 models.py:141 templates/base.html:76
+#: models.py:115 models.py:143 templates/template.html:101
+#: templates/template.html.py:103 templates/day/log.html:44
 msgid "Exercises"
 msgstr "Übungen"
 
-#: models.py:117
+#: models.py:119
 msgid "Order"
 msgstr "Reihenfolge"
 
-#: models.py:118 models.py:140
+#: models.py:120 models.py:142
 msgid "Sets"
 msgstr "Sätze"
 
-#: models.py:142 models.py:143
+#: models.py:144 models.py:145 models.py:173
 msgid "Repetitions"
 msgstr "Wiederholungen"
 
-#: models.py:144
+#: models.py:146
 msgid "Comment"
 msgstr "Kommentar"
 
-#: models.py:172
+#: models.py:170 pdf.py:132
+msgid "Exercise"
+msgstr "Übung"
+
+#: models.py:171 pdf.py:57 pdf.py:67 templates/index.html:12
+#: templates/index.html.py:18 templates/workout/overview.html:21
+#: templates/workout/view.html:6 templates/workout/view.html.py:35
+msgid "Workout"
+msgstr "Trainingsplan"
+
+#: models.py:176 pdf.py:132 templates/template.html:113
+msgid "Weight"
+msgstr "Gewicht"
+
+#: models.py:177 pdf.py:131
+msgid "Date"
+msgstr "Datum"
+
+#: models.py:260
 msgid "Show exercise comments"
 msgstr "Übungskommentare ein/ausblenden"
 
-#: models.py:173
+#: models.py:261
 msgid "Check to show exercise comments on the workout view"
 msgstr "Auswählen, um Übungskommentare auf der Trainingsplanseite anzuzeigen"
 
-#: models.py:177
+#: models.py:265
 msgid "Also use ingredients in English"
 msgstr "Auch Zutaten auf Englisch anzeigen"
 
-#: models.py:178
+#: models.py:266
 msgid ""
 "Check to also show ingredients in English while creating\n"
 "a nutritional plan. These ingredients are extracted from a list provided\n"
@@ -108,87 +156,77 @@ msgstr ""
 "Landwirtschaftsministerium. Diese hat etwa 7000 Einträge und ist extrem "
 "vollständig, kann aber die Suche etwas unübersichtlich machen."
 
-#: pdf.py:57 pdf.py:67 templates/index.html:12 templates/index.html.py:18
-#: templates/workout/overview.html:21 templates/workout/view.html:6
-#: templates/workout/view.html.py:36
-msgid "Workout"
-msgstr "Trainingsplan"
-
-#: pdf.py:68
-msgid "Workout Manager"
-msgstr "Trainingsplan Manager"
-
 #: pdf.py:69
 #, python-format
 msgid "Workout for %s"
 msgstr "Trainingsplan für %s"
 
-#: pdf.py:142
-msgid "Date"
-msgstr "Datum"
-
-#: pdf.py:143
+#: pdf.py:132
 msgid "Nr."
 msgstr ""
 
-#: pdf.py:143
-msgid "Exercise"
-msgstr "Übung"
-
-#: pdf.py:143
+#: pdf.py:132 views.py:1134 templates/day/log.html:58
+#: templates/tags/render_weight_log.html:28
 msgid "Reps"
 msgstr "Wdh."
 
-#: pdf.py:143 templates/base.html:77
-msgid "Weight"
-msgstr "Gewicht"
-
-#: pdf.py:268
+#: pdf.py:269
 msgid "<i>This is an empty workout, what did you expect on the PDF?</i>"
-msgstr "<i>Das ist ein leerer Trainngsplan, was haben Sie vom PDF erwartet?</i>"
+msgstr ""
+"<i>Das ist ein leerer Trainngsplan, was haben Sie vom PDF erwartet?</i>"
 
-#: pdf.py:295
+#: pdf.py:301
 #, python-format
 msgid "Created on the <b>%s</b>"
 msgstr "Erstellt am <b>%s</b>"
 
-#: views.py:129
+#: views.py:136
 msgid "Rest day"
 msgstr "Ruhetag"
 
-#: views.py:168 templates/user/preferences.html:23
-msgid "Email"
-msgstr ""
+#: views.py:196 views.py:199 views.py:288 templates/user/login.html:72
+#: templates/user/login.html.py:73
+msgid "Register"
+msgstr "Registrieren"
 
-#: views.py:169
-msgid ""
-"Completely optional, but needed to reset your password in case you forget it."
-msgstr "Komplett optional, aber nötig, um das Passwort zurückzusetzen."
+#: views.py:237
+#, fuzzy
+msgid "Sample workout"
+msgstr "Trainingsplan löschen"
 
-#: views.py:184
-msgid "This email is already used."
-msgstr "Diese Emailadresse wird bereits verwendet."
+#: views.py:241
+msgid "Sample day"
+msgstr "Beispieltag"
 
-#: views.py:279 views.py:289 views.py:629 views.py:836
+#: views.py:352 views.py:362 views.py:749 views.py:945
 msgid "Success"
-msgstr "Erfolf"
+msgstr "Erfolg"
 
-#: views.py:380
+#: views.py:487
+msgid "Copy workout"
+msgstr "Trainingsplan kopieren"
+
+#: views.py:516
 msgid "Delete workout"
 msgstr "Trainingsplan löschen"
 
-#: views.py:392 templates/workout/view.html:136
-#: templates/workout/view.html.py:137 templates/workout/view.html:138
+#: views.py:528 templates/workout/view.html:135
+#: templates/workout/view.html.py:136 templates/workout/view.html:137
 msgid "Edit workout"
 msgstr "Trainingsplan bearbeiten"
 
-#: views.py:451
+#: views.py:578
 msgid "Edit workout day"
 msgstr "Trainingstag bearbeiten"
 
-#: views.py:460
+#: views.py:587
 msgid "Add workout day"
 msgstr "Trainingstag hinzufügen"
+
+#: views.py:980
+#, python-format
+msgid "Edit log entry for %s"
+msgstr "Eintrag für %s editieren"
 
 #: templates/403.html:5 templates/403.html.py:8
 msgid "Forbidden!"
@@ -214,54 +252,17 @@ msgstr "Ein Fehler ist passiert"
 msgid "Something happened that caused an error."
 msgstr "Etwas hat einen Fehler verursacht."
 
-#: templates/base.html:70 templates/user/login.html:5
-#: templates/user/login.html.py:14 templates/user/login.html:30
-#: templates/user/registration.html:4
-msgid "Login"
-msgstr "Anmelden"
-
-#: templates/base.html:72
-msgid "Dashboard"
-msgstr "Übersicht"
-
-#: templates/base.html:75
-msgid "Workouts"
-msgstr "Trainingspläne"
-
-#: templates/base.html:78
-msgid "Nutrition"
-msgstr "Ernährung"
-
-#: templates/base.html:86 templates/user/preferences.html:46
-#: templates/user/preferences.html.py:47 templates/user/preferences.html:48
-msgid "Logout"
-msgstr "Ausloggen"
-
-#: templates/base.html:133 templates/base.html.py:134
-msgid "Released under the Affero GPL"
-msgstr "Unter der Affero GPL veröffentlicht"
-
-#: templates/base.html:140
-msgid "Layout based on <a href='http://www.yaml.de'>YAML</a>"
-msgstr "Layout basiert auf <a href='http://www.yaml.de'>YAML</a>"
-
 #: templates/delete.html:27 templates/delete.html.py:28
 msgid "Are you sure you want to delete this? This action cannot be undone."
 msgstr ""
-"Sind Sie sicher, dass Sie das löschen wollen? Diese Aktion kannnicht "
+"Sind Sie sicher, dass Sie das löschen wollen? Diese Aktion kann nicht "
 "rückgängig gemacht werden."
 
 #: templates/delete.html:30 templates/tags/render_day.html:35
-#: templates/tags/render_day.html.py:39 templates/tags/render_day.html:75
-#: templates/tags/render_day.html.py:79
+#: templates/tags/render_day.html.py:39 templates/tags/render_day.html:82
+#: templates/tags/render_day.html.py:86
 msgid "Delete"
 msgstr "Löschen"
-
-#: templates/form.html:46 templates/set/edit.html:57
-#: templates/setting/ajax_edit.html:73 templates/setting/edit.html:32
-#: templates/user/preferences.html:30 templates/user/registration.html:22
-msgid "Save"
-msgstr ""
 
 #: templates/index.html:5
 msgid "Workout list"
@@ -323,8 +324,9 @@ msgstr ""
 "Nach dem hinzufügen eines Training- oder Ernährungsplanes, kann man sie "
 "bearbeiten, um ein Ziel oder Beschreibung zu setzen."
 
-#: templates/index.html:126 templates/user/preferences.html:40
-#: templates/workout/overview.html:43 templates/workout/view.html:117
+#: templates/index.html:126 templates/day/log.html:102
+#: templates/user/preferences.html:41 templates/workout/log.html:84
+#: templates/workout/overview.html:43 templates/workout/view.html:116
 msgid "Options"
 msgstr "Optionen"
 
@@ -333,11 +335,128 @@ msgstr "Optionen"
 msgid "My preferences"
 msgstr "Meine Einstellungen"
 
-#: templates/set/edit.html:8 templates/set/edit.html.py:29
-#: templates/setting/edit.html:15 templates/tags/render_day.html:42
-#: templates/tags/render_day.html.py:47 templates/tags/render_day.html:60
-#: templates/tags/render_day.html.py:64 templates/tags/render_day.html:130
-#: templates/tags/render_day.html.py:135
+#: templates/template.html:88 templates/user/login.html:6
+#: templates/user/login.html.py:15 templates/user/login.html:31
+msgid "Login"
+msgstr "Anmelden"
+
+#: templates/template.html:90
+msgid "Dashboard"
+msgstr "Übersicht"
+
+#: templates/template.html:95
+msgid "Workouts"
+msgstr "Trainingspläne"
+
+#: templates/template.html:104
+msgid "Muscle overview"
+msgstr "Muskelübersicht"
+
+#: templates/template.html:115
+msgid "Weight overview"
+msgstr "Gewichtsübersicht"
+
+#: templates/template.html:116
+msgid "Add weight entry"
+msgstr ""
+
+#: templates/template.html:124
+msgid "Nutrition"
+msgstr "Ernährung"
+
+#: templates/template.html:127
+msgid "Nutrition plans"
+msgstr "Ernährungspläne"
+
+#: templates/template.html:129
+msgid "Ingredient overview"
+msgstr "Zutatenübersicht"
+
+#: templates/template.html:138
+msgid "About this software"
+msgstr "Über diese Software"
+
+#: templates/template.html:140
+msgid "Features"
+msgstr "Funktionen"
+
+#: templates/template.html:142 templates/user/demo.html:7
+#: templates/user/demo.html.py:10
+msgid "Demo account"
+msgstr "Demo Account"
+
+#: templates/template.html:144
+msgid "Report problem"
+msgstr "Probleme berichten"
+
+#: templates/template.html:147
+msgid "Developers"
+msgstr "Entwickler"
+
+#: templates/template.html:148
+msgid "Get the code"
+msgstr ""
+
+#: templates/template.html:149
+msgid "Download"
+msgstr "Runterladen"
+
+#: templates/template.html:150
+msgid "License"
+msgstr "Lizenz"
+
+#: templates/template.html:151
+msgid "Changelog"
+msgstr "Änderungsprotokoll"
+
+#: templates/template.html:158 templates/user/preferences.html:47
+#: templates/user/preferences.html.py:48 templates/user/preferences.html:49
+msgid "Logout"
+msgstr "Ausloggen"
+
+#: templates/template.html:186
+msgid ""
+"You are using a temporary account, this user will be deleted after some time."
+msgstr ""
+"Sie sind mit einem zeitlich begrenzten Benutzer angemeldet. Dieser wird nach "
+"einer Zeit gelöscht."
+
+#: templates/template.html:206 templates/template.html.py:207
+msgid "Released under the Affero GPL"
+msgstr "Unter der Affero GPL veröffentlicht"
+
+#: templates/template.html:213
+msgid "Layout based on <a href='http://www.yaml.de'>YAML</a>"
+msgstr "Layout basiert auf <a href='http://www.yaml.de'>YAML</a>"
+
+#: templates/day/log.html:6 templates/day/log.html.py:21
+msgid "New weight log"
+msgstr ""
+
+#: templates/day/log.html:77
+msgid "Add exercises to this training day before adding a log."
+msgstr ""
+"Sie müssen Übungen zu diesem Tag hinzufügen, bevor Sie einen Logbucheintrag "
+"erstellen."
+
+
+#: templates/day/log.html:80 templates/day/log.html.py:108
+#: templates/day/log.html:109 templates/workout/log.html:90
+#: templates/workout/log.html.py:91
+msgid "Back to workout"
+msgstr "Zurück zum Trainingsplan"
+
+#: templates/day/log.html:92 templates/set/edit.html:42
+#: templates/setting/ajax_edit.html:73 templates/setting/edit.html:33
+#: templates/user/preferences.html:31
+msgid "Save"
+msgstr ""
+
+#: templates/set/edit.html:10 templates/set/edit.html.py:29
+#: templates/setting/edit.html:17 templates/tags/render_day.html:42
+#: templates/tags/render_day.html.py:47 templates/tags/render_day.html:67
+#: templates/tags/render_day.html.py:71 templates/tags/render_day.html:137
+#: templates/tags/render_day.html.py:142
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -345,57 +464,123 @@ msgstr "Bearbeiten"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: templates/setting/edit.html:7
+#: templates/setting/edit.html:9
 msgid "Set details"
 msgstr "Details für Satz"
 
-#: templates/tags/pagination.html:9
+#: templates/tags/pagination.html:10 templates/tags/pagination.html.py:12
 msgid "previous"
 msgstr "zurück"
 
-#: templates/tags/pagination.html:29
+#: templates/tags/pagination.html:32 templates/tags/pagination.html.py:34
 msgid "next"
 msgstr "vor"
 
-#: templates/tags/render_day.html:71 templates/tags/render_day.html.py:72
+#: templates/tags/render_day.html:50 templates/tags/render_day.html.py:54
+#: templates/workout/log.html:40 templates/workout/log.html.py:44
+#: templates/workout/log.html:45
+msgid "Add weight log to this day"
+msgstr "Logbucheintrag zu diesem Tag hinzufügen"
+
+#: templates/tags/render_day.html:78 templates/tags/render_day.html.py:79
 msgid "Move me"
 msgstr "Bewege mich"
 
-#: templates/tags/render_day.html:119
+#: templates/tags/render_day.html:126
 msgid "This exercise has no settings."
 msgstr "Diese Übung hat keine Einstellungen."
 
-#: templates/tags/render_day.html:122
+#: templates/tags/render_day.html:129
 msgid "Edit them now."
 msgstr "Jetzt editieren."
 
-#: templates/tags/render_day.html:157
+#: templates/tags/render_day.html:164
 msgid "No sets for this day."
 msgstr "Keine Sätze für diesen Tag."
 
-#: templates/tags/render_day.html:159
+#: templates/tags/render_day.html:166
 msgid "Add one now."
 msgstr "Jetzt hinzufügen."
 
-#: templates/tags/render_day.html:168
+#: templates/tags/render_day.html:175
 msgid "Add workout set"
 msgstr "Satz hinzufügen"
 
-#: templates/user/change_password.html:4 templates/user/change_password.html:8
-#: templates/user/change_password.html:22 templates/user/preferences.html:55
-#: templates/user/preferences.html.py:56 templates/user/preferences.html:57
+#: templates/tags/render_weight_log.html:13
+#: templates/tags/render_weight_log.html:14
+msgid "Toggle data table"
+msgstr ""
+
+#: templates/tags/render_weight_log.html:30
+msgid "kg."
+msgstr ""
+
+#: templates/user/change_password.html:5 templates/user/change_password.html:9
+#: templates/user/change_password.html:23 templates/user/preferences.html:56
+#: templates/user/preferences.html.py:57 templates/user/preferences.html:58
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: templates/user/login.html:37
+#: templates/user/demo.html:12
+msgid ""
+"\n"
+"Create a temporary user by filling in the form below.\n"
+msgstr ""
+"\n"
+"Erstellen Sie einen Demobenutzer indem die das Formular ausfüllen.\n"
+
+#: templates/user/demo.html:16
+msgid ""
+"\n"
+"You are welcome to use this before registering,\n"
+"what you can do and see with this temporary user is exactly the same a "
+"regular\n"
+"user would (create PDFs, enter data, etc.). The only difference is that "
+"temporary\n"
+"users get a set of sample data (workout, random weight log, etc.) to get a "
+"better\n"
+"feeling about what this site can do and, obviously, are deleted after a "
+"while.\n"
+msgstr ""
+"\n"
+"Sie können gerne die Seite testen, bevor Sie sich registrieren.\n"
+"Was Sie mit dem Demoaccount sehen und machen können ist genau das, "
+"was ein regulärer Benutzer auch kann (PDFs erstellen, Daten eingeben, usw.). "
+"Der einzige Unterschied ist, dass Demobenutzer einen initialen Datensatz "
+"(Mustertrainingsplan, Zufall-Gewichtseinträge, usw.) bekommen, um sich einen "
+"besseren Eindruck der Funktionen zu machen. "
+"Außerdem werden sie natürlich nach einer Zeit gelöscht.\n"
+
+
+#: templates/user/demo.html:25
+msgid ""
+"It seems you are already logged in. This won't be very\n"
+"useful for you but hey, who am I to judge!</strong>"
+msgstr ""
+"Wie es scheint, sind Sie schon angemeldet, also wird das nicht wirklich nützlich "
+"sein, aber hey, wer bin ich um das zu entscheiden!</strong>"
+
+#: templates/user/demo.html:41
+msgid "Create demo user"
+msgstr "Demoaccount erstellen"
+
+#: templates/user/demo.html:49
+msgid "Don't want to register?"
+msgstr "Wollen Sie sich nicht registrieren?"
+
+#: templates/user/demo.html:50
+msgid "No problem, simply download the software and run it locally"
+msgstr "Kein Problem, installieren Sie die Software auf Ihrem Rechner"
+
+#: templates/user/login.html:38
 msgid "or"
 msgstr ""
 
-#: templates/user/login.html:43
+#: templates/user/login.html:44
 msgid "Sign in with your Email"
 msgstr "Mit Ihrer Email anmelden"
 
-#: templates/user/login.html:52
+#: templates/user/login.html:53
 msgid ""
 "Persona (BrowserID) replaces multiple passwords, you don't\n"
 "    need to remember a new password for this site. For more information, "
@@ -403,24 +588,25 @@ msgid ""
 "    take a look at the <a href=\"https://login.persona.org/\" target=\"_blank"
 "\">the\n"
 "    Persona website</a>."
-msgstr "Persona (BrowserID) ersetzt viele Passwörter, Sie brauchen sich\n"
-" kein neues Passwort für jede Seite merken. Für weitere Informationen, "
-" besuchen Sie <a href=\"https://login.persona.org/\" target=\"_blank"
-"\">die Persona website</a>."
+msgstr ""
+"Persona (BrowserID) ersetzt viele Passwörter, Sie brauchen sich\n"
+" kein neues Passwort für jede Seite merken. Für weitere Informationen,  "
+"besuchen Sie <a href=\"https://login.persona.org/\" target=\"_blank\">die "
+"Persona website</a>."
 
-#: templates/user/login.html:65
+#: templates/user/login.html:66
 msgid "No account?"
 msgstr "Kein Account?"
 
-#: templates/user/login.html:71 templates/user/login.html.py:72
-msgid "Register"
-msgstr "Registrieren"
+#: templates/user/login.html:81 templates/user/login.html.py:82
+msgid "Try the demo"
+msgstr "Benutzen Sie die Demo"
 
-#: templates/user/login.html:75
+#: templates/user/login.html:85
 msgid "Forgot password?"
 msgstr "Passwort vergessen?"
 
-#: templates/user/login.html:81 templates/user/login.html.py:82
+#: templates/user/login.html:91 templates/user/login.html.py:92
 msgid "Reset password"
 msgstr "Passwort zurücketzen"
 
@@ -441,34 +627,34 @@ msgid "Log in"
 msgstr ""
 
 #. Translators: Don't translate, this is already done by Django
-#: templates/user/password_reset_confirm.html:5
+#: templates/user/password_reset_confirm.html:6
 msgid "Password reset confirmation"
 msgstr ""
 
 #. Translators: Don't translate, this is already done by Django
-#: templates/user/password_reset_confirm.html:12
+#: templates/user/password_reset_confirm.html:13
 msgid "Enter new password"
 msgstr ""
 
 #. Translators: Don't translate, this is already done by Django
-#: templates/user/password_reset_confirm.html:15
+#: templates/user/password_reset_confirm.html:16
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
 msgstr ""
 
 #. Translators: Don't translate, this is already done by Django
-#: templates/user/password_reset_confirm.html:28
+#: templates/user/password_reset_confirm.html:29
 msgid "Change my password"
 msgstr ""
 
 #. Translators: Don't translate, this is already done by Django
-#: templates/user/password_reset_confirm.html:37
+#: templates/user/password_reset_confirm.html:38
 msgid "Password reset unsuccessful"
 msgstr ""
 
 #. Translators: Don't translate, this is already done by Django
-#: templates/user/password_reset_confirm.html:40
+#: templates/user/password_reset_confirm.html:41
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
@@ -517,81 +703,132 @@ msgid "The %(site_name)s team"
 msgstr ""
 
 #. Translators: Don't translate, this is already done by Django
-#: templates/user/password_reset_form.html:5
-#: templates/user/password_reset_form.html:10
+#: templates/user/password_reset_form.html:6
+#: templates/user/password_reset_form.html:11
 msgid "Password reset"
 msgstr ""
 
 #. Translators: Don't translate, this is already done by Django
-#: templates/user/password_reset_form.html:22
+#: templates/user/password_reset_form.html:23
 msgid "Send"
 msgstr ""
 
-#: templates/user/preferences.html:5 templates/user/preferences.html.py:10
+#: templates/user/preferences.html:6 templates/user/preferences.html.py:11
 msgid "Preferences"
 msgstr "Einstellungen"
+
+#: templates/workout/log.html:6 templates/workout/log.html.py:25
+msgid "Weight log for workout"
+msgstr "Gewichtslog für Trainigsplan"
+
+#: templates/workout/log.html:30 templates/workout/view.html:40
+msgid "Goal"
+msgstr "Ziel"
+
+#: templates/workout/log.html:65
+msgid "No weight entries here."
+msgstr ""
+
+#: templates/workout/log.html:70
+msgid "No exercises for this day."
+msgstr "Keine Übungen für diesen Tag."
+
+#: templates/workout/log.html:95
+msgid "Notes"
+msgstr ""
+
+#: templates/workout/log.html:96
+msgid ""
+"This page shows the weight logs belonging to this workout\n"
+"only. Click on an exercise to see all the historical data for\n"
+"it."
+msgstr ""
+"Diese Seite zeigt nur die Gewichtseinträge für die Übungen in diesem "
+"Trainingsplan. Clicken Sie auf eine Übung um die komplette Historie zu "
+"sehen."
+
+#: templates/workout/log.html:100
+msgid ""
+"Click on a value on a chart to edit the log\n"
+"entry."
+msgstr "Clicken Sie auf ein Wert um ihn zu editieren."
+
+#: templates/workout/log.html:103
+msgid ""
+"If on a single day there is more than one entry with the\n"
+"same number of repetitions, but different weights, only the entry with the\n"
+"higher weight is shown in the diagram."
+msgstr ""
+"Falls an einem Tag es mehr als ein Eintrag gibt mit der selben Anzahl an "
+"Wiederholungen, aber verschiedene Gewichte, wird nur der Eintrag mit dem "
+"höheren Gewicht in das Diagramm eingefügt."
 
 #: templates/workout/overview.html:6 templates/workout/overview.html.py:11
 msgid "Your workouts"
 msgstr "Ihre Trainingspläne"
 
-#: templates/workout/view.html:41
-msgid "Goal"
-msgstr "Ziel"
-
-#: templates/workout/view.html:52
+#: templates/workout/view.html:51
 msgid "No days for this workout."
 msgstr "Keine Tage für diesen Trainingsplan."
 
-#: templates/workout/view.html:54
+#: templates/workout/view.html:53
 msgid "Add training day."
 msgstr "Trainingstag hinzufügen."
 
-#: templates/workout/view.html:62
+#: templates/workout/view.html:61
 msgid "Add training day"
 msgstr "Trainingstag hinzufügen"
 
-#: templates/workout/view.html:67
+#: templates/workout/view.html:66
 msgid "Show/Hide exercise comments"
 msgstr "Kommentare der Übungen ein/ausblenden"
 
-#: templates/workout/view.html:80
+#: templates/workout/view.html:79
 msgid "Steps"
 msgstr "Schritte"
 
-#: templates/workout/view.html:83
+#: templates/workout/view.html:82
 msgid "Add training days"
 msgstr "Trainingstag hinzufügen"
 
-#: templates/workout/view.html:84
+#: templates/workout/view.html:83
 msgid "Add working sets to days"
 msgstr "Sätze zu den Tagen hinzufügen"
 
-#: templates/workout/view.html:86
+#: templates/workout/view.html:85
 msgid "Set the repetitions for each set"
 msgstr "Wiederholungen für den Satz eingeben"
 
-#: templates/workout/view.html:87
+#: templates/workout/view.html:86
 msgid "use '99' for 'all repetitions you can do'"
 msgstr "benutzen Sie '99' für 'So viele Wiederholungen wie es geht'"
 
-#: templates/workout/view.html:92
+#: templates/workout/view.html:91
 msgid "Muscles trained"
 msgstr "Trainierte Muskeln"
 
-#: templates/workout/view.html:95
+#: templates/workout/view.html:94
 msgid ""
 "Images show combined muscles as trained by the exercises on the workout."
 msgstr ""
 "Das Bild zeigt die kombinierten Muskeln, wie sie von den Übungen traniert "
 "werden."
 
-#: templates/workout/view.html:124 templates/workout/view.html.py:125
-#: templates/workout/view.html:126
+#: templates/workout/view.html:123 templates/workout/view.html.py:124
+#: templates/workout/view.html:125
 msgid "Download as PDF"
 msgstr "Als PDF runterladen"
 
-#: templates/workout/view.html:148 templates/workout/view.html.py:149
+#: templates/workout/view.html:146 templates/workout/view.html.py:147
+#: templates/workout/view.html:148
+msgid "View weight log"
+msgstr "Gewichtslogbuch"
+
+#: templates/workout/view.html:158 templates/workout/view.html.py:159
+#: templates/workout/view.html:160
+msgid "Make a copy of this workout"
+msgstr "Eine Kopie des Trainingsplans machen."
+
+#: templates/workout/view.html:171 templates/workout/view.html.py:172
 msgid "Delete this workout"
 msgstr "Trainingsplan löschen"
-

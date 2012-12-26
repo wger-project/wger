@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-02 16:23+0100\n"
+"POT-Creation-Date: 2012-12-26 11:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,47 +18,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: models.py:28
+#: models.py:31
 msgid "Language short name"
 msgstr "Name der Sprache - lang"
 
-#: models.py:31
+#: models.py:35
 msgid "Language full name"
 msgstr "Name der Sprache - kurz"
 
-#: models.py:44 models.py:62 models.py:91
+#: models.py:49 models.py:68 models.py:97
 msgid "Name"
 msgstr "Name"
 
-#: models.py:63
+#: models.py:70
 msgid "Language"
 msgstr "Sprache"
 
-#: models.py:67
+#: models.py:74
 msgid "Exercise Categories"
 msgstr "Kategorie Übung"
 
-#: models.py:87 templates/view.html:30
+#: models.py:92 templates/view.html:34
 msgid "Category"
 msgstr "Kategorie"
 
-#: models.py:90
+#: models.py:95
 msgid "Description"
 msgstr "Beschreibung"
 
-#: models.py:93 templates/view.html:85
+#: models.py:100 templates/muscle_overview.html:54 templates/view.html:109
 msgid "Muscles"
 msgstr "Muskeln"
 
-#: models.py:122
+#: models.py:128
 msgid "Exercise"
 msgstr "Übung"
 
-#: models.py:124
+#: models.py:130
 msgid "Comment"
 msgstr "Kommentar"
 
-#: models.py:125
+#: models.py:131
 msgid "A comment about how to correctly do this exercise."
 msgstr "Ein Kommentar über die korrekte Durchführung der Übung."
 
@@ -70,34 +70,39 @@ msgstr "Übungskommentar bearbeiten"
 msgid "Add exercise comment"
 msgstr "Übungskommentar hinzufügen"
 
-#: views.py:201
+#: views.py:215
+msgid "Reps"
+msgstr ""
+
+#: views.py:237
 msgid "Add exercise"
 msgstr "Neue Übung hinzufügen"
 
-#: views.py:225 views.py:335
+#: views.py:266 views.py:380
 #, python-format
 msgid "Edit %s"
 msgstr "%s bearbeiten"
 
-#: views.py:244
+#: views.py:287
 msgid "This will delete the exercise from all workouts."
 msgstr ""
 "Das Löschen der Übung wird sie auch aus allen Trainingsplänen entfernen."
 
-#: views.py:250
+#: views.py:293
+#, python-format
 msgid "Delete exercise %s?"
 msgstr "%s Übung wirklich löschen?"
 
-#: views.py:312 templates/overview.html:176 templates/overview.html.py:177
-#: templates/overview.html:178
+#: views.py:357 templates/overview.html:175 templates/overview.html.py:176
+#: templates/overview.html:177
 msgid "Add category"
 msgstr "Kategorie hinzufügen"
 
-#: views.py:352
+#: views.py:397
 msgid "This will also delete all exercises in this category."
 msgstr "Das wird auch alle Übungen in der Kategorie löschen."
 
-#: views.py:358
+#: views.py:403
 #, python-format
 msgid "Delete category %s?"
 msgstr "Kategorie %s löschen?"
@@ -106,7 +111,20 @@ msgstr "Kategorie %s löschen?"
 msgid "Search results"
 msgstr "Suchergebnisse"
 
-#: templates/overview.html:8 templates/overview.html.py:58
+#: templates/muscle_overview.html:8 templates/muscle_overview.html.py:48
+msgid "Muscle overview"
+msgstr ""
+
+#: templates/muscle_overview.html:68
+msgid "Front"
+msgstr "Vorderseite"
+
+#: templates/muscle_overview.html:70
+msgid "Back"
+msgstr "Hinterseite"
+
+#: templates/muscle_overview.html:87 templates/overview.html:8
+#: templates/overview.html.py:58
 msgid "Exercises"
 msgstr "Übungen"
 
@@ -118,64 +136,68 @@ msgstr "Keine Kategorien."
 msgid "Use link to create one"
 msgstr "Benutzen Sie den Verweis zum Hinzufügen"
 
-#: templates/overview.html:82 templates/overview.html.py:87
-#: templates/view.html:51 templates/view.html.py:56 templates/view.html:146
-#: templates/view.html.py:148
+#: templates/overview.html:82 templates/overview.html.py:86
+#: templates/view.html:56 templates/view.html.py:61 templates/view.html:169
+#: templates/view.html.py:171
 msgid "Edit"
 msgstr ""
 
-#: templates/overview.html:91 templates/overview.html.py:96
-#: templates/view.html:44 templates/view.html.py:48 templates/view.html:157
-#: templates/view.html.py:158
+#: templates/overview.html:90 templates/overview.html.py:95
+#: templates/view.html:49 templates/view.html.py:53 templates/view.html:180
+#: templates/view.html.py:181
 msgid "Delete"
 msgstr ""
 
-#: templates/overview.html:106
+#: templates/overview.html:105
 msgid ""
 "No exercises in this category. Add or edit an exercise and set its category"
 msgstr ""
 "Keine Übungen in dieser Kategorie. Editiere oder füge eine neue Übung hinzu "
 "und setze die Kategorie"
 
-#: templates/overview.html:127 templates/view.html:139
+#: templates/overview.html:126 templates/view.html:163
 msgid "Options"
 msgstr ""
 
-#: templates/overview.html:135 templates/overview.html.py:136
-#: templates/overview.html:137
+#: templates/overview.html:134 templates/overview.html.py:135
+#: templates/overview.html:136
 msgid "Add new exercise"
 msgstr "Neue Übung hinzufügen"
 
-#: templates/overview.html:148 templates/overview.html.py:149
-#: templates/overview.html:150
+#: templates/overview.html:147 templates/overview.html.py:148
+#: templates/overview.html:149
 msgid "Edit category"
 msgstr "Kategorie bearbeiten"
 
-#: templates/overview.html:163 templates/overview.html.py:164
-#: templates/overview.html:165
+#: templates/overview.html:162 templates/overview.html.py:163
+#: templates/overview.html:164
 msgid "Delete category"
 msgstr "Kategorie löschen"
 
-#: templates/overview.html:183
+#: templates/overview.html:182
 msgid "Search"
 msgstr ""
 
-#: templates/overview.html:196
+#: templates/overview.html:195
 msgid "Use the search box to search the name of any exercise."
-msgstr "Benutzen Sie die Suchmaske um nach Übungsnamen zu suchen."
+msgstr "Benutzen Sie die Suchmaske um nach Übungen zu suchen."
 
-#: templates/view.html:35
+#: templates/view.html:40
 msgid "All comments for this exercise"
 msgstr "Alle Kommentare für diese Übung"
 
-#: templates/view.html:69
+#: templates/view.html:75
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: templates/view.html:70
+#: templates/view.html:76
 msgid "Add new comment"
 msgstr "Kommentar hinzufügen"
 
-#: templates/view.html:87
+#: templates/view.html:83
+msgid "Weight log"
+msgstr ""
+
+#: templates/view.html:111
 msgid "The diagram shows the most used muscles on this exercise"
 msgstr "Das diagram zeigt die meistbeanspruchten Muskeln"
