@@ -33,8 +33,8 @@ def processor(request):
         # User language
         'language': load_language(),
 
-        # The current request
-        'request': request
+        # The current path
+        'request_full_path': request.get_full_path()
     }
 
     # Pseudo-intelligent navigation here
