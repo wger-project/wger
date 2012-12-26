@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load manager_extras %}
+
+
+{% block title %}{% trans "Changelog" %}{% endblock %}
+
+{% block content %}
+<h2>{% trans "Changelog" %}</h2>
+
+<h3>1.1</h3>
+<h4>2013-xx-xx</h4>
+
+<ul>
+    <li>Better navigation bar</li>
+    <li>New workout logbook, to keep track of your improvements</li>
+    <li>Import your weight logs from a spreadsheet (CSV-Import)</li>
+    <li>Better filtering for weight chart</li>
+    <li>Muscle overview with corresponding exercises</li>
+    <li>Add guest accounts by generating a temporary user</li>
+    <li>Description pages about the software</li>
+<!--    <li>Integration with Ubuntu's Unity desktop</li>-->
+</ul>
+
+
+<h3>1.0.3</h3>
+<h4>2012-11-19</h4>
+
+<ul>
+    <li>Add option to copy (duplicate) workouts and nutritional plans</li>
+    <li>Login without an account with [[https://login.persona.org/|mozilla's Persona]] (BrowserID)</li>
+    <li>Better AJAX handling of the modal dialogs, less page reloads and redirects</li>
+    <li>Expand the list of ingredients in German</li>
+    <li>Add a pagination to ingredient list</li>
+    <li>Improvements to user page:</li>
+        <ul>
+            <li>Add a "reset password" link to the login page</li>
+            <li>Email is now user editable</li>
+        </ul>
+    <li>More natural lines in weight chart with cubic interpolation</li>
+</ul>
+
+<h3>1.0.2</h3>
+<h4>2012-11-02</h4>
+
+<ul>
+    <li>Bugfix release</li>
+</ul>
+
+<h3>1.0.1</h3>
+<h4>2012-11-02</h4>
+
+<ul>
+    <li>Fix issue with password change</li>
+    <li>Small improvements to UI</li>
+    <li>Categories editable/deletable from exercise overview page</li>
+    <li>Exercise AJAX search groups by category</li>
+    <li>More tests!</li>
+    <li>Use generic views for editing, creating and deleting objects</li>
+
+<h3>1.0</h3>
+<h4>2012-10-16</h4>
+
+<p>Initial release.</p>
+
+<ul>
+    <li>Workout manager</li>
+    <li>PDF output for logging progress</li>
+    <li>Initial data with the most popular exercises</li>
+    <li>Simple weight chart</li>
+    <li>Nutrition plan manager</li>
+    <li>Simple PDF output</li>
+    <li>Initial data with nutritional values from the USDA</li>
+</ul>
+
+{% endblock %}

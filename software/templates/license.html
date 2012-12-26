@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load manager_extras %}
+
+
+{% block title %}{% trans "License" %}{% endblock %}
+
+{% block content %}
+<h2>{% trans "License" %}</h2>
+
+
+<p>{% blocktrans %}wger Workout Manager is Free/Libre Open Source Software (FLOSS).
+{% endblocktrans %}</p>
+
+<p>{% blocktrans %}wger Workout Manager steht unter der Affero GNU General Public License
+(AGPL) Version 3+ und darf ohne Restriktionen (unter den Bedingungen der Lizenz)
+benutzt, verändert und (geändert) weitergegeben werden.
+{% endblocktrans %}</p>
+
+<p>{% blocktrans %}Eine Kopie der Lizenz liegt jedem OpenSlides-Release bei und ist
+auch in der LICENSE-Datei im Quellcode-Repository nachzulesen.
+{% endblocktrans %}</p>
+
+
+
+
+
+{% endblock %}

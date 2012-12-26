@@ -332,6 +332,7 @@ header span.regular{
  * Links in warning boxes get a different style, the default blue doesn't match
  * well with orange
  */
+div.success a, div.success a:hover, div.success a:active,
 div.warning a, div.warning a:hover, div.warning a:active,
 div.info a, div.info a:hover, div.info a:active{
     color: black;

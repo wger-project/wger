@@ -98,7 +98,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'tghl3b8#1r0ha!-4zxfu*sj-wc69o$p92wz$@mtfubq!$%5*ls'
+SECRET_KEY = ''
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -146,6 +146,7 @@ INSTALLED_APPS = (
     'weight',
     'exercises',
     'nutrition',
+    'software',
 
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
     'captcha',

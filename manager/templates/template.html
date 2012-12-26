@@ -131,7 +131,27 @@
                             </li>
 
 
-                            {% if user.username %}
+
+                            <li class="dropdown {% if active_tab == 'software' %}active{% endif %}">
+                                <a href=""
+                                   class="dropdown-toggle"
+                                   data-toggle="dropdown">{% trans "About this software" %} <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url software:functions %}">{% trans "Features" %}</a></li>
+                                    {% if not user.is_authenticated %}
+                                    <li><a href="{% url demo-account %}">{% trans "Demo account" %} </a></li>
+                                    {% endif %}
+                                    <li><a href="{% url software:issues %}">{% trans "Report problem" %} </a></li>
+
+                                    <li class="divider"></li>
+                                    <li class="nav-header">{% trans "Developers" %}</li>
+                                    <li><a href="{% url software:code %}">{% trans "Get the code" %} </a></li>
+                                    <li><a href="{% url software:license %}">{% trans "License" %} </a></li>
+                                    <li><a href="{% url software:changelog %}">{% trans "Changelog" %} </a></li>
+                                </ul>
+                            </li>
+
+                            {% if user.is_authenticated %}
                             <li class="pull-right">
                                 <a href="{% url manager.views.logout %}" id="logout" class="browserid-logout">
                                 {% trans 'Logout' %}

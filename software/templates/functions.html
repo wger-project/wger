@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load manager_extras %}
+
+
+{% block title %}{% trans "Functions" %}{% endblock %}
+
+{% block content %}
+<h2>{% trans "What is this?" %}</h2>
+
+<p>{% blocktrans %}Workout Manager is a free, open source web application that manages
+your exercises and workouts. It started as a pet project of mine to replace my
+growing collection of different spreadsheets, but it has become something other
+people could also find useful. So, answering the question, it's{% endblocktrans %}</p>
+
+<div class="ym-grid linearize-level-1">
+    <div class="ym-g33 ym-gl">
+        <div class="ym-gbox-left">
+            <div class="warning box">
+            <h3>a workout manager</h3>
+            <p>{% blocktrans %}You probably guessed, this is a workout manager:
+            you can create and manage your workout routines. You select how
+            many days your workout constists of, and add different exercises to each.{% endblocktrans %}</p>
+            </div>
+        </div>
+    </div>
+    <div class="ym-g33 ym-gl">
+        <div class="ym-gbox-left">
+            <div class="warning box">
+            <h3>{% trans "a body weight tracker" %}</h3>
+            <p>{% blocktrans %}This simple part lets
+            you input your weight for a date. From this it generates a rather nice looking
+            chart, so you can see if you are reaching your goals (be it gaining mass or
+            losing it).{% endblocktrans %}</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="ym-g33 ym-gr">
+        <div class="ym-gbox-right">
+            <div class="warning box">
+            <h3>{% trans "a nutrition manager" %}</h3>
+            <p>{% blocktrans %}Here you can create a diet
+            plan and see some nutritional values (total energy, protein, carbohydrates, and
+            so on) about it. Select from more than 8000 ingredients for this.{% endblocktrans %}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2>{% trans 'More details please' %}</h2>
+
+<h3>The workout manager</h3>
+<p>{% blocktrans %}By the name you probably guessed, this is a workout manager. That means that you can create and,
+well, manage your workout routines. You select how many days your workout
+constists of, and then add different sets and exercises to each day.{% endblocktrans %}</p>
+
+
+<p>{% blocktrans %}It is pretty flexible so if you do supersets, no worry, it is supported
+and you will know which exercises <em>belong together</em>. Each set can have a
+different number of repetitions you want to reach and which you enter yourself. This
+means that other training forms like pyramid training or similar are not a problem.{% endblocktrans %}</p>
+
+<img src="{% static 'images/workout-manager-1.0.3-en.png' %}" class="bordered flexible">
+
+<p>{% blocktrans %}It can also generate a PDF with your current routine. This is suitable for
+printing so you can bring it to the gym and keep a log about your progress.
+In case you wonder how it looks like, [[files/pdf/workout-pdf-1.0.3-en.pdf  here's a sample]].{% endblocktrans %}</p>
+
+<p>{% blocktrans %}<strong>Note:</strong> it has no 'preset' workouts that you can simply use
+(e.g. beginner, etc.). It will happily make the routine you tell it to do, but you have
+to decide which exercises and how many repetitions you'll do.{% endblocktrans %}</p>
+
+<h4>{% trans "Exercise log" %}</h4>
+
+<p>{% blocktrans %}You can enter the weights and repetitions you did for each
+exercise. As with the (body) weight, it will generate some diagrams so
+so you can see at a glance how well you are doing. The raw numbers are still there
+in a table, don't worry.{% endblocktrans %}</p>
+
+<img src="{% static 'images/workout-log-1.1-en.png' %}" class="bordered flexible">
+
+
+
+<h3>{% trans "Muscle and exercise database" %}</h3>
+<p>{% blocktrans %}The exercise database contains around hundred exercises
+from which you can choose when creating a workout. Some have important notes
+about the form to perform them. This is displayed in the workout overview
+page, so you keep them in mind.{% endblocktrans %}</p>
+
+<img src="{% static 'images/muscle-overview-1.1-en.png' %}" class="bordered flexible">
+
+
+
+<h3>{% trans "The weight tracker" %}</h3>
+<p>{% blocktrans %}This is a rather simple part that basically lets
+you input your weight and a day. From this it generates a rather nice looking
+chart, so you can see if you are reaching your goals (be it gaining mass or
+losing it).{% endblocktrans %}</p>
+
+<p>{% blocktrans %}
+In case you want to jump ship after inputing your data from the last years, simply
+export the data as CSV.{% endblocktrans %}</p>
+
+<img src="{% static 'images/weight-chart-1.0.3-en.png' %}" class="bordered flexible">
+
+
+
+<h3>{% trans "The nutrition schedule manager" %}</h3>
+<p>{% blocktrans %}And finally it is a nutrition schedule manager. Here you can
+create a diet plan and see some nutritional values (total energy, protein,
+carbohydrates, and so on) about it. For the ingredients, it uses the very complete
+list provided by the US Department of Agriculture, with around 8000 entries.{% endblocktrans %}</p>
+
+<img src="{% static 'images/nutrition-manager-1.0.3-en.png' %}" class="bordered flexible">
+
+<p>{% blocktrans %}It can also be downloaded as a PDF so you can keep it on your
+fridge, so you don't forget to follow the plan... And as with the workout
+log, [[files/pdf/nutrition-plan-pdf-1.0-en.pdf  here's a sample]].{% endblocktrans %}</p>
+
+<p>{% blocktrans %}<strong>Note:</strong> this is not a log keeper. It does not
+keep track of what you actually ate during the day and how it compares to
+what the plan says. It simply shows you the nutritional values of the plan
+you create.{% endblocktrans %}</p>{% endblock %}
+
+{% block sidebar %}
+{% if not user.is_authenticated %}
+<h3>{% trans "Interested?" %}</h3>
+<p>
+<a href="{% url demo-account %}">
+        <img src="{% static 'images/icons/star.svg' %}"
+         width="48"
+         height="48"
+         alt="{% trans 'Try the demo' %}">
+        {% trans "Try the demo" %}</a>
+</p>
+{% endif %}
+{% endblock %}

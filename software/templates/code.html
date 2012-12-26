@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load manager_extras %}
+
+
+{% block title %}{% trans "Get the code" %}{% endblock %}
+
+{% block content %}
+<h2>{% trans "Download" %}</h2>
+
+<h3>{% trans "Stable version" %}</h3>
+
+<p>{% blocktrans %}Click here to download the last stable version. For
+installation instructions see below.{% endblocktrans %}</p>
+
+<div class="box success" style="text-align: center;">
+<p>{% blocktrans %}<strong><a href="https://bitbucket.org/rolandgeider/workout_manager/get/1.0.3.zip">Download
+version 1.0.3</a></strong>{% endblocktrans %}</p>
+</div>
+
+<h3>{% trans "Development version" %}</h3>
+
+<p>{% blocktrans %}Get the development version if you want to contribute to the project, I
+probably don't need to tell you that this version will have more bugs and should not be
+used for anything important, right?.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}There are two repositories you can clone:{% endblocktrans %}</p>
+{% blocktrans %}<ul>
+    <li>
+        <strong><a href="https://bitbucket.org/rolandgeider/workout_manager">bitbucker (HG)</a></strong>,
+        the main repository. All work happens here.
+    </li>
+    <li>
+        <strong><a href="https://github.com/rolandgeider/workout_manager">github (GIT)</a></strong>,
+        a mirror of main repo.
+    </li>
+</ul>{% endblocktrans %}
+
+<p>{% trans "Any pull requests are welcomed :)" %}</p>
+
+
+<h2>{% trans "Installation" %}</h2>
+
+<pre>...</pre>
+{% endblock %}
