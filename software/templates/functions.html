@@ -4,7 +4,7 @@
 {% load manager_extras %}
 
 
-{% block title %}{% trans "Functions" %}{% endblock %}
+{% block title %}{% trans "Features" %}{% endblock %}
 
 {% block content %}
 <h2>{% trans "What is this?" %}</h2>
@@ -53,25 +53,26 @@ people could also find useful. So, answering the question, it's{% endblocktrans 
 <h2>{% trans 'More details please' %}</h2>
 
 <h3>The workout manager</h3>
-<p>{% blocktrans %}By the name you probably guessed, this is a workout manager. That means that you can create and,
-well, manage your workout routines. You select how many days your workout
-constists of, and then add different sets and exercises to each day.{% endblocktrans %}</p>
 
+<p>{% blocktrans %}It is pretty flexible so if you do supersets, no need
+to worry, it is supported and you will know which exercises <em>belong
+together</em>. Each set can have a different number of repetitions you want
+to reach and which you enter yourself. This means that other training
+forms like pyramid training or similar are not a problem.{% endblocktrans %}</p>
 
-<p>{% blocktrans %}It is pretty flexible so if you do supersets, no worry, it is supported
-and you will know which exercises <em>belong together</em>. Each set can have a
-different number of repetitions you want to reach and which you enter yourself. This
-means that other training forms like pyramid training or similar are not a problem.{% endblocktrans %}</p>
+<img src="{% static 'images/workout-manager-1.0.3-en.png' %}"
+     class="bordered flexible">
 
-<img src="{% static 'images/workout-manager-1.0.3-en.png' %}" class="bordered flexible">
+<p>{% blocktrans %}It can also generate a PDF with your current routine.
+This is suitable for printing so you can bring it to the gym and keep a log
+about your progress. In case you wonder how it looks like,
+<a href="/static/pdf/workout-pdf-1.0.3-en.pdf">here's a sample</a>.{% endblocktrans %}</p>
 
-<p>{% blocktrans %}It can also generate a PDF with your current routine. This is suitable for
-printing so you can bring it to the gym and keep a log about your progress.
-In case you wonder how it looks like, [[files/pdf/workout-pdf-1.0.3-en.pdf  here's a sample]].{% endblocktrans %}</p>
+<p>{% blocktrans %}<strong>Note:</strong> it has no 'preset' workouts that you
+can simply use (e.g. beginner, etc.). It will happily make the routine you tell
+it to do, but you have to decide which exercises and how many repetitions you'll
+do.{% endblocktrans %}</p>
 
-<p>{% blocktrans %}<strong>Note:</strong> it has no 'preset' workouts that you can simply use
-(e.g. beginner, etc.). It will happily make the routine you tell it to do, but you have
-to decide which exercises and how many repetitions you'll do.{% endblocktrans %}</p>
 
 <h4>{% trans "Exercise log" %}</h4>
 
@@ -112,13 +113,14 @@ export the data as CSV.{% endblocktrans %}</p>
 <p>{% blocktrans %}And finally it is a nutrition schedule manager. Here you can
 create a diet plan and see some nutritional values (total energy, protein,
 carbohydrates, and so on) about it. For the ingredients, it uses the very complete
-list provided by the US Department of Agriculture, with around 8000 entries.{% endblocktrans %}</p>
+list provided by the US Department of Agriculture, with around 8000
+entries.{% endblocktrans %}</p>
 
 <img src="{% static 'images/nutrition-manager-1.0.3-en.png' %}" class="bordered flexible">
 
 <p>{% blocktrans %}It can also be downloaded as a PDF so you can keep it on your
 fridge, so you don't forget to follow the plan... And as with the workout
-log, [[files/pdf/nutrition-plan-pdf-1.0-en.pdf  here's a sample]].{% endblocktrans %}</p>
+log, <a href="/static/pdf/nutrition-plan-pdf-1.0-en.pdf">here's a sample</a>.{% endblocktrans %}</p>
 
 <p>{% blocktrans %}<strong>Note:</strong> this is not a log keeper. It does not
 keep track of what you actually ate during the day and how it compares to

@@ -418,8 +418,8 @@ msgstr "Ausloggen"
 msgid ""
 "You are using a temporary account, this user will be deleted after some time."
 msgstr ""
-"Sie sind mit einem zeitlich begrenzten Benutzer angemeldet. Dieser wird nach "
-"einer Zeit gelöscht."
+"Sie sind mit einem Demonutzer angemeldet. Dieser wird nach "
+"einigen Tagen gelöscht."
 
 #: templates/template.html:206 templates/template.html.py:207
 msgid "Released under the Affero GPL"
