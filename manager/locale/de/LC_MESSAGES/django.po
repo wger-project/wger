@@ -431,7 +431,7 @@ msgstr "Layout basiert auf <a href='http://www.yaml.de'>YAML</a>"
 
 #: templates/day/log.html:6 templates/day/log.html.py:21
 msgid "New weight log"
-msgstr ""
+msgstr "Neuer Logbucheintrag"
 
 #: templates/day/log.html:77
 msgid "Add exercises to this training day before adding a log."

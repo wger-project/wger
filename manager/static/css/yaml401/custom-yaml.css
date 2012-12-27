@@ -155,3 +155,8 @@ footer{
 	box-shadow: inset 0 0 4px #eee;
 	
 }
+
+
+code{
+    white-space: pre;
+}

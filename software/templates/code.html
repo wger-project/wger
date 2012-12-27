@@ -44,5 +44,101 @@ right?.{% endblocktrans %}</p>
 
 <h2>{% trans "Installation" %}</h2>
 
-<pre>...</pre>
+<p>{% blocktrans %}This is a Django application, so refer for details to its
+<a href="https://docs.djangoproject.com/en/1.4/intro/install/">documentation page</a>
+if things don't go as expected.</p>{% endblocktrans %}
+
+<p>{% blocktrans %}In short, these are the steps to perform for an installation
+on a <em>linux</em> machine, with python already installed. If you are using e.g.
+Windows or OSX, take a look at the link above.</p>{% endblocktrans %}
+
+<p>{% blocktrans %}I personally like installing my development
+files on a virtualenv, it helps keep the system more or less clean and are very
+easy to set up, but you can skip this step if you don't mind installing all
+dependencies system-wide (in that case, install django and reportlab with a
+<code>sudo apt-get install</code>).{% endblocktrans %}</p>
+
+<code>
+$ sudo apt-get install python-virtualenv
+$ sudo apt-get install python-dev
+$ mkdir manager
+$ cd manager
+$ virtualenv python-django
+$ source python-django/bin/activate
+$ pip install django
+$ pip install reportlab
+$ pip install django-browserid
+$ pip install django-recaptcha
+$ python
+</code>
+
+<p>{% blocktrans %}Try to import the packages to see if everything
+works.{% endblocktrans %}</p>
+
+<code>
+>>> import django
+>>> import reportlab
+</code>
+
+<p>{% blocktrans %}If the import worked, everything is set up. Now let's install
+the application itself. Get the code by either downloading a package or cloning
+the repository and updating to a tag or revision.{% endblocktrans %}</p>
+
+<code>
+$ hg clone https://rolandgeider@bitbucket.org/rolandgeider/workout_manager
+$ cd workout_manager/workout_manager
+$ cp settings.sample.py settings.py
+</code>
+
+
+<p>{% blocktrans %}Edit settings.py, setting the type of database you want to use.
+The fastest to set up is Sqlite, but you can use whatever Django supports.
+Initialise the database and create a super user.{% endblocktrans %}</p>
+
+<code>
+$ cd ..
+$ python manage.py syncdb
+</code>
+
+<p>{% blocktrans %}This application uses reCaptcha to avoid registration
+spam, for this you need to add your public and private keys to
+settings.py.{% endblocktrans %}</p>
+
+<code>
+RECAPTCHA_PUBLIC_KEY = ''
+RECAPTCHA_PRIVATE_KEY = ''
+</code>
+
+<p>{% blocktrans %}Also set the secret key used for user salt,
+<code>SECRET_KEY</code>.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}Now you are ready to go, the application is installed and
+can be used. However, an application like this without data is not interesting,
+so you should load some initial data to populate the categories,
+etc.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}For this, load these fixtures, <em>in this order</em>,
+as some dependend on each other (specially the languages). The ingrediens fixture
+can take some time to process, it contains more than 8000 entries.{% endblocktrans %}</p>
+
+
+<code>
+$ python manage.py loaddata languages
+$ python manage.py loaddata days_of_week
+$ python manage.py loaddata muscles
+$ python manage.py loaddata categories
+$ python manage.py loaddata exercises
+$ python manage.py loaddata ingredients
+</code>
+
+<p>{% blocktrans %}Now, run the server:{% endblocktrans %}</p>
+
+<code>
+$ python manage.py runserver
+</code>
+
+<p>{% blocktrans %}You can now access the site with your browser:
+<code>http://localhost:8000/</code>{% endblocktrans %}</p>
+
+
 {% endblock %}
