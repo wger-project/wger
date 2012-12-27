@@ -86,9 +86,17 @@ logger = logging.getLogger('workout_manager.custom')
 # Misc functions
 # ************************
 
+# from django.http import HttpResponseRedirect
+
+def index(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('dashboard'))
+    else:
+        return HttpResponseRedirect(reverse('software:features'))
+
 
 @login_required
-def index(request):
+def dashboard(request):
     """Show the index page, in our case, the last workout and nutritional plan
     and the current weight
     """
@@ -183,7 +191,7 @@ def registration(request):
             user.save()
             user = authenticate(username=username, password=password)
             django_login(request, user)
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('dashboard'))
     else:
         form = RegistrationForm()
 
@@ -274,7 +282,7 @@ def create_demo_user(request):
 
             user = authenticate(username=username, password=password)
             django_login(request, user)
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('dashboard'))
     else:
         form = DemoUserForm()
 

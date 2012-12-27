@@ -137,7 +137,7 @@
                                    class="dropdown-toggle"
                                    data-toggle="dropdown">{% trans "About this software" %} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{% url software:functions %}">{% trans "Features" %}</a></li>
+                                    <li><a href="{% url software:features %}">{% trans "Features" %}</a></li>
                                     {% if not user.is_authenticated %}
                                     <li><a href="{% url demo-account %}">{% trans "Demo account" %} </a></li>
                                     {% endif %}

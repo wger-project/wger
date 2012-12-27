@@ -29,7 +29,7 @@ urlpatterns = patterns('',
 
     url(r'^features$',
         TemplateView.as_view(template_name="functions.html"),
-        name='functions'),
+        name='features'),
 
     url(r'^changelog$',
         TemplateView.as_view(template_name="changelog.html"),
