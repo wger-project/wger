@@ -18,6 +18,7 @@
 
 from django.db import models
 
+from django.template.defaultfilters import slugify # django.utils.text.slugify in django 1.5!
 from django.core.validators import MaxValueValidator
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
@@ -147,7 +148,8 @@ class Ingredient(models.Model):
         """
         Returns the canonical URL to view this object
         """
-        return reverse('nutrition.views.ingredient_view', kwargs={'id': self.id})
+        return reverse('nutrition.views.ingredient_view', kwargs={'id': self.id,
+                                                                 'slug': slugify(self.name)})
 
     def __unicode__(self):
         """Return a more human-readable representation

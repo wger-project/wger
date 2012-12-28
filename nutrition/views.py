@@ -478,7 +478,7 @@ def ingredient_overview(request):
                               context_instance=RequestContext(request))
 
 
-def ingredient_view(request, id):
+def ingredient_view(request, id, slug=None):
     template_data = {}
 
     ingredient = get_object_or_404(Ingredient, pk=id)

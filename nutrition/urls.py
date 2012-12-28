@@ -17,6 +17,7 @@ urlpatterns = patterns('nutrition.views',
     # Plans
     url(r'^add/$', 'add'),
     url(r'^(?P<id>\d+)/view/$', 'view'),
+
     url(r'^(?P<pk>\d+)/copy/$',
         'copy',
         name='nutrition-copy'),
@@ -58,5 +59,6 @@ urlpatterns = patterns('nutrition.views',
 
     url(r'^ingredient/overview/$', 'ingredient_overview'),
     url(r'^ingredient/(?P<id>\d+)/view/$', 'ingredient_view'),
+    url(r'^ingredient/(?P<id>\d+)/view/(?P<slug>[-\w]+)/$', 'ingredient_view'),
     url(r'^ingredient/search/$', 'ingredient_search'),
 )
