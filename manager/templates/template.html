@@ -150,14 +150,44 @@
                                     <li><a href="{% url software:changelog %}">{% trans "Changelog" %} </a></li>
                                 </ul>
                             </li>
+                        </ul>
+                        <ul class="nav pull-right">
+                            <li class="divider-vertical"></li>
+                            <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                {% trans "Options" %}
+                            <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                {% if user.is_authenticated %}
+                                <li>
+                                    <a href="{% url manager.views.logout %}" id="logout" class="browserid-logout">
+                                    {% trans 'Logout' %}
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li class="nav-header">{% trans "Languages" %}</li>
+                                {% endif %}
 
-                            {% if user.is_authenticated %}
-                            <li class="pull-right">
-                                <a href="{% url manager.views.logout %}" id="logout" class="browserid-logout">
-                                {% trans 'Logout' %}
-                                </a>
-                            </li>
-                            {% endif %}
+                                <li {% if language.short_name == 'de' %}class="active"{% endif %}>
+                                    <a href="/de/">
+                                    <img src="{% static 'images/icons/flag-de.svg' %}"
+                                             width="18"
+                                             height="18"
+                                             alt="{% trans 'German' %}"
+                                             title="{% trans 'German' %}">
+                                    {% trans "German" %}</a>
+                                </li>
+                                <li {% if language.short_name == 'en' %}class="active"{% endif %}>
+                                    <a href="/en/">
+                                    <img src="{% static 'images/icons/flag-en.svg' %}"
+                                             width="18"
+                                             height="18"
+                                             alt="{% trans 'English' %}"
+                                             title="{% trans 'English' %}">
+                                    {% trans "English" %}</a>
+                                </li>
+                            </ul>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
