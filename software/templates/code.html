@@ -91,26 +91,17 @@ $ cp settings.sample.py settings.py
 </code>
 
 
-<p>{% blocktrans %}Edit settings.py, setting the type of database you want to use.
-The fastest to set up is Sqlite, but you can use whatever Django supports.
+<p>{% blocktrans %}Open settings.py and change the settings there as appropriate.
+There is another configuration file, settings_global.py that contains other global
+settings, but you don't need to change anything there. For the database, the
+fastest to set up is Sqlite, but you can use
+<a href="https://docs.djangoproject.com/en/1.4/ref/databases/">whatever Django supports</a>.
 Initialise the database and create a super user.{% endblocktrans %}</p>
 
 <code>
 $ cd ..
 $ python manage.py syncdb
 </code>
-
-<p>{% blocktrans %}This application uses reCaptcha to avoid registration
-spam, for this you need to add your public and private keys to
-settings.py.{% endblocktrans %}</p>
-
-<code>
-RECAPTCHA_PUBLIC_KEY = ''
-RECAPTCHA_PRIVATE_KEY = ''
-</code>
-
-<p>{% blocktrans %}Also set the secret key used for user salt,
-<code>SECRET_KEY</code>.{% endblocktrans %}</p>
 
 <p>{% blocktrans %}Now you are ready to go, the application is installed and
 can be used. However, an application like this without data is not interesting,
@@ -142,3 +133,4 @@ $ python manage.py runserver
 
 
 {% endblock %}
+
