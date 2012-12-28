@@ -2,8 +2,6 @@ from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
 
-from django.views.generic import TemplateView
-
 from manager.views import WorkoutEditView
 from manager.views import WorkoutDeleteView
 from manager.views import WorkoutLogDetailView
@@ -19,10 +17,10 @@ urlpatterns = patterns('manager.views',
 
     # The landing page
     url(r'^$', 'index', name='index'),
-    
+
     # The dashboard
     url(r'^dashboard$', 'dashboard', name='dashboard'),
-    
+
 
     # User
     url(r'^logout$', 'logout', name='logout'),

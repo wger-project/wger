@@ -1,4 +1,26 @@
-# Django settings for workout_manager project.
+# -*- coding: utf-8 -*-
+
+# This file is part of Workout Manager.
+#
+# Workout Manager is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Workout Manager is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+
+
+'''
+This file contains the global settings that don't need to be changed by the user
+For a full list of options, visit:
+    https://docs.djangoproject.com/en/1.4/ref/settings/#std:setting-LANGUAGES
+'''
+
 
 ADMINS = (
     #('Your name', 'your_email@example.com.net'),
@@ -135,6 +157,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+
+    # Apps from workout manager
     'manager',
     'weight',
     'exercises',
@@ -143,6 +167,9 @@ INSTALLED_APPS = (
 
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
     'captcha',
+
+    # The sitemaps app
+    'django.contrib.sitemaps',
 )
 
 

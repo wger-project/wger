@@ -1,0 +1,2 @@
+Sitemap: http://wger.de/de/sitemap.xml
+Sitemap: http://wger.de/en/sitemap.xml

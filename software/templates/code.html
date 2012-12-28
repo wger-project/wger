@@ -98,6 +98,10 @@ fastest to set up is Sqlite, but you can use
 <a href="https://docs.djangoproject.com/en/1.4/ref/databases/">whatever Django supports</a>.
 Initialise the database and create a super user.{% endblocktrans %}</p>
 
+<p>{% blocktrans %}For the sitemap.xml to work, you need to set a correct domain name
+in the sites app. This is done via django's admin interface.{% endblocktrans %}</p>
+
+
 <code>
 $ cd ..
 $ python manage.py syncdb
