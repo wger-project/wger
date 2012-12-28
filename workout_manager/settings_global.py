@@ -1,7 +1,7 @@
 # Django settings for workout_manager project.
 
 ADMINS = (
-    #('Roland Geider', 'roland@geider.net'),
+    #('Your name', 'your_email@example.com.net'),
 )
 
 MANAGERS = ADMINS
@@ -107,7 +107,6 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 INTERNAL_IPS = ('127.0.0.1',)
@@ -144,9 +143,6 @@ INSTALLED_APPS = (
 
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
     'captcha',
-
-    # Django debug toolbar
-    'debug_toolbar',
 )
 
 
