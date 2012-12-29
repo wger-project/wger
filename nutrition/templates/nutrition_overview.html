@@ -10,9 +10,17 @@
 <h2>{% trans "Your nutrition plans" %}</h2>
 
 {% if plans %}
-    <ul>
+    <table>
+    <thead>
+    <tr>
+        <th>{% trans "Description" %}</th>
+        <th>{% trans "Date" %}</th>
+    </tr>
+    </thead>
+    <tbody>
     {% for plan in plans %}
-        <li>
+    <tr>
+        <td>
             <a href="{% url nutrition.views.view plan.id %}">
                 {% if plan.description %}
                     {{ plan.description }}
@@ -20,10 +28,14 @@
                     {% trans "Nutrition plan" %}
                 {% endif %}
             </a>
-            – {{ plan.creation_date }} 
-        </li>
+        </td>
+        <td>
+            {{ plan.creation_date }}
+        </td>
+    </tr>
     {% endfor %}
-    </ul>
+    </tbody>
+    </table>
 {% else %}
     <div class="box warning" id="nutrition-box-warning">
         {% trans "No nutrition plans." %} {% trans "Use link to add one." %}

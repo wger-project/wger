@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-26 10:24+0100\n"
+"POT-Creation-Date: 2012-12-29 22:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,7 +39,8 @@ msgstr "Text bestätigen"
 
 #: forms.py:74 forms.py:80
 msgid "As a security measure, please enter the previous words"
-msgstr "Als Sicherheitsmaßnahme gegen Spam, geben Sie bitte die vorherigen Wörter ein"
+msgstr ""
+"Als Sicherheitsmaßnahme gegen Spam, geben Sie bitte die vorherigen Wörter ein"
 
 #: forms.py:117
 msgid ""
@@ -165,7 +166,7 @@ msgstr "Trainingsplan für %s"
 msgid "Nr."
 msgstr ""
 
-#: pdf.py:132 views.py:1134 templates/day/log.html:58
+#: pdf.py:132 views.py:1123 templates/day/log.html:58
 #: templates/tags/render_weight_log.html:28
 msgid "Reps"
 msgstr "Wdh."
@@ -180,50 +181,50 @@ msgstr ""
 msgid "Created on the <b>%s</b>"
 msgstr "Erstellt am <b>%s</b>"
 
-#: views.py:136
+#: views.py:141
 msgid "Rest day"
 msgstr "Ruhetag"
 
-#: views.py:196 views.py:199 views.py:288 templates/user/login.html:72
+#: views.py:199 views.py:202 views.py:290 templates/user/login.html:72
 #: templates/user/login.html.py:73
 msgid "Register"
 msgstr "Registrieren"
 
-#: views.py:237
+#: views.py:239
 #, fuzzy
 msgid "Sample workout"
 msgstr "Trainingsplan löschen"
 
-#: views.py:241
+#: views.py:243
 msgid "Sample day"
 msgstr "Beispieltag"
 
-#: views.py:352 views.py:362 views.py:749 views.py:945
+#: views.py:353 views.py:363 views.py:744 views.py:939
 msgid "Success"
 msgstr "Erfolg"
 
-#: views.py:487
+#: views.py:486
 msgid "Copy workout"
 msgstr "Trainingsplan kopieren"
 
-#: views.py:516
+#: views.py:514
 msgid "Delete workout"
 msgstr "Trainingsplan löschen"
 
-#: views.py:528 templates/workout/view.html:135
+#: views.py:525 templates/workout/view.html:135
 #: templates/workout/view.html.py:136 templates/workout/view.html:137
 msgid "Edit workout"
 msgstr "Trainingsplan bearbeiten"
 
-#: views.py:578
+#: views.py:574
 msgid "Edit workout day"
 msgstr "Trainingstag bearbeiten"
 
-#: views.py:587
+#: views.py:583
 msgid "Add workout day"
 msgstr "Trainingstag hinzufügen"
 
-#: views.py:980
+#: views.py:973
 #, python-format
 msgid "Edit log entry for %s"
 msgstr "Eintrag für %s editieren"
@@ -324,9 +325,10 @@ msgstr ""
 "Nach dem hinzufügen eines Training- oder Ernährungsplanes, kann man sie "
 "bearbeiten, um ein Ziel oder Beschreibung zu setzen."
 
-#: templates/index.html:126 templates/day/log.html:102
-#: templates/user/preferences.html:41 templates/workout/log.html:84
-#: templates/workout/overview.html:43 templates/workout/view.html:116
+#: templates/index.html:126 templates/template.html:158
+#: templates/day/log.html:102 templates/user/preferences.html:41
+#: templates/workout/log.html:84 templates/workout/overview.html:43
+#: templates/workout/view.html:116
 msgid "Options"
 msgstr "Optionen"
 
@@ -395,37 +397,47 @@ msgstr "Entwickler"
 
 #: templates/template.html:148
 msgid "Get the code"
-msgstr ""
+msgstr "Quellcode"
 
 #: templates/template.html:149
-msgid "Download"
-msgstr "Runterladen"
-
-#: templates/template.html:150
 msgid "License"
 msgstr "Lizenz"
 
-#: templates/template.html:151
+#: templates/template.html:150
 msgid "Changelog"
 msgstr "Änderungsprotokoll"
 
-#: templates/template.html:158 templates/user/preferences.html:47
+#: templates/template.html:165 templates/user/preferences.html:47
 #: templates/user/preferences.html.py:48 templates/user/preferences.html:49
 msgid "Logout"
 msgstr "Ausloggen"
 
-#: templates/template.html:186
+#: templates/template.html:169
+msgid "Languages"
+msgstr "Sprachen"
+
+#: templates/template.html:177 templates/template.html.py:178
+#: templates/template.html:179
+msgid "German"
+msgstr ""
+
+#: templates/template.html:186 templates/template.html.py:187
+#: templates/template.html:188
+msgid "English"
+msgstr ""
+
+#: templates/template.html:215
 msgid ""
 "You are using a temporary account, this user will be deleted after some time."
 msgstr ""
-"Sie sind mit einem Demonutzer angemeldet. Dieser wird nach "
-"einigen Tagen gelöscht."
+"Sie sind mit einem Demonutzer angemeldet. Dieser wird nach einigen Tagen "
+"gelöscht."
 
-#: templates/template.html:206 templates/template.html.py:207
+#: templates/template.html:235 templates/template.html.py:236
 msgid "Released under the Affero GPL"
 msgstr "Unter der Affero GPL veröffentlicht"
 
-#: templates/template.html:213
+#: templates/template.html:242
 msgid "Layout based on <a href='http://www.yaml.de'>YAML</a>"
 msgstr "Layout basiert auf <a href='http://www.yaml.de'>YAML</a>"
 
@@ -438,7 +450,6 @@ msgid "Add exercises to this training day before adding a log."
 msgstr ""
 "Sie müssen Übungen zu diesem Tag hinzufügen, bevor Sie einen Logbucheintrag "
 "erstellen."
-
 
 #: templates/day/log.html:80 templates/day/log.html.py:108
 #: templates/day/log.html:109 templates/workout/log.html:90
@@ -544,21 +555,20 @@ msgid ""
 msgstr ""
 "\n"
 "Sie können gerne die Seite testen, bevor Sie sich registrieren.\n"
-"Was Sie mit dem Demoaccount sehen und machen können ist genau das, "
-"was ein regulärer Benutzer auch kann (PDFs erstellen, Daten eingeben, usw.). "
-"Der einzige Unterschied ist, dass Demobenutzer einen initialen Datensatz "
+"Was Sie mit dem Demoaccount sehen und machen können ist genau das, was ein "
+"regulärer Benutzer auch kann (PDFs erstellen, Daten eingeben, usw.). Der "
+"einzige Unterschied ist, dass Demobenutzer einen initialen Datensatz "
 "(Mustertrainingsplan, Zufall-Gewichtseinträge, usw.) bekommen, um sich einen "
-"besseren Eindruck der Funktionen zu machen. "
-"Außerdem werden sie natürlich nach einer Zeit gelöscht.\n"
-
+"besseren Eindruck der Funktionen zu machen. Außerdem werden sie natürlich "
+"nach einer Zeit gelöscht.\n"
 
 #: templates/user/demo.html:25
 msgid ""
 "It seems you are already logged in. This won't be very\n"
 "useful for you but hey, who am I to judge!</strong>"
 msgstr ""
-"Wie es scheint, sind Sie schon angemeldet, also wird das nicht wirklich nützlich "
-"sein, aber hey, wer bin ich um das zu entscheiden!</strong>"
+"Wie es scheint, sind Sie schon angemeldet, also wird das nicht wirklich "
+"nützlich sein, aber hey, wer bin ich um das zu entscheiden!</strong>"
 
 #: templates/user/demo.html:41
 msgid "Create demo user"
@@ -744,8 +754,7 @@ msgid ""
 "it."
 msgstr ""
 "Diese Seite zeigt nur die Gewichtseinträge für die Übungen in diesem "
-"Trainingsplan. Clicken Sie auf eine Übung um die komplette Historie zu "
-"sehen."
+"Trainingsplan. Clicken Sie auf eine Übung um die komplette Historie zu sehen."
 
 #: templates/workout/log.html:100
 msgid ""
@@ -832,3 +841,6 @@ msgstr "Eine Kopie des Trainingsplans machen."
 #: templates/workout/view.html:171 templates/workout/view.html.py:172
 msgid "Delete this workout"
 msgstr "Trainingsplan löschen"
+
+#~ msgid "Download"
+#~ msgstr "Runterladen"

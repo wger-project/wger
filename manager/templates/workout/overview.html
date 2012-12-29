@@ -2,7 +2,6 @@
 {% load i18n %}
 {% load staticfiles %}
 
-
 {% block title %}{% trans "Your workouts" %}{% endblock %}
 
 
@@ -10,10 +9,19 @@
 
 <h2>{% trans "Your workouts" %}</h2>
 
+
 {% if workouts %}
-    <ul>
+    <table id="workout-table">
+    <thead>
+    <tr>
+        <th>{% trans "Description" %}</th>
+        <th>{% trans "Date" %}</th>
+    </tr>
+    </thead>
+    <tbody>
     {% for workout in workouts %}
-        <li>
+    <tr>
+        <td>
             <a href="{% url manager.views.view_workout workout.id %}">
                 {% if workout.comment %}
                     {{ workout.comment }}
@@ -21,14 +29,14 @@
                     {% trans "Workout" %}
                 {% endif %}
             </a>
-            – {{ workout.creation_date }} 
-        </li>
-    {% empty %}
-        <li>
-            
-        </li>
+        </td>
+        <td>
+            {{ workout.creation_date }}
+        </td>
+    </tr>
     {% endfor %}
-    </ul>
+    </tbody>
+    </table>
 {% else %}
     <div class="box warning">
         {% trans "No workouts found." %} {% trans "Use link to add one." %}
