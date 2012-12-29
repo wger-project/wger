@@ -20,11 +20,11 @@ $(document).ready(function() {
         // Reset all other highlighted muscles
         $('.muscle').removeClass('muscle-active');
         $('.muscle').addClass('muscle-inactive');
-        
+
         // Hightligh the current one
         $(this).removeClass('muscle-inactive');
         $(this).addClass('muscle-active');
-        
+
 
         // Set the corresponding background
         $('#muscle-system').css('background-image',
@@ -73,7 +73,9 @@ $(document).ready(function() {
                 {% for muscle in group.list %}
                 <li class="muscle"
                     data-target="muscle-{{muscle.id}}"
-                    data-is-front="{{muscle.is_front}}">{{muscle.name}}</li>
+                    data-is-front="{{muscle.is_front}}"
+                    itemscope itemtype="http://schema.org/Muscle">
+                    <div itemprop="name">{{muscle.name}}</div></li>
                 {% endfor %}
                 </ul>
             {% endfor %}

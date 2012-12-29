@@ -7,7 +7,8 @@
 
 {% block content %}
 
-<h2>{{ingredient.name}}</h2>
+<div itemscope itemtype="http://schema.org/NutritionInformation">
+<h2 itemprop="name">{{ingredient.name}}</h2>
 
 <p>{% trans "Nutritional values in 100g of product." %}</p>
 
@@ -22,27 +23,27 @@
     <tbody>
         <tr>
             <td style="width:80%;">{% trans "Energy" %}</td>
-            <td>{{ingredient.energy}} kcal</td>
+            <td itemprop="calories">{{ingredient.energy}} kcal</td>
         </tr>
         <tr>
             <td>{% trans "Protein" %}</td>
-            <td>{{ingredient.protein}} g</td>
+            <td itemprop="proteinContent">{{ingredient.protein}} g</td>
         </tr>
         <tr>
             <td>{% trans "Carbohydrates" %}</td>
-            <td>{{ingredient.carbohydrates}} g</td>
+            <td itemprop="carbohydrateContent">{{ingredient.carbohydrates}} g</td>
         </tr>
         <tr>
             <td style="padding-left: 3em;">{% trans "Sugar content in carbohydrates" %}</td>
-            <td>{{ingredient.carbohydrates_sugar}} g</td>
+            <td itemprop="sugarContent">{{ingredient.carbohydrates_sugar}} g</td>
         </tr>
         <tr>
             <td>{% trans "Fat" %}</td>
-            <td>{{ingredient.fat}} g</td>
+            <td itemprop="fatContent">{{ingredient.fat}} g</td>
         </tr>
         <tr>
             <td style="padding-left: 3em;">{% trans "Saturated fat content in fats" %}</td>
-            <td>{{ingredient.fat_saturated}} g</td>
+            <td itemprop="saturatedFatContent">{{ingredient.fat_saturated}} g</td>
         </tr>
     </tbody>
 </table>
@@ -58,15 +59,15 @@
     <tbody>
         <tr>
             <td style="width:80%;">{% trans "Fibres" %}</td>
-            <td>{% if ingredient.fibres %}{{ingredient.fibres}} g{% else %}-/-{% endif %}</td>
+            <td itemprop="fiberContent">{% if ingredient.fibres %}{{ingredient.fibres}} g{% else %}-/-{% endif %}</td>
         </tr>
         <tr>
             <td>{% trans "Sodium" %}</td>
-            <td>{% if ingredient.sodium %}{{ingredient.sodium}} g{% else %}-/-{% endif %}</td>
+            <td itemprop="sodiumContent">{% if ingredient.sodium %}{{ingredient.sodium}} g{% else %}-/-{% endif %}</td>
         </tr>
     </tbody>
 </table>
-
+</div>
 {% endblock %}
 
 
