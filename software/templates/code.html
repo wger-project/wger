@@ -49,14 +49,14 @@ right?.{% endblocktrans %}</p>
 if things don't go as expected.</p>{% endblocktrans %}
 
 <p>{% blocktrans %}In short, these are the steps to perform for an installation
-on a <em>linux</em> machine, with python already installed. If you are using e.g.
-Windows or OSX, take a look at the link above.</p>{% endblocktrans %}
+on a linux or OS X machine, with python already installed. If you are using e.g.
+Windows, take a look at the link above.</p>{% endblocktrans %}
 
 <p>{% blocktrans %}I personally like installing my development
 files on a virtualenv, it helps keep the system more or less clean and are very
 easy to set up, but you can skip this step if you don't mind installing all
-dependencies system-wide (in that case, install django and reportlab with a
-<code>sudo apt-get install</code>).{% endblocktrans %}</p>
+dependencies system-wide (in that case, install django and the other applications
+with a <code>sudo</code>).{% endblocktrans %}</p>
 
 <code>
 $ sudo apt-get install python-virtualenv
@@ -65,47 +65,62 @@ $ mkdir manager
 $ cd manager
 $ virtualenv python-django
 $ source python-django/bin/activate
-$ pip install django
-$ pip install reportlab
-$ pip install django-browserid
-$ pip install django-recaptcha
-$ python
 </code>
 
-<p>{% blocktrans %}Try to import the packages to see if everything
-works.{% endblocktrans %}</p>
-
-<code>
->>> import django
->>> import reportlab
-</code>
-
-<p>{% blocktrans %}If the import worked, everything is set up. Now let's install
-the application itself. Get the code by either downloading a package or cloning
-the repository and updating to a tag or revision.{% endblocktrans %}</p>
+<p>{% blocktrans %}Get the application itself by either downloading a package or
+cloning the repository and updating to a tag or revision.{% endblocktrans %}</p>
 
 <code>
 $ hg clone https://rolandgeider@bitbucket.org/rolandgeider/workout_manager
-$ cd workout_manager/workout_manager
-$ cp settings.sample.py settings.py
+$ cd workout_manager
+$ pip install -r requirements.txt
 </code>
 
 
-<p>{% blocktrans %}Open settings.py and change the settings there as appropriate.
-There is another configuration file, settings_global.py that contains other global
-settings, but you don't need to change anything there. For the database, the
-fastest to set up is Sqlite, but you can use
-<a href="https://docs.djangoproject.com/en/1.4/ref/databases/">whatever Django supports</a>.
-Initialise the database and create a super user.{% endblocktrans %}</p>
-
-<p>{% blocktrans %}For the sitemap.xml to work, you need to set a correct domain name
-in the sites app. This is done via django's admin interface.{% endblocktrans %}</p>
-
+<p>{% trans "Initialise and start the application." %}</p>
 
 <code>
 $ cd ..
+$ python main.py
+</code>
+
+<p>{% blocktrans %}The main.py file will, on first run, create a configuration
+file. For this it will ask you for your <a href="https://www.google.com/recaptcha">reCaptcha
+keys</a>. You can leave this blank or enter bogus data, but you won't be able
+to register new users or use the demo account. For the sitemap.xml file to be
+correctly generated, you need to set a correct domain name in the sites app. This
+is done via django's admin interface. A sqlite database will also be created
+with a standard superuser:{% endblocktrans %}</p>
+
+<ul>
+    {% blocktrans %}<li><strong>username: admin</strong></li>
+    <li><strong>password: admin</strong></li>{% endblocktrans %}
+</ul>
+
+<p>{% blocktrans %}You can later call main.py again to simply start the
+application.{% endblocktrans %}</p>
+
+
+<h3>{% trans "Manual installation" %}</h3>
+
+<p>{% blocktrans %}If you don't want to use the sqlite database that main.py creates
+or if you want to run this under another setup (e.g. under apache), you can
+install the individual component individually. First, install all packages as described
+before.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}Copy the sample configuration file and change the settings there as appropriate.
+There is another configuration file, settings_global.py that contains other global
+settings. Setup any database <a href="https://docs.djangoproject.com/en/1.4/ref/databases/">that Django supports</a>,
+initialise the tables and create a super user.{% endblocktrans %}</p>
+
+<code>
+$ cd workout_manager
+$ cp settings.sample.py settings.py
+$ vim settings.py
+$ cd ..
 $ python manage.py syncdb
 </code>
+
 
 <p>{% blocktrans %}Now you are ready to go, the application is installed and
 can be used. However, an application like this without data is not interesting,
@@ -135,6 +150,11 @@ $ python manage.py runserver
 <p>{% blocktrans %}You can now access the site with your browser:
 <code>http://localhost:8000/</code>{% endblocktrans %}</p>
 
+<p>{% blocktrans %}If you want to run this in production, don't use django's builtin
+server, use apache, gunicorn or some other <em>real server</em>. Refer to
+<a href="https://docs.djangoproject.com/en/1.4/howto/deployment/">the deployment section</a>
+on django's documentation for details here. You will also have to take special
+care of the static files.{% endblocktrans %}</p>
 
 {% endblock %}
 

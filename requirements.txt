@@ -1,0 +1,5 @@
+Django==1.4.3
+django-browserid
+django-recaptcha
+reportlab
+selenium
