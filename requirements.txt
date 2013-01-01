@@ -3,3 +3,4 @@ django-browserid
 django-recaptcha
 reportlab
 selenium
+django_mobile

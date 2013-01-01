@@ -82,12 +82,10 @@ from workout_manager.generic_views import YamlDeleteMixin
 
 logger = logging.getLogger('workout_manager.custom')
 
+
 # ************************
 # Misc functions
 # ************************
-
-# from django.http import HttpResponseRedirect
-
 def index(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('dashboard'))
