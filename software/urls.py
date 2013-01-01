@@ -15,16 +15,13 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from django.conf.urls import patterns, url
-
 from django.views.generic import TemplateView
 
-
-from software.views import IssuesTemplateView
 
 urlpatterns = patterns('',
 
     url(r'^issues$',
-        IssuesTemplateView.as_view(),
+        TemplateView.as_view(template_name="issues.html"),
         name='issues'),
 
     url(r'^features$',
