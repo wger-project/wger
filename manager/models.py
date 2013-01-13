@@ -126,7 +126,7 @@ class Set(models.Model):
     def __unicode__(self):
         """Return a more human-readable representation
         """
-        return "Set %s for %s" % (self.order or '-/-', unicode(self.exerciseday))
+        return "Set-ID %s" % (self.id)
 
     def get_owner_object(self):
         """
