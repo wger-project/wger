@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load staticfiles %}
-{% load manager_extras %} 
+{% load manager_extras %}
 
 
 {% block title %}{% trans "Ingredient overview" %}{% endblock %}
@@ -26,7 +26,7 @@
 
 
 <div style="padding-top:3em;"></div>
-{% pagination ingredients page_range %} 
+{% pagination ingredients page_range %}
 
 
 {% endblock %}
@@ -35,7 +35,7 @@
 {% if perms.exercises %}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url ingredient-add %}">
+       <a href="{% url ingredient-add %}">
        <img src="{% static 'images/icons/new.svg' %}"
             width="32"
             height="32"
@@ -45,4 +45,16 @@
        </a>
 </p>
 {% endif %}
+
+<h3>{% trans "Free license" %}</h3>
+<p>
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.{{language.short_name}}">
+    <img src="{% static 'images/cc-by-sa-88x31.png' %}"
+            width="88"
+            height="31"
+            alt="{% trans 'CC-BY-SA' %}"
+            title="{% trans 'CC-BY-SA' %}">
+       {% blocktrans %}This content is licenced under a Creative commons share-alike,
+(CC-BY-SA 3.0) license{% endblocktrans %}</a>
+</p>
 {% endblock %}

@@ -210,6 +210,7 @@
         <div class="ym-wbox" id="content-wrapper">
             <section class="ym-grid linearize-level-1">
                 <div id="current-url" data-current-url="{{request_full_path}}"></div>
+                <div id="current-language" data-current-language="{{language.short_name}}"></div>
                 {% if user.get_profile.is_temporary %}
                     <div class="box info" style="padding:0.6em; margin: 0em 0em 1em 0em;">
                     {% trans "You are using a temporary account, this user will be deleted after some time."%}

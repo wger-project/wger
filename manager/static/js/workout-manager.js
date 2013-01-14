@@ -4,6 +4,12 @@
  */
 
 
+function get_current_language()
+{
+    /* Returns a short name, like 'en' or 'de' */
+    return $('#current-language').data('currentLanguage');
+}
+
 /*
  * Define an own widget, which is basically an autocompleter that groups
  * results by category
@@ -44,13 +50,13 @@ function setup_sortable()
 
                 //$("#ajax-info").show();
                 //$("#ajax-info").addClass('success');
-                $.get("/workout/api/edit-set" + "?do=set_order&day_id=" + day_id + "&order=" + order)
+                $.get('/' + get_current_language() + "/workout/api/edit-set" + "?do=set_order&day_id=" + day_id + "&order=" + order)
 
 
                 // TODO: it seems to be necessary to call the view two times before it returns
                 //       current data.
-                $.get("/workout/day/view/" + day_id);
-                $("#div-day-" + day_id).load("/workout/day/view/" + day_id);
+                $.get('/' + get_current_language() + "/workout/day/view/" + day_id);
+                $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/view/" + day_id);
         }
 
     })
@@ -74,12 +80,12 @@ function setup_sortable()
 
             //$("#ajax-info").show();
             //$("#ajax-info").addClass('success');
-            $("#ajax-info").load("/workout/api/edit-settting?do=set_order&order=" + order);
+            $("#ajax-info").load('/' + get_current_language() + "/workout/api/edit-settting?do=set_order&order=" + order);
 
             // TODO: it seems to be necessary to call the view two times before it returns
             //       current data.
-            $.get("/workout/day/view/" + day_id);
-            $("#div-day-" + day_id).load("/workout/day/view/" + day_id);
+            $.get('/' + get_current_language() + "/workout/day/view/" + day_id);
+            $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/view/" + day_id);
         }
     });
 }
@@ -105,7 +111,7 @@ function setup_ajax_set_edit()
 
 function load_edit_set(element, set_id, exercise_id)
 {
-    $(element).load("/workout/api/edit-set?do=edit_set&set=" + set_id + "&exercise=" + exercise_id);
+    $(element).load('/' + get_current_language() + "/workout/api/edit-set?do=edit_set&set=" + set_id + "&exercise=" + exercise_id);
 }
 
 function setup_inplace_editing()
@@ -120,23 +126,23 @@ function setup_inplace_editing()
         // Editing of set
         $(element).click(function(e) {
             e.preventDefault();
-            $("#div-day-" + day_id).load("/workout/day/view/" + day_id);
+            $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/view/" + day_id);
         })
 
         // Send the Form
         $('.ajax-form-set-edit').submit(function(e) {
           e.preventDefault();
 
-          url = "/workout/api/edit-set?do=edit_set&set=" + set_id + "&exercise=" + exercise_id
+          url = '/' + get_current_language() + "/workout/api/edit-set?do=edit_set&set=" + set_id + "&exercise=" + exercise_id
           form_data = $(this).serialize();
           $.post( url, form_data);
 
-          $("#div-day-" + day_id).load("/workout/day/view/" + day_id);
+          $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/view/" + day_id);
         });
 
         // Init the autocompleter
         $(".ajax-form-exercise-list").catcomplete({
-                source: "/exercise/search/",
+                source: '/' + get_current_language() + "/exercise/search/",
                 minLength: 2,
                 select: function(event, ui) {
 
@@ -169,7 +175,7 @@ function toggle_comments()
             showComment = 0;
         }
 
-        $("#ajax-info").load("/workout/api/user-preferences?do=set_show-comments&show=" + showComment);
+        $("#ajax-info").load('/' + get_current_language() + "/workout/api/user-preferences?do=set_show-comments&show=" + showComment);
     });
 }
 
@@ -181,16 +187,16 @@ function set_english_ingredients()
 
         if ( useEnglishIngredients == 0 )
         {
-            $('#english-ingredients-status').attr("src", "/static/images/icons/status-on.svg");
+            $('#english-ingredients-status').attr("src", '/' + get_current_language() + "/static/images/icons/status-on.svg");
             useEnglishIngredients = 1;
         }
         else if ( useEnglishIngredients == 1 )
         {
-             $('#english-ingredients-status').attr("src", "/static/images/icons/status-off.svg");
+             $('#english-ingredients-status').attr("src", '/' + get_current_language() + "/static/images/icons/status-off.svg");
              useEnglishIngredients = 0;
         }
 
-        $("#ajax-info").load("/workout/api/user-preferences?do=set_english-ingredients&show=" + useEnglishIngredients);
+        $("#ajax-info").load('/' + get_current_language() + "/workout/api/user-preferences?do=set_english-ingredients&show=" + useEnglishIngredients);
     });
 }
 
@@ -351,7 +357,7 @@ function init_ingredient_autocompleter()
 {
     // Init the autocompleter
     $("#id_ingredient_searchfield").autocomplete({
-        source: "/nutrition/ingredient/search/",
+        source: '/' + get_current_language() + "/nutrition/ingredient/search/",
         minLength: 2,
         select: function(event, ui) {
 
@@ -403,7 +409,7 @@ function init_edit_set()
 {
     // Initialise the autocompleter (our widget, defined above)
     $("#exercise-search").catcomplete({
-            source: "/exercise/search/",
+            source: '/' + get_current_language() + "/exercise/search/",
             minLength: 2,
             select: function(event, ui) {
 
@@ -575,7 +581,7 @@ function weight_chart(data)
       .enter().append("circle")
         .attr("clip-path", "url(#clip)")
         .attr("class", "dot modal-dialog")
-        .attr("href", function(d) { return '/weight/' + d.id + '/edit/'; })
+        .attr("href", function(d) { return '/' + get_current_language() + '/weight/' + d.id + '/edit/'; })
         .attr("id", function(d) { return d.id; })
         .attr("cx", line.x())
         .attr("cy", line.y())
@@ -733,7 +739,7 @@ function weight_log_chart(data, div_id, reps_i18n)
               .attr("cx", line.x())
               .attr("cy", line.y())
               .attr("id", function(d) { return d.log_id; })
-              .attr("href", function(d) { return '/workout/log/edit-entry/' +  d.log_id.match(/\d+/); })
+              .attr("href", function(d) { return '/' + get_current_language() + '/workout/log/edit-entry/' +  d.log_id.match(/\d+/); })
               .attr("r", 5)
               .style("stroke", function(d) {
                 return color(color_name);
