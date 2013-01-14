@@ -180,6 +180,13 @@ def exercise_view(request, id, slug=None):
         else:
             backgrounds_back.append('images/muscles/main/muscle-%s.svg' % muscle.id)
 
+    for muscle in exercise.muscles_secondary.all():
+        if muscle.is_front:
+            backgrounds_front.append('images/muscles/secondary/muscle-%s.svg' % muscle.id)
+        else:
+            backgrounds_back.append('images/muscles/secondary/muscle-%s.svg' % muscle.id)
+
+
     # Append the "main" background, with the silhouette of the human body
     # This has to happen as the last step, so it is rendered behind the muscles.
     if backgrounds_front:
@@ -223,6 +230,7 @@ class ExercisesEditAddView(YamlFormMixin):
     form_fields = ['name',
                    'category',
                    'muscles',
+                   'muscles_secondary',
                    'description']
 
     select_lists = ['category']

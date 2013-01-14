@@ -105,11 +105,26 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 {% block sidebar %}
 
 {% with muscles=exercise.muscles.all %}
+{% with muscles_secondary=exercise.muscles_secondary.all %}
+
 {% if muscles %}
 <h3>{% trans "Muscles" %}</h3>
 <p>
     {% trans "The diagram shows the most used muscles on this exercise" %}
 </p>
+
+
+<div>
+    <div style="width:1em;height:1em;background-color:#cc0000;float:left;margin-right:0.5em;"></div>
+    {% trans "Main muscles" %}
+</div>
+
+{% if muscles_secondary %}
+<div>
+    <div style="width:1em;height:1em;background-color:#f57900;float:left;margin-right:0.5em;"></div>
+    {% trans "Secondary muscles" %}
+</div>
+{% endif %}
 
 {% if muscle_backgrounds_front %}
 <div class="ym-grid linearize-level-1">
@@ -123,6 +138,12 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
         <div class="ym-gbox-right">
             <ul>
                 {% for muscle in muscles %}
+                {% if muscle.is_front %}
+                <li>{{muscle.name}}</li>
+                {% endif %}
+                {% endfor %}
+                
+                {% for muscle in muscles_secondary %}
                 {% if muscle.is_front %}
                 <li>{{muscle.name}}</li>
                 {% endif %}
@@ -150,6 +171,12 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
                 <li>{{muscle.name}}</li>
                 {% endif %}
                 {% endfor %}
+                
+                {% for muscle in muscles_secondary %}
+                {% if not muscle.is_front %}
+                <li>{{muscle.name}}</li>
+                {% endif %}
+                {% endfor %}
             </ul>
         </div>
     </div>
@@ -158,6 +185,8 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 
 {% endif %}
 {% endwith %}
+{% endwith %}
+
 
 {% if perms.exercises %}
 <h3>{% trans "Options" %}</h3>

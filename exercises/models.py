@@ -97,7 +97,15 @@ class Exercise(models.Model):
                             verbose_name=_('Name'))
 
     muscles = models.ManyToManyField(Muscle,
-                                     verbose_name=_('Muscles'))
+                                     verbose_name=_('Primary muscles'),
+                                     )
+    
+    muscles_secondary = models.ManyToManyField(Muscle,
+                                     verbose_name=_('Secondary muscles'),
+                                     related_name='secondary_muscles',
+                                     null=True,
+                                     blank=True
+                                     )
 
     # Metaclass to set some other properties
     class Meta:
