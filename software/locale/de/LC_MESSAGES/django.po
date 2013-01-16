@@ -1,0 +1,489 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-01-16 16:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: templates/changelog.html:7 templates/changelog.html.py:10
+msgid "Changelog"
+msgstr "Änderungsprotokoll"
+
+#: templates/code.html:7
+msgid "Get the code"
+msgstr "Quellcode"
+
+#: templates/code.html:10
+msgid "Download"
+msgstr ""
+
+#: templates/code.html:12
+msgid "Stable version"
+msgstr "Stabile Version"
+
+#: templates/code.html:14
+msgid ""
+"Click here to download the last stable version. For\n"
+"installation instructions see below."
+msgstr ""
+
+#: templates/code.html:21
+msgid "Development version"
+msgstr "Entwicklungsversion"
+
+#: templates/code.html:23
+msgid ""
+"Get the development version if you want to contribute to the project,\n"
+"or simply want the latest of the latest. I probably don't need to tell you "
+"that this\n"
+"version will have more bugs and should not be used to keep important data,\n"
+"right?."
+msgstr ""
+
+#: templates/code.html:28
+msgid "There are two repositories you can clone:"
+msgstr ""
+
+#: templates/code.html:29
+msgid ""
+"<ul>\n"
+"    <li>\n"
+"        <strong><a href=\"https://bitbucket.org/rolandgeider/workout_manager"
+"\">bitbucker (HG)</a></strong>,\n"
+"        the main repository. All work happens here.<br>\n"
+"        <code>hg clone https://bitbucket.org/rolandgeider/workout_manager</"
+"code>\n"
+"    </li>\n"
+"    <li style=\"padding-top: 1em;\">\n"
+"        <strong><a href=\"https://github.com/rolandgeider/workout_manager"
+"\">github (GIT)</a></strong>,\n"
+"        a mirror of the main repo.<br>\n"
+"        <code>git clone https://github.com/rolandgeider/workout_manager.git</"
+"code>\n"
+"    </li>\n"
+"</ul>"
+msgstr ""
+
+#: templates/code.html:42
+msgid "Pull requests are welcome :)"
+msgstr ""
+
+#: templates/code.html:45
+msgid "Installation"
+msgstr ""
+
+#: templates/code.html:47
+msgid ""
+"This is a Django application, so refer for details to its\n"
+"<a href=\"https://docs.djangoproject.com/en/1.4/intro/install/"
+"\">documentation page</a>\n"
+"if things don't go as expected.</p>"
+msgstr ""
+
+#: templates/code.html:51
+msgid ""
+"In short, these are the steps to perform for an installation\n"
+"on a linux or OS X machine, with python already installed. If you are using "
+"e.g.\n"
+"Windows, take a look at the link above.</p>"
+msgstr ""
+
+#: templates/code.html:55
+msgid ""
+"I personally like installing my development\n"
+"files on a virtualenv, it helps keep the system more or less clean and are "
+"very\n"
+"easy to set up, but you can skip this step if you don't mind installing all\n"
+"dependencies system-wide (in that case, install django and the other "
+"applications\n"
+"with a <code>sudo</code>)."
+msgstr ""
+
+#: templates/code.html:70
+msgid ""
+"Get the application itself by either downloading a package or\n"
+"cloning the repository and updating to a tag or revision."
+msgstr ""
+
+#: templates/code.html:80
+msgid "Initialise and start the application."
+msgstr ""
+
+#: templates/code.html:87
+msgid ""
+"The main.py file will, on first run, create a configuration\n"
+"file. For this it will ask you for your <a href=\"https://www.google.com/"
+"recaptcha\">reCaptcha\n"
+"keys</a>. You can leave this blank or enter bogus data, but you won't be "
+"able\n"
+"to register new users or use the demo account. For the sitemap.xml file to "
+"be\n"
+"correctly generated, you need to set a correct domain name in the sites app. "
+"This\n"
+"is done via django's admin interface. A sqlite database will also be "
+"created\n"
+"with a standard superuser:"
+msgstr ""
+
+#: templates/code.html:96
+msgid ""
+"<li><strong>username: admin</strong></li>\n"
+"    <li><strong>password: admin</strong></li>"
+msgstr ""
+
+#: templates/code.html:100
+msgid ""
+"You can later call main.py again to simply start the\n"
+"application."
+msgstr ""
+
+#: templates/code.html:104
+msgid "Manual installation"
+msgstr ""
+
+#: templates/code.html:106
+msgid ""
+"If you don't want to use the sqlite database that main.py creates\n"
+"or if you want to run this under another setup (e.g. under apache), you can\n"
+"install the individual component individually. First, install all packages "
+"as described\n"
+"before."
+msgstr ""
+
+#: templates/code.html:111
+msgid ""
+"Copy the sample configuration file and change the settings there as "
+"appropriate.\n"
+"There is another configuration file, settings_global.py that contains other "
+"global\n"
+"settings. Setup any database <a href=\"https://docs.djangoproject.com/en/1.4/"
+"ref/databases/\">that Django supports</a>,\n"
+"initialise the tables and create a super user."
+msgstr ""
+
+#: templates/code.html:125
+msgid ""
+"Now you are ready to go, the application is installed and\n"
+"can be used. However, an application like this without data is not "
+"interesting,\n"
+"so you should load some initial data to populate the categories,\n"
+"etc."
+msgstr ""
+
+#: templates/code.html:130
+msgid ""
+"For this, load these fixtures, <em>in this order</em>,\n"
+"as some dependend on each other (specially the languages). The ingrediens "
+"fixture\n"
+"can take some time to process, it contains more than 8000 entries."
+msgstr ""
+
+#: templates/code.html:144
+msgid "Now, run the server:"
+msgstr ""
+
+#: templates/code.html:150
+msgid ""
+"You can now access the site with your browser:\n"
+"<code>http://localhost:8000/</code>"
+msgstr ""
+
+#: templates/code.html:153
+msgid ""
+"If you want to run this in production, don't use django's builtin\n"
+"server, use apache, gunicorn or some other <em>real server</em>. Refer to\n"
+"<a href=\"https://docs.djangoproject.com/en/1.4/howto/deployment/\">the "
+"deployment section</a>\n"
+"on django's documentation for details here. You will also have to take "
+"special\n"
+"care of the static files."
+msgstr ""
+
+#: templates/functions.html:7
+msgid "Features"
+msgstr "Funktionen"
+
+#: templates/functions.html:10
+msgid "What is this?"
+msgstr ""
+
+#: templates/functions.html:12
+msgid ""
+"Workout Manager is a free, open source web application that manages\n"
+"your exercises and workouts. It started as a pet project of mine to replace "
+"my\n"
+"growing collection of different spreadsheets, but it has become something "
+"other\n"
+"people could also find useful. So, answering the question, it's"
+msgstr ""
+
+#: templates/functions.html:22
+msgid ""
+"You probably guessed, this is a workout manager:\n"
+"            you can create and manage your workout routines. You select how\n"
+"            many days your workout constists of, and add different exercises "
+"to each."
+msgstr ""
+
+#: templates/functions.html:31
+msgid "a body weight tracker"
+msgstr ""
+
+#: templates/functions.html:32
+msgid ""
+"This simple part lets\n"
+"            you input your weight for a date. From this it generates a "
+"rather nice looking\n"
+"            chart, so you can see if you are reaching your goals (be it "
+"gaining mass or\n"
+"            losing it)."
+msgstr ""
+
+#: templates/functions.html:44
+msgid "a nutrition manager"
+msgstr ""
+
+#: templates/functions.html:45
+msgid ""
+"Here you can create a diet\n"
+"            plan and see some nutritional values (total energy, protein, "
+"carbohydrates, and\n"
+"            so on) about it. Select from more than 8000 ingredients for this."
+msgstr ""
+
+#: templates/functions.html:53
+msgid "More details please"
+msgstr ""
+
+#: templates/functions.html:57
+msgid ""
+"It is pretty flexible so if you do supersets, no need\n"
+"to worry, it is supported and you will know which exercises <em>belong\n"
+"together</em>. Each set can have a different number of repetitions you want\n"
+"to reach and which you enter yourself. This means that other training\n"
+"forms like pyramid training or similar are not a problem."
+msgstr ""
+
+#: templates/functions.html:66
+msgid ""
+"It can also generate a PDF with your current routine.\n"
+"This is suitable for printing so you can bring it to the gym and keep a log\n"
+"about your progress. In case you wonder how it looks like,\n"
+"<a href=\"/static/pdf/workout-pdf-1.0.3-en.pdf\">here's a sample</a>."
+msgstr ""
+
+#: templates/functions.html:71
+msgid ""
+"<strong>Note:</strong> it has no 'preset' workouts that you\n"
+"can simply use (e.g. beginner, etc.). It will happily make the routine you "
+"tell\n"
+"it to do, but you have to decide which exercises and how many repetitions "
+"you'll\n"
+"do."
+msgstr ""
+
+#: templates/functions.html:77
+msgid "Exercise log"
+msgstr ""
+
+#: templates/functions.html:79
+msgid ""
+"You can enter the weights and repetitions you did for each\n"
+"exercise. As with the (body) weight, it will generate some diagrams so\n"
+"so you can see at a glance how well you are doing. The raw numbers are still "
+"there\n"
+"in a table, don't worry."
+msgstr ""
+
+#: templates/functions.html:88
+msgid "Muscle and exercise database"
+msgstr ""
+
+#: templates/functions.html:89
+msgid ""
+"The exercise database contains around hundred exercises\n"
+"from which you can choose when creating a workout. Some have important "
+"notes\n"
+"about the form to perform them. This is displayed in the workout overview\n"
+"page, so you keep them in mind."
+msgstr ""
+
+#: templates/functions.html:98
+msgid "The weight tracker"
+msgstr ""
+
+#: templates/functions.html:99
+msgid ""
+"This is a rather simple part that basically lets\n"
+"you input your weight and a day. From this it generates a rather nice "
+"looking\n"
+"chart, so you can see if you are reaching your goals (be it gaining mass or\n"
+"losing it)."
+msgstr ""
+
+#: templates/functions.html:104
+msgid ""
+"\n"
+"In case you want to jump ship after inputing your data from the last years, "
+"simply\n"
+"export the data as CSV."
+msgstr ""
+
+#: templates/functions.html:112
+msgid "The nutrition schedule manager"
+msgstr ""
+
+#: templates/functions.html:113
+msgid ""
+"And finally it is a nutrition schedule manager. Here you can\n"
+"create a diet plan and see some nutritional values (total energy, protein,\n"
+"carbohydrates, and so on) about it. For the ingredients, it uses the very "
+"complete\n"
+"list provided by the US Department of Agriculture, with around 8000\n"
+"entries."
+msgstr ""
+
+#: templates/functions.html:121
+msgid ""
+"It can also be downloaded as a PDF so you can keep it on your\n"
+"fridge, so you don't forget to follow the plan... And as with the workout\n"
+"log, <a href=\"/static/pdf/nutrition-plan-pdf-1.0-en.pdf\">here's a sample</"
+"a>."
+msgstr ""
+
+#: templates/functions.html:125
+msgid ""
+"<strong>Note:</strong> this is not a log keeper. It does not\n"
+"keep track of what you actually ate during the day and how it compares to\n"
+"what the plan says. It simply shows you the nutritional values of the plan\n"
+"you create."
+msgstr ""
+
+#: templates/functions.html:132
+msgid "Interested?"
+msgstr "Interessiert?"
+
+#: templates/functions.html:138 templates/functions.html.py:139
+msgid "Try the demo"
+msgstr "Demo ausprobieren"
+
+#: templates/issues.html:5 templates/issues.html.py:8
+msgid "Reporting a problem"
+msgstr "Problem berichten"
+
+#: templates/issues.html:10
+msgid ""
+"\n"
+"No software is perfect. For some severe errors, an email will be "
+"automatically sent, but\n"
+"not always, so I depend on you reporting everything that didn't behave as "
+"expected.\n"
+"Please describe in as much detail as you can what you were doing when the "
+"error\n"
+"happened.\n"
+msgstr ""
+"\n"
+"Keine Software ist perfekt. Bei manchen schweren Fehlern bekomme ich "
+"automatisch eine Email, aber nicht immer. Ich brauche also Fehlermeldungen, "
+"um über die Fehle zu erfahren und reagieren zu können. Bitte hier im Detail "
+"beschreiben, wie es zum Fehler kam.\n"
+
+#: templates/issues.html:18
+msgid ""
+"If you found a problem, please\n"
+"<a href=\"https://bitbucket.org/rolandgeider/workout_manager/issues\">report "
+"it\n"
+"to the issue tracker</a> in bitbucket.\n"
+msgstr ""
+"Bei Probleme oder Bugs  <a href=\"https://bitbucket.org/rolandgeider/"
+"workout_manager/issues\">im Bitbucket Tracker</a> melden.\n"
+
+#: templates/issues.html:24
+msgid "Enhancements"
+msgstr "Verbesserungen"
+
+#: templates/issues.html:26
+msgid ""
+"\n"
+"The issue tracker can also be used to document enhancements to the software, "
+"so\n"
+"if you have some suggestions, feel free to open a ticket, just set "
+"'<em>kind</em>'\n"
+"to '<em>enhancement</em>'.\n"
+msgstr ""
+"\n"
+"Der Issuetracker kann auch dafür benutzt werden, um Verbesserungen der "
+"Software zu melden. Wer hier Vorschläge hat, sollte im Formular <em>kind</"
+"em> auf <em>enhancement</em> gesetzt werden.\n"
+
+#: templates/license.html:7 templates/license.html.py:10
+msgid "License"
+msgstr "Lizenz"
+
+#: templates/license.html:13
+msgid ""
+"wger Workout Manager is Free/Libre Open Source\n"
+"Software (FLOSS)."
+msgstr ""
+"wger Workout Manager ist Freie Software (Free/Libre Open Source\n"
+"Software - FLOSS)."
+
+#: templates/license.html:20 templates/license.html.py:21
+msgid "Released under the Affero GPL"
+msgstr ""
+
+#: templates/license.html:23
+msgid ""
+"wger Workout Manager is released under the <strong>Affero GNU\n"
+"General Public License (AGPL)  Version 3+</strong> and can (under the "
+"conditions\n"
+"of the license) be used, modified and distributed (also with modifications)\n"
+"without restrictions."
+msgstr ""
+"wger Workout Manager steht unter der <strong>Affero GNU\n"
+"General Public License (AGPL) Version 3+</strong> und darf ohne "
+"Restriktionen (unter dn Bedingungen der Lizenz) benutzt, verändert und "
+"(geändert) weitergegeben werden."
+
+#: templates/license.html:31 templates/license.html.py:32
+msgid "CC-BY-SA"
+msgstr ""
+
+#: templates/license.html:34
+msgid ""
+"The data fixtures with the exercise and ingredient lists are\n"
+"released additionally under a <strong>Creative Commons Attribution Share "
+"Alike 3\n"
+"(CC-BY-SA)</strong> license.</a>"
+msgstr ""
+"Die Übungs- und Zutatendaten stehen zustätlich unter einer <strong>Creative "
+"Commons Attribution Share Alike 3 (CC-BY-SA)</strong> Lizent.</a>"
+
+#: templates/license.html:39
+msgid ""
+"A copy of both licenses is contained in every wger Workout\n"
+"Manager release and can be read in the\n"
+"<a href='https://bitbucket.org/rolandgeider/workout_manager/src/tip/AGPL."
+"txt'>AGPL.txt</a>\n"
+"or <a href='https://bitbucket.org/rolandgeider/workout_manager/src/tip/CC-BY-"
+"SA.txt'>CC-BY-SA.txt</a>\n"
+"files in the source code repository."
+msgstr ""
+"Eine Kopie beider Lizenzen liegt jedem wger Workout Manager bei und ist auch "
+"in den <a href='https://bitbucket.org/rolandgeider/workout_manager/src/tip/"
+"AGPL.txt'>AGPL.txt</a>\n"
+"oder <a href='https://bitbucket.org/rolandgeider/workout_manager/src/tip/CC-"
+"BY-SA.txt'>CC-BY-SA.txt</a> Dateien im Quellcoderepository nachzulesen."
