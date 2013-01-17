@@ -37,7 +37,7 @@ function custom_modal_init()
 
 {% with comments=exercise.exercisecomment_set.all %}
 {% if comments %}
-<h3>{% trans "All comments for this exercise" %}</h3>
+<h3>{% trans "Comments for this exercise" %}</h3>
 
 <ul>
 {% for comment in comments %}
@@ -142,7 +142,7 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
                 <li>{{muscle.name}}</li>
                 {% endif %}
                 {% endfor %}
-                
+
                 {% for muscle in muscles_secondary %}
                 {% if muscle.is_front %}
                 <li>{{muscle.name}}</li>
@@ -171,7 +171,7 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
                 <li>{{muscle.name}}</li>
                 {% endif %}
                 {% endfor %}
-                
+
                 {% for muscle in muscles_secondary %}
                 {% if not muscle.is_front %}
                 <li>{{muscle.name}}</li>
@@ -220,7 +220,7 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
             height="31"
             alt="{% trans 'CC-BY-SA' %}"
             title="{% trans 'CC-BY-SA' %}">
-       {% blocktrans %}This content is licenced under a Creative commons share-alike,
+       {% blocktrans %}This content is licenced under a Creative Commons Attribution Share-Alike,
 (CC-BY-SA 3.0) license{% endblocktrans %}</a>
 </p>
 {% endblock %}
