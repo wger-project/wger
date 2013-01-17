@@ -791,3 +791,15 @@ function load_maincontent()
         });
     });
 }
+
+/*
+ * Helper function to prefetch images on a page
+ */
+function prefetch_images(imageArray)
+{
+    $(imageArray).each(function(){
+        (new Image()).src = this;
+        //console.log('Preloading image' + this);
+    });
+}
+

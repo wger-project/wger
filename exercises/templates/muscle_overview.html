@@ -37,6 +37,11 @@ function highlight_muscle(element)
 }
 
 $(document).ready(function() {
+    //Prefetch the background images
+    {% for muscle in muscle_list|first %}
+        prefetch_images(['/static/images/muscles/main/muscle-' + {{muscle.id}} + '.svg']);
+    {% endfor %}
+    prefetch_images(['/static/images/muscles/muscular_system_back.svg']);
 
 
     // Hightlight the first element
@@ -56,7 +61,6 @@ $(document).ready(function() {
         Main Content
 -->
 {% block content %}
-
 <h2>{% trans "Muscle overview" %} </h2>
 {% trans "Hover with the mouse over the muscles to show corresponding exercises." %}
 
@@ -72,7 +76,7 @@ $(document).ready(function() {
     </div>
     <div class="ym-g33 ym-gl">
         <div class="ym-gbox-left">
-            {% comment %}Why do we need to use |first?{% endcomment %}
+            {# Why do we need to use |first? #}
             {% regroup muscle_list|first by is_front as muscle_group %}
             {% for group in muscle_group %}
                 {% if group.grouper %}

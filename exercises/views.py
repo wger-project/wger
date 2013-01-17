@@ -148,16 +148,6 @@ class MuscleListView(ListView):
     context_object_name = 'muscle_list'
     template_name = 'muscle_overview.html'
 
-    def get_context_data(self, **kwargs):
-        '''
-        Set the language and navigation tab
-        '''
-        context = super(MuscleListView, self).get_context_data(**kwargs)
-        context['language'] = load_language()
-
-        return context
-
-
 def exercise_view(request, id, slug=None):
     '''
     Detail view for an exercise
