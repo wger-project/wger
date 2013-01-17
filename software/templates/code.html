@@ -26,18 +26,18 @@ version will have more bugs and should not be used to keep important data,
 right?.{% endblocktrans %}</p>
 
 <p>{% blocktrans %}There are two repositories you can clone:{% endblocktrans %}</p>
-{% blocktrans %}<ul>
+<ul>
     <li>
         <strong><a href="https://bitbucket.org/rolandgeider/workout_manager">bitbucker (HG)</a></strong>,
-        the main repository. All work happens here.<br>
+        {% trans "the main repository. All work happens here." %}<br>
         <code>hg clone https://bitbucket.org/rolandgeider/workout_manager</code>
     </li>
     <li style="padding-top: 1em;">
         <strong><a href="https://github.com/rolandgeider/workout_manager">github (GIT)</a></strong>,
-        a mirror of the main repo.<br>
+        {% trans "a mirror of the main repo." %}<br>
         <code>git clone https://github.com/rolandgeider/workout_manager.git</code>
     </li>
-</ul>{% endblocktrans %}
+</ul>
 
 <p>{% trans "Pull requests are welcome :)" %}</p>
 
@@ -50,7 +50,7 @@ if things don't go as expected.</p>{% endblocktrans %}
 
 <p>{% blocktrans %}In short, these are the steps to perform for an installation
 on a linux or OS X machine, with python already installed. If you are using e.g.
-Windows, take a look at the link above.</p>{% endblocktrans %}
+Windows, take a look at the link above.{% endblocktrans %}</p>
 
 <p>{% blocktrans %}I personally like installing my development
 files on a virtualenv, it helps keep the system more or less clean and are very
@@ -147,8 +147,8 @@ $ python manage.py loaddata ingredients
 $ python manage.py runserver
 </code>
 
-<p>{% blocktrans %}You can now access the site with your browser:
-<code>http://localhost:8000/</code>{% endblocktrans %}</p>
+<p>{% blocktrans %}You can now access the site with your browser:{% endblocktrans %}
+<code>http://localhost:8000/</code></p>
 
 <p>{% blocktrans %}If you want to run this in production, don't use django's builtin
 server, use apache, gunicorn or some other <em>real server</em>. Refer to

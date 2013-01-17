@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-16 16:57+0100\n"
+"POT-Creation-Date: 2013-01-18 00:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,6 +39,8 @@ msgid ""
 "Click here to download the last stable version. For\n"
 "installation instructions see below."
 msgstr ""
+"Hier clicken, um die letzte stabile Version runterzuladen. Für eine "
+"Installationsanleitung, siehe weiter unten."
 
 #: templates/code.html:21
 msgid "Development version"
@@ -52,38 +54,30 @@ msgid ""
 "version will have more bugs and should not be used to keep important data,\n"
 "right?."
 msgstr ""
+"Lade die Entwicklungsversion herunter, wenn du mitmachen willst oder einfach "
+"die allerletzte Version verwenden willst. Ich muss hier wohl nicht "
+"ausdrücklich darauf hinweisen, dass diese Version eventuell Fehler hat und "
+"man damit keine wichtigen Daten verwalten sollte, oder?"
 
 #: templates/code.html:28
 msgid "There are two repositories you can clone:"
-msgstr ""
+msgstr "Es gibt zwei Repositories, die du klonen kannst:"
 
-#: templates/code.html:29
-msgid ""
-"<ul>\n"
-"    <li>\n"
-"        <strong><a href=\"https://bitbucket.org/rolandgeider/workout_manager"
-"\">bitbucker (HG)</a></strong>,\n"
-"        the main repository. All work happens here.<br>\n"
-"        <code>hg clone https://bitbucket.org/rolandgeider/workout_manager</"
-"code>\n"
-"    </li>\n"
-"    <li style=\"padding-top: 1em;\">\n"
-"        <strong><a href=\"https://github.com/rolandgeider/workout_manager"
-"\">github (GIT)</a></strong>,\n"
-"        a mirror of the main repo.<br>\n"
-"        <code>git clone https://github.com/rolandgeider/workout_manager.git</"
-"code>\n"
-"    </li>\n"
-"</ul>"
-msgstr ""
+#: templates/code.html:32
+msgid "the main repository. All work happens here."
+msgstr "das Hauptrepository, die ganze Arbeit passiert hier."
+
+#: templates/code.html:37
+msgid "a mirror of the main repo."
+msgstr "ein Mirror des Hauptrepos."
 
 #: templates/code.html:42
 msgid "Pull requests are welcome :)"
-msgstr ""
+msgstr "Pull Requests sind natürlich willkommen :)"
 
 #: templates/code.html:45
 msgid "Installation"
-msgstr ""
+msgstr "Installation"
 
 #: templates/code.html:47
 msgid ""
@@ -92,14 +86,20 @@ msgid ""
 "\">documentation page</a>\n"
 "if things don't go as expected.</p>"
 msgstr ""
+"Das ist eine Django Anwendung, schau dir die\n"
+"<a href=\"https://docs.djangoproject.com/en/1.4/intro/install/"
+"\">Dokumentationsseite</a> an wenn nicht alles nach Plan läuft.</p>"
 
 #: templates/code.html:51
 msgid ""
 "In short, these are the steps to perform for an installation\n"
 "on a linux or OS X machine, with python already installed. If you are using "
 "e.g.\n"
-"Windows, take a look at the link above.</p>"
+"Windows, take a look at the link above."
 msgstr ""
+"Hier sind die notwendingen Schritte, um die Anwendun auf ein Linux oder OS X "
+"Rechner zu installieren. Für Windows, ist der Link ober ein guter "
+"Anfangspunkt."
 
 #: templates/code.html:55
 msgid ""
@@ -111,16 +111,23 @@ msgid ""
 "applications\n"
 "with a <code>sudo</code>)."
 msgstr ""
+"Ich persönlich mag es, meine Entwicklungssachen in einer virtuellen Umgebung "
+"zu installieren, das hält den Rechner etwas aufgeräumter und kann sehr "
+"leicht aufgesetzt werden. Diesen Schritt kann man überspringen, wenn man die "
+"Abhängigkeiten Systemweit installieren will (in diesem Fall z.B. mit "
+"<code>sudo</code> vorgehen)."
 
 #: templates/code.html:70
 msgid ""
 "Get the application itself by either downloading a package or\n"
 "cloning the repository and updating to a tag or revision."
 msgstr ""
+"Hole dir die Anwendung entweder von eins der Pakete oder indem du das "
+"Repository klonst und zu einer Revision oder einem Tag aktualisiert."
 
 #: templates/code.html:80
 msgid "Initialise and start the application."
-msgstr ""
+msgstr "Initialisiere und starte die Anwendung."
 
 #: templates/code.html:87
 msgid ""
@@ -137,6 +144,14 @@ msgid ""
 "created\n"
 "with a standard superuser:"
 msgstr ""
+"Die main.py-Datei wird im ersten Lauf eine Konfigurationsdatei erstellen. "
+"Dafür wird sie nach den <a href=\"https://www.google.com/recaptcha"
+"\">reCaptcha Schlüssel</a> fragen. Du kannst diese Werte leer lassen oder "
+"sonstwas eingebe aber dann wird es nicht möglich sein neue Benutzer zu "
+"registrieren oder den Demozugang zu benutzen. Damit die sitemap.xml-Datei "
+"richtig generiert wird muss der richtige Domainname in der sites App gesetzt "
+"werden, das geht über das Admininterface von Django. Eine SQlite-Datenbank "
+"wird dann erzeugt mit einem Superuser:"
 
 #: templates/code.html:96
 msgid ""
@@ -149,10 +164,11 @@ msgid ""
 "You can later call main.py again to simply start the\n"
 "application."
 msgstr ""
+"Du kannst später einfach main.py wieder aufrufen um die Anwendung zu starten."
 
 #: templates/code.html:104
 msgid "Manual installation"
-msgstr ""
+msgstr "Manuelle Installation"
 
 #: templates/code.html:106
 msgid ""
@@ -162,6 +178,10 @@ msgid ""
 "as described\n"
 "before."
 msgstr ""
+"Wenn du nicht die SQlite-Datenbank benutzen willst die von main.py generiert "
+"wird oder wenn du die Anwendung anders betreiben willst (z.B. unter Apache) "
+"kannst du die individuellen Komponenten von Hand installieren. Zuerst "
+"installierst du die Pakete wie vorher beschrieben."
 
 #: templates/code.html:111
 msgid ""
@@ -173,6 +193,11 @@ msgid ""
 "ref/databases/\">that Django supports</a>,\n"
 "initialise the tables and create a super user."
 msgstr ""
+"Kopiere die Beispielkonfigurationsdatei und editiere sie wie gewünscht.\n"
+"Es gibt eine andere Datei, <code>settings_global.py</code> die globale "
+"Einstellungen setzt. Richte eine Datenbank ein <a href=\"https://docs."
+"djangoproject.com/en/1.4/ref/databases/\">die von Django unterstützt wird</"
+"a>, initialisiere die Tabellen und erstelle einen Superuser."
 
 #: templates/code.html:125
 msgid ""
@@ -182,6 +207,9 @@ msgid ""
 "so you should load some initial data to populate the categories,\n"
 "etc."
 msgstr ""
+"Jetzt bist du schon fast fertig, die Anwendung ist installiert und kann "
+"benutzt werden. Allerdings ist so eine Anwendung ohne Daten nicht sehr "
+"interessant. Lade also die initalen Daten für Kategorien, etc."
 
 #: templates/code.html:130
 msgid ""
@@ -190,16 +218,17 @@ msgid ""
 "fixture\n"
 "can take some time to process, it contains more than 8000 entries."
 msgstr ""
+"Dafür, lade die Daten, <em>in dieser Reihenfolge</em>,\n"
+"da manche aufeinander aufbauen (besonders die Sprachen). Die Zutatendatei "
+"wird länger brauchen, da sie mehr als 8000 Einträge hat."
 
 #: templates/code.html:144
 msgid "Now, run the server:"
-msgstr ""
+msgstr "Starte den Server:"
 
 #: templates/code.html:150
-msgid ""
-"You can now access the site with your browser:\n"
-"<code>http://localhost:8000/</code>"
-msgstr ""
+msgid "You can now access the site with your browser:"
+msgstr "Nun kannst due mit einem Browser auf die Seite zugreifen:"
 
 #: templates/code.html:153
 msgid ""
@@ -211,6 +240,14 @@ msgid ""
 "special\n"
 "care of the static files."
 msgstr ""
+"Wenn du die Anwendung im Produktivbetrieb fahren willst, benutze nicht den "
+"Entwicklungsserver von Django, sondern Apache, gunicorn oder einen anderen "
+"<em>echten Server</em>. Für mehr Infos hierzu schaue dir bitte die "
+"<a href=\"https://docs.djangoproject.com/en/1.4/howto/deployment/\">Django "
+"Dokumentation zum Thema</a> an. Du wirst dann auch auf die <em>static files</em> "
+"achten müssen."
+
+
 
 #: templates/functions.html:7
 msgid "Features"
@@ -470,7 +507,8 @@ msgid ""
 "(CC-BY-SA)</strong> license.</a>"
 msgstr ""
 "Die Übungs- und Zutatendaten stehen zustätlich unter einer <strong>Creative "
-"Commons Attribution Share Alike 3 (CC-BY-SA)</strong> Lizent.</a>"
+"Commons Namensnennung, Weitergabe unter gleichen Bedingungen 3 (CC-BY-SA)</"
+"strong> Lizenz.</a>"
 
 #: templates/license.html:39
 msgid ""
