@@ -450,6 +450,7 @@ ul.pagination a:hover
     line-height:2em;
     margin-left: 0px;
     padding-left: 0.3em;
+    cursor: pointer;
 }
 
 .muscle-inactive{
@@ -467,3 +468,5 @@ ul.pagination a:hover
     box-shadow: inset 0 0 4px #d3d7cf;
     border-radius: 3px;
 }
+
+

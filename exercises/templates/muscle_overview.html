@@ -10,30 +10,42 @@
 
 {% block header %}
 <script>
+
+function highlight_muscle(element)
+{
+    var div_id = $(element).data('target');
+    var is_front = ($(element).data('isFront') == 'True') ? 'front' : 'back';
+    var muscle_id = div_id.match(/\d+/);
+
+    // Reset all other highlighted muscles
+    $('.muscle').removeClass('muscle-active');
+    $('.muscle').addClass('muscle-inactive');
+
+    // Hightligh the current one
+    $(element).removeClass('muscle-inactive');
+    $(element).addClass('muscle-active');
+
+
+    // Set the corresponding background
+    $('#muscle-system').css('background-image',
+                            'url(/static/images/muscles/main/muscle-' + muscle_id + '.svg),'
+                          + 'url(/static/images/muscles/muscular_system_' + is_front + '.svg)');
+
+    // Show the corresponding exercises
+    $('.exercise-list').hide();
+    $('#' + div_id).show();
+}
+
 $(document).ready(function() {
+
+
+    // Hightlight the first element
+    highlight_muscle($('.muscle').first());
+
+    // Highlight on hover
     $('.muscle').hover(function(e) {
         e.preventDefault();
-        var div_id = $(this).data('target');
-        var is_front = ($(this).data('isFront') == 'True') ? 'front' : 'back';
-        var muscle_id = div_id.match(/\d+/);
-
-        // Reset all other highlighted muscles
-        $('.muscle').removeClass('muscle-active');
-        $('.muscle').addClass('muscle-inactive');
-
-        // Hightligh the current one
-        $(this).removeClass('muscle-inactive');
-        $(this).addClass('muscle-active');
-
-
-        // Set the corresponding background
-        $('#muscle-system').css('background-image',
-                                'url(/static/images/muscles/main/muscle-' + muscle_id + '.svg),'
-                              + 'url(/static/images/muscles/muscular_system_' + is_front + '.svg)');
-
-        // Show the corresponding exercises
-        $('.exercise-list').hide();
-        $('#' + div_id).show();
+        highlight_muscle(this);
     });
 });
 </script>
@@ -46,7 +58,7 @@ $(document).ready(function() {
 {% block content %}
 
 <h2>{% trans "Muscle overview" %} </h2>
-
+{% trans "Hover with the mouse over the muscles to show corresponding exercises." %}
 
 <div class="ym-grid linearize-level-1">
     <div class="ym-g33 ym-gl">
