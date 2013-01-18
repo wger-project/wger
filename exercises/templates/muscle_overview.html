@@ -91,7 +91,8 @@ $(document).ready(function() {
                     data-target="muscle-{{muscle.id}}"
                     data-is-front="{{muscle.is_front}}"
                     itemscope itemtype="http://schema.org/Muscle">
-                    <div itemprop="name">{{muscle.name}}</div></li>
+                    <div itemprop="name">{{muscle.name}}</div>
+                </li>
                 {% endfor %}
                 </ul>
             {% endfor %}
@@ -109,6 +110,10 @@ $(document).ready(function() {
                             <a href="{{exercise.get_absolute_url}}">{{exercise}}</a>
                         </li>
                         {% endif %}
+                        {% empty %}
+                        <li>
+                            <em>{% trans "No exercises that mainly train this muscle" %}</em>
+                        </li>
                         {% endfor %}
                     </ul>
                 </div>
