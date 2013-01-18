@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-17 23:01+0100\n"
+"POT-Creation-Date: 2013-01-19 00:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,39 +74,39 @@ msgstr "Übungskommentar bearbeiten"
 msgid "Add exercise comment"
 msgstr "Übungskommentar hinzufügen"
 
-#: views.py:215
+#: views.py:205
 msgid "Reps"
 msgstr ""
 
-#: views.py:237
+#: views.py:227
 msgid "Add exercise"
 msgstr "Neue Übung hinzufügen"
 
-#: views.py:266 views.py:377
+#: views.py:256 views.py:367
 #, python-format
 msgid "Edit %s"
 msgstr "%s bearbeiten"
 
-#: views.py:286
+#: views.py:276
 msgid "This will delete the exercise from all workouts."
 msgstr ""
 "Das Löschen der Übung wird sie auch aus allen Trainingsplänen entfernen."
 
-#: views.py:292
+#: views.py:282
 #, python-format
 msgid "Delete exercise %s?"
 msgstr "%s Übung wirklich löschen?"
 
-#: views.py:355 templates/overview.html:175 templates/overview.html.py:176
+#: views.py:345 templates/overview.html:175 templates/overview.html.py:176
 #: templates/overview.html:177
 msgid "Add category"
 msgstr "Kategorie hinzufügen"
 
-#: views.py:394
+#: views.py:384
 msgid "This will also delete all exercises in this category."
 msgstr "Das wird auch alle Übungen in der Kategorie löschen."
 
-#: views.py:400
+#: views.py:390
 #, python-format
 msgid "Delete category %s?"
 msgstr "Kategorie %s löschen?"
@@ -115,31 +115,35 @@ msgstr "Kategorie %s löschen?"
 msgid "Search results"
 msgstr "Suchergebnisse"
 
-#: templates/muscle_overview.html:8 templates/muscle_overview.html.py:60
+#: templates/muscle_overview.html:8 templates/muscle_overview.html.py:64
 msgid "Muscle overview"
 msgstr ""
 
-#: templates/muscle_overview.html:61
+#: templates/muscle_overview.html:65
 msgid "Hover with the mouse over the muscles to show corresponding exercises."
 msgstr ""
 "Mit der Maus über die Muskeln fahren, um die entsprechenden Übungen zu zeigen"
 
-#: templates/muscle_overview.html:66 templates/view.html:111
+#: templates/muscle_overview.html:70 templates/view.html:111
 msgid "Muscles"
 msgstr "Muskeln"
 
-#: templates/muscle_overview.html:80
+#: templates/muscle_overview.html:83
 msgid "Front"
 msgstr "Vorderseite"
 
-#: templates/muscle_overview.html:82
+#: templates/muscle_overview.html:85
 msgid "Back"
 msgstr "Hinterseite"
 
-#: templates/muscle_overview.html:101 templates/overview.html:8
+#: templates/muscle_overview.html:105 templates/overview.html:8
 #: templates/overview.html.py:58
 msgid "Exercises"
 msgstr "Übungen"
+
+#: templates/muscle_overview.html:115
+msgid "No exercises that mainly train this muscle"
+msgstr "Keine Übungen, die hauptsächlich diesen Muskel tranieren"
 
 #: templates/overview.html:65
 msgid "No categories."
@@ -213,24 +217,8 @@ msgstr ""
 
 #: templates/view.html:113
 msgid "The diagram shows the most used muscles on this exercise"
-msgstr "Das diagram zeigt die meistbeanspruchten Muskeln"
+msgstr "Das Diagramm zeigt die meistbeanspruchten Muskeln"
 
 #: templates/view.html:119
 msgid "Main muscles"
 msgstr "Hauptmuskeln"
-
-#: templates/view.html:215
-msgid "Free license"
-msgstr "Freie Lizenz"
-
-#: templates/view.html:221 templates/view.html.py:222
-msgid "CC-BY-SA"
-msgstr ""
-
-#: templates/view.html:223
-msgid ""
-"This content is licenced under a Creative Commons Attribution Share-Alike,\n"
-"(CC-BY-SA 3.0) license"
-msgstr ""
-"Dieser Inhalt ist unter der Creative Commons Namensnennung, Weitergabe unter "
-"gleichen Bedingungen (CC-BY-SA 3.0) lizensiert"

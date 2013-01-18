@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-29 22:51+0100\n"
+"POT-Creation-Date: 2013-01-19 00:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,7 +54,7 @@ msgstr ""
 msgid "Creation date"
 msgstr "Datum"
 
-#: models.py:46 models.py:92
+#: models.py:46 models.py:92 templates/workout/overview.html:17
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -96,6 +96,7 @@ msgstr "Übungstag"
 
 #: models.py:115 models.py:143 templates/template.html:101
 #: templates/template.html.py:103 templates/day/log.html:44
+#: templates/mobile/template.html:98 templates/mobile/template.html.py:100
 msgid "Exercises"
 msgstr "Übungen"
 
@@ -120,16 +121,17 @@ msgid "Exercise"
 msgstr "Übung"
 
 #: models.py:171 pdf.py:57 pdf.py:67 templates/index.html:12
-#: templates/index.html.py:18 templates/workout/overview.html:21
+#: templates/index.html.py:18 templates/workout/overview.html:29
 #: templates/workout/view.html:6 templates/workout/view.html.py:35
 msgid "Workout"
 msgstr "Trainingsplan"
 
 #: models.py:176 pdf.py:132 templates/template.html:113
+#: templates/mobile/template.html:109
 msgid "Weight"
 msgstr "Gewicht"
 
-#: models.py:177 pdf.py:131
+#: models.py:177 pdf.py:131 templates/workout/overview.html:18
 msgid "Date"
 msgstr "Datum"
 
@@ -166,7 +168,7 @@ msgstr "Trainingsplan für %s"
 msgid "Nr."
 msgstr ""
 
-#: pdf.py:132 views.py:1123 templates/day/log.html:58
+#: pdf.py:132 views.py:1121 templates/day/log.html:58
 #: templates/tags/render_weight_log.html:28
 msgid "Reps"
 msgstr "Wdh."
@@ -181,50 +183,50 @@ msgstr ""
 msgid "Created on the <b>%s</b>"
 msgstr "Erstellt am <b>%s</b>"
 
-#: views.py:141
+#: views.py:139
 msgid "Rest day"
 msgstr "Ruhetag"
 
-#: views.py:199 views.py:202 views.py:290 templates/user/login.html:72
+#: views.py:197 views.py:200 views.py:288 templates/user/login.html:72
 #: templates/user/login.html.py:73
 msgid "Register"
 msgstr "Registrieren"
 
-#: views.py:239
+#: views.py:237
 #, fuzzy
 msgid "Sample workout"
 msgstr "Trainingsplan löschen"
 
-#: views.py:243
+#: views.py:241
 msgid "Sample day"
 msgstr "Beispieltag"
 
-#: views.py:353 views.py:363 views.py:744 views.py:939
+#: views.py:351 views.py:361 views.py:742 views.py:937
 msgid "Success"
 msgstr "Erfolg"
 
-#: views.py:486
+#: views.py:484
 msgid "Copy workout"
 msgstr "Trainingsplan kopieren"
 
-#: views.py:514
+#: views.py:512
 msgid "Delete workout"
 msgstr "Trainingsplan löschen"
 
-#: views.py:525 templates/workout/view.html:135
+#: views.py:523 templates/workout/view.html:135
 #: templates/workout/view.html.py:136 templates/workout/view.html:137
 msgid "Edit workout"
 msgstr "Trainingsplan bearbeiten"
 
-#: views.py:574
+#: views.py:572
 msgid "Edit workout day"
 msgstr "Trainingstag bearbeiten"
 
-#: views.py:583
+#: views.py:581
 msgid "Add workout day"
 msgstr "Trainingstag hinzufügen"
 
-#: views.py:973
+#: views.py:971
 #, python-format
 msgid "Edit log entry for %s"
 msgstr "Eintrag für %s editieren"
@@ -269,12 +271,12 @@ msgstr "Löschen"
 msgid "Workout list"
 msgstr "Liste der Trainingspläne"
 
-#: templates/index.html:39 templates/workout/overview.html:34
+#: templates/index.html:39 templates/workout/overview.html:42
 msgid "No workouts found."
 msgstr "Keine Trainingspläne gefunden."
 
 #: templates/index.html:39 templates/index.html.py:77
-#: templates/workout/overview.html:34
+#: templates/workout/overview.html:42
 msgid "Use link to add one."
 msgstr "Benutzen Sie den Verweis zum Hinzufügen."
 
@@ -307,8 +309,8 @@ msgid "Your current weight is: "
 msgstr "Ihr aktuelles Gewicht ist: "
 
 #: templates/index.html:97 templates/index.html.py:98 templates/index.html:99
-#: templates/workout/overview.html:49 templates/workout/overview.html.py:50
-#: templates/workout/overview.html:51
+#: templates/workout/overview.html:57 templates/workout/overview.html.py:58
+#: templates/workout/overview.html:59
 msgid "Add workout"
 msgstr "Trainingsplan hinzufügen"
 
@@ -326,9 +328,9 @@ msgstr ""
 "bearbeiten, um ein Ziel oder Beschreibung zu setzen."
 
 #: templates/index.html:126 templates/template.html:158
-#: templates/day/log.html:102 templates/user/preferences.html:41
-#: templates/workout/log.html:84 templates/workout/overview.html:43
-#: templates/workout/view.html:116
+#: templates/day/log.html:102 templates/mobile/template.html:149
+#: templates/user/preferences.html:41 templates/workout/log.html:84
+#: templates/workout/overview.html:51 templates/workout/view.html:116
 msgid "Options"
 msgstr "Optionen"
 
@@ -337,107 +339,115 @@ msgstr "Optionen"
 msgid "My preferences"
 msgstr "Meine Einstellungen"
 
-#: templates/template.html:88 templates/user/login.html:6
+#: templates/template.html:88 templates/mobile/template.html:58
+#: templates/mobile/template.html.py:85 templates/user/login.html:6
 #: templates/user/login.html.py:15 templates/user/login.html:31
 msgid "Login"
 msgstr "Anmelden"
 
-#: templates/template.html:90
+#: templates/template.html:90 templates/mobile/template.html:60
+#: templates/mobile/template.html.py:87
 msgid "Dashboard"
 msgstr "Übersicht"
 
-#: templates/template.html:95
+#: templates/template.html:95 templates/mobile/template.html:66
+#: templates/mobile/template.html.py:92
 msgid "Workouts"
 msgstr "Trainingspläne"
 
-#: templates/template.html:104
+#: templates/template.html:104 templates/mobile/template.html:101
 msgid "Muscle overview"
 msgstr "Muskelübersicht"
 
-#: templates/template.html:115
+#: templates/template.html:115 templates/mobile/template.html:111
 msgid "Weight overview"
 msgstr "Gewichtsübersicht"
 
-#: templates/template.html:116
+#: templates/template.html:116 templates/mobile/template.html:112
 msgid "Add weight entry"
 msgstr ""
 
-#: templates/template.html:124
+#: templates/template.html:124 templates/mobile/template.html:69
+#: templates/mobile/template.html.py:120
 msgid "Nutrition"
 msgstr "Ernährung"
 
-#: templates/template.html:127
+#: templates/template.html:127 templates/mobile/template.html:123
 msgid "Nutrition plans"
 msgstr "Ernährungspläne"
 
-#: templates/template.html:129
+#: templates/template.html:129 templates/mobile/template.html:125
 msgid "Ingredient overview"
 msgstr "Zutatenübersicht"
 
-#: templates/template.html:138
+#: templates/template.html:138 templates/mobile/template.html:134
 msgid "About this software"
 msgstr "Über diese Software"
 
-#: templates/template.html:140
+#: templates/template.html:140 templates/mobile/template.html:75
+#: templates/mobile/template.html.py:136
 msgid "Features"
 msgstr "Funktionen"
 
-#: templates/template.html:142 templates/user/demo.html:7
-#: templates/user/demo.html.py:10
+#: templates/template.html:142 templates/mobile/template.html:138
+#: templates/user/demo.html:7 templates/user/demo.html.py:10
 msgid "Demo account"
 msgstr "Demo Account"
 
-#: templates/template.html:144
+#: templates/template.html:144 templates/mobile/template.html:140
 msgid "Report problem"
 msgstr "Probleme berichten"
 
-#: templates/template.html:147
+#: templates/template.html:147 templates/mobile/template.html:142
 msgid "Developers"
 msgstr "Entwickler"
 
-#: templates/template.html:148
+#: templates/template.html:148 templates/mobile/template.html:143
 msgid "Get the code"
 msgstr "Quellcode"
 
-#: templates/template.html:149
+#: templates/template.html:149 templates/mobile/template.html:144
 msgid "License"
 msgstr "Lizenz"
 
-#: templates/template.html:150
+#: templates/template.html:150 templates/mobile/template.html:145
 msgid "Changelog"
 msgstr "Änderungsprotokoll"
 
-#: templates/template.html:165 templates/user/preferences.html:47
-#: templates/user/preferences.html.py:48 templates/user/preferences.html:49
+#: templates/template.html:165 templates/mobile/template.html:154
+#: templates/user/preferences.html:47 templates/user/preferences.html.py:48
+#: templates/user/preferences.html:49
 msgid "Logout"
 msgstr "Ausloggen"
 
-#: templates/template.html:169
+#: templates/template.html:169 templates/mobile/template.html:157
 msgid "Languages"
 msgstr "Sprachen"
 
 #: templates/template.html:177 templates/template.html.py:178
-#: templates/template.html:179
+#: templates/template.html:179 templates/mobile/template.html:164
+#: templates/mobile/template.html.py:165 templates/mobile/template.html:167
 msgid "German"
 msgstr ""
 
 #: templates/template.html:186 templates/template.html.py:187
-#: templates/template.html:188
+#: templates/template.html:188 templates/mobile/template.html:173
+#: templates/mobile/template.html.py:174 templates/mobile/template.html:176
 msgid "English"
 msgstr ""
 
-#: templates/template.html:215
+#: templates/template.html:216
 msgid ""
 "You are using a temporary account, this user will be deleted after some time."
 msgstr ""
 "Sie sind mit einem Demonutzer angemeldet. Dieser wird nach einigen Tagen "
 "gelöscht."
 
-#: templates/template.html:235 templates/template.html.py:236
+#: templates/template.html:236 templates/template.html.py:237
 msgid "Released under the Affero GPL"
 msgstr "Unter der Affero GPL veröffentlicht"
 
-#: templates/template.html:242
+#: templates/template.html:243 templates/mobile/template.html:202
 msgid "Layout based on <a href='http://www.yaml.de'>YAML</a>"
 msgstr "Layout basiert auf <a href='http://www.yaml.de'>YAML</a>"
 
@@ -463,6 +473,22 @@ msgstr "Zurück zum Trainingsplan"
 msgid "Save"
 msgstr ""
 
+#: templates/mobile/template.html:51
+msgid "Menu"
+msgstr ""
+
+#: templates/mobile/template.html:179
+msgid "Site version"
+msgstr ""
+
+#: templates/mobile/template.html:181
+msgid "Desktop"
+msgstr ""
+
+#: templates/mobile/template.html:184
+msgid "Mobile"
+msgstr ""
+
 #: templates/set/edit.html:10 templates/set/edit.html.py:29
 #: templates/setting/edit.html:17 templates/tags/render_day.html:42
 #: templates/tags/render_day.html.py:47 templates/tags/render_day.html:67
@@ -478,6 +504,27 @@ msgstr "Abbrechen"
 #: templates/setting/edit.html:9
 msgid "Set details"
 msgstr "Details für Satz"
+
+#: templates/tags/cc-by-sa-sidebar.html:4
+msgid "Free license"
+msgstr "Freie Lizenz"
+
+#: templates/tags/cc-by-sa-sidebar.html:10
+#: templates/tags/cc-by-sa-sidebar.html:11
+msgid "CC-BY-SA"
+msgstr ""
+
+#: templates/tags/cc-by-sa-sidebar.html:14
+msgid ""
+"This content is available under a Creative Commons\n"
+"Attribution Share-Alike license."
+msgstr ""
+"Dieser Inhalt ist unter der Creative Commons Namensnennung, Weitergabe "
+"unter gleichen Bedingungen lizensiert."
+
+#: templates/tags/cc-by-sa-sidebar.html:16
+msgid "Link:"
+msgstr ""
 
 #: templates/tags/pagination.html:10 templates/tags/pagination.html.py:12
 msgid "previous"
@@ -772,7 +819,7 @@ msgstr ""
 "Wiederholungen, aber verschiedene Gewichte, wird nur der Eintrag mit dem "
 "höheren Gewicht in das Diagramm eingefügt."
 
-#: templates/workout/overview.html:6 templates/workout/overview.html.py:11
+#: templates/workout/overview.html:5 templates/workout/overview.html.py:10
 msgid "Your workouts"
 msgstr "Ihre Trainingspläne"
 
@@ -841,6 +888,3 @@ msgstr "Eine Kopie des Trainingsplans machen."
 #: templates/workout/view.html:171 templates/workout/view.html.py:172
 msgid "Delete this workout"
 msgstr "Trainingsplan löschen"
-
-#~ msgid "Download"
-#~ msgstr "Runterladen"

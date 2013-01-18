@@ -46,3 +46,12 @@ def yaml_form_field(field, css_class = 'ym-fbox-text'):
 
     return {'field':     field,
             'css_class': css_class}
+
+
+@register.inclusion_tag('tags/cc-by-sa-sidebar.html')
+def cc_by_sa_sidebar(language):
+    """
+    Renders a form field in a <tr> with all necessary CSS
+    """
+
+    return {'language': language}

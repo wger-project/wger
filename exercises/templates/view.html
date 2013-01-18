@@ -212,15 +212,6 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 </p>
 {% endif %}
 
-<h3>{% trans "Free license" %}</h3>
-<p>
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.{{language.short_name}}">
-    <img src="{% static 'images/cc-by-sa-88x31.png' %}"
-            width="88"
-            height="31"
-            alt="{% trans 'CC-BY-SA' %}"
-            title="{% trans 'CC-BY-SA' %}">
-       {% blocktrans %}This content is licenced under a Creative Commons Attribution Share-Alike,
-(CC-BY-SA 3.0) license{% endblocktrans %}</a>
-</p>
+{% cc_by_sa_sidebar language %}
+
 {% endblock %}
