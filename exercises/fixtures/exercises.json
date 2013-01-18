@@ -120,6 +120,7 @@
                 5
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Ausfallschritt Trizepsdr\u00fccken \u00fc. Kopf, \u00df-Stange"
         }
     }, 
@@ -133,6 +134,7 @@
                 10
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Ausfallschritte im Gehen"
         }
     }, 
@@ -146,6 +148,7 @@
                 10
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Ausfallschritte stehend"
         }
     }, 
@@ -158,6 +161,10 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [
+                2, 
+                5
+            ], 
             "name": "Bankdr\u00fccken KH"
         }
     }, 
@@ -170,6 +177,10 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [
+                2, 
+                5
+            ], 
             "name": "Bankdr\u00fccken LH"
         }
     }, 
@@ -182,6 +193,10 @@
                 5
             ], 
             "description": "", 
+            "muscles_secondary": [
+                2, 
+                4
+            ], 
             "name": "Bankdr\u00fccken eng"
         }
     }, 
@@ -194,6 +209,7 @@
                 11
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Beinbeuger liegend"
         }
     }, 
@@ -206,6 +222,7 @@
                 11
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Beinbeuger sitzend"
         }
     }, 
@@ -218,6 +235,7 @@
                 11
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Beinbeuger stehend"
         }
     }, 
@@ -230,6 +248,9 @@
                 6
             ], 
             "description": "", 
+            "muscles_secondary": [
+                3
+            ], 
             "name": "Beinheben aufrecht"
         }
     }, 
@@ -242,6 +263,9 @@
                 6
             ], 
             "description": "", 
+            "muscles_secondary": [
+                3
+            ], 
             "name": "Beinheben liegend"
         }
     }, 
@@ -254,6 +278,9 @@
                 10
             ], 
             "description": "", 
+            "muscles_secondary": [
+                8
+            ], 
             "name": "Beinpresse"
         }
     }, 
@@ -266,6 +293,9 @@
                 10
             ], 
             "description": "", 
+            "muscles_secondary": [
+                8
+            ], 
             "name": "Beinpresse eng"
         }
     }, 
@@ -274,8 +304,11 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 2, 
-            "muscles": [], 
+            "muscles": [
+                10
+            ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Beinstrecker"
         }
     }, 
@@ -284,8 +317,11 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 2, 
-            "muscles": [], 
+            "muscles": [
+                10
+            ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Beinstrecker einbeinig"
         }
     }, 
@@ -298,6 +334,7 @@
                 5
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Bench press narrow grip"
         }
     }, 
@@ -310,6 +347,7 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Benchpress barbells"
         }
     }, 
@@ -322,6 +360,7 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Benchpress bumbbells"
         }
     }, 
@@ -334,6 +373,7 @@
                 12
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Bent over rowing"
         }
     }, 
@@ -346,6 +386,7 @@
                 12
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Bent over rowing reverse"
         }
     }, 
@@ -358,6 +399,7 @@
                 1
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Biceps curl with cable"
         }
     }, 
@@ -370,6 +412,7 @@
                 1
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Biceps curls with SZ-bar"
         }
     }, 
@@ -382,6 +425,7 @@
                 1
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Biceps curls with barbell"
         }
     }, 
@@ -394,6 +438,7 @@
                 1
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Biceps curls with dumbbell"
         }
     }, 
@@ -406,6 +451,9 @@
                 1
             ], 
             "description": "", 
+            "muscles_secondary": [
+                13
+            ], 
             "name": "Bizeps Curls mit \u00df-Stange "
         }
     }, 
@@ -418,6 +466,9 @@
                 1
             ], 
             "description": "", 
+            "muscles_secondary": [
+                13
+            ], 
             "name": "Bizeps KH-Curls"
         }
     }, 
@@ -430,6 +481,9 @@
                 1
             ], 
             "description": "", 
+            "muscles_secondary": [
+                13
+            ], 
             "name": "Bizeps LH-Curls"
         }
     }, 
@@ -442,6 +496,7 @@
                 1
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Bizeps am Kabel"
         }
     }, 
@@ -454,6 +509,9 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [
+                2
+            ], 
             "name": "Butterfly"
         }
     }, 
@@ -466,6 +524,7 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Butterfly"
         }
     }, 
@@ -478,6 +537,7 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Butterfly eng"
         }
     }, 
@@ -490,6 +550,7 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Butterfly narrow grip"
         }
     }, 
@@ -500,6 +561,7 @@
             "category": 5, 
             "muscles": [], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Butterfly reverse"
         }
     }, 
@@ -512,6 +574,7 @@
                 2
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Butterfly reverse"
         }
     }, 
@@ -524,6 +587,7 @@
                 7
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Calf raises on Hackenschmitt machine"
         }
     }, 
@@ -536,6 +600,9 @@
                 6
             ], 
             "description": "", 
+            "muscles_secondary": [
+                3
+            ], 
             "name": "Crunches"
         }
     }, 
@@ -548,6 +615,7 @@
                 6
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Crunches"
         }
     }, 
@@ -560,6 +628,7 @@
                 6
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Crunches am Seil"
         }
     }, 
@@ -572,6 +641,7 @@
                 6
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Crunches am Stuhl"
         }
     }, 
@@ -584,6 +654,7 @@
                 6
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Crunches an Maschine"
         }
     }, 
@@ -596,6 +667,7 @@
                 6
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Crunches an Negativbank"
         }
     }, 
@@ -608,6 +680,7 @@
                 6
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Crunches on machine"
         }
     }, 
@@ -620,6 +693,7 @@
                 6
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Crunches with cable"
         }
     }, 
@@ -632,6 +706,9 @@
                 1
             ], 
             "description": "", 
+            "muscles_secondary": [
+                13
+            ], 
             "name": "Curls"
         }
     }, 
@@ -644,6 +721,7 @@
                 12
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Deadlifts"
         }
     }, 
@@ -656,6 +734,7 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Decline Benchpress"
         }
     }, 
@@ -668,6 +747,7 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Decline bench press barbell"
         }
     }, 
@@ -680,6 +760,7 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Decline bench press bumbbell"
         }
     }, 
@@ -692,6 +773,10 @@
                 5
             ], 
             "description": "", 
+            "muscles_secondary": [
+                4, 
+                6
+            ], 
             "name": "Dips"
         }
     }, 
@@ -704,6 +789,7 @@
                 5
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Dips"
         }
     }, 
@@ -716,6 +802,7 @@
                 5
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Dips between two benches"
         }
     }, 
@@ -728,6 +815,7 @@
                 5
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Dips zwischen 2 B\u00e4nke"
         }
     }, 
@@ -740,6 +828,7 @@
                 10
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Dumbbell lunges standing"
         }
     }, 
@@ -752,6 +841,7 @@
                 10
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Dumbbell lunges walking"
         }
     }, 
@@ -764,6 +854,7 @@
                 1
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Dumbbells on scott machine"
         }
     }, 
@@ -772,8 +863,15 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 3, 
-            "muscles": [], 
+            "muscles": [
+                12
+            ], 
             "description": "", 
+            "muscles_secondary": [
+                2, 
+                1, 
+                13
+            ], 
             "name": "Einarmiges rudern KH"
         }
     }, 
@@ -786,6 +884,7 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Fliegende KH Flachbank"
         }
     }, 
@@ -798,6 +897,7 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Fliegende KH Schr\u00e4gbank"
         }
     }, 
@@ -810,6 +910,7 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Fly with cable"
         }
     }, 
@@ -822,6 +923,7 @@
                 5
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "French press (skullcrusher) SZ-bar"
         }
     }, 
@@ -834,6 +936,7 @@
                 5
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "French press (skullcrusher) dumbbells"
         }
     }, 
@@ -846,6 +949,7 @@
                 5
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Frenchpress KH"
         }
     }, 
@@ -858,6 +962,7 @@
                 5
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Frenchpress \u00df-Stange"
         }
     }, 
@@ -868,6 +973,7 @@
             "category": 5, 
             "muscles": [], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Frontdr\u00fccken KH"
         }
     }, 
@@ -878,6 +984,7 @@
             "category": 5, 
             "muscles": [], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Frontheben am Kabel"
         }
     }, 
@@ -890,6 +997,11 @@
                 12
             ], 
             "description": "", 
+            "muscles_secondary": [
+                2, 
+                1, 
+                13
+            ], 
             "name": "Frontziehen breit"
         }
     }, 
@@ -902,6 +1014,10 @@
                 12
             ], 
             "description": "", 
+            "muscles_secondary": [
+                1, 
+                13
+            ], 
             "name": "Frontziehen eng"
         }
     }, 
@@ -912,6 +1028,7 @@
             "category": 3, 
             "muscles": [], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Good Mornings"
         }
     }, 
@@ -924,6 +1041,7 @@
                 11
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Good mornings"
         }
     }, 
@@ -936,6 +1054,9 @@
                 1
             ], 
             "description": "", 
+            "muscles_secondary": [
+                13
+            ], 
             "name": "Hammercurls"
         }
     }, 
@@ -948,6 +1069,7 @@
                 1
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Hammercurls"
         }
     }, 
@@ -960,6 +1082,9 @@
                 1
             ], 
             "description": "", 
+            "muscles_secondary": [
+                13
+            ], 
             "name": "Hammercurls am Seil"
         }
     }, 
@@ -970,6 +1095,7 @@
             "category": 3, 
             "muscles": [], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Hyperextensions"
         }
     }, 
@@ -982,6 +1108,7 @@
                 9
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Hyperextensions"
         }
     }, 
@@ -994,6 +1121,9 @@
                 1
             ], 
             "description": "", 
+            "muscles_secondary": [
+                13
+            ], 
             "name": "KH an Scottmaschine"
         }
     }, 
@@ -1006,6 +1136,9 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [
+                2
+            ], 
             "name": "Kabelcross"
         }
     }, 
@@ -1018,6 +1151,11 @@
                 12
             ], 
             "description": "", 
+            "muscles_secondary": [
+                2, 
+                1, 
+                9
+            ], 
             "name": "Klimmz\u00fcge"
         }
     }, 
@@ -1030,6 +1168,11 @@
                 12
             ], 
             "description": "", 
+            "muscles_secondary": [
+                2, 
+                1, 
+                9
+            ], 
             "name": "Klimmz\u00fcge an Maschine"
         }
     }, 
@@ -1042,6 +1185,9 @@
                 10
             ], 
             "description": "", 
+            "muscles_secondary": [
+                8
+            ], 
             "name": "Kniebeuge"
         }
     }, 
@@ -1051,11 +1197,13 @@
         "fields": {
             "category": 3, 
             "muscles": [
-                8, 
                 12, 
                 10
             ], 
             "description": "", 
+            "muscles_secondary": [
+                8
+            ], 
             "name": "Kreuzheben"
         }
     }, 
@@ -1068,6 +1216,7 @@
                 11
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Leg curls (sitting)"
         }
     }, 
@@ -1080,6 +1229,7 @@
                 11
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Leg curls (standing)"
         }
     }, 
@@ -1092,6 +1242,7 @@
                 10
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Leg press on Hackenschmidt machine"
         }
     }, 
@@ -1104,6 +1255,7 @@
                 10
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Leg presses (narrow)"
         }
     }, 
@@ -1116,6 +1268,7 @@
                 10
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Leg presses (wide)"
         }
     }, 
@@ -1128,6 +1281,7 @@
                 6
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Leg raises, lying"
         }
     }, 
@@ -1140,6 +1294,7 @@
                 6
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Leg raises, standing"
         }
     }, 
@@ -1152,6 +1307,10 @@
                 12
             ], 
             "description": "", 
+            "muscles_secondary": [
+                1, 
+                13
+            ], 
             "name": "Long-Pulley"
         }
     }, 
@@ -1164,6 +1323,10 @@
                 12
             ], 
             "description": "", 
+            "muscles_secondary": [
+                1, 
+                13
+            ], 
             "name": "Long-Pulley (eng)"
         }
     }, 
@@ -1176,6 +1339,7 @@
                 12
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "MGM-Maschine"
         }
     }, 
@@ -1186,6 +1350,7 @@
             "category": 5, 
             "muscles": [], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Nackenziehen"
         }
     }, 
@@ -1198,6 +1363,11 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [
+                2, 
+                12, 
+                5
+            ], 
             "name": "Negativ Bankdr\u00fccken"
         }
     }, 
@@ -1210,6 +1380,7 @@
                 6
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Negative crunches"
         }
     }, 
@@ -1222,6 +1393,7 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Pull-ups"
         }
     }, 
@@ -1232,6 +1404,7 @@
             "category": 5, 
             "muscles": [], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Rudern aufgelegt"
         }
     }, 
@@ -1241,9 +1414,13 @@
         "fields": {
             "category": 5, 
             "muscles": [
+                2, 
                 9
             ], 
             "description": "", 
+            "muscles_secondary": [
+                1
+            ], 
             "name": "Rudern aufrecht MP"
         }
     }, 
@@ -1252,8 +1429,14 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 5, 
-            "muscles": [], 
+            "muscles": [
+                2, 
+                9
+            ], 
             "description": "", 
+            "muscles_secondary": [
+                1
+            ], 
             "name": "Rudern aufrecht \u00df-Stange"
         }
     }, 
@@ -1266,6 +1449,10 @@
                 12
             ], 
             "description": "", 
+            "muscles_secondary": [
+                2, 
+                1
+            ], 
             "name": "Rudern vorgebeugt LH"
         }
     }, 
@@ -1278,6 +1465,10 @@
                 12
             ], 
             "description": "", 
+            "muscles_secondary": [
+                2, 
+                1
+            ], 
             "name": "Rudern vorgebeugt LH reverse"
         }
     }, 
@@ -1290,6 +1481,7 @@
                 6
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Rumpfbeugen"
         }
     }, 
@@ -1302,6 +1494,10 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [
+                2, 
+                5
+            ], 
             "name": "Schr\u00e4gbankdr\u00fccken KH"
         }
     }, 
@@ -1314,6 +1510,10 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [
+                2, 
+                5
+            ], 
             "name": "Schr\u00e4gbankdr\u00fccken LH"
         }
     }, 
@@ -1326,6 +1526,10 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [
+                2, 
+                5
+            ], 
             "name": "Schr\u00e4gbankdr\u00fccken MP"
         }
     }, 
@@ -1336,6 +1540,7 @@
             "category": 5, 
             "muscles": [], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Schulterdr\u00fccken MP"
         }
     }, 
@@ -1348,6 +1553,9 @@
                 9
             ], 
             "description": "", 
+            "muscles_secondary": [
+                5
+            ], 
             "name": "Schulterheben KH"
         }
     }, 
@@ -1356,8 +1564,13 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 5, 
-            "muscles": [], 
+            "muscles": [
+                2
+            ], 
             "description": "", 
+            "muscles_secondary": [
+                5
+            ], 
             "name": "Schulterheben MP"
         }
     }, 
@@ -1366,8 +1579,13 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 5, 
-            "muscles": [], 
+            "muscles": [
+                2
+            ], 
             "description": "", 
+            "muscles_secondary": [
+                5
+            ], 
             "name": "Schultermaschine"
         }
     }, 
@@ -1380,6 +1598,7 @@
                 12
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Seated Rowing"
         }
     }, 
@@ -1388,8 +1607,11 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 5, 
-            "muscles": [], 
+            "muscles": [
+                2
+            ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Seitheben KH"
         }
     }, 
@@ -1402,6 +1624,7 @@
                 2
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Seitheben am Kabel, einarmig"
         }
     }, 
@@ -1414,6 +1637,7 @@
                 2
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Shoulder press, barbells"
         }
     }, 
@@ -1426,6 +1650,7 @@
                 2
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Shoulder press, dumbbells"
         }
     }, 
@@ -1438,6 +1663,7 @@
                 2
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Shrugs"
         }
     }, 
@@ -1450,6 +1676,7 @@
                 2
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Shrugs (Schulterheben) mit KH"
         }
     }, 
@@ -1462,6 +1689,7 @@
                 2
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Shrugs (Schulterheben) mit LH"
         }
     }, 
@@ -1474,6 +1702,7 @@
                 6
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Sit Ups"
         }
     }, 
@@ -1486,6 +1715,7 @@
                 6
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Sit-ups"
         }
     }, 
@@ -1498,6 +1728,7 @@
                 7
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Sitting calf raises"
         }
     }, 
@@ -1510,6 +1741,7 @@
                 10
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Squats"
         }
     }, 
@@ -1522,6 +1754,7 @@
                 7
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Standing calf raises"
         }
     }, 
@@ -1534,6 +1767,11 @@
                 12
             ], 
             "description": "", 
+            "muscles_secondary": [
+                2, 
+                1, 
+                13
+            ], 
             "name": "T-Bar rudern (breit)"
         }
     }, 
@@ -1546,6 +1784,7 @@
                 12
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "T-bar rowing"
         }
     }, 
@@ -1558,6 +1797,7 @@
                 5
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Triceps extensions on cable"
         }
     }, 
@@ -1570,6 +1810,7 @@
                 5
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Triceps extensions on cable with bar"
         }
     }, 
@@ -1582,6 +1823,7 @@
                 5
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Trizeps Seildr\u00fccken"
         }
     }, 
@@ -1594,6 +1836,7 @@
                 5
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Trizeps Seildr\u00fccken mit Stange"
         }
     }, 
@@ -1606,6 +1849,7 @@
                 5
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Trizepsdr\u00fccken KH \u00fcber Kopf"
         }
     }, 
@@ -1618,6 +1862,7 @@
                 5
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Trizepsmaschine"
         }
     }, 
@@ -1630,6 +1875,7 @@
                 4
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Umsetzen"
         }
     }, 
@@ -1642,6 +1888,7 @@
                 2
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Upright Row"
         }
     }, 
@@ -1650,8 +1897,13 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 5, 
-            "muscles": [], 
+            "muscles": [
+                2
+            ], 
             "description": "", 
+            "muscles_secondary": [
+                9
+            ], 
             "name": "Vorgebeugtes Seitheben"
         }
     }, 
@@ -1664,6 +1916,7 @@
                 7
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Wadenheben an Hackenschmidt"
         }
     }, 
@@ -1676,6 +1929,7 @@
                 7
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Wadenheben sitzend"
         }
     }, 
@@ -1688,6 +1942,7 @@
                 7
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "Wadenheben stehend"
         }
     }, 
@@ -1701,6 +1956,7 @@
                 1
             ], 
             "description": "", 
+            "muscles_secondary": [], 
             "name": "test"
         }
     }, 
@@ -1710,9 +1966,14 @@
         "fields": {
             "category": 7, 
             "muscles": [
-                4
+                12, 
+                4, 
+                3
             ], 
             "description": "", 
+            "muscles_secondary": [
+                5
+            ], 
             "name": "\u00dcberzugmaschine"
         }
     }, 

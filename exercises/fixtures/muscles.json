@@ -24,6 +24,14 @@
         }
     }, 
     {
+        "pk": 13, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": true, 
+            "name": "Brachialis"
+        }
+    }, 
+    {
         "pk": 7, 
         "model": "exercises.muscle", 
         "fields": {
@@ -45,6 +53,14 @@
         "fields": {
             "is_front": false, 
             "name": "Latissimus dorsi"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": true, 
+            "name": "Obliquus externus abdominis"
         }
     }, 
     {
@@ -77,6 +93,14 @@
         "fields": {
             "is_front": true, 
             "name": "Serratus anterior"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": false, 
+            "name": "Soleus"
         }
     }, 
     {
