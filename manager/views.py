@@ -230,6 +230,7 @@ def create_demo_user(request):
 
             #
             # Create some initial data
+            # (this is a bit ugly...)
             #
 
             # Workout and exercises
@@ -237,25 +238,32 @@ def create_demo_user(request):
                                        comment=_('Sample workout'))
             workout.save()
             monday = DaysOfWeek.objects.get(pk=1)
+            wednesday = DaysOfWeek.objects.get(pk=3)
             day = Day(training=workout,
                       description=_('Sample day'))
             day.save()
             day.day.add(monday)
 
+            day2 = Day(training=workout,
+                      description=_('Another sample day'))
+            day2.save()
+            day2.day.add(wednesday)
+
             # Biceps curls with dumbbell
             if(load_language().short_name == 'de'):
-                exercise = Exercise.objects.get(pk=26)
+                exercise = Exercise.objects.get(pk=4)
             else:
-                exercise = Exercise.objects.get(pk=81)
+                exercise = Exercise.objects.get(pk=91)
             day_set = Set(exerciseday=day,
-                          sets=4)
+                          sets=4,
+                          order=2)
             day_set.save()
             day_set.exercises.add(exercise)
 
             setting = Setting(set=day_set,
-                            exercise=exercise,
-                            reps=8,
-                            order=1)
+                              exercise=exercise,
+                              reps=8,
+                              order=1)
             setting.save()
 
             # Weight log entries
@@ -269,14 +277,75 @@ def create_demo_user(request):
                                      date=datetime.date.today() - datetime.timedelta(weeks=i))
                     log.save()
 
-            # Weight entries
+            # French press
+            if(load_language().short_name == 'de'):
+                exercise = Exercise.objects.get(pk=25)
+            else:
+                exercise = Exercise.objects.get(pk=84)
+            day_set = Set(exerciseday=day,
+                          sets=4,
+                          order=2)
+            day_set.save()
+            day_set.exercises.add(exercise)
+
+            setting = Setting(set=day_set,
+                              exercise=exercise,
+                              reps=8,
+                              order=1)
+            setting.save()
+
+            # Squats
+            if(load_language().short_name == 'de'):
+                exercise = Exercise.objects.get(pk=6)
+            else:
+                exercise = Exercise.objects.get(pk=111)
+            day_set = Set(exerciseday=day,
+                          sets=4,
+                          order=3)
+            day_set.save()
+            day_set.exercises.add(exercise)
+
+            setting = Setting(set=day_set,
+                              exercise=exercise,
+                              reps=10,
+                              order=1)
+            setting.save()
+
+            # Crunches
+            if(load_language().short_name == 'de'):
+                exercise = Exercise.objects.get(pk=26)
+            else:
+                exercise = Exercise.objects.get(pk=81)
+            day_set = Set(exerciseday=day,
+                          sets=4,
+                          order=4)
+            day_set.save()
+            day_set.exercises.add(exercise)
+
+            setting = Setting(set=day_set,
+                              exercise=exercise,
+                              reps=30,
+                              order=1)
+            setting.save()
+
+            setting = Setting(set=day_set,
+                              exercise=exercise,
+                              reps=99,
+                              order=2)
+            setting.save()
+
+            setting = Setting(set=day_set,
+                              exercise=exercise,
+                              reps=35,
+                              order=3)
+            setting.save()
+
+            # (Body) weight entries
             for i in range(1, 20):
                 entry = WeightEntry(user=user,
                                  weight=80 + 0.5*i + random.randint(1, 3),
                                  creation_date=datetime.date.today() - datetime.timedelta(days=i))
                 entry.save()
-
-
 
             user = authenticate(username=username, password=password)
             django_login(request, user)
