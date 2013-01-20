@@ -160,7 +160,7 @@
             "muscles": [
                 4
             ], 
-            "description": "", 
+            "description": "<p>Der Bewegungsablauf ist &auml;hnlich zur &Uuml;bung mit einer Langhantel.</p>\r\n<p>Nehme die Gewichte in die H&auml;nde und lege dich auf die Bank. Halte die Hanteln neben der Brust auf Brustwarzenh&ouml;he und dr&uuml;cke sie nun nach oben, bis die Arme ausgestreckt sind. Lasse die Gewichte nun langsam und kontrolliert runter.</p>\r\n<p>&nbsp;</p>", 
             "muscles_secondary": [
                 2, 
                 5
@@ -176,7 +176,7 @@
             "muscles": [
                 4
             ], 
-            "description": "", 
+            "description": "<p>Lege dich auf die Bank, die Stange direkt &uuml;ber die Augen, die Knie etwas angewinkelt und die F&uuml;&szlig;e fest auf dem Boden. Greife die Stange breit und lasse sie langsam und kontrolliert runter, dabei sollte die Stange kurz auf Brustwarzenh&ouml;he den K&ouml;rper ber&uuml;hren. Dann das Gewicht wieder hochdr&uuml;cken bis die Arme durchgestreckt sind.</p>\r\n<p>Bei hohem Gewicht, empfielt sich nat&uuml;rlich einen <em>Spotter</em> zu haben, der einen hilft falls man die Stange nicht alleine hochdr&uuml;cken kann.</p>\r\n<p>Mit der Breite des Griffs kann au&szlig;erdem kontrolliert werden, welcher Bereich der Brust st&auml;rker belastet wird:</p>\r\n<ul>\r\n<li>breiter Griff: &auml;u&szlig;ere Brustmuskeln</li>\r\n<li>enger Griff: innere Brustmuskeln und Trizeps</li>\r\n</ul>", 
             "muscles_secondary": [
                 2, 
                 5
@@ -234,7 +234,7 @@
             "muscles": [
                 11
             ], 
-            "description": "", 
+            "description": "<p>Die F&uuml;&szlig;e werden auf die in der Maschine daf&uuml;r vorgesehene Stelle positioniert, wobei man die Fersen (und damit die Wadenmuskeln) komplett nach unten austrecken kann. Halte den K&ouml;rper gerade, mache kein Hohlkreuz und beuge die Beine nicht.</p>\r\n<p>Ziehe nun die Wadenmuskeln zusammen und gehe so hoch es geht. Mache auf dem h&ouml;chsten Punkt eine kurze Pause (1-2 sek.) und gehe dann runter.</p>", 
             "muscles_secondary": [], 
             "name": "Beinbeuger stehend"
         }
@@ -292,7 +292,7 @@
             "muscles": [
                 10
             ], 
-            "description": "", 
+            "description": "<p>In die Maschine setzten und die F&uuml;&szlig;e auf die Auflage stellen. Dabei sollte etwa so viel Platz dazwischen bleiben, dass noch ein Fu&szlig; dazwischen Platz h&auml;tte. Die F&uuml;&szlig;e sind wie beim normalen Bankdr&uuml;cken etwas nach au&szlig;en gedreht.</p>\r\n<p>Der Bewegungsablauf ist wie bei bei der breite Beinpresse: das Gewicht wird so weit abgesenkt, dass die Knie einen rechten Winkel machen. Ohne Pause wird dann das Gewicht nach oben gedr&uuml;ckt. Die Knie zeigen etwas nach au&szlig;en und werden nie ganz ausgestreckt, die Bewegung bleibt immer fl&uuml;ssig, also weder oben noch unten irgendwelche Pausen einlegen!</p>", 
             "muscles_secondary": [
                 8
             ], 
@@ -666,7 +666,7 @@
             "muscles": [
                 6
             ], 
-            "description": "", 
+            "description": "<p>Setze dich auf die Negativbank und fixiere deine Beine. Kreuze deine Arme &uuml;ber die Brust und bringe den Oberk&ouml;rper nach oben, den Kopf dabei nicht nach vorn kippen. Gehe langsam wieder runter. </p>", 
             "muscles_secondary": [], 
             "name": "Crunches an Negativbank"
         }
@@ -1306,7 +1306,7 @@
             "muscles": [
                 12
             ], 
-            "description": "", 
+            "description": "<p>Setze dich hin, stelle die F&uuml;&szlig;e auf die St&uuml;tzstellen ab und greife die Stange mit breitem Griff. Ziehe nun die H&auml;nde auf den Nabel, nicht h&ouml;her. Dabei sollten die Arme nahe am K&ouml;rper bleiben und die Schultern so weit wie m&ouml;glich zusammengezogen werden. Lasse langsam und kontrolliert das Gewicht wieder nach vorne bis die Arme vollst&auml;ndig ausgestreckt sind.</p>", 
             "muscles_secondary": [
                 1, 
                 13
@@ -1322,7 +1322,7 @@
             "muscles": [
                 12
             ], 
-            "description": "", 
+            "description": "<p>Der Bewegungsablauf ist wie der vom Long-Pulley mit breitem Griff.</p>\r\n<p>Setze dich hin, stelle die F&uuml;&szlig;e auf die St&uuml;tzstellen ab und greife die Stange. Ziehe nun die H&auml;nde auf den Nabel, nicht h&ouml;her. Dabei sollten die Arme nahe am K&ouml;rper bleiben und die Schultern so weit wie m&ouml;glich zusammengezogen werden. Lasse langsam und kontrolliert das Gewicht wieder nach vorne bis die Arme vollst&auml;ndig ausgestreckt sind.</p>", 
             "muscles_secondary": [
                 1, 
                 13
@@ -1417,7 +1417,7 @@
                 2, 
                 9
             ], 
-            "description": "", 
+            "description": "<p>Der Bewegungsablauf ist derselbe wie bei Ausf&uuml;hrung mit einer &szlig;-Stange.</p>\r\n<p>Stelle dich gerade hin, die F&uuml;&szlig;e etwa schulterbreit. Halte die Stange mit einem Obergriff vor den Oberschenkel, die Arme ausgestreckt. Ziehe dann die Stange dicht am K&ouml;rper hoch, bis etwa zum Kinn. Die Ellenbogen zeigen nach oben, so, dass in der h&ouml;chsten Position die Arme ein leichtes V machen. Mache nach M&ouml;glichkeit hier eine kurze Pause und gehe dann langsam wieder runter.</p>", 
             "muscles_secondary": [
                 1
             ], 
@@ -1433,7 +1433,7 @@
                 2, 
                 9
             ], 
-            "description": "", 
+            "description": "<p>Stelle dich gerade hin, die F&uuml;&szlig;e etwa schulterbreit. Halte die &szlig;-Stange mit einem Obergriff vor den Oberschenkel, die Arme ausgestreckt. Ziehe dann die Stange dicht am K&ouml;rper hoch, bis etwa zum Kinn. Die Ellenbogen zeigen nach oben, so, dass in der h&ouml;chsten Position die Arme ein leichtes V machen. Mache nach M&ouml;glichkeit hier eine kurze Pause und gehe dann langsam wieder runter.</p>", 
             "muscles_secondary": [
                 1
             ], 
@@ -1822,7 +1822,7 @@
             "muscles": [
                 5
             ], 
-            "description": "", 
+            "description": "<p>Stelle dich mit schulterbreitem Stand vor dem Ger&auml;t, beuge den R&uuml;cken sehr leicht nach vorn und greife das Seil. Ziehe nun nach unten, wobei die Ellenbogen sich w&auml;hrend der ganzen &Uuml;bung nicht von der Stelle bewegen sollen. Dr&uuml;cke nun das Gewicht nach unten. Wenn die Arme ausgestreckt sind, drehe die H&auml;nde nach au&szlig;en.</p>", 
             "muscles_secondary": [], 
             "name": "Trizeps Seildr\u00fccken"
         }
@@ -1835,7 +1835,7 @@
             "muscles": [
                 5
             ], 
-            "description": "", 
+            "description": "<p>Stelle dich mit schulterbreitem Stand vor dem Ger&auml;t, beuge den R&uuml;cken sehr leicht nach vorn und greife das die Stange. Ziehe nun nach unten, wobei die Ellenbogen sich w&auml;hrend der ganzen &Uuml;bung nicht von der Stelle bewegen sollen. Dr&uuml;cke nun das Gewicht nach unten.</p>", 
             "muscles_secondary": [], 
             "name": "Trizeps Seildr\u00fccken mit Stange"
         }
@@ -1915,8 +1915,10 @@
             "muscles": [
                 7
             ], 
-            "description": "", 
-            "muscles_secondary": [], 
+            "description": "<p>Setze dich auf die Maschine mit dem R&uuml;cken fest gegen die Lehne und stelle die F&uuml;&szlig;e auf die Plattform etwa schulterbreit. Pr&uuml;fe dass etwa die H&auml;lfte noch drauf sind und du die Wadenmuskeln nach unten komplett austrecken kannst.</p>\r\n<p>Mit geraden Knien strecke dann die Waden und gehe so hoch wie m&ouml;glich. Gehe dann runter bis die Waden komplet ausgestreckt sind und wiederhole die Bewegung.</p>", 
+            "muscles_secondary": [
+                15
+            ], 
             "name": "Wadenheben an Hackenschmidt"
         }
     }, 
@@ -1926,10 +1928,12 @@
         "fields": {
             "category": 6, 
             "muscles": [
-                7
+                15
             ], 
             "description": "", 
-            "muscles_secondary": [], 
+            "muscles_secondary": [
+                7
+            ], 
             "name": "Wadenheben sitzend"
         }
     }, 
@@ -1942,7 +1946,9 @@
                 7
             ], 
             "description": "", 
-            "muscles_secondary": [], 
+            "muscles_secondary": [
+                15
+            ], 
             "name": "Wadenheben stehend"
         }
     }, 
@@ -2383,6 +2389,14 @@
         "fields": {
             "comment": "Schnell nach untern ziehen.", 
             "exercise": 33
+        }
+    }, 
+    {
+        "pk": 58, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Arme oben nicht ganz ausstrecken", 
+            "exercise": 29
         }
     }
 ]
