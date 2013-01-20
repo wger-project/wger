@@ -23,6 +23,8 @@ from workout_manager import constants
 
 def processor(request):
 
+    full_path = request.get_full_path()
+
     context = {
         # Application version
         'version': get_version(),
@@ -34,7 +36,11 @@ def processor(request):
         'language': load_language(),
 
         # The current path
-        'request_full_path': request.get_full_path()
+        'request_full_path': full_path,
+        
+        # Translation links
+        'i18n_path': {'de': '/de' + full_path[3:],
+                      'en': '/en' + full_path[3:]},
     }
 
     # Pseudo-intelligent navigation here
