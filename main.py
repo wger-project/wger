@@ -27,12 +27,12 @@ import webbrowser
 import django.conf
 from django.core.management import execute_from_command_line
 
-from workout_manager import get_version
+from wger.workout_manager import get_version
 
 CONFIG_TEMPLATE = """#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from workout_manager.settings_global import *
+from wger.workout_manager.settings_global import *
 
 # Use 'DEBUG = True' to get more details for server errors
 # (Default for releases: 'False')
@@ -257,7 +257,7 @@ def database_exists():
     # the settings module during import
     from django.db import DatabaseError
     from django.core.exceptions import ImproperlyConfigured
-    from manager.models import User
+    from wger.manager.models import User
 
     try:
         # TODO: Use another model, the User could be deactivated
@@ -294,7 +294,7 @@ def run_syncdb():
 def create_or_reset_admin_user():
     # can't be imported in global scope as it already requires
     # the settings module during import
-    from manager.models import User
+    from wger.manager.models import User
     try:
         admin = User.objects.get(username="admin")
         print("Password for user admin was reset to 'admin'")

@@ -23,7 +23,7 @@ Replace this with more appropriate tests for your application.
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
-from manager.tests.testcase import WorkoutManagerTestCase
+from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 class DashboardTestCase(WorkoutManagerTestCase):
     """Dashboard (landing page) test case"""

@@ -17,10 +17,10 @@ import datetime
 
 from django.core.urlresolvers import reverse
 
-from manager.models import WorkoutLog
+from wger.manager.models import WorkoutLog
 
-from manager.tests.testcase import WorkoutManagerTestCase
-from manager.tests.testcase import WorkoutManagerLiveServerTestCase
+from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.manager.tests.testcase import WorkoutManagerLiveServerTestCase
 
 logger = logging.getLogger('workout_manager.custom')
 

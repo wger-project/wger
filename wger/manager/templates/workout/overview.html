@@ -22,7 +22,7 @@
     {% for workout in workouts %}
     <tr>
         <td>
-            <a href="{% url manager.views.view_workout workout.id %}">
+            <a href="{% url wger.manager.views.view_workout workout.id %}">
                 {% if workout.comment %}
                     {{ workout.comment }}
                 {% else %}

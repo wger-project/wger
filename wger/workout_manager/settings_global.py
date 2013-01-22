@@ -164,11 +164,11 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 
     # Apps from workout manager
-    'manager',
-    'weight',
-    'exercises',
-    'nutrition',
-    'software',
+    'wger.manager',
+    'wger.weight',
+    'wger.exercises',
+    'wger.nutrition',
+    'wger.software',
 
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
     'captcha',

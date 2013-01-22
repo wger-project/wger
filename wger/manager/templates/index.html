@@ -11,7 +11,7 @@
         <div class="ym-gbox-left">
             <h2>{% trans "Workout"%}</h2>
             {% if current_workout %}
-            <a href="{% url manager.views.view_workout current_workout.id %}">
+            <a href="{% url wger.manager.views.view_workout current_workout.id %}">
                 {% if current_workout.comment %}
                     {{ current_workout.comment }}
                 {% else %}
@@ -90,7 +90,7 @@
     <div class="ym-g50 ym-gl">
         <div class="ym-gbox-left">
             <p>
-                <a href="{% url manager.views.add %}">
+                <a href="{% url wger.manager.views.add %}">
                 <img src="{% static 'images/icons/new.svg' %}"
                      width="32"
                      height="32"
@@ -103,7 +103,7 @@
     <div class="ym-g50 ym-gr">
         <div class="ym-gbox-right">
             <p>
-                <a href="{% url nutrition.views.add %}">
+                <a href="{% url wger.nutrition.views.add %}">
                 <img src="{% static 'images/icons/new.svg' %}"
                      width="32"
                      height="32"
@@ -125,7 +125,7 @@
 {% block sidebar %}
 <h3>{% trans "Options" %}</h3>
 <p>
-<a href="{% url manager.views.preferences %}">
+<a href="{% url wger.manager.views.preferences %}">
 <img src="{% static 'images/icons/preferences.svg' %}"
      width="32"
      height="32"

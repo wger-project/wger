@@ -15,9 +15,9 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
-from manager.models import TrainingSchedule
+from wger.manager.models import TrainingSchedule
 
-from manager.tests.testcase import WorkoutManagerTestCase
+from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 
 

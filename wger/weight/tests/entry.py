@@ -18,7 +18,7 @@ import logging
 
 from django.core.urlresolvers import reverse
 
-from manager.tests.testcase import WorkoutManagerLiveServerTestCase
+from wger.manager.tests.testcase import WorkoutManagerLiveServerTestCase
 
 logger = logging.getLogger('workout_manager.custom')
 

@@ -1,2 +1,2 @@
-from weight.tests.entry import *
-from weight.tests.csv_import import *
+from wger.weight.tests.entry import *
+from wger.weight.tests.csv_import import *

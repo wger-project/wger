@@ -28,7 +28,7 @@ $(document).ready(function () {
 <h2>{% trans "Weight entry" %}</h2>
 
 
-<form action="{% url weight.views.add weight.id %}"
+<form action="{% url wger.weight.views.add weight.id %}"
       method="post"
       class="ym-form">
 {% csrf_token %}

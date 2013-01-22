@@ -23,10 +23,10 @@ Replace this with more appropriate tests for your application.
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
-from exercises.models import Exercise
-from exercises.models import ExerciseCategory
+from wger.exercises.models import Exercise
+from wger.exercises.models import ExerciseCategory
 
-from manager.tests.testcase import WorkoutManagerTestCase
+from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 
 class ExerciseIndexTestCase(WorkoutManagerTestCase):

@@ -14,7 +14,7 @@
 
 <h2>{% trans "Search results" %} - &quot;{{ search_term }}&quot;</h2>
 
-<form action="{% url nutrition.views.ingredient_search %}"
+<form action="{% url wger.nutrition.views.ingredient_search %}"
       method="get"
       id="ingredient_search_form">
     {% csrf_token %}
@@ -23,7 +23,7 @@
 
 <ul>
 {% for ingredient in ingredients %}
-    <li><a href="{% url nutrition.views.ingredient_view ingredient.id %}">{{ ingredient.name }}</a></li>
+    <li><a href="{% url wger.nutrition.views.ingredient_view ingredient.id %}">{{ ingredient.name }}</a></li>
 {% endfor %}
 </ul>
 
