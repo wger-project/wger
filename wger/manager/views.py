@@ -196,7 +196,7 @@ def registration(request):
     template_data['form'] = form
     template_data['title'] = _('Register')
     template_data['form_fields'] = [i for i in form]
-    template_data['form_action'] = reverse('manager.views.registration')
+    template_data['form_action'] = reverse('wger.manager.views.registration')
     template_data['submit_text'] = _('Register')
 
     return render_to_response('form.html',
@@ -544,7 +544,7 @@ def copy_workout(request, pk):
                             setting_copy.set = current_set_copy
                             setting_copy.save()
 
-            return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs={'id': workout.id}))
+            return HttpResponseRedirect(reverse('wger.manager.views.view_workout', kwargs={'id': workout.id}))
     else:
         workout_form = WorkoutCopyForm({'comment':workout.comment})
 
@@ -568,7 +568,7 @@ def add(request):
     workout.user = request.user
     workout.save()
 
-    return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs={'id': workout.id}))
+    return HttpResponseRedirect(reverse('wger.manager.views.view_workout', kwargs={'id': workout.id}))
 
 
 class WorkoutDeleteView(YamlDeleteMixin, DeleteView):
@@ -577,7 +577,7 @@ class WorkoutDeleteView(YamlDeleteMixin, DeleteView):
     """
 
     model = TrainingSchedule
-    success_url = reverse_lazy('manager.views.overview')
+    success_url = reverse_lazy('wger.manager.views.overview')
     title = ugettext_lazy('Delete workout')
     form_action_urlname = 'workout-delete'
 
@@ -605,7 +605,7 @@ class DayView(YamlFormMixin):
     form_class = DayForm
 
     def get_success_url(self):
-        return reverse('manager.views.view_workout', kwargs={'id': self.object.training_id})
+        return reverse('wger.manager.views.view_workout', kwargs={'id': self.object.training_id})
 
     def get_form(self, form_class):
         """
@@ -677,7 +677,7 @@ def delete_day(request, id, day_id):
     # Check if the user is the owner of the object
     if day.training.user == request.user:
         day.delete()
-        return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs={'id': id}))
+        return HttpResponseRedirect(reverse('wger.manager.views.view_workout', kwargs={'id': id}))
     else:
         return HttpResponseForbidden()
 
@@ -756,7 +756,7 @@ def edit_set(request, id, day_id, set_id=None):
             # The exercises are ManyToMany in DB, so we have to save with this function
             set_form.save_m2m()
 
-            return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs={'id': id}))
+            return HttpResponseRedirect(reverse('wger.manager.views.view_workout', kwargs={'id': id}))
     else:
         set_form = SetForm(instance=workout_set)
     template_data['set_form'] = set_form
@@ -777,7 +777,7 @@ def delete_set(request, id, day_id, set_id):
     # Check if the user is the owner of the object
     if set_obj.exerciseday.training.user == request.user:
         set_obj.delete()
-        return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs={'id': id}))
+        return HttpResponseRedirect(reverse('wger.manager.views.view_workout', kwargs={'id': id}))
     else:
         return HttpResponseForbidden()
 
@@ -970,7 +970,7 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
 
                 order += 1
 
-            return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs={'id': id}))
+            return HttpResponseRedirect(reverse('wger.manager.views.view_workout', kwargs={'id': id}))
     else:
         setting_form = SettingFormSet(queryset=Setting.objects.filter(exercise_id=exercise.id,
                                                                       set_id=set_obj.id))
@@ -1018,7 +1018,7 @@ def delete_setting(request, id, set_id, exercise_id):
     settings = Setting.objects.filter(exercise_id=exercise_id, set_id=set_id)
     settings.delete()
 
-    return HttpResponseRedirect(reverse('manager.views.view_workout', kwargs={'id': id}))
+    return HttpResponseRedirect(reverse('wger.manager.views.view_workout', kwargs={'id': id}))
 
 
 # ************************

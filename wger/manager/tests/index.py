@@ -32,7 +32,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
     def dashboard(self, logged_in = False):
         """Helper function to test the dashboard"""
         
-        response = self.client.get(reverse('manager.views.index'))
+        response = self.client.get(reverse('wger.manager.views.index'))
         
         if logged_in:
             # Page exists
@@ -56,8 +56,8 @@ class DashboardTestCase(WorkoutManagerTestCase):
         #
         # Now, with workout
         #
-        self.client.get(reverse('manager.views.add'))
-        response = self.client.get(reverse('manager.views.index'))
+        self.client.get(reverse('wger.manager.views.add'))
+        response = self.client.get(reverse('wger.manager.views.index'))
         
         if logged_in:
             # There is something to send to the template
@@ -74,8 +74,8 @@ class DashboardTestCase(WorkoutManagerTestCase):
         #
         # Now, with nutrition plan
         #
-        self.client.get(reverse('nutrition.views.add'))
-        response = self.client.get(reverse('manager.views.index'))
+        self.client.get(reverse('wger.nutrition.views.add'))
+        response = self.client.get(reverse('wger.manager.views.index'))
         
         if logged_in:
             # There is something to send to the template
@@ -96,7 +96,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
                         {'weight': 100,
                          'creation_date': '2012-01-01'},
                         )
-        response = self.client.get(reverse('manager.views.index'))
+        response = self.client.get(reverse('wger.manager.views.index'))
         
         if logged_in:
             # There is something to send to the template

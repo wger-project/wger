@@ -301,7 +301,7 @@ def workout_log(request, id):
                     {'date'    : _("Created on the <b>%s</b>") % datetime.date.today().strftime("%d.%m.%Y"),
                      'created' : "wger Workout Manager",
                      'version' : get_version(),
-                     'url'     : request.build_absolute_uri(reverse('manager.views.view_workout',
+                     'url'     : request.build_absolute_uri(reverse('wger.manager.views.view_workout',
                                                                kwargs={'id': workout.id})),
                      },
                   styleSheet["Normal"])

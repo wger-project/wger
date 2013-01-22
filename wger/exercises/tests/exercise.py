@@ -34,7 +34,7 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
     def test_exercise_index(self):
         """Tests the exercise overview page"""
         
-        response = self.client.get(reverse('exercises.views.exercise_overview'))
+        response = self.client.get(reverse('wger.exercises.views.exercise_overview'))
         
         # Page exists
         self.assertEqual(response.status_code, 200)
@@ -66,7 +66,7 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
         """Tests the exercise details page
         """
         
-        response = self.client.get(reverse('exercises.views.exercise_view', kwargs={'id': 1}))
+        response = self.client.get(reverse('wger.exercises.views.exercise_view', kwargs={'id': 1}))
         self.assertEqual(response.status_code, 200)
         
         # Correct tab is selected
@@ -84,7 +84,7 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
         self.assertEqual(muscle_2.id, 2)
         
         # Ensure that non-existent exercises throw a 404.
-        response = self.client.get(reverse('exercises.views.exercise_view', kwargs={'id': 42}))
+        response = self.client.get(reverse('wger.exercises.views.exercise_view', kwargs={'id': 42}))
         self.assertEqual(response.status_code, 404)
         
 
@@ -99,7 +99,7 @@ class ExercisecommentsTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(comments), 1)
         
         # Post a comment
-        response = self.client.post(reverse('exercises.views.exercise_view', kwargs={'id': 1}), 
+        response = self.client.post(reverse('wger.exercises.views.exercise_view', kwargs={'id': 1}), 
                                     {'comment': 'a new cool comment'})
         self.assertEqual(response.status_code, 200)
         
@@ -203,7 +203,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         self.assertEqual(Exercise.objects.count(), 4, 'Exercise was not added')
         
         # Exercise was saved
-        response = self.client.get(reverse('exercises.views.exercise_view', kwargs = {'id': 4}))
+        response = self.client.get(reverse('wger.exercises.views.exercise_view', kwargs = {'id': 4}))
         self.assertEqual(response.status_code, 200)
         
         # Navigation tab
@@ -252,7 +252,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         """Helper function to test deleting exercises"""
         
         # The exercise exists
-        response = self.client.get(reverse('exercises.views.exercise_view', kwargs={'id': 3}))
+        response = self.client.get(reverse('wger.exercises.views.exercise_view', kwargs={'id': 3}))
         self.assertEqual(response.status_code, 200)
         
         # Delete the exercise

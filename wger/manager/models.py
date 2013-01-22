@@ -54,7 +54,7 @@ For example 'Focus on back' or 'Week 1 of program xy'.'''))
         """
         Returns the canonical URL to view a workout
         """
-        return reverse('manager.views.view_workout', kwargs={'id': self.id})
+        return reverse('wger.manager.views.view_workout', kwargs={'id': self.id})
 
     def __unicode__(self):
         """Return a more human-readable representation

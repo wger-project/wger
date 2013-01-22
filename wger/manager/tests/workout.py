@@ -29,7 +29,7 @@ class AddWorkoutTestCase(WorkoutManagerTestCase):
         
         # Create a workout
         count_before = TrainingSchedule.objects.count()
-        response = self.client.get(reverse('manager.views.add'))
+        response = self.client.get(reverse('wger.manager.views.add'))
         count_after = TrainingSchedule.objects.count()
         
         # There is always a redirect
@@ -48,7 +48,7 @@ class AddWorkoutTestCase(WorkoutManagerTestCase):
             self.assertTemplateUsed('workout/view.html')    
         
         # Test accessing workout 
-        response = self.client.get(reverse('manager.views.view_workout', kwargs={'id': 1}))
+        response = self.client.get(reverse('wger.manager.views.view_workout', kwargs={'id': 1}))
         
         if logged_in:
             workout = TrainingSchedule.objects.get(pk = 1)
@@ -81,7 +81,7 @@ class WorkoutOverviewTestCase(WorkoutManagerTestCase):
     def get_workout_overview(self, logged_in = False):
         """Helper function to test the workout overview"""
         
-        response = self.client.get(reverse('manager.views.overview'))
+        response = self.client.get(reverse('wger.manager.views.overview'))
         
         # Page exists
         if logged_in:

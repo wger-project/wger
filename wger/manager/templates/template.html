@@ -92,7 +92,7 @@
                             </li>
 
                             {% if user.is_authenticated %}
-                            <li {% if active_tab == 'workout'   %}class="active"{% endif %}><a href="{% url manager.views.overview %}">{% trans "Workouts" %}</a></li>
+                            <li {% if active_tab == 'workout'   %}class="active"{% endif %}><a href="{% url wger.manager.views.overview %}">{% trans "Workouts" %}</a></li>
                             {% endif %}
 
                             <li class="dropdown {% if active_tab == 'exercises' %}active{% endif %}">

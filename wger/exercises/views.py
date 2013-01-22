@@ -70,7 +70,7 @@ class ExerciseCommentEditView(YamlFormMixin, UpdateView):
     title = ugettext_lazy('Edit exercise comment')
 
     def get_success_url(self):
-        return reverse('exercises.views.exercise_view', kwargs={'id': self.object.exercise.id})
+        return reverse('wger.exercises.views.exercise_view', kwargs={'id': self.object.exercise.id})
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
@@ -96,7 +96,7 @@ class ExerciseCommentAddView(YamlFormMixin, CreateView):
         return super(ExerciseCommentAddView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('exercises.views.exercise_view', kwargs={'id': self.object.exercise.id})
+        return reverse('wger.exercises.views.exercise_view', kwargs={'id': self.object.exercise.id})
 
     def get_context_data(self, **kwargs):
         '''
@@ -116,7 +116,7 @@ def exercisecomment_delete(request, id):
     exercise_id = comment.exercise.id
     comment.delete()
 
-    return HttpResponseRedirect(reverse('exercises.views.exercise_view', kwargs={'id': exercise_id}))
+    return HttpResponseRedirect(reverse('wger.exercises.views.exercise_view', kwargs={'id': exercise_id}))
 
 
 # ************************
@@ -272,7 +272,7 @@ class ExerciseDeleteView(YamlDeleteMixin, DeleteView):
     """
 
     model = Exercise
-    success_url = reverse_lazy('exercises.views.exercise_overview')
+    success_url = reverse_lazy('wger.exercises.views.exercise_overview')
     delete_message = ugettext_lazy('This will delete the exercise from all workouts.')
 
     # Send some additional data to the template
@@ -341,7 +341,7 @@ class ExerciseCategoryAddView(YamlFormMixin, CreateView):
 
     model = ExerciseCategory
     form_class = ExerciseCategoryForm
-    success_url = reverse_lazy('exercises.views.exercise_overview')
+    success_url = reverse_lazy('wger.exercises.views.exercise_overview')
     title = ugettext_lazy('Add category')
     form_action = reverse_lazy('exercisecategory-add')
 
@@ -358,7 +358,7 @@ class ExerciseCategoryUpdateView(YamlFormMixin, UpdateView):
 
     model = ExerciseCategory
     form_class = ExerciseCategoryForm
-    success_url = reverse_lazy('exercises.views.exercise_overview')
+    success_url = reverse_lazy('wger.exercises.views.exercise_overview')
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
@@ -380,7 +380,7 @@ class ExerciseCategoryDeleteView(YamlDeleteMixin, DeleteView):
     """
 
     model = ExerciseCategory
-    success_url = reverse_lazy('exercises.views.exercise_overview')
+    success_url = reverse_lazy('wger.exercises.views.exercise_overview')
     delete_message = ugettext_lazy('This will also delete all exercises in this category.')
 
     # Send some additional data to the template
