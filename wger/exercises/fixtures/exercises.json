@@ -450,7 +450,7 @@
             "muscles": [
                 1
             ], 
-            "description": "", 
+            "description": "<p>Halte die Hantel mit etwa schulterbreitem Griff, die Arme sind ausgestreckt. Beuge die Arme und brige die Hantel mit einer schnellen Bewegung nach oben. Ohne Pause wird das Gewicht nun kontrolliert nach unten gebracht. Beachte, dass die Bewegung nach oben schneller ist als nach unten.</p>\r\n<p>W&auml;hrend des Bewegungablaufs darf der K&ouml;rper nicht mitschwingen. Die Ellenbogen bleiben dabei immer an der Stelle.</p>", 
             "muscles_secondary": [
                 13
             ], 
@@ -465,7 +465,7 @@
             "muscles": [
                 1
             ], 
-            "description": "", 
+            "description": "<p>Halte zwei Kurzhantel mit ausgestreckten Armen neben dem K&ouml;rper, die Handfl&auml;chen zeigen nach innen. Beuge die Arme und brige die Hanteln mit einer schnellen Bewegung nach oben wobei sie gleichzeitig um 90 Grad gedreht werden. Am h&ouml;chsten Punkt kann man die Hanteln ganz leicht weiter nach au&szlig;en drehen. Ohne Pause wird das Gewicht nun kontrolliert nach unten gebracht. Beachte, dass die Bewegung nach oben schneller ist als nach unten.</p>\r\n<p>W&auml;hrend des Bewegungablaufs darf der K&ouml;rper nicht mitschwingen. Die Ellenbogen bleiben dabei immer an der Stelle.</p>", 
             "muscles_secondary": [
                 13
             ], 
@@ -480,7 +480,7 @@
             "muscles": [
                 1
             ], 
-            "description": "", 
+            "description": "<p>Halte die Hantel mit etwa schulterbreitem Griff, die Arme sind ausgestreckt. Beuge die Arme und brige die Hantel mit einer schnellen Bewegung nach oben. Ohne Pause wird das Gewicht nun kontrolliert nach unten gebracht. Beachte, dass die Bewegung nach oben schneller ist als nach unten.</p>\r\n<p>W&auml;hrend des Bewegungablaufs sollte der K&ouml;rper nicht mitschwingen. Die Ellenbogen bleiben dabei immer an der Stelle.</p>", 
             "muscles_secondary": [
                 13
             ], 
@@ -2397,6 +2397,14 @@
         "fields": {
             "comment": "Arme oben nicht ganz ausstrecken", 
             "exercise": 29
+        }
+    }, 
+    {
+        "pk": 59, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Fl\u00fcssige Bewegung, keine Pausen oben oder unten", 
+            "exercise": 44
         }
     }
 ]
