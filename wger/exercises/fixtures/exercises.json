@@ -176,7 +176,7 @@
             "muscles": [
                 4
             ], 
-            "description": "<p>Lege dich auf die Bank, die Stange direkt &uuml;ber die Augen, die Knie etwas angewinkelt und die F&uuml;&szlig;e fest auf dem Boden. Greife die Stange breit und lasse sie langsam und kontrolliert runter, dabei sollte die Stange kurz auf Brustwarzenh&ouml;he den K&ouml;rper ber&uuml;hren. Dann das Gewicht wieder hochdr&uuml;cken bis die Arme durchgestreckt sind.</p>\r\n<p>Bei hohem Gewicht, empfielt sich nat&uuml;rlich einen <em>Spotter</em> zu haben, der einen hilft falls man die Stange nicht alleine hochdr&uuml;cken kann.</p>\r\n<p>Mit der Breite des Griffs kann au&szlig;erdem kontrolliert werden, welcher Bereich der Brust st&auml;rker belastet wird:</p>\r\n<ul>\r\n<li>breiter Griff: &auml;u&szlig;ere Brustmuskeln</li>\r\n<li>enger Griff: innere Brustmuskeln und Trizeps</li>\r\n</ul>", 
+            "description": "<p>Lege dich auf die Bank, die Stange direkt \u00fcber die Augen, die Knie etwas angewinkelt und die F\u00fc\u00dfe fest auf dem Boden. Greife die Stange breit und lasse sie langsam und kontrolliert runter, dabei sollte die Stange kurz auf Brustwarzenh\u00f6he den K\u00f6rper ber\u00fchren. Dann das Gewicht wieder hochdr\u00fccken bis die Arme durchgestreckt sind.</p>\r\n<p>Bei hohem Gewicht, empfielt sich nat\u00fcrlich einen <em>Spotter</em> zu haben, der einen hilft falls man die Stange nicht alleine hochdr\u00fccken kann.</p>\r\n<p>Mit der Breite des Griffs kann au\u00dferdem kontrolliert werden, welcher Bereich der Brust st\u00e4rker belastet wird:</p>\r\n<ul>\r\n<li>breiter Griff: \u00e4u\u00dfere Brustmuskeln</li>\r\n<li>enger Griff: innere Brustmuskeln und Trizeps</li>\r\n</ul>", 
             "muscles_secondary": [
                 2, 
                 5
@@ -192,7 +192,7 @@
             "muscles": [
                 5
             ], 
-            "description": "", 
+            "description": "<p>Lege dich auf die Bank, die Stange direkt \u00fcber die Augen, die Knie etwas angewinkelt und die F\u00fc\u00dfe fest auf dem Boden. Greife nun die Stange mit einem engen Griff (nicht mehr als 20cm.). F\u00fchre nun das Gewicht so weit nach unten, bis die Oberarme paralell zum Boden sind, gehe dann wieder nach obern. Bringe die Stange nicht wie beim (breiten) Bankdr\u00fccken auf Brusth\u00f6he runter, sondern weiter unten. Auf der tiefsten Stelle sollten deine Arme einen rechten Winkel machen.</p>\r\n<p>\u00e4\u00e4\u00f6</p>", 
             "muscles_secondary": [
                 2, 
                 4
@@ -948,7 +948,7 @@
             "muscles": [
                 5
             ], 
-            "description": "", 
+            "description": "<p>Nehme die Hanteln in die Hand, lege dich auf eine Bank und stelle dich so hin, dass ca. 1/4 des Kopfes nicht mehr auf der Bank liegt. Strecke die Arme aus und lasse nun mit einem Bogen die Gewichte runter. Wenn die Hanteln knapp &uuml;ber die Stirn sind, dr&uuml;cke sie wieder nach oben.</p>\r\n<p>Es ist wichtig die Ellenbogen w&auml;hrend der ganzen &Uuml;bung wenig zu bewegen, damit die Trizeps die Arbeit machen.</p>", 
             "muscles_secondary": [], 
             "name": "Frenchpress KH"
         }
@@ -961,7 +961,7 @@
             "muscles": [
                 5
             ], 
-            "description": "", 
+            "description": "<p>Nehme die Hantel, lege dich auf eine Bank und stelle dich so hin, dass ca. 1/4 des Kopfes nicht mehr auf der Bank liegt. Strecke die Arme aus und lasse nun mit einem Bogen das Gewicht runter. Wenn die Stange knapp &uuml;ber die Stirn ist, dr&uuml;cke sie wieder nach oben.</p>\r\n<p>Es ist wichtig die Ellenbogen w&auml;hrend der ganzen &Uuml;bung wenig zu bewegen, damit die Trizeps die Arbeit machen.</p>", 
             "muscles_secondary": [], 
             "name": "Frenchpress \u00df-Stange"
         }
@@ -1053,7 +1053,7 @@
             "muscles": [
                 1
             ], 
-            "description": "", 
+            "description": "<p>Greife zwei Hanteln, die Handfl&auml;chen zeigen zum K&ouml;rper.&nbsp; Beuge die Arme und brige die Hanteln mit einer schnellen Bewegung nach oben wobei sie im Unterschied zu den normalen KH Curls <strong>nicht</strong> um 90 Grad gedreht werden, die Handfl&auml;chen zeigen also die ganze Zeit nach innen. Ohne Pause wird das Gewicht nun kontrolliert nach unten gebracht. Beachte, dass die Bewegung nach oben schneller ist als nach unten.</p>\r\n<p>W&auml;hrend des Bewegungablaufs darf der K&ouml;rper nicht mitschwingen. Die Ellenbogen bleiben dabei immer an der Stelle.</p>", 
             "muscles_secondary": [
                 13
             ], 
@@ -2406,5 +2406,5 @@
             "comment": "Fl\u00fcssige Bewegung, keine Pausen oben oder unten", 
             "exercise": 44
         }
-    }
+    } 
 ]
