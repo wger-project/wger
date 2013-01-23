@@ -223,7 +223,6 @@ class ExercisesEditAddView(YamlFormMixin):
                    'muscles_secondary',
                    'description']
 
-    select_lists = ['category']
     title = ugettext_lazy('Add exercise')
     custom_js = 'init_tinymce();'
 

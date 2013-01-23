@@ -16,6 +16,7 @@
 
 import logging
 
+from django.forms import models
 from django.http import HttpResponseForbidden
 from django.utils.translation import ugettext_lazy
 
@@ -30,7 +31,6 @@ class YamlFormMixin(ModelFormMixin):
     template_name = 'form.html'
 
     form_fields = []
-    select_lists = []
     custom_js = ''
     form_action = ''
     form_action_urlname = ''
@@ -58,9 +58,12 @@ class YamlFormMixin(ModelFormMixin):
         else:
             context['form_fields'] = kwargs['form']
 
-        # Drop down lists get a special CSS class, there doesn't seem to be
-        # another way of detecting them
-        context['select_lists'] = self.select_lists
+        # Drop down lists get a special CSS class
+        select_list = []
+        for i in self.form_fields:
+            if isinstance(kwargs['form'][i].field, models.ModelChoiceField):
+                select_list.append(i)
+        context['select_lists'] = select_list
 
         # Custom JS code on form (autocompleter, editor, etc.)
         context['custom_js'] = self.custom_js
