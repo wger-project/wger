@@ -188,16 +188,16 @@ def create_settings(settings_path, database_path=None, url=None):
 
     if database_path is _portable_db_path:
         database_path = get_portable_db_path()
-        dbpath_value = 'openslides.main.get_portable_db_path()'
+        dbpath_value = 'wger.main.get_portable_db_path()'
     else:
         if database_path is None:
             database_path = get_user_data_path('wger', 'database.sqlite')
         dbpath_value = repr(fs2unicode(database_path))
 
-    print "Please enter the values for your reCaptcha keys "
+    print "Please edit your settings file and enter the values for the reCaptcha keys "
     print "You can leave this empty, but won't be able to register new users"
-    recaptcha_public_key = raw_input('Public key: ')
-    recaptcha_private_key = raw_input('Private key: ')
+    #recaptcha_public_key = raw_input('Public key: ')
+    #recaptcha_private_key = raw_input('Private key: ')
 
     # Fill in the config file template
     settings_content = CONFIG_TEMPLATE % dict(
