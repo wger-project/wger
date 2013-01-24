@@ -12,13 +12,7 @@
 # 
 # You should have received a copy of the GNU Affero General Public License
 
-
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
+import json
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
@@ -32,7 +26,9 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 class ExerciseIndexTestCase(WorkoutManagerTestCase):
    
     def test_exercise_index(self):
-        """Tests the exercise overview page"""
+        '''
+        Tests the exercise overview page
+        '''
         
         response = self.client.get(reverse('wger.exercises.views.exercise_overview'))
         
@@ -86,71 +82,7 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
         # Ensure that non-existent exercises throw a 404.
         response = self.client.get(reverse('wger.exercises.views.exercise_view', kwargs={'id': 42}))
         self.assertEqual(response.status_code, 404)
-        
-
-class ExercisecommentsTestCase(WorkoutManagerTestCase):
     
-    def exercisecomment_fail(self):
-        """Tests the exercise comments (fails because of permissions)"""
-        
-        # Load the exercise
-        exercise_1 = Exercise.objects.get(pk=1)
-        comments = exercise_1.exercisecomment_set.all()
-        self.assertEqual(len(comments), 1)
-        
-        # Post a comment
-        response = self.client.post(reverse('wger.exercises.views.exercise_view', kwargs={'id': 1}), 
-                                    {'comment': 'a new cool comment'})
-        self.assertEqual(response.status_code, 200)
-        
-        comments = exercise_1.exercisecomment_set.all()
-        self.assertEqual(len(comments), 1)
-
-    
-    def test_exercisecomment_no_authorized(self):
-        """Tests the exercise comments"""
-        
-        self.user_login('test')
-        self.exercisecomment_fail()
-        self.user_logout()
-    
-    def test_exercisecomment_not_logged_in(self):
-        """Tests the exercise comments"""
-        
-        self.user_logout()
-        self.exercisecomment_fail()
-        
-    
-    def test_exercisecomment_authorized(self):
-        """Tests the exercise comments"""
-        
-        self.user_login()
-        
-        # Load the exercise
-        exercise_1 = Exercise.objects.get(pk=1)
-        
-        # Comments are loaded
-        comments = exercise_1.exercisecomment_set.all()
-        comment_1 = comments[0]
-        self.assertEqual(comment_1.id, 1)
-        self.assertEqual(comment_1.comment, "test 123")
-        self.assertEqual(len(comments), 1)
-        
-        # Post a comment
-        response = self.client.post(reverse('exercisecomment-add', kwargs={'exercise_pk': 1}),
-                                    {'comment': 'a new cool comment'})
-        comments = exercise_1.exercisecomment_set.all()
-        
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(len(comments), 2)
-        
-        # Post an empty comment and check it doesn't get added
-        response = self.client.post(reverse('exercisecomment-add', kwargs={'exercise_pk': 1}), 
-                                    {'comment': ''})
-        comments = exercise_1.exercisecomment_set.all()
-        
-        self.assertEqual(len(comments), 2)
-        self.user_logout()
         
 class ExercisesTestCase(WorkoutManagerTestCase):
     """Exercise test case"""
@@ -257,10 +189,22 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         
         # Delete the exercise
         count_before = Exercise.objects.count()
+        
+        # GET request, doesn't delete anything
+        response = self.client.get(reverse('exercise-delete', kwargs={'pk': 3}))
+        count_after = Exercise.objects.count()
+        self.assertEqual(count_before, count_after, 'Exercise was deleted')
+        
+        # Check the deletion
+        if fail:
+            self.assertEqual(response.status_code, 302)
+        else:
+            self.assertEqual(response.status_code, 200)
+        
+        # POST request, does delete the exercise
         response = self.client.post(reverse('exercise-delete', kwargs={'pk': 3}))
         count_after = Exercise.objects.count()
         
-        # There is a redirect
         self.assertEqual(response.status_code, 302)
         
         # Check the deletion
@@ -270,13 +214,14 @@ class ExercisesTestCase(WorkoutManagerTestCase):
             self.assertTrue(count_before > count_after, 'Exercise was not deleted')
         
         
-    def test_delete_exercise_anonymous(self):
+        
+    def test_delete_exercise_anonymous(self, fail=True):
         """Test deleting an exercise by an anonymous user"""
         
         self.delete_exercise()
         
         
-    def test_delete_exercise_unauthorized(self):
+    def test_delete_exercise_unauthorized(self, fail=True):
         """Test deleting an exercise by an unauthorized user"""
         
         self.user_login('test')
@@ -289,3 +234,48 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         self.user_login()
         self.delete_exercise(fail=False)
         self.user_logout()
+        
+        
+    def search_exercise(self, fail=True):
+        '''
+        Helper function to test searching for exercises
+        '''
+        
+        # Search for exercises (1 hit, "A very cool exercise")
+        response = self.client.get(reverse('wger.exercises.views.exercise_search') + '?term=cool')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['exercises']), 1)
+        self.assertEqual(response.context['exercises'][0].name, 'A very cool exercise')
+        
+        
+        kwargs = {'HTTP_X_REQUESTED_WITH' : 'XMLHttpRequest'}
+     
+        # AJAX-Search for exercises (1 hit, "A very cool exercise")
+        response = self.client.get(reverse('wger.exercises.views.exercise_search') + '?term=cool', **kwargs)
+        self.assertEqual(response.status_code, 200)
+        result = json.loads(response.content)
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['value'], 'A very cool exercise')
+        
+     
+    def test_search_exercise_anonymous(self):
+        """Test deleting an exercise by an anonymous user"""
+        
+        self.search_exercise()
+        
+        
+    def test_search_exercise_unauthorized(self):
+        """Test deleting an exercise by an unauthorized user"""
+        
+        self.user_login('test')
+        self.search_exercise()
+        self.user_logout()
+    
+    def test_search_exercise_authorized(self):
+        """Test deleting an exercise by an authorized user"""
+                
+        self.user_login()
+        self.search_exercise(fail=False)
+        self.user_logout()
+        
+       
