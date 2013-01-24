@@ -4,3 +4,4 @@ django-recaptcha
 reportlab
 selenium
 django_mobile
+django-discover-runner

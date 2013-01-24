@@ -14,6 +14,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+import os
 
 '''
 This file contains the global settings that don't need to be changed by the user
@@ -245,3 +246,6 @@ LOGGING = {
         }
     }
 }
+
+TEST_RUNNER = 'discover_runner.DiscoverRunner'
+TEST_DISCOVER_TOP_LEVEL = os.path.dirname(os.path.dirname(__file__))
