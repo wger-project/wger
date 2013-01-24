@@ -42,7 +42,9 @@ urlpatterns = patterns('wger.exercises.views',
     url(r'^comment/(?P<pk>\d+)/edit/$',
         permission_required('exercises.change_exercise')(ExerciseCommentEditView.as_view()),
         name='exercisecomment-edit'),
-    url(r'^comment/(?P<id>\d+)/delete/$', 'exercisecomment_delete'),
+    url(r'^comment/(?P<id>\d+)/delete/$',
+        'exercisecomment_delete',
+        name='exercisecomment-delete'),
 
     # Categories
     url(r'^category/(?P<pk>\d+)/edit/$',

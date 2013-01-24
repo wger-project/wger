@@ -80,6 +80,9 @@
                 1, 
                 2
             ], 
+            "muscles_secondary": [
+                3
+            ],
             "description": "", 
             "name": "An exercise"
         }
@@ -91,6 +94,10 @@
             "category": 2, 
             "muscles": [
                 2
+            ],
+            "muscles_secondary": [
+                1,
+                3
             ], 
             "description": "", 
             "name": "A very cool exercise"
