@@ -91,7 +91,7 @@ def add(request):
     plan.language = load_language()
     plan.save()
 
-    return HttpResponseRedirect(reverse('nutrition.views.view', kwargs={'id': plan.id}))
+    return HttpResponseRedirect(reverse('wger.nutrition.views.view', kwargs={'id': plan.id}))
 
 
 class PlanDeleteView(YamlDeleteMixin, DeleteView):
@@ -100,7 +100,7 @@ class PlanDeleteView(YamlDeleteMixin, DeleteView):
     """
 
     model = NutritionPlan
-    success_url = reverse_lazy('nutrition.views.overview')
+    success_url = reverse_lazy('wger.nutrition.views.overview')
     title = ugettext_lazy('Delete nutritional plan?')
     form_action_urlname = 'nutrition-delete'
 
@@ -170,7 +170,7 @@ def copy(request, pk):
             item.save()
 
     # Redirect
-    return HttpResponseRedirect(reverse('nutrition.views.view', kwargs={'id': plan.id}))
+    return HttpResponseRedirect(reverse('wger.nutrition.views.view', kwargs={'id': plan.id}))
 
 
 def export_pdf(request, id):
@@ -324,7 +324,7 @@ class MealCreateView(YamlFormMixin, CreateView):
         return super(MealCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('nutrition.views.view', kwargs={'id': self.object.plan.id})
+        return reverse('wger.nutrition.views.view', kwargs={'id': self.object.plan.id})
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
@@ -346,7 +346,7 @@ class MealEditView(YamlFormMixin, UpdateView):
     form_action_urlname = 'meal-edit'
 
     def get_success_url(self):
-        return reverse('nutrition.views.view', kwargs={'id': self.object.plan.id})
+        return reverse('wger.nutrition.views.view', kwargs={'id': self.object.plan.id})
 
 
 @login_required
@@ -361,7 +361,7 @@ def delete_meal(request, id):
     # Only delete if the user is the owner
     if plan.user == request.user:
         meal.delete()
-        return HttpResponseRedirect(reverse('nutrition.views.view', kwargs={'id': plan.id}))
+        return HttpResponseRedirect(reverse('wger.nutrition.views.view', kwargs={'id': plan.id}))
     else:
         return HttpResponseForbidden()
 
@@ -381,7 +381,7 @@ def delete_meal_item(request, item_id):
     # Only delete if the user is the owner
     if plan.user == request.user:
         item.delete()
-        return HttpResponseRedirect(reverse('nutrition.views.view', kwargs={'id': plan.id}))
+        return HttpResponseRedirect(reverse('wger.nutrition.views.view', kwargs={'id': plan.id}))
     else:
         return HttpResponseForbidden()
 
@@ -442,7 +442,7 @@ def edit_meal_item(request, id, meal_id, item_id=None):
             meal_item.order = 1
             meal_item.save()
 
-            return HttpResponseRedirect(reverse('nutrition.views.view', kwargs={'id': id}))
+            return HttpResponseRedirect(reverse('wger.nutrition.views.view', kwargs={'id': id}))
 
     else:
         meal_form = MealItemForm(instance=meal_item)
@@ -502,7 +502,7 @@ class IngredientDeleteView(YamlDeleteMixin, DeleteView):
 
     model = Ingredient
     template_name = 'delete.html'
-    success_url = reverse_lazy('nutrition.views.ingredient_overview')
+    success_url = reverse_lazy('wger.nutrition.views.ingredient_overview')
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):

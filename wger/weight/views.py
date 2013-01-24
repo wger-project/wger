@@ -70,7 +70,7 @@ class WeightAddView(YamlFormMixin, CreateView):
     });'''
     title = ugettext_lazy('Add weight entry')
     form_action = reverse_lazy('weight-add')
-    success_url = reverse_lazy('weight.views.overview')
+    success_url = reverse_lazy('wger.weight.views.overview')
 
     def form_valid(self, form):
         """
