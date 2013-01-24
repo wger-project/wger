@@ -198,6 +198,8 @@ def create_settings(settings_path, database_path=None, url=None):
     print "You can leave this empty, but won't be able to register new users"
     #recaptcha_public_key = raw_input('Public key: ')
     #recaptcha_private_key = raw_input('Private key: ')
+    recaptcha_public_key = ''
+    recaptcha_private_key = ''
 
     # Fill in the config file template
     settings_content = CONFIG_TEMPLATE % dict(
