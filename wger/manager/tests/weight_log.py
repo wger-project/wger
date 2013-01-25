@@ -47,6 +47,14 @@ class WeightLogTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.context['active_tab'], 'workout')
             self.assertEqual(response.context['workout'].id, 1)
 
+        # Open the log entry page
+        response = self.client.get(reverse('day-log', kwargs={'pk': 1}))
+        if fail:
+            self.assertTrue(response.status_code in (302, 403))
+        else:
+            self.assertEqual(response.status_code, 200)
+            
+
         # Add new log entries
         count_before = WorkoutLog.objects.count()
         response = self.client.post(reverse('day-log', kwargs={'pk': 1}),
