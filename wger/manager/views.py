@@ -104,7 +104,6 @@ def dashboard(request):
     # Load the last workout, if one exists
     try:
         current_workout = TrainingSchedule.objects.filter(user=request.user).latest('creation_date')
-        template_data['current_workout'] = current_workout
     except ObjectDoesNotExist:
         current_workout = False
     template_data['current_workout'] = current_workout
