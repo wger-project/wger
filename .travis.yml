@@ -7,3 +7,4 @@ install:
   - python extras/scripts/create_local_settings.py
 script:
   - ./manage.py test tests
+  - pep8 --max-line-length=100 --exclude="urls.py" --statistics wger
