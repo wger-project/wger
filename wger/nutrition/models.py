@@ -18,7 +18,7 @@
 
 from django.db import models
 
-from django.template.defaultfilters import slugify # django.utils.text.slugify in django 1.5!
+from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
 from django.core.validators import MaxValueValidator
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
@@ -28,8 +28,9 @@ from wger.exercises.models import Language
 
 
 class NutritionPlan(models.Model):
-    """ A nutrition plan
-    """
+    '''
+    A nutrition plan
+    '''
 
     # Metaclass to set some other properties
     class Meta:
@@ -43,17 +44,19 @@ class NutritionPlan(models.Model):
     description = models.TextField(max_length=2000,
                                    blank=True,
                                    verbose_name=_('Description'),
-                                   help_text=_('A description of the goal of the plan, e.g. "Gain mass" or "Prepare for summer"'))
+                                   help_text=_('A description of the goal of the plan, e.g. '
+                                   '"Gain mass" or "Prepare for summer"'))
 
     def __unicode__(self):
-        """Return a more human-readable representation
-        """
+        '''
+        Return a more human-readable representation
+        '''
         return "Nutrition plan for %s, %s" % (self.user, self.creation_date)
 
     def get_absolute_url(self):
-        """
+        '''
         Returns the canonical URL to view this object
-        """
+        '''
         return reverse('wger.nutrition.views.view', kwargs={'id': self.id})
 
     def get_nutritional_values(self):
@@ -73,31 +76,39 @@ class NutritionPlan(models.Model):
                 if item.ingredient and item.amount_gramm:
                     nutritional_info['energy'] += item.ingredient.energy * item.amount_gramm / 100
                     nutritional_info['protein'] += item.ingredient.protein * item.amount_gramm / 100
-                    nutritional_info['carbohydrates'] += item.ingredient.carbohydrates * item.amount_gramm / 100
+                    nutritional_info['carbohydrates'] += item.ingredient.carbohydrates * \
+                        item.amount_gramm / 100
+
                     if item.ingredient.carbohydrates_sugar:
-                        nutritional_info['carbohydrates_sugar'] += item.ingredient.carbohydrates_sugar * item.amount_gramm / 100
+                        nutritional_info['carbohydrates_sugar'] += \
+                            item.ingredient.carbohydrates_sugar * \
+                            item.amount_gramm / 100
 
                     nutritional_info['fat'] += item.ingredient.fat * item.amount_gramm / 100
                     if item.ingredient.fat_saturated:
-                        nutritional_info['fat_saturated'] += item.ingredient.fat_saturated * item.amount_gramm / 100
+                        nutritional_info['fat_saturated'] += item.ingredient.fat_saturated * \
+                            item.amount_gramm / 100
 
                     if item.ingredient.fibres:
-                        nutritional_info['fibres'] += item.ingredient.fibres * item.amount_gramm / 100
+                        nutritional_info['fibres'] += item.ingredient.fibres * \
+                            item.amount_gramm / 100
 
                     if item.ingredient.sodium:
-                        nutritional_info['sodium'] += item.ingredient.sodium * item.amount_gramm / 100
+                        nutritional_info['sodium'] += item.ingredient.sodium * \
+                            item.amount_gramm / 100
         return nutritional_info
 
     def get_owner_object(self):
-        """
+        '''
         Returns the object that has owner information
-        """
+        '''
         return self
 
 
 class Ingredient(models.Model):
-    """ An ingredient, with some approximate nutrition values
-    """
+    '''
+    An ingredient, with some approximate nutrition values
+    '''
 
     # Metaclass to set some other properties
     class Meta:
@@ -108,17 +119,14 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=200,
                             verbose_name=_('Name'),)
 
-    energy = models.IntegerField(
-                                 verbose_name=_('Energy'),
+    energy = models.IntegerField(verbose_name=_('Energy'),
                                  help_text=_('In kcal per 100g'))
 
-    protein = models.FloatField(
-                                verbose_name=_('Protein'),
+    protein = models.FloatField(verbose_name=_('Protein'),
                                 help_text=_('In g per 100g of product'))
 
-    carbohydrates = models.FloatField(
-                                    verbose_name=_('Carbohydrates'),
-                                    help_text=_('In g per 100g of product'))
+    carbohydrates = models.FloatField(verbose_name=_('Carbohydrates'),
+                                      help_text=_('In g per 100g of product'))
 
     carbohydrates_sugar = models.FloatField(blank=True,
                                             null=True,
@@ -126,8 +134,8 @@ class Ingredient(models.Model):
                                             help_text=_('In g per 100g of product'))
 
     fat = models.FloatField(blank=True,
-                              verbose_name=_('Fat'),
-                              help_text=_('In g per 100g of product'))
+                            verbose_name=_('Fat'),
+                            help_text=_('In g per 100g of product'))
 
     fat_saturated = models.FloatField(blank=True,
                                       null=True,
@@ -145,27 +153,29 @@ class Ingredient(models.Model):
                                help_text=_('In g per 100g of product'))
 
     def get_absolute_url(self):
-        """
+        '''
         Returns the canonical URL to view this object
-        """
+        '''
         return reverse('wger.nutrition.views.ingredient_view', kwargs={'id': self.id,
-                                                                 'slug': slugify(self.name)})
+                                                                       'slug': slugify(self.name)})
 
     def __unicode__(self):
-        """Return a more human-readable representation
-        """
+        '''
+        Return a more human-readable representation
+        '''
         return "%s" % (self.name, )
 
     def get_owner_object(self):
-        """
+        '''
         Ingredient has no owner information
-        """
+        '''
         return False
 
 
 class Meal(models.Model):
-    """ A meal
-    """
+    '''
+    A meal
+    '''
 
     # Metaclass to set some other properties
     class Meta:
@@ -176,20 +186,22 @@ class Meal(models.Model):
     time = models.TimeField(null=True, blank=True, verbose_name=_('Time (approx)'))
 
     def __unicode__(self):
-        """Return a more human-readable representation
-        """
+        '''
+        Return a more human-readable representation
+        '''
         return "%s Meal" % (self.order,)
 
     def get_owner_object(self):
-        """
+        '''
         Returns the object that has owner information
-        """
+        '''
         return self.plan
 
 
 class MealItem(models.Model):
-    """ An item (component) of a meal
-    """
+    '''
+    An item (component) of a meal
+    '''
 
     meal = models.ForeignKey(Meal, verbose_name=_('Nutrition plan'))
     order = models.IntegerField(max_length=1, blank=True, verbose_name=_('Order'))
@@ -200,13 +212,13 @@ class MealItem(models.Model):
     ingredient = models.ForeignKey(Ingredient, verbose_name=_('Ingredient'))
 
     def __unicode__(self):
-        """Return a more human-readable representation
-        """
+        '''
+        Return a more human-readable representation
+        '''
         return "%sg ingredient %s" % (self.amount_gramm, self.ingredient_id)
 
     def get_owner_object(self):
-        """
+        '''
         Returns the object that has owner information
-        """
+        '''
         return self.meal.plan
-

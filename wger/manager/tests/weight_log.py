@@ -53,7 +53,6 @@ class WeightLogTestCase(WorkoutManagerTestCase):
             self.assertTrue(response.status_code in (302, 403))
         else:
             self.assertEqual(response.status_code, 200)
-            
 
         # Add new log entries
         count_before = WorkoutLog.objects.count()
@@ -64,7 +63,7 @@ class WeightLogTestCase(WorkoutManagerTestCase):
                                      'form-TOTAL_FORMS': 3,
                                      'form-INITIAL_FORMS': 0,
                                      'form-MAX-NUM_FORMS': 3
-                                    })
+                                     })
 
         count_after = WorkoutLog.objects.count()
 

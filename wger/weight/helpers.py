@@ -31,7 +31,7 @@ def parse_weight_csv(request, cleaned_data):
         dialect = csv.Sniffer().sniff(cleaned_data['csv_input'])
     except csv.Error:
         #logger.debug('Error while sniffing CSV format')
-        dialect='excel'
+        dialect = 'excel'
 
     # csv.reader expects a file-like object, so use StringIO
     parsed_csv = csv.reader(StringIO.StringIO(cleaned_data['csv_input']),
@@ -43,11 +43,11 @@ def parse_weight_csv(request, cleaned_data):
         try:
             parsed_date = datetime.datetime.strptime(row[0], cleaned_data['date_format'])
             parsed_weight = decimal.Decimal(row[1].replace(',', '.'))
-            
+
             weight_list.append(WeightEntry(creation_date=parsed_date,
                                            weight=parsed_weight,
                                            user=request.user))
-        
+
         except (ValueError, IndexError, decimal.InvalidOperation), e:
             error_list.append(row)
             #logger.debug(row)

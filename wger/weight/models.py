@@ -44,4 +44,3 @@ class WeightEntry(models.Model):
         Returns the object that has owner information
         """
         return self
-

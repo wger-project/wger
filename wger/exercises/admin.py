@@ -35,4 +35,3 @@ admin.site.register(Exercise, ExerciseAdmin)
 admin.site.register(ExerciseCategory)
 admin.site.register(Language)
 admin.site.register(Muscle)
-

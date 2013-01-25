@@ -177,7 +177,7 @@ def export_pdf(request, id):
     """Generates a PDF with the contents of a nutrition plan
 
     See also
-    * http://www.blog.pythonlibrary.org/2010/09/21/reportlab-tables-creating-tables-in-pdfs-with-python/
+    * http://www.blog.pythonlibrary.org/2010/09/21/reportlab
     * http://www.reportlab.com/apis/reportlab/dev/platypus.html
     """
 
@@ -223,13 +223,14 @@ def export_pdf(request, id):
 
         if not meal.time:
             P = Paragraph('<para align="center"><strong>%(meal_nr)s</strong></para>' %
-                        {'meal_nr': i},
-                      styleSheet["Normal"])
+                          {'meal_nr': i},
+                          styleSheet["Normal"])
         else:
-            P = Paragraph('<para align="center"><strong>%(meal_nr)s - %(meal_time)s</strong></para>' %
-                        {'meal_nr': i,
-                         'meal_time': meal.time.strftime("%H:%M")},
-                      styleSheet["Normal"])
+            P = Paragraph('<para align="center"><strong>%(meal_nr)s - '
+                          '%(meal_time)s</strong></para>' %
+                          {'meal_nr': i,
+                          'meal_time': meal.time.strftime("%H:%M")},
+                          styleSheet["Normal"])
         data.append([P])
 
         # Ingredients
@@ -241,10 +242,10 @@ def export_pdf(request, id):
             data.append(["%sg" % item.amount_gramm, P])
 
     # Set general table styles
-    table_style = [
-                    #('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-                    #('BOX', (0,0), (-1,-1), 0.25, colors.black)
-                    ]
+
+    #('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+    #('BOX', (0,0), (-1,-1), 0.25, colors.black)
+    table_style = []
 
     # Set specific styles, e.g. background for title cells
     for marker in meal_markers:
@@ -263,8 +264,8 @@ def export_pdf(request, id):
     # Set the title (if available)
     if plan.description:
         P = Paragraph('<para align="center"><strong>%(description)s</strong></para>' %
-                                            {'description': plan.description},
-                          styleSheet["Normal"])
+                      {'description': plan.description},
+                      styleSheet["Normal"])
         elements.append(P)
 
         # Filler
@@ -280,9 +281,10 @@ def export_pdf(request, id):
 
     # Print date and info
     P = Paragraph('<para align="left">%(date)s - %(created)s v%(version)s</para>' %
-                    {'date': _("Created on the <b>%s</b>") % plan.creation_date.strftime("%d.%m.%Y"),
-                     'created': "Workout Manager",
-                     'version': get_version()},
+                  {'date': _("Created on the <b>%s</b>") %
+                  plan.creation_date.strftime("%d.%m.%Y"),
+                  'created': "Workout Manager",
+                  'version': get_version()},
                   styleSheet["Normal"])
     elements.append(P)
 

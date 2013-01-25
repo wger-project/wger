@@ -72,7 +72,8 @@ class YamlFormMixin(ModelFormMixin):
         # opening it on a modal dialog, we need to make sure the POST request
         # reaches the correct controller
         if self.form_action_urlname:
-            context['form_action'] = reverse(self.form_action_urlname, kwargs={'pk': self.object.id})
+            context['form_action'] = reverse(self.form_action_urlname,
+                                             kwargs={'pk': self.object.id})
         elif self.form_action:
             context['form_action'] = self.form_action
 
@@ -85,13 +86,13 @@ class YamlFormMixin(ModelFormMixin):
         return context
 
     def dispatch(self, request, *args, **kwargs):
-        """
+        '''
         Custom dispatch method.
 
         This basically only checks for ownerships of editable/deletable
         objects and return a HttpResponseForbidden response if the user
         is not the owner.
-        """
+        '''
 
         # These seem to be necessary for calling get_object
         self.kwargs = kwargs
@@ -99,7 +100,8 @@ class YamlFormMixin(ModelFormMixin):
 
         # For new objects, we have to manually load the owner object
         if self.owner_object:
-            owner_object = self.owner_object['class'].objects.get(pk = kwargs[self.owner_object['pk']])
+            owner_object = self.owner_object['class'].objects.get(
+                pk=kwargs[self.owner_object['pk']])
         else:
             # On CreateViews we don't have an object, so just ignore it
             try:
@@ -115,7 +117,6 @@ class YamlFormMixin(ModelFormMixin):
         return super(YamlFormMixin, self).dispatch(request, *args, **kwargs)
 
 
-
 class YamlDeleteMixin(ModelFormMixin):
     template_name = 'delete.html'
 
@@ -125,7 +126,6 @@ class YamlDeleteMixin(ModelFormMixin):
     title = ''
     delete_message = ''
     template_name = 'delete.html'
-
 
     def get_context_data(self, **kwargs):
         '''
@@ -145,10 +145,10 @@ class YamlDeleteMixin(ModelFormMixin):
         # opening it on a modal dialog, we need to make sure the POST request
         # reaches the correct controller
         if self.form_action_urlname:
-            context['form_action'] = reverse(self.form_action_urlname, kwargs={'pk': self.object.id})
+            context['form_action'] = reverse(self.form_action_urlname,
+                                             kwargs={'pk': self.object.id})
         elif self.form_action:
             context['form_action'] = self.form_action
-
 
         # Set the title
         context['title'] = self.title
@@ -158,15 +158,14 @@ class YamlDeleteMixin(ModelFormMixin):
 
         return context
 
-
     def dispatch(self, request, *args, **kwargs):
-        """
+        '''
         Custom dispatch method.
 
         This basically only checks for ownerships of editable/deletable
         objects and return a HttpResponseForbidden response if the user
         is not the owner.
-        """
+        '''
 
         # These seem to be necessary if for calling get_object
         self.kwargs = kwargs
@@ -179,4 +178,3 @@ class YamlDeleteMixin(ModelFormMixin):
 
         # Dispatch normally
         return super(YamlDeleteMixin, self).dispatch(request, *args, **kwargs)
-

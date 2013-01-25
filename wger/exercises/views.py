@@ -31,6 +31,7 @@ from django.contrib.auth.decorators import permission_required
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
+from django.views.generic import ListView
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
@@ -116,7 +117,8 @@ def exercisecomment_delete(request, id):
     exercise_id = comment.exercise.id
     comment.delete()
 
-    return HttpResponseRedirect(reverse('wger.exercises.views.exercise_view', kwargs={'id': exercise_id}))
+    return HttpResponseRedirect(reverse('wger.exercises.views.exercise_view',
+                                kwargs={'id': exercise_id}))
 
 
 # ************************
@@ -137,8 +139,6 @@ def exercise_overview(request):
                               context_instance=RequestContext(request))
 
 
-from django.views.generic import ListView
-
 class MuscleListView(ListView):
     '''
     Overview of all muscles and their exercises
@@ -147,6 +147,7 @@ class MuscleListView(ListView):
     queryset = Muscle.objects.all().order_by('-is_front', 'name'),
     context_object_name = 'muscle_list'
     template_name = 'muscle_overview.html'
+
 
 def exercise_view(request, id, slug=None):
     '''
@@ -175,7 +176,6 @@ def exercise_view(request, id, slug=None):
             backgrounds_front.append('images/muscles/secondary/muscle-%s.svg' % muscle.id)
         else:
             backgrounds_back.append('images/muscles/secondary/muscle-%s.svg' % muscle.id)
-
 
     # Append the "main" background, with the silhouette of the human body
     # This has to happen as the last step, so it is rendered behind the muscles.
@@ -233,7 +233,9 @@ class ExercisesEditAddView(YamlFormMixin):
         # to 'en-us'.
         class ExerciseForm(ModelForm):
             language = load_language()
-            category = ModelChoiceField(queryset=ExerciseCategory.objects.filter(language=language.id))
+            category = ModelChoiceField(queryset=ExerciseCategory.objects.filter(
+                                        language=language.id)
+                                        )
 
             class Meta:
                 model = Exercise

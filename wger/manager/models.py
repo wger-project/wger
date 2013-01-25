@@ -35,8 +35,9 @@ logger = logging.getLogger('workout_manager.custom')
 
 
 class TrainingSchedule(models.Model):
-    """Model for a training schedule
-    """
+    '''
+    Model for a training schedule
+    '''
 
     # Metaclass to set some other properties
     class Meta:
@@ -51,65 +52,71 @@ For example 'Focus on back' or 'Week 1 of program xy'.'''))
     user = models.ForeignKey(User, verbose_name=_('User'))
 
     def get_absolute_url(self):
-        """
+        '''
         Returns the canonical URL to view a workout
-        """
+        '''
         return reverse('wger.manager.views.view_workout', kwargs={'id': self.id})
 
     def __unicode__(self):
-        """Return a more human-readable representation
-        """
+        '''
+        Return a more human-readable representation
+        '''
         return str(self.creation_date)
 
     def get_owner_object(self):
-        """
+        '''
         Returns the object that has owner information
-        """
+        '''
         return self
 
 
 class DaysOfWeek(models.Model):
-    """Model for the days of the week
+    '''
+    Model for the days of the week
 
     This model is needed so that 'Day' can have multiple days of the week selected
-    """
+    '''
 
     day_of_week = models.CharField(max_length=9,
                                    verbose_name=_('Day of the week'))
 
     def __unicode__(self):
-        """Return a more human-readable representation
-        """
+        '''
+        Return a more human-readable representation
+        '''
         return self.day_of_week
 
 
 class Day(models.Model):
-    """Model for a training day
-    """
+    '''
+    Model for a training day
+    '''
 
     training = models.ForeignKey(TrainingSchedule, verbose_name=_('Training'))
     description = models.CharField(max_length=100,
                                    verbose_name=_('Description'),
-                                   help_text=_('Ususally a description about what parts are trained, like "Arms" or "Pull Day"'))
+                                   help_text=_('Ususally a description about what parts are '
+                                               'trained, like "Arms" or "Pull Day"'))
     day = models.ManyToManyField(DaysOfWeek,
                                  verbose_name=_('Day'))
 
     def __unicode__(self):
-        """
+        '''
         Return a more human-readable representation
-        """
+        '''
         return "%s for TP %s" % (self.description, unicode(self.training))
 
     def get_owner_object(self):
-        """
+        '''
         Returns the object that has owner information
-        """
+        '''
         return self.training
 
 
 class Set(models.Model):
-    """Model for a set of exercises
-    """
+    '''
+    Model for a set of exercises
+    '''
 
     exerciseday = models.ForeignKey(Day, verbose_name=_('Exercise day'))
     exercises = models.ManyToManyField(Exercise, verbose_name=_('Exercises'))
@@ -124,22 +131,24 @@ class Set(models.Model):
         ordering = ["order", ]
 
     def __unicode__(self):
-        """Return a more human-readable representation
-        """
+        '''
+        Return a more human-readable representation
+        '''
         return "Set-ID %s" % (self.id)
 
     def get_owner_object(self):
-        """
+        '''
         Returns the object that has owner information
-        """
+        '''
         return self.exerciseday.training
 
 
 class Setting(models.Model):
-    """Settings for an exercise (weight, reps, etc.)
-    """
+    '''
+    Settings for an exercise (weight, reps, etc.)
+    '''
 
-    set = models.ForeignKey(Set, verbose_name = _('Sets'))
+    set = models.ForeignKey(Set, verbose_name=_('Sets'))
     exercise = models.ForeignKey(Exercise, verbose_name=_('Exercises'))
     reps = models.IntegerField(validators=[MaxValueValidator(40)], verbose_name=_('Repetitions'))
     order = models.IntegerField(blank=True, verbose_name=_('Repetitions'))
@@ -150,21 +159,22 @@ class Setting(models.Model):
         ordering = ["order", "id"]
 
     def __unicode__(self):
-        """Return a more human-readable representation
-        """
+        '''
+        Return a more human-readable representation
+        '''
         return "settings for exercise %s in set %s" % (self.exercise.id, self.set.id)
 
     def get_owner_object(self):
-        """
+        '''
         Returns the object that has owner information
-        """
+        '''
         return self.set.exerciseday.training
 
 
 class WorkoutLog(models.Model):
-    """
+    '''
     A log entry for an exercise
-    """
+    '''
 
     user = models.ForeignKey(User, verbose_name=_('User'))
     exercise = models.ForeignKey(Exercise, verbose_name=_('Exercise'))
@@ -181,17 +191,17 @@ class WorkoutLog(models.Model):
         ordering = ["date", "reps"]
 
     def __unicode__(self):
-        """
+        '''
         Return a more human-readable representation
-        """
+        '''
         return "Log entry: %s - %s kg on %s" % (self.reps,
                                                 self.weight,
                                                 self.date)
 
     def get_owner_object(self):
-        """
+        '''
         Returns the object that has owner information
-        """
+        '''
         return self
 
     def process_log_entries(self, logs):
@@ -225,7 +235,7 @@ class WorkoutLog(models.Model):
                 max_weight[entry.date][entry.reps] = entry.weight
 
             if entry.weight > max_weight[entry.date][entry.reps]:
-                  max_weight[entry.date][entry.reps] = entry.weight
+                max_weight[entry.date][entry.reps] = entry.weight
 
         # Group by repetitions
         for entry in logs:
@@ -258,12 +268,14 @@ class UserProfile(models.Model):
 
     # Show exercise comments on workout view
     show_comments = models.BooleanField(verbose_name=_('Show exercise comments'),
-                        help_text=_('Check to show exercise comments on the workout view'))
+                                        help_text=_('Check to show exercise comments on the '
+                                                    'workout view'))
 
     # Also show ingredients in english while composing a nutritional plan
     # (obviously this is only meaningful if the user has a language other than english)
-    show_english_ingredients = models.BooleanField(verbose_name=_('Also use ingredients in English'),
-                        help_text=_('''Check to also show ingredients in English while creating
+    show_english_ingredients = models.BooleanField(
+        verbose_name=_('Also use ingredients in English'),
+        help_text=_('''Check to also show ingredients in English while creating
 a nutritional plan. These ingredients are extracted from a list provided
 by the US Department of Agriculture. It is extremely complete, with around
 7000 entries, but can be somewhat overwhelming and make the search difficult.'''))

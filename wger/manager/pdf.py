@@ -45,7 +45,7 @@ def workout_log(request, id):
     """Generates a PDF with the contents of the given workout
 
     See also
-    * http://www.blog.pythonlibrary.org/2010/09/21/reportlab-tables-creating-tables-in-pdfs-with-python/
+    * http://www.blog.pythonlibrary.org/2010/09/21/reportlab
     * http://www.reportlab.com/apis/reportlab/dev/platypus.html
     """
 
@@ -77,8 +77,7 @@ def workout_log(request, id):
     style = ParagraphStyle(
         name='Normal',
         #fontName='Helvetica-Bold',
-        fontSize=8,
-        )
+        fontSize=8,)
 
     # table data, here we will put the workout info
     data = []
@@ -120,8 +119,8 @@ def workout_log(request, id):
         days_of_week = [_(day_of_week.day_of_week) for day_of_week in day.day.select_related()]
 
         P = Paragraph('<para align="center">%(days)s: <strong>%(description)s</strong></para>' %
-                                        {'days': ', '.join(days_of_week),
-                                         'description': day.description},
+                      {'days': ', '.join(days_of_week),
+                      'description': day.description},
                       styleSheet["Normal"])
 
         data.append([P])
@@ -182,19 +181,17 @@ def workout_log(request, id):
         rowheights = [None] * len(data)
 
     # Set general table styles
-    table_style = [
-                    #('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-                    #('BOX', (0,0), (-1,-1), 1.25, colors.black),
-                    ('FONT', (0, 0), (-1, -1), 'Helvetica'),
-                    ('FONTSIZE', (0, 0), (-1, -1), 8),
-                    ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+    #('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+    #('BOX', (0,0), (-1,-1), 1.25, colors.black),
+    table_style = [('FONT', (0, 0), (-1, -1), 'Helvetica'),
+                   ('FONTSIZE', (0, 0), (-1, -1), 8),
+                   ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
 
-                    # Note: a padding of 3 seems to be the default
-                    ('LEFTPADDING', (0, 0), (-1, -1), 2),
-                    ('RIGHTPADDING', (0, 0), (-1, -1), 0),
-                    ('TOPPADDING', (0, 0), (-1, -1), 3),
-                    ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
-                   ]
+                   # Note: a padding of 3 seems to be the default
+                   ('LEFTPADDING', (0, 0), (-1, -1), 2),
+                   ('RIGHTPADDING', (0, 0), (-1, -1), 0),
+                   ('TOPPADDING', (0, 0), (-1, -1), 3),
+                   ('BOTTOMPADDING', (0, 0), (-1, -1), 2), ]
 
     # Set specific styles, e.g. background for title cells
     for marker in day_markers:
@@ -231,7 +228,6 @@ def workout_log(request, id):
             if not j % 2:
                 table_style.append(('BACKGROUND', (1, j - 1), (-1, j - 1), colors.lavender))
             counter += 1
-
 
     # Make the 'impression' span 3 cells and align it to the right
     for marker in group_day_marker:
@@ -276,8 +272,8 @@ def workout_log(request, id):
     # Set the title (if available)
     if workout.comment:
         P = Paragraph('<para align="center"><strong>%(description)s</strong></para>' %
-                                            {'description': workout.comment},
-                          styleSheet["Normal"])
+                      {'description': workout.comment},
+                      styleSheet["Normal"])
         elements.append(P)
 
         # Filler
@@ -292,21 +288,20 @@ def workout_log(request, id):
     elements.append(P)
 
     # Print date and info
+    created = datetime.date.today().strftime("%d.%m.%Y")
+    url = reverse('wger.manager.views.view_workout', kwargs={'id': workout.id})
     P = Paragraph('''<para align="left">
                         %(date)s -
                         <a href="%(url)s">%(url)s</a> -
                         %(created)s
                         %(version)s
                     </para>''' %
-                    {'date'    : _("Created on the <b>%s</b>") % datetime.date.today().strftime("%d.%m.%Y"),
-                     'created' : "wger Workout Manager",
-                     'version' : get_version(),
-                     'url'     : request.build_absolute_uri(reverse('wger.manager.views.view_workout',
-                                                               kwargs={'id': workout.id})),
-                     },
+                  {'date': _("Created on the <b>%s</b>") % created,
+                  'created': "wger Workout Manager",
+                  'version': get_version(),
+                  'url': request.build_absolute_uri(url), },
                   styleSheet["Normal"])
     elements.append(P)
-
 
     # write the document and send the response to the browser
     doc.build(elements)

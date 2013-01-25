@@ -96,4 +96,3 @@ class WeightCsvImportTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         self.import_csv(fail=False)
-

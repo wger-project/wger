@@ -164,7 +164,6 @@ def _main(opts, database_path=None):
     # Set the django environment to the settings
     setup_django_environment(settings_path)
 
-
     # Create Database if necessary
     if not database_exists() or opts.syncdb:
         run_syncdb()

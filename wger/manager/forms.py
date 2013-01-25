@@ -53,7 +53,7 @@ class UserPreferencesForm(ModelForm):
 class UserEmailForm(ModelForm):
     email = EmailField(label=_("Email"),
                        help_text=_("Completely optional, but needed to reset your password "
-                                     "in case you forget it."),
+                                   "in case you forget it."),
                        required=False)
 
     def clean_email(self):
@@ -79,6 +79,7 @@ class DemoUserForm(Form):
                              label=_('Confirmation text'),
                              help_text=_('As a security measure, please enter the previous words'),)
 
+
 class WorkoutForm(ModelForm):
     class Meta:
         model = TrainingSchedule
@@ -96,18 +97,14 @@ class DayForm(ModelForm):
         model = Day
         exclude = ('training',)
 
-        widgets = {
-                    'day': TranslatedSelectMultiple()
-        }
+        widgets = {'day': TranslatedSelectMultiple()}
 
 
 class SetForm(ModelForm):
     class Meta:
         model = Set
         exclude = ('exerciseday', 'order',)
-        widgets = {
-                'exercises': ExerciseAjaxSelect(),
-        }
+        widgets = {'exercises': ExerciseAjaxSelect(), }
 
     # We need to overwrite the init method here because otherwise Django
     # will outut a default help text, regardless of the widget used
@@ -115,7 +112,7 @@ class SetForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(SetForm, self).__init__(*args, **kwargs)
         self.fields['exercises'].help_text = _('You can search for more than one exercise, '
-                                           'they will be grouped together for a superset.')
+                                               'they will be grouped together for a superset.')
 
 
 class HelperDateForm(Form):
@@ -139,5 +136,5 @@ class WorkoutLogForm(ModelForm):
     class Meta:
         model = WorkoutLog
         exclude = ('user',
-                 'workout',
-                 'exercise')
+                   'workout',
+                   'exercise')

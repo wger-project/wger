@@ -19,17 +19,18 @@ import json
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+
 def pagination(object_list,
                request_page,
-               paginator_class = Paginator,
-               objects_per_page = 25,
-               max_total_pages = 10,
-               pages_around_current = 5):
-    """
+               paginator_class=Paginator,
+               objects_per_page=25,
+               max_total_pages=10,
+               pages_around_current=5):
+    '''
     Helper function to initialise the pagination.
 
     If the list is too long, only pages around the current one are shown.
-    """
+    '''
 
     paginator = paginator_class(object_list, objects_per_page)
 
@@ -42,14 +43,13 @@ def pagination(object_list,
         # If page is out of range (e.g. 9999), deliver last page of results.
         paginated_page = paginator.page(paginator.num_pages)
 
-
     # For very long lists (e.g. the English ingredient with more than 8000 items)
     # we muck around here to remove the pages not inmediately 'around' the current
     # one, otherwise we end up with a which a useless block with 300 pages.
     if paginator.num_pages > max_total_pages:
 
         start_page = paginated_page.number - pages_around_current
-        for i in range(paginated_page.number - pages_around_current, paginated_page.number +1):
+        for i in range(paginated_page.number - pages_around_current, paginated_page.number + 1):
             if i > 0:
                 start_page = i
                 break

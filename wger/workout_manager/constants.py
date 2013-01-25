@@ -24,8 +24,7 @@ SOFTWARE_TAB = 'software'
 USER_TAB = 'user'
 
 # Valid date formats
-DATE_FORMATS = [
-                '%d.%m.%Y',  # '25.10.2012'
+DATE_FORMATS = ['%d.%m.%Y',  # '25.10.2012'
                 '%d.%m.%y',  # '25.10.12'
 
                 '%m/%d/%Y',  # '10/25/2012'

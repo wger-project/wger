@@ -16,15 +16,16 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.db import models
-from django.template.defaultfilters import slugify # django.utils.text.slugify in django 1.5!
+from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
 
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
 
 class Language(models.Model):
-    """Language of an item (exercise, workout, etc.)
-    """
+    '''
+    Language of an item (exercise, workout, etc.)
+    '''
 
     #e.g. 'de'
     short_name = models.CharField(max_length=2,
@@ -32,17 +33,19 @@ class Language(models.Model):
 
     #e.g. 'Deutsch'
     full_name = models.CharField(max_length=30,
-                                  verbose_name=_('Language full name'))
+                                 verbose_name=_('Language full name'))
 
     def __unicode__(self):
-        """Return a more human-readable representation
-        """
+        '''
+        Return a more human-readable representation
+        '''
         return "%s (%s)" % (self.full_name, self.short_name)
 
 
 class Muscle(models.Model):
-    """Muscle an exercise works out
-    """
+    '''
+    Muscle an exercise works out
+    '''
 
     # Name, in latin, e.g. "Pectoralis major"
     name = models.CharField(max_length=50,
@@ -56,14 +59,16 @@ class Muscle(models.Model):
         ordering = ["name", ]
 
     def __unicode__(self):
-        """Return a more human-readable representation
-        """
+        '''
+        Return a more human-readable representation
+        '''
         return self.name
 
 
 class ExerciseCategory(models.Model):
-    """Model for an exercise category
-    """
+    '''
+    Model for an exercise category
+    '''
     name = models.CharField(max_length=100,
                             verbose_name=_('Name'),)
     language = models.ForeignKey(Language,
@@ -75,19 +80,22 @@ class ExerciseCategory(models.Model):
         ordering = ["name", ]
 
     def __unicode__(self):
-        """Return a more human-readable representation
-        """
+        '''
+        Return a more human-readable representation
+        '''
         return self.name
 
     def get_owner_object(self):
-        """
+        '''
         Category has no owner information
-        """
+        '''
         return False
 
+
 class Exercise(models.Model):
-    """Model for an exercise
-    """
+    '''
+    Model for an exercise
+    '''
     category = models.ForeignKey(ExerciseCategory,
                                  verbose_name=_('Category'))
     description = models.TextField(max_length=2000,
@@ -99,53 +107,55 @@ class Exercise(models.Model):
     muscles = models.ManyToManyField(Muscle,
                                      verbose_name=_('Primary muscles'),
                                      )
-    
+
     muscles_secondary = models.ManyToManyField(Muscle,
-                                     verbose_name=_('Secondary muscles'),
-                                     related_name='secondary_muscles',
-                                     null=True,
-                                     blank=True
-                                     )
+                                               verbose_name=_('Secondary muscles'),
+                                               related_name='secondary_muscles',
+                                               null=True,
+                                               blank=True
+                                               )
 
     # Metaclass to set some other properties
     class Meta:
         ordering = ["name", ]
 
     def get_absolute_url(self):
-        """
+        '''
         Returns the canonical URL to view an exercise
-        """
+        '''
         return reverse('wger.exercises.views.exercise_view', kwargs={'id': self.id,
-                                                                'slug': slugify(self.name)})
+                                                                     'slug': slugify(self.name)})
 
     def __unicode__(self):
-        """Return a more human-readable representation
-        """
+        '''
+        Return a more human-readable representation
+        '''
         return self.name
 
     def get_owner_object(self):
-        """
+        '''
         Exercise has no owner information
-        """
+        '''
         return False
 
 
 class ExerciseComment(models.Model):
-    """Model for an exercise comment
-    """
+    '''
+    Model for an exercise comment
+    '''
     exercise = models.ForeignKey(Exercise, verbose_name=_('Exercise'))
     comment = models.CharField(max_length=200,
                                verbose_name=_('Comment'),
                                help_text=_('A comment about how to correctly do this exercise.'))
 
     def __unicode__(self):
-        """Return a more human-readable representation
-        """
+        '''
+        Return a more human-readable representation
+        '''
         return self.comment
 
     def get_owner_object(self):
-        """
+        '''
         Comment has no owner information
-        """
+        '''
         return False
-

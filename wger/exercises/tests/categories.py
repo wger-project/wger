@@ -40,7 +40,7 @@ class ExerciseCategoryTestCase(WorkoutManagerTestCase):
         # Delete the category
         count_before = ExerciseCategory.objects.count()
         response = self.client.post(reverse('exercisecategory-delete',
-                                           kwargs={'pk': 4}))
+                                            kwargs={'pk': 4}))
         count_after = ExerciseCategory.objects.count()
 
         # There is a redirect
@@ -98,8 +98,8 @@ class ExerciseCategoryTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 200)
 
         response = self.client.post(reverse('exercisecategory-edit',
-                                           kwargs={'pk': 3}),
-                                   {'name': 'A different name'})
+                                            kwargs={'pk': 3}),
+                                    {'name': 'A different name'})
 
         # There is a redirect
         self.assertEqual(response.status_code, 302)
@@ -119,7 +119,7 @@ class ExerciseCategoryTestCase(WorkoutManagerTestCase):
         # No name
         if not fail:
             response = self.client.post(reverse('exercisecategory-edit',
-                                           kwargs={'pk': 3}),
+                                                kwargs={'pk': 3}),
                                         {'name': ''})
 
             self.assertTrue(response.context['form'].errors['name'])
@@ -163,7 +163,7 @@ class ExerciseCategoryTestCase(WorkoutManagerTestCase):
 
         count_before = ExerciseCategory.objects.count()
         response = self.client.post(reverse('exercisecategory-add'),
-                                   {'name': 'A new category'})
+                                    {'name': 'A new category'})
         count_after = ExerciseCategory.objects.count()
 
         # There is a redirect

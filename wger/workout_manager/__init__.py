@@ -7,9 +7,10 @@
 
 VERSION = (1, 1, 0, 'alpha', 0)
 
+
 def get_version(version=None):
     """Derives a PEP386-compliant version number from VERSION."""
-    
+
     if version is None:
         version = VERSION
     assert len(version) == 5
@@ -40,7 +41,6 @@ def get_version(version=None):
 def hg_version():
     import socket
     import os
-    import sys
     from os.path import realpath, join, dirname
     try:
         from mercurial import ui as hgui

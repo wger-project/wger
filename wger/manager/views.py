@@ -95,9 +95,10 @@ def index(request):
 
 @login_required
 def dashboard(request):
-    """Show the index page, in our case, the last workout and nutritional plan
+    '''
+    Show the index page, in our case, the last workout and nutritional plan
     and the current weight
-    """
+    '''
 
     template_data = {}
 
@@ -117,7 +118,7 @@ def dashboard(request):
 
     # Load the last logged weight entry, if one exists
     try:
-        weight  = WeightEntry.objects.filter(user=request.user).latest('creation_date')
+        weight = WeightEntry.objects.filter(user=request.user).latest('creation_date')
     except ObjectDoesNotExist:
         weight = False
     template_data['weight'] = weight
@@ -153,24 +154,26 @@ def dashboard(request):
 # User functions
 # ************************
 def login(request):
-    """
+    '''
     Small wrapper around the django login view
-    """
+    '''
 
     return django_loginview(request,
                             template_name='user/login.html')
 
 
 def logout(request):
-    """Logout the user
-    """
+    '''
+    Logout the user
+    '''
     django_logout(request)
     return HttpResponseRedirect(reverse('login'))
 
 
 def registration(request):
-    """A form to allow for registration of new users
-    """
+    '''
+    A form to allow for registration of new users
+    '''
     template_data = {}
     template_data.update(csrf(request))
 
@@ -244,7 +247,7 @@ def create_demo_user(request):
             day.day.add(monday)
 
             day2 = Day(training=workout,
-                      description=_('Another sample day'))
+                       description=_('Another sample day'))
             day2.save()
             day2.day.add(wednesday)
 
@@ -341,9 +344,10 @@ def create_demo_user(request):
 
             # (Body) weight entries
             for i in range(1, 20):
+                creation_date = datetime.date.today() - datetime.timedelta(days=i)
                 entry = WeightEntry(user=user,
-                                 weight=80 + 0.5*i + random.randint(1, 3),
-                                 creation_date=datetime.date.today() - datetime.timedelta(days=i))
+                                    weight=80 + 0.5*i + random.randint(1, 3),
+                                    creation_date=creation_date)
                 entry.save()
 
             user = authenticate(username=username, password=password)
@@ -361,8 +365,9 @@ def create_demo_user(request):
 
 
 def preferences(request):
-    """An overview of all user preferences
-    """
+    '''
+    An overview of all user preferences
+    '''
     template_data = {}
     template_data.update(csrf(request))
 
@@ -403,8 +408,9 @@ def preferences(request):
 
 @login_required
 def api_user_preferences(request):
-    """ Allows the user to edit its preferences via AJAX calls
-    """
+    '''
+    Allows the user to edit its preferences via AJAX calls
+    '''
 
     if request.is_ajax():
 
@@ -434,8 +440,9 @@ def api_user_preferences(request):
 # ************************
 @login_required
 def overview(request):
-    """An overview of all the user's workouts
-    """
+    '''
+    An overview of all the user's workouts
+    '''
 
     template_data = {}
 
@@ -449,8 +456,9 @@ def overview(request):
 
 @login_required
 def view_workout(request, id):
-    """Show the workout with the given ID
-    """
+    '''
+    Show the workout with the given ID
+    '''
     template_data = {}
 
     workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
@@ -490,9 +498,9 @@ def view_workout(request, id):
 
 @login_required
 def copy_workout(request, pk):
-    """
+    '''
     Makes a copy of a workout
-    """
+    '''
 
     workout = get_object_or_404(TrainingSchedule, pk=pk, user=request.user)
 
@@ -543,37 +551,40 @@ def copy_workout(request, pk):
                             setting_copy.set = current_set_copy
                             setting_copy.save()
 
-            return HttpResponseRedirect(reverse('wger.manager.views.view_workout', kwargs={'id': workout.id}))
+            return HttpResponseRedirect(reverse('wger.manager.views.view_workout',
+                                        kwargs={'id': workout.id}))
     else:
-        workout_form = WorkoutCopyForm({'comment':workout.comment})
+        workout_form = WorkoutCopyForm({'comment': workout.comment})
 
         template_data = {}
         template_data.update(csrf(request))
-        template_data['title']       = _('Copy workout')
-        template_data['form']        = workout_form
+        template_data['title'] = _('Copy workout')
+        template_data['form'] = workout_form
         template_data['form_action'] = reverse('workout-copy', kwargs={'pk': workout.id})
         template_data['form_fields'] = [workout_form['comment']]
 
         return render_to_response('form.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+                                  template_data,
+                                  context_instance=RequestContext(request))
 
 
 @login_required
 def add(request):
-    """Add a new workout and redirect to its page
-    """
+    '''
+    Add a new workout and redirect to its page
+    '''
     workout = TrainingSchedule()
     workout.user = request.user
     workout.save()
 
-    return HttpResponseRedirect(reverse('wger.manager.views.view_workout', kwargs={'id': workout.id}))
+    return HttpResponseRedirect(reverse('wger.manager.views.view_workout',
+                                        kwargs={'id': workout.id}))
 
 
 class WorkoutDeleteView(YamlDeleteMixin, DeleteView):
-    """
+    '''
     Generic view to delete a workout routine
-    """
+    '''
 
     model = TrainingSchedule
     success_url = reverse_lazy('wger.manager.views.overview')
@@ -582,9 +593,9 @@ class WorkoutDeleteView(YamlDeleteMixin, DeleteView):
 
 
 class WorkoutEditView(YamlFormMixin, UpdateView):
-    """
+    '''
     Generic view to update an existing workout routine
-    """
+    '''
 
     model = TrainingSchedule
     form_class = WorkoutForm
@@ -596,9 +607,9 @@ class WorkoutEditView(YamlFormMixin, UpdateView):
 # Day functions
 # ************************
 class DayView(YamlFormMixin):
-    """
+    '''
     Base generic view for exercise day
-    """
+    '''
 
     model = Day
     form_class = DayForm
@@ -607,8 +618,9 @@ class DayView(YamlFormMixin):
         return reverse('wger.manager.views.view_workout', kwargs={'id': self.object.training_id})
 
     def get_form(self, form_class):
-        """
-        Filter the days of the week that are alreeady used by other days"""
+        '''
+        Filter the days of the week that are alreeady used by other days
+        '''
 
         # Get the form
         form = super(DayView, self).get_form(form_class)
@@ -633,27 +645,26 @@ class DayView(YamlFormMixin):
 
 
 class DayEditView(DayView, UpdateView):
-    """
+    '''
     Generic view to update an existing exercise day
-    """
+    '''
 
     title = ugettext_lazy('Edit workout day')
     form_action_urlname = 'day-edit'
 
 
 class DayCreateView(DayView, CreateView):
-    """
+    '''
     Generic view to add a new exercise day
-    """
+    '''
 
     title = ugettext_lazy('Add workout day')
     owner_object = {'pk': 'workout_pk', 'class': TrainingSchedule}
 
-
     def form_valid(self, form):
-        """
+        '''
         Set the workout this day belongs to
-        """
+        '''
         form.instance.training = TrainingSchedule.objects.get(pk=self.kwargs['workout_pk'])
         return super(DayCreateView, self).form_valid(form)
 
@@ -667,8 +678,9 @@ class DayCreateView(DayView, CreateView):
 
 @login_required
 def delete_day(request, id, day_id):
-    """Deletes the day with ID day_id belonging to workout with ID id
-    """
+    '''
+    Deletes the day with ID day_id belonging to workout with ID id
+    '''
 
     # Load the day
     day = get_object_or_404(Day, pk=day_id)
@@ -683,10 +695,11 @@ def delete_day(request, id, day_id):
 
 @login_required
 def view_day(request, id):
-    """Renders a day as shown in the workout overview.
+    '''
+    Renders a day as shown in the workout overview.
 
     This function is to be used with AJAX calls.
-    """
+    '''
     template_data = {}
 
     # Load day and check if its workout belongs to the user
@@ -706,8 +719,9 @@ def view_day(request, id):
 # ************************
 @login_required
 def edit_set(request, id, day_id, set_id=None):
-    """ Edits/creates a set
-    """
+    '''
+    Edits/creates a set
+    '''
 
     template_data = {}
     template_data.update(csrf(request))
@@ -755,7 +769,8 @@ def edit_set(request, id, day_id, set_id=None):
             # The exercises are ManyToMany in DB, so we have to save with this function
             set_form.save_m2m()
 
-            return HttpResponseRedirect(reverse('wger.manager.views.view_workout', kwargs={'id': id}))
+            return HttpResponseRedirect(reverse('wger.manager.views.view_workout',
+                                                kwargs={'id': id}))
     else:
         set_form = SetForm(instance=workout_set)
     template_data['set_form'] = set_form
@@ -767,8 +782,9 @@ def edit_set(request, id, day_id, set_id=None):
 
 @login_required
 def delete_set(request, id, day_id, set_id):
-    """ Deletes the given set
-    """
+    '''
+    Deletes the given set
+    '''
 
     # Load the set
     set_obj = get_object_or_404(Set, pk=set_id)
@@ -783,8 +799,9 @@ def delete_set(request, id, day_id, set_id):
 
 @login_required
 def api_edit_set(request):
-    """ Allows to edit the order of the sets via an AJAX call
-    """
+    '''
+    Allows to edit the order of the sets via an AJAX call
+    '''
 
     if request.is_ajax():
 
@@ -875,7 +892,6 @@ def api_edit_set(request):
                         setting_id = int(i.split('-')[-1])
                         setting = get_object_or_404(Setting, pk=setting_id)
 
-
                         # Check if the new value is empty (the user wants the setting deleted)
                         # We don't check more, if the user enters a string, it won't be converted
                         # and nothing will happen
@@ -908,8 +924,8 @@ def api_edit_set(request):
             template_data['exercise'] = exercise
 
             return render_to_response('setting/ajax_edit.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+                                      template_data,
+                                      context_instance=RequestContext(request))
 
 
 # ************************
@@ -969,7 +985,8 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
 
                 order += 1
 
-            return HttpResponseRedirect(reverse('wger.manager.views.view_workout', kwargs={'id': id}))
+            return HttpResponseRedirect(reverse('wger.manager.views.view_workout',
+                                                kwargs={'id': id}))
     else:
         setting_form = SettingFormSet(queryset=Setting.objects.filter(exercise_id=exercise.id,
                                                                       set_id=set_obj.id))
@@ -979,10 +996,12 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
                               template_data,
                               context_instance=RequestContext(request))
 
+
 @login_required
 def api_edit_setting(request):
-    """ Allows to edit the order of the setting inside a set via an AJAX call
-    """
+    '''
+    Allows to edit the order of the setting inside a set via an AJAX call
+    '''
 
     if request.is_ajax():
         if request.GET.get('do') == 'set_order':
@@ -1007,8 +1026,9 @@ def api_edit_setting(request):
 
 @login_required
 def delete_setting(request, id, set_id, exercise_id):
-    """Deletes all the settings belonging to set_id and exercise_id
-    """
+    '''
+    Deletes all the settings belonging to set_id and exercise_id
+    '''
 
     # Load the workout
     workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
@@ -1024,9 +1044,9 @@ def delete_setting(request, id, set_id, exercise_id):
 # Log functions
 # ************************
 class WorkoutLogUpdateView(YamlFormMixin, UpdateView):
-    """
+    '''
     Generic view to edit an existing workout log weight entry
-    """
+    '''
     model = WorkoutLog
     form_class = WorkoutLogForm
     custom_js = '''$(document).ready(function () {
@@ -1086,11 +1106,11 @@ def workout_log_add(request, pk):
 
     # Define the formset here because now we know the value to pass to 'extra'
     WorkoutLogFormSet = modelformset_factory(WorkoutLog,
-                                         form=WorkoutLogForm,
-                                         exclude=('user',
-                                                  'workout',
-                                                  'date'),
-                                         extra = total_sets)
+                                             form=WorkoutLogForm,
+                                             exclude=('user',
+                                                      'workout',
+                                                      'date'),
+                                             extra = total_sets)
     # Process the request
     if request.method == 'POST':
 
@@ -1116,9 +1136,9 @@ def workout_log_add(request, pk):
                 instances = formset.save(commit=False)
                 for instance in instances:
 
-                    instance.user     = request.user
-                    instance.workout  = day.training
-                    instance.date     = log_date
+                    instance.user = request.user
+                    instance.workout = day.training
+                    instance.date = log_date
                     instance.save()
 
                 return HttpResponseRedirect(reverse('workout-log', kwargs={'pk': day.training_id}))
@@ -1135,7 +1155,7 @@ def workout_log_add(request, pk):
 
         form_id_from = min(exercise_list[exercise]['form_ids'])
         form_id_to = max(exercise_list[exercise]['form_ids'])
-        exercise_list[exercise]['forms'] = formset[form_id_from:form_id_to +1]
+        exercise_list[exercise]['forms'] = formset[form_id_from:form_id_to + 1]
 
     template_data['day'] = day
     template_data['exercises'] = exercise_list
@@ -1191,9 +1211,9 @@ class WorkoutLogDetailView(DetailView):
         return context
 
     def dispatch(self, request, *args, **kwargs):
-        """
+        '''
         Check for ownership
-        """
+        '''
 
         workout = TrainingSchedule.objects.get(pk=kwargs['pk'])
         if workout.user != request.user:
@@ -1201,4 +1221,3 @@ class WorkoutLogDetailView(DetailView):
 
         # Dispatch normally
         return super(WorkoutLogDetailView, self).dispatch(request, *args, **kwargs)
-

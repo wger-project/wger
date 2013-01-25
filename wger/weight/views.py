@@ -133,16 +133,20 @@ def overview(request):
     """
     template_data = {}
 
-    min_date = WeightEntry.objects.filter(user=request.user).aggregate(Min('creation_date'))['creation_date__min']
-    max_date = WeightEntry.objects.filter(user=request.user).aggregate(Max('creation_date'))['creation_date__max']
+    min_date = WeightEntry.objects.filter(user=request.user).\
+        aggregate(Min('creation_date'))['creation_date__min']
+    max_date = WeightEntry.objects.filter(user=request.user).\
+        aggregate(Max('creation_date'))['creation_date__max']
     if min_date:
-        template_data['min_date'] = 'new Date(%(year)s, %(month)s, %(day)s)' % {'year': min_date.year,
-                                                                                'month': min_date.month,
-                                                                                'day': min_date.day}
+        template_data['min_date'] = 'new Date(%(year)s, %(month)s, %(day)s)' % \
+                                    {'year': min_date.year,
+                                    'month': min_date.month,
+                                    'day': min_date.day}
     if max_date:
-        template_data['max_date'] = 'new Date(%(year)s, %(month)s, %(day)s)' % {'year': max_date.year,
-                                                                                'month': max_date.month,
-                                                                                'day': max_date.day}
+        template_data['max_date'] = 'new Date(%(year)s, %(month)s, %(day)s)' % \
+                                    {'year': max_date.year,
+                                    'month': max_date.month,
+                                    'day': max_date.day}
     return render_to_response('weight_overview.html',
                               template_data,
                               context_instance=RequestContext(request))
@@ -177,14 +181,13 @@ def get_weight_data(request):
         return HttpResponse(json.dumps(chart_data), mimetype)
 
 
-CSV_DATE_FORMAT = (
-                    ('%d.%m.%Y', 'DD.MM.YYYY (30.01.2012)'),
-                    ('%d.%m.%y', 'DD.MM.YY (30.01.12)'),
-                    ('%Y-%m-%d', 'YYYY-MM-DD (2012-01-30)'),
-                    ('%y-%m-%d', 'YY-MM-DD (12-01-30)'),
-                    ('%m/%d/%Y', 'MM/DD/YYYY (01/30/2012)'),
-                    ('%m/%d/%y', 'MM/DD/YY (01/30/12)'),
-                  )
+CSV_DATE_FORMAT = (('%d.%m.%Y', 'DD.MM.YYYY (30.01.2012)'),
+                  ('%d.%m.%y', 'DD.MM.YY (30.01.12)'),
+                  ('%Y-%m-%d', 'YYYY-MM-DD (2012-01-30)'),
+                  ('%y-%m-%d', 'YY-MM-DD (12-01-30)'),
+                  ('%m/%d/%Y', 'MM/DD/YYYY (01/30/2012)'),
+                  ('%m/%d/%y', 'MM/DD/YY (01/30/12)'),)
+
 
 class WeightCsvImportForm(Form):
     '''
@@ -209,11 +212,11 @@ class WeightCsvImportFormPreview(FormPreview):
                 'form_action': reverse('weight-import-csv')}
 
     def process_preview(self, request, form, context):
-        context['weight_list'], context['error_list'] = helpers.parse_weight_csv(request, form.cleaned_data)
+        context['weight_list'], context['error_list'] = helpers.parse_weight_csv(request,
+                                                                                 form.cleaned_data)
         return context
 
     def done(self, request, cleaned_data):
         weight_list, error_list = helpers.parse_weight_csv(request, cleaned_data)
         WeightEntry.objects.bulk_create(weight_list)
         return HttpResponseRedirect(reverse('weight-overview'))
-

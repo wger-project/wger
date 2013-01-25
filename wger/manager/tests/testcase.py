@@ -22,13 +22,14 @@ from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
+
 class WorkoutManagerTestCase(TestCase):
     fixtures = ('tests-user-data',
                 'test-exercises',
                 'tests-ingredients',
                 'days_of_week',
                 'tests-workout-data')
-    
+
     def setUp(self):
         '''
         Overwrite some of Django's settings here
@@ -65,7 +66,6 @@ class WorkoutManagerLiveServerTestCase(LiveServerTestCase):
                 'tests-days-of-week',
                 'tests-workout-data')
 
-
     def setUp(self):
         """
         Set up out testing browser
@@ -76,7 +76,6 @@ class WorkoutManagerLiveServerTestCase(LiveServerTestCase):
 
         self.browser = webdriver.Firefox(profile)
         self.browser.implicitly_wait(3)
-
 
     def tearDown(self):
         """

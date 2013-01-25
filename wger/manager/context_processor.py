@@ -20,8 +20,6 @@ from wger.workout_manager import constants
 from wger.manager.utils import load_language
 
 
-
-
 def processor(request):
 
     full_path = request.get_full_path()
@@ -38,7 +36,7 @@ def processor(request):
 
         # The current path
         'request_full_path': full_path,
-        
+
         # Translation links
         'i18n_path': {'de': '/de' + full_path[3:],
                       'en': '/en' + full_path[3:]},

@@ -58,7 +58,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
         #
         self.client.get(reverse('wger.nutrition.views.add'))
         response = self.client.get(reverse('dashboard'))
-        
+
         if logged_in:
             # There is something to send to the template
             self.assertEqual(response.status_code, 200)
@@ -75,9 +75,8 @@ class DashboardTestCase(WorkoutManagerTestCase):
         # Now, with weight
         #
         self.client.post(reverse('weight-add'),
-                        {'weight': 100,
-                         'creation_date': '2012-01-01'},
-                        )
+                         {'weight': 100,
+                         'creation_date': '2012-01-01'},)
         response = self.client.get(reverse('dashboard'))
 
         if logged_in:
@@ -106,4 +105,3 @@ class DashboardTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         self.dashboard(logged_in=True)
-        
