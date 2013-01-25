@@ -110,6 +110,19 @@
         }
     },
     {
+        "pk": 3,
+        "model": "manager.set", 
+        "fields": {
+            "exercises": [
+                2
+            ], 
+            "exerciseday": 5, 
+            "order": 1, 
+            "sets": "4"
+        }
+    },
+
+    {
         "pk": 1, 
         "model": "manager.setting", 
         "fields": {
@@ -131,6 +144,18 @@
             "exercise": 2
         }
     },
+    {
+        "pk": 2, 
+        "model": "manager.setting", 
+        "fields": {
+            "comment": "", 
+            "set": 3, 
+            "reps": 10, 
+            "order": 1, 
+            "exercise": 2
+        }
+    },
+
     {
         "pk": 1, 
         "model": "manager.workoutlog", 
