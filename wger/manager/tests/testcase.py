@@ -24,7 +24,7 @@ class WorkoutManagerTestCase(TestCase):
     fixtures = ('tests-user-data',
                 'test-exercises',
                 'tests-ingredients',
-                'tests-days-of-week',
+                'days_of_week',
                 'tests-workout-data')
 
     def user_login(self, user='admin'):
