@@ -51,6 +51,29 @@
         }
     },
     {
+        "pk": 3, 
+        "model": "manager.day", 
+        "fields": {
+            "training": 2, 
+            "description": "Test day 1", 
+            "day": [
+                1
+            ]
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "manager.day", 
+        "fields": {
+            "training": 1, 
+            "description": "Test day 2", 
+            "day": [
+                5
+            ]
+        }
+    },
+
+    {
         "pk": 1, 
         "model": "manager.set", 
         "fields": {
