@@ -72,6 +72,18 @@
             ]
         }
     },
+    {
+        "pk": 5, 
+        "model": "manager.day", 
+        "fields": {
+            "training": 3, 
+            "description": "A cool day", 
+            "day": [
+                5
+            ]
+        }
+    },
+
 
     {
         "pk": 1, 

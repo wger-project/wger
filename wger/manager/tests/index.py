@@ -13,23 +13,20 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
-
 from django.core.urlresolvers import reverse
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 
 class DashboardTestCase(WorkoutManagerTestCase):
-    """Dashboard (landing page) test case"""
+    '''
+    Dashboard (landing page) test case
+    '''
 
     def dashboard(self, logged_in=False):
-        """Helper function to test the dashboard"""
+        '''
+        Helper function to test the dashboard
+        '''
 
         response = self.client.get(reverse('index'))
 
@@ -37,46 +34,34 @@ class DashboardTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 302)
 
         if logged_in:
+            # Logged in user are redirected to the dashboard page
             self.assertTemplateUsed('index.html')
-
-            # Check data sent to the template
-            #print response
-            #self.assertFalse(response.context['weight'])
-            #self.assertTrue(response.context['current_workout'])
-            #self.assertFalse(response.context['plan'])
-
         else:
             # Anonymous users are redirected to the features page
             self.assertTemplateUsed('features.html')
 
         response = self.client.get(reverse('dashboard'))
-
-        #
-        # Now, with workout
-        #
-        self.client.get(reverse('wger.manager.views.add'))
-        response = self.client.get(reverse('dashboard'))
-
         if logged_in:
             # There is something to send to the template
             self.assertFalse(response.context['weight'])
             self.assertTrue(response.context['current_workout'])
             self.assertFalse(response.context['plan'])
+            self.assertTrue(response.context['weekdays'])
 
         else:
             # Anonymous users are still redirected to the login page
             self.assertEqual(response.status_code, 302)
             self.assertTemplateUsed('login.html')
 
-
         #
         # Now, with nutrition plan
         #
         self.client.get(reverse('wger.nutrition.views.add'))
         response = self.client.get(reverse('dashboard'))
-
+        
         if logged_in:
             # There is something to send to the template
+            self.assertEqual(response.status_code, 200)
             self.assertFalse(response.context['weight'])
             self.assertTrue(response.context['current_workout'])
             self.assertTrue(response.context['plan'])
@@ -97,6 +82,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
 
         if logged_in:
             # There is something to send to the template
+            self.assertEqual(response.status_code, 200)
             self.assertTrue(response.context['weight'])
             self.assertTrue(response.context['current_workout'])
             self.assertTrue(response.context['plan'])
@@ -107,15 +93,17 @@ class DashboardTestCase(WorkoutManagerTestCase):
             self.assertTemplateUsed('login.html')
 
     def test_dashboard_anonymous(self):
-        '''Test index page as anonymous user'''
+        '''
+        Test index page as anonymous user
+        '''
 
-        self.user_logout()
         self.dashboard()
 
     def test_dashboard_logged_in(self):
-        '''Test index page a logged in user'''
+        '''
+        Test index page as a logged in user
+        '''
 
-        self.user_login()
+        self.user_login('test')
         self.dashboard(logged_in=True)
-        self.user_logout()
-
+        
