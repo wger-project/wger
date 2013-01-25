@@ -115,6 +115,59 @@
             "name": "Boring exercise"
         }
     }, 
+    {
+        "pk": 81, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 3, 
+            "muscles": [
+                1
+            ],
+            "muscles_secondary":[],
+            "description": "", 
+            "name": "Needed for demo user"
+        }
+    }, 
+    {
+        "pk": 84, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 3, 
+            "muscles": [
+                1
+            ],
+            "muscles_secondary":[],
+            "description": "", 
+            "name": "Needed for demo user"
+        }
+    }, 
+    {
+        "pk": 91, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 3, 
+            "muscles": [
+                1
+            ],
+            "muscles_secondary":[],
+            "description": "", 
+            "name": "Needed for demo user"
+        }
+    }, 
+
+    {
+        "pk": 111, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "category": 3, 
+            "muscles": [
+                1
+            ],
+            "muscles_secondary":[],
+            "description": "", 
+            "name": "Needed for demo user"
+        }
+    }, 
 
     {
         "pk": 1, 

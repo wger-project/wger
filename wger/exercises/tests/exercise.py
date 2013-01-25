@@ -127,21 +127,29 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         self.user_login()
         
         # Add an exercise
+        count_before = Exercise.objects.count()
         response = self.client.post(reverse('exercise-add'), 
                                         {'category': 2,
                                          'name': 'my test exercise',
                                          'muscles': [1, 2]})
+        count_after = Exercise.objects.count()
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(Exercise.objects.count(), 4, 'Exercise was not added')
+        new_location = response['Location']
+        self.assertEqual(count_before + 1, count_after, 'Exercise was not added')
+        
+        response = self.client.get(new_location)
+        exercise_id =  response.context['exercise'].id
+         
+        
         
         # Exercise was saved
-        response = self.client.get(reverse('wger.exercises.views.exercise_view', kwargs = {'id': 4}))
+        response = self.client.get(reverse('wger.exercises.views.exercise_view', kwargs = {'id': exercise_id}))
         self.assertEqual(response.status_code, 200)
         
         # Navigation tab
         self.assertEqual(response.context['active_tab'], 'exercises')
         
-        exercise_1 = Exercise.objects.get(pk = 4)
+        exercise_1 = Exercise.objects.get(pk = exercise_id)
         self.assertEqual(exercise_1.name, 'my test exercise')
         
         # Wrong category - adding

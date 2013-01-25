@@ -12,6 +12,8 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+import os
+
 from django.core.urlresolvers import reverse
 
 from django.test import TestCase
@@ -26,15 +28,29 @@ class WorkoutManagerTestCase(TestCase):
                 'tests-ingredients',
                 'days_of_week',
                 'tests-workout-data')
+    
+    def setUp(self):
+        '''
+        Overwrite some of Django's settings here
+        '''
+        os.environ['RECAPTCHA_TESTING'] = 'True'
+
+    def tearDown(self):
+        '''
+        Reset settings
+        '''
+        del os.environ['RECAPTCHA_TESTING']
 
     def user_login(self, user='admin'):
-        """Login the user, by default as 'admin'
-        """
+        '''
+        Login the user, by default as 'admin'
+        '''
         self.client.login(username=user, password='%(user)s%(user)s' % {'user': user})
 
     def user_logout(self):
-        """Visit the logout page
-        """
+        '''
+        Visit the logout page
+        '''
         self.client.logout()
 
 
