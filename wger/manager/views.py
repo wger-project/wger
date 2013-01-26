@@ -178,6 +178,11 @@ def registration(request):
     template_data.update(csrf(request))
 
     if request.method == 'POST':
+
+        # If the user is already logged in, redirect
+        if request.user.is_authenticated():
+            return HttpResponseRedirect(reverse('dashboard'))
+
         form = RegistrationForm(data=request.POST)
 
         # If the data is valid, log in and redirect
@@ -364,12 +369,14 @@ def create_demo_user(request):
                               context_instance=RequestContext(request))
 
 
+@login_required
 def preferences(request):
     '''
     An overview of all user preferences
     '''
     template_data = {}
     template_data.update(csrf(request))
+    redirect = False
 
     # Process the preferences form
     if request.method == 'POST':
@@ -380,6 +387,7 @@ def preferences(request):
         # Save the data if it validates
         if form.is_valid():
             form.save()
+            redirect = True
     else:
         form = UserPreferencesForm(instance=request.user.get_profile())
 
@@ -395,15 +403,19 @@ def preferences(request):
         if email_form.is_valid():
             request.user.email = email_form.cleaned_data['email']
             request.user.save()
+            redirect = True
     else:
         email_form = UserEmailForm(instance=request.user)
 
     template_data['form'] = form
     template_data['email_form'] = email_form
 
-    return render_to_response('user/preferences.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+    if redirect:
+        return HttpResponseRedirect(reverse('preferences'))
+    else:
+        return render_to_response('user/preferences.html',
+                                  template_data,
+                                  context_instance=RequestContext(request))
 
 
 @login_required

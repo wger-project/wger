@@ -104,7 +104,7 @@ class WorkoutManagerLiveServerTestCase(LiveServerTestCase):
         Logout the user
         """
 
-        self.browser.get(self.live_server_url + reverse('manager.views.logout'))
+        self.browser.get(self.live_server_url + reverse('wger.manager.views.logout'))
 
     def check_modal_dialog(self):
         """

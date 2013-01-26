@@ -24,12 +24,12 @@ urlpatterns = patterns('wger.manager.views',
 
     # User
     url(r'^logout$', 'logout', name='logout'),
-    url(r'^user/registration$', 'registration'),
+    url(r'^user/registration$', 'registration', name='registration'),
     url(r'^user/demo-account$',
         'create_demo_user',
         name='demo-account'),
 
-    url(r'^user/preferences$', 'preferences'),
+    url(r'^user/preferences$', 'preferences', name='preferences'),
 
     # Workout
     url(r'^workout/overview$', 'overview'),

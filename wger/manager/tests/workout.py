@@ -60,13 +60,17 @@ class AddWorkoutTestCase(WorkoutManagerTestCase):
             #workout = TrainingSchedule.objects.get(pk = 1)
 
     def test_create_workout_anonymous(self):
-        '''Test creating a workout as anonymous user'''
+        '''
+        Test creating a workout as anonymous user
+        '''
 
         self.user_logout()
         self.create_workout()
 
     def test_create_workout_logged_in(self):
-        '''Test creating a workout a logged in user'''
+        '''
+        Test creating a workout a logged in user
+        '''
 
         self.user_login()
         self.create_workout(logged_in=True)
