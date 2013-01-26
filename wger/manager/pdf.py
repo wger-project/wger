@@ -35,19 +35,20 @@ from wger.workout_manager import get_version
 
 logger = logging.getLogger('workout_manager.custom')
 
-"""
+'''
 PDF functions
-"""
+'''
 
 
 @login_required
 def workout_log(request, id):
-    """Generates a PDF with the contents of the given workout
+    '''
+    Generates a PDF with the contents of the given workout
 
     See also
     * http://www.blog.pythonlibrary.org/2010/09/21/reportlab
     * http://www.reportlab.com/apis/reportlab/dev/platypus.html
-    """
+    '''
 
     #Load the workout
     workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)

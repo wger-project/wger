@@ -83,8 +83,9 @@ def overview(request):
 
 @login_required
 def add(request):
-    """Add a new nutrition plan and redirect to its page
-    """
+    '''
+    Add a new nutrition plan and redirect to its page
+    '''
 
     plan = NutritionPlan()
     plan.user = request.user
@@ -95,9 +96,9 @@ def add(request):
 
 
 class PlanDeleteView(YamlDeleteMixin, DeleteView):
-    """
+    '''
     Generic view to delete a nutritional plan
-    """
+    '''
 
     model = NutritionPlan
     success_url = reverse_lazy('wger.nutrition.views.overview')
@@ -106,9 +107,9 @@ class PlanDeleteView(YamlDeleteMixin, DeleteView):
 
 
 class PlanEditView(YamlFormMixin, UpdateView):
-    """
+    '''
     Generic view to update an existing nutritional plan
-    """
+    '''
 
     model = NutritionPlan
     form_class = PlanForm
@@ -118,8 +119,9 @@ class PlanEditView(YamlFormMixin, UpdateView):
 
 @login_required
 def view(request, id):
-    """Show the nutrition plan with the given ID
-    """
+    '''
+    Show the nutrition plan with the given ID
+    '''
     template_data = {}
 
     plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
@@ -140,9 +142,9 @@ def view(request, id):
 
 @login_required
 def copy(request, pk):
-    """
+    '''
     Copy the nutrition plan
-    """
+    '''
 
     plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
 
@@ -174,12 +176,13 @@ def copy(request, pk):
 
 
 def export_pdf(request, id):
-    """Generates a PDF with the contents of a nutrition plan
+    '''
+    Generates a PDF with the contents of a nutrition plan
 
     See also
     * http://www.blog.pythonlibrary.org/2010/09/21/reportlab
     * http://www.reportlab.com/apis/reportlab/dev/platypus.html
-    """
+    '''
 
     #Load the workout
     plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
@@ -310,9 +313,9 @@ class MealItemForm(ModelForm):
 
 
 class MealCreateView(YamlFormMixin, CreateView):
-    """
+    '''
     Generic view to add a new meal to a nutrition plan
-    """
+    '''
 
     model = Meal
     form_class = MealForm
@@ -338,9 +341,9 @@ class MealCreateView(YamlFormMixin, CreateView):
 
 
 class MealEditView(YamlFormMixin, UpdateView):
-    """
+    '''
     Generic view to update an existing meal
-    """
+    '''
 
     model = Meal
     form_class = MealForm
@@ -353,8 +356,9 @@ class MealEditView(YamlFormMixin, UpdateView):
 
 @login_required
 def delete_meal(request, id):
-    """Deletes the meal with the given ID
-    """
+    '''
+    Deletes the meal with the given ID
+    '''
 
     # Load the meal
     meal = get_object_or_404(Meal, pk=id)
@@ -373,8 +377,9 @@ def delete_meal(request, id):
 # ************************
 @login_required
 def delete_meal_item(request, item_id):
-    """Deletes the meal ingredient with the given ID
-    """
+    '''
+    Deletes the meal ingredient with the given ID
+    '''
 
     # Load the item
     item = get_object_or_404(MealItem, pk=item_id)
@@ -390,8 +395,9 @@ def delete_meal_item(request, item_id):
 
 @login_required
 def edit_meal_item(request, id, meal_id, item_id=None):
-    """Form to add a meal to a plan
-    """
+    '''
+    Form to add a meal to a plan
+    '''
     template_data = {}
 
     # Load the plan
@@ -459,8 +465,9 @@ def edit_meal_item(request, id, meal_id, item_id=None):
 # Ingredient functions
 # ************************
 def ingredient_overview(request):
-    """Show an overview of all ingredients
-    """
+    '''
+    Show an overview of all ingredients
+    '''
 
     template_data = {}
 
@@ -498,9 +505,9 @@ class IngredientForm(ModelForm):
 
 
 class IngredientDeleteView(YamlDeleteMixin, DeleteView):
-    """
+    '''
     Generic view to delete an existing ingredient
-    """
+    '''
 
     model = Ingredient
     template_name = 'delete.html'
@@ -517,9 +524,9 @@ class IngredientDeleteView(YamlDeleteMixin, DeleteView):
 
 
 class IngredientEditView(YamlFormMixin, UpdateView):
-    """
+    '''
     Generic view to update an existing ingredient
-    """
+    '''
 
     model = Ingredient
     form_class = IngredientForm
@@ -528,9 +535,9 @@ class IngredientEditView(YamlFormMixin, UpdateView):
 
 
 class IngredientCreateView(YamlFormMixin, CreateView):
-    """
+    '''
     Generic view to add a new ingredient
-    """
+    '''
 
     model = Ingredient
     form_class = IngredientForm
@@ -543,9 +550,11 @@ class IngredientCreateView(YamlFormMixin, CreateView):
 
 
 def ingredient_search(request):
-    """Search for an exercise, return the result as a JSON list or as HTML page, depending on how
+    '''
+    Search for an exercise, return the result as a JSON list or as HTML page, depending on how
     the function was invoked
-    """
+    '''
+
     # Filter the ingredients the user will see by its language
     # (the user can also want to see ingredients in English, see load_ingredient_languages)
     languages = load_ingredient_languages(request)

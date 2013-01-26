@@ -62,9 +62,9 @@ class ExerciseCommentForm(ModelForm):
 
 
 class ExerciseCommentEditView(YamlFormMixin, UpdateView):
-    """
+    '''
     Generic view to update an existing exercise comment
-    """
+    '''
 
     model = ExerciseComment
     form_class = ExerciseCommentForm
@@ -83,9 +83,9 @@ class ExerciseCommentEditView(YamlFormMixin, UpdateView):
 
 
 class ExerciseCommentAddView(YamlFormMixin, CreateView):
-    """
+    '''
     Generic view to add a new exercise comment
-    """
+    '''
 
     model = ExerciseComment
     form_class = ExerciseCommentForm
@@ -125,8 +125,9 @@ def exercisecomment_delete(request, id):
 #         Exercises
 # ************************
 def exercise_overview(request):
-    """Overview with all exercises
-    """
+    '''
+    Overview with all exercises
+    '''
     language = load_language()
 
     template_data = {}
@@ -211,10 +212,10 @@ def exercise_view(request, id, slug=None):
 
 
 class ExercisesEditAddView(YamlFormMixin):
-    """
+    '''
     Generic view to subclass from for exercise adding and editing, since they
     share all this settings
-    """
+    '''
     model = Exercise
 
     form_fields = ['name',
@@ -247,9 +248,9 @@ class ExercisesEditAddView(YamlFormMixin):
 
 
 class ExerciseUpdateView(ExercisesEditAddView, UpdateView):
-    """
+    '''
     Generic view to update an existing exercise
-    """
+    '''
 
     def get_context_data(self, **kwargs):
         context = super(ExerciseUpdateView, self).get_context_data(**kwargs)
@@ -260,17 +261,17 @@ class ExerciseUpdateView(ExercisesEditAddView, UpdateView):
 
 
 class ExerciseAddView(ExercisesEditAddView, CreateView):
-    """
+    '''
     Generic view to add a new exercise
-    """
+    '''
 
     form_action = reverse_lazy('exercise-add')
 
 
 class ExerciseDeleteView(YamlDeleteMixin, DeleteView):
-    """
+    '''
     Generic view to delete an existing exercise
-    """
+    '''
 
     model = Exercise
     success_url = reverse_lazy('wger.exercises.views.exercise_overview')
@@ -287,8 +288,9 @@ class ExerciseDeleteView(YamlDeleteMixin, DeleteView):
 
 
 def exercise_search(request):
-    """Search an exercise, return the result as a JSON list
-    """
+    '''
+    Search an exercise, return the result as a JSON list
+    '''
 
     # Perform the search
     q = request.GET.get('term', '')
@@ -336,9 +338,9 @@ class ExerciseCategoryForm(ModelForm):
 
 
 class ExerciseCategoryAddView(YamlFormMixin, CreateView):
-    """
+    '''
     Generic view to add a new exercise category
-    """
+    '''
 
     model = ExerciseCategory
     form_class = ExerciseCategoryForm
@@ -353,9 +355,9 @@ class ExerciseCategoryAddView(YamlFormMixin, CreateView):
 
 
 class ExerciseCategoryUpdateView(YamlFormMixin, UpdateView):
-    """
+    '''
     Generic view to update an existing exercise category
-    """
+    '''
 
     model = ExerciseCategory
     form_class = ExerciseCategoryForm
@@ -376,9 +378,9 @@ class ExerciseCategoryUpdateView(YamlFormMixin, UpdateView):
 
 
 class ExerciseCategoryDeleteView(YamlDeleteMixin, DeleteView):
-    """
+    '''
     Generic view to delete an existing exercise category
-    """
+    '''
 
     model = ExerciseCategory
     success_url = reverse_lazy('wger.exercises.views.exercise_overview')

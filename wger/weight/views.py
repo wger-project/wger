@@ -60,9 +60,9 @@ class WeightForm(ModelForm):
 
 
 class WeightAddView(YamlFormMixin, CreateView):
-    """
+    '''
     Generic view to add a new weight entry
-    """
+    '''
     model = WeightEntry
     form_class = WeightForm
     custom_js = '''$(document).ready(function () {
@@ -73,18 +73,18 @@ class WeightAddView(YamlFormMixin, CreateView):
     success_url = reverse_lazy('wger.weight.views.overview')
 
     def form_valid(self, form):
-        """
+        '''
         Set the owner of the entry here
-        """
+        '''
 
         form.instance.user = self.request.user
         return super(WeightAddView, self).form_valid(form)
 
 
 class WeightUpdateView(YamlFormMixin, UpdateView):
-    """
+    '''
     Generic view to edit an existing weight entry
-    """
+    '''
     model = WeightEntry
     form_class = WeightForm
     custom_js = '''$(document).ready(function () {
@@ -102,8 +102,9 @@ class WeightUpdateView(YamlFormMixin, UpdateView):
 
 @login_required
 def export_csv(request):
-    """Exports the saved weight data as a CSV file
-    """
+    '''
+    Exports the saved weight data as a CSV file
+    '''
 
     # Prepare the response headers
     filename = "%s-%s" % (_('weightdata'), request.user.username)
@@ -125,12 +126,13 @@ def export_csv(request):
 
 @login_required
 def overview(request):
-    """Shows a plot with the weight data
+    '''
+    Shows a plot with the weight data
 
     More info about the D3 library can be found here:
         * https://github.com/mbostock/d3
         * http://d3js.org/
-    """
+    '''
     template_data = {}
 
     min_date = WeightEntry.objects.filter(user=request.user).\

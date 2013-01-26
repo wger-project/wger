@@ -22,8 +22,9 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class WeightEntry(models.Model):
-    """Model for a weight point
-    """
+    '''
+    Model for a weight point
+    '''
     creation_date = models.DateField(verbose_name=_('Date'))
     weight = models.FloatField(verbose_name=_('Weight'))
     user = models.ForeignKey(User, verbose_name=_('User'))
@@ -35,12 +36,13 @@ class WeightEntry(models.Model):
         ordering = ["creation_date", ]
 
     def __unicode__(self):
-        """Return a more human-readable representation
-        """
+        '''
+        Return a more human-readable representation
+        '''
         return "%s: %s kg" % (self.creation_date, self.weight)
 
     def get_owner_object(self):
-        """
+        '''
         Returns the object that has owner information
-        """
+        '''
         return self

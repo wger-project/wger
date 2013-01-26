@@ -23,8 +23,9 @@ from wger.exercises.models import Language
 
 
 def load_language():
-    """Returns the currently used language, e.g. to load appropriate exercises
-    """
+    '''
+    Returns the currently used language, e.g. to load appropriate exercises
+    '''
     # TODO: perhaps store a language preference in the user's profile?
 
     # Read the first part of a composite language, e.g. 'de-at'
@@ -41,7 +42,8 @@ def load_language():
 
 
 def load_ingredient_languages(request):
-    """ Filter the ingredients the user will see by its language.
+    '''
+    Filter the ingredients the user will see by its language.
 
     Additionally, if the user has selected on his preference page that he wishes
     to also see the ingredients in English (from the US Department of Agriculture),
@@ -49,7 +51,7 @@ def load_ingredient_languages(request):
 
     This only makes sense if the user's language isn't English, as he will be
     presented those in that case anyway, so also do a check for this.
-    """
+    '''
 
     language = load_language()
     languages = (language.id,)
