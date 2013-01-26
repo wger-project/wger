@@ -20,7 +20,6 @@ from django.core.urlresolvers import reverse
 from wger.manager.models import WorkoutLog
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerLiveServerTestCase
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -110,6 +109,13 @@ class WeightLogEntryTestCase(WorkoutManagerTestCase):
         '''
         Helper function to test edit log entries
         '''
+
+        response = self.client.get(reverse('workout-log-edit', kwargs={'pk': 1}))
+        if fail:
+            self.assertTrue(response.status_code in (302, 403))
+
+        else:
+            self.assertEqual(response.status_code, 200)
 
         date_before = WorkoutLog.objects.get(pk=1).date
         response = self.client.post(reverse('workout-log-edit', kwargs={'pk': 1}),
