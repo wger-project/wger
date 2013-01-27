@@ -108,7 +108,7 @@ class EditWorkoutTestCase(WorkoutManagerTestCase):
 
         # Try editing the workout
         response = self.client.post(reverse('workout-edit', kwargs={'pk': 3}),
-                                   {'comment': 'A new comment'})
+                                    {'comment': 'A new comment'})
 
         workout = TrainingSchedule.objects.get(pk=3)
         if fail:
