@@ -247,7 +247,7 @@
             "muscles": [
                 6
             ], 
-            "description": "", 
+            "description": "<p>Stelle dich mit den Unterarme fest auf die daf\u00fcr vorgesehenen Stellen der Maschine, der K\u00f6rper h\u00e4ngt frei nach unten. Hebe nun die Beine so weit wie m\u00f6glich nach oben, wobei an der h\u00f6chsten Stelle eine kurze Pause eingelegt wird. Bringe sie dann langsam und kontrolliert wieder nach unten.</p>", 
             "muscles_secondary": [
                 3
             ], 
@@ -772,7 +772,7 @@
             "muscles": [
                 5
             ], 
-            "description": "", 
+            "description": "<p>Greife die Stangen an einer engen Stelle und dr\u00fccke dich hoch. Strecke dabei die Arme nicht ganz aus, dann bleiben w\u00e4hrend des gesamten Bewegungablaufs die Muskeln immer unter Spannung. Beuge nun die Arme und gehe so tief wie m\u00f6glich runter, die Ellenbogen zeigen nach hinten. Du kannst an dieser Stelle einige Sekunden bleiben, bevor du die \u00dcbung weitermachst.</p>", 
             "muscles_secondary": [
                 4, 
                 6
@@ -1093,8 +1093,10 @@
         "model": "exercises.exercise", 
         "fields": {
             "category": 3, 
-            "muscles": [], 
-            "description": "", 
+            "muscles": [
+                16
+            ], 
+            "description": "<p>Lege dich auf das Polster so, dass der Bauchnabel kurz vor der Vorderkante liegt, der Oberk\u00f6rper h\u00e4ngt frei nach unten. Spanne die gesamte R\u00fcckenmuskulatur an, und bringe den Oberk\u00f6rper nach oben bis er waagerecht ist (nicht h\u00f6her). Gehe nun langsam wieder nach unten (Muskelanspannung nicht vergessen).</p>", 
             "muscles_secondary": [], 
             "name": "Hyperextensions"
         }
@@ -1120,7 +1122,7 @@
             "muscles": [
                 1
             ], 
-            "description": "", 
+            "description": "<p>Setze dich vor der Scottmaschine, stelle die H\u00f6he so ein, dass die Achselh\u00f6hlen auf die Oberkante liegen. Die Oberarme liegen parallel auf der Fl\u00e4che und bleiben w\u00e4hrend der \u00dcbung auch so. Ziehe die Hanteln so weit wie m\u00f6glich hoch und bringe sie ohne Pause wieder runter. Strecke dabei die Arme ganz aus.</p>", 
             "muscles_secondary": [
                 13
             ], 
@@ -1200,7 +1202,7 @@
                 12, 
                 10
             ], 
-            "description": "", 
+            "description": "<p>Stelle dich mit etwas mehr als schulterbreitem Stand vor der Stange, die F\u00fc\u00dfe zeigen leicht nach au\u00dfen, die Stange ist direkt dar\u00fcber und sehr nahe am Schienenbein. Beuge die Knie (zeigen ebenfalls etwas nach au\u00dfen) und neige den Oberk\u00f6rper (bleibt w\u00e4hrend der ganzen \u00dcbung gerade). Greife die Stange schulterbreit mit einem Unter- und einem Obergriff.</p>\n<p>Ziehe nun die Stange nach oben. An der h\u00f6chsten Stelle mache ein leichtes Hohlkreuz und dr\u00fccke die Schultern nach hinten. Gehe wieder runter, wobei du darauf achtest, dass der R\u00fccken gerade bleibt und sich nicht kr\u00fcmmt. Du kannst unten angekommen eine kleine Pause einlegen oder sofort weitermachen.</p>", 
             "muscles_secondary": [
                 8
             ], 
@@ -2339,7 +2341,7 @@
         "pk": 50, 
         "model": "exercises.exercisecomment", 
         "fields": {
-            "comment": "Arme eher zusammen, direkt unterm dem Ellenbogen auf die Bank", 
+            "comment": "Arme eher zusammen, direkt unter dem Ellenbogen auf die Bank", 
             "exercise": 28
         }
     }, 

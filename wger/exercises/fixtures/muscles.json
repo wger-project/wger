@@ -32,6 +32,14 @@
         }
     }, 
     {
+        "pk": 16, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": false, 
+            "name": "Erector spinae"
+        }
+    }, 
+    {
         "pk": 7, 
         "model": "exercises.muscle", 
         "fields": {
