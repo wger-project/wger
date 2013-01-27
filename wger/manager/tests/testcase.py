@@ -18,6 +18,7 @@ from django.core.urlresolvers import reverse
 
 from django.test import TestCase
 from django.test import LiveServerTestCase
+from django.db import models
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -55,72 +56,69 @@ class WorkoutManagerTestCase(TestCase):
         self.client.logout()
 
 
-class WorkoutManagerLiveServerTestCase(LiveServerTestCase):
-    """
-    Live server test case, will be used with the selenium webdriver
-    """
+class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
+    '''
+    Tests deleting an object as the owner, a different user and a logged out
+    one.
+    '''
 
-    fixtures = ('tests-user-data',
-                'test-exercises',
-                'tests-ingredients',
-                'tests-days-of-week',
-                'tests-workout-data')
+    delete_class = ''
+    delete_url = ''
+    pk = ''
 
-    def setUp(self):
-        """
-        Set up out testing browser
-        """
+    def delete_object(self, fail=False):
+        '''
+        Helper function to test deleting a workout
+        '''
 
-        profile = webdriver.FirefoxProfile()
-        profile.set_preference("intl.accept_languages", "en")
+        # Only perform the checks on derived classes
+        if self.__class__.__name__ == 'WorkoutManagerDeleteTestCase':
+            return
 
-        self.browser = webdriver.Firefox(profile)
-        self.browser.implicitly_wait(3)
+        # Fetch the delete page
+        count_before = self.delete_class.objects.count()
+        response = self.client.get(reverse(self.delete_url, kwargs={'pk': self.pk}))
+        count_after = self.delete_class.objects.count()
 
-    def tearDown(self):
-        """
-        Quit the browser
-        """
+        self.assertEqual(count_before, count_after)
+        if fail:
+            self.assertIn(response.status_code, (403, 302))
+        else:
+            self.assertEqual(response.status_code, 200)
 
-        self.browser.quit()
-        #pass
+        # Try deleting the object
+        response = self.client.post(reverse(self.delete_url, kwargs={'pk': self.pk}))
+        count_after = self.delete_class.objects.count()
 
-    def user_login(self, user='admin', explicit_login=True):
-        """
-        Login the user
-        """
+        if fail:
+            self.assertIn(response.status_code, (403, 302))
+            self.assertEqual(count_before, count_after)
+        else:
+            self.assertEqual(response.status_code, 302)
+            self.assertEqual(count_before - 1, count_after)
+            self.assertRaises(self.delete_class.DoesNotExist,
+                              self.delete_class.objects.get,
+                              pk=self.pk)
 
-        if explicit_login:
-            self.browser.get(self.live_server_url + reverse('login'))
-        username_field = self.browser.find_element_by_id('id_username')
-        username_field.send_keys('admin')
+    def test_delete_object_anonymous(self):
+        '''
+        Tests deleting the object as an anonymous user
+        '''
 
-        password_field = self.browser.find_element_by_id('id_password')
-        password_field.send_keys('%(user)s%(user)s' % {'user': user})
-        password_field.send_keys(Keys.RETURN)
+        self.delete_object(fail=True)
 
-    def user_logout(self, user='admin'):
-        """
-        Logout the user
-        """
+    def test_delete_object_owner(self):
+        '''
+        Tests deleting the object as the owner user
+        '''
 
-        self.browser.get(self.live_server_url + reverse('wger.manager.views.logout'))
+        self.user_login('test')
+        self.delete_object(fail=False)
 
-    def check_modal_dialog(self):
-        """
-        Helper function that checks the modal dialogs
-        """
+    def test_delete_object_other(self):
+        '''
+        Tests deleting the object as a logged in user not owning the data
+        '''
 
-        # There is a modal dialog
-        modal_dialog = self.browser.find_elements_by_class_name('ui-dialog')[0]
-        self.assertTrue(modal_dialog)
-
-        # Found the title
-        dialog_title = modal_dialog.find_elements_by_id('ui-id-1')[0]
-        self.assertTrue(dialog_title)
-
-        # Found the content
-        dialog_content = modal_dialog.find_elements_by_id('ajax-info')[0]
-        self.assertTrue(dialog_content)
-
-        return(dialog_title, dialog_content)
+        self.user_login('admin')
+        self.delete_object(fail=True)

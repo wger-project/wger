@@ -17,6 +17,7 @@ from django.core.urlresolvers import reverse
 from wger.manager.models import TrainingSchedule
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 
 
 class AddWorkoutTestCase(WorkoutManagerTestCase):
@@ -75,6 +76,70 @@ class AddWorkoutTestCase(WorkoutManagerTestCase):
         self.user_login()
         self.create_workout(logged_in=True)
         self.user_logout()
+
+
+class DeleteTestWorkoutTestCase(WorkoutManagerDeleteTestCase):
+    '''
+    Tests deleting a Workout
+    '''
+
+    delete_class = TrainingSchedule
+    delete_url = 'workout-delete'
+    pk = 3
+
+
+class EditWorkoutTestCase(WorkoutManagerTestCase):
+    '''
+    Tests editing a workout
+    '''
+
+    def edit_workout(self, fail=False):
+        '''
+        Helper function to test editing a workout
+        '''
+
+        # Fetch the edit page
+        response = self.client.get(reverse('workout-edit', kwargs={'pk': 3}))
+
+        if fail:
+            self.assertIn(response.status_code, (403, 302))
+        else:
+            self.assertEqual(response.status_code, 200)
+
+        # Try editing the workout
+        response = self.client.post(reverse('workout-edit', kwargs={'pk': 3}),
+                                   {'comment': 'A new comment'})
+
+        workout = TrainingSchedule.objects.get(pk=3)
+        if fail:
+            self.assertIn(response.status_code, (403, 302))
+            self.assertEqual(workout.comment, 'My test workout')
+        else:
+            self.assertEqual(response.status_code, 302)
+            self.assertEqual(workout.comment, 'A new comment')
+
+    def test_edit_workout_anonymous(self):
+        '''
+        Tests editing a workout as an anonymous user
+        '''
+
+        self.edit_workout(fail=True)
+
+    def test_edit_workout_owner(self):
+        '''
+        Tests editing a workout as the owner user
+        '''
+
+        self.user_login('test')
+        self.edit_workout(fail=False)
+
+    def test_edit_workout_other(self):
+        '''
+        Tests editing a workout as a logged user not owning the data
+        '''
+
+        self.user_login('admin')
+        self.edit_workout(fail=True)
 
 
 class WorkoutOverviewTestCase(WorkoutManagerTestCase):
