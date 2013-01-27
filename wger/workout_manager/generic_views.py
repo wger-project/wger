@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
+import bleach
 
 from django.forms import models
 from django.http import HttpResponseForbidden
@@ -23,6 +24,10 @@ from django.utils.translation import ugettext_lazy
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
 from django.views.generic.edit import ModelFormMixin
+
+from wger.workout_manager.constants import HTML_TAG_WHITELIST
+from wger.workout_manager.constants import HTML_ATTRIBUTES_WHITELIST
+from wger.workout_manager.constants import HTML_STYLES_WHITELIST
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -37,6 +42,7 @@ class YamlFormMixin(ModelFormMixin):
     title = ''
     owner_object = False
     submit_text = ugettext_lazy('Save')
+    clean_html = ()
 
     def get_context_data(self, **kwargs):
         '''
@@ -115,6 +121,24 @@ class YamlFormMixin(ModelFormMixin):
 
         # Dispatch normally
         return super(YamlFormMixin, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        '''
+        Pre-process the form, cleaning up the HTML code found in the fields
+        given in clean_html. All HTML tags, attributes and styles not in the
+        whitelists are stripped from the output, leaving only the text content:
+
+        <table><tr><td>foo</td></tr></table> simply becomes 'foo'
+        '''
+
+        for field in self.clean_html:
+            setattr(form.instance, field, bleach.clean(getattr(form.instance, field),
+                                                       tags=HTML_TAG_WHITELIST,
+                                                       attributes=HTML_ATTRIBUTES_WHITELIST,
+                                                       styles=HTML_STYLES_WHITELIST,
+                                                       strip=True))
+
+        return super(YamlFormMixin, self).form_valid(form)
 
 
 class YamlDeleteMixin(ModelFormMixin):
