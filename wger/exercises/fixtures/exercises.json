@@ -208,7 +208,7 @@
             "muscles": [
                 11
             ], 
-            "description": "", 
+            "description": "<p>Lege dich auf dem Bauch auf die Bank und klemme die Beine unter der Halterung (eher im unteren Wadenbereich ansetzen). Halte dich fest und bringe nun das Gewicht nach oben, in dem du die Beinbizeps zusammenziehst, gehe langsam wieder nach unten. W\u00e4hrend der \u00dcbung muss der K\u00f6rper fest bleiben.</p>", 
             "muscles_secondary": [], 
             "name": "Beinbeuger liegend"
         }
@@ -234,7 +234,7 @@
             "muscles": [
                 11
             ], 
-            "description": "<p>Die F&uuml;&szlig;e werden auf die in der Maschine daf&uuml;r vorgesehene Stelle positioniert, wobei man die Fersen (und damit die Wadenmuskeln) komplett nach unten austrecken kann. Halte den K&ouml;rper gerade, mache kein Hohlkreuz und beuge die Beine nicht.</p>\r\n<p>Ziehe nun die Wadenmuskeln zusammen und gehe so hoch es geht. Mache auf dem h&ouml;chsten Punkt eine kurze Pause (1-2 sek.) und gehe dann runter.</p>", 
+            "description": "", 
             "muscles_secondary": [], 
             "name": "Beinbeuger stehend"
         }
@@ -277,7 +277,7 @@
             "muscles": [
                 10
             ], 
-            "description": "", 
+            "description": "<p>In die Maschine setzten und die F\u00fc\u00dfe auf die Auflage stellen, der Abstand, etwas mehr als schulterbreit. Die F\u00fc\u00dfe sind etwas nach au\u00dfen gedreht.</p>\r\n<p>Das Gewicht wird so weit abgesenkt, dass die Knie einen rechten Winkel machen. Sofort wird das Gewicht nach oben gedr\u00fcckt. Die Knie zeigen etwas nach au\u00dfen und werden nie ganz ausgestreckt, die Bewegung bleibt immer fl\u00fcssig, also weder oben noch unten irgendwelche Pausen einlegen!</p>", 
             "muscles_secondary": [
                 8
             ], 
@@ -307,7 +307,7 @@
             "muscles": [
                 10
             ], 
-            "description": "", 
+            "description": "<p>Setze dich in die Beinstreckermaschine. Der R\u00fccken soll einen festen Halt haben, stelle die Maschine so ein, dass du fest sitzt. In der Anfangsposition sind die Beine entwas nach hinten angewinkelt. Dr\u00fccke das Gewicht nach oben bis die Beine nahezu vollst\u00e4ndig ausgestreckt sind. Gehe langsam und kontrolliert wieder runter.</p>", 
             "muscles_secondary": [], 
             "name": "Beinstrecker"
         }
@@ -320,7 +320,7 @@
             "muscles": [
                 10
             ], 
-            "description": "", 
+            "description": "<p>Der Bewegungsablauf ist wie beim beidbeinigem Beinstrecker:</p>\r\n<p>Setze dich in die Beinstreckermaschine. Der R\u00fccken soll einen festen Halt haben, stelle die Maschine so ein, dass du fest sitzt. In der Anfangsposition sind die Beine entwas nach hinten angewinkelt. Dr\u00fccke das Gewicht nach oben bis die Beine nahezu vollst\u00e4ndig ausgestreckt sind. Gehe langsam und kontrolliert wieder runter.</p>", 
             "muscles_secondary": [], 
             "name": "Beinstrecker einbeinig"
         }
@@ -814,7 +814,7 @@
             "muscles": [
                 5
             ], 
-            "description": "", 
+            "description": "<p>Stelle zwei B\u00e4nke so weit ausernander, dass du die H\u00e4nde am Rand der einen und du die F\u00fc\u00dfe auf der anderen noch knapp draufstellen kannst. Die Beine bleiben w\u00e4hrend der \u00dcbung ausgestreckt. Beuge nun die Arme und gehe so tief wie m\u00f6glich runter, die Ellenbogen zeigen nach hinten. Hebe den K\u00f6rper wieder, achte aber darauf, dass du die Arme nicht ganz austreckst.</p>", 
             "muscles_secondary": [], 
             "name": "Dips zwischen 2 B\u00e4nke"
         }
@@ -1448,7 +1448,7 @@
             "muscles": [
                 12
             ], 
-            "description": "", 
+            "description": "<p>Greife die Langhantel mit breitem (etwas mehr als Schulterbreit) Griff und beuge dich nach vorne. Dabei ist der Oberk\u00f6rper nicht ganz Waagerecht, sonder ein bisschen steiler, der Kopf schaut nach vorn und die Brust is rausgestreckt.</p>\r\n<p>Ziehe nun das Gewicht in richtung Bauchnabel. Schwinge w\u00e4hrend der Bewegung den Oberk\u00f6rper nicht und halte die Arme dicht am K\u00f6rper wenn du sie hochziehst. Bringe die Hantel langsam wieder nach unten.</p>", 
             "muscles_secondary": [
                 2, 
                 1
@@ -1464,7 +1464,7 @@
             "muscles": [
                 12
             ], 
-            "description": "", 
+            "description": "<p>Bewegungsablauf wie beim normalen vorgebeugtem Rudern, nur die Handstellung ist <em>reverse</em>, also die Handfl\u00e4che zeigen nach hinten.</p>\r\n<p>Greife die Langhantel mit breitem (etwas mehr als Schulterbreit) Griff und beuge dich nach vorne. Dabei ist der Oberk\u00f6rper nicht ganz Waagerecht, sonder ein bisschen steiler, der Kopf schaut nach vorn und die Brust is rausgestreckt.</p>\r\n<p>Ziehe nun das Gewicht in richtung Bauchnabel. Schwinge w\u00e4hrend der Bewegung den Oberk\u00f6rper nicht und halte die Arme dicht am K\u00f6rper wenn du sie hochziehst. Bringe die Hantel langsam wieder nach unten.</p>", 
             "muscles_secondary": [
                 2, 
                 1
@@ -1509,7 +1509,7 @@
             "muscles": [
                 4
             ], 
-            "description": "", 
+            "description": "<p>Setze dich auf die Bank, die F\u00fc\u00dfe sind fest auf dem Boden und geben Haltm der Kopf liegt auf der Bank. Nehme die Hantel etwas mehr als Schulterbreit aus der Halterung raus und dr\u00fccke sie nach oben. Bringe die Hantel nach unten, bis sie die Brust kurz ber\u00fchrt. Dr\u00fccke das Gewicht wieder nach oben.</p>", 
             "muscles_secondary": [
                 2, 
                 5
@@ -1552,7 +1552,7 @@
             "muscles": [
                 9
             ], 
-            "description": "", 
+            "description": "<p>Greife zwei Hanteln, stelle dich mit Schulterbreitem Stand und sehr leicht gebeugte Beine auf und lasse den Blick nach vorn. Die Arme h\u00e4ngen am K\u00f6rper. Aus dieser Position hebst du nun die Gewichte, indem du die Schultern nach oben ziehst. Beuge dabei die Arme nicht. Auf dem h\u00f6chsten Punkt kannst du 1 oder 2 Sekunden ausharren, bringe dann die Schultern langsam nach unten.</p>", 
             "muscles_secondary": [
                 5
             ], 
@@ -1567,7 +1567,7 @@
             "muscles": [
                 2
             ], 
-            "description": "", 
+            "description": "<p>Greife die Stange der Multipresse, stelle dich mit Schulterbreitem Stand und sehr leicht gebeugte Beine auf und lasse den Blick nach vorn. Die Arme h\u00e4ngen am K\u00f6rper. Aus dieser Position hebst du nun das Gewicht, indem du die Schultern nach oben ziehst. Beuge dabei die Arme nicht. Auf dem h\u00f6chsten Punkt kannst du 1 oder 2 Sekunden ausharren, bringe dann die Schultern langsam nach unten.</p>", 
             "muscles_secondary": [
                 5
             ], 
@@ -1945,7 +1945,7 @@
             "muscles": [
                 7
             ], 
-            "description": "", 
+            "description": "<p>Die F\u00fc\u00dfe werden auf die in der Maschine daf\u00fcr vorgesehene Stelle positioniert, wobei man die Fersen (und damit die Wadenmuskeln) komplett nach unten austrecken kann. Halte den K\u00f6rper gerade, mache kein Hohlkreuz und beuge die Beine nicht.</p>\r\n<p>Ziehe nun die Wadenmuskeln zusammen und gehe so hoch es geht. Mache auf dem h\u00f6chsten Punkt eine kurze Pause (1-2 sek.) und gehe dann runter.</p>", 
             "muscles_secondary": [
                 15
             ], 
@@ -2406,5 +2406,13 @@
             "comment": "Fl\u00fcssige Bewegung, keine Pausen oben oder unten", 
             "exercise": 44
         }
-    } 
+    }, 
+    {
+        "pk": 60, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Fl\u00fcssige Bewegung, keine Pausen machen", 
+            "exercise": 54
+        }
+    }
 ]
