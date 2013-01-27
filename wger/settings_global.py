@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import os
+from wger.main import fs2unicode
 
 '''
 This file contains the global settings that don't need to be changed by the user
@@ -22,6 +23,7 @@ For a full list of options, visit:
     https://docs.djangoproject.com/en/1.4/ref/settings/#std:setting-LANGUAGES
 '''
 
+SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
 ADMINS = (
     #('Your name', 'your_email@example.com.net'),
@@ -77,6 +79,11 @@ USE_I18N = True
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale.
 USE_L10N = True
+
+# All translation files are in one place
+LOCALE_PATHS = (
+    fs2unicode(os.path.join(SITE_ROOT, 'locale')),
+)
 
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True

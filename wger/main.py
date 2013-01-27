@@ -32,7 +32,7 @@ from wger.workout_manager import get_version
 CONFIG_TEMPLATE = """#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from wger.workout_manager.settings_global import *
+from wger.settings_global import *
 
 # Use 'DEBUG = True' to get more details for server errors
 # (Default for releases: 'False')
