@@ -103,10 +103,10 @@ $(document).ready(function() {
             {% for muscle in muscle_list|first %}
                 <div id="muscle-{{muscle.id}}" style="display:none;" class="exercise-list">
                     <h3>{% trans "Exercises" %}</h3>
-                    <ul>
+                    <ul class="exercise-overview">
                         {% for exercise in muscle.exercise_set.select_related %}
                         {% if exercise.category.language == language %}
-                        <li>
+                        <li class="exercise">
                             <a href="{{exercise.get_absolute_url}}">{{exercise}}</a>
                         </li>
                         {% endif %}

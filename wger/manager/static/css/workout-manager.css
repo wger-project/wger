@@ -441,19 +441,19 @@ ul.pagination a:hover
 /**************************************************************
  * Muscle overview
  **************************************************************/
-.muscle-list{
+.muscle-list, .exercise-overview{
     list-style-type: none;
     margin-left: 0px;
 }
 
-.muscle{
+.muscle-list .muscle, .exercise-overview .exercise{
     line-height:2em;
     margin-left: 0px;
     padding-left: 0.3em;
     cursor: pointer;
 }
 
-.muscle-inactive{
+.muscle-list .muscle-inactive{
     background-color: transparent;
     font-weight: normal;
     border: 1px solid transparent;
@@ -461,7 +461,7 @@ ul.pagination a:hover
     border-radius: 0px;
 }
 
-.muscle-active{
+.muscle-list .muscle-active{
     font-weight: bold;
     background-color: #eeeeec;
     border: 1px solid #babdb6;
@@ -470,3 +470,9 @@ ul.pagination a:hover
 }
 
 
+.muscle-list .muscle{
+    line-height:2em;
+    margin-left: 0px;
+    padding-left: 0.3em;
+    cursor: pointer;
+}
