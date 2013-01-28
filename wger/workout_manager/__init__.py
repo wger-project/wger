@@ -5,14 +5,17 @@
     :license: GNU GPL, see LICENSE for more details.
 """
 
-VERSION = (1, 1, 0, 'alpha', 0)
+VERSION = (1, 1, 0, 'beta', 1)
+RELEASE = False
 
 
-def get_version(version=None):
+def get_version(version=None, release=None):
     """Derives a PEP386-compliant version number from VERSION."""
 
     if version is None:
         version = VERSION
+    if release is None:
+        release = RELEASE
     assert len(version) == 5
     assert version[3] in ('alpha', 'beta', 'rc', 'final')
 
@@ -21,19 +24,16 @@ def get_version(version=None):
     # sub = .devN - for pre-alpha releases
     #     | {a|b|c}N - for alpha, beta and rc releases
 
-    parts = 2 if version[2] == 0 else 3
-    main = '.'.join(str(x) for x in version[:parts])
+    main_parts = 2 if version[2] == 0 else 3
+    main = '.'.join(str(x) for x in version[:main_parts])
 
-    sub = ''
-    if version[3] == 'alpha' and version[4] == 0:
-        mercurial_version = hg_version()
-        if mercurial_version != 'unknown':
-            sub = '.dev%s' % mercurial_version
-        else:
-            sub = '.dev'
-
-    elif version[3] != 'final':
-        sub = "-" + version[3] + str(version[4])
+    if version[3] != 'final':
+        mapping = {'alpha': 'a', 'beta': 'b', 'rc': 'rc'}
+        sub = mapping[version[3]] + str(version[4])
+    else:
+        sub = ''
+    if not release:
+        sub += '-dev'
 
     return main + sub
 
