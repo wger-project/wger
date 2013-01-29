@@ -226,6 +226,7 @@ class ExercisesEditAddView(YamlFormMixin):
 
     title = ugettext_lazy('Add exercise')
     custom_js = 'init_tinymce();'
+    clean_html = ('description', )
 
     def get_form_class(self):
 
