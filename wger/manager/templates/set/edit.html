@@ -25,10 +25,6 @@ function custom_page_init()
         Main Content
 -->
 {% block content %}
-
-<h2>{% trans "Edit" %} {{ day.description }}</h2>
-
-
 <form action="{% url wger.manager.views.edit_set workout.id day.id set.id %}"
       method="post"
       class="ym-form">

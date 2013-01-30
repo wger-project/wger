@@ -327,6 +327,17 @@ header span.regular{
     color:       white;
 }
 
+/*
+ * Make more space for the page title
+ */
+#page-title{
+    margin-top: 0px;
+}
+
+#content-wrapper{
+    padding-top: 0.8em;
+}
+
 
 /*
  * Links in warning boxes get a different style, the default blue doesn't match

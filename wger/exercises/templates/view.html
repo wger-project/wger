@@ -28,9 +28,6 @@ function custom_modal_init()
         Main Content
 -->
 {% block content %}
-
-<h2>{{ exercise.name }}</h2>
-
 <p>{% trans "Category" %}: <strong>{{ exercise.category.name }}</strong></p>
 
 <p>{{ exercise.description|safe }}</p>

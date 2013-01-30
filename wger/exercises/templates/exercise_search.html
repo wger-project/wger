@@ -4,16 +4,13 @@
 <!--
         Title
 -->
-{% block title %}{% trans "Search results" %}{% endblock %}
+{% block title %}{% trans "Search results" %}- &quot;{{ search_term }}&quot;{% endblock %}
 
 
 <!--
         Main Content
 -->
 {% block content %}
-
-<h2>{% trans "Search results" %} - &quot;{{ search_term }}&quot;</h2>
-
 <form action="{% url wger.exercises.views.exercise_search %}"
       method="get"
       id="exercise_search_form">

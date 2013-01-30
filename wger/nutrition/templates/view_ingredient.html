@@ -9,7 +9,7 @@
 {% block content %}
 
 <div itemscope itemtype="http://schema.org/NutritionInformation">
-<h2 itemprop="name">{{ingredient.name}}</h2>
+<meta itemprop="name" content="{{ingredient.name}}" />
 
 <p>{% trans "Nutritional values in 100g of product." %}</p>
 

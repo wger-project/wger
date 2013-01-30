@@ -260,8 +260,7 @@ function form_modal_dialog()
             }
 
             // Set the new title
-            $("#ajax-info").dialog({title: $(responseText).find("#main-content h2").html()});
-
+            $("#ajax-info").dialog({title: $(responseText).find("#page-title").html()});
 
             // If there is a form in the modal dialog (there usually is) prevent the submit
             // button from submitting it and do it here with an AJAX request. If there

@@ -18,8 +18,6 @@ $(document).ready(function () {
 {% endblock %}
 
 {% block content %}
-<h2>{% trans "New weight log" %}  – {{day.description}}</h2>
-
 <form action="{{form_action}}" method="POST" class="ym-form" style="overflow-x: auto;">
 {% csrf_token %}
 {{formset.management_form}}

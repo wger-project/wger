@@ -77,9 +77,6 @@ $(document).ready(function () {
         Main Content
 -->
 {% block content %}
-
-<h2>{% trans "Weight overview" %}</h2>
-
 {% if not min_date %}
 <div class="box warning" id="weight-box-warning">
     {% trans "There is no chart here because there are no weight entries." %}
