@@ -157,19 +157,15 @@ class WorkoutOverviewTestCase(WorkoutManagerTestCase):
         # Page exists
         if logged_in:
             self.assertEqual(response.status_code, 200)
-            self.assertEqual(response.context['active_tab'], 'workout')
+            self.assertEqual(len(response.context['workouts']), 2)
         else:
             self.assertEqual(response.status_code, 302)
-            return
-
-        # There are workouts sent to the template
-        self.assertTrue(response.context['workouts'])
 
     def test_dashboard_anonymous(self):
         '''
         Test creating a workout as anonymous user
         '''
-        self.user_logout()
+
         self.get_workout_overview()
 
     def test_dashboard_logged_in(self):
@@ -178,4 +174,3 @@ class WorkoutOverviewTestCase(WorkoutManagerTestCase):
         '''
         self.user_login()
         self.get_workout_overview(logged_in=True)
-        self.user_logout()
