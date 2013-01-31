@@ -103,5 +103,5 @@ class DashboardTestCase(WorkoutManagerTestCase):
         Test index page as a logged in user
         '''
 
-        self.user_login('test')
+        self.user_login('admin')
         self.dashboard(logged_in=True)
