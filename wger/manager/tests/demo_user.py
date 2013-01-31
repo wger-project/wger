@@ -26,7 +26,6 @@ class DemoUserTestCase(WorkoutManagerTestCase):
 
     def test_demo_user(self):
 
-        #os.environ['RECAPTCHA_TESTING'] = 'True'
         # Open the copy workout form
         response = self.client.get(reverse('demo-account'))
         self.assertEqual(response.status_code, 200)

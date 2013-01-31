@@ -158,34 +158,3 @@ class WeightLogEntryTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         self.edit_log_entry(fail=True)
-
-
-#class WorkoutLogLiveServerTestCase(WorkoutManagerLiveServerTestCase):
-    #'''
-    #Selenium tests for workout log
-    #'''
-
-    #def test_find_links(self):
-        #'''
-        #Tests that the correct links are in the right places on the workout
-        #view
-        #'''
-
-        #self.user_login()
-        #self.browser.get(self.live_server_url + reverse('workout-view', kwargs = {'id': 1}))
-
-        ## There is a link to view/edit the logs for the day
-        #table_row = self.browser.find_element_by_id('day-1')
-        #self.assertTrue(table_row)
-        #links = table_row.find_elements_by_tag_name('a')
-        #self.assertEqual(len(links), 3)
-        #log_link = links[2]
-        #self.assertIn('Add weight log to this day', log_link.get_attribute('title'))
-        #self.assertIn(reverse('day-log', kwargs={'pk': 1}),
-                      #log_link.get_attribute('href'))
-
-        ## There is a link on the sidebar to access the log for the current workout
-        #sidebar = self.browser.find_element_by_id('main-sidebar')
-        #workout_log = sidebar.find_elements_by_tag_name('a')[2]
-        #self.assertIn(reverse('workout-log', kwargs={'pk': 1}),
-                      #workout_log.get_attribute('href'))

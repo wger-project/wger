@@ -26,6 +26,7 @@ from selenium.webdriver.common.keys import Keys
 
 class WorkoutManagerTestCase(TestCase):
     fixtures = ('tests-user-data',
+                'test-weight-data',
                 'test-exercises',
                 'tests-ingredients',
                 'days_of_week',
