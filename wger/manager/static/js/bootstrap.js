@@ -170,10 +170,16 @@
     var selector = $this.attr('data-target')
       , $parent
 
+    /*
+     Roland: commented out, seems to make trouble with jQuery 1.9
+    */
+
+    /*
     if (!selector) {
       selector = $this.attr('href')
       selector = selector && /#/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '') //strip for ie7
     }
+    */
 
     $parent = $(selector)
     $parent.length || ($parent = $this.parent())
