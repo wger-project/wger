@@ -6,9 +6,6 @@
 {% block title %}{% trans "New weight log" %}  – {{day.description}}{% endblock %}
 
 {% block header %}
-{% if language.short_name == 'de' %}
-<script src="{% static 'js/jquery.ui.datepicker-de.js' %}"></script>
-{% endif %}
 <script type="text/javascript">
 $(document).ready(function () {
     $( "#id_date" ).datepicker();

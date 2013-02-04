@@ -36,7 +36,9 @@
     <script src="{% static 'js/jquery.js' %}"          type="text/javascript"></script>
     <script src="{% static 'js/jquery-ui.js' %}"       type="text/javascript"></script>
     <script src="{% static 'js/workout-manager.js' %}" type="text/javascript"></script>
-
+    {% if language.short_name == 'de' %}
+    <script src="{% static 'js/jquery.ui.datepicker-de.js' %}"></script>
+    {% endif %}
     {% block header %}{% endblock %}
 
     <script>
