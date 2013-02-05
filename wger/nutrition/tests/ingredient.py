@@ -32,4 +32,3 @@ class DeleteIngredientTestCase(WorkoutManagerDeleteTestCase):
     pk = 1
     user_success = 'admin'
     user_fail = 'test'
-
