@@ -19,6 +19,7 @@ from django.core.urlresolvers import reverse
 from wger.exercises.models import Exercise
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 
 
 class ExerciseIndexTestCase(WorkoutManagerTestCase):
@@ -184,66 +185,6 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         self.assertTrue(response.context['form'].errors['muscles'])
         self.user_logout()
 
-    def delete_exercise(self, fail=True):
-        '''
-        Helper function to test deleting exercises
-        '''
-
-        # The exercise exists
-        response = self.client.get(reverse('wger.exercises.views.exercise_view', kwargs={'id': 3}))
-        self.assertEqual(response.status_code, 200)
-
-        # Delete the exercise
-        count_before = Exercise.objects.count()
-
-        # GET request, doesn't delete anything
-        response = self.client.get(reverse('exercise-delete', kwargs={'pk': 3}))
-        count_after = Exercise.objects.count()
-        self.assertEqual(count_before, count_after, 'Exercise was deleted')
-
-        # Check the deletion
-        if fail:
-            self.assertEqual(response.status_code, 302)
-        else:
-            self.assertEqual(response.status_code, 200)
-
-        # POST request, does delete the exercise
-        response = self.client.post(reverse('exercise-delete', kwargs={'pk': 3}))
-        count_after = Exercise.objects.count()
-
-        self.assertEqual(response.status_code, 302)
-
-        # Check the deletion
-        if fail:
-            self.assertEqual(count_before, count_after, 'Exercise was deleted')
-        else:
-            self.assertTrue(count_before > count_after, 'Exercise was not deleted')
-
-    def test_delete_exercise_anonymous(self, fail=True):
-        '''
-        Test deleting an exercise by an anonymous user
-        '''
-
-        self.delete_exercise()
-
-    def test_delete_exercise_unauthorized(self, fail=True):
-        '''
-        Test deleting an exercise by an unauthorized user
-        '''
-
-        self.user_login('test')
-        self.delete_exercise()
-        self.user_logout()
-
-    def test_delete_exercise_authorized(self):
-        '''
-        Test deleting an exercise by an authorized user
-        '''
-
-        self.user_login()
-        self.delete_exercise(fail=False)
-        self.user_logout()
-
     def search_exercise(self, fail=True):
         '''
         Helper function to test searching for exercises
@@ -289,3 +230,15 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         self.user_login()
         self.search_exercise(fail=False)
         self.user_logout()
+
+
+class DeleteExercisesTestCase(WorkoutManagerDeleteTestCase):
+    '''
+    Exercise test case
+    '''
+
+    delete_class = Exercise
+    delete_url = 'exercise-delete'
+    pk = 2
+    user_success = 'admin'
+    user_fail = 'test'

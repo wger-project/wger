@@ -17,69 +17,25 @@ from django.core.urlresolvers import reverse
 
 from wger.exercises.models import ExerciseCategory
 from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 
 
-class ExerciseCategoryTestCase(WorkoutManagerTestCase):
+class DeleteExerciseCategoryTestCase(WorkoutManagerDeleteTestCase):
+    '''
+    Exercise category delete test case
+    '''
+
+    delete_class = ExerciseCategory
+    delete_url = 'exercisecategory-delete'
+    pk = 4
+    user_success = 'admin'
+    user_fail = 'test'
+
+
+class EditExerciseCategoryTestCase(WorkoutManagerTestCase):
     '''
     Exercise category test case
     '''
-
-    def delete_category(self, fail=False):
-        '''
-        Helper function to test deleting categories
-        '''
-
-        response = self.client.get(reverse('exercisecategory-delete',
-                                           kwargs={'pk': 4}))
-        # Can the user access the page
-        if fail:
-            self.assertEqual(response.status_code, 302)
-        else:
-            self.assertEqual(response.status_code, 200)
-
-        # Delete the category
-        count_before = ExerciseCategory.objects.count()
-        response = self.client.post(reverse('exercisecategory-delete',
-                                            kwargs={'pk': 4}))
-        count_after = ExerciseCategory.objects.count()
-
-        # There is a redirect
-        self.assertEqual(response.status_code, 302)
-
-        # Check the deletion
-        if fail:
-            self.assertEqual(count_before,
-                             count_after,
-                             'Category was deleted by unauthorzed user')
-        else:
-            self.assertTrue(count_before > count_after,
-                            'Category was not deleted by authorized user')
-
-    def test_delete_category_unauthorized(self):
-        '''
-        Test deleting a category by an unauthorized user
-        '''
-
-        self.user_login('test')
-        self.delete_category(fail=True)
-
-    def test_delete_category_anonymous(self):
-        '''
-        Test deleting a category by an anonymous user
-        '''
-
-        self.user_logout()
-        self.delete_category(fail=True)
-        self.user_logout()
-
-    def test_delete_category_authorized(self):
-        '''
-        Test deleting a category by an authorized user
-        '''
-
-        self.user_login()
-        self.delete_category()
-        self.user_logout()
 
     def edit_category(self, fail=False):
         '''
@@ -148,6 +104,12 @@ class ExerciseCategoryTestCase(WorkoutManagerTestCase):
         self.user_login()
         self.edit_category()
 
+
+class AddExerciseCategoryTestCase(WorkoutManagerTestCase):
+    '''
+    Exercise category test case
+    '''
+
     def add_category(self, fail=False):
         '''
         Helper function to test adding categories
@@ -188,7 +150,7 @@ class ExerciseCategoryTestCase(WorkoutManagerTestCase):
         Test adding a category by an anonymous user
         '''
 
-        self.edit_category(fail=True)
+        self.add_category(fail=True)
 
     def test_add_category_authorized(self):
         '''

@@ -59,13 +59,16 @@ class WorkoutManagerTestCase(TestCase):
 
 class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
     '''
-    Tests deleting an object as the owner, a different user and a logged out
-    one.
+    Tests deleting an object an authorized user, a different one and a logged out
+    one. This assumes the delete action is only triggered with a POST request and
+    GET will only show a confirmation dialog.
     '''
 
     delete_class = ''
     delete_url = ''
-    pk = ''
+    pk = None
+    user_success = 'admin'
+    user_fail = 'test'
 
     def delete_object(self, fail=False):
         '''
@@ -108,18 +111,18 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
 
         self.delete_object(fail=True)
 
-    def test_delete_object_owner(self):
+    def test_delete_object_authorized(self):
         '''
-        Tests deleting the object as the owner user
+        Tests deleting the object as an authorized user
         '''
 
-        self.user_login('test')
+        self.user_login(self.user_success)
         self.delete_object(fail=False)
 
     def test_delete_object_other(self):
         '''
-        Tests deleting the object as a logged in user not owning the data
+        Tests deleting the object as an unauthorized, logged in user
         '''
 
-        self.user_login('admin')
+        self.user_login(self.user_fail)
         self.delete_object(fail=True)

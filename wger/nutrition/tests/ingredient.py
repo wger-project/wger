@@ -19,66 +19,17 @@ from django.core.urlresolvers import reverse
 from wger.nutrition.models import Ingredient
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 
 
-class DeleteIngredientTestCase(WorkoutManagerTestCase):
+class DeleteIngredientTestCase(WorkoutManagerDeleteTestCase):
     '''
     Tests deleting an ingredient
     '''
 
-    def delete_ingredient(self, fail=False):
-        '''
-        Helper function to test deleting an ingredient
-        '''
+    delete_class = Ingredient
+    delete_url = 'ingredient-delete'
+    pk = 1
+    user_success = 'admin'
+    user_fail = 'test'
 
-        # Fetch the edit page
-        count_before = Ingredient.objects.count()
-        response = self.client.get(reverse('ingredient-delete', kwargs={'pk': 1}))
-        count_after = Ingredient.objects.count()
-
-        self.assertEqual(count_before, count_after)
-
-        if fail:
-            self.assertIn(response.status_code, (302, 403))
-            self.assertTemplateUsed('login.html')
-
-        else:
-            self.assertEqual(response.status_code, 200)
-
-        # Try to delete the ingredient
-        count_before = Ingredient.objects.count()
-        response = self.client.post(reverse('ingredient-delete', kwargs={'pk': 1}))
-        count_after = Ingredient.objects.count()
-
-        if fail:
-            self.assertIn(response.status_code, (302, 403))
-            self.assertTemplateUsed('login.html')
-            self.assertEqual(count_before, count_after)
-
-        else:
-            self.assertRaises(Ingredient.DoesNotExist, Ingredient.objects.get, pk=1)
-            self.assertEqual(response.status_code, 302)
-            self.assertEqual(count_before - 1, count_after)
-
-    def test_delete_ingredient_anonymous(self):
-        '''
-        Test deleting an ingredient as an anonymous users
-        '''
-
-        self. delete_ingredient(fail=True)
-
-    def test_delete_ingredient_authorized(self):
-        '''
-        Test deleting an ingredient as an authorized user
-        '''
-
-        self.user_login('admin')
-        self.delete_ingredient(fail=False)
-
-    def test_delete_ingredient_other(self):
-        '''
-        Test deleting an ingredient as an unauthorized, logged in user
-        '''
-
-        self.user_login('test')
-        self.delete_ingredient(fail=True)
