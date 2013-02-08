@@ -25,12 +25,12 @@ from selenium.webdriver.common.keys import Keys
 
 
 class WorkoutManagerTestCase(TestCase):
-    fixtures = ('tests-user-data',
+    fixtures = ('days_of_week',
+                'tests-user-data',
                 'test-weight-data',
                 'test-exercises',
                 'tests-ingredients',
                 'test-nutrition-data',
-                'days_of_week',
                 'tests-workout-data')
 
     def setUp(self):
@@ -85,7 +85,7 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse(self.delete_url, kwargs={'pk': self.pk}))
         count_after = self.delete_class.objects.count()
         self.assertEqual(count_before, count_after)
-        
+
         if fail:
             self.assertIn(response.status_code, (403, 302))
         else:
@@ -166,7 +166,7 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
         response = self.client.post(reverse(self.edit_url, kwargs={'pk': self.pk}),
                                     self.data_update)
 
-        entry_after = self.object_class.objects.get(pk=1)
+        entry_after = self.object_class.objects.get(pk=self.pk)
 
         # Check the results
         if fail:
@@ -247,7 +247,7 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
                               self.object_class.objects.get,
                               pk=self.pk)
             self.assertEqual(count_before, count_after)
-            
+
         else:
             self.assertEqual(response.status_code, 302)
             entry = self.object_class.objects.get(pk=self.pk)
@@ -255,7 +255,6 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
                 self.assertEqual(getattr(entry, i), self.data[i])
 
             self.assertEqual(count_before + 1, count_after)
-            
 
     def test_add_object_anonymous(self):
         '''

@@ -3,7 +3,7 @@
         "pk": 9, 
         "model": "nutrition.nutritionplan", 
         "fields": {
-            "description": "", 
+            "description": "Description 1", 
             "user": 1, 
             "language": 2, 
             "creation_date": "2012-11-19"
@@ -13,7 +13,7 @@
         "pk": 8, 
         "model": "nutrition.nutritionplan", 
         "fields": {
-            "description": "", 
+            "description": "My plan to do xyz", 
             "user": 1, 
             "language": 2, 
             "creation_date": "2012-11-12"
