@@ -15,6 +15,7 @@
 import os
 
 from django.core.urlresolvers import reverse
+from django.core.urlresolvers import NoReverseMatch
 
 from django.test import TestCase
 from django.test import LiveServerTestCase
@@ -152,7 +153,12 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
             return
 
         # Fetch the edit page
-        response = self.client.get(reverse(self.edit_url, kwargs={'pk': self.pk}))
+        try:
+            response = self.client.get(reverse(self.edit_url, kwargs={'pk': self.pk}))
+        except NoReverseMatch:
+            # URL needs special care and doesn't need to be reversed here,
+            # everything was already done in the individual test case
+            response = self.client.get(self.edit_url)
         entry_before = self.object_class.objects.get(pk=self.pk)
 
         if fail:
@@ -163,8 +169,13 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 200)
 
         # Try to edit the object
-        response = self.client.post(reverse(self.edit_url, kwargs={'pk': self.pk}),
-                                    self.data_update)
+        try:
+            response = self.client.post(reverse(self.edit_url, kwargs={'pk': self.pk}),
+                                        self.data_update)
+        except NoReverseMatch:
+            # URL needs special care and doesn't need to be reversed here,
+            # everything was already done in the individual test case
+            response = self.client.post(self.edit_url, self.data_update)
 
         entry_after = self.object_class.objects.get(pk=self.pk)
 
@@ -226,7 +237,12 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
             return
 
         # Fetch the add page
-        response = self.client.get(reverse(self.url))
+        try:
+            response = self.client.get(reverse(self.url))
+        except NoReverseMatch:
+            # URL needs special care and doesn't need to be reversed here,
+            # everything was already done in the individual test case
+            response = self.client.get(self.url)
 
         if fail:
             self.assertIn(response.status_code, (302, 403))
@@ -237,7 +253,13 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
 
         # Enter the data
         count_before = self.object_class.objects.count()
-        response = self.client.post(reverse(self.url), self.data)
+        try:
+            response = self.client.post(reverse(self.url), self.data)
+        except NoReverseMatch:
+            # URL needs special care and doesn't need to be reversed here,
+            # everything was already done in the individual test case
+            response = self.client.post(self.url, self.data)
+
         count_after = self.object_class.objects.count()
         if fail:
             self.assertIn(response.status_code, (302, 403))
