@@ -15,6 +15,10 @@
 
 from django.core.urlresolvers import reverse
 
+from wger.nutrition.models import NutritionPlan
+from wger.manager.models import TrainingSchedule
+from wger.weight.models import WeightEntry
+
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 
@@ -33,46 +37,58 @@ class DashboardTestCase(WorkoutManagerTestCase):
         # Everybody is redirected
         self.assertEqual(response.status_code, 302)
 
-        if logged_in:
-            # Logged in user are redirected to the dashboard page
-            self.assertTemplateUsed('index.html')
-        else:
-            # Anonymous users are redirected to the features page
-            self.assertTemplateUsed('features.html')
+        # Delete the objects so we can test adding them later
+        NutritionPlan.objects.all().delete()
+        TrainingSchedule.objects.all().delete()
+        WeightEntry.objects.all().delete()
 
         response = self.client.get(reverse('dashboard'))
         if logged_in:
             # There is something to send to the template
+            self.assertEqual(response.status_code, 200)
+            self.assertFalse(response.context['weight'])
+            self.assertFalse(response.context['current_workout'])
+            self.assertFalse(response.context['plan'])
+            self.assertRaises(KeyError, lambda: response.context['weekdays'])
+
+        else:
+            # Anonymous users are still redirected to the login page
+            self.assertEqual(response.status_code, 302)
+
+        #
+        # 1. Add a workout
+        #
+        self.client.get(reverse('wger.manager.views.add'))
+        response = self.client.get(reverse('dashboard'))
+
+        if logged_in:
+            self.assertEqual(response.status_code, 200)
             self.assertFalse(response.context['weight'])
             self.assertTrue(response.context['current_workout'])
             self.assertFalse(response.context['plan'])
             self.assertTrue(response.context['weekdays'])
 
         else:
-            # Anonymous users are still redirected to the login page
             self.assertEqual(response.status_code, 302)
-            self.assertTemplateUsed('login.html')
 
         #
-        # Now, with nutrition plan
+        # 2. Add a nutrition plan
         #
         self.client.get(reverse('wger.nutrition.views.add'))
         response = self.client.get(reverse('dashboard'))
 
         if logged_in:
-            # There is something to send to the template
             self.assertEqual(response.status_code, 200)
             self.assertFalse(response.context['weight'])
             self.assertTrue(response.context['current_workout'])
             self.assertTrue(response.context['plan'])
+            self.assertTrue(response.context['weekdays'])
 
         else:
-            # Anonymous users are still redirected to the login page
             self.assertEqual(response.status_code, 302)
-            self.assertTemplateUsed('login.html')
 
         #
-        # Now, with weight
+        # 3. Add a weight entry
         #
         self.client.post(reverse('weight-add'),
                          {'weight': 100,
@@ -80,16 +96,14 @@ class DashboardTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('dashboard'))
 
         if logged_in:
-            # There is something to send to the template
             self.assertEqual(response.status_code, 200)
             self.assertTrue(response.context['weight'])
             self.assertTrue(response.context['current_workout'])
             self.assertTrue(response.context['plan'])
+            self.assertTrue(response.context['weekdays'])
 
         else:
-            # Anonymous users are still redirected to the login page
             self.assertEqual(response.status_code, 302)
-            self.assertTemplateUsed('login.html')
 
     def test_dashboard_anonymous(self):
         '''
