@@ -86,6 +86,8 @@ class DeleteTestWorkoutTestCase(WorkoutManagerDeleteTestCase):
     delete_class = TrainingSchedule
     delete_url = 'workout-delete'
     pk = 3
+    user_success = 'test'
+    user_fail = 'admin'
 
 
 class EditWorkoutTestCase(WorkoutManagerTestCase):
