@@ -11,15 +11,13 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-
-import datetime
-
-from django.core.urlresolvers import reverse
+# along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from wger.nutrition.models import Ingredient
 
-from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
+from wger.manager.tests.testcase import WorkoutManagerEditTestCase
+from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 
 
 class DeleteIngredientTestCase(WorkoutManagerDeleteTestCase):
@@ -30,5 +28,41 @@ class DeleteIngredientTestCase(WorkoutManagerDeleteTestCase):
     delete_class = Ingredient
     delete_url = 'ingredient-delete'
     pk = 1
-    user_success = 'admin'
-    user_fail = 'test'
+
+
+class EditIngredientTestCase(WorkoutManagerEditTestCase):
+    '''
+    Tests editing an ingredient
+    '''
+
+    object_class = Ingredient
+    edit_url = 'ingredient-edit'
+    pk = 1
+    data_update = {'name': 'A new name',
+                   'sodium': 2,
+                   'energy': 200,
+                   'fat': 10,
+                   'carbohydrates_sugar': 5,
+                   'fat_saturated': 3.1415,
+                   'fibres': 2.1,
+                   'protein': 30,
+                   'carbohydrates': 10}
+
+
+class AddIngredientTestCase(WorkoutManagerAddTestCase):
+    '''
+    Tests adding an ingredient
+    '''
+
+    object_class = Ingredient
+    url = 'ingredient-add'
+    pk = 7
+    data = {'name': 'A new ingredient',
+            'sodium': 2,
+            'energy': 200,
+            'fat': 10,
+            'carbohydrates_sugar': 5,
+            'fat_saturated': 3.1415,
+            'fibres': 2.1,
+            'protein': 30,
+            'carbohydrates': 10}
