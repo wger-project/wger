@@ -19,13 +19,17 @@ import json
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from wger.workout_manager.constants import PAGINATION_OBJECTS_PER_PAGE
+from wger.workout_manager.constants import PAGINATION_MAX_TOTAL_PAGES
+from wger.workout_manager.constants import PAGINATION_PAGES_AROUND_CURRENT
+
 
 def pagination(object_list,
                request_page,
                paginator_class=Paginator,
-               objects_per_page=25,
-               max_total_pages=10,
-               pages_around_current=5):
+               objects_per_page=PAGINATION_OBJECTS_PER_PAGE,
+               max_total_pages=PAGINATION_MAX_TOTAL_PAGES,
+               pages_around_current=PAGINATION_PAGES_AROUND_CURRENT):
     '''
     Helper function to initialise the pagination.
 
