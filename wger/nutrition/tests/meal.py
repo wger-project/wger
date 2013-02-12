@@ -41,6 +41,8 @@ class AddMealTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = Meal
-    url = reverse('meal-add', kwargs={'plan_pk': 8})
+    url = reverse('meal-add', kwargs={'plan_pk': 4})
     pk = 12
     data = {'time': datetime.time(9, 2)}
+    user_success = 'test'
+    user_fail = 'admin'

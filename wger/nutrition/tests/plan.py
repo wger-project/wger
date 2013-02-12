@@ -27,7 +27,7 @@ class DeletePlanTestCase(WorkoutManagerDeleteTestCase):
 
     delete_class = NutritionPlan
     delete_url = 'nutrition-delete'
-    pk = 6
+    pk = 2
 
 
 class EditPlanTestCase(WorkoutManagerEditTestCase):
@@ -37,5 +37,5 @@ class EditPlanTestCase(WorkoutManagerEditTestCase):
 
     object_class = NutritionPlan
     edit_url = 'nutrition-edit'
-    pk = 6
+    pk = 2
     data_update = {'description': 'My new description'}
