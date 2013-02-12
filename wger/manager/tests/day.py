@@ -17,67 +17,22 @@ from django.core.urlresolvers import reverse
 from wger.manager.models import Day
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 
 
-class AddWorkoutDayTestCase(WorkoutManagerTestCase):
+class AddWorkoutDayTestCase(WorkoutManagerAddTestCase):
     '''
     Tests adding a day to a workout
     '''
 
-    def add_day(self, fail=False):
-        '''
-        Helper function to test adding a day to a workout
-        '''
-
-        # Fetch the day edit page
-        response = self.client.get(reverse('day-add', kwargs={'workout_pk': 3}))
-
-        if fail:
-            self.assertIn(response.status_code, (302, 403))
-            self.assertTemplateUsed('login.html')
-
-        else:
-            self.assertEqual(response.status_code, 200)
-
-        # Edit the day
-        response = self.client.post(reverse('day-add', kwargs={'workout_pk': 3}),
-                                    {'description': 'a new day',
-                                    'day': [1, 4]})
-        if fail:
-            self.assertRaises(Day.DoesNotExist, Day.objects.get, pk=6)
-            self.assertIn(response.status_code, (302, 403))
-            self.assertTemplateUsed('login.html')
-
-        else:
-            day = Day.objects.get(pk=6)
-            self.assertEqual(response.status_code, 302)
-            self.assertEqual(day.description, 'a new day')
-            self.assertEqual(len(day.day.all()), 2)
-            self.assertEqual(day.day.all()[0].day_of_week, 'Monday')
-            self.assertEqual(day.day.all()[1].day_of_week, 'Thursday')
-
-    def test_add_day_anonymous(self):
-        '''
-        Test adding a day to a workout as an anonymous user
-        '''
-
-        self.add_day(fail=True)
-
-    def test_add_workout_owner(self):
-        '''
-        Test adding a day to a workout as the owner user
-        '''
-
-        self.user_login('test')
-        self.add_day(fail=False)
-
-    def test_add_workout_other(self):
-        '''
-        Test adding a day to a workout a different logged in user
-        '''
-
-        self.user_login('admin')
-        self.add_day(fail=True)
+    object_class = Day
+    url = reverse('day-add', kwargs={'workout_pk': 3})
+    pk = 6
+    user_success = 'test'
+    user_fail = 'admin'
+    data = {'description': 'a new day',
+            'day': [1, 4]}
 
 
 class DeleteWorkoutDayTestCase(WorkoutManagerTestCase):
@@ -130,69 +85,18 @@ class DeleteWorkoutDayTestCase(WorkoutManagerTestCase):
         self.delete_day(fail=True)
 
 
-class EditWorkoutDayTestCase(WorkoutManagerTestCase):
+class EditWorkoutDayTestCase(WorkoutManagerEditTestCase):
     '''
     Tests editing the day of a Workout
     '''
 
-    def edit_day(self, fail=False):
-        '''
-        Helper function to test editing the day
-        '''
-
-        # Fetch the day edit page
-        response = self.client.get(reverse('day-edit', kwargs={'pk': 5}))
-
-        if fail:
-            self.assertIn(response.status_code, (302, 403))
-            self.assertTemplateUsed('login.html')
-
-        else:
-            self.assertEqual(response.status_code, 200)
-
-        # Edit the day
-        response = self.client.post(reverse('day-edit', kwargs={'pk': 5}),
-                                    {'description': 'a different description',
-                                    'day': [1, 4]})
-
-        day = Day.objects.get(pk=5)
-
-        if fail:
-            self.assertIn(response.status_code, (302, 403))
-            self.assertTemplateUsed('login.html')
-            self.assertEqual(day.description, 'A cool day')
-            self.assertEqual(len(day.day.all()), 1)
-            self.assertEqual(day.day.all()[0].day_of_week, 'Friday')
-
-        else:
-            self.assertEqual(response.status_code, 302)
-            self.assertEqual(day.description, 'a different description')
-            self.assertEqual(len(day.day.all()), 2)
-            self.assertEqual(day.day.all()[0].day_of_week, 'Monday')
-            self.assertEqual(day.day.all()[1].day_of_week, 'Thursday')
-
-    def test_edit_day_anonymous(self):
-        '''
-        Test editing the day of a workout as an anonymous user
-        '''
-
-        self.edit_day(fail=True)
-
-    def test_create_workout_owner(self):
-        '''
-        Test editing the day of a workout as the owner user
-        '''
-
-        self.user_login('test')
-        self.edit_day(fail=False)
-
-    def test_create_workout_other(self):
-        '''
-        Test editing the day of a workout a logged in user
-        '''
-
-        self.user_login('admin')
-        self.edit_day(fail=True)
+    object_class = Day
+    edit_url = 'day-edit'
+    pk = 5
+    user_success = 'test'
+    user_fail = 'admin'
+    data_update = {'description': 'a different description',
+                   'day': [1, 4]}
 
 
 class RenderWorkoutDayTestCase(WorkoutManagerTestCase):
