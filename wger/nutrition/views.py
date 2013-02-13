@@ -175,6 +175,7 @@ def copy(request, pk):
     return HttpResponseRedirect(reverse('wger.nutrition.views.view', kwargs={'id': plan.id}))
 
 
+@login_required
 def export_pdf(request, id):
     '''
     Generates a PDF with the contents of a nutrition plan
