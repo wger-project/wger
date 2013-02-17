@@ -35,7 +35,8 @@ class NutritionalPlanPdfExportTestCase(WorkoutManagerTestCase):
         else:
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response['Content-Type'], 'application/pdf')
-            self.assertEqual(response['Content-Disposition'], 'attachment; filename=nutritional-plan.pdf')
+            self.assertEqual(response['Content-Disposition'],
+                             'attachment; filename=nutritional-plan.pdf')
 
             # Approximate size, there's a timestamp in the document
             self.assertGreater(len(response.content), 2800)
