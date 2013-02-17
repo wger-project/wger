@@ -1152,7 +1152,7 @@
             "muscles": [
                 12
             ], 
-            "description": "", 
+            "description": "<p>Greife die Klimmzugstange mit breitem Griff, der K\u00f6rper h\u00e4ngt zun\u00e4chst frei nach unten. Ziehe nun die Brust raus und bringe den K\u00f6rper nach oben, bis dein Kinn \u00fcber der Stange liegt (oder der Nacken sie ber\u00fchrt), gehe nun langsam nach unten und wiederhole.</p>", 
             "muscles_secondary": [
                 2, 
                 1, 
@@ -1612,7 +1612,7 @@
             "muscles": [
                 2
             ], 
-            "description": "", 
+            "description": "<p>Stelle dich mit schulterbreiten Beinen und leicht nach au\u00dfen zeigende F\u00fc\u00dfe mit zwei Hanteln auf. Die Arme sind fast vollst\u00e4ndig ausgestreckt. Hebe nun die Hanteln seitlich nach oben, auf dem h\u00f6chsten Punkt kannst du eine kurze (1-2 sek.) Pause machen.</p>\n<p>Achte darauf, dass die Handfl\u00e4chen sich w\u00e4hrend der Bewegung nicht drehen, sie sollten also immer zum Boden oder zum K\u00f6rper zeigen.</p>", 
             "muscles_secondary": [], 
             "name": "Seitheben KH"
         }
@@ -1677,7 +1677,7 @@
             "muscles": [
                 2
             ], 
-            "description": "", 
+            "description": "<p>Stelle dich mit geradem Oberk\u00f6rper hin, die H\u00e4nde h\u00e4ngen frei nach unten und halten je eine Kurzhantel. Hebe aus dieser Position die Schultern so weit nach oben, wie es geht, beuge aber die Arme w\u00e4hrend der \u00dcbung nicht. Am h\u00f6chsten Punkt kannst du eine oder zwei Sekunden Pause machen bevor du langsam wieder runtergehst.</p>\n<p>Bei gr\u00f6\u00dferem Gewicht, beachte immer, dass du immer noch die volle Bewegungsamplitude durchf\u00fchren kannst.</p>", 
             "muscles_secondary": [], 
             "name": "Shrugs (Schulterheben) mit KH"
         }
@@ -1690,7 +1690,7 @@
             "muscles": [
                 2
             ], 
-            "description": "", 
+            "description": "<p>Stelle dich mit geradem Oberk\u00f6rper hin, die H\u00e4nde h\u00e4ngen frei nach unten und halten die Langhantel. Hebe aus dieser Position die Schultern so weit nach oben, wie es geht, beuge aber die Arme w\u00e4hrend der \u00dcbung nicht. Am h\u00f6chsten Punkt kannst du eine oder zwei Sekunden Pause machen bevor du langsam wieder runtergehst.</p>\n<p>Bei gr\u00f6\u00dferem Gewicht, beachte immer, dass du immer noch die volle Bewegungsamplitude durchf\u00fchren kannst.</p>", 
             "muscles_secondary": [], 
             "name": "Shrugs (Schulterheben) mit LH"
         }
@@ -1902,7 +1902,7 @@
             "muscles": [
                 2
             ], 
-            "description": "", 
+            "description": "<p>Setze dich auf dem Rand einer Flachbank und beuge den K\u00f6rper so weit nach vorne, dass er parallel zum Boden ist. Nehme nun die Hanteln und hebe sie seitw\u00e4rts bis etwas \u00fcber schulterh\u00f6he. Gehe langsam wieder runter.</p>\n<p>Es ist wichtig, w\u00e4hrend der \u00dcbung, die Arme nicht nach vorn oder nach hinten zu bewegen, sie sollten stets einen rechten Winkel mit dem K\u00f6rper haben. Wie beim Seitheben im Stehen, sollten sich die Handfl\u00e4chen nicht drehen, sie zeigen also immer zum Boden oder zum K\u00f6rper.</p>", 
             "muscles_secondary": [
                 9
             ], 
@@ -1932,7 +1932,7 @@
             "muscles": [
                 15
             ], 
-            "description": "", 
+            "description": "<p>Setze dich auf die Bank und stelle die Fu\u00dfspitzen so auf den Rand, dass du die Waden komplett nach unten austrecken kannst. Ziehe nun die Wadenmuskeln zusammen und gehe so hoch es geht. Mache auf dem h\u00f6chsten Punkt eine kurze Pause (1-2 sek.) und gehe dann runter.</p>", 
             "muscles_secondary": [
                 7
             ], 
@@ -2415,6 +2415,30 @@
         "fields": {
             "comment": "Fl\u00fcssige Bewegung, keine Pausen machen", 
             "exercise": 54
+        }
+    }, 
+    {
+        "pk": 61, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Arme immer im rechten Winkel zum K\u00f6rper", 
+            "exercise": 47
+        }
+    }, 
+    {
+        "pk": 62, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Arme w\u00e4hrend der \u00dcbung nicht beugen.", 
+            "exercise": 8
+        }
+    }, 
+    {
+        "pk": 63, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Arme w\u00e4hrend der \u00dcbung nicht beugen.", 
+            "exercise": 137
         }
     }
 ]
