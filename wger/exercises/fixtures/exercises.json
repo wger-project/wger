@@ -599,7 +599,7 @@
             "muscles": [
                 6
             ], 
-            "description": "", 
+            "description": "<p>Lege dich auf eine Matte mit angewinkelten Beinen. Die F\u00fc\u00dfe werden irgendwie festgehalten (Partner, Lanhghantel, o.\u00c4.) und die H\u00e4nde werden hinter dem Nacken verschr\u00e4nkt. Aus dieser Position f\u00fchre den Oberk\u00f6rper so weit nach oben, bis Kopf oder Ellenbogen die angewinkelten Beine ber\u00fchren.</p>\n<p>Es ist wichtig, dass dieser Vorgang mit einer rollenden Bewegung durchgef\u00fchrt wird: die Wirbels\u00e4ule sollte sich Wirbel f\u00fcr Wirbel von der Matte l\u00f6sen. Ein Hohlkreuz ist stets zu vermeiden.</p>", 
             "muscles_secondary": [
                 3
             ], 
@@ -883,7 +883,7 @@
             "muscles": [
                 4
             ], 
-            "description": "", 
+            "description": "<p>Greife zwei Kurzhanteln und lege dich auf eine Bank und strecke die Arme schulterbreit vollst\u00e4ndig aus. F\u00fc\u00dfe, R\u00fccken und Kopf liegen fest auf Boden/Bank und geben Halt. Beuge nun leicht die Arme am Ellenbogengelenk und lasse sie mit einer Halbkreisbewegung seitlich runter. Ohne diesen Winkel zu ver\u00e4ndern bringe sie wieder nach oben.</p>", 
             "muscles_secondary": [], 
             "name": "Fliegende KH Flachbank"
         }
@@ -896,7 +896,7 @@
             "muscles": [
                 4
             ], 
-            "description": "", 
+            "description": "<p>Greife zwei Kurzhanteln und lege dich auf eine Schr\u00e4gbank und strecke die Arme schulterbreit vollst\u00e4ndig aus. F\u00fc\u00dfe, R\u00fccken und Kopf liegen fest auf Boden/Bank und geben Halt. Beuge nun leicht die Arme am Ellenbogengelenk und lasse sie mit einer Halbkreisbewegung seitlich runter. Ohne diesen Winkel zu ver\u00e4ndern bringe sie wieder nach oben.</p>", 
             "muscles_secondary": [], 
             "name": "Fliegende KH Schr\u00e4gbank"
         }
@@ -1364,7 +1364,7 @@
             "muscles": [
                 4
             ], 
-            "description": "", 
+            "description": "<p>Lege dich auf die Negativbank hin, die Oberschenkel und der R\u00fccken legen fest auf der drauf. Greife die Stange breit und lasse sie langsam und kontrolliert runter, dabei sollte die Stange kurz auf Brustwarzenh\u00f6he den K\u00f6rper ber\u00fchren. Dann das Gewicht wieder hochdr\u00fccken bis die Arme durchgestreckt sind.</p>", 
             "muscles_secondary": [
                 2, 
                 12, 
@@ -1475,19 +1475,6 @@
         }
     }, 
     {
-        "pk": 64, 
-        "model": "exercises.exercise", 
-        "fields": {
-            "category": 4, 
-            "muscles": [
-                6
-            ], 
-            "description": "", 
-            "muscles_secondary": [], 
-            "name": "Rumpfbeugen"
-        }
-    }, 
-    {
         "pk": 16, 
         "model": "exercises.exercise", 
         "fields": {
@@ -1495,7 +1482,7 @@
             "muscles": [
                 4
             ], 
-            "description": "", 
+            "description": "<p>Setze dich auf die Bank, die F\u00fc\u00dfe sind fest auf dem Boden und geben Halt der Kopf liegt auf der Bank. Nehme die Hanteln in die Hand und dr\u00fccke sie nach oben. Bringe die Hanteln nach unten, bis sie neben der Brust sind. Dr\u00fccke das Gewicht wieder nach oben.</p>", 
             "muscles_secondary": [
                 2, 
                 5
@@ -1511,7 +1498,7 @@
             "muscles": [
                 4
             ], 
-            "description": "<p>Setze dich auf die Bank, die F\u00fc\u00dfe sind fest auf dem Boden und geben Haltm der Kopf liegt auf der Bank. Nehme die Hantel etwas mehr als Schulterbreit aus der Halterung raus und dr\u00fccke sie nach oben. Bringe die Hantel nach unten, bis sie die Brust kurz ber\u00fchrt. Dr\u00fccke das Gewicht wieder nach oben.</p>", 
+            "description": "<p>Setze dich auf die Bank, die F\u00fc\u00dfe sind fest auf dem Boden und geben Halt der Kopf liegt auf der Bank. Nehme die Hantel etwas mehr als Schulterbreit aus der Halterung raus und dr\u00fccke sie nach oben. Bringe die Hantel nach unten, bis sie die Brust kurz ber\u00fchrt. Dr\u00fccke das Gewicht wieder nach oben.</p>", 
             "muscles_secondary": [
                 2, 
                 5
@@ -1679,7 +1666,7 @@
             ], 
             "description": "<p>Stelle dich mit geradem Oberk\u00f6rper hin, die H\u00e4nde h\u00e4ngen frei nach unten und halten je eine Kurzhantel. Hebe aus dieser Position die Schultern so weit nach oben, wie es geht, beuge aber die Arme w\u00e4hrend der \u00dcbung nicht. Am h\u00f6chsten Punkt kannst du eine oder zwei Sekunden Pause machen bevor du langsam wieder runtergehst.</p>\n<p>Bei gr\u00f6\u00dferem Gewicht, beachte immer, dass du immer noch die volle Bewegungsamplitude durchf\u00fchren kannst.</p>", 
             "muscles_secondary": [], 
-            "name": "Shrugs (Schulterheben) mit KH"
+            "name": "Shrugs mit KH"
         }
     }, 
     {
@@ -1692,7 +1679,7 @@
             ], 
             "description": "<p>Stelle dich mit geradem Oberk\u00f6rper hin, die H\u00e4nde h\u00e4ngen frei nach unten und halten die Langhantel. Hebe aus dieser Position die Schultern so weit nach oben, wie es geht, beuge aber die Arme w\u00e4hrend der \u00dcbung nicht. Am h\u00f6chsten Punkt kannst du eine oder zwei Sekunden Pause machen bevor du langsam wieder runtergehst.</p>\n<p>Bei gr\u00f6\u00dferem Gewicht, beachte immer, dass du immer noch die volle Bewegungsamplitude durchf\u00fchren kannst.</p>", 
             "muscles_secondary": [], 
-            "name": "Shrugs (Schulterheben) mit LH"
+            "name": "Shrugs mit LH"
         }
     }, 
     {
@@ -1703,7 +1690,7 @@
             "muscles": [
                 6
             ], 
-            "description": "", 
+            "description": "<p>Lege dich auf eine Matte, die Knie sind rechtwiklig angewinkelt und die Fersen liegen auf eine Bank. Die H\u00e4nde sind hinter dem Nacken. Das Hochgehen wird mit einer rollenden Bewegung durchgef\u00fchrt: die Wirbels\u00e4ule sollte sich Wirbel f\u00fcr Wirbel von der Matte l\u00f6sen. Ein Hohlkreuz ist stets zu vermeiden. Auf der h\u00f6chsten Stelle sollten die Muskeln etwa 2 sek. maximal angespannt werden bevor die rollende Bewegung in der Gegenrichtung durchgef\u00fchrt wird.</p>", 
             "muscles_secondary": [], 
             "name": "Sit Ups"
         }
