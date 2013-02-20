@@ -2,7 +2,6 @@ Django==1.4.3
 django-browserid
 django-recaptcha
 reportlab
-selenium
 django_mobile
 django-discover-runner
 pep8
