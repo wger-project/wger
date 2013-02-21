@@ -70,7 +70,12 @@ function custom_modal_init()
 <p>
     <a href="{% url exercisecomment-add exercise.id %}"
        title="{% trans 'Add' %}"
-       class="modal-dialog">{% trans "Add new comment" %}</a>
+       class="modal-dialog">
+        <img src="{% static 'images/icons/add.svg' %}"
+            width="16"
+            height="16"
+            alt="{% trans 'Back to overview' %}">
+        {% trans "Add new comment" %}</a>
 </p>
 {% endif %}
 
