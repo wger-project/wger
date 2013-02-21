@@ -106,7 +106,7 @@ class IngredientDetailTestCase(WorkoutManagerTestCase):
 
     def test_ingredient_detail_editor(self):
         '''
-        Tests the ingredient details page as a logged in user
+        Tests the ingredient details page as a logged in user with editor rights
         '''
 
         self.user_login('admin')
@@ -114,7 +114,7 @@ class IngredientDetailTestCase(WorkoutManagerTestCase):
 
     def test_ingredient_detail_non_editor(self):
         '''
-        Tests the ingredient details page as a logged in user
+        Tests the ingredient details page as a logged in user without editor rights
         '''
 
         self.user_login('test')
@@ -122,7 +122,7 @@ class IngredientDetailTestCase(WorkoutManagerTestCase):
 
     def test_ingredient_detail_logged_out(self):
         '''
-        Tests the ingredient details page as a logged out user
+        Tests the ingredient details page as an anonymous (logged out) user
         '''
 
         self.ingredient_detail(editor=False)

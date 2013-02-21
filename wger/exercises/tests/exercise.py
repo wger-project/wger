@@ -24,7 +24,7 @@ from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 
 class ExerciseIndexTestCase(WorkoutManagerTestCase):
 
-    def test_exercise_index(self):
+    def exercise_index(self, editor=False):
         '''
         Tests the exercise overview page
         '''
@@ -56,7 +56,48 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
         self.assertEqual(exercise_2.id, 1)
         self.assertEqual(exercise_2.name, "An exercise")
 
-    def test_exercise_detail(self):
+        # Only authorized users see the edit links
+        if editor:
+            self.assertContains(response, 'Add new exercise')
+            self.assertContains(response, 'Edit category')
+            self.assertContains(response, 'Delete category')
+            self.assertContains(response, 'Add category')
+        else:
+            self.assertNotContains(response, 'Add new exercise')
+            self.assertNotContains(response, 'Edit category')
+            self.assertNotContains(response, 'Delete category')
+            self.assertNotContains(response, 'Add category')
+
+    def test_exercise_index_editor(self):
+        '''
+        Tests the exercise overview page as a logged in user with editor rights
+        '''
+
+        self.user_login('admin')
+        self.exercise_index(editor=True)
+
+    def test_exercise_index_non_editor(self):
+        '''
+        Tests the exercise overview page as a logged in user without editor rights
+        '''
+
+        self.user_login('test')
+        self.exercise_index(editor=False)
+
+    def test_exercise_index_logged_out(self):
+        '''
+        Tests the exercise overview page as an anonymous (logged out) user
+        '''
+
+        self.exercise_index(editor=False)
+
+
+class ExerciseDetailTestCase(WorkoutManagerTestCase):
+    '''
+    Tests the exercise details page
+    '''
+
+    def exercise_detail(self, editor=False):
         '''
         Tests the exercise details page
         '''
@@ -78,9 +119,43 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
         self.assertEqual(muscle_1.id, 1)
         self.assertEqual(muscle_2.id, 2)
 
+        # Only authorized users see the edit links
+        if editor:
+            self.assertContains(response, 'Edit')
+            self.assertContains(response, 'Delete')
+            self.assertContains(response, 'Add new comment')
+
+        else:
+            self.assertNotContains(response, 'Edit')
+            self.assertNotContains(response, 'Delete')
+            self.assertNotContains(response, 'Add new comment')
+
         # Ensure that non-existent exercises throw a 404.
         response = self.client.get(reverse('wger.exercises.views.exercise_view', kwargs={'id': 42}))
         self.assertEqual(response.status_code, 404)
+
+    def test_exercise_detail_editor(self):
+        '''
+        Tests the exercise details page as a logged in user with editor rights
+        '''
+
+        self.user_login('admin')
+        self.exercise_detail(editor=True)
+
+    def test_exercise_detail_non_editor(self):
+        '''
+        Tests the exercise details page as a logged in user without editor rights
+        '''
+
+        self.user_login('test')
+        self.exercise_detail(editor=False)
+
+    def test_exercise_detail_logged_out(self):
+        '''
+        Tests the exercise details page as an anonymous (logged out) user
+        '''
+
+        self.exercise_detail(editor=False)
 
 
 class ExercisesTestCase(WorkoutManagerTestCase):
