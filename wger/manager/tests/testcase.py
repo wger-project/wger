@@ -21,9 +21,6 @@ from django.test import TestCase
 from django.test import LiveServerTestCase
 from django.db import models
 
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-
 
 class WorkoutManagerTestCase(TestCase):
     fixtures = ('days_of_week',
