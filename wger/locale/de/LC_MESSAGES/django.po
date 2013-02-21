@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-17 20:23+0100\n"
+"POT-Creation-Date: 2013-02-21 19:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -930,7 +930,7 @@ msgid "No account?"
 msgstr "Kein Account?"
 
 #: manager/templates/user/login.html:80 manager/templates/user/login.html:81
-#: software/templates/functions.html:137 software/templates/functions.html:138
+#: software/templates/functions.html:145 software/templates/functions.html:146
 msgid "Try the demo"
 msgstr "Probiere die Demo"
 
@@ -1445,8 +1445,8 @@ msgid ""
 "e.g.\n"
 "Windows, take a look at the link above."
 msgstr ""
-"Hier sind die notwendingen Schritte, um die Anwendun auf ein Linux oder OS X "
-"Rechner zu installieren. Für Windows, ist der Link ober ein guter "
+"Hier sind die notwendingen Schritte, um die Anwendung auf ein Linux oder OS "
+"X Rechner zu installieren. Für Windows, ist der Link ober ein guter "
 "Anfangspunkt."
 
 #: software/templates/code.html:53
@@ -1602,7 +1602,7 @@ msgid ""
 "my\n"
 "growing collection of different spreadsheets, but it has become something "
 "other\n"
-"people could also find useful. So, answering the question, it's"
+"people could also find useful."
 msgstr ""
 "wger Workout Manager ist eine freie, open Source Webanwendung die deine "
 "Übungen\n"
@@ -1610,81 +1610,81 @@ msgstr ""
 "gestartet\n"
 "um meine wachsende Sammlung an Exceltabellen zu ersetzen, aber es ist zu "
 "etwas\n"
-"geworden, das andere auch nützlich finden könnten. Um die Frage zu "
-"beantworten\n"
-"es ist"
+"geworden, das andere auch nützlich finden könnten."
 
-#: software/templates/functions.html:19
+#: software/templates/functions.html:15
+msgid "This is"
+msgstr "Das ist"
+
+#: software/templates/functions.html:21
 msgid "a workout manager"
 msgstr "ein Trainings&shy;plan&shy;manager"
 
-#: software/templates/functions.html:20
+#: software/templates/functions.html:22
 msgid ""
-"You probably guessed, this is a workout manager:\n"
-"            you can create and manage your workout routines. You select how\n"
-"            many days your workout constists of, and add different exercises "
-"to each."
+"create and manage your workout routines by selecting how\n"
+"            many days your workout constists of, and adding different "
+"exercises to each.\n"
+"            Print the generated PDF to keep a log."
 msgstr ""
-"Es ist wohl nicht schwer zu erraten, das ist ein Trainingsplanmanager:\n"
-"man kann Pläne erstellen und verwalten. Du wählst wie viele Tage du "
+"Erstelle und verwalte deine Trainingspläne indem du wählst wie viele Tage du "
 "trainieren\n"
-"willst und fügst die entsprechenden Übungen zu jedem Tag hinzu."
+"willst und die entsprechenden Übungen zu jedem Tag hinzufügst. Drucke die "
+"generierte PDF-Datei aus für ein Logbuch."
 
-#: software/templates/functions.html:29
+#: software/templates/functions.html:31
 msgid "a weight tracker"
 msgstr "ein Gewichts&shy;logbuch"
 
-#: software/templates/functions.html:30
+#: software/templates/functions.html:32
 msgid ""
-"This shows you different charts for an overview\n"
-"            of your body weight as well as a weight log for the different\n"
-"            exercises, so you can see if you are reaching your goals or "
-"need\n"
-"            to adjust something."
+"keep track of your progress with the weight log chart\n"
+"            for each exercise and your own body weight. This makes it easy "
+"to see if you\n"
+"            are reaching your goals or need to adjust something."
 msgstr ""
-"Das zeigt verschiedene Diagramme für eine Übersicht deines Körpergewichtes "
-"und\n"
-"der Gewichte bei den Übungen, damit du auf einen Blick sehen kannst, ob die\n"
-"Ziele erreicht werden."
+"behalte deine Fortschritte im Auge mit den Gewichtsdiagrammen für jede Übung "
+"oder dein Körpergewicht. Das macht es einfach, verbesserugsfähige Bereichte "
+"zu erkennen."
 
-#: software/templates/functions.html:42
+#: software/templates/functions.html:41
 msgid "a nutrition manager"
 msgstr "ein Ernäh&shy;rungs&shy;manager"
 
-#: software/templates/functions.html:43
+#: software/templates/functions.html:42
 msgid ""
-"Here you can create a diet\n"
-"            plan and see some nutritional values (total energy, protein, "
-"carbohydrates, and\n"
-"            so on) about it. Select from more than 8000 ingredients for this."
+"create a diet plan and see some nutritional\n"
+"            values (total energy, protein, carbohydrates, and so on) about\n"
+"            it. Select from more than 8000 ingredients for this."
 msgstr ""
-"Hier kannst du deinen Ernährungsplan erstellen und ausdrucken und die "
-"verschiedenen \n"
-"Ernährungswerte (Energie, Eiweiß, Kohlenhydrate, usw.) darüber sehen. \n"
+"Erstelle und drucke deine Ernährungspläne, behalte die verschiedenen \n"
+"Ernährungswerte (Energie, Eiweiß, Kohlenhydrate, usw.) im Überblick. \n"
 "Wähle dafür aus einer langen Zutatenliste aus."
 
-#: software/templates/functions.html:51
-msgid "More details please"
-msgstr ""
+#: software/templates/functions.html:50
+msgid "The workout manager"
+msgstr "Der Trainingsplanmanager"
 
-#: software/templates/functions.html:55
+#: software/templates/functions.html:52
 msgid ""
-"It is pretty flexible so if you do supersets, no need\n"
-"to worry, it is supported and you will know which exercises <em>belong\n"
-"together</em>. Each set can have a different number of repetitions you want\n"
-"to reach and which you enter yourself. This means that other training\n"
-"forms like pyramid training or similar are not a problem."
+"You probably guessed, this is the main function.\n"
+"It creates the workout you tell it, the way you tell it. It is pretty "
+"flexible\n"
+"so if you do supersets, no need to worry, it is supported and you will\n"
+"know which exercises <em>belong together</em>. Each set can have a "
+"different\n"
+"number of repetitions you want to reach and which you enter yourself.\n"
+"This means that other training forms like pyramid training or similar are\n"
+"not a problem."
 msgstr ""
+"Du hast es vermutlich erraten, das ist die Hauptfunktion. Die Anwendung "
+"erstellt dien Trainingsplan, den du vorgibst, so wie du ihn vorgibst. Es ist "
+"ziemlich flexibel und wenn du z.B. Supersätze machst, keine Sorge, es weiß "
+"welche Übungen zusammengehören. Jeder Satz kann unterschliedlich viele "
+"Wiederholungen haben und die du selbst bestimmst und eingibst. Das Bedeutet, "
+"dass andere Trainingsformen (z.B. Pyramidentraining) kein Problem sind."
 
-#: software/templates/functions.html:65
-msgid ""
-"It can also generate a PDF with your current routine.\n"
-"This is suitable for printing so you can bring it to the gym and keep a log\n"
-"about your progress. In case you wonder how it looks like,\n"
-"<a href=\"/static/pdf/workout-pdf-1.0.3-en.pdf\">here's a sample</a>."
-msgstr ""
-
-#: software/templates/functions.html:70
+#: software/templates/functions.html:64
 msgid ""
 "<strong>Note:</strong> it has no 'preset' workouts that you\n"
 "can simply use (e.g. beginner, etc.). It will happily make the routine you "
@@ -1693,23 +1693,49 @@ msgid ""
 "you'll\n"
 "do."
 msgstr ""
+"<strong>Bemerkung:</strong> es hat keine vorgespeicherten Pläne die du "
+"einfach übernehmen könntests (Anfänger, etc.). Es wird einfach den "
+"Trainigsplan erstellen, den du vorgibst, du musst also selbst über Übungen "
+"und Wiederholungen entscheiden."
 
-#: software/templates/functions.html:76
-msgid "Exercise log"
-msgstr ""
+#: software/templates/functions.html:69
+msgid "PDF export"
+msgstr "PDF-Export"
 
-#: software/templates/functions.html:78
+#: software/templates/functions.html:71
 msgid ""
-"You can enter the weights and repetitions you did for each\n"
-"exercise. As with the (body) weight, it will generate some diagrams so\n"
-"so you can see at a glance how well you are doing. The raw numbers are still "
-"there\n"
-"in a table, don't worry."
+"It can also generate a PDF with your current routine.\n"
+"This is suitable for printing so you can bring it to the gym and keep a log\n"
+"for 7 weeks. In case you wonder how it looks like,\n"
+"<a href=\"/static/pdf/workout-pdf-1.0.3-en.pdf\">here's a sample</a>."
 msgstr ""
+"Es kann auch eine PDF-Datei aus dem Trainingsplan generieren.\n"
+"Die kann man ausdrucken und ins Studio bringen, um ein Logbuch zu führen, "
+"der für 7 Wochen reicht. Falls du dich wunderst, wie das aussieht, <a href="
+"\"/static/pdf/workout-pdf-1.0.3-en.pdf\">hier ist ein Muster</a>."
+
+#: software/templates/functions.html:77
+msgid "Exercise log"
+msgstr "Gewichtslogbuch"
+
+#: software/templates/functions.html:79
+msgid ""
+"The electronic version of the above PDF output, you can enter\n"
+"the weights and repetitions you did for each exercise. As with the (body) "
+"weight,\n"
+"it will generate some diagrams so so you can see at a glance how well you "
+"are doing.\n"
+"The raw numbers are still accessible as a table."
+msgstr ""
+"Die elektronische Version der PDF-Ausgabe, du kannst für die verschiedenen "
+"Übungen die Wiederholungen und das Gewicht eingeben. Die Anwendung generiert "
+"daraus verschiedene Diagramme damit du auf einen Blick sehen kannst, wie gut "
+"du dich entwickelst. Die Zahlen sind natürlich weiterhin als Tabelle "
+"abrufbar."
 
 #: software/templates/functions.html:87
 msgid "Muscle and exercise database"
-msgstr ""
+msgstr "Muskel- und Übungsdatenbank"
 
 #: software/templates/functions.html:88
 msgid ""
@@ -1719,33 +1745,61 @@ msgid ""
 "about the form to perform them. This is displayed in the workout overview\n"
 "page, so you keep them in mind."
 msgstr ""
+"Die Übungsdatenbank hat um die Hundert Einträge von denen du auswählten "
+"kannst, wenn du ein Trainingsplan erstellst. Manche haben wichtige "
+"Bemerkungen was die korrekte Ausführung betrifft. Diese können auf der "
+"Trainigsplanseite angezeigt werden, um sie im Kopf zu behalten."
 
-#: software/templates/functions.html:97
+#: software/templates/functions.html:93
+msgid ""
+"If you entered weight logs for the currently shown exercise, it\n"
+"will display your progress."
+msgstr ""
+"Wenn du bereits Gewichtsdaten für die aktuelle Übung eingetragen hast, "
+"werden diese auch angezeigt."
+
+#: software/templates/functions.html:100
 msgid "The weight tracker"
-msgstr ""
+msgstr "Der (Körper)Gewichtsmanager"
 
-#: software/templates/functions.html:98
+#: software/templates/functions.html:101
 msgid ""
-"This is a rather simple part that basically lets\n"
-"you input your weight and a day. From this it generates a rather nice "
-"looking\n"
-"chart, so you can see if you are reaching your goals (be it gaining mass or\n"
-"losing it)."
+"This is a rather simple part that lets you log your body weight.\n"
+"From this data it generates a rather nice looking chart, so you can see if "
+"you are\n"
+"reaching your goals (be it gaining mass or losing it)."
 msgstr ""
+"Dieses Modul speichert dein Körpergewicht und generiert daraus ein Diagramm, "
+"um die eigene Entwicklung und Ziele schnell beurteilen zu können, sei es zu- "
+"oder abzunehemn."
 
-#: software/templates/functions.html:103
+#: software/templates/functions.html:105
 msgid ""
-"\n"
-"In case you want to jump ship after inputing your data from the last years, "
-"simply\n"
-"export the data as CSV."
+"In case you want to jump ship after inputing your data from the\n"
+"last years, simply export the data as CSV."
 msgstr ""
+"Falls du diese Anwendung nicht mehr benutzen willst, kannst du deine "
+"gespeichertenEinträge einfach als CSV-Datei exportieren lassen."
 
-#: software/templates/functions.html:111
-msgid "The nutrition schedule manager"
-msgstr ""
+#: software/templates/functions.html:110
+#: weight/templates/import_csv_preview.html:73
+msgid "Import"
+msgstr "Importieren"
 
 #: software/templates/functions.html:112
+msgid ""
+"If you already kept your weight in a spreadsheet, you can just\n"
+"import it by copy-and-paste'ing it into the import assistant."
+msgstr ""
+"Falls du bereits dein Gewicht in einer Tabellenkalkulation gespeichert hast, "
+"kannst du es sehr leicht per kopieren-und-einfügen in den Import-Assistenten "
+"importieren."
+
+#: software/templates/functions.html:116
+msgid "The nutrition schedule manager"
+msgstr "Der Ernährungplanmanager"
+
+#: software/templates/functions.html:117
 msgid ""
 "And finally it is a nutrition schedule manager. Here you can\n"
 "create a diet plan and see some nutritional values (total energy, protein,\n"
@@ -1754,24 +1808,38 @@ msgid ""
 "list provided by the US Department of Agriculture, with around 8000\n"
 "entries."
 msgstr ""
+"Und schließlich ist das ein Ernährungplanmanager. Hier kannst du deine Pläne "
+"erstellen und die Erhährungswerte (Brennwert, Eiweiß, Kohlenhydrate, usw.) "
+"darüber erfahren. Für die Zutatenliste kannst du entweder eine sehr "
+"komplette Liste mit Lebensmittel aus Deutschland benutzen oder auch eine "
+"noch längere, mit mehr als 8000 Einträge aus dem US-Amerikanischem "
+"Landwirtschaftsministerium benutzen (auf Englisch)."
 
-#: software/templates/functions.html:120
-msgid ""
-"It can also be downloaded as a PDF so you can keep it on your\n"
-"fridge, so you don't forget to follow the plan... And as with the workout\n"
-"log, <a href=\"/static/pdf/nutrition-plan-pdf-1.0-en.pdf\">here's a sample</"
-"a>."
-msgstr ""
-
-#: software/templates/functions.html:124
+#: software/templates/functions.html:125
 msgid ""
 "<strong>Note:</strong> this is not a log keeper. It does not\n"
 "keep track of what you actually ate during the day and how it compares to\n"
 "what the plan says. It simply shows you the nutritional values of the plan\n"
 "you create."
 msgstr ""
+"<strong>Bemerkung:</strong> das ist kein Logbuch, es kann nicht das, was du "
+"während \n"
+"des Tages gegessen hast mit dem Plan vergleichen. Es rechnet einfach die "
+"Ernährungswerte deines Planes zusammen."
 
-#: software/templates/functions.html:131
+#: software/templates/functions.html:130
+msgid ""
+"It can also be downloaded as a PDF you can keep on your\n"
+"fridge, so you don't forget to follow the plan... And as with the workout\n"
+"log, <a href=\"/static/pdf/nutrition-plan-pdf-1.0-en.pdf\">here's a sample</"
+"a>."
+msgstr ""
+"Der Plan kann auch als PDF-Datei runtergeladen werden um es z.B. an den "
+"Kühlschrank zu kleben um nicht zu... vergessen den Plan zu folgen. Wie mit "
+"dem Trainingplan-PDF, <a href=\"/static/pdf/nutrition-plan-pdf-1.0-en.pdf"
+"\">hier ist ein Muster</a>."
+
+#: software/templates/functions.html:139
 msgid "Interested?"
 msgstr "Interessiert?"
 
@@ -1998,10 +2066,6 @@ msgstr ""
 "verursacht hatten, werden einfach ignoriert. Du musst hier entscheiden, ob "
 "sie nützlich sind (nicht erkannte Einträge) oder nicht (Kommentare, "
 "Überschriften, usw.)."
-
-#: weight/templates/import_csv_preview.html:73
-msgid "Import"
-msgstr "Importieren"
 
 #: weight/templates/import_csv_preview.html:78
 msgid "Or try it again"
