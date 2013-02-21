@@ -63,10 +63,10 @@
 
             {% if user.is_authenticated %}
             <li {% if active_tab == 'workout'   %}class="active"{% endif %}>
-                <a href="{% url wgrt.manager.views.overview %}">{% trans "Workouts" %}</a>
+                <a href="{% url wger.manager.views.overview %}">{% trans "Workouts" %}</a>
             </li>
             <li class="dropdown {% if active_tab == 'nutrition' %}active{% endif %}">
-                <a href="{% url nutrition.views.overview %}">{% trans "Nutrition" %}</a>
+                <a href="{% url wger.nutrition.views.overview %}">{% trans "Nutrition" %}</a>
             </li>
             {% endif %}
 
