@@ -101,6 +101,20 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 -->
 {% block sidebar %}
 
+<h3>{% trans "Back to overview" %}</h3>
+<p>
+    <a href="{% url wger.exercises.views.exercise_overview %}">
+        <img src="{% static 'images/icons/list.svg' %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Back to overview' %}"
+             >
+        {% trans "Back to exercise overview" %}
+    </a>
+</p>
+
+
+
 {% with muscles=exercise.muscles.all %}
 {% with muscles_secondary=exercise.muscles_secondary.all %}
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-21 19:57+0100\n"
+"POT-Creation-Date: 2013-02-21 20:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,7 +69,7 @@ msgstr "Beschreibung"
 msgid "Primary muscles"
 msgstr "Primärmuskeln"
 
-#: exercises/models.py:112 exercises/templates/view.html:122
+#: exercises/models.py:112 exercises/templates/view.html:141
 msgid "Secondary muscles"
 msgstr "Sekundärmuskeln"
 
@@ -150,7 +150,7 @@ msgstr ""
 "Mit der Maus über die Muskeln fahren, um die entsprechenden Übungen zu zeigen"
 
 #: exercises/templates/muscle_overview.html:69
-#: exercises/templates/view.html:108
+#: exercises/templates/view.html:127
 msgid "Muscles"
 msgstr "Muskeln"
 
@@ -185,7 +185,7 @@ msgstr "Benutze den Verweis zum Hinzufügen"
 
 #: exercises/templates/overview.html:80 exercises/templates/overview.html:84
 #: exercises/templates/view.html:53 exercises/templates/view.html.py:58
-#: exercises/templates/view.html:195 exercises/templates/view.html.py:197
+#: exercises/templates/view.html:214 exercises/templates/view.html.py:216
 #: manager/templates/set/edit.html:10 manager/templates/setting/edit.html:17
 #: manager/templates/tags/render_day.html:42
 #: manager/templates/tags/render_day.html:47
@@ -202,7 +202,7 @@ msgstr "Bearbeiten"
 
 #: exercises/templates/overview.html:88 exercises/templates/overview.html:93
 #: exercises/templates/view.html:46 exercises/templates/view.html.py:50
-#: exercises/templates/view.html:206 exercises/templates/view.html.py:207
+#: exercises/templates/view.html:225 exercises/templates/view.html.py:226
 #: manager/templates/delete.html:30 manager/templates/tags/render_day.html:35
 #: manager/templates/tags/render_day.html:39
 #: manager/templates/tags/render_day.html:82
@@ -220,7 +220,7 @@ msgstr ""
 "Keine Übungen in dieser Kategorie. Editiere oder füge eine neue Übung hinzu "
 "und setze die Kategorie"
 
-#: exercises/templates/overview.html:122 exercises/templates/view.html:189
+#: exercises/templates/overview.html:122 exercises/templates/view.html:208
 #: manager/templates/index.html:126 manager/templates/template.html:161
 #: manager/templates/day/log.html:97
 #: manager/templates/mobile/template.html:149
@@ -268,19 +268,28 @@ msgstr "Kommentare für diese Übung"
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: exercises/templates/view.html:73
+#: exercises/templates/view.html:77 exercises/templates/view.html.py:109
+#: exercises/templates/view.html:115
+msgid "Back to overview"
+msgstr "Zurück zur Übersicht"
+
+#: exercises/templates/view.html:78
 msgid "Add new comment"
 msgstr "Kommentar hinzufügen"
 
-#: exercises/templates/view.html:80
+#: exercises/templates/view.html:85
 msgid "Weight log"
 msgstr "Gewichtslog"
 
-#: exercises/templates/view.html:110
+#: exercises/templates/view.html:117
+msgid "Back to exercise overview"
+msgstr "Zurück zur Übungsübersicht"
+
+#: exercises/templates/view.html:129
 msgid "The diagram shows the most used muscles on this exercise"
 msgstr "Das Diagramm zeigt die meistbeanspruchten Muskeln"
 
-#: exercises/templates/view.html:116
+#: exercises/templates/view.html:135
 msgid "Main muscles"
 msgstr "Hauptmuskeln"
 
