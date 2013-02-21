@@ -1,23 +1,22 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% load i18n %}
 
 
 {% block title %}{% trans "Reporting a problem" %}{% endblock %}
 
 {% block content %}
+<img src="{% static 'images/icons/bug.svg' %}"
+        width="48"
+        height="48"
+        alt=""
+        class="float-left">
 <p>{% blocktrans %}
 No software is perfect. For some severe errors, an email will be automatically sent, but
 not always, so I depend on you reporting everything that didn't behave as expected.
 Please describe in as much detail as you can what you were doing when the error
 happened.
 {% endblocktrans %}</p>
-
-<p>
-{% blocktrans %}If you found a problem, please
-<a href="https://bitbucket.org/rolandgeider/workout_manager/issues">report it
-to the issue tracker</a> in bitbucket.
-{% endblocktrans %}
-</p>
 
 <h3>{% trans "Enhancements" %}</h3>
 
@@ -26,5 +25,11 @@ The issue tracker can also be used to document enhancements to the software, so
 if you have some suggestions, feel free to open a ticket, just set '<em>kind</em>'
 to '<em>enhancement</em>'.
 {% endblocktrans %}</p>
+
+<div class="box success">{% blocktrans %}If you found a problem or have a suggestion,
+please <a href="https://bitbucket.org/rolandgeider/workout_manager/issues">report it
+to the issue tracker</a> in bitbucket.
+{% endblocktrans %}
+</div>
 
 {% endblock %}

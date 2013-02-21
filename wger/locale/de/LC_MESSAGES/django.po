@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-21 20:52+0100\n"
+"POT-Creation-Date: 2013-02-21 22:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -268,18 +268,17 @@ msgstr "Kommentare für diese Übung"
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: exercises/templates/view.html:77 exercises/templates/view.html.py:109
-#: exercises/templates/view.html:115
-msgid "Back to overview"
-msgstr "Zurück zur Übersicht"
-
-#: exercises/templates/view.html:78
+#: exercises/templates/view.html:77 exercises/templates/view.html.py:78
 msgid "Add new comment"
 msgstr "Kommentar hinzufügen"
 
 #: exercises/templates/view.html:85
 msgid "Weight log"
 msgstr "Gewichtslog"
+
+#: exercises/templates/view.html:109 exercises/templates/view.html.py:115
+msgid "Back to overview"
+msgstr "Zurück zur Übersicht"
 
 #: exercises/templates/view.html:117
 msgid "Back to exercise overview"
@@ -1852,11 +1851,11 @@ msgstr ""
 msgid "Interested?"
 msgstr "Interessiert?"
 
-#: software/templates/issues.html:5
+#: software/templates/issues.html:6
 msgid "Reporting a problem"
 msgstr "Problem berichten"
 
-#: software/templates/issues.html:8
+#: software/templates/issues.html:14
 msgid ""
 "\n"
 "No software is perfect. For some severe errors, an email will be "
@@ -1869,25 +1868,15 @@ msgid ""
 msgstr ""
 "\n"
 "Keine Software ist perfekt. Bei manchen schweren Fehlern bekomme ich "
-"automatisch eine Email, aber nicht immer. Ich brauche also Fehlermeldungen, "
-"um über die Fehle zu erfahren und reagieren zu können. Bitte hier im Detail "
-"beschreiben, wie es zum Fehler kam.\n"
+"automatisch eine Email, aber nicht immer. Ich brauche also deine "
+"Fehlerberichte, um über darüber zu überhaupt zu erfahren und reagieren zu "
+"können. Bitte im Detail beschreiben, wie es zum Fehler kam.\n"
 
-#: software/templates/issues.html:16
-msgid ""
-"If you found a problem, please\n"
-"<a href=\"https://bitbucket.org/rolandgeider/workout_manager/issues\">report "
-"it\n"
-"to the issue tracker</a> in bitbucket.\n"
-msgstr ""
-"Bei Probleme oder Bugs  <a href=\"https://bitbucket.org/rolandgeider/"
-"workout_manager/issues\">im Bitbucket Tracker</a> melden.\n"
-
-#: software/templates/issues.html:22
+#: software/templates/issues.html:21
 msgid "Enhancements"
 msgstr "Verbesserungen"
 
-#: software/templates/issues.html:24
+#: software/templates/issues.html:23
 msgid ""
 "\n"
 "The issue tracker can also be used to document enhancements to the software, "
@@ -1897,9 +1886,19 @@ msgid ""
 "to '<em>enhancement</em>'.\n"
 msgstr ""
 "\n"
-"Der Issuetracker kann auch dafür benutzt werden, um Verbesserungen der "
-"Software zu melden. Wer hier Vorschläge hat, sollte im Formular <em>kind</"
-"em> auf <em>enhancement</em> gesetzt werden.\n"
+"Der Issuetracker kann auch dafür benutzt werden, um Verbesserungen "
+"vorzuschlagen. Wer hier Ideen hat, sollte im Formular <em>'kind'</em> auf "
+"<em>'enhancement'</em> setzen.\n"
+
+#: software/templates/issues.html:29
+msgid ""
+"If you found a problem or have a suggestion,\n"
+"please <a href=\"https://bitbucket.org/rolandgeider/workout_manager/issues"
+"\">report it\n"
+"to the issue tracker</a> in bitbucket.\n"
+msgstr ""
+"Probleme oder Verbesserungen  <a href=\"https://bitbucket.org/rolandgeider/"
+"workout_manager/issues\">im Bitbucket Tracker</a> melden.\n"
 
 #: software/templates/license.html:10
 msgid ""
