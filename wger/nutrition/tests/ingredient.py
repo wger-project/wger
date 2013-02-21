@@ -13,8 +13,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+from django.core.urlresolvers import reverse
+
 from wger.nutrition.models import Ingredient
 
+from wger.workout_manager.constants import NUTRITION_TAB
+
+from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
@@ -66,3 +71,58 @@ class AddIngredientTestCase(WorkoutManagerAddTestCase):
             'fibres': 2.1,
             'protein': 30,
             'carbohydrates': 10}
+
+
+class IngredientDetailTestCase(WorkoutManagerTestCase):
+    '''
+    Tests the ingredient details page
+    '''
+
+    def ingredient_detail(self, editor=False):
+        '''
+        Tests the ingredient details page
+        '''
+
+        response = self.client.get(reverse('wger.nutrition.views.ingredient_view',
+                                   kwargs={'id': 6}))
+        self.assertEqual(response.status_code, 200)
+
+        # Correct tab is selected
+        self.assertEqual(response.context['active_tab'], NUTRITION_TAB)
+        self.assertTrue(response.context['ingredient'])
+
+        # Only authorized users see the edit links
+        if editor:
+            self.assertContains(response, 'Edit ingredient')
+            self.assertContains(response, 'Delete ingredient')
+        else:
+            self.assertNotContains(response, 'Edit ingredient')
+            self.assertNotContains(response, 'Delete ingredient')
+
+        # Non-existent ingredients throw a 404.
+        response = self.client.get(reverse('wger.nutrition.views.ingredient_view',
+                                   kwargs={'id': 42}))
+        self.assertEqual(response.status_code, 404)
+
+    def test_ingredient_detail_editor(self):
+        '''
+        Tests the ingredient details page as a logged in user
+        '''
+
+        self.user_login('admin')
+        self.ingredient_detail(editor=True)
+
+    def test_ingredient_detail_non_editor(self):
+        '''
+        Tests the ingredient details page as a logged in user
+        '''
+
+        self.user_login('test')
+        self.ingredient_detail(editor=False)
+
+    def test_ingredient_detail_logged_out(self):
+        '''
+        Tests the ingredient details page as a logged out user
+        '''
+
+        self.ingredient_detail(editor=False)
