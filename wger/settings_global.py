@@ -56,7 +56,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'wger.manager.context_processor.processor',
     'django.contrib.auth.context_processors.auth',
     'django_browserid.context_processors.browserid_form',
-    #'django_mobile.context_processors.flavour',
 )
 
 
@@ -124,7 +123,6 @@ STATICFILES_FINDERS = (
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-    'django_mobile.loader.Loader',
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
     #'django.template.loaders.eggs.Loader',
@@ -139,9 +137,6 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-
-    #'django_mobile.middleware.MobileDetectionMiddleware',
-    #'django_mobile.middleware.SetFlavourMiddleware',
 )
 
 INTERNAL_IPS = ('127.0.0.1',)
@@ -183,9 +178,6 @@ INSTALLED_APPS = (
 
     # The sitemaps app
     'django.contrib.sitemaps',
-
-    # Django mobile
-    #'django_mobile',
 )
 
 
