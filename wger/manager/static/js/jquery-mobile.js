@@ -1,1 +1,1 @@
-jquery.mobile-1.2.0.min.js
+jquery.mobile-1.3.0.min.js

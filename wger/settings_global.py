@@ -56,7 +56,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'wger.manager.context_processor.processor',
     'django.contrib.auth.context_processors.auth',
     'django_browserid.context_processors.browserid_form',
-    #'django_mobile.context_processors.flavour',
+    'django_mobile.context_processors.flavour',
 )
 
 
@@ -140,8 +140,8 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
 
-    #'django_mobile.middleware.MobileDetectionMiddleware',
-    #'django_mobile.middleware.SetFlavourMiddleware',
+    'django_mobile.middleware.MobileDetectionMiddleware',
+    'django_mobile.middleware.SetFlavourMiddleware',
 )
 
 INTERNAL_IPS = ('127.0.0.1',)
@@ -185,7 +185,7 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
 
     # Django mobile
-    #'django_mobile',
+    'django_mobile',
 )
 
 
