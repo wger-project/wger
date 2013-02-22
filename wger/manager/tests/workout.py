@@ -84,20 +84,24 @@ class DeleteTestWorkoutTestCase(WorkoutManagerDeleteTestCase):
     Tests deleting a Workout
     '''
 
-    delete_class = TrainingSchedule
-    delete_url = 'workout-delete'
+    object_class = TrainingSchedule
+    url = 'workout-delete'
     pk = 3
     user_success = 'test'
     user_fail = 'admin'
 
 
 class EditWorkoutTestCase(WorkoutManagerEditTestCase):
+    '''
+    Tests editing a Workout
+    '''
+
     object_class = TrainingSchedule
-    edit_url = 'workout-edit'
+    url = 'workout-edit'
     pk = 3
     user_success = 'test'
     user_fail = 'admin'
-    data_update = {'comment': 'A new comment'}
+    data = {'comment': 'A new comment'}
 
 
 class WorkoutOverviewTestCase(WorkoutManagerTestCase):

@@ -25,8 +25,8 @@ class DeletePlanTestCase(WorkoutManagerDeleteTestCase):
     Tests deleting a nutritional plan
     '''
 
-    delete_class = NutritionPlan
-    delete_url = 'nutrition-delete'
+    object_class = NutritionPlan
+    url = 'nutrition-delete'
     pk = 2
 
 
@@ -36,6 +36,6 @@ class EditPlanTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = NutritionPlan
-    edit_url = 'nutrition-edit'
+    url = 'nutrition-edit'
     pk = 2
-    data_update = {'description': 'My new description'}
+    data = {'description': 'My new description'}

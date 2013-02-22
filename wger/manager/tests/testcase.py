@@ -63,8 +63,8 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
     GET will only show a confirmation dialog.
     '''
 
-    delete_class = ''
-    delete_url = ''
+    object_class = ''
+    url = ''
     pk = None
     user_success = 'admin'
     user_fail = 'test'
@@ -79,9 +79,9 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
             return
 
         # Fetch the delete page
-        count_before = self.delete_class.objects.count()
-        response = self.client.get(reverse(self.delete_url, kwargs={'pk': self.pk}))
-        count_after = self.delete_class.objects.count()
+        count_before = self.object_class.objects.count()
+        response = self.client.get(reverse(self.url, kwargs={'pk': self.pk}))
+        count_after = self.object_class.objects.count()
         self.assertEqual(count_before, count_after)
 
         if fail:
@@ -90,8 +90,8 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 200)
 
         # Try deleting the object
-        response = self.client.post(reverse(self.delete_url, kwargs={'pk': self.pk}))
-        count_after = self.delete_class.objects.count()
+        response = self.client.post(reverse(self.url, kwargs={'pk': self.pk}))
+        count_after = self.object_class.objects.count()
 
         if fail:
             self.assertIn(response.status_code, (403, 302))
@@ -99,8 +99,8 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
         else:
             self.assertEqual(response.status_code, 302)
             self.assertEqual(count_before - 1, count_after)
-            self.assertRaises(self.delete_class.DoesNotExist,
-                              self.delete_class.objects.get,
+            self.assertRaises(self.object_class.DoesNotExist,
+                              self.object_class.objects.get,
                               pk=self.pk)
 
     def test_delete_object_anonymous(self):
@@ -134,11 +134,11 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
     '''
 
     object_class = ''
-    edit_url = ''
+    url = ''
     pk = None
     user_success = 'admin'
     user_fail = 'test'
-    data_update = {}
+    data = {}
 
     def edit_object(self, fail=False):
         '''
@@ -151,11 +151,11 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
 
         # Fetch the edit page
         try:
-            response = self.client.get(reverse(self.edit_url, kwargs={'pk': self.pk}))
+            response = self.client.get(reverse(self.url, kwargs={'pk': self.pk}))
         except NoReverseMatch:
             # URL needs special care and doesn't need to be reversed here,
             # everything was already done in the individual test case
-            response = self.client.get(self.edit_url)
+            response = self.client.get(self.url)
         entry_before = self.object_class.objects.get(pk=self.pk)
 
         if fail:
@@ -167,12 +167,12 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
 
         # Try to edit the object
         try:
-            response = self.client.post(reverse(self.edit_url, kwargs={'pk': self.pk}),
-                                        self.data_update)
+            response = self.client.post(reverse(self.url, kwargs={'pk': self.pk}),
+                                        self.data)
         except NoReverseMatch:
             # URL needs special care and doesn't need to be reversed here,
             # everything was already done in the individual test case
-            response = self.client.post(self.edit_url, self.data_update)
+            response = self.client.post(self.url, self.data)
 
         entry_after = self.object_class.objects.get(pk=self.pk)
 
@@ -184,13 +184,13 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
 
         else:
             self.assertEqual(response.status_code, 302)
-            for i in self.data_update:
+            for i in self.data:
                 current_field = getattr(entry_after, i)
                 if current_field.__class__.__name__ == 'ManyRelatedManager':
                     for j in current_field.all():
-                        self.assertIn(j.id, self.data_update[i])
+                        self.assertIn(j.id, self.data[i])
                 else:
-                    self.assertEqual(current_field, self.data_update[i])
+                    self.assertEqual(current_field, self.data[i])
 
     def test_edit_object_anonymous(self):
         '''

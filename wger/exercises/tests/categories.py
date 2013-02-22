@@ -25,8 +25,8 @@ class DeleteExerciseCategoryTestCase(WorkoutManagerDeleteTestCase):
     Exercise category delete test case
     '''
 
-    delete_class = ExerciseCategory
-    delete_url = 'exercisecategory-delete'
+    object_class = ExerciseCategory
+    url = 'exercisecategory-delete'
     pk = 4
     user_success = 'admin'
     user_fail = 'test'

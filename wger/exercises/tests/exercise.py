@@ -312,8 +312,8 @@ class DeleteExercisesTestCase(WorkoutManagerDeleteTestCase):
     Exercise test case
     '''
 
-    delete_class = Exercise
-    delete_url = 'exercise-delete'
+    object_class = Exercise
+    url = 'exercise-delete'
     pk = 2
     user_success = 'admin'
     user_fail = 'test'

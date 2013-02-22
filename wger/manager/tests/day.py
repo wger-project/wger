@@ -91,12 +91,12 @@ class EditWorkoutDayTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = Day
-    edit_url = 'day-edit'
+    url = 'day-edit'
     pk = 5
     user_success = 'test'
     user_fail = 'admin'
-    data_update = {'description': 'a different description',
-                   'day': [1, 4]}
+    data = {'description': 'a different description',
+            'day': [1, 4]}
 
 
 class RenderWorkoutDayTestCase(WorkoutManagerTestCase):

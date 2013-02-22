@@ -30,8 +30,8 @@ class DeleteIngredientTestCase(WorkoutManagerDeleteTestCase):
     Tests deleting an ingredient
     '''
 
-    delete_class = Ingredient
-    delete_url = 'ingredient-delete'
+    object_class = Ingredient
+    url = 'ingredient-delete'
     pk = 1
 
 
@@ -41,17 +41,17 @@ class EditIngredientTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = Ingredient
-    edit_url = 'ingredient-edit'
+    url = 'ingredient-edit'
     pk = 1
-    data_update = {'name': 'A new name',
-                   'sodium': 2,
-                   'energy': 200,
-                   'fat': 10,
-                   'carbohydrates_sugar': 5,
-                   'fat_saturated': 3.1415,
-                   'fibres': 2.1,
-                   'protein': 30,
-                   'carbohydrates': 10}
+    data = {'name': 'A new name',
+            'sodium': 2,
+            'energy': 200,
+            'fat': 10,
+            'carbohydrates_sugar': 5,
+            'fat_saturated': 3.1415,
+            'fibres': 2.1,
+            'protein': 30,
+            'carbohydrates': 10}
 
 
 class AddIngredientTestCase(WorkoutManagerAddTestCase):

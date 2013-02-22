@@ -30,9 +30,9 @@ class EditMealTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = Meal
-    edit_url = 'meal-edit'
+    url = 'meal-edit'
     pk = 5
-    data_update = {'time': datetime.time(8, 12)}
+    data = {'time': datetime.time(8, 12)}
 
 
 class AddMealTestCase(WorkoutManagerAddTestCase):
