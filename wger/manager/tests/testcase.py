@@ -24,12 +24,12 @@ from django.db import models
 
 class WorkoutManagerTestCase(TestCase):
     fixtures = ('days_of_week',
-                'tests-user-data',
+                'test-user-data',
                 'test-weight-data',
                 'test-exercises',
-                'tests-ingredients',
+                'test-ingredients',
                 'test-nutrition-data',
-                'tests-workout-data')
+                'test-workout-data')
 
     def setUp(self):
         '''
