@@ -1,0 +1,17 @@
+{% extends "template.html" %}
+{% block template %}
+    <h2 id="page-title">{% block title %}{% endblock %}</h2>
+    <article>
+    <div class="ym-g66 ym-gl content">
+        <div class="ym-gbox-left ym-clearfix" id="main-content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    <aside class="ym-g33 ym-gr" id="main-sidebar">
+        <div class="ym-gbox-right ym-clearfix">
+            {% block sidebar %}
+            {% endblock %}
+        </div>
+    </aside>
+    </article>
+{% endblock %}

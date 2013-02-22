@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load manager_extras %}
+
+{% block title %}{% trans "Preferences" %}{% endblock %}
+
+
+{% block content %}
+<form action="{% url wger.manager.views.preferences %}"
+      method="post"
+      class="ym-form">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+<table>
+{% yaml_form_field form.show_comments %}
+{% yaml_form_field form.show_english_ingredients %}
+</table>
+
+
+<h3>{% trans "Email" %}</h3>
+
+{{ email_form.non_field_errors }}
+<table>
+{% yaml_form_field email_form.email %}
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="{% trans 'Save' %}">
+        </td>
+    </tr>
+</table>
+</form>
+
+
+{% endblock %}
+
+{% block sidebar %}
+<h3>{% trans "Options" %}</h3>
+<p>
+    <a href="{% url wger.manager.views.logout %}">
+    <img src="{% static 'images/icons/logout.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Logout' %}"
+         title="{% trans 'Logout' %}">
+    {% trans "Logout" %}</a>
+</p>
+<p>
+    <a href="{% url change-password %}">
+    <img src="{% static 'images/icons/preferences.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Change password' %}"
+         title="{% trans 'Change password' %}">
+    {% trans "Change password" %}</a>
+</p>
+{% endblock %}

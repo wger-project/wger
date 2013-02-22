@@ -1,0 +1,98 @@
+[
+    {
+        "pk": 1, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Test ingredient 1", 
+            "language": 2, 
+            "sodium": 0.549, 
+            "energy": 176, 
+            "fat": 8.19, 
+            "carbohydrates_sugar": 0.0, 
+            "fat_saturated": 3.244, 
+            "fibres": 0.0, 
+            "protein": 25.63, 
+            "carbohydrates": 0.0
+        }
+    },
+    {
+        "pk": 2, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Ingredient, test, 2, organic, raw", 
+            "language": 2, 
+            "sodium": 0.1, 
+            "energy": 300, 
+            "fat": 9, 
+            "carbohydrates_sugar": 1, 
+            "fat_saturated": 3, 
+            "fibres": 5.0, 
+            "protein": 25.63, 
+            "carbohydrates": 0.0
+        }
+    },
+    {
+        "pk": 3, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Bachelor chow, now with flavour!", 
+            "language": 2, 
+            "sodium": 0.1, 
+            "energy": 300, 
+            "fat": 9, 
+            "carbohydrates_sugar": 1, 
+            "fat_saturated": 3, 
+            "fibres": 5.0, 
+            "protein": 25.63, 
+            "carbohydrates": 0.0
+        }
+    },
+    {
+        "pk": 4, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Slurm", 
+            "language": 2, 
+            "sodium": 0.1, 
+            "energy": 500, 
+            "fat": 1, 
+            "carbohydrates_sugar": 99, 
+            "fat_saturated": 0, 
+            "fibres": 0, 
+            "protein": 0, 
+            "carbohydrates": 99.0
+        }
+    },
+    {
+        "pk": 5, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Another tasty ingredient", 
+            "language": 2, 
+            "sodium": 2.1, 
+            "energy": 10, 
+            "fat": 1, 
+            "carbohydrates_sugar": 4, 
+            "fat_saturated": 0, 
+            "fibres": 0, 
+            "protein": 0, 
+            "carbohydrates": 5.0
+        }
+    },
+    {
+        "pk": 6, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Raw ingredient", 
+            "language": 2, 
+            "sodium": 2.1, 
+            "energy": 180, 
+            "fat": 2, 
+            "carbohydrates_sugar": 4, 
+            "fat_saturated": 0, 
+            "fibres": 20, 
+            "protein": 10, 
+            "carbohydrates": 5.0
+        }
+    } 
+]

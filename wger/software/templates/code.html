@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load manager_extras %}
+
+
+{% block title %}{% trans "Get the code" %}{% endblock %}
+
+{% block content %}
+<h3>{% trans "Stable version" %}</h3>
+
+<p>{% blocktrans %}Click here to download the last stable version. For
+installation instructions see below.{% endblocktrans %}</p>
+
+<div class="box success" style="text-align: center;">
+<p><strong><a href="https://bitbucket.org/rolandgeider/workout_manager/get/1.0.3.zip">1.0.3</a></strong></p>
+</div>
+
+<h3>{% trans "Development version" %}</h3>
+
+<p>{% blocktrans %}Get the development version if you want to contribute to the project,
+or simply want the latest of the latest. I probably don't need to tell you that this
+version will have more bugs and should not be used to keep important data,
+right?.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}There are two repositories you can clone:{% endblocktrans %}</p>
+<ul>
+    <li>
+        <strong><a href="https://bitbucket.org/rolandgeider/workout_manager">bitbucker (HG)</a></strong>,
+        {% trans "the main repository. All work happens here." %}<br>
+        <code>hg clone https://bitbucket.org/rolandgeider/workout_manager</code>
+    </li>
+    <li style="padding-top: 1em;">
+        <strong><a href="https://github.com/rolandgeider/workout_manager">github (GIT)</a></strong>,
+        {% trans "a mirror of the main repo." %}<br>
+        <code>git clone https://github.com/rolandgeider/workout_manager.git</code>
+    </li>
+</ul>
+
+<p>{% trans "Pull requests are welcome :)" %}</p>
+
+
+<h2>{% trans "Installation" %}</h2>
+
+<p>{% blocktrans %}This is a Django application, so refer for details to its
+<a href="https://docs.djangoproject.com/en/1.4/intro/install/">documentation page</a>
+if things don't go as expected.</p>{% endblocktrans %}
+
+<p>{% blocktrans %}In short, these are the steps to perform for an installation
+on a linux or OS X machine, with python already installed. If you are using e.g.
+Windows, take a look at the link above.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}I personally like installing my development
+files on a virtualenv, it helps keep the system more or less clean and are very
+easy to set up, but you can skip this step if you don't mind installing all
+dependencies system-wide (in that case, install django and the other applications
+with a <code>sudo</code>).{% endblocktrans %}</p>
+
+<code>
+$ sudo apt-get install python-virtualenv
+$ sudo apt-get install python-dev
+$ mkdir manager
+$ cd manager
+$ virtualenv python-django
+$ source python-django/bin/activate
+</code>
+
+<p>{% blocktrans %}Get the application itself by either downloading a package or
+cloning the repository and updating to a tag or revision.{% endblocktrans %}</p>
+
+<code>
+$ hg clone https://rolandgeider@bitbucket.org/rolandgeider/workout_manager
+$ cd workout_manager
+$ pip install -r requirements.txt
+</code>
+
+
+<p>{% trans "Initialise and start the application." %}</p>
+
+<code>
+$ cd ..
+$ python main.py
+</code>
+
+<p>{% blocktrans %}The main.py file will, on first run, create a configuration
+file. For this it will ask you for your <a href="https://www.google.com/recaptcha">reCaptcha
+keys</a>. You can leave this blank or enter bogus data, but you won't be able
+to register new users or use the demo account. For the sitemap.xml file to be
+correctly generated, you need to set a correct domain name in the sites app. This
+is done via django's admin interface. A sqlite database will also be created
+with a standard superuser:{% endblocktrans %}</p>
+
+<ul>
+    {% blocktrans %}<li><strong>username: admin</strong></li>
+    <li><strong>password: admin</strong></li>{% endblocktrans %}
+</ul>
+
+<p>{% blocktrans %}You can later call main.py again to simply start the
+application.{% endblocktrans %}</p>
+
+
+<h3>{% trans "Manual installation" %}</h3>
+
+<p>{% blocktrans %}If you don't want to use the sqlite database that main.py creates
+or if you want to run this under another setup (e.g. under apache), you can
+install the individual component individually. First, install all packages as described
+before.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}Copy the sample configuration file and change the settings there as appropriate.
+There is another configuration file, settings_global.py that contains other global
+settings. Setup any database <a href="https://docs.djangoproject.com/en/1.4/ref/databases/">that Django supports</a>,
+initialise the tables and create a super user.{% endblocktrans %}</p>
+
+<code>
+$ cd workout_manager
+$ cp settings.sample.py settings.py
+$ vim settings.py
+$ cd ..
+$ python manage.py syncdb
+</code>
+
+
+<p>{% blocktrans %}Now you are ready to go, the application is installed and
+can be used. However, an application like this without data is not interesting,
+so you should load some initial data to populate the categories,
+etc.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}For this, load these fixtures, <em>in this order</em>,
+as some dependend on each other (specially the languages). The ingrediens fixture
+can take some time to process, it contains more than 8000 entries.{% endblocktrans %}</p>
+
+
+<code>
+$ python manage.py loaddata languages
+$ python manage.py loaddata days_of_week
+$ python manage.py loaddata muscles
+$ python manage.py loaddata categories
+$ python manage.py loaddata exercises
+$ python manage.py loaddata ingredients
+</code>
+
+<p>{% blocktrans %}Now, run the server:{% endblocktrans %}</p>
+
+<code>
+$ python manage.py runserver
+</code>
+
+<p>{% blocktrans %}You can now access the site with your browser:{% endblocktrans %}
+<code>http://localhost:8000/</code></p>
+
+<p>{% blocktrans %}If you want to run this in production, don't use django's builtin
+server, use apache, gunicorn or some other <em>real server</em>. Refer to
+<a href="https://docs.djangoproject.com/en/1.4/howto/deployment/">the deployment section</a>
+on django's documentation for details here. You will also have to take special
+care of the static files.{% endblocktrans %}</p>
+
+{% endblock %}
+

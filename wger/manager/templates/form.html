@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load manager_extras %}
+
+{% block header %}
+
+{{ form.media }}
+
+{% if custom_js %}
+<script type="text/javascript">
+    {{custom_js|safe}}
+</script>
+{% endif %}
+
+{% endblock %}
+
+<!--
+        Title
+-->
+{% block title %}{{title}}{% endblock %}
+
+
+<!--
+        Main Content
+-->
+{% block content %}
+<form action="{{form_action}}"
+      method="post"
+      class="ym-form">
+{% csrf_token %}
+{{ form.non_field_errors }}
+<table>
+    {% for current_field in form_fields %}
+        {% if current_field.name in select_lists %}
+            {% yaml_form_field current_field "ym-fbox-select" %}
+        {% else %}
+            {% yaml_form_field current_field %}
+        {% endif %}
+    {% endfor %}
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="{{submit_text}}" id="form-save">
+        </td>
+    </tr>
+</table>
+</form>
+{% endblock %}
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}{{sidebar|safe}}{% endblock %}

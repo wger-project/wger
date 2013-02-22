@@ -1,0 +1,162 @@
+/*
+    This file is part of Workout Manager
+
+    Workout Manager is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Workout Manager is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with Workout Manager. If not, see <http:/www.gnu.org/licenses/>.
+*/
+
+
+/**************************************************************
+ *
+ * This file contains slight modifications to the YAML theme
+ * or other YAML elements
+ *
+ **************************************************************/
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
+	font-weight: 300;
+}
+
+body {
+	font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
+	color: black; /* Open Sans Light is very thin, black looks better here */
+}
+
+table {
+    color: black;
+}
+
+nav {
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+}
+
+
+tr:hover .editoptions, tbody tr:hover td .editoptions, ul:hover .editoptions
+{
+    visibility: visible;
+}
+
+
+/*
+ * Deactivate the default background color on hover
+ */
+.editoptions a:hover,
+.ui-tabs-nav a:hover,
+.ui-tabs-nav a:focus,
+.ajax-exercise-select a:hover,
+.no-hover a:hover,
+.no-hover:hover {
+    background-color: transparent;
+}
+
+
+/*
+ * Use colour from the Tango palette for links
+ */
+
+a {
+    color: #3465a4;
+}
+/*
+ * Use colours from the Tango palette for the info, warning and error boxes
+ */
+
+.info {
+    background: #eeeeec;
+}
+
+.warning {
+    background: #fcaf3e
+}
+
+.success {
+    background: #8ae234;
+}
+
+.error {
+    background: #ef2929;
+}
+
+/*
+ * Set the width of form elements to 100%
+ *
+ * Most forms will be edited on a JQuery dialog window and this makes it more readable
+ */
+.ym-form input, .ym-form input, .ym-form textarea, .ym-form select {
+    width: 100%;
+}
+
+
+
+header
+{
+    background-color: transparent;
+}
+
+header h1
+{
+    margin: 0px;
+}
+
+/*
+ * ********************************************
+ * Set some style for the site's design
+ * ********************************************
+ */
+
+/*
+ * Set a minimum height for the page
+ */
+#main-sidebar{
+    min-height: 35em;
+}
+
+/*
+ * Set background colours for the main elements
+ */
+body{
+    background-color: #204A87;
+}
+
+#main{
+    background-color: #FFFFFF;
+}
+
+footer{
+    border-bottom: 1px solid black;
+}
+
+/*
+ * Use similar formatting for input elements in the AJAX edit
+ * set forms on the workout page
+ */
+.ajax-form-element {
+    border: 1px solid #DDDDDD;
+    font-family:Arial, Helvetica, sans-serif;
+	-webkit-box-shadow: inset 0 0 4px #eee;
+	-moz-box-shadow: inset 0 0 4px #eee;
+	box-shadow: inset 0 0 4px #eee;
+	
+}
+
+
+code{
+    white-space: pre;
+}

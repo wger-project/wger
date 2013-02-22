@@ -1,0 +1,130 @@
+[
+    {
+        "pk": 2, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": true, 
+            "name": "Anterior deltoid"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": true, 
+            "name": "Biceps brachii"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": false, 
+            "name": "Biceps femoris"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": true, 
+            "name": "Brachialis"
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": false, 
+            "name": "Erector spinae"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": false, 
+            "name": "Gastrocnemius"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": false, 
+            "name": "Gluteus maximus"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": false, 
+            "name": "Latissimus dorsi"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": true, 
+            "name": "Obliquus externus abdominis"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": true, 
+            "name": "Pectoralis major"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": true, 
+            "name": "Quadriceps femoris"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": true, 
+            "name": "Rectus abdominis"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": true, 
+            "name": "Serratus anterior"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": false, 
+            "name": "Soleus"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": false, 
+            "name": "Trapezius"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": false, 
+            "name": "Triceps brachii"
+        }
+    }
+]

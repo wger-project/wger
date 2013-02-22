@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load manager_extras %}
+
+{% block title %}{% trans "New weight log" %}  – {{day.description}}{% endblock %}
+
+{% block header %}
+<script type="text/javascript">
+$(document).ready(function () {
+    $( "#id_date" ).datepicker();
+});
+</script>
+
+{% endblock %}
+
+{% block content %}
+<form action="{{form_action}}" method="POST" class="ym-form" style="overflow-x: auto;">
+{% csrf_token %}
+{{formset.management_form}}
+
+<table class="workout-log-table">
+<tr>
+    <td>
+        {% trans dateform.date.label %}
+    </td>
+    <td >
+        <div class= "ym-fbox-text {% if dateform.date.errors %}ym-error{% endif %}">
+        {{dateform.date}}
+        </div>
+
+        <div class="ym-fbox-text {% if dateform.date.errors %}ym-error{% endif %}">
+             <span class="ym-message">{{dateform.date.errors}}</span>
+         </div>
+    </td>
+</tr>
+</table>
+
+<h3>{% trans "Exercises" %}</h3>
+<table class="workout-log-table">
+{% for key, value in exercises.items %}
+<tr>
+    <td style="max-width: 5em; padding-right:0.4em;">
+        {{value.obj.name}}
+    </td>
+
+    {% for form in value.forms %}
+    <td class="narrow-input">
+        <div class= "ym-fbox-text narrow-input {% if form.reps.errors %}ym-error{% endif %}">
+        {{form.reps}}
+        </div>
+        <div class="ym-fbox-text narrow-input {% if form.reps.errors %}ym-error{% endif %}">
+             <span class="ym-message">{% trans "Reps" %}</span>
+         </div>
+    </td>
+    <td>
+        <div class= "ym-fbox-text narrow-input {% if form.weight.errors %}ym-error{% endif %}">
+        {{form.weight}}
+        </div>
+
+        <div class="ym-fbox-text narrow-input {% if form.weight.errors %}ym-error{% endif %}" >
+             <span class="ym-message">kg.</span>
+         </div>
+    </td>
+    {% endfor %}
+
+</tr>
+{% empty %}
+<tr>
+    <td>
+    <div class="box warning" id="weight-box-warning">
+    {% trans "Add exercises to this training day before adding a log." %}
+
+    <a href="{% url workout-view day.training.id %}">
+    {% trans "Back to workout" %}
+    </a>
+
+    </div>
+    </td>
+</tr>
+{% endfor %}
+</table>
+
+<table>
+<tr>
+    <td style="text-align:center;">
+        <input type="submit" value="{% trans 'Save' %}" id="form-save" style="width: 95%;">
+    </td>
+</tr>
+</table>
+</form>
+
+{% endblock %}
+
+
+{% block sidebar %}
+<h3>{% trans "Options" %}</h3>
+<p>
+<a href="{% url workout-view day.training.id %}">
+    <img src="{% static 'images/icons/list.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Back to workout' %}">
+    {% trans "Back to workout" %}
+</a>
+</p>
+{% endblock %}

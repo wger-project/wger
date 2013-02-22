@@ -1,0 +1,207 @@
+[
+    {
+        "pk": 1, 
+        "model": "manager.trainingschedule", 
+        "fields": {
+            "comment": "A test workout", 
+            "user": 1, 
+            "creation_date": "2012-11-01"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "manager.trainingschedule", 
+        "fields": {
+            "comment": "Another test workout", 
+            "user": 1, 
+            "creation_date": "2012-11-10"
+        }
+    },
+    {
+        "pk": 3, 
+        "model": "manager.trainingschedule", 
+        "fields": {
+            "comment": "My test workout", 
+            "user": 2, 
+            "creation_date": "2012-11-20"
+        }
+    },
+    
+    
+    {
+        "pk": 1, 
+        "model": "manager.day", 
+        "fields": {
+            "training": 1, 
+            "description": "A day", 
+            "day": [
+                2
+            ]
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "manager.day", 
+        "fields": {
+            "training": 1, 
+            "description": "Another day", 
+            "day": [
+                4
+            ]
+        }
+    },
+    {
+        "pk": 3, 
+        "model": "manager.day", 
+        "fields": {
+            "training": 2, 
+            "description": "Test day 1", 
+            "day": [
+                1
+            ]
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "manager.day", 
+        "fields": {
+            "training": 1, 
+            "description": "Test day 2", 
+            "day": [
+                5
+            ]
+        }
+    },
+    {
+        "pk": 5, 
+        "model": "manager.day", 
+        "fields": {
+            "training": 3, 
+            "description": "A cool day", 
+            "day": [
+                5
+            ]
+        }
+    },
+
+
+    {
+        "pk": 1, 
+        "model": "manager.set", 
+        "fields": {
+            "exercises": [
+                1
+            ], 
+            "exerciseday": 1, 
+            "order": 1, 
+            "sets": "2"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "manager.set", 
+        "fields": {
+            "exercises": [
+                2
+            ], 
+            "exerciseday": 2, 
+            "order": 1, 
+            "sets": "4"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "manager.set", 
+        "fields": {
+            "exercises": [
+                2
+            ], 
+            "exerciseday": 5, 
+            "order": 1, 
+            "sets": "4"
+        }
+    },
+
+    {
+        "pk": 1, 
+        "model": "manager.setting", 
+        "fields": {
+            "comment": "", 
+            "set": 1,
+            "reps": 8, 
+            "order": 1, 
+            "exercise": 1
+        }
+    },
+    {
+        "pk": 2, 
+        "model": "manager.setting", 
+        "fields": {
+            "comment": "", 
+            "set": 2, 
+            "reps": 10, 
+            "order": 1, 
+            "exercise": 2
+        }
+    },
+    {
+        "pk": 2, 
+        "model": "manager.setting", 
+        "fields": {
+            "comment": "", 
+            "set": 3, 
+            "reps": 10, 
+            "order": 1, 
+            "exercise": 2
+        }
+    },
+
+    {
+        "pk": 1, 
+        "model": "manager.workoutlog", 
+        "fields": {
+            "weight": 30, 
+            "workout": 1, 
+            "reps": 8, 
+            "user": 1, 
+            "date": "2012-10-01", 
+            "exercise": 1
+        }
+    },
+    {
+        "pk": 2, 
+        "model": "manager.workoutlog", 
+        "fields": {
+            "weight": 32,
+            "workout": 1, 
+            "reps": 8, 
+            "user": 1, 
+            "date": "2012-10-10", 
+            "exercise": 1
+        }
+    },
+    {
+        "pk": 3, 
+        "model": "manager.workoutlog", 
+        "fields": {
+            "weight": 38, 
+            "workout": 1, 
+            "reps": 8, 
+            "user": 1, 
+            "date": "2012-10-30", 
+            "exercise": 1
+        }
+    },
+    {
+        "pk": 4, 
+        "model": "manager.workoutlog", 
+        "fields": {
+            "weight": 30, 
+            "workout": 1, 
+            "reps": 8, 
+            "user": 1, 
+            "date": "2012-11-01", 
+            "exercise": 1
+        }
+    }
+]

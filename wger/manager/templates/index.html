@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %} {% trans "Dashboard" %}{% endblock %}
+
+
+{% block content %}
+<div class="ym-grid linearize-level-1">
+    <div class="ym-g50 ym-gl">
+        <div class="ym-gbox-left">
+            <h3>{% trans "Workout"%}</h3>
+            {% if current_workout %}
+            <a href="{% url wger.manager.views.view_workout current_workout.id %}">
+                {% if current_workout.comment %}
+                    {{ current_workout.comment }}
+                {% else %}
+                    {% trans "Workout" %}
+                {% endif %}
+            </a>
+            <br> – {{ current_workout.creation_date }}
+
+
+            <ul>
+                {% for day, exercise, is_workout in weekdays %}
+                <li>
+                    {% if not is_workout %}<span class="dimmed">{% endif%}
+                    {{ day }}:
+
+                    {{ exercise }}
+                    {% if not is_workout %}</span>{% endif%}
+
+                </li>
+                {% endfor %}
+            </ul>
+
+            {% else %}
+                <div class="box warning">
+                    {% trans "No workouts found." %} {% trans "Use link to add one." %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="ym-g50 ym-gr">
+        <div class="ym-gbox-right">
+
+
+            <h3>{% trans "Nutrition plan"%}</h3>
+
+            {% if plan %}
+                <a href="{% url wger.nutrition.views.view plan.id %}">
+                    {% if plan.description %}
+                        {{ plan.description }}
+                    {% else %}
+                        {% trans "Nutrition plan" %}
+                    {% endif %}
+               </a>
+               <br> – {{ plan.creation_date }}
+
+               <ul>
+                   <li>
+                       {% trans "Energy" %}: {{nutritional_info.energy}} kcal
+                   </li>
+                   <li>
+                       {% trans "Protein" %}: {{nutritional_info.protein|floatformat}} g
+                   </li>
+                   <li>
+                       {% trans "Carbohydrates" %}: {{nutritional_info.carbohydrates|floatformat}} g
+                   </li>
+                   <li>
+                       {% trans "Fat" %}: {{nutritional_info.fat|floatformat}} g
+                   </li>
+               </ul>
+
+            {% else %}
+                <div class="box warning">
+                    {% trans "No nutrition plans." %} {% trans "Use link to add one." %}
+                </div>
+            {% endif %}
+            {% if weight %}
+            <p>
+                {% trans "Your current weight is: "%} <strong>{{weight.weight|floatformat}} kg.</strong>
+            </p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="ym-grid linearize-level-1">
+    <div class="ym-g50 ym-gl">
+        <div class="ym-gbox-left">
+            <p>
+                <a href="{% url wger.manager.views.add %}">
+                <img src="{% static 'images/icons/new.svg' %}"
+                     width="32"
+                     height="32"
+                     alt="{% trans 'Add workout' %}"
+                     title="{% trans 'Add workout' %}">
+                {% trans "Add workout" %}</a>
+            </p>
+        </div>
+    </div>
+    <div class="ym-g50 ym-gr">
+        <div class="ym-gbox-right">
+            <p>
+                <a href="{% url wger.nutrition.views.add %}">
+                <img src="{% static 'images/icons/new.svg' %}"
+                     width="32"
+                     height="32"
+                     alt="{% trans 'Add nutrition plan' %}"
+                     title="{% trans 'Add nutrition plan' %}">
+                    {% trans "Add nutrition plan" %}</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<p>
+     <em>{% trans "After adding a workout or a nutritional plan, you can edit them to set a goal." %}</em>
+</p>
+{% endblock %}
+
+
+
+{% block sidebar %}
+<h3>{% trans "Options" %}</h3>
+<p>
+<a href="{% url wger.manager.views.preferences %}">
+<img src="{% static 'images/icons/preferences.svg' %}"
+     width="32"
+     height="32"
+     alt="{% trans 'My preferences' %}"
+     title="{% trans 'My preferences' %}">
+{% trans "My preferences" %}</a>
+</p>
+{% endblock %}

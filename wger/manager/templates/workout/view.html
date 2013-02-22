@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load manager_extras %}
+
+{% block title %}{% trans "Workout" %} – {{ workout.creation_date }}{% endblock %}
+
+{% block header %}
+<script>
+function custom_modal_init()
+{
+    // Set up the edit set functions on modal dialogs
+    init_edit_set();
+}
+
+$(document).ready(function() {	
+	// Allow the sets to be sortable
+	setup_sortable();
+	
+	// Show/Hide the comments to the exercises
+	{% if user.userprofile.show_comments %}
+		showComment = 1;
+        $(".exercise-comments").show();
+    {% else %}
+    	showComment = 0;
+        $(".exercise-comments").hide();
+    {% endif %}
+	
+	toggle_comments();
+ });
+</script>
+{% endblock %}
+
+{% block content %}
+
+
+{% if workout.comment %}
+<p>
+    <strong>{% trans "Goal" %}:</strong>
+    <span class="dimmed">{{workout.comment}}</span>
+</p>
+{% endif %}
+
+{% for day in workout.day_set.select_related %}
+    <div id="div-day-{{ day.id }}">
+        {% render_day day %}
+    </div>
+{% empty %}
+<div class="box warning">
+    {% trans "No days for this workout." %}
+    <a href="{% url day-add workout.id %}" class="modal-dialog">
+    {% trans "Add training day." %}
+    </a>
+</div>
+{% endfor %}
+
+
+<p>
+<a href="{% url day-add workout.id %}" class="modal-dialog">
+    {% trans "Add training day" %}
+</a>
+
+|
+<a id="exercise-comments-toggle" href="{% url wger.manager.views.preferences %}">
+    {% trans "Show/Hide exercise comments" %}
+</a>
+
+
+</p>
+{% endblock %}
+
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}
+<h3>{% trans "Steps" %}</h3>
+
+<ol>
+    <li>{% trans "Add training days" %}</li>
+    <li>{% trans "Add working sets to days" %}</li>
+    <li>
+        {% trans "Set the repetitions for each set" %}
+        ({% trans "use '99' for 'all repetitions you can do'" %})
+    </li>
+</ol>
+
+
+<h3>{% trans "Muscles trained" %}</h3>
+
+<p>
+    {% trans "Images show combined muscles as trained by the exercises on the workout." %}
+</p>
+
+<div class="ym-grid linearize-level-1">
+    <div class="ym-g40 ym-gl">
+        <div class="ym-gbox-left">
+            <div id="muscle-front"
+                 class="muscle-background"
+                 style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+            </div>
+        </div>
+    </div>
+    <div class="ym-g60 ym-gr">
+        <div class="ym-gbox-right">
+            <div id="muscle-back"
+                     class="muscle-background"
+                     style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3>{% trans "Options" %}</h3>
+<p>
+<a href="{% url wger.manager.pdf.workout_log workout.id %}"
+   target="_blank">
+    <img src="{% static 'images/icons/save.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Download as PDF' %}"
+         title="{% trans 'Download as PDF' %}">
+    {% trans "Download as PDF" %}
+</a>
+</p>
+
+<p>
+<a href="{% url workout-edit workout.id %}"
+   class="modal-dialog">
+   <img src="{% static 'images/icons/edit.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Edit workout' %}"
+         title="{% trans 'Edit workout' %}">
+   {% trans "Edit workout" %}
+</a>
+</p>
+
+<p>
+<a href="{% url workout-log workout.id %}">
+   <img src="{% static 'images/icons/statistics.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'View weight log' %}"
+         title="{% trans 'View weight log' %}">
+   {% trans "View weight log" %}
+</a>
+</p>
+
+<p>
+<a href="{% url workout-copy workout.id %}"
+   class="modal-dialog">
+   <img src="{% static 'images/icons/copy.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Make a copy of this workout' %}"
+         title="{% trans 'Make a copy of this workout' %}">
+   {% trans "Make a copy of this workout" %}
+</a>
+</p>
+
+
+<p>
+<a href="{% url workout-delete workout.id %}"
+   class="modal-dialog">
+    <img src="{% static 'images/icons/trash.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Delete this workout' %}">
+    {% trans "Delete this workout" %}
+</a>
+</p>
+{% endblock %}

@@ -1,0 +1,8 @@
+Django==1.4.3
+django-browserid
+django-recaptcha
+reportlab
+django_mobile
+django-discover-runner
+pep8
+bleach

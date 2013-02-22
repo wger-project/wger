@@ -1,0 +1,46 @@
+{% load i18n %}
+{% load staticfiles %}
+
+{% block header %}
+
+{% endblock %}
+<div class="weight-chart-table-toggle" data-toggle-target="table-{{div_uuid}}">
+<p>
+    <a href="#">
+    <img src="{% static 'images/icons/toggle.svg' %}"
+            width="16"
+            height="16"
+            alt="{% trans 'Toggle data table' %}">
+    {% trans "Toggle data table" %}</a>
+</p>
+</div>
+
+<div style="overflow-x: auto;" class="weight-chart-table">
+<table class="noborder" style="border: 0 none; width: 7em; display:none;" id="table-{{div_uuid}}">
+    <tr>
+    {% for date, entry_list in log.items %}
+    <td style="padding: 0em; border-top-width: 0px;">
+        <table class="narrow" style="width: 7em;">
+            <tr>
+                <th colspan="3">{{date|date:"d.m.Y"}}</th>
+            </tr>
+            <tr>
+                <td style="text-align:right;">{% trans "Reps" %}</td>
+                <td></td>
+                <td style="padding:0px;">{% trans "kg." %}</td>
+            </tr>
+            {% for entry in entry_list %}
+            <tr>
+                <td style="text-align:right;">{{entry.reps}}</td>
+                <td style="padding:0px;">×</td>
+                <td style="padding:0px;">{{entry.weight}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </td>
+    {% endfor %}
+    </tr>
+</table>
+</div>
+
+<div id="svg-{{div_uuid}}" style="text-align:center;"></div>

@@ -4,3 +4,4 @@ syntax: glob
 settings.py
 *.pyc
 *~
+htmlcov/*
