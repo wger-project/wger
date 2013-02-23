@@ -22,45 +22,6 @@
  **************************************************************/
 
 
-
-/**************************************************************
- * Font definitions
- **************************************************************/
-
-/* font-face kit by Fonts2u - http://www.fonts2u.com */
-@font-face {
-    font-family:"Open Sans Light";
-        src:url("/static/fonts/OpenSans-Light.eot?") format("eot"),
-            url("/static/fonts/OpenSans-Light.woff") format("woff"),
-            url("/static/fonts/OpenSans-Light.ttf") format("truetype"),
-            url("/static/fonts/OpenSans-Light.svg#OpenSans-Light") format("svg");
-    font-weight:normal;
-    font-style:normal;
-}
-
-
-@font-face {
-    font-family:"Open Sans";
-        src:url("/static/fonts/OpenSans-Regular.eot?") format("eot"),
-            url("/static/fonts/OpenSans-Regular.woff") format("woff"),
-            url("/static/fonts/OpenSans-Regular.ttf") format("truetype"),
-            url("/static/fonts/OpenSans-Regular.svg#OpenSans") format("svg");
-    font-weight:normal;
-    font-style:normal;
-}
-
-
-@font-face {
-    font-family:"Open Sans Bold";
-        src:url("/static/fonts/OpenSans-Bold.eot?") format("eot"),
-            url("/static/fonts/OpenSans-Bold.woff") format("woff"),
-            url("/static/fonts/OpenSans-Bold.ttf") format("truetype"),
-            url("/static/fonts/OpenSans-Bold.svg#OpenSans-Bold") format("svg");
-    font-weight:normal;
-    font-style:normal;
-}
-
-
 /*
  * Images in links are vertically aligned
  */
