@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-21 22:20+0100\n"
+"POT-Creation-Date: 2013-02-22 23:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,17 +20,11 @@ msgstr ""
 
 #: settings_global.py:37 manager/templates/template.html:194
 #: manager/templates/template.html:195 manager/templates/template.html:196
-#: manager/templates/mobile/template.html:173
-#: manager/templates/mobile/template.html:174
-#: manager/templates/mobile/template.html:176
 msgid "English"
 msgstr ""
 
 #: settings_global.py:38 manager/templates/template.html:185
 #: manager/templates/template.html:186 manager/templates/template.html:187
-#: manager/templates/mobile/template.html:164
-#: manager/templates/mobile/template.html:165
-#: manager/templates/mobile/template.html:167
 msgid "German"
 msgstr ""
 
@@ -118,8 +112,8 @@ msgstr ""
 msgid "Delete exercise %s?"
 msgstr "%s Übung wirklich löschen?"
 
-#: exercises/views.py:349 exercises/templates/overview.html:171
-#: exercises/templates/overview.html:172 exercises/templates/overview.html:173
+#: exercises/views.py:349 exercises/templates/overview.html:170
+#: exercises/templates/overview.html:171 exercises/templates/overview.html:172
 msgid "Add category"
 msgstr "Kategorie hinzufügen"
 
@@ -140,7 +134,6 @@ msgstr "Suchergebnisse"
 
 #: exercises/templates/muscle_overview.html:8
 #: manager/templates/template.html:107
-#: manager/templates/mobile/template.html:101
 msgid "Muscle overview"
 msgstr "Muskelübersicht"
 
@@ -166,8 +159,6 @@ msgstr "Hinterseite"
 #: exercises/templates/overview.html:8 manager/models.py:122
 #: manager/models.py:152 manager/templates/template.html:104
 #: manager/templates/template.html:106 manager/templates/day/log.html:39
-#: manager/templates/mobile/template.html:98
-#: manager/templates/mobile/template.html:100
 msgid "Exercises"
 msgstr "Übungen"
 
@@ -183,7 +174,7 @@ msgstr "Keine Kategorien."
 msgid "Use link to create one"
 msgstr "Benutze den Verweis zum Hinzufügen"
 
-#: exercises/templates/overview.html:80 exercises/templates/overview.html:84
+#: exercises/templates/overview.html:79 exercises/templates/overview.html:83
 #: exercises/templates/view.html:53 exercises/templates/view.html.py:58
 #: exercises/templates/view.html:214 exercises/templates/view.html.py:216
 #: manager/templates/set/edit.html:10 manager/templates/setting/edit.html:17
@@ -200,7 +191,7 @@ msgstr "Benutze den Verweis zum Hinzufügen"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: exercises/templates/overview.html:88 exercises/templates/overview.html:93
+#: exercises/templates/overview.html:87 exercises/templates/overview.html:92
 #: exercises/templates/view.html:46 exercises/templates/view.html.py:50
 #: exercises/templates/view.html:225 exercises/templates/view.html.py:226
 #: manager/templates/delete.html:30 manager/templates/tags/render_day.html:35
@@ -213,17 +204,16 @@ msgstr "Bearbeiten"
 msgid "Delete"
 msgstr "Löschen"
 
-#: exercises/templates/overview.html:103
+#: exercises/templates/overview.html:102
 msgid ""
 "No exercises in this category. Add or edit an exercise and set its category"
 msgstr ""
 "Keine Übungen in dieser Kategorie. Editiere oder füge eine neue Übung hinzu "
 "und setze die Kategorie"
 
-#: exercises/templates/overview.html:122 exercises/templates/view.html:208
+#: exercises/templates/overview.html:121 exercises/templates/view.html:208
 #: manager/templates/index.html:126 manager/templates/template.html:161
 #: manager/templates/day/log.html:97
-#: manager/templates/mobile/template.html:149
 #: manager/templates/user/preferences.html:38
 #: manager/templates/workout/log.html:77
 #: manager/templates/workout/overview.html:47
@@ -236,26 +226,26 @@ msgstr ""
 msgid "Options"
 msgstr "Optionen"
 
-#: exercises/templates/overview.html:130 exercises/templates/overview.html:131
-#: exercises/templates/overview.html:132
+#: exercises/templates/overview.html:129 exercises/templates/overview.html:130
+#: exercises/templates/overview.html:131
 msgid "Add new exercise"
 msgstr "Neue Übung hinzufügen"
 
-#: exercises/templates/overview.html:143 exercises/templates/overview.html:144
-#: exercises/templates/overview.html:145
+#: exercises/templates/overview.html:142 exercises/templates/overview.html:143
+#: exercises/templates/overview.html:144
 msgid "Edit category"
 msgstr "Kategorie bearbeiten"
 
-#: exercises/templates/overview.html:158 exercises/templates/overview.html:159
-#: exercises/templates/overview.html:160
+#: exercises/templates/overview.html:157 exercises/templates/overview.html:158
+#: exercises/templates/overview.html:159
 msgid "Delete category"
 msgstr "Kategorie löschen"
 
-#: exercises/templates/overview.html:178
+#: exercises/templates/overview.html:177
 msgid "Search"
 msgstr "Suchen"
 
-#: exercises/templates/overview.html:189
+#: exercises/templates/overview.html:188
 msgid "exercise name"
 msgstr "Übung"
 
@@ -383,9 +373,8 @@ msgid "Workout"
 msgstr "Trainingsplan"
 
 #: manager/models.py:186 manager/pdf.py:132
-#: manager/templates/template.html:116
-#: manager/templates/mobile/template.html:109 weight/models.py:29
-#: weight/views.py:118 weight/templates/import_csv_preview.html:15
+#: manager/templates/template.html:116 weight/models.py:29 weight/views.py:118
+#: weight/templates/import_csv_preview.html:15
 #: weight/templates/import_csv_preview.html:44
 msgid "Weight"
 msgstr "Gewicht"
@@ -524,8 +513,6 @@ msgstr ""
 "rückgängig gemacht werden."
 
 #: manager/templates/index.html:5 manager/templates/template.html:93
-#: manager/templates/mobile/template.html:60
-#: manager/templates/mobile/template.html:87
 msgid "Dashboard"
 msgstr "Übersicht"
 
@@ -609,44 +596,33 @@ msgstr ""
 msgid "My preferences"
 msgstr "Meine Einstellungen"
 
-#: manager/templates/template.html:91
-#: manager/templates/mobile/template.html:58
-#: manager/templates/mobile/template.html:85
-#: manager/templates/user/login.html:6 manager/templates/user/login.html:30
+#: manager/templates/template.html:91 manager/templates/user/login.html:6
+#: manager/templates/user/login.html:30
 msgid "Login"
 msgstr "Anmelden"
 
 #: manager/templates/template.html:98
-#: manager/templates/mobile/template.html:66
-#: manager/templates/mobile/template.html:92
 msgid "Workouts"
 msgstr "Trainingspläne"
 
-#: manager/templates/template.html:118
-#: manager/templates/mobile/template.html:111
-#: weight/templates/weight_overview.html:8
+#: manager/templates/template.html:118 weight/templates/weight_overview.html:8
 msgid "Weight overview"
 msgstr "Gewichtsübersicht"
 
-#: manager/templates/template.html:119
-#: manager/templates/mobile/template.html:112 weight/views.py:71
+#: manager/templates/template.html:119 weight/views.py:71
 #: weight/templates/weight_overview.html:89
 msgid "Add weight entry"
 msgstr "Gewichtseintrag hinzufügen"
 
 #: manager/templates/template.html:127
-#: manager/templates/mobile/template.html:69
-#: manager/templates/mobile/template.html:120
 msgid "Nutrition"
 msgstr "Ernährung"
 
 #: manager/templates/template.html:130
-#: manager/templates/mobile/template.html:123
 msgid "Nutrition plans"
 msgstr "Ernährungspläne"
 
 #: manager/templates/template.html:132
-#: manager/templates/mobile/template.html:125
 #: nutrition/templates/ingredient_overview.html:7
 #: nutrition/templates/nutrition_overview.html:63
 #: nutrition/templates/nutrition_overview.html:64
@@ -655,52 +631,38 @@ msgid "Ingredient overview"
 msgstr "Zutatenübersicht"
 
 #: manager/templates/template.html:141
-#: manager/templates/mobile/template.html:134
 msgid "About this software"
 msgstr "Über diese Software"
 
-#: manager/templates/template.html:143
-#: manager/templates/mobile/template.html:75
-#: manager/templates/mobile/template.html:136
-#: software/templates/functions.html:7
+#: manager/templates/template.html:143 software/templates/functions.html:7
 msgid "Features"
 msgstr "Funktionen"
 
-#: manager/templates/template.html:145
-#: manager/templates/mobile/template.html:138
-#: manager/templates/user/demo.html:7
+#: manager/templates/template.html:145 manager/templates/user/demo.html:7
 msgid "Demo account"
 msgstr "Demo Account"
 
 #: manager/templates/template.html:147
-#: manager/templates/mobile/template.html:140
 msgid "Report problem"
 msgstr "Probleme berichten"
 
 #: manager/templates/template.html:150
-#: manager/templates/mobile/template.html:142
 msgid "Developers"
 msgstr "Entwickler"
 
-#: manager/templates/template.html:151
-#: manager/templates/mobile/template.html:143 software/templates/code.html:7
+#: manager/templates/template.html:151 software/templates/code.html:7
 msgid "Get the code"
 msgstr "Quellcode"
 
-#: manager/templates/template.html:152
-#: manager/templates/mobile/template.html:144
-#: software/templates/license.html:7
+#: manager/templates/template.html:152 software/templates/license.html:7
 msgid "License"
 msgstr "Lizenz"
 
-#: manager/templates/template.html:153
-#: manager/templates/mobile/template.html:145
-#: software/templates/changelog.html:7
+#: manager/templates/template.html:153 software/templates/changelog.html:7
 msgid "Changelog"
 msgstr "Änderungsprotokoll"
 
 #: manager/templates/template.html:168
-#: manager/templates/mobile/template.html:154
 #: manager/templates/user/preferences.html:44
 #: manager/templates/user/preferences.html:45
 #: manager/templates/user/preferences.html:46
@@ -708,7 +670,6 @@ msgid "Logout"
 msgstr "Ausloggen"
 
 #: manager/templates/template.html:177
-#: manager/templates/mobile/template.html:157
 msgid "Languages"
 msgstr "Sprachen"
 
@@ -725,7 +686,6 @@ msgid "Released under the Affero GPL"
 msgstr "Unter der Affero GPL veröffentlicht"
 
 #: manager/templates/template.html:252
-#: manager/templates/mobile/template.html:202
 msgid "Layout based on <a href='http://www.yaml.de'>YAML</a>"
 msgstr "Layout basiert auf <a href='http://www.yaml.de'>YAML</a>"
 
@@ -753,22 +713,6 @@ msgstr "Zurück zum Trainingsplan"
 #: workout_manager/generic_views.py:44
 msgid "Save"
 msgstr "Speichern"
-
-#: manager/templates/mobile/template.html:51
-msgid "Menu"
-msgstr ""
-
-#: manager/templates/mobile/template.html:179
-msgid "Site version"
-msgstr ""
-
-#: manager/templates/mobile/template.html:181
-msgid "Desktop"
-msgstr ""
-
-#: manager/templates/mobile/template.html:184
-msgid "Mobile"
-msgstr ""
 
 #: manager/templates/setting/ajax_edit.html:76
 msgid "Cancel"
@@ -1454,7 +1398,7 @@ msgid ""
 "Windows, take a look at the link above."
 msgstr ""
 "Hier sind die notwendingen Schritte, um die Anwendung auf ein Linux oder OS "
-"X Rechner zu installieren. Für Windows, ist der Link ober ein guter "
+"X Rechner zu installieren. Für Windows, ist der Link oben ein guter "
 "Anfangspunkt."
 
 #: software/templates/code.html:53
@@ -1473,21 +1417,17 @@ msgstr ""
 "Abhängigkeiten Systemweit installieren will (in diesem Fall z.B. mit "
 "<code>sudo</code> vorgehen)."
 
-#: software/templates/code.html:68
-msgid ""
-"Get the application itself by either downloading a package or\n"
-"cloning the repository and updating to a tag or revision."
-msgstr ""
-"Hole dir die Anwendung entweder von eins der Pakete oder indem du das "
-"Repository klonst und zu einer Revision oder einem Tag aktualisiert."
+#: software/templates/code.html:66
+msgid "Get the application from PyPI."
+msgstr "Lade die Anwendung von PyPI runter."
 
-#: software/templates/code.html:78
+#: software/templates/code.html:73
 msgid "Initialise and start the application."
 msgstr "Initialisiere und starte die Anwendung."
 
-#: software/templates/code.html:85
+#: software/templates/code.html:79
 msgid ""
-"The main.py file will, on first run, create a configuration\n"
+"The script will, on first run, create a configuration\n"
 "file. For this it will ask you for your <a href=\"https://www.google.com/"
 "recaptcha\">reCaptcha\n"
 "keys</a>. You can leave this blank or enter bogus data, but you won't be "
@@ -1500,46 +1440,48 @@ msgid ""
 "created\n"
 "with a standard superuser:"
 msgstr ""
-"Die main.py-Datei wird im ersten Lauf eine Konfigurationsdatei erstellen. "
-"Dafür wird sie nach den <a href=\"https://www.google.com/recaptcha"
-"\">reCaptcha Schlüssel</a> fragen. Du kannst diese Werte leer lassen oder "
-"sonstwas eingebe aber dann wird es nicht möglich sein neue Benutzer zu "
-"registrieren oder den Demozugang zu benutzen. Damit die sitemap.xml-Datei "
-"richtig generiert wird muss der richtige Domainname in der sites App gesetzt "
-"werden, das geht über das Admininterface von Django. Eine SQlite-Datenbank "
-"wird dann erzeugt mit einem Superuser:"
+"Das Skript wird beim ersten Aufruf eine Konfigurationsdatei erstellen. Dafür "
+"wird sie nach den <a href=\"https://www.google.com/recaptcha\">reCaptcha "
+"Schlüssel</a> fragen. Du kannst diese Werte leer lassen oder sonstwas "
+"eingebe aber dann wird es nicht möglich sein neue Benutzer zu registrieren "
+"oder den Demozugang zu benutzen. Damit die sitemap.xml-Datei richtig "
+"generiert wird muss der richtige Domainname in der sites App gesetzt werden, "
+"das geht über das Admininterface von Django. Eine SQlite-Datenbank wird dann "
+"erzeugt mit einem Superuser:"
 
-#: software/templates/code.html:94
-msgid ""
-"<li><strong>username: admin</strong></li>\n"
-"    <li><strong>password: admin</strong></li>"
+#: software/templates/code.html:88
+msgid "username:"
+msgstr "Benutzername:"
+
+#: software/templates/code.html:89
+msgid "password:"
+msgstr "Passwort:"
+
+#: software/templates/code.html:92
+msgid "You can later call wger again to simply start the application."
 msgstr ""
+"Du kannst später einfach wger wieder aufrufen um die Anwendung zu starten."
 
-#: software/templates/code.html:98
-msgid ""
-"You can later call main.py again to simply start the\n"
-"application."
-msgstr ""
-"Du kannst später einfach main.py wieder aufrufen um die Anwendung zu starten."
-
-#: software/templates/code.html:102
+#: software/templates/code.html:95
 msgid "Manual installation"
 msgstr "Manuelle Installation"
 
-#: software/templates/code.html:104
+#: software/templates/code.html:97
 msgid ""
 "If you don't want to use the sqlite database that main.py creates\n"
 "or if you want to run this under another setup (e.g. under apache), you can\n"
-"install the individual component individually. First, install all packages "
-"as described\n"
-"before."
+"install the individual component individually."
 msgstr ""
 "Wenn du nicht die SQlite-Datenbank benutzen willst die von main.py generiert "
 "wird oder wenn du die Anwendung anders betreiben willst (z.B. unter Apache) "
 "kannst du die individuellen Komponenten von Hand installieren. Zuerst "
 "installierst du die Pakete wie vorher beschrieben."
 
-#: software/templates/code.html:109
+#: software/templates/code.html:101
+msgid "First, install all packages:"
+msgstr ""
+
+#: software/templates/code.html:107
 msgid ""
 "Copy the sample configuration file and change the settings there as "
 "appropriate.\n"
@@ -1555,7 +1497,7 @@ msgstr ""
 "djangoproject.com/en/1.4/ref/databases/\">die von Django unterstützt wird</"
 "a>, initialisiere die Tabellen und erstelle einen Superuser."
 
-#: software/templates/code.html:123
+#: software/templates/code.html:119
 msgid ""
 "Now you are ready to go, the application is installed and\n"
 "can be used. However, an application like this without data is not "
@@ -1567,7 +1509,7 @@ msgstr ""
 "benutzt werden. Allerdings ist so eine Anwendung ohne Daten nicht sehr "
 "interessant. Lade also die initalen Daten für Kategorien, etc."
 
-#: software/templates/code.html:128
+#: software/templates/code.html:124
 msgid ""
 "For this, load these fixtures, <em>in this order</em>,\n"
 "as some dependend on each other (specially the languages). The ingrediens "
@@ -1578,15 +1520,15 @@ msgstr ""
 "da manche aufeinander aufbauen (besonders die Sprachen). Die Zutatendatei "
 "wird länger brauchen, da sie mehr als 8000 Einträge hat."
 
-#: software/templates/code.html:142
+#: software/templates/code.html:138
 msgid "Now, run the server:"
 msgstr "Starte den Server:"
 
-#: software/templates/code.html:148
+#: software/templates/code.html:144
 msgid "You can now access the site with your browser:"
 msgstr "Nun kannst due mit einem Browser auf die Seite zugreifen:"
 
-#: software/templates/code.html:151
+#: software/templates/code.html:147
 msgid ""
 "If you want to run this in production, don't use django's builtin\n"
 "server, use apache, gunicorn or some other <em>real server</em>. Refer to\n"

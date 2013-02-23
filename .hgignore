@@ -5,3 +5,5 @@ settings.py
 *.pyc
 *~
 htmlcov/*
+versiontools*
+*egg-info*
