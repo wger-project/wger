@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% trans "Your workouts" %}{% endblock %}
+
+
+{% block content %}
+{% if workouts %}
+
+
+    <table id="workout-table" data-role="table"  class="ui-responsive table-stroke table-stripe">
+    <thead>
+    <tr>
+        <th>{% trans "Description" %}</th>
+        <th>{% trans "Date" %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for workout in workouts %}
+    <tr>
+        <td>
+            <a href="{% url wger.manager.views.view_workout workout.id %}">
+                {% if workout.comment %}
+                    {{ workout.comment }}
+                {% else %}
+                    {% trans "Workout" %}
+                {% endif %}
+            </a>
+        </td>
+        <td>
+            {{ workout.creation_date }}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% else %}
+    <div class="box warning">
+        {% trans "No workouts found." %} {% trans "Use link to add one." %}
+    </div>
+{% endif %}
+
+
+{% endblock %}
+
+
+{% block sidebar %}
+<h3>{% trans "Options" %}</h3>
+<p>
+    <a href="{% url wger.manager.views.add %}">
+    <img src="{% static 'images/icons/new.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Add workout' %}"
+         title="{% trans 'Add workout' %}">
+    {% trans "Add workout" %}</a>
+</p>
+{% endblock %}
