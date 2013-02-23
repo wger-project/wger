@@ -28,7 +28,7 @@
     <title>{% block title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/yaml/demos/css/flexible-grids.css' %} "> <!-- CSS framework for the layout -->
+    <!--<link rel="stylesheet" type="text/css" href="{% static 'css/yaml/demos/css/flexible-grids.css' %} ">--> <!-- CSS framework for the layout -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/yaml/custom-yaml.css' %}">               <!-- Customisations for yaml      -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-mobile.css' %}">
 
@@ -161,6 +161,11 @@
                     {% trans 'Logout' %}
                     </a>
                 </li>
+                <li>
+                    <a href="{% url wger.manager.views.preferences %}">
+                    {% trans 'My preferences' %}
+                    </a>
+                </li>
                 <li data-role="list-divider">{% trans "Languages" %}</li>
                 {% endif %}
 
@@ -185,10 +190,10 @@
 
                 <li data-role="list-divider">{% trans "Site version" %}</li>
                 <li>
-                    <a href="?flavour=full">{% trans "Desktop" %}</a>
+                    <a href="?flavour=full" data-ajax="false">{% trans "Desktop" %}</a>
                 </li>
                 <li>
-                    <a href="?flavour=mobile">{% trans "Mobile" %}</a>
+                    <a href="?flavour=mobile" data-ajax="false">{% trans "Mobile" %}</a>
                 </li>
             </ul>
             </li>
@@ -204,13 +209,19 @@
     </div>
 
     <div data-role="footer">
-                <div class="ym-gbox-left">
+        <div class="ui-grid-b">
+            <div class="ui-block-a">
                 © <a href="mailto:roland@NO!SPAM!geider.net">Roland Geider</a>
-                – {% trans "Layout based on <a href='http://www.yaml.de'>YAML</a>" %}
-                </div>
-                <div class="ym-gbox-right">
-                    <em class="dimmed">{{version}}</em>
-                </div>
+            </div>
+
+            <div class="ui-block-b">
+                {% trans "Layout based on <a href='http://www.yaml.de'>YAML</a>" %}
+            </div>
+
+            <div class="ui-block-c">
+                <em class="dimmed">{{version}}</em>
+            </div>
+        </div>
     </div>
 
 </div><!-- /page -->

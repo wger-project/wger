@@ -195,6 +195,15 @@
                                              title="{% trans 'English' %}">
                                     {% trans "English" %}</a>
                                 </li>
+
+                                <li class="divider"></li>
+                                <li class="nav-header">{% trans "Site version" %}</li>
+                                <li {% if not is_mobile %} class="active"{% endif %}>
+                                    <a href="?flavour=full" data-ajax="false">{% trans "Desktop" %}</a>
+                                </li>
+                                <li {% if is_mobile %} class="active"{% endif %}>
+                                    <a href="?flavour=mobile" data-ajax="false">{% trans "Mobile" %}</a>
+                                </li>
                             </ul>
                         </ul>
                     </div><!--/.nav-collapse -->
