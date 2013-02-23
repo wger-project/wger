@@ -49,7 +49,13 @@
 
     <header data-role="header">
         <h1>wger Workout Manager</h1>
-        <a href="#popupBasic" data-rel="popup">{% trans "Menu" %}</a>
+        <a href="#popupBasic"
+           class="ui-icon-nodisc"
+           data-rel="popup"
+           data-theme="b"
+           data-icon="bars"
+           data-iconpos="notext"
+           data-iconshadow="false"></a>
     </header>
 
     <div data-role="navbar">
@@ -80,7 +86,7 @@
     </div>
 
     <div data-role="popup" id="popupBasic">
-        <ul data-role="listview">
+        <ul data-role="listview" data-inset="true">
             <li {% if active_tab == 'user' %}class="active"{% endif %}>
             {% if not user.is_authenticated %}
                 <a href="{% url login %}">{% trans "Login" %}</a>
