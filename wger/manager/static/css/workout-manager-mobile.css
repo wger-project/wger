@@ -31,6 +31,9 @@
     font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
     font-weight: 300;
 }
+.ui-body-c .ui-link{
+    font-weight: normal;
+}
 
 /*
  * Links in warning boxes get a different style, the default blue doesn't match
@@ -39,7 +42,7 @@
 div.success a.ui-link, div.success a.ui-link:hover, div.success a.ui-link:active,
 div.warning a.ui-link, div.warning a.ui-link:hover, div.warning a.ui-link:active,
 div.info a.ui-link, div.info a.ui-link:hover, div.info a.ui-link:active{
-    color: black;
+    /*color: black;*/
     text-decoration: underline;
     background-color: transparent;
 }
@@ -56,7 +59,7 @@ div.info a.ui-link, div.info a.ui-link:hover, div.info a.ui-link:active{
     -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
     -moz-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
-    color: #444;
+    /*color: #444;*/
     color: rgba(0,0,0,.8);
     padding: 1.4286em;
     margin: 1.5em 0 0 0;
@@ -101,4 +104,47 @@ h6 {
     font-size:100%;
     line-height: 1.5em;
     margin: 1.5em 0 0 0;
+}
+
+table {
+    width:100%;
+    border-collapse:collapse;
+    margin: 1.3571em 0 0 0;
+    color:#333;
+    border-top: 1px #ccc solid;
+    border-bottom: 1px #ccc solid;
+}
+        
+table.bordertable {
+    border:1px #ccc solid;
+}
+        
+.bordertable thead th {
+    background:#e0e0e0;
+    border-right:1px #ccc solid;
+    border-bottom:1px #ccc solid;
+    text-align: left;
+}
+
+.bordertable tbody th[scope="row"] {
+    background:#f0f0f0;
+}
+
+tbody th {
+    text-align: left;
+    border-top:1px solid #ccc;
+    text-align:left;
+}
+
+.bordertable tbody th {
+    border-right:1px solid #ccc;
+}
+
+tbody td {
+    text-align: left;
+    border-top:1px solid #ccc;
+}
+
+.bordertable tbody td {
+    border-right:1px solid #ccc;
 }

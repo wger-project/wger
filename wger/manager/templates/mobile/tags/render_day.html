@@ -1,0 +1,233 @@
+{% load i18n %} 
+{% load staticfiles %}
+{% load manager_extras %}
+
+
+<!--<h3>
+<a href="#editoptions-day-{{ day.id }}"
+   class="ui-icon-nodisc"
+   data-rel="popup"
+   data-role="button"
+   data-inline="true"
+   data-transition="slideup"
+   data-icon="gear"
+   data-theme="b"
+   data-iconpos="notext"
+   data-mini="true"
+   data-iconshadow="false"></a>
+{{day.description}}</h3>-->
+<table class="bordertable workout-table" id="table-day-{{ day.id }}" style="width:100%;">
+<thead>
+    <tr id="day-{{ day.id }}">
+        <th colspan="2">
+            
+            <h4><a href="#editoptions-day-{{ day.id }}"
+                   class="ui-icon-nodisc"
+                   data-rel="popup"
+                   data-role="button"
+                   data-inline="true"
+                   data-transition="slideup"
+                   data-icon="gear"
+                   data-theme="b"
+                   data-iconpos="notext"
+                   data-mini="true"
+                   data-iconshadow="false"></a>{{day.description}}</h4>
+
+
+            {% for day_of_week in day.day.select_related %}
+                {% trans day_of_week.day_of_week %}
+                {% if not forloop.last %}, {% endif %}
+                <!--{% if forloop.last %}–{% endif %}-->
+            {% endfor %}
+            
+           
+            <div data-role="popup" id="editoptions-day-{{ day.id }}">
+                <div>
+                    <h3>{{day.description}}</h3>
+                    <ul data-role="listview">
+                        <li>
+                            <a href="{% url wger.manager.views.delete_day workout.id day.id %}"
+                               title="{% trans 'Delete' %}">
+                                    <img src="{% static 'images/icons/trash.svg' %}"
+                                         width="16"
+                                         height="16"
+                                         alt="{% trans 'Delete' %}"
+                                         class="ui-li-icon ui-corner-none">{% trans "Delete" %}</a>
+                        </li>
+                        <li>
+                            <a href="{% url day-edit day.id %}"
+                                title="{% trans 'Edit' %}"
+                                class="modal-dialog">
+                                    <img src="{% static 'images/icons/edit.svg' %}"
+                                         width="16"
+                                         height="16"
+                                         alt="{% trans 'Edit' %}"
+                                         class="ui-li-icon ui-corner-none">
+                                        {% trans 'Edit' %}
+                                </a>
+                        </li>
+                        <li>
+                            <a href="{% url day-log day.id %}"
+                               title="{% trans 'Add weight log to this day' %}">
+                                    <img src="{% static 'images/icons/statistics.svg' %}"
+                                         width="16"
+                                         height="16"
+                                         alt="{% trans 'Add weight log to this day' %}"
+                                         class="ui-li-icon ui-corner-none">
+                                        {% trans 'Add weight log to this day' %}
+                                </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for set in day.set_set.select_related %}
+        <tr id="set-{{ set.id }}">
+            <td class="ym-g10"><!--{{ forloop.counter }}-->
+
+                <a href="#editoptions-set-{{ set.id }}"
+                   class="ui-icon-nodisc"
+                   data-rel="popup"
+                   data-role="button"
+                   data-inline="true"
+                   data-transition="slideup"
+                   data-icon="gear"
+                   data-theme="b"
+                   data-iconpos="notext"
+                   data-mini="true"
+                   data-iconshadow="false"></a>
+
+                <div data-role="popup" id="editoptions-set-{{ set.id }}">
+                <div>
+                    <h3>{{ set.id }}</h3>
+                    <ul data-role="listview">
+                        <li>
+                            <a href="{% url wger.manager.views.edit_set workout.id day.id set.id %}"
+                               title="{% trans 'Edit' %}">
+                                    <img src="{% static 'images/icons/edit.svg' %}"
+                                         width="16"
+                                         height="16"
+                                         alt="{% trans 'Edit' %}"
+                                         class="ui-li-icon ui-corner-none">
+                                    {% trans "Edit" %}
+                                </a>
+                        </li>
+                        <li>
+                            <a href="{% url wger.manager.views.delete_set workout.id day.id set.id %}"
+                               title="{% trans 'Delete' %}">
+                                    <img src="{% static 'images/icons/trash.svg' %}"
+                                         width="16"
+                                         height="16"
+                                         alt="{% trans 'Delete' %}"
+                                         class="ui-li-icon ui-corner-none">
+                                    {% trans "Delete" %}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                </div>
+
+                <!--<img src="{% static 'images/icons/move.svg' %}"
+                     width="22"
+                     height="22"
+                     alt="{% trans 'Move me' %}"
+                     title="{% trans 'Move me' %}"
+                     class="dragndrop-handle">-->
+                 </span>
+            </td>
+            <td>
+                <div class="exercise-list">
+                {% for exercise in set.exercises.select_related %}
+                    <div id="exercise-{{ exercise.id }}" class="ajax-set-edit-target">
+                        <a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a>:
+
+                        {% comment %}
+                            If there are more than 1 settings, don't output the repetitions
+                            e.g. "4 x 8 8 10 10" is shown only as "8 8 10 10", after all
+                            those 4 sets are not done four times! But "3 x 12" is stil shown
+                            like that.
+                        {% endcomment %}
+                        {% if exercise|get_current_settings:set.id|length == 1 %}
+                            {{ set.sets }} ×
+                        {% endif %}
+
+                        {% comment %}
+                            get_current_settings only does a exercise.setting_set.filter(set_id=set_id)
+                        {% endcomment %}
+                        
+                        <span class="settings-list">
+                        {% for setting in exercise|get_current_settings:set.id %}
+                            <span id="setting-{{setting.id}}">
+                            
+                            
+                            {% if setting.reps == 99 %}
+                                 ∞
+                            {%else%}
+                                {{setting.reps}}
+                            {%endif%}
+                            {% if not forloop.last %} – {% endif %}
+                            </span>
+                        {% empty %}
+                            <div class="box warning">
+                                {% trans "This exercise has no settings." %} 
+                                <a href="{% url wger.manager.views.edit_setting workout.id set.id exercise.id None %}"
+                                   class="ajax-set-edit">
+                                {% trans "Edit them now."%}
+                            </a>
+                            </div>
+                        {% endfor %} <!--for setting in exercise-->
+                        </span>
+                        
+                        <span class="editoptions">
+                            <a href="{% url wger.manager.views.edit_setting workout.id set.id exercise.id None %}"
+                               title="{% trans 'Edit' %}"
+                               class="ajax-set-edit">
+                                <img src="{% static 'images/icons/edit.svg' %}"
+                                     width="16"
+                                     height="16"
+                                     alt="{% trans 'Edit' %}">
+                            </a>
+                        </span>
+                        
+                        
+                        <div class="exercise-comments dimmed">
+                            <ul>
+                            {% for comment in exercise.exercisecomment_set.all %}
+                                <li>{{comment}}</li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                        
+                        
+                        
+                    </div>
+                {% endfor %} <!--for exercise in set-->
+                </div>
+        {% empty %}
+        <tr>
+            <td colspan="2">
+                <div class="box warning">
+                    {% trans "No sets for this day." %}
+                    <a href="{% url wger.manager.views.edit_set workout.id day.id None %}"
+                       class="modal-dialog"
+                       data-role="button"
+                       data-theme="a"
+                       data-inline="true"
+                       data-mini="true">{% trans "Add one now." %}
+                    </a>
+                </div>
+        {% endfor %} <!--for set in day-->
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <a href="{% url wger.manager.views.edit_set workout.id day.id None %}"
+                   class="modal-dialog">{% trans "Add workout set" %}</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
