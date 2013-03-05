@@ -1,4 +1,4 @@
-Django==1.4.3
+Django==1.4.5
 django-browserid
 django-recaptcha
 reportlab
