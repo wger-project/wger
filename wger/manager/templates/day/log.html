@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load url from future %}
 {% load i18n %}
 {% load staticfiles %}
 {% load manager_extras %}
@@ -71,7 +72,7 @@ $(document).ready(function () {
     <div class="box warning" id="weight-box-warning">
     {% trans "Add exercises to this training day before adding a log." %}
 
-    <a href="{% url workout-view day.training.id %}">
+    <a href="{% url 'workout-view' day.training.id %}">
     {% trans "Back to workout" %}
     </a>
 
@@ -96,7 +97,7 @@ $(document).ready(function () {
 {% block sidebar %}
 <h3>{% trans "Options" %}</h3>
 <p>
-<a href="{% url workout-view day.training.id %}">
+<a href="{% url 'workout-view' day.training.id %}">
     <img src="{% static 'images/icons/list.svg' %}"
          width="32"
          height="32"

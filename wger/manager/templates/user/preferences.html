@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load url from future %}
 {% load i18n %}
 {% load staticfiles %}
 {% load manager_extras %}
@@ -7,7 +8,7 @@
 
 
 {% block content %}
-<form action="{% url wger.manager.views.preferences %}"
+<form action="{% url 'wger.manager.views.preferences' %}"
       method="post"
       class="ym-form">
       {% csrf_token %}
@@ -37,7 +38,7 @@
 {% block sidebar %}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url wger.manager.views.logout %}">
+    <a href="{% url 'wger.manager.views.logout' %}">
     <img src="{% static 'images/icons/logout.svg' %}"
          width="32"
          height="32"
@@ -46,7 +47,7 @@
     {% trans "Logout" %}</a>
 </p>
 <p>
-    <a href="{% url change-password %}">
+    <a href="{% url 'change-password' %}">
     <img src="{% static 'images/icons/preferences.svg' %}"
          width="32"
          height="32"

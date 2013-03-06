@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load url from future %}
 {% load i18n %}
 {% load staticfiles %}
 
@@ -25,6 +26,7 @@ $(document).ready(function() {
         // On selecting a category, set the values to edit it
         select: function(event, ui) {
                 category_id = ui.tab.id.match(/\d+/);
+                console.log(category_id);
                 $(".current-category-name").html($("#cat-" + category_id).html());
                 $("#current-category-edit").attr("href", "/exercise/category/" + category_id + "/edit/");
                 $("#current-category-delete").attr("href", "/exercise/category/" + category_id + "/delete/");
@@ -36,7 +38,7 @@ $(document).ready(function() {
 
     // Init the autocompleter
     $("#exercise-search").catcomplete({
-            source: "{% url wger.exercises.views.exercise_search %}",
+            source: "{% url 'wger.exercises.views.exercise_search' %}",
             minLength: 2,
             select: function(event, ui) {
 
@@ -75,7 +77,7 @@ $(document).ready(function() {
                     <td style="text-align:right;">
                     {% if perms.exercises %}
                         <div class="editoptions">
-                            <a href="{% url exercise-edit exercise.id %}"
+                            <a href="{% url 'exercise-edit' exercise.id %}"
                                title="{% trans 'Edit' %}">
                                <img src="{% static 'images/icons/edit.svg' %}"
                                     width="16"
@@ -83,7 +85,7 @@ $(document).ready(function() {
                                     alt="{% trans 'Edit' %}">
                                </a>
 
-                            <a href="{% url exercise-delete exercise.id %}"
+                            <a href="{% url 'exercise-delete' exercise.id %}"
                                title="{% trans 'Delete' %}"
                                class="delete-exercise modal-dialog">
                                <img src="{% static 'images/icons/trash.svg' %}"
@@ -121,7 +123,7 @@ $(document).ready(function() {
     <h3>{% trans "Options" %}</h3>
 
     <p>
-        <a href="{% url exercise-add %}"
+        <a href="{% url 'exercise-add' %}"
            class="modal-dialog">
         <img src="{% static 'images/icons/new.svg' %}"
                             width="32"
@@ -133,7 +135,7 @@ $(document).ready(function() {
         </p>
         <p>
         {% with category=categories|first %}
-        <a href="{% url exercisecategory-edit category.id %}"
+        <a href="{% url 'exercisecategory-edit' category.id %}"
            class="modal-dialog"
            id="current-category-edit">
         	<img src="{% static 'images/icons/edit.svg' %}"
@@ -148,7 +150,7 @@ $(document).ready(function() {
         </p>
         <p>
         {% with category=categories|first %}
-        <a href="{% url exercisecategory-delete category.id %}"
+        <a href="{% url 'exercisecategory-delete' category.id %}"
            class="modal-dialog"
            id="current-category-delete">
         	<img src="{% static 'images/icons/trash.svg' %}"
@@ -162,7 +164,7 @@ $(document).ready(function() {
         {% endwith %}
         </p>
         <p>
-        <a href="{% url exercisecategory-add %}"
+        <a href="{% url 'exercisecategory-add' %}"
            class="modal-dialog">
         	<img src="{% static 'images/icons/folder-new.svg' %}"
                             width="32"
@@ -177,7 +179,7 @@ $(document).ready(function() {
     <h3>{% trans "Search" %}</h3>
 
     <div class="ui-widget">
-        <form action="{% url wger.exercises.views.exercise_search %}"
+        <form action="{% url 'wger.exercises.views.exercise_search' %}"
               method="get"
               id="exercise_search_form">
             {% csrf_token %}

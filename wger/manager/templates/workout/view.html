@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load url from future %}
 {% load i18n %}
 {% load staticfiles %}
 {% load manager_extras %}
@@ -48,7 +49,7 @@ $(document).ready(function() {
 {% empty %}
 <div class="box warning">
     {% trans "No days for this workout." %}
-    <a href="{% url day-add workout.id %}" class="modal-dialog">
+    <a href="{% url 'day-add' workout.id %}" class="modal-dialog">
     {% trans "Add training day." %}
     </a>
 </div>
@@ -56,12 +57,12 @@ $(document).ready(function() {
 
 
 <p>
-<a href="{% url day-add workout.id %}" class="modal-dialog">
+<a href="{% url 'day-add' workout.id %}" class="modal-dialog">
     {% trans "Add training day" %}
 </a>
 
 |
-<a id="exercise-comments-toggle" href="{% url wger.manager.views.preferences %}">
+<a id="exercise-comments-toggle" href="{% url 'wger.manager.views.preferences' %}">
     {% trans "Show/Hide exercise comments" %}
 </a>
 
@@ -114,7 +115,7 @@ $(document).ready(function() {
 
 <h3>{% trans "Options" %}</h3>
 <p>
-<a href="{% url wger.manager.pdf.workout_log workout.id %}"
+<a href="{% url 'wger.manager.pdf.workout_log' workout.id %}"
    target="_blank">
     <img src="{% static 'images/icons/save.svg' %}"
          width="32"
@@ -126,7 +127,7 @@ $(document).ready(function() {
 </p>
 
 <p>
-<a href="{% url workout-edit workout.id %}"
+<a href="{% url 'workout-edit' workout.id %}"
    class="modal-dialog">
    <img src="{% static 'images/icons/edit.svg' %}"
          width="32"
@@ -138,7 +139,7 @@ $(document).ready(function() {
 </p>
 
 <p>
-<a href="{% url workout-log workout.id %}">
+<a href="{% url 'workout-log' workout.id %}">
    <img src="{% static 'images/icons/statistics.svg' %}"
          width="32"
          height="32"
@@ -149,7 +150,7 @@ $(document).ready(function() {
 </p>
 
 <p>
-<a href="{% url workout-copy workout.id %}"
+<a href="{% url 'workout-copy' workout.id %}"
    class="modal-dialog">
    <img src="{% static 'images/icons/copy.svg' %}"
          width="32"
@@ -162,7 +163,7 @@ $(document).ready(function() {
 
 
 <p>
-<a href="{% url workout-delete workout.id %}"
+<a href="{% url 'workout-delete' workout.id %}"
    class="modal-dialog">
     <img src="{% static 'images/icons/trash.svg' %}"
          width="32"

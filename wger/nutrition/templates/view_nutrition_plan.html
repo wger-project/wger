@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load url from future %}
 {% load i18n %}
 {% load staticfiles %}
 
@@ -60,7 +61,7 @@ $(document).ready(function() {
             {% if meal.time %} &ndash; {{meal.time|time:"H:i"}}{% endif %}
             
             <div class="editoptions">
-                <a href="{% url wger.nutrition.views.delete_meal meal.id %}"
+                <a href="{% url 'wger.nutrition.views.delete_meal' meal.id %}"
                    title="{% trans 'Delete' %}">
                    <img src="{% static 'images/icons/trash.svg' %}"
                         width="16"
@@ -68,7 +69,7 @@ $(document).ready(function() {
                         alt="{% trans 'Delete meal' %}"
                         title="{% trans 'Delete meal' %}">
                 </a>
-                <a href="{% url meal-edit meal.id %}"
+                <a href="{% url 'meal-edit' meal.id %}"
                    title="{% trans 'Edit' %}"
                    class="modal-dialog">
                     <img src="{% static 'images/icons/edit.svg' %}"
@@ -77,7 +78,7 @@ $(document).ready(function() {
                          alt="{% trans 'Edit meal' %}"
                          title="{% trans 'Edit meal' %}">
                 </a>
-                <a href="{% url wger.nutrition.views.edit_meal_item plan.id meal.id None %}"
+                <a href="{% url 'wger.nutrition.views.edit_meal_item' plan.id meal.id None %}"
                    title="{% trans 'Add' %}"
                    class="modal-dialog edit-meal">
                     <img src="{% static 'images/icons/add.svg' %}"
@@ -101,7 +102,7 @@ $(document).ready(function() {
                     {{ item.ingredient.name }}
                     
                     <span class="editoptions">
-                        <a href="{% url wger.nutrition.views.delete_meal_item item.id %}"
+                        <a href="{% url 'wger.nutrition.views.delete_meal_item' item.id %}"
                            title="{% trans 'Delete' %}"
                            class="delete-mealitem">
                            <img src="{% static 'images/icons/trash.svg' %}"
@@ -109,7 +110,7 @@ $(document).ready(function() {
                                 height="16"
                                 alt="{% trans 'Delete' %}">
                         </a>
-                        <a href="{% url wger.nutrition.views.edit_meal_item plan.id meal.id item.id %}"
+                        <a href="{% url 'wger.nutrition.views.edit_meal_item' plan.id meal.id item.id %}"
                            title="{% trans 'Edit' %}"
                            class="modal-dialog edit-meal edit-mealitem">
                             <img src="{% static 'images/icons/edit.svg' %}"
@@ -122,7 +123,7 @@ $(document).ready(function() {
             {% empty %}
                 <div class="box warning ingredient-box-warning">
                    {% trans "No items for this meal." %}
-                   <a href="{% url wger.nutrition.views.edit_meal_item plan.id meal.id item.id %}"
+                   <a href="{% url 'wger.nutrition.views.edit_meal_item' plan.id meal.id item.id %}"
                            title="{% trans 'Edit' %}"
                            class="modal-dialog edit-meal">
                             {% trans "Add one now."%}
@@ -136,7 +137,7 @@ $(document).ready(function() {
 {% empty %}
      <div class="box warning" id="meal-box-warning">
          {% trans "No meals for this plan." %}
-         <a href="{% url meal-add plan.id %}"
+         <a href="{% url 'meal-add' plan.id %}"
             class="modal-dialog">
                 {% trans "Add one now." %}
             </a>
@@ -145,7 +146,7 @@ $(document).ready(function() {
 {% endfor %}
         <tr>
             <td colspan="2">
-            <a href="{% url meal-add plan.id %}"
+            <a href="{% url 'meal-add' plan.id %}"
                class="modal-dialog">
                 <img src="{% static 'images/icons/edit.svg' %}"
                      width="16"
@@ -163,7 +164,7 @@ $(document).ready(function() {
 {% if language.short_name != 'en' %}
     <p>
     {% trans "If you find the ingredient list too short, you might want to activate the preference to also show English ingredients." %}
-    <a href="{% url wger.manager.views.preferences %}" id="ajax-english-ingredients">{% trans "That's done here" %}</a>:
+    <a href="{% url 'wger.manager.views.preferences' %}" id="ajax-english-ingredients">{% trans "That's done here" %}</a>:
     <img src="{% static 'images/icons/status-on.svg' %}"
          width="20"
          height="20"
@@ -238,7 +239,7 @@ $(document).ready(function() {
 
 <h3>{% trans "Options" %}</h3>
 <p>
-<a href="{% url wger.nutrition.views.export_pdf plan.id %}"
+<a href="{% url 'wger.nutrition.views.export_pdf' plan.id %}"
    target="_blank">
     <img src="{% static 'images/icons/save.svg' %}"
          width="32"
@@ -250,7 +251,7 @@ $(document).ready(function() {
 </p>
 
 <p>
-<a href="{% url nutrition-edit plan.id %}"
+<a href="{% url 'nutrition-edit' plan.id %}"
    class="modal-dialog">
     <img src="{% static 'images/icons/edit.svg' %}"
          width="32"
@@ -262,7 +263,7 @@ $(document).ready(function() {
 
 
 <p>
-<a href="{% url nutrition-copy plan.id %}">
+<a href="{% url 'nutrition-copy' plan.id %}">
     <img src="{% static 'images/icons/copy.svg' %}"
          width="32"
          height="32"
@@ -272,7 +273,7 @@ $(document).ready(function() {
 </p>
 
 <p>
-<a href="{% url nutrition-delete plan.id %}"
+<a href="{% url 'nutrition-delete' plan.id %}"
    class="modal-dialog">
     <img src="{% static 'images/icons/trash.svg' %}"
          width="32"

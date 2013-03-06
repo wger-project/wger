@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load url from future %}
 {% load i18n %}
 {% load staticfiles %}
 {% load manager_extras %}
@@ -138,7 +139,7 @@ log, <a href="/static/pdf/nutrition-plan-pdf-1.0-en.pdf">here's a sample</a>.{% 
 {% if not user.is_authenticated %}
 <h3>{% trans "Interested?" %}</h3>
 <p>
-<a href="{% url demo-account %}">
+<a href="{% url 'demo-account' %}">
         <img src="{% static 'images/icons/star.svg' %}"
          width="48"
          height="48"

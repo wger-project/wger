@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load url from future %}
 {% load i18n %}
 {% load staticfiles %}
 {% load manager_extras %}
@@ -33,7 +34,7 @@
 {% if perms.exercises %}
 <h3>{% trans "Options" %}</h3>
 <p>
-       <a href="{% url ingredient-add %}">
+       <a href="{% url 'ingredient-add' %}">
        <img src="{% static 'images/icons/new.svg' %}"
             width="32"
             height="32"

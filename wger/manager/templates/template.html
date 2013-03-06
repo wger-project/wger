@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load i18n %}
+{% load url from future %}
 {% load staticfiles %}
 <html lang="{{language.short_name}}">
 <head>
@@ -88,48 +89,48 @@
                         <ul class="nav">
                             <li {% if active_tab == 'user' %}class="active"{% endif %}>
                             {% if not user.is_authenticated %}
-                                <a href="{% url login %}">{% trans "Login" %}</a>
+                                <a href="{% url 'login' %}">{% trans "Login" %}</a>
                             {% else %}
-                                <a href="{% url index %}">{% trans "Dashboard" %}</a>
+                                <a href="{% url 'index' %}">{% trans "Dashboard" %}</a>
                             {% endif %}
                             </li>
 
                             {% if user.is_authenticated %}
-                            <li {% if active_tab == 'workout'   %}class="active"{% endif %}><a href="{% url wger.manager.views.overview %}">{% trans "Workouts" %}</a></li>
+                            <li {% if active_tab == 'workout'   %}class="active"{% endif %}><a href="{% url 'wger.manager.views.overview' %}">{% trans "Workouts" %}</a></li>
                             {% endif %}
 
                             <li class="dropdown {% if active_tab == 'exercises' %}active{% endif %}">
-                                <a href="{% url wger.exercises.views.exercise_overview %}"
+                                <a href="{% url 'wger.exercises.views.exercise_overview' %}"
                                    class="dropdown-toggle"
                                    data-toggle="dropdown">{% trans "Exercises" %} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{% url wger.exercises.views.exercise_overview %}">{% trans "Exercises" %}</a></li>
-                                    <li><a href="{% url muscle-overview %}">{% trans "Muscle overview" %}</a></li>
+                                    <li><a href="{% url 'wger.exercises.views.exercise_overview' %}">{% trans "Exercises" %}</a></li>
+                                    <li><a href="{% url 'muscle-overview' %}">{% trans "Muscle overview" %}</a></li>
                                 </ul>
                             </li>
 
                             {% if user.is_authenticated %}
                             <li class="dropdown{% if active_tab == 'weight'    %} active{% endif %}">
 
-                                <a href="{% url wger.weight.views.overview %}"
+                                <a href="{% url 'wger.weight.views.overview' %}"
                                    class="dropdown-toggle"
                                    data-toggle="dropdown">{% trans "Weight" %} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{% url wger.weight.views.overview %}">{% trans "Weight overview" %} </a></li>
-                                    <li><a href="{% url weight-add %}">{% trans "Add weight entry" %}</a></li>
+                                    <li><a href="{% url 'wger.weight.views.overview' %}">{% trans "Weight overview" %} </a></li>
+                                    <li><a href="{% url 'weight-add' %}">{% trans "Add weight entry" %}</a></li>
                                 </ul>
                             </li>
                             {% endif %}
 
                             <li class="dropdown {% if active_tab == 'nutrition' %}active{% endif %}">
-                                <a href="{% url wger.nutrition.views.overview %}"
+                                <a href="{% url 'wger.nutrition.views.overview' %}"
                                    class="dropdown-toggle"
                                    data-toggle="dropdown">{% trans "Nutrition" %} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                 {% if user.is_authenticated %}
-                                    <li><a href="{% url wger.nutrition.views.overview %}">{% trans "Nutrition plans" %} </a></li>
+                                    <li><a href="{% url 'wger.nutrition.views.overview' %}">{% trans "Nutrition plans" %} </a></li>
                                 {% endif %}
-                                    <li><a href="{% url wger.nutrition.views.ingredient_overview %}">{% trans "Ingredient overview" %}</a></li>
+                                    <li><a href="{% url 'wger.nutrition.views.ingredient_overview' %}">{% trans "Ingredient overview" %}</a></li>
                                 </ul>
                             </li>
 
@@ -140,17 +141,17 @@
                                    class="dropdown-toggle"
                                    data-toggle="dropdown">{% trans "About this software" %} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{% url software:features %}">{% trans "Features" %}</a></li>
+                                    <li><a href="{% url 'software:features' %}">{% trans "Features" %}</a></li>
                                     {% if not user.is_authenticated %}
-                                    <li><a href="{% url demo-account %}">{% trans "Demo account" %} </a></li>
+                                    <li><a href="{% url 'demo-account' %}">{% trans "Demo account" %} </a></li>
                                     {% endif %}
-                                    <li><a href="{% url software:issues %}">{% trans "Report problem" %} </a></li>
+                                    <li><a href="{% url 'software:issues' %}">{% trans "Report problem" %} </a></li>
 
                                     <li class="divider"></li>
                                     <li class="nav-header">{% trans "Developers" %}</li>
-                                    <li><a href="{% url software:code %}">{% trans "Get the code" %} </a></li>
-                                    <li><a href="{% url software:license %}">{% trans "License" %} </a></li>
-                                    <li><a href="{% url software:changelog %}">{% trans "Changelog" %} </a></li>
+                                    <li><a href="{% url 'software:code' %}">{% trans "Get the code" %} </a></li>
+                                    <li><a href="{% url 'software:license' %}">{% trans "License" %} </a></li>
+                                    <li><a href="{% url 'software:changelog' %}">{% trans "Changelog" %} </a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -164,12 +165,12 @@
                             <ul class="dropdown-menu">
                                 {% if user.is_authenticated %}
                                 <li>
-                                    <a href="{% url wger.manager.views.logout %}" id="logout" class="browserid-logout">
+                                    <a href="{% url 'wger.manager.views.logout' %}" id="logout" class="browserid-logout">
                                     {% trans 'Logout' %}
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{% url wger.manager.views.preferences %}">
+                                    <a href="{% url 'wger.manager.views.preferences' %}">
                                     {% trans 'My preferences' %}
                                     </a>
                                 </li>

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load url from future %}
 {% load i18n %}
 {% load staticfiles %}
 {% load manager_extras %}
@@ -12,7 +13,7 @@
 
 {% block content %}
 {% if not user.is_authenticated %}
-<form action="{% url login %}"
+<form action="{% url 'login' %}"
       method="post"
       class="ym-form">
       {% csrf_token %}
@@ -42,7 +43,7 @@
        data-site-name="Workout Manager">
         <span>{% trans "Sign in with your Email" %}</span>
     </a>
-    <form method="POST" action="{% url browserid_verify %}" id="browserid-form">
+    <form method="POST" action="{% url 'browserid_verify' %}" id="browserid-form">
         {% csrf_token %}
         {{ browserid_form.as_p }}
     </form>
@@ -64,7 +65,7 @@
 {% block sidebar %}
 <h3>{% trans "No account?" %}</h3>
 <p>
-    <a href="{% url wger.manager.views.registration %}">
+    <a href="{% url 'wger.manager.views.registration' %}">
         <img src="{% static 'images/icons/register.svg' %}"
          width="48"
          height="48"
@@ -73,7 +74,7 @@
 </p>
 
 <p>
-    <a href="{% url demo-account %}">
+    <a href="{% url 'demo-account' %}">
         <img src="{% static 'images/icons/star.svg' %}"
          width="48"
          height="48"
@@ -83,7 +84,7 @@
 
 <h3>{% trans "Forgot password?" %}</h3>
 <p>
-    <a href="{% url django.contrib.auth.views.password_reset %}">
+    <a href="{% url 'django.contrib.auth.views.password_reset' %}">
         <img src="{% static 'images/icons/reset-password.svg' %}"
          width="48"
          height="48"

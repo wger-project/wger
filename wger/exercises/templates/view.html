@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load url from future %}
 {% load i18n %}
 {% load staticfiles %}
 {% load manager_extras %}
@@ -42,14 +43,14 @@ function custom_modal_init()
         {{ comment }}
         {% if perms.exercises %}
         <span class="editoptions">
-            <a href="{% url wger.exercises.views.exercisecomment_delete comment.id %}"
+            <a href="{% url 'wger.exercises.views.exercisecomment_delete' comment.id %}"
                title="{% trans 'Delete' %}">
                <img src="{% static 'images/icons/trash.svg' %}"
                     width="16"
                     height="16"
                     alt="{% trans 'Delete' %}">
             </a>
-            <a href="{% url exercisecomment-edit comment.id %}"
+            <a href="{% url 'exercisecomment-edit' comment.id %}"
                title="{% trans 'Edit' %}"
                class="modal-dialog">
                <img src="{% static 'images/icons/edit.svg' %}"
@@ -68,7 +69,7 @@ function custom_modal_init()
 
 {% if perms.exercises %}
 <p>
-    <a href="{% url exercisecomment-add exercise.id %}"
+    <a href="{% url 'exercisecomment-add' exercise.id %}"
        title="{% trans 'Add' %}"
        class="modal-dialog">
         <img src="{% static 'images/icons/add.svg' %}"
@@ -108,7 +109,7 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 
 <h3>{% trans "Back to overview" %}</h3>
 <p>
-    <a href="{% url wger.exercises.views.exercise_overview %}">
+    <a href="{% url 'wger.exercises.views.exercise_overview' %}">
         <img src="{% static 'images/icons/list.svg' %}"
              width="32"
              height="32"
@@ -207,7 +208,7 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 {% if perms.exercises %}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url exercise-edit exercise.id %}">
+    <a href="{% url 'exercise-edit' exercise.id %}">
         <img src="{% static 'images/icons/edit.svg' %}"
              width="32"
              height="32"
@@ -217,7 +218,7 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
     </a>
 </p>
 <p>
-    <a href="{% url exercise-delete exercise.id %}"
+    <a href="{% url 'exercise-delete' exercise.id %}"
        class="modal-dialog">
 	<img src="{% static 'images/icons/trash.svg' %}"
          width="32"
