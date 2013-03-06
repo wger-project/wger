@@ -1,5 +1,5 @@
-Django==1.4.3
-django-browserid
+Django==1.4.5
+django-browserid==0.7.1
 django-recaptcha
 reportlab
 django_mobile

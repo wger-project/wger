@@ -43,9 +43,9 @@ setup(
         'versiontools >= 1.6',
     ],
     install_requires=[
-        'django >= 1.4',
+        'django == 1.4.5',
         'reportlab',
-        'django-browserid',
+        'django-browserid == 0.7.1',
         'django-recaptcha',
         'django_mobile',
         'django-discover-runner',
