@@ -2,7 +2,11 @@ language: python
 python:
   - "2.6"
   - "2.7"
+env:
+  - DJANGO_VERSION=1.4.5
+  - DJANGO_VERSION=1.5
 install:
+  - pip install -q Django==$DJANGO_VERSION --use-mirrors
   - pip install -r requirements.txt --use-mirrors
   - python extras/scripts/create_local_settings.py
 script:
