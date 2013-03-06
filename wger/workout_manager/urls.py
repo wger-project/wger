@@ -1,7 +1,7 @@
 from django.conf.urls import include, url
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.i18n import patterns
-from django.views.generic.simple import direct_to_template
+from django.views.generic import TemplateView
 
 from wger.exercises.sitemap import ExercisesSitemap
 from wger.nutrition.sitemap import NutritionSitemap
@@ -25,6 +25,7 @@ urlpatterns = i18n_patterns('',
 
 # Send robots.txt without any language prefix
 urlpatterns = urlpatterns + patterns('',
-    (r'^robots\.txt$', direct_to_template,
-    {'template': 'robots.txt', 'mimetype': 'text/plain'}),
+    url(r'^robots\.txt$',
+        TemplateView.as_view(template_name="robots.txt"),
+       ),
 )
