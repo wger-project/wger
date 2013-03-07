@@ -6,3 +6,4 @@ django_mobile
 django-discover-runner
 pep8
 bleach
+south

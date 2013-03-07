@@ -178,6 +178,9 @@ INSTALLED_APPS = (
 
     # The sitemaps app
     'django.contrib.sitemaps',
+
+    # South, for DB migrations
+    'south',
 )
 
 

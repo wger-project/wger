@@ -51,6 +51,7 @@ setup(
         'django-discover-runner',
         'pep8',
         'bleach',
+        'south',
     ],
     entry_points={
         'console_scripts': [
