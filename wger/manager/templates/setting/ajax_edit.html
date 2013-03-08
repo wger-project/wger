@@ -11,7 +11,7 @@ $(document).ready(function() {
 });
 </script>
 
-<form action="{% url 'wger.manager.views.api_edit_set' %}?do=edit_set&amp;set={{set.id}}&amp;exercise={{exercise.id}}"
+<form action="{% url 'wger.manager.views.set.api_edit_set' %}?do=edit_set&amp;set={{set.id}}&amp;exercise={{exercise.id}}"
       method="post"
       class="ajax-form-set-edit">
     {% csrf_token %}

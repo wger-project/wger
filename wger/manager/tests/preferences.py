@@ -95,7 +95,7 @@ class AjaxPreferencesTestCase(WorkoutManagerTestCase):
         '''
 
         # Set the 'show comments' option
-        response = self.client.get(reverse('wger.manager.views.api_user_preferences'),
+        response = self.client.get(reverse('wger.manager.views.user.api_user_preferences'),
                                    {'do': 'set_show-comments',
                                    'show': '1'},
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -114,7 +114,7 @@ class AjaxPreferencesTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.context['user'].email, '')
 
         # Set the 'english ingredients' option
-        response = self.client.get(reverse('wger.manager.views.api_user_preferences'),
+        response = self.client.get(reverse('wger.manager.views.user.api_user_preferences'),
                                    {'do': 'set_english-ingredients',
                                    'show': '1'},
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')

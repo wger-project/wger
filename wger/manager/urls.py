@@ -2,13 +2,12 @@ from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
 
-from wger.manager.views import WorkoutEditView
-from wger.manager.views import WorkoutDeleteView
-from wger.manager.views import WorkoutLogDetailView
-from wger.manager.views import WorkoutLogUpdateView
-
-from wger.manager.views import DayEditView
-from wger.manager.views import DayCreateView
+from wger.manager.views.workout import WorkoutEditView
+from wger.manager.views.workout import WorkoutDeleteView
+from wger.manager.views.log import WorkoutLogDetailView
+from wger.manager.views.log import WorkoutLogUpdateView
+from wger.manager.views.day import DayEditView
+from wger.manager.views.day import DayCreateView
 
 from wger.workout_manager.constants import USER_TAB
 
@@ -16,26 +15,26 @@ from wger.workout_manager.constants import USER_TAB
 urlpatterns = patterns('wger.manager.views',
 
     # The landing page
-    url(r'^$', 'index', name='index'),
+    url(r'^$', 'misc.index', name='index'),
 
     # The dashboard
-    url(r'^dashboard$', 'dashboard', name='dashboard'),
+    url(r'^dashboard$', 'misc.dashboard', name='dashboard'),
 
 
     # User
-    url(r'^logout$', 'logout', name='logout'),
-    url(r'^user/registration$', 'registration', name='registration'),
+    url(r'^logout$', 'user.logout', name='logout'),
+    url(r'^user/registration$', 'user.registration', name='registration'),
     url(r'^user/demo-account$',
-        'create_demo_user',
+        'user.create_demo_user',
         name='demo-account'),
 
-    url(r'^user/preferences$', 'preferences', name='preferences'),
+    url(r'^user/preferences$', 'user.preferences', name='preferences'),
 
     # Workout
-    url(r'^workout/overview$', 'overview'),
-    url(r'^workout/add$', 'add'),
+    url(r'^workout/overview$', 'workout.overview'),
+    url(r'^workout/add$', 'workout.add'),
     url(r'^workout/(?P<pk>\d+)/copy/$',
-        'copy_workout',
+        'workout.copy_workout',
         name='workout-copy'),
 
     url(r'^workout/(?P<pk>\d+)/edit/$',
@@ -45,7 +44,7 @@ urlpatterns = patterns('wger.manager.views',
         login_required(WorkoutDeleteView.as_view()),
         name='workout-delete'),
     url(r'^workout/(?P<id>\d+)/view/$',
-        'view_workout',
+        'workout.view_workout',
         name='workout-view'),
     url(r'^workout/(?P<pk>\d+)/log/$',
         login_required(WorkoutLogDetailView.as_view()),
@@ -62,22 +61,22 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^workout/(?P<workout_pk>\d+)/day/add/$',
         login_required(DayCreateView.as_view()),
         name='day-add'),
-    url(r'^workout/(?P<id>\d+)/delete/day/(?P<day_id>\d+)$', 'delete_day'),
-    url(r'^workout/day/view/(?P<id>\d+)$', 'view_day'),
+    url(r'^workout/(?P<id>\d+)/delete/day/(?P<day_id>\d+)$', 'day.delete_day'),
+    url(r'^workout/day/view/(?P<id>\d+)$', 'day.view_day'),
     url(r'^workout/day/(?P<pk>\d+)/log/add/$',
-        'workout_log_add',
+        'log.workout_log_add',
         name='day-log'),
 
     # Sets and Settings
-    url(r'^workout/(?P<id>\d+)/day/(?P<day_id>\d+)/edit/set/(?P<set_id>\w*)$', 'edit_set'),
-    url(r'^workout/(?P<id>\d+)/day/(?P<day_id>\d+)/delete/set/(?P<set_id>\d+)$', 'delete_set'),
-    url(r'^workout/(?P<id>\d+)/set/(?P<set_id>\d+)/exercise/(?P<exercise_id>\d+)/edit/setting/(?P<setting_id>\w*)$', 'edit_setting'),
-    url(r'^workout/(?P<id>\d+)/set/(?P<set_id>\d+)/exercise/(?P<exercise_id>\d+)/delete/setting$', 'delete_setting'),
+    url(r'^workout/(?P<id>\d+)/day/(?P<day_id>\d+)/edit/set/(?P<set_id>\w*)$', 'set.edit_set'),
+    url(r'^workout/(?P<id>\d+)/day/(?P<day_id>\d+)/delete/set/(?P<set_id>\d+)$', 'set.delete_set'),
+    url(r'^workout/(?P<id>\d+)/set/(?P<set_id>\d+)/exercise/(?P<exercise_id>\d+)/edit/setting/(?P<setting_id>\w*)$', 'setting.edit_setting'),
+    url(r'^workout/(?P<id>\d+)/set/(?P<set_id>\d+)/exercise/(?P<exercise_id>\d+)/delete/setting$', 'setting.delete_setting'),
 
     # AJAX
-    url(r'^workout/api/edit-set$', 'api_edit_set'),
-    url(r'^workout/api/edit-settting$', 'api_edit_setting'),
-    url(r'^workout/api/user-preferences$', 'api_user_preferences'),
+    url(r'^workout/api/edit-set$', 'set.api_edit_set'),
+    url(r'^workout/api/edit-settting$', 'setting.api_edit_setting'),
+    url(r'^workout/api/user-preferences$', 'user.api_user_preferences'),
 )
 
 # PDF stuff is in a different file

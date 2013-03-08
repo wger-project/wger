@@ -26,7 +26,7 @@ function custom_page_init()
         Main Content
 -->
 {% block content %}
-<form action="{% url 'wger.manager.views.edit_set' workout.id day.id set.id %}"
+<form action="{% url 'wger.manager.views.set.edit_set' workout.id day.id set.id %}"
       method="post"
       class="ym-form">
 

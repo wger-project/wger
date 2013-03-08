@@ -35,7 +35,7 @@ class SetDeleteTestCase(WorkoutManagerTestCase):
 
         # Fetch the overview page
         count_before = Set.objects.count()
-        response = self.client.get(reverse('wger.manager.views.delete_set', kwargs={'id': 3,
+        response = self.client.get(reverse('wger.manager.views.set.delete_set', kwargs={'id': 3,
                                            'day_id': 5,
                                            'set_id': 3}))
         count_after = Set.objects.count()

@@ -32,7 +32,7 @@ $(document).ready(function() {
             
             
             <span class="editoptions" style="float: right;">
-                <a href="{% url 'wger.manager.views.delete_day' workout.id day.id %}"
+                <a href="{% url 'wger.manager.views.day.delete_day' workout.id day.id %}"
                    title="{% trans 'Delete' %}">
                        <img src="{% static 'images/icons/trash.svg' %}"
                             width="22"
@@ -64,7 +64,7 @@ $(document).ready(function() {
             <td class="ym-g10">{{ forloop.counter }}
                 <span class="editoptions set-options">
                     
-                    <a href="{% url 'wger.manager.views.edit_set' workout.id day.id set.id %}"
+                    <a href="{% url 'wger.manager.views.set.edit_set' workout.id day.id set.id %}"
                        title="{% trans 'Edit' %}">
                         <img src="{% static 'images/icons/edit.svg' %}"
                             width="16"
@@ -79,7 +79,7 @@ $(document).ready(function() {
                      alt="{% trans 'Move me' %}"
                      title="{% trans 'Move me' %}"
                      class="dragndrop-handle">
-                 <a href="{% url 'wger.manager.views.delete_set' workout.id day.id set.id %}"
+                 <a href="{% url 'wger.manager.views.set.delete_set' workout.id day.id set.id %}"
                     title="{% trans 'Delete' %}">
                         <img src="{% static 'images/icons/trash.svg' %}"
                              width="16"
@@ -123,7 +123,7 @@ $(document).ready(function() {
                         {% empty %}
                             <div class="box warning">
                                 {% trans "This exercise has no settings." %} 
-                                <a href="{% url 'wger.manager.views.edit_setting' workout.id set.id exercise.id None %}"
+                                <a href="{% url 'wger.manager.views.setting.edit_setting' workout.id set.id exercise.id None %}"
                                    class="ajax-set-edit">
                                 {% trans "Edit them now."%}
                             </a>
@@ -132,7 +132,7 @@ $(document).ready(function() {
                         </span>
                         
                         <span class="editoptions">
-                            <a href="{% url 'wger.manager.views.edit_setting' workout.id set.id exercise.id None %}"
+                            <a href="{% url 'wger.manager.views.setting.edit_setting' workout.id set.id exercise.id None %}"
                                title="{% trans 'Edit' %}"
                                class="ajax-set-edit">
                                 <img src="{% static 'images/icons/edit.svg' %}"
@@ -161,7 +161,7 @@ $(document).ready(function() {
             <td colspan="2">
                 <div class="box warning">
                     {% trans "No sets for this day." %}
-                    <a href="{% url 'wger.manager.views.edit_set' workout.id day.id None %}"
+                    <a href="{% url 'wger.manager.views.set.edit_set' workout.id day.id None %}"
                        class="modal-dialog">{% trans "Add one now." %}
                     </a>
                 </div>
@@ -170,7 +170,7 @@ $(document).ready(function() {
         </tr>
         <tr>
             <td colspan="2">
-                <a href="{% url 'wger.manager.views.edit_set' workout.id day.id None %}"
+                <a href="{% url 'wger.manager.views.set.edit_set' workout.id day.id None %}"
                    class="modal-dialog">{% trans "Add workout set" %}</a>
             </td>
         </tr>

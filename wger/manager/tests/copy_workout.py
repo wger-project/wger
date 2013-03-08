@@ -51,7 +51,8 @@ class CopyWorkoutTestCase(WorkoutManagerTestCase):
             self.assertTemplateUsed('workout/view.html')
 
         # Test accessing the copied workout
-        response = self.client.get(reverse('wger.manager.views.view_workout', kwargs={'id': 4}))
+        response = self.client.get(reverse('wger.manager.views.workout.view_workout',
+                                           kwargs={'id': 4}))
 
         if not logged_in:
             self.assertEqual(response.status_code, 302)
