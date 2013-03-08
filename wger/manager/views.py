@@ -33,7 +33,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 from django.utils.formats import date_format
-
+from django.db import models
 from django.forms.models import modelformset_factory
 
 
@@ -776,6 +776,10 @@ def edit_set(request, id, day_id, set_id=None):
         if set_form.is_valid():
             workout_set = set_form.save(commit=False)
             workout_set.exerciseday = day
+
+            if not workout_set.order:
+                max_order = day.set_set.select_related().aggregate(models.Max('order'))
+                workout_set.order = max_order['order__max'] + 1
             workout_set.save()
 
             # The exercises are ManyToMany in DB, so we have to save with this function
