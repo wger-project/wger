@@ -96,7 +96,7 @@ def edit_set(request, id, day_id, set_id=None):
 
             if not workout_set.order:
                 max_order = day.set_set.select_related().aggregate(models.Max('order'))
-                workout_set.order = max_order['order__max'] + 1
+                workout_set.order = (max_order['order__max'] or 0) + 1
             workout_set.save()
 
             # The exercises are ManyToMany in DB, so we have to save with this function
