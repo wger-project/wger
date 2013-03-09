@@ -94,5 +94,35 @@
             "protein": 10, 
             "carbohydrates": 5.0
         }
-    } 
+    },
+    {
+        "pk": 1,
+        "model": "nutrition.ingredientweightunit",
+        "fields": {
+            "amount": "1",
+            "gramm": 109,
+            "unit": 4,
+            "ingredient": 1
+        }
+    },
+    {
+        "pk": 2,
+        "model": "nutrition.ingredientweightunit",
+        "fields": {
+            "amount": "0.5",
+            "gramm": 223,
+            "unit": 5,
+            "ingredient": 1
+        }
+    },
+    {
+        "pk": 3,
+        "model": "nutrition.ingredientweightunit",
+        "fields": {
+            "amount": "1",
+            "gramm": 12,
+            "unit": 6,
+            "ingredient": 1
+        }
+    }
 ]

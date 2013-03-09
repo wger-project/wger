@@ -42,6 +42,7 @@ from wger.nutrition.models import Meal
 from wger.nutrition.models import MealItem
 from wger.nutrition.models import Ingredient
 from wger.nutrition.models import WeightUnit
+from wger.nutrition.models import IngredientWeightUnit
 
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.pagesizes import A4, cm
@@ -594,7 +595,7 @@ def ingredient_search(request):
 
 
 # ************************
-# Ingredient units functions
+# Weight units functions
 # ************************
 
 class WeightUnitListView(ListView):
@@ -654,3 +655,67 @@ class WeightUnitUpdateView(YamlFormMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('weight-unit-list')
+
+
+# ************************
+# Weight units to ingredient functions
+# ************************
+class WeightUnitIngredientForm(ModelForm):
+    class Meta:
+        model = IngredientWeightUnit
+        exclude = ('ingredient',)
+
+
+class WeightUnitIngredientCreateView(YamlFormMixin, CreateView):
+    '''
+    Generic view to add a new weight unit to ingredient entry
+    '''
+
+    model = IngredientWeightUnit
+    form_class = WeightUnitIngredientForm
+    title = ugettext_lazy('Add a new weight unit')
+
+     # Send some additional data to the template
+    def get_context_data(self, **kwargs):
+        context = super(WeightUnitIngredientCreateView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('weight-unit-ingredient-add',
+                                         kwargs={'ingredient_pk': self.kwargs['ingredient_pk']})
+        return context
+
+    def get_success_url(self):
+        return reverse('wger.nutrition.views.ingredient_view',
+                       kwargs={'id': self.kwargs['ingredient_pk']})
+
+    def form_valid(self, form):
+        ingredient = get_object_or_404(Ingredient, pk=self.kwargs['ingredient_pk'])
+        form.instance.ingredient = ingredient
+        return super(WeightUnitIngredientCreateView, self).form_valid(form)
+
+
+class WeightUnitIngredientUpdateView(YamlFormMixin, UpdateView):
+    '''
+    Generic view to update an weight unit to ingredient entry
+    '''
+
+    model = IngredientWeightUnit
+    form_class = WeightUnitIngredientForm
+    title = ugettext_lazy('Edit a weight unit to ingredient connection')
+    form_action_urlname = 'weight-unit-ingredient-edit'
+
+    def get_success_url(self):
+        return reverse('wger.nutrition.views.ingredient_view',
+                       kwargs={'id': self.object.ingredient.id})
+
+
+class WeightUnitIngredientDeleteView(YamlDeleteMixin, DeleteView):
+    '''
+    Generic view to delete a weight unit to ingredient entry
+    '''
+
+    model = IngredientWeightUnit
+    title = ugettext_lazy('Delete weight unit?')
+    form_action_urlname = 'weight-unit-ingredient-delete'
+
+    def get_success_url(self):
+        return reverse('wger.nutrition.views.ingredient_view',
+                       kwargs={'id': self.object.ingredient.id})

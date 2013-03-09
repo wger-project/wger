@@ -102,6 +102,57 @@
 {% trans 'Edit ingredient' %}
 </a>
 </p>
+
+<h3>{% trans "Weight units" %}</h3>
+<p>
+<a href="{% url 'weight-unit-ingredient-add' ingredient.id %}"
+   class="modal-dialog">
+       <img src="{% static 'images/icons/new.svg' %}"
+            width="32"
+            height="32"
+            alt="{% trans 'Add new weight unit' %}"
+            title="{% trans 'Add new weight unit' %}">
+{% trans "Add new weight unit" %}
+</a>
+</p>
+{% if ingredient.ingredientweightunit_set.all %}
+    <table>
+    <thead>
+        <tr>
+            <th>{% trans "Name (values are approximate)" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for unit in ingredient.ingredientweightunit_set.all %}
+        <tr>
+            <td>
+                {{unit.amount}} {{unit.unit.name}} = {{unit.gramm}}g
+                <span class="editoptions float-right">
+                    <a href="{% url 'weight-unit-ingredient-edit' unit.id %}"
+                       title="{% trans 'Edit' %}"
+                       class="modal-dialog">
+                           <img src="{% static 'images/icons/edit.svg' %}"
+                                width="16"
+                                height="16"
+                                alt="{% trans 'Edit' %}"
+                                title="{% trans 'Edit' %}">
+                    </a>
+                    <a href="{% url 'weight-unit-ingredient-delete' unit.id %}"
+                       title="{% trans 'Delete' %}"
+                       class="modal-dialog">
+                           <img src="{% static 'images/icons/trash.svg' %}"
+                                width="16"
+                                height="16"
+                                alt="{% trans 'Delete' %}"
+                                title="{% trans 'Delete' %}">
+                    </a>
+                </span>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% endif %}
 {% endif %}
 
 {% cc_by_sa_sidebar language %}

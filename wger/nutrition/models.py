@@ -209,8 +209,15 @@ class IngredientWeightUnit(models.Model):
     gramm = models.IntegerField(verbose_name=_('Amount in gramms'))
     amount = models.DecimalField(decimal_places=2,
                                  max_digits=5,
+                                 default=1,
                                  verbose_name=_('Amount'),
                                  help_text=_('Unit amount, e.g. "1 Cup" or "1/2 spoon"'))
+
+    def get_owner_object(self):
+        '''
+        Weight unit has no owner information
+        '''
+        return None
 
     def __unicode__(self):
         '''

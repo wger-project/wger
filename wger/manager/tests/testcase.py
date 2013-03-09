@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import os
+import decimal
 
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import NoReverseMatch
@@ -55,6 +56,27 @@ class WorkoutManagerTestCase(TestCase):
         Visit the logout page
         '''
         self.client.logout()
+
+    def compare_fields(self, field, value):
+        current_field_class = field.__class__.__name__
+
+        # Standard types, simply compare
+        if current_field_class in ('unicode', 'int', 'float', 'time'):
+            self.assertEqual(field, value)
+
+        # decimal, convert
+        if current_field_class == 'Decimal':
+            self.assertEqual(field, decimal.Decimal(unicode(value)))
+
+        # Related manager, iterate
+        elif current_field_class == 'ManyRelatedManager':
+            for j in field.all():
+                self.assertIn(j.id, value)
+
+        # Other objects (from foreign keys), ignore
+        else:
+            pass
+            #print "Don't know how to check for {0}!".format(current_field_class)
 
 
 class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
@@ -185,13 +207,11 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
 
         else:
             self.assertEqual(response.status_code, 302)
+
+            # Check that the data is correct
             for i in self.data:
                 current_field = getattr(entry_after, i)
-                if current_field.__class__.__name__ == 'ManyRelatedManager':
-                    for j in current_field.all():
-                        self.assertIn(j.id, self.data[i])
-                else:
-                    self.assertEqual(current_field, self.data[i])
+                self.compare_fields(current_field, self.data[i])
 
     def test_edit_object_anonymous(self):
         '''
@@ -276,13 +296,11 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
         else:
             self.assertEqual(response.status_code, 302)
             entry = self.object_class.objects.get(pk=self.pk)
+
+            # Check that the data is correct
             for i in self.data:
                 current_field = getattr(entry, i)
-                if current_field.__class__.__name__ == 'ManyRelatedManager':
-                    for j in current_field.all():
-                        self.assertIn(j.id, self.data[i])
-                else:
-                    self.assertEqual(current_field, self.data[i])
+                self.compare_fields(current_field, self.data[i])
 
             self.assertEqual(count_before + 1, count_after)
 
