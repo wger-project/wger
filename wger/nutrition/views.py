@@ -34,12 +34,14 @@ from django.utils.translation import ugettext_lazy
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
+from django.views.generic import ListView
 
 
 from wger.nutrition.models import NutritionPlan
 from wger.nutrition.models import Meal
 from wger.nutrition.models import MealItem
 from wger.nutrition.models import Ingredient
+from wger.nutrition.models import WeightUnit
 
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.pagesizes import A4, cm
@@ -589,3 +591,31 @@ def ingredient_search(request):
         return render_to_response('ingredient_search.html',
                                   template_data,
                                   context_instance=RequestContext(request))
+
+
+# ************************
+# Ingredient units functions
+# ************************
+
+class WeightUnitListView(ListView):
+    '''
+    Generic view to list all weight units
+    '''
+
+    model = WeightUnit
+    template_name = 'units/list.html'
+    context_object_name = 'unit_list'
+
+
+class WeightUnitCreateView(YamlFormMixin, CreateView):
+    '''
+    Generic view to add a new weight unit for ingredients
+    '''
+
+    model = WeightUnit
+    #form_class = IngredientForm
+    title = ugettext_lazy('Add a new weight unit')
+    form_action = reverse_lazy('weight-unit-add')
+
+    def get_success_url(self):
+        return reverse('weight-unit-list')

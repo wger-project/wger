@@ -9,7 +9,8 @@ from wger.nutrition.views import PlanDeleteView
 from wger.nutrition.views import PlanEditView
 from wger.nutrition.views import MealCreateView
 from wger.nutrition.views import MealEditView
-
+from wger.nutrition.views import WeightUnitListView
+from wger.nutrition.views import WeightUnitCreateView
 
 urlpatterns = patterns('wger.nutrition.views',
     url(r'^overview/$', 'overview'),
@@ -61,4 +62,13 @@ urlpatterns = patterns('wger.nutrition.views',
     url(r'^ingredient/(?P<id>\d+)/view/$', 'ingredient_view'),
     url(r'^ingredient/(?P<id>\d+)/view/(?P<slug>[-\w]+)/$', 'ingredient_view'),
     url(r'^ingredient/search/$', 'ingredient_search'),
+
+    # Ingredient units
+    url(r'^ingredient/unit/list/$',
+        permission_required('exercises.change_exercise')(WeightUnitListView.as_view()),
+        name='weight-unit-list'),
+    url(r'^ingredient/unit/add/$',
+        permission_required('exercises.change_exercise')(WeightUnitCreateView.as_view()),
+        name='weight-unit-add'),
+        
 )

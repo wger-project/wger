@@ -172,6 +172,44 @@ class Ingredient(models.Model):
         return False
 
 
+class WeightUnit(models.Model):
+    '''
+    A more human usable weight unit (spoon, table, slice...)
+    '''
+
+    name = models.CharField(max_length=200,
+                            verbose_name=_('Name'),)
+
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return "{0}".format(self.name)
+
+
+class IngredientWeightUnit(models.Model):
+    '''
+    A specific human usable weight unit for an ingredient
+    '''
+
+    ingredient = models.ForeignKey(Ingredient, verbose_name=_('Ingredient'))
+    unit = models.ForeignKey(WeightUnit, verbose_name=_('Weight unit'))
+    
+    gramm = models.IntegerField(verbose_name=_('Amount in gramms'))
+    amount = models.DecimalField(decimal_places=2,
+                                 max_digits=5,
+                                 verbose_name=_('Amount'),
+                                 help_text=_('Unit amount, e.g. "1 Cup" or "1/2 spoon"'))
+
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return u"{0}: {1}{2} á {3}g".format(self.ingredient.name,
+                                           self.amount,
+                                           self.unit.name,
+                                           self.gramm)
+
 class Meal(models.Model):
     '''
     A meal
@@ -198,18 +236,33 @@ class Meal(models.Model):
         return self.plan
 
 
+MEALITEM_WEIGHT_GRAM = '1'
+MEALITEM_WEIGHT_UNIT = '2'
+
+MEALITEM_WEIGHT_TYPES = (
+    (MEALITEM_WEIGHT_GRAM, _('Weight in grams')),
+    (MEALITEM_WEIGHT_UNIT, _('Weight in units')),
+)
+
 class MealItem(models.Model):
     '''
     An item (component) of a meal
     '''
 
     meal = models.ForeignKey(Meal, verbose_name=_('Nutrition plan'))
+    ingredient = models.ForeignKey(Ingredient, verbose_name=_('Ingredient'))
+    weight_unit = models.ForeignKey(IngredientWeightUnit,
+                                    verbose_name=_('Weight unit'),
+                                    null=True)
+
     order = models.IntegerField(max_length=1, blank=True, verbose_name=_('Order'))
     amount_gramm = models.IntegerField(max_length=4,
                                        blank=True,
                                        validators=[MaxValueValidator(1000)],
                                        verbose_name=_('Amount in gramms'))
-    ingredient = models.ForeignKey(Ingredient, verbose_name=_('Ingredient'))
+    weight_type = models.CharField(max_length=2,
+                                   choices=MEALITEM_WEIGHT_TYPES,
+                                   default=MEALITEM_WEIGHT_GRAM)
 
     def __unicode__(self):
         '''
