@@ -65,7 +65,7 @@ class WorkoutManagerTestCase(TestCase):
             self.assertEqual(field, value)
 
         # decimal, convert
-        if current_field_class == 'Decimal':
+        elif current_field_class == 'Decimal':
             self.assertEqual(field, decimal.Decimal(unicode(value)))
 
         # Related manager, iterate
@@ -73,10 +73,9 @@ class WorkoutManagerTestCase(TestCase):
             for j in field.all():
                 self.assertIn(j.id, value)
 
-        # Other objects (from foreign keys), ignore
+        # Other objects (from foreign keys), check the ID
         else:
-            pass
-            #print "Don't know how to check for {0}!".format(current_field_class)
+            self.assertEqual(field.id, value)
 
 
 class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
