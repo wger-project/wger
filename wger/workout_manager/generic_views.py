@@ -144,7 +144,6 @@ class YamlFormMixin(ModelFormMixin):
 class YamlDeleteMixin(ModelFormMixin):
     template_name = 'delete.html'
 
-    active_tab = ''
     form_action = ''
     form_action_urlname = ''
     title = ''
@@ -161,9 +160,6 @@ class YamlDeleteMixin(ModelFormMixin):
 
         # CSRF token
         context.update(csrf(self.request))
-
-        # Active tab, on top navigation
-        context['active_tab'] = self.active_tab
 
         # When viewing the page on it's own, this is not necessary, but when
         # opening it on a modal dialog, we need to make sure the POST request
