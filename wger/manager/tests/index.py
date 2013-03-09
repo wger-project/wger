@@ -74,7 +74,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
         #
         # 2. Add a nutrition plan
         #
-        self.client.get(reverse('wger.nutrition.views.add'))
+        self.client.get(reverse('wger.nutrition.views.plan.add'))
         response = self.client.get(reverse('dashboard'))
 
         if logged_in:

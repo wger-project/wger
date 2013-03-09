@@ -57,7 +57,7 @@ class NutritionPlan(models.Model):
         '''
         Returns the canonical URL to view this object
         '''
-        return reverse('wger.nutrition.views.view', kwargs={'id': self.id})
+        return reverse('wger.nutrition.views.plan.view', kwargs={'id': self.id})
 
     def get_nutritional_values(self):
         # Sum the nutrional info
@@ -156,8 +156,8 @@ class Ingredient(models.Model):
         '''
         Returns the canonical URL to view this object
         '''
-        return reverse('wger.nutrition.views.ingredient_view', kwargs={'id': self.id,
-                                                                       'slug': slugify(self.name)})
+        return reverse('wger.nutrition.views.ingredient.ingredient_view',
+                       kwargs={'id': self.id, 'slug': slugify(self.name)})
 
     def __unicode__(self):
         '''

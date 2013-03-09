@@ -24,7 +24,7 @@ $(document).ready(function() {
 
 <h2>{% trans "Edit meal item" %}</h2>
 
-<form action="{% url 'wger.nutrition.views.edit_meal_item' plan.id meal.id meal_item.id%}{% if js_active %}?js=on{% endif %}"
+<form action="{% url 'wger.nutrition.views.ingredient.edit_meal_item' plan.id meal.id meal_item.id%}{% if js_active %}?js=on{% endif %}"
       method="post"
       class="ym-form">
 {% csrf_token %}

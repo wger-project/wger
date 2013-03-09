@@ -123,14 +123,14 @@
                             {% endif %}
 
                             <li class="dropdown {% if active_tab == 'nutrition' %}active{% endif %}">
-                                <a href="{% url 'wger.nutrition.views.overview' %}"
+                                <a href="{% url 'wger.nutrition.views.plan.overview' %}"
                                    class="dropdown-toggle"
                                    data-toggle="dropdown">{% trans "Nutrition" %} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                 {% if user.is_authenticated %}
-                                    <li><a href="{% url 'wger.nutrition.views.overview' %}">{% trans "Nutrition plans" %}</a></li>
+                                    <li><a href="{% url 'wger.nutrition.views.plan.overview' %}">{% trans "Nutrition plans" %}</a></li>
                                 {% endif %}
-                                    <li><a href="{% url 'wger.nutrition.views.ingredient_overview' %}">{% trans "Ingredient overview" %}</a></li>
+                                    <li><a href="{% url 'wger.nutrition.views.ingredient.ingredient_overview' %}">{% trans "Ingredient overview" %}</a></li>
                                 {% if perms.exercises %}
                                     <li><a href="{% url 'weight-unit-list' %}">{% trans "Ingredient weight units" %}</a></li>
                                 {% endif %}

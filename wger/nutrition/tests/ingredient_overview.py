@@ -46,15 +46,17 @@ class OverviewPlanTestCase(WorkoutManagerTestCase):
 
         # Page exists
         self.user_logout()
-        response = self.client.get(reverse('wger.nutrition.views.ingredient_overview'))
+        response = self.client.get(reverse('wger.nutrition.views.ingredient.ingredient_overview'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['ingredients']), PAGINATION_OBJECTS_PER_PAGE)
 
-        response = self.client.get(reverse('wger.nutrition.views.ingredient_overview') + '?page=2')
+        response = self.client.get(reverse('wger.nutrition.views.ingredient.ingredient_overview')
+                                   + '?page=2')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['ingredients']), PAGINATION_OBJECTS_PER_PAGE)
 
         rest_ingredients = Ingredient.objects.count() - 2 * PAGINATION_OBJECTS_PER_PAGE
-        response = self.client.get(reverse('wger.nutrition.views.ingredient_overview') + '?page=3')
+        response = self.client.get(reverse('wger.nutrition.views.ingredient.ingredient_overview')
+                                   + '?page=3')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['ingredients']), rest_ingredients)

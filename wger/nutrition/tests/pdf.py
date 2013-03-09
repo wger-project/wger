@@ -28,7 +28,8 @@ class NutritionalPlanPdfExportTestCase(WorkoutManagerTestCase):
         '''
 
         # Create a workout
-        response = self.client.get(reverse('wger.nutrition.views.export_pdf', kwargs={'id': 4}))
+        response = self.client.get(reverse('wger.nutrition.views.plan.export_pdf',
+                                   kwargs={'id': 4}))
 
         if fail:
             self.assertIn(response.status_code, (404, 302))
