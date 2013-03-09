@@ -607,15 +607,50 @@ class WeightUnitListView(ListView):
     context_object_name = 'unit_list'
 
 
+class WeightUnitForm(ModelForm):
+    class Meta:
+        model = WeightUnit
+        exclude = ('language',)
+
+
 class WeightUnitCreateView(YamlFormMixin, CreateView):
     '''
     Generic view to add a new weight unit for ingredients
     '''
 
     model = WeightUnit
-    #form_class = IngredientForm
+    form_class = WeightUnitForm
     title = ugettext_lazy('Add a new weight unit')
     form_action = reverse_lazy('weight-unit-add')
+
+    def get_success_url(self):
+        return reverse('weight-unit-list')
+
+    def form_valid(self, form):
+        form.instance.language = load_language()
+        return super(WeightUnitCreateView, self).form_valid(form)
+
+
+class WeightUnitDeleteView(YamlDeleteMixin, DeleteView):
+    '''
+    Generic view to delete a weight unit
+    '''
+
+    model = WeightUnit
+    success_url = reverse_lazy('weight-unit-list')
+    title = ugettext_lazy('Delete weight unit?')
+    form_action_urlname = 'weight-unit-delete'
+
+
+class WeightUnitUpdateView(YamlFormMixin, UpdateView):
+    '''
+    Generic view to update an weight unit
+    '''
+
+    model = WeightUnit
+    form_class = WeightUnitForm
+    title = ugettext_lazy('Edit a weight unit')
+    form_action_urlname = 'weight-unit-edit'
 
     def get_success_url(self):
         return reverse('weight-unit-list')

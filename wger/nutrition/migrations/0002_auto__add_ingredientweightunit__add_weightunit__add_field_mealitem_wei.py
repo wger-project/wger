@@ -21,6 +21,7 @@ class Migration(SchemaMigration):
         # Adding model 'WeightUnit'
         db.create_table('nutrition_weightunit', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('language', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['exercises.Language'])),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=200)),
         ))
         db.send_create_signal('nutrition', ['WeightUnit'])
@@ -143,6 +144,7 @@ class Migration(SchemaMigration):
         'nutrition.weightunit': {
             'Meta': {'object_name': 'WeightUnit'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'language': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['exercises.Language']"}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '200'})
         }
     }

@@ -12,7 +12,6 @@
 <table>
 <thead>
 <tr>
-    <th>{% trans "ID" %}</th>
     <th>{% trans "Actions" %}</th>
     <th>{% trans "Name" %}</th>
 </tr>
@@ -20,16 +19,17 @@
 <tbody>
 {% for unit in unit_list %}
 <tr>
-    <td>{{unit.id}}</td>
     <td>
-        <a href="{% url 'weight-unit-add' %}">
+        <a href="{% url 'weight-unit-delete' unit.id %}"
+           class="modal-dialog">
             <img src="{% static 'images/icons/trash.svg' %}"
                  width="22"
                  height="22"
                  alt="{% trans 'Delete' %}"
                  title="{% trans 'Delete' %}">
         </a>
-        <a href="{% url 'weight-unit-add' %}">
+        <a href="{% url 'weight-unit-edit' unit.id %}"
+           class="modal-dialog">
             <img src="{% static 'images/icons/edit.svg' %}"
                  width="22"
                  height="22"

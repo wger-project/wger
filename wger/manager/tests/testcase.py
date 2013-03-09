@@ -27,6 +27,7 @@ class WorkoutManagerTestCase(TestCase):
                 'test-user-data',
                 'test-weight-data',
                 'test-exercises',
+                'test-weight-units',
                 'test-ingredients',
                 'test-nutrition-data',
                 'test-workout-data')

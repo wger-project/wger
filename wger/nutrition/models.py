@@ -177,14 +177,25 @@ class WeightUnit(models.Model):
     A more human usable weight unit (spoon, table, slice...)
     '''
 
+    language = models.ForeignKey(Language, verbose_name=_('Language'))
     name = models.CharField(max_length=200,
                             verbose_name=_('Name'),)
+
+    # Metaclass to set some other properties
+    class Meta:
+        ordering = ["name", ]
 
     def __unicode__(self):
         '''
         Return a more human-readable representation
         '''
         return "{0}".format(self.name)
+
+    def get_owner_object(self):
+        '''
+        Weight unit has no owner information
+        '''
+        return None
 
 
 class IngredientWeightUnit(models.Model):
@@ -194,7 +205,7 @@ class IngredientWeightUnit(models.Model):
 
     ingredient = models.ForeignKey(Ingredient, verbose_name=_('Ingredient'))
     unit = models.ForeignKey(WeightUnit, verbose_name=_('Weight unit'))
-    
+
     gramm = models.IntegerField(verbose_name=_('Amount in gramms'))
     amount = models.DecimalField(decimal_places=2,
                                  max_digits=5,
@@ -205,10 +216,12 @@ class IngredientWeightUnit(models.Model):
         '''
         Return a more human-readable representation
         '''
+
         return u"{0}: {1}{2} á {3}g".format(self.ingredient.name,
-                                           self.amount,
-                                           self.unit.name,
-                                           self.gramm)
+                                             self.amount,
+                                             self.unit.name,
+                                             self.gramm)
+
 
 class Meal(models.Model):
     '''
@@ -243,6 +256,7 @@ MEALITEM_WEIGHT_TYPES = (
     (MEALITEM_WEIGHT_GRAM, _('Weight in grams')),
     (MEALITEM_WEIGHT_UNIT, _('Weight in units')),
 )
+
 
 class MealItem(models.Model):
     '''
