@@ -1303,7 +1303,7 @@ msgid ""
 "If you find the ingredient list too short, you might want to activate the "
 "preference to also show English ingredients."
 msgstr ""
-"Wenn die Liste der verfügbaren Zutaten zu kurz ist, kannstu du die Option "
+"Wenn die Liste der verfügbaren Zutaten zu kurz ist, kannst du die Option "
 "benutzen, um auch Zutaten auf englisch anzuzeigen."
 
 #: nutrition/templates/view_nutrition_plan.html:166
