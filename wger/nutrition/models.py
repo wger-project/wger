@@ -72,30 +72,36 @@ class NutritionPlan(models.Model):
         for meal in self.meal_set.select_related():
             for item in meal.mealitem_set.select_related():
 
-                # Don't proceed if the ingredient was input by hand or has freetext units
-                if item.ingredient and item.amount_gramm:
-                    nutritional_info['energy'] += item.ingredient.energy * item.amount_gramm / 100
-                    nutritional_info['protein'] += item.ingredient.protein * item.amount_gramm / 100
-                    nutritional_info['carbohydrates'] += item.ingredient.carbohydrates * \
-                        item.amount_gramm / 100
+                # Calculate the base weight of the item
+                if item.weight_type == MEALITEM_WEIGHT_GRAM:
+                    item_weight = item.amount_gramm
+                else:
+                    item_weight = (item.amount_gramm *
+                                   float(item.weight_unit.amount) *
+                                   item.weight_unit.gramm)
 
-                    if item.ingredient.carbohydrates_sugar:
-                        nutritional_info['carbohydrates_sugar'] += \
-                            item.ingredient.carbohydrates_sugar * \
-                            item.amount_gramm / 100
+                nutritional_info['energy'] += item.ingredient.energy * item_weight / 100
+                nutritional_info['protein'] += item.ingredient.protein * item_weight / 100
+                nutritional_info['carbohydrates'] += item.ingredient.carbohydrates * \
+                    item_weight / 100
 
-                    nutritional_info['fat'] += item.ingredient.fat * item.amount_gramm / 100
-                    if item.ingredient.fat_saturated:
-                        nutritional_info['fat_saturated'] += item.ingredient.fat_saturated * \
-                            item.amount_gramm / 100
+                if item.ingredient.carbohydrates_sugar:
+                    nutritional_info['carbohydrates_sugar'] += \
+                        item.ingredient.carbohydrates_sugar * \
+                        item_weight / 100
 
-                    if item.ingredient.fibres:
-                        nutritional_info['fibres'] += item.ingredient.fibres * \
-                            item.amount_gramm / 100
+                nutritional_info['fat'] += item.ingredient.fat * item_weight / 100
+                if item.ingredient.fat_saturated:
+                    nutritional_info['fat_saturated'] += item.ingredient.fat_saturated * \
+                        item_weight / 100
 
-                    if item.ingredient.sodium:
-                        nutritional_info['sodium'] += item.ingredient.sodium * \
-                            item.amount_gramm / 100
+                if item.ingredient.fibres:
+                    nutritional_info['fibres'] += item.ingredient.fibres * \
+                        item_weight / 100
+
+                if item.ingredient.sodium:
+                    nutritional_info['sodium'] += item.ingredient.sodium * \
+                        item_weight / 100
         return nutritional_info
 
     def get_owner_object(self):

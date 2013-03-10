@@ -32,6 +32,8 @@ from django.views.generic import DeleteView
 from django.views.generic import UpdateView
 
 from wger.nutrition.models import NutritionPlan
+from wger.nutrition.models import MEALITEM_WEIGHT_GRAM
+from wger.nutrition.models import MEALITEM_WEIGHT_UNIT
 
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.pagesizes import A4, cm
@@ -120,6 +122,8 @@ def view(request, id):
     # Load the language and pass it to the template
     language = load_language()
     template_data['language'] = language
+    template_data['MEALITEM_WEIGHT_GRAM'] = MEALITEM_WEIGHT_GRAM
+    template_data['MEALITEM_WEIGHT_UNIT'] = MEALITEM_WEIGHT_UNIT
 
     # Get the nutrional info
 
@@ -233,7 +237,12 @@ def export_pdf(request, id):
 
             P = Paragraph('<para>%s</para>' % item.ingredient.name,
                           styleSheet["Normal"])
-            data.append(["%sg" % item.amount_gramm, P])
+
+            if item.weight_type == MEALITEM_WEIGHT_GRAM:
+                unit_name = 'g'
+            else:
+                unit_name = ' ' + item.weight_unit.unit.name
+            data.append(["{0}{1}".format(item.amount_gramm, unit_name), P])
 
     # Set general table styles
 

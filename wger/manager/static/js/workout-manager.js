@@ -363,6 +363,7 @@ function init_ingredient_autocompleter()
 
             // After clicking on a result set the value of the hidden field
             $('#id_ingredient').val(ui.item.id);
+            $('#exercise_name').html(ui.item.label);
         }
     });
 }

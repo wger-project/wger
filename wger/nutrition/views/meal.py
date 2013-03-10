@@ -46,12 +46,6 @@ class MealForm(ModelForm):
         exclude = ('plan', 'order')
 
 
-class MealItemForm(ModelForm):
-    class Meta:
-        model = MealItem
-        exclude = ('meal', 'order')
-
-
 class MealCreateView(YamlFormMixin, CreateView):
     '''
     Generic view to add a new meal to a nutrition plan

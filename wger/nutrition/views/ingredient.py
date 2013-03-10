@@ -52,8 +52,6 @@ from reportlab.lib import colors
 from wger.manager.utils import load_language
 from wger.manager.utils import load_ingredient_languages
 
-from wger.nutrition.views.meal import MealItemForm
-
 from wger.workout_manager import get_version
 from wger.workout_manager.generic_views import YamlFormMixin
 from wger.workout_manager.generic_views import YamlDeleteMixin
@@ -66,6 +64,12 @@ logger = logging.getLogger('workout_manager.custom')
 # ************************
 # Meal ingredient functions
 # ************************
+class MealItemForm(ModelForm):
+    class Meta:
+        model = MealItem
+        exclude = ('meal', 'order')
+
+
 @login_required
 def delete_meal_item(request, item_id):
     '''

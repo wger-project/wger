@@ -93,14 +93,14 @@ $(document).ready(function() {
              <ul>
             {% for item in meal.mealitem_set.select_related %}
                 <li>
-                    {% if item.amount_gramm %}
-                        {{ item.amount_gramm }}g
+                    {{ item.amount_gramm }}
+                    {% if item.weight_type == MEALITEM_WEIGHT_GRAM %}
+                        g
                     {% else %}
-                        {{ item.amount_freetext }}
+                        {{ item.weight_unit.unit.name }}
                     {% endif %}
-                    
                     {{ item.ingredient.name }}
-                    
+
                     <span class="editoptions">
                         <a href="{% url 'wger.nutrition.views.ingredient.delete_meal_item' item.id %}"
                            title="{% trans 'Delete' %}"

@@ -21,25 +21,18 @@ $(document).ready(function() {
 
 
 {% block content %}
-
-<h2>{% trans "Edit meal item" %}</h2>
-
 <form action="{% url 'wger.nutrition.views.ingredient.edit_meal_item' plan.id meal.id meal_item.id%}{% if js_active %}?js=on{% endif %}"
       method="post"
       class="ym-form">
 {% csrf_token %}
 {{ form.non_field_errors }}
 <table>
-    {% yaml_form_field form.amount_gramm %}
     {% if js_active %}
-        <input type="hidden" id="id_ingredient" name="ingredient" value="{{ingredient}}">
-    {% else %}
-        {% yaml_form_field form.amount_gramm %}
-        {% yaml_form_field form.ingredient %}
-    {% endif %}
     <tr>
         <td style="text-align:right;">
+            <label for="id_ingredient_searchfield">
             {% trans "Ingredient name" %}
+            </label>
         </td>
         <td>
             <div class="ym-fbox-text">
@@ -48,8 +41,18 @@ $(document).ready(function() {
                    name="ingredient_searchfield"
                    value="{{ingredient_searchfield}}">
             </div>
+            <input type="hidden" id="id_ingredient" name="ingredient" value="{{ingredient}}">
+            <div id="exercise_name" class="ym-fbox-text"></div>
         </td>
     </tr>
+    {% else %}
+        {% yaml_form_field form.ingredient "ym-fbox-select" %}
+    {% endif %}
+    
+
+    {% yaml_form_field form.amount_gramm %}
+    {% yaml_form_field form.weight_unit "ym-fbox-select" %}
+    {% yaml_form_field form.weight_type "ym-fbox-select"%}
     <tr>
         <td colspan="2">
             <input type="submit" value="{% trans 'Save' %}" id="form-save">
