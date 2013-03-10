@@ -73024,6 +73024,22 @@
         }
     }, 
     {
+        "pk": 8301, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Kn\u00e4ckebrot, roggen, d\u00fcnn", 
+            "language": 1, 
+            "sodium": 0.4, 
+            "energy": 340, 
+            "fat": 1.5, 
+            "carbohydrates_sugar": 1.0, 
+            "fat_saturated": 0.4, 
+            "fibres": 14.0, 
+            "protein": 9.0, 
+            "carbohydrates": 67.0
+        }
+    }, 
+    {
         "pk": 3394, 
         "model": "nutrition.ingredient", 
         "fields": {
@@ -80381,6 +80397,38 @@
             "fibres": 8.3, 
             "protein": 14.63, 
             "carbohydrates": 75.03
+        }
+    }, 
+    {
+        "pk": 8299, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Maiswaffeln, mit Salz", 
+            "language": 1, 
+            "sodium": 0.11, 
+            "energy": 384, 
+            "fat": 0.8, 
+            "carbohydrates_sugar": 0.5, 
+            "fat_saturated": 0.1, 
+            "fibres": 3.5, 
+            "protein": 7.3, 
+            "carbohydrates": 85.2
+        }
+    }, 
+    {
+        "pk": 8298, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Maiswaffeln, ohne Salz", 
+            "language": 1, 
+            "sodium": 0.01, 
+            "energy": 386, 
+            "fat": 0.9, 
+            "carbohydrates_sugar": 0.5, 
+            "fat_saturated": 0.1, 
+            "fibres": 3.5, 
+            "protein": 7.3, 
+            "carbohydrates": 85.5
         }
     }, 
     {
@@ -105648,6 +105696,22 @@
         }
     }, 
     {
+        "pk": 8300, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Reiswaffeln, mit Salz", 
+            "language": 1, 
+            "sodium": 0.1, 
+            "energy": 389, 
+            "fat": 3.4, 
+            "carbohydrates_sugar": 0.9, 
+            "fat_saturated": 0.6, 
+            "fibres": 3.4, 
+            "protein": 8.0, 
+            "carbohydrates": 79.9
+        }
+    }, 
+    {
         "pk": 6004, 
         "model": "nutrition.ingredient", 
         "fields": {
@@ -112125,6 +112189,22 @@
             "fibres": 0.0, 
             "protein": 28.33, 
             "carbohydrates": 15.31
+        }
+    }, 
+    {
+        "pk": 8302, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Semmelkn\u00f6del, industriell hergestellt, gekocht", 
+            "language": 1, 
+            "sodium": 0.5, 
+            "energy": 141, 
+            "fat": 3.7, 
+            "carbohydrates_sugar": 2.6, 
+            "fat_saturated": 1.9, 
+            "fibres": 1.4, 
+            "protein": 4.7, 
+            "carbohydrates": 21.5
         }
     }, 
     {
@@ -132718,5 +132798,5 @@
             "protein": 0.0, 
             "carbohydrates": 0.0
         }
-    }
+    } 
 ]
