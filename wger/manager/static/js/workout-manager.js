@@ -319,18 +319,26 @@ function modal_dialog_form_edit()
             {
                 $("#ajax-info").dialog("close");
 
+                // TODO: There seems to be problems sometimes when using the technique below and
+                //       bootstrap's menu bar (drop downs won't open). So just do a normal
+                //       redirect.
+                window.location.href = current_url;
+                
                 // If there  was a redirect we must change the URL of the browser. Otherwise
                 // a reload would not change the adress bar, but the content would.
                 // Since it is not possible to get this URL from the AJAX request, we read it out
                 // from a hidden HTML DIV in the document...
-                current_url = $(data).find("#current-url").data('currentUrl');
+                //current_url = $(data).find("#current-url").data('currentUrl');
+
+                /*
                 if(document.URL.indexOf(current_url))
                 {
                     history.pushState({}, "", current_url);
                 }
+                */
 
                 // Note: loading the new page like this executes all its JS code
-                $('body').html(data);
+                //$('body').html(data);
             }
 
             // Call other custom initialisation functions
