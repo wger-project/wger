@@ -17,6 +17,7 @@ import logging
 from django.core.urlresolvers import reverse
 
 from wger.manager.models import Set
+from wger.manager.models import Day
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
@@ -70,3 +71,53 @@ class SetDeleteTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         self.delete_set(fail=False)
+
+
+class TestSetOrderTestCase(WorkoutManagerTestCase):
+    '''
+    Tests that the order of the (existing) sets in a workout is preservead
+    when adding new ones
+    '''
+
+    def add_set(self, set_ids):
+        '''
+        Helper function that adds a set to a day
+        '''
+
+        response = self.client.post(reverse('wger.manager.views.set.edit_set',
+                                            kwargs={'id': 3,
+                                                    'day_id': 5,
+                                                    'set_id': ''}),
+                                    {'exercises': set_ids,
+                                     'sets': 4})
+
+        return response
+
+    def get_order(self):
+        '''
+        Helper function that reads the order of the the sets in a day
+        '''
+
+        day = Day.objects.get(pk=5)
+        order = ()
+
+        for day_set in day.set_set.select_related():
+            order += (day_set.id,)
+
+        return order
+
+    def test_set_order(self, logged_in=False):
+        '''
+        Helper function to test creating workouts
+        '''
+
+        # Add some sets and check the order
+        self.user_login('test')
+        orig = self.get_order()
+        exercises = (1, 2, 3, 81, 84, 91, 111)
+
+        for i in range(0, 7):
+            self.add_set([exercises[i]])
+            prev = self.get_order()
+            orig += (i + 4,)
+            self.assertEqual(orig, prev)

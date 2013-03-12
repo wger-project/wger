@@ -18,6 +18,8 @@ from django.core.urlresolvers import reverse
 from wger.exercises.models import ExerciseCategory
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
+from wger.manager.tests.testcase import WorkoutManagerEditTestCase
+from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 
 
 class DeleteExerciseCategoryTestCase(WorkoutManagerDeleteTestCase):
@@ -32,130 +34,23 @@ class DeleteExerciseCategoryTestCase(WorkoutManagerDeleteTestCase):
     user_fail = 'test'
 
 
-class EditExerciseCategoryTestCase(WorkoutManagerTestCase):
+class EditExerciseCategoryTestCase(WorkoutManagerEditTestCase):
     '''
-    Exercise category test case
-    '''
-
-    def edit_category(self, fail=False):
-        '''
-        Helper function to test editing categories
-        '''
-
-        category = ExerciseCategory.objects.get(pk=3)
-        old_name = category.name
-
-        response = self.client.get(reverse('exercisecategory-edit', kwargs={'pk': 3}))
-
-        # Did it work
-        if fail:
-            self.assertEqual(response.status_code, 302)
-        else:
-            self.assertEqual(response.status_code, 200)
-
-        response = self.client.post(reverse('exercisecategory-edit',
-                                            kwargs={'pk': 3}),
-                                    {'name': 'A different name'})
-
-        # There is a redirect
-        self.assertEqual(response.status_code, 302)
-
-        category = ExerciseCategory.objects.get(pk=3)
-        new_name = category.name
-
-        # Did it work
-        if fail:
-            self.assertEqual(old_name,
-                             new_name,
-                             'Category was edited by unauthorzed user')
-        else:
-            self.assertTrue(old_name != new_name,
-                            'Category wasnt deleted by unauthorzed user')
-
-        # No name
-        if not fail:
-            response = self.client.post(reverse('exercisecategory-edit',
-                                                kwargs={'pk': 3}),
-                                        {'name': ''})
-
-            self.assertTrue(response.context['form'].errors['name'])
-
-    def test_edit_category_unauthorized(self):
-        '''
-        Test editing a category by an unauthorized user
-        '''
-
-        self.user_login('test')
-        self.edit_category(fail=True)
-
-    def test_edit_category_anonymous(self):
-        '''
-        Test editing a category by an anonymous user
-        '''
-
-        self.user_logout()
-        self.edit_category(fail=True)
-
-    def test_edit_category_authorized(self):
-        '''
-        Test editing a category by an authorized user
-        '''
-
-        self.user_login()
-        self.edit_category()
-
-
-class AddExerciseCategoryTestCase(WorkoutManagerTestCase):
-    '''
-    Exercise category test case
+    Tests editing an exercise category
     '''
 
-    def add_category(self, fail=False):
-        '''
-        Helper function to test adding categories
-        '''
+    object_class = ExerciseCategory
+    url = 'exercisecategory-edit'
+    pk = 3
+    data = {'name': 'A different name'}
 
-        response = self.client.get(reverse('exercisecategory-add'))
 
-        # Did it work?
-        if fail:
-            self.assertEqual(response.status_code, 302)
-        else:
-            self.assertEqual(response.status_code, 200)
+class AddExerciseCategoryTestCase(WorkoutManagerAddTestCase):
+    '''
+    Tests adding an exercise category
+    '''
 
-        count_before = ExerciseCategory.objects.count()
-        response = self.client.post(reverse('exercisecategory-add'),
-                                    {'name': 'A new category'})
-        count_after = ExerciseCategory.objects.count()
-
-        # There is a redirect
-        self.assertEqual(response.status_code, 302)
-
-        # Did it work
-        if fail:
-            self.assertEqual(count_before, count_after)
-        else:
-            self.assertGreater(count_after, count_before)
-
-    def test_add_category_unauthorized(self):
-        '''
-        Test adding a category by an unauthorized user
-        '''
-
-        self.user_login('test')
-        self.add_category(fail=True)
-
-    def test_add_category_anonymous(self):
-        '''
-        Test adding a category by an anonymous user
-        '''
-
-        self.add_category(fail=True)
-
-    def test_add_category_authorized(self):
-        '''
-        Test adding a category by an authorized user
-        '''
-
-        self.user_login()
-        self.add_category()
+    object_class = ExerciseCategory
+    url = 'exercisecategory-add'
+    pk = 5
+    data = {'name': 'A new category'}
