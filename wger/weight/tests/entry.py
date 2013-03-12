@@ -43,7 +43,7 @@ class EditWeightEntryTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = WeightEntry
-    url = reverse('weight-edit', kwargs={'pk': 1})
+    url = 'weight-edit'
     pk = 1
     data = {'weight': 100,
             'creation_date': datetime.date(2013, 2, 1)}

@@ -295,7 +295,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         self.search_exercise()
-        
+
 
 class DeleteExercisesTestCase(WorkoutManagerDeleteTestCase):
     '''
