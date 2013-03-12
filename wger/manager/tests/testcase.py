@@ -61,7 +61,7 @@ class WorkoutManagerTestCase(TestCase):
         current_field_class = field.__class__.__name__
 
         # Standard types, simply compare
-        if current_field_class in ('unicode', 'int', 'float', 'time'):
+        if current_field_class in ('unicode', 'int', 'float', 'time', 'date'):
             self.assertEqual(field, value)
 
         # decimal, convert
@@ -145,8 +145,9 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
         Tests deleting the object as an unauthorized, logged in user
         '''
 
-        self.user_login(self.user_fail)
-        self.delete_object(fail=True)
+        if self.user_fail:
+            self.user_login(self.user_fail)
+            self.delete_object(fail=True)
 
 
 class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
@@ -232,8 +233,9 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
         Tests editing the object as an unauthorized, logged in user
         '''
 
-        self.user_login(self.user_fail)
-        self.edit_object(fail=True)
+        if self.user_fail:
+            self.user_login(self.user_fail)
+            self.edit_object(fail=True)
 
 
 class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
@@ -323,5 +325,6 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
         Tests adding the object as an unauthorized, logged in user
         '''
 
-        self.user_login(self.user_fail)
-        self.add_object(fail=True)
+        if self.user_fail:
+            self.user_login(self.user_fail)
+            self.add_object(fail=True)
