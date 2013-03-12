@@ -288,24 +288,14 @@ class ExercisesTestCase(WorkoutManagerTestCase):
 
         self.search_exercise()
 
-    def test_search_exercise_unauthorized(self):
+    def test_search_exercise_logged_in(self):
         '''
-        Test deleting an exercise by an unauthorized user
+        Test deleting an exercise by a logged in user
         '''
 
         self.user_login('test')
         self.search_exercise()
-        self.user_logout()
-
-    def test_search_exercise_authorized(self):
-        '''
-        Test deleting an exercise by an authorized user
-        '''
-
-        self.user_login()
-        self.search_exercise(fail=False)
-        self.user_logout()
-
+        
 
 class DeleteExercisesTestCase(WorkoutManagerDeleteTestCase):
     '''
