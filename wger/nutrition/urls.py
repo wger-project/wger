@@ -70,7 +70,9 @@ urlpatterns = patterns('wger.nutrition.views',
     url(r'^ingredient/overview/$', 'ingredient.ingredient_overview'),
     url(r'^ingredient/(?P<id>\d+)/view/$', 'ingredient.ingredient_view'),
     url(r'^ingredient/(?P<id>\d+)/view/(?P<slug>[-\w]+)/$', 'ingredient.ingredient_view'),
-    url(r'^ingredient/search/$', 'ingredient.ingredient_search'),
+    url(r'^ingredient/search/$',
+        'ingredient.ingredient_search',
+        name='ingredient-search'),
 
     # Ingredient units
     url(r'^ingredient/unit/list/$',

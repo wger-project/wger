@@ -5,6 +5,27 @@
 {% load manager_extras %}
 
 
+{% block header %}
+<script>
+$(document).ready(function() {
+    // Prevent the form from being submited if JavaScript is enabled
+    $("#search_form").submit(function() {return false;});
+
+    // Init the autocompleter
+    $("#ingredient-search").autocomplete({
+            source: "{% url 'ingredient-search' %}",
+            minLength: 2,
+            select: function(event, ui) {
+
+                // Redirect to exercise after clicking on a result
+                // Path is hard coded here, because we can't use the url-tag
+                window.location.href = '/nutrition/ingredient/' + ui.item.id + '/view/'
+            }
+        });
+});
+</script>
+{% endblock %}
+
 {% block title %}{% trans "Ingredient overview" %}{% endblock %}
 
 
@@ -31,6 +52,21 @@
 {% endblock %}
 
 {% block sidebar %}
+<h3>{% trans "Search" %}</h3>
+<div class="ui-widget">
+    <form action="{% url 'ingredient-search' %}"
+            method="get"
+            id="search_form">
+        {% csrf_token %}
+        <input name="term"
+                type="search"
+                id="ingredient-search"
+                class="ajax-form-element"
+                placeholder="{% trans 'ingredient name' %}"
+                style="width:100%;">
+    </form>
+</div>
+
 {% if perms.exercises %}
 <h3>{% trans "Options" %}</h3>
 <p>

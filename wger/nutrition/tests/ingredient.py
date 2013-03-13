@@ -13,6 +13,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+import json
+
 from django.core.urlresolvers import reverse
 
 from wger.nutrition.models import Ingredient
@@ -126,3 +128,46 @@ class IngredientDetailTestCase(WorkoutManagerTestCase):
         '''
 
         self.ingredient_detail(editor=False)
+
+
+class IngredientSearchTestCase(WorkoutManagerTestCase):
+    '''
+    Tests the ingredient search functions
+    '''
+
+    def search_ingredient(self, fail=True):
+        '''
+        Helper function
+        '''
+
+        # Perform the search
+        response = self.client.get(reverse('ingredient-search'), {'term': 'test'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['ingredients']), 2)
+        self.assertEqual(response.context['ingredients'][0].name,
+                         'Ingredient, test, 2, organic, raw')
+        self.assertEqual(response.context['ingredients'][1].name, 'Test ingredient 1')
+
+        # AJAX-Search
+        kwargs = {'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'}
+        response = self.client.get(reverse('ingredient-search'), {'term': 'test'}, **kwargs)
+        self.assertEqual(response.status_code, 200)
+        result = json.loads(response.content)
+        self.assertEqual(len(result), 2)
+        self.assertEqual(result[0]['value'], 'Ingredient, test, 2, organic, raw')
+        self.assertEqual(result[1]['value'], 'Test ingredient 1')
+
+    def test_search_ingredient_anonymous(self):
+        '''
+        Test searching for an ingredient by an anonymous user
+        '''
+
+        self.search_ingredient()
+
+    def test_search_ingredient_logged_in(self):
+        '''
+        Test searching for an ingredient by a logged in user
+        '''
+
+        self.user_login('test')
+        self.search_ingredient()
