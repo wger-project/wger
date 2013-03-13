@@ -37,7 +37,13 @@
         </tr>
         <tr>
             <td style="padding-left: 3em;">{% trans "Sugar content in carbohydrates" %}</td>
-            <td itemprop="sugarContent">{{ingredient.carbohydrates_sugar}} g</td>
+            <td itemprop="sugarContent">
+                {% if ingredient.carbohydrates_sugar %}
+                    {{ingredient.carbohydrates_sugar}} g
+                {% else %}
+                    {% trans "n.A." %}
+                {% endif %}
+            </td>
         </tr>
         <tr>
             <td>{% trans "Fat" %}</td>
@@ -45,7 +51,13 @@
         </tr>
         <tr>
             <td style="padding-left: 3em;">{% trans "Saturated fat content in fats" %}</td>
-            <td itemprop="saturatedFatContent">{{ingredient.fat_saturated}} g</td>
+            <td itemprop="saturatedFatContent">
+                {% if ingredient.fat_saturated %}
+                    {{ingredient.fat_saturated}} g
+                {% else %}
+                    {% trans "n.A." %}
+                {% endif %}
+            </td>
         </tr>
     </tbody>
 </table>
@@ -61,11 +73,23 @@
     <tbody>
         <tr>
             <td style="width:80%;">{% trans "Fibres" %}</td>
-            <td itemprop="fiberContent">{% if ingredient.fibres %}{{ingredient.fibres}} g{% else %}-/-{% endif %}</td>
+            <td itemprop="fiberContent">
+                {% if ingredient.fibres %}
+                    {{ingredient.fibres}} g
+                {% else %}
+                    {% trans "n.A." %}
+                {% endif %}
+            </td>
         </tr>
         <tr>
             <td>{% trans "Sodium" %}</td>
-            <td itemprop="sodiumContent">{% if ingredient.sodium %}{{ingredient.sodium}} g{% else %}-/-{% endif %}</td>
+            <td itemprop="sodiumContent">
+                {% if ingredient.sodium %}
+                    {{ingredient.sodium}} g
+                {% else %}
+                    {% trans "n.A." %}
+                {% endif %}
+            </td>
         </tr>
     </tbody>
 </table>
