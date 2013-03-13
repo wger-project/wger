@@ -1,5 +1,21 @@
 [
     {
+        "pk": 8304, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "4-Korn Waffeln", 
+            "language": 1, 
+            "sodium": null, 
+            "energy": 403, 
+            "fat": 3.9, 
+            "carbohydrates_sugar": null, 
+            "fat_saturated": null, 
+            "fibres": null, 
+            "protein": 10.2, 
+            "carbohydrates": 80.2
+        }
+    }, 
+    {
         "pk": 7902, 
         "model": "nutrition.ingredient", 
         "fields": {
@@ -51008,6 +51024,22 @@
         }
     }, 
     {
+        "pk": 8306, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Dinkelwaffeln", 
+            "language": 1, 
+            "sodium": null, 
+            "energy": 370, 
+            "fat": 2.4, 
+            "carbohydrates_sugar": null, 
+            "fat_saturated": null, 
+            "fibres": null, 
+            "protein": 16.6, 
+            "carbohydrates": 66.2
+        }
+    }, 
+    {
         "pk": 7425, 
         "model": "nutrition.ingredient", 
         "fields": {
@@ -65149,6 +65181,22 @@
             "fibres": 9.5, 
             "protein": 12.5, 
             "carbohydrates": 57.0
+        }
+    }, 
+    {
+        "pk": 8303, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Haferkleie", 
+            "language": 1, 
+            "sodium": 0.002, 
+            "energy": 350, 
+            "fat": 6.6, 
+            "carbohydrates_sugar": 1.8, 
+            "fat_saturated": 0.9, 
+            "fibres": 16.0, 
+            "protein": 16.1, 
+            "carbohydrates": 48.6
         }
     }, 
     {
@@ -105709,6 +105757,22 @@
             "fibres": 3.4, 
             "protein": 8.0, 
             "carbohydrates": 79.9
+        }
+    }, 
+    {
+        "pk": 8305, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "name": "Reiswaffeln, ohne Salz", 
+            "language": 1, 
+            "sodium": 0.005, 
+            "energy": 392, 
+            "fat": 3.6, 
+            "carbohydrates_sugar": 0.9, 
+            "fat_saturated": 0.6, 
+            "fibres": 3.5, 
+            "protein": 8.0, 
+            "carbohydrates": 80.2
         }
     }, 
     {
