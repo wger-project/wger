@@ -266,7 +266,8 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         '''
 
         # Search for exercises (1 hit, "A very cool exercise")
-        response = self.client.get(reverse('wger.exercises.views.exercise_search') + '?term=cool')
+        response = self.client.get(reverse('wger.exercises.views.exercise_search'),
+                                   {'term': 'cool'})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['exercises']), 1)
         self.assertEqual(response.context['exercises'][0].name, 'A very cool exercise')
@@ -274,8 +275,9 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         kwargs = {'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'}
 
         # AJAX-Search for exercises (1 hit, "A very cool exercise")
-        response = self.client.get(reverse('wger.exercises.views.exercise_search') +
-                                   '?term=cool', **kwargs)
+        response = self.client.get(reverse('wger.exercises.views.exercise_search'),
+                                   {'term': 'cool'},
+                                   **kwargs)
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content)
         self.assertEqual(len(result), 1)
