@@ -142,8 +142,6 @@ class YamlFormMixin(ModelFormMixin):
 
 
 class YamlDeleteMixin(ModelFormMixin):
-    template_name = 'delete.html'
-
     form_action = ''
     form_action_urlname = ''
     title = ''

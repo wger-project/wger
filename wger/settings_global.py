@@ -55,8 +55,12 @@ AUTH_PROFILE_MODULE = 'manager.UserProfile'
 TEMPLATE_CONTEXT_PROCESSORS = (
     'wger.manager.context_processor.processor',
     'django.contrib.auth.context_processors.auth',
+    'django.contrib.messages.context_processors.messages',
     'django_browserid.context_processors.browserid_form',
 )
+
+# Store the user messages in the session
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 
 # Local time zone for this installation. Choices can be found here:
