@@ -14,7 +14,7 @@ class Migration(SchemaMigration):
             ('ingredient', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['nutrition.Ingredient'])),
             ('unit', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['nutrition.WeightUnit'])),
             ('gramm', self.gf('django.db.models.fields.IntegerField')()),
-            ('amount', self.gf('django.db.models.fields.DecimalField')(max_digits=5, decimal_places=2)),
+            ('amount', self.gf('django.db.models.fields.DecimalField')(default=1, max_digits=5, decimal_places=2)),
         ))
         db.send_create_signal('nutrition', ['IngredientWeightUnit'])
 
@@ -28,12 +28,7 @@ class Migration(SchemaMigration):
 
         # Adding field 'MealItem.weight_unit'
         db.add_column('nutrition_mealitem', 'weight_unit',
-                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['nutrition.IngredientWeightUnit'], null=True),
-                      keep_default=False)
-
-        # Adding field 'MealItem.weight_type'
-        db.add_column('nutrition_mealitem', 'weight_type',
-                      self.gf('django.db.models.fields.CharField')(default='1', max_length=2),
+                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['nutrition.IngredientWeightUnit'], null=True, blank=True),
                       keep_default=False)
 
 
@@ -46,9 +41,6 @@ class Migration(SchemaMigration):
 
         # Deleting field 'MealItem.weight_unit'
         db.delete_column('nutrition_mealitem', 'weight_unit_id')
-
-        # Deleting field 'MealItem.weight_type'
-        db.delete_column('nutrition_mealitem', 'weight_type')
 
 
     models = {
@@ -110,7 +102,7 @@ class Migration(SchemaMigration):
         },
         'nutrition.ingredientweightunit': {
             'Meta': {'object_name': 'IngredientWeightUnit'},
-            'amount': ('django.db.models.fields.DecimalField', [], {'max_digits': '5', 'decimal_places': '2'}),
+            'amount': ('django.db.models.fields.DecimalField', [], {'default': '1', 'max_digits': '5', 'decimal_places': '2'}),
             'gramm': ('django.db.models.fields.IntegerField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'ingredient': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['nutrition.Ingredient']"}),
@@ -130,8 +122,7 @@ class Migration(SchemaMigration):
             'ingredient': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['nutrition.Ingredient']"}),
             'meal': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['nutrition.Meal']"}),
             'order': ('django.db.models.fields.IntegerField', [], {'max_length': '1', 'blank': 'True'}),
-            'weight_type': ('django.db.models.fields.CharField', [], {'default': "'1'", 'max_length': '2'}),
-            'weight_unit': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['nutrition.IngredientWeightUnit']", 'null': 'True'})
+            'weight_unit': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['nutrition.IngredientWeightUnit']", 'null': 'True', 'blank': 'True'})
         },
         'nutrition.nutritionplan': {
             'Meta': {'ordering': "['-creation_date']", 'object_name': 'NutritionPlan'},
@@ -142,7 +133,7 @@ class Migration(SchemaMigration):
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
         },
         'nutrition.weightunit': {
-            'Meta': {'object_name': 'WeightUnit'},
+            'Meta': {'ordering': "['name']", 'object_name': 'WeightUnit'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'language': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['exercises.Language']"}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '200'})

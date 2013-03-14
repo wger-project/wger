@@ -73,6 +73,9 @@ urlpatterns = patterns('wger.nutrition.views',
     url(r'^ingredient/search/$',
         'ingredient.ingredient_search',
         name='ingredient-search'),
+    url(r'^ingredient/(?P<pk>\d+)/get-units$',
+        'ingredient.ajax_get_ingredient_units',
+        name='ingredient-get-units'),
 
     # Ingredient units
     url(r'^ingredient/unit/list/$',

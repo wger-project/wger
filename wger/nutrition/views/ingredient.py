@@ -16,6 +16,7 @@
 import logging
 import json
 
+from django import forms
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
@@ -26,7 +27,6 @@ from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.forms import ModelForm
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
@@ -43,6 +43,8 @@ from wger.nutrition.models import MealItem
 from wger.nutrition.models import Ingredient
 from wger.nutrition.models import WeightUnit
 from wger.nutrition.models import IngredientWeightUnit
+from wger.nutrition.models import MEALITEM_WEIGHT_GRAM
+from wger.nutrition.models import MEALITEM_WEIGHT_UNIT
 
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.pagesizes import A4, cm
@@ -57,17 +59,31 @@ from wger.workout_manager.generic_views import YamlFormMixin
 from wger.workout_manager.generic_views import YamlDeleteMixin
 from wger.workout_manager import helpers
 
-
 logger = logging.getLogger('workout_manager.custom')
 
 
 # ************************
 # Meal ingredient functions
 # ************************
-class MealItemForm(ModelForm):
+class MealItemForm(forms.ModelForm):
+    weight_unit = forms.ModelChoiceField(queryset=IngredientWeightUnit.objects.none(),
+                                         empty_label="g",
+                                         required=False)
+
     class Meta:
         model = MealItem
-        exclude = ('meal', 'order')
+        exclude = ('meal', 'order', )
+
+    def __init__(self, *args, **kwargs):
+        super(MealItemForm, self).__init__(*args, **kwargs)
+        try:
+            ingredient_id = args[0]['ingredient']
+        except IndexError:
+            ingredient_id = None
+
+        if ingredient_id:
+            self.fields['weight_unit'].queryset = \
+                IngredientWeightUnit.objects.filter(ingredient_id=ingredient_id)
 
 
 @login_required
@@ -197,7 +213,7 @@ def ingredient_view(request, id, slug=None):
                               context_instance=RequestContext(request))
 
 
-class IngredientForm(ModelForm):
+class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient
         exclude = ('language',)
@@ -287,3 +303,17 @@ def ingredient_search(request):
         return render_to_response('ingredient_search.html',
                                   template_data,
                                   context_instance=RequestContext(request))
+
+
+def ajax_get_ingredient_units(request, pk):
+    '''
+    Fetches the available ingredient units
+    '''
+
+    units = IngredientWeightUnit.objects.filter(ingredient_id=pk)
+    result = []
+    for unit in units:
+        result.append({'id': unit.id, 'name': unit.unit.name, 'amount': unit.amount})
+
+    return HttpResponse(json.dumps(result, cls=helpers.DecimalJsonEncoder),
+                        'application/json')

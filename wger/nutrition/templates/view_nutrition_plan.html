@@ -93,9 +93,7 @@ $(document).ready(function() {
              <ul>
             {% for item in meal.mealitem_set.select_related %}
                 <li>
-                    {{ item.amount_gramm }}
-                    {% if item.weight_type == MEALITEM_WEIGHT_GRAM %}
-                        g
+                    {{ item.amount_gramm }}{% if item.get_unit_type == MEALITEM_WEIGHT_GRAM %}g
                     {% else %}
                         {{ item.weight_unit.unit.name }}
                     {% endif %}

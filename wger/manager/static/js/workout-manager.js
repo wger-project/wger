@@ -373,6 +373,16 @@ function init_ingredient_autocompleter()
             // After clicking on a result set the value of the hidden field
             $('#id_ingredient').val(ui.item.id);
             $('#exercise_name').html(ui.item.label);
+            
+            // See if the ingredient has any units and set the values for the forms
+            $.get('/' + get_current_language() + '/nutrition/ingredient/' + ui.item.id + '/get-units',
+                  function(data){
+                        $.each(data, function(index, value) {
+                            $('#id_unit').append(new Option(value.name, value.id));
+                            $('#id_weight_unit').append(new Option(value.name, value.id));
+                            //console.log(index + ': ' + value.name);
+                        });
+                  });
         }
     });
 }

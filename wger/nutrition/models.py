@@ -27,6 +27,10 @@ from django.utils.translation import ugettext_lazy as _
 from wger.exercises.models import Language
 
 
+MEALITEM_WEIGHT_GRAM = '1'
+MEALITEM_WEIGHT_UNIT = '2'
+
+
 class NutritionPlan(models.Model):
     '''
     A nutrition plan
@@ -73,7 +77,7 @@ class NutritionPlan(models.Model):
             for item in meal.mealitem_set.select_related():
 
                 # Calculate the base weight of the item
-                if item.weight_type == MEALITEM_WEIGHT_GRAM:
+                if item.get_unit_type() == MEALITEM_WEIGHT_GRAM:
                     item_weight = item.amount_gramm
                 else:
                     item_weight = (item.amount_gramm *
@@ -262,15 +266,6 @@ class Meal(models.Model):
         return self.plan
 
 
-MEALITEM_WEIGHT_GRAM = '1'
-MEALITEM_WEIGHT_UNIT = '2'
-
-MEALITEM_WEIGHT_TYPES = (
-    (MEALITEM_WEIGHT_GRAM, _('Weight in grams')),
-    (MEALITEM_WEIGHT_UNIT, _('Weight in units')),
-)
-
-
 class MealItem(models.Model):
     '''
     An item (component) of a meal
@@ -280,16 +275,15 @@ class MealItem(models.Model):
     ingredient = models.ForeignKey(Ingredient, verbose_name=_('Ingredient'))
     weight_unit = models.ForeignKey(IngredientWeightUnit,
                                     verbose_name=_('Weight unit'),
-                                    null=True)
+                                    null=True,
+                                    blank=True,
+                                    )
 
     order = models.IntegerField(max_length=1, blank=True, verbose_name=_('Order'))
     amount_gramm = models.IntegerField(max_length=4,
                                        blank=True,
                                        validators=[MaxValueValidator(1000)],
                                        verbose_name=_('Amount in gramms'))
-    weight_type = models.CharField(max_length=2,
-                                   choices=MEALITEM_WEIGHT_TYPES,
-                                   default=MEALITEM_WEIGHT_GRAM)
 
     def __unicode__(self):
         '''
@@ -302,3 +296,15 @@ class MealItem(models.Model):
         Returns the object that has owner information
         '''
         return self.meal.plan
+
+    def get_unit_type(self):
+        '''
+        Returns the type of unit used:
+        - a value in grams
+        - a 'human' unit like 'a cup' or 'a slice'
+        '''
+
+        if self.weight_unit:
+            return MEALITEM_WEIGHT_UNIT
+        else:
+            return MEALITEM_WEIGHT_GRAM
