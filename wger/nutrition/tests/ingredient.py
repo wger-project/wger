@@ -171,3 +171,47 @@ class IngredientSearchTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         self.search_ingredient()
+
+
+class IngredientUnitSearchTestCase(WorkoutManagerTestCase):
+    '''
+    Tests the ingredient unit search functions
+    '''
+
+    def search_ingredient_unit(self, fail=True):
+        '''
+        Helper function
+        '''
+
+        # Search for an ingredient that has units
+        response = self.client.get(reverse('ingredient-get-units', kwargs={'pk': 1}))
+        if fail:
+            self.assertEqual(response.status_code, 302)
+        else:
+            self.assertEqual(response.status_code, 200)
+            result = json.loads(response.content)
+            self.assertEqual(len(result), 3)
+
+        # Search for an ingredient that has no units
+        response = self.client.get(reverse('ingredient-get-units', kwargs={'pk': 2}))
+        if fail:
+            self.assertEqual(response.status_code, 302)
+        else:
+            self.assertEqual(response.status_code, 200)
+            result = json.loads(response.content)
+            self.assertEqual(len(result), 0)
+
+    def test_search_ingredient_unit_anonymous(self):
+        '''
+        Test searching for an ingredient by an anonymous user
+        '''
+
+        self.search_ingredient_unit(fail=True)
+
+    def test_search_ingredient__unitlogged_in(self):
+        '''
+        Test searching for an ingredient by a logged in user
+        '''
+
+        self.user_login('test')
+        self.search_ingredient_unit(fail=False)

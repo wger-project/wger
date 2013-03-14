@@ -305,6 +305,7 @@ def ingredient_search(request):
                                   context_instance=RequestContext(request))
 
 
+@login_required
 def ajax_get_ingredient_units(request, pk):
     '''
     Fetches the available ingredient units
