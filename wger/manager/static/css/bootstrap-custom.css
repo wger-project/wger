@@ -17,3 +17,11 @@
 .dropdown li{
     margin-left:0px;
 }
+
+
+.close{
+    float:right;
+    opacity: 0.2;
+    font-weight: bold;
+}
+
