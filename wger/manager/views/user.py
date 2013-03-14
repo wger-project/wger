@@ -33,8 +33,8 @@ from django.contrib.auth import login as django_login
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User as Django_User
-
 from django.contrib.auth.views import login as django_loginview
+from django.contrib import messages
 
 from wger.manager.models import DaysOfWeek
 from wger.manager.models import TrainingSchedule
@@ -101,6 +101,7 @@ def registration(request):
             user.save()
             user = authenticate(username=username, password=password)
             django_login(request, user)
+            messages.success(request, _('New user sucessfully registered'))
             return HttpResponseRedirect(reverse('dashboard'))
     else:
         form = RegistrationForm()
@@ -316,6 +317,7 @@ def preferences(request):
     template_data['email_form'] = email_form
 
     if redirect:
+        messages.success(request, _('Settings sucessfully updated'))
         return HttpResponseRedirect(reverse('preferences'))
     else:
         return render_to_response('user/preferences.html',
