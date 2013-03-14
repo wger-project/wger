@@ -149,6 +149,26 @@
         }
     }, 
     {
+        "pk": 1, 
+        "model": "nutrition.mealitem", 
+        "fields": {
+            "ingredient": 1, 
+            "amount_gramm": 200, 
+            "meal": 1, 
+            "order": 1
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "nutrition.mealitem", 
+        "fields": {
+            "ingredient": 1, 
+            "amount_gramm": 200, 
+            "meal": 1, 
+            "order": 1
+        }
+    }, 
+    {
         "pk": 3, 
         "model": "nutrition.mealitem", 
         "fields": {
@@ -230,6 +250,16 @@
     }, 
     {
         "pk": 11, 
+        "model": "nutrition.mealitem", 
+        "fields": {
+            "ingredient": 4, 
+            "amount_gramm": 200, 
+            "meal": 10, 
+            "order": 1
+        }
+    }, 
+    {
+        "pk": 12, 
         "model": "nutrition.mealitem", 
         "fields": {
             "ingredient": 4, 

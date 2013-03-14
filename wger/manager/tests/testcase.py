@@ -22,6 +22,8 @@ from django.test import TestCase
 from django.test import LiveServerTestCase
 from django.db import models
 
+STATUS_CODES_FAIL = (302, 403, 404)
+
 
 class WorkoutManagerTestCase(TestCase):
     fixtures = ('days_of_week',
@@ -107,7 +109,7 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
         self.assertEqual(count_before, count_after)
 
         if fail:
-            self.assertIn(response.status_code, (403, 302))
+            self.assertIn(response.status_code, STATUS_CODES_FAIL)
         else:
             self.assertEqual(response.status_code, 200)
 
@@ -116,7 +118,7 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
         count_after = self.object_class.objects.count()
 
         if fail:
-            self.assertIn(response.status_code, (403, 302))
+            self.assertIn(response.status_code, STATUS_CODES_FAIL)
             self.assertEqual(count_before, count_after)
         else:
             self.assertEqual(response.status_code, 302)
@@ -182,7 +184,7 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
         entry_before = self.object_class.objects.get(pk=self.pk)
 
         if fail:
-            self.assertIn(response.status_code, (302, 403))
+            self.assertIn(response.status_code, STATUS_CODES_FAIL)
             self.assertTemplateUsed('login.html')
 
         else:
@@ -201,7 +203,7 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
 
         # Check the results
         if fail:
-            self.assertIn(response.status_code, (302, 403))
+            self.assertIn(response.status_code, STATUS_CODES_FAIL)
             self.assertTemplateUsed('login.html')
             self.assertEqual(entry_before, entry_after)
 
@@ -269,8 +271,8 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
             response = self.client.get(self.url)
 
         if fail:
-            self.assertIn(response.status_code, (302, 403))
-            self.assertTemplateUsed('login.html')
+            self.assertIn(response.status_code, STATUS_CODES_FAIL)
+            #self.assertTemplateUsed('login.html')
 
         else:
             self.assertEqual(response.status_code, 200)
@@ -286,7 +288,7 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
 
         count_after = self.object_class.objects.count()
         if fail:
-            self.assertIn(response.status_code, (302, 403))
+            self.assertIn(response.status_code, STATUS_CODES_FAIL)
             self.assertTemplateUsed('login.html')
 
             self.assertRaises(self.object_class.DoesNotExist,
