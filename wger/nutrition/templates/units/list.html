@@ -19,7 +19,7 @@
 <tbody>
 {% for unit in unit_list %}
 <tr>
-    <td>
+    <td class="no-hover">
         <a href="{% url 'weight-unit-delete' unit.id %}"
            class="modal-dialog">
             <img src="{% static 'images/icons/trash.svg' %}"
