@@ -66,9 +66,9 @@ class YamlFormMixin(ModelFormMixin):
 
         # Drop down lists get a special CSS class
         select_list = []
-        for i in self.form_fields:
-            if isinstance(kwargs['form'][i].field, models.ModelChoiceField):
-                select_list.append(i)
+        for i in context['form_fields']:
+            if isinstance(i.field, models.ModelChoiceField):
+                select_list.append(i.name)
         context['select_lists'] = select_list
 
         # Custom JS code on form (autocompleter, editor, etc.)
