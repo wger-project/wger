@@ -281,7 +281,6 @@ class MealItem(models.Model):
 
     order = models.IntegerField(max_length=1, blank=True, verbose_name=_('Order'))
     amount_gramm = models.IntegerField(max_length=4,
-                                       blank=True,
                                        validators=[MaxValueValidator(1000)],
                                        verbose_name=_('Amount in gramms'))
 
