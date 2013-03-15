@@ -76,10 +76,18 @@ class MealItemForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(MealItemForm, self).__init__(*args, **kwargs)
+
+        # Get the ingredient_id
+        # Instance, we are editing an existing mealitem
+        if kwargs['instance']:
+            ingredient_id = kwargs['instance'].ingredient_id
+
+        # There is data in args (data from POST): either new or editing
         try:
             ingredient_id = args[0]['ingredient']
         except IndexError:
-            ingredient_id = None
+            if not ingredient_id:
+                ingredient_id = None
 
         if ingredient_id:
             self.fields['weight_unit'].queryset = \
