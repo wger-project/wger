@@ -238,7 +238,7 @@ def export_pdf(request, id):
             P = Paragraph('<para>%s</para>' % item.ingredient.name,
                           styleSheet["Normal"])
 
-            if item.weight_type == MEALITEM_WEIGHT_GRAM:
+            if item.get_unit_type() == MEALITEM_WEIGHT_GRAM:
                 unit_name = 'g'
             else:
                 unit_name = ' ' + item.weight_unit.unit.name

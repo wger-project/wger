@@ -234,10 +234,9 @@ class IngredientWeightUnit(models.Model):
         Return a more human-readable representation
         '''
 
-        return u"{0}: {1}{2} á {3}g".format(self.ingredient.name,
-                                             self.amount,
-                                             self.unit.name,
-                                             self.gramm)
+        return u"{0}{1} ({2}g)".format(self.amount if self.amount > 1 else '',
+                                       self.unit.name,
+                                       self.gramm)
 
 
 class Meal(models.Model):

@@ -322,7 +322,10 @@ def ajax_get_ingredient_units(request, pk):
     units = IngredientWeightUnit.objects.filter(ingredient_id=pk)
     result = []
     for unit in units:
-        result.append({'id': unit.id, 'name': unit.unit.name, 'amount': unit.amount})
+        result.append({'id': unit.id,
+                       'name': unit.unit.name,
+                       'amount': unit.amount,
+                       'name_model': unicode(unit)})
 
     return HttpResponse(json.dumps(result, cls=helpers.DecimalJsonEncoder),
                         'application/json')
