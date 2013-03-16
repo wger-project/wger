@@ -179,7 +179,7 @@ def edit_meal_item(request, id, meal_id, item_id=None):
         meal_form = MealItemForm(instance=meal_item)
     template_data['form'] = meal_form
 
-    return render_to_response('edit_meal_item.html',
+    return render_to_response('meal_item/edit.html',
                               template_data,
                               context_instance=RequestContext(request))
 
@@ -205,7 +205,7 @@ def ingredient_overview(request):
     template_data['page_range'] = pagination['page_range']
     template_data['ingredients'] = pagination['page']
 
-    return render_to_response('ingredient_overview.html',
+    return render_to_response('ingredient/overview.html',
                               template_data,
                               context_instance=RequestContext(request))
 
@@ -216,7 +216,7 @@ def ingredient_view(request, id, slug=None):
     ingredient = get_object_or_404(Ingredient, pk=id)
     template_data['ingredient'] = ingredient
 
-    return render_to_response('view_ingredient.html',
+    return render_to_response('ingredient/view.html',
                               template_data,
                               context_instance=RequestContext(request))
 
@@ -308,7 +308,7 @@ def ingredient_search(request):
         template_data.update(csrf(request))
         template_data['ingredients'] = ingredients
         template_data['search_term'] = q
-        return render_to_response('ingredient_search.html',
+        return render_to_response('ingredient/search.html',
                                   template_data,
                                   context_instance=RequestContext(request))
 

@@ -68,7 +68,7 @@ def overview(request):
     plans = NutritionPlan.objects.filter(user=request.user)
     template_data['plans'] = plans
 
-    return render_to_response('nutrition_overview.html',
+    return render_to_response('plan/overview.html',
                               template_data,
                               context_instance=RequestContext(request))
 
@@ -129,7 +129,7 @@ def view(request, id):
 
     template_data['nutritional_data'] = plan.get_nutritional_values()
 
-    return render_to_response('view_nutrition_plan.html',
+    return render_to_response('plan/view.html',
                               template_data,
                               context_instance=RequestContext(request))
 
