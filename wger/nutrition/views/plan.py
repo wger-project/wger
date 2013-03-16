@@ -242,7 +242,7 @@ def export_pdf(request, id):
                 unit_name = 'g'
             else:
                 unit_name = ' ' + item.weight_unit.unit.name
-            data.append(["{0}{1}".format(item.amount_gramm, unit_name), P])
+            data.append(["{0}{1}".format(item.amount, unit_name), P])
 
     # Set general table styles
 

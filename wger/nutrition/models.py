@@ -78,9 +78,9 @@ class NutritionPlan(models.Model):
 
                 # Calculate the base weight of the item
                 if item.get_unit_type() == MEALITEM_WEIGHT_GRAM:
-                    item_weight = float(item.amount_gramm)
+                    item_weight = float(item.amount)
                 else:
-                    item_weight = (float(item.amount_gramm) *
+                    item_weight = (float(item.amount) *
                                    float(item.weight_unit.amount) *
                                    item.weight_unit.gramm)
 
@@ -279,16 +279,16 @@ class MealItem(models.Model):
                                     )
 
     order = models.IntegerField(max_length=1, blank=True, verbose_name=_('Order'))
-    amount_gramm = models.DecimalField(decimal_places=2,
-                                       max_digits=6,
-                                       validators=[MaxValueValidator(1000)],
-                                       verbose_name=_('Amount in gramms'))
+    amount = models.DecimalField(decimal_places=2,
+                                 max_digits=6,
+                                 validators=[MaxValueValidator(1000)],
+                                 verbose_name=_('Amount'))
 
     def __unicode__(self):
         '''
         Return a more human-readable representation
         '''
-        return "%sg ingredient %s" % (self.amount_gramm, self.ingredient_id)
+        return "%sg ingredient %s" % (self.amount, self.ingredient_id)
 
     def get_owner_object(self):
         '''
