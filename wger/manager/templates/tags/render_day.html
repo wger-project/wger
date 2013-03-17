@@ -160,7 +160,7 @@ $(document).ready(function() {
         <tr>
             <td colspan="2">
                 <div class="box warning">
-                    {% trans "No sets for this day." %}
+                    {% trans "No exercises selected for this day." %}
                     <a href="{% url 'wger.manager.views.set.edit_set' workout.id day.id None %}"
                        class="modal-dialog">{% trans "Add one now." %}
                     </a>
@@ -171,7 +171,7 @@ $(document).ready(function() {
         <tr>
             <td colspan="2">
                 <a href="{% url 'wger.manager.views.set.edit_set' workout.id day.id None %}"
-                   class="modal-dialog">{% trans "Add workout set" %}</a>
+                   class="modal-dialog">{% trans "Add exercises to workout" %}</a>
             </td>
         </tr>
     </tbody>

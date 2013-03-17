@@ -124,7 +124,7 @@ class Set(models.Model):
                                 blank=True,
                                 null=True,
                                 verbose_name=_('Order'))
-    sets = models.IntegerField(validators=[MaxValueValidator(6)], verbose_name=_('Sets'))
+    sets = models.IntegerField(validators=[MaxValueValidator(6)], verbose_name=_('Number of sets'))
 
     # Metaclass to set some other properties
     class Meta:
