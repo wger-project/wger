@@ -22,6 +22,7 @@ from wger.nutrition.models import IngredientWeightUnit
 
 logger = logging.getLogger('workout_manager.custom')
 
+
 class UnitChooserForm(forms.Form):
     '''
     A small form to select an amount and a unit for an ingredient
@@ -45,4 +46,5 @@ class UnitChooserForm(forms.Form):
         else:
             ingredient_id = -1
 
-        self.fields['unit'].queryset=IngredientWeightUnit.objects.filter(ingredient_id=ingredient_id)
+        self.fields['unit'].queryset = IngredientWeightUnit.objects.filter(
+            ingredient_id=ingredient_id)

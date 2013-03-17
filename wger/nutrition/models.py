@@ -119,47 +119,48 @@ class Ingredient(models.Model):
                                  help_text=_('In kcal per 100g'))
 
     protein = models.DecimalField(decimal_places=2,
-                                max_digits=5,
-                                verbose_name=_('Protein'),
-                                help_text=_('In g per 100g of product'))
+                                  max_digits=5,
+                                  verbose_name=_('Protein'),
+                                  help_text=_('In g per 100g of product'))
 
     carbohydrates = models.DecimalField(decimal_places=2,
-                                      max_digits=5,
-                                      verbose_name=_('Carbohydrates'),
-                                      help_text=_('In g per 100g of product'))
+                                        max_digits=5,
+                                        verbose_name=_('Carbohydrates'),
+                                        help_text=_('In g per 100g of product'))
 
     carbohydrates_sugar = models.DecimalField(decimal_places=2,
-                                            max_digits=5,
-                                            blank=True,
-                                            null=True,
-                                            verbose_name=_('Sugar content in carbohydrates'),
-                                            help_text=_('In g per 100g of product'))
+                                              max_digits=5,
+                                              blank=True,
+                                              null=True,
+                                              verbose_name=_('Sugar content in carbohydrates'),
+                                              help_text=_('In g per 100g of product'))
 
     fat = models.DecimalField(decimal_places=2,
-                            max_digits=5,
-                            blank=True,
-                            verbose_name=_('Fat'),
-                            help_text=_('In g per 100g of product'))
+                              max_digits=5,
+                              blank=True,
+                              verbose_name=_('Fat'),
+                              help_text=_('In g per 100g of product'))
 
     fat_saturated = models.DecimalField(decimal_places=2,
-                                      max_digits=5,blank=True,
-                                      null=True,
-                                      verbose_name=_('Saturated fat content in fats'),
-                                      help_text=_('In g per 100g of product'))
+                                        max_digits=5,
+                                        blank=True,
+                                        null=True,
+                                        verbose_name=_('Saturated fat content in fats'),
+                                        help_text=_('In g per 100g of product'))
 
     fibres = models.DecimalField(decimal_places=2,
-                               max_digits=5,
-                               blank=True,
-                               null=True,
-                               verbose_name=_('Fibres'),
-                               help_text=_('In g per 100g of product'))
+                                 max_digits=5,
+                                 blank=True,
+                                 null=True,
+                                 verbose_name=_('Fibres'),
+                                 help_text=_('In g per 100g of product'))
 
     sodium = models.DecimalField(decimal_places=2,
-                               max_digits=5,
-                               blank=True,
-                               null=True,
-                               verbose_name=_('Sodium'),
-                               help_text=_('In g per 100g of product'))
+                                 max_digits=5,
+                                 blank=True,
+                                 null=True,
+                                 verbose_name=_('Sodium'),
+                                 help_text=_('In g per 100g of product'))
 
     def get_absolute_url(self):
         '''
@@ -324,8 +325,8 @@ class MealItem(models.Model):
             item_weight = self.amount
         else:
             item_weight = (self.amount *
-                            self.weight_unit.amount *
-                            self.weight_unit.gramm)
+                           self.weight_unit.amount *
+                           self.weight_unit.gramm)
 
         nutritional_info['energy'] += self.ingredient.energy * item_weight / 100
         nutritional_info['protein'] += self.ingredient.protein * item_weight / 100
