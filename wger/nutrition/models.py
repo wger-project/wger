@@ -67,7 +67,9 @@ class NutritionPlan(models.Model):
         return reverse('wger.nutrition.views.plan.view', kwargs={'id': self.id})
 
     def get_nutritional_values(self):
-        # Sum the nutrional info
+        '''
+        Sums the nutrional info of all items in the plan
+        '''
         nutritional_info = {'energy': 0,
                             'protein': 0,
                             'carbohydrates': 0,
@@ -77,20 +79,16 @@ class NutritionPlan(models.Model):
                             'fibres': 0,
                             'sodium': 0}
         for meal in self.meal_set.select_related():
+            values = meal.get_nutritional_values()
 
-            # Get the calculated values from the meal item and add them
-            for item in meal.mealitem_set.select_related():
-
-                values = item.get_nutritional_values()
-
-                nutritional_info['energy'] += values['energy']
-                nutritional_info['protein'] += values['protein']
-                nutritional_info['carbohydrates'] += values['carbohydrates']
-                nutritional_info['carbohydrates_sugar'] += values['carbohydrates_sugar']
-                nutritional_info['fat'] += values['fat']
-                nutritional_info['fat_saturated'] += values['fat_saturated']
-                nutritional_info['fibres'] += values['fibres']
-                nutritional_info['sodium'] += values['sodium']
+            nutritional_info['energy'] += values['energy']
+            nutritional_info['protein'] += values['protein']
+            nutritional_info['carbohydrates'] += values['carbohydrates']
+            nutritional_info['carbohydrates_sugar'] += values['carbohydrates_sugar']
+            nutritional_info['fat'] += values['fat']
+            nutritional_info['fat_saturated'] += values['fat_saturated']
+            nutritional_info['fibres'] += values['fibres']
+            nutritional_info['sodium'] += values['sodium']
 
         return nutritional_info
 
@@ -264,6 +262,35 @@ class Meal(models.Model):
         '''
         return self.plan
 
+    def get_nutritional_values(self):
+        '''
+        Sums the nutrional info of all items in the meal
+        '''
+        nutritional_info = {'energy': 0,
+                            'protein': 0,
+                            'carbohydrates': 0,
+                            'carbohydrates_sugar': 0,
+                            'fat': 0,
+                            'fat_saturated': 0,
+                            'fibres': 0,
+                            'sodium': 0}
+
+        # Get the calculated values from the meal item and add them
+        for item in self.mealitem_set.select_related():
+
+            values = item.get_nutritional_values()
+
+            nutritional_info['energy'] += values['energy']
+            nutritional_info['protein'] += values['protein']
+            nutritional_info['carbohydrates'] += values['carbohydrates']
+            nutritional_info['carbohydrates_sugar'] += values['carbohydrates_sugar']
+            nutritional_info['fat'] += values['fat']
+            nutritional_info['fat_saturated'] += values['fat_saturated']
+            nutritional_info['fibres'] += values['fibres']
+            nutritional_info['sodium'] += values['sodium']
+
+        return nutritional_info
+
 
 class MealItem(models.Model):
     '''
@@ -310,7 +337,7 @@ class MealItem(models.Model):
 
     def get_nutritional_values(self):
         '''
-        Sum the nutrional info
+        Sums the nutrional info for the ingredient in the MealItem
         '''
         nutritional_info = {'energy': 0,
                             'protein': 0,

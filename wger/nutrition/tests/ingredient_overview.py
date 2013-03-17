@@ -32,11 +32,11 @@ class OverviewPlanTestCase(WorkoutManagerTestCase):
         data = {
             "name": "Test ingredient",
             "language": 2,
-            "sodium": 10.549,
+            "sodium": 10.54,
             "energy": 176,
             "fat": 8.19,
             "carbohydrates_sugar": 0.0,
-            "fat_saturated": 3.244,
+            "fat_saturated": 3.24,
             "fibres": 0.0,
             "protein": 25.63,
             "carbohydrates": 0.0
@@ -50,13 +50,13 @@ class OverviewPlanTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['ingredients']), PAGINATION_OBJECTS_PER_PAGE)
 
-        response = self.client.get(reverse('wger.nutrition.views.ingredient.ingredient_overview')
-                                   + '?page=2')
+        response = self.client.get(reverse('wger.nutrition.views.ingredient.ingredient_overview'),
+                                   {'page': 2})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['ingredients']), PAGINATION_OBJECTS_PER_PAGE)
 
         rest_ingredients = Ingredient.objects.count() - 2 * PAGINATION_OBJECTS_PER_PAGE
-        response = self.client.get(reverse('wger.nutrition.views.ingredient.ingredient_overview')
-                                   + '?page=3')
+        response = self.client.get(reverse('wger.nutrition.views.ingredient.ingredient_overview'),
+                                   {'page': 3})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['ingredients']), rest_ingredients)
