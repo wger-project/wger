@@ -64,6 +64,12 @@ class Muscle(models.Model):
         '''
         return self.name
 
+    def get_owner_object(self):
+        '''
+        Muscle has no owner information
+        '''
+        return False
+
 
 class ExerciseCategory(models.Model):
     '''

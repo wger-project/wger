@@ -4,15 +4,13 @@ from django.contrib.auth.decorators import permission_required
 from wger.exercises.views import exercises
 from wger.exercises.views import comments
 from wger.exercises.views import categories
+from wger.exercises.views import muscles
 
 urlpatterns = patterns('wger.exercises.views',
 
     # Exercises
     url(r'^overview/$', 'exercises.exercise_overview'),
 
-    url(r'^muscle/overview/$',
-        exercises.MuscleListView.as_view(),
-        name='muscle-overview'),
     url(r'^search/$', 'exercises.exercise_search'),
     url(r'^(?P<id>\d+)/view/(?P<slug>[-\w]+)/$', 'exercises.exercise_view'),
     url(r'^(?P<id>\d+)/view/$', 'exercises.exercise_view'),
@@ -25,6 +23,20 @@ urlpatterns = patterns('wger.exercises.views',
     url(r'^(?P<pk>\d+)/delete/$',
         permission_required('exercises.change_exercise')(exercises.ExerciseDeleteView.as_view()),
         name='exercise-delete'),
+
+    # Muscles
+    url(r'^muscle/overview/$',
+        muscles.MuscleListView.as_view(),
+        name='muscle-overview'),
+    url(r'^muscle/add/$',
+        permission_required('exercises.change_exercise')(muscles.MuscleAddView.as_view()),
+        name='muscle-add'),
+    url(r'^muscle/(?P<pk>\d+)/edit/$',
+        permission_required('exercises.change_exercise')(muscles.MuscleUpdateView.as_view()),
+        name='muscle-edit'),
+    url(r'^muscle/(?P<pk>\d+)/delete/$',
+        permission_required('exercises.change_exercise')(muscles.MuscleDeleteView.as_view()),
+        name='muscle-delete'),
 
     # Comments
     url(r'^(?P<exercise_pk>\d+)/comment/add/$',

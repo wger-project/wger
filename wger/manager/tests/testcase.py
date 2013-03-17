@@ -27,6 +27,7 @@ STATUS_CODES_FAIL = (302, 403, 404)
 
 class WorkoutManagerTestCase(TestCase):
     fixtures = ('days_of_week',
+                'muscles',
                 'test-user-data',
                 'test-weight-data',
                 'test-exercises',
@@ -65,6 +66,10 @@ class WorkoutManagerTestCase(TestCase):
         # Standard types, simply compare
         if current_field_class in ('unicode', 'int', 'float', 'time', 'date'):
             self.assertEqual(field, value)
+
+        # boolean, convert
+        elif current_field_class == 'bool':
+            self.assertEqual(field, bool(value))
 
         # decimal, convert
         elif current_field_class == 'Decimal':

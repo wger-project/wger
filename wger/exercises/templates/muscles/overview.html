@@ -91,7 +91,27 @@ $(document).ready(function() {
                     data-target="muscle-{{muscle.id}}"
                     data-is-front="{{muscle.is_front}}"
                     itemscope itemtype="http://schema.org/Muscle">
-                    <div itemprop="name">{{muscle.name}}</div>
+                    <span itemprop="name">{{muscle.name}}</span>
+                    
+                    {% if perms.exercises %}
+                        <span style="float:right;">
+                            <a href="{% url 'muscle-edit' muscle.id %}"
+                               class="modal-dialog no-hover">
+                               <img src="{% static 'images/icons/edit.svg' %}"
+                                    width="16"
+                                    height="16"
+                                    alt="{% trans 'Edit muscle' %}"
+                                    title="{% trans 'Edit muscle' %}"></a>
+                                    
+                            <a href="{% url 'muscle-delete' muscle.id %}"
+                               class="modal-dialog no-hover">
+                               <img src="{% static 'images/icons/trash.svg' %}"
+                                    width="16"
+                                    height="16"
+                                    alt="{% trans 'Delete muscle' %}"
+                                    title="{% trans 'Delete muscle' %}"></a>
+                        </span>
+                    {% endif %}
                 </li>
                 {% endfor %}
                 </ul>
@@ -121,6 +141,27 @@ $(document).ready(function() {
         </div>
     </div>
 </div>
+
+{% if perms.exercises %}
+<h3>{% trans "Options" %}</h3>
+
+<p>
+<a href="{% url 'muscle-add' %}"
+   title="{% trans 'Add muscle' %}"
+   class="modal-dialog">
+   <img src="{% static 'images/icons/new.svg' %}"
+        width="32"
+        height="32"
+        alt="{% trans 'Add muscle' %}"
+        title="{% trans 'Add muscle' %}">
+    {% trans 'Add muscle' %}
+</a>
+</p>
+
+<p>{% blocktrans %}<strong>Important:</strong> After adding a muscle, you need
+to create a new SVG image with the contours of the muscle and place it in the
+folder <em>images/muscles</em>.{% endblocktrans %}</p>
+{% endif %}
 
 {% endblock %}
 

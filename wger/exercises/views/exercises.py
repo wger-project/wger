@@ -71,16 +71,6 @@ def exercise_overview(request):
                               context_instance=RequestContext(request))
 
 
-class MuscleListView(ListView):
-    '''
-    Overview of all muscles and their exercises
-    '''
-    model = Muscle
-    queryset = Muscle.objects.all().order_by('-is_front', 'name'),
-    context_object_name = 'muscle_list'
-    template_name = 'muscle_overview.html'
-
-
 def exercise_view(request, id, slug=None):
     '''
     Detail view for an exercise
