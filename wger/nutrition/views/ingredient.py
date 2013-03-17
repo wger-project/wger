@@ -346,7 +346,8 @@ def ajax_get_ingredient_values(request, pk):
               'fat': 0,
               'fat_saturated': 0,
               'fibres': 0,
-              'sodium': 0}
+              'sodium': 0,
+              'errors': []}
     ingredient = get_object_or_404(Ingredient, pk=pk)
 
     if request.method == 'POST':
@@ -367,7 +368,7 @@ def ajax_get_ingredient_values(request, pk):
 
             result = item.get_nutritional_values()
         else:
-            logger.debug(form.errors)
+            result['errors'] = form.errors
 
     return HttpResponse(json.dumps(result, cls=helpers.DecimalJsonEncoder),
                         'application/json')

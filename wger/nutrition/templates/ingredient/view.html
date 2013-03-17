@@ -12,6 +12,17 @@ function update_value() {
     form_data = $('#nutritional-values-form').serializeArray();
 
     $.post("{% url 'ingredient-get-values' ingredient.id %}", form_data, function(data) {
+
+        // Show any validation errors
+        $('#calculator-errors').html('');
+        if (data['errors'])
+        {
+            $.each(data['errors'], function(index, value) {
+                $('#calculator-errors').append('<p class="ym-message">'+value+'</p>');
+            });
+        }
+
+        // Replace the nutritional values
         $('#value-energy').html(parseFloat(data['energy']).toFixed(2));
         $('#value-protein').html(parseFloat(data['protein']).toFixed(2));
         $('#value-carbohydrates').html(parseFloat(data['carbohydrates']).toFixed(2));
@@ -149,6 +160,8 @@ $(document).ready(function() {
       method="post"
       action="{% url 'ingredient-get-values' ingredient.id %}"
       id="nutritional-values-form">
+    <div id="calculator-errors" class="ym-error"></div>
+
     {% csrf_token %}
     <input type="hidden" value="{{ingredient.id}}" name="ingredient"></input>
 
