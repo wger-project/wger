@@ -29,7 +29,7 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
         Tests the exercise overview page
         '''
 
-        response = self.client.get(reverse('wger.exercises.views.exercise_overview'))
+        response = self.client.get(reverse('wger.exercises.views.exercises.exercise_overview'))
 
         # Page exists
         self.assertEqual(response.status_code, 200)
@@ -102,7 +102,8 @@ class ExerciseDetailTestCase(WorkoutManagerTestCase):
         Tests the exercise details page
         '''
 
-        response = self.client.get(reverse('wger.exercises.views.exercise_view', kwargs={'id': 1}))
+        response = self.client.get(reverse('wger.exercises.views.exercises.exercise_view',
+                                   kwargs={'id': 1}))
         self.assertEqual(response.status_code, 200)
 
         # Correct tab is selected
@@ -131,7 +132,8 @@ class ExerciseDetailTestCase(WorkoutManagerTestCase):
             self.assertNotContains(response, 'Add new comment')
 
         # Ensure that non-existent exercises throw a 404.
-        response = self.client.get(reverse('wger.exercises.views.exercise_view', kwargs={'id': 42}))
+        response = self.client.get(reverse('wger.exercises.views.exercises.exercise_view',
+                                   kwargs={'id': 42}))
         self.assertEqual(response.status_code, 404)
 
     def test_exercise_detail_editor(self):
@@ -221,7 +223,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         exercise_id = response.context['exercise'].id
 
         # Exercise was saved
-        response = self.client.get(reverse('wger.exercises.views.exercise_view',
+        response = self.client.get(reverse('wger.exercises.views.exercises.exercise_view',
                                    kwargs={'id': exercise_id}))
         self.assertEqual(response.status_code, 200)
 
@@ -266,7 +268,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         '''
 
         # Search for exercises (1 hit, "A very cool exercise")
-        response = self.client.get(reverse('wger.exercises.views.exercise_search'),
+        response = self.client.get(reverse('wger.exercises.views.exercises.exercise_search'),
                                    {'term': 'cool'})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['exercises']), 1)
@@ -275,7 +277,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         kwargs = {'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'}
 
         # AJAX-Search for exercises (1 hit, "A very cool exercise")
-        response = self.client.get(reverse('wger.exercises.views.exercise_search'),
+        response = self.client.get(reverse('wger.exercises.views.exercises.exercise_search'),
                                    {'term': 'cool'},
                                    **kwargs)
         self.assertEqual(response.status_code, 200)

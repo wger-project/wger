@@ -43,7 +43,7 @@ function custom_modal_init()
         {{ comment }}
         {% if perms.exercises %}
         <span class="editoptions">
-            <a href="{% url 'wger.exercises.views.exercisecomment_delete' comment.id %}"
+            <a href="{% url 'wger.exercises.views.comments.exercisecomment_delete' comment.id %}"
                title="{% trans 'Delete' %}">
                <img src="{% static 'images/icons/trash.svg' %}"
                     width="16"
@@ -109,7 +109,7 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 
 <h3>{% trans "Back to overview" %}</h3>
 <p>
-    <a href="{% url 'wger.exercises.views.exercise_overview' %}">
+    <a href="{% url 'wger.exercises.views.exercises.exercise_overview' %}">
         <img src="{% static 'images/icons/list.svg' %}"
              width="32"
              height="32"

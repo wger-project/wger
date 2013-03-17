@@ -12,7 +12,7 @@
         Main Content
 -->
 {% block content %}
-<form action="{% url 'wger.exercises.views.exercise_search' %}"
+<form action="{% url 'wger.exercises.views.exercises.exercise_search' %}"
       method="get"
       id="exercise_search_form">
     {% csrf_token %}
@@ -21,7 +21,7 @@
 
 <ul>
 {% for exercise in exercises %}
-    <li><a href="{% url 'wger.exercises.views.exercise_view' exercise.id %}">{{ exercise.name }}</a></li>
+    <li><a href="{% url 'wger.exercises.views.exercises.exercise_view' exercise.id %}">{{ exercise.name }}</a></li>
 {% endfor %}
 </ul>
 

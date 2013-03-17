@@ -53,75 +53,6 @@ logger = logging.getLogger('workout_manager.custom')
 
 
 # ************************
-#    Exercise comments
-# ************************
-class ExerciseCommentForm(ModelForm):
-    class Meta:
-        model = ExerciseComment
-        exclude = ('exercise',)
-
-
-class ExerciseCommentEditView(YamlFormMixin, UpdateView):
-    '''
-    Generic view to update an existing exercise comment
-    '''
-
-    model = ExerciseComment
-    form_class = ExerciseCommentForm
-    title = ugettext_lazy('Edit exercise comment')
-
-    def get_success_url(self):
-        return reverse('wger.exercises.views.exercise_view', kwargs={'id': self.object.exercise.id})
-
-    # Send some additional data to the template
-    def get_context_data(self, **kwargs):
-        context = super(ExerciseCommentEditView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercisecomment-edit',
-                                         kwargs={'pk': self.object.id})
-
-        return context
-
-
-class ExerciseCommentAddView(YamlFormMixin, CreateView):
-    '''
-    Generic view to add a new exercise comment
-    '''
-
-    model = ExerciseComment
-    form_class = ExerciseCommentForm
-    title = ugettext_lazy('Add exercise comment')
-
-    def form_valid(self, form):
-        form.instance.exercise = Exercise.objects.get(pk=self.kwargs['exercise_pk'])
-
-        return super(ExerciseCommentAddView, self).form_valid(form)
-
-    def get_success_url(self):
-        return reverse('wger.exercises.views.exercise_view', kwargs={'id': self.object.exercise.id})
-
-    def get_context_data(self, **kwargs):
-        '''
-        Send some additional data to the template
-        '''
-        context = super(ExerciseCommentAddView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercisecomment-add',
-                                         kwargs={'exercise_pk': self.kwargs['exercise_pk']})
-
-        return context
-
-
-@permission_required('manager.add_exercisecomment')
-def exercisecomment_delete(request, id):
-    # Load the comment
-    comment = get_object_or_404(ExerciseComment, pk=id)
-    exercise_id = comment.exercise.id
-    comment.delete()
-
-    return HttpResponseRedirect(reverse('wger.exercises.views.exercise_view',
-                                kwargs={'id': exercise_id}))
-
-
-# ************************
 #         Exercises
 # ************************
 def exercise_overview(request):
@@ -275,7 +206,7 @@ class ExerciseDeleteView(YamlDeleteMixin, DeleteView):
     '''
 
     model = Exercise
-    success_url = reverse_lazy('wger.exercises.views.exercise_overview')
+    success_url = reverse_lazy('wger.exercises.views.exercises.exercise_overview')
     delete_message = ugettext_lazy('This will delete the exercise from all workouts.')
 
     # Send some additional data to the template
@@ -327,71 +258,3 @@ def exercise_search(request):
         return render_to_response('exercise_search.html',
                                   template_data,
                                   context_instance=RequestContext(request))
-
-
-# ************************
-#   Exercise categories
-# ************************
-class ExerciseCategoryForm(ModelForm):
-    class Meta:
-        model = ExerciseCategory
-        exclude = ('language',)
-
-
-class ExerciseCategoryAddView(YamlFormMixin, CreateView):
-    '''
-    Generic view to add a new exercise category
-    '''
-
-    model = ExerciseCategory
-    form_class = ExerciseCategoryForm
-    success_url = reverse_lazy('wger.exercises.views.exercise_overview')
-    title = ugettext_lazy('Add category')
-    form_action = reverse_lazy('exercisecategory-add')
-
-    def form_valid(self, form):
-        form.instance.language = load_language()
-
-        return super(ExerciseCategoryAddView, self).form_valid(form)
-
-
-class ExerciseCategoryUpdateView(YamlFormMixin, UpdateView):
-    '''
-    Generic view to update an existing exercise category
-    '''
-
-    model = ExerciseCategory
-    form_class = ExerciseCategoryForm
-    success_url = reverse_lazy('wger.exercises.views.exercise_overview')
-
-    # Send some additional data to the template
-    def get_context_data(self, **kwargs):
-        context = super(ExerciseCategoryUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercisecategory-edit', kwargs={'pk': self.object.id})
-        context['title'] = _('Edit %s') % self.object.name
-
-        return context
-
-    def form_valid(self, form):
-        form.instance.language = load_language()
-
-        return super(ExerciseCategoryUpdateView, self).form_valid(form)
-
-
-class ExerciseCategoryDeleteView(YamlDeleteMixin, DeleteView):
-    '''
-    Generic view to delete an existing exercise category
-    '''
-
-    model = ExerciseCategory
-    success_url = reverse_lazy('wger.exercises.views.exercise_overview')
-    delete_message = ugettext_lazy('This will also delete all exercises in this category.')
-
-    # Send some additional data to the template
-    def get_context_data(self, **kwargs):
-        context = super(ExerciseCategoryDeleteView, self).get_context_data(**kwargs)
-
-        context['title'] = _('Delete category %s?') % self.object.name
-        context['form_action'] = reverse('exercise-delete', kwargs={'pk': self.kwargs['pk']})
-
-        return context
