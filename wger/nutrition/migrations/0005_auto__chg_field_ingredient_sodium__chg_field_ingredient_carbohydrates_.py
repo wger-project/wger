@@ -8,10 +8,50 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        db.rename_column('nutrition_mealitem', 'amount_gramm', 'amount')
+
+        # Changing field 'Ingredient.sodium'
+        db.alter_column('nutrition_ingredient', 'sodium', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=5, decimal_places=2))
+
+        # Changing field 'Ingredient.carbohydrates'
+        db.alter_column('nutrition_ingredient', 'carbohydrates', self.gf('django.db.models.fields.DecimalField')(max_digits=5, decimal_places=2))
+
+        # Changing field 'Ingredient.fat'
+        db.alter_column('nutrition_ingredient', 'fat', self.gf('django.db.models.fields.DecimalField')(max_digits=5, decimal_places=2))
+
+        # Changing field 'Ingredient.carbohydrates_sugar'
+        db.alter_column('nutrition_ingredient', 'carbohydrates_sugar', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=5, decimal_places=2))
+
+        # Changing field 'Ingredient.fat_saturated'
+        db.alter_column('nutrition_ingredient', 'fat_saturated', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=5, decimal_places=2))
+
+        # Changing field 'Ingredient.fibres'
+        db.alter_column('nutrition_ingredient', 'fibres', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=5, decimal_places=2))
+
+        # Changing field 'Ingredient.protein'
+        db.alter_column('nutrition_ingredient', 'protein', self.gf('django.db.models.fields.DecimalField')(max_digits=5, decimal_places=2))
 
     def backwards(self, orm):
-        db.rename_column('nutrition_mealitem', 'amount', 'amount_gramm')
+
+        # Changing field 'Ingredient.sodium'
+        db.alter_column('nutrition_ingredient', 'sodium', self.gf('django.db.models.fields.FloatField')(null=True))
+
+        # Changing field 'Ingredient.carbohydrates'
+        db.alter_column('nutrition_ingredient', 'carbohydrates', self.gf('django.db.models.fields.FloatField')())
+
+        # Changing field 'Ingredient.fat'
+        db.alter_column('nutrition_ingredient', 'fat', self.gf('django.db.models.fields.FloatField')())
+
+        # Changing field 'Ingredient.carbohydrates_sugar'
+        db.alter_column('nutrition_ingredient', 'carbohydrates_sugar', self.gf('django.db.models.fields.FloatField')(null=True))
+
+        # Changing field 'Ingredient.fat_saturated'
+        db.alter_column('nutrition_ingredient', 'fat_saturated', self.gf('django.db.models.fields.FloatField')(null=True))
+
+        # Changing field 'Ingredient.fibres'
+        db.alter_column('nutrition_ingredient', 'fibres', self.gf('django.db.models.fields.FloatField')(null=True))
+
+        # Changing field 'Ingredient.protein'
+        db.alter_column('nutrition_ingredient', 'protein', self.gf('django.db.models.fields.FloatField')())
 
     models = {
         'auth.group': {
@@ -58,17 +98,17 @@ class Migration(SchemaMigration):
         },
         'nutrition.ingredient': {
             'Meta': {'ordering': "['name']", 'object_name': 'Ingredient'},
-            'carbohydrates': ('django.db.models.fields.FloatField', [], {}),
-            'carbohydrates_sugar': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
+            'carbohydrates': ('django.db.models.fields.DecimalField', [], {'max_digits': '5', 'decimal_places': '2'}),
+            'carbohydrates_sugar': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '5', 'decimal_places': '2', 'blank': 'True'}),
             'energy': ('django.db.models.fields.IntegerField', [], {}),
-            'fat': ('django.db.models.fields.FloatField', [], {'blank': 'True'}),
-            'fat_saturated': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
-            'fibres': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
+            'fat': ('django.db.models.fields.DecimalField', [], {'max_digits': '5', 'decimal_places': '2', 'blank': 'True'}),
+            'fat_saturated': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '5', 'decimal_places': '2', 'blank': 'True'}),
+            'fibres': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '5', 'decimal_places': '2', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'language': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['exercises.Language']"}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
-            'protein': ('django.db.models.fields.FloatField', [], {}),
-            'sodium': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'})
+            'protein': ('django.db.models.fields.DecimalField', [], {'max_digits': '5', 'decimal_places': '2'}),
+            'sodium': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '5', 'decimal_places': '2', 'blank': 'True'})
         },
         'nutrition.ingredientweightunit': {
             'Meta': {'object_name': 'IngredientWeightUnit'},

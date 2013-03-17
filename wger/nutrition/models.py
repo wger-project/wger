@@ -14,7 +14,8 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
-
+import logging
+import decimal
 
 from django.db import models
 
@@ -29,6 +30,8 @@ from wger.exercises.models import Language
 
 MEALITEM_WEIGHT_GRAM = '1'
 MEALITEM_WEIGHT_UNIT = '2'
+
+logger = logging.getLogger('workout_manager.custom')
 
 
 class NutritionPlan(models.Model):
@@ -74,38 +77,21 @@ class NutritionPlan(models.Model):
                             'fibres': 0,
                             'sodium': 0}
         for meal in self.meal_set.select_related():
+
+            # Get the calculated values from the meal item and add them
             for item in meal.mealitem_set.select_related():
 
-                # Calculate the base weight of the item
-                if item.get_unit_type() == MEALITEM_WEIGHT_GRAM:
-                    item_weight = float(item.amount)
-                else:
-                    item_weight = (float(item.amount) *
-                                   float(item.weight_unit.amount) *
-                                   item.weight_unit.gramm)
+                values = item.get_nutritional_values()
 
-                nutritional_info['energy'] += item.ingredient.energy * item_weight / 100
-                nutritional_info['protein'] += item.ingredient.protein * item_weight / 100
-                nutritional_info['carbohydrates'] += item.ingredient.carbohydrates * \
-                    item_weight / 100
+                nutritional_info['energy'] += values['energy']
+                nutritional_info['protein'] += values['protein']
+                nutritional_info['carbohydrates'] += values['carbohydrates']
+                nutritional_info['carbohydrates_sugar'] += values['carbohydrates_sugar']
+                nutritional_info['fat'] += values['fat']
+                nutritional_info['fat_saturated'] += values['fat_saturated']
+                nutritional_info['fibres'] += values['fibres']
+                nutritional_info['sodium'] += values['sodium']
 
-                if item.ingredient.carbohydrates_sugar:
-                    nutritional_info['carbohydrates_sugar'] += \
-                        item.ingredient.carbohydrates_sugar * \
-                        item_weight / 100
-
-                nutritional_info['fat'] += item.ingredient.fat * item_weight / 100
-                if item.ingredient.fat_saturated:
-                    nutritional_info['fat_saturated'] += item.ingredient.fat_saturated * \
-                        item_weight / 100
-
-                if item.ingredient.fibres:
-                    nutritional_info['fibres'] += item.ingredient.fibres * \
-                        item_weight / 100
-
-                if item.ingredient.sodium:
-                    nutritional_info['sodium'] += item.ingredient.sodium * \
-                        item_weight / 100
         return nutritional_info
 
     def get_owner_object(self):
@@ -132,32 +118,45 @@ class Ingredient(models.Model):
     energy = models.IntegerField(verbose_name=_('Energy'),
                                  help_text=_('In kcal per 100g'))
 
-    protein = models.FloatField(verbose_name=_('Protein'),
+    protein = models.DecimalField(decimal_places=2,
+                                max_digits=5,
+                                verbose_name=_('Protein'),
                                 help_text=_('In g per 100g of product'))
 
-    carbohydrates = models.FloatField(verbose_name=_('Carbohydrates'),
+    carbohydrates = models.DecimalField(decimal_places=2,
+                                      max_digits=5,
+                                      verbose_name=_('Carbohydrates'),
                                       help_text=_('In g per 100g of product'))
 
-    carbohydrates_sugar = models.FloatField(blank=True,
+    carbohydrates_sugar = models.DecimalField(decimal_places=2,
+                                            max_digits=5,
+                                            blank=True,
                                             null=True,
                                             verbose_name=_('Sugar content in carbohydrates'),
                                             help_text=_('In g per 100g of product'))
 
-    fat = models.FloatField(blank=True,
+    fat = models.DecimalField(decimal_places=2,
+                            max_digits=5,
+                            blank=True,
                             verbose_name=_('Fat'),
                             help_text=_('In g per 100g of product'))
 
-    fat_saturated = models.FloatField(blank=True,
+    fat_saturated = models.DecimalField(decimal_places=2,
+                                      max_digits=5,blank=True,
                                       null=True,
                                       verbose_name=_('Saturated fat content in fats'),
                                       help_text=_('In g per 100g of product'))
 
-    fibres = models.FloatField(blank=True,
+    fibres = models.DecimalField(decimal_places=2,
+                               max_digits=5,
+                               blank=True,
                                null=True,
                                verbose_name=_('Fibres'),
                                help_text=_('In g per 100g of product'))
 
-    sodium = models.FloatField(blank=True,
+    sodium = models.DecimalField(decimal_places=2,
+                               max_digits=5,
+                               blank=True,
                                null=True,
                                verbose_name=_('Sodium'),
                                help_text=_('In g per 100g of product'))
@@ -307,3 +306,48 @@ class MealItem(models.Model):
             return MEALITEM_WEIGHT_UNIT
         else:
             return MEALITEM_WEIGHT_GRAM
+
+    def get_nutritional_values(self):
+        '''
+        Sum the nutrional info
+        '''
+        nutritional_info = {'energy': 0,
+                            'protein': 0,
+                            'carbohydrates': 0,
+                            'carbohydrates_sugar': 0,
+                            'fat': 0,
+                            'fat_saturated': 0,
+                            'fibres': 0,
+                            'sodium': 0}
+        # Calculate the base weight of the item
+        if self.get_unit_type() == MEALITEM_WEIGHT_GRAM:
+            item_weight = self.amount
+        else:
+            item_weight = (self.amount *
+                            self.weight_unit.amount *
+                            self.weight_unit.gramm)
+
+        nutritional_info['energy'] += self.ingredient.energy * item_weight / 100
+        nutritional_info['protein'] += self.ingredient.protein * item_weight / 100
+        nutritional_info['carbohydrates'] += self.ingredient.carbohydrates * \
+            item_weight / 100
+
+        if self.ingredient.carbohydrates_sugar:
+            nutritional_info['carbohydrates_sugar'] += \
+                self.ingredient.carbohydrates_sugar * \
+                item_weight / 100
+
+        nutritional_info['fat'] += self.ingredient.fat * item_weight / 100
+        if self.ingredient.fat_saturated:
+            nutritional_info['fat_saturated'] += self.ingredient.fat_saturated * \
+                item_weight / 100
+
+        if self.ingredient.fibres:
+            nutritional_info['fibres'] += self.ingredient.fibres * \
+                item_weight / 100
+
+        if self.ingredient.sodium:
+            nutritional_info['sodium'] += self.ingredient.sodium * \
+                item_weight / 100
+
+        return nutritional_info

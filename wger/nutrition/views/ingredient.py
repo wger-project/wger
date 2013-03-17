@@ -36,7 +36,7 @@ from django.views.generic import CreateView
 from django.views.generic import UpdateView
 from django.views.generic import ListView
 
-
+from wger.nutrition.forms import UnitChooserForm
 from wger.nutrition.models import NutritionPlan
 from wger.nutrition.models import Meal
 from wger.nutrition.models import MealItem
@@ -215,6 +215,9 @@ def ingredient_view(request, id, slug=None):
 
     ingredient = get_object_or_404(Ingredient, pk=id)
     template_data['ingredient'] = ingredient
+    template_data['form'] = UnitChooserForm(data={'ingredient_id': ingredient.id,
+                                                  'amount': 100,
+                                                  'unit': None})
 
     return render_to_response('ingredient/view.html',
                               template_data,
@@ -326,6 +329,45 @@ def ajax_get_ingredient_units(request, pk):
                        'name': unit.unit.name,
                        'amount': unit.amount,
                        'name_model': unicode(unit)})
+
+    return HttpResponse(json.dumps(result, cls=helpers.DecimalJsonEncoder),
+                        'application/json')
+
+
+def ajax_get_ingredient_values(request, pk):
+    '''
+    Calculates the nutritional values for the given amount and exercise
+    '''
+
+    result = {'energy': 0,
+              'protein': 0,
+              'carbohydrates': 0,
+              'carbohydrates_sugar': 0,
+              'fat': 0,
+              'fat_saturated': 0,
+              'fibres': 0,
+              'sodium': 0}
+    ingredient = get_object_or_404(Ingredient, pk=pk)
+
+    if request.method == 'POST':
+        form = UnitChooserForm(request.POST)
+
+        if form.is_valid():
+
+            # Create a temporary MealItem object
+            if form.cleaned_data['unit']:
+                unit_id = form.cleaned_data['unit'].id
+            else:
+                unit_id = None
+
+            item = MealItem()
+            item.ingredient = ingredient
+            item.weight_unit_id = unit_id
+            item.amount = form.cleaned_data['amount']
+
+            result = item.get_nutritional_values()
+        else:
+            logger.debug(form.errors)
 
     return HttpResponse(json.dumps(result, cls=helpers.DecimalJsonEncoder),
                         'application/json')
