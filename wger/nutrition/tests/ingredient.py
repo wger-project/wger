@@ -50,7 +50,7 @@ class EditIngredientTestCase(WorkoutManagerEditTestCase):
             'energy': 200,
             'fat': 10,
             'carbohydrates_sugar': 5,
-            'fat_saturated': 3.1415,
+            'fat_saturated': 3.14,
             'fibres': 2.1,
             'protein': 30,
             'carbohydrates': 10}
@@ -69,7 +69,7 @@ class AddIngredientTestCase(WorkoutManagerAddTestCase):
             'energy': 200,
             'fat': 10,
             'carbohydrates_sugar': 5,
-            'fat_saturated': 3.1415,
+            'fat_saturated': 3.14,
             'fibres': 2.1,
             'protein': 30,
             'carbohydrates': 10}
@@ -208,10 +208,72 @@ class IngredientUnitSearchTestCase(WorkoutManagerTestCase):
 
         self.search_ingredient_unit(fail=True)
 
-    def test_search_ingredient__unitlogged_in(self):
+    def test_search_ingredient_unit_logged_in(self):
         '''
         Test searching for an ingredient by a logged in user
         '''
 
         self.user_login('test')
         self.search_ingredient_unit(fail=False)
+
+
+class IngredientValuesTestCase(WorkoutManagerTestCase):
+    '''
+    Tests the nutritional value calculator for an ingredient
+    '''
+
+    def calculate_value(self):
+        '''
+        Helper function
+        '''
+
+        # Get the nutritional values in 1 gram of product
+        response = self.client.post(reverse('ingredient-get-values', kwargs={'pk': 1}),
+                                    {'amount': 1,
+                                     'ingredient': 1,
+                                     'unit': ''})
+
+        self.assertEqual(response.status_code, 200)
+        result = json.loads(response.content)
+        self.assertEqual(len(result), 8)
+        self.assertEqual(result, {u'sodium': u'0.0055',
+                                  u'energy': u'1.76',
+                                  u'fat': u'0.0819',
+                                  u'carbohydrates_sugar': 0,
+                                  u'fat_saturated': u'0.0324',
+                                  u'fibres': 0,
+                                  u'protein': u'0.2563',
+                                  u'carbohydrates': u'0'})
+
+        # Get the nutritional values in 1 unit of product
+        response = self.client.post(reverse('ingredient-get-values', kwargs={'pk': 1}),
+                                    {'amount': 1,
+                                     'ingredient': 1,
+                                     'unit': 2})
+
+        self.assertEqual(response.status_code, 200)
+        result = json.loads(response.content)
+        self.assertEqual(len(result), 8)
+        self.assertEqual(result, {u'sodium': u'0.61325',
+                                  u'energy': u'196.24',
+                                  u'fat': u'9.13185',
+                                  u'carbohydrates_sugar': 0,
+                                  u'fat_saturated': u'3.6126',
+                                  u'fibres': 0,
+                                  u'protein': u'28.57745',
+                                  u'carbohydrates': u'0.0'})
+
+    def test_calculate_value_anonymous(self):
+        '''
+        Calculate the nutritional values as an anonymous user
+        '''
+
+        self.calculate_value()
+
+    def test_calculate_value_logged_in(self):
+        '''
+        Calculate the nutritional values as a logged in user
+        '''
+
+        self.user_login('test')
+        self.calculate_value()
