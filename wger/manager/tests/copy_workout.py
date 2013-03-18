@@ -12,11 +12,14 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+import logging
+
 from django.core.urlresolvers import reverse
 
 from wger.manager.models import TrainingSchedule
-
 from wger.manager.tests.testcase import WorkoutManagerTestCase
+
+logger = logging.getLogger('workout_manager.custom')
 
 
 class CopyWorkoutTestCase(WorkoutManagerTestCase):
@@ -58,6 +61,35 @@ class CopyWorkoutTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 302)
         else:
             self.assertEqual(response.status_code, 200)
+
+            original = TrainingSchedule.objects.get(pk=3)
+            copy = TrainingSchedule.objects.get(pk=4)
+
+            days_original = original.day_set.all()
+            days_copy = copy.day_set.all()
+
+            # Test that the different attributes and objects are correctly copied over
+            for i in range(0, original.day_set.count()):
+                self.assertEqual(days_original[i].description, days_copy[i].description)
+
+                for j in range(0, days_original[i].day.count()):
+                    self.assertEqual(days_original[i].day.all()[j], days_copy[i].day.all()[j])
+
+                sets_original = days_original[i].set_set.all()
+                sets_copy = days_copy[i].set_set.all()
+
+                for j in range(days_original[i].set_set.count()):
+                    sets_original_id = sets_original[j].id
+                    sets_copy_id = sets_copy[j].id
+
+                    self.assertEqual(sets_original[j].sets, sets_copy[j].sets)
+                    self.assertEqual(sets_original[j].order, sets_copy[j].order)
+
+                    exercises_original = sets_original[j].exercises.all()
+                    exercises_copy = sets_copy[j].exercises.all()
+
+                    for k in range(sets_original[j].exercises.count()):
+                        self.assertEqual(exercises_original[k], exercises_copy[k])
 
     def test_copy_workout_anonymous(self):
         '''

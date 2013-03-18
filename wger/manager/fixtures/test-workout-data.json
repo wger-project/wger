@@ -79,7 +79,8 @@
             "training": 3, 
             "description": "A cool day", 
             "day": [
-                5
+                5,
+                3
             ]
         }
     },

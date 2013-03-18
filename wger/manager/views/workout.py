@@ -132,8 +132,12 @@ def copy_workout(request, pk):
                 sets = day.set_set.all()
 
                 day_copy = day
+                days_of_week = [i for i in day.day.all()]
                 day_copy.pk = None
                 day_copy.training = workout_copy
+                day_copy.save()
+                for i in days_of_week:
+                    day_copy.day.add(i)
                 day_copy.save()
 
                 # Copy the sets
