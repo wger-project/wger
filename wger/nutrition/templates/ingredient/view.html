@@ -20,10 +20,7 @@ function update_value() {
                 $('#calculator-errors').append('<p class="ym-message">'+value+'</p>');
             });
         }
-
-        $('#header-amount').html($('#id_amount')[0].value);
-        $('#header-unit').html($('#id_unit')[0].options[$('#id_unit')[0].selectedIndex].text);
-
+        
         // Replace the nutritional values
         $('#value-energy').html(parseFloat(data['energy']).toFixed(2));
         $('#value-protein').html(parseFloat(data['protein']).toFixed(2));
@@ -61,7 +58,29 @@ $(document).ready(function() {
 <div itemscope itemtype="http://schema.org/NutritionInformation">
 <meta itemprop="name" content="{{ingredient.name}}" />
 
-<p>{% trans 'Nutritional values in <span id="header-amount">100</span> <span id="header-unit">g</span> of product.' %}</p>
+<form class="ym-form"
+      method="post"
+      action="{% url 'ingredient-get-values' ingredient.id %}"
+      id="nutritional-values-form"
+      style="background-color: transparent; border-width: 0px; box-shadow: 0px 0px 0px 0px transparent;">
+    {% csrf_token %}
+    <div id="calculator-errors" class="ym-error"></div>
+    <input type="hidden" value="{{ingredient.id}}" name="ingredient"></input>
+    
+    <div class="ym-grid">
+        <div class="ym-g33 ym-gl" style="text-align:right;">
+        {% trans 'Nutritional values in' %}
+        </div>
+        
+        <div class="ym-g33 ym-gl">
+            <div class="ym-fbox-text {% if form.amount.errors %}ym-error{% endif %}">{{form.amount}}</div>
+        </div>
+        
+        <div class="ym-g33 ym-gl">
+            <div class="ym-fbox-select {% if form.unit.errors %}ym-error{% endif %}">{{form.unit}}</div>
+        </div>
+    </div>
+</form>
 
 <table>
     <thead>
@@ -156,22 +175,6 @@ $(document).ready(function() {
 
 
 {% block sidebar %}
-
-<h3>{% trans "Quick calculator" %}</h3>
-<form class="ym-form"
-      method="post"
-      action="{% url 'ingredient-get-values' ingredient.id %}"
-      id="nutritional-values-form">
-    <div id="calculator-errors" class="ym-error"></div>
-
-    {% csrf_token %}
-    <input type="hidden" value="{{ingredient.id}}" name="ingredient"></input>
-
-    <div class="ym-fbox-text {% if form.amount.errors %}ym-error{% endif %}">{{form.amount}}</div>
-
-    <div class="ym-fbox-select {% if form.unit.errors %}ym-error{% endif %}">{{form.unit}}</div>
-</form>
-
 {% if perms.exercises %}
 <h3>{% trans "Options" %}</h3>
 
