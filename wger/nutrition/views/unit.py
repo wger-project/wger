@@ -63,7 +63,7 @@ class WeightUnitCreateView(YamlFormMixin, CreateView):
 
     model = WeightUnit
     form_class = WeightUnitForm
-    title = ugettext_lazy('Add a new weight unit')
+    title = ugettext_lazy('Add new weight unit')
     form_action = reverse_lazy('weight-unit-add')
 
     def get_success_url(self):

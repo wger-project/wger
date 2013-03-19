@@ -10,7 +10,6 @@
 <script>
 function update_value() {
     form_data = $('#nutritional-values-form').serializeArray();
-
     $.post("{% url 'ingredient-get-values' ingredient.id %}", form_data, function(data) {
 
         // Show any validation errors
@@ -21,6 +20,9 @@ function update_value() {
                 $('#calculator-errors').append('<p class="ym-message">'+value+'</p>');
             });
         }
+
+        $('#header-amount').html($('#id_amount')[0].value);
+        $('#header-unit').html($('#id_unit')[0].options[$('#id_unit')[0].selectedIndex].text);
 
         // Replace the nutritional values
         $('#value-energy').html(parseFloat(data['energy']).toFixed(2));
@@ -59,7 +61,7 @@ $(document).ready(function() {
 <div itemscope itemtype="http://schema.org/NutritionInformation">
 <meta itemprop="name" content="{{ingredient.name}}" />
 
-<p>{% trans "Nutritional values in 100g of product." %}</p>
+<p>{% trans 'Nutritional values in <span id="header-amount">100</span> <span id="header-unit">g</span> of product.' %}</p>
 
 <table>
     <thead>
@@ -214,7 +216,7 @@ $(document).ready(function() {
     <table>
     <thead>
         <tr>
-            <th>{% trans "Name (values are approximate)" %}</th>
+            <th>{% trans "Name" %}</th>
         </tr>
     </thead>
     <tbody>
