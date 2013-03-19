@@ -20,7 +20,7 @@ import bleach
 from django.forms import models
 from django.http import HttpResponseForbidden
 from django.utils.translation import ugettext_lazy
-
+from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
 from django.views.generic.edit import ModelFormMixin
@@ -43,6 +43,7 @@ class YamlFormMixin(ModelFormMixin):
     owner_object = False
     submit_text = ugettext_lazy('Save')
     clean_html = ()
+    messages = ''
 
     def get_context_data(self, **kwargs):
         '''
@@ -137,6 +138,9 @@ class YamlFormMixin(ModelFormMixin):
                                                        attributes=HTML_ATTRIBUTES_WHITELIST,
                                                        styles=HTML_STYLES_WHITELIST,
                                                        strip=True))
+
+        if self.messages:
+            messages.success(self.request, self.messages)
 
         return super(YamlFormMixin, self).form_valid(form)
 

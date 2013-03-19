@@ -258,6 +258,7 @@ class IngredientEditView(YamlFormMixin, UpdateView):
     form_class = IngredientForm
     title = ugettext_lazy('Add a new ingredient')
     form_action_urlname = 'ingredient-edit'
+    messages = ugettext_lazy('Ingredient successfully updated')
 
 
 class IngredientCreateView(YamlFormMixin, CreateView):
