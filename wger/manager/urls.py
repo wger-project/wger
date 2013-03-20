@@ -95,7 +95,7 @@ urlpatterns = urlpatterns + patterns('',
     url(r'^user/password/change$',
         'django.contrib.auth.views.password_change',
         {'template_name': 'user/change_password.html',
-          'post_change_redirect': reverse_lazy('index'),
+          'post_change_redirect': reverse_lazy('preferences'),
           'extra_context': {'active_tab': USER_TAB}},
         name='change-password'),
 
