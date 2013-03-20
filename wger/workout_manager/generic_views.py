@@ -123,6 +123,13 @@ class YamlFormMixin(ModelFormMixin):
         # Dispatch normally
         return super(YamlFormMixin, self).dispatch(request, *args, **kwargs)
 
+    def get_messages(self):
+        '''
+        Getter for success message. Can be overwritten to e.g. to provide the
+        name of the object.
+        '''
+        return self.messages
+
     def form_valid(self, form):
         '''
         Pre-process the form, cleaning up the HTML code found in the fields
@@ -139,8 +146,8 @@ class YamlFormMixin(ModelFormMixin):
                                                        styles=HTML_STYLES_WHITELIST,
                                                        strip=True))
 
-        if self.messages:
-            messages.success(self.request, self.messages)
+        if self.get_messages():
+            messages.success(self.request, self.get_messages())
 
         return super(YamlFormMixin, self).form_valid(form)
 
@@ -151,6 +158,7 @@ class YamlDeleteMixin(ModelFormMixin):
     title = ''
     delete_message = ''
     template_name = 'delete.html'
+    messages = ''
 
     def get_context_data(self, **kwargs):
         '''
@@ -200,3 +208,19 @@ class YamlDeleteMixin(ModelFormMixin):
 
         # Dispatch normally
         return super(YamlDeleteMixin, self).dispatch(request, *args, **kwargs)
+    
+    def get_messages(self):
+        '''
+        Getter for success message. Can be overwritten to e.g. to provide the
+        name of the object.
+        '''
+        return self.messages
+    
+    def delete(self, request, *args, **kwargs):
+        '''
+        Show a message on successful delete
+        '''
+        if self.get_messages():
+            messages.success(request, self.get_messages())
+        return super(YamlDeleteMixin, self).delete(request, *args, **kwargs)
+

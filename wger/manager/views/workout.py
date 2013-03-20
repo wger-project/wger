@@ -203,6 +203,7 @@ class WorkoutDeleteView(YamlDeleteMixin, DeleteView):
     success_url = reverse_lazy('wger.manager.views.workout.overview')
     title = ugettext_lazy('Delete workout')
     form_action_urlname = 'workout-delete'
+    messages = ugettext_lazy('Workout was successfully deleted')
 
 
 class WorkoutEditView(YamlFormMixin, UpdateView):

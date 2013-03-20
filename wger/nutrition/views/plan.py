@@ -96,6 +96,7 @@ class PlanDeleteView(YamlDeleteMixin, DeleteView):
     success_url = reverse_lazy('wger.nutrition.views.plan.overview')
     title = ugettext_lazy('Delete nutritional plan?')
     form_action_urlname = 'nutrition-delete'
+    messages = ugettext_lazy('Nutritional plan was successfully deleted')
 
 
 class PlanEditView(YamlFormMixin, UpdateView):

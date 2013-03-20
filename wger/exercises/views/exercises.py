@@ -198,6 +198,7 @@ class ExerciseDeleteView(YamlDeleteMixin, DeleteView):
     model = Exercise
     success_url = reverse_lazy('wger.exercises.views.exercises.exercise_overview')
     delete_message = ugettext_lazy('This will delete the exercise from all workouts.')
+    messages = ugettext_lazy('Exercise successfully deleted')
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):

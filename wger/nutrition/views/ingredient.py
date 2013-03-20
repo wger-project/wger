@@ -238,13 +238,14 @@ class IngredientDeleteView(YamlDeleteMixin, DeleteView):
     model = Ingredient
     template_name = 'delete.html'
     success_url = reverse_lazy('wger.nutrition.views.ingredient.ingredient_overview')
+    messages = ugettext_lazy('Ingredient successfully deleted')
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(IngredientDeleteView, self).get_context_data(**kwargs)
 
         context['title'] = _('Delete %s?') % self.object.name
-        context['form_action'] = reverse('ingredient-delete', kwargs={'pk': self.kwargs['pk']})
+        context['form_action'] = reverse('ingredient-delete', kwargs={'pk': self.object.id})
 
         return context
 

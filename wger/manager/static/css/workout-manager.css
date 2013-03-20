@@ -487,3 +487,11 @@ ul.pagination a:hover
     padding-left: 0.3em;
     cursor: pointer;
 }
+
+/*
+ * Definition for extra-bold fonts
+ */
+.extra-bold{
+    font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
+    font-weight: 300;
+}
