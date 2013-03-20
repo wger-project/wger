@@ -49,6 +49,11 @@ class WeightUnitListView(ListView):
     template_name = 'units/list.html'
     context_object_name = 'unit_list'
 
+    def get_queryset(self):
+        '''
+        Only show ingredient units in the current user's language
+        '''
+        return WeightUnit.objects.filter(language=load_language())
 
 class WeightUnitForm(ModelForm):
     class Meta:
