@@ -115,6 +115,6 @@ class ExerciseCategoryDeleteView(YamlDeleteMixin, DeleteView):
         context = super(ExerciseCategoryDeleteView, self).get_context_data(**kwargs)
 
         context['title'] = _('Delete category %s?') % self.object.name
-        context['form_action'] = reverse('exercise-delete', kwargs={'pk': self.kwargs['pk']})
+        context['form_action'] = reverse('exercisecategory-delete', kwargs={'pk': self.object.id})
 
         return context
