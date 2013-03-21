@@ -21,13 +21,13 @@ $(document).ready(function() {
 
 
 {% block content %}
-<form action="{% url 'wger.nutrition.views.ingredient.edit_meal_item' plan.id meal.id meal_item.id%}{% if js_active %}?js=on{% endif %}"
+<form action="{{ form_action }}"
       method="post"
       class="ym-form">
 {% csrf_token %}
 {{ form.non_field_errors }}
+{{form.ingredient}}
 <table>
-    {% if js_active %}
     <tr>
         <td style="text-align:right;">
             <label for="id_ingredient_searchfield">
@@ -41,15 +41,12 @@ $(document).ready(function() {
                    name="ingredient_searchfield"
                    value="{{ingredient_searchfield}}">
             </div>
-            <input type="hidden" id="id_ingredient" name="ingredient" value="{{ingredient}}">
             <div id="exercise_name" class="ym-fbox-text"></div>
         </td>
     </tr>
-    {% else %}
-        {% yaml_form_field form.ingredient "ym-fbox-select" %}
-    {% endif %}
     
-
+    
+    
     {% yaml_form_field form.amount %}
     {% yaml_form_field form.weight_unit "ym-fbox-select" %}
     <tr>

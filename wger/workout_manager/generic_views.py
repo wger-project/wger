@@ -208,14 +208,14 @@ class YamlDeleteMixin(ModelFormMixin):
 
         # Dispatch normally
         return super(YamlDeleteMixin, self).dispatch(request, *args, **kwargs)
-    
+
     def get_messages(self):
         '''
         Getter for success message. Can be overwritten to e.g. to provide the
         name of the object.
         '''
         return self.messages
-    
+
     def delete(self, request, *args, **kwargs):
         '''
         Show a message on successful delete
@@ -223,4 +223,3 @@ class YamlDeleteMixin(ModelFormMixin):
         if self.get_messages():
             messages.success(request, self.get_messages())
         return super(YamlDeleteMixin, self).delete(request, *args, **kwargs)
-

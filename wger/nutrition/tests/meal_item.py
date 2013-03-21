@@ -32,8 +32,7 @@ class EditMealItemUnitTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = MealItem
-    url = reverse('wger.nutrition.views.ingredient.edit_meal_item',
-                  kwargs={'id': 2, 'meal_id': 3, 'item_id': 4})
+    url = 'mealitem-edit'
     pk = 4
     data = {'amount': 1,
             'ingredient': 1,
@@ -46,8 +45,7 @@ class EditMealItemWeightTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = MealItem
-    url = reverse('wger.nutrition.views.ingredient.edit_meal_item',
-                  kwargs={'id': 2, 'meal_id': 3, 'item_id': 4})
+    url = 'mealitem-edit'
     pk = 4
     data = {'amount': 100,
             'ingredient': 1}
@@ -59,8 +57,7 @@ class AddMealItemTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = MealItem
-    url = reverse('wger.nutrition.views.ingredient.edit_meal_item',
-                  kwargs={'id': 2, 'meal_id': 3, 'item_id': None})
+    url = reverse('mealitem-add', kwargs={'meal_id': 3})
     pk = 22
     data = {'amount': 1,
             'ingredient': 1,
@@ -73,8 +70,7 @@ class AddMealItemTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = MealItem
-    url = reverse('wger.nutrition.views.ingredient.edit_meal_item',
-                  kwargs={'id': 2, 'meal_id': 3, 'item_id': None})
+    url = reverse('mealitem-add', kwargs={'meal_id': 3})
     pk = 22
     data = {'amount': 100,
             'ingredient': 1}

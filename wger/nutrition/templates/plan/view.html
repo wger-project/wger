@@ -26,12 +26,6 @@ $(document).ready(function() {
         useEnglishIngredients = 0;
         $('#english-ingredients-status').attr("src", "{% static 'images/icons/status-off.svg' %}");
     {% endif %}
-
-    // Add a flag indicating we are using javascript. Depending on this we show a drop down list
-    // with the ingredients or use an autocompleter
-    $('.edit-meal').each(function(element){
-        $(this).attr('href', $(this).attr('href') + '?js=on')
-    })
 });
 </script>
 {% endblock %}
@@ -78,7 +72,7 @@ $(document).ready(function() {
                          alt="{% trans 'Edit meal' %}"
                          title="{% trans 'Edit meal' %}">
                 </a>
-                <a href="{% url 'wger.nutrition.views.ingredient.edit_meal_item' plan.id meal.id None %}"
+                <a href="{% url 'mealitem-add' meal.id %}"
                    title="{% trans 'Add' %}"
                    class="modal-dialog edit-meal">
                     <img src="{% static 'images/icons/add.svg' %}"
@@ -100,7 +94,7 @@ $(document).ready(function() {
                     {{ item.ingredient.name }}
 
                     <span class="editoptions">
-                        <a href="{% url 'wger.nutrition.views.ingredient.delete_meal_item' item.id %}"
+                        <a href="{% url 'wger.nutrition.views.meal_item.delete_meal_item' item.id %}"
                            title="{% trans 'Delete' %}"
                            class="delete-mealitem">
                            <img src="{% static 'images/icons/trash.svg' %}"
@@ -108,7 +102,7 @@ $(document).ready(function() {
                                 height="16"
                                 alt="{% trans 'Delete' %}">
                         </a>
-                        <a href="{% url 'wger.nutrition.views.ingredient.edit_meal_item' plan.id meal.id item.id %}"
+                        <a href="{% url 'mealitem-edit' item.id %}"
                            title="{% trans 'Edit' %}"
                            class="modal-dialog edit-meal edit-mealitem">
                             <img src="{% static 'images/icons/edit.svg' %}"
