@@ -36,13 +36,11 @@ class SetDeleteTestCase(WorkoutManagerTestCase):
 
         # Fetch the overview page
         count_before = Set.objects.count()
-        response = self.client.get(reverse('wger.manager.views.set.delete_set', kwargs={'id': 3,
-                                           'day_id': 5,
-                                           'set_id': 3}))
+        response = self.client.get(reverse('wger.manager.views.set.delete_set', kwargs={'pk': 3}))
         count_after = Set.objects.count()
 
         if fail:
-            self.assertTrue(response.status_code in (302, 403))
+            self.assertIn(response.status_code, (302, 403))
             self.assertEqual(count_before, count_after)
         else:
             self.assertEqual(response.status_code, 302)
@@ -84,10 +82,7 @@ class TestSetOrderTestCase(WorkoutManagerTestCase):
         Helper function that adds a set to a day
         '''
 
-        response = self.client.post(reverse('wger.manager.views.set.edit_set',
-                                            kwargs={'id': 3,
-                                                    'day_id': 5,
-                                                    'set_id': ''}),
+        response = self.client.post(reverse('set-add', kwargs={'day_id': 5}),
                                     {'exercises': set_ids,
                                      'sets': 4})
 

@@ -26,9 +26,14 @@ from django.http import HttpResponseForbidden
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy
 from django.db import models
 
 from django.contrib.auth.decorators import login_required
+
+from django.views.generic import DeleteView
+from django.views.generic import CreateView
+from django.views.generic import UpdateView
 
 from wger.manager.models import TrainingSchedule
 from wger.manager.models import Day
@@ -39,6 +44,8 @@ from wger.exercises.models import Exercise
 
 from wger.manager.forms import SetForm
 
+from wger.workout_manager.generic_views import YamlFormMixin
+from wger.workout_manager.generic_views import YamlDeleteMixin
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -46,87 +53,60 @@ logger = logging.getLogger('workout_manager.custom')
 # ************************
 # Set functions
 # ************************
-@login_required
-def edit_set(request, id, day_id, set_id=None):
-    '''
-    Edits/creates a set
-    '''
 
-    template_data = {}
-    template_data.update(csrf(request))
 
-    # Load workout
-    workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
-    template_data['workout'] = workout
+class SetCreateView(YamlFormMixin, CreateView):
+    model = Set
+    form_class = SetForm
+    template_name = 'set/edit.html'
 
-    # Load day
-    day = get_object_or_404(Day, pk=day_id)
-    template_data['day'] = day
-
-    # Load set
-
-    # If the object is new, we will receice a 'None' (string) as the ID
-    # from the template, so we check for it (ValueError) and for an actual
-    # None (TypeError)
-    try:
-        int(set_id)
-        workout_set = get_object_or_404(Set, pk=set_id)
-
-        # Check if all objects belong to the workout
-        if workout_set.exerciseday.id != day.id:
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Check that the user owns the workout
+        '''
+        day = get_object_or_404(Day, pk=kwargs['day_id'])
+        if day.get_owner_object().user == request.user:
+            self.day = day
+            return super(SetCreateView, self).dispatch(request, *args, **kwargs)
+        else:
             return HttpResponseForbidden()
-    except ValueError, TypeError:
-        workout_set = Set()
 
-    template_data['set'] = workout_set
+    def get_success_url(self):
+        return reverse('wger.manager.views.workout.view_workout',
+                       kwargs={'id': self.day.training.id})
 
-    # Check if all objects belong to the workout
-    if day.training.id != workout.id:
-        return HttpResponseForbidden()
+    def form_valid(self, form):
+        '''
+        Manually set the order
+        '''
+        max_order = self.day.set_set.select_related().aggregate(models.Max('order'))
+        form.instance.order = (max_order['order__max'] or 0) + 1
+        form.instance.exerciseday = self.day
+        return super(SetCreateView, self).form_valid(form)
 
-    # Process request
-    if request.method == 'POST':
-
-        set_form = SetForm(request.POST, instance=workout_set)
-
-        # If the data is valid, save and redirect
-        if set_form.is_valid():
-            workout_set = set_form.save(commit=False)
-            workout_set.exerciseday = day
-
-            if not workout_set.order:
-                max_order = day.set_set.select_related().aggregate(models.Max('order'))
-                workout_set.order = (max_order['order__max'] or 0) + 1
-            workout_set.save()
-
-            # The exercises are ManyToMany in DB, so we have to save with this function
-            set_form.save_m2m()
-
-            return HttpResponseRedirect(reverse('wger.manager.views.workout.view_workout',
-                                                kwargs={'id': id}))
-    else:
-        set_form = SetForm(instance=workout_set)
-    template_data['set_form'] = set_form
-
-    return render_to_response('set/edit.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(SetCreateView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('set-add', kwargs={'day_id': self.day.id})
+        return context
 
 
 @login_required
-def delete_set(request, id, day_id, set_id):
+def delete_set(request, pk):
     '''
     Deletes the given set
     '''
 
     # Load the set
-    set_obj = get_object_or_404(Set, pk=set_id)
+    set_obj = get_object_or_404(Set, pk=pk)
 
     # Check if the user is the owner of the object
-    if set_obj.exerciseday.training.user == request.user:
+    if set_obj.get_owner_object().user == request.user:
         set_obj.delete()
         return HttpResponseRedirect(reverse('wger.manager.views.workout.view_workout',
-                                            kwargs={'id': id}))
+                                            kwargs={'id': set_obj.get_owner_object().id}))
     else:
         return HttpResponseForbidden()
 

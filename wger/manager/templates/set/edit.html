@@ -8,7 +8,7 @@
 <!--
         Title
 -->
-{% block title %}{% trans "Edit" %} {{ day.description }}{% endblock %}
+{% block title %}{% trans "Add exercises to this workout day" %}{% endblock %}
 
 <!--
         Header
@@ -26,14 +26,14 @@ function custom_page_init()
         Main Content
 -->
 {% block content %}
-<form action="{% url 'wger.manager.views.set.edit_set' workout.id day.id set.id %}"
+<form action="{{form_action}}"
       method="post"
       class="ym-form">
 
 {% csrf_token %}
 <table>
-    {% yaml_form_field set_form.exercises %}
-    {% yaml_form_field set_form.sets %}
+    {% yaml_form_field form.exercises %}
+    {% yaml_form_field form.sets %}
     <tr>
         <td colspan="2">
             <input type="submit" value="{% trans 'Save' %}" id="form-save">

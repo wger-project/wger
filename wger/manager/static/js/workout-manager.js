@@ -34,9 +34,6 @@ $.widget( "custom.catcomplete", $.ui.autocomplete, {
  */
 function setup_sortable()
 {
-    // Hide the edit options for the set, this is done with the in-place editing
-    $(".set-options").hide();
-
     $(".workout-table tbody").sortable({
         handle: '.dragndrop-handle',
         revert: true,
@@ -55,8 +52,8 @@ function setup_sortable()
 
                 // TODO: it seems to be necessary to call the view two times before it returns
                 //       current data.
-                $.get('/' + get_current_language() + "/workout/day/view/" + day_id);
-                $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/view/" + day_id);
+                $.get('/' + get_current_language() + "/workout/day/" + day_id + "/view/");
+                $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/" + day_id + "/view/");
         }
 
     })
@@ -84,8 +81,8 @@ function setup_sortable()
 
             // TODO: it seems to be necessary to call the view two times before it returns
             //       current data.
-            $.get('/' + get_current_language() + "/workout/day/view/" + day_id);
-            $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/view/" + day_id);
+            $.get('/' + get_current_language() + "/workout/day/" + day_id + "/view/");
+            $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/" + day_id + "/view/");
         }
     });
 }
@@ -126,7 +123,7 @@ function setup_inplace_editing()
         // Editing of set
         $(element).click(function(e) {
             e.preventDefault();
-            $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/view/" + day_id);
+            $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/" + day_id + "/view/");
         })
 
         // Send the Form
@@ -137,7 +134,7 @@ function setup_inplace_editing()
           form_data = $(this).serialize();
           $.post( url, form_data);
 
-          $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/view/" + day_id);
+          $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/" + day_id + "/view/");
         });
 
         // Init the autocompleter

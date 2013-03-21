@@ -8,6 +8,8 @@ from wger.manager.views.log import WorkoutLogDetailView
 from wger.manager.views.log import WorkoutLogUpdateView
 from wger.manager.views.day import DayEditView
 from wger.manager.views.day import DayCreateView
+from wger.manager.views import set
+from wger.manager.views import setting
 
 from wger.workout_manager.constants import USER_TAB
 
@@ -15,20 +17,28 @@ from wger.workout_manager.constants import USER_TAB
 urlpatterns = patterns('wger.manager.views',
 
     # The landing page
-    url(r'^$', 'misc.index', name='index'),
+    url(r'^$',
+        'misc.index',
+        name='index'),
 
     # The dashboard
-    url(r'^dashboard$', 'misc.dashboard', name='dashboard'),
-
+    url(r'^dashboard$',
+        'misc.dashboard',
+        name='dashboard'),
 
     # User
-    url(r'^logout$', 'user.logout', name='logout'),
-    url(r'^user/registration$', 'user.registration', name='registration'),
+    url(r'^logout$',
+        'user.logout',
+        name='logout'),
+    url(r'^user/registration$',
+        'user.registration',
+        name='registration'),
     url(r'^user/demo-account$',
         'user.create_demo_user',
         name='demo-account'),
-
-    url(r'^user/preferences$', 'user.preferences', name='preferences'),
+    url(r'^user/preferences$',
+        'user.preferences',
+        name='preferences'),
 
     # Workout
     url(r'^workout/overview$', 'workout.overview'),
@@ -36,7 +46,6 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^workout/(?P<pk>\d+)/copy/$',
         'workout.copy_workout',
         name='workout-copy'),
-
     url(r'^workout/(?P<pk>\d+)/edit/$',
         login_required(WorkoutEditView.as_view()),
         name='workout-edit'),
@@ -53,7 +62,6 @@ urlpatterns = patterns('wger.manager.views',
         login_required(WorkoutLogUpdateView.as_view()),
         name='workout-log-edit'),
 
-
     # Days
     url(r'^workout/day/(?P<pk>\d+)/edit/$',
         login_required(DayEditView.as_view()),
@@ -61,17 +69,23 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^workout/(?P<workout_pk>\d+)/day/add/$',
         login_required(DayCreateView.as_view()),
         name='day-add'),
-    url(r'^workout/(?P<id>\d+)/delete/day/(?P<day_id>\d+)$', 'day.delete_day'),
-    url(r'^workout/day/view/(?P<id>\d+)$', 'day.view_day'),
+    url(r'^workout/(?P<id>\d+)/day/(?P<day_id>\d+)/delete/$', 'day.delete_day'),
+    url(r'^workout/day/(?P<id>\d+)/view/$', 'day.view_day'),
     url(r'^workout/day/(?P<pk>\d+)/log/add/$',
         'log.workout_log_add',
         name='day-log'),
 
     # Sets and Settings
-    url(r'^workout/(?P<id>\d+)/day/(?P<day_id>\d+)/edit/set/(?P<set_id>\w*)$', 'set.edit_set'),
-    url(r'^workout/(?P<id>\d+)/day/(?P<day_id>\d+)/delete/set/(?P<set_id>\d+)$', 'set.delete_set'),
-    url(r'^workout/(?P<id>\d+)/set/(?P<set_id>\d+)/exercise/(?P<exercise_id>\d+)/edit/setting/(?P<setting_id>\w*)$', 'setting.edit_setting'),
-    url(r'^workout/(?P<id>\d+)/set/(?P<set_id>\d+)/exercise/(?P<exercise_id>\d+)/delete/setting$', 'setting.delete_setting'),
+    url(r'^workout/day/(?P<day_id>\d+)/set/add/$',
+        login_required(set.SetCreateView.as_view()),
+        name='set-add'),
+    url(r'^workout/set/(?P<pk>\d+)/delete$', 'set.delete_set'),
+    #url(r'^workout/set/(?P<set_id>\d+)/setting/edit/$',
+    #    login_required(setting.SettingEditView.as_view()),
+    #    name='setting-edit'),
+    url(r'^workout/set/(?P<set_id>\d+)/exercise/(?P<exercise_id>\d+)/setting/edit/',
+        'setting.edit_setting',
+        name='setting-edit'),
 
     # AJAX
     url(r'^workout/api/edit-set$', 'set.api_edit_set'),

@@ -55,6 +55,7 @@ class WeightUnitListView(ListView):
         '''
         return WeightUnit.objects.filter(language=load_language())
 
+
 class WeightUnitForm(ModelForm):
     class Meta:
         model = WeightUnit

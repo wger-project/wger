@@ -26,7 +26,7 @@ from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from django.forms.models import modelformset_factory
-
+from django.views.generic import CreateView
 from django.contrib.auth.decorators import login_required
 
 from wger.manager.models import TrainingSchedule
@@ -34,24 +34,25 @@ from wger.manager.models import Set
 from wger.manager.models import Setting
 
 from wger.exercises.models import Exercise
+from django.views.generic import UpdateView
+
+from wger.workout_manager.generic_views import YamlFormMixin
 
 logger = logging.getLogger('workout_manager.custom')
 
 
-# ************************
-# Settings functions
-# ************************
+# TODO: check if we really need to keep this code. All the editing actually
+#       happens via AJAX and we don't want to provide a non-JS fallback for
+#       all functions.
 @login_required
-def edit_setting(request, id, set_id, exercise_id, setting_id=None):
+def edit_setting(request, set_id, exercise_id):
     template_data = {}
     template_data.update(csrf(request))
 
-    # Load workout
-    workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
-    template_data['workout'] = workout
-
     # Load set and the FormSet
     set_obj = get_object_or_404(Set, pk=set_id)
+    if set_obj.get_owner_object().user != request.user:
+        return HttpResponseForbidden()
     template_data['set'] = set_obj
 
     SettingFormSet = modelformset_factory(Setting,
@@ -63,15 +64,8 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
     exercise = get_object_or_404(Exercise, pk=exercise_id)
     template_data['exercise'] = exercise
 
-    # Check that the set belongs to the workout
-    if set_obj.exerciseday.training.id != workout.id:
-        return HttpResponseForbidden()
-
     # Load setting
-    if not setting_id:
-        setting = Setting()
-    else:
-        setting = get_object_or_404(Setting, pk=setting_id)
+    setting = Setting()
     template_data['setting'] = setting
 
     # Process request
@@ -92,11 +86,10 @@ def edit_setting(request, id, set_id, exercise_id, setting_id=None):
                     setting_instance.order = order
 
                 setting_instance.save()
-
                 order += 1
 
             return HttpResponseRedirect(reverse('wger.manager.views.workout.view_workout',
-                                                kwargs={'id': id}))
+                                                kwargs={'id': set_obj.get_owner_object().id}))
     else:
         setting_form = SettingFormSet(queryset=Setting.objects.filter(exercise_id=exercise.id,
                                                                       set_id=set_obj.id))
@@ -132,20 +125,3 @@ def api_edit_setting(request):
                     return HttpResponseForbidden()
 
             return HttpResponse(_('Success'))
-
-
-@login_required
-def delete_setting(request, id, set_id, exercise_id):
-    '''
-    Deletes all the settings belonging to set_id and exercise_id
-    '''
-
-    # Load the workout
-    workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
-
-    # Delete all settings
-    settings = Setting.objects.filter(exercise_id=exercise_id, set_id=set_id)
-    settings.delete()
-
-    return HttpResponseRedirect(reverse('wger.manager.views.workout.view_workout',
-                                        kwargs={'id': id}))

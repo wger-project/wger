@@ -18,7 +18,7 @@
 <h2>{% trans "Edit" %} {{ day.description }}</h2>
 
 
-<form action="{% url 'wger.manager.views.setting.edit_setting' workout.id set.id exercise.id None %}"
+<form action="{% url 'setting-edit' set.id exercise.id %}"
       method="post"
       class="ym-form">
     {% csrf_token %}
