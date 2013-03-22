@@ -101,7 +101,7 @@ def registration(request):
             user.save()
             user = authenticate(username=username, password=password)
             django_login(request, user)
-            messages.success(request, _('New user sucessfully registered'))
+            messages.success(request, _('You were sucessfully registered'))
             return HttpResponseRedirect(reverse('dashboard'))
     else:
         form = RegistrationForm()

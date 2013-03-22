@@ -179,10 +179,17 @@
                                     {% trans 'My preferences' %}
                                     </a>
                                 </li>
-                                <li class="divider"></li>
-                                <li class="nav-header">{% trans "Languages" %}</li>
+                                
+                                {# logged out user #}
+                                {% else %}                                
+                                <li><a href="{% url 'login' %}">{% trans "Login" %}</a></li>
+                                <li><a href="{% url 'demo-account' %}">{% trans "Try the demo" %}</a></li>
+                                <li><a href="{% url 'wger.manager.views.user.registration' %}">{% trans "Register" %}</a><li></li>
+                                <li><a href="{% url 'django.contrib.auth.views.password_reset' %}">{% trans "Reset password" %}</a>
                                 {% endif %}
 
+                                <li class="divider"></li>
+                                <li class="nav-header">{% trans "Languages" %}</li>
                                 <li {% if language.short_name == 'de' %}class="active"{% endif %}>
                                     <a href="{{i18n_path.de}}">
                                     <img src="{% static 'images/icons/flag-de.svg' %}"

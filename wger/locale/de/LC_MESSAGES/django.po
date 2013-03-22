@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-19 18:13+0100\n"
+"POT-Creation-Date: 2013-03-22 23:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,13 +18,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: settings_global.py:37 manager/templates/template.html:198
-#: manager/templates/template.html:199 manager/templates/template.html:200
+#: settings_global.py:37 manager/templates/template.html:207
+#: manager/templates/template.html:208 manager/templates/template.html:209
 msgid "English"
 msgstr ""
 
-#: settings_global.py:38 manager/templates/template.html:189
-#: manager/templates/template.html:190 manager/templates/template.html:191
+#: settings_global.py:38 manager/templates/template.html:198
+#: manager/templates/template.html:199 manager/templates/template.html:200
 msgid "German"
 msgstr ""
 
@@ -38,7 +38,7 @@ msgstr "Name der Sprache - lang"
 
 #: exercises/models.py:52 exercises/models.py:79 exercises/models.py:111
 #: nutrition/models.py:114 nutrition/models.py:190
-#: nutrition/templates/ingredient/view.html:219
+#: nutrition/templates/ingredient/view.html:222
 #: nutrition/templates/units/list.html:16
 msgid "Name"
 msgstr "Name"
@@ -90,8 +90,8 @@ msgstr "Suchergebnisse"
 
 #: exercises/templates/overview.html:9
 #: exercises/templates/muscles/overview.html:125 manager/models.py:122
-#: manager/models.py:152 manager/templates/template.html:105
-#: manager/templates/template.html:107 manager/templates/day/log.html:40
+#: manager/models.py:152 manager/templates/template.html:107
+#: manager/templates/template.html:109 manager/templates/day/log.html:40
 msgid "Exercises"
 msgstr "Übungen"
 
@@ -106,20 +106,18 @@ msgstr "Benutze den Verweis zum Hinzufügen"
 #: exercises/templates/overview.html:80 exercises/templates/overview.html:84
 #: exercises/templates/view.html:54 exercises/templates/view.html.py:59
 #: exercises/templates/view.html:215 exercises/templates/view.html.py:217
-#: manager/templates/set/edit.html:11 manager/templates/setting/edit.html:18
+#: manager/templates/setting/edit.html:18
 #: manager/templates/tags/render_day.html:43
 #: manager/templates/tags/render_day.html:48
-#: manager/templates/tags/render_day.html:68
-#: manager/templates/tags/render_day.html:72
-#: manager/templates/tags/render_day.html:138
-#: manager/templates/tags/render_day.html:143
-#: nutrition/templates/ingredient/view.html:229
-#: nutrition/templates/ingredient/view.html:234
-#: nutrition/templates/ingredient/view.html:235
-#: nutrition/templates/plan/view.html:73
-#: nutrition/templates/plan/view.html:112
-#: nutrition/templates/plan/view.html:117
-#: nutrition/templates/plan/view.html:125
+#: manager/templates/tags/render_day.html:128
+#: manager/templates/tags/render_day.html:133
+#: nutrition/templates/ingredient/view.html:232
+#: nutrition/templates/ingredient/view.html:237
+#: nutrition/templates/ingredient/view.html:238
+#: nutrition/templates/plan/view.html:67
+#: nutrition/templates/plan/view.html:106
+#: nutrition/templates/plan/view.html:111
+#: nutrition/templates/plan/view.html:119
 #: nutrition/templates/units/list.html:36
 #: nutrition/templates/units/list.html:37
 msgid "Edit"
@@ -128,16 +126,15 @@ msgstr "Bearbeiten"
 #: exercises/templates/overview.html:88 exercises/templates/overview.html:93
 #: exercises/templates/view.html:47 exercises/templates/view.html.py:51
 #: exercises/templates/view.html:226 exercises/templates/view.html.py:227
-#: manager/templates/delete.html:30 manager/templates/tags/render_day.html:36
+#: manager/templates/delete.html:26 manager/templates/tags/render_day.html:36
 #: manager/templates/tags/render_day.html:40
-#: manager/templates/tags/render_day.html:83
-#: manager/templates/tags/render_day.html:87
-#: nutrition/templates/ingredient/view.html:238
-#: nutrition/templates/ingredient/view.html:243
-#: nutrition/templates/ingredient/view.html:244
-#: nutrition/templates/plan/view.html:65
-#: nutrition/templates/plan/view.html:104
-#: nutrition/templates/plan/view.html:109
+#: manager/templates/tags/render_day.html:73
+#: manager/templates/tags/render_day.html:77
+#: nutrition/templates/ingredient/view.html:241
+#: nutrition/templates/ingredient/view.html:246
+#: nutrition/templates/ingredient/view.html:247
+#: nutrition/templates/plan/view.html:59 nutrition/templates/plan/view.html:98
+#: nutrition/templates/plan/view.html:103
 #: nutrition/templates/units/list.html:28
 #: nutrition/templates/units/list.html:29
 msgid "Delete"
@@ -152,17 +149,17 @@ msgstr ""
 
 #: exercises/templates/overview.html:122 exercises/templates/view.html:209
 #: exercises/templates/muscles/overview.html:146
-#: manager/templates/index.html:127 manager/templates/template.html:165
+#: manager/templates/index.html:127 manager/templates/template.html:167
 #: manager/templates/day/log.html:98
 #: manager/templates/user/preferences.html:39
 #: manager/templates/workout/log.html:78
 #: manager/templates/workout/overview.html:48
 #: manager/templates/workout/view.html:116
 #: nutrition/templates/ingredient/overview.html:71
-#: nutrition/templates/ingredient/view.html:176
+#: nutrition/templates/ingredient/view.html:179
 #: nutrition/templates/plan/overview.html:48
-#: nutrition/templates/plan/view.html:237
-#: nutrition/templates/units/list.html:53
+#: nutrition/templates/plan/view.html:231
+#: nutrition/templates/units/list.html:57
 #: weight/templates/weight_overview.html:111
 msgid "Options"
 msgstr "Optionen"
@@ -200,7 +197,7 @@ msgstr "Übung"
 msgid "Comments for this exercise"
 msgstr "Kommentare für diese Übung"
 
-#: exercises/templates/view.html:73 nutrition/templates/plan/view.html:82
+#: exercises/templates/view.html:73 nutrition/templates/plan/view.html:76
 msgid "Add"
 msgstr "Hinzufügen"
 
@@ -234,7 +231,7 @@ msgid "Main muscles"
 msgstr "Hauptmuskeln"
 
 #: exercises/templates/muscles/overview.html:9
-#: manager/templates/template.html:108
+#: manager/templates/template.html:110
 msgid "Muscle overview"
 msgstr "Muskelübersicht"
 
@@ -283,17 +280,29 @@ msgstr ""
 "musst du eine SVG-Datei mit den Konturen des Muskels erstellen und in\n"
 "den Ordner <em>images/muscles</em> speichern."
 
-#: exercises/views/categories.py:94 exercises/views/exercises.py:180
+#: exercises/views/categories.py:74
+msgid "Category was successfully created"
+msgstr "Die Kategorie wurde erfolgreich gelöscht"
+
+#: exercises/views/categories.py:90
+msgid "Category successfully edited"
+msgstr "Kategorie erfolgreich bearbeitet"
+
+#: exercises/views/categories.py:96 exercises/views/exercises.py:180
 #: exercises/views/muscles.py:72
 #, python-format
 msgid "Edit %s"
 msgstr "%s bearbeiten"
 
-#: exercises/views/categories.py:111
+#: exercises/views/categories.py:113
 msgid "This will also delete all exercises in this category."
 msgstr "Das wird auch alle Übungen in der Kategorie löschen."
 
-#: exercises/views/categories.py:117
+#: exercises/views/categories.py:114
+msgid "Category successfully deleted"
+msgstr "Kategorie erfolgreich gelöscht"
+
+#: exercises/views/categories.py:120
 #, python-format
 msgid "Delete category %s?"
 msgstr "Kategorie %s löschen?"
@@ -321,7 +330,11 @@ msgid "This will delete the exercise from all workouts."
 msgstr ""
 "Das Löschen der Übung wird sie auch aus allen Trainingsplänen entfernen."
 
-#: exercises/views/exercises.py:206
+#: exercises/views/exercises.py:201
+msgid "Exercise successfully deleted"
+msgstr "Übung erfolgreich gelöscht"
+
+#: exercises/views/exercises.py:207
 #, python-format
 msgid "Delete exercise %s?"
 msgstr "%s Übung wirklich löschen?"
@@ -421,12 +434,12 @@ msgstr "Wiederholungen"
 #: manager/models.py:181 manager/pdf.py:58 manager/pdf.py:68
 #: manager/templates/index.html:13 manager/templates/index.html.py:19
 #: manager/templates/workout/overview.html:26
-#: manager/templates/workout/view.html:7 nutrition/views/plan.py:194
+#: manager/templates/workout/view.html:7 nutrition/views/plan.py:195
 msgid "Workout"
 msgstr "Trainingsplan"
 
 #: manager/models.py:186 manager/pdf.py:132
-#: manager/templates/template.html:117 weight/models.py:29 weight/views.py:118
+#: manager/templates/template.html:119 weight/models.py:29 weight/views.py:118
 #: weight/templates/import_csv_preview.html:15
 #: weight/templates/import_csv_preview.html:44
 msgid "Weight"
@@ -469,7 +482,7 @@ msgstr ""
 msgid "Workout for %s"
 msgstr "Trainingsplan für %s"
 
-#: manager/pdf.py:132 nutrition/templates/plan/view.html:60
+#: manager/pdf.py:132 nutrition/templates/plan/view.html:54
 msgid "Nr."
 msgstr ""
 
@@ -477,7 +490,7 @@ msgstr ""
 msgid "<i>This is an empty workout, what did you expect on the PDF?</i>"
 msgstr "<i>Das ist ein leerer Trainngsplan, was hast du vom PDF erwartet?</i>"
 
-#: manager/pdf.py:300 nutrition/views/plan.py:287
+#: manager/pdf.py:300 nutrition/views/plan.py:288
 #, python-format
 msgid "Created on the <b>%s</b>"
 msgstr "Erstellt am <b>%s</b>"
@@ -506,13 +519,13 @@ msgstr "Ein Fehler ist passiert"
 msgid "Something happened that caused an error."
 msgstr "Etwas hat einen Fehler verursacht."
 
-#: manager/templates/delete.html:27 manager/templates/delete.html.py:28
+#: manager/templates/delete.html:23 manager/templates/delete.html.py:24
 msgid "Are you sure you want to delete this? This action cannot be undone."
 msgstr ""
 "Bist du sicher, dass du das löschen willst? Diese Aktion kann nicht "
 "rückgängig gemacht werden."
 
-#: manager/templates/index.html:6 manager/templates/template.html:94
+#: manager/templates/index.html:6 manager/templates/template.html:96
 msgid "Dashboard"
 msgstr "Übersicht"
 
@@ -536,26 +549,26 @@ msgid "Nutrition plan"
 msgstr "Ernährungsplan"
 
 #: manager/templates/index.html:63 nutrition/models.py:116
-#: nutrition/templates/ingredient/view.html:76
-#: nutrition/templates/plan/view.html:189
+#: nutrition/templates/ingredient/view.html:95
+#: nutrition/templates/plan/view.html:183
 msgid "Energy"
 msgstr "Energie"
 
 #: manager/templates/index.html:66 nutrition/models.py:121
-#: nutrition/templates/ingredient/view.html:82
-#: nutrition/templates/plan/view.html:193
+#: nutrition/templates/ingredient/view.html:101
+#: nutrition/templates/plan/view.html:187
 msgid "Protein"
 msgstr "Eiweiß"
 
 #: manager/templates/index.html:69 nutrition/models.py:126
-#: nutrition/templates/ingredient/view.html:88
-#: nutrition/templates/plan/view.html:197
+#: nutrition/templates/ingredient/view.html:107
+#: nutrition/templates/plan/view.html:191
 msgid "Carbohydrates"
 msgstr "Kohlenhydrate"
 
 #: manager/templates/index.html:72 nutrition/models.py:139
-#: nutrition/templates/ingredient/view.html:104
-#: nutrition/templates/plan/view.html:205
+#: nutrition/templates/ingredient/view.html:123
+#: nutrition/templates/plan/view.html:199
 msgid "Fat"
 msgstr "Fett"
 
@@ -590,37 +603,37 @@ msgstr ""
 "bearbeiten, um ein Ziel oder Beschreibung zu setzen."
 
 #: manager/templates/index.html:133 manager/templates/index.html.py:134
-#: manager/templates/index.html:135 manager/templates/template.html:177
+#: manager/templates/index.html:135 manager/templates/template.html:179
 msgid "My preferences"
 msgstr "Meine Einstellungen"
 
-#: manager/templates/template.html:92 manager/templates/user/login.html:7
-#: manager/templates/user/login.html:31
+#: manager/templates/template.html:94 manager/templates/template.html:185
+#: manager/templates/user/login.html:8 manager/templates/user/login.html:32
 msgid "Login"
 msgstr "Anmelden"
 
-#: manager/templates/template.html:99
+#: manager/templates/template.html:101
 msgid "Workouts"
 msgstr "Trainingspläne"
 
-#: manager/templates/template.html:119 weight/templates/weight_overview.html:9
+#: manager/templates/template.html:121 weight/templates/weight_overview.html:9
 msgid "Weight overview"
 msgstr "Gewichtsübersicht"
 
-#: manager/templates/template.html:120 weight/views.py:71
+#: manager/templates/template.html:122 weight/views.py:71
 #: weight/templates/weight_overview.html:90
 msgid "Add weight entry"
 msgstr "Gewichtseintrag hinzufügen"
 
-#: manager/templates/template.html:128
+#: manager/templates/template.html:130
 msgid "Nutrition"
 msgstr "Ernährung"
 
-#: manager/templates/template.html:131
+#: manager/templates/template.html:133
 msgid "Nutrition plans"
 msgstr "Ernährungspläne"
 
-#: manager/templates/template.html:133
+#: manager/templates/template.html:135
 #: nutrition/templates/ingredient/overview.html:29
 #: nutrition/templates/plan/overview.html:64
 #: nutrition/templates/plan/overview.html:65
@@ -628,66 +641,83 @@ msgstr "Ernährungspläne"
 msgid "Ingredient overview"
 msgstr "Zutatenübersicht"
 
-#: manager/templates/template.html:135 nutrition/templates/units/list.html:7
+#: manager/templates/template.html:137 nutrition/templates/units/list.html:7
 msgid "Ingredient weight units"
 msgstr "Gewichtseinheiten für Zutaten"
 
-#: manager/templates/template.html:145
+#: manager/templates/template.html:147
 msgid "About this software"
 msgstr "Über diese Software"
 
-#: manager/templates/template.html:147 software/templates/functions.html:8
+#: manager/templates/template.html:149 software/templates/functions.html:8
 msgid "Features"
 msgstr "Funktionen"
 
-#: manager/templates/template.html:149 manager/templates/user/demo.html:7
+#: manager/templates/template.html:151 manager/templates/user/demo.html:7
 msgid "Demo account"
 msgstr "Demo Account"
 
-#: manager/templates/template.html:151
+#: manager/templates/template.html:153
 msgid "Report problem"
 msgstr "Probleme berichten"
 
-#: manager/templates/template.html:154
+#: manager/templates/template.html:156
 msgid "Developers"
 msgstr "Entwickler"
 
-#: manager/templates/template.html:155 software/templates/code.html:7
+#: manager/templates/template.html:157 software/templates/code.html:7
 msgid "Get the code"
 msgstr "Quellcode"
 
-#: manager/templates/template.html:156 software/templates/license.html:7
+#: manager/templates/template.html:158 software/templates/license.html:7
 msgid "License"
 msgstr "Lizenz"
 
-#: manager/templates/template.html:157 software/templates/changelog.html:7
+#: manager/templates/template.html:159 software/templates/changelog.html:7
 msgid "Changelog"
 msgstr "Änderungsprotokoll"
 
-#: manager/templates/template.html:172
+#: manager/templates/template.html:174
 #: manager/templates/user/preferences.html:45
 #: manager/templates/user/preferences.html:46
 #: manager/templates/user/preferences.html:47
 msgid "Logout"
 msgstr "Ausloggen"
 
-#: manager/templates/template.html:181
+#: manager/templates/template.html:186 manager/templates/user/login.html:79
+#: manager/templates/user/login.html:80 software/templates/functions.html:146
+#: software/templates/functions.html:147
+msgid "Try the demo"
+msgstr "Probiere die Demo aus"
+
+#: manager/templates/template.html:187 manager/templates/user/login.html:70
+#: manager/templates/user/login.html:71 manager/views/user.py:110
+#: manager/views/user.py:113 manager/views/user.py:271
+msgid "Register"
+msgstr "Registrieren"
+
+#: manager/templates/template.html:188 manager/templates/user/login.html:89
+#: manager/templates/user/login.html:90
+msgid "Reset password"
+msgstr "Passwort zurücketzen"
+
+#: manager/templates/template.html:192
 msgid "Languages"
 msgstr "Sprachen"
 
-#: manager/templates/template.html:229
+#: manager/templates/template.html:238
 msgid ""
 "You are using a temporary account, this user will be deleted after some time."
 msgstr ""
 "Du bist mit einem Demonutzer angemeldet. Dieser wird nach einigen Tagen "
 "gelöscht."
 
-#: manager/templates/template.html:249 manager/templates/template.html:250
+#: manager/templates/template.html:258 manager/templates/template.html:259
 #: software/templates/license.html:17 software/templates/license.html.py:18
 msgid "Released under the Affero GPL"
 msgstr "Unter der Affero GPL veröffentlicht"
 
-#: manager/templates/template.html:256
+#: manager/templates/template.html:265
 msgid "Layout based on <a href='http://www.yaml.de'>YAML</a>"
 msgstr "Layout basiert auf <a href='http://www.yaml.de'>YAML</a>"
 
@@ -711,10 +741,15 @@ msgstr "Zurück zum Trainingsplan"
 #: manager/templates/setting/ajax_edit.html:74
 #: manager/templates/setting/edit.html:34
 #: manager/templates/user/preferences.html:29
-#: nutrition/templates/meal_item/edit.html:57 weight/templates/edit.html:37
+#: nutrition/templates/meal_item/edit.html:54 weight/templates/edit.html:37
 #: workout_manager/generic_views.py:44
 msgid "Save"
 msgstr "Speichern"
+
+#: manager/templates/set/edit.html:11
+#: manager/templates/tags/render_day.html:166
+msgid "Add exercises to this workout day"
+msgstr "Übungen zu diesem Trainingstag hinzufügen"
 
 #: manager/templates/setting/ajax_edit.html:77
 msgid "Cancel"
@@ -763,32 +798,28 @@ msgstr "vor"
 msgid "Add weight log to this day"
 msgstr "Logbucheintrag zu diesem Tag hinzufügen"
 
-#: manager/templates/tags/render_day.html:79
-#: manager/templates/tags/render_day.html:80
+#: manager/templates/tags/render_day.html:69
+#: manager/templates/tags/render_day.html:70
 msgid "Move me"
 msgstr "Bewege mich"
 
-#: manager/templates/tags/render_day.html:127
+#: manager/templates/tags/render_day.html:117
 msgid "This exercise has no repetitions."
 msgstr "Diese Übung hat keine Wiederholungen."
 
-#: manager/templates/tags/render_day.html:130
+#: manager/templates/tags/render_day.html:120
 msgid "Edit them now."
 msgstr "Jetzt editieren."
 
-#: manager/templates/tags/render_day.html:165
+#: manager/templates/tags/render_day.html:155
 msgid "No exercises selected for this day."
 msgstr "Keine Übungen für diesen Tag."
 
-#: manager/templates/tags/render_day.html:167
-#: nutrition/templates/plan/view.html:127
-#: nutrition/templates/plan/view.html:140
+#: manager/templates/tags/render_day.html:157
+#: nutrition/templates/plan/view.html:121
+#: nutrition/templates/plan/view.html:134
 msgid "Add one now."
 msgstr "Jetzt hinzufügen."
-
-#: manager/templates/tags/render_day.html:176
-msgid "Add exercises to this workout day"
-msgstr "Übungen zu diesem Trainingstag hinzufügen"
 
 #: manager/templates/tags/render_weight_log.html:13
 #: manager/templates/tags/render_weight_log.html:14
@@ -857,15 +888,15 @@ msgstr "Willst du dich nicht registrieren?"
 msgid "No problem, simply download the software and run it locally"
 msgstr "Kein Problem, installiere die Software auf deinem Rechner"
 
-#: manager/templates/user/login.html:38
+#: manager/templates/user/login.html:39
 msgid "or"
 msgstr "oder"
 
-#: manager/templates/user/login.html:44
+#: manager/templates/user/login.html:46
 msgid "Sign in with your Email"
 msgstr "Mit deiner Email anmelden"
 
-#: manager/templates/user/login.html:53
+#: manager/templates/user/login.html:51
 msgid ""
 "Persona (BrowserID) replaces multiple passwords, you don't\n"
 "    need to remember a new password for this site. For more information, "
@@ -874,33 +905,18 @@ msgid ""
 "\">the\n"
 "    Persona website</a>."
 msgstr ""
-"Persona (BrowserID) ersetzt viele Passwörter, du brauchst dich\n"
+"Persona (BrowserID) ersetzt viele Passwörter, du brauchst dir\n"
 " kein neues Passwort für jede Seite merken. Für weitere Informationen,  "
 "besuche <a href=\"https://login.persona.org/\" target=\"_blank\">die Persona "
 "website</a>."
 
-#: manager/templates/user/login.html:66
+#: manager/templates/user/login.html:64
 msgid "No account?"
 msgstr "Kein Account?"
 
-#: manager/templates/user/login.html:72 manager/templates/user/login.html:73
-#: manager/views/user.py:110 manager/views/user.py:113
-#: manager/views/user.py:271
-msgid "Register"
-msgstr "Registrieren"
-
-#: manager/templates/user/login.html:81 manager/templates/user/login.html:82
-#: software/templates/functions.html:146 software/templates/functions.html:147
-msgid "Try the demo"
-msgstr "Probiere die Demo"
-
-#: manager/templates/user/login.html:85
+#: manager/templates/user/login.html:83
 msgid "Forgot password?"
 msgstr "Passwort vergessen?"
-
-#: manager/templates/user/login.html:91 manager/templates/user/login.html:92
-msgid "Reset password"
-msgstr "Passwort zurücketzen"
 
 #. Translators: Don't translate, this is already done by Django
 #: manager/templates/user/password_reset_complete.html:5
@@ -1012,7 +1028,7 @@ msgstr "Gewichtslog für Trainigsplan"
 
 #: manager/templates/workout/log.html:24
 #: manager/templates/workout/view.html:40
-#: nutrition/templates/plan/view.html:44
+#: nutrition/templates/plan/view.html:38
 msgid "Goal"
 msgstr "Ziel"
 
@@ -1107,15 +1123,15 @@ msgstr ""
 #: manager/templates/workout/view.html:123
 #: manager/templates/workout/view.html:124
 #: manager/templates/workout/view.html:125
-#: nutrition/templates/plan/view.html:244
-#: nutrition/templates/plan/view.html:245
-#: nutrition/templates/plan/view.html:246
+#: nutrition/templates/plan/view.html:238
+#: nutrition/templates/plan/view.html:239
+#: nutrition/templates/plan/view.html:240
 msgid "Download as PDF"
 msgstr "Als PDF runterladen"
 
 #: manager/templates/workout/view.html:135
 #: manager/templates/workout/view.html:136
-#: manager/templates/workout/view.html:137 manager/views/workout.py:215
+#: manager/templates/workout/view.html:137 manager/views/workout.py:216
 msgid "Edit workout"
 msgstr "Trainingsplan bearbeiten"
 
@@ -1153,14 +1169,14 @@ msgstr "Eintrag für %s editieren"
 msgid "Rest day"
 msgstr "Ruhetag"
 
-#: manager/views/set.py:161 manager/views/setting.py:134
+#: manager/views/set.py:141 manager/views/setting.py:127
 #: manager/views/user.py:344 manager/views/user.py:354
 msgid "Success"
 msgstr "Erfolg"
 
 #: manager/views/user.py:104
-msgid "New user sucessfully registered"
-msgstr ""
+msgid "You were sucessfully registered"
+msgstr "Du hast dich erfolgreich registriert"
 
 #: manager/views/user.py:151
 msgid "Sample workout"
@@ -1176,7 +1192,7 @@ msgstr "Noch ein Beispieltag"
 
 #: manager/views/user.py:320
 msgid "Settings sucessfully updated"
-msgstr ""
+msgstr "Einstellungen erfolgreich aktualisiert"
 
 #: manager/views/workout.py:174
 msgid "Copy workout"
@@ -1185,6 +1201,10 @@ msgstr "Trainingsplan kopieren"
 #: manager/views/workout.py:204
 msgid "Delete workout"
 msgstr "Trainingsplan löschen"
+
+#: manager/views/workout.py:206
+msgid "Workout was successfully deleted"
+msgstr "Der Trainingsplan wurde erfolgreich gelöscht"
 
 #: nutrition/models.py:54
 msgid ""
@@ -1203,23 +1223,23 @@ msgstr "In kcal pro 100g"
 msgid "In g per 100g of product"
 msgstr "In g pro 100g Produkt"
 
-#: nutrition/models.py:133 nutrition/templates/ingredient/view.html:94
-#: nutrition/templates/plan/view.html:201
+#: nutrition/models.py:133 nutrition/templates/ingredient/view.html:113
+#: nutrition/templates/plan/view.html:195
 msgid "Sugar content in carbohydrates"
 msgstr "Davon Zucker"
 
-#: nutrition/models.py:146 nutrition/templates/ingredient/view.html:110
-#: nutrition/templates/plan/view.html:209
+#: nutrition/models.py:146 nutrition/templates/ingredient/view.html:129
+#: nutrition/templates/plan/view.html:203
 msgid "Saturated fat content in fats"
 msgstr "Davon gesättigte Fettsäuren"
 
-#: nutrition/models.py:153 nutrition/templates/ingredient/view.html:132
-#: nutrition/templates/plan/view.html:225
+#: nutrition/models.py:153 nutrition/templates/ingredient/view.html:151
+#: nutrition/templates/plan/view.html:219
 msgid "Fibres"
 msgstr "Ballastoffe"
 
-#: nutrition/models.py:160 nutrition/templates/ingredient/view.html:142
-#: nutrition/templates/plan/view.html:229
+#: nutrition/models.py:160 nutrition/templates/ingredient/view.html:161
+#: nutrition/templates/plan/view.html:223
 msgid "Sodium"
 msgstr "Natrium"
 
@@ -1261,62 +1281,55 @@ msgstr "Name der Zutat"
 msgid "Add ingredient"
 msgstr "Zutat hinzufügen"
 
-#: nutrition/templates/ingredient/view.html:64
-msgid ""
-"Nutritional values in <span id=\"header-amount\">100</span> <span id="
-"\"header-unit\">g</span> of product."
-msgstr "Ernährungswerte in <span id=\"header-amount\">100</span> "
-"<span id=\"header-unit\">g</span> Produkt"
+#: nutrition/templates/ingredient/view.html:72
+msgid "Nutritional values in"
+msgstr "Ernährungswerte in"
 
-#: nutrition/templates/ingredient/view.html:70
-#: nutrition/templates/plan/view.html:183
+#: nutrition/templates/ingredient/view.html:89
+#: nutrition/templates/plan/view.html:177
 msgid "Macronutrients"
 msgstr "Makronährstoffe"
 
-#: nutrition/templates/ingredient/view.html:99
-#: nutrition/templates/ingredient/view.html:115
-#: nutrition/templates/ingredient/view.html:137
-#: nutrition/templates/ingredient/view.html:147
+#: nutrition/templates/ingredient/view.html:118
+#: nutrition/templates/ingredient/view.html:134
+#: nutrition/templates/ingredient/view.html:156
+#: nutrition/templates/ingredient/view.html:166
 msgid "n.A."
 msgstr "k.A."
 
-#: nutrition/templates/ingredient/view.html:126
-#: nutrition/templates/plan/view.html:219
+#: nutrition/templates/ingredient/view.html:145
+#: nutrition/templates/plan/view.html:213
 msgid "Others"
 msgstr "Andere"
 
-#: nutrition/templates/ingredient/view.html:160
-msgid "Quick calculator"
-msgstr "Rechner"
-
-#: nutrition/templates/ingredient/view.html:180
-#: nutrition/templates/ingredient/view.html:185
-#: nutrition/templates/ingredient/view.html:186
-#: nutrition/templates/ingredient/view.html:187
+#: nutrition/templates/ingredient/view.html:183
+#: nutrition/templates/ingredient/view.html:188
+#: nutrition/templates/ingredient/view.html:189
+#: nutrition/templates/ingredient/view.html:190
 msgid "Delete ingredient"
 msgstr "Zutat entfernen"
 
-#: nutrition/templates/ingredient/view.html:193
-#: nutrition/templates/ingredient/view.html:197
-#: nutrition/templates/ingredient/view.html:198
-#: nutrition/templates/ingredient/view.html:199
+#: nutrition/templates/ingredient/view.html:196
+#: nutrition/templates/ingredient/view.html:200
+#: nutrition/templates/ingredient/view.html:201
+#: nutrition/templates/ingredient/view.html:202
 msgid "Edit ingredient"
 msgstr "Zutat bearbeiten"
 
-#: nutrition/templates/ingredient/view.html:203
+#: nutrition/templates/ingredient/view.html:206
 msgid "Weight units"
 msgstr "Gewichtseinheiten"
 
-#: nutrition/templates/ingredient/view.html:210
-#: nutrition/templates/ingredient/view.html:211
-#: nutrition/templates/ingredient/view.html:212
-#: nutrition/templates/units/list.html:60
-#: nutrition/templates/units/list.html:61
-#: nutrition/templates/units/list.html:62 nutrition/views/unit.py:66
+#: nutrition/templates/ingredient/view.html:213
+#: nutrition/templates/ingredient/view.html:214
+#: nutrition/templates/ingredient/view.html:215
+#: nutrition/templates/units/list.html:64
+#: nutrition/templates/units/list.html:65
+#: nutrition/templates/units/list.html:66 nutrition/views/unit.py:72
 msgid "Add new weight unit"
 msgstr "Gewichtseinheit hinzufügen"
 
-#: nutrition/templates/meal_item/edit.html:8
+#: nutrition/templates/meal_item/edit.html:8 nutrition/views/meal_item.py:165
 msgid "Edit meal item"
 msgstr "Mahlzeitzutat bearbeiten"
 
@@ -1328,42 +1341,42 @@ msgstr "Name der Zutat"
 msgid "Your nutrition plans"
 msgstr "Deine ernährungspläne"
 
-#: nutrition/templates/plan/view.html:52
+#: nutrition/templates/plan/view.html:46
 msgid "Meal"
 msgstr "Mahlzeit"
 
-#: nutrition/templates/plan/view.html:53
+#: nutrition/templates/plan/view.html:47
 msgid "Contents"
 msgstr "Inhalt"
 
-#: nutrition/templates/plan/view.html:69 nutrition/templates/plan/view.html:70
+#: nutrition/templates/plan/view.html:63 nutrition/templates/plan/view.html:64
 msgid "Delete meal"
 msgstr "Mahlzeit löschen"
 
-#: nutrition/templates/plan/view.html:78 nutrition/templates/plan/view.html:79
+#: nutrition/templates/plan/view.html:72 nutrition/templates/plan/view.html:73
 #: nutrition/views/meal.py:84
 msgid "Edit meal"
 msgstr "Mahlzeit bearbeiten"
 
-#: nutrition/templates/plan/view.html:87 nutrition/templates/plan/view.html:88
+#: nutrition/templates/plan/view.html:81 nutrition/templates/plan/view.html:82
 msgid "Add item to meal"
 msgstr "Zutat zur Mahlzeit hinzufügen"
 
-#: nutrition/templates/plan/view.html:123
+#: nutrition/templates/plan/view.html:117
 msgid "No items for this meal."
 msgstr "Keine Zutaten für diese Mahlzeit."
 
-#: nutrition/templates/plan/view.html:137
+#: nutrition/templates/plan/view.html:131
 msgid "No meals for this plan."
 msgstr "Keine Mahlzeiten für diesen Ernährungsplan"
 
-#: nutrition/templates/plan/view.html:152
-#: nutrition/templates/plan/view.html:153
-#: nutrition/templates/plan/view.html:154
+#: nutrition/templates/plan/view.html:146
+#: nutrition/templates/plan/view.html:147
+#: nutrition/templates/plan/view.html:148
 msgid "Add a new meal"
 msgstr "Neue Mahlzeit hinzufügen"
 
-#: nutrition/templates/plan/view.html:163
+#: nutrition/templates/plan/view.html:157
 msgid ""
 "If you find the ingredient list too short, you might want to activate the "
 "preference to also show English ingredients."
@@ -1371,27 +1384,27 @@ msgstr ""
 "Wenn die Liste der verfügbaren Zutaten zu kurz ist, kannst du die Option "
 "benutzen, um auch Zutaten auf englisch anzuzeigen."
 
-#: nutrition/templates/plan/view.html:164
+#: nutrition/templates/plan/view.html:158
 msgid "That's done here"
 msgstr "Das wird hier gemacht"
 
-#: nutrition/templates/plan/view.html:168
-#: nutrition/templates/plan/view.html:278
-#: nutrition/templates/plan/view.html:279
+#: nutrition/templates/plan/view.html:162
+#: nutrition/templates/plan/view.html:272
+#: nutrition/templates/plan/view.html:273
 msgid "Delete nutrition plan"
 msgstr "Ernährungplan löschen"
 
-#: nutrition/templates/plan/view.html:178
+#: nutrition/templates/plan/view.html:172
 msgid "Nutritional data"
 msgstr "Ernährungswerte"
 
-#: nutrition/templates/plan/view.html:256
-#: nutrition/templates/plan/view.html:257
+#: nutrition/templates/plan/view.html:250
+#: nutrition/templates/plan/view.html:251
 msgid "Edit nutrition plan"
 msgstr "Ernährungplan bearbeiten"
 
-#: nutrition/templates/plan/view.html:267
-#: nutrition/templates/plan/view.html:268
+#: nutrition/templates/plan/view.html:261
+#: nutrition/templates/plan/view.html:262
 msgid "Make a copy of this nutrition plan"
 msgstr "Eine Kopie des Ernährungplanes machen."
 
@@ -1399,14 +1412,26 @@ msgstr "Eine Kopie des Ernährungplanes machen."
 msgid "Actions"
 msgstr "Aktionen"
 
-#: nutrition/views/ingredient.py:246
+#: nutrition/templates/units/list.html:44
+msgid "No units found"
+msgstr "Keine Einheiten gefunden."
+
+#: nutrition/views/ingredient.py:119
+msgid "Ingredient successfully deleted"
+msgstr "Zutat erfolgreich gelöscht"
+
+#: nutrition/views/ingredient.py:125
 #, python-format
 msgid "Delete %s?"
 msgstr "%s löschen?"
 
-#: nutrition/views/ingredient.py:259 nutrition/views/ingredient.py:270
+#: nutrition/views/ingredient.py:138 nutrition/views/ingredient.py:150
 msgid "Add a new ingredient"
 msgstr "Zutat hinzufügen"
+
+#: nutrition/views/ingredient.py:140
+msgid "Ingredient successfully updated"
+msgstr "Zutat erfolgreich bearbeitet"
 
 #: nutrition/views/meal.py:56
 msgid "Add new meal"
@@ -1416,29 +1441,33 @@ msgstr "Neue Mahlzeit hinzufügen"
 msgid "Delete nutritional plan?"
 msgstr "Ernährungplan löschen?"
 
-#: nutrition/views/plan.py:108
+#: nutrition/views/plan.py:99
+msgid "Nutritional plan was successfully deleted"
+msgstr "Der Ernährungplan wurde erfolgreich gelöscht"
+
+#: nutrition/views/plan.py:109
 msgid "Add a new nutritional plan"
 msgstr "Ernährungsplan hinzufügen"
 
 #. Translators: translation can only have ASCII characters
-#: nutrition/views/plan.py:189
+#: nutrition/views/plan.py:190
 msgid "nutritional-plan"
 msgstr "Ernaehrungplan"
 
-#: nutrition/views/plan.py:195
+#: nutrition/views/plan.py:196
 msgid "Workout Manager"
 msgstr ""
 
-#: nutrition/views/plan.py:196
+#: nutrition/views/plan.py:197
 #, python-format
 msgid "Nutritional plan %s"
 msgstr "Ernährungplan für %s"
 
-#: nutrition/views/unit.py:84 nutrition/views/unit_ingredient.py:93
+#: nutrition/views/unit.py:90 nutrition/views/unit_ingredient.py:93
 msgid "Delete weight unit?"
 msgstr "Gewichtseinheit entfernen"
 
-#: nutrition/views/unit.py:95
+#: nutrition/views/unit.py:101
 msgid "Edit a weight unit"
 msgstr "Gewichtseinheit bearbeiten"
 
@@ -1599,7 +1628,7 @@ msgstr ""
 
 #: software/templates/code.html:101
 msgid "First, install all packages:"
-msgstr ""
+msgstr "Installiere alle Pakete zuerst:"
 
 #: software/templates/code.html:107
 msgid ""
