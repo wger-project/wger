@@ -85,7 +85,7 @@ class IngredientDetailTestCase(WorkoutManagerTestCase):
         Tests the ingredient details page
         '''
 
-        response = self.client.get(reverse('wger.nutrition.views.ingredient.ingredient_view',
+        response = self.client.get(reverse('wger.nutrition.views.ingredient.view',
                                    kwargs={'id': 6}))
         self.assertEqual(response.status_code, 200)
 
@@ -102,7 +102,7 @@ class IngredientDetailTestCase(WorkoutManagerTestCase):
             self.assertNotContains(response, 'Delete ingredient')
 
         # Non-existent ingredients throw a 404.
-        response = self.client.get(reverse('wger.nutrition.views.ingredient.ingredient_view',
+        response = self.client.get(reverse('wger.nutrition.views.ingredient.view',
                                    kwargs={'id': 42}))
         self.assertEqual(response.status_code, 404)
 

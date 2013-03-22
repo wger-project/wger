@@ -65,7 +65,7 @@ logger = logging.getLogger('workout_manager.custom')
 # ************************
 # Ingredient functions
 # ************************
-def ingredient_overview(request):
+def overview(request):
     '''
     Show an overview of all ingredients
     '''
@@ -88,7 +88,7 @@ def ingredient_overview(request):
                               context_instance=RequestContext(request))
 
 
-def ingredient_view(request, id, slug=None):
+def view(request, id, slug=None):
     template_data = {}
 
     ingredient = get_object_or_404(Ingredient, pk=id)
@@ -115,7 +115,7 @@ class IngredientDeleteView(YamlDeleteMixin, DeleteView):
 
     model = Ingredient
     template_name = 'delete.html'
-    success_url = reverse_lazy('wger.nutrition.views.ingredient.ingredient_overview')
+    success_url = reverse_lazy('wger.nutrition.views.ingredient.overview')
     messages = ugettext_lazy('Ingredient successfully deleted')
 
     # Send some additional data to the template
@@ -155,7 +155,7 @@ class IngredientCreateView(YamlFormMixin, CreateView):
         return super(IngredientCreateView, self).form_valid(form)
 
 
-def ingredient_search(request):
+def search(request):
     '''
     Search for an exercise, return the result as a JSON list or as HTML page, depending on how
     the function was invoked

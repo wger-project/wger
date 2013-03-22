@@ -100,11 +100,11 @@
                             {% endif %}
 
                             <li class="dropdown {% if active_tab == 'exercises' %}active{% endif %}">
-                                <a href="{% url 'wger.exercises.views.exercises.exercise_overview' %}"
+                                <a href="{% url 'wger.exercises.views.exercises.overview' %}"
                                    class="dropdown-toggle"
                                    data-toggle="dropdown">{% trans "Exercises" %} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{% url 'wger.exercises.views.exercises.exercise_overview' %}">{% trans "Exercises" %}</a></li>
+                                    <li><a href="{% url 'wger.exercises.views.exercises.overview' %}">{% trans "Exercises" %}</a></li>
                                     <li><a href="{% url 'muscle-overview' %}">{% trans "Muscle overview" %}</a></li>
                                 </ul>
                             </li>
@@ -130,7 +130,7 @@
                                 {% if user.is_authenticated %}
                                     <li><a href="{% url 'wger.nutrition.views.plan.overview' %}">{% trans "Nutrition plans" %}</a></li>
                                 {% endif %}
-                                    <li><a href="{% url 'wger.nutrition.views.ingredient.ingredient_overview' %}">{% trans "Ingredient overview" %}</a></li>
+                                    <li><a href="{% url 'wger.nutrition.views.ingredient.overview' %}">{% trans "Ingredient overview" %}</a></li>
                                 {% if perms.exercises %}
                                     <li><a href="{% url 'weight-unit-list' %}">{% trans "Ingredient weight units" %}</a></li>
                                 {% endif %}

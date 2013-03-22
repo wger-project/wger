@@ -72,7 +72,7 @@ class SetCreateView(YamlFormMixin, CreateView):
             return HttpResponseForbidden()
 
     def get_success_url(self):
-        return reverse('wger.manager.views.workout.view_workout',
+        return reverse('wger.manager.views.workout.view',
                        kwargs={'id': self.day.training.id})
 
     def form_valid(self, form):
@@ -94,7 +94,7 @@ class SetCreateView(YamlFormMixin, CreateView):
 
 
 @login_required
-def delete_set(request, pk):
+def delete(request, pk):
     '''
     Deletes the given set
     '''
@@ -105,7 +105,7 @@ def delete_set(request, pk):
     # Check if the user is the owner of the object
     if set_obj.get_owner_object().user == request.user:
         set_obj.delete()
-        return HttpResponseRedirect(reverse('wger.manager.views.workout.view_workout',
+        return HttpResponseRedirect(reverse('wger.manager.views.workout.view',
                                             kwargs={'id': set_obj.get_owner_object().id}))
     else:
         return HttpResponseForbidden()

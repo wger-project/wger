@@ -60,7 +60,7 @@ class WeightUnitIngredientCreateView(YamlFormMixin, CreateView):
         return context
 
     def get_success_url(self):
-        return reverse('wger.nutrition.views.ingredient.ingredient_view',
+        return reverse('wger.nutrition.views.ingredient.view',
                        kwargs={'id': self.kwargs['ingredient_pk']})
 
     def form_valid(self, form):
@@ -80,7 +80,7 @@ class WeightUnitIngredientUpdateView(YamlFormMixin, UpdateView):
     form_action_urlname = 'weight-unit-ingredient-edit'
 
     def get_success_url(self):
-        return reverse('wger.nutrition.views.ingredient.ingredient_view',
+        return reverse('wger.nutrition.views.ingredient.view',
                        kwargs={'id': self.object.ingredient.id})
 
 
@@ -94,5 +94,5 @@ class WeightUnitIngredientDeleteView(YamlDeleteMixin, DeleteView):
     form_action_urlname = 'weight-unit-ingredient-delete'
 
     def get_success_url(self):
-        return reverse('wger.nutrition.views.ingredient.ingredient_view',
+        return reverse('wger.nutrition.views.ingredient.view',
                        kwargs={'id': self.object.ingredient.id})

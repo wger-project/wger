@@ -69,7 +69,7 @@ class WorkoutLogUpdateView(YamlFormMixin, UpdateView):
         return reverse('workout-log', kwargs={'pk': self.object.workout_id})
 
 
-def workout_log_add(request, pk):
+def add(request, pk):
     '''
     Add a new workout log
     '''

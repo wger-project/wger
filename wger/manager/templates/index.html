@@ -12,7 +12,7 @@
         <div class="ym-gbox-left">
             <h3>{% trans "Workout"%}</h3>
             {% if current_workout %}
-            <a href="{% url 'wger.manager.views.workout.view_workout' current_workout.id %}">
+            <a href="{% url 'wger.manager.views.workout.view' current_workout.id %}">
                 {% if current_workout.comment %}
                     {{ current_workout.comment }}
                 {% else %}

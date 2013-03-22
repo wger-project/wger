@@ -71,7 +71,7 @@ class ExerciseCommentEditView(YamlFormMixin, UpdateView):
     title = ugettext_lazy('Edit exercise comment')
 
     def get_success_url(self):
-        return reverse('wger.exercises.views.exercises.exercise_view',
+        return reverse('wger.exercises.views.exercises.view',
                        kwargs={'id': self.object.exercise.id})
 
     # Send some additional data to the template
@@ -98,7 +98,7 @@ class ExerciseCommentAddView(YamlFormMixin, CreateView):
         return super(ExerciseCommentAddView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('wger.exercises.views.exercises.exercise_view',
+        return reverse('wger.exercises.views.exercises.view',
                        kwargs={'id': self.object.exercise.id})
 
     def get_context_data(self, **kwargs):
@@ -113,11 +113,11 @@ class ExerciseCommentAddView(YamlFormMixin, CreateView):
 
 
 @permission_required('manager.add_exercisecomment')
-def exercisecomment_delete(request, id):
+def delete(request, id):
     # Load the comment
     comment = get_object_or_404(ExerciseComment, pk=id)
     exercise_id = comment.exercise.id
     comment.delete()
 
-    return HttpResponseRedirect(reverse('wger.exercises.views.exercises.exercise_view',
+    return HttpResponseRedirect(reverse('wger.exercises.views.exercises.view',
                                 kwargs={'id': exercise_id}))

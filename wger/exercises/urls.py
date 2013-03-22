@@ -9,11 +9,11 @@ from wger.exercises.views import muscles
 urlpatterns = patterns('wger.exercises.views',
 
     # Exercises
-    url(r'^overview/$', 'exercises.exercise_overview'),
+    url(r'^overview/$', 'exercises.overview'),
 
-    url(r'^search/$', 'exercises.exercise_search'),
-    url(r'^(?P<id>\d+)/view/(?P<slug>[-\w]+)/$', 'exercises.exercise_view'),
-    url(r'^(?P<id>\d+)/view/$', 'exercises.exercise_view'),
+    url(r'^search/$', 'exercises.search'),
+    url(r'^(?P<id>\d+)/view/(?P<slug>[-\w]+)/$', 'exercises.view'),
+    url(r'^(?P<id>\d+)/view/$', 'exercises.view'),
     url(r'^add/$',
         permission_required('exercises.change_exercise')(exercises.ExerciseAddView.as_view()),
         name='exercise-add'),
@@ -46,7 +46,7 @@ urlpatterns = patterns('wger.exercises.views',
         permission_required('exercises.change_exercise')(comments.ExerciseCommentEditView.as_view()),
         name='exercisecomment-edit'),
     url(r'^comment/(?P<id>\d+)/delete/$',
-        'comments.exercisecomment_delete',
+        'comments.delete',
         name='exercisecomment-delete'),
 
     # Categories

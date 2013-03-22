@@ -32,7 +32,7 @@ $(document).ready(function() {
             
             
             <span class="editoptions" style="float: right;">
-                <a href="{% url 'wger.manager.views.day.delete_day' workout.id day.id %}"
+                <a href="{% url 'wger.manager.views.day.delete' workout.id day.id %}"
                    title="{% trans 'Delete' %}">
                        <img src="{% static 'images/icons/trash.svg' %}"
                             width="22"
@@ -69,7 +69,7 @@ $(document).ready(function() {
                      alt="{% trans 'Move me' %}"
                      title="{% trans 'Move me' %}"
                      class="dragndrop-handle">
-                 <a href="{% url 'wger.manager.views.set.delete_set' set.id %}"
+                 <a href="{% url 'wger.manager.views.set.delete' set.id %}"
                     title="{% trans 'Delete' %}">
                         <img src="{% static 'images/icons/trash.svg' %}"
                              width="16"

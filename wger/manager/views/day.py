@@ -53,7 +53,7 @@ class DayView(YamlFormMixin):
     form_class = DayForm
 
     def get_success_url(self):
-        return reverse('wger.manager.views.workout.view_workout',
+        return reverse('wger.manager.views.workout.view',
                        kwargs={'id': self.object.training_id})
 
     def get_form(self, form_class):
@@ -116,7 +116,7 @@ class DayCreateView(DayView, CreateView):
 
 
 @login_required
-def delete_day(request, id, day_id):
+def delete(request, id, day_id):
     '''
     Deletes the day with ID day_id belonging to workout with ID id
     '''
@@ -127,14 +127,14 @@ def delete_day(request, id, day_id):
     # Check if the user is the owner of the object
     if day.training.user == request.user:
         day.delete()
-        return HttpResponseRedirect(reverse('wger.manager.views.workout.view_workout',
+        return HttpResponseRedirect(reverse('wger.manager.views.workout.view',
                                             kwargs={'id': id}))
     else:
         return HttpResponseForbidden()
 
 
 @login_required
-def view_day(request, id):
+def view(request, id):
     '''
     Renders a day as shown in the workout overview.
 

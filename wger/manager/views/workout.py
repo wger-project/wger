@@ -64,7 +64,7 @@ def overview(request):
 
 
 @login_required
-def view_workout(request, id):
+def view(request, id):
     '''
     Show the workout with the given ID
     '''
@@ -164,7 +164,7 @@ def copy_workout(request, pk):
                             setting_copy.set = current_set_copy
                             setting_copy.save()
 
-            return HttpResponseRedirect(reverse('wger.manager.views.workout.view_workout',
+            return HttpResponseRedirect(reverse('wger.manager.views.workout.view',
                                         kwargs={'id': workout.id}))
     else:
         workout_form = WorkoutCopyForm({'comment': workout.comment})
@@ -190,7 +190,7 @@ def add(request):
     workout.user = request.user
     workout.save()
 
-    return HttpResponseRedirect(reverse('wger.manager.views.workout.view_workout',
+    return HttpResponseRedirect(reverse('wger.manager.views.workout.view',
                                         kwargs={'id': workout.id}))
 
 

@@ -55,7 +55,7 @@ logger = logging.getLogger('workout_manager.custom')
 # ************************
 #         Exercises
 # ************************
-def exercise_overview(request):
+def overview(request):
     '''
     Overview with all exercises
     '''
@@ -71,7 +71,7 @@ def exercise_overview(request):
                               context_instance=RequestContext(request))
 
 
-def exercise_view(request, id, slug=None):
+def view(request, id, slug=None):
     '''
     Detail view for an exercise
     '''
@@ -196,7 +196,7 @@ class ExerciseDeleteView(YamlDeleteMixin, DeleteView):
     '''
 
     model = Exercise
-    success_url = reverse_lazy('wger.exercises.views.exercises.exercise_overview')
+    success_url = reverse_lazy('wger.exercises.views.exercises.overview')
     delete_message = ugettext_lazy('This will delete the exercise from all workouts.')
     messages = ugettext_lazy('Exercise successfully deleted')
 
@@ -210,7 +210,7 @@ class ExerciseDeleteView(YamlDeleteMixin, DeleteView):
         return context
 
 
-def exercise_search(request):
+def search(request):
     '''
     Search an exercise, return the result as a JSON list
     '''

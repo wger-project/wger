@@ -129,7 +129,7 @@ class Exercise(models.Model):
         '''
         Returns the canonical URL to view an exercise
         '''
-        return reverse('wger.exercises.views.exercises.exercise_view',
+        return reverse('wger.exercises.views.exercises.view',
                        kwargs={'id': self.id, 'slug': slugify(self.name)})
 
     def __unicode__(self):

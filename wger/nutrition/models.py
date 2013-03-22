@@ -116,45 +116,45 @@ class Ingredient(models.Model):
     energy = models.IntegerField(verbose_name=_('Energy'),
                                  help_text=_('In kcal per 100g'))
 
-    protein = models.DecimalField(decimal_places=2,
-                                  max_digits=5,
+    protein = models.DecimalField(decimal_places=3,
+                                  max_digits=6,
                                   verbose_name=_('Protein'),
                                   help_text=_('In g per 100g of product'))
 
-    carbohydrates = models.DecimalField(decimal_places=2,
-                                        max_digits=5,
+    carbohydrates = models.DecimalField(decimal_places=3,
+                                        max_digits=6,
                                         verbose_name=_('Carbohydrates'),
                                         help_text=_('In g per 100g of product'))
 
-    carbohydrates_sugar = models.DecimalField(decimal_places=2,
-                                              max_digits=5,
+    carbohydrates_sugar = models.DecimalField(decimal_places=3,
+                                              max_digits=6,
                                               blank=True,
                                               null=True,
                                               verbose_name=_('Sugar content in carbohydrates'),
                                               help_text=_('In g per 100g of product'))
 
-    fat = models.DecimalField(decimal_places=2,
-                              max_digits=5,
+    fat = models.DecimalField(decimal_places=3,
+                              max_digits=6,
                               blank=True,
                               verbose_name=_('Fat'),
                               help_text=_('In g per 100g of product'))
 
-    fat_saturated = models.DecimalField(decimal_places=2,
-                                        max_digits=5,
+    fat_saturated = models.DecimalField(decimal_places=3,
+                                        max_digits=6,
                                         blank=True,
                                         null=True,
                                         verbose_name=_('Saturated fat content in fats'),
                                         help_text=_('In g per 100g of product'))
 
-    fibres = models.DecimalField(decimal_places=2,
-                                 max_digits=5,
+    fibres = models.DecimalField(decimal_places=3,
+                                 max_digits=6,
                                  blank=True,
                                  null=True,
                                  verbose_name=_('Fibres'),
                                  help_text=_('In g per 100g of product'))
 
-    sodium = models.DecimalField(decimal_places=2,
-                                 max_digits=5,
+    sodium = models.DecimalField(decimal_places=3,
+                                 max_digits=6,
                                  blank=True,
                                  null=True,
                                  verbose_name=_('Sodium'),
@@ -164,7 +164,7 @@ class Ingredient(models.Model):
         '''
         Returns the canonical URL to view this object
         '''
-        return reverse('wger.nutrition.views.ingredient.ingredient_view',
+        return reverse('wger.nutrition.views.ingredient.view',
                        kwargs={'id': self.id, 'slug': slugify(self.name)})
 
     def __unicode__(self):

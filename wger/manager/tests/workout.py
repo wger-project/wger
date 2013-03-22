@@ -51,7 +51,7 @@ class AddWorkoutTestCase(WorkoutManagerTestCase):
             self.assertTemplateUsed('workout/view.html')
 
         # Test accessing workout
-        response = self.client.get(reverse('wger.manager.views.workout.view_workout',
+        response = self.client.get(reverse('wger.manager.views.workout.view',
                                            kwargs={'id': 1}))
 
         if logged_in:

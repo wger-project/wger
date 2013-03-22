@@ -88,7 +88,7 @@ def edit_setting(request, set_id, exercise_id):
                 setting_instance.save()
                 order += 1
 
-            return HttpResponseRedirect(reverse('wger.manager.views.workout.view_workout',
+            return HttpResponseRedirect(reverse('wger.manager.views.workout.view',
                                                 kwargs={'id': set_obj.get_owner_object().id}))
     else:
         setting_form = SettingFormSet(queryset=Setting.objects.filter(exercise_id=exercise.id,
