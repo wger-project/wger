@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load url from future %}
+{% load browserid %}
 {% load i18n %}
 {% load staticfiles %}
 {% load manager_extras %}
@@ -39,14 +40,11 @@
     <div style="padding-top:1em;"></div>
     <a id="browserid-login"
        href="#"
-       class="persona-button dark browserid-login"
-       data-site-name="Workout Manager">
+       class="browserid-login persona-button dark browserid-login"
+       data-site-name="Workout Manager"
+       data-next="/">
         <span>{% trans "Sign in with your Email" %}</span>
     </a>
-    <form method="POST" action="{% url 'browserid_verify' %}" id="browserid-form">
-        {% csrf_token %}
-        {{ browserid_form.as_p }}
-    </form>
 </div>
 
 <p>

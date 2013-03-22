@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load i18n %}
+{% load browserid %}
 {% load url from future %}
 {% load staticfiles %}
 <html lang="{{language.short_name}}">
@@ -67,6 +68,7 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+{% browserid_info %}
 <header>
     <div class="ym-wrapper">
         <div class="ym-wbox">
