@@ -1,4 +1,25 @@
+# -*- coding: utf-8 -*-
+
+# This file is part of Workout Manager.
+#
+# Workout Manager is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Workout Manager is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+
 from django import template
+from django.core.paginator import EmptyPage, PageNotAnInteger
+
+from wger.workout_manager.constants import PAGINATION_OBJECTS_PER_PAGE
+from wger.workout_manager.constants import PAGINATION_MAX_TOTAL_PAGES
+from wger.workout_manager.constants import PAGINATION_PAGES_AROUND_CURRENT
 
 register = template.Library()
 
@@ -24,10 +45,33 @@ def render_day(day):
 
 
 @register.inclusion_tag('tags/pagination.html')
-def pagination(page, page_range):
+def pagination(paginator, page):
     '''
     Renders the necessary links to paginating a long list
     '''
+
+    # For very long lists (e.g. the English ingredient with more than 8000 items)
+    # we muck around here to remove the pages not inmediately 'around' the current
+    # one, otherwise we end up with a useless block with 300 pages.
+    if paginator.num_pages > PAGINATION_MAX_TOTAL_PAGES:
+
+        start_page = page.number - PAGINATION_PAGES_AROUND_CURRENT
+        for i in range(page.number - PAGINATION_PAGES_AROUND_CURRENT, page.number + 1):
+            if i > 0:
+                start_page = i
+                break
+
+        end_page = page.number + PAGINATION_PAGES_AROUND_CURRENT
+        for i in range(page.number, page.number + PAGINATION_PAGES_AROUND_CURRENT):
+            if i > paginator.num_pages:
+                end_page = i
+                break
+
+        page_range = range(start_page, end_page)
+    else:
+        page_range = paginator.page_range
+
+    # Set the template variables
     return {'page':       page,
             'page_range': page_range}
 

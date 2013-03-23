@@ -55,9 +55,10 @@ from wger.manager.utils import load_language
 from wger.manager.utils import load_ingredient_languages
 
 from wger.workout_manager import get_version
+from wger.workout_manager import helpers
 from wger.workout_manager.generic_views import YamlFormMixin
 from wger.workout_manager.generic_views import YamlDeleteMixin
-from wger.workout_manager import helpers
+from wger.workout_manager.constants import PAGINATION_OBJECTS_PER_PAGE
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -65,27 +66,24 @@ logger = logging.getLogger('workout_manager.custom')
 # ************************
 # Ingredient functions
 # ************************
-def overview(request):
+class IngredientListView(ListView):
     '''
     Show an overview of all ingredients
     '''
+    model = Ingredient
+    template_name = 'ingredient/overview.html'
+    context_object_name = 'ingredients_list'
+    paginate_by = PAGINATION_OBJECTS_PER_PAGE
 
-    template_data = {}
+    def get_queryset(self):
+        '''
+        Filter the ingredients the user will see by its language
 
-    # Filter the ingredients the user will see by its language
-    # (the user can also want to see ingredients in English, see load_ingredient_languages)
-    languages = load_ingredient_languages(request)
-
-    # Load the ingredients and paginate it
-    ingredients_list = Ingredient.objects.filter(language__in=languages)
-
-    pagination = helpers.pagination(ingredients_list, request.GET.get('page'))
-    template_data['page_range'] = pagination['page_range']
-    template_data['ingredients'] = pagination['page']
-
-    return render_to_response('ingredient/overview.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+        (the user can also want to see ingredients in English, in addition to his
+        native language, see load_ingredient_languages)
+        '''
+        languages = load_ingredient_languages(self.request)
+        return Ingredient.objects.filter(language__in=languages)
 
 
 def view(request, id, slug=None):
@@ -115,7 +113,7 @@ class IngredientDeleteView(YamlDeleteMixin, DeleteView):
 
     model = Ingredient
     template_name = 'delete.html'
-    success_url = reverse_lazy('wger.nutrition.views.ingredient.overview')
+    success_url = reverse_lazy('ingredient-list')
     messages = ugettext_lazy('Ingredient successfully deleted')
 
     # Send some additional data to the template

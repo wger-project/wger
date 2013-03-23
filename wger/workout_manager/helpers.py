@@ -17,62 +17,6 @@
 import decimal
 import json
 
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
-from wger.workout_manager.constants import PAGINATION_OBJECTS_PER_PAGE
-from wger.workout_manager.constants import PAGINATION_MAX_TOTAL_PAGES
-from wger.workout_manager.constants import PAGINATION_PAGES_AROUND_CURRENT
-
-
-def pagination(object_list,
-               request_page,
-               paginator_class=Paginator,
-               objects_per_page=PAGINATION_OBJECTS_PER_PAGE,
-               max_total_pages=PAGINATION_MAX_TOTAL_PAGES,
-               pages_around_current=PAGINATION_PAGES_AROUND_CURRENT):
-    '''
-    Helper function to initialise the pagination.
-
-    If the list is too long, only pages around the current one are shown.
-    '''
-
-    paginator = paginator_class(object_list, objects_per_page)
-
-    try:
-        paginated_page = paginator.page(request_page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        paginated_page = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        paginated_page = paginator.page(paginator.num_pages)
-
-    # For very long lists (e.g. the English ingredient with more than 8000 items)
-    # we muck around here to remove the pages not inmediately 'around' the current
-    # one, otherwise we end up with a which a useless block with 300 pages.
-    if paginator.num_pages > max_total_pages:
-
-        start_page = paginated_page.number - pages_around_current
-        for i in range(paginated_page.number - pages_around_current, paginated_page.number + 1):
-            if i > 0:
-                start_page = i
-                break
-
-        end_page = paginated_page.number + pages_around_current
-        for i in range(paginated_page.number, paginated_page.number + pages_around_current):
-            if i > paginator.num_pages:
-                end_page = i
-
-                break
-
-        page_range = range(start_page, end_page)
-    else:
-        page_range = paginator.page_range
-
-    # OK, return
-    return({'page': paginated_page,
-            'page_range': page_range})
-
 
 class DecimalJsonEncoder(json.JSONEncoder):
     '''

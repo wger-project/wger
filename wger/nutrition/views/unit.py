@@ -32,7 +32,7 @@ from wger.manager.utils import load_language
 
 from wger.workout_manager.generic_views import YamlFormMixin
 from wger.workout_manager.generic_views import YamlDeleteMixin
-
+from wger.workout_manager.constants import PAGINATION_OBJECTS_PER_PAGE
 
 logger = logging.getLogger('workout_manager.custom')
 # ************************
@@ -48,6 +48,7 @@ class WeightUnitListView(ListView):
     model = WeightUnit
     template_name = 'units/list.html'
     context_object_name = 'unit_list'
+    paginate_by = PAGINATION_OBJECTS_PER_PAGE
 
     def get_queryset(self):
         '''

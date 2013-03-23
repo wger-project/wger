@@ -46,17 +46,29 @@ class OverviewPlanTestCase(WorkoutManagerTestCase):
 
         # Page exists
         self.user_logout()
-        response = self.client.get(reverse('wger.nutrition.views.ingredient.overview'))
+        response = self.client.get(reverse('ingredient-list'))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['ingredients']), PAGINATION_OBJECTS_PER_PAGE)
+        self.assertEqual(len(response.context['ingredients_list']), PAGINATION_OBJECTS_PER_PAGE)
 
-        response = self.client.get(reverse('wger.nutrition.views.ingredient.overview'),
+        response = self.client.get(reverse('ingredient-list'),
                                    {'page': 2})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['ingredients']), PAGINATION_OBJECTS_PER_PAGE)
+        self.assertEqual(len(response.context['ingredients_list']), PAGINATION_OBJECTS_PER_PAGE)
 
         rest_ingredients = Ingredient.objects.count() - 2 * PAGINATION_OBJECTS_PER_PAGE
-        response = self.client.get(reverse('wger.nutrition.views.ingredient.overview'),
+        response = self.client.get(reverse('ingredient-list'),
                                    {'page': 3})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['ingredients']), rest_ingredients)
+        self.assertEqual(len(response.context['ingredients_list']), rest_ingredients)
+
+        # 'last' is a special case
+        response = self.client.get(reverse('ingredient-list'), {'page': 'last'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['ingredients_list']), rest_ingredients)
+
+        # Page does not exist
+        response = self.client.get(reverse('ingredient-list'), {'page': 100})
+        self.assertEqual(response.status_code, 404)
+
+        response = self.client.get(reverse('ingredient-list'), {'page': 'foobar'})
+        self.assertEqual(response.status_code, 404)

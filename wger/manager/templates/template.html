@@ -132,7 +132,7 @@
                                 {% if user.is_authenticated %}
                                     <li><a href="{% url 'wger.nutrition.views.plan.overview' %}">{% trans "Nutrition plans" %}</a></li>
                                 {% endif %}
-                                    <li><a href="{% url 'wger.nutrition.views.ingredient.overview' %}">{% trans "Ingredient overview" %}</a></li>
+                                    <li><a href="{% url 'ingredient-list' %}">{% trans "Ingredient overview" %}</a></li>
                                 {% if perms.exercises %}
                                     <li><a href="{% url 'weight-unit-list' %}">{% trans "Ingredient weight units" %}</a></li>
                                 {% endif %}

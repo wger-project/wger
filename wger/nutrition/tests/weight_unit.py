@@ -13,11 +13,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+from django.core.urlresolvers import reverse
+
 from wger.nutrition.models import WeightUnit
 
+from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+
+from wger.workout_manager.constants import PAGINATION_OBJECTS_PER_PAGE
 
 
 class AddWeightUnitTestCase(WorkoutManagerAddTestCase):
@@ -50,3 +55,43 @@ class EditWeightUnitTestCase(WorkoutManagerEditTestCase):
     url = 'weight-unit-edit'
     pk = 1
     data = {'name': 'A new name'}
+
+
+class WeightUnitOverviewTestCase(WorkoutManagerTestCase):
+    '''
+    Tests the ingredient unit overview page
+    '''
+
+    def test_overview(self):
+
+        # Add more ingredient units so we can test the pagination
+        self.user_login('admin')
+        data = {"name": "A new, cool unit",
+                "language": 2}
+        for i in range(0, 50):
+            self.client.post(reverse('weight-unit-add'), data)
+
+        # Page exists and the pagination works
+        response = self.client.get(reverse('weight-unit-list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['unit_list']), PAGINATION_OBJECTS_PER_PAGE)
+
+        response = self.client.get(reverse('weight-unit-list'), {'page': 2})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['unit_list']), PAGINATION_OBJECTS_PER_PAGE)
+
+        response = self.client.get(reverse('weight-unit-list'), {'page': 3})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['unit_list']), 3)
+
+        # 'last' is a special case
+        response = self.client.get(reverse('weight-unit-list'), {'page': 'last'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['unit_list']), 3)
+
+        # Page does not exist
+        response = self.client.get(reverse('weight-unit-list'), {'page': 100})
+        self.assertEqual(response.status_code, 404)
+
+        response = self.client.get(reverse('weight-unit-list'), {'page': 'foobar'})
+        self.assertEqual(response.status_code, 404)
