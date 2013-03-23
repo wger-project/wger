@@ -13,7 +13,7 @@ detailed installation instructions on http://wger.de/en/software/code
 
 1) Install the necessary packages and their dependencies
 
-.. code:: bash
+::
 
  $ sudo apt-get install python-virtualenv
  $ sudo apt-get install python-dev
@@ -24,8 +24,7 @@ detailed installation instructions on http://wger.de/en/software/code
 
 2) Start the application. This will create a SQlite database and populate it with data on the first run
 
-
-.. code:: bash
+::
 
  $ wger
 
