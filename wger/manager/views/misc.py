@@ -81,15 +81,18 @@ def dashboard(request):
 
     if current_workout:
         # Format a bit the days so it doesn't have to be done in the template
+        used_days = {}
+        for day in current_workout.day_set.select_related():
+            for day_of_week in day.day.select_related():
+                used_days[day_of_week.id] = day.description
+
         week_day_result = []
         for week in DaysOfWeek.objects.all():
             day_has_workout = False
-            for day in current_workout.day_set.select_related():
-                for day_of_week in day.day.select_related():
-                    if day_of_week.id == week.id:
-                        day_has_workout = True
-                        week_day_result.append((_(week.day_of_week), day.description, True))
-                        break
+
+            if week.id in used_days:
+                day_has_workout = True
+                week_day_result.append((_(week.day_of_week), used_days[week.id], True))
 
             if not day_has_workout:
                 week_day_result.append((_(week.day_of_week), _('Rest day'), False))

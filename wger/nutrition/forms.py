@@ -47,4 +47,4 @@ class UnitChooserForm(forms.Form):
             ingredient_id = -1
 
         self.fields['unit'].queryset = IngredientWeightUnit.objects.filter(
-            ingredient_id=ingredient_id)
+            ingredient_id=ingredient_id).select_related()

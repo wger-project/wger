@@ -215,7 +215,7 @@ $(document).ready(function() {
 {% trans "Add new weight unit" %}
 </a>
 </p>
-{% if ingredient.ingredientweightunit_set.all %}
+{% if ingredient.ingredientweightunit_set.exists %}
     <table>
     <thead>
         <tr>
@@ -223,7 +223,7 @@ $(document).ready(function() {
         </tr>
     </thead>
     <tbody>
-    {% for unit in ingredient.ingredientweightunit_set.all %}
+    {% for unit in ingredient.ingredientweightunit_set.select_related %}
         <tr>
             <td>
                 {{unit.amount}} {{unit.unit.name}} = {{unit.gramm}}g
