@@ -26,7 +26,7 @@ $(document).ready(function() {
         // On selecting a category, set the values to edit it
         activate: function(event, ui) {
                 category_id = ui.newTab.attr('id').match(/\d+/);
-                $(".current-category-name").html($("#cat-" + category_id).html());
+                $(".current-category-name").html($("#cat-" + category_id).text());
                 $("#current-category-edit").attr("href", "/exercise/category/" + category_id + "/edit/");
                 $("#current-category-delete").attr("href", "/exercise/category/" + category_id + "/delete/");
             }
