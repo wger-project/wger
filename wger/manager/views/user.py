@@ -164,9 +164,9 @@ def create_demo_user(request):
 
             # Biceps curls with dumbbell
             if(load_language().short_name == 'de'):
-                exercise = Exercise.objects.get(pk=4)
+                exercise = Exercise.objects.get(pk=26)
             else:
-                exercise = Exercise.objects.get(pk=91)
+                exercise = Exercise.objects.get(pk=81)
             day_set = Set(exerciseday=day,
                           sets=4,
                           order=2)
@@ -226,9 +226,9 @@ def create_demo_user(request):
 
             # Crunches
             if(load_language().short_name == 'de'):
-                exercise = Exercise.objects.get(pk=26)
+                exercise = Exercise.objects.get(pk=4)
             else:
-                exercise = Exercise.objects.get(pk=81)
+                exercise = Exercise.objects.get(pk=91)
             day_set = Set(exerciseday=day,
                           sets=4,
                           order=4)
