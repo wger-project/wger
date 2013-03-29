@@ -115,8 +115,8 @@ $(document).ready(function() {
             {% empty %}
                 <div class="box warning ingredient-box-warning">
                    {% trans "No items for this meal." %}
-                   <a href="{% url 'wger.nutrition.views.ingredient.edit_meal_item' plan.id meal.id item.id %}"
-                           title="{% trans 'Edit' %}"
+                   <a href="{% url 'mealitem-add' meal.id %}"
+                           title="{% trans 'Add one now' %}"
                            class="modal-dialog edit-meal">
                             {% trans "Add one now."%}
                         </a>
