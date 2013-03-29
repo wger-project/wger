@@ -131,6 +131,10 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
                               self.object_class.objects.get,
                               pk=self.pk)
 
+            # The page we are redirected to doesn't trigger an error
+            response = self.client.get(response['Location'])
+            self.assertEqual(response.status_code, 200)
+
     def test_delete_object_anonymous(self):
         '''
         Tests deleting the object as an anonymous user
@@ -218,6 +222,10 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
             for i in self.data:
                 current_field = getattr(entry_after, i)
                 self.compare_fields(current_field, self.data[i])
+
+            # The page we are redirected to doesn't trigger an error
+            response = self.client.get(response['Location'])
+            self.assertEqual(response.status_code, 200)
 
     def test_edit_object_anonymous(self):
         '''
@@ -310,6 +318,10 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
                 self.compare_fields(current_field, self.data[i])
 
             self.assertEqual(count_before + 1, count_after)
+
+            # The page we are redirected to doesn't trigger an error
+            response = self.client.get(response['Location'])
+            self.assertEqual(response.status_code, 200)
 
     def test_add_object_anonymous(self):
         '''
