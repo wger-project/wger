@@ -280,8 +280,8 @@ def run_syncdb():
     print "* Intialising the database"
 
     # Create the tables
-    argv = ["", "syncdb", "--noinput"]
-    execute_from_command_line(argv)
+    execute_from_command_line(["", "syncdb", "--noinput"])
+    execute_from_command_line(["", "migrate", "--all"])
 
     # Load fixtures
     execute_from_command_line(["", "loaddata", "languages"])
