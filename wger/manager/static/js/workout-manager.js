@@ -300,58 +300,64 @@ function modal_dialog_form_edit()
 
 
         // OK, we did the POST, what do we do with the result?
-        $.post(form_action, form_data, function(data) {
-
-            if($(data).find('.ym-form .ym-error').length > 0)
-            {
-                // we must do the same with the new form as before, binding the click-event,
-                // checking for errors etc, so it calls itself here again.
-
-                $("#ajax-info .ym-form").html($(data).find('.ym-form').html());
-                $("#ajax-info").dialog({title: $(data).find("#main-content h2").html()});
-
-                modal_dialog_form_edit();
-            }
-            else
-            {
-                $("#ajax-info").dialog("close");
-
-                // If there  was a redirect we must change the URL of the browser. Otherwise
-                // a reload would not change the adress bar, but the content would.
-                // Since it is not possible to get this URL from the AJAX request, we read it out
-                // from a hidden HTML DIV in the document...
-                current_url = $(data).find("#current-url").data('currentUrl');
-
-                // TODO: There seems to be problems sometimes when using the technique below and
-                //       bootstrap's menu bar (drop downs won't open). So just do a normal
-                //       redirect.
-                window.location.href = current_url;
-                
-                
-                /*
-                if(document.URL.indexOf(current_url))
+        $.ajax({
+            type: "POST",
+            url: form_action,
+            data: form_data,
+            success: function(data) {
+                if($(data).find('.ym-form .ym-error').length > 0)
                 {
-                    history.pushState({}, "", current_url);
+                    // we must do the same with the new form as before, binding the click-event,
+                    // checking for errors etc, so it calls itself here again.
+
+                    $("#ajax-info .ym-form").html($(data).find('.ym-form').html());
+                    $("#ajax-info").dialog({title: $(data).find("#main-content h2").html()});
+
+                    modal_dialog_form_edit();
                 }
-                */
+                else
+                {
+                    $("#ajax-info").dialog("close");
 
-                // Note: loading the new page like this executes all its JS code
-                //$('body').html(data);
-            }
+                    // If there  was a redirect we must change the URL of the browser. Otherwise
+                    // a reload would not change the adress bar, but the content would.
+                    // Since it is not possible to get this URL from the AJAX request, we read it out
+                    // from a hidden HTML DIV in the document...
+                    current_url = $(data).find("#current-url").data('currentUrl');
 
-            // Call other custom initialisation functions
-            // (e.g. if the form as an autocompleter, it has to be initialised again)
-            if (typeof custom_modal_init != "undefined")
-            {
-                custom_modal_init();
-            }
+                    // TODO: There seems to be problems sometimes when using the technique below and
+                    //       bootstrap's menu bar (drop downs won't open). So just do a normal
+                    //       redirect.
+                    window.location.href = current_url;
+                    
+                    
+                    /*
+                    if(document.URL.indexOf(current_url))
+                    {
+                        history.pushState({}, "", current_url);
+                    }
+                    */
 
-            if (typeof custom_page_init != "undefined")
-            {
-                custom_page_init();
-            }
+                    // Note: loading the new page like this executes all its JS code
+                    //$('body').html(data);
+                }
 
+                // Call other custom initialisation functions
+                // (e.g. if the form as an autocompleter, it has to be initialised again)
+                if (typeof custom_modal_init != "undefined")
+                {
+                    custom_modal_init();
+                }
 
+                if (typeof custom_page_init != "undefined")
+                {
+                    custom_page_init();
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                    //console.log(errorThrown); // INTERNAL SERVER ERROR
+                    $("#ajax-info").html(jqXHR.responseText);
+                }
         });
     });
 
