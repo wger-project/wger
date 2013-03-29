@@ -67,7 +67,7 @@ class NutritionalValuesCalculationsTestCase(WorkoutManagerTestCase):
         result_item = item.get_nutritional_values()
 
         for i in result_item:
-            self.assertEqual(result_item[i], getattr(ingredient, i) * decimal.Decimal(12.0) / 100)
+            self.assertEqual(result_item[i], getattr(ingredient, i) * decimal.Decimal('12.0') / 100)
 
         result_meal = meal.get_nutritional_values()
         self.assertEqual(result_item, result_meal)
@@ -109,7 +109,7 @@ class NutritionalValuesCalculationsTestCase(WorkoutManagerTestCase):
         result_item3 = item3.get_nutritional_values()
 
         for i in result_item3:
-            self.assertEqual(result_item3[i], getattr(ingredient3, i) * decimal.Decimal(20.0) / 100)
+            self.assertEqual(result_item3[i], getattr(ingredient3, i) * decimal.Decimal('20.0') / 100)
             result_total[i] = result_total[i] + result_item3[i]
 
         result_meal = meal.get_nutritional_values()
