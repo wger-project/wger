@@ -108,6 +108,9 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="{% url 'wger.exercises.views.exercises.overview' %}">{% trans "Exercises" %}</a></li>
                                     <li><a href="{% url 'muscle-overview' %}">{% trans "Muscle overview" %}</a></li>
+                                    {% if perms.exercises %}
+                                    <li><a href="{% url 'exercise-pending' %}">{% trans "Exercises pending review" %}</a></li>
+                                    {% endif %}
                                 </ul>
                             </li>
 

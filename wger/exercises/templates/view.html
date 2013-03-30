@@ -29,6 +29,52 @@ function custom_modal_init()
         Main Content
 -->
 {% block content %}
+
+{% if exercise.status == EXERCISE_STATUS_PENDING %}
+<div class="alert">
+<h3>{% trans "Exercise is pending review" %}</h3>
+<p>{% blocktrans %}This user submitted exercise is pending a decision to be
+included in the database. Till then, it will not be shown in the overview or
+the search.{% endblocktrans %}
+{% if perms.exercises %}
+Please select one of the options below.
+{% endif %}
+</p>
+
+{% if perms.exercises %}
+<div class="ym-grid linearize-level-1">
+    <div class="ym-g50 ym-gl">
+        <div class="ym-gbox-left">
+            <div class="alert alert-success">
+                <a href="{% url 'exercise-accept' exercise.id %}">
+                    <img src="{% static 'images/icons/status-on.svg' %}"
+                        width="32"
+                        height="32"
+                        alt="{% trans 'Accept' %}">
+                    {% trans "Accept" %}
+                </a>
+                </div>
+        </div>
+    </div>
+    <div class="ym-g50 ym-gl">
+        <div class="ym-gbox-left">
+            <div class="alert alert-error">
+                <a href="{% url 'exercise-decline' exercise.id %}">
+                    <img src="{% static 'images/icons/status-off.svg' %}"
+                        width="32"
+                        height="32"
+                        alt="{% trans 'Decline' %}">
+                    {% trans "Decline" %}
+                </a>
+                </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+</div>
+{% endif %} {# end exercise is pending review #}
+
 <p>{% trans "Category" %}: <strong>{{ exercise.category.name }}</strong></p>
 
 <p>{{ exercise.description|safe }}</p>
@@ -212,8 +258,7 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
         <img src="{% static 'images/icons/edit.svg' %}"
              width="32"
              height="32"
-             alt="{% trans 'Edit' %}"
-             >
+             alt="{% trans 'Edit' %}">
         {% trans "Edit" %}
     </a>
 </p>

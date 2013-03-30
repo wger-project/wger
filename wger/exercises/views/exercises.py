@@ -29,6 +29,7 @@ from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import permission_required
+from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
@@ -83,6 +84,7 @@ def view(request, id, slug=None):
 
     template_data = {}
     template_data['comment_edit'] = False
+    template_data['EXERCISE_STATUS_PENDING'] = EXERCISE_STATUS_PENDING
 
     # Load the exercise itself
     exercise = get_object_or_404(Exercise, pk=id)
@@ -235,6 +237,46 @@ class ExerciseDeleteView(YamlDeleteMixin, DeleteView):
         context['form_action'] = reverse('exercise-delete', kwargs={'pk': self.kwargs['pk']})
 
         return context
+
+
+class PendingExerciseListView(ListView):
+    '''
+    Generic view to list all weight units
+    '''
+
+    model = Exercise
+    template_name = 'exercise/pending.html'
+    context_object_name = 'exercise_list'
+
+    def get_queryset(self):
+        '''
+        Only show pending exercises
+        '''
+        return Exercise.objects.filter(status=EXERCISE_STATUS_PENDING)
+
+
+@permission_required('exercise.add_exercise')
+def accept(request, pk):
+    '''
+    Accepts a pending user submitted exercise
+    '''
+    exercise = get_object_or_404(Exercise, pk=pk)
+    exercise.status = EXERCISE_STATUS_ACCEPTED
+    exercise.save()
+    messages.success(request, _('Exercise was sucessfully added to the general database'))
+    return HttpResponseRedirect(exercise.get_absolute_url())
+
+
+@permission_required('exercise.add_exercise')
+def decline(request, pk):
+    '''
+    Declines and deletes a pending user submitted exercise
+    '''
+    exercise = get_object_or_404(Exercise, pk=pk)
+    exercise.status = EXERCISE_STATUS_DECLINED
+    exercise.save()
+    messages.success(request, _('Exercise was sucessfully marked as rejected'))
+    return HttpResponseRedirect(exercise.get_absolute_url())
 
 
 def search(request):

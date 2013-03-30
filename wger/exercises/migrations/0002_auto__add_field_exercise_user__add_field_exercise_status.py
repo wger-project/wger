@@ -3,6 +3,7 @@ import datetime
 from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
+from wger.exercises.models import EXERCISE_STATUS_SYSTEM
 
 
 class Migration(SchemaMigration):
@@ -15,7 +16,16 @@ class Migration(SchemaMigration):
 
         # Adding field 'Exercise.status'
         db.add_column('exercises_exercise', 'status',
-                      self.gf('django.db.models.fields.CharField')(default=1, max_length=2),
+                      self.gf('django.db.models.fields.CharField')(default='1', max_length=2),
+                      keep_default=False)
+        # Set the status 'system' for all existing exercises in the database
+        if not db.dry_run:
+            orm.Exercise.objects.all().update(status=EXERCISE_STATUS_SYSTEM)
+
+
+        # Adding field 'Exercise.creation_date'
+        db.add_column('exercises_exercise', 'creation_date',
+                      self.gf('django.db.models.fields.DateField')(auto_now_add=True, null=True, blank=True),
                       keep_default=False)
 
 
@@ -25,6 +35,9 @@ class Migration(SchemaMigration):
 
         # Deleting field 'Exercise.status'
         db.delete_column('exercises_exercise', 'status')
+
+        # Deleting field 'Exercise.creation_date'
+        db.delete_column('exercises_exercise', 'creation_date')
 
 
     models = {
@@ -67,12 +80,13 @@ class Migration(SchemaMigration):
         'exercises.exercise': {
             'Meta': {'ordering': "['name']", 'object_name': 'Exercise'},
             'category': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['exercises.ExerciseCategory']"}),
+            'creation_date': ('django.db.models.fields.DateField', [], {'auto_now_add': 'True', 'null': 'True', 'blank': 'True'}),
             'description': ('django.db.models.fields.TextField', [], {'max_length': '2000', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'muscles': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['exercises.Muscle']", 'symmetrical': 'False'}),
             'muscles_secondary': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'related_name': "'secondary_muscles'", 'null': 'True', 'symmetrical': 'False', 'to': "orm['exercises.Muscle']"}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
-            'status': ('django.db.models.fields.CharField', [], {'default': '1', 'max_length': '2'}),
+            'status': ('django.db.models.fields.CharField', [], {'default': "'1'", 'max_length': '2'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'null': 'True', 'blank': 'True'})
         },
         'exercises.exercisecategory': {

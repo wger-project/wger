@@ -75,6 +75,7 @@
         "pk": 1, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5",
             "category": 2, 
             "muscles": [
                 1, 
@@ -84,6 +85,7 @@
                 3
             ],
             "description": "", 
+            "user": null, 
             "name": "An exercise"
         }
     }, 
@@ -91,6 +93,7 @@
         "pk": 2, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5",
             "category": 2, 
             "muscles": [
                 2
@@ -100,6 +103,7 @@
                 3
             ], 
             "description": "", 
+            "user": null, 
             "name": "A very cool exercise"
         }
     }, 
@@ -107,11 +111,27 @@
         "pk": 3, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5",
             "category": 3, 
             "muscles": [
                 1
             ], 
             "description": "", 
+            "user": null, 
+            "name": "Boring exercise"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "1",
+            "category": 3, 
+            "muscles": [
+                1
+            ], 
+            "description": "", 
+            "user": 2, 
             "name": "Boring exercise"
         }
     }, 
@@ -119,12 +139,14 @@
         "pk": 81, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5",
             "category": 3, 
             "muscles": [
                 1
             ],
             "muscles_secondary":[],
             "description": "", 
+            "user": null, 
             "name": "Needed for demo user"
         }
     }, 
@@ -132,12 +154,14 @@
         "pk": 84, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5",
             "category": 3, 
             "muscles": [
                 1
             ],
             "muscles_secondary":[],
             "description": "", 
+            "user": null, 
             "name": "Needed for demo user"
         }
     }, 
@@ -145,26 +169,29 @@
         "pk": 91, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5",
             "category": 3, 
             "muscles": [
                 1
             ],
             "muscles_secondary":[],
             "description": "", 
+            "user": null, 
             "name": "Needed for demo user"
         }
     }, 
-
     {
         "pk": 111, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5",
             "category": 3, 
             "muscles": [
                 1
             ],
             "muscles_secondary":[],
             "description": "", 
+            "user": null, 
             "name": "Needed for demo user"
         }
     }, 

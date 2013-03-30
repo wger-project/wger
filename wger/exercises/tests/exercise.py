@@ -142,11 +142,12 @@ class ExerciseDetailTestCase(WorkoutManagerTestCase):
             self.assertContains(response, 'Edit')
             self.assertContains(response, 'Delete')
             self.assertContains(response, 'Add new comment')
-
+            self.assertNotContains(response, 'Exercise is pending')
         else:
             self.assertNotContains(response, 'Edit')
             self.assertNotContains(response, 'Delete')
             self.assertNotContains(response, 'Add new comment')
+            self.assertNotContains(response, 'Exercise is pending')
 
         # Ensure that non-existent exercises throw a 404.
         response = self.client.get(reverse('wger.exercises.views.exercises.view',

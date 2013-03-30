@@ -99,16 +99,18 @@ class ExerciseCategory(models.Model):
         return False
 
 
-EXERCISE_STATUS_PENDING = 1
-EXERCISE_STATUS_ACCEPTED = 2
-EXERCISE_STATUS_DECLINED = 3
-EXERCISE_STATUS_ADMIN = 3
+EXERCISE_STATUS_PENDING = '1'
+EXERCISE_STATUS_ACCEPTED = '2'
+EXERCISE_STATUS_DECLINED = '3'
+EXERCISE_STATUS_ADMIN = '4'
+EXERCISE_STATUS_SYSTEM = '5'
 
 EXERCISE_STATUS = (
     (EXERCISE_STATUS_PENDING, _('Pending')),
     (EXERCISE_STATUS_ACCEPTED, _('Accepted')),
     (EXERCISE_STATUS_DECLINED, _('Declined')),
     (EXERCISE_STATUS_ADMIN, _('Submitted by administrator')),
+    (EXERCISE_STATUS_SYSTEM, _('System exercise')),
 )
 
 
@@ -124,6 +126,9 @@ class Exercise(models.Model):
     status = models.CharField(max_length=2,
                               choices=EXERCISE_STATUS,
                               default=EXERCISE_STATUS_PENDING)
+
+    # Submission date
+    creation_date = models.DateField(_('Date'), auto_now_add=True, null=True, blank=True)
 
     # Exercise description
     category = models.ForeignKey(ExerciseCategory,
