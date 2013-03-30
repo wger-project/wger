@@ -25,6 +25,7 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.forms import ModelForm
 from django.forms import ModelChoiceField
+from django.core import mail
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
@@ -53,6 +54,8 @@ from wger.exercises.models import EXERCISE_STATUS_ADMIN
 
 from wger.workout_manager.generic_views import YamlFormMixin
 from wger.workout_manager.generic_views import YamlDeleteMixin
+
+from wger.workout_manager.constants import EMAIL_FROM
 
 
 logger = logging.getLogger('workout_manager.custom')
@@ -85,6 +88,7 @@ def view(request, id, slug=None):
     template_data = {}
     template_data['comment_edit'] = False
     template_data['EXERCISE_STATUS_PENDING'] = EXERCISE_STATUS_PENDING
+    template_data['EXERCISE_STATUS_ACCEPTED'] = EXERCISE_STATUS_ACCEPTED
 
     # Load the exercise itself
     exercise = get_object_or_404(Exercise, pk=id)
@@ -206,6 +210,13 @@ class ExerciseAddView(ExercisesEditAddView, CreateView):
         form.instance.user = self.request.user
         if self.request.user.has_perm('exercises.add_exercise'):
             form.instance.status = EXERCISE_STATUS_ADMIN
+        else:
+            subject = _('New user submitted exercise')
+            message = _('''The user {0} submitted a new exercise "{1}".'''.format(
+                        self.request.user.username, form.instance.name))
+            mail.mail_admins(_('New user submitted exercise'),
+                             message,
+                             fail_silently=True)
 
         return super(ExerciseAddView, self).form_valid(form)
 
@@ -264,6 +275,24 @@ def accept(request, pk):
     exercise.status = EXERCISE_STATUS_ACCEPTED
     exercise.save()
     messages.success(request, _('Exercise was sucessfully added to the general database'))
+
+    # Notify the user if possible
+    if exercise.user.email:
+        url = request.build_absolute_uri(exercise.get_absolute_url())
+        subject = _('Exercise was sucessfully added to the general database')
+        message = _("Your exercise '{0}' was successfully added to the general database.\n"
+                    "\n"
+                    "It is now available on the exercise and muscle overview and can be\n"
+                    "added to workouts. You can access it on this address:\n"
+                    "{1}\n"
+                    "\n"
+                    "Thank you for contributing and making this site better!\n"
+                    "  the wger.de team".format(exercise.name, url))
+        mail.send_mail(subject,
+                       message,
+                       EMAIL_FROM,
+                       [exercise.user.email],
+                       fail_silently=True)
     return HttpResponseRedirect(exercise.get_absolute_url())
 
 

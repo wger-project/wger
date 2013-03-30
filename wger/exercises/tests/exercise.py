@@ -14,6 +14,7 @@
 
 import json
 
+from django.core import mail
 from django.core.urlresolvers import reverse
 
 from wger.exercises.models import Exercise
@@ -178,7 +179,7 @@ class ExerciseDetailTestCase(WorkoutManagerTestCase):
         self.exercise_detail(editor=False)
 
 
-class ExercisesTestCase(WorkoutManagerTestCase):
+class ExercisesAddTestCase(WorkoutManagerTestCase):
     '''
     Exercise test case
     '''
@@ -216,13 +217,10 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         self.add_exercise_user_fail()
         self.user_logout()
 
-    def add_exercise_success(self, demo=False, admin=False):
+    def add_exercise_success(self, admin=False):
         '''
         Tests adding/editing an exercise with a user with enough rights to do this
         '''
-
-        # Log in as 'admin'
-        self.user_login()
 
         # Add an exercise
         count_before = Exercise.objects.count()
@@ -240,12 +238,13 @@ class ExercisesTestCase(WorkoutManagerTestCase):
 
         # Exercise was saved
         exercise = Exercise.objects.get(pk=exercise_id)
-        if demo:
-            exercise.user_id = 3
-            exercise.status = EXERCISE_STATUS_PENDING
         if admin:
-            exercise.user_id = 1
-            exercise.status = EXERCISE_STATUS_ADMIN
+            self.assertEqual(exercise.user_id, 1)
+            self.assertEqual(exercise.status, EXERCISE_STATUS_ADMIN)
+        else:
+            self.assertEqual(exercise.user_id, 2)
+            self.assertEqual(exercise.status, EXERCISE_STATUS_PENDING)
+
         response = self.client.get(reverse('wger.exercises.views.exercises.view',
                                    kwargs={'id': exercise_id}))
         self.assertEqual(response.status_code, 200)
@@ -268,7 +267,10 @@ class ExercisesTestCase(WorkoutManagerTestCase):
                                     {'category': 111,
                                     'name': 'my test exercise',
                                     'muscles': [1, 2]})
-        self.assertTrue(response.context['form'].errors['category'])
+        if admin:
+            self.assertTrue(response.context['form'].errors['category'])
+        else:
+            self.assertEqual(response.status_code, 302)
 
         # No muscles - adding
         response = self.client.post(reverse('exercise-add'),
@@ -282,25 +284,25 @@ class ExercisesTestCase(WorkoutManagerTestCase):
                                     {'category': 1,
                                     'name': 'my test exercise',
                                     'muscles': []})
-        self.assertTrue(response.context['form'].errors['muscles'])
-        self.user_logout()
+        if admin:
+            self.assertTrue(response.context['form'].errors['muscles'])
+        else:
+            self.assertEqual(response.status_code, 302)
 
     def test_add_exercise_success(self):
         '''
         Tests adding/editing an exercise with a user with enough rights to do this
         '''
-
-        # Log in as 'admin'
         self.user_login('admin')
-        self.add_exercise_success()
+        self.add_exercise_success(admin=True)
 
     def test_add_exercise_user_no_rights(self):
         '''
         Tests adding an exercise with a user without enough rights to do this
         '''
-
         self.user_login('test')
-        self.add_exercise_success()
+        self.add_exercise_success(admin=False)
+        self.assertEqual(len(mail.outbox), 1)
 
     def search_exercise(self, fail=True):
         '''

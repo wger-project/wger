@@ -39,6 +39,10 @@ from wger.settings_global import *
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+ADMINS = (
+    ('Your name', 'your_email@example.com.net'),
+)
+
 DBPATH = %(dbpath)s
 
 DATABASES = {

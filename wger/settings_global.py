@@ -42,6 +42,11 @@ LANGUAGES = (
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en'
 
+#
+# Email prefix used
+#
+EMAIL_SUBJECT_PREFIX = '[wger] '
+
 # Login-URL
 LOGIN_URL = '/login/'
 

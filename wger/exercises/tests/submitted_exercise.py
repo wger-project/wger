@@ -14,6 +14,7 @@
 
 import json
 
+from django.core import mail
 from django.core.urlresolvers import reverse
 
 from wger.exercises.models import Exercise
@@ -133,9 +134,10 @@ class ExerciseAcceptTestCase(WorkoutManagerTestCase):
             self.assertEqual(exercise.status, EXERCISE_STATUS_ACCEPTED)
             response = self.client.get(response['Location'])
             self.assertEqual(response.status_code, 200)
-
+            self.assertEqual(len(mail.outbox), 1)
         else:
             self.assertEqual(exercise.status, EXERCISE_STATUS_PENDING)
+            self.assertEqual(len(mail.outbox), 0)
 
     def test_accept_admin(self):
         '''

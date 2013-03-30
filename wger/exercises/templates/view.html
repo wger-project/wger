@@ -37,7 +37,7 @@ function custom_modal_init()
 included in the database. Till then, it will not be shown in the overview or
 the search.{% endblocktrans %}
 {% if perms.exercises %}
-Please select one of the options below.
+{% trans "Please select one of the options below." %}
 {% endif %}
 </p>
 
@@ -74,6 +74,7 @@ Please select one of the options below.
 
 </div>
 {% endif %} {# end exercise is pending review #}
+
 
 <p>{% trans "Category" %}: <strong>{{ exercise.category.name }}</strong></p>
 
@@ -250,6 +251,14 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 {% endwith %}
 {% endwith %}
 
+{% if exercise.status == EXERCISE_STATUS_ACCEPTED %}
+<div class="alert" style="margin-top:1em;">
+<h3>{% trans "User submitted exercise" %}</h3>
+{% with username=exercise.user.username %}
+<p>{% blocktrans %}This exercise was submitted by <strong>{{username}}</strong>.{% endblocktrans %}
+{% endwith %}
+</div>
+{% endif %}
 
 {% if perms.exercises %}
 <h3>{% trans "Options" %}</h3>
