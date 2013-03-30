@@ -14,6 +14,7 @@
 
 import os
 import decimal
+import logging
 
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import NoReverseMatch
@@ -40,6 +41,7 @@ class WorkoutManagerTestCase(TestCase):
         Overwrite some of Django's settings here
         '''
         os.environ['RECAPTCHA_TESTING'] = 'True'
+        logging.disable(logging.ERROR)
 
     def tearDown(self):
         '''

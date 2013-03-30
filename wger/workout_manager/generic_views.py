@@ -36,14 +36,48 @@ class YamlFormMixin(ModelFormMixin):
     template_name = 'form.html'
 
     form_fields = []
+    '''
+    The form fields to be displayed. If left unset, the ones from the form
+    will be used.
+    '''
+
     custom_js = ''
+    '''
+    Custom javascript to be executed.
+    '''
+
     form_action = ''
     form_action_urlname = ''
+    sidebar = ''
+    '''
+    Name of a template that will be included in the sidebar
+    '''
+
     title = ''
+    '''
+    Title used in the form
+    '''
+
     owner_object = False
+    '''
+    The object that holds the owner information. This only needs to be set if
+    the model doesn't provide a get_owner_object() method
+    '''
+
     submit_text = ugettext_lazy('Save')
+    '''
+    Text used in the submit button, default _('save')
+    '''
+
     clean_html = ()
+    '''
+    List of form fields that should be passed to bleach to clean the html
+    '''
+
     messages = ''
+    '''
+    A message to display on sucess
+    '''
 
     def get_context_data(self, **kwargs):
         '''
@@ -55,6 +89,8 @@ class YamlFormMixin(ModelFormMixin):
 
         # CSRF token
         context.update(csrf(self.request))
+
+        context['sidebar'] = self.sidebar
 
         # Custom order for form fields. The list comprehension is to avoid
         # weird problems with django's template when accessing the fields with "form.fieldname"
@@ -129,6 +165,13 @@ class YamlFormMixin(ModelFormMixin):
         name of the object.
         '''
         return self.messages
+
+    def form_invalid(self, form):
+        '''
+        Log form errors to the console
+        '''
+        logger.debug(form.errors)
+        return super(YamlFormMixin, self).form_invalid(form)
 
     def form_valid(self, form):
         '''

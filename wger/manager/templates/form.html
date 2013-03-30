@@ -51,4 +51,4 @@
 <!--
         Side bar
 -->
-{% block sidebar %}{{sidebar|safe}}{% endblock %}
+{% block sidebar %}{% if sidebar %}{% include sidebar %}{% endif %}{% endblock %}

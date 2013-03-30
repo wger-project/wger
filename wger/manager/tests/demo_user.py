@@ -21,10 +21,13 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 class DemoUserTestCase(WorkoutManagerTestCase):
     '''
-    Tests creating a demo user
+    Tests the demo user
     '''
 
     def test_demo_user(self):
+        '''
+        Tests creating a demo user
+        '''
 
         # Open the copy workout form
         response = self.client.get(reverse('demo-account'))
@@ -41,4 +44,21 @@ class DemoUserTestCase(WorkoutManagerTestCase):
 
         # Check that the demo user was correctly created
         self.assertEqual(count_before + 1, count_after)
-        self.assertTrue(User.objects.filter(userprofile__is_temporary=1).count(), 1)
+        self.assertTrue(User.objects.filter(userprofile__is_temporary=1).count(), 2)
+
+    def test_demo_user_notice(self):
+        '''
+        Tests that demo users see a notice on every page
+        '''
+        demo_notice_text = 'You are using a temporary account'
+        self.user_login('demo')
+        self.assertContains(self.client.get(reverse('dashboard')), demo_notice_text)
+        self.assertContains(self.client.get(reverse('wger.manager.views.workout.overview')),
+                            demo_notice_text)
+        self.assertContains(self.client.get(reverse('wger.exercises.views.exercises.overview')),
+                            demo_notice_text)
+        self.assertContains(self.client.get(reverse('muscle-overview')), demo_notice_text)
+        self.assertContains(self.client.get(reverse('wger.nutrition.views.plan.overview')),
+                            demo_notice_text)
+        self.assertContains(self.client.get(reverse('software:issues')), demo_notice_text)
+        self.assertContains(self.client.get(reverse('software:license')), demo_notice_text)

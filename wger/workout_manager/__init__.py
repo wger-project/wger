@@ -34,3 +34,5 @@ def get_version(version=None, release=None):
         sub = ''
     if not release:
         sub += '-dev'
+
+    return main + sub

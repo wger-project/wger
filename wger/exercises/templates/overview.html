@@ -118,20 +118,22 @@ $(document).ready(function() {
         Side bar
 -->
 {% block sidebar %}
+{% if user.is_authenticated and not user.get_profile.is_temporary %}
+<h3>{% trans "Add new exercise" %}</h3>
+<p>
+    <a href="{% url 'exercise-add' %}">
+    <img src="{% static 'images/icons/new.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Add new exercise' %}"
+         title="{% trans 'Add new exercise' %}">
+    {% trans "Add new exercise" %}
+    </a>
+    </p>
+{% endif %}
+
 {% if perms.exercises %}
     <h3>{% trans "Options" %}</h3>
-
-    <p>
-        <a href="{% url 'exercise-add' %}"
-           class="modal-dialog">
-        <img src="{% static 'images/icons/new.svg' %}"
-                            width="32"
-                            height="32"
-                            alt="{% trans 'Add new exercise' %}"
-                            title="{% trans 'Add new exercise' %}">
-        	{% trans "Add new exercise" %}
-        </a>
-        </p>
         <p>
         {% with category=categories|first %}
         <a href="{% url 'exercisecategory-edit' category.id %}"

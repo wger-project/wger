@@ -5,6 +5,7 @@
     <label for="{{field.auto_id}}">
         {% trans field.label %}
     </label>
+    {% if not field.field.required %}<span style="font-size:90%;">— <em>{% trans "Optional" %}</em></span>{% endif %}
     {% if field.errors %}</span></div>{% endif %}
     </td>
     <td>

@@ -18,6 +18,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
 
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
@@ -98,10 +99,33 @@ class ExerciseCategory(models.Model):
         return False
 
 
+EXERCISE_STATUS_PENDING = 1
+EXERCISE_STATUS_ACCEPTED = 2
+EXERCISE_STATUS_DECLINED = 3
+EXERCISE_STATUS_ADMIN = 3
+
+EXERCISE_STATUS = (
+    (EXERCISE_STATUS_PENDING, _('Pending')),
+    (EXERCISE_STATUS_ACCEPTED, _('Accepted')),
+    (EXERCISE_STATUS_DECLINED, _('Declined')),
+    (EXERCISE_STATUS_ADMIN, _('Submitted by administrator')),
+)
+
+
 class Exercise(models.Model):
     '''
     Model for an exercise
     '''
+
+    # The user that submitted the exercise
+    user = models.ForeignKey(User, verbose_name=_('User'), null=True, blank=True)
+
+    # Status
+    status = models.CharField(max_length=2,
+                              choices=EXERCISE_STATUS,
+                              default=EXERCISE_STATUS_PENDING)
+
+    # Exercise description
     category = models.ForeignKey(ExerciseCategory,
                                  verbose_name=_('Category'))
     description = models.TextField(max_length=2000,

@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import login_required
 
 from wger.exercises.views import exercises
 from wger.exercises.views import comments
@@ -15,7 +16,7 @@ urlpatterns = patterns('wger.exercises.views',
     url(r'^(?P<id>\d+)/view/(?P<slug>[-\w]+)/$', 'exercises.view'),
     url(r'^(?P<id>\d+)/view/$', 'exercises.view'),
     url(r'^add/$',
-        permission_required('exercises.change_exercise')(exercises.ExerciseAddView.as_view()),
+        login_required(exercises.ExerciseAddView.as_view()),
         name='exercise-add'),
     url(r'^(?P<pk>\d+)/edit/$',
         permission_required('exercises.change_exercise')(exercises.ExerciseUpdateView.as_view()),

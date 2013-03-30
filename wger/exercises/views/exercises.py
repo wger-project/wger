@@ -22,6 +22,7 @@ from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+from django.http import HttpResponseForbidden
 from django.forms import ModelForm
 from django.forms import ModelChoiceField
 from django.core.context_processors import csrf
@@ -44,6 +45,10 @@ from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseComment
 from wger.exercises.models import ExerciseCategory
 from wger.exercises.models import Muscle
+from wger.exercises.models import EXERCISE_STATUS_PENDING
+from wger.exercises.models import EXERCISE_STATUS_ACCEPTED
+from wger.exercises.models import EXERCISE_STATUS_DECLINED
+from wger.exercises.models import EXERCISE_STATUS_ADMIN
 
 from wger.workout_manager.generic_views import YamlFormMixin
 from wger.workout_manager.generic_views import YamlDeleteMixin
@@ -138,6 +143,7 @@ class ExercisesEditAddView(YamlFormMixin):
     share all this settings
     '''
     model = Exercise
+    sidebar = 'exercise/form.html'
 
     form_fields = ['name',
                    'category',
@@ -157,11 +163,11 @@ class ExercisesEditAddView(YamlFormMixin):
         class ExerciseForm(ModelForm):
             language = load_language()
             category = ModelChoiceField(queryset=ExerciseCategory.objects.filter(
-                                        language=language.id)
-                                        )
+                                        language=language.id))
 
             class Meta:
                 model = Exercise
+                exclude = ('status',)
 
             class Media:
                 js = ('js/tinymce/tiny_mce.js',)
@@ -188,6 +194,27 @@ class ExerciseAddView(ExercisesEditAddView, CreateView):
     '''
 
     form_action = reverse_lazy('exercise-add')
+
+    def form_valid(self, form):
+        '''
+        Set the user that submitted the exercise
+        '''
+
+        # set the submitter, if admin, set approrpiate status
+        form.instance.user = self.request.user
+        if self.request.user.has_perm('exercises.add_exercise'):
+            form.instance.status = EXERCISE_STATUS_ADMIN
+
+        return super(ExerciseAddView, self).form_valid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Demo users can't submit exercises
+        '''
+        if request.user.get_profile().is_temporary:
+            return HttpResponseForbidden()
+
+        return super(ExerciseAddView, self).dispatch(request, *args, **kwargs)
 
 
 class ExerciseDeleteView(YamlDeleteMixin, DeleteView):
