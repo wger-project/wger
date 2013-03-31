@@ -111,7 +111,7 @@ class AjaxPreferencesTestCase(WorkoutManagerTestCase):
             profile = response.context['user'].get_profile()
             self.assertTrue(profile.show_comments)
             self.assertFalse(profile.show_english_ingredients)
-            self.assertEqual(response.context['user'].email, '')
+            self.assertEqual(response.context['user'].email, 'test@example.com')
 
         # Set the 'english ingredients' option
         response = self.client.get(reverse('wger.manager.views.user.api_user_preferences'),
@@ -130,7 +130,7 @@ class AjaxPreferencesTestCase(WorkoutManagerTestCase):
             profile = response.context['user'].get_profile()
             self.assertTrue(profile.show_comments)
             self.assertTrue(profile.show_english_ingredients)
-            self.assertEqual(response.context['user'].email, '')
+            self.assertEqual(response.context['user'].email, 'test@example.com')
 
     def test_preferences_anonymous(self):
         '''
