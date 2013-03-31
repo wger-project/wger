@@ -153,10 +153,10 @@
                                     {% if not user.is_authenticated %}
                                     <li><a href="{% url 'demo-account' %}">{% trans "Demo account" %} </a></li>
                                     {% endif %}
-                                    <li><a href="{% url 'software:issues' %}">{% trans "Report problem" %} </a></li>
-
+                                    <li><a href="{% url 'software:contribute' %}">{% trans "Contribute!" %} </a></li>
                                     <li class="divider"></li>
                                     <li class="nav-header">{% trans "Developers" %}</li>
+                                    <li><a href="{% url 'software:issues' %}">{% trans "Report problem" %} </a></li>
                                     <li><a href="{% url 'software:code' %}">{% trans "Get the code" %} </a></li>
                                     <li><a href="{% url 'software:license' %}">{% trans "License" %} </a></li>
                                     <li><a href="{% url 'software:changelog' %}">{% trans "Changelog" %} </a></li>
@@ -262,15 +262,21 @@
                          title="{% trans 'Released under the Affero GPL' %}">
                 </a>
             </div>
-            <div class="ym-g40 ym-gl">
+            <div class="ym-g80 ym-gl">
                 <div class="ym-gbox-left">
-                © <a href="mailto:roland@NO!SPAM!geider.net">Roland Geider</a>
+                © <a href="mailto:roland @ geider.net">Roland Geider</a>
+                <!--
                 – {% trans "Layout based on <a href='http://www.yaml.de'>YAML</a>" %}
+                -->
+                | <a href="{% url 'software:contribute' %}">{% trans "Contribute!" %}</a>
+                | <a href="{% url 'software:contribute' %}">{% trans "Impressum" %}</a>
+                | <a href="{% url 'software:contribute' %}">{% trans "Feedback" %}</a>
+                
                 </div>
             </div>
-            <div class="ym-g50 ym-gr align-right">
+            <div class="ym-g10 ym-gr align-right">
                 <div class="ym-gbox-right">
-                    <em class="dimmed">{{version}}</em>
+                    <em class="dimmed" style="font-size: 80%;">{{version}}</em>
                 </div>
             </div>
         </div>
