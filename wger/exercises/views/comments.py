@@ -94,7 +94,6 @@ class ExerciseCommentAddView(YamlFormMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.exercise = Exercise.objects.get(pk=self.kwargs['exercise_pk'])
-
         return super(ExerciseCommentAddView, self).form_valid(form)
 
     def get_success_url(self):
@@ -112,7 +111,7 @@ class ExerciseCommentAddView(YamlFormMixin, CreateView):
         return context
 
 
-@permission_required('manager.add_exercisecomment')
+@permission_required('exercises.delete_exercisecomment')
 def delete(request, id):
     # Load the comment
     comment = get_object_or_404(ExerciseComment, pk=id)
