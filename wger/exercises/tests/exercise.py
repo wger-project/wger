@@ -179,7 +179,7 @@ class ExerciseDetailTestCase(WorkoutManagerTestCase):
         self.exercise_detail(editor=False)
 
 
-class ExercisesAddTestCase(WorkoutManagerTestCase):
+class ExercisesTestCase(WorkoutManagerTestCase):
     '''
     Exercise test case
     '''
@@ -316,6 +316,12 @@ class ExercisesAddTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(response.context['exercises']), 1)
         self.assertEqual(response.context['exercises'][0].name, 'A very cool exercise')
 
+        # Search for a pending exercise (0 hits, "Pending exercise")
+        response = self.client.get(reverse('wger.exercises.views.exercises.search'),
+                                   {'term': 'Pending'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['exercises']), 0)
+
         kwargs = {'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'}
 
         # AJAX-Search for exercises (1 hit, "A very cool exercise")
@@ -326,6 +332,14 @@ class ExercisesAddTestCase(WorkoutManagerTestCase):
         result = json.loads(response.content)
         self.assertEqual(len(result), 1)
         self.assertEqual(result[0]['value'], 'A very cool exercise')
+
+        # AJAX Search for a pending exercise (0 hits, "Pending exercise")
+        response = self.client.get(reverse('wger.exercises.views.exercises.search'),
+                                   {'term': 'Pending'},
+                                   **kwargs)
+        self.assertEqual(response.status_code, 200)
+        result = json.loads(response.content)
+        self.assertEqual(len(result), 0)
 
     def test_search_exercise_anonymous(self):
         '''

@@ -51,6 +51,7 @@ from wger.exercises.models import EXERCISE_STATUS_PENDING
 from wger.exercises.models import EXERCISE_STATUS_ACCEPTED
 from wger.exercises.models import EXERCISE_STATUS_DECLINED
 from wger.exercises.models import EXERCISE_STATUS_ADMIN
+from wger.exercises.models import EXERCISE_STATUS_SYSTEM
 
 from wger.workout_manager.generic_views import YamlFormMixin
 from wger.workout_manager.generic_views import YamlDeleteMixin
@@ -59,6 +60,10 @@ from wger.workout_manager.constants import EMAIL_FROM
 
 
 logger = logging.getLogger('workout_manager.custom')
+
+allowed_status = (EXERCISE_STATUS_ACCEPTED,
+                  EXERCISE_STATUS_ADMIN,
+                  EXERCISE_STATUS_SYSTEM)
 
 
 # ************************
@@ -73,8 +78,11 @@ def overview(request):
     template_data = {}
     template_data.update(csrf(request))
 
-    template_data['categories'] = ExerciseCategory.objects.filter(language=language.id)
+    categories = ExerciseCategory.objects.filter(language=language.id,
+                                                 exercise__status__in=allowed_status
+                                                 ).distinct()
 
+    template_data['categories'] = categories
     return render_to_response('overview.html',
                               template_data,
                               context_instance=RequestContext(request))
@@ -316,8 +324,11 @@ def search(request):
     # Perform the search
     q = request.GET.get('term', '')
     user_language = load_language()
-    exercises = Exercise.objects.filter(name__icontains=q, category__language_id=user_language)\
-                                .order_by('category__name', 'name')
+    exercises = Exercise.objects.filter(name__icontains=q,
+                                        category__language_id=user_language,
+                                        status__in=allowed_status)\
+                                .order_by('category__name', 'name')\
+                                .distinct()
 
     # AJAX-request, this comes from the autocompleter. Create a list and send
     # it back as JSON
