@@ -22,12 +22,15 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
+from django.core import mail
 from django.utils.translation import ugettext as _
+from django.views.generic.edit import FormView
 
-
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-
+from wger.manager import forms
 from wger.manager.models import DaysOfWeek
 from wger.manager.models import TrainingSchedule
 
@@ -107,3 +110,45 @@ def dashboard(request):
     return render_to_response('index.html',
                               template_data,
                               context_instance=RequestContext(request))
+
+
+class FeedbackClass(FormView):
+    template_name = 'form.html'
+    success_url = reverse_lazy('feedback')
+
+    def get_context_data(self, **kwargs):
+        '''
+        Set necessary template data to correctly render the form
+        '''
+        context = super(FeedbackClass, self).get_context_data(**kwargs)
+        context['title'] = _('Feedback')
+        context['form_fields'] = kwargs['form']
+        context['submit_text'] = _('Send')
+        context['sidebar'] = 'misc/feedback.html'
+        context['contribute_url'] = reverse('software:contribute')
+        return context
+
+    def get_form_class(self):
+        '''
+        Load the correct feedback form depending on the user
+        (either with reCaptcha field or not)
+        '''
+        if self.request.user.is_authenticated():
+            return forms.FeedbackRegisteredForm
+        else:
+            return forms.FeedbackAnonymousForm
+
+    def form_valid(self, form):
+        '''
+        Send an email to the
+        '''
+        messages.success(self.request, _('Your feedback was sucessfully sent. Thank you!'))
+        message = "Feedback posted by an anonymous user"
+        if self.request.user.is_authenticated():
+            message = "Feedback posted by {0}".format(self.request.user.username)
+
+        message += ("\n"
+                    "Message follows:\n"
+                    "----------------\n\n{0}".format(form.cleaned_data['comment']))
+        mail.mail_admins(_('New feedback'), message)
+        return super(FeedbackClass, self).form_valid(form)

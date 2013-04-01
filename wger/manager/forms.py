@@ -25,6 +25,7 @@ from django.forms import DateField
 from django.forms import CharField
 from django.forms import DecimalField
 from django.forms import ValidationError
+from django.forms import widgets
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User as Django_User
@@ -90,6 +91,26 @@ class WorkoutCopyForm(Form):
     comment = CharField(max_length=100,
                         help_text=('The goal or description of the new workout.'),
                         required=False)
+
+
+class FeedbackRegisteredForm(Form):
+    '''
+    Feedback form used for logged in users
+    '''
+    comment = CharField(max_length=500,
+                        min_length=10,
+                        widget=widgets.Textarea,
+                        help_text=('Please enter your feedback here.'),
+                        required=True)
+
+
+class FeedbackAnonymousForm(FeedbackRegisteredForm):
+    '''
+    Feedback form used for anonymous users (has additionally a reCaptcha field)
+    '''
+    captcha = ReCaptchaField(attrs={'theme': 'clean'},
+                             label=_('Confirmation text'),
+                             help_text=_('As a security measure, please enter the previous words'),)
 
 
 class DayForm(ModelForm):

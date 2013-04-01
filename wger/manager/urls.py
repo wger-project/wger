@@ -11,6 +11,7 @@ from wger.manager.views.day import DayEditView
 from wger.manager.views.day import DayCreateView
 from wger.manager.views import set
 from wger.manager.views import setting
+from wger.manager.views import misc
 
 from wger.workout_manager.constants import USER_TAB
 
@@ -97,6 +98,9 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^about$',
         TemplateView.as_view(template_name="misc/about.html"),
         name='about'),
+    url(r'^feedback$',
+        misc.FeedbackClass.as_view(),
+        name='feedback'),
 )
 
 # PDF stuff is in a different file

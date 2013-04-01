@@ -10,3 +10,4 @@ from wger.manager.tests.set import *
 from wger.manager.tests.weight_log import *
 from wger.manager.tests.copy_workout import *
 from wger.manager.tests.pdf import *
+from wger.manager.tests.feedback import *
