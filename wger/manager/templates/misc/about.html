@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% trans "About us" %}{% endblock %}
+
+{% block content %}
+<p>{% trans "Responsible for the content of this site as per German law §5 TMG:" %}</p>
+<p>
+Roland Geider<br>
+Achtermannstr. 25<br>
+48143<br>
+Münster<br>
+<a href="mailto:{{contact_email}}">{{contact_email}}</a>
+</p>        
+{% endblock %}

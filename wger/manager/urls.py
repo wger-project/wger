@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
+from django.views.generic import TemplateView
 
 from wger.manager.views.workout import WorkoutEditView
 from wger.manager.views.workout import WorkoutDeleteView
@@ -91,6 +92,11 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^workout/api/edit-set$', 'set.api_edit_set'),
     url(r'^workout/api/edit-settting$', 'setting.api_edit_setting'),
     url(r'^workout/api/user-preferences$', 'user.api_user_preferences'),
+    
+    # Others
+    url(r'^about$',
+        TemplateView.as_view(template_name="misc/about.html"),
+        name='about'),
 )
 
 # PDF stuff is in a different file

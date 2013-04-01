@@ -28,9 +28,6 @@ def processor(request):
         # Application version
         'version': get_version(),
 
-        # Do not track header
-        'DNT': request.META.get('HTTP_DNT', False),
-
         # User language
         'language': load_language(),
 
@@ -40,6 +37,9 @@ def processor(request):
         # Translation links
         'i18n_path': {'de': '/de' + full_path[3:],
                       'en': '/en' + full_path[3:]},
+
+        # Contact email
+        'contact_email': 'roland @ geider.net',
     }
 
     # Pseudo-intelligent navigation here

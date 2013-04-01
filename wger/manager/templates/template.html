@@ -96,6 +96,9 @@
                                 <a href="{% url 'index' %}">{% trans "Dashboard" %}</a>
                             {% endif %}
                             </li>
+                            {% if not user.is_authenticated %}
+                            <li><a href="{% url 'demo-account' %}">{% trans "Demo account" %} </a></li>
+                            {% endif %}
 
                             {% if user.is_authenticated %}
                             <li {% if active_tab == 'workout'   %}class="active"{% endif %}><a href="{% url 'wger.manager.views.workout.overview' %}">{% trans "Workouts" %}</a></li>
@@ -150,9 +153,6 @@
                                    data-toggle="dropdown">{% trans "About this software" %} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{% url 'software:features' %}">{% trans "Features" %}</a></li>
-                                    {% if not user.is_authenticated %}
-                                    <li><a href="{% url 'demo-account' %}">{% trans "Demo account" %} </a></li>
-                                    {% endif %}
                                     <li><a href="{% url 'software:contribute' %}">{% trans "Contribute!" %} </a></li>
                                     <li class="divider"></li>
                                     <li class="nav-header">{% trans "Developers" %}</li>
@@ -264,12 +264,12 @@
             </div>
             <div class="ym-g80 ym-gl">
                 <div class="ym-gbox-left">
-                © <a href="mailto:roland @ geider.net">Roland Geider</a>
+                © <a href="mailto:{{contact_email}}">Roland Geider</a>
                 <!--
                 – {% trans "Layout based on <a href='http://www.yaml.de'>YAML</a>" %}
                 -->
                 | <a href="{% url 'software:contribute' %}">{% trans "Contribute!" %}</a>
-                | <a href="{% url 'software:contribute' %}">{% trans "Impressum" %}</a>
+                | <a href="{% url 'about' %}">{% trans "About" %}</a>
                 | <a href="{% url 'software:contribute' %}">{% trans "Feedback" %}</a>
                 
                 </div>
