@@ -14,6 +14,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 import logging
+import datetime
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -40,6 +41,7 @@ from reportlab.lib.pagesizes import A4, cm
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
 from reportlab.lib import colors
 
+from wger.manager.utils import styleSheet
 from wger.manager.utils import load_language
 
 from wger.workout_manager import get_version
@@ -206,7 +208,6 @@ def export_pdf(request, id):
     # container for the 'Flowable' objects
     elements = []
 
-    styleSheet = getSampleStyleSheet()
     data = []
 
     # Iterate through the Plan
@@ -284,14 +285,20 @@ def export_pdf(request, id):
     elements.append(P)
 
     # Print date and info
-    P = Paragraph('<para align="left">%(date)s - %(created)s v%(version)s</para>' %
-                  {'date': _("Created on the <b>%s</b>") %
-                  plan.creation_date.strftime("%d.%m.%Y"),
-                  'created': "Workout Manager",
-                  'version': get_version()},
+    created = datetime.date.today().strftime("%d.%m.%Y")
+    url = reverse('wger.nutrition.views.plan.view', kwargs={'id': plan.id})
+    P = Paragraph('''<para align="left">
+                        %(date)s -
+                        <a href="%(url)s">%(url)s</a> -
+                        %(created)s
+                        %(version)s
+                    </para>''' %
+                  {'date': _("Created on the <b>%s</b>") % created,
+                  'created': "wger Workout Manager",
+                  'version': get_version(),
+                  'url': request.build_absolute_uri(url), },
                   styleSheet["Normal"])
     elements.append(P)
-
     doc.build(elements)
 
     return response

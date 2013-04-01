@@ -24,20 +24,20 @@ from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
 
 from wger.manager.models import TrainingSchedule
+from wger.manager.utils import styleSheet
 
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.styles import ParagraphStyle
+from reportlab.lib.styles import StyleSheet1
 from reportlab.lib.pagesizes import A4, cm, landscape, portrait
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
 from reportlab.lib import colors
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase import pdfmetrics
 
 from wger.workout_manager import get_version
 
 logger = logging.getLogger('workout_manager.custom')
-
-'''
-PDF functions
-'''
 
 
 @login_required
@@ -71,14 +71,6 @@ def workout_log(request, id):
 
     # container for the 'Flowable' objects
     elements = []
-
-    # stylesheet
-    styleSheet = getSampleStyleSheet()
-
-    style = ParagraphStyle(
-        name='Normal',
-        #fontName='Helvetica-Bold',
-        fontSize=8,)
 
     # table data, here we will put the workout info
     data = []
@@ -119,10 +111,10 @@ def workout_log(request, id):
 
         days_of_week = [_(day_of_week.day_of_week) for day_of_week in day.day.select_related()]
 
-        P = Paragraph('<para align="center">%(days)s: <strong>%(description)s</strong></para>' %
+        P = Paragraph('<para align="center">%(days)s: %(description)s</para>' %
                       {'days': ', '.join(days_of_week),
                       'description': day.description},
-                      styleSheet["Normal"])
+                      styleSheet["Bold"])
 
         data.append([P])
 
@@ -164,7 +156,8 @@ def workout_log(request, id):
                 elif len(setting_data) > 1:
                     out = ', '.join(setting_data)
 
-                data.append([set_count, Paragraph(exercise.name, style), out] + [''] * nr_of_weeks)
+                data.append([set_count, Paragraph(exercise.name, styleSheet["Small"]), out]
+                            + [''] * nr_of_weeks)
             set_count += 1
 
         # Note: as above with _('Date'), the _('Impression') has to be here on
@@ -184,7 +177,7 @@ def workout_log(request, id):
     # Set general table styles
     #('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
     #('BOX', (0,0), (-1,-1), 1.25, colors.black),
-    table_style = [('FONT', (0, 0), (-1, -1), 'Helvetica'),
+    table_style = [('FONT', (0, 0), (-1, -1), 'OpenSans'),
                    ('FONTSIZE', (0, 0), (-1, -1), 8),
                    ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
 
@@ -274,7 +267,7 @@ def workout_log(request, id):
     if workout.comment:
         P = Paragraph('<para align="center"><strong>%(description)s</strong></para>' %
                       {'description': workout.comment},
-                      styleSheet["Normal"])
+                      styleSheet["Bold"])
         elements.append(P)
 
         # Filler
