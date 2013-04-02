@@ -120,24 +120,19 @@ def view(request, id, slug=None):
 
     # Append the "main" background, with the silhouette of the human body
     # This has to happen as the last step, so it is rendered behind the muscles.
-    if backgrounds_front:
-        backgrounds_front.append('images/muscles/muscular_system_front.svg')
-
-    if backgrounds_back:
-        backgrounds_back.append('images/muscles/muscular_system_back.svg')
+    backgrounds_front.append('images/muscles/muscular_system_front.svg')
+    backgrounds_back.append('images/muscles/muscular_system_back.svg')
 
     template_data['muscle_backgrounds_front'] = backgrounds_front
     template_data['muscle_backgrounds_back'] = backgrounds_back
 
     # If the user is logged in, load the log and prepare the entries for
     # rendering in the D3 chart
-    entry = WorkoutLog()
     entry_log = []
     chart_data = []
     if request.user.is_authenticated():
-        logs = WorkoutLog.objects.filter(user=request.user,
-                                         exercise=exercise)
-
+        entry = WorkoutLog()
+        logs = WorkoutLog.objects.filter(user=request.user, exercise=exercise)
         entry_log, chart_data = entry.process_log_entries(logs)
 
     template_data['logs'] = entry_log

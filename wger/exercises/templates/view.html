@@ -82,7 +82,7 @@ the search.{% endblocktrans %}
 
 {% with comments=exercise.exercisecomment_set.all %}
 {% if comments %}
-<h3>{% trans "Comments for this exercise" %}</h3>
+<h4>{% trans "Comments for this exercise" %}</h4>
 
 <ul>
 {% for comment in comments %}
@@ -128,8 +128,74 @@ the search.{% endblocktrans %}
 {% endif %}
 
 
-{% if logs %}
+{% with muscles=exercise.muscles.all %}
+{% with muscles_secondary=exercise.muscles_secondary.all %}
 
+{% if muscles %}
+<h3>{% trans "Muscles" %}</h3>
+<p>
+    {% trans "The diagram shows the most used muscles on this exercise" %}
+</p>
+
+
+<div>
+    <div style="width:1em;height:1em;background-color:#cc0000;float:left;margin-right:0.5em;"></div>
+    {% trans "Main muscles" %}
+</div>
+
+<div>
+    <div style="width:1em;height:1em;background-color:#f57900;float:left;margin-right:0.5em;"></div>
+    {% trans "Secondary muscles" %}
+</div>
+
+<div class="ym-grid linearize-level-1">
+    <div class="ym-g50 ym-gl">
+        <div class="ym-gbox-left">
+            <div id="muscle-front" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+            </div>
+            <ul>
+                {% for muscle in muscles %}
+                {% if muscle.is_front %}
+                <li>{{muscle.name}}</li>
+                {% endif %}
+                {% endfor %}
+
+                {% for muscle in muscles_secondary %}
+                {% if muscle.is_front %}
+                <li>{{muscle.name}}</li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="ym-g50 ym-gr">
+        <div class="ym-gbox-right">
+        <div id="muscle-front" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+        </div>
+        <ul>
+        {% for muscle in muscles %}
+        {% if not muscle.is_front %}
+        <li>{{muscle.name}}</li>
+        {% endif %}
+        {% endfor %}
+
+        {% for muscle in muscles_secondary %}
+        {% if not muscle.is_front %}
+        <li>{{muscle.name}}</li>
+        {% endif %}
+        {% endfor %}
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+{% endif %}
+{% endwith %}
+{% endwith %} {# end musclelist #}
+
+
+{% if logs %}
 <h3>{% trans "Weight log" %}</h3>
 
 {% render_weight_log logs svg_uuid %}
@@ -141,9 +207,6 @@ $(document).ready(function() {
 weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 });
 </script>
-
-
-
 {% endif %}
 
 {% endblock %}
@@ -165,91 +228,7 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
         {% trans "Back to exercise overview" %}
     </a>
 </p>
-
-
-
-{% with muscles=exercise.muscles.all %}
-{% with muscles_secondary=exercise.muscles_secondary.all %}
-
-{% if muscles %}
-<h3>{% trans "Muscles" %}</h3>
-<p>
-    {% trans "The diagram shows the most used muscles on this exercise" %}
-</p>
-
-
-<div>
-    <div style="width:1em;height:1em;background-color:#cc0000;float:left;margin-right:0.5em;"></div>
-    {% trans "Main muscles" %}
-</div>
-
-{% if muscles_secondary %}
-<div>
-    <div style="width:1em;height:1em;background-color:#f57900;float:left;margin-right:0.5em;"></div>
-    {% trans "Secondary muscles" %}
-</div>
-{% endif %}
-
-{% if muscle_backgrounds_front %}
-<div class="ym-grid linearize-level-1">
-    <div class="ym-g50 ym-gl">
-        <div class="ym-gbox-left">
-            <div id="muscle-front" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-            </div>
-        </div>
-    </div>
-    <div class="ym-g40 ym-gr">
-        <div class="ym-gbox-right">
-            <ul>
-                {% for muscle in muscles %}
-                {% if muscle.is_front %}
-                <li>{{muscle.name}}</li>
-                {% endif %}
-                {% endfor %}
-
-                {% for muscle in muscles_secondary %}
-                {% if muscle.is_front %}
-                <li>{{muscle.name}}</li>
-                {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
-</div>
-{% endif %}
-
-
-{% if muscle_backgrounds_back %}
-<div class="ym-grid linearize-level-1">
-    <div class="ym-g50 ym-gl">
-        <div class="ym-gbox-left">
-            <div id="muscle-front" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-            </div>
-        </div>
-    </div>
-    <div class="ym-g40 ym-gr">
-        <div class="ym-gbox-right">
-            <ul>
-                {% for muscle in muscles %}
-                {% if not muscle.is_front %}
-                <li>{{muscle.name}}</li>
-                {% endif %}
-                {% endfor %}
-
-                {% for muscle in muscles_secondary %}
-                {% if not muscle.is_front %}
-                <li>{{muscle.name}}</li>
-                {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
-</div>
-{% endif %}
-
-{% endif %}
-{% endwith %}
-{% endwith %}
+<hr>
 
 {% if exercise.status == EXERCISE_STATUS_ACCEPTED %}
 <div class="alert" style="margin-top:1em;">
@@ -258,6 +237,7 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 <p>{% blocktrans %}This exercise was submitted by <strong>{{username}}</strong>.{% endblocktrans %}
 {% endwith %}
 </div>
+<hr>
 {% endif %}
 
 {% if perms.exercises %}
@@ -281,6 +261,7 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 	    {% trans "Delete" %}
     </a>
 </p>
+<hr>
 {% endif %}
 
 {% cc_by_sa_sidebar language %}
