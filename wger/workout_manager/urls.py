@@ -20,7 +20,10 @@ urlpatterns = i18n_patterns('',
     url(r'nutrition/', include('wger.nutrition.urls')),
     url(r'software/', include('wger.software.urls', namespace='software', app_name='software')),
     url(r'^browserid/', include('django_browserid.urls')),
-    url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps})
+    url(r'^sitemap\.xml$',
+        'django.contrib.sitemaps.views.sitemap',
+        {'sitemaps': sitemaps},
+        name='sitemap')
 )
 
 # Send robots.txt without any language prefix
