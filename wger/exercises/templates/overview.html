@@ -134,6 +134,7 @@ $(document).ready(function() {
 
 {% if perms.exercises %}
     <h3>{% trans "Options" %}</h3>
+        {% if categories %}
         <p>
         {% with category=categories|first %}
         <a href="{% url 'exercisecategory-edit' category.id %}"
@@ -147,8 +148,8 @@ $(document).ready(function() {
         	{% trans "Edit category" %}:
         	<span class="current-category-name">{{category.name}}</span>
         </a>
-        {% endwith %}
         </p>
+        {% endwith %}
         <p>
         {% with category=categories|first %}
         <a href="{% url 'exercisecategory-delete' category.id %}"
@@ -164,6 +165,8 @@ $(document).ready(function() {
         </a>
         {% endwith %}
         </p>
+        {% endif %}
+        
         <p>
         <a href="{% url 'exercisecategory-add' %}"
            class="modal-dialog">

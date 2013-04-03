@@ -18,6 +18,7 @@ from django.core import mail
 from django.core.urlresolvers import reverse
 
 from wger.exercises.models import Exercise
+from wger.exercises.models import ExerciseCategory
 from wger.exercises.models import EXERCISE_STATUS_PENDING
 from wger.exercises.models import EXERCISE_STATUS_ACCEPTED
 from wger.exercises.models import EXERCISE_STATUS_DECLINED
@@ -108,6 +109,16 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
         '''
 
         self.exercise_index(logged_in=False)
+
+    def test_empty_exercise_index(self):
+        '''
+        Test the index when there are no categories
+        '''
+        self.user_login('admin')
+        ExerciseCategory.objects.all().delete()
+        response = self.client.get(reverse('wger.exercises.views.exercises.overview'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'No categories')
 
 
 class ExerciseDetailTestCase(WorkoutManagerTestCase):
