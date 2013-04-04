@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from django.core.urlresolvers import reverse
+from django.core.management import call_command
 
 from django.contrib.auth.models import User
 
@@ -62,3 +63,26 @@ class DemoUserTestCase(WorkoutManagerTestCase):
                             demo_notice_text)
         self.assertContains(self.client.get(reverse('software:issues')), demo_notice_text)
         self.assertContains(self.client.get(reverse('software:license')), demo_notice_text)
+
+    def test_command_delete_old_users(self):
+        '''
+        Tests that old demo users are deleted by the management command
+        '''
+
+        # Create some new demo users
+        self.client.post(reverse('demo-account'), {'recaptcha_response_field': 'PASSED'})
+        self.client.post(reverse('demo-account'), {'recaptcha_response_field': 'PASSED'})
+        self.client.post(reverse('demo-account'), {'recaptcha_response_field': 'PASSED'})
+        self.client.post(reverse('demo-account'), {'recaptcha_response_field': 'PASSED'})
+        self.client.post(reverse('demo-account'), {'recaptcha_response_field': 'PASSED'})
+        self.client.post(reverse('demo-account'), {'recaptcha_response_field': 'PASSED'})
+        User.objects.filter().update(date_joined='2013-01-01 00:00+01:00')
+
+        # These ones keep the date_joined field
+        self.client.post(reverse('demo-account'), {'recaptcha_response_field': 'PASSED'})
+        self.client.post(reverse('demo-account'), {'recaptcha_response_field': 'PASSED'})
+
+        # Check and delete
+        self.assertEqual(User.objects.filter(userprofile__is_temporary=1).count(), 9)
+        call_command('delete-temp-users')
+        self.assertEqual(User.objects.filter(userprofile__is_temporary=1).count(), 2)
