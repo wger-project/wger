@@ -60,6 +60,11 @@ class NutritionalValuesCalculationsTestCase(WorkoutManagerTestCase):
         self.assertEqual(result_meal, result_plan)
 
         # One ingredient, 1 x unit 3
+        item.delete()
+        item = models.MealItem()
+        item.meal = meal
+        item.ingredient = ingredient
+        item.order = 1
         item.amount = 1
         item.weight_unit_id = 3
         item.save()
