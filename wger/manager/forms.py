@@ -40,9 +40,9 @@ from wger.manager.models import Day
 from wger.manager.models import Set
 from wger.manager.models import WorkoutLog
 
-from wger.workout_manager.widgets import TranslatedSelectMultiple
-from wger.workout_manager.widgets import ExerciseAjaxSelect
-from wger.workout_manager.constants import DATE_FORMATS
+from wger.utils.widgets import TranslatedSelectMultiple
+from wger.utils.widgets import ExerciseAjaxSelect
+from wger.utils.constants import DATE_FORMATS
 
 
 class UserPreferencesForm(ModelForm):

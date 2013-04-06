@@ -44,8 +44,8 @@ from django.views.generic import UpdateView
 from wger.weight.models import WeightEntry
 from wger.weight import helpers
 
-from wger.workout_manager.generic_views import YamlFormMixin
-from wger.workout_manager.constants import DATE_FORMATS
+from wger.utils.generic_views import YamlFormMixin
+from wger.utils.constants import DATE_FORMATS
 
 
 logger = logging.getLogger('workout_manager.custom')

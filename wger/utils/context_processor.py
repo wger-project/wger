@@ -14,10 +14,9 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from wger.workout_manager import get_version
-from wger.workout_manager import constants
-
-from wger.manager.utils import load_language
+from wger import get_version
+from wger.utils import constants
+from wger.utils.language import load_language
 
 
 def processor(request):

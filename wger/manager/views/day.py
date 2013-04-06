@@ -35,7 +35,7 @@ from wger.manager.models import Day
 
 from wger.manager.forms import DayForm
 
-from wger.workout_manager.generic_views import YamlFormMixin
+from wger.utils.generic_views import YamlFormMixin
 
 
 logger = logging.getLogger('workout_manager.custom')

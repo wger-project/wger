@@ -30,7 +30,7 @@ from wger.nutrition.models import NutritionPlan
 from wger.nutrition.models import Meal
 from wger.nutrition.models import MealItem
 
-from wger.workout_manager.generic_views import YamlFormMixin
+from wger.utils.generic_views import YamlFormMixin
 
 
 logger = logging.getLogger('workout_manager.custom')

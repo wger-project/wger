@@ -52,14 +52,14 @@ from reportlab.lib.pagesizes import A4, cm
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
 from reportlab.lib import colors
 
-from wger.manager.utils import load_language
-from wger.manager.utils import load_ingredient_languages
+from wger import get_version
+from wger.utils import helpers
+from wger.utils.generic_views import YamlFormMixin
+from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
+from wger.utils.language import load_language
+from wger.utils.language import load_ingredient_languages
 
-from wger.workout_manager import get_version
-from wger.workout_manager import helpers
-from wger.workout_manager.generic_views import YamlFormMixin
-from wger.workout_manager.generic_views import YamlDeleteMixin
-from wger.workout_manager.constants import PAGINATION_OBJECTS_PER_PAGE
 
 logger = logging.getLogger('workout_manager.custom')
 

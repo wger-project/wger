@@ -36,7 +36,7 @@ from wger.manager.models import Setting
 from wger.exercises.models import Exercise
 from django.views.generic import UpdateView
 
-from wger.workout_manager.generic_views import YamlFormMixin
+from wger.utils.generic_views import YamlFormMixin
 
 logger = logging.getLogger('workout_manager.custom')
 

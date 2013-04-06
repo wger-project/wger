@@ -22,7 +22,7 @@ from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 
-from wger.workout_manager.constants import PAGINATION_OBJECTS_PER_PAGE
+from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 
 
 class AddWeightUnitTestCase(WorkoutManagerAddTestCase):

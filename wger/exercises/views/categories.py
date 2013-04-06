@@ -36,8 +36,6 @@ from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
 
-from wger.manager.utils import load_language
-
 from wger.manager.models import WorkoutLog
 
 from wger.exercises.models import Exercise
@@ -45,8 +43,9 @@ from wger.exercises.models import ExerciseComment
 from wger.exercises.models import ExerciseCategory
 from wger.exercises.models import Muscle
 
-from wger.workout_manager.generic_views import YamlFormMixin
-from wger.workout_manager.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import YamlFormMixin
+from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.language import load_language
 
 
 logger = logging.getLogger('workout_manager.custom')

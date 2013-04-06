@@ -44,8 +44,8 @@ from wger.exercises.models import Exercise
 
 from wger.manager.forms import SetForm
 
-from wger.workout_manager.generic_views import YamlFormMixin
-from wger.workout_manager.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import YamlFormMixin
+from wger.utils.generic_views import YamlDeleteMixin
 
 logger = logging.getLogger('workout_manager.custom')
 

@@ -21,7 +21,7 @@ from django.core.urlresolvers import reverse
 from wger.nutrition.models import Ingredient
 from wger.nutrition.models import Meal
 
-from wger.workout_manager.constants import NUTRITION_TAB
+from wger.utils.constants import NUTRITION_TAB
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase

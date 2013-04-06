@@ -17,9 +17,9 @@
 from django import template
 from django.core.paginator import EmptyPage, PageNotAnInteger
 
-from wger.workout_manager.constants import PAGINATION_OBJECTS_PER_PAGE
-from wger.workout_manager.constants import PAGINATION_MAX_TOTAL_PAGES
-from wger.workout_manager.constants import PAGINATION_PAGES_AROUND_CURRENT
+from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
+from wger.utils.constants import PAGINATION_MAX_TOTAL_PAGES
+from wger.utils.constants import PAGINATION_PAGES_AROUND_CURRENT
 
 register = template.Library()
 

@@ -16,7 +16,7 @@
 
 from django.contrib.sitemaps import Sitemap
 from wger.exercises.models import Exercise
-from wger.manager.utils import load_language
+from wger.utils.language import load_language
 
 
 class ExercisesSitemap(Sitemap):

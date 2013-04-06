@@ -27,7 +27,7 @@ import webbrowser
 import django.conf
 from django.core.management import execute_from_command_line
 
-from wger.workout_manager import get_version
+from wger import get_version
 
 CONFIG_TEMPLATE = """#!/usr/bin/env python
 # -*- coding: utf-8 -*-

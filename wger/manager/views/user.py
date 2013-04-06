@@ -52,7 +52,7 @@ from wger.manager.forms import UserEmailForm
 from wger.manager.forms import RegistrationForm
 from wger.manager.forms import DemoUserForm
 
-from wger.manager.utils import load_language
+from wger.utils.language import load_language
 
 
 logger = logging.getLogger('workout_manager.custom')

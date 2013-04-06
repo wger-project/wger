@@ -24,7 +24,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
 
 from wger.manager.models import TrainingSchedule
-from wger.manager.utils import styleSheet
+from wger.utils.pdf import styleSheet
 
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.styles import ParagraphStyle
@@ -35,7 +35,7 @@ from reportlab.lib import colors
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 
-from wger.workout_manager import get_version
+from wger import get_version
 
 logger = logging.getLogger('workout_manager.custom')
 

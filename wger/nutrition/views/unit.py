@@ -28,11 +28,10 @@ from django.views.generic import ListView
 
 from wger.nutrition.models import WeightUnit
 
-from wger.manager.utils import load_language
-
-from wger.workout_manager.generic_views import YamlFormMixin
-from wger.workout_manager.generic_views import YamlDeleteMixin
-from wger.workout_manager.constants import PAGINATION_OBJECTS_PER_PAGE
+from wger.utils.generic_views import YamlFormMixin
+from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
+from wger.utils.language import load_language
 
 logger = logging.getLogger('workout_manager.custom')
 # ************************

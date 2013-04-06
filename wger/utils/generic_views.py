@@ -25,9 +25,9 @@ from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
 from django.views.generic.edit import ModelFormMixin
 
-from wger.workout_manager.constants import HTML_TAG_WHITELIST
-from wger.workout_manager.constants import HTML_ATTRIBUTES_WHITELIST
-from wger.workout_manager.constants import HTML_STYLES_WHITELIST
+from wger.utils.constants import HTML_TAG_WHITELIST
+from wger.utils.constants import HTML_ATTRIBUTES_WHITELIST
+from wger.utils.constants import HTML_STYLES_WHITELIST
 
 logger = logging.getLogger('workout_manager.custom')
 

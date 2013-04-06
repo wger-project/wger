@@ -39,7 +39,7 @@ from wger.manager.models import WorkoutLog
 from wger.manager.forms import HelperDateForm
 from wger.manager.forms import WorkoutLogForm
 
-from wger.workout_manager.generic_views import YamlFormMixin
+from wger.utils.generic_views import YamlFormMixin
 
 
 logger = logging.getLogger('workout_manager.custom')

@@ -27,8 +27,8 @@ from django.views.generic import UpdateView
 from wger.nutrition.models import Ingredient
 from wger.nutrition.models import IngredientWeightUnit
 
-from wger.workout_manager.generic_views import YamlFormMixin
-from wger.workout_manager.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import YamlFormMixin
+from wger.utils.generic_views import YamlDeleteMixin
 
 
 logger = logging.getLogger('workout_manager.custom')

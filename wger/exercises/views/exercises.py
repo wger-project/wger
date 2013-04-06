@@ -39,8 +39,6 @@ from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
 
-from wger.manager.utils import load_language
-
 from wger.manager.models import WorkoutLog
 
 from wger.exercises.models import Exercise
@@ -53,10 +51,10 @@ from wger.exercises.models import EXERCISE_STATUS_DECLINED
 from wger.exercises.models import EXERCISE_STATUS_ADMIN
 from wger.exercises.models import EXERCISE_STATUS_SYSTEM
 
-from wger.workout_manager.generic_views import YamlFormMixin
-from wger.workout_manager.generic_views import YamlDeleteMixin
-
-from wger.workout_manager.constants import EMAIL_FROM
+from wger.utils.generic_views import YamlFormMixin
+from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.language import load_language
+from wger.utils.constants import EMAIL_FROM
 
 
 logger = logging.getLogger('workout_manager.custom')

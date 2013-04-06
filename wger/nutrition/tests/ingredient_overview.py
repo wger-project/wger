@@ -17,7 +17,7 @@ from django.core.urlresolvers import reverse
 
 from wger.nutrition.models import Ingredient
 from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.workout_manager.constants import PAGINATION_OBJECTS_PER_PAGE
+from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 
 
 class OverviewPlanTestCase(WorkoutManagerTestCase):

@@ -17,7 +17,7 @@
 from django.contrib.sitemaps import Sitemap
 
 from wger.nutrition.models import Ingredient
-from wger.manager.utils import load_language
+from wger.utils.language import load_language
 
 
 class NutritionSitemap(Sitemap):

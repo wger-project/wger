@@ -58,7 +58,7 @@ AUTH_PROFILE_MODULE = 'manager.UserProfile'
 
 # Set the context processors
 TEMPLATE_CONTEXT_PROCESSORS = (
-    'wger.manager.context_processor.processor',
+    'wger.utils.context_processor.processor',
     'django.contrib.auth.context_processors.auth',
     'django.contrib.messages.context_processors.messages',
     'django_browserid.context_processors.browserid',
@@ -150,10 +150,10 @@ MIDDLEWARE_CLASSES = (
 
 INTERNAL_IPS = ('127.0.0.1',)
 
-ROOT_URLCONF = 'wger.workout_manager.urls'
+ROOT_URLCONF = 'wger.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'wger.workout_manager.wsgi.application'
+WSGI_APPLICATION = 'wger.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -181,6 +181,7 @@ INSTALLED_APPS = (
     'wger.exercises',
     'wger.nutrition',
     'wger.software',
+    'wger.utils',
 
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
     'captcha',

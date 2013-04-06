@@ -29,7 +29,7 @@ from django.core.urlresolvers import reverse
 
 from wger.exercises.models import Exercise
 
-from wger.workout_manager.helpers import DecimalJsonEncoder
+from wger.utils.helpers import DecimalJsonEncoder
 
 logger = logging.getLogger('workout_manager.custom')
 

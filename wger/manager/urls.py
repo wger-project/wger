@@ -13,7 +13,7 @@ from wger.manager.views import set
 from wger.manager.views import setting
 from wger.manager.views import misc
 
-from wger.workout_manager.constants import USER_TAB
+from wger.utils.constants import USER_TAB
 
 
 urlpatterns = patterns('wger.manager.views',
