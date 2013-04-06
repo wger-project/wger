@@ -14,10 +14,12 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 import json
+import datetime
 
 from django.core.urlresolvers import reverse
 
 from wger.nutrition.models import Ingredient
+from wger.nutrition.models import Meal
 
 from wger.workout_manager.constants import NUTRITION_TAB
 
@@ -55,6 +57,14 @@ class EditIngredientTestCase(WorkoutManagerEditTestCase):
             'protein': 30,
             'carbohydrates': 10}
 
+    def post_test_hook(self):
+        '''
+        Test that the update date is correctly set
+        '''
+        if self.current_user == 'admin':
+            ingredient = Ingredient.objects.get(pk=1)
+            self.assertEqual(ingredient.update_date, datetime.date.today())
+
 
 class AddIngredientTestCase(WorkoutManagerAddTestCase):
     '''
@@ -73,6 +83,14 @@ class AddIngredientTestCase(WorkoutManagerAddTestCase):
             'fibres': 2.1,
             'protein': 30,
             'carbohydrates': 10}
+
+    def post_test_hook(self):
+        '''
+        Test that the creation date is correctly set
+        '''
+        if self.current_user == 'admin':
+            ingredient = Ingredient.objects.get(pk=7)
+            self.assertEqual(ingredient.creation_date, datetime.date.today())
 
 
 class IngredientDetailTestCase(WorkoutManagerTestCase):
@@ -277,3 +295,39 @@ class IngredientValuesTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         self.calculate_value()
+
+
+class IngredientTestCase(WorkoutManagerTestCase):
+    '''
+    Tests other ingredient functions
+    '''
+    def test_compare(self):
+        '''
+        Tests the custom compare method based on values
+        '''
+        ingredient1 = Ingredient.objects.get(pk=1)
+        ingredient2 = Ingredient.objects.get(pk=1)
+        ingredient2.name = 'A different name altogether'
+        self.assertFalse(ingredient1 == ingredient2)
+
+        ingredient1 = Ingredient()
+        ingredient1.name = 'ingredient name'
+        ingredient1.energy = 150
+        ingredient1.protein = 30
+
+        ingredient2 = Ingredient()
+        ingredient2.name = 'ingredient name'
+        ingredient2.energy = 150
+        self.assertFalse(ingredient1 == ingredient2)
+
+        ingredient2.protein = 31
+        self.assertFalse(ingredient1 == ingredient2)
+
+        ingredient2.protein = None
+        self.assertFalse(ingredient1 == ingredient2)
+
+        ingredient2.protein = 30
+        self.assertEqual(ingredient1, ingredient2)
+
+        meal = Meal.objects.get(pk=1)
+        self.assertFalse(ingredient1 == meal)

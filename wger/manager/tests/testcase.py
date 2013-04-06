@@ -35,13 +35,14 @@ class WorkoutManagerTestCase(TestCase):
                 'test-ingredients',
                 'test-nutrition-data',
                 'test-workout-data')
+    current_user = 'anonymous'
 
     def setUp(self):
         '''
         Overwrite some of Django's settings here
         '''
         os.environ['RECAPTCHA_TESTING'] = 'True'
-        logging.disable(logging.ERROR)
+        logging.disable(logging.INFO)
 
     def tearDown(self):
         '''
@@ -54,12 +55,14 @@ class WorkoutManagerTestCase(TestCase):
         Login the user, by default as 'admin'
         '''
         self.client.login(username=user, password='%(user)s%(user)s' % {'user': user})
+        self.current_user = user
 
     def user_logout(self):
         '''
         Visit the logout page
         '''
         self.client.logout()
+        self.current_user = 'anonymous'
 
     def compare_fields(self, field, value):
         current_field_class = field.__class__.__name__
@@ -84,6 +87,13 @@ class WorkoutManagerTestCase(TestCase):
         # Other objects (from foreign keys), check the ID
         else:
             self.assertEqual(field.id, value)
+
+    def post_test_hook(self):
+        '''
+        Hook to add some more specific tests after the basic add or delete
+        operations are finished
+        '''
+        pass
 
 
 class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
@@ -136,6 +146,7 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
             # The page we are redirected to doesn't trigger an error
             response = self.client.get(response['Location'])
             self.assertEqual(response.status_code, 200)
+        self.post_test_hook()
 
     def test_delete_object_anonymous(self):
         '''
@@ -228,6 +239,7 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
             # The page we are redirected to doesn't trigger an error
             response = self.client.get(response['Location'])
             self.assertEqual(response.status_code, 200)
+        self.post_test_hook()
 
     def test_edit_object_anonymous(self):
         '''
@@ -324,6 +336,7 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
             # The page we are redirected to doesn't trigger an error
             response = self.client.get(response['Location'])
             self.assertEqual(response.status_code, 200)
+        self.post_test_hook()
 
     def test_add_object_anonymous(self):
         '''

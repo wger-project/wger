@@ -16,6 +16,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 import logging
 import decimal
+import datetime
 
 from django.db import models
 
@@ -109,6 +110,11 @@ class Ingredient(models.Model):
         ordering = ["name", ]
 
     language = models.ForeignKey(Language, verbose_name=_('Language'))
+    creation_date = models.DateField(_('Date'), auto_now_add=True)
+    update_date = models.DateField(_('Date'),
+                                   default=datetime.date.today,
+                                   blank=True,
+                                   )
 
     name = models.CharField(max_length=200,
                             verbose_name=_('Name'),)
@@ -167,11 +173,45 @@ class Ingredient(models.Model):
         return reverse('wger.nutrition.views.ingredient.view',
                        kwargs={'id': self.id, 'slug': slugify(self.name)})
 
+    def compare_with_database(self):
+        '''
+        Compares the current ingredient with the version saved in the database.
+
+        If the current object has no PK, returns false
+        '''
+        if not self.pk:
+            return False
+
+        ingredient = Ingredient.objects.get(pk=self.pk)
+        if self != ingredient:
+            return False
+            logger.debug('NOT equal')
+            #form.instance.update_date = datetime.datetime.today()
+        else:
+            return True
+            logger.debug('equal, not doing anything')
+
     def __unicode__(self):
         '''
         Return a more human-readable representation
         '''
         return "%s" % (self.name, )
+
+    def __eq__(self, other):
+        '''
+        Compare ingredients based on their values, not like django on their PKs
+        '''
+
+        logger.debug('Overwritten behaviour: comparing ingredients on values, not PK.')
+        equal = True
+        if isinstance(other, self.__class__):
+            for i in self._meta.fields:
+                if (hasattr(self, i.name) and hasattr(other, i.name) and
+                   (getattr(self, i.name, None) != getattr(other, i.name, None))):
+                        equal = False
+        else:
+            equal = False
+        return equal
 
     def get_owner_object(self):
         '''

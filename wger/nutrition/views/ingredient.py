@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 import logging
 import json
+import datetime
 
 from django import forms
 from django.template import RequestContext
@@ -103,7 +104,7 @@ def view(request, id, slug=None):
 class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient
-        exclude = ('language',)
+        exclude = ('language', 'update_date')
 
 
 class IngredientDeleteView(YamlDeleteMixin, DeleteView):
@@ -133,9 +134,17 @@ class IngredientEditView(YamlFormMixin, UpdateView):
 
     model = Ingredient
     form_class = IngredientForm
-    title = ugettext_lazy('Add a new ingredient')
+    title = ugettext_lazy('Edit ingredient')
     form_action_urlname = 'ingredient-edit'
     messages = ugettext_lazy('Ingredient successfully updated')
+
+    def form_valid(self, form):
+        '''
+        Set the date if the ingredient was updated
+        '''
+        if not form.instance.compare_with_database():
+            form.instance.update_date = datetime.datetime.today()
+        return super(IngredientEditView, self).form_valid(form)
 
 
 class IngredientCreateView(YamlFormMixin, CreateView):
