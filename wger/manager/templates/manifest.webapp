@@ -1,13 +1,14 @@
+{% load staticfiles %}
 {
-    "name": "Worktout Manager",
-    "version": "1.0.3",
+    "name": "wger Worktout Manager",
+    "version": "{{version}}",
     "description": "A workout, nutrition and weight manager",
     "launch_path": "/",
     "icons": {
-        "30": "/static/images/logo-30.png",
-        "48": "/static/images/logo-48.png",
-        "60": "/static/images/logo-60.png",
-        "128": "/static/images/logo-128.png"
+        "30": "{% static 'images/logo-30.png' %}",
+        "48": "{% static 'images/logo-48.png' %}",
+        "60": "{% static 'images/logo-60.png' %}",
+        "128": "{% static 'images/logo-128.png' %}"
     },
     "developer": {
         "name": "Roland Geider"

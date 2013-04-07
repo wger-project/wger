@@ -5,6 +5,8 @@ from django.views.generic import TemplateView
 
 from wger.exercises.sitemap import ExercisesSitemap
 from wger.nutrition.sitemap import NutritionSitemap
+from wger.utils.generic_views import TextTemplateView
+from wger.utils.generic_views import WebappManifestView
 
 from django.contrib import admin
 admin.autodiscover()
@@ -26,9 +28,12 @@ urlpatterns = i18n_patterns('',
         name='sitemap')
 )
 
-# Send robots.txt without any language prefix
+# Send these static files without any language prefix
 urlpatterns = urlpatterns + patterns('',
     url(r'^robots\.txt$',
-        TemplateView.as_view(template_name="robots.txt"),
+        TextTemplateView.as_view(template_name="robots.txt"),
+       ),
+    url(r'^manifest\.webapp$',
+        WebappManifestView.as_view(template_name="manifest.webapp"),
        ),
 )

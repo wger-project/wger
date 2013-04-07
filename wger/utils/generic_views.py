@@ -24,6 +24,7 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
 from django.views.generic.edit import ModelFormMixin
+from django.views.generic import TemplateView
 
 from wger.utils.constants import HTML_TAG_WHITELIST
 from wger.utils.constants import HTML_ATTRIBUTES_WHITELIST
@@ -266,3 +267,23 @@ class YamlDeleteMixin(ModelFormMixin):
         if self.get_messages():
             messages.success(request, self.get_messages())
         return super(YamlDeleteMixin, self).delete(request, *args, **kwargs)
+
+
+class TextTemplateView(TemplateView):
+    '''
+    A regular templateView that sets the mime type as text/plain
+    '''
+    def render_to_response(self, context, **response_kwargs):
+        response_kwargs['content_type'] = 'text/plain'
+        return super(TextTemplateView, self).render_to_response(context, **response_kwargs)
+
+
+class WebappManifestView(TemplateView):
+    '''
+    A regular templateView that sets the mime type as application/x-web-app-manifest+json
+
+    This is used in the mozilla market place
+    '''
+    def render_to_response(self, context, **response_kwargs):
+        response_kwargs['content_type'] = 'application/x-web-app-manifest+json'
+        return super(WebappManifestView, self).render_to_response(context, **response_kwargs)
