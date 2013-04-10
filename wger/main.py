@@ -310,6 +310,7 @@ def create_or_reset_admin_user():
         print("Created default admin user")
 
     admin.is_superuser = True
+    admin.is_staff = True
     admin.default_password = 'admin'
     admin.set_password(admin.default_password)
     admin.save()
