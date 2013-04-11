@@ -25,3 +25,10 @@
     font-weight: bold;
 }
 
+/*
+ * Links within boostrap's alert boxes are rendered in black
+ */
+.alert a{
+    color: black;
+    text-decoration: underline;
+}

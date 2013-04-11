@@ -154,9 +154,10 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="{% url 'software:features' %}">{% trans "Features" %}</a></li>
                                     <li><a href="{% url 'software:contribute' %}">{% trans "Contribute!" %} </a></li>
+                                    <li><a href="{% url 'contact' %}">{% trans "Get in touch" %}</a></li>
                                     <li class="divider"></li>
                                     <li class="nav-header">{% trans "Developers" %}</li>
-                                    <li><a href="{% url 'software:issues' %}">{% trans "Report problem" %} </a></li>
+                                    <li><a href="{% url 'software:issues' %}">{% trans "Problems and wishes" %} </a></li>
                                     <li><a href="{% url 'software:code' %}">{% trans "Get the code" %} </a></li>
                                     <li><a href="{% url 'software:license' %}">{% trans "License" %} </a></li>
                                     <li><a href="{% url 'software:changelog' %}">{% trans "Changelog" %} </a></li>
@@ -268,10 +269,9 @@
                 <!--
                 – {% trans "Layout based on <a href='http://www.yaml.de'>YAML</a>" %}
                 -->
-                | <a href="{% url 'software:contribute' %}">{% trans "Contribute!" %}</a>
                 | <a href="{% url 'about' %}">{% trans "About" %}</a>
-                | <a href="{% url 'feedback' %}">{% trans "Feedback" %}</a>
-                
+                | <a href="{% url 'software:contribute' %}">{% trans "Contribute!" %}</a>
+                | <a href="{% url 'contact' %}">{% trans "Get in touch" %}</a>
                 </div>
             </div>
             <div class="ym-g10 ym-gr align-right">
