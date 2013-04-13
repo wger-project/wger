@@ -17,6 +17,7 @@ import json
 import datetime
 
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ValidationError
 
 from wger.nutrition.models import Ingredient
 from wger.nutrition.models import Meal
@@ -54,7 +55,7 @@ class EditIngredientTestCase(WorkoutManagerEditTestCase):
             'carbohydrates_sugar': 5,
             'fat_saturated': 3.14,
             'fibres': 2.1,
-            'protein': 30,
+            'protein': 20,
             'carbohydrates': 10}
 
     def post_test_hook(self):
@@ -81,7 +82,7 @@ class AddIngredientTestCase(WorkoutManagerAddTestCase):
             'carbohydrates_sugar': 5,
             'fat_saturated': 3.14,
             'fibres': 2.1,
-            'protein': 30,
+            'protein': 20,
             'carbohydrates': 10}
 
     def post_test_hook(self):
@@ -331,3 +332,35 @@ class IngredientTestCase(WorkoutManagerTestCase):
 
         meal = Meal.objects.get(pk=1)
         self.assertFalse(ingredient1 == meal)
+
+    def test_total_energy(self):
+        '''
+        Tests the custom clean() method
+        '''
+        self.user_login('admin')
+
+        # Values OK
+        ingredient = Ingredient()
+        ingredient.name = 'FooBar, cooked, with salt'
+        ingredient.energy = 50
+        ingredient.protein = 0.5
+        ingredient.carbohydrates = 12
+        ingredient.fat = 0.1
+        ingredient.language_id = 1
+        self.assertFalse(ingredient.full_clean())
+
+        # Values wrong
+        ingredient.protein = 20
+        self.assertRaises(ValidationError, ingredient.full_clean)
+
+        ingredient.protein = 0.5
+        ingredient.fat = 5
+        self.assertRaises(ValidationError, ingredient.full_clean)
+
+        ingredient.fat = 0.1
+        ingredient.carbohydrates = 20
+        self.assertRaises(ValidationError, ingredient.full_clean)
+
+        ingredient.fat = 5
+        ingredient.carbohydrates = 20
+        self.assertRaises(ValidationError, ingredient.full_clean)

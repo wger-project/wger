@@ -22,6 +22,7 @@ from django.db import models
 
 from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
 from django.core.validators import MaxValueValidator
+from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
@@ -105,6 +106,12 @@ class Ingredient(models.Model):
     An ingredient, with some approximate nutrition values
     '''
 
+    ENERGY_APPROXIMATION = 15
+    '''
+    How much the calculated energy from protein, etc. can deviate from the
+    energy amount given.
+    '''
+
     # Metaclass to set some other properties
     class Meta:
         ordering = ["name", ]
@@ -141,7 +148,6 @@ class Ingredient(models.Model):
 
     fat = models.DecimalField(decimal_places=3,
                               max_digits=6,
-                              blank=True,
                               verbose_name=_('Fat'),
                               help_text=_('In g per 100g of product'))
 
@@ -173,6 +179,32 @@ class Ingredient(models.Model):
         return reverse('wger.nutrition.views.ingredient.view',
                        kwargs={'id': self.id, 'slug': slugify(self.name)})
 
+    def clean(self):
+        '''
+        Do a very broad sanity check on the nutritional values according to
+        the following rules:
+        - 1g of protein: 4kcal
+        - 1g of carbohydrates: 4kcal
+        - 1g of fat: 9kcal
+        
+        The sum is then compared to the given total energy, with ENERGY_APPROXIMATION
+        percent tolerance.
+        '''
+
+        # Note: calculations in 100 grams, to save us the '/100' everywhere
+        energy_calculated = ((self.protein * 4) +
+                            (self.carbohydrates * 4) +
+                            (self.fat * 9))
+
+        # Compare the values, but be generous
+        energy_upper = self.energy * (1 + (self.ENERGY_APPROXIMATION/100.0))
+        energy_lower = self.energy * (1 - (self.ENERGY_APPROXIMATION/100.0))
+        #logger.debug("{0} > {1} > {2}".format(energy_upper, energy_calculated, energy_lower))
+
+        if not ((energy_upper > energy_calculated) and (energy_calculated > energy_lower)):
+            raise ValidationError(_('Total energy is not the approximate sum of the energy ' +
+                                    'provided by protein, carbohydrates and fat.'))
+
     def compare_with_database(self):
         '''
         Compares the current ingredient with the version saved in the database.
@@ -191,11 +223,17 @@ class Ingredient(models.Model):
             return True
             logger.debug('equal, not doing anything')
 
+    def get_owner_object(self):
+        '''
+        Ingredient has no owner information
+        '''
+        return False
+
     def __unicode__(self):
         '''
         Return a more human-readable representation
         '''
-        return "%s" % (self.name, )
+        return "{0}".format(self.name)
 
     def __eq__(self, other):
         '''
@@ -212,12 +250,6 @@ class Ingredient(models.Model):
         else:
             equal = False
         return equal
-
-    def get_owner_object(self):
-        '''
-        Ingredient has no owner information
-        '''
-        return False
 
 
 class WeightUnit(models.Model):
