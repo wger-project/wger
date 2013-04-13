@@ -495,3 +495,18 @@ ul.pagination a:hover
     font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
     font-weight: 300;
 }
+
+/**************************************************************
+ * Set edit window
+ **************************************************************/
+#formsets input{
+    max-width: 5em;
+}
+#slider{
+    width: 91%;
+    float: right;
+    margin-right: 1em;
+}
+#formset .ym-fbox-text{
+    /*float: none;*/
+}

@@ -17,6 +17,7 @@
 import logging
 import uuid
 
+from django.forms.models import inlineformset_factory
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
@@ -53,44 +54,93 @@ logger = logging.getLogger('workout_manager.custom')
 # ************************
 # Set functions
 # ************************
+SETTING_FORMSET_EXCLUDE = ('set', 'exercise', 'comment', 'order')
+SettingFormSet = inlineformset_factory(Set,
+                                       Setting,
+                                       can_delete=False,
+                                       can_order=False,
+                                       extra=Set.DEFAULT_SETS,
+                                       exclude=SETTING_FORMSET_EXCLUDE)
 
 
-class SetCreateView(YamlFormMixin, CreateView):
-    model = Set
-    form_class = SetForm
-    template_name = 'set/edit.html'
+@login_required
+def create(request, day_pk):
+    '''
+    Creates a new set. This view handles both the set form and the corresponding
+    settings formsets
+    '''
+    day = get_object_or_404(Day, pk=day_pk)
+    if day.get_owner_object().user != request.user:
+        return HttpResponseForbidden()
 
-    def dispatch(self, request, *args, **kwargs):
-        '''
-        Check that the user owns the workout
-        '''
-        day = get_object_or_404(Day, pk=kwargs['day_id'])
-        if day.get_owner_object().user == request.user:
-            self.day = day
-            return super(SetCreateView, self).dispatch(request, *args, **kwargs)
+    context = {}
+    formsets = []
+    form = SetForm(initial={'sets': Set.DEFAULT_SETS})
+
+    # If the form and all formsets validate, save them
+    if request.method == "POST":
+        form = SetForm(request.POST)
+        if form.is_valid():
+            for exercise in form.cleaned_data['exercises']:
+                formset = SettingFormSet(request.POST,
+                                         queryset=Setting.objects.none(),
+                                         prefix='exercise{0}'.format(exercise.id))
+                formsets.append({'exercise': exercise, 'formset': formset})
+        all_valid = True
+
+        for formset in formsets:
+            if not formset['formset'].is_valid():
+                all_valid = False
+
+        if form.is_valid() and all_valid:
+            # Manually take care of the order, TODO: better move this to the model
+            max_order = day.set_set.select_related().aggregate(models.Max('order'))
+            form.instance.order = (max_order['order__max'] or 0) + 1
+            form.instance.exerciseday = day
+            set_obj = form.save()
+
+            for formset in formsets:
+                instances = formset['formset'].save(commit=False)
+                for instance in instances:
+                    instance.set = set_obj
+                    instance.order = 1
+                    instance.exercise = formset['exercise']
+                    instance.save()
+
+            return HttpResponseRedirect(reverse('wger.manager.views.workout.view',
+                                        kwargs={'id': day.get_owner_object().id}))
         else:
-            return HttpResponseForbidden()
+            logger.debug(form.errors)
 
-    def get_success_url(self):
-        return reverse('wger.manager.views.workout.view',
-                       kwargs={'id': self.day.training.id})
+    # Other context we need
+    context['form'] = form
+    context['day'] = day
+    context['max_sets'] = Set.MAX_SETS
+    context['formsets'] = formsets
+    context['form_action'] = reverse('set-add', kwargs={'day_pk': day_pk})
+    return render_to_response('set/edit.html',
+                              context,
+                              context_instance=RequestContext(request))
 
-    def form_valid(self, form):
-        '''
-        Manually set the order
-        '''
-        max_order = self.day.set_set.select_related().aggregate(models.Max('order'))
-        form.instance.order = (max_order['order__max'] or 0) + 1
-        form.instance.exerciseday = self.day
-        return super(SetCreateView, self).form_valid(form)
 
-    def get_context_data(self, **kwargs):
-        '''
-        Send some additional data to the template
-        '''
-        context = super(SetCreateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('set-add', kwargs={'day_id': self.day.id})
-        return context
+@login_required
+def get_formset(request, exercise_pk, reps=Set.DEFAULT_SETS):
+    '''
+    Returns a formset. This is then rendered inside the new set template
+    '''
+    exercise = Exercise.objects.get(pk=exercise_pk)
+    SettingFormSet = inlineformset_factory(Set,
+                                           Setting,
+                                           can_delete=False,
+                                           extra=int(reps),
+                                           exclude=SETTING_FORMSET_EXCLUDE)
+    formset = SettingFormSet(queryset=Setting.objects.none(),
+                             prefix='exercise{0}'.format(exercise_pk))
+
+    return render_to_response("set/formset.html",
+                              {'formset': formset,
+                               'exercise': exercise},
+                              context_instance=RequestContext(request))
 
 
 @login_required

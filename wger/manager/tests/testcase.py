@@ -185,6 +185,7 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
     user_success = 'admin'
     user_fail = 'test'
     data = {}
+    data_ignore = ()
 
     def edit_object(self, fail=False):
         '''
@@ -233,8 +234,9 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
 
             # Check that the data is correct
             for i in self.data:
-                current_field = getattr(entry_after, i)
-                self.compare_fields(current_field, self.data[i])
+                if i not in self.data_ignore:
+                    current_field = getattr(entry_after, i)
+                    self.compare_fields(current_field, self.data[i])
 
             # The page we are redirected to doesn't trigger an error
             response = self.client.get(response['Location'])
@@ -278,6 +280,7 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
     user_success = 'admin'
     user_fail = 'test'
     data = {}
+    data_ignore = ()
 
     def add_object(self, fail=False):
         '''
@@ -328,8 +331,9 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
 
             # Check that the data is correct
             for i in self.data:
-                current_field = getattr(entry, i)
-                self.compare_fields(current_field, self.data[i])
+                if i not in self.data_ignore:
+                    current_field = getattr(entry, i)
+                    self.compare_fields(current_field, self.data[i])
 
             self.assertEqual(count_before + 1, count_after)
 

@@ -15,13 +15,76 @@
 import logging
 
 from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
 
 from wger.manager.models import Set
+from wger.manager.models import Setting
 from wger.manager.models import Day
+from wger.exercises.models import Exercise
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 
 logger = logging.getLogger('workout_manager.custom')
+
+
+class SetAddTestCase(WorkoutManagerAddTestCase):
+    '''
+    Test adding a set to a day
+    '''
+
+    object_class = Set
+    url = reverse_lazy('set-add', kwargs={'day_pk': 5})
+    pk = 4
+    user_success = 'test'
+    user_fail = 'admin'
+    data = {'exercises': [1, ],
+            'sets': 4,
+            'exercise1-TOTAL_FORMS': 4,
+            'exercise1-INITIAL_FORMS': 0,
+            'exercise1-MAX_NUM_FORMS': 1000}
+    data_ignore = ('exercise1-TOTAL_FORMS',
+                   'exercise1-INITIAL_FORMS',
+                   'exercise1-MAX_NUM_FORMS')
+
+    def test_add_set(self, fail=False):
+        '''
+        Tests adding a set and corresponding settings at the same time
+        '''
+
+        # POST the data
+        self.user_login('test')
+        exercises_id = [1, 2]
+        post_data = {'exercises': exercises_id,
+                     'sets': 4,
+                     'exercise1-TOTAL_FORMS': 4,
+                     'exercise1-INITIAL_FORMS': 0,
+                     'exercise1-MAX_NUM_FORMS': 1000,
+                     'exercise1-0-reps': 10,
+                     'exercise1-1-reps': 12,
+                     'exercise1-2-reps': 10,
+                     'exercise1-3-reps': 12,
+                     'exercise2-TOTAL_FORMS': 4,
+                     'exercise2-INITIAL_FORMS': 0,
+                     'exercise2-MAX_NUM_FORMS': 1000,
+                     'exercise2-0-reps': 8}
+        response = self.client.post(reverse_lazy('set-add', kwargs={'day_pk': 5}), post_data)
+        self.assertEqual(response.status_code, 302)
+
+        set_obj = Set.objects.get(pk=4)
+        exercise1 = Exercise.objects.get(pk=1)
+        exercise2 = Exercise.objects.get(pk=2)
+
+        # Check that everything got where it's supposed to
+        for exercise in set_obj.exercises.all():
+            self.assertIn(exercise.id, exercises_id)
+
+        settings = Setting.objects.filter(set=set_obj)
+        for setting in settings:
+            if setting.exercise == exercise1:
+                self.assertIn(setting.reps, (10, 12))
+            else:
+                self.assertEqual(setting.reps, 8)
 
 
 class SetDeleteTestCase(WorkoutManagerTestCase):
@@ -77,14 +140,19 @@ class TestSetOrderTestCase(WorkoutManagerTestCase):
     when adding new ones
     '''
 
-    def add_set(self, set_ids):
+    def add_set(self, exercises_id):
         '''
         Helper function that adds a set to a day
         '''
+        nr_sets = 4
+        post_data = {'exercises': exercises_id, 'sets': nr_sets}
+        for exercise_id in exercises_id:
+            post_data['exercise{0}-TOTAL_FORMS'.format(exercise_id)] = nr_sets
+            post_data['exercise{0}-INITIAL_FORMS'.format(exercise_id)] = 0
+            post_data['exercise{0}-MAX_NUM_FORMS'.format(exercise_id)] = 1000
 
-        response = self.client.post(reverse('set-add', kwargs={'day_id': 5}),
-                                    {'exercises': set_ids,
-                                     'sets': 4})
+        response = self.client.post(reverse('set-add', kwargs={'day_pk': 5}),
+                                    post_data)
 
         return response
 
@@ -116,3 +184,40 @@ class TestSetOrderTestCase(WorkoutManagerTestCase):
             prev = self.get_order()
             orig += (i + 4,)
             self.assertEqual(orig, prev)
+
+
+class TestSetAddFormset(WorkoutManagerTestCase):
+    '''
+    Tests the functionality of the formset mini-view that is used in the add
+    set page
+    '''
+
+    def get_formset(self, fail=False):
+        '''
+        Helper function
+        '''
+        exercise = Exercise.objects.get(pk=1)
+        response = self.client.get(reverse('set-get-formset',
+                                   kwargs={'exercise_pk': 1, 'reps': 4}))
+
+        if fail:
+            self.assertEqual(response.status_code, 302)
+        else:
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.context['exercise'], exercise)
+            self.assertTrue(response.context['formset'])
+
+    def test_get_formset_anonymous(self):
+        '''
+        Tests the formset view as an anonymous user
+        '''
+
+        self.get_formset(fail=True)
+
+    def test_get_formset_logged_in(self):
+        '''
+        Tests the formset view as an authorized user
+        '''
+
+        self.user_login('test')
+        self.get_formset(fail=False)

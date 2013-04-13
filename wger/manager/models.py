@@ -117,6 +117,8 @@ class Set(models.Model):
     '''
     Model for a set of exercises
     '''
+    DEFAULT_SETS = 4
+    MAX_SETS = 7
 
     exerciseday = models.ForeignKey(Day, verbose_name=_('Exercise day'))
     exercises = models.ManyToManyField(Exercise, verbose_name=_('Exercises'))
@@ -124,7 +126,9 @@ class Set(models.Model):
                                 blank=True,
                                 null=True,
                                 verbose_name=_('Order'))
-    sets = models.IntegerField(validators=[MaxValueValidator(6)], verbose_name=_('Number of sets'))
+    sets = models.IntegerField(validators=[MaxValueValidator(MAX_SETS)],
+                               verbose_name=_('Number of sets'),
+                               default=DEFAULT_SETS)
 
     # Metaclass to set some other properties
     class Meta:
@@ -151,7 +155,7 @@ class Setting(models.Model):
     set = models.ForeignKey(Set, verbose_name=_('Sets'))
     exercise = models.ForeignKey(Exercise, verbose_name=_('Exercises'))
     reps = models.IntegerField(validators=[MaxValueValidator(40)], verbose_name=_('Repetitions'))
-    order = models.IntegerField(blank=True, verbose_name=_('Repetitions'))
+    order = models.IntegerField(blank=True, verbose_name=_('Order'))
     comment = models.CharField(max_length=100, blank=True, verbose_name=_('Comment'))
 
     # Metaclass to set some other properties

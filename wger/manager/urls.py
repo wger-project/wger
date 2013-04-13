@@ -78,9 +78,12 @@ urlpatterns = patterns('wger.manager.views',
         name='day-log'),
 
     # Sets and Settings
-    url(r'^workout/day/(?P<day_id>\d+)/set/add/$',
-        login_required(set.SetCreateView.as_view()),
+    url(r'^workout/day/(?P<day_pk>\d+)/set/add/$',
+        'set.create',
         name='set-add'),
+    url(r'^workout/get-formset/(?P<exercise_pk>\d+)/(?P<reps>\d+)/',
+        'set.get_formset',
+        name='set-get-formset'), # Used by JS
     url(r'^workout/set/(?P<pk>\d+)/delete$', 'set.delete'),
     #url(r'^workout/set/(?P<set_id>\d+)/setting/edit/$',
     #    login_required(setting.SettingEditView.as_view()),
