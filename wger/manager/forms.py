@@ -89,7 +89,7 @@ class WorkoutForm(ModelForm):
 
 class WorkoutCopyForm(Form):
     comment = CharField(max_length=100,
-                        help_text=('The goal or description of the new workout.'),
+                        help_text=_('The goal or description of the new workout.'),
                         required=False)
 
 
@@ -100,7 +100,7 @@ class FeedbackRegisteredForm(Form):
     comment = CharField(max_length=500,
                         min_length=10,
                         widget=widgets.Textarea,
-                        help_text=('Please enter your feedback here.'),
+                        help_text=_('What do you want to say?'),
                         required=True)
 
 

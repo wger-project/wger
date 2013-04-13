@@ -182,7 +182,7 @@ def _main(opts, database_path=None):
         extra_args = ['--noreload']
     else:
         extra_args = []
-    start_openslides(addr, port, start_browser_url=url, extra_args=extra_args)
+    start_wger(addr, port, start_browser_url=url, extra_args=extra_args)
 
 
 def create_settings(settings_path, database_path=None, url=None):
@@ -310,12 +310,13 @@ def create_or_reset_admin_user():
         print("Created default admin user")
 
     admin.is_superuser = True
+    admin.is_staff = True
     admin.default_password = 'admin'
     admin.set_password(admin.default_password)
     admin.save()
 
 
-def start_openslides(addr, port, start_browser_url=None, extra_args=[]):
+def start_wger(addr, port, start_browser_url=None, extra_args=[]):
     argv = ["", "runserver", '--noreload'] + extra_args
 
     argv.append("%s:%d" % (addr, port))
