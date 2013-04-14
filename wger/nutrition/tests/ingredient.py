@@ -362,9 +362,9 @@ class IngredientTestCase(WorkoutManagerTestCase):
         ingredient = Ingredient()
         ingredient.name = 'FooBar, cooked, with salt'
         ingredient.energy = 50
-        ingredient.protein = 0.5
+        ingredient.protein = '0.5'
         ingredient.carbohydrates = 12
-        ingredient.fat = 0.1
+        ingredient.fat = '0.1'
         ingredient.language_id = 1
         self.assertFalse(ingredient.full_clean())
 
@@ -372,11 +372,11 @@ class IngredientTestCase(WorkoutManagerTestCase):
         ingredient.protein = 20
         self.assertRaises(ValidationError, ingredient.full_clean)
 
-        ingredient.protein = 0.5
+        ingredient.protein = '0.5'
         ingredient.fat = 5
         self.assertRaises(ValidationError, ingredient.full_clean)
 
-        ingredient.fat = 0.1
+        ingredient.fat = '0.1'
         ingredient.carbohydrates = 20
         self.assertRaises(ValidationError, ingredient.full_clean)
 

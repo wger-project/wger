@@ -229,8 +229,8 @@ class Ingredient(models.Model):
                             (self.fat * 9))
 
         # Compare the values, but be generous
-        energy_upper = self.energy * (1 + (self.ENERGY_APPROXIMATION/100.0))
-        energy_lower = self.energy * (1 - (self.ENERGY_APPROXIMATION/100.0))
+        energy_upper = self.energy * (1 + (self.ENERGY_APPROXIMATION/decimal.Decimal('100.0')))
+        energy_lower = self.energy * (1 - (self.ENERGY_APPROXIMATION/decimal.Decimal('100.0')))
         #logger.debug("{0} > {1} > {2}".format(energy_upper, energy_calculated, energy_lower))
 
         if not ((energy_upper > energy_calculated) and (energy_calculated > energy_lower)):
