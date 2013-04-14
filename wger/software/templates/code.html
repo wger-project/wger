@@ -7,48 +7,27 @@
 {% block title %}{% trans "Get the code" %}{% endblock %}
 
 {% block content %}
-<h3>{% trans "Stable version" %}</h3>
+
+<h3>{% trans "Installing the stable version" %}</h3>
+
 
 <p>{% blocktrans %}Click here to download the last stable version. For
 installation instructions see below.{% endblocktrans %}</p>
 
+<p>
+<a class="btn btn-primary"
+   href="https://pypi.python.org/packages/source/w/wger/wger-1.1.1.tar.gz">
+   {% trans "download stable version:" %} 1.1.1</a>
+</p>
+
+<!--
 <div class="box success" style="text-align: center;">
-<p><strong><a href="https://bitbucket.org/rolandgeider/workout_manager/get/1.1.1.zip">1.1.1</a></strong></p>
+<p><strong><a href="https://pypi.python.org/packages/source/w/wger/wger-1.1.1.tar.gz">1.1.1</a></strong></p>
 </div>
-
-<h3>{% trans "Development version" %}</h3>
-
-<p>{% blocktrans %}Get the development version if you want to contribute to the project,
-or simply want the latest of the latest. I probably don't need to tell you that this
-version will have more bugs and should not be used to keep important data,
-right?.{% endblocktrans %}</p>
-
-<p>{% blocktrans %}There are two repositories you can clone:{% endblocktrans %}</p>
-<ul>
-    <li>
-        <strong><a href="https://bitbucket.org/rolandgeider/workout_manager">bitbucker (HG)</a></strong>,
-        {% trans "the main repository. All work happens here." %}<br>
-        <code>hg clone https://bitbucket.org/rolandgeider/workout_manager</code>
-    </li>
-    <li style="padding-top: 1em;">
-        <strong><a href="https://github.com/rolandgeider/workout_manager">github (GIT)</a></strong>,
-        {% trans "a mirror of the main repo." %}<br>
-        <code>git clone https://github.com/rolandgeider/workout_manager.git</code>
-    </li>
-</ul>
-
-<p>{% trans "Pull requests are welcome :)" %}</p>
-
-
-<h2>{% trans "Installation" %}</h2>
-
-<p>{% blocktrans %}This is a Django application, so refer for details to its
-<a href="https://docs.djangoproject.com/en/1.4/intro/install/">documentation page</a>
-if things don't go as expected.</p>{% endblocktrans %}
-
-<p>{% blocktrans %}In short, these are the steps to perform for an installation
-on a linux or OS X machine, with python already installed. If you are using e.g.
-Windows, take a look at the link above.{% endblocktrans %}</p>
+-->
+<p>{% blocktrans %}In short, these are the steps needed for an installation
+on a linux or OS X machine, with python already installed. If you want to develop,
+see the sections below.{% endblocktrans %}</p>
 
 <p>{% blocktrans %}I personally like installing my development
 files on a virtualenv, it helps keep the system more or less clean and are very
@@ -63,71 +42,164 @@ $ virtualenv python-django
 $ source python-django/bin/activate
 </code>
 
-<p>{% blocktrans %}Get the application from PyPI.{% endblocktrans %}</p>
+<p>{% blocktrans %}Get the application from PyPI, initialise and start it.{% endblocktrans %}</p>
 
 <code>
 $ pip install wger
-</code>
-
-
-<p>{% trans "Initialise and start the application." %}</p>
-
-<code>
 $ wger
 </code>
 
 <p>{% blocktrans %}The script will, on first run, create a configuration
-file. For this it will ask you for your <a href="https://www.google.com/recaptcha">reCaptcha
-keys</a>. You can leave this blank or enter bogus data, but you won't be able
-to register new users or use the demo account. For the sitemap.xml file to be
-correctly generated, you need to set a correct domain name in the sites app. This
-is done via django's admin interface. A sqlite database will also be created
-with a standard superuser:{% endblocktrans %}</p>
+file and a SQLite database with a standard superuser:{% endblocktrans %}</p>
 
 <ul>
     <li><strong>{% trans "username:" %} admin</strong></li>
     <li><strong>{% trans "password:" %} admin</strong></li>
 </ul>
 
-<p>{% blocktrans %}You can later call wger again to simply start the application.{% endblocktrans %}</p>
+<p>{% blocktrans %}You can later simply call <code>wger</code> again to start
+the application.{% endblocktrans %}</p>
+
+<h4>{% trans "Notes" %}</h4>
+
+<ul>
+    <li>{% blocktrans %}Use <code>wger --help</code> to see available options{% endblocktrans %}</li>
+    <li>{% blocktrans %}You should edit the settings.py and enter your
+<a href="https://www.google.com/recaptcha">reCaptcha keys</a>. You can leave
+this blank or enter bogus data, but you won't be able e.g. to register new users
+or use the demo account.{% endblocktrans %}</li>
+    <li>{% blocktrans %}For the sitemap.xml file to be correctly generated,
+you need to set a correct domain name in the sites app (only needed for search
+engines). This is done via django's admin interface (/admin/){% endblocktrans %}</li>
+    <li>{% blocktrans %}This is a Django application, so refer for details to its
+<a href="https://docs.djangoproject.com/en/1.4/intro/install/">documentation page</a>
+if things don't go as expected.{% endblocktrans %}</li>
+
+</ul>
 
 
-<h3>{% trans "Manual installation" %}</h3>
 
-<p>{% blocktrans %}If you don't want to use the sqlite database that main.py creates
-or if you want to run this under another setup (e.g. under apache), you can
-install the individual component individually.{% endblocktrans %}</p>
 
-<p>{% blocktrans %}First, install all packages:{% endblocktrans %}</p>
+
+<h2>{% trans "Developer guide" %}</h2>
+
+
+<h3>{% trans "How to get the code" %}</h3>
+<p>{% blocktrans %}The code is hosted both on bitbucket and on github. If
+you are unfamiliar with mercurial or git, take a look at <a href="http://hginit.com/">HG
+init</a> or <a href="http://git-scm.com/book">Pro Git</a>. While I personally
+prefer hg over git, many other people don't. Both repositories are mantained
+in sync, so you should be able to work on either one.{% endblocktrans %}</p>
+
+<p>
+<a class="btn btn-primary" href="https://bitbucket.org/rolandgeider/workout_manager">bitbucket (HG) »</a>
+    {% trans "the main repository. All work happens here." %}<br>
+    <code>hg clone https://bitbucket.org/rolandgeider/workout_manager</code>
+</p>
+
+<p>
+<a class="btn btn-primary" href="https://github.com/rolandgeider/workout_manager">github (GIT) »</a>
+    {% trans "a mirror of the main repo." %}<br>
+    <code>git clone https://github.com/rolandgeider/workout_manager.git</code>
+</p>
+
+
+<p>{% blocktrans %}The file structure you get once you clone the repo should
+be self explaining:{% endblocktrans %}</p>
+
+<ul>
+    <li>{% blocktrans %}<strong>wger:</strong> the django project and its applications{% endblocktrans %}</li>
+    <li>{% blocktrans %}<strong>tests:</strong> the tests folder. This actually only
+imports the individial tests from each application and makes it easier to test
+all of them.{% endblocktrans %}</li>
+    <li>{% blocktrans %}<strong>extras:</strong> additional scrips, a benchmarking
+script with funkload and a simple tool to create a local settings.py
+file.{% endblocktrans %}</li>
+</ul>
+
+
+
+
+<h3>{% trans "How to get started" %}</h3>
+<p>{% blocktrans %}The installation procedure is very similar to the one
+described above. The notes and infos there also apply, so read that section
+too. First, install all packages:{% endblocktrans %}</p>
 
 <code>
+$ sudo apt-get install python-virtualenv
+$ sudo apt-get install python-dev
+$ virtualenv python-django
+$ source python-django/bin/activate
 $ pip install -r requirements.txt
 </code>
 
-<p>{% blocktrans %}Copy the sample configuration file and change the settings there as appropriate.
-There is another configuration file, settings_global.py that contains other global
-settings. Setup any database <a href="https://docs.djangoproject.com/en/1.4/ref/databases/">that Django supports</a>,
-initialise the tables and create a super user.{% endblocktrans %}</p>
+<p>{% blocktrans %}Get the code and create a superuser:{% endblocktrans %}</p>
 
 <code>
 $ hg clone https://bitbucket.org/rolandgeider/workout_manager
 $ cd workout_manager
-$ python extras/scripts/create_local_settings.py
-$ python manage.py syncdb
+$ python start.py
 </code>
 
+<p>{% blocktrans %}That's it. You can either start the server again with
+<code>start.py</code> or do it the django way with
+<code>python manage.py runserver</code>.{% endblocktrans %}</p>
 
-<p>{% blocktrans %}Now you are ready to go, the application is installed and
-can be used. However, an application like this without data is not interesting,
-so you should load some initial data to populate the categories,
-etc.{% endblocktrans %}</p>
 
-<p>{% blocktrans %}For this, load these fixtures, <em>in this order</em>,
-as some dependend on each other (specially the languages). The ingrediens fixture
-can take some time to process, it contains more than 8000 entries.{% endblocktrans %}</p>
+<p>{% blocktrans %}If you pull updates and there were database changes, you
+can apply them with a simple <code>python manage.py migrate --all</code>.{% endblocktrans %}</p>
 
+
+
+
+
+<h3>{% trans "How to contribute code" %}</h3>
+<p>{% blocktrans %}For other ways of contributing besides code, you might
+want to take a look at <a href="{{contribute}}">the contribute page</a>{% endblocktrans %}</p>
+
+<ul>
+    <li>{% blocktrans %}<strong>Send pull requests:</strong> for new code
+you want to share, please send pull requests (either in bitbucket or in
+github). Sending patches by email or attaching them to an issue means a lot
+more of work.{% endblocktrans %}</li>
+
+    <li>{% blocktrans %}<strong>Run the tests:</strong> wger is proud to
+have a test coverage of over 90%. When you implement something new, don't forget
+to run the testsuite and write approriate tests for the new code. If you use
+github, configure the awesome <a href="http://travis-ci.org/">Travis CI</a>,
+there is already a .travis file in the sources.{% endblocktrans %}</li>
+
+    <li>{% blocktrans %}<strong>Code according to PEP8:</strong> check that
+the code is structured as per pep8 but with a maximum line lenght of 100.
+This can be checked automatically with the pep8 tool (pip install pep8) from
+the command line:
+<code>pep8 --max-line-length=100--exclude="urls.py,*migrations*" wger</code>
+{% endblocktrans %}</li>
+</ul>
+
+
+
+<h3>{% trans "Custom hosting" %}</h3>
+<p>{% blocktrans %}If you want to host this with some other evironment (apache,
+postgreSQL, etc.), you need to perform some steps manually. First, install
+the necessary packages and dependencies as described before.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}Setup any database
+<a href="https://docs.djangoproject.com/en/1.4/ref/databases/">that Django
+supports</a>. Then create a settings file and edit it as needed. There is
+another configuration file, settings_global.py that contains other global
+settings.{% endblocktrans %}</p>
 
 <code>
+$ python extras/scripts/create_local_settings.py
+</code>
+
+<p>{% blocktrans %}Initialise the database, create a super user and load these
+fixtures:{% endblocktrans %}</p>
+
+<code>
+$ python manage.py syncdb
+$ python manage.py migrate --all
 $ python manage.py loaddata languages
 $ python manage.py loaddata days_of_week
 $ python manage.py loaddata muscles
@@ -136,20 +208,12 @@ $ python manage.py loaddata exercises
 $ python manage.py loaddata ingredients
 </code>
 
-<p>{% blocktrans %}Now, run the server:{% endblocktrans %}</p>
+<p>{% blocktrans %}What you do next depends on the server you use and how you
+want to serve the application (mod_wsgi, fastCGI). There is a sample <code>wsgi.py</code>
+file in the wger folder, edit it and adapt it to your needs and make the server
+serve it, e.g. per mod_wsgi. Consult in any case the
+<a href="https://docs.djangoproject.com/en/1.4/howto/deployment/">django
+documentation</a> on the topic.{% endblocktrans %}</p>
 
-<code>
-$ python manage.py runserver
-</code>
-
-<p>{% blocktrans %}You can now access the site with your browser:{% endblocktrans %}
-<code>http://localhost:8000/</code></p>
-
-<p>{% blocktrans %}If you want to run this in production, don't use django's builtin
-server, use apache, gunicorn or some other <em>real server</em>. Refer to
-<a href="https://docs.djangoproject.com/en/1.4/howto/deployment/">the deployment section</a>
-on django's documentation for details here. You will also have to take special
-care of the static files.{% endblocktrans %}</p>
 
 {% endblock %}
-

@@ -26,6 +26,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.core import mail
 from django.utils.translation import ugettext as _
 from django.views.generic.edit import FormView
+from django.views.generic import TemplateView
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -110,6 +111,15 @@ def dashboard(request):
     return render_to_response('index.html',
                               template_data,
                               context_instance=RequestContext(request))
+
+
+class ContactClassView(TemplateView):
+    def get_context_data(self, **kwargs):
+        context = super(ContactClassView, self).get_context_data(**kwargs)
+        context.update({'contribute': reverse('software:contribute'),
+                        'issues': reverse('software:issues'),
+                        'feedback': reverse('feedback')})
+        return context
 
 
 class FeedbackClass(FormView):
