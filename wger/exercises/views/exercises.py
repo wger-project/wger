@@ -50,6 +50,7 @@ from wger.exercises.models import EXERCISE_STATUS_ACCEPTED
 from wger.exercises.models import EXERCISE_STATUS_DECLINED
 from wger.exercises.models import EXERCISE_STATUS_ADMIN
 from wger.exercises.models import EXERCISE_STATUS_SYSTEM
+from wger.exercises.models import EXERCISE_STATUS_OK
 
 from wger.utils.generic_views import YamlFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
@@ -59,14 +60,7 @@ from wger.utils.constants import EMAIL_FROM
 
 logger = logging.getLogger('workout_manager.custom')
 
-allowed_status = (EXERCISE_STATUS_ACCEPTED,
-                  EXERCISE_STATUS_ADMIN,
-                  EXERCISE_STATUS_SYSTEM)
 
-
-# ************************
-#         Exercises
-# ************************
 def overview(request):
     '''
     Overview with all exercises
@@ -76,9 +70,9 @@ def overview(request):
     template_data = {}
     template_data.update(csrf(request))
 
-    categories = ExerciseCategory.objects.filter(language=language.id,
-                                                 exercise__status__in=allowed_status
-                                                 ).distinct()
+    categories = (ExerciseCategory.objects.filter(language=language.id)
+                                          .filter(exercise__status__in=EXERCISE_STATUS_OK)
+                                          .distinct())
 
     template_data['categories'] = categories
     return render_to_response('overview.html',
@@ -317,11 +311,11 @@ def search(request):
     # Perform the search
     q = request.GET.get('term', '')
     user_language = load_language()
-    exercises = Exercise.objects.filter(name__icontains=q,
-                                        category__language_id=user_language,
-                                        status__in=allowed_status)\
-                                .order_by('category__name', 'name')\
-                                .distinct()
+    exercises = (Exercise.objects.filter(name__icontains=q)
+                                 .filter(category__language_id=user_language)
+                                 .filter(status__in=EXERCISE_STATUS_OK)
+                                 .order_by('category__name', 'name')
+                                 .distinct())
 
     # AJAX-request, this comes from the autocompleter. Create a list and send
     # it back as JSON

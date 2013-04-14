@@ -113,6 +113,10 @@ EXERCISE_STATUS = (
     (EXERCISE_STATUS_SYSTEM, _('System exercise')),
 )
 
+EXERCISE_STATUS_OK = (EXERCISE_STATUS_ACCEPTED,
+                      EXERCISE_STATUS_ADMIN,
+                      EXERCISE_STATUS_SYSTEM)
+
 
 class Exercise(models.Model):
     '''

@@ -109,14 +109,46 @@ class Ingredient(models.Model):
     ENERGY_APPROXIMATION = 15
     '''
     How much the calculated energy from protein, etc. can deviate from the
-    energy amount given.
+    energy amount given (in percent).
     '''
+
+    INGREDIENT_STATUS_PENDING = '1'
+    INGREDIENT_STATUS_ACCEPTED = '2'
+    INGREDIENT_STATUS_DECLINED = '3'
+    INGREDIENT_STATUS_ADMIN = '4'
+    INGREDIENT_STATUS_SYSTEM = '5'
+
+    INGREDIENT_STATUS_OK = (INGREDIENT_STATUS_ACCEPTED,
+                            INGREDIENT_STATUS_ADMIN,
+                            INGREDIENT_STATUS_SYSTEM)
+
+    INGREDIENT_STATUS = (
+        (INGREDIENT_STATUS_PENDING, _('Pending')),
+        (INGREDIENT_STATUS_ACCEPTED, _('Accepted')),
+        (INGREDIENT_STATUS_DECLINED, _('Declined')),
+        (INGREDIENT_STATUS_ADMIN, _('Submitted by administrator')),
+        (INGREDIENT_STATUS_SYSTEM, _('System ingredient')),
+    )
 
     # Metaclass to set some other properties
     class Meta:
         ordering = ["name", ]
 
     language = models.ForeignKey(Language, verbose_name=_('Language'))
+
+    user = models.ForeignKey(User,
+                             verbose_name=_('User'),
+                             null=True,
+                             blank=True,
+                             editable=False)
+    '''The user that submitted the exercise'''
+
+    status = models.CharField(max_length=2,
+                              choices=INGREDIENT_STATUS,
+                              default=INGREDIENT_STATUS_PENDING,
+                              editable=False)
+    '''The status of an ingredient'''
+
     creation_date = models.DateField(_('Date'), auto_now_add=True)
     update_date = models.DateField(_('Date'),
                                    default=datetime.date.today,
@@ -186,7 +218,7 @@ class Ingredient(models.Model):
         - 1g of protein: 4kcal
         - 1g of carbohydrates: 4kcal
         - 1g of fat: 9kcal
-        
+
         The sum is then compared to the given total energy, with ENERGY_APPROXIMATION
         percent tolerance.
         '''

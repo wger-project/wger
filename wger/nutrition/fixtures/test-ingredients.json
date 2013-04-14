@@ -3,6 +3,8 @@
         "pk": 1, 
         "model": "nutrition.ingredient", 
         "fields": {
+            "status": "5",
+            "user": null, 
             "update_date": "2013-02-12",
             "creation_date": "2013-01-01",
             "name": "Test ingredient 1", 
@@ -21,6 +23,8 @@
         "pk": 2, 
         "model": "nutrition.ingredient", 
         "fields": {
+            "status": "5",
+            "user": null, 
             "name": "Ingredient, test, 2, organic, raw",
             "creation_date": "2013-01-01", 
             "language": 2, 
@@ -38,6 +42,8 @@
         "pk": 3, 
         "model": "nutrition.ingredient", 
         "fields": {
+            "status": "5",
+            "user": null, 
             "update_date": "2013-03-22",
             "creation_date": "2013-02-03",
             "name": "Bachelor chow, now with flavour!", 
@@ -56,6 +62,8 @@
         "pk": 4, 
         "model": "nutrition.ingredient", 
         "fields": {
+            "status": "5",
+            "user": null, 
             "creation_date": "2013-04-05",
             "name": "Slurm", 
             "language": 2, 
@@ -73,6 +81,8 @@
         "pk": 5, 
         "model": "nutrition.ingredient", 
         "fields": {
+            "status": "5",
+            "user": null, 
             "creation_date": "2013-04-05",
             "name": "Another tasty ingredient", 
             "language": 2, 
@@ -90,8 +100,29 @@
         "pk": 6, 
         "model": "nutrition.ingredient", 
         "fields": {
+            "status": "5",
+            "user": null, 
             "creation_date": "2013-04-05",
             "name": "Raw ingredient", 
+            "language": 2, 
+            "sodium": "2.1", 
+            "energy": 180, 
+            "fat": "2", 
+            "carbohydrates_sugar": "4", 
+            "fat_saturated": "0", 
+            "fibres": "20", 
+            "protein": "10", 
+            "carbohydrates": "5.0"
+        }
+    },
+    {
+        "pk": 7, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "status": "1",
+            "user": 2, 
+            "creation_date": "2013-04-05",
+            "name": "Pending ingredient", 
             "language": 2, 
             "sodium": "2.1", 
             "energy": 180, 

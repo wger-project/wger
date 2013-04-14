@@ -55,6 +55,57 @@ $(document).ready(function() {
 
 
 {% block content %}
+
+{% if ingredient.status == INGREDIENT_STATUS_PENDING %}
+<div class="alert">
+<h3>{% trans "Ingredient is pending review" %}</h3>
+<p>{% blocktrans %}This user submitted ingredient is pending a decision to be
+included in the database. Till then, it will not be shown in the overview or
+the search.{% endblocktrans %}
+{% if perms.exercises %}
+{% trans "Please select one of the options below." %}
+{% endif %}
+</p>
+
+{% if perms.exercises %}
+<div class="ym-grid linearize-level-1">
+    <div class="ym-g50 ym-gl">
+        <div class="ym-gbox-left">
+            <div class="alert alert-success">
+                <a href="{% url 'ingredient-accept' ingredient.id %}">
+                    <img src="{% static 'images/icons/status-on.svg' %}"
+                        width="32"
+                        height="32"
+                        alt="{% trans 'Accept' %}">
+                    {% trans "Accept" %}
+                </a>
+                </div>
+        </div>
+    </div>
+    <div class="ym-g50 ym-gl">
+        <div class="ym-gbox-left">
+            <div class="alert alert-error">
+                <a href="{% url 'ingredient-decline' ingredient.id %}">
+                    <img src="{% static 'images/icons/status-off.svg' %}"
+                        width="32"
+                        height="32"
+                        alt="{% trans 'Decline' %}">
+                    {% trans "Decline" %}
+                </a>
+                </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+</div>
+
+{% endif %} {# end ingredient is pending review #}
+
+
+
+
+
 <div itemscope itemtype="http://schema.org/NutritionInformation">
 <meta itemprop="name" content="{{ingredient.name}}" />
 
@@ -175,6 +226,17 @@ $(document).ready(function() {
 
 
 {% block sidebar %}
+
+{% if ingredient.status == INGREDIENT_STATUS_ACCEPTED %}
+<div class="alert" style="margin-top:1em;">
+<h3>{% trans "User submitted ingredient" %}</h3>
+{% with username=ingredient.user.username %}
+<p>{% blocktrans %}This exercise was submitted by <strong>{{username}}</strong>.{% endblocktrans %}
+{% endwith %}
+</div>
+{% endif %}
+
+
 {% if perms.exercises %}
 <h3>{% trans "Options" %}</h3>
 

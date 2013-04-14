@@ -24,10 +24,13 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
+from django.core import mail
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
+from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
@@ -57,6 +60,7 @@ from wger.utils import helpers
 from wger.utils.generic_views import YamlFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
+from wger.utils.constants import EMAIL_FROM
 from wger.utils.language import load_language
 from wger.utils.language import load_ingredient_languages
 
@@ -84,7 +88,9 @@ class IngredientListView(ListView):
         native language, see load_ingredient_languages)
         '''
         languages = load_ingredient_languages(self.request)
-        return Ingredient.objects.filter(language__in=languages).only('id', 'name')
+        return (Ingredient.objects.filter(language__in=languages)
+                                  .filter(status__in=Ingredient.INGREDIENT_STATUS_OK)
+                                  .only('id', 'name'))
 
 
 def view(request, id, slug=None):
@@ -92,6 +98,8 @@ def view(request, id, slug=None):
 
     ingredient = get_object_or_404(Ingredient, pk=id)
     template_data['ingredient'] = ingredient
+    template_data['INGREDIENT_STATUS_PENDING'] = Ingredient.INGREDIENT_STATUS_PENDING
+    template_data['INGREDIENT_STATUS_ACCEPTED'] = Ingredient.INGREDIENT_STATUS_ACCEPTED
     template_data['form'] = UnitChooserForm(data={'ingredient_id': ingredient.id,
                                                   'amount': 100,
                                                   'unit': None})
@@ -156,10 +164,91 @@ class IngredientCreateView(YamlFormMixin, CreateView):
     form_class = IngredientForm
     title = ugettext_lazy('Add a new ingredient')
     form_action = reverse_lazy('ingredient-add')
+    sidebar = 'ingredient/form.html'
 
     def form_valid(self, form):
+
+        # set the submitter, if admin, set approrpiate status
+        form.instance.user = self.request.user
+        if self.request.user.has_perm('nutrition.add_ingredient'):
+            form.instance.status = Ingredient.INGREDIENT_STATUS_ADMIN
+        else:
+            subject = _('New user submitted ingredient')
+            message = _('''The user {0} submitted a new ingredient "{1}".'''.format(
+                        self.request.user.username, form.instance.name))
+            mail.mail_admins(_('New user submitted ingredient'),
+                             message,
+                             fail_silently=True)
+
         form.instance.language = load_language()
         return super(IngredientCreateView, self).form_valid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Demo users can't submit ingredients
+        '''
+        if request.user.get_profile().is_temporary:
+            return HttpResponseForbidden()
+        return super(IngredientCreateView, self).dispatch(request, *args, **kwargs)
+
+
+class PendingIngredientListView(ListView):
+    '''
+    List all ingredients pending review
+    '''
+
+    model = Ingredient
+    template_name = 'ingredient/pending.html'
+    context_object_name = 'ingredient_list'
+
+    def get_queryset(self):
+        '''
+        Only show ingredients pending review
+        '''
+        return Ingredient.objects.filter(status=Ingredient.INGREDIENT_STATUS_PENDING)
+
+
+@permission_required('nutrition.add_ingredient')
+def accept(request, pk):
+    '''
+    Accepts a pending user submitted ingredient
+    '''
+    ingredient = get_object_or_404(Ingredient, pk=pk)
+    ingredient.status = Ingredient.INGREDIENT_STATUS_ACCEPTED
+    ingredient.save()
+    messages.success(request, _('Ingredient was sucessfully added to the general database'))
+
+    # Notify the user if possible
+    if ingredient.user.email:
+        url = request.build_absolute_uri(ingredient.get_absolute_url())
+        subject = _('Ingredient was sucessfully added to the general database')
+        message = _("Your ingredient '{0}' was successfully added to the general database.\n"
+                    "\n"
+                    "It is now available on the ingredient and muscle overview and can be\n"
+                    "added to nutritional plans. You can access it on this address:\n"
+                    "{1}\n"
+                    "\n"
+                    "Thank you for contributing and making this site better!\n"
+                    "  the wger.de team".format(ingredient.name, url))
+        mail.send_mail(subject,
+                       message,
+                       EMAIL_FROM,
+                       [ingredient.user.email],
+                       fail_silently=True)
+
+    return HttpResponseRedirect(ingredient.get_absolute_url())
+
+
+@permission_required('nutrition.add_ingredient')
+def decline(request, pk):
+    '''
+    Declines and deletes a pending user submitted ingredient
+    '''
+    ingredient = get_object_or_404(Ingredient, pk=pk)
+    ingredient.status = Ingredient.INGREDIENT_STATUS_DECLINED
+    ingredient.save()
+    messages.success(request, _('Ingredient was sucessfully marked as rejected'))
+    return HttpResponseRedirect(ingredient.get_absolute_url())
 
 
 def search(request):
@@ -174,7 +263,9 @@ def search(request):
 
     # Perform the search
     q = request.GET.get('term', '')
-    ingredients = Ingredient.objects.filter(name__icontains=q, language__in=languages)
+    ingredients = Ingredient.objects.filter(name__icontains=q,
+                                            language__in=languages,
+                                            status__in=Ingredient.INGREDIENT_STATUS_OK)
 
     # AJAX-request, this comes from the autocompleter. Create a list and send it back as JSON
     if request.is_ajax():

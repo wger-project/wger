@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+{% load manager_extras %}
+
+{% block title %}{% trans "Pending ingredient" %}{% endblock %}
+
+
+{% block content %}
+
+<table>
+<thead>
+<tr>
+    <th>{% trans "Submission date" %}</th>
+    <th>{% trans "Name" %}</th>
+    <th>{% trans "User" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for ingredient in ingredient_list %}
+<tr>
+    <td>
+        {{ingredient.creation_date}}
+    </td>
+    <td><a href="{{ ingredient.get_absolute_url }}">{{ingredient.name}}</a></td>
+    <td>{{ingredient.user.username}}</td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="2">{% trans "No pending ingredients at the moment" %}</td>
+</tr>
+{% endfor %}
+</tbody>
+
+</table>
+<div style="padding-top:3em;"></div>
+{% endblock %}

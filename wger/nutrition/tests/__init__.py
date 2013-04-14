@@ -3,6 +3,7 @@ from wger.nutrition.tests.copy_plan import *
 from wger.nutrition.tests.pdf import *
 from wger.nutrition.tests.nutritional_calculations import *
 from wger.nutrition.tests.ingredient import *
+from wger.nutrition.tests.submitted_ingredient import *
 from wger.nutrition.tests.ingredient_overview import *
 from wger.nutrition.tests.meal import *
 from wger.nutrition.tests.meal_item import *

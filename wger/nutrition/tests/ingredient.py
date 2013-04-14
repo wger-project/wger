@@ -74,7 +74,8 @@ class AddIngredientTestCase(WorkoutManagerAddTestCase):
 
     object_class = Ingredient
     url = 'ingredient-add'
-    pk = 7
+    pk = 8
+    user_fail = False
     data = {'name': 'A new ingredient',
             'sodium': 2,
             'energy': 200,
@@ -87,11 +88,16 @@ class AddIngredientTestCase(WorkoutManagerAddTestCase):
 
     def post_test_hook(self):
         '''
-        Test that the creation date is correctly set
+        Test that the creation date and the status are correctly set
         '''
+        #print self.current_user
         if self.current_user == 'admin':
-            ingredient = Ingredient.objects.get(pk=7)
+            ingredient = Ingredient.objects.get(pk=self.pk)
             self.assertEqual(ingredient.creation_date, datetime.date.today())
+            self.assertEqual(ingredient.status, Ingredient.INGREDIENT_STATUS_ADMIN)
+        elif self.current_user == 'test':
+            ingredient = Ingredient.objects.get(pk=self.pk)
+            self.assertEqual(ingredient.status, Ingredient.INGREDIENT_STATUS_PENDING)
 
 
 class IngredientDetailTestCase(WorkoutManagerTestCase):
@@ -116,9 +122,11 @@ class IngredientDetailTestCase(WorkoutManagerTestCase):
         if editor:
             self.assertContains(response, 'Edit ingredient')
             self.assertContains(response, 'Delete ingredient')
+            self.assertContains(response, 'pending review')
         else:
             self.assertNotContains(response, 'Edit ingredient')
             self.assertNotContains(response, 'Delete ingredient')
+            self.assertNotContains(response, 'pending review')
 
         # Non-existent ingredients throw a 404.
         response = self.client.get(reverse('wger.nutrition.views.ingredient.view',
@@ -167,6 +175,11 @@ class IngredientSearchTestCase(WorkoutManagerTestCase):
                          'Ingredient, test, 2, organic, raw')
         self.assertEqual(response.context['ingredients'][1].name, 'Test ingredient 1')
 
+        # Search for an ingredient pending review (0 hits, "Pending ingredient")
+        response = self.client.get(reverse('ingredient-search'), {'term': 'Pending'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['ingredients']), 0)
+
         # AJAX-Search
         kwargs = {'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'}
         response = self.client.get(reverse('ingredient-search'), {'term': 'test'}, **kwargs)
@@ -175,6 +188,12 @@ class IngredientSearchTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(result), 2)
         self.assertEqual(result[0]['value'], 'Ingredient, test, 2, organic, raw')
         self.assertEqual(result[1]['value'], 'Test ingredient 1')
+
+        # AJAX Search for an ingredient pending review (0 hits, "Pending ingredient")
+        response = self.client.get(reverse('ingredient-search'), {'term': 'Pending'}, **kwargs)
+        self.assertEqual(response.status_code, 200)
+        result = json.loads(response.content)
+        self.assertEqual(len(result), 0)
 
     def test_search_ingredient_anonymous(self):
         '''
