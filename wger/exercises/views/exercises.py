@@ -45,17 +45,10 @@ from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseComment
 from wger.exercises.models import ExerciseCategory
 from wger.exercises.models import Muscle
-from wger.exercises.models import EXERCISE_STATUS_PENDING
-from wger.exercises.models import EXERCISE_STATUS_ACCEPTED
-from wger.exercises.models import EXERCISE_STATUS_DECLINED
-from wger.exercises.models import EXERCISE_STATUS_ADMIN
-from wger.exercises.models import EXERCISE_STATUS_SYSTEM
-from wger.exercises.models import EXERCISE_STATUS_OK
 
 from wger.utils.generic_views import YamlFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
 from wger.utils.language import load_language
-from wger.utils.constants import EMAIL_FROM
 
 
 logger = logging.getLogger('workout_manager.custom')
@@ -71,7 +64,7 @@ def overview(request):
     template_data.update(csrf(request))
 
     categories = (ExerciseCategory.objects.filter(language=language.id)
-                                          .filter(exercise__status__in=EXERCISE_STATUS_OK)
+                                          .filter(exercise__status__in=Exercise.EXERCISE_STATUS_OK)
                                           .distinct())
 
     template_data['categories'] = categories
@@ -87,8 +80,6 @@ def view(request, id, slug=None):
 
     template_data = {}
     template_data['comment_edit'] = False
-    template_data['EXERCISE_STATUS_PENDING'] = EXERCISE_STATUS_PENDING
-    template_data['EXERCISE_STATUS_ACCEPTED'] = EXERCISE_STATUS_ACCEPTED
 
     # Load the exercise itself
     exercise = get_object_or_404(Exercise, pk=id)
@@ -204,7 +195,7 @@ class ExerciseAddView(ExercisesEditAddView, CreateView):
         # set the submitter, if admin, set approrpiate status
         form.instance.user = self.request.user
         if self.request.user.has_perm('exercises.add_exercise'):
-            form.instance.status = EXERCISE_STATUS_ADMIN
+            form.instance.status = Exercise.EXERCISE_STATUS_ADMIN
         else:
             subject = _('New user submitted exercise')
             message = _('''The user {0} submitted a new exercise "{1}".'''.format(
@@ -258,36 +249,20 @@ class PendingExerciseListView(ListView):
         '''
         Only show pending exercises
         '''
-        return Exercise.objects.filter(status=EXERCISE_STATUS_PENDING)
+        return Exercise.objects.filter(status=Exercise.EXERCISE_STATUS_PENDING)
 
 
 @permission_required('exercise.add_exercise')
 def accept(request, pk):
     '''
-    Accepts a pending user submitted exercise
+    Accepts a pending user submitted exercise and emails the user, if possible
     '''
     exercise = get_object_or_404(Exercise, pk=pk)
-    exercise.status = EXERCISE_STATUS_ACCEPTED
+    exercise.status = Exercise.EXERCISE_STATUS_ACCEPTED
     exercise.save()
+    exercise.send_email(request)
     messages.success(request, _('Exercise was sucessfully added to the general database'))
 
-    # Notify the user if possible
-    if exercise.user.email:
-        url = request.build_absolute_uri(exercise.get_absolute_url())
-        subject = _('Exercise was sucessfully added to the general database')
-        message = _("Your exercise '{0}' was successfully added to the general database.\n"
-                    "\n"
-                    "It is now available on the exercise and muscle overview and can be\n"
-                    "added to workouts. You can access it on this address:\n"
-                    "{1}\n"
-                    "\n"
-                    "Thank you for contributing and making this site better!\n"
-                    "  the wger.de team".format(exercise.name, url))
-        mail.send_mail(subject,
-                       message,
-                       EMAIL_FROM,
-                       [exercise.user.email],
-                       fail_silently=True)
     return HttpResponseRedirect(exercise.get_absolute_url())
 
 
@@ -297,7 +272,7 @@ def decline(request, pk):
     Declines and deletes a pending user submitted exercise
     '''
     exercise = get_object_or_404(Exercise, pk=pk)
-    exercise.status = EXERCISE_STATUS_DECLINED
+    exercise.status = Exercise.EXERCISE_STATUS_DECLINED
     exercise.save()
     messages.success(request, _('Exercise was sucessfully marked as rejected'))
     return HttpResponseRedirect(exercise.get_absolute_url())
@@ -313,7 +288,7 @@ def search(request):
     user_language = load_language()
     exercises = (Exercise.objects.filter(name__icontains=q)
                                  .filter(category__language_id=user_language)
-                                 .filter(status__in=EXERCISE_STATUS_OK)
+                                 .filter(status__in=Exercise.EXERCISE_STATUS_OK)
                                  .order_by('category__name', 'name')
                                  .distinct())
 

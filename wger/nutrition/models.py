@@ -24,11 +24,13 @@ from django.template.defaultfilters import slugify  # django.utils.text.slugify 
 from django.core.validators import MaxValueValidator
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
+from django.core import mail
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
 
 from wger.exercises.models import Language
-
+from wger.utils.constants import EMAIL_FROM
 
 MEALITEM_WEIGHT_GRAM = '1'
 MEALITEM_WEIGHT_UNIT = '2'
@@ -254,6 +256,27 @@ class Ingredient(models.Model):
         else:
             return True
             logger.debug('equal, not doing anything')
+
+    def send_email(self, request):
+        '''
+        Sends an email after being sucessfully added to the database (for user
+        submitted ingredients only)
+        '''
+        if self.user and self.user.email:
+            url = request.build_absolute_uri(self.get_absolute_url())
+            subject = _('Ingredient was sucessfully added to the general database')
+            message = (ugettext("Your ingredient '{0}' was successfully added to the general "
+                       "database.\n\n"
+                       "It is now available on the exercise and muscle overview and can be\n"
+                       "added to workouts. You can access it on this address:\n"
+                       "{1}\n\n").format(self.name, url) +
+                       ugettext("Thank you for contributing and making this site better!\n"
+                       "   the wger.de team"))
+            mail.send_mail(subject,
+                           message,
+                           EMAIL_FROM,
+                           [self.user.email],
+                           fail_silently=True)
 
     def get_owner_object(self):
         '''

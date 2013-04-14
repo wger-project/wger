@@ -98,8 +98,6 @@ def view(request, id, slug=None):
 
     ingredient = get_object_or_404(Ingredient, pk=id)
     template_data['ingredient'] = ingredient
-    template_data['INGREDIENT_STATUS_PENDING'] = Ingredient.INGREDIENT_STATUS_PENDING
-    template_data['INGREDIENT_STATUS_ACCEPTED'] = Ingredient.INGREDIENT_STATUS_ACCEPTED
     template_data['form'] = UnitChooserForm(data={'ingredient_id': ingredient.id,
                                                   'amount': 100,
                                                   'unit': None})
@@ -216,25 +214,8 @@ def accept(request, pk):
     ingredient = get_object_or_404(Ingredient, pk=pk)
     ingredient.status = Ingredient.INGREDIENT_STATUS_ACCEPTED
     ingredient.save()
+    ingredient.send_email(request)
     messages.success(request, _('Ingredient was sucessfully added to the general database'))
-
-    # Notify the user if possible
-    if ingredient.user.email:
-        url = request.build_absolute_uri(ingredient.get_absolute_url())
-        subject = _('Ingredient was sucessfully added to the general database')
-        message = _("Your ingredient '{0}' was successfully added to the general database.\n"
-                    "\n"
-                    "It is now available on the ingredient and muscle overview and can be\n"
-                    "added to nutritional plans. You can access it on this address:\n"
-                    "{1}\n"
-                    "\n"
-                    "Thank you for contributing and making this site better!\n"
-                    "  the wger.de team".format(ingredient.name, url))
-        mail.send_mail(subject,
-                       message,
-                       EMAIL_FROM,
-                       [ingredient.user.email],
-                       fail_silently=True)
 
     return HttpResponseRedirect(ingredient.get_absolute_url())
 

@@ -3,7 +3,7 @@ import datetime
 from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
-from wger.exercises.models import EXERCISE_STATUS_SYSTEM
+from wger.exercises.models import Exercise
 
 
 class Migration(SchemaMigration):
@@ -20,7 +20,7 @@ class Migration(SchemaMigration):
                       keep_default=False)
         # Set the status 'system' for all existing exercises in the database
         if not db.dry_run:
-            orm.Exercise.objects.all().update(status=EXERCISE_STATUS_SYSTEM)
+            orm.Exercise.objects.all().update(status=Exercise.EXERCISE_STATUS_SYSTEM)
 
 
         # Adding field 'Exercise.creation_date'

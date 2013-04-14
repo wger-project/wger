@@ -30,15 +30,13 @@ function custom_modal_init()
 -->
 {% block content %}
 
-{% if exercise.status == EXERCISE_STATUS_PENDING %}
+{% if exercise.status == exercise.EXERCISE_STATUS_PENDING %}
 <div class="alert">
 <h3>{% trans "Exercise is pending review" %}</h3>
 <p>{% blocktrans %}This user submitted exercise is pending a decision to be
 included in the database. Till then, it will not be shown in the overview or
 the search.{% endblocktrans %}
-{% if perms.exercises %}
-{% trans "Please select one of the options below." %}
-{% endif %}
+{% if perms.exercises %}{% trans "Please select one of the options below." %}{% endif %}
 </p>
 
 {% if perms.exercises %}
@@ -53,7 +51,7 @@ the search.{% endblocktrans %}
                         alt="{% trans 'Accept' %}">
                     {% trans "Accept" %}
                 </a>
-                </div>
+            </div>
         </div>
     </div>
     <div class="ym-g50 ym-gl">
@@ -66,14 +64,15 @@ the search.{% endblocktrans %}
                         alt="{% trans 'Decline' %}">
                     {% trans "Decline" %}
                 </a>
-                </div>
+            </div>
         </div>
     </div>
 </div>
-{% endif %}
+{% endif %} {# end check permissions #}
 
 </div>
 {% endif %} {# end exercise is pending review #}
+
 
 
 <p>{% trans "Category" %}: <strong>{{ exercise.category.name }}</strong></p>
@@ -230,7 +229,7 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 </p>
 <hr>
 
-{% if exercise.status == EXERCISE_STATUS_ACCEPTED %}
+{% if exercise.status == exercise.EXERCISE_STATUS_ACCEPTED %}
 <div class="alert" style="margin-top:1em;">
 <h3>{% trans "User submitted exercise" %}</h3>
 {% with username=exercise.user.username %}

@@ -16,7 +16,6 @@
 
 from django.contrib.sitemaps import Sitemap
 from wger.exercises.models import Exercise
-from wger.exercises.models import EXERCISE_STATUS_OK
 from wger.utils.language import load_language
 
 
@@ -26,4 +25,4 @@ class ExercisesSitemap(Sitemap):
 
     def items(self):
         return (Exercise.objects.filter(category__language=load_language())
-                                .filter(status__in=EXERCISE_STATUS_OK))
+                                .filter(status__in=Exercise.EXERCISE_STATUS_OK))

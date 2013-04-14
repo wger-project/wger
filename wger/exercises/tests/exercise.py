@@ -19,10 +19,6 @@ from django.core.urlresolvers import reverse
 
 from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseCategory
-from wger.exercises.models import EXERCISE_STATUS_PENDING
-from wger.exercises.models import EXERCISE_STATUS_ACCEPTED
-from wger.exercises.models import EXERCISE_STATUS_DECLINED
-from wger.exercises.models import EXERCISE_STATUS_ADMIN
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
@@ -251,10 +247,10 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         exercise = Exercise.objects.get(pk=exercise_id)
         if admin:
             self.assertEqual(exercise.user_id, 1)
-            self.assertEqual(exercise.status, EXERCISE_STATUS_ADMIN)
+            self.assertEqual(exercise.status, Exercise.EXERCISE_STATUS_ADMIN)
         else:
             self.assertEqual(exercise.user_id, 2)
-            self.assertEqual(exercise.status, EXERCISE_STATUS_PENDING)
+            self.assertEqual(exercise.status, Exercise.EXERCISE_STATUS_PENDING)
 
         response = self.client.get(reverse('wger.exercises.views.exercises.view',
                                    kwargs={'id': exercise_id}))
