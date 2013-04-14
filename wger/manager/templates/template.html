@@ -89,6 +89,9 @@
                     </a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
+                            {#          #}
+                            {# User tab #}
+                            {#          #}
                             <li {% if active_tab == 'user' %}class="active"{% endif %}>
                             {% if not user.is_authenticated %}
                                 <a href="{% url 'login' %}">{% trans "Login" %}</a>
@@ -100,10 +103,18 @@
                             <li><a href="{% url 'demo-account' %}">{% trans "Demo account" %} </a></li>
                             {% endif %}
 
+
+                            {#             #}
+                            {# Workout tab #}
+                            {#             #}
                             {% if user.is_authenticated %}
-                            <li {% if active_tab == 'workout'   %}class="active"{% endif %}><a href="{% url 'wger.manager.views.workout.overview' %}">{% trans "Workouts" %}</a></li>
+                            <li {% if active_tab == 'workout' %}class="active"{% endif %}><a href="{% url 'wger.manager.views.workout.overview' %}">{% trans "Workouts" %}</a></li>
                             {% endif %}
 
+
+                            {#               #}
+                            {# Exercises tab #}
+                            {#               #}
                             <li class="dropdown {% if active_tab == 'exercises' %}active{% endif %}">
                                 <a href="{% url 'wger.exercises.views.exercises.overview' %}"
                                    class="dropdown-toggle"
@@ -112,11 +123,17 @@
                                     <li><a href="{% url 'wger.exercises.views.exercises.overview' %}">{% trans "Exercises" %}</a></li>
                                     <li><a href="{% url 'muscle-overview' %}">{% trans "Muscle overview" %}</a></li>
                                     {% if perms.exercises %}
+                                    <li class="divider"></li>
+                                    <li class="nav-header">{% trans "Administration" %}</li>
                                     <li><a href="{% url 'exercise-pending' %}">{% trans "Exercises pending review" %}</a></li>
                                     {% endif %}
                                 </ul>
                             </li>
 
+
+                            {#            #}
+                            {# Weight tab #}
+                            {#            #}
                             {% if user.is_authenticated %}
                             <li class="dropdown{% if active_tab == 'weight'    %} active{% endif %}">
 
@@ -130,6 +147,10 @@
                             </li>
                             {% endif %}
 
+
+                            {#               #}
+                            {# Nutrition tab #}
+                            {#               #}
                             <li class="dropdown {% if active_tab == 'nutrition' %}active{% endif %}">
                                 <a href="{% url 'wger.nutrition.views.plan.overview' %}"
                                    class="dropdown-toggle"
@@ -140,6 +161,8 @@
                                 {% endif %}
                                     <li><a href="{% url 'ingredient-list' %}">{% trans "Ingredient overview" %}</a></li>
                                 {% if perms.exercises %}
+                                    <li class="divider"></li>
+                                    <li class="nav-header">{% trans "Administration" %}</li>
                                     <li><a href="{% url 'weight-unit-list' %}">{% trans "Ingredient weight units" %}</a></li>
                                     <li><a href="{% url 'ingredient-pending' %}">{% trans "Ingredients pending review" %}</a></li>
                                 {% endif %}
@@ -147,7 +170,9 @@
                             </li>
 
 
-
+                            {#              #}
+                            {# Software tab #}
+                            {#              #}
                             <li class="dropdown {% if active_tab == 'software' %}active{% endif %}">
                                 <a href=""
                                    class="dropdown-toggle"
@@ -164,6 +189,11 @@
                                 </ul>
                             </li>
                         </ul>
+
+
+                        {#             #}
+                        {# Options tab #}
+                        {#             #}
                         <ul class="nav pull-right">
                             <li class="divider-vertical"></li>
                             <li class="dropdown">
