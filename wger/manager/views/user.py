@@ -37,7 +37,7 @@ from django.contrib.auth.views import login as django_loginview
 from django.contrib import messages
 
 from wger.manager.models import DaysOfWeek
-from wger.manager.models import TrainingSchedule
+from wger.manager.models import Workout
 from wger.manager.models import Day
 from wger.manager.models import Set
 from wger.manager.models import Setting
@@ -147,18 +147,15 @@ def create_demo_user(request):
             #
 
             # Workout and exercises
-            workout = TrainingSchedule(user=user,
-                                       comment=_('Sample workout'))
+            workout = Workout(user=user, comment=_('Sample workout'))
             workout.save()
             monday = DaysOfWeek.objects.get(pk=1)
             wednesday = DaysOfWeek.objects.get(pk=3)
-            day = Day(training=workout,
-                      description=_('Sample day'))
+            day = Day(training=workout, description=_('Sample day'))
             day.save()
             day.day.add(monday)
 
-            day2 = Day(training=workout,
-                       description=_('Another sample day'))
+            day2 = Day(training=workout, description=_('Another sample day'))
             day2.save()
             day2.day.add(wednesday)
 

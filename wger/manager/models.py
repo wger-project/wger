@@ -34,7 +34,7 @@ from wger.utils.helpers import DecimalJsonEncoder
 logger = logging.getLogger('workout_manager.custom')
 
 
-class TrainingSchedule(models.Model):
+class Workout(models.Model):
     '''
     Model for a training schedule
     '''
@@ -92,7 +92,7 @@ class Day(models.Model):
     Model for a training day
     '''
 
-    training = models.ForeignKey(TrainingSchedule, verbose_name=_('Training'))
+    training = models.ForeignKey(Workout, verbose_name=_('Training'))
     description = models.CharField(max_length=100,
                                    verbose_name=_('Description'),
                                    help_text=_('Ususally a description about what parts are '
@@ -182,7 +182,7 @@ class WorkoutLog(models.Model):
 
     user = models.ForeignKey(User, verbose_name=_('User'))
     exercise = models.ForeignKey(Exercise, verbose_name=_('Exercise'))
-    workout = models.ForeignKey(TrainingSchedule, verbose_name=_('Workout'))
+    workout = models.ForeignKey(Workout, verbose_name=_('Workout'))
 
     reps = models.IntegerField(verbose_name=_('Repetitions'))
     weight = models.DecimalField(decimal_places=2,

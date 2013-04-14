@@ -17,7 +17,7 @@ from wger.manager import models as manager_models
 
 from django.contrib import admin
 
-admin.site.register(manager_models.TrainingSchedule)
+admin.site.register(manager_models.Workout)
 admin.site.register(manager_models.Set)
 admin.site.register(manager_models.Day)
 admin.site.register(manager_models.WorkoutLog)

@@ -35,7 +35,7 @@ from django.utils.translation import ugettext as _
 from captcha.fields import ReCaptchaField
 
 from wger.manager.models import UserProfile
-from wger.manager.models import TrainingSchedule
+from wger.manager.models import Workout
 from wger.manager.models import Day
 from wger.manager.models import Set
 from wger.manager.models import WorkoutLog
@@ -83,7 +83,7 @@ class DemoUserForm(Form):
 
 class WorkoutForm(ModelForm):
     class Meta:
-        model = TrainingSchedule
+        model = Workout
         exclude = ('user',)
 
 

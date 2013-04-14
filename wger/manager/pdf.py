@@ -23,7 +23,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
 
-from wger.manager.models import TrainingSchedule
+from wger.manager.models import Workout
 from wger.utils.pdf import styleSheet
 
 from reportlab.lib.styles import getSampleStyleSheet
@@ -51,7 +51,7 @@ def workout_log(request, id):
     '''
 
     #Load the workout
-    workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
+    workout = get_object_or_404(Workout, pk=id, user=request.user)
 
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(mimetype='application/pdf')

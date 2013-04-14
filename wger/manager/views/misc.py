@@ -32,7 +32,7 @@ from django.contrib.auth.decorators import login_required
 
 from wger.manager import forms
 from wger.manager.models import DaysOfWeek
-from wger.manager.models import TrainingSchedule
+from wger.manager.models import Workout
 
 from wger.nutrition.models import NutritionPlan
 
@@ -63,7 +63,7 @@ def dashboard(request):
 
     # Load the last workout, if one exists
     try:
-        current_workout = TrainingSchedule.objects.filter(user=request.user).latest('creation_date')
+        current_workout = Workout.objects.filter(user=request.user).latest('creation_date')
     except ObjectDoesNotExist:
         current_workout = False
     template_data['current_workout'] = current_workout

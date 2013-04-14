@@ -36,7 +36,7 @@ from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
 
-from wger.manager.models import TrainingSchedule
+from wger.manager.models import Workout
 from wger.manager.models import Day
 from wger.manager.models import Set
 from wger.manager.models import Setting

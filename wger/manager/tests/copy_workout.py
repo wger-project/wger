@@ -16,7 +16,7 @@ import logging
 
 from django.core.urlresolvers import reverse
 
-from wger.manager.models import TrainingSchedule
+from wger.manager.models import Workout
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 logger = logging.getLogger('workout_manager.custom')
@@ -40,10 +40,10 @@ class CopyWorkoutTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 200)
 
         # Copy the workout
-        count_before = TrainingSchedule.objects.count()
+        count_before = Workout.objects.count()
         response = self.client.post(reverse('workout-copy', kwargs={'pk': '3'}),
                                     {'comment': 'A copied workout'})
-        count_after = TrainingSchedule.objects.count()
+        count_after = Workout.objects.count()
 
         if not logged_in:
             self.assertEqual(count_before, count_after)
@@ -62,8 +62,8 @@ class CopyWorkoutTestCase(WorkoutManagerTestCase):
         else:
             self.assertEqual(response.status_code, 200)
 
-            original = TrainingSchedule.objects.get(pk=3)
-            copy = TrainingSchedule.objects.get(pk=4)
+            original = Workout.objects.get(pk=3)
+            copy = Workout.objects.get(pk=4)
 
             days_original = original.day_set.all()
             days_copy = copy.day_set.all()

@@ -115,11 +115,14 @@
         "pk": 135, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 1, 
             "muscles": [
                 5
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Ausfallschritt Trizepsdr\u00fccken \u00fc. Kopf, \u00df-Stange"
         }
@@ -128,12 +131,15 @@
         "pk": 5, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 2, 
             "muscles": [
                 8, 
                 10
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Ausfallschritte im Gehen"
         }
@@ -142,12 +148,15 @@
         "pk": 55, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 2, 
             "muscles": [
                 8, 
                 10
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Ausfallschritte stehend"
         }
@@ -156,11 +165,14 @@
         "pk": 77, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 7, 
             "muscles": [
                 4
             ], 
             "description": "<p>Der Bewegungsablauf ist &auml;hnlich zur &Uuml;bung mit einer Langhantel.</p>\r\n<p>Nehme die Gewichte in die H&auml;nde und lege dich auf die Bank. Halte die Hanteln neben der Brust auf Brustwarzenh&ouml;he und dr&uuml;cke sie nun nach oben, bis die Arme ausgestreckt sind. Lasse die Gewichte nun langsam und kontrolliert runter.</p>\r\n<p>&nbsp;</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 2, 
                 5
@@ -172,11 +184,14 @@
         "pk": 15, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 7, 
             "muscles": [
                 4
             ], 
             "description": "<p>Lege dich auf die Bank, die Stange direkt \u00fcber die Augen, die Knie etwas angewinkelt und die F\u00fc\u00dfe fest auf dem Boden. Greife die Stange breit und lasse sie langsam und kontrolliert runter, dabei sollte die Stange kurz auf Brustwarzenh\u00f6he den K\u00f6rper ber\u00fchren. Dann das Gewicht wieder hochdr\u00fccken bis die Arme durchgestreckt sind.</p>\r\n<p>Bei hohem Gewicht, empfielt sich nat\u00fcrlich einen <em>Spotter</em> zu haben, der einen hilft falls man die Stange nicht alleine hochdr\u00fccken kann.</p>\r\n<p>Mit der Breite des Griffs kann au\u00dferdem kontrolliert werden, welcher Bereich der Brust st\u00e4rker belastet wird:</p>\r\n<ul>\r\n<li>breiter Griff: \u00e4u\u00dfere Brustmuskeln</li>\r\n<li>enger Griff: innere Brustmuskeln und Trizeps</li>\r\n</ul>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 2, 
                 5
@@ -188,11 +203,14 @@
         "pk": 38, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 1, 
             "muscles": [
                 5
             ], 
             "description": "<p>Lege dich auf die Bank, die Stange direkt \u00fcber die Augen, die Knie etwas angewinkelt und die F\u00fc\u00dfe fest auf dem Boden. Greife nun die Stange mit einem engen Griff (nicht mehr als 20cm.). F\u00fchre nun das Gewicht so weit nach unten, bis die Oberarme paralell zum Boden sind, gehe dann wieder nach obern. Bringe die Stange nicht wie beim (breiten) Bankdr\u00fccken auf Brusth\u00f6he runter, sondern weiter unten. Auf der tiefsten Stelle sollten deine Arme einen rechten Winkel machen.</p>\r\n<p>\u00e4\u00e4\u00f6</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 2, 
                 4
@@ -204,11 +222,14 @@
         "pk": 22, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 2, 
             "muscles": [
                 11
             ], 
             "description": "<p>Lege dich auf dem Bauch auf die Bank und klemme die Beine unter der Halterung (eher im unteren Wadenbereich ansetzen). Halte dich fest und bringe nun das Gewicht nach oben, in dem du die Beinbizeps zusammenziehst, gehe langsam wieder nach unten. W\u00e4hrend der \u00dcbung muss der K\u00f6rper fest bleiben.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Beinbeuger liegend"
         }
@@ -217,11 +238,14 @@
         "pk": 133, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 2, 
             "muscles": [
                 11
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Beinbeuger sitzend"
         }
@@ -230,11 +254,14 @@
         "pk": 72, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 2, 
             "muscles": [
                 11
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Beinbeuger stehend"
         }
@@ -243,11 +270,14 @@
         "pk": 35, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 4, 
             "muscles": [
                 6
             ], 
             "description": "<p>Stelle dich mit den Unterarme fest auf die daf\u00fcr vorgesehenen Stellen der Maschine, der K\u00f6rper h\u00e4ngt frei nach unten. Hebe nun die Beine so weit wie m\u00f6glich nach oben, wobei an der h\u00f6chsten Stelle eine kurze Pause eingelegt wird. Bringe sie dann langsam und kontrolliert wieder nach unten.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 3
             ], 
@@ -258,11 +288,14 @@
         "pk": 34, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 4, 
             "muscles": [
                 6
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 3
             ], 
@@ -273,11 +306,14 @@
         "pk": 6, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 2, 
             "muscles": [
                 10
             ], 
             "description": "<p>In die Maschine setzten und die F\u00fc\u00dfe auf die Auflage stellen, der Abstand, etwas mehr als schulterbreit. Die F\u00fc\u00dfe sind etwas nach au\u00dfen gedreht.</p>\r\n<p>Das Gewicht wird so weit abgesenkt, dass die Knie einen rechten Winkel machen. Sofort wird das Gewicht nach oben gedr\u00fcckt. Die Knie zeigen etwas nach au\u00dfen und werden nie ganz ausgestreckt, die Bewegung bleibt immer fl\u00fcssig, also weder oben noch unten irgendwelche Pausen einlegen!</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 8
             ], 
@@ -288,11 +324,14 @@
         "pk": 54, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 2, 
             "muscles": [
                 10
             ], 
             "description": "<p>In die Maschine setzten und die F&uuml;&szlig;e auf die Auflage stellen. Dabei sollte etwa so viel Platz dazwischen bleiben, dass noch ein Fu&szlig; dazwischen Platz h&auml;tte. Die F&uuml;&szlig;e sind wie beim normalen Bankdr&uuml;cken etwas nach au&szlig;en gedreht.</p>\r\n<p>Der Bewegungsablauf ist wie bei bei der breite Beinpresse: das Gewicht wird so weit abgesenkt, dass die Knie einen rechten Winkel machen. Ohne Pause wird dann das Gewicht nach oben gedr&uuml;ckt. Die Knie zeigen etwas nach au&szlig;en und werden nie ganz ausgestreckt, die Bewegung bleibt immer fl&uuml;ssig, also weder oben noch unten irgendwelche Pausen einlegen!</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 8
             ], 
@@ -303,11 +342,14 @@
         "pk": 39, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 2, 
             "muscles": [
                 10
             ], 
             "description": "<p>Setze dich in die Beinstreckermaschine. Der R\u00fccken soll einen festen Halt haben, stelle die Maschine so ein, dass du fest sitzt. In der Anfangsposition sind die Beine entwas nach hinten angewinkelt. Dr\u00fccke das Gewicht nach oben bis die Beine nahezu vollst\u00e4ndig ausgestreckt sind. Gehe langsam und kontrolliert wieder runter.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Beinstrecker"
         }
@@ -316,11 +358,14 @@
         "pk": 69, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 2, 
             "muscles": [
                 10
             ], 
             "description": "<p>Der Bewegungsablauf ist wie beim beidbeinigem Beinstrecker:</p>\r\n<p>Setze dich in die Beinstreckermaschine. Der R\u00fccken soll einen festen Halt haben, stelle die Maschine so ein, dass du fest sitzt. In der Anfangsposition sind die Beine entwas nach hinten angewinkelt. Dr\u00fccke das Gewicht nach oben bis die Beine nahezu vollst\u00e4ndig ausgestreckt sind. Gehe langsam und kontrolliert wieder runter.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Beinstrecker einbeinig"
         }
@@ -329,11 +374,14 @@
         "pk": 88, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 8, 
             "muscles": [
                 5
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Bench press narrow grip"
         }
@@ -342,11 +390,14 @@
         "pk": 96, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 11, 
             "muscles": [
                 4
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Benchpress barbells"
         }
@@ -355,11 +406,14 @@
         "pk": 97, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 11, 
             "muscles": [
                 4
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Benchpress bumbbells"
         }
@@ -368,11 +422,14 @@
         "pk": 109, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 12, 
             "muscles": [
                 12
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Bent over rowing"
         }
@@ -381,11 +438,14 @@
         "pk": 110, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 12, 
             "muscles": [
                 12
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Bent over rowing reverse"
         }
@@ -394,11 +454,14 @@
         "pk": 129, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 8, 
             "muscles": [
                 1
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Biceps curl with cable"
         }
@@ -407,11 +470,14 @@
         "pk": 80, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 8, 
             "muscles": [
                 1
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Biceps curls with SZ-bar"
         }
@@ -420,11 +486,14 @@
         "pk": 74, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 8, 
             "muscles": [
                 1
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Biceps curls with barbell"
         }
@@ -433,11 +502,14 @@
         "pk": 81, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 8, 
             "muscles": [
                 1
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Biceps curls with dumbbell"
         }
@@ -446,11 +518,14 @@
         "pk": 44, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 1, 
             "muscles": [
                 1
             ], 
             "description": "<p>Halte die Hantel mit etwa schulterbreitem Griff, die Arme sind ausgestreckt. Beuge die Arme und brige die Hantel mit einer schnellen Bewegung nach oben. Ohne Pause wird das Gewicht nun kontrolliert nach unten gebracht. Beachte, dass die Bewegung nach oben schneller ist als nach unten.</p>\r\n<p>W&auml;hrend des Bewegungablaufs darf der K&ouml;rper nicht mitschwingen. Die Ellenbogen bleiben dabei immer an der Stelle.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 13
             ], 
@@ -461,11 +536,14 @@
         "pk": 26, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 1, 
             "muscles": [
                 1
             ], 
             "description": "<p>Halte zwei Kurzhantel mit ausgestreckten Armen neben dem K&ouml;rper, die Handfl&auml;chen zeigen nach innen. Beuge die Arme und brige die Hanteln mit einer schnellen Bewegung nach oben wobei sie gleichzeitig um 90 Grad gedreht werden. Am h&ouml;chsten Punkt kann man die Hanteln ganz leicht weiter nach au&szlig;en drehen. Ohne Pause wird das Gewicht nun kontrolliert nach unten gebracht. Beachte, dass die Bewegung nach oben schneller ist als nach unten.</p>\r\n<p>W&auml;hrend des Bewegungablaufs darf der K&ouml;rper nicht mitschwingen. Die Ellenbogen bleiben dabei immer an der Stelle.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 13
             ], 
@@ -476,11 +554,14 @@
         "pk": 24, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 1, 
             "muscles": [
                 1
             ], 
             "description": "<p>Halte die Hantel mit etwa schulterbreitem Griff, die Arme sind ausgestreckt. Beuge die Arme und brige die Hantel mit einer schnellen Bewegung nach oben. Ohne Pause wird das Gewicht nun kontrolliert nach unten gebracht. Beachte, dass die Bewegung nach oben schneller ist als nach unten.</p>\r\n<p>W&auml;hrend des Bewegungablaufs sollte der K&ouml;rper nicht mitschwingen. Die Ellenbogen bleiben dabei immer an der Stelle.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 13
             ], 
@@ -491,11 +572,14 @@
         "pk": 3, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 1, 
             "muscles": [
                 1
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Bizeps am Kabel"
         }
@@ -504,11 +588,14 @@
         "pk": 30, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 7, 
             "muscles": [
                 4
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 2
             ], 
@@ -519,11 +606,14 @@
         "pk": 98, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 11, 
             "muscles": [
                 4
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Butterfly"
         }
@@ -532,11 +622,14 @@
         "pk": 52, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 7, 
             "muscles": [
                 4
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Butterfly eng"
         }
@@ -545,11 +638,14 @@
         "pk": 99, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 11, 
             "muscles": [
                 4
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Butterfly narrow grip"
         }
@@ -558,9 +654,12 @@
         "pk": 21, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 5, 
             "muscles": [], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Butterfly reverse"
         }
@@ -569,11 +668,14 @@
         "pk": 124, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 13, 
             "muscles": [
                 2
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Butterfly reverse"
         }
@@ -582,11 +684,14 @@
         "pk": 104, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 14, 
             "muscles": [
                 7
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Calf raises on Hackenschmitt machine"
         }
@@ -595,11 +700,14 @@
         "pk": 4, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 4, 
             "muscles": [
                 6
             ], 
             "description": "<p>Lege dich auf eine Matte mit angewinkelten Beinen. Die F\u00fc\u00dfe werden irgendwie festgehalten (Partner, Lanhghantel, o.\u00c4.) und die H\u00e4nde werden hinter dem Nacken verschr\u00e4nkt. Aus dieser Position f\u00fchre den Oberk\u00f6rper so weit nach oben, bis Kopf oder Ellenbogen die angewinkelten Beine ber\u00fchren.</p>\n<p>Es ist wichtig, dass dieser Vorgang mit einer rollenden Bewegung durchgef\u00fchrt wird: die Wirbels\u00e4ule sollte sich Wirbel f\u00fcr Wirbel von der Matte l\u00f6sen. Ein Hohlkreuz ist stets zu vermeiden.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 3
             ], 
@@ -610,11 +718,14 @@
         "pk": 91, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 10, 
             "muscles": [
                 6
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Crunches"
         }
@@ -623,11 +734,14 @@
         "pk": 33, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 4, 
             "muscles": [
                 6
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Crunches am Seil"
         }
@@ -636,11 +750,14 @@
         "pk": 56, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 4, 
             "muscles": [
                 6
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Crunches am Stuhl"
         }
@@ -649,11 +766,14 @@
         "pk": 51, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 4, 
             "muscles": [
                 6
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Crunches an Maschine"
         }
@@ -662,11 +782,14 @@
         "pk": 32, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 4, 
             "muscles": [
                 6
             ], 
             "description": "<p>Setze dich auf die Negativbank und fixiere deine Beine. Kreuze deine Arme &uuml;ber die Brust und bringe den Oberk&ouml;rper nach oben, den Kopf dabei nicht nach vorn kippen. Gehe langsam wieder runter. </p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Crunches an Negativbank"
         }
@@ -675,11 +798,14 @@
         "pk": 94, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 10, 
             "muscles": [
                 6
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Crunches on machine"
         }
@@ -688,11 +814,14 @@
         "pk": 92, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 10, 
             "muscles": [
                 6
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Crunches with cable"
         }
@@ -701,11 +830,14 @@
         "pk": 2, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 1, 
             "muscles": [
                 1
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 13
             ], 
@@ -716,11 +848,14 @@
         "pk": 105, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 12, 
             "muscles": [
                 12
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Deadlifts"
         }
@@ -729,11 +864,14 @@
         "pk": 121, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 11, 
             "muscles": [
                 4
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Decline Benchpress"
         }
@@ -742,11 +880,14 @@
         "pk": 100, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 11, 
             "muscles": [
                 4
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Decline bench press barbell"
         }
@@ -755,11 +896,14 @@
         "pk": 101, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 11, 
             "muscles": [
                 4
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Decline bench press bumbbell"
         }
@@ -768,11 +912,14 @@
         "pk": 29, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 1, 
             "muscles": [
                 5
             ], 
             "description": "<p>Greife die Stangen an einer engen Stelle und dr\u00fccke dich hoch. Strecke dabei die Arme nicht ganz aus, dann bleiben w\u00e4hrend des gesamten Bewegungablaufs die Muskeln immer unter Spannung. Beuge nun die Arme und gehe so tief wie m\u00f6glich runter, die Ellenbogen zeigen nach hinten. Du kannst an dieser Stelle einige Sekunden bleiben, bevor du die \u00dcbung weitermachst.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 4, 
                 6
@@ -784,11 +931,14 @@
         "pk": 82, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 8, 
             "muscles": [
                 5
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Dips"
         }
@@ -797,11 +947,14 @@
         "pk": 83, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 8, 
             "muscles": [
                 5
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Dips between two benches"
         }
@@ -810,11 +963,14 @@
         "pk": 68, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 1, 
             "muscles": [
                 5
             ], 
             "description": "<p>Stelle zwei B\u00e4nke so weit ausernander, dass du die H\u00e4nde am Rand der einen und du die F\u00fc\u00dfe auf der anderen noch knapp draufstellen kannst. Die Beine bleiben w\u00e4hrend der \u00dcbung ausgestreckt. Beuge nun die Arme und gehe so tief wie m\u00f6glich runter, die Ellenbogen zeigen nach hinten. Hebe den K\u00f6rper wieder, achte aber darauf, dass du die Arme nicht ganz austreckst.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Dips zwischen 2 B\u00e4nke"
         }
@@ -823,11 +979,14 @@
         "pk": 112, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 9, 
             "muscles": [
                 10
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Dumbbell lunges standing"
         }
@@ -836,11 +995,14 @@
         "pk": 113, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 9, 
             "muscles": [
                 10
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Dumbbell lunges walking"
         }
@@ -849,11 +1011,14 @@
         "pk": 87, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 8, 
             "muscles": [
                 1
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Dumbbells on scott machine"
         }
@@ -862,11 +1027,14 @@
         "pk": 11, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 3, 
             "muscles": [
                 12
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 2, 
                 1, 
@@ -879,11 +1047,14 @@
         "pk": 18, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 7, 
             "muscles": [
                 4
             ], 
             "description": "<p>Greife zwei Kurzhanteln und lege dich auf eine Bank und strecke die Arme schulterbreit vollst\u00e4ndig aus. F\u00fc\u00dfe, R\u00fccken und Kopf liegen fest auf Boden/Bank und geben Halt. Beuge nun leicht die Arme am Ellenbogengelenk und lasse sie mit einer Halbkreisbewegung seitlich runter. Ohne diesen Winkel zu ver\u00e4ndern bringe sie wieder nach oben.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Fliegende KH Flachbank"
         }
@@ -892,11 +1063,14 @@
         "pk": 73, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 7, 
             "muscles": [
                 4
             ], 
             "description": "<p>Greife zwei Kurzhanteln und lege dich auf eine Schr\u00e4gbank und strecke die Arme schulterbreit vollst\u00e4ndig aus. F\u00fc\u00dfe, R\u00fccken und Kopf liegen fest auf Boden/Bank und geben Halt. Beuge nun leicht die Arme am Ellenbogengelenk und lasse sie mit einer Halbkreisbewegung seitlich runter. Ohne diesen Winkel zu ver\u00e4ndern bringe sie wieder nach oben.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Fliegende KH Schr\u00e4gbank"
         }
@@ -905,11 +1079,14 @@
         "pk": 122, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 11, 
             "muscles": [
                 4
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Fly with cable"
         }
@@ -918,11 +1095,14 @@
         "pk": 84, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 8, 
             "muscles": [
                 5
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "French press (skullcrusher) SZ-bar"
         }
@@ -931,11 +1111,14 @@
         "pk": 85, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 8, 
             "muscles": [
                 5
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "French press (skullcrusher) dumbbells"
         }
@@ -944,11 +1127,14 @@
         "pk": 58, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 1, 
             "muscles": [
                 5
             ], 
             "description": "<p>Nehme die Hanteln in die Hand, lege dich auf eine Bank und stelle dich so hin, dass ca. 1/4 des Kopfes nicht mehr auf der Bank liegt. Strecke die Arme aus und lasse nun mit einem Bogen die Gewichte runter. Wenn die Hanteln knapp &uuml;ber die Stirn sind, dr&uuml;cke sie wieder nach oben.</p>\r\n<p>Es ist wichtig die Ellenbogen w&auml;hrend der ganzen &Uuml;bung wenig zu bewegen, damit die Trizeps die Arbeit machen.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Frenchpress KH"
         }
@@ -957,11 +1143,14 @@
         "pk": 25, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 1, 
             "muscles": [
                 5
             ], 
             "description": "<p>Nehme die Hantel, lege dich auf eine Bank und stelle dich so hin, dass ca. 1/4 des Kopfes nicht mehr auf der Bank liegt. Strecke die Arme aus und lasse nun mit einem Bogen das Gewicht runter. Wenn die Stange knapp &uuml;ber die Stirn ist, dr&uuml;cke sie wieder nach oben.</p>\r\n<p>Es ist wichtig die Ellenbogen w&auml;hrend der ganzen &Uuml;bung wenig zu bewegen, damit die Trizeps die Arbeit machen.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Frenchpress \u00df-Stange"
         }
@@ -970,9 +1159,12 @@
         "pk": 19, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 5, 
             "muscles": [], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Frontdr\u00fccken KH"
         }
@@ -981,9 +1173,12 @@
         "pk": 65, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 5, 
             "muscles": [], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Frontheben am Kabel"
         }
@@ -992,11 +1187,14 @@
         "pk": 10, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 3, 
             "muscles": [
                 12
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 2, 
                 1, 
@@ -1009,11 +1207,14 @@
         "pk": 12, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 3, 
             "muscles": [
                 12
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 1, 
                 13
@@ -1025,9 +1226,12 @@
         "pk": 50, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 3, 
             "muscles": [], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Good Mornings"
         }
@@ -1036,11 +1240,14 @@
         "pk": 116, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 9, 
             "muscles": [
                 11
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Good mornings"
         }
@@ -1049,11 +1256,14 @@
         "pk": 46, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 1, 
             "muscles": [
                 1
             ], 
             "description": "<p>Greife zwei Hanteln, die Handfl&auml;chen zeigen zum K&ouml;rper.&nbsp; Beuge die Arme und brige die Hanteln mit einer schnellen Bewegung nach oben wobei sie im Unterschied zu den normalen KH Curls <strong>nicht</strong> um 90 Grad gedreht werden, die Handfl&auml;chen zeigen also die ganze Zeit nach innen. Ohne Pause wird das Gewicht nun kontrolliert nach unten gebracht. Beachte, dass die Bewegung nach oben schneller ist als nach unten.</p>\r\n<p>W&auml;hrend des Bewegungablaufs darf der K&ouml;rper nicht mitschwingen. Die Ellenbogen bleiben dabei immer an der Stelle.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 13
             ], 
@@ -1064,11 +1274,14 @@
         "pk": 86, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 8, 
             "muscles": [
                 1
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Hammercurls"
         }
@@ -1077,11 +1290,14 @@
         "pk": 134, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 1, 
             "muscles": [
                 1
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 13
             ], 
@@ -1092,11 +1308,14 @@
         "pk": 60, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 3, 
             "muscles": [
                 16
             ], 
             "description": "<p>Lege dich auf das Polster so, dass der Bauchnabel kurz vor der Vorderkante liegt, der Oberk\u00f6rper h\u00e4ngt frei nach unten. Spanne die gesamte R\u00fcckenmuskulatur an, und bringe den Oberk\u00f6rper nach oben bis er waagerecht ist (nicht h\u00f6her). Gehe nun langsam wieder nach unten (Muskelanspannung nicht vergessen).</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Hyperextensions"
         }
@@ -1105,11 +1324,14 @@
         "pk": 128, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 12, 
             "muscles": [
                 9
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Hyperextensions"
         }
@@ -1118,11 +1340,14 @@
         "pk": 28, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 1, 
             "muscles": [
                 1
             ], 
             "description": "<p>Setze dich vor der Scottmaschine, stelle die H\u00f6he so ein, dass die Achselh\u00f6hlen auf die Oberkante liegen. Die Oberarme liegen parallel auf der Fl\u00e4che und bleiben w\u00e4hrend der \u00dcbung auch so. Ziehe die Hanteln so weit wie m\u00f6glich hoch und bringe sie ohne Pause wieder runter. Strecke dabei die Arme ganz aus.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 13
             ], 
@@ -1133,11 +1358,14 @@
         "pk": 71, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 7, 
             "muscles": [
                 4
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 2
             ], 
@@ -1148,11 +1376,14 @@
         "pk": 36, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 3, 
             "muscles": [
                 12
             ], 
             "description": "<p>Greife die Klimmzugstange mit breitem Griff, der K\u00f6rper h\u00e4ngt zun\u00e4chst frei nach unten. Ziehe nun die Brust raus und bringe den K\u00f6rper nach oben, bis dein Kinn \u00fcber der Stange liegt (oder der Nacken sie ber\u00fchrt), gehe nun langsam nach unten und wiederhole.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 2, 
                 1, 
@@ -1165,11 +1396,14 @@
         "pk": 48, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 3, 
             "muscles": [
                 12
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 2, 
                 1, 
@@ -1182,11 +1416,14 @@
         "pk": 7, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 2, 
             "muscles": [
                 10
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 8
             ], 
@@ -1197,12 +1434,15 @@
         "pk": 9, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 3, 
             "muscles": [
                 12, 
                 10
             ], 
             "description": "<p>Stelle dich mit etwas mehr als schulterbreitem Stand vor der Stange, die F\u00fc\u00dfe zeigen leicht nach au\u00dfen, die Stange ist direkt dar\u00fcber und sehr nahe am Schienenbein. Beuge die Knie (zeigen ebenfalls etwas nach au\u00dfen) und neige den Oberk\u00f6rper (bleibt w\u00e4hrend der ganzen \u00dcbung gerade). Greife die Stange schulterbreit mit einem Unter- und einem Obergriff.</p>\n<p>Ziehe nun die Stange nach oben. An der h\u00f6chsten Stelle mache ein leichtes Hohlkreuz und dr\u00fccke die Schultern nach hinten. Gehe wieder runter, wobei du darauf achtest, dass der R\u00fccken gerade bleibt und sich nicht kr\u00fcmmt. Du kannst unten angekommen eine kleine Pause einlegen oder sofort weitermachen.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 8
             ], 
@@ -1213,11 +1453,14 @@
         "pk": 117, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 9, 
             "muscles": [
                 11
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Leg curls (sitting)"
         }
@@ -1226,11 +1469,14 @@
         "pk": 118, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 9, 
             "muscles": [
                 11
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Leg curls (standing)"
         }
@@ -1239,11 +1485,14 @@
         "pk": 130, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 9, 
             "muscles": [
                 10
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Leg press on Hackenschmidt machine"
         }
@@ -1252,11 +1501,14 @@
         "pk": 115, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 9, 
             "muscles": [
                 10
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Leg presses (narrow)"
         }
@@ -1265,11 +1517,14 @@
         "pk": 114, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 9, 
             "muscles": [
                 10
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Leg presses (wide)"
         }
@@ -1278,11 +1533,14 @@
         "pk": 125, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 10, 
             "muscles": [
                 6
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Leg raises, lying"
         }
@@ -1291,11 +1549,14 @@
         "pk": 126, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 10, 
             "muscles": [
                 6
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Leg raises, standing"
         }
@@ -1304,11 +1565,14 @@
         "pk": 37, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 3, 
             "muscles": [
                 12
             ], 
             "description": "<p>Setze dich hin, stelle die F&uuml;&szlig;e auf die St&uuml;tzstellen ab und greife die Stange mit breitem Griff. Ziehe nun die H&auml;nde auf den Nabel, nicht h&ouml;her. Dabei sollten die Arme nahe am K&ouml;rper bleiben und die Schultern so weit wie m&ouml;glich zusammengezogen werden. Lasse langsam und kontrolliert das Gewicht wieder nach vorne bis die Arme vollst&auml;ndig ausgestreckt sind.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 1, 
                 13
@@ -1320,11 +1584,14 @@
         "pk": 136, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 3, 
             "muscles": [
                 12
             ], 
             "description": "<p>Der Bewegungsablauf ist wie der vom Long-Pulley mit breitem Griff.</p>\r\n<p>Setze dich hin, stelle die F&uuml;&szlig;e auf die St&uuml;tzstellen ab und greife die Stange. Ziehe nun die H&auml;nde auf den Nabel, nicht h&ouml;her. Dabei sollten die Arme nahe am K&ouml;rper bleiben und die Schultern so weit wie m&ouml;glich zusammengezogen werden. Lasse langsam und kontrolliert das Gewicht wieder nach vorne bis die Arme vollst&auml;ndig ausgestreckt sind.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 1, 
                 13
@@ -1336,11 +1603,14 @@
         "pk": 49, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 3, 
             "muscles": [
                 12
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "MGM-Maschine"
         }
@@ -1349,9 +1619,12 @@
         "pk": 43, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 5, 
             "muscles": [], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Nackenziehen"
         }
@@ -1360,11 +1633,14 @@
         "pk": 17, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 7, 
             "muscles": [
                 4
             ], 
             "description": "<p>Lege dich auf die Negativbank hin, die Oberschenkel und der R\u00fccken legen fest auf der drauf. Greife die Stange breit und lasse sie langsam und kontrolliert runter, dabei sollte die Stange kurz auf Brustwarzenh\u00f6he den K\u00f6rper ber\u00fchren. Dann das Gewicht wieder hochdr\u00fccken bis die Arme durchgestreckt sind.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 2, 
                 12, 
@@ -1377,11 +1653,14 @@
         "pk": 93, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 10, 
             "muscles": [
                 6
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Negative crunches"
         }
@@ -1390,11 +1669,14 @@
         "pk": 107, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 12, 
             "muscles": [
                 4
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Pull-ups"
         }
@@ -1403,9 +1685,12 @@
         "pk": 42, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 5, 
             "muscles": [], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Rudern aufgelegt"
         }
@@ -1414,12 +1699,15 @@
         "pk": 79, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 5, 
             "muscles": [
                 2, 
                 9
             ], 
             "description": "<p>Der Bewegungsablauf ist derselbe wie bei Ausf&uuml;hrung mit einer &szlig;-Stange.</p>\r\n<p>Stelle dich gerade hin, die F&uuml;&szlig;e etwa schulterbreit. Halte die Stange mit einem Obergriff vor den Oberschenkel, die Arme ausgestreckt. Ziehe dann die Stange dicht am K&ouml;rper hoch, bis etwa zum Kinn. Die Ellenbogen zeigen nach oben, so, dass in der h&ouml;chsten Position die Arme ein leichtes V machen. Mache nach M&ouml;glichkeit hier eine kurze Pause und gehe dann langsam wieder runter.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 1
             ], 
@@ -1430,12 +1718,15 @@
         "pk": 62, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 5, 
             "muscles": [
                 2, 
                 9
             ], 
             "description": "<p>Stelle dich gerade hin, die F&uuml;&szlig;e etwa schulterbreit. Halte die &szlig;-Stange mit einem Obergriff vor den Oberschenkel, die Arme ausgestreckt. Ziehe dann die Stange dicht am K&ouml;rper hoch, bis etwa zum Kinn. Die Ellenbogen zeigen nach oben, so, dass in der h&ouml;chsten Position die Arme ein leichtes V machen. Mache nach M&ouml;glichkeit hier eine kurze Pause und gehe dann langsam wieder runter.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 1
             ], 
@@ -1446,11 +1737,14 @@
         "pk": 59, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 3, 
             "muscles": [
                 12
             ], 
             "description": "<p>Greife die Langhantel mit breitem (etwas mehr als Schulterbreit) Griff und beuge dich nach vorne. Dabei ist der Oberk\u00f6rper nicht ganz Waagerecht, sonder ein bisschen steiler, der Kopf schaut nach vorn und die Brust is rausgestreckt.</p>\r\n<p>Ziehe nun das Gewicht in richtung Bauchnabel. Schwinge w\u00e4hrend der Bewegung den Oberk\u00f6rper nicht und halte die Arme dicht am K\u00f6rper wenn du sie hochziehst. Bringe die Hantel langsam wieder nach unten.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 2, 
                 1
@@ -1462,11 +1756,14 @@
         "pk": 70, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 3, 
             "muscles": [
                 12
             ], 
             "description": "<p>Bewegungsablauf wie beim normalen vorgebeugtem Rudern, nur die Handstellung ist <em>reverse</em>, also die Handfl\u00e4che zeigen nach hinten.</p>\r\n<p>Greife die Langhantel mit breitem (etwas mehr als Schulterbreit) Griff und beuge dich nach vorne. Dabei ist der Oberk\u00f6rper nicht ganz Waagerecht, sonder ein bisschen steiler, der Kopf schaut nach vorn und die Brust is rausgestreckt.</p>\r\n<p>Ziehe nun das Gewicht in richtung Bauchnabel. Schwinge w\u00e4hrend der Bewegung den Oberk\u00f6rper nicht und halte die Arme dicht am K\u00f6rper wenn du sie hochziehst. Bringe die Hantel langsam wieder nach unten.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 2, 
                 1
@@ -1478,11 +1775,14 @@
         "pk": 16, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 7, 
             "muscles": [
                 4
             ], 
             "description": "<p>Setze dich auf die Bank, die F\u00fc\u00dfe sind fest auf dem Boden und geben Halt der Kopf liegt auf der Bank. Nehme die Hanteln in die Hand und dr\u00fccke sie nach oben. Bringe die Hanteln nach unten, bis sie neben der Brust sind. Dr\u00fccke das Gewicht wieder nach oben.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 2, 
                 5
@@ -1494,11 +1794,14 @@
         "pk": 41, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 7, 
             "muscles": [
                 4
             ], 
             "description": "<p>Setze dich auf die Bank, die F\u00fc\u00dfe sind fest auf dem Boden und geben Halt der Kopf liegt auf der Bank. Nehme die Hantel etwas mehr als Schulterbreit aus der Halterung raus und dr\u00fccke sie nach oben. Bringe die Hantel nach unten, bis sie die Brust kurz ber\u00fchrt. Dr\u00fccke das Gewicht wieder nach oben.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 2, 
                 5
@@ -1510,11 +1813,14 @@
         "pk": 61, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 7, 
             "muscles": [
                 4
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 2, 
                 5
@@ -1526,9 +1832,12 @@
         "pk": 66, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 5, 
             "muscles": [], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Schulterdr\u00fccken MP"
         }
@@ -1537,11 +1846,14 @@
         "pk": 78, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 5, 
             "muscles": [
                 9
             ], 
             "description": "<p>Greife zwei Hanteln, stelle dich mit Schulterbreitem Stand und sehr leicht gebeugte Beine auf und lasse den Blick nach vorn. Die Arme h\u00e4ngen am K\u00f6rper. Aus dieser Position hebst du nun die Gewichte, indem du die Schultern nach oben ziehst. Beuge dabei die Arme nicht. Auf dem h\u00f6chsten Punkt kannst du 1 oder 2 Sekunden ausharren, bringe dann die Schultern langsam nach unten.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 5
             ], 
@@ -1552,11 +1864,14 @@
         "pk": 67, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 5, 
             "muscles": [
                 2
             ], 
             "description": "<p>Greife die Stange der Multipresse, stelle dich mit Schulterbreitem Stand und sehr leicht gebeugte Beine auf und lasse den Blick nach vorn. Die Arme h\u00e4ngen am K\u00f6rper. Aus dieser Position hebst du nun das Gewicht, indem du die Schultern nach oben ziehst. Beuge dabei die Arme nicht. Auf dem h\u00f6chsten Punkt kannst du 1 oder 2 Sekunden ausharren, bringe dann die Schultern langsam nach unten.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 5
             ], 
@@ -1567,11 +1882,14 @@
         "pk": 53, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 5, 
             "muscles": [
                 2
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 5
             ], 
@@ -1582,11 +1900,14 @@
         "pk": 108, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 12, 
             "muscles": [
                 12
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Seated Rowing"
         }
@@ -1595,11 +1916,14 @@
         "pk": 20, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 5, 
             "muscles": [
                 2
             ], 
             "description": "<p>Stelle dich mit schulterbreiten Beinen und leicht nach au\u00dfen zeigende F\u00fc\u00dfe mit zwei Hanteln auf. Die Arme sind fast vollst\u00e4ndig ausgestreckt. Hebe nun die Hanteln seitlich nach oben, auf dem h\u00f6chsten Punkt kannst du eine kurze (1-2 sek.) Pause machen.</p>\n<p>Achte darauf, dass die Handfl\u00e4chen sich w\u00e4hrend der Bewegung nicht drehen, sie sollten also immer zum Boden oder zum K\u00f6rper zeigen.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Seitheben KH"
         }
@@ -1608,11 +1932,14 @@
         "pk": 132, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 5, 
             "muscles": [
                 2
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Seitheben am Kabel, einarmig"
         }
@@ -1621,11 +1948,14 @@
         "pk": 119, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 13, 
             "muscles": [
                 2
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Shoulder press, barbells"
         }
@@ -1634,11 +1964,14 @@
         "pk": 123, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 13, 
             "muscles": [
                 2
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Shoulder press, dumbbells"
         }
@@ -1647,11 +1980,14 @@
         "pk": 120, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 13, 
             "muscles": [
                 2
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Shrugs"
         }
@@ -1660,11 +1996,14 @@
         "pk": 8, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 5, 
             "muscles": [
                 2
             ], 
             "description": "<p>Stelle dich mit geradem Oberk\u00f6rper hin, die H\u00e4nde h\u00e4ngen frei nach unten und halten je eine Kurzhantel. Hebe aus dieser Position die Schultern so weit nach oben, wie es geht, beuge aber die Arme w\u00e4hrend der \u00dcbung nicht. Am h\u00f6chsten Punkt kannst du eine oder zwei Sekunden Pause machen bevor du langsam wieder runtergehst.</p>\n<p>Bei gr\u00f6\u00dferem Gewicht, beachte immer, dass du immer noch die volle Bewegungsamplitude durchf\u00fchren kannst.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Shrugs mit KH"
         }
@@ -1673,11 +2012,14 @@
         "pk": 137, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 5, 
             "muscles": [
                 2
             ], 
             "description": "<p>Stelle dich mit geradem Oberk\u00f6rper hin, die H\u00e4nde h\u00e4ngen frei nach unten und halten die Langhantel. Hebe aus dieser Position die Schultern so weit nach oben, wie es geht, beuge aber die Arme w\u00e4hrend der \u00dcbung nicht. Am h\u00f6chsten Punkt kannst du eine oder zwei Sekunden Pause machen bevor du langsam wieder runtergehst.</p>\n<p>Bei gr\u00f6\u00dferem Gewicht, beachte immer, dass du immer noch die volle Bewegungsamplitude durchf\u00fchren kannst.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Shrugs mit LH"
         }
@@ -1686,11 +2028,14 @@
         "pk": 57, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 4, 
             "muscles": [
                 6
             ], 
             "description": "<p>Lege dich auf eine Matte, die Knie sind rechtwiklig angewinkelt und die Fersen liegen auf eine Bank. Die H\u00e4nde sind hinter dem Nacken. Das Hochgehen wird mit einer rollenden Bewegung durchgef\u00fchrt: die Wirbels\u00e4ule sollte sich Wirbel f\u00fcr Wirbel von der Matte l\u00f6sen. Ein Hohlkreuz ist stets zu vermeiden. Auf der h\u00f6chsten Stelle sollten die Muskeln etwa 2 sek. maximal angespannt werden bevor die rollende Bewegung in der Gegenrichtung durchgef\u00fchrt wird.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Sit Ups"
         }
@@ -1699,11 +2044,14 @@
         "pk": 95, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 10, 
             "muscles": [
                 6
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Sit-ups"
         }
@@ -1712,11 +2060,14 @@
         "pk": 103, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 14, 
             "muscles": [
                 7
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Sitting calf raises"
         }
@@ -1725,11 +2076,14 @@
         "pk": 111, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 9, 
             "muscles": [
                 10
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Squats"
         }
@@ -1738,11 +2092,14 @@
         "pk": 102, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 14, 
             "muscles": [
                 7
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Standing calf raises"
         }
@@ -1751,11 +2108,14 @@
         "pk": 76, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 3, 
             "muscles": [
                 12
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 2, 
                 1, 
@@ -1768,11 +2128,14 @@
         "pk": 106, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 12, 
             "muscles": [
                 12
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "T-bar rowing"
         }
@@ -1781,11 +2144,14 @@
         "pk": 89, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 8, 
             "muscles": [
                 5
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Triceps extensions on cable"
         }
@@ -1794,11 +2160,14 @@
         "pk": 90, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 8, 
             "muscles": [
                 5
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Triceps extensions on cable with bar"
         }
@@ -1807,11 +2176,14 @@
         "pk": 1, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 1, 
             "muscles": [
                 5
             ], 
             "description": "<p>Stelle dich mit schulterbreitem Stand vor dem Ger&auml;t, beuge den R&uuml;cken sehr leicht nach vorn und greife das Seil. Ziehe nun nach unten, wobei die Ellenbogen sich w&auml;hrend der ganzen &Uuml;bung nicht von der Stelle bewegen sollen. Dr&uuml;cke nun das Gewicht nach unten. Wenn die Arme ausgestreckt sind, drehe die H&auml;nde nach au&szlig;en.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Trizeps Seildr\u00fccken"
         }
@@ -1820,11 +2192,14 @@
         "pk": 63, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 1, 
             "muscles": [
                 5
             ], 
             "description": "<p>Stelle dich mit schulterbreitem Stand vor dem Ger&auml;t, beuge den R&uuml;cken sehr leicht nach vorn und greife das die Stange. Ziehe nun nach unten, wobei die Ellenbogen sich w&auml;hrend der ganzen &Uuml;bung nicht von der Stelle bewegen sollen. Dr&uuml;cke nun das Gewicht nach unten.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Trizeps Seildr\u00fccken mit Stange"
         }
@@ -1833,11 +2208,14 @@
         "pk": 45, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 1, 
             "muscles": [
                 5
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Trizepsdr\u00fccken KH \u00fcber Kopf"
         }
@@ -1846,11 +2224,14 @@
         "pk": 27, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 1, 
             "muscles": [
                 5
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Trizepsmaschine"
         }
@@ -1859,11 +2240,14 @@
         "pk": 31, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 7, 
             "muscles": [
                 4
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Umsetzen"
         }
@@ -1872,11 +2256,14 @@
         "pk": 127, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 13, 
             "muscles": [
                 2
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "Upright Row"
         }
@@ -1885,11 +2272,14 @@
         "pk": 47, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 5, 
             "muscles": [
                 2
             ], 
             "description": "<p>Setze dich auf dem Rand einer Flachbank und beuge den K\u00f6rper so weit nach vorne, dass er parallel zum Boden ist. Nehme nun die Hanteln und hebe sie seitw\u00e4rts bis etwas \u00fcber schulterh\u00f6he. Gehe langsam wieder runter.</p>\n<p>Es ist wichtig, w\u00e4hrend der \u00dcbung, die Arme nicht nach vorn oder nach hinten zu bewegen, sie sollten stets einen rechten Winkel mit dem K\u00f6rper haben. Wie beim Seitheben im Stehen, sollten sich die Handfl\u00e4chen nicht drehen, sie zeigen also immer zum Boden oder zum K\u00f6rper.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 9
             ], 
@@ -1900,11 +2290,14 @@
         "pk": 23, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 6, 
             "muscles": [
                 7
             ], 
             "description": "<p>Setze dich auf die Maschine mit dem R&uuml;cken fest gegen die Lehne und stelle die F&uuml;&szlig;e auf die Plattform etwa schulterbreit. Pr&uuml;fe dass etwa die H&auml;lfte noch drauf sind und du die Wadenmuskeln nach unten komplett austrecken kannst.</p>\r\n<p>Mit geraden Knien strecke dann die Waden und gehe so hoch wie m&ouml;glich. Gehe dann runter bis die Waden komplet ausgestreckt sind und wiederhole die Bewegung.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 15
             ], 
@@ -1915,11 +2308,14 @@
         "pk": 14, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 6, 
             "muscles": [
                 15
             ], 
             "description": "<p>Setze dich auf die Bank und stelle die Fu\u00dfspitzen so auf den Rand, dass du die Waden komplett nach unten austrecken kannst. Ziehe nun die Wadenmuskeln zusammen und gehe so hoch es geht. Mache auf dem h\u00f6chsten Punkt eine kurze Pause (1-2 sek.) und gehe dann runter.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 7
             ], 
@@ -1930,11 +2326,14 @@
         "pk": 13, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 6, 
             "muscles": [
                 7
             ], 
             "description": "<p>Die F\u00fc\u00dfe werden auf die in der Maschine daf\u00fcr vorgesehene Stelle positioniert, wobei man die Fersen (und damit die Wadenmuskeln) komplett nach unten austrecken kann. Halte den K\u00f6rper gerade, mache kein Hohlkreuz und beuge die Beine nicht.</p>\r\n<p>Ziehe nun die Wadenmuskeln zusammen und gehe so hoch es geht. Mache auf dem h\u00f6chsten Punkt eine kurze Pause (1-2 sek.) und gehe dann runter.</p>", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 15
             ], 
@@ -1945,12 +2344,15 @@
         "pk": 131, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 10, 
             "muscles": [
                 2, 
                 1
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [], 
             "name": "test"
         }
@@ -1959,6 +2361,7 @@
         "pk": 40, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "5", 
             "category": 7, 
             "muscles": [
                 12, 
@@ -1966,6 +2369,8 @@
                 3
             ], 
             "description": "", 
+            "creation_date": null, 
+            "user": null, 
             "muscles_secondary": [
                 5
             ], 

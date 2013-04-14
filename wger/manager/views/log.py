@@ -32,7 +32,7 @@ from django.forms.models import modelformset_factory
 from django.views.generic import UpdateView
 from django.views.generic import DetailView
 
-from wger.manager.models import TrainingSchedule
+from wger.manager.models import Workout
 from wger.manager.models import Day
 from wger.manager.models import WorkoutLog
 
@@ -178,7 +178,7 @@ class WorkoutLogDetailView(DetailView):
     An overview of the workout's log
     '''
 
-    model = TrainingSchedule
+    model = Workout
     template_name = 'workout/log.html'
     context_object_name = 'workout'
 
@@ -220,7 +220,7 @@ class WorkoutLogDetailView(DetailView):
         Check for ownership
         '''
 
-        workout = TrainingSchedule.objects.get(pk=kwargs['pk'])
+        workout = Workout.objects.get(pk=kwargs['pk'])
         if workout.user != request.user:
             return HttpResponseForbidden()
 

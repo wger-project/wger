@@ -16,7 +16,7 @@
 from django.core.urlresolvers import reverse
 
 from wger.nutrition.models import NutritionPlan
-from wger.manager.models import TrainingSchedule
+from wger.manager.models import Workout
 from wger.weight.models import WeightEntry
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
@@ -39,7 +39,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
 
         # Delete the objects so we can test adding them later
         NutritionPlan.objects.all().delete()
-        TrainingSchedule.objects.all().delete()
+        Workout.objects.all().delete()
         WeightEntry.objects.all().delete()
 
         response = self.client.get(reverse('dashboard'))

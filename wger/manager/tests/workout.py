@@ -14,7 +14,7 @@
 
 from django.core.urlresolvers import reverse
 
-from wger.manager.models import TrainingSchedule
+from wger.manager.models import Workout
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
@@ -32,9 +32,9 @@ class AddWorkoutTestCase(WorkoutManagerTestCase):
         '''
 
         # Create a workout
-        count_before = TrainingSchedule.objects.count()
+        count_before = Workout.objects.count()
         response = self.client.get(reverse('wger.manager.views.workout.add'))
-        count_after = TrainingSchedule.objects.count()
+        count_after = Workout.objects.count()
 
         # There is always a redirect
         self.assertEqual(response.status_code, 302)
@@ -55,12 +55,12 @@ class AddWorkoutTestCase(WorkoutManagerTestCase):
                                            kwargs={'id': 1}))
 
         if logged_in:
-            workout = TrainingSchedule.objects.get(pk=1)
+            workout = Workout.objects.get(pk=1)
             self.assertEqual(response.context['workout'], workout)
             self.assertEqual(response.status_code, 200)
         else:
             self.assertEqual(response.status_code, 302)
-            #workout = TrainingSchedule.objects.get(pk = 1)
+            #workout = Workout.objects.get(pk = 1)
 
     def test_create_workout_anonymous(self):
         '''
@@ -85,7 +85,7 @@ class DeleteTestWorkoutTestCase(WorkoutManagerDeleteTestCase):
     Tests deleting a Workout
     '''
 
-    object_class = TrainingSchedule
+    object_class = Workout
     url = 'workout-delete'
     pk = 3
     user_success = 'test'
@@ -97,7 +97,7 @@ class EditWorkoutTestCase(WorkoutManagerEditTestCase):
     Tests editing a Workout
     '''
 
-    object_class = TrainingSchedule
+    object_class = Workout
     url = 'workout-edit'
     pk = 3
     user_success = 'test'

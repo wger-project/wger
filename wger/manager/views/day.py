@@ -30,7 +30,7 @@ from django.views.generic import CreateView
 from django.views.generic import UpdateView
 
 from wger.manager.models import DaysOfWeek
-from wger.manager.models import TrainingSchedule
+from wger.manager.models import Workout
 from wger.manager.models import Day
 
 from wger.manager.forms import DayForm
@@ -68,7 +68,7 @@ class DayView(YamlFormMixin):
         if self.object:
             workout = self.object.training
         else:
-            workout = TrainingSchedule.objects.get(pk=self.kwargs['workout_pk'])
+            workout = Workout.objects.get(pk=self.kwargs['workout_pk'])
 
         used_days = []
         for day in workout.day_set.all():
@@ -98,13 +98,13 @@ class DayCreateView(DayView, CreateView):
     '''
 
     title = ugettext_lazy('Add workout day')
-    owner_object = {'pk': 'workout_pk', 'class': TrainingSchedule}
+    owner_object = {'pk': 'workout_pk', 'class': Workout}
 
     def form_valid(self, form):
         '''
         Set the workout this day belongs to
         '''
-        form.instance.training = TrainingSchedule.objects.get(pk=self.kwargs['workout_pk'])
+        form.instance.training = Workout.objects.get(pk=self.kwargs['workout_pk'])
         return super(DayCreateView, self).form_valid(form)
 
     # Send some additional data to the template

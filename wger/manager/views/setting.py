@@ -29,7 +29,7 @@ from django.forms.models import modelformset_factory
 from django.views.generic import CreateView
 from django.contrib.auth.decorators import login_required
 
-from wger.manager.models import TrainingSchedule
+from wger.manager.models import Workout
 from wger.manager.models import Set
 from wger.manager.models import Setting
 

@@ -31,7 +31,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import DeleteView
 from django.views.generic import UpdateView
 
-from wger.manager.models import TrainingSchedule
+from wger.manager.models import Workout
 
 from wger.manager.forms import WorkoutForm
 from wger.manager.forms import WorkoutCopyForm
@@ -55,7 +55,7 @@ def overview(request):
 
     template_data = {}
 
-    latest_trainings = TrainingSchedule.objects.filter(user=request.user)
+    latest_trainings = Workout.objects.filter(user=request.user)
     template_data['workouts'] = latest_trainings
 
     return render_to_response('workout/overview.html',
@@ -70,7 +70,7 @@ def view(request, id):
     '''
     template_data = {}
 
-    workout = get_object_or_404(TrainingSchedule, pk=id, user=request.user)
+    workout = get_object_or_404(Workout, pk=id, user=request.user)
     template_data['workout'] = workout
 
     # TODO: this can't be performant, see if it makes problems
@@ -111,7 +111,7 @@ def copy_workout(request, pk):
     Makes a copy of a workout
     '''
 
-    workout = get_object_or_404(TrainingSchedule, pk=pk, user=request.user)
+    workout = get_object_or_404(Workout, pk=pk, user=request.user)
 
     # Process request
     if request.method == 'POST':
@@ -186,7 +186,7 @@ def add(request):
     '''
     Add a new workout and redirect to its page
     '''
-    workout = TrainingSchedule()
+    workout = Workout()
     workout.user = request.user
     workout.save()
 
@@ -199,7 +199,7 @@ class WorkoutDeleteView(YamlDeleteMixin, DeleteView):
     Generic view to delete a workout routine
     '''
 
-    model = TrainingSchedule
+    model = Workout
     success_url = reverse_lazy('wger.manager.views.workout.overview')
     title = ugettext_lazy('Delete workout')
     form_action_urlname = 'workout-delete'
@@ -211,7 +211,7 @@ class WorkoutEditView(YamlFormMixin, UpdateView):
     Generic view to update an existing workout routine
     '''
 
-    model = TrainingSchedule
+    model = Workout
     form_class = WorkoutForm
     title = ugettext_lazy('Edit workout')
     form_action_urlname = 'workout-edit'

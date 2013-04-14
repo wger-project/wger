@@ -1,7 +1,7 @@
 [
     {
         "pk": 1, 
-        "model": "manager.trainingschedule", 
+        "model": "manager.workout", 
         "fields": {
             "comment": "A test workout", 
             "user": 1, 
@@ -10,7 +10,7 @@
     }, 
     {
         "pk": 2, 
-        "model": "manager.trainingschedule", 
+        "model": "manager.workout", 
         "fields": {
             "comment": "Another test workout", 
             "user": 1, 
@@ -19,7 +19,7 @@
     },
     {
         "pk": 3, 
-        "model": "manager.trainingschedule", 
+        "model": "manager.workout", 
         "fields": {
             "comment": "My test workout", 
             "user": 2, 
