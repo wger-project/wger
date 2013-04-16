@@ -22,7 +22,8 @@ detailed installation instructions on http://wger.de/en/software/code
  $ pip install wger
 
 
-2) Start the application. This will create a SQlite database and populate it with data on the first run
+2) Start the application. This will create a SQlite database and populate it
+with data on the first run
 
 ::
 
@@ -58,9 +59,11 @@ The available options for the ``wger`` command are ::
 Contact
 =======
 
-Feel free to write me an email (``roland [at] geider [dot] net``) if you found
-this useful or if there was something that didn't behave as you expected.
-Alternatively, you can also open a ticket on the bitbucket tracker:
+Feel free to write to the mailing list (https://groups.google.com/group/wger),
+to twitter (https://twitter.com/wger_de) or to me directly
+(``roland @ geider.net``) if you found this useful or if there was something
+that didn't behave as you expected. Alternatively, you can also open a ticket
+on the issue tracker:
 https://bitbucket.org/rolandgeider/workout_manager/issues
 
 
