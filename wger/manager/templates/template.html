@@ -70,10 +70,33 @@
 <body>
 {% browserid_info %}
 <header>
+    <div class="float-right" style="margin-right:1em;margin-top:0em;">
+
+        <a href="{% url 'contact' %}">{% trans "Get in touch" %}</a>
+        |
+        <a href="{{i18n_path.de}}">
+        <img src="{% static 'images/icons/flag-de.svg' %}"
+                 width="18"
+                 height="18"
+                 alt="{% trans 'German' %}"
+                 title="{% trans 'German' %}">
+        {% trans "German" %}</a>
+        |
+        <a href="{{i18n_path.en}}">
+        <img src="{% static 'images/icons/flag-en.svg' %}"
+                 width="18"
+                 height="18"
+                 alt="{% trans 'English' %}"
+                 title="{% trans 'English' %}">
+        {% trans "English" %}</a>
+    </div>
+
     <div class="ym-wrapper">
         <div class="ym-wbox">
             <span class="name">wger</span>
             <span class="regular">| Workout Manager</span>
+            
+            
         </div>
     </div>
 </header>
@@ -180,7 +203,6 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="{% url 'software:features' %}">{% trans "Features" %}</a></li>
                                     <li><a href="{% url 'software:contribute' %}">{% trans "Contribute!" %} </a></li>
-                                    <li><a href="{% url 'contact' %}">{% trans "Get in touch" %}</a></li>
                                     <li class="divider"></li>
                                     <li class="nav-header">{% trans "Developers" %}</li>
                                     <li><a href="{% url 'software:issues' %}">{% trans "Problems and wishes" %} </a></li>
@@ -222,27 +244,6 @@
                                 <li><a href="{% url 'wger.manager.views.user.registration' %}">{% trans "Register" %}</a><li></li>
                                 <li><a href="{% url 'django.contrib.auth.views.password_reset' %}">{% trans "Reset password" %}</a>
                                 {% endif %}
-
-                                <li class="divider"></li>
-                                <li class="nav-header">{% trans "Languages" %}</li>
-                                <li {% if language.short_name == 'de' %}class="active"{% endif %}>
-                                    <a href="{{i18n_path.de}}">
-                                    <img src="{% static 'images/icons/flag-de.svg' %}"
-                                             width="18"
-                                             height="18"
-                                             alt="{% trans 'German' %}"
-                                             title="{% trans 'German' %}">
-                                    {% trans "German" %}</a>
-                                </li>
-                                <li {% if language.short_name == 'en' %}class="active"{% endif %}>
-                                    <a href="{{i18n_path.en}}">
-                                    <img src="{% static 'images/icons/flag-en.svg' %}"
-                                             width="18"
-                                             height="18"
-                                             alt="{% trans 'English' %}"
-                                             title="{% trans 'English' %}">
-                                    {% trans "English" %}</a>
-                                </li>
                             </ul>
                         </ul>
                     </div><!--/.nav-collapse -->

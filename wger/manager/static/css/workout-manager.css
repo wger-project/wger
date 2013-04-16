@@ -310,6 +310,11 @@ header h1{
     font-weight: 300;
 }
 
+header a{
+    color:white;
+    font-size:90%;
+}
+
 header span.name{
     text-shadow: 2px 3px 3px #292929;
     font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
