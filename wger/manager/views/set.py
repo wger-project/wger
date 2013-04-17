@@ -54,7 +54,7 @@ logger = logging.getLogger('workout_manager.custom')
 # ************************
 # Set functions
 # ************************
-SETTING_FORMSET_EXCLUDE = ('set', 'exercise', 'comment', 'order')
+SETTING_FORMSET_EXCLUDE = ('comment',)
 SettingFormSet = inlineformset_factory(Set,
                                        Setting,
                                        can_delete=False,
@@ -118,7 +118,7 @@ def create(request, day_pk):
     context['max_sets'] = Set.MAX_SETS
     context['formsets'] = formsets
     context['form_action'] = reverse('set-add', kwargs={'day_pk': day_pk})
-    return render_to_response('set/edit.html',
+    return render_to_response('set/add.html',
                               context,
                               context_instance=RequestContext(request))
 
@@ -161,6 +161,75 @@ def delete(request, pk):
         return HttpResponseForbidden()
 
 
+from django.forms.models import modelformset_factory
+
+CoolSettingFormset = modelformset_factory(Setting,
+                                          exclude=SETTING_FORMSET_EXCLUDE,
+                                          can_delete=True,
+                                          can_order=False,
+                                          extra=1)
+
+
+@login_required
+def edit(request, pk):
+    '''
+    Edit a set (its settings actually)
+    '''
+    set_obj = get_object_or_404(Set, pk=pk)
+    if set_obj.get_owner_object().user != request.user:
+        return HttpResponseForbidden()
+
+    formsets = []
+    for exercise in set_obj.exercises.all():
+        queryset = Setting.objects.filter(set=set_obj, exercise=exercise)
+        formset = CoolSettingFormset(queryset=queryset, prefix='exercise{0}'.format(exercise.id))
+        formsets.append({'exercise': exercise, 'formset': formset})
+
+    if request.method == "POST":
+        formsets = []
+        for exercise in set_obj.exercises.all():
+            formset = CoolSettingFormset(request.POST,
+                                         prefix='exercise{0}'.format(exercise.id))
+            formsets.append({'exercise': exercise, 'formset': formset})
+
+        # If all formsets validate, save them
+        all_valid = True
+        for formset in formsets:
+            if not formset['formset'].is_valid():
+                all_valid = False
+
+        if all_valid:
+            for formset in formsets:
+                instances = formset['formset'].save(commit=False)
+                for instance in instances:
+                    # If the setting has already a set, we are editing...
+                    if hasattr(instance, 'set'):
+
+                        # Check that we are allowed to do this
+                        if instance.get_owner_object().user != request.user:
+                            return HttpResponseForbidden()
+
+                        instance.save()
+
+                    # ...if not, create a new setting
+                    else:
+                        instance.set = set_obj
+                        instance.order = 1
+                        instance.exercise = formset['exercise']
+                        instance.save()
+
+            return HttpResponseRedirect(reverse('wger.manager.views.workout.view',
+                                        kwargs={'id': set_obj.get_owner_object().id}))
+
+    # Other context we need
+    context = {}
+    context['formsets'] = formsets
+    context['form_action'] = reverse('set-edit', kwargs={'pk': pk})
+    return render_to_response('set/edit.html',
+                              context,
+                              context_instance=RequestContext(request))
+
+
 @login_required
 def api_edit_set(request):
     '''
@@ -190,103 +259,3 @@ def api_edit_set(request):
 
             return HttpResponse(_('Success'))
 
-        # This part is responsible for the in-place editing of the sets and settings
-        if request.GET.get('do') == 'edit_set':
-            template_data = {}
-            template_data.update(csrf(request))
-
-            # Load the objects
-            set_id = request.GET.get('set')
-            workout_set = get_object_or_404(Set, pk=set_id)
-            template_data['set'] = workout_set
-
-            exercise_id = request.GET.get('exercise')
-            exercise = get_object_or_404(Exercise, pk=exercise_id)
-
-            # Allow editing settings/repetitions that are not yet associated with the set
-            #
-            # We calculate here how many are there already [.filter(...)] and how many there could
-            # be at all (workout_set.sets)
-            current_settings = exercise.setting_set.filter(set_id=set_id).count()
-            diff = int(workout_set.sets) - current_settings
-
-            # If there are 'free slots', create some UUIDs for them, this gives them unique form
-            # names in the HTML and makes our lifes easier
-            new_settings = []
-            if diff > 0:
-
-                # Note: use UUIDs version 1 because they are monotonously increasing
-                #       and the order of the fields later is important
-                new_settings = [uuid.uuid1() for i in range(0, diff)]
-            template_data['new_settings'] = new_settings
-
-            # Process request
-            if request.method == 'POST':
-
-                new_exercise_id = request.POST.get('current_exercise')
-                new_exercise = get_object_or_404(Exercise, pk=new_exercise_id)
-
-                # When there is more than one exercise per set, we need to manually set and replace
-                # the IDs here, otherwise they get lost
-                request_copy = request.POST
-                request_copy = request_copy.copy()
-
-                exercise_list = [i for i in request_copy.getlist('exercises') if i != exercise_id]
-                request_copy.setlist('exercises', exercise_list)
-                request_copy.update({'exercises': new_exercise_id})
-
-                set_form = SetForm(request_copy, instance=workout_set)
-
-                if set_form.is_valid():
-                    set_form.save()
-
-                # Init a counter for the order in case we have to set it for new settings
-                # We don't actually care how hight the counter actually is, as long as the new
-                # settings get a number that puts them at the end
-                order_counter = 1
-                new_settings = []
-
-                # input fields for settings  'setting-x, setting-y, etc.',
-                #              new settings: 'new-setting-UUID1, new-setting-UUID2, etc.'
-                for i in request.POST:
-                    order_counter += 1
-
-                    # old settings, update
-                    if i.startswith('setting'):
-                        setting_id = int(i.split('-')[-1])
-                        setting = get_object_or_404(Setting, pk=setting_id)
-
-                        # Check if the new value is empty (the user wants the setting deleted)
-                        # We don't check more, if the user enters a string, it won't be converted
-                        # and nothing will happen
-                        if request.POST[i] == '':
-                            setting.delete()
-                        else:
-                            reps = int(request.POST[i])
-                            setting.reps = reps
-                            setting.exercise = new_exercise
-                            setting.save()
-
-                    # New settings, put in a list, see below
-                    if i.startswith('new-setting') and request.POST[i]:
-
-                        new_settings.append(i)
-
-                # new settings, sort by name (important to keep the order as
-                # it was inputted in the website),create object and save
-                new_settings.sort()
-                for i in new_settings:
-                    reps = int(request.POST[i])
-
-                    setting = Setting()
-                    setting.exercise = new_exercise
-                    setting.set = workout_set
-                    setting.reps = reps
-                    setting.order = order_counter
-                    setting.save()
-
-            template_data['exercise'] = exercise
-
-            return render_to_response('setting/ajax_edit.html',
-                                      template_data,
-                                      context_instance=RequestContext(request))

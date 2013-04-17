@@ -9,9 +9,7 @@ $(document).ready(function() {
     // Call the setup function to allow the sets to be sortable again after loading this
     // view via AJAX
     setup_sortable();
-    setup_ajax_set_edit();
-    setup_inplace_editing();
-    
+
     // Init the modal dialog to edit the exercise
     form_modal_dialog();
 
@@ -69,6 +67,15 @@ $(document).ready(function() {
                      alt="{% trans 'Move me' %}"
                      title="{% trans 'Move me' %}"
                      class="dragndrop-handle">
+                 <br>
+                 <a href="{% url 'set-edit' set.id %}"
+                   title="{% trans 'Edit' %}"
+                   class="modal-dialog">
+                       <img src="{% static 'images/icons/edit.svg' %}"
+                            width="22"
+                            height="22"
+                            alt="{% trans 'Edit' %}">
+                </a>
                  <a href="{% url 'wger.manager.views.set.delete' set.id %}"
                     title="{% trans 'Delete' %}">
                         <img src="{% static 'images/icons/trash.svg' %}"
@@ -113,25 +120,13 @@ $(document).ready(function() {
                         {% empty %}
                             <div class="box warning">
                                 {% trans "This exercise has no repetitions." %} 
-                                <a href="{% url 'setting-edit' set.id exercise.id %}"
-                                   class="ajax-set-edit">
+                                <a href="{% url 'set-edit' set.id %}"
+                                   class="modal-dialog">
                                 {% trans "Edit them now."%}
                             </a>
                             </div>
                         {% endfor %} <!--for setting in exercise-->
                         </span>
-                        
-                        <span class="editoptions">
-                            <a href="{% url 'setting-edit' set.id exercise.id %}"
-                               title="{% trans 'Edit' %}"
-                               class="ajax-set-edit">
-                                <img src="{% static 'images/icons/edit.svg' %}"
-                                     width="16"
-                                     height="16"
-                                     alt="{% trans 'Edit' %}">
-                            </a>
-                        </span>
-                        
                         
                         <div class="exercise-comments dimmed">
                             <ul>

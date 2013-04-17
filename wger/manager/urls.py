@@ -85,16 +85,12 @@ urlpatterns = patterns('wger.manager.views',
         'set.get_formset',
         name='set-get-formset'), # Used by JS
     url(r'^workout/set/(?P<pk>\d+)/delete$', 'set.delete'),
-    #url(r'^workout/set/(?P<set_id>\d+)/setting/edit/$',
-    #    login_required(setting.SettingEditView.as_view()),
-    #    name='setting-edit'),
-    url(r'^workout/set/(?P<set_id>\d+)/exercise/(?P<exercise_id>\d+)/setting/edit/',
-        'setting.edit_setting',
-        name='setting-edit'),
-
+    url(r'^workout/set/(?P<pk>\d+)/edit/$',
+        'set.edit',
+        name='set-edit'),
+    
     # AJAX
     url(r'^workout/api/edit-set$', 'set.api_edit_set'),
-    url(r'^workout/api/edit-settting$', 'setting.api_edit_setting'),
     url(r'^workout/api/user-preferences$', 'user.api_user_preferences'),
     
     # Others

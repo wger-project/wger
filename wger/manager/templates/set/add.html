@@ -9,7 +9,20 @@
         Title
 -->
 
-{% block title %}{% trans "Edit set" %}{% endblock %}
+{% block title %}{% with day_name=day.description %}{% blocktrans %}Add exercises to day "{{day_name}}"{% endblocktrans %}{% endwith %}{% endblock %}
+
+
+<!--
+        Header
+-->
+{% block header %}
+<script>
+function custom_page_init()
+{
+    init_edit_set();
+}
+</script>
+{% endblock %}
 
 <!--
         Main Content
@@ -23,6 +36,18 @@
 
 {% csrf_token %}
 <table>
+    {% yaml_form_field form.exercises %}
+    <tr>
+        <td style="text-align:right;">
+            <label for="slider">{{form.sets.label}}</label>
+        </td>
+        <td>
+            <div id="slider"></div>
+            <span id="slider-show">{{form.sets.value}}</span>
+            <input type="hidden" id="id_sets" name="sets" value="{{ form.sets.value }}">
+        </td>
+    </tr>
+
     <tr>
         <td colspan="2">
             <div id="formsets">
