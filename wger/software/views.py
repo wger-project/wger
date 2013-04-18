@@ -17,6 +17,7 @@
 from django.views.generic import TemplateView
 from django.core.urlresolvers import reverse
 
+
 class ContextTemplateView(TemplateView):
     '''
     Overwrite TemplateView so we can use 'contribute' within a

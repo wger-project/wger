@@ -89,68 +89,6 @@ function setup_sortable()
 
 
 /*
- * Setup JQuery calls to edit the sets
- */
-function setup_ajax_set_edit()
-{
-    // Unbind all other click events so we don't do this more than once
-    $(".ajax-set-edit").off();
-
-    $(".ajax-set-edit").click(function(e) {
-        e.preventDefault();
-
-        var set_id = $(this).parents('tr').attr('id').match(/\d+/);
-        var exercise_id = $(this).parents('.ajax-set-edit-target').attr('id').match(/\d+/);
-
-        load_edit_set($(this).parents('.ajax-set-edit-target'), set_id, exercise_id)
-    });
-}
-
-function load_edit_set(element, set_id, exercise_id)
-{
-    $(element).load('/' + get_current_language() + "/workout/api/edit-set?do=edit_set&set=" + set_id + "&exercise=" + exercise_id);
-}
-
-function setup_inplace_editing()
-{
-    $(".ajax-form-cancel").each(function(index, element) {
-
-
-        var exercise_id = $(this).parents('.ajax-set-edit-target').attr('id').match(/\d+/);
-        var day_id = $(this).parents('table').attr('id').match(/\d+/);
-        var set_id = $(this).parents('tr').attr('id').match(/\d+/);
-
-        // Editing of set
-        $(element).click(function(e) {
-            e.preventDefault();
-            $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/" + day_id + "/view/");
-        })
-
-        // Send the Form
-        $('.ajax-form-set-edit').submit(function(e) {
-          e.preventDefault();
-
-          url = '/' + get_current_language() + "/workout/api/edit-set?do=edit_set&set=" + set_id + "&exercise=" + exercise_id
-          form_data = $(this).serialize();
-          $.post( url, form_data);
-
-          $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/" + day_id + "/view/");
-        });
-
-        // Init the autocompleter
-        $(".ajax-form-exercise-list").catcomplete({
-                source: '/' + get_current_language() + "/exercise/search/",
-                minLength: 2,
-                select: function(event, ui) {
-
-                    // After clicking on a result set the value of the hidden field
-                    $('#set-' + set_id + '-exercercise-id-hidden').val(ui.item.id);
-                }
-            });
-    });
-}
-
-/*
  *
  * Functions related to the user's preferences
  *

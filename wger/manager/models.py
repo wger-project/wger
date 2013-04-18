@@ -152,10 +152,10 @@ class Setting(models.Model):
     Settings for an exercise (weight, reps, etc.)
     '''
 
-    set = models.ForeignKey(Set, verbose_name=_('Sets'))
-    exercise = models.ForeignKey(Exercise, verbose_name=_('Exercises'))
+    set = models.ForeignKey(Set, verbose_name=_('Sets'), editable=False)
+    exercise = models.ForeignKey(Exercise, verbose_name=_('Exercises'), editable=False)
     reps = models.IntegerField(validators=[MaxValueValidator(40)], verbose_name=_('Repetitions'))
-    order = models.IntegerField(blank=True, verbose_name=_('Order'))
+    order = models.IntegerField(blank=True, verbose_name=_('Order'), editable=False)
     comment = models.CharField(max_length=100, blank=True, verbose_name=_('Comment'))
 
     # Metaclass to set some other properties
