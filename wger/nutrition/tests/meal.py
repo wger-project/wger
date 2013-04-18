@@ -55,7 +55,7 @@ class PlanOverviewTestCase(WorkoutManagerTestCase):
     Tests the nutrition plan overview
     '''
 
-    def get_plan_overview(self, logged_in=False):
+    def get_plan_overview(self):
         '''
         Helper function to test the nutrition plan overview
         '''
@@ -63,25 +63,15 @@ class PlanOverviewTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('wger.nutrition.views.plan.overview'))
 
         # Page exists
-        if logged_in:
-            self.assertEqual(response.status_code, 200)
-            self.assertEqual(len(response.context['plans']), 3)
-        else:
-            self.assertEqual(response.status_code, 302)
-
-    def test_dashboard_anonymous(self):
-        '''
-        Test the nutrition plan as anonymous user
-        '''
-
-        self.get_plan_overview()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['plans']), 3)
 
     def test_dashboard_logged_in(self):
         '''
         Test the nutrition plan as a logged in user
         '''
         self.user_login()
-        self.get_plan_overview(logged_in=True)
+        self.get_plan_overview()
 
 
 class PlanDetailTestCase(WorkoutManagerTestCase):
@@ -103,13 +93,6 @@ class PlanDetailTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 200)
             plan = NutritionPlan.objects.get(pk=1)
             self.assertEqual(response.context['plan'], plan)
-
-    def test_dashboard_anonymous(self):
-        '''
-        Test the nutrition plan as anonymous user
-        '''
-
-        self.get_plan_detail_page(fail=True)
 
     def test_dashboard_owner(self):
         '''

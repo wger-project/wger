@@ -14,8 +14,11 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+import logging
 import decimal
 import json
+
+logger = logging.getLogger('workout_manager.custom')
 
 
 class DecimalJsonEncoder(json.JSONEncoder):

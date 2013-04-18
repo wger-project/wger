@@ -14,25 +14,14 @@
                             {#          #}
                             {# User tab #}
                             {#          #}
-                            <li {% if active_tab == 'user' %}class="active"{% endif %}>
-                            {% if not user.is_authenticated %}
-                                <a href="{% url 'login' %}">{% trans "Login" %}</a>
-                            {% else %}
-                                <a href="{% url 'index' %}">{% trans "Dashboard" %}</a>
-                            {% endif %}
-                            </li>
-                            {% if not user.is_authenticated %}
-                            <li><a href="{% url 'demo-account' %}">{% trans "Demo account" %} </a></li>
-                            {% endif %}
-
+                            <li {% if active_tab == 'user' %}class="active"{% endif %}><a href="{% url 'index' %}">{% trans "Dashboard" %}</a></li>
+                            
 
                             {#             #}
                             {# Workout tab #}
                             {#             #}
-                            {% if user.is_authenticated %}
                             <li {% if active_tab == 'workout' %}class="active"{% endif %}><a href="{% url 'wger.manager.views.workout.overview' %}">{% trans "Workouts" %}</a></li>
-                            {% endif %}
-
+                            
 
                             {#               #}
                             {# Exercises tab #}
@@ -56,7 +45,6 @@
                             {#            #}
                             {# Weight tab #}
                             {#            #}
-                            {% if user.is_authenticated %}
                             <li class="dropdown{% if active_tab == 'weight'    %} active{% endif %}">
 
                                 <a href="{% url 'wger.weight.views.overview' %}"
@@ -67,8 +55,7 @@
                                     <li><a href="{% url 'weight-add' %}">{% trans "Add weight entry" %}</a></li>
                                 </ul>
                             </li>
-                            {% endif %}
-
+                            
 
                             {#               #}
                             {# Nutrition tab #}
@@ -78,10 +65,8 @@
                                    class="dropdown-toggle"
                                    data-toggle="dropdown">{% trans "Nutrition" %} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                {% if user.is_authenticated %}
-                                    <li><a href="{% url 'wger.nutrition.views.plan.overview' %}">{% trans "Nutrition plans" %}</a></li>
-                                {% endif %}
-                                    <li><a href="{% url 'ingredient-list' %}">{% trans "Ingredient overview" %}</a></li>
+                                <li><a href="{% url 'wger.nutrition.views.plan.overview' %}">{% trans "Nutrition plans" %}</a></li>
+                                <li><a href="{% url 'ingredient-list' %}">{% trans "Ingredient overview" %}</a></li>
                                 {% if perms.exercises %}
                                     <li class="divider"></li>
                                     <li class="nav-header">{% trans "Administration" %}</li>
@@ -116,6 +101,7 @@
                         {#             #}
                         {# Options tab #}
                         {#             #}
+                        {% if not user.is_authenticated or user.get_profile.is_temporary %}
                         <ul class="nav pull-right">
                             <li class="divider-vertical"></li>
                             <li class="dropdown">
@@ -126,25 +112,18 @@
                             <ul class="dropdown-menu">
                                 {% if user.is_authenticated %}
                                 <li>
-                                    <a href="{% url 'wger.manager.views.user.logout' %}" id="logout" class="browserid-logout">
-                                    {% trans 'Logout' %}
-                                    </a>
-                                </li>
-                                <li>
                                     <a href="{% url 'wger.manager.views.user.preferences' %}">
                                     {% trans 'My preferences' %}
                                     </a>
                                 </li>
+                                {% endif %}
                                 
-                                {# logged out user #}
-                                {% else %}                                
                                 <li><a href="{% url 'login' %}">{% trans "Login" %}</a></li>
-                                <li><a href="{% url 'demo-account' %}">{% trans "Try the demo" %}</a></li>
                                 <li><a href="{% url 'wger.manager.views.user.registration' %}">{% trans "Register" %}</a><li></li>
                                 <li><a href="{% url 'django.contrib.auth.views.password_reset' %}">{% trans "Reset password" %}</a>
-                                {% endif %}
                             </ul>
                         </ul>
+                        {% endif %}
                     </div><!--/.nav-collapse -->
                 </div>
             </div>

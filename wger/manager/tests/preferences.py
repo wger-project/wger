@@ -26,7 +26,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
     Tests the preferences page
     '''
 
-    def preferences(self, fail=True):
+    def preferences(self):
         '''
         Helper function to test the preferences page
         '''
@@ -34,12 +34,8 @@ class PreferencesTestCase(WorkoutManagerTestCase):
         # Fetch the preferences page
         response = self.client.get(reverse('preferences'))
 
-        if fail:
-            self.assertEqual(response.status_code, 302)
-            self.assertTemplateUsed('index.html')
-        else:
-            self.assertEqual(response.status_code, 200)
-            self.assertTemplateUsed('preferences.html')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed('preferences.html')
 
         # Change some preferences
         response = self.client.post(reverse('preferences'),
@@ -49,11 +45,10 @@ class PreferencesTestCase(WorkoutManagerTestCase):
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('preferences'))
-        if not fail:
-            profile = response.context['user'].get_profile()
-            self.assertTrue(profile.show_comments)
-            self.assertTrue(profile.show_english_ingredients)
-            self.assertEqual(response.context['user'].email, 'my-new-email@example.com')
+        profile = response.context['user'].get_profile()
+        self.assertTrue(profile.show_comments)
+        self.assertTrue(profile.show_english_ingredients)
+        self.assertEqual(response.context['user'].email, 'my-new-email@example.com')
 
         # Change some preferences
         response = self.client.post(reverse('preferences'),
@@ -62,18 +57,10 @@ class PreferencesTestCase(WorkoutManagerTestCase):
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('preferences'))
-        if not fail:
-            profile = response.context['user'].get_profile()
-            self.assertFalse(profile.show_comments)
-            self.assertTrue(profile.show_english_ingredients)
-            self.assertEqual(response.context['user'].email, '')
-
-    def test_preferences_anonymous(self):
-        '''
-        Tests the preferences page as an anonymous user
-        '''
-
-        self.preferences(fail=True)
+        profile = response.context['user'].get_profile()
+        self.assertFalse(profile.show_comments)
+        self.assertTrue(profile.show_english_ingredients)
+        self.assertEqual(response.context['user'].email, '')
 
     def test_preferences_logged_in(self):
         '''
@@ -81,7 +68,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
         '''
 
         self.user_login('test')
-        self.preferences(fail=False)
+        self.preferences()
 
 
 class AjaxPreferencesTestCase(WorkoutManagerTestCase):
@@ -89,7 +76,7 @@ class AjaxPreferencesTestCase(WorkoutManagerTestCase):
     Tests editing user preferences via AJAX
     '''
 
-    def preferences(self, fail=True):
+    def preferences(self):
         '''
         Helper function to test the preferences page
         '''
@@ -100,18 +87,14 @@ class AjaxPreferencesTestCase(WorkoutManagerTestCase):
                                    'show': '1'},
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
-        if fail:
-            self.assertEqual(response.status_code, 302)
-            self.assertTemplateUsed('index.html')
-        else:
-            self.assertEqual('Success', response.content)
-            self.assertEqual(response.status_code, 200)
+        self.assertEqual('Success', response.content)
+        self.assertEqual(response.status_code, 200)
 
-            response = self.client.get(reverse('preferences'))
-            profile = response.context['user'].get_profile()
-            self.assertTrue(profile.show_comments)
-            self.assertFalse(profile.show_english_ingredients)
-            self.assertEqual(response.context['user'].email, 'test@example.com')
+        response = self.client.get(reverse('preferences'))
+        profile = response.context['user'].get_profile()
+        self.assertTrue(profile.show_comments)
+        self.assertFalse(profile.show_english_ingredients)
+        self.assertEqual(response.context['user'].email, 'test@example.com')
 
         # Set the 'english ingredients' option
         response = self.client.get(reverse('wger.manager.views.user.api_user_preferences'),
@@ -119,25 +102,14 @@ class AjaxPreferencesTestCase(WorkoutManagerTestCase):
                                    'show': '1'},
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
-        if fail:
-            self.assertEqual(response.status_code, 302)
-            self.assertTemplateUsed('index.html')
-        else:
-            self.assertEqual('Success', response.content)
-            self.assertEqual(response.status_code, 200)
+        self.assertEqual('Success', response.content)
+        self.assertEqual(response.status_code, 200)
 
-            response = self.client.get(reverse('preferences'))
-            profile = response.context['user'].get_profile()
-            self.assertTrue(profile.show_comments)
-            self.assertTrue(profile.show_english_ingredients)
-            self.assertEqual(response.context['user'].email, 'test@example.com')
-
-    def test_preferences_anonymous(self):
-        '''
-        Tests the preferences page as an anonymous user
-        '''
-
-        self.preferences(fail=True)
+        response = self.client.get(reverse('preferences'))
+        profile = response.context['user'].get_profile()
+        self.assertTrue(profile.show_comments)
+        self.assertTrue(profile.show_english_ingredients)
+        self.assertEqual(response.context['user'].email, 'test@example.com')
 
     def test_preferences_logged_in(self):
         '''
@@ -145,4 +117,4 @@ class AjaxPreferencesTestCase(WorkoutManagerTestCase):
         '''
 
         self.user_login('test')
-        self.preferences(fail=False)
+        self.preferences()

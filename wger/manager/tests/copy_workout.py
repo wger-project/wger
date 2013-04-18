@@ -27,15 +27,15 @@ class CopyWorkoutTestCase(WorkoutManagerTestCase):
     Tests copying a workout
     '''
 
-    def copy_workout(self, logged_in=False):
+    def copy_workout(self, owner=False):
         '''
         Helper function to test copying workouts
         '''
 
         # Open the copy workout form
         response = self.client.get(reverse('workout-copy', kwargs={'pk': '3'}))
-        if not logged_in:
-            self.assertEqual(response.status_code, 302)
+        if not owner:
+            self.assertEqual(response.status_code, 404)
         else:
             self.assertEqual(response.status_code, 200)
 
@@ -45,7 +45,7 @@ class CopyWorkoutTestCase(WorkoutManagerTestCase):
                                     {'comment': 'A copied workout'})
         count_after = Workout.objects.count()
 
-        if not logged_in:
+        if not owner:
             self.assertEqual(count_before, count_after)
         else:
             self.assertGreater(count_after, count_before)
@@ -57,8 +57,8 @@ class CopyWorkoutTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('wger.manager.views.workout.view',
                                            kwargs={'id': 4}))
 
-        if not logged_in:
-            self.assertEqual(response.status_code, 302)
+        if not owner:
+            self.assertEqual(response.status_code, 404)
         else:
             self.assertEqual(response.status_code, 200)
 
@@ -91,17 +91,18 @@ class CopyWorkoutTestCase(WorkoutManagerTestCase):
                     for k in range(sets_original[j].exercises.count()):
                         self.assertEqual(exercises_original[k], exercises_copy[k])
 
-    def test_copy_workout_anonymous(self):
+    def test_copy_workout_other(self):
         '''
-        Test copying a workout as anonymous user
+        Test copying a workout as different user
         '''
 
-        self.copy_workout()
+        self.user_login('admin')
+        self.copy_workout(owner=False)
 
-    def test_copy_workout_logged_in(self):
+    def test_copy_workout_owner(self):
         '''
-        Test copying a workout as a logged in user
+        Test copying a workout as the owener user
         '''
 
         self.user_login('test')
-        self.copy_workout(logged_in=True)
+        self.copy_workout(owner=True)

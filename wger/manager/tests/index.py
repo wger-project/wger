@@ -27,7 +27,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
     Dashboard (landing page) test case
     '''
 
-    def dashboard(self, logged_in=False):
+    def dashboard(self):
         '''
         Helper function to test the dashboard
         '''
@@ -43,17 +43,12 @@ class DashboardTestCase(WorkoutManagerTestCase):
         WeightEntry.objects.all().delete()
 
         response = self.client.get(reverse('dashboard'))
-        if logged_in:
-            # There is something to send to the template
-            self.assertEqual(response.status_code, 200)
-            self.assertFalse(response.context['weight'])
-            self.assertFalse(response.context['current_workout'])
-            self.assertFalse(response.context['plan'])
-            self.assertRaises(KeyError, lambda: response.context['weekdays'])
-
-        else:
-            # Anonymous users are still redirected to the login page
-            self.assertEqual(response.status_code, 302)
+        # There is something to send to the template
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(response.context['weight'])
+        self.assertFalse(response.context['current_workout'])
+        self.assertFalse(response.context['plan'])
+        self.assertRaises(KeyError, lambda: response.context['weekdays'])
 
         #
         # 1. Add a workout
@@ -61,15 +56,11 @@ class DashboardTestCase(WorkoutManagerTestCase):
         self.client.get(reverse('wger.manager.views.workout.add'))
         response = self.client.get(reverse('dashboard'))
 
-        if logged_in:
-            self.assertEqual(response.status_code, 200)
-            self.assertFalse(response.context['weight'])
-            self.assertTrue(response.context['current_workout'])
-            self.assertFalse(response.context['plan'])
-            self.assertTrue(response.context['weekdays'])
-
-        else:
-            self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(response.context['weight'])
+        self.assertTrue(response.context['current_workout'])
+        self.assertFalse(response.context['plan'])
+        self.assertTrue(response.context['weekdays'])
 
         #
         # 2. Add a nutrition plan
@@ -77,15 +68,11 @@ class DashboardTestCase(WorkoutManagerTestCase):
         self.client.get(reverse('wger.nutrition.views.plan.add'))
         response = self.client.get(reverse('dashboard'))
 
-        if logged_in:
-            self.assertEqual(response.status_code, 200)
-            self.assertFalse(response.context['weight'])
-            self.assertTrue(response.context['current_workout'])
-            self.assertTrue(response.context['plan'])
-            self.assertTrue(response.context['weekdays'])
-
-        else:
-            self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(response.context['weight'])
+        self.assertTrue(response.context['current_workout'])
+        self.assertTrue(response.context['plan'])
+        self.assertTrue(response.context['weekdays'])
 
         #
         # 3. Add a weight entry
@@ -95,22 +82,11 @@ class DashboardTestCase(WorkoutManagerTestCase):
                          'creation_date': '2012-01-01'},)
         response = self.client.get(reverse('dashboard'))
 
-        if logged_in:
-            self.assertEqual(response.status_code, 200)
-            self.assertTrue(response.context['weight'])
-            self.assertTrue(response.context['current_workout'])
-            self.assertTrue(response.context['plan'])
-            self.assertTrue(response.context['weekdays'])
-
-        else:
-            self.assertEqual(response.status_code, 302)
-
-    def test_dashboard_anonymous(self):
-        '''
-        Test index page as anonymous user
-        '''
-
-        self.dashboard()
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context['weight'])
+        self.assertTrue(response.context['current_workout'])
+        self.assertTrue(response.context['plan'])
+        self.assertTrue(response.context['weekdays'])
 
     def test_dashboard_logged_in(self):
         '''
@@ -118,4 +94,4 @@ class DashboardTestCase(WorkoutManagerTestCase):
         '''
 
         self.user_login('admin')
-        self.dashboard(logged_in=True)
+        self.dashboard()

@@ -258,4 +258,3 @@ def api_edit_set(request):
                     return HttpResponseForbidden()
 
             return HttpResponse(_('Success'))
-

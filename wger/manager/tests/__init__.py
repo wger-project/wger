@@ -1,5 +1,4 @@
 from wger.manager.tests.index import *
-from wger.manager.tests.demo_user import *
 from wger.manager.tests.registration import *
 from wger.manager.tests.preferences import *
 from wger.manager.tests.change_password import *

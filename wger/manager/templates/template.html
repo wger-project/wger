@@ -72,6 +72,25 @@
 <header>
     <div class="float-right" style="margin-right:1em;margin-top:0em;">
 
+        {% if user.is_authenticated and not user.get_profile.is_temporary %}
+            <a href="{% url 'wger.manager.views.user.preferences' %}">
+            {% if user.email %}
+                {{user.email}}
+            {% else %}
+                {{user.username}}
+            {% endif %}
+            </a>
+            |
+
+            <a href="{% url 'logout' %}">
+            {% trans "Logout" %}
+            </a>
+        {% elif user.is_authenticated and user.get_profile.is_temporary %}
+            <a href="{% url 'wger.manager.views.user.registration' %}">{% trans "Register" %}</a>
+        {% else %}
+            <a href="{% url 'login' %}">{% trans "Login" %}</a>
+        {% endif %}
+        |
         <a href="{% url 'contact' %}">{% trans "Get in touch" %}</a>
         |
         <a href="{{i18n_path.de}}">

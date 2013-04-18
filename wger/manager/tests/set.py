@@ -192,7 +192,7 @@ class TestSetAddFormset(WorkoutManagerTestCase):
     set page
     '''
 
-    def get_formset(self, fail=False):
+    def get_formset(self):
         '''
         Helper function
         '''
@@ -200,19 +200,9 @@ class TestSetAddFormset(WorkoutManagerTestCase):
         response = self.client.get(reverse('set-get-formset',
                                    kwargs={'exercise_pk': 1, 'reps': 4}))
 
-        if fail:
-            self.assertEqual(response.status_code, 302)
-        else:
-            self.assertEqual(response.status_code, 200)
-            self.assertEqual(response.context['exercise'], exercise)
-            self.assertTrue(response.context['formset'])
-
-    def test_get_formset_anonymous(self):
-        '''
-        Tests the formset view as an anonymous user
-        '''
-
-        self.get_formset(fail=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['exercise'], exercise)
+        self.assertTrue(response.context['formset'])
 
     def test_get_formset_logged_in(self):
         '''
@@ -220,4 +210,4 @@ class TestSetAddFormset(WorkoutManagerTestCase):
         '''
 
         self.user_login('test')
-        self.get_formset(fail=False)
+        self.get_formset()

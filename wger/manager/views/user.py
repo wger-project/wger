@@ -69,9 +69,12 @@ def login(request):
 
 def logout(request):
     '''
-    Logout the user
+    Logout the user. For temporary users, delete them.
     '''
+    user = request.user
     django_logout(request)
+    if user.get_profile().is_temporary:
+        user.delete()
     return HttpResponseRedirect(reverse('login'))
 
 
@@ -113,161 +116,6 @@ def registration(request):
     template_data['submit_text'] = _('Register')
 
     return render_to_response('form.html',
-                              template_data,
-                              context_instance=RequestContext(request))
-
-
-def create_demo_user(request):
-    '''
-    Creates a demo user and adds some initial data
-    '''
-
-    template_data = {}
-    template_data.update(csrf(request))
-
-    if request.method == 'POST':
-        form = DemoUserForm(data=request.POST)
-
-        # If the data is valid, create a user, log in and redirect
-        if form.is_valid():
-            username = uuid.uuid4().hex[:-2]
-            password = uuid.uuid4().hex[:-2]
-            email = ''
-            user = Django_User.objects.create_user(username,
-                                                   email,
-                                                   password)
-            user.save()
-            user_profile = user.get_profile()
-            user_profile.is_temporary = True
-            user_profile.save()
-
-            #
-            # Create some initial data
-            # (this is a bit ugly...)
-            #
-
-            # Workout and exercises
-            workout = Workout(user=user, comment=_('Sample workout'))
-            workout.save()
-            monday = DaysOfWeek.objects.get(pk=1)
-            wednesday = DaysOfWeek.objects.get(pk=3)
-            day = Day(training=workout, description=_('Sample day'))
-            day.save()
-            day.day.add(monday)
-
-            day2 = Day(training=workout, description=_('Another sample day'))
-            day2.save()
-            day2.day.add(wednesday)
-
-            # Biceps curls with dumbbell
-            if(load_language().short_name == 'de'):
-                exercise = Exercise.objects.get(pk=26)
-            else:
-                exercise = Exercise.objects.get(pk=81)
-            day_set = Set(exerciseday=day,
-                          sets=4,
-                          order=2)
-            day_set.save()
-            day_set.exercises.add(exercise)
-
-            setting = Setting(set=day_set,
-                              exercise=exercise,
-                              reps=8,
-                              order=1)
-            setting.save()
-
-            # Weight log entries
-            for reps in (7, 8, 9, 10):
-                for i in range(1, 8):
-                    log = WorkoutLog(user=user,
-                                     exercise=exercise,
-                                     workout=workout,
-                                     reps=reps,
-                                     weight=30 - reps + random.randint(1, 5),
-                                     date=datetime.date.today() - datetime.timedelta(weeks=i))
-                    log.save()
-
-            # French press
-            if(load_language().short_name == 'de'):
-                exercise = Exercise.objects.get(pk=25)
-            else:
-                exercise = Exercise.objects.get(pk=84)
-            day_set = Set(exerciseday=day,
-                          sets=4,
-                          order=2)
-            day_set.save()
-            day_set.exercises.add(exercise)
-
-            setting = Setting(set=day_set,
-                              exercise=exercise,
-                              reps=8,
-                              order=1)
-            setting.save()
-
-            # Squats
-            if(load_language().short_name == 'de'):
-                exercise = Exercise.objects.get(pk=6)
-            else:
-                exercise = Exercise.objects.get(pk=111)
-            day_set = Set(exerciseday=day,
-                          sets=4,
-                          order=3)
-            day_set.save()
-            day_set.exercises.add(exercise)
-
-            setting = Setting(set=day_set,
-                              exercise=exercise,
-                              reps=10,
-                              order=1)
-            setting.save()
-
-            # Crunches
-            if(load_language().short_name == 'de'):
-                exercise = Exercise.objects.get(pk=4)
-            else:
-                exercise = Exercise.objects.get(pk=91)
-            day_set = Set(exerciseday=day,
-                          sets=4,
-                          order=4)
-            day_set.save()
-            day_set.exercises.add(exercise)
-
-            setting = Setting(set=day_set,
-                              exercise=exercise,
-                              reps=30,
-                              order=1)
-            setting.save()
-
-            setting = Setting(set=day_set,
-                              exercise=exercise,
-                              reps=99,
-                              order=2)
-            setting.save()
-
-            setting = Setting(set=day_set,
-                              exercise=exercise,
-                              reps=35,
-                              order=3)
-            setting.save()
-
-            # (Body) weight entries
-            for i in range(1, 20):
-                creation_date = datetime.date.today() - datetime.timedelta(days=i)
-                entry = WeightEntry(user=user,
-                                    weight=80 + 0.5*i + random.randint(1, 3),
-                                    creation_date=creation_date)
-                entry.save()
-
-            user = authenticate(username=username, password=password)
-            django_login(request, user)
-            return HttpResponseRedirect(reverse('dashboard'))
-    else:
-        form = DemoUserForm()
-
-    template_data['form'] = form
-    template_data['submit_text'] = _('Register')
-
-    return render_to_response('user/demo.html',
                               template_data,
                               context_instance=RequestContext(request))
 

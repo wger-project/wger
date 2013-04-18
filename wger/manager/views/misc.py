@@ -143,10 +143,10 @@ class FeedbackClass(FormView):
         Load the correct feedback form depending on the user
         (either with reCaptcha field or not)
         '''
-        if self.request.user.is_authenticated():
-            return forms.FeedbackRegisteredForm
-        else:
+        if self.request.user.get_profile().is_temporary:
             return forms.FeedbackAnonymousForm
+        else:
+            return forms.FeedbackRegisteredForm
 
     def form_valid(self, form):
         '''
