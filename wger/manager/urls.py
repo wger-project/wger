@@ -10,7 +10,6 @@ from wger.manager.views.log import WorkoutLogUpdateView
 from wger.manager.views.day import DayEditView
 from wger.manager.views.day import DayCreateView
 from wger.manager.views import set
-from wger.manager.views import setting
 from wger.manager.views import misc
 
 from wger.utils.constants import USER_TAB
