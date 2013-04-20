@@ -66,8 +66,7 @@ the application.{% endblocktrans %}</p>
     <li>{% blocktrans %}Use <code>wger --help</code> to see available options{% endblocktrans %}</li>
     <li>{% blocktrans %}You should edit the settings.py and enter your
 <a href="https://www.google.com/recaptcha">reCaptcha keys</a>. You can leave
-this blank or enter bogus data, but you won't be able e.g. to register new users
-or use the demo account.{% endblocktrans %}</li>
+this blank or enter bogus data, but you won't be able e.g. to register new users.{% endblocktrans %}</li>
     <li>{% blocktrans %}For the sitemap.xml file to be correctly generated,
 you need to set a correct domain name in the sites app (only needed for search
 engines). This is done via django's admin interface (/admin/){% endblocktrans %}</li>
@@ -85,22 +84,22 @@ if things don't go as expected.{% endblocktrans %}</li>
 
 
 <h3>{% trans "How to get the code" %}</h3>
-<p>{% blocktrans %}The code is hosted both on bitbucket and on github. If
+<p>{% blocktrans %}The code is hosted both on github and on bitbucket. If
 you are unfamiliar with mercurial or git, take a look at <a href="http://hginit.com/">HG
-init</a> or <a href="http://git-scm.com/book">Pro Git</a>. While I personally
-prefer hg over git, many other people don't. Both repositories are mantained
-in sync, so you should be able to work on either one.{% endblocktrans %}</p>
+init</a> or <a href="http://git-scm.com/book">Pro Git</a>. Both repositories
+are mantained in sync, so you should be able to work on either one (issues
+are only collected in github).{% endblocktrans %}</p>
 
 <p>
-<a class="btn btn-primary" href="https://bitbucket.org/rolandgeider/workout_manager">bitbucket (HG) »</a>
+<a class="btn btn-primary" href="https://github.com/rolandgeider/wger">github (GIT) »</a>
     {% trans "the main repository. All work happens here." %}<br>
-    <code>hg clone https://bitbucket.org/rolandgeider/workout_manager</code>
+    <code>git clone https://github.com/rolandgeider/wger.git</code>
 </p>
 
 <p>
-<a class="btn btn-primary" href="https://github.com/rolandgeider/workout_manager">github (GIT) »</a>
+<a class="btn btn-primary" href="https://bitbucket.org/rolandgeider/wger">bitbucket (HG) »</a>
     {% trans "a mirror of the main repo." %}<br>
-    <code>git clone https://github.com/rolandgeider/workout_manager.git</code>
+    <code>hg clone https://bitbucket.org/rolandgeider/wger</code>
 </p>
 
 
@@ -136,8 +135,8 @@ $ pip install -r requirements.txt
 <p>{% blocktrans %}Get the code and create a superuser:{% endblocktrans %}</p>
 
 <code>
-$ hg clone https://bitbucket.org/rolandgeider/workout_manager
-$ cd workout_manager
+$ git clone https://github.com/rolandgeider/wger.git
+$ cd wger
 $ python start.py
 </code>
 

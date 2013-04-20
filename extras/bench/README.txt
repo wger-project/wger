@@ -5,8 +5,8 @@ Simple funkLoad test
 This is a simple funkLoad testcase.
 
 You need to install funkload (can be done e.g. with pip) and gnuplot (via your
-package manager) if you want to create plots. It requires an running web test
-server.
+package manager) if you want to create plots. It requires a running web test
+server (you can edit which one in the .conf file)
 
 WARNING: You should *not* run this script against a server that is not under
 your responsablity as it can result a DOS in bench mode.

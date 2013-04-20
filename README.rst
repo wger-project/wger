@@ -64,7 +64,7 @@ to twitter (https://twitter.com/wger_de) or to me directly
 (``roland @ geider.net``) if you found this useful or if there was something
 that didn't behave as you expected. Alternatively, you can also open a ticket
 on the issue tracker:
-https://bitbucket.org/rolandgeider/workout_manager/issues
+https://github.com/rolandgeider/wger/issues
 
 
 Sources
@@ -72,8 +72,8 @@ Sources
 
 All the code and the content is freely available:
 
-* **Main repository**: HG, https://bitbucket.org/rolandgeider/workout_manager
-* **Mirror**: GIT, https://github.com/rolandgeider/workout_manager
+* **Main repository**: GIT, https://github.com/rolandgeider/wger
+* **Mirror**: HG, https://bitbucket.org/rolandgeider/wger
 
 
 Licence
