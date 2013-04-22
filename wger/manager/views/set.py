@@ -17,6 +17,7 @@
 import logging
 import uuid
 
+from django.forms.models import modelformset_factory
 from django.forms.models import inlineformset_factory
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -55,12 +56,12 @@ logger = logging.getLogger('workout_manager.custom')
 # Set functions
 # ************************
 SETTING_FORMSET_EXCLUDE = ('comment',)
-SettingFormSet = inlineformset_factory(Set,
-                                       Setting,
-                                       can_delete=False,
-                                       can_order=False,
-                                       extra=Set.DEFAULT_SETS,
-                                       exclude=SETTING_FORMSET_EXCLUDE)
+
+SettingFormset = modelformset_factory(Setting,
+                                      exclude=SETTING_FORMSET_EXCLUDE,
+                                      can_delete=True,
+                                      can_order=False,
+                                      extra=1)
 
 
 @login_required
@@ -82,7 +83,7 @@ def create(request, day_pk):
         form = SetForm(request.POST)
         if form.is_valid():
             for exercise in form.cleaned_data['exercises']:
-                formset = SettingFormSet(request.POST,
+                formset = SettingFormset(request.POST,
                                          queryset=Setting.objects.none(),
                                          prefix='exercise{0}'.format(exercise.id))
                 formsets.append({'exercise': exercise, 'formset': formset})
@@ -161,15 +162,6 @@ def delete(request, pk):
         return HttpResponseForbidden()
 
 
-from django.forms.models import modelformset_factory
-
-CoolSettingFormset = modelformset_factory(Setting,
-                                          exclude=SETTING_FORMSET_EXCLUDE,
-                                          can_delete=True,
-                                          can_order=False,
-                                          extra=1)
-
-
 @login_required
 def edit(request, pk):
     '''
@@ -182,14 +174,14 @@ def edit(request, pk):
     formsets = []
     for exercise in set_obj.exercises.all():
         queryset = Setting.objects.filter(set=set_obj, exercise=exercise)
-        formset = CoolSettingFormset(queryset=queryset, prefix='exercise{0}'.format(exercise.id))
+        formset = SettingFormset(queryset=queryset, prefix='exercise{0}'.format(exercise.id))
         formsets.append({'exercise': exercise, 'formset': formset})
 
     if request.method == "POST":
         formsets = []
         for exercise in set_obj.exercises.all():
-            formset = CoolSettingFormset(request.POST,
-                                         prefix='exercise{0}'.format(exercise.id))
+            formset = SettingFormset(request.POST,
+                                     prefix='exercise{0}'.format(exercise.id))
             formsets.append({'exercise': exercise, 'formset': formset})
 
         # If all formsets validate, save them
