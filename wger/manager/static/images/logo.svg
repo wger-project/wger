@@ -867,13 +867,13 @@
        x2="1132.6685"
        y1="-7.0053744"
        x1="1069.632"
-       gradientTransform="translate(534.28448,317.10042)"
+       gradientTransform="translate(-85.630897,361.96272)"
        gradientUnits="userSpaceOnUse"
        id="linearGradient7237"
        xlink:href="#linearGradient7148-0"
        inkscape:collect="always" />
     <linearGradient
-       gradientTransform="translate(91.779093,-1028.7684)"
+       gradientTransform="translate(-528.13628,-983.9061)"
        y2="1069.6898"
        x2="1575.1738"
        y1="1338.8635"
@@ -893,7 +893,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.24519476"
      inkscape:cx="208.63681"
-     inkscape:cy="360.61418"
+     inkscape:cy="-128.7927"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1133,7 +1133,7 @@
        transform="matrix(1.0243129,0,0,1.0243129,1918.9992,993.99622)" />
     <path
        style="fill:url(#linearGradient7237);fill-opacity:1;stroke:url(#linearGradient7239)"
-       d="m 1725.1832,-40.599871 c -164.9645,0 -298.7187,133.72299 -298.7187,298.687491 0,64.6644 20.5767,124.5453 55.5,173.4375 7.5849,0.5771 15.2361,0.875 22.9688,0.875 164.9645,0 298.6876,-133.723 298.6876,-298.6875 0,-64.672601 -20.5373,-124.5417612 -55.4688,-173.437491 -7.585,-0.5771 -15.2361,-0.875 -22.9689,-0.875 z"
+       d="m 1105.2678,4.262426 c -164.96448,0 -298.71868,133.722994 -298.71868,298.687494 0,64.6644 20.5767,124.5453 55.5,173.4375 7.5849,0.5771 15.2361,0.875 22.9688,0.875 164.96448,0 298.68758,-133.723 298.68758,-298.6875 0,-64.6726 -20.5373,-124.541764 -55.4688,-173.437494 -7.585,-0.5771 -15.2361,-0.875 -22.9689,-0.875 z"
        id="path3007-4-7-6"
        inkscape:connector-curvature="0" />
   </g>
