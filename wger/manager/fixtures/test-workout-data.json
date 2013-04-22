@@ -146,7 +146,7 @@
         }
     },
     {
-        "pk": 2, 
+        "pk": 3, 
         "model": "manager.setting", 
         "fields": {
             "comment": "", 

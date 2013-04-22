@@ -22,8 +22,11 @@ from wger.manager.models import Setting
 from wger.manager.models import Day
 from wger.exercises.models import Exercise
 
+from wger.manager.tests.testcase import STATUS_CODES_FAIL
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.manager.tests.testcase import WorkoutManagerEditTestCase
+
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -211,3 +214,74 @@ class TestSetAddFormset(WorkoutManagerTestCase):
 
         self.user_login('test')
         self.get_formset()
+
+
+class SetEditEditTestCase(WorkoutManagerTestCase):
+    '''
+    Tests editing a set
+    '''
+
+    def edit_set(self, fail=False):
+        '''
+        Helper function
+        '''
+
+        # Fetch the edit page
+        response = self.client.get(reverse('set-edit', kwargs={'pk': 3}))
+        entry_before = Set.objects.get(pk=3)
+
+        if fail:
+            self.assertIn(response.status_code, STATUS_CODES_FAIL)
+        else:
+            self.assertEqual(response.status_code, 200)
+
+        # Try to edit the object
+        response = self.client.post(reverse('set-edit', kwargs={'pk': 3}),
+                                    {'exercise2-TOTAL_FORMS': 4,
+                                     'exercise2-INITIAL_FORMS': 1,
+                                     'exercise2-MAX_NUM_FORMS': 1000,
+                                     'exercise2-0-reps': 5,
+                                     'exercise2-0-id': 3,
+                                     'exercise2-0-DELETE': False,
+                                     'exercise2-1-reps': 13,
+                                     'exercise2-1-id': '',
+                                     'exercise2-1-DELETE': False})
+
+        entry_after = Set.objects.get(pk=3)
+
+        # Check the results
+        if fail:
+            self.assertIn(response.status_code, STATUS_CODES_FAIL)
+            self.assertEqual(entry_before, entry_after)
+
+        else:
+            self.assertEqual(response.status_code, 302)
+
+            # The page we are redirected to doesn't trigger an error
+            response = self.client.get(response['Location'])
+            self.assertEqual(response.status_code, 200)
+
+            # Settings were updated and a new one created
+            setting = Setting.objects.get(pk=3)
+            self.assertEqual(setting.reps, 5)
+
+            setting = Setting.objects.get(pk=4)
+            self.assertEqual(setting.reps, 13)
+
+        self.post_test_hook()
+
+    def test_edit_set_authorized(self):
+        '''
+        Tests editing the object as an authorized user
+        '''
+
+        self.user_login('admin')
+        self.edit_set(fail=True)
+
+    def test_edit_set_other(self):
+        '''
+        Tests editing the object as an unauthorized, logged in user
+        '''
+
+        self.user_login('test')
+        self.edit_set(fail=False)
