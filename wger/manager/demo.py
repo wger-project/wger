@@ -17,7 +17,10 @@
 import logging
 import random
 import datetime
+import uuid
 
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 from django.utils.translation import ugettext as _
 
 from wger.weight.models import WeightEntry
@@ -32,6 +35,23 @@ from wger.manager.models import WorkoutLog
 from wger.utils.language import load_language
 
 logger = logging.getLogger('workout_manager.custom')
+
+
+def create_temporary_user():
+    '''
+    Creates a temporary user
+    '''
+    username = uuid.uuid4().hex[:-2]
+    password = uuid.uuid4().hex[:-2]
+    email = ''
+
+    user = User.objects.create_user(username, email, password)
+    user.save()
+    user_profile = user.get_profile()
+    user_profile.is_temporary = True
+    user_profile.save()
+    user = authenticate(username=username, password=password)
+    return user
 
 
 def create_demo_workout(user):

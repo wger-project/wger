@@ -30,6 +30,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login as django_login
 
 from wger.manager.demo import create_demo_workout
+from wger.manager.demo import create_temporary_user
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -65,16 +66,7 @@ def get_user(request):
         # Django didn't find a user, so create one now
         if create_user and not user.is_authenticated():
             logger.debug('creating a new user now')
-            username = uuid.uuid4().hex[:-2]
-            password = uuid.uuid4().hex[:-2]
-            email = ''
-
-            user = User.objects.create_user(username, email, password)
-            user.save()
-            user_profile = user.get_profile()
-            user_profile.is_temporary = True
-            user_profile.save()
-            user = authenticate(username=username, password=password)
+            user = create_temporary_user()
             django_login(request, user)
 
             # Create some demo data

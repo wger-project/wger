@@ -2,7 +2,6 @@ from wger.manager.tests.index import *
 from wger.manager.tests.registration import *
 from wger.manager.tests.preferences import *
 from wger.manager.tests.change_password import *
-
 from wger.manager.tests.workout import *
 from wger.manager.tests.day import *
 from wger.manager.tests.set import *
@@ -11,3 +10,4 @@ from wger.manager.tests.copy_workout import *
 from wger.manager.tests.pdf import *
 from wger.manager.tests.feedback import *
 from wger.manager.tests.sitemap import *
+from wger.manager.tests.temporary_users import *
