@@ -54,10 +54,6 @@ logger = logging.getLogger('workout_manager.custom')
 # ************************
 #    Exercise comments
 # ************************
-class ExerciseCommentForm(ModelForm):
-    class Meta:
-        model = ExerciseComment
-        exclude = ('exercise',)
 
 
 class ExerciseCommentEditView(YamlFormMixin, UpdateView):
@@ -66,7 +62,6 @@ class ExerciseCommentEditView(YamlFormMixin, UpdateView):
     '''
 
     model = ExerciseComment
-    form_class = ExerciseCommentForm
     title = ugettext_lazy('Edit exercise comment')
 
     def get_success_url(self):
@@ -88,7 +83,6 @@ class ExerciseCommentAddView(YamlFormMixin, CreateView):
     '''
 
     model = ExerciseComment
-    form_class = ExerciseCommentForm
     title = ugettext_lazy('Add exercise comment')
 
     def form_valid(self, form):

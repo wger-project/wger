@@ -92,7 +92,9 @@ class Day(models.Model):
     Model for a training day
     '''
 
-    training = models.ForeignKey(Workout, verbose_name=_('Training'))
+    training = models.ForeignKey(Workout,
+                                 verbose_name=_('Training'),
+                                 editable=False)
     description = models.CharField(max_length=100,
                                    verbose_name=_('Description'),
                                    help_text=_('Ususally a description about what parts are '
@@ -120,12 +122,15 @@ class Set(models.Model):
     DEFAULT_SETS = 4
     MAX_SETS = 7
 
-    exerciseday = models.ForeignKey(Day, verbose_name=_('Exercise day'))
+    exerciseday = models.ForeignKey(Day,
+                                    verbose_name=_('Exercise day'),
+                                    editable=False)
     exercises = models.ManyToManyField(Exercise, verbose_name=_('Exercises'))
     order = models.IntegerField(max_length=1,
                                 blank=True,
                                 null=True,
-                                verbose_name=_('Order'))
+                                verbose_name=_('Order'),
+                                editable=False)
     sets = models.IntegerField(validators=[MaxValueValidator(MAX_SETS)],
                                verbose_name=_('Number of sets'),
                                default=DEFAULT_SETS)
@@ -180,9 +185,13 @@ class WorkoutLog(models.Model):
     A log entry for an exercise
     '''
 
-    user = models.ForeignKey(User, verbose_name=_('User'))
+    user = models.ForeignKey(User,
+                             verbose_name=_('User'),
+                             editable=False)
     exercise = models.ForeignKey(Exercise, verbose_name=_('Exercise'))
-    workout = models.ForeignKey(Workout, verbose_name=_('Workout'))
+    workout = models.ForeignKey(Workout,
+                                verbose_name=_('Workout'),
+                                editable=False)
 
     reps = models.IntegerField(verbose_name=_('Repetitions'))
     weight = models.DecimalField(decimal_places=2,
@@ -261,10 +270,12 @@ class WorkoutLog(models.Model):
 
 class UserProfile(models.Model):
     # This field is required.
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User,
+                                editable=False)
 
     # Flag to mark a temporary user (demo account)
-    is_temporary = models.BooleanField(default=False)
+    is_temporary = models.BooleanField(default=False,
+                                       editable=False)
 
     #
     # User preferences

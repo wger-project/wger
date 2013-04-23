@@ -82,7 +82,8 @@ class ExerciseCategory(models.Model):
     name = models.CharField(max_length=100,
                             verbose_name=_('Name'),)
     language = models.ForeignKey(Language,
-                                 verbose_name=_('Language'))
+                                 verbose_name=_('Language'),
+                                 editable=False)
 
     # Metaclass to set some other properties
     class Meta:
@@ -131,7 +132,8 @@ class Exercise(models.Model):
     # Status
     status = models.CharField(max_length=2,
                               choices=EXERCISE_STATUS,
-                              default=EXERCISE_STATUS_PENDING)
+                              default=EXERCISE_STATUS_PENDING,
+                              editable=False)
 
     # Submission date
     creation_date = models.DateField(_('Date'), auto_now_add=True, null=True, blank=True)
@@ -205,7 +207,9 @@ class ExerciseComment(models.Model):
     '''
     Model for an exercise comment
     '''
-    exercise = models.ForeignKey(Exercise, verbose_name=_('Exercise'))
+    exercise = models.ForeignKey(Exercise,
+                                 verbose_name=_('Exercise'),
+                                 editable=False)
     comment = models.CharField(max_length=200,
                                verbose_name=_('Comment'),
                                help_text=_('A comment about how to correctly do this exercise.'))

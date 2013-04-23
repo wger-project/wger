@@ -48,7 +48,6 @@ from wger.utils.constants import DATE_FORMATS
 class UserPreferencesForm(ModelForm):
     class Meta:
         model = UserProfile
-        exclude = ('user', 'is_temporary')
 
 
 class UserEmailForm(ModelForm):
@@ -116,7 +115,6 @@ class FeedbackAnonymousForm(FeedbackRegisteredForm):
 class DayForm(ModelForm):
     class Meta:
         model = Day
-        exclude = ('training',)
 
         widgets = {'day': TranslatedSelectMultiple()}
 
@@ -124,7 +122,6 @@ class DayForm(ModelForm):
 class SetForm(ModelForm):
     class Meta:
         model = Set
-        exclude = ('exerciseday', 'order',)
         widgets = {'exercises': ExerciseAjaxSelect(), }
 
     # We need to overwrite the init method here because otherwise Django
@@ -156,6 +153,4 @@ class WorkoutLogForm(ModelForm):
 
     class Meta:
         model = WorkoutLog
-        exclude = ('user',
-                   'workout',
-                   'exercise')
+        exclude = ('exercise')

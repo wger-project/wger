@@ -56,19 +56,12 @@ class WeightUnitListView(ListView):
         return WeightUnit.objects.filter(language=load_language())
 
 
-class WeightUnitForm(ModelForm):
-    class Meta:
-        model = WeightUnit
-        exclude = ('language',)
-
-
 class WeightUnitCreateView(YamlFormMixin, CreateView):
     '''
     Generic view to add a new weight unit for ingredients
     '''
 
     model = WeightUnit
-    form_class = WeightUnitForm
     title = ugettext_lazy('Add new weight unit')
     form_action = reverse_lazy('weight-unit-add')
 
@@ -97,7 +90,6 @@ class WeightUnitUpdateView(YamlFormMixin, UpdateView):
     '''
 
     model = WeightUnit
-    form_class = WeightUnitForm
     title = ugettext_lazy('Edit a weight unit')
     form_action_urlname = 'weight-unit-edit'
 

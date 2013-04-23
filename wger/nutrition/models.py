@@ -49,8 +49,12 @@ class NutritionPlan(models.Model):
         # Order by creation_date, descending (oldest first)
         ordering = ["-creation_date", ]
 
-    user = models.ForeignKey(User, verbose_name=_('User'))
-    language = models.ForeignKey(Language, verbose_name=_('Language'))
+    user = models.ForeignKey(User,
+                             verbose_name=_('User'),
+                             editable=False)
+    language = models.ForeignKey(Language,
+                                 verbose_name=_('Language'),
+                                 editable=False)
     creation_date = models.DateField(_('Creation date'), auto_now_add=True)
     description = models.TextField(max_length=2000,
                                    blank=True,
@@ -136,7 +140,9 @@ class Ingredient(models.Model):
     class Meta:
         ordering = ["name", ]
 
-    language = models.ForeignKey(Language, verbose_name=_('Language'))
+    language = models.ForeignKey(Language,
+                                 verbose_name=_('Language'),
+                                 editable=False)
 
     user = models.ForeignKey(User,
                              verbose_name=_('User'),
@@ -153,9 +159,9 @@ class Ingredient(models.Model):
 
     creation_date = models.DateField(_('Date'), auto_now_add=True)
     update_date = models.DateField(_('Date'),
-                                   default=datetime.date.today,
+                                   auto_now=True,
                                    blank=True,
-                                   )
+                                   editable=False)
 
     name = models.CharField(max_length=200,
                             verbose_name=_('Name'),)
@@ -312,7 +318,9 @@ class WeightUnit(models.Model):
     A more human usable weight unit (spoon, table, slice...)
     '''
 
-    language = models.ForeignKey(Language, verbose_name=_('Language'))
+    language = models.ForeignKey(Language,
+                                 verbose_name=_('Language'),
+                                 editable=False)
     name = models.CharField(max_length=200,
                             verbose_name=_('Name'),)
 
@@ -338,7 +346,9 @@ class IngredientWeightUnit(models.Model):
     A specific human usable weight unit for an ingredient
     '''
 
-    ingredient = models.ForeignKey(Ingredient, verbose_name=_('Ingredient'))
+    ingredient = models.ForeignKey(Ingredient,
+                                   verbose_name=_('Ingredient'),
+                                   editable=False)
     unit = models.ForeignKey(WeightUnit, verbose_name=_('Weight unit'))
 
     gramm = models.IntegerField(verbose_name=_('Amount in gramms'))
@@ -373,8 +383,13 @@ class Meal(models.Model):
     class Meta:
         ordering = ["time", ]
 
-    plan = models.ForeignKey(NutritionPlan, verbose_name=_('Nutrition plan'))
-    order = models.IntegerField(max_length=1, blank=True, verbose_name=_('Order'))
+    plan = models.ForeignKey(NutritionPlan,
+                             verbose_name=_('Nutrition plan'),
+                             editable=False)
+    order = models.IntegerField(verbose_name=_('Order'),
+                                max_length=1,
+                                blank=True,
+                                editable=False)
     time = models.TimeField(null=True, blank=True, verbose_name=_('Time (approx)'))
 
     def __unicode__(self):
@@ -424,7 +439,9 @@ class MealItem(models.Model):
     An item (component) of a meal
     '''
 
-    meal = models.ForeignKey(Meal, verbose_name=_('Nutrition plan'))
+    meal = models.ForeignKey(Meal,
+                             verbose_name=_('Nutrition plan'),
+                             editable=False)
     ingredient = models.ForeignKey(Ingredient, verbose_name=_('Ingredient'))
     weight_unit = models.ForeignKey(IngredientWeightUnit,
                                     verbose_name=_('Weight unit'),
@@ -432,7 +449,10 @@ class MealItem(models.Model):
                                     blank=True,
                                     )
 
-    order = models.IntegerField(max_length=1, blank=True, verbose_name=_('Order'))
+    order = models.IntegerField(verbose_name=_('Order'),
+                                max_length=1,
+                                blank=True,
+                                editable=False)
     amount = models.DecimalField(decimal_places=2,
                                  max_digits=6,
                                  validators=[MaxValueValidator(1000)],
