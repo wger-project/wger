@@ -29,7 +29,6 @@ from django.utils.functional import SimpleLazyObject
 from django.contrib.auth.models import User
 from django.contrib.auth import login as django_login
 
-from wger.manager.demo import create_demo_workout
 from wger.manager.demo import create_temporary_user
 
 logger = logging.getLogger('workout_manager.custom')
@@ -60,6 +59,10 @@ def get_user(request):
         user = auth.get_user(request)
         create_user = check_current_request(request)
 
+        # Set the flag in the session
+        if not request.session.get('has_demo_data'):
+            request.session['has_demo_data'] = False
+
         if not create_user:
             logger.debug('will NOT create a user for this request')
 
@@ -72,6 +75,7 @@ def get_user(request):
             # Create some demo data
             # TODO: this absolutely kills performance
             #create_demo_workout(user)
+
         request._cached_user = user
     return request._cached_user
 

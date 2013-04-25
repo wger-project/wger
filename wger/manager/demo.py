@@ -54,7 +54,7 @@ def create_temporary_user():
     return user
 
 
-def create_demo_workout(user):
+def create_demo_entries(user):
     '''
     Creates some demo data for temporary users
     '''
@@ -64,6 +64,7 @@ def create_demo_workout(user):
     #
     # Workout and exercises
     #
+    setting_list = []
     workout = Workout(user=user, comment=_('Sample workout'))
     workout.save()
     monday = DaysOfWeek.objects.get(pk=1)
@@ -89,6 +90,7 @@ def create_demo_workout(user):
     setting.save()
 
     # Weight log entries
+    temp = []
     for reps in (7, 8, 9, 10):
         for i in range(1, 8):
             log = WorkoutLog(user=user,
@@ -97,7 +99,8 @@ def create_demo_workout(user):
                              reps=reps,
                              weight=30 - reps + random.randint(1, 5),
                              date=datetime.date.today() - datetime.timedelta(weeks=i))
-            log.save()
+            temp.append(log)
+    WorkoutLog.objects.bulk_create(temp)
 
     # French press
     if(load_language().short_name == 'de'):
@@ -108,8 +111,8 @@ def create_demo_workout(user):
     day_set.save()
     day_set.exercises.add(exercise)
 
-    setting = Setting(set=day_set, exercise=exercise, reps=8, order=1)
-    setting.save()
+    setting_list.append(Setting(set=day_set, exercise=exercise, reps=8, order=1))
+    #setting.save()
 
     # Squats
     if(load_language().short_name == 'de'):
@@ -120,8 +123,7 @@ def create_demo_workout(user):
     day_set.save()
     day_set.exercises.add(exercise)
 
-    setting = Setting(set=day_set, exercise=exercise, reps=10, order=1)
-    setting.save()
+    setting_list.append(Setting(set=day_set, exercise=exercise, reps=10, order=1))
 
     # Crunches
     if(load_language().short_name == 'de'):
@@ -132,21 +134,19 @@ def create_demo_workout(user):
     day_set.save()
     day_set.exercises.add(exercise)
 
-    setting = Setting(set=day_set, exercise=exercise, reps=30, order=1)
-    setting.save()
+    setting_list.append(Setting(set=day_set, exercise=exercise, reps=30, order=1))
+    setting_list.append(Setting(set=day_set, exercise=exercise, reps=99, order=2))
+    setting_list.append(Setting(set=day_set, exercise=exercise, reps=35, order=3))
 
-    setting = Setting(set=day_set, exercise=exercise, reps=99, order=2)
-    setting.save()
-
-    setting = Setting(set=day_set, exercise=exercise, reps=35, order=3)
-    setting.save()
-
+    Setting.objects.bulk_create(setting_list)
     #
     # (Body) weight entries
     #
+    temp = []
     for i in range(1, 20):
         creation_date = datetime.date.today() - datetime.timedelta(days=i)
         entry = WeightEntry(user=user,
                             weight=80 + 0.5*i + random.randint(1, 3),
                             creation_date=creation_date)
-        entry.save()
+        temp.append(entry)
+    WeightEntry.objects.bulk_create(temp)

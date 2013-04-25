@@ -107,12 +107,6 @@ def view(request, id, slug=None):
                               context_instance=RequestContext(request))
 
 
-class IngredientForm(forms.ModelForm):
-    class Meta:
-        model = Ingredient
-        exclude = ('language', 'update_date')
-
-
 class IngredientDeleteView(YamlDeleteMixin, DeleteView):
     '''
     Generic view to delete an existing ingredient
@@ -139,18 +133,9 @@ class IngredientEditView(YamlFormMixin, UpdateView):
     '''
 
     model = Ingredient
-    form_class = IngredientForm
     title = ugettext_lazy('Edit ingredient')
     form_action_urlname = 'ingredient-edit'
     messages = ugettext_lazy('Ingredient successfully updated')
-
-    def form_valid(self, form):
-        '''
-        Set the date if the ingredient was updated
-        '''
-        if not form.instance.compare_with_database():
-            form.instance.update_date = datetime.datetime.today()
-        return super(IngredientEditView, self).form_valid(form)
 
 
 class IngredientCreateView(YamlFormMixin, CreateView):
@@ -159,7 +144,6 @@ class IngredientCreateView(YamlFormMixin, CreateView):
     '''
 
     model = Ingredient
-    form_class = IngredientForm
     title = ugettext_lazy('Add a new ingredient')
     form_action = reverse_lazy('ingredient-add')
     sidebar = 'ingredient/form.html'

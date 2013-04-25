@@ -39,6 +39,9 @@ def processor(request):
 
         # Contact email
         'contact_email': 'roland @ geider.net',
+
+        # Flag for guest users
+        'has_demo_data': request.session.get('has_demo_data', False)
     }
 
     # Pseudo-intelligent navigation here

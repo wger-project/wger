@@ -26,6 +26,7 @@
             "status": "5",
             "user": null, 
             "name": "Ingredient, test, 2, organic, raw",
+            "update_date": "2013-02-12",
             "creation_date": "2013-01-01", 
             "language": 2, 
             "sodium": "0.1", 
@@ -64,6 +65,7 @@
         "fields": {
             "status": "5",
             "user": null, 
+            "update_date": "2013-02-12",
             "creation_date": "2013-04-05",
             "name": "Slurm", 
             "language": 2, 
@@ -83,6 +85,7 @@
         "fields": {
             "status": "5",
             "user": null, 
+            "update_date": "2013-02-12",
             "creation_date": "2013-04-05",
             "name": "Another tasty ingredient", 
             "language": 2, 
@@ -102,6 +105,7 @@
         "fields": {
             "status": "5",
             "user": null, 
+            "update_date": "2013-02-12",
             "creation_date": "2013-04-05",
             "name": "Raw ingredient", 
             "language": 2, 
@@ -121,6 +125,7 @@
         "fields": {
             "status": "1",
             "user": 2, 
+            "update_date": "2013-02-12",
             "creation_date": "2013-04-05",
             "name": "Pending ingredient", 
             "language": 2, 

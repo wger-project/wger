@@ -20,7 +20,7 @@ from django.contrib.auth.models import User
 from wger.manager.models import Workout
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.demo import create_temporary_user
-from wger.manager.demo import create_demo_workout
+from wger.manager.demo import create_demo_entries
 
 
 class DemoUserTestCase(WorkoutManagerTestCase):
@@ -44,7 +44,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         user = User.objects.get(pk=4)
         self.assertEqual(user.get_profile().is_temporary, True)
         self.assertEqual(Workout.objects.filter(user=user).count(), 0)
-        create_demo_workout(user)
+        create_demo_entries(user)
         self.assertEqual(Workout.objects.filter(user=user).count(), 1)
 
     def test_demo_user(self):

@@ -37,6 +37,9 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^user/preferences$',
         'user.preferences',
         name='preferences'),
+    url(r'^user/demo-entries$',
+        'misc.demo_entries',
+        name='demo-entries'),
 
     # Workout
     url(r'^workout/overview$', 'workout.overview'),

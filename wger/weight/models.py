@@ -27,7 +27,9 @@ class WeightEntry(models.Model):
     '''
     creation_date = models.DateField(verbose_name=_('Date'))
     weight = models.FloatField(verbose_name=_('Weight'))
-    user = models.ForeignKey(User, verbose_name=_('User'))
+    user = models.ForeignKey(User,
+                             verbose_name=_('User'),
+                             editable=False)
 
      # Metaclass to set some other properties
     class Meta:

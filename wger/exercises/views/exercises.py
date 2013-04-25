@@ -159,7 +159,6 @@ class ExercisesEditAddView(YamlFormMixin):
 
             class Meta:
                 model = Exercise
-                exclude = ('status',)
 
             class Media:
                 js = ('js/tinymce/tiny_mce.js',)

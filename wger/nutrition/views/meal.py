@@ -40,11 +40,6 @@ logger = logging.getLogger('workout_manager.custom')
 # Meal functions
 # ************************
 
-class MealForm(ModelForm):
-    class Meta:
-        model = Meal
-        exclude = ('plan', 'order')
-
 
 class MealCreateView(YamlFormMixin, CreateView):
     '''
@@ -52,7 +47,6 @@ class MealCreateView(YamlFormMixin, CreateView):
     '''
 
     model = Meal
-    form_class = MealForm
     title = ugettext_lazy('Add new meal')
     owner_object = {'pk': 'plan_pk', 'class': NutritionPlan}
 
@@ -80,7 +74,6 @@ class MealEditView(YamlFormMixin, UpdateView):
     '''
 
     model = Meal
-    form_class = MealForm
     title = ugettext_lazy('Edit meal')
     form_action_urlname = 'meal-edit'
 

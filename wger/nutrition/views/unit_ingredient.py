@@ -37,10 +37,6 @@ logger = logging.getLogger('workout_manager.custom')
 # ************************
 # Weight units to ingredient functions
 # ************************
-class WeightUnitIngredientForm(ModelForm):
-    class Meta:
-        model = IngredientWeightUnit
-        exclude = ('ingredient',)
 
 
 class WeightUnitIngredientCreateView(YamlFormMixin, CreateView):
@@ -49,7 +45,6 @@ class WeightUnitIngredientCreateView(YamlFormMixin, CreateView):
     '''
 
     model = IngredientWeightUnit
-    form_class = WeightUnitIngredientForm
     title = ugettext_lazy('Add a new weight unit')
 
      # Send some additional data to the template
@@ -75,7 +70,6 @@ class WeightUnitIngredientUpdateView(YamlFormMixin, UpdateView):
     '''
 
     model = IngredientWeightUnit
-    form_class = WeightUnitIngredientForm
     title = ugettext_lazy('Edit a weight unit to ingredient connection')
     form_action_urlname = 'weight-unit-ingredient-edit'
 

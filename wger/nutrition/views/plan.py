@@ -55,11 +55,6 @@ logger = logging.getLogger('workout_manager.custom')
 # Plan functions
 # ************************
 
-class PlanForm(ModelForm):
-    class Meta:
-        model = NutritionPlan
-        exclude = ('user', 'language', )
-
 
 @login_required
 def overview(request):
@@ -106,7 +101,6 @@ class PlanEditView(YamlFormMixin, UpdateView):
     '''
 
     model = NutritionPlan
-    form_class = PlanForm
     title = ugettext_lazy('Add a new nutritional plan')
     form_action_urlname = 'nutrition-edit'
 

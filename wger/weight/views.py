@@ -56,7 +56,6 @@ class WeightForm(ModelForm):
 
     class Meta:
         model = WeightEntry
-        exclude = ('user',)
 
 
 class WeightAddView(YamlFormMixin, CreateView):

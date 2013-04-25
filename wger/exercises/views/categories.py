@@ -54,10 +54,6 @@ logger = logging.getLogger('workout_manager.custom')
 # ************************
 #   Exercise categories
 # ************************
-class ExerciseCategoryForm(ModelForm):
-    class Meta:
-        model = ExerciseCategory
-        exclude = ('language',)
 
 
 class ExerciseCategoryAddView(YamlFormMixin, CreateView):
@@ -66,7 +62,6 @@ class ExerciseCategoryAddView(YamlFormMixin, CreateView):
     '''
 
     model = ExerciseCategory
-    form_class = ExerciseCategoryForm
     success_url = reverse_lazy('wger.exercises.views.exercises.overview')
     title = ugettext_lazy('Add category')
     form_action = reverse_lazy('exercisecategory-add')
@@ -84,7 +79,6 @@ class ExerciseCategoryUpdateView(YamlFormMixin, UpdateView):
     '''
 
     model = ExerciseCategory
-    form_class = ExerciseCategoryForm
     success_url = reverse_lazy('wger.exercises.views.exercises.overview')
     messages = ugettext_lazy('Category successfully edited')
 

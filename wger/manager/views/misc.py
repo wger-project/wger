@@ -30,8 +30,12 @@ from django.views.generic import TemplateView
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login as django_login
 
 from wger.manager import forms
+from wger.manager.demo import create_demo_entries
+from wger.manager.demo import create_temporary_user
+
 from wger.manager.models import DaysOfWeek
 from wger.manager.models import Workout
 
@@ -51,6 +55,27 @@ def index(request):
         return HttpResponseRedirect(reverse('dashboard'))
     else:
         return HttpResponseRedirect(reverse('software:features'))
+
+
+def demo_entries(request):
+    '''
+    Creates a set of sample entries for guest users
+    '''
+    if (((not request.user.is_authenticated() or request.user.get_profile().is_temporary)
+         and not request.session['has_demo_data'])):
+        # If we reach this from a page that has no user created by the
+        # middleware, do that now
+        if not request.user.is_authenticated():
+            user = create_temporary_user()
+            django_login(request, user)
+
+        # OK, continue
+        create_demo_entries(request.user)
+        request.session['has_demo_data'] = True
+        messages.success(request, _('We have created sample workout, weight log, weight '
+                                    'and nutrition plan entries so you can better see what '
+                                    'this site can do. Feel free to edit or delete them!'))
+    return HttpResponseRedirect(reverse('dashboard'))
 
 
 @login_required
