@@ -5,6 +5,8 @@ from wger.manager.tests.change_password import *
 from wger.manager.tests.workout import *
 from wger.manager.tests.day import *
 from wger.manager.tests.set import *
+from wger.manager.tests.schedule import *
+from wger.manager.tests.schedule_step import *
 from wger.manager.tests.weight_log import *
 from wger.manager.tests.copy_workout import *
 from wger.manager.tests.pdf import *

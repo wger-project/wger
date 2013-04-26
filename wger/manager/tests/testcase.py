@@ -34,7 +34,8 @@ class WorkoutManagerTestCase(TestCase):
                 'test-weight-units',
                 'test-ingredients',
                 'test-nutrition-data',
-                'test-workout-data')
+                'test-workout-data',
+                'test-schedules')
     current_user = 'anonymous'
 
     def setUp(self):

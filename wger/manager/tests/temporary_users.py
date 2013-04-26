@@ -94,7 +94,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         '''
         Tests that demo users see a notice on every page
         '''
-        demo_notice_text = 'You are using a temporary account'
+        demo_notice_text = 'You are using a guest account'
         self.user_login('demo')
         self.assertContains(self.client.get(reverse('dashboard')), demo_notice_text)
         self.assertContains(self.client.get(reverse('wger.manager.views.workout.overview')),

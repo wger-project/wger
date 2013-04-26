@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% trans "Your schedules" %}{% endblock %}
+
+
+{% block content %}
+<table id="workout-table">
+    <thead>
+    <tr>
+        <th>{% trans "Active" %}</th>
+        <th>{% trans "Description" %}</th>
+        <th>{% trans "Date" %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for schedule in schedules %}
+    <tr>
+        <td>
+            {% if schedule.is_active %}
+            <img src="{% static 'images/icons/status-on.svg' %}"
+                 width="22"
+                 height="22"
+                 alt="{% trans 'Schedule active' %}"
+                 title="{% trans 'Schedule active' %}">
+            {% endif %}
+        </td>
+        <td>
+            <a href="{% url 'schedule-view' schedule.id %}">
+                {{ schedule.name }}
+            </a>
+        </td>
+        <td>
+            {{ schedule.start_date }}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="3">
+            {% trans "No schedules found." %} {% trans "Use link to add one." %}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<p>
+<a href="{% url 'schedule-add' %}"
+   class="modal-dialog">
+<img src="{% static 'images/icons/new.svg' %}"
+    width="32"
+    height="32"
+    alt="{% trans 'Add schedule' %}"
+    title="{% trans 'Add schedule' %}">
+{% trans "Add schedule" %}</a>
+</p>
+
+{% endblock %}
+
+
+{% block sidebar %}
+<h3>{% trans "Your schedules" %}</h3>
+<p>{% blocktrans %}Schedules are collections of workouts that you do in
+succession.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}You can indicate how long you want to do each workout
+before jumping to the next. It is also possible to create a loop, so you
+always do the same workouts in succession, e.g. A > B > C > A > B > C and so on.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}The currently active schedule will remain active (and be
+shown e.g. in your dashboard) till it reaches the last workout or till you
+deactivate it, if it is a loop.{% endblocktrans %}</p>
+{% endblock %}

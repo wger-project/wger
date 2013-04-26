@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import TemplateView
 
+from wger.manager.views import schedule
+from wger.manager.views import schedule_step
 from wger.manager.views.workout import WorkoutEditView
 from wger.manager.views.workout import WorkoutDeleteView
 from wger.manager.views.log import WorkoutLogDetailView
@@ -62,6 +64,31 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^workout/log/edit-entry/(?P<pk>\d+)$',
         login_required(WorkoutLogUpdateView.as_view()),
         name='workout-log-edit'),
+
+    # Schedules
+    url(r'^workout/schedule/overview$',
+        'schedule.overview',
+        name='schedule-overview'),
+    url(r'^workout/schedule/add$',
+        login_required(schedule.ScheduleCreateView.as_view()),
+        name='schedule-add'),
+    url(r'^workout/schedule/(?P<pk>\d+)/view/$',
+        'schedule.view',
+        name='schedule-view'),
+    url(r'^workout/schedule/(?P<pk>\d+)/edit/$',
+        login_required(schedule.ScheduleEditView.as_view()),
+        name='schedule-edit'),
+    url(r'^workout/schedule/(?P<pk>\d+)/delete/$',
+        login_required(schedule.ScheduleDeleteView.as_view()),
+        name='schedule-delete'),
+    
+    # Schedule steps
+    url(r'^workout/schedule/(?P<schedule_pk>\d+)/step/add$',
+        login_required(schedule_step.StepCreateView.as_view()),
+        name='step-add'),
+    url(r'^workout/schedule/step/(?P<pk>\d+)/edit$',
+        login_required(schedule_step.StepEditView.as_view()),
+        name='step-edit'),
 
     # Days
     url(r'^workout/day/(?P<pk>\d+)/edit/$',

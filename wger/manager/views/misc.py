@@ -38,6 +38,7 @@ from wger.manager.demo import create_temporary_user
 
 from wger.manager.models import DaysOfWeek
 from wger.manager.models import Workout
+from wger.manager.models import Schedule
 
 from wger.nutrition.models import NutritionPlan
 
@@ -87,12 +88,11 @@ def dashboard(request):
 
     template_data = {}
 
-    # Load the last workout, if one exists
-    try:
-        current_workout = Workout.objects.filter(user=request.user).latest('creation_date')
-    except ObjectDoesNotExist:
-        current_workout = False
+    # Load the last workout, either from a schedule or a 'regular' one
+    (current_workout, schedule) = Schedule.objects.get_current_workout(request.user)
+
     template_data['current_workout'] = current_workout
+    template_data['schedule'] = schedule
 
     # Load the last nutritional plan, if one exists
     try:

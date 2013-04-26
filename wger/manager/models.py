@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+import datetime
 import logging
 import json
 
@@ -25,7 +26,7 @@ from django.utils.datastructures import SortedDict
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator
 from django.core.urlresolvers import reverse
-
+from django.core.exceptions import ObjectDoesNotExist
 
 from wger.exercises.models import Exercise
 
@@ -44,11 +45,11 @@ class Workout(models.Model):
         ordering = ["-creation_date", ]
 
     creation_date = models.DateField(_('Creation date'), auto_now_add=True)
-    comment = models.TextField(verbose_name=_('Description'),
+    comment = models.CharField(verbose_name=_('Description'),
                                max_length=100,
                                blank=True,
-                               help_text=_('''A short description or goal of the workout.
-For example 'Focus on back' or 'Week 1 of program xy'.'''))
+                               help_text=_("A short description or goal of the workout. For "
+                                           "example 'Focus on back' or 'Week 1 of program xy'."))
     user = models.ForeignKey(User, verbose_name=_('User'))
 
     def get_absolute_url(self):
@@ -61,13 +62,192 @@ For example 'Focus on back' or 'Week 1 of program xy'.'''))
         '''
         Return a more human-readable representation
         '''
-        return str(self.creation_date)
+        return "{0}".format(self.comment)
 
     def get_owner_object(self):
         '''
         Returns the object that has owner information
         '''
         return self
+
+
+class ScheduleManager(models.Manager):
+    '''
+    Custom manager for workout schedules
+    '''
+
+    def get_current_workout(self, user):
+        '''
+        Finds the currently active workout for the user, by checking the schedules
+        and the workouts
+        '''
+
+        # Try first to find an active schedule that has steps
+        try:
+            schedule = Schedule.objects.filter(user=user).get(is_active=True)
+            if schedule.schedulestep_set.count():
+                active_workout = schedule.get_current_scheduled_workout().workout
+            else:
+                # This is kind of wrong, but lets us continue to the correct place
+                raise ObjectDoesNotExist
+
+        # there are no active schedules, just return the last workout
+        except ObjectDoesNotExist:
+
+            schedule = False
+            try:
+                active_workout = Workout.objects.filter(user=user).latest('creation_date')
+
+            # no luck, there aren't even workouts for the user
+            except ObjectDoesNotExist:
+                active_workout = False
+
+        return (active_workout, schedule)
+
+
+class Schedule(models.Model):
+    '''
+    Model for a workout schedule.
+
+    A schedule is a collection of workous that are done for a certain time.
+    E.g. workouts A, B, C, A, B, C, and so on.
+    '''
+
+    objects = ScheduleManager()
+    '''Custom manager'''
+
+    user = models.ForeignKey(User,
+                             verbose_name=_('User'),
+                             editable=False)
+    '''
+    The user this schedule belongs to. This could be accessed through a step
+    that points to a workout, that points to a user, but this is more straight
+    forward and performant
+    '''
+
+    first_step = models.OneToOneField('ScheduleStep',
+                                      verbose_name=_('First step'),
+                                      related_name='first',
+                                      blank=True,
+                                      null=True,
+                                      editable=False)
+    '''The first step in the schedule'''
+
+    name = models.CharField(verbose_name=_('Name'),
+                            max_length=100,
+                            help_text=_("Name or short description of the schedule. "
+                                        "For example 'Program XYZ'."))
+    '''Name or short description of the schedule.'''
+
+    start_date = models.DateField(verbose_name=_('Start date'),
+                                  default=datetime.date.today)
+    '''The start date of this schedule'''
+
+    is_active = models.BooleanField(verbose_name=_('Schedule active'),
+                                    default=True,
+                                    help_text=_("Tick the box if you want to mark this schedule "
+                                                "as your active one (will be shown e.g. on your "
+                                                "dashboard). All other schedules will then be "
+                                                "marked as inactive"))
+    '''A flag indicating whether the schedule is active (needed for dashboard)'''
+
+    is_loop = models.BooleanField(verbose_name=_('Is loop'),
+                                  default=False,
+                                  help_text=_("Tick the box if you want to repeat the schedules "
+                                              "in a loop (i.e. A, B, C, A, B, C, and so on)"))
+    '''A flag indicating whether the schedule should act as a loop'''
+
+    def get_absolute_url(self):
+        return reverse('schedule-view', kwargs={'pk': self.id})
+
+    def get_owner_object(self):
+        '''
+        Returns the object that has owner information
+        '''
+        return self
+
+    def save(self, *args, **kwargs):
+        '''
+        Only one schedule can be marked as active at a time
+        '''
+        if self.is_active:
+            Schedule.objects.filter(user=self.user).update(is_active=False)
+            self.is_active = True
+
+        super(Schedule, self).save(*args, **kwargs)
+
+    def get_current_scheduled_workout(self):
+        '''
+        Returns the currently active schedule step for a user
+        '''
+        steps = self.schedulestep_set.all()
+        today = datetime.date.today()
+        start_date = self.start_date
+        found = False
+        if not steps:
+            return False
+        while not found:
+            for step in steps:
+                current_limit = start_date + datetime.timedelta(weeks=step.duration)
+                if current_limit > today:
+                    found = True
+                    return step
+            if self.is_loop:
+                start_date = current_limit
+            else:
+                return False
+
+
+class ScheduleStep(models.Model):
+    '''
+    Model for a step in a workout schedule.
+
+    A step is basically a workout a with a bit of metadata (next and previous
+    steps, duration, etc.)
+    '''
+
+    class Meta:
+        '''
+        Set default ordering
+        '''
+        ordering = ["order", ]
+
+    schedule = models.ForeignKey(Schedule,
+                                 verbose_name=_('schedule'),
+                                 editable=False)
+    '''The schedule is step belongs to'''
+
+    workout = models.ForeignKey(Workout)
+    '''The workout this step manages'''
+
+    duration = models.IntegerField(max_length=1,
+                                   verbose_name=_('Duration'),
+                                   help_text=_('The duration in weeks'),
+                                   default=4)
+    '''The duration in weeks'''
+
+    order = models.IntegerField(verbose_name=_('Order'),
+                                max_length=1,
+                                default=1,
+                                editable=False)
+
+    comment = models.CharField(verbose_name=_('Comment'),
+                               max_length=100,
+                               help_text=_("A short comment or description"),
+                               blank=True)
+    '''Short comment about the step'''
+
+    def get_owner_object(self):
+        '''
+        Returns the object that has owner information
+        '''
+        return self.workout
+
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return "ID: {0}".format(self.id)
 
 
 class DaysOfWeek(models.Model):

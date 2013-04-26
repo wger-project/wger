@@ -12,6 +12,7 @@
         <div class="ym-gbox-left">
             <h3>{% trans "Workout"%}</h3>
             {% if current_workout %}
+            <p>
             <a href="{% url 'wger.manager.views.workout.view' current_workout.id %}">
                 {% if current_workout.comment %}
                     {{ current_workout.comment }}
@@ -19,8 +20,8 @@
                     {% trans "Workout" %}
                 {% endif %}
             </a>
-            <br> – {{ current_workout.creation_date }}
-
+            </p>
+             – {{ current_workout.creation_date }}
 
             <ul>
                 {% for day, exercise, is_workout in weekdays %}
@@ -34,6 +35,13 @@
                 </li>
                 {% endfor %}
             </ul>
+
+            {% if schedule %}
+            <p>
+                → {% trans "This workout is part of a schedule:" %}
+                <a href="{{schedule.get_absolute_url}}">{{schedule.name}}</a>
+            </p>
+            {% endif %}
 
             {% else %}
                 <div class="box warning">
@@ -49,6 +57,7 @@
             <h3>{% trans "Nutrition plan"%}</h3>
 
             {% if plan %}
+                <p>
                 <a href="{% url 'wger.nutrition.views.plan.view' plan.id %}">
                     {% if plan.description %}
                         {{ plan.description }}
@@ -56,7 +65,8 @@
                         {% trans "Nutrition plan" %}
                     {% endif %}
                </a>
-               <br> – {{ plan.creation_date }}
+               </p>
+               – {{ plan.creation_date }}
 
                <ul>
                    <li>
@@ -115,10 +125,6 @@
         </div>
     </div>
 </div>
-
-<p>
-     <em>{% trans "After adding a workout or a nutritional plan, you can edit them to set a goal." %}</em>
-</p>
 {% endblock %}
 
 
@@ -133,5 +139,12 @@
      alt="{% trans 'My preferences' %}"
      title="{% trans 'My preferences' %}">
 {% trans "My preferences" %}</a>
+</p>
+
+<h3>{% trans "Info" %}</h3>
+<p>{% blocktrans %}The current workout is selected from your active schedule
+or, if you don't have one, simply by date.{% endblocktrans %}</p>
+
+<p>{% trans "After adding a workout or a nutritional plan, you can edit them to set a goal." %}
 </p>
 {% endblock %}
