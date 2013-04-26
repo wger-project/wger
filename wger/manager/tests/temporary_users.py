@@ -18,6 +18,9 @@ from django.core.management import call_command
 from django.contrib.auth.models import User
 
 from wger.manager.models import Workout
+from wger.manager.models import WorkoutLog
+from wger.nutrition.models import NutritionPlan
+
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.demo import create_temporary_user
 from wger.manager.demo import create_demo_entries
@@ -44,8 +47,11 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         user = User.objects.get(pk=4)
         self.assertEqual(user.get_profile().is_temporary, True)
         self.assertEqual(Workout.objects.filter(user=user).count(), 0)
+
         create_demo_entries(user)
         self.assertEqual(Workout.objects.filter(user=user).count(), 1)
+        self.assertEqual(NutritionPlan.objects.filter(user=user).count(), 1)
+        self.assertEqual(WorkoutLog.objects.filter(user=user).count(), 56)
 
     def test_demo_user(self):
         '''
@@ -94,7 +100,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         '''
         Tests that demo users see a notice on every page
         '''
-        demo_notice_text = 'You are using a temporary account'
+        demo_notice_text = 'You are using a guest account'
         self.user_login('demo')
         self.assertContains(self.client.get(reverse('dashboard')), demo_notice_text)
         self.assertContains(self.client.get(reverse('wger.manager.views.workout.overview')),

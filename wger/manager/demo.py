@@ -31,6 +31,11 @@ from wger.manager.models import Day
 from wger.manager.models import Set
 from wger.manager.models import Setting
 from wger.manager.models import WorkoutLog
+from wger.nutrition.models import NutritionPlan
+from wger.nutrition.models import Meal
+from wger.nutrition.models import MealItem
+from wger.nutrition.models import Ingredient
+from wger.nutrition.models import IngredientWeightUnit
 
 from wger.utils.language import load_language
 
@@ -59,12 +64,14 @@ def create_demo_entries(user):
     Creates some demo data for temporary users
     '''
 
-    # (this is a bit ugly...)
+    # (this is a bit ugly and long...)
+    language = load_language()
 
     #
     # Workout and exercises
     #
     setting_list = []
+    weight_log = []
     workout = Workout(user=user, comment=_('Sample workout'))
     workout.save()
     monday = DaysOfWeek.objects.get(pk=1)
@@ -78,7 +85,7 @@ def create_demo_entries(user):
     day2.day.add(wednesday)
 
     # Biceps curls with dumbbell
-    if(load_language().short_name == 'de'):
+    if(language.short_name == 'de'):
         exercise = Exercise.objects.get(pk=26)
     else:
         exercise = Exercise.objects.get(pk=81)
@@ -90,20 +97,18 @@ def create_demo_entries(user):
     setting.save()
 
     # Weight log entries
-    temp = []
-    for reps in (7, 8, 9, 10):
+    for reps in (8, 10, 12):
         for i in range(1, 8):
             log = WorkoutLog(user=user,
                              exercise=exercise,
                              workout=workout,
                              reps=reps,
-                             weight=30 - reps + random.randint(1, 5),
+                             weight=18 - reps + random.randint(1, 4),
                              date=datetime.date.today() - datetime.timedelta(weeks=i))
-            temp.append(log)
-    WorkoutLog.objects.bulk_create(temp)
+            weight_log.append(log)
 
     # French press
-    if(load_language().short_name == 'de'):
+    if(language.short_name == 'de'):
         exercise = Exercise.objects.get(pk=25)
     else:
         exercise = Exercise.objects.get(pk=84)
@@ -112,10 +117,20 @@ def create_demo_entries(user):
     day_set.exercises.add(exercise)
 
     setting_list.append(Setting(set=day_set, exercise=exercise, reps=8, order=1))
-    #setting.save()
+
+    # Weight log entries
+    for reps in (7, 10):
+        for i in range(1, 8):
+            log = WorkoutLog(user=user,
+                             exercise=exercise,
+                             workout=workout,
+                             reps=reps,
+                             weight=30 - reps + random.randint(1, 4),
+                             date=datetime.date.today() - datetime.timedelta(weeks=i))
+            weight_log.append(log)
 
     # Squats
-    if(load_language().short_name == 'de'):
+    if(language.short_name == 'de'):
         exercise = Exercise.objects.get(pk=6)
     else:
         exercise = Exercise.objects.get(pk=111)
@@ -125,8 +140,19 @@ def create_demo_entries(user):
 
     setting_list.append(Setting(set=day_set, exercise=exercise, reps=10, order=1))
 
+    # Weight log entries
+    for reps in (5, 10, 12):
+        for i in range(1, 8):
+            log = WorkoutLog(user=user,
+                             exercise=exercise,
+                             workout=workout,
+                             reps=reps,
+                             weight=110 - reps + random.randint(1, 10),
+                             date=datetime.date.today() - datetime.timedelta(weeks=i))
+            weight_log.append(log)
+
     # Crunches
-    if(load_language().short_name == 'de'):
+    if(language.short_name == 'de'):
         exercise = Exercise.objects.get(pk=4)
     else:
         exercise = Exercise.objects.get(pk=91)
@@ -139,6 +165,10 @@ def create_demo_entries(user):
     setting_list.append(Setting(set=day_set, exercise=exercise, reps=35, order=3))
 
     Setting.objects.bulk_create(setting_list)
+
+    # Save all the log entries
+    WorkoutLog.objects.bulk_create(weight_log)
+
     #
     # (Body) weight entries
     #
@@ -150,3 +180,136 @@ def create_demo_entries(user):
                             creation_date=creation_date)
         temp.append(entry)
     WeightEntry.objects.bulk_create(temp)
+
+    #
+    # Nutritional plan
+    #
+    plan = NutritionPlan()
+    plan.user = user
+    plan.language = language
+    plan.description = _('Sample nutrional plan')
+    plan.save()
+
+    # Breakfast
+    meal = Meal()
+    meal.plan = plan
+    meal.order = 1
+    meal.time = datetime.time(7, 30)
+    meal.save()
+
+    # Oatmeal
+    if(language.short_name == 'de'):
+        ingredient = Ingredient.objects.get(pk=8197)
+    else:
+        ingredient = Ingredient.objects.get(pk=2126)
+
+    mealitem = MealItem()
+    mealitem.meal = meal
+    mealitem.ingredient = ingredient
+    mealitem.order = 1
+    mealitem.amount = 100
+    mealitem.save()
+
+    # Milk
+    if(language.short_name == 'de'):
+        ingredient = Ingredient.objects.get(pk=8198)
+    else:
+        ingredient = Ingredient.objects.get(pk=154)
+
+    mealitem = MealItem()
+    mealitem.meal = meal
+    mealitem.ingredient = ingredient
+    mealitem.order = 2
+    mealitem.amount = 100
+    mealitem.save()
+
+    # Protein powder
+    if(language.short_name == 'de'):
+        ingredient = Ingredient.objects.get(pk=8244)
+    else:
+        ingredient = Ingredient.objects.get(pk=196)
+
+    mealitem = MealItem()
+    mealitem.meal = meal
+    mealitem.ingredient = ingredient
+    mealitem.order = 3
+    mealitem.amount = 100
+    mealitem.save()
+
+    #
+    # 11 o'clock meal
+    meal = Meal()
+    meal.plan = plan
+    meal.order = 2
+    meal.time = datetime.time(11, 0)
+    meal.save()
+
+    # Bread, in slices
+    if(language.short_name == 'de'):
+        ingredient = Ingredient.objects.get(pk=8225)
+        unit = None
+        amount = 80
+    else:
+        ingredient = Ingredient.objects.get(pk=5370)
+        unit = IngredientWeightUnit.objects.get(pk=9874)
+        amount = 2
+
+    mealitem = MealItem()
+    mealitem.meal = meal
+    mealitem.ingredient = ingredient
+    mealitem.weight_unit = unit
+    mealitem.order = 1
+    mealitem.amount = amount
+    mealitem.save()
+
+    # Turkey
+    if(language.short_name == 'de'):
+        ingredient = Ingredient.objects.get(pk=8201)
+    else:
+        ingredient = Ingredient.objects.get(pk=1643)
+
+    mealitem = MealItem()
+    mealitem.meal = meal
+    mealitem.order = 2
+    mealitem.ingredient = ingredient
+    mealitem.amount = 100
+    mealitem.save()
+
+    # Cottage cheese
+    if(language.short_name == 'de'):
+        ingredient = Ingredient.objects.get(pk=8222)  # TODO: check this!
+    else:
+        ingredient = Ingredient.objects.get(pk=17)
+
+    mealitem = MealItem()
+    mealitem.meal = meal
+    mealitem.ingredient = ingredient
+    mealitem.order = 3
+    mealitem.amount = 50
+    mealitem.save()
+
+    # Tomato, one
+    if(language.short_name == 'de'):
+        ingredient = Ingredient.objects.get(pk=8217)
+        unit = None
+        amount = 120
+    else:
+        ingredient = Ingredient.objects.get(pk=3208)
+        unit = IngredientWeightUnit.objects.get(pk=5950)
+        amount = 1
+
+    mealitem = MealItem()
+    mealitem.meal = meal
+    mealitem.weight_unit = unit
+    mealitem.ingredient = ingredient
+    mealitem.order = 4
+    mealitem.amount = amount
+    mealitem.save()
+
+    #
+    # Lunch (leave empty so users can add their own ingredients)
+    meal = Meal()
+    meal.plan = plan
+    meal.order = 3
+    meal.time = datetime.time(13, 0)
+    meal.save()

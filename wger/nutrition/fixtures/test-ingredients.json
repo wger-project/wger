@@ -140,6 +140,147 @@
         }
     },
     {
+        "pk": 2126, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "status": "5",
+            "user": 2, 
+            "update_date": "2013-02-12",
+            "creation_date": "2013-04-05",
+            "name": "Needed for guest user", 
+            "language": 2, 
+            "sodium": "2.1", 
+            "energy": 180, 
+            "fat": "2", 
+            "carbohydrates_sugar": "4", 
+            "fat_saturated": "0", 
+            "fibres": "20", 
+            "protein": "10", 
+            "carbohydrates": "5.0"
+        }
+    },
+    {
+        "pk": 154, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "status": "5",
+            "user": 2, 
+            "update_date": "2013-02-12",
+            "creation_date": "2013-04-05",
+            "name": "Needed for guest user", 
+            "language": 2, 
+            "sodium": "2.1", 
+            "energy": 180, 
+            "fat": "2", 
+            "carbohydrates_sugar": "4", 
+            "fat_saturated": "0", 
+            "fibres": "20", 
+            "protein": "10", 
+            "carbohydrates": "5.0"
+        }
+    },
+    {
+        "pk": 5370, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "status": "5",
+            "user": 2, 
+            "update_date": "2013-02-12",
+            "creation_date": "2013-04-05",
+            "name": "Needed for guest user", 
+            "language": 2, 
+            "sodium": "2.1", 
+            "energy": 180, 
+            "fat": "2", 
+            "carbohydrates_sugar": "4", 
+            "fat_saturated": "0", 
+            "fibres": "20", 
+            "protein": "10", 
+            "carbohydrates": "5.0"
+        }
+    },
+    {
+        "pk": 1643, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "status": "5",
+            "user": 2, 
+            "update_date": "2013-02-12",
+            "creation_date": "2013-04-05",
+            "name": "Needed for guest user", 
+            "language": 2, 
+            "sodium": "2.1", 
+            "energy": 180, 
+            "fat": "2", 
+            "carbohydrates_sugar": "4", 
+            "fat_saturated": "0", 
+            "fibres": "20", 
+            "protein": "10", 
+            "carbohydrates": "5.0"
+        }
+    },
+    {
+        "pk": 17, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "status": "5",
+            "user": 2, 
+            "update_date": "2013-02-12",
+            "creation_date": "2013-04-05",
+            "name": "Needed for guest user", 
+            "language": 2, 
+            "sodium": "2.1", 
+            "energy": 180, 
+            "fat": "2", 
+            "carbohydrates_sugar": "4", 
+            "fat_saturated": "0", 
+            "fibres": "20", 
+            "protein": "10", 
+            "carbohydrates": "5.0"
+        }
+    },
+    {
+        "pk": 3208, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "status": "5",
+            "user": 2, 
+            "update_date": "2013-02-12",
+            "creation_date": "2013-04-05",
+            "name": "Needed for guest user", 
+            "language": 2, 
+            "sodium": "2.1", 
+            "energy": 180, 
+            "fat": "2", 
+            "carbohydrates_sugar": "4", 
+            "fat_saturated": "0", 
+            "fibres": "20", 
+            "protein": "10", 
+            "carbohydrates": "5.0"
+        }
+    },
+    {
+        "pk": 196, 
+        "model": "nutrition.ingredient", 
+        "fields": {
+            "status": "5",
+            "user": 2, 
+            "update_date": "2013-02-12",
+            "creation_date": "2013-04-05",
+            "name": "Needed for guest user", 
+            "language": 2, 
+            "sodium": "2.1", 
+            "energy": 180, 
+            "fat": "2", 
+            "carbohydrates_sugar": "4", 
+            "fat_saturated": "0", 
+            "fibres": "20", 
+            "protein": "10", 
+            "carbohydrates": "5.0"
+        }
+    },
+
+    {
         "pk": 1,
         "model": "nutrition.ingredientweightunit",
         "fields": {
@@ -161,6 +302,26 @@
     },
     {
         "pk": 3,
+        "model": "nutrition.ingredientweightunit",
+        "fields": {
+            "amount": "1",
+            "gramm": 12,
+            "unit": 6,
+            "ingredient": 1
+        }
+    },
+    {
+        "pk": 9874,
+        "model": "nutrition.ingredientweightunit",
+        "fields": {
+            "amount": "1",
+            "gramm": 12,
+            "unit": 6,
+            "ingredient": 1
+        }
+    },
+    {
+        "pk": 5950,
         "model": "nutrition.ingredientweightunit",
         "fields": {
             "amount": "1",
