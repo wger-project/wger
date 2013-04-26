@@ -74,7 +74,7 @@ class AddIngredientTestCase(WorkoutManagerAddTestCase):
 
     object_class = Ingredient
     url = 'ingredient-add'
-    pk = 8
+    pk = 5371
     user_fail = False
     data = {'name': 'A new ingredient',
             'sodium': 2,
@@ -228,7 +228,7 @@ class IngredientUnitSearchTestCase(WorkoutManagerTestCase):
         else:
             self.assertEqual(response.status_code, 200)
             result = json.loads(response.content)
-            self.assertEqual(len(result), 3)
+            self.assertEqual(len(result), 5)
 
         # Search for an ingredient that has no units
         response = self.client.get(reverse('ingredient-get-units', kwargs={'pk': 2}))

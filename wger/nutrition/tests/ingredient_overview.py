@@ -54,7 +54,7 @@ class OverviewPlanTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['ingredients_list']), PAGINATION_OBJECTS_PER_PAGE)
 
-        rest_ingredients = 6
+        rest_ingredients = 13
         response = self.client.get(reverse('ingredient-list'), {'page': 3})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['ingredients_list']), rest_ingredients)
