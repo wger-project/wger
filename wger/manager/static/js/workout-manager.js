@@ -57,34 +57,6 @@ function setup_sortable()
         }
 
     })
-
-    // Allow the settings within an exercise to be sortable
-    $(".settings-list").sortable({
-        placeholder: 'sortable-settings',
-        revert: true,
-        tolerance: 'pointer',
-        helper: function(event, ui) {
-            //return ui;
-            return $('<div class="sortable-settings-drag">' + ui.html() + '</div>');
-        },
-        update : function (event, ui) {
-            // returns something in the form "setting-1,setting-2,setting-3,"
-            var order = $( this ).sortable('toArray');
-
-            // Load the day-ID
-            var day_element = ui.item.parents('table').find('tr').attr('id'); //day-xy
-            var day_id = day_element.match(/\d+/);
-
-            //$("#ajax-info").show();
-            //$("#ajax-info").addClass('success');
-            $("#ajax-info").load('/' + get_current_language() + "/workout/api/edit-settting?do=set_order&order=" + order);
-
-            // TODO: it seems to be necessary to call the view two times before it returns
-            //       current data.
-            $.get('/' + get_current_language() + "/workout/day/" + day_id + "/view/");
-            $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/" + day_id + "/view/");
-        }
-    });
 }
 
 
