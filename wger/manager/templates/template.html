@@ -86,6 +86,8 @@
             {% trans "Logout" %}
             </a>
         {% elif user.is_authenticated and user.get_profile.is_temporary %}
+            <a href="{% url 'login' %}">{% trans "Login" %}</a>
+            |
             <a href="{% url 'wger.manager.views.user.registration' %}">{% trans "Register" %}</a>
         {% else %}
             <a href="{% url 'login' %}">{% trans "Login" %}</a>
