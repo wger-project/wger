@@ -3,6 +3,14 @@
     <h2 id="page-title">{% block title %}{% endblock %}</h2>
     <article class="ym-grid ym-gl content">
         <div class="ym-gbox-left ym-clearfix" id="main-content">
+            {% if messages and not no_messages %}
+                {% for message in messages %}
+                    <div class="alert {% if message.tags == 'warning'%}alert-error{% elif message.tags == 'info' %}alert-info{% elif message.tags == 'success' %}alert-success{% endif %}">
+                    <a href="#" class="close extra-bold" data-dismiss="alert">&times;</a>
+                    {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
             {% block content %}{% endblock %}
         </div>
     </article>
