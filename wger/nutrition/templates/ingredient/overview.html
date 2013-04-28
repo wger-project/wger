@@ -39,9 +39,11 @@ $(document).ready(function() {
     {% endfor %}
 </ul>
 {% else %}
-    <div class="box warning">
-        {% trans "No ingredients." %} {% trans "Use link to add one." %}
-    </div>
+    <p>
+        <a href="{% url 'ingredient-add' %}" class="btn btn-block">
+        {% trans "No ingredients." %} {% trans "Add one now." %}
+        </a>
+    </p>
 {% endif %}
 
 

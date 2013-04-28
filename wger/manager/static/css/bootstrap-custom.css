@@ -34,6 +34,13 @@
 }
 
 
+.alert a:hover{
+    color: white;
+    text-decoration: underline;
+    text-shadow: none;
+}
+
+
 .label, .badge {
     font-weight: normal;
 }

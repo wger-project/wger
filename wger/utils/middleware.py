@@ -63,18 +63,11 @@ def get_user(request):
         if not request.session.get('has_demo_data'):
             request.session['has_demo_data'] = False
 
-        if not create_user:
-            logger.debug('will NOT create a user for this request')
-
         # Django didn't find a user, so create one now
         if create_user and not user.is_authenticated():
-            logger.debug('creating a new user now')
+            logger.debug('creating a new guest user now')
             user = create_temporary_user()
             django_login(request, user)
-
-            # Create some demo data
-            # TODO: this absolutely kills performance
-            #create_demo_workout(user)
 
         request._cached_user = user
     return request._cached_user
@@ -103,5 +96,5 @@ class RobotsExclusionMiddleware(object):
         # Don't set it if it's already in the response
         if check_current_request(request) and response.get('X-Robots-Tag', None) is not None:
             return response
-        response['X-Robots-Tag'] = 'noindex'
+        response['X-Robots-Tag'] = 'noindex, nofollow'
         return response

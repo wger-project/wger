@@ -41,7 +41,10 @@ def processor(request):
         'contact_email': 'roland @ geider.net',
 
         # Flag for guest users
-        'has_demo_data': request.session.get('has_demo_data', False)
+        'has_demo_data': request.session.get('has_demo_data', False),
+
+        # Don't show messages on AJAX requests (they are deleted if shown)
+        'no_messages': request.META.get('HTTP_X_WGER_NO_MESSAGES', False),
     }
 
     # Pseudo-intelligent navigation here

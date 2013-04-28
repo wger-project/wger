@@ -44,9 +44,11 @@
             {% endif %}
 
             {% else %}
-                <div class="box warning">
-                    {% trans "No workouts found." %} {% trans "Use link to add one." %}
-                </div>
+                <p>
+                    <a href="{% url 'wger.manager.views.workout.add' %}" class="btn btn-block">
+                    {% trans "No workouts found." %} {% trans "Add one now." %}
+                    </a>
+                </p>
             {% endif %}
         </div>
     </div>
@@ -84,9 +86,11 @@
                </ul>
 
             {% else %}
-                <div class="box warning">
-                    {% trans "No nutrition plans." %} {% trans "Use link to add one." %}
-                </div>
+                <p>
+                    <a href="{% url 'wger.nutrition.views.plan.add' %}" class="btn btn-block">
+                    {% trans "No nutrition plans." %} {% trans "Add one now." %}
+                    </a>
+                </p>
             {% endif %}
             {% if weight %}
             <p>

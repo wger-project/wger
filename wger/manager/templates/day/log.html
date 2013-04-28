@@ -69,14 +69,14 @@ $(document).ready(function () {
 {% empty %}
 <tr>
     <td>
-    <div class="box warning" id="weight-box-warning">
+    <p>
     {% trans "Add exercises to this training day before adding a log." %}
 
     <a href="{% url 'workout-view' day.training.id %}">
     {% trans "Back to workout" %}
     </a>
 
-    </div>
+    </p>
     </td>
 </tr>
 {% endfor %}

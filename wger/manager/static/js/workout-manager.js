@@ -214,7 +214,13 @@ function modal_dialog_form_edit()
             type: "POST",
             url: form_action,
             data: form_data,
-            success: function(data) {
+            beforeSend: function(jqXHR, settings){
+                // Send a custom header so django's messages are not displayed in the next
+                // request which will be not be displayed to the user, but on the next one
+                // that will
+                jqXHR.setRequestHeader("X-wger-no-messages", "1");
+            },
+            success: function(data,  textStatus, jqXHR) {
                 if($(data).find('.ym-form .ym-error').length > 0)
                 {
                     // we must do the same with the new form as before, binding the click-event,

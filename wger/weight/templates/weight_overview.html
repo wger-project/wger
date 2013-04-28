@@ -76,10 +76,10 @@ $(document).ready(function () {
 -->
 {% block content %}
 {% if not min_date %}
-<div class="box warning" id="weight-box-warning">
+<p>
     {% trans "There is no chart here because there are no weight entries." %}
     {% trans "Use link to add one." %}
-</div>
+</p>
 {% endif %}
 
 <div id="weight_diagram"></div>

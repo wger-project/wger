@@ -41,7 +41,7 @@ function custom_modal_init()
 </p>
 
     {% for exercise, date_list in exercise_log.items %}
-    <div class="box info" style="text-align: center;">
+    <div class="alert alert-info" style="text-align: center;margin-top:1em;">
         <a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a>
     </div>
 
