@@ -5,7 +5,6 @@
         "fields": {
             "name": "my cool schedule that i found on the internet", 
             "is_active": true, 
-            "first_step": null, 
             "user": 2, 
             "start_date": "2013-04-21", 
             "is_loop": false
@@ -17,7 +16,6 @@
         "fields": {
             "name": "my cool schedule that i found on the internet", 
             "is_active": false, 
-            "first_step": null, 
             "user": 1, 
             "start_date": "2013-04-21", 
             "is_loop": true
@@ -29,7 +27,6 @@
         "fields": {
             "name": "another schedule of mine", 
             "is_active": false, 
-            "first_step": null, 
             "user": 1, 
             "start_date": "2013-02-01", 
             "is_loop": false
@@ -41,7 +38,6 @@
         "fields": {
             "name": "Yet another cool schedule", 
             "is_active": true, 
-            "first_step": null, 
             "user": 1, 
             "start_date": "2012-10-20", 
             "is_loop": false

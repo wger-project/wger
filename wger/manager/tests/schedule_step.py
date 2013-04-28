@@ -52,3 +52,13 @@ class EditScheduleStepTestCase(WorkoutManagerEditTestCase):
     pk = 2
     data = {'workout': 1,
             'duration': 8}
+
+
+class DeleteScheduleStepTestCase(WorkoutManagerDeleteTestCase):
+    '''
+    Tests editing a schedule
+    '''
+
+    object_class = ScheduleStep
+    url = 'step-delete'
+    pk = 2

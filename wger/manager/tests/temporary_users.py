@@ -17,9 +17,14 @@ from django.core.management import call_command
 
 from django.contrib.auth.models import User
 
+from wger.manager.models import ScheduleStep
+from wger.manager.models import Schedule
 from wger.manager.models import Workout
+from wger.manager.models import Day
 from wger.manager.models import WorkoutLog
 from wger.nutrition.models import NutritionPlan
+from wger.nutrition.models import Meal
+from wger.weight.models import WeightEntry
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.demo import create_temporary_user
@@ -49,9 +54,21 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         self.assertEqual(Workout.objects.filter(user=user).count(), 0)
 
         create_demo_entries(user)
-        self.assertEqual(Workout.objects.filter(user=user).count(), 1)
-        self.assertEqual(NutritionPlan.objects.filter(user=user).count(), 1)
+        # Workout
+        self.assertEqual(Workout.objects.filter(user=user).count(), 5)
+        self.assertEqual(Day.objects.filter(training__user=user).count(), 2)
         self.assertEqual(WorkoutLog.objects.filter(user=user).count(), 56)
+
+        # Schedule
+        self.assertEqual(Schedule.objects.filter(user=user).count(), 3)
+        self.assertEqual(ScheduleStep.objects.filter(schedule__user=user).count(), 6)
+
+        # Nutrition
+        self.assertEqual(NutritionPlan.objects.filter(user=user).count(), 1)
+        self.assertEqual(Meal.objects.filter(plan__user=user).count(), 3)
+
+        # Body weight
+        self.assertEqual(WeightEntry.objects.filter(user=user).count(), 19)
 
     def test_demo_user(self):
         '''

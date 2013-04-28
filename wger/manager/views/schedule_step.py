@@ -50,21 +50,6 @@ from wger.utils.generic_views import YamlDeleteMixin
 logger = logging.getLogger('workout_manager.custom')
 
 
-@login_required
-def view(request, pk):
-    '''
-    Show the workout schedule
-    '''
-    template_data = {}
-
-    step = get_object_or_404(ScheduleStep, pk=pk)
-    template_data['step'] = step
-
-    return render_to_response('schedule_step/view.html',
-                              template_data,
-                              context_instance=RequestContext(request))
-
-
 class StepCreateView(YamlFormMixin, CreateView):
     '''
     Creates a new workout schedule
@@ -115,7 +100,7 @@ class StepEditView(YamlFormMixin, UpdateView):
     '''
 
     model = ScheduleStep
-    title = ugettext_lazy('Edit schedule step')
+    title = ugettext_lazy('Edit workout')
     form_action_urlname = 'step-edit'
 
     def get_form_class(self):
@@ -136,3 +121,17 @@ class StepEditView(YamlFormMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('schedule-view', kwargs={'pk': self.object.schedule_id})
+
+
+class StepDeleteView(YamlDeleteMixin, DeleteView):
+    '''
+    Generic view to delete a schedule step
+    '''
+
+    model = ScheduleStep
+    title = ugettext_lazy('Delete workout')
+    form_action_urlname = 'step-delete'
+    messages = ugettext_lazy('Workout was successfully deleted')
+
+    def get_success_url(self):
+        return reverse('schedule-view', kwargs={'pk': self.object.schedule.id})

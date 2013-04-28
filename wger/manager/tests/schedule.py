@@ -16,8 +16,10 @@ import logging
 import datetime
 
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
 
 from wger.manager.models import Schedule
+from wger.manager.models import ScheduleStep
 from wger.manager.models import Workout
 
 from wger.manager.tests.testcase import STATUS_CODES_FAIL
@@ -160,3 +162,281 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         self.assertFalse(schedule1.is_active)
         self.assertTrue(schedule2.is_active)
         self.assertFalse(schedule3.is_active)
+
+
+class ScheduleAjaxTestCase(WorkoutManagerTestCase):
+    '''
+    Tests the AJAX reordering call for steps
+    '''
+
+    def test_schedule_api_owner_1(self):
+        '''
+        Tests the AJAX reordering as the owner user. All IDs exist and are owned
+        '''
+        self.user_login()
+        response = self.client.get(reverse('schedule-edit-api', kwargs={'pk': 2}),
+                                   {'do': 'set_order', 'order': 'step-3,step-1,step-2'})
+        self.assertEqual(response.status_code, 200)
+
+        schedule = Schedule.objects.get(pk=2)
+        steps = schedule.schedulestep_set.all()
+        self.assertEqual(steps[0].id, 3)
+        self.assertEqual(steps[1].id, 1)
+        self.assertEqual(steps[2].id, 2)
+
+    def test_schedule_api_owner_2(self):
+        '''
+        Tests the AJAX reordering as the owner user. All IDs exist and are owned
+        '''
+
+        self.user_login()
+        response = self.client.get(reverse('schedule-edit-api', kwargs={'pk': 2}),
+                                   {'do': 'set_order', 'order': 'step-3,step-2,step-1'})
+        self.assertEqual(response.status_code, 200)
+
+        schedule = Schedule.objects.get(pk=2)
+        steps = schedule.schedulestep_set.all()
+        self.assertEqual(steps[0].id, 3)
+        self.assertEqual(steps[1].id, 2)
+        self.assertEqual(steps[2].id, 1)
+
+    def test_schedule_api_owner_3(self):
+        '''
+        Tests the AJAX reordering as the owner user, wrong step in the order list
+        '''
+        self.user_login()
+        response = self.client.get(reverse('schedule-edit-api', kwargs={'pk': 2}),
+                                   {'do': 'set_order', 'order': 'step-3,step-1,step-2,step-44'})
+        self.assertEqual(response.status_code, 200)
+
+        schedule = Schedule.objects.get(pk=2)
+        steps = schedule.schedulestep_set.all()
+        self.assertEqual(steps[0].id, 3)
+        self.assertEqual(steps[1].id, 1)
+        self.assertEqual(steps[2].id, 2)
+
+    def test_schedule_api_owner_4(self):
+        '''
+        Tests the AJAX reordering as the owner user, wrong step in the order list
+        '''
+        self.user_login()
+        response = self.client.get(reverse('schedule-edit-api', kwargs={'pk': 2}),
+                                   {'do': 'set_order', 'order': 'foo,bar-47,step-2,step-1,step-3'})
+        self.assertEqual(response.status_code, 200)
+
+        schedule = Schedule.objects.get(pk=2)
+        steps = schedule.schedulestep_set.all()
+        self.assertEqual(steps[0].id, 2)
+        self.assertEqual(steps[1].id, 1)
+        self.assertEqual(steps[2].id, 3)
+
+    def test_schedule_api_owner_5(self):
+        '''
+        Tests the AJAX reordering as the owner user, wrong step in the order list
+        '''
+        self.user_login()
+        response = self.client.get(reverse('schedule-edit-api', kwargs={'pk': 2}),
+                                   {'do': 'set_order', 'order': 'blahrg'})
+        self.assertEqual(response.status_code, 200)
+
+        schedule = Schedule.objects.get(pk=2)
+        steps = schedule.schedulestep_set.all()
+        self.assertEqual(steps[0].id, 1)
+        self.assertEqual(steps[1].id, 2)
+        self.assertEqual(steps[2].id, 3)
+
+    def test_schedule_api_other_1(self):
+        '''
+        Tests the AJAX reordering as a different user
+        '''
+        self.user_login('test')
+        response = self.client.get(reverse('schedule-edit-api', kwargs={'pk': 2}),
+                                   {'do': 'set_order', 'order': 'step-3,step-1,step-2'})
+        self.assertIn(response.status_code, STATUS_CODES_FAIL)
+
+    def test_schedule_api_other_2(self):
+        '''
+        Tests the AJAX reordering as a different user, steps belong to a different schedule
+        '''
+        self.user_login('test')
+        response = self.client.get(reverse('schedule-edit-api', kwargs={'pk': 1}),
+                                   {'do': 'set_order', 'order': 'step-3,step-1,step-2'})
+        self.assertEqual(response.status_code, 200)
+
+        # No change in order
+        schedule = Schedule.objects.get(pk=2)
+        steps = schedule.schedulestep_set.all()
+        self.assertEqual(steps[0].id, 1)
+        self.assertEqual(steps[1].id, 2)
+        self.assertEqual(steps[2].id, 3)
+
+
+class ScheduleModelTestCase(WorkoutManagerTestCase):
+    '''
+    Tests the model methods
+    '''
+
+    def delete_objects(self, user):
+        '''
+        Helper function
+        '''
+
+        Workout.objects.filter(user=user).delete()
+        Schedule.objects.filter(user=user).delete()
+
+    def create_schedule(self, user, start_date=datetime.date.today(), is_loop=False):
+        '''
+        Helper function
+        '''
+
+        schedule = Schedule()
+        schedule.user = user
+        schedule.name = 'temp'
+        schedule.is_active = True
+        schedule.start_date = start_date
+        schedule.is_loop = is_loop
+        schedule.save()
+        return schedule
+
+    def create_workout(self, user):
+        '''
+        Helper function
+        '''
+
+        workout = Workout()
+        workout.user = user
+        workout.save()
+        return workout
+
+    def test_get_workout_steps_test_1(self):
+        '''
+        Test with no workouts and no schedule steps
+        '''
+        self.user_login('test')
+        user = User.objects.get(pk=2)
+        self.delete_objects(user)
+
+        schedule = self.create_schedule(user)
+        self.assertFalse(schedule.get_current_scheduled_workout())
+
+    def test_get_workout_steps_test_2(self):
+        '''
+        Test with one schedule step
+        '''
+        self.user_login('test')
+        user = User.objects.get(pk=2)
+        self.delete_objects(user)
+
+        schedule = self.create_schedule(user)
+        workout = self.create_workout(user)
+        step = ScheduleStep()
+        step.schedule = schedule
+        step.workout = workout
+        step.duration = 3
+        step.save()
+        self.assertEqual(schedule.get_current_scheduled_workout().workout, workout)
+
+    def test_get_workout_steps_test_3(self):
+        '''
+        Test with 3 steps
+        '''
+        self.user_login('test')
+        user = User.objects.get(pk=2)
+        self.delete_objects(user)
+
+        start_date = datetime.date.today() - datetime.timedelta(weeks=4)
+        schedule = self.create_schedule(user, start_date=start_date)
+        workout = self.create_workout(user)
+        step = ScheduleStep()
+        step.schedule = schedule
+        step.workout = workout
+        step.duration = 3
+        step.order = 1
+        step.save()
+
+        workout2 = self.create_workout(user)
+        step2 = ScheduleStep()
+        step2.schedule = schedule
+        step2.workout = workout2
+        step2.duration = 1
+        step2.order = 2
+        step2.save()
+
+        workout3 = self.create_workout(user)
+        step3 = ScheduleStep()
+        step3.schedule = schedule
+        step3.workout = workout3
+        step3.duration = 2
+        step3.order = 3
+        step3.save()
+        self.assertEqual(schedule.get_current_scheduled_workout().workout, workout2)
+
+    def test_get_workout_steps_test_4(self):
+        '''
+        Test with 3 steps. Start is too far in the past, schedule ist not a loop
+        '''
+        self.user_login('test')
+        user = User.objects.get(pk=2)
+        self.delete_objects(user)
+
+        start_date = datetime.date.today() - datetime.timedelta(weeks=7)
+        schedule = self.create_schedule(user, start_date=start_date)
+        workout = self.create_workout(user)
+        step = ScheduleStep()
+        step.schedule = schedule
+        step.workout = workout
+        step.duration = 3
+        step.order = 1
+        step.save()
+
+        workout2 = self.create_workout(user)
+        step2 = ScheduleStep()
+        step2.schedule = schedule
+        step2.workout = workout2
+        step2.duration = 1
+        step2.order = 2
+        step2.save()
+
+        workout3 = self.create_workout(user)
+        step3 = ScheduleStep()
+        step3.schedule = schedule
+        step3.workout = workout3
+        step3.duration = 2
+        step3.order = 3
+        step3.save()
+        self.assertFalse(schedule.get_current_scheduled_workout())
+
+    def test_get_workout_steps_test_5(self):
+        '''
+        Test with 3 steps. Start is too far in the past but schedule is a loop
+        '''
+        self.user_login('test')
+        user = User.objects.get(pk=2)
+        self.delete_objects(user)
+
+        start_date = datetime.date.today() - datetime.timedelta(weeks=7)
+        schedule = self.create_schedule(user, start_date=start_date, is_loop=True)
+        workout = self.create_workout(user)
+        step = ScheduleStep()
+        step.schedule = schedule
+        step.workout = workout
+        step.duration = 3
+        step.order = 1
+        step.save()
+
+        workout2 = self.create_workout(user)
+        step2 = ScheduleStep()
+        step2.schedule = schedule
+        step2.workout = workout2
+        step2.duration = 1
+        step2.order = 2
+        step2.save()
+
+        workout3 = self.create_workout(user)
+        step3 = ScheduleStep()
+        step3.schedule = schedule
+        step3.workout = workout3
+        step3.duration = 2
+        step3.order = 3
+        step3.save()
+        self.assertTrue(schedule.get_current_scheduled_workout().workout, workout)

@@ -73,9 +73,10 @@ def demo_entries(request):
         # OK, continue
         create_demo_entries(request.user)
         request.session['has_demo_data'] = True
-        messages.success(request, _('We have created sample workout, weight log, weight '
-                                    'and nutrition plan entries so you can better see what '
-                                    'this site can do. Feel free to edit or delete them!'))
+        messages.success(request, _('We have created sample workout, workout schedules, weight '
+                                    'logs, (body) weight and nutrition plan entries so you can '
+                                    'better see what  this site can do. Feel free to edit or '
+                                    'delete them!'))
     return HttpResponseRedirect(reverse('dashboard'))
 
 

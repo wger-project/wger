@@ -25,10 +25,9 @@ $(document).ready(function() {
                 {% if not forloop.last %}, {% endif %}
                 {% if forloop.last %}–{% endif %}
             {% endfor %}
-            
+
             {{ day.description }}
-            
-            
+
             <span class="editoptions" style="float: right;">
                 <a href="{% url 'wger.manager.views.day.delete' workout.id day.id %}"
                    title="{% trans 'Delete' %}">

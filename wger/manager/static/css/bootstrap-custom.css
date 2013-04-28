@@ -32,3 +32,8 @@
     color: black;
     text-decoration: underline;
 }
+
+
+.label, .badge {
+    font-weight: normal;
+}

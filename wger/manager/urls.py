@@ -81,7 +81,10 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^workout/schedule/(?P<pk>\d+)/delete/$',
         login_required(schedule.ScheduleDeleteView.as_view()),
         name='schedule-delete'),
-    
+    url(r'^workout/schedule/api/(?P<pk>\d+)/edit$',
+        'schedule.edit_step_api',
+        name='schedule-edit-api'),
+
     # Schedule steps
     url(r'^workout/schedule/(?P<schedule_pk>\d+)/step/add$',
         login_required(schedule_step.StepCreateView.as_view()),
@@ -89,6 +92,9 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^workout/schedule/step/(?P<pk>\d+)/edit$',
         login_required(schedule_step.StepEditView.as_view()),
         name='step-edit'),
+    url(r'^workout/schedule/step/(?P<pk>\d+)/delete$',
+        login_required(schedule_step.StepDeleteView.as_view()),
+        name='step-delete'),
 
     # Days
     url(r'^workout/day/(?P<pk>\d+)/edit/$',

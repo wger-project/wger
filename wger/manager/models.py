@@ -87,8 +87,14 @@ class ScheduleManager(models.Manager):
             schedule = Schedule.objects.filter(user=user).get(is_active=True)
             if schedule.schedulestep_set.count():
                 active_workout = schedule.get_current_scheduled_workout().workout
+
+                # The schedule might exist and have steps, but if it's too far in
+                # the past and is not a loop, we won't use it. Doing it like this
+                # is kind of wrong, but lets us continue to the correct place
+                if not active_workout:
+                    raise ObjectDoesNotExist
             else:
-                # This is kind of wrong, but lets us continue to the correct place
+                # same as above
                 raise ObjectDoesNotExist
 
         # there are no active schedules, just return the last workout
@@ -124,14 +130,6 @@ class Schedule(models.Model):
     that points to a workout, that points to a user, but this is more straight
     forward and performant
     '''
-
-    first_step = models.OneToOneField('ScheduleStep',
-                                      verbose_name=_('First step'),
-                                      related_name='first',
-                                      blank=True,
-                                      null=True,
-                                      editable=False)
-    '''The first step in the schedule'''
 
     name = models.CharField(verbose_name=_('Name'),
                             max_length=100,
@@ -181,7 +179,6 @@ class Schedule(models.Model):
         Returns the currently active schedule step for a user
         '''
         steps = self.schedulestep_set.all()
-        today = datetime.date.today()
         start_date = self.start_date
         found = False
         if not steps:
@@ -189,12 +186,13 @@ class Schedule(models.Model):
         while not found:
             for step in steps:
                 current_limit = start_date + datetime.timedelta(weeks=step.duration)
-                if current_limit > today:
+                if current_limit >= datetime.date.today():
                     found = True
                     return step
-            if self.is_loop:
                 start_date = current_limit
-            else:
+
+            # If it's not a loop, there's no workout that matches, return
+            if not self.is_loop:
                 return False
 
 

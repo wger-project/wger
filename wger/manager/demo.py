@@ -31,6 +31,8 @@ from wger.manager.models import Day
 from wger.manager.models import Set
 from wger.manager.models import Setting
 from wger.manager.models import WorkoutLog
+from wger.manager.models import Schedule
+from wger.manager.models import ScheduleStep
 from wger.nutrition.models import NutritionPlan
 from wger.nutrition.models import Meal
 from wger.nutrition.models import MealItem
@@ -313,3 +315,86 @@ def create_demo_entries(user):
     meal.order = 3
     meal.time = datetime.time(13, 0)
     meal.save()
+
+    #
+    # Workout schedules
+    #
+
+    # create some empty workouts to fill the list
+    workout2 = Workout(user=user, comment=_('Placeholder workout nr 1 for schedule'))
+    workout2.save()
+    workout3 = Workout(user=user, comment=_('Placeholder workout nr 2 for schedule'))
+    workout3.save()
+    workout4 = Workout(user=user, comment=_('Placeholder workout nr 3 for schedule'))
+    workout4.save()
+    workout5 = Workout(user=user, comment=_('Placeholder workout nr 4 for schedule'))
+    workout5.save()
+
+    schedule = Schedule()
+    schedule.user = user
+    schedule.name = _('My cool workout schedule')
+    schedule.start_date = datetime.date.today() - datetime.timedelta(weeks=4)
+    schedule.is_active = True
+    schedule.is_loop = True
+    schedule.save()
+
+    # Add the workouts
+    step = ScheduleStep()
+    step.schedule = schedule
+    step.workout = workout2
+    step.duration = 2
+    step.order = 1
+    step.save()
+
+    step = ScheduleStep()
+    step.schedule = schedule
+    step.workout = workout
+    step.duration = 4
+    step.order = 2
+    step.save()
+
+    step = ScheduleStep()
+    step.schedule = schedule
+    step.workout = workout3
+    step.duration = 1
+    step.order = 3
+    step.save()
+
+    step = ScheduleStep()
+    step.schedule = schedule
+    step.workout = workout4
+    step.duration = 6
+    step.order = 4
+    step.save()
+
+    #
+    # Add two more schedules, to make the overview more interesting
+    schedule = Schedule()
+    schedule.user = user
+    schedule.name = _('Empty placeholder schedule')
+    schedule.start_date = datetime.date.today() - datetime.timedelta(weeks=15)
+    schedule.is_active = False
+    schedule.is_loop = False
+    schedule.save()
+
+    step = ScheduleStep()
+    step.schedule = schedule
+    step.workout = workout2
+    step.duration = 2
+    step.order = 1
+    step.save()
+
+    schedule = Schedule()
+    schedule.user = user
+    schedule.name = _('Empty placeholder schedule')
+    schedule.start_date = datetime.date.today() - datetime.timedelta(weeks=30)
+    schedule.is_active = False
+    schedule.is_loop = False
+    schedule.save()
+
+    step = ScheduleStep()
+    step.schedule = schedule
+    step.workout = workout4
+    step.duration = 2
+    step.order = 1
+    step.save()
