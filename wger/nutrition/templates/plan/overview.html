@@ -35,9 +35,11 @@
     </tbody>
     </table>
 {% else %}
-    <div class="box warning" id="nutrition-box-warning">
-        {% trans "No nutrition plans." %} {% trans "Use link to add one." %}
-    </div>
+    <p>
+        <a href="{% url 'wger.nutrition.views.plan.add' %}" class="btn btn-block">
+        {% trans "No nutrition plans." %} {% trans "Add one now." %}
+        </a>
+    </p>
 {% endif %}
 
 {% endblock %}

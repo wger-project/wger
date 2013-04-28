@@ -117,13 +117,11 @@ $(document).ready(function() {
                             {% if not forloop.last %} – {% endif %}
                             </span>
                         {% empty %}
-                            <div class="box warning">
-                                {% trans "This exercise has no repetitions." %} 
                                 <a href="{% url 'set-edit' set.id %}"
-                                   class="modal-dialog">
+                                   class="modal-dialog btn btn-block">
+                                {% trans "This exercise has no repetitions." %} 
                                 {% trans "Edit them now."%}
                             </a>
-                            </div>
                         {% endfor %} <!--for setting in exercise-->
                         </span>
                         
@@ -143,12 +141,12 @@ $(document).ready(function() {
         {% empty %}
         <tr>
             <td colspan="2">
-                <div class="box warning">
-                    {% trans "No exercises selected for this day." %}
                     <a href="{% url 'set-add' day.id %}"
-                       class="modal-dialog">{% trans "Add one now." %}
+                       class="modal-dialog btn btn-block">
+                       {% trans "No exercises selected for this day." %}
+                       {% trans "Add one now." %}
                     </a>
-                </div>
+                
         {% endfor %} <!--for set in day-->
             </td>
         </tr>

@@ -113,28 +113,25 @@ $(document).ready(function() {
                     </span>
                 </li>
             {% empty %}
-                <div class="box warning ingredient-box-warning">
-                   {% trans "No items for this meal." %}
-                   <a href="{% url 'mealitem-add' meal.id %}"
-                           title="{% trans 'Add one now' %}"
-                           class="modal-dialog edit-meal">
-                            {% trans "Add one now."%}
-                        </a>
-                </div>
+               <a href="{% url 'mealitem-add' meal.id %}"
+                  title="{% trans 'Add one now' %}"
+                  class="modal-dialog edit-meal btn btn-block">
+                    {% trans "No items for this meal." %}
+                    {% trans "Add one now."%}
+                </a>
             {% endfor %}
             </ul>
         </td>
     </tr>
 
 {% empty %}
-     <div class="box warning" id="meal-box-warning">
-         {% trans "No meals for this plan." %}
-         <a href="{% url 'meal-add' plan.id %}"
-            class="modal-dialog">
-                {% trans "Add one now." %}
-            </a>
-     </div>
-
+<p>
+     <a href="{% url 'meal-add' plan.id %}"
+        class="modal-dialog btn btn-block">
+            {% trans "No meals for this plan." %}
+            {% trans "Add one now." %}
+        </a>
+</p>
 {% endfor %}
         <tr>
             <td colspan="2">
