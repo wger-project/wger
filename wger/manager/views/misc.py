@@ -150,7 +150,7 @@ class ContactClassView(TemplateView):
 
 class FeedbackClass(FormView):
     template_name = 'form.html'
-    success_url = reverse_lazy('feedback')
+    success_url = reverse_lazy('contact')
 
     def get_context_data(self, **kwargs):
         '''
@@ -159,6 +159,7 @@ class FeedbackClass(FormView):
         context = super(FeedbackClass, self).get_context_data(**kwargs)
         context['title'] = _('Feedback')
         context['form_fields'] = kwargs['form']
+        context['form_action'] = reverse('feedback')
         context['submit_text'] = _('Send')
         context['sidebar'] = 'misc/feedback.html'
         context['contribute_url'] = reverse('software:contribute')

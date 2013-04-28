@@ -39,7 +39,9 @@
     {% empty %}
     <tr>
         <td colspan="3">
-            {% trans "No schedules found." %} {% trans "Use link to add one." %}
+    		<a href="{% url 'schedule-add' %}" class="modal-dialog btn btn-block">
+            {% trans "No schedules found." %} {% trans "Add one now." %}
+           	</a>
         </td>
     </tr>
     {% endfor %}

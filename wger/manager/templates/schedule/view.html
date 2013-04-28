@@ -97,6 +97,14 @@ $(function() {
             {{ step.duration }}
         </td>
     </tr>
+    {% empty %}
+    <tr>
+        <td colspan="4">
+            <a href="{% url 'step-add' schedule.id %}" class="modal-dialog btn btn-block">
+            {% trans "No workouts found." %} {% trans "Add one now." %}
+            </a>
+        </td>
+    </tr>
     {% endfor %}
     {% if schedule.is_loop %}
     <tr>
