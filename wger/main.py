@@ -294,6 +294,8 @@ def run_syncdb():
     execute_from_command_line(["", "loaddata", "categories"])
     execute_from_command_line(["", "loaddata", "exercises"])
     execute_from_command_line(["", "loaddata", "ingredients"])
+    execute_from_command_line(["", "loaddata", "weight_units"])
+    execute_from_command_line(["", "loaddata", "ingredient_units"])
 
 
 def create_or_reset_admin_user():
