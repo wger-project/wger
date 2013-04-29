@@ -332,7 +332,7 @@ class WeightUnit(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return "{0}".format(self.name)
+        return u"{0}".format(self.name)
 
     def get_owner_object(self):
         '''
