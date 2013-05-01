@@ -188,7 +188,7 @@ def export_pdf(request, id):
     doc = SimpleDocTemplate(response,
                             pagesize=A4,
                             title=_('Workout'),
-                            author=_('Workout Manager'),
+                            author='wger Workout Manager',
                             subject=_('Nutritional plan %s') % request.user.username)
 
     # Background colour for header

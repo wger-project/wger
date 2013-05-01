@@ -13,7 +13,7 @@ your exercises and workouts. It started as a pet project of mine to replace my
 growing collection of different spreadsheets, but it has become something other
 people could also find useful.{% endblocktrans %}</p>
 
-<h3>{% trans "This is" %}</h3>
+<h3>{% trans "In short:" %}</h3>
 
 <div class="ym-grid linearize-level-1">
     <div class="ym-g33 ym-gl">
@@ -40,7 +40,7 @@ people could also find useful.{% endblocktrans %}</p>
         <div class="ym-gbox-left">
             <div class="warning box">
             <h3>{% trans "a nutrition manager" %}</h3>
-            <p>{% blocktrans %}create a diet plan and see some nutritional
+            <p>{% blocktrans %}create a diet plan and see its nutritional
             values (total energy, protein, carbohydrates, and so on) about
             it. Select from more than 8000 ingredients for this.{% endblocktrans %}</p>
             </div>
@@ -48,6 +48,7 @@ people could also find useful.{% endblocktrans %}</p>
     </div>
 </div>
 
+<a name="workout-manager"></a>
 <h2>{% trans "The workout manager" %}</h2>
 
 <p>{% blocktrans %}You probably guessed, this is the main function.
@@ -67,6 +68,7 @@ can simply use (e.g. beginner, etc.). It will happily make the routine you tell
 it to do, but you have to decide which exercises and how many repetitions you'll
 do.{% endblocktrans %}</p>
 
+<a name="pdf-export"></a>
 <h3>{% trans "PDF export" %}</h3>
 
 <p>{% blocktrans %}It can also generate a PDF with your current routine.
@@ -74,7 +76,7 @@ This is suitable for printing so you can bring it to the gym and keep a log
 for 7 weeks. In case you wonder how it looks like,
 <a href="/static/pdf/workout-pdf-1.0.3-en.pdf">here's a sample</a>.{% endblocktrans %}</p>
 
-
+<a name="exercise-log"></a>
 <h3>{% trans "Exercise log" %}</h3>
 
 <p>{% blocktrans %}The electronic version of the above PDF output, you can enter
@@ -84,7 +86,17 @@ The raw numbers are still accessible as a table.{% endblocktrans %}</p>
 
 <img src="{% static 'images/workout-log-1.1-en.png' %}" class="bordered flexible">
 
+<a name="workout-schedules"></a>
+<h3>{% trans "Workout schedules" %}</h3>
 
+<p>{% blocktrans %}If you always do a couple of workouts in succession or
+are following a program that changes each week, you can manage this with
+the workout schedules. You enter how many weeks you want to do each individual
+workout and whether it should loop after reaching the last one. The correct
+currently active workout will then be shown on your dashboard.{% endblocktrans %}</p>
+
+
+<a name="muscle-exercise-db"></a>
 <h2>{% trans "Muscle and exercise database" %}</h2>
 <p>{% blocktrans %}The exercise database contains around hundred exercises
 from which you can choose when creating a workout. Some have important notes
@@ -94,13 +106,17 @@ page, so you keep them in mind.{% endblocktrans %}</p>
 <p>{% blocktrans %}If you entered weight logs for the currently shown exercise, it
 will display your progress.{% endblocktrans %}</p>
 
+<p>{% blocktrans %}You can also submit your own, if you miss one. After a quick
+review, it will be added to the general database.{% endblocktrans %}</p>
+
+
 <img src="{% static 'images/muscle-overview-1.1-en.png' %}" class="bordered flexible" alt="">
 
 
-
+<a name="weight-tracker"></a>
 <h2>{% trans "The weight tracker" %}</h2>
-<p>{% blocktrans %}This is a rather simple part that lets you log your body weight.
-From this data it generates a rather nice looking chart, so you can see if you are
+<p>{% blocktrans %}This simple part lets you log your body weight. From this
+data it generates a rather nice looking chart, so you can see if you are
 reaching your goals (be it gaining mass or losing it).{% endblocktrans %}</p>
 
 <p>{% blocktrans %}In case you want to jump ship after inputing your data from the
@@ -108,12 +124,14 @@ last years, simply export the data as CSV.{% endblocktrans %}</p>
 
 <img src="{% static 'images/weight-chart-1.0.3-en.png' %}" class="bordered flexible" alt="">
 
+<a name="weight-import"></a>
 <h3>{% trans "Import" %}</h3>
 
 <p>{% blocktrans %}If you already kept your weight in a spreadsheet, you can just
 import it by copy-and-paste'ing it into the import assistant.{% endblocktrans %}</p>
 
 
+<a name="nutritional-plans"></a>
 <h2>{% trans "The nutrition schedule manager" %}</h2>
 <p>{% blocktrans %}And finally it is a nutrition schedule manager. Here you can
 create a diet plan and see some nutritional values (total energy, protein,
@@ -131,9 +149,33 @@ you create.{% endblocktrans %}</p>
 <p>{% blocktrans %}It can also be downloaded as a PDF you can keep on your
 fridge, so you don't forget to follow the plan... And as with the workout
 log, <a href="/static/pdf/nutrition-plan-pdf-1.0-en.pdf">here's a sample</a>.{% endblocktrans %}</p>
-
 {% endblock %}
 
 
 {% block sidebar %}
+<h3>{% trans "Overview" %}</h3>
+<ul>
+    <li>
+        <a href="#workout-manager">{% trans "The workout manager" %}</a>
+        <ul>
+            <li><a href="#pdf-export">{% trans "PDF export" %}</a></li>
+            <li><a href="#exercise-log">{% trans "Exercise log" %}</a></li>
+            <li><a href="#workout-schedules">{% trans "Workout schedules" %}</a></li>
+        </ul>
+    </li>
+    
+    <li>
+        <a href="#muscle-exercise-db">{% trans "Muscle and exercise database" %}</a>
+    </li>
+    <li>
+        <a href="#weight-tracker">{% trans "The weight tracker" %}</a>
+        <ul>
+            <li><a href="#weight-import">{% trans "Import" %}</a>
+        </ul>
+    </li>
+    <li>
+        <a href="#nutritional-plans">{% trans "The nutrition schedule manager" %}</a>
+
+    </li>
+</ul>
 {% endblock %}

@@ -161,7 +161,6 @@ class FeedbackClass(FormView):
         context['form_fields'] = kwargs['form']
         context['form_action'] = reverse('feedback')
         context['submit_text'] = _('Send')
-        context['sidebar'] = 'misc/feedback.html'
         context['contribute_url'] = reverse('software:contribute')
         return context
 

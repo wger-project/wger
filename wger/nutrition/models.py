@@ -242,7 +242,7 @@ class Ingredient(models.Model):
         #logger.debug("{0} > {1} > {2}".format(energy_upper, energy_calculated, energy_lower))
 
         if not ((energy_upper > energy_calculated) and (energy_calculated > energy_lower)):
-            raise ValidationError(_('Total energy is not the approximate sum of the energy ' +
+            raise ValidationError(_('Total energy is not the approximate sum of the energy ' 
                                     'provided by protein, carbohydrates and fat.'))
 
     def compare_with_database(self):

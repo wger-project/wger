@@ -34,8 +34,8 @@ function custom_modal_init()
 <div class="alert">
 <h3>{% trans "Exercise is pending review" %}</h3>
 <p>{% blocktrans %}This user submitted exercise is pending a decision to be
-included in the database. Till then, it will not be shown in the overview or
-the search.{% endblocktrans %}
+included in the database.{% endblocktrans %}
+{% trans "Till then, it will not be shown in the overview or the search."  %}
 {% if perms.exercises %}{% trans "Please select one of the options below." %}{% endif %}
 </p>
 
