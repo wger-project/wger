@@ -14950,5 +14950,229 @@
             "name": "package 4 servings", 
             "language": 2
         }
+    }, 
+    {
+        "pk": 1870, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Waffel", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1871, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Portion", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1872, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Packung", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1873, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Scheibe", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1874, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Essl\u00f6ffel", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1875, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Scheibe, d\u00fcnn", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1876, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Scheibe, dick", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1877, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Frucht", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1878, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Streifen, mittel", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1879, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Klein", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1880, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Mittel", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1881, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Gro\u00df", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1882, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Tasse", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1883, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Tasse, p\u00fcriert", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1884, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Tasse, in H\u00e4lften", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1885, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Tasse, in Scheiben", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1886, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Tasse, ganz", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1887, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Ganz(es)", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1888, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Beere", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1889, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Kirsche", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1890, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "St\u00fcck", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1891, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Zehe", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1892, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Teel\u00f6ffel", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1893, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Tasse, in St\u00fccke", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1894, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Streifen, gro\u00df", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1895, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Dose", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1896, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Tasse, gehackt", 
+            "language": 1
+        }
+    }, 
+    {
+        "pk": 1897, 
+        "model": "nutrition.weightunit", 
+        "fields": {
+            "name": "Ring", 
+            "language": 1
+        }
     }
 ]
