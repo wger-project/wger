@@ -18,6 +18,7 @@ import logging
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from django.forms import ModelForm
+from django.forms import ModelChoiceField
 from django.utils.translation import ugettext_lazy
 
 from django.views.generic import DeleteView
@@ -26,7 +27,9 @@ from django.views.generic import UpdateView
 
 from wger.nutrition.models import Ingredient
 from wger.nutrition.models import IngredientWeightUnit
+from wger.nutrition.models import WeightUnit
 
+from wger.utils.language import load_language
 from wger.utils.generic_views import YamlFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
 
@@ -63,6 +66,19 @@ class WeightUnitIngredientCreateView(YamlFormMixin, CreateView):
         form.instance.ingredient = ingredient
         return super(WeightUnitIngredientCreateView, self).form_valid(form)
 
+    def get_form_class(self):
+        '''
+        The form can only show units in the user's language
+        '''
+
+        class IngredientWeightUnitForm(ModelForm):
+            unit = ModelChoiceField(queryset=WeightUnit.objects.filter(language=load_language()))
+
+            class Meta:
+                model = IngredientWeightUnit
+
+        return IngredientWeightUnitForm
+
 
 class WeightUnitIngredientUpdateView(YamlFormMixin, UpdateView):
     '''
@@ -76,6 +92,19 @@ class WeightUnitIngredientUpdateView(YamlFormMixin, UpdateView):
     def get_success_url(self):
         return reverse('wger.nutrition.views.ingredient.view',
                        kwargs={'id': self.object.ingredient.id})
+
+    def get_form_class(self):
+        '''
+        The form can only show units in the user's language
+        '''
+
+        class IngredientWeightUnitForm(ModelForm):
+            unit = ModelChoiceField(queryset=WeightUnit.objects.filter(language=load_language()))
+
+            class Meta:
+                model = IngredientWeightUnit
+
+        return IngredientWeightUnitForm
 
 
 class WeightUnitIngredientDeleteView(YamlDeleteMixin, DeleteView):

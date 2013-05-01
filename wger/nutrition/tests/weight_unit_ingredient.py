@@ -14,9 +14,12 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse
 
+from wger.nutrition.models import WeightUnit
 from wger.nutrition.models import IngredientWeightUnit
 
+from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
@@ -30,7 +33,7 @@ class AddWeightUnitIngredientTestCase(WorkoutManagerAddTestCase):
     object_class = IngredientWeightUnit
     url = reverse_lazy('weight-unit-ingredient-add',
                        kwargs={'ingredient_pk': 1})
-    data = {'unit': 1,
+    data = {'unit': 5,
             'gramm': 123,
             'amount': 1}
     pk = 9875
@@ -54,6 +57,42 @@ class EditWeightUnitTestCase(WorkoutManagerEditTestCase):
     object_class = IngredientWeightUnit
     url = 'weight-unit-ingredient-edit'
     pk = 1
-    data = {'unit': 1,
+    data = {'unit': 5,
             'gramm': 10,
             'amount': 0.3}
+
+
+class WeightUnitFormTestCase(WorkoutManagerTestCase):
+    '''
+    Tests the form for the weight units
+    '''
+
+    def test_add_weight_unit(self):
+        '''
+        Tests the form in the add view
+        '''
+        self.user_login('admin')
+        response = self.client.get(reverse('weight-unit-ingredient-add',
+                                           kwargs={'ingredient_pk': 1}))
+
+        choices = [text for value, text in response.context['form']['unit'].field.choices]
+        for unit in WeightUnit.objects.all():
+            if unit.language_id == 1:
+                self.assertNotIn(unit.name, choices)
+            else:
+                self.assertIn(unit.name, choices)
+
+    def test_edit_weight_unit(self):
+        '''
+        Tests that the form in the edit view only shows weigh units in the user's language
+        '''
+        self.user_login('admin')
+        response = self.client.get(reverse('weight-unit-ingredient-edit',
+                                           kwargs={'pk': 1}))
+
+        choices = [text for value, text in response.context['form']['unit'].field.choices]
+        for unit in WeightUnit.objects.all():
+            if unit.language_id == 1:
+                self.assertNotIn(unit.name, choices)
+            else:
+                self.assertIn(unit.name, choices)
