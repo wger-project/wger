@@ -154,8 +154,7 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
         Tests deleting the object as an anonymous user
         '''
 
-        pass
-        #self.delete_object(fail=True)
+        self.delete_object(fail=True)
 
     def test_delete_object_authorized(self):
         '''
@@ -249,8 +248,7 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
         '''
         Tests editing the object as an anonymous user
         '''
-        pass
-        #self.edit_object(fail=True)
+        self.edit_object(fail=True)
 
     def test_edit_object_authorized(self):
         '''
@@ -281,6 +279,7 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
     pk = None
     user_success = 'admin'
     user_fail = 'test'
+    anonymous_fail = True
     data = {}
     data_ignore = ()
 
@@ -349,8 +348,8 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
         Tests adding the object as an anonymous user
         '''
 
-        pass
-        #self.add_object(fail=True)
+        if self.user_fail:
+            self.add_object(fail=self.anonymous_fail)
 
     def test_add_object_authorized(self):
         '''
@@ -365,6 +364,6 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
         Tests adding the object as an unauthorized, logged in user
         '''
 
+        self.user_login(self.user_fail)
         if self.user_fail:
-            self.user_login(self.user_fail)
             self.add_object(fail=True)
