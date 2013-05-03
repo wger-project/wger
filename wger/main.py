@@ -95,6 +95,9 @@ def process_options(argv=None):
         "--no-reload", action="store_true",
         help="Do not reload the development server.")
     parser.add_option(
+        "--migrate-db", action="store_true",
+        help="Runs all database migrations (safe operation).")
+    parser.add_option(
         "--version", action="store_true",
         help="Show version and exit.")
     parser.add_option(
@@ -168,10 +171,29 @@ def _main(opts, database_path=None):
     # Set the django environment to the settings
     setup_django_environment(settings_path)
 
+    # Check for south tables, this is only Only needed for the
+    # update 1.1.1 > 1.2, when south was introduced
+    from south.models import MigrationHistory
+    from django.db.utils import DatabaseError
+    try:
+        if database_exists() and not opts.syncdb:
+            history = MigrationHistory.objects.count()
+    except DatabaseError:
+        print("Manual database upgrade needed")
+        print("------------------------------")
+        print("The database schema changed after the 1.1.1 release. Run this script")
+        print("with the --syncdb option. This will upgrade the database, but will")
+        print("overwrite any changes you made to exercises and ingredients")
+        sys.exit()
+
     # Create Database if necessary
     if not database_exists() or opts.syncdb:
         run_syncdb()
         create_or_reset_admin_user()
+
+    # Only run the south migrations
+    elif opts.migrate_db:
+        run_south()
 
     # Reset Admin
     elif opts.reset_admin:
@@ -199,8 +221,6 @@ def create_settings(settings_path, database_path=None, url=None):
 
     print "Please edit your settings file and enter the values for the reCaptcha keys "
     print "You can leave this empty, but won't be able to register new users"
-    #recaptcha_public_key = raw_input('Public key: ')
-    #recaptcha_private_key = raw_input('Private key: ')
     recaptcha_public_key = ''
     recaptcha_private_key = ''
 
@@ -276,16 +296,51 @@ def database_exists():
         return True
 
 
+def init_south():
+    '''
+    Only perform the south initialisation
+    '''
+    print("* Initialising south")
+    execute_from_command_line(["", "migrate", "wger.exercises", "0001", "--fake"])
+    execute_from_command_line(["", "migrate", "wger.manager", "0001", "--fake"])
+    execute_from_command_line(["", "migrate", "wger.nutrition", "0001", "--fake"])
+    execute_from_command_line(["", "migrate", "wger.weight", "0001", "--fake"])
+
+
+def run_south():
+    '''
+    Run all south migrations
+    '''
+    execute_from_command_line(["", "migrate", "--all"])
+
+
 def run_syncdb():
     '''
     Initialises a new database
     '''
 
-    print "* Intialising the database"
+    print("* Intialising the database")
+
+    # Only needed for update 1.1.1 > 1.2
+    from south.models import MigrationHistory
+    from django.db.utils import DatabaseError
+    from wger.manager.models import User
+    try:
+        User.objects.count()
+        new_db = False
+    except DatabaseError:
+        new_db = True
 
     # Create the tables
     execute_from_command_line(["", "syncdb", "--noinput"])
-    execute_from_command_line(["", "migrate", "--all"])
+
+    # Only needed for update 1.1.1 > 1.2
+    history = MigrationHistory.objects.count()
+    if not history and not new_db:
+        init_south()
+
+    # Perform the migrations
+    run_south()
 
     # Load fixtures
     execute_from_command_line(["", "loaddata", "languages"])
