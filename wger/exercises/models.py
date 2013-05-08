@@ -43,7 +43,7 @@ class Language(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return "%s (%s)" % (self.full_name, self.short_name)
+        return u"{0} ({1})".format(self.full_name, self.short_name)
 
 
 class Muscle(models.Model):

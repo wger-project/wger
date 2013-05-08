@@ -41,7 +41,7 @@ class WeightEntry(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return "%s: %s kg" % (self.creation_date, self.weight)
+        return u"{0}: {1} kg".format(self.creation_date, self.weight)
 
     def get_owner_object(self):
         '''

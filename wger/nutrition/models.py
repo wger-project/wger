@@ -66,7 +66,7 @@ class NutritionPlan(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return "Nutrition plan for %s, %s" % (self.user, self.creation_date)
+        return u"Nutrition plan for {0}, {1}".format(self.user, self.creation_date)
 
     def get_absolute_url(self):
         '''
@@ -294,7 +294,7 @@ class Ingredient(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return "{0}".format(self.name)
+        return u"{0}".format(self.name)
 
     def __eq__(self, other):
         '''
@@ -396,7 +396,7 @@ class Meal(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return "%s Meal" % (self.order,)
+        return u"{0} Meal" % (self.order,)
 
     def get_owner_object(self):
         '''
@@ -462,7 +462,7 @@ class MealItem(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return "%sg ingredient %s" % (self.amount, self.ingredient_id)
+        return u"{0}g ingredient {1}".format(self.amount, self.ingredient_id)
 
     def get_owner_object(self):
         '''

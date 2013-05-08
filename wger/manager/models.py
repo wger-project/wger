@@ -245,7 +245,7 @@ class ScheduleStep(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return "ID: {0}".format(self.id)
+        return u"ID: {0}".format(self.id)
 
 
 class DaysOfWeek(models.Model):
@@ -284,7 +284,7 @@ class Day(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return "%s for TP %s" % (self.description, unicode(self.training))
+        return u"{0} for TP {1}".format(self.description, unicode(self.training))
 
     def get_owner_object(self):
         '''
@@ -321,7 +321,7 @@ class Set(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return "Set-ID %s" % (self.id)
+        return u"Set-ID {0}".format(self.id)
 
     def get_owner_object(self):
         '''
@@ -349,7 +349,7 @@ class Setting(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return "settings for exercise %s in set %s" % (self.exercise.id, self.set.id)
+        return u"settings for exercise {0} in set {1}".format(self.exercise.id, self.set.id)
 
     def get_owner_object(self):
         '''
@@ -385,9 +385,9 @@ class WorkoutLog(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return "Log entry: %s - %s kg on %s" % (self.reps,
-                                                self.weight,
-                                                self.date)
+        return u"Log entry: {0} - {1} kg on {2}".format(self.reps,
+                                                        self.weight,
+                                                        self.date)
 
     def get_owner_object(self):
         '''
@@ -477,7 +477,7 @@ by the US Department of Agriculture. It is extremely complete, with around
         '''
         Return a more human-readable representation
         '''
-        return "Profile for user %s" % (self.user)
+        return u"Profile for user {0}".format(self.user)
 
 
 # Every new user gets a profile
