@@ -62,7 +62,7 @@ class Workout(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return "{0}".format(self.comment)
+        return u"{0}".format(self.comment)
 
     def get_owner_object(self):
         '''

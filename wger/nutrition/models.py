@@ -273,8 +273,8 @@ class Ingredient(models.Model):
             subject = _('Ingredient was sucessfully added to the general database')
             message = (ugettext("Your ingredient '{0}' was successfully added to the general "
                        "database.\n\n"
-                       "It is now available on the exercise and muscle overview and can be\n"
-                       "added to workouts. You can access it on this address:\n"
+                       "It is now available on the ingredient overview and can be\n"
+                       "added to nutrition plans. You can access it on this address:\n"
                        "{1}\n\n").format(self.name, url) +
                        ugettext("Thank you for contributing and making this site better!\n"
                        "   the wger.de team"))

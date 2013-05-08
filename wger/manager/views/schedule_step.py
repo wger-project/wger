@@ -56,7 +56,7 @@ class StepCreateView(YamlFormMixin, CreateView):
     '''
 
     model = ScheduleStep
-    title = ugettext_lazy('Add step to schedule')
+    title = ugettext_lazy('Add workout')
 
     def get_form_class(self):
         '''

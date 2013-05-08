@@ -54,7 +54,7 @@ $(function() {
     <tbody>
     {% for step in schedule.schedulestep_set.select_related %}
     <tr data-schedule-id="{{schedule.id}}" id="step-{{step.id}}">
-        <td>
+        <td style="min-width: 6em;">
 <!--             {{ forloop.counter }} -->
 
             <span class="editoptions">

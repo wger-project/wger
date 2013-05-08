@@ -121,14 +121,6 @@
                             <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                {% if user.is_authenticated %}
-                                <li>
-                                    <a href="{% url 'wger.manager.views.user.preferences' %}" rel="nofollow">
-                                    {% trans 'My preferences' %}
-                                    </a>
-                                </li>
-                                {% endif %}
-                                
                                 <li><a href="{% url 'login' %}">{% trans "Login" %}</a></li>
                                 <li><a href="{% url 'wger.manager.views.user.registration' %}">{% trans "Register" %}</a><li></li>
                                 <li><a href="{% url 'django.contrib.auth.views.password_reset' %}">{% trans "Reset password" %}</a>

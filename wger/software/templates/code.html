@@ -8,6 +8,7 @@
 
 {% block content %}
 
+<a name="stable-version"></a>
 <h3>{% trans "Installing the stable version" %}</h3>
 
 
@@ -20,11 +21,6 @@ installation instructions see below.{% endblocktrans %}</p>
    {% trans "download stable version:" %} 1.1.1</a>
 </p>
 
-<!--
-<div class="box success" style="text-align: center;">
-<p><strong><a href="https://pypi.python.org/packages/source/w/wger/wger-1.1.1.tar.gz">1.1.1</a></strong></p>
-</div>
--->
 <p>{% blocktrans %}In short, these are the steps needed for an installation
 on a linux or OS X machine, with python already installed. If you want to develop,
 see the sections below.{% endblocktrans %}</p>
@@ -71,7 +67,7 @@ this blank or enter bogus data, but you won't be able e.g. to register new users
 you need to set a correct domain name in the sites app (only needed for search
 engines). This is done via django's admin interface (/admin/){% endblocktrans %}</li>
     <li>{% blocktrans %}This is a Django application, so refer for details to its
-<a href="https://docs.djangoproject.com/en/1.4/intro/install/">documentation page</a>
+<a href="https://docs.djangoproject.com/en/1.5/intro/install/">documentation page</a>
 if things don't go as expected.{% endblocktrans %}</li>
 
 </ul>
@@ -79,10 +75,11 @@ if things don't go as expected.{% endblocktrans %}</li>
 
 
 
-
+<a name="developer-guide"></a>
 <h2>{% trans "Developer guide" %}</h2>
 
 
+<a name="get-code"></a>
 <h3>{% trans "How to get the code" %}</h3>
 <p>{% blocktrans %}The code is hosted both on github and on bitbucket. If
 you are unfamiliar with mercurial or git, take a look at <a href="http://hginit.com/">HG
@@ -118,7 +115,7 @@ file.{% endblocktrans %}</li>
 
 
 
-
+<a name="get-started"></a>
 <h3>{% trans "How to get started" %}</h3>
 <p>{% blocktrans %}The installation procedure is very similar to the one
 described above. The notes and infos there also apply, so read that section
@@ -151,7 +148,7 @@ can apply them with a simple <code>python manage.py migrate --all</code>.{% endb
 
 
 
-
+<a name="contribute-code"></a>
 <h3>{% trans "How to contribute code" %}</h3>
 <p>{% blocktrans %}For other ways of contributing besides code, you might
 want to take a look at <a href="{{contribute}}">the contribute page</a>{% endblocktrans %}</p>
@@ -178,13 +175,14 @@ the command line:
 
 
 
+<a name="custom-hosting"></a>
 <h3>{% trans "Custom hosting" %}</h3>
 <p>{% blocktrans %}If you want to host this with some other evironment (apache,
 postgreSQL, etc.), you need to perform some steps manually. First, install
 the necessary packages and dependencies as described before.{% endblocktrans %}</p>
 
 <p>{% blocktrans %}Setup any database
-<a href="https://docs.djangoproject.com/en/1.4/ref/databases/">that Django
+<a href="https://docs.djangoproject.com/en/1.5/ref/databases/">that Django
 supports</a>. Then create a settings file and edit it as needed. There is
 another configuration file, settings_global.py that contains other global
 settings.{% endblocktrans %}</p>
@@ -213,8 +211,24 @@ $ python manage.py loaddata ingredient_units
 want to serve the application (mod_wsgi, fastCGI). There is a sample <code>wsgi.py</code>
 file in the wger folder, edit it and adapt it to your needs and make the server
 serve it, e.g. per mod_wsgi. Consult in any case the
-<a href="https://docs.djangoproject.com/en/1.4/howto/deployment/">django
+<a href="https://docs.djangoproject.com/en/1.5/howto/deployment/">django
 documentation</a> on the topic.{% endblocktrans %}</p>
 
 
+{% endblock %}
+
+{% block sidebar %}
+<h3>{% trans "Overview" %}</h3>
+
+<ul>
+    <li><a href="#stable-version">{% trans "Installing the stable version" %}</a></li>
+    <li>
+        <a href="#developer-guide">{% trans "Developer guide" %}</a></li>
+        <ul>
+            <li><a href="#get-code">{% trans "How to get the code" %}</a></li>
+            <li><a href="#get-started">{% trans "How to get started" %}</a></li>
+            <li><a href="#contribute-code">{% trans "How to contribute code" %}</a></li>
+            <li><a href="#custom-hosting">{% trans "Custom hosting" %}</a></li>
+        </ul>
+</ul>
 {% endblock %}

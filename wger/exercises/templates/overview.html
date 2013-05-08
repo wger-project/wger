@@ -83,15 +83,6 @@ $(document).ready(function() {
                                     height="16"
                                     alt="{% trans 'Edit' %}">
                                </a>
-
-                            <a href="{% url 'exercise-delete' exercise.id %}"
-                               title="{% trans 'Delete' %}"
-                               class="delete-exercise modal-dialog">
-                               <img src="{% static 'images/icons/trash.svg' %}"
-                                    width="16"
-                                    height="16"
-                                    alt="{% trans 'Delete' %}">
-                               </a>
                         </div>
                     {% endif %}
                     </td>

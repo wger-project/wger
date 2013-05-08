@@ -55,7 +55,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
 
         create_demo_entries(user)
         # Workout
-        self.assertEqual(Workout.objects.filter(user=user).count(), 5)
+        self.assertEqual(Workout.objects.filter(user=user).count(), 4)
         self.assertEqual(Day.objects.filter(training__user=user).count(), 2)
         self.assertEqual(WorkoutLog.objects.filter(user=user).count(), 56)
 

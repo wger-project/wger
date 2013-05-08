@@ -321,14 +321,12 @@ def create_demo_entries(user):
     #
 
     # create some empty workouts to fill the list
-    workout2 = Workout(user=user, comment=_('Placeholder workout nr 1 for schedule'))
+    workout2 = Workout(user=user, comment=_('Placeholder workout nr {0} for schedule').format(1))
     workout2.save()
-    workout3 = Workout(user=user, comment=_('Placeholder workout nr 2 for schedule'))
+    workout3 = Workout(user=user, comment=_('Placeholder workout nr {0} for schedule').format(2))
     workout3.save()
-    workout4 = Workout(user=user, comment=_('Placeholder workout nr 3 for schedule'))
+    workout4 = Workout(user=user, comment=_('Placeholder workout nr {0} for schedule').format(3))
     workout4.save()
-    workout5 = Workout(user=user, comment=_('Placeholder workout nr 4 for schedule'))
-    workout5.save()
 
     schedule = Schedule()
     schedule.user = user

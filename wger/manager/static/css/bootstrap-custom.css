@@ -44,3 +44,12 @@
 .label, .badge {
     font-weight: normal;
 }
+
+
+/*
+ * Make the 'close' button on alerts more prominent
+ */
+.alert .close {
+    opacity: 0.8;
+    text-decoration: none;
+}

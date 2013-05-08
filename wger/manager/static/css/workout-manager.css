@@ -124,6 +124,7 @@ a img{
 /*
  * Images inside a link are set to greyscale till mouseover
  */
+/*
 a img
 {
     filter: grayscale(100%);
@@ -141,7 +142,7 @@ a:hover img
     -ms-filter: grayscale(0%);
     -o-filter: grayscale(0%);	
 }
-
+*/
 
 /*
  * Set the sizes for the background where the muscles are shown on the exercise view page

@@ -52,8 +52,7 @@ class UserPreferencesForm(ModelForm):
 
 class UserEmailForm(ModelForm):
     email = EmailField(label=_("Email"),
-                       help_text=_("Completely optional, but needed to reset your password "
-                                   "in case you forget it."),
+                       help_text=_("Only needed to reset your password in case you forget it."),
                        required=False)
 
     def clean_email(self):

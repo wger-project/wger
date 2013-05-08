@@ -10,7 +10,6 @@
 <table id="workout-table">
     <thead>
     <tr>
-        <th>{% trans "Active" %}</th>
         <th>{% trans "Description" %}</th>
         <th>{% trans "Date" %}</th>
     </tr>
@@ -19,18 +18,12 @@
     {% for schedule in schedules %}
     <tr>
         <td>
-            {% if schedule.is_active %}
-            <img src="{% static 'images/icons/status-on.svg' %}"
-                 width="22"
-                 height="22"
-                 alt="{% trans 'Schedule active' %}"
-                 title="{% trans 'Schedule active' %}">
-            {% endif %}
-        </td>
-        <td>
             <a href="{% url 'schedule-view' schedule.id %}">
                 {{ schedule.name }}
             </a>
+            {% if schedule.is_active %}
+            <span class="label label-info">{% trans "active" %}</span>
+            {% endif  %}
         </td>
         <td>
             {{ schedule.start_date }}

@@ -69,8 +69,8 @@ like much, but is incredibly important!{% endblocktrans %}</p>
     <div class="ym-g66 ym-gl">
         <div class="ym-gbox-left">
             <p>{% blocktrans %}Submit those cool exercises that you absolutely
-love but are not in the list yet. If you think some description or other detail
-could be improved, tell!{% endblocktrans %}</p>
+love and do every week but are not in the list yet. If you think some description
+is too short or some other detail is missing or could be improved, tell!{% endblocktrans %}</p>
             {% if user.is_authenticated and not user.get_profile.is_temporary %}
                 <a class="btn " href="{% url 'exercise-add' %}">{% trans "Add exercise" %} »</a>
             {% else %}

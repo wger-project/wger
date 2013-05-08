@@ -123,8 +123,7 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('schedule-overview'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['schedules']), 3)
-        self.assertContains(response, 'Schedule active')
-
+        self.assertContains(response, '<span class="label label-info">active</span>')
         schedule = Schedule.objects.get(pk=4)
         schedule.is_active = False
         schedule.save()
@@ -132,7 +131,7 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('schedule-overview'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['schedules']), 3)
-        self.assertNotContains(response, 'Schedule active')
+        self.assertNotContains(response, '<span class="label label-info">active</span>')
 
     def test_schedule_active(self):
         '''
