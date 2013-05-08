@@ -142,7 +142,6 @@ class Exercise(models.Model):
     category = models.ForeignKey(ExerciseCategory,
                                  verbose_name=_('Category'))
     description = models.TextField(max_length=2000,
-                                   blank=True,
                                    verbose_name=_('Description'))
     name = models.CharField(max_length=200,
                             verbose_name=_('Name'))
