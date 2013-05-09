@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-08 22:52+0200\n"
+"POT-Creation-Date: 2013-05-09 21:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,7 +37,7 @@ msgid "Language full name"
 msgstr "Name der Sprache - lang"
 
 #: exercises/models.py:56 exercises/models.py:83 exercises/models.py:147
-#: exercises/templates/exercise/pending.html:16 manager/models.py:134
+#: exercises/templates/exercise/pending.html:16 manager/models.py:137
 #: nutrition/models.py:167 nutrition/models.py:325
 #: nutrition/templates/ingredient/pending.html:16
 #: nutrition/templates/ingredient/view.html:280
@@ -75,14 +75,14 @@ msgid "System exercise"
 msgstr "System-Übung"
 
 #: exercises/models.py:130 exercises/templates/exercise/pending.html:17
-#: manager/models.py:53 manager/models.py:126 manager/models.py:367
+#: manager/models.py:53 manager/models.py:129 manager/models.py:370
 #: nutrition/models.py:53 nutrition/models.py:148
 #: nutrition/templates/ingredient/pending.html:17 weight/models.py:31
 msgid "User"
 msgstr "Benutzer"
 
-#: exercises/models.py:139 manager/models.py:378 manager/pdf.py:123
-#: manager/templates/schedule/overview.html:14
+#: exercises/models.py:139 manager/models.py:381 manager/pdf.py:123
+#: manager/templates/schedule/overview.html:25
 #: manager/templates/workout/overview.html:15 nutrition/models.py:160
 #: nutrition/models.py:161 nutrition/templates/plan/overview.html:15
 #: weight/models.py:28 weight/views.py:117
@@ -95,8 +95,8 @@ msgstr "Datum"
 msgid "Category"
 msgstr "Kategorie"
 
-#: exercises/models.py:145 manager/models.py:48 manager/models.py:277
-#: manager/templates/schedule/overview.html:13
+#: exercises/models.py:145 manager/models.py:48 manager/models.py:280
+#: manager/templates/schedule/overview.html:24
 #: manager/templates/workout/overview.html:14 nutrition/models.py:61
 #: nutrition/templates/plan/overview.html:14
 msgid "Description"
@@ -139,12 +139,12 @@ msgstr ""
 "Danke fürs Mitmachen und diese Seite besser zu machen!\n"
 "   das wger.de Team"
 
-#: exercises/models.py:210 manager/models.py:369 manager/pdf.py:124
+#: exercises/models.py:210 manager/models.py:372 manager/pdf.py:124
 msgid "Exercise"
 msgstr "Übung"
 
-#: exercises/models.py:213 manager/models.py:232 manager/models.py:342
-#: manager/templates/schedule/view.html:50
+#: exercises/models.py:213 manager/models.py:235 manager/models.py:345
+#: manager/templates/schedule/view.html:57
 msgid "Comment"
 msgstr "Kommentar"
 
@@ -159,8 +159,8 @@ msgid "Search results"
 msgstr "Suchergebnisse"
 
 #: exercises/templates/overview.html:9
-#: exercises/templates/muscles/overview.html:125 manager/models.py:306
-#: manager/models.py:339 manager/templates/navigation.html:41
+#: exercises/templates/muscles/overview.html:125 manager/models.py:309
+#: manager/models.py:342 manager/templates/navigation.html:41
 #: manager/templates/navigation.html:43 manager/templates/day/log.html:40
 msgid "Exercises"
 msgstr "Übungen"
@@ -173,11 +173,11 @@ msgstr "Keine Kategorien."
 msgid "Use link to create one"
 msgstr "Benutze den Verweis zum Hinzufügen"
 
-#: exercises/templates/overview.html:81 exercises/templates/overview.html:85
+#: exercises/templates/overview.html:80 exercises/templates/overview.html:84
 #: exercises/templates/view.html:100 exercises/templates/view.html.py:105
 #: exercises/templates/view.html:249 exercises/templates/view.html.py:250
-#: manager/templates/schedule/view.html:68
-#: manager/templates/schedule/view.html:73
+#: manager/templates/schedule/view.html:75
+#: manager/templates/schedule/view.html:80
 #: manager/templates/tags/render_day.html:40
 #: manager/templates/tags/render_day.html:45
 #: manager/templates/tags/render_day.html:71
@@ -193,25 +193,25 @@ msgstr "Benutze den Verweis zum Hinzufügen"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: exercises/templates/overview.html:95
+#: exercises/templates/overview.html:94
 msgid ""
 "No exercises in this category. Add or edit an exercise and set its category"
 msgstr ""
 "Keine Übungen in dieser Kategorie. Editiere oder füge eine neue Übung hinzu "
 "und setze die Kategorie"
 
-#: exercises/templates/overview.html:114 exercises/templates/overview.html:120
-#: exercises/templates/overview.html:121 exercises/templates/overview.html:122
+#: exercises/templates/overview.html:113 exercises/templates/overview.html:119
+#: exercises/templates/overview.html:120 exercises/templates/overview.html:121
 msgid "Add new exercise"
 msgstr "Neue Übung hinzufügen"
 
-#: exercises/templates/overview.html:128 exercises/templates/view.html:243
+#: exercises/templates/overview.html:127 exercises/templates/view.html:243
 #: exercises/templates/muscles/overview.html:146
 #: manager/templates/index.html:137 manager/templates/navigation.html:120
-#: manager/templates/day/log.html:98 manager/templates/schedule/view.html:140
+#: manager/templates/day/log.html:98 manager/templates/schedule/view.html:147
 #: manager/templates/user/preferences.html:39
 #: manager/templates/workout/log.html:78
-#: manager/templates/workout/overview.html:50
+#: manager/templates/workout/overview.html:46
 #: manager/templates/workout/view.html:116
 #: nutrition/templates/ingredient/view.html:237
 #: nutrition/templates/plan/overview.html:50
@@ -221,27 +221,27 @@ msgstr "Neue Übung hinzufügen"
 msgid "Options"
 msgstr "Optionen"
 
-#: exercises/templates/overview.html:138 exercises/templates/overview.html:139
-#: exercises/templates/overview.html:140
+#: exercises/templates/overview.html:137 exercises/templates/overview.html:138
+#: exercises/templates/overview.html:139
 msgid "Edit category"
 msgstr "Kategorie bearbeiten"
 
-#: exercises/templates/overview.html:153 exercises/templates/overview.html:154
-#: exercises/templates/overview.html:155
+#: exercises/templates/overview.html:152 exercises/templates/overview.html:153
+#: exercises/templates/overview.html:154
 msgid "Delete category"
 msgstr "Kategorie löschen"
 
-#: exercises/templates/overview.html:168 exercises/templates/overview.html:169
-#: exercises/templates/overview.html:170 exercises/views/categories.py:66
+#: exercises/templates/overview.html:167 exercises/templates/overview.html:168
+#: exercises/templates/overview.html:169 exercises/views/categories.py:66
 msgid "Add category"
 msgstr "Kategorie hinzufügen"
 
-#: exercises/templates/overview.html:175
+#: exercises/templates/overview.html:174
 #: nutrition/templates/ingredient/overview.html:57
 msgid "Search"
 msgstr "Suchen"
 
-#: exercises/templates/overview.html:186
+#: exercises/templates/overview.html:185
 msgid "exercise name"
 msgstr "Übung"
 
@@ -284,8 +284,8 @@ msgstr "Kommentare für diese Übung"
 
 #: exercises/templates/view.html:93 exercises/templates/view.html.py:97
 #: exercises/templates/view.html:259 exercises/templates/view.html.py:260
-#: manager/templates/delete.html:26 manager/templates/schedule/view.html:76
-#: manager/templates/schedule/view.html:81
+#: manager/templates/delete.html:26 manager/templates/schedule/view.html:83
+#: manager/templates/schedule/view.html:88
 #: manager/templates/tags/render_day.html:33
 #: manager/templates/tags/render_day.html:37
 #: manager/templates/tags/render_day.html:79
@@ -321,7 +321,7 @@ msgstr "Das Diagramm zeigt die meistbeanspruchten Muskeln"
 msgid "Main muscles"
 msgstr "Hauptmuskeln"
 
-#: exercises/templates/view.html:198
+#: exercises/templates/view.html:198 software/templates/functions.html:48
 msgid "Weight log"
 msgstr "Gewichtslog"
 
@@ -383,7 +383,7 @@ msgid "No pending exercises at the moment"
 msgstr "Im Moment keine Übungen ohne Freigabe"
 
 #: exercises/templates/muscles/overview.html:9
-#: manager/templates/navigation.html:44
+#: manager/templates/navigation.html:44 software/templates/functions.html:57
 msgid "Muscle overview"
 msgstr "Muskelübersicht"
 
@@ -586,20 +586,27 @@ msgstr ""
 "Eine kurze Beschreibung oder Ziel des Trainingplans.\n"
 " Zum Beispiel 'Fokus auf Rücken' oder 'Woche 1 von Programm XY'."
 
-#: manager/models.py:136
+#: manager/models.py:68 manager/models.py:374 manager/pdf.py:58
+#: manager/pdf.py:68 manager/templates/index.html:13
+#: manager/templates/index.html.py:20 manager/templates/schedule/view.html:56
+#: manager/templates/workout/view.html:7 nutrition/views/plan.py:190
+msgid "Workout"
+msgstr "Trainingsplan"
+
+#: manager/models.py:139
 msgid "Name or short description of the schedule. For example 'Program XYZ'."
 msgstr ""
 "Name oder kurze Beschreibung des Zeitplans. Zum Beispiel 'Programm XYZ'."
 
-#: manager/models.py:140
+#: manager/models.py:143
 msgid "Start date"
 msgstr "Startdatum"
 
-#: manager/models.py:144
+#: manager/models.py:147
 msgid "Schedule active"
 msgstr "Zeitplan aktiv"
 
-#: manager/models.py:146
+#: manager/models.py:149
 msgid ""
 "Tick the box if you want to mark this schedule as your active one (will be "
 "shown e.g. on your dashboard). All other schedules will then be marked as "
@@ -609,11 +616,11 @@ msgstr ""
 " (wird dann z.B. auf der Statseite angezeigt). Alle andere Zeitpläne werden\n"
 " dann deaktiviert."
 
-#: manager/models.py:152
+#: manager/models.py:155
 msgid "Is loop"
 msgstr "Ist eine Schleife"
 
-#: manager/models.py:154
+#: manager/models.py:157
 msgid ""
 "Tick the box if you want to repeat the schedules in a loop (i.e. A, B, C, A, "
 "B, C, and so on)"
@@ -621,36 +628,36 @@ msgstr ""
 "Setze das Häkchen, wenn du die Trainingspläne im Zeitplan in einer Schleife\n"
 " wiederholen willst (A, B, C, A, B, C, usw.)"
 
-#: manager/models.py:214
+#: manager/models.py:217
 msgid "schedule"
 msgstr "Zeitplan"
 
-#: manager/models.py:222
+#: manager/models.py:225
 msgid "Duration"
 msgstr "Dauer"
 
-#: manager/models.py:223
+#: manager/models.py:226
 msgid "The duration in weeks"
 msgstr "Die Dauer in Wochen"
 
-#: manager/models.py:227 manager/models.py:310 manager/models.py:341
+#: manager/models.py:230 manager/models.py:313 manager/models.py:344
 #: nutrition/models.py:389 nutrition/models.py:452
 msgid "Order"
 msgstr "Reihenfolge"
 
-#: manager/models.py:234
+#: manager/models.py:237
 msgid "A short comment or description"
 msgstr "Kurzer Kommentar oder Beschreibung"
 
-#: manager/models.py:259
+#: manager/models.py:262
 msgid "Day of the week"
 msgstr "Wochentag"
 
-#: manager/models.py:274
+#: manager/models.py:277
 msgid "Training"
 msgstr "Training"
 
-#: manager/models.py:278
+#: manager/models.py:281
 msgid ""
 "Ususally a description about what parts are trained, like \"Arms\" or \"Pull "
 "Day\""
@@ -658,54 +665,46 @@ msgstr ""
 "Normalerweise eine Beschreibung der Muskeln, die trainiert werden wie z.B. "
 "\"Arme\" oder \"Drücktag\""
 
-#: manager/models.py:281
+#: manager/models.py:284
 msgid "Day"
 msgstr "Tag"
 
-#: manager/models.py:304
+#: manager/models.py:307
 msgid "Exercise day"
 msgstr "Übungstag"
 
-#: manager/models.py:313
+#: manager/models.py:316
 msgid "Number of sets"
 msgstr "Anzahl der Sätze"
 
-#: manager/models.py:338
+#: manager/models.py:341
 msgid "Sets"
 msgstr "Sätze"
 
-#: manager/models.py:340 manager/models.py:374
+#: manager/models.py:343 manager/models.py:377
 msgid "Repetitions"
 msgstr "Wiederholungen"
 
-#: manager/models.py:371 manager/pdf.py:58 manager/pdf.py:68
-#: manager/templates/index.html:13 manager/templates/index.html.py:20
-#: manager/templates/schedule/view.html:49
-#: manager/templates/workout/overview.html:26
-#: manager/templates/workout/view.html:7 nutrition/views/plan.py:190
-msgid "Workout"
-msgstr "Trainingsplan"
-
-#: manager/models.py:377 manager/pdf.py:124
+#: manager/models.py:380 manager/pdf.py:124
 #: manager/templates/navigation.html:62 weight/models.py:29
 #: weight/views.py:117 weight/templates/import_csv_preview.html:15
 #: weight/templates/import_csv_preview.html:44
 msgid "Weight"
 msgstr "Gewicht"
 
-#: manager/models.py:463
+#: manager/models.py:466
 msgid "Show exercise comments"
 msgstr "Übungskommentare ein/ausblenden"
 
-#: manager/models.py:464
+#: manager/models.py:467
 msgid "Check to show exercise comments on the workout view"
 msgstr "Auswählen, um Übungskommentare auf der Trainingsplanseite anzuzeigen"
 
-#: manager/models.py:470
+#: manager/models.py:473
 msgid "Also use ingredients in English"
 msgstr "Auch Zutaten auf Englisch anzeigen"
 
-#: manager/models.py:471
+#: manager/models.py:474
 msgid ""
 "Check to also show ingredients in English while creating\n"
 "a nutritional plan. These ingredients are extracted from a list provided\n"
@@ -773,16 +772,16 @@ msgstr "Übersicht"
 msgid "This workout is part of a schedule:"
 msgstr "Dieser Traininsplan ist teil eines Zeitplans:"
 
-#: manager/templates/index.html:49 manager/templates/schedule/view.html:102
-#: manager/templates/workout/overview.html:40
+#: manager/templates/index.html:49 manager/templates/schedule/view.html:109
+#: manager/templates/workout/overview.html:36
 msgid "No workouts found."
 msgstr "Keine Trainingspläne gefunden."
 
 #: manager/templates/index.html:49 manager/templates/index.html.py:91
-#: manager/templates/schedule/overview.html:36
-#: manager/templates/schedule/view.html:102
+#: manager/templates/schedule/overview.html:47
+#: manager/templates/schedule/view.html:109
 #: manager/templates/tags/render_day.html:149
-#: manager/templates/workout/overview.html:40
+#: manager/templates/workout/overview.html:36
 #: nutrition/templates/ingredient/overview.html:44
 #: nutrition/templates/plan/overview.html:40
 #: nutrition/templates/plan/view.html:120
@@ -793,7 +792,7 @@ msgstr "Jetzt hinzufügen."
 #: manager/templates/index.html:59 manager/templates/index.html.py:67
 #: nutrition/models.py:387 nutrition/models.py:443
 #: nutrition/templates/plan/overview.html:26
-#: nutrition/templates/plan/view.html:6
+#: nutrition/templates/plan/view.html:6 software/templates/functions.html:73
 msgid "Nutrition plan"
 msgstr "Ernährungsplan"
 
@@ -830,12 +829,12 @@ msgid "Your current weight is: "
 msgstr "Dein aktuelles Gewicht ist: "
 
 #: manager/templates/index.html:112 manager/templates/index.html.py:113
-#: manager/templates/index.html:114 manager/templates/schedule/view.html:126
-#: manager/templates/schedule/view.html:127
-#: manager/templates/schedule/view.html:128
-#: manager/templates/workout/overview.html:56
-#: manager/templates/workout/overview.html:57
-#: manager/templates/workout/overview.html:58
+#: manager/templates/index.html:114 manager/templates/schedule/view.html:133
+#: manager/templates/schedule/view.html:134
+#: manager/templates/schedule/view.html:135
+#: manager/templates/workout/overview.html:52
+#: manager/templates/workout/overview.html:53
+#: manager/templates/workout/overview.html:54
 #: manager/views/schedule_step.py:59
 msgid "Add workout"
 msgstr "Trainingsplan hinzufügen"
@@ -1126,20 +1125,20 @@ msgid "Go to mailing list"
 msgstr "Zur Mailingliste"
 
 #: manager/templates/schedule/overview.html:6
-#: manager/templates/schedule/overview.html:48
+#: manager/templates/schedule/overview.html:59
 msgid "Your schedules"
 msgstr "Deine Zeitpläne"
 
-#: manager/templates/schedule/overview.html:25
-#: manager/templates/schedule/view.html:88
+#: manager/templates/schedule/overview.html:36
+#: manager/templates/schedule/view.html:95
 msgid "active"
 msgstr "Aktiv"
 
-#: manager/templates/schedule/overview.html:36
+#: manager/templates/schedule/overview.html:47
 msgid "No schedules found."
 msgstr "Keine Zeitpläne gefunden."
 
-#: manager/templates/schedule/overview.html:49
+#: manager/templates/schedule/overview.html:60
 msgid ""
 "Schedules are collections of workouts that you do in\n"
 "succession."
@@ -1147,7 +1146,7 @@ msgstr ""
 "Zeitpläne sind Sammlungen von Trainingspläne die du nacheinander\n"
 "machst."
 
-#: manager/templates/schedule/overview.html:52
+#: manager/templates/schedule/overview.html:63
 msgid ""
 "You can indicate how long you want to do each workout\n"
 "before jumping to the next. It is also possible to create a loop, so you\n"
@@ -1159,7 +1158,7 @@ msgstr ""
 "Schleife zu bilden, wenn du immer dieselben Traininspläne machen \n"
 "willst, z.B. A > B > C > A > B > C usw."
 
-#: manager/templates/schedule/overview.html:56
+#: manager/templates/schedule/overview.html:67
 msgid ""
 "The currently active schedule will remain active (and be\n"
 "shown e.g. in your dashboard) till it reaches the last workout or till you\n"
@@ -1169,30 +1168,30 @@ msgstr ""
 "z.B. auf deiner Startseite erscheinen) bis der letzten Traininsplan\n"
 "erreicht wurde hat oder du ihn deaktivierst, wenn er eine Schleife ist."
 
-#: manager/templates/schedule/overview.html:60
-#: manager/templates/schedule/overview.html:67
-#: manager/templates/schedule/overview.html:68
-#: manager/templates/schedule/overview.html:69
+#: manager/templates/schedule/overview.html:71
+#: manager/templates/schedule/overview.html:78
+#: manager/templates/schedule/overview.html:79
+#: manager/templates/schedule/overview.html:80
 msgid "Add schedule"
 msgstr "Zeitplan hinzufügen"
 
-#: manager/templates/schedule/view.html:48
+#: manager/templates/schedule/view.html:55
 #: nutrition/templates/units/list.html:15
 msgid "Actions"
 msgstr "Aktionen"
 
-#: manager/templates/schedule/view.html:51
+#: manager/templates/schedule/view.html:58
 msgid "Weeks"
 msgstr "Wochen"
 
-#: manager/templates/schedule/view.html:64
-#: manager/templates/schedule/view.html:65
+#: manager/templates/schedule/view.html:71
+#: manager/templates/schedule/view.html:72
 #: manager/templates/tags/render_day.html:66
 #: manager/templates/tags/render_day.html:67
 msgid "Move me"
 msgstr "Bewege mich"
 
-#: manager/templates/schedule/view.html:111
+#: manager/templates/schedule/view.html:118
 msgid ""
 "This schedule is a loop and will go through the workouts above till you "
 "deactivate it"
@@ -1200,11 +1199,11 @@ msgstr ""
 "Dieser Zeitplan ist eine Schleife und wird durch die Trainingspläne gehen\n"
 "bist du ihn deaktivierst"
 
-#: manager/templates/schedule/view.html:134
+#: manager/templates/schedule/view.html:141
 msgid "Adding workouts"
 msgstr "Trainingspläne hinzufügen"
 
-#: manager/templates/schedule/view.html:136
+#: manager/templates/schedule/view.html:143
 msgid ""
 "Add as many workouts to the schedule as you want. You can\n"
 "edit the order per drag-and-drop. It's also possible to add one workout "
@@ -1215,15 +1214,15 @@ msgstr ""
 "per Ziehen anpassen. Es ist außerdem möglich, ein Traininsplan\n"
 "mehr als einmal hinzuzufügen."
 
-#: manager/templates/schedule/view.html:147
-#: manager/templates/schedule/view.html:148
-#: manager/templates/schedule/view.html:149 manager/views/schedule.py:124
+#: manager/templates/schedule/view.html:154
+#: manager/templates/schedule/view.html:155
+#: manager/templates/schedule/view.html:156 manager/views/schedule.py:124
 msgid "Edit schedule"
 msgstr "Zeitplan bearbeiten"
 
-#: manager/templates/schedule/view.html:158
-#: manager/templates/schedule/view.html:159
-#: manager/templates/schedule/view.html:160 manager/views/schedule.py:113
+#: manager/templates/schedule/view.html:165
+#: manager/templates/schedule/view.html:166
+#: manager/templates/schedule/view.html:167 manager/views/schedule.py:113
 msgid "Delete schedule"
 msgstr "Zeitplan löschen"
 
@@ -2324,7 +2323,7 @@ msgstr ""
 "<a href=\"https://docs.djangoproject.com/en/1.5/howto/deployment/\">Django\n"
 "Dokumentation</a> zum Thema an."
 
-#: software/templates/code.html:221 software/templates/functions.html:156
+#: software/templates/code.html:221 software/templates/functions.html:235
 msgid "Overview"
 msgstr "Übersicht"
 
@@ -2463,15 +2462,98 @@ msgstr ""
 "etwas\n"
 "geworden, das andere auch nützlich finden könnten."
 
-#: software/templates/functions.html:16
+#: software/templates/functions.html:29
+msgid "Edit window for a new set"
+msgstr "Bearbeitungsfenster für einen neuen Satz"
+
+#: software/templates/functions.html:30
+msgid ""
+"With this simple form you create\n"
+"a new set with the repetitions and exercises you want. Repeat this\n"
+"step a couple of times, and you have your workout ready."
+msgstr ""
+"Mit diesem einfachen Formular kannst du einen neuen Satz erstellen mit\n"
+"den Übungen und Wiederholungen, die du willst. Wiederhole diesen Schritt\n"
+"ein paar Mal und du hast deinen Traininsplan fertig."
+
+#: software/templates/functions.html:38 software/templates/functions.html:131
+#: software/templates/functions.html:238
+msgid "The workout manager"
+msgstr "Der Trainingsplanmanager"
+
+#: software/templates/functions.html:39
+msgid ""
+"A day of a simple workout with a few exercises.\n"
+"If you don't want to see the comments for correct execution, you can hide\n"
+"them."
+msgstr ""
+"Ein Tag eines einfaches Traininsplanes mit ein paar Übungen.\n"
+"Wenn du die Kommentare zur richtigen Durchführung nicht sehen willst,\n"
+"kannst du sie einfach verstecken."
+
+#: software/templates/functions.html:49
+msgid ""
+"Some weight entries for two exercises. Each\n"
+"colour represents a different repetition so you can see how well you are\n"
+"doing."
+msgstr ""
+"Ein paar Gewichtseinträge für zwei Übungen. Jede Farbe stellt eine\n"
+"Wiederholungszahl dar, so kannst du leicht sehen wie gut du abschneidest."
+
+#: software/templates/functions.html:58
+msgid ""
+"An overview of the body's muscles and the\n"
+"available exercises that mainly train the currently selected one."
+msgstr ""
+"Eine Übersicht der Körpermuskeln und der verfügbaren Übungen die\n"
+"den aktuell ausgewählten Muskel hauptsächlich trainieren."
+
+#: software/templates/functions.html:65
+msgid "Body weight"
+msgstr "Körpergewicht"
+
+#: software/templates/functions.html:66
+msgid ""
+"The chart shows the evolution of the\n"
+"body weight. With the small version below, you can zoom in a time period."
+msgstr ""
+"Das Diagramm zeigt die Entwicklung des Körpergewichtes. Mit der kleinen\n"
+"Version kannst du auf eine Zeitspanne reinzoomen."
+
+#: software/templates/functions.html:74
+msgid ""
+"The two first meals of a nutritional plan.\n"
+"The nutritional values (energy, protein, etc.) are calculated too, but\n"
+"are not shown in the picture."
+msgstr ""
+"Die zwei ersten Mahlzeiten eines Ernährungsplanes. Die Ernährungsangaben\n"
+"(Energie, Eiweiß, usw.) werden gleich mitberechnet, werden aber im Bild\n"
+"nicht dargestellt."
+
+#: software/templates/functions.html:82
+msgid "Ingredient detail view"
+msgstr "Zutatenübersicht"
+
+#: software/templates/functions.html:83
+msgid ""
+"A detail view of an ingredient. With the\n"
+"calculator on the top it's possible to quickly calculate the nutritional\n"
+"calues for a amount. 'Human' units such as slices are available for some\n"
+"ingredients."
+msgstr ""
+"Detailansicht einer Zutat. Mit dem Rechner oben kann man schnell die\n"
+"Ernährungswerte für eine bestimmte Menge berechen. Menschlichere Einheiten\n"
+"wie z.B. 'Scheibe' sind für manche Zutagen verfügbar."
+
+#: software/templates/functions.html:95
 msgid "In short:"
 msgstr "Kurz:"
 
-#: software/templates/functions.html:22
+#: software/templates/functions.html:101
 msgid "a workout manager"
 msgstr "ein Trainings&shy;plan&shy;manager"
 
-#: software/templates/functions.html:23
+#: software/templates/functions.html:102
 msgid ""
 "create and manage your workout routines by selecting how\n"
 "            many days your workout constists of, and adding different "
@@ -2483,11 +2565,11 @@ msgstr ""
 "willst und die entsprechenden Übungen zu jedem Tag hinzufügst. Drucke die "
 "generierte PDF-Datei aus für ein Logbuch."
 
-#: software/templates/functions.html:32
+#: software/templates/functions.html:111
 msgid "a weight tracker"
 msgstr "ein Gewichts&shy;logbuch"
 
-#: software/templates/functions.html:33
+#: software/templates/functions.html:112
 msgid ""
 "keep track of your progress with the weight log chart\n"
 "            for each exercise and your own body weight. This makes it easy "
@@ -2498,11 +2580,11 @@ msgstr ""
 "oder dein Körpergewicht. Das macht es einfach, verbesserugsfähige Bereichte "
 "zu erkennen."
 
-#: software/templates/functions.html:42
+#: software/templates/functions.html:121
 msgid "a nutrition manager"
 msgstr "ein Ernäh&shy;rungs&shy;manager"
 
-#: software/templates/functions.html:43
+#: software/templates/functions.html:122
 msgid ""
 "create a diet plan and see its nutritional\n"
 "            values (total energy, protein, carbohydrates, and so on) about\n"
@@ -2512,11 +2594,7 @@ msgstr ""
 "Ernährungswerte (Energie, Eiweiß, Kohlenhydrate, usw.) im Überblick. \n"
 "Wähle dafür aus einer langen Zutatenliste aus."
 
-#: software/templates/functions.html:52 software/templates/functions.html:159
-msgid "The workout manager"
-msgstr "Der Trainingsplanmanager"
-
-#: software/templates/functions.html:54
+#: software/templates/functions.html:133
 msgid ""
 "You probably guessed, this is the main function.\n"
 "It creates the workout you tell it, the way you tell it. It is pretty "
@@ -2535,7 +2613,7 @@ msgstr ""
 "Wiederholungen haben und die du selbst bestimmst und eingibst. Das Bedeutet, "
 "dass andere Trainingsformen (z.B. Pyramidentraining) kein Problem sind."
 
-#: software/templates/functions.html:66
+#: software/templates/functions.html:145
 msgid ""
 "<strong>Note:</strong> it has no 'preset' workouts that you\n"
 "can simply use (e.g. beginner, etc.). It will happily make the routine you "
@@ -2549,11 +2627,11 @@ msgstr ""
 "Trainigsplan erstellen, den du vorgibst, du musst also selbst über Übungen "
 "und Wiederholungen entscheiden."
 
-#: software/templates/functions.html:72 software/templates/functions.html:161
+#: software/templates/functions.html:151 software/templates/functions.html:240
 msgid "PDF export"
 msgstr "PDF-Export"
 
-#: software/templates/functions.html:74
+#: software/templates/functions.html:153
 msgid ""
 "It can also generate a PDF with your current routine.\n"
 "This is suitable for printing so you can bring it to the gym and keep a log\n"
@@ -2565,11 +2643,11 @@ msgstr ""
 "der für 7 Wochen reicht. Falls du dich wunderst, wie das aussieht, <a href="
 "\"/static/pdf/workout-pdf-1.0.3-en.pdf\">hier ist ein Muster</a>."
 
-#: software/templates/functions.html:80 software/templates/functions.html:162
+#: software/templates/functions.html:159 software/templates/functions.html:241
 msgid "Exercise log"
 msgstr "Gewichtslogbuch"
 
-#: software/templates/functions.html:82
+#: software/templates/functions.html:161
 msgid ""
 "The electronic version of the above PDF output, you can enter\n"
 "the weights and repetitions you did for each exercise. As with the (body) "
@@ -2584,11 +2662,11 @@ msgstr ""
 "du dich entwickelst. Die Zahlen sind natürlich weiterhin als Tabelle "
 "abrufbar."
 
-#: software/templates/functions.html:90 software/templates/functions.html:163
+#: software/templates/functions.html:169 software/templates/functions.html:242
 msgid "Workout schedules"
 msgstr "Trainingszeitpläne"
 
-#: software/templates/functions.html:92
+#: software/templates/functions.html:171
 msgid ""
 "If you always do a couple of workouts in succession or\n"
 "are following a program that changes each week, you can manage this with\n"
@@ -2598,16 +2676,17 @@ msgid ""
 "currently active workout will then be shown on your dashboard."
 msgstr ""
 "Wenn du immer ein paar Traininspläne nacheinander machst oder ein Programm\n"
-"folgst das sich jede Woche ändert, kannst du das mit den Zeitpläne verwalten.\n"
+"folgst das sich jede Woche ändert, kannst du das mit den Zeitpläne "
+"verwalten.\n"
 "Du gibst einfach an wie viele Wochen du die einzelne Trainingspläne machen\n"
 "willst und ob es eine Schleife bilden soll, die wieder von vorne anfängt.\n"
 "Der richtige aktive Traininsplan wird dann in deiner Übersicht angezeigt."
 
-#: software/templates/functions.html:100 software/templates/functions.html:168
+#: software/templates/functions.html:179 software/templates/functions.html:247
 msgid "Muscle and exercise database"
 msgstr "Muskel- und Übungsdatenbank"
 
-#: software/templates/functions.html:101
+#: software/templates/functions.html:180
 msgid ""
 "The exercise database contains around hundred exercises\n"
 "from which you can choose when creating a workout. Some have important "
@@ -2620,7 +2699,7 @@ msgstr ""
 "Bemerkungen was die korrekte Ausführung betrifft. Diese können auf der "
 "Trainigsplanseite angezeigt werden, um sie im Kopf zu behalten."
 
-#: software/templates/functions.html:106
+#: software/templates/functions.html:185
 msgid ""
 "If you entered weight logs for the currently shown exercise, it\n"
 "will display your progress."
@@ -2628,7 +2707,7 @@ msgstr ""
 "Wenn du bereits Gewichtsdaten für die aktuelle Übung eingetragen hast, "
 "werden diese auch angezeigt."
 
-#: software/templates/functions.html:109
+#: software/templates/functions.html:188
 msgid ""
 "You can also submit your own, if you miss one. After a quick\n"
 "review, it will be added to the general database."
@@ -2636,11 +2715,11 @@ msgstr ""
 "Du kannst auch welche einreichen, wenn du was vermisst. Nach einer kurzen\n"
 "Prüfung werden sie zur allgemeinen Datenbank hinzugefügt."
 
-#: software/templates/functions.html:117 software/templates/functions.html:171
+#: software/templates/functions.html:196 software/templates/functions.html:250
 msgid "The weight tracker"
 msgstr "Der (Körper)Gewichtsmanager"
 
-#: software/templates/functions.html:118
+#: software/templates/functions.html:197
 msgid ""
 "This simple part lets you log your body weight. From this\n"
 "data it generates a rather nice looking chart, so you can see if you are\n"
@@ -2650,7 +2729,7 @@ msgstr ""
 "um die eigene Entwicklung und Ziele schnell beurteilen zu können, sei es zu- "
 "oder abzunehemn."
 
-#: software/templates/functions.html:122
+#: software/templates/functions.html:201
 msgid ""
 "In case you want to jump ship after inputing your data from the\n"
 "last years, simply export the data as CSV."
@@ -2658,12 +2737,12 @@ msgstr ""
 "Falls du diese Anwendung nicht mehr benutzen willst, kannst du deine "
 "gespeichertenEinträge einfach als CSV-Datei exportieren lassen."
 
-#: software/templates/functions.html:128 software/templates/functions.html:173
+#: software/templates/functions.html:207 software/templates/functions.html:252
 #: weight/templates/import_csv_preview.html:73
 msgid "Import"
 msgstr "Importieren"
 
-#: software/templates/functions.html:130
+#: software/templates/functions.html:209
 msgid ""
 "If you already kept your weight in a spreadsheet, you can just\n"
 "import it by copy-and-paste'ing it into the import assistant."
@@ -2672,11 +2751,11 @@ msgstr ""
 "kannst du es sehr leicht per kopieren-und-einfügen in den Import-Assistenten "
 "importieren."
 
-#: software/templates/functions.html:135 software/templates/functions.html:177
+#: software/templates/functions.html:214 software/templates/functions.html:256
 msgid "The nutrition schedule manager"
 msgstr "Der Ernährungplanmanager"
 
-#: software/templates/functions.html:136
+#: software/templates/functions.html:215
 msgid ""
 "And finally it is a nutrition schedule manager. Here you can\n"
 "create a diet plan and see some nutritional values (total energy, protein,\n"
@@ -2692,7 +2771,7 @@ msgstr ""
 "noch längere, mit mehr als 8000 Einträge aus dem US-Amerikanischem "
 "Landwirtschaftsministerium benutzen (auf Englisch)."
 
-#: software/templates/functions.html:144
+#: software/templates/functions.html:223
 msgid ""
 "<strong>Note:</strong> this is not a log keeper. It does not\n"
 "keep track of what you actually ate during the day and how it compares to\n"
@@ -2704,7 +2783,7 @@ msgstr ""
 "des Tages gegessen hast mit dem Plan vergleichen. Es rechnet einfach die "
 "Ernährungswerte deines Planes zusammen."
 
-#: software/templates/functions.html:149
+#: software/templates/functions.html:228
 msgid ""
 "It can also be downloaded as a PDF you can keep on your\n"
 "fridge, so you don't forget to follow the plan... And as with the workout\n"
@@ -3010,3 +3089,4 @@ msgstr "Als CSV-Datei exportieren"
 #: weight/templates/weight_overview.html:131
 msgid "Import from spreadsheet"
 msgstr "Aus Tabellenkalkulation importieren"
+

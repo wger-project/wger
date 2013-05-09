@@ -13,6 +13,90 @@ your exercises and workouts. It started as a pet project of mine to replace my
 growing collection of different spreadsheets, but it has become something other
 people could also find useful.{% endblocktrans %}</p>
 
+<div id="myCarousel" class="carousel slide" style="border: 1px solid rgb(221, 221, 221);margin-top: 1em;">
+    <!--
+    <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+    <li data-target="#myCarousel" data-slide-to="3"></li>
+    <li data-target="#myCarousel" data-slide-to="4"></li>
+    <li data-target="#myCarousel" data-slide-to="5"></li>
+    <li data-target="#myCarousel" data-slide-to="6"></li>
+    </ol>
+    -->
+    <!-- Carousel items -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="{% static 'images/screen7-crop.png' %}" width="700">
+            <div class="carousel-caption">
+                <h4>{%trans "Edit window for a new set" %}</h4>
+                <p>{% blocktrans %}With this simple form you create
+a new set with the repetitions and exercises you want. Repeat this
+step a couple of times, and you have your workout ready.{% endblocktrans %}</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="{% static 'images/screen1-crop.png' %}" width="700">
+            <div class="carousel-caption">
+                <h4>{%trans "The workout manager" %}</h4>
+                <p>{% blocktrans %}A day of a simple workout with a few exercises.
+If you don't want to see the comments for correct execution, you can hide
+them.{% endblocktrans %}</p>
+            </div>
+        </div>
+        
+        <div class="item">
+            <img src="{% static 'images/screen2-crop.png' %}" width="700">
+            <div class="carousel-caption">
+                <h4>{%trans "Weight log" %}</h4>
+                <p>{% blocktrans %}Some weight entries for two exercises. Each
+colour represents a different repetition so you can see how well you are
+doing.{% endblocktrans %}</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="{% static 'images/screen3-crop.png' %}" width="700">
+            <div class="carousel-caption">
+                <h4>{%trans "Muscle overview" %}</h4>
+                <p>{% blocktrans %}An overview of the body's muscles and the
+available exercises that mainly train the currently selected one.{% endblocktrans %}</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="{% static 'images/screen4-crop.png' %}" width="700">
+            <div class="carousel-caption">
+                <h4>{%trans "Body weight" %}</h4>
+                <p>{% blocktrans %}The chart shows the evolution of the
+body weight. With the small version below, you can zoom in a time period.{% endblocktrans %}</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="{% static 'images/screen5-crop.png' %}" width="700">
+            <div class="carousel-caption">
+                <h4>{%trans "Nutrition plan" %}</h4>
+                <p>{% blocktrans %}The two first meals of a nutritional plan.
+The nutritional values (energy, protein, etc.) are calculated too, but
+are not shown in the picture.{% endblocktrans %}</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="{% static 'images/screen6-crop.png' %}" width="700">
+            <div class="carousel-caption">
+                <h4>{%trans "Ingredient detail view" %}</h4>
+                <p>{% blocktrans %}A detail view of an ingredient. With the
+calculator on the top it's possible to quickly calculate the nutritional
+calues for a amount. 'Human' units such as slices are available for some
+ingredients.{% endblocktrans %}</p>
+            </div>
+        </div>
+    </div>
+    <!-- Carousel nav -->
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>
+
+
 <h3>{% trans "In short:" %}</h3>
 
 <div class="ym-grid linearize-level-1">
