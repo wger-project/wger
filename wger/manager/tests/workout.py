@@ -12,6 +12,8 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+import datetime
+
 from django.core.urlresolvers import reverse
 
 from wger.manager.models import Workout
@@ -107,3 +109,22 @@ class WorkoutOverviewTestCase(WorkoutManagerTestCase):
         '''
         self.user_login()
         self.get_workout_overview()
+
+
+class WorkoutModelTestCase(WorkoutManagerTestCase):
+    '''
+    Tests other functionality from the model
+    '''
+
+    def test_unicode(self):
+        '''
+        Test the unicode representation
+        '''
+
+        workout = Workout()
+        workout.creation_date = datetime.date.today()
+        self.assertEqual(workout.__unicode__(),
+                         u'{0} ({1})'.format(u'Workout', datetime.date.today()))
+
+        workout.comment = u'my description'
+        self.assertEqual(workout.__unicode__(), u'my description')

@@ -20,11 +20,7 @@
     <tr>
         <td>
             <a href="{% url 'wger.manager.views.workout.view' workout.id %}">
-                {% if workout.comment %}
-                    {{ workout.comment }}
-                {% else %}
-                    {% trans "Workout" %}
-                {% endif %}
+                {{ workout }}
             </a>
         </td>
         <td>

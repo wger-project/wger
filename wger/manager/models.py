@@ -62,7 +62,10 @@ class Workout(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return u"{0}".format(self.comment)
+        if self.comment:
+            return u"{0}".format(self.comment)
+        else:
+            return u"{0} ({1})".format(_('Workout'), self.creation_date)
 
     def get_owner_object(self):
         '''
@@ -337,7 +340,7 @@ class Setting(models.Model):
 
     set = models.ForeignKey(Set, verbose_name=_('Sets'), editable=False)
     exercise = models.ForeignKey(Exercise, verbose_name=_('Exercises'), editable=False)
-    reps = models.IntegerField(validators=[MaxValueValidator(40)], verbose_name=_('Repetitions'))
+    reps = models.IntegerField(validators=[MaxValueValidator(100)], verbose_name=_('Repetitions'))
     order = models.IntegerField(blank=True, verbose_name=_('Order'), editable=False)
     comment = models.CharField(max_length=100, blank=True, verbose_name=_('Comment'))
 
