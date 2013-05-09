@@ -447,6 +447,11 @@ function init_edit_set()
     });
 }
 
+function init_schedule_datepicker()
+{
+    $( "#id_start_date" ).datepicker();
+}
+
 function init_weight_datepicker()
 {
     $( "#id_creation_date" ).datepicker();

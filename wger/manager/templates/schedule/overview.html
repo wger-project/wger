@@ -6,6 +6,17 @@
 {% block title %}{% trans "Your schedules" %}{% endblock %}
 
 
+{% block header %}
+<script type="text/javascript">
+
+// Initialise the datepicker for the modal dialog
+function custom_modal_init()
+{
+    init_schedule_datepicker();
+}
+</script>
+{% endblock %}
+
 {% block content %}
 <table id="workout-table">
     <thead>
