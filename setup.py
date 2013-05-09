@@ -12,7 +12,7 @@ from __future__ import with_statement
 
 from setuptools import setup
 from setuptools import find_packages
-from wger.workout_manager import get_version
+from wger import get_version
 
 
 with open('README.rst') as readme:
@@ -43,9 +43,9 @@ setup(
         'versiontools >= 1.6',
     ],
     install_requires=[
-        'django >= 1.4',
+        'django >= 1.5.1',
         'reportlab',
-        'django-browserid==0.7.1',
+        'django-browserid == 0.8',
         'django-recaptcha',
         'django_mobile',
         'django-discover-runner',
