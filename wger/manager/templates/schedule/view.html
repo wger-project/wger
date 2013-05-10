@@ -52,15 +52,18 @@ $(function() {
 <table id="schedule-table">
     <thead>
     <tr>
+        <th>{% trans "Nr." %}</th>
         <th>{% trans "Actions" %}</th>
         <th>{% trans "Workout" %}</th>
-        <th>{% trans "Comment" %}</th>
         <th>{% trans "Weeks" %}</th>
     </tr>
     </thead>
     <tbody>
     {% for step in schedule.schedulestep_set.select_related %}
     <tr data-schedule-id="{{schedule.id}}" id="step-{{step.id}}">
+        <td>
+            {{ forloop.counter }}
+        </td>
         <td style="min-width: 6em;">
 <!--             {{ forloop.counter }} -->
 
@@ -94,9 +97,6 @@ $(function() {
             {% if active_workout == step %}
             <span class="label label-info">{% trans "active" %}</span>
             {% endif  %}
-        </td>
-        <td>
-            {{ step.comment }}
         </td>
         <td>
             {{ step.duration }}

@@ -48,7 +48,6 @@
         "model": "manager.schedulestep", 
         "fields": {
             "duration": 3, 
-            "comment": "", 
             "workout": 1, 
             "order": 1, 
             "schedule": 2
@@ -59,7 +58,6 @@
         "model": "manager.schedulestep", 
         "fields": {
             "duration": 5, 
-            "comment": "", 
             "workout": 2, 
             "order": 2, 
             "schedule": 2
@@ -70,7 +68,6 @@
         "model": "manager.schedulestep", 
         "fields": {
             "duration": 2, 
-            "comment": "", 
             "workout": 1, 
             "order": 3, 
             "schedule": 2
@@ -81,7 +78,6 @@
         "model": "manager.schedulestep", 
         "fields": {
             "duration": 3, 
-            "comment": "", 
             "workout": 3, 
             "order": 4, 
             "schedule": 1

@@ -232,11 +232,11 @@ class ScheduleStep(models.Model):
                                 default=1,
                                 editable=False)
 
-    comment = models.CharField(verbose_name=_('Comment'),
-                               max_length=100,
-                               help_text=_("A short comment or description"),
-                               blank=True)
-    '''Short comment about the step'''
+    #comment = models.CharField(verbose_name=_('Comment'),
+    #                           max_length=100,
+    #                           help_text=_("A short comment or description"),
+    #                           blank=True)
+    #'''Short comment about the step'''
 
     def get_owner_object(self):
         '''
