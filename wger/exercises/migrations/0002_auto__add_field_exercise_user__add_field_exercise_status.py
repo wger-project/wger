@@ -18,10 +18,14 @@ class Migration(SchemaMigration):
         db.add_column('exercises_exercise', 'status',
                       self.gf('django.db.models.fields.CharField')(default='1', max_length=2),
                       keep_default=False)
+
         # Set the status 'system' for all existing exercises in the database
+        db.start_transaction()
         if not db.dry_run:
             orm.Exercise.objects.all().update(status=Exercise.EXERCISE_STATUS_SYSTEM)
-
+        db.commit_transaction()
+        # Note: we need to open and close the transaction here for postgresql.
+        #       see https://github.com/rolandgeider/wger/issues/26
 
         # Adding field 'Exercise.creation_date'
         db.add_column('exercises_exercise', 'creation_date',

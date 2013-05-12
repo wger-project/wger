@@ -20,8 +20,12 @@ class Migration(SchemaMigration):
                       keep_default=False)
 
         # Set the status 'system' for all existing ingredients in the database
+        db.start_transaction()
         if not db.dry_run:
             orm.Ingredient.objects.all().update(status=Ingredient.INGREDIENT_STATUS_SYSTEM)
+        db.commit_transaction()
+        # Note: we need to open and close the transaction here for postgresql.
+        #       see https://github.com/rolandgeider/wger/issues/26
 
 
     def backwards(self, orm):
