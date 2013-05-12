@@ -79290,36 +79290,6 @@
         }
     }, 
     {
-        "pk": 7930, 
-        "model": "nutrition.ingredientweightunit", 
-        "fields": {
-            "amount": "1", 
-            "gramm": 30, 
-            "unit": 31, 
-            "ingredient": 4285
-        }
-    }, 
-    {
-        "pk": 7931, 
-        "model": "nutrition.ingredientweightunit", 
-        "fields": {
-            "amount": "8", 
-            "gramm": 244, 
-            "unit": 31, 
-            "ingredient": 4285
-        }
-    }, 
-    {
-        "pk": 7932, 
-        "model": "nutrition.ingredientweightunit", 
-        "fields": {
-            "amount": "1", 
-            "gramm": 609, 
-            "unit": 1060, 
-            "ingredient": 4285
-        }
-    }, 
-    {
         "pk": 7933, 
         "model": "nutrition.ingredientweightunit", 
         "fields": {
