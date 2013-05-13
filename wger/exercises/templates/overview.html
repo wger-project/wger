@@ -2,6 +2,7 @@
 {% load url from future %}
 {% load i18n %}
 {% load staticfiles %}
+{% load manager_extras %}
 
 <!--
         Title
@@ -68,7 +69,7 @@ $(document).ready(function() {
     <div id="cat{{ category.id }}">
         <table class="narrow">
         <tbody>
-            {% for exercise in category.exercise_set.all %}
+            {% for exercise in category|get_active_exercises %}
                 <tr>
                     <td>
                         <a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a>

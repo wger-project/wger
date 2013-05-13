@@ -17,6 +17,7 @@
 from django import template
 from django.core.paginator import EmptyPage, PageNotAnInteger
 
+from wger.exercises.models import Exercise
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.constants import PAGINATION_MAX_TOTAL_PAGES
 from wger.utils.constants import PAGINATION_PAGES_AROUND_CURRENT
@@ -29,10 +30,19 @@ def get_current_settings(exercise, set_id):
     '''
     Does a filter on the sets
 
-    We need to do this here because it's not possible to pass arguments to function in the template,
-    and we are only interested on the settings that belong to the current set
+    We need to do this here because it's not possible to pass arguments to function in
+    the template, and we are only interested on the settings that belong to the current
+    set
     '''
     return exercise.setting_set.filter(set_id=set_id)
+
+
+@register.filter(name='get_active_exercises')
+def get_active_exercises(category):
+    '''
+    Filter out pending exercises
+    '''
+    return category.exercise_set.filter(status__in=Exercise.EXERCISE_STATUS_OK)
 
 
 @register.inclusion_tag('tags/render_day.html')
