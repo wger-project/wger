@@ -295,6 +295,12 @@ class Day(models.Model):
         '''
         return self.training
 
+    class Meta:
+        '''
+        Order by ID. this is needed for some DBs
+        '''
+        ordering = ["day__id", ]
+
 
 class Set(models.Model):
     '''
