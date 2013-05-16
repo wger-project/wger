@@ -13,7 +13,10 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
 
+from wger.nutrition.models import NutritionPlan
+from wger.exercises.models import Language
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 
@@ -27,9 +30,30 @@ class NutritionalPlanPdfExportTestCase(WorkoutManagerTestCase):
         Helper function to test exporting a nutritional plan as a pdf
         '''
 
-        # Create a workout
+        # Get a plan
         response = self.client.get(reverse('wger.nutrition.views.plan.export_pdf',
                                    kwargs={'id': 4}))
+
+        if fail:
+            self.assertIn(response.status_code, (404, 302))
+        else:
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response['Content-Type'], 'application/pdf')
+            self.assertEqual(response['Content-Disposition'],
+                             'attachment; filename=nutritional-plan.pdf')
+
+            # Approximate size, there's a timestamp in the document
+            self.assertGreater(len(response.content), 2800)
+
+        # Create an empty plan
+        user = User.objects.get(pk=2)
+        language = Language.objects.get(pk=1)
+        plan = NutritionPlan()
+        plan.user = user
+        plan.language = language
+        plan.save()
+        response = self.client.get(reverse('wger.nutrition.views.plan.export_pdf',
+                                   kwargs={'id': plan.id}))
 
         if fail:
             self.assertIn(response.status_code, (404, 302))

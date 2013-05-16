@@ -254,10 +254,17 @@ def export_pdf(request, id):
         # Make the headings span the whole width
         table_style.append(('SPAN', (0, marker), (-1, marker)))
 
-    t = Table(data, style=table_style)
+    # has the plan any data?
+    if data:
+        t = Table(data, style=table_style)
 
-    # Manually set the width of the columns
-    t._argW[0] = 2 * cm
+        # Manually set the width of the columns
+        t._argW[0] = 2 * cm
+
+    # There is nothing to output
+    else:
+        t = Paragraph(_('<i>This is an empty plan, what did you expect on the PDF?</i>'),
+                      styleSheet["Normal"])
 
     # Set the title (if available)
     if plan.description:
