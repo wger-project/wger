@@ -29,6 +29,7 @@ from django.core.management import execute_from_command_line
 
 from wger import get_version
 
+
 CONFIG_TEMPLATE = """#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -43,18 +44,18 @@ ADMINS = (
     ('Your name', 'your_email@example.com.net'),
 )
 
-DBPATH = %(dbpath)s
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': DBPATH,
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.%(dbengine)s',
+        'NAME': %(dbname)s,
+        'USER': '%(dbuser)s',
+        'PASSWORD': '%(dbpassword)s',
+        'HOST': '%(dbhost)s',
+        'PORT': '%(dbport)s',
     }
 }
+
+SOUTH_TESTS_MIGRATE = False
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = %(default_key)r
@@ -225,9 +226,39 @@ def create_settings(settings_path, database_path=None, url=None):
     recaptcha_private_key = ''
 
     # Fill in the config file template
+
+    # The environment variable is set by travis during testing
+    if os.environ.get('DB') == 'postgresql':
+        dbengine = 'postgresql_psycopg2'
+        dbname = "'test_wger'"
+        dbuser = 'postgres'
+        dbpassword = ''
+        dbhost = '127.0.0.1'
+        dbport = ''
+    elif os.environ.get('DB') == 'mysql':
+        dbengine = 'mysql'
+        dbname = "'test_wger'"
+        dbuser = 'root'
+        dbpassword = ''
+        dbhost = '127.0.0.1'
+        dbport = ''
+    else:
+        dbengine = 'sqlite3'
+        dbname = dbpath_value
+        dbuser = ''
+        dbpassword = ''
+        dbhost = ''
+        dbport = ''
+
     settings_content = CONFIG_TEMPLATE % dict(
         default_key=base64.b64encode(os.urandom(KEY_LENGTH)),
         dbpath=dbpath_value,
+        dbengine=dbengine,
+        dbname=dbname,
+        dbuser=dbuser,
+        dbpassword=dbpassword,
+        dbhost=dbhost,
+        dbport=dbport,
         siteurl=url,
         recaptcha_public_key=recaptcha_public_key,
         recaptcha_private_key=recaptcha_private_key)
@@ -311,7 +342,28 @@ def run_south():
     '''
     Run all south migrations
     '''
-    execute_from_command_line(["", "migrate", "--all"])
+
+    # Manually set the order, otherwise postgreSQL rightfully complains
+    execute_from_command_line(["", "migrate", "wger.exercises"])
+    execute_from_command_line(["", "migrate", "wger.manager"])
+    execute_from_command_line(["", "migrate", "wger.nutrition"])
+    execute_from_command_line(["", "migrate", "wger.weight"])
+
+
+def load_fixtures():
+    '''
+    Loads all fixtures
+    '''
+
+    execute_from_command_line(["", "loaddata", "users"])
+    execute_from_command_line(["", "loaddata", "languages"])
+    execute_from_command_line(["", "loaddata", "days_of_week"])
+    execute_from_command_line(["", "loaddata", "muscles"])
+    execute_from_command_line(["", "loaddata", "categories"])
+    execute_from_command_line(["", "loaddata", "exercises"])
+    execute_from_command_line(["", "loaddata", "ingredients"])
+    execute_from_command_line(["", "loaddata", "weight_units"])
+    execute_from_command_line(["", "loaddata", "ingredient_units"])
 
 
 def run_syncdb():
@@ -324,12 +376,15 @@ def run_syncdb():
     # Only needed for update 1.1.1 > 1.2
     from south.models import MigrationHistory
     from django.db.utils import DatabaseError
+    from django.db import transaction
     from wger.manager.models import User
-    try:
-        User.objects.count()
-        new_db = False
-    except DatabaseError:
-        new_db = True
+    with transaction.commit_on_success():
+        try:
+            User.objects.count()
+            new_db = False
+        except DatabaseError:
+            new_db = True
+            transaction.rollback()
 
     # Create the tables
     execute_from_command_line(["", "syncdb", "--noinput"])
@@ -343,14 +398,7 @@ def run_syncdb():
     run_south()
 
     # Load fixtures
-    execute_from_command_line(["", "loaddata", "languages"])
-    execute_from_command_line(["", "loaddata", "days_of_week"])
-    execute_from_command_line(["", "loaddata", "muscles"])
-    execute_from_command_line(["", "loaddata", "categories"])
-    execute_from_command_line(["", "loaddata", "exercises"])
-    execute_from_command_line(["", "loaddata", "ingredients"])
-    execute_from_command_line(["", "loaddata", "weight_units"])
-    execute_from_command_line(["", "loaddata", "ingredient_units"])
+    load_fixtures()
 
 
 def create_or_reset_admin_user():
