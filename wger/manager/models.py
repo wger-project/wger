@@ -31,6 +31,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from wger.exercises.models import Exercise
 
 from wger.utils.helpers import DecimalJsonEncoder
+from wger.utils.helpers import disable_for_loaddata
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -490,6 +491,7 @@ by the US Department of Agriculture. It is extremely complete, with around
 
 
 # Every new user gets a profile
+@disable_for_loaddata
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)

@@ -18,6 +18,9 @@ import logging
 import decimal
 import json
 
+from functools import wraps
+
+
 logger = logging.getLogger('workout_manager.custom')
 
 
@@ -34,3 +37,16 @@ class DecimalJsonEncoder(json.JSONEncoder):
             return str(obj)
             #return "%.2f" % obj
         return json.JSONEncoder.default(self, obj)
+
+
+# Decorator to prevent clashes when loading data with loaddata and
+# post_connect signals. See also:
+# http://stackoverflow.com/questions/3499791/how-do-i-prevent-fixtures-from-conflicting
+def disable_for_loaddata(signal_handler):
+    @wraps(signal_handler)
+    def wrapper(*args, **kwargs):
+        if kwargs['raw']:
+            #print "Skipping signal for %s %s" % (args, kwargs)
+            return
+        signal_handler(*args, **kwargs)
+    return wrapper
