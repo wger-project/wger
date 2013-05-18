@@ -7,3 +7,4 @@ django-discover-runner
 pep8
 bleach
 south
+html5lib==0.95

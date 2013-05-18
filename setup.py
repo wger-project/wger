@@ -52,6 +52,7 @@ setup(
         'pep8',
         'bleach',
         'south',
+        'html5lib == 0.95',
     ],
     entry_points={
         'console_scripts': [
