@@ -52,11 +52,11 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
         exercises_1 = category_1.exercise_set.all()
         exercise_1 = exercises_1[0]
         exercise_2 = exercises_1[1]
-        self.assertEqual(exercise_1.id, 2)
-        self.assertEqual(exercise_1.name, "A very cool exercise")
+        self.assertEqual(exercise_1.id, 1)
+        self.assertEqual(exercise_1.name, "An exercise")
 
-        self.assertEqual(exercise_2.id, 1)
-        self.assertEqual(exercise_2.name, "An exercise")
+        self.assertEqual(exercise_2.id, 2)
+        self.assertEqual(exercise_2.name, "Very cool exercise")
 
         # Only authorized users see the edit links
         if admin:
@@ -317,12 +317,12 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         Helper function to test searching for exercises
         '''
 
-        # Search for exercises (1 hit, "A very cool exercise")
+        # Search for exercises (1 hit, "Very cool exercise")
         response = self.client.get(reverse('wger.exercises.views.exercises.search'),
                                    {'term': 'cool'})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['exercises']), 1)
-        self.assertEqual(response.context['exercises'][0].name, 'A very cool exercise')
+        self.assertEqual(response.context['exercises'][0].name, 'Very cool exercise')
 
         # Search for a pending exercise (0 hits, "Pending exercise")
         response = self.client.get(reverse('wger.exercises.views.exercises.search'),
@@ -332,14 +332,14 @@ class ExercisesTestCase(WorkoutManagerTestCase):
 
         kwargs = {'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'}
 
-        # AJAX-Search for exercises (1 hit, "A very cool exercise")
+        # AJAX-Search for exercises (1 hit, "Very cool exercise")
         response = self.client.get(reverse('wger.exercises.views.exercises.search'),
                                    {'term': 'cool'},
                                    **kwargs)
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content)
         self.assertEqual(len(result), 1)
-        self.assertEqual(result[0]['value'], 'A very cool exercise')
+        self.assertEqual(result[0]['value'], 'Very cool exercise')
 
         # AJAX Search for a pending exercise (0 hits, "Pending exercise")
         response = self.client.get(reverse('wger.exercises.views.exercises.search'),

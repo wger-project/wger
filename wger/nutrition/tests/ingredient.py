@@ -281,7 +281,7 @@ class IngredientValuesTestCase(WorkoutManagerTestCase):
                                   u'fat_saturated': u'0.03244',
                                   u'fibres': 0,
                                   u'protein': u'0.2563',
-                                  u'carbohydrates': u'0'})
+                                  u'carbohydrates': u'0.00125'})
 
         # Get the nutritional values in 1 unit of product
         response = self.client.post(reverse('ingredient-get-values', kwargs={'pk': 1}),
@@ -299,7 +299,7 @@ class IngredientValuesTestCase(WorkoutManagerTestCase):
                                   u'fat_saturated': u'3.61706',
                                   u'fibres': 0,
                                   u'protein': u'28.57745',
-                                  u'carbohydrates': u'0.0'})
+                                  u'carbohydrates': u'0.139375'})
 
     def test_calculate_value_anonymous(self):
         '''
