@@ -409,16 +409,9 @@ def create_or_reset_admin_user():
         admin = User.objects.get(username="admin")
         print("Password for user admin was reset to 'admin'")
     except User.DoesNotExist:
-        admin = User()
-        admin.username = 'admin'
-        admin.last_name = 'Administrator'
         print("Created default admin user")
 
-    admin.is_superuser = True
-    admin.is_staff = True
-    admin.default_password = 'admin'
-    admin.set_password(admin.default_password)
-    admin.save()
+    execute_from_command_line(["", "loaddata", "users"])
 
 
 def start_wger(addr, port, start_browser_url=None, extra_args=[]):
