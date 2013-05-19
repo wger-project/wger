@@ -155,31 +155,32 @@ def overview(request):
 
 @login_required
 def get_weight_data(request):
-    # Process the data to pass it to the JS libraries to generate an SVG image
+    '''
+    Process the data to pass it to the JS libraries to generate an SVG image
+    '''
 
-    if request.is_ajax():
-        date_min = request.GET.get('date_min', False)
-        date_max = request.GET.get('date_max', True)
+    date_min = request.GET.get('date_min', False)
+    date_max = request.GET.get('date_max', True)
 
-        if date_min and date_max:
-            weights = WeightEntry.objects.filter(user=request.user,
-                                                 creation_date__range=(date_min, date_max))
-        else:
-            weights = WeightEntry.objects.filter(user=request.user)
+    if date_min and date_max:
+        weights = WeightEntry.objects.filter(user=request.user,
+                                             creation_date__range=(date_min, date_max))
+    else:
+        weights = WeightEntry.objects.filter(user=request.user)
 
-        chart_data = []
+    chart_data = []
 
-        for i in weights:
-            chart_data.append({'x': "%(month)s/%(day)s/%(year)s" % {
-                                    'year': i.creation_date.year,
-                                    'month': i.creation_date.month,
-                                    'day': i.creation_date.day},
-                               'y': i.weight,
-                               'id': i.id})
+    for i in weights:
+        chart_data.append({'x': "%(month)s/%(day)s/%(year)s" % {
+                                'year': i.creation_date.year,
+                                'month': i.creation_date.month,
+                                'day': i.creation_date.day},
+                            'y': i.weight,
+                            'id': i.id})
 
-        # Return the results to the server
-        mimetype = 'application/json'
-        return HttpResponse(json.dumps(chart_data), mimetype)
+    # Return the results to the server
+    mimetype = 'application/json'
+    return HttpResponse(json.dumps(chart_data), mimetype)
 
 
 CSV_DATE_FORMAT = (('%d.%m.%Y', 'DD.MM.YYYY (30.01.2012)'),
