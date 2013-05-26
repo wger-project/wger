@@ -22,9 +22,13 @@ from django.http import HttpResponseForbidden
 from django.utils.translation import ugettext_lazy
 from django.contrib import messages
 from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
 from django.core.context_processors import csrf
 from django.views.generic.edit import ModelFormMixin
 from django.views.generic import TemplateView
+
+from django.http import HttpResponseRedirect
+from django.http import HttpResponseForbidden
 
 from wger.utils.constants import HTML_TAG_WHITELIST
 from wger.utils.constants import HTML_ATTRIBUTES_WHITELIST
@@ -33,7 +37,41 @@ from wger.utils.constants import HTML_STYLES_WHITELIST
 logger = logging.getLogger('workout_manager.custom')
 
 
-class YamlFormMixin(ModelFormMixin):
+class WgerPermissionMixin(object):
+    '''
+    Custom permission mixim
+
+    This simply checks that the user has the given permissions to access a
+    resource and makes writing customized generic views easier.
+    '''
+
+    permission_required = ''
+    '''
+    The name of the permission required to access this class
+    '''
+
+    login_required = False
+    '''
+    Set to True to restrict view to logged in users
+    '''
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Check permissions and dispatch
+        '''
+        # Check the permissions
+        if self.login_required or self.permission_required:
+            if not request.user.is_authenticated():
+                return HttpResponseRedirect(reverse_lazy('login') + '?next=%s' % request.path)
+
+            if self.permission_required and not request.user.has_perm(self.permission_required):
+                return HttpResponseForbidden()
+
+        # Dispatch normally
+        return super(WgerPermissionMixin, self).dispatch(request, *args, **kwargs)
+
+
+class YamlFormMixin(ModelFormMixin, WgerPermissionMixin):
     template_name = 'form.html'
 
     form_fields = []
@@ -196,7 +234,7 @@ class YamlFormMixin(ModelFormMixin):
         return super(YamlFormMixin, self).form_valid(form)
 
 
-class YamlDeleteMixin(ModelFormMixin):
+class YamlDeleteMixin(ModelFormMixin, WgerPermissionMixin):
     form_action = ''
     form_action_urlname = ''
     title = ''

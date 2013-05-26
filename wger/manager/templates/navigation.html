@@ -104,6 +104,11 @@
                                     <li><a href="{% url 'software:code' %}">{% trans "Get the code" %} </a></li>
                                     <li><a href="{% url 'software:license' %}">{% trans "License" %} </a></li>
                                     <li><a href="{% url 'software:changelog' %}">{% trans "Changelog" %} </a></li>
+                                    {% if perms.exercises %}
+                                    <li class="divider"></li>
+                                    <li class="nav-header">{% trans "Administration" %}</li>
+                                    <li><a href="{% url 'config:language-overview' %}">{% trans "Languages" %} </a></li>
+                                    {% endif  %}
                                 </ul>
                             </li>
                         </ul>

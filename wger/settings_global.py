@@ -36,6 +36,7 @@ ugettext = lambda s: s
 LANGUAGES = (
     ('en', ugettext('English')),
     ('de', ugettext('German')),
+#    ('os', ugettext('Ossetian')),
 )
 
 # Default language code for this installation. All choices can be found here:
@@ -188,6 +189,7 @@ INSTALLED_APPS = (
     'wger.nutrition',
     'wger.software',
     'wger.utils',
+    'wger.config',
 
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
     'captcha',

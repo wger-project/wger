@@ -45,6 +45,18 @@ class Language(models.Model):
         '''
         return u"{0} ({1})".format(self.full_name, self.short_name)
 
+    def get_absolute_url(self):
+        '''
+        Returns the canonical URL to view a language
+        '''
+        return reverse('config:language-view', kwargs={'pk': self.id})
+
+    def get_owner_object(self):
+        '''
+        Muscle has no owner information
+        '''
+        return False
+
 
 class Muscle(models.Model):
     '''

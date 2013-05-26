@@ -51,7 +51,7 @@ setup(
         'django-discover-runner',
         'pep8',
         'bleach',
-        'south',
+        'south < 2.0',
         'html5lib == 0.95',
     ],
     entry_points={

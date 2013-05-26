@@ -367,3 +367,64 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
         self.user_login(self.user_fail)
         if self.user_fail:
             self.add_object(fail=True)
+
+
+class WorkoutManagerAccessTestCase(WorkoutManagerTestCase):
+    '''
+    Tests accessing a URL per GET as an authorized user, an unauthorized one and
+    a logged out one.
+    '''
+
+    url = ''
+    user_success = 'admin'
+    user_fail = 'test'
+    anonymous_fail = True
+
+    def access(self, fail=True):
+
+        # Only perform the checks on derived classes
+        if self.__class__.__name__ == 'WorkoutManagerAccessTestCase':
+            return
+
+        try:
+            response = self.client.get(reverse(self.url))
+        except NoReverseMatch:
+            # URL needs special care and doesn't need to be reversed here,
+            # everything was already done in the individual test case
+            response = self.client.get(self.url)
+
+        if fail:
+            #print response
+            self.assertIn(response.status_code, STATUS_CODES_FAIL)
+            if response.status_code == 302:
+                # The page we are redirected to doesn't trigger an error
+                response = self.client.get(response['Location'])
+                self.assertEqual(response.status_code, 200)
+
+        else:
+            self.assertEqual(response.status_code, 200)
+
+    def test_access_anonymous(self):
+        '''
+        Tests accessing the URL as an anonymous user
+        '''
+
+        self.user_logout()
+        self.access(fail=self.anonymous_fail)
+
+    def test_access_authorized(self):
+        '''
+        Tests accessing the URL as an authorized user
+        '''
+
+        self.user_login(self.user_success)
+        self.access(fail=False)
+
+    def test_access_other(self):
+        '''
+        Tests accessing the URL as an unauthorized, logged in user
+        '''
+
+        self.user_login(self.user_fail)
+        self.access(fail=True)
+        self.user_logout()

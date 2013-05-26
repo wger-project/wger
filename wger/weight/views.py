@@ -172,11 +172,11 @@ def get_weight_data(request):
 
     for i in weights:
         chart_data.append({'x': "%(month)s/%(day)s/%(year)s" % {
-                                'year': i.creation_date.year,
-                                'month': i.creation_date.month,
-                                'day': i.creation_date.day},
-                            'y': i.weight,
-                            'id': i.id})
+                           'year': i.creation_date.year,
+                           'month': i.creation_date.month,
+                           'day': i.creation_date.day},
+                           'y': i.weight,
+                           'id': i.id})
 
     # Return the results to the server
     mimetype = 'application/json'
