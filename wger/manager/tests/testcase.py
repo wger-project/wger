@@ -28,6 +28,7 @@ STATUS_CODES_FAIL = (302, 403, 404)
 
 class WorkoutManagerTestCase(TestCase):
     fixtures = ('days_of_week',
+                'test-languages',
                 'test-user-data',
                 'test-weight-data',
                 'test-exercises',

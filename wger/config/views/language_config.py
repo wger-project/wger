@@ -50,6 +50,7 @@ class LanguageConfigUpdateView(YamlFormMixin, UpdateView):
     Generic view to edit a language config
     '''
     model = LanguageConfig
+    permission_required = 'config.change_languageconfig'
 
     def get_success_url(self):
         '''
