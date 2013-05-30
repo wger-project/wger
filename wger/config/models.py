@@ -16,6 +16,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.db import models
+from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
@@ -24,7 +25,6 @@ from django.core.urlresolvers import reverse
 from django.core import mail
 
 from wger.exercises.models import Language
-
 from wger.utils.constants import EMAIL_FROM
 
 
@@ -49,7 +49,9 @@ class LanguageConfig(models.Model):
                                         verbose_name=_('Language to configure'),
                                         related_name='language_target',
                                         editable=False)
-    item = models.CharField(max_length=2, choices=SHOW_ITEM_LIST)
+    item = models.CharField(max_length=2,
+                            choices=SHOW_ITEM_LIST,
+                            editable=False)
     show = models.BooleanField(default=1)
 
     # Metaclass to set some other properties
@@ -61,3 +63,27 @@ class LanguageConfig(models.Model):
         Return a more human-readable representation
         '''
         return u"Config for language {0}".format(self.language)
+
+
+def init_language_config(sender, instance, created, **kwargs):
+    '''
+    Creates language config entries when new languages are created
+    (all combinations of all languages)
+    '''
+    for language_source in Language.objects.all():
+        for language_target in Language.objects.all():
+            if not LanguageConfig.objects.filter(language=language_source)\
+                                         .filter(language_target=language_target)\
+                                         .exists():
+
+                for item in LanguageConfig.SHOW_ITEM_LIST:
+                    config = LanguageConfig()
+                    config.language = language_source
+                    config.language_target = language_target
+                    config.item = item[0]
+                    if language_source == language_target:
+                        config.show = True
+                    else:
+                        config.show = False
+                    config.save()
+post_save.connect(init_language_config, sender=Language)

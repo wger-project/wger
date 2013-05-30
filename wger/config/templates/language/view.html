@@ -42,7 +42,11 @@ in A).{% endblocktrans %}</p>
     {% for config in view_language.language_target.all %}
     <tr>
         <td>{{config.get_item_display}}</td>
-        <td>{{config.language.full_name}}</td>
+        <td>
+            <a href="{% url 'config:languageconfig-edit' config.id %}" class="modal-dialog">
+            {{config.language.full_name}}
+            </a>
+        </td>
         <td>
             {% if config.show %}
             <img src="{% static 'images/icons/status-on.svg' %}"

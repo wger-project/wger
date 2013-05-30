@@ -16,6 +16,7 @@
 
 import logging
 
+from django.forms import ModelForm
 from django.template import RequestContext
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -41,64 +42,25 @@ from wger.utils.generic_views import YamlFormMixin
 from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.language import load_language
 
-
 logger = logging.getLogger('workout_manager.custom')
 
 
-class LanguageListView(WgerPermissionMixin, ListView):
+class LanguageConfigUpdateView(YamlFormMixin, UpdateView):
     '''
-    Show an overview of all languages
+    Generic view to edit a language config
     '''
-    model = Language
-    template_name = 'language/overview.html'
-    context_object_name = 'language_list'
-    permission_required = 'config.add_languageconfig'
+    model = LanguageConfig
 
+    def get_success_url(self):
+        '''
+        Return to the language page
+        '''
+        return reverse_lazy('config:language-view', kwargs={'pk': self.object.language_target_id})
 
-class LanguageDetailView(WgerPermissionMixin, DetailView):
-    model = Language
-    template_name = 'language/view.html'
-    permission_required = 'config.add_languageconfig'
-    context_object_name = 'view_language'
-
-
-class LanguageCreateView(YamlFormMixin, CreateView):
-    '''
-    Generic view to add a new language
-    '''
-
-    model = Language
-    title = ugettext_lazy('Add new language')
-    form_action = reverse_lazy('config:language-add')
-    permission_required = 'config.add_languageconfig'
-
-
-class LanguageDeleteView(YamlDeleteMixin, DeleteView):
-    '''
-    Generic view to delete an existing language
-    '''
-
-    model = Language
-    success_url = reverse_lazy('config:language-overview')
-    messages = ugettext_lazy('Language successfully deleted')
-    permission_required = 'config.add_languageconfig'
-
-    # Send some additional data to the template
     def get_context_data(self, **kwargs):
-        context = super(LanguageDeleteView, self).get_context_data(**kwargs)
-
-        context['title'] = _('Delete %s?') % self.object.full_name
-        context['form_action'] = reverse('config:language-delete', kwargs={'pk': self.object.id})
+        context = super(LanguageConfigUpdateView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('config:languageconfig-edit',
+                                         kwargs={'pk': self.object.id})
+        context['title'] = _('Edit')
 
         return context
-
-
-class LanguageEditView(YamlFormMixin, UpdateView):
-    '''
-    Generic view to update an existing language
-    '''
-
-    model = Language
-    title = ugettext_lazy('Edit')
-    form_action_urlname = 'config:language-edit'
-    permission_required = 'config.add_languageconfig'

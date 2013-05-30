@@ -5,6 +5,8 @@ from django.views.generic import TemplateView
 
 
 from wger.config.views import languages
+from wger.config.views import language_config
+
 
 from wger.utils.constants import USER_TAB
 
@@ -12,20 +14,24 @@ from wger.utils.constants import USER_TAB
 urlpatterns = patterns('',
 
    # Languages
-   url(r'^languages/list$',
+   url(r'^language/list$',
         languages.LanguageListView.as_view(),
         name='language-overview'),
-   url(r'^languages/(?P<pk>\d+)/view$',
+   url(r'^language/(?P<pk>\d+)/view$',
         languages.LanguageDetailView.as_view(),
         name='language-view'),
-   url(r'^languages/(?P<pk>\d+)/delete$',
+   url(r'^language/(?P<pk>\d+)/delete$',
         languages.LanguageDeleteView.as_view(),
         name='language-delete'),
-   url(r'^languages/(?P<pk>\d+)/edit',
+   url(r'^language/(?P<pk>\d+)/edit',
         languages.LanguageEditView.as_view(),
         name='language-edit'),
-   url(r'^languages/add$',
+   url(r'^language/add$',
         languages.LanguageCreateView.as_view(),
         name='language-add'),
 
+    # Language configs
+    url(r'^language/config/(?P<pk>\d+)/edit',
+        language_config.LanguageConfigUpdateView.as_view(),
+        name='languageconfig-edit'), 
 )
