@@ -34,6 +34,7 @@ def load_language():
     '''
     Returns the currently used language, e.g. to load appropriate exercises
     '''
+
     # TODO: perhaps store a language preference in the user's profile?
 
     # Read the first part of a composite language, e.g. 'de-at'
@@ -75,29 +76,3 @@ def load_ingredient_languages(request):
 
     return languages
 
-
-# register new truetype fonts for reportlab
-pdfmetrics.registerFont(TTFont(
-    'OpenSans', path_join(settings.SITE_ROOT, 'manager/static/fonts/OpenSans-Light.ttf')))
-pdfmetrics.registerFont(TTFont(
-    'OpenSans-Bold', path_join(settings.SITE_ROOT, 'manager/static/fonts/OpenSans-Bold.ttf')))
-pdfmetrics.registerFont(TTFont(
-    'OpenSans-Regular', path_join(settings.SITE_ROOT, 'manager/static/fonts/OpenSans-Regular.ttf')))
-
-styleSheet = StyleSheet1()
-styleSheet.add(ParagraphStyle(
-               name='Normal',
-               fontName='OpenSans',
-               fontSize=10,
-               leading=12,
-               ))
-styleSheet.add(ParagraphStyle(
-               parent=styleSheet['Normal'],
-               fontSize=8,
-               name='Small',
-               ))
-styleSheet.add(ParagraphStyle(
-               parent=styleSheet['Normal'],
-               name='Bold',
-               fontName='OpenSans-Bold',
-               ))
