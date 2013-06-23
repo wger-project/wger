@@ -25,5 +25,7 @@ class ExercisesSitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        return (Exercise.objects.filter(language__in=load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES))
+        language_list = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
+
+        return (Exercise.objects.filter(language__in=language_list)
                                 .filter(status__in=Exercise.EXERCISE_STATUS_OK))
