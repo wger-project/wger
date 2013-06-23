@@ -16,7 +16,8 @@
 
 from django.contrib.sitemaps import Sitemap
 from wger.exercises.models import Exercise
-from wger.utils.language import load_language
+from wger.utils.language import load_item_languages
+from wger.config.models import LanguageConfig
 
 
 class ExercisesSitemap(Sitemap):
@@ -24,5 +25,5 @@ class ExercisesSitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        return (Exercise.objects.filter(category__language=load_language())
+        return (Exercise.objects.filter(language__in=load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES))
                                 .filter(status__in=Exercise.EXERCISE_STATUS_OK))
