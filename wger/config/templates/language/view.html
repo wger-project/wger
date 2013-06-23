@@ -39,12 +39,12 @@ in A).{% endblocktrans %}</p>
     </tr>
 </thead>
 <tbody>
-    {% for config in view_language.language_target.all %}
+    {% for config in view_language.language_source.all %}
     <tr>
         <td>{{config.get_item_display}}</td>
         <td>
             <a href="{% url 'config:languageconfig-edit' config.id %}" class="modal-dialog">
-            {{config.language.full_name}}
+            {{config.language_target.full_name}}
             </a>
         </td>
         <td>
@@ -56,8 +56,7 @@ in A).{% endblocktrans %}</p>
              width="16"
              height="16"
              alt="">
-            
-            </td>
+        </td>
     </tr>
     {% endfor %}
 </tbody>

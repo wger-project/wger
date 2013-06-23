@@ -15,9 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 import logging
 import json
-import datetime
 
-from django import forms
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
@@ -34,36 +32,24 @@ from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
-
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
 from django.views.generic import ListView
 
 from wger.nutrition.forms import UnitChooserForm
-from wger.nutrition.models import NutritionPlan
-from wger.nutrition.models import Meal
 from wger.nutrition.models import MealItem
 from wger.nutrition.models import Ingredient
-from wger.nutrition.models import WeightUnit
 from wger.nutrition.models import IngredientWeightUnit
-from wger.nutrition.models import MEALITEM_WEIGHT_GRAM
-from wger.nutrition.models import MEALITEM_WEIGHT_UNIT
 
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.lib.pagesizes import A4, cm
-from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
-from reportlab.lib import colors
-
-from wger import get_version
 from wger.utils import helpers
 from wger.utils.generic_views import YamlFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
-from wger.utils.constants import EMAIL_FROM
 from wger.utils.language import load_language
 from wger.utils.language import load_ingredient_languages
-
+from wger.config.models import LanguageConfig
+from wger.utils.language import load_item_languages
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -87,7 +73,8 @@ class IngredientListView(ListView):
         (the user can also want to see ingredients in English, in addition to his
         native language, see load_ingredient_languages)
         '''
-        languages = load_ingredient_languages(self.request)
+        languages = load_item_languages(LanguageConfig.SHOW_ITEM_INGREDIENTS)
+        #languages = load_ingredient_languages(self.request)
         return (Ingredient.objects.filter(language__in=languages)
                                   .filter(status__in=Ingredient.INGREDIENT_STATUS_OK)
                                   .only('id', 'name'))
@@ -158,7 +145,7 @@ class IngredientCreateView(YamlFormMixin, CreateView):
             subject = _('New user submitted ingredient')
             message = _('''The user {0} submitted a new ingredient "{1}".'''.format(
                         self.request.user.username, form.instance.name))
-            mail.mail_admins(_('New user submitted ingredient'),
+            mail.mail_admins(subject,
                              message,
                              fail_silently=True)
 

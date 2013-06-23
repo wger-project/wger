@@ -16,31 +16,14 @@
 
 import logging
 
-from django.forms import ModelForm
-from django.template import RequestContext
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
-from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
-
-from django.contrib import messages
-from django.views.generic import ListView
-from django.views.generic import CreateView
-from django.views.generic import DetailView
-from django.views.generic import DeleteView
 from django.views.generic import UpdateView
 
-from wger.exercises.models import Language
-
 from wger.config.models import LanguageConfig
-
-from wger.utils.generic_views import YamlDeleteMixin
 from wger.utils.generic_views import YamlFormMixin
-from wger.utils.generic_views import WgerPermissionMixin
-from wger.utils.language import load_language
+
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -56,7 +39,7 @@ class LanguageConfigUpdateView(YamlFormMixin, UpdateView):
         '''
         Return to the language page
         '''
-        return reverse_lazy('config:language-view', kwargs={'pk': self.object.language_target_id})
+        return reverse_lazy('config:language-view', kwargs={'pk': self.object.language_id})
 
     def get_context_data(self, **kwargs):
         context = super(LanguageConfigUpdateView, self).get_context_data(**kwargs)

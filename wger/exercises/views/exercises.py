@@ -42,14 +42,14 @@ from django.views.generic import UpdateView
 from wger.manager.models import WorkoutLog
 
 from wger.exercises.models import Exercise
-from wger.exercises.models import ExerciseComment
 from wger.exercises.models import ExerciseCategory
-from wger.exercises.models import Muscle
 
 from wger.utils.generic_views import YamlFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
 from wger.utils.language import load_language
+from wger.utils.language import load_item_languages
 
+from wger.config.models import LanguageConfig
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -58,12 +58,13 @@ def overview(request):
     '''
     Overview with all exercises
     '''
-    language = load_language()
+    languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
 
     template_data = {}
     template_data.update(csrf(request))
 
-    categories = (ExerciseCategory.objects.filter(language=language.id)
+    logger.debug(languages)
+    categories = (ExerciseCategory.objects.filter(language__in=languages)
                                           .filter(exercise__status__in=Exercise.EXERCISE_STATUS_OK)
                                           .distinct())
 

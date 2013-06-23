@@ -59,7 +59,7 @@ class WgerPermissionMixin(object):
         '''
         Check permissions and dispatch
         '''
-        # Check the permissions
+
         if self.login_required or self.permission_required:
             if not request.user.is_authenticated():
                 return HttpResponseRedirect(reverse_lazy('login') + '?next=%s' % request.path)

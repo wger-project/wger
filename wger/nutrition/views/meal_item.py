@@ -55,7 +55,6 @@ from wger import get_version
 from wger.utils import helpers
 from wger.utils.generic_views import YamlFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
-from wger.utils.language import load_language
 from wger.utils.language import load_ingredient_languages
 
 
