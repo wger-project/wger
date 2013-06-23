@@ -52,6 +52,7 @@ logger = logging.getLogger('workout_manager.custom')
 # Misc functions
 # ************************
 def index(request):
+    #request.user.is_authenticated2()
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('dashboard'))
     else:

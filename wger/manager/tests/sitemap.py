@@ -28,4 +28,4 @@ class SitemapTestCase(WorkoutManagerTestCase):
 
         response = self.client.get(reverse('sitemap'))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['urlset']), 20)
+        self.assertEqual(len(response.context['urlset']), 17)

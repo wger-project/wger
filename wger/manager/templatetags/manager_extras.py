@@ -38,11 +38,12 @@ def get_current_settings(exercise, set_id):
 
 
 @register.filter(name='get_active_exercises')
-def get_active_exercises(category):
+def get_active_exercises(category, languages):
     '''
-    Filter out pending exercises
+    Filter out pending exercises and not in the given languages
     '''
-    return category.exercise_set.filter(status__in=Exercise.EXERCISE_STATUS_OK)
+    return category.exercise_set.filter(status__in=Exercise.EXERCISE_STATUS_OK,
+                                        language__in=languages)
 
 
 @register.inclusion_tag('tags/render_day.html')

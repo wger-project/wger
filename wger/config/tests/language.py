@@ -15,19 +15,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-import json
-import datetime
-
-from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
-from django.core.exceptions import ValidationError
 
 from wger.exercises.models import Language
 
-from wger.utils.constants import NUTRITION_TAB
 
-
-from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
@@ -36,16 +28,18 @@ from wger.manager.tests.testcase import WorkoutManagerAccessTestCase
 
 class LanguageOverviewTest(WorkoutManagerAccessTestCase):
     '''
-    Show an overview of all the system's languages
+    Tests accessing the system's languages
     '''
+
     url = 'config:language-overview'
     anonymous_fail = True
 
 
 class LanguageDetailViewTest(WorkoutManagerAccessTestCase):
     '''
-    Show a detail view of a language
+    Tests accessing a detail view of a language
     '''
+
     url = reverse_lazy('config:language-view', kwargs={'pk': 1})
     anonymous_fail = True
 

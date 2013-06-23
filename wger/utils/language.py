@@ -24,6 +24,8 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 
 from wger.exercises.models import Language
+from wger.config.models import LanguageConfig
+
 
 # ************************
 # Language functions
@@ -48,6 +50,30 @@ def load_language():
         language = Language.objects.get(short_name="en")
 
     return language
+
+
+def load_item_languages(item):
+    '''
+    Returns the languages for a data type (exercises, ingredients)
+    '''
+
+    #SHOW_ITEM_EXERCISES = '1'
+    #SHOW_ITEM_INGREDIENTS = '2'
+
+    # Load the configurations we are interested in and return the languages
+    LanguageConfig.SHOW_ITEM_LIST
+    language = load_language()
+    languages = []
+
+    config = LanguageConfig.objects.filter(language=language, item=item, show=True)
+    if not config:
+        languages.append(Language.objects.get(short_name="en"))
+        return languages
+
+    for i in config:
+        languages.append(i.language_target)
+
+    return languages
 
 
 def load_ingredient_languages(request):

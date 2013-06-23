@@ -14,34 +14,17 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 import logging
-import json
-import uuid
 
-from django.template import RequestContext
-from django.shortcuts import render_to_response
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
-from django.forms import ModelForm
-from django.forms import ModelChoiceField
-from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
-from django.contrib.auth.decorators import permission_required
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
-from django.views.generic import ListView
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
 
-from wger.manager.models import WorkoutLog
-
-from wger.exercises.models import Exercise
-from wger.exercises.models import ExerciseComment
 from wger.exercises.models import ExerciseCategory
-from wger.exercises.models import Muscle
 
 from wger.utils.generic_views import YamlFormMixin
 from wger.utils.generic_views import YamlDeleteMixin

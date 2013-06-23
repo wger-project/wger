@@ -13,19 +13,19 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+# along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.contrib.sitemaps import Sitemap
-from wger.exercises.models import Exercise
-from wger.utils.language import load_item_languages
 from wger.config.models import LanguageConfig
 
+from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 
-class ExercisesSitemap(Sitemap):
-    changefreq = "monthly"
-    priority = 0.5
 
-    def items(self):
-        language_list = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
+class EditLanguageConfigTestCase(WorkoutManagerEditTestCase):
+    '''
+    Tests editing a language config
+    '''
 
-        return (Exercise.objects.filter(language__in=language_list)
-                                .filter(status__in=Exercise.EXERCISE_STATUS_OK))
+    object_class = LanguageConfig
+    url = 'config:languageconfig-edit'
+    pk = 1
+    data = {'show': False}

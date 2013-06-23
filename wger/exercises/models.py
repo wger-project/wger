@@ -93,9 +93,6 @@ class ExerciseCategory(models.Model):
     '''
     name = models.CharField(max_length=100,
                             verbose_name=_('Name'),)
-    language = models.ForeignKey(Language,
-                                 verbose_name=_('Language'),
-                                 editable=False)
 
     # Metaclass to set some other properties
     class Meta:
@@ -138,29 +135,19 @@ class Exercise(models.Model):
                           EXERCISE_STATUS_ADMIN,
                           EXERCISE_STATUS_SYSTEM)
 
-    # The user that submitted the exercise
-    user = models.ForeignKey(User, verbose_name=_('User'), null=True, blank=True)
-
-    # Status
-    status = models.CharField(max_length=2,
-                              choices=EXERCISE_STATUS,
-                              default=EXERCISE_STATUS_PENDING,
-                              editable=False)
-
-    # Submission date
-    creation_date = models.DateField(_('Date'), auto_now_add=True, null=True, blank=True)
-
-    # Exercise description
     category = models.ForeignKey(ExerciseCategory,
                                  verbose_name=_('Category'))
     description = models.TextField(max_length=2000,
                                    verbose_name=_('Description'))
+    '''Description on how to perform the exercise'''
+
     name = models.CharField(max_length=200,
                             verbose_name=_('Name'))
 
     muscles = models.ManyToManyField(Muscle,
                                      verbose_name=_('Primary muscles'),
                                      )
+    '''Main muscles trained by the exercise'''
 
     muscles_secondary = models.ManyToManyField(Muscle,
                                                verbose_name=_('Secondary muscles'),
@@ -168,6 +155,25 @@ class Exercise(models.Model):
                                                null=True,
                                                blank=True
                                                )
+    '''Secondary muscles trained by the exercise'''
+
+    # Non-editable fields
+    user = models.ForeignKey(User, verbose_name=_('User'), null=True, blank=True)
+    '''The user that submitted the exercise'''
+
+    status = models.CharField(max_length=2,
+                              choices=EXERCISE_STATUS,
+                              default=EXERCISE_STATUS_PENDING,
+                              editable=False)
+    '''Status, e.g. accepted or declined'''
+
+    creation_date = models.DateField(_('Date'), auto_now_add=True, null=True, blank=True)
+    '''The submission date'''
+
+    language = models.ForeignKey(Language,
+                                 verbose_name=_('Language'),
+                                 editable=False)
+    '''The exercise's language'''
 
     # Metaclass to set some other properties
     class Meta:

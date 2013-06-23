@@ -42,14 +42,14 @@ from django.views.generic import UpdateView
 from wger.manager.models import WorkoutLog
 
 from wger.exercises.models import Exercise
-from wger.exercises.models import ExerciseComment
 from wger.exercises.models import ExerciseCategory
-from wger.exercises.models import Muscle
 
 from wger.utils.generic_views import YamlFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
 from wger.utils.language import load_language
+from wger.utils.language import load_item_languages
 
+from wger.config.models import LanguageConfig
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -58,16 +58,17 @@ def overview(request):
     '''
     Overview with all exercises
     '''
-    language = load_language()
+    languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
 
     template_data = {}
     template_data.update(csrf(request))
 
-    categories = (ExerciseCategory.objects.filter(language=language.id)
-                                          .filter(exercise__status__in=Exercise.EXERCISE_STATUS_OK)
-                                          .distinct())
+    #logger.debug(languages)
+    categories = ExerciseCategory.objects.all()
 
     template_data['categories'] = categories
+    template_data['active_languages'] = languages
+
     return render_to_response('overview.html',
                               template_data,
                               context_instance=RequestContext(request))
@@ -153,9 +154,8 @@ class ExercisesEditAddView(YamlFormMixin):
         # have we access to the currently used language. In other places Django defaults
         # to 'en-us'.
         class ExerciseForm(ModelForm):
-            language = load_language()
-            category = ModelChoiceField(queryset=ExerciseCategory.objects.filter(
-                                        language=language.id))
+            #language = load_language()
+            category = ModelChoiceField(queryset=ExerciseCategory.objects.all())
 
             class Meta:
                 model = Exercise
@@ -193,13 +193,14 @@ class ExerciseAddView(ExercisesEditAddView, CreateView):
 
         # set the submitter, if admin, set approrpiate status
         form.instance.user = self.request.user
+        form.instance.language = load_language()
         if self.request.user.has_perm('exercises.add_exercise'):
             form.instance.status = Exercise.EXERCISE_STATUS_ADMIN
         else:
             subject = _('New user submitted exercise')
             message = _('''The user {0} submitted a new exercise "{1}".'''.format(
                         self.request.user.username, form.instance.name))
-            mail.mail_admins(_('New user submitted exercise'),
+            mail.mail_admins(subject,
                              message,
                              fail_silently=True)
 
@@ -284,9 +285,10 @@ def search(request):
 
     # Perform the search
     q = request.GET.get('term', '')
-    user_language = load_language()
+    #user_language = load_language()
+    languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
     exercises = (Exercise.objects.filter(name__icontains=q)
-                                 .filter(category__language_id=user_language)
+                                 .filter(language__in=languages)
                                  .filter(status__in=Exercise.EXERCISE_STATUS_OK)
                                  .order_by('category__name', 'name')
                                  .distinct())

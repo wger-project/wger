@@ -45,8 +45,8 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
         self.assertEqual(category_1.name, "Another category")
 
         category_2 = response.context['categories'][1]
-        self.assertEqual(category_2.id, 3)
-        self.assertEqual(category_2.name, "Yet another category")
+        self.assertEqual(category_2.id, 1)
+        self.assertEqual(category_2.name, "Category")
 
         # Correct exercises in the categories
         exercises_1 = category_1.exercise_set.all()
