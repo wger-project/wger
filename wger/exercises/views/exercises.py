@@ -64,11 +64,13 @@ def overview(request):
     template_data.update(csrf(request))
 
     logger.debug(languages)
-    categories = (ExerciseCategory.objects.filter(language__in=languages)
+    categories = (ExerciseCategory.objects.filter(exercise__language__in=languages)
                                           .filter(exercise__status__in=Exercise.EXERCISE_STATUS_OK)
                                           .distinct())
 
     template_data['categories'] = categories
+    template_data['active_languages'] = languages
+
     return render_to_response('overview.html',
                               template_data,
                               context_instance=RequestContext(request))
