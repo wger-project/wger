@@ -101,4 +101,3 @@ def load_ingredient_languages(request):
             languages = (language.id, 2)
 
     return languages
-
