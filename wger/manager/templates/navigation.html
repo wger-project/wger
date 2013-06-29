@@ -1,4 +1,4 @@
-{% load i18n %}{% load url from future %}
+{% load i18n %}{% load url from future %}{% load cache %}
 <nav id="nav">
     <div class="ym-wrapper">
         <div class="navbar navbar-inverse ">
@@ -42,11 +42,14 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="{% url 'wger.exercises.views.exercises.overview' %}">{% trans "Exercises" %}</a></li>
                                     <li><a href="{% url 'muscle-overview' %}">{% trans "Muscle overview" %}</a></li>
+                                    {% cache cache_timeout user-admin-exercises user.id %} 
                                     {% if perms.exercises %}
                                     <li class="divider"></li>
                                     <li class="nav-header">{% trans "Administration" %}</li>
                                     <li><a href="{% url 'exercise-pending' %}">{% trans "Exercises pending review" %}</a></li>
                                     {% endif %}
+                                    {% endcache %}
+                                    
                                 </ul>
                             </li>
 
@@ -78,12 +81,14 @@
                                 <ul class="dropdown-menu">
                                 <li><a href="{% url 'wger.nutrition.views.plan.overview' %}" rel="nofollow">{% trans "Nutrition plans" %}</a></li>
                                 <li><a href="{% url 'ingredient-list' %}">{% trans "Ingredient overview" %}</a></li>
+                                {% cache cache_timeout user-admin-ingredients user.id %}
                                 {% if perms.exercises %}
                                     <li class="divider"></li>
                                     <li class="nav-header">{% trans "Administration" %}</li>
                                     <li><a href="{% url 'weight-unit-list' %}">{% trans "Ingredient weight units" %}</a></li>
                                     <li><a href="{% url 'ingredient-pending' %}">{% trans "Ingredients pending review" %}</a></li>
                                 {% endif %}
+                                {% endcache %}
                                 </ul>
                             </li>
 

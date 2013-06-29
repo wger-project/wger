@@ -3,7 +3,7 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load manager_extras %}
-
+{% load cache %}
 
 {% block header %}
 <script src="{% static 'js/tinymce/tiny_mce.js' %}"></script>
@@ -74,10 +74,10 @@ included in the database.{% endblocktrans %}
 {% endif %} {# end exercise is pending review #}
 
 
-
+{% cache cache_timeout exercise-detail-header exercise.id language.id %}
 <p>{% trans "Category" %}: <strong>{{ exercise.category.name }}</strong></p>
-
 <p>{{ exercise.description|safe }}</p>
+{% endcache %}
 
 {% with comments=exercise.exercisecomment_set.all %}
 {% if comments %}
@@ -112,7 +112,6 @@ included in the database.{% endblocktrans %}
 {% endif %}
 {% endwith %}
 
-
 {% if perms.exercises %}
 <p>
     <a href="{% url 'exercisecomment-add' exercise.id %}"
@@ -126,7 +125,7 @@ included in the database.{% endblocktrans %}
 </p>
 {% endif %}
 
-
+{% cache cache_timeout exercise-detail-muscles exercise.id language.id %}
 {% with muscles=exercise.muscles.all %}
 {% with muscles_secondary=exercise.muscles_secondary.all %}
 
@@ -192,7 +191,7 @@ included in the database.{% endblocktrans %}
 {% endif %}
 {% endwith %}
 {% endwith %} {# end musclelist #}
-
+{% endcache %}
 
 {% if logs %}
 <h3>{% trans "Weight log" %}</h3>

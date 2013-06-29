@@ -2,6 +2,7 @@
 {% load url from future %}
 {% load i18n %}
 {% load staticfiles %}
+{% load cache %}
 
 <!--
         Title
@@ -62,6 +63,7 @@ $(document).ready(function() {
         Main Content
 -->
 {% block content %}
+{% cache cache_timeout muscle-overview language.id %}
 {% trans "Hover with the mouse over the muscles to show corresponding exercises." %}
 
 <div class="ym-grid linearize-level-1">
@@ -163,6 +165,7 @@ to create a new SVG image with the contours of the muscle and place it in the
 folder <em>images/muscles</em>.{% endblocktrans %}</p>
 {% endif %}
 
+{% endcache %}
 {% endblock %}
 
 

@@ -3,6 +3,7 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load manager_extras %}
+{% load cache %}
 
 {% block title %}{{ingredient.name}}{% endblock %}
 
@@ -217,6 +218,7 @@ the search.{% endblocktrans %}
     </tbody>
 </table>
 </div>
+
 {% endblock %}
 
 

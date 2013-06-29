@@ -267,3 +267,12 @@ LOGGING = {
 
 TEST_RUNNER = 'discover_runner.DiscoverRunner'
 TEST_DISCOVER_TOP_LEVEL = os.path.dirname(os.path.dirname(__file__))
+
+# Set local memory caching by default
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'wger-cache',
+        'TIMEOUT': 43200
+    }
+}

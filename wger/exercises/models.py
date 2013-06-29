@@ -22,8 +22,11 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
 from django.core.urlresolvers import reverse
 from django.core import mail
+from django.core.cache import cache
 
 from wger.utils.constants import EMAIL_FROM
+from wger.utils.cache import delete_template_fragment_cache
+from wger.utils.cache import cache_mapper
 
 
 class Language(models.Model):
@@ -39,6 +42,9 @@ class Language(models.Model):
     full_name = models.CharField(max_length=30,
                                  verbose_name=_('Language full name'))
 
+    #
+    # Django methods
+    #
     def __unicode__(self):
         '''
         Return a more human-readable representation
@@ -51,6 +57,9 @@ class Language(models.Model):
         '''
         return reverse('config:language-view', kwargs={'pk': self.id})
 
+    #
+    # Own methods
+    #
     def get_owner_object(self):
         '''
         Muscle has no owner information
@@ -175,6 +184,10 @@ class Exercise(models.Model):
                                  editable=False)
     '''The exercise's language'''
 
+    #
+    # Django methods
+    #
+
     # Metaclass to set some other properties
     class Meta:
         ordering = ["name", ]
@@ -185,6 +198,50 @@ class Exercise(models.Model):
         '''
         return reverse('wger.exercises.views.exercises.view',
                        kwargs={'id': self.id, 'slug': slugify(self.name)})
+
+    def save(self, *args, **kwargs):
+        '''
+        Reset all cached infos
+        '''
+
+        super(Exercise, self).save(*args, **kwargs)
+
+        # Cached objects
+        cache.delete(cache_mapper.get_exercise_key(self))
+        cache.delete(cache_mapper.get_exercise_muscle_bg_key(self))
+
+        # Cached template fragments
+        delete_template_fragment_cache('muscle-overview', self.language_id)
+        delete_template_fragment_cache('exercise-overview', self.language_id)
+        delete_template_fragment_cache('exercise-detail-header', self.id, self.language_id)
+        delete_template_fragment_cache('exercise-detail-muscles', self.id, self.language_id)
+
+    def delete(self, *args, **kwargs):
+        '''
+        Reset all cached infos
+        '''
+
+        # Cached objects
+        cache.delete(cache_mapper.get_exercise_key(self))
+        cache.delete(cache_mapper.get_exercise_muscle_bg_key(self))
+
+        # Cached template fragments
+        delete_template_fragment_cache('muscle-overview', self.language_id)
+        delete_template_fragment_cache('exercise-overview', self.language_id)
+        delete_template_fragment_cache('exercise-detail-heder', self.language_id)
+        delete_template_fragment_cache('exercise-detail-muscles', self.language_id)
+
+        super(Exercise, self).delete(*args, **kwargs)
+
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return self.name
+
+    #
+    # Own methods
+    #
 
     def get_owner_object(self):
         '''
@@ -212,12 +269,6 @@ class Exercise(models.Model):
                            EMAIL_FROM,
                            [self.user.email],
                            fail_silently=True)
-
-    def __unicode__(self):
-        '''
-        Return a more human-readable representation
-        '''
-        return self.name
 
 
 class ExerciseComment(models.Model):

@@ -3,6 +3,7 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load manager_extras %}
+{% load cache %}
 
 <!--
         Title
@@ -56,6 +57,7 @@ $(document).ready(function() {
         Main Content
 -->
 {% block content %}
+{% cache cache_timeout exercise-overview language.id %}
 <div id="tabs">
     <ul>
         {% for category in categories %}
@@ -74,19 +76,6 @@ $(document).ready(function() {
                     <td>
                         <a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a>
                     </td>
-                    <td style="text-align:right;">
-                    {% if perms.exercises %}
-                        <div class="editoptions">
-                            <a href="{% url 'exercise-edit' exercise.id %}"
-                               title="{% trans 'Edit' %}">
-                               <img src="{% static 'images/icons/edit.svg' %}"
-                                    width="16"
-                                    height="16"
-                                    alt="{% trans 'Edit' %}">
-                               </a>
-                        </div>
-                    {% endif %}
-                    </td>
                 </tr>
             {% empty %}
                 <tr>
@@ -102,7 +91,7 @@ $(document).ready(function() {
     </div>
     {% endfor %}
 </div>
-
+{% endcache %}
 {% endblock %}
 
 

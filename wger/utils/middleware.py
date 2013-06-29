@@ -23,6 +23,7 @@ import logging
 import uuid
 import re
 
+from django.core.cache import cache
 from django.contrib import auth
 from django.contrib.auth import authenticate
 from django.utils.functional import SimpleLazyObject
@@ -30,6 +31,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login as django_login
 
 from wger.manager.demo import create_temporary_user
+
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -56,8 +58,13 @@ def check_current_request(request):
 
 def get_user(request):
     if not hasattr(request, '_cached_user'):
-        user = auth.get_user(request)
+
+        CACHE_KEY = 'user-session-{0}'
         create_user = check_current_request(request)
+        user = cache.get(CACHE_KEY.format(request.session.session_key))
+        if not user:
+            user = auth.get_user(request)
+            cache.set(CACHE_KEY.format(request.session.session_key), user)
 
         # Set the flag in the session
         if not request.session.get('has_demo_data'):
@@ -65,8 +72,10 @@ def get_user(request):
 
         # Django didn't find a user, so create one now
         if create_user and not user.is_authenticated():
+
             logger.debug('creating a new guest user now')
             user = create_temporary_user()
+            cache.set(CACHE_KEY.format(request.session.session_key), user)
             django_login(request, user)
 
         request._cached_user = user
