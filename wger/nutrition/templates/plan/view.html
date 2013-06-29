@@ -18,7 +18,7 @@ $(document).ready(function() {
 
     // Check if the user wants to see ingredients in english
     set_english_ingredients();
-    
+
     {% if user.userprofile.show_english_ingredients %}
         useEnglishIngredients = 1;
         $('#english-ingredients-status').attr("src", "{% static 'images/icons/status-on.svg' %}");
@@ -53,7 +53,7 @@ $(document).ready(function() {
         <td>
             {% trans "Nr."%} {{ forloop.counter }}
             {% if meal.time %} &ndash; {{meal.time|time:"H:i"}}{% endif %}
-            
+
             <div class="editoptions">
                 <a href="{% url 'wger.nutrition.views.meal.delete_meal' meal.id %}"
                    title="{% trans 'Delete' %}">
@@ -87,9 +87,9 @@ $(document).ready(function() {
              <ul>
             {% for item in meal.mealitem_set.select_related %}
                 <li>
-                    {{ item.amount }}{% if item.get_unit_type == MEALITEM_WEIGHT_GRAM %}g
+                    {% if item.get_unit_type == MEALITEM_WEIGHT_GRAM %}{{ item.amount|floatformat:"0" }}g
                     {% else %}
-                        {{ item.weight_unit.unit.name }}
+                        {{ item.amount|floatformat:"0" }}{{ item.weight_unit.unit.name }}
                     {% endif %}
                     {{ item.ingredient.name }}
 

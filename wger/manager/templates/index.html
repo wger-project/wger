@@ -72,7 +72,7 @@
 
                <ul>
                    <li>
-                       {% trans "Energy" %}: {{nutritional_info.energy}} kcal
+                       {% trans "Energy" %}: {{nutritional_info.energy|floatformat}} kcal
                    </li>
                    <li>
                        {% trans "Protein" %}: {{nutritional_info.protein|floatformat}} g
