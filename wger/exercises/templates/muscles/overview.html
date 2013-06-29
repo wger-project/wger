@@ -80,9 +80,9 @@ $(document).ready(function() {
             {% regroup muscle_list|first by is_front as muscle_group %}
             {% for group in muscle_group %}
                 {% if group.grouper %}
-                    <h3>{% trans "Front" %}</h3>
+                    <h3>{% trans "Front side" %}</h3>
                 {% else %}
-                    <h3>{% trans "Back" %}</h3>
+                    <h3>{% trans "Back side" %}</h3>
                 {% endif %}
 
                 <ul class="muscle-list">
@@ -92,7 +92,7 @@ $(document).ready(function() {
                     data-is-front="{{muscle.is_front}}"
                     itemscope itemtype="http://schema.org/Muscle">
                     <span itemprop="name">{{muscle.name}}</span>
-                    
+
                     {% if perms.exercises %}
                         <span style="float:right;">
                             <a href="{% url 'muscle-edit' muscle.id %}"
@@ -102,7 +102,7 @@ $(document).ready(function() {
                                     height="16"
                                     alt="{% trans 'Edit muscle' %}"
                                     title="{% trans 'Edit muscle' %}"></a>
-                                    
+
                             <a href="{% url 'muscle-delete' muscle.id %}"
                                class="modal-dialog no-hover">
                                <img src="{% static 'images/icons/trash.svg' %}"
