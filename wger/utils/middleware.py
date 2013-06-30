@@ -20,14 +20,10 @@ user automatically for anonymous users.
 '''
 
 import logging
-import uuid
-import re
 
 from django.core.cache import cache
 from django.contrib import auth
-from django.contrib.auth import authenticate
 from django.utils.functional import SimpleLazyObject
-from django.contrib.auth.models import User
 from django.contrib.auth import login as django_login
 
 from wger.manager.demo import create_temporary_user

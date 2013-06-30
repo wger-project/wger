@@ -49,10 +49,9 @@ from wger.utils.generic_views import YamlFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
 from wger.utils.language import load_language
 from wger.utils.language import load_item_languages
-
+from wger.utils.cache import cache_mapper
 from wger.config.models import LanguageConfig
 
-from wger.utils.cache import cache_mapper
 
 logger = logging.getLogger('workout_manager.custom')
 

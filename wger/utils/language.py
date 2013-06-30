@@ -12,6 +12,8 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+import logging
+
 from django.utils import translation
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.cache import cache
@@ -19,6 +21,9 @@ from django.core.cache import cache
 from wger.exercises.models import Language
 from wger.config.models import LanguageConfig
 from wger.utils.cache import cache_mapper
+
+
+logger = logging.getLogger('workout_manager.custom')
 
 
 # ************************
@@ -55,18 +60,27 @@ def load_item_languages(item):
     Returns the languages for a data type (exercises, ingredients)
     '''
 
-    # Load the configurations we are interested in and return the languages
-    LanguageConfig.SHOW_ITEM_LIST
     language = load_language()
-    languages = []
+    languages = cache.get(cache_mapper.get_language_config_key(language, item))
 
-    config = LanguageConfig.objects.filter(language=language, item=item, show=True)
-    if not config:
-        languages.append(Language.objects.get(short_name="en"))
-        return languages
+    logger.debug(cache_mapper.get_language_config_key(language, item))
+    logger.debug(languages)
 
-    for i in config:
-        languages.append(i.language_target)
+    # Load the configurations we are interested in and return the languages
+    if not languages:
+
+        #LanguageConfig.SHOW_ITEM_LIST
+        languages = []
+
+        config = LanguageConfig.objects.filter(language=language, item=item, show=True)
+        if not config:
+            languages.append(Language.objects.get(short_name="en"))
+            return languages
+
+        for i in config:
+            languages.append(i.language_target)
+
+        cache.set(cache_mapper.get_language_config_key(language, item), languages)
 
     return languages
 

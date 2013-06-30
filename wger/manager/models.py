@@ -27,15 +27,32 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.cache import cache
 
 from wger.exercises.models import Exercise
 
 from wger.utils.helpers import DecimalJsonEncoder
 from wger.utils.helpers import disable_for_loaddata
+from wger.utils.cache import delete_template_fragment_cache
+from wger.utils.cache import cache_mapper
 
 logger = logging.getLogger('workout_manager.custom')
 
 
+#
+# Helper functions
+#
+def reset_workout_muscle_bg_cache(workout_id):
+    cache.delete(cache_mapper.get_workout_muscle_bg(workout_id))
+
+
+def reset_day_template_cache(day_id):
+    delete_template_fragment_cache('day-view', day_id)
+
+
+#
+# Classes
+#
 class Workout(models.Model):
     '''
     Model for a training schedule
@@ -302,6 +319,22 @@ class Day(models.Model):
         '''
         ordering = ["day__id", ]
 
+    def save(self, *args, **kwargs):
+        '''
+        Reset all cached infos
+        '''
+
+        reset_day_template_cache(self.pk)
+        super(Day, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        '''
+        Reset all cached infos
+        '''
+
+        reset_day_template_cache(self.pk)
+        super(Day, self).delete(*args, **kwargs)
+
 
 class Set(models.Model):
     '''
@@ -339,6 +372,24 @@ class Set(models.Model):
         '''
         return self.exerciseday.training
 
+    def save(self, *args, **kwargs):
+        '''
+        Reset all cached infos
+        '''
+
+        reset_workout_muscle_bg_cache(self.exerciseday.training_id)
+        reset_day_template_cache(self.exerciseday_id)
+        super(Set, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        '''
+        Reset all cached infos
+        '''
+
+        reset_workout_muscle_bg_cache(self.exerciseday.training_id)
+        reset_day_template_cache(self.exerciseday_id)
+        super(Set, self).delete(*args, **kwargs)
+
 
 class Setting(models.Model):
     '''
@@ -360,6 +411,22 @@ class Setting(models.Model):
         Return a more human-readable representation
         '''
         return u"settings for exercise {0} in set {1}".format(self.exercise.id, self.set.id)
+
+    def save(self, *args, **kwargs):
+        '''
+        Reset all cached infos
+        '''
+
+        reset_day_template_cache(self.set.exerciseday_id)
+        super(Setting, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        '''
+        Reset all cached infos
+        '''
+
+        reset_day_template_cache(self.set.exerciseday_id)
+        super(Setting, self).delete(*args, **kwargs)
 
     def get_owner_object(self):
         '''

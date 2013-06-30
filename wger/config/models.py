@@ -15,17 +15,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+import logging
+
 from django.db import models
 from django.db.models.signals import post_save
-from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
-from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext
-from django.core.urlresolvers import reverse
-from django.core import mail
+from django.core.cache import cache
 
 from wger.exercises.models import Language
-from wger.utils.constants import EMAIL_FROM
+from wger.utils.cache import delete_template_fragment_cache
+from wger.utils.cache import cache_mapper
+
+
+logger = logging.getLogger('workout_manager.custom')
 
 
 class LanguageConfig(models.Model):
@@ -63,6 +65,34 @@ class LanguageConfig(models.Model):
         Return a more human-readable representation
         '''
         return u"Config for language {0}".format(self.language)
+
+    def save(self, *args, **kwargs):
+        '''
+        Reset all cached infos
+        '''
+
+        super(LanguageConfig, self).save(*args, **kwargs)
+
+        # Cached objects
+        cache.delete(cache_mapper.get_language_config_key(self.language, self.item))
+
+        # Cached template fragments
+        delete_template_fragment_cache('muscle-overview', self.language_id)
+        delete_template_fragment_cache('exercise-overview', self.language_id)
+
+    def delete(self, *args, **kwargs):
+        '''
+        Reset all cached infos
+        '''
+
+        # Cached objects
+        cache.delete(cache_mapper.get_language_config_key(self.language, self.item))
+
+        # Cached template fragments
+        delete_template_fragment_cache('muscle-overview', self.language_id)
+        delete_template_fragment_cache('exercise-overview', self.language_id)
+
+        super(LanguageConfig, self).delete(*args, **kwargs)
 
 
 def init_language_config(sender, instance, created, **kwargs):

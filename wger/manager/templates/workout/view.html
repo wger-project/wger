@@ -3,6 +3,7 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load manager_extras %}
+{% load cache %}
 
 {% block title %}{% trans "Workout" %} – {{ workout.creation_date }}{% endblock %}
 
@@ -43,9 +44,11 @@ $(document).ready(function() {
 {% endif %}
 
 {% for day in workout.day_set.select_related %}
+    {% cache cache_timeout day-view day.id %}
     <div id="div-day-{{ day.id }}">
         {% render_day day %}
     </div>
+    {% endcache %}
 {% empty %}
     <p>
     <a href="{% url 'day-add' workout.id %}" class="modal-dialog btn btn-block">
