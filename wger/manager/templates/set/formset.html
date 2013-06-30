@@ -1,0 +1,33 @@
+{% load manager_extras %}
+{% load i18n %}
+<div id="formset-exercise-{{exercise.id}}" style="margin-top: 1em;">
+<h4>{{exercise}}</h4>
+{{ formset.management_form }}
+{% for field in formset %}
+    <div style="display:table-cell;vertical-align: middle;">
+    {% for i in field %}
+    {% if not i.is_hidden %}
+        {% if forloop.parentloop.first %}
+            <div class="dimmed" style="display:table-row;">{{i.label}}</div>
+        {% endif %}
+    {% endif %}
+    {% endfor %}
+    </div>
+
+    <div class="ym-fbox-text {% if field.errors %}ym-error{% endif %}"  style="display:table-cell;width: 5em;padding-right:0px;">
+        {% for i in field %}
+            {{i}}
+        {% endfor %}
+    </div>
+    <!--
+    {% if field.errors %}
+        <div class="ym-fbox-text ym-error">
+            {% for error in field.errors %}
+                <p class="ym-message">{% trans error %}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+    -->
+{% endfor %}
+{# {{formset}} #}
+</div>

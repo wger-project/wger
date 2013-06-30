@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+{% load manager_extras %}
+
+{% block title %}{{ view_language }}{% endblock %}
+
+
+{% block content %}
+<table>
+<thead>
+    <tr>
+        <th>{% trans "Language short name" %}</th>
+        <th>{% trans "Language full name" %}</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td>{{view_language.short_name}}</td>
+        <td>{{view_language.full_name}}</td>
+    </tr>
+</tbody>
+</table>
+
+
+<h3>{% trans "Configuration" %}</h3>
+<p>{% blocktrans %}Use the configuration to select in what languages the
+exercises and ingredients will be shown for the current language (for example
+the exercises should be shown in languages A, B and C; the ingredients only
+in A).{% endblocktrans %}</p>
+
+<table>
+<thead>
+    <tr>
+        <th>{% trans "Item" %}</th>
+        <th>{% trans "Language full name" %}</th>
+        <th>{% trans "Show" %}</th>
+    </tr>
+</thead>
+<tbody>
+    {% for config in view_language.language_source.all %}
+    <tr>
+        <td>{{config.get_item_display}}</td>
+        <td>
+            <a href="{% url 'config:languageconfig-edit' config.id %}" class="modal-dialog">
+            {{config.language_target.full_name}}
+            </a>
+        </td>
+        <td>
+            {% if config.show %}
+            <img src="{% static 'images/icons/status-on.svg' %}"
+            {% else %}
+            <img src="{% static 'images/icons/status-off.svg' %}"
+            {% endif %}
+             width="16"
+             height="16"
+             alt="">
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+
+    
+
+
+{% endblock %}
+
+
+
+{% block sidebar %}
+<h3>{% trans "Options" %}</h3>
+
+<p>
+    <a href="{% url 'config:language-edit' view_language.id %}"
+       class="modal-dialog">
+        <img src="{% static 'images/icons/edit.svg' %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Edit' %}"
+             >
+        {% trans "Edit" %}
+    </a>
+</p>
+
+<p>
+    <a href="{% url 'config:language-delete' view_language.id %}"
+       class="modal-dialog">
+        <img src="{% static 'images/icons/trash.svg' %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Delete' %}"
+             >
+        {% trans "Delete" %}
+    </a>
+</p>
+
+{% endblock %}

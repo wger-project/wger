@@ -18,7 +18,7 @@ import datetime
 
 from django.utils.timezone import now
 from django.core.management.base import BaseCommand
-from manager.models import UserProfile
+from wger.manager.models import UserProfile
 
 
 class Command(BaseCommand):
@@ -35,6 +35,6 @@ class Command(BaseCommand):
             delta = now() - profile.user.date_joined
 
             if (delta >= datetime.timedelta(7)):
-                self.stdout.write("Deleting user %s, joined %s days ago\n" % (profile,
-                                                                              delta.days))
+                #self.stdout.write("Deleting user %s, joined %s days ago\n" % (profile,
+                #                                                              delta.days))
                 profile.user.delete()

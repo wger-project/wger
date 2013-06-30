@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load url from future %}
 {% load i18n %}
 {% load staticfiles %}
 
@@ -75,16 +76,16 @@ $(document).ready(function () {
 -->
 {% block content %}
 {% if not min_date %}
-<div class="box warning" id="weight-box-warning">
+<p>
     {% trans "There is no chart here because there are no weight entries." %}
     {% trans "Use link to add one." %}
-</div>
+</p>
 {% endif %}
 
 <div id="weight_diagram"></div>
 
 <p>
-<a href="{% url weight-add %}"
+<a href="{% url 'weight-add' %}"
    class="modal-dialog"
    id="add-weight-entry">{% trans "Add weight entry" %}</a>
 </p>
@@ -109,7 +110,7 @@ on the background resets it.
 
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url wger.weight.views.export_csv %}"
+    <a href="{% url 'wger.weight.views.export_csv' %}"
        target="_blank">
     <img src="{% static 'images/icons/save.svg' %}"
          width="32"
@@ -121,7 +122,7 @@ on the background resets it.
 </p>
 
 <p>
-    <a href="{% url weight-import-csv %}">
+    <a href="{% url 'weight-import-csv' %}">
     <img src="{% static 'images/icons/csv-table.svg' %}"
          width="32"
          height="32"

@@ -17,3 +17,39 @@
 .dropdown li{
     margin-left:0px;
 }
+
+
+.close{
+    float:right;
+    opacity: 0.2;
+    font-weight: bold;
+}
+
+/*
+ * Links within boostrap's alert boxes are rendered in black
+ */
+.alert a{
+    color: black;
+    text-decoration: underline;
+}
+
+
+.alert a:hover{
+    color: white;
+    text-decoration: underline;
+    text-shadow: none;
+}
+
+
+.label, .badge {
+    font-weight: normal;
+}
+
+
+/*
+ * Make the 'close' button on alerts more prominent
+ */
+.alert .close {
+    opacity: 0.8;
+    text-decoration: none;
+}

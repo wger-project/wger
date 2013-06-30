@@ -25,6 +25,7 @@ from django.forms import DateField
 from django.forms import CharField
 from django.forms import DecimalField
 from django.forms import ValidationError
+from django.forms import widgets
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User as Django_User
@@ -34,26 +35,24 @@ from django.utils.translation import ugettext as _
 from captcha.fields import ReCaptchaField
 
 from wger.manager.models import UserProfile
-from wger.manager.models import TrainingSchedule
+from wger.manager.models import Workout
 from wger.manager.models import Day
 from wger.manager.models import Set
 from wger.manager.models import WorkoutLog
 
-from wger.workout_manager.widgets import TranslatedSelectMultiple
-from wger.workout_manager.widgets import ExerciseAjaxSelect
-from wger.workout_manager.constants import DATE_FORMATS
+from wger.utils.widgets import TranslatedSelectMultiple
+from wger.utils.widgets import ExerciseAjaxSelect
+from wger.utils.constants import DATE_FORMATS
 
 
 class UserPreferencesForm(ModelForm):
     class Meta:
         model = UserProfile
-        exclude = ('user', 'is_temporary')
 
 
 class UserEmailForm(ModelForm):
     email = EmailField(label=_("Email"),
-                       help_text=_("Completely optional, but needed to reset your password "
-                                   "in case you forget it."),
+                       help_text=_("Only needed to reset your password in case you forget it."),
                        required=False)
 
     def clean_email(self):
@@ -82,20 +81,39 @@ class DemoUserForm(Form):
 
 class WorkoutForm(ModelForm):
     class Meta:
-        model = TrainingSchedule
+        model = Workout
         exclude = ('user',)
 
 
 class WorkoutCopyForm(Form):
     comment = CharField(max_length=100,
-                        help_text=('The goal or description of the new workout.'),
+                        help_text=_('The goal or description of the new workout.'),
                         required=False)
+
+
+class FeedbackRegisteredForm(Form):
+    '''
+    Feedback form used for logged in users
+    '''
+    comment = CharField(max_length=500,
+                        min_length=10,
+                        widget=widgets.Textarea,
+                        help_text=_('What do you want to say?'),
+                        required=True)
+
+
+class FeedbackAnonymousForm(FeedbackRegisteredForm):
+    '''
+    Feedback form used for anonymous users (has additionally a reCaptcha field)
+    '''
+    captcha = ReCaptchaField(attrs={'theme': 'clean'},
+                             label=_('Confirmation text'),
+                             help_text=_('As a security measure, please enter the previous words'),)
 
 
 class DayForm(ModelForm):
     class Meta:
         model = Day
-        exclude = ('training',)
 
         widgets = {'day': TranslatedSelectMultiple()}
 
@@ -103,7 +121,6 @@ class DayForm(ModelForm):
 class SetForm(ModelForm):
     class Meta:
         model = Set
-        exclude = ('exerciseday', 'order',)
         widgets = {'exercises': ExerciseAjaxSelect(), }
 
     # We need to overwrite the init method here because otherwise Django
@@ -135,6 +152,4 @@ class WorkoutLogForm(ModelForm):
 
     class Meta:
         model = WorkoutLog
-        exclude = ('user',
-                   'workout',
-                   'exercise')
+        exclude = ('exercise')

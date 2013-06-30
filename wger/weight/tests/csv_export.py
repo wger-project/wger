@@ -27,29 +27,17 @@ class WeightCsvExportTestCase(WorkoutManagerTestCase):
     Test case for the CSV export for weight entries
     '''
 
-    def export_csv(self, fail=False):
+    def export_csv(self):
         '''
         Helper function to test the CSV export
         '''
         response = self.client.get(reverse('wger.weight.views.export_csv'))
 
-        if fail:
-            # There is a redirect
-            self.assertEqual(response.status_code, 302)
-        else:
-            # Logged in users get the CSV file
-            self.assertEqual(response.status_code, 200)
-            self.assertEqual(response['Content-Type'], 'text/csv')
-            self.assertEqual(response['Content-Disposition'],
-                             'attachment; filename=weightdata-test.csv')
-            self.assertEqual(len(response.content), 132)
-
-    def test_export_csv_anonymous(self):
-        '''
-        Test the CSV export for weight entries by an unauthorized user
-        '''
-
-        self.export_csv(fail=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'text/csv')
+        self.assertEqual(response['Content-Disposition'],
+                         'attachment; filename=weightdata-test.csv')
+        self.assertEqual(len(response.content), 132)
 
     def test_export_csv_loged_in(self):
         '''
@@ -57,4 +45,4 @@ class WeightCsvExportTestCase(WorkoutManagerTestCase):
         '''
 
         self.user_login('test')
-        self.export_csv(fail=False)
+        self.export_csv()

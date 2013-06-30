@@ -17,6 +17,7 @@
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
 
+from wger.software.views import ContextTemplateView
 
 urlpatterns = patterns('',
 
@@ -37,6 +38,10 @@ urlpatterns = patterns('',
         name='license'),
 
     url(r'^code$',
-        TemplateView.as_view(template_name="code.html"),
+        ContextTemplateView.as_view(template_name="code.html"),
         name='code'),
+        
+    url(r'^contribute$',
+        TemplateView.as_view(template_name="contribute.html"),
+        name='contribute'),
 )

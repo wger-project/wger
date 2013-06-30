@@ -17,7 +17,7 @@ from django.core.urlresolvers import reverse
 
 from wger.nutrition.models import Ingredient
 from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.workout_manager.constants import PAGINATION_OBJECTS_PER_PAGE
+from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 
 
 class OverviewPlanTestCase(WorkoutManagerTestCase):
@@ -32,11 +32,11 @@ class OverviewPlanTestCase(WorkoutManagerTestCase):
         data = {
             "name": "Test ingredient",
             "language": 2,
-            "sodium": 10.549,
+            "sodium": 10.54,
             "energy": 176,
             "fat": 8.19,
             "carbohydrates_sugar": 0.0,
-            "fat_saturated": 3.244,
+            "fat_saturated": 3.24,
             "fibres": 0.0,
             "protein": 25.63,
             "carbohydrates": 0.0
@@ -46,15 +46,77 @@ class OverviewPlanTestCase(WorkoutManagerTestCase):
 
         # Page exists
         self.user_logout()
-        response = self.client.get(reverse('wger.nutrition.views.ingredient_overview'))
+        response = self.client.get(reverse('ingredient-list'))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['ingredients']), PAGINATION_OBJECTS_PER_PAGE)
+        self.assertEqual(len(response.context['ingredients_list']), PAGINATION_OBJECTS_PER_PAGE)
 
-        response = self.client.get(reverse('wger.nutrition.views.ingredient_overview') + '?page=2')
+        response = self.client.get(reverse('ingredient-list'), {'page': 2})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['ingredients']), PAGINATION_OBJECTS_PER_PAGE)
+        self.assertEqual(len(response.context['ingredients_list']), PAGINATION_OBJECTS_PER_PAGE)
 
-        rest_ingredients = Ingredient.objects.count() - 2 * PAGINATION_OBJECTS_PER_PAGE
-        response = self.client.get(reverse('wger.nutrition.views.ingredient_overview') + '?page=3')
+        rest_ingredients = 13
+        response = self.client.get(reverse('ingredient-list'), {'page': 3})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['ingredients']), rest_ingredients)
+        self.assertEqual(len(response.context['ingredients_list']), rest_ingredients)
+
+        # 'last' is a special case
+        response = self.client.get(reverse('ingredient-list'), {'page': 'last'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['ingredients_list']), rest_ingredients)
+
+        # Page does not exist
+        response = self.client.get(reverse('ingredient-list'), {'page': 100})
+        self.assertEqual(response.status_code, 404)
+
+        response = self.client.get(reverse('ingredient-list'), {'page': 'foobar'})
+        self.assertEqual(response.status_code, 404)
+
+    def ingredient_overview(self, logged_in=True, demo=False, admin=False):
+        '''
+        Helper function to test the ingredient overview page
+        '''
+
+        # Page exists
+        response = self.client.get(reverse('ingredient-list'))
+        self.assertEqual(response.status_code, 200)
+
+        # No ingredients pending review
+        self.assertNotContains(response, 'Pending ingredient')
+
+        # Only authorized users see the edit links
+        if logged_in and not demo:
+            self.assertContains(response, 'Add ingredient')
+
+        if logged_in and demo:
+            self.assertNotContains(response, 'Add ingredient')
+
+    def test_ingredient_index_editor(self):
+        '''
+        Tests the ingredient overview page as a logged in user with editor rights
+        '''
+
+        self.user_login('admin')
+        self.ingredient_overview(admin=True)
+
+    def test_ingredient_index_non_editor(self):
+        '''
+        Tests the overview overview page as a logged in user without editor rights
+        '''
+
+        self.user_login('test')
+        self.ingredient_overview()
+
+    def test_ingredient_index_demo_user(self):
+        '''
+        Tests the overview overview page as a logged in demo user
+        '''
+
+        self.user_login('demo')
+        self.ingredient_overview(demo=True)
+
+    def test_ingredient_index_logged_out(self):
+        '''
+        Tests the overview overview page as an anonymous (logged out) user
+        '''
+
+        self.ingredient_overview(logged_in=False)

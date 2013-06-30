@@ -85,6 +85,7 @@ a img{
 /*
  * Images inside a link are set to greyscale till mouseover
  */
+/*
 a img
 {
     filter: grayscale(100%);
@@ -102,7 +103,7 @@ a:hover img
     -ms-filter: grayscale(0%);
     -o-filter: grayscale(0%);	
 }
-
+*/
 
 /*
  * Set the sizes for the background where the muscles are shown on the exercise view page
@@ -269,6 +270,11 @@ header h1{
     text-shadow: 2px 3px 3px #292929;
     font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
     font-weight: 300;
+}
+
+header a{
+    color:white;
+    font-size:90%;
 }
 
 header span.name{
@@ -447,4 +453,27 @@ ul.pagination a:hover
     margin-left: 0px;
     padding-left: 0.3em;
     cursor: pointer;
+}
+
+/*
+ * Definition for extra-bold fonts
+ */
+.extra-bold{
+    font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
+    font-weight: 300;
+}
+
+/**************************************************************
+ * Set edit window
+ **************************************************************/
+#formsets input{
+    max-width: 5em;
+}
+#slider{
+    width: 91%;
+    float: right;
+    margin-right: 1em;
+}
+#formset .ym-fbox-text{
+    /*float: none;*/
 }

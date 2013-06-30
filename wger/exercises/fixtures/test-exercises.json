@@ -1,188 +1,219 @@
 [
     {
-        "pk": 1, 
-        "model": "exercises.language", 
+        "pk": 1,
+        "model": "exercises.language",
         "fields": {
-            "full_name": "Deutsch", 
+            "full_name": "Deutsch",
             "short_name": "de"
-        }
-    }, 
-    {
-        "pk": 2, 
-        "model": "exercises.language", 
-        "fields": {
-            "full_name": "English", 
-            "short_name": "en"
-        }
-    }, 
-    {
-        "pk": 1, 
-        "model": "exercises.muscle", 
-        "fields": {
-            "is_front": true, 
-            "name": "Anterior testoid"
-        }
-    }, 
-    {
-        "pk": 2, 
-        "model": "exercises.muscle", 
-        "fields": {
-            "is_front": false, 
-            "name": "Biceps testii"
-        }
-    }, 
-    {
-        "pk": 3, 
-        "model": "exercises.muscle", 
-        "fields": {
-            "is_front": false, 
-            "name": "Biceps notusensis"
-        }
-    }, 
-    {
-        "pk": 1, 
-        "model": "exercises.exercisecategory", 
-        "fields": {
-            "name": "Category", 
-            "language": 1
-        }
-    }, 
-    {
-        "pk": 2, 
-        "model": "exercises.exercisecategory", 
-        "fields": {
-            "name": "Another category", 
-            "language": 2
-        }
-    }, 
-    {
-        "pk": 3, 
-        "model": "exercises.exercisecategory", 
-        "fields": {
-            "name": "Yet another category", 
-            "language": 2
         }
     },
     {
-        "pk": 4, 
-        "model": "exercises.exercisecategory", 
+        "pk": 2,
+        "model": "exercises.language",
         "fields": {
-            "name": "I will be deleted", 
-            "language": 1
+            "full_name": "English",
+            "short_name": "en"
         }
-    }, 
+    },
     {
-        "pk": 1, 
-        "model": "exercises.exercise", 
+        "pk": 1,
+        "model": "exercises.muscle",
         "fields": {
-            "category": 2, 
+            "is_front": true,
+            "name": "Anterior testoid"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "exercises.muscle",
+        "fields": {
+            "is_front": false,
+            "name": "Biceps testii"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "exercises.muscle",
+        "fields": {
+            "is_front": false,
+            "name": "Biceps notusensis"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "exercises.exercisecategory",
+        "fields": {
+            "name": "Category"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "exercises.exercisecategory",
+        "fields": {
+            "name": "Another category"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "exercises.exercisecategory",
+        "fields": {
+            "name": "Yet another category"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "exercises.exercisecategory",
+        "fields": {
+            "name": "I will be deleted"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "exercises.exercise",
+        "fields": {
+            "status": "5",
+            "category": 2,
+            "language": 1,
             "muscles": [
-                1, 
+                1,
                 2
-            ], 
+            ],
             "muscles_secondary": [
                 3
             ],
-            "description": "", 
+            "description": "",
+            "user": null,
             "name": "An exercise"
         }
-    }, 
+    },
     {
-        "pk": 2, 
-        "model": "exercises.exercise", 
+        "pk": 2,
+        "model": "exercises.exercise",
         "fields": {
-            "category": 2, 
+            "status": "5",
+            "category": 2,
+            "language": 2,
             "muscles": [
                 2
             ],
             "muscles_secondary": [
                 1,
                 3
-            ], 
-            "description": "", 
-            "name": "A very cool exercise"
+            ],
+            "description": "",
+            "user": null,
+            "name": "Very cool exercise"
         }
-    }, 
+    },
     {
-        "pk": 3, 
-        "model": "exercises.exercise", 
+        "pk": 3,
+        "model": "exercises.exercise",
         "fields": {
-            "category": 3, 
+            "status": "5",
+            "category": 3,
+            "language": 1,
             "muscles": [
                 1
-            ], 
-            "description": "", 
+            ],
+            "description": "",
+            "user": null,
             "name": "Boring exercise"
         }
-    }, 
+    },
     {
-        "pk": 81, 
-        "model": "exercises.exercise", 
+        "pk": 4,
+        "model": "exercises.exercise",
         "fields": {
-            "category": 3, 
+            "status": "1",
+            "category": 3,
+            "language": 1,
+            "muscles": [
+                1
+            ],
+            "description": "",
+            "user": 2,
+            "name": "Pending exercise"
+        }
+    },
+    {
+        "pk": 81,
+        "model": "exercises.exercise",
+        "fields": {
+            "status": "5",
+            "category": 3,
+            "language": 1,
             "muscles": [
                 1
             ],
             "muscles_secondary":[],
-            "description": "", 
+            "description": "",
+            "user": null,
             "name": "Needed for demo user"
         }
-    }, 
+    },
     {
-        "pk": 84, 
-        "model": "exercises.exercise", 
+        "pk": 84,
+        "model": "exercises.exercise",
         "fields": {
-            "category": 3, 
+            "status": "5",
+            "category": 3,
+            "language": 2,
             "muscles": [
                 1
             ],
             "muscles_secondary":[],
-            "description": "", 
+            "description": "",
+            "user": null,
             "name": "Needed for demo user"
         }
-    }, 
+    },
     {
-        "pk": 91, 
-        "model": "exercises.exercise", 
+        "pk": 91,
+        "model": "exercises.exercise",
         "fields": {
-            "category": 3, 
+            "status": "5",
+            "category": 3,
+            "language": 2,
             "muscles": [
                 1
             ],
             "muscles_secondary":[],
-            "description": "", 
+            "description": "",
+            "user": null,
             "name": "Needed for demo user"
         }
-    }, 
+    },
+    {
+        "pk": 111,
+        "model": "exercises.exercise",
+        "fields": {
+            "status": "5",
+            "category": 3,
+            "language": 2,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary":[],
+            "description": "",
+            "user": null,
+            "name": "Needed for demo user"
+        }
+    },
 
     {
-        "pk": 111, 
-        "model": "exercises.exercise", 
+        "pk": 1,
+        "model": "exercises.exercisecomment",
         "fields": {
-            "category": 3, 
-            "muscles": [
-                1
-            ],
-            "muscles_secondary":[],
-            "description": "", 
-            "name": "Needed for demo user"
-        }
-    }, 
-
-    {
-        "pk": 1, 
-        "model": "exercises.exercisecomment", 
-        "fields": {
-            "comment": "test 123", 
+            "comment": "test 123",
             "exercise": 1
         }
-    }, 
+    },
     {
-        "pk": 2, 
-        "model": "exercises.exercisecomment", 
+        "pk": 2,
+        "model": "exercises.exercisecomment",
         "fields": {
-            "comment": "Foobar", 
+            "comment": "Foobar",
             "exercise": 2
         }
-    } 
+    }
 ]

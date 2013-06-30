@@ -1,7 +1,7 @@
 [
     {
         "pk": 1, 
-        "model": "manager.trainingschedule", 
+        "model": "manager.workout", 
         "fields": {
             "comment": "A test workout", 
             "user": 1, 
@@ -10,7 +10,7 @@
     }, 
     {
         "pk": 2, 
-        "model": "manager.trainingschedule", 
+        "model": "manager.workout", 
         "fields": {
             "comment": "Another test workout", 
             "user": 1, 
@@ -19,7 +19,7 @@
     },
     {
         "pk": 3, 
-        "model": "manager.trainingschedule", 
+        "model": "manager.workout", 
         "fields": {
             "comment": "My test workout", 
             "user": 2, 
@@ -79,7 +79,8 @@
             "training": 3, 
             "description": "A cool day", 
             "day": [
-                5
+                5,
+                3
             ]
         }
     },
@@ -145,7 +146,7 @@
         }
     },
     {
-        "pk": 2, 
+        "pk": 3, 
         "model": "manager.setting", 
         "fields": {
             "comment": "", 

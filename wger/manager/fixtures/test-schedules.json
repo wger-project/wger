@@ -1,0 +1,86 @@
+[
+    {
+        "pk": 1, 
+        "model": "manager.schedule", 
+        "fields": {
+            "name": "my cool schedule that i found on the internet", 
+            "is_active": true, 
+            "user": 2, 
+            "start_date": "2013-04-21", 
+            "is_loop": false
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "manager.schedule", 
+        "fields": {
+            "name": "my cool schedule that i found on the internet", 
+            "is_active": false, 
+            "user": 1, 
+            "start_date": "2013-04-21", 
+            "is_loop": true
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "manager.schedule", 
+        "fields": {
+            "name": "another schedule of mine", 
+            "is_active": false, 
+            "user": 1, 
+            "start_date": "2013-02-01", 
+            "is_loop": false
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "manager.schedule", 
+        "fields": {
+            "name": "Yet another cool schedule", 
+            "is_active": true, 
+            "user": 1, 
+            "start_date": "2012-10-20", 
+            "is_loop": false
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "manager.schedulestep", 
+        "fields": {
+            "duration": 3, 
+            "workout": 1, 
+            "order": 1, 
+            "schedule": 2
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "manager.schedulestep", 
+        "fields": {
+            "duration": 5, 
+            "workout": 2, 
+            "order": 2, 
+            "schedule": 2
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "manager.schedulestep", 
+        "fields": {
+            "duration": 2, 
+            "workout": 1, 
+            "order": 3, 
+            "schedule": 2
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "manager.schedulestep", 
+        "fields": {
+            "duration": 3, 
+            "workout": 3, 
+            "order": 4, 
+            "schedule": 1
+        }
+    } 
+]

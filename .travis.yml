@@ -1,10 +1,38 @@
 language: python
+
+# Python versions to test
 python:
   - "2.6"
   - "2.7"
+
+# Manually define here the combinations of django and db versions to test
+env:
+#  - DJANGO_VERSION=1.4.5 DB=mysql
+  - DJANGO_VERSION=1.4.5 DB=postgresql 
+  - DJANGO_VERSION=1.4.5 DB=sqlite
+
+#  - DJANGO_VERSION=1.5.1 DB=mysql
+  - DJANGO_VERSION=1.5.1 DB=postgresql
+  - DJANGO_VERSION=1.5.1 DB=sqlite
+
+# Install the application
 install:
+  - pip install -q Django==$DJANGO_VERSION --use-mirrors
+#  - sh -c "if [ '$DB' = 'mysql' ]; then pip install mysql-python --use-mirrors; fi"
+  - sh -c "if [ '$DB' = 'postgresql' ]; then pip install psycopg2 --use-mirrors; fi"
+  
   - pip install -r requirements.txt --use-mirrors
   - python extras/scripts/create_local_settings.py
+
+# Create test databases
+before_script:
+  - sh -c "if [ '$DB' = 'postgresql' ]; then psql -c 'DROP DATABASE IF EXISTS test_wger;' -U postgres; fi"
+  - sh -c "if [ '$DB' = 'postgresql' ]; then psql -c 'CREATE DATABASE test_wger;' -U postgres; fi"
+
+#  - sh -c "if [ '$DB' = 'mysql' ]; then sudo apt-get install python-mysqldb; fi"
+#  - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE IF NOT EXISTS test_wger CHARACTER SET utf8;'; fi"
+
+# Do the tests
 script:
   - ./manage.py test tests
-  - pep8 --max-line-length=100 --exclude="urls.py" --statistics wger
+  - pep8 --max-line-length=100 --exclude="urls.py,*migrations*" wger

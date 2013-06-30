@@ -1,6 +1,8 @@
 {% extends "base.html" %}
+{% load url from future %}
 {% load i18n %}
 {% load staticfiles %}
+{% load manager_extras %}
 
 <!--
         Title
@@ -23,9 +25,9 @@ $(document).ready(function() {
     $( "#tabs" ).tabs({
 
         // On selecting a category, set the values to edit it
-        select: function(event, ui) {
-                category_id = ui.tab.id.match(/\d+/);
-                $(".current-category-name").html($("#cat-" + category_id).html());
+        activate: function(event, ui) {
+                category_id = ui.newTab.attr('id').match(/\d+/);
+                $(".current-category-name").html($("#cat-" + category_id).text());
                 $("#current-category-edit").attr("href", "/exercise/category/" + category_id + "/edit/");
                 $("#current-category-delete").attr("href", "/exercise/category/" + category_id + "/delete/");
             }
@@ -36,7 +38,7 @@ $(document).ready(function() {
 
     // Init the autocompleter
     $("#exercise-search").catcomplete({
-            source: "{% url wger.exercises.views.exercise_search %}",
+            source: "{% url 'wger.exercises.views.exercises.search' %}",
             minLength: 2,
             select: function(event, ui) {
 
@@ -57,7 +59,7 @@ $(document).ready(function() {
 <div id="tabs">
     <ul>
         {% for category in categories %}
-        <li><a href="#cat{{ category.id }}" id="cat-{{ category.id }}">{{ category.name }}</a></li>
+        <li id="cat-{{ category.id }}"><a href="#cat{{ category.id }}">{% trans category.name %}</a></li>
         {% empty %}
         <li>{% trans "No categories." %} {% trans "Use link to create one" %}</li>
         {% endfor %}
@@ -67,7 +69,7 @@ $(document).ready(function() {
     <div id="cat{{ category.id }}">
         <table class="narrow">
         <tbody>
-            {% for exercise in category.exercise_set.all %}
+            {% for exercise in category|get_active_exercises:active_languages %}
                 <tr>
                     <td>
                         <a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a>
@@ -75,21 +77,12 @@ $(document).ready(function() {
                     <td style="text-align:right;">
                     {% if perms.exercises %}
                         <div class="editoptions">
-                            <a href="{% url exercise-edit exercise.id %}"
+                            <a href="{% url 'exercise-edit' exercise.id %}"
                                title="{% trans 'Edit' %}">
                                <img src="{% static 'images/icons/edit.svg' %}"
                                     width="16"
                                     height="16"
                                     alt="{% trans 'Edit' %}">
-                               </a>
-
-                            <a href="{% url exercise-delete exercise.id %}"
-                               title="{% trans 'Delete' %}"
-                               class="delete-exercise modal-dialog">
-                               <img src="{% static 'images/icons/trash.svg' %}"
-                                    width="16"
-                                    height="16"
-                                    alt="{% trans 'Delete' %}">
                                </a>
                         </div>
                     {% endif %}
@@ -98,9 +91,9 @@ $(document).ready(function() {
             {% empty %}
                 <tr>
                     <td>
-                        <div class="box warning">
+                        <p>
                             {% trans "No exercises in this category. Add or edit an exercise and set its category" %}
-                        </div>
+                        </p>
                     </td>
                 </tr>
             {% endfor %}
@@ -117,23 +110,36 @@ $(document).ready(function() {
         Side bar
 -->
 {% block sidebar %}
+<h3>{% trans "Add new exercise" %}</h3>
+<p>
+    {% if user.is_authenticated and not user.get_profile.is_temporary %}
+    <a href="{% url 'exercise-add' %}">
+    <img src="{% static 'images/icons/new.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Add new exercise' %}"
+         title="{% trans 'Add new exercise' %}">
+    {% trans "Add new exercise" %}
+    </a>
+    {% else %}
+    <img src="{% static 'images/icons/new.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Add new exercise' %}"
+         title="{% trans 'Add new exercise' %}">
+    <span>
+    {% trans "Only registered users can do this" %}
+    </span>
+    {% endif %}
+</p>
+
+
 {% if perms.exercises %}
     <h3>{% trans "Options" %}</h3>
-
-    <p>
-        <a href="{% url exercise-add %}"
-           class="modal-dialog">
-        <img src="{% static 'images/icons/new.svg' %}"
-                            width="32"
-                            height="32"
-                            alt="{% trans 'Add new exercise' %}"
-                            title="{% trans 'Add new exercise' %}">
-        	{% trans "Add new exercise" %}
-        </a>
-        </p>
+        {% if categories %}
         <p>
         {% with category=categories|first %}
-        <a href="{% url exercisecategory-edit category.id %}"
+        <a href="{% url 'exercisecategory-edit' category.id %}"
            class="modal-dialog"
            id="current-category-edit">
         	<img src="{% static 'images/icons/edit.svg' %}"
@@ -144,11 +150,11 @@ $(document).ready(function() {
         	{% trans "Edit category" %}:
         	<span class="current-category-name">{{category.name}}</span>
         </a>
-        {% endwith %}
         </p>
+        {% endwith %}
         <p>
         {% with category=categories|first %}
-        <a href="{% url exercisecategory-delete category.id %}"
+        <a href="{% url 'exercisecategory-delete' category.id %}"
            class="modal-dialog"
            id="current-category-delete">
         	<img src="{% static 'images/icons/trash.svg' %}"
@@ -161,14 +167,16 @@ $(document).ready(function() {
         </a>
         {% endwith %}
         </p>
+        {% endif %}
+
         <p>
-        <a href="{% url exercisecategory-add %}"
+        <a href="{% url 'exercisecategory-add' %}"
            class="modal-dialog">
         	<img src="{% static 'images/icons/folder-new.svg' %}"
-                            width="32"
-                            height="32"
-                            alt="{% trans 'Add category' %}"
-                            title="{% trans 'Add category' %}">
+                     width="32"
+                     height="32"
+                     alt="{% trans 'Add category' %}"
+                     title="{% trans 'Add category' %}">
          {% trans "Add category" %}
         </a>
     </p>
@@ -177,7 +185,7 @@ $(document).ready(function() {
     <h3>{% trans "Search" %}</h3>
 
     <div class="ui-widget">
-        <form action="{% url wger.exercises.views.exercise_search %}"
+        <form action="{% url 'wger.exercises.views.exercises.search' %}"
               method="get"
               id="exercise_search_form">
             {% csrf_token %}

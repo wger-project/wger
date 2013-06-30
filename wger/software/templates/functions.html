@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load url from future %}
 {% load i18n %}
 {% load staticfiles %}
 {% load manager_extras %}
@@ -12,7 +13,91 @@ your exercises and workouts. It started as a pet project of mine to replace my
 growing collection of different spreadsheets, but it has become something other
 people could also find useful.{% endblocktrans %}</p>
 
-<h3>{% trans "This is" %}</h3>
+<div id="myCarousel" class="carousel slide" style="border: 1px solid rgb(221, 221, 221);margin-top: 1em;">
+    <!--
+    <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+    <li data-target="#myCarousel" data-slide-to="3"></li>
+    <li data-target="#myCarousel" data-slide-to="4"></li>
+    <li data-target="#myCarousel" data-slide-to="5"></li>
+    <li data-target="#myCarousel" data-slide-to="6"></li>
+    </ol>
+    -->
+    <!-- Carousel items -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="{% static 'images/screen7-crop.png' %}" width="700">
+            <div class="carousel-caption">
+                <h4>{%trans "Edit window for a new set" %}</h4>
+                <p>{% blocktrans %}With this simple form you create
+a new set with the repetitions and exercises you want. Repeat this
+step a couple of times, and you have your workout ready.{% endblocktrans %}</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="{% static 'images/screen1-crop.png' %}" width="700">
+            <div class="carousel-caption">
+                <h4>{%trans "The workout manager" %}</h4>
+                <p>{% blocktrans %}A day of a simple workout with a few exercises.
+If you don't want to see the comments for correct execution, you can hide
+them.{% endblocktrans %}</p>
+            </div>
+        </div>
+        
+        <div class="item">
+            <img src="{% static 'images/screen2-crop.png' %}" width="700">
+            <div class="carousel-caption">
+                <h4>{%trans "Weight log" %}</h4>
+                <p>{% blocktrans %}Some weight entries for two exercises. Each
+colour represents a different repetition so you can see how well you are
+doing.{% endblocktrans %}</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="{% static 'images/screen3-crop.png' %}" width="700">
+            <div class="carousel-caption">
+                <h4>{%trans "Muscle overview" %}</h4>
+                <p>{% blocktrans %}An overview of the body's muscles and the
+available exercises that mainly train the currently selected one.{% endblocktrans %}</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="{% static 'images/screen4-crop.png' %}" width="700">
+            <div class="carousel-caption">
+                <h4>{%trans "Body weight" %}</h4>
+                <p>{% blocktrans %}The chart shows the evolution of the
+body weight. With the small version below, you can zoom in a time period.{% endblocktrans %}</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="{% static 'images/screen5-crop.png' %}" width="700">
+            <div class="carousel-caption">
+                <h4>{%trans "Nutrition plan" %}</h4>
+                <p>{% blocktrans %}The two first meals of a nutritional plan.
+The nutritional values (energy, protein, etc.) are calculated too, but
+are not shown in the picture.{% endblocktrans %}</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="{% static 'images/screen6-crop.png' %}" width="700">
+            <div class="carousel-caption">
+                <h4>{%trans "Ingredient detail view" %}</h4>
+                <p>{% blocktrans %}A detail view of an ingredient. With the
+calculator on the top it's possible to quickly calculate the nutritional
+calues for a amount. 'Human' units such as slices are available for some
+ingredients.{% endblocktrans %}</p>
+            </div>
+        </div>
+    </div>
+    <!-- Carousel nav -->
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>
+
+
+<h3>{% trans "In short:" %}</h3>
 
 <div class="ym-grid linearize-level-1">
     <div class="ym-g33 ym-gl">
@@ -39,7 +124,7 @@ people could also find useful.{% endblocktrans %}</p>
         <div class="ym-gbox-left">
             <div class="warning box">
             <h3>{% trans "a nutrition manager" %}</h3>
-            <p>{% blocktrans %}create a diet plan and see some nutritional
+            <p>{% blocktrans %}create a diet plan and see its nutritional
             values (total energy, protein, carbohydrates, and so on) about
             it. Select from more than 8000 ingredients for this.{% endblocktrans %}</p>
             </div>
@@ -47,6 +132,7 @@ people could also find useful.{% endblocktrans %}</p>
     </div>
 </div>
 
+<a name="workout-manager"></a>
 <h2>{% trans "The workout manager" %}</h2>
 
 <p>{% blocktrans %}You probably guessed, this is the main function.
@@ -66,6 +152,7 @@ can simply use (e.g. beginner, etc.). It will happily make the routine you tell
 it to do, but you have to decide which exercises and how many repetitions you'll
 do.{% endblocktrans %}</p>
 
+<a name="pdf-export"></a>
 <h3>{% trans "PDF export" %}</h3>
 
 <p>{% blocktrans %}It can also generate a PDF with your current routine.
@@ -73,7 +160,7 @@ This is suitable for printing so you can bring it to the gym and keep a log
 for 7 weeks. In case you wonder how it looks like,
 <a href="/static/pdf/workout-pdf-1.0.3-en.pdf">here's a sample</a>.{% endblocktrans %}</p>
 
-
+<a name="exercise-log"></a>
 <h3>{% trans "Exercise log" %}</h3>
 
 <p>{% blocktrans %}The electronic version of the above PDF output, you can enter
@@ -83,7 +170,17 @@ The raw numbers are still accessible as a table.{% endblocktrans %}</p>
 
 <img src="{% static 'images/workout-log-1.1-en.png' %}" class="bordered flexible">
 
+<a name="workout-schedules"></a>
+<h3>{% trans "Workout schedules" %}</h3>
 
+<p>{% blocktrans %}If you always do a couple of workouts in succession or
+are following a program that changes each week, you can manage this with
+the workout schedules. You enter how many weeks you want to do each individual
+workout and whether it should loop after reaching the last one. The correct
+currently active workout will then be shown on your dashboard.{% endblocktrans %}</p>
+
+
+<a name="muscle-exercise-db"></a>
 <h2>{% trans "Muscle and exercise database" %}</h2>
 <p>{% blocktrans %}The exercise database contains around hundred exercises
 from which you can choose when creating a workout. Some have important notes
@@ -93,13 +190,17 @@ page, so you keep them in mind.{% endblocktrans %}</p>
 <p>{% blocktrans %}If you entered weight logs for the currently shown exercise, it
 will display your progress.{% endblocktrans %}</p>
 
+<p>{% blocktrans %}You can also submit your own, if you miss one. After a quick
+review, it will be added to the general database.{% endblocktrans %}</p>
+
+
 <img src="{% static 'images/muscle-overview-1.1-en.png' %}" class="bordered flexible" alt="">
 
 
-
+<a name="weight-tracker"></a>
 <h2>{% trans "The weight tracker" %}</h2>
-<p>{% blocktrans %}This is a rather simple part that lets you log your body weight.
-From this data it generates a rather nice looking chart, so you can see if you are
+<p>{% blocktrans %}This simple part lets you log your body weight. From this
+data it generates a rather nice looking chart, so you can see if you are
 reaching your goals (be it gaining mass or losing it).{% endblocktrans %}</p>
 
 <p>{% blocktrans %}In case you want to jump ship after inputing your data from the
@@ -107,12 +208,14 @@ last years, simply export the data as CSV.{% endblocktrans %}</p>
 
 <img src="{% static 'images/weight-chart-1.0.3-en.png' %}" class="bordered flexible" alt="">
 
+<a name="weight-import"></a>
 <h3>{% trans "Import" %}</h3>
 
 <p>{% blocktrans %}If you already kept your weight in a spreadsheet, you can just
 import it by copy-and-paste'ing it into the import assistant.{% endblocktrans %}</p>
 
 
+<a name="nutritional-plans"></a>
 <h2>{% trans "The nutrition schedule manager" %}</h2>
 <p>{% blocktrans %}And finally it is a nutrition schedule manager. Here you can
 create a diet plan and see some nutritional values (total energy, protein,
@@ -130,20 +233,33 @@ you create.{% endblocktrans %}</p>
 <p>{% blocktrans %}It can also be downloaded as a PDF you can keep on your
 fridge, so you don't forget to follow the plan... And as with the workout
 log, <a href="/static/pdf/nutrition-plan-pdf-1.0-en.pdf">here's a sample</a>.{% endblocktrans %}</p>
-
 {% endblock %}
 
 
 {% block sidebar %}
-{% if not user.is_authenticated %}
-<h3>{% trans "Interested?" %}</h3>
-<p>
-<a href="{% url demo-account %}">
-        <img src="{% static 'images/icons/star.svg' %}"
-         width="48"
-         height="48"
-         alt="{% trans 'Try the demo' %}">
-        {% trans "Try the demo" %}</a>
-</p>
-{% endif %}
+<h3>{% trans "Overview" %}</h3>
+<ul>
+    <li>
+        <a href="#workout-manager">{% trans "The workout manager" %}</a>
+        <ul>
+            <li><a href="#pdf-export">{% trans "PDF export" %}</a></li>
+            <li><a href="#exercise-log">{% trans "Exercise log" %}</a></li>
+            <li><a href="#workout-schedules">{% trans "Workout schedules" %}</a></li>
+        </ul>
+    </li>
+    
+    <li>
+        <a href="#muscle-exercise-db">{% trans "Muscle and exercise database" %}</a>
+    </li>
+    <li>
+        <a href="#weight-tracker">{% trans "The weight tracker" %}</a>
+        <ul>
+            <li><a href="#weight-import">{% trans "Import" %}</a>
+        </ul>
+    </li>
+    <li>
+        <a href="#nutritional-plans">{% trans "The nutrition schedule manager" %}</a>
+
+    </li>
+</ul>
 {% endblock %}

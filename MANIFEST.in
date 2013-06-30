@@ -1,0 +1,23 @@
+include README.rst
+include AGPL.txt
+include CC-BY-SA.txt
+include manage.py
+
+recursive-include wger/manager/static *
+recursive-include wger/manager/templates *
+recursive-include wger/manager/fixtures *
+
+recursive-include wger/exercises/templates *
+recursive-include wger/exercises/fixtures *
+
+recursive-include wger/nutrition/templates *
+recursive-include wger/nutrition/fixtures *
+
+recursive-include wger/software/templates *
+recursive-include wger/software/static *
+
+recursive-include wger/weight/templates *
+recursive-include wger/weight/fixtures *
+
+recursive-include wger/locale *.mo *.po
+recursive-include wger *.html

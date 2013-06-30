@@ -27,7 +27,8 @@ import webbrowser
 import django.conf
 from django.core.management import execute_from_command_line
 
-from wger.workout_manager import get_version
+from wger import get_version
+
 
 CONFIG_TEMPLATE = """#!/usr/bin/env python
 # -*- coding: utf-8 -*-
@@ -39,18 +40,22 @@ from wger.settings_global import *
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-DBPATH = %(dbpath)s
+ADMINS = (
+    ('Your name', 'your_email@example.com.net'),
+)
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': DBPATH,
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.%(dbengine)s',
+        'NAME': %(dbname)s,
+        'USER': '%(dbuser)s',
+        'PASSWORD': '%(dbpassword)s',
+        'HOST': '%(dbhost)s',
+        'PORT': '%(dbport)s',
     }
 }
+
+SOUTH_TESTS_MIGRATE = False
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = %(default_key)r
@@ -90,6 +95,9 @@ def process_options(argv=None):
     parser.add_option(
         "--no-reload", action="store_true",
         help="Do not reload the development server.")
+    parser.add_option(
+        "--migrate-db", action="store_true",
+        help="Runs all database migrations (safe operation).")
     parser.add_option(
         "--version", action="store_true",
         help="Show version and exit.")
@@ -164,10 +172,29 @@ def _main(opts, database_path=None):
     # Set the django environment to the settings
     setup_django_environment(settings_path)
 
+    # Check for south tables, this is only Only needed for the
+    # update 1.1.1 > 1.2, when south was introduced
+    from south.models import MigrationHistory
+    from django.db.utils import DatabaseError
+    try:
+        if database_exists() and not opts.syncdb:
+            history = MigrationHistory.objects.count()
+    except DatabaseError:
+        print("Manual database upgrade needed")
+        print("------------------------------")
+        print("The database schema changed after the 1.1.1 release. Run this script")
+        print("with the --syncdb option. This will upgrade the database, but will")
+        print("overwrite any changes you made to exercises and ingredients")
+        sys.exit()
+
     # Create Database if necessary
     if not database_exists() or opts.syncdb:
         run_syncdb()
         create_or_reset_admin_user()
+
+    # Only run the south migrations
+    elif opts.migrate_db:
+        run_south()
 
     # Reset Admin
     elif opts.reset_admin:
@@ -178,7 +205,7 @@ def _main(opts, database_path=None):
         extra_args = ['--noreload']
     else:
         extra_args = []
-    start_openslides(addr, port, start_browser_url=url, extra_args=extra_args)
+    start_wger(addr, port, start_browser_url=url, extra_args=extra_args)
 
 
 def create_settings(settings_path, database_path=None, url=None):
@@ -195,15 +222,43 @@ def create_settings(settings_path, database_path=None, url=None):
 
     print "Please edit your settings file and enter the values for the reCaptcha keys "
     print "You can leave this empty, but won't be able to register new users"
-    #recaptcha_public_key = raw_input('Public key: ')
-    #recaptcha_private_key = raw_input('Private key: ')
     recaptcha_public_key = ''
     recaptcha_private_key = ''
 
     # Fill in the config file template
+
+    # The environment variable is set by travis during testing
+    if os.environ.get('DB') == 'postgresql':
+        dbengine = 'postgresql_psycopg2'
+        dbname = "'test_wger'"
+        dbuser = 'postgres'
+        dbpassword = ''
+        dbhost = '127.0.0.1'
+        dbport = ''
+    elif os.environ.get('DB') == 'mysql':
+        dbengine = 'mysql'
+        dbname = "'test_wger'"
+        dbuser = 'root'
+        dbpassword = ''
+        dbhost = '127.0.0.1'
+        dbport = ''
+    else:
+        dbengine = 'sqlite3'
+        dbname = dbpath_value
+        dbuser = ''
+        dbpassword = ''
+        dbhost = ''
+        dbport = ''
+
     settings_content = CONFIG_TEMPLATE % dict(
         default_key=base64.b64encode(os.urandom(KEY_LENGTH)),
         dbpath=dbpath_value,
+        dbengine=dbengine,
+        dbname=dbname,
+        dbuser=dbuser,
+        dbpassword=dbpassword,
+        dbhost=dbhost,
+        dbport=dbport,
         siteurl=url,
         recaptcha_public_key=recaptcha_public_key,
         recaptcha_private_key=recaptcha_private_key)
@@ -272,24 +327,78 @@ def database_exists():
         return True
 
 
-def run_syncdb():
+def init_south():
     '''
-    Initialises a new database
+    Only perform the south initialisation
+    '''
+    print("* Initialising south")
+    execute_from_command_line(["", "migrate", "wger.exercises", "0001", "--fake"])
+    execute_from_command_line(["", "migrate", "wger.manager", "0001", "--fake"])
+    execute_from_command_line(["", "migrate", "wger.nutrition", "0001", "--fake"])
+    execute_from_command_line(["", "migrate", "wger.weight", "0001", "--fake"])
+
+
+def run_south():
+    '''
+    Run all south migrations
     '''
 
-    print "* Intialising the database"
+    # Manually set the order, otherwise postgreSQL rightfully complains
+    execute_from_command_line(["", "migrate", "wger.exercises"])
+    execute_from_command_line(["", "migrate", "wger.manager"])
+    execute_from_command_line(["", "migrate", "wger.nutrition"])
+    execute_from_command_line(["", "migrate", "wger.weight"])
 
-    # Create the tables
-    argv = ["", "syncdb", "--noinput"]
-    execute_from_command_line(argv)
 
-    # Load fixtures
+def load_fixtures():
+    '''
+    Loads all fixtures
+    '''
+
+    execute_from_command_line(["", "loaddata", "users"])
     execute_from_command_line(["", "loaddata", "languages"])
     execute_from_command_line(["", "loaddata", "days_of_week"])
     execute_from_command_line(["", "loaddata", "muscles"])
     execute_from_command_line(["", "loaddata", "categories"])
     execute_from_command_line(["", "loaddata", "exercises"])
     execute_from_command_line(["", "loaddata", "ingredients"])
+    execute_from_command_line(["", "loaddata", "weight_units"])
+    execute_from_command_line(["", "loaddata", "ingredient_units"])
+
+
+def run_syncdb():
+    '''
+    Initialises a new database
+    '''
+
+    print("* Intialising the database")
+
+    # Only needed for update 1.1.1 > 1.2
+    from south.models import MigrationHistory
+    from django.db.utils import DatabaseError
+    from django.db import transaction
+    from wger.manager.models import User
+    with transaction.commit_on_success():
+        try:
+            User.objects.count()
+            new_db = False
+        except DatabaseError:
+            new_db = True
+            transaction.rollback()
+
+    # Create the tables
+    execute_from_command_line(["", "syncdb", "--noinput"])
+
+    # Only needed for update 1.1.1 > 1.2
+    history = MigrationHistory.objects.count()
+    if not history and not new_db:
+        init_south()
+
+    # Perform the migrations
+    run_south()
+
+    # Load fixtures
+    load_fixtures()
 
 
 def create_or_reset_admin_user():
@@ -300,18 +409,12 @@ def create_or_reset_admin_user():
         admin = User.objects.get(username="admin")
         print("Password for user admin was reset to 'admin'")
     except User.DoesNotExist:
-        admin = User()
-        admin.username = 'admin'
-        admin.last_name = 'Administrator'
         print("Created default admin user")
 
-    admin.is_superuser = True
-    admin.default_password = 'admin'
-    admin.set_password(admin.default_password)
-    admin.save()
+    execute_from_command_line(["", "loaddata", "users"])
 
 
-def start_openslides(addr, port, start_browser_url=None, extra_args=[]):
+def start_wger(addr, port, start_browser_url=None, extra_args=[]):
     argv = ["", "runserver", '--noreload'] + extra_args
 
     argv.append("%s:%d" % (addr, port))

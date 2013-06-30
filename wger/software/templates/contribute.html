@@ -1,0 +1,123 @@
+{% extends "base_wide.html" %}
+{% load staticfiles %}
+{% load url from future %}
+{% load i18n %}
+
+
+{% block title %}{% trans "Contribute!" %}{% endblock %}
+
+{% block content %}
+<div class="ym-grid linearize-level-1">
+<div class="ym-g50 ym-gl">
+    <div class="ym-gbox-left">
+        <p>{% blocktrans %}wger Workout Manager is build by volunteers,
+the development process is open and freely accessible to anybody interested.
+If you are new to the free software world, we recommend to take a
+look <a href="http://schlitt.info/opensource/blog/0541_10_golden_rules_for_starting_with_open_source.html">this
+article</a> which summarizes they way open source projects work very well. {% endblocktrans %}</p>
+
+
+        <p>{% blocktrans %}Any kind of contribution is appreciated and welcome.
+Use this opportunity and influence the direction of the
+project. {% endblocktrans %}</p>
+
+    </div>
+</div>
+<div class="ym-gl" style="width: 41%;">
+    <div class="ym-gbox-left ym-clearfix">
+
+
+        <div class="box success">
+        <p style="text-align:center;"><strong>{% blocktrans %}The goal is to build an awesome
+and flexible fitness manager, along with a comprehensive and complete list of exercises and
+ingredients, all released under a free license.{% endblocktrans %}</strong></p>
+        </div>
+            
+    </div>
+</div>
+
+</div>
+
+
+
+<div class="ym-grid linearize-level-1">
+    <div class="ym-g25 ym-gl">
+        <div class="ym-gbox-left">
+            <h3>{% trans "Use the site" %}</h3>
+        </div>
+    </div>
+    <div class="ym-g66 ym-gl">
+        <div class="ym-gbox-left">
+            <p>{% blocktrans %}Simply use the site and tell your friends
+how useful it is! ;) . When you find something that you specially liked,
+could need some improvements or just doesn't work, tell us! This might not sound
+like much, but is incredibly important!{% endblocktrans %}</p>
+<a class="btn " href="{% url 'contact' %}">{% trans "Get in touch" %} »</a>
+            
+        </div>
+        
+    </div>
+</div>
+
+
+<div class="ym-grid linearize-level-1">
+    <div class="ym-g25 ym-gl">
+        <div class="ym-gbox-left">
+            <h3>{% trans "Submit exercises" %}</h3>
+        </div>
+    </div>
+    <div class="ym-g66 ym-gl">
+        <div class="ym-gbox-left">
+            <p>{% blocktrans %}Submit those cool exercises that you absolutely
+love and do every week but are not in the list yet. If you think some description
+is too short or some other detail is missing or could be improved, tell!{% endblocktrans %}</p>
+            {% if user.is_authenticated and not user.get_profile.is_temporary %}
+                <a class="btn " href="{% url 'exercise-add' %}">{% trans "Add exercise" %} »</a>
+            {% else %}
+                <a class="btn disabled" href="#">{% trans "Only registered users can do this" %} »</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+<div class="ym-grid linearize-level-1">
+    <div class="ym-g25 ym-gl">
+        <div class="ym-gbox-left">
+            <h3>{% trans "Translate" %}</h3>
+        </div>
+    </div>
+    <div class="ym-g66 ym-gl">
+        <div class="ym-gbox-left">
+            <p>{% blocktrans %}Do you want to use wger in your own language?
+Do you think the current translation could be improved?
+The translations are easily managed and edited online, if you are interested,
+go to the transifex site, request access and we will set everything
+up. {% endblocktrans %}</p>
+            
+            <a class="btn "
+               href="https://www.transifex.com/projects/p/wger-workout-manager/">{% trans "Translate with Transifex" %} »</a>
+        </div>
+    </div>
+</div>
+
+<div class="ym-grid linearize-level-1">
+    <div class="ym-g25 ym-gl">
+        <div class="ym-gbox-left">
+            <h3>{% trans "Code" %}</h3>
+        </div>
+    </div>
+    <div class="ym-g66 ym-gl">
+        <div class="ym-gbox-left">
+            <p>{% blocktrans %}Obviously, you are highly encouraged to clone the
+repo and start hacking! Once you are ready, send a pull request and we
+will show the world. Take a look at the developer guide for more details
+on this.{% endblocktrans %}</p>
+            
+            <a class="btn" href="{% url 'software:code' %}">{% trans "Get the code" %} »</a>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

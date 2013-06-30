@@ -29,7 +29,15 @@
       method="post"
       class="ym-form">
 {% csrf_token %}
-{{ form.non_field_errors }}
+
+{% if form.non_field_errors %}
+<div class="ym-fbox-text ym-error">
+    {% for error in form.non_field_errors %}
+        <p class="ym-message">{% trans error %}</p>
+    {% endfor %}
+</div>
+{% endif %}
+
 <table>
     {% for current_field in form_fields %}
         {% if current_field.name in select_lists %}
@@ -51,4 +59,4 @@
 <!--
         Side bar
 -->
-{% block sidebar %}{{sidebar|safe}}{% endblock %}
+{% block sidebar %}{% if sidebar %}{% include sidebar %}{% endif %}{% endblock %}

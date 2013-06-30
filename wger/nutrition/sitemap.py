@@ -17,7 +17,7 @@
 from django.contrib.sitemaps import Sitemap
 
 from wger.nutrition.models import Ingredient
-from wger.manager.utils import load_language
+from wger.utils.language import load_language
 
 
 class NutritionSitemap(Sitemap):
@@ -25,4 +25,5 @@ class NutritionSitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        return Ingredient.objects.filter(language=load_language())
+        return (Ingredient.objects.filter(language=load_language())
+                                  .filter(status__in=Ingredient.INGREDIENT_STATUS_OK))

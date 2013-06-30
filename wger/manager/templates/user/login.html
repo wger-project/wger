@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load url from future %}
+{% load browserid %}
 {% load i18n %}
 {% load staticfiles %}
 {% load manager_extras %}
@@ -11,8 +13,7 @@
 {% endblock %}
 
 {% block content %}
-{% if not user.is_authenticated %}
-<form action="{% url login %}"
+<form action="{% url 'login' %}"
       method="post"
       class="ym-form">
       {% csrf_token %}
@@ -38,14 +39,11 @@
     <div style="padding-top:1em;"></div>
     <a id="browserid-login"
        href="#"
-       class="persona-button dark browserid-login"
-       data-site-name="Workout Manager">
+       class="browserid-login persona-button dark browserid-login"
+       data-site-name="Workout Manager"
+       data-next="/">
         <span>{% trans "Sign in with your Email" %}</span>
     </a>
-    <form method="POST" action="{% url browserid_verify %}" id="browserid-form">
-        {% csrf_token %}
-        {{ browserid_form.as_p }}
-    </form>
 </div>
 
 <p>
@@ -54,8 +52,6 @@
     take a look at the <a href="https://login.persona.org/" target="_blank">the
     Persona website</a>.{% endblocktrans %}
 </p>
-{% endif %}
-
 
 
 {% endblock %}
@@ -64,7 +60,7 @@
 {% block sidebar %}
 <h3>{% trans "No account?" %}</h3>
 <p>
-    <a href="{% url wger.manager.views.registration %}">
+    <a href="{% url 'wger.manager.views.user.registration' %}">
         <img src="{% static 'images/icons/register.svg' %}"
          width="48"
          height="48"
@@ -72,18 +68,9 @@
         {% trans "Register" %}</a>
 </p>
 
-<p>
-    <a href="{% url demo-account %}">
-        <img src="{% static 'images/icons/star.svg' %}"
-         width="48"
-         height="48"
-         alt="{% trans 'Try the demo' %}">
-        {% trans "Try the demo" %}</a>
-</p>
-
 <h3>{% trans "Forgot password?" %}</h3>
 <p>
-    <a href="{% url django.contrib.auth.views.password_reset %}">
+    <a href="{% url 'django.contrib.auth.views.password_reset' %}">
         <img src="{% static 'images/icons/reset-password.svg' %}"
          width="48"
          height="48"

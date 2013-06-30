@@ -1,4 +1,26 @@
+# -*- coding: utf-8 -*-
+
+# This file is part of Workout Manager.
+#
+# Workout Manager is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Workout Manager is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+
 from django import template
+from django.core.paginator import EmptyPage, PageNotAnInteger
+
+from wger.exercises.models import Exercise
+from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
+from wger.utils.constants import PAGINATION_MAX_TOTAL_PAGES
+from wger.utils.constants import PAGINATION_PAGES_AROUND_CURRENT
 
 register = template.Library()
 
@@ -8,10 +30,20 @@ def get_current_settings(exercise, set_id):
     '''
     Does a filter on the sets
 
-    We need to do this here because it's not possible to pass arguments to function in the template,
-    and we are only interested on the settings that belong to the current set
+    We need to do this here because it's not possible to pass arguments to function in
+    the template, and we are only interested on the settings that belong to the current
+    set
     '''
     return exercise.setting_set.filter(set_id=set_id)
+
+
+@register.filter(name='get_active_exercises')
+def get_active_exercises(category, languages):
+    '''
+    Filter out pending exercises and not in the given languages
+    '''
+    return category.exercise_set.filter(status__in=Exercise.EXERCISE_STATUS_OK,
+                                        language__in=languages)
 
 
 @register.inclusion_tag('tags/render_day.html')
@@ -24,10 +56,33 @@ def render_day(day):
 
 
 @register.inclusion_tag('tags/pagination.html')
-def pagination(page, page_range):
+def pagination(paginator, page):
     '''
     Renders the necessary links to paginating a long list
     '''
+
+    # For very long lists (e.g. the English ingredient with more than 8000 items)
+    # we muck around here to remove the pages not inmediately 'around' the current
+    # one, otherwise we end up with a useless block with 300 pages.
+    if paginator.num_pages > PAGINATION_MAX_TOTAL_PAGES:
+
+        start_page = page.number - PAGINATION_PAGES_AROUND_CURRENT
+        for i in range(page.number - PAGINATION_PAGES_AROUND_CURRENT, page.number + 1):
+            if i > 0:
+                start_page = i
+                break
+
+        end_page = page.number + PAGINATION_PAGES_AROUND_CURRENT
+        for i in range(page.number, page.number + PAGINATION_PAGES_AROUND_CURRENT):
+            if i > paginator.num_pages:
+                end_page = i
+                break
+
+        page_range = range(start_page, end_page)
+    else:
+        page_range = paginator.page_range
+
+    # Set the template variables
     return {'page':       page,
             'page_range': page_range}
 

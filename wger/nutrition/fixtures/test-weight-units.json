@@ -1,0 +1,50 @@
+[
+    {
+        "pk": 1,
+        "model": "nutrition.weightunit",
+        "fields": {
+            "name": "Scheibe",
+            "language": 1
+        }
+    },
+    {
+        "pk": 2,
+        "model": "nutrition.weightunit",
+        "fields": {
+            "name": "Tasse",
+            "language": 1
+        }
+    },
+    {
+        "pk": 3,
+        "model": "nutrition.weightunit",
+        "fields": {
+            "name": "Handvoll",
+            "language": 1
+        }
+    },
+    {
+        "pk": 4,
+        "model": "nutrition.weightunit",
+        "fields": {
+            "name": "Spoon",
+            "language": 2
+        }
+    },
+    {
+        "pk": 5,
+        "model": "nutrition.weightunit",
+        "fields": {
+            "name": "Cup",
+            "language": 2
+        }
+    },
+    {
+        "pk": 6,
+        "model": "nutrition.weightunit",
+        "fields": {
+            "name": "A bit",
+            "language": 2
+        }
+    }
+]

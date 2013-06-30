@@ -18,7 +18,9 @@ import datetime
 from django.core.urlresolvers import reverse
 
 from wger.nutrition.models import Meal
+from wger.nutrition.models import NutritionPlan
 
+from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
@@ -46,3 +48,62 @@ class AddMealTestCase(WorkoutManagerAddTestCase):
     data = {'time': datetime.time(9, 2)}
     user_success = 'test'
     user_fail = 'admin'
+
+
+class PlanOverviewTestCase(WorkoutManagerTestCase):
+    '''
+    Tests the nutrition plan overview
+    '''
+
+    def get_plan_overview(self):
+        '''
+        Helper function to test the nutrition plan overview
+        '''
+
+        response = self.client.get(reverse('wger.nutrition.views.plan.overview'))
+
+        # Page exists
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['plans']), 3)
+
+    def test_dashboard_logged_in(self):
+        '''
+        Test the nutrition plan as a logged in user
+        '''
+        self.user_login()
+        self.get_plan_overview()
+
+
+class PlanDetailTestCase(WorkoutManagerTestCase):
+    '''
+    Tests the nutrition plan detail view
+    '''
+
+    def get_plan_detail_page(self, fail=False):
+        '''
+        Helper function to test the plan detail view
+        '''
+
+        response = self.client.get(reverse('wger.nutrition.views.plan.view', kwargs={'id': 1}))
+
+        # Page exists
+        if fail:
+            self.assertIn(response.status_code, (302, 404))
+        else:
+            self.assertEqual(response.status_code, 200)
+            plan = NutritionPlan.objects.get(pk=1)
+            self.assertEqual(response.context['plan'], plan)
+
+    def test_dashboard_owner(self):
+        '''
+        Test the nutrition plan as the owner user
+        '''
+        self.user_login('test')
+        self.get_plan_detail_page(fail=False)
+
+    def test_dashboard_other(self):
+        '''
+        Test the nutrition plan as a differnt user
+        '''
+        self.user_login('admin')
+        self.get_plan_detail_page(fail=True)

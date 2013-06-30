@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load url from future %}
 {% load i18n %}
 {% load staticfiles %}
 {% load manager_extras %}
@@ -7,46 +8,35 @@
 <!--
         Title
 -->
-{% block title %}{% trans "Edit" %} {{ day.description }}{% endblock %}
 
-<!--
-        Header
--->
-{% block header %}
-<script>
-function custom_page_init()
-{
-    init_edit_set();
-}
-</script>
-{% endblock %}
+{% block title %}{% trans "Edit set" %}{% endblock %}
 
 <!--
         Main Content
 -->
 {% block content %}
-<form action="{% url wger.manager.views.edit_set workout.id day.id set.id %}"
+
+
+<form action="{{form_action}}"
       method="post"
       class="ym-form">
 
 {% csrf_token %}
 <table>
-    {% yaml_form_field set_form.exercises %}
-    {% yaml_form_field set_form.sets %}
+    <tr>
+        <td colspan="2">
+            <div id="formsets">
+            {% for formset in formsets %}
+                    {% include 'set/formset.html' with exercise=formset.exercise formset=formset.formset %}
+            {% endfor %}
+            </div>
+        </td>
+    </tr>
     <tr>
         <td colspan="2">
             <input type="submit" value="{% trans 'Save' %}" id="form-save">
         </td>
     </tr>
 </table>
-</form>
 
-
-{% endblock %}
-
-
-<!--
-        Side bar
--->
-{% block sidebar %}
 {% endblock %}

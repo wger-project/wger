@@ -1,7 +1,17 @@
 # use glob syntax.
 syntax: glob
 
-settings.py
+# Compiled files and co.
 *.pyc
+*.swp
 *~
-htmlcov/*
+
+# Package building
+*.egg-info
+build/*
+dist/*
+versiontools*
+
+# Unit test / coverage reports
+.coverage
+htmlcov

@@ -34,9 +34,6 @@ $.widget( "custom.catcomplete", $.ui.autocomplete, {
  */
 function setup_sortable()
 {
-    // Hide the edit options for the set, this is done with the in-place editing
-    $(".set-options").hide();
-
     $(".workout-table tbody").sortable({
         handle: '.dragndrop-handle',
         revert: true,
@@ -55,103 +52,13 @@ function setup_sortable()
 
                 // TODO: it seems to be necessary to call the view two times before it returns
                 //       current data.
-                $.get('/' + get_current_language() + "/workout/day/view/" + day_id);
-                $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/view/" + day_id);
+                $.get('/' + get_current_language() + "/workout/day/" + day_id + "/view/");
+                $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/" + day_id + "/view/");
         }
 
     })
-
-    // Allow the settings within an exercise to be sortable
-    $(".settings-list").sortable({
-        placeholder: 'sortable-settings',
-        revert: true,
-        tolerance: 'pointer',
-        helper: function(event, ui) {
-            //return ui;
-            return $('<div class="sortable-settings-drag">' + ui.html() + '</div>');
-        },
-        update : function (event, ui) {
-            // returns something in the form "setting-1,setting-2,setting-3,"
-            var order = $( this ).sortable('toArray');
-
-            // Load the day-ID
-            var day_element = ui.item.parents('table').find('tr').attr('id'); //day-xy
-            var day_id = day_element.match(/\d+/);
-
-            //$("#ajax-info").show();
-            //$("#ajax-info").addClass('success');
-            $("#ajax-info").load('/' + get_current_language() + "/workout/api/edit-settting?do=set_order&order=" + order);
-
-            // TODO: it seems to be necessary to call the view two times before it returns
-            //       current data.
-            $.get('/' + get_current_language() + "/workout/day/view/" + day_id);
-            $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/view/" + day_id);
-        }
-    });
 }
 
-
-/*
- * Setup JQuery calls to edit the sets
- */
-function setup_ajax_set_edit()
-{
-    // Unbind all other click events so we don't do this more than once
-    $(".ajax-set-edit").off();
-
-    $(".ajax-set-edit").click(function(e) {
-        e.preventDefault();
-
-        var set_id = $(this).parents('tr').attr('id').match(/\d+/);
-        var exercise_id = $(this).parents('.ajax-set-edit-target').attr('id').match(/\d+/);
-
-        load_edit_set($(this).parents('.ajax-set-edit-target'), set_id, exercise_id)
-    });
-}
-
-function load_edit_set(element, set_id, exercise_id)
-{
-    $(element).load('/' + get_current_language() + "/workout/api/edit-set?do=edit_set&set=" + set_id + "&exercise=" + exercise_id);
-}
-
-function setup_inplace_editing()
-{
-    $(".ajax-form-cancel").each(function(index, element) {
-
-
-        var exercise_id = $(this).parents('.ajax-set-edit-target').attr('id').match(/\d+/);
-        var day_id = $(this).parents('table').attr('id').match(/\d+/);
-        var set_id = $(this).parents('tr').attr('id').match(/\d+/);
-
-        // Editing of set
-        $(element).click(function(e) {
-            e.preventDefault();
-            $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/view/" + day_id);
-        })
-
-        // Send the Form
-        $('.ajax-form-set-edit').submit(function(e) {
-          e.preventDefault();
-
-          url = '/' + get_current_language() + "/workout/api/edit-set?do=edit_set&set=" + set_id + "&exercise=" + exercise_id
-          form_data = $(this).serialize();
-          $.post( url, form_data);
-
-          $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/view/" + day_id);
-        });
-
-        // Init the autocompleter
-        $(".ajax-form-exercise-list").catcomplete({
-                source: '/' + get_current_language() + "/exercise/search/",
-                minLength: 2,
-                select: function(event, ui) {
-
-                    // After clicking on a result set the value of the hidden field
-                    $('#set-' + set_id + '-exercercise-id-hidden').val(ui.item.id);
-                }
-            });
-    });
-}
 
 /*
  *
@@ -187,12 +94,12 @@ function set_english_ingredients()
 
         if ( useEnglishIngredients == 0 )
         {
-            $('#english-ingredients-status').attr("src", '/' + get_current_language() + "/static/images/icons/status-on.svg");
+            $('#english-ingredients-status').attr("src", "/static/images/icons/status-on.svg");
             useEnglishIngredients = 1;
         }
         else if ( useEnglishIngredients == 1 )
         {
-             $('#english-ingredients-status').attr("src", '/' + get_current_language() + "/static/images/icons/status-off.svg");
+             $('#english-ingredients-status').attr("src", "/static/images/icons/status-off.svg");
              useEnglishIngredients = 0;
         }
 
@@ -303,49 +210,70 @@ function modal_dialog_form_edit()
 
 
         // OK, we did the POST, what do we do with the result?
-        $.post(form_action, form_data, function(data) {
-
-            if($(data).find('.ym-form .ym-error').length > 0)
-            {
-                // we must do the same with the new form as before, binding the click-event,
-                // checking for errors etc, so it calls itself here again.
-
-                $("#ajax-info .ym-form").html($(data).find('.ym-form').html());
-                $("#ajax-info").dialog({title: $(data).find("#main-content h2").html()});
-
-                modal_dialog_form_edit();
-            }
-            else
-            {
-                $("#ajax-info").dialog("close");
-
-                // If there  was a redirect we must change the URL of the browser. Otherwise
-                // a reload would not change the adress bar, but the content would.
-                // Since it is not possible to get this URL from the AJAX request, we read it out
-                // from a hidden HTML DIV in the document...
-                current_url = $(data).find("#current-url").data('currentUrl');
-                if(document.URL.indexOf(current_url))
+        $.ajax({
+            type: "POST",
+            url: form_action,
+            data: form_data,
+            beforeSend: function(jqXHR, settings){
+                // Send a custom header so django's messages are not displayed in the next
+                // request which will be not be displayed to the user, but on the next one
+                // that will
+                jqXHR.setRequestHeader("X-wger-no-messages", "1");
+            },
+            success: function(data,  textStatus, jqXHR) {
+                if($(data).find('.ym-form .ym-error').length > 0)
                 {
-                    history.pushState({}, "", current_url);
+                    // we must do the same with the new form as before, binding the click-event,
+                    // checking for errors etc, so it calls itself here again.
+
+                    $("#ajax-info .ym-form").html($(data).find('.ym-form').html());
+                    $("#ajax-info").dialog({title: $(data).find("#main-content h2").html()});
+
+                    modal_dialog_form_edit();
+                }
+                else
+                {
+                    $("#ajax-info").dialog("close");
+
+                    // If there  was a redirect we must change the URL of the browser. Otherwise
+                    // a reload would not change the adress bar, but the content would.
+                    // Since it is not possible to get this URL from the AJAX request, we read it out
+                    // from a hidden HTML DIV in the document...
+                    current_url = $(data).find("#current-url").data('currentUrl');
+
+                    // TODO: There seems to be problems sometimes when using the technique below and
+                    //       bootstrap's menu bar (drop downs won't open). So just do a normal
+                    //       redirect.
+                    window.location.href = current_url;
+                    
+                    
+                    /*
+                    if(document.URL.indexOf(current_url))
+                    {
+                        history.pushState({}, "", current_url);
+                    }
+                    */
+
+                    // Note: loading the new page like this executes all its JS code
+                    //$('body').html(data);
                 }
 
-                // Note: loading the new page like this executes all its JS code
-                $('body').html(data);
-            }
+                // Call other custom initialisation functions
+                // (e.g. if the form as an autocompleter, it has to be initialised again)
+                if (typeof custom_modal_init != "undefined")
+                {
+                    custom_modal_init();
+                }
 
-            // Call other custom initialisation functions
-            // (e.g. if the form as an autocompleter, it has to be initialised again)
-            if (typeof custom_modal_init != "undefined")
-            {
-                custom_modal_init();
-            }
-
-            if (typeof custom_page_init != "undefined")
-            {
-                custom_page_init();
-            }
-
-
+                if (typeof custom_page_init != "undefined")
+                {
+                    custom_page_init();
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                    //console.log(errorThrown); // INTERNAL SERVER ERROR
+                    $("#ajax-info").html(jqXHR.responseText);
+                }
         });
     });
 
@@ -363,6 +291,27 @@ function init_ingredient_autocompleter()
 
             // After clicking on a result set the value of the hidden field
             $('#id_ingredient').val(ui.item.id);
+            $('#exercise_name').html(ui.item.label);
+            
+            // See if the ingredient has any units and set the values for the forms
+            $.get('/' + get_current_language() + '/nutrition/ingredient/' + ui.item.id + '/get-units',
+                  function(data){
+                        
+                        // Remove any old units, if any
+                        options = $('#id_weight_unit').find('option');
+                        $.each(options, function(index, option_obj) {
+                            if (option_obj.value != '')
+                            {
+                                $(option_obj).remove();
+                            }
+                        });
+                        
+                        // Add new units, if any
+                        $.each(data, function(index, value) {
+                            $('#id_unit').append(new Option(value.name, value.id));    
+                            $('#id_weight_unit').append(new Option(value.name_model, value.id));
+                        });
+                  });
         }
     });
 }
@@ -403,6 +352,47 @@ function add_exercise(exercise)
 
     $(result_div).prependTo("#exercise-search-log");
     $("#exercise-search-log").scrollTop(0);
+    
+}
+
+function get_exercise_formset(exercise_id)
+{
+    set_value = $('#id_sets').val();
+    if (set_value && parseInt(set_value) && exercise_id && parseInt(exercise_id))
+    {
+        formset_url = '/' + get_current_language() +
+                    '/workout/get-formset/' +  exercise_id +
+                    '/' + set_value + '/';
+        
+        $.get(formset_url, function(data) {
+                $('#formsets').prepend(data);
+                $("#exercise-search-log").scrollTop(0);
+            });
+    }
+}
+
+// Updates all exercise formsets, e.g. when the number of sets changed
+function update_all_exercise_formset()
+{
+    set_value = $('#id_sets').val();
+    if (set_value && parseInt(set_value))
+    {
+        $.each($('#exercise-search-log input'), function(index, value) {
+        
+            var exercise_id = value.value;
+            if (exercise_id && parseInt(exercise_id))
+            {
+                var formset_url = '/' + get_current_language() +
+                            '/workout/get-formset/' +  exercise_id +
+                            '/' + set_value + '/';
+                $.get(formset_url, function(data) {
+                        $('#formset-exercise-'+exercise_id).remove();
+                        $('#formsets').prepend(data);
+                        $('#exercise-search-log').scrollTop(0);
+                })
+            }
+        });
+    }
 }
 
 function init_edit_set()
@@ -415,12 +405,17 @@ function init_edit_set()
 
                 // Add the exercise to the list
                 add_exercise(ui.item);
+                
+                // Load formsets
+                get_exercise_formset(ui.item.id)
 
                 // Remove the result div (also contains the hidden form element) when the user
                 // clicks on the delete link
                 $(".ajax-exercise-select a").click(function(e) {
                     e.preventDefault();
-                    $(this).parent('div').remove();
+                    exercise_id = $(this).parent('div').find('input').val()
+                    $('#formset-exercise-'+exercise_id).remove();
+                    $(this).parent('div').remove(); 
                 });
 
                 // Reset the autocompleter
@@ -429,13 +424,32 @@ function init_edit_set()
             }
         });
 
-    // Remove the result div again
-    // TODO: it seems it's necessary to have this twice, see if there's a better
-    //       way to handle it
+    // Delete button next to exercise
     $(".ajax-exercise-select a").click(function(e) {
         e.preventDefault();
-        $(this).parent('div').remove();
+        exercise_id = $(this).parent('div').find('input').val()
+        $('#formset-exercise-'+exercise_id).remove();
+        $(this).parent('div').remove(); 
     });
+
+    // Slider to set the number of sets
+    $("#slider").slider({
+    range: "min",
+    value: $("#id_sets").val(),
+    step: 1,
+    min: 1,
+    max: 7,
+    slide: function(event, ui) {
+        $("#id_sets").val(ui.value);
+        $("#slider-show").html(ui.value);
+        update_all_exercise_formset();
+        }
+    });
+}
+
+function init_schedule_datepicker()
+{
+    $( "#id_start_date" ).datepicker();
 }
 
 function init_weight_datepicker()

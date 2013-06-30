@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% trans "Your schedules" %}{% endblock %}
+
+
+{% block header %}
+<script type="text/javascript">
+
+// Initialise the datepicker for the modal dialog
+function custom_modal_init()
+{
+    init_schedule_datepicker();
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<table id="workout-table">
+    <thead>
+    <tr>
+        <th>{% trans "Description" %}</th>
+        <th>{% trans "Date" %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for schedule in schedules %}
+    <tr>
+        <td>
+            <a href="{% url 'schedule-view' schedule.id %}">
+                {{ schedule.name }}
+            </a>
+            {% if schedule.is_active %}
+            <span class="label label-info">{% trans "active" %}</span>
+            {% endif  %}
+        </td>
+        <td>
+            {{ schedule.start_date }}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="3">
+    		<a href="{% url 'schedule-add' %}" class="modal-dialog btn btn-block">
+            {% trans "No schedules found." %} {% trans "Add one now." %}
+           	</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+
+
+{% block sidebar %}
+<h3>{% trans "Your schedules" %}</h3>
+<p>{% blocktrans %}Schedules are collections of workouts that you do in
+succession.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}You can indicate how long you want to do each workout
+before jumping to the next. It is also possible to create a loop, so you
+always do the same workouts in succession, e.g. A > B > C > A > B > C and so on.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}The currently active schedule will remain active (and be
+shown e.g. in your dashboard) till it reaches the last workout or till you
+deactivate it, if it is a loop.{% endblocktrans %}</p>
+
+<h3>{% trans "Add schedule" %}</h3>
+<p>
+<a href="{% url 'schedule-add' %}"
+   class="modal-dialog">
+<img src="{% static 'images/icons/new.svg' %}"
+    width="32"
+    height="32"
+    alt="{% trans 'Add schedule' %}"
+    title="{% trans 'Add schedule' %}">
+{% trans "Add schedule" %}</a>
+</p>
+{% endblock %}

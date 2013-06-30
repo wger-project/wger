@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load url from future %}
 {% load i18n %}
 {% load staticfiles %}
 
@@ -18,12 +19,8 @@
     {% for workout in workouts %}
     <tr>
         <td>
-            <a href="{% url wger.manager.views.view_workout workout.id %}">
-                {% if workout.comment %}
-                    {{ workout.comment }}
-                {% else %}
-                    {% trans "Workout" %}
-                {% endif %}
+            <a href="{% url 'wger.manager.views.workout.view' workout.id %}">
+                {{ workout }}
             </a>
         </td>
         <td>
@@ -34,9 +31,11 @@
     </tbody>
     </table>
 {% else %}
-    <div class="box warning">
-        {% trans "No workouts found." %} {% trans "Use link to add one." %}
-    </div>
+    <p>
+        <a href="{% url 'wger.manager.views.workout.add' %}" class="btn btn-block">
+        {% trans "No workouts found." %} {% trans "Add one now." %}
+        </a>
+    </p>
 {% endif %}
 
 
@@ -46,7 +45,7 @@
 {% block sidebar %}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url wger.manager.views.add %}">
+    <a href="{% url 'wger.manager.views.workout.add' %}">
     <img src="{% static 'images/icons/new.svg' %}"
          width="32"
          height="32"
