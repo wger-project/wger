@@ -36,9 +36,8 @@ msgid "Exercises"
 msgstr "Übungen"
 
 #: config/models.py:41
-#, fuzzy
 msgid "Ingredients"
-msgstr "Zutat"
+msgstr "Zutaten"
 
 #: config/models.py:45 exercises/models.py:174 nutrition/models.py:56
 #: nutrition/models.py:144 nutrition/models.py:322
@@ -46,15 +45,13 @@ msgid "Language"
 msgstr "Sprache"
 
 #: config/models.py:49
-#, fuzzy
 msgid "Language to configure"
-msgstr "Name der Sprache - kurz"
+msgstr "Zu konfigurierende Sprache"
 
 #: config/templates/language/overview.html:7
 #: manager/templates/navigation.html:110
-#, fuzzy
 msgid "Languages"
-msgstr "Sprache"
+msgstr "Sprachen"
 
 #: config/templates/language/overview.html:14
 #: config/templates/language/view.html:14 exercises/models.py:36
@@ -100,9 +97,8 @@ msgid ""
 msgstr ""
 
 #: config/templates/language/view.html:27
-#, fuzzy
 msgid "Configuration"
-msgstr "Text bestätigen"
+msgstr "Konfiguration"
 
 #: config/templates/language/view.html:28
 msgid ""
@@ -165,19 +161,16 @@ msgid "Delete"
 msgstr "Löschen"
 
 #: config/views/languages.py:64
-#, fuzzy
 msgid "Add new language"
-msgstr "Neue Mahlzeit hinzufügen"
+msgstr "Neue Sprache hinzufügen"
 
 #: config/views/languages.py:76
-#, fuzzy
 msgid "Language successfully deleted"
-msgstr "Zutat erfolgreich gelöscht"
+msgstr "Sprache erfolgreich gelöscht"
 
 #: config/views/languages.py:83
-#, fuzzy
 msgid "Delete {0}?"
-msgstr "%s löschen?"
+msgstr "{0} löschen?"
 
 #: exercises/models.py:68 exercises/models.py:95 exercises/models.py:145
 #: exercises/templates/exercise/pending.html:16 manager/models.py:138
@@ -655,7 +648,7 @@ msgid ""
 "A short description or goal of the workout. For example 'Focus on back' or "
 "'Week 1 of program xy'."
 msgstr ""
-"Eine kurze Beschreibung oder Ziel des Trainingplans.\n"
+"Eine kurze Beschreibung oder Ziel des Trainingsplans.\n"
 " Zum Beispiel 'Fokus auf Rücken' oder 'Woche 1 von Programm XY'."
 
 #: manager/models.py:69 manager/models.py:381 manager/pdf.py:58
@@ -796,7 +789,7 @@ msgstr "Nr."
 
 #: manager/pdf.py:259
 msgid "<i>This is an empty workout, what did you expect on the PDF?</i>"
-msgstr "<i>Das ist ein leerer Trainngsplan, was hast du vom PDF erwartet?</i>"
+msgstr "<i>Das ist ein leerer Trainingsplan, was hast du vom PDF erwartet?</i>"
 
 #: manager/pdf.py:293 nutrition/views/plan.py:296
 #, python-format
@@ -2048,7 +2041,6 @@ msgid "Nutritional plan %s"
 msgstr "Ernährungplan für %s"
 
 #: nutrition/views/plan.py:266
-#, fuzzy
 msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
 msgstr "<i>Das ist ein leerer Trainngsplan, was hast du vom PDF erwartet?</i>"
 
@@ -2867,7 +2859,7 @@ msgid ""
 msgstr ""
 "Der Plan kann auch als PDF-Datei runtergeladen werden um es z.B. an den "
 "Kühlschrank zu kleben um nicht zu... vergessen den Plan zu folgen. Wie mit "
-"dem Trainingplan-PDF, <a href=\"/static/pdf/nutrition-plan-pdf-1.0-en.pdf"
+"dem Trainingsplan-PDF, <a href=\"/static/pdf/nutrition-plan-pdf-1.0-en.pdf"
 "\">hier ist ein Muster</a>."
 
 #: software/templates/issues.html:6
