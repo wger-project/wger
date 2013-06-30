@@ -58,9 +58,11 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
         self.assertEqual(exercise_2.id, 2)
         self.assertEqual(exercise_2.name, "Very cool exercise")
 
+        self.assertContains(response, 'Add new exercise')
+
         # Only authorized users see the edit links
         if admin:
-            self.assertContains(response, 'Add new exercise')
+            self.assertNotContains(response, 'Only registered users can do this')
             self.assertContains(response, 'Edit category')
             self.assertContains(response, 'Delete category')
             self.assertContains(response, 'Add category')
@@ -70,10 +72,10 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
             self.assertNotContains(response, 'Add category')
 
         if logged_in and not demo:
-            self.assertContains(response, 'Add new exercise')
+            self.assertNotContains(response, 'Only registered users can do this')
 
         if logged_in and demo:
-            self.assertNotContains(response, 'Add new exercise')
+            self.assertContains(response, 'Only registered users can do this')
 
     def test_exercise_index_editor(self):
         '''

@@ -110,9 +110,9 @@ $(document).ready(function() {
         Side bar
 -->
 {% block sidebar %}
-{% if user.is_authenticated and not user.get_profile.is_temporary %}
 <h3>{% trans "Add new exercise" %}</h3>
 <p>
+    {% if user.is_authenticated and not user.get_profile.is_temporary %}
     <a href="{% url 'exercise-add' %}">
     <img src="{% static 'images/icons/new.svg' %}"
          width="32"
@@ -121,8 +121,18 @@ $(document).ready(function() {
          title="{% trans 'Add new exercise' %}">
     {% trans "Add new exercise" %}
     </a>
-    </p>
-{% endif %}
+    {% else %}
+    <img src="{% static 'images/icons/new.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Add new exercise' %}"
+         title="{% trans 'Add new exercise' %}">
+    <span>
+    {% trans "Only registered users can do this" %}
+    </span>
+    {% endif %}
+</p>
+
 
 {% if perms.exercises %}
     <h3>{% trans "Options" %}</h3>
@@ -163,10 +173,10 @@ $(document).ready(function() {
         <a href="{% url 'exercisecategory-add' %}"
            class="modal-dialog">
         	<img src="{% static 'images/icons/folder-new.svg' %}"
-                            width="32"
-                            height="32"
-                            alt="{% trans 'Add category' %}"
-                            title="{% trans 'Add category' %}">
+                     width="32"
+                     height="32"
+                     alt="{% trans 'Add category' %}"
+                     title="{% trans 'Add category' %}">
          {% trans "Add category" %}
         </a>
     </p>
