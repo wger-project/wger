@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 {% load i18n %}
+{% load browserid %}
+{% load url from future %}
 {% load staticfiles %}
 <html lang="{{language.short_name}}">
 <head>
@@ -24,8 +26,8 @@
     along with Workout Manager. If not, see <http://www.gnu.org/licenses/>.
     -->
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/yaml/demos/css/flexible-grids.css' %} "> <!-- CSS framework for the layout -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/yaml/custom-yaml.css' %}">               <!-- Customisations for yaml      -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/yaml401/demos/css/flexible-grids.css' %} "> <!-- CSS framework for the layout -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/yaml401/custom-yaml.css' %}">               <!-- Customisations for yaml      -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager.css' %}">                <!-- Own CSS classes and styles   -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui.css' %}">                      <!-- CSS for JQuery UI elements   -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui-custom.css' %}">               <!-- Customization for JQuery CSS -->
@@ -66,153 +68,58 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+{% browserid_info %}
 <header>
+    <div class="float-right" style="margin-right:1em;margin-top:0em;">
+
+        {% if user.is_authenticated and not user.get_profile.is_temporary %}
+            <a href="{% url 'wger.manager.views.user.preferences' %}">
+            {% if user.email %}
+                {{user.email}}
+            {% else %}
+                {{user.username}}
+            {% endif %}
+            </a>
+            |
+
+            <a href="{% url 'logout' %}">
+            {% trans "Logout" %}
+            </a>
+        {% else %}
+            <a href="{% url 'login' %}">{% trans "Login" %}</a>
+	    |
+            <a href="{% url 'wger.manager.views.user.registration' %}">{% trans "Register" %}</a>
+        {% endif %}
+        |
+        <a href="{% url 'contact' %}">{% trans "Get in touch" %}</a>
+        |
+        <a href="{{i18n_path.de}}">
+        <img src="{% static 'images/icons/flag-de.svg' %}"
+                 width="18"
+                 height="18"
+                 alt="{% trans 'German' %}"
+                 title="{% trans 'German' %}">
+        {% trans "German" %}</a>
+        |
+        <a href="{{i18n_path.en}}">
+        <img src="{% static 'images/icons/flag-en.svg' %}"
+                 width="18"
+                 height="18"
+                 alt="{% trans 'English' %}"
+                 title="{% trans 'English' %}">
+        {% trans "English" %}</a>
+    </div>
+
     <div class="ym-wrapper">
         <div class="ym-wbox">
             <span class="name">wger</span>
             <span class="regular">| Workout Manager</span>
+            
+            
         </div>
     </div>
 </header>
-<nav id="nav">
-    <div class="ym-wrapper">
-        <div class="navbar navbar-inverse ">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav">
-                            <li {% if active_tab == 'user' %}class="active"{% endif %}>
-                            {% if not user.is_authenticated %}
-                                <a href="{% url login %}">{% trans "Login" %}</a>
-                            {% else %}
-                                <a href="{% url index %}">{% trans "Dashboard" %}</a>
-                            {% endif %}
-                            </li>
-
-                            {% if user.is_authenticated %}
-                            <li {% if active_tab == 'workout'   %}class="active"{% endif %}><a href="{% url wger.manager.views.overview %}">{% trans "Workouts" %}</a></li>
-                            {% endif %}
-
-                            <li class="dropdown {% if active_tab == 'exercises' %}active{% endif %}">
-                                <a href="{% url wger.exercises.views.exercise_overview %}"
-                                   class="dropdown-toggle"
-                                   data-toggle="dropdown">{% trans "Exercises" %} <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{% url wger.exercises.views.exercise_overview %}">{% trans "Exercises" %}</a></li>
-                                    <li><a href="{% url muscle-overview %}">{% trans "Muscle overview" %}</a></li>
-                                </ul>
-                            </li>
-
-                            {% if user.is_authenticated %}
-                            <li class="dropdown{% if active_tab == 'weight'    %} active{% endif %}">
-
-                                <a href="{% url wger.weight.views.overview %}"
-                                   class="dropdown-toggle"
-                                   data-toggle="dropdown">{% trans "Weight" %} <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{% url wger.weight.views.overview %}">{% trans "Weight overview" %} </a></li>
-                                    <li><a href="{% url weight-add %}">{% trans "Add weight entry" %}</a></li>
-                                </ul>
-                            </li>
-                            {% endif %}
-
-                            <li class="dropdown {% if active_tab == 'nutrition' %}active{% endif %}">
-                                <a href="{% url wger.nutrition.views.overview %}"
-                                   class="dropdown-toggle"
-                                   data-toggle="dropdown">{% trans "Nutrition" %} <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                {% if user.is_authenticated %}
-                                    <li><a href="{% url wger.nutrition.views.overview %}">{% trans "Nutrition plans" %} </a></li>
-                                {% endif %}
-                                    <li><a href="{% url wger.nutrition.views.ingredient_overview %}">{% trans "Ingredient overview" %}</a></li>
-                                </ul>
-                            </li>
-
-
-
-                            <li class="dropdown {% if active_tab == 'software' %}active{% endif %}">
-                                <a href=""
-                                   class="dropdown-toggle"
-                                   data-toggle="dropdown">{% trans "About this software" %} <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{% url software:features %}">{% trans "Features" %}</a></li>
-                                    {% if not user.is_authenticated %}
-                                    <li><a href="{% url demo-account %}">{% trans "Demo account" %} </a></li>
-                                    {% endif %}
-                                    <li><a href="{% url software:issues %}">{% trans "Report problem" %} </a></li>
-
-                                    <li class="divider"></li>
-                                    <li class="nav-header">{% trans "Developers" %}</li>
-                                    <li><a href="{% url software:code %}">{% trans "Get the code" %} </a></li>
-                                    <li><a href="{% url software:license %}">{% trans "License" %} </a></li>
-                                    <li><a href="{% url software:changelog %}">{% trans "Changelog" %} </a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <ul class="nav pull-right">
-                            <li class="divider-vertical"></li>
-                            <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                {% trans "Options" %}
-                            <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                {% if user.is_authenticated %}
-                                <li>
-                                    <a href="{% url wger.manager.views.logout %}" id="logout" class="browserid-logout">
-                                    {% trans 'Logout' %}
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{% url wger.manager.views.preferences %}">
-                                    {% trans 'My preferences' %}
-                                    </a>
-                                </li>
-                                <li class="divider"></li>
-                                <li class="nav-header">{% trans "Languages" %}</li>
-                                {% endif %}
-
-                                <li {% if language.short_name == 'de' %}class="active"{% endif %}>
-                                    <a href="{{i18n_path.de}}">
-                                    <img src="{% static 'images/icons/flag-de.svg' %}"
-                                             width="18"
-                                             height="18"
-                                             alt="{% trans 'German' %}"
-                                             title="{% trans 'German' %}">
-                                    {% trans "German" %}</a>
-                                </li>
-                                <li {% if language.short_name == 'en' %}class="active"{% endif %}>
-                                    <a href="{{i18n_path.en}}">
-                                    <img src="{% static 'images/icons/flag-en.svg' %}"
-                                             width="18"
-                                             height="18"
-                                             alt="{% trans 'English' %}"
-                                             title="{% trans 'English' %}">
-                                    {% trans "English" %}</a>
-                                </li>
-
-                                <li class="divider"></li>
-                                <li class="nav-header">{% trans "Site version" %}</li>
-                                <li {% if not is_mobile %} class="active"{% endif %}>
-                                    <a href="?flavour=full" data-ajax="false">{% trans "Desktop" %}</a>
-                                </li>
-                                <li {% if is_mobile %} class="active"{% endif %}>
-                                    <a href="?flavour=mobile" data-ajax="false">{% trans "Mobile" %}</a>
-                                </li>
-                            </ul>
-                        </ul>
-                    </div><!--/.nav-collapse -->
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
-
+{% include 'navigation.html' %}
 <div id="main">
     <div class="ym-wrapper">
         <section >
@@ -229,9 +136,12 @@
                 <div id="current-url" data-current-url="{{request_full_path}}"></div>
                 <div id="current-language" data-current-language="{{language.short_name}}"></div>
 
-                {% if user.get_profile.is_temporary %}
-                    <div class="box info" style="padding:0.6em; margin: 0em 0em 1em 0em;text-align:center;">
-                    {% trans "You are using a temporary account, this user will be deleted after some time."%}
+                {% if not user.is_authenticated or user.get_profile.is_temporary %}
+                    <div class="abox ainfo" style="padding:0.6em; margin: 0em 0em 1em 0em;text-align:center;font-size:95%;">
+                    {% trans "You are using a guest account, data entered will be deleted after a week."%}
+                    {% if not has_demo_data %}
+                    <a href="{% url 'demo-entries' %}" rel="nofollow" class="btn btn-success btn-small">{% trans "Create some demo entries" %} »</a>
+                    {% endif %}
                     </div>
                 {% endif %}
                 {% block template %}{% endblock %}
@@ -247,23 +157,28 @@
     <div class="ym-wbox">
         <div class="ym-grid linearize-level-1">
             <div class="ym-g10 ym-gl">
-                <a href="https://bitbucket.org/rolandgeider/workout_manager" class="no-hover">
-                    <img src="{% static 'images/agplv3-88x31.png' %}"
+                <a href="https://github.com/rolandgeider/wger" class="no-hover">
+                    <img src="{% static 'images/agpl-v3.svg' %}"
                          width="88"
                          height="31"
                          alt="{% trans 'Released under the Affero GPL' %}"
                          title="{% trans 'Released under the Affero GPL' %}">
                 </a>
             </div>
-            <div class="ym-g40 ym-gl">
+            <div class="ym-g80 ym-gl">
                 <div class="ym-gbox-left">
-                © <a href="mailto:roland@NO!SPAM!geider.net">Roland Geider</a>
+                © <a href="mailto:{{contact_email}}">Roland Geider</a>
+                <!--
                 – {% trans "Layout based on <a href='http://www.yaml.de'>YAML</a>" %}
+                -->
+                | <a href="{% url 'about' %}">{% trans "About" %}</a>
+                | <a href="{% url 'software:contribute' %}">{% trans "Contribute!" %}</a>
+                | <a href="{% url 'contact' %}">{% trans "Get in touch" %}</a>
                 </div>
             </div>
-            <div class="ym-g50 ym-gr align-right">
+            <div class="ym-g10 ym-gr align-right">
                 <div class="ym-gbox-right">
-                    <em class="dimmed">{{version}}</em>
+                    <em class="dimmed" style="font-size: 80%;">{{version}}</em>
                 </div>
             </div>
         </div>
