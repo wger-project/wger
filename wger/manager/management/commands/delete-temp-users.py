@@ -30,11 +30,13 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        user_list = UserProfile.objects.filter(is_temporary=True)
-        for profile in user_list:
+        profile_list = UserProfile.objects.filter(is_temporary=True)
+        counter = 0
+        for profile in profile_list:
             delta = now() - profile.user.date_joined
 
             if (delta >= datetime.timedelta(7)):
-                #self.stdout.write("Deleting user %s, joined %s days ago\n" % (profile,
-                #                                                              delta.days))
+                counter += 1
                 profile.user.delete()
+
+        self.stdout.write("Deleted {0} temporary users".format(counter))
