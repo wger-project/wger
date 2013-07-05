@@ -267,3 +267,6 @@ LOGGING = {
 
 TEST_RUNNER = 'discover_runner.DiscoverRunner'
 TEST_DISCOVER_TOP_LEVEL = os.path.dirname(os.path.dirname(__file__))
+
+# Force SSL to communicate with reCaptcha's servers
+RECAPTCHA_USE_SSL = True
