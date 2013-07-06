@@ -55,12 +55,8 @@ def check_current_request(request):
 def get_user(request):
     if not hasattr(request, '_cached_user'):
 
-        CACHE_KEY = 'user-session-{0}'
         create_user = check_current_request(request)
-        user = cache.get(CACHE_KEY.format(request.session.session_key))
-        if not user:
-            user = auth.get_user(request)
-            cache.set(CACHE_KEY.format(request.session.session_key), user)
+        user = auth.get_user(request)
 
         # Set the flag in the session
         if not request.session.get('has_demo_data'):
@@ -71,7 +67,6 @@ def get_user(request):
 
             logger.debug('creating a new guest user now')
             user = create_temporary_user()
-            cache.set(CACHE_KEY.format(request.session.session_key), user)
             django_login(request, user)
 
         request._cached_user = user
