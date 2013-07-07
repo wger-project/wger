@@ -22,11 +22,21 @@ from django.utils.encoding import force_bytes
 logger = logging.getLogger('workout_manager.custom')
 
 
-def delete_template_fragment_cache(fragment_name='', *args):
-
+def get_template_cache_name(fragment_name='', *args):
+    '''
+    Logic to calculate the cache key name when using django's template cache.
+    Code taken from django/templatetags/cache.py
+    '''
     key = u':'.join([str(arg) for arg in args])
     key_name = hashlib.md5(force_bytes(key)).hexdigest()
-    cache.delete('template.cache.{0}.{1}'.format(fragment_name, key_name))
+    return 'template.cache.{0}.{1}'.format(fragment_name, key_name)
+
+
+def delete_template_fragment_cache(fragment_name='', *args):
+    '''
+    Deletes a cache key created on the template with django's cache tag
+    '''
+    cache.delete(get_template_cache_name(fragment_name, *args))
 
 
 class CacheKeyMapper(object):

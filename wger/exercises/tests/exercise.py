@@ -16,12 +16,16 @@ import json
 
 from django.core import mail
 from django.core.urlresolvers import reverse
+from django.core.cache import cache
 
 from wger.exercises.models import Exercise
+from wger.exercises.models import Muscle
 from wger.exercises.models import ExerciseCategory
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
+from wger.utils.cache import get_template_cache_name
+from wger.utils.cache import cache_mapper
 
 
 class ExerciseIndexTestCase(WorkoutManagerTestCase):
@@ -375,3 +379,76 @@ class DeleteExercisesTestCase(WorkoutManagerDeleteTestCase):
     pk = 2
     user_success = 'admin'
     user_fail = 'test'
+
+
+class ExercisesCacheTestCase(WorkoutManagerTestCase):
+    '''
+    Exercise cache test case
+    '''
+
+    def test_exercise_overview(self):
+        '''
+        Test the exercise overview cache is correctly generated on visit
+        '''
+
+        self.assertFalse(cache.get(get_template_cache_name('exercise-overview', 2)))
+        self.client.get(reverse('exercise-overview'))
+        self.assertTrue(cache.get(get_template_cache_name('exercise-overview', 2)))
+
+    def test_exercise_detail(self):
+        '''
+        Test that the exercise detail cache is correctly generated on visit
+        '''
+
+        self.assertFalse(cache.get(get_template_cache_name('exercise-detail-header', 2, 2)))
+        self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
+        self.client.get(reverse('exercise-view', kwargs={'id': 2, 'slug': 'aaa'}))
+        self.assertTrue(cache.get(get_template_cache_name('exercise-detail-header', 2, 2)))
+        self.assertTrue(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
+
+    def test_overview_cache_update(self):
+        '''
+        Test that the template cache for the overview is correctly reseted when
+        performing certain operations
+        '''
+
+        self.client.get(reverse('exercise-overview'))
+        self.client.get(reverse('exercise-view', kwargs={'id': 2, 'slug': 'aaa'}))
+
+        old_exercise = cache.get(cache_mapper.get_exercise_key(2))
+        old_exercise_bg = cache.get(cache_mapper.get_exercise_muscle_bg_key(2))
+        old_muscle_overview = cache.get(get_template_cache_name('muscle-overview', 2))
+        old_exercise_overview = cache.get(get_template_cache_name('exercise-overview', 2))
+        old_detail_header = cache.get(get_template_cache_name('exercise-detail-header', 2, 2))
+        old_detail_muscles = cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2))
+
+        exercise = Exercise.objects.get(pk=2)
+        exercise.name = 'Very cool exercise 2'
+        exercise.description = 'New description'
+        exercise.muscles_secondary.add(Muscle.objects.get(pk=2))
+        exercise.save()
+
+        self.assertFalse(cache.get(cache_mapper.get_exercise_key(2)))
+        self.assertFalse(cache.get(cache_mapper.get_exercise_muscle_bg_key(2)))
+        self.assertFalse(cache.get(get_template_cache_name('muscle-overview', 2)))
+        self.assertFalse(cache.get(get_template_cache_name('exercise-overview', 2)))
+        self.assertFalse(cache.get(get_template_cache_name('exercise-detail-header', 2, 2)))
+        self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
+
+        self.client.get(reverse('exercise-overview'))
+        self.client.get(reverse('muscle-overview'))
+        self.client.get(reverse('exercise-view', kwargs={'id': 2, 'slug': 'aaa'}))
+
+        new_exercise = cache.get(cache_mapper.get_exercise_key(2))
+        new_exercise_bg = cache.get(cache_mapper.get_exercise_muscle_bg_key(2))
+        new_muscle_overview = cache.get(get_template_cache_name('muscle-overview', 2))
+        new_exercise_overview = cache.get(get_template_cache_name('exercise-overview', 2))
+        new_detail_header = cache.get(get_template_cache_name('exercise-detail-header', 2, 2))
+        new_detail_muscles = cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2))
+
+        self.assertNotEqual(old_exercise.name, new_exercise.name)
+        self.assertNotEqual(old_exercise_bg, new_exercise_bg)
+        self.assertNotEqual(old_muscle_overview, new_muscle_overview)
+        self.assertNotEqual(old_exercise_overview, new_exercise_overview)
+        self.assertNotEqual(old_detail_header, new_detail_header)
+        self.assertNotEqual(old_detail_muscles, new_detail_muscles)

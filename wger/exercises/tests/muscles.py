@@ -14,6 +14,7 @@
 
 
 from django.core.urlresolvers import reverse
+from django.core.cache import cache
 
 from wger.exercises.models import Muscle
 
@@ -21,6 +22,7 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.utils.cache import get_template_cache_name
 
 
 class AddMuscleTestCase(WorkoutManagerAddTestCase):
@@ -55,3 +57,19 @@ class DeleteMuscleTestCase(WorkoutManagerDeleteTestCase):
     object_class = Muscle
     url = 'muscle-delete'
     pk = 1
+
+
+class MuscleCacheTestCase(WorkoutManagerTestCase):
+    '''
+    Muscle cache test case
+    '''
+
+    def test_overview(self):
+        '''
+        Test the muscle overview cache is correctly generated on visit
+        '''
+
+        # No cache for overview for language 2
+        self.assertFalse(cache.get(get_template_cache_name('muscle-overview', 2)))
+        self.client.get(reverse('muscle-overview'))
+        self.assertTrue(cache.get(get_template_cache_name('muscle-overview', 2)))
