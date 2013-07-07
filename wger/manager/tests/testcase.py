@@ -18,6 +18,7 @@ import logging
 
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import NoReverseMatch
+from django.core.cache import cache
 
 from django.test import TestCase
 from django.test import LiveServerTestCase
@@ -51,6 +52,7 @@ class WorkoutManagerTestCase(TestCase):
         Reset settings
         '''
         del os.environ['RECAPTCHA_TESTING']
+        cache.clear()
 
     def user_login(self, user='admin'):
         '''
