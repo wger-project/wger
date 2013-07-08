@@ -94,7 +94,10 @@ class RobotsExclusionMiddleware(object):
     '''
     def process_response(self, request, response):
         # Don't set it if it's already in the response
-        if check_current_request(request) and response.get('X-Robots-Tag', None) is not None:
+        if check_current_request(request) and response.get('X-Robots-Tag', None) is None:
+            #logger.debug("Adding X-Robots header")
+            response['X-Robots-Tag'] = 'noindex, nofollow'
             return response
-        response['X-Robots-Tag'] = 'noindex, nofollow'
-        return response
+        else:
+            #logger.debug("Not adding X-Robots header")
+            return response

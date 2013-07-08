@@ -10,11 +10,15 @@ from wger.exercises.views import muscles
 urlpatterns = patterns('wger.exercises.views',
 
     # Exercises
-    url(r'^overview/$', 'exercises.overview'),
+    url(r'^overview/$',
+        'exercises.overview',
+        name='exercise-overview'),
 
     url(r'^search/$', 'exercises.search'),
     url(r'^(?P<id>\d+)/view/(?P<slug>[-\w]+)/$', 'exercises.view'),
-    url(r'^(?P<id>\d+)/view/$', 'exercises.view'),
+    url(r'^(?P<id>\d+)/view/$',
+        'exercises.view',
+        name='exercise-view'),
     url(r'^add/$',
         login_required(exercises.ExerciseAddView.as_view()),
         name='exercise-add'),

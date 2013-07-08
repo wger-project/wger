@@ -10,9 +10,10 @@ from wger.nutrition.views import unit
 from wger.nutrition.views import unit_ingredient
 
 urlpatterns = patterns('wger.nutrition.views',
-    url(r'^overview/$', 'plan.overview'),
-
     # Plans
+    url(r'^overview/$',
+        'plan.overview',
+        name='nutrition-overview'),
     url(r'^add/$', 'plan.add'),
     url(r'^(?P<id>\d+)/view/$', 'plan.view'),
     url(r'^(?P<pk>\d+)/copy/$',
@@ -66,7 +67,9 @@ urlpatterns = patterns('wger.nutrition.views',
     url(r'^(?P<pk>\d+)/decline/$',
         'ingredient.decline',
         name='ingredient-decline'),
-    url(r'^ingredient/(?P<id>\d+)/view/$', 'ingredient.view'),
+    url(r'^ingredient/(?P<id>\d+)/view/$',
+        'ingredient.view',
+        name='ingredient-view'),
     url(r'^ingredient/(?P<id>\d+)/view/(?P<slug>[-\w]+)/$', 'ingredient.view'),
     url(r'^ingredient/search/$',
         'ingredient.search',

@@ -18,25 +18,24 @@ import datetime
 
 from django.utils.timezone import now
 from django.core.management.base import BaseCommand
-from wger.manager.models import UserProfile
+from wger.exercises.models import Exercise
 
 
 class Command(BaseCommand):
     '''
-    Helper admin command to clean up demo users, to be called e.g. by cron
+    Read out the user submitted exercise.
+
+    Used to generate the AUTHORS file for a release
     '''
 
-    help = 'Deletes all temporary users older than 1 week'
+    help = 'Read out the user submitted exercise'
 
     def handle(self, *args, **options):
 
-        profile_list = UserProfile.objects.filter(is_temporary=True)
-        counter = 0
-        for profile in profile_list:
-            delta = now() - profile.user.date_joined
-
-            if (delta >= datetime.timedelta(7)):
-                counter += 1
-                profile.user.delete()
-
-        self.stdout.write("Deleted {0} temporary users".format(counter))
+        exercises = Exercise.objects.filter(status=Exercise.EXERCISE_STATUS_ACCEPTED)
+        usernames = []
+        for exercise in exercises:
+            username = exercise.user.username
+            if username not in usernames:
+                usernames.append(username)
+                self.stdout.write('{0}\n'.format(username))

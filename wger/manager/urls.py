@@ -44,7 +44,9 @@ urlpatterns = patterns('wger.manager.views',
         name='demo-entries'),
 
     # Workout
-    url(r'^workout/overview$', 'workout.overview'),
+    url(r'^workout/overview$',
+        'workout.overview',
+        name='workout-overview'),
     url(r'^workout/add$', 'workout.add'),
     url(r'^workout/(?P<pk>\d+)/copy/$',
         'workout.copy_workout',
