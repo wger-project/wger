@@ -73,3 +73,29 @@ class MuscleCacheTestCase(WorkoutManagerTestCase):
         self.assertFalse(cache.get(get_template_cache_name('muscle-overview', 2)))
         self.client.get(reverse('muscle-overview'))
         self.assertTrue(cache.get(get_template_cache_name('muscle-overview', 2)))
+
+
+class MuscleOverviewTestCase(WorkoutManagerTestCase):
+    '''
+    Test that only admins see the edit links
+    '''
+
+    def test_overview(self):
+        '''
+        Test that only admins see the edit links
+        '''
+
+        self.user_login('admin')
+        response = self.client.get(reverse('muscle-overview'))
+        self.assertContains(response, 'Edit muscle')
+        self.assertContains(response, 'Delete muscle')
+        self.assertContains(response, 'Add muscle')
+        self.assertContains(response, 'After adding a muscle')
+
+        self.user_logout()
+        response = self.client.get(reverse('muscle-overview'))
+        self.assertNotContains(response, 'Edit muscle')
+        self.assertNotContains(response, 'Delete muscle')
+        self.assertNotContains(response, 'Add muscle')
+        self.assertNotContains(response, 'After adding a muscle')
+
