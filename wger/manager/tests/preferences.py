@@ -40,8 +40,8 @@ class PreferencesTestCase(WorkoutManagerTestCase):
         # Change some preferences
         response = self.client.post(reverse('preferences'),
                                     {'show_comments': 'on',
-                                    'show_english_ingredients': 'on',
-                                    'email': 'my-new-email@example.com'})
+                                     'show_english_ingredients': 'on',
+                                     'email': 'my-new-email@example.com'})
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('preferences'))
@@ -53,7 +53,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
         # Change some preferences
         response = self.client.post(reverse('preferences'),
                                     {'show_english_ingredients': 'on',
-                                    'email': ''})
+                                     'email': ''})
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('preferences'))
@@ -84,7 +84,7 @@ class AjaxPreferencesTestCase(WorkoutManagerTestCase):
         # Set the 'show comments' option
         response = self.client.get(reverse('wger.manager.views.user.api_user_preferences'),
                                    {'do': 'set_show-comments',
-                                   'show': '1'},
+                                    'show': '1'},
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         self.assertEqual('Success', response.content)
@@ -99,7 +99,7 @@ class AjaxPreferencesTestCase(WorkoutManagerTestCase):
         # Set the 'english ingredients' option
         response = self.client.get(reverse('wger.manager.views.user.api_user_preferences'),
                                    {'do': 'set_english-ingredients',
-                                   'show': '1'},
+                                    'show': '1'},
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         self.assertEqual('Success', response.content)

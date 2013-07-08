@@ -34,9 +34,8 @@ MANAGERS = ADMINS
 # Restrict the available languages
 ugettext = lambda s: s
 LANGUAGES = (
-    ('en', ugettext('English')),
-    ('de', ugettext('German')),
-#    ('os', ugettext('Ossetian')),
+            ('en', ugettext('English')),
+            ('de', ugettext('German')),
 )
 
 # Default language code for this installation. All choices can be found here:

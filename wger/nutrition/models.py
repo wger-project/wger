@@ -60,7 +60,7 @@ class NutritionPlan(models.Model):
                                    blank=True,
                                    verbose_name=_('Description'),
                                    help_text=_('A description of the goal of the plan, e.g. '
-                                   '"Gain mass" or "Prepare for summer"'))
+                                               '"Gain mass" or "Prepare for summer"'))
 
     def __unicode__(self):
         '''
@@ -277,7 +277,7 @@ class Ingredient(models.Model):
                        "added to nutrition plans. You can access it on this address:\n"
                        "{1}\n\n").format(self.name, url) +
                        ugettext("Thank you for contributing and making this site better!\n"
-                       "   the wger.de team"))
+                                "   the wger.de team"))
             mail.send_mail(subject,
                            message,
                            EMAIL_FROM,

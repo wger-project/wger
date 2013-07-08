@@ -26,14 +26,9 @@ from django.utils.translation import ugettext as _
 from wger.manager.models import Workout
 from wger.utils.pdf import styleSheet
 
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.lib.styles import ParagraphStyle
-from reportlab.lib.styles import StyleSheet1
 from reportlab.lib.pagesizes import A4, cm, landscape, portrait
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
 from reportlab.lib import colors
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.pdfbase import pdfmetrics
 
 from wger import get_version
 
@@ -113,7 +108,7 @@ def workout_log(request, id):
 
         P = Paragraph('<para align="center">%(days)s: %(description)s</para>' %
                       {'days': ', '.join(days_of_week),
-                      'description': day.description},
+                       'description': day.description},
                       styleSheet["Bold"])
 
         data.append([P])
@@ -291,9 +286,9 @@ def workout_log(request, id):
                         %(version)s
                     </para>''' %
                   {'date': _("Created on the <b>%s</b>") % created,
-                  'created': "wger Workout Manager",
-                  'version': get_version(),
-                  'url': request.build_absolute_uri(url), },
+                   'created': "wger Workout Manager",
+                   'version': get_version(),
+                   'url': request.build_absolute_uri(url), },
                   styleSheet["Normal"])
     elements.append(P)
 

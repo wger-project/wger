@@ -206,7 +206,7 @@ class Exercise(models.Model):
                        "added to workouts. You can access it on this address:\n"
                        "{1}\n\n").format(self.name, url) +
                        ugettext("Thank you for contributing and making this site better!\n"
-                       "   the wger.de team"))
+                                "   the wger.de team"))
             mail.send_mail(subject,
                            message,
                            EMAIL_FROM,

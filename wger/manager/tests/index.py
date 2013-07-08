@@ -79,7 +79,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
         #
         self.client.post(reverse('weight-add'),
                          {'weight': 100,
-                         'creation_date': '2012-01-01'},)
+                          'creation_date': '2012-01-01'},)
         response = self.client.get(reverse('dashboard'))
 
         self.assertEqual(response.status_code, 200)

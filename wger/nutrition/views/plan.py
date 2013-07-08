@@ -222,7 +222,7 @@ def export_pdf(request, id):
             P = Paragraph('<para align="center"><strong>%(meal_nr)s - '
                           '%(meal_time)s</strong></para>' %
                           {'meal_nr': i,
-                          'meal_time': meal.time.strftime("%H:%M")},
+                           'meal_time': meal.time.strftime("%H:%M")},
                           styleSheet["Normal"])
         data.append([P])
 
@@ -294,9 +294,9 @@ def export_pdf(request, id):
                         %(version)s
                     </para>''' %
                   {'date': _("Created on the <b>%s</b>") % created,
-                  'created': "wger Workout Manager",
-                  'version': get_version(),
-                  'url': request.build_absolute_uri(url), },
+                   'created': "wger Workout Manager",
+                   'version': get_version(),
+                   'url': request.build_absolute_uri(url), },
                   styleSheet["Normal"])
     elements.append(P)
     doc.build(elements)
