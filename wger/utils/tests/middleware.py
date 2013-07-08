@@ -48,7 +48,7 @@ class RobotsExclusionMiddlewareTestCase(WorkoutManagerTestCase):
         self.assertTrue(response.get('X-Robots-Tag'))
 
         response = self.client.get(reverse('contact'))
-        self.assertTrue(response.get('X-Robots-Tag'))
+        self.assertFalse(response.get('X-Robots-Tag'))
 
     def test_middleware_software(self):
         '''

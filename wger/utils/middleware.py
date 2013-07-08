@@ -39,7 +39,8 @@ SPECIAL_PATHS = ('dashboard',
                  'weight',
                  'nutrition/overview',
                  'preferences',  # from /user/preferences
-                 'feedback',)
+                 'feedback',
+                 'about',)
 
 
 def check_current_request(request):
