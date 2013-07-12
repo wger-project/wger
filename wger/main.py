@@ -336,6 +336,7 @@ def init_south():
     execute_from_command_line(["", "migrate", "wger.manager", "0001", "--fake"])
     execute_from_command_line(["", "migrate", "wger.nutrition", "0001", "--fake"])
     execute_from_command_line(["", "migrate", "wger.weight", "0001", "--fake"])
+    execute_from_command_line(["", "migrate", "wger.config", "0001", "--fake"])
 
 
 def run_south():
@@ -348,6 +349,7 @@ def run_south():
     execute_from_command_line(["", "migrate", "wger.manager"])
     execute_from_command_line(["", "migrate", "wger.nutrition"])
     execute_from_command_line(["", "migrate", "wger.weight"])
+    execute_from_command_line(["", "migrate", "wger.config"])
 
 
 def load_fixtures():
@@ -357,6 +359,7 @@ def load_fixtures():
 
     execute_from_command_line(["", "loaddata", "users"])
     execute_from_command_line(["", "loaddata", "languages"])
+    execute_from_command_line(["", "loaddata", "language_config"])
     execute_from_command_line(["", "loaddata", "days_of_week"])
     execute_from_command_line(["", "loaddata", "muscles"])
     execute_from_command_line(["", "loaddata", "categories"])
