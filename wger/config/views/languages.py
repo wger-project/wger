@@ -80,7 +80,7 @@ class LanguageDeleteView(YamlDeleteMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super(LanguageDeleteView, self).get_context_data(**kwargs)
 
-        context['title'] = _('Delete {0}?'.format(self.object.full_name))
+        context['title'] = _(u'Delete {0}?'.format(self.object.full_name))
         context['form_action'] = reverse('config:language-delete', kwargs={'pk': self.object.id})
 
         return context
