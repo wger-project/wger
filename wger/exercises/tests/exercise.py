@@ -404,7 +404,7 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
 
         self.assertFalse(cache.get(get_template_cache_name('exercise-detail-header', 2, 2)))
         self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
-        self.client.get(reverse('exercise-view', kwargs={'id': 2, 'slug': 'aaa'}))
+        self.client.get(reverse('exercise-view', kwargs={'id': 2}))
         self.assertTrue(cache.get(get_template_cache_name('exercise-detail-header', 2, 2)))
         self.assertTrue(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
 
@@ -415,7 +415,7 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         '''
 
         self.client.get(reverse('exercise-overview'))
-        self.client.get(reverse('exercise-view', kwargs={'id': 2, 'slug': 'aaa'}))
+        self.client.get(reverse('exercise-view', kwargs={'id': 2}))
 
         old_exercise = cache.get(cache_mapper.get_exercise_key(2))
         old_exercise_bg = cache.get(cache_mapper.get_exercise_muscle_bg_key(2))
@@ -439,7 +439,7 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
 
         self.client.get(reverse('exercise-overview'))
         self.client.get(reverse('muscle-overview'))
-        self.client.get(reverse('exercise-view', kwargs={'id': 2, 'slug': 'aaa'}))
+        self.client.get(reverse('exercise-view', kwargs={'id': 2}))
 
         new_exercise = cache.get(cache_mapper.get_exercise_key(2))
         new_exercise_bg = cache.get(cache_mapper.get_exercise_muscle_bg_key(2))

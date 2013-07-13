@@ -30,7 +30,6 @@ $(document).ready(function() {
 
 
 {% block content %}
-{% cache cache_timeout ingredient-overview page_obj.number language.id %}
 {% if ingredients_list %}
 <ul>
     {% for ingredient in ingredients_list %}
@@ -51,7 +50,7 @@ $(document).ready(function() {
 <div style="padding-top:3em;"></div>
 {% pagination paginator page_obj %}
 
-{% endcache %}
+
 {% endblock %}
 
 {% block sidebar %}

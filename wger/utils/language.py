@@ -95,7 +95,7 @@ def load_ingredient_languages(request):
     '''
 
     language = load_language()
-    languages = (language.id,)
+    languages = load_item_languages(LanguageConfig.SHOW_ITEM_INGREDIENTS)
 
     # Only registered users have a profile
     if request.user.is_authenticated():
@@ -104,6 +104,6 @@ def load_ingredient_languages(request):
 
         # If the user's language is not english and has the preference, add english to the list
         if show_english and language.short_name != 'en':
-            languages = (language.id, 2)
+            languages = list(set(languages + [Language.objects.get(pk=2)]))
 
     return languages

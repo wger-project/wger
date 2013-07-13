@@ -49,8 +49,6 @@ from wger.utils.generic_views import YamlDeleteMixin
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.language import load_language
 from wger.utils.language import load_ingredient_languages
-from wger.config.models import LanguageConfig
-from wger.utils.language import load_item_languages
 from wger.utils.cache import cache_mapper
 
 logger = logging.getLogger('workout_manager.custom')
@@ -75,8 +73,7 @@ class IngredientListView(ListView):
         (the user can also want to see ingredients in English, in addition to his
         native language, see load_ingredient_languages)
         '''
-        languages = load_item_languages(LanguageConfig.SHOW_ITEM_INGREDIENTS)
-        #languages = load_ingredient_languages(self.request)
+        languages = load_ingredient_languages(self.request)
         return (Ingredient.objects.filter(language__in=languages)
                                   .filter(status__in=Ingredient.INGREDIENT_STATUS_OK)
                                   .only('id', 'name'))
