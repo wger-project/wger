@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+from django.conf import settings
 
 from wger import get_version
 from wger.utils import constants
@@ -45,6 +46,9 @@ def processor(request):
 
         # Don't show messages on AJAX requests (they are deleted if shown)
         'no_messages': request.META.get('HTTP_X_WGER_NO_MESSAGES', False),
+
+        # Default cache time for template fragment caching
+        'cache_timeout': settings.CACHES['default']['TIMEOUT']
     }
 
     # Pseudo-intelligent navigation here

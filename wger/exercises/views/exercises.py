@@ -26,6 +26,7 @@ from django.http import HttpResponseForbidden
 from django.forms import ModelForm
 from django.forms import ModelChoiceField
 from django.core import mail
+from django.core.cache import cache
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
@@ -48,8 +49,9 @@ from wger.utils.generic_views import YamlFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
 from wger.utils.language import load_language
 from wger.utils.language import load_item_languages
-
+from wger.utils.cache import cache_mapper
 from wger.config.models import LanguageConfig
+
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -83,32 +85,42 @@ def view(request, id, slug=None):
     template_data['comment_edit'] = False
 
     # Load the exercise itself
-    exercise = get_object_or_404(Exercise, pk=id)
+    exercise = cache.get(cache_mapper.get_exercise_key(int(id)))
+    if not exercise:
+        exercise = get_object_or_404(Exercise, pk=id)
+        cache.set(cache_mapper.get_exercise_key(exercise), exercise)
+
     template_data['exercise'] = exercise
 
     # Create the backgrounds that show what muscles the exercise works on
-    backgrounds_back = []
-    backgrounds_front = []
+    backgrounds = cache.get(cache_mapper.get_exercise_muscle_bg_key(int(id)))
+    if not backgrounds:
+        backgrounds_back = []
+        backgrounds_front = []
 
-    for muscle in exercise.muscles.all():
-        if muscle.is_front:
-            backgrounds_front.append('images/muscles/main/muscle-%s.svg' % muscle.id)
-        else:
-            backgrounds_back.append('images/muscles/main/muscle-%s.svg' % muscle.id)
+        for muscle in exercise.muscles.all():
+            if muscle.is_front:
+                backgrounds_front.append('images/muscles/main/muscle-%s.svg' % muscle.id)
+            else:
+                backgrounds_back.append('images/muscles/main/muscle-%s.svg' % muscle.id)
 
-    for muscle in exercise.muscles_secondary.all():
-        if muscle.is_front:
-            backgrounds_front.append('images/muscles/secondary/muscle-%s.svg' % muscle.id)
-        else:
-            backgrounds_back.append('images/muscles/secondary/muscle-%s.svg' % muscle.id)
+        for muscle in exercise.muscles_secondary.all():
+            if muscle.is_front:
+                backgrounds_front.append('images/muscles/secondary/muscle-%s.svg' % muscle.id)
+            else:
+                backgrounds_back.append('images/muscles/secondary/muscle-%s.svg' % muscle.id)
 
-    # Append the "main" background, with the silhouette of the human body
-    # This has to happen as the last step, so it is rendered behind the muscles.
-    backgrounds_front.append('images/muscles/muscular_system_front.svg')
-    backgrounds_back.append('images/muscles/muscular_system_back.svg')
+        # Append the "main" background, with the silhouette of the human body
+        # This has to happen as the last step, so it is rendered behind the muscles.
+        backgrounds_front.append('images/muscles/muscular_system_front.svg')
+        backgrounds_back.append('images/muscles/muscular_system_back.svg')
+        backgrounds = (backgrounds_front, backgrounds_back)
 
-    template_data['muscle_backgrounds_front'] = backgrounds_front
-    template_data['muscle_backgrounds_back'] = backgrounds_back
+        cache.set(cache_mapper.get_exercise_muscle_bg_key(int(id)),
+                  (backgrounds_front, backgrounds_back))
+
+    template_data['muscle_backgrounds_front'] = backgrounds[0]
+    template_data['muscle_backgrounds_back'] = backgrounds[1]
 
     # If the user is logged in, load the log and prepare the entries for
     # rendering in the D3 chart

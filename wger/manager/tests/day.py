@@ -13,12 +13,14 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from django.core.urlresolvers import reverse
+from django.core.cache import cache
 
 from wger.manager.models import Day
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
+from wger.utils.cache import get_template_cache_name
 
 
 class AddWorkoutDayTestCase(WorkoutManagerAddTestCase):
@@ -142,3 +144,38 @@ class RenderWorkoutDayTestCase(WorkoutManagerTestCase):
 
         self.user_login('admin')
         self.render_day(fail=True)
+
+
+class WorkoutCacheTestCase(WorkoutManagerTestCase):
+    '''
+    Workout cache test case
+    '''
+
+    def test_workout_view_day(self):
+        '''
+        Test the workout view cache is correctly generated on visit
+        '''
+
+        self.user_login('admin')
+        self.client.get(reverse('wger.manager.views.workout.view', kwargs={'id': 1}))
+
+        old_day1 = cache.get(get_template_cache_name('day-view', 1))
+        old_day2 = cache.get(get_template_cache_name('day-view', 2))
+        self.assertTrue(old_day1)
+        self.assertTrue(old_day2)
+
+        day1 = Day.objects.get(pk=1)
+        day1.description = 'A new name'
+        day1.save()
+        self.assertFalse(cache.get(get_template_cache_name('day-view', 1)))
+        self.assertTrue(cache.get(get_template_cache_name('day-view', 2)))
+
+        self.client.get(reverse('wger.manager.views.workout.view', kwargs={'id': 1}))
+        new_day1 = cache.get(get_template_cache_name('day-view', 1))
+        new_day2 = cache.get(get_template_cache_name('day-view', 2))
+        self.assertNotEqual(old_day1, new_day1)
+        self.assertEqual(old_day2, new_day2)
+
+        day1.delete()
+        self.assertFalse(cache.get(get_template_cache_name('day-view', 1)))
+        self.assertTrue(cache.get(get_template_cache_name('day-view', 2)))

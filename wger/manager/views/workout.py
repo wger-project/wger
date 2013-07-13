@@ -23,6 +23,7 @@ from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
+from django.core.cache import cache
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
@@ -32,14 +33,12 @@ from django.views.generic import DeleteView
 from django.views.generic import UpdateView
 
 from wger.manager.models import Workout
-
 from wger.manager.forms import WorkoutForm
 from wger.manager.forms import WorkoutCopyForm
 
-
 from wger.utils.generic_views import YamlFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
-
+from wger.utils.cache import cache_mapper
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -73,32 +72,39 @@ def view(request, id):
     workout = get_object_or_404(Workout, pk=id, user=request.user)
     template_data['workout'] = workout
 
-    # TODO: this can't be performant, see if it makes problems
     # Create the backgrounds that show what muscles the workout will work on
-    backgrounds_front = []
-    backgrounds_back = []
-    for day in workout.day_set.select_related():
-        for set in day.set_set.select_related():
-            for exercise in set.exercises.select_related():
-                for muscle in exercise.muscles.all():
-                    muscle_bg = 'images/muscles/main/muscle-%s.svg' % muscle.id
+    backgrounds = cache.get(cache_mapper.get_workout_muscle_bg(int(id)))
+    if not backgrounds:
 
-                    # Add the muscles to the background list, but only once.
-                    #
-                    # While the combining effect (the more often a muscle gets
-                    # added, the more intense the colour) is interesting, the
-                    # end result is a very unnatural, very bright colour.
-                    if muscle.is_front and muscle_bg not in backgrounds_front:
-                        backgrounds_front.append(muscle_bg)
-                    elif not muscle.is_front and muscle_bg not in backgrounds_back:
-                        backgrounds_back.append(muscle_bg)
+        backgrounds_front = []
+        backgrounds_back = []
+        for day in workout.day_set.select_related():
+            for set in day.set_set.select_related():
+                for exercise in set.exercises.select_related():
+                    for muscle in exercise.muscles.all():
+                        muscle_bg = 'images/muscles/main/muscle-%s.svg' % muscle.id
 
-    # Append the correct "main" background, with the silhouette of the human body
-    backgrounds_front.append('images/muscles/muscular_system_front.svg')
-    backgrounds_back.append('images/muscles/muscular_system_back.svg')
+                        # Add the muscles to the background list, but only once.
+                        #
+                        # While the combining effect (the more often a muscle gets
+                        # added, the more intense the colour) is interesting, the
+                        # end result is a very unnatural, very bright colour.
+                        if muscle.is_front and muscle_bg not in backgrounds_front:
+                            backgrounds_front.append(muscle_bg)
+                        elif not muscle.is_front and muscle_bg not in backgrounds_back:
+                            backgrounds_back.append(muscle_bg)
 
-    template_data['muscle_backgrounds_front'] = backgrounds_front
-    template_data['muscle_backgrounds_back'] = backgrounds_back
+        # Append the correct "main" background, with the silhouette of the human body
+        backgrounds_front.append('images/muscles/muscular_system_front.svg')
+        backgrounds_back.append('images/muscles/muscular_system_back.svg')
+
+        backgrounds = (backgrounds_front, backgrounds_back)
+
+        cache.set(cache_mapper.get_workout_muscle_bg(int(id)),
+                  (backgrounds_front, backgrounds_back))
+
+    template_data['muscle_backgrounds_front'] = backgrounds[0]
+    template_data['muscle_backgrounds_back'] = backgrounds[0]
 
     return render_to_response('workout/view.html',
                               template_data,

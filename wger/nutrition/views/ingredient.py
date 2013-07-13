@@ -26,6 +26,7 @@ from django.core import mail
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
+from django.core.cache import cache
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -50,6 +51,7 @@ from wger.utils.language import load_language
 from wger.utils.language import load_ingredient_languages
 from wger.config.models import LanguageConfig
 from wger.utils.language import load_item_languages
+from wger.utils.cache import cache_mapper
 
 logger = logging.getLogger('workout_manager.custom')
 
@@ -83,7 +85,10 @@ class IngredientListView(ListView):
 def view(request, id, slug=None):
     template_data = {}
 
-    ingredient = get_object_or_404(Ingredient, pk=id)
+    ingredient = cache.get(cache_mapper.get_ingredient_key(int(id)))
+    if not ingredient:
+        ingredient = get_object_or_404(Ingredient, pk=id)
+        cache.set(cache_mapper.get_ingredient_key(ingredient), ingredient)
     template_data['ingredient'] = ingredient
     template_data['form'] = UnitChooserForm(data={'ingredient_id': ingredient.id,
                                                   'amount': 100,

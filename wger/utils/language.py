@@ -12,19 +12,18 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from os.path import join as path_join
+import logging
 
-from django.conf import settings
 from django.utils import translation
 from django.core.exceptions import ObjectDoesNotExist
-
-from reportlab.lib.styles import ParagraphStyle
-from reportlab.lib.styles import StyleSheet1
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.pdfbase import pdfmetrics
+from django.core.cache import cache
 
 from wger.exercises.models import Language
 from wger.config.models import LanguageConfig
+from wger.utils.cache import cache_mapper
+
+
+logger = logging.getLogger('workout_manager.custom')
 
 
 # ************************
@@ -42,13 +41,17 @@ def load_language():
     # Read the first part of a composite language, e.g. 'de-at'
     used_language = translation.get_language().split('-')[0]
 
+    language = cache.get(cache_mapper.get_language_key(used_language))
+    if language:
+        return language
+
     try:
         language = Language.objects.get(short_name=used_language)
-
-    # No luck, load english as our fall-back language
     except ObjectDoesNotExist:
+        # No luck, load english as our fall-back language
         language = Language.objects.get(short_name="en")
 
+    cache.set(cache_mapper.get_language_key(language), language)
     return language
 
 
@@ -57,21 +60,27 @@ def load_item_languages(item):
     Returns the languages for a data type (exercises, ingredients)
     '''
 
-    #SHOW_ITEM_EXERCISES = '1'
-    #SHOW_ITEM_INGREDIENTS = '2'
+    language = load_language()
+    languages = cache.get(cache_mapper.get_language_config_key(language, item))
+
+    logger.debug(cache_mapper.get_language_config_key(language, item))
+    logger.debug(languages)
 
     # Load the configurations we are interested in and return the languages
-    LanguageConfig.SHOW_ITEM_LIST
-    language = load_language()
-    languages = []
+    if not languages:
 
-    config = LanguageConfig.objects.filter(language=language, item=item, show=True)
-    if not config:
-        languages.append(Language.objects.get(short_name="en"))
-        return languages
+        #LanguageConfig.SHOW_ITEM_LIST
+        languages = []
 
-    for i in config:
-        languages.append(i.language_target)
+        config = LanguageConfig.objects.filter(language=language, item=item, show=True)
+        if not config:
+            languages.append(Language.objects.get(short_name="en"))
+            return languages
+
+        for i in config:
+            languages.append(i.language_target)
+
+        cache.set(cache_mapper.get_language_config_key(language, item), languages)
 
     return languages
 

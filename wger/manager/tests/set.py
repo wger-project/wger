@@ -16,6 +16,7 @@ import logging
 
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
+from django.core.cache import cache
 
 from wger.manager.models import Set
 from wger.manager.models import Setting
@@ -25,7 +26,7 @@ from wger.exercises.models import Exercise
 from wger.manager.tests.testcase import STATUS_CODES_FAIL
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
+from wger.utils.cache import get_template_cache_name
 
 
 logger = logging.getLogger('workout_manager.custom')
@@ -285,3 +286,47 @@ class SetEditEditTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         self.edit_set(fail=False)
+
+
+class WorkoutCacheTestCase(WorkoutManagerTestCase):
+    '''
+    Workout cache test case
+    '''
+
+    def test_workout_view_set(self):
+        '''
+        Test the workout view cache is correctly generated on visit
+        '''
+
+        self.user_login('admin')
+        self.client.get(reverse('wger.manager.views.workout.view', kwargs={'id': 1}))
+
+        # Edit a set
+        set1 = Set.objects.get(pk=1)
+        set1.order = 99
+        set1.save()
+        self.assertFalse(cache.get(get_template_cache_name('day-view', 1)))
+        self.assertTrue(cache.get(get_template_cache_name('day-view', 2)))
+
+        set1.delete()
+        self.assertFalse(cache.get(get_template_cache_name('day-view', 1)))
+        self.assertTrue(cache.get(get_template_cache_name('day-view', 2)))
+
+    def test_workout_view_setting(self):
+        '''
+        Test the workout view cache is correctly generated on visit
+        '''
+
+        self.user_login('admin')
+        self.client.get(reverse('wger.manager.views.workout.view', kwargs={'id': 1}))
+
+        # Edit a setting
+        setting1 = Setting.objects.get(pk=1)
+        setting1.reps = 20
+        setting1.save()
+        self.assertFalse(cache.get(get_template_cache_name('day-view', 1)))
+        self.assertTrue(cache.get(get_template_cache_name('day-view', 2)))
+
+        setting1.delete()
+        self.assertFalse(cache.get(get_template_cache_name('day-view', 1)))
+        self.assertTrue(cache.get(get_template_cache_name('day-view', 2)))

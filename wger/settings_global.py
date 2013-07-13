@@ -269,3 +269,12 @@ TEST_DISCOVER_TOP_LEVEL = os.path.dirname(os.path.dirname(__file__))
 
 # Force SSL to communicate with reCaptcha's servers
 RECAPTCHA_USE_SSL = True
+
+# Set local memory caching by default
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'wger-cache',
+        'TIMEOUT': 43200
+    }
+}
