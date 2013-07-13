@@ -51,3 +51,9 @@ filter_dump(data, ('nutrition.ingredientweightunit',), 'ingredient_units.json')
 filter_dump(data, ('exercises.muscle',), 'muscles.json')
 filter_dump(data, ('exercises.exercisecategory',), 'categories.json')
 filter_dump(data, ('exercises.exercise', 'exercises.exercisecomment',), 'exercises.json')
+
+#
+# Other
+#
+filter_dump(data, ('exercises.language',), 'languages.json')
+filter_dump(data, ('config.languageconfig',), 'language_config.json')
