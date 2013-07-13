@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# This file is part of Workout Manager.
+# This file is part of wger Workout Manager.
 #
-# Workout Manager is free software: you can redistribute it and/or modify
+# wger Workout Manager is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Workout Manager is distributed in the hope that it will be useful,
+# wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -27,10 +27,10 @@ from django.views.generic import UpdateView
 
 from wger.exercises.models import Muscle
 
-from wger.utils.generic_views import YamlFormMixin
+from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
 
-logger = logging.getLogger('workout_manager.custom')
+logger = logging.getLogger('wger.custom')
 
 
 class MuscleListView(ListView):
@@ -43,7 +43,7 @@ class MuscleListView(ListView):
     template_name = 'muscles/overview.html'
 
 
-class MuscleAddView(YamlFormMixin, CreateView):
+class MuscleAddView(WgerFormMixin, CreateView):
     '''
     Generic view to add a new muscle
     '''
@@ -54,7 +54,7 @@ class MuscleAddView(YamlFormMixin, CreateView):
     form_action = reverse_lazy('muscle-add')
 
 
-class MuscleUpdateView(YamlFormMixin, UpdateView):
+class MuscleUpdateView(WgerFormMixin, UpdateView):
     '''
     Generic view to update an existing muscle
     '''

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# This file is part of Workout Manager.
+# This file is part of wger Workout Manager.
 #
-# Workout Manager is free software: you can redistribute it and/or modify
+# wger Workout Manager is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Workout Manager is distributed in the hope that it will be useful,
+# wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -28,12 +28,12 @@ from django.views.generic import ListView
 
 from wger.nutrition.models import WeightUnit
 
-from wger.utils.generic_views import YamlFormMixin
+from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.language import load_language
 
-logger = logging.getLogger('workout_manager.custom')
+logger = logging.getLogger('wger.custom')
 # ************************
 # Weight units functions
 # ************************
@@ -56,7 +56,7 @@ class WeightUnitListView(ListView):
         return WeightUnit.objects.filter(language=load_language())
 
 
-class WeightUnitCreateView(YamlFormMixin, CreateView):
+class WeightUnitCreateView(WgerFormMixin, CreateView):
     '''
     Generic view to add a new weight unit for ingredients
     '''
@@ -84,7 +84,7 @@ class WeightUnitDeleteView(YamlDeleteMixin, DeleteView):
     form_action_urlname = 'weight-unit-delete'
 
 
-class WeightUnitUpdateView(YamlFormMixin, UpdateView):
+class WeightUnitUpdateView(WgerFormMixin, UpdateView):
     '''
     Generic view to update an weight unit
     '''

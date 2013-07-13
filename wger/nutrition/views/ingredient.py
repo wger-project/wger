@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# This file is part of Workout Manager.
+# This file is part of wger Workout Manager.
 #
-# Workout Manager is free software: you can redistribute it and/or modify
+# wger Workout Manager is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Workout Manager is distributed in the hope that it will be useful,
+# wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -44,14 +44,14 @@ from wger.nutrition.models import Ingredient
 from wger.nutrition.models import IngredientWeightUnit
 
 from wger.utils import helpers
-from wger.utils.generic_views import YamlFormMixin
+from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.language import load_language
 from wger.utils.language import load_ingredient_languages
 from wger.utils.cache import cache_mapper
 
-logger = logging.getLogger('workout_manager.custom')
+logger = logging.getLogger('wger.custom')
 
 
 # ************************
@@ -116,7 +116,7 @@ class IngredientDeleteView(YamlDeleteMixin, DeleteView):
         return context
 
 
-class IngredientEditView(YamlFormMixin, UpdateView):
+class IngredientEditView(WgerFormMixin, UpdateView):
     '''
     Generic view to update an existing ingredient
     '''
@@ -127,7 +127,7 @@ class IngredientEditView(YamlFormMixin, UpdateView):
     messages = ugettext_lazy('Ingredient successfully updated')
 
 
-class IngredientCreateView(YamlFormMixin, CreateView):
+class IngredientCreateView(WgerFormMixin, CreateView):
     '''
     Generic view to add a new ingredient
     '''

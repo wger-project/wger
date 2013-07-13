@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# This file is part of Workout Manager.
+# This file is part of wger Workout Manager.
 #
-# Workout Manager is free software: you can redistribute it and/or modify
+# wger Workout Manager is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Workout Manager is distributed in the hope that it will be useful,
+# wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -34,7 +34,7 @@ from wger.utils.constants import HTML_TAG_WHITELIST
 from wger.utils.constants import HTML_ATTRIBUTES_WHITELIST
 from wger.utils.constants import HTML_STYLES_WHITELIST
 
-logger = logging.getLogger('workout_manager.custom')
+logger = logging.getLogger('wger.custom')
 
 
 class WgerPermissionMixin(object):
@@ -71,7 +71,7 @@ class WgerPermissionMixin(object):
         return super(WgerPermissionMixin, self).dispatch(request, *args, **kwargs)
 
 
-class YamlFormMixin(ModelFormMixin, WgerPermissionMixin):
+class WgerFormMixin(ModelFormMixin, WgerPermissionMixin):
     template_name = 'form.html'
 
     form_fields = []
@@ -124,7 +124,7 @@ class YamlFormMixin(ModelFormMixin, WgerPermissionMixin):
         '''
 
         # Call the base implementation first to get a context
-        context = super(YamlFormMixin, self).get_context_data(**kwargs)
+        context = super(WgerFormMixin, self).get_context_data(**kwargs)
 
         # CSRF token
         context.update(csrf(self.request))
@@ -196,7 +196,7 @@ class YamlFormMixin(ModelFormMixin, WgerPermissionMixin):
             return HttpResponseForbidden()
 
         # Dispatch normally
-        return super(YamlFormMixin, self).dispatch(request, *args, **kwargs)
+        return super(WgerFormMixin, self).dispatch(request, *args, **kwargs)
 
     def get_messages(self):
         '''
@@ -210,7 +210,7 @@ class YamlFormMixin(ModelFormMixin, WgerPermissionMixin):
         Log form errors to the console
         '''
         logger.debug(form.errors)
-        return super(YamlFormMixin, self).form_invalid(form)
+        return super(WgerFormMixin, self).form_invalid(form)
 
     def form_valid(self, form):
         '''
@@ -231,7 +231,7 @@ class YamlFormMixin(ModelFormMixin, WgerPermissionMixin):
         if self.get_messages():
             messages.success(self.request, self.get_messages())
 
-        return super(YamlFormMixin, self).form_valid(form)
+        return super(WgerFormMixin, self).form_valid(form)
 
 
 class YamlDeleteMixin(ModelFormMixin, WgerPermissionMixin):

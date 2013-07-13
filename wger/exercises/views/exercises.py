@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# This file is part of Workout Manager.
+# This file is part of wger Workout Manager.
 #
-# Workout Manager is free software: you can redistribute it and/or modify
+# wger Workout Manager is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Workout Manager is distributed in the hope that it will be useful,
+# wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -45,7 +45,7 @@ from wger.manager.models import WorkoutLog
 from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseCategory
 
-from wger.utils.generic_views import YamlFormMixin
+from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
 from wger.utils.language import load_language
 from wger.utils.language import load_item_languages
@@ -53,7 +53,7 @@ from wger.utils.cache import cache_mapper
 from wger.config.models import LanguageConfig
 
 
-logger = logging.getLogger('workout_manager.custom')
+logger = logging.getLogger('wger.custom')
 
 
 def overview(request):
@@ -142,7 +142,7 @@ def view(request, id, slug=None):
                               context_instance=RequestContext(request))
 
 
-class ExercisesEditAddView(YamlFormMixin):
+class ExercisesEditAddView(WgerFormMixin):
     '''
     Generic view to subclass from for exercise adding and editing, since they
     share all this settings
