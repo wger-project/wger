@@ -94,7 +94,7 @@ urlpatterns = patterns('wger.nutrition.views',
     url(r'^ingredient/unit/(?P<pk>\d+)/edit/$',
         permission_required('nutrition.change_ingredientweightunit')(unit.WeightUnitUpdateView.as_view()),
         name='weight-unit-edit'),
-        
+
 
     # Ingredient to weight units cross table
     url(r'^ingredient/unit-to-ingredient/add/(?P<ingredient_pk>\d+)/$',
@@ -106,4 +106,24 @@ urlpatterns = patterns('wger.nutrition.views',
     url(r'^ingredient/unit-to-ingredient/(?P<pk>\d+)/delete/$',
         permission_required('nutrition.add_ingredientweightunit')(unit_ingredient.WeightUnitIngredientDeleteView.as_view()),
         name='weight-unit-ingredient-delete'),
+
+    # BMI
+    url(r'^bmi/$',
+        'bmi.view',
+        name='bmi-view'),
+    url(r'^bmi/calculate$',  # JS
+        'bmi.calculate',
+        name='bmi-calculate'),
+
+    # Calories calculator
+    url(r'^calories-calculator/$',
+        'calculator.view',
+        name='calories-calculator'),
+    url(r'^calories-calculator/calculate/bmi$',
+        'calculator.calculate',
+        name='calories-calculate'),
+    url(r'^calories-calculator/calculate/activities$',
+        'calculator.calculate_activities',
+        name='calories-calculate-activities'),
+
 )

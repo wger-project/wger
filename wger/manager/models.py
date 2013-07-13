@@ -27,6 +27,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ValidationError
 from django.core.cache import cache
 
 from wger.exercises.models import Exercise
@@ -524,6 +525,25 @@ class WorkoutLog(models.Model):
 
 
 class UserProfile(models.Model):
+
+    GENDER_MALE = '1'
+    GENDER_FEMALE = '2'
+
+    GENDER = (
+        (GENDER_MALE, _('Male')),
+        (GENDER_FEMALE, _('Female')),
+    )
+
+    INTENSITY_LOW = '1'
+    INTENSITY_MEDIUM = '2'
+    INTENSITY_HIGH = '3'
+
+    INTENSITY = (
+        (INTENSITY_LOW, _('Low')),
+        (INTENSITY_MEDIUM, _('Medium')),
+        (INTENSITY_HIGH, _('High')),
+    )
+
     # This field is required.
     user = models.OneToOneField(User,
                                 editable=False)
@@ -549,6 +569,99 @@ class UserProfile(models.Model):
 a nutritional plan. These ingredients are extracted from a list provided
 by the US Department of Agriculture. It is extremely complete, with around
 7000 entries, but can be somewhat overwhelming and make the search difficult.'''))
+
+    #
+    # User statistics
+    #
+    age = models.IntegerField(max_length=2,
+                              verbose_name=_('Age'),
+                              blank=False,
+                              null=True)
+    '''The user's age'''
+
+    height = models.IntegerField(max_length=2,
+                                 verbose_name=_('Height'),
+                                 help_text=_('Height, in cm.'),
+                                 blank=False,
+                                 null=True)
+    '''The user's height'''
+
+    gender = models.CharField(max_length=1,
+                              choices=GENDER,
+                              default=GENDER_MALE,
+                              blank=False,
+                              null=True)
+    '''Gender'''
+
+    sleep_hours = models.IntegerField(verbose_name=_('Hours of sleep'),
+                                      help_text=_('The average hours of sleep per day'),
+                                      default=7,
+                                      blank=False,
+                                      null=True)
+    '''The average hours of sleep per day'''
+
+    work_hours = models.IntegerField(verbose_name=_('Work hours'),
+                                     help_text=_('The average hours at work per day'),
+                                     default=8,
+                                     blank=False,
+                                     null=True)
+    '''The average hours at work per day'''
+
+    work_intensity = models.CharField(verbose_name=_('Intensity of work'),
+                                      help_text=_('Physical intensity of the work'),
+                                      max_length=1,
+                                      choices=INTENSITY,
+                                      default=INTENSITY_LOW,
+                                      blank=False,
+                                      null=True)
+    '''Physical intensity of work'''
+
+    sport_hours = models.IntegerField(verbose_name=_('Sport hours'),
+                                      help_text=_('The average hours performing sports per week'),
+                                      default=3,
+                                      blank=False,
+                                      null=True)
+    '''The average hours performing sports per week'''
+
+    sport_intensity = models.CharField(verbose_name=_('Intensity of sport activities'),
+                                       help_text=_('Physical intensity of sport activities'),
+                                       max_length=1,
+                                       choices=INTENSITY,
+                                       default=INTENSITY_MEDIUM,
+                                       blank=False,
+                                       null=True)
+    '''Physical intensity of sport activities'''
+
+    freetime_hours = models.IntegerField(verbose_name=_('Hours of free time'),
+                                         help_text=_('The average hours of free time per day'),
+                                         default=8,
+                                         blank=False,
+                                         null=True)
+    '''The average hours of free time per day'''
+
+    freetime_intensity = models.CharField(verbose_name=_('Intensity'),
+                                          help_text=_('Physical intensity during free time'),
+                                          max_length=1,
+                                          choices=INTENSITY,
+                                          default=INTENSITY_LOW,
+                                          blank=False,
+                                          null=True)
+    '''Physical intensity during free time'''
+
+    calories = models.IntegerField(verbose_name=_('Basic caloric intake'),
+                                   help_text=_('Basic caloric intake based on physical activity'),
+                                   default=2500,
+                                   blank=False,
+                                   null=True)
+    '''Basic caloric intake based on physical activity'''
+
+    def clean(self):
+        '''
+        Make sure the total amount of hours is 24
+        '''
+
+        if (self.sleep_hours + self.freetime_hours + self.work_hours) > 24:
+            raise ValidationError(_('The sum of all hours has to be 24'))
 
     def __unicode__(self):
         '''
