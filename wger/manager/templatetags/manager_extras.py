@@ -114,3 +114,14 @@ def cc_by_sa_sidebar(language):
     '''
 
     return {'language': language}
+
+
+@register.inclusion_tag('tags/language_select.html', takes_context=True)
+def language_select(context, language):
+    '''
+    Renders a link to change the current language.
+    '''
+
+    return {'language_name': language[1],
+            'path': 'images/icons/flag-{0}.svg'.format(language[0]),
+            'i18n_path': context['i18n_path'][language[0]]}

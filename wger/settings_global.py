@@ -36,6 +36,7 @@ ugettext = lambda s: s
 LANGUAGES = (
             ('en', ugettext('English')),
             ('de', ugettext('German')),
+            ('bg', ugettext('Bulgarian')),
 )
 
 # Default language code for this installation. All choices can be found here:

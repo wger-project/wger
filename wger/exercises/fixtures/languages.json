@@ -3,16 +3,24 @@
         "pk": 1, 
         "model": "exercises.language", 
         "fields": {
-            "full_name": "Deutsch", 
-            "short_name": "de"
+            "short_name": "de", 
+            "full_name": "Deutsch"
         }
     }, 
     {
         "pk": 2, 
         "model": "exercises.language", 
         "fields": {
-            "full_name": "English", 
-            "short_name": "en"
+            "short_name": "en", 
+            "full_name": "English"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "exercises.language", 
+        "fields": {
+            "short_name": "bg", 
+            "full_name": "\u0431\u044a\u043b\u0433\u0430\u0440\u0441\u043a\u0438 \u0435\u0437\u0438\u043a"
         }
     }
 ]

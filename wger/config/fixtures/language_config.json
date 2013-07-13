@@ -36,7 +36,7 @@
             "language_target": 2, 
             "item": "2", 
             "language": 1, 
-            "show": true
+            "show": false
         }
     }, 
     {
@@ -76,6 +76,106 @@
             "language_target": 2, 
             "item": "2", 
             "language": 2, 
+            "show": true
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 3, 
+            "item": "1", 
+            "language": 1, 
+            "show": false
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 3, 
+            "item": "2", 
+            "language": 1, 
+            "show": false
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 3, 
+            "item": "1", 
+            "language": 2, 
+            "show": false
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 3, 
+            "item": "2", 
+            "language": 2, 
+            "show": false
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 1, 
+            "item": "1", 
+            "language": 3, 
+            "show": false
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 1, 
+            "item": "2", 
+            "language": 3, 
+            "show": false
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 2, 
+            "item": "1", 
+            "language": 3, 
+            "show": true
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 2, 
+            "item": "2", 
+            "language": 3, 
+            "show": true
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 3, 
+            "item": "1", 
+            "language": 3, 
+            "show": true
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 3, 
+            "item": "2", 
+            "language": 3, 
             "show": true
         }
     }

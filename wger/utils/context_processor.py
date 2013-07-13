@@ -23,6 +23,9 @@ from wger.utils.language import load_language
 def processor(request):
 
     full_path = request.get_full_path()
+    i18n_path = {}
+    for lang in settings.LANGUAGES:
+        i18n_path[lang[0]] = '/{0}{1}'.format(lang[0], full_path[3:])
 
     context = {
         # Application version
@@ -31,12 +34,14 @@ def processor(request):
         # User language
         'language': load_language(),
 
+        # Available application languages
+        'languages': settings.LANGUAGES,
+
         # The current path
         'request_full_path': full_path,
 
         # Translation links
-        'i18n_path': {'de': '/de' + full_path[3:],
-                      'en': '/en' + full_path[3:]},
+        'i18n_path': i18n_path,
 
         # Contact email
         'contact_email': 'roland @ geider.net',
