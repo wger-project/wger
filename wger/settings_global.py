@@ -275,6 +275,6 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         'LOCATION': 'wger-cache',
-        'TIMEOUT': 43200
+        'TIMEOUT': 30 * 24 * 60 * 60,  # Cache for a month
     }
 }
