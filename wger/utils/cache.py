@@ -56,10 +56,10 @@ class CacheKeyMapper(object):
         '''
         Return the exercise cache key
         '''
-        if type(param) == int:
-            pk = param
-        else:
+        try:
             pk = param.pk
+        except AttributeError:
+            pk = param
 
         return self.EXERCISE_CACHE_KEY.format(pk)
 
@@ -67,10 +67,10 @@ class CacheKeyMapper(object):
         '''
         Return the exercise muscle background cache key
         '''
-        if type(param) == int:
-            pk = param
-        else:
+        try:
             pk = param.pk
+        except AttributeError:
+            pk = param
 
         return self.EXERCISE_CACHE_KEY_MUSCLE_BG.format(pk)
 
@@ -78,10 +78,10 @@ class CacheKeyMapper(object):
         '''
         Return the language cache key
         '''
-        if type(param) in (str, unicode):
+        try:
+            pk = param.pk
+        except AttributeError:
             pk = param
-        else:
-            pk = param.short_name
 
         return self.LANGUAGE_CACHE_KEY.format(pk)
 
@@ -89,10 +89,10 @@ class CacheKeyMapper(object):
         '''
         Return the language cache key
         '''
-        if type(param) in (str, unicode):
+        try:
+            pk = param.pk
+        except AttributeError:
             pk = param
-        else:
-            pk = param.short_name
 
         return self.LANGUAGE_CONFIG_CACHE_KEY.format(pk, item)
 
@@ -100,10 +100,10 @@ class CacheKeyMapper(object):
         '''
         Return the ingredient cache key
         '''
-        if type(param) == int:
-            pk = param
-        else:
+        try:
             pk = param.pk
+        except AttributeError:
+            pk = param
 
         return self.INGREDIENT_CACHE_KEY.format(pk)
 
@@ -111,10 +111,10 @@ class CacheKeyMapper(object):
         '''
         Return the workout muscle background cache key
         '''
-        if type(param) == int:
-            pk = param
-        else:
+        try:
             pk = param.pk
+        except AttributeError:
+            pk = param
 
         return self.WORKOUT_MUSCLE_BG.format(pk)
 
