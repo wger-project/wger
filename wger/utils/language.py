@@ -63,9 +63,6 @@ def load_item_languages(item):
     language = load_language()
     languages = cache.get(cache_mapper.get_language_config_key(language, item))
 
-    logger.debug(cache_mapper.get_language_config_key(language, item))
-    logger.debug(languages)
-
     # Load the configurations we are interested in and return the languages
     if not languages:
 
