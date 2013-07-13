@@ -98,4 +98,3 @@ class MuscleOverviewTestCase(WorkoutManagerTestCase):
         self.assertNotContains(response, 'Delete muscle')
         self.assertNotContains(response, 'Add muscle')
         self.assertNotContains(response, 'After adding a muscle')
-
