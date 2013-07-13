@@ -15,7 +15,7 @@ urlpatterns = patterns('wger.exercises.views',
         name='exercise-overview'),
 
     url(r'^search/$', 'exercises.search'),
-    url(r'^(?P<id>\d+)/view/$',
+    url(r'^(?P<id>\d+)/view/$', 'exercises.view'),
     url(r'^(?P<id>\d+)/view/(?P<slug>[-\w]+)/$',
         'exercises.view',
         name='exercise-view'),
