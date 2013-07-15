@@ -12,4 +12,5 @@ from wger.manager.tests.copy_workout import *
 from wger.manager.tests.pdf import *
 from wger.manager.tests.feedback import *
 from wger.manager.tests.sitemap import *
+from wger.manager.tests.robots_txt import *
 from wger.manager.tests.temporary_users import *
