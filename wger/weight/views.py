@@ -106,7 +106,7 @@ def export_csv(request):
     '''
 
     # Prepare the response headers
-    filename = "%s-%s" % (_('weightdata'), request.user.username)
+    filename = "{0}-{1}".format(_('weightdata'), request.user.username)
     response = HttpResponse(mimetype='text/csv')
     response['Content-Disposition'] = 'attachment; filename=%s.csv' % filename
 
