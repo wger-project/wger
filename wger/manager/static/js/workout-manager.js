@@ -2,7 +2,7 @@
  * Own functions
  *
  */
-
+"use strict";
 
 function get_current_language()
 {
@@ -187,13 +187,13 @@ function form_modal_dialog()
 
 function modal_dialog_form_edit()
 {
-    form = $("#ajax-info").find(".ym-form");
-    submit = $(form).find("#form-save");
+    var form = $("#ajax-info").find(".ym-form");
+    var submit = $(form).find("#form-save");
 
     submit.click(function(e) {
         e.preventDefault();
-        form_action = form.attr('action');
-        form_data = form.serialize();
+        var form_action = form.attr('action');
+        var form_data = form.serialize();
 
         // Unbind all click elements, so the form doesn't get submitted twice
         // if the user clicks 2 times on the button (while there is already a request
@@ -239,7 +239,7 @@ function modal_dialog_form_edit()
                     // a reload would not change the adress bar, but the content would.
                     // Since it is not possible to get this URL from the AJAX request, we read it out
                     // from a hidden HTML DIV in the document...
-                    current_url = $(data).find("#current-url").data('currentUrl');
+                    var current_url = $(data).find("#current-url").data('currentUrl');
 
                     // TODO: There seems to be problems sometimes when using the technique below and
                     //       bootstrap's menu bar (drop downs won't open). So just do a normal
@@ -298,7 +298,7 @@ function init_ingredient_autocompleter()
                   function(data){
                         
                         // Remove any old units, if any
-                        options = $('#id_weight_unit').find('option');
+                        var options = $('#id_weight_unit').find('option');
                         $.each(options, function(index, option_obj) {
                             if (option_obj.value != '')
                             {
@@ -357,12 +357,12 @@ function add_exercise(exercise)
 
 function get_exercise_formset(exercise_id)
 {
-    set_value = $('#id_sets').val();
+    var set_value = $('#id_sets').val();
     if (set_value && parseInt(set_value) && exercise_id && parseInt(exercise_id))
     {
-        formset_url = '/' + get_current_language() +
-                    '/workout/get-formset/' +  exercise_id +
-                    '/' + set_value + '/';
+        var formset_url = '/' + get_current_language() +
+                          '/workout/get-formset/' +  exercise_id +
+                          '/' + set_value + '/';
         
         $.get(formset_url, function(data) {
                 $('#formsets').prepend(data);
@@ -374,7 +374,7 @@ function get_exercise_formset(exercise_id)
 // Updates all exercise formsets, e.g. when the number of sets changed
 function update_all_exercise_formset()
 {
-    set_value = $('#id_sets').val();
+    var set_value = $('#id_sets').val();
     if (set_value && parseInt(set_value))
     {
         $.each($('#exercise-search-log input'), function(index, value) {
@@ -427,7 +427,7 @@ function init_edit_set()
     // Delete button next to exercise
     $(".ajax-exercise-select a").click(function(e) {
         e.preventDefault();
-        exercise_id = $(this).parent('div').find('input').val()
+        var exercise_id = $(this).parent('div').find('input').val()
         $('#formset-exercise-'+exercise_id).remove();
         $(this).parent('div').remove(); 
     });
@@ -798,7 +798,7 @@ function load_maincontent()
             $('#main-content').html($(data).find('#main-content').html());
 
             // Update the browser's history
-            current_url = $(data).find("#current-url").data('currentUrl');
+            var current_url = $(data).find("#current-url").data('currentUrl');
             history.pushState({}, "", current_url);
 
             load_maincontent();
