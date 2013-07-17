@@ -182,10 +182,10 @@ class FeedbackClass(FormView):
         messages.success(self.request, _('Your feedback was sucessfully sent. Thank you!'))
         message = "Feedback posted by an anonymous user"
         if self.request.user.is_authenticated():
-            message = "Feedback posted by {0}".format(self.request.user.username)
+            message = u"Feedback posted by {0}".format(self.request.user.username)
 
-        message += ("\n"
-                    "Message follows:\n"
-                    "----------------\n\n{0}".format(form.cleaned_data['comment']))
+        message += (u"\n"
+                    u"Message follows:\n"
+                    u"----------------\n\n{0}".format(form.cleaned_data['comment']))
         mail.mail_admins(_('New feedback'), message)
         return super(FeedbackClass, self).form_valid(form)

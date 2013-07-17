@@ -114,7 +114,7 @@ $(document).ready(function() {
                 </li>
             {% empty %}
                <a href="{% url 'mealitem-add' meal.id %}"
-                  title="{% trans 'Add one now' %}"
+                  title="{% trans 'Add one now.' %}"
                   class="modal-dialog edit-meal btn btn-block">
                     {% trans "No items for this meal." %}
                     {% trans "Add one now."%}

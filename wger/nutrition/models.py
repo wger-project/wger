@@ -412,7 +412,7 @@ class Meal(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return u"{0} Meal" % (self.order,)
+        return u"{0} Meal".format(self.order)
 
     def get_owner_object(self):
         '''

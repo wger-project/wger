@@ -1,3 +1,2 @@
-Sitemap: http://wger.de/de/sitemap.xml
-Sitemap: http://wger.de/en/sitemap.xml
-Sitemap: http://wger.de/bg/sitemap.xml
+{% for lang in languages %}Sitemap: http://wger.de/{{lang.0}}/sitemap.xml
+{% endfor %}

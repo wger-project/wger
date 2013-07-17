@@ -322,6 +322,8 @@ class WebappManifestView(TemplateView):
 
     This is used in the mozilla market place
     '''
+    template_name = 'manifest.webapp'
+
     def render_to_response(self, context, **response_kwargs):
         response_kwargs['content_type'] = 'application/x-web-app-manifest+json'
         return super(WebappManifestView, self).render_to_response(context, **response_kwargs)

@@ -164,9 +164,9 @@ def _main(opts, database_path=None):
     # Find url to wger
     addr, port = detect_listen_opts(opts.address, opts.port)
     if port == 80:
-        url = "http://%s" % addr
+        url = "http://{0}".format(addr)
     else:
-        url = "http://%s:%d" % (addr, port)
+        url = "http://{0}:{0}".format(addr, port)
 
     # Create settings if necessary
     if not os.path.exists(settings_path):
@@ -423,7 +423,7 @@ def create_or_reset_admin_user():
 def start_wger(addr, port, start_browser_url=None, extra_args=[]):
     argv = ["", "runserver", '--noreload'] + extra_args
 
-    argv.append("%s:%d" % (addr, port))
+    argv.append("{0}:{1}".format(addr, port))
 
     if start_browser_url:
         start_browser(start_browser_url)
