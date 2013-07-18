@@ -104,7 +104,7 @@ def view(request, id):
                   (backgrounds_front, backgrounds_back))
 
     template_data['muscle_backgrounds_front'] = backgrounds[0]
-    template_data['muscle_backgrounds_back'] = backgrounds[0]
+    template_data['muscle_backgrounds_back'] = backgrounds[1]
 
     return render_to_response('workout/view.html',
                               template_data,
