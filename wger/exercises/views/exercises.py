@@ -50,6 +50,7 @@ from wger.utils.generic_views import YamlDeleteMixin
 from wger.utils.language import load_language
 from wger.utils.language import load_item_languages
 from wger.utils.cache import cache_mapper
+from wger.utils.widgets import TranslatedSelect
 from wger.config.models import LanguageConfig
 
 
@@ -167,7 +168,8 @@ class ExercisesEditAddView(WgerFormMixin):
         # to 'en-us'.
         class ExerciseForm(ModelForm):
             #language = load_language()
-            category = ModelChoiceField(queryset=ExerciseCategory.objects.all())
+            category = ModelChoiceField(queryset=ExerciseCategory.objects.all(),
+                                        widget=TranslatedSelect())
 
             class Meta:
                 model = Exercise

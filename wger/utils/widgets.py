@@ -17,6 +17,7 @@ import uuid
 from itertools import chain
 
 from django.forms.widgets import SelectMultiple
+from django.forms.widgets import Select
 
 from django.utils.translation import ugettext as _
 from django.utils.encoding import force_unicode
@@ -88,3 +89,14 @@ class TranslatedSelectMultiple(SelectMultiple):
         return super(TranslatedSelectMultiple, self).render_option(selected_choices,
                                                                    option_value,
                                                                    _(option_label))
+
+
+class TranslatedSelect(Select):
+    '''
+    A Select widget that translates the options
+    '''
+
+    def render_option(self, selected_choices, option_value, option_label):
+        return super(TranslatedSelect, self).render_option(selected_choices,
+                                                           option_value,
+                                                           _(option_label))
