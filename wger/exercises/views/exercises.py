@@ -185,6 +185,14 @@ class ExerciseUpdateView(ExercisesEditAddView, UpdateView):
     Generic view to update an existing exercise
     '''
 
+    def form_valid(self, form):
+        '''
+        Set the user field, otherwise it will get reset to Null
+        '''
+
+        form.instance.user = Exercise.objects.get(pk=self.object.id).user
+        return super(ExerciseUpdateView, self).form_valid(form)
+
     def get_context_data(self, **kwargs):
         context = super(ExerciseUpdateView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('exercise-edit', kwargs={'pk': self.object.id})
