@@ -292,7 +292,7 @@ class Day(models.Model):
     '''
 
     training = models.ForeignKey(Workout,
-                                 verbose_name=_('Training'),
+                                 verbose_name=_('Workout'),
                                  editable=False)
     description = models.CharField(max_length=100,
                                    verbose_name=_('Description'),
