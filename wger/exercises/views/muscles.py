@@ -29,6 +29,8 @@ from wger.exercises.models import Muscle
 
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.language import load_item_languages
+from wger.config.models import LanguageConfig
 
 logger = logging.getLogger('wger.custom')
 
@@ -41,6 +43,14 @@ class MuscleListView(ListView):
     queryset = Muscle.objects.all().order_by('-is_front', 'name'),
     context_object_name = 'muscle_list'
     template_name = 'muscles/overview.html'
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(MuscleListView, self).get_context_data(**kwargs)
+        context['active_languages'] = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
+        return context
 
 
 class MuscleAddView(WgerFormMixin, CreateView):
