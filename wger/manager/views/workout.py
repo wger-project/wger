@@ -183,7 +183,6 @@ def copy_workout(request, pk):
         template_data['form_fields'] = [workout_form['comment']]
         template_data['submit_text'] = _('Copy')
 
-
         return render_to_response('form.html',
                                   template_data,
                                   context_instance=RequestContext(request))

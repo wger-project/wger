@@ -37,6 +37,7 @@ LANGUAGES = (
             ('en', ugettext('English')),
             ('de', ugettext('German')),
             ('bg', ugettext('Bulgarian')),
+            ('es', ugettext('Spanish')),
 )
 
 # Default language code for this installation. All choices can be found here:
