@@ -22,6 +22,7 @@ from wger.utils.language import load_language
 
 def processor(request):
 
+    language = load_language()
     full_path = request.get_full_path()
     i18n_path = {}
     for lang in settings.LANGUAGES:
@@ -32,7 +33,7 @@ def processor(request):
         'version': get_version(),
 
         # User language
-        'language': load_language(),
+        'language': language,
 
         # Available application languages
         'languages': settings.LANGUAGES,
@@ -42,6 +43,9 @@ def processor(request):
 
         # Translation links
         'i18n_path': i18n_path,
+
+        # Translation links
+        'datepicker_i18n_path': 'js/jquery.ui.datepicker-{0}.js'.format(language.short_name),
 
         # Contact email
         'contact_email': 'roland @ geider.net',
