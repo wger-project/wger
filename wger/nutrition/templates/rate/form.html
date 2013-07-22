@@ -7,45 +7,33 @@
 <script>
 $(document).ready(function() {
 
-    $("#bmr-form").click(function(e){
-        e.preventDefault();
-        var url = $("#bmr-form").attr( 'action' );
-
-        $.post(url,
-            $("#bmr-form").serialize(),
-            function(data) {
-                //console.log(data);
-
-                $('#bmr-result-container').show();
-                $('#bmr-result-value').html(data.bmr);
-        });
-    });
-
-    $("#activities-form").click(function(e){
-        e.preventDefault();
-        var url = $("#activities-form").attr( 'action' );
-
-        $.post(url,
-        $("#activities-form").serialize(),
-            function(data) {
-                //console.log(data);
-
-                var total = parseFloat($('#bmr-result-value').html()) * data.activities;
-                $('#activities-result-container').show();
-                $('#activities-result-value').html(total);
-
-                //$('.result').html(data);
-        });
-    });
-
-    $("#total-calories-form").click(function(e){
+    $("form").click(function(e){
         e.preventDefault();
 
-        var total = parseInt($('#bmr-result-value').html()) + parseInt($('#activities-result-value').html());
-        $('#id_calories').val(total);
+        // BMR
+        var bmr_url = $("#bmr-form").attr('action');
+        $.post(bmr_url,
+               $("#bmr-form").serialize(),
+               function(data) {
+                   $('#bmr-result-container').show();
+                   $('#bmr-result-value').html(data.bmr);
+
+                   // Activities
+                   var activities_url = $("#activities-form").attr('action');
+                   $.post(activities_url,
+                          $("#activities-form").serialize(),
+                          function(data) {
+                              $('#activities-result-container').show();
+                              $('#activities-result-value').html(data.factor);
+
+                              // Total calories
+                              $('#id_calories').val(data.activities);
+                       });
+            });
     });
 
- });
+
+});
 </script>
 {% endblock %}
 
@@ -83,15 +71,15 @@ $(document).ready(function() {
             {% yaml_form_field current_field %}
         {% endif %}
     {% endfor %}
-    <tr>
-        <td colspan="2">
-            <input type="submit" value="{% trans 'Calculate' %}" id="form-save">
-        </td>
-    </tr>
 </table>
 </form>
 
 <div id="bmr-result-container" style="display:hidden;">
+    <p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et augue sem.
+Nullam bibendum tortor a lacus luctus tempor. Suspendisse auctor tristique
+metus, non ultricies quam.
+</p>
     <p>{% trans 'You basic metabolic rate is: ' %} <span id="bmr-result-value">-/-</span></p>
 </div>
 
@@ -121,19 +109,27 @@ $(document).ready(function() {
             {% yaml_form_field current_field %}
         {% endif %}
     {% endfor %}
-    <tr>
-        <td colspan="2">
-            <input type="submit" value="{% trans 'Calculate' %}" id="form-save">
-        </td>
-    </tr>
 </table>
 </form>
 
 <div id="activities-result-container" style="display:hidden;">
-    <p>{% trans 'You basic metabolic rate is: ' %} <span id="activities-result-value">-/-</span></p>
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et augue sem.
+Nullam bibendum tortor a lacus luctus tempor. Suspendisse auctor tristique
+metus, non ultricies quam.
+</p>
+    <p>{% trans 'Factor for daily activities: ' %} <span id="activities-result-value">-/-</span></p>
 </div>
 
-<h2>{% trans "Daily calories" %}</h2>
+
+{% endblock %}
+
+
+{#                 #}
+{#    Side bar     #}
+{#                 #}
+{% block sidebar %}
+<h3>{% trans "Total daily calories" %}</h3>
 <form action="{% url 'calories-calculate-activities' %}"
       method="post"
       class="ym-form"
@@ -142,18 +138,15 @@ $(document).ready(function() {
     {% yaml_form_field form_calories.calories %}
     <tr>
         <td colspan="2">
-            <input type="submit" value="{% trans 'Calculate' %}" id="form-save">
+            <input type="submit" value="{% trans 'Calculate daily calories' %}" id="form-save">
         </td>
     </tr>
 </table>
 </form>
 
-
-
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et augue sem.
+Nullam bibendum tortor a lacus luctus tempor. Suspendisse auctor tristique
+metus, non ultricies quam.
+</p>
 {% endblock %}
-
-
-<!--
-        Side bar
--->
-{% block sidebar %}{% if sidebar %}{% include sidebar %}{% endif %}{% endblock %}

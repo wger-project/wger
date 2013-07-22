@@ -53,7 +53,7 @@ class UnitChooserForm(forms.Form):
 
 
 class BmiForm(forms.ModelForm):
-    weight = forms.IntegerField()
+    weight = forms.DecimalField()
 
     class Meta:
         model = UserProfile
@@ -64,7 +64,7 @@ class BmrForm(forms.ModelForm):
     '''
     Form for the basal metabolic rate
     '''
-    weight = forms.IntegerField()
+    weight = forms.DecimalField()
 
     class Meta:
         model = UserProfile

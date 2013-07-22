@@ -27,7 +27,6 @@ from django.utils.translation import ugettext as _
 from wger.nutrition.forms import BmrForm
 from wger.nutrition.forms import PhysicalActivitiesForm
 from wger.nutrition.forms import DailyCaloriesForm
-from wger.manager.models import UserProfile
 
 
 logger = logging.getLogger('wger.custom')
@@ -42,21 +41,26 @@ def view(request):
     The basal metabolic rate detail page
     '''
 
+    form_data = {'age': request.user.userprofile.age,
+                 'height': request.user.userprofile.height,
+                 'gender': request.user.userprofile.gender,
+                 'weight': request.user.userprofile.weight}
+
     context = {}
-    context['form'] = BmrForm()
+    context['form'] = BmrForm(initial=form_data)
     context['select_lists'] = 'gender'
-    context['form_activities'] = PhysicalActivitiesForm()
+    context['form_activities'] = PhysicalActivitiesForm(instance=request.user.userprofile)
     context['select_lists_activities'] = ('work_intensity',
                                           'sport_intensity',
                                           'freetime_intensity')
-    context['form_calories'] = DailyCaloriesForm()
+    context['form_calories'] = DailyCaloriesForm(instance=request.user.userprofile)
 
     return render_to_response('rate/form.html',
                               context,
                               context_instance=RequestContext(request))
 
 
-def calculate(request):
+def calculate_bmr(request):
     '''
     Calculates the basal metabolic rate.
 
@@ -65,26 +69,20 @@ def calculate(request):
 
     data = []
 
-    form = BmrForm(request.POST)
+    form = BmrForm(data=request.POST, instance=request.user.userprofile)
     if form.is_valid():
-        if form.cleaned_data['gender'] == UserProfile.GENDER_MALE:
-            factor = 5
-        else:
-            factor = -161
-        rate = ((10 * form.cleaned_data['weight'])  # in kg
-                + (6.25 * form.cleaned_data['height'])  # in cm
-                - (5 * form.cleaned_data['age'])  # in years
-                + factor
-                )
-        result = {'bmr': '{0:.0f}'.format(rate)}
-        data = json.dumps(result)
-        #logger.debug(data)
-    #else:
-    #    logger.debug(form.errors)
+        form.save()
 
-    # Return the results to the server
-    mimetype = 'application/json'
-    return HttpResponse(data, mimetype)
+        bmr = request.user.userprofile.calculate_basal_metabolic_rate()
+        result = {'bmr': '{0:.0f}'.format(bmr)}
+        data = json.dumps(result)
+
+        logger.debug(data)
+    else:
+        logger.debug(form.errors)
+
+    # Return the results to the client
+    return HttpResponse(data, 'application/json')
 
 
 def calculate_activities(request):
@@ -94,46 +92,22 @@ def calculate_activities(request):
 
     data = []
 
-    form = PhysicalActivitiesForm(request.POST)
+    form = PhysicalActivitiesForm(data=request.POST, instance=request.user.userprofile)
     if form.is_valid():
+        form.save()
 
-        # Sleep
-        sleep = form.cleaned_data['sleep_hours'] * 1.9
-
-        # Work
-        if form.cleaned_data['work_hours'] == UserProfile.INTENSITY_LOW:
-            work_factor = 1.5
-        elif form.cleaned_data['work_hours'] == UserProfile.INTENSITY_MEDIUM:
-            work_factor = 2
-        else:
-            work_factor = 4
-        work = form.cleaned_data['work_hours'] * work_factor
-
-        # Sport
-        if form.cleaned_data['sport_hours'] == UserProfile.INTENSITY_LOW:
-            sport_factor = 3
-        elif form.cleaned_data['sport_hours'] == UserProfile.INTENSITY_MEDIUM:
-            sport_factor = 7
-        else:
-            sport_factor = 12
-        sport = form.cleaned_data['sport_hours'] * sport_factor
-
-        # Free time
-        if form.cleaned_data['freetime_hours'] == UserProfile.INTENSITY_LOW:
-            freetime_factor = 2
-        elif form.cleaned_data['freetime_hours'] == UserProfile.INTENSITY_MEDIUM:
-            freetime_factor = 4
-        else:
-            freetime_factor = 6
-        freetime = form.cleaned_data['freetime_hours'] * freetime_factor
-
-        total = (sleep + work + sport + freetime) / 24.0
-        result = {'activities': '{0:.2f}'.format(total)}
+        # Calculate the activities factor and the total calories
+        factor = request.user.userprofile.calculate_activities()
+        total = request.user.userprofile.calculate_basal_metabolic_rate() * factor
+        result = {'activities': '{0:.0f}'.format(total),
+                  'factor': '{0:.2f}'.format(factor)}
         data = json.dumps(result)
-        logger.debug(data)
+
+        # Save the total calories
+        request.user.userprofile.calories = total
+        request.user.userprofile.save()
     else:
         logger.debug(form.errors)
 
-    # Return the results to the server
-    mimetype = 'application/json'
-    return HttpResponse(data, mimetype)
+    # Return the results to the client
+    return HttpResponse(data, 'application/json')

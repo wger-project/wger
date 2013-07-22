@@ -107,6 +107,27 @@ class NutritionPlan(models.Model):
         '''
         return self
 
+    def get_calories_approximation(self):
+        '''
+        Calculates the deviation from the goal calories and the actual
+        amount of the current plan
+        '''
+
+        goal_calories = self.user.userprofile.calories
+        actual_calories = self.get_nutritional_values()['energy']
+
+        # Within 10%
+        if (actual_calories < goal_calories * 1.10) and (actual_calories > goal_calories * 0.9):
+            return 1
+        # within 20%
+        elif (actual_calories < goal_calories * 1.20) and (actual_calories > goal_calories * 0.8):
+            return 2
+        # within 30%
+        elif (actual_calories < goal_calories * 1.30) and (actual_calories > goal_calories * 0.7):
+            return 3
+        else:
+            return 4
+
 
 class Ingredient(models.Model):
     '''

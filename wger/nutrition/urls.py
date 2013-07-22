@@ -108,21 +108,21 @@ urlpatterns = patterns('wger.nutrition.views',
         name='weight-unit-ingredient-delete'),
 
     # BMI
-    url(r'^bmi/$',
+    url(r'^calculator/bmi$',
         'bmi.view',
         name='bmi-view'),
-    url(r'^bmi/calculate$',  # JS
+    url(r'^calculator/bmi/calculate$',
         'bmi.calculate',
         name='bmi-calculate'),
 
     # Calories calculator
-    url(r'^calories-calculator/$',
+    url(r'^calculator/calories$',
         'calculator.view',
         name='calories-calculator'),
-    url(r'^calories-calculator/calculate/bmi$',
-        'calculator.calculate',
+    url(r'^calculator/calories/calculate/bmr$',
+        'calculator.calculate_bmr',
         name='calories-calculate'),
-    url(r'^calories-calculator/calculate/activities$',
+    url(r'^calculator/calories/calculate/activities$',
         'calculator.calculate_activities',
         name='calories-calculate-activities'),
 

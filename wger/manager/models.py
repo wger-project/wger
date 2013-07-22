@@ -29,6 +29,8 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import ValidationError
 from django.core.cache import cache
+from django.core.validators import MaxValueValidator
+from django.core.validators import MinValueValidator
 
 from wger.exercises.models import Exercise
 
@@ -36,6 +38,7 @@ from wger.utils.helpers import DecimalJsonEncoder
 from wger.utils.helpers import disable_for_loaddata
 from wger.utils.cache import delete_template_fragment_cache
 from wger.utils.cache import cache_mapper
+from wger.weight.models import WeightEntry
 
 logger = logging.getLogger('wger.custom')
 
@@ -580,9 +583,9 @@ by the US Department of Agriculture. It is extremely complete, with around
     '''The user's age'''
 
     height = models.IntegerField(max_length=2,
-                                 verbose_name=_('Height'),
-                                 help_text=_('Height, in cm.'),
+                                 verbose_name=_('Height (cm)'),
                                  blank=False,
+                                 validators=[MinValueValidator(140), MaxValueValidator(230)],
                                  null=True)
     '''The user's height'''
 
@@ -607,8 +610,7 @@ by the US Department of Agriculture. It is extremely complete, with around
                                      null=True)
     '''The average hours at work per day'''
 
-    work_intensity = models.CharField(verbose_name=_('Intensity of work'),
-                                      help_text=_('Physical intensity of the work'),
+    work_intensity = models.CharField(verbose_name=_('Physical intensity of work'),
                                       max_length=1,
                                       choices=INTENSITY,
                                       default=INTENSITY_LOW,
@@ -623,8 +625,7 @@ by the US Department of Agriculture. It is extremely complete, with around
                                       null=True)
     '''The average hours performing sports per week'''
 
-    sport_intensity = models.CharField(verbose_name=_('Intensity of sport activities'),
-                                       help_text=_('Physical intensity of sport activities'),
+    sport_intensity = models.CharField(verbose_name=_('Physical intensity of sport activities'),
                                        max_length=1,
                                        choices=INTENSITY,
                                        default=INTENSITY_MEDIUM,
@@ -639,8 +640,7 @@ by the US Department of Agriculture. It is extremely complete, with around
                                          null=True)
     '''The average hours of free time per day'''
 
-    freetime_intensity = models.CharField(verbose_name=_('Intensity'),
-                                          help_text=_('Physical intensity during free time'),
+    freetime_intensity = models.CharField(verbose_name=_('Physical intensity of free time'),
                                           max_length=1,
                                           choices=INTENSITY,
                                           default=INTENSITY_LOW,
@@ -655,19 +655,88 @@ by the US Department of Agriculture. It is extremely complete, with around
                                    null=True)
     '''Basic caloric intake based on physical activity'''
 
+    @property
+    def weight(self):
+        '''
+        Returns the last weight entry, done here to make the behaviour
+        more consistent with the other settings (age, height, etc.)
+        '''
+        try:
+            weight = WeightEntry.objects.filter(user=self.user).latest().weight
+        except WeightEntry.DoesNotExist:
+            weight = 0
+        return weight
+
     def clean(self):
         '''
         Make sure the total amount of hours is 24
         '''
-
-        if (self.sleep_hours + self.freetime_hours + self.work_hours) > 24:
-            raise ValidationError(_('The sum of all hours has to be 24'))
+        if ((self.sleep_hours and self.freetime_hours and self.work_hours)
+           and (self.sleep_hours + self.freetime_hours + self.work_hours) > 24):
+                raise ValidationError(_('The sum of all hours has to be 24'))
 
     def __unicode__(self):
         '''
         Return a more human-readable representation
         '''
         return u"Profile for user {0}".format(self.user)
+
+    def calculate_basal_metabolic_rate(self, formula=1):
+        '''
+        Calculates the basal metabolic rate.
+
+        Currently only the Mifflin-St.Jeor formula is supported
+        '''
+
+        if self.gender == self.GENDER_MALE:
+            factor = 5
+        else:
+            factor = -161
+        rate = ((10 * self.weight)  # in kg
+                + (6.25 * self.height)  # in cm
+                - (5 * self.age)  # in years
+                + factor
+                )
+        return rate
+
+    def calculate_activities(self):
+        '''
+        Calculates the calories needed by additional physical activities
+        '''
+        # Sleep
+        sleep = self.sleep_hours * 1.9
+
+        # Work
+        if self.work_intensity == self.INTENSITY_LOW:
+            work_factor = 1.5
+        elif self.work_intensity == self.INTENSITY_MEDIUM:
+            work_factor = 2
+        else:
+            work_factor = 4
+        work = self.work_hours * work_factor
+
+        # Sport
+        # Sport is given in hours/week, so divide
+        if self.sport_intensity == self.INTENSITY_LOW:
+            sport_factor = 3
+        elif self.sport_intensity == self.INTENSITY_MEDIUM:
+            sport_factor = 7
+        else:
+            sport_factor = 12
+        sport = (self.sport_hours / 7) * sport_factor
+
+        # Free time
+        if self.freetime_intensity == self.INTENSITY_LOW:
+            freetime_factor = 2
+        elif self.freetime_intensity == self.INTENSITY_MEDIUM:
+            freetime_factor = 4
+        else:
+            freetime_factor = 6
+        freetime = self.freetime_hours * freetime_factor
+
+        # Total
+        total = (sleep + work + sport + freetime) / 24.0
+        return total
 
 
 # Every new user gets a profile

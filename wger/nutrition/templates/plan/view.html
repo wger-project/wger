@@ -180,6 +180,14 @@ $(document).ready(function() {
             <td>{% trans "Energy" %}</td>
             <td>{{nutritional_data.energy|floatformat}} kcal</td>
         </tr>
+        {% if user.userprofile.calories %}
+        {% with total=plan.get_calories_approximation %}
+        <tr style="background-color:{% if total == 1 %}#8ae234;{% elif total == 2 %}#fce94f;{% elif total == 3 %}#fcaf3e;{% elif total > 3 %}#ef2929;{% endif %}">
+            <td>{{total}}</td>
+            <td>{{user.userprofile.calories}} kcal</td>
+        </tr>
+        {% endwith %}
+        {% endif %}
         <tr>
             <td>{% trans "Protein" %}</td>
             <td>{{nutritional_data.protein|floatformat}} g</td>

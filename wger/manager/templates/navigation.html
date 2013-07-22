@@ -84,8 +84,8 @@
                                 <ul class="dropdown-menu">
                                 <li><a href="{% url 'wger.nutrition.views.plan.overview' %}" rel="nofollow">{% trans "Nutrition plans" %}</a></li>
                                 <li><a href="{% url 'ingredient-list' %}">{% trans "Ingredient overview" %}</a></li>
-                                <li><a href="{% url 'bmi-view' %}">{% trans "BMI Calculator" %}</a></li>
-                                <li><a href="{% url 'calories-calculator' %}">{% trans "Daily calories calculator" %}</a></li>
+                                <li><a href="{% url 'bmi-view' %}" rel="nofollow">{% trans "BMI Calculator" %}</a></li>
+                                <li><a href="{% url 'calories-calculator' %}" rel="nofollow">{% trans "Daily calories calculator" %}</a></li>
                                 {% cache cache_timeout user-admin-ingredients user.id language.id %}
                                 {% if perms.exercises %}
                                     <li class="divider"></li>

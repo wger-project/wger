@@ -36,6 +36,7 @@ class WeightEntry(models.Model):
 
         # Order by creation_date, ascending (oldest last), better for diagram
         ordering = ["creation_date", ]
+        get_latest_by = "creation_date"
 
     def __unicode__(self):
         '''
