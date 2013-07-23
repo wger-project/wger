@@ -1,11 +1,11 @@
-# This file is part of Workout Manager.
+# This file is part of wger Workout Manager.
 #
-# Workout Manager is free software: you can redistribute it and/or modify
+# wger Workout Manager is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Workout Manager is distributed in the hope that it will be useful,
+# wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -20,18 +20,16 @@ user automatically for anonymous users.
 '''
 
 import logging
-import uuid
-import re
 
+from django.core.cache import cache
 from django.contrib import auth
-from django.contrib.auth import authenticate
 from django.utils.functional import SimpleLazyObject
-from django.contrib.auth.models import User
 from django.contrib.auth import login as django_login
 
 from wger.manager.demo import create_temporary_user
 
-logger = logging.getLogger('workout_manager.custom')
+
+logger = logging.getLogger('wger.custom')
 
 
 SPECIAL_PATHS = ('dashboard',
@@ -39,7 +37,8 @@ SPECIAL_PATHS = ('dashboard',
                  'weight',
                  'nutrition/overview',
                  'preferences',  # from /user/preferences
-                 'feedback',)
+                 'feedback',
+                 'about',)
 
 
 def check_current_request(request):
@@ -56,8 +55,9 @@ def check_current_request(request):
 
 def get_user(request):
     if not hasattr(request, '_cached_user'):
-        user = auth.get_user(request)
+
         create_user = check_current_request(request)
+        user = auth.get_user(request)
 
         # Set the flag in the session
         if not request.session.get('has_demo_data'):
@@ -65,6 +65,7 @@ def get_user(request):
 
         # Django didn't find a user, so create one now
         if create_user and not user.is_authenticated():
+
             logger.debug('creating a new guest user now')
             user = create_temporary_user()
             django_login(request, user)
@@ -94,7 +95,10 @@ class RobotsExclusionMiddleware(object):
     '''
     def process_response(self, request, response):
         # Don't set it if it's already in the response
-        if check_current_request(request) and response.get('X-Robots-Tag', None) is not None:
+        if check_current_request(request) and response.get('X-Robots-Tag', None) is None:
+            #logger.debug("Adding X-Robots header")
+            response['X-Robots-Tag'] = 'noindex, nofollow'
             return response
-        response['X-Robots-Tag'] = 'noindex, nofollow'
-        return response
+        else:
+            #logger.debug("Not adding X-Robots header")
+            return response

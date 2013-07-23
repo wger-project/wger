@@ -2,7 +2,7 @@
 {% load url from future %}
 {% load i18n %}
 {% load staticfiles %}
-{% load manager_extras %}
+{% load wger_extras %}
 
 {% block title %}{{ view_language }}{% endblock %}
 
@@ -33,15 +33,18 @@ in A).{% endblocktrans %}</p>
 <table>
 <thead>
     <tr>
-        <th>{% trans "Item" %}</th>
         <th>{% trans "Language full name" %}</th>
         <th>{% trans "Show" %}</th>
     </tr>
 </thead>
 <tbody>
     {% for config in view_language.language_source.all %}
+    {% ifchanged config.get_item_display %}
     <tr>
-        <td>{{config.get_item_display}}</td>
+        <td colspan="2" style="text-align:center; background-color:#eeeeec;">{{config.get_item_display}}</td>
+    </tr>
+    {% endifchanged %}
+    <tr>
         <td>
             <a href="{% url 'config:languageconfig-edit' config.id %}" class="modal-dialog">
             {{config.language_target.full_name}}
@@ -62,7 +65,7 @@ in A).{% endblocktrans %}</p>
 </tbody>
 </table>
 
-    
+
 
 
 {% endblock %}

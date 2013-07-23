@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# This file is part of Workout Manager.
+# This file is part of wger Workout Manager.
 #
-# Workout Manager is free software: you can redistribute it and/or modify
+# wger Workout Manager is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Workout Manager is distributed in the hope that it will be useful,
+# wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -23,6 +23,7 @@ from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
+from django.core.cache import cache
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
@@ -32,16 +33,14 @@ from django.views.generic import DeleteView
 from django.views.generic import UpdateView
 
 from wger.manager.models import Workout
-
 from wger.manager.forms import WorkoutForm
 from wger.manager.forms import WorkoutCopyForm
 
-
-from wger.utils.generic_views import YamlFormMixin
+from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.cache import cache_mapper
 
-
-logger = logging.getLogger('workout_manager.custom')
+logger = logging.getLogger('wger.custom')
 
 
 # ************************
@@ -73,32 +72,39 @@ def view(request, id):
     workout = get_object_or_404(Workout, pk=id, user=request.user)
     template_data['workout'] = workout
 
-    # TODO: this can't be performant, see if it makes problems
     # Create the backgrounds that show what muscles the workout will work on
-    backgrounds_front = []
-    backgrounds_back = []
-    for day in workout.day_set.select_related():
-        for set in day.set_set.select_related():
-            for exercise in set.exercises.select_related():
-                for muscle in exercise.muscles.all():
-                    muscle_bg = 'images/muscles/main/muscle-%s.svg' % muscle.id
+    backgrounds = cache.get(cache_mapper.get_workout_muscle_bg(int(id)))
+    if not backgrounds:
 
-                    # Add the muscles to the background list, but only once.
-                    #
-                    # While the combining effect (the more often a muscle gets
-                    # added, the more intense the colour) is interesting, the
-                    # end result is a very unnatural, very bright colour.
-                    if muscle.is_front and muscle_bg not in backgrounds_front:
-                        backgrounds_front.append(muscle_bg)
-                    elif not muscle.is_front and muscle_bg not in backgrounds_back:
-                        backgrounds_back.append(muscle_bg)
+        backgrounds_front = []
+        backgrounds_back = []
+        for day in workout.day_set.select_related():
+            for set in day.set_set.select_related():
+                for exercise in set.exercises.select_related():
+                    for muscle in exercise.muscles.all():
+                        muscle_bg = 'images/muscles/main/muscle-%s.svg' % muscle.id
 
-    # Append the correct "main" background, with the silhouette of the human body
-    backgrounds_front.append('images/muscles/muscular_system_front.svg')
-    backgrounds_back.append('images/muscles/muscular_system_back.svg')
+                        # Add the muscles to the background list, but only once.
+                        #
+                        # While the combining effect (the more often a muscle gets
+                        # added, the more intense the colour) is interesting, the
+                        # end result is a very unnatural, very bright colour.
+                        if muscle.is_front and muscle_bg not in backgrounds_front:
+                            backgrounds_front.append(muscle_bg)
+                        elif not muscle.is_front and muscle_bg not in backgrounds_back:
+                            backgrounds_back.append(muscle_bg)
 
-    template_data['muscle_backgrounds_front'] = backgrounds_front
-    template_data['muscle_backgrounds_back'] = backgrounds_back
+        # Append the correct "main" background, with the silhouette of the human body
+        backgrounds_front.append('images/muscles/muscular_system_front.svg')
+        backgrounds_back.append('images/muscles/muscular_system_back.svg')
+
+        backgrounds = (backgrounds_front, backgrounds_back)
+
+        cache.set(cache_mapper.get_workout_muscle_bg(int(id)),
+                  (backgrounds_front, backgrounds_back))
+
+    template_data['muscle_backgrounds_front'] = backgrounds[0]
+    template_data['muscle_backgrounds_back'] = backgrounds[1]
 
     return render_to_response('workout/view.html',
                               template_data,
@@ -175,6 +181,7 @@ def copy_workout(request, pk):
         template_data['form'] = workout_form
         template_data['form_action'] = reverse('workout-copy', kwargs={'pk': workout.id})
         template_data['form_fields'] = [workout_form['comment']]
+        template_data['submit_text'] = _('Copy')
 
         return render_to_response('form.html',
                                   template_data,
@@ -206,7 +213,7 @@ class WorkoutDeleteView(YamlDeleteMixin, DeleteView):
     messages = ugettext_lazy('Workout was successfully deleted')
 
 
-class WorkoutEditView(YamlFormMixin, UpdateView):
+class WorkoutEditView(WgerFormMixin, UpdateView):
     '''
     Generic view to update an existing workout routine
     '''

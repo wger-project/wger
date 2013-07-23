@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# This file is part of Workout Manager.
+# This file is part of wger Workout Manager.
 #
-# Workout Manager is free software: you can redistribute it and/or modify
+# wger Workout Manager is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Workout Manager is distributed in the hope that it will be useful,
+# wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -44,11 +44,11 @@ from django.views.generic import UpdateView
 from wger.weight.models import WeightEntry
 from wger.weight import helpers
 
-from wger.utils.generic_views import YamlFormMixin
+from wger.utils.generic_views import WgerFormMixin
 from wger.utils.constants import DATE_FORMATS
 
 
-logger = logging.getLogger('workout_manager.custom')
+logger = logging.getLogger('wger.custom')
 
 
 class WeightForm(ModelForm):
@@ -58,7 +58,7 @@ class WeightForm(ModelForm):
         model = WeightEntry
 
 
-class WeightAddView(YamlFormMixin, CreateView):
+class WeightAddView(WgerFormMixin, CreateView):
     '''
     Generic view to add a new weight entry
     '''
@@ -80,7 +80,7 @@ class WeightAddView(YamlFormMixin, CreateView):
         return super(WeightAddView, self).form_valid(form)
 
 
-class WeightUpdateView(YamlFormMixin, UpdateView):
+class WeightUpdateView(WgerFormMixin, UpdateView):
     '''
     Generic view to edit an existing weight entry
     '''
@@ -106,7 +106,7 @@ def export_csv(request):
     '''
 
     # Prepare the response headers
-    filename = "%s-%s" % (_('weightdata'), request.user.username)
+    filename = "{0}-{1}".format(_('weightdata'), request.user.username)
     response = HttpResponse(mimetype='text/csv')
     response['Content-Disposition'] = 'attachment; filename=%s.csv' % filename
 
@@ -141,13 +141,13 @@ def overview(request):
     if min_date:
         template_data['min_date'] = 'new Date(%(year)s, %(month)s, %(day)s)' % \
                                     {'year': min_date.year,
-                                    'month': min_date.month,
-                                    'day': min_date.day}
+                                     'month': min_date.month,
+                                     'day': min_date.day}
     if max_date:
         template_data['max_date'] = 'new Date(%(year)s, %(month)s, %(day)s)' % \
                                     {'year': max_date.year,
-                                    'month': max_date.month,
-                                    'day': max_date.day}
+                                     'month': max_date.month,
+                                     'day': max_date.day}
     return render_to_response('weight_overview.html',
                               template_data,
                               context_instance=RequestContext(request))

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# This file is part of Workout Manager.
+# This file is part of wger Workout Manager.
 #
-# Workout Manager is free software: you can redistribute it and/or modify
+# wger Workout Manager is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Workout Manager is distributed in the hope that it will be useful,
+# wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -34,9 +34,10 @@ MANAGERS = ADMINS
 # Restrict the available languages
 ugettext = lambda s: s
 LANGUAGES = (
-    ('en', ugettext('English')),
-    ('de', ugettext('German')),
-#    ('os', ugettext('Ossetian')),
+            ('en', ugettext('English')),
+            ('de', ugettext('German')),
+            ('bg', ugettext('Bulgarian')),
+            ('es', ugettext('Spanish')),
 )
 
 # Default language code for this installation. All choices can be found here:
@@ -271,7 +272,7 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'workout_manager.custom': {
+        'wger.custom': {
             'handlers': ['console', 'mail_admins'],
             'level': 'DEBUG',
         }
@@ -280,3 +281,15 @@ LOGGING = {
 
 TEST_RUNNER = 'discover_runner.DiscoverRunner'
 TEST_DISCOVER_TOP_LEVEL = os.path.dirname(os.path.dirname(__file__))
+
+# Force SSL to communicate with reCaptcha's servers
+RECAPTCHA_USE_SSL = True
+
+# Set local memory caching by default
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'wger-cache',
+        'TIMEOUT': 30 * 24 * 60 * 60,  # Cache for a month
+    }
+}

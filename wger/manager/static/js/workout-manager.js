@@ -2,7 +2,7 @@
  * Own functions
  *
  */
-
+"use strict";
 
 function get_current_language()
 {
@@ -187,13 +187,13 @@ function form_modal_dialog()
 
 function modal_dialog_form_edit()
 {
-    form = $("#ajax-info").find(".ym-form");
-    submit = $(form).find("#form-save");
+    var form = $("#ajax-info").find(".ym-form");
+    var submit = $(form).find("#form-save");
 
     submit.click(function(e) {
         e.preventDefault();
-        form_action = form.attr('action');
-        form_data = form.serialize();
+        var form_action = form.attr('action');
+        var form_data = form.serialize();
 
         // Unbind all click elements, so the form doesn't get submitted twice
         // if the user clicks 2 times on the button (while there is already a request
@@ -239,14 +239,14 @@ function modal_dialog_form_edit()
                     // a reload would not change the adress bar, but the content would.
                     // Since it is not possible to get this URL from the AJAX request, we read it out
                     // from a hidden HTML DIV in the document...
-                    current_url = $(data).find("#current-url").data('currentUrl');
+                    var current_url = $(data).find("#current-url").data('currentUrl');
 
                     // TODO: There seems to be problems sometimes when using the technique below and
                     //       bootstrap's menu bar (drop downs won't open). So just do a normal
                     //       redirect.
                     window.location.href = current_url;
-                    
-                    
+
+
                     /*
                     if(document.URL.indexOf(current_url))
                     {
@@ -292,23 +292,23 @@ function init_ingredient_autocompleter()
             // After clicking on a result set the value of the hidden field
             $('#id_ingredient').val(ui.item.id);
             $('#exercise_name').html(ui.item.label);
-            
+
             // See if the ingredient has any units and set the values for the forms
             $.get('/' + get_current_language() + '/nutrition/ingredient/' + ui.item.id + '/get-units',
                   function(data){
-                        
+
                         // Remove any old units, if any
-                        options = $('#id_weight_unit').find('option');
+                        var options = $('#id_weight_unit').find('option');
                         $.each(options, function(index, option_obj) {
                             if (option_obj.value != '')
                             {
                                 $(option_obj).remove();
                             }
                         });
-                        
+
                         // Add new units, if any
                         $.each(data, function(index, value) {
-                            $('#id_unit').append(new Option(value.name, value.id));    
+                            $('#id_unit').append(new Option(value.name, value.id));
                             $('#id_weight_unit').append(new Option(value.name_model, value.id));
                         });
                   });
@@ -352,18 +352,18 @@ function add_exercise(exercise)
 
     $(result_div).prependTo("#exercise-search-log");
     $("#exercise-search-log").scrollTop(0);
-    
+
 }
 
 function get_exercise_formset(exercise_id)
 {
-    set_value = $('#id_sets').val();
+    var set_value = $('#id_sets').val();
     if (set_value && parseInt(set_value) && exercise_id && parseInt(exercise_id))
     {
-        formset_url = '/' + get_current_language() +
-                    '/workout/get-formset/' +  exercise_id +
-                    '/' + set_value + '/';
-        
+        var formset_url = '/' + get_current_language() +
+                          '/workout/get-formset/' +  exercise_id +
+                          '/' + set_value + '/';
+
         $.get(formset_url, function(data) {
                 $('#formsets').prepend(data);
                 $("#exercise-search-log").scrollTop(0);
@@ -374,11 +374,11 @@ function get_exercise_formset(exercise_id)
 // Updates all exercise formsets, e.g. when the number of sets changed
 function update_all_exercise_formset()
 {
-    set_value = $('#id_sets').val();
+    var set_value = $('#id_sets').val();
     if (set_value && parseInt(set_value))
     {
         $.each($('#exercise-search-log input'), function(index, value) {
-        
+
             var exercise_id = value.value;
             if (exercise_id && parseInt(exercise_id))
             {
@@ -405,7 +405,7 @@ function init_edit_set()
 
                 // Add the exercise to the list
                 add_exercise(ui.item);
-                
+
                 // Load formsets
                 get_exercise_formset(ui.item.id)
 
@@ -415,7 +415,7 @@ function init_edit_set()
                     e.preventDefault();
                     exercise_id = $(this).parent('div').find('input').val()
                     $('#formset-exercise-'+exercise_id).remove();
-                    $(this).parent('div').remove(); 
+                    $(this).parent('div').remove();
                 });
 
                 // Reset the autocompleter
@@ -427,9 +427,9 @@ function init_edit_set()
     // Delete button next to exercise
     $(".ajax-exercise-select a").click(function(e) {
         e.preventDefault();
-        exercise_id = $(this).parent('div').find('input').val()
+        var exercise_id = $(this).parent('div').find('input').val()
         $('#formset-exercise-'+exercise_id).remove();
-        $(this).parent('div').remove(); 
+        $(this).parent('div').remove();
     });
 
     // Slider to set the number of sets
@@ -489,7 +489,7 @@ function weight_chart(data)
     var margin = {top: 10, right: 10, bottom: 150, left: 40},
         margin2 = {top: 290, right: 10, bottom: 50, left: 40},
         width = 600 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+        height = 400 - margin.top - margin.bottom,
         height2 = 390 - margin2.top - margin2.bottom;
 
     var x = d3.time.scale()
@@ -691,11 +691,11 @@ function weight_log_chart(data, div_id, reps_i18n)
 
       var reps = color.domain().map(function(name) {
 
-       temp_values = data.filter(function(d) {
+      var temp_values = data.filter(function(d) {
               return(+d[name] > 0);
               });
 
-        filtered_values = temp_values.map(function(d) {
+      var filtered_values = temp_values.map(function(d) {
             return {date: d.date,
                     weight: +d[name],
                     log_id: d.id};
@@ -742,9 +742,9 @@ function weight_log_chart(data, div_id, reps_i18n)
           .style("stroke", function(d) { return color(d.name); });
 
         reps.forEach(function(d){
-            color_name = d.name
-            temp_name = hex_random();
-            color_class = 'color-' + color(color_name).replace('#', '');
+            var color_name = d.name
+            var temp_name = hex_random();
+            var color_class = 'color-' + color(color_name).replace('#', '');
 
             svg.selectAll(".dot" + temp_name)
               .data(d.values)
@@ -798,7 +798,7 @@ function load_maincontent()
             $('#main-content').html($(data).find('#main-content').html());
 
             // Update the browser's history
-            current_url = $(data).find("#current-url").data('currentUrl');
+            var current_url = $(data).find("#current-url").data('currentUrl');
             history.pushState({}, "", current_url);
 
             load_maincontent();

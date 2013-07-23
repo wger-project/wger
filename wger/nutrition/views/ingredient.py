@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# This file is part of Workout Manager.
+# This file is part of wger Workout Manager.
 #
-# Workout Manager is free software: you can redistribute it and/or modify
+# wger Workout Manager is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Workout Manager is distributed in the hope that it will be useful,
+# wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -26,6 +26,7 @@ from django.core import mail
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
+from django.core.cache import cache
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -43,15 +44,14 @@ from wger.nutrition.models import Ingredient
 from wger.nutrition.models import IngredientWeightUnit
 
 from wger.utils import helpers
-from wger.utils.generic_views import YamlFormMixin
+from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.language import load_language
 from wger.utils.language import load_ingredient_languages
-from wger.config.models import LanguageConfig
-from wger.utils.language import load_item_languages
+from wger.utils.cache import cache_mapper
 
-logger = logging.getLogger('workout_manager.custom')
+logger = logging.getLogger('wger.custom')
 
 
 # ************************
@@ -73,8 +73,7 @@ class IngredientListView(ListView):
         (the user can also want to see ingredients in English, in addition to his
         native language, see load_ingredient_languages)
         '''
-        languages = load_item_languages(LanguageConfig.SHOW_ITEM_INGREDIENTS)
-        #languages = load_ingredient_languages(self.request)
+        languages = load_ingredient_languages(self.request)
         return (Ingredient.objects.filter(language__in=languages)
                                   .filter(status__in=Ingredient.INGREDIENT_STATUS_OK)
                                   .only('id', 'name'))
@@ -83,7 +82,10 @@ class IngredientListView(ListView):
 def view(request, id, slug=None):
     template_data = {}
 
-    ingredient = get_object_or_404(Ingredient, pk=id)
+    ingredient = cache.get(cache_mapper.get_ingredient_key(int(id)))
+    if not ingredient:
+        ingredient = get_object_or_404(Ingredient, pk=id)
+        cache.set(cache_mapper.get_ingredient_key(ingredient), ingredient)
     template_data['ingredient'] = ingredient
     template_data['form'] = UnitChooserForm(data={'ingredient_id': ingredient.id,
                                                   'amount': 100,
@@ -114,7 +116,7 @@ class IngredientDeleteView(YamlDeleteMixin, DeleteView):
         return context
 
 
-class IngredientEditView(YamlFormMixin, UpdateView):
+class IngredientEditView(WgerFormMixin, UpdateView):
     '''
     Generic view to update an existing ingredient
     '''
@@ -125,7 +127,7 @@ class IngredientEditView(YamlFormMixin, UpdateView):
     messages = ugettext_lazy('Ingredient successfully updated')
 
 
-class IngredientCreateView(YamlFormMixin, CreateView):
+class IngredientCreateView(WgerFormMixin, CreateView):
     '''
     Generic view to add a new ingredient
     '''

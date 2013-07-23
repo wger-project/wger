@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# This file is part of Workout Manager.
+# This file is part of wger Workout Manager.
 #
-# Workout Manager is free software: you can redistribute it and/or modify
+# wger Workout Manager is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Workout Manager is distributed in the hope that it will be useful,
+# wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -26,6 +26,7 @@ from django.http import HttpResponseForbidden
 from django.forms import ModelForm
 from django.forms import ModelChoiceField
 from django.core import mail
+from django.core.cache import cache
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
@@ -44,14 +45,16 @@ from wger.manager.models import WorkoutLog
 from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseCategory
 
-from wger.utils.generic_views import YamlFormMixin
+from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
 from wger.utils.language import load_language
 from wger.utils.language import load_item_languages
-
+from wger.utils.cache import cache_mapper
+from wger.utils.widgets import TranslatedSelect
 from wger.config.models import LanguageConfig
 
-logger = logging.getLogger('workout_manager.custom')
+
+logger = logging.getLogger('wger.custom')
 
 
 def overview(request):
@@ -83,32 +86,42 @@ def view(request, id, slug=None):
     template_data['comment_edit'] = False
 
     # Load the exercise itself
-    exercise = get_object_or_404(Exercise, pk=id)
+    exercise = cache.get(cache_mapper.get_exercise_key(int(id)))
+    if not exercise:
+        exercise = get_object_or_404(Exercise, pk=id)
+        cache.set(cache_mapper.get_exercise_key(exercise), exercise)
+
     template_data['exercise'] = exercise
 
     # Create the backgrounds that show what muscles the exercise works on
-    backgrounds_back = []
-    backgrounds_front = []
+    backgrounds = cache.get(cache_mapper.get_exercise_muscle_bg_key(int(id)))
+    if not backgrounds:
+        backgrounds_back = []
+        backgrounds_front = []
 
-    for muscle in exercise.muscles.all():
-        if muscle.is_front:
-            backgrounds_front.append('images/muscles/main/muscle-%s.svg' % muscle.id)
-        else:
-            backgrounds_back.append('images/muscles/main/muscle-%s.svg' % muscle.id)
+        for muscle in exercise.muscles.all():
+            if muscle.is_front:
+                backgrounds_front.append('images/muscles/main/muscle-%s.svg' % muscle.id)
+            else:
+                backgrounds_back.append('images/muscles/main/muscle-%s.svg' % muscle.id)
 
-    for muscle in exercise.muscles_secondary.all():
-        if muscle.is_front:
-            backgrounds_front.append('images/muscles/secondary/muscle-%s.svg' % muscle.id)
-        else:
-            backgrounds_back.append('images/muscles/secondary/muscle-%s.svg' % muscle.id)
+        for muscle in exercise.muscles_secondary.all():
+            if muscle.is_front:
+                backgrounds_front.append('images/muscles/secondary/muscle-%s.svg' % muscle.id)
+            else:
+                backgrounds_back.append('images/muscles/secondary/muscle-%s.svg' % muscle.id)
 
-    # Append the "main" background, with the silhouette of the human body
-    # This has to happen as the last step, so it is rendered behind the muscles.
-    backgrounds_front.append('images/muscles/muscular_system_front.svg')
-    backgrounds_back.append('images/muscles/muscular_system_back.svg')
+        # Append the "main" background, with the silhouette of the human body
+        # This has to happen as the last step, so it is rendered behind the muscles.
+        backgrounds_front.append('images/muscles/muscular_system_front.svg')
+        backgrounds_back.append('images/muscles/muscular_system_back.svg')
+        backgrounds = (backgrounds_front, backgrounds_back)
 
-    template_data['muscle_backgrounds_front'] = backgrounds_front
-    template_data['muscle_backgrounds_back'] = backgrounds_back
+        cache.set(cache_mapper.get_exercise_muscle_bg_key(int(id)),
+                  (backgrounds_front, backgrounds_back))
+
+    template_data['muscle_backgrounds_front'] = backgrounds[0]
+    template_data['muscle_backgrounds_back'] = backgrounds[1]
 
     # If the user is logged in, load the log and prepare the entries for
     # rendering in the D3 chart
@@ -130,7 +143,7 @@ def view(request, id, slug=None):
                               context_instance=RequestContext(request))
 
 
-class ExercisesEditAddView(YamlFormMixin):
+class ExercisesEditAddView(WgerFormMixin):
     '''
     Generic view to subclass from for exercise adding and editing, since they
     share all this settings
@@ -155,7 +168,8 @@ class ExercisesEditAddView(YamlFormMixin):
         # to 'en-us'.
         class ExerciseForm(ModelForm):
             #language = load_language()
-            category = ModelChoiceField(queryset=ExerciseCategory.objects.all())
+            category = ModelChoiceField(queryset=ExerciseCategory.objects.all(),
+                                        widget=TranslatedSelect())
 
             class Meta:
                 model = Exercise
@@ -170,6 +184,14 @@ class ExerciseUpdateView(ExercisesEditAddView, UpdateView):
     '''
     Generic view to update an existing exercise
     '''
+
+    def form_valid(self, form):
+        '''
+        Set the user field, otherwise it will get reset to Null
+        '''
+
+        form.instance.user = Exercise.objects.get(pk=self.object.id).user
+        return super(ExerciseUpdateView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super(ExerciseUpdateView, self).get_context_data(**kwargs)

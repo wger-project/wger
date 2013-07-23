@@ -34,5 +34,5 @@ before_script:
 
 # Do the tests
 script:
-  - ./manage.py test tests
+  - ./manage.py test
   - pep8 --max-line-length=100 --exclude="urls.py,*migrations*" wger

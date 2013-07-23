@@ -1,11 +1,11 @@
-# This file is part of Workout Manager.
+# This file is part of wger Workout Manager.
 #
-# Workout Manager is free software: you can redistribute it and/or modify
+# wger Workout Manager is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Workout Manager is distributed in the hope that it will be useful,
+# wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -18,6 +18,7 @@ import logging
 
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import NoReverseMatch
+from django.core.cache import cache
 
 from django.test import TestCase
 from django.test import LiveServerTestCase
@@ -51,6 +52,7 @@ class WorkoutManagerTestCase(TestCase):
         Reset settings
         '''
         del os.environ['RECAPTCHA_TESTING']
+        cache.clear()
 
     def user_login(self, user='admin'):
         '''

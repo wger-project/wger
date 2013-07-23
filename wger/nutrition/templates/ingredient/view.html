@@ -2,7 +2,7 @@
 {% load url from future %}
 {% load i18n %}
 {% load staticfiles %}
-{% load manager_extras %}
+{% load wger_extras %}
 
 {% block title %}{{ingredient.name}}{% endblock %}
 
@@ -20,7 +20,7 @@ function update_value() {
                 $('#calculator-errors').append('<p class="ym-message">'+value+'</p>');
             });
         }
-        
+
         // Replace the nutritional values
         $('#value-energy').html(parseFloat(data['energy']).toFixed(2));
         $('#value-protein').html(parseFloat(data['protein']).toFixed(2));
@@ -113,16 +113,16 @@ the search.{% endblocktrans %}
     {% csrf_token %}
     <div id="calculator-errors" class="ym-error"></div>
     <input type="hidden" value="{{ingredient.id}}" name="ingredient"></input>
-    
+
     <div class="ym-grid">
         <div class="ym-g33 ym-gl" style="text-align:right;">
         {% trans 'Nutritional values in' %}
         </div>
-        
+
         <div class="ym-g33 ym-gl">
             <div class="ym-fbox-text {% if form.amount.errors %}ym-error{% endif %}">{{form.amount}}</div>
         </div>
-        
+
         <div class="ym-g33 ym-gl">
             <div class="ym-fbox-select {% if form.unit.errors %}ym-error{% endif %}">{{form.unit}}</div>
         </div>
@@ -217,6 +217,7 @@ the search.{% endblocktrans %}
     </tbody>
 </table>
 </div>
+
 {% endblock %}
 
 

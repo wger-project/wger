@@ -1,30 +1,29 @@
-# This file is part of Workout Manager.
+# This file is part of wger Workout Manager.
 #
-# Workout Manager is free software: you can redistribute it and/or modify
+# wger Workout Manager is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Workout Manager is distributed in the hope that it will be useful,
+# wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from os.path import join as path_join
+import logging
 
-from django.conf import settings
 from django.utils import translation
 from django.core.exceptions import ObjectDoesNotExist
-
-from reportlab.lib.styles import ParagraphStyle
-from reportlab.lib.styles import StyleSheet1
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.pdfbase import pdfmetrics
+from django.core.cache import cache
 
 from wger.exercises.models import Language
 from wger.config.models import LanguageConfig
+from wger.utils.cache import cache_mapper
+
+
+logger = logging.getLogger('wger.custom')
 
 
 # ************************
@@ -42,13 +41,17 @@ def load_language():
     # Read the first part of a composite language, e.g. 'de-at'
     used_language = translation.get_language().split('-')[0]
 
+    language = cache.get(cache_mapper.get_language_key(used_language))
+    if language:
+        return language
+
     try:
         language = Language.objects.get(short_name=used_language)
-
-    # No luck, load english as our fall-back language
     except ObjectDoesNotExist:
+        # No luck, load english as our fall-back language
         language = Language.objects.get(short_name="en")
 
+    cache.set(cache_mapper.get_language_key(language), language)
     return language
 
 
@@ -57,21 +60,24 @@ def load_item_languages(item):
     Returns the languages for a data type (exercises, ingredients)
     '''
 
-    #SHOW_ITEM_EXERCISES = '1'
-    #SHOW_ITEM_INGREDIENTS = '2'
+    language = load_language()
+    languages = cache.get(cache_mapper.get_language_config_key(language, item))
 
     # Load the configurations we are interested in and return the languages
-    LanguageConfig.SHOW_ITEM_LIST
-    language = load_language()
-    languages = []
+    if not languages:
 
-    config = LanguageConfig.objects.filter(language=language, item=item, show=True)
-    if not config:
-        languages.append(Language.objects.get(short_name="en"))
-        return languages
+        #LanguageConfig.SHOW_ITEM_LIST
+        languages = []
 
-    for i in config:
-        languages.append(i.language_target)
+        config = LanguageConfig.objects.filter(language=language, item=item, show=True)
+        if not config:
+            languages.append(Language.objects.get(short_name="en"))
+            return languages
+
+        for i in config:
+            languages.append(i.language_target)
+
+        cache.set(cache_mapper.get_language_config_key(language, item), languages)
 
     return languages
 
@@ -89,7 +95,7 @@ def load_ingredient_languages(request):
     '''
 
     language = load_language()
-    languages = (language.id,)
+    languages = load_item_languages(LanguageConfig.SHOW_ITEM_INGREDIENTS)
 
     # Only registered users have a profile
     if request.user.is_authenticated():
@@ -98,6 +104,6 @@ def load_ingredient_languages(request):
 
         # If the user's language is not english and has the preference, add english to the list
         if show_english and language.short_name != 'en':
-            languages = (language.id, 2)
+            languages = list(set(languages + [Language.objects.get(pk=2)]))
 
     return languages

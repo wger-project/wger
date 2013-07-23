@@ -67,6 +67,9 @@ RECAPTCHA_PRIVATE_KEY = '%(recaptcha_private_key)s'
 # The site's URL (e.g. http://www.my-local-gym.com or http://localhost:8000)
 # This is needed for Mozilla's BrowserID to work
 SITE_URL = '%(siteurl)s'
+
+# This might be a good idea if you setup memcached
+#SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 """
 
 KEY_LENGTH = 30
@@ -161,9 +164,9 @@ def _main(opts, database_path=None):
     # Find url to wger
     addr, port = detect_listen_opts(opts.address, opts.port)
     if port == 80:
-        url = "http://%s" % addr
+        url = "http://{0}".format(addr)
     else:
-        url = "http://%s:%d" % (addr, port)
+        url = "http://{0}:{0}".format(addr, port)
 
     # Create settings if necessary
     if not os.path.exists(settings_path):
@@ -336,6 +339,7 @@ def init_south():
     execute_from_command_line(["", "migrate", "wger.manager", "0001", "--fake"])
     execute_from_command_line(["", "migrate", "wger.nutrition", "0001", "--fake"])
     execute_from_command_line(["", "migrate", "wger.weight", "0001", "--fake"])
+    execute_from_command_line(["", "migrate", "wger.config", "0001", "--fake"])
 
 
 def run_south():
@@ -348,6 +352,7 @@ def run_south():
     execute_from_command_line(["", "migrate", "wger.manager"])
     execute_from_command_line(["", "migrate", "wger.nutrition"])
     execute_from_command_line(["", "migrate", "wger.weight"])
+    execute_from_command_line(["", "migrate", "wger.config"])
 
 
 def load_fixtures():
@@ -357,6 +362,7 @@ def load_fixtures():
 
     execute_from_command_line(["", "loaddata", "users"])
     execute_from_command_line(["", "loaddata", "languages"])
+    execute_from_command_line(["", "loaddata", "language_config"])
     execute_from_command_line(["", "loaddata", "days_of_week"])
     execute_from_command_line(["", "loaddata", "muscles"])
     execute_from_command_line(["", "loaddata", "categories"])
@@ -417,7 +423,7 @@ def create_or_reset_admin_user():
 def start_wger(addr, port, start_browser_url=None, extra_args=[]):
     argv = ["", "runserver", '--noreload'] + extra_args
 
-    argv.append("%s:%d" % (addr, port))
+    argv.append("{0}:{1}".format(addr, port))
 
     if start_browser_url:
         start_browser(start_browser_url)

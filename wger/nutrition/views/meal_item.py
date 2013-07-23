@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# This file is part of Workout Manager.
+# This file is part of wger Workout Manager.
 #
-# Workout Manager is free software: you can redistribute it and/or modify
+# wger Workout Manager is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Workout Manager is distributed in the hope that it will be useful,
+# wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -53,12 +53,12 @@ from reportlab.lib import colors
 
 from wger import get_version
 from wger.utils import helpers
-from wger.utils.generic_views import YamlFormMixin
+from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
 from wger.utils.language import load_ingredient_languages
 
 
-logger = logging.getLogger('workout_manager.custom')
+logger = logging.getLogger('wger.custom')
 
 
 # ************************
@@ -111,7 +111,7 @@ def delete_meal_item(request, item_id):
         return HttpResponseForbidden()
 
 
-class MealItemCreateView(YamlFormMixin, CreateView):
+class MealItemCreateView(WgerFormMixin, CreateView):
     '''
     Generic view to create a new meal item
     '''
@@ -153,7 +153,7 @@ class MealItemCreateView(YamlFormMixin, CreateView):
         return super(MealItemCreateView, self).form_valid(form)
 
 
-class MealItemEditView(YamlFormMixin, UpdateView):
+class MealItemEditView(WgerFormMixin, UpdateView):
     '''
     Generic view to update an existing meal item
     '''

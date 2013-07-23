@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# This file is part of Workout Manager.
+# This file is part of wger Workout Manager.
 #
-# Workout Manager is free software: you can redistribute it and/or modify
+# wger Workout Manager is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Workout Manager is distributed in the hope that it will be useful,
+# wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -45,7 +45,7 @@ from wger.nutrition.models import NutritionPlan
 from wger.weight.models import WeightEntry
 
 
-logger = logging.getLogger('workout_manager.custom')
+logger = logging.getLogger('wger.custom')
 
 
 # ************************
@@ -182,10 +182,10 @@ class FeedbackClass(FormView):
         messages.success(self.request, _('Your feedback was sucessfully sent. Thank you!'))
         message = "Feedback posted by an anonymous user"
         if self.request.user.is_authenticated():
-            message = "Feedback posted by {0}".format(self.request.user.username)
+            message = u"Feedback posted by {0}".format(self.request.user.username)
 
-        message += ("\n"
-                    "Message follows:\n"
-                    "----------------\n\n{0}".format(form.cleaned_data['comment']))
+        message += (u"\n"
+                    u"Message follows:\n"
+                    u"----------------\n\n{0}".format(form.cleaned_data['comment']))
         mail.mail_admins(_('New feedback'), message)
         return super(FeedbackClass, self).form_valid(form)

@@ -24,10 +24,11 @@ class Simple(FunkLoadTestCase):
         # Exercises        
         self.get(server_url + '/en/exercise/overview/', description='Get exercise overview')
         self.get(server_url + '/en/exercise/muscle/overview/', description='Get muscle overview')
-        self.get(server_url + '/de/de/exercise/79/view/', description='Get exercise page')
+        self.get(server_url + '/de/exercise/79/view/', description='Get exercise page')
 
         # Nutrition
         self.get(server_url + '/de/nutrition/ingredient/overview/', description='Get ingredient overview')
+        self.get(server_url + '/de/nutrition/ingredient/8304/view/4-korn-waffeln/', description='Get ingredient page')
 
 
 if __name__ in ('main', '__main__'):

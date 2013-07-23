@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# This file is part of Workout Manager.
+# This file is part of wger Workout Manager.
 #
-# Workout Manager is free software: you can redistribute it and/or modify
+# wger Workout Manager is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Workout Manager is distributed in the hope that it will be useful,
+# wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -16,7 +16,6 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 import logging
 import decimal
-import datetime
 
 from django.db import models
 
@@ -25,17 +24,19 @@ from django.core.validators import MaxValueValidator
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.core import mail
+from django.core.cache import cache
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
 
 from wger.exercises.models import Language
 from wger.utils.constants import EMAIL_FROM
+from wger.utils.cache import cache_mapper
 
 MEALITEM_WEIGHT_GRAM = '1'
 MEALITEM_WEIGHT_UNIT = '2'
 
-logger = logging.getLogger('workout_manager.custom')
+logger = logging.getLogger('wger.custom')
 
 
 class NutritionPlan(models.Model):
@@ -60,7 +61,7 @@ class NutritionPlan(models.Model):
                                    blank=True,
                                    verbose_name=_('Description'),
                                    help_text=_('A description of the goal of the plan, e.g. '
-                                   '"Gain mass" or "Prepare for summer"'))
+                                               '"Gain mass" or "Prepare for summer"'))
 
     def __unicode__(self):
         '''
@@ -212,6 +213,10 @@ class Ingredient(models.Model):
                                  verbose_name=_('Sodium'),
                                  help_text=_('In g per 100g of product'))
 
+    #
+    # Django methods
+    #
+
     def get_absolute_url(self):
         '''
         Returns the canonical URL to view this object
@@ -245,6 +250,39 @@ class Ingredient(models.Model):
             raise ValidationError(_('Total energy is not the approximate sum of the energy '
                                     'provided by protein, carbohydrates and fat.'))
 
+    def save(self, *args, **kwargs):
+        '''
+        Reset the cache
+        '''
+
+        super(Ingredient, self).save(*args, **kwargs)
+        cache.delete(cache_mapper.get_ingredient_key(self.id))
+
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return u"{0}".format(self.name)
+
+    def __eq__(self, other):
+        '''
+        Compare ingredients based on their values, not like django on their PKs
+        '''
+
+        logger.debug('Overwritten behaviour: comparing ingredients on values, not PK.')
+        equal = True
+        if isinstance(other, self.__class__):
+            for i in self._meta.fields:
+                if (hasattr(self, i.name) and hasattr(other, i.name) and
+                   (getattr(self, i.name, None) != getattr(other, i.name, None))):
+                        equal = False
+        else:
+            equal = False
+        return equal
+
+    #
+    # Own methods
+    #
     def compare_with_database(self):
         '''
         Compares the current ingredient with the version saved in the database.
@@ -277,7 +315,7 @@ class Ingredient(models.Model):
                        "added to nutrition plans. You can access it on this address:\n"
                        "{1}\n\n").format(self.name, url) +
                        ugettext("Thank you for contributing and making this site better!\n"
-                       "   the wger.de team"))
+                                "   the wger.de team"))
             mail.send_mail(subject,
                            message,
                            EMAIL_FROM,
@@ -289,28 +327,6 @@ class Ingredient(models.Model):
         Ingredient has no owner information
         '''
         return False
-
-    def __unicode__(self):
-        '''
-        Return a more human-readable representation
-        '''
-        return u"{0}".format(self.name)
-
-    def __eq__(self, other):
-        '''
-        Compare ingredients based on their values, not like django on their PKs
-        '''
-
-        logger.debug('Overwritten behaviour: comparing ingredients on values, not PK.')
-        equal = True
-        if isinstance(other, self.__class__):
-            for i in self._meta.fields:
-                if (hasattr(self, i.name) and hasattr(other, i.name) and
-                   (getattr(self, i.name, None) != getattr(other, i.name, None))):
-                        equal = False
-        else:
-            equal = False
-        return equal
 
 
 class WeightUnit(models.Model):
@@ -396,7 +412,7 @@ class Meal(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return u"{0} Meal" % (self.order,)
+        return u"{0} Meal".format(self.order)
 
     def get_owner_object(self):
         '''

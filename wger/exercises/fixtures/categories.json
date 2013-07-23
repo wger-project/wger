@@ -1,114 +1,51 @@
 [
     {
-        "pk": 1, 
-        "model": "exercises.exercisecategory", 
-        "fields": {
-            "name": "Arme", 
-            "language": 1
-        }
-    }, 
-    {
-        "pk": 2, 
-        "model": "exercises.exercisecategory", 
-        "fields": {
-            "name": "Beine", 
-            "language": 1
-        }
-    }, 
-    {
-        "pk": 3, 
-        "model": "exercises.exercisecategory", 
-        "fields": {
-            "name": "R\u00fccken", 
-            "language": 1
-        }
-    }, 
-    {
-        "pk": 4, 
-        "model": "exercises.exercisecategory", 
-        "fields": {
-            "name": "Bauch", 
-            "language": 1
-        }
-    }, 
-    {
-        "pk": 5, 
-        "model": "exercises.exercisecategory", 
-        "fields": {
-            "name": "Schultern", 
-            "language": 1
-        }
-    }, 
-    {
-        "pk": 6, 
-        "model": "exercises.exercisecategory", 
-        "fields": {
-            "name": "Waden", 
-            "language": 1
-        }
-    }, 
-    {
-        "pk": 7, 
-        "model": "exercises.exercisecategory", 
-        "fields": {
-            "name": "Brust", 
-            "language": 1
-        }
-    }, 
-    {
         "pk": 8, 
         "model": "exercises.exercisecategory", 
         "fields": {
-            "name": "Arms", 
-            "language": 2
+            "name": "Arms"
         }
     }, 
     {
         "pk": 9, 
         "model": "exercises.exercisecategory", 
         "fields": {
-            "name": "Legs", 
-            "language": 2
+            "name": "Legs"
         }
     }, 
     {
         "pk": 10, 
         "model": "exercises.exercisecategory", 
         "fields": {
-            "name": "Abs", 
-            "language": 2
+            "name": "Abs"
         }
     }, 
     {
         "pk": 11, 
         "model": "exercises.exercisecategory", 
         "fields": {
-            "name": "Chest", 
-            "language": 2
+            "name": "Chest"
         }
     }, 
     {
         "pk": 12, 
         "model": "exercises.exercisecategory", 
         "fields": {
-            "name": "Back", 
-            "language": 2
+            "name": "Back"
         }
     }, 
     {
         "pk": 13, 
         "model": "exercises.exercisecategory", 
         "fields": {
-            "name": "Shoulders", 
-            "language": 2
+            "name": "Shoulders"
         }
     }, 
     {
         "pk": 14, 
         "model": "exercises.exercisecategory", 
         "fields": {
-            "name": "Calves", 
-            "language": 2
+            "name": "Calves"
         }
     }
 ]

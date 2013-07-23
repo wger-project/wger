@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# This file is part of Workout Manager.
+# This file is part of wger Workout Manager.
 #
-# Workout Manager is free software: you can redistribute it and/or modify
+# wger Workout Manager is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Workout Manager is distributed in the hope that it will be useful,
+# wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -26,18 +26,13 @@ from django.utils.translation import ugettext as _
 from wger.manager.models import Workout
 from wger.utils.pdf import styleSheet
 
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.lib.styles import ParagraphStyle
-from reportlab.lib.styles import StyleSheet1
 from reportlab.lib.pagesizes import A4, cm, landscape, portrait
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
 from reportlab.lib import colors
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.pdfbase import pdfmetrics
 
 from wger import get_version
 
-logger = logging.getLogger('workout_manager.custom')
+logger = logging.getLogger('wger.custom')
 
 
 @login_required
@@ -113,7 +108,7 @@ def workout_log(request, id):
 
         P = Paragraph('<para align="center">%(days)s: %(description)s</para>' %
                       {'days': ', '.join(days_of_week),
-                      'description': day.description},
+                       'description': day.description},
                       styleSheet["Bold"])
 
         data.append([P])
@@ -291,9 +286,9 @@ def workout_log(request, id):
                         %(version)s
                     </para>''' %
                   {'date': _("Created on the <b>%s</b>") % created,
-                  'created': "wger Workout Manager",
-                  'version': get_version(),
-                  'url': request.build_absolute_uri(url), },
+                   'created': "wger Workout Manager",
+                   'version': get_version(),
+                   'url': request.build_absolute_uri(url), },
                   styleSheet["Normal"])
     elements.append(P)
 

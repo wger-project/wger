@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# This file is part of Workout Manager.
+# This file is part of wger Workout Manager.
 #
-# Workout Manager is free software: you can redistribute it and/or modify
+# wger Workout Manager is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Workout Manager is distributed in the hope that it will be useful,
+# wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -17,6 +17,7 @@ import uuid
 from itertools import chain
 
 from django.forms.widgets import SelectMultiple
+from django.forms.widgets import Select
 
 from django.utils.translation import ugettext as _
 from django.utils.encoding import force_unicode
@@ -88,3 +89,14 @@ class TranslatedSelectMultiple(SelectMultiple):
         return super(TranslatedSelectMultiple, self).render_option(selected_choices,
                                                                    option_value,
                                                                    _(option_label))
+
+
+class TranslatedSelect(Select):
+    '''
+    A Select widget that translates the options
+    '''
+
+    def render_option(self, selected_choices, option_value, option_label):
+        return super(TranslatedSelect, self).render_option(selected_choices,
+                                                           option_value,
+                                                           _(option_label))

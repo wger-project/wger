@@ -1,13 +1,13 @@
 # -*- coding: utf-8 *-*
 
-# This file is part of Workout Manager.
+# This file is part of wger Workout Manager.
 #
-# Workout Manager is free software: you can redistribute it and/or modify
+# wger Workout Manager is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Workout Manager is distributed in the hope that it will be useful,
+# wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -30,11 +30,13 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        user_list = UserProfile.objects.filter(is_temporary=True)
-        for profile in user_list:
+        profile_list = UserProfile.objects.filter(is_temporary=True)
+        counter = 0
+        for profile in profile_list:
             delta = now() - profile.user.date_joined
 
             if (delta >= datetime.timedelta(7)):
-                #self.stdout.write("Deleting user %s, joined %s days ago\n" % (profile,
-                #                                                              delta.days))
+                counter += 1
                 profile.user.delete()
+
+        self.stdout.write("Deleted {0} temporary users".format(counter))
