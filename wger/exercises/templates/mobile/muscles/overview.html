@@ -1,0 +1,188 @@
+{% extends "base_wide.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+{% load cache %}
+
+<!--
+        Title
+-->
+{% block title %}{% trans "Muscle overview" %}{% endblock %}
+
+
+{% block header %}
+<script>
+
+function highlight_muscle(element)
+{
+    var div_id = $(element).data('target');
+    var is_front = ($(element).data('isFront') == 'True') ? 'front' : 'back';
+    var muscle_id = div_id.match(/\d+/);
+    var muscle_name = $(element).data('name');
+
+    // Reset all other highlighted muscles
+    $('.muscle').removeClass('muscle-active');
+    $('.muscle').addClass('muscle-inactive');
+
+    // Hightligh the current one
+    $(element).removeClass('muscle-inactive');
+    $(element).addClass('muscle-active');
+
+    {% if perms.exercises %}
+    $('#muscle-edit-box').show();
+    $('.muscle-edit-name').html(muscle_name);
+    $('#muscle-edit-edit-link').attr("href", "/exercise/muscle/" + muscle_id + "/edit/");
+    $('#muscle-delete-edit-link').attr("href", "/exercise/muscle/" + muscle_id + "/delete/");
+    {% endif %}
+
+    // Set the corresponding background
+    $('#muscle-system').css('background-image',
+                            'url(/static/images/muscles/main/muscle-' + muscle_id + '.svg),'
+                          + 'url(/static/images/muscles/muscular_system_' + is_front + '.svg)');
+
+    // Show the corresponding exercises
+    $('.exercise-list').hide();
+    $('#' + div_id).show();
+}
+
+$(document).ready(function() {
+    //Prefetch the background images
+    {% for muscle in muscle_list|first %}
+        prefetch_images(['/static/images/muscles/main/muscle-' + {{muscle.id}} + '.svg']);
+    {% endfor %}
+    prefetch_images(['/static/images/muscles/muscular_system_back.svg']);
+
+
+    // Hightlight the first element
+    highlight_muscle($('.muscle').first());
+
+    // Highlight on hover
+    $('.muscle').hover(function(e) {
+        e.preventDefault();
+        highlight_muscle(this);
+    });
+});
+</script>
+{% endblock %}
+
+
+<!--
+        Main Content
+-->
+{% block content %}
+{% cache cache_timeout muscle-overview language.id %}
+{% trans "Hover with the mouse over the muscles to show corresponding exercises." %}
+
+<div class="ym-grid linearize-level-1">
+    <div class="ym-g33 ym-gl">
+        <div class="ym-gbox-left">
+            <h3 style="padding-bottom:0.5em;">{% trans "Muscles" %}</h3>
+            <div id="muscle-system"
+                 class="muscle-background"
+                 style="background-image: url('/static/images/muscles/muscular_system_front.svg');">
+            </div>
+        </div>
+    </div>
+    <div class="ym-g33 ym-gl">
+        <div class="ym-gbox-left">
+            {# Why do we need to use |first? #}
+            {% regroup muscle_list|first by is_front as muscle_group %}
+            {% for group in muscle_group %}
+                {% if group.grouper %}
+                    <h3>{% trans "Front side" %}</h3>
+                {% else %}
+                    <h3>{% trans "Back side" %}</h3>
+                {% endif %}
+
+                <ul class="muscle-list">
+                {% for muscle in group.list %}
+                <li class="muscle"
+                    data-target="muscle-{{muscle.id}}"
+                    data-is-front="{{muscle.is_front}}"
+                    data-name="{{muscle.name}}"
+                    itemscope itemtype="http://schema.org/Muscle">
+                    <span itemprop="name">{{muscle.name}}</span>
+                </li>
+                {% endfor %}
+                </ul>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="ym-g33 ym-gr">
+        <div class="ym-gbox-right">
+            {% for muscle in muscle_list|first %}
+                <div id="muscle-{{muscle.id}}" style="display:none;" class="exercise-list">
+                    <h3>{% trans "Exercises" %}</h3>
+                    <ul class="exercise-overview">
+                        {% for exercise in muscle.exercise_set.select_related %}
+                        {% if exercise.language in active_languages %}
+                        <li class="exercise">
+                            <a href="{{exercise.get_absolute_url}}">{{exercise}}</a>
+                        </li>
+                        {% endif %}
+                        {% empty %}
+                        <li>
+                            <em>{% trans "No exercises that mainly train this muscle" %}</em>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endcache %}
+
+{% if perms.exercises %}
+<h3>{% trans "Options" %}</h3>
+
+<p>
+<a href="{% url 'muscle-add' %}"
+   title="{% trans 'Add muscle' %}"
+   data-role="button">
+   <img src="{% static 'images/icons/new.svg' %}"
+        width="32"
+        height="32"
+        alt="{% trans 'Add muscle' %}"
+        title="{% trans 'Add muscle' %}">
+    {% trans 'Add muscle' %}
+</a>
+</p>
+
+<p>{% blocktrans %}<strong>Important:</strong> After adding a muscle, you need
+to create a new SVG image with the contours of the muscle and place it in the
+folder <em>images/muscles</em>.{% endblocktrans %}</p>
+
+
+<div id="muscle-edit-box" style="display:none;">
+<p>
+    <a href="{% url 'muscle-edit' 1 %}"
+       class="modal-dialog"
+       id="muscle-edit-edit-link">
+       <img src="{% static 'images/icons/edit.svg' %}"
+            width="32"
+            height="32"
+            alt="{% trans 'Edit muscle' %}"
+            title="{% trans 'Edit muscle' %}">{% trans 'Edit muscle' %}: <span class="muscle-edit-name"></span></a>
+</p>
+<p>
+    <a href="{% url 'muscle-delete' 1 %}"
+       class="modal-dialog"
+       id="muscle-edit-delete-link">
+      <img src="{% static 'images/icons/trash.svg' %}"
+            width="32"
+            height="32"
+            alt="{% trans 'Delete muscle' %}"
+            title="{% trans 'Delete muscle' %}">{% trans 'Delete muscle' %}: <span class="muscle-edit-name"></span></a>
+</p>
+</div>
+{% endif %}
+
+{% endblock %}
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}
+{% endblock %}

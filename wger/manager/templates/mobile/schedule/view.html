@@ -48,58 +48,63 @@ $(function() {
 {% endblock %}
 
 {% block content %}
+
+
+
 <div id="schedule-table-container">
-<table id="schedule-table">
+<table id="schedule-table" data-role="table">
     <thead>
     <tr>
-        <th>{% trans "Nr." %}</th>
-        <th>{% trans "Actions" %}</th>
         <th>{% trans "Workout" %}</th>
+        <th>{% trans "Nr." %}</th>
         <th>{% trans "Weeks" %}</th>
+        <th>{% trans "Actions" %}</th>
     </tr>
     </thead>
     <tbody>
     {% for step in schedule.schedulestep_set.select_related %}
     <tr data-schedule-id="{{schedule.id}}" id="step-{{step.id}}">
         <td>
+            <a href="{% url 'wger.manager.views.workout.view' step.workout.id %}"
+               data-role="button" data-mini="true" data-inline="true" >{{ step.workout }}</a>
+            {% if active_workout == step %}
+            <span class="label label-info">{% trans "active" %}</span>
+            {% endif  %}
+        </td>
+        <td>
             {{ forloop.counter }}
         </td>
-        <td style="min-width: 6em;">
+        <td>
+            {{ step.duration }}
+        </td>
+
+        <td >
 <!--             {{ forloop.counter }} -->
 
             <span class="editoptions">
+            <!--
                 <img src="{% static 'images/icons/move.svg' %}"
                      width="22"
                      height="22"
                      alt="{% trans 'Move me' %}"
                      title="{% trans 'Move me' %}"
                      class="dragndrop-handle">
+                     -->
                  <a href="{% url 'step-edit' step.id %}"
                    title="{% trans 'Edit' %}"
-                   class="modal-dialog">
+                   class="modal-dialog" data-role="button" data-mini="true" data-inline="true">
                        <img src="{% static 'images/icons/edit.svg' %}"
                             width="22"
                             height="22"
-                            alt="{% trans 'Edit' %}">
-                </a>
+                            alt="{% trans 'Edit' %}"></a>
                  <a href="{% url 'step-delete' step.id %}"
                     title="{% trans 'Delete' %}"
-                    class="modal-dialog">
+                    class="modal-dialog" data-role="button" data-mini="true" data-inline="true">
                         <img src="{% static 'images/icons/trash.svg' %}"
                              width="22"
                              height="22"
-                             alt="{% trans 'Delete' %}">
-                </a>
+                             alt="{% trans 'Delete' %}"></a>
             </span>
-        </td>
-        <td>
-            <a href="{% url 'wger.manager.views.workout.view' step.workout.id %}">{{ step.workout }}</a>
-            {% if active_workout == step %}
-            <span class="label label-info">{% trans "active" %}</span>
-            {% endif  %}
-        </td>
-        <td>
-            {{ step.duration }}
         </td>
     </tr>
     {% empty %}

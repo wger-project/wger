@@ -35,12 +35,10 @@
             <li><a href="{% url 'exercise-add' %}">{% trans "Add new exercise" %}</a><li>
             {% endif %}
 
-            {% cache cache_timeout user-admin-exercises user.id language.id %}
             {% if perms.exercises %}
-            <li class="nav-header">{% trans "Administration" %}</li>
+            <li>{% trans "Administration" %}</li>
             <li><a href="{% url 'exercise-pending' %}">{% trans "Exercises pending review" %}</a></li>
             {% endif %}
-            {% endcache %}
         </ul>
     </div>
 

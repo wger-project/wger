@@ -20,7 +20,10 @@
     {% for workout in workouts %}
     <tr>
         <td>
-            <a href="{% url 'wger.manager.views.workout.view' workout.id %}">
+            <a href="{% url 'wger.manager.views.workout.view' workout.id %}"
+               data-role="button"
+               data-inline="true"
+               data-mini="true">
                 {% if workout.comment %}
                     {{ workout.comment }}
                 {% else %}

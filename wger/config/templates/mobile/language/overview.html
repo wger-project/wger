@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+
+{% block title %}{% trans "Languages" %}{% endblock %}
+
+
+{% block content %}
+<table>
+<thead>
+    <tr>
+        <th>{% trans "Language short name" %}</th>
+        <th>{% trans "Language full name" %}</th>
+    </tr>
+</thead>
+<tbody>
+{% for language in language_list %}
+    <tr>
+        <td>{{language.short_name}}</td>
+        <td><a href="{% url 'config:language-view' language.id %}">{{language.full_name}}</a></td>
+    </tr>
+{% endfor %}
+</tbody>
+
+</table>
+{% endblock %}
+
+
+
+{% block sidebar %}
+<h3>{% trans "Options" %}</h3>
+<p>
+    <a href="{% url 'config:language-add' %}"
+       data-role="button">
+        <img src="{% static 'images/icons/folder-new.svg' %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Add' %}"
+             >
+        {% trans "Add" %}
+    </a>
+</p>
+<p>{% blocktrans %}After adding a new language here you need to add it to
+the global_settings.py file and make sure there is a corresponding flag icon
+in static/images/icons.{% endblocktrans %}</p>
+{% endblock %}
