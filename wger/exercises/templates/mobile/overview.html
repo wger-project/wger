@@ -10,41 +10,34 @@
 
 
 {% block header %}
-<script src="{% static 'js/tinymce/tiny_mce.js' %}"></script>
 <script>
-
-function custom_modal_init()
-{
-    init_tinymce();
-}
-
-$(document).ready(function() {
-    // Init the tabs for the exercises
-    $( "#tabs" ).tabs({
-
-        // On selecting a category, set the values to edit it
-        select: function(event, ui) {
-                category_id = ui.tab.id.match(/\d+/);
-                $(".current-category-name").html($("#cat-" + category_id).html());
-                $("#current-category-edit").attr("href", "/exercise/category/" + category_id + "/edit/");
-                $("#current-category-delete").attr("href", "/exercise/category/" + category_id + "/delete/");
+$( document ).on( "pageinit", "#myPage", function() {
+$( "#exercise_search_form" ).on( "listviewbeforefilter", function ( e, data ) {
+    var $ul = $( this ),
+        $input = $( data.input ),
+        value = $input.val(),
+        html = "";
+    $ul.html( "" );
+    if ( value && value.length > 2 ) {
+        $ul.html( "<li><div class='ui-loader'><span class='ui-icon ui-icon-loading'></span></div></li>" );
+        $ul.listview( "refresh" );
+        $.ajax({
+            url: "{% url 'wger.exercises.views.exercises.search' %}",
+            dataType: "json",
+            data: {
+                q: $input.val()
             }
+        })
+        .then( function ( response ) {
+            $.each( response, function ( i, val ) {
+                html += '<li><a href="/exercise/' + val.id + '/view/">' + val.name + '</a></li>';
+            });
+            $ul.html( html );
+            $ul.listview( "refresh" );
+            $ul.trigger( "updatelayout");
+            });
+        }
     });
-
-    // Prevent the form from being submited if JavaScript is enabled
-    $("#exercise_search_form").submit(function() {return false;});
-
-    // Init the autocompleter
-    $("#exercise-search").catcomplete({
-            source: "{% url wger.exercises.views.exercise_search %}",
-            minLength: 2,
-            select: function(event, ui) {
-
-                // Redirect to exercise after clicking on a result
-                // Path is hard coded here, because we can't use the url-tag
-                window.location.href = '/exercise/' + ui.item.id + '/view/'
-            }
-        });
 });
 </script>
 {% endblock %}
@@ -76,76 +69,18 @@ $(document).ready(function() {
         Side bar
 -->
 {% block sidebar %}
-{% if perms.exercises %}
-    <h3>{% trans "Options" %}</h3>
+<h3>{% trans "Search" %}</h3>
 
-    <p>
-        <a href="{% url exercise-add %}"
-           class="modal-dialog">
-        <img src="{% static 'images/icons/new.svg' %}"
-                            width="32"
-                            height="32"
-                            alt="{% trans 'Add new exercise' %}"
-                            title="{% trans 'Add new exercise' %}">
-        	{% trans "Add new exercise" %}
-        </a>
-        </p>
-        <p>
-        {% with category=categories|first %}
-        <a href="{% url exercisecategory-edit category.id %}"
-           class="modal-dialog"
-           id="current-category-edit">
-        	<img src="{% static 'images/icons/edit.svg' %}"
-                            width="32"
-                            height="32"
-                            alt="{% trans 'Edit category' %}"
-                            title="{% trans 'Edit category' %}">
-        	{% trans "Edit category" %}:
-        	<span class="current-category-name">{{category.name}}</span>
-        </a>
-        {% endwith %}
-        </p>
-        <p>
-        {% with category=categories|first %}
-        <a href="{% url exercisecategory-delete category.id %}"
-           class="modal-dialog"
-           id="current-category-delete">
-        	<img src="{% static 'images/icons/trash.svg' %}"
-                            width="32"
-                            height="32"
-                            alt="{% trans 'Delete category' %}"
-                            title="{% trans 'Delete category' %}">
-        {% trans "Delete category" %}:
-        <span class="current-category-name">{{category.name}}</span>
-        </a>
-        {% endwith %}
-        </p>
-        <p>
-        <a href="{% url exercisecategory-add %}"
-           class="modal-dialog">
-        	<img src="{% static 'images/icons/folder-new.svg' %}"
-                            width="32"
-                            height="32"
-                            alt="{% trans 'Add category' %}"
-                            title="{% trans 'Add category' %}">
-         {% trans "Add category" %}
-        </a>
-    </p>
-{% endif %}
-
-    <h3>{% trans "Search" %}</h3>
-
-    <div class="ui-widget">
-        <form action="{% url wger.exercises.views.exercise_search %}"
-              method="get"
-              id="exercise_search_form">
-            {% csrf_token %}
-            <input name="term"
-                   type="search"
-                   id="exercise-search"
-                   class="ajax-form-element"
-                   placeholder="{% trans 'exercise name' %}"
-                   style="width:100%;">
-       </form>
-    </div>
+<ul data-role="listview"
+    data-theme="c"
+    data-filter="true"
+    data-filter-reveal="true"
+    data-filter-placeholder="{% trans 'exercise name' %}"
+    id="exercise_search_form">
+    {% for category in categories %}
+    {% for exercise in category.exercise_set.all %}
+        <li><a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a></li>
+    {% endfor %}
+    {% endfor %}
+</ul>
 {% endblock %}

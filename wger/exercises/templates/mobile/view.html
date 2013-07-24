@@ -1,8 +1,9 @@
 {% extends "base.html" %}
+{% load url from future %}
 {% load i18n %}
 {% load staticfiles %}
-{% load manager_extras %}
-
+{% load wger_extras %}
+{% load cache %}
 
 {% block header %}
 <script src="{% static 'js/tinymce/tiny_mce.js' %}"></script>
@@ -28,13 +29,59 @@ function custom_modal_init()
         Main Content
 -->
 {% block content %}
-<p>{% trans "Category" %}: <strong>{{ exercise.category.name }}</strong></p>
 
+{% if exercise.status == exercise.EXERCISE_STATUS_PENDING %}
+<div class="alert">
+<h3>{% trans "Exercise is pending review" %}</h3>
+<p>{% blocktrans %}This user submitted exercise is pending a decision to be
+included in the database.{% endblocktrans %}
+{% trans "Till then, it will not be shown in the overview or the search."  %}
+{% if perms.exercises %}{% trans "Please select one of the options below." %}{% endif %}
+</p>
+
+{% if perms.exercises %}
+<div class="ym-grid linearize-level-1">
+    <div class="ym-g50 ym-gl">
+        <div class="ym-gbox-left">
+            <div class="alert alert-success">
+                <a href="{% url 'exercise-accept' exercise.id %}">
+                    <img src="{% static 'images/icons/status-on.svg' %}"
+                        width="32"
+                        height="32"
+                        alt="{% trans 'Accept' %}">
+                    {% trans "Accept" %}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="ym-g50 ym-gl">
+        <div class="ym-gbox-left">
+            <div class="alert alert-error">
+                <a href="{% url 'exercise-decline' exercise.id %}">
+                    <img src="{% static 'images/icons/status-off.svg' %}"
+                        width="32"
+                        height="32"
+                        alt="{% trans 'Decline' %}">
+                    {% trans "Decline" %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %} {# end check permissions #}
+
+</div>
+{% endif %} {# end exercise is pending review #}
+
+
+{% cache cache_timeout exercise-detail-header exercise.id language.id %}
+<p>{% trans "Category" %}: <strong>{% trans exercise.category.name %}</strong></p>
 <p>{{ exercise.description|safe }}</p>
+{% endcache %}
 
 {% with comments=exercise.exercisecomment_set.all %}
 {% if comments %}
-<h3>{% trans "Comments for this exercise" %}</h3>
+<h4>{% trans "Comments for this exercise" %}</h4>
 
 <ul>
 {% for comment in comments %}
@@ -42,21 +89,18 @@ function custom_modal_init()
         {{ comment }}
         {% if perms.exercises %}
         <span class="editoptions">
-            <a href="{% url wger.exercises.views.exercisecomment_delete comment.id %}"
+            <a href="{% url 'exercisecomment-delete' comment.id %}"
                title="{% trans 'Delete' %}">
                <img src="{% static 'images/icons/trash.svg' %}"
                     width="16"
                     height="16"
-                    alt="{% trans 'Delete' %}">
-            </a>
-            <a href="{% url exercisecomment-edit comment.id %}"
-               title="{% trans 'Edit' %}"
-               class="modal-dialog">
+                    alt="{% trans 'Delete' %}"></a>
+            <a href="{% url 'exercisecomment-edit' comment.id %}"
+               title="{% trans 'Edit' %}">
                <img src="{% static 'images/icons/edit.svg' %}"
                     width="16"
                     height="16"
-                    alt="{% trans 'Edit' %}">
-            </a>
+                    alt="{% trans 'Edit' %}"></a>
         </span>
         {% endif %}
     </li>
@@ -65,12 +109,11 @@ function custom_modal_init()
 {% endif %}
 {% endwith %}
 
-
 {% if perms.exercises %}
 <p>
-    <a href="{% url exercisecomment-add exercise.id %}"
+    <a href="{% url 'exercisecomment-add' exercise.id %}"
        title="{% trans 'Add' %}"
-       class="modal-dialog">
+       data-role="button">
         <img src="{% static 'images/icons/add.svg' %}"
             width="16"
             height="16"
@@ -78,44 +121,6 @@ function custom_modal_init()
         {% trans "Add new comment" %}</a>
 </p>
 {% endif %}
-
-
-{% if logs %}
-
-<h3>{% trans "Weight log" %}</h3>
-
-{% render_weight_log logs svg_uuid %}
-<script src="{% static 'js/d3.js' %}"></script>
-<script src="{% static 'js/jquery-globalize/lib/globalize.js' %}"></script>
-
-<script>
-$(document).ready(function() {
-weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
-});
-</script>
-
-{% endif %}
-
-{% endblock %}
-
-
-<!--
-        Side bar
--->
-{% block sidebar %}
-
-<h3>{% trans "Back to overview" %}</h3>
-<p>
-    <a href="{% url wger.exercises.views.exercise_overview %}">
-        <img src="{% static 'images/icons/list.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Back to overview' %}"
-             >
-        {% trans "Back to exercise overview" %}
-    </a>
-</p>
-
 
 
 {% with muscles=exercise.muscles.all %}
@@ -133,23 +138,16 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
     {% trans "Main muscles" %}
 </div>
 
-{% if muscles_secondary %}
 <div>
     <div style="width:1em;height:1em;background-color:#f57900;float:left;margin-right:0.5em;"></div>
     {% trans "Secondary muscles" %}
 </div>
-{% endif %}
 
-{% if muscle_backgrounds_front %}
 <div class="ym-grid linearize-level-1">
     <div class="ym-g50 ym-gl">
         <div class="ym-gbox-left">
             <div id="muscle-front" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
             </div>
-        </div>
-    </div>
-    <div class="ym-g40 ym-gr">
-        <div class="ym-gbox-right">
             <ul>
                 {% for muscle in muscles %}
                 {% if muscle.is_front %}
@@ -165,42 +163,102 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
             </ul>
         </div>
     </div>
-</div>
-{% endif %}
-
-
-{% if muscle_backgrounds_back %}
-<div class="ym-grid linearize-level-1">
-    <div class="ym-g50 ym-gl">
-        <div class="ym-gbox-left">
-            <div id="muscle-front" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-            </div>
-        </div>
-    </div>
-    <div class="ym-g40 ym-gr">
+    <div class="ym-g50 ym-gr">
         <div class="ym-gbox-right">
-            <ul>
-                {% for muscle in muscles %}
-                {% if not muscle.is_front %}
-                <li>{{muscle.name}}</li>
-                {% endif %}
-                {% endfor %}
+        <div id="muscle-front" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+        </div>
+        <ul>
+        {% for muscle in muscles %}
+        {% if not muscle.is_front %}
+        <li>{{muscle.name}}</li>
+        {% endif %}
+        {% endfor %}
 
-                {% for muscle in muscles_secondary %}
-                {% if not muscle.is_front %}
-                <li>{{muscle.name}}</li>
-                {% endif %}
-                {% endfor %}
-            </ul>
+        {% for muscle in muscles_secondary %}
+        {% if not muscle.is_front %}
+        <li>{{muscle.name}}</li>
+        {% endif %}
+        {% endfor %}
+        </ul>
         </div>
     </div>
 </div>
-{% endif %}
+
 
 {% endif %}
 {% endwith %}
-{% endwith %}
+{% endwith %} {# end musclelist #}
 
+{% if logs %}
+<h3>{% trans "Weight log" %}</h3>
+
+{% render_weight_log logs svg_uuid %}
+<script src="{% static 'js/d3.js' %}"></script>
+<script src="{% static 'js/jquery-globalize/lib/globalize.js' %}"></script>
+
+<script>
+$(document).ready(function() {
+weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
+});
+</script>
+{% endif %}
+
+{% endblock %}
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}
+
+<h3>{% trans "Back to overview" %}</h3>
+<p>
+    <a href="{% url 'wger.exercises.views.exercises.overview' %}"
+       data-role="button">
+        <img src="{% static 'images/icons/list.svg' %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Back to overview' %}"
+             >
+        {% trans "Back to exercise overview" %}
+    </a>
+</p>
+<hr>
+
+{% if exercise.status == exercise.EXERCISE_STATUS_ACCEPTED %}
+<div class="alert" style="margin-top:1em;">
+<h3>{% trans "User submitted exercise" %}</h3>
+{% with username=exercise.user.username %}
+<p>{% blocktrans %}This exercise was submitted by <strong>{{username}}</strong>.{% endblocktrans %}
+{% endwith %}
+</div>
+<hr>
+{% endif %}
+
+{% if perms.exercises %}
+<h3>{% trans "Options" %}</h3>
+<p>
+    <a href="{% url 'exercise-edit' exercise.id %}"
+       data-role="button">
+        <img src="{% static 'images/icons/edit.svg' %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Edit' %}">
+        {% trans "Edit" %}
+    </a>
+</p>
+<p>
+    <a href="{% url 'exercise-delete' exercise.id %}"
+       data-role="button">
+        <img src="{% static 'images/icons/trash.svg' %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Delete' %}">
+        {% trans "Delete" %}
+    </a>
+</p>
+<hr>
+{% endif %}
 
 {% cc_by_sa_sidebar language %}
 

@@ -20,7 +20,7 @@
     {% for workout in workouts %}
     <tr>
         <td>
-            <a href="{% url wger.manager.views.view_workout workout.id %}">
+            <a href="{% url 'wger.manager.views.workout.view' workout.id %}">
                 {% if workout.comment %}
                     {{ workout.comment }}
                 {% else %}
@@ -48,7 +48,7 @@
 {% block sidebar %}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url wger.manager.views.add %}">
+    <a href="{% url 'wger.manager.views.workout.add' %}" data-role="button">
     <img src="{% static 'images/icons/new.svg' %}"
          width="32"
          height="32"

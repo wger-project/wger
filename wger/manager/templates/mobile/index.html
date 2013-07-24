@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %} {% trans "Dashboard" %}{% endblock %}
+
+
+{% block content %}
+<h3>{% trans "Workout"%}</h3>
+{% if current_workout %}
+<p>
+<a href="{% url 'wger.manager.views.workout.view' current_workout.id %}"
+   data-role="button"
+   data-mini="true">
+    {% if current_workout.comment %}
+        {{ current_workout.comment }}
+    {% else %}
+        {% trans "Workout" %}
+    {% endif %}
+</a>
+</p>
+ – {{ current_workout.creation_date }}
+
+<ul>
+    {% for day, exercise, is_workout in weekdays %}
+    <li>
+        {% if not is_workout %}<span class="dimmed">{% endif%}
+        {{ day }}:
+
+        {{ exercise }}
+        {% if not is_workout %}</span>{% endif%}
+
+    </li>
+    {% endfor %}
+</ul>
+
+{% if schedule %}
+<p>
+    → {% trans "This workout is part of a schedule:" %}
+    <a href="{{schedule.get_absolute_url}}">{{schedule.name}}</a>
+</p>
+{% endif %}
+
+{% else %}
+    <p>
+        <a href="{% url 'wger.manager.views.workout.add' %}" data-role="button">
+        {% trans "No workouts found." %} {% trans "Add one now." %}
+        </a>
+    </p>
+{% endif %}
+
+<h3>{% trans "Nutrition plan"%}</h3>
+
+{% if plan %}
+    <p>
+    <a href="{% url 'wger.nutrition.views.plan.view' plan.id %}"
+       data-role="button"
+       data-mini="true">
+        {% if plan.description %}
+            {{ plan.description }}
+        {% else %}
+            {% trans "Nutrition plan" %}
+        {% endif %}
+   </a>
+   </p>
+   – {{ plan.creation_date }}
+
+   <ul>
+       <li>
+           {% trans "Energy" %}: {{nutritional_info.energy|floatformat}} kcal
+       </li>
+       <li>
+           {% trans "Protein" %}: {{nutritional_info.protein|floatformat}} g
+       </li>
+       <li>
+           {% trans "Carbohydrates" %}: {{nutritional_info.carbohydrates|floatformat}} g
+       </li>
+       <li>
+           {% trans "Fat" %}: {{nutritional_info.fat|floatformat}} g
+       </li>
+   </ul>
+
+{% else %}
+    <p>
+        <a href="{% url 'wger.nutrition.views.plan.add' %}" data-role="button">
+        {% trans "No nutrition plans." %} {% trans "Add one now." %}
+        </a>
+    </p>
+{% endif %}
+{% if weight %}
+<p>
+    {% trans "Your current weight is: "%} <strong>{{weight.weight|floatformat}} kg.</strong>
+</p>
+{% endif %}
+
+{% endblock %}
+
+
+
+{% block sidebar %}
+<h3>{% trans "Options" %}</h3>
+<a href="{% url 'wger.manager.views.workout.add' %}" data-role="button">
+<img src="{% static 'images/icons/new.svg' %}"
+     width="32"
+     height="32"
+     alt="{% trans 'Add workout' %}"
+     title="{% trans 'Add workout' %}">
+{% trans "Add workout" %}</a>
+
+<a href="{% url 'wger.nutrition.views.plan.add' %}" data-role="button">
+<img src="{% static 'images/icons/new.svg' %}"
+     width="32"
+     height="32"
+     alt="{% trans 'Add nutrition plan' %}"
+     title="{% trans 'Add nutrition plan' %}">
+    {% trans "Add nutrition plan" %}</a>
+
+<a href="{% url 'wger.manager.views.user.preferences' %}" data-role="button">
+<img src="{% static 'images/icons/preferences.svg' %}"
+     width="32"
+     height="32"
+     alt="{% trans 'My preferences' %}"
+     title="{% trans 'My preferences' %}">
+{% trans "My preferences" %}</a>
+
+<h3>{% trans "Info" %}</h3>
+<p>{% blocktrans %}The current workout is selected from your active schedule
+or, if you don't have one, simply by date.{% endblocktrans %}</p>
+
+<p>{% trans "After adding a workout or a nutritional plan, you can edit them to set a goal." %}
+</p>
+{% endblock %}

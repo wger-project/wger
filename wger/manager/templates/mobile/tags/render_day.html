@@ -1,26 +1,13 @@
-{% load i18n %} 
+{% load i18n %}
 {% load staticfiles %}
 {% load manager_extras %}
 
 
-<!--<h3>
-<a href="#editoptions-day-{{ day.id }}"
-   class="ui-icon-nodisc"
-   data-rel="popup"
-   data-role="button"
-   data-inline="true"
-   data-transition="slideup"
-   data-icon="gear"
-   data-theme="b"
-   data-iconpos="notext"
-   data-mini="true"
-   data-iconshadow="false"></a>
-{{day.description}}</h3>-->
 <table class="bordertable workout-table" id="table-day-{{ day.id }}" style="width:100%;">
 <thead>
     <tr id="day-{{ day.id }}">
         <th colspan="2">
-            
+
             <h4><a href="#editoptions-day-{{ day.id }}"
                    class="ui-icon-nodisc"
                    data-rel="popup"
@@ -39,14 +26,14 @@
                 {% if not forloop.last %}, {% endif %}
                 <!--{% if forloop.last %}–{% endif %}-->
             {% endfor %}
-            
-           
+
+
             <div data-role="popup" id="editoptions-day-{{ day.id }}">
                 <div>
                     <h3>{{day.description}}</h3>
                     <ul data-role="listview">
                         <li>
-                            <a href="{% url wger.manager.views.delete_day workout.id day.id %}"
+                            <a href="{% url 'wger.manager.views.day.delete' workout.id day.id %}"
                                title="{% trans 'Delete' %}">
                                     <img src="{% static 'images/icons/trash.svg' %}"
                                          width="16"
@@ -55,7 +42,7 @@
                                          class="ui-li-icon ui-corner-none">{% trans "Delete" %}</a>
                         </li>
                         <li>
-                            <a href="{% url day-edit day.id %}"
+                            <a href="{% url 'day-edit' day.id %}"
                                 title="{% trans 'Edit' %}"
                                 class="modal-dialog">
                                     <img src="{% static 'images/icons/edit.svg' %}"
@@ -67,7 +54,7 @@
                                 </a>
                         </li>
                         <li>
-                            <a href="{% url day-log day.id %}"
+                            <a href="{% url 'day-log' day.id %}"
                                title="{% trans 'Add weight log to this day' %}">
                                     <img src="{% static 'images/icons/statistics.svg' %}"
                                          width="16"
@@ -106,18 +93,7 @@
                     <h3>{{ set.id }}</h3>
                     <ul data-role="listview">
                         <li>
-                            <a href="{% url wger.manager.views.edit_set workout.id day.id set.id %}"
-                               title="{% trans 'Edit' %}">
-                                    <img src="{% static 'images/icons/edit.svg' %}"
-                                         width="16"
-                                         height="16"
-                                         alt="{% trans 'Edit' %}"
-                                         class="ui-li-icon ui-corner-none">
-                                    {% trans "Edit" %}
-                                </a>
-                        </li>
-                        <li>
-                            <a href="{% url wger.manager.views.delete_set workout.id day.id set.id %}"
+                            <a href="{% url 'wger.manager.views.set.delete' set.id %}"
                                title="{% trans 'Delete' %}">
                                     <img src="{% static 'images/icons/trash.svg' %}"
                                          width="16"
@@ -158,12 +134,12 @@
                         {% comment %}
                             get_current_settings only does a exercise.setting_set.filter(set_id=set_id)
                         {% endcomment %}
-                        
+
                         <span class="settings-list">
                         {% for setting in exercise|get_current_settings:set.id %}
                             <span id="setting-{{setting.id}}">
-                            
-                            
+
+
                             {% if setting.reps == 99 %}
                                  ∞
                             {%else%}
@@ -172,28 +148,16 @@
                             {% if not forloop.last %} – {% endif %}
                             </span>
                         {% empty %}
-                            <div class="box warning">
-                                {% trans "This exercise has no settings." %} 
-                                <a href="{% url wger.manager.views.edit_setting workout.id set.id exercise.id None %}"
-                                   class="ajax-set-edit">
+                            <a href="{% url 'set-edit' set.id %}"
+                               class="modal-dialog"
+                               data-role="button">
+                                {% trans "This exercise has no repetitions." %}
                                 {% trans "Edit them now."%}
                             </a>
-                            </div>
                         {% endfor %} <!--for setting in exercise-->
                         </span>
-                        
-                        <span class="editoptions">
-                            <a href="{% url wger.manager.views.edit_setting workout.id set.id exercise.id None %}"
-                               title="{% trans 'Edit' %}"
-                               class="ajax-set-edit">
-                                <img src="{% static 'images/icons/edit.svg' %}"
-                                     width="16"
-                                     height="16"
-                                     alt="{% trans 'Edit' %}">
-                            </a>
-                        </span>
-                        
-                        
+
+
                         <div class="exercise-comments dimmed">
                             <ul>
                             {% for comment in exercise.exercisecomment_set.all %}
@@ -201,33 +165,26 @@
                             {% endfor %}
                             </ul>
                         </div>
-                        
-                        
-                        
+
+
+
                     </div>
                 {% endfor %} <!--for exercise in set-->
                 </div>
         {% empty %}
         <tr>
             <td colspan="2">
-                <div class="box warning">
-                    {% trans "No sets for this day." %}
-                    <a href="{% url wger.manager.views.edit_set workout.id day.id None %}"
-                       class="modal-dialog"
-                       data-role="button"
-                       data-theme="a"
-                       data-inline="true"
-                       data-mini="true">{% trans "Add one now." %}
+                <a href="{% url 'set-add' day.id %}"
+                   class="modal-dialog"
+                   data-role="button">
+                       {% trans "No exercises selected for this day." %}
+                       {% trans "Add one now." %}
                     </a>
-                </div>
         {% endfor %} <!--for set in day-->
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <a href="{% url wger.manager.views.edit_set workout.id day.id None %}"
-                   class="modal-dialog">{% trans "Add workout set" %}</a>
             </td>
         </tr>
     </tbody>
 </table>
+<a href="{% url 'set-add' day.id %}"
+   data-role="button"
+   data-mini="true">{% trans "Add exercises to this workout day" %}</a>

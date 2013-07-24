@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% trans "Your nutrition plans" %}{% endblock %}
+
+
+{% block content %}
+{% if plans %}
+    <table id="nutrition-table" data-role="table"  class="ui-responsive table-stroke table-stripe">
+    <thead>
+    <tr>
+        <th>{% trans "Description" %}</th>
+        <th>{% trans "Date" %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for plan in plans %}
+    <tr>
+        <td>
+            <a href="{% url 'wger.nutrition.views.plan.view' plan.id %}">
+                {% if plan.description %}
+                    {{ plan.description }}
+                {% else %}
+                    {% trans "Nutrition plan" %}
+                {% endif %}
+            </a>
+        </td>
+        <td>
+            {{ plan.creation_date }}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% else %}
+    <p>
+        <a href="{% url 'wger.nutrition.views.plan.add' %}" class="btn btn-block">
+        {% trans "No nutrition plans." %} {% trans "Add one now." %}
+        </a>
+    </p>
+{% endif %}
+
+{% endblock %}
+
+
+
+{% block sidebar%}
+<h3>{% trans "Options" %}</h3>
+<p>
+    <a href="{% url 'wger.nutrition.views.plan.add' %}" id="nutrition-create-new" data-role="button">
+    <img src="{% static 'images/icons/new.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Add nutrition plan' %}"
+         title="{% trans 'Add nutrition plan' %}">
+        {% trans "Add nutrition plan" %}</a>
+</p>
+
+<p>
+    <a href="{% url 'ingredient-list' %}" id="ingredient-overview" data-role="button">
+    <img src="{% static 'images/icons/list.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Ingredient overview' %}"
+         title="{% trans 'Ingredient overview' %}">
+    {% trans "Ingredient overview" %}
+    </a>
+</p>
+{% endblock %}

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-{% load i18n %}
-{% load staticfiles %}
+{% load i18n %}{% load staticfiles %}{% load cache %}
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -29,7 +28,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!--<link rel="stylesheet" type="text/css" href="{% static 'css/yaml/demos/css/flexible-grids.css' %} ">--> <!-- CSS framework for the layout -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/yaml/custom-yaml.css' %}">               <!-- Customisations for yaml      -->
+    <!--<link rel="stylesheet" type="text/css" href="{% static 'css/yaml/custom-yaml.css' %}">-->               <!-- Customisations for yaml      -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-mobile.css' %}">
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-common.css' %}">
@@ -50,7 +49,7 @@
 
     <header data-role="header">
         <h1>wger Workout Manager</h1>
-        <a href="#popupBasic"
+        <a href="#main-panel-navigation"
            class="ui-icon-nodisc"
            data-rel="popup"
            data-theme="b"
@@ -63,7 +62,7 @@
         <ul>
             <li {% if active_tab == 'user' %}class="active"{% endif %}>
             {% if not user.is_authenticated %}
-                <a href="{% url login %}">{% trans "Login" %}</a>
+                <a href="{% url 'login' %}">{% trans "Login" %}</a>
             {% else %}
                 <a href="{% url 'index' %}">{% trans "Dashboard" %}</a>
             {% endif %}
@@ -86,120 +85,8 @@
        </ul>
     </div>
 
-    <div data-role="popup" id="popupBasic">
-        <ul data-role="listview" data-inset="true">
-            <li {% if active_tab == 'user' %}class="active"{% endif %}>
-            {% if not user.is_authenticated %}
-                <a href="{% url login %}">{% trans "Login" %}</a>
-            {% else %}
-                <a href="{% url 'index' %}">{% trans "Dashboard" %}</a>
-            {% endif %}
-            </li>
-
-            {% if user.is_authenticated %}
-            <li {% if active_tab == 'workout'   %}class="active"{% endif %}><a href="{% url 'wger.manager.views.workout.overview' %}">{% trans "Workouts" %}</a></li>
-            {% endif %}
-
-            <li>
-                <a href="{% url 'wger.exercises.views.exercises.overview' %}"
-                   class="dropdown-toggle"
-                   data-toggle="dropdown">{% trans "Exercises" %} <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="{% url 'wger.exercises.views.exercises.overview' %}">{% trans "Exercises" %}</a></li>
-                    <li><a href="{% url 'muscle-overview' %}">{% trans "Muscle overview" %}</a></li>
-                </ul>
-            </li>
-
-            {% if user.is_authenticated %}
-            <li>
-                <a href="{% url 'weight-overview' %}"
-                   class="dropdown-toggle"
-                   data-toggle="dropdown">{% trans "Weight" %} <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="{% url 'weight-overview' %}">{% trans "Weight overview" %} </a></li>
-                    <li><a href="{% url 'weight-add' %}">{% trans "Add weight entry" %}</a></li>
-                </ul>
-            </li>
-            {% endif %}
-
-            <li>
-                <a href="{% url 'wger.nutrition.views.plan.overview' %}"
-                   class="dropdown-toggle"
-                   data-toggle="dropdown">{% trans "Nutrition" %} <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                {% if user.is_authenticated %}
-                    <li><a href="{% url 'wger.nutrition.views.plan.overview' %}">{% trans "Nutrition plans" %} </a></li>
-                {% endif %}
-                    <li><a href="{% url 'ingredient-list' %}">{% trans "Ingredient overview" %}</a></li>
-                </ul>
-            </li>
-
-
-
-            <li>
-                <a href=""
-                   class="dropdown-toggle"
-                   data-toggle="dropdown">{% trans "About this software" %} <b class="caret"></b></a>
-                <ul>
-                    <li><a href="{% url 'software:features' %}">{% trans "Features" %}</a></li>
-                    {% if not user.is_authenticated %}
-                    <li><a href="{% url 'demo-account' %}">{% trans "Demo account" %} </a></li>
-                    {% endif %}
-                    <li><a href="{% url 'software:issues' %}">{% trans "Report problem" %} </a></li>
-
-                    <li data-role="list-divider">{% trans "Developers" %}</li>
-                    <li><a href="{% url 'software:code' %}">{% trans "Get the code" %} </a></li>
-                    <li><a href="{% url 'software:license' %}">{% trans "License" %} </a></li>
-                    <li><a href="{% url 'software:changelog' %}">{% trans "Changelog" %} </a></li>
-                </ul>
-            </li>
-
-            <li><a href="#">{% trans "Options" %}</a>
-            <ul>
-                {% if user.is_authenticated %}
-                <li>
-                    <a href="{% url 'logout' %}" id="logout" class="browserid-logout">
-                    {% trans 'Logout' %}
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'wger.manager.views.user.preferences' %}">
-                    {% trans 'My preferences' %}
-                    </a>
-                </li>
-                <li data-role="list-divider">{% trans "Languages" %}</li>
-                {% endif %}
-
-                <li>
-                    <img src="{% static 'images/icons/flag-de.svg' %}"
-                         width="16"
-                         height="16"
-                         alt="{% trans 'German' %}"
-                         title="{% trans 'German' %}"
-                         class="ui-li-icon">
-                    <a href="/de/">{% trans "German" %}</a>
-                </li>
-                <li>
-                    <img src="{% static 'images/icons/flag-en.svg' %}"
-                         width="16"
-                         height="16"
-                         alt="{% trans 'English' %}"
-                         title="{% trans 'English' %}"
-                         class="ui-li-icon">
-                    <a href="/en/">{% trans "English" %}</a>
-                </li>
-
-                <li data-role="list-divider">{% trans "Site version" %}</li>
-                <li>
-                    <a href="?flavour=full" data-ajax="false">{% trans "Desktop" %}</a>
-                </li>
-                <li>
-                    <a href="?flavour=mobile" data-ajax="false">{% trans "Mobile" %}</a>
-                </li>
-            </ul>
-            </li>
-        </ul>
-
+    <div data-role="panel" id="main-panel-navigation">
+    {% include 'navigation.html' %}
     </div>
 
 
