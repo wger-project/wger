@@ -279,6 +279,12 @@ class DaysOfWeek(models.Model):
     day_of_week = models.CharField(max_length=9,
                                    verbose_name=_('Day of the week'))
 
+    class Meta:
+        '''
+        Order by day-ID, this is needed for some DBs
+        '''
+        ordering = ["pk", ]
+
     def __unicode__(self):
         '''
         Return a more human-readable representation
@@ -313,11 +319,13 @@ class Day(models.Model):
         '''
         return self.training
 
-    class Meta:
+    @property
+    def get_first_day_id(self):
         '''
-        Order by ID. this is needed for some DBs
+        Return the PK of the first day of the week, this is used in the template
+        to order the days in the template
         '''
-        ordering = ["day__id", ]
+        return self.day.all()[0].pk
 
     def save(self, *args, **kwargs):
         '''
