@@ -148,7 +148,7 @@ def add(request, pk):
     else:
         # Initialise the formset with a queryset that won't return any objects
         # (we only add new logs here and that seems to be the fastest way)
-        formset = WorkoutLogFormSet(queryset=WorkoutLog.objects.filter(exercise=-1))
+        formset = WorkoutLogFormSet(queryset=WorkoutLog.objects.none())
 
         formatted_date = date_format(datetime.date.today(), "SHORT_DATE_FORMAT")
         dateform = HelperDateForm(initial={'date': formatted_date})
