@@ -599,7 +599,12 @@ function weight_chart(data)
         .attr("id", function(d) { return d.id; })
         .attr("cx", line.x())
         .attr("cy", line.y())
-        .attr("r", 5);
+        .attr("r", 0)
+      .transition() // Animate the data points, "opening" them one after another
+        .duration(1000)
+        .delay(function(d, i) { return i * 100; })
+        .attr("r", function(d) { return 5; });
+
 
     context.append("path")
         .attr("class", "area")
