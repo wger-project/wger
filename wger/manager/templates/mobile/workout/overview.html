@@ -7,8 +7,6 @@
 
 {% block content %}
 {% if workouts %}
-
-
     <table id="workout-table" data-role="table"  class="ui-responsive table-stroke table-stripe">
     <thead>
     <tr>
@@ -39,12 +37,10 @@
     </tbody>
     </table>
 {% else %}
-    <div class="box warning">
-        {% trans "No workouts found." %} {% trans "Use link to add one." %}
-    </div>
+    <a href="{% url 'wger.manager.views.workout.add' %}" data-role="button">
+    {% trans "No workouts found." %}<br>{% trans "Add one now." %}
+    </a>
 {% endif %}
-
-
 {% endblock %}
 
 

@@ -36,8 +36,8 @@
     </table>
 {% else %}
     <p>
-        <a href="{% url 'wger.nutrition.views.plan.add' %}" class="btn btn-block">
-        {% trans "No nutrition plans." %} {% trans "Add one now." %}
+        <a href="{% url 'wger.nutrition.views.plan.add' %}" data-role="button">
+        {% trans "No nutrition plans." %}<br> {% trans "Add one now." %}
         </a>
     </p>
 {% endif %}

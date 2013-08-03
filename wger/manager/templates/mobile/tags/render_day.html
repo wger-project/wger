@@ -9,13 +9,13 @@
         <th colspan="2">
 
             <h4><a href="#editoptions-day-{{ day.id }}"
-                   class="ui-icon-nodisc"
+                   class="ui-icon-nodisc ui-icon-alt"
                    data-rel="popup"
                    data-role="button"
                    data-inline="true"
                    data-transition="slideup"
                    data-icon="gear"
-                   data-theme="b"
+                   data-theme="d"
                    data-iconpos="notext"
                    data-mini="true"
                    data-iconshadow="false"></a>{{day.description}}</h4>
@@ -77,13 +77,13 @@
             <td class="ym-g10"><!--{{ forloop.counter }}-->
 
                 <a href="#editoptions-set-{{ set.id }}"
-                   class="ui-icon-nodisc"
+                   class="ui-icon-nodisc ui-icon-alt"
                    data-rel="popup"
                    data-role="button"
                    data-inline="true"
                    data-transition="slideup"
                    data-icon="gear"
-                   data-theme="b"
+                   data-theme="c"
                    data-iconpos="notext"
                    data-mini="true"
                    data-iconshadow="false"></a>
@@ -177,7 +177,7 @@
                 <a href="{% url 'set-add' day.id %}"
                    class="modal-dialog"
                    data-role="button">
-                       {% trans "No exercises selected for this day." %}
+                       {% trans "No exercises selected for this day." %}<br>
                        {% trans "Add one now." %}
                     </a>
         {% endfor %} <!--for set in day-->

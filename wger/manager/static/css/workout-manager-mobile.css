@@ -114,11 +114,11 @@ table {
     border-top: 1px #ccc solid;
     border-bottom: 1px #ccc solid;
 }
-        
+
 table.bordertable {
     border:1px #ccc solid;
 }
-        
+
 .bordertable thead th {
     background:#e0e0e0;
     border-right:1px #ccc solid;
@@ -147,4 +147,15 @@ tbody td {
 
 .bordertable tbody td {
     border-right:1px solid #ccc;
+}
+
+
+/*
+ * Set the sizes for the background where the muscles are shown on the exercise view page
+ */
+div.muscle-background
+{
+    width: 200px;
+    height: 369px;
+    background-repeat: no-repeat;
 }

@@ -48,7 +48,7 @@
 <div data-role="page">
 
     <header data-role="header">
-        <h1>wger Workout Manager</h1>
+        <h1>wger</h1>
         <a href="#main-panel-navigation"
            class="ui-icon-nodisc"
            data-rel="popup"
@@ -56,9 +56,38 @@
            data-icon="bars"
            data-iconpos="notext"
            data-iconshadow="false"></a>
+       {% if not user.is_authenticated or user.get_profile.is_temporary %}
+            <a href="#popupGuestUser"
+              data-rel="popup"
+              data-role="button"
+              data-inline="true"
+              data-transition="pop"
+              data-theme="b"
+              data-icon="info"
+              data-iconpos="notext"></a>
+      {% endif %}
     </header>
 
-    <div data-role="navbar">
+    <div data-role="panel" id="main-panel-navigation" data-display="overlay">
+    {% include 'navigation.html' %}
+    </div>
+
+
+
+    <div data-role="content">
+        {% if not user.is_authenticated or user.get_profile.is_temporary %}
+            <div data-role="popup" id="popupGuestUser" class="ui-content">
+            {% trans "You are using a guest account, data entered will be deleted after a week."%}
+            {% if not has_demo_data %}
+            <a href="{% url 'demo-entries' %}" rel="nofollow" data-role="button" data-mini="true">{% trans "Create some demo entries" %} »</a>
+            {% endif %}
+            </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+        {% block sidebar %}{% endblock %}
+    </div>
+
+    <div data-role="navbar" data-role="footer">
         <ul>
             <li {% if active_tab == 'user' %}class="active"{% endif %}>
             {% if not user.is_authenticated %}
@@ -83,29 +112,6 @@
            </li>
            {% endif %}
        </ul>
-    </div>
-
-    <div data-role="panel" id="main-panel-navigation">
-    {% include 'navigation.html' %}
-    </div>
-
-
-
-    <div data-role="content">
-        {% block content %}{% endblock %}
-        {% block sidebar %}{% endblock %}
-    </div>
-
-    <div data-role="footer">
-        <div class="ui-grid-a">
-            <div class="ui-block-a">
-                © <a href="mailto:roland@NO!SPAM!geider.net">Roland Geider</a>
-            </div>
-
-            <div class="ui-block-b">
-                <em class="dimmed">{{version}}</em>
-            </div>
-        </div>
     </div>
 
 </div><!-- /page -->

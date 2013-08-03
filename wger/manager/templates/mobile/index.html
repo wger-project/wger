@@ -45,7 +45,7 @@
 {% else %}
     <p>
         <a href="{% url 'wger.manager.views.workout.add' %}" data-role="button">
-        {% trans "No workouts found." %} {% trans "Add one now." %}
+        {% trans "No workouts found." %}<br>{% trans "Add one now." %}
         </a>
     </p>
 {% endif %}
@@ -84,7 +84,7 @@
 {% else %}
     <p>
         <a href="{% url 'wger.nutrition.views.plan.add' %}" data-role="button">
-        {% trans "No nutrition plans." %} {% trans "Add one now." %}
+        {% trans "No nutrition plans." %}<br>{% trans "Add one now." %}
         </a>
     </p>
 {% endif %}
@@ -99,6 +99,13 @@
 
 
 {% block sidebar %}
+<h3>{% trans "Info" %}</h3>
+<p>{% blocktrans %}The current workout is selected from your active schedule
+or, if you don't have one, simply by date.{% endblocktrans %}</p>
+
+<p>{% trans "After adding a workout or a nutritional plan, you can edit them to set a goal." %}
+</p>
+
 <h3>{% trans "Options" %}</h3>
 <a href="{% url 'wger.manager.views.workout.add' %}" data-role="button">
 <img src="{% static 'images/icons/new.svg' %}"
@@ -123,11 +130,4 @@
      alt="{% trans 'My preferences' %}"
      title="{% trans 'My preferences' %}">
 {% trans "My preferences" %}</a>
-
-<h3>{% trans "Info" %}</h3>
-<p>{% blocktrans %}The current workout is selected from your active schedule
-or, if you don't have one, simply by date.{% endblocktrans %}</p>
-
-<p>{% trans "After adding a workout or a nutritional plan, you can edit them to set a goal." %}
-</p>
 {% endblock %}

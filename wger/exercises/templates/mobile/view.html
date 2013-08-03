@@ -143,30 +143,32 @@ included in the database.{% endblocktrans %}
     {% trans "Secondary muscles" %}
 </div>
 
-<div class="ym-grid linearize-level-1">
-    <div class="ym-g50 ym-gl">
-        <div class="ym-gbox-left">
-            <div id="muscle-front" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-            </div>
-            <ul>
-                {% for muscle in muscles %}
-                {% if muscle.is_front %}
-                <li>{{muscle.name}}</li>
-                {% endif %}
-                {% endfor %}
 
-                {% for muscle in muscles_secondary %}
-                {% if muscle.is_front %}
-                <li>{{muscle.name}}</li>
-                {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
+<div class="ui-grid-a">
+    <div class="ui-block-a">
+        <div id="muscle-front" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};"></div>
     </div>
-    <div class="ym-g50 ym-gr">
-        <div class="ym-gbox-right">
-        <div id="muscle-front" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-        </div>
+    <div class="ui-block-b">
+        <div id="muscle-back" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};"></div>
+    </div>
+</div>
+<div class="ui-grid-a">
+    <div class="ui-block-a">
+        <ul>
+        {% for muscle in muscles %}
+        {% if muscle.is_front %}
+        <li>{{muscle.name}}</li>
+        {% endif %}
+        {% endfor %}
+
+        {% for muscle in muscles_secondary %}
+        {% if muscle.is_front %}
+        <li>{{muscle.name}}</li>
+        {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+    <div class="ui-block-b">
         <ul>
         {% for muscle in muscles %}
         {% if not muscle.is_front %}
@@ -180,7 +182,7 @@ included in the database.{% endblocktrans %}
         {% endif %}
         {% endfor %}
         </ul>
-        </div>
+
     </div>
 </div>
 
@@ -211,7 +213,7 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 -->
 {% block sidebar %}
 
-<h3>{% trans "Back to overview" %}</h3>
+<h3>{% trans "Options" %}</h3>
 <p>
     <a href="{% url 'wger.exercises.views.exercises.overview' %}"
        data-role="button">

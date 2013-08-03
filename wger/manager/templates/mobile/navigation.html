@@ -4,7 +4,7 @@
     {#          #}
     {# User tab #}
     {#          #}
-    <div data-role="collapsible">
+    <div data-role="collapsible" data-content-theme="c">
         <h3>{% trans "Dashboard" %}</h3>
         <ul data-role="listview">
             <li {% if active_tab == 'user' %}class="active"{% endif %}><a href="{% url 'index' %}">{% trans "Dashboard" %}</a></li>
@@ -15,7 +15,7 @@
     {#             #}
     {# Workout tab #}
     {#             #}
-    <div data-role="collapsible">
+    <div data-role="collapsible" data-content-theme="c">
         <h3>{% trans "Workouts" %}</h3>
         <ul data-role="listview">
             <li><a href="{% url 'wger.manager.views.workout.overview' %}" rel="nofollow">{% trans "Workouts" %}</a></li>
@@ -26,7 +26,7 @@
     {#               #}
     {# Exercises tab #}
     {#               #}
-    <div data-role="collapsible">
+    <div data-role="collapsible" data-content-theme="c">
         <h3>{% trans "Exercises" %}</h3>
         <ul data-role="listview">
             <li><a href="{% url 'wger.exercises.views.exercises.overview' %}">{% trans "Exercises" %}</a></li>
@@ -45,7 +45,7 @@
     {#            #}
     {# Weight tab #}
     {#            #}
-    <div data-role="collapsible">
+    <div data-role="collapsible" data-content-theme="c">
         <h3>{% trans "Weight" %}</h3>
         <ul data-role="listview">
             <li><a href="{% url 'wger.weight.views.overview' %}" rel="nofollow">{% trans "Weight overview" %}</a></li>
@@ -56,7 +56,7 @@
     {#               #}
     {# Nutrition tab #}
     {#               #}
-    <div data-role="collapsible">
+    <div data-role="collapsible" data-content-theme="c">
         <h3>{% trans "Nutrition" %}</h3>
         <ul data-role="listview">
             <li><a href="{% url 'wger.nutrition.views.plan.overview' %}" rel="nofollow">{% trans "Nutrition plans" %}</a></li>
@@ -74,7 +74,7 @@
     {#              #}
     {# Software tab #}
     {#              #}
-    <div data-role="collapsible">
+    <div data-role="collapsible" data-content-theme="c">
         <h3>{% trans "About this software" %}</h3>
         <ul data-role="listview">
             <li><a href="{% url 'software:features' %}">{% trans "Features" %}</a></li>
@@ -96,3 +96,11 @@
     </div>
 
 </div>
+
+<a href=""
+   data-rel="close"
+   data-role="button"
+   data-icon="delete"
+   data-iconpos="notext"
+   data-inline="true"
+   data-theme="b"></a>
