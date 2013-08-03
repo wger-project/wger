@@ -602,7 +602,7 @@ function weight_chart(data)
         .attr("r", 0)
       .transition() // Animate the data points, "opening" them one after another
         .duration(1000)
-        .delay(function(d, i) { return i * 100; })
+        .delay(function(d, i) { return i / data.length * 1600; })
         .attr("r", function(d) { return 5; });
 
 
