@@ -15,7 +15,6 @@ div.table > div {
 div.table > div > div {
     display:table-cell;
     padding-left: 1em;
-    /*width:50%;*/
 }
 div.bmi-legend {
     width:1em;
@@ -88,61 +87,16 @@ $(document).ready(function() {
 
 <div id="bmi-result-container" style="display:hidden;">
     <h3>{% trans 'Results' %}</h3>
-    <p>{% trans 'You BMI is: ' %} <span id="bmi-result-value">-/-</span></p>
+    <p>{% trans 'You BMI is: ' %} <strong><span id="bmi-result-value">{{user.userprofile.calculate_bmi|floatformat:2}}</span></strong></p>
 </div>
 
 
-<div class="ym-grid linearize-level-1">
-    <div class="ym-g75 ym-gl">
-        <div class="ym-gbox-left">
-            <img width="479"
-                 height="300"
-                 title="{% trans 'BMI' %}"
-                 alt="{% trans 'BMI' %}"
-                 src="{% static 'images/bmi.svg' %}"
-                 style="margin-top:3em;"></img>
-        </div>
-    </div>
-    <div class="ym-g25 ym-gl">
-        <div class="ym-gbox-left">
-            <h3>{% trans "Legend" %}</h3>
-            <div class="table">
-                <div>
-                    <div><div class="bmi-legend" style="background-color:#800000;">&nbsp;</div></div>
-                    <div>{% trans "Adipositas Grad III" %}</div>
-                </div>
-                <div>
-                    <div><div class="bmi-legend"  style="background-color:#ff0000;">&nbsp;</div></div>
-                    <div>{% trans "Adipositas Grad II" %}</div>
-                </div>
-                <div>
-                    <div><div class="bmi-legend"  style="background-color:#ff7f2a;">&nbsp;</div></div>
-                    <div>{% trans "Adipositas Grad I" %}</div>
-                </div>
-                <div>
-                    <div><div class="bmi-legend"  style="background-color:#ffff00;">&nbsp;</div></div>
-                    <div>{% trans "Übergewicht" %}</div>
-                </div>
-                <div>
-                    <div><div class="bmi-legend"  style="background-color:#00ff00;">&nbsp;</div></div>
-                    <div>{% trans "Normalgewicht" %}</div>
-                </div>
-                <div>
-                    <div><div class="bmi-legend"  style="background-color:#00ffff;">&nbsp;</div></div>
-                    <div>{% trans "Leichtes Untergewicht" %}</div>
-                </div>
-                <div>
-                    <div><div class="bmi-legend"  style="background-color:#0000ff;">&nbsp;</div></div>
-                    <div>{% trans "Mäßiges Untergewicht" %}</div>
-                </div>
-                <div>
-                    <div><div class="bmi-legend"  style="background-color:#000080;">&nbsp;</div></div>
-                    <div>{% trans "Starkes Untergewicht" %}</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<img width="479"
+     height="300"
+     title="{% trans 'BMI' %}"
+     alt="{% trans 'BMI' %}"
+     src="{% static 'images/bmi.svg' %}"
+     style="margin-top:3em;"></img>
 
 
 
@@ -150,35 +104,35 @@ $(document).ready(function() {
 <div class="table">
     <div>
         <div><div class="bmi-legend" style="background-color:#800000;">&nbsp;</div></div>
-        <div>{% trans "Adipositas Grad III" %}</div>
+        <div>{% trans "Adipositas III" %}</div>
     </div>
     <div>
-        <div><div class="bmi-legend"  style="background-color:#ff0000;">&nbsp;</div></div>
-        <div>{% trans "Adipositas Grad II" %}</div>
+        <div><div class="bmi-legend" style="background-color:#ff0000;">&nbsp;</div></div>
+        <div>{% trans "Adipositas II" %}</div>
     </div>
     <div>
-        <div><div class="bmi-legend"  style="background-color:#ff7f2a;">&nbsp;</div></div>
-        <div>{% trans "Adipositas Grad I" %}</div>
+        <div><div class="bmi-legend" style="background-color:#ff7f2a;">&nbsp;</div></div>
+        <div>{% trans "Adipositas I" %}</div>
     </div>
     <div>
-        <div><div class="bmi-legend"  style="background-color:#ffff00;">&nbsp;</div></div>
-        <div>{% trans "Übergewicht" %}</div>
+        <div><div class="bmi-legend" style="background-color:#ffff00;">&nbsp;</div></div>
+        <div>{% trans "Overweight" %}</div>
     </div>
     <div>
-        <div><div class="bmi-legend"  style="background-color:#00ff00;">&nbsp;</div></div>
-        <div>{% trans "Normalgewicht" %}</div>
+        <div><div class="bmi-legend" style="background-color:#00ff00;">&nbsp;</div></div>
+        <div>{% trans "Normal weight" %}</div>
     </div>
     <div>
-        <div><div class="bmi-legend"  style="background-color:#00ffff;">&nbsp;</div></div>
-        <div>{% trans "Leichtes Untergewicht" %}</div>
+        <div><div class="bmi-legend" style="background-color:#00ffff;">&nbsp;</div></div>
+        <div>{% trans "Slight underweight" %}</div>
     </div>
     <div>
-        <div><div class="bmi-legend"  style="background-color:#0000ff;">&nbsp;</div></div>
-        <div>{% trans "Mäßiges Untergewicht" %}</div>
+        <div><div class="bmi-legend" style="background-color:#0000ff;">&nbsp;</div></div>
+        <div>{% trans "Moderate underweight" %}</div>
     </div>
     <div>
-        <div><div class="bmi-legend"  style="background-color:#000080;">&nbsp;</div></div>
-        <div>{% trans "Starkes Untergewicht" %}</div>
+        <div><div class="bmi-legend" style="background-color:#000080;">&nbsp;</div></div>
+        <div>{% trans "Strong underweight" %}</div>
     </div>
 </div>
 
@@ -188,4 +142,12 @@ $(document).ready(function() {
 <!--
         Side bar
 -->
-{% block sidebar %}{% if sidebar %}{% include sidebar %}{% endif %}{% endblock %}
+{% block sidebar %}
+<h3>Info</h3>
+<p>
+{% blocktrans %}Use the form to calculate your BMI (Body Mass Index).
+If you have entered data in the weight section, the last entry will
+be used automatically. Otherwise the weight you enter here will be saved
+in a new entry.{% endblocktrans %}
+</p>
+{% endblock %}

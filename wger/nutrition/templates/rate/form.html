@@ -80,7 +80,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et augue sem.
 Nullam bibendum tortor a lacus luctus tempor. Suspendisse auctor tristique
 metus, non ultricies quam.
 </p>
-    <p>{% trans 'You basic metabolic rate is: ' %} <span id="bmr-result-value">-/-</span></p>
+    <p>{% trans 'You basic metabolic rate is: ' %} <strong><span id="bmr-result-value">{{user.userprofile.calculate_basal_metabolic_rate|floatformat:2}}</span></strong></p>
 </div>
 
 
@@ -118,7 +118,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et augue sem.
 Nullam bibendum tortor a lacus luctus tempor. Suspendisse auctor tristique
 metus, non ultricies quam.
 </p>
-    <p>{% trans 'Factor for daily activities: ' %} <span id="activities-result-value">-/-</span></p>
+    <p>{% trans 'Factor for daily activities: ' %} <strong><span id="activities-result-value">{{user.userprofile.calculate_activities|floatformat:2}}</span></strong></p>
 </div>
 
 

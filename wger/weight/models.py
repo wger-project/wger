@@ -25,7 +25,8 @@ class WeightEntry(models.Model):
     '''
     Model for a weight point
     '''
-    creation_date = models.DateField(verbose_name=_('Date'))
+    creation_date = models.DateField(verbose_name=_('Date'),
+                                     unique=True)
     weight = models.FloatField(verbose_name=_('Weight'))
     user = models.ForeignKey(User,
                              verbose_name=_('User'),

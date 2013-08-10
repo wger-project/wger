@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+import datetime
 import logging
 import json
 
@@ -25,6 +26,7 @@ from django.shortcuts import render_to_response
 from django.utils.translation import ugettext as _
 
 from wger.nutrition.forms import BmiForm
+from wger.weight.models import WeightEntry
 
 
 logger = logging.getLogger('wger.custom')
@@ -40,7 +42,9 @@ def view(request):
     '''
 
     context = {}
-    context['form'] = BmiForm()
+    form_data = {'height': request.user.userprofile.height,
+                 'weight': request.user.userprofile.weight}
+    context['form'] = BmiForm(initial=form_data)
     return render_to_response('bmi/form.html',
                               context,
                               context_instance=RequestContext(request))
@@ -53,14 +57,22 @@ def calculate(request):
 
     data = []
 
-    form = BmiForm(request.POST)
+    form = BmiForm(request.POST, instance=request.user.userprofile)
     if form.is_valid():
-        height = form.cleaned_data['height'] / float(100)
-        result = {'bmi': '{0:.2f}'.format(float(80) / (height * height))}
-        data = json.dumps(result)
-    else:
-        logger.debug(form.errors)
+        form.save()
 
-    # Return the results to the server
-    mimetype = 'application/json'
-    return HttpResponse(data, mimetype)
+        # Create a new weight entry as needed
+        if (not WeightEntry.objects.all().exists()
+           or (datetime.date.today() - WeightEntry.objects.all().latest().creation_date > datetime.timedelta(7))):
+            entry = WeightEntry()
+            entry.weight = form.cleaned_data['weight']
+            entry.user = request.user
+            entry.creation_date = datetime.date.today()
+            entry.save()
+
+        bmi = request.user.userprofile.calculate_bmi()
+        result = {'bmi': '{0:.2f}'.format(bmi)}
+        data = json.dumps(result)
+
+    # Return the results to the client
+    return HttpResponse(data, 'application/json')
