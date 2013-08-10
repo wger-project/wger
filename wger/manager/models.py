@@ -689,7 +689,7 @@ by the US Department of Agriculture. It is extremely complete, with around
         - weight in kg
         - height in m
         '''
-        return self.weight / (self.height/100.0 * self.height/100.0)
+        return self.weight / (self.height / 100.0 * self.height / 100.0)
 
     def calculate_basal_metabolic_rate(self, formula=1):
         '''
