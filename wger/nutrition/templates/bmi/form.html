@@ -4,6 +4,7 @@
 {% load wger_extras %}
 
 {% block header %}
+<script src="{% static 'js/d3.js' %}"></script>
 <style>
 div.table {
     display:table;
@@ -22,27 +23,117 @@ div.bmi-legend {
 }
 </style>
 
-<script>
-$(document).ready(function() {
 
+<script>
+$(document).ready(function () {
+
+    /*
+     * Draw the static part of the chart
+     */
+    var margin = {top: 20, right: 20, bottom: 30, left: 50},
+        width = 600 - margin.left - margin.right,
+        height = 300 - margin.top - margin.bottom;
+
+    var x = d3.scale.linear()
+        .range([0, width]);
+
+    var y = d3.scale.linear()
+        .range([height, 0]);
+
+    var z = d3.scale.ordinal().range(['#000080', '#0000ff', '#00ffff', '#00ff00', '#ffff00', '#ff7f2a', '#ff0000', '#800000']);
+
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left");
+
+    var stack = d3.layout.stack()
+        .offset("zero")
+        .values(function(d) { return d.values; })
+        .x(function(d) { return d.height; })
+        .y(function(d) { return d.weight; });
+
+    var nest = d3.nest()
+        .key(function(d) { return d.key; });
+
+    var area = d3.svg.area()
+        .interpolate("linear")
+        .x(function(d) { return x(d.height); })
+        //.x(function(d) { return x(d.height); })
+        .y0(function(d) { return y(d.y0); })
+        //.y1(function(d) { return y(d.y0 + d.y); });
+        .y1(function(d) { return y(d.weight); });
+
+    var svg = d3.select("#bmi-chart").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    d3.json("/nutrition/calculator/bmi/chart-data", function(data) {
+
+        var layers = stack(nest.entries(data));
+
+        x.domain(d3.extent(data, function(d) { return d.height; }));
+        //y.domain([0, d3.max(data, function(d) { return d.y0 + d.y; })]);
+        y.domain([0, d3.max(data, function(d) { return d.weight; })]);
+        //y.domain([0, d3.max(data, function(d) { return d.y0 + d.y; })]);
+
+      svg.selectAll(".layer")
+          .data(layers)
+        .enter().append("path")
+          .attr("class", "layer")
+          .attr("d", function(d) { return area(d.values); })
+          .style("fill", function(d, i) { return z(i); })
+          .style("opacity", 0.6);
+
+      svg.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + height + ")")
+          .call(xAxis);
+
+      svg.append("g")
+          .attr("class", "y axis")
+          .call(yAxis);
+    });
+
+    /*
+     * Draw the calculated BMI
+     */
+    function draw_circle(weight, height)
+    {
+       svg.append("circle")
+        .attr("cx", x(height))
+        .attr("cy", y(weight))
+        .attr("fill", "black")
+        .attr("r", 5);
+    }
+
+    /*
+     * Process the form
+     */
     $("#bmi-form").click(function(e){
         e.preventDefault();
         var url = $("#bmi-form").attr( 'action' );
 
         $.post(url,
-               $("#bmi-form").serialize(),
-               function(data) {
-                   console.log(data);
-
-                   $('#bmi-result-container').show();
-                   $('#bmi-result-value').html(data.bmi);
-
-                   //$('.result').html(data);
-               });
+           $("#bmi-form").serialize(),
+           function(data) {
+               $('#bmi-result-container').show();
+               $('#bmi-result-value').html(data.bmi);
+               draw_circle(data.weight, data.height);
+           });
     });
 
- });
+});
 </script>
+
+
+
+
 {% endblock %}
 
 <!--
@@ -91,6 +182,8 @@ $(document).ready(function() {
 </div>
 
 
+
+
 <img width="479"
      height="300"
      title="{% trans 'BMI' %}"
@@ -98,6 +191,7 @@ $(document).ready(function() {
      src="{% static 'images/bmi.svg' %}"
      style="margin-top:3em;"></img>
 
+<div id="bmi-chart"></div>
 
 
 <h3>{% trans "Legend" %}</h3>
@@ -135,6 +229,7 @@ $(document).ready(function() {
         <div>{% trans "Strong underweight" %}</div>
     </div>
 </div>
+
 
 {% endblock %}
 

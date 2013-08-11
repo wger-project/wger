@@ -78,8 +78,36 @@ def calculate(request):
             entry.save()
 
         bmi = request.user.userprofile.calculate_bmi()
-        result = {'bmi': '{0:.2f}'.format(bmi)}
+        result = {'bmi': '{0:.2f}'.format(bmi),
+                  'weight': form.cleaned_data['weight'],
+                  'height': request.user.userprofile.height}
         data = json.dumps(result)
+
+    # Return the results to the client
+    return HttpResponse(data, 'application/json')
+
+
+def chart_data(request):
+    '''
+    Returns the data to render the BMI chart
+    '''
+
+    data = json.dumps([
+        {'key': 'Group1', 'height':160, 'weight': 40},
+        {'key': 'Group1', 'height':200, 'weight': 65},
+        {'key': 'Group2', 'height':160, 'weight': 44},
+        {'key': 'Group2', 'height':200, 'weight': 68},
+        {'key': 'Group3', 'height':160, 'weight': 48},
+        {'key': 'Group3', 'height':200, 'weight': 72},
+        {'key': 'Group4', 'height':160, 'weight': 63},
+        {'key': 'Group4', 'height':200, 'weight': 100},
+        {'key': 'Group5', 'height':160, 'weight': 76},
+        {'key': 'Group5', 'height':200, 'weight': 120},
+        {'key': 'Group6', 'height':160, 'weight': 88},
+        {'key': 'Group6', 'height':187, 'weight': 120},
+        {'key': 'Group7', 'height':160, 'weight': 102},
+        {'key': 'Group7', 'height':175, 'weight': 120}
+        ])
 
     # Return the results to the client
     return HttpResponse(data, 'application/json')

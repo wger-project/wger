@@ -114,6 +114,9 @@ urlpatterns = patterns('wger.nutrition.views',
     url(r'^calculator/bmi/calculate$',
         'bmi.calculate',
         name='bmi-calculate'),
+    url(r'^calculator/bmi/chart-data$',
+        'bmi.chart_data',
+        name='bmi-chart-data'),  # JS
 
     # Calories calculator
     url(r'^calculator/calories$',
