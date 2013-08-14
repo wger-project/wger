@@ -27,7 +27,7 @@ from django.utils.translation import ugettext as _
 
 from wger.nutrition.forms import BmiForm
 from wger.weight.models import WeightEntry
-
+from wger.utils import helpers
 
 logger = logging.getLogger('wger.custom')
 
@@ -63,7 +63,7 @@ def calculate(request):
 
         # Create a new weight entry as needed
         if (not WeightEntry.objects.all().exists()
-           or (datetime.date.today() - WeightEntry.objects.all().latest().creation_date
+           or (datetime.date.today() - WeightEntry.objects.filter(user=request.user).latest().creation_date
                > datetime.timedelta(1))):
             entry = WeightEntry()
             entry.weight = form.cleaned_data['weight']
@@ -73,7 +73,7 @@ def calculate(request):
 
         # Update the last entry
         else:
-            entry = WeightEntry.objects.all().latest()
+            entry = WeightEntry.objects.filter(user=request.user).latest()
             entry.weight = form.cleaned_data['weight']
             entry.save()
 
@@ -81,7 +81,7 @@ def calculate(request):
         result = {'bmi': '{0:.2f}'.format(bmi),
                   'weight': form.cleaned_data['weight'],
                   'height': request.user.userprofile.height}
-        data = json.dumps(result)
+        data = json.dumps(result, cls=helpers.DecimalJsonEncoder)
 
     # Return the results to the client
     return HttpResponse(data, 'application/json')
