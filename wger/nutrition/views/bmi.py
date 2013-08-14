@@ -63,7 +63,8 @@ def calculate(request):
 
         # Create a new weight entry as needed
         if (not WeightEntry.objects.all().exists()
-           or (datetime.date.today() - WeightEntry.objects.filter(user=request.user).latest().creation_date
+           or (datetime.date.today()
+               - WeightEntry.objects.filter(user=request.user).latest().creation_date
                > datetime.timedelta(1))):
             entry = WeightEntry()
             entry.weight = form.cleaned_data['weight']
@@ -93,20 +94,20 @@ def chart_data(request):
     '''
 
     data = json.dumps([
-        {'key': 'Group1', 'height':160, 'weight': 40},
-        {'key': 'Group1', 'height':200, 'weight': 65},
-        {'key': 'Group2', 'height':160, 'weight': 44},
-        {'key': 'Group2', 'height':200, 'weight': 68},
-        {'key': 'Group3', 'height':160, 'weight': 48},
-        {'key': 'Group3', 'height':200, 'weight': 72},
-        {'key': 'Group4', 'height':160, 'weight': 63},
-        {'key': 'Group4', 'height':200, 'weight': 100},
-        {'key': 'Group5', 'height':160, 'weight': 76},
-        {'key': 'Group5', 'height':200, 'weight': 120},
-        {'key': 'Group6', 'height':160, 'weight': 88},
-        {'key': 'Group6', 'height':187, 'weight': 120},
-        {'key': 'Group7', 'height':160, 'weight': 102},
-        {'key': 'Group7', 'height':175, 'weight': 120}
+        {'key': 'Group1', 'height': 160, 'weight': 40},
+        {'key': 'Group1', 'height': 200, 'weight': 65},
+        {'key': 'Group2', 'height': 160, 'weight': 44},
+        {'key': 'Group2', 'height': 200, 'weight': 68},
+        {'key': 'Group3', 'height': 160, 'weight': 48},
+        {'key': 'Group3', 'height': 200, 'weight': 72},
+        {'key': 'Group4', 'height': 160, 'weight': 63},
+        {'key': 'Group4', 'height': 200, 'weight': 100},
+        {'key': 'Group5', 'height': 160, 'weight': 76},
+        {'key': 'Group5', 'height': 200, 'weight': 120},
+        {'key': 'Group6', 'height': 160, 'weight': 88},
+        {'key': 'Group6', 'height': 187, 'weight': 120},
+        {'key': 'Group7', 'height': 160, 'weight': 102},
+        {'key': 'Group7', 'height': 175, 'weight': 120}
         ])
 
     # Return the results to the client
