@@ -4,13 +4,16 @@
 # 
 # Translators:
 # LyuboslavPetrov <petrov.lyuboslav@gmail.com>, 2013
+# LyuboslavPetrov <petrov.lyuboslav@gmail.com>, 2013
+# rge <roland@geider.net>, 2013
+# rge <roland@geider.net>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-29 16:57+0200\n"
-"PO-Revision-Date: 2013-07-12 16:18+0000\n"
-"Last-Translator: LyuboslavPetrov <petrov.lyuboslav@gmail.com>\n"
+"PO-Revision-Date: 2013-08-15 19:43+0000\n"
+"Last-Translator: rge <roland@geider.net>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/wger-workout-manager/language/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -251,7 +254,7 @@ msgid ""
 "added to workouts. You can access it on this address:\n"
 "{1}\n"
 "\n"
-msgstr ""
+msgstr "Вашето упражнение '{0}' бе успешно добавено към основната датабаза.\n\nСега е достъпно на прегледа на упражнения и мускули и може да бъде\nдобавено към тренировките. Можете да го намерите на следният адрес:\n{1}\n\n"
 
 #: exercises/models.py:208 nutrition/models.py:279
 msgid ""
@@ -327,7 +330,7 @@ msgstr "Упражнението подлежи на проверка"
 msgid ""
 "This user submitted exercise is pending a decision to be\n"
 "included in the database."
-msgstr "Упражнението предоставено от този потребител е без решение ⏎\nза да бъде включено в датабазата."
+msgstr "Упражнението предоставено от този потребител е без решение \nза да бъде включено в датабазата."
 
 #: exercises/templates/view.html:38
 msgid "Till then, it will not be shown in the overview or the search."
@@ -401,7 +404,7 @@ msgstr "Добавяне на упражнение"
 msgid ""
 "Thank you for submitting an exercise. This is much\n"
 "appreciated!"
-msgstr "Благодаря ти че добави упражнение. Това е много⏎\nценно за нас!"
+msgstr "Благодаря ти че добави упражнение. Това е много\nценно за нас!"
 
 #: exercises/templates/exercise/form.html:8
 #: nutrition/templates/ingredient/form.html:8
@@ -509,7 +512,7 @@ msgstr "Добави коментар към упражнение"
 #: manager/templates/day/log.html:54
 #: manager/templates/tags/render_weight_log.html:24 manager/views/log.py:212
 msgid "Reps"
-msgstr ""
+msgstr "Повторения"
 
 #: exercises/views/exercises.py:147 software/templates/contribute.html:75
 msgid "Add exercise"
@@ -575,7 +578,7 @@ msgstr "Празно място за тренировъчен план"
 
 #: manager/forms.py:54 manager/templates/user/preferences.html:22
 msgid "Email"
-msgstr "Email"
+msgstr "Е-мейл"
 
 #: manager/forms.py:55
 msgid "Only needed to reset your password in case you forget it."
@@ -645,7 +648,7 @@ msgstr "Отбележете, ако искате да маркирате тоз
 
 #: manager/models.py:156
 msgid "Is loop"
-msgstr ""
+msgstr "е повтарящо"
 
 #: manager/models.py:158
 msgid ""
@@ -739,7 +742,7 @@ msgstr "Тренировка за %s"
 #: manager/pdf.py:124 manager/templates/schedule/view.html:55
 #: nutrition/templates/plan/view.html:54
 msgid "Nr."
-msgstr "Номер"
+msgstr "№"
 
 #: manager/pdf.py:259
 msgid "<i>This is an empty workout, what did you expect on the PDF?</i>"
@@ -1048,7 +1051,7 @@ msgstr "Отговност за съдържанието на този сайт,
 
 #: manager/templates/misc/about.html:15
 msgid "GNUPG-Key:"
-msgstr ""
+msgstr "GNUPG-Key:"
 
 #: manager/templates/misc/contact.html:13
 #, python-format
@@ -1214,7 +1217,7 @@ msgstr "Свободен лиценз"
 #: manager/templates/tags/cc-by-sa-sidebar.html:11
 #: software/templates/license.html:28 software/templates/license.html.py:29
 msgid "CC-BY-SA"
-msgstr ""
+msgstr "CC-BY-SA"
 
 #: manager/templates/tags/cc-by-sa-sidebar.html:14
 msgid ""
@@ -1294,7 +1297,7 @@ msgid ""
 "    need to remember a new password for this site. For more information, please\n"
 "    take a look at the <a href=\"https://login.persona.org/\" target=\"_blank\">the\n"
 "    Persona website</a>."
-msgstr ""
+msgstr "Persona (BrowserID) замества множество пароли, които\nне трябва да помните за всеки сайт, който посещавате. За повече информация, моля\nпогледнете <a href=\"https://login.persona.org/\" target=\"_blank\">страницата на\nPersona</a>."
 
 #: manager/templates/user/login.html:61
 msgid "No account?"
@@ -1431,56 +1434,56 @@ msgid ""
 "If on a single day there is more than one entry with the\n"
 "same number of repetitions, but different weights, only the entry with the\n"
 "higher weight is shown in the diagram."
-msgstr ""
+msgstr "Ако за едни ден има повече от едно попълнение с същия брой\nповтерения, но различни тежести, само попълнението с по-\nголямата тежест е показано на диаграмата."
 
 #: manager/templates/workout/overview.html:6
 msgid "Your workouts"
-msgstr ""
+msgstr "Твоите тренировки"
 
 #: manager/templates/workout/view.html:52
 msgid "No days for this workout."
-msgstr ""
+msgstr "Няма дни за тези тренировки"
 
 #: manager/templates/workout/view.html:53
 msgid "Add training day."
-msgstr ""
+msgstr "Добави тренировъчен ден."
 
 #: manager/templates/workout/view.html:61
 msgid "Add training day"
-msgstr ""
+msgstr "Добави тренировъчен ден"
 
 #: manager/templates/workout/view.html:66
 msgid "Show/Hide exercise comments"
-msgstr ""
+msgstr "Покажи/Скрий коментари за упражнение"
 
 #: manager/templates/workout/view.html:79
 msgid "Steps"
-msgstr ""
+msgstr "Стъпки"
 
 #: manager/templates/workout/view.html:82
 msgid "Add training days"
-msgstr ""
+msgstr "Добави дни за тренировка"
 
 #: manager/templates/workout/view.html:83
 msgid "Add working sets to days"
-msgstr ""
+msgstr "Добави серии към дни"
 
 #: manager/templates/workout/view.html:85
 msgid "Set the repetitions for each set"
-msgstr ""
+msgstr "Задайте повторения за всяка серия"
 
 #: manager/templates/workout/view.html:86
 msgid "use '99' for 'all repetitions you can do'"
-msgstr ""
+msgstr "използвай '99' за 'всички повторения, които можеш да направиш'"
 
 #: manager/templates/workout/view.html:91
 msgid "Muscles trained"
-msgstr ""
+msgstr "Тренирани мускули"
 
 #: manager/templates/workout/view.html:94
 msgid ""
 "Images show combined muscles as trained by the exercises on the workout."
-msgstr ""
+msgstr "Снимките показват комбинацията от мускули, както са натоварвани от упражнението на тренировката."
 
 #: manager/templates/workout/view.html:123
 #: manager/templates/workout/view.html:124
@@ -1489,150 +1492,150 @@ msgstr ""
 #: nutrition/templates/plan/view.html:236
 #: nutrition/templates/plan/view.html:237
 msgid "Download as PDF"
-msgstr ""
+msgstr "Свали като PDF"
 
 #: manager/templates/workout/view.html:135
 #: manager/templates/workout/view.html:136
 #: manager/templates/workout/view.html:137 manager/views/schedule_step.py:103
 #: manager/views/workout.py:216
 msgid "Edit workout"
-msgstr ""
+msgstr "Редактирай тренировката"
 
 #: manager/templates/workout/view.html:146
 #: manager/templates/workout/view.html:147
 #: manager/templates/workout/view.html:148
 msgid "View weight log"
-msgstr ""
+msgstr "Виж дневника за тежести"
 
 #: manager/templates/workout/view.html:158
 #: manager/templates/workout/view.html:159
 #: manager/templates/workout/view.html:160
 msgid "Make a copy of this workout"
-msgstr ""
+msgstr "Направи копие на тренировката"
 
 #: manager/templates/workout/view.html:171
 #: manager/templates/workout/view.html:172
 msgid "Delete this workout"
-msgstr ""
+msgstr "Изтрии тренировката"
 
 #: manager/views/day.py:91
 msgid "Edit workout day"
-msgstr ""
+msgstr "Промени тренировъчния ден"
 
 #: manager/views/day.py:100
 msgid "Add workout day"
-msgstr ""
+msgstr "Добави тренировъчен ден"
 
 #: manager/views/log.py:64
 #, python-format
 msgid "Edit log entry for %s"
-msgstr ""
+msgstr "Промени дневника за %s"
 
 #: manager/views/misc.py:77
 msgid ""
 "We have created sample workout, workout schedules, weight logs, (body) "
 "weight and nutrition plan entries so you can better see what  this site can "
 "do. Feel free to edit or delete them!"
-msgstr ""
+msgstr "Ние създадохме примерна тренировка, тренировъчен график, дневник за тежести и план за телесно тегло и хранене, за да можеш по-лесно да видиш какво може този сайт да направи за теб. Чувствай се свободен да ги редактираш или изтриеш!"
 
 #: manager/views/misc.py:129
 msgid "Rest day"
-msgstr ""
+msgstr "Ден за почивка"
 
 #: manager/views/misc.py:161
 msgid "Feedback"
-msgstr ""
+msgstr "Обратна връзка"
 
 #: manager/views/misc.py:182
 msgid "Your feedback was sucessfully sent. Thank you!"
-msgstr ""
+msgstr "Вашият съвет/коментар бе изпратен успешно. Благодарим ви!"
 
 #: manager/views/misc.py:190
 msgid "New feedback"
-msgstr ""
+msgstr "Нова обратна връзка"
 
 #: manager/views/schedule.py:94
 msgid "Create schedule"
-msgstr ""
+msgstr "Направи график"
 
 #: manager/views/schedule.py:115
 msgid "Schedule was successfully deleted"
-msgstr ""
+msgstr "Графика бе успешно изтрит"
 
 #: manager/views/schedule.py:154 manager/views/set.py:252
 #: manager/views/user.py:189 manager/views/user.py:199
 msgid "Success"
-msgstr ""
+msgstr "Успех"
 
 #: manager/views/schedule_step.py:132 manager/views/workout.py:204
 msgid "Delete workout"
-msgstr ""
+msgstr "Изтрий тренировката"
 
 #: manager/views/schedule_step.py:134 manager/views/workout.py:206
 msgid "Workout was successfully deleted"
-msgstr ""
+msgstr "Тренировката бе изтрита успешно"
 
 #: manager/views/user.py:107
 msgid "You were sucessfully registered"
-msgstr ""
+msgstr "Вие се регистрирахте успешно"
 
 #: manager/views/user.py:165
 msgid "Settings sucessfully updated"
-msgstr ""
+msgstr "Настройките бяха успешно обновени"
 
 #: manager/views/workout.py:174
 msgid "Copy workout"
-msgstr ""
+msgstr "Копирай тренировка"
 
 #: nutrition/models.py:62
 msgid ""
 "A description of the goal of the plan, e.g. \"Gain mass\" or \"Prepare for "
 "summer\""
-msgstr ""
+msgstr "Пояснение за целта на плана, напр. \"Работа са Маса\" или \"Подготви се за лятото\""
 
 #: nutrition/models.py:136
 msgid "System ingredient"
-msgstr ""
+msgstr "Системна съставка"
 
 #: nutrition/models.py:170
 msgid "In kcal per 100g"
-msgstr ""
+msgstr "в кило калории за 100гр"
 
 #: nutrition/models.py:175 nutrition/models.py:180 nutrition/models.py:187
 #: nutrition/models.py:192 nutrition/models.py:199 nutrition/models.py:206
 #: nutrition/models.py:213
 msgid "In g per 100g of product"
-msgstr ""
+msgstr "В гр. за 100гр продукт"
 
 #: nutrition/models.py:186 nutrition/templates/ingredient/view.html:160
 #: nutrition/templates/plan/view.html:192
 msgid "Sugar content in carbohydrates"
-msgstr ""
+msgstr "Състав на захар в въглехидратите"
 
 #: nutrition/models.py:198 nutrition/templates/ingredient/view.html:176
 #: nutrition/templates/plan/view.html:200
 msgid "Saturated fat content in fats"
-msgstr ""
+msgstr "Наситени мазнини в мазнини"
 
 #: nutrition/models.py:205 nutrition/templates/ingredient/view.html:198
 #: nutrition/templates/plan/view.html:216
 msgid "Fibres"
-msgstr ""
+msgstr "Фибри"
 
 #: nutrition/models.py:212 nutrition/templates/ingredient/view.html:208
 #: nutrition/templates/plan/view.html:220
 msgid "Sodium"
-msgstr ""
+msgstr "Натрий"
 
 #: nutrition/models.py:245
 msgid ""
 "Total energy is not the approximate sum of the energy provided by protein, "
 "carbohydrates and fat."
-msgstr ""
+msgstr "Общата енергия не е приблизителната сума от енергията, предоставена от протеини, въглехидрати и мазнини."
 
 #: nutrition/models.py:273 nutrition/views/ingredient.py:189
 msgid "Ingredient was sucessfully added to the general database"
-msgstr ""
+msgstr "Съставката е успешно добавен към общата база данни."
 
 #: nutrition/models.py:274
 msgid ""
@@ -1642,107 +1645,107 @@ msgid ""
 "added to nutrition plans. You can access it on this address:\n"
 "{1}\n"
 "\n"
-msgstr ""
+msgstr "Твоята съставка '{0}' бе успешно добавено към базата данни.\n\nСега е достъпна на твоят преглед за съставки и може да бъде\nдобавен към плановете за хранене. Можеш да го намериш на адрес:\n{1}\n\n"
 
 #: nutrition/models.py:350 nutrition/models.py:445
 msgid "Ingredient"
-msgstr ""
+msgstr "Съставка"
 
 #: nutrition/models.py:352 nutrition/models.py:447
 msgid "Weight unit"
-msgstr ""
+msgstr "Единица за тегло"
 
 #: nutrition/models.py:354
 msgid "Amount in gramms"
-msgstr ""
+msgstr "Количество в грамаж"
 
 #: nutrition/models.py:358 nutrition/models.py:459
 msgid "Amount"
-msgstr ""
+msgstr "Количество"
 
 #: nutrition/models.py:359
 msgid "Unit amount, e.g. \"1 Cup\" or \"1/2 spoon\""
-msgstr ""
+msgstr "Единица количество, напр. \"1 Чаша\" или \"1/2 лъжица\""
 
 #: nutrition/models.py:393
 msgid "Time (approx)"
-msgstr ""
+msgstr "Време (приблизително)"
 
 #: nutrition/templates/ingredient/form.html:4
 msgid "Submitting an ingredient"
-msgstr ""
+msgstr "Добавяне на съставка"
 
 #: nutrition/templates/ingredient/form.html:5
 msgid ""
 "Thank you for submitting an ingredient. This is much\n"
 "appreciated!"
-msgstr ""
+msgstr "Благодаря ти че добави съставка. Това е много\nценено!"
 
 #: nutrition/templates/ingredient/overview.html:44
 msgid "No ingredients."
-msgstr ""
+msgstr "Няма съставки."
 
 #: nutrition/templates/ingredient/overview.html:67
 msgid "ingredient name"
-msgstr ""
+msgstr "Име на съставка"
 
 #: nutrition/templates/ingredient/overview.html:73
 #: nutrition/templates/ingredient/overview.html:79
 #: nutrition/templates/ingredient/overview.html:80
 #: nutrition/templates/ingredient/overview.html:81
 msgid "Add ingredient"
-msgstr ""
+msgstr "Добави съставка"
 
 #: nutrition/templates/ingredient/pending.html:7
 msgid "Pending ingredients"
-msgstr ""
+msgstr "Липсващи съставки"
 
 #: nutrition/templates/ingredient/pending.html:31
 msgid "No pending ingredients at the moment"
-msgstr ""
+msgstr "Няма липсващи съставки за момента"
 
 #: nutrition/templates/ingredient/view.html:61
 msgid "Ingredient is pending review"
-msgstr ""
+msgstr "Съставките подлежат на преглед"
 
 #: nutrition/templates/ingredient/view.html:62
 msgid ""
 "This user submitted ingredient is pending a decision to be\n"
 "included in the database. Till then, it will not be shown in the overview or\n"
 "the search."
-msgstr ""
+msgstr "Съставката добавена от този потребител не е потвърдена, за да\nбъде добавена в датабазата. Дотогава, тя няма да бъде показвана в прегледа\nили търсачката."
 
 #: nutrition/templates/ingredient/view.html:119
 msgid "Nutritional values in"
-msgstr ""
+msgstr "Хранителни стойности в"
 
 #: nutrition/templates/ingredient/view.html:136
 #: nutrition/templates/plan/view.html:174
 msgid "Macronutrients"
-msgstr ""
+msgstr "Макронутриенти"
 
 #: nutrition/templates/ingredient/view.html:165
 #: nutrition/templates/ingredient/view.html:181
 #: nutrition/templates/ingredient/view.html:203
 #: nutrition/templates/ingredient/view.html:213
 msgid "n.A."
-msgstr ""
+msgstr "Не е налично"
 
 #: nutrition/templates/ingredient/view.html:192
 #: nutrition/templates/plan/view.html:210
 msgid "Others"
-msgstr ""
+msgstr "Други"
 
 #: nutrition/templates/ingredient/view.html:228
 msgid "User submitted ingredient"
-msgstr ""
+msgstr "Съставка добавена от потребител"
 
 #: nutrition/templates/ingredient/view.html:241
 #: nutrition/templates/ingredient/view.html:246
 #: nutrition/templates/ingredient/view.html:247
 #: nutrition/templates/ingredient/view.html:248
 msgid "Delete ingredient"
-msgstr ""
+msgstr "Изтрий съставка"
 
 #: nutrition/templates/ingredient/view.html:254
 #: nutrition/templates/ingredient/view.html:258
@@ -1750,11 +1753,11 @@ msgstr ""
 #: nutrition/templates/ingredient/view.html:260
 #: nutrition/views/ingredient.py:123
 msgid "Edit ingredient"
-msgstr ""
+msgstr "Промени съставка"
 
 #: nutrition/templates/ingredient/view.html:264
 msgid "Weight units"
-msgstr ""
+msgstr "Единици за тегло"
 
 #: nutrition/templates/ingredient/view.html:271
 #: nutrition/templates/ingredient/view.html:272
@@ -1763,147 +1766,147 @@ msgstr ""
 #: nutrition/templates/units/list.html:67
 #: nutrition/templates/units/list.html:68 nutrition/views/unit.py:65
 msgid "Add new weight unit"
-msgstr ""
+msgstr "Добави нова единица за тегло"
 
 #: nutrition/templates/meal_item/edit.html:8 nutrition/views/meal_item.py:163
 msgid "Edit meal item"
-msgstr ""
+msgstr "Промени артикул в яденето"
 
 #: nutrition/templates/meal_item/edit.html:34
 msgid "Ingredient name"
-msgstr ""
+msgstr "Наименование на съставката"
 
 #: nutrition/templates/plan/overview.html:6
 msgid "Your nutrition plans"
-msgstr ""
+msgstr "Твоите планове за хранене"
 
 #: nutrition/templates/plan/view.html:46
 msgid "Meal"
-msgstr ""
+msgstr "Ядене"
 
 #: nutrition/templates/plan/view.html:47
 msgid "Contents"
-msgstr ""
+msgstr "Съставки"
 
 #: nutrition/templates/plan/view.html:63 nutrition/templates/plan/view.html:64
 msgid "Delete meal"
-msgstr ""
+msgstr "Изтрий ядене"
 
 #: nutrition/templates/plan/view.html:72 nutrition/templates/plan/view.html:73
 #: nutrition/views/meal.py:77
 msgid "Edit meal"
-msgstr ""
+msgstr "Промени ядене"
 
 #: nutrition/templates/plan/view.html:81 nutrition/templates/plan/view.html:82
 msgid "Add item to meal"
-msgstr ""
+msgstr "Добави артикул към яденето"
 
 #: nutrition/templates/plan/view.html:117
 msgid "Add one now"
-msgstr ""
+msgstr "Добави сега"
 
 #: nutrition/templates/plan/view.html:119
 msgid "No items for this meal."
-msgstr ""
+msgstr "Няма артикули за това ядене."
 
 #: nutrition/templates/plan/view.html:131
 msgid "No meals for this plan."
-msgstr ""
+msgstr "Няма яденета за този план."
 
 #: nutrition/templates/plan/view.html:143
 #: nutrition/templates/plan/view.html:144
 #: nutrition/templates/plan/view.html:145
 msgid "Add a new meal"
-msgstr ""
+msgstr "Добави ново ядене"
 
 #: nutrition/templates/plan/view.html:154
 msgid ""
 "If you find the ingredient list too short, you might want to activate the "
 "preference to also show English ingredients."
-msgstr ""
+msgstr "Ако намирате списъка на съставки твърде кратък, може да активирате предпочитанието да се показват също английски съставки."
 
 #: nutrition/templates/plan/view.html:155
 msgid "That's done here"
-msgstr ""
+msgstr "Това е свършено"
 
 #: nutrition/templates/plan/view.html:159
 #: nutrition/templates/plan/view.html:269
 #: nutrition/templates/plan/view.html:270
 msgid "Delete nutrition plan"
-msgstr ""
+msgstr "Изтрий план за хранене"
 
 #: nutrition/templates/plan/view.html:169
 msgid "Nutritional data"
-msgstr ""
+msgstr "Хранителни данни"
 
 #: nutrition/templates/plan/view.html:247
 #: nutrition/templates/plan/view.html:248
 msgid "Edit nutrition plan"
-msgstr ""
+msgstr "Промени плана за хранене"
 
 #: nutrition/templates/plan/view.html:258
 #: nutrition/templates/plan/view.html:259
 msgid "Make a copy of this nutrition plan"
-msgstr ""
+msgstr "Направи копие на този план за хранене"
 
 #: nutrition/templates/units/list.html:44
 msgid "No units found"
-msgstr ""
+msgstr "Няма намерени единици"
 
 #: nutrition/views/ingredient.py:105
 msgid "Ingredient successfully deleted"
-msgstr ""
+msgstr "Съставката бе изтрита успешно"
 
 #: nutrition/views/ingredient.py:111
 #, python-format
 msgid "Delete %s?"
-msgstr ""
+msgstr "Изтрий %s?"
 
 #: nutrition/views/ingredient.py:125
 msgid "Ingredient successfully updated"
-msgstr ""
+msgstr "Съставката бе успешно променена"
 
 #: nutrition/views/ingredient.py:134
 msgid "Add a new ingredient"
-msgstr ""
+msgstr "Добави нова съставка"
 
 #: nutrition/views/ingredient.py:145
 msgid "New user submitted ingredient"
-msgstr ""
+msgstr "Нова съставка добавена от потребител"
 
 #: nutrition/views/ingredient.py:146
 msgid "The user {0} submitted a new ingredient \"{1}\"."
-msgstr ""
+msgstr "Потребителя {0} добави нова съставка \"{1}\"."
 
 #: nutrition/views/ingredient.py:202
 msgid "Ingredient was sucessfully marked as rejected"
-msgstr ""
+msgstr "Съставката бе успешно маркирана като отхвърлена"
 
 #: nutrition/views/meal.py:50
 msgid "Add new meal"
-msgstr ""
+msgstr "Добави ново ядене"
 
 #: nutrition/views/plan.py:93
 msgid "Delete nutritional plan?"
-msgstr ""
+msgstr "Изтрий плана за хранене?"
 
 #: nutrition/views/plan.py:95
 msgid "Nutritional plan was successfully deleted"
-msgstr ""
+msgstr "Плана за хранене бе успешно изтрит"
 
 #: nutrition/views/plan.py:104
 msgid "Add a new nutritional plan"
-msgstr ""
+msgstr "Добави нов план за хранене"
 
 #. Translators: translation can only have ASCII characters
 #: nutrition/views/plan.py:185
 msgid "nutritional-plan"
-msgstr ""
+msgstr "план за хранене"
 
 #: nutrition/views/plan.py:192
 #, python-format
 msgid "Nutritional plan %s"
-msgstr ""
+msgstr "План за хранене %s"
 
 #: nutrition/views/plan.py:266
 msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
@@ -1911,40 +1914,40 @@ msgstr ""
 
 #: nutrition/views/unit.py:83 nutrition/views/unit_ingredient.py:116
 msgid "Delete weight unit?"
-msgstr ""
+msgstr "Изтрий единица за тегло?"
 
 #: nutrition/views/unit.py:93
 msgid "Edit a weight unit"
-msgstr ""
+msgstr "Промени единица за тегло"
 
 #: nutrition/views/unit_ingredient.py:51
 msgid "Add a new weight unit"
-msgstr ""
+msgstr "Добави единица за тегло"
 
 #: nutrition/views/unit_ingredient.py:89
 msgid "Edit a weight unit to ingredient connection"
-msgstr ""
+msgstr "Промени единица за тегло към хранителната съставка"
 
 #: software/templates/code.html:12 software/templates/code.html.py:224
 msgid "Installing the stable version"
-msgstr ""
+msgstr "Инсталиране на стабилната версия"
 
 #: software/templates/code.html:15
 msgid ""
 "Click here to download the last stable version. For\n"
 "installation instructions see below."
-msgstr ""
+msgstr "Натисни тук за да свалиш последната стабилна версия. За\nинструкции за инсталиране, погледни по-долу."
 
 #: software/templates/code.html:21
 msgid "download stable version:"
-msgstr ""
+msgstr "свали стабилна версия:"
 
 #: software/templates/code.html:24
 msgid ""
 "In short, these are the steps needed for an installation\n"
 "on a linux or OS X machine, with python already installed. If you want to develop,\n"
 "see the sections below."
-msgstr ""
+msgstr "Накракто, тези стъпки са нужни за инсталация\nвърху Линукс или друга OS X машина, с налична инсталация на python. Ако искаш да пишеш код,\nвиж по-долу."
 
 #: software/templates/code.html:28
 msgid ""
@@ -1953,64 +1956,64 @@ msgid ""
 "easy to set up, but you can skip this step if you don't mind installing all\n"
 "dependencies system-wide (in that case, install django and the other applications\n"
 "with a <code>sudo</code>)."
-msgstr ""
+msgstr "Аз лично обичам да инсталирам файловете за работа\nвърху виртуално питоново пространство, което ми помага да поддържам средата си чиста и\nлесна за пресъздаване, но тази стъпка може да бъде избегната, ако нямате нищо против да инсталирате\nвсички взаимо-зависимости в цялата си система (в този случай, инсталирайте всичко с sudo)"
 
 #: software/templates/code.html:41
 msgid "Get the application from PyPI, initialise and start it."
-msgstr ""
+msgstr "Свали апликацията от PyPi, инициализирай я и я стартирай."
 
 #: software/templates/code.html:48
 msgid ""
 "The script will, on first run, create a configuration\n"
 "file and a SQLite database with a standard superuser:"
-msgstr ""
+msgstr "Първият път, когато е този скрипт е извикан, ще се създаде конфигирационен файл  и SQLite датабаза със стандартен супер-юзер."
 
 #: software/templates/code.html:52
 msgid "username:"
-msgstr ""
+msgstr "потребителско име:"
 
 #: software/templates/code.html:53
 msgid "password:"
-msgstr ""
+msgstr "парола:"
 
 #: software/templates/code.html:56
 msgid ""
 "You can later simply call <code>wger</code> again to start\n"
 "the application."
-msgstr ""
+msgstr "Можете по късно да извикате <code>wger</code> отново за да стартирате\nапликацията."
 
 #: software/templates/code.html:62
 msgid "Use <code>wger --help</code> to see available options"
-msgstr ""
+msgstr "Ползвай <code>wger --help</code> за да видите наличните опции"
 
 #: software/templates/code.html:63
 msgid ""
 "You should edit the settings.py and enter your\n"
 "<a href=\"https://www.google.com/recaptcha\">reCaptcha keys</a>. You can leave\n"
 "this blank or enter bogus data, but you won't be able e.g. to register new users."
-msgstr ""
+msgstr "Трябва да промените settings.py и да добавите вашите\n<a href=\"https://www.google.com/recaptcha\">reCaptcha ключове</a>. Можете да оставите\nтова празно, или с произволни символи, но няма да можете да регистрирате нови потребители."
 
 #: software/templates/code.html:66
 msgid ""
 "For the sitemap.xml file to be correctly generated,\n"
 "you need to set a correct domain name in the sites app (only needed for search\n"
 "engines). This is done via django's admin interface (/admin/)"
-msgstr ""
+msgstr "За да бъде успешно генериран sitemap.xml,\nтрябва да въведете правилен домейн в sites app (само нужно за \nтърсачки). Това е направено през админ интерфейса на джанго."
 
 #: software/templates/code.html:69
 msgid ""
 "This is a Django application, so refer for details to its\n"
 "<a href=\"https://docs.djangoproject.com/en/1.5/intro/install/\">documentation page</a>\n"
 "if things don't go as expected."
-msgstr ""
+msgstr "Тази апликация е изградена чрез Джанго, за което можете да намерите информация тук\n<a href=\"https://docs.djangoproject.com/en/1.5/intro/install/\">documentation page</a>\nако нещата не вървят както се очаква."
 
 #: software/templates/code.html:79 software/templates/code.html.py:226
 msgid "Developer guide"
-msgstr ""
+msgstr "Наръчник за разработчици"
 
 #: software/templates/code.html:83 software/templates/code.html.py:228
 msgid "How to get the code"
-msgstr ""
+msgstr "Как да намерите кода"
 
 #: software/templates/code.html:84
 msgid ""
@@ -2019,78 +2022,78 @@ msgid ""
 "init</a> or <a href=\"http://git-scm.com/book\">Pro Git</a>. Both repositories\n"
 "are mantained in sync, so you should be able to work on either one (issues\n"
 "are only collected in github)."
-msgstr ""
+msgstr "Този код може да бъде намерен както в github така и в bitbucket. Ако\nне сте запознат с mercurial или git, погледнете това <a href=\"http://hginit.com/\">HG\ninit</a> or <a href=\"http://git-scm.com/book\">Pro Git</a>. Двете хранилища \nса поддържани в синхрон, така че можете да работите на която и да е."
 
 #: software/templates/code.html:92
 msgid "the main repository. All work happens here."
-msgstr ""
+msgstr "основното хранилище. Всичката работа става тука."
 
 #: software/templates/code.html:98
 msgid "a mirror of the main repo."
-msgstr ""
+msgstr "огледало на основното хранилище."
 
 #: software/templates/code.html:103
 msgid ""
 "The file structure you get once you clone the repo should\n"
 "be self explaining:"
-msgstr ""
+msgstr "Файловата структура, която ще получиш когато клонираш хранилището,\nсе подразбира."
 
 #: software/templates/code.html:107
 msgid "<strong>wger:</strong> the django project and its applications"
-msgstr ""
+msgstr "<strong>wger:</strong> джанго проекта и неговите апликации"
 
 #: software/templates/code.html:108
 msgid ""
 "<strong>tests:</strong> the tests folder. This actually only\n"
 "imports the individial tests from each application and makes it easier to test\n"
 "all of them."
-msgstr ""
+msgstr "<strong>tests:</strong> в папката tests. Това всъщност само\nиндивидуалните тестове от всяка апликация и улеснява тестването на всички."
 
 #: software/templates/code.html:111
 msgid ""
 "<strong>extras:</strong> additional scrips, a benchmarking\n"
 "script with funkload and a simple tool to create a local settings.py\n"
 "file."
-msgstr ""
+msgstr "<strong>екстри:</strong> допълнителни скриптове, скрипт за бенчмаркинг на функциите и лесно устройство за създаване на локален settings.py файл."
 
 #: software/templates/code.html:119 software/templates/code.html.py:229
 msgid "How to get started"
-msgstr ""
+msgstr "Как да започнете"
 
 #: software/templates/code.html:120
 msgid ""
 "The installation procedure is very similar to the one\n"
 "described above. The notes and infos there also apply, so read that section\n"
 "too. First, install all packages:"
-msgstr ""
+msgstr "Инсталационната процедура е много подобна на тази\nописана по-горе. Бележките и информацията от там отново може да се приложи,\nтака че прочети тази част също. Първо, инсталирай всички пакети:"
 
 #: software/templates/code.html:132
 msgid "Get the code and create a superuser:"
-msgstr ""
+msgstr "Свали кода и създай супер-потребител:"
 
 #: software/templates/code.html:140
 msgid ""
 "That's it. You can either start the server again with\n"
 "<code>start.py</code> or do it the django way with\n"
 "<code>python manage.py runserver</code>."
-msgstr ""
+msgstr "Това е. Можеш да стартираш сървъра отново посредством\n<code>start.py</code> или по джанго-метода\n<code>python manage.py runserver</code>."
 
 #: software/templates/code.html:145
 msgid ""
 "If you pull updates and there were database changes, you\n"
 "can apply them with a simple <code>python manage.py migrate --all</code>."
-msgstr ""
+msgstr "Ако изтеглиш ъпдейти с промени в датабазата, можеш\nда ги приложиш с <code>python manage.py migrate --all</code>."
 
 #: software/templates/code.html:152 software/templates/code.html.py:230
 msgid "How to contribute code"
-msgstr ""
+msgstr "Как да допринесете код"
 
 #: software/templates/code.html:153
 #, python-format
 msgid ""
 "For other ways of contributing besides code, you might\n"
 "want to take a look at <a href=\"%(contribute)s\">the contribute page</a>"
-msgstr ""
+msgstr "За други начини за допринасяне, освен с код, можеш\nда погледнеш  <a href=\"%(contribute)s\">страницата допринеси</a>"
 
 #: software/templates/code.html:157
 msgid ""
@@ -2098,7 +2101,7 @@ msgid ""
 "you want to share, please send pull requests (either in bitbucket or in\n"
 "github). Sending patches by email or attaching them to an issue means a lot\n"
 "more of work."
-msgstr ""
+msgstr "<strong>Изпрати заявка за изтегляне:</strong> за нов код\nкойто искаш да споделиш, моля прати заявка за изтегляне или в bitbucket или в github. \nКръпките пратени по е-мейл означават много повече работа."
 
 #: software/templates/code.html:162
 #, python-format
@@ -2108,7 +2111,7 @@ msgid ""
 "to run the testsuite and write approriate tests for the new code. If you use\n"
 "github, configure the awesome <a href=\"http://travis-ci.org/\">Travis CI</a>,\n"
 "there is already a .travis file in the sources."
-msgstr ""
+msgstr "<strong>Пусни тестовете:</strong> wger е горд\nс това, че покрива над 90%% от кода си с тестове. Когато имплементирате нещо ново, не забравайте\nда пуснете тест-суита и да напишете съответните тестове за новият код. Ако ползвате\ngithub, конфигурирайте <a href=\"http://travis-ci.org/\">Travis CI</a>,\nкато сред скриптовете ще намерите съществуващ .travis файл."
 
 #: software/templates/code.html:168
 msgid ""
@@ -2117,18 +2120,18 @@ msgid ""
 "This can be checked automatically with the pep8 tool (pip install pep8) from\n"
 "the command line:\n"
 "<code>pep8 --max-line-length=100--exclude=\"urls.py,*migrations*\" wger</code>\n"
-msgstr ""
+msgstr "<strong>Пиши код по PEP8:</strong> провери дали кода е структуриран\nкакто по pep8, но с максимална дължина на ред от100.\nТова може автоматично да бъде проверено с pep8 (pip install pep8) от конзолата:\n<code>pep8 --max-line-length=100--exclude=\"urls.py,*migrations*\" wger</code>\n"
 
 #: software/templates/code.html:179 software/templates/code.html.py:231
 msgid "Custom hosting"
-msgstr ""
+msgstr "Хостинг по мяра"
 
 #: software/templates/code.html:180
 msgid ""
 "If you want to host this with some other evironment (apache,\n"
 "postgreSQL, etc.), you need to perform some steps manually. First, install\n"
 "the necessary packages and dependencies as described before."
-msgstr ""
+msgstr "Ако искаш да хостваш тази страница в друга среда (като apache,\npostgreSQL, и пр.), трябва да нарпавите няколко стъпки сами. Първо, инсталирайте\nнужните пакети и взаимо-зависимости както е описано по-горе."
 
 #: software/templates/code.html:184
 msgid ""
@@ -2137,13 +2140,13 @@ msgid ""
 "supports</a>. Then create a settings file and edit it as needed. There is\n"
 "another configuration file, settings_global.py that contains other global\n"
 "settings."
-msgstr ""
+msgstr "Създадете която и да е датабаза\n<a href=\"https://docs.djangoproject.com/en/1.5/ref/databases/\">която Джанго\nподкрепя</a>. Тогава създайте файл за настройки и го редактирайте както подобава. Има\nи друг конфигурационен файл, settings_global.py което съдържа други глобални\nнастройки."
 
 #: software/templates/code.html:194
 msgid ""
 "Initialise the database, create a super user and load these\n"
 "fixtures:"
-msgstr ""
+msgstr "Инициалицирай датабазата, създай супер-потребител и зареди тези\nпоправки:"
 
 #: software/templates/code.html:210
 msgid ""
@@ -2153,11 +2156,11 @@ msgid ""
 "serve it, e.g. per mod_wsgi. Consult in any case the\n"
 "<a href=\"https://docs.djangoproject.com/en/1.5/howto/deployment/\">django\n"
 "documentation</a> on the topic."
-msgstr ""
+msgstr "Какво ще направите след това, зависи от сървъра, който се използва и как \nискате да заредите апликацията (mod_wsgi, FastCGI). Има един пробен <code> wsgi.py </ code> \nфайл в папката wger, който можете да редактирате и адаптирате към вашите нужди.\nЗа всеки случай, консултирайте се с\n<a href=\"https://docs.djangoproject.com/en/1.5/howto/deployment/\"> Джанго \nдокументацията </ A> по темата."
 
 #: software/templates/code.html:221 software/templates/functions.html:240
 msgid "Overview"
-msgstr ""
+msgstr "Преглед"
 
 #: software/templates/contribute.html:13
 msgid ""
@@ -2166,25 +2169,25 @@ msgid ""
 "If you are new to the free software world, we recommend to take a\n"
 "look <a href=\"http://schlitt.info/opensource/blog/0541_10_golden_rules_for_starting_with_open_source.html\">this\n"
 "article</a> which summarizes they way open source projects work very well. "
-msgstr ""
+msgstr "wger мениджъра за тренировки е изграден от доброволци, \nпроцеса на развитие е отворен и със свободен достъп на всеки заинтересован. \nАко сте нов в света на свободния софтуер, ние препоръчваме да погледнете \n<a href=\"http://schlitt.info/opensource/blog/0541_10_golden_rules_for_starting_with_open_source.html\">\nтози артикул </a>, който обобщава начина, по който проектите с отворен код работят по-добре."
 
 #: software/templates/contribute.html:20
 msgid ""
 "Any kind of contribution is appreciated and welcome.\n"
 "Use this opportunity and influence the direction of the\n"
 "project. "
-msgstr ""
+msgstr "Всякакъв вид помощ е ценена и добре дошла. \nИзползвайте тази възможност да повлияете на посоката на развитие \nпроекта."
 
 #: software/templates/contribute.html:31
 msgid ""
 "The goal is to build an awesome\n"
 "and flexible fitness manager, along with a comprehensive and complete list of exercises and\n"
 "ingredients, all released under a free license."
-msgstr ""
+msgstr "Целта е да се изгради едно страхотно \nи гъвкаво управление на фитнес, заедно с подробен и пълен списък от упражнения и \nсъставки, всички под свободен лиценз."
 
 #: software/templates/contribute.html:46
 msgid "Use the site"
-msgstr ""
+msgstr "Ползвайте страницата"
 
 #: software/templates/contribute.html:51
 msgid ""
@@ -2192,26 +2195,26 @@ msgid ""
 "how useful it is! ;) . When you find something that you specially liked,\n"
 "could need some improvements or just doesn't work, tell us! This might not sound\n"
 "like much, but is incredibly important!"
-msgstr ""
+msgstr "Просто използвайте сайта и кажете на приятелите си \nколко е полезен! ;). Когато намерите нещо специално, което ви харесва,  \nили се нуждае от подобрения, или просто не работи, моля да ни кажете! Това може да не звучи \nкато много, но е изключително важно!"
 
 #: software/templates/contribute.html:66
 msgid "Submit exercises"
-msgstr ""
+msgstr "Въведи упражненията"
 
 #: software/templates/contribute.html:71
 msgid ""
 "Submit those cool exercises that you absolutely\n"
 "love and do every week but are not in the list yet. If you think some description\n"
 "is too short or some other detail is missing or could be improved, tell!"
-msgstr ""
+msgstr "Подай на тези готини упражнения, които абсолютно обичаш \nправиш всяка седмица, но не са в списъка, все още. Ако смяташ, че някои описание \nе твърде кратко или някаква друга подробност липсва, или може да се подобри, моля сподели!"
 
 #: software/templates/contribute.html:77
 msgid "Only registered users can do this"
-msgstr ""
+msgstr "Само за регистрирани потребители"
 
 #: software/templates/contribute.html:87
 msgid "Translate"
-msgstr ""
+msgstr "Преведи"
 
 #: software/templates/contribute.html:92
 msgid ""
@@ -2220,15 +2223,15 @@ msgid ""
 "The translations are easily managed and edited online, if you are interested,\n"
 "go to the transifex site, request access and we will set everything\n"
 "up. "
-msgstr ""
+msgstr "Искате ли да използвате wger на собствения си език? \nМислите ли, че сегашният превод може да се подобри? \nПреводите лесно се управляват и редактират онлайн. Ако се интересувате, \nотидете на сайтът transifex и поискайте достъп."
 
 #: software/templates/contribute.html:99
 msgid "Translate with Transifex"
-msgstr ""
+msgstr "Преведи с Transifex"
 
 #: software/templates/contribute.html:107
 msgid "Code"
-msgstr ""
+msgstr "Код"
 
 #: software/templates/contribute.html:112
 msgid ""
@@ -2236,7 +2239,7 @@ msgid ""
 "repo and start hacking! Once you are ready, send a pull request and we\n"
 "will show the world. Take a look at the developer guide for more details\n"
 "on this."
-msgstr ""
+msgstr "Очевидно е, че сте силно насърчавани да клонирате \nхранилището и да заченете хакването! След като сте готови, изпратете заявка за теглене и ние \nще го покажем на света. Обърнете внимание на наръчника за разработчици за повече информация \nпо този въпрос."
 
 #: software/templates/functions.html:11
 msgid ""
@@ -2244,7 +2247,7 @@ msgid ""
 "your exercises and workouts. It started as a pet project of mine to replace my\n"
 "growing collection of different spreadsheets, but it has become something other\n"
 "people could also find useful."
-msgstr ""
+msgstr "wger Workout мениджъра е безплатна програма, с отворен код в мрежата, която управлява \nвашите упражнения и тренировки. Проекта започна като хоби, с което да заменя \nнарастващата колекция от различни таблици, но се превърна в нещо, което и други \nхора също могат да намерят за полезно."
 
 #: software/templates/functions.html:33
 msgid "Edit window for a new set"
@@ -2260,7 +2263,7 @@ msgstr ""
 #: software/templates/functions.html:42 software/templates/functions.html:136
 #: software/templates/functions.html:243
 msgid "The workout manager"
-msgstr ""
+msgstr "Мениджърът за тренировки"
 
 #: software/templates/functions.html:43
 msgid ""
@@ -2313,40 +2316,40 @@ msgstr ""
 
 #: software/templates/functions.html:100
 msgid "In short:"
-msgstr ""
+msgstr "Накратко:"
 
 #: software/templates/functions.html:106
 msgid "a workout manager"
-msgstr ""
+msgstr "мениджър на тренировки"
 
 #: software/templates/functions.html:107
 msgid ""
 "create and manage your workout routines by selecting how\n"
 "            many days your workout constists of, and adding different exercises to each.\n"
 "            Print the generated PDF to keep a log."
-msgstr ""
+msgstr "създай и управлявай своите тренировъчни рутини, като избереш\nколко дни трае твоята тренировка, и добавяйки различни упражнения към всяка.\nПринтирай генерирания PDF, за да пазиш запис."
 
 #: software/templates/functions.html:116
 msgid "a weight tracker"
-msgstr ""
+msgstr "следец за тегло"
 
 #: software/templates/functions.html:117
 msgid ""
 "keep track of your progress with the weight log chart\n"
 "            for each exercise and your own body weight. This makes it easy to see if you\n"
 "            are reaching your goals or need to adjust something."
-msgstr ""
+msgstr "да следите напредъка си с диаграмата за тегло \nза всяко упражнение и собственото си телесно тегло. Това прави лесно да се види, ако \nдостигате целите си, или трябва да се коригира нещо."
 
 #: software/templates/functions.html:126
 msgid "a nutrition manager"
-msgstr ""
+msgstr "мениджър за хранене"
 
 #: software/templates/functions.html:127
 msgid ""
 "create a diet plan and see its nutritional\n"
 "            values (total energy, protein, carbohydrates, and so on) about\n"
 "            it. Select from more than 8000 ingredients for this."
-msgstr ""
+msgstr "създаване на план за диета и вижте хранителните \nстойности (общо количество енергия, протеини, въглехидрати и т.н.) за \nнего. Изберете от над 8000 съставки."
 
 #: software/templates/functions.html:138
 msgid ""
@@ -2357,7 +2360,7 @@ msgid ""
 "number of repetitions you want to reach and which you enter yourself.\n"
 "This means that other training forms like pyramid training or similar are\n"
 "not a problem."
-msgstr ""
+msgstr "Може би си предположил вече, това е основната функция. \nТя създава тренировката която й кажеш, така, както й го казваш. Това е толкова гъвкаво \nтака че, ако направиш суперсерии, няма нужда да се притесняваш, то е подкрепено и програмата ще\nзнае, кой упражнения <em> принадлежат заедно </em>. Всяка група може да има различен \nброй повторения, които искаш да постигнеш и които можеш да попълниш сам. \nТова означава, че други форми на тренировка като пирамидалните или подобни не са\nпроблем."
 
 #: software/templates/functions.html:150
 msgid ""
