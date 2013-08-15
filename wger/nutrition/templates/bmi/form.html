@@ -73,19 +73,27 @@ $(document).ready(function () {
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+    // Clip path, drawings outside are removed
+    svg.append("defs").append("clipPath")
+        .attr("id", "clip")
+      .append("rect")
+        .attr("width", width)
+        .attr("height", height);
+
+
     d3.json("/nutrition/calculator/bmi/chart-data", function(data) {
 
         var layers = stack(nest.entries(data));
 
-        x.domain(d3.extent(data, function(d) { return d.height; }));
-        //y.domain([0, d3.max(data, function(d) { return d.y0 + d.y; })]);
-        y.domain([0, d3.max(data, function(d) { return d.weight; })]);
-        //y.domain([0, d3.max(data, function(d) { return d.y0 + d.y; })]);
+        // Manually set the domains
+        x.domain([150, 200]);
+        y.domain([30, 180]);
 
       svg.selectAll(".layer")
           .data(layers)
         .enter().append("path")
           .attr("class", "layer")
+          .attr("clip-path", "url(#clip)")
           .attr("d", function(d) { return area(d.values); })
           .style("fill", function(d, i) { return z(i); })
           .style("opacity", 0.6);
@@ -178,18 +186,20 @@ $(document).ready(function () {
 
 <div id="bmi-result-container" style="display:hidden;">
     <h3>{% trans 'Results' %}</h3>
-    <p>{% trans 'You BMI is: ' %} <strong><span id="bmi-result-value">{{user.userprofile.calculate_bmi|floatformat:2}}</span></strong></p>
+    <p>{% trans 'Your BMI is: ' %} <strong><span id="bmi-result-value">{{user.userprofile.calculate_bmi|floatformat:2}}</span></strong></p>
 </div>
 
 
 
 
+<!--
 <img width="479"
      height="300"
      title="{% trans 'BMI' %}"
      alt="{% trans 'BMI' %}"
      src="{% static 'images/bmi.svg' %}"
      style="margin-top:3em;"></img>
+-->
 
 <div id="bmi-chart"></div>
 

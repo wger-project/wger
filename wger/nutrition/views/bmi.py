@@ -91,23 +91,36 @@ def calculate(request):
 def chart_data(request):
     '''
     Returns the data to render the BMI chart
+
+    The individual values taken from
+    * http://apps.who.int/bmi/index.jsp?introPage=intro_3.html
+    * https://de.wikipedia.org/wiki/Body-Mass-Index
     '''
 
     data = json.dumps([
-        {'key': 'Group1', 'height': 160, 'weight': 40},
-        {'key': 'Group1', 'height': 200, 'weight': 65},
-        {'key': 'Group2', 'height': 160, 'weight': 44},
-        {'key': 'Group2', 'height': 200, 'weight': 68},
-        {'key': 'Group3', 'height': 160, 'weight': 48},
-        {'key': 'Group3', 'height': 200, 'weight': 72},
-        {'key': 'Group4', 'height': 160, 'weight': 63},
-        {'key': 'Group4', 'height': 200, 'weight': 100},
-        {'key': 'Group5', 'height': 160, 'weight': 76},
-        {'key': 'Group5', 'height': 200, 'weight': 120},
-        {'key': 'Group6', 'height': 160, 'weight': 88},
-        {'key': 'Group6', 'height': 187, 'weight': 120},
-        {'key': 'Group7', 'height': 160, 'weight': 102},
-        {'key': 'Group7', 'height': 175, 'weight': 120}
+        {'key': 'severe_thinness', 'height': 150, 'weight': 22.5},
+        {'key': 'severe_thinness', 'height': 200, 'weight': 64},
+
+        {'key': 'moderate_thinness', 'height': 150, 'weight': 36},
+        {'key': 'moderate_thinness', 'height': 200, 'weight': 68},
+
+        {'key': 'mild_thinness', 'height': 150, 'weight': 36.25},
+        {'key': 'mild_thinness', 'height': 200, 'weight': 68.5},
+
+        {'key': 'normal_range', 'height': 150, 'weight': 41.625},
+        {'key': 'normal_range', 'height': 200, 'weight': 99.6},
+
+        {'key': 'pre_obese', 'height': 150, 'weight': 56.25},
+        {'key': 'pre_obese', 'height': 200, 'weight': 119.6},
+
+        {'key': 'obese_class_1', 'height': 150, 'weight': 67.5},
+        {'key': 'obese_class_1', 'height': 200, 'weight': 139.6},
+
+        {'key': 'obese_class_2', 'height': 150, 'weight': 78.75},
+        {'key': 'obese_class_2', 'height': 200, 'weight': 159},
+
+        {'key': 'obese_class_3', 'height': 150, 'weight': 90},
+        {'key': 'obese_class_3', 'height': 200, 'weight': 180}
         ])
 
     # Return the results to the client
