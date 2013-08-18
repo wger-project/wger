@@ -62,6 +62,13 @@ class NutritionPlan(models.Model):
                                    verbose_name=_('Description'),
                                    help_text=_('A description of the goal of the plan, e.g. '
                                                '"Gain mass" or "Prepare for summer"'))
+    has_goal_calories = models.BooleanField(verbose_name=_('Use daily calories'),
+                                            default=False,
+                                            help_text=_("Tick the box if you want to mark this "
+                                                        "plan as having a goal amount of calories. "
+                                                        "You can use the calculator or enter the "
+                                                        "yourself."))
+    '''A flag indicating whether the plan has a goal amount of calories'''
 
     def __unicode__(self):
         '''
@@ -116,15 +123,16 @@ class NutritionPlan(models.Model):
         goal_calories = self.user.userprofile.calories
         actual_calories = self.get_nutritional_values()['energy']
 
-        # Within 10%
-        if (actual_calories < goal_calories * 1.10) and (actual_calories > goal_calories * 0.9):
+        # Within 3%
+        if (actual_calories < goal_calories * 1.03) and (actual_calories > goal_calories * 0.97):
             return 1
-        # within 20%
-        elif (actual_calories < goal_calories * 1.20) and (actual_calories > goal_calories * 0.8):
+        # within 7%
+        elif (actual_calories < goal_calories * 1.07) and (actual_calories > goal_calories * 0.93):
             return 2
-        # within 30%
-        elif (actual_calories < goal_calories * 1.30) and (actual_calories > goal_calories * 0.7):
+        # within 10%
+        elif (actual_calories < goal_calories * 1.10) and (actual_calories > goal_calories * 0.9):
             return 3
+        # even more
         else:
             return 4
 
