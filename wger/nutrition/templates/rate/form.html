@@ -23,16 +23,13 @@ $(document).ready(function() {
     $("#form-update-calories").click(function(e){
         e.preventDefault();
         var form_url = $("#total-calories-form").attr('action');
-        console.debug($("#total-calories-form").serialize());
         $.post(form_url,
                $("#total-calories-form").serialize(),
                function(data) {
-                   console.debug(data);
-                   });
-
+               });
     });
 
-    $("form").click(function(e){
+    $(".calories-autoform").click(function(e){
         e.preventDefault();
 
         // BMR
@@ -53,7 +50,7 @@ $(document).ready(function() {
 
                               // Total calories
                               $('#id_base_calories').html(data.activities);
-                       });
+                          });
             });
     });
 
@@ -75,7 +72,7 @@ $(document).ready(function() {
 <h3>{%trans "1. Basal metabolic rate" %}</h3>
 <form action="{% url 'calories-calculate' %}"
       method="post"
-      class="ym-form"
+      class="ym-form calories-autoform"
       id="bmr-form">
 {% csrf_token %}
 
@@ -117,7 +114,7 @@ metus, non ultricies quam.
 <h3>{%trans "2. Activities" %}</h3>
 <form action="{% url 'calories-calculate-activities' %}"
       method="post"
-      class="ym-form"
+      class="ym-form calories-autoform"
       id="activities-form">
 {% csrf_token %}
 
@@ -160,7 +157,7 @@ metus, non ultricies quam.
 <h3>{% trans "Total daily calories" %}</h3>
 <form action=""
       method="post"
-      class="ym-form"
+      class="ym-form calories-autoform"
       id="base-calories-form">
 {% csrf_token %}
 <table>
@@ -170,7 +167,7 @@ metus, non ultricies quam.
     </tr>
     <tr>
         <td colspan="2">
-            <input type="submit" value="{% trans 'Calculate daily calories' %}" id="form-save">
+            <input type="submit" value="{% trans 'Calculate daily calories' %}" id="form-calculate-daily-calories">
         </td>
     </tr>
 </table>
