@@ -106,25 +106,15 @@ $(document).ready(function () {
       svg.append("g")
           .attr("class", "y axis")
           .call(yAxis);
+
+      render_current_bmi();
     });
 
     /*
      * Draw the calculated BMI
      */
-    function draw_circle(weight, height)
+    function render_current_bmi()
     {
-       svg.append("circle")
-        .attr("cx", x(height))
-        .attr("cy", y(weight))
-        .attr("fill", "black")
-        .attr("r", 5);
-    }
-
-    /*
-     * Process the form
-     */
-    $("#bmi-form").click(function(e){
-        e.preventDefault();
         var url = $("#bmi-form").attr( 'action' );
 
         $.post(url,
@@ -132,8 +122,20 @@ $(document).ready(function () {
            function(data) {
                $('#bmi-result-container').show();
                $('#bmi-result-value').html(data.bmi);
-               draw_circle(data.weight, data.height);
+               svg.append("circle")
+                .attr("cx", x(data.height))
+                .attr("cy", y(data.weight))
+                .attr("fill", "black")
+                .attr("r", 5);
            });
+    }
+
+    /*
+     * Process the form
+     */
+    $("#bmi-form").click(function(e){
+        e.preventDefault();
+        render_current_bmi();
     });
 
 });
