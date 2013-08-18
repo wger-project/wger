@@ -17,6 +17,7 @@
 import logging
 
 from django import forms
+from django.utils.translation import ugettext as _
 
 from wger.nutrition.models import IngredientWeightUnit
 from wger.manager.models import UserProfile
@@ -90,6 +91,18 @@ class DailyCaloriesForm(forms.ModelForm):
     '''
     Form for the total daily calories needed
     '''
+
+    base_calories = forms.IntegerField(label=_('Basic caloric intake'),
+                                       help_text=_('Your basic caloric intake as calculated for '
+                                                   'your data'),
+                                       required=False)
+    additional_calories = forms.IntegerField(label=_('Additional calories'),
+                                             help_text=_('Additional calories to add to the base '
+                                                         'rate (to substract, enter a negative '
+                                                         'number)'),
+                                             initial=0,
+                                             required=False)
+
     class Meta:
         model = UserProfile
         fields = ('calories',)

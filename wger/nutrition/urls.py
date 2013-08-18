@@ -122,11 +122,15 @@ urlpatterns = patterns('wger.nutrition.views',
     url(r'^calculator/calories$',
         'calculator.view',
         name='calories-calculator'),
-    url(r'^calculator/calories/calculate/bmr$',
+    url(r'^calculator/calories/bmr$',
         'calculator.calculate_bmr',
         name='calories-calculate'),
-    url(r'^calculator/calories/calculate/activities$',
+    url(r'^calculator/calories/activities$',
         'calculator.calculate_activities',
-        name='calories-calculate-activities'),
+        name='calories-calculate-activities'),  # JS
+    url(r'^calculator/calories/total$',
+        'calculator.update_total',
+        name='calories-calculate-total'),  # JS
+
 
 )

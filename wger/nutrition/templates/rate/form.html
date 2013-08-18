@@ -7,6 +7,31 @@
 <script>
 $(document).ready(function() {
 
+    $("#form-transfer-calories").click(function(e){
+        e.preventDefault();
+        var base_calories = Number($('#id_base_calories').html());
+        $('#id_calories').val(base_calories);
+    });
+
+    $("#add-calories-total").click(function(e){
+        e.preventDefault();
+        var base_calories = Number($('#id_base_calories').html());
+        var additional_calories = Number($('#id_additional_calories').val());
+        $('#id_calories').val(base_calories + additional_calories);
+    });
+
+    $("#form-update-calories").click(function(e){
+        e.preventDefault();
+        var form_url = $("#total-calories-form").attr('action');
+        console.debug($("#total-calories-form").serialize());
+        $.post(form_url,
+               $("#total-calories-form").serialize(),
+               function(data) {
+                   console.debug(data);
+                   });
+
+    });
+
     $("form").click(function(e){
         e.preventDefault();
 
@@ -27,11 +52,10 @@ $(document).ready(function() {
                               $('#activities-result-value').html(data.factor);
 
                               // Total calories
-                              $('#id_calories').val(data.activities);
+                              $('#id_base_calories').html(data.activities);
                        });
             });
     });
-
 
 });
 </script>
@@ -80,7 +104,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et augue sem.
 Nullam bibendum tortor a lacus luctus tempor. Suspendisse auctor tristique
 metus, non ultricies quam.
 </p>
-    <p>{% trans 'You basic metabolic rate is: ' %} <strong><span id="bmr-result-value">{{user.userprofile.calculate_basal_metabolic_rate|floatformat:2}}</span></strong></p>
+    <p>{% trans 'You basic metabolic rate is: ' %}
+    <strong>
+        <span id="bmr-result-value">{{user.userprofile.calculate_basal_metabolic_rate|floatformat:2}}</span>
+    </strong>
+    </p>
 </div>
 
 
@@ -130,12 +158,16 @@ metus, non ultricies quam.
 {#                 #}
 {% block sidebar %}
 <h3>{% trans "Total daily calories" %}</h3>
-<form action="{% url 'calories-calculate-activities' %}"
+<form action=""
       method="post"
       class="ym-form"
-      id="total-calories-form">
+      id="base-calories-form">
+{% csrf_token %}
 <table>
-    {% yaml_form_field form_calories.calories %}
+    <tr>
+        <td>{% trans "Basic caloric intake" %}</td>
+        <td><span id="id_base_calories"></span></td>
+    </tr>
     <tr>
         <td colspan="2">
             <input type="submit" value="{% trans 'Calculate daily calories' %}" id="form-save">
@@ -145,8 +177,38 @@ metus, non ultricies quam.
 </form>
 
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et augue sem.
-Nullam bibendum tortor a lacus luctus tempor. Suspendisse auctor tristique
-metus, non ultricies quam.
+{% blocktrans %}The base caloric intake is the amount of calories your metabolism
+needs based on your level of physical activity.{% endblocktrans %}
+</p>
+
+<form action="{% url 'calories-calculate-total' %}"
+      method="post"
+      class="ym-form"
+      id="total-calories-form">
+{% csrf_token %}
+<table>
+     {% yaml_form_field form_calories.additional_calories %}
+    {% yaml_form_field form_calories.calories %}
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="{% trans 'Transfer basic intake to total daily calories' %}" id="form-transfer-calories">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="{% trans 'Add additional calories to total daily calories' %}" id="add-calories-total">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="{% trans 'Save total calories to profile' %}" id="form-update-calories">
+        </td>
+    </tr>
+</table>
+</form>
+
+<p>{% blocktrans %}The total calories are the actual total calories per day. This
+might include e.g. a surplus or deficit if you are bulking or cutting or you might
+just enter yourself the amount of calories if you know the value.{% endblocktrans %}
 </p>
 {% endblock %}

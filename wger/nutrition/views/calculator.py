@@ -76,8 +76,6 @@ def calculate_bmr(request):
         bmr = request.user.userprofile.calculate_basal_metabolic_rate()
         result = {'bmr': '{0:.0f}'.format(bmr)}
         data = json.dumps(result)
-
-        logger.debug(data)
     else:
         logger.debug(form.errors)
 
@@ -103,8 +101,32 @@ def calculate_activities(request):
                   'factor': '{0:.2f}'.format(factor)}
         data = json.dumps(result)
 
+    else:
+        logger.debug(form.errors)
+
+    # Return the results to the client
+    return HttpResponse(data, 'application/json')
+
+
+def update_total(request):
+    '''
+    Calculates the total calories
+
+    TODO: this really should be moved to an API so we can just update this
+          setting in the user profile
+    '''
+
+    data = []
+
+    #form = DailyCaloriesForm()
+    form = DailyCaloriesForm(data=request.POST, instance=request.user.userprofile)
+    if form.is_valid():
+        form.save()
+        logger.debug(request.user.id)
+        logger.debug(form.cleaned_data['calories'])
+
         # Save the total calories
-        request.user.userprofile.calories = total
+        request.user.userprofile.calories = form.cleaned_data['calories']
         request.user.userprofile.save()
     else:
         logger.debug(form.errors)

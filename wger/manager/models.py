@@ -648,8 +648,8 @@ by the US Department of Agriculture. It is extremely complete, with around
                                           null=True)
     '''Physical intensity during free time'''
 
-    calories = models.IntegerField(verbose_name=_('Basic caloric intake'),
-                                   help_text=_('Basic caloric intake based on physical activity'),
+    calories = models.IntegerField(verbose_name=_('Total daily calories'),
+                                   help_text=_('Total caloric intake, including e.g. any surplus'),
                                    default=2500,
                                    blank=False,
                                    null=True)
