@@ -603,14 +603,15 @@ by the US Department of Agriculture. It is extremely complete, with around
                                       null=True)
     '''The average hours of sleep per day'''
 
-    work_hours = models.IntegerField(verbose_name=_('Work hours'),
-                                     help_text=_('The average hours at work per day'),
+    work_hours = models.IntegerField(verbose_name=_('Work'),
+                                     help_text=_('Average hours per day'),
                                      default=8,
                                      blank=False,
                                      null=True)
     '''The average hours at work per day'''
 
-    work_intensity = models.CharField(verbose_name=_('Physical intensity of work'),
+    work_intensity = models.CharField(verbose_name=_('Physical intensity'),
+                                      help_text=_('Approximately'),
                                       max_length=1,
                                       choices=INTENSITY,
                                       default=INTENSITY_LOW,
@@ -618,14 +619,15 @@ by the US Department of Agriculture. It is extremely complete, with around
                                       null=True)
     '''Physical intensity of work'''
 
-    sport_hours = models.IntegerField(verbose_name=_('Sport hours'),
-                                      help_text=_('The average hours performing sports per week'),
+    sport_hours = models.IntegerField(verbose_name=_('Sport'),
+                                      help_text=_('Average hours per week'),
                                       default=3,
                                       blank=False,
                                       null=True)
     '''The average hours performing sports per week'''
 
-    sport_intensity = models.CharField(verbose_name=_('Physical intensity of sport activities'),
+    sport_intensity = models.CharField(verbose_name=_('Physical intensity'),
+                                       help_text=_('Approximately'),
                                        max_length=1,
                                        choices=INTENSITY,
                                        default=INTENSITY_MEDIUM,
@@ -633,14 +635,15 @@ by the US Department of Agriculture. It is extremely complete, with around
                                        null=True)
     '''Physical intensity of sport activities'''
 
-    freetime_hours = models.IntegerField(verbose_name=_('Hours of free time'),
-                                         help_text=_('The average hours of free time per day'),
+    freetime_hours = models.IntegerField(verbose_name=_('Free time'),
+                                         help_text=_('Average hours per day'),
                                          default=8,
                                          blank=False,
                                          null=True)
     '''The average hours of free time per day'''
 
-    freetime_intensity = models.CharField(verbose_name=_('Physical intensity of free time'),
+    freetime_intensity = models.CharField(verbose_name=_('Physical intensity'),
+                                          help_text=_('Approximately'),
                                           max_length=1,
                                           choices=INTENSITY,
                                           default=INTENSITY_LOW,

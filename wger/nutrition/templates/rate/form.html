@@ -69,7 +69,10 @@ $(document).ready(function() {
 -->
 {% block content %}
 
-<h3>{%trans "1. Basal metabolic rate" %}</h3>
+<h3>1 - {%trans "Basal metabolic rate" %}</h3>
+<p>{% blocktrans %}Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Integer et augue sem. Nullam bibendum tortor a lacus luctus tempor. Suspendisse
+auctor tristique metus, non ultricies quam.{% endblocktrans %}</p>
 <form action="{% url 'calories-calculate' %}"
       method="post"
       class="ym-form calories-autoform"
@@ -96,11 +99,6 @@ $(document).ready(function() {
 </form>
 
 <div id="bmr-result-container" style="display:hidden;">
-    <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et augue sem.
-Nullam bibendum tortor a lacus luctus tempor. Suspendisse auctor tristique
-metus, non ultricies quam.
-</p>
     <p>{% trans 'You basic metabolic rate is: ' %}
     <strong>
         <span id="bmr-result-value">{{user.userprofile.calculate_basal_metabolic_rate|floatformat:2}}</span>
@@ -111,7 +109,10 @@ metus, non ultricies quam.
 
 
 
-<h3>{%trans "2. Activities" %}</h3>
+<h3>2 - {%trans "Physical activities" %}</h3>
+<p>{% blocktrans %}Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Integer et augue sem. Nullam bibendum tortor a lacus luctus tempor. Suspendisse
+auctor tristique metus, non ultricies quam.{% endblocktrans %}</p>
 <form action="{% url 'calories-calculate-activities' %}"
       method="post"
       class="ym-form calories-autoform"
@@ -126,35 +127,41 @@ metus, non ultricies quam.
 </div>
 {% endif %}
 
+
 <table>
-    {% for current_field in form_activities %}
-        {% if current_field.name in select_lists_activities %}
-            {% yaml_form_field current_field "ym-fbox-select" %}
-        {% else %}
-            {% yaml_form_field current_field %}
-        {% endif %}
-    {% endfor %}
+    {% yaml_form_field form_activities.sleep_hours %}
 </table>
+
+<div class="ym-grid linearize-level-1">
+    <div class="ym-g50 ym-gl">
+        <table>
+        {% yaml_form_field form_activities.work_hours %}
+        {% yaml_form_field form_activities.sport_hours %}
+        {% yaml_form_field form_activities.freetime_hours %}
+        </table>
+    </div>
+    <div class="ym-g50 ym-gl">
+        <table>
+        {% yaml_form_field form_activities.work_intensity "ym-fbox-select" %}
+        {% yaml_form_field form_activities.sport_intensity "ym-fbox-select" %}
+        {% yaml_form_field form_activities.freetime_intensity "ym-fbox-select" %}
+        </table>
+    </div>
+</div>
+
 </form>
 
 <div id="activities-result-container" style="display:hidden;">
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et augue sem.
-Nullam bibendum tortor a lacus luctus tempor. Suspendisse auctor tristique
-metus, non ultricies quam.
-</p>
     <p>{% trans 'Factor for daily activities: ' %} <strong><span id="activities-result-value">{{user.userprofile.calculate_activities|floatformat:2}}</span></strong></p>
 </div>
 
 
-{% endblock %}
 
 
-{#                 #}
-{#    Side bar     #}
-{#                 #}
-{% block sidebar %}
-<h3>{% trans "Total daily calories" %}</h3>
+
+<h3>3 - {% trans "Total daily calories" %}</h3>
+<p>{% blocktrans %}The base caloric intake is the amount of calories your metabolism
+needs based on your level of physical activity.{% endblocktrans %}</p>
 <form action=""
       method="post"
       class="ym-form calories-autoform"
@@ -167,17 +174,17 @@ metus, non ultricies quam.
     </tr>
     <tr>
         <td colspan="2">
-            <input type="submit" value="{% trans 'Calculate daily calories' %}" id="form-calculate-daily-calories">
+            <input type="submit" value="{% trans 'Calculate basic caloric intake' %}" id="form-calculate-daily-calories">
         </td>
     </tr>
 </table>
 </form>
 
-<p>
-{% blocktrans %}The base caloric intake is the amount of calories your metabolism
-needs based on your level of physical activity.{% endblocktrans %}
-</p>
 
+<p>{% blocktrans %}The total calories are the actual total calories per day. This
+might include e.g. a surplus or deficit if you are bulking or cutting. Alternatively
+you might just enter yourself the amount of calories if you know the value.{% endblocktrans %}
+</p>
 <form action="{% url 'calories-calculate-total' %}"
       method="post"
       class="ym-form"
@@ -204,8 +211,16 @@ needs based on your level of physical activity.{% endblocktrans %}
 </table>
 </form>
 
-<p>{% blocktrans %}The total calories are the actual total calories per day. This
-might include e.g. a surplus or deficit if you are bulking or cutting or you might
-just enter yourself the amount of calories if you know the value.{% endblocktrans %}
-</p>
+
+{% endblock %}
+
+
+{#                 #}
+{#    Side bar     #}
+{#                 #}
+{% block sidebar %}
+<h3>{% trans "Info" %}</h3>
+<p>{% blocktrans %}Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Integer et augue sem. Nullam bibendum tortor a lacus luctus tempor. Suspendisse
+auctor tristique metus, non ultricies quam.{% endblocktrans %}</p>
 {% endblock %}
