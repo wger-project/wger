@@ -18,7 +18,6 @@ import logging
 import bleach
 
 from django.forms import models
-from django.http import HttpResponseForbidden
 from django.utils.translation import ugettext_lazy
 from django.contrib import messages
 from django.core.urlresolvers import reverse
@@ -234,7 +233,7 @@ class WgerFormMixin(ModelFormMixin, WgerPermissionMixin):
         return super(WgerFormMixin, self).form_valid(form)
 
 
-class YamlDeleteMixin(ModelFormMixin, WgerPermissionMixin):
+class WgerDeleteMixin(ModelFormMixin, WgerPermissionMixin):
     form_action = ''
     form_action_urlname = ''
     title = ''
@@ -248,7 +247,7 @@ class YamlDeleteMixin(ModelFormMixin, WgerPermissionMixin):
         '''
 
         # Call the base implementation first to get a context
-        context = super(YamlDeleteMixin, self).get_context_data(**kwargs)
+        context = super(WgerDeleteMixin, self).get_context_data(**kwargs)
 
         # CSRF token
         context.update(csrf(self.request))
@@ -289,7 +288,7 @@ class YamlDeleteMixin(ModelFormMixin, WgerPermissionMixin):
             return HttpResponseForbidden()
 
         # Dispatch normally
-        return super(YamlDeleteMixin, self).dispatch(request, *args, **kwargs)
+        return super(WgerDeleteMixin, self).dispatch(request, *args, **kwargs)
 
     def get_messages(self):
         '''
@@ -304,7 +303,7 @@ class YamlDeleteMixin(ModelFormMixin, WgerPermissionMixin):
         '''
         if self.get_messages():
             messages.success(request, self.get_messages())
-        return super(YamlDeleteMixin, self).delete(request, *args, **kwargs)
+        return super(WgerDeleteMixin, self).delete(request, *args, **kwargs)
 
 
 class TextTemplateView(TemplateView):

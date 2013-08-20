@@ -46,7 +46,7 @@ from wger.nutrition.models import IngredientWeightUnit
 from wger.utils import helpers
 from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.language import load_language
 from wger.utils.language import load_ingredient_languages
@@ -97,7 +97,7 @@ def view(request, id, slug=None):
                               context_instance=RequestContext(request))
 
 
-class IngredientDeleteView(YamlDeleteMixin, DeleteView, WgerPermissionMixin):
+class IngredientDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
     Generic view to delete an existing ingredient
     '''

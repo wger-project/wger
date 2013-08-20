@@ -28,7 +28,7 @@ from django.views.generic import UpdateView
 from wger.exercises.models import Muscle
 
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.language import load_item_languages
 from wger.config.models import LanguageConfig
@@ -86,7 +86,7 @@ class MuscleUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
         return context
 
 
-class MuscleDeleteView(YamlDeleteMixin, DeleteView, WgerPermissionMixin):
+class MuscleDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
     Generic view to delete an existing muscle
     '''

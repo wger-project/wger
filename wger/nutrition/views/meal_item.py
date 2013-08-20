@@ -54,7 +54,7 @@ from reportlab.lib import colors
 from wger import get_version
 from wger.utils import helpers
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.language import load_ingredient_languages
 
 

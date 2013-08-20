@@ -27,7 +27,7 @@ from django.views.generic import UpdateView
 from wger.exercises.models import ExerciseCategory
 
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.language import load_language
 
@@ -82,7 +82,7 @@ class ExerciseCategoryUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin)
         return super(ExerciseCategoryUpdateView, self).form_valid(form)
 
 
-class ExerciseCategoryDeleteView(YamlDeleteMixin, DeleteView, WgerPermissionMixin):
+class ExerciseCategoryDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
     Generic view to delete an existing exercise category
     '''

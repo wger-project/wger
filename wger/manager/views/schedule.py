@@ -34,7 +34,7 @@ from wger.manager.models import Schedule
 from wger.manager.models import ScheduleStep
 
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
 
 
@@ -97,7 +97,7 @@ class ScheduleCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
         return reverse_lazy('schedule-view', kwargs={'pk': self.object.id})
 
 
-class ScheduleDeleteView(YamlDeleteMixin, DeleteView, WgerPermissionMixin):
+class ScheduleDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
     Generic view to delete a schedule
     '''

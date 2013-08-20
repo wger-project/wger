@@ -31,7 +31,7 @@ from wger.manager.models import ScheduleStep
 from wger.manager.models import Workout
 
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
 
 
@@ -113,7 +113,7 @@ class StepEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
         return reverse('schedule-view', kwargs={'pk': self.object.schedule_id})
 
 
-class StepDeleteView(YamlDeleteMixin, DeleteView, WgerPermissionMixin):
+class StepDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
     Generic view to delete a schedule step
     '''

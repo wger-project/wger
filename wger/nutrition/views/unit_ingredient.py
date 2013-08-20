@@ -31,7 +31,7 @@ from wger.nutrition.models import WeightUnit
 
 from wger.utils.language import load_language
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
 
 
@@ -110,7 +110,7 @@ class WeightUnitIngredientUpdateView(WgerFormMixin, UpdateView, WgerPermissionMi
         return IngredientWeightUnitForm
 
 
-class WeightUnitIngredientDeleteView(YamlDeleteMixin, DeleteView, WgerPermissionMixin):
+class WeightUnitIngredientDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
     Generic view to delete a weight unit to ingredient entry
     '''

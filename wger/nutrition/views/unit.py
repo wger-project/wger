@@ -28,7 +28,7 @@ from wger.nutrition.models import WeightUnit
 
 from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.language import load_language
 
@@ -74,7 +74,7 @@ class WeightUnitCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
         return super(WeightUnitCreateView, self).form_valid(form)
 
 
-class WeightUnitDeleteView(YamlDeleteMixin, DeleteView, WgerPermissionMixin):
+class WeightUnitDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
     Generic view to delete a weight unit
     '''

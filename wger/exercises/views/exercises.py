@@ -46,7 +46,7 @@ from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseCategory
 
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.language import load_language
 from wger.utils.language import load_item_languages
@@ -242,7 +242,7 @@ class ExerciseAddView(ExercisesEditAddView, CreateView, WgerPermissionMixin):
         return super(ExerciseAddView, self).dispatch(request, *args, **kwargs)
 
 
-class ExerciseDeleteView(YamlDeleteMixin, DeleteView):
+class ExerciseDeleteView(WgerDeleteMixin, DeleteView):
     '''
     Generic view to delete an existing exercise
     '''

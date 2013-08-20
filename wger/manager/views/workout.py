@@ -37,7 +37,7 @@ from wger.manager.forms import WorkoutForm
 from wger.manager.forms import WorkoutCopyForm
 
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.cache import cache_mapper
 
@@ -202,7 +202,7 @@ def add(request):
                                         kwargs={'id': workout.id}))
 
 
-class WorkoutDeleteView(YamlDeleteMixin, DeleteView, WgerPermissionMixin):
+class WorkoutDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
     Generic view to delete a workout routine
     '''
