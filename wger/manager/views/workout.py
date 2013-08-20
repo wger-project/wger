@@ -38,6 +38,7 @@ from wger.manager.forms import WorkoutCopyForm
 
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.cache import cache_mapper
 
 logger = logging.getLogger('wger.custom')
@@ -201,7 +202,7 @@ def add(request):
                                         kwargs={'id': workout.id}))
 
 
-class WorkoutDeleteView(YamlDeleteMixin, DeleteView):
+class WorkoutDeleteView(YamlDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
     Generic view to delete a workout routine
     '''
@@ -211,9 +212,10 @@ class WorkoutDeleteView(YamlDeleteMixin, DeleteView):
     title = ugettext_lazy('Delete workout')
     form_action_urlname = 'workout-delete'
     messages = ugettext_lazy('Workout was successfully deleted')
+    login_required = True
 
 
-class WorkoutEditView(WgerFormMixin, UpdateView):
+class WorkoutEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
     Generic view to update an existing workout routine
     '''
@@ -222,3 +224,4 @@ class WorkoutEditView(WgerFormMixin, UpdateView):
     form_class = WorkoutForm
     title = ugettext_lazy('Edit workout')
     form_action_urlname = 'workout-edit'
+    login_required = True

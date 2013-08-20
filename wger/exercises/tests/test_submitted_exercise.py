@@ -12,15 +12,13 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import json
-
 from django.core import mail
 from django.core.urlresolvers import reverse
 
 from wger.exercises.models import Exercise
 
+from wger.manager.tests.testcase import STATUS_CODES_FAIL
 from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 
 
 class ExercisesPendingTestCase(WorkoutManagerTestCase):
@@ -37,7 +35,7 @@ class ExercisesPendingTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 200)
             self.assertEqual(len(response.context['exercise_list']), 1)
         else:
-            self.assertEqual(response.status_code, 302)
+            self.assertIn(response.status_code, STATUS_CODES_FAIL)
 
     def test_pending_overview_admin(self):
         '''

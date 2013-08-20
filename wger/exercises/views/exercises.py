@@ -47,6 +47,7 @@ from wger.exercises.models import ExerciseCategory
 
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.language import load_language
 from wger.utils.language import load_item_languages
 from wger.utils.cache import cache_mapper
@@ -180,10 +181,12 @@ class ExercisesEditAddView(WgerFormMixin):
         return ExerciseForm
 
 
-class ExerciseUpdateView(ExercisesEditAddView, UpdateView):
+class ExerciseUpdateView(ExercisesEditAddView, UpdateView, WgerPermissionMixin):
     '''
     Generic view to update an existing exercise
     '''
+
+    permission_required = 'exercises.change_exercise'
 
     def form_valid(self, form):
         '''
@@ -201,11 +204,12 @@ class ExerciseUpdateView(ExercisesEditAddView, UpdateView):
         return context
 
 
-class ExerciseAddView(ExercisesEditAddView, CreateView):
+class ExerciseAddView(ExercisesEditAddView, CreateView, WgerPermissionMixin):
     '''
     Generic view to add a new exercise
     '''
 
+    login_required = True
     form_action = reverse_lazy('exercise-add')
 
     def form_valid(self, form):
@@ -247,6 +251,7 @@ class ExerciseDeleteView(YamlDeleteMixin, DeleteView):
     success_url = reverse_lazy('wger.exercises.views.exercises.overview')
     delete_message = ugettext_lazy('This will delete the exercise from all workouts.')
     messages = ugettext_lazy('Exercise successfully deleted')
+    permission_required = 'exercises.delete_exercise'
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
@@ -258,7 +263,7 @@ class ExerciseDeleteView(YamlDeleteMixin, DeleteView):
         return context
 
 
-class PendingExerciseListView(ListView):
+class PendingExerciseListView(WgerPermissionMixin, ListView):
     '''
     Generic view to list all weight units
     '''
@@ -266,6 +271,7 @@ class PendingExerciseListView(ListView):
     model = Exercise
     template_name = 'exercise/pending.html'
     context_object_name = 'exercise_list'
+    permission_required = 'exercises.change_exercise'
 
     def get_queryset(self):
         '''

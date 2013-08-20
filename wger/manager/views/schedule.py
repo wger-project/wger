@@ -20,9 +20,6 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
-from django.http import HttpResponseRedirect
-from django.core.context_processors import csrf
-from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
@@ -35,14 +32,10 @@ from django.views.generic import UpdateView
 
 from wger.manager.models import Schedule
 from wger.manager.models import ScheduleStep
-from wger.manager.models import Workout
-
-from wger.manager.forms import WorkoutForm
-from wger.manager.forms import WorkoutCopyForm
-
 
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerPermissionMixin
 
 
 logger = logging.getLogger('wger.custom')
@@ -84,7 +77,7 @@ def view(request, pk):
                               context_instance=RequestContext(request))
 
 
-class ScheduleCreateView(WgerFormMixin, CreateView):
+class ScheduleCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
     Creates a new workout schedule
     '''
@@ -93,6 +86,7 @@ class ScheduleCreateView(WgerFormMixin, CreateView):
     success_url = reverse_lazy('schedule-overview')
     title = ugettext_lazy('Create schedule')
     form_action = reverse_lazy('schedule-add')
+    login_required = True
 
     def form_valid(self, form):
         '''set the submitter'''
@@ -103,7 +97,7 @@ class ScheduleCreateView(WgerFormMixin, CreateView):
         return reverse_lazy('schedule-view', kwargs={'pk': self.object.id})
 
 
-class ScheduleDeleteView(YamlDeleteMixin, DeleteView):
+class ScheduleDeleteView(YamlDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
     Generic view to delete a schedule
     '''
@@ -113,9 +107,10 @@ class ScheduleDeleteView(YamlDeleteMixin, DeleteView):
     title = ugettext_lazy('Delete schedule')
     form_action_urlname = 'schedule-delete'
     messages = ugettext_lazy('Schedule was successfully deleted')
+    login_required = True
 
 
-class ScheduleEditView(WgerFormMixin, UpdateView):
+class ScheduleEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
     Generic view to update an existing workout routine
     '''
@@ -123,6 +118,7 @@ class ScheduleEditView(WgerFormMixin, UpdateView):
     model = Schedule
     title = ugettext_lazy('Edit schedule')
     form_action_urlname = 'schedule-edit'
+    login_required = True
 
 
 def edit_step_api(request, pk):

@@ -22,6 +22,7 @@ from wger.exercises.models import Exercise
 from wger.exercises.models import Muscle
 from wger.exercises.models import ExerciseCategory
 
+from wger.manager.tests.testcase import STATUS_CODES_FAIL
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.utils.cache import get_template_cache_name
@@ -209,6 +210,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
                                      'name': 'my test exercise',
                                      'muscles': [1, 2]})
         count_after = Exercise.objects.count()
+        self.assertIn(response.status_code, STATUS_CODES_FAIL)
 
         # Exercise was not added
         self.assertEqual(count_before, count_after)
@@ -284,7 +286,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         if admin:
             self.assertTrue(response.context['form'].errors['category'])
         else:
-            self.assertEqual(response.status_code, 302)
+            self.assertIn(response.status_code, STATUS_CODES_FAIL)
 
         # No muscles - adding
         response = self.client.post(reverse('exercise-add'),
@@ -301,7 +303,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         if admin:
             self.assertTrue(response.context['form'].errors['muscles'])
         else:
-            self.assertEqual(response.status_code, 302)
+            self.assertIn(response.status_code, STATUS_CODES_FAIL)
 
     def test_add_exercise_success(self):
         '''

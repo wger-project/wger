@@ -17,9 +17,7 @@ import logging
 
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
-from django.forms import ModelForm
 from django.utils.translation import ugettext_lazy
-
 
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
@@ -28,6 +26,7 @@ from django.views.generic import ListView
 
 from wger.nutrition.models import WeightUnit
 
+from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
@@ -39,7 +38,7 @@ logger = logging.getLogger('wger.custom')
 # ************************
 
 
-class WeightUnitListView(ListView):
+class WeightUnitListView(WgerPermissionMixin, ListView):
     '''
     Generic view to list all weight units
     '''
@@ -48,6 +47,7 @@ class WeightUnitListView(ListView):
     template_name = 'units/list.html'
     context_object_name = 'unit_list'
     paginate_by = PAGINATION_OBJECTS_PER_PAGE
+    permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_queryset(self):
         '''
@@ -56,7 +56,7 @@ class WeightUnitListView(ListView):
         return WeightUnit.objects.filter(language=load_language())
 
 
-class WeightUnitCreateView(WgerFormMixin, CreateView):
+class WeightUnitCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
     Generic view to add a new weight unit for ingredients
     '''
@@ -64,6 +64,7 @@ class WeightUnitCreateView(WgerFormMixin, CreateView):
     model = WeightUnit
     title = ugettext_lazy('Add new weight unit')
     form_action = reverse_lazy('weight-unit-add')
+    permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):
         return reverse('weight-unit-list')
@@ -73,7 +74,7 @@ class WeightUnitCreateView(WgerFormMixin, CreateView):
         return super(WeightUnitCreateView, self).form_valid(form)
 
 
-class WeightUnitDeleteView(YamlDeleteMixin, DeleteView):
+class WeightUnitDeleteView(YamlDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
     Generic view to delete a weight unit
     '''
@@ -82,9 +83,10 @@ class WeightUnitDeleteView(YamlDeleteMixin, DeleteView):
     success_url = reverse_lazy('weight-unit-list')
     title = ugettext_lazy('Delete weight unit?')
     form_action_urlname = 'weight-unit-delete'
+    permission_required = 'nutrition.delete_ingredientweightunit'
 
 
-class WeightUnitUpdateView(WgerFormMixin, UpdateView):
+class WeightUnitUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
     Generic view to update an weight unit
     '''
@@ -92,6 +94,7 @@ class WeightUnitUpdateView(WgerFormMixin, UpdateView):
     model = WeightUnit
     title = ugettext_lazy('Edit a weight unit')
     form_action_urlname = 'weight-unit-edit'
+    permission_required = 'nutrition.change_ingredientweightunit'
 
     def get_success_url(self):
         return reverse('weight-unit-list')

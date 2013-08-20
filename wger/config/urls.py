@@ -1,14 +1,7 @@
 from django.conf.urls import patterns, url
-from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse_lazy
-from django.views.generic import TemplateView
-
 
 from wger.config.views import languages
 from wger.config.views import language_config
-
-
-from wger.utils.constants import USER_TAB
 
 
 urlpatterns = patterns('',
@@ -33,5 +26,5 @@ urlpatterns = patterns('',
     # Language configs
     url(r'^language/config/(?P<pk>\d+)/edit',
         language_config.LanguageConfigUpdateView.as_view(),
-        name='languageconfig-edit'), 
+        name='languageconfig-edit'),
 )

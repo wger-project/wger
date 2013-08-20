@@ -45,7 +45,7 @@ class WgerPermissionMixin(object):
     resource and makes writing customized generic views easier.
     '''
 
-    permission_required = ''
+    permission_required = False
     '''
     The name of the permission required to access this class
     '''

@@ -44,6 +44,7 @@ from wger.nutrition.models import Ingredient
 from wger.nutrition.models import IngredientWeightUnit
 
 from wger.utils import helpers
+from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
@@ -96,7 +97,7 @@ def view(request, id, slug=None):
                               context_instance=RequestContext(request))
 
 
-class IngredientDeleteView(YamlDeleteMixin, DeleteView):
+class IngredientDeleteView(YamlDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
     Generic view to delete an existing ingredient
     '''
@@ -105,6 +106,7 @@ class IngredientDeleteView(YamlDeleteMixin, DeleteView):
     template_name = 'delete.html'
     success_url = reverse_lazy('ingredient-list')
     messages = ugettext_lazy('Ingredient successfully deleted')
+    permission_required = 'nutrition.delete_ingredient'
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
@@ -116,7 +118,7 @@ class IngredientDeleteView(YamlDeleteMixin, DeleteView):
         return context
 
 
-class IngredientEditView(WgerFormMixin, UpdateView):
+class IngredientEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
     Generic view to update an existing ingredient
     '''
@@ -125,6 +127,7 @@ class IngredientEditView(WgerFormMixin, UpdateView):
     title = ugettext_lazy('Edit ingredient')
     form_action_urlname = 'ingredient-edit'
     messages = ugettext_lazy('Ingredient successfully updated')
+    permission_required = 'nutrition.change_ingredient'
 
 
 class IngredientCreateView(WgerFormMixin, CreateView):
@@ -163,7 +166,7 @@ class IngredientCreateView(WgerFormMixin, CreateView):
         return super(IngredientCreateView, self).dispatch(request, *args, **kwargs)
 
 
-class PendingIngredientListView(ListView):
+class PendingIngredientListView(WgerPermissionMixin, ListView):
     '''
     List all ingredients pending review
     '''
@@ -171,6 +174,7 @@ class PendingIngredientListView(ListView):
     model = Ingredient
     template_name = 'ingredient/pending.html'
     context_object_name = 'ingredient_list'
+    permission_required = 'nutrition.change_ingredient'
 
     def get_queryset(self):
         '''

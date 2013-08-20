@@ -32,6 +32,7 @@ from wger.nutrition.models import WeightUnit
 from wger.utils.language import load_language
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerPermissionMixin
 
 
 logger = logging.getLogger('wger.custom')
@@ -42,13 +43,14 @@ logger = logging.getLogger('wger.custom')
 # ************************
 
 
-class WeightUnitIngredientCreateView(WgerFormMixin, CreateView):
+class WeightUnitIngredientCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
     Generic view to add a new weight unit to ingredient entry
     '''
 
     model = IngredientWeightUnit
     title = ugettext_lazy('Add a new weight unit')
+    permission_required = 'nutrition.add_ingredientweightunit'
 
      # Send some additional data to the template
     def get_context_data(self, **kwargs):
@@ -80,7 +82,7 @@ class WeightUnitIngredientCreateView(WgerFormMixin, CreateView):
         return IngredientWeightUnitForm
 
 
-class WeightUnitIngredientUpdateView(WgerFormMixin, UpdateView):
+class WeightUnitIngredientUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
     Generic view to update an weight unit to ingredient entry
     '''
@@ -88,6 +90,7 @@ class WeightUnitIngredientUpdateView(WgerFormMixin, UpdateView):
     model = IngredientWeightUnit
     title = ugettext_lazy('Edit a weight unit to ingredient connection')
     form_action_urlname = 'weight-unit-ingredient-edit'
+    permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):
         return reverse('wger.nutrition.views.ingredient.view',
@@ -107,7 +110,7 @@ class WeightUnitIngredientUpdateView(WgerFormMixin, UpdateView):
         return IngredientWeightUnitForm
 
 
-class WeightUnitIngredientDeleteView(YamlDeleteMixin, DeleteView):
+class WeightUnitIngredientDeleteView(YamlDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
     Generic view to delete a weight unit to ingredient entry
     '''
@@ -115,6 +118,7 @@ class WeightUnitIngredientDeleteView(YamlDeleteMixin, DeleteView):
     model = IngredientWeightUnit
     title = ugettext_lazy('Delete weight unit?')
     form_action_urlname = 'weight-unit-ingredient-delete'
+    permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):
         return reverse('wger.nutrition.views.ingredient.view',
