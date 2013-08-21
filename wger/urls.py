@@ -1,12 +1,37 @@
 from django.conf.urls import include, url
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.i18n import patterns
-from django.views.generic import TemplateView
 
 from wger.exercises.sitemap import ExercisesSitemap
 from wger.nutrition.sitemap import NutritionSitemap
 from wger.utils.generic_views import TextTemplateView
 from wger.utils.generic_views import WebappManifestView
+
+from tastypie.api import Api
+
+from wger.exercises.api.resources import ExerciseResource
+from wger.exercises.api.resources import ExerciseCategoryResource
+from wger.exercises.api.resources import ExerciseCommentResource
+from wger.exercises.api.resources import MuscleResource
+from wger.exercises.api.resources import LanguageResource
+
+from wger.nutrition.api.resources import IngredientResource
+from wger.nutrition.api.resources import WeightUnitResource
+
+# REST API
+v1_api = Api(api_name='v1')
+
+# Exercises app
+v1_api.register(ExerciseCategoryResource())
+v1_api.register(ExerciseCommentResource())
+v1_api.register(ExerciseResource())
+v1_api.register(MuscleResource())
+v1_api.register(LanguageResource())
+
+# Nutrition app
+v1_api.register(IngredientResource())
+v1_api.register(WeightUnitResource())
+
 
 from django.contrib import admin
 admin.autodiscover()
@@ -37,4 +62,5 @@ urlpatterns = urlpatterns + patterns('',
     url(r'^manifest\.webapp$',
         WebappManifestView.as_view(template_name="manifest.webapp"),
        ),
+   (r'^api/', include(v1_api.urls)),
 )
