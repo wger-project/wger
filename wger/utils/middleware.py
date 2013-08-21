@@ -21,7 +21,6 @@ user automatically for anonymous users.
 
 import logging
 
-from django.core.cache import cache
 from django.contrib import auth
 from django.utils.functional import SimpleLazyObject
 from django.contrib.auth import login as django_login

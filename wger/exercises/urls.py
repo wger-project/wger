@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, url
-from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.decorators import login_required
 
 from wger.exercises.views import exercises

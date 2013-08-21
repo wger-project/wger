@@ -15,10 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
-import uuid
-import datetime
-import random
-
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -36,24 +32,9 @@ from django.contrib.auth.models import User as Django_User
 from django.contrib.auth.views import login as django_loginview
 from django.contrib import messages
 
-from wger.manager.models import DaysOfWeek
-from wger.manager.models import Workout
-from wger.manager.models import Day
-from wger.manager.models import Set
-from wger.manager.models import Setting
-from wger.manager.models import WorkoutLog
-
-from wger.exercises.models import Exercise
-
-from wger.weight.models import WeightEntry
-
 from wger.manager.forms import UserPreferencesForm
 from wger.manager.forms import UserEmailForm
 from wger.manager.forms import RegistrationForm
-from wger.manager.forms import DemoUserForm
-
-from wger.utils.language import load_language
-
 
 logger = logging.getLogger('wger.custom')
 

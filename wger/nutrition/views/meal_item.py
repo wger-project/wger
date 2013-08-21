@@ -14,48 +14,24 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 import logging
-import json
 
 from django import forms
-from django.template import RequestContext
-from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
-from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
-
-from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
-from django.views.generic import ListView
 
-from wger.nutrition.forms import UnitChooserForm
-from wger.nutrition.models import NutritionPlan
 from wger.nutrition.models import Meal
 from wger.nutrition.models import MealItem
 from wger.nutrition.models import Ingredient
-from wger.nutrition.models import WeightUnit
 from wger.nutrition.models import IngredientWeightUnit
-from wger.nutrition.models import MEALITEM_WEIGHT_GRAM
-from wger.nutrition.models import MEALITEM_WEIGHT_UNIT
 
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.lib.pagesizes import A4, cm
-from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
-from reportlab.lib import colors
-
-from wger import get_version
-from wger.utils import helpers
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import WgerDeleteMixin
-from wger.utils.language import load_ingredient_languages
 
 
 logger = logging.getLogger('wger.custom')
