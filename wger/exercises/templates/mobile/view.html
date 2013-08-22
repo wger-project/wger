@@ -225,20 +225,7 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
         {% trans "Back to exercise overview" %}
     </a>
 </p>
-<hr>
-
-{% if exercise.status == exercise.EXERCISE_STATUS_ACCEPTED %}
-<div class="alert" style="margin-top:1em;">
-<h3>{% trans "User submitted exercise" %}</h3>
-{% with username=exercise.user.username %}
-<p>{% blocktrans %}This exercise was submitted by <strong>{{username}}</strong>.{% endblocktrans %}
-{% endwith %}
-</div>
-<hr>
-{% endif %}
-
 {% if perms.exercises %}
-<h3>{% trans "Options" %}</h3>
 <p>
     <a href="{% url 'exercise-edit' exercise.id %}"
        data-role="button">
@@ -259,6 +246,16 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
         {% trans "Delete" %}
     </a>
 </p>
+{% endif %}
+
+
+{% if exercise.status == exercise.EXERCISE_STATUS_ACCEPTED %}
+<div class="alert" style="margin-top:1em;">
+<h3>{% trans "User submitted exercise" %}</h3>
+{% with username=exercise.user.username %}
+<p>{% blocktrans %}This exercise was submitted by <strong>{{username}}</strong>.{% endblocktrans %}
+{% endwith %}
+</div>
 <hr>
 {% endif %}
 
