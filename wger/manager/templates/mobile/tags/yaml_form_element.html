@@ -1,0 +1,26 @@
+{% load i18n %}
+<tr>
+    <td colspan="2">
+        <label for="{{field.auto_id}}">
+            {% trans field.label %}
+        </label>
+        {% if not field.field.required %}<span style="font-size:90%;">— <em>{% trans "Optional" %}</em></span>{% endif %}
+        <br>
+
+
+        {% if field.errors %}
+            <div class="ym-fbox-text ym-error">
+                {% for error in field.errors %}
+                    <p class="ym-message">{% trans error %}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if field.help_text %}<p class="dimmed">{% trans field.help_text %}</p>{% endif %}
+        <br>
+
+
+        <div class="{{css_class}} {% if field.errors %}ym-error{% endif %}">
+        {{ field }}
+        </div>
+    </td>
+</tr>
