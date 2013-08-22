@@ -8,3 +8,4 @@ pep8
 bleach
 south < 2.0
 html5lib==0.95
+django-tastypie
