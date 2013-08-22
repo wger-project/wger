@@ -74,18 +74,7 @@
 
 
 
-    <div data-role="content">
-        {% if not user.is_authenticated or user.get_profile.is_temporary %}
-            <div data-role="popup" id="popupGuestUser" class="ui-content">
-            {% trans "You are using a guest account, data entered will be deleted after a week."%}
-            {% if not has_demo_data %}
-            <a href="{% url 'demo-entries' %}" rel="nofollow" data-role="button" data-mini="true">{% trans "Create some demo entries" %} »</a>
-            {% endif %}
-            </div>
-        {% endif %}
-        {% block content %}{% endblock %}
-        {% block sidebar %}{% endblock %}
-    </div>
+    {% block template %}{% endblock %}
 
     <div data-role="navbar" data-role="footer">
         <ul>
