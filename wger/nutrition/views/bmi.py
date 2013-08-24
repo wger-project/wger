@@ -62,7 +62,7 @@ def calculate(request):
         form.save()
 
         # Create a new weight entry as needed
-        if (not WeightEntry.objects.all().exists()
+        if (not WeightEntry.objects.filter(user=request.user).exists()
            or (datetime.date.today()
                - WeightEntry.objects.filter(user=request.user).latest().creation_date
                > datetime.timedelta(1))):
