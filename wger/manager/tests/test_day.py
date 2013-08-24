@@ -179,3 +179,20 @@ class WorkoutCacheTestCase(WorkoutManagerTestCase):
         day1.delete()
         self.assertFalse(cache.get(get_template_cache_name('day-view', 1)))
         self.assertTrue(cache.get(get_template_cache_name('day-view', 2)))
+
+
+class DayTestCase(WorkoutManagerTestCase):
+    '''
+    Other tests
+    '''
+
+    def test_day_id_property(self):
+        '''
+        Test that the attribute get_first_day_id works correctly
+        '''
+
+        day = Day.objects.get(pk=5)
+        self.assertEqual(day.get_first_day_id, 3)
+
+        day = Day.objects.get(pk=3)
+        self.assertEqual(day.get_first_day_id, 1)

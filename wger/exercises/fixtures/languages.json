@@ -22,5 +22,13 @@
             "short_name": "bg", 
             "full_name": "\u0431\u044a\u043b\u0433\u0430\u0440\u0441\u043a\u0438 \u0435\u0437\u0438\u043a"
         }
+    }, 
+    {
+        "pk": 4, 
+        "model": "exercises.language", 
+        "fields": {
+            "short_name": "es", 
+            "full_name": "Espa\u00f1ol"
+        }
     }
 ]

@@ -30,7 +30,7 @@ from django.views.generic import UpdateView
 from wger.exercises.models import Language
 
 
-from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerPermissionMixin
 
@@ -66,7 +66,7 @@ class LanguageCreateView(WgerFormMixin, CreateView):
     permission_required = 'config.add_languageconfig'
 
 
-class LanguageDeleteView(YamlDeleteMixin, DeleteView):
+class LanguageDeleteView(WgerDeleteMixin, DeleteView):
     '''
     Generic view to delete an existing language
     '''

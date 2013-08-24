@@ -115,7 +115,7 @@ $(document).ready(function() {
                     <h3>{% trans "Exercises" %}</h3>
                     <ul class="exercise-overview">
                         {% for exercise in muscle.exercise_set.select_related %}
-                        {% if exercise.language == language %}
+                        {% if exercise.language in active_languages %}
                         <li class="exercise">
                             <a href="{{exercise.get_absolute_url}}">{{exercise}}</a>
                         </li>

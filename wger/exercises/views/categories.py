@@ -27,7 +27,8 @@ from django.views.generic import UpdateView
 from wger.exercises.models import ExerciseCategory
 
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerDeleteMixin
+from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.language import load_language
 
 
@@ -39,7 +40,7 @@ logger = logging.getLogger('wger.custom')
 # ************************
 
 
-class ExerciseCategoryAddView(WgerFormMixin, CreateView):
+class ExerciseCategoryAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
     Generic view to add a new exercise category
     '''
@@ -49,6 +50,7 @@ class ExerciseCategoryAddView(WgerFormMixin, CreateView):
     title = ugettext_lazy('Add category')
     form_action = reverse_lazy('exercisecategory-add')
     messages = ugettext_lazy('Category was successfully created')
+    permission_required = 'exercises.add_exercisecategory'
 
     def form_valid(self, form):
         form.instance.language = load_language()
@@ -56,7 +58,7 @@ class ExerciseCategoryAddView(WgerFormMixin, CreateView):
         return super(ExerciseCategoryAddView, self).form_valid(form)
 
 
-class ExerciseCategoryUpdateView(WgerFormMixin, UpdateView):
+class ExerciseCategoryUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
     Generic view to update an existing exercise category
     '''
@@ -64,6 +66,7 @@ class ExerciseCategoryUpdateView(WgerFormMixin, UpdateView):
     model = ExerciseCategory
     success_url = reverse_lazy('wger.exercises.views.exercises.overview')
     messages = ugettext_lazy('Category successfully edited')
+    permission_required = 'exercises.change_exercisecategory'
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
@@ -79,7 +82,7 @@ class ExerciseCategoryUpdateView(WgerFormMixin, UpdateView):
         return super(ExerciseCategoryUpdateView, self).form_valid(form)
 
 
-class ExerciseCategoryDeleteView(YamlDeleteMixin, DeleteView):
+class ExerciseCategoryDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
     Generic view to delete an existing exercise category
     '''
@@ -88,6 +91,7 @@ class ExerciseCategoryDeleteView(YamlDeleteMixin, DeleteView):
     success_url = reverse_lazy('wger.exercises.views.exercises.overview')
     delete_message = ugettext_lazy('This will also delete all exercises in this category.')
     messages = ugettext_lazy('Category successfully deleted')
+    permission_required = 'exercises.delete_exercisecategory'
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):

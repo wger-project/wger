@@ -178,5 +178,145 @@
             "language": 3, 
             "show": true
         }
+    }, 
+    {
+        "pk": 19, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 4, 
+            "item": "1", 
+            "language": 1, 
+            "show": false
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 4, 
+            "item": "2", 
+            "language": 1, 
+            "show": false
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 4, 
+            "item": "1", 
+            "language": 2, 
+            "show": false
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 4, 
+            "item": "2", 
+            "language": 2, 
+            "show": false
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 4, 
+            "item": "1", 
+            "language": 3, 
+            "show": false
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 4, 
+            "item": "2", 
+            "language": 3, 
+            "show": false
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 1, 
+            "item": "1", 
+            "language": 4, 
+            "show": false
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 1, 
+            "item": "2", 
+            "language": 4, 
+            "show": false
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 2, 
+            "item": "1", 
+            "language": 4, 
+            "show": true
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 2, 
+            "item": "2", 
+            "language": 4, 
+            "show": true
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 3, 
+            "item": "1", 
+            "language": 4, 
+            "show": false
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 3, 
+            "item": "2", 
+            "language": 4, 
+            "show": false
+        }
+    }, 
+    {
+        "pk": 31, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 4, 
+            "item": "1", 
+            "language": 4, 
+            "show": true
+        }
+    }, 
+    {
+        "pk": 32, 
+        "model": "config.languageconfig", 
+        "fields": {
+            "language_target": 4, 
+            "item": "2", 
+            "language": 4, 
+            "show": true
+        }
     }
 ]

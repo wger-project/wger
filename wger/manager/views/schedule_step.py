@@ -16,20 +16,11 @@
 
 import logging
 
-from django.template import RequestContext
-from django.shortcuts import render_to_response
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
-from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
-from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 from django.db import models
 from django.forms import ModelForm
 from django.forms import ModelChoiceField
-
-from django.contrib.auth.decorators import login_required
 
 from django.views.generic import CreateView
 from django.views.generic import DeleteView
@@ -39,24 +30,22 @@ from wger.manager.models import Schedule
 from wger.manager.models import ScheduleStep
 from wger.manager.models import Workout
 
-from wger.manager.forms import WorkoutForm
-from wger.manager.forms import WorkoutCopyForm
-
-
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerDeleteMixin
+from wger.utils.generic_views import WgerPermissionMixin
 
 
 logger = logging.getLogger('wger.custom')
 
 
-class StepCreateView(WgerFormMixin, CreateView):
+class StepCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
     Creates a new workout schedule
     '''
 
     model = ScheduleStep
     title = ugettext_lazy('Add workout')
+    login_required = True
 
     def get_form_class(self):
         '''
@@ -94,7 +83,7 @@ class StepCreateView(WgerFormMixin, CreateView):
         return super(StepCreateView, self).form_valid(form)
 
 
-class StepEditView(WgerFormMixin, UpdateView):
+class StepEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
     Generic view to update an existing schedule step
     '''
@@ -102,6 +91,7 @@ class StepEditView(WgerFormMixin, UpdateView):
     model = ScheduleStep
     title = ugettext_lazy('Edit workout')
     form_action_urlname = 'step-edit'
+    login_required = True
 
     def get_form_class(self):
         '''
@@ -123,7 +113,7 @@ class StepEditView(WgerFormMixin, UpdateView):
         return reverse('schedule-view', kwargs={'pk': self.object.schedule_id})
 
 
-class StepDeleteView(YamlDeleteMixin, DeleteView):
+class StepDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
     Generic view to delete a schedule step
     '''
@@ -132,6 +122,7 @@ class StepDeleteView(YamlDeleteMixin, DeleteView):
     title = ugettext_lazy('Delete workout')
     form_action_urlname = 'step-delete'
     messages = ugettext_lazy('Workout was successfully deleted')
+    login_required = True
 
     def get_success_url(self):
         return reverse('schedule-view', kwargs={'pk': self.object.schedule.id})

@@ -37,7 +37,6 @@ from wger.manager.demo import create_demo_entries
 from wger.manager.demo import create_temporary_user
 
 from wger.manager.models import DaysOfWeek
-from wger.manager.models import Workout
 from wger.manager.models import Schedule
 
 from wger.nutrition.models import NutritionPlan

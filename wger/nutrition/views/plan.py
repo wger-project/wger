@@ -41,7 +41,7 @@ from reportlab.lib import colors
 
 from wger import get_version
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.pdf import styleSheet
 from wger.utils.language import load_language
 
@@ -81,7 +81,7 @@ def add(request):
     return HttpResponseRedirect(reverse('wger.nutrition.views.plan.view', kwargs={'id': plan.id}))
 
 
-class PlanDeleteView(YamlDeleteMixin, DeleteView):
+class PlanDeleteView(WgerDeleteMixin, DeleteView):
     '''
     Generic view to delete a nutritional plan
     '''

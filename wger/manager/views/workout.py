@@ -37,7 +37,8 @@ from wger.manager.forms import WorkoutForm
 from wger.manager.forms import WorkoutCopyForm
 
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerDeleteMixin
+from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.cache import cache_mapper
 
 logger = logging.getLogger('wger.custom')
@@ -181,6 +182,7 @@ def copy_workout(request, pk):
         template_data['form'] = workout_form
         template_data['form_action'] = reverse('workout-copy', kwargs={'pk': workout.id})
         template_data['form_fields'] = [workout_form['comment']]
+        template_data['submit_text'] = _('Copy')
 
         return render_to_response('form.html',
                                   template_data,
@@ -200,7 +202,7 @@ def add(request):
                                         kwargs={'id': workout.id}))
 
 
-class WorkoutDeleteView(YamlDeleteMixin, DeleteView):
+class WorkoutDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
     Generic view to delete a workout routine
     '''
@@ -210,9 +212,10 @@ class WorkoutDeleteView(YamlDeleteMixin, DeleteView):
     title = ugettext_lazy('Delete workout')
     form_action_urlname = 'workout-delete'
     messages = ugettext_lazy('Workout was successfully deleted')
+    login_required = True
 
 
-class WorkoutEditView(WgerFormMixin, UpdateView):
+class WorkoutEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
     Generic view to update an existing workout routine
     '''
@@ -221,3 +224,4 @@ class WorkoutEditView(WgerFormMixin, UpdateView):
     form_class = WorkoutForm
     title = ugettext_lazy('Edit workout')
     form_action_urlname = 'workout-edit'
+    login_required = True
