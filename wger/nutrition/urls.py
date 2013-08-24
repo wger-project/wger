@@ -126,7 +126,7 @@ urlpatterns = patterns('wger.nutrition.views',
         name='calories-calculator'),
     url(r'^calculator/calories/bmr$',
         'calculator.calculate_bmr',
-        name='calories-calculate'),
+        name='calories-calculate-bmr'),
     url(r'^calculator/calories/activities$',
         'calculator.calculate_activities',
         name='calories-calculate-activities'),  # JS

@@ -18,6 +18,7 @@
 import datetime
 import logging
 import json
+import decimal
 
 from django.db import models
 from django.db.models.signals import post_save
@@ -705,12 +706,18 @@ by the US Department of Agriculture. It is extremely complete, with around
             factor = 5
         else:
             factor = -161
-        rate = ((10 * self.weight)  # in kg
-                + (6.25 * self.height)  # in cm
-                - (5 * self.age)  # in years
-                + factor
-                )
-        return rate
+
+        try:
+            rate = ((10 * self.weight)  # in kg
+                    + (6.25 * self.height)  # in cm
+                    - (5 * self.age)  # in years
+                    + factor
+                    )
+        except TypeError:
+        # Any of the entries is missing
+            rate = 0
+
+        return decimal.Decimal(rate).quantize(decimal.Decimal('.01'))
 
     def calculate_activities(self):
         '''
@@ -732,8 +739,7 @@ by the US Department of Agriculture. It is extremely complete, with around
             work_factor = 2.2
         work = self.work_hours * work_factor
 
-        # Sport
-        # Sport is given in hours/week, so divide
+        # Sport (entered in hours/week, so we must divide)
         if self.sport_intensity == self.INTENSITY_LOW:
             sport_factor = 4
         elif self.sport_intensity == self.INTENSITY_MEDIUM:
@@ -753,7 +759,7 @@ by the US Department of Agriculture. It is extremely complete, with around
 
         # Total
         total = (sleep + work + sport + freetime) / 24.0
-        return total
+        return decimal.Decimal(total).quantize(decimal.Decimal('.01'))
 
 
 # Every new user gets a profile
