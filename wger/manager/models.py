@@ -715,36 +715,40 @@ by the US Department of Agriculture. It is extremely complete, with around
     def calculate_activities(self):
         '''
         Calculates the calories needed by additional physical activities
+
+        Factors taken from
+        * https://en.wikipedia.org/wiki/Physical_activity_level
+        * http://www.fao.org/docrep/007/y5686e/y5686e07.htm
         '''
         # Sleep
-        sleep = self.sleep_hours * 1.9
+        sleep = self.sleep_hours * 0.95
 
         # Work
         if self.work_intensity == self.INTENSITY_LOW:
             work_factor = 1.5
         elif self.work_intensity == self.INTENSITY_MEDIUM:
-            work_factor = 2
+            work_factor = 1.8
         else:
-            work_factor = 4
+            work_factor = 2.2
         work = self.work_hours * work_factor
 
         # Sport
         # Sport is given in hours/week, so divide
         if self.sport_intensity == self.INTENSITY_LOW:
-            sport_factor = 3
+            sport_factor = 4
         elif self.sport_intensity == self.INTENSITY_MEDIUM:
-            sport_factor = 7
+            sport_factor = 6
         else:
-            sport_factor = 12
-        sport = (self.sport_hours / 7) * sport_factor
+            sport_factor = 10
+        sport = (self.sport_hours / 7.0) * sport_factor
 
         # Free time
         if self.freetime_intensity == self.INTENSITY_LOW:
-            freetime_factor = 2
+            freetime_factor = 1.3
         elif self.freetime_intensity == self.INTENSITY_MEDIUM:
-            freetime_factor = 4
+            freetime_factor = 1.9
         else:
-            freetime_factor = 6
+            freetime_factor = 2.4
         freetime = self.freetime_hours * freetime_factor
 
         # Total

@@ -70,9 +70,9 @@ $(document).ready(function() {
 {% block content %}
 
 <h3>1 - {%trans "Basal metabolic rate" %}</h3>
-<p>{% blocktrans %}Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-Integer et augue sem. Nullam bibendum tortor a lacus luctus tempor. Suspendisse
-auctor tristique metus, non ultricies quam.{% endblocktrans %}</p>
+<p>{% blocktrans %}The basal metabolic rate is the amount of energy expended daily
+at rest. This is the minimum energy needed for the body to function, without any
+additional physical activity.{% endblocktrans %}</p>
 <form action="{% url 'calories-calculate' %}"
       method="post"
       class="ym-form calories-autoform"
@@ -110,9 +110,9 @@ auctor tristique metus, non ultricies quam.{% endblocktrans %}</p>
 
 
 <h3>2 - {%trans "Physical activities" %}</h3>
-<p>{% blocktrans %}Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-Integer et augue sem. Nullam bibendum tortor a lacus luctus tempor. Suspendisse
-auctor tristique metus, non ultricies quam.{% endblocktrans %}</p>
+<p>{% blocktrans %}The physical activity level (PAL) is a factor used to to express
+the additional physical activity and is used to calculate the total energy
+required per day.{% endblocktrans %}</p>
 <form action="{% url 'calories-calculate-activities' %}"
       method="post"
       class="ym-form calories-autoform"
@@ -220,7 +220,7 @@ you might just enter yourself the amount of calories if you know the value.{% en
 {#                 #}
 {% block sidebar %}
 <h3>{% trans "Info" %}</h3>
-<p>{% blocktrans %}Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-Integer et augue sem. Nullam bibendum tortor a lacus luctus tempor. Suspendisse
-auctor tristique metus, non ultricies quam.{% endblocktrans %}</p>
+<p>{% blocktrans %}Please note that these calculations can only be an
+approximation. If you base your nutrition plan on these values, observe
+yourself for some weeks and change the total amount if needed.{% endblocktrans %}</p>
 {% endblock %}

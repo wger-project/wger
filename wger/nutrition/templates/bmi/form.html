@@ -62,10 +62,9 @@ $(document).ready(function () {
     var area = d3.svg.area()
         .interpolate("linear")
         .x(function(d) { return x(d.height); })
-        //.x(function(d) { return x(d.height); })
         .y0(function(d) { return y(d.y0); })
-        //.y1(function(d) { return y(d.y0 + d.y); });
-        .y1(function(d) { return y(d.weight); });
+        .y1(function(d) { return y(d.y); });
+
 
     var svg = d3.select("#bmi-chart").append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -86,13 +85,14 @@ $(document).ready(function () {
         var layers = stack(nest.entries(data));
 
         // Manually set the domains
-        x.domain([150, 200]);
-        y.domain([30, 180]);
+        x.domain([150, 200]); // height, in cm
+        y.domain([30, 160]);  // weight, in kg
 
       svg.selectAll(".layer")
           .data(layers)
         .enter().append("path")
           .attr("class", "layer")
+          .attr("id", function(d, i) { return "key-" + d.key; })
           .attr("clip-path", "url(#clip)")
           .attr("d", function(d) { return area(d.values); })
           .style("fill", function(d, i) { return z(i); })
@@ -104,6 +104,7 @@ $(document).ready(function () {
           .call(xAxis);
 
       svg.append("g")
+          //.attr("transform", "translate(" + width + ",0)")
           .attr("class", "y axis")
           .call(yAxis);
 

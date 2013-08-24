@@ -98,29 +98,32 @@ def chart_data(request):
     '''
 
     data = json.dumps([
-        {'key': 'severe_thinness', 'height': 150, 'weight': 22.5},
+        {'key': 'filler', 'height': 150, 'weight': 36},
+        {'key': 'filler', 'height': 200, 'weight': 64},
+
+        {'key': 'severe_thinness', 'height': 150, 'weight': 36},
         {'key': 'severe_thinness', 'height': 200, 'weight': 64},
 
-        {'key': 'moderate_thinness', 'height': 150, 'weight': 36},
-        {'key': 'moderate_thinness', 'height': 200, 'weight': 68},
+        {'key': 'moderate_thinness', 'height': 150, 'weight': 36.25},
+        {'key': 'moderate_thinness', 'height': 200, 'weight': 64},
 
-        {'key': 'mild_thinness', 'height': 150, 'weight': 36.25},
-        {'key': 'mild_thinness', 'height': 200, 'weight': 68.5},
+        {'key': 'mild_thinness', 'height': 150, 'weight': 41.625},
+        {'key': 'mild_thinness', 'height': 200, 'weight': 74},
 
-        {'key': 'normal_range', 'height': 150, 'weight': 41.625},
+        {'key': 'normal_range', 'height': 150, 'weight': 56.025},
         {'key': 'normal_range', 'height': 200, 'weight': 99.6},
 
-        {'key': 'pre_obese', 'height': 150, 'weight': 56.25},
+        {'key': 'pre_obese', 'height': 150, 'weight': 67.275},
         {'key': 'pre_obese', 'height': 200, 'weight': 119.6},
 
-        {'key': 'obese_class_1', 'height': 150, 'weight': 67.5},
+        {'key': 'obese_class_1', 'height': 150, 'weight': 78.525},
         {'key': 'obese_class_1', 'height': 200, 'weight': 139.6},
 
-        {'key': 'obese_class_2', 'height': 150, 'weight': 78.75},
+        {'key': 'obese_class_2', 'height': 150, 'weight': 89.775},
         {'key': 'obese_class_2', 'height': 200, 'weight': 159},
 
-        {'key': 'obese_class_3', 'height': 150, 'weight': 90},
-        {'key': 'obese_class_3', 'height': 200, 'weight': 180}
+        {'key': 'obese_class_3', 'height': 150, 'weight': 190},
+        {'key': 'obese_class_3', 'height': 200, 'weight': 190}
         ])
 
     # Return the results to the client

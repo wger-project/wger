@@ -118,7 +118,6 @@ def update_total(request):
 
     data = []
 
-    #form = DailyCaloriesForm()
     form = DailyCaloriesForm(data=request.POST, instance=request.user.userprofile)
     if form.is_valid():
         form.save()
