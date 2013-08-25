@@ -87,7 +87,6 @@
             "sport_hours": 6,
             "sleep_hours": 7,
             "work_intensity": "1",
-            "is_temporary": false,
             "freetime_intensity": "1",
             "work_hours": 8,
             "freetime_hours": 8
@@ -109,7 +108,6 @@
             "sport_hours": 6,
             "sleep_hours": 7,
             "work_intensity": "1",
-            "is_temporary": false,
             "freetime_intensity": "1",
             "work_hours": 8,
             "freetime_hours": 8
@@ -131,7 +129,6 @@
             "sport_hours": 6,
             "sleep_hours": 7,
             "work_intensity": "3",
-            "is_temporary": false,
             "freetime_intensity": "3",
             "work_hours": 8,
             "freetime_hours": 8
