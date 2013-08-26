@@ -725,7 +725,7 @@ by the US Department of Agriculture. It is extremely complete, with around
         # Any of the entries is missing
             rate = 0
 
-        return decimal.Decimal(rate).quantize(decimal.Decimal('.01'))
+        return decimal.Decimal(str(rate)).quantize(decimal.Decimal('.01'))
 
     def calculate_activities(self):
         '''
@@ -767,7 +767,7 @@ by the US Department of Agriculture. It is extremely complete, with around
 
         # Total
         total = (sleep + work + sport + freetime) / 24.0
-        return decimal.Decimal(total).quantize(decimal.Decimal('.01'))
+        return decimal.Decimal(str(total)).quantize(decimal.Decimal('.01'))
 
 
 # Every new user gets a profile
