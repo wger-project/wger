@@ -25,7 +25,8 @@ from wger.exercises.models import Language
 
 
 class ExerciseResource(ModelResource):
-    category = fields.ToOneField('wger.exercises.api.resources.ExerciseCategoryResource', 'category')
+    category = fields.ToOneField('wger.exercises.api.resources.ExerciseCategoryResource',
+                                 'category')
     muscles = fields.ToManyField('wger.exercises.api.resources.MuscleResource', 'muscles')
     language = fields.ToOneField('wger.exercises.api.resources.LanguageResource', 'language')
 

@@ -42,6 +42,9 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^user/demo-entries$',
         'misc.demo_entries',
         name='demo-entries'),
+    url(r'^user/api-key$',
+        'user.api_key',
+        name='api-key'),
 
     # Workout
     url(r'^workout/overview$',

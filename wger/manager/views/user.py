@@ -15,10 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
-import uuid
-import datetime
-import random
-
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -36,23 +32,11 @@ from django.contrib.auth.models import User as Django_User
 from django.contrib.auth.views import login as django_loginview
 from django.contrib import messages
 
-from wger.manager.models import DaysOfWeek
-from wger.manager.models import Workout
-from wger.manager.models import Day
-from wger.manager.models import Set
-from wger.manager.models import Setting
-from wger.manager.models import WorkoutLog
-
-from wger.exercises.models import Exercise
-
-from wger.weight.models import WeightEntry
+from tastypie.models import ApiKey
 
 from wger.manager.forms import UserPreferencesForm
 from wger.manager.forms import UserEmailForm
 from wger.manager.forms import RegistrationForm
-from wger.manager.forms import DemoUserForm
-
-from wger.utils.language import load_language
 
 
 logger = logging.getLogger('wger.custom')
@@ -197,3 +181,34 @@ def api_user_preferences(request):
             profile.save()
 
             return HttpResponse(_('Success'))
+
+
+@login_required
+def api_key(request):
+    '''
+    Allows the user to generate an API key for the REST API
+    '''
+
+    context = {}
+    context.update(csrf(request))
+
+    try:
+        key = ApiKey.objects.get(user=request.user)
+    except ApiKey.DoesNotExist:
+        key = False
+    if request.GET.get('new_key'):
+        if key:
+            key.delete()
+
+        key = ApiKey()
+        key.user = request.user
+        key.save()
+
+        # Redirect to get rid of the GET parameter
+        return HttpResponseRedirect(reverse('api-key'))
+
+    context['key'] = key
+
+    return render_to_response('user/api_key.html',
+                              context,
+                              context_instance=RequestContext(request))
