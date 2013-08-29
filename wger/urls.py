@@ -8,37 +8,51 @@ from wger.utils.generic_views import TextTemplateView
 from wger.utils.generic_views import WebappManifestView
 
 from tastypie.api import Api
+from wger.exercises.api import resources as exercises_api
+from wger.nutrition.api import resources as nutrition_api
+from wger.manager.api import resources as manager_api
 
-from wger.exercises.api.resources import ExerciseResource
-from wger.exercises.api.resources import ExerciseCategoryResource
-from wger.exercises.api.resources import ExerciseCommentResource
-from wger.exercises.api.resources import MuscleResource
-from wger.exercises.api.resources import LanguageResource
-
-from wger.nutrition.api.resources import IngredientResource
-from wger.nutrition.api.resources import WeightUnitResource
-
+#
 # REST API
+#
 v1_api = Api(api_name='v1')
 
 # Exercises app
-v1_api.register(ExerciseCategoryResource())
-v1_api.register(ExerciseCommentResource())
-v1_api.register(ExerciseResource())
-v1_api.register(MuscleResource())
-v1_api.register(LanguageResource())
+v1_api.register(exercises_api.ExerciseCategoryResource())
+v1_api.register(exercises_api.ExerciseCommentResource())
+v1_api.register(exercises_api.ExerciseResource())
+v1_api.register(exercises_api.MuscleResource())
+v1_api.register(exercises_api.LanguageResource())
 
 # Nutrition app
-v1_api.register(IngredientResource())
-v1_api.register(WeightUnitResource())
+v1_api.register(nutrition_api.IngredientResource())
+v1_api.register(nutrition_api.WeightUnitResource())
 
+# Manager app
+v1_api.register(manager_api.UserProfileResource())
+v1_api.register(manager_api.UserResource())
+v1_api.register(manager_api.WorkoutResource())
+v1_api.register(manager_api.ScheduleResource())
+v1_api.register(manager_api.ScheduleStepResource())
+v1_api.register(manager_api.DaysOfWeekResource())
+v1_api.register(manager_api.DayResource())
+v1_api.register(manager_api.SetResource())
+v1_api.register(manager_api.SettingResource())
+v1_api.register(manager_api.WorkoutLogResource())
 
 from django.contrib import admin
 admin.autodiscover()
 
+#
+# Sitemaps
+#
 sitemaps = {'exercises': ExercisesSitemap,
             'nutrition': NutritionSitemap}
 
+
+#
+# The actual URLs
+#
 urlpatterns = i18n_patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('wger.manager.urls')),
