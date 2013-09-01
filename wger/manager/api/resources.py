@@ -21,6 +21,7 @@ from tastypie.resources import ModelResource
 from django.contrib.auth.models import User
 
 from wger.exercises.api.resources import ExerciseResource
+from wger.utils.resources import UserObjectsOnlyAuthorization
 
 from wger.manager.models import UserProfile
 from wger.manager.models import Workout
@@ -40,7 +41,6 @@ class UserProfileResource(ModelResource):
     '''
     Resource for user profiles
     '''
-    user = fields.ToOneField('wger.manager.api.resources.UserResource', 'user')
 
     def authorized_read_list(self, object_list, bundle):
         '''
@@ -51,23 +51,7 @@ class UserProfileResource(ModelResource):
     class Meta:
         queryset = UserProfile.objects.all()
         authentication = ApiKeyAuthentication()
-
-
-class UserResource(ModelResource):
-    '''
-    Resource for users
-    '''
-
-    def authorized_read_list(self, object_list, bundle):
-        '''
-        Filter to own objects
-        '''
-        return object_list.filter(pk=bundle.request.user.pk)
-
-    class Meta:
-        queryset = User.objects.all()
-        excludes = ['is_active', 'is_staff', 'is_superuser', 'password', ]
-        authentication = ApiKeyAuthentication()
+        authorization = UserObjectsOnlyAuthorization()
 
 
 #
@@ -78,7 +62,7 @@ class WorkoutResource(ModelResource):
     Resource for workouts
     '''
 
-    days = fields.ToManyField('wger.manager.api.resources.DaysOfWeekResource', 'day_set')
+    days = fields.ToManyField('wger.manager.api.resources.DayResource', 'day_set')
 
     def authorized_read_list(self, object_list, bundle):
         '''
@@ -89,6 +73,7 @@ class WorkoutResource(ModelResource):
     class Meta:
         queryset = Workout.objects.all()
         authentication = ApiKeyAuthentication()
+        authorization = UserObjectsOnlyAuthorization()
 
 
 class ScheduleStepResource(ModelResource):
@@ -107,6 +92,7 @@ class ScheduleStepResource(ModelResource):
     class Meta:
         queryset = ScheduleStep.objects.all()
         authentication = ApiKeyAuthentication()
+        authorization = UserObjectsOnlyAuthorization()
 
 
 class ScheduleResource(ModelResource):
@@ -125,6 +111,7 @@ class ScheduleResource(ModelResource):
     class Meta:
         queryset = Schedule.objects.all()
         authentication = ApiKeyAuthentication()
+        authorization = UserObjectsOnlyAuthorization()
 
 
 class DaysOfWeekResource(ModelResource):
@@ -142,7 +129,7 @@ class DayResource(ModelResource):
     '''
 
     workout = fields.ToOneField(WorkoutResource, 'training')
-    days = fields.ToManyField(DaysOfWeekResource, 'day')
+    days_of_week = fields.ToManyField(DaysOfWeekResource, 'day')
 
     def authorized_read_list(self, object_list, bundle):
         '''
@@ -153,6 +140,7 @@ class DayResource(ModelResource):
     class Meta:
         queryset = Day.objects.all()
         authentication = ApiKeyAuthentication()
+        authorization = UserObjectsOnlyAuthorization()
 
 
 class SetResource(ModelResource):
@@ -172,6 +160,7 @@ class SetResource(ModelResource):
     class Meta:
         queryset = Set.objects.all()
         authentication = ApiKeyAuthentication()
+        authorization = UserObjectsOnlyAuthorization()
 
 
 class SettingResource(ModelResource):
@@ -191,6 +180,7 @@ class SettingResource(ModelResource):
     class Meta:
         queryset = Setting.objects.all()
         authentication = ApiKeyAuthentication()
+        authorization = UserObjectsOnlyAuthorization()
 
 
 class WorkoutLogResource(ModelResource):
@@ -198,7 +188,6 @@ class WorkoutLogResource(ModelResource):
     Resource for a workout log
     '''
 
-    user = fields.ToOneField(UserResource, 'user')
     exercise = fields.ToOneField(ExerciseResource, 'exercise')
     workout = fields.ToOneField(WorkoutResource, 'workout')
 
@@ -211,3 +200,4 @@ class WorkoutLogResource(ModelResource):
     class Meta:
         queryset = WorkoutLog.objects.all()
         authentication = ApiKeyAuthentication()
+        authorization = UserObjectsOnlyAuthorization()

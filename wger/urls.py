@@ -30,7 +30,6 @@ v1_api.register(nutrition_api.WeightUnitResource())
 
 # Manager app
 v1_api.register(manager_api.UserProfileResource())
-v1_api.register(manager_api.UserResource())
 v1_api.register(manager_api.WorkoutResource())
 v1_api.register(manager_api.ScheduleResource())
 v1_api.register(manager_api.ScheduleStepResource())
