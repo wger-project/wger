@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+
+
+{% block title %}{% trans "REST API" %}{% endblock %}
+
+{% block content %}
+<p>{% blocktrans %}wger Workout Manager provides a full REST API to all database
+objects:{% endblocktrans %} <a href="/api/v1/?format=json">/api/v1/</a></p>
+
+<p>{% blocktrans %}Public endpoints, such as the list of exercises or the
+ingredients can be accessed without authentication. For user owned
+objects such as workouts, you need to generate an API KEY and pass it
+along with the username either in the header or in form of GET parameters.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}The API uses HATEOAS, so you should be able to browse
+through the necessary endpoints without having to consult an extensive
+documentation. At the moment, the API only supports read operations, but
+support for full POST/PUT/DELETE/PATCH is planned for the near future.{% endblocktrans %}</p>
+
+<div class="alert alert-info" style="margin-top:1em;">
+{% blocktrans %}This is also new for us, if you plan on using the API,
+<a href="https://groups.google.com/group/wger">we'd love to hear from you</a>.{% endblocktrans %}
+</div>
+{% endblock %}
+
+
+{% block sidebar %}
+<p><a href="/api/v1/?format=json" class="btn btn-block">{% trans "Browse the API" %}</a></p>
+<p><a href="{% url 'api-key' %}" class="btn btn-block">Generate API KEY</a></p>
+{% endblock %}
