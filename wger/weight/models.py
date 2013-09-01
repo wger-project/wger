@@ -25,8 +25,7 @@ class WeightEntry(models.Model):
     '''
     Model for a weight point
     '''
-    creation_date = models.DateField(verbose_name=_('Date'),
-                                     unique=True)
+    creation_date = models.DateField(verbose_name=_('Date'))
     weight = models.FloatField(verbose_name=_('Weight'))
     user = models.ForeignKey(User,
                              verbose_name=_('User'),
@@ -38,6 +37,7 @@ class WeightEntry(models.Model):
         # Order by creation_date, ascending (oldest last), better for diagram
         ordering = ["creation_date", ]
         get_latest_by = "creation_date"
+        unique_together = (("creation_date", "user"))
 
     def __unicode__(self):
         '''
