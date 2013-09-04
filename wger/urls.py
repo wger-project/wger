@@ -27,6 +27,9 @@ v1_api.register(exercises_api.LanguageResource())
 # Nutrition app
 v1_api.register(nutrition_api.IngredientResource())
 v1_api.register(nutrition_api.WeightUnitResource())
+v1_api.register(nutrition_api.NutritionPlanResource())
+v1_api.register(nutrition_api.MealResource())
+v1_api.register(nutrition_api.MealItemResource())
 
 # Manager app
 v1_api.register(manager_api.UserProfileResource())
