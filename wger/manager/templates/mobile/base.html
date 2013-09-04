@@ -5,7 +5,11 @@
         <div data-role="popup" id="popupGuestUser" class="ui-content">
         {% trans "You are using a guest account, data entered will be deleted after a week."%}
         {% if not has_demo_data %}
-        <a href="{% url 'demo-entries' %}" rel="nofollow" data-role="button" data-mini="true">{% trans "Create some demo entries" %} »</a>
+        <a href="{% url 'demo-entries' %}"
+           rel="nofollow"
+           data-role="button"
+           data-mini="true"
+           data-ajax="false">{% trans "Create some demo entries" %} »</a>
         {% endif %}
         </div>
     {% endif %}

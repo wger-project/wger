@@ -23,12 +23,12 @@
         {% render_day day %}
     </div>
 {% empty %}
-<div class="box warning">
-    {% trans "No days for this workout." %}
-    <a href="{% url 'day-add' workout.id %}" class="modal-dialog">
-    {% trans "Add training day." %}
-    </a>
-</div>
+
+<a href="{% url 'day-add' workout.id %}"
+   data-role="button">
+{% trans "No days for this workout." %}<br>
+{% trans "Add training day." %}
+</a>
 {% endfor %}
 
 
@@ -145,5 +145,4 @@
          alt="{% trans 'Delete this workout' %}">
     {% trans "Delete this workout" %}
 </a>
-
 {% endblock %}

@@ -110,7 +110,7 @@ $(function() {
     {% empty %}
     <tr>
         <td colspan="4">
-            <a href="{% url 'step-add' schedule.id %}" class="modal-dialog btn btn-block">
+            <a href="{% url 'step-add' schedule.id %}" data-role="button">
             {% trans "No workouts found." %} {% trans "Add one now." %}
             </a>
         </td>
