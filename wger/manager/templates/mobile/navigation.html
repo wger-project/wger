@@ -1,5 +1,5 @@
 {% load i18n %}{% load url from future %}{% load cache %}
-<div data-role="collapsible-set">
+<div data-role="collapsible-set" data-inset="false">
 
     {#          #}
     {# User tab #}
@@ -94,6 +94,16 @@
             {% endcache %}
         </ul>
     </div>
+</div>
+
+
+
+
+
+
+<h4>{% trans "Options" %}</h4>
+
+<div data-role="collapsible-set" data-inset="false">
 
     {#              #}
     {# Site version #}
@@ -101,11 +111,46 @@
     <div data-role="collapsible" data-content-theme="c">
         <h3>{% trans "Site version" %}</h3>
         <ul data-role="listview">
-            <li><a href="?flavour=full" data-ajax="false">{% trans "Full version" %}</a></li>
+            <li><a href="?flavour=full" data-ajax="false">{% trans "Desktop version" %}</a></li>
         </ul>
     </div>
 
+    {#           #}
+    {# Login tab #}
+    {#           #}
+    <div data-role="collapsible" data-content-theme="c">
+        {% if user.is_authenticated and not user.get_profile.is_temporary %}
+        <h3>{% trans "My preferences" %}</h3>
+        <ul data-role="listview">
+            <li>
+                <a href="{% url 'wger.manager.views.user.preferences' %}">
+                {% if user.email %}
+                    {{user.email}}
+                {% else %}
+                    {{user.username}}
+                {% endif %}
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
+            </li>
+        </ul>
+        {% else %}
+        <h3>{% trans "Login" %}</h3>
+        <ul data-role="listview">
+            <li>
+                <a href="{% url 'login' %}">{% trans "Login" %}</a>
+            </li>
+            <li>
+                <a href="{% url 'wger.manager.views.user.registration' %}">{% trans "Register" %}</a>
+            </li>
+        </ul>
+        {% endif %}
+    </div>
+
 </div>
+
+
 
 <a href=""
    data-rel="close"
