@@ -28,7 +28,7 @@
             {% endfor %}
 
 
-            <div data-role="popup" id="editoptions-day-{{ day.id }}">
+            <div data-role="popup" id="editoptions-day-{{ day.id }}" data-overlay-theme="a">
                 <div>
                     <h3>{{day.description}}</h3>
                     <ul data-role="listview">
@@ -88,9 +88,9 @@
                    data-mini="true"
                    data-iconshadow="false"></a>
 
-                <div data-role="popup" id="editoptions-set-{{ set.id }}">
+                <div data-role="popup" id="editoptions-set-{{ set.id }}" data-overlay-theme="a">
                 <div>
-                    <h3>{{ set.id }}</h3>
+                    <h3>{% trans "Options" %}</h3>
                     <ul data-role="listview">
                         <li>
                             <a href="{% url 'wger.manager.views.set.delete' set.id %}"
@@ -101,6 +101,17 @@
                                          alt="{% trans 'Delete' %}"
                                          class="ui-li-icon ui-corner-none">
                                     {% trans "Delete" %}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'wger.manager.views.set.edit' set.id %}"
+                               title="{% trans 'Delete' %}">
+                                    <img src="{% static 'images/icons/edit.svg' %}"
+                                         width="16"
+                                         height="16"
+                                         alt="{% trans 'Edit' %}"
+                                         class="ui-li-icon ui-corner-none">
+                                    {% trans "Edit" %}
                             </a>
                         </li>
                     </ul>

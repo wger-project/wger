@@ -2,7 +2,7 @@
 {% load i18n %}
 {% block template %}
     {% if not user.is_authenticated or user.get_profile.is_temporary %}
-        <div data-role="popup" id="popupGuestUser" class="ui-content">
+        <div data-role="popup" data-overlay-theme="a" id="popupGuestUser" class="ui-content">
         {% trans "You are using a guest account, data entered will be deleted after a week."%}
         {% if not has_demo_data %}
         <a href="{% url 'demo-entries' %}"
