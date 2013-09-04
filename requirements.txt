@@ -1,5 +1,5 @@
 Django==1.5.2
-django-browserid==0.8
+django-browserid==0.9
 django-recaptcha
 reportlab
 django_mobile
