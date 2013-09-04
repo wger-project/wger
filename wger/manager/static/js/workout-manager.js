@@ -475,7 +475,7 @@ function getDate(d) {
     return new Date(d);
 }
 
-function weight_chart(data)
+function weight_chart(data, width_factor)
 {
     // Return if there is no data to process
     if(data == '')
@@ -483,14 +483,23 @@ function weight_chart(data)
         return;
     }
 
+
+
+    // Calculate the size
+    var width_factor = typeof width_factor !== 'undefined' ? width_factor: 600;
+    var height_factor = width_factor / 600 * 400;
+    var height2_factor = width_factor / 600 * 390;
+    var bottom_factor = width_factor / 600 * 150;
+    var top_factor = width_factor / 600 * 290;
+
     var minDate = getDate(data[0].x),
         maxDate = getDate(data[data.length-1].x);
 
-    var margin = {top: 10, right: 10, bottom: 150, left: 40},
-        margin2 = {top: 290, right: 10, bottom: 50, left: 40},
-        width = 600 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom,
-        height2 = 390 - margin2.top - margin2.bottom;
+    var margin = {top: 10, right: 10, bottom: bottom_factor, left: 40},
+        margin2 = {top: top_factor, right: 10, bottom: 50, left: 40},
+        width = width_factor - margin.left - margin.right,
+        height = height_factor - margin.top - margin.bottom,
+        height2 = height2_factor - margin2.top - margin2.bottom;
 
     var x = d3.time.scale()
         .domain([minDate, maxDate])
