@@ -322,45 +322,6 @@ ul.pagination a:hover
 }
 
 
-/**************************************************************
- * Muscle overview
- **************************************************************/
-.muscle-list, .exercise-overview{
-    list-style-type: none;
-    margin-left: 0px;
-}
-
-.muscle-list .muscle, .exercise-overview .exercise{
-    line-height:2em;
-    margin-left: 0px;
-    padding-left: 0.3em;
-    cursor: pointer;
-}
-
-.muscle-list .muscle-inactive{
-    background-color: transparent;
-    font-weight: normal;
-    border: 1px solid transparent;
-    box-shadow: none;
-    border-radius: 0px;
-}
-
-.muscle-list .muscle-active{
-    font-weight: bold;
-    background-color: #eeeeec;
-    border: 1px solid #babdb6;
-    box-shadow: inset 0 0 4px #d3d7cf;
-    border-radius: 3px;
-}
-
-
-.muscle-list .muscle{
-    line-height:2em;
-    margin-left: 0px;
-    padding-left: 0.3em;
-    cursor: pointer;
-}
-
 /*
  * Definition for extra-bold fonts
  */

@@ -159,3 +159,11 @@ div.muscle-background
     height: 369px;
     background-repeat: no-repeat;
 }
+
+
+/**************************************************************
+ * Muscle overview
+ **************************************************************/
+.muscle-list, .exercise-overview{
+    padding-left: 0px;
+}
