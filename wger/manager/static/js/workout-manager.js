@@ -367,6 +367,7 @@ function get_exercise_formset(exercise_id)
         $.get(formset_url, function(data) {
                 $('#formsets').prepend(data);
                 $("#exercise-search-log").scrollTop(0);
+                $('#formsets').trigger( "create" );
             });
     }
 }
@@ -389,6 +390,7 @@ function update_all_exercise_formset()
                         $('#formset-exercise-'+exercise_id).remove();
                         $('#formsets').prepend(data);
                         $('#exercise-search-log').scrollTop(0);
+                        $('#formsets').trigger( "create" );
                 })
             }
         });
