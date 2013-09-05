@@ -33,7 +33,7 @@ function update_value() {
         });
     }
 
-$(document).ready(function() {
+$(document).on('pageinit', function(){
 
     // Prevent the form from being sent
     $('#nutritional-values-form').submit(function(e) {
