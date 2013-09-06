@@ -8,12 +8,15 @@
 
 {% block content %}
 <p>{% blocktrans %}wger Workout Manager provides a full REST API to all database
-objects:{% endblocktrans %} <a href="/api/v1/?format=json">/api/v1/</a></p>
+objects:{% endblocktrans %} <a href="/api/v1/?format=json">/api/v1/</a>
+</p>
 
 <p>{% blocktrans %}Public endpoints, such as the list of exercises or the
 ingredients can be accessed without authentication. For user owned
 objects such as workouts, you need to generate an API KEY and pass it
-along with the username either in the header or in form of GET parameters.{% endblocktrans %}</p>
+along with the username either in the header or in form of GET parameters.
+See the link on the sidebar for details. You should always use HTTPS when
+communicating with the server.{% endblocktrans %}</p>
 
 <p>{% blocktrans %}The API uses HATEOAS, so you should be able to browse
 through the necessary endpoints without having to consult an extensive
@@ -26,8 +29,8 @@ support for full POST/PUT/DELETE/PATCH is planned for the near future.{% endbloc
 </div>
 {% endblock %}
 
-
 {% block sidebar %}
+
 <p><a href="/api/v1/?format=json" class="btn btn-block">{% trans "Browse the API" %}</a></p>
 <p><a href="{% url 'api-key' %}" class="btn btn-block">Generate API KEY</a></p>
 {% endblock %}

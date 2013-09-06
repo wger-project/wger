@@ -18,13 +18,11 @@ from django.core.urlresolvers import reverse
 from django.core.cache import cache
 
 from wger.manager.models import Workout
-from wger.manager.models import Day
-from wger.manager.models import Set
-from wger.manager.models import Setting
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
+from wger.manager.tests.testcase import ApiBaseResourceTestCase
 from wger.utils.cache import get_template_cache_name
 
 
@@ -153,3 +151,18 @@ class WorkoutCacheTestCase(WorkoutManagerTestCase):
 
         self.assertTrue(cache.get(get_template_cache_name('day-view', 1)))
         self.assertTrue(cache.get(get_template_cache_name('day-view', 2)))
+
+
+class WorkoutApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests the workout overview resource
+    '''
+    resource = 'workout'
+    resource_updatable = False
+
+
+class WorkoutDetailApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests accessing a specific workout
+    '''
+    resource = 'workout/3'
