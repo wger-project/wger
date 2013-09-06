@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+
+
+<!--
+        Title
+-->
+
+{% block title %}{% with day_name=day.description %}{% blocktrans %}Add exercises to day "{{day_name}}"{% endblocktrans %}{% endwith %}{% endblock %}
+
+
+<!--
+        Header
+-->
+{% block header %}
+<script>
+$(document).on('pageinit', function(){
+    init_edit_set();
+
+    // Slider to set the number of sets
+    $( "#id_sets" ).on( "change", function(event, ui) {
+        update_all_exercise_formset();
+    });
+});
+</script>
+{% endblock %}
+
+<!--
+        Main Content
+-->
+{% block content %}
+
+
+<form action="{{form_action}}"
+      method="post"
+      class="ym-form">
+
+{% csrf_token %}
+<table>
+    {% yaml_form_field form.exercises %}
+    <tr>
+        <td style="text-align:right;">
+            <label for="slider">{{form.sets.label}}</label>
+        </td>
+        <td>
+            <input name="sets" id="id_sets" min="1" max="10" value="{{ form.sets.value }}" type="range">
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2">
+            <div id="formsets">
+            {% for formset in formsets %}
+                    {% include 'set/formset.html' with exercise=formset.exercise formset=formset.formset %}
+            {% endfor %}
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="{% trans 'Save' %}" id="form-save">
+        </td>
+    </tr>
+</table>
+
+{% endblock %}
