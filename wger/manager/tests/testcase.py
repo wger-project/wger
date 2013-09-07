@@ -411,7 +411,6 @@ class WorkoutManagerAccessTestCase(WorkoutManagerTestCase):
             response = self.client.get(self.url)
 
         if fail:
-            #print response
             self.assertIn(response.status_code, STATUS_CODES_FAIL)
             if response.status_code == 302:
                 # The page we are redirected to doesn't trigger an error
@@ -544,7 +543,10 @@ class ApiBaseResourceTestCase(ResourceTestCase, BaseTestCase):
         # public resource (ingredients, exercises), no authentication needed
         else:
             response = self.api_client.post(self.url, data=self.data)
-            self.assertHttpNotImplemented(response)
+            if self.resource_updatable:
+                self.assertHttpNotImplemented(response)
+            else:
+                self.assertIn(response.status_code, (501, 401))
 
     def test_delete(self):
         '''
@@ -576,7 +578,10 @@ class ApiBaseResourceTestCase(ResourceTestCase, BaseTestCase):
         # public resource (ingredients, exercises), no authentication needed
         else:
             response = self.api_client.delete(self.url)
-            self.assertHttpNotImplemented(response)
+            if self.resource_updatable:
+                self.assertHttpNotImplemented(response)
+            else:
+                self.assertIn(response.status_code, (401, 204))
 
     def test_put(self):
         '''
@@ -613,7 +618,10 @@ class ApiBaseResourceTestCase(ResourceTestCase, BaseTestCase):
         # public resource (ingredients, exercises), no authentication needed
         else:
             response = self.api_client.put(self.url, data=self.data)
-            self.assertHttpNotImplemented(response)
+            if self.resource_updatable:
+                self.assertHttpNotImplemented(response)
+            else:
+                self.assertIn(response.status_code, (401, 400))
 
     def test_patch(self):
         '''
@@ -648,4 +656,7 @@ class ApiBaseResourceTestCase(ResourceTestCase, BaseTestCase):
         # public resource (ingredients, exercises), no authentication needed
         else:
             response = self.api_client.patch(self.url, data=self.data)
-            self.assertHttpNotImplemented(response)
+            if self.resource_updatable:
+                self.assertHttpNotImplemented(response)
+            else:
+                self.assertIn(response.status_code, (401, 400))

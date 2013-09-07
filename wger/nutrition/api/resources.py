@@ -20,6 +20,7 @@ from tastypie.resources import ModelResource
 
 from wger.nutrition.models import Ingredient
 from wger.nutrition.models import WeightUnit
+from wger.nutrition.models import IngredientWeightUnit
 from wger.nutrition.models import NutritionPlan
 from wger.nutrition.models import Meal
 from wger.nutrition.models import MealItem
@@ -34,6 +35,15 @@ class IngredientResource(ModelResource):
 class WeightUnitResource(ModelResource):
     class Meta:
         queryset = WeightUnit.objects.all()
+
+
+class IngredientToWeightUnit(ModelResource):
+
+    ingredient = fields.ToOneField(IngredientResource, 'ingredient')
+    unit = fields.ToOneField(WeightUnitResource, 'unit')
+
+    class Meta:
+        queryset = IngredientWeightUnit.objects.all()
 
 
 class NutritionPlanResource(ModelResource):

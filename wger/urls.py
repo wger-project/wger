@@ -30,6 +30,7 @@ v1_api.register(nutrition_api.WeightUnitResource())
 v1_api.register(nutrition_api.NutritionPlanResource())
 v1_api.register(nutrition_api.MealResource())
 v1_api.register(nutrition_api.MealItemResource())
+v1_api.register(nutrition_api.IngredientToWeightUnit())
 
 # Manager app
 v1_api.register(manager_api.UserProfileResource())

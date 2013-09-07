@@ -18,6 +18,7 @@ from wger.nutrition.models import NutritionPlan
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 
 class DeletePlanTestCase(WorkoutManagerDeleteTestCase):
@@ -39,3 +40,18 @@ class EditPlanTestCase(WorkoutManagerEditTestCase):
     url = 'nutrition-edit'
     pk = 2
     data = {'description': 'My new description'}
+
+
+class PlanApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests the nutritional plan overview resource
+    '''
+    resource = 'nutritionplan'
+    resource_updatable = False
+
+
+class MealDetailApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests accessing a specific meal
+    '''
+    resource = 'nutritionplan/4'
