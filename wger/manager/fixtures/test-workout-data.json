@@ -204,5 +204,17 @@
             "date": "2012-11-01", 
             "exercise": 1
         }
+    },
+    {
+        "pk": 5, 
+        "model": "manager.workoutlog", 
+        "fields": {
+            "weight": 30, 
+            "workout": 3, 
+            "reps": 8, 
+            "user": 2, 
+            "date": "2012-11-01", 
+            "exercise": 2
+        }
     }
 ]

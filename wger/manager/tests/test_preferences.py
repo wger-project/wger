@@ -17,6 +17,7 @@ import logging
 from django.core.urlresolvers import reverse
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 logger = logging.getLogger('wger.custom')
 
@@ -118,3 +119,18 @@ class AjaxPreferencesTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         self.preferences()
+
+
+class UserProfileApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests the user preferences overview resource
+    '''
+    resource = 'userprofile'
+    resource_updatable = False
+
+
+class UserProfileDetailApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests accessing a specific user preference (there's only one anyway)
+    '''
+    resource = 'userprofile/2'
