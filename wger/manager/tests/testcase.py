@@ -601,19 +601,16 @@ class ApiBaseResourceTestCase(ResourceTestCase, BaseTestCase):
 
             # User with access
             if self.resource_updatable:
-                # TODO: request errors out
-                #response = self.api_client.put(self.url,
-                #                               data=self.data,
-                #                               authentication=self.get_credentials())
-                #self.assertHttpUnauthorized(response)
-                pass
+                response = self.api_client.put(self.url,
+                                               data=self.data,
+                                               authentication=self.get_credentials())
+                self.assertHttpUnauthorized(response)
 
                 # If a different user should fail, test
-                #response = self.api_client.put(self.url,
-                #                               data=self.data,
-                #                               authentication=self.get_credentials(self.user_fail))
-                #self.assertHttpUnauthorized(response)
-                pass
+                response = self.api_client.put(self.url,
+                                               data=self.data,
+                                               authentication=self.get_credentials(self.user_fail))
+                self.assertHttpUnauthorized(response)
 
         # public resource (ingredients, exercises), no authentication needed
         else:
