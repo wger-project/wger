@@ -11,6 +11,7 @@ from tastypie.api import Api
 from wger.exercises.api import resources as exercises_api
 from wger.nutrition.api import resources as nutrition_api
 from wger.manager.api import resources as manager_api
+from wger.weight.api import resources as weight_api
 
 #
 # REST API
@@ -42,6 +43,9 @@ v1_api.register(manager_api.DayResource())
 v1_api.register(manager_api.SetResource())
 v1_api.register(manager_api.SettingResource())
 v1_api.register(manager_api.WorkoutLogResource())
+
+# Weight app
+v1_api.register(weight_api.WeightEntryResource())
 
 from django.contrib import admin
 admin.autodiscover()
