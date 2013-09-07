@@ -28,7 +28,10 @@ class ExerciseResource(ModelResource):
     category = fields.ToOneField('wger.exercises.api.resources.ExerciseCategoryResource',
                                  'category')
     muscles = fields.ToManyField('wger.exercises.api.resources.MuscleResource', 'muscles')
+    comments = fields.ToManyField('wger.exercises.api.resources.ExerciseCommentResource',
+                                  'exercisecomment_set')
     language = fields.ToOneField('wger.exercises.api.resources.LanguageResource', 'language')
+    creation_date = fields.DateField(attribute='creation_date', null=True)
 
     class Meta:
         queryset = Exercise.objects.all()
