@@ -31,11 +31,20 @@ class ApiKeyTestCase(WorkoutManagerTestCase):
 
     def test_api_key_page(self):
         '''
-        User has no keys
+        Tests the API key generation page
         '''
 
         self.user_login('test')
         user = User.objects.get(username='test')
+
+        # User already has a key
+        response = self.client.get(reverse('api-key'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Delete current API key and generate new one')
+        self.assertTrue(ApiKey.objects.get(user=user))
+
+        # User has no keys
+        ApiKey.objects.get(user=user).delete()
         response = self.client.get(reverse('api-key'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'You have no API key yet')
@@ -48,10 +57,16 @@ class ApiKeyTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         user = User.objects.get(username='test')
+        key_before = ApiKey.objects.get(user=user)
+
         response = self.client.get(reverse('api-key'), {'new_key': True})
         self.assertEqual(response.status_code, 302)
-
         response = self.client.get(response['Location'])
         self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, 'You have no API key yet')
-        self.assertTrue(ApiKey.objects.get(user=user))
+        self.assertContains(response, 'Delete current API key and generate new one')
+
+        key_after = ApiKey.objects.get(user=user)
+        self.assertTrue(key_after)
+
+        # New key is different from the one before
+        self.assertNotEqual(key_before.key, key_after.key)
