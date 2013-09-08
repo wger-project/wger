@@ -13,13 +13,11 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
-from django.core.urlresolvers import reverse
-
 from wger.exercises.models import ExerciseCategory
-from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 
 class DeleteExerciseCategoryTestCase(WorkoutManagerDeleteTestCase):
@@ -54,3 +52,21 @@ class AddExerciseCategoryTestCase(WorkoutManagerAddTestCase):
     url = 'exercisecategory-add'
     pk = 5
     data = {'name': 'A new category'}
+
+
+class ExerciseCategoryApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests the exercise category overview resource
+    '''
+    resource = 'exercisecategory'
+    user = None
+    resource_updatable = False
+
+
+class ExerciseCategoryDetailApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests accessing a specific exercise category
+    '''
+    resource = 'exercisecategory/2'
+    user = None
+    resource_updatable = False

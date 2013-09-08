@@ -53,6 +53,7 @@ setup(
         'bleach',
         'south < 2.0',
         'html5lib == 0.95',
+        'django-tastypie'
     ],
     entry_points={
         'console_scripts': [

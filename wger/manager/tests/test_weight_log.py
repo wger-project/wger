@@ -20,6 +20,7 @@ from django.core.urlresolvers import reverse
 from wger.manager.models import WorkoutLog
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 logger = logging.getLogger('wger.custom')
 
@@ -158,3 +159,18 @@ class WeightLogEntryTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         self.edit_log_entry(fail=True)
+
+
+class WorkoutLogApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests the workout log overview resource
+    '''
+    resource = 'workoutlog'
+    resource_updatable = False
+
+
+class WorkoutLogDetailApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests accessing a specific workoutlog
+    '''
+    resource = 'workoutlog/5'

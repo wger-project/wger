@@ -44,4 +44,8 @@ urlpatterns = patterns('',
     url(r'^contribute$',
         TemplateView.as_view(template_name="contribute.html"),
         name='contribute'),
+
+    url(r'^api$',
+        TemplateView.as_view(template_name="api.html"),
+        name='api'),
 )

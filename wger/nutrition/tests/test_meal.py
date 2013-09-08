@@ -24,6 +24,7 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 
 class EditMealTestCase(WorkoutManagerEditTestCase):
@@ -107,3 +108,18 @@ class PlanDetailTestCase(WorkoutManagerTestCase):
         '''
         self.user_login('admin')
         self.get_plan_detail_page(fail=True)
+
+
+class MealApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests the meal overview resource
+    '''
+    resource = 'meal'
+    resource_updatable = False
+
+
+class MealDetailApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests accessing a specific meal
+    '''
+    resource = 'meal/2'

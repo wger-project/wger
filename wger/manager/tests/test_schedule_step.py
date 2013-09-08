@@ -12,20 +12,14 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import datetime
-
-from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 
-from wger.manager.models import Schedule
 from wger.manager.models import ScheduleStep
-from wger.manager.models import Workout
 
-from wger.manager.tests.testcase import STATUS_CODES_FAIL
-from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 
 class CreateScheduleStepTestCase(WorkoutManagerAddTestCase):
@@ -62,3 +56,18 @@ class DeleteScheduleStepTestCase(WorkoutManagerDeleteTestCase):
     object_class = ScheduleStep
     url = 'step-delete'
     pk = 2
+
+
+class ScheduleStepApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests the schedule step overview resource
+    '''
+    resource = 'schedulestep'
+    resource_updatable = False
+
+
+class ScheduleStepDetailApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests accessing a specific schedule step
+    '''
+    resource = 'schedulestep/4'

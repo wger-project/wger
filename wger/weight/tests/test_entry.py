@@ -22,6 +22,7 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 
 class AddWeightEntryTestCase(WorkoutManagerAddTestCase):
@@ -49,3 +50,18 @@ class EditWeightEntryTestCase(WorkoutManagerEditTestCase):
             'creation_date': datetime.date(2013, 2, 1)}
     user_success = 'test'
     user_fail = 'admin'
+
+
+class WeightEntryTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests the weight entry overview resource
+    '''
+    resource = 'weightentry'
+    resource_updatable = False
+
+
+class WeightEntryDetailApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests accessing a specific weight entry
+    '''
+    resource = 'weightentry/3'

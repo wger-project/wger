@@ -25,6 +25,7 @@ from wger.exercises.models import ExerciseCategory
 from wger.manager.tests.testcase import STATUS_CODES_FAIL
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
+from wger.manager.tests.testcase import ApiBaseResourceTestCase
 from wger.utils.cache import get_template_cache_name
 from wger.utils.cache import cache_mapper
 
@@ -456,3 +457,21 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         self.assertNotEqual(old_exercise_overview, new_exercise_overview)
         self.assertNotEqual(old_detail_header, new_detail_header)
         self.assertNotEqual(old_detail_muscles, new_detail_muscles)
+
+
+class ExerciseApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests the exercise overview resource
+    '''
+    resource = 'exercise'
+    user = None
+    resource_updatable = False
+
+
+class ExerciseDetailApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests accessing a specific Exercise
+    '''
+    resource = 'exercise/3'
+    user = None
+    resource_updatable = False

@@ -22,6 +22,7 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.manager.tests.testcase import ApiBaseResourceTestCase
 from wger.utils.cache import get_template_cache_name
 
 
@@ -98,3 +99,21 @@ class MuscleOverviewTestCase(WorkoutManagerTestCase):
         self.assertNotContains(response, 'Delete muscle')
         self.assertNotContains(response, 'Add muscle')
         self.assertNotContains(response, 'After adding a muscle')
+
+
+class MuscleApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests the muscle overview resource
+    '''
+    resource = 'muscle'
+    user = None
+    resource_updatable = False
+
+
+class MuscleDetailApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests accessing a specific muscle
+    '''
+    resource = 'muscle/1'
+    user = None
+    resource_updatable = False

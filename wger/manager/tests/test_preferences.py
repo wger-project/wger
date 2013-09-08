@@ -21,6 +21,7 @@ from django.contrib.auth.models import User
 
 from wger.weight.models import WeightEntry
 from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 logger = logging.getLogger('wger.custom')
 
@@ -131,7 +132,6 @@ class PreferencesCalculationsTestCase(WorkoutManagerTestCase):
     '''
     Tests the different calculation method in the user profile
     '''
-
     def test_last_weight_entry(self):
         '''
         Tests that the last weight entry is correctly returned
@@ -144,7 +144,6 @@ class PreferencesCalculationsTestCase(WorkoutManagerTestCase):
         entry.weight = 100
         entry.save()
         self.assertEqual(user.userprofile.weight, 100)
-
         entry.weight = 150
         entry.save()
         self.assertEqual(user.userprofile.weight, 150)
@@ -212,3 +211,18 @@ class PreferencesCalculationsTestCase(WorkoutManagerTestCase):
         user.userprofile.work_intensity = '2'
         user.userprofile.sport_intensity = '2'
         self.assertEqual(user.userprofile.calculate_activities(), decimal.Decimal('1.52'))
+
+
+class UserProfileApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests the user preferences overview resource
+    '''
+    resource = 'userprofile'
+    resource_updatable = False
+
+
+class UserProfileDetailApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests accessing a specific user preference (there's only one anyway)
+    '''
+    resource = 'userprofile/2'

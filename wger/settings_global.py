@@ -200,6 +200,9 @@ INSTALLED_APPS = (
 
     # South, for DB migrations
     'south',
+
+    # REST-API
+    'tastypie',
 )
 
 

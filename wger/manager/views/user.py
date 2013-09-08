@@ -32,6 +32,8 @@ from django.contrib.auth.models import User as Django_User
 from django.contrib.auth.views import login as django_loginview
 from django.contrib import messages
 
+from tastypie.models import ApiKey
+
 from wger.manager.forms import UserPreferencesForm
 from wger.manager.forms import UserEmailForm
 from wger.manager.forms import RegistrationForm
@@ -178,3 +180,34 @@ def api_user_preferences(request):
             profile.save()
 
             return HttpResponse(_('Success'))
+
+
+@login_required
+def api_key(request):
+    '''
+    Allows the user to generate an API key for the REST API
+    '''
+
+    context = {}
+    context.update(csrf(request))
+
+    try:
+        key = ApiKey.objects.get(user=request.user)
+    except ApiKey.DoesNotExist:
+        key = False
+    if request.GET.get('new_key'):
+        if key:
+            key.delete()
+
+        key = ApiKey()
+        key.user = request.user
+        key.save()
+
+        # Redirect to get rid of the GET parameter
+        return HttpResponseRedirect(reverse('api-key'))
+
+    context['key'] = key
+
+    return render_to_response('user/api_key.html',
+                              context,
+                              context_instance=RequestContext(request))

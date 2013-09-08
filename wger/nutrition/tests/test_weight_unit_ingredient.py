@@ -23,6 +23,7 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 
 class AddWeightUnitIngredientTestCase(WorkoutManagerAddTestCase):
@@ -96,3 +97,21 @@ class WeightUnitFormTestCase(WorkoutManagerTestCase):
                 self.assertNotIn(unit.name, choices)
             else:
                 self.assertIn(unit.name, choices)
+
+
+class WeightUnitToIngredientApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests the weight unit to ingredient overview resource
+    '''
+    resource = 'ingredienttoweightunit'
+    user = None
+    resource_updatable = False
+
+
+class WeightUnitToIngredientApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests accessing a specific weight unit to ingredient entry
+    '''
+    resource = 'ingredienttoweightunit/1'
+    user = None
+    resource_updatable = False
