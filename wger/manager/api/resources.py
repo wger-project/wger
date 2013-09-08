@@ -49,6 +49,8 @@ class UserProfileResource(ModelResource):
         return object_list.filter(user=bundle.request.user)
 
     class Meta:
+
+        excludes = ('is_temporary', )
         queryset = UserProfile.objects.all()
         authentication = ApiKeyAuthentication()
         authorization = UserObjectsOnlyAuthorization()

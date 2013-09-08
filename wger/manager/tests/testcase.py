@@ -454,8 +454,6 @@ class ApiBaseResourceTestCase(ResourceTestCase, BaseTestCase):
     api_version = 'v1'
     '''The current API version to test'''
 
-    formats = ('json',)
-
     resource = 'workout'
     '''The current resource to be tested (string)'''
 
