@@ -413,7 +413,7 @@ function init_edit_set()
                 // clicks on the delete link
                 $(".ajax-exercise-select a").click(function(e) {
                     e.preventDefault();
-                    exercise_id = $(this).parent('div').find('input').val()
+                    var exercise_id = $(this).parent('div').find('input').val()
                     $('#formset-exercise-'+exercise_id).remove();
                     $(this).parent('div').remove();
                 });
@@ -783,7 +783,7 @@ function toggle_weight_log_table()
 {
     $(".weight-chart-table-toggle").click(function(e) {
         e.preventDefault();
-        target = $(this).data('toggleTarget');
+        var target = $(this).data('toggleTarget');
         $('#' + target).toggle({effect: 'blind', duration: 600});
         });
 }
