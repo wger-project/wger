@@ -200,7 +200,8 @@ class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
 
                 for exercise in set.exercises.select_related():
                     exercise_log[exercise] = []
-                    logs = exercise.workoutlog_set.filter(user=self.request.user)
+                    logs = exercise.workoutlog_set.filter(user=self.request.user,
+                                                          workout=self.object)
                     entry_log, chart_data = entry.process_log_entries(logs)
                     if entry_log:
                         exercise_log[exercise].append(entry_log)
