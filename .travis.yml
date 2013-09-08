@@ -34,5 +34,12 @@ before_script:
 
 # Do the tests
 script:
+
+  # Regular application
   - ./manage.py test
+
+  # Mobile version
+  - TEST_MOBILE=True ./manage.py test
+
+  # Formatting
   - pep8 --max-line-length=100 --exclude="urls.py,*migrations*" wger
