@@ -49,7 +49,6 @@ class UserProfileResource(ModelResource):
         return object_list.filter(user=bundle.request.user)
 
     class Meta:
-
         excludes = ('is_temporary', )
         queryset = UserProfile.objects.all()
         authentication = ApiKeyAuthentication()
@@ -84,6 +83,7 @@ class ScheduleStepResource(ModelResource):
     '''
 
     workout = fields.ToOneField(WorkoutResource, 'workout')
+    schedule = fields.ToOneField('wger.manager.api.resources.ScheduleResource', 'schedule')
 
     def authorized_read_list(self, object_list, bundle):
         '''
