@@ -74,7 +74,7 @@
 
     {% block template %}{% endblock %}
 
-    <div data-role="navbar" data-role="footer">
+    <div data-role="navbar">
         <ul>
             <li {% if active_tab == 'user' %}class="active"{% endif %}>
             {% if not user.is_authenticated %}
