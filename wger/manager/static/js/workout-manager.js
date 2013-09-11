@@ -415,7 +415,7 @@ function init_edit_set()
                 // clicks on the delete link
                 $(".ajax-exercise-select a").click(function(e) {
                     e.preventDefault();
-                    exercise_id = $(this).parent('div').find('input').val()
+                    var exercise_id = $(this).parent('div').find('input').val()
                     $('#formset-exercise-'+exercise_id).remove();
                     $(this).parent('div').remove();
                 });
@@ -610,7 +610,12 @@ function weight_chart(data, width_factor)
         .attr("id", function(d) { return d.id; })
         .attr("cx", line.x())
         .attr("cy", line.y())
-        .attr("r", 5);
+        .attr("r", 0)
+      .transition() // Animate the data points, "opening" them one after another
+        .duration(1000)
+        .delay(function(d, i) { return i / data.length * 1600; })
+        .attr("r", function(d) { return 5; });
+
 
     context.append("path")
         .attr("class", "area")
@@ -702,11 +707,11 @@ function weight_log_chart(data, div_id, reps_i18n)
 
       var reps = color.domain().map(function(name) {
 
-      var temp_values = data.filter(function(d) {
+          var temp_values = data.filter(function(d) {
               return(+d[name] > 0);
               });
 
-      var filtered_values = temp_values.map(function(d) {
+          var filtered_values = temp_values.map(function(d) {
             return {date: d.date,
                     weight: +d[name],
                     log_id: d.id};
@@ -718,9 +723,11 @@ function weight_log_chart(data, div_id, reps_i18n)
         };
       });
 
+      //console.log(reps);
+
       x.domain(d3.extent(data, function(d) { return d.date; }));
 
-      // Add 1 kg of "breathing room" on the min value, so the diagrams don't
+      // Add 1 kg of "breathing room" on the min value, so the diagrams don't look
       // too flat
       y.domain([
         d3.min(reps, function(c) { return d3.min(c.values, function(v) { return v.weight - 1; }); }),
@@ -787,7 +794,7 @@ function toggle_weight_log_table()
 {
     $(".weight-chart-table-toggle").click(function(e) {
         e.preventDefault();
-        target = $(this).data('toggleTarget');
+        var target = $(this).data('toggleTarget');
         $('#' + target).toggle({effect: 'blind', duration: 600});
         });
 }

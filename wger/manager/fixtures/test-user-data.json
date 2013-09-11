@@ -78,7 +78,18 @@
             "is_temporary": false, 
             "show_comments": false, 
             "show_english_ingredients": false, 
-            "user": 1
+            "user": 1,
+            "gender": "1",
+            "age": 30,
+            "sport_intensity": "3",
+            "calories": 3500,
+            "height": 180,
+            "sport_hours": 6,
+            "sleep_hours": 7,
+            "work_intensity": "1",
+            "freetime_intensity": "1",
+            "work_hours": 8,
+            "freetime_hours": 8
         }
     }, 
     {
@@ -88,7 +99,18 @@
             "is_temporary": false, 
             "show_comments": false, 
             "show_english_ingredients": false, 
-            "user": 2
+            "user": 2,
+            "gender": "1",
+            "age": 20,
+            "sport_intensity": "3",
+            "calories": 3500,
+            "height": 180,
+            "sport_hours": 6,
+            "sleep_hours": 7,
+            "work_intensity": "1",
+            "freetime_intensity": "1",
+            "work_hours": 8,
+            "freetime_hours": 8
         }
     }, 
     {
@@ -98,7 +120,18 @@
             "is_temporary": true, 
             "show_comments": false, 
             "show_english_ingredients": false, 
-            "user": 3
+            "user": 3,
+            "gender": "2",
+            "age": 50,
+            "sport_intensity": "2",
+            "calories": 3500,
+            "height": 180,
+            "sport_hours": 6,
+            "sleep_hours": 7,
+            "work_intensity": "3",
+            "freetime_intensity": "3",
+            "work_hours": 8,
+            "freetime_hours": 8
         }
     }
 ]

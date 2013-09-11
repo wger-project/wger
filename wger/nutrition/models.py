@@ -62,6 +62,13 @@ class NutritionPlan(models.Model):
                                    verbose_name=_('Description'),
                                    help_text=_('A description of the goal of the plan, e.g. '
                                                '"Gain mass" or "Prepare for summer"'))
+    has_goal_calories = models.BooleanField(verbose_name=_('Use daily calories'),
+                                            default=False,
+                                            help_text=_("Tick the box if you want to mark this "
+                                                        "plan as having a goal amount of calories. "
+                                                        "You can use the calculator or enter the "
+                                                        "yourself."))
+    '''A flag indicating whether the plan has a goal amount of calories'''
 
     def __unicode__(self):
         '''
@@ -106,6 +113,28 @@ class NutritionPlan(models.Model):
         Returns the object that has owner information
         '''
         return self
+
+    def get_calories_approximation(self):
+        '''
+        Calculates the deviation from the goal calories and the actual
+        amount of the current plan
+        '''
+
+        goal_calories = self.user.userprofile.calories
+        actual_calories = self.get_nutritional_values()['energy']
+
+        # Within 3%
+        if (actual_calories < goal_calories * 1.03) and (actual_calories > goal_calories * 0.97):
+            return 1
+        # within 7%
+        elif (actual_calories < goal_calories * 1.07) and (actual_calories > goal_calories * 0.93):
+            return 2
+        # within 10%
+        elif (actual_calories < goal_calories * 1.10) and (actual_calories > goal_calories * 0.9):
+            return 3
+        # even more
+        else:
+            return 4
 
 
 class Ingredient(models.Model):
@@ -242,8 +271,8 @@ class Ingredient(models.Model):
                             (self.fat * 9))
 
         # Compare the values, but be generous
-        energy_upper = self.energy * (1 + (self.ENERGY_APPROXIMATION/decimal.Decimal('100.0')))
-        energy_lower = self.energy * (1 - (self.ENERGY_APPROXIMATION/decimal.Decimal('100.0')))
+        energy_upper = self.energy * (1 + (self.ENERGY_APPROXIMATION / decimal.Decimal('100.0')))
+        energy_lower = self.energy * (1 - (self.ENERGY_APPROXIMATION / decimal.Decimal('100.0')))
         #logger.debug("{0} > {1} > {2}".format(energy_upper, energy_calculated, energy_lower))
 
         if not ((energy_upper > energy_calculated) and (energy_calculated > energy_lower)):
@@ -542,3 +571,16 @@ class MealItem(models.Model):
                 item_weight / 100
 
         return nutritional_info
+
+    def get_nutritional_values_percent(self):
+        '''
+        Calculates the percentage each macronutrients contribute to the
+        total energy (approximation, since the factors 4, 4 and 9 are only
+        a rule of thumb)
+        '''
+        values = self.get_nutritional_values()
+        result = {'protein': values['energy'] / values['protein'] * 4,
+                  'carbohydrates': values['energy'] / values['carbohydrates'] * 4,
+                  'fat': values['energy'] / values['fat'] * 9}
+
+        return result

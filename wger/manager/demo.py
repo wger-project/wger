@@ -56,6 +56,8 @@ def create_temporary_user():
     user.save()
     user_profile = user.get_profile()
     user_profile.is_temporary = True
+    user_profile.age = 25
+    user_profile.height = 175
     user_profile.save()
     user = authenticate(username=username, password=password)
     return user

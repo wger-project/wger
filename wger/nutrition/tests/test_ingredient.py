@@ -28,6 +28,7 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 
 class DeleteIngredientTestCase(WorkoutManagerDeleteTestCase):
@@ -383,3 +384,21 @@ class IngredientTestCase(WorkoutManagerTestCase):
         ingredient.fat = 5
         ingredient.carbohydrates = 20
         self.assertRaises(ValidationError, ingredient.full_clean)
+
+
+class IngredientApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests the ingredient overview resource
+    '''
+    resource = 'ingredient'
+    user = None
+    resource_updatable = False
+
+
+class IngredientDetailApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests accessing a specific ingredient
+    '''
+    resource = 'ingredient/4'
+    user = None
+    resource_updatable = False

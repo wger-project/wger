@@ -84,6 +84,8 @@
                                 <ul class="dropdown-menu">
                                 <li><a href="{% url 'wger.nutrition.views.plan.overview' %}" rel="nofollow">{% trans "Nutrition plans" %}</a></li>
                                 <li><a href="{% url 'ingredient-list' %}">{% trans "Ingredient overview" %}</a></li>
+                                <li><a href="{% url 'bmi-view' %}" rel="nofollow">{% trans "BMI Calculator" %}</a></li>
+                                <li><a href="{% url 'calories-calculator' %}" rel="nofollow">{% trans "Daily calories calculator" %}</a></li>
                                 {% cache cache_timeout user-admin-ingredients user.id language.id %}
                                 {% if perms.exercises %}
                                     <li class="divider"></li>
@@ -110,6 +112,7 @@
                                     <li class="divider"></li>
                                     <li class="nav-header">{% trans "Developers" %}</li>
                                     <li><a href="{% url 'software:code' %}">{% trans "Get the code" %} </a></li>
+                                    <li><a href="{% url 'software:api' %}">{% trans "REST API" %} </a></li>
                                     <li><a href="{% url 'software:license' %}">{% trans "License" %} </a></li>
                                     <li><a href="{% url 'software:changelog' %}">{% trans "Changelog" %} </a></li>
                                     <li><a href="https://github.com/rolandgeider/wger">{% trans "Github" %} </a></li>
@@ -139,8 +142,8 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="{% url 'login' %}">{% trans "Login" %}</a></li>
-                                <li><a href="{% url 'wger.manager.views.user.registration' %}">{% trans "Register" %}</a><li></li>
-                                <li><a href="{% url 'django.contrib.auth.views.password_reset' %}">{% trans "Reset password" %}</a>
+                                <li><a href="{% url 'wger.manager.views.user.registration' %}">{% trans "Register" %}</a></li>
+                                <li><a href="{% url 'django.contrib.auth.views.password_reset' %}">{% trans "Reset password" %}</a></li>
                             </ul>
                         </ul>
                         {% endif %}

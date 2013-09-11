@@ -43,7 +43,9 @@ $(document).ready(function() {
 </p>
 {% endif %}
 
-{% for day in workout.day_set.select_related %}
+
+
+{% for day in workout.day_set.select_related|dictsort:"get_first_day_id" %}
     {% cache cache_timeout day-view day.id %}
     <div id="div-day-{{ day.id }}">
         {% render_day day %}

@@ -37,7 +37,7 @@ class IngredientsPendingTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 200)
             self.assertEqual(len(response.context['ingredient_list']), 1)
         else:
-            self.assertEqual(response.status_code, 302)
+            self.assertIn(response.status_code, (302, 403))
 
     def test_pending_overview_admin(self):
         '''

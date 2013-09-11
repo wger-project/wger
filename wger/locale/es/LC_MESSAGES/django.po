@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-29 16:57+0200\n"
-"PO-Revision-Date: 2013-07-20 14:51+0000\n"
+"PO-Revision-Date: 2013-07-25 19:15+0000\n"
 "Last-Translator: rge <roland@geider.net>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/wger-workout-manager/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -251,7 +251,7 @@ msgid ""
 "added to workouts. You can access it on this address:\n"
 "{1}\n"
 "\n"
-msgstr ""
+msgstr "Tu ejercicio '{0}' ha sido añadido con suceso a la base de datos.\n\nEstá disponible en el índice de ejercicios y puede ser añadido a rutinas.\nPuedes verlo en esta dirección:\n{1}\n\n"
 
 #: exercises/models.py:208 nutrition/models.py:279
 msgid ""
@@ -331,7 +331,7 @@ msgstr "Este ejercicio enviado por un usuario esta pendiente de una decisión\nd
 
 #: exercises/templates/view.html:38
 msgid "Till then, it will not be shown in the overview or the search."
-msgstr "Hasta entonces, no se mostrará en resumenes o en la búsqueda."
+msgstr "Hasta entonces, no se mostrará en índices o en la búsqueda."
 
 #: exercises/templates/view.html:39
 #: nutrition/templates/ingredient/view.html:65
@@ -377,11 +377,11 @@ msgstr ""
 
 #: exercises/templates/view.html:219 exercises/templates/view.html.py:225
 msgid "Back to overview"
-msgstr "Volver al resumen"
+msgstr "Volver al índice"
 
 #: exercises/templates/view.html:227
 msgid "Back to exercise overview"
-msgstr "Volver al resumen de ejercicios"
+msgstr "Volver al índice de ejercicios"
 
 #: exercises/templates/view.html:234
 msgid "User submitted exercise"
@@ -410,7 +410,7 @@ msgid ""
 "Once it is reviewed, it will be added to the database. Till this happens,\n"
 "it will not be visible in the overview or the search. In case you added your email\n"
 "when you registered, you will get notified when the process is completed sucessfully."
-msgstr "Después de enviar el formulario un administrador será notificado. Una vez\nque se haya revisado será añádido a la base de datos. Hasta entonces,\nno será visible en el resumen o la búsqueda. En caso de que nos hayas dado\ntu dirección de email, recibirás una notificación cuando el proceso termine con\néxito."
+msgstr "Después de enviar el formulario un administrador será notificado. Una vez\nque se haya revisado será añádido a la base de datos. Hasta entonces,\nno será visible en el índice o la búsqueda. En caso de que nos hayas dado\ntu dirección de email, recibirás una notificación cuando el proceso termine con\néxito."
 
 #: exercises/templates/exercise/pending.html:7
 msgid "Pending exercises"
@@ -428,7 +428,7 @@ msgstr "No hay ejercicios pendientes en este momento"
 #: exercises/templates/muscles/overview.html:9
 #: manager/templates/navigation.html:44 software/templates/functions.html:61
 msgid "Muscle overview"
-msgstr "Resumen de músculos"
+msgstr "Índice de músculos"
 
 #: exercises/templates/muscles/overview.html:65
 msgid "Hover with the mouse over the muscles to show corresponding exercises."
@@ -605,7 +605,7 @@ msgstr "¿Qué quieres decir?"
 msgid ""
 "You can search for more than one exercise, they will be grouped together for"
 " a superset."
-msgstr ""
+msgstr "Puedes buscar y seleccionar más de un ejercicio, se agruparán\njuntos para una superserie."
 
 #: manager/models.py:48 nutrition/models.py:58
 msgid "Creation date"
@@ -641,7 +641,7 @@ msgid ""
 "Tick the box if you want to mark this schedule as your active one (will be "
 "shown e.g. on your dashboard). All other schedules will then be marked as "
 "inactive"
-msgstr "Activa si quieres marcar este programa como activo (será mostrado p.ej. en\ntu tablero). Otros programas se marcarán como inactivos"
+msgstr "Activa si quieres marcar este programa como activo (será mostrado p.ej. en\ntu escritorio). Otros programas se marcarán como inactivos"
 
 #: manager/models.py:156
 msgid "Is loop"
@@ -694,11 +694,11 @@ msgstr "Día de ejercicio"
 
 #: manager/models.py:323
 msgid "Number of sets"
-msgstr ""
+msgstr "Número de series"
 
 #: manager/models.py:348
 msgid "Sets"
-msgstr ""
+msgstr "Series"
 
 #: manager/models.py:350 manager/models.py:384
 msgid "Repetitions"
@@ -780,7 +780,7 @@ msgstr "¿Estás seguro de que quieres borrar esto? Esta acción no se puede des
 
 #: manager/templates/index.html:6 manager/templates/navigation.html:17
 msgid "Dashboard"
-msgstr "Tablero"
+msgstr "Escritorio"
 
 #: manager/templates/index.html:41
 msgid "This workout is part of a schedule:"
@@ -851,7 +851,7 @@ msgstr "Tu peso actual es:"
 #: manager/templates/workout/overview.html:54
 #: manager/views/schedule_step.py:59
 msgid "Add workout"
-msgstr "Añade rutina"
+msgstr "Añadir rutina"
 
 #: manager/templates/index.html:125 manager/templates/index.html.py:126
 #: manager/templates/index.html:127 nutrition/templates/plan/overview.html:56
@@ -901,7 +901,7 @@ msgstr "Ejercicios pendientes de revisión"
 #: manager/templates/navigation.html:64
 #: weight/templates/weight_overview.html:9
 msgid "Weight overview"
-msgstr "Resumen de peso"
+msgstr "Índice de peso"
 
 #: manager/templates/navigation.html:65 weight/views.py:70
 #: weight/templates/weight_overview.html:90
@@ -922,7 +922,7 @@ msgstr "Planes nutritionales"
 #: nutrition/templates/plan/overview.html:67
 #: nutrition/templates/plan/overview.html:68
 msgid "Ingredient overview"
-msgstr "Resumen de ingredientes"
+msgstr "Índice de ingredientes"
 
 #: manager/templates/navigation.html:84 nutrition/templates/units/list.html:7
 msgid "Ingredient weight units"
@@ -1014,7 +1014,7 @@ msgstr ""
 
 #: manager/templates/template.html:174
 msgid "About"
-msgstr "Sobre"
+msgstr "Aviso legal"
 
 #: manager/templates/day/log.html:7
 msgid "New weight log"
@@ -1143,7 +1143,7 @@ msgid ""
 "The currently active schedule will remain active (and be\n"
 "shown e.g. in your dashboard) till it reaches the last workout or till you\n"
 "deactivate it, if it is a loop."
-msgstr "Tu programa activo actual permanecerá activo (y se mostrará\np.ej. en tu tablero) hasta que llegues al final o lo desactives si\nes un bucle."
+msgstr "Tu programa activo actual permanecerá activo (y se mostrará\np.ej. en tu escritorio) hasta que llegues al final o lo desactives si\nes un bucle."
 
 #: manager/templates/schedule/overview.html:71
 #: manager/templates/schedule/overview.html:78
@@ -1204,7 +1204,7 @@ msgstr "Añadir ejercicios al dia \"%(day_name)s\""
 
 #: manager/templates/set/edit.html:12
 msgid "Edit set"
-msgstr ""
+msgstr "Editar serie"
 
 #: manager/templates/tags/cc-by-sa-sidebar.html:4
 msgid "Free license"
@@ -1294,7 +1294,7 @@ msgid ""
 "    need to remember a new password for this site. For more information, please\n"
 "    take a look at the <a href=\"https://login.persona.org/\" target=\"_blank\">the\n"
 "    Persona website</a>."
-msgstr "Persona (BrowserID) reemplaza diferentes contraseñas, no tendrás que acordarte\nde una contraseña nueva para cada página. Para más informacion, por favor visita la\npágina del <a href=\"https://login.persona.org/\" target=\"_blank\">proyecto Personae</a>."
+msgstr "Persona (BrowserID) reemplaza diferentes contraseñas, no tendrás que acordarte\nde una contraseña nueva para cada página. Para más informacion, por favor visita la\npágina del <a href=\"https://login.persona.org/\" target=\"_blank\">proyecto Persona</a>."
 
 #: manager/templates/user/login.html:61
 msgid "No account?"
@@ -1443,7 +1443,7 @@ msgstr "No hay días para esta rutina."
 
 #: manager/templates/workout/view.html:53
 msgid "Add training day."
-msgstr ""
+msgstr "Añadir día de entrenamiento."
 
 #: manager/templates/workout/view.html:61
 msgid "Add training day"
@@ -1467,7 +1467,7 @@ msgstr ""
 
 #: manager/templates/workout/view.html:85
 msgid "Set the repetitions for each set"
-msgstr ""
+msgstr "Pon las repeticiones para cada serie"
 
 #: manager/templates/workout/view.html:86
 msgid "use '99' for 'all repetitions you can do'"
@@ -1489,7 +1489,7 @@ msgstr "Las imágenes muestran los músculos combinados como se entrenan por los
 #: nutrition/templates/plan/view.html:236
 #: nutrition/templates/plan/view.html:237
 msgid "Download as PDF"
-msgstr "Baja como PDF"
+msgstr "Bajar como PDF"
 
 #: manager/templates/workout/view.html:135
 #: manager/templates/workout/view.html:136
@@ -1642,7 +1642,7 @@ msgid ""
 "added to nutrition plans. You can access it on this address:\n"
 "{1}\n"
 "\n"
-msgstr "Tu ingrediente '{0}' ha sido añadido con suceso a la base de datos.\n\nEstá disponible en el resumen de ingredientes y puede ser añadido a planes de\nnutrición. Puedes verlo en esta dirección:\n{1}\n\n"
+msgstr "Tu ingrediente '{0}' ha sido añadido con suceso a la base de datos.\n\nEstá disponible en el índice de ingredientes y puede ser añadido a planes de\nnutrición. Puedes verlo en esta dirección:\n{1}\n\n"
 
 #: nutrition/models.py:350 nutrition/models.py:445
 msgid "Ingredient"
@@ -1710,7 +1710,7 @@ msgid ""
 "This user submitted ingredient is pending a decision to be\n"
 "included in the database. Till then, it will not be shown in the overview or\n"
 "the search."
-msgstr "Este ingrediente enviado por un usuario esta pendiente de una decisión\nde ser incluido en la base de datos. Hasta entonces no se mostrará en el\nresumen o la búsqueda."
+msgstr "Este ingrediente enviado por un usuario esta pendiente de una decisión\nde ser incluido en la base de datos. Hasta entonces no se mostrará en el\níndice o la búsqueda."
 
 #: nutrition/templates/ingredient/view.html:119
 msgid "Nutritional values in"
@@ -2244,64 +2244,64 @@ msgid ""
 "your exercises and workouts. It started as a pet project of mine to replace my\n"
 "growing collection of different spreadsheets, but it has become something other\n"
 "people could also find useful."
-msgstr "wger Workout Manager es una aplicación web libre y abierta que\nadministra tus ejercicios y rutinas. Empezó como un proyecto mio para\nsustituir mi colección creciente de archivos de excel, pero se ha convertido\nen algo que otra gente puede encontrar útil."
+msgstr "wger Workout Manager es una aplicación web libre y abierta que\nadministra tus ejercicios y rutinas. Empezó como un proyecto mio para\nsustituir mi colección creciente de hojas de cálculo, pero se ha convertido\nen algo que otra gente puede encontrar útil."
 
 #: software/templates/functions.html:33
 msgid "Edit window for a new set"
-msgstr ""
+msgstr "Formulario para crear una serie nueva"
 
 #: software/templates/functions.html:34
 msgid ""
 "With this simple form you create\n"
 "a new set with the repetitions and exercises you want. Repeat this\n"
 "step a couple of times, and you have your workout ready."
-msgstr ""
+msgstr "Con este sencillo formulatio puedes crear una nueva serie con las repeticiones\ny los ejercicios que quieras. Repite este paso unas cuantas veces y tendrás tu\nrutina lista."
 
 #: software/templates/functions.html:42 software/templates/functions.html:136
 #: software/templates/functions.html:243
 msgid "The workout manager"
-msgstr ""
+msgstr "El gestor de rutinas"
 
 #: software/templates/functions.html:43
 msgid ""
 "A day of a simple workout with a few exercises.\n"
 "If you don't want to see the comments for correct execution, you can hide\n"
 "them."
-msgstr ""
+msgstr "Un dia de una rutina simple con algunos ejercicios. Si no quieres ver\nlos comentarios para los ejercicios, se pueden esconder."
 
 #: software/templates/functions.html:53
 msgid ""
 "Some weight entries for two exercises. Each\n"
 "colour represents a different repetition so you can see how well you are\n"
 "doing."
-msgstr ""
+msgstr "Algunas entradas de peso para dos ejercicios. Cada color representa una\nrepetición diferente, así puedes ver facilmente cómo estas entrenando."
 
 #: software/templates/functions.html:62
 msgid ""
 "An overview of the body's muscles and the\n"
 "available exercises that mainly train the currently selected one."
-msgstr ""
+msgstr "Un índice de los músculos del cuerpo y los ejercicio disponibles\nque entrenan principalmente el seleccionado."
 
 #: software/templates/functions.html:69
 msgid "Body weight"
-msgstr ""
+msgstr "Peso corporal"
 
 #: software/templates/functions.html:70
 msgid ""
 "The chart shows the evolution of the\n"
 "body weight. With the small version below, you can zoom in a time period."
-msgstr ""
+msgstr "El gráfico muestra la evolución del peso corporal. Con la versión\npequeña abajo puedes hacer zoom en un periodo."
 
 #: software/templates/functions.html:78
 msgid ""
 "The two first meals of a nutritional plan.\n"
 "The nutritional values (energy, protein, etc.) are calculated too, but\n"
 "are not shown in the picture."
-msgstr ""
+msgstr "Las primeras dos comidas en un plan nutricional. Los valores\nnutricionales (energía, proteinas, etc.) también son calculadas pero\nno se muestran en la imagen."
 
 #: software/templates/functions.html:86
 msgid "Ingredient detail view"
-msgstr ""
+msgstr "Vista detallada de un ingredient"
 
 #: software/templates/functions.html:87
 msgid ""
@@ -2309,26 +2309,26 @@ msgid ""
 "calculator on the top it's possible to quickly calculate the nutritional\n"
 "calues for a amount. 'Human' units such as slices are available for some\n"
 "ingredients."
-msgstr ""
+msgstr "Vista detallada de un ingrediente. Con la calculadora es posible\ncalcular rápidamente los valores nutricionales. Con algunos ingredientes\nse pueden además usar nidades más \"humanas\" como por ejemplo\nuna rebanada."
 
 #: software/templates/functions.html:100
 msgid "In short:"
-msgstr ""
+msgstr "En suma:"
 
 #: software/templates/functions.html:106
 msgid "a workout manager"
-msgstr ""
+msgstr "un gestor de rutinas"
 
 #: software/templates/functions.html:107
 msgid ""
 "create and manage your workout routines by selecting how\n"
 "            many days your workout constists of, and adding different exercises to each.\n"
 "            Print the generated PDF to keep a log."
-msgstr ""
+msgstr "crea y gestiona tus rutinas seleccionando cuantos dias entrenas y\nañadiendo ejercicios. Imprime el PDF generado para mantener un diario."
 
 #: software/templates/functions.html:116
 msgid "a weight tracker"
-msgstr ""
+msgstr "un gestor de peso"
 
 #: software/templates/functions.html:117
 msgid ""
@@ -2339,14 +2339,14 @@ msgstr ""
 
 #: software/templates/functions.html:126
 msgid "a nutrition manager"
-msgstr ""
+msgstr "un gestor nutricional"
 
 #: software/templates/functions.html:127
 msgid ""
 "create a diet plan and see its nutritional\n"
 "            values (total energy, protein, carbohydrates, and so on) about\n"
 "            it. Select from more than 8000 ingredients for this."
-msgstr ""
+msgstr "crea tu plan nutricional o dieta, mantén control sobre los valores\nnutritionales (engergía, proteinas, hidratos de carbono, etc.).\nSelecciona de más de 8000 ingredientes."
 
 #: software/templates/functions.html:138
 msgid ""
@@ -2357,7 +2357,7 @@ msgid ""
 "number of repetitions you want to reach and which you enter yourself.\n"
 "This means that other training forms like pyramid training or similar are\n"
 "not a problem."
-msgstr ""
+msgstr "Lo habrás adivinado, esta es la función principal.\nPuede crear la rutina que quieras de la forma que quieras. Es muy flexible\nasi que si hacer superseries, no te preocupes, verás los ejercicios que\nvan juntos. Cada serie puede tener un número diferente de repeticiones\nque quieres alcanzar. Esto quiere decir que otros tipos de entrenamientos\ncomo p.ej. pirámide no son ningún problema."
 
 #: software/templates/functions.html:150
 msgid ""
@@ -2365,11 +2365,11 @@ msgid ""
 "can simply use (e.g. beginner, etc.). It will happily make the routine you tell\n"
 "it to do, but you have to decide which exercises and how many repetitions you'll\n"
 "do."
-msgstr ""
+msgstr "<strong>Nota:</strong> no hay rutinas preseleccionadas que simplemente puedes\nusar (p.ej. principiantes, etc.). El programa hará la rutina que tú le digas, pero tienes\nque decidir que ejercicios y cuantas repeticiones quieres hacer."
 
 #: software/templates/functions.html:156 software/templates/functions.html:245
 msgid "PDF export"
-msgstr ""
+msgstr "Exportar PDF"
 
 #: software/templates/functions.html:158
 msgid ""
@@ -2377,11 +2377,11 @@ msgid ""
 "This is suitable for printing so you can bring it to the gym and keep a log\n"
 "for 7 weeks. In case you wonder how it looks like,\n"
 "<a href=\"/static/pdf/workout-pdf-1.0.3-en.pdf\">here's a sample</a>."
-msgstr ""
+msgstr "También puede generar un PDF con tu rutina actual. Esto lo puedes\nimprimir y llevar al gimnasio para mantener un diaro para 7 semanas.\nSi te preguntas como es exactamente,\n<a href=\"/static/pdf/workout-pdf-1.0.3-en.pdf\">aqui tienes un ejemplo</a>."
 
 #: software/templates/functions.html:164 software/templates/functions.html:246
 msgid "Exercise log"
-msgstr ""
+msgstr "Diario de ejercicios"
 
 #: software/templates/functions.html:166
 msgid ""
@@ -2389,11 +2389,11 @@ msgid ""
 "the weights and repetitions you did for each exercise. As with the (body) weight,\n"
 "it will generate some diagrams so so you can see at a glance how well you are doing.\n"
 "The raw numbers are still accessible as a table."
-msgstr ""
+msgstr "La versión electrónica del PDF, aqui puedes entrar los pesos y las repeticiones\nque hiciste para cada ejercicio. Al igual que con el peso (corporal), te genera\ndiferentes diagramas para que puedas comparar de un vistazo como\nes tu progreso. Los datos con los números concretos siguen disponibles en una tabla."
 
 #: software/templates/functions.html:174 software/templates/functions.html:247
 msgid "Workout schedules"
-msgstr ""
+msgstr "Programas"
 
 #: software/templates/functions.html:176
 msgid ""
@@ -2402,11 +2402,11 @@ msgid ""
 "the workout schedules. You enter how many weeks you want to do each individual\n"
 "workout and whether it should loop after reaching the last one. The correct\n"
 "currently active workout will then be shown on your dashboard."
-msgstr ""
+msgstr "Si siempre haces unas cuantas rutinas en sucesión y sigues un programa\nque cambia cada semana, no hay problema, esto también lo puedes gestionar.\nSimplemente indicas cuantas semanas haces cada rutina y si quieres repetir\ntodo el programa cuando llegues al final. La rutina actual se mostrará en\ntu escritorio."
 
 #: software/templates/functions.html:184 software/templates/functions.html:252
 msgid "Muscle and exercise database"
-msgstr ""
+msgstr "Base de datos de músculos y ejercicios"
 
 #: software/templates/functions.html:185
 msgid ""
@@ -2414,36 +2414,36 @@ msgid ""
 "from which you can choose when creating a workout. Some have important notes\n"
 "about the form to perform them. This is displayed in the workout overview\n"
 "page, so you keep them in mind."
-msgstr ""
+msgstr "La base de datos de ejercicios contiene alrededor de cien ejercicios que\npuedes usar cuando hagas tu rutina. Algnunos tienen notas importantes sobre\ncómo hacerlos. Estas notas se muestran en el índice de las rutinas."
 
 #: software/templates/functions.html:190
 msgid ""
 "If you entered weight logs for the currently shown exercise, it\n"
 "will display your progress."
-msgstr ""
+msgstr "Si tienes datos en el diario para el ejercicio actual, te mostrará tu\nprogreso."
 
 #: software/templates/functions.html:193
 msgid ""
 "You can also submit your own, if you miss one. After a quick\n"
 "review, it will be added to the general database."
-msgstr ""
+msgstr "También puedes crear tus propios ejercicios, si ves que falta alguno. Después\nde una corta evaluación, se añadirán a la base de datos general."
 
 #: software/templates/functions.html:201 software/templates/functions.html:255
 msgid "The weight tracker"
-msgstr ""
+msgstr "Gestor de peso"
 
 #: software/templates/functions.html:202
 msgid ""
 "This simple part lets you log your body weight. From this\n"
 "data it generates a rather nice looking chart, so you can see if you are\n"
 "reaching your goals (be it gaining mass or losing it)."
-msgstr ""
+msgstr "Esta parte se permite mantener un diario con tu peso corporal.\nCon estos datos genera un gráfico con el que puedes ver facilmente si estás\nlogrando tus metas o no (ya sea ganar o perder peso)."
 
 #: software/templates/functions.html:206
 msgid ""
 "In case you want to jump ship after inputing your data from the\n"
 "last years, simply export the data as CSV."
-msgstr ""
+msgstr "En caso de que quieras irte después introducir tus datos de los últimos\naños, simplemente exporta los datos como CSV."
 
 #: software/templates/functions.html:212 software/templates/functions.html:257
 #: weight/templates/import_csv_preview.html:73
@@ -2454,11 +2454,11 @@ msgstr "Importar"
 msgid ""
 "If you already kept your weight in a spreadsheet, you can just\n"
 "import it by copy-and-paste'ing it into the import assistant."
-msgstr ""
+msgstr "Y si ya tenias tu peso en una hoja de cálculo, puedes importar esos\ndatos simplemente copiando y pegando los datos en el asistente."
 
 #: software/templates/functions.html:219 software/templates/functions.html:261
 msgid "The nutrition schedule manager"
-msgstr ""
+msgstr "El gestor de planen nutricionales"
 
 #: software/templates/functions.html:220
 msgid ""
@@ -2467,7 +2467,7 @@ msgid ""
 "carbohydrates, and so on) about it. For the ingredients, it uses the very complete\n"
 "list provided by the US Department of Agriculture, with around 8000\n"
 "entries."
-msgstr ""
+msgstr "Y finalmente es un gestor de planes nutricionales. Aquí puedes crear\nuna dieta y ver los valores nutricionales (energía total, proteinas, hidratos\nde carbono, etc.). Para los ingredientes usa una lista muy completa del\nDepartamento de Agricultura de los EE.EE. con alrededor de 8000 ingredientes."
 
 #: software/templates/functions.html:228
 msgid ""
@@ -2475,18 +2475,18 @@ msgid ""
 "keep track of what you actually ate during the day and how it compares to\n"
 "what the plan says. It simply shows you the nutritional values of the plan\n"
 "you create."
-msgstr ""
+msgstr "<strong>Nota:</strong> esto no es un diario. No está pensado para mantener una\nlista de las cosas que realmente has comido durante el dia y cómo se compara con\nel plan."
 
 #: software/templates/functions.html:233
 msgid ""
 "It can also be downloaded as a PDF you can keep on your\n"
 "fridge, so you don't forget to follow the plan... And as with the workout\n"
 "log, <a href=\"/static/pdf/nutrition-plan-pdf-1.0-en.pdf\">here's a sample</a>."
-msgstr ""
+msgstr "También puede generar un PDF que te puedes bajar y pegar en la nevera, para\nque no te olvides de seguir el plan. Y al igual que con las rutinas,\n<a href=\"/static/pdf/nutrition-plan-pdf-1.0-en.pdf\">aquí tienes un ejemplo</a>."
 
 #: software/templates/issues.html:6
 msgid "Reporting a problem"
-msgstr "Reportar un problema"
+msgstr "Informar sobre un problema"
 
 #: software/templates/issues.html:15
 msgid ""
@@ -2499,11 +2499,11 @@ msgstr "\nNingún programa es perfecto. Para algunos errores graves, un email es
 
 #: software/templates/issues.html:26
 msgid "report problem to the issue tracker"
-msgstr "reportar un problema al gestor de incidencias"
+msgstr "informar sobre un problema en el gestor de incidencias"
 
 #: software/templates/issues.html:30
 msgid "Enhancements"
-msgstr "Mejora"
+msgstr "Mejoras"
 
 #: software/templates/issues.html:32
 msgid ""
@@ -2517,7 +2517,7 @@ msgstr "\nEl gestor de incidencias también puede ser usado para documentar mejo
 
 #: software/templates/issues.html:41
 msgid "report wish to the issue tracker"
-msgstr "reportar deseo al gestor de incidencias"
+msgstr "informar sobre un deseo en el gestor de incidencias"
 
 #: software/templates/issues.html:46
 msgid "No Github account?"
@@ -2563,7 +2563,7 @@ msgstr "Una copia de ambas licencias están distribuidas con cada copia de wger 
 #: weight/views.py:97
 #, python-format
 msgid "Edit weight entry for the %s"
-msgstr ""
+msgstr "Editar entrada de peso para el %s"
 
 #: weight/views.py:109
 msgid "weightdata"
@@ -2579,11 +2579,11 @@ msgstr "Formato de fecha"
 
 #: weight/templates/edit.html:8 weight/templates/edit.html.py:25
 msgid "Weight entry"
-msgstr ""
+msgstr "Entrada de peso"
 
 #: weight/templates/import_csv_form.html:5
 msgid "Import weight logs"
-msgstr ""
+msgstr "Importar diario de peso"
 
 #: weight/templates/import_csv_form.html:20
 msgid "Submit"

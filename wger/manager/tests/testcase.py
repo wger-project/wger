@@ -22,16 +22,24 @@ from django.core.cache import cache
 import django_mobile
 
 from django.test import TestCase
-from django.test import LiveServerTestCase
-from django.db import models
+
+from tastypie.test import ResourceTestCase
 
 STATUS_CODES_FAIL = (302, 403, 404)
 
 
-class WorkoutManagerTestCase(TestCase):
+class BaseTestCase(object):
+    '''
+    Base test case.
+
+    Generic base testcase that is used for both the regular tests and the
+    REST API tests
+    '''
+
     fixtures = ('days_of_week',
                 'test-languages',
                 'test-user-data',
+                'test-apikeys',
                 'test-weight-data',
                 'test-exercises',
                 'test-weight-units',
@@ -62,6 +70,12 @@ class WorkoutManagerTestCase(TestCase):
         '''
         del os.environ['RECAPTCHA_TESTING']
         cache.clear()
+
+
+class WorkoutManagerTestCase(BaseTestCase, TestCase):
+    '''
+    Testcase to use with the regular website
+    '''
 
     def user_login(self, user='admin'):
         '''
@@ -406,7 +420,6 @@ class WorkoutManagerAccessTestCase(WorkoutManagerTestCase):
             response = self.client.get(self.url)
 
         if fail:
-            #print response
             self.assertIn(response.status_code, STATUS_CODES_FAIL)
             if response.status_code == 302:
                 # The page we are redirected to doesn't trigger an error
@@ -440,3 +453,214 @@ class WorkoutManagerAccessTestCase(WorkoutManagerTestCase):
         self.user_login(self.user_fail)
         self.access(fail=True)
         self.user_logout()
+
+
+class ApiBaseResourceTestCase(ResourceTestCase, BaseTestCase):
+    '''
+    Base test case for the REST API
+    '''
+
+    api_version = 'v1'
+    '''The current API version to test'''
+
+    resource = 'workout'
+    '''The current resource to be tested (string)'''
+
+    resource_updatable = True
+    '''A flag indicating whether the resource can be updated (POST, PATCH)'''
+
+    user = 'test'
+    '''Current user'''
+
+    user_fail = 'admin'
+    '''A different user'''
+
+    data = {}
+
+    @property
+    def url(self):
+        return '/api/{0}/{1}/'.format(self.api_version, self.resource)
+
+    def get_credentials(self, user=None):
+        '''
+        Returns the authentication headers to use in the request
+        '''
+        if not user:
+            user = self.user
+        return self.create_apikey(username=user, api_key='apikey-{0}'.format(user))
+
+    def test_get(self):
+        '''
+        Tests a GET request
+        '''
+
+        # Only perform the checks on derived classes
+        if self.__class__.__name__ == 'ApiBaseResourceTestCase':
+            return
+
+        if self.user:
+            # No access withouth authentication
+            response = self.api_client.get(self.url)
+            self.assertHttpUnauthorized(response)
+
+            # User with access
+            response = self.api_client.get(self.url, authentication=self.get_credentials())
+            self.assertValidJSONResponse(response)
+
+            # If a different user should fail, test
+            if self.resource_updatable:
+                response = self.api_client.get(self.url,
+                                               authentication=self.get_credentials(self.user_fail))
+                self.assertHttpUnauthorized(response)
+
+        # public resource (ingredients, exercises), no authentication needed
+        else:
+            response = self.api_client.get(self.url)
+            self.assertValidJSONResponse(response)
+
+    def test_post(self):
+        '''
+        Tests a POST request
+
+        Read-only at the moment, all requests fail
+        '''
+
+        # Only perform the checks on derived classes
+        if self.__class__.__name__ == 'ApiBaseResourceTestCase':
+            return
+
+        if self.user:
+            # No access withouth authentication
+            response = self.api_client.post(self.url, data=self.data)
+            self.assertHttpUnauthorized(response)
+
+            # User with access
+            if self.resource_updatable:
+                response = self.api_client.post(self.url,
+                                                data=self.data,
+                                                authentication=self.get_credentials())
+                self.assertHttpNotImplemented(response)
+
+                # If a different user should fail, test
+                response = self.api_client.post(self.url,
+                                                data=self.data,
+                                                authentication=self.get_credentials(self.user_fail))
+                self.assertHttpNotImplemented(response)
+
+        # public resource (ingredients, exercises), no authentication needed
+        else:
+            response = self.api_client.post(self.url, data=self.data)
+            if self.resource_updatable:
+                self.assertHttpNotImplemented(response)
+            else:
+                self.assertIn(response.status_code, (501, 401))
+
+    def test_delete(self):
+        '''
+        Tests a DELETE request
+
+        Read-only at the moment, all requests fail
+        '''
+
+        # Only perform the checks on derived classes
+        if self.__class__.__name__ == 'ApiBaseResourceTestCase':
+            return
+
+        if self.user:
+            # No access withouth authentication
+            response = self.api_client.delete(self.url)
+            self.assertHttpUnauthorized(response)
+
+            # User with access
+            if self.resource_updatable:
+                response = self.api_client.delete(self.url, authentication=self.get_credentials())
+                self.assertHttpUnauthorized(response)
+
+                # If a different user should fail, test
+                authentication = self.get_credentials(self.user_fail)
+                response = self.api_client.delete(self.url,
+                                                  authentication=authentication)
+                self.assertHttpUnauthorized(response)
+
+        # public resource (ingredients, exercises), no authentication needed
+        else:
+            response = self.api_client.delete(self.url)
+            if self.resource_updatable:
+                self.assertHttpNotImplemented(response)
+            else:
+                self.assertIn(response.status_code, (401, 204))
+
+    def test_put(self):
+        '''
+        Tests a PUT request
+
+        Read-only at the moment, all requests fail
+        '''
+
+        # Only perform the checks on derived classes
+        if self.__class__.__name__ == 'ApiBaseResourceTestCase':
+            return
+
+        if self.user:
+            # No access withouth authentication
+            response = self.api_client.put(self.url, data=self.data)
+            self.assertHttpUnauthorized(response)
+
+            # User with access
+            if self.resource_updatable:
+                response = self.api_client.put(self.url,
+                                               data=self.data,
+                                               authentication=self.get_credentials())
+                self.assertHttpUnauthorized(response)
+
+                # If a different user should fail, test
+                response = self.api_client.put(self.url,
+                                               data=self.data,
+                                               authentication=self.get_credentials(self.user_fail))
+                self.assertHttpUnauthorized(response)
+
+        # public resource (ingredients, exercises), no authentication needed
+        else:
+            response = self.api_client.put(self.url, data=self.data)
+            if self.resource_updatable:
+                self.assertHttpNotImplemented(response)
+            else:
+                self.assertIn(response.status_code, (401, 400))
+
+    def test_patch(self):
+        '''
+        Tests a PATCH request
+
+        Read-only at the moment, all requests fail
+        '''
+
+        # Only perform the checks on derived classes
+        if self.__class__.__name__ == 'ApiBaseResourceTestCase':
+            return
+
+        if self.user:
+            # No access withouth authentication
+            response = self.api_client.patch(self.url, data=self.data)
+            self.assertHttpUnauthorized(response)
+
+            # User with access
+            if self.resource_updatable:
+                response = self.api_client.patch(self.url,
+                                                 data=self.data,
+                                                 authentication=self.get_credentials())
+                self.assertHttpUnauthorized(response)
+
+                # If a different user should fail, test
+                authentication = self.get_credentials(self.user_fail)
+                response = self.api_client.patch(self.url,
+                                                 data=self.data,
+                                                 authentication=authentication)
+                self.assertHttpUnauthorized(response)
+
+        # public resource (ingredients, exercises), no authentication needed
+        else:
+            response = self.api_client.patch(self.url, data=self.data)
+            if self.resource_updatable:
+                self.assertHttpNotImplemented(response)
+            else:
+                self.assertIn(response.status_code, (401, 400))

@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, url
-from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.decorators import login_required
 
 from wger.nutrition.views import ingredient
@@ -15,7 +14,9 @@ urlpatterns = patterns('wger.nutrition.views',
         'plan.overview',
         name='nutrition-overview'),
     url(r'^add/$', 'plan.add'),
-    url(r'^(?P<id>\d+)/view/$', 'plan.view'),
+    url(r'^(?P<id>\d+)/view/$',
+        'plan.view',
+        name='nutrition-view'),
     url(r'^(?P<pk>\d+)/copy/$',
         'plan.copy',
         name='nutrition-copy'),
@@ -47,10 +48,10 @@ urlpatterns = patterns('wger.nutrition.views',
 
     # Ingredients
     url(r'^ingredient/(?P<pk>\d+)/delete/$',
-        permission_required('nutrition.delete_ingredient')(ingredient.IngredientDeleteView.as_view()),
+        ingredient.IngredientDeleteView.as_view(),
         name='ingredient-delete'),
     url(r'^ingredient/(?P<pk>\d+)/edit/$',
-        permission_required('nutrition.change_ingredient')(ingredient.IngredientEditView.as_view()),
+        ingredient.IngredientEditView.as_view(),
         name='ingredient-edit'),
     url(r'^ingredient/add/$',
         login_required(ingredient.IngredientCreateView.as_view()),
@@ -59,7 +60,7 @@ urlpatterns = patterns('wger.nutrition.views',
         ingredient.IngredientListView.as_view(),
         name='ingredient-list'),
     url(r'^pending/$',
-        permission_required('nutrition.change_ingredient')(ingredient.PendingIngredientListView.as_view()),
+        ingredient.PendingIngredientListView.as_view(),
         name='ingredient-pending'),
     url(r'^(?P<pk>\d+)/accept/$',
         'ingredient.accept',
@@ -83,27 +84,54 @@ urlpatterns = patterns('wger.nutrition.views',
 
     # Ingredient units
     url(r'^ingredient/unit/list/$',
-        permission_required('nutrition.add_ingredientweightunit')(unit.WeightUnitListView.as_view()),
+        unit.WeightUnitListView.as_view(),
         name='weight-unit-list'),
     url(r'^ingredient/unit/add/$',
-        permission_required('nutrition.add_ingredientweightunit')(unit.WeightUnitCreateView.as_view()),
+        unit.WeightUnitCreateView.as_view(),
         name='weight-unit-add'),
     url(r'^ingredient/unit/(?P<pk>\d+)/delete/$',
-        permission_required('nutrition.delete_ingredientweightunit')(unit.WeightUnitDeleteView.as_view()),
+        unit.WeightUnitDeleteView.as_view(),
         name='weight-unit-delete'),
     url(r'^ingredient/unit/(?P<pk>\d+)/edit/$',
-        permission_required('nutrition.change_ingredientweightunit')(unit.WeightUnitUpdateView.as_view()),
+        unit.WeightUnitUpdateView.as_view(),
         name='weight-unit-edit'),
-        
+
 
     # Ingredient to weight units cross table
     url(r'^ingredient/unit-to-ingredient/add/(?P<ingredient_pk>\d+)/$',
-        permission_required('nutrition.add_ingredientweightunit')(unit_ingredient.WeightUnitIngredientCreateView.as_view()),
+        unit_ingredient.WeightUnitIngredientCreateView.as_view(),
         name='weight-unit-ingredient-add'),
     url(r'^ingredient/unit-to-ingredient/(?P<pk>\d+)/edit/$',
-        permission_required('nutrition.add_ingredientweightunit')(unit_ingredient.WeightUnitIngredientUpdateView.as_view()),
+        unit_ingredient.WeightUnitIngredientUpdateView.as_view(),
         name='weight-unit-ingredient-edit'),
     url(r'^ingredient/unit-to-ingredient/(?P<pk>\d+)/delete/$',
-        permission_required('nutrition.add_ingredientweightunit')(unit_ingredient.WeightUnitIngredientDeleteView.as_view()),
+        unit_ingredient.WeightUnitIngredientDeleteView.as_view(),
         name='weight-unit-ingredient-delete'),
+
+    # BMI
+    url(r'^calculator/bmi$',
+        'bmi.view',
+        name='bmi-view'),
+    url(r'^calculator/bmi/calculate$',
+        'bmi.calculate',
+        name='bmi-calculate'),
+    url(r'^calculator/bmi/chart-data$',
+        'bmi.chart_data',
+        name='bmi-chart-data'),  # JS
+
+    # Calories calculator
+    url(r'^calculator/calories$',
+        'calculator.view',
+        name='calories-calculator'),
+    url(r'^calculator/calories/bmr$',
+        'calculator.calculate_bmr',
+        name='calories-calculate-bmr'),
+    url(r'^calculator/calories/activities$',
+        'calculator.calculate_activities',
+        name='calories-calculate-activities'),  # JS
+    url(r'^calculator/calories/total$',
+        'calculator.update_total',
+        name='calories-calculate-total'),  # JS
+
+
 )

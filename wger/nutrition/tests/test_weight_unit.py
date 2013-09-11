@@ -21,6 +21,7 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 
@@ -95,3 +96,21 @@ class WeightUnitOverviewTestCase(WorkoutManagerTestCase):
 
         response = self.client.get(reverse('weight-unit-list'), {'page': 'foobar'})
         self.assertEqual(response.status_code, 404)
+
+
+class WeightUnitApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests the weight unit overview resource
+    '''
+    resource = 'weightunit'
+    user = None
+    resource_updatable = False
+
+
+class WeightUnitDetailApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests accessing a specific weight unit
+    '''
+    resource = 'weightunit/1'
+    user = None
+    resource_updatable = False

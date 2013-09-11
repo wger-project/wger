@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
-import uuid
 
 from django.forms.models import modelformset_factory
 from django.forms.models import inlineformset_factory
@@ -25,19 +24,13 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
-from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
 from django.db import models
 
 from django.contrib.auth.decorators import login_required
 
-from django.views.generic import DeleteView
-from django.views.generic import CreateView
-from django.views.generic import UpdateView
 
-from wger.manager.models import Workout
 from wger.manager.models import Day
 from wger.manager.models import Set
 from wger.manager.models import Setting
@@ -45,9 +38,6 @@ from wger.manager.models import Setting
 from wger.exercises.models import Exercise
 
 from wger.manager.forms import SetForm
-
-from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import YamlDeleteMixin
 
 logger = logging.getLogger('wger.custom')
 
@@ -237,6 +227,8 @@ def api_edit_set(request):
 
             order = 0
             for i in new_set_order.strip(',').split(','):
+                if not i:
+                    continue
                 set_id = i.split('-')[1]
                 order += 1
 

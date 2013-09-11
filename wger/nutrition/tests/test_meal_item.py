@@ -24,6 +24,7 @@ from wger.nutrition.models import MEALITEM_WEIGHT_GRAM
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 
 class EditMealItemUnitTestCase(WorkoutManagerEditTestCase):
@@ -74,3 +75,18 @@ class AddMealItemTestCase(WorkoutManagerAddTestCase):
     pk = 22
     data = {'amount': 100,
             'ingredient': 1}
+
+
+class MealItemApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests the meal overview resource
+    '''
+    resource = 'mealitem'
+    resource_updatable = False
+
+
+class MealItemDetailApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests accessing a specific meal
+    '''
+    resource = 'mealitem/10'

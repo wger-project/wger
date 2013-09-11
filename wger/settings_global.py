@@ -50,7 +50,7 @@ LANGUAGE_CODE = 'en'
 EMAIL_SUBJECT_PREFIX = '[wger] '
 
 # Login-URL
-LOGIN_URL = '/user/login/'
+LOGIN_URL = '/user/login'
 
 # Redirect here after sucessfull login
 LOGIN_REDIRECT_URL = '/'
@@ -213,6 +213,9 @@ INSTALLED_APPS = (
 
     # Django mobile
     'django_mobile',
+
+    # REST-API
+    'tastypie',
 )
 
 

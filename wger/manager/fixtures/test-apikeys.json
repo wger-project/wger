@@ -1,0 +1,29 @@
+[
+    {
+        "pk": 1, 
+        "model": "tastypie.apikey", 
+        "fields": {
+            "user": 1, 
+            "key": "apikey-admin", 
+            "created": "2013-08-28 19:47:06+01:00"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "tastypie.apikey", 
+        "fields": {
+            "user": 2, 
+            "key": "apikey-test", 
+            "created": "2013-08-28 19:47:06+01:00"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "tastypie.apikey", 
+        "fields": {
+            "user": 3, 
+            "key": "apikey-demo", 
+            "created": "2013-08-28 19:47:06+01:00"
+        }
+    }
+]

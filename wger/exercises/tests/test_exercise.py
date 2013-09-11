@@ -22,8 +22,10 @@ from wger.exercises.models import Exercise
 from wger.exercises.models import Muscle
 from wger.exercises.models import ExerciseCategory
 
+from wger.manager.tests.testcase import STATUS_CODES_FAIL
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
+from wger.manager.tests.testcase import ApiBaseResourceTestCase
 from wger.utils.cache import get_template_cache_name
 from wger.utils.cache import cache_mapper
 
@@ -209,6 +211,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
                                      'name': 'my test exercise',
                                      'muscles': [1, 2]})
         count_after = Exercise.objects.count()
+        self.assertIn(response.status_code, STATUS_CODES_FAIL)
 
         # Exercise was not added
         self.assertEqual(count_before, count_after)
@@ -284,7 +287,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         if admin:
             self.assertTrue(response.context['form'].errors['category'])
         else:
-            self.assertEqual(response.status_code, 302)
+            self.assertIn(response.status_code, STATUS_CODES_FAIL)
 
         # No muscles - adding
         response = self.client.post(reverse('exercise-add'),
@@ -301,7 +304,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         if admin:
             self.assertTrue(response.context['form'].errors['muscles'])
         else:
-            self.assertEqual(response.status_code, 302)
+            self.assertIn(response.status_code, STATUS_CODES_FAIL)
 
     def test_add_exercise_success(self):
         '''
@@ -454,3 +457,32 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         self.assertNotEqual(old_exercise_overview, new_exercise_overview)
         self.assertNotEqual(old_detail_header, new_detail_header)
         self.assertNotEqual(old_detail_muscles, new_detail_muscles)
+
+
+class ExerciseApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests the exercise overview resource
+    '''
+    resource = 'exercise'
+    user = None
+    resource_updatable = False
+    data = {"category": "/api/v1/exercisecategory/1/",
+            "comments": [],
+            "creation_date": "2013-01-01",
+            "description": "Something here",
+            "id": 1,
+            "language": "/api/v1/language/2/",
+            "muscles": [
+                "/api/v1/muscle/1/"
+            ],
+            "name": "foobar",
+            "status": "5"}
+
+
+class ExerciseDetailApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests accessing a specific Exercise
+    '''
+    resource = 'exercise/3'
+    user = None
+    resource_updatable = False

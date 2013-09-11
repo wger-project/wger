@@ -26,6 +26,7 @@ from wger.exercises.models import Exercise
 from wger.manager.tests.testcase import STATUS_CODES_FAIL
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.manager.tests.testcase import ApiBaseResourceTestCase
 from wger.utils.cache import get_template_cache_name
 
 
@@ -330,3 +331,18 @@ class WorkoutCacheTestCase(WorkoutManagerTestCase):
         setting1.delete()
         self.assertFalse(cache.get(get_template_cache_name('day-view', 1)))
         self.assertTrue(cache.get(get_template_cache_name('day-view', 2)))
+
+
+class SetpiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests the set overview resource
+    '''
+    resource = 'set'
+    resource_updatable = False
+
+
+class SetDetailApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests accessing a specific set
+    '''
+    resource = 'set/3'

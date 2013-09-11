@@ -106,7 +106,7 @@ def export_csv(request):
     '''
 
     # Prepare the response headers
-    filename = "{0}-{1}".format(_('weightdata'), request.user.username)
+    filename = u"{0}-{1}".format('weightdata', request.user.username)
     response = HttpResponse(mimetype='text/csv')
     response['Content-Disposition'] = 'attachment; filename=%s.csv' % filename
 
@@ -114,7 +114,7 @@ def export_csv(request):
     writer = csv.writer(response)
 
     weights = WeightEntry.objects.filter(user=request.user)
-    writer.writerow([_('Weight'), _('Date')])
+    writer.writerow([_('Weight').encode('utf8'), _('Date').encode('utf8')])
 
     for entry in weights:
         writer.writerow([entry.weight, entry.creation_date])

@@ -25,7 +25,6 @@ from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.forms import ModelForm
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
@@ -36,14 +35,13 @@ from wger.nutrition.models import NutritionPlan
 from wger.nutrition.models import MEALITEM_WEIGHT_GRAM
 from wger.nutrition.models import MEALITEM_WEIGHT_UNIT
 
-from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.pagesizes import A4, cm
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
 from reportlab.lib import colors
 
 from wger import get_version
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.pdf import styleSheet
 from wger.utils.language import load_language
 
@@ -83,7 +81,7 @@ def add(request):
     return HttpResponseRedirect(reverse('wger.nutrition.views.plan.view', kwargs={'id': plan.id}))
 
 
-class PlanDeleteView(YamlDeleteMixin, DeleteView):
+class PlanDeleteView(WgerDeleteMixin, DeleteView):
     '''
     Generic view to delete a nutritional plan
     '''

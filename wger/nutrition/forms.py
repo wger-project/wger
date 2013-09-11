@@ -17,8 +17,11 @@
 import logging
 
 from django import forms
+from django.utils.translation import ugettext as _
 
 from wger.nutrition.models import IngredientWeightUnit
+from wger.manager.models import UserProfile
+
 
 logger = logging.getLogger('wger.custom')
 
@@ -48,3 +51,58 @@ class UnitChooserForm(forms.Form):
 
         self.fields['unit'].queryset = IngredientWeightUnit.objects.filter(
             ingredient_id=ingredient_id).select_related()
+
+
+class BmiForm(forms.ModelForm):
+    weight = forms.DecimalField()
+
+    class Meta:
+        model = UserProfile
+        fields = ('height', )
+
+
+class BmrForm(forms.ModelForm):
+    '''
+    Form for the basal metabolic rate
+    '''
+    weight = forms.DecimalField()
+
+    class Meta:
+        model = UserProfile
+        fields = ('age', 'height', 'gender')
+
+
+class PhysicalActivitiesForm(forms.ModelForm):
+    '''
+    Form for the additional physical activities
+    '''
+    class Meta:
+        model = UserProfile
+        fields = ('sleep_hours',
+                  'work_hours',
+                  'work_intensity',
+                  'sport_hours',
+                  'sport_intensity',
+                  'freetime_hours',
+                  'freetime_intensity')
+
+
+class DailyCaloriesForm(forms.ModelForm):
+    '''
+    Form for the total daily calories needed
+    '''
+
+    base_calories = forms.IntegerField(label=_('Basic caloric intake'),
+                                       help_text=_('Your basic caloric intake as calculated for '
+                                                   'your data'),
+                                       required=False)
+    additional_calories = forms.IntegerField(label=_('Additional calories'),
+                                             help_text=_('Additional calories to add to the base '
+                                                         'rate (to substract, enter a negative '
+                                                         'number)'),
+                                             initial=0,
+                                             required=False)
+
+    class Meta:
+        model = UserProfile
+        fields = ('calories',)

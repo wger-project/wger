@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+
+{% block header %}
+<script src="{% static 'js/d3.js' %}"></script>
+<style>
+div.table {
+    display:table;
+    margin-top: 1em;
+}
+div.table > div {
+    display:table-row;
+}
+div.table > div > div {
+    display:table-cell;
+    padding-left: 1em;
+}
+div.bmi-legend {
+    width:1em;
+    height:1em;
+}
+</style>
+
+
+<script>
+$(document).ready(function () {
+
+    /*
+     * Draw the static part of the chart
+     */
+    var margin = {top: 20, right: 20, bottom: 30, left: 50},
+        width = 600 - margin.left - margin.right,
+        height = 300 - margin.top - margin.bottom;
+
+    var x = d3.scale.linear()
+        .range([0, width]);
+
+    var y = d3.scale.linear()
+        .range([height, 0]);
+
+    var z = d3.scale.ordinal().range(['#000080', '#0000ff', '#00ffff', '#00ff00', '#ffff00', '#ff7f2a', '#ff0000', '#800000']);
+
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left");
+
+    var stack = d3.layout.stack()
+        .offset("zero")
+        .values(function(d) { return d.values; })
+        .x(function(d) { return d.height; })
+        .y(function(d) { return d.weight; });
+
+    var nest = d3.nest()
+        .key(function(d) { return d.key; });
+
+    var area = d3.svg.area()
+        .interpolate("linear")
+        .x(function(d) { return x(d.height); })
+        .y0(function(d) { return y(d.y0); })
+        .y1(function(d) { return y(d.y); });
+
+
+    var svg = d3.select("#bmi-chart").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // Clip path, drawings outside are removed
+    svg.append("defs").append("clipPath")
+        .attr("id", "clip")
+      .append("rect")
+        .attr("width", width)
+        .attr("height", height);
+
+
+    d3.json("/nutrition/calculator/bmi/chart-data", function(data) {
+
+        var layers = stack(nest.entries(data));
+
+        // Manually set the domains
+        x.domain([150, 200]); // height, in cm
+        y.domain([30, 160]);  // weight, in kg
+
+      svg.selectAll(".layer")
+          .data(layers)
+        .enter().append("path")
+          .attr("class", "layer")
+          .attr("id", function(d, i) { return "key-" + d.key; })
+          .attr("clip-path", "url(#clip)")
+          .attr("d", function(d) { return area(d.values); })
+          .style("fill", function(d, i) { return z(i); })
+          .style("opacity", 0.6);
+
+      svg.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + height + ")")
+          .call(xAxis);
+
+      svg.append("g")
+          //.attr("transform", "translate(" + width + ",0)")
+          .attr("class", "y axis")
+          .call(yAxis);
+
+      render_current_bmi();
+    });
+
+    /*
+     * Draw the calculated BMI
+     */
+    function render_current_bmi()
+    {
+        var url = $("#bmi-form").attr( 'action' );
+
+        $.post(url,
+           $("#bmi-form").serialize(),
+           function(data) {
+               $('#bmi-result-container').show();
+               $('#bmi-result-value').html(data.bmi);
+               svg.append("circle")
+                .attr("cx", x(data.height))
+                .attr("cy", y(data.weight))
+                .attr("fill", "black")
+                .attr("r", 5);
+           });
+    }
+
+    /*
+     * Process the form
+     */
+    $("#bmi-form").click(function(e){
+        e.preventDefault();
+        render_current_bmi();
+    });
+
+});
+</script>
+
+
+
+
+{% endblock %}
+
+<!--
+        Title
+-->
+{% block title %}{% trans "BMI calculator" %}{% endblock %}
+
+
+<!--
+        Main Content
+-->
+{% block content %}
+<form action="{% url 'bmi-calculate' %}"
+      method="post"
+      class="ym-form"
+      id="bmi-form">
+{% csrf_token %}
+
+{% if form.non_field_errors %}
+<div class="ym-fbox-text ym-error">
+    {% for error in form.non_field_errors %}
+        <p class="ym-message">{% trans error %}</p>
+    {% endfor %}
+</div>
+{% endif %}
+
+<table>
+    {% for current_field in form %}
+        {% if current_field.name in select_lists %}
+            {% yaml_form_field current_field "ym-fbox-select" %}
+        {% else %}
+            {% yaml_form_field current_field %}
+        {% endif %}
+    {% endfor %}
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="{% trans 'Calculate' %}" id="form-save">
+        </td>
+    </tr>
+</table>
+</form>
+
+<div id="bmi-result-container" style="display:hidden;">
+    <h3>{% trans 'Results' %}</h3>
+    <p>{% trans 'Your BMI is: ' %} <strong><span id="bmi-result-value">{{user.userprofile.calculate_bmi|floatformat:2}}</span></strong></p>
+</div>
+
+
+
+
+<!--
+<img width="479"
+     height="300"
+     title="{% trans 'BMI' %}"
+     alt="{% trans 'BMI' %}"
+     src="{% static 'images/bmi.svg' %}"
+     style="margin-top:3em;"></img>
+-->
+
+<div id="bmi-chart"></div>
+
+
+<h3>{% trans "Legend" %}</h3>
+<div class="table">
+    <div>
+        <div><div class="bmi-legend" style="background-color:#800000;">&nbsp;</div></div>
+        <div>{% trans "Adipositas III" %}</div>
+    </div>
+    <div>
+        <div><div class="bmi-legend" style="background-color:#ff0000;">&nbsp;</div></div>
+        <div>{% trans "Adipositas II" %}</div>
+    </div>
+    <div>
+        <div><div class="bmi-legend" style="background-color:#ff7f2a;">&nbsp;</div></div>
+        <div>{% trans "Adipositas I" %}</div>
+    </div>
+    <div>
+        <div><div class="bmi-legend" style="background-color:#ffff00;">&nbsp;</div></div>
+        <div>{% trans "Overweight" %}</div>
+    </div>
+    <div>
+        <div><div class="bmi-legend" style="background-color:#00ff00;">&nbsp;</div></div>
+        <div>{% trans "Normal weight" %}</div>
+    </div>
+    <div>
+        <div><div class="bmi-legend" style="background-color:#00ffff;">&nbsp;</div></div>
+        <div>{% trans "Slight underweight" %}</div>
+    </div>
+    <div>
+        <div><div class="bmi-legend" style="background-color:#0000ff;">&nbsp;</div></div>
+        <div>{% trans "Moderate underweight" %}</div>
+    </div>
+    <div>
+        <div><div class="bmi-legend" style="background-color:#000080;">&nbsp;</div></div>
+        <div>{% trans "Strong underweight" %}</div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}
+<h3>Info</h3>
+<p>
+{% blocktrans %}Use the form to calculate your BMI (Body Mass Index).
+If you have entered data in the weight section, the last entry will
+be used automatically. Otherwise the weight you enter here will be saved
+in a new entry.{% endblocktrans %}
+</p>
+{% endblock %}

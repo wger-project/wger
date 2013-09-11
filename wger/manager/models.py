@@ -18,6 +18,7 @@
 import datetime
 import logging
 import json
+import decimal
 
 from django.db import models
 from django.db.models.signals import post_save
@@ -27,7 +28,10 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ValidationError
 from django.core.cache import cache
+from django.core.validators import MaxValueValidator
+from django.core.validators import MinValueValidator
 
 from wger.exercises.models import Exercise
 
@@ -35,6 +39,7 @@ from wger.utils.helpers import DecimalJsonEncoder
 from wger.utils.helpers import disable_for_loaddata
 from wger.utils.cache import delete_template_fragment_cache
 from wger.utils.cache import cache_mapper
+from wger.weight.models import WeightEntry
 
 logger = logging.getLogger('wger.custom')
 
@@ -279,6 +284,12 @@ class DaysOfWeek(models.Model):
     day_of_week = models.CharField(max_length=9,
                                    verbose_name=_('Day of the week'))
 
+    class Meta:
+        '''
+        Order by day-ID, this is needed for some DBs
+        '''
+        ordering = ["pk", ]
+
     def __unicode__(self):
         '''
         Return a more human-readable representation
@@ -313,11 +324,13 @@ class Day(models.Model):
         '''
         return self.training
 
-    class Meta:
+    @property
+    def get_first_day_id(self):
         '''
-        Order by ID. this is needed for some DBs
+        Return the PK of the first day of the week, this is used in the template
+        to order the days in the template
         '''
-        ordering = ["day__id", ]
+        return self.day.all()[0].pk
 
     def save(self, *args, **kwargs):
         '''
@@ -524,6 +537,25 @@ class WorkoutLog(models.Model):
 
 
 class UserProfile(models.Model):
+
+    GENDER_MALE = '1'
+    GENDER_FEMALE = '2'
+
+    GENDER = (
+        (GENDER_MALE, _('Male')),
+        (GENDER_FEMALE, _('Female')),
+    )
+
+    INTENSITY_LOW = '1'
+    INTENSITY_MEDIUM = '2'
+    INTENSITY_HIGH = '3'
+
+    INTENSITY = (
+        (INTENSITY_LOW, _('Low')),
+        (INTENSITY_MEDIUM, _('Medium')),
+        (INTENSITY_HIGH, _('High')),
+    )
+
     # This field is required.
     user = models.OneToOneField(User,
                                 editable=False)
@@ -550,11 +582,192 @@ a nutritional plan. These ingredients are extracted from a list provided
 by the US Department of Agriculture. It is extremely complete, with around
 7000 entries, but can be somewhat overwhelming and make the search difficult.'''))
 
+    #
+    # User statistics
+    #
+    age = models.IntegerField(max_length=2,
+                              verbose_name=_('Age'),
+                              blank=False,
+                              null=True)
+    '''The user's age'''
+
+    height = models.IntegerField(max_length=2,
+                                 verbose_name=_('Height (cm)'),
+                                 blank=False,
+                                 validators=[MinValueValidator(140), MaxValueValidator(230)],
+                                 null=True)
+    '''The user's height'''
+
+    gender = models.CharField(max_length=1,
+                              choices=GENDER,
+                              default=GENDER_MALE,
+                              blank=False,
+                              null=True)
+    '''Gender'''
+
+    sleep_hours = models.IntegerField(verbose_name=_('Hours of sleep'),
+                                      help_text=_('The average hours of sleep per day'),
+                                      default=7,
+                                      blank=False,
+                                      null=True)
+    '''The average hours of sleep per day'''
+
+    work_hours = models.IntegerField(verbose_name=_('Work'),
+                                     help_text=_('Average hours per day'),
+                                     default=8,
+                                     blank=False,
+                                     null=True)
+    '''The average hours at work per day'''
+
+    work_intensity = models.CharField(verbose_name=_('Physical intensity'),
+                                      help_text=_('Approximately'),
+                                      max_length=1,
+                                      choices=INTENSITY,
+                                      default=INTENSITY_LOW,
+                                      blank=False,
+                                      null=True)
+    '''Physical intensity of work'''
+
+    sport_hours = models.IntegerField(verbose_name=_('Sport'),
+                                      help_text=_('Average hours per week'),
+                                      default=3,
+                                      blank=False,
+                                      null=True)
+    '''The average hours performing sports per week'''
+
+    sport_intensity = models.CharField(verbose_name=_('Physical intensity'),
+                                       help_text=_('Approximately'),
+                                       max_length=1,
+                                       choices=INTENSITY,
+                                       default=INTENSITY_MEDIUM,
+                                       blank=False,
+                                       null=True)
+    '''Physical intensity of sport activities'''
+
+    freetime_hours = models.IntegerField(verbose_name=_('Free time'),
+                                         help_text=_('Average hours per day'),
+                                         default=8,
+                                         blank=False,
+                                         null=True)
+    '''The average hours of free time per day'''
+
+    freetime_intensity = models.CharField(verbose_name=_('Physical intensity'),
+                                          help_text=_('Approximately'),
+                                          max_length=1,
+                                          choices=INTENSITY,
+                                          default=INTENSITY_LOW,
+                                          blank=False,
+                                          null=True)
+    '''Physical intensity during free time'''
+
+    calories = models.IntegerField(verbose_name=_('Total daily calories'),
+                                   help_text=_('Total caloric intake, including e.g. any surplus'),
+                                   default=2500,
+                                   blank=False,
+                                   null=True)
+    '''Basic caloric intake based on physical activity'''
+
+    @property
+    def weight(self):
+        '''
+        Returns the last weight entry, done here to make the behaviour
+        more consistent with the other settings (age, height, etc.)
+        '''
+        try:
+            weight = WeightEntry.objects.filter(user=self.user).latest().weight
+        except WeightEntry.DoesNotExist:
+            weight = 0
+        return weight
+
+    def clean(self):
+        '''
+        Make sure the total amount of hours is 24
+        '''
+        if ((self.sleep_hours and self.freetime_hours and self.work_hours)
+           and (self.sleep_hours + self.freetime_hours + self.work_hours) > 24):
+                raise ValidationError(_('The sum of all hours has to be 24'))
+
     def __unicode__(self):
         '''
         Return a more human-readable representation
         '''
         return u"Profile for user {0}".format(self.user)
+
+    def calculate_bmi(self):
+        '''
+        Calculates the user's BMI
+
+        Formula: weight/height^2
+        - weight in kg
+        - height in m
+        '''
+        return self.weight / (self.height / 100.0 * self.height / 100.0)
+
+    def calculate_basal_metabolic_rate(self, formula=1):
+        '''
+        Calculates the basal metabolic rate.
+
+        Currently only the Mifflin-St.Jeor formula is supported
+        '''
+
+        if self.gender == self.GENDER_MALE:
+            factor = 5
+        else:
+            factor = -161
+
+        try:
+            rate = ((10 * self.weight)  # in kg
+                    + (6.25 * self.height)  # in cm
+                    - (5 * self.age)  # in years
+                    + factor
+                    )
+        except TypeError:
+        # Any of the entries is missing
+            rate = 0
+
+        return decimal.Decimal(str(rate)).quantize(decimal.Decimal('.01'))
+
+    def calculate_activities(self):
+        '''
+        Calculates the calories needed by additional physical activities
+
+        Factors taken from
+        * https://en.wikipedia.org/wiki/Physical_activity_level
+        * http://www.fao.org/docrep/007/y5686e/y5686e07.htm
+        '''
+        # Sleep
+        sleep = self.sleep_hours * 0.95
+
+        # Work
+        if self.work_intensity == self.INTENSITY_LOW:
+            work_factor = 1.5
+        elif self.work_intensity == self.INTENSITY_MEDIUM:
+            work_factor = 1.8
+        else:
+            work_factor = 2.2
+        work = self.work_hours * work_factor
+
+        # Sport (entered in hours/week, so we must divide)
+        if self.sport_intensity == self.INTENSITY_LOW:
+            sport_factor = 4
+        elif self.sport_intensity == self.INTENSITY_MEDIUM:
+            sport_factor = 6
+        else:
+            sport_factor = 10
+        sport = (self.sport_hours / 7.0) * sport_factor
+
+        # Free time
+        if self.freetime_intensity == self.INTENSITY_LOW:
+            freetime_factor = 1.3
+        elif self.freetime_intensity == self.INTENSITY_MEDIUM:
+            freetime_factor = 1.9
+        else:
+            freetime_factor = 2.4
+        freetime = self.freetime_hours * freetime_factor
+
+        # Total
+        total = (sleep + work + sport + freetime) / 24.0
+        return decimal.Decimal(str(total)).quantize(decimal.Decimal('.01'))
 
 
 # Every new user gets a profile

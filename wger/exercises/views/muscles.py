@@ -28,7 +28,8 @@ from django.views.generic import UpdateView
 from wger.exercises.models import Muscle
 
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import YamlDeleteMixin
+from wger.utils.generic_views import WgerDeleteMixin
+from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.language import load_item_languages
 from wger.config.models import LanguageConfig
 
@@ -53,7 +54,7 @@ class MuscleListView(ListView):
         return context
 
 
-class MuscleAddView(WgerFormMixin, CreateView):
+class MuscleAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
     Generic view to add a new muscle
     '''
@@ -62,9 +63,10 @@ class MuscleAddView(WgerFormMixin, CreateView):
     success_url = reverse_lazy('muscle-overview')
     title = ugettext_lazy('Add muscle')
     form_action = reverse_lazy('muscle-add')
+    permission_required = 'exercises.add_muscle'
 
 
-class MuscleUpdateView(WgerFormMixin, UpdateView):
+class MuscleUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
     Generic view to update an existing muscle
     '''
@@ -72,6 +74,7 @@ class MuscleUpdateView(WgerFormMixin, UpdateView):
     model = Muscle
     title = ugettext_lazy('Edit muscle')
     success_url = reverse_lazy('muscle-overview')
+    permission_required = 'exercises.change_muscle'
 
     def get_context_data(self, **kwargs):
         '''
@@ -83,13 +86,14 @@ class MuscleUpdateView(WgerFormMixin, UpdateView):
         return context
 
 
-class MuscleDeleteView(YamlDeleteMixin, DeleteView):
+class MuscleDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
     Generic view to delete an existing muscle
     '''
 
     model = Muscle
     success_url = reverse_lazy('muscle-overview')
+    permission_required = 'exercises.delete_muscle'
 
     def get_context_data(self, **kwargs):
         '''

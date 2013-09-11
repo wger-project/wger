@@ -14,38 +14,21 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 import logging
-import json
-import uuid
 
-from django.template import RequestContext
-from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from django.forms import ModelForm
-from django.forms import ModelChoiceField
-from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import permission_required
-from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
-from django.views.generic import ListView
-from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
 
-from wger.manager.models import WorkoutLog
-
 from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseComment
-from wger.exercises.models import ExerciseCategory
-from wger.exercises.models import Muscle
 
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import YamlDeleteMixin
-from wger.utils.language import load_language
+from wger.utils.generic_views import WgerPermissionMixin
 
 
 logger = logging.getLogger('wger.custom')
@@ -56,13 +39,14 @@ logger = logging.getLogger('wger.custom')
 # ************************
 
 
-class ExerciseCommentEditView(WgerFormMixin, UpdateView):
+class ExerciseCommentEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
     Generic view to update an existing exercise comment
     '''
 
     model = ExerciseComment
     title = ugettext_lazy('Edit exercise comment')
+    permission_required = 'exercises.change_exercisecomment'
 
     def get_success_url(self):
         return reverse('wger.exercises.views.exercises.view',
@@ -77,13 +61,14 @@ class ExerciseCommentEditView(WgerFormMixin, UpdateView):
         return context
 
 
-class ExerciseCommentAddView(WgerFormMixin, CreateView):
+class ExerciseCommentAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
     Generic view to add a new exercise comment
     '''
 
     model = ExerciseComment
     title = ugettext_lazy('Add exercise comment')
+    permission_required = 'exercises.add_exercisecomment'
 
     def form_valid(self, form):
         form.instance.exercise = Exercise.objects.get(pk=self.kwargs['exercise_pk'])

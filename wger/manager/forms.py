@@ -48,6 +48,7 @@ from wger.utils.constants import DATE_FORMATS
 class UserPreferencesForm(ModelForm):
     class Meta:
         model = UserProfile
+        fields = ('show_comments', 'show_english_ingredients')
 
 
 class UserEmailForm(ModelForm):

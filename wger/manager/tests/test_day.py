@@ -20,6 +20,7 @@ from wger.manager.models import Day
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
+from wger.manager.tests.testcase import ApiBaseResourceTestCase
 from wger.utils.cache import get_template_cache_name
 
 
@@ -179,3 +180,35 @@ class WorkoutCacheTestCase(WorkoutManagerTestCase):
         day1.delete()
         self.assertFalse(cache.get(get_template_cache_name('day-view', 1)))
         self.assertTrue(cache.get(get_template_cache_name('day-view', 2)))
+
+
+class DayTestCase(WorkoutManagerTestCase):
+    '''
+    Other tests
+    '''
+
+    def test_day_id_property(self):
+        '''
+        Test that the attribute get_first_day_id works correctly
+        '''
+
+        day = Day.objects.get(pk=5)
+        self.assertEqual(day.get_first_day_id, 3)
+
+        day = Day.objects.get(pk=3)
+        self.assertEqual(day.get_first_day_id, 1)
+
+
+class DayApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests the day overview resource
+    '''
+    resource = 'day'
+    resource_updatable = False
+
+
+class DayDetailApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests accessing a specific day
+    '''
+    resource = 'day/5'

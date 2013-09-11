@@ -19,9 +19,9 @@ from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseComment
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 
 class AddExerciseCommentTestCase(WorkoutManagerAddTestCase):
@@ -99,3 +99,24 @@ class ExercisecommentsTestCase(WorkoutManagerTestCase):
 
         self.user_login()
         self.exercise_delete_comment(fail=False)
+
+
+class ExerciseCommentApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests the exercise comment overview resource
+    '''
+    resource = 'exercisecomment'
+    user = None
+    resource_updatable = False
+    data = {"comment": "a cool comment",
+            "exercise": "/api/v1/exercise/1/",
+            "id": 1}
+
+
+class ExerciseCommentDetailApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests accessing a specific exercise comment
+    '''
+    resource = 'exercisecomment/1'
+    user = None
+    resource_updatable = False

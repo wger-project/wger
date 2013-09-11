@@ -27,6 +27,7 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 logger = logging.getLogger('wger.custom')
 
@@ -439,3 +440,18 @@ class ScheduleModelTestCase(WorkoutManagerTestCase):
         step3.order = 3
         step3.save()
         self.assertTrue(schedule.get_current_scheduled_workout().workout, workout)
+
+
+class ScheduleApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests the schedule overview resource
+    '''
+    resource = 'schedule'
+    resource_updatable = False
+
+
+class ScheduleDetailApiTestCase(ApiBaseResourceTestCase):
+    '''
+    Tests accessing a specific schedule
+    '''
+    resource = 'schedule/1'
