@@ -108,6 +108,9 @@ class ExerciseCommentApiTestCase(ApiBaseResourceTestCase):
     resource = 'exercisecomment'
     user = None
     resource_updatable = False
+    data = {"comment": "a cool comment",
+            "exercise": "/api/v1/exercise/1/",
+            "id": 1}
 
 
 class ExerciseCommentDetailApiTestCase(ApiBaseResourceTestCase):

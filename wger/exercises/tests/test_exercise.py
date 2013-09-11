@@ -466,6 +466,17 @@ class ExerciseApiTestCase(ApiBaseResourceTestCase):
     resource = 'exercise'
     user = None
     resource_updatable = False
+    data = {"category": "/api/v1/exercisecategory/1/",
+            "comments": [],
+            "creation_date": "2013-01-01",
+            "description": "Something here",
+            "id": 1,
+            "language": "/api/v1/language/2/",
+            "muscles": [
+                "/api/v1/muscle/1/"
+            ],
+            "name": "foobar",
+            "status": "5"}
 
 
 class ExerciseDetailApiTestCase(ApiBaseResourceTestCase):
