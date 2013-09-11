@@ -51,8 +51,8 @@
            data-rel="popup"
            data-theme="b"
            data-icon="bars"
-           data-iconpos="notext"
-           data-iconshadow="false"></a>
+
+           data-iconshadow="false">{% trans "Menu" %}</a>
        {% if not user.is_authenticated or user.get_profile.is_temporary %}
             <a href="#popupGuestUser"
               data-rel="popup"
@@ -61,7 +61,7 @@
               data-transition="pop"
               data-theme="b"
               data-icon="info"
-              data-iconpos="notext"></a>
+              >{% trans "Info" %}</a>
       {% endif %}
       <h4>{% trans "~ BETA ~" %}</h4>
     </header>
