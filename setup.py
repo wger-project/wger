@@ -43,17 +43,17 @@ setup(
         'versiontools >= 1.6',
     ],
     install_requires=[
-        'django >= 1.5.1',
+        'django >= 1.5.3',
         'reportlab',
-        'django-browserid == 0.8',
+        'django-browserid == 0.9',
         'django-recaptcha',
         'django_mobile',
         'django-discover-runner',
         'pep8',
         'bleach',
         'south < 2.0',
-        'html5lib == 0.95',
-        'django-tastypie'
+        'django-tastypie',
+        'python-mimeparse'
     ],
     entry_points={
         'console_scripts': [
