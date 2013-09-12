@@ -48,86 +48,69 @@ $(function() {
 {% endblock %}
 
 {% block content %}
-
-
-
-<div id="schedule-table-container">
-<table id="schedule-table" data-role="table">
-    <thead>
-    <tr>
-        <th>{% trans "Workout" %}</th>
-        <th>{% trans "Nr." %}</th>
-        <th>{% trans "Weeks" %}</th>
-        <th>{% trans "Actions" %}</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for step in schedule.schedulestep_set.select_related %}
-    <tr data-schedule-id="{{schedule.id}}" id="step-{{step.id}}">
-        <td>
-            <a href="{% url 'wger.manager.views.workout.view' step.workout.id %}"
-               data-role="button" data-mini="true" data-inline="true" >{{ step.workout }}</a>
-            {% if active_workout == step %}
-            <span class="label label-info">{% trans "active" %}</span>
-            {% endif  %}
-        </td>
-        <td>
-            {{ forloop.counter }}
-        </td>
-        <td>
-            {{ step.duration }}
-        </td>
-
-        <td >
-<!--             {{ forloop.counter }} -->
-
-            <span class="editoptions">
-            <!--
-                <img src="{% static 'images/icons/move.svg' %}"
-                     width="22"
-                     height="22"
-                     alt="{% trans 'Move me' %}"
-                     title="{% trans 'Move me' %}"
-                     class="dragndrop-handle">
-                     -->
-                 <a href="{% url 'step-edit' step.id %}"
-                   title="{% trans 'Edit' %}"
-                   class="modal-dialog" data-role="button" data-mini="true" data-inline="true">
-                       <img src="{% static 'images/icons/edit.svg' %}"
-                            width="22"
-                            height="22"
-                            alt="{% trans 'Edit' %}"></a>
-                 <a href="{% url 'step-delete' step.id %}"
-                    title="{% trans 'Delete' %}"
-                    class="modal-dialog" data-role="button" data-mini="true" data-inline="true">
-                        <img src="{% static 'images/icons/trash.svg' %}"
-                             width="22"
-                             height="22"
-                             alt="{% trans 'Delete' %}"></a>
-            </span>
-        </td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="4">
-            <a href="{% url 'step-add' schedule.id %}" data-role="button">
-            {% trans "No workouts found." %} {% trans "Add one now." %}
-            </a>
-        </td>
-    </tr>
-    {% endfor %}
-    {% if schedule.is_loop %}
-    <tr>
-        <td colspan="4">
-            <div class="alert alert-info" style="margin-bottom:0px;">
-            {% trans "This schedule is a loop and will go through the workouts above till you deactivate it" %}
-            </div>
-        </td>
-    </tr>
-    {% endif %}
-    </tbody>
-</table>
+{% for step in schedule.schedulestep_set.select_related %}
+<div data-role="popup"
+     id="step-{{step.id}}"
+     data-theme="d"
+     data-overlay-theme="b"
+     class="ui-content"
+     >
+    <h3>{%trans "Options" %}</h3>
+    <a href="{% url 'step-edit' step.id %}"
+           title="{% trans 'Edit' %}"
+           class="modal-dialog"
+           data-role="button">
+               <img src="{% static 'images/icons/edit.svg' %}"
+                    width="22"
+                    height="22"
+                    alt="{% trans 'Edit' %}">{% trans 'Edit' %}</a>
+     <a href="{% url 'step-delete' step.id %}"
+        title="{% trans 'Delete' %}"
+        class="modal-dialog"
+        data-role="button">
+            <img src="{% static 'images/icons/trash.svg' %}"
+                 width="22"
+                 height="22"
+                 alt="{% trans 'Delete' %}">{% trans 'Delete' %}</a>
 </div>
+{% endfor %}
+
+<ul data-role="listview" data-inset="false" data-split-icon="gear" data-split-theme="d">
+{% for step in schedule.schedulestep_set.select_related %}
+    <li>
+        <a href="{% url 'wger.manager.views.workout.view' step.workout.id %}">
+            <h3>{{ forloop.counter }} - {{ step.workout }}</h3>
+            <p>{{ workout.creation_date }}</p>
+
+            <p>{% trans "Weeks" %}: {{ step.duration }}</p>
+
+            {% if active_workout == step %}
+            <p class="ui-li-aside"><em>{% trans "active" %}</em></p>
+            {% endif  %}
+        </a>
+
+        <a href="#step-{{step.id}}"
+           data-rel="popup"
+           data-position-to="window"
+           data-transition="pop"></a>
+        </a>
+    </li>
+{% empty %}
+    <li>
+        <a href="{% url 'step-add' schedule.id %}">
+        {% trans "No workouts found." %}<br>{% trans "Add one now." %}
+        </a>
+    </li>
+{% endfor %}
+{% if schedule.is_loop %}
+    <li>
+        {% trans "This schedule is a loop and will go through the workouts above till you deactivate it" %}
+    </li>
+    {% endif %}
+</ul>
+
+
+
 
 <p>
 <a href="{% url 'step-add' schedule.id %}"

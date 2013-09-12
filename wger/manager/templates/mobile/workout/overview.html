@@ -6,41 +6,25 @@
 
 
 {% block content %}
+
+
 {% if workouts %}
-    <table id="workout-table" data-role="table"  class="ui-responsive table-stroke table-stripe">
-    <thead>
-    <tr>
-        <th>{% trans "Description" %}</th>
-        <th>{% trans "Date" %}</th>
-    </tr>
-    </thead>
-    <tbody>
+<ul data-role="listview" data-inset="false">
     {% for workout in workouts %}
-    <tr>
-        <td>
-            <a href="{% url 'wger.manager.views.workout.view' workout.id %}"
-               data-role="button"
-               data-inline="true"
-               data-mini="true">
-                {% if workout.comment %}
-                    {{ workout.comment }}
-                {% else %}
-                    {% trans "Workout" %}
-                {% endif %}
+        <li>
+            <a href="{% url 'wger.manager.views.workout.view' workout.id %}">
+                <h3>{{ workout.comment }}</h3>
+                <p>{{ workout.creation_date }}</p>
             </a>
-        </td>
-        <td>
-            {{ workout.creation_date }}
-        </td>
-    </tr>
+        </li>
     {% endfor %}
-    </tbody>
-    </table>
+</ul>
 {% else %}
     <a href="{% url 'wger.manager.views.workout.add' %}" data-role="button">
     {% trans "No workouts found." %}<br>{% trans "Add one now." %}
     </a>
 {% endif %}
+
 {% endblock %}
 
 

@@ -18,41 +18,20 @@ function custom_modal_init()
 {% endblock %}
 
 {% block content %}
-<table id="workout-table" data-role="table">
-    <thead>
-    <tr>
-        <th>{% trans "Description" %}</th>
-        <th>{% trans "Date" %}</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for schedule in schedules %}
-    <tr>
-        <td>
-            <a href="{% url 'schedule-view' schedule.id %}">
-                {{ schedule.name }}
-            </a>
-            {% if schedule.is_active %}
-            <span class="label label-info">{% trans "active" %}</span>
-            {% endif  %}
-        </td>
-        <td>
-            {{ schedule.start_date }}
-        </td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="3">
-            <a href="{% url 'schedule-add' %}" data-role="button">
-            {% trans "No schedules found." %}<br>
-            {% trans "Add one now." %}
-            </a>
-        </td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
+<ul data-role="listview" data-inset="false">
 
+    {% for schedule in schedules %}
+    <li>
+        <a href="{% url 'schedule-view' schedule.id %}">
+            <h3>{{ schedule.name }}</h3>
+            <p>{{ schedule.start_date }}</p>
+            {% if schedule.is_active %}
+            <p class="ui-li-aside"><em>{% trans "active" %}</em></p>
+            {% endif  %}
+            </a>
+    </li>
+    {% endfor %}
+</ul>
 {% endblock %}
 
 

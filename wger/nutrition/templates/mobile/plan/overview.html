@@ -7,41 +7,22 @@
 
 
 {% block content %}
-{% if plans %}
-    <table id="nutrition-table" data-role="table"  class="ui-responsive table-stroke table-stripe">
-    <thead>
-    <tr>
-        <th>{% trans "Description" %}</th>
-        <th>{% trans "Date" %}</th>
-    </tr>
-    </thead>
-    <tbody>
+<ul data-role="listview" data-inset="false">
     {% for plan in plans %}
-    <tr>
-        <td>
-            <a href="{% url 'wger.nutrition.views.plan.view' plan.id %}">
-                {% if plan.description %}
-                    {{ plan.description }}
-                {% else %}
-                    {% trans "Nutrition plan" %}
-                {% endif %}
-            </a>
-        </td>
-        <td>
-            {{ plan.creation_date }}
-        </td>
-    </tr>
-    {% endfor %}
-    </tbody>
-    </table>
-{% else %}
-    <p>
+    <li>
+        <a href="{% url 'wger.nutrition.views.plan.view' plan.id %}">
+            <h3>{{plan}}</h3>
+            <p>{{ plan.creation_date }}</p>
+        </a>
+    </li>
+    {% empty %}
+    <li>
         <a href="{% url 'wger.nutrition.views.plan.add' %}" data-role="button">
         {% trans "No nutrition plans." %}<br> {% trans "Add one now." %}
         </a>
-    </p>
-{% endif %}
-
+    </li>
+    {% endfor %}
+</ul>
 {% endblock %}
 
 
