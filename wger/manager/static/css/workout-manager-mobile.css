@@ -131,3 +131,30 @@ div.muscle-background
 .muscle-list, .exercise-overview{
     padding-left: 0px;
 }
+
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
+	font-weight: 300;
+}
+
+
+/**************************************************************
+ * Header
+ **************************************************************/
+
+/*
+ * Add a shadow to the application name
+ */
+header h1{
+    text-shadow: 2px 3px 3px #292929;
+    font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
+    font-weight: 300;
+}
+
