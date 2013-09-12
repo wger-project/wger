@@ -74,7 +74,10 @@ class NutritionPlan(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return u"Nutrition plan for {0}, {1}".format(self.user, self.creation_date)
+        if self.description:
+            return self.description
+        else:
+            return _("Nutrition plan")
 
     def get_absolute_url(self):
         '''
