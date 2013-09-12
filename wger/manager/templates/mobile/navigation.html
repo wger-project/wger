@@ -1,4 +1,18 @@
-{% load i18n %}{% load url from future %}{% load cache %}
+{% load i18n %}{% load url from future %}{% load cache %}{% load wger_extras %}
+
+<div data-role="popup"
+     id="language-options"
+     data-overlay-theme="a"
+     class="ui-content">
+     <div>
+     <h3>{% trans "Language" %}</h3>
+    {% for language in languages %}
+        {% language_select language %}
+    {% endfor %}
+    </ul>
+    </div>
+</div>
+
 
 {#                        #}
 {# Close button for panel #}
@@ -142,6 +156,17 @@
     {# Site version #}
     {#              #}
     <li><a href="?flavour=full" data-ajax="false">{% trans "Desktop version" %}</a></li>
+
+
+    {#          #}
+    {# Language #}
+    {#          #}
+    <li>
+    <a href="#language-options"
+       data-rel="popup"
+       data-position-to="window">{% trans "Language" %}
+       </a>
+    </li>
 
 </ul>
 

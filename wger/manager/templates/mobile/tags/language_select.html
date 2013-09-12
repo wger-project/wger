@@ -1,0 +1,10 @@
+{% load i18n %}
+{% load staticfiles %}
+
+<a href="{{i18n_path}}"
+   data-role="button">
+   <img src="{% static path %}"
+        width="22"
+        height="22"
+        alt="{% trans language_name %}">
+        {% trans language_name %}</a>
