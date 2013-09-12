@@ -57,4 +57,14 @@
          title="{% trans 'Change password' %}">
     {% trans "Change password" %}</a>
 </p>
+<p>
+    <a href="{% url 'api-key' %}"
+       data-role="button">
+    <img src="{% static 'images/icons/internet.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'API key' %}"
+         title="{% trans 'API key' %}">
+    {% trans "API key" %}</a>
+</p>
 {% endblock %}
