@@ -27,13 +27,21 @@
 .ui-body-c input,
 .ui-body-c select,
 .ui-body-c textarea,
-.ui-body-c button {
+.ui-body-c button,
+.ui-btn-up-b,
+.ui-btn-hover-b,
+.ui-btn-down-b,
+.ui-btn-up-c,
+.ui-btn-hover-c,
+.ui-btn-down-c {
     font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
     font-weight: 300;
 }
 .ui-body-c .ui-link{
     font-weight: normal;
 }
+
+
 
 /*
  * Links in warning boxes get a different style, the default blue doesn't match
