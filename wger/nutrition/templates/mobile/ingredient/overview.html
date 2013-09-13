@@ -34,7 +34,7 @@ $(document).ready(function() {
 <ul data-role="listview">
     {% for ingredient in ingredients_list %}
     <li>
-        <a href="{{ ingredient.get_absolute_url }}">{{ ingredient.name }}</a>
+        <a href="{{ ingredient.get_absolute_url }}" data-ajax="false">{{ ingredient.name }}</a>
     </li>
     {% endfor %}
 </ul>
