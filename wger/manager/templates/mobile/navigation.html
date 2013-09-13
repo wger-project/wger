@@ -86,13 +86,11 @@
         <ul data-role="listview">
             <li><a href="{% url 'wger.nutrition.views.plan.overview' %}" rel="nofollow">{% trans "Nutrition plans" %}</a></li>
             <li><a href="{% url 'ingredient-list' %}">{% trans "Ingredient overview" %}</a></li>
-            {% cache cache_timeout user-admin-ingredients user.id language.id %}
             {% if perms.exercises %}
                 <li class="nav-header">{% trans "Administration" %}</li>
                 <li><a href="{% url 'weight-unit-list' %}">{% trans "Ingredient weight units" %}</a></li>
                 <li><a href="{% url 'ingredient-pending' %}">{% trans "Ingredients pending review" %}</a></li>
             {% endif %}
-            {% endcache %}
         </ul>
     </div>
 
@@ -112,12 +110,10 @@
             <li><a href="{% url 'software:changelog' %}">{% trans "Changelog" %} </a></li>
             <li><a href="https://github.com/rolandgeider/wger">{% trans "Github" %} </a></li>
             <li><a href="https://www.transifex.com/projects/p/wger-workout-manager/">{% trans "Translate with Transifex" %} </a></li>
-            {% cache cache_timeout user-admin-software user.id language.id %}
             {% if perms.exercises %}
             <li data-role="list-divider">{% trans "Administration" %}</li>
             <li><a href="{% url 'config:language-overview' %}">{% trans "Languages" %} </a></li>
             {% endif %}
-            {% endcache %}
         </ul>
     </div>
 </div>

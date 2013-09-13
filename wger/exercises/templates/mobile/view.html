@@ -74,10 +74,8 @@ included in the database.{% endblocktrans %}
 {% endif %} {# end exercise is pending review #}
 
 
-{% cache cache_timeout exercise-detail-header exercise.id language.id %}
 <p>{% trans "Category" %}: <strong>{% trans exercise.category.name %}</strong></p>
 <p>{{ exercise.description|safe }}</p>
-{% endcache %}
 
 {% with comments=exercise.exercisecomment_set.all %}
 {% if comments %}
