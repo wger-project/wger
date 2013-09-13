@@ -69,6 +69,15 @@
                      class="ui-li-icon ui-corner-none">
                 {% trans "Delete" %}
         </a>
+        
+        <h3>{% trans "Exercises" %}</h3>
+        {% for exercise in set.exercises.select_related %}
+            <a href="{{ exercise.get_absolute_url }}"
+               title="{{ exercise.name }}"
+               data-role="button">
+                {{ exercise.name }}
+        </a>
+        {% endfor %}
     </div>
 </div>
 {% endfor %}
