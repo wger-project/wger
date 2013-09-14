@@ -18,15 +18,7 @@
 
 
 <script type="text/javascript">
-
-// Initialise the datepicker for the modal dialog
-function custom_modal_init()
-{
-    init_weight_datepicker();
-}
-
-
-$(document).ready(function () {
+$(document).on('pageinit', function () {
 
     // Load the chart data, without arguments this returns all weight entries
     var date_min = $("#weight_filter_from").val();
