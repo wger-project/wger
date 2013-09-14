@@ -5,11 +5,27 @@
 
 {% block title %}{% trans "Workout" %} – {{ workout.creation_date }}{% endblock %}
 
+
 {% block header %}
+<script>
+$(document).on('pageinit', function () {
+	// Allow the sets to be sortable
+	//setup_sortable();
+	
+	// Show/Hide the comments to the exercises
+	{% if user.userprofile.show_comments %}
+		showComment = 1;
+        $(".exercise-comments").show();
+    {% else %}
+    	showComment = 0;
+        $(".exercise-comments").hide();
+    {% endif %}
+	
+	toggle_comments();
+ });
+</script>
 {% endblock %}
-
 {% block content %}
-
 
 {% if workout.comment %}
 <p>
