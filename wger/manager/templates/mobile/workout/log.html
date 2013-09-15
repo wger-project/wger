@@ -7,28 +7,37 @@
 {% block title %}{% trans "Weight log for workout" %}{% endblock %}
 
 {% block header %}
-<script src="{% static 'js/d3.js' %}"></script>
-
 <script type="text/javascript">
-// Initialise the datepicker for the modal dialog
-function custom_modal_init()
-{
-    init_weight_log_datepicker();
-}
+$(document).on('pageinit', function(){
+    // Init the data toggle for the weight log tables
+    toggle_weight_log_table();
+});
+
 </script>
 {% endblock %}
 
 {% block content %}
 {% if workout.comment %}
 <p>
-    <strong>{% trans "Goal" %}:</strong>
     <span class="dimmed">{{workout.comment}}</span>
 </p>
 {% endif %}
 
 {% for day, exercise_log in workout_log.items %}
-<h3>{{ day.description }}</h3>
 
+
+<ul data-role="listview"
+    style="margin-top: 3em;"
+    data-icon="add">
+    <li data-theme="b">
+        <a href="{% url 'day-log' day.id %}">
+        <h3>{{ day.description }}</h3>
+        </a>
+
+    </li>
+</ul>
+
+<!--
 <p>
 <a href="{% url 'day-log' day.id %}"
    title="{% trans 'Add weight log to this day' %}"
@@ -40,12 +49,17 @@ function custom_modal_init()
     {% trans 'Add weight log to this day' %}
 </a>
 </p>
+-->
 
-    {% for exercise, date_list in exercise_log.items %}
-    <div class="alert alert-info" style="text-align: center;margin-top:1em;">
-        <a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a>
-    </div>
 
+    {% for exercise, date_list in exercise_log.items %}   
+    <ul data-role="listview"
+        style="margin-top: 3em;">
+        <li>
+            <a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a>
+        </li>
+    </ul>
+    
         {% if date_list.log_by_date %}
             {% with list=date_list.log_by_date %}
                 {% render_weight_log list date_list.div_uuid %}
