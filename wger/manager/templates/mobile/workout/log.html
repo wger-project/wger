@@ -52,7 +52,10 @@ function custom_modal_init()
 
                 <script>
                 $(document).ready(function() {
-                weight_log_chart({{date_list.chart_data|safe}}, "{{date_list.div_uuid}}", "{{reps}}")
+                weight_log_chart({{date_list.chart_data|safe}},
+                                 "{{date_list.div_uuid}}",
+                                 "{{reps}}",
+                                 $('#content').width() * 0.95)
                 });
                 </script>
             {% endwith %}

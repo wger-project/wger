@@ -655,11 +655,16 @@ function weight_chart(data, width_factor)
 
 
 
-function weight_log_chart(data, div_id, reps_i18n)
+function weight_log_chart(data, div_id, reps_i18n, width_factor)
 {
+
+    // Calculate the size
+    var width_factor = typeof width_factor !== 'undefined' ? width_factor: 600;
+    var height_factor = width_factor / 600 * 200;
+
     var margin = {top: 20, right: 80, bottom: 30, left: 50},
-        width = 600 - margin.left - margin.right,
-        height = 200 - margin.top - margin.bottom;
+        width = width_factor - margin.left - margin.right,
+        height = height_factor - margin.top - margin.bottom;
 
     var parseDate = d3.time.format("%Y-%m-%d").parse;
 
