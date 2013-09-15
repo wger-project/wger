@@ -195,6 +195,11 @@ included in the database.{% endblocktrans %}
 {% render_weight_log logs svg_uuid %}
 <script>
 $(document).ready(function() {
+
+    // Init the data toggle for the weight log tables
+    toggle_weight_log_table();
+
+    // Draw the user's weight log chart
     weight_log_chart({{json|safe}},
                      "{{svg_uuid}}",
                      "{{reps}}",
