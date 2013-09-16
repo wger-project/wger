@@ -52,17 +52,16 @@
            data-rel="popup"
            data-theme="b"
            data-icon="bars"
-
            data-iconshadow="false">{% trans "Menu" %}</a>
        {% if not user.is_authenticated or user.get_profile.is_temporary %}
             <a href="#popupGuestUser"
-              data-rel="popup"
-              data-role="button"
-              data-inline="true"
-              data-transition="pop"
-              data-theme="b"
-              data-icon="info"
-              >{% trans "Info" %}</a>
+               class="ui-icon-nodisc"
+               data-rel="popup"
+               data-inline="true"
+               data-transition="pop"
+               data-theme="b"
+               data-icon="info"
+               data-iconshadow="false">{% trans "Info" %}</a>
       {% endif %}
       <h4>{% trans "~ BETA ~" %}</h4>
     </header>
@@ -70,7 +69,7 @@
     <div data-role="panel" id="main-panel-navigation" data-display="overlay">
     {% include 'navigation.html' %}
     </div>
-    
+
     <div class="invisible" id="ajax-info"></div>
 
 
