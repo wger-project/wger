@@ -4,9 +4,10 @@
         <label for="{{field.auto_id}}">
             {% trans field.label %}
         </label>
-        {% if not field.field.required %}<span style="font-size:90%;">— <em>{% trans "Optional" %}</em></span>{% endif %}
-        <br>
 
+        {% if not field.field.required %}
+            <span style="font-size:90%;">— <em>{% trans "Optional" %}</em></span><br>
+        {% endif %}
 
         {% if field.errors %}
             <div class="ym-fbox-text ym-error">
@@ -15,9 +16,10 @@
                 {% endfor %}
             </div>
         {% endif %}
-        {% if field.help_text %}<p class="dimmed">{% trans field.help_text %}</p>{% endif %}
-        <br>
 
+        {% if field.help_text %}
+            <p class="dimmed">{% trans field.help_text %}</p>
+        {% endif %}
 
         <div class="{{css_class}} {% if field.errors %}ym-error{% endif %}">
         {{ field }}
