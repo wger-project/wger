@@ -142,7 +142,7 @@
         </li>
     {% else %}
         <li>
-            <a href="{% url 'login' %}">{% trans "Login" %}</a>
+            <a href="{% url 'login' %}" data-ajax="false">{% trans "Login" %}</a>
         </li>
         <li>
             <a href="{% url 'wger.manager.views.user.registration' %}">{% trans "Register" %}</a>

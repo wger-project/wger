@@ -94,7 +94,7 @@
         <ul>
             <li {% if active_tab == 'user' %}class="active"{% endif %}>
             {% if not user.is_authenticated %}
-                <a href="{% url 'login' %}">{% trans "Login" %}</a>
+                <a href="{% url 'login' %}" data-ajax="false">{% trans "Login" %}</a>
             {% else %}
                 <a href="{% url 'index' %}">{% trans "Dashboard" %}</a>
             {% endif %}
