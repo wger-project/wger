@@ -21,7 +21,7 @@ $(document).on('pageinit', function(){
     init_edit_set();
 
     // Slider to set the number of sets
-    $( "#id_sets" ).on( "change", function(event, ui) {
+    $( "#id_sets" ).on( "slidestop", function(event, ui) {
         update_all_exercise_formset();
     });
 });
