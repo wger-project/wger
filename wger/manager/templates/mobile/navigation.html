@@ -16,7 +16,7 @@
 {#                        #}
 {# Close button for panel #}
 {#                        #}
-<ul data-role="listview" data-theme="b" >
+<ul data-role="listview" data-theme="a">
     <li data-icon="delete">
         <a href="#" data-rel="close">{% trans "Close" %}</a>
     </li>
@@ -52,7 +52,7 @@
     {#               #}
     <div data-role="collapsible" data-content-theme="c">
         <h3>{% trans "Exercises" %}</h3>
-        <ul data-role="listview">
+        <ul data-role="listview" data-divider-theme="a">
             <li><a href="{% url 'wger.exercises.views.exercises.overview' %}">{% trans "Exercises" %}</a></li>
             <li><a href="{% url 'muscle-overview' %}">{% trans "Muscle overview" %}</a></li>
             {% if user.is_authenticated and not user.get_profile.is_temporary %}
@@ -82,13 +82,13 @@
     {#               #}
     <div data-role="collapsible" data-content-theme="c">
         <h3>{% trans "Nutrition" %}</h3>
-        <ul data-role="listview">
+        <ul data-role="listview" data-divider-theme="a">
             <li><a href="{% url 'wger.nutrition.views.plan.overview' %}" rel="nofollow">{% trans "Nutrition plans" %}</a></li>
             <li><a href="{% url 'ingredient-list' %}">{% trans "Ingredient overview" %}</a></li>
             <li><a href="{% url 'bmi-view' %}" rel="nofollow">{% trans "BMI Calculator" %}</a></li>
             <li><a href="{% url 'calories-calculator' %}" rel="nofollow">{% trans "Daily calories calculator" %}</a></li>
             {% if perms.exercises %}
-                <li class="nav-header">{% trans "Administration" %}</li>
+                <li data-role="list-divider">{% trans "Administration" %}</li>
                 <li><a href="{% url 'weight-unit-list' %}">{% trans "Ingredient weight units" %}</a></li>
                 <li><a href="{% url 'ingredient-pending' %}">{% trans "Ingredients pending review" %}</a></li>
             {% endif %}
@@ -100,7 +100,7 @@
     {#              #}
     <div data-role="collapsible" data-content-theme="c">
         <h3>{% trans "About this software" %}</h3>
-        <ul data-role="listview">
+        <ul data-role="listview" data-divider-theme="a">
             <li><a href="{% url 'software:features' %}">{% trans "Features" %}</a></li>
             <li><a href="{% url 'software:contribute' %}">{% trans "Contribute!" %} </a></li>
             <li><a href="{% url 'software:issues' %}">{% trans "Problems and wishes" %} </a></li>

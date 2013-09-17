@@ -28,6 +28,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-mobile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-mobile.structure.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-common.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-mobile.css' %}">
 
@@ -59,12 +60,12 @@
         </div>
     {% endif %}
 
-    <header data-role="header">
+    <header data-role="header" data-theme="b">
         <h1>wger</h1>
         <a href="#main-panel-navigation"
            class="ui-icon-nodisc"
            data-rel="popup"
-           data-theme="b"
+           data-theme="a"
            data-icon="bars"
            data-iconshadow="false">{% trans "Menu" %}</a>
        {% if not user.is_authenticated or user.get_profile.is_temporary %}
@@ -73,7 +74,7 @@
                data-rel="popup"
                data-inline="true"
                data-transition="pop"
-               data-theme="b"
+               data-theme="a"
                data-icon="info"
                data-iconshadow="false">{% trans "Info" %}</a>
       {% endif %}
