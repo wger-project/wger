@@ -1,9 +1,12 @@
 /* Link body */
+#browserid-login{
+    color: #fff;
+}
 .persona-button{
   color: #fff;
   display: inline-block;
   font-size: 14px;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
   font-weight: bold;
   line-height: 1.1;
   overflow: hidden;
@@ -156,7 +159,7 @@
 }
 
 /* ========================================================
- *    Dark button 
+ *    Dark button
  * ===================================================== */
 .persona-button.dark{
   background: #3c3c3c;
@@ -192,7 +195,7 @@
 }
 
 /* ========================================================
- *    Orange button 
+ *    Orange button
  * ===================================================== */
 .persona-button.orange{
   background: #ee731a;
