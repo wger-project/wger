@@ -6,9 +6,6 @@
 
 
 {% block content %}
-
-
-{% if workouts %}
 <ul data-role="listview" data-inset="false">
     {% for workout in workouts %}
         <li>
@@ -17,14 +14,14 @@
                 <p>{{ workout.creation_date }}</p>
             </a>
         </li>
+    {% empty %}
+    <li>
+        <a href="{% url 'wger.manager.views.workout.add' %}">
+        {% trans "No workouts found." %}<br>{% trans "Add one now." %}
+        </a>
+    </li>
     {% endfor %}
 </ul>
-{% else %}
-    <a href="{% url 'wger.manager.views.workout.add' %}" data-role="button">
-    {% trans "No workouts found." %}<br>{% trans "Add one now." %}
-    </a>
-{% endif %}
-
 {% endblock %}
 
 
