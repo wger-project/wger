@@ -121,7 +121,6 @@ $(document).on('pageinit', function () {
 </a>
 
 <a href="{% url 'workout-edit' workout.id %}"
-   class="modal-dialog"
    data-role="button">
    <img src="{% static 'images/icons/edit.svg' %}"
          width="32"
@@ -142,7 +141,6 @@ $(document).on('pageinit', function () {
 </a>
 
 <a href="{% url 'workout-copy' workout.id %}"
-   class="modal-dialog"
    data-role="button">
    <img src="{% static 'images/icons/copy.svg' %}"
          width="32"

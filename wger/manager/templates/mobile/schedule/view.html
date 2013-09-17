@@ -58,7 +58,6 @@ $(function() {
     <h3>{%trans "Options" %}</h3>
     <a href="{% url 'step-edit' step.id %}"
            title="{% trans 'Edit' %}"
-           class="modal-dialog"
            data-role="button">
                <img src="{% static 'images/icons/edit.svg' %}"
                     width="22"
@@ -66,7 +65,6 @@ $(function() {
                     alt="{% trans 'Edit' %}">{% trans 'Edit' %}</a>
      <a href="{% url 'step-delete' step.id %}"
         title="{% trans 'Delete' %}"
-        class="modal-dialog"
         data-role="button">
             <img src="{% static 'images/icons/trash.svg' %}"
                  width="22"
