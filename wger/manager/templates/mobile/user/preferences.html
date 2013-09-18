@@ -38,14 +38,14 @@
 {% block sidebar %}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url 'logout' %}"
+    <a href="{% url 'api-key' %}"
        data-role="button">
-    <img src="{% static 'images/icons/logout.svg' %}"
+    <img src="{% static 'images/icons/internet.svg' %}"
          width="32"
          height="32"
-         alt="{% trans 'Logout' %}"
-         title="{% trans 'Logout' %}">
-    {% trans "Logout" %}</a>
+         alt="{% trans 'API key' %}"
+         title="{% trans 'API key' %}">
+    {% trans "API key" %}</a>
 </p>
 <p>
     <a href="{% url 'change-password' %}"
@@ -58,13 +58,13 @@
     {% trans "Change password" %}</a>
 </p>
 <p>
-    <a href="{% url 'api-key' %}"
+    <a href="{% url 'logout' %}"
        data-role="button">
-    <img src="{% static 'images/icons/internet.svg' %}"
+    <img src="{% static 'images/icons/logout.svg' %}"
          width="32"
          height="32"
-         alt="{% trans 'API key' %}"
-         title="{% trans 'API key' %}">
-    {% trans "API key" %}</a>
+         alt="{% trans 'Logout' %}"
+         title="{% trans 'Logout' %}">
+    {% trans "Logout" %}</a>
 </p>
 {% endblock %}
