@@ -77,7 +77,7 @@ class NutritionPlan(models.Model):
         if self.description:
             return self.description
         else:
-            return _("Nutrition plan")
+            return unicode(_("Nutrition plan"))
 
     def get_absolute_url(self):
         '''
