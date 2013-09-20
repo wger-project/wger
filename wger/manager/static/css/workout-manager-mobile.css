@@ -539,3 +539,16 @@ header h1{
 .ui-autocomplete .ui-menu-item a{
     line-height:2.3;
 }
+
+
+
+/**************************************************************
+ * Form errors
+ **************************************************************/
+.form-error, input.form-error{
+    color: rgb(136, 0, 0);
+}
+
+.form-error .ui-input-text{
+    border-color: rgb(136, 0, 0);
+}

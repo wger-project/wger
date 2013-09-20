@@ -11,9 +11,9 @@
         {% endif %}
 
         {% if field.errors %}
-            <div class="ym-fbox-text ym-error">
+            <div class="form-error">
                 {% for error in field.errors %}
-                    <p class="ym-message">{% trans error %}</p>
+                    <p class="form-error-message">{% trans error %}</p>
                 {% endfor %}
             </div>
         {% endif %}
@@ -22,7 +22,7 @@
             <p class="dimmed">{% trans field.help_text %}</p>
         {% endif %}
 
-        <div class="{{css_class}} {% if field.errors %}ym-error{% endif %}">
+        <div {% if field.errors %}class="form-error"{% endif %}>
         {{ field }}
         </div>
     </td>
