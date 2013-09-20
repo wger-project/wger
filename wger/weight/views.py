@@ -17,6 +17,7 @@
 import logging
 import csv
 import json
+import datetime
 
 
 from django.template import RequestContext
@@ -46,6 +47,7 @@ from wger.weight import helpers
 
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.constants import DATE_FORMATS
+from django.forms import widgets
 
 
 logger = logging.getLogger('wger.custom')
@@ -56,6 +58,9 @@ class WeightForm(ModelForm):
 
     class Meta:
         model = WeightEntry
+        widgets = {
+            'user': widgets.HiddenInput()
+            }
 
 
 class WeightAddView(WgerFormMixin, CreateView):
@@ -71,11 +76,20 @@ class WeightAddView(WgerFormMixin, CreateView):
     form_action = reverse_lazy('weight-add')
     success_url = reverse_lazy('wger.weight.views.overview')
 
+    def get_initial(self):
+        '''
+        Set the initial data for the form.
+
+        Read the comment on weight/models.py WeightEntry about why we need
+        to pass the user here.
+        '''
+        return {'user': self.request.user,
+                'creation_date': datetime.date.today()}
+
     def form_valid(self, form):
         '''
         Set the owner of the entry here
         '''
-
         form.instance.user = self.request.user
         return super(WeightAddView, self).form_valid(form)
 

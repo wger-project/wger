@@ -28,16 +28,25 @@ class WeightEntry(models.Model):
     creation_date = models.DateField(verbose_name=_('Date'))
     weight = models.FloatField(verbose_name=_('Weight'))
     user = models.ForeignKey(User,
-                             verbose_name=_('User'),
-                             editable=False)
+                             verbose_name=_('User'))
+    '''
+    The user the weight entry belongs to.
 
-     # Metaclass to set some other properties
+    NOTE: this field is neither marked as editable false nor is it excluded in
+    the form. This is done intentionally because otherwise it's *very* difficult
+    and ugly to validate the uniqueness of unique_together fields and one field
+    is excluded from the form. This does not pose any security risk because the
+    value from the form is ignored and the request's user always used.
+    '''
+
     class Meta:
-
-        # Order by creation_date, ascending (oldest last), better for diagram
+        '''
+        Metaclass to set some other properties
+        '''
+        verbose_name = _('Weight entry')
         ordering = ["creation_date", ]
         get_latest_by = "creation_date"
-        unique_together = (("creation_date", "user"))
+        unique_together = ("creation_date", "user")
 
     def __unicode__(self):
         '''

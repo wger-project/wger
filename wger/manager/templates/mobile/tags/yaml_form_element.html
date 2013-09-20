@@ -1,4 +1,5 @@
 {% load i18n %}
+{% if not field.is_hidden %}
 <tr>
     <td colspan="2">
         <label for="{{field.auto_id}}">
@@ -26,3 +27,6 @@
         </div>
     </td>
 </tr>
+{% else %}
+    {{field}}
+{% endif %}
