@@ -30,6 +30,13 @@ function custom_modal_init()
             {% endif  %}
             </a>
     </li>
+    {% empty %}
+    <li>
+        <a href="{% url 'schedule-add' %}">
+            {% trans "No schedules found." %}<br>
+            {% trans "Add one now." %}
+        </a>
+    </li>
     {% endfor %}
 </ul>
 {% endblock %}
