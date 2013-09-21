@@ -13,71 +13,56 @@ your exercises and workouts. It started as a pet project of mine to replace my
 growing collection of different spreadsheets, but it has become something other
 people could also find useful.{% endblocktrans %}</p>
 
-<div id="myCarousel" class="carousel slide">
-    <div class="carousel-inner">
-        <div class="item active">
-            <img src="{% static 'images/screen7-crop.png' %}" width="100%;">
-            <div class="carousel-caption">
-                <h4>{%trans "Edit window for a new set" %}</h4>
-                <p>{% blocktrans %}With this simple form you create
+
+<div data-role="collapsible-set" data-inset="false" style="margin-top:1.5em;">
+    <div data-role="collapsible" data-content-theme="c">
+        <h3>{%trans "Edit window for a new set" %}</h3>
+        <img src="{% static 'images/screen7-crop.png' %}" width="100%;">
+        <p>{% blocktrans %}With this simple form you create
 a new set with the repetitions and exercises you want. Repeat this
 step a couple of times, and you have your workout ready.{% endblocktrans %}</p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="{% static 'images/screen1-crop.png' %}" width="100%;">
-            <div class="carousel-caption">
-                <h4>{%trans "The workout manager" %}</h4>
-                <p>{% blocktrans %}A day of a simple workout with a few exercises.
+    </div>
+    <div data-role="collapsible" data-content-theme="c">
+        <h3>{%trans "The workout manager" %}</h3>
+        <img src="{% static 'images/screen1-crop.png' %}" width="100%;">
+        <p>{% blocktrans %}A day of a simple workout with a few exercises.
 If you don't want to see the comments for correct execution, you can hide
 them.{% endblocktrans %}</p>
-            </div>
-        </div>
-
-        <div class="item">
-            <img src="{% static 'images/screen2-crop.png' %}" width="100%;">
-            <div class="carousel-caption">
-                <h4>{%trans "Weight log" %}</h4>
-                <p>{% blocktrans %}Some weight entries for two exercises. Each
+    </div>
+    <div data-role="collapsible" data-content-theme="c">
+        <h3>{%trans "Weight log" %}</h3>
+        <img src="{% static 'images/screen2-crop.png' %}" width="100%;">
+        <p>{% blocktrans %}Some weight entries for two exercises. Each
 colour represents a different repetition so you can see how well you are
 doing.{% endblocktrans %}</p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="{% static 'images/screen3-crop.png' %}" width="100%;">
-            <div class="carousel-caption">
-                <h4>{%trans "Muscle overview" %}</h4>
-                <p>{% blocktrans %}An overview of the body's muscles and the
+    </div>
+    <div data-role="collapsible" data-content-theme="c">
+        <h3>{%trans "Muscle overview" %}</h3>
+        <img src="{% static 'images/screen3-crop.png' %}" width="100%;">
+        <p>{% blocktrans %}An overview of the body's muscles and the
 available exercises that mainly train the currently selected one.{% endblocktrans %}</p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="{% static 'images/screen4-crop.png' %}" width="100%;">
-            <div class="carousel-caption">
-                <h4>{%trans "Body weight" %}</h4>
-                <p>{% blocktrans %}The chart shows the evolution of the
+    </div>
+    <div data-role="collapsible" data-content-theme="c">
+        <h3>{%trans "Body weight" %}</h3>
+        <img src="{% static 'images/screen4-crop.png' %}" width="100%;">
+        <p>{% blocktrans %}The chart shows the evolution of the
 body weight. With the small version below, you can zoom in a time period.{% endblocktrans %}</p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="{% static 'images/screen5-crop.png' %}" width="100%;">
-            <div class="carousel-caption">
-                <h4>{%trans "Nutrition plan" %}</h4>
-                <p>{% blocktrans %}The two first meals of a nutritional plan.
+
+    </div>
+    <div data-role="collapsible" data-content-theme="c">
+        <h3>{%trans "Nutrition plan" %}</h3>
+        <img src="{% static 'images/screen5-crop.png' %}" width="100%;">
+        <p>{% blocktrans %}The two first meals of a nutritional plan.
 The nutritional values (energy, protein, etc.) are calculated too, but
 are not shown in the picture.{% endblocktrans %}</p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="{% static 'images/screen6-crop.png' %}" width="100%;">
-            <div class="carousel-caption">
-                <h4>{%trans "Ingredient detail view" %}</h4>
-                <p>{% blocktrans %}A detail view of an ingredient. With the
+    </div>
+    <div data-role="collapsible" data-content-theme="c">
+        <h3>{%trans "Ingredient detail view" %}</h3>
+        <img src="{% static 'images/screen6-crop.png' %}" width="100%;">
+        <p>{% blocktrans %}A detail view of an ingredient. With the
 calculator on the top it's possible to quickly calculate the nutritional
 calues for a amount. 'Human' units such as slices are available for some
 ingredients.{% endblocktrans %}</p>
-            </div>
-        </div>
     </div>
 </div>
 
