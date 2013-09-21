@@ -81,7 +81,7 @@ div.info a.ui-link, div.info a.ui-link:hover, div.info a.ui-link:active{
 table {
     width:100%;
     border-collapse:collapse;
-    margin: 1.3571em 0 0 0;
+    /*margin: 1.3571em 0 0 0;*/
     color:#333;
     border-top: 1px #ccc solid;
     border-bottom: 1px #ccc solid;
@@ -127,8 +127,9 @@ tbody td {
  */
 div.muscle-background
 {
-    width: 200px;
-    height: 369px;
+    width: 150px;
+    height: 276px;
+    background-size: 150px;
     background-repeat: no-repeat;
 }
 

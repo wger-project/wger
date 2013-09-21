@@ -100,27 +100,16 @@ $(function() {
         </a>
     </li>
 {% endfor %}
+<li>
+    <a href="{% url 'step-add' schedule.id %}">{% trans "Add workout" %}</a>
+</li>
 {% if schedule.is_loop %}
     <li>
         {% trans "This schedule is a loop and will go through the workouts above till you deactivate it" %}
     </li>
-    {% endif %}
+{% endif %}
 </ul>
 
-
-
-
-<p>
-<a href="{% url 'step-add' schedule.id %}"
-   data-role="button"
-   data-mini="true">
-<img src="{% static 'images/icons/new.svg' %}"
-    width="32"
-    height="32"
-    alt="{% trans 'Add workout' %}"
-    title="{% trans 'Add workout' %}">
-{% trans "Add workout" %}</a>
-</p>
 {% endblock %}
 
 
@@ -153,5 +142,4 @@ than once.{% endblocktrans %}</p>
     title="{% trans 'Delete schedule' %}">
 {% trans "Delete schedule" %}</a>
 </p>
-
 {% endblock %}

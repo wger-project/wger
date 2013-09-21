@@ -121,7 +121,8 @@ $(document).on('pageinit', function () {
 </a>
 
 <a href="{% url 'workout-edit' workout.id %}"
-   data-role="button">
+   data-role="button"
+   data-ajax="false">
    <img src="{% static 'images/icons/edit.svg' %}"
          width="32"
          height="32"
@@ -131,7 +132,8 @@ $(document).on('pageinit', function () {
 </a>
 
 <a href="{% url 'workout-log' workout.id %}"
-   data-role="button">
+   data-role="button"
+   data-ajax="false">
    <img src="{% static 'images/icons/statistics.svg' %}"
          width="32"
          height="32"

@@ -49,7 +49,7 @@ $( "#exercise_search_form" ).on( "listviewbeforefilter", function ( e, data ) {
 {% block content %}
 
 
-<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
+<div data-role="collapsible-set" data-theme="c" data-content-theme="c">
 {% for category in categories %}
     <div data-role="collapsible">
         <h3>{{ category.name }}</h3>
@@ -76,6 +76,7 @@ $( "#exercise_search_form" ).on( "listviewbeforefilter", function ( e, data ) {
     data-theme="c"
     data-filter="true"
     data-filter-reveal="true"
+    data-inset="true"
     data-filter-placeholder="{% trans 'exercise name' %}"
     id="exercise_search_form">
     {% for category in categories %}
