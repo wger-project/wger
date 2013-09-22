@@ -56,8 +56,8 @@ $(document).on('pageinit', function(){
     // Hightlight the first element
     highlight_muscle($('.muscle').first());
 
-    // Highlight on hover
-    $('.muscle').on( "vmouseover", function(e) {
+    // Highlight on tap
+    $('.muscle').on( "tap", function(e) {
         e.preventDefault();
         highlight_muscle(this);
     });
@@ -73,33 +73,35 @@ $(document).on('pageinit', function(){
 {% trans "Hover with the mouse over the muscles to show corresponding exercises." %}
 
 
-
+<h3 style="margin-bottom:0px;">{% trans "Muscles" %}</h3>
 <div class="ui-grid-a">
     <div class="ui-block-a">
         {# Why do we need to use |first? #}
+        <div data-role="collapsible-set">
         {% regroup muscle_list|first by is_front as muscle_group %}
         {% for group in muscle_group %}
-            {% if group.grouper %}
-                <h3>{% trans "Front side" %}</h3>
-            {% else %}
-                <h3>{% trans "Back side" %}</h3>
-            {% endif %}
-
-            <ul class="muscle-list">
-            {% for muscle in group.list %}
-            <li class="muscle"
-                data-target="muscle-{{muscle.id}}"
-                data-is-front="{{muscle.is_front}}"
-                data-name="{{muscle.name}}"
-                itemscope itemtype="http://schema.org/Muscle">
-                <span itemprop="name">{{muscle.name}}</span>
-            </li>
-            {% endfor %}
-            </ul>
+            <div data-role="collapsible" data-content-theme="c">
+                {% if group.grouper %}
+                    <h3>{% trans "Front side" %}</h3>
+                {% else %}
+                    <h3>{% trans "Back side" %}</h3>
+                {% endif %}
+                <ul data-role="listview">
+                        {% for muscle in group.list %}
+                        <li class="muscle"
+                            data-target="muscle-{{muscle.id}}"
+                            data-is-front="{{muscle.is_front}}"
+                            data-name="{{muscle.name}}"
+                            itemscope itemtype="http://schema.org/Muscle">
+                            <a href="#"><span itemprop="name">{{muscle.name}}</span></a>
+                        </li>
+                        {% endfor %}
+                </ul>
+            </div>
         {% endfor %}
+        </div>
     </div>
     <div class="ui-block-b">
-        <h3 style="padding-bottom:0.5em;">{% trans "Muscles" %}</h3>
         <div id="muscle-system"
              class="muscle-background"
              style="background-image: url('/static/images/muscles/muscular_system_front.svg');">
@@ -109,14 +111,16 @@ $(document).on('pageinit', function(){
 
 
 
+<h3>{% trans "Exercises" %} - <span class="muscle-edit-name"></span></h3>
 {% for muscle in muscle_list|first %}
-    <div id="muscle-{{muscle.id}}" style="display:none;" class="exercise-list">
-        <h3>{% trans "Exercises" %}</h3>
-        <ul class="exercise-overview">
+    <div id="muscle-{{muscle.id}}"
+         style="display:none;"
+         class="exercise-list">
+        <ul data-role="listview">
             {% for exercise in muscle.exercise_set.select_related %}
             {% if exercise.language in active_languages %}
             <li class="exercise">
-                <a href="{{exercise.get_absolute_url}}">{{exercise}}</a>
+                <a href="{{exercise.get_absolute_url}}" data-ajax="false">{{exercise}}</a>
             </li>
             {% endif %}
             {% empty %}

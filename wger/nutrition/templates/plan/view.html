@@ -20,10 +20,10 @@ $(document).ready(function() {
     set_english_ingredients();
 
     {% if user.userprofile.show_english_ingredients %}
-        useEnglishIngredients = 1;
+        var useEnglishIngredients = 1;
         $('#english-ingredients-status').attr("src", "{% static 'images/icons/status-on.svg' %}");
     {% else %}
-        useEnglishIngredients = 0;
+        var useEnglishIngredients = 0;
         $('#english-ingredients-status').attr("src", "{% static 'images/icons/status-off.svg' %}");
     {% endif %}
 });
