@@ -69,7 +69,8 @@ div.info a.ui-link, div.info a.ui-link:hover, div.info a.ui-link:active{
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
     /*color: #444;*/
     color: rgba(0,0,0,.8);
-    padding: 1.4286em;
+    padding-left:1.4286em;
+    padding-right:1.4286em;
     margin: 1.5em 0 0 0;
 }
 
@@ -552,4 +553,25 @@ header h1{
 
 .form-error .ui-input-text{
     border-color: rgb(136, 0, 0);
+}
+
+
+/**************************************************************
+ * Success, info and other alert boxes
+ **************************************************************/
+.success {
+    background: #b7f774;
+}
+
+.warning {
+    background: rgb(252, 175, 62);
+    text-shadow: none;
+}
+
+/**************************************************************
+ * Other classes
+ **************************************************************/
+.float-left {
+    float:left;
+    display:inline;
 }

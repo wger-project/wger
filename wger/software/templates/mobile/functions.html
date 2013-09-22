@@ -8,6 +8,13 @@
 {% block title %}{% trans "Features" %}{% endblock %}
 
 {% block content %}
+
+<div style="text-align:center;">
+    <img src="{% static  'images/logos/logo-no-padding.svg' %}"
+         width="60%"
+         alt="wger Workout Manager">
+</div>
+
 <p>{% blocktrans %}wger Workout Manager is a free, open source web application that manages
 your exercises and workouts. It started as a pet project of mine to replace my
 growing collection of different spreadsheets, but it has become something other
@@ -69,37 +76,25 @@ ingredients.{% endblocktrans %}</p>
 
 <h3>{% trans "In short:" %}</h3>
 
-<div class="ym-grid linearize-level-1">
-    <div class="ym-g33 ym-gl">
-        <div class="ym-gbox-left">
-            <div class="warning box">
-            <h3>{% trans "a workout manager" %}</h3>
-            <p>{% blocktrans %}create and manage your workout routines by selecting how
-            many days your workout constists of, and adding different exercises to each.
-            Print the generated PDF to keep a log.{% endblocktrans %}</p>
-            </div>
-        </div>
-    </div>
-    <div class="ym-g33 ym-gl">
-        <div class="ym-gbox-left">
-            <div class="warning box">
-            <h3>{% trans "a weight tracker" %}</h3>
-            <p>{% blocktrans %}keep track of your progress with the weight log chart
-            for each exercise and your own body weight. This makes it easy to see if you
-            are reaching your goals or need to adjust something.{% endblocktrans %}</p>
-            </div>
-        </div>
-    </div>
-    <div class="ym-g33 ym-gr">
-        <div class="ym-gbox-left">
-            <div class="warning box">
-            <h3>{% trans "a nutrition manager" %}</h3>
-            <p>{% blocktrans %}create a diet plan and see its nutritional
-            values (total energy, protein, carbohydrates, and so on) about
-            it. Select from more than 8000 ingredients for this.{% endblocktrans %}</p>
-            </div>
-        </div>
-    </div>
+<div class="warning box">
+<h3>{% trans "a workout manager" %}</h3>
+<p>{% blocktrans %}create and manage your workout routines by selecting how
+many days your workout constists of, and adding different exercises to each.
+Print the generated PDF to keep a log.{% endblocktrans %}</p>
+</div>
+
+<div class="warning box">
+<h3>{% trans "a weight tracker" %}</h3>
+<p>{% blocktrans %}keep track of your progress with the weight log chart
+for each exercise and your own body weight. This makes it easy to see if you
+are reaching your goals or need to adjust something.{% endblocktrans %}</p>
+</div>
+
+<div class="warning box">
+<h3>{% trans "a nutrition manager" %}</h3>
+<p>{% blocktrans %}create a diet plan and see its nutritional
+values (total energy, protein, carbohydrates, and so on) about
+it. Select from more than 8000 ingredients for this.{% endblocktrans %}</p>
 </div>
 
 <a name="workout-manager"></a>
