@@ -8,46 +8,10 @@
 {% block title %}{% trans "Exercises" %}{% endblock %}
 
 
-
-{% block header %}
-<script>
-$( document ).on( "pageinit", "#myPage", function() {
-$( "#exercise_search_form" ).on( "listviewbeforefilter", function ( e, data ) {
-    var $ul = $( this ),
-        $input = $( data.input ),
-        value = $input.val(),
-        html = "";
-    $ul.html( "" );
-    if ( value && value.length > 2 ) {
-        $ul.html( "<li><div class='ui-loader'><span class='ui-icon ui-icon-loading'></span></div></li>" );
-        $ul.listview( "refresh" );
-        $.ajax({
-            url: "{% url 'wger.exercises.views.exercises.search' %}",
-            dataType: "json",
-            data: {
-                q: $input.val()
-            }
-        })
-        .then( function ( response ) {
-            $.each( response, function ( i, val ) {
-                html += '<li><a href="/exercise/' + val.id + '/view/">' + val.name + '</a></li>';
-            });
-            $ul.html( html );
-            $ul.listview( "refresh" );
-            $ul.trigger( "updatelayout");
-            });
-        }
-    });
-});
-</script>
-{% endblock %}
-
-
 <!--
         Main Content
 -->
 {% block content %}
-
 
 <div data-role="collapsible-set" data-theme="c" data-content-theme="c">
 {% for category in categories %}
