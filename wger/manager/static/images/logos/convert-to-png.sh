@@ -24,10 +24,19 @@
 
 for resolution in 16 30 32 48 60 64 128 256
 do
+    # Regular Icon
     inkscape \
     --export-png=logo-${resolution}.png \
     --export-area-page \
     --export-width ${resolution}\
     --export-height ${resolution}\
     logo.svg
+
+    # Icon for Firefox OS
+    inkscape \
+    --export-png=logo-marketplace-${resolution}.png \
+    --export-area-page \
+    --export-width ${resolution}\
+    --export-height ${resolution}\
+    logo-marketplace.svg
 done
