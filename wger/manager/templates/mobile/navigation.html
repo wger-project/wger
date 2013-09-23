@@ -56,7 +56,7 @@
             <li><a href="{% url 'wger.exercises.views.exercises.overview' %}">{% trans "Exercises" %}</a></li>
             <li><a href="{% url 'muscle-overview' %}" data-ajax="false">{% trans "Muscle overview" %}</a></li>
             {% if user.is_authenticated and not user.get_profile.is_temporary %}
-            <li><a href="{% url 'exercise-add' %}">{% trans "Add new exercise" %}</a><li>
+            <li><a href="{% url 'exercise-add' %}" data-ajax="false">{% trans "Add new exercise" %}</a><li>
             {% endif %}
 
             {% if perms.exercises %}
