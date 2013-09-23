@@ -52,7 +52,7 @@ $( "#exercise_search_form" ).on( "listviewbeforefilter", function ( e, data ) {
 <div data-role="collapsible-set" data-theme="c" data-content-theme="c">
 {% for category in categories %}
     <div data-role="collapsible">
-        <h3>{{ category.name }}</h3>
+        <h3>{% trans category.name %}</h3>
 
         <ul data-role="listview">
         {% for exercise in category.exercise_set.all %}
