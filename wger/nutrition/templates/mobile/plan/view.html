@@ -70,7 +70,8 @@ $(document).ready(function() {
     </a>
     <a href="{% url 'mealitem-add' meal.id %}"
        title="{% trans 'Add' %}"
-       data-role="button">
+       data-role="button"
+       data-ajax="false">
         <img src="{% static 'images/icons/add.svg' %}"
              width="22"
              height="22"
@@ -130,24 +131,28 @@ $(document).ready(function() {
     {% for item in meal.mealitem_set.select_related %}
         <li data-icon="false">
             <a href="#editoptions-item-{{ item.id }}" data-rel="popup">
-            {% if item.get_unit_type == MEALITEM_WEIGHT_GRAM %}{{ item.amount|floatformat:"0" }}g
-            {% else %}
-                {{ item.amount|floatformat:"0" }}{{ item.weight_unit.unit.name }}
-            {% endif %}
-            {{ item.ingredient.name }}
+                <h3>{{ item.ingredient.name }}</h3>
+                <p>
+                    {% if item.get_unit_type == MEALITEM_WEIGHT_GRAM %}{{ item.amount|floatformat:"0" }}g
+                    {% else %}
+                        {{ item.amount|floatformat:"0" }} × {{ item.weight_unit.unit.name }}
+                    {% endif %}
+                </p>
             </a>
         </li>
     {% if forloop.last %}
         <li>
-            <a href="{% url 'mealitem-add' meal.id %}">{% trans "Add item to meal" %}</a>
+            <a href="{% url 'mealitem-add' meal.id %}"
+               data-ajax="false">{% trans "Add item to meal" %}</a>
         </li>
     {% endif %}
     {% empty %}
     <li>
         <a href="{% url 'mealitem-add' meal.id %}"
-          title="{% trans 'Add one now.' %}">
-            {% trans "No items for this meal." %}
-            {% trans "Add one now."%}
+           title="{% trans 'Add one now.' %}"
+           data-ajax="false">
+            {% trans "No items for this meal." %}<br>
+            {% trans "Add one now." %}
         </a>
     </li>
     {% endfor %}
@@ -155,7 +160,7 @@ $(document).ready(function() {
 {% empty %}
 <a href="{% url 'meal-add' plan.id %}"
    data-role="button">
-        {% trans "No meals for this plan." %}
+        {% trans "No meals for this plan." %}<br>
         {% trans "Add one now." %}
 </a>
 {% endfor %}

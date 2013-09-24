@@ -575,3 +575,8 @@ header h1{
     float:left;
     display:inline;
 }
+
+.align-right
+{
+    text-align: right;
+}

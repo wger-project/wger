@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+
+
+{% block title %}{% trans "Edit meal item" %}{% endblock %}
+
+
+{% block header %}
+<script type="text/javascript">
+$(document).ready(function() {
+    // Init the autocompleter
+    init_ingredient_autocompleter();
+});
+</script>
+{% endblock %}
+
+
+
+{% block content %}
+<form action="{{ form_action }}"
+      method="post"
+      class="ym-form">
+{% csrf_token %}
+{{ form.non_field_errors }}
+{{form.ingredient}}
+<table>
+    <tr>
+        <td colspan="2">
+            <label for="id_ingredient_searchfield">
+            {% trans "Ingredient name" %}
+            </label>
+
+            <div class="ym-fbox-text">
+            <input type="text"
+                   id="id_ingredient_searchfield"
+                   name="ingredient_searchfield"
+                   value="{{ingredient_searchfield}}">
+            </div>
+            <h5 id="exercise_name" class="ym-fbox-text"></h5>
+        </td>
+    </tr>
+
+
+
+    {% yaml_form_field form.amount %}
+    {% yaml_form_field form.weight_unit "ym-fbox-select" %}
+    <tr>
+        <td colspan="2">
+            <a href="{% url 'index' %}"
+               data-role="button"
+               data-rel="back"
+               data-mini="true">{% trans "Cancel" %}</a>
+            <input type="submit" value="{% trans 'Save' %}" id="form-save">
+        </td>
+    </tr>
+</table>
+</form>
+{% endblock %}
