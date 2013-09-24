@@ -180,7 +180,7 @@ def create_demo_entries(user):
     for i in range(1, 20):
         creation_date = datetime.date.today() - datetime.timedelta(days=i)
         entry = WeightEntry(user=user,
-                            weight=80 + 0.5*i + random.randint(1, 3),
+                            weight=80 + 0.5 * i + random.randint(1, 3),
                             creation_date=creation_date)
         temp.append(entry)
     WeightEntry.objects.bulk_create(temp)
@@ -237,7 +237,7 @@ def create_demo_entries(user):
     mealitem.meal = meal
     mealitem.ingredient = ingredient
     mealitem.order = 3
-    mealitem.amount = 100
+    mealitem.amount = 30
     mealitem.save()
 
     #
