@@ -47,6 +47,7 @@
 
     {% if not user.is_authenticated or user.get_profile.is_temporary %}
         <div data-role="popup" data-overlay-theme="a" id="popupGuestUser" class="ui-content">
+        <h3>{% trans "Info" %}</h3>
         {% trans "You are using a guest account, data entered will be deleted after a week."%}
         {% if not has_demo_data %}
         <a href="{% url 'demo-entries' %}"
