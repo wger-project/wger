@@ -10,7 +10,7 @@
     {% for workout in workouts %}
         <li>
             <a href="{% url 'wger.manager.views.workout.view' workout.id %}">
-                <h3>{{ workout.comment }}</h3>
+                <h3>{{ workout }}</h3>
                 <p>{{ workout.creation_date }}</p>
             </a>
         </li>
