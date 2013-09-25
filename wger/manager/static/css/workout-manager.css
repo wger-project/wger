@@ -132,6 +132,9 @@ div.muscle-background
  * 'form-error' is inserted by the JQuery form validator and the styling
  * is copied from the yaml ones, for consistency
  */
+.ym-form a {
+    color:black;
+}
 .ym-form .form-error {
     color: #880000;
 }

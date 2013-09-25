@@ -132,6 +132,27 @@ class SetForm(ModelForm):
         self.fields['exercises'].help_text = _('You can search for more than one exercise, '
                                                'they will be grouped together for a superset.')
 
+from wger.exercises.models import Exercise
+from django.forms import ModelChoiceField
+
+
+class SetFormMobile(ModelForm):
+    '''
+    Don't use the autocompleter when accessing the mobile version
+    '''
+    exercise_list = ModelChoiceField(Exercise.objects)
+
+    class Meta:
+        model = Set
+
+    # We need to overwrite the init method here because otherwise Django
+    # will outut a default help text, regardless of the widget used
+    # https://code.djangoproject.com/ticket/9321
+    def __init__(self, *args, **kwargs):
+        super(SetFormMobile, self).__init__(*args, **kwargs)
+        self.fields['exercises'].help_text = _('You can search for more than one exercise, '
+                                               'they will be grouped together for a superset.')
+
 
 class HelperDateForm(Form):
     '''

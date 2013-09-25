@@ -33,16 +33,20 @@ $(document).on('pageinit', function(){
 -->
 {% block content %}
 
-
 <form action="{{form_action}}"
       method="post"
       class="ym-form">
 
 {% csrf_token %}
 <table>
-    {% yaml_form_field form.exercises %}
+    {% yaml_form_field form.exercise_list %}
     <tr>
-        <td style="text-align:right;">
+        <td colspan="2">
+            <div id="exercise-search-log">
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align:right;width:40%;">
             <label for="slider">{{form.sets.label}}</label>
         </td>
         <td>

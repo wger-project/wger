@@ -398,6 +398,20 @@ function update_all_exercise_formset()
     }
 }
 
+/*
+ * Remove the result DIV (also contains the hidden form element) with the exercise
+ * formsets when the user clicks on the delete link
+ */
+function init_remove_exercise_formset()
+{
+    $(".ajax-exercise-select a").click(function(e) {
+        e.preventDefault();
+        var exercise_id = $(this).parent('div').find('input').val()
+        $('#formset-exercise-'+exercise_id).remove();
+        $(this).parent('div').remove();
+    });
+}
+
 function init_edit_set()
 {
     // Initialise the autocompleter (our widget, defined above)
@@ -412,14 +426,8 @@ function init_edit_set()
                 // Load formsets
                 get_exercise_formset(ui.item.id)
 
-                // Remove the result div (also contains the hidden form element) when the user
-                // clicks on the delete link
-                $(".ajax-exercise-select a").click(function(e) {
-                    e.preventDefault();
-                    var exercise_id = $(this).parent('div').find('input').val()
-                    $('#formset-exercise-'+exercise_id).remove();
-                    $(this).parent('div').remove();
-                });
+                // Init the remove buttons
+                init_remove_exercise_formset();
 
                 // Reset the autocompleter
                 $(this).val("");
@@ -427,13 +435,18 @@ function init_edit_set()
             }
         });
 
-    // Delete button next to exercise
-    $(".ajax-exercise-select a").click(function(e) {
-        e.preventDefault();
-        var exercise_id = $(this).parent('div').find('input').val()
-        $('#formset-exercise-'+exercise_id).remove();
-        $(this).parent('div').remove();
+    // Mobile select box
+    $('#id_exercise_list').change(function(e) {
+        var exercise_id = $('#id_exercise_list').val();
+        var exercise_name = $('#id_exercise_list').find(":selected").text();
+        add_exercise({id: exercise_id,
+                      value: exercise_name});
+        get_exercise_formset(exercise_id);
+        init_remove_exercise_formset();
     });
+
+    // Delete button next to exercise
+    init_remove_exercise_formset();
 
     // Slider to set the number of sets
     $("#slider").slider({
