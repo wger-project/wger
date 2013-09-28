@@ -20,13 +20,15 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
+from wger.utils.fields import Html5FloatField
+
 
 class WeightEntry(models.Model):
     '''
     Model for a weight point
     '''
     creation_date = models.DateField(verbose_name=_('Date'))
-    weight = models.FloatField(verbose_name=_('Weight'))
+    weight = Html5FloatField(verbose_name=_('Weight'))
     user = models.ForeignKey(User,
                              verbose_name=_('User'))
     '''

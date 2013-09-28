@@ -43,6 +43,8 @@ from wger.manager.models import WorkoutLog
 from wger.utils.widgets import TranslatedSelectMultiple
 from wger.utils.widgets import ExerciseAjaxSelect
 from wger.utils.constants import DATE_FORMATS
+from wger.utils.widgets import Html5DateInput
+from wger.utils.widgets import Html5NumberInput
 
 
 class UserPreferencesForm(ModelForm):
@@ -158,7 +160,7 @@ class HelperDateForm(Form):
     '''
     A helper form with only a date input
     '''
-    date = DateField(input_formats=DATE_FORMATS)
+    date = DateField(input_formats=DATE_FORMATS, widget=Html5DateInput())
 
 
 class WorkoutLogForm(ModelForm):
@@ -170,7 +172,8 @@ class WorkoutLogForm(ModelForm):
     '''
     weight = DecimalField(decimal_places=2,
                           max_digits=5,
-                          localize=True)
+                          localize=True,
+                          widget=Html5NumberInput())
 
     class Meta:
         model = WorkoutLog

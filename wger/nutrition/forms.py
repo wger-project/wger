@@ -21,6 +21,7 @@ from django.utils.translation import ugettext as _
 
 from wger.nutrition.models import IngredientWeightUnit
 from wger.manager.models import UserProfile
+from wger.utils.widgets import Html5NumberInput
 
 
 logger = logging.getLogger('wger.custom')
@@ -54,7 +55,7 @@ class UnitChooserForm(forms.Form):
 
 
 class BmiForm(forms.ModelForm):
-    weight = forms.DecimalField()
+    weight = forms.DecimalField(widget=Html5NumberInput())
 
     class Meta:
         model = UserProfile
@@ -65,7 +66,7 @@ class BmrForm(forms.ModelForm):
     '''
     Form for the basal metabolic rate
     '''
-    weight = forms.DecimalField()
+    weight = forms.DecimalField(widget=Html5NumberInput())
 
     class Meta:
         model = UserProfile
@@ -95,13 +96,15 @@ class DailyCaloriesForm(forms.ModelForm):
     base_calories = forms.IntegerField(label=_('Basic caloric intake'),
                                        help_text=_('Your basic caloric intake as calculated for '
                                                    'your data'),
-                                       required=False)
+                                       required=False,
+                                       widget=Html5NumberInput())
     additional_calories = forms.IntegerField(label=_('Additional calories'),
                                              help_text=_('Additional calories to add to the base '
                                                          'rate (to substract, enter a negative '
                                                          'number)'),
                                              initial=0,
-                                             required=False)
+                                             required=False,
+                                             widget=Html5NumberInput())
 
     class Meta:
         model = UserProfile

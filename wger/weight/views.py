@@ -47,6 +47,7 @@ from wger.weight import helpers
 
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.constants import DATE_FORMATS
+from wger.utils.widgets import Html5DateInput
 from django.forms import widgets
 
 
@@ -54,12 +55,13 @@ logger = logging.getLogger('wger.custom')
 
 
 class WeightForm(ModelForm):
-    creation_date = DateField(input_formats=DATE_FORMATS)
+    creation_date = DateField(input_formats=DATE_FORMATS, widget=Html5DateInput())
 
     class Meta:
         model = WeightEntry
         widgets = {
-            'user': widgets.HiddenInput()
+            'user': widgets.HiddenInput(),
+            #'weight': Html5NumberInput()
             }
 
 

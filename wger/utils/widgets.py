@@ -14,10 +14,15 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 import uuid
+import logging
 from itertools import chain
 
 from django.forms.widgets import SelectMultiple
 from django.forms.widgets import Select
+from django.forms.widgets import DateInput
+from django.forms.widgets import TextInput
+
+from django.forms import fields
 
 from django.utils.translation import ugettext as _
 from django.utils.encoding import force_unicode
@@ -26,11 +31,90 @@ from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 
 
+logger = logging.getLogger('wger.custom')
+
+
+#
+# Date and time related fields
+#
+
+class Html5DateInput(DateInput):
+    '''
+    Custom Input class that is rendered with an HTML5 type="date"
+
+    This is specially useful in mobile devices
+    '''
+    input_type = 'date'
+
+
+class Html5FormDateField(fields.DateField):
+    '''
+    HTML5 form date field
+    '''
+    widget = Html5DateInput
+
+
+class Html5TimeInput(TextInput):
+    '''
+    Custom Input class that is rendered with an HTML5 type="time"
+
+    This is specially useful in mobile devices and not available
+    with older versions of django.
+    '''
+    input_type = 'time'
+
+
+class Html5FormTimeField(fields.TimeField):
+    '''
+    HTML5 form time field
+    '''
+    widget = Html5TimeInput
+
+
+#
+# Number related fields
+#
+
+class Html5NumberInput(TextInput):
+    '''
+    Custom Input class that is rendered with an HTML5 type="number"
+
+    This is specially useful in mobile devices and not available
+    with older versions of django.
+    '''
+    input_type = 'number'
+
+
+class Html5FormDecimalField(fields.DecimalField):
+    '''
+    HTML5 form time field
+    '''
+    widget = Html5NumberInput
+
+
+class Html5FormIntegerField(fields.IntegerField):
+    '''
+    HTML5 form time field
+    '''
+    widget = Html5NumberInput
+
+
+class Html5FormFloatField(fields.FloatField):
+    '''
+    HTML5 form time field
+    '''
+    widget = Html5NumberInput
+
+#
+# Others
+#
+
+
 class ExerciseAjaxSelect(SelectMultiple):
     '''
     Custom widget that allows to select exercises from an autocompleter
 
-    This is basically modified MultipleSelect widget
+    This is basically a modified MultipleSelect widget
     '''
 
     def render(self, name, value, attrs=None, choices=()):

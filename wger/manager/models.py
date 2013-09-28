@@ -40,6 +40,10 @@ from wger.utils.helpers import disable_for_loaddata
 from wger.utils.cache import delete_template_fragment_cache
 from wger.utils.cache import cache_mapper
 from wger.weight.models import WeightEntry
+from wger.utils.fields import Html5DateField
+from wger.utils.fields import Html5TimeField
+from wger.utils.fields import Html5DecimalField
+from wger.utils.fields import Html5IntegerField
 
 logger = logging.getLogger('wger.custom')
 
@@ -163,8 +167,8 @@ class Schedule(models.Model):
                                         "For example 'Program XYZ'."))
     '''Name or short description of the schedule.'''
 
-    start_date = models.DateField(verbose_name=_('Start date'),
-                                  default=datetime.date.today)
+    start_date = Html5DateField(verbose_name=_('Start date'),
+                                default=datetime.date.today)
     '''The start date of this schedule'''
 
     is_active = models.BooleanField(verbose_name=_('Schedule active'),
@@ -244,10 +248,10 @@ class ScheduleStep(models.Model):
     workout = models.ForeignKey(Workout)
     '''The workout this step manages'''
 
-    duration = models.IntegerField(max_length=1,
-                                   verbose_name=_('Duration'),
-                                   help_text=_('The duration in weeks'),
-                                   default=4)
+    duration = Html5IntegerField(max_length=1,
+                                 verbose_name=_('Duration'),
+                                 help_text=_('The duration in weeks'),
+                                 default=4)
     '''The duration in weeks'''
 
     order = models.IntegerField(verbose_name=_('Order'),
@@ -360,14 +364,14 @@ class Set(models.Model):
                                     verbose_name=_('Exercise day'),
                                     editable=False)
     exercises = models.ManyToManyField(Exercise, verbose_name=_('Exercises'))
-    order = models.IntegerField(max_length=1,
-                                blank=True,
-                                null=True,
-                                verbose_name=_('Order'),
-                                editable=False)
-    sets = models.IntegerField(validators=[MaxValueValidator(MAX_SETS)],
-                               verbose_name=_('Number of sets'),
-                               default=DEFAULT_SETS)
+    order = Html5IntegerField(max_length=1,
+                              blank=True,
+                              null=True,
+                              verbose_name=_('Order'),
+                              editable=False)
+    sets = Html5IntegerField(validators=[MaxValueValidator(MAX_SETS)],
+                             verbose_name=_('Number of sets'),
+                             default=DEFAULT_SETS)
 
     # Metaclass to set some other properties
     class Meta:
@@ -411,8 +415,8 @@ class Setting(models.Model):
 
     set = models.ForeignKey(Set, verbose_name=_('Sets'), editable=False)
     exercise = models.ForeignKey(Exercise, verbose_name=_('Exercises'), editable=False)
-    reps = models.IntegerField(validators=[MaxValueValidator(100)], verbose_name=_('Repetitions'))
-    order = models.IntegerField(blank=True, verbose_name=_('Order'), editable=False)
+    reps = Html5IntegerField(validators=[MaxValueValidator(100)], verbose_name=_('Repetitions'))
+    order = Html5IntegerField(blank=True, verbose_name=_('Order'), editable=False)
     comment = models.CharField(max_length=100, blank=True, verbose_name=_('Comment'))
 
     # Metaclass to set some other properties
@@ -461,11 +465,11 @@ class WorkoutLog(models.Model):
                                 verbose_name=_('Workout'),
                                 editable=False)
 
-    reps = models.IntegerField(verbose_name=_('Repetitions'))
-    weight = models.DecimalField(decimal_places=2,
-                                 max_digits=5,
-                                 verbose_name=_('Weight'))
-    date = models.DateField(verbose_name=_('Date'))
+    reps = Html5IntegerField(verbose_name=_('Repetitions'))
+    weight = Html5DecimalField(decimal_places=2,
+                               max_digits=5,
+                               verbose_name=_('Weight'))
+    date = Html5DateField(verbose_name=_('Date'))
 
     # Metaclass to set some other properties
     class Meta:
@@ -585,17 +589,17 @@ by the US Department of Agriculture. It is extremely complete, with around
     #
     # User statistics
     #
-    age = models.IntegerField(max_length=2,
-                              verbose_name=_('Age'),
-                              blank=False,
-                              null=True)
+    age = Html5IntegerField(max_length=2,
+                            verbose_name=_('Age'),
+                            blank=False,
+                            null=True)
     '''The user's age'''
 
-    height = models.IntegerField(max_length=2,
-                                 verbose_name=_('Height (cm)'),
-                                 blank=False,
-                                 validators=[MinValueValidator(140), MaxValueValidator(230)],
-                                 null=True)
+    height = Html5IntegerField(max_length=2,
+                               verbose_name=_('Height (cm)'),
+                               blank=False,
+                               validators=[MinValueValidator(140), MaxValueValidator(230)],
+                               null=True)
     '''The user's height'''
 
     gender = models.CharField(max_length=1,
@@ -605,18 +609,18 @@ by the US Department of Agriculture. It is extremely complete, with around
                               null=True)
     '''Gender'''
 
-    sleep_hours = models.IntegerField(verbose_name=_('Hours of sleep'),
-                                      help_text=_('The average hours of sleep per day'),
-                                      default=7,
-                                      blank=False,
-                                      null=True)
+    sleep_hours = Html5IntegerField(verbose_name=_('Hours of sleep'),
+                                    help_text=_('The average hours of sleep per day'),
+                                    default=7,
+                                    blank=False,
+                                    null=True)
     '''The average hours of sleep per day'''
 
-    work_hours = models.IntegerField(verbose_name=_('Work'),
-                                     help_text=_('Average hours per day'),
-                                     default=8,
-                                     blank=False,
-                                     null=True)
+    work_hours = Html5IntegerField(verbose_name=_('Work'),
+                                   help_text=_('Average hours per day'),
+                                   default=8,
+                                   blank=False,
+                                   null=True)
     '''The average hours at work per day'''
 
     work_intensity = models.CharField(verbose_name=_('Physical intensity'),
@@ -628,11 +632,11 @@ by the US Department of Agriculture. It is extremely complete, with around
                                       null=True)
     '''Physical intensity of work'''
 
-    sport_hours = models.IntegerField(verbose_name=_('Sport'),
-                                      help_text=_('Average hours per week'),
-                                      default=3,
-                                      blank=False,
-                                      null=True)
+    sport_hours = Html5IntegerField(verbose_name=_('Sport'),
+                                    help_text=_('Average hours per week'),
+                                    default=3,
+                                    blank=False,
+                                    null=True)
     '''The average hours performing sports per week'''
 
     sport_intensity = models.CharField(verbose_name=_('Physical intensity'),
@@ -644,11 +648,11 @@ by the US Department of Agriculture. It is extremely complete, with around
                                        null=True)
     '''Physical intensity of sport activities'''
 
-    freetime_hours = models.IntegerField(verbose_name=_('Free time'),
-                                         help_text=_('Average hours per day'),
-                                         default=8,
-                                         blank=False,
-                                         null=True)
+    freetime_hours = Html5IntegerField(verbose_name=_('Free time'),
+                                       help_text=_('Average hours per day'),
+                                       default=8,
+                                       blank=False,
+                                       null=True)
     '''The average hours of free time per day'''
 
     freetime_intensity = models.CharField(verbose_name=_('Physical intensity'),
@@ -660,11 +664,11 @@ by the US Department of Agriculture. It is extremely complete, with around
                                           null=True)
     '''Physical intensity during free time'''
 
-    calories = models.IntegerField(verbose_name=_('Total daily calories'),
-                                   help_text=_('Total caloric intake, including e.g. any surplus'),
-                                   default=2500,
-                                   blank=False,
-                                   null=True)
+    calories = Html5IntegerField(verbose_name=_('Total daily calories'),
+                                 help_text=_('Total caloric intake, including e.g. any surplus'),
+                                 default=2500,
+                                 blank=False,
+                                 null=True)
     '''Basic caloric intake based on physical activity'''
 
     @property

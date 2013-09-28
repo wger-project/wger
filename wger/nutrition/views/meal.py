@@ -30,14 +30,12 @@ from wger.nutrition.models import Meal
 
 from wger.utils.generic_views import WgerFormMixin
 
-
 logger = logging.getLogger('wger.custom')
 
 
 # ************************
 # Meal functions
 # ************************
-
 
 class MealCreateView(WgerFormMixin, CreateView):
     '''
