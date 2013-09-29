@@ -50,4 +50,77 @@
     {% endfor %}
     {% endfor %}
 </ul>
+
+
+<h3>{% trans "Add new exercise" %}</h3>
+<p>
+    {% if user.is_authenticated and not user.get_profile.is_temporary %}
+    <a href="{% url 'exercise-add' %}" data-role="button">
+    <img src="{% static 'images/icons/new.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Add new exercise' %}"
+         title="{% trans 'Add new exercise' %}">
+    {% trans "Add new exercise" %}
+    </a>
+    {% else %}
+    <span data-role="button" class="ui-disabled">
+    <img src="{% static 'images/icons/new.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Add new exercise' %}"
+         title="{% trans 'Add new exercise' %}">
+    {% trans "Only registered users can do this" %}
+    </span>
+    {% endif %}
+</p>
+
+
+{% if perms.exercises %}
+    <h3>{% trans "Options" %}</h3>
+        {% if categories %}
+        <p>
+        {% with category=categories|first %}
+        <a href="{% url 'exercisecategory-edit' category.id %}"
+           data-role="button"
+           id="current-category-edit">
+            <img src="{% static 'images/icons/edit.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Edit category' %}"
+                 title="{% trans 'Edit category' %}">
+                {% trans "Edit category" %}:
+                <span class="current-category-name">{{category.name}}</span>
+        </a>
+        </p>
+        {% endwith %}
+        <p>
+        {% with category=categories|first %}
+        <a href="{% url 'exercisecategory-delete' category.id %}"
+           data-role="button"
+           id="current-category-delete">
+            <img src="{% static 'images/icons/trash.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Delete category' %}"
+                 title="{% trans 'Delete category' %}">
+                {% trans "Delete category" %}:
+                <span class="current-category-name">{{category.name}}</span>
+        </a>
+        {% endwith %}
+        </p>
+        {% endif %}
+
+        <p>
+        <a href="{% url 'exercisecategory-add' %}"
+           data-role="button">
+            <img src="{% static 'images/icons/folder-new.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Add category' %}"
+                 title="{% trans 'Add category' %}">
+         {% trans "Add category" %}
+        </a>
+    </p>
+{% endif %}
 {% endblock %}

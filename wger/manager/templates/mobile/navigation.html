@@ -31,7 +31,7 @@
     <div data-role="collapsible" data-content-theme="c">
         <h3>{% trans "Dashboard" %}</h3>
         <ul data-role="listview">
-            <li {% if active_tab == 'user' %}class="active"{% endif %}><a href="{% url 'index' %}">{% trans "Dashboard" %}</a></li>
+            <li><a href="{% url 'index' %}">{% trans "Dashboard" %}</a></li>
         </ul>
     </div>
 
@@ -56,7 +56,7 @@
             <li><a href="{% url 'wger.exercises.views.exercises.overview' %}">{% trans "Exercises" %}</a></li>
             <li><a href="{% url 'muscle-overview' %}" data-ajax="false">{% trans "Muscle overview" %}</a></li>
             {% if user.is_authenticated and not user.get_profile.is_temporary %}
-            <li><a href="{% url 'exercise-add' %}" data-ajax="false">{% trans "Add new exercise" %}</a><li>
+            <li><a href="{% url 'exercise-add' %}" data-ajax="false">{% trans "Add new exercise" %}</a></li>
             {% endif %}
 
             {% if perms.exercises %}
@@ -117,67 +117,71 @@
             {% endif %}
         </ul>
     </div>
+
+    {#             #}
+    {# Options tab #}
+    {#             #}
+    <div data-role="collapsible" data-content-theme="c">
+        <h3>{% trans "Options" %}</h3>
+        <ul data-role="listview">
+
+            {# Preferences #}
+            {% if user.is_authenticated and not user.get_profile.is_temporary %}
+            <li>
+                <a href="{% url 'wger.manager.views.user.preferences' %}">
+                {% trans "Preferences" %}
+                </a>
+            </li>
+            {% endif %}
+
+            {# Contact #}
+            <li><a href="{% url 'contact' %}">{% trans "Get in touch" %}</a></li>
+            <li><a href="{% url 'about' %}">{% trans "About" %}</a></li>
+
+            {# Site version #}
+            <li><a href="?flavour=full" data-ajax="false">{% trans "Desktop version" %}</a></li>
+
+            {# Language #}
+            <li>
+                <a href="#language-options"
+                   data-rel="popup"
+                   data-position-to="window">{% trans "Language" %}
+               </a>
+            </li>
+
+            {# Logout #}
+            {% if user.is_authenticated and not user.get_profile.is_temporary %}
+            <li>
+                <a href="{% url 'logout' %}" data-ajax="false">{% trans "Logout" %}</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
 </div>
 
 
 
 
 
+{#           #}
+{# Login tab #}
+{#           #}
+{% if not user.is_authenticated or user.get_profile.is_temporary %}
+<!--
+<h4 style="margin-bottom:0px;">{% trans "Options" %}</h4>
 
-<h4>{% trans "Options" %}</h4>
 <br>
+-->
 
-<ul data-role="listview" data-inset="false">
-    {#           #}
-    {# Login tab #}
-    {#           #}
-    {% if user.is_authenticated and not user.get_profile.is_temporary %}
-        <li>
-            <a href="{% url 'wger.manager.views.user.preferences' %}">
-            {% trans "Preferences" %}
-            </a>
-        </li>
-    {% else %}
-        <li>
-            <a href="{% url 'login' %}" data-ajax="false">{% trans "Login" %}</a>
-        </li>
-        <li>
-            <a href="{% url 'wger.manager.views.user.registration' %}">{% trans "Register" %}</a>
-        </li>
-    {% endif %}
-
-    {#         #}
-    {# Contact #}
-    {#         #}
-    <li><a href="{% url 'contact' %}">{% trans "Get in touch" %}</a></li>
-    <li><a href="{% url 'about' %}">{% trans "About" %}</a></li>
-
-    {#              #}
-    {# Site version #}
-    {#              #}
-    <li><a href="?flavour=full" data-ajax="false">{% trans "Desktop version" %}</a></li>
-
-    {#          #}
-    {# Language #}
-    {#          #}
+<ul data-role="listview" data-inset="false" style="margin-top:2em;" data-theme="d">
     <li>
-    <a href="#language-options"
-       data-rel="popup"
-       data-position-to="window">{% trans "Language" %}
-       </a>
+        <a href="{% url 'login' %}" data-ajax="false">{% trans "Login" %}</a>
     </li>
-
-
-    {#        #}
-    {# Logout #}
-    {#        #}
-    {% if user.is_authenticated and not user.get_profile.is_temporary %}
     <li>
-        <a href="{% url 'logout' %}" data-ajax="false">{% trans "Logout" %}</a>
+        <a href="{% url 'wger.manager.views.user.registration' %}" data-ajax="false">{% trans "Register" %}</a>
     </li>
-    {% endif %}
-
 </ul>
+{% endif %}
 
 
 

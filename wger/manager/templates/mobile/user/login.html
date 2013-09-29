@@ -60,7 +60,9 @@
 {% block sidebar %}
 <h3>{% trans "No account?" %}</h3>
 <p>
-    <a href="{% url 'wger.manager.views.user.registration' %}" data-role="button">
+    <a href="{% url 'wger.manager.views.user.registration' %}"
+       data-role="button"
+       data-ajax="false">
         <img src="{% static 'images/icons/register.svg' %}"
          width="32"
          height="32"

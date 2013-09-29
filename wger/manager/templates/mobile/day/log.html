@@ -6,14 +6,7 @@
 
 {% block title %}{% trans "New weight log" %}  – {{day.description}}{% endblock %}
 
-{% block header %}
-<script type="text/javascript">
-$(document).ready(function () {
-    $( "#id_date" ).datepicker();
-});
-</script>
-
-{% endblock %}
+{% block header %}{% endblock %}
 
 {% block content %}
 <form action="{{form_action}}" method="POST" class="ym-form" style="overflow-x: auto;">

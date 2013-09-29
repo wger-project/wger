@@ -40,33 +40,23 @@ included in the database.{% endblocktrans %}
 </p>
 
 {% if perms.exercises %}
-<div class="ym-grid linearize-level-1">
-    <div class="ym-g50 ym-gl">
-        <div class="ym-gbox-left">
-            <div class="alert alert-success">
-                <a href="{% url 'exercise-accept' exercise.id %}">
-                    <img src="{% static 'images/icons/status-on.svg' %}"
-                        width="32"
-                        height="32"
-                        alt="{% trans 'Accept' %}">
-                    {% trans "Accept" %}
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="ym-g50 ym-gl">
-        <div class="ym-gbox-left">
-            <div class="alert alert-error">
-                <a href="{% url 'exercise-decline' exercise.id %}">
-                    <img src="{% static 'images/icons/status-off.svg' %}"
-                        width="32"
-                        height="32"
-                        alt="{% trans 'Decline' %}">
-                    {% trans "Decline" %}
-                </a>
-            </div>
-        </div>
-    </div>
+<div data-role="controlgroup">
+    <a href="{% url 'exercise-decline' exercise.id %}"
+       data-role="button">
+        <img src="{% static 'images/icons/status-off.svg' %}"
+            width="32"
+            height="32"
+            alt="{% trans 'Decline' %}">
+        {% trans "Decline" %}
+    </a>
+    <a href="{% url 'exercise-accept' exercise.id %}"
+       data-role="button">
+        <img src="{% static 'images/icons/status-on.svg' %}"
+            width="32"
+            height="32"
+            alt="{% trans 'Accept' %}">
+        {% trans "Accept" %}
+    </a>
 </div>
 {% endif %} {# end check permissions #}
 
