@@ -42,6 +42,33 @@
     function init_weight_datepicker()
     {
     }
+
+    /*
+     * Handle external links with a Web Activity when in Firefox OS
+     */
+    $(document).on('pageinit', function () {
+        if(typeof MozActivity != 'undefined') {
+            /*
+             * External links
+             */
+            $('a[href^=http]').click(function(e){
+                e.preventDefault();
+
+                var activity = new MozActivity({
+                    name: "view",
+                    data: {
+                      type: "url",
+                      url: $(this).attr("href")
+                    }
+                });
+            });
+        }
+        else {
+            console.debug('MozActivity not available, opening links as usual.');
+        }
+    });
+
+
     </script>
 
     {% block header %}{% endblock %}
@@ -97,7 +124,7 @@
 
     <div data-role="navbar">
         <ul>
-            <li {% if active_tab == 'user' %}class="active"{% endif %}>
+            <li>
             {% if not user.is_authenticated %}
                 <a href="{% url 'login' %}" data-ajax="false">{% trans "Login" %}</a>
             {% else %}
@@ -106,20 +133,20 @@
             </li>
 
             {% if user.is_authenticated %}
-            <li {% if active_tab == 'workout'   %}class="active"{% endif %}>
+            <li>
                 <a href="{% url 'wger.manager.views.workout.overview' %}">{% trans "Workouts" %}</a>
             </li>
-            <li class="dropdown {% if active_tab == 'nutrition' %}active{% endif %}">
+            <li>
                 <a href="{% url 'wger.nutrition.views.plan.overview' %}">{% trans "Nutrition" %}</a>
             </li>
             {% endif %}
 
             {% if not user.is_authenticated %}
-            <li class="dropdown {% if active_tab == 'software' %}active{% endif %}">
+            <li>
                 <a href="{% url 'software:features' %}">{% trans "Features" %}</a>
-           </li>
-           {% endif %}
-       </ul>
+            </li>
+            {% endif %}
+        </ul>
     </div>
 
 </div><!-- /page -->

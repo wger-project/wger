@@ -6,45 +6,6 @@
 {% block title %}{{schedule.name}}{% endblock %}
 
 {% block header %}
-<script type="text/javascript">
-function init_sortable()
-{
-    $("#schedule-table tbody").off();
-    $("#schedule-table tbody").sortable({
-        handle: '.dragndrop-handle',
-        revert: true,
-        update : function (event, ui) {
-            var schedule_id = ui.item.data('scheduleId');
-
-            // returns something in the form "step-1,step-2,step-3,"
-            var order = $( this ).sortable('toArray');
-
-            $.get('/' + get_current_language() + "/workout/schedule/api/" + schedule_id + "/edit" + "?do=set_order&order=" + order);
-            current_url = $("#current-url").data('currentUrl');
-
-            // TODO: again, why do we need to do this twice. Otherwise, sometimes
-            //       it doesn't get current data
-            $.get(current_url);
-            $.get(current_url, function(data) {
-                $('#schedule-table').html($(data).find('#schedule-table').html());
-                init_sortable();
-                form_modal_dialog();
-            });
-        }
-    })
-}
-
-// Initialise the datepicker for the modal dialog
-function custom_modal_init()
-{
-    init_schedule_datepicker();
-}
-
-$(function() {
-    init_sortable();
-    init_schedule_datepicker();
-});
-</script>
 {% endblock %}
 
 {% block content %}
