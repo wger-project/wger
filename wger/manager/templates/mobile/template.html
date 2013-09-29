@@ -27,11 +27,13 @@
     <title>{% block title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+
     <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-mobile.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-mobile.structure.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-common.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-mobile.css' %}">
-
+    <link rel="stylesheet" type="text/css" href="{% static 'css/persona-buttons.css' %}" />
 
     <script src="{% static 'js/jquery.js' %}"          type="text/javascript"></script>
     <script src="{% static 'js/jquery-ui.js' %}"       type="text/javascript"></script>
@@ -77,6 +79,7 @@
 
 <div data-role="page" id="page-{{request_full_path|slugify}}" data-url="{{request_full_path}}">
 
+    {% block scripts %}{% endblock %}
     {% if not user.is_authenticated or user.get_profile.is_temporary %}
         <div data-role="popup" data-overlay-theme="a" id="popupGuestUser" class="ui-content">
         <h3>{% trans "Info" %}</h3>
