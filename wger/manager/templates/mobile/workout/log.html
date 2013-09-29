@@ -6,15 +6,19 @@
 
 {% block title %}{% trans "Weight log for workout" %}{% endblock %}
 
-{% block header %}
+
+{% block header %}{% endblock %}
+
+
+{% block scripts %}
 <script type="text/javascript">
 $(document).on('pageinit', function(){
     // Init the data toggle for the weight log tables
     toggle_weight_log_table();
 });
-
 </script>
 {% endblock %}
+
 
 {% block content %}
 {% if workout.comment %}
@@ -52,14 +56,14 @@ $(document).on('pageinit', function(){
 -->
 
 
-    {% for exercise, date_list in exercise_log.items %}   
+    {% for exercise, date_list in exercise_log.items %}
     <ul data-role="listview"
         style="margin-top: 3em;">
         <li>
             <a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a>
         </li>
     </ul>
-    
+
         {% if date_list.log_by_date %}
             {% with list=date_list.log_by_date %}
                 {% render_weight_log list date_list.div_uuid %}
@@ -116,5 +120,4 @@ entry.{% endblocktrans %}</p>
 <p>{% blocktrans %}If on a single day there is more than one entry with the
 same number of repetitions, but different weights, only the entry with the
 higher weight is shown in the diagram.{% endblocktrans %}</p>
-
 {% endblock %}

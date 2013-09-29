@@ -965,3 +965,40 @@ function prefetch_images(imageArray)
     });
 }
 
+
+
+/*
+ * Highlight a muscle in the overview
+ */
+function highlight_muscle(element, perms_exercises)
+{
+    var div_id = $(element).data('target');
+    var is_front = ($(element).data('isFront') == 'True') ? 'front' : 'back';
+    var muscle_id = div_id.match(/\d+/);
+    var muscle_name = $(element).data('name');
+
+    // Reset all other highlighted muscles
+    $('.muscle').removeClass('muscle-active');
+    $('.muscle').addClass('muscle-inactive');
+
+    // Hightligh the current one
+    $(element).removeClass('muscle-inactive');
+    $(element).addClass('muscle-active');
+
+    if (perms_exercises)
+    {
+        $('#muscle-edit-box').show();
+        $('.muscle-edit-name').html(muscle_name);
+        $('#muscle-edit-edit-link').attr("href", "/exercise/muscle/" + muscle_id + "/edit/");
+        $('#muscle-delete-edit-link').attr("href", "/exercise/muscle/" + muscle_id + "/delete/");
+    }
+
+    // Set the corresponding background
+    $('#muscle-system').css('background-image',
+                            'url(/static/images/muscles/main/muscle-' + muscle_id + '.svg),'
+                          + 'url(/static/images/muscles/muscular_system_' + is_front + '.svg)');
+
+    // Show the corresponding exercises
+    $('.exercise-list').hide();
+    $('#' + div_id).show();
+}

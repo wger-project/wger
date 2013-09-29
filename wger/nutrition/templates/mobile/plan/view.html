@@ -26,6 +26,16 @@ $(document).ready(function() {
         useEnglishIngredients = 0;
         $('#english-ingredients-status').attr("src", "{% static 'images/icons/status-off.svg' %}");
     {% endif %}
+
+    /*
+     * At the moment (Oct. 2013), firefox OS has no possibility to download
+     * authenticated files, like these PDFs: when using web activities, we
+     * can only pass the PDF's URL to the reader but this will fail, since that
+     * application is not authenticated.
+     */
+    if(typeof MozActivity != 'undefined') {
+        $(".pdf-button").remove();
+    }
 });
 </script>
 {% endblock %}
@@ -279,8 +289,8 @@ $(document).ready(function() {
 
 <h3>{% trans "Options" %}</h3>
 <a href="{% url 'wger.nutrition.views.plan.export_pdf' plan.id %}"
-   target="_blank"
-   data-role="button">
+   class="pdf-button">
+   data-role="button"
     <img src="{% static 'images/icons/save.svg' %}"
          width="32"
          height="32"

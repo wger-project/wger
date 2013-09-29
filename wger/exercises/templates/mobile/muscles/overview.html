@@ -10,42 +10,14 @@
 {% block title %}{% trans "Muscle overview" %}{% endblock %}
 
 
-{% block header %}
+{% block header %}{% endblock %}
+
+
+{% block scripts %}
 <script>
+$( document ).off("pageinit").on("pageinit", function() {
+    console.log('Pageinit muscle list');
 
-function highlight_muscle(element)
-{
-    var div_id = $(element).data('target');
-    var is_front = ($(element).data('isFront') == 'True') ? 'front' : 'back';
-    var muscle_id = div_id.match(/\d+/);
-    var muscle_name = $(element).data('name');
-
-    // Reset all other highlighted muscles
-    $('.muscle').removeClass('muscle-active');
-    $('.muscle').addClass('muscle-inactive');
-
-    // Hightligh the current one
-    $(element).removeClass('muscle-inactive');
-    $(element).addClass('muscle-active');
-
-    {% if perms.exercises %}
-    $('#muscle-edit-box').show();
-    $('.muscle-edit-name').html(muscle_name);
-    $('#muscle-edit-edit-link').attr("href", "/exercise/muscle/" + muscle_id + "/edit/");
-    $('#muscle-delete-edit-link').attr("href", "/exercise/muscle/" + muscle_id + "/delete/");
-    {% endif %}
-
-    // Set the corresponding background
-    $('#muscle-system').css('background-image',
-                            'url(/static/images/muscles/main/muscle-' + muscle_id + '.svg),'
-                          + 'url(/static/images/muscles/muscular_system_' + is_front + '.svg)');
-
-    // Show the corresponding exercises
-    $('.exercise-list').hide();
-    $('#' + div_id).show();
-}
-
-$(document).on('pageinit', function(){
     //Prefetch the background images
     {% for muscle in muscle_list|first %}
         prefetch_images(['/static/images/muscles/main/muscle-' + {{muscle.id}} + '.svg']);
@@ -54,12 +26,12 @@ $(document).on('pageinit', function(){
 
 
     // Hightlight the first element
-    highlight_muscle($('.muscle').first());
+    highlight_muscle($('.muscle').first(), {%if perms.exercises%}true{%else%}false{%endif%});
 
     // Highlight on tap
     $('.muscle').on( "tap", function(e) {
         e.preventDefault();
-        highlight_muscle(this);
+        highlight_muscle(this, {%if perms.exercises%}true{%else%}false{%endif%});
     });
 });
 </script>

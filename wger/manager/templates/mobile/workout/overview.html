@@ -9,7 +9,7 @@
 <ul data-role="listview" data-inset="false">
     {% for workout in workouts %}
         <li>
-            <a href="{% url 'wger.manager.views.workout.view' workout.id %}">
+            <a href="{% url 'wger.manager.views.workout.view' workout.id %}" data-ajax="false">
                 <h3>{{ workout }}</h3>
                 <p>{{ workout.creation_date }}</p>
             </a>

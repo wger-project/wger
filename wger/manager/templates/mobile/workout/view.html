@@ -6,27 +6,40 @@
 {% block title %}{% trans "Workout" %} – {{ workout.creation_date }}{% endblock %}
 
 
-{% block header %}
+{% block header %}{% endblock %}
+
+
+{% block scripts %}
 <script>
-$(document).on('pageinit', function () {
-	// Allow the sets to be sortable
-	//setup_sortable();
-	
-	// Show/Hide the comments to the exercises
-	{% if user.userprofile.show_comments %}
-		showComment = 1;
+$( document ).off("pageinit").on("pageinit", function() {
+    console.log('Pageinit workout view');
+    /*
+     * Show/Hide the comments to the exercises
+     */
+    {% if user.userprofile.show_comments %}
+        showComment = 1;
         $(".exercise-comments").show();
     {% else %}
-    	showComment = 0;
+        showComment = 0;
         $(".exercise-comments").hide();
     {% endif %}
-	
-	toggle_comments();
- });
+        toggle_comments();
+
+    /*
+     * At the moment (Oct. 2013), firefox OS has no possibility to download
+     * authenticated files, like these PDFs: when using web activities, we
+     * can only pass the PDF's URL to the reader but this will fail, since that
+     * application is not authenticated.
+     */
+    if(typeof MozActivity != 'undefined') {
+        $(".pdf-button").remove();
+    }
+});
 </script>
 {% endblock %}
-{% block content %}
 
+
+{% block content %}
 {% if workout.comment %}
 <p>
     <span class="dimmed">{{workout.comment}}</span>
@@ -132,8 +145,7 @@ $(document).on('pageinit', function () {
 </a>
 
 <a href="{% url 'workout-log' workout.id %}"
-   data-role="button"
-   data-ajax="false">
+   data-role="button">
    <img src="{% static 'images/icons/statistics.svg' %}"
          width="32"
          height="32"

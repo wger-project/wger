@@ -12,12 +12,9 @@
 <p>
 <a href="{% url 'wger.manager.views.workout.view' current_workout.id %}"
    data-role="button"
-   data-mini="true">
-    {% if current_workout.comment %}
-        {{ current_workout.comment }}
-    {% else %}
-        {% trans "Workout" %}
-    {% endif %}
+   data-mini="true"
+   data-ajax="false">
+        {{ current_workout }}
 </a>
 </p>
  – {{ current_workout.creation_date }}
