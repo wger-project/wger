@@ -71,7 +71,6 @@ def create(request, day_pk):
         form_class = SetFormMobile
     else:
         form_class = SetForm
-    form_class = SetFormMobile
 
     context = {}
     formsets = []
