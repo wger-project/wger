@@ -136,6 +136,22 @@
         }
     },
     {
+        "pk": 35,
+        "model": "exercises.exercise",
+        "fields": {
+            "status": "5",
+            "category": 3,
+            "language": 1,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary":[],
+            "description": "",
+            "user": null,
+            "name": "Needed for demo user"
+        }
+    },
+    {
         "pk": 81,
         "model": "exercises.exercise",
         "fields": {
@@ -199,7 +215,22 @@
             "name": "Needed for demo user"
         }
     },
-
+    {
+        "pk": 126,
+        "model": "exercises.exercise",
+        "fields": {
+            "status": "5",
+            "category": 3,
+            "language": 2,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary":[],
+            "description": "",
+            "user": null,
+            "name": "Needed for demo user"
+        }
+    },
     {
         "pk": 1,
         "model": "exercises.exercisecomment",
