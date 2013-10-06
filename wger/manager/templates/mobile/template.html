@@ -40,39 +40,8 @@
     <script src="{% static 'js/jquery-mobile.js' %}"   type="text/javascript"></script>
     <script src="{% static 'js/d3.js' %}"></script>
     <script src="{% static 'js/workout-manager.js' %}" type="text/javascript"></script>
-    <script>
-    function init_weight_datepicker()
-    {
-    }
-
-    /*
-     * Handle external links with a Web Activity when in Firefox OS
-     */
-    $(document).on('pageinit', function () {
-        if(typeof MozActivity != 'undefined') {
-            /*
-             * External links
-             */
-            $('a[href^=http]').click(function(e){
-                e.preventDefault();
-
-                var activity = new MozActivity({
-                    name: "view",
-                    data: {
-                      type: "url",
-                      url: $(this).attr("href")
-                    }
-                });
-            });
-        }
-        else {
-            console.debug('MozActivity not available, opening links as usual.');
-        }
-    });
-
-
-    </script>
-
+    <script src="{% static 'js/workout-manager-mobile.js' %}" type="text/javascript"></script>
+    
     {% block header %}{% endblock %}
 </head>
 <body>
