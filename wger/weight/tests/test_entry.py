@@ -14,12 +14,8 @@
 
 import datetime
 
-from django.core.urlresolvers import reverse
-
 from wger.weight.models import WeightEntry
 
-from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import ApiBaseResourceTestCase
@@ -35,7 +31,8 @@ class AddWeightEntryTestCase(WorkoutManagerAddTestCase):
     pk = 8
     user_fail = False
     data = {'weight': 81.1,
-            'creation_date': datetime.date(2013, 2, 1)}
+            'creation_date': datetime.date(2013, 2, 1),
+            'user': 1}
 
 
 class EditWeightEntryTestCase(WorkoutManagerEditTestCase):
@@ -47,7 +44,8 @@ class EditWeightEntryTestCase(WorkoutManagerEditTestCase):
     url = 'weight-edit'
     pk = 1
     data = {'weight': 100,
-            'creation_date': datetime.date(2013, 2, 1)}
+            'creation_date': datetime.date(2013, 2, 1),
+            'user': 1}
     user_success = 'test'
     user_fail = 'admin'
 

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% trans "Your nutrition plans" %}{% endblock %}
+
+
+{% block content %}
+<ul data-role="listview" data-inset="false">
+    {% for plan in plans %}
+    <li>
+        <a href="{% url 'wger.nutrition.views.plan.view' plan.id %}">
+            <h3>{{plan}}</h3>
+            <p>{{ plan.creation_date }}</p>
+        </a>
+    </li>
+    {% empty %}
+    <li>
+        <a href="{% url 'wger.nutrition.views.plan.add' %}">
+        {% trans "No nutrition plans." %}<br> {% trans "Add one now." %}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+
+
+{% block sidebar%}
+<h3>{% trans "Options" %}</h3>
+<p>
+    <a href="{% url 'wger.nutrition.views.plan.add' %}" id="nutrition-create-new" data-role="button">
+    <img src="{% static 'images/icons/new.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Add nutrition plan' %}"
+         title="{% trans 'Add nutrition plan' %}">
+        {% trans "Add nutrition plan" %}</a>
+</p>
+
+<p>
+    <a href="{% url 'ingredient-list' %}" id="ingredient-overview" data-role="button">
+    <img src="{% static 'images/icons/list.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Ingredient overview' %}"
+         title="{% trans 'Ingredient overview' %}">
+    {% trans "Ingredient overview" %}
+    </a>
+</p>
+{% endblock %}

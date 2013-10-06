@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+
+{% block title %}{% trans "Preferences" %}{% endblock %}
+
+
+{% block content %}
+<form action="{% url 'preferences' %}"
+      method="post"
+      class="ym-form">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+<table>
+{% yaml_form_field form.show_comments %}
+{% yaml_form_field form.show_english_ingredients %}
+</table>
+
+
+<h3>{% trans "Email" %}</h3>
+
+{{ email_form.non_field_errors }}
+<table>
+{% yaml_form_field email_form.email %}
+    <tr>
+        <td colspan="2">
+            <a href="{% url 'index' %}"
+               data-role="button"
+               data-rel="back"
+               data-mini="true">{% trans "Cancel" %}</a>
+            <input type="submit" value="{% trans 'Save' %}">
+        </td>
+    </tr>
+</table>
+</form>
+
+
+{% endblock %}
+
+{% block sidebar %}
+<h3>{% trans "Options" %}</h3>
+<p>
+    <a href="{% url 'api-key' %}"
+       data-role="button">
+    <img src="{% static 'images/icons/internet.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'API key' %}"
+         title="{% trans 'API key' %}">
+    {% trans "API key" %}</a>
+</p>
+<p>
+    <a href="{% url 'change-password' %}"
+       data-role="button">
+    <img src="{% static 'images/icons/preferences.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Change password' %}"
+         title="{% trans 'Change password' %}">
+    {% trans "Change password" %}</a>
+</p>
+<p>
+    <a href="{% url 'logout' %}"
+       data-role="button">
+    <img src="{% static 'images/icons/logout.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Logout' %}"
+         title="{% trans 'Logout' %}">
+    {% trans "Logout" %}</a>
+</p>
+{% endblock %}

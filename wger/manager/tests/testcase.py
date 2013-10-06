@@ -19,6 +19,7 @@ import logging
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import NoReverseMatch
 from django.core.cache import cache
+import django_mobile
 
 from django.test import TestCase
 
@@ -52,7 +53,15 @@ class BaseTestCase(object):
         '''
         Overwrite some of Django's settings here
         '''
+
+        # Don't check reCaptcha's entries
         os.environ['RECAPTCHA_TESTING'] = 'True'
+
+        # Test the mobile templates
+        if os.environ.get('TEST_MOBILE') == 'True':
+            django_mobile.set_flavour('mobile')
+
+        # Set logging level
         logging.disable(logging.INFO)
 
     def tearDown(self):

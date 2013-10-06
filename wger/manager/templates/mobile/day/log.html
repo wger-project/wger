@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+
+{% block title %}{% trans "New weight log" %}  – {{day.description}}{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+<form action="{{form_action}}" method="POST" class="ym-form" style="overflow-x: auto;">
+{% csrf_token %}
+{{formset.management_form}}
+
+<table class="workout-log-table">
+{% yaml_form_field dateform.date %}
+</table>
+
+<h3>{% trans "Exercises" %}</h3>
+{% for key, value in exercises.items %}
+    <p>{{value.obj.name}}</p>
+
+    <table class="workout-log-table">
+    <tr>
+        {% for form in value.forms %}
+        <td class="narrow-input">
+            <div {% if form.weight.errors %}class="form-error"{% endif %}>
+            {{form.reps}}
+            </div>
+            <div {% if form.weight.errors %}class="form-error"{% endif %}>
+                 <span class="ym-message">{% trans "Reps" %}</span>
+             </div>
+        </td>
+        <td>
+            <div {% if form.weight.errors %}class="form-error"{% endif %}>
+            {{form.weight}}
+            </div>
+
+            <div {% if form.weight.errors %}class="form-error"{% endif %}>
+                 <span class="ym-message">kg.</span>
+             </div>
+        </td>
+        {% endfor %}
+    </tr>
+    </table>
+{% empty %}
+    <p>
+        {% trans "Add exercises to this training day before adding a log." %}
+        <a href="{% url 'workout-view' day.training.id %}">{% trans "Back to workout" %}</a>
+    </p>
+{% endfor %}
+</table>
+
+
+<p>
+        <a href="{% url 'index' %}"
+               data-role="button"
+               data-rel="back"
+               data-mini="true">{% trans "Cancel" %}</a>
+        <input type="submit" value="{% trans 'Save' %}" id="form-save">
+    </td>
+</p>
+</form>
+
+{% endblock %}
+
+
+{% block sidebar %}
+<h3>{% trans "Options" %}</h3>
+<p>
+<a href="{% url 'workout-view' day.training.id %}"
+   data-role="button">
+    <img src="{% static 'images/icons/list.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Back to workout' %}">
+    {% trans "Back to workout" %}
+</a>
+</p>
+{% endblock %}

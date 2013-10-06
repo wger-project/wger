@@ -131,13 +131,13 @@ $(document).ready(function() {
         <a href="{% url 'exercisecategory-edit' category.id %}"
            class="modal-dialog"
            id="current-category-edit">
-        	<img src="{% static 'images/icons/edit.svg' %}"
-                            width="32"
-                            height="32"
-                            alt="{% trans 'Edit category' %}"
-                            title="{% trans 'Edit category' %}">
-        	{% trans "Edit category" %}:
-        	<span class="current-category-name">{{category.name}}</span>
+            <img src="{% static 'images/icons/edit.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Edit category' %}"
+                 title="{% trans 'Edit category' %}">
+                {% trans "Edit category" %}:
+                <span class="current-category-name">{{category.name}}</span>
         </a>
         </p>
         {% endwith %}
@@ -146,13 +146,13 @@ $(document).ready(function() {
         <a href="{% url 'exercisecategory-delete' category.id %}"
            class="modal-dialog"
            id="current-category-delete">
-        	<img src="{% static 'images/icons/trash.svg' %}"
-                            width="32"
-                            height="32"
-                            alt="{% trans 'Delete category' %}"
-                            title="{% trans 'Delete category' %}">
-        {% trans "Delete category" %}:
-        <span class="current-category-name">{{category.name}}</span>
+            <img src="{% static 'images/icons/trash.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Delete category' %}"
+                 title="{% trans 'Delete category' %}">
+                {% trans "Delete category" %}:
+                <span class="current-category-name">{{category.name}}</span>
         </a>
         {% endwith %}
         </p>
@@ -161,11 +161,11 @@ $(document).ready(function() {
         <p>
         <a href="{% url 'exercisecategory-add' %}"
            class="modal-dialog">
-        	<img src="{% static 'images/icons/folder-new.svg' %}"
-                     width="32"
-                     height="32"
-                     alt="{% trans 'Add category' %}"
-                     title="{% trans 'Add category' %}">
+            <img src="{% static 'images/icons/folder-new.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Add category' %}"
+                 title="{% trans 'Add category' %}">
          {% trans "Add category" %}
         </a>
     </p>

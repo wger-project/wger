@@ -1,0 +1,2732 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Inna08 <inna@geider.net>, 2013
+# Inna08 <inna@geider.net>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: wger Workout Manager\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-06-29 16:57+0200\n"
+"PO-Revision-Date: 2013-09-26 09:05+0000\n"
+"Last-Translator: Inna08 <inna@geider.net>\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/wger-workout-manager/language/ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: settings_global.py:37 manager/templates/template.html:108
+#: manager/templates/template.html:109 manager/templates/template.html:110
+msgid "English"
+msgstr "Английский"
+
+#: settings_global.py:38 manager/templates/template.html:100
+#: manager/templates/template.html:101 manager/templates/template.html:102
+msgid "German"
+msgstr "Немецкий"
+
+#: config/models.py:40 exercises/templates/overview.html:10
+#: exercises/templates/muscles/overview.html:125 manager/models.py:316
+#: manager/models.py:349 manager/templates/navigation.html:41
+#: manager/templates/navigation.html:43 manager/templates/day/log.html:40
+msgid "Exercises"
+msgstr "Упражнения"
+
+#: config/models.py:41
+msgid "Ingredients"
+msgstr ""
+
+#: config/models.py:45 exercises/models.py:174 nutrition/models.py:56
+#: nutrition/models.py:144 nutrition/models.py:322
+msgid "Language"
+msgstr "Язык"
+
+#: config/models.py:49
+msgid "Language to configure"
+msgstr ""
+
+#: config/templates/language/overview.html:7
+#: manager/templates/navigation.html:110
+msgid "Languages"
+msgstr ""
+
+#: config/templates/language/overview.html:14
+#: config/templates/language/view.html:14 exercises/models.py:36
+msgid "Language short name"
+msgstr "Короткое обозночение языка"
+
+#: config/templates/language/overview.html:15
+#: config/templates/language/view.html:15
+#: config/templates/language/view.html:37 exercises/models.py:40
+msgid "Language full name"
+msgstr "Полное обозночение языка"
+
+#: config/templates/language/overview.html:33
+#: config/templates/language/view.html:73
+#: exercises/templates/overview.html:128 exercises/templates/view.html:243
+#: exercises/templates/muscles/overview.html:146
+#: manager/templates/index.html:137 manager/templates/navigation.html:125
+#: manager/templates/day/log.html:98 manager/templates/schedule/view.html:147
+#: manager/templates/user/preferences.html:39
+#: manager/templates/workout/log.html:78
+#: manager/templates/workout/overview.html:46
+#: manager/templates/workout/view.html:116
+#: nutrition/templates/ingredient/view.html:237
+#: nutrition/templates/plan/overview.html:50
+#: nutrition/templates/plan/view.html:228
+#: nutrition/templates/units/list.html:59
+#: weight/templates/weight_overview.html:111
+msgid "Options"
+msgstr "Опции"
+
+#: config/templates/language/overview.html:39
+#: config/templates/language/overview.html:41
+#: exercises/templates/view.html:119 nutrition/templates/plan/view.html:76
+msgid "Add"
+msgstr "Добавить"
+
+#: config/templates/language/overview.html:44
+msgid ""
+"After adding a new language here you need to add it to\n"
+"the global_settings.py file and make sure there is a corresponding flag icon\n"
+"in static/images/icons."
+msgstr ""
+
+#: config/templates/language/view.html:27
+msgid "Configuration"
+msgstr ""
+
+#: config/templates/language/view.html:28
+msgid ""
+"Use the configuration to select in what languages the\n"
+"exercises and ingredients will be shown for the current language (for example\n"
+"the exercises should be shown in languages A, B and C; the ingredients only\n"
+"in A)."
+msgstr ""
+
+#: config/templates/language/view.html:36
+msgid "Item"
+msgstr ""
+
+#: config/templates/language/view.html:38
+msgid "Show"
+msgstr ""
+
+#: config/templates/language/view.html:81
+#: config/templates/language/view.html:83 config/views/language_config.py:48
+#: config/views/languages.py:95 exercises/templates/overview.html:81
+#: exercises/templates/overview.html:85 exercises/templates/view.html:100
+#: exercises/templates/view.html.py:105 exercises/templates/view.html:249
+#: exercises/templates/view.html.py:250
+#: manager/templates/schedule/view.html:78
+#: manager/templates/schedule/view.html:83
+#: manager/templates/tags/render_day.html:40
+#: manager/templates/tags/render_day.html:45
+#: manager/templates/tags/render_day.html:71
+#: manager/templates/tags/render_day.html:76
+#: nutrition/templates/ingredient/view.html:290
+#: nutrition/templates/ingredient/view.html:295
+#: nutrition/templates/ingredient/view.html:296
+#: nutrition/templates/plan/view.html:67
+#: nutrition/templates/plan/view.html:106
+#: nutrition/templates/plan/view.html:111
+#: nutrition/templates/units/list.html:36
+#: nutrition/templates/units/list.html:37
+msgid "Edit"
+msgstr "Редактировать"
+
+#: config/templates/language/view.html:93
+#: config/templates/language/view.html:95 exercises/templates/view.html:93
+#: exercises/templates/view.html.py:97 exercises/templates/view.html:259
+#: exercises/templates/view.html.py:260 manager/templates/delete.html:26
+#: manager/templates/schedule/view.html:86
+#: manager/templates/schedule/view.html:91
+#: manager/templates/tags/render_day.html:33
+#: manager/templates/tags/render_day.html:37
+#: manager/templates/tags/render_day.html:79
+#: manager/templates/tags/render_day.html:83
+#: nutrition/templates/ingredient/view.html:299
+#: nutrition/templates/ingredient/view.html:304
+#: nutrition/templates/ingredient/view.html:305
+#: nutrition/templates/plan/view.html:59 nutrition/templates/plan/view.html:98
+#: nutrition/templates/plan/view.html:103
+#: nutrition/templates/units/list.html:28
+#: nutrition/templates/units/list.html:29
+msgid "Delete"
+msgstr "Удалить"
+
+#: config/views/languages.py:64
+msgid "Add new language"
+msgstr ""
+
+#: config/views/languages.py:76
+msgid "Language successfully deleted"
+msgstr ""
+
+#: config/views/languages.py:83
+msgid "Delete {0}?"
+msgstr ""
+
+#: exercises/models.py:68 exercises/models.py:95 exercises/models.py:145
+#: exercises/templates/exercise/pending.html:16 manager/models.py:138
+#: nutrition/models.py:167 nutrition/models.py:325
+#: nutrition/templates/ingredient/pending.html:16
+#: nutrition/templates/ingredient/view.html:280
+#: nutrition/templates/units/list.html:16
+msgid "Name"
+msgstr "Имя"
+
+#: exercises/models.py:99
+msgid "Exercise Categories"
+msgstr "Категории упражнений"
+
+#: exercises/models.py:127 nutrition/models.py:132
+msgid "Pending"
+msgstr "В ожидании"
+
+#: exercises/models.py:128 nutrition/models.py:133
+msgid "Accepted"
+msgstr "Принятый"
+
+#: exercises/models.py:129 nutrition/models.py:134
+msgid "Declined"
+msgstr "Непринятый"
+
+#: exercises/models.py:130 nutrition/models.py:135
+msgid "Submitted by administrator"
+msgstr "Представленный администратором"
+
+#: exercises/models.py:131
+msgid "System exercise"
+msgstr "Системное упражнение"
+
+#: exercises/models.py:139 exercises/templates/view.html:78
+msgid "Category"
+msgstr "Категория"
+
+#: exercises/models.py:141 manager/models.py:49 manager/models.py:281
+#: manager/templates/schedule/overview.html:24
+#: manager/templates/workout/overview.html:14 nutrition/models.py:61
+#: nutrition/templates/plan/overview.html:14
+msgid "Description"
+msgstr "Описание"
+
+#: exercises/models.py:148
+msgid "Primary muscles"
+msgstr "Основные мышцы"
+
+#: exercises/models.py:153 exercises/templates/view.html:147
+msgid "Secondary muscles"
+msgstr "Второстепенные мышцы"
+
+#: exercises/models.py:161 exercises/templates/exercise/pending.html:17
+#: manager/models.py:54 manager/models.py:130 manager/models.py:377
+#: nutrition/models.py:53 nutrition/models.py:148
+#: nutrition/templates/ingredient/pending.html:17 weight/models.py:31
+msgid "User"
+msgstr "Пользователь"
+
+#: exercises/models.py:170 manager/models.py:388 manager/pdf.py:123
+#: manager/templates/schedule/overview.html:25
+#: manager/templates/workout/overview.html:15 nutrition/models.py:160
+#: nutrition/models.py:161 nutrition/templates/plan/overview.html:15
+#: weight/models.py:28 weight/views.py:117
+#: weight/templates/import_csv_preview.html:14
+#: weight/templates/import_csv_preview.html:43
+msgid "Date"
+msgstr "Дата"
+
+#: exercises/models.py:202 exercises/views/exercises.py:264
+msgid "Exercise was sucessfully added to the general database"
+msgstr "Упражнение добавлено в общую базу данных"
+
+#: exercises/models.py:203
+msgid ""
+"Your exercise '{0}' was successfully added to the generaldatabase.\n"
+"\n"
+"It is now available on the exercise and muscle overview and can be\n"
+"added to workouts. You can access it on this address:\n"
+"{1}\n"
+"\n"
+msgstr "Ваше упражнение '{0}' было удачно добавлено в общую базу данных.\n\nОно сейчас находится в обзоре упражнений и мышц и может быть добавлено к тренировкам. В сможете найти его следуя этой ссылке:\n{1}\n\n"
+
+#: exercises/models.py:208 nutrition/models.py:279
+msgid ""
+"Thank you for contributing and making this site better!\n"
+"   the wger.de team"
+msgstr "Спасибо за содействие и улучшение этой странички!\nКоманда wger.de"
+
+#: exercises/models.py:228 manager/models.py:379 manager/pdf.py:124
+msgid "Exercise"
+msgstr "Упражнение"
+
+#: exercises/models.py:231 manager/models.py:352
+msgid "Comment"
+msgstr "Комментарий"
+
+#: exercises/models.py:232
+msgid "A comment about how to correctly do this exercise."
+msgstr "Коментарий о том, как правильно выполнять это упражнение."
+
+#: exercises/templates/exercise_search.html:8
+#: nutrition/templates/ingredient/search.html:8
+#: nutrition/templates/ingredient/search.html:16
+msgid "Search results"
+msgstr "Результаты поиска"
+
+#: exercises/templates/overview.html:64
+msgid "No categories."
+msgstr "Категорий нет."
+
+#: exercises/templates/overview.html:64
+msgid "Use link to create one"
+msgstr "Воспользуйтесь ссылкой для ее создания"
+
+#: exercises/templates/overview.html:95
+msgid ""
+"No exercises in this category. Add or edit an exercise and set its category"
+msgstr "В этой категории упражнений нет. Добавьте или измените упражнение и устанавите его категорию"
+
+#: exercises/templates/overview.html:114 exercises/templates/overview.html:120
+#: exercises/templates/overview.html:121 exercises/templates/overview.html:122
+msgid "Add new exercise"
+msgstr "Добавить новое упражнение"
+
+#: exercises/templates/overview.html:138 exercises/templates/overview.html:139
+#: exercises/templates/overview.html:140
+msgid "Edit category"
+msgstr "Редактировать категорию"
+
+#: exercises/templates/overview.html:153 exercises/templates/overview.html:154
+#: exercises/templates/overview.html:155
+msgid "Delete category"
+msgstr "Удалить категорию"
+
+#: exercises/templates/overview.html:168 exercises/templates/overview.html:169
+#: exercises/templates/overview.html:170 exercises/views/categories.py:49
+msgid "Add category"
+msgstr "Добавить категорию"
+
+#: exercises/templates/overview.html:175
+#: nutrition/templates/ingredient/overview.html:57
+msgid "Search"
+msgstr "Поиск"
+
+#: exercises/templates/overview.html:186
+msgid "exercise name"
+msgstr "название упражнения"
+
+#: exercises/templates/view.html:35
+msgid "Exercise is pending review"
+msgstr "Упражнение находится в ожидании рассмотрения"
+
+#: exercises/templates/view.html:36
+msgid ""
+"This user submitted exercise is pending a decision to be\n"
+"included in the database."
+msgstr "Это упражнение, которое было представлено пользователем, находится в ожидании решения относительно его добавления в базу данных."
+
+#: exercises/templates/view.html:38
+msgid "Till then, it will not be shown in the overview or the search."
+msgstr "До этого времени его не будет показано ни в обзоре, ни в поиске."
+
+#: exercises/templates/view.html:39
+#: nutrition/templates/ingredient/view.html:65
+msgid "Please select one of the options below."
+msgstr "Пожалуйста, выберите одну из опций ниже."
+
+#: exercises/templates/view.html:51 exercises/templates/view.html.py:52
+#: nutrition/templates/ingredient/view.html:77
+#: nutrition/templates/ingredient/view.html:78
+msgid "Accept"
+msgstr "Принять"
+
+#: exercises/templates/view.html:64 exercises/templates/view.html.py:65
+#: nutrition/templates/ingredient/view.html:90
+#: nutrition/templates/ingredient/view.html:91
+msgid "Decline"
+msgstr "Отклонить"
+
+#: exercises/templates/view.html:84
+msgid "Comments for this exercise"
+msgstr "Комментарии к этому упражнению"
+
+#: exercises/templates/view.html:124 exercises/templates/view.html.py:125
+msgid "Add new comment"
+msgstr "Добавить новый комментарий"
+
+#: exercises/templates/view.html:134
+#: exercises/templates/muscles/overview.html:70
+msgid "Muscles"
+msgstr "Мышцы"
+
+#: exercises/templates/view.html:136
+msgid "The diagram shows the most used muscles on this exercise"
+msgstr " \t\nДиаграмма показывает самые используемые мышцы в этом упражнении "
+
+#: exercises/templates/view.html:142
+msgid "Main muscles"
+msgstr "Основные мышцы"
+
+#: exercises/templates/view.html:198 software/templates/functions.html:52
+msgid "Weight log"
+msgstr "Регистрация веса"
+
+#: exercises/templates/view.html:219 exercises/templates/view.html.py:225
+msgid "Back to overview"
+msgstr "Назад к обзору"
+
+#: exercises/templates/view.html:227
+msgid "Back to exercise overview"
+msgstr "Назад к обзору упражнений"
+
+#: exercises/templates/view.html:234
+msgid "User submitted exercise"
+msgstr "Упражнение представленное пользователем"
+
+#: exercises/templates/view.html:236
+#: nutrition/templates/ingredient/view.html:230
+#, python-format
+msgid "This exercise was submitted by <strong>%(username)s</strong>."
+msgstr "Это упражнение представил(а) <strong>%(username)s</strong>."
+
+#: exercises/templates/exercise/form.html:4
+msgid "Submitting an exercise"
+msgstr "Представление упражнения"
+
+#: exercises/templates/exercise/form.html:5
+msgid ""
+"Thank you for submitting an exercise. This is much\n"
+"appreciated!"
+msgstr "Спасибо за представленное упражнение. Мы Вам очень признательны!"
+
+#: exercises/templates/exercise/form.html:8
+#: nutrition/templates/ingredient/form.html:8
+msgid ""
+"After you submit the form, the administrators will be notified.\n"
+"Once it is reviewed, it will be added to the database. Till this happens,\n"
+"it will not be visible in the overview or the search. In case you added your email\n"
+"when you registered, you will get notified when the process is completed sucessfully."
+msgstr "Администраторы будут уведомлены о представленной Вами форме.\nПосле рассмотрения, она будет добавлена в базу данных. До этого времени ее не будет видно ни в обзоре, ни в поиске. Если Вы указали Ваш электронный адрес при регистрации, Вы будете уведомлены о удачном завершении процесса."
+
+#: exercises/templates/exercise/pending.html:7
+msgid "Pending exercises"
+msgstr "Упражнения, находящиеся в ожидании"
+
+#: exercises/templates/exercise/pending.html:15
+#: nutrition/templates/ingredient/pending.html:15
+msgid "Submission date"
+msgstr "Дата представления"
+
+#: exercises/templates/exercise/pending.html:31
+msgid "No pending exercises at the moment"
+msgstr "В данный момент нет ожидающих упражнений"
+
+#: exercises/templates/muscles/overview.html:9
+#: manager/templates/navigation.html:44 software/templates/functions.html:61
+msgid "Muscle overview"
+msgstr "Обзор мыщц"
+
+#: exercises/templates/muscles/overview.html:65
+msgid "Hover with the mouse over the muscles to show corresponding exercises."
+msgstr "Наведите мышь на мышцы для показа соответсвующих упражнений."
+
+#: exercises/templates/muscles/overview.html:83
+msgid "Front side"
+msgstr ""
+
+#: exercises/templates/muscles/overview.html:85
+msgid "Back side"
+msgstr ""
+
+#: exercises/templates/muscles/overview.html:103
+#: exercises/templates/muscles/overview.html:104 exercises/views/muscles.py:63
+msgid "Edit muscle"
+msgstr "Редактировать мыщцу"
+
+#: exercises/templates/muscles/overview.html:111
+#: exercises/templates/muscles/overview.html:112
+msgid "Delete muscle"
+msgstr "Удалить мышцу"
+
+#: exercises/templates/muscles/overview.html:135
+msgid "No exercises that mainly train this muscle"
+msgstr "Упражнений, которые в основном тренируют эту мышцу, нет."
+
+#: exercises/templates/muscles/overview.html:150
+#: exercises/templates/muscles/overview.html:155
+#: exercises/templates/muscles/overview.html:156
+#: exercises/templates/muscles/overview.html:157 exercises/views/muscles.py:53
+msgid "Add muscle"
+msgstr "Добавить мышцу"
+
+#: exercises/templates/muscles/overview.html:161
+msgid ""
+"<strong>Important:</strong> After adding a muscle, you need\n"
+"to create a new SVG image with the contours of the muscle and place it in the\n"
+"folder <em>images/muscles</em>."
+msgstr "<strong>Внимание:</strong> После добавления мышцы, необходимо создать новую SVG картинку с контурами этой мышцы и разместить ее в папку <em>images/muscles</em>."
+
+#: exercises/views/categories.py:51
+msgid "Category was successfully created"
+msgstr "Категория была удачно создана"
+
+#: exercises/views/categories.py:66
+msgid "Category successfully edited"
+msgstr "Категория удачно отредактирована"
+
+#: exercises/views/categories.py:72 exercises/views/exercises.py:177
+#: exercises/views/muscles.py:72
+#, python-format
+msgid "Edit %s"
+msgstr "Редактировать %s"
+
+#: exercises/views/categories.py:89
+msgid "This will also delete all exercises in this category."
+msgstr "Это также удалит все упражнения в этой категории."
+
+#: exercises/views/categories.py:90
+msgid "Category successfully deleted"
+msgstr "Категория удалена"
+
+#: exercises/views/categories.py:96
+#, python-format
+msgid "Delete category %s?"
+msgstr "Удалить категорию %s?"
+
+#: exercises/views/comments.py:65
+msgid "Edit exercise comment"
+msgstr "Редактировать комментарий к упражнению"
+
+#: exercises/views/comments.py:86
+msgid "Add exercise comment"
+msgstr "Добавить комментарий к упражнению"
+
+#: exercises/views/exercises.py:125 manager/pdf.py:124
+#: manager/templates/day/log.html:54
+#: manager/templates/tags/render_weight_log.html:24 manager/views/log.py:212
+msgid "Reps"
+msgstr "Повторении"
+
+#: exercises/views/exercises.py:147 software/templates/contribute.html:75
+msgid "Add exercise"
+msgstr "Добавить упражнение"
+
+#: exercises/views/exercises.py:200
+msgid "New user submitted exercise"
+msgstr "Новый пользователь добавил упражнение"
+
+#: exercises/views/exercises.py:201
+msgid "The user {0} submitted a new exercise \"{1}\"."
+msgstr "Пользователь {0} представил новое упражнение \"{1}\"."
+
+#: exercises/views/exercises.py:226
+msgid "This will delete the exercise from all workouts."
+msgstr "Это удалит упражнение из всех тренировок."
+
+#: exercises/views/exercises.py:227
+msgid "Exercise successfully deleted"
+msgstr "Упражнение удалено"
+
+#: exercises/views/exercises.py:233
+#, python-format
+msgid "Delete exercise %s?"
+msgstr "Удалить упражнение %s?"
+
+#: exercises/views/exercises.py:277
+msgid "Exercise was sucessfully marked as rejected"
+msgstr "Упражнение было отмечено как отвергнутое."
+
+#: exercises/views/muscles.py:89
+#, python-format
+msgid "Delete muscle %s?"
+msgstr "Удалить мышцу %s?"
+
+#: manager/demo.py:77
+msgid "Sample workout"
+msgstr "Пример тренировки"
+
+#: manager/demo.py:81
+msgid "Sample day"
+msgstr "Пример дня"
+
+#: manager/demo.py:85
+msgid "Another sample day"
+msgstr "Другой пример дня"
+
+#: manager/demo.py:192
+msgid "Sample nutrional plan"
+msgstr "Пример плана питания"
+
+#: manager/demo.py:324 manager/demo.py:326 manager/demo.py:328
+msgid "Placeholder workout nr {0} for schedule"
+msgstr "«Заполнитель» тренировки № {0} для программы"
+
+#: manager/demo.py:333
+msgid "My cool workout schedule"
+msgstr "Моя прикольная программа тренировки"
+
+#: manager/demo.py:372 manager/demo.py:387
+msgid "Empty placeholder schedule"
+msgstr "Пустая программа-«заполнитель»"
+
+#: manager/forms.py:54 manager/templates/user/preferences.html:22
+msgid "Email"
+msgstr "Электронный адрес"
+
+#: manager/forms.py:55
+msgid "Only needed to reset your password in case you forget it."
+msgstr "Просто надо заново установить пароль в случае того, если Вы его забыли."
+
+#: manager/forms.py:67
+msgid "This email is already used."
+msgstr "Этот электронный адрес уже используется."
+
+#: manager/forms.py:72 manager/forms.py:78 manager/forms.py:110
+msgid "Confirmation text"
+msgstr "Текст подтверждения"
+
+#: manager/forms.py:73 manager/forms.py:79 manager/forms.py:111
+msgid "As a security measure, please enter the previous words"
+msgstr "В мерах безопасности, пожалуйста введите предыдущие слова "
+
+#: manager/forms.py:90
+msgid "The goal or description of the new workout."
+msgstr "Цель или описание новой тренировки."
+
+#: manager/forms.py:101
+msgid "What do you want to say?"
+msgstr "Что Вы имеете в виду?"
+
+#: manager/forms.py:131
+msgid ""
+"You can search for more than one exercise, they will be grouped together for"
+" a superset."
+msgstr "Вы можете искать больше одного упражнения, они будут сгруппированы в расширенном наборе."
+
+#: manager/models.py:48 nutrition/models.py:58
+msgid "Creation date"
+msgstr "Дата создания"
+
+#: manager/models.py:52
+msgid ""
+"A short description or goal of the workout. For example 'Focus on back' or "
+"'Week 1 of program xy'."
+msgstr "Короткое описание или цель тренировки. Например 'Сосредоточьтесь на спине' или 'Неделя 1 программы xy'."
+
+#: manager/models.py:69 manager/models.py:381 manager/pdf.py:58
+#: manager/pdf.py:68 manager/templates/index.html:13
+#: manager/templates/index.html.py:20 manager/templates/schedule/view.html:57
+#: manager/templates/workout/view.html:7 nutrition/views/plan.py:190
+msgid "Workout"
+msgstr "Тренировка"
+
+#: manager/models.py:140
+msgid "Name or short description of the schedule. For example 'Program XYZ'."
+msgstr "Название или короткое описание программы. Например 'Программа XYZ'."
+
+#: manager/models.py:144
+msgid "Start date"
+msgstr "Дата начала"
+
+#: manager/models.py:148
+msgid "Schedule active"
+msgstr "Программа активна"
+
+#: manager/models.py:150
+msgid ""
+"Tick the box if you want to mark this schedule as your active one (will be "
+"shown e.g. on your dashboard). All other schedules will then be marked as "
+"inactive"
+msgstr "Поставьте галочку в поле, если Вы хотите пометить эту программу как активную (будет показана например на Вашей панели инструментов). Все остальные программы будут помечены как неактивные."
+
+#: manager/models.py:156
+msgid "Is loop"
+msgstr "Is цикл"
+
+#: manager/models.py:158
+msgid ""
+"Tick the box if you want to repeat the schedules in a loop (i.e. A, B, C, A,"
+" B, C, and so on)"
+msgstr "Поставьте галочку в поле, если Вы хотите повторить программы в цикле (например A, B, C, A, B, C, и.т.д)"
+
+#: manager/models.py:218
+msgid "schedule"
+msgstr "программа"
+
+#: manager/models.py:226
+msgid "Duration"
+msgstr "Продолжительность"
+
+#: manager/models.py:227
+msgid "The duration in weeks"
+msgstr "Длительность в неделях"
+
+#: manager/models.py:231 manager/models.py:320 manager/models.py:351
+#: nutrition/models.py:389 nutrition/models.py:452
+msgid "Order"
+msgstr "Порядок"
+
+#: manager/models.py:263
+msgid "Day of the week"
+msgstr "День недели"
+
+#: manager/models.py:278
+msgid "Training"
+msgstr "Тренировка"
+
+#: manager/models.py:282
+msgid ""
+"Ususally a description about what parts are trained, like \"Arms\" or \"Pull"
+" Day\""
+msgstr "Обычно описание тренируемых частей тела, как \"Руки\" или \"\""
+
+#: manager/models.py:285
+msgid "Day"
+msgstr "День"
+
+#: manager/models.py:314
+msgid "Exercise day"
+msgstr "День упражнений"
+
+#: manager/models.py:323
+msgid "Number of sets"
+msgstr "Количество подходов"
+
+#: manager/models.py:348
+msgid "Sets"
+msgstr "Подходы"
+
+#: manager/models.py:350 manager/models.py:384
+msgid "Repetitions"
+msgstr "Повторении"
+
+#: manager/models.py:387 manager/pdf.py:124
+#: manager/templates/navigation.html:62 weight/models.py:29
+#: weight/views.py:117 weight/templates/import_csv_preview.html:15
+#: weight/templates/import_csv_preview.html:44
+msgid "Weight"
+msgstr "Вес"
+
+#: manager/models.py:473
+msgid "Show exercise comments"
+msgstr "Показать комментарии к упражнению"
+
+#: manager/models.py:474
+msgid "Check to show exercise comments on the workout view"
+msgstr "Поставьте галочку, для показа комментариев к упражнению в обзоре тренировки"
+
+#: manager/models.py:480
+msgid "Also use ingredients in English"
+msgstr "Компоненты также на английском языке"
+
+#: manager/models.py:481
+msgid ""
+"Check to also show ingredients in English while creating\n"
+"a nutritional plan. These ingredients are extracted from a list provided\n"
+"by the US Department of Agriculture. It is extremely complete, with around\n"
+"7000 entries, but can be somewhat overwhelming and make the search difficult."
+msgstr "Поставьте галочку, для того что-бы показать компоненты также на английском языке при создании программы питания. Названия этих ингредиентов взяты из списка установленном Департаментом Сельского Хозяйства США. Список довольно обширный (около 7000 записей), что может усложнить поиск."
+
+#: manager/pdf.py:70
+#, python-format
+msgid "Workout for %s"
+msgstr "Тренировка для %s"
+
+#: manager/pdf.py:124 manager/templates/schedule/view.html:55
+#: nutrition/templates/plan/view.html:54
+msgid "Nr."
+msgstr "№"
+
+#: manager/pdf.py:259
+msgid "<i>This is an empty workout, what did you expect on the PDF?</i>"
+msgstr "<i>Это пустая тренировка, что Вы ожидали в PDF?</i>"
+
+#: manager/pdf.py:293 nutrition/views/plan.py:296
+#, python-format
+msgid "Created on the <b>%s</b>"
+msgstr "Созданный в <b>%s</b>"
+
+#: manager/templates/403.html:5
+msgid "Forbidden!"
+msgstr "Запрещено!"
+
+#: manager/templates/403.html:8
+msgid "Something happened that is not allowed."
+msgstr "Произошли недопустимые действия."
+
+#: manager/templates/404.html:5
+msgid "Page not found"
+msgstr "Страницу не найдено"
+
+#: manager/templates/404.html:8
+msgid "The page you requested does not exist."
+msgstr "Страница, на которую Вы подали запрос, не существует."
+
+#: manager/templates/500.html:5
+msgid "An error occured"
+msgstr "Произошла ошибка"
+
+#: manager/templates/500.html:8
+msgid "Something happened that caused an error."
+msgstr "Произошли действия, которые вызвали ошибку."
+
+#: manager/templates/delete.html:23 manager/templates/delete.html.py:24
+msgid "Are you sure you want to delete this? This action cannot be undone."
+msgstr "Вы уверены что хотите это удалить? Это действие необратимо."
+
+#: manager/templates/index.html:6 manager/templates/navigation.html:17
+msgid "Dashboard"
+msgstr "Панель управления"
+
+#: manager/templates/index.html:41
+msgid "This workout is part of a schedule:"
+msgstr "Эта тренировка - часть программы:"
+
+#: manager/templates/index.html:49 manager/templates/schedule/view.html:109
+#: manager/templates/workout/overview.html:36
+msgid "No workouts found."
+msgstr "Тренировок не найдено."
+
+#: manager/templates/index.html:49 manager/templates/index.html.py:91
+#: manager/templates/schedule/overview.html:47
+#: manager/templates/schedule/view.html:109
+#: manager/templates/tags/render_day.html:149
+#: manager/templates/workout/overview.html:36
+#: nutrition/templates/ingredient/overview.html:44
+#: nutrition/templates/plan/overview.html:40
+#: nutrition/templates/plan/view.html:120
+#: nutrition/templates/plan/view.html:132
+msgid "Add one now."
+msgstr "Добавить одну сейчас."
+
+#: manager/templates/index.html:59 manager/templates/index.html.py:67
+#: nutrition/models.py:387 nutrition/models.py:443
+#: nutrition/templates/plan/overview.html:26
+#: nutrition/templates/plan/view.html:6 software/templates/functions.html:77
+msgid "Nutrition plan"
+msgstr "Программа питания"
+
+#: manager/templates/index.html:75 nutrition/models.py:169
+#: nutrition/templates/ingredient/view.html:142
+#: nutrition/templates/plan/view.html:180
+msgid "Energy"
+msgstr "Энергия"
+
+#: manager/templates/index.html:78 nutrition/models.py:174
+#: nutrition/templates/ingredient/view.html:148
+#: nutrition/templates/plan/view.html:184
+msgid "Protein"
+msgstr "Протеин"
+
+#: manager/templates/index.html:81 nutrition/models.py:179
+#: nutrition/templates/ingredient/view.html:154
+#: nutrition/templates/plan/view.html:188
+msgid "Carbohydrates"
+msgstr "Углеводы"
+
+#: manager/templates/index.html:84 nutrition/models.py:191
+#: nutrition/templates/ingredient/view.html:170
+#: nutrition/templates/plan/view.html:196
+msgid "Fat"
+msgstr "Жиры"
+
+#: manager/templates/index.html:91 nutrition/templates/plan/overview.html:40
+msgid "No nutrition plans."
+msgstr "Программ питания нет."
+
+#: manager/templates/index.html:97
+msgid "Your current weight is: "
+msgstr "Ваш вес на данный момент:"
+
+#: manager/templates/index.html:112 manager/templates/index.html.py:113
+#: manager/templates/index.html:114 manager/templates/schedule/view.html:133
+#: manager/templates/schedule/view.html:134
+#: manager/templates/schedule/view.html:135
+#: manager/templates/workout/overview.html:52
+#: manager/templates/workout/overview.html:53
+#: manager/templates/workout/overview.html:54
+#: manager/views/schedule_step.py:59
+msgid "Add workout"
+msgstr "Добавить тренировку"
+
+#: manager/templates/index.html:125 manager/templates/index.html.py:126
+#: manager/templates/index.html:127 nutrition/templates/plan/overview.html:56
+#: nutrition/templates/plan/overview.html:57
+#: nutrition/templates/plan/overview.html:58
+msgid "Add nutrition plan"
+msgstr "Добавить программу питания"
+
+#: manager/templates/index.html:143 manager/templates/index.html.py:144
+#: manager/templates/index.html:145
+msgid "My preferences"
+msgstr "Мои предпочтения"
+
+#: manager/templates/index.html:148
+msgid "Info"
+msgstr "Информация"
+
+#: manager/templates/index.html:149
+msgid ""
+"The current workout is selected from your active schedule\n"
+"or, if you don't have one, simply by date."
+msgstr "Данная тренировка взята из Вашей активной программы\nили, если у вас ее нет, просто по дате."
+
+#: manager/templates/index.html:152
+msgid ""
+"After adding a workout or a nutritional plan, you can edit them to set a "
+"goal."
+msgstr "После добавления тренировки или плана питания, Вы сможете их проредактировать для установления цели."
+
+#: manager/templates/navigation.html:27 manager/templates/navigation.html:29
+msgid "Workouts"
+msgstr "Тренировки"
+
+#: manager/templates/navigation.html:30
+msgid "Workouts schedules"
+msgstr "Программы тренировок"
+
+#: manager/templates/navigation.html:47 manager/templates/navigation.html:83
+#: manager/templates/navigation.html:109
+msgid "Administration"
+msgstr "Администрация"
+
+#: manager/templates/navigation.html:48
+msgid "Exercises pending review"
+msgstr "Упражнения ожидающие рассмотрения"
+
+#: manager/templates/navigation.html:64
+#: weight/templates/weight_overview.html:9
+msgid "Weight overview"
+msgstr "Обзор веса"
+
+#: manager/templates/navigation.html:65 weight/views.py:70
+#: weight/templates/weight_overview.html:90
+msgid "Add weight entry"
+msgstr "Добавить запись веса"
+
+#: manager/templates/navigation.html:77
+msgid "Nutrition"
+msgstr "Питание"
+
+#: manager/templates/navigation.html:79
+msgid "Nutrition plans"
+msgstr "Программы питания"
+
+#: manager/templates/navigation.html:80
+#: nutrition/templates/ingredient/overview.html:29
+#: nutrition/templates/plan/overview.html:66
+#: nutrition/templates/plan/overview.html:67
+#: nutrition/templates/plan/overview.html:68
+msgid "Ingredient overview"
+msgstr "Обзор ингредиентов"
+
+#: manager/templates/navigation.html:84 nutrition/templates/units/list.html:7
+msgid "Ingredient weight units"
+msgstr "Единицы веса ингредиентов"
+
+#: manager/templates/navigation.html:85
+msgid "Ingredients pending review"
+msgstr "Ингредиенты ожидающие рассмотрения"
+
+#: manager/templates/navigation.html:97
+msgid "About this software"
+msgstr "Об этой программе"
+
+#: manager/templates/navigation.html:99 software/templates/functions.html:8
+msgid "Features"
+msgstr "Особенности"
+
+#: manager/templates/navigation.html:100 manager/templates/template.html:175
+#: software/templates/contribute.html:7
+msgid "Contribute!"
+msgstr "Способствуйте!"
+
+#: manager/templates/navigation.html:102
+msgid "Developers"
+msgstr "Разработчики"
+
+#: manager/templates/navigation.html:103
+msgid "Problems and wishes"
+msgstr "Проблемы и пожелания"
+
+#: manager/templates/navigation.html:104 software/templates/code.html:7
+#: software/templates/contribute.html:117
+msgid "Get the code"
+msgstr "Получить код"
+
+#: manager/templates/navigation.html:105 software/templates/license.html:7
+msgid "License"
+msgstr "Лицензия"
+
+#: manager/templates/navigation.html:106 software/templates/changelog.html:7
+msgid "Changelog"
+msgstr "Журнал изменений"
+
+#: manager/templates/navigation.html:129 manager/templates/template.html:89
+#: manager/templates/user/login.html:8 manager/templates/user/login.html:31
+msgid "Login"
+msgstr "Войти"
+
+#: manager/templates/navigation.html:130 manager/templates/template.html:91
+#: manager/templates/user/login.html:67 manager/templates/user/login.html:68
+#: manager/views/user.py:113 manager/views/user.py:116
+msgid "Register"
+msgstr "Регистр"
+
+#: manager/templates/navigation.html:131 manager/templates/user/login.html:77
+#: manager/templates/user/login.html:78
+msgid "Reset password"
+msgstr "Восстановить пароль"
+
+#: manager/templates/template.html:86
+#: manager/templates/user/preferences.html:45
+#: manager/templates/user/preferences.html:46
+#: manager/templates/user/preferences.html:47
+msgid "Logout"
+msgstr "Выйти"
+
+#: manager/templates/template.html:94 manager/templates/template.html:176
+#: manager/templates/misc/contact.html:5 software/templates/contribute.html:55
+msgid "Get in touch"
+msgstr "Написать нам"
+
+#: manager/templates/template.html:141
+msgid ""
+"You are using a guest account, data entered will be deleted after a week."
+msgstr "Вы используете аккаунт для гостей, введенные данные будут удалены через неделю."
+
+#: manager/templates/template.html:143
+msgid "Create some demo entries"
+msgstr "Создайте демо-записи"
+
+#: manager/templates/template.html:164 manager/templates/template.html:165
+#: software/templates/license.html:17 software/templates/license.html.py:18
+msgid "Released under the Affero GPL"
+msgstr "Выпущено под Affero GPL"
+
+#: manager/templates/template.html:172
+msgid "Layout based on <a href='http://www.yaml.de'>YAML</a>"
+msgstr "Формат базируется на <a href='http://www.yaml.de'>YAML</a>"
+
+#: manager/templates/template.html:174
+msgid "About"
+msgstr "О"
+
+#: manager/templates/day/log.html:7
+msgid "New weight log"
+msgstr "Новый регистр веса"
+
+#: manager/templates/day/log.html:73
+msgid "Add exercises to this training day before adding a log."
+msgstr "Перед тем, как добавить регистр, добавьте упражнения к этому тренировочному дню."
+
+#: manager/templates/day/log.html:76 manager/templates/day/log.html.py:104
+#: manager/templates/day/log.html:105 manager/templates/workout/log.html:84
+#: manager/templates/workout/log.html:85
+msgid "Back to workout"
+msgstr "Назад к тренировке"
+
+#: manager/templates/day/log.html:88 manager/templates/set/add.html:62
+#: manager/templates/set/edit.html:37
+#: manager/templates/user/preferences.html:29
+#: nutrition/templates/meal_item/edit.html:54 utils/generic_views.py:106
+#: weight/templates/edit.html:37
+msgid "Save"
+msgstr "Сохранить"
+
+#: manager/templates/misc/about.html:5
+msgid "About us"
+msgstr "О  нас"
+
+#: manager/templates/misc/about.html:8
+msgid "Responsible for the content of this site as per German law §5 TMG:"
+msgstr "Ответственный за содержимое этой страницы, соответственно немецкому праву §5 TMG:"
+
+#: manager/templates/misc/about.html:15
+msgid "GNUPG-Key:"
+msgstr "GNUPG-Ключ:"
+
+#: manager/templates/misc/contact.html:13
+#, python-format
+msgid ""
+"Thank you for your interest. Feel free to use any of the\n"
+"ways below to send feedback you have about any aspect of the site. For\n"
+"support, it's better to use the mailing list\n"
+"(<a href=\"mailto:wger@googlegroups.com\">wger@googlegroups.com</a>), to report\n"
+"a bug, consider doing it through the <a href=\"%(issues)s\">issue tracker</a>\n"
+"."
+msgstr "Спасибо за Ваш интерес. Пожалуйста, воспользуйтесь любыми наведеными ниже способами,  для отправки отзыва касающегося любого аспекта этой страницы. Для поддержки, лучше воспользоваться рассылкой\n(<a href=\"mailto:wger@googlegroups.com\">wger@googlegroups.com</a>), чтобы сообщить об ошибке, рассмотрите возможность сделать это через <a href=\"%(issues)s\">issue tracker</a>\n."
+
+#: manager/templates/misc/contact.html:24
+#, python-format
+msgid ""
+"If you want to further help and improve this project,\n"
+"you might also be interested <a href=\"%(contribute)s\">in contributing</a>."
+msgstr "Если Вы желаете дальше помогать и улучшать этот проект,\nВас может также заинтересовать <a href=\"%(contribute)s\">в содействии</a>."
+
+#: manager/templates/misc/contact.html:34
+msgid "Feedback form"
+msgstr "Форма отзыва"
+
+#: manager/templates/misc/contact.html:35
+msgid ""
+"A simple contact form. Remember that\n"
+"if you want an answer, you need to include some way to contact you."
+msgstr "Простая форма отзыва. Не забудьте оставить обратный контакт, если Вы желаете получить ответ."
+
+#: manager/templates/misc/contact.html:37
+msgid "Open feedback form"
+msgstr "Открытая форма отзыва"
+
+#: manager/templates/misc/contact.html:43
+msgid "Twitter"
+msgstr "Твиттер"
+
+#: manager/templates/misc/contact.html:44
+msgid ""
+"We are also on twitter. Write us and tell us what\n"
+"you think! Except patches, don't send patches via twitter."
+msgstr "Мы также в твиттере. Напишите нам и сообщите, что Вы думаете! Кроме патчей, не высылайте патчи через Твиттер."
+
+#: manager/templates/misc/contact.html:47
+msgid "tweet to @wger_de"
+msgstr "твитнуть @wger_de"
+
+#: manager/templates/misc/contact.html:52
+msgid "Forum / Mailing list"
+msgstr "Форум / Рассылка"
+
+#: manager/templates/misc/contact.html:53
+msgid ""
+"Use the public group to get support for your\n"
+"local wger installation, discuss issues or your new idea, etc.\n"
+"(no registration needed)"
+msgstr "Воспользуйтесь общественной группой, чтобы получить поддержку для Вашей локальной wger установки, обговорить проблемы или Вашу новую идею, и т.п.\n(нет необходимости в регистрации)"
+
+#: manager/templates/misc/contact.html:56
+msgid "Go to mailing list"
+msgstr "К рассылке"
+
+#: manager/templates/schedule/overview.html:6
+#: manager/templates/schedule/overview.html:59
+msgid "Your schedules"
+msgstr "Ваши программы"
+
+#: manager/templates/schedule/overview.html:36
+#: manager/templates/schedule/view.html:98
+msgid "active"
+msgstr "активные"
+
+#: manager/templates/schedule/overview.html:47
+msgid "No schedules found."
+msgstr "Программ не найдено."
+
+#: manager/templates/schedule/overview.html:60
+msgid ""
+"Schedules are collections of workouts that you do in\n"
+"succession."
+msgstr "Программы это совокупность тренировок, которы Вы выполняете подряд."
+
+#: manager/templates/schedule/overview.html:63
+msgid ""
+"You can indicate how long you want to do each workout\n"
+"before jumping to the next. It is also possible to create a loop, so you\n"
+"always do the same workouts in succession, e.g. A > B > C > A > B > C and so on."
+msgstr "Вы можете указать продолжительность каждой тренировки, перед тем как перейти к следующей. Также можно создать цикл, для того, чтобы выполнять одинаковые тренировки подряд, например A > B > C > A > B > C и т.д."
+
+#: manager/templates/schedule/overview.html:67
+msgid ""
+"The currently active schedule will remain active (and be\n"
+"shown e.g. in your dashboard) till it reaches the last workout or till you\n"
+"deactivate it, if it is a loop."
+msgstr "Текущая активная программа останется активной (и будет показана, например в панели управления) до тех пор, пока она не достигнет последней тренировки или, в случае цикла, пока Вы ее не отключите."
+
+#: manager/templates/schedule/overview.html:71
+#: manager/templates/schedule/overview.html:78
+#: manager/templates/schedule/overview.html:79
+#: manager/templates/schedule/overview.html:80
+msgid "Add schedule"
+msgstr "Добавить тренировку"
+
+#: manager/templates/schedule/view.html:56
+#: nutrition/templates/units/list.html:15
+msgid "Actions"
+msgstr "Действия"
+
+#: manager/templates/schedule/view.html:58
+msgid "Weeks"
+msgstr "Недели"
+
+#: manager/templates/schedule/view.html:74
+#: manager/templates/schedule/view.html:75
+#: manager/templates/tags/render_day.html:66
+#: manager/templates/tags/render_day.html:67
+msgid "Move me"
+msgstr "Переместите меня"
+
+#: manager/templates/schedule/view.html:118
+msgid ""
+"This schedule is a loop and will go through the workouts above till you "
+"deactivate it"
+msgstr "Это программа - бесконечный цикл и будет повторяться до тех пор, пока Вы ее не отключите"
+
+#: manager/templates/schedule/view.html:141
+msgid "Adding workouts"
+msgstr "Добавляю тренировки"
+
+#: manager/templates/schedule/view.html:143
+msgid ""
+"Add as many workouts to the schedule as you want. You can\n"
+"edit the order per drag-and-drop. It's also possible to add one workout more\n"
+"than once."
+msgstr "Добавьте любое количество тренировок в программу. Вы можете отредактировать последовательность через перетаскивание мышкой. Можно также добавить одну и ту же тренировку больше одного раза."
+
+#: manager/templates/schedule/view.html:154
+#: manager/templates/schedule/view.html:155
+#: manager/templates/schedule/view.html:156 manager/views/schedule.py:124
+msgid "Edit schedule"
+msgstr "Отредактировать программу"
+
+#: manager/templates/schedule/view.html:165
+#: manager/templates/schedule/view.html:166
+#: manager/templates/schedule/view.html:167 manager/views/schedule.py:113
+msgid "Delete schedule"
+msgstr "Удалить программу"
+
+#: manager/templates/set/add.html:12
+#, python-format
+msgid "Add exercises to day \"%(day_name)s\""
+msgstr "Добавить упражнение в день \"%(day_name)s\""
+
+#: manager/templates/set/edit.html:12
+msgid "Edit set"
+msgstr "Изменить подход"
+
+#: manager/templates/tags/cc-by-sa-sidebar.html:4
+msgid "Free license"
+msgstr "Свободная лицензия"
+
+#: manager/templates/tags/cc-by-sa-sidebar.html:10
+#: manager/templates/tags/cc-by-sa-sidebar.html:11
+#: software/templates/license.html:28 software/templates/license.html.py:29
+msgid "CC-BY-SA"
+msgstr "CC-BY-SA"
+
+#: manager/templates/tags/cc-by-sa-sidebar.html:14
+msgid ""
+"This content is available under a Creative Commons\n"
+"Attribution Share-Alike license."
+msgstr "Это контент доступен под лицензией Creative Commons\nAttribution Share-Alike."
+
+#: manager/templates/tags/cc-by-sa-sidebar.html:16
+msgid "Link:"
+msgstr "Ссылка:"
+
+#: manager/templates/tags/pagination.html:10
+#: manager/templates/tags/pagination.html:12
+msgid "previous"
+msgstr "предыдущий"
+
+#: manager/templates/tags/pagination.html:32
+#: manager/templates/tags/pagination.html:34
+msgid "next"
+msgstr "следующий"
+
+#: manager/templates/tags/render_day.html:48
+#: manager/templates/tags/render_day.html:52
+#: manager/templates/workout/log.html:34 manager/templates/workout/log.html:38
+#: manager/templates/workout/log.html:39
+msgid "Add weight log to this day"
+msgstr "Добавить запись веса к этому дню"
+
+#: manager/templates/tags/render_day.html:124
+msgid "This exercise has no repetitions."
+msgstr "Это упражнение не имеет повторений"
+
+#: manager/templates/tags/render_day.html:125
+msgid "Edit them now."
+msgstr "Измените их сейчас."
+
+#: manager/templates/tags/render_day.html:148
+msgid "No exercises selected for this day."
+msgstr "Для этого дня не выбрано упражнений."
+
+#: manager/templates/tags/render_day.html:158
+msgid "Add exercises to this workout day"
+msgstr "Добавить упражнения к этому тренировочному дню"
+
+#: manager/templates/tags/render_weight_log.html:9
+#: manager/templates/tags/render_weight_log.html:10
+msgid "Toggle data table"
+msgstr "Переключить таблицу данных"
+
+#: manager/templates/tags/render_weight_log.html:26
+msgid "kg."
+msgstr "кг"
+
+#: manager/templates/tags/yaml_form_element.html:8
+msgid "Optional"
+msgstr "Выберите необходимое"
+
+#: manager/templates/user/change_password.html:6
+#: manager/templates/user/change_password.html:21
+#: manager/templates/user/preferences.html:54
+#: manager/templates/user/preferences.html:55
+#: manager/templates/user/preferences.html:56
+msgid "Change password"
+msgstr "Изменить"
+
+#: manager/templates/user/login.html:38
+msgid "or"
+msgstr "или"
+
+#: manager/templates/user/login.html:45
+msgid "Sign in with your Email"
+msgstr "Войти со своим электронным адресом"
+
+#: manager/templates/user/login.html:50
+msgid ""
+"Persona (BrowserID) replaces multiple passwords, you don't\n"
+"    need to remember a new password for this site. For more information, please\n"
+"    take a look at the <a href=\"https://login.persona.org/\" target=\"_blank\">the\n"
+"    Persona website</a>."
+msgstr "Persona (BrowserID) заменяет множественные пароли, не надо запоминать новый пароль для этого сайта. Для дополнительных сведений, пожалуйста нажмите сюда <a href=\"https://login.persona.org/\" target=\"_blank\"> сайт\n    Persona</a>."
+
+#: manager/templates/user/login.html:61
+msgid "No account?"
+msgstr "Нет аккаунта?"
+
+#: manager/templates/user/login.html:71
+msgid "Forgot password?"
+msgstr "Забыли пароль?"
+
+#: manager/templates/user/password_reset_complete.html:4
+msgid "Password reset complete"
+msgstr "Восстановления пароля завершена"
+
+#: manager/templates/user/password_reset_complete.html:8
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr "Ваш пароль восстановлен. Теперь Вы можете войти на сайт."
+
+#: manager/templates/user/password_reset_complete.html:10
+msgid "Log in"
+msgstr "Войти"
+
+#: manager/templates/user/password_reset_confirm.html:5
+msgid "Password reset confirmation"
+msgstr "Подтверждение восстановления пароля"
+
+#: manager/templates/user/password_reset_confirm.html:11
+msgid "Enter new password"
+msgstr "Введите новый пароль"
+
+#: manager/templates/user/password_reset_confirm.html:13
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr "Пожалуйста введите Ваш пароль дважды, для того, чтобы мы могли удостовериться, что Вы ввели его правильно."
+
+#: manager/templates/user/password_reset_confirm.html:25
+msgid "Change my password"
+msgstr "Изменить пароль"
+
+#: manager/templates/user/password_reset_confirm.html:33
+msgid "Password reset unsuccessful"
+msgstr "Пароль не восстановлен"
+
+#: manager/templates/user/password_reset_confirm.html:35
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr "Ссылка для восстановления пароля недействительна, возможно она была уже использована. Пожалуйста запросите новое восстановление пароля."
+
+#: manager/templates/user/password_reset_done.html:4
+msgid "Password reset successful"
+msgstr "Пароль удачно восстановлен"
+
+#: manager/templates/user/password_reset_done.html:8
+msgid ""
+"We've e-mailed you instructions for setting your password to the e-mail "
+"address you submitted. You should be receiving it shortly."
+msgstr "Мы выслали на Вашу, при регистрации представленную, электронную почту инструкции для восстановления пароля. Проверьте почту."
+
+#: manager/templates/user/password_reset_email.html:3
+#, python-format
+msgid ""
+"You're receiving this e-mail because you requested a password reset for your"
+" user account at %(site_name)s."
+msgstr "Вы получили это электронное письмо, так как Вы запрсили восстановление пароля для Вашего аккаунта на %(site_name)s."
+
+#: manager/templates/user/password_reset_email.html:5
+msgid "Please go to the following page and choose a new password:"
+msgstr "Пожалуйста перейдите на следующую страницу и выберите новый пароль:"
+
+#: manager/templates/user/password_reset_email.html:10
+msgid "Your username, in case you've forgotten:"
+msgstr "Ваше имя пользователя, если Вы забыли:"
+
+#: manager/templates/user/password_reset_email.html:12
+msgid "Thanks for using our site!"
+msgstr "Спасибо за пользование нашим сайтом!"
+
+#: manager/templates/user/password_reset_email.html:14
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "Команда %(site_name)s"
+
+#: manager/templates/user/password_reset_form.html:5
+msgid "Password reset"
+msgstr "Восстановление пароля"
+
+#: manager/templates/user/password_reset_form.html:18
+#: manager/views/misc.py:164
+msgid "Send"
+msgstr "Отправить"
+
+#: manager/templates/user/preferences.html:7
+msgid "Preferences"
+msgstr "Предпочтения"
+
+#: manager/templates/workout/log.html:7
+msgid "Weight log for workout"
+msgstr "Регистрация веса для тренировки"
+
+#: manager/templates/workout/log.html:24
+#: manager/templates/workout/view.html:40
+#: nutrition/templates/plan/view.html:38
+msgid "Goal"
+msgstr "Цель"
+
+#: manager/templates/workout/log.html:59
+msgid "No weight entries here."
+msgstr "Здесь нет записей веса."
+
+#: manager/templates/workout/log.html:64
+msgid "No exercises for this day."
+msgstr "Для этого дня упражнений нет."
+
+#: manager/templates/workout/log.html:89 software/templates/code.html:59
+msgid "Notes"
+msgstr "Заметки"
+
+#: manager/templates/workout/log.html:90
+msgid ""
+"This page shows the weight logs belonging to this workout\n"
+"only. Click on an exercise to see all the historical data for\n"
+"it."
+msgstr "Эта страница показывает журнал веса только для этой тренировки. Нажмите на упражнение для показа его предыдущих данных."
+
+#: manager/templates/workout/log.html:94
+msgid ""
+"Click on a value on a chart to edit the log\n"
+"entry."
+msgstr "Нажмите на значение на графике для изменения записи в журнале."
+
+#: manager/templates/workout/log.html:97
+msgid ""
+"If on a single day there is more than one entry with the\n"
+"same number of repetitions, but different weights, only the entry with the\n"
+"higher weight is shown in the diagram."
+msgstr "Если на один день приходится больше одной записи с одинаковым количеством повторений, но разными тяжестями, то на графике будет показана только запись с большим весом."
+
+#: manager/templates/workout/overview.html:6
+msgid "Your workouts"
+msgstr "Ваши тренировки"
+
+#: manager/templates/workout/view.html:52
+msgid "No days for this workout."
+msgstr "Для этой тренировки дней нет."
+
+#: manager/templates/workout/view.html:53
+msgid "Add training day."
+msgstr "Добавить тренировочный день."
+
+#: manager/templates/workout/view.html:61
+msgid "Add training day"
+msgstr "Добавить тренировочный день"
+
+#: manager/templates/workout/view.html:66
+msgid "Show/Hide exercise comments"
+msgstr "Показать/Скрыть комментарии к упражнению"
+
+#: manager/templates/workout/view.html:79
+msgid "Steps"
+msgstr "Шаги"
+
+#: manager/templates/workout/view.html:82
+msgid "Add training days"
+msgstr "Добавить тренировочные дни"
+
+#: manager/templates/workout/view.html:83
+msgid "Add working sets to days"
+msgstr "Добавить рабочие подходы к дням"
+
+#: manager/templates/workout/view.html:85
+msgid "Set the repetitions for each set"
+msgstr "Установить повторения к каждому подходу"
+
+#: manager/templates/workout/view.html:86
+msgid "use '99' for 'all repetitions you can do'"
+msgstr "воспользуйтесь '99' для 'всех повторений которые вы можете выполнить'"
+
+#: manager/templates/workout/view.html:91
+msgid "Muscles trained"
+msgstr "Тренированные мышцы"
+
+#: manager/templates/workout/view.html:94
+msgid ""
+"Images show combined muscles as trained by the exercises on the workout."
+msgstr "Изображения показывают комбинированные мышцы как тренированные упражнениями в тренировке."
+
+#: manager/templates/workout/view.html:123
+#: manager/templates/workout/view.html:124
+#: manager/templates/workout/view.html:125
+#: nutrition/templates/plan/view.html:235
+#: nutrition/templates/plan/view.html:236
+#: nutrition/templates/plan/view.html:237
+msgid "Download as PDF"
+msgstr "Скачать в формате PDF"
+
+#: manager/templates/workout/view.html:135
+#: manager/templates/workout/view.html:136
+#: manager/templates/workout/view.html:137 manager/views/schedule_step.py:103
+#: manager/views/workout.py:216
+msgid "Edit workout"
+msgstr "Изменить тренировку"
+
+#: manager/templates/workout/view.html:146
+#: manager/templates/workout/view.html:147
+#: manager/templates/workout/view.html:148
+msgid "View weight log"
+msgstr "Просмотр журнала вес"
+
+#: manager/templates/workout/view.html:158
+#: manager/templates/workout/view.html:159
+#: manager/templates/workout/view.html:160
+msgid "Make a copy of this workout"
+msgstr "Сделать копию этой тренировки"
+
+#: manager/templates/workout/view.html:171
+#: manager/templates/workout/view.html:172
+msgid "Delete this workout"
+msgstr "Удалить эту тренировку"
+
+#: manager/views/day.py:91
+msgid "Edit workout day"
+msgstr "Изменить тренировочный день"
+
+#: manager/views/day.py:100
+msgid "Add workout day"
+msgstr "Добавить тренировочный день"
+
+#: manager/views/log.py:64
+#, python-format
+msgid "Edit log entry for %s"
+msgstr "Изменить запись в журнале для %s"
+
+#: manager/views/misc.py:77
+msgid ""
+"We have created sample workout, workout schedules, weight logs, (body) "
+"weight and nutrition plan entries so you can better see what  this site can "
+"do. Feel free to edit or delete them!"
+msgstr "Мы создали образец тренировки, графики тренировки, запись тяжестей, записи масс тела и плана питания, для наглядного примера возможностей этого сайта. Вы можете их изменить или удалить."
+
+#: manager/views/misc.py:129
+msgid "Rest day"
+msgstr "Выходной день"
+
+#: manager/views/misc.py:161
+msgid "Feedback"
+msgstr "Отзывы"
+
+#: manager/views/misc.py:182
+msgid "Your feedback was sucessfully sent. Thank you!"
+msgstr "Ваш отзыв был успешно отправлен. Спасибо!"
+
+#: manager/views/misc.py:190
+msgid "New feedback"
+msgstr "Новый отзыв"
+
+#: manager/views/schedule.py:94
+msgid "Create schedule"
+msgstr "Создать программу"
+
+#: manager/views/schedule.py:115
+msgid "Schedule was successfully deleted"
+msgstr "Программа была успешно удалена"
+
+#: manager/views/schedule.py:154 manager/views/set.py:252
+#: manager/views/user.py:189 manager/views/user.py:199
+msgid "Success"
+msgstr "Успех"
+
+#: manager/views/schedule_step.py:132 manager/views/workout.py:204
+msgid "Delete workout"
+msgstr "Удалить тренировку"
+
+#: manager/views/schedule_step.py:134 manager/views/workout.py:206
+msgid "Workout was successfully deleted"
+msgstr "Тренировка была удачно удалена"
+
+#: manager/views/user.py:107
+msgid "You were sucessfully registered"
+msgstr "Вы были успешно зарегистрированы"
+
+#: manager/views/user.py:165
+msgid "Settings sucessfully updated"
+msgstr "Настройки успешно обновлены"
+
+#: manager/views/workout.py:174
+msgid "Copy workout"
+msgstr "Копировать тренировку"
+
+#: nutrition/models.py:62
+msgid ""
+"A description of the goal of the plan, e.g. \"Gain mass\" or \"Prepare for "
+"summer\""
+msgstr "Описание цели плана, например \"Набрать вес\" или \"Подготовка к лету\""
+
+#: nutrition/models.py:136
+msgid "System ingredient"
+msgstr "Системный ингредиент"
+
+#: nutrition/models.py:170
+msgid "In kcal per 100g"
+msgstr "В ккал на 100г"
+
+#: nutrition/models.py:175 nutrition/models.py:180 nutrition/models.py:187
+#: nutrition/models.py:192 nutrition/models.py:199 nutrition/models.py:206
+#: nutrition/models.py:213
+msgid "In g per 100g of product"
+msgstr "В г на 100г продукта"
+
+#: nutrition/models.py:186 nutrition/templates/ingredient/view.html:160
+#: nutrition/templates/plan/view.html:192
+msgid "Sugar content in carbohydrates"
+msgstr "Содержание сахара в углеводах"
+
+#: nutrition/models.py:198 nutrition/templates/ingredient/view.html:176
+#: nutrition/templates/plan/view.html:200
+msgid "Saturated fat content in fats"
+msgstr "Содержание насыщенных жиров в жирах"
+
+#: nutrition/models.py:205 nutrition/templates/ingredient/view.html:198
+#: nutrition/templates/plan/view.html:216
+msgid "Fibres"
+msgstr "Клетчатка (пищевые волокна)"
+
+#: nutrition/models.py:212 nutrition/templates/ingredient/view.html:208
+#: nutrition/templates/plan/view.html:220
+msgid "Sodium"
+msgstr "Натрий"
+
+#: nutrition/models.py:245
+msgid ""
+"Total energy is not the approximate sum of the energy provided by protein, "
+"carbohydrates and fat."
+msgstr "Общая энергия - не приблизительная сумма энергии от белков, углеводов и жиров."
+
+#: nutrition/models.py:273 nutrition/views/ingredient.py:189
+msgid "Ingredient was sucessfully added to the general database"
+msgstr "Ингредиент успешно добавлен в общую базу данных"
+
+#: nutrition/models.py:274
+msgid ""
+"Your ingredient '{0}' was successfully added to the general database.\n"
+"\n"
+"It is now available on the ingredient overview and can be\n"
+"added to nutrition plans. You can access it on this address:\n"
+"{1}\n"
+"\n"
+msgstr "Ваш ингредиент '{0}' был успешно добавлен в общую базу данных.\n\nОн сейчас находится в обзоре ингредиентов и может быть добавлен к планам питаниям. Вы сможете найти его по этой ссылке:\n{1}\n\n"
+
+#: nutrition/models.py:350 nutrition/models.py:445
+msgid "Ingredient"
+msgstr "Ингредиент"
+
+#: nutrition/models.py:352 nutrition/models.py:447
+msgid "Weight unit"
+msgstr "Единица веса"
+
+#: nutrition/models.py:354
+msgid "Amount in gramms"
+msgstr "Количество в граммах"
+
+#: nutrition/models.py:358 nutrition/models.py:459
+msgid "Amount"
+msgstr "Количество"
+
+#: nutrition/models.py:359
+msgid "Unit amount, e.g. \"1 Cup\" or \"1/2 spoon\""
+msgstr "Единица измерения количества, например \"1 чашка\" или \"1/2 ложки\""
+
+#: nutrition/models.py:393
+msgid "Time (approx)"
+msgstr "Время (приблизительно)"
+
+#: nutrition/templates/ingredient/form.html:4
+msgid "Submitting an ingredient"
+msgstr "Отправка ингредиента"
+
+#: nutrition/templates/ingredient/form.html:5
+msgid ""
+"Thank you for submitting an ingredient. This is much\n"
+"appreciated!"
+msgstr "Благодарим за представленный ингредиент. Мы Вам очень признательны!"
+
+#: nutrition/templates/ingredient/overview.html:44
+msgid "No ingredients."
+msgstr "Ингредиентов нет."
+
+#: nutrition/templates/ingredient/overview.html:67
+msgid "ingredient name"
+msgstr "Название ингредиента"
+
+#: nutrition/templates/ingredient/overview.html:73
+#: nutrition/templates/ingredient/overview.html:79
+#: nutrition/templates/ingredient/overview.html:80
+#: nutrition/templates/ingredient/overview.html:81
+msgid "Add ingredient"
+msgstr "Добавить ингредиент"
+
+#: nutrition/templates/ingredient/pending.html:7
+msgid "Pending ingredients"
+msgstr "Ингредиенты находящиеся в ожидании"
+
+#: nutrition/templates/ingredient/pending.html:31
+msgid "No pending ingredients at the moment"
+msgstr "На данный момент нет ингредиентов находящихся в ожидании"
+
+#: nutrition/templates/ingredient/view.html:61
+msgid "Ingredient is pending review"
+msgstr "Ингредиент находится в ожидании рассмотрения"
+
+#: nutrition/templates/ingredient/view.html:62
+msgid ""
+"This user submitted ingredient is pending a decision to be\n"
+"included in the database. Till then, it will not be shown in the overview or\n"
+"the search."
+msgstr "Этот ингредиент, который был представленный пользователем, находится в ожидании решения относительно его добавления в базу данных. До этого, его не будет показано ни в обзоре, ни в поиске."
+
+#: nutrition/templates/ingredient/view.html:119
+msgid "Nutritional values in"
+msgstr "Пищевая ценность в"
+
+#: nutrition/templates/ingredient/view.html:136
+#: nutrition/templates/plan/view.html:174
+msgid "Macronutrients"
+msgstr "Макронутриенты"
+
+#: nutrition/templates/ingredient/view.html:165
+#: nutrition/templates/ingredient/view.html:181
+#: nutrition/templates/ingredient/view.html:203
+#: nutrition/templates/ingredient/view.html:213
+msgid "n.A."
+msgstr " не имеется в наличии"
+
+#: nutrition/templates/ingredient/view.html:192
+#: nutrition/templates/plan/view.html:210
+msgid "Others"
+msgstr "Другие"
+
+#: nutrition/templates/ingredient/view.html:228
+msgid "User submitted ingredient"
+msgstr "Ингредиент представленный пользователем"
+
+#: nutrition/templates/ingredient/view.html:241
+#: nutrition/templates/ingredient/view.html:246
+#: nutrition/templates/ingredient/view.html:247
+#: nutrition/templates/ingredient/view.html:248
+msgid "Delete ingredient"
+msgstr "Удалить ингредиент"
+
+#: nutrition/templates/ingredient/view.html:254
+#: nutrition/templates/ingredient/view.html:258
+#: nutrition/templates/ingredient/view.html:259
+#: nutrition/templates/ingredient/view.html:260
+#: nutrition/views/ingredient.py:123
+msgid "Edit ingredient"
+msgstr "Изменить ингредиент"
+
+#: nutrition/templates/ingredient/view.html:264
+msgid "Weight units"
+msgstr "Единицы веса"
+
+#: nutrition/templates/ingredient/view.html:271
+#: nutrition/templates/ingredient/view.html:272
+#: nutrition/templates/ingredient/view.html:273
+#: nutrition/templates/units/list.html:66
+#: nutrition/templates/units/list.html:67
+#: nutrition/templates/units/list.html:68 nutrition/views/unit.py:65
+msgid "Add new weight unit"
+msgstr "Добавить новую единицу веса"
+
+#: nutrition/templates/meal_item/edit.html:8 nutrition/views/meal_item.py:163
+msgid "Edit meal item"
+msgstr "Изменить элемент приема пищи"
+
+#: nutrition/templates/meal_item/edit.html:34
+msgid "Ingredient name"
+msgstr "Название ингредиента"
+
+#: nutrition/templates/plan/overview.html:6
+msgid "Your nutrition plans"
+msgstr "Ваши планы питания"
+
+#: nutrition/templates/plan/view.html:46
+msgid "Meal"
+msgstr "Прием пищи"
+
+#: nutrition/templates/plan/view.html:47
+msgid "Contents"
+msgstr "Содержимое"
+
+#: nutrition/templates/plan/view.html:63 nutrition/templates/plan/view.html:64
+msgid "Delete meal"
+msgstr "Удалить прием пищи"
+
+#: nutrition/templates/plan/view.html:72 nutrition/templates/plan/view.html:73
+#: nutrition/views/meal.py:77
+msgid "Edit meal"
+msgstr "Изменить прием пищи"
+
+#: nutrition/templates/plan/view.html:81 nutrition/templates/plan/view.html:82
+msgid "Add item to meal"
+msgstr "Добавить элемент к приему пищи"
+
+#: nutrition/templates/plan/view.html:117
+msgid "Add one now"
+msgstr "Добавить один сейчас"
+
+#: nutrition/templates/plan/view.html:119
+msgid "No items for this meal."
+msgstr "Нет элементов для этого приема пищи."
+
+#: nutrition/templates/plan/view.html:131
+msgid "No meals for this plan."
+msgstr "Нет питания для этого плана."
+
+#: nutrition/templates/plan/view.html:143
+#: nutrition/templates/plan/view.html:144
+#: nutrition/templates/plan/view.html:145
+msgid "Add a new meal"
+msgstr "Добавить новый прием пищи"
+
+#: nutrition/templates/plan/view.html:154
+msgid ""
+"If you find the ingredient list too short, you might want to activate the "
+"preference to also show English ingredients."
+msgstr "Если вы находите список ингредиентов слишком коротким, вы можете включить предпочтение для просмотра ингредиентов также на английском языке."
+
+#: nutrition/templates/plan/view.html:155
+msgid "That's done here"
+msgstr "Сделано"
+
+#: nutrition/templates/plan/view.html:159
+#: nutrition/templates/plan/view.html:269
+#: nutrition/templates/plan/view.html:270
+msgid "Delete nutrition plan"
+msgstr "Удалить план питания"
+
+#: nutrition/templates/plan/view.html:169
+msgid "Nutritional data"
+msgstr "Пищевые данные"
+
+#: nutrition/templates/plan/view.html:247
+#: nutrition/templates/plan/view.html:248
+msgid "Edit nutrition plan"
+msgstr "Изменить план питания"
+
+#: nutrition/templates/plan/view.html:258
+#: nutrition/templates/plan/view.html:259
+msgid "Make a copy of this nutrition plan"
+msgstr "Сделать копию этого плана питания"
+
+#: nutrition/templates/units/list.html:44
+msgid "No units found"
+msgstr "Единиц не найдено"
+
+#: nutrition/views/ingredient.py:105
+msgid "Ingredient successfully deleted"
+msgstr "Ингредиент успешно удален"
+
+#: nutrition/views/ingredient.py:111
+#, python-format
+msgid "Delete %s?"
+msgstr "Удалить %s?"
+
+#: nutrition/views/ingredient.py:125
+msgid "Ingredient successfully updated"
+msgstr "Ингредиент успешно обновлен"
+
+#: nutrition/views/ingredient.py:134
+msgid "Add a new ingredient"
+msgstr "Добавить новый ингредиент"
+
+#: nutrition/views/ingredient.py:145
+msgid "New user submitted ingredient"
+msgstr "Новый ингредиент представленный пользователем"
+
+#: nutrition/views/ingredient.py:146
+msgid "The user {0} submitted a new ingredient \"{1}\"."
+msgstr "Пользователь {0} представил новый ингредиент \"{1}\"."
+
+#: nutrition/views/ingredient.py:202
+msgid "Ingredient was sucessfully marked as rejected"
+msgstr "Ингредиент был успешно отмечен как отвергнутый."
+
+#: nutrition/views/meal.py:50
+msgid "Add new meal"
+msgstr "Добавить новый прием пищи"
+
+#: nutrition/views/plan.py:93
+msgid "Delete nutritional plan?"
+msgstr "Удалить план питания?"
+
+#: nutrition/views/plan.py:95
+msgid "Nutritional plan was successfully deleted"
+msgstr "План питания успешно удален"
+
+#: nutrition/views/plan.py:104
+msgid "Add a new nutritional plan"
+msgstr "Добавить новый план питания"
+
+#. Translators: translation can only have ASCII characters
+#: nutrition/views/plan.py:185
+msgid "nutritional-plan"
+msgstr "План питания"
+
+#: nutrition/views/plan.py:192
+#, python-format
+msgid "Nutritional plan %s"
+msgstr "План питания %s"
+
+#: nutrition/views/plan.py:266
+msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
+msgstr ""
+
+#: nutrition/views/unit.py:83 nutrition/views/unit_ingredient.py:116
+msgid "Delete weight unit?"
+msgstr "Удалить единицу веса?"
+
+#: nutrition/views/unit.py:93
+msgid "Edit a weight unit"
+msgstr "Изменить единицу веса"
+
+#: nutrition/views/unit_ingredient.py:51
+msgid "Add a new weight unit"
+msgstr "Добавить новую единицу веса"
+
+#: nutrition/views/unit_ingredient.py:89
+msgid "Edit a weight unit to ingredient connection"
+msgstr "Изменить единицу веса соединения ингредиентов"
+
+#: software/templates/code.html:12 software/templates/code.html.py:224
+msgid "Installing the stable version"
+msgstr "Установка стабильной версии"
+
+#: software/templates/code.html:15
+msgid ""
+"Click here to download the last stable version. For\n"
+"installation instructions see below."
+msgstr "Нажмите сюда чтобы скачать последнюю стабильную версию. Для\nинструкции по установке см. ниже."
+
+#: software/templates/code.html:21
+msgid "download stable version:"
+msgstr "устновить стабильную версию:"
+
+#: software/templates/code.html:24
+msgid ""
+"In short, these are the steps needed for an installation\n"
+"on a linux or OS X machine, with python already installed. If you want to develop,\n"
+"see the sections below."
+msgstr "Короче говоря, эти шаги необходимы для установки\nна linux или OS X машине, с уже установленым python. Для разработки,\nсмотрите разделы ниже."
+
+#: software/templates/code.html:28
+msgid ""
+"I personally like installing my development\n"
+"files on a virtualenv, it helps keep the system more or less clean and are very\n"
+"easy to set up, but you can skip this step if you don't mind installing all\n"
+"dependencies system-wide (in that case, install django and the other applications\n"
+"with a <code>sudo</code>)."
+msgstr "Лично мне нравится установливать мои файлы для разработки\n на virtualenv, он помогает поддерживать систему более или менее чистой и его очень просто установить, но вы можете пропустить этот шаг, если вы желаете установить все\nзависимости по всей системе (в этом случае, установите django и другие приложении,\nс <code>sudo</code>)."
+
+#: software/templates/code.html:41
+msgid "Get the application from PyPI, initialise and start it."
+msgstr "Получите приложение от PyPI, инициализируйте и запустите его."
+
+#: software/templates/code.html:48
+msgid ""
+"The script will, on first run, create a configuration\n"
+"file and a SQLite database with a standard superuser:"
+msgstr "При первом запуске скрипт создаст конфигурационный\nфайл и базу данных SQLite со стандартным суперпользователем:"
+
+#: software/templates/code.html:52
+msgid "username:"
+msgstr "Имя пользователя:"
+
+#: software/templates/code.html:53
+msgid "password:"
+msgstr "Пароль:"
+
+#: software/templates/code.html:56
+msgid ""
+"You can later simply call <code>wger</code> again to start\n"
+"the application."
+msgstr "Позже вы просто можете снова вызвать <code>wger</code> для того, чтобы запустить приложение."
+
+#: software/templates/code.html:62
+msgid "Use <code>wger --help</code> to see available options"
+msgstr "Используйте <code>wger --help</code>, чтобы посмотреть опции"
+
+#: software/templates/code.html:63
+msgid ""
+"You should edit the settings.py and enter your\n"
+"<a href=\"https://www.google.com/recaptcha\">reCaptcha keys</a>. You can leave\n"
+"this blank or enter bogus data, but you won't be able e.g. to register new users."
+msgstr "Вы должны изменить settings.py и ввести ваши\n<a href=\"https://www.google.com/recaptcha\">reCaptcha keys</a>. Вы можете оставить\nэто поле пустым или ввести фиктивные данные, но вы не сможете, например регистрировать новых пользователей."
+
+#: software/templates/code.html:66
+msgid ""
+"For the sitemap.xml file to be correctly generated,\n"
+"you need to set a correct domain name in the sites app (only needed for search\n"
+"engines). This is done via django's admin interface (/admin/)"
+msgstr "Для того, чтобы правильно сгенерировать sitemap.xml файл, вам необходимо указать правильное имя домена в местах приложения (необходим только для поиска). Это делается с помощью джанговской админке (/admin/)"
+
+#: software/templates/code.html:69
+msgid ""
+"This is a Django application, so refer for details to its\n"
+"<a href=\"https://docs.djangoproject.com/en/1.5/intro/install/\">documentation page</a>\n"
+"if things don't go as expected."
+msgstr "Это Django приложение, поэтому обратитесь за подробностями к его\n<a href=\"https://docs.djangoproject.com/en/1.5/intro/install/\">странице документации</a>\nесли что-то идет не так, как ожидалось."
+
+#: software/templates/code.html:79 software/templates/code.html.py:226
+msgid "Developer guide"
+msgstr "Руководство разработчика"
+
+#: software/templates/code.html:83 software/templates/code.html.py:228
+msgid "How to get the code"
+msgstr "Как получить код"
+
+#: software/templates/code.html:84
+msgid ""
+"The code is hosted both on github and on bitbucket. If\n"
+"you are unfamiliar with mercurial or git, take a look at <a href=\"http://hginit.com/\">HG\n"
+"init</a> or <a href=\"http://git-scm.com/book\">Pro Git</a>. Both repositories\n"
+"are mantained in sync, so you should be able to work on either one (issues\n"
+"are only collected in github)."
+msgstr "Код размещен как на github, так и на bitbucket.  Если вы не знакомы с git или mercurial, загляните сюда <a href=\"http://hginit.com/\">HG\ninit</a> или сюда <a href=\"http://git-scm.com/book\">Pro Git</a>. Оба репозитория синхронизованы, так что вы сможете работать в любом из них (проблемя собранны только в github)."
+
+#: software/templates/code.html:92
+msgid "the main repository. All work happens here."
+msgstr "основной репозиторий. Вся работа здесь проходит тут."
+
+#: software/templates/code.html:98
+msgid "a mirror of the main repo."
+msgstr "зеркало главного репозитория."
+
+#: software/templates/code.html:103
+msgid ""
+"The file structure you get once you clone the repo should\n"
+"be self explaining:"
+msgstr "Структура файла, которую вы получаете после клонирования репозитория, должна\nбыть понятна всем:"
+
+#: software/templates/code.html:107
+msgid "<strong>wger:</strong> the django project and its applications"
+msgstr "<strong>wger:</strong> проект django и его приложения "
+
+#: software/templates/code.html:108
+msgid ""
+"<strong>tests:</strong> the tests folder. This actually only\n"
+"imports the individial tests from each application and makes it easier to test\n"
+"all of them."
+msgstr "<strong>тесты:</strong> папка тестов. Она только импортирует отдельные испытания каждого приложения и позволяет проводить их тестирование легче."
+
+#: software/templates/code.html:111
+msgid ""
+"<strong>extras:</strong> additional scrips, a benchmarking\n"
+"script with funkload and a simple tool to create a local settings.py\n"
+"file."
+msgstr "<strong>дополнительно:</strong> дополнительные скрипты, бенчмаркинг скрипт с funkload и простой инструмент для создания локального settings.py⏎\nфайла."
+
+#: software/templates/code.html:119 software/templates/code.html.py:229
+msgid "How to get started"
+msgstr "Как начать работу"
+
+#: software/templates/code.html:120
+msgid ""
+"The installation procedure is very similar to the one\n"
+"described above. The notes and infos there also apply, so read that section\n"
+"too. First, install all packages:"
+msgstr "Процедура установки очень похожа на ту, описанную выше. Те примечания и информации применяются и тут, поэтому прочтите и их. Сначала установите все пакеты:"
+
+#: software/templates/code.html:132
+msgid "Get the code and create a superuser:"
+msgstr "Получите код и создайте суперпользователь:"
+
+#: software/templates/code.html:140
+msgid ""
+"That's it. You can either start the server again with\n"
+"<code>start.py</code> or do it the django way with\n"
+"<code>python manage.py runserver</code>."
+msgstr "Все. Вы можете либо запустить сервер заново с <code>start.py</code> или сделать это с помощью django с <code>python manage.py runserver</code>."
+
+#: software/templates/code.html:145
+msgid ""
+"If you pull updates and there were database changes, you\n"
+"can apply them with a simple <code>python manage.py migrate --all</code>."
+msgstr "Если при открытии обновлений вы обнаруживаете изменения в базе данных, вы\nможете применить их с простым <code>python manage.py migrate --all</code>."
+
+#: software/templates/code.html:152 software/templates/code.html.py:230
+msgid "How to contribute code"
+msgstr "Как внести свой вклад в строение кода"
+
+#: software/templates/code.html:153
+#, python-format
+msgid ""
+"For other ways of contributing besides code, you might\n"
+"want to take a look at <a href=\"%(contribute)s\">the contribute page</a>"
+msgstr "Для других способов содействия, кроме кода, вы можете взглянуть сюда </a> <a href=\"%(contribute)s\">the contribute page</a>"
+
+#: software/templates/code.html:157
+msgid ""
+"<strong>Send pull requests:</strong> for new code\n"
+"you want to share, please send pull requests (either in bitbucket or in\n"
+"github). Sending patches by email or attaching them to an issue means a lot\n"
+"more of work."
+msgstr ""
+
+#: software/templates/code.html:162
+#, python-format
+msgid ""
+"<strong>Run the tests:</strong> wger is proud to\n"
+"have a test coverage of over 90%%. When you implement something new, don't forget\n"
+"to run the testsuite and write approriate tests for the new code. If you use\n"
+"github, configure the awesome <a href=\"http://travis-ci.org/\">Travis CI</a>,\n"
+"there is already a .travis file in the sources."
+msgstr ""
+
+#: software/templates/code.html:168
+msgid ""
+"<strong>Code according to PEP8:</strong> check that\n"
+"the code is structured as per pep8 but with a maximum line lenght of 100.\n"
+"This can be checked automatically with the pep8 tool (pip install pep8) from\n"
+"the command line:\n"
+"<code>pep8 --max-line-length=100--exclude=\"urls.py,*migrations*\" wger</code>\n"
+msgstr ""
+
+#: software/templates/code.html:179 software/templates/code.html.py:231
+msgid "Custom hosting"
+msgstr ""
+
+#: software/templates/code.html:180
+msgid ""
+"If you want to host this with some other evironment (apache,\n"
+"postgreSQL, etc.), you need to perform some steps manually. First, install\n"
+"the necessary packages and dependencies as described before."
+msgstr ""
+
+#: software/templates/code.html:184
+msgid ""
+"Setup any database\n"
+"<a href=\"https://docs.djangoproject.com/en/1.5/ref/databases/\">that Django\n"
+"supports</a>. Then create a settings file and edit it as needed. There is\n"
+"another configuration file, settings_global.py that contains other global\n"
+"settings."
+msgstr ""
+
+#: software/templates/code.html:194
+msgid ""
+"Initialise the database, create a super user and load these\n"
+"fixtures:"
+msgstr ""
+
+#: software/templates/code.html:210
+msgid ""
+"What you do next depends on the server you use and how you\n"
+"want to serve the application (mod_wsgi, fastCGI). There is a sample <code>wsgi.py</code>\n"
+"file in the wger folder, edit it and adapt it to your needs and make the server\n"
+"serve it, e.g. per mod_wsgi. Consult in any case the\n"
+"<a href=\"https://docs.djangoproject.com/en/1.5/howto/deployment/\">django\n"
+"documentation</a> on the topic."
+msgstr ""
+
+#: software/templates/code.html:221 software/templates/functions.html:240
+msgid "Overview"
+msgstr ""
+
+#: software/templates/contribute.html:13
+msgid ""
+"wger Workout Manager is build by volunteers,\n"
+"the development process is open and freely accessible to anybody interested.\n"
+"If you are new to the free software world, we recommend to take a\n"
+"look <a href=\"http://schlitt.info/opensource/blog/0541_10_golden_rules_for_starting_with_open_source.html\">this\n"
+"article</a> which summarizes they way open source projects work very well. "
+msgstr "wger Workout Manager создан волонтерами,\nпроцесс программирования открыт и свободно доступен всем заинтересованым.\nЕсли вы новичок в сфере свободного софта, мы рекомендуем вам заглянуть сюда <a href=\"http://schlitt.info/opensource/blog/0541_10_golden_rules_for_starting_with_open_source.html\">эта статья</a> очень доступно обьясняет как работают проекты в свободном софте."
+
+#: software/templates/contribute.html:20
+msgid ""
+"Any kind of contribution is appreciated and welcome.\n"
+"Use this opportunity and influence the direction of the\n"
+"project. "
+msgstr "Любой вид содействия ценится и приветствуется.\nИспользуйте эту возможность и повлияйте на направление\nпроекта."
+
+#: software/templates/contribute.html:31
+msgid ""
+"The goal is to build an awesome\n"
+"and flexible fitness manager, along with a comprehensive and complete list of exercises and\n"
+"ingredients, all released under a free license."
+msgstr " \nЦель - создать удивительный и гибкий фитнес-менеджер, наряду с всесторонним и полным списком упражнений и\nингредиентов, выпущеный под свободной лицензией."
+
+#: software/templates/contribute.html:46
+msgid "Use the site"
+msgstr "Воспользуйтесь этим сайтом"
+
+#: software/templates/contribute.html:51
+msgid ""
+"Simply use the site and tell your friends\n"
+"how useful it is! ;) . When you find something that you specially liked,\n"
+"could need some improvements or just doesn't work, tell us! This might not sound\n"
+"like much, but is incredibly important!"
+msgstr "Просто воспользуйтесь этим сайтом и расскажите своим друзьям какой он классный! ;) . Если вы найдете что-то, что вам особенно нравится,\nчто нуждается в улучшении или просто не работает, скажите нам! Это может показаться незначительным, но это невероятно важно!"
+
+#: software/templates/contribute.html:66
+msgid "Submit exercises"
+msgstr "Представить упражнения"
+
+#: software/templates/contribute.html:71
+msgid ""
+"Submit those cool exercises that you absolutely\n"
+"love and do every week but are not in the list yet. If you think some description\n"
+"is too short or some other detail is missing or could be improved, tell!"
+msgstr ""
+
+#: software/templates/contribute.html:77
+msgid "Only registered users can do this"
+msgstr ""
+
+#: software/templates/contribute.html:87
+msgid "Translate"
+msgstr ""
+
+#: software/templates/contribute.html:92
+msgid ""
+"Do you want to use wger in your own language?\n"
+"Do you think the current translation could be improved?\n"
+"The translations are easily managed and edited online, if you are interested,\n"
+"go to the transifex site, request access and we will set everything\n"
+"up. "
+msgstr ""
+
+#: software/templates/contribute.html:99
+msgid "Translate with Transifex"
+msgstr ""
+
+#: software/templates/contribute.html:107
+msgid "Code"
+msgstr ""
+
+#: software/templates/contribute.html:112
+msgid ""
+"Obviously, you are highly encouraged to clone the\n"
+"repo and start hacking! Once you are ready, send a pull request and we\n"
+"will show the world. Take a look at the developer guide for more details\n"
+"on this."
+msgstr ""
+
+#: software/templates/functions.html:11
+msgid ""
+"wger Workout Manager is a free, open source web application that manages\n"
+"your exercises and workouts. It started as a pet project of mine to replace my\n"
+"growing collection of different spreadsheets, but it has become something other\n"
+"people could also find useful."
+msgstr ""
+
+#: software/templates/functions.html:33
+msgid "Edit window for a new set"
+msgstr ""
+
+#: software/templates/functions.html:34
+msgid ""
+"With this simple form you create\n"
+"a new set with the repetitions and exercises you want. Repeat this\n"
+"step a couple of times, and you have your workout ready."
+msgstr ""
+
+#: software/templates/functions.html:42 software/templates/functions.html:136
+#: software/templates/functions.html:243
+msgid "The workout manager"
+msgstr ""
+
+#: software/templates/functions.html:43
+msgid ""
+"A day of a simple workout with a few exercises.\n"
+"If you don't want to see the comments for correct execution, you can hide\n"
+"them."
+msgstr ""
+
+#: software/templates/functions.html:53
+msgid ""
+"Some weight entries for two exercises. Each\n"
+"colour represents a different repetition so you can see how well you are\n"
+"doing."
+msgstr ""
+
+#: software/templates/functions.html:62
+msgid ""
+"An overview of the body's muscles and the\n"
+"available exercises that mainly train the currently selected one."
+msgstr ""
+
+#: software/templates/functions.html:69
+msgid "Body weight"
+msgstr ""
+
+#: software/templates/functions.html:70
+msgid ""
+"The chart shows the evolution of the\n"
+"body weight. With the small version below, you can zoom in a time period."
+msgstr ""
+
+#: software/templates/functions.html:78
+msgid ""
+"The two first meals of a nutritional plan.\n"
+"The nutritional values (energy, protein, etc.) are calculated too, but\n"
+"are not shown in the picture."
+msgstr ""
+
+#: software/templates/functions.html:86
+msgid "Ingredient detail view"
+msgstr ""
+
+#: software/templates/functions.html:87
+msgid ""
+"A detail view of an ingredient. With the\n"
+"calculator on the top it's possible to quickly calculate the nutritional\n"
+"calues for a amount. 'Human' units such as slices are available for some\n"
+"ingredients."
+msgstr ""
+
+#: software/templates/functions.html:100
+msgid "In short:"
+msgstr ""
+
+#: software/templates/functions.html:106
+msgid "a workout manager"
+msgstr ""
+
+#: software/templates/functions.html:107
+msgid ""
+"create and manage your workout routines by selecting how\n"
+"            many days your workout constists of, and adding different exercises to each.\n"
+"            Print the generated PDF to keep a log."
+msgstr ""
+
+#: software/templates/functions.html:116
+msgid "a weight tracker"
+msgstr ""
+
+#: software/templates/functions.html:117
+msgid ""
+"keep track of your progress with the weight log chart\n"
+"            for each exercise and your own body weight. This makes it easy to see if you\n"
+"            are reaching your goals or need to adjust something."
+msgstr ""
+
+#: software/templates/functions.html:126
+msgid "a nutrition manager"
+msgstr ""
+
+#: software/templates/functions.html:127
+msgid ""
+"create a diet plan and see its nutritional\n"
+"            values (total energy, protein, carbohydrates, and so on) about\n"
+"            it. Select from more than 8000 ingredients for this."
+msgstr ""
+
+#: software/templates/functions.html:138
+msgid ""
+"You probably guessed, this is the main function.\n"
+"It creates the workout you tell it, the way you tell it. It is pretty flexible\n"
+"so if you do supersets, no need to worry, it is supported and you will\n"
+"know which exercises <em>belong together</em>. Each set can have a different\n"
+"number of repetitions you want to reach and which you enter yourself.\n"
+"This means that other training forms like pyramid training or similar are\n"
+"not a problem."
+msgstr ""
+
+#: software/templates/functions.html:150
+msgid ""
+"<strong>Note:</strong> it has no 'preset' workouts that you\n"
+"can simply use (e.g. beginner, etc.). It will happily make the routine you tell\n"
+"it to do, but you have to decide which exercises and how many repetitions you'll\n"
+"do."
+msgstr ""
+
+#: software/templates/functions.html:156 software/templates/functions.html:245
+msgid "PDF export"
+msgstr ""
+
+#: software/templates/functions.html:158
+msgid ""
+"It can also generate a PDF with your current routine.\n"
+"This is suitable for printing so you can bring it to the gym and keep a log\n"
+"for 7 weeks. In case you wonder how it looks like,\n"
+"<a href=\"/static/pdf/workout-pdf-1.0.3-en.pdf\">here's a sample</a>."
+msgstr ""
+
+#: software/templates/functions.html:164 software/templates/functions.html:246
+msgid "Exercise log"
+msgstr ""
+
+#: software/templates/functions.html:166
+msgid ""
+"The electronic version of the above PDF output, you can enter\n"
+"the weights and repetitions you did for each exercise. As with the (body) weight,\n"
+"it will generate some diagrams so so you can see at a glance how well you are doing.\n"
+"The raw numbers are still accessible as a table."
+msgstr ""
+
+#: software/templates/functions.html:174 software/templates/functions.html:247
+msgid "Workout schedules"
+msgstr ""
+
+#: software/templates/functions.html:176
+msgid ""
+"If you always do a couple of workouts in succession or\n"
+"are following a program that changes each week, you can manage this with\n"
+"the workout schedules. You enter how many weeks you want to do each individual\n"
+"workout and whether it should loop after reaching the last one. The correct\n"
+"currently active workout will then be shown on your dashboard."
+msgstr ""
+
+#: software/templates/functions.html:184 software/templates/functions.html:252
+msgid "Muscle and exercise database"
+msgstr "База данных мышц и упражнений"
+
+#: software/templates/functions.html:185
+msgid ""
+"The exercise database contains around hundred exercises\n"
+"from which you can choose when creating a workout. Some have important notes\n"
+"about the form to perform them. This is displayed in the workout overview\n"
+"page, so you keep them in mind."
+msgstr "При создании тренировки вы можете выбрать упражнения из базы данных, которая содержит около ста упражнений. Некоторые содержат важные замечания для их выполнения. Они отображаются в обзоре тренировки, для того, чтобы вы взяли их во внимание."
+
+#: software/templates/functions.html:190
+msgid ""
+"If you entered weight logs for the currently shown exercise, it\n"
+"will display your progress."
+msgstr "Если вы ввели журнал тяжестей для данного упражнения, это\nбудет отображать прогресс."
+
+#: software/templates/functions.html:193
+msgid ""
+"You can also submit your own, if you miss one. After a quick\n"
+"review, it will be added to the general database."
+msgstr "Вы также можете предоставить свой, если вы пропустите один. После рассмотрения, оно будет добавлено в общую базу данных."
+
+#: software/templates/functions.html:201 software/templates/functions.html:255
+msgid "The weight tracker"
+msgstr "Отслеживатель веса"
+
+#: software/templates/functions.html:202
+msgid ""
+"This simple part lets you log your body weight. From this\n"
+"data it generates a rather nice looking chart, so you can see if you are\n"
+"reaching your goals (be it gaining mass or losing it)."
+msgstr "Эта простая часть позволяет вам регистрировать ваш вес. Из этих данных создается довольно приятная глазу диаграмма, по которой вы сможете проследить достижение ваших целей (например набор или потеря веса)."
+
+#: software/templates/functions.html:206
+msgid ""
+"In case you want to jump ship after inputing your data from the\n"
+"last years, simply export the data as CSV."
+msgstr "В случае, если вы хотите выйти (jump ship) после ввода ваших данных за последние годы, просто экспортируйте данные в формате CSV."
+
+#: software/templates/functions.html:212 software/templates/functions.html:257
+#: weight/templates/import_csv_preview.html:73
+msgid "Import"
+msgstr "Импортировать"
+
+#: software/templates/functions.html:214
+msgid ""
+"If you already kept your weight in a spreadsheet, you can just\n"
+"import it by copy-and-paste'ing it into the import assistant."
+msgstr "Если вы уже сохранили свой вес в таблице, вы можете просто\nего импортировать скопировав и вставив его в помощнике импортирования."
+
+#: software/templates/functions.html:219 software/templates/functions.html:261
+msgid "The nutrition schedule manager"
+msgstr "Менеджер программы питания"
+
+#: software/templates/functions.html:220
+msgid ""
+"And finally it is a nutrition schedule manager. Here you can\n"
+"create a diet plan and see some nutritional values (total energy, protein,\n"
+"carbohydrates, and so on) about it. For the ingredients, it uses the very complete\n"
+"list provided by the US Department of Agriculture, with around 8000\n"
+"entries."
+msgstr "И наконец - менеджер программы питания. Здесь вы сможете\nсоздать план питания и просмотреть некоторые питательные вещества (общая энергия, белок,\nуглеводы и т.д.) составляющих программы. Тут используется полный\nперечень ингредиентов, представленный Министерством Сельского хозяйства США, около 8000\nзаписей."
+
+#: software/templates/functions.html:228
+msgid ""
+"<strong>Note:</strong> this is not a log keeper. It does not\n"
+"keep track of what you actually ate during the day and how it compares to\n"
+"what the plan says. It simply shows you the nutritional values of the plan\n"
+"you create."
+msgstr "<strong>Примечание:</strong> это не журнал записей. Оно не следит за тем, что вы ели на самом деле на протяжении дня и соответсвует ли ваше питание программе. Это просто показывает питательные ценности вами создаваемого плана."
+
+#: software/templates/functions.html:233
+msgid ""
+"It can also be downloaded as a PDF you can keep on your\n"
+"fridge, so you don't forget to follow the plan... And as with the workout\n"
+"log, <a href=\"/static/pdf/nutrition-plan-pdf-1.0-en.pdf\">here's a sample</a>."
+msgstr "Вы также можете скачать его в формате PDF, распечатать и хранить на холодильнике, для того, чтобы не забыть следовать плану... И как и с журналом тренировок, <a href=\"/static/pdf/nutrition-plan-pdf-1.0-en.pdf\">вот образец</a>."
+
+#: software/templates/issues.html:6
+msgid "Reporting a problem"
+msgstr "Сообщение о проблеме"
+
+#: software/templates/issues.html:15
+msgid ""
+"\n"
+"No software is perfect. For some severe errors, an email will be automatically sent, but\n"
+"not always, so I depend on you reporting everything that didn't behave as expected.\n"
+"Please describe in as much detail as you can what you were doing when the error\n"
+"happened.\n"
+msgstr ""
+
+#: software/templates/issues.html:26
+msgid "report problem to the issue tracker"
+msgstr "сообщить о проблеме в систему отслеживания ошибок"
+
+#: software/templates/issues.html:30
+msgid "Enhancements"
+msgstr "Усовершенствования"
+
+#: software/templates/issues.html:32
+msgid ""
+"\n"
+"The issue tracker can also be used to document enhancements to the software.\n"
+"If you have some suggestions or think a feature is missing, feel\n"
+"free to open a ticket. This can be anything from a slight change to a whole\n"
+"new section of the site. Please keep in mind that not all wishes can be\n"
+"implemented."
+msgstr ""
+
+#: software/templates/issues.html:41
+msgid "report wish to the issue tracker"
+msgstr "сообщить о просьбе в систему отслеживания ошибок"
+
+#: software/templates/issues.html:46
+msgid "No Github account?"
+msgstr "Нет аккаунта в Github?"
+
+#: software/templates/issues.html:47
+msgid ""
+"Filing an issue requires a github account, if you don't\n"
+"have one and don't want to register, you can also send it to\n"
+"<a href=\"https://groups.google.com/group/wger\">the mailing list</a>."
+msgstr "Подача вопроса требует наличие аккаунта в github, если его у вас нет или вы не хотите регистрироваться, вы можете его также выслать в<a href=\"https://groups.google.com/group/wger\">список рассылки</a>."
+
+#: software/templates/license.html:10
+msgid ""
+"wger Workout Manager is Free/Libre Open Source\n"
+"Software (FLOSS)."
+msgstr "wger Workout Manager - это Free/Libre Open Source\nПрограммное обеспечение  (FLOSS)."
+
+#: software/templates/license.html:20
+msgid ""
+"wger Workout Manager is released under the <strong>Affero GNU\n"
+"General Public License (AGPL)  Version 3+</strong> and can (under the conditions\n"
+"of the license) be used, modified and distributed (also with modifications)\n"
+"without restrictions."
+msgstr "wger Workout Manager выпущен под лицензией<strong>GNU Affero\nGeneral Public License (AGPL) Версии 3+</strong> и может (в условиях\nлицензии) изпользоваться, изменяться и распределяться (также с изменениями)\nбез ограничений."
+
+#: software/templates/license.html:31
+msgid ""
+"The data fixtures with the exercise and ingredient lists are\n"
+"released additionally under a <strong>Creative Commons Attribution Share Alike 3\n"
+"(CC-BY-SA)</strong> license.</a>"
+msgstr " \nОправка данных со списками упражнений и ингредиентов выпущены дополнительно под лицензией <strong>Creative Commons Attribution Share Alike 3\n(CC-BY-SA)</strong> .</a>"
+
+#: software/templates/license.html:36
+msgid ""
+"A copy of both licenses is contained in every wger Workout\n"
+"Manager release and can be read in the\n"
+"<a href='https://github.com/rolandgeider/wger/blob/master/AGPL.txt'>AGPL.txt</a>\n"
+"or <a href='https://github.com/rolandgeider/wger/blob/master/CC-BY-SA.txt'>CC-BY-SA.txt</a>\n"
+"files in the source code repository."
+msgstr "Копия обеих лицензий содержится в каждом выпуске wger Workout\nManager и может быть прочитаным в файлах\n<a href='https://github.com/rolandgeider/wger/blob/master/AGPL.txt'>AGPL.txt</a>\nили <a href='https://github.com/rolandgeider/wger/blob/master/CC-BY-SA.txt'>CC-BY-SA.txt</a>\n в архиве исходного кода."
+
+#: weight/views.py:97
+#, python-format
+msgid "Edit weight entry for the %s"
+msgstr "Изменить запись веса для %s"
+
+#: weight/views.py:109
+msgid "weightdata"
+msgstr "данные веса"
+
+#: weight/views.py:198
+msgid "Input"
+msgstr "Ввод"
+
+#: weight/views.py:199
+msgid "Date format"
+msgstr "Формат даты"
+
+#: weight/templates/edit.html:8 weight/templates/edit.html.py:25
+msgid "Weight entry"
+msgstr "Запись веса"
+
+#: weight/templates/import_csv_form.html:5
+msgid "Import weight logs"
+msgstr "Импортировать журнал веса"
+
+#: weight/templates/import_csv_form.html:20
+msgid "Submit"
+msgstr "Отправить"
+
+#: weight/templates/import_csv_form.html:29
+msgid ""
+"Use this import field to import your weight logs into Workout\n"
+"Manager."
+msgstr "Воспользуйтесь этим полем для импортирования ваших записей веса в Workout\nManager."
+
+#: weight/templates/import_csv_form.html:32
+msgid ""
+"You can copy and paste from your spreadsheet into the text input,\n"
+"the system will try to guess the format to import. The only things to consider is\n"
+"that the first column is the <strong>date</strong>, the second the <strong>weight</strong>.\n"
+"All further columns are ignored.\n"
+msgstr "Вы можете копировать и вставить из таблицы в ввод текста, система попытается определить формат для импортирования. Важно чтобы первая колонка была <strong>дата</strong>, а вторая <strong>вес</strong>.\nВсе последующие колонки игнорируются.\n"
+
+#: weight/templates/import_csv_form.html:38
+msgid ""
+"If there are errors, you can correct or discard them in a\n"
+"second step."
+msgstr "Если есть ошибки, вы сможете исправить или отменить их на втором этапе."
+
+#: weight/templates/import_csv_preview.html:5
+msgid "Preview imported CSV entries"
+msgstr "Предварительный просмотр импортировал CSV записи"
+
+#: weight/templates/import_csv_preview.html:10
+msgid "Sucessfully converted values"
+msgstr "Успешно конвертированные значения"
+
+#: weight/templates/import_csv_preview.html:11
+msgid "The following values could be converted."
+msgstr "Следующие значения были конвертированы."
+
+#: weight/templates/import_csv_preview.html:27
+msgid "Errors"
+msgstr "Ошибки"
+
+#: weight/templates/import_csv_preview.html:30
+msgid "The following values could not be converted."
+msgstr "Следующие значения не могли быть конвертированы."
+
+#: weight/templates/import_csv_preview.html:32
+msgid ""
+"These values could not be converted to a weight log entry.\n"
+"    The reasons for this could be anything from an unrecognised date or number\n"
+"    format, a problem with the encoding or something else. Please check that\n"
+"    there are no obvious errors in the list (and correct them if there are!)\n"
+"    and try to import the list again."
+msgstr ""
+
+#: weight/templates/import_csv_preview.html:38
+msgid ""
+"Remember that the expected structure is <strong>date</strong>\n"
+"    on the first columns and <strong>weight</strong> on the second."
+msgstr ""
+
+#: weight/templates/import_csv_preview.html:55
+msgid "There were no errors, all entries could be converted!"
+msgstr ""
+
+#: weight/templates/import_csv_preview.html:59
+msgid "Import all successfully converted entries"
+msgstr ""
+
+#: weight/templates/import_csv_preview.html:60
+msgid ""
+"Continue here if you want to import into your weight log all\n"
+"entries that were sucessfully converted. All entries that produced an error\n"
+"will simply be ignored. It's up to you to decide whether they are useful\n"
+"(unrecognised entries) or not (e.g. headers, comments, etc.)."
+msgstr ""
+
+#: weight/templates/import_csv_preview.html:78
+msgid "Or try it again"
+msgstr ""
+
+#: weight/templates/import_csv_preview.html:80
+msgid ""
+"You can correct the list here and re-submit it as often as\n"
+"you want."
+msgstr ""
+
+#: weight/templates/import_csv_preview.html:94
+msgid "Re-Submit"
+msgstr ""
+
+#: weight/templates/weight_overview.html:80
+msgid "There is no chart here because there are no weight entries."
+msgstr ""
+
+#: weight/templates/weight_overview.html:81
+msgid "Use link to add one."
+msgstr ""
+
+#: weight/templates/weight_overview.html:94
+msgid "You can click on a value on the chart to edit it. "
+msgstr ""
+
+#: weight/templates/weight_overview.html:104
+msgid "Filter options"
+msgstr ""
+
+#: weight/templates/weight_overview.html:105
+msgid ""
+"\n"
+"Use the second chart to pan or zoom by clicking and dragging the selection. Clicking\n"
+"on the background resets it.\n"
+msgstr ""
+
+#: weight/templates/weight_overview.html:118
+#: weight/templates/weight_overview.html:119
+#: weight/templates/weight_overview.html:120
+msgid "Export as CSV"
+msgstr ""
+
+#: weight/templates/weight_overview.html:129
+#: weight/templates/weight_overview.html:130
+#: weight/templates/weight_overview.html:131
+msgid "Import from spreadsheet"
+msgstr ""
+
+msgid "Abs"
+msgstr ""
+
+msgid "Arms"
+msgstr ""
+
+msgid "Back"
+msgstr "Назад"
+
+msgid "Calves"
+msgstr ""
+
+msgid "Chest"
+msgstr ""
+
+msgid "Legs"
+msgstr ""
+
+msgid "Shoulders"
+msgstr ""

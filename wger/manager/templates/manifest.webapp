@@ -1,18 +1,18 @@
 {% load staticfiles %}
 {
-    "name": "wger",
+    "name": "wger Workout Manager",
     "version": "{{version}}",
     "description": "A workout, nutrition and weight manager",
     "launch_path": "/",
     "icons": {
-        "16": "{% static 'images/logos/logo-16.png' %}",
-        "32": "{% static 'images/logos/logo-32.png' %}",
-        "30": "{% static 'images/logos/logo-30.png' %}",
-        "48": "{% static 'images/logos/logo-48.png' %}",
-        "60": "{% static 'images/logos/logo-60.png' %}",
-        "64": "{% static 'images/logos/logo-64.png' %}",
-        "128": "{% static 'images/logos/logo-128.png' %}",
-        "256": "{% static 'images/logos/logo-256.png' %}"
+        "16": "{% static 'images/logos/logo-marketplace-16.png' %}",
+        "32": "{% static 'images/logos/logo-marketplace-32.png' %}",
+        "30": "{% static 'images/logos/logo-marketplace-30.png' %}",
+        "48": "{% static 'images/logos/logo-marketplace-48.png' %}",
+        "60": "{% static 'images/logos/logo-marketplace-60.png' %}",
+        "64": "{% static 'images/logos/logo-marketplace-64.png' %}",
+        "128": "{% static 'images/logos/logo-marketplace-128.png' %}",
+        "256": "{% static 'images/logos/logo-marketplace-256.png' %}"
     },
     "developer": {
         "name": "Roland Geider"

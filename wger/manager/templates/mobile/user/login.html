@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load browserid %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+
+{% block title %} {% trans "Login" %}{% endblock %}
+
+
+{% block header %}{% endblock %}
+
+{% block content %}
+<form action="{% url 'login' %}"
+      method="post"
+      class="ym-form">
+      {% csrf_token %}
+      <div class="ym-fbox-text ym-error">
+          <div class="ym-message">
+              {{ form.non_field_errors }}
+          </div>
+       </div>
+      <input type="hidden" name="next" value="{{next}}">
+<table>
+{% yaml_form_field form.username %}
+{% yaml_form_field form.password %}
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="{% trans 'Login' %}" id="form-save">
+        </td>
+    </tr>
+</table>
+</form>
+
+<div style="text-align:center;">
+<h3>— {% trans "or" %} —</h3>
+    <div style="padding-top:1em;"></div>
+    <a id="browserid-login"
+       href="#"
+       class="browserid-login persona-button dark browserid-login"
+       data-site-name="Workout Manager"
+       data-next="/">
+        <span>{% trans "Sign in with your Email" %}</span>
+    </a>
+</div>
+
+<p>
+    {% blocktrans %}Persona (BrowserID) replaces multiple passwords, you don't
+    need to remember a new password for this site. For more information, please
+    take a look at the <a href="https://login.persona.org/" target="_blank">the
+    Persona website</a>.{% endblocktrans %}
+</p>
+
+
+{% endblock %}
+
+
+{% block sidebar %}
+<h3>{% trans "No account?" %}</h3>
+<p>
+    <a href="{% url 'wger.manager.views.user.registration' %}"
+       data-role="button"
+       data-ajax="false">
+        <img src="{% static 'images/icons/register.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Register' %}">
+        {% trans "Register" %}</a>
+</p>
+
+<h3>{% trans "Forgot password?" %}</h3>
+<p>
+    <a href="{% url 'django.contrib.auth.views.password_reset' %}" data-role="button">
+        <img src="{% static 'images/icons/reset-password.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Reset password' %}">
+        {% trans "Reset password" %}</a>
+</p>
+
+
+
+{% endblock %}

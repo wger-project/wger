@@ -313,7 +313,7 @@ def search(request):
 
     # Perform the search
     q = request.GET.get('term', '')
-    #user_language = load_language()
+
     languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
     exercises = (Exercise.objects.filter(name__icontains=q)
                                  .filter(language__in=languages)

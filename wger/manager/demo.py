@@ -168,6 +168,17 @@ def create_demo_entries(user):
     setting_list.append(Setting(set=day_set, exercise=exercise, reps=99, order=2))
     setting_list.append(Setting(set=day_set, exercise=exercise, reps=35, order=3))
 
+    # Leg raises, supersets with crunches
+    if(language.short_name == 'de'):
+        exercise = Exercise.objects.get(pk=35)
+    else:
+        exercise = Exercise.objects.get(pk=126)
+    day_set.exercises.add(exercise)
+
+    setting_list.append(Setting(set=day_set, exercise=exercise, reps=30, order=1))
+    setting_list.append(Setting(set=day_set, exercise=exercise, reps=40, order=2))
+    setting_list.append(Setting(set=day_set, exercise=exercise, reps=99, order=3))
+
     Setting.objects.bulk_create(setting_list)
 
     # Save all the log entries
@@ -177,12 +188,14 @@ def create_demo_entries(user):
     # (Body) weight entries
     #
     temp = []
+    existing_entries = [i.creation_date for i in WeightEntry.objects.filter(user=user)]
     for i in range(1, 20):
         creation_date = datetime.date.today() - datetime.timedelta(days=i)
-        entry = WeightEntry(user=user,
-                            weight=80 + 0.5*i + random.randint(1, 3),
-                            creation_date=creation_date)
-        temp.append(entry)
+        if creation_date not in existing_entries:
+            entry = WeightEntry(user=user,
+                                weight=80 + 0.5 * i + random.randint(1, 3),
+                                creation_date=creation_date)
+            temp.append(entry)
     WeightEntry.objects.bulk_create(temp)
 
     #
@@ -237,7 +250,7 @@ def create_demo_entries(user):
     mealitem.meal = meal
     mealitem.ingredient = ingredient
     mealitem.order = 3
-    mealitem.amount = 100
+    mealitem.amount = 30
     mealitem.save()
 
     #

@@ -43,9 +43,9 @@ function custom_modal_init()
     {% empty %}
     <tr>
         <td colspan="3">
-    		<a href="{% url 'schedule-add' %}" class="modal-dialog btn btn-block">
+            <a href="{% url 'schedule-add' %}" class="modal-dialog btn btn-block">
             {% trans "No schedules found." %} {% trans "Add one now." %}
-           	</a>
+            </a>
         </td>
     </tr>
     {% endfor %}

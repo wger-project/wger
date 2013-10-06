@@ -1,0 +1,42 @@
+{% extends "base_wide.html" %}
+{% load i18n %}
+{% load wger_extras %}
+
+{% block title%}{% trans "Get in touch" %}{% endblock %}
+
+
+{% block content %}
+<p>{% blocktrans %}Thank you for your interest. Feel free to use any of the
+ways below to send feedback you have about any aspect of the site. For
+support, it's better to use the mailing list
+(<a href="mailto:wger@googlegroups.com">wger@googlegroups.com</a>), to report
+a bug, consider doing it through the <a href="{{issues}}">issue tracker</a>
+.{% endblocktrans %}</p>
+
+<div class="alert alert-block alert-info">
+{% blocktrans %}If you want to further help and improve this project,
+you might also be interested <a href="{{contribute}}">in contributing</a>.{% endblocktrans %}
+</div>
+
+
+<h3>{% trans "Feedback form" %}</h3>
+<p>{% blocktrans %}A simple contact form. Remember that
+if you want an answer, you need to include some way to contact you.{% endblocktrans %}</p>
+<p><a data-role="button" href="{{feedback}}" data-ajax="false">{% trans "Open feedback form" %}</a></p>
+
+<h3>{% trans "Twitter" %}</h3>
+<p>{% blocktrans %}We are also on twitter. Write us and tell us what
+you think! Except patches, don't send patches via twitter.{% endblocktrans %}</p>
+<p><a href="https://twitter.com/wger_de"
+      target="_blank"
+      data-role="button">{% trans "tweet to @wger_de" %}</a></p>
+
+<h3>{% trans "Forum / Mailing list" %}</h3>
+<p>{% blocktrans %}Use the public group to get support for your
+local wger installation, discuss issues or your new idea, etc.
+(no registration needed){% endblocktrans %}</p>
+<p><a href="https://groups.google.com/group/wger" data-role="button">{% trans "Go to mailing list" %}</a></p>
+
+
+{% endblock %}
+

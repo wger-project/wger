@@ -32,6 +32,9 @@ from django.utils.translation import ugettext
 from wger.exercises.models import Language
 from wger.utils.constants import EMAIL_FROM
 from wger.utils.cache import cache_mapper
+from wger.utils.fields import Html5TimeField
+from wger.utils.fields import Html5DecimalField
+from wger.utils.fields import Html5IntegerField
 
 MEALITEM_WEIGHT_GRAM = '1'
 MEALITEM_WEIGHT_UNIT = '2'
@@ -74,7 +77,10 @@ class NutritionPlan(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return u"Nutrition plan for {0}, {1}".format(self.user, self.creation_date)
+        if self.description:
+            return self.description
+        else:
+            return unicode(_("Nutrition plan"))
 
     def get_absolute_url(self):
         '''
@@ -196,51 +202,51 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=200,
                             verbose_name=_('Name'),)
 
-    energy = models.IntegerField(verbose_name=_('Energy'),
-                                 help_text=_('In kcal per 100g'))
+    energy = Html5IntegerField(verbose_name=_('Energy'),
+                               help_text=_('In kcal per 100g'))
 
-    protein = models.DecimalField(decimal_places=3,
-                                  max_digits=6,
-                                  verbose_name=_('Protein'),
-                                  help_text=_('In g per 100g of product'))
+    protein = Html5DecimalField(decimal_places=3,
+                                max_digits=6,
+                                verbose_name=_('Protein'),
+                                help_text=_('In g per 100g of product'))
 
-    carbohydrates = models.DecimalField(decimal_places=3,
-                                        max_digits=6,
-                                        verbose_name=_('Carbohydrates'),
-                                        help_text=_('In g per 100g of product'))
+    carbohydrates = Html5DecimalField(decimal_places=3,
+                                      max_digits=6,
+                                      verbose_name=_('Carbohydrates'),
+                                      help_text=_('In g per 100g of product'))
 
-    carbohydrates_sugar = models.DecimalField(decimal_places=3,
-                                              max_digits=6,
-                                              blank=True,
-                                              null=True,
-                                              verbose_name=_('Sugar content in carbohydrates'),
-                                              help_text=_('In g per 100g of product'))
+    carbohydrates_sugar = Html5DecimalField(decimal_places=3,
+                                            max_digits=6,
+                                            blank=True,
+                                            null=True,
+                                            verbose_name=_('Sugar content in carbohydrates'),
+                                            help_text=_('In g per 100g of product'))
 
-    fat = models.DecimalField(decimal_places=3,
-                              max_digits=6,
-                              verbose_name=_('Fat'),
-                              help_text=_('In g per 100g of product'))
+    fat = Html5DecimalField(decimal_places=3,
+                            max_digits=6,
+                            verbose_name=_('Fat'),
+                            help_text=_('In g per 100g of product'))
 
-    fat_saturated = models.DecimalField(decimal_places=3,
-                                        max_digits=6,
-                                        blank=True,
-                                        null=True,
-                                        verbose_name=_('Saturated fat content in fats'),
-                                        help_text=_('In g per 100g of product'))
+    fat_saturated = Html5DecimalField(decimal_places=3,
+                                      max_digits=6,
+                                      blank=True,
+                                      null=True,
+                                      verbose_name=_('Saturated fat content in fats'),
+                                      help_text=_('In g per 100g of product'))
 
-    fibres = models.DecimalField(decimal_places=3,
-                                 max_digits=6,
-                                 blank=True,
-                                 null=True,
-                                 verbose_name=_('Fibres'),
-                                 help_text=_('In g per 100g of product'))
+    fibres = Html5DecimalField(decimal_places=3,
+                               max_digits=6,
+                               blank=True,
+                               null=True,
+                               verbose_name=_('Fibres'),
+                               help_text=_('In g per 100g of product'))
 
-    sodium = models.DecimalField(decimal_places=3,
-                                 max_digits=6,
-                                 blank=True,
-                                 null=True,
-                                 verbose_name=_('Sodium'),
-                                 help_text=_('In g per 100g of product'))
+    sodium = Html5DecimalField(decimal_places=3,
+                               max_digits=6,
+                               blank=True,
+                               null=True,
+                               verbose_name=_('Sodium'),
+                               help_text=_('In g per 100g of product'))
 
     #
     # Django methods
@@ -435,7 +441,9 @@ class Meal(models.Model):
                                 max_length=1,
                                 blank=True,
                                 editable=False)
-    time = models.TimeField(null=True, blank=True, verbose_name=_('Time (approx)'))
+    time = Html5TimeField(null=True,
+                          blank=True,
+                          verbose_name=_('Time (approx)'))
 
     def __unicode__(self):
         '''
@@ -498,10 +506,10 @@ class MealItem(models.Model):
                                 max_length=1,
                                 blank=True,
                                 editable=False)
-    amount = models.DecimalField(decimal_places=2,
-                                 max_digits=6,
-                                 validators=[MaxValueValidator(1000)],
-                                 verbose_name=_('Amount'))
+    amount = Html5DecimalField(decimal_places=2,
+                               max_digits=6,
+                               validators=[MaxValueValidator(1000)],
+                               verbose_name=_('Amount'))
 
     def __unicode__(self):
         '''

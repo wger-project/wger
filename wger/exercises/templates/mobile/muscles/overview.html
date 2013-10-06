@@ -1,0 +1,159 @@
+{% extends "base_wide.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+{% load cache %}
+
+<!--
+        Title
+-->
+{% block title %}{% trans "Muscle overview" %}{% endblock %}
+
+
+{% block header %}{% endblock %}
+
+
+{% block scripts %}
+<script>
+$( document ).off("pageinit").on("pageinit", function() {
+    console.log('Pageinit muscle list');
+
+    //Prefetch the background images
+    {% for muscle in muscle_list|first %}
+        prefetch_images(['/static/images/muscles/main/muscle-' + {{muscle.id}} + '.svg']);
+    {% endfor %}
+    prefetch_images(['/static/images/muscles/muscular_system_back.svg']);
+
+
+    // Hightlight the first element
+    highlight_muscle($('.muscle').first(), {%if perms.exercises%}true{%else%}false{%endif%});
+
+    // Highlight on tap
+    $('.muscle').on( "tap", function(e) {
+        e.preventDefault();
+        highlight_muscle(this, {%if perms.exercises%}true{%else%}false{%endif%});
+    });
+});
+</script>
+{% endblock %}
+
+
+<!--
+        Main Content
+-->
+{% block content %}
+{% trans "Hover with the mouse over the muscles to show corresponding exercises." %}
+
+
+<h3 style="margin-bottom:0px;">{% trans "Muscles" %}</h3>
+<div class="ui-grid-a">
+    <div class="ui-block-a">
+        {# Why do we need to use |first? #}
+        <div data-role="collapsible-set">
+        {% regroup muscle_list|first by is_front as muscle_group %}
+        {% for group in muscle_group %}
+            <div data-role="collapsible" data-content-theme="c">
+                {% if group.grouper %}
+                    <h3>{% trans "Front side" %}</h3>
+                {% else %}
+                    <h3>{% trans "Back side" %}</h3>
+                {% endif %}
+                <ul data-role="listview">
+                        {% for muscle in group.list %}
+                        <li class="muscle"
+                            data-target="muscle-{{muscle.id}}"
+                            data-is-front="{{muscle.is_front}}"
+                            data-name="{{muscle.name}}"
+                            itemscope itemtype="http://schema.org/Muscle">
+                            <a href="#"><span itemprop="name">{{muscle.name}}</span></a>
+                        </li>
+                        {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    <div class="ui-block-b">
+        <div id="muscle-system"
+             class="muscle-background"
+             style="background-image: url('/static/images/muscles/muscular_system_front.svg');">
+        </div>
+    </div>
+</div>
+
+
+
+<h3>{% trans "Exercises" %} - <span class="muscle-edit-name"></span></h3>
+{% for muscle in muscle_list|first %}
+    <div id="muscle-{{muscle.id}}"
+         style="display:none;"
+         class="exercise-list">
+        <ul data-role="listview">
+            {% for exercise in muscle.exercise_set.select_related %}
+            {% if exercise.language in active_languages %}
+            <li class="exercise">
+                <a href="{{exercise.get_absolute_url}}" data-ajax="false">{{exercise}}</a>
+            </li>
+            {% endif %}
+            {% empty %}
+            <li>
+                <em>{% trans "No exercises that mainly train this muscle" %}</em>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endfor %}
+
+{% if perms.exercises %}
+<h3>{% trans "Options" %}</h3>
+
+<p>
+<a href="{% url 'muscle-add' %}"
+   title="{% trans 'Add muscle' %}"
+   data-role="button">
+   <img src="{% static 'images/icons/new.svg' %}"
+        width="32"
+        height="32"
+        alt="{% trans 'Add muscle' %}"
+        title="{% trans 'Add muscle' %}">
+    {% trans 'Add muscle' %}
+</a>
+</p>
+
+<p>{% blocktrans %}<strong>Important:</strong> After adding a muscle, you need
+to create a new SVG image with the contours of the muscle and place it in the
+folder <em>images/muscles</em>.{% endblocktrans %}</p>
+
+
+<div id="muscle-edit-box" style="display:none;">
+<p>
+    <a href="{% url 'muscle-edit' 1 %}"
+       data-role="button"
+       id="muscle-edit-edit-link">
+       <img src="{% static 'images/icons/edit.svg' %}"
+            width="32"
+            height="32"
+            alt="{% trans 'Edit muscle' %}"
+            title="{% trans 'Edit muscle' %}">{% trans 'Edit muscle' %}: <span class="muscle-edit-name"></span></a>
+</p>
+<p>
+    <a href="{% url 'muscle-delete' 1 %}"
+       data-role="button"
+       id="muscle-edit-delete-link">
+      <img src="{% static 'images/icons/trash.svg' %}"
+            width="32"
+            height="32"
+            alt="{% trans 'Delete muscle' %}"
+            title="{% trans 'Delete muscle' %}">{% trans 'Delete muscle' %}: <span class="muscle-edit-name"></span></a>
+</p>
+</div>
+{% endif %}
+
+{% endblock %}
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}
+{% endblock %}

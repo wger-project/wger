@@ -1,0 +1,601 @@
+/*
+    This file is part of Workout Manager
+
+    Workout Manager is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Workout Manager is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with Workout Manager. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/**************************************************************
+ *
+ * This file contains custom classes and styles for the mobile version
+ *
+ **************************************************************/
+
+
+/* Use Open Sans for the body text */
+.ui-body-c,
+.ui-body-c input,
+.ui-body-c select,
+.ui-body-c textarea,
+.ui-body-c button,
+.ui-btn-up-b,
+.ui-btn-hover-b,
+.ui-btn-down-b,
+.ui-btn-up-c,
+.ui-btn-hover-c,
+.ui-btn-down-c {
+    font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
+    font-weight: 300;
+}
+.ui-body-c .ui-link{
+    font-weight: normal;
+}
+
+
+
+/*
+ * Links in warning boxes get a different style, the default blue doesn't match
+ * well with orange
+ */
+div.success a.ui-link, div.success a.ui-link:hover, div.success a.ui-link:active,
+div.warning a.ui-link, div.warning a.ui-link:hover, div.warning a.ui-link:active,
+div.info a.ui-link, div.info a.ui-link:hover, div.info a.ui-link:active{
+    /*color: black;*/
+    text-decoration: underline;
+    background-color: transparent;
+}
+
+/*
+ * Copied from YAML's typography.css file
+ */
+.box {
+    border-radius: 0.3em;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #888;
+    border-color: rgba(0,0,0,.3);
+    -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
+    -moz-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
+    /*color: #444;*/
+    color: rgba(0,0,0,.8);
+    padding-left:1.4286em;
+    padding-right:1.4286em;
+    margin: 1.5em 0 0 0;
+}
+
+.dimmed {
+    color:#888;
+}
+
+
+table {
+    width:100%;
+    border-collapse:collapse;
+    /*margin: 1.3571em 0 0 0;*/
+    color:#333;
+    border-top: 1px #ccc solid;
+    border-bottom: 1px #ccc solid;
+}
+
+table.bordertable {
+    border:1px #ccc solid;
+}
+
+.bordertable thead th {
+    background:#e0e0e0;
+    border-right:1px #ccc solid;
+    border-bottom:1px #ccc solid;
+    text-align: left;
+}
+
+.bordertable tbody th[scope="row"] {
+    background:#f0f0f0;
+}
+
+tbody th {
+    text-align: left;
+    border-top:1px solid #ccc;
+    text-align:left;
+}
+
+.bordertable tbody th {
+    border-right:1px solid #ccc;
+}
+
+tbody td {
+    text-align: left;
+    border-top:1px solid #ccc;
+}
+
+.bordertable tbody td {
+    border-right:1px solid #ccc;
+}
+
+
+/*
+ * Set the sizes for the background where the muscles are shown on the exercise view page
+ */
+div.muscle-background
+{
+    width: 150px;
+    height: 276px;
+    background-size: 150px;
+    background-repeat: no-repeat;
+}
+
+
+/**************************************************************
+ * Muscle overview
+ **************************************************************/
+.muscle-list, .exercise-overview{
+    padding-left: 0px;
+}
+
+
+/**************************************************************
+ * Headers
+ **************************************************************/
+h1 {
+    font-size:220%;
+}
+
+h2 {
+    font-size:180%;
+}
+
+h3 {
+    font-size:150%;
+}
+
+h4 {
+    font-size:133.33%;
+}
+
+h5 {
+    font-size:116.67%;
+}
+
+h6 {
+    font-size:100%;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
+	font-weight: 300;
+}
+
+
+/**************************************************************
+ * Header
+ **************************************************************/
+
+/*
+ * Add a shadow to the application name
+ */
+header h1{
+    text-shadow: 2px 3px 3px #292929;
+    font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
+    font-weight: 300;
+}
+
+/**************************************************************
+ * Autocompleter
+ **************************************************************/
+/*
+ * Category heading for the ajax autocompleter
+ */
+.ui-autocomplete-category {
+    margin:0;
+    text-align: center;
+    zoom: 1;
+    float: left;
+    clear: left;
+    width: 100%;
+    font-weight: bold;
+    background-color: #D3D7CF;
+    border-bottom: 1px solid #888a85;
+}
+
+/*
+ * Give the result list from the autocompleter a maximum size
+ */
+.ui-autocomplete {
+    max-height: 500px;
+    max-width: 500px;
+    overflow-y: auto;
+    overflow-x: hidden; /* prevent horizontal scrollbar */
+}
+
+/*
+ * Give odd child's a different background colour (thanks CSS3!)
+ */
+.ui-autocomplete li.ui-menu-item:nth-child(odd)
+{
+    background: #eeeeec;
+}
+
+
+/**************************************************************
+ * Autocompleter
+ **************************************************************/
+
+/*! jQuery UI - v1.10.3 - 2013-09-16
+* http://jqueryui.com
+* Includes: jquery.ui.core.css, jquery.ui.autocomplete.css, jquery.ui.menu.css, jquery.ui.theme.css
+* To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Trebuchet%20MS%2CTahoma%2CVerdana%2CArial%2Csans-serif&fwDefault=bold&fsDefault=1.1em&cornerRadius=4px&bgColorHeader=f6a828&bgTextureHeader=gloss_wave&bgImgOpacityHeader=35&borderColorHeader=e78f08&fcHeader=ffffff&iconColorHeader=ffffff&bgColorContent=eeeeee&bgTextureContent=highlight_soft&bgImgOpacityContent=100&borderColorContent=dddddd&fcContent=333333&iconColorContent=222222&bgColorDefault=f6f6f6&bgTextureDefault=glass&bgImgOpacityDefault=100&borderColorDefault=cccccc&fcDefault=1c94c4&iconColorDefault=ef8c08&bgColorHover=fdf5ce&bgTextureHover=glass&bgImgOpacityHover=100&borderColorHover=fbcb09&fcHover=c77405&iconColorHover=ef8c08&bgColorActive=ffffff&bgTextureActive=glass&bgImgOpacityActive=65&borderColorActive=fbd850&fcActive=eb8f00&iconColorActive=ef8c08&bgColorHighlight=ffe45c&bgTextureHighlight=highlight_soft&bgImgOpacityHighlight=75&borderColorHighlight=fed22f&fcHighlight=363636&iconColorHighlight=228ef1&bgColorError=b81900&bgTextureError=diagonals_thick&bgImgOpacityError=18&borderColorError=cd0a0a&fcError=ffffff&iconColorError=ffd27a&bgColorOverlay=666666&bgTextureOverlay=diagonals_thick&bgImgOpacityOverlay=20&opacityOverlay=50&bgColorShadow=000000&bgTextureShadow=flat&bgImgOpacityShadow=10&opacityShadow=20&thicknessShadow=5px&offsetTopShadow=-5px&offsetLeftShadow=-5px&cornerRadiusShadow=5px
+* Copyright 2013 jQuery Foundation and other contributors; Licensed MIT */
+
+/* Layout helpers
+----------------------------------*/
+.ui-helper-hidden {
+	display: none;
+}
+.ui-helper-hidden-accessible {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+.ui-helper-reset {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	line-height: 1.3;
+	text-decoration: none;
+	font-size: 100%;
+	list-style: none;
+}
+.ui-helper-clearfix:before,
+.ui-helper-clearfix:after {
+	content: "";
+	display: table;
+	border-collapse: collapse;
+}
+.ui-helper-clearfix:after {
+	clear: both;
+}
+.ui-helper-clearfix {
+	min-height: 0; /* support: IE7 */
+}
+.ui-helper-zfix {
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	position: absolute;
+	opacity: 0;
+	filter:Alpha(Opacity=0);
+}
+
+.ui-front {
+	z-index: 100;
+}
+
+
+/* Interaction Cues
+----------------------------------*/
+.ui-state-disabled {
+	cursor: default !important;
+}
+
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Overlays */
+.ui-widget-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.ui-autocomplete {
+	position: absolute;
+	top: 0;
+	left: 0;
+	cursor: default;
+}
+.ui-menu {
+	list-style: none;
+	padding: 2px;
+	margin: 0;
+	display: block;
+	outline: none;
+}
+.ui-menu .ui-menu {
+	margin-top: -3px;
+	position: absolute;
+}
+.ui-menu .ui-menu-item {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	/* support: IE10, see #8844 */
+	list-style-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
+}
+.ui-menu .ui-menu-divider {
+	margin: 5px -2px 5px -2px;
+	height: 0;
+	font-size: 0;
+	line-height: 0;
+	border-width: 1px 0 0 0;
+}
+.ui-menu .ui-menu-item a {
+	text-decoration: none;
+	display: block;
+	padding: 2px .4em;
+	line-height: 1.5;
+	min-height: 0; /* support: IE7 */
+	font-weight: normal;
+}
+.ui-menu .ui-menu-item a.ui-state-focus,
+.ui-menu .ui-menu-item a.ui-state-active {
+	font-weight: normal;
+	margin: -1px;
+}
+
+.ui-menu .ui-state-disabled {
+	font-weight: normal;
+	margin: .4em 0 .2em;
+	line-height: 1.5;
+}
+.ui-menu .ui-state-disabled a {
+	cursor: default;
+}
+
+/* icon support */
+.ui-menu-icons {
+	position: relative;
+}
+.ui-menu-icons .ui-menu-item a {
+	position: relative;
+	padding-left: 2em;
+}
+
+/* left-aligned */
+.ui-menu .ui-icon {
+	position: absolute;
+	top: .2em;
+	left: .2em;
+}
+
+/* right-aligned */
+.ui-menu .ui-menu-icon {
+	position: static;
+	float: right;
+}
+
+/* Component containers
+----------------------------------*/
+
+.ui-widget {
+    	font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
+	font-size: 1.1em;
+}
+
+.ui-widget .ui-widget {
+	font-size: 1em;
+}
+.ui-widget input,
+.ui-widget select,
+.ui-widget textarea,
+.ui-widget button {
+	font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
+	font-size: 1em;
+}
+.ui-widget-content {
+	border: 1px solid #dddddd;
+	background: #eeeeee url(images/ui-bg_highlight-soft_100_eeeeee_1x100.png) 50% top repeat-x;
+	color: #333333;
+}
+.ui-widget-content a {
+	color: #333333;
+}
+.ui-widget-header {
+	border: 1px solid #e78f08;
+	background: #f6a828 url(images/ui-bg_gloss-wave_35_f6a828_500x100.png) 50% 50% repeat-x;
+	color: #ffffff;
+	font-weight: bold;
+}
+.ui-widget-header a {
+	color: #ffffff;
+}
+
+/* Interaction states
+----------------------------------*/
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+	border: 1px solid #cccccc;
+	background: #f6f6f6 url(images/ui-bg_glass_100_f6f6f6_1x400.png) 50% 50% repeat-x;
+	font-weight: bold;
+	color: #1c94c4;
+}
+.ui-state-default a,
+.ui-state-default a:link,
+.ui-state-default a:visited {
+	color: #1c94c4;
+	text-decoration: none;
+}
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+	border: 1px solid #999999;
+	background: #204a87 url(images/ui-bg_flat_75_204a87_40x100.png) 50% 50% repeat-x;
+	font-weight: bold;
+	color: #212121;
+}
+.ui-state-hover a,
+.ui-state-hover a:hover,
+.ui-state-hover a:link,
+.ui-state-hover a:visited {
+	color: #212121;
+	text-decoration: none;
+}
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {
+	border: 1px solid #fbd850;
+	background: #ffffff url(images/ui-bg_glass_65_ffffff_1x400.png) 50% 50% repeat-x;
+	font-weight: bold;
+	color: #eb8f00;
+}
+.ui-state-active a,
+.ui-state-active a:link,
+.ui-state-active a:visited {
+	color: #eb8f00;
+	text-decoration: none;
+}
+
+/* Interaction Cues
+----------------------------------*/
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
+	border: 1px solid #fed22f;
+	background: #ffe45c url(images/ui-bg_highlight-soft_75_ffe45c_1x100.png) 50% top repeat-x;
+	color: #363636;
+}
+.ui-state-highlight a,
+.ui-widget-content .ui-state-highlight a,
+.ui-widget-header .ui-state-highlight a {
+	color: #363636;
+}
+.ui-state-error,
+.ui-widget-content .ui-state-error,
+.ui-widget-header .ui-state-error {
+	border: 1px solid #cd0a0a;
+	background: #b81900 url(images/ui-bg_diagonals-thick_18_b81900_40x40.png) 50% 50% repeat;
+	color: #ffffff;
+}
+.ui-state-error a,
+.ui-widget-content .ui-state-error a,
+.ui-widget-header .ui-state-error a {
+	color: #ffffff;
+}
+.ui-state-error-text,
+.ui-widget-content .ui-state-error-text,
+.ui-widget-header .ui-state-error-text {
+	color: #ffffff;
+}
+.ui-priority-primary,
+.ui-widget-content .ui-priority-primary,
+.ui-widget-header .ui-priority-primary {
+	font-weight: bold;
+}
+.ui-priority-secondary,
+.ui-widget-content .ui-priority-secondary,
+.ui-widget-header .ui-priority-secondary {
+	opacity: .7;
+	filter:Alpha(Opacity=70);
+	font-weight: normal;
+}
+.ui-state-disabled,
+.ui-widget-content .ui-state-disabled,
+.ui-widget-header .ui-state-disabled {
+	opacity: .35;
+	filter:Alpha(Opacity=35);
+	background-image: none;
+}
+.ui-state-disabled .ui-icon {
+	filter:Alpha(Opacity=35); /* For IE8 - See #6059 */
+}
+
+
+
+
+
+
+
+.ui-autocomplete{
+    text-shadow: none;
+}
+
+.ui-autocomplete .ui-menu-item a{
+    line-height:2.3;
+}
+
+
+
+/**************************************************************
+ * Form errors
+ **************************************************************/
+.form-error, input.form-error{
+    color: rgb(136, 0, 0);
+}
+
+.form-error .ui-input-text{
+    border-color: rgb(136, 0, 0);
+}
+
+
+/**************************************************************
+ * Success, info and other alert boxes
+ **************************************************************/
+.success {
+    background: #b7f774;
+}
+
+.warning {
+    background: rgb(252, 175, 62);
+    text-shadow: none;
+}
+
+/**************************************************************
+ * Other classes
+ **************************************************************/
+.float-left {
+    float:left;
+    display:inline;
+}
+
+.align-right
+{
+    text-align: right;
+}
+
+
+.alert {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 20px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #fcf8e3;
+  border: 1px solid #fbeed5;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.alert,
+.alert h4 {
+  color: #c09853;
+}
+.alert h4 {
+  margin: 0;
+}

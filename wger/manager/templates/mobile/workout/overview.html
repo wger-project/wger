@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% trans "Your workouts" %}{% endblock %}
+
+
+{% block content %}
+<ul data-role="listview" data-inset="false">
+    {% for workout in workouts %}
+        <li>
+            <a href="{% url 'wger.manager.views.workout.view' workout.id %}" data-ajax="false">
+                <h3>{{ workout }}</h3>
+                <p>{{ workout.creation_date }}</p>
+            </a>
+        </li>
+    {% empty %}
+    <li>
+        <a href="{% url 'wger.manager.views.workout.add' %}">
+        {% trans "No workouts found." %}<br>{% trans "Add one now." %}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+
+{% block sidebar %}
+<h3>{% trans "Options" %}</h3>
+<p>
+    <a href="{% url 'wger.manager.views.workout.add' %}" data-role="button">
+    <img src="{% static 'images/icons/new.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Add workout' %}"
+         title="{% trans 'Add workout' %}">
+    {% trans "Add workout" %}</a>
+</p>
+{% endblock %}

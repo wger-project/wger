@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{{schedule.name}}{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+{% for step in schedule.schedulestep_set.select_related %}
+<div data-role="popup"
+     id="step-{{step.id}}"
+     data-theme="d"
+     data-overlay-theme="a"
+     class="ui-content">
+    <h3>{%trans "Options" %}</h3>
+    <a href="{% url 'step-edit' step.id %}"
+           title="{% trans 'Edit' %}"
+           data-role="button">
+               <img src="{% static 'images/icons/edit.svg' %}"
+                    width="22"
+                    height="22"
+                    alt="{% trans 'Edit' %}">{% trans 'Edit' %}</a>
+     <a href="{% url 'step-delete' step.id %}"
+        title="{% trans 'Delete' %}"
+        data-role="button">
+            <img src="{% static 'images/icons/trash.svg' %}"
+                 width="22"
+                 height="22"
+                 alt="{% trans 'Delete' %}">{% trans 'Delete' %}</a>
+</div>
+{% endfor %}
+
+<ul data-role="listview" data-inset="false" data-split-icon="gear" data-split-theme="d">
+{% for step in schedule.schedulestep_set.select_related %}
+    <li>
+        <a href="{% url 'wger.manager.views.workout.view' step.workout.id %}">
+            <h3>{{ forloop.counter }} - {{ step.workout }}</h3>
+            <p>{{ workout.creation_date }}</p>
+
+            <p>{% trans "Weeks" %}: {{ step.duration }}</p>
+
+            {% if active_workout == step %}
+            <p class="ui-li-aside"><em>{% trans "active" %}</em></p>
+            {% endif  %}
+        </a>
+
+        <a href="#step-{{step.id}}"
+           data-rel="popup"
+           data-position-to="window"
+           data-transition="pop"></a>
+        </a>
+    </li>
+{% empty %}
+    <li>
+        <a href="{% url 'step-add' schedule.id %}">
+        {% trans "No workouts found." %}<br>{% trans "Add one now." %}
+        </a>
+    </li>
+{% endfor %}
+<li>
+    <a href="{% url 'step-add' schedule.id %}">{% trans "Add workout" %}</a>
+</li>
+{% if schedule.is_loop %}
+    <li>
+        {% trans "This schedule is a loop and will go through the workouts above till you deactivate it" %}
+    </li>
+{% endif %}
+</ul>
+
+{% endblock %}
+
+
+{% block sidebar %}
+<h3>{% trans "Adding workouts" %}</h3>
+
+<p>{% blocktrans %}Add as many workouts to the schedule as you want. You can
+edit the order per drag-and-drop. It's also possible to add one workout more
+than once.{% endblocktrans %}</p>
+
+<h3>{% trans "Options" %}</h3>
+<p>
+<a href="{% url 'schedule-edit' schedule.id %}"
+   data-role="button">
+<img src="{% static 'images/icons/edit.svg' %}"
+    width="32"
+    height="32"
+    alt="{% trans 'Edit schedule' %}"
+    title="{% trans 'Edit schedule' %}">
+{% trans "Edit schedule" %}</a>
+</p>
+
+<p>
+<a href="{% url 'schedule-delete' schedule.id %}"
+   data-role="button">
+<img src="{% static 'images/icons/trash.svg' %}"
+    width="32"
+    height="32"
+    alt="{% trans 'Delete schedule' %}"
+    title="{% trans 'Delete schedule' %}">
+{% trans "Delete schedule" %}</a>
+</p>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+{% load cache %}
+
+{% block header %}
+<script>
+$(document).ready(function() {
+    // Prevent the form from being submited if JavaScript is enabled
+    $("#search_form").submit(function() {return false;});
+
+    // Init the autocompleter
+    $("#ingredient-search").autocomplete({
+            source: "{% url 'ingredient-search' %}",
+            minLength: 2,
+            select: function(event, ui) {
+
+                // Redirect to exercise after clicking on a result
+                // Path is hard coded here, because we can't use the url-tag
+                window.location.href = '/nutrition/ingredient/' + ui.item.id + '/view/'
+            }
+        });
+});
+</script>
+{% endblock %}
+
+{% block title %}{% trans "Ingredient overview" %}{% endblock %}
+
+
+{% block content %}
+{% if ingredients_list %}
+<ul data-role="listview">
+    {% for ingredient in ingredients_list %}
+    <li>
+        <a href="{{ ingredient.get_absolute_url }}" data-ajax="false">{{ ingredient.name }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+    <p>
+        <a href="{% url 'ingredient-add' %}" data-role="button">
+        {% trans "No ingredients." %} {% trans "Add one now." %}
+        </a>
+    </p>
+{% endif %}
+
+
+<div style="padding-top:3em;"></div>
+{% pagination paginator page_obj %}
+
+
+{% endblock %}
+
+{% block sidebar %}
+<h3>{% trans "Search" %}</h3>
+<div class="ui-widget">
+    <form action="{% url 'ingredient-search' %}"
+            method="get"
+            id="search_form">
+        {% csrf_token %}
+        <input name="term"
+                type="search"
+                id="ingredient-search"
+                class="ajax-form-element"
+                placeholder="{% trans 'ingredient name' %}"
+                style="width:100%;">
+    </form>
+</div>
+
+{% if user.is_authenticated and not user.get_profile.is_temporary %}
+<h3>{% trans "Add ingredient" %}</h3>
+<p>
+       <a href="{% url 'ingredient-add' %}" data-role="button">
+       <img src="{% static 'images/icons/new.svg' %}"
+            width="32"
+            height="32"
+            alt="{% trans 'Add ingredient' %}"
+            title="{% trans 'Add ingredient' %}">
+       {% trans "Add ingredient" %}
+       </a>
+</p>
+{% endif %}
+
+{% cc_by_sa_sidebar language %}
+{% endblock %}

@@ -1,0 +1,212 @@
+/*
+    This file is part of Workout Manager
+
+    Workout Manager is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Workout Manager is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with Workout Manager. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/**************************************************************
+ *
+ * This file contains custom classes and styles for both mobile and desktop version
+ *
+ **************************************************************/
+
+
+
+/**************************************************************
+ * Font definitions
+ **************************************************************/
+
+/* font-face kit by Fonts2u - http://www.fonts2u.com */
+@font-face {
+    font-family:"Open Sans Light";
+        src:url("/static/fonts/OpenSans-Light.eot?") format("eot"),
+            url("/static/fonts/OpenSans-Light.woff") format("woff"),
+            url("/static/fonts/OpenSans-Light.ttf") format("truetype"),
+            url("/static/fonts/OpenSans-Light.svg#OpenSans-Light") format("svg");
+    font-weight:normal;
+    font-style:normal;
+}
+
+
+@font-face {
+    font-family:"Open Sans";
+        src:url("/static/fonts/OpenSans-Regular.eot?") format("eot"),
+            url("/static/fonts/OpenSans-Regular.woff") format("woff"),
+            url("/static/fonts/OpenSans-Regular.ttf") format("truetype"),
+            url("/static/fonts/OpenSans-Regular.svg#OpenSans") format("svg");
+    font-weight:normal;
+    font-style:normal;
+}
+
+
+@font-face {
+    font-family:"Open Sans Bold";
+        src:url("/static/fonts/OpenSans-Bold.eot?") format("eot"),
+            url("/static/fonts/OpenSans-Bold.woff") format("woff"),
+            url("/static/fonts/OpenSans-Bold.ttf") format("truetype"),
+            url("/static/fonts/OpenSans-Bold.svg#OpenSans-Bold") format("svg");
+    font-weight:normal;
+    font-style:normal;
+}
+
+
+
+
+
+/* Use Open Sans for the body text */
+.ui-body-c,
+.ui-body-c input,
+.ui-body-c select,
+.ui-body-c textarea,
+.ui-body-c button {
+    font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
+    font-weight: 300;
+}
+.ui-body-c .ui-link{
+    font-weight: normal;
+}
+
+
+
+/**************************************************************
+ * Styling for the SVG elements on the weight chart
+ **************************************************************/
+
+.axis path, .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.area {
+    fill: lightsteelblue;
+}
+
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+.dot {
+    fill: white;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+circle:hover{
+    fill: #204a87;
+    stroke: #204a87;
+}
+
+circle{
+    cursor: pointer;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+
+/* Color series from d3.scale.category10() */
+circle.color-1f77b4:hover
+{
+    fill: #1f77b4;
+}
+
+circle.color-ff7f0e:hover
+{
+    fill: #ff7f0e;
+}
+
+circle.color-2ca02c:hover
+{
+    fill: #2ca02c;
+}
+
+circle.color-d62728:hover
+{
+    fill: #d62728;
+}
+
+circle.color-9467bd:hover
+{
+    fill: #9467bd;
+}
+
+circle.color-8c564b:hover
+{
+    fill: #8c564b;
+}
+
+circle.color-e377c2:hover
+{
+    fill: #e377c2;
+}
+
+circle.color-7f7f7f:hover
+{
+    fill: #7f7f7f;
+}
+
+circle.color-bcbd22:hover
+{
+    fill: #bcbd22;
+}
+
+circle.color-17becf:hover
+{
+    fill: #17becf;
+}
+
+
+/**************************************************************
+ * Muscle overview
+ **************************************************************/
+.muscle-list, .exercise-overview{
+    list-style-type: none;
+    margin-left: 0px;
+}
+
+.muscle-list .muscle, .exercise-overview .exercise{
+    line-height:2em;
+    margin-left: 0px;
+    padding-left: 0.3em;
+    cursor: pointer;
+}
+
+.muscle-list .muscle-inactive{
+    background-color: transparent;
+    font-weight: normal;
+    border: 1px solid transparent;
+    box-shadow: none;
+    border-radius: 0px;
+}
+
+.muscle-list .muscle-active{
+    font-weight: bold;
+    background-color: #eeeeec;
+    border: 1px solid #babdb6;
+    box-shadow: inset 0 0 4px #d3d7cf;
+    border-radius: 3px;
+}
+
+
+.muscle-list .muscle{
+    line-height:2em;
+    margin-left: 0px;
+    padding-left: 0.3em;
+    cursor: pointer;
+}

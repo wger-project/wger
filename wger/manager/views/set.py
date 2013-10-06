@@ -37,7 +37,9 @@ from wger.manager.models import Setting
 
 from wger.exercises.models import Exercise
 
-from wger.manager.forms import SetForm
+from wger.manager.forms import SetForm, SetFormMobile
+from wger.utils.language import load_item_languages
+from wger.config.models import LanguageConfig
 
 logger = logging.getLogger('wger.custom')
 
@@ -64,13 +66,26 @@ def create(request, day_pk):
     if day.get_owner_object().user != request.user:
         return HttpResponseForbidden()
 
+    # Select the correct form depending on the flavour of the request
+    if request.flavour == 'mobile':
+        form_class = SetFormMobile
+    else:
+        form_class = SetForm
+
     context = {}
     formsets = []
-    form = SetForm(initial={'sets': Set.DEFAULT_SETS})
+    form = form_class(initial={'sets': Set.DEFAULT_SETS})
+
+    # For the mobile dropdown list we need to manually filter the exercises
+    # by language and status
+    if request.flavour == 'mobile':
+        languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
+        form.fields['exercise_list'].queryset = Exercise.objects.filter(language__in=languages) \
+                                    .filter(status__in=Exercise.EXERCISE_STATUS_OK)
 
     # If the form and all formsets validate, save them
     if request.method == "POST":
-        form = SetForm(request.POST)
+        form = form_class(request.POST)
         if form.is_valid():
             for exercise in form.cleaned_data['exercises']:
                 formset = SettingFormset(request.POST,

@@ -1,4 +1,5 @@
 {% load i18n %}
+{% if not field.is_hidden %}
 <tr id="form-{{field.name}}">
     <td style="text-align:right;">
     {% if field.errors %}<div class="ym-fbox-text ym-error"><span class="ym-message">{% endif %}
@@ -24,3 +25,10 @@
         {% if field.help_text %}<p class="dimmed">{% trans field.help_text %}</p>{% endif %}
     </td>
 </tr>
+{% else %}
+    {#                                        #}
+    {#  TODO: the resulting HTML is not valid #}
+    {#  and all the form rendering functions  #}
+    {#  should be made more flexible anyway   #}
+    {{field}}
+{% endif %}

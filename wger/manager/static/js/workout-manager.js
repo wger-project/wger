@@ -336,12 +336,13 @@ function hex_random()
 function add_exercise(exercise)
 {
     var result_div = '<div id="DIV-ID" class="ajax-exercise-select"> \
-<a href="#"> \
+<a href="#" data-role="button"> \
 <img src="/static/images/icons/status-off.svg" \
      width="14" \
      height="14" \
      alt="Delete"> \
-</a> EXERCISE \
+EXERCISE \
+</a> \
 <input type="hidden" name="exercises" value="EXCERCISE-ID"> \
 </div>';
 
@@ -352,7 +353,7 @@ function add_exercise(exercise)
 
     $(result_div).prependTo("#exercise-search-log");
     $("#exercise-search-log").scrollTop(0);
-
+    $('#exercise-search-log').trigger('create');
 }
 
 function get_exercise_formset(exercise_id)
@@ -367,6 +368,7 @@ function get_exercise_formset(exercise_id)
         $.get(formset_url, function(data) {
                 $('#formsets').prepend(data);
                 $("#exercise-search-log").scrollTop(0);
+                $('#formsets').trigger( "create" );
             });
     }
 }
@@ -389,10 +391,25 @@ function update_all_exercise_formset()
                         $('#formset-exercise-'+exercise_id).remove();
                         $('#formsets').prepend(data);
                         $('#exercise-search-log').scrollTop(0);
+                        $('#formsets').trigger( "create" );
                 })
             }
         });
     }
+}
+
+/*
+ * Remove the result DIV (also contains the hidden form element) with the exercise
+ * formsets when the user clicks on the delete link
+ */
+function init_remove_exercise_formset()
+{
+    $(".ajax-exercise-select a").click(function(e) {
+        e.preventDefault();
+        var exercise_id = $(this).parent('div').find('input').val()
+        $('#formset-exercise-'+exercise_id).remove();
+        $(this).parent('div').remove();
+    });
 }
 
 function init_edit_set()
@@ -409,14 +426,8 @@ function init_edit_set()
                 // Load formsets
                 get_exercise_formset(ui.item.id)
 
-                // Remove the result div (also contains the hidden form element) when the user
-                // clicks on the delete link
-                $(".ajax-exercise-select a").click(function(e) {
-                    e.preventDefault();
-                    var exercise_id = $(this).parent('div').find('input').val()
-                    $('#formset-exercise-'+exercise_id).remove();
-                    $(this).parent('div').remove();
-                });
+                // Init the remove buttons
+                init_remove_exercise_formset();
 
                 // Reset the autocompleter
                 $(this).val("");
@@ -424,13 +435,18 @@ function init_edit_set()
             }
         });
 
-    // Delete button next to exercise
-    $(".ajax-exercise-select a").click(function(e) {
-        e.preventDefault();
-        var exercise_id = $(this).parent('div').find('input').val()
-        $('#formset-exercise-'+exercise_id).remove();
-        $(this).parent('div').remove();
+    // Mobile select box
+    $('#id_exercise_list').change(function(e) {
+        var exercise_id = $('#id_exercise_list').val();
+        var exercise_name = $('#id_exercise_list').find(":selected").text();
+        add_exercise({id: exercise_id,
+                      value: exercise_name});
+        get_exercise_formset(exercise_id);
+        init_remove_exercise_formset();
     });
+
+    // Delete button next to exercise
+    init_remove_exercise_formset();
 
     // Slider to set the number of sets
     $("#slider").slider({
@@ -475,7 +491,7 @@ function getDate(d) {
     return new Date(d);
 }
 
-function weight_chart(data)
+function weight_chart(data, width_factor)
 {
     // Return if there is no data to process
     if(data == '')
@@ -483,14 +499,23 @@ function weight_chart(data)
         return;
     }
 
+
+
+    // Calculate the size
+    var width_factor = typeof width_factor !== 'undefined' ? width_factor: 600;
+    var height_factor = width_factor / 600 * 400;
+    var height2_factor = width_factor / 600 * 390;
+    var bottom_factor = width_factor / 600 * 150;
+    var top_factor = width_factor / 600 * 290;
+
     var minDate = getDate(data[0].x),
         maxDate = getDate(data[data.length-1].x);
 
-    var margin = {top: 10, right: 10, bottom: 150, left: 40},
-        margin2 = {top: 290, right: 10, bottom: 50, left: 40},
-        width = 600 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom,
-        height2 = 390 - margin2.top - margin2.bottom;
+    var margin = {top: 10, right: 10, bottom: bottom_factor, left: 40},
+        margin2 = {top: top_factor, right: 10, bottom: 50, left: 40},
+        width = width_factor - margin.left - margin.right,
+        height = height_factor - margin.top - margin.bottom,
+        height2 = height2_factor - margin2.top - margin2.bottom;
 
     var x = d3.time.scale()
         .domain([minDate, maxDate])
@@ -644,11 +669,16 @@ function weight_chart(data)
 
 
 
-function weight_log_chart(data, div_id, reps_i18n)
+function weight_log_chart(data, div_id, reps_i18n, width_factor)
 {
+
+    // Calculate the size
+    var width_factor = typeof width_factor !== 'undefined' ? width_factor: 600;
+    var height_factor = width_factor / 600 * 200;
+
     var margin = {top: 20, right: 80, bottom: 30, left: 50},
-        width = 600 - margin.left - margin.right,
-        height = 200 - margin.top - margin.bottom;
+        width = width_factor - margin.left - margin.right,
+        height = height_factor - margin.top - margin.bottom;
 
     var parseDate = d3.time.format("%Y-%m-%d").parse;
 
@@ -779,6 +809,117 @@ function weight_log_chart(data, div_id, reps_i18n)
     form_modal_dialog();
 }
 
+
+/*
+ * Draw the BMI chart
+ */
+function render_bmi(width_factor)
+{
+    // Delete the other diagrams
+    d3.selectAll('svg').remove();
+
+    // Calculate the size
+    var width_factor = typeof width_factor !== 'undefined' ? width_factor: 600;
+    var height_factor = width_factor / 600 * 300;
+
+    var margin = {top: 20, right: 80, bottom: 30, left: 50},
+        width = width_factor - margin.left - margin.right,
+        height = height_factor - margin.top - margin.bottom;
+
+    var x = d3.scale.linear()
+        .range([0, width]);
+
+    var y = d3.scale.linear()
+        .range([height, 0]);
+
+    var z = d3.scale.ordinal().range(['#000080', '#0000ff', '#00ffff', '#00ff00', '#ffff00', '#ff7f2a', '#ff0000', '#800000']);
+
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left");
+
+    var stack = d3.layout.stack()
+        .offset("zero")
+        .values(function(d) { return d.values; })
+        .x(function(d) { return d.height; })
+        .y(function(d) { return d.weight; });
+
+    var nest = d3.nest()
+        .key(function(d) { return d.key; });
+
+    var area = d3.svg.area()
+        .interpolate("linear")
+        .x(function(d) { return x(d.height); })
+        .y0(function(d) { return y(d.y0); })
+        .y1(function(d) { return y(d.y); });
+
+
+    var svg = d3.select("#bmi-chart").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // Clip path, drawings outside are removed
+    svg.append("defs").append("clipPath")
+        .attr("id", "clip")
+      .append("rect")
+        .attr("width", width)
+        .attr("height", height);
+
+
+    d3.json("/nutrition/calculator/bmi/chart-data", function(data) {
+
+        var layers = stack(nest.entries(data));
+
+        // Manually set the domains
+        x.domain([150, 200]); // height, in cm
+        y.domain([30, 160]);  // weight, in kg
+
+      svg.selectAll(".layer")
+          .data(layers)
+        .enter().append("path")
+          .attr("class", "layer")
+          .attr("id", function(d, i) { return "key-" + d.key; })
+          .attr("clip-path", "url(#clip)")
+          .attr("d", function(d) { return area(d.values); })
+          .style("fill", function(d, i) { return z(i); })
+          .style("opacity", 0.6);
+
+      svg.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + height + ")")
+          .call(xAxis);
+
+      svg.append("g")
+          //.attr("transform", "translate(" + width + ",0)")
+          .attr("class", "y axis")
+          .call(yAxis);
+
+      var url = $("#bmi-form").attr( 'action' );
+
+        $.post(url,
+           $("#bmi-form").serialize(),
+           function(data) {
+               $('#bmi-result-container').show();
+               $('#bmi-result-value').html(data.bmi);
+               svg.append("circle")
+                .attr("cx", x(data.height))
+                .attr("cy", y(data.weight))
+                .attr("fill", "black")
+                .attr("r", 5);
+           });
+    });
+
+}
+
+
+
+
 function toggle_weight_log_table()
 {
     $(".weight-chart-table-toggle").click(function(e) {
@@ -824,3 +965,40 @@ function prefetch_images(imageArray)
     });
 }
 
+
+
+/*
+ * Highlight a muscle in the overview
+ */
+function highlight_muscle(element, perms_exercises)
+{
+    var div_id = $(element).data('target');
+    var is_front = ($(element).data('isFront') == 'True') ? 'front' : 'back';
+    var muscle_id = div_id.match(/\d+/);
+    var muscle_name = $(element).data('name');
+
+    // Reset all other highlighted muscles
+    $('.muscle').removeClass('muscle-active');
+    $('.muscle').addClass('muscle-inactive');
+
+    // Hightligh the current one
+    $(element).removeClass('muscle-inactive');
+    $(element).addClass('muscle-active');
+
+    if (perms_exercises)
+    {
+        $('#muscle-edit-box').show();
+        $('.muscle-edit-name').html(muscle_name);
+        $('#muscle-edit-edit-link').attr("href", "/exercise/muscle/" + muscle_id + "/edit/");
+        $('#muscle-delete-edit-link').attr("href", "/exercise/muscle/" + muscle_id + "/delete/");
+    }
+
+    // Set the corresponding background
+    $('#muscle-system').css('background-image',
+                            'url(/static/images/muscles/main/muscle-' + muscle_id + '.svg),'
+                          + 'url(/static/images/muscles/muscular_system_' + is_front + '.svg)');
+
+    // Show the corresponding exercises
+    $('.exercise-list').hide();
+    $('#' + div_id).show();
+}

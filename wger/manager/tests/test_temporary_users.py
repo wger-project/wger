@@ -12,6 +12,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+import datetime
+import random
+
 from django.core.urlresolvers import reverse
 from django.core.management import call_command
 
@@ -66,6 +69,28 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         # Nutrition
         self.assertEqual(NutritionPlan.objects.filter(user=user).count(), 1)
         self.assertEqual(Meal.objects.filter(plan__user=user).count(), 3)
+
+        # Body weight
+        self.assertEqual(WeightEntry.objects.filter(user=user).count(), 19)
+
+    def test_demo_data_body_weight(self):
+        '''
+        Tests that the helper function that creates demo data filters out
+        existing dates for the weight entries
+        '''
+        response = self.client.get(reverse('dashboard'))
+        self.assertEqual(self.count_temp_users(), 2)
+        user = User.objects.get(pk=4)
+
+        temp = []
+        for i in range(1, 5):
+            creation_date = datetime.date.today() - datetime.timedelta(days=i)
+            entry = WeightEntry(user=user,
+                                weight=80 + 0.5 * i + random.randint(1, 3),
+                                creation_date=creation_date)
+            temp.append(entry)
+        WeightEntry.objects.bulk_create(temp)
+        create_demo_entries(user)
 
         # Body weight
         self.assertEqual(WeightEntry.objects.filter(user=user).count(), 19)

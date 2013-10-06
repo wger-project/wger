@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+<!--
+        Title
+-->
+{% block title %}{{title}}{% endblock %}
+
+
+<!--
+        Main Content
+-->
+{% block content %}
+<form action="{{form_action}}"
+      method="post"
+      class="ym-form">
+    {% csrf_token %}
+    <img src="{% static  'images/icons/warning.svg' %}"
+         width="48"
+         height="48"
+         class="flexible float-left"
+         alt="{% trans "Are you sure you want to delete this? This action cannot be undone." %}">
+    <p>{% trans "Are you sure you want to delete this? This action cannot be undone." %}</p>
+    <p>{{ delete_message }}</p>
+    <p>
+        <a href="{% url 'index' %}"
+           data-role="button"
+           data-rel="back"
+           data-mini="true">{% trans "Cancel" %}</a>
+        <input type="submit"
+               value="{% trans 'Delete' %}"
+               data-theme="f">
+    </p>
+</form>
+{% endblock %}
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}{{sidebar|safe}}{% endblock %}
