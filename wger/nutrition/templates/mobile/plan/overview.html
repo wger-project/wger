@@ -10,7 +10,7 @@
 <ul data-role="listview" data-inset="false">
     {% for plan in plans %}
     <li>
-        <a href="{% url 'wger.nutrition.views.plan.view' plan.id %}">
+        <a href="{% url 'wger.nutrition.views.plan.view' plan.id %}" data-ajax="false">
             <h3>{{plan}}</h3>
             <p>{{ plan.creation_date }}</p>
         </a>

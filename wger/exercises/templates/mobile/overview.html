@@ -21,7 +21,7 @@
 
         <ul data-role="listview">
         {% for exercise in category|get_active_exercises:active_languages %}
-            <li><a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a></li>
+            <li><a href="{{ exercise.get_absolute_url }}" data-ajax="false">{{ exercise.name }}</a></li>
         {% endfor %}
         </ul>
     </div>
