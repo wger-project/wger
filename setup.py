@@ -53,7 +53,8 @@ setup(
         'bleach',
         'south < 2.0',
         'django-tastypie',
-        'python-mimeparse'
+        'python-mimeparse',
+        'pillow'
     ],
     entry_points={
         'console_scripts': [
