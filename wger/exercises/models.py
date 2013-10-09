@@ -271,6 +271,28 @@ class Exercise(models.Model):
                            fail_silently=True)
 
 
+def exercise_image_upload_dir(instance, filename):
+    '''
+    Returns the upload target for exercise images
+    '''
+    return "exercise-images/{0}/{1}".format(instance.exercise.id, filename)
+
+
+class ExerciseImage(models.Model):
+    '''
+    Model for an exercise image
+    '''
+    exercise = models.ForeignKey(Exercise,
+                                 verbose_name=_('Exercise'),
+                                 editable=False)
+    '''The exercise the image belongs to'''
+
+    image = models.ImageField(verbose_name=_('Image'),
+                              help_text=_('Only PNG and JPEG formats are supported'),
+                              upload_to=exercise_image_upload_dir)
+    '''Uploaded image'''
+
+
 class ExerciseComment(models.Model):
     '''
     Model for an exercise comment

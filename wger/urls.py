@@ -21,6 +21,7 @@ v1_api = Api(api_name='v1')
 # Exercises app
 v1_api.register(exercises_api.ExerciseCategoryResource())
 v1_api.register(exercises_api.ExerciseCommentResource())
+v1_api.register(exercises_api.ExerciseImageResource())
 v1_api.register(exercises_api.ExerciseResource())
 v1_api.register(exercises_api.MuscleResource())
 v1_api.register(exercises_api.LanguageResource())

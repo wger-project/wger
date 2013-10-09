@@ -125,6 +125,38 @@ included in the database.{% endblocktrans %}
 </p>
 {% endif %}
 
+
+
+
+{% with images=exercise.exerciseimage_set.all %}
+{% if images %}
+<h4>{% trans "Images" %}</h4>
+
+    {% for image in images %}
+    <img src="{{ image.image.url }}"
+         width="{{ image.image.height_field }}"
+         height="{{ image.image.height_field }}"
+         class="flexible">
+    {% endfor %}
+
+{% endif %}
+{% endwith %}
+
+{% if perms.exercises %}
+<p>
+    <a href="{% url 'exerciseimage-add' exercise.id %}"
+       title="{% trans 'Add' %}">
+        <img src="{% static 'images/icons/add.svg' %}"
+            width="16"
+            height="16"
+            alt="{% trans 'Add new image' %}">
+        {% trans "Add new image" %}</a>
+</p>
+{% endif %}
+
+
+
+
 {% cache cache_timeout exercise-detail-muscles exercise.id language.id %}
 {% with muscles=exercise.muscles.all %}
 {% with muscles_secondary=exercise.muscles_secondary.all %}
