@@ -9,17 +9,17 @@
 
 {% block content %}
 <p>{% blocktrans %}Generate an API key if you want to interact with wger via
-the <a href="/api/v1/?format=json" rel="nofollow">REST api</a> it provides (for public resources
-such as the exercises or ingredients, you don't need to provide anything). You
-must pass this information together with your username either in the header or
-in the request as GET parameters. For example:{% endblocktrans %}
+the <a href="/api/v1/?format=json" rel="nofollow">REST API</a> it provides (for
+public resources such as the exercises or ingredients, you don't need to provide
+anything). You must pass this information together with your username either in
+the header or in the request as GET parameters. For example:{% endblocktrans %}
 
 <pre>
 # In header
 Authorization: ApiKey myusername:1234567890abcde...
 
 # In GET parameter
-https://wger.de/api/v1/foo/?username=myusername&api_key=1234567890abcde...
+https://wger.de/api/v1/workout/?username=myusername&api_key=1234567890abcde...
 </pre>
 </p>
 
@@ -63,5 +63,10 @@ https://wger.de/api/v1/foo/?username=myusername&api_key=1234567890abcde...
 {% endif %}
 </p>
 
+
+
+<p>
+    <a href="{% url 'software:api' %}" class="btn btn-block">{% trans 'Documentation' %}</a>
+</p>
 
 {% endblock %}
