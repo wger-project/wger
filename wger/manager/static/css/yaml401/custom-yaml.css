@@ -160,3 +160,8 @@ footer{
 code{
     white-space: pre;
 }
+
+.ym-form input[type="submit"]
+{
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+}
