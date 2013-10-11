@@ -152,7 +152,7 @@
             {# Logout #}
             {% if user.is_authenticated and not user.get_profile.is_temporary %}
             <li>
-                <a href="{% url 'logout' %}" data-ajax="false">{% trans "Logout" %}</a>
+                <a href="{% url 'logout' %}" data-ajax="false" class="browserid-logout">{% trans "Logout" %}</a>
             </li>
             {% endif %}
         </ul>
