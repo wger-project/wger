@@ -49,7 +49,7 @@ class ExerciseCommentEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     permission_required = 'exercises.change_exercisecomment'
 
     def get_success_url(self):
-        return reverse('wger.exercises.views.exercises.view',
+        return reverse('exercise-view',
                        kwargs={'id': self.object.exercise.id})
 
     # Send some additional data to the template

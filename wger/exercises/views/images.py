@@ -95,15 +95,26 @@ class ExerciseImageDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
 
     model = ExerciseImage
-    success_url = reverse_lazy('wger.exercises.views.exercises.overview')
     messages = ugettext_lazy('Image successfully deleted')
     permission_required = 'exercises.delete_exerciseimage'
 
-    # Send some additional data to the template
+    def get_success_url(self):
+        '''
+        Return to exercise image
+        '''
+        return reverse('exercise-view',
+                       kwargs={'id': self.kwargs['exercise_pk']})
+
     def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        pk = self.kwargs['pk']
+        exercise_pk = self.kwargs['exercise_pk']
         context = super(ExerciseImageDeleteView, self).get_context_data(**kwargs)
 
-        context['title'] = _('Delete image?')
-        context['form_action'] = reverse('exerciseimage-delete', kwargs={'pk': self.kwargs['pk']})
+        context['title'] = _('Delete exercise image?')
+        context['form_action'] = reverse('exerciseimage-delete',
+                                         kwargs={'pk': pk, 'exercise_pk': exercise_pk})
 
         return context

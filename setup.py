@@ -54,7 +54,8 @@ setup(
         'south < 2.0',
         'django-tastypie',
         'python-mimeparse',
-        'pillow'
+        'pillow',
+        'easy-thumbnails',
     ],
     entry_points={
         'console_scripts': [

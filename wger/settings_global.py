@@ -217,6 +217,9 @@ INSTALLED_APPS = (
 
     # REST-API
     'tastypie',
+
+    # thumbnails
+    'easy_thumbnails'
 )
 
 
@@ -296,4 +299,19 @@ CACHES = {
         'LOCATION': 'wger-cache',
         'TIMEOUT': 30 * 24 * 60 * 60,  # Cache for a month
     }
+}
+
+
+# Thumbnail sizes
+THUMBNAIL_ALIASES = {
+    '': {
+        'thumbnail': {'size': (80, 80)},
+        'thumbnail_cropped': {'size': (80, 80), 'crop': 'smart'},
+
+        'medium': {'size': (200, 200)},
+        'medium_cropped': {'size': (200, 200), 'crop': 'smart'},
+
+        'larger': {'size': (400, 400)},
+        'larger_cropped': {'size': (400, 400), 'crop': 'smart'},
+        },
 }

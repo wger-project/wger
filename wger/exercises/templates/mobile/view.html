@@ -3,6 +3,7 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load wger_extras %}
+{% load thumbnail %}
 {% load cache %}
 
 {% block header %}
@@ -107,6 +108,36 @@ included in the database.{% endblocktrans %}
             height="16"
             alt="{% trans 'Add new comment' %}">
         {% trans "Add new comment" %}</a>
+</p>
+{% endif %}
+
+
+{% with images=exercise.exerciseimage_set.all %}
+{% if images %}
+    <h4>{% trans "Images" %}</h4>
+
+    <div style="width:100%; overflow-x: scroll;">
+    {% for image in images %}
+    <img src="{{ image.image|thumbnail_url:'medium' }}"
+         width="200"
+         height="200"
+         class="float-left">
+    {% endfor %}
+    </div>
+
+{% endif %}
+{% endwith %}
+
+{% if perms.exercises %}
+<p>
+    <a href="{% url 'exerciseimage-add' exercise.id %}"
+       title="{% trans 'Add' %}"
+       data-ajax="false">
+        <img src="{% static 'images/icons/add.svg' %}"
+            width="16"
+            height="16"
+            alt="{% trans 'Add new image' %}">
+        {% trans "Add new image" %}</a>
 </p>
 {% endif %}
 

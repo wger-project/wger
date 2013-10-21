@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+import logging
+
 from django.db import models
 from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
 from django.contrib.auth.models import User
@@ -23,10 +25,18 @@ from django.utils.translation import ugettext
 from django.core.urlresolvers import reverse
 from django.core import mail
 from django.core.cache import cache
+from django.db.models.signals import pre_save
+from django.db.models.signals import pre_delete
+from django.db.models.signals import post_delete
+
+from easy_thumbnails.files import get_thumbnailer
 
 from wger.utils.constants import EMAIL_FROM
 from wger.utils.cache import delete_template_fragment_cache
 from wger.utils.cache import cache_mapper
+
+
+logger = logging.getLogger('wger.custom')
 
 
 class Language(models.Model):
@@ -291,6 +301,48 @@ class ExerciseImage(models.Model):
                               help_text=_('Only PNG and JPEG formats are supported'),
                               upload_to=exercise_image_upload_dir)
     '''Uploaded image'''
+
+    def get_owner_object(self):
+        '''
+        Image has no owner information
+        '''
+        return False
+
+
+def delete_exercise_image_on_delete(sender, instance, **kwargs):
+    '''
+    Delete the image, along with its thumbnails, from the disk
+    '''
+
+    thumbnailer = get_thumbnailer(instance.image)
+    thumbnailer.delete_thumbnails()
+    instance.image.delete(save=False)
+
+
+post_delete.connect(delete_exercise_image_on_delete, sender=ExerciseImage)
+
+
+def delete_exercise_image_on_update(sender, instance, **kwargs):
+    '''
+    Delete the corresponding image from the filesystem when the an ExerciseImage
+    object was changed
+    '''
+    if not instance.pk:
+        return False
+
+    try:
+        old_file = ExerciseImage.objects.get(pk=instance.pk).image
+    except ExerciseImage.DoesNotExist:
+        return False
+
+    new_file = instance.image
+    if not old_file == new_file:
+        thumbnailer = get_thumbnailer(instance.image)
+        thumbnailer.delete_thumbnails()
+        instance.image.delete(save=False)
+
+
+pre_save.connect(delete_exercise_image_on_update, sender=ExerciseImage)
 
 
 class ExerciseComment(models.Model):

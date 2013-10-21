@@ -83,7 +83,7 @@ urlpatterns = patterns('wger.exercises.views',
     url(r'^image/(?P<pk>\d+)/edit$',
         images.ExerciseImageEditView.as_view(),
         name='exerciseimage-edit'),
-    url(r'^image/(?P<id>\d+)/delete$',
+    url(r'^(?P<exercise_pk>\d+)/image/(?P<pk>\d+)/delete$',
         images.ExerciseImageDeleteView.as_view(),
         name='exerciseimage-delete'),
 
