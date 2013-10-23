@@ -17,6 +17,9 @@
 from tastypie import fields
 from tastypie.resources import ModelResource
 
+from easy_thumbnails.alias import aliases
+from easy_thumbnails.files import get_thumbnailer
+
 from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseCategory
 from wger.exercises.models import ExerciseComment
@@ -51,6 +54,18 @@ class ExerciseImageResource(ModelResource):
 
     class Meta:
         queryset = ExerciseImage.objects.all()
+
+    def dehydrate(self, bundle):
+        '''
+        Also send the URLs for the thumbnailed pictures
+        '''
+        thumbnails = {}
+        for alias in aliases.all():
+            t = get_thumbnailer(bundle.obj.image)
+            thumbnails[alias] = t.get_thumbnail(aliases.get(alias)).url
+
+        bundle.data['thumbnails'] = thumbnails
+        return bundle
 
 
 class ExerciseCommentResource(ModelResource):
