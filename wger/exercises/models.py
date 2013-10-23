@@ -302,11 +302,34 @@ class ExerciseImage(models.Model):
                               upload_to=exercise_image_upload_dir)
     '''Uploaded image'''
 
+    is_main = models.BooleanField(verbose_name=_('Is main picture'),
+                                  default=False,
+                                  help_text=_("Tick the box if you want set this image as the main "
+                                              "one for the exercise (will be shown e.g. in the "
+                                              "search)"))
+    '''A flag indicating whether the schedule should act as a loop'''
+
+    class Meta:
+        '''
+        Set default ordering
+        '''
+        ordering = ['-is_main', ]
+
     def get_owner_object(self):
         '''
         Image has no owner information
         '''
         return False
+
+    def save(self, *args, **kwargs):
+        '''
+        Only one image can be marked as main picture at a time
+        '''
+        if self.is_main:
+            ExerciseImage.objects.filter(exercise=self.exercise).update(is_main=False)
+            self.is_main = True
+
+        super(ExerciseImage, self).save(*args, **kwargs)
 
 
 def delete_exercise_image_on_delete(sender, instance, **kwargs):
