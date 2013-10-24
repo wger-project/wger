@@ -68,6 +68,9 @@ included in the database.{% endblocktrans %}
 <p>{% trans "Category" %}: <strong>{% trans exercise.category.name %}</strong></p>
 <p>{{ exercise.description|safe }}</p>
 
+{#          #}
+{# Comments #}
+{#          #}
 {% with comments=exercise.exercisecomment_set.all %}
 {% if comments %}
 <h4>{% trans "Comments for this exercise" %}</h4>
@@ -112,16 +115,38 @@ included in the database.{% endblocktrans %}
 {% endif %}
 
 
+{#        #}
+{# Images #}
+{#        #}
 {% with images=exercise.exerciseimage_set.all %}
 {% if images %}
     <h4>{% trans "Images" %}</h4>
 
-    <div style="width:100%; overflow-x: scroll;">
+    <div class="wrap">
     {% for image in images %}
-    <img src="{{ image.image|thumbnail_url:'medium' }}"
-         width="200"
-         height="200"
-         class="float-left">
+        <div class="image-box">
+            <div class="boxInner">
+                <img src="{{ image.image|thumbnail_url:'medium_cropped' }}"
+                     alt=""
+                     class="gallery-image">
+                {% if perms.exercises.change_exerciseimage %}
+                <div class="titleBox">
+                    <a href="{% url 'exerciseimage-delete' exercise.pk image.pk %}"
+                       class="modal-dialog no-hover">
+                         <img src="{% static 'images/icons/trash.svg' %}"
+                                width="24"
+                                height="24"
+                                alt="{% trans 'Delete' %}"></a>
+                    <a href="{% url 'exerciseimage-edit' image.pk %}"
+                       class="no-hover">
+                         <img src="{% static 'images/icons/edit.svg' %}"
+                                width="24"
+                                height="24"
+                                alt="{% trans 'Edit' %}"></a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
     {% endfor %}
     </div>
 
