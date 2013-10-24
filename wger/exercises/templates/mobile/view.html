@@ -66,7 +66,7 @@ included in the database.{% endblocktrans %}
 
 
 <p>{% trans "Category" %}: <strong>{% trans exercise.category.name %}</strong></p>
-<p>{{ exercise.description|safe }}</p>
+<div>{{ exercise.description|safe }}</div>
 
 {#          #}
 {# Comments #}
@@ -122,29 +122,56 @@ included in the database.{% endblocktrans %}
 {% if images %}
     <h4>{% trans "Images" %}</h4>
 
-    <div class="wrap">
+    <div class="image-gallery">
     {% for image in images %}
+        <div data-role="popup"
+             id="image-popup-{{image.pk}}"
+             data-overlay-theme="a"
+             class="ui-content">
+                <h3>{% trans "Download" %}</h3>
+
+                <a href="{{ image.image.url }}"
+                   target="_blank"
+                   class="image-link"
+                   data-role="button">
+                     {% trans "Full size" %}</a>
+
+                <a href="{{ image.image|thumbnail_url:'larger' }}"
+                   target="_blank"
+                   class="image-link"
+                   data-role="button">
+                     {% trans "Reduced size" %}</a>
+
+                {% if perms.exercises.change_exerciseimage %}
+                    <h3>{% trans "Options" %}</h3>
+                    <a href="{% url 'exerciseimage-delete' exercise.pk image.pk %}"
+                       data-role="button">
+                       <img src="{% static 'images/icons/trash.svg' %}"
+                            width="22"
+                            height="22"
+                            alt="{% trans 'Delete' %}">
+                         {% trans 'Delete' %}</a>
+
+                    <a href="{% url 'exerciseimage-edit' image.pk %}"
+                       data-role="button"
+                       data-ajax="false">
+                       <img src="{% static 'images/icons/edit.svg' %}"
+                            width="22"
+                            height="22"
+                            alt="{% trans 'Edit' %}">
+                         {% trans 'Edit' %}</a>
+                 {% endif %}
+        </div>
+
         <div class="image-box">
             <div class="boxInner">
+                <a href="#image-popup-{{image.pk}}"
+                   data-rel="popup"
+                   data-position-to="window">
                 <img src="{{ image.image|thumbnail_url:'medium_cropped' }}"
                      alt=""
                      class="gallery-image">
-                {% if perms.exercises.change_exerciseimage %}
-                <div class="titleBox">
-                    <a href="{% url 'exerciseimage-delete' exercise.pk image.pk %}"
-                       class="modal-dialog no-hover">
-                         <img src="{% static 'images/icons/trash.svg' %}"
-                                width="24"
-                                height="24"
-                                alt="{% trans 'Delete' %}"></a>
-                    <a href="{% url 'exerciseimage-edit' image.pk %}"
-                       class="no-hover">
-                         <img src="{% static 'images/icons/edit.svg' %}"
-                                width="24"
-                                height="24"
-                                alt="{% trans 'Edit' %}"></a>
-                    </div>
-                {% endif %}
+                 </a>
             </div>
         </div>
     {% endfor %}

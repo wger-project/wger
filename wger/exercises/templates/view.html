@@ -77,7 +77,7 @@ included in the database.{% endblocktrans %}
 
 {% cache cache_timeout exercise-detail-header exercise.id language.id %}
 <p>{% trans "Category" %}: <strong>{% trans exercise.category.name %}</strong></p>
-<p>{{ exercise.description|safe }}</p>
+<div>{{ exercise.description|safe }}</div>
 {% endcache %}
 
 
@@ -146,7 +146,7 @@ included in the database.{% endblocktrans %}
     {% endwith %}
 
 
-    <div class="wrap">
+    <div class="image-gallery">
     {% with other_images=images|slice:"1:" %}
     {% for image in other_images %}
         <div class="image-box">
@@ -154,22 +154,23 @@ included in the database.{% endblocktrans %}
                 <img src="{{ image.image|thumbnail_url:'medium_cropped' }}"
                      alt=""
                      class="gallery-image">
-                {% if perms.exercises.change_exerciseimage %}
+
                 <div class="titleBox">
+                    <a href="{{ image.image.url }}"
+                       target="_blank"
+                       class=" no-hover">
+                         {% trans "Download" %}</a>
+
+                    {% if perms.exercises.change_exerciseimage %}
+                    <br>
                     <a href="{% url 'exerciseimage-delete' exercise.pk image.pk %}"
                        class="modal-dialog no-hover">
-                         <img src="{% static 'images/icons/trash.svg' %}"
-                                width="24"
-                                height="24"
-                                alt="{% trans 'Delete' %}"></a>
+                         {% trans 'Delete' %}</a> |
                     <a href="{% url 'exerciseimage-edit' image.pk %}"
                        class="no-hover">
-                         <img src="{% static 'images/icons/edit.svg' %}"
-                                width="24"
-                                height="24"
-                                alt="{% trans 'Edit' %}"></a>
-                    </div>
-                {% endif %}
+                         {% trans 'Edit' %}</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     {% endfor %}
