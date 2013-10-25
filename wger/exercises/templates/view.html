@@ -142,7 +142,16 @@ included in the database.{% endblocktrans %}
     {% with main_image=images|first %}
         <div style="text-align:center;">
             <img src="{{ main_image.image|thumbnail_url:'larger' }}" alt="">
+
+            {% if perms.exercises.change_exerciseimage %}
+            <br>
+            <a href="{% url 'exerciseimage-delete' exercise.pk main_image.pk %}"
+               class="modal-dialog">
+                 {% trans 'Delete' %}</a> |
+            <a href="{% url 'exerciseimage-edit' main_image.pk %}">{% trans 'Edit' %}</a>
+            {% endif %}
         </div>
+
     {% endwith %}
 
 

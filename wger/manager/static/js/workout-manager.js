@@ -20,11 +20,24 @@ $.widget( "custom.catcomplete", $.ui.autocomplete, {
                 currentCategory = "";
             $.each( items, function( index, item ) {
                 if ( item.category != currentCategory ) {
+
                     ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" );
                     currentCategory = item.category;
                 }
                 that._renderItemData( ul, item );
             });
+        },
+        _renderItem: function( ul, item ) {
+            if (item.image) {
+                var li_style = "style='background-image:url("+ item.image_thumbnail + ");background-size:30px 30px;background-repeat:no-repeat;'";
+            }
+            else {
+                var li_style = '';
+            }
+
+            return $( "<li "+ li_style +">" )
+                .append( "<a style='margin-left:30px;'>" + item.name + "</a>" )
+                .appendTo( ul );
         }
     });
 

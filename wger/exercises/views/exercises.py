@@ -40,6 +40,9 @@ from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
 
+from easy_thumbnails.files import get_thumbnailer
+from easy_thumbnails.alias import aliases
+
 from wger.manager.models import WorkoutLog
 
 from wger.exercises.models import Exercise
@@ -327,11 +330,22 @@ def search(request):
 
         results = []
         for exercise in exercises:
+            if exercise.exerciseimage_set.exists():
+                image_obj = exercise.exerciseimage_set.filter(is_main=True)[0]
+                image = image_obj.image.url
+                t = get_thumbnailer(image_obj.image)
+                thumbnail = t.get_thumbnail(aliases.get('thumbnail_cropped')).url
+            else:
+                image = None
+                thumbnail = None
+
             exercise_json = {}
             exercise_json['id'] = exercise.id
             exercise_json['name'] = exercise.name
             exercise_json['value'] = exercise.name
             exercise_json['category'] = exercise.category.name
+            exercise_json['image'] = image
+            exercise_json['image_thumbnail'] = thumbnail
 
             results.append(exercise_json)
         data = json.dumps(results)
