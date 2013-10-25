@@ -238,7 +238,7 @@ class Exercise(models.Model):
         # Cached template fragments
         delete_template_fragment_cache('muscle-overview', self.language_id)
         delete_template_fragment_cache('exercise-overview', self.language_id)
-        delete_template_fragment_cache('exercise-detail-heder', self.language_id)
+        delete_template_fragment_cache('exercise-detail-header', self.language_id)
         delete_template_fragment_cache('exercise-detail-muscles', self.language_id)
 
         super(Exercise, self).delete(*args, **kwargs)
@@ -341,10 +341,40 @@ class ExerciseImage(models.Model):
             self.is_main = True
 
         # If the exercise has only one image, mark it as main
-        if not ExerciseImage.objects.filter(exercise=self.exercise).filter(is_main=False).count():
+        if not ExerciseImage.objects.filter(exercise=self.exercise, is_main=False).count():
             self.is_main = True
 
+        #
+        # Reset all cached infos
+        #
+        delete_template_fragment_cache('muscle-overview', self.exercise.language_id)
+        delete_template_fragment_cache('exercise-overview', self.exercise.language_id)
+        delete_template_fragment_cache('exercise-detail-header',
+                                       self.exercise.id,
+                                       self.exercise.language_id)
+        delete_template_fragment_cache('exercise-detail-muscles',
+                                       self.exercise.id,
+                                       self.exercise.language_id)
+
+        # And go on
         super(ExerciseImage, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        '''
+        Reset all cached infos
+        '''
+        super(ExerciseImage, self).delete(*args, **kwargs)
+
+        delete_template_fragment_cache('muscle-overview', self.exercise.language_id)
+        delete_template_fragment_cache('exercise-overview', self.exercise.language_id)
+        delete_template_fragment_cache('exercise-detail-header', self.exercise.language_id)
+        delete_template_fragment_cache('exercise-detail-muscles', self.exercise.language_id)
+
+        # Make sure there is always a main image
+        if not ExerciseImage.objects.filter(exercise=self.exercise, is_main=True).count():
+            image = ExerciseImage.objects.filter(exercise=self.exercise).filter(is_main=False)[0]
+            image.is_main = True
+            image.save()
 
 
 def delete_exercise_image_on_delete(sender, instance, **kwargs):
