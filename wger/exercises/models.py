@@ -253,6 +253,17 @@ class Exercise(models.Model):
     # Own methods
     #
 
+    @property
+    def main_image(self):
+        '''
+        Return the main image for the exercise or None if nothing is found
+        '''
+        has_image = self.exerciseimage_set.exists()
+        image = None
+        if has_image:
+            image = self.exerciseimage_set.filter(is_main=True)[0]
+        return image
+
     def get_owner_object(self):
         '''
         Exercise has no owner information
@@ -327,6 +338,10 @@ class ExerciseImage(models.Model):
         '''
         if self.is_main:
             ExerciseImage.objects.filter(exercise=self.exercise).update(is_main=False)
+            self.is_main = True
+
+        # If the exercise has only one image, mark it as main
+        if not ExerciseImage.objects.filter(exercise=self.exercise).filter(is_main=False).count():
             self.is_main = True
 
         super(ExerciseImage, self).save(*args, **kwargs)
