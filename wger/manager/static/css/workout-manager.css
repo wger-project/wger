@@ -238,8 +238,6 @@ div.info a, div.info a:hover, div.info a:active{
     margin:0;
     text-align: center;
     zoom: 1;
-    float: left;
-    clear: left;
     width: 100%;
     font-weight: bold;
     background-color: #D3D7CF;
