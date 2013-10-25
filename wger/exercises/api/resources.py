@@ -62,7 +62,8 @@ class ExerciseImageResource(ModelResource):
         thumbnails = {}
         for alias in aliases.all():
             t = get_thumbnailer(bundle.obj.image)
-            thumbnails[alias] = t.get_thumbnail(aliases.get(alias)).url
+            thumbnails[alias] = {'url': t.get_thumbnail(aliases.get(alias)).url,
+                                 'settings': aliases.get(alias)}
 
         bundle.data['thumbnails'] = thumbnails
         return bundle
