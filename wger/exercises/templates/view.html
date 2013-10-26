@@ -140,18 +140,32 @@ included in the database.{% endblocktrans %}
 
 
     {% with main_image=images|first %}
-        <div style="text-align:center;">
-            <img src="{{ main_image.image|thumbnail_url:'larger' }}" alt="">
+        <div class="image-gallery" style="width:450px;margin-left:auto;margin-right:auto;">
+        <div class="image-box" style="width:400px;padding-bottom:340px;">
+            <div class="boxInner">
+                <img src="{{ main_image.image|thumbnail_url:'medium_cropped' }}"
+                     alt=""
+                     class="gallery-image">
 
-            {% if perms.exercises.change_exerciseimage %}
-            <br>
-            <a href="{% url 'exerciseimage-delete' exercise.pk main_image.pk %}"
-               class="modal-dialog">
-                 {% trans 'Delete' %}</a> |
-            <a href="{% url 'exerciseimage-edit' main_image.pk %}">{% trans 'Edit' %}</a>
-            {% endif %}
+                <div class="titleBox">
+                    <a href="{{ main_image.image.url }}"
+                       target="_blank"
+                       class=" no-hover">
+                         {% trans "Download" %}</a>
+
+                    {% if perms.exercises.change_exerciseimage %}
+                    <br>
+                    <a href="{% url 'exerciseimage-delete' exercise.pk main_image.pk %}"
+                       class="modal-dialog no-hover">
+                         {% trans 'Delete' %}</a> |
+                    <a href="{% url 'exerciseimage-edit' main_image.pk %}"
+                       class="no-hover">
+                         {% trans 'Edit' %}</a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-
+        </div>
     {% endwith %}
 
 
@@ -160,7 +174,7 @@ included in the database.{% endblocktrans %}
     {% for image in other_images %}
         <div class="image-box">
             <div class="boxInner">
-                <img src="{{ image.image|thumbnail_url:'medium_cropped' }}"
+                <img src="{{ image.image|thumbnail_url:'small_cropped' }}"
                      alt=""
                      class="gallery-image">
 
