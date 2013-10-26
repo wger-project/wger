@@ -47,9 +47,6 @@ def processor(request):
         # Translation links
         'datepicker_i18n_path': 'js/jquery.ui.datepicker-{0}.js'.format(language.short_name),
 
-        # Contact email
-        'contact_email': 'roland @ geider.net',
-
         # Flag for guest users
         'has_demo_data': request.session.get('has_demo_data', False),
 

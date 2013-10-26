@@ -155,11 +155,7 @@
             </div>
             <div class="ym-g80 ym-gl">
                 <div class="ym-gbox-left">
-                © <a href="mailto:{{contact_email}}">Roland Geider</a>
-                <!--
-                – {% trans "Layout based on <a href='http://www.yaml.de'>YAML</a>" %}
-                -->
-                | <a href="{% url 'about' %}">{% trans "About" %}</a>
+                <a href="{% url 'about' %}">{% trans "About" %}</a>
                 | <a href="{% url 'software:contribute' %}">{% trans "Contribute!" %}</a>
                 | <a href="{% url 'contact' %}">{% trans "Get in touch" %}</a>
                 | <a href="?flavour=mobile">{% trans "Mobile version" %}</a>
