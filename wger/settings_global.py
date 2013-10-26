@@ -305,13 +305,19 @@ CACHES = {
 # Thumbnail sizes
 THUMBNAIL_ALIASES = {
     '': {
+        'micro': {'size': (30, 30)},
+        'micro_cropped': {'size': (30, 30), 'crop': 'smart'},
+
         'thumbnail': {'size': (80, 80)},
         'thumbnail_cropped': {'size': (80, 80), 'crop': 'smart'},
 
-        'medium': {'size': (200, 200)},
-        'medium_cropped': {'size': (200, 200), 'crop': 'smart'},
+        'small': {'size': (200, 200)},
+        'small_cropped': {'size': (200, 200), 'crop': 'smart'},
 
-        'larger': {'size': (400, 400)},
-        'larger_cropped': {'size': (400, 400), 'crop': 'smart'},
+        'medium': {'size': (400, 400)},
+        'medium_cropped': {'size': (400, 400), 'crop': 'smart'},
+
+        'large': {'size': (800, 800), 'quality': 90},
+        'large_cropped': {'size': (800, 800), 'crop': 'smart', 'quality': 90},
         },
 }

@@ -334,7 +334,7 @@ def search(request):
                 image_obj = exercise.exerciseimage_set.filter(is_main=True)[0]
                 image = image_obj.image.url
                 t = get_thumbnailer(image_obj.image)
-                thumbnail = t.get_thumbnail(aliases.get('thumbnail_cropped')).url
+                thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
             else:
                 image = None
                 thumbnail = None
