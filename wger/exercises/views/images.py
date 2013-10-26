@@ -55,6 +55,7 @@ class ExerciseImageEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(ExerciseImageEditView, self).get_context_data(**kwargs)
+        context['enctype'] = 'multipart/form-data'
         context['form_action'] = reverse('exerciseimage-edit',
                                          kwargs={'pk': self.object.id})
 
@@ -83,6 +84,7 @@ class ExerciseImageAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
         Send some additional data to the template
         '''
         context = super(ExerciseImageAddView, self).get_context_data(**kwargs)
+        context['enctype'] = 'multipart/form-data'
         context['form_action'] = reverse('exerciseimage-add',
                                          kwargs={'exercise_pk': self.kwargs['exercise_pk']})
 

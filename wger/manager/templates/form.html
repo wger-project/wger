@@ -26,7 +26,7 @@
 -->
 {% block content %}
 <form action="{{form_action}}"
-      enctype="multipart/form-data"
+      {% if enctype %}enctype="{{enctype}}"{% endif %}
       method="post"
       class="ym-form">
 {% csrf_token %}
