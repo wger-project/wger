@@ -7,6 +7,7 @@
 
 
 {% block header %}
+<script src="{% static 'js/nutrition.js' %}"></script>
 <script>
 function custom_modal_init()
 {
@@ -17,15 +18,7 @@ function custom_modal_init()
 $(document).ready(function() {
 
     // Check if the user wants to see ingredients in english
-    set_english_ingredients();
-
-    {% if user.userprofile.show_english_ingredients %}
-        var useEnglishIngredients = 1;
-        $('#english-ingredients-status').attr("src", "{% static 'images/icons/status-on.svg' %}");
-    {% else %}
-        var useEnglishIngredients = 0;
-        $('#english-ingredients-status').attr("src", "{% static 'images/icons/status-off.svg' %}");
-    {% endif %}
+    init_english_ingredients();
 });
 </script>
 {% endblock %}
@@ -153,11 +146,21 @@ $(document).ready(function() {
     <p>
     {% trans "If you find the ingredient list too short, you might want to activate the preference to also show English ingredients." %}
     <a href="{% url 'preferences' %}" id="ajax-english-ingredients">{% trans "That's done here" %}</a>:
+    {% if user.userprofile.show_english_ingredients %}
     <img src="{% static 'images/icons/status-on.svg' %}"
          width="20"
          height="20"
-         alt="{% trans 'Delete nutrition plan' %}"
-         id="english-ingredients-status">
+         alt=""
+         id="english-ingredients-status"
+         data-show-ingredients="true">
+    {% else %}
+    <img src="{% static 'images/icons/status-off.svg' %}"
+         width="20"
+         height="20"
+         alt=""
+         id="english-ingredients-status"
+         data-show-ingredients="false">
+    {% endif %}
     </p>
 {% endif %}
 

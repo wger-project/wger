@@ -6,54 +6,7 @@
 {% block header %}
 <script>
 $(document).ready(function() {
-
-    $("#form-transfer-calories").click(function(e){
-        e.preventDefault();
-        var base_calories = Number($('#id_base_calories').html());
-        $('#id_calories').val(base_calories);
-    });
-
-    $("#add-calories-total").click(function(e){
-        e.preventDefault();
-        var base_calories = Number($('#id_base_calories').html());
-        var additional_calories = Number($('#id_additional_calories').val());
-        $('#id_calories').val(base_calories + additional_calories);
-    });
-
-    $("#form-update-calories").click(function(e){
-        e.preventDefault();
-        var form_url = $("#total-calories-form").attr('action');
-        $.post(form_url,
-               $("#total-calories-form").serialize(),
-               function(data) {
-               });
-    });
-
-    $(".calories-autoform").click(function(e){
-        e.preventDefault();
-
-        // BMR
-        var bmr_url = $("#bmr-form").attr('action');
-        $.post(bmr_url,
-               $("#bmr-form").serialize(),
-               function(data) {
-                   $('#bmr-result-container').show();
-                   $('#bmr-result-value').html(data.bmr);
-
-                   // Activities
-                   var activities_url = $("#activities-form").attr('action');
-                   $.post(activities_url,
-                          $("#activities-form").serialize(),
-                          function(data) {
-                              $('#activities-result-container').show();
-                              $('#activities-result-value').html(data.factor);
-
-                              // Total calories
-                              $('#id_base_calories').html(data.activities);
-                          });
-            });
-    });
-
+    init_calories_calculator();
 });
 </script>
 {% endblock %}

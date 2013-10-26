@@ -14,7 +14,7 @@
 {% block header %}
 <script src="{% static 'js/d3.js' %}"></script>
 <script src="{% static 'js/jquery-globalize/lib/globalize.js' %}"></script>
-
+<script src="{% static 'js/weight.js' %}"></script>
 
 
 <script type="text/javascript">
@@ -28,43 +28,8 @@ function custom_modal_init()
 
 $(document).ready(function () {
 
-    // Load the chart data, without arguments this returns all weight entries
-    var date_min = $("#weight_filter_from").val();
-    var date_max = $("#weight_filter_to").val();
-    var filter_data = {}
-    if( date_min && date_max)
-    {
-        filter_data = {'date_min': date_min,
-                       'date_max': date_max}
-    }
-
-    $.getJSON("/weight/api/get_weight_data/", filter_data, function(json) {
+    $.getJSON("/weight/api/get_weight_data/", function(json) {
         weight_chart(json);
-    });
-
-    // Add datepickers to the filter elements
-
-    $("#weight_filter_from").datepicker({ dateFormat: "yy-mm-dd",
-                                          {% if min_date %}minDate: {{ min_date }}{% endif %}
-                                      });
-    $("#weight_filter_to").datepicker({ dateFormat: "yy-mm-dd",
-                                        {% if max_date %}maxDate: {{max_date}}{% endif %}
-                                     });
-
-    // Process the filter
-    $("#weight_diagram_refresh").click(function(e) {
-
-        e.preventDefault();
-
-        var date_min = $("#weight_filter_from").val();
-        var date_max = $("#weight_filter_to").val();
-
-        $.getJSON("/weight/api/get_weight_data/",
-                    {'date_min': date_min,
-                     'date_max': date_max},
-                     function(json) {
-                        weight_chart(json);
-                });
     });
 });
 </script>

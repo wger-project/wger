@@ -7,47 +7,10 @@
 {% block title %}{{ingredient.name}}{% endblock %}
 
 {% block header %}
+<script src="{% static 'js/nutrition.js' %}"></script>
 <script>
-function update_value() {
-    form_data = $('#nutritional-values-form').serializeArray();
-    $.post("{% url 'ingredient-get-values' ingredient.id %}", form_data, function(data) {
-
-        // Show any validation errors
-        $('#calculator-errors').html('');
-        if (data['errors'])
-        {
-            $.each(data['errors'], function(index, value) {
-                $('#calculator-errors').append('<p class="ym-message">'+value+'</p>');
-            });
-        }
-
-        // Replace the nutritional values
-        $('#value-energy').html(parseFloat(data['energy']).toFixed(2));
-        $('#value-protein').html(parseFloat(data['protein']).toFixed(2));
-        $('#value-carbohydrates').html(parseFloat(data['carbohydrates']).toFixed(2));
-        $('#value-carbohydrates-sugar').html(parseFloat(data['carbohydrates_sugar']).toFixed(2));
-        $('#value-fat').html(parseFloat(data['fat']).toFixed(2));
-        $('#value-fat-saturated').html(parseFloat(data['fat_saturated']).toFixed(2));
-        $('#value-fibres').html(parseFloat(data['fibres']).toFixed(2));
-        $('#value-sodium').html(parseFloat(data['sodium']).toFixed(2));
-        });
-    }
-
 $(document).on('pageinit', function(){
-
-    // Prevent the form from being sent
-    $('#nutritional-values-form').submit(function(e) {
-        e.preventDefault();
-    });
-
-    $('#id_amount').keyup(function(){
-        update_value();
-    });
-
-    $('#id_unit').change(function(){
-        update_value();
-    });
-
+    init_ingredient_detail("{% url 'ingredient-get-values' ingredient.id %}");
 });
 </script>
 {% endblock %}
