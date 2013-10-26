@@ -17,7 +17,7 @@
 
 
 /**************************************************************
- * 
+ *
  * This file contains slight modifications to the CSS provided
  * by JQuery UI
  *
@@ -33,5 +33,13 @@
 .ui-widget textarea,
 .ui-widget button {
     font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
+}
+
+
+/* Add a max-height for the autocompleter */
+.ui-autocomplete {
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden; /* prevent horizontal scrollbar */
 }
 

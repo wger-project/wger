@@ -284,23 +284,15 @@ body .boxInner:hover .titleBox, body.touch .boxInner.touchFocus .titleBox {
    }
 }
 @media only screen and (max-width : 1290px) and (min-width : 1051px) {
-   /* Medium desktop: 4 tiles */
+   /* Medium desktop: 3 tiles */
    .image-box {
-       /*
-      width: 25%;
-      padding-bottom: 25%;
-      */
       width: 33.3%;
       padding-bottom: 33.3%;
    }
 }
 @media only screen and (min-width : 1290px) {
-   /* Medium desktop: 4 tiles */
+   /* Big desktop: 3 tiles */
    .image-box {
-       /*
-      width: 25%;
-      padding-bottom: 25%;
-      */
       width: 33.3%;
       padding-bottom: 33.3%;
    }
