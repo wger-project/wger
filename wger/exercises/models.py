@@ -26,7 +26,6 @@ from django.core.urlresolvers import reverse
 from django.core import mail
 from django.core.cache import cache
 from django.db.models.signals import pre_save
-from django.db.models.signals import pre_delete
 from django.db.models.signals import post_delete
 
 from easy_thumbnails.files import get_thumbnailer
@@ -324,7 +323,7 @@ class ExerciseImage(models.Model):
         '''
         Set default ordering
         '''
-        ordering = ['-is_main', ]
+        ordering = ['-is_main', 'id']
 
     def get_owner_object(self):
         '''
