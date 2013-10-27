@@ -50,6 +50,7 @@ filter_dump(data, ('nutrition.ingredientweightunit',), 'ingredient_units.json')
 #
 filter_dump(data, ('exercises.muscle',), 'muscles.json')
 filter_dump(data, ('exercises.exercisecategory',), 'categories.json')
+filter_dump(data, ('exercises.exerciseimage',), 'exercise-images.json')
 filter_dump(data, ('exercises.exercise', 'exercises.exercisecomment',), 'exercises.json')
 
 #
