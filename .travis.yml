@@ -7,13 +7,13 @@ python:
 
 # Manually define here the combinations of django and db versions to test
 env:
-#  - DJANGO_VERSION=1.4.8 DB=mysql
-  - DJANGO_VERSION=1.4.8 DB=postgresql 
-  - DJANGO_VERSION=1.4.8 DB=sqlite
+#  - DJANGO_VERSION=1.4.9 DB=mysql
+  - DJANGO_VERSION=1.4.9 DB=postgresql 
+  - DJANGO_VERSION=1.4.9 DB=sqlite
 
-#  - DJANGO_VERSION=1.5.4 DB=mysql
-  - DJANGO_VERSION=1.5.4 DB=postgresql
-  - DJANGO_VERSION=1.5.4 DB=sqlite
+#  - DJANGO_VERSION=1.5.5 DB=mysql
+  - DJANGO_VERSION=1.5.5 DB=postgresql
+  - DJANGO_VERSION=1.5.5 DB=sqlite
 
 # Install the application
 install:
