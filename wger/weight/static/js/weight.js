@@ -18,6 +18,9 @@
  * wger weight functions
  */
 
+"use strict";
+
+
 // Simple helper function that simply returns the y component of an entry
 function y_value(d) { return d.y; }
 

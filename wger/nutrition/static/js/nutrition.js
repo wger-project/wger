@@ -18,6 +18,8 @@
  * wger Nutriton functions
  */
 
+"use strict";
+
 function update_ingredient_value(url)
 {
     form_data = $('#nutritional-values-form').serializeArray();
@@ -86,5 +88,203 @@ function init_english_ingredients()
 
         // Update the settings
         $("#ajax-info").load('/' + get_current_language() + "/workout/api/user-preferences?do=set_english-ingredients&show=" + switch_to);
+    });
+}
+
+
+function init_ingredient_autocompleter()
+{
+    // Init the autocompleter
+    $("#id_ingredient_searchfield").autocomplete({
+        source: '/' + get_current_language() + "/nutrition/ingredient/search/",
+        minLength: 2,
+        select: function(event, ui) {
+
+            // After clicking on a result set the value of the hidden field
+            $('#id_ingredient').val(ui.item.id);
+            $('#exercise_name').html(ui.item.label);
+
+            // See if the ingredient has any units and set the values for the forms
+            $.get('/' + get_current_language() + '/nutrition/ingredient/' + ui.item.id + '/get-units',
+                  function(data){
+
+                        // Remove any old units, if any
+                        var options = $('#id_weight_unit').find('option');
+                        $.each(options, function(index, option_obj) {
+                            if (option_obj.value != '')
+                            {
+                                $(option_obj).remove();
+                            }
+                        });
+
+                        // Add new units, if any
+                        $.each(data, function(index, value) {
+                            $('#id_unit').append(new Option(value.name, value.id));
+                            $('#id_weight_unit').append(new Option(value.name_model, value.id));
+                        });
+                  });
+        }
+    });
+}
+
+
+/*
+ * Draw the BMI chart
+ */
+function render_bmi(width_factor)
+{
+    // Delete the other diagrams
+    d3.selectAll('svg').remove();
+
+    // Calculate the size
+    var width_factor = typeof width_factor !== 'undefined' ? width_factor: 600;
+    var height_factor = width_factor / 600 * 300;
+
+    var margin = {top: 20, right: 80, bottom: 30, left: 50},
+        width = width_factor - margin.left - margin.right,
+        height = height_factor - margin.top - margin.bottom;
+
+    var x = d3.scale.linear()
+        .range([0, width]);
+
+    var y = d3.scale.linear()
+        .range([height, 0]);
+
+    var z = d3.scale.ordinal().range(['#000080', '#0000ff', '#00ffff', '#00ff00', '#ffff00', '#ff7f2a', '#ff0000', '#800000']);
+
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left");
+
+    var stack = d3.layout.stack()
+        .offset("zero")
+        .values(function(d) { return d.values; })
+        .x(function(d) { return d.height; })
+        .y(function(d) { return d.weight; });
+
+    var nest = d3.nest()
+        .key(function(d) { return d.key; });
+
+    var area = d3.svg.area()
+        .interpolate("linear")
+        .x(function(d) { return x(d.height); })
+        .y0(function(d) { return y(d.y0); })
+        .y1(function(d) { return y(d.y); });
+
+
+    var svg = d3.select("#bmi-chart").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // Clip path, drawings outside are removed
+    svg.append("defs").append("clipPath")
+        .attr("id", "clip")
+      .append("rect")
+        .attr("width", width)
+        .attr("height", height);
+
+
+    d3.json("/nutrition/calculator/bmi/chart-data", function(data) {
+
+        var layers = stack(nest.entries(data));
+
+        // Manually set the domains
+        x.domain([150, 200]); // height, in cm
+        y.domain([30, 160]);  // weight, in kg
+
+      svg.selectAll(".layer")
+          .data(layers)
+        .enter().append("path")
+          .attr("class", "layer")
+          .attr("id", function(d, i) { return "key-" + d.key; })
+          .attr("clip-path", "url(#clip)")
+          .attr("d", function(d) { return area(d.values); })
+          .style("fill", function(d, i) { return z(i); })
+          .style("opacity", 0.6);
+
+      svg.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + height + ")")
+          .call(xAxis);
+
+      svg.append("g")
+          //.attr("transform", "translate(" + width + ",0)")
+          .attr("class", "y axis")
+          .call(yAxis);
+
+      var url = $("#bmi-form").attr( 'action' );
+
+        $.post(url,
+           $("#bmi-form").serialize(),
+           function(data) {
+               $('#bmi-result-container').show();
+               $('#bmi-result-value').html(data.bmi);
+               svg.append("circle")
+                .attr("cx", x(data.height))
+                .attr("cy", y(data.weight))
+                .attr("fill", "black")
+                .attr("r", 5);
+           });
+    });
+
+}
+
+
+/*
+ * Calories calculator
+ */
+function init_calories_calculator()
+{
+    $("#form-transfer-calories").click(function(e){
+        e.preventDefault();
+        var base_calories = Number($('#id_base_calories').html());
+        $('#id_calories').val(base_calories);
+    });
+
+    $("#add-calories-total").click(function(e){
+        e.preventDefault();
+        var base_calories = Number($('#id_base_calories').html());
+        var additional_calories = Number($('#id_additional_calories').val());
+        $('#id_calories').val(base_calories + additional_calories);
+    });
+
+    $("#form-update-calories").click(function(e){
+        e.preventDefault();
+        var form_url = $("#total-calories-form").attr('action');
+        $.post(form_url,
+               $("#total-calories-form").serialize(),
+               function(data) {
+               });
+    });
+
+    $(".calories-autoform").click(function(e){
+        e.preventDefault();
+
+        // BMR
+        var bmr_url = $("#bmr-form").attr('action');
+        $.post(bmr_url,
+               $("#bmr-form").serialize(),
+               function(data) {
+                   $('#bmr-result-container').show();
+                   $('#bmr-result-value').html(data.bmr);
+
+                   // Activities
+                   var activities_url = $("#activities-form").attr('action');
+                   $.post(activities_url,
+                          $("#activities-form").serialize(),
+                          function(data) {
+                              $('#activities-result-container').show();
+                              $('#activities-result-value').html(data.factor);
+
+                              // Total calories
+                              $('#id_base_calories').html(data.activities);
+                          });
+            });
     });
 }
