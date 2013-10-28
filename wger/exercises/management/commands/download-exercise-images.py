@@ -40,10 +40,10 @@ class Command(BaseCommand):
 
     option_list = BaseCommand.option_list + (
         make_option('--remote-url',
-            action='store',
-            dest='remote_url',
-            default='https://wger.de',
-            help='Remote URL to fetch the exercises from (default: https://wger.de)'),
+                    action='store',
+                    dest='remote_url',
+                    default='https://wger.de',
+                    help='Remote URL to fetch the exercises from (default: https://wger.de)'),
         )
 
     help = ('Download exercise images from wger.de and update the local database\n'

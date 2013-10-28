@@ -78,4 +78,3 @@ class DeleteExerciseImageTestCase(WorkoutManagerDeleteTestCase):
     #resource = 'exerciseimage/1'
     #user = None
     #resource_updatable = False
-#
