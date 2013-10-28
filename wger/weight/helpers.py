@@ -48,7 +48,7 @@ def parse_weight_csv(request, cleaned_data):
                                            weight=parsed_weight,
                                            user=request.user))
 
-        except (ValueError, IndexError, decimal.InvalidOperation), e:
+        except (ValueError, IndexError, decimal.InvalidOperation):
             error_list.append(row)
             #logger.debug(row)
             #logger.debug(e)

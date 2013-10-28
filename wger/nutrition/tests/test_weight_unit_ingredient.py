@@ -108,7 +108,7 @@ class WeightUnitToIngredientApiTestCase(ApiBaseResourceTestCase):
     resource_updatable = False
 
 
-class WeightUnitToIngredientApiTestCase(ApiBaseResourceTestCase):
+class WeightUnitToIngredientDeatilApiTestCase(ApiBaseResourceTestCase):
     '''
     Tests accessing a specific weight unit to ingredient entry
     '''

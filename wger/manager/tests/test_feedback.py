@@ -15,11 +15,8 @@
 from django.core.urlresolvers import reverse
 from django.core import mail
 
-from wger.manager.models import Workout
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 
 
 class FeedbackTestCase(WorkoutManagerTestCase):

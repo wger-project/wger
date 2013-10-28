@@ -14,9 +14,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import datetime
-
-from django.utils.timezone import now
 from django.core.management.base import BaseCommand
 from wger.exercises.models import ExerciseCategory
 

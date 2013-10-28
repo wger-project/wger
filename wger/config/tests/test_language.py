@@ -69,7 +69,7 @@ class EditLanguageTestCase(WorkoutManagerEditTestCase):
             'full_name': 'Dansk'}
 
 
-class CreateLanguageTestCase(WorkoutManagerDeleteTestCase):
+class DeleteLanguageTestCase(WorkoutManagerDeleteTestCase):
     '''
     Tests adding a new language
     '''

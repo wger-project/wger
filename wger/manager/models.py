@@ -30,7 +30,6 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import ValidationError
 from django.core.cache import cache
-from django.core.validators import MaxValueValidator
 from django.core.validators import MinValueValidator
 
 from wger.exercises.models import Exercise
@@ -41,7 +40,6 @@ from wger.utils.cache import delete_template_fragment_cache
 from wger.utils.cache import cache_mapper
 from wger.weight.models import WeightEntry
 from wger.utils.fields import Html5DateField
-from wger.utils.fields import Html5TimeField
 from wger.utils.fields import Html5DecimalField
 from wger.utils.fields import Html5IntegerField
 

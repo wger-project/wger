@@ -50,7 +50,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         Tests that the helper function creates demo data (workout, etc.)
         for the demo users
         '''
-        response = self.client.get(reverse('dashboard'))
+        self.client.get(reverse('dashboard'))
         self.assertEqual(self.count_temp_users(), 2)
         user = User.objects.get(pk=4)
         self.assertEqual(user.get_profile().is_temporary, True)
@@ -78,7 +78,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         Tests that the helper function that creates demo data filters out
         existing dates for the weight entries
         '''
-        response = self.client.get(reverse('dashboard'))
+        self.client.get(reverse('dashboard'))
         self.assertEqual(self.count_temp_users(), 2)
         user = User.objects.get(pk=4)
 
@@ -104,38 +104,38 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         self.assertEqual(self.count_temp_users(), 1)
 
         # These pages should not create a user
-        response = self.client.get(reverse('contact'))
+        self.client.get(reverse('contact'))
         self.assertEqual(self.count_temp_users(), 1)
 
-        response = self.client.get(reverse('software:code'))
+        self.client.get(reverse('software:code'))
         self.assertEqual(self.count_temp_users(), 1)
 
-        response = self.client.get(reverse('wger.exercises.views.exercises.overview'))
+        self.client.get(reverse('wger.exercises.views.exercises.overview'))
         self.assertEqual(self.count_temp_users(), 1)
 
-        response = self.client.get(reverse('ingredient-list'))
+        self.client.get(reverse('ingredient-list'))
         self.assertEqual(self.count_temp_users(), 1)
 
         # These pages will create one
-        response = self.client.get(reverse('dashboard'))
+        self.client.get(reverse('dashboard'))
         self.assertEqual(self.count_temp_users(), 2)
 
         # The new user is automatically logged in, so no new user is created
         # after the first visit
-        response = self.client.get(reverse('dashboard'))
+        self.client.get(reverse('dashboard'))
         self.assertEqual(self.count_temp_users(), 2)
 
         # Try some other pages
         self.user_logout()
-        response = self.client.get(reverse('wger.manager.views.workout.overview'))
+        self.client.get(reverse('wger.manager.views.workout.overview'))
         self.assertEqual(self.count_temp_users(), 3)
 
         self.user_logout()
-        response = self.client.get(reverse('weight-overview'))
+        self.client.get(reverse('weight-overview'))
         self.assertEqual(self.count_temp_users(), 4)
 
         self.user_logout()
-        response = self.client.get(reverse('wger.nutrition.views.plan.overview'))
+        self.client.get(reverse('wger.nutrition.views.plan.overview'))
         self.assertEqual(self.count_temp_users(), 5)
 
     def test_demo_user_notice(self):

@@ -12,15 +12,12 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import json
-
 from django.core import mail
 from django.core.urlresolvers import reverse
 
 from wger.nutrition.models import Ingredient
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 
 
 class IngredientsPendingTestCase(WorkoutManagerTestCase):

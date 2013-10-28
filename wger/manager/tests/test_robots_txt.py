@@ -14,8 +14,6 @@
 
 from django.core.urlresolvers import reverse
 
-from django.contrib.auth.models import User
-
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.exercises.models import Language
 

@@ -18,8 +18,6 @@ from tastypie import fields
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie.resources import ModelResource
 
-from django.contrib.auth.models import User
-
 from wger.exercises.api.resources import ExerciseResource
 from wger.utils.resources import UserObjectsOnlyAuthorization
 

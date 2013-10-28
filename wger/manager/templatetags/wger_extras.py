@@ -15,10 +15,8 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from django import template
-from django.core.paginator import EmptyPage, PageNotAnInteger
 
 from wger.exercises.models import Exercise
-from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.constants import PAGINATION_MAX_TOTAL_PAGES
 from wger.utils.constants import PAGINATION_PAGES_AROUND_CURRENT
 

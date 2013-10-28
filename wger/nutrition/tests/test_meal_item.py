@@ -13,15 +13,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-import datetime
-
 from django.core.urlresolvers import reverse
 
 from wger.nutrition.models import MealItem
-from wger.nutrition.models import MEALITEM_WEIGHT_UNIT
-from wger.nutrition.models import MEALITEM_WEIGHT_GRAM
 
-from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import ApiBaseResourceTestCase
@@ -52,7 +47,7 @@ class EditMealItemWeightTestCase(WorkoutManagerEditTestCase):
             'ingredient': 1}
 
 
-class AddMealItemTestCase(WorkoutManagerAddTestCase):
+class AddMealItemUnitTestCase(WorkoutManagerAddTestCase):
     '''
     Tests adding a meal, set the amount using a unit
     '''
@@ -65,7 +60,7 @@ class AddMealItemTestCase(WorkoutManagerAddTestCase):
             'weight_unit': 1}
 
 
-class AddMealItemTestCase(WorkoutManagerAddTestCase):
+class AddMealItemWeightTestCase(WorkoutManagerAddTestCase):
     '''
     Tests adding a meal, set the amount using weight
     '''

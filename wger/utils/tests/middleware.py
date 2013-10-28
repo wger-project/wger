@@ -12,14 +12,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-
 from django.core.urlresolvers import reverse
 
-from wger.exercises.models import ExerciseCategory
 from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
-from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 
 
 class RobotsExclusionMiddlewareTestCase(WorkoutManagerTestCase):
