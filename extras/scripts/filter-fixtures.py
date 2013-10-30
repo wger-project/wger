@@ -57,3 +57,4 @@ filter_dump(data, ('exercises.exercise', 'exercises.exercisecomment',), 'exercis
 #
 filter_dump(data, ('exercises.language',), 'languages.json')
 filter_dump(data, ('config.languageconfig',), 'language_config.json')
+filter_dump(data, ('auth.group',), 'groups.json')
