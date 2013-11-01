@@ -15,10 +15,13 @@
 import os
 import decimal
 import logging
+import tempfile
+import shutil
 
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import NoReverseMatch
 from django.core.cache import cache
+from django.conf import settings
 import django_mobile
 
 from django.test import TestCase
@@ -26,6 +29,20 @@ from django.test import TestCase
 from tastypie.test import ResourceTestCase
 
 STATUS_CODES_FAIL = (302, 403, 404)
+
+
+def get_reverse(url, kwargs={}):
+    '''
+    Helper function to get the reverse URL
+    '''
+    try:
+        url = reverse(url, kwargs=kwargs)
+    except NoReverseMatch:
+        # URL needs special care and doesn't need to be reversed here,
+        # everything was already done in the individual test case
+        url = url
+
+    return url
 
 
 class BaseTestCase(object):
@@ -42,6 +59,7 @@ class BaseTestCase(object):
                 'test-apikeys',
                 'test-weight-data',
                 'test-exercises',
+                'test-exercise-images',
                 'test-weight-units',
                 'test-ingredients',
                 'test-nutrition-data',
@@ -64,12 +82,19 @@ class BaseTestCase(object):
         # Set logging level
         logging.disable(logging.INFO)
 
+        # Set MEDIA_ROOT
+        self.media_root = tempfile.mkdtemp()
+        settings.MEDIA_ROOT = self.media_root
+
     def tearDown(self):
         '''
         Reset settings
         '''
         del os.environ['RECAPTCHA_TESTING']
         cache.clear()
+
+        # Clear MEDIA_ROOT folder
+        shutil.rmtree(self.media_root)
 
 
 class WorkoutManagerTestCase(BaseTestCase, TestCase):
@@ -111,6 +136,10 @@ class WorkoutManagerTestCase(BaseTestCase, TestCase):
             for j in field.all():
                 self.assertIn(j.id, value)
 
+        # Uploaded image or file, compare the filename
+        elif current_field_class in ('ImageFieldFile', 'FieldFile'):
+            self.assertEqual(os.path.basename(field.name), os.path.basename(value.name))
+
         # Other objects (from foreign keys), check the ID
         else:
             self.assertEqual(field.id, value)
@@ -147,7 +176,7 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
 
         # Fetch the delete page
         count_before = self.object_class.objects.count()
-        response = self.client.get(reverse(self.url, kwargs={'pk': self.pk}))
+        response = self.client.get(get_reverse(self.url, kwargs={'pk': self.pk}))
         count_after = self.object_class.objects.count()
         self.assertEqual(count_before, count_after)
 
@@ -157,7 +186,8 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 200)
 
         # Try deleting the object
-        response = self.client.post(reverse(self.url, kwargs={'pk': self.pk}))
+        response = self.client.post(get_reverse(self.url, kwargs={'pk': self.pk}))
+
         count_after = self.object_class.objects.count()
 
         if fail:
@@ -224,12 +254,7 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
             return
 
         # Fetch the edit page
-        try:
-            response = self.client.get(reverse(self.url, kwargs={'pk': self.pk}))
-        except NoReverseMatch:
-            # URL needs special care and doesn't need to be reversed here,
-            # everything was already done in the individual test case
-            response = self.client.get(self.url)
+        response = self.client.get(get_reverse(self.url, kwargs={'pk': self.pk}))
         entry_before = self.object_class.objects.get(pk=self.pk)
 
         if fail:
@@ -240,13 +265,7 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 200)
 
         # Try to edit the object
-        try:
-            response = self.client.post(reverse(self.url, kwargs={'pk': self.pk}),
-                                        self.data)
-        except NoReverseMatch:
-            # URL needs special care and doesn't need to be reversed here,
-            # everything was already done in the individual test case
-            response = self.client.post(self.url, self.data)
+        response = self.client.post(get_reverse(self.url, kwargs={'pk': self.pk}), self.data)
 
         entry_after = self.object_class.objects.get(pk=self.pk)
 
@@ -319,12 +338,7 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
             return
 
         # Fetch the add page
-        try:
-            response = self.client.get(reverse(self.url))
-        except NoReverseMatch:
-            # URL needs special care and doesn't need to be reversed here,
-            # everything was already done in the individual test case
-            response = self.client.get(self.url)
+        response = self.client.get(get_reverse(self.url))
 
         if fail:
             self.assertIn(response.status_code, STATUS_CODES_FAIL)
@@ -335,12 +349,7 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
 
         # Enter the data
         count_before = self.object_class.objects.count()
-        try:
-            response = self.client.post(reverse(self.url), self.data)
-        except NoReverseMatch:
-            # URL needs special care and doesn't need to be reversed here,
-            # everything was already done in the individual test case
-            response = self.client.post(self.url, self.data)
+        response = self.client.post(get_reverse(self.url), self.data)
 
         count_after = self.object_class.objects.count()
         if fail:

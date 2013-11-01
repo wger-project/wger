@@ -44,6 +44,7 @@ ADMINS = (
     ('Your name', 'your_email@example.com.net'),
 )
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.%(dbengine)s',

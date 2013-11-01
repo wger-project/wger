@@ -4,6 +4,7 @@
 {% load staticfiles %}
 {% load wger_extras %}
 {% load cache %}
+{% load thumbnail %}
 
 <!--
         Title
@@ -73,8 +74,16 @@ $(document).ready(function() {
         <tbody>
             {% for exercise in category|get_active_exercises:active_languages %}
                 <tr>
-                    <td>
-                        <a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a>
+                    <td style="padding-left:0px;">
+                        <a href="{{ exercise.get_absolute_url }}">
+                        {% if exercise.main_image %}
+                        <img src="{{ exercise.main_image.image|thumbnail_url:'thumbnail_cropped' }}"
+                             alt=""
+                             width="50"
+                             height="50"
+                             style="vertical-align:middle;">
+                         {% endif %}
+                        {{ exercise.name }}</a>
                     </td>
                 </tr>
             {% empty %}

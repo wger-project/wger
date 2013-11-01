@@ -3,6 +3,7 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load wger_extras %}
+{% load thumbnail %}
 {% load cache %}
 
 {% block header %}
@@ -77,9 +78,13 @@ included in the database.{% endblocktrans %}
 
 {% cache cache_timeout exercise-detail-header exercise.id language.id %}
 <p>{% trans "Category" %}: <strong>{% trans exercise.category.name %}</strong></p>
-<p>{{ exercise.description|safe }}</p>
+<div>{{ exercise.description|safe }}</div>
 {% endcache %}
 
+
+{#          #}
+{# Comments #}
+{#          #}
 {% with comments=exercise.exercisecomment_set.all %}
 {% if comments %}
 <h4>{% trans "Comments for this exercise" %}</h4>
@@ -126,6 +131,94 @@ included in the database.{% endblocktrans %}
 </p>
 {% endif %}
 
+
+{#        #}
+{# Images #}
+{#        #}
+{% with images=exercise.exerciseimage_set.all %}
+{% if images %}
+    <h4>{% trans "Images" %}</h4>
+
+
+    {% with main_image=images|first %}
+        <div class="image-gallery" style="width:450px;margin-left:auto;margin-right:auto;">
+        <div class="image-box" style="width:400px;padding-bottom:340px;">
+            <div class="boxInner">
+                <img src="{{ main_image.image|thumbnail_url:'medium_cropped' }}"
+                     alt=""
+                     class="gallery-image">
+
+                <div class="titleBox">
+                    <a href="{{ main_image.image.url }}"
+                       target="_blank"
+                       class=" no-hover">
+                         {% trans "Download" %}</a>
+
+                    {% if perms.exercises.change_exerciseimage %}
+                    <br>
+                    <a href="{% url 'exerciseimage-delete' exercise.pk main_image.pk %}"
+                       class="modal-dialog no-hover">
+                         {% trans 'Delete' %}</a> |
+                    <a href="{% url 'exerciseimage-edit' main_image.pk %}"
+                       class="no-hover">
+                         {% trans 'Edit' %}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        </div>
+    {% endwith %}
+
+
+    <div class="image-gallery">
+    {% with other_images=images|slice:"1:" %}
+    {% for image in other_images %}
+        <div class="image-box">
+            <div class="boxInner">
+                <img src="{{ image.image|thumbnail_url:'small_cropped' }}"
+                     alt=""
+                     class="gallery-image">
+
+                <div class="titleBox">
+                    <a href="{{ image.image.url }}"
+                       target="_blank"
+                       class=" no-hover">
+                         {% trans "Download" %}</a>
+
+                    {% if perms.exercises.change_exerciseimage %}
+                    <br>
+                    <a href="{% url 'exerciseimage-delete' exercise.pk image.pk %}"
+                       class="modal-dialog no-hover">
+                         {% trans 'Delete' %}</a> |
+                    <a href="{% url 'exerciseimage-edit' image.pk %}"
+                       class="no-hover">
+                         {% trans 'Edit' %}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% endwith %}
+    </div>
+
+{% endif %}
+{% endwith %}
+
+{% if perms.exercises %}
+<p>
+    <a href="{% url 'exerciseimage-add' exercise.id %}"
+       title="{% trans 'Add' %}">
+        <img src="{% static 'images/icons/add.svg' %}"
+            width="16"
+            height="16"
+            alt="{% trans 'Add new image' %}">
+        {% trans "Add new image" %}</a>
+</p>
+{% endif %}
+
+
+
+
 {% cache cache_timeout exercise-detail-muscles exercise.id language.id %}
 {% with muscles=exercise.muscles.all %}
 {% with muscles_secondary=exercise.muscles_secondary.all %}
@@ -169,7 +262,7 @@ included in the database.{% endblocktrans %}
     </div>
     <div class="ym-g50 ym-gr">
         <div class="ym-gbox-right">
-        <div id="muscle-front" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+        <div id="muscle-back" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
         </div>
         <ul>
         {% for muscle in muscles %}
@@ -253,14 +346,13 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 <p>
     <a href="{% url 'exercise-delete' exercise.id %}"
        class="modal-dialog">
-	<img src="{% static 'images/icons/trash.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Delete' %}">
-	    {% trans "Delete" %}
+        <img src="{% static 'images/icons/trash.svg' %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Delete' %}">
+            {% trans "Delete" %}
     </a>
 </p>
-<hr>
 {% endif %}
 
 {% cc_by_sa_sidebar language %}

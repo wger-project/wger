@@ -26,6 +26,7 @@
 -->
 {% block content %}
 <form action="{{form_action}}"
+      enctype="multipart/form-data"
       method="post"
       class="ym-form">
 {% csrf_token %}

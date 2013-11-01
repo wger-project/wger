@@ -1,0 +1,20 @@
+[
+    {
+        "pk": 1,
+        "model": "exercises.exerciseimage",
+        "fields": {
+            "image": "exercise-images/1/protestschwein.jpg",
+            "exercise": 1,
+            "is_main": true
+        }
+    },
+    {
+        "pk": 2,
+        "model": "exercises.exerciseimage",
+        "fields": {
+            "image": "exercise-images/1/wildschwein.jpg",
+            "exercise": 1,
+            "is_main": false
+        }
+    }
+]

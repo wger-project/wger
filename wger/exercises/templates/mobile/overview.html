@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load wger_extras %}
+{% load thumbnail %}
 
 <!--
         Title
@@ -21,7 +22,13 @@
 
         <ul data-role="listview">
         {% for exercise in category|get_active_exercises:active_languages %}
-            <li><a href="{{ exercise.get_absolute_url }}" data-ajax="false">{{ exercise.name }}</a></li>
+            <li>
+                <a href="{{ exercise.get_absolute_url }}" data-ajax="false">
+                {% if exercise.main_image.image %}
+                <img src="{{ exercise.main_image.image|thumbnail_url:'thumbnail_cropped' }}">
+                {% endif %}
+                {{ exercise.name }}</a>
+            </li>
         {% endfor %}
         </ul>
     </div>
@@ -46,7 +53,13 @@
     id="exercise_search_form">
     {% for category in categories %}
     {% for exercise in category|get_active_exercises:active_languages %}
-        <li><a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a></li>
+        <li>
+            <a href="{{ exercise.get_absolute_url }}" data-ajax="false">
+            {% if exercise.main_image.image %}
+            <img src="{{ exercise.main_image.image|thumbnail_url:'thumbnail_cropped' }}">
+            {% endif %}
+            {{ exercise.name }}</a>
+        </li>
     {% endfor %}
     {% endfor %}
 </ul>

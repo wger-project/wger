@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+import logging
+
 from django.db import models
 from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
 from django.contrib.auth.models import User
@@ -23,10 +25,17 @@ from django.utils.translation import ugettext
 from django.core.urlresolvers import reverse
 from django.core import mail
 from django.core.cache import cache
+from django.db.models.signals import pre_save
+from django.db.models.signals import post_delete
+
+from easy_thumbnails.files import get_thumbnailer
 
 from wger.utils.constants import EMAIL_FROM
 from wger.utils.cache import delete_template_fragment_cache
 from wger.utils.cache import cache_mapper
+
+
+logger = logging.getLogger('wger.custom')
 
 
 class Language(models.Model):
@@ -228,7 +237,7 @@ class Exercise(models.Model):
         # Cached template fragments
         delete_template_fragment_cache('muscle-overview', self.language_id)
         delete_template_fragment_cache('exercise-overview', self.language_id)
-        delete_template_fragment_cache('exercise-detail-heder', self.language_id)
+        delete_template_fragment_cache('exercise-detail-header', self.language_id)
         delete_template_fragment_cache('exercise-detail-muscles', self.language_id)
 
         super(Exercise, self).delete(*args, **kwargs)
@@ -242,6 +251,17 @@ class Exercise(models.Model):
     #
     # Own methods
     #
+
+    @property
+    def main_image(self):
+        '''
+        Return the main image for the exercise or None if nothing is found
+        '''
+        has_image = self.exerciseimage_set.exists()
+        image = None
+        if has_image:
+            image = self.exerciseimage_set.filter(is_main=True)[0]
+        return image
 
     def get_owner_object(self):
         '''
@@ -269,6 +289,127 @@ class Exercise(models.Model):
                            EMAIL_FROM,
                            [self.user.email],
                            fail_silently=True)
+
+
+def exercise_image_upload_dir(instance, filename):
+    '''
+    Returns the upload target for exercise images
+    '''
+    return "exercise-images/{0}/{1}".format(instance.exercise.id, filename)
+
+
+class ExerciseImage(models.Model):
+    '''
+    Model for an exercise image
+    '''
+    exercise = models.ForeignKey(Exercise,
+                                 verbose_name=_('Exercise'),
+                                 editable=False)
+    '''The exercise the image belongs to'''
+
+    image = models.ImageField(verbose_name=_('Image'),
+                              help_text=_('Only PNG and JPEG formats are supported'),
+                              upload_to=exercise_image_upload_dir)
+    '''Uploaded image'''
+
+    is_main = models.BooleanField(verbose_name=_('Is main picture'),
+                                  default=False,
+                                  help_text=_("Tick the box if you want set this image as the main "
+                                              "one for the exercise (will be shown e.g. in the "
+                                              "search)"))
+    '''A flag indicating whether the schedule should act as a loop'''
+
+    class Meta:
+        '''
+        Set default ordering
+        '''
+        ordering = ['-is_main', 'id']
+
+    def get_owner_object(self):
+        '''
+        Image has no owner information
+        '''
+        return False
+
+    def save(self, *args, **kwargs):
+        '''
+        Only one image can be marked as main picture at a time
+        '''
+        if self.is_main:
+            ExerciseImage.objects.filter(exercise=self.exercise).update(is_main=False)
+            self.is_main = True
+
+        # If the exercise has only one image, mark it as main
+        if not ExerciseImage.objects.filter(exercise=self.exercise, is_main=False).count():
+            self.is_main = True
+
+        #
+        # Reset all cached infos
+        #
+        delete_template_fragment_cache('muscle-overview', self.exercise.language_id)
+        delete_template_fragment_cache('exercise-overview', self.exercise.language_id)
+        delete_template_fragment_cache('exercise-detail-header',
+                                       self.exercise.id,
+                                       self.exercise.language_id)
+        delete_template_fragment_cache('exercise-detail-muscles',
+                                       self.exercise.id,
+                                       self.exercise.language_id)
+
+        # And go on
+        super(ExerciseImage, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        '''
+        Reset all cached infos
+        '''
+        super(ExerciseImage, self).delete(*args, **kwargs)
+
+        delete_template_fragment_cache('muscle-overview', self.exercise.language_id)
+        delete_template_fragment_cache('exercise-overview', self.exercise.language_id)
+        delete_template_fragment_cache('exercise-detail-header', self.exercise.language_id)
+        delete_template_fragment_cache('exercise-detail-muscles', self.exercise.language_id)
+
+        # Make sure there is always a main image
+        if not ExerciseImage.objects.filter(exercise=self.exercise, is_main=True).count():
+            image = ExerciseImage.objects.filter(exercise=self.exercise).filter(is_main=False)[0]
+            image.is_main = True
+            image.save()
+
+
+def delete_exercise_image_on_delete(sender, instance, **kwargs):
+    '''
+    Delete the image, along with its thumbnails, from the disk
+    '''
+
+    thumbnailer = get_thumbnailer(instance.image)
+    thumbnailer.delete_thumbnails()
+    instance.image.delete(save=False)
+
+
+post_delete.connect(delete_exercise_image_on_delete, sender=ExerciseImage)
+
+
+def delete_exercise_image_on_update(sender, instance, **kwargs):
+    '''
+    Delete the corresponding image from the filesystem when the an ExerciseImage
+    object was changed
+    '''
+    if not instance.pk:
+        return False
+
+    try:
+        old_file = ExerciseImage.objects.get(pk=instance.pk).image
+    except ExerciseImage.DoesNotExist:
+        return False
+
+    new_file = instance.image
+    if not old_file == new_file:
+        thumbnailer = get_thumbnailer(instance.image)
+        thumbnailer.delete_thumbnails()
+        instance.image.delete(save=False)
+
+
+pre_save.connect(delete_exercise_image_on_update, sender=ExerciseImage)
 
 
 class ExerciseComment(models.Model):

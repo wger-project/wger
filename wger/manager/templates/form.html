@@ -26,6 +26,7 @@
 -->
 {% block content %}
 <form action="{{form_action}}"
+      {% if enctype %}enctype="{{enctype}}"{% endif %}
       method="post"
       class="ym-form">
 {% csrf_token %}

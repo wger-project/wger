@@ -17,9 +17,13 @@
 from tastypie import fields
 from tastypie.resources import ModelResource
 
+from easy_thumbnails.alias import aliases
+from easy_thumbnails.files import get_thumbnailer
+
 from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseCategory
 from wger.exercises.models import ExerciseComment
+from wger.exercises.models import ExerciseImage
 from wger.exercises.models import Muscle
 from wger.exercises.models import Language
 
@@ -30,6 +34,8 @@ class ExerciseResource(ModelResource):
     muscles = fields.ToManyField('wger.exercises.api.resources.MuscleResource', 'muscles')
     comments = fields.ToManyField('wger.exercises.api.resources.ExerciseCommentResource',
                                   'exercisecomment_set')
+    images = fields.ToManyField('wger.exercises.api.resources.ExerciseImageResource',
+                                'exerciseimage_set')
     language = fields.ToOneField('wger.exercises.api.resources.LanguageResource', 'language')
     creation_date = fields.DateField(attribute='creation_date', null=True)
 
@@ -41,6 +47,26 @@ class ExerciseCategoryResource(ModelResource):
 
     class Meta:
         queryset = ExerciseCategory.objects.all()
+
+
+class ExerciseImageResource(ModelResource):
+    exercise = fields.ToOneField('wger.exercises.api.resources.ExerciseResource', 'exercise')
+
+    class Meta:
+        queryset = ExerciseImage.objects.all()
+
+    def dehydrate(self, bundle):
+        '''
+        Also send the URLs for the thumbnailed pictures
+        '''
+        thumbnails = {}
+        for alias in aliases.all():
+            t = get_thumbnailer(bundle.obj.image)
+            thumbnails[alias] = {'url': t.get_thumbnail(aliases.get(alias)).url,
+                                 'settings': aliases.get(alias)}
+
+        bundle.data['thumbnails'] = thumbnails
+        return bundle
 
 
 class ExerciseCommentResource(ModelResource):
