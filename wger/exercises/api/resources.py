@@ -26,6 +26,7 @@ from wger.exercises.models import ExerciseComment
 from wger.exercises.models import ExerciseImage
 from wger.exercises.models import Muscle
 from wger.exercises.models import Language
+from wger.exercises.models import Equipment
 
 
 class ExerciseResource(ModelResource):
@@ -41,6 +42,12 @@ class ExerciseResource(ModelResource):
 
     class Meta:
         queryset = Exercise.objects.all()
+
+
+class EquipmentResource(ModelResource):
+
+    class Meta:
+        queryset = Equipment.objects.all()
 
 
 class ExerciseCategoryResource(ModelResource):

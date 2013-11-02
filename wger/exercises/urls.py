@@ -6,6 +6,7 @@ from wger.exercises.views import comments
 from wger.exercises.views import categories
 from wger.exercises.views import muscles
 from wger.exercises.views import images
+from wger.exercises.views import equipment
 
 urlpatterns = patterns('wger.exercises.views',
 
@@ -86,5 +87,19 @@ urlpatterns = patterns('wger.exercises.views',
     url(r'^(?P<exercise_pk>\d+)/image/(?P<pk>\d+)/delete$',
         images.ExerciseImageDeleteView.as_view(),
         name='exerciseimage-delete'),
+
+    # Equipment
+    url(r'^equipment/list$',
+        equipment.EquipmentListView.as_view(),
+        name='equipment-list'),
+    url(r'^equipment/add$',
+        equipment.EquipmentAddView.as_view(),
+        name='equipment-add'),
+    url(r'^equipment/(?P<pk>\d+)/edit$',
+        equipment.EquipmentEditView.as_view(),
+        name='equipment-edit'),
+    url(r'^equipment/(?P<pk>\d+)/delete$',
+        equipment.EquipmentDeleteView.as_view(),
+        name='equipment-delete'),
 
 )

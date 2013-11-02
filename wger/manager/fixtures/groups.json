@@ -21,6 +21,21 @@
                     "languageconfig"
                 ], 
                 [
+                    "add_equipment", 
+                    "exercises", 
+                    "equipment"
+                ], 
+                [
+                    "change_equipment", 
+                    "exercises", 
+                    "equipment"
+                ], 
+                [
+                    "delete_equipment", 
+                    "exercises", 
+                    "equipment"
+                ], 
+                [
                     "add_exercise", 
                     "exercises", 
                     "exercise"

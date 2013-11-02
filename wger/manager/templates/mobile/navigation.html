@@ -62,6 +62,7 @@
             {% if perms.exercises %}
             <li data-role="list-divider">{% trans "Administration" %}</li>
             <li><a href="{% url 'exercise-pending' %}">{% trans "Exercises pending review" %}</a></li>
+            <li><a href="{% url 'equipment-list' %}">{% trans "Equipment" %}</a></li>
             {% endif %}
         </ul>
     </div>

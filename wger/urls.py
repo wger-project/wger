@@ -25,6 +25,7 @@ v1_api.register(exercises_api.ExerciseImageResource())
 v1_api.register(exercises_api.ExerciseResource())
 v1_api.register(exercises_api.MuscleResource())
 v1_api.register(exercises_api.LanguageResource())
+v1_api.register(exercises_api.EquipmentResource())
 
 # Nutrition app
 v1_api.register(nutrition_api.IngredientResource())

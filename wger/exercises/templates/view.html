@@ -76,8 +76,14 @@ included in the database.{% endblocktrans %}
 {% endif %} {# end exercise is pending review #}
 
 
+
 {% cache cache_timeout exercise-detail-header exercise.id language.id %}
-<p>{% trans "Category" %}: <strong>{% trans exercise.category.name %}</strong></p>
+<p><strong>{% trans "Category" %}:</strong> {% trans exercise.category.name %}</p>
+
+{% if exercise.equipment.all %}
+    <p><strong>{% trans "Equipment" %}:</strong> {{ exercise.equipment.all|join:", " }}</p>
+{% endif %}
+
 <div>{{ exercise.description|safe }}</div>
 {% endcache %}
 
@@ -87,7 +93,7 @@ included in the database.{% endblocktrans %}
 {#          #}
 {% with comments=exercise.exercisecomment_set.all %}
 {% if comments %}
-<h4>{% trans "Comments for this exercise" %}</h4>
+<h3>{% trans "Comments for this exercise" %}</h3>
 
 <ul>
 {% for comment in comments %}
@@ -137,7 +143,7 @@ included in the database.{% endblocktrans %}
 {#        #}
 {% with images=exercise.exerciseimage_set.all %}
 {% if images %}
-    <h4>{% trans "Images" %}</h4>
+    <h3>{% trans "Images" %}</h3>
 
 
     {% with main_image=images|first %}

@@ -58,6 +58,7 @@ class BaseTestCase(object):
                 'test-user-data',
                 'test-apikeys',
                 'test-weight-data',
+                'test-equipment',
                 'test-exercises',
                 'test-exercise-images',
                 'test-weight-units',

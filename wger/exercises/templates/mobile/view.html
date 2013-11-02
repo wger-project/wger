@@ -66,7 +66,11 @@ included in the database.{% endblocktrans %}
 {% endif %} {# end exercise is pending review #}
 
 
-<p>{% trans "Category" %}: <strong>{% trans exercise.category.name %}</strong></p>
+<p><strong>{% trans "Category" %}:</strong> {% trans exercise.category.name %}</p>
+{% if exercise.equipment.all %}
+    <p><strong>{% trans "Equipment" %}:</strong> {{ exercise.equipment.all|join:", " }}</p>
+{% endif %}
+
 <div>{{ exercise.description|safe }}</div>
 
 {#          #}

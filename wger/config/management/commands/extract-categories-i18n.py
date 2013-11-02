@@ -15,20 +15,24 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from django.core.management.base import BaseCommand
+
 from wger.exercises.models import ExerciseCategory
+from wger.exercises.models import Equipment
 
 
 class Command(BaseCommand):
     '''
-    Helper command to read out the exercise categories to manually include in
-    the .po files
+    Helper command to read out the strings to manually include in the .po files
     '''
 
-    help = 'Read the exercise categories to include in .po file'
+    help = 'Read out all strings that have to be included manually in the .po file'
 
     def handle(self, *args, **options):
 
-        categories = ExerciseCategory.objects.all()
-        for category in categories:
-                self.stdout.write('msgid "{0}"\n'
-                                  'msgstr ""\n\n'.format(category))
+        for category in ExerciseCategory.objects.all():
+            self.stdout.write('msgid "{0}"\n'
+                              'msgstr ""\n\n'.format(category))
+
+        for equipment in Equipment.objects.all():
+            self.stdout.write('msgid "{0}"\n'
+                              'msgstr ""\n\n'.format(equipment))

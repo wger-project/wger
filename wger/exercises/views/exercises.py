@@ -55,6 +55,7 @@ from wger.utils.language import load_language
 from wger.utils.language import load_item_languages
 from wger.utils.cache import cache_mapper
 from wger.utils.widgets import TranslatedSelect
+from wger.utils.widgets import TranslatedSelectMultiple
 from wger.config.models import LanguageConfig
 
 
@@ -159,7 +160,8 @@ class ExercisesEditAddView(WgerFormMixin):
                    'category',
                    'muscles',
                    'muscles_secondary',
-                   'description']
+                   'description',
+                   'equipment']
 
     title = ugettext_lazy('Add exercise')
     custom_js = 'init_tinymce();'
@@ -177,6 +179,7 @@ class ExercisesEditAddView(WgerFormMixin):
 
             class Meta:
                 model = Exercise
+                widgets = {'equipment': TranslatedSelectMultiple()}
 
             class Media:
                 js = ('js/tinymce/tiny_mce.js',)

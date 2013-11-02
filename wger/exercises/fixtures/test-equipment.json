@@ -1,0 +1,23 @@
+[
+    {
+        "pk": 1, 
+        "model": "exercises.equipment", 
+        "fields": {
+            "name": "Dumbbells"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "exercises.equipment", 
+        "fields": {
+            "name": "Kettlebell"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "exercises.equipment", 
+        "fields": {
+            "name": "Something else"
+        }
+    }
+]

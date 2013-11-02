@@ -81,9 +81,9 @@ class Muscle(models.Model):
     Muscle an exercise works out
     '''
 
-    # Name, in latin, e.g. "Pectoralis major"
     name = models.CharField(max_length=50,
-                            verbose_name=_('Name'))
+                            verbose_name=_('Name'),
+                            help_text=_('In latin, e.g. "Pectoralis major"'))
 
     # Whether to use the front or the back image for background
     is_front = models.BooleanField(default=1)
@@ -101,6 +101,33 @@ class Muscle(models.Model):
     def get_owner_object(self):
         '''
         Muscle has no owner information
+        '''
+        return False
+
+
+class Equipment(models.Model):
+    '''
+    Equipment used or needed by an exercise
+    '''
+
+    name = models.CharField(max_length=50,
+                            verbose_name=_('Name'))
+
+    class Meta:
+        '''
+        Set default ordering
+        '''
+        ordering = ["name", ]
+
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return self.name
+
+    def get_owner_object(self):
+        '''
+        Equipment has no owner information
         '''
         return False
 
@@ -174,6 +201,12 @@ class Exercise(models.Model):
                                                blank=True
                                                )
     '''Secondary muscles trained by the exercise'''
+
+    equipment = models.ManyToManyField(Equipment,
+                                       verbose_name=_('Equipment'),
+                                       null=True,
+                                       blank=True)
+    '''Equipment needed by this exercise'''
 
     # Non-editable fields
     user = models.ForeignKey(User, verbose_name=_('User'), null=True, blank=True)
