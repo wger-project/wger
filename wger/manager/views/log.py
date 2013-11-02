@@ -164,6 +164,7 @@ def add(request, pk):
 
     template_data['day'] = day
     template_data['exercises'] = exercise_list
+    template_data['exercise_list'] = exercise_list
     template_data['formset'] = formset
     template_data['dateform'] = dateform
     template_data['form_action'] = reverse('day-log', kwargs={'pk': pk})
@@ -193,24 +194,24 @@ class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
         entry = WorkoutLog()
 
         for day in self.object.day_set.select_related():
-            workout_log[day] = {}
+            workout_log[day.id] = {}
 
             for set in day.set_set.select_related():
                 exercise_log = {}
 
                 for exercise in set.exercises.select_related():
-                    exercise_log[exercise] = []
+                    exercise_log[exercise.id] = []
                     logs = exercise.workoutlog_set.filter(user=self.request.user,
                                                           workout=self.object)
                     entry_log, chart_data = entry.process_log_entries(logs)
                     if entry_log:
-                        exercise_log[exercise].append(entry_log)
+                        exercise_log[exercise.id].append(entry_log)
 
                     if exercise_log:
-                        workout_log[day][exercise] = {}
-                        workout_log[day][exercise]['log_by_date'] = entry_log
-                        workout_log[day][exercise]['div_uuid'] = str(uuid.uuid4())
-                        workout_log[day][exercise]['chart_data'] = chart_data
+                        workout_log[day.id][exercise.id] = {}
+                        workout_log[day.id][exercise.id]['log_by_date'] = entry_log
+                        workout_log[day.id][exercise.id]['div_uuid'] = 'div-' + str(uuid.uuid4())
+                        workout_log[day.id][exercise.id]['chart_data'] = chart_data
 
         context['workout_log'] = workout_log
         context['reps'] = _("Reps")

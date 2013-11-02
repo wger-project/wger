@@ -7,12 +7,12 @@
 {% block title %}{% trans "Weight log for workout" %}{% endblock %}
 
 
-{% block header %}
-<script src="{% static 'js/exercises.js' %}"></script>
-{% endblock %}
+{% block header %}{% endblock %}
 
 
 {% block scripts %}
+<script src="{% static 'js/exercises.js' %}"></script>
+
 <script type="text/javascript">
 $(document).on('pageinit', function(){
     // Init the data toggle for the weight log tables
@@ -25,11 +25,12 @@ $(document).on('pageinit', function(){
 {% block content %}
 {% if workout.comment %}
 <p>
-    <span class="dimmed">{{workout.comment}}</span>
+    <strong>{% trans "Goal" %}:</strong> {{workout.comment}}
 </p>
 {% endif %}
 
-{% for day, exercise_log in workout_log.items %}
+
+{% for day in workout.day_set.select_related|dictsort:"get_first_day_id" %}
 
 
 <ul data-role="listview"
@@ -43,37 +44,27 @@ $(document).on('pageinit', function(){
     </li>
 </ul>
 
-<!--
-<p>
-<a href="{% url 'day-log' day.id %}"
-   title="{% trans 'Add weight log to this day' %}"
-   data-role="button">
-       <img src="{% static 'images/icons/statistics.svg' %}"
-            width="32"
-            height="32"
-            alt="{% trans 'Add weight log to this day' %}">
-    {% trans 'Add weight log to this day' %}
-</a>
-</p>
--->
+    {% for set in day.set_set.select_related %}
+    {% for exercise in set.exercises.select_related %}
 
+        {% with day_list=workout_log|get_item:day.id %}
+        {% with exercise_list=day_list|get_item:exercise.id %}
 
-    {% for exercise, date_list in exercise_log.items %}
-    <ul data-role="listview"
-        style="margin-top: 3em;">
-        <li>
-            <a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a>
-        </li>
-    </ul>
+        <ul data-role="listview"
+            style="margin-top: 3em;">
+            <li>
+                <a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a>
+            </li>
+        </ul>
 
-        {% if date_list.log_by_date %}
-            {% with list=date_list.log_by_date %}
-                {% render_weight_log list date_list.div_uuid %}
+        {% if exercise_list.log_by_date %}
+            {% with list=exercise_list.log_by_date %}
+                {% render_weight_log list exercise_list.div_uuid %}
 
                 <script>
                 $(document).ready(function() {
-                weight_log_chart({{date_list.chart_data|safe}},
-                                 "{{date_list.div_uuid}}",
+                weight_log_chart({{exercise_list.chart_data|safe}},
+                                 "{{exercise_list.div_uuid}}",
                                  "{{reps}}",
                                  $('#content').width() * 0.95)
                 });
@@ -83,10 +74,14 @@ $(document).on('pageinit', function(){
         <p><em>{% trans "No weight entries here." %}</em></p>
         {% endif %}
 
+        {% endwith %}
+        {% endwith %}
+
     {% empty%}
     <p>
         <em>{% trans "No exercises for this day." %}</em>
     </p>
+    {% endfor %}
     {% endfor %}
 {% endfor %}
 

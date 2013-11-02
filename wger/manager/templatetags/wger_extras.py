@@ -123,3 +123,11 @@ def language_select(context, language):
     return {'language_name': language[1],
             'path': 'images/icons/flag-{0}.svg'.format(language[0]),
             'i18n_path': context['i18n_path'][language[0]]}
+
+
+@register.filter
+def get_item(dictionary, key):
+    '''
+    Allows to access a specific key in a dictionary in a template
+    '''
+    return dictionary.get(key)

@@ -10,9 +10,9 @@
 
 
 {% block scripts %}
+<script src="{% static 'js/exercises.js' %}"></script>
 <script>
 $( document ).off("pageinit").on("pageinit", function() {
-    console.log('Pageinit workout view');
     /*
      * Show/Hide the comments to the exercises
      */
