@@ -130,6 +130,17 @@ $(document).ready(function() {
 </p>
 
 <p>
+<a href="{% url 'workout-log' workout.id %}">
+   <img src="{% static 'images/icons/statistics.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'View weight log' %}"
+         title="{% trans 'View weight log' %}">
+   {% trans "View weight log" %}
+</a>
+</p>
+
+<p>
 <a href="{% url 'workout-edit' workout.id %}"
    class="modal-dialog">
    <img src="{% static 'images/icons/edit.svg' %}"
@@ -138,17 +149,6 @@ $(document).ready(function() {
          alt="{% trans 'Edit workout' %}"
          title="{% trans 'Edit workout' %}">
    {% trans "Edit workout" %}
-</a>
-</p>
-
-<p>
-<a href="{% url 'workout-log' workout.id %}">
-   <img src="{% static 'images/icons/statistics.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'View weight log' %}"
-         title="{% trans 'View weight log' %}">
-   {% trans "View weight log" %}
 </a>
 </p>
 
