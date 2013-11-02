@@ -16,19 +16,18 @@ function custom_modal_init()
 }
 
 $(document).ready(function() {	
-	// Allow the sets to be sortable
-	setup_sortable();
-	
-	// Show/Hide the comments to the exercises
-	{% if user.userprofile.show_comments %}
-		showComment = 1;
-        $(".exercise-comments").show();
+    // Allow the sets to be sortable
+    setup_sortable();
+
+    // Show/Hide the comments to the exercises
+    {% if user.userprofile.show_comments %}
+        showComment = 1;
+    $(".exercise-comments").show();
     {% else %}
-    	showComment = 0;
+        showComment = 0;
         $(".exercise-comments").hide();
     {% endif %}
-	
-	toggle_comments();
+    toggle_comments();
  });
 </script>
 {% endblock %}
@@ -38,8 +37,7 @@ $(document).ready(function() {
 
 {% if workout.comment %}
 <p>
-    <strong>{% trans "Goal" %}:</strong>
-    <span class="dimmed">{{workout.comment}}</span>
+    <strong>{% trans "Goal" %}:</strong> {{workout.comment}}
 </p>
 {% endif %}
 

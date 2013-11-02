@@ -22,8 +22,7 @@ function custom_modal_init()
 {% block content %}
 {% if workout.comment %}
 <p>
-    <strong>{% trans "Goal" %}:</strong>
-    <span class="dimmed">{{workout.comment}}</span>
+    <strong>{% trans "Goal" %}:</strong> {{workout.comment}}
 </p>
 {% endif %}
 
