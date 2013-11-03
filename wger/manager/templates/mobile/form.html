@@ -28,7 +28,8 @@
 <form action="{{form_action}}"
       enctype="multipart/form-data"
       method="post"
-      class="ym-form">
+      class="ym-form"
+      data-ajax="false">
 {% csrf_token %}
 
 {% if form.non_field_errors %}

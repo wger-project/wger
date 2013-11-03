@@ -9,7 +9,11 @@
 {% block header %}{% endblock %}
 
 {% block content %}
-<form action="{{form_action}}" method="POST" class="ym-form" style="overflow-x: auto;">
+<form action="{{form_action}}"
+      method="POST"
+      class="ym-form"
+      style="overflow-x: auto;"
+      data-ajax="false">
 {% csrf_token %}
 {{formset.management_form}}
 
