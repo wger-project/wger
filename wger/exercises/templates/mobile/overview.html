@@ -25,7 +25,7 @@
             <li>
                 <a href="{{ exercise.get_absolute_url }}" data-ajax="false">
                 {% if exercise.main_image.image %}
-                <img src="{{ exercise.main_image.image|thumbnail_url:'thumbnail_cropped' }}">
+                <img src="{{ exercise.main_image.image|thumbnail_url:'small' }}">
                 {% endif %}
                 {{ exercise.name }}</a>
             </li>
@@ -56,7 +56,7 @@
         <li>
             <a href="{{ exercise.get_absolute_url }}" data-ajax="false">
             {% if exercise.main_image.image %}
-            <img src="{{ exercise.main_image.image|thumbnail_url:'thumbnail_cropped' }}">
+            <img src="{{ exercise.main_image.image|thumbnail_url:'small' }}">
             {% endif %}
             {{ exercise.name }}</a>
         </li>

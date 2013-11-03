@@ -150,7 +150,7 @@ included in the database.{% endblocktrans %}
         <div class="image-gallery" style="width:450px;margin-left:auto;margin-right:auto;">
         <div class="image-box" style="width:400px;padding-bottom:340px;">
             <div class="boxInner">
-                <img src="{{ main_image.image|thumbnail_url:'medium_cropped' }}"
+                <img src="{{ main_image.image|thumbnail_url:'medium' }}"
                      alt=""
                      class="gallery-image">
 
@@ -181,7 +181,7 @@ included in the database.{% endblocktrans %}
     {% for image in other_images %}
         <div class="image-box">
             <div class="boxInner">
-                <img src="{{ image.image|thumbnail_url:'small_cropped' }}"
+                <img src="{{ image.image|thumbnail_url:'small' }}"
                      alt=""
                      class="gallery-image">
 

@@ -75,14 +75,15 @@ $(document).ready(function() {
             {% for exercise in category|get_active_exercises:active_languages %}
                 <tr>
                     <td style="padding-left:0px;">
-                        <a href="{{ exercise.get_absolute_url }}">
                         {% if exercise.main_image %}
-                        <img src="{{ exercise.main_image.image|thumbnail_url:'thumbnail_cropped' }}"
+                        <div style="width:60px;height:60px;text-align:center;float:left;">
+                        <img src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}"
                              alt=""
-                             width="50"
-                             height="50"
-                             style="vertical-align:middle;">
+                             style="vertical-align:middle;max-width:100%; max-height:100%;">
+                         </div>
                          {% endif %}
+
+                        <a href="{{ exercise.get_absolute_url }}">
                         {{ exercise.name }}</a>
                     </td>
                 </tr>
