@@ -350,7 +350,7 @@ class ExerciseImage(models.Model):
                                   help_text=_("Tick the box if you want set this image as the main "
                                               "one for the exercise (will be shown e.g. in the "
                                               "search)"))
-    '''A flag indicating whether the schedule should act as a loop'''
+    '''A flag indicating whether the image is the exercise's main image'''
 
     class Meta:
         '''
