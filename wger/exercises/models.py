@@ -29,6 +29,8 @@ from django.db.models.signals import pre_save
 from django.db.models.signals import post_delete
 
 from easy_thumbnails.files import get_thumbnailer
+from easy_thumbnails.signals import saved_file
+from easy_thumbnails.signal_handlers import generate_aliases_global
 
 from wger.utils.constants import EMAIL_FROM
 from wger.utils.cache import delete_template_fragment_cache
@@ -443,6 +445,10 @@ def delete_exercise_image_on_update(sender, instance, **kwargs):
 
 
 pre_save.connect(delete_exercise_image_on_update, sender=ExerciseImage)
+
+
+# Generate all thumbnails when uploading a new image
+saved_file.connect(generate_aliases_global)
 
 
 class ExerciseComment(models.Model):
