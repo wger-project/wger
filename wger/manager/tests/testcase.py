@@ -563,7 +563,7 @@ class ApiBaseResourceTestCase(ResourceTestCase, BaseTestCase):
             if self.resource_updatable:
                 self.assertHttpNotImplemented(response)
             else:
-                self.assertIn(response.status_code, (501, 401))
+                self.assertIn(response.status_code, (501, 400, 401))
 
     def test_delete(self):
         '''

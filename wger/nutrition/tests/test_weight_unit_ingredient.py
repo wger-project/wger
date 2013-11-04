@@ -106,6 +106,12 @@ class WeightUnitToIngredientApiTestCase(ApiBaseResourceTestCase):
     resource = 'ingredienttoweightunit'
     user = None
     resource_updatable = False
+    data = {"amount": "1",
+            "gramm": 240,
+            "id": 1,
+            "ingredient": "/api/v1/ingredient/1/",
+            "resource_uri": "/api/v1/ingredienttoweightunit/1/",
+            "unit": "/api/v1/weightunit/1/"}
 
 
 class WeightUnitToIngredientDeatilApiTestCase(ApiBaseResourceTestCase):
