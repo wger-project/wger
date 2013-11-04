@@ -110,8 +110,9 @@ a:hover img
  */
 div.muscle-background
 {
-    width: 200px;
-    height: 369px;
+    width: 180px;
+    height: 276px;
+    background-size: 150px;
     background-repeat: no-repeat;
 }
 

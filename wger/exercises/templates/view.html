@@ -260,8 +260,8 @@ included in the database.{% endblocktrans %}
     {% trans "Secondary muscles" %}
 </div>
 
-<div class="ym-grid linearize-level-1">
-    <div class="ym-g50 ym-gl">
+<div class="ym-grid linearize-level-1" style="margin-top:1em;">
+    <div class="ym-g33 ym-gl">
         <div class="ym-gbox-left">
             <div id="muscle-front" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
             </div>
@@ -280,7 +280,7 @@ included in the database.{% endblocktrans %}
             </ul>
         </div>
     </div>
-    <div class="ym-g50 ym-gr">
+    <div class="ym-g33 ym-gl">
         <div class="ym-gbox-right">
         <div id="muscle-back" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
         </div>
