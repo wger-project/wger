@@ -146,6 +146,7 @@ included in the database.{% endblocktrans %}
     <h3>{% trans "Images" %}</h3>
 
 
+<!--
     {% with main_image=images|first %}
         <div class="image-gallery" style="width:450px;margin-left:auto;margin-right:auto;">
         <div class="image-box" style="width:400px;padding-bottom:340px;">
@@ -174,10 +175,11 @@ included in the database.{% endblocktrans %}
         </div>
         </div>
     {% endwith %}
+-->
 
 
     <div class="image-gallery">
-    {% with other_images=images|slice:"1:" %}
+    {% with other_images=images %}
     {% for image in other_images %}
         <div class="image-box">
             <div class="boxInner">
