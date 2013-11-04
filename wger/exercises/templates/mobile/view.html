@@ -146,6 +146,14 @@ included in the database.{% endblocktrans %}
                    data-role="button">
                      {% trans "Reduced size" %}</a>
 
+                <h3>{% trans "License" %}</h3>
+                <p>
+                    {{image.get_license_display}}
+                    {% if image.license_author %}
+                         – {{image.license_author}}
+                    {% endif %}
+                </p>
+
                 {% if perms.exercises.change_exerciseimage %}
                     <h3>{% trans "Options" %}</h3>
                     <a href="{% url 'exerciseimage-delete' exercise.pk image.pk %}"

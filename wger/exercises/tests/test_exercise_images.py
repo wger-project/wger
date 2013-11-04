@@ -35,7 +35,8 @@ class AddExerciseImageTestCase(WorkoutManagerAddTestCase):
     pk = 3
     user_fail = False
     data = {'is_main': True,
-            'image': open('wger/exercises/tests/protestschwein.jpg', 'rb')}
+            'image': open('wger/exercises/tests/protestschwein.jpg', 'rb'),
+            'license': '1'}
 
 
 class EditExerciseImageTestCase(WorkoutManagerEditTestCase):
@@ -46,7 +47,8 @@ class EditExerciseImageTestCase(WorkoutManagerEditTestCase):
     object_class = ExerciseImage
     url = 'exerciseimage-edit'
     pk = 2
-    data = {'is_main': True}
+    data = {'is_main': True,
+            'license': '1'}
 
 
 class DeleteExerciseImageTestCase(WorkoutManagerDeleteTestCase):

@@ -5,7 +5,8 @@
         "fields": {
             "image": "exercise-images/1/protestschwein.jpg",
             "exercise": 1,
-            "is_main": true
+            "is_main": true,
+            "license": "1"
         }
     },
     {
@@ -14,7 +15,8 @@
         "fields": {
             "image": "exercise-images/1/wildschwein.jpg",
             "exercise": 1,
-            "is_main": false
+            "is_main": false,
+            "license": "2"
         }
     }
 ]

@@ -337,6 +337,15 @@ class ExerciseImage(models.Model):
     '''
     Model for an exercise image
     '''
+
+    IMAGE_LICENSE_CC_BY_SA_3 = '1'
+    IMAGE_LICENSE_PUBLIC_DOMAIN = '2'
+
+    IMAGE_LICENSE = (
+        (IMAGE_LICENSE_CC_BY_SA_3, 'CC-BY-SA 3.0'),
+        (IMAGE_LICENSE_PUBLIC_DOMAIN, _('Public domain')),
+    )
+
     exercise = models.ForeignKey(Exercise,
                                  verbose_name=_('Exercise'),
                                  editable=False)
@@ -347,11 +356,27 @@ class ExerciseImage(models.Model):
                               upload_to=exercise_image_upload_dir)
     '''Uploaded image'''
 
+    license = models.CharField(verbose_name=_('License'),
+                               max_length=2,
+                               choices=IMAGE_LICENSE,
+                               default=IMAGE_LICENSE_CC_BY_SA_3)
+    '''The license the image is released under'''
+
+    license_author = models.CharField(verbose_name=_('Author'),
+                                      max_length=50,
+                                      blank=True,
+                                      null=True,
+                                      help_text=_('If you are not the author of the image, enter '
+                                                  'the name here. This is needed for some licenses '
+                                                  'e.g. the CC-BY-SA.'))
+    '''The author of the image if it is not the uploader'''
+
     is_main = models.BooleanField(verbose_name=_('Is main picture'),
                                   default=False,
                                   help_text=_("Tick the box if you want set this image as the main "
                                               "one for the exercise (will be shown e.g. in the "
-                                              "search)"))
+                                              "search). The first image is automatically marked "
+                                              "by the system."))
     '''A flag indicating whether the image is the exercise's main image'''
 
     class Meta:
@@ -359,12 +384,6 @@ class ExerciseImage(models.Model):
         Set default ordering
         '''
         ordering = ['-is_main', 'id']
-
-    def get_owner_object(self):
-        '''
-        Image has no owner information
-        '''
-        return False
 
     def save(self, *args, **kwargs):
         '''
@@ -409,6 +428,12 @@ class ExerciseImage(models.Model):
             image = ExerciseImage.objects.filter(exercise=self.exercise).filter(is_main=False)[0]
             image.is_main = True
             image.save()
+
+    def get_owner_object(self):
+        '''
+        Image has no owner information
+        '''
+        return False
 
 
 def delete_exercise_image_on_delete(sender, instance, **kwargs):

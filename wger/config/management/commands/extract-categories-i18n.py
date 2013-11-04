@@ -18,6 +18,7 @@ from django.core.management.base import BaseCommand
 
 from wger.exercises.models import ExerciseCategory
 from wger.exercises.models import Equipment
+from wger.exercises.models import ExerciseImage
 
 
 class Command(BaseCommand):
@@ -29,10 +30,17 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
+        # Exercise categories
         for category in ExerciseCategory.objects.all():
             self.stdout.write('msgid "{0}"\n'
                               'msgstr ""\n\n'.format(category))
 
+        # Equipment names
         for equipment in Equipment.objects.all():
             self.stdout.write('msgid "{0}"\n'
                               'msgstr ""\n\n'.format(equipment))
+
+        # Image licenses
+        for license in ExerciseImage.IMAGE_LICENSE:
+            self.stdout.write('msgid "{0}"\n'
+                              'msgstr ""\n\n'.format(unicode(license[1])))

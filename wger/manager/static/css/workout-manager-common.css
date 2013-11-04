@@ -259,9 +259,13 @@ body .boxInner:hover .titleBox, body.touch .boxInner.touchFocus .titleBox {
    margin-bottom: 0;
 }
 
+.titleBox{
+    font-size: 80%;
+}
+
 .titleBox a, .titleBox .ui-link {
     color: white;
-    font-size: 80%;
+
     text-shadow: none;
 }
 @media only screen and (max-width : 480px) {

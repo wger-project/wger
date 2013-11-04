@@ -16,7 +16,6 @@
 import logging
 
 from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy
 from django.utils.translation import ugettext as _
 
@@ -56,6 +55,7 @@ class ExerciseImageEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     def get_context_data(self, **kwargs):
         context = super(ExerciseImageEditView, self).get_context_data(**kwargs)
         context['enctype'] = 'multipart/form-data'
+        context['select_lists'] = ('license', )
         context['form_action'] = reverse('exerciseimage-edit',
                                          kwargs={'pk': self.object.id})
 
@@ -85,6 +85,7 @@ class ExerciseImageAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
         '''
         context = super(ExerciseImageAddView, self).get_context_data(**kwargs)
         context['enctype'] = 'multipart/form-data'
+        context['select_lists'] = ('license', )
         context['form_action'] = reverse('exerciseimage-add',
                                          kwargs={'exercise_pk': self.kwargs['exercise_pk']})
 
