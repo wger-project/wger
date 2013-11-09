@@ -14,8 +14,7 @@ through the necessary endpoints without having to consult an extensive
 documentation. At the moment, the API only supports read operations, but
 support for full POST/PUT/DELETE/PATCH is planned for the near future.</p>
 
-<p>You should always use HTTPS if possible when communicating
-with the server.</p>
+<p>You should always use HTTPS if possible when communicating with the server.</p>
 
 
 <h3>Authentication</h3>
@@ -26,6 +25,41 @@ it along with the username either in the header or in form of GET parameters.
 See the link on the sidebar for details.</p>
 
 
+<div class="ym-grid linearize-level-1">
+    <div class="ym-g50 ym-gl">
+        <h4>Public endpoints</h4>
+        <ul>
+            <li>daysofweek</em></li>
+            <li>equipment</li>
+            <li>exercise</li>
+            <li>exercisecategory</li>
+            <li>exercisecomment</li>
+            <li>exerciseimage</li>
+            <li>ingredient</li>
+            <li>ingredienttoweightunit</li>
+            <li>language</li>
+            <li>muscle</li>
+            <li>weightunit</li>
+        </ul>
+    </div>
+    <div class="ym-g50 ym-gl">
+        <h4>Private endpoints</h4>
+        <ul>
+            <li>day</li>
+            <li>meal</li>
+            <li>mealitem</li>
+            <li>nutritionplan</li>
+            <li>schedule</li>
+            <li>schedulestep</li>
+            <li>set</li>
+            <li>setting</li>
+            <li>userprofile</li>
+            <li>weightentry</li>
+            <li>workout</li>
+            <li>workoutlog</li>
+        </ul>
+    </div>
+</div>
 
 
 
@@ -35,15 +69,19 @@ Many of the explanations are taken from
 https://django-tastypie.readthedocs.org/en/latest/interacting.html
 -->
 
+<p>If you explore the API with a browser, you will need to add a <code>?format=json</code>
+to these URLs. You don't need to do this when using other tools or when explicitly
+sending the Accept header to "application/json".</p>
+
 <h4>Api-Wide</h4>
 <code>
 curl https://wger.de/api/v1/ | python -m json.tool
 </code>
 
-<p>This lists out all the different resources available. Each
-one is listed by the resource_name and provides the list_endpoint and the schema
-for the resource. Note that these links try to direct you to other parts of the
-API, to make exploration/discovery easier.</p>
+<p>This lists out all the different resources available. Each one is listed by
+the resource_name and provides the list_endpoint and the schema for the
+resource. Note that these links try to direct you to other parts of the API,
+to make exploration/discovery easier.</p>
 
 
 <h4>Getting A Collection Of Resources</h4>
