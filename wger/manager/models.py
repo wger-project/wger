@@ -771,6 +771,27 @@ by the US Department of Agriculture. It is extremely complete, with around
         total = (sleep + work + sport + freetime) / 24.0
         return decimal.Decimal(str(total)).quantize(decimal.Decimal('.01'))
 
+    def user_bodyweight(self, weight):
+        '''
+        Create a new weight entry as needed
+        '''
+
+        if (not WeightEntry.objects.filter(user=self.user).exists()
+           or (datetime.date.today()
+               - WeightEntry.objects.filter(user=self.user).latest().creation_date
+               > datetime.timedelta(1))):
+            entry = WeightEntry()
+            entry.weight = weight
+            entry.user = self.user
+            entry.creation_date = datetime.date.today()
+            entry.save()
+
+        # Update the last entry
+        else:
+            entry = WeightEntry.objects.filter(user=self.user).latest()
+            entry.weight = weight
+            entry.save()
+
 
 # Every new user gets a profile
 @disable_for_loaddata

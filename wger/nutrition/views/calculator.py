@@ -71,6 +71,9 @@ def calculate_bmr(request):
     if form.is_valid():
         form.save()
 
+        # Create a new weight entry as needed
+        request.user.userprofile.user_bodyweight(form.cleaned_data['weight'])
+
         bmr = request.user.userprofile.calculate_basal_metabolic_rate()
         result = {'bmr': '{0:.0f}'.format(bmr)}
         data = json.dumps(result)

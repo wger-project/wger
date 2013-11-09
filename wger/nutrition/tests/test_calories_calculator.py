@@ -108,7 +108,7 @@ class CaloresCalculatorTestCase(WorkoutManagerTestCase):
                                      'weight': 80})
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content)
-        self.assertEqual(result, {'bmr': '1810'})
+        self.assertEqual(result, {'bmr': '1780'})
 
     def test_total_calories_form(self):
         '''
@@ -126,3 +126,49 @@ class CaloresCalculatorTestCase(WorkoutManagerTestCase):
 
         user = User.objects.get(username=self.current_user)
         self.assertEqual(user.userprofile.calories, 2000)
+
+    def test_automatic_weight_entry(self):
+        '''
+        Tests that weight entries are automatically created or updated
+        '''
+
+        self.user_login('test')
+        user = User.objects.get(username=self.current_user)
+
+        # Existing weight entry is old, a new one is created
+        entry1 = WeightEntry.objects.filter(user=user).latest()
+        response = self.client.post(reverse('calories-calculate-bmr'),
+                                    {'age': 30,
+                                     'height': 180,
+                                     'gender': 1,
+                                     'weight': 80})
+        self.assertEqual(response.status_code, 200)
+        entry2 = WeightEntry.objects.filter(user=user).latest()
+        self.assertEqual(entry1.weight, 83)
+        self.assertEqual(entry2.weight, 80)
+
+        # Existing weight entry is from today, is updated
+        entry2.delete()
+        entry1.creation_date = datetime.date.today()
+        entry1.save()
+        response = self.client.post(reverse('calories-calculate-bmr'),
+                                    {'age': 30,
+                                     'height': 180,
+                                     'gender': 1,
+                                     'weight': 80})
+        self.assertEqual(response.status_code, 200)
+        entry2 = WeightEntry.objects.filter(user=user).latest()
+        self.assertEqual(entry1.pk, entry2.pk)
+        self.assertEqual(entry2.weight, 80)
+
+        # No existing entries
+        WeightEntry.objects.filter(user=user).delete()
+        response = self.client.post(reverse('calories-calculate-bmr'),
+                                    {'age': 30,
+                                     'height': 180,
+                                     'gender': 1,
+                                     'weight': 80})
+        self.assertEqual(response.status_code, 200)
+        entry = WeightEntry.objects.filter(user=user).latest()
+        self.assertEqual(entry.weight, 80)
+        self.assertEqual(entry.creation_date, datetime.date.today())

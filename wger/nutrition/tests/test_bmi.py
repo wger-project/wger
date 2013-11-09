@@ -51,7 +51,7 @@ class BmiTestCase(WorkoutManagerTestCase):
         self.assertEqual(decimal.Decimal(bmi['weight']), decimal.Decimal('80'))
         self.assertEqual(decimal.Decimal(bmi['height']), decimal.Decimal('180'))
 
-    def test_automaitc_weight_entry(self):
+    def test_automatic_weight_entry(self):
         '''
         Tests that weight entries are automatically created or updated
         '''

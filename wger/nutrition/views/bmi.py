@@ -60,21 +60,7 @@ def calculate(request):
         form.save()
 
         # Create a new weight entry as needed
-        if (not WeightEntry.objects.filter(user=request.user).exists()
-           or (datetime.date.today()
-               - WeightEntry.objects.filter(user=request.user).latest().creation_date
-               > datetime.timedelta(1))):
-            entry = WeightEntry()
-            entry.weight = form.cleaned_data['weight']
-            entry.user = request.user
-            entry.creation_date = datetime.date.today()
-            entry.save()
-
-        # Update the last entry
-        else:
-            entry = WeightEntry.objects.filter(user=request.user).latest()
-            entry.weight = form.cleaned_data['weight']
-            entry.save()
+        request.user.userprofile.user_bodyweight(form.cleaned_data['weight'])
 
         bmi = request.user.userprofile.calculate_bmi()
         result = {'bmi': '{0:.2f}'.format(bmi),
