@@ -255,10 +255,11 @@ class Exercise(models.Model):
         cache.delete(cache_mapper.get_exercise_muscle_bg_key(self))
 
         # Cached template fragments
-        delete_template_fragment_cache('muscle-overview', self.language_id)
-        delete_template_fragment_cache('exercise-overview', self.language_id)
-        delete_template_fragment_cache('exercise-detail-header', self.id, self.language_id)
-        delete_template_fragment_cache('exercise-detail-muscles', self.id, self.language_id)
+        for language in Language.objects.all():
+            delete_template_fragment_cache('muscle-overview', language.id)
+            delete_template_fragment_cache('exercise-overview', language.id)
+            delete_template_fragment_cache('exercise-detail-header', self.id, language.id)
+            delete_template_fragment_cache('exercise-detail-muscles', self.id, language.id)
 
     def delete(self, *args, **kwargs):
         '''
@@ -270,10 +271,11 @@ class Exercise(models.Model):
         cache.delete(cache_mapper.get_exercise_muscle_bg_key(self))
 
         # Cached template fragments
-        delete_template_fragment_cache('muscle-overview', self.language_id)
-        delete_template_fragment_cache('exercise-overview', self.language_id)
-        delete_template_fragment_cache('exercise-detail-header', self.language_id)
-        delete_template_fragment_cache('exercise-detail-muscles', self.language_id)
+        for language in Language.objects.all():
+            delete_template_fragment_cache('muscle-overview', language.id)
+            delete_template_fragment_cache('exercise-overview', language.id)
+            delete_template_fragment_cache('exercise-detail-header', self.id, language.id)
+            delete_template_fragment_cache('exercise-detail-muscles', self.id, language.id)
 
         super(Exercise, self).delete(*args, **kwargs)
 
@@ -400,14 +402,15 @@ class ExerciseImage(models.Model):
         #
         # Reset all cached infos
         #
-        delete_template_fragment_cache('muscle-overview', self.exercise.language_id)
-        delete_template_fragment_cache('exercise-overview', self.exercise.language_id)
-        delete_template_fragment_cache('exercise-detail-header',
-                                       self.exercise.id,
-                                       self.exercise.language_id)
-        delete_template_fragment_cache('exercise-detail-muscles',
-                                       self.exercise.id,
-                                       self.exercise.language_id)
+        for language in Language.objects.all():
+            delete_template_fragment_cache('muscle-overview', language.id)
+            delete_template_fragment_cache('exercise-overview', language.id)
+            delete_template_fragment_cache('exercise-detail-header',
+                                           self.exercise.id,
+                                           language.id)
+            delete_template_fragment_cache('exercise-detail-muscles',
+                                           self.exercise.id,
+                                           language.id)
 
         # And go on
         super(ExerciseImage, self).save(*args, **kwargs)
@@ -418,10 +421,11 @@ class ExerciseImage(models.Model):
         '''
         super(ExerciseImage, self).delete(*args, **kwargs)
 
-        delete_template_fragment_cache('muscle-overview', self.exercise.language_id)
-        delete_template_fragment_cache('exercise-overview', self.exercise.language_id)
-        delete_template_fragment_cache('exercise-detail-header', self.exercise.language_id)
-        delete_template_fragment_cache('exercise-detail-muscles', self.exercise.language_id)
+        for language in Language.objects.all():
+            delete_template_fragment_cache('muscle-overview', language.id)
+            delete_template_fragment_cache('exercise-overview', language.id)
+            delete_template_fragment_cache('exercise-detail-header', self.exercise.id, language.id)
+            delete_template_fragment_cache('exercise-detail-muscles', self.exercise.id, language.id)
 
         # Make sure there is always a main image
         if not ExerciseImage.objects.filter(exercise=self.exercise, is_main=True).count():
