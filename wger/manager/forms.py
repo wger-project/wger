@@ -177,4 +177,4 @@ class WorkoutLogForm(ModelForm):
 
     class Meta:
         model = WorkoutLog
-        exclude = ('exercise')
+        exclude = ('exercise', )
