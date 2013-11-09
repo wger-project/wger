@@ -17,6 +17,7 @@
 from tastypie import fields
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie.resources import ModelResource
+from tastypie.constants import ALL, ALL_WITH_RELATIONS
 
 from wger.exercises.api.resources import ExerciseResource
 from wger.utils.resources import UserObjectsOnlyAuthorization
@@ -73,6 +74,9 @@ class WorkoutResource(ModelResource):
         queryset = Workout.objects.all()
         authentication = ApiKeyAuthentication()
         authorization = UserObjectsOnlyAuthorization()
+        filtering = {'id': ALL,
+                     "comment": ALL,
+                     "creation_date": ALL}
 
 
 class ScheduleStepResource(ModelResource):
@@ -93,6 +97,9 @@ class ScheduleStepResource(ModelResource):
         queryset = ScheduleStep.objects.all()
         authentication = ApiKeyAuthentication()
         authorization = UserObjectsOnlyAuthorization()
+        filtering = {'id': ALL,
+                     'schedule': ALL_WITH_RELATIONS,
+                     'workout': ALL_WITH_RELATIONS}
 
 
 class ScheduleResource(ModelResource):
@@ -112,6 +119,10 @@ class ScheduleResource(ModelResource):
         queryset = Schedule.objects.all()
         authentication = ApiKeyAuthentication()
         authorization = UserObjectsOnlyAuthorization()
+        filtering = {'id': ALL,
+                     'is_active': ALL,
+                     'is_loop': ALL,
+                     'name': ALL}
 
 
 class DaysOfWeekResource(ModelResource):
@@ -121,6 +132,8 @@ class DaysOfWeekResource(ModelResource):
 
     class Meta:
         queryset = DaysOfWeek.objects.all()
+        filtering = {'id': ALL,
+                     'day_of_week': ALL}
 
 
 class DayResource(ModelResource):
@@ -141,6 +154,9 @@ class DayResource(ModelResource):
         queryset = Day.objects.all()
         authentication = ApiKeyAuthentication()
         authorization = UserObjectsOnlyAuthorization()
+        filtering = {'id': ALL,
+                     'description': ALL,
+                     'workout': ALL_WITH_RELATIONS}
 
 
 class SetResource(ModelResource):
@@ -161,6 +177,10 @@ class SetResource(ModelResource):
         queryset = Set.objects.all()
         authentication = ApiKeyAuthentication()
         authorization = UserObjectsOnlyAuthorization()
+        filtering = {'id': ALL,
+                     'day': ALL_WITH_RELATIONS,
+                     'order': ALL,
+                     'sets': ALL}
 
 
 class SettingResource(ModelResource):
@@ -181,6 +201,11 @@ class SettingResource(ModelResource):
         queryset = Setting.objects.all()
         authentication = ApiKeyAuthentication()
         authorization = UserObjectsOnlyAuthorization()
+        filtering = {'id': ALL,
+                     'exercise': ALL_WITH_RELATIONS,
+                     'order': ALL,
+                     'reps': ALL,
+                     'set': ALL_WITH_RELATIONS}
 
 
 class WorkoutLogResource(ModelResource):
@@ -201,3 +226,9 @@ class WorkoutLogResource(ModelResource):
         queryset = WorkoutLog.objects.all()
         authentication = ApiKeyAuthentication()
         authorization = UserObjectsOnlyAuthorization()
+        filtering = {'id': ALL,
+                     'date': ALL,
+                     'exercise': ALL_WITH_RELATIONS,
+                     'reps': ALL,
+                     'weight': ALL,
+                     'workout': ALL_WITH_RELATIONS}

@@ -16,10 +16,10 @@ the header or in the request as GET parameters. For example:{% endblocktrans %}
 
 <pre>
 # In header
-Authorization: ApiKey myusername:1234567890abcde...
+Authorization: ApiKey {{user.username}}:{% if key %}{{key.key|truncatechars:15}}{% else %}1234567890abcde...{% endif %}
 
 # In GET parameter
-https://wger.de/api/v1/workout/?username=myusername&api_key=1234567890abcde...
+https://wger.de/api/v1/workout/?username={{user.username}}&api_key={% if key %}{{key.key|truncatechars:15}}{% else %}1234567890abcde...{% endif %}
 </pre>
 </p>
 

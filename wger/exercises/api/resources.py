@@ -16,6 +16,7 @@
 
 from tastypie import fields
 from tastypie.resources import ModelResource
+from tastypie.constants import ALL, ALL_WITH_RELATIONS
 
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
@@ -42,18 +43,31 @@ class ExerciseResource(ModelResource):
 
     class Meta:
         queryset = Exercise.objects.all()
+        filtering = {'id': ALL,
+                     "category": ALL_WITH_RELATIONS,
+                     "creation_date": ALL,
+                     "description": ALL,
+                     "images": ALL_WITH_RELATIONS,
+                     "language": ALL_WITH_RELATIONS,
+                     "muscles": ALL_WITH_RELATIONS,
+                     "status": ALL,
+                     "name": ALL}
 
 
 class EquipmentResource(ModelResource):
 
     class Meta:
         queryset = Equipment.objects.all()
+        filtering = {'id': ALL,
+                     "name": ALL}
 
 
 class ExerciseCategoryResource(ModelResource):
 
     class Meta:
         queryset = ExerciseCategory.objects.all()
+        filtering = {'id': ALL,
+                     "name": ALL}
 
 
 class ExerciseImageResource(ModelResource):
@@ -61,6 +75,11 @@ class ExerciseImageResource(ModelResource):
 
     class Meta:
         queryset = ExerciseImage.objects.all()
+        filtering = {'id': ALL,
+                     "image": ALL,
+                     "is_main": ALL,
+                     "license": ALL,
+                     "license_author": ALL}
 
     def dehydrate(self, bundle):
         '''
@@ -81,13 +100,22 @@ class ExerciseCommentResource(ModelResource):
 
     class Meta:
         queryset = ExerciseComment.objects.all()
+        filtering = {'id': ALL,
+                     "comment": ALL,
+                     "exercise": ALL_WITH_RELATIONS}
 
 
 class MuscleResource(ModelResource):
     class Meta:
         queryset = Muscle.objects.all()
+        filtering = {'id': ALL,
+                     "name": ALL,
+                     "is_front": ALL}
 
 
 class LanguageResource(ModelResource):
     class Meta:
         queryset = Language.objects.all()
+        filtering = {'id': ALL,
+                     "full_name": ALL,
+                     "short_name": ALL}

@@ -16,6 +16,7 @@
 
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie.resources import ModelResource
+from tastypie.constants import ALL
 
 from wger.weight.models import WeightEntry
 from wger.utils.resources import UserObjectsOnlyAuthorization
@@ -38,3 +39,6 @@ class WeightEntryResource(ModelResource):
         queryset = WeightEntry.objects.all()
         authentication = ApiKeyAuthentication()
         authorization = UserObjectsOnlyAuthorization()
+        filtering = {'id': ALL,
+                     'creation_date': ALL,
+                     'weight': ALL}

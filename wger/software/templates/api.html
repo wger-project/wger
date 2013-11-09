@@ -79,7 +79,7 @@ curl https://wger.de/api/v1/ | python -m json.tool
 </code>
 
 <p>This lists out all the different resources available. Each one is listed by
-the resource_name and provides the list_endpoint and the schema for the
+the "resource_name" and provides the "list_endpoint" and the schema for the
 resource. Note that these links try to direct you to other parts of the API,
 to make exploration/discovery easier.</p>
 
@@ -93,27 +93,53 @@ curl https://wger.de/api/v1/exercise/schema/ | python -m json.tool
 
 <ul>
     <li>By default, you get a paginated set of objects</li>
-    <li>In the meta, you get a previous and next. If available, these are URIs to the previous and next pages.</li>
-    <li>You get a list of resources/objects under the objects key.</li>
-    <li>Each resources/object has a resource_uri field that points to the detail view for that object.</li>
+    <li>In "meta", you get a "previous" and "next". If available, these are URIs to the previous and next pages.</li>
+    <li>?limit=0 returns all resources, without pagination.</li>
+    <li>You get a list of resources/objects under the "objects" key.</li>
+    <li>Each resources/object has a "resource_uri" field that points to the detail view for that object.</li>
     <li>Foreign keys are represented as URIs.</li>
 </ul>
 
+
+<p>You can also filter the resources, the syntax is the same as the Django ORM.
+Take a look at the <a href="https://docs.djangoproject.com/en/1.6/ref/models/querysets/#field-lookups">field
+lookup documentation</a> for more details on how to use the individual lookups.
+The following field lookups are supported, but don't always make sense
+for all fields (in that case you'll just get an emtpy result). Alternatively you
+can just specify the IDs you want or provide an offset.</p>
+
+<ul>
+    <li>exact/iexact</li>
+    <li>contains/icontains</li>
+    <li>in</li>
+    <li>gt/gte</li>
+    <li>lt/lte</li>
+    <li>startswith/istartswith</li>
+    <li>endswith/iendswith</li>
+    <li>range</li>
+    <li>isnull</li>
+    <li>year</li>
+    <li>month</li>
+    <li>day</li>
+    <li>week_day</li>
+    <li>hour</li>
+    <li>minute</li>
+    <li>second</li>
+</ul>
+
+<p>Some examples:</p>
+
 <code>
+curl https://wger.de/api/v1/exercise/?name__startswith=bicep | python -m json.tool
+curl https://wger.de/api/v1/exercise/?status__in=2,4,5 | python -m json.tool
+curl https://wger.de/api/v1/exercise/?language=1 | python -m json.tool
+curl https://wger.de/api/v1/exercise/?category__name__startswith=ba | python -m json.tool
+curl https://wger.de/api/v1/exercise/set/1;3/ | python -m json.tool
+curl https://wger.de/api/v1/exercise/?offset=20&limit=20 | python -m json.tool
 curl https://wger.de/api/v1/exercise/1/ | python -m json.tool
 </code>
 
-<p>This simply returns the exercise resource with the ID 1.</p>
-
-<code>
-curl https://wger.de/api/v1/foobar/1/?bar=baz | python -m json.tool
-curl https://wger.de/api/v1/exercise/set/1;3/ | python -m json.tool
-curl https://wger.de/api/v1/exercise/?offset=20&limit=20 | python -m json.tool
-</code>
-
-<p>You can filter the resources, assuming that bar is an
-attribute of foobar. Alternatively you can just specify the IDs you need or
-provide an offset.</p>
+<p></p>
 {% endblock %}
 
 

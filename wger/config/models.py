@@ -56,8 +56,10 @@ class LanguageConfig(models.Model):
                             editable=False)
     show = models.BooleanField(default=1)
 
-    # Metaclass to set some other properties
     class Meta:
+        '''
+        Set some other properties
+        '''
         ordering = ["item", "language_target", ]
 
     def __unicode__(self):
