@@ -67,7 +67,7 @@
 
 <h3>{% trans "Add new exercise" %}</h3>
 <p>
-    {% if user.is_authenticated and not user.get_profile.is_temporary %}
+    {% if user.is_authenticated and not user.userprofile.is_temporary %}
     <a href="{% url 'exercise-add' %}" data-role="button">
     <img src="{% static 'images/icons/new.svg' %}"
          width="32"

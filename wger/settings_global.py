@@ -15,12 +15,13 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import os
+import django
 from wger.main import fs2unicode
 
 '''
 This file contains the global settings that don't need to be changed by the user
 For a full list of options, visit:
-    https://docs.djangoproject.com/en/1.4/ref/settings/#std:setting-LANGUAGES
+    https://docs.djangoproject.com/en/dev/ref/settings/
 '''
 
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
@@ -53,11 +54,8 @@ EMAIL_SUBJECT_PREFIX = '[wger] '
 # Login-URL
 LOGIN_URL = '/user/login'
 
-# Redirect here after sucessfull login
+# Redirect here after successful login
 LOGIN_REDIRECT_URL = '/'
-
-# Model for the user profile
-AUTH_PROFILE_MODULE = 'manager.UserProfile'
 
 # Set the context processors
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -286,8 +284,9 @@ LOGGING = {
     }
 }
 
-TEST_RUNNER = 'discover_runner.DiscoverRunner'
-TEST_DISCOVER_TOP_LEVEL = os.path.dirname(os.path.dirname(__file__))
+if django.VERSION[:2] < (1, 6):
+    TEST_RUNNER = 'discover_runner.DiscoverRunner'
+    TEST_DISCOVER_TOP_LEVEL = os.path.dirname(os.path.dirname(__file__))
 
 # Force SSL to communicate with reCaptcha's servers
 RECAPTCHA_USE_SSL = True

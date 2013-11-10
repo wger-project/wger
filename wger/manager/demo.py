@@ -54,7 +54,7 @@ def create_temporary_user():
 
     user = User.objects.create_user(username, email, password)
     user.save()
-    user_profile = user.get_profile()
+    user_profile = user.userprofile
     user_profile.is_temporary = True
     user_profile.age = 25
     user_profile.height = 175

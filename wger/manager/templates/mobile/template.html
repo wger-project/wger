@@ -52,7 +52,7 @@
 <div data-role="page" id="page-{{request_full_path|slugify}}" data-url="{{request_full_path}}">
 
     {% block scripts %}{% endblock %}
-    {% if not user.is_authenticated or user.get_profile.is_temporary %}
+    {% if not user.is_authenticated or user.userprofile.is_temporary %}
         <div data-role="popup" data-overlay-theme="a" id="popupGuestUser" class="ui-content">
         <h3>{% trans "Info" %}</h3>
         {% trans "You are using a guest account, data entered will be deleted after a week."%}
@@ -75,7 +75,7 @@
            data-theme="a"
            data-icon="bars"
            data-iconshadow="false">{% trans "Menu" %}</a>
-       {% if not user.is_authenticated or user.get_profile.is_temporary %}
+       {% if not user.is_authenticated or user.userprofile.is_temporary %}
             <a href="#popupGuestUser"
                class="ui-icon-nodisc"
                data-rel="popup"

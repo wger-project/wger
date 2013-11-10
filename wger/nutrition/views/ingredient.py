@@ -161,7 +161,7 @@ class IngredientCreateView(WgerFormMixin, CreateView):
         '''
         Demo users can't submit ingredients
         '''
-        if request.user.get_profile().is_temporary:
+        if request.user.userprofile.is_temporary:
             return HttpResponseForbidden()
         return super(IngredientCreateView, self).dispatch(request, *args, **kwargs)
 

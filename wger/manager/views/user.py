@@ -56,7 +56,7 @@ def logout(request):
     '''
     user = request.user
     django_logout(request)
-    if user.is_authenticated() and user.get_profile().is_temporary:
+    if user.is_authenticated() and user.userprofile.is_temporary:
         user.delete()
     return HttpResponseRedirect(reverse('login'))
 
@@ -115,7 +115,7 @@ def preferences(request):
     # Process the preferences form
     if request.method == 'POST':
 
-        form = UserPreferencesForm(data=request.POST, instance=request.user.get_profile())
+        form = UserPreferencesForm(data=request.POST, instance=request.user.userprofile)
         form.user = request.user
 
         # Save the data if it validates
@@ -123,7 +123,7 @@ def preferences(request):
             form.save()
             redirect = True
     else:
-        form = UserPreferencesForm(instance=request.user.get_profile())
+        form = UserPreferencesForm(instance=request.user.userprofile)
 
     # Process the email form
     #
@@ -165,7 +165,7 @@ def api_user_preferences(request):
         if request.GET.get('do') == 'set_show-comments':
             new_value = int(request.GET.get('show'))
 
-            profile = request.user.get_profile()
+            profile = request.user.userprofile
             profile.show_comments = new_value
             profile.save()
 
@@ -175,7 +175,7 @@ def api_user_preferences(request):
         elif request.GET.get('do') == 'set_english-ingredients':
             new_value = int(request.GET.get('show'))
 
-            profile = request.user.get_profile()
+            profile = request.user.userprofile
             profile.show_english_ingredients = new_value
             profile.save()
 

@@ -573,7 +573,8 @@ class UserProfile(models.Model):
     # Show exercise comments on workout view
     show_comments = models.BooleanField(verbose_name=_('Show exercise comments'),
                                         help_text=_('Check to show exercise comments on the '
-                                                    'workout view'))
+                                                    'workout view'),
+                                        default=True)
 
     # Also show ingredients in english while composing a nutritional plan
     # (obviously this is only meaningful if the user has a language other than english)
@@ -582,7 +583,8 @@ class UserProfile(models.Model):
         help_text=_('''Check to also show ingredients in English while creating
 a nutritional plan. These ingredients are extracted from a list provided
 by the US Department of Agriculture. It is extremely complete, with around
-7000 entries, but can be somewhat overwhelming and make the search difficult.'''))
+7000 entries, but can be somewhat overwhelming and make the search difficult.'''),
+        default=True)
 
     #
     # User statistics

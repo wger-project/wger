@@ -38,7 +38,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
 
         # Fetch the preferences page
         response = self.client.get(reverse('preferences'))
-        profile = response.context['user'].get_profile()
+        profile = response.context['user'].userprofile
         self.assertFalse(profile.show_comments)
 
         self.assertEqual(response.status_code, 200)
@@ -53,7 +53,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
         #print response
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('preferences'))
-        profile = response.context['user'].get_profile()
+        profile = response.context['user'].userprofile
         #self.assertTrue(profile.show_comments)
         self.assertTrue(profile.show_english_ingredients)
         self.assertEqual(response.context['user'].email, 'my-new-email@example.com')
@@ -65,7 +65,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('preferences'))
-        profile = response.context['user'].get_profile()
+        profile = response.context['user'].userprofile
         self.assertFalse(profile.show_comments)
         self.assertTrue(profile.show_english_ingredients)
         self.assertEqual(response.context['user'].email, '')
@@ -99,7 +99,7 @@ class AjaxPreferencesTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
 
         response = self.client.get(reverse('preferences'))
-        profile = response.context['user'].get_profile()
+        profile = response.context['user'].userprofile
         self.assertTrue(profile.show_comments)
         self.assertFalse(profile.show_english_ingredients)
         self.assertEqual(response.context['user'].email, 'test@example.com')
@@ -114,7 +114,7 @@ class AjaxPreferencesTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
 
         response = self.client.get(reverse('preferences'))
-        profile = response.context['user'].get_profile()
+        profile = response.context['user'].userprofile
         self.assertTrue(profile.show_comments)
         self.assertTrue(profile.show_english_ingredients)
         self.assertEqual(response.context['user'].email, 'test@example.com')

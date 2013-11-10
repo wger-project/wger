@@ -62,7 +62,7 @@ def demo_entries(request):
     '''
     Creates a set of sample entries for guest users
     '''
-    if (((not request.user.is_authenticated() or request.user.get_profile().is_temporary)
+    if (((not request.user.is_authenticated() or request.user.userprofile.is_temporary)
          and not request.session['has_demo_data'])):
         # If we reach this from a page that has no user created by the
         # middleware, do that now
@@ -169,7 +169,7 @@ class FeedbackClass(FormView):
         Load the correct feedback form depending on the user
         (either with reCaptcha field or not)
         '''
-        if self.request.user.get_profile().is_temporary:
+        if self.request.user.userprofile.is_temporary:
             return forms.FeedbackAnonymousForm
         else:
             return forms.FeedbackRegisteredForm

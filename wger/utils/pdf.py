@@ -66,7 +66,7 @@ def load_ingredient_languages(request):
 
     # Only registered users have a profile
     if request.user.is_authenticated():
-        profile = request.user.get_profile()
+        profile = request.user.userprofile
         show_english = profile.show_english_ingredients
 
         # If the user's language is not english and has the preference, add english to the list

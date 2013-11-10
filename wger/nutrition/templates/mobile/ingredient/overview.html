@@ -69,7 +69,7 @@ $(document).ready(function() {
     </form>
 </div>
 
-{% if user.is_authenticated and not user.get_profile.is_temporary %}
+{% if user.is_authenticated and not user.userprofile.is_temporary %}
 <h3>{% trans "Add ingredient" %}</h3>
 <p>
        <a href="{% url 'ingredient-add' %}" data-role="button">

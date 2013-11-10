@@ -242,7 +242,7 @@ class ExerciseAddView(ExercisesEditAddView, CreateView, WgerPermissionMixin):
         '''
         Demo users can't submit exercises
         '''
-        if request.user.get_profile().is_temporary:
+        if request.user.userprofile.is_temporary:
             return HttpResponseForbidden()
 
         return super(ExerciseAddView, self).dispatch(request, *args, **kwargs)

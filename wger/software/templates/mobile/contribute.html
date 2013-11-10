@@ -59,7 +59,7 @@ like much, but is incredibly important!{% endblocktrans %}</p>
             <p>{% blocktrans %}Submit those cool exercises that you absolutely
 love and do every week but are not in the list yet. If you think some description
 is too short or some other detail is missing or could be improved, tell!{% endblocktrans %}</p>
-            {% if user.is_authenticated and not user.get_profile.is_temporary %}
+            {% if user.is_authenticated and not user.userprofile.is_temporary %}
                 <a data-role="button" href="{% url 'exercise-add' %}">{% trans "Add exercise" %} »</a>
             {% else %}
                 <a data-role="button" class="ui-disabled" href="#">{% trans "Only registered users can do this" %} »</a>

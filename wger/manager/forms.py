@@ -58,6 +58,10 @@ class UserEmailForm(ModelForm):
                        help_text=_("Only needed to reset your password in case you forget it."),
                        required=False)
 
+    class Meta:
+        model = Django_User
+        fields = ('email', )
+
     def clean_email(self):
         # Email must be unique systemwide
         email = self.cleaned_data["email"]
