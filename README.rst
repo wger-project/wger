@@ -9,7 +9,7 @@ Installation
 ============
 
 These are the basic steps to get the application running. There are more
-detailed installation instructions on http://wger.de/en/software/code
+detailed installation instructions on http://wger.de/software/code
 
 1) Install the necessary packages and their dependencies
 
@@ -59,12 +59,10 @@ The available options for the ``wger`` command are ::
 Contact
 =======
 
-Feel free to write to the mailing list (https://groups.google.com/group/wger),
-to twitter (https://twitter.com/wger_de) or to me directly
-(``roland @ geider.net``) if you found this useful or if there was something
-that didn't behave as you expected. Alternatively, you can also open a ticket
-on the issue tracker:
-https://github.com/rolandgeider/wger/issues
+Feel free to write to the mailing list (https://groups.google.com/group/wger)
+or twitter (https://twitter.com/wger_de) if you found this useful or if there
+was something that didn't behave as you expected. Alternatively, you can also
+open a ticket on the issue tracker: https://github.com/rolandgeider/wger/issues
 
 
 Sources

@@ -159,6 +159,7 @@ footer{
 
 code{
     white-space: pre;
+    color: rgb(70, 0, 0);
 }
 
 .ym-form input[type="submit"]
