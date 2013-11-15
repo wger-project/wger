@@ -394,10 +394,10 @@ class ExerciseImage(models.Model):
         if self.is_main:
             ExerciseImage.objects.filter(exercise=self.exercise).update(is_main=False)
             self.is_main = True
-
-        # If the exercise has only one image, mark it as main
-        if not ExerciseImage.objects.filter(exercise=self.exercise, is_main=False).count():
-            self.is_main = True
+        else:
+            if ExerciseImage.objects.filter(exercise=self.exercise).count() == 0 \
+               or not ExerciseImage.objects.filter(exercise=self.exercise, is_main=True).count():
+                self.is_main = True
 
         #
         # Reset all cached infos
@@ -428,10 +428,11 @@ class ExerciseImage(models.Model):
             delete_template_fragment_cache('exercise-detail-muscles', self.exercise.id, language.id)
 
         # Make sure there is always a main image
-        if not ExerciseImage.objects.filter(exercise=self.exercise, is_main=True).count():
-            image = ExerciseImage.objects.filter(exercise=self.exercise).filter(is_main=False)[0]
-            image.is_main = True
-            image.save()
+        if not ExerciseImage.objects.filter(exercise=self.exercise, is_main=True).count()\
+           and ExerciseImage.objects.filter(exercise=self.exercise).filter(is_main=False).count():
+                image = ExerciseImage.objects.filter(exercise=self.exercise, is_main=False)[0]
+                image.is_main = True
+                image.save()
 
     def get_owner_object(self):
         '''

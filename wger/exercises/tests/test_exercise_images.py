@@ -14,6 +14,7 @@
 
 
 from django.core.urlresolvers import reverse
+from django.core.files import File
 
 from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseImage
@@ -23,6 +24,81 @@ from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import ApiBaseResourceTestCase
+
+
+class MainImageTestCase(WorkoutManagerTestCase):
+    '''
+    Tests the methods to make sure there is always a main image per picture
+    '''
+
+    def save_image(self, exercise, filename, db_filename=None):
+        '''
+        Helper function to save an image to an exercise
+        '''
+        if not db_filename:
+            db_filename = filename
+        image = ExerciseImage()
+        image.exercise = exercise
+        image.image.save(
+            filename,
+            File(open('wger/exercises/tests/{0}'.format(filename)), 'rb')
+        )
+        image.save()
+
+    def test_auto_main_image(self):
+        '''
+        Tests that the first uploaded image is automatically a main image
+        '''
+
+        exercise = Exercise.objects.get(pk=2)
+        self.save_image(exercise, 'protestschwein.jpg')
+
+        image = ExerciseImage.objects.get(pk=3)
+        self.assertTrue(image.is_main)
+
+    def test_auto_main_image_multiple(self):
+        '''
+        Tests that there is always a main image after deleting one
+        '''
+
+        exercise = Exercise.objects.get(pk=2)
+        self.save_image(exercise, 'protestschwein.jpg')
+        self.save_image(exercise, 'wildschwein.jpg')
+
+        image = ExerciseImage.objects.get(pk=3)
+        self.assertTrue(image.is_main)
+
+        image = ExerciseImage.objects.get(pk=4)
+        self.assertFalse(image.is_main)
+
+    def test_delete_main_image(self):
+        '''
+        Tests that there is always a main image after deleting one
+        '''
+
+        exercise = Exercise.objects.get(pk=2)
+        self.save_image(exercise, 'protestschwein.jpg')
+        self.save_image(exercise, 'protestschwein.jpg')
+        self.save_image(exercise, 'wildschwein.jpg')
+        self.save_image(exercise, 'wildschwein.jpg')
+        self.save_image(exercise, 'wildschwein.jpg')
+
+        image = ExerciseImage.objects.get(pk=3)
+        self.assertTrue(image.is_main)
+        image.delete()
+
+        self.assertTrue(ExerciseImage.objects.get(pk=4).is_main)
+        self.assertFalse(ExerciseImage.objects.get(pk=5).is_main)
+        self.assertFalse(ExerciseImage.objects.get(pk=6).is_main)
+        self.assertFalse(ExerciseImage.objects.get(pk=7).is_main)
+
+        image = ExerciseImage.objects.get(pk=4)
+        self.assertTrue(image.is_main)
+        image.delete()
+
+        self.assertTrue(ExerciseImage.objects.get(pk=5).is_main)
+        self.assertFalse(ExerciseImage.objects.get(pk=6).is_main)
+        self.assertFalse(ExerciseImage.objects.get(pk=7).is_main)
 
 
 class AddExerciseImageTestCase(WorkoutManagerAddTestCase):
