@@ -17,6 +17,9 @@
 import logging
 import uuid
 import datetime
+from calendar import HTMLCalendar
+#from datetime import date
+from itertools import groupby
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -229,3 +232,88 @@ class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
 
         # Dispatch normally
         return super(WorkoutLogDetailView, self).dispatch(request, *args, **kwargs)
+
+
+class WorkoutCalendar(HTMLCalendar):
+    '''
+    A calendar renderer, see this blog entry for details:
+    * http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/
+    '''
+    def __init__(self, workout_logs):
+        super(WorkoutCalendar, self).__init__()
+        self.workout_logs = self.group_by_day(workout_logs)
+
+    def formatday(self, day, weekday):
+        if day != 0:
+            cssclass = self.cssclasses[weekday]
+            date_obj = datetime.date(self.year, self.month, day)
+            if datetime.date.today() == date_obj:
+                cssclass += ' today'
+            if day in self.workout_logs:
+                cssclass += ' filled'
+                body = []
+
+                for log in self.workout_logs[day]:
+                    url = reverse('workout-log', kwargs={'pk': log.workout.pk})
+                    formatted_date = date_obj.strftime('%Y-%m-%d')
+                    body.append('<a href="{0}" data-log="log-{1}">'.format(url, formatted_date))
+                    body.append(unicode(day))
+                    body.append('</a>')
+                return self.day_cell(cssclass, '{0}'.format(''.join(body)))
+            return self.day_cell(cssclass, day)
+        return self.day_cell('noday', '&nbsp;')
+
+    def formatmonth(self, year, month):
+        self.year, self.month = year, month
+        return super(WorkoutCalendar, self).formatmonth(year, month)
+
+    def group_by_day(self, workout_logs):
+        '''
+        Helper function that
+        '''
+        field = lambda log: log.date.day
+        result = dict(
+            [(day, list(items)) for day, items in groupby(workout_logs, field)]
+        )
+
+        return result
+
+    def day_cell(self, cssclass, body):
+        '''
+        Renders a day cell
+        '''
+        return '<td class="{0}">{1}</td>'.format(cssclass, body)
+
+
+def calendar(request, year=None, month=None):
+    '''
+    Show a calendar with all the workout logs
+    '''
+    if not year:
+        year = datetime.date.today().year
+    else:
+        year = int(year)
+    if not month:
+        month = datetime.date.today().month
+    else:
+        month = int(month)
+    context = {}
+    logs = WorkoutLog.objects.filter(user=request.user,
+                                     date__year=year,
+                                     date__month=month).order_by('exercise')
+    logs_filtered = []
+    temp = []
+
+    for log in logs:
+        if not log.date in temp:
+            temp.append(log.date)
+            logs_filtered.append(log)
+
+    context['calendar'] = WorkoutCalendar(logs_filtered).formatmonth(year, month)
+    context['logs'] = WorkoutLog().process_log_entries(logs)[0]
+    context['current_year'] = year
+    context['current_month'] = month
+    context['month_list'] = WorkoutLog.objects.filter(user=request.user).dates('date', 'month')
+    return render_to_response('workout/calendar.html',
+                              context,
+                              context_instance=RequestContext(request))
