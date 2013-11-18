@@ -114,13 +114,13 @@ class ScheduleManager(models.Manager):
         try:
             schedule = Schedule.objects.filter(user=user).get(is_active=True)
             if schedule.schedulestep_set.count():
-                active_workout = schedule.get_current_scheduled_workout().workout
-
                 # The schedule might exist and have steps, but if it's too far in
                 # the past and is not a loop, we won't use it. Doing it like this
                 # is kind of wrong, but lets us continue to the correct place
-                if not active_workout:
+                if not schedule.get_current_scheduled_workout():
                     raise ObjectDoesNotExist
+
+                active_workout = schedule.get_current_scheduled_workout().workout
             else:
                 # same as above
                 raise ObjectDoesNotExist
