@@ -38,6 +38,8 @@ class ExerciseResource(ModelResource):
                                   'exercisecomment_set')
     images = fields.ToManyField('wger.exercises.api.resources.ExerciseImageResource',
                                 'exerciseimage_set')
+    equipment = fields.ToManyField('wger.exercises.api.resources.EquipmentResource',
+                                   'equipment')
     language = fields.ToOneField('wger.exercises.api.resources.LanguageResource', 'language')
     creation_date = fields.DateField(attribute='creation_date', null=True)
 
