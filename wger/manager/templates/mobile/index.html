@@ -7,6 +7,20 @@
 
 
 {% block content %}
+<div data-role="popup"
+     id="timer-workout"
+     data-overlay-theme="a"
+     class="ui-content">
+     <div>
+     <h3>{% trans "Timer" %}</h3>
+    {% for day in current_workout.day_set.select_related|dictsort:"get_first_day_id" %}
+         <a href="{% url 'workout-timer' day.pk %}"
+            data-role="button"
+            data-ajax="false">{{day.description}}</a>
+    {% endfor %}
+    </div>
+</div>
+
 <h3>{% trans "Workout"%}</h3>
 {% if current_workout %}
 <p>
@@ -16,6 +30,10 @@
    data-ajax="false">
         {{ current_workout }}
 </a>
+    <a href="#timer-workout"
+       data-role="button"
+       data-mini="true"
+       data-rel="popup">Start workout!</a>
 </p>
  – {{ current_workout.creation_date }}
 
@@ -32,9 +50,10 @@
     {% endfor %}
 </ul>
 
+
 {% if schedule %}
 <p>
-    → {% trans "This workout is part of a schedule:" %}
+    {% trans "This workout is part of a schedule:" %}
     <a href="{{schedule.get_absolute_url}}">{{schedule.name}}</a>
 </p>
 {% endif %}

@@ -70,6 +70,11 @@ urlpatterns = patterns('wger.manager.views',
         WorkoutLogUpdateView.as_view(),
         name='workout-log-edit'),
 
+    # Timer
+    url(r'^workout/(?P<pk>\d+)/timer$',
+        'workout.timer',
+        name='workout-timer'),
+
     # Schedules
     url(r'^workout/schedule/overview$',
         'schedule.overview',

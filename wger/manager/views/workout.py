@@ -33,6 +33,7 @@ from django.views.generic import DeleteView
 from django.views.generic import UpdateView
 
 from wger.manager.models import Workout
+from wger.manager.models import Day
 from wger.manager.forms import WorkoutForm
 from wger.manager.forms import WorkoutCopyForm
 
@@ -225,3 +226,19 @@ class WorkoutEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     title = ugettext_lazy('Edit workout')
     form_action_urlname = 'workout-edit'
     login_required = True
+
+
+@login_required
+def timer(request, pk):
+    '''
+    The timer view ("gym mode") for a workout
+    '''
+
+    context = {}
+
+    day = Day.objects.get(pk=pk, training__user=request.user)
+    context['day'] = day
+
+    return render_to_response('workout/timer.html',
+                              context,
+                              context_instance=RequestContext(request))

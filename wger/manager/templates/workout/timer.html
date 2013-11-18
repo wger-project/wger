@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+{% load cache %}
+
+{% block title %}{% endblock %}
+
+{% block header %}
+<style>
+
+*{
+    padding:0;
+    margin:0;
+}
+ul li {
+    float:left;
+    list-style:none;
+    position:relative;
+
+}
+
+/*styled*/
+div#container{
+    border:1px solid black;
+    padding:13px;
+    clear:both;
+    overflow:hidden;
+    /*top:35px;*/
+    margin:0 auto;
+    display:block;
+}
+
+</style>
+<script>
+/*
+ * http://fearlessflyer.com/how-to-create-your-own-jquery-content-slider/
+ * https://github.com/fearlessflyer/content-slider
+ */
+$(document).ready(function() {
+    var div_height = $( window ).height() * 0.80;
+    var div_width = $( window ).width() * 0.85;
+
+    $('.timer-step').width(div_width);
+    $('.timer-step').height(div_height);
+    //$('.timer-step').first().show();
+
+    var theImage = $('ul li img');
+    var theWidth = theImage.width();
+    //wrap into mother div
+    $('#container ul').wrap('<div id="mother" />');
+    //assign height width and overflow hidden to mother
+    $('#mother').css({
+        width: function() {
+            return div_width;
+        },
+        height: function() {
+            return div_height;
+        },
+        position: 'relative',
+        overflow: 'hidden'
+    });
+    //get total of image sizes and set as width for ul
+    var totalWidth = $('.timer-step').length * div_width;
+    $('#container ul').css({
+        width: function() {
+            return totalWidth;
+        }
+    });
+    $('#container ul li').each(function(intIndex) {
+        $(this).find('a').bind("click", function() {
+            console.log($(this).html());
+            if ($(this).is(".next")) {
+                $(this).parents('ul').animate({
+                    "margin-left": (-(intIndex + 1) * div_width)
+                }, 600)
+
+            } else if ($(this).is(".previous")) {
+                $(this).parents('ul').animate({
+                    "margin-left": (-(intIndex - 1) * div_width)
+                }, 600)
+
+            } else if ($(this).is(".startover")) {
+                $(this).parent('li').parent('ul').animate({
+                    "margin-left": (0)
+                }, 600)
+            }
+        });// .bind()
+    });// .each()
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="container">
+<ul class="workout-timer">
+{% for set in day.set_set.select_related %}
+
+        {% for exercise in set.exercises.select_related %}
+
+            {% for setting in exercise|get_current_settings:set.id %}
+            <li class="timer-step" id="div-{{set.pk}}">
+                <h2>{{exercise}}</h2>
+                {{set.sets}} x {{setting.reps}}<br>
+                <div class="ui-grid-a">
+                    <div class="ui-block-a"><a class="previous" href="#" data-role="button">prev</a></div>
+                    <div class="ui-block-b"><a class="next " href="#"  data-role="button">{% trans "skip" %}</a></div>
+                </div>
+            </li>
+            <li class="timer-step" id="div-{{set.pk}}">
+                <h2>{% trans "Pause!" %}</h2>
+                120 sec
+                <div class="ui-grid-a">
+                    <div class="ui-block-a"><a class="previous" href="#" data-role="button">prev</a></div>
+                    <div class="ui-block-b"><a class="next " href="#"  data-role="button">{% trans "skip" %}</a></div>
+                </div>
+            </li>
+            {% endfor %}
+        {% endfor %}
+
+{% endfor %}
+<li class="timer-step" id="div-{{set.pk}}">
+    <h2>{% trans "Workout complete!" %}</h2>
+    <p><strong>{% trans "Time" %}:</strong> MM:SS</p>
+</li>
+</ul>
+</div>
+{% endblock %}
+
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}
+
+{% endblock %}
