@@ -32,13 +32,67 @@ div#container{
     display:block;
 }
 
+
+.counter{
+    font-size: 300%;
+}
 </style>
 <script>
 /*
  * http://fearlessflyer.com/how-to-create-your-own-jquery-content-slider/
  * https://github.com/fearlessflyer/content-slider
+ * http://irae.pro.br/lab/canvas_pie_countdown/
+ * http://www.html5canvastutorials.com/tutorials/html5-canvas-arcs/
  */
+
+function draw_next(step) { // step between 0 and 1
+    ctx.clearRect(0, 0, canvas_size[0], canvas_size[1]);
+    if(step < 1) {
+        ctx.beginPath();
+        ctx.moveTo(center[0], center[1]); // ponto central
+        ctx.arc(  // draw next arc
+            center[0],
+            center[1],
+            radius,
+            Math.PI * (-0.5 + 0), // -0.5 pra começar do topo
+            Math.PI * (-0.5 + step*2),
+            true // anti horário
+        );
+        ctx.lineTo(center[0], center[1]); // line back to the center
+        ctx.closePath();
+        ctx.fillStyle = 'rgb(40, 40, 40)';    // color
+        ctx.fill();
+    }
+}
+
+function start_countdown(set_id, seconds)
+{
+    canvas = document.getElementById('canvas-'+set_id);
+    num = $('#counter-'+set_id);
+    ctx = canvas.getContext('2d');
+    canvas_size = [canvas.width, canvas.height];
+    radius = Math.min(canvas_size[0], canvas_size[1]) / 2;
+    center = [canvas_size[0]/2, canvas_size[1]/2];
+    start = 1; // varia de 1 até 0
+    fps= 40;
+
+    var total = fps*seconds;
+    for(var i=total;i>=0;i--) {
+        var delayed = (function(){
+            var step = 1-i/total;
+            var left = Math.ceil(i/fps);
+            return function() {
+                num.html(left);
+                draw_next(step);
+            };
+        })();
+        setTimeout(delayed, -1000/fps*(i-total));
+    }
+}
+
+
 $(document).ready(function() {
+
     var div_height = $( window ).height() * 0.80;
     var div_width = $( window ).width() * 0.85;
 
@@ -70,7 +124,7 @@ $(document).ready(function() {
     });
     $('#container ul li').each(function(intIndex) {
         $(this).find('a').bind("click", function() {
-            console.log($(this).html());
+            var set_id = $(this).parents('li').data('set');
             if ($(this).is(".next")) {
                 $(this).parents('ul').animate({
                     "margin-left": (-(intIndex + 1) * div_width)
@@ -80,7 +134,8 @@ $(document).ready(function() {
                 $(this).parents('ul').animate({
                     "margin-left": (-(intIndex - 1) * div_width)
                 }, 600)
-
+            } else if ($(this).is(".start")) {
+                start_countdown(set_id, 120);
             } else if ($(this).is(".startover")) {
                 $(this).parent('li').parent('ul').animate({
                     "margin-left": (0)
@@ -98,9 +153,8 @@ $(document).ready(function() {
 {% for set in day.set_set.select_related %}
 
         {% for exercise in set.exercises.select_related %}
-
             {% for setting in exercise|get_current_settings:set.id %}
-            <li class="timer-step" id="div-{{set.pk}}">
+            <li class="timer-step" id="div-exercise-{{set.pk}}" data-set="{{set.pk}}">
                 <h2>{{exercise}}</h2>
                 {{set.sets}} x {{setting.reps}}<br>
                 <div class="ui-grid-a">
@@ -108,9 +162,14 @@ $(document).ready(function() {
                     <div class="ui-block-b"><a class="next " href="#"  data-role="button">{% trans "skip" %}</a></div>
                 </div>
             </li>
-            <li class="timer-step" id="div-{{set.pk}}">
+            <li class="timer-step" id="div-pause-{{set.pk}}" data-set="{{set.pk}}">
                 <h2>{% trans "Pause!" %}</h2>
-                120 sec
+
+                <canvas id="canvas-{{set.pk}}"></canvas>
+                <div class="counter"><span id="counter-{{set.pk}}">120</span> sec</div>
+
+
+                <a class="start" href="#" data-role="button">start countdown</a>
                 <div class="ui-grid-a">
                     <div class="ui-block-a"><a class="previous" href="#" data-role="button">prev</a></div>
                     <div class="ui-block-b"><a class="next " href="#"  data-role="button">{% trans "skip" %}</a></div>
