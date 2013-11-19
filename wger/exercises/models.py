@@ -211,7 +211,7 @@ class Exercise(models.Model):
     '''Equipment needed by this exercise'''
 
     # Non-editable fields
-    user = models.ForeignKey(User, verbose_name=_('User'), null=True, blank=True)
+    user = models.CharField(verbose_name=_('User'), null=True, blank=True, max_length=100)
     '''The user that submitted the exercise'''
 
     status = models.CharField(max_length=2,
@@ -311,7 +311,11 @@ class Exercise(models.Model):
         Sends an email after being sucessfully added to the database (for user
         submitted exercises only)
         '''
-        if self.user and self.user.email:
+        try:
+            user = User.objects.get(username=self.user)
+        except User.DoesNotExist:
+            return
+        if self.user and user.email:
             url = request.build_absolute_uri(self.get_absolute_url())
             subject = _('Exercise was sucessfully added to the general database')
             message = (ugettext("Your exercise '{0}' was successfully added to the general"
@@ -324,7 +328,7 @@ class Exercise(models.Model):
             mail.send_mail(subject,
                            message,
                            EMAIL_FROM,
-                           [self.user.email],
+                           [user.email],
                            fail_silently=True)
 
 

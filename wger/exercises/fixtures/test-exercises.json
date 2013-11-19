@@ -131,7 +131,7 @@
                 1
             ],
             "description": "",
-            "user": 2,
+            "user": "test",
             "name": "Pending exercise"
         }
     },

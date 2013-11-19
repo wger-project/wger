@@ -199,7 +199,7 @@ class ExerciseUpdateView(ExercisesEditAddView, UpdateView, WgerPermissionMixin):
         Set the user field, otherwise it will get reset to Null
         '''
 
-        form.instance.user = Exercise.objects.get(pk=self.object.id).user
+        form.instance.user = Exercise.objects.get(pk=self.object.id).user.username
         return super(ExerciseUpdateView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -224,7 +224,7 @@ class ExerciseAddView(ExercisesEditAddView, CreateView, WgerPermissionMixin):
         '''
 
         # set the submitter, if admin, set approrpiate status
-        form.instance.user = self.request.user
+        form.instance.user = self.request.user.username
         form.instance.language = load_language()
         if self.request.user.has_perm('exercises.add_exercise'):
             form.instance.status = Exercise.EXERCISE_STATUS_ADMIN
