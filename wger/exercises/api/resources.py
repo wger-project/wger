@@ -34,6 +34,7 @@ class ExerciseResource(ModelResource):
     category = fields.ToOneField('wger.exercises.api.resources.ExerciseCategoryResource',
                                  'category')
     muscles = fields.ToManyField('wger.exercises.api.resources.MuscleResource', 'muscles')
+    muscles_secondary = fields.ToManyField('wger.exercises.api.resources.MuscleResource', 'muscles_secondary')
     comments = fields.ToManyField('wger.exercises.api.resources.ExerciseCommentResource',
                                   'exercisecomment_set')
     images = fields.ToManyField('wger.exercises.api.resources.ExerciseImageResource',
