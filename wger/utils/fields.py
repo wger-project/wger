@@ -15,6 +15,7 @@
 import logging
 
 from django.db import models
+from south.modelsinspector import add_introspection_rules
 
 from wger.utils.widgets import Html5FormDateField
 from wger.utils.widgets import Html5FormTimeField
@@ -93,3 +94,13 @@ class Html5IntegerField(models.IntegerField):
         defaults = {'form_class': Html5FormIntegerField}
         defaults.update(kwargs)
         return super(Html5IntegerField, self).formfield(**defaults)
+
+
+#
+# Add instrospection rules so south can still work with these fields
+#
+add_introspection_rules([], ["^wger\.utils\.fields\.Html5TimeField"])
+add_introspection_rules([], ["^wger\.utils\.fields\.Html5DateField"])
+add_introspection_rules([], ["^wger\.utils\.fields\.Html5DecimalField"])
+add_introspection_rules([], ["^wger\.utils\.fields\.Html5FloatField"])
+add_introspection_rules([], ["^wger\.utils\.fields\.Html5IntegerField"])
