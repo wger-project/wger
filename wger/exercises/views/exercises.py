@@ -199,7 +199,7 @@ class ExerciseUpdateView(ExercisesEditAddView, UpdateView, WgerPermissionMixin):
         Set the user field, otherwise it will get reset to Null
         '''
 
-        form.instance.user = Exercise.objects.get(pk=self.object.id).user.username
+        form.instance.user = Exercise.objects.get(pk=self.object.id).user
         return super(ExerciseUpdateView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
