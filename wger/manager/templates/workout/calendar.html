@@ -31,13 +31,12 @@ $(document).ready(function() {
     {% with tmp=grouped_logs|first %}
     {% with first_log=tmp.list|first %}
         <p>
-            Go to:
-            <a href="{{first_log.workout.get_absolute_url}}">workout</a> |
-            <a href="{% url 'workout-log' first_log.workout.id %}">log overview</a>
+            <a href="{{first_log.workout.get_absolute_url}}" class="btn">{% trans "Workout" %}</a>
+            <a href="{% url 'workout-log' first_log.workout.id %}" class="btn">{% trans "Log overview" %}</a>
         </p>
     {% endwith %}
     {% endwith %}
-    <ul>
+    <ul class="grouper-list">
     {% for i in grouped_logs %}
         <li>{{i.grouper}}
         <ul>
@@ -56,22 +55,29 @@ $(document).ready(function() {
 
 
 {% block sidebar %}
-    <h3>{% trans 'Info' %}</h3>
-    <p>{% blocktrans %}The coloured days in the calendar have weight logs,
+<h3>{% trans 'Info' %}</h3>
+<p>{% blocktrans %}The coloured days in the calendar have weight logs,
 you can click on them to see the details. Click on an empty day to
 add a log.{% endblocktrans %}</p>
 
 <h3>{% trans 'Log' %}</h3>
-<p><a href="{% url 'workout-calendar' %}">{% trans "Go to today" %}</a></p>
-<div>
+<p>
+    <a href="{% url 'workout-calendar' %}">
+        <img src="{% static 'images/icons/calendar.svg' %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Go to current month' %}">
+    {% trans "Go to current month" %}</a>
+</p>
+<div class="timeline-log">
 {% for date in month_list %}
     {% ifchanged date.year %}
         <p><strong>{{ date|date:"Y" }}</strong></p>
     {% endifchanged %}
     {% if current_month = date.month and current_year = date.year %}
-        {{date|date:"F"}}<br>
+        <span>{{date|date:"F"}}</span><br>
     {% else %}
-        <a href="{% url 'workout-calendar' date.year date.month %}">{{date|date:"F"}}</a><br>
+        <span><a href="{% url 'workout-calendar' date.year date.month %}">{{date|date:"F"}}</a></span><br>
     {% endif %}
 {% endfor %}
 </div>
