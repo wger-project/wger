@@ -344,6 +344,10 @@ table.month td{
 table.month th{
     text-align: center;
 }
+table.month th {
+    height: 2em;
+}
+
 table.month td {
     height: 4em;
     width: 14.2857%;

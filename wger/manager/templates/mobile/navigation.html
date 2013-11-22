@@ -43,7 +43,7 @@
         <h3>{% trans "Workouts" %}</h3>
         <ul data-role="listview">
             <li><a href="{% url 'wger.manager.views.workout.overview' %}" rel="nofollow">{% trans "Workouts" %}</a></li>
-            <li><a href="{% url 'workout-calendar' %}" rel="nofollow">{% trans "Calendar" %}</a></li>
+            <li><a href="{% url 'workout-calendar' %}" rel="nofollow" data-ajax="false">{% trans "Calendar" %}</a></li>
             <li><a href="{% url 'schedule-overview' %}" rel="nofollow">{% trans "Workouts schedules" %}</a></li>
         </ul>
     </div>
