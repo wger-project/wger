@@ -61,12 +61,39 @@ $(document).ready(function() {
 
 
 {% block sidebar %}
+<div data-role="popup"
+     id="calendar-day-select-popup"
+     data-overlay-theme="a"
+     class="ui-content">
+     <div>
+     <h3>{% trans "Add log to day" %}</h3>
+         {% if current_workout %}
+         <p>{% blocktrans %}Click to add weight logs to a training
+day in your current workout:{% endblocktrans %} {{current_workout}}</p>
+
+         <ul data-role="listview" data-inset="true">
+            {% for day in current_workout.day_set.all %}
+                <li><a href="{% url 'day-log' day.pk %}">{{day.description}}</a></li>
+            {% endfor %}
+         </ul>
+         {% else %}
+         <p><em>{% trans "No workouts found." %}</em></p>
+         <a href="{% url 'wger.manager.views.workout.add' %}" data-role="button">
+            <img src="{% static 'images/icons/add.svg' %}"
+                 width="22"
+                height="22"
+                alt="">
+             {% trans "Add one now." %}
+         </a>
+         {% endif %}
+    </div>
+</div>
+
 <h3>{% trans 'Info' %}</h3>
 <p>{% blocktrans %}The coloured days in the calendar have weight logs,
 you can click on them to see the details.{% endblocktrans %}</p>
 
 <h3>{% trans 'Log' %}</h3>
-<p>
     <a href="{% url 'workout-calendar' %}" data-role="button" data-ajax="false">
         <img src="{% static 'images/icons/calendar.svg' %}"
              width="32"
@@ -74,7 +101,14 @@ you can click on them to see the details.{% endblocktrans %}</p>
              alt="{% trans 'Go to current month' %}"
              >
     {% trans "Go to current month" %}</a>
-</p>
+
+    <a href="#calendar-day-select-popup" data-role="button" data-rel="popup">
+        <img src="{% static 'images/icons/add.svg' %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Add new log' %}">
+    {% trans "Add new log" %}</a>
+
 <div class="timeline-log">
 <ul data-role="listview" data-inset="true">
 {% for date in month_list %}

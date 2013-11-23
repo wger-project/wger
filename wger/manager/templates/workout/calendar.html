@@ -14,6 +14,14 @@ $(document).ready(function() {
         $('.calendar-log-data').hide();
         $('#' + $(this).data('log')).toggle();
     });
+
+    // Popup for adding logs
+    $('#calendar-day-select-link').click(function(e){
+        e.preventDefault();
+        $('#calendar-day-select-popup').dialog({
+            modal: true
+        });
+    });
  });
 </script>
 {% endblock %}
@@ -54,6 +62,32 @@ $(document).ready(function() {
 
 
 {% block sidebar %}
+<div id="calendar-day-select-popup" style="display:none;">
+    <div>
+    <h3>{% trans "Add log to day" %}</h3>
+        {% if current_workout %}
+        <p>{% blocktrans %}Click to add weight logs to a training
+day in your current workout:{% endblocktrans %} {{current_workout}}</p>
+
+        {% for day in current_workout.day_set.all %}
+            <a href="{% url 'day-log' day.pk %}" class="btn btn-block">{{day.description}}</a>
+        {% endfor %}
+
+        {% else %}
+        <p><em>{% trans "No workouts found." %}</em></p>
+        <p>
+        <a href="{% url 'wger.manager.views.workout.add' %}" class="btn btn-block">
+           <img src="{% static 'images/icons/add.svg' %}"
+                width="22"
+                height="22"
+                alt="">
+            {% trans "Add one now." %}
+        </a>
+        </p>
+        {% endif %}
+    </div>
+</div>
+
 <h3>{% trans 'Info' %}</h3>
 <p>{% blocktrans %}The coloured days in the calendar have weight logs,
 you can click on them to see the details.{% endblocktrans %}</p>
@@ -66,6 +100,14 @@ you can click on them to see the details.{% endblocktrans %}</p>
              height="32"
              alt="{% trans 'Go to current month' %}">
     {% trans "Go to current month" %}</a>
+</p>
+<p>
+    <a href="" id="calendar-day-select-link">
+        <img src="{% static 'images/icons/add.svg' %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Add new log' %}">
+    {% trans "Add new log" %}</a>
 </p>
 <div class="timeline-log">
 {% for date in month_list %}

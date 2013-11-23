@@ -38,6 +38,7 @@ from django.views.generic import DetailView
 from wger.manager.models import Workout
 from wger.manager.models import Day
 from wger.manager.models import WorkoutLog
+from wger.manager.models import Schedule
 
 from wger.manager.forms import HelperDateForm
 from wger.manager.forms import WorkoutLogForm
@@ -309,10 +310,12 @@ def calendar(request, year=None, month=None):
             temp.append(log.date)
             logs_filtered.append(log)
 
+    (current_workout, schedule) = Schedule.objects.get_current_workout(request.user)
     context['calendar'] = WorkoutCalendar(logs_filtered).formatmonth(year, month)
     context['logs'] = WorkoutLog().process_log_entries(logs)[0]
     context['current_year'] = year
     context['current_month'] = month
+    context['current_workout'] = current_workout
     context['month_list'] = WorkoutLog.objects.filter(user=request.user).dates('date', 'month')
     return render_to_response('workout/calendar.html',
                               context,
