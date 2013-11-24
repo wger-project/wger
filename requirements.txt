@@ -7,7 +7,7 @@ django-discover-runner
 pep8
 bleach
 south < 2.0
-django-tastypie
+django-tastypie==0.9.16
 python-mimeparse
 pillow
 easy-thumbnails
