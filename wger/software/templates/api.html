@@ -130,13 +130,15 @@ can just specify the IDs you want or provide an offset.</p>
 <p>Some examples:</p>
 
 <code>
-curl https://wger.de/api/v1/exercise/?name__startswith=bicep | python -m json.tool
+curl https://wger.de/api/v1/exercise/?name__istartswith=bicep | python -m json.tool
 curl https://wger.de/api/v1/exercise/?status__in=2,4,5 | python -m json.tool
 curl https://wger.de/api/v1/exercise/?language=1 | python -m json.tool
-curl https://wger.de/api/v1/exercise/?category__name__startswith=ba | python -m json.tool
-curl https://wger.de/api/v1/exercise/set/1;3/ | python -m json.tool
-curl https://wger.de/api/v1/exercise/?offset=20&limit=20 | python -m json.tool
+curl https://wger.de/api/v1/exercise/?category__name__istartswith=ba | python -m json.tool
 curl https://wger.de/api/v1/exercise/1/ | python -m json.tool
+
+# quoting needed for bash
+curl "https://wger.de/api/v1/exercise/set/1;3/" | python -m json.tool
+curl "https://wger.de/api/v1/exercise/?offset=20&limit=20" | python -m json.tool
 </code>
 
 <p></p>
