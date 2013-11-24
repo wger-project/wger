@@ -167,7 +167,7 @@ def _main(opts, database_path=None):
     if port == 80:
         url = "http://{0}".format(addr)
     else:
-        url = "http://{0}:{0}".format(addr, port)
+        url = "http://{0}:{1}".format(addr, port)
 
     # Create settings if necessary
     if not os.path.exists(settings_path):
