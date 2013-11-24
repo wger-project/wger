@@ -51,14 +51,11 @@ in A).{% endblocktrans %}</p>
             </a>
         </td>
         <td>
-            {% if config.show %}
-            <img src="{% static 'images/icons/status-on.svg' %}"
-            {% else %}
-            <img src="{% static 'images/icons/status-off.svg' %}"
-            {% endif %}
-             width="16"
-             height="16"
-             alt="">
+
+            <img src="{% if config.show %}{% static 'images/icons/status-on.svg' %}{% else %}{% static 'images/icons/status-off.svg' %}{% endif %}"
+                 width="16"
+                 height="16"
+                 alt="">
         </td>
     </tr>
     {% endfor %}
