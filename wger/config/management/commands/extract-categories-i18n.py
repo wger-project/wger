@@ -39,8 +39,3 @@ class Command(BaseCommand):
         for equipment in Equipment.objects.all():
             self.stdout.write('msgid "{0}"\n'
                               'msgstr ""\n\n'.format(equipment))
-
-        # Image licenses
-        for license in ExerciseImage.IMAGE_LICENSE:
-            self.stdout.write('msgid "{0}"\n'
-                              'msgstr ""\n\n'.format(unicode(license[1])))

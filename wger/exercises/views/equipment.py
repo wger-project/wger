@@ -97,7 +97,7 @@ class EquipmentDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
 
     model = Equipment
-    messages = ugettext_lazy('Equipment successfully deleted')
+    messages = ugettext_lazy('Successfully deleted')
     permission_required = 'exercises.delete_equipment'
     success_url = reverse_lazy('equipment-list')
 

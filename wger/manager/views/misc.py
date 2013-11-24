@@ -178,7 +178,7 @@ class FeedbackClass(FormView):
         '''
         Send an email to the
         '''
-        messages.success(self.request, _('Your feedback was sucessfully sent. Thank you!'))
+        messages.success(self.request, _('Your feedback was successfully sent. Thank you!'))
         message = "Feedback posted by an anonymous user"
         if self.request.user.is_authenticated():
             message = u"Feedback posted by {0}".format(self.request.user.username)

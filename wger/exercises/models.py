@@ -308,7 +308,7 @@ class Exercise(models.Model):
 
     def send_email(self, request):
         '''
-        Sends an email after being sucessfully added to the database (for user
+        Sends an email after being successfully added to the database (for user
         submitted exercises only)
         '''
         try:
@@ -317,7 +317,7 @@ class Exercise(models.Model):
             return
         if self.user and user.email:
             url = request.build_absolute_uri(self.get_absolute_url())
-            subject = _('Exercise was sucessfully added to the general database')
+            subject = _('Exercise was successfully added to the general database')
             message = (ugettext("Your exercise '{0}' was successfully added to the general"
                        "database.\n\n"
                        "It is now available on the exercise and muscle overview and can be\n"
@@ -379,7 +379,7 @@ class ExerciseImage(models.Model):
 
     is_main = models.BooleanField(verbose_name=_('Is main picture'),
                                   default=False,
-                                  help_text=_("Tick the box if you want set this image as the main "
+                                  help_text=_("Tick the box if you want to set this image as the main "
                                               "one for the exercise (will be shown e.g. in the "
                                               "search). The first image is automatically marked "
                                               "by the system."))

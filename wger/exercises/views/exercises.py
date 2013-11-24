@@ -295,7 +295,7 @@ def accept(request, pk):
     exercise.status = Exercise.EXERCISE_STATUS_ACCEPTED
     exercise.save()
     exercise.send_email(request)
-    messages.success(request, _('Exercise was sucessfully added to the general database'))
+    messages.success(request, _('Exercise was successfully added to the general database'))
 
     return HttpResponseRedirect(exercise.get_absolute_url())
 
@@ -308,7 +308,7 @@ def decline(request, pk):
     exercise = get_object_or_404(Exercise, pk=pk)
     exercise.status = Exercise.EXERCISE_STATUS_DECLINED
     exercise.save()
-    messages.success(request, _('Exercise was sucessfully marked as rejected'))
+    messages.success(request, _('Exercise was successfully marked as rejected'))
     return HttpResponseRedirect(exercise.get_absolute_url())
 
 

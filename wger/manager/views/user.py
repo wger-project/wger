@@ -87,7 +87,7 @@ def registration(request):
             user.save()
             user = authenticate(username=username, password=password)
             django_login(request, user)
-            messages.success(request, _('You were sucessfully registered'))
+            messages.success(request, _('You were successfully registered'))
             return HttpResponseRedirect(reverse('dashboard'))
     else:
         form = RegistrationForm()
@@ -145,7 +145,7 @@ def preferences(request):
     template_data['email_form'] = email_form
 
     if redirect:
-        messages.success(request, _('Settings sucessfully updated'))
+        messages.success(request, _('Settings successfully updated'))
         return HttpResponseRedirect(reverse('preferences'))
     else:
         return render_to_response('user/preferences.html',

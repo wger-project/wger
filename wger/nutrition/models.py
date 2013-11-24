@@ -338,12 +338,12 @@ class Ingredient(models.Model):
 
     def send_email(self, request):
         '''
-        Sends an email after being sucessfully added to the database (for user
+        Sends an email after being successfully added to the database (for user
         submitted ingredients only)
         '''
         if self.user and self.user.email:
             url = request.build_absolute_uri(self.get_absolute_url())
-            subject = _('Ingredient was sucessfully added to the general database')
+            subject = _('Ingredient was successfully added to the general database')
             message = (ugettext("Your ingredient '{0}' was successfully added to the general "
                        "database.\n\n"
                        "It is now available on the ingredient overview and can be\n"

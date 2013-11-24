@@ -98,7 +98,7 @@ class ExerciseImageDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
 
     model = ExerciseImage
-    messages = ugettext_lazy('Image successfully deleted')
+    messages = ugettext_lazy('Successfully deleted')
     permission_required = 'exercises.delete_exerciseimage'
 
     def get_success_url(self):

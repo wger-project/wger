@@ -86,7 +86,7 @@
         <ul data-role="listview" data-divider-theme="a">
             <li><a href="{% url 'wger.nutrition.views.plan.overview' %}" rel="nofollow">{% trans "Nutrition plans" %}</a></li>
             <li><a href="{% url 'ingredient-list' %}">{% trans "Ingredient overview" %}</a></li>
-            <li><a href="{% url 'bmi-view' %}" rel="nofollow" data-ajax="false">{% trans "BMI Calculator" %}</a></li>
+            <li><a href="{% url 'bmi-view' %}" rel="nofollow" data-ajax="false">{% trans "BMI calculator" %}</a></li>
             <li><a href="{% url 'calories-calculator' %}" rel="nofollow" data-ajax="false">{% trans "Daily calories calculator" %}</a></li>
             {% if perms.exercises %}
                 <li data-role="list-divider">{% trans "Administration" %}</li>
