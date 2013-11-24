@@ -178,9 +178,7 @@ def export_pdf(request, id):
 
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(mimetype='application/pdf')
-
-    # Translators: translation can only have ASCII characters
-    response['Content-Disposition'] = 'attachment; filename=%s.pdf' % _('nutritional-plan')
+    response['Content-Disposition'] = 'attachment; filename=nutritional-plan.pdf'
 
     # Create the PDF object, using the response object as its "file."
     doc = SimpleDocTemplate(response,
