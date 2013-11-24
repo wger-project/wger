@@ -368,6 +368,7 @@ def load_fixtures():
     execute_from_command_line(["", "loaddata", "muscles"])
     execute_from_command_line(["", "loaddata", "categories"])
     execute_from_command_line(["", "loaddata", "exercises"])
+    execute_from_command_line(["", "loaddata", "equipment"])
     execute_from_command_line(["", "loaddata", "ingredients"])
     execute_from_command_line(["", "loaddata", "weight_units"])
     execute_from_command_line(["", "loaddata", "ingredient_units"])
