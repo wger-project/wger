@@ -1,15 +1,17 @@
 Thank you for downloading wger Workout Manager. Workout Manager is a free, open
 source web application that manages your exercises, workouts, weight and diet
-plans.
+plans. It also offers a REST API for easy integration with other projects. It
+is written with python/django and uses jQuery and some D3js for charts.
 
-For more details and a live system, refer to the project's site: http://wger.de/
+For more details and a live system, refer to the project's site: https://wger.de/
 
 
 Installation
 ============
 
-These are the basic steps to get the application running. There are more
-detailed installation instructions on http://wger.de/software/code
+These are the basic steps to download the application from PyPI and get it
+running. There are more detailed installation instructions (e.g. for
+development) on https://wger.de/software/code
 
 1) Install the necessary packages and their dependencies
 
@@ -23,7 +25,7 @@ detailed installation instructions on http://wger.de/software/code
 
 
 2) Start the application. This will create a SQlite database and populate it
-with data on the first run
+   with data on the first run
 
 ::
 
@@ -59,10 +61,15 @@ The available options for the ``wger`` command are ::
 Contact
 =======
 
-Feel free to write to the mailing list (https://groups.google.com/group/wger)
-or twitter (https://twitter.com/wger_de) if you found this useful or if there
-was something that didn't behave as you expected. Alternatively, you can also
-open a ticket on the issue tracker: https://github.com/rolandgeider/wger/issues
+Feel free to contact us if you found this useful or if there was something that
+didn't behave as you expected (in this case you can also open a ticket on the
+issue tracker).
+
+* **twitter:** https://twitter.com/wger_de
+* **mailing list:** https://groups.google.com/group/wger / wger@googlegroups.com,
+  no registration needed
+* **IRC:** channel #wger on freenode.net, webchat: http://webchat.freenode.net/?channels=wger
+* **issue tracker:** https://github.com/rolandgeider/wger/issues
 
 
 Sources
@@ -70,8 +77,8 @@ Sources
 
 All the code and the content is freely available:
 
-* **Main repository**: GIT, https://github.com/rolandgeider/wger
-* **Mirror**: HG, https://bitbucket.org/rolandgeider/wger
+* **Main repository:** GIT, https://github.com/rolandgeider/wger
+* **Mirror:** HG, https://bitbucket.org/rolandgeider/wger
 
 
 Licence
