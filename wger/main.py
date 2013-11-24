@@ -365,6 +365,10 @@ def run_south():
     execute_from_command_line(["", "migrate", "wger.weight"])
     execute_from_command_line(["", "migrate", "wger.config"])
 
+    # Other apps
+    execute_from_command_line(["", "migrate", "easy_thumbnails"])
+    execute_from_command_line(["", "migrate", "tastypie"])
+
 
 def load_fixtures():
     '''
