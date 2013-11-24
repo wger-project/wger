@@ -19,11 +19,13 @@ import urllib
 import os
 from optparse import make_option
 
+from django.core.exceptions import ImproperlyConfigured
 from django.core.management.base import BaseCommand
 from django.core.management.base import CommandError
 from django.core.files import File
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
+from django.conf import settings
 
 from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseImage
@@ -54,6 +56,9 @@ class Command(BaseCommand):
             '           the remote ID.')
 
     def handle(self, *args, **options):
+
+        if not settings.MEDIA_ROOT:
+            raise ImproperlyConfigured('Please set MEDIA_ROOT in your settings file')
 
         remote_url = options['remote_url']
         val = URLValidator()

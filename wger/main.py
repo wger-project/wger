@@ -71,6 +71,14 @@ SITE_URL = '%(siteurl)s'
 
 # This might be a good idea if you setup memcached
 #SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+
+
+# Path to uploaded files
+MEDIA_ROOT = '%(media_folder_path)s'
+MEDIA_URL = SITE_URL + '/static/'
+if DEBUG:
+    # Serve the uploaded files like this only during development
+    STATICFILES_DIRS = (MEDIA_ROOT, )
 """
 
 KEY_LENGTH = 30
@@ -224,6 +232,7 @@ def create_settings(settings_path, database_path=None, url=None):
             database_path = get_user_data_path('wger', 'database.sqlite')
         dbpath_value = repr(fs2unicode(database_path))
 
+    media_folder_path = get_user_data_path('wger', 'media')
     print "Please edit your settings file and enter the values for the reCaptcha keys "
     print "You can leave this empty, but won't be able to register new users"
     recaptcha_public_key = ''
@@ -265,7 +274,8 @@ def create_settings(settings_path, database_path=None, url=None):
         dbport=dbport,
         siteurl=url,
         recaptcha_public_key=recaptcha_public_key,
-        recaptcha_private_key=recaptcha_private_key)
+        recaptcha_private_key=recaptcha_private_key,
+        media_folder_path=media_folder_path)
 
     if not os.path.exists(settings_module):
         os.makedirs(settings_module)
