@@ -30,5 +30,13 @@
             "short_name": "es", 
             "full_name": "Espa\u00f1ol"
         }
+    }, 
+    {
+        "pk": 5, 
+        "model": "exercises.language", 
+        "fields": {
+            "short_name": "ru", 
+            "full_name": "\u0420\u0443\u0441\u0441\u043a\u0438\u0439"
+        }
     }
 ]
