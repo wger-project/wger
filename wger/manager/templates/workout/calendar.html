@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+
+{% block title %}{% trans "Workout log calendar" %}{% endblock %}
+
+{% block header %}
+<script>
+$(document).ready(function() {
+    $('table.month td.filled a').click(function(e){
+        e.preventDefault();
+        $('.calendar-log-data').hide();
+        $('#' + $(this).data('log')).toggle();
+    });
+
+    // Popup for adding logs
+    $('#calendar-day-select-link').click(function(e){
+        e.preventDefault();
+        $('#calendar-day-select-popup').dialog({
+            modal: true
+        });
+    });
+ });
+</script>
+{% endblock %}
+
+{% block content %}
+{{calendar|safe}}
+
+{% for date in logs %}
+<div id="log-{{date|date:'Y-m-d'}}" class="calendar-log-data">
+    <h3>{{date}}</h3>
+
+    {% regroup logs|get_item:date by exercise as grouped_logs %}
+
+    {# TODO: what if some of the entries don't belong to a workout? #}
+    {% with tmp=grouped_logs|first %}
+    {% with first_log=tmp.list|first %}
+        <p>
+            <a href="{{first_log.workout.get_absolute_url}}" class="btn">{% trans "Workout" %}</a>
+            <a href="{% url 'workout-log' first_log.workout.id %}" class="btn">{% trans "Log overview" %}</a>
+        </p>
+    {% endwith %}
+    {% endwith %}
+    <ul class="grouper-list">
+    {% for i in grouped_logs %}
+        <li>{{i.grouper}}
+        <ul>
+        {% for log in i.list %}
+            <li>{{log.reps}} × {{log.weight}}</li>
+        {% endfor %}
+        </ul>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+{% endfor %}
+{% endblock %}
+
+
+
+{% block sidebar %}
+<div id="calendar-day-select-popup" style="display:none;">
+    <div>
+    <h3>{% trans "Add log to day" %}</h3>
+        {% if current_workout %}
+        <p>{% blocktrans %}Click to add weight logs to a training
+day in your current workout:{% endblocktrans %} {{current_workout}}</p>
+
+        {% for day in current_workout.day_set.all %}
+            <a href="{% url 'day-log' day.pk %}" class="btn btn-block">{{day.description}}</a>
+        {% endfor %}
+
+        {% else %}
+        <p><em>{% trans "No workouts found." %}</em></p>
+        <p>
+        <a href="{% url 'wger.manager.views.workout.add' %}" class="btn btn-block">
+           <img src="{% static 'images/icons/add.svg' %}"
+                width="22"
+                height="22"
+                alt="">
+            {% trans "Add one now." %}
+        </a>
+        </p>
+        {% endif %}
+    </div>
+</div>
+
+<h3>{% trans 'Info' %}</h3>
+<p>{% blocktrans %}The coloured days in the calendar have weight logs,
+you can click on them to see the details.{% endblocktrans %}</p>
+
+<h3>{% trans 'Log' %}</h3>
+<p>
+    <a href="{% url 'workout-calendar' %}">
+        <img src="{% static 'images/icons/calendar.svg' %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Go to current month' %}">
+    {% trans "Go to current month" %}</a>
+</p>
+<p>
+    <a href="" id="calendar-day-select-link">
+        <img src="{% static 'images/icons/add.svg' %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Add new log' %}">
+    {% trans "Add new log" %}</a>
+</p>
+<div class="timeline-log">
+{% for date in month_list %}
+    {% ifchanged date.year %}
+        <p><strong>{{ date|date:"Y" }}</strong></p>
+    {% endifchanged %}
+    {% if current_month = date.month and current_year = date.year %}
+        <span>{{date|date:"F"}}</span><br>
+    {% else %}
+        <span><a href="{% url 'workout-calendar' date.year date.month %}">{{date|date:"F"}}</a></span><br>
+    {% endif %}
+{% endfor %}
+</div>
+
+{% endblock %}

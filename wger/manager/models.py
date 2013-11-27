@@ -108,6 +108,7 @@ class ScheduleManager(models.Manager):
         '''
         Finds the currently active workout for the user, by checking the schedules
         and the workouts
+        :rtype : list
         '''
 
         # Try first to find an active schedule that has steps
