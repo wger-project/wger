@@ -379,10 +379,10 @@ class ExerciseImage(models.Model):
 
     is_main = models.BooleanField(verbose_name=_('Is main picture'),
                                   default=False,
-                                  help_text=_("Tick the box if you want to set this image as the main "
-                                              "one for the exercise (will be shown e.g. in the "
-                                              "search). The first image is automatically marked "
-                                              "by the system."))
+                                  help_text=_("Tick the box if you want to set this image as the "
+                                              "main one for the exercise (will be shown e.g. in "
+                                              "the search). The first image is automatically "
+                                              "marked by the system."))
     '''A flag indicating whether the image is the exercise's main image'''
 
     class Meta:
