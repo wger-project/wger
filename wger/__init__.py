@@ -5,8 +5,8 @@
     :license: GNU GPL, see LICENSE for more details.
 """
 
-VERSION = (1, 3, 0, 'beta', 1)
-RELEASE = False
+VERSION = (1, 3, 0, 'final', 1)
+RELEASE = True
 
 
 def get_version(version=None, release=None):
