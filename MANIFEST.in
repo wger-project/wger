@@ -19,5 +19,8 @@ recursive-include wger/software/static *
 recursive-include wger/weight/templates *
 recursive-include wger/weight/fixtures *
 
+recursive-include wger/config/templates *
+recursive-include wger/config/fixtures *
+
 recursive-include wger/locale *.mo *.po
 recursive-include wger *.html
