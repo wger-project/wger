@@ -58,6 +58,7 @@ def index(request):
         return HttpResponseRedirect(reverse('software:features'))
 
 
+
 def demo_entries(request):
     '''
     Creates a set of sample entries for guest users

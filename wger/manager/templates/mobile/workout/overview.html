@@ -12,6 +12,9 @@
             <a href="{% url 'wger.manager.views.workout.view' workout.id %}" data-ajax="false">
                 <h3>{{ workout }}</h3>
                 <p>{{ workout.creation_date }}</p>
+                {% if workout == current_workout %}
+                <p class="ui-li-aside"><em>{% trans "active" %}</em></p>
+                {% endif %}
             </a>
         </li>
     {% empty %}

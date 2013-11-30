@@ -33,6 +33,7 @@ from django.views.generic import DeleteView
 from django.views.generic import UpdateView
 
 from wger.manager.models import Workout
+from wger.manager.models import Schedule
 from wger.manager.forms import WorkoutForm
 from wger.manager.forms import WorkoutCopyForm
 
@@ -55,8 +56,10 @@ def overview(request):
 
     template_data = {}
 
-    latest_trainings = Workout.objects.filter(user=request.user)
-    template_data['workouts'] = latest_trainings
+    latest_workouts = Workout.objects.filter(user=request.user)
+    (current_workout, schedule) = Schedule.objects.get_current_workout(request.user)
+    template_data['workouts'] = latest_workouts
+    template_data['current_workout'] = current_workout
 
     return render_to_response('workout/overview.html',
                               template_data,

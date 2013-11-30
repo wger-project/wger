@@ -22,6 +22,9 @@
             <a href="{% url 'wger.manager.views.workout.view' workout.id %}">
                 {{ workout }}
             </a>
+            {% if workout == current_workout %}
+            <span class="label label-info">{% trans "active" %}</span>
+            {% endif %}
         </td>
         <td>
             {{ workout.creation_date }}
