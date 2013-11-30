@@ -345,10 +345,12 @@ class ExerciseImage(models.Model):
     '''
 
     IMAGE_LICENSE_CC_BY_SA_3 = '1'
+    IMAGE_LICENSE_CC_BY_SA_4 = '3'
     IMAGE_LICENSE_PUBLIC_DOMAIN = '2'
 
     IMAGE_LICENSE = (
         (IMAGE_LICENSE_CC_BY_SA_3, 'CC-BY-SA 3.0'),
+        (IMAGE_LICENSE_CC_BY_SA_4, 'CC-BY-SA 4.0'),
         (IMAGE_LICENSE_PUBLIC_DOMAIN, _('Public domain')),
     )
 
