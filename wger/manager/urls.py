@@ -80,6 +80,11 @@ urlpatterns = patterns('wger.manager.views',
         'log.calendar',
         name='workout-calendar'),
 
+    # Timer
+    url(r'^workout/(?P<pk>\d+)/timer$',
+        'workout.timer',
+        name='workout-timer'),
+
     # Schedules
     url(r'^workout/schedule/overview$',
         'schedule.overview',
