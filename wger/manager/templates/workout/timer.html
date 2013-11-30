@@ -21,20 +21,31 @@ ul li {
 
 }
 
-/*styled*/
 div#container{
-    border:1px solid black;
     padding:13px;
     clear:both;
     overflow:hidden;
-    /*top:35px;*/
     margin:0 auto;
     display:block;
 }
 
+canvas, div.filler_div{
+    width: 100%;
+    height: 150px;
+    margin-bottom: 30px;
+}
 
-.counter{
+.sub_header{
     font-size: 300%;
+}
+
+div#container a{
+    width: 95%;
+}
+
+a.bottom_button{
+    position: absolute;
+    bottom:0px;
 }
 </style>
 <script>
@@ -45,7 +56,7 @@ div#container{
  * http://www.html5canvastutorials.com/tutorials/html5-canvas-arcs/
  */
 
-function draw_next(step) { // step between 0 and 1
+function draw_step(step) { // step between 0 and 1
     ctx.clearRect(0, 0, canvas_size[0], canvas_size[1]);
     if(step < 1) {
         ctx.beginPath();
@@ -83,7 +94,7 @@ function start_countdown(set_id, seconds)
             var left = Math.ceil(i/fps);
             return function() {
                 num.html(left);
-                draw_next(step);
+                draw_step(step);
             };
         })();
         setTimeout(delayed, -1000/fps*(i-total));
@@ -98,7 +109,6 @@ $(document).ready(function() {
 
     $('.timer-step').width(div_width);
     $('.timer-step').height(div_height);
-    //$('.timer-step').first().show();
 
     var theImage = $('ul li img');
     var theWidth = theImage.width();
@@ -135,7 +145,7 @@ $(document).ready(function() {
                     "margin-left": (-(intIndex - 1) * div_width)
                 }, 600)
             } else if ($(this).is(".start")) {
-                start_countdown(set_id, 120);
+                start_countdown(set_id, 90);
             } else if ($(this).is(".startover")) {
                 $(this).parent('li').parent('ul').animate({
                     "margin-left": (0)
@@ -150,30 +160,63 @@ $(document).ready(function() {
 {% block content %}
 <div id="container">
 <ul class="workout-timer">
+<li class="timer-step" id="div-warmup">
+    <h2>{% trans "Warm up!" %}</h2>
+
+    <div class="filler_div"></div>
+    <div class="sub_header">5 min.</div>
+
+
+    <a class="next bottom_button"
+       href="#"
+       data-role="button"
+       data-icon="arrow-r"
+       data-iconpos="right">{% trans "Start workout" %}</a>
+</li>
 {% for set in day.set_set.select_related %}
 
         {% for exercise in set.exercises.select_related %}
             {% for setting in exercise|get_current_settings:set.id %}
             <li class="timer-step" id="div-exercise-{{set.pk}}" data-set="{{set.pk}}">
                 <h2>{{exercise}}</h2>
-                {{set.sets}} x {{setting.reps}}<br>
-                <div class="ui-grid-a">
-                    <div class="ui-block-a"><a class="previous" href="#" data-role="button">prev</a></div>
-                    <div class="ui-block-b"><a class="next " href="#"  data-role="button">{% trans "skip" %}</a></div>
+                <div class="filler_div">
+                    <div data-role="fieldcontain">
+                        <label for="reps-field">{% trans "Repetitions" %}:</label>
+                        <input name="reps-field" id="reps-field" placeholder="{% trans 'Repetitions' %}" value="" type="text">
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="weight-field">{% trans "Weight" %}:</label>
+                        <input name="weight-field" id="weight-field" placeholder="{% trans 'Weight' %}" value="" type="text">
+                    </div>
                 </div>
+
+                <div class="sub_header">{{set.sets}} x {{setting.reps}}</div>
+                <a class="next bottom_button"
+                   href="#"
+                   data-role="button"
+                   data-icon="arrow-r"
+                   data-iconpos="right">{% trans "Save or skip" %}</a>
             </li>
             <li class="timer-step" id="div-pause-{{set.pk}}" data-set="{{set.pk}}">
                 <h2>{% trans "Pause!" %}</h2>
 
                 <canvas id="canvas-{{set.pk}}"></canvas>
-                <div class="counter"><span id="counter-{{set.pk}}">120</span> sec</div>
 
-
-                <a class="start" href="#" data-role="button">start countdown</a>
                 <div class="ui-grid-a">
-                    <div class="ui-block-a"><a class="previous" href="#" data-role="button">prev</a></div>
-                    <div class="ui-block-b"><a class="next " href="#"  data-role="button">{% trans "skip" %}</a></div>
+                    <div class="ui-block-a">
+                        <div class="sub_header"><span id="counter-{{set.pk}}">90</span> {% trans "sec" %}</div>
+                    </div>
+                    <div class="ui-block-b">
+                        <a class="start" href="#" data-role="button">{% trans "start" %}</a>
+                    </div>
                 </div>
+
+
+                <a class="next bottom_button"
+                   href="#"
+                   data-role="button"
+                   data-icon="arrow-r"
+                   data-iconpos="right">{% trans "skip" %}</a>
             </li>
             {% endfor %}
         {% endfor %}
