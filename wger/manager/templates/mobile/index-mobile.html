@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% endblock %}
+
+
+{% block content %}
+<!--
+<a href="{% url 'wger.manager.views.user.preferences' %}" data-role="button">
+    <img src="{% static 'images/icons/play.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Settings' %}"
+         title="{% trans 'Settings' %}">
+    <br>
+    {% trans "Start current workout" %}
+</a>
+-->
+<div class="ui-grid-a">
+    <div class="ui-block-a">
+        <a href="{% url 'workout-overview' %}" data-role="button">
+            <img src="{% static 'images/icons/list.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Workouts' %}"
+                 title="{% trans 'Workouts' %}">
+            <br>
+            {% trans "Workouts" %}
+        </a>
+    </div>
+    <div class="ui-block-b">
+        <a href="{% url 'workout-calendar' %}" data-role="button" data-ajax="false">
+            <img src="{% static 'images/icons/calendar.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Calendar' %}"
+                 title="{% trans 'Calendar' %}">
+            <br>
+            {% trans "Calendar" %}
+        </a>
+    </div>
+    <div class="ui-block-a">
+        <a href="{% url 'nutrition-overview' %}" data-role="button">
+            <img src="{% static 'images/icons/list.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Nutrition' %}"
+                 title="{% trans 'Nutrition' %}">
+            <br>
+            {% trans "Nutrition" %}
+        </a>
+    </div>
+    <div class="ui-block-b">
+
+        <a href="{% url 'wger.weight.views.overview' %}" data-role="button" data-ajax="false">
+            <img src="{% static 'images/icons/statistics.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Weight overview' %}"
+                 title="{% trans 'Weight overview' %}">
+            <br>
+            {% trans "Weight overview" %}
+        </a>
+    </div>
+    <div class="ui-block-a">
+        <a href="{% url 'wger.manager.views.user.preferences' %}" data-role="button">
+            <img src="{% static 'images/icons/preferences.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Settings' %}"
+                 title="{% trans 'Settings' %}">
+            <br>
+            {% trans "Settings" %}
+        </a>
+    </div>
+    <div class="ui-block-b">
+        <a href="{% url 'contact' %}" data-role="button">
+            <img src="{% static 'images/icons/mail.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Contact' %}"
+                 title="{% trans 'Contact' %}">
+            <br>
+            {% trans "Contact" %}
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+
+
+{% block sidebar %}
+{% endblock %}

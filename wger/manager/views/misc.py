@@ -51,12 +51,13 @@ logger = logging.getLogger('wger.custom')
 # Misc functions
 # ************************
 def index(request):
-    #request.user.is_authenticated2()
+    '''
+    Index page
+    '''
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('dashboard'))
     else:
         return HttpResponseRedirect(reverse('software:features'))
-
 
 
 def demo_entries(request):

@@ -2,6 +2,7 @@ from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import TemplateView
+from django.views.generic import TemplateView
 
 from wger.manager.views import schedule
 from wger.manager.views import schedule_step
@@ -23,6 +24,9 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^$',
         'misc.index',
         name='index'),
+    url(r'^dashboard-mobile$',
+        TemplateView.as_view(template_name="index-mobile.html"),
+        name='index-mobile'),
 
     # The dashboard
     url(r'^dashboard$',
