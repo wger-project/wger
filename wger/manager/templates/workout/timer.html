@@ -14,7 +14,7 @@
     padding:0;
     margin:0;
 }
-ul li {
+ul.workout-timer li {
     float:left;
     list-style:none;
     position:relative;
@@ -76,10 +76,10 @@ function draw_step(step) { // step between 0 and 1
     }
 }
 
-function start_countdown(set_id, seconds)
+function start_countdown(step_id, seconds)
 {
-    canvas = document.getElementById('canvas-'+set_id);
-    num = $('#counter-'+set_id);
+    canvas = document.getElementById('canvas-div-'+step_id);
+    num = $('#counter-'+step_id);
     ctx = canvas.getContext('2d');
     canvas_size = [canvas.width, canvas.height];
     radius = Math.min(canvas_size[0], canvas_size[1]) / 2;
@@ -134,7 +134,8 @@ $(document).ready(function() {
     });
     $('#container ul li').each(function(intIndex) {
         $(this).find('a').bind("click", function() {
-            var set_id = $(this).parents('li').data('set');
+            var step_id = $(this).parents('li').data('step');
+            var step_time = $(this).parents('li').data('time');
             if ($(this).is(".next")) {
                 $(this).parents('ul').animate({
                     "margin-left": (-(intIndex + 1) * div_width)
@@ -145,7 +146,7 @@ $(document).ready(function() {
                     "margin-left": (-(intIndex - 1) * div_width)
                 }, 600)
             } else if ($(this).is(".start")) {
-                start_countdown(set_id, 90);
+                start_countdown(step_id, step_time);
             } else if ($(this).is(".startover")) {
                 $(this).parent('li').parent('ul').animate({
                     "margin-left": (0)
@@ -173,54 +174,56 @@ $(document).ready(function() {
        data-icon="arrow-r"
        data-iconpos="right">{% trans "Start workout" %}</a>
 </li>
-{% for set in day.set_set.select_related %}
-
-        {% for exercise in set.exercises.select_related %}
-            {% for setting in exercise|get_current_settings:set.id %}
-            <li class="timer-step" id="div-exercise-{{set.pk}}" data-set="{{set.pk}}">
-                <h2>{{exercise}}</h2>
-                <div class="filler_div">
-                    <div data-role="fieldcontain">
-                        <label for="reps-field">{% trans "Repetitions" %}:</label>
-                        <input name="reps-field" id="reps-field" placeholder="{% trans 'Repetitions' %}" value="" type="text">
-                    </div>
-                    <div data-role="fieldcontain">
-                        <label for="weight-field">{% trans "Weight" %}:</label>
-                        <input name="weight-field" id="weight-field" placeholder="{% trans 'Weight' %}" value="" type="text">
-                    </div>
+{% for step in step_list %}
+    {% if step.type == 'exercise' %}
+        <li class="timer-step" id="div-{{step.current_step}}" data-step="{{step.current_step}}">
+            <h2>{{step.exercise}}</h2>
+            <div class="filler_div">
+                <div data-role="fieldcontain">
+                    <label for="reps-field-{{step.current_step}}">{% trans "Repetitions" %}:</label>
+                    <input name="reps-field" id="reps-field-{{step.current_step}}" placeholder="{% trans 'Repetitions' %}" value="{{step.reps}}" type="text">
                 </div>
-
-                <div class="sub_header">{{set.sets}} x {{setting.reps}}</div>
-                <a class="next bottom_button"
-                   href="#"
-                   data-role="button"
-                   data-icon="arrow-r"
-                   data-iconpos="right">{% trans "Save or skip" %}</a>
-            </li>
-            <li class="timer-step" id="div-pause-{{set.pk}}" data-set="{{set.pk}}">
-                <h2>{% trans "Pause!" %}</h2>
-
-                <canvas id="canvas-{{set.pk}}"></canvas>
-
-                <div class="ui-grid-a">
-                    <div class="ui-block-a">
-                        <div class="sub_header"><span id="counter-{{set.pk}}">90</span> {% trans "sec" %}</div>
-                    </div>
-                    <div class="ui-block-b">
-                        <a class="start" href="#" data-role="button">{% trans "start" %}</a>
-                    </div>
+                <div data-role="fieldcontain">
+                    <label for="weight-field-{{step.current_step}}">{% trans "Weight" %}:</label>
+                    <input name="weight-field" id="weight-field-{{step.current_step}}" placeholder="{% trans 'Weight' %}" value="{{step.weight}}" type="text">
                 </div>
+            </div>
 
+            <div class="sub_header">
+                {% if step.weight %}
+                    {{step.reps}} × {{step.weight}} kg.
+                {% else %}
+                    {{step.reps}} {% trans "reps" %}
+                {% endif %}
+            </div>
+            <a class="next bottom_button"
+               href="#"
+               data-role="button"
+               data-icon="arrow-r"
+               data-iconpos="right">{% trans "Save or skip" %}</a>
+        </li>
+    {% else %}
+        <li class="timer-step" id="div-{{step.current_step}}" data-step="{{step.current_step}}" data-time="{{step.time}}">
+            <h2>{% trans "Pause!" %}</h2>
 
-                <a class="next bottom_button"
-                   href="#"
-                   data-role="button"
-                   data-icon="arrow-r"
-                   data-iconpos="right">{% trans "skip" %}</a>
-            </li>
-            {% endfor %}
-        {% endfor %}
+            <canvas id="canvas-div-{{step.current_step}}"></canvas>
 
+            <div class="ui-grid-a">
+                <div class="ui-block-a">
+                    <div class="sub_header"><span id="counter-{{step.current_step}}">{{step.time}}</span> {% trans "sec" %}</div>
+                </div>
+                <div class="ui-block-b">
+                    <a class="start" href="#" data-role="button">{% trans "start" %}</a>
+                </div>
+            </div>
+
+            <a class="next bottom_button"
+               href="#"
+               data-role="button"
+               data-icon="arrow-r"
+               data-iconpos="right">{% trans "skip" %}</a>
+        </li>
+    {% endif %}
 {% endfor %}
 <li class="timer-step" id="div-{{set.pk}}">
     <h2>{% trans "Workout complete!" %}</h2>

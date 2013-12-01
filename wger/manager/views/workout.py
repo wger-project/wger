@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
+import uuid
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -33,8 +34,10 @@ from django.views.generic import DeleteView
 from django.views.generic import UpdateView
 
 from wger.manager.models import Workout
+from wger.manager.models import WorkoutLog
 from wger.manager.models import Schedule
 from wger.manager.models import Day
+from wger.manager.models import Setting
 from wger.manager.forms import WorkoutForm
 from wger.manager.forms import WorkoutCopyForm
 
@@ -241,7 +244,37 @@ def timer(request, pk):
 
     day = Day.objects.get(pk=pk, training__user=request.user)
     context['day'] = day
+    step_list = []
 
+    for set in day.set_set.select_related():
+
+        for exercise in set.exercises.select_related():
+            for setting in Setting.objects.filter(set=set, exercise=exercise).order_by('order'):
+
+                # To find out the last weight, look if the user has already
+                # a log with same exercise and repetitions and use the last one.
+                last_log = WorkoutLog.objects.filter(user=request.user,
+                                                     exercise=exercise,
+                                                     reps=setting.reps).order_by('-date')
+                if last_log.exists():
+                    weight = last_log[0].weight
+                else:
+                    weight = None
+
+                # Exercise
+                step_list.append({'current_step': uuid.uuid4().hex,
+                                  'exercise': exercise,
+                                  'type': 'exercise',
+                                  'weight': weight,
+                                  'reps': setting.reps})
+                # Pause
+                step_list.append({'current_step': uuid.uuid4().hex,
+                                  'type': 'pause',
+                                  'time': 30})
+
+    context['step_list'] = step_list
+    import pprint
+    pprint.pprint(step_list)
     return render_to_response('workout/timer.html',
                               context,
                               context_instance=RequestContext(request))
