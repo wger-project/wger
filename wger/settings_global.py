@@ -132,6 +132,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     #'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 # List of callables that know how to import templates from various sources.
@@ -217,7 +218,10 @@ INSTALLED_APPS = (
     'tastypie',
 
     # thumbnails
-    'easy_thumbnails'
+    'easy_thumbnails',
+
+    # CSS/JS compressor
+    'compressor',
 )
 
 
@@ -320,3 +324,12 @@ THUMBNAIL_ALIASES = {
         'large_cropped': {'size': (800, 800), 'crop': 'smart', 'quality': 90},
         },
 }
+
+
+#
+# Django compressor
+#
+
+# The default is not DEBUG, override if needed
+#COMPRESS_ENABLED = True
+COMPRESS_ROOT = STATIC_ROOT

@@ -56,6 +56,7 @@ setup(
         'python-mimeparse',
         'pillow',
         'easy-thumbnails',
+        'django_compressor',
     ],
     entry_points={
         'console_scripts': [

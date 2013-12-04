@@ -11,3 +11,4 @@ django-tastypie==0.9.16
 python-mimeparse
 pillow
 easy-thumbnails
+django_compressor
