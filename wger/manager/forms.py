@@ -50,7 +50,11 @@ from wger.utils.widgets import Html5NumberInput
 class UserPreferencesForm(ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('show_comments', 'show_english_ingredients')
+        fields = ('show_comments',
+                  'show_english_ingredients',
+                  'workout_reminder_active',
+                  'workout_reminder',
+                  'workout_duration')
 
 
 class UserEmailForm(ModelForm):

@@ -14,8 +14,9 @@
       {% csrf_token %}
       {{ form.non_field_errors }}
 <table>
-{% yaml_form_field form.show_comments %}
-{% yaml_form_field form.show_english_ingredients %}
+{% for field in form %}
+    {% yaml_form_field field %}
+{% endfor %}
 </table>
 
 

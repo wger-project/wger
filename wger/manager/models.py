@@ -224,6 +224,19 @@ class Schedule(models.Model):
             if not self.is_loop:
                 return False
 
+    def get_end_date(self):
+        '''
+        Calculates the date when the schedule is over or None is the schedule
+        is a loop.
+        '''
+        if self.is_loop:
+            return None
+
+        end_date = self.start_date
+        for step in self.schedulestep_set.all():
+            end_date = end_date + datetime.timedelta(weeks=step.duration)
+        return end_date
+
 
 class ScheduleStep(models.Model):
     '''
@@ -586,6 +599,23 @@ a nutritional plan. These ingredients are extracted from a list provided
 by the US Department of Agriculture. It is extremely complete, with around
 7000 entries, but can be somewhat overwhelming and make the search difficult.'''),
         default=True)
+
+    workout_reminder_active = models.BooleanField(verbose_name=_('Activate workout reminders'),
+                                                  help_text=_('Check to activate automatic '
+                                                              'reminders for workouts. You need '
+                                                              'to provide a valid email for this '
+                                                              'to work.'),
+                                                  default=False)
+
+    workout_reminder = Html5IntegerField(verbose_name=_('Remind before expiration'),
+                                         help_text=_('The number of days you want to be reminded '
+                                                     'before a workout expires.'),
+                                         default=14)
+    workout_duration = Html5IntegerField(verbose_name=_('Default duration of workouts'),
+                                         help_text=_('Default duration in weeks of workouts not '
+                                                     'in a schedule. Used for email workout '
+                                                     'reminders.'),
+                                         default=12)
 
     #
     # User statistics
