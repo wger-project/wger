@@ -51,11 +51,14 @@ $( document ).off("pageinit").on("pageinit", function() {
     </div>
 {% empty %}
 
-<a href="{% url 'day-add' workout.id %}"
-   data-role="button">
-{% trans "No days for this workout." %}<br>
-{% trans "Add training day." %}
-</a>
+    <ul data-role="listview" data-inset="false">
+        <li>
+            <a href="{% url 'day-add' workout.id %}">
+            {% trans "No days for this workout." %}<br>
+            {% trans "Add training day." %}
+            </a>
+        </li>
+    </ul>
 {% endfor %}
 
 
