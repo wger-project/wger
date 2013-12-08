@@ -50,7 +50,7 @@ def workout_log(request, id):
 
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(mimetype='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename=%s.pdf' % _('Workout')
+    response['Content-Disposition'] = 'attachment; filename=Workout-{0}.pdf'.format(id)
 
     # Create the PDF object, using the response object as its "file."
     doc = SimpleDocTemplate(response,
