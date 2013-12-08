@@ -19,7 +19,9 @@ import decimal
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
+from wger.exercises.models import Language
 from wger.weight.models import WeightEntry
+from wger.manager.models import UserProfile
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
@@ -31,14 +33,15 @@ class PreferencesTestCase(WorkoutManagerTestCase):
     Tests the preferences page
     '''
 
-    def preferences(self):
+    def test_preferences(self):
         '''
         Helper function to test the preferences page
         '''
 
-        # Fetch the preferences page
+        self.user_login('test')
         response = self.client.get(reverse('preferences'))
-        profile = response.context['user'].userprofile
+
+        profile = User.objects.get(username='test').userprofile
         self.assertFalse(profile.show_comments)
 
         self.assertEqual(response.status_code, 200)
@@ -46,22 +49,32 @@ class PreferencesTestCase(WorkoutManagerTestCase):
 
         # Change some preferences
         response = self.client.post(reverse('preferences'),
-                                    {'show_comments': 'on',
-                                     'show_english_ingredients': 'on',
-                                     'email': 'my-new-email@example.com'})
+                                    {'show_comments': True,
+                                     'show_english_ingredients': True,
+                                     'email': 'my-new-email@example.com',
+                                     'workout_reminder_active': True,
+                                     'workout_reminder': '30',
+                                     'workout_duration': 12,
+                                     'notification_language': 2})
 
-        #print response
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('preferences'))
-        profile = response.context['user'].userprofile
-        #self.assertTrue(profile.show_comments)
+        profile = User.objects.get(username='test').userprofile
         self.assertTrue(profile.show_english_ingredients)
-        self.assertEqual(response.context['user'].email, 'my-new-email@example.com')
+        self.assertTrue(profile.workout_reminder_active)
+        self.assertEqual(profile.workout_reminder, 30)
+        self.assertEqual(profile.workout_duration, 12)
+        self.assertEqual(User.objects.get(username='test').email, 'my-new-email@example.com')
 
         # Change some preferences
         response = self.client.post(reverse('preferences'),
-                                    {'show_english_ingredients': 'on',
-                                     'email': ''})
+                                    {'show_comments': False,
+                                     'show_english_ingredients': True,
+                                     'email': '',
+                                     'workout_reminder_active': True,
+                                     'workout_reminder': 22,
+                                     'workout_duration': 10,
+                                     'notification_language': 2})
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('preferences'))
@@ -69,14 +82,6 @@ class PreferencesTestCase(WorkoutManagerTestCase):
         self.assertFalse(profile.show_comments)
         self.assertTrue(profile.show_english_ingredients)
         self.assertEqual(response.context['user'].email, '')
-
-    def test_preferences_logged_in(self):
-        '''
-        Tests the preferences page as a logged in user
-        '''
-
-        self.user_login('test')
-        self.preferences()
 
 
 class AjaxPreferencesTestCase(WorkoutManagerTestCase):

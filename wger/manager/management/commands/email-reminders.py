@@ -96,7 +96,7 @@ class Command(BaseCommand):
         :type days int
         '''
 
-        translation.activate('en')
+        translation.activate(user.userprofile.notification_language.short_name)
         site = Site.objects.get(pk=settings.SITE_ID)
         workout_link = 'http://{0}{1}'.format(site.domain, workout.get_absolute_url())
         add_workout_link = 'http://{0}{1}'.format(site.domain, reverse('workout-add'))

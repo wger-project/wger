@@ -15,7 +15,11 @@
       {{ form.non_field_errors }}
 <table>
 {% for field in form %}
-    {% yaml_form_field field %}
+    {% if field.name in select_lists %}
+        {% yaml_form_field field "ym-fbox-select" %}
+    {% else %}
+        {% yaml_form_field field %}
+    {% endif %}
 {% endfor %}
 </table>
 

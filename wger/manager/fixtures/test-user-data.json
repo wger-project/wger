@@ -253,7 +253,8 @@
             "freetime_hours": 8,
             "workout_reminder_active": false,
             "workout_reminder": 20,
-            "workout_duration": 8
+            "workout_duration": 8,
+            "notification_language": 1
         }
     }, 
     {
@@ -277,7 +278,8 @@
             "freetime_hours": 8,
             "workout_reminder_active": true,
             "workout_reminder": 14,
-            "workout_duration": 12
+            "workout_duration": 12,
+            "notification_language": 2
         }
     }, 
     {
@@ -301,7 +303,8 @@
             "freetime_hours": 8,
             "workout_reminder_active": true,
             "workout_reminder": 10,
-            "workout_duration": 15
+            "workout_duration": 15,
+            "notification_language": 2
         }
     }
 ]

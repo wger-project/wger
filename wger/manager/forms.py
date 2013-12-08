@@ -54,7 +54,8 @@ class UserPreferencesForm(ModelForm):
                   'show_english_ingredients',
                   'workout_reminder_active',
                   'workout_reminder',
-                  'workout_duration')
+                  'workout_duration',
+                  'notification_language')
 
 
 class UserEmailForm(ModelForm):

@@ -30,7 +30,7 @@ class EmailReminderTestCase(WorkoutManagerTestCase):
     User 2 has setting in profile active
     '''
 
-    def atest_reminder_no_workouts(self):
+    def test_reminder_no_workouts(self):
         '''
         Test with no schedules or workouts
         '''
@@ -40,7 +40,7 @@ class EmailReminderTestCase(WorkoutManagerTestCase):
         call_command('email-reminders')
         self.assertEqual(len(mail.outbox), 0)
 
-    def atest_reminder_one_workout(self):
+    def test_reminder_one_workout(self):
         '''
         Test user with no schedules but one workout
 
@@ -53,7 +53,7 @@ class EmailReminderTestCase(WorkoutManagerTestCase):
         call_command('email-reminders')
         self.assertEqual(len(mail.outbox), 1)
 
-    def atest_reminder_setting_off(self):
+    def test_reminder_setting_off(self):
         '''
         Test user with no schedules, one workout but setting in profile off
         '''
@@ -67,7 +67,7 @@ class EmailReminderTestCase(WorkoutManagerTestCase):
         call_command('email-reminders')
         self.assertEqual(len(mail.outbox), 0)
 
-    def atest_reminder_empty_schedule(self):
+    def test_reminder_empty_schedule(self):
         '''
         Test user with emtpy schedules and no workouts
         '''
@@ -88,7 +88,7 @@ class EmailReminderTestCase(WorkoutManagerTestCase):
         call_command('email-reminders')
         self.assertEqual(len(mail.outbox), 0)
 
-    def atest_reminder_schedule(self):
+    def test_reminder_schedule(self):
         '''
         Test user with a schedule and a workout
         '''

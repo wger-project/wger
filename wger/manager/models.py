@@ -33,6 +33,7 @@ from django.core.cache import cache
 from django.core.validators import MinValueValidator
 
 from wger.exercises.models import Exercise
+from wger.exercises.models import Language
 
 from wger.utils.helpers import DecimalJsonEncoder
 from wger.utils.helpers import disable_for_loaddata
@@ -616,6 +617,14 @@ by the US Department of Agriculture. It is extremely complete, with around
                                                      'in a schedule. Used for email workout '
                                                      'reminders.'),
                                          default=12)
+
+    notification_language = models.ForeignKey(Language,
+                                              verbose_name=_('Notification language'),
+                                              help_text=_('Language to use when sending you email '
+                                                          'notifications, e.g. email reminders for '
+                                                          'workouts. This does not affect the '
+                                                          'language used on the website.'),
+                                              default=2)
 
     #
     # User statistics
