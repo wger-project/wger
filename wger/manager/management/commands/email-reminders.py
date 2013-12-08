@@ -49,7 +49,7 @@ class Command(BaseCommand):
             (current_workout, schedule) = Schedule.objects.get_current_workout(profile.user)
 
             # No schedules, use the default workout length in user profile
-            if not schedule:
+            if not schedule and current_workout:
                 delta = (current_workout.creation_date
                          + datetime.timedelta(weeks=profile.workout_duration)
                          - datetime.date.today())
@@ -62,7 +62,7 @@ class Command(BaseCommand):
                                     profile.workout_duration)
 
             # non-loop schedule, take the step's duration
-            elif not schedule.is_loop:
+            elif schedule and not schedule.is_loop:
 
                 schedule_step = schedule.get_current_scheduled_workout()
 
@@ -84,7 +84,7 @@ class Command(BaseCommand):
                     pass
 
         if counter:
-            self.stdout.write("Sent {0} email remainders".format(counter))
+            self.stdout.write("Sent {0} email reminders".format(counter))
 
     @staticmethod
     def send_email(user, workout, days):

@@ -250,7 +250,10 @@
             "work_intensity": "1",
             "freetime_intensity": "1",
             "work_hours": 8,
-            "freetime_hours": 8
+            "freetime_hours": 8,
+            "workout_reminder_active": false,
+            "workout_reminder": 20,
+            "workout_duration": 8
         }
     }, 
     {
@@ -271,7 +274,10 @@
             "work_intensity": "1",
             "freetime_intensity": "1",
             "work_hours": 8,
-            "freetime_hours": 8
+            "freetime_hours": 8,
+            "workout_reminder_active": true,
+            "workout_reminder": 14,
+            "workout_duration": 12
         }
     }, 
     {
@@ -292,7 +298,10 @@
             "work_intensity": "3",
             "freetime_intensity": "3",
             "work_hours": 8,
-            "freetime_hours": 8
+            "freetime_hours": 8,
+            "workout_reminder_active": true,
+            "workout_reminder": 10,
+            "workout_duration": 15
         }
     }
 ]
