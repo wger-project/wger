@@ -81,6 +81,9 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^workout/calendar/(?P<year>\d{4})-(?P<month>\d{1,2})$',
         'log.calendar',
         name='workout-calendar'),
+    url(r'^workout/(?P<pk>\d+)/ical$',
+        'ical.export',
+        name='workout-ical'),
 
     # Schedules
     url(r'^workout/schedule/overview$',

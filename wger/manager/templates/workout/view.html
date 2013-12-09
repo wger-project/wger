@@ -28,6 +28,14 @@ $(document).ready(function() {
         $(".exercise-comments").hide();
     {% endif %}
     toggle_comments();
+
+    // Popup for adding logs
+    $('#export-ical-link').click(function(e){
+        e.preventDefault();
+        $('#export-ical-popup').dialog({
+            modal: true
+        });
+    });
  });
 </script>
 {% endblock %}
@@ -153,6 +161,17 @@ $(document).ready(function() {
 </p>
 
 <p>
+<a href="#export-ical-popup" id="export-ical-link">
+   <img src="{% static 'images/icons/calendar.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Export calendar file' %}"
+         title="{% trans 'Export calendar file' %}">
+   {% trans "Export calendar file" %}
+</a>
+</p>
+
+<p>
 <a href="{% url 'workout-copy' workout.id %}"
    class="modal-dialog">
    <img src="{% static 'images/icons/copy.svg' %}"
@@ -164,7 +183,6 @@ $(document).ready(function() {
 </a>
 </p>
 
-
 <p>
 <a href="{% url 'workout-delete' workout.id %}"
    class="modal-dialog">
@@ -175,4 +193,24 @@ $(document).ready(function() {
     {% trans "Delete this workout" %}
 </a>
 </p>
+
+<div id="export-ical-popup" style="display:none;">
+    <div>
+        <h3>{% trans "Export calendar file" %}</h3>
+        <p>{% blocktrans %}Export this workout as a calendar file. You can
+then import it into your calendar application for example google calendar,
+outlook or iCal. This will create an appointment for each training day with
+the appropriate exercises.{% endblocktrans %}</p>
+        <p>
+        <a href="{% url 'workout-ical' workout.id %}" class="btn btn-block">
+           <img src="{% static 'images/icons/calendar.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Export calendar file' %}"
+                 title="{% trans 'Export calendar file' %}">
+           {% trans "Export calendar file" %}
+        </a>
+        </p>
+    </div>
+</div>
 {% endblock %}
