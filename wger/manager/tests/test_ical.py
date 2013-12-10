@@ -14,6 +14,8 @@
 
 import datetime
 
+from django.core.urlresolvers import reverse
+
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.utils.helpers import next_weekday
 
@@ -37,3 +39,50 @@ class IcalToolsTestCase(WorkoutManagerTestCase):
 
         # Find next saturday
         self.assertEqual(next_weekday(start_date, 5), datetime.date(2013, 12, 7))
+
+
+class WorkoutICalExportTestCase(WorkoutManagerTestCase):
+    '''
+    Tests exporting the ical file for a workout
+    '''
+
+    def export_ical(self, fail=False):
+        '''
+        Helper function
+        '''
+
+        response = self.client.get(reverse('workout-ical', kwargs={'pk': 3}))
+
+        if fail:
+            self.assertIn(response.status_code, (404, 302))
+        else:
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response['Content-Type'], 'text/calendar')
+            self.assertEqual(response['Content-Disposition'], 'attachment; filename=calendar-3.ics')
+
+            # Approximate size
+            self.assertGreater(len(response.content), 550)
+            self.assertLess(len(response.content), 560)
+
+    def test_export_ical_anonymous(self):
+        '''
+        Tests exporting a workout as an ical file as an anonymous user
+        '''
+
+        self.export_ical(fail=True)
+
+    def test_export_ical_owner(self):
+        '''
+        Tests exporting a workout as an ical file as the owner user
+        '''
+
+        self.user_login('test')
+        self.export_ical(fail=False)
+
+    def test_export_ical_other(self):
+        '''
+        Tests exporting a workout as an ical file as a logged user not owning the data
+        '''
+
+        self.user_login('admin')
+        self.export_ical(fail=True)
