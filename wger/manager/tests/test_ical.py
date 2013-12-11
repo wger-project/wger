@@ -20,6 +20,9 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.utils.helpers import next_weekday
 
 
+# TODO: parse the generated calendar files with the icalendar library
+
+
 class IcalToolsTestCase(WorkoutManagerTestCase):
     '''
     Tests some tools used for iCal generation
@@ -58,7 +61,8 @@ class WorkoutICalExportTestCase(WorkoutManagerTestCase):
         else:
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response['Content-Type'], 'text/calendar')
-            self.assertEqual(response['Content-Disposition'], 'attachment; filename=calendar-3.ics')
+            self.assertEqual(response['Content-Disposition'],
+                             'attachment; filename=Calendar-workout-3.ics')
 
             # Approximate size
             self.assertGreater(len(response.content), 550)
@@ -85,4 +89,52 @@ class WorkoutICalExportTestCase(WorkoutManagerTestCase):
         '''
 
         self.user_login('admin')
+        self.export_ical(fail=True)
+
+
+class ScheduleICalExportTestCase(WorkoutManagerTestCase):
+    '''
+    Tests exporting the ical file for a scheduel
+    '''
+
+    def export_ical(self, fail=False):
+        '''
+        Helper function
+        '''
+
+        response = self.client.get(reverse('schedule-ical', kwargs={'pk': 2}))
+
+        if fail:
+            self.assertIn(response.status_code, (404, 302))
+        else:
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response['Content-Type'], 'text/calendar')
+            self.assertEqual(response['Content-Disposition'],
+                             'attachment; filename=Calendar-schedule-2.ics')
+
+            # Approximate size
+            self.assertGreater(len(response.content), 1650)
+            self.assertLess(len(response.content), 1660)
+
+    def test_export_ical_anonymous(self):
+        '''
+        Tests exporting a schedule as an ical file as an anonymous user
+        '''
+
+        self.export_ical(fail=True)
+
+    def test_export_ical_owner(self):
+        '''
+        Tests exporting a schedule as an ical file as the owner user
+        '''
+
+        self.user_login('admin')
+        self.export_ical(fail=False)
+
+    def test_export_ical_other(self):
+        '''
+        Tests exporting a schedule as an ical file as a logged user not owning the data
+        '''
+
+        self.user_login('test')
         self.export_ical(fail=True)

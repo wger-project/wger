@@ -194,10 +194,10 @@ $( document ).off("pageinit").on("pageinit", function() {
      class="ui-content">
      <div>
         <h3>{% trans "Export calendar file" %}</h3>
-        <p>{% blocktrans %}Export this workout as a calendar file. You can
-then import it into your calendar application for example google calendar,
-outlook or iCal. This will create an appointment for each training day with
-the appropriate exercises.{% endblocktrans %}</p>
+        <p>{% trans "Export this workout as a calendar file." %}</p>
+        <p>{% blocktrans %}You can then import the file it into your calendar
+application for example google calendar, outlook or iCal. This will create
+an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
         <p>
         <a href="{% url 'workout-ical' workout.id %}"
            data-role="button"
