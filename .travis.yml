@@ -15,9 +15,9 @@ env:
   - DJANGO_VERSION=1.5.5 DB=postgresql
   - DJANGO_VERSION=1.5.5 DB=sqlite
 
-#  - DJANGO_VERSION=1.6 DB=mysql
-  - DJANGO_VERSION=1.6 DB=postgresql
-  - DJANGO_VERSION=1.6 DB=sqlite
+#  - DJANGO_VERSION=1.6.1 DB=mysql
+  - DJANGO_VERSION=1.6.1 DB=postgresql
+  - DJANGO_VERSION=1.6.1 DB=sqlite
 
 # Install the application
 install:
