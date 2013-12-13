@@ -23,6 +23,7 @@ from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
+from django.utils import translation
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as django_login
@@ -34,6 +35,7 @@ from django.contrib import messages
 
 from tastypie.models import ApiKey
 
+from wger.exercises.models import Language
 from wger.manager.forms import UserPreferencesForm
 from wger.manager.forms import UserEmailForm
 from wger.manager.forms import RegistrationForm
@@ -85,6 +87,12 @@ def registration(request):
                                                    email,
                                                    password)
             user.save()
+
+            # Save the notification language
+            language = Language.objects.get(short_name=translation.get_language())
+            user.userprofile.notification_language = language
+            user.userprofile.save()
+
             user = authenticate(username=username, password=password)
             django_login(request, user)
             messages.success(request, _('You were successfully registered'))
@@ -134,7 +142,7 @@ def preferences(request):
     # has that email
     if request.method == 'POST' and request.POST["email"] != request.user.email:
         email_form = UserEmailForm(data=request.POST, instance=request.user)
-        if email_form.is_valid():
+        if email_form.is_valid() and redirect:
             request.user.email = email_form.cleaned_data['email']
             request.user.save()
             redirect = True
@@ -143,6 +151,7 @@ def preferences(request):
 
     template_data['form'] = form
     template_data['email_form'] = email_form
+    template_data['select_lists'] = ('notification_language',)
 
     if redirect:
         messages.success(request, _('Settings successfully updated'))

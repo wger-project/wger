@@ -28,6 +28,7 @@ from django.core.cache import cache
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
+from django.utils import translation
 
 from wger.exercises.models import Language
 from wger.utils.constants import EMAIL_FROM
@@ -342,6 +343,7 @@ class Ingredient(models.Model):
         submitted ingredients only)
         '''
         if self.user and self.user.email:
+            translation.activate(self.user.userprofile.notification_language.short_name)
             url = request.build_absolute_uri(self.get_absolute_url())
             subject = _('Ingredient was successfully added to the general database')
             message = (ugettext("Your ingredient '{0}' was successfully added to the general "

@@ -33,6 +33,7 @@ from django.core.cache import cache
 from django.core.validators import MinValueValidator
 
 from wger.exercises.models import Exercise
+from wger.exercises.models import Language
 
 from wger.utils.helpers import DecimalJsonEncoder
 from wger.utils.helpers import disable_for_loaddata
@@ -223,6 +224,19 @@ class Schedule(models.Model):
             # If it's not a loop, there's no workout that matches, return
             if not self.is_loop:
                 return False
+
+    def get_end_date(self):
+        '''
+        Calculates the date when the schedule is over or None is the schedule
+        is a loop.
+        '''
+        if self.is_loop:
+            return None
+
+        end_date = self.start_date
+        for step in self.schedulestep_set.all():
+            end_date = end_date + datetime.timedelta(weeks=step.duration)
+        return end_date
 
 
 class ScheduleStep(models.Model):
@@ -543,7 +557,6 @@ class UserProfile(models.Model):
 
     GENDER_MALE = '1'
     GENDER_FEMALE = '2'
-
     GENDER = (
         (GENDER_MALE, _('Male')),
         (GENDER_FEMALE, _('Female')),
@@ -552,7 +565,6 @@ class UserProfile(models.Model):
     INTENSITY_LOW = '1'
     INTENSITY_MEDIUM = '2'
     INTENSITY_HIGH = '3'
-
     INTENSITY = (
         (INTENSITY_LOW, _('Low')),
         (INTENSITY_MEDIUM, _('Medium')),
@@ -586,6 +598,40 @@ a nutritional plan. These ingredients are extracted from a list provided
 by the US Department of Agriculture. It is extremely complete, with around
 7000 entries, but can be somewhat overwhelming and make the search difficult.'''),
         default=True)
+
+    workout_reminder_active = models.BooleanField(verbose_name=_('Activate workout reminders'),
+                                                  help_text=_('Check to activate automatic '
+                                                              'reminders for workouts. You need '
+                                                              'to provide a valid email for this '
+                                                              'to work.'),
+                                                  default=False)
+
+    workout_reminder = Html5IntegerField(verbose_name=_('Remind before expiration'),
+                                         help_text=_('The number of days you want to be reminded '
+                                                     'before a workout expires.'),
+                                         default=14)
+    workout_duration = Html5IntegerField(verbose_name=_('Default duration of workouts'),
+                                         help_text=_('Default duration in weeks of workouts not '
+                                                     'in a schedule. Used for email workout '
+                                                     'reminders.'),
+                                         default=12)
+    last_workout_notification = models.DateField(editable=False,
+                                                 blank=False,
+                                                 null=True)
+    '''
+    The last time the user got a workout reminder email
+
+    This is needed e.g. to check daily per cron for old workouts but only
+    send users an email once per week
+    '''
+
+    notification_language = models.ForeignKey(Language,
+                                              verbose_name=_('Notification language'),
+                                              help_text=_('Language to use when sending you email '
+                                                          'notifications, e.g. email reminders for '
+                                                          'workouts. This does not affect the '
+                                                          'language used on the website.'),
+                                              default=2)
 
     #
     # User statistics

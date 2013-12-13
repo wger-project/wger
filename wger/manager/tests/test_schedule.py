@@ -164,6 +164,38 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         self.assertFalse(schedule3.is_active)
 
 
+class ScheduleEndDateTestCase(WorkoutManagerTestCase):
+    '''
+    Test the schedule's get_end_date method
+    '''
+
+    def test_loop_schedule(self):
+        '''
+        Loop schedules have no end date
+        '''
+        schedule = Schedule.objects.get(pk=2)
+        self.assertTrue(schedule.is_loop)
+        self.assertFalse(schedule.get_end_date())
+
+    def test_calculate(self):
+        '''
+        Test the actual calculation
+
+        Steps: 3, 5 and 2 weeks, starting on the 2013-04-21
+        '''
+        schedule = Schedule.objects.get(pk=2)
+        schedule.is_loop = False
+        schedule.save()
+        self.assertEqual(schedule.get_end_date(), datetime.date(2013, 6, 30))
+
+    def test_empty_schedule(self):
+        '''
+        Test the end date with an empty schedule
+        '''
+        schedule = Schedule.objects.get(pk=3)
+        self.assertEqual(schedule.get_end_date(), schedule.start_date)
+
+
 class ScheduleAjaxTestCase(WorkoutManagerTestCase):
     '''
     Tests the AJAX reordering call for steps

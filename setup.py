@@ -57,6 +57,7 @@ setup(
         'pillow',
         'easy-thumbnails',
         'django_compressor',
+        'icalendar'
     ],
     entry_points={
         'console_scripts': [

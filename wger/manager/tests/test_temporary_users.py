@@ -39,7 +39,8 @@ class DemoUserTestCase(WorkoutManagerTestCase):
     Tests the demo user
     '''
 
-    def count_temp_users(self):
+    @staticmethod
+    def count_temp_users():
         '''
         Counts the number of temporary users
         '''

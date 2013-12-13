@@ -14,6 +14,7 @@ from wger.manager.views.day import DayEditView
 from wger.manager.views.day import DayCreateView
 from wger.manager.views import set
 from wger.manager.views import misc
+from wger.manager.views import ical
 
 from wger.utils.constants import USER_TAB
 
@@ -54,7 +55,9 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^workout/overview$',
         'workout.overview',
         name='workout-overview'),
-    url(r'^workout/add$', 'workout.add'),
+    url(r'^workout/add$',
+        'workout.add',
+        name='workout-add'),
     url(r'^workout/(?P<pk>\d+)/copy/$',
         'workout.copy_workout',
         name='workout-copy'),
@@ -79,6 +82,9 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^workout/calendar/(?P<year>\d{4})-(?P<month>\d{1,2})$',
         'log.calendar',
         name='workout-calendar'),
+    url(r'^workout/(?P<pk>\d+)/ical$',
+        ical.export,
+        name='workout-ical'),
 
     # Schedules
     url(r'^workout/schedule/overview$',
@@ -96,6 +102,9 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^workout/schedule/(?P<pk>\d+)/delete/$',
         schedule.ScheduleDeleteView.as_view(),
         name='schedule-delete'),
+    url(r'^workout/schedule/(?P<pk>\d+)/ical$',
+        ical.export_schedule,
+        name='schedule-ical'),
     url(r'^workout/schedule/api/(?P<pk>\d+)/edit$',
         'schedule.edit_step_api',
         name='schedule-edit-api'),

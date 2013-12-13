@@ -17,6 +17,7 @@
 import logging
 import decimal
 import json
+import datetime
 
 from functools import wraps
 
@@ -50,3 +51,23 @@ def disable_for_loaddata(signal_handler):
             return
         signal_handler(*args, **kwargs)
     return wrapper
+
+
+def next_weekday(date, weekday):
+    '''
+    Helper function to find the next weekday after a given date,
+    e.g. the first Monday after the 2013-12-05
+
+    See link for more details:
+    * http://stackoverflow.com/questions/6558535/python-find-the-date-for-the-first-monday-after-a
+
+    :param date: the start date
+    :param weekday: weekday (0, Monday, 1 Tuesday, 2 Wednesday)
+    :type date: datetime.date
+    :type weekday int
+    :return: datetime.date
+    '''
+    days_ahead = weekday - date.weekday()
+    if days_ahead <= 0:
+        days_ahead += 7
+    return date + datetime.timedelta(days_ahead)

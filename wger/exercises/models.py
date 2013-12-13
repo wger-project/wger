@@ -22,6 +22,7 @@ from django.template.defaultfilters import slugify  # django.utils.text.slugify 
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
+from django.utils import translation
 from django.core.urlresolvers import reverse
 from django.core import mail
 from django.core.cache import cache
@@ -52,6 +53,12 @@ class Language(models.Model):
     #e.g. 'Deutsch'
     full_name = models.CharField(max_length=30,
                                  verbose_name=_('Language full name'))
+
+    class Meta:
+        '''
+        Set Meta options
+        '''
+        ordering = ["full_name", ]
 
     #
     # Django methods
@@ -316,6 +323,7 @@ class Exercise(models.Model):
         except User.DoesNotExist:
             return
         if self.user and user.email:
+            translation.activate(user.userprofile.notification_language.short_name)
             url = request.build_absolute_uri(self.get_absolute_url())
             subject = _('Exercise was successfully added to the general database')
             message = (ugettext("Your exercise '{0}' was successfully added to the general"
