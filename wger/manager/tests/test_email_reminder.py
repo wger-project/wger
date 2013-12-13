@@ -19,7 +19,7 @@ from django.core import mail
 from django.contrib.auth.models import User
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.models import Schedule
+from wger.manager.models import Schedule, UserProfile
 from wger.manager.models import Workout
 
 
@@ -46,6 +46,59 @@ class EmailReminderTestCase(WorkoutManagerTestCase):
 
         User 2, workout created 2012-11-20
         '''
+
+        Schedule.objects.all().delete()
+        Workout.objects.exclude(user=User.objects.get(pk=2)).delete()
+
+        call_command('email-reminders')
+        self.assertEqual(len(mail.outbox), 1)
+
+    def test_reminder_last_notification(self):
+        '''
+        Test that no emails are sent if the last notification field is more
+        recent than one week.
+
+        User 2, workout created 2012-11-20
+        '''
+
+        profile = UserProfile.objects.get(user=2)
+        profile.last_workout_notification = datetime.date.today() - datetime.timedelta(days=3)
+        profile.save()
+
+        Schedule.objects.all().delete()
+        Workout.objects.exclude(user=User.objects.get(pk=2)).delete()
+
+        call_command('email-reminders')
+        self.assertEqual(len(mail.outbox), 0)
+
+    def test_reminder_last_notification_2(self):
+        '''
+        Test that no emails are sent if the last notification field is more
+        than one week away.
+
+        User 2, workout created 2012-11-20
+        '''
+
+        profile = UserProfile.objects.get(user=2)
+        profile.last_workout_notification = datetime.date.today() - datetime.timedelta(days=10)
+        profile.save()
+
+        Schedule.objects.all().delete()
+        Workout.objects.exclude(user=User.objects.get(pk=2)).delete()
+
+        call_command('email-reminders')
+        self.assertEqual(len(mail.outbox), 1)
+
+    def test_reminder_last_notification_3(self):
+        '''
+        Test that no emails are sent if the last notification field is null
+
+        User 2, workout created 2012-11-20
+        '''
+
+        profile = UserProfile.objects.get(user=2)
+        profile.last_workout_notification = None
+        profile.save()
 
         Schedule.objects.all().delete()
         Workout.objects.exclude(user=User.objects.get(pk=2)).delete()

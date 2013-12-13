@@ -42,10 +42,20 @@ class Command(BaseCommand):
         '''
         Find if the currently active workout is overdue
         '''
-
         profile_list = UserProfile.objects.filter(workout_reminder_active=True)
         counter = 0
         for profile in profile_list:
+
+            # Check if we already notified the user and update the profile otherwise
+            if profile.last_workout_notification and \
+               (datetime.date.today()
+                    - profile.last_workout_notification
+                    < datetime.timedelta(weeks=1)):
+                continue
+            else:
+                profile.last_workout_notification = datetime.date.today()
+                profile.save()
+
             (current_workout, schedule) = Schedule.objects.get_current_workout(profile.user)
 
             # No schedules, use the default workout length in user profile
@@ -55,7 +65,8 @@ class Command(BaseCommand):
                          - datetime.date.today())
 
                 if datetime.timedelta(days=profile.workout_reminder) > delta:
-                    #print "* Workout '{0}' overdue".format(current_workout)
+                    if int(options['verbosity']) >= 3:
+                        print "* Workout '{0}' overdue".format(current_workout)
                     counter += 1
                     self.send_email(profile.user,
                                     current_workout,
@@ -73,7 +84,8 @@ class Command(BaseCommand):
 
                     delta = schedule.get_end_date() - datetime.date.today()
                     if datetime.timedelta(days=profile.workout_reminder) > delta:
-                        #print "* Workout '{0}' overdue - schedule".format(schedule_step.workout)
+                        if int(options['verbosity']) >= 3:
+                            print "* Workout '{0}' overdue - schedule".format(schedule_step.workout)
 
                         counter += 1
                         self.send_email(profile.user,
@@ -83,7 +95,7 @@ class Command(BaseCommand):
                     #print '* step not last in schedule'
                     pass
 
-        if counter:
+        if counter and int(options['verbosity']) >= 2:
             self.stdout.write("Sent {0} email reminders".format(counter))
 
     @staticmethod

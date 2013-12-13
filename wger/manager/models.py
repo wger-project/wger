@@ -557,7 +557,6 @@ class UserProfile(models.Model):
 
     GENDER_MALE = '1'
     GENDER_FEMALE = '2'
-
     GENDER = (
         (GENDER_MALE, _('Male')),
         (GENDER_FEMALE, _('Female')),
@@ -566,7 +565,6 @@ class UserProfile(models.Model):
     INTENSITY_LOW = '1'
     INTENSITY_MEDIUM = '2'
     INTENSITY_HIGH = '3'
-
     INTENSITY = (
         (INTENSITY_LOW, _('Low')),
         (INTENSITY_MEDIUM, _('Medium')),
@@ -617,6 +615,15 @@ by the US Department of Agriculture. It is extremely complete, with around
                                                      'in a schedule. Used for email workout '
                                                      'reminders.'),
                                          default=12)
+    last_workout_notification = models.DateField(editable=False,
+                                                 blank=False,
+                                                 null=True)
+    '''
+    The last time the user got a workout reminder email
+
+    This is needed e.g. to check daily per cron for old workouts but only
+    send users an email once per week
+    '''
 
     notification_language = models.ForeignKey(Language,
                                               verbose_name=_('Notification language'),

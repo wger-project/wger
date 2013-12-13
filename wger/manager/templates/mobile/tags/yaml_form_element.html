@@ -6,6 +6,10 @@
             {% trans field.label %}
         </label>
 
+        {% if not field.field.required %}
+            <span style="font-size:90%;">— <em>{% trans "Optional" %}</em></span><br>
+        {% endif %}
+
         {% if field.errors %}
             <div class="form-error">
                 {% for error in field.errors %}
@@ -16,10 +20,6 @@
 
         {% if field.help_text %}
             <p class="dimmed">{% trans field.help_text %}</p>
-        {% endif %}
-
-        {% if not field.field.required %}
-            <span style="font-size:90%;">— <em>{% trans "Optional" %}</em></span><br>
         {% endif %}
 
         <div {% if field.errors %}class="form-error"{% endif %}>
