@@ -53,6 +53,23 @@ class EmailReminderTestCase(WorkoutManagerTestCase):
         call_command('email-reminders')
         self.assertEqual(len(mail.outbox), 1)
 
+    def test_reminder_skip_if_no_email(self):
+        '''
+        Tests that no emails are sent if the user has provided no email
+
+        User 2, workout created 2012-11-20
+        '''
+
+        user = User.objects.get(pk=2)
+        user.email = ''
+        user.save()
+
+        Schedule.objects.all().delete()
+        Workout.objects.exclude(user=User.objects.get(pk=2)).delete()
+
+        call_command('email-reminders')
+        self.assertEqual(len(mail.outbox), 0)
+
     def test_reminder_last_notification(self):
         '''
         Test that no emails are sent if the last notification field is more

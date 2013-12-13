@@ -46,6 +46,11 @@ class Command(BaseCommand):
         counter = 0
         for profile in profile_list:
 
+            # Only continue if the user has provided an email address.
+            # Checking it here so we check for NULL values and emtpy strings
+            if not profile.user.email:
+                continue
+
             # Check if we already notified the user and update the profile otherwise
             if profile.last_workout_notification and \
                (datetime.date.today()
@@ -91,9 +96,6 @@ class Command(BaseCommand):
                         self.send_email(profile.user,
                                         current_workout,
                                         profile.workout_duration)
-                else:
-                    #print '* step not last in schedule'
-                    pass
 
         if counter and int(options['verbosity']) >= 2:
             self.stdout.write("Sent {0} email reminders".format(counter))
