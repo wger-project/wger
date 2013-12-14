@@ -15,3 +15,6 @@ versiontools*
 # Unit test / coverage reports
 .coverage
 htmlcov
+
+# Editor, etc. configs
+.idea/*
