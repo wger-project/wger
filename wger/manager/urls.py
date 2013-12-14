@@ -25,9 +25,6 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^$',
         'misc.index',
         name='index'),
-    url(r'^dashboard-mobile$',
-        TemplateView.as_view(template_name="index-mobile.html"),
-        name='index-mobile'),
 
     # The dashboard
     url(r'^dashboard$',

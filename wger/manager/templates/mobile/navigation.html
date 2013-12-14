@@ -16,25 +16,29 @@
 {#                        #}
 {# Close button for panel #}
 {#                        #}
-<ul data-role="listview" data-theme="a">
-    <li data-icon="delete">
+<ul data-role="listview">
+    <li data-icon="delete" data-theme="a">
         <a href="#" data-rel="close">{% trans "Close" %}</a>
+    </li>
+    <li data-theme="d"  style="margin-top:1.5em;">
+        <a href="{% url 'index' %}">{% trans "Dashboard" %}</a>
     </li>
 </ul>
 
 
-<div data-role="collapsible-set" data-inset="false" style="margin-top:1.5em;">
+<div data-role="collapsible-set" data-inset="false" style="margin-top:1em;">
 
     {#          #}
     {# User tab #}
     {#          #}
+    <!--
     <div data-role="collapsible" data-content-theme="c">
         <h3>{% trans "Dashboard" %}</h3>
         <ul data-role="listview">
-            <li><a href="{% url 'index-mobile' %}">{% trans "Main Menu" %}</a></li>
             <li><a href="{% url 'index' %}">{% trans "Dashboard" %}</a></li>
         </ul>
     </div>
+    -->
 
 
     {#             #}

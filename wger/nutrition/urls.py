@@ -11,9 +11,11 @@ from wger.nutrition.views import unit_ingredient
 urlpatterns = patterns('wger.nutrition.views',
     # Plans
     url(r'^overview/$',
-        'plan.overview',
+        plan.overview,
         name='nutrition-overview'),
-    url(r'^add/$', 'plan.add'),
+    url(r'^add/$',
+        plan.add,
+        name='nutrition-add'),
     url(r'^(?P<id>\d+)/view/$',
         'plan.view',
         name='nutrition-view'),

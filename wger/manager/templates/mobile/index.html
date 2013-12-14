@@ -7,124 +7,194 @@
 
 
 {% block content %}
-<h3>{% trans "Workout"%}</h3>
-{% if current_workout %}
-<p>
-<a href="{% url 'wger.manager.views.workout.view' current_workout.id %}"
-   data-role="button"
-   data-mini="true"
-   data-ajax="false">
-        {{ current_workout }}
-</a>
-</p>
- – {{ current_workout.creation_date }}
+<div data-role="popup"
+     id="current-workout"
+     data-overlay-theme="a"
+     class="ui-content">
+     <div>
+         {% if current_workout %}
+         <h3>{% trans "Current workout" %}</h3>
+         <ul data-role="listview" data-inset="false" style="margin-bottom:1em;" data-theme="b">
+            <li>
+                <a href="{% url 'wger.manager.views.workout.view' current_workout.id %}"
 
-<ul>
-    {% for day, exercise, is_workout in weekdays %}
-    <li>
-        {% if not is_workout %}<span class="dimmed">{% endif%}
-        {{ day }}:
+                   data-mini="true"
+                   data-ajax="false">
+                    {{ current_workout }}
+                </a>
+            </li>
+        </ul>
 
-        {{ exercise }}
-        {% if not is_workout %}</span>{% endif%}
-
-    </li>
-    {% endfor %}
-</ul>
-
-{% if schedule %}
-<p>
-    → {% trans "This workout is part of a schedule:" %}
-    <a href="{{schedule.get_absolute_url}}">{{schedule.name}}</a>
-</p>
+        <ul>
+            {% for day, exercises, is_workout in weekdays %}
+            <li>
+                <span {% if not is_workout %}class="dimmed"{% endif%}>
+                {{ day }}: {{ exercises }}
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% if schedule %}
+        <p>
+            → {% trans "This workout is part of a schedule:" %}
+            <a href="{{schedule.get_absolute_url}}">{{schedule.name}}</a>
+        </p>
 {% endif %}
-
-{% else %}
-    <p>
-        <a href="{% url 'wger.manager.views.workout.add' %}" data-role="button">
-        {% trans "No workouts found." %}<br>{% trans "Add one now." %}
-        </a>
-    </p>
-{% endif %}
-
-<h3>{% trans "Nutrition plan"%}</h3>
-
-{% if plan %}
-    <p>
-    <a href="{% url 'wger.nutrition.views.plan.view' plan.id %}"
-       data-role="button"
-       data-mini="true">
-        {% if plan.description %}
-            {{ plan.description }}
-        {% else %}
-            {% trans "Nutrition plan" %}
         {% endif %}
-   </a>
-   </p>
-   – {{ plan.creation_date }}
-
-   <ul>
-       <li>
-           {% trans "Energy" %}: {{nutritional_info.energy|floatformat}} kcal
-       </li>
-       <li>
-           {% trans "Protein" %}: {{nutritional_info.protein|floatformat}} g
-       </li>
-       <li>
-           {% trans "Carbohydrates" %}: {{nutritional_info.carbohydrates|floatformat}} g
-       </li>
-       <li>
-           {% trans "Fat" %}: {{nutritional_info.fat|floatformat}} g
-       </li>
-   </ul>
-
-{% else %}
-    <p>
-        <a href="{% url 'wger.nutrition.views.plan.add' %}" data-role="button">
-        {% trans "No nutrition plans." %}<br>{% trans "Add one now." %}
-        </a>
-    </p>
-{% endif %}
-{% if weight %}
-<p>
-    {% trans "Your current weight is: "%} <strong>{{weight.weight|floatformat}} kg.</strong>
-</p>
-{% endif %}
-
-{% endblock %}
+    </div>
+</div>
 
 
+<div data-role="popup"
+     id="current-nutrition-plan"
+     data-overlay-theme="a"
+     class="ui-content">
+     <div>
+         {% if plan %}
+         <h4>{% trans "Current nutrition plan" %}</h4>
+         <ul data-role="listview" data-inset="false" style="margin-bottom:1em;" data-theme="b">
+            <li>
+                <a href="{% url 'wger.nutrition.views.plan.view' plan.id %}"
+                   data-mini="true"
+                   data-ajax="false">
+                    {{ plan }}
+                </a>
+            </li>
+        </ul>
 
-{% block sidebar %}
-<h3>{% trans "Info" %}</h3>
-<p>{% blocktrans %}The current workout is selected from your active schedule
-or, if you don't have one, simply by date.{% endblocktrans %}</p>
+        <ul>
+           <li>
+               {% trans "Energy" %}: {{nutritional_info.energy|floatformat}} kcal
+           </li>
+           <li>
+               {% trans "Protein" %}: {{nutritional_info.protein|floatformat}} g
+           </li>
+           <li>
+               {% trans "Carbohydrates" %}: {{nutritional_info.carbohydrates|floatformat}} g
+           </li>
+           <li>
+               {% trans "Fat" %}: {{nutritional_info.fat|floatformat}} g
+           </li>
+        </ul>
 
-<p>{% trans "After adding a workout or a nutritional plan, you can edit them to set a goal." %}
-</p>
+        {% if weight %}
+        <p>
+            {% trans "Your current weight is: "%} <strong>{{weight.weight|floatformat}} kg.</strong>
+        </p>
+        {% endif %}
 
-<h3>{% trans "Options" %}</h3>
-<a href="{% url 'wger.manager.views.workout.add' %}" data-role="button">
-<img src="{% static 'images/icons/new.svg' %}"
-     width="32"
-     height="32"
-     alt="{% trans 'Add workout' %}"
-     title="{% trans 'Add workout' %}">
-{% trans "Add workout" %}</a>
+        {% endif %}
+    </div>
+</div>
 
-<a href="{% url 'wger.nutrition.views.plan.add' %}" data-role="button">
-<img src="{% static 'images/icons/new.svg' %}"
-     width="32"
-     height="32"
-     alt="{% trans 'Add nutrition plan' %}"
-     title="{% trans 'Add nutrition plan' %}">
-    {% trans "Add nutrition plan" %}</a>
-
+<!--
 <a href="{% url 'wger.manager.views.user.preferences' %}" data-role="button">
-<img src="{% static 'images/icons/preferences.svg' %}"
-     width="32"
-     height="32"
-     alt="{% trans 'My preferences' %}"
-     title="{% trans 'My preferences' %}">
-{% trans "My preferences" %}</a>
+    <img src="{% static 'images/icons/play.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Settings' %}"
+         title="{% trans 'Settings' %}">
+    <br>
+    {% trans "Start current workout" %}
+</a>
+-->
+<div class="ui-grid-a">
+    <div class="ui-block-a">
+        {% if current_workout %}
+            <a href="#current-workout"
+               data-role="button"
+               data-rel="popup"
+               data-position-to="window">
+                <img src="{% static 'images/icons/list.svg' %}"
+                     width="32"
+                     height="32"
+                     alt="{{current_workout}}"
+                     title="{{current_workout}}">
+                <br>
+                {{current_workout}}
+            </a>
+        {% else %}
+            <a href="{% url 'workout-add' %}" data-role="button">
+                <img src="{% static 'images/icons/add.svg' %}"
+                     width="32"
+                     height="32"
+                     alt="{% trans 'Workout' %}"
+                     title="{% trans 'Workout' %}">
+                <br>
+                {% trans "Workout" %}
+            </a>
+        {% endif %}
+    </div>
+    <div class="ui-block-b">
+        <a href="{% url 'workout-calendar' %}" data-role="button" data-ajax="false">
+            <img src="{% static 'images/icons/calendar.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Calendar' %}"
+                 title="{% trans 'Calendar' %}">
+            <br>
+            {% trans "Calendar" %}
+        </a>
+    </div>
+    <div class="ui-block-a">
+        {% if plan %}
+        <a href="#current-nutrition-plan"
+           data-role="button"
+           data-rel="popup"
+           data-position-to="window">
+            <img src="{% static 'images/icons/list.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Nutrition' %}"
+                 title="{% trans 'Nutrition' %}">
+            <br>
+            {{plan}}
+        </a>
+        {% else %}
+            <a href="{% url 'nutrition-add' %}" data-role="button">
+                <img src="{% static 'images/icons/add.svg' %}"
+                     width="32"
+                     height="32"
+                     alt="{% trans 'Workouts' %}"
+                     title="{% trans 'Workouts' %}">
+                <br>
+                {% trans "Nutrition plan" %}
+            </a>
+        {% endif %}
+    </div>
+    <div class="ui-block-b">
+
+        <a href="{% url 'wger.weight.views.overview' %}" data-role="button" data-ajax="false">
+            <img src="{% static 'images/icons/statistics.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Weight overview' %}"
+                 title="{% trans 'Weight overview' %}">
+            <br>
+            {% trans "Weight overview" %}
+        </a>
+    </div>
+    <div class="ui-block-a">
+        <a href="{% url 'wger.manager.views.user.preferences' %}" data-role="button">
+            <img src="{% static 'images/icons/preferences.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Preferences' %}"
+                 title="{% trans 'Preferences' %}">
+            <br>
+            {% trans "Preferences" %}
+        </a>
+    </div>
+    <div class="ui-block-b">
+        <a href="{% url 'contact' %}" data-role="button">
+            <img src="{% static 'images/icons/mail.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Get in touch' %}"
+                 title="{% trans 'Get in touch' %}">
+            <br>
+            {% trans "Get in touch" %}
+        </a>
+    </div>
+</div>
 {% endblock %}
