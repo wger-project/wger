@@ -27,9 +27,6 @@
                                    data-toggle="dropdown">{% trans "Workouts" %} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{% url 'wger.manager.views.workout.overview' %}" rel="nofollow">{% trans "Workouts" %}</a></li>
-                                    {% if user.is_authenticated %}
-                                    <li><a href="{% url 'workout-calendar' %}" rel="nofollow">{% trans "Current workout" %}</a></li>
-                                    {% endif %}
                                     <li><a href="{% url 'workout-calendar' %}" rel="nofollow">{% trans "Calendar" %}</a></li>
                                     <li><a href="{% url 'schedule-overview' %}" rel="nofollow">{% trans "Workouts schedules" %}</a></li>
                                 </ul>
