@@ -1,0 +1,19 @@
+{% spaceless %}{% load url from future %}{% load i18n %}
+{% if expired %}
+    {% blocktrans %}Your current workout '{{workout}}' expired {{days}} days ago.{% endblocktrans %}
+{% else %}
+    {% blocktrans %}Your current workout '{{workout}}' is about to expire in {{days}} days.{% endblocktrans %}
+{% endif %}
+{% endspaceless %}
+
+{% blocktrans %}You will regularly receive such reminders till you add a new workout.
+Alternatively you can add workouts to a loop schedule, such schedules
+never produce reminders. If you don't want to ever receive email
+reminders, deactivate the option in your settings.{% endblocktrans %}
+
+{% trans "   the wger.de team" %}
+
+
+* http://{{site}}{{workout.get_absolute_url}}
+* http://{{site}}{% url 'workout-add' %}
+* http://{{site}}{% url 'preferences' %}

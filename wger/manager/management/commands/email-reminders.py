@@ -16,6 +16,7 @@
 
 import datetime
 
+from django.template import loader
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 from django.core import mail
@@ -57,9 +58,6 @@ class Command(BaseCommand):
                     - profile.last_workout_notification
                     < datetime.timedelta(weeks=1)):
                 continue
-            else:
-                profile.last_workout_notification = datetime.date.today()
-                profile.save()
 
             (current_workout, schedule) = Schedule.objects.get_current_workout(profile.user)
 
@@ -73,9 +71,10 @@ class Command(BaseCommand):
                     if int(options['verbosity']) >= 3:
                         print "* Workout '{0}' overdue".format(current_workout)
                     counter += 1
+
                     self.send_email(profile.user,
                                     current_workout,
-                                    profile.workout_duration)
+                                    datetime.timedelta(days=profile.workout_reminder) - delta)
 
             # non-loop schedule, take the step's duration
             elif schedule and not schedule.is_loop:
@@ -95,43 +94,35 @@ class Command(BaseCommand):
                         counter += 1
                         self.send_email(profile.user,
                                         current_workout,
-                                        profile.workout_duration)
+                                        delta)
 
         if counter and int(options['verbosity']) >= 2:
             self.stdout.write("Sent {0} email reminders".format(counter))
 
     @staticmethod
-    def send_email(user, workout, days):
+    def send_email(user, workout, delta):
         '''
         Notify a user that a workout is about to expire
 
         :type user User
         :type workout Workout
-        :type days int
+        :type delta datetime.timedelta
         '''
 
+        # Update the last notification date field
+        user.userprofile.last_workout_notification = datetime.date.today()
+        user.userprofile.save()
+
+        # Compose and send the email
         translation.activate(user.userprofile.notification_language.short_name)
-        site = Site.objects.get(pk=settings.SITE_ID)
-        workout_link = 'http://{0}{1}'.format(site.domain, workout.get_absolute_url())
-        add_workout_link = 'http://{0}{1}'.format(site.domain, reverse('workout-add'))
-        settings_link = 'http://{0}{1}'.format(site.domain, reverse('preferences'))
+        context = {}
+        context['site'] = Site.objects.get(pk=settings.SITE_ID)
+        context['workout'] = workout
+        context['expired'] = True if delta.days < 0 else False
+        context['days'] = abs(delta.days)
 
         subject = _('Workout will expire soon')
-        message = _("Your current workout '{workout}' is about to expire in {days} days.\n\n"
-                    ""
-                    "You will regularly receive such reminders till you add a new workout.\n"
-                    "Alternatively you can add workouts to a loop schedule, such schedules\n"
-                    "never produce reminders. If you don't want to ever receive email\n"
-                    "reminders, deactivate the option in your settings.\n\n"
-                    ""
-                    "* {add_workout_link}\n"
-                    "* {workout_link}\n"
-                    "* {settings_link}"
-                    ).format(workout=workout,
-                             days=days,
-                             workout_link=workout_link,
-                             add_workout_link=add_workout_link,
-                             settings_link=settings_link)
+        message = loader.render_to_string('workout/email_reminder.html', context)
         mail.send_mail(subject,
                        message,
                        EMAIL_FROM,
