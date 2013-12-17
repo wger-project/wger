@@ -56,4 +56,4 @@ PAGINATION_PAGES_AROUND_CURRENT = 5
 
 
 # Email
-EMAIL_FROM = 'wger Workout Manager <roland@wger.de>'
+EMAIL_FROM = 'wger Workout Manager <hello@wger.de>'
