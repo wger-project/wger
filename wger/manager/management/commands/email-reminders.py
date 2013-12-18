@@ -74,7 +74,7 @@ class Command(BaseCommand):
 
                     self.send_email(profile.user,
                                     current_workout,
-                                    datetime.timedelta(days=profile.workout_reminder) - delta)
+                                    delta)
 
             # non-loop schedule, take the step's duration
             elif schedule and not schedule.is_loop:
