@@ -84,6 +84,8 @@ urlpatterns = urlpatterns + patterns('',
         name='robots'),
     url(r'^manifest\.webapp$',
         WebappManifestView.as_view(template_name="manifest.webapp"),
+       ),url(r'^amazon-manifest\.webapp$',
+        WebappManifestView.as_view(template_name="amazon-manifest.webapp"),
        ),
    (r'^api/', include(v1_api.urls)),
 )

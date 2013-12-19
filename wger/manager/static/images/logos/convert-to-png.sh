@@ -22,7 +22,7 @@
 # Note: you need to have the OpenSans fonts installed where inkscape can find them
 #
 
-for resolution in 16 30 32 48 60 64 128 256
+for resolution in 16 30 32 48 60 64 114 128 256
 do
     # Regular Icon
     inkscape \
