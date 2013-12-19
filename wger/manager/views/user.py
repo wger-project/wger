@@ -39,6 +39,8 @@ from wger.exercises.models import Language
 from wger.manager.forms import UserPreferencesForm
 from wger.manager.forms import UserEmailForm
 from wger.manager.forms import RegistrationForm
+from wger.utils.constants import USER_TAB
+from wger.utils.user_agents import check_request_amazon
 
 logger = logging.getLogger('wger.custom')
 
@@ -48,8 +50,11 @@ def login(request):
     Small wrapper around the django login view
     '''
 
+    context = {'is_amazon': check_request_amazon(request),
+               'active_tab': USER_TAB}
     return django_loginview(request,
-                            template_name='user/login.html')
+                            template_name='user/login.html',
+                            extra_context=context)
 
 
 def logout(request):

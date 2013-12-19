@@ -34,6 +34,7 @@
 </table>
 </form>
 
+{% if not is_amazon %}
 <div style="text-align:center;">
 <h3>— {% trans "or" %} —</h3>
     <div style="padding-top:1em;"></div>
@@ -52,7 +53,7 @@
     take a look at the <a href="https://login.persona.org/" target="_blank">the
     Persona website</a>.{% endblocktrans %}
 </p>
-
+{% endif %}
 
 {% endblock %}
 

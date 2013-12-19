@@ -15,6 +15,7 @@ from wger.manager.views.day import DayCreateView
 from wger.manager.views import set
 from wger.manager.views import misc
 from wger.manager.views import ical
+from wger.manager.views import user
 
 from wger.utils.constants import USER_TAB
 
@@ -166,9 +167,7 @@ urlpatterns = urlpatterns + patterns('wger.manager.pdf',
 # (besides the templates)
 urlpatterns = urlpatterns + patterns('',
     url(r'^user/login$',
-        'django.contrib.auth.views.login',
-        {'template_name': 'user/login.html',
-         'extra_context': {'active_tab': USER_TAB}},
+        user.login,
         name='login'),
 
     url(r'^user/password/change$',
