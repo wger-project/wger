@@ -182,7 +182,7 @@ class ExercisesEditAddView(WgerFormMixin):
                 widgets = {'equipment': TranslatedSelectMultiple()}
 
             class Media:
-                js = ('js/tinymce/tiny_mce.js',)
+                js = ('js/tinymce/tinymce.min.js',)
 
         return ExerciseForm
 

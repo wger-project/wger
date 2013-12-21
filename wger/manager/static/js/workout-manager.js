@@ -124,15 +124,21 @@ function toggle_comments()
 function init_tinymce() {
 
     // Only try to init it on pages that loaded its JS file (so they probably need it)
+    //
+    // See the following links on detail about configuring the menus
+    // http://www.tinymce.com/wiki.php/Configuration:toolbar
+    // http://www.tinymce.com/wiki.php/Configuration:menu
     if (typeof tinyMCE != 'undefined')
     {
         tinyMCE.init({
             // General options
             mode : "textareas",
-            theme : "simple",
+            theme : "modern",
             width : "100%",
             height : "200",
-            entity_encoding : "raw"
+            entity_encoding : "raw",
+            menu: {},
+            toolbar: "undo redo | bold italic | bullist numlist "
         });
    }
 }
