@@ -7,10 +7,11 @@
 <div data-role="popup"
      id="editoptions-day-{{ day.id }}"
      data-theme="d"
-     data-overlay-theme="a"
-     class="ui-content">
-    <div>
-        <h3>{{day.description}}</h3>
+     data-overlay-theme="a">
+        <div data-role="header" data-theme="b">
+            <h3>{{day.description}}</h3>
+        </div>
+        <div role="main" class="ui-content">
         <a href="{% url 'day-log' day.id %}"
            title="{% trans 'Add weight log to this day' %}"
            data-role="button">
@@ -38,17 +39,18 @@
                      alt="{% trans 'Delete' %}">
                      {% trans "Delete" %}
         </a>
-    </div>
+        </div>
 </div>
 
 
 {% for set in day.set_set.select_related %}
 <div data-role="popup"
      id="editoptions-set-{{ set.id }}"
-     data-overlay-theme="a"
-     class="ui-content">
-    <div>
-        <h3>{% trans "Options" %}</h3>
+     data-overlay-theme="a">
+        <div data-role="header" data-theme="b">
+            <h3>{% trans "Options" %}</h3>
+        </div>
+        <div role="main" class="ui-content">
         <a href="{% url 'wger.manager.views.set.edit' set.id %}"
            title="{% trans 'Delete' %}"
            data-role="button">
@@ -69,8 +71,8 @@
                      class="ui-li-icon ui-corner-none">
                 {% trans "Delete" %}
         </a>
-        
-        <h3>{% trans "Exercises" %}</h3>
+
+        <h5>{% trans "Exercises" %}</h5>
         {% for exercise in set.exercises.select_related %}
             <a href="{{ exercise.get_absolute_url }}"
                title="{{ exercise.name }}"

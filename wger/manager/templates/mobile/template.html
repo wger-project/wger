@@ -59,17 +59,21 @@
 <div data-role="page" id="page-{{request_full_path|slugify}}" data-url="{{request_full_path}}" data-theme="c">
     {% block scripts %}{% endblock %}
     {% if not user.is_authenticated or user.userprofile.is_temporary %}
-        <div data-role="popup" data-overlay-theme="a" id="popupGuestUser-{{request_full_path|slugify}}" class="ui-content">
-        <h3>{% trans "Info" %}</h3>
-        {% trans "You are using a guest account, data entered will be deleted after a week."%}
-        {% if not has_demo_data %}
-        <a href="{% url 'demo-entries' %}"
-           rel="nofollow"
-           data-role="button"
-           data-mini="true"
-           data-theme="e"
-           data-ajax="false">{% trans "Create some demo entries" %} »</a>
-        {% endif %}
+        <div data-role="popup" data-overlay-theme="a" id="popupGuestUser-{{request_full_path|slugify}}">
+            <div data-role="header" >
+                <h3>{% trans "Info" %}</h3>
+            </div>
+            <div role="main" class="ui-content">
+            {% trans "You are using a guest account, data entered will be deleted after a week."%}
+            {% if not has_demo_data %}
+            <a href="{% url 'demo-entries' %}"
+               rel="nofollow"
+               data-role="button"
+               data-mini="true"
+               data-theme="e"
+               data-ajax="false">{% trans "Create some demo entries" %} »</a>
+            {% endif %}
+            </div>
         </div>
     {% endif %}
     <header data-role="header" data-theme="b" data-position="fixed">

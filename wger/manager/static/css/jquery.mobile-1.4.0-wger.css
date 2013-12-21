@@ -711,7 +711,7 @@ html .ui-bar-d .ui-bar-inherit,
 html .ui-body-d .ui-bar-inherit,
 html body .ui-group-theme-d .ui-bar-inherit {
 	background: #bbb /*{d-bar-background-color}*/;
-	border-color: #FF0f00 /*{d-bar-border}*/;
+	border-color: #bbb /*{d-bar-border}*/;
 	color: #333 /*{d-bar-color}*/;
 	text-shadow: 0 /*{d-bar-shadow-x}*/ 1px /*{d-bar-shadow-y}*/ 0 /*{d-bar-shadow-radius}*/ #eee /*{d-bar-shadow-color}*/;
 	font-weight: bold;

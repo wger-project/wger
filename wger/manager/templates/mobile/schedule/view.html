@@ -13,9 +13,12 @@
 <div data-role="popup"
      id="step-{{step.id}}"
      data-theme="d"
-     data-overlay-theme="a"
-     class="ui-content">
-    <h3>{%trans "Options" %}</h3>
+     data-overlay-theme="a">
+    <div data-role="header" data-theme="b">
+        <h3>{%trans "Options" %}</h3>
+    </div>
+
+    <div role="main" class="ui-content">
     <a href="{% url 'step-edit' step.id %}"
            title="{% trans 'Edit' %}"
            data-role="button">
@@ -30,6 +33,7 @@
                  width="22"
                  height="22"
                  alt="{% trans 'Delete' %}">{% trans 'Delete' %}</a>
+    </div>
 </div>
 {% endfor %}
 
@@ -118,10 +122,11 @@ than once.{% endblocktrans %}</p>
 
 <div data-role="popup"
      id="export-ical-link"
-     data-overlay-theme="a"
-     class="ui-content">
-     <div>
+     data-overlay-theme="a">
+    <div data-role="header" data-theme="b">
         <h3>{% trans "Export calendar file" %}</h3>
+    </div>
+    <div role="main" class="ui-content">
         <p>{% trans "Export this schedule as a calendar file." %}</p>
         <p>{% blocktrans %}You can then import the file it into your calendar
 application for example google calendar, outlook or iCal. This will create

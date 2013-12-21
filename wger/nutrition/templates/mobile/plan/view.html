@@ -46,10 +46,12 @@ $(document).ready(function() {
 <div data-role="popup"
      id="editoptions-meal-{{ meal.id }}"
      data-theme="d"
-     data-overlay-theme="a"
-     class="ui-content">
-    <div>
-    <h3>{% trans "Options" %}</h3>
+     data-overlay-theme="a">
+    <div data-role="header" data-theme="b">
+        <h3>{% trans "Options" %}</h3>
+    </div>
+
+    <div role="main" class="ui-content">
     <a href="{% url 'wger.nutrition.views.meal.delete_meal' meal.id %}"
        title="{% trans 'Delete' %}"
        data-role="button">
@@ -81,18 +83,19 @@ $(document).ready(function() {
              title="{% trans 'Add item to meal' %}">
              {% trans "Add item to meal" %}
    </a>
-    </div>
+   </div>
 </div>
 
 {% for item in meal.mealitem_set.select_related %}
     <div data-role="popup"
      id="editoptions-item-{{ item.id }}"
      data-theme="d"
-     data-overlay-theme="a"
-     class="ui-content">
-    <div>
-    <h3>{% trans "Options" %}</h3>
+     data-overlay-theme="a">
+    <div data-role="header" data-theme="b">
+        <h3>{% trans "Options" %}</h3>
+    </div>
 
+    <div role="main" class="ui-content">
     <a href="{% url 'wger.nutrition.views.meal_item.delete_meal_item' item.id %}"
        title="{% trans 'Delete' %}"
        data-role="button">

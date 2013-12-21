@@ -8,12 +8,13 @@
 
 {% block content %}
 <div data-role="popup"
-     id="current-workout"
-     data-overlay-theme="a"
-     class="ui-content">
-     <div>
+     id="current-workout-{{request_full_path|slugify}}"
+     data-overlay-theme="a">
+    <div data-role="header">
+        <h3>{% trans "Current workout" %}</h3>
+    </div>
+    <div role="main" class="ui-content">
          {% if current_workout %}
-         <h3>{% trans "Current workout" %}</h3>
          <ul data-role="listview" data-inset="false" style="margin-bottom:1em;" data-theme="b">
             <li>
                 <a href="{% url 'wger.manager.views.workout.view' current_workout.id %}"
@@ -39,19 +40,20 @@
             → {% trans "This workout is part of a schedule:" %}
             <a href="{{schedule.get_absolute_url}}">{{schedule.name}}</a>
         </p>
-{% endif %}
+        {% endif %}
         {% endif %}
     </div>
 </div>
 
 
 <div data-role="popup"
-     id="current-nutrition-plan"
-     data-overlay-theme="a"
-     class="ui-content">
-     <div>
-         {% if plan %}
+     id="current-nutrition-plan-{{request_full_path|slugify}}"
+     data-overlay-theme="a">
+    <div data-role="header">
          <h4>{% trans "Current nutrition plan" %}</h4>
+     </div>
+    <div role="main" class="ui-content">
+         {% if plan %}
          <ul data-role="listview" data-inset="false" style="margin-bottom:1em;" data-theme="b">
             <li>
                 <a href="{% url 'wger.nutrition.views.plan.view' plan.id %}"
@@ -101,7 +103,7 @@
 <div class="ui-grid-a">
     <div class="ui-block-a">
         {% if current_workout %}
-            <a href="#current-workout"
+            <a href="#current-workout-{{request_full_path|slugify}}"
                data-role="button"
                data-rel="popup"
                data-position-to="window">
@@ -138,7 +140,7 @@
     </div>
     <div class="ui-block-a">
         {% if plan %}
-        <a href="#current-nutrition-plan"
+        <a href="#current-nutrition-plan-{{request_full_path|slugify}}"
            data-role="button"
            data-rel="popup"
            data-position-to="window">
