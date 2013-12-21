@@ -113,7 +113,7 @@ you can click on them to see the details.{% endblocktrans %}</p>
 <ul data-role="listview" data-inset="true">
 {% for date in month_list %}
     {% ifchanged date.year %}
-        <li data-role="list-divider">{{ date|date:"Y" }}</li>
+        <li data-role="list-divider" data-theme="b">{{ date|date:"Y" }}</li>
     {% endifchanged %}
     {% if current_month = date.month and current_year = date.year %}
         <li>{{date|date:"F"}}</li>

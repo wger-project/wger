@@ -30,6 +30,7 @@
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
 
     {% compress css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.mobile.icons.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-mobile.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-mobile.structure.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-common.css' %}">
@@ -55,11 +56,10 @@
 </head>
 <body>
 {% browserid_info %}
-<div data-role="page" id="page-{{request_full_path|slugify}}" data-url="{{request_full_path}}">
-
+<div data-role="page" id="page-{{request_full_path|slugify}}" data-url="{{request_full_path}}" data-theme="c">
     {% block scripts %}{% endblock %}
     {% if not user.is_authenticated or user.userprofile.is_temporary %}
-        <div data-role="popup" data-overlay-theme="a" id="popupGuestUser" class="ui-content">
+        <div data-role="popup" data-overlay-theme="a" id="popupGuestUser-{{request_full_path|slugify}}" class="ui-content">
         <h3>{% trans "Info" %}</h3>
         {% trans "You are using a guest account, data entered will be deleted after a week."%}
         {% if not has_demo_data %}
@@ -72,7 +72,6 @@
         {% endif %}
         </div>
     {% endif %}
-
     <header data-role="header" data-theme="b" data-position="fixed">
         <h1>wger</h1>
         <a href="#main-panel-navigation"
@@ -82,7 +81,7 @@
            data-icon="bars"
            data-iconshadow="false">{% trans "Menu" %}</a>
        {% if not user.is_authenticated or user.userprofile.is_temporary %}
-            <a href="#popupGuestUser"
+            <a href="#popupGuestUser-{{request_full_path|slugify}}"
                class="ui-icon-nodisc"
                data-rel="popup"
                data-inline="true"
