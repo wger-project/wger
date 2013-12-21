@@ -156,16 +156,6 @@ $( document ).off("pageinit").on("pageinit", function() {
    {% trans "Edit workout" %}
 </a>
 
-<a href="{% url 'workout-copy' workout.id %}"
-   data-role="button">
-   <img src="{% static 'images/icons/copy.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Make a copy of this workout' %}"
-         title="{% trans 'Make a copy of this workout' %}">
-   {% trans "Make a copy of this workout" %}
-</a>
-
 <a href="#export-ical-link"
    data-rel="popup"
    data-role="button"
@@ -176,6 +166,16 @@ $( document ).off("pageinit").on("pageinit", function() {
          alt="{% trans 'Export calendar file' %}"
          title="{% trans 'Export calendar file' %}">
    {% trans "Export calendar file" %}
+</a>
+
+<a href="{% url 'workout-copy' workout.id %}"
+   data-role="button">
+   <img src="{% static 'images/icons/copy.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Make a copy of this workout' %}"
+         title="{% trans 'Make a copy of this workout' %}">
+   {% trans "Make a copy of this workout" %}
 </a>
 
 <a href="{% url 'workout-delete' workout.id %}"
