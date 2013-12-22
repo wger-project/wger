@@ -63,10 +63,11 @@ $(document).ready(function() {
 {% block sidebar %}
 <div data-role="popup"
      id="calendar-day-select-popup"
-     data-overlay-theme="a"
-     class="ui-content">
-     <div>
-     <h3>{% trans "Add log to day" %}</h3>
+     data-overlay-theme="a">
+    <div data-role="header" data-theme="b">
+    <h3>{% trans "Add log to day" %}</h3>
+    </div>
+    <div role="main" class="ui-content">
          {% if current_workout %}
          <p>{% blocktrans %}Click to add weight logs to a training
 day in your current workout:{% endblocktrans %} {{current_workout}}</p>
