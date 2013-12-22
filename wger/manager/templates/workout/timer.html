@@ -78,6 +78,21 @@ function draw_step(step) { // step between 0 and 1
 
 function start_countdown(step_id, seconds)
 {
+
+    // deactivate the button if needed
+    var link = $('#button-' + step_id) ;
+    if (! link.is(".ui-state-disabled"))
+    {
+        link.addClass('ui-state-disabled');
+        link.click(function(e) {
+            e.preventDefault();
+        });
+    }
+    else
+    {
+        return false;
+    }
+
     canvas = document.getElementById('canvas-div-'+step_id);
     num = $('#counter-'+step_id);
     ctx = canvas.getContext('2d');
@@ -110,8 +125,6 @@ $(document).ready(function() {
     $('.timer-step').width(div_width);
     $('.timer-step').height(div_height);
 
-    var theImage = $('ul li img');
-    var theWidth = theImage.width();
     //wrap into mother div
     $('#container ul').wrap('<div id="mother" />');
     //assign height width and overflow hidden to mother
@@ -125,6 +138,7 @@ $(document).ready(function() {
         position: 'relative',
         overflow: 'hidden'
     });
+
     //get total of image sizes and set as width for ul
     var totalWidth = $('.timer-step').length * div_width;
     $('#container ul').css({
@@ -132,6 +146,8 @@ $(document).ready(function() {
             return totalWidth;
         }
     });
+
+    // Bind necessary click events to advance the workout
     $('#container ul li').each(function(intIndex) {
         $(this).find('a').bind("click", function() {
             var step_id = $(this).parents('li').data('step');
@@ -145,8 +161,10 @@ $(document).ready(function() {
                 $(this).parents('ul').animate({
                     "margin-left": (-(intIndex - 1) * div_width)
                 }, 600)
+
             } else if ($(this).is(".start")) {
                 start_countdown(step_id, step_time);
+
             } else if ($(this).is(".startover")) {
                 $(this).parent('li').parent('ul').animate({
                     "margin-left": (0)
@@ -162,17 +180,23 @@ $(document).ready(function() {
 <div id="container">
 <ul class="workout-timer">
 <li class="timer-step" id="div-warmup">
-    <h2>{% trans "Warm up!" %}</h2>
+    <h2>{% trans "Your workout today" %}</h2>
 
-    <div class="filler_div"></div>
-    <div class="sub_header">5 min.</div>
+    <div class="filler_div">
+        {% for exercise in exercise_list %}
+            {{exercise}}<br>
+        {% endfor %}
+    </div>
+    <!--
+    <div class="sub_header"></div>
+    -->
 
 
     <a class="next bottom_button"
        href="#"
        data-role="button"
        data-icon="arrow-r"
-       data-iconpos="right">{% trans "Start workout" %}</a>
+       data-iconpos="right">{% trans "Start!" %}</a>
 </li>
 {% for step in step_list %}
     {% if step.type == 'exercise' %}
@@ -213,7 +237,7 @@ $(document).ready(function() {
                     <div class="sub_header"><span id="counter-{{step.current_step}}">{{step.time}}</span> {% trans "sec" %}</div>
                 </div>
                 <div class="ui-block-b">
-                    <a class="start" href="#" data-role="button">{% trans "start" %}</a>
+                    <a class="start" href="#" data-role="button" id="button-{{step.current_step}}">{% trans "start" %}</a>
                 </div>
             </div>
 

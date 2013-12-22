@@ -179,7 +179,7 @@ def copy_workout(request, pk):
                             setting_copy.save()
 
             return HttpResponseRedirect(reverse('wger.manager.views.workout.view',
-                                        kwargs={'id': workout.id}))
+                                                kwargs={'id': workout.id}))
     else:
         workout_form = WorkoutCopyForm({'comment': workout.comment})
 
@@ -244,12 +244,28 @@ def timer(request, pk):
 
     day = Day.objects.get(pk=pk, training__user=request.user)
     context['day'] = day
+    exercise_list = []
     step_list = []
 
-    for set in day.set_set.select_related():
+    for set_obj in day.set_set.select_related():
 
-        for exercise in set.exercises.select_related():
-            for setting in Setting.objects.filter(set=set, exercise=exercise).order_by('order'):
+        is_superset = False if set_obj.exercises.select_related().count() == 1 else True
+        tmp_2 = []
+
+        for exercise in set_obj.exercises.select_related():
+
+            exercise_list.append(exercise)
+
+            # 'compact' means that there is only one setting object, e.g: the set has
+            # set.sets = 4 and there is only one setting: setting.reps = 10, total: 4x10
+            # Not compact settings have an entry for each repetition:
+            # set.sets = 4 and four setting objects: setting.reps = 10, 8, 8, 6
+            is_compact = False \
+                if Setting.objects.filter(set=set_obj, exercise=exercise).count() == 1 \
+                else True
+            logger.debug('is_compact: {0}'.format(is_compact))
+
+            for setting in Setting.objects.filter(set=set_obj, exercise=exercise).order_by('order'):
 
                 # To find out the last weight, look if the user has already
                 # a log with same exercise and repetitions and use the last one.
@@ -259,22 +275,29 @@ def timer(request, pk):
                 if last_log.exists():
                     weight = last_log[0].weight
                 else:
-                    weight = None
+                    weight = ''
 
-                # Exercise
-                step_list.append({'current_step': uuid.uuid4().hex,
+                # Set range
+                if not is_compact:
+                    set_range = range(0, set_obj.sets)
+                else:
+                    set_range = (0, )
+
+                for i in set_range:
+                    tmp_2.append({'current_step': uuid.uuid4().hex,
                                   'exercise': exercise,
                                   'type': 'exercise',
                                   'weight': weight,
                                   'reps': setting.reps})
-                # Pause
-                step_list.append({'current_step': uuid.uuid4().hex,
+
+                    tmp_2.append({'current_step': uuid.uuid4().hex,
                                   'type': 'pause',
                                   'time': 30})
 
+        step_list = step_list + tmp_2
+
     context['step_list'] = step_list
-    import pprint
-    pprint.pprint(step_list)
+    context['exercise_list'] = exercise_list
     return render_to_response('workout/timer.html',
                               context,
                               context_instance=RequestContext(request))
