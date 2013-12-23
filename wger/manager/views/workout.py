@@ -234,70 +234,81 @@ class WorkoutEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     login_required = True
 
 
+def get_last_weight(user, exercise, reps):
+    '''
+    Helper function to retrieve the last workout log for a certain
+    user, exercise and repetition combination. Returns an emtpy string
+    if no entry is found
+
+    :param user:
+    :param exercise:
+    :param reps:
+    :return: WorkoutLog or '' if none is found
+    '''
+    last_log = WorkoutLog.objects.filter(user=user,
+                                         exercise=exercise,
+                                         reps=reps).order_by('-date')
+    if last_log.exists():
+        weight = last_log[0].weight
+    else:
+        weight = ''
+
+    return weight
+
+
 @login_required
 def timer(request, pk):
     '''
     The timer view ("gym mode") for a workout
     '''
 
-    context = {}
-
     day = Day.objects.get(pk=pk, training__user=request.user)
+    canonical_day = day.canonical_representation
+    context = {}
     context['day'] = day
-    exercise_list = []
     step_list = []
 
-    for set_obj in day.set_set.select_related():
+    for set_dict in canonical_day:
 
-        is_superset = False if set_obj.exercises.select_related().count() == 1 else True
-        tmp_2 = []
+        if not set_dict['is_superset']:
+            for exercise_dict in set_dict['exercise_list']:
+                exercise = exercise_dict['obj']
+                for reps in exercise_dict['setting_list']:
 
-        for exercise in set_obj.exercises.select_related():
+                    step_list.append({'current_step': uuid.uuid4().hex,
+                                      'exercise': exercise,
+                                      'type': 'exercise',
+                                      'reps': reps,
+                                      'weight': get_last_weight(user=request.user,
+                                                                exercise=exercise,
+                                                                reps=reps)})
 
-            exercise_list.append(exercise)
+                    step_list.append({'current_step': uuid.uuid4().hex,
+                                      'type': 'pause',
+                                      'time': 30})
 
-            # 'compact' means that there is only one setting object, e.g: the set has
-            # set.sets = 4 and there is only one setting: setting.reps = 10, total: 4x10
-            # Not compact settings have an entry for each repetition:
-            # set.sets = 4 and four setting objects: setting.reps = 10, 8, 8, 6
-            is_compact = False \
-                if Setting.objects.filter(set=set_obj, exercise=exercise).count() == 1 \
-                else True
-            logger.debug('is_compact: {0}'.format(is_compact))
+        # Supersets need extra work to group the exercises and reps together
+        else:
+            total_reps = len(set_dict['exercise_list'][0]['setting_list'])
+            for i in range(0, total_reps):
+                for exercise_dict in set_dict['exercise_list']:
+                    reps = exercise_dict['setting_list'][i]
+                    exercise = exercise_dict['obj']
 
-            for setting in Setting.objects.filter(set=set_obj, exercise=exercise).order_by('order'):
+                    step_list.append({'current_step': uuid.uuid4().hex,
+                                      'exercise': exercise,
+                                      'type': 'exercise',
+                                      'reps': reps,
+                                      'weight': get_last_weight(user=request.user,
+                                                                exercise=exercise,
+                                                                reps=reps)})
 
-                # To find out the last weight, look if the user has already
-                # a log with same exercise and repetitions and use the last one.
-                last_log = WorkoutLog.objects.filter(user=request.user,
-                                                     exercise=exercise,
-                                                     reps=setting.reps).order_by('-date')
-                if last_log.exists():
-                    weight = last_log[0].weight
-                else:
-                    weight = ''
-
-                # Set range
-                if not is_compact:
-                    set_range = range(0, set_obj.sets)
-                else:
-                    set_range = (0, )
-
-                for i in set_range:
-                    tmp_2.append({'current_step': uuid.uuid4().hex,
-                                  'exercise': exercise,
-                                  'type': 'exercise',
-                                  'weight': weight,
-                                  'reps': setting.reps})
-
-                    tmp_2.append({'current_step': uuid.uuid4().hex,
-                                  'type': 'pause',
-                                  'time': 30})
-
-        step_list = step_list + tmp_2
+                step_list.append({'current_step': uuid.uuid4().hex,
+                                 'type': 'pause',
+                                 'time': 30})
 
     context['step_list'] = step_list
-    context['exercise_list'] = exercise_list
+    context['canonical_day'] = canonical_day
     return render_to_response('workout/timer.html',
                               context,
                               context_instance=RequestContext(request))

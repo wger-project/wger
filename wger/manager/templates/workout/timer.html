@@ -183,8 +183,10 @@ $(document).ready(function() {
     <h2>{% trans "Your workout today" %}</h2>
 
     <div class="filler_div">
-        {% for exercise in exercise_list %}
-            {{exercise}}<br>
+        {% for set in canonical_day %}
+            {% for exercise in set.exercise_list %}
+                {{exercise.obj}}: {{exercise.setting_text}}<br>
+            {% endfor %}
         {% endfor %}
     </div>
     <!--
