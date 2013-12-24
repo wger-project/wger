@@ -43,10 +43,17 @@ div#container a{
     width: 95%;
 }
 
-a.bottom_button{
+.bottom_buttons{
     position: absolute;
     bottom:0px;
+    width: 100%;
 }
+
+a.bottom_button{
+    position: absolute;
+    bottom: 0px;
+}
+
 </style>
 <script>
 /*
@@ -166,17 +173,25 @@ $(document).ready(function() {
             var step_id = $(this).parents('li').data('step');
             var step_time = $(this).parents('li').data('time');
             if ($(this).is(".next")) {
+
                 $(this).parents('ul').animate({
                     "margin-left": (-(intIndex + 1) * div_width)
                 }, 600)
+
+                // Start the countdown for the next step slightly after the previous
+                // pagination animation is finished
+                var next_step = $(this).parents('li.timer-step').next();
+                if (next_step.is('.pause-step'))
+                {
+                    setTimeout(function() {
+                       start_countdown(next_step.data('step'), next_step.data('time'));
+                    }, 700);
+                }
 
             } else if ($(this).is(".previous")) {
                 $(this).parents('ul').animate({
                     "margin-left": (-(intIndex - 1) * div_width)
                 }, 600)
-
-            } else if ($(this).is(".start")) {
-                start_countdown(step_id, step_time);
 
             } else if ($(this).is(".startover")) {
                 $(this).parent('li').parent('ul').animate({
@@ -202,20 +217,17 @@ $(document).ready(function() {
             {% endfor %}
         {% endfor %}
     </div>
-    <!--
-    <div class="sub_header"></div>
-    -->
-
 
     <a class="next bottom_button"
        href="#"
        data-role="button"
        data-icon="arrow-r"
-       data-iconpos="right">{% trans "Start!" %}</a>
+       data-iconpos="right"
+       data-theme="d">{% trans "Start!" %}</a>
 </li>
 {% for step in step_list %}
     {% if step.type == 'exercise' %}
-        <li class="timer-step" id="div-{{step.current_step}}" data-step="{{step.current_step}}">
+        <li class="timer-step exercise-step" id="div-{{step.current_step}}" data-step="{{step.current_step}}">
             <h2>{{step.exercise}}</h2>
             <form action="{% url 'workout-log-add' workout.pk %}" method="POST">
                 {% csrf_token %}
@@ -234,7 +246,7 @@ $(document).ready(function() {
                            id="id-reps-{{step.current_step}}"
                            placeholder="{% trans 'Repetitions' %}"
                            value="{{step.reps}}"
-                           type="text"
+                           type="number"
                            autocomplete="off">
                 </div>
                 <div data-role="fieldcontain">
@@ -243,7 +255,7 @@ $(document).ready(function() {
                            id="id-weight-{{step.current_step}}"
                            placeholder="{% trans 'Weight' %}"
                            value="{{step.weight}}"
-                           type="text"
+                           type="number"
                            autocomplete="off">
                 </div>
             </div>
@@ -256,14 +268,30 @@ $(document).ready(function() {
                     {{step.reps}} {% trans "reps" %}
                 {% endif %}
             </div>
-            <a class="next bottom_button save_log"
-               href="#"
-               data-role="button"
-               data-icon="arrow-r"
-               data-iconpos="right">{% trans "Save or skip" %}</a>
+
+            <div class="ui-grid-a bottom_buttons">
+                <div class="ui-block-a">
+                    <a class="next"
+                       href="#"
+                       data-role="button"
+                       data-icon="forward"
+                       data-iconpos="right">{% trans "Skip" %}</a>
+                </div>
+                <div class="ui-block-b">
+                    <a class="next save_log"
+                       href="#"
+                       data-role="button"
+                       data-icon="arrow-r"
+                       data-iconpos="right">{% trans "Save" %}</a>
+                </div>
+            </div><!-- /grid-a -->
+
         </li>
     {% else %}
-        <li class="timer-step" id="div-{{step.current_step}}" data-step="{{step.current_step}}" data-time="{{step.time}}">
+        <li class="timer-step pause-step"
+            id="div-{{step.current_step}}"
+            data-step="{{step.current_step}}"
+            data-time="{{step.time}}">
             <h2>{% trans "Pause!" %}</h2>
 
             <canvas id="canvas-div-{{step.current_step}}"></canvas>
@@ -275,7 +303,14 @@ $(document).ready(function() {
                     </div>
                 </div>
                 <div class="ui-block-b">
-                    <a class="start" href="#" data-role="button" id="button-{{step.current_step}}">{% trans "start" %}</a>
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a">
+                            <a class="start" href="#" data-role="button" id="button-plus-{{step.current_step}}">+</a>
+                        </div>
+                        <div class="ui-block-b">
+                            <a class="start" href="#" data-role="button" id="button-minus-{{step.current_step}}">-</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -289,7 +324,9 @@ $(document).ready(function() {
 {% endfor %}
 <li class="timer-step" id="div-{{set.pk}}">
     <h2>{% trans "Workout complete!" %}</h2>
-    <p><strong>{% trans "Time" %}:</strong> MM:SS</p>
+    <p>
+        <strong>{% trans "Time" %}:</strong> <span id="total_time">MM:SS</span>
+    </p>
 </li>
 </ul>
 </div>
