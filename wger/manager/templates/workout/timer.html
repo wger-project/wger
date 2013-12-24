@@ -147,6 +147,19 @@ $(document).ready(function() {
         }
     });
 
+    // Bind the buttons that create new logs
+    $('.save_log').bind("click", function(e) {
+        e.preventDefault();
+        var form = $(this).siblings('form');
+
+        $.post( form.attr('action'), form.serialize(), function(data) {
+                 //response
+               }
+            );
+
+        console.log(form.attr('action'));
+    });
+
     // Bind necessary click events to advance the workout
     $('#container ul li').each(function(intIndex) {
         $(this).find('a').bind("click", function() {
@@ -204,16 +217,37 @@ $(document).ready(function() {
     {% if step.type == 'exercise' %}
         <li class="timer-step" id="div-{{step.current_step}}" data-step="{{step.current_step}}">
             <h2>{{step.exercise}}</h2>
+            <form action="{% url 'workout-log-add' workout.pk %}" method="POST">
+                {% csrf_token %}
+                <input name="exercise"
+                       id="id-exercise-{{step.current_step}}"
+                       value="{{step.exercise.pk}}"
+                       type="hidden">
+                <input name="date"
+                       id="id-date-{{step.current_step}}"
+                       value="{% now 'o-m-j' %}"
+                       type="hidden">
             <div class="filler_div">
                 <div data-role="fieldcontain">
-                    <label for="reps-field-{{step.current_step}}">{% trans "Repetitions" %}:</label>
-                    <input name="reps-field" id="reps-field-{{step.current_step}}" placeholder="{% trans 'Repetitions' %}" value="{{step.reps}}" type="text">
+                    <label for="id-reps-{{step.current_step}}">{% trans "Repetitions" %}:</label>
+                    <input name="reps"
+                           id="id-reps-{{step.current_step}}"
+                           placeholder="{% trans 'Repetitions' %}"
+                           value="{{step.reps}}"
+                           type="text"
+                           autocomplete="off">
                 </div>
                 <div data-role="fieldcontain">
-                    <label for="weight-field-{{step.current_step}}">{% trans "Weight" %}:</label>
-                    <input name="weight-field" id="weight-field-{{step.current_step}}" placeholder="{% trans 'Weight' %}" value="{{step.weight}}" type="text">
+                    <label for="id-weight-{{step.current_step}}">{% trans "Weight" %}:</label>
+                    <input name="weight"
+                           id="id-weight-{{step.current_step}}"
+                           placeholder="{% trans 'Weight' %}"
+                           value="{{step.weight}}"
+                           type="text"
+                           autocomplete="off">
                 </div>
             </div>
+            </form>
 
             <div class="sub_header">
                 {% if step.weight %}
@@ -222,7 +256,7 @@ $(document).ready(function() {
                     {{step.reps}} {% trans "reps" %}
                 {% endif %}
             </div>
-            <a class="next bottom_button"
+            <a class="next bottom_button save_log"
                href="#"
                data-role="button"
                data-icon="arrow-r"
@@ -236,7 +270,9 @@ $(document).ready(function() {
 
             <div class="ui-grid-a">
                 <div class="ui-block-a">
-                    <div class="sub_header"><span id="counter-{{step.current_step}}">{{step.time}}</span> {% trans "sec" %}</div>
+                    <div class="sub_header">
+                        <span id="counter-{{step.current_step}}">{{step.time}}</span> {% trans "sec" %}
+                    </div>
                 </div>
                 <div class="ui-block-b">
                     <a class="start" href="#" data-role="button" id="button-{{step.current_step}}">{% trans "start" %}</a>

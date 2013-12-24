@@ -309,6 +309,7 @@ def timer(request, pk):
 
     context['step_list'] = step_list
     context['canonical_day'] = canonical_day
+    context['workout'] = day.training
     return render_to_response('workout/timer.html',
                               context,
                               context_instance=RequestContext(request))

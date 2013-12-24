@@ -18,7 +18,6 @@ import logging
 import uuid
 import datetime
 from calendar import HTMLCalendar
-#from datetime import date
 from itertools import groupby
 
 from django.template import RequestContext
@@ -33,6 +32,7 @@ from django.utils.formats import date_format
 from django.forms.models import modelformset_factory
 
 from django.views.generic import UpdateView
+from django.views.generic import CreateView
 from django.views.generic import DetailView
 
 from wger.manager.models import Workout
@@ -73,6 +73,45 @@ class WorkoutLogUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
 
     def get_success_url(self):
         return reverse('workout-log', kwargs={'pk': self.object.workout_id})
+
+
+class WorkoutLogAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
+    '''
+    Generic view to add a new workout log weight entry
+    '''
+    model = WorkoutLog
+    login_required = True
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Check for ownership
+        '''
+        workout = Workout.objects.get(pk=kwargs['workout_pk'])
+        if workout.user != request.user:
+            return HttpResponseForbidden()
+
+        return super(WorkoutLogAddView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(WorkoutLogAddView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('workout-log-add',
+                                         kwargs={'workout_pk': self.kwargs['workout_pk']})
+        context['title'] = _('New log entry')
+
+        return context
+
+    def get_success_url(self):
+        return reverse('workout-log', kwargs={'pk': self.kwargs['workout_pk']})
+
+    def form_valid(self, form):
+        '''
+        Set the workout and the user
+        '''
+
+        workout = Workout.objects.get(pk=self.kwargs['workout_pk'])
+        form.instance.workout = workout
+        form.instance.user = self.request.user
+        return super(WorkoutLogAddView, self).form_valid(form)
 
 
 def add(request, pk):
