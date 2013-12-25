@@ -265,17 +265,17 @@ def timer(request, pk):
     day = Day.objects.get(pk=pk, training__user=request.user)
     canonical_day = day.canonical_representation
     context = {}
-    context['day'] = day
     step_list = []
 
+    # Go through the workout day and create the individual 'pages'
     for set_dict in canonical_day:
 
         if not set_dict['is_superset']:
             for exercise_dict in set_dict['exercise_list']:
                 exercise = exercise_dict['obj']
                 for reps in exercise_dict['setting_list']:
-
                     step_list.append({'current_step': uuid.uuid4().hex,
+                                      'step_percent': 0,
                                       'exercise': exercise,
                                       'type': 'exercise',
                                       'reps': reps,
@@ -284,6 +284,7 @@ def timer(request, pk):
                                                                 reps=reps)})
 
                     step_list.append({'current_step': uuid.uuid4().hex,
+                                      'step_percent': 0,
                                       'type': 'pause',
                                       'time': 30})
 
@@ -296,6 +297,7 @@ def timer(request, pk):
                     exercise = exercise_dict['obj']
 
                     step_list.append({'current_step': uuid.uuid4().hex,
+                                      'step_percent': 0,
                                       'exercise': exercise,
                                       'type': 'exercise',
                                       'reps': reps,
@@ -304,9 +306,15 @@ def timer(request, pk):
                                                                 reps=reps)})
 
                 step_list.append({'current_step': uuid.uuid4().hex,
-                                 'type': 'pause',
-                                 'time': 30})
+                                  'step_percent': 0,
+                                  'type': 'pause',
+                                  'time': 30})
 
+    # Go through the page list and calculate the correct value for step_percent
+    for i, s in enumerate(step_list):
+        step_list[i]['step_percent'] = (i + 1) * 100.0 / len(step_list),
+
+    context['day'] = day
     context['step_list'] = step_list
     context['canonical_day'] = canonical_day
     context['workout'] = day.training

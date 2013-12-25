@@ -54,6 +54,13 @@ a.bottom_button{
     bottom: 0px;
 }
 
+div.progress-bar{
+    height: 1px;
+    position: absolute;
+    bottom: 0px;
+    background-color: gray;
+}
+
 </style>
 <script>
 /*
@@ -286,6 +293,7 @@ $(document).ready(function() {
                 </div>
             </div><!-- /grid-a -->
 
+            <div id="progress-{{step.current_step}}" class="progress-bar" style="width: {{step.step_percent|stringformat:'f'}}%;"></div>
         </li>
     {% else %}
         <li class="timer-step pause-step"
@@ -319,6 +327,8 @@ $(document).ready(function() {
                data-role="button"
                data-icon="arrow-r"
                data-iconpos="right">{% trans "skip" %}</a>
+
+            <div id="progress-{{step.current_step}}" class="progress-bar" style="width: {{step.step_percent|stringformat:'f'}}%;"></div>
         </li>
     {% endif %}
 {% endfor %}
