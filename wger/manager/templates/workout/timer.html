@@ -14,7 +14,7 @@
     padding:0;
     margin:0;
 }
-ul.workout-timer li {
+ul#workout-timer li {
     float:left;
     list-style:none;
     position:relative;
@@ -63,84 +63,130 @@ div.progress-bar{
 
 </style>
 <script>
+"use strict";
 /*
  * http://fearlessflyer.com/how-to-create-your-own-jquery-content-slider/
  * https://github.com/fearlessflyer/content-slider
  * http://irae.pro.br/lab/canvas_pie_countdown/
  * http://www.html5canvastutorials.com/tutorials/html5-canvas-arcs/
+ * http://bookofzeus.com/articles/build-a-fancy-countdown-with-html5
  */
 
-function draw_step(step) { // step between 0 and 1
-    ctx.clearRect(0, 0, canvas_size[0], canvas_size[1]);
-    if(step < 1) {
-        ctx.beginPath();
-        ctx.moveTo(center[0], center[1]); // ponto central
-        ctx.arc(  // draw next arc
+var div_height = $( window ).height() * 0.80;
+var div_width = $( window ).width() * 0.85;
+
+var counter = {
+
+    // counters (in seconds, except the milliseconds one)
+    start: 0,
+    end: 60,
+    seconds: 0,
+    milliseconds: 0,
+
+    // other
+    fps: 40,
+    step_id: '',
+    interval: 0,
+
+    // Canvas info
+    ctx: '',
+    canvas_size: [0, 0],
+
+    draw_step: function(){
+        /*
+         * Step function, called every 1000/fps ms
+         */
+
+        // Perform exit cleanup if we finish the countdown
+        if (this.milliseconds >= this.end * 1000)
+        {
+            clearInterval(this.interval);
+            $('#counter-' + this.step_id).html('0');
+
+            var step = $('*[data-step="' + this.step_id + '"]');
+            paginate_to(step.data('number') + 1);
+            return;
+        }
+
+        // Update the HTML element with the current remaining time once per second
+        if (this.seconds != Math.ceil(this.milliseconds/1000))
+        {
+            $('#counter-' + this.step_id).html(this.end - this.seconds);
+        }
+
+        // Draw the arc in the canvas element
+        var radius = Math.min(this.canvas_size[0], this.canvas_size[1]) / 2;
+        var center = [this.canvas_size[0]/2, this.canvas_size[1]/2];
+        var step = this.milliseconds / (this.end * 1000) ;
+
+        this.ctx.clearRect(0, 0, this.canvas_size[0], this.canvas_size[1]);
+        this.ctx.beginPath();
+        this.ctx.moveTo(center[0], center[1]); // ponto central
+        this.ctx.arc(
             center[0],
             center[1],
             radius,
-            Math.PI * (-0.5 + 0), // -0.5 pra começar do topo
+            Math.PI * -0.5,
             Math.PI * (-0.5 + step*2),
-            true // anti horário
+            true // anti clockwise
         );
-        ctx.lineTo(center[0], center[1]); // line back to the center
-        ctx.closePath();
-        ctx.fillStyle = 'rgb(40, 40, 40)';    // color
-        ctx.fill();
+        this.ctx.lineTo(center[0], center[1]); // line back to the center
+        this.ctx.closePath();
+        this.ctx.fillStyle = 'rgb(40, 40, 40)'; // color
+        this.ctx.fill();
+
+        // Update counters
+        this.seconds = Math.ceil(this.milliseconds/1000);
+        this.milliseconds = this.milliseconds + 1000/this.fps;
+    },
+
+    init_canvas: function(step_id, seconds){
+        /*
+         * Initialise the canvas
+         */
+        var canvas = document.getElementById('canvas-div-' + step_id);
+        this.ctx = canvas.getContext('2d');
+        this.canvas_size = [canvas.width, canvas.height];
     }
 }
 
+
 function start_countdown(step_id, seconds)
 {
+    /*
+     * Initialise the counter objects and start the interval
+     */
+    counter.start = 0;
+    counter.end = seconds;
+    counter.milliseconds = 0;
+    counter.seconds = 0;
+    counter.step_id = step_id;
 
-    // deactivate the button if needed
-    var link = $('#button-' + step_id) ;
-    if (! link.is(".ui-state-disabled"))
-    {
-        link.addClass('ui-state-disabled');
-        link.click(function(e) {
-            e.preventDefault();
-        });
-    }
-    else
-    {
-        return false;
-    }
+    counter.init_canvas(step_id, seconds);
+    counter.interval = setInterval(
+        function() { counter.draw_step(step_id, seconds); },
+        1000/counter.fps
+    );
+}
 
-    canvas = document.getElementById('canvas-div-'+step_id);
-    num = $('#counter-'+step_id);
-    ctx = canvas.getContext('2d');
-    canvas_size = [canvas.width, canvas.height];
-    radius = Math.min(canvas_size[0], canvas_size[1]) / 2;
-    center = [canvas_size[0]/2, canvas_size[1]/2];
-    start = 1; // varia de 1 até 0
-    fps= 40;
-
-    var total = fps*seconds;
-    for(var i=total;i>=0;i--) {
-        var delayed = (function(){
-            var step = 1-i/total;
-            var left = Math.ceil(i/fps);
-            return function() {
-                num.html(left);
-                draw_step(step);
-            };
-        })();
-        setTimeout(delayed, -1000/fps*(i-total));
-    }
+function paginate_to(index){
+    /*
+     * Paginate to the step page with the given index
+     */
+    $('ul#workout-timer').animate({
+        "margin-left": (-index * div_width)
+    }, 600)
 }
 
 
 $(document).ready(function() {
-
-    var div_height = $( window ).height() * 0.80;
-    var div_width = $( window ).width() * 0.85;
 
     $('.timer-step').width(div_width);
     $('.timer-step').height(div_height);
 
     //wrap into mother div
     $('#container ul').wrap('<div id="mother" />');
+
     //assign height width and overflow hidden to mother
     $('#mother').css({
         width: function() {
@@ -170,51 +216,50 @@ $(document).ready(function() {
                  //response
                }
             );
-
-        console.log(form.attr('action'));
     });
 
-    // Bind necessary click events to advance the workout
-    $('#container ul li').each(function(intIndex) {
-        $(this).find('a').bind("click", function() {
-            var step_id = $(this).parents('li').data('step');
-            var step_time = $(this).parents('li').data('time');
-            if ($(this).is(".next")) {
+    // Bind the timer +/- buttons
+    //timer-minus
+    $('.timer-minus').bind("click", function(e) {
+        e.preventDefault();
+        counter.end = counter.end - 10;
+    });
+    $('.timer-plus').bind("click", function(e) {
+        e.preventDefault();
+        counter.end = counter.end + 10;
+    });
 
-                $(this).parents('ul').animate({
-                    "margin-left": (-(intIndex + 1) * div_width)
-                }, 600)
+    // Bind the pagination buttons
+    $('#container ul li.timer-step a.next').bind("click", function(e) {
+        e.preventDefault();
+        var step_id = $(this).parents('li').data('step');
+        var step_time = $(this).parents('li').data('time');
+        var step_nr = $(this).parents('li').data('number');
 
-                // Start the countdown for the next step slightly after the previous
-                // pagination animation is finished
-                var next_step = $(this).parents('li.timer-step').next();
-                if (next_step.is('.pause-step'))
-                {
-                    setTimeout(function() {
-                       start_countdown(next_step.data('step'), next_step.data('time'));
-                    }, 700);
-                }
+        //Cancel any previously running countdowns
+        clearInterval(counter.interval);
 
-            } else if ($(this).is(".previous")) {
-                $(this).parents('ul').animate({
-                    "margin-left": (-(intIndex - 1) * div_width)
-                }, 600)
+        // Paginate to next step
+        paginate_to(step_nr + 1)
 
-            } else if ($(this).is(".startover")) {
-                $(this).parent('li').parent('ul').animate({
-                    "margin-left": (0)
-                }, 600)
-            }
-        });// .bind()
-    });// .each()
+        // Start the countdown for the next step slightly after the previous
+        // pagination animation is finished
+        var next_step = $(this).parents('li.timer-step').next();
+        if (next_step.is('.pause-step'))
+        {
+            setTimeout(function() {
+               start_countdown(next_step.data('step'), next_step.data('time'));
+            }, 700);
+        }
+    });
 });
 </script>
 {% endblock %}
 
 {% block content %}
 <div id="container">
-<ul class="workout-timer">
-<li class="timer-step" id="div-warmup">
+<ul id="workout-timer">
+<li class="timer-step" id="div-warmup" data-number="0">
     <h2>{% trans "Your workout today" %}</h2>
 
     <div class="filler_div">
@@ -234,7 +279,10 @@ $(document).ready(function() {
 </li>
 {% for step in step_list %}
     {% if step.type == 'exercise' %}
-        <li class="timer-step exercise-step" id="div-{{step.current_step}}" data-step="{{step.current_step}}">
+        <li class="timer-step exercise-step"
+            id="div-{{step.current_step}}"
+            data-step="{{step.current_step}}"
+            data-number="{{step.step_nr}}">
             <h2>{{step.exercise}}</h2>
             <form action="{% url 'workout-log-add' workout.pk %}" method="POST">
                 {% csrf_token %}
@@ -247,24 +295,20 @@ $(document).ready(function() {
                        value="{% now 'o-m-j' %}"
                        type="hidden">
             <div class="filler_div">
-                <div data-role="fieldcontain">
-                    <label for="id-reps-{{step.current_step}}">{% trans "Repetitions" %}:</label>
-                    <input name="reps"
-                           id="id-reps-{{step.current_step}}"
-                           placeholder="{% trans 'Repetitions' %}"
-                           value="{{step.reps}}"
-                           type="number"
-                           autocomplete="off">
-                </div>
-                <div data-role="fieldcontain">
-                    <label for="id-weight-{{step.current_step}}">{% trans "Weight" %}:</label>
-                    <input name="weight"
-                           id="id-weight-{{step.current_step}}"
-                           placeholder="{% trans 'Weight' %}"
-                           value="{{step.weight}}"
-                           type="number"
-                           autocomplete="off">
-                </div>
+                <label for="id-reps-{{step.current_step}}">{% trans "Repetitions" %}:</label>
+                <input name="reps"
+                       id="id-reps-{{step.current_step}}"
+                       placeholder="{% trans 'Repetitions' %}"
+                       value="{{step.reps}}"
+                       type="number"
+                       autocomplete="off">
+                <label for="id-weight-{{step.current_step}}">{% trans "Weight" %}:</label>
+                <input name="weight"
+                       id="id-weight-{{step.current_step}}"
+                       placeholder="{% trans 'Weight' %}"
+                       value="{{step.weight}}"
+                       type="number"
+                       autocomplete="off">
             </div>
             </form>
 
@@ -298,8 +342,9 @@ $(document).ready(function() {
     {% else %}
         <li class="timer-step pause-step"
             id="div-{{step.current_step}}"
+            data-time="{{step.time}}"
             data-step="{{step.current_step}}"
-            data-time="{{step.time}}">
+            data-number="{{step.step_nr}}">
             <h2>{% trans "Pause!" %}</h2>
 
             <canvas id="canvas-div-{{step.current_step}}"></canvas>
@@ -313,10 +358,16 @@ $(document).ready(function() {
                 <div class="ui-block-b">
                     <div class="ui-grid-a">
                         <div class="ui-block-a">
-                            <a class="start" href="#" data-role="button" id="button-plus-{{step.current_step}}">+</a>
+                            <a class="start timer-plus"
+                               href="#"
+                               data-role="button"
+                               id="button-plus-{{step.current_step}}">+10</a>
                         </div>
                         <div class="ui-block-b">
-                            <a class="start" href="#" data-role="button" id="button-minus-{{step.current_step}}">-</a>
+                            <a class="start timer-minus"
+                               href="#"
+                               data-role="button"
+                               id="button-minus-{{step.current_step}}">-10</a>
                         </div>
                     </div>
                 </div>
@@ -325,7 +376,7 @@ $(document).ready(function() {
             <a class="next bottom_button"
                href="#"
                data-role="button"
-               data-icon="arrow-r"
+               data-icon="forward"
                data-iconpos="right">{% trans "skip" %}</a>
 
             <div id="progress-{{step.current_step}}" class="progress-bar" style="width: {{step.step_percent|stringformat:'f'}}%;"></div>

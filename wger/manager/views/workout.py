@@ -276,6 +276,7 @@ def timer(request, pk):
                 for reps in exercise_dict['setting_list']:
                     step_list.append({'current_step': uuid.uuid4().hex,
                                       'step_percent': 0,
+                                      'step_nr': len(step_list) + 1,
                                       'exercise': exercise,
                                       'type': 'exercise',
                                       'reps': reps,
@@ -285,8 +286,9 @@ def timer(request, pk):
 
                     step_list.append({'current_step': uuid.uuid4().hex,
                                       'step_percent': 0,
+                                      'step_nr': len(step_list) + 1,
                                       'type': 'pause',
-                                      'time': 30})
+                                      'time': 90})
 
         # Supersets need extra work to group the exercises and reps together
         else:
@@ -298,6 +300,7 @@ def timer(request, pk):
 
                     step_list.append({'current_step': uuid.uuid4().hex,
                                       'step_percent': 0,
+                                      'step_nr': len(step_list) + 1,
                                       'exercise': exercise,
                                       'type': 'exercise',
                                       'reps': reps,
@@ -307,8 +310,9 @@ def timer(request, pk):
 
                 step_list.append({'current_step': uuid.uuid4().hex,
                                   'step_percent': 0,
+                                  'step_nr': len(step_list) + 1,
                                   'type': 'pause',
-                                  'time': 30})
+                                  'time': 90})
 
     # Go through the page list and calculate the correct value for step_percent
     for i, s in enumerate(step_list):
