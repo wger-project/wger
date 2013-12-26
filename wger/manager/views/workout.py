@@ -314,10 +314,14 @@ def timer(request, pk):
                                   'type': 'pause',
                                   'time': 90})
 
+    # Remove the last pause step as it is not needed
+    step_list.pop()
+
     # Go through the page list and calculate the correct value for step_percent
     for i, s in enumerate(step_list):
         step_list[i]['step_percent'] = (i + 1) * 100.0 / len(step_list),
 
+    # Render template
     context['day'] = day
     context['step_list'] = step_list
     context['canonical_day'] = canonical_day

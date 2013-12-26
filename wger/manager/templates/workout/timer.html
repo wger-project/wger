@@ -74,6 +74,7 @@ div.progress-bar{
 
 var div_height = $( window ).height() * 0.80;
 var div_width = $( window ).width() * 0.85;
+var start = new Date().getTime();
 
 var counter = {
 
@@ -103,7 +104,7 @@ var counter = {
             clearInterval(this.interval);
             $('#counter-' + this.step_id).html('0');
 
-            var step = $('*[data-step="' + this.step_id + '"]');
+            var step = $('li[data-step="' + this.step_id + '"]');
             paginate_to(step.data('number') + 1);
             return;
         }
@@ -121,7 +122,7 @@ var counter = {
 
         this.ctx.clearRect(0, 0, this.canvas_size[0], this.canvas_size[1]);
         this.ctx.beginPath();
-        this.ctx.moveTo(center[0], center[1]); // ponto central
+        this.ctx.moveTo(center[0], center[1]);
         this.ctx.arc(
             center[0],
             center[1],
@@ -210,12 +211,13 @@ $(document).ready(function() {
     // Bind the buttons that create new logs
     $('.save_log').bind("click", function(e) {
         e.preventDefault();
-        var form = $(this).siblings('form');
+        var step_id = $(this).parents('li').data('step');
+        var form = $('#form-' + step_id);
 
         $.post( form.attr('action'), form.serialize(), function(data) {
                  //response
                }
-            );
+        );
     });
 
     // Bind the timer +/- buttons
@@ -251,6 +253,23 @@ $(document).ready(function() {
                start_countdown(next_step.data('step'), next_step.data('time'));
             }, 700);
         }
+
+        // If we have reached the last page, compute total workout time
+        if (next_step.is('#workout-complete'))
+        {
+            var end = new Date().getTime();
+            var milliseconds = (end - start);
+
+            var hours = Math.floor((milliseconds/1000) / 3600);
+            var minutes = Math.floor((milliseconds/1000) / 60) - hours*3600;
+            var seconds = milliseconds/1000 - minutes*60;
+
+            hours = (!hours) ? '00' : hours;
+            minutes = (!minutes) ? '00' : minutes;
+
+            $('#total_time').html(hours + ':' + minutes + ':' + seconds.toFixed(0));
+        }
+
     });
 });
 </script>
@@ -284,7 +303,9 @@ $(document).ready(function() {
             data-step="{{step.current_step}}"
             data-number="{{step.step_nr}}">
             <h2>{{step.exercise}}</h2>
-            <form action="{% url 'workout-log-add' workout.pk %}" method="POST">
+            <form action="{% url 'workout-log-add' workout.pk %}"
+                  method="POST"
+                  id="form-{{step.current_step}}">
                 {% csrf_token %}
                 <input name="exercise"
                        id="id-exercise-{{step.current_step}}"
@@ -316,7 +337,7 @@ $(document).ready(function() {
                 {% if step.weight %}
                     {{step.reps}} × {{step.weight}} kg.
                 {% else %}
-                    {{step.reps}} {% trans "reps" %}
+                    {% if step.reps == 99 %}∞{% else %}{{step.reps}}{% endif %} {% trans "reps" %}
                 {% endif %}
             </div>
 
@@ -383,11 +404,22 @@ $(document).ready(function() {
         </li>
     {% endif %}
 {% endfor %}
-<li class="timer-step" id="div-{{set.pk}}">
+<li class="timer-step" id="workout-complete">
     <h2>{% trans "Workout complete!" %}</h2>
-    <p>
+
+    <div class="filler_div">
+
+    </div>
+
+    <div class="sub_header">
         <strong>{% trans "Time" %}:</strong> <span id="total_time">MM:SS</span>
-    </p>
+    </div>
+
+    <a class="bottom_button"
+       href="{% url 'dashboard' %}"
+       data-role="button"
+       data-ajax="false"
+       data-iconpos="right">{% trans "Dashboard" %}</a>
 </li>
 </ul>
 </div>
