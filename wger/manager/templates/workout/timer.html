@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load url from future %}
 {% load i18n %}
+{% load l10n %}
 {% load staticfiles %}
 {% load wger_extras %}
 {% load cache %}
@@ -282,7 +283,7 @@ $(document).ready(function() {
                         <input name="weight"
                                id="id-weight-{{step.current_step}}"
                                placeholder="{% trans 'Weight' %}"
-                               value="{{step.weight}}"
+                               value="{{step.weight|unlocalize}}"
                                type="number"
                                autocomplete="off">
                     </div>
