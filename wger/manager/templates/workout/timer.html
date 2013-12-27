@@ -10,57 +10,6 @@
 {% block header %}
 <style>
 
-*{
-    padding:0;
-    margin:0;
-}
-ul#workout-timer li {
-    float:left;
-    list-style:none;
-    position:relative;
-
-}
-
-div#container{
-    padding:13px;
-    clear:both;
-    overflow:hidden;
-    margin:0 auto;
-    display:block;
-}
-
-canvas, div.filler_div{
-    width: 100%;
-    height: 150px;
-    margin-bottom: 30px;
-}
-
-.sub_header{
-    font-size: 300%;
-}
-
-div#container a{
-    width: 95%;
-}
-
-.bottom_buttons{
-    position: absolute;
-    bottom:0px;
-    width: 100%;
-}
-
-a.bottom_button{
-    position: absolute;
-    bottom: 0px;
-}
-
-div.progress-bar{
-    height: 1px;
-    position: absolute;
-    bottom: 0px;
-    background-color: gray;
-}
-
 </style>
 <script>
 "use strict";
@@ -92,6 +41,8 @@ var counter = {
     // Canvas info
     ctx: '',
     canvas_size: [0, 0],
+    radius: 75,
+    center: 75,
 
     draw_step: function(){
         /*
@@ -116,22 +67,19 @@ var counter = {
         }
 
         // Draw the arc in the canvas element
-        var radius = Math.min(this.canvas_size[0], this.canvas_size[1]) / 2;
-        var center = [this.canvas_size[0]/2, this.canvas_size[1]/2];
         var step = this.milliseconds / (this.end * 1000) ;
-
         this.ctx.clearRect(0, 0, this.canvas_size[0], this.canvas_size[1]);
         this.ctx.beginPath();
-        this.ctx.moveTo(center[0], center[1]);
+        this.ctx.moveTo(this.center[0], this.center[1]);
         this.ctx.arc(
-            center[0],
-            center[1],
-            radius,
+            this.center[0],
+            this.center[1],
+            this.radius,
             Math.PI * -0.5,
             Math.PI * (-0.5 + step*2),
             true // anti clockwise
         );
-        this.ctx.lineTo(center[0], center[1]); // line back to the center
+        this.ctx.lineTo(this.center[0], this.center[1]); // line back to the center
         this.ctx.closePath();
         this.ctx.fillStyle = 'rgb(40, 40, 40)'; // color
         this.ctx.fill();
@@ -148,6 +96,8 @@ var counter = {
         var canvas = document.getElementById('canvas-div-' + step_id);
         this.ctx = canvas.getContext('2d');
         this.canvas_size = [canvas.width, canvas.height];
+        this.radius = Math.min(this.canvas_size[0], this.canvas_size[1]) / 2;
+        this.center = [this.canvas_size[0]/2, this.canvas_size[1]/2];
     }
 }
 
@@ -186,7 +136,7 @@ $(document).ready(function() {
     $('.timer-step').height(div_height);
 
     //wrap into mother div
-    $('#container ul').wrap('<div id="mother" />');
+    $('#timer-container ul').wrap('<div id="mother" />');
 
     //assign height width and overflow hidden to mother
     $('#mother').css({
@@ -202,7 +152,7 @@ $(document).ready(function() {
 
     //get total of image sizes and set as width for ul
     var totalWidth = $('.timer-step').length * div_width;
-    $('#container ul').css({
+    $('#timer-container ul').css({
         width: function() {
             return totalWidth;
         }
@@ -232,7 +182,7 @@ $(document).ready(function() {
     });
 
     // Bind the pagination buttons
-    $('#container ul li.timer-step a.next').bind("click", function(e) {
+    $('#timer-container ul li.timer-step a.next').bind("click", function(e) {
         e.preventDefault();
         var step_id = $(this).parents('li').data('step');
         var step_time = $(this).parents('li').data('time');
@@ -262,12 +212,13 @@ $(document).ready(function() {
 
             var hours = Math.floor((milliseconds/1000) / 3600);
             var minutes = Math.floor((milliseconds/1000) / 60) - hours*3600;
-            var seconds = milliseconds/1000 - minutes*60;
+            var seconds = Math.floor(milliseconds/1000 - minutes*60);
 
-            hours = (!hours) ? '00' : hours;
-            minutes = (!minutes) ? '00' : minutes;
+            hours = (hours < 10) ? '0' + hours : hours;
+            minutes = (minutes < 10) ? '0' + minutes : minutes;
+            seconds = (seconds < 10) ? '0' + seconds : seconds;
 
-            $('#total_time').html(hours + ':' + minutes + ':' + seconds.toFixed(0));
+            $('#total_time').html(hours + ':' + minutes + ':' + seconds);
         }
 
     });
@@ -276,7 +227,7 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block content %}
-<div id="container">
+<div id="timer-container" style="position: relative; top:-40px; margin:0px, padding: 0px;">
 <ul id="workout-timer">
 <li class="timer-step" id="div-warmup" data-number="0">
     <h2>{% trans "Your workout today" %}</h2>
@@ -316,29 +267,37 @@ $(document).ready(function() {
                        value="{% now 'o-m-j' %}"
                        type="hidden">
             <div class="filler_div">
-                <label for="id-reps-{{step.current_step}}">{% trans "Repetitions" %}:</label>
-                <input name="reps"
-                       id="id-reps-{{step.current_step}}"
-                       placeholder="{% trans 'Repetitions' %}"
-                       value="{{step.reps}}"
-                       type="number"
-                       autocomplete="off">
-                <label for="id-weight-{{step.current_step}}">{% trans "Weight" %}:</label>
-                <input name="weight"
-                       id="id-weight-{{step.current_step}}"
-                       placeholder="{% trans 'Weight' %}"
-                       value="{{step.weight}}"
-                       type="number"
-                       autocomplete="off">
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <label for="id-reps-{{step.current_step}}">{% trans "Repetitions" %}:</label>
+                        <input name="reps"
+                               id="id-reps-{{step.current_step}}"
+                               placeholder="{% trans 'Repetitions' %}"
+                               value="{{step.reps}}"
+                               type="number"
+                               autocomplete="off">
+                    </div>
+                    <div class="ui-block-b" style="padding-left: 0.5em;">
+                        <label for="id-weight-{{step.current_step}}">{% trans "Weight" %}:</label>
+                        <input name="weight"
+                               id="id-weight-{{step.current_step}}"
+                               placeholder="{% trans 'Weight' %}"
+                               value="{{step.weight}}"
+                               type="number"
+                               autocomplete="off">
+                    </div>
+                </div>
             </div>
             </form>
 
             <div class="sub_header">
+                <h2>
                 {% if step.weight %}
                     {{step.reps}} × {{step.weight}} kg.
                 {% else %}
                     {% if step.reps == 99 %}∞{% else %}{{step.reps}}{% endif %} {% trans "reps" %}
                 {% endif %}
+                </h2>
             </div>
 
             <div class="ui-grid-a bottom_buttons">
@@ -358,7 +317,9 @@ $(document).ready(function() {
                 </div>
             </div><!-- /grid-a -->
 
-            <div id="progress-{{step.current_step}}" class="progress-bar" style="width: {{step.step_percent|stringformat:'f'}}%;"></div>
+            <div id="progress-{{step.current_step}}" class="progress-bar">
+                <span style="width: {{step.step_percent|stringformat:'f'}}%;"></span>
+            </div>
         </li>
     {% else %}
         <li class="timer-step pause-step"
@@ -368,14 +329,15 @@ $(document).ready(function() {
             data-number="{{step.step_nr}}">
             <h2>{% trans "Pause!" %}</h2>
 
-            <canvas id="canvas-div-{{step.current_step}}"></canvas>
+            <div style="width: 96%; text-align: center;">
+            <canvas id="canvas-div-{{step.current_step}}" width="150" height="150"></canvas>
+            </div>
 
-            <div class="ui-grid-a">
+            <div class="ui-grid-a sub_header">
                 <div class="ui-block-a">
-                    <div class="sub_header">
-                        <span id="counter-{{step.current_step}}">{{step.time}}</span> {% trans "sec" %}
-                    </div>
+                        <h2><span id="counter-{{step.current_step}}">{{step.time}}</span></h2>
                 </div>
+
                 <div class="ui-block-b">
                     <div class="ui-grid-a">
                         <div class="ui-block-a">
@@ -400,7 +362,9 @@ $(document).ready(function() {
                data-icon="forward"
                data-iconpos="right">{% trans "skip" %}</a>
 
-            <div id="progress-{{step.current_step}}" class="progress-bar" style="width: {{step.step_percent|stringformat:'f'}}%;"></div>
+            <div id="progress-{{step.current_step}}" class="progress-bar">
+                <span style="width: {{step.step_percent|stringformat:'f'}}%;"></span>
+            </div>
         </li>
     {% endif %}
 {% endfor %}
@@ -408,11 +372,10 @@ $(document).ready(function() {
     <h2>{% trans "Workout complete!" %}</h2>
 
     <div class="filler_div">
-
     </div>
 
     <div class="sub_header">
-        <strong>{% trans "Time" %}:</strong> <span id="total_time">MM:SS</span>
+        <h2><strong>{% trans "Time" %}:</strong> <span id="total_time">MM:SS</span></h2>
     </div>
 
     <a class="bottom_button"
@@ -420,6 +383,10 @@ $(document).ready(function() {
        data-role="button"
        data-ajax="false"
        data-iconpos="right">{% trans "Dashboard" %}</a>
+
+    <div id="progress-{{step.current_step}}" class="progress-bar">
+        <span style="width: 100%;"></span>
+    </div>
 </li>
 </ul>
 </div>
