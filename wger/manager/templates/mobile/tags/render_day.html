@@ -21,6 +21,18 @@
                      alt="{% trans 'Add weight log to this day' %}">
                     {% trans 'Add weight log to this day' %}
         </a>
+        {% if day.set_set.select_related|length > 0 %}
+        <a href="{% url 'workout-timer' day.id %}"
+           title="{% trans 'Start gym mode' %}"
+           data-role="button"
+           data-ajax="false">
+                <img src="{% static 'images/icons/play.svg' %}"
+                     width="22"
+                     height="22"
+                     alt="{% trans 'Start gym mode' %}">
+                    {% trans "Start gym mode" %}
+        </a>
+        {% endif %}
         <a href="{% url 'day-edit' day.id %}"
             title="{% trans 'Edit' %}"
             data-role="button">

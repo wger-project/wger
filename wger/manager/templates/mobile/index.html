@@ -89,17 +89,46 @@
     </div>
 </div>
 
-<!--
-<a href="{% url 'wger.manager.views.user.preferences' %}" data-role="button">
+<div data-role="popup"
+     id="timer-current-workout-{{request_full_path|slugify}}"
+     data-overlay-theme="a">
+    <div data-role="header">
+         <h4>{% trans "Start gym mode" %}</h4>
+     </div>
+
+    <div role="main" class="ui-content">
+        <div style="margin-bottom: 1.5em;">{% blocktrans %}Use the gym mode to
+start an interactive training session. If you enter lifted weights, they will
+be added to your workout log. A timer between sets helps you keep track of the
+pauses you do.{% endblocktrans %}</div>
+
+        <ul data-role="listview" data-inset="false" data-theme="d" style="margin-bottom:1em;">
+            {% for day in current_workout.canonical_representation %}
+            <li>
+                {% if day.set_list|length > 0 %}<a href="{% url 'workout-timer' day.obj.pk %}" data-ajax="false">{% endif %}
+                {{day.obj.description}}
+                {% if day.set_list|length > 0 %}</a>{% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+
+
+<a href="#timer-current-workout-{{request_full_path|slugify}}"
+   data-role="button"
+   data-rel="popup">
     <img src="{% static 'images/icons/play.svg' %}"
          width="32"
          height="32"
-         alt="{% trans 'Settings' %}"
-         title="{% trans 'Settings' %}">
+         alt="{% trans 'Start current workout' %}"
+         title="{% trans 'Start current workout' %}">
     <br>
     {% trans "Start current workout" %}
 </a>
--->
+
+
 <div class="ui-grid-a">
     <div class="ui-block-a">
         {% if current_workout %}

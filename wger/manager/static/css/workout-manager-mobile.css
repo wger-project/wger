@@ -604,9 +604,16 @@ header h1{
 /**************************************************************
  * Gym mode pages
  **************************************************************/
-div#timer-container ul, div#timer-container a, div#timer-container h2{
+div#timer-container ul, div#timer-container h2{
     padding:0;
     margin:0;
+}
+
+div#timer-container a{
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0.7em;
+    padding-bottom: 0.7em;
 }
 
 div#timer-container ul#workout-timer li {
@@ -636,13 +643,11 @@ div#timer-container canvas{
 
 div#timer-container div.sub_header{
     position: absolute;
-    bottom: 60px;
+    bottom: 65px;
     width: 95%;
 }
-
-div#timer-container div.sub_header .ui-btn-inner{
-    padding-left: 5px;
-    padding-right: 5px;
+div#timer-container div.sub_header a{
+    width: 90%;
 }
 
 div#timer-container div.sub_header h2{
@@ -650,11 +655,7 @@ div#timer-container div.sub_header h2{
 }
 
 div#timer-container a{
-    width: 99%;
-}
-
-div#timer-container div.ui-block-b{
-    padding-left: 0.5em;
+    width: 95%;
 }
 
 div#timer-container .bottom_buttons{
