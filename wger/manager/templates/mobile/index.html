@@ -89,6 +89,10 @@
     </div>
 </div>
 
+{% if not user.is_authenticated or user.userprofile.is_temporary %}
+<p><em>{% trans "You are using a guest account, data entered will be deleted after a week."%}</em></p>
+{% endif %}
+
 <div data-role="popup"
      id="timer-current-workout-{{request_full_path|slugify}}"
      data-overlay-theme="a">

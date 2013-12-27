@@ -65,6 +65,12 @@
             </div>
             <div role="main" class="ui-content">
             {% trans "You are using a guest account, data entered will be deleted after a week."%}
+            <a href="{% url 'wger.manager.views.user.registration' %}"
+               rel="nofollow"
+               data-role="button"
+               data-mini="true"
+               data-theme="c"
+               data-ajax="false">{% trans "Register" %} »</a>
             {% if not has_demo_data %}
             <a href="{% url 'demo-entries' %}"
                rel="nofollow"
