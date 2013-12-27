@@ -2,17 +2,16 @@ from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import TemplateView
-from django.views.generic import TemplateView
 
 from wger.manager.views import schedule
 from wger.manager.views import schedule_step
 from wger.manager.views.workout import WorkoutEditView
 from wger.manager.views.workout import WorkoutDeleteView
 from wger.manager.views.log import WorkoutLogDetailView
+from wger.manager.views.log import WorkoutLogAddView
 from wger.manager.views.log import WorkoutLogUpdateView
 from wger.manager.views.day import DayEditView
 from wger.manager.views.day import DayCreateView
-from wger.manager.views import set
 from wger.manager.views import misc
 from wger.manager.views import ical
 from wger.manager.views import user
@@ -74,6 +73,9 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^workout/log/edit-entry/(?P<pk>\d+)$',
         WorkoutLogUpdateView.as_view(),
         name='workout-log-edit'),
+    url(r'^workout/(?P<workout_pk>\d+)/log/add$',
+        WorkoutLogAddView.as_view(),
+        name='workout-log-add'),
     url(r'^workout/calendar$',
         'log.calendar',
         name='workout-calendar'),
@@ -83,6 +85,11 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^workout/(?P<pk>\d+)/ical$',
         ical.export,
         name='workout-ical'),
+
+    # Timer
+    url(r'^workout/(?P<pk>\d+)/timer$',
+        'workout.timer',
+        name='workout-timer'),
 
     # Schedules
     url(r'^workout/schedule/overview$',

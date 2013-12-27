@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
+import uuid
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -33,7 +34,10 @@ from django.views.generic import DeleteView
 from django.views.generic import UpdateView
 
 from wger.manager.models import Workout
+from wger.manager.models import WorkoutLog
 from wger.manager.models import Schedule
+from wger.manager.models import Day
+from wger.manager.models import Setting
 from wger.manager.forms import WorkoutForm
 from wger.manager.forms import WorkoutCopyForm
 
@@ -175,7 +179,7 @@ def copy_workout(request, pk):
                             setting_copy.save()
 
             return HttpResponseRedirect(reverse('wger.manager.views.workout.view',
-                                        kwargs={'id': workout.id}))
+                                                kwargs={'id': workout.id}))
     else:
         workout_form = WorkoutCopyForm({'comment': workout.comment})
 
@@ -228,3 +232,100 @@ class WorkoutEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     title = ugettext_lazy('Edit workout')
     form_action_urlname = 'workout-edit'
     login_required = True
+
+
+def get_last_weight(user, exercise, reps):
+    '''
+    Helper function to retrieve the last workout log for a certain
+    user, exercise and repetition combination. Returns an emtpy string
+    if no entry is found
+
+    :param user:
+    :param exercise:
+    :param reps:
+    :return: WorkoutLog or '' if none is found
+    '''
+    last_log = WorkoutLog.objects.filter(user=user,
+                                         exercise=exercise,
+                                         reps=reps).order_by('-date')
+    if last_log.exists():
+        weight = last_log[0].weight
+    else:
+        weight = ''
+
+    return weight
+
+
+@login_required
+def timer(request, pk):
+    '''
+    The timer view ("gym mode") for a workout
+    '''
+
+    day = Day.objects.get(pk=pk, training__user=request.user)
+    canonical_day = day.canonical_representation
+    context = {}
+    step_list = []
+
+    # Go through the workout day and create the individual 'pages'
+    for set_dict in canonical_day:
+
+        if not set_dict['is_superset']:
+            for exercise_dict in set_dict['exercise_list']:
+                exercise = exercise_dict['obj']
+                for reps in exercise_dict['setting_list']:
+                    step_list.append({'current_step': uuid.uuid4().hex,
+                                      'step_percent': 0,
+                                      'step_nr': len(step_list) + 1,
+                                      'exercise': exercise,
+                                      'type': 'exercise',
+                                      'reps': reps,
+                                      'weight': get_last_weight(user=request.user,
+                                                                exercise=exercise,
+                                                                reps=reps)})
+
+                    step_list.append({'current_step': uuid.uuid4().hex,
+                                      'step_percent': 0,
+                                      'step_nr': len(step_list) + 1,
+                                      'type': 'pause',
+                                      'time': 90})
+
+        # Supersets need extra work to group the exercises and reps together
+        else:
+            total_reps = len(set_dict['exercise_list'][0]['setting_list'])
+            for i in range(0, total_reps):
+                for exercise_dict in set_dict['exercise_list']:
+                    reps = exercise_dict['setting_list'][i]
+                    exercise = exercise_dict['obj']
+
+                    step_list.append({'current_step': uuid.uuid4().hex,
+                                      'step_percent': 0,
+                                      'step_nr': len(step_list) + 1,
+                                      'exercise': exercise,
+                                      'type': 'exercise',
+                                      'reps': reps,
+                                      'weight': get_last_weight(user=request.user,
+                                                                exercise=exercise,
+                                                                reps=reps)})
+
+                step_list.append({'current_step': uuid.uuid4().hex,
+                                  'step_percent': 0,
+                                  'step_nr': len(step_list) + 1,
+                                  'type': 'pause',
+                                  'time': 90})
+
+    # Remove the last pause step as it is not needed
+    step_list.pop()
+
+    # Go through the page list and calculate the correct value for step_percent
+    for i, s in enumerate(step_list):
+        step_list[i]['step_percent'] = (i + 1) * 100.0 / len(step_list),
+
+    # Render template
+    context['day'] = day
+    context['step_list'] = step_list
+    context['canonical_day'] = canonical_day
+    context['workout'] = day.training
+    return render_to_response('workout/timer.html',
+                              context,
+                              context_instance=RequestContext(request))

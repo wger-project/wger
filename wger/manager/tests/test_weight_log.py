@@ -15,11 +15,12 @@
 import logging
 import datetime
 
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 
 from wger.manager.models import WorkoutLog
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 logger = logging.getLogger('wger.custom')
@@ -101,7 +102,21 @@ class WeightLogTestCase(WorkoutManagerTestCase):
         self.add_weight_log(fail=True)
 
 
-class WeightLogEntryTestCase(WorkoutManagerTestCase):
+class WeightLogAddTestCase(WorkoutManagerAddTestCase):
+    '''
+    Tests editing a Workout
+    '''
+
+    object_class = WorkoutLog
+    url = reverse_lazy('workout-log-add', kwargs={'workout_pk': 1})
+    pk = 6
+    data = {'reps': 10,
+            'weight': 120.5,
+            'date': datetime.date.today(),
+            'exercise': 1}
+
+
+class WeightLogEntryEditTestCase(WorkoutManagerTestCase):
     '''
     Tests editing individual weight log entries
     '''

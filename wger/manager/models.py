@@ -66,8 +66,10 @@ class Workout(models.Model):
     Model for a training schedule
     '''
 
-    # Metaclass to set some other properties
     class Meta:
+        '''
+        Meta class to set some other properties
+        '''
         ordering = ["-creation_date", ]
 
     creation_date = models.DateField(_('Creation date'), auto_now_add=True)
@@ -82,7 +84,7 @@ class Workout(models.Model):
         '''
         Returns the canonical URL to view a workout
         '''
-        return reverse('wger.manager.views.workout.view', kwargs={'id': self.id})
+        return reverse('workout-view', kwargs={'id': self.id})
 
     def __unicode__(self):
         '''
@@ -98,6 +100,25 @@ class Workout(models.Model):
         Returns the object that has owner information
         '''
         return self
+
+    @property
+    def canonical_representation(self):
+        '''
+        Returns a canonical representation of the workout
+        '''
+        canonical_repr = []
+        for day in self.day_set.select_related():
+            tmp_days_of_week = []
+            for day_of_week in day.day.select_related():
+                tmp_days_of_week.append(day_of_week)
+
+            canonical_repr.append({'obj': day,
+                                   'days_of_week': {
+                                       'text': u', '.join([unicode(_(i.day_of_week))
+                                                           for i in tmp_days_of_week]),
+                                       'day_list': tmp_days_of_week},
+                                   'set_list': day.canonical_representation})
+        return canonical_repr
 
 
 class ScheduleManager(models.Manager):
@@ -365,6 +386,50 @@ class Day(models.Model):
         reset_day_template_cache(self.pk)
         super(Day, self).delete(*args, **kwargs)
 
+    @property
+    def canonical_representation(self):
+        '''
+        Returns a canonical representation of the day
+        '''
+        canonical_repr = []
+
+        for set_obj in self.set_set.select_related():
+            exercise_tmp = []
+            for exercise in set_obj.exercises.select_related():
+                setting_tmp = []
+                for setting in Setting.objects.filter(set=set_obj,
+                                                      exercise=exercise).order_by('order'):
+                    setting_tmp.append(setting)
+
+                if len(setting_tmp) > 1:
+                    tmp_reps_text = []
+                    tmp_reps = []
+                    for i in setting_tmp:
+                        reps = str(i.reps) if i.reps != 99 else '∞'
+                        tmp_reps_text.append(reps)
+                        tmp_reps.append(i.reps)
+
+                    setting_text = ' – '.join(tmp_reps_text)
+                    setting_list = tmp_reps
+                else:
+                    reps = setting_tmp[0].reps if setting_tmp[0].reps != 99 else '∞'
+                    setting_text = u'{0} × {1}'.format(set_obj.sets, reps)
+                    setting_list = [reps] * set_obj.sets
+                exercise_tmp.append({'obj': exercise,
+                                     'setting_obj_list': setting_tmp,
+                                     'setting_list': setting_list,
+                                     'setting_text': setting_text})
+
+            if len(exercise_tmp) > 1:
+                is_superset = True
+            else:
+                is_superset = False
+            canonical_repr.append({'obj': set_obj,
+                                   'exercise_list': exercise_tmp,
+                                   'is_superset': is_superset})
+
+        return canonical_repr
+
 
 class Set(models.Model):
     '''
@@ -554,7 +619,6 @@ class WorkoutLog(models.Model):
 
 
 class UserProfile(models.Model):
-
     GENDER_MALE = '1'
     GENDER_FEMALE = '2'
     GENDER = (
@@ -770,8 +834,7 @@ by the US Department of Agriculture. It is extremely complete, with around
             rate = ((10 * self.weight)  # in kg
                     + (6.25 * self.height)  # in cm
                     - (5 * self.age)  # in years
-                    + factor
-                    )
+                    + factor)
         except TypeError:
         # Any of the entries is missing
             rate = 0
@@ -826,9 +889,9 @@ by the US Department of Agriculture. It is extremely complete, with around
         '''
 
         if (not WeightEntry.objects.filter(user=self.user).exists()
-           or (datetime.date.today()
-               - WeightEntry.objects.filter(user=self.user).latest().creation_date
-               > datetime.timedelta(1))):
+            or (datetime.date.today()
+                - WeightEntry.objects.filter(user=self.user).latest().creation_date
+                > datetime.timedelta(1))):
             entry = WeightEntry()
             entry.weight = weight
             entry.user = self.user
@@ -847,5 +910,6 @@ by the US Department of Agriculture. It is extremely complete, with around
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
+
 
 post_save.connect(create_user_profile, sender=User)
