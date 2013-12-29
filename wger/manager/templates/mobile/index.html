@@ -106,14 +106,30 @@ start an interactive training session. If you enter lifted weights, they will
 be added to your workout log. A timer between sets helps you keep track of the
 pauses you do.{% endblocktrans %}</div>
 
-        <ul data-role="listview" data-inset="false" data-theme="d" style="margin-bottom:1em;">
-            {% for day in current_workout.canonical_representation %}
+        <ul data-role="listview" data-inset="true" style="margin-bottom:1em;">
+            {% if current_workout %}
+                {% for day in current_workout.canonical_representation %}
+                <li>
+                    {% if day.set_list|length > 0 %}<a href="{% url 'workout-timer' day.obj.pk %}" data-ajax="false">{% endif %}
+                    {{day.obj.description}}
+                    {% if day.set_list|length > 0 %}</a>{% endif %}
+                </li>
+                {% empty %}
+                    <li>
+                    <a href="{% url 'day-add' current_workout.id %}" data-ajax="false">
+                        {% trans "No days for this workout." %}<br>
+                        {% trans "Add training day." %}
+                        </a>
+                    </li>
+                {% endfor %}
+            {% else %}
             <li>
-                {% if day.set_list|length > 0 %}<a href="{% url 'workout-timer' day.obj.pk %}" data-ajax="false">{% endif %}
-                {{day.obj.description}}
-                {% if day.set_list|length > 0 %}</a>{% endif %}
+                <a href="{% url 'workout-add' %}" data-ajax="false">
+                {% trans "No workouts found." %}<br>
+                    {% trans "Add one now." %}
+                </a>
             </li>
-            {% endfor %}
+            {% endif %}
         </ul>
     </div>
 </div>
