@@ -211,15 +211,15 @@ $(document).ready(function() {
             var end = new Date().getTime();
             var milliseconds = (end - start);
 
-            var hours = Math.floor((milliseconds/1000) / 3600);
-            var minutes = Math.floor((milliseconds/1000) / 60) - hours*3600;
-            var seconds = Math.floor(milliseconds/1000 - minutes*60);
+            var hours = (milliseconds/1000) / 3600;
+            var minutes = (milliseconds/1000) / 60 - Math.floor(hours)*60;
+            var seconds = milliseconds/1000 - Math.floor(minutes)*60 - Math.floor(hours)*3600;
 
             hours = (hours < 10) ? '0' + hours : hours;
             minutes = (minutes < 10) ? '0' + minutes : minutes;
             seconds = (seconds < 10) ? '0' + seconds : seconds;
 
-            $('#total_time').html(hours + ':' + minutes + ':' + seconds);
+            $('#total_time').html(Math.floor(hours) + ':' + Math.floor(minutes) + ':' + Math.floor(seconds));
         }
 
     });
