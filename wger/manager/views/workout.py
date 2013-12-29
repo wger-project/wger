@@ -256,12 +256,13 @@ def get_last_weight(user, exercise, reps):
 
 
 @login_required
-def timer(request, pk):
+def timer(request, day_pk):
     '''
     The timer view ("gym mode") for a workout
     '''
 
-    day = Day.objects.get(pk=pk, training__user=request.user)
+    day = get_object_or_404(Day, pk=day_pk, training__user=request.user)
+    #day = Day.objects.get(pk=day_pk, training__user=request.user)
     canonical_day = day.canonical_representation
     context = {}
     step_list = []
@@ -318,7 +319,7 @@ def timer(request, pk):
 
     # Go through the page list and calculate the correct value for step_percent
     for i, s in enumerate(step_list):
-        step_list[i]['step_percent'] = (i + 1) * 100.0 / len(step_list),
+        step_list[i]['step_percent'] = (i + 1) * 100.0 / len(step_list)
 
     # Render template
     context['day'] = day

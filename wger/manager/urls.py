@@ -87,7 +87,7 @@ urlpatterns = patterns('wger.manager.views',
         name='workout-ical'),
 
     # Timer
-    url(r'^workout/(?P<pk>\d+)/timer$',
+    url(r'^workout/(?P<day_pk>\d+)/timer$',
         'workout.timer',
         name='workout-timer'),
 
