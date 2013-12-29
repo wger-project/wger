@@ -60,7 +60,7 @@ class PlanOverviewTestCase(WorkoutManagerTestCase):
         Helper function to test the nutrition plan overview
         '''
 
-        response = self.client.get(reverse('wger.nutrition.views.plan.overview'))
+        response = self.client.get(reverse('nutrition-overview'))
 
         # Page exists
         self.assertEqual(response.status_code, 200)
@@ -84,7 +84,7 @@ class PlanDetailTestCase(WorkoutManagerTestCase):
         Helper function to test the plan detail view
         '''
 
-        response = self.client.get(reverse('wger.nutrition.views.plan.view', kwargs={'id': 1}))
+        response = self.client.get(reverse('nutrition-view', kwargs={'id': 1}))
 
         # Page exists
         if fail:

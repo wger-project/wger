@@ -49,7 +49,7 @@ class CopyPlanTestCase(WorkoutManagerTestCase):
             self.assertEqual(count_after, 7)
 
         # Test accessing the copied workout
-        response = self.client.get(reverse('wger.nutrition.views.plan.view', kwargs={'id': 4}))
+        response = self.client.get(reverse('nutrition-view', kwargs={'id': 4}))
 
         if fail:
             self.assertIn(response.status_code, (404, 302))

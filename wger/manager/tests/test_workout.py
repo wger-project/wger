@@ -38,7 +38,7 @@ class AddWorkoutTestCase(WorkoutManagerTestCase):
 
         # Create a workout
         count_before = Workout.objects.count()
-        response = self.client.get(reverse('wger.manager.views.workout.add'))
+        response = self.client.get(reverse('workout-add'))
         count_after = Workout.objects.count()
 
         # There is always a redirect
@@ -48,8 +48,7 @@ class AddWorkoutTestCase(WorkoutManagerTestCase):
         self.assertGreater(count_after, count_before)
 
         # Test accessing workout
-        response = self.client.get(reverse('wger.manager.views.workout.view',
-                                           kwargs={'id': 1}))
+        response = self.client.get(reverse('workout-view', kwargs={'id': 1}))
 
         workout = Workout.objects.get(pk=1)
         self.assertEqual(response.context['workout'], workout)
@@ -100,7 +99,7 @@ class WorkoutOverviewTestCase(WorkoutManagerTestCase):
         Helper function to test the workout overview
         '''
 
-        response = self.client.get(reverse('wger.manager.views.workout.overview'))
+        response = self.client.get(reverse('workout-overview'))
 
         # Page exists
         self.assertEqual(response.status_code, 200)
@@ -147,7 +146,7 @@ class WorkoutCacheTestCase(WorkoutManagerTestCase):
         self.assertFalse(cache.get(get_template_cache_name('day-view', 1)))
         self.assertFalse(cache.get(get_template_cache_name('day-view', 2)))
 
-        self.client.get(reverse('wger.manager.views.workout.view', kwargs={'id': 1}))
+        self.client.get(reverse('workout-view', kwargs={'id': 1}))
 
         self.assertTrue(cache.get(get_template_cache_name('day-view', 1)))
         self.assertTrue(cache.get(get_template_cache_name('day-view', 2)))

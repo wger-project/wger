@@ -79,7 +79,7 @@ day in your current workout:{% endblocktrans %} {{current_workout}}</p>
          </ul>
          {% else %}
          <p><em>{% trans "No workouts found." %}</em></p>
-         <a href="{% url 'wger.manager.views.workout.add' %}" data-role="button">
+         <a href="{% url 'workout-add' %}" data-role="button">
             <img src="{% static 'images/icons/add.svg' %}"
                  width="22"
                 height="22"

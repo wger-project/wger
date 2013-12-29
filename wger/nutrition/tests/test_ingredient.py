@@ -111,8 +111,7 @@ class IngredientDetailTestCase(WorkoutManagerTestCase):
         Tests the ingredient details page
         '''
 
-        response = self.client.get(reverse('wger.nutrition.views.ingredient.view',
-                                   kwargs={'id': 6}))
+        response = self.client.get(reverse('ingredient-view', kwargs={'id': 6}))
         self.assertEqual(response.status_code, 200)
 
         # Correct tab is selected
@@ -130,8 +129,7 @@ class IngredientDetailTestCase(WorkoutManagerTestCase):
             self.assertNotContains(response, 'pending review')
 
         # Non-existent ingredients throw a 404.
-        response = self.client.get(reverse('wger.nutrition.views.ingredient.view',
-                                   kwargs={'id': 42}))
+        response = self.client.get(reverse('ingredient-view', kwargs={'id': 42}))
         self.assertEqual(response.status_code, 404)
 
     def test_ingredient_detail_editor(self):

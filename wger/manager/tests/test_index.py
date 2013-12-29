@@ -53,7 +53,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
         #
         # 1. Add a workout
         #
-        self.client.get(reverse('wger.manager.views.workout.add'))
+        self.client.get(reverse('workout-add'))
         response = self.client.get(reverse('dashboard'))
 
         self.assertEqual(response.status_code, 200)
@@ -65,7 +65,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
         #
         # 2. Add a nutrition plan
         #
-        self.client.get(reverse('wger.nutrition.views.plan.add'))
+        self.client.get(reverse('nutrition-add'))
         response = self.client.get(reverse('dashboard'))
 
         self.assertEqual(response.status_code, 200)

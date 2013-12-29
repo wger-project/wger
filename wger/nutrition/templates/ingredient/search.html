@@ -24,7 +24,7 @@
 
 <ul>
 {% for ingredient in ingredients %}
-    <li><a href="{% url 'wger.nutrition.views.ingredient.view' ingredient.id %}">{{ ingredient.name }}</a></li>
+    <li><a href="{% url 'ingredient-view' ingredient.id %}">{{ ingredient.name }}</a></li>
 {% endfor %}
 </ul>
 

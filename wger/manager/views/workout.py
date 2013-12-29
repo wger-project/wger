@@ -178,7 +178,7 @@ def copy_workout(request, pk):
                             setting_copy.set = current_set_copy
                             setting_copy.save()
 
-            return HttpResponseRedirect(reverse('wger.manager.views.workout.view',
+            return HttpResponseRedirect(reverse('workout-view',
                                                 kwargs={'id': workout.id}))
     else:
         workout_form = WorkoutCopyForm({'comment': workout.comment})
@@ -205,8 +205,7 @@ def add(request):
     workout.user = request.user
     workout.save()
 
-    return HttpResponseRedirect(reverse('wger.manager.views.workout.view',
-                                        kwargs={'id': workout.id}))
+    return HttpResponseRedirect(reverse('workout-view', kwargs={'id': workout.id}))
 
 
 class WorkoutDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
@@ -215,7 +214,7 @@ class WorkoutDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
 
     model = Workout
-    success_url = reverse_lazy('wger.manager.views.workout.overview')
+    success_url = reverse_lazy('workout-overview')
     title = ugettext_lazy('Delete workout')
     form_action_urlname = 'workout-delete'
     messages = ugettext_lazy('Workout was successfully deleted')

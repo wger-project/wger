@@ -2,6 +2,8 @@ from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 
 from wger.nutrition.views import ingredient
+from wger.nutrition.views import bmi
+from wger.nutrition.views import calculator
 from wger.nutrition.views import plan
 from wger.nutrition.views import meal
 from wger.nutrition.views import meal_item
@@ -17,10 +19,10 @@ urlpatterns = patterns('wger.nutrition.views',
         plan.add,
         name='nutrition-add'),
     url(r'^(?P<id>\d+)/view/$',
-        'plan.view',
+        plan.view,
         name='nutrition-view'),
     url(r'^(?P<pk>\d+)/copy/$',
-        'plan.copy',
+        plan.copy,
         name='nutrition-copy'),
     url(r'^(?P<pk>\d+)/delete/$',
         login_required(plan.PlanDeleteView.as_view()),
@@ -28,7 +30,8 @@ urlpatterns = patterns('wger.nutrition.views',
     url(r'^(?P<pk>\d+)/edit/$',
         login_required(plan.PlanEditView.as_view()),
         name='nutrition-edit'),
-    url(r'^(?P<id>\d+)/pdf/$', 'plan.export_pdf'),
+    url(r'^(?P<id>\d+)/pdf/$',
+        plan.export_pdf),
 
     # Meals
     url(r'^(?P<plan_pk>\d+)/meal/add/$',
@@ -65,23 +68,25 @@ urlpatterns = patterns('wger.nutrition.views',
         ingredient.PendingIngredientListView.as_view(),
         name='ingredient-pending'),
     url(r'^(?P<pk>\d+)/accept/$',
-        'ingredient.accept',
+        ingredient.accept,
         name='ingredient-accept'),
     url(r'^(?P<pk>\d+)/decline/$',
-        'ingredient.decline',
+        ingredient.decline,
         name='ingredient-decline'),
     url(r'^ingredient/(?P<id>\d+)/view/$',
-        'ingredient.view',
+        ingredient.view,
         name='ingredient-view'),
-    url(r'^ingredient/(?P<id>\d+)/view/(?P<slug>[-\w]+)/$', 'ingredient.view'),
+    url(r'^ingredient/(?P<id>\d+)/view/(?P<slug>[-\w]+)/$',
+        ingredient.view,
+        name='ingredient-view'),
     url(r'^ingredient/search/$',
-        'ingredient.search',
+        ingredient.search,
         name='ingredient-search'),
     url(r'^ingredient/(?P<pk>\d+)/get-units$',
-        'ingredient.ajax_get_ingredient_units',
+        ingredient.ajax_get_ingredient_units,
         name='ingredient-get-units'),
     url(r'^ingredient/(?P<pk>\d+)/get-nutritional-values$',
-        'ingredient.ajax_get_ingredient_values',
+        ingredient.ajax_get_ingredient_values,
         name='ingredient-get-values'),
 
     # Ingredient units
@@ -98,7 +103,6 @@ urlpatterns = patterns('wger.nutrition.views',
         unit.WeightUnitUpdateView.as_view(),
         name='weight-unit-edit'),
 
-
     # Ingredient to weight units cross table
     url(r'^ingredient/unit-to-ingredient/add/(?P<ingredient_pk>\d+)/$',
         unit_ingredient.WeightUnitIngredientCreateView.as_view(),
@@ -112,28 +116,26 @@ urlpatterns = patterns('wger.nutrition.views',
 
     # BMI
     url(r'^calculator/bmi$',
-        'bmi.view',
+        bmi.view,
         name='bmi-view'),
     url(r'^calculator/bmi/calculate$',
-        'bmi.calculate',
+        bmi.calculate,
         name='bmi-calculate'),
     url(r'^calculator/bmi/chart-data$',
-        'bmi.chart_data',
+        bmi.chart_data,
         name='bmi-chart-data'),  # JS
 
     # Calories calculator
     url(r'^calculator/calories$',
-        'calculator.view',
+        calculator.view,
         name='calories-calculator'),
     url(r'^calculator/calories/bmr$',
-        'calculator.calculate_bmr',
+        calculator.calculate_bmr,
         name='calories-calculate-bmr'),
     url(r'^calculator/calories/activities$',
-        'calculator.calculate_activities',
+        calculator.calculate_activities,
         name='calories-calculate-activities'),  # JS
     url(r'^calculator/calories/total$',
-        'calculator.update_total',
+        calculator.update_total,
         name='calories-calculate-total'),  # JS
-
-
 )

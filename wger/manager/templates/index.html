@@ -13,7 +13,7 @@
             <h3>{% trans "Workout"%}</h3>
             {% if current_workout %}
             <p>
-            <a href="{% url 'wger.manager.views.workout.view' current_workout.id %}">
+            <a href="{% url 'workout-view' current_workout.id %}">
                 {% if current_workout.comment %}
                     {{ current_workout.comment }}
                 {% else %}
@@ -45,7 +45,7 @@
 
             {% else %}
                 <p>
-                    <a href="{% url 'wger.manager.views.workout.add' %}" class="btn btn-block">
+                    <a href="{% url 'workout-add' %}" class="btn btn-block">
                     {% trans "No workouts found." %} {% trans "Add one now." %}
                     </a>
                 </p>
@@ -60,7 +60,7 @@
 
             {% if plan %}
                 <p>
-                <a href="{% url 'wger.nutrition.views.plan.view' plan.id %}">
+                <a href="{% url 'nutrition-view' plan.id %}">
                     {% if plan.description %}
                         {{ plan.description }}
                     {% else %}
@@ -87,7 +87,7 @@
 
             {% else %}
                 <p>
-                    <a href="{% url 'wger.nutrition.views.plan.add' %}" class="btn btn-block">
+                    <a href="{% url 'nutrition-add' %}" class="btn btn-block">
                     {% trans "No nutrition plans." %} {% trans "Add one now." %}
                     </a>
                 </p>
@@ -105,7 +105,7 @@
     <div class="ym-g50 ym-gl">
         <div class="ym-gbox-left">
             <p>
-                <a href="{% url 'wger.manager.views.workout.add' %}">
+                <a href="{% url 'workout-add' %}">
                 <img src="{% static 'images/icons/new.svg' %}"
                      width="32"
                      height="32"
@@ -118,7 +118,7 @@
     <div class="ym-g50 ym-gr">
         <div class="ym-gbox-right">
             <p>
-                <a href="{% url 'wger.nutrition.views.plan.add' %}">
+                <a href="{% url 'nutrition-add' %}">
                 <img src="{% static 'images/icons/new.svg' %}"
                      width="32"
                      height="32"

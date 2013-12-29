@@ -21,7 +21,7 @@
 
 <ul>
 {% for exercise in exercises %}
-    <li><a href="{% url 'wger.exercises.views.exercises.view' exercise.id %}">{{ exercise.name }}</a></li>
+    <li><a href="{% url 'exercise-view' exercise.id %}">{{ exercise.name }}</a></li>
 {% endfor %}
 </ul>
 

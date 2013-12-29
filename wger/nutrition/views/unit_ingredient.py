@@ -60,8 +60,7 @@ class WeightUnitIngredientCreateView(WgerFormMixin, CreateView, WgerPermissionMi
         return context
 
     def get_success_url(self):
-        return reverse('wger.nutrition.views.ingredient.view',
-                       kwargs={'id': self.kwargs['ingredient_pk']})
+        return reverse('ingredient-view', kwargs={'id': self.kwargs['ingredient_pk']})
 
     def form_valid(self, form):
         ingredient = get_object_or_404(Ingredient, pk=self.kwargs['ingredient_pk'])
@@ -93,8 +92,7 @@ class WeightUnitIngredientUpdateView(WgerFormMixin, UpdateView, WgerPermissionMi
     permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):
-        return reverse('wger.nutrition.views.ingredient.view',
-                       kwargs={'id': self.object.ingredient.id})
+        return reverse('ingredient-view', kwargs={'id': self.object.ingredient.id})
 
     def get_form_class(self):
         '''
@@ -121,5 +119,4 @@ class WeightUnitIngredientDeleteView(WgerDeleteMixin, DeleteView, WgerPermission
     permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):
-        return reverse('wger.nutrition.views.ingredient.view',
-                       kwargs={'id': self.object.ingredient.id})
+        return reverse('ingredient-view', kwargs={'id': self.object.ingredient.id})

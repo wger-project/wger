@@ -300,7 +300,7 @@ class WorkoutCacheTestCase(WorkoutManagerTestCase):
         '''
 
         self.user_login('admin')
-        self.client.get(reverse('wger.manager.views.workout.view', kwargs={'id': 1}))
+        self.client.get(reverse('workout-view', kwargs={'id': 1}))
 
         # Edit a set
         set1 = Set.objects.get(pk=1)
@@ -319,7 +319,7 @@ class WorkoutCacheTestCase(WorkoutManagerTestCase):
         '''
 
         self.user_login('admin')
-        self.client.get(reverse('wger.manager.views.workout.view', kwargs={'id': 1}))
+        self.client.get(reverse('workout-view', kwargs={'id': 1}))
 
         # Edit a setting
         setting1 = Setting.objects.get(pk=1)

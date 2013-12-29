@@ -53,8 +53,7 @@ class DayView(WgerFormMixin):
     form_class = DayForm
 
     def get_success_url(self):
-        return reverse('wger.manager.views.workout.view',
-                       kwargs={'id': self.object.training_id})
+        return reverse('workout-view', kwargs={'id': self.object.training_id})
 
     def get_form(self, form_class):
         '''
@@ -127,8 +126,7 @@ def delete(request, id, day_id):
     # Check if the user is the owner of the object
     if day.training.user == request.user:
         day.delete()
-        return HttpResponseRedirect(reverse('wger.manager.views.workout.view',
-                                            kwargs={'id': id}))
+        return HttpResponseRedirect(reverse('workout-view', kwargs={'id': id}))
     else:
         return HttpResponseForbidden()
 

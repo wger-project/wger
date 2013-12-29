@@ -40,7 +40,7 @@
 <ul data-role="listview" data-inset="false" data-split-icon="gear" data-split-theme="d">
 {% for step in schedule.schedulestep_set.select_related %}
     <li>
-        <a href="{% url 'wger.manager.views.workout.view' step.workout.id %}">
+        <a href="{% url 'workout-view' step.workout.id %}">
             <h3>{{ forloop.counter }} - {{ step.workout }}</h3>
             <p>{{ workout.creation_date }}</p>
 

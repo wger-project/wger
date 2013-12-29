@@ -37,7 +37,7 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
         Tests the exercise overview page
         '''
 
-        response = self.client.get(reverse('wger.exercises.views.exercises.overview'))
+        response = self.client.get(reverse('exercise-overview'))
 
         # Page exists
         self.assertEqual(response.status_code, 200)
@@ -120,7 +120,7 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
         '''
         self.user_login('admin')
         ExerciseCategory.objects.all().delete()
-        response = self.client.get(reverse('wger.exercises.views.exercises.overview'))
+        response = self.client.get(reverse('exercise-overview'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'No categories')
 
@@ -135,8 +135,7 @@ class ExerciseDetailTestCase(WorkoutManagerTestCase):
         Tests the exercise details page
         '''
 
-        response = self.client.get(reverse('wger.exercises.views.exercises.view',
-                                   kwargs={'id': 1}))
+        response = self.client.get(reverse('exercise-view', kwargs={'id': 1}))
         self.assertEqual(response.status_code, 200)
 
         # Correct tab is selected
@@ -166,8 +165,7 @@ class ExerciseDetailTestCase(WorkoutManagerTestCase):
             self.assertNotContains(response, 'Exercise is pending')
 
         # Ensure that non-existent exercises throw a 404.
-        response = self.client.get(reverse('wger.exercises.views.exercises.view',
-                                   kwargs={'id': 42}))
+        response = self.client.get(reverse('exercise-view', kwargs={'id': 42}))
         self.assertEqual(response.status_code, 404)
 
     def test_exercise_detail_editor(self):
@@ -262,8 +260,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
             self.assertEqual(exercise.user, 'test')
             self.assertEqual(exercise.status, Exercise.EXERCISE_STATUS_PENDING)
 
-        response = self.client.get(reverse('wger.exercises.views.exercises.view',
-                                   kwargs={'id': exercise_id}))
+        response = self.client.get(reverse('exercise-view', kwargs={'id': exercise_id}))
         self.assertEqual(response.status_code, 200)
 
         # Navigation tab

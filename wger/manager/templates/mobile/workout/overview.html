@@ -9,7 +9,7 @@
 <ul data-role="listview" data-inset="false">
     {% for workout in workouts %}
         <li>
-            <a href="{% url 'wger.manager.views.workout.view' workout.id %}" data-ajax="false">
+            <a href="{% url 'workout-view' workout.id %}" data-ajax="false">
                 <h3>{{ workout }}</h3>
                 <p>{{ workout.creation_date }}</p>
                 {% if workout == current_workout %}
@@ -19,7 +19,7 @@
         </li>
     {% empty %}
     <li>
-        <a href="{% url 'wger.manager.views.workout.add' %}">
+        <a href="{% url 'workout-add' %}">
         {% trans "No workouts found." %}<br>{% trans "Add one now." %}
         </a>
     </li>
@@ -31,7 +31,7 @@
 {% block sidebar %}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url 'wger.manager.views.workout.add' %}" data-role="button">
+    <a href="{% url 'workout-add' %}" data-role="button">
     <img src="{% static 'images/icons/new.svg' %}"
          width="32"
          height="32"

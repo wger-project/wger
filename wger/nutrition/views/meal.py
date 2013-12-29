@@ -53,7 +53,7 @@ class MealCreateView(WgerFormMixin, CreateView):
         return super(MealCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('wger.nutrition.views.plan.view', kwargs={'id': self.object.plan.id})
+        return reverse('nutrition-view', kwargs={'id': self.object.plan.id})
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
@@ -74,7 +74,7 @@ class MealEditView(WgerFormMixin, UpdateView):
     form_action_urlname = 'meal-edit'
 
     def get_success_url(self):
-        return reverse('wger.nutrition.views.plan.view', kwargs={'id': self.object.plan.id})
+        return reverse('nutrition-view', kwargs={'id': self.object.plan.id})
 
 
 @login_required
@@ -90,7 +90,6 @@ def delete_meal(request, id):
     # Only delete if the user is the owner
     if plan.user == request.user:
         meal.delete()
-        return HttpResponseRedirect(reverse('wger.nutrition.views.plan.view',
-                                            kwargs={'id': plan.id}))
+        return HttpResponseRedirect(reverse('nutrition-view', kwargs={'id': plan.id}))
     else:
         return HttpResponseForbidden()

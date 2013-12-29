@@ -103,7 +103,7 @@ $(document).ready(function() {
             </span>
         </td>
         <td>
-            <a href="{% url 'wger.manager.views.workout.view' step.workout.id %}">{{ step.workout }}</a>
+            <a href="{% url 'workout-view' step.workout.id %}">{{ step.workout }}</a>
             {% if active_workout == step %}
             <span class="label label-info">{% trans "active" %}</span>
             {% endif  %}

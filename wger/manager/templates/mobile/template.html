@@ -124,10 +124,10 @@
 
             {% if user.is_authenticated %}
             <li>
-                <a href="{% url 'wger.manager.views.workout.overview' %}">{% trans "Workouts" %}</a>
+                <a href="{% url 'workout-overview' %}">{% trans "Workouts" %}</a>
             </li>
             <li>
-                <a href="{% url 'wger.nutrition.views.plan.overview' %}">{% trans "Nutrition" %}</a>
+                <a href="{% url 'nutrition-overview' %}">{% trans "Nutrition" %}</a>
             </li>
             {% endif %}
 

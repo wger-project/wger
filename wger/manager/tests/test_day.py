@@ -158,7 +158,7 @@ class WorkoutCacheTestCase(WorkoutManagerTestCase):
         '''
 
         self.user_login('admin')
-        self.client.get(reverse('wger.manager.views.workout.view', kwargs={'id': 1}))
+        self.client.get(reverse('workout-view', kwargs={'id': 1}))
 
         old_day1 = cache.get(get_template_cache_name('day-view', 1))
         old_day2 = cache.get(get_template_cache_name('day-view', 2))
@@ -171,7 +171,7 @@ class WorkoutCacheTestCase(WorkoutManagerTestCase):
         self.assertFalse(cache.get(get_template_cache_name('day-view', 1)))
         self.assertTrue(cache.get(get_template_cache_name('day-view', 2)))
 
-        self.client.get(reverse('wger.manager.views.workout.view', kwargs={'id': 1}))
+        self.client.get(reverse('workout-view', kwargs={'id': 1}))
         new_day1 = cache.get(get_template_cache_name('day-view', 1))
         new_day2 = cache.get(get_template_cache_name('day-view', 2))
         self.assertNotEqual(old_day1, new_day1)

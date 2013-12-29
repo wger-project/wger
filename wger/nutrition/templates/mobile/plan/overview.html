@@ -10,14 +10,14 @@
 <ul data-role="listview" data-inset="false">
     {% for plan in plans %}
     <li>
-        <a href="{% url 'wger.nutrition.views.plan.view' plan.id %}" data-ajax="false">
+        <a href="{% url 'nutrition-view' plan.id %}" data-ajax="false">
             <h3>{{plan}}</h3>
             <p>{{ plan.creation_date }}</p>
         </a>
     </li>
     {% empty %}
     <li>
-        <a href="{% url 'wger.nutrition.views.plan.add' %}">
+        <a href="{% url 'nutrition-add' %}">
         {% trans "No nutrition plans." %}<br> {% trans "Add one now." %}
         </a>
     </li>
@@ -30,7 +30,7 @@
 {% block sidebar%}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url 'wger.nutrition.views.plan.add' %}" id="nutrition-create-new" data-role="button">
+    <a href="{% url 'nutrition-add' %}" id="nutrition-create-new" data-role="button">
     <img src="{% static 'images/icons/new.svg' %}"
          width="32"
          height="32"

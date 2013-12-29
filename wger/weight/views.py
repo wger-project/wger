@@ -76,7 +76,7 @@ class WeightAddView(WgerFormMixin, CreateView):
     });'''
     title = ugettext_lazy('Add weight entry')
     form_action = reverse_lazy('weight-add')
-    success_url = reverse_lazy('wger.weight.views.overview')
+    success_url = reverse_lazy('weight-overview')
 
     def get_initial(self):
         '''
@@ -105,7 +105,7 @@ class WeightUpdateView(WgerFormMixin, UpdateView):
     custom_js = '''$(document).ready(function () {
         init_weight_datepicker();
     });'''
-    success_url = reverse_lazy('wger.weight.views.overview')
+    success_url = reverse_lazy('weight-overview')
 
     def get_context_data(self, **kwargs):
         context = super(WeightUpdateView, self).get_context_data(**kwargs)

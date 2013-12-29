@@ -81,8 +81,7 @@ def delete_meal_item(request, item_id):
     # Only delete if the user is the owner
     if plan.user == request.user:
         item.delete()
-        return HttpResponseRedirect(reverse('wger.nutrition.views.plan.view',
-                                            kwargs={'id': plan.id}))
+        return HttpResponseRedirect(reverse('nutrition-view', kwargs={'id': plan.id}))
     else:
         return HttpResponseForbidden()
 
@@ -108,7 +107,7 @@ class MealItemCreateView(WgerFormMixin, CreateView):
             return HttpResponseForbidden()
 
     def get_success_url(self):
-        return reverse('wger.nutrition.views.plan.view', kwargs={'id': self.meal.plan.id})
+        return reverse('nutrition-view', kwargs={'id': self.meal.plan.id})
 
     def get_context_data(self, **kwargs):
         '''
@@ -141,7 +140,7 @@ class MealItemEditView(WgerFormMixin, UpdateView):
     template_name = 'meal_item/edit.html'
 
     def get_success_url(self):
-        return reverse('wger.nutrition.views.plan.view', kwargs={'id': self.object.meal.plan.id})
+        return reverse('nutrition-view', kwargs={'id': self.object.meal.plan.id})
 
     def get_context_data(self, **kwargs):
         '''

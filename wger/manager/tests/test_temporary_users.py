@@ -111,7 +111,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         self.client.get(reverse('software:code'))
         self.assertEqual(self.count_temp_users(), 1)
 
-        self.client.get(reverse('wger.exercises.views.exercises.overview'))
+        self.client.get(reverse('exercise-overview'))
         self.assertEqual(self.count_temp_users(), 1)
 
         self.client.get(reverse('ingredient-list'))
@@ -128,7 +128,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
 
         # Try some other pages
         self.user_logout()
-        self.client.get(reverse('wger.manager.views.workout.overview'))
+        self.client.get(reverse('workout-overview'))
         self.assertEqual(self.count_temp_users(), 3)
 
         self.user_logout()
@@ -136,7 +136,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         self.assertEqual(self.count_temp_users(), 4)
 
         self.user_logout()
-        self.client.get(reverse('wger.nutrition.views.plan.overview'))
+        self.client.get(reverse('nutrition-overview'))
         self.assertEqual(self.count_temp_users(), 5)
 
     def test_demo_user_notice(self):
@@ -146,12 +146,12 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         demo_notice_text = 'You are using a guest account'
         self.user_login('demo')
         self.assertContains(self.client.get(reverse('dashboard')), demo_notice_text)
-        self.assertContains(self.client.get(reverse('wger.manager.views.workout.overview')),
+        self.assertContains(self.client.get(reverse('workout-overview')),
                             demo_notice_text)
-        self.assertContains(self.client.get(reverse('wger.exercises.views.exercises.overview')),
+        self.assertContains(self.client.get(reverse('exercise-overview')),
                             demo_notice_text)
         self.assertContains(self.client.get(reverse('muscle-overview')), demo_notice_text)
-        self.assertContains(self.client.get(reverse('wger.nutrition.views.plan.overview')),
+        self.assertContains(self.client.get(reverse('nutrition-overview')),
                             demo_notice_text)
         self.assertContains(self.client.get(reverse('software:issues')), demo_notice_text)
         self.assertContains(self.client.get(reverse('software:license')), demo_notice_text)

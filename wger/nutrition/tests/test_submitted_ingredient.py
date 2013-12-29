@@ -69,8 +69,7 @@ class IngredientsPendingDetailTestCase(WorkoutManagerTestCase):
         '''
         Helper function
         '''
-        response = self.client.get(reverse('wger.nutrition.views.ingredient.view',
-                                   kwargs={'id': 7}))
+        response = self.client.get(reverse('ingredient-view', kwargs={'id': 7}))
         self.assertContains(response, 'pending review')
 
         if not fail:

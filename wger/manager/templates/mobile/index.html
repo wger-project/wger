@@ -17,7 +17,7 @@
          {% if current_workout %}
          <ul data-role="listview" data-inset="false" style="margin-bottom:1em;" data-theme="b">
             <li>
-                <a href="{% url 'wger.manager.views.workout.view' current_workout.id %}"
+                <a href="{% url 'workout-view' current_workout.id %}"
 
                    data-mini="true"
                    data-ajax="false">
@@ -56,7 +56,7 @@
          {% if plan %}
          <ul data-role="listview" data-inset="false" style="margin-bottom:1em;" data-theme="b">
             <li>
-                <a href="{% url 'wger.nutrition.views.plan.view' plan.id %}"
+                <a href="{% url 'nutrition-view' plan.id %}"
                    data-mini="true"
                    data-ajax="false">
                     {{ plan }}
@@ -215,7 +215,7 @@ pauses you do.{% endblocktrans %}</div>
     </div>
     <div class="ui-block-b">
 
-        <a href="{% url 'wger.weight.views.overview' %}" data-role="button" data-ajax="false">
+        <a href="{% url 'weight-overview' %}" data-role="button" data-ajax="false">
             <img src="{% static 'images/icons/statistics.svg' %}"
                  width="32"
                  height="32"

@@ -54,8 +54,7 @@ class CopyWorkoutTestCase(WorkoutManagerTestCase):
             self.assertTemplateUsed('workout/view.html')
 
         # Test accessing the copied workout
-        response = self.client.get(reverse('wger.manager.views.workout.view',
-                                           kwargs={'id': 4}))
+        response = self.client.get(reverse('workout-view', kwargs={'id': 4}))
 
         if not owner:
             self.assertEqual(response.status_code, 404)

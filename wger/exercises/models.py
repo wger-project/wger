@@ -247,8 +247,7 @@ class Exercise(models.Model):
         '''
         Returns the canonical URL to view an exercise
         '''
-        return reverse('wger.exercises.views.exercises.view',
-                       kwargs={'id': self.id, 'slug': slugify(self.name)})
+        return reverse('exercise-view', kwargs={'id': self.id, 'slug': slugify(self.name)})
 
     def save(self, *args, **kwargs):
         '''

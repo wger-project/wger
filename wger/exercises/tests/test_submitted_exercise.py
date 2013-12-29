@@ -70,8 +70,7 @@ class ExercisesPendingDetailTestCase(WorkoutManagerTestCase):
         '''
         Helper function
         '''
-        response = self.client.get(reverse('wger.exercises.views.exercises.view',
-                                   kwargs={'id': 4}))
+        response = self.client.get(reverse('exercise-view', kwargs={'id': 4}))
         self.assertContains(response, 'Exercise is pending')
 
         if not fail:

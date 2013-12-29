@@ -113,7 +113,7 @@ def create(request, day_pk):
                     instance.exercise = formset['exercise']
                     instance.save()
 
-            return HttpResponseRedirect(reverse('wger.manager.views.workout.view',
+            return HttpResponseRedirect(reverse('workout-view',
                                         kwargs={'id': day.get_owner_object().id}))
         else:
             logger.debug(form.errors)
@@ -161,7 +161,7 @@ def delete(request, pk):
     # Check if the user is the owner of the object
     if set_obj.get_owner_object().user == request.user:
         set_obj.delete()
-        return HttpResponseRedirect(reverse('wger.manager.views.workout.view',
+        return HttpResponseRedirect(reverse('workout-view',
                                             kwargs={'id': set_obj.get_owner_object().id}))
     else:
         return HttpResponseForbidden()
@@ -215,7 +215,7 @@ def edit(request, pk):
                         instance.exercise = formset['exercise']
                         instance.save()
 
-            return HttpResponseRedirect(reverse('wger.manager.views.workout.view',
+            return HttpResponseRedirect(reverse('workout-view',
                                         kwargs={'id': set_obj.get_owner_object().id}))
 
     # Other context we need

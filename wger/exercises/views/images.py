@@ -48,8 +48,7 @@ class ExerciseImageEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     permission_required = 'exercises.change_exerciseimage'
 
     def get_success_url(self):
-        return reverse('wger.exercises.views.exercises.view',
-                       kwargs={'id': self.object.exercise.id})
+        return reverse('exercise-view', kwargs={'id': self.object.exercise.id})
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
@@ -76,8 +75,7 @@ class ExerciseImageAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
         return super(ExerciseImageAddView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('wger.exercises.views.exercises.view',
-                       kwargs={'id': self.object.exercise.id})
+        return reverse('exercise-view', kwargs={'id': self.object.exercise.id})
 
     def get_context_data(self, **kwargs):
         '''
@@ -105,8 +103,7 @@ class ExerciseImageDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
         '''
         Return to exercise image
         '''
-        return reverse('exercise-view',
-                       kwargs={'id': self.kwargs['exercise_pk']})
+        return reverse('exercise-view', kwargs={'id': self.kwargs['exercise_pk']})
 
     def get_context_data(self, **kwargs):
         '''

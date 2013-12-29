@@ -49,8 +49,7 @@ class ExerciseCommentEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     permission_required = 'exercises.change_exercisecomment'
 
     def get_success_url(self):
-        return reverse('exercise-view',
-                       kwargs={'id': self.object.exercise.id})
+        return reverse('exercise-view', kwargs={'id': self.object.exercise.id})
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
@@ -75,8 +74,7 @@ class ExerciseCommentAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
         return super(ExerciseCommentAddView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('wger.exercises.views.exercises.view',
-                       kwargs={'id': self.object.exercise.id})
+        return reverse('exercise-view', kwargs={'id': self.object.exercise.id})
 
     def get_context_data(self, **kwargs):
         '''
@@ -96,5 +94,4 @@ def delete(request, id):
     exercise_id = comment.exercise.id
     comment.delete()
 
-    return HttpResponseRedirect(reverse('wger.exercises.views.exercises.view',
-                                kwargs={'id': exercise_id}))
+    return HttpResponseRedirect(reverse('exercise-view', kwargs={'id': exercise_id}))

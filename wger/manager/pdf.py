@@ -278,7 +278,7 @@ def workout_log(request, id):
 
     # Print date and info
     created = datetime.date.today().strftime("%d.%m.%Y")
-    url = reverse('wger.manager.views.workout.view', kwargs={'id': workout.id})
+    url = reverse('workout-view', kwargs={'id': workout.id})
     P = Paragraph('''<para align="left">
                         %(date)s -
                         <a href="%(url)s">%(url)s</a> -
