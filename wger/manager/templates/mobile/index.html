@@ -108,7 +108,7 @@ pauses you do.{% endblocktrans %}</div>
 
         <ul data-role="listview" data-inset="true" style="margin-bottom:1em;">
             {% if current_workout %}
-                {% for day in current_workout.canonical_representation %}
+                {% for day in current_workout.canonical_representation.day_list %}
                 <li>
                     {% if day.set_list|length > 0 %}<a href="{% url 'workout-timer' day.obj.pk %}" data-ajax="false">{% endif %}
                     {{day.obj.description}}

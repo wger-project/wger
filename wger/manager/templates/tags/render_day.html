@@ -16,21 +16,22 @@ $(document).ready(function() {
 })
 </script>
 
-<table class="bordertable workout-table" id="table-day-{{ day.id }}">
+<table class="bordertable workout-table" id="table-day-{{ day.obj.id }}">
 <thead>
-    <tr id="day-{{ day.id }}">
+    <tr id="day-{{ day.obj.id }}">
         <th colspan="2">
-            {{ day.day.select_related|join:", " }} – {{ day.description }}
+
+            {{ day.days_of_week.text }} – {{ day.obj.description }}
 
             <span class="editoptions" style="float: right;">
-                <a href="{% url 'wger.manager.views.day.delete' workout.id day.id %}"
+                <a href="{% url 'wger.manager.views.day.delete' workout.id day.obj.id %}"
                    title="{% trans 'Delete' %}">
                        <img src="{% static 'images/icons/trash.svg' %}"
                             width="22"
                             height="22"
                             alt="{% trans 'Delete' %}">
                 </a>
-                <a href="{% url 'day-edit' day.id %}"
+                <a href="{% url 'day-edit' day.obj.id %}"
                    title="{% trans 'Edit' %}"
                    class="modal-dialog">
                        <img src="{% static 'images/icons/edit.svg' %}"
@@ -38,7 +39,7 @@ $(document).ready(function() {
                             height="22"
                             alt="{% trans 'Edit' %}">
                 </a>
-                <a href="{% url 'day-log' day.id %}"
+                <a href="{% url 'day-log' day.obj.id %}"
                    title="{% trans 'Add weight log to this day' %}">
                        <img src="{% static 'images/icons/statistics.svg' %}"
                             width="22"
@@ -50,8 +51,8 @@ $(document).ready(function() {
     </tr>
     </thead>
     <tbody>
-        {% for set in day.set_set.select_related %}
-        <tr id="set-{{ set.id }}">
+        {% for set in day.set_list %}
+        <tr id="set-{{ set.obj.id }}">
             <td class="ym-g10">{{ forloop.counter }}
                 <span class="editoptions">
                 <img src="{% static 'images/icons/move.svg' %}"
@@ -61,7 +62,7 @@ $(document).ready(function() {
                      title="{% trans 'Move me' %}"
                      class="dragndrop-handle">
                  <br>
-                 <a href="{% url 'set-edit' set.id %}"
+                 <a href="{% url 'set-edit' set.obj.id %}"
                    title="{% trans 'Edit' %}"
                    class="modal-dialog">
                        <img src="{% static 'images/icons/edit.svg' %}"
@@ -69,7 +70,7 @@ $(document).ready(function() {
                             height="22"
                             alt="{% trans 'Edit' %}">
                 </a>
-                 <a href="{% url 'wger.manager.views.set.delete' set.id %}"
+                 <a href="{% url 'wger.manager.views.set.delete' set.obj.id %}"
                     title="{% trans 'Delete' %}">
                         <img src="{% static 'images/icons/trash.svg' %}"
                              width="16"
@@ -80,62 +81,35 @@ $(document).ready(function() {
             </td>
             <td>
                 <div class="exercise-list">
-                {% for exercise in set.exercises.select_related %}
-                    <div id="exercise-{{ exercise.id }}" class="ajax-set-edit-target">
-                        <a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a>:
+                {% for exercise in set.exercise_list %}
+                    <div id="exercise-{{ exercise.obj.id }}" class="ajax-set-edit-target">
+                        <a href="{{ exercise.obj.get_absolute_url }}">{{ exercise.obj.name }}</a>:
 
-                        {% comment %}
-                            If there are more than 1 settings, don't output the repetitions
-                            e.g. "4 x 8 8 10 10" is shown only as "8 8 10 10", after all
-                            those 4 sets are not done four times! But "3 x 12" is stil shown
-                            like that.
-                        {% endcomment %}
-                        {% if exercise|get_current_settings:set.id|length == 1 %}
-                            {{ set.sets }} ×
+                        {{exercise.setting_text}}
+                        {% if not exercise.setting_text %}
+                            <a href="{% url 'set-edit' set.obj.id %}"
+                               class="modal-dialog btn btn-block">
+                                    {% trans "This exercise has no repetitions." %}
+                                    {% trans "Edit them now."%}
+                            </a>
                         {% endif %}
 
-                        {% comment %}
-                            get_current_settings only does a exercise.setting_set.filter(set_id=set_id)
-                        {% endcomment %}
-
                         <span class="settings-list">
-                        {% for setting in exercise|get_current_settings:set.id %}
-                            <span id="setting-{{setting.id}}">
-
-
-                            {% if setting.reps == 99 %}
-                                 ∞
-                            {%else%}
-                                {{setting.reps}}
-                            {%endif%}
-                            {% if not forloop.last %} – {% endif %}
-                            </span>
-                        {% empty %}
-                                <a href="{% url 'set-edit' set.id %}"
-                                   class="modal-dialog btn btn-block">
-                                {% trans "This exercise has no repetitions." %}
-                                {% trans "Edit them now."%}
-                            </a>
-                        {% endfor %} <!--for setting in exercise-->
-                        </span>
 
                         <div class="exercise-comments dimmed">
                             <ul>
-                            {% for comment in exercise.exercisecomment_set.all %}
+                            {% for comment in exercise.comment_list %}
                                 <li>{{comment}}</li>
                             {% endfor %}
                             </ul>
                         </div>
-
-
-
                     </div>
                 {% endfor %} <!--for exercise in set-->
                 </div>
         {% empty %}
         <tr>
             <td colspan="2">
-                    <a href="{% url 'set-add' day.id %}"
+                    <a href="{% url 'set-add' day.obj.id %}"
                        class="modal-dialog btn btn-block">
                        {% trans "No exercises selected for this day." %}
                        {% trans "Add one now." %}
@@ -146,7 +120,7 @@ $(document).ready(function() {
         </tr>
         <tr>
             <td colspan="2">
-                <a href="{% url 'set-add' day.id %}"
+                <a href="{% url 'set-add' day.obj.id %}"
                    class="modal-dialog">{% trans "Add exercises to this workout day" %}</a>
             </td>
         </tr>

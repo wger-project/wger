@@ -50,12 +50,8 @@ logger = logging.getLogger('wger.custom')
 #
 # Helper functions
 #
-def reset_workout_muscle_bg_cache(workout_id):
-    cache.delete(cache_mapper.get_workout_muscle_bg(workout_id))
-
-
-def reset_day_template_cache(day_id):
-    delete_template_fragment_cache('day-view', day_id)
+def reset_workout_canonical_form(workout_id):
+    cache.delete(cache_mapper.get_workout_canonical(workout_id))
 
 
 #
@@ -105,20 +101,37 @@ class Workout(models.Model):
     def canonical_representation(self):
         '''
         Returns a canonical representation of the workout
-        '''
-        canonical_repr = []
-        for day in self.day_set.select_related():
-            tmp_days_of_week = []
-            for day_of_week in day.day.select_related():
-                tmp_days_of_week.append(day_of_week)
 
-            canonical_repr.append({'obj': day,
-                                   'days_of_week': {
-                                       'text': u', '.join([unicode(_(i.day_of_week))
-                                                           for i in tmp_days_of_week]),
-                                       'day_list': tmp_days_of_week},
-                                   'set_list': day.canonical_representation})
-        return canonical_repr
+        This form makes it easier to cache and use everywhere where all or part
+        of a workout structure is needed. As an additional benefit, the template
+        caches are not needed anymore.
+        '''
+        workout_canonical_form = cache.get(cache_mapper.get_workout_canonical(self.pk))
+        if not workout_canonical_form:
+            day_canonical_repr = []
+            muscles_front = []
+            muscles_back = []
+            for day in self.day_set.select_related():
+                canonical_repr_day = day.get_canonical_representation()
+
+                # Collect all muscles
+                for i in canonical_repr_day['muscles']['front']:
+                    if i not in muscles_front:
+                        muscles_front.append(i)
+                for i in canonical_repr_day['muscles']['back']:
+                    if i not in muscles_back:
+                        muscles_back.append(i)
+
+                day_canonical_repr.append(canonical_repr_day)
+
+            workout_canonical_form = {'obj': self,
+                                      'muscles': {'front': muscles_front, 'back': muscles_back},
+                                      'day_list': day_canonical_repr}
+
+            # Save to cache
+            cache.set(cache_mapper.get_workout_canonical(self.pk), workout_canonical_form)
+
+        return workout_canonical_form
 
 
 class ScheduleManager(models.Manager):
@@ -375,7 +388,7 @@ class Day(models.Model):
         Reset all cached infos
         '''
 
-        reset_day_template_cache(self.pk)
+        reset_workout_canonical_form(self.training_id)
         super(Day, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
@@ -383,24 +396,48 @@ class Day(models.Model):
         Reset all cached infos
         '''
 
-        reset_day_template_cache(self.pk)
+        reset_workout_canonical_form(self.training_id)
         super(Day, self).delete(*args, **kwargs)
 
     @property
     def canonical_representation(self):
         '''
-        Returns a canonical representation of the day
+        Return the canonical representation for this day
+
+        This is extracted from the workout representation because that one is cached
+        and this isn't.
+        '''
+        for i in self.training.canonical_representation['day_list']:
+            if int(i['obj'].pk) == int(self.pk):
+                return i
+
+    def get_canonical_representation(self):
+        '''
+        Creates a canonical representation for this day
         '''
         canonical_repr = []
+        muscles_front = []
+        muscles_back = []
 
         for set_obj in self.set_set.select_related():
             exercise_tmp = []
             for exercise in set_obj.exercises.select_related():
                 setting_tmp = []
+
+                # Muscles for this set
+                for muscle in exercise.muscles.all():
+                    if muscle.is_front and muscle.id not in muscles_front:
+                        muscles_front.append(muscle.id)
+                    elif not muscle.is_front and muscle.id not in muscles_back:
+                        muscles_back.append(muscle.id)
+
                 for setting in Setting.objects.filter(set=set_obj,
                                                       exercise=exercise).order_by('order'):
                     setting_tmp.append(setting)
 
+                # "Smart" textual representation
+                # This is a human representation of the settings, in a way that humans
+                # would also write: e.g. "8 8 10 10" but "4 x 10" and not "10 10 10 10"
                 if len(setting_tmp) > 1:
                     tmp_reps_text = []
                     tmp_reps = []
@@ -415,20 +452,41 @@ class Day(models.Model):
                     reps = setting_tmp[0].reps if setting_tmp[0].reps != 99 else '∞'
                     setting_text = u'{0} × {1}'.format(set_obj.sets, reps)
                     setting_list = [reps] * set_obj.sets
+
+                # Exercise comments
+                comment_list = []
+                for i in exercise.exercisecomment_set.all():
+                    comment_list.append(i.comment)
+
                 exercise_tmp.append({'obj': exercise,
                                      'setting_obj_list': setting_tmp,
                                      'setting_list': setting_list,
-                                     'setting_text': setting_text})
+                                     'setting_text': setting_text,
+                                     'comment_list': comment_list})
 
-            if len(exercise_tmp) > 1:
-                is_superset = True
-            else:
-                is_superset = False
             canonical_repr.append({'obj': set_obj,
                                    'exercise_list': exercise_tmp,
-                                   'is_superset': is_superset})
+                                   'is_superset': True if len(exercise_tmp) > 1 else False,
+                                   'muscles': {
+                                       'back': muscles_back,
+                                       'front': muscles_front
+                                   }})
 
-        return canonical_repr
+        # Days of the week
+        tmp_days_of_week = []
+        for day_of_week in self.day.select_related():
+            tmp_days_of_week.append(day_of_week)
+
+        return {'obj': self,
+                'days_of_week': {
+                    'text': u', '.join([unicode(_(i.day_of_week))
+                                       for i in tmp_days_of_week]),
+                    'day_list': tmp_days_of_week},
+                'muscles': {
+                    'back': muscles_back,
+                    'front': muscles_front
+                },
+                'set_list': canonical_repr}
 
 
 class Set(models.Model):
@@ -472,8 +530,7 @@ class Set(models.Model):
         Reset all cached infos
         '''
 
-        reset_workout_muscle_bg_cache(self.exerciseday.training_id)
-        reset_day_template_cache(self.exerciseday_id)
+        reset_workout_canonical_form(self.exerciseday.training_id)
         super(Set, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
@@ -481,8 +538,7 @@ class Set(models.Model):
         Reset all cached infos
         '''
 
-        reset_workout_muscle_bg_cache(self.exerciseday.training_id)
-        reset_day_template_cache(self.exerciseday_id)
+        reset_workout_canonical_form(self.exerciseday.training_id)
         super(Set, self).delete(*args, **kwargs)
 
 
@@ -512,7 +568,7 @@ class Setting(models.Model):
         Reset all cached infos
         '''
 
-        reset_day_template_cache(self.set.exerciseday_id)
+        reset_workout_canonical_form(self.set.exerciseday.training_id)
         super(Setting, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
@@ -520,7 +576,7 @@ class Setting(models.Model):
         Reset all cached infos
         '''
 
-        reset_day_template_cache(self.set.exerciseday_id)
+        reset_workout_canonical_form(self.set.exerciseday.training_id)
         super(Setting, self).delete(*args, **kwargs)
 
     def get_owner_object(self):

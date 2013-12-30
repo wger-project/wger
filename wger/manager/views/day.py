@@ -141,9 +141,7 @@ def view(request, id):
     template_data = {}
 
     # Load day and check if its workout belongs to the user
-    day = get_object_or_404(Day, pk=id)
-    if day.training.user != request.user:
-        return HttpResponseForbidden()
+    day = get_object_or_404(Day, pk=id, training__user=request.user)
 
     template_data['day'] = day
 

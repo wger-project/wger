@@ -3,7 +3,6 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load wger_extras %}
-{% load cache %}
 
 {% block title %}{% trans "Workout" %} – {{ workout.creation_date }}{% endblock %}
 
@@ -51,12 +50,10 @@ $(document).ready(function() {
 
 
 
-{% for day in workout.day_set.select_related|dictsort:"get_first_day_id" %}
-    {% cache cache_timeout day-view day.id %}
+{% for day in workout.canonical_representation.day_list %}
     <div id="div-day-{{ day.id }}">
-        {% render_day day %}
+        {% render_day day.obj %}
     </div>
-    {% endcache %}
 {% empty %}
     <p>
     <a href="{% url 'day-add' workout.id %}" class="modal-dialog btn btn-block">

@@ -49,7 +49,7 @@ def render_day(day):
     '''
     Renders a day as it will be displayed in the workout overview
     '''
-    return {'day':     day,
+    return {'day':     day.canonical_representation,
             'workout': day.training}
 
 

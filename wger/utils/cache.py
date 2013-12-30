@@ -50,7 +50,7 @@ class CacheKeyMapper(object):
     EXERCISE_CACHE_KEY = 'exercise-{0}'
     EXERCISE_CACHE_KEY_MUSCLE_BG = 'exercise-muscle-bg-{0}'
     INGREDIENT_CACHE_KEY = 'ingredient-{0}'
-    WORKOUT_MUSCLE_BG = 'workout-muscle-bg-{0}'
+    WORKOUT_CANONICAL_REPRESENTATION = 'workout-canonical-representation-{0}'
 
     def get_exercise_key(self, param):
         '''
@@ -107,15 +107,15 @@ class CacheKeyMapper(object):
 
         return self.INGREDIENT_CACHE_KEY.format(pk)
 
-    def get_workout_muscle_bg(self, param):
+    def get_workout_canonical(self, param):
         '''
-        Return the workout muscle background cache key
+        Return the workout canonical representation
         '''
         try:
             pk = param.pk
         except AttributeError:
             pk = param
 
-        return self.WORKOUT_MUSCLE_BG.format(pk)
+        return self.WORKOUT_CANONICAL_REPRESENTATION.format(pk)
 
 cache_mapper = CacheKeyMapper()

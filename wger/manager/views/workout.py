@@ -76,43 +76,27 @@ def view(request, id):
     Show the workout with the given ID
     '''
     template_data = {}
-
     workout = get_object_or_404(Workout, pk=id, user=request.user)
-    template_data['workout'] = workout
+    canonical = workout.canonical_representation
 
     # Create the backgrounds that show what muscles the workout will work on
-    backgrounds = cache.get(cache_mapper.get_workout_muscle_bg(int(id)))
-    if not backgrounds:
+    muscles_front = []
+    muscles_back = []
+    for i in canonical['muscles']['front']:
+        if not i in muscles_front:
+            muscles_front.append('images/muscles/main/muscle-{0}.svg'.format(i))
+    for i in canonical['muscles']['back']:
+        if not i in muscles_back:
+            muscles_back.append('images/muscles/main/muscle-{0}.svg'.format(i))
 
-        backgrounds_front = []
-        backgrounds_back = []
-        for day in workout.day_set.select_related():
-            for set in day.set_set.select_related():
-                for exercise in set.exercises.select_related():
-                    for muscle in exercise.muscles.all():
-                        muscle_bg = 'images/muscles/main/muscle-%s.svg' % muscle.id
+    # Append the silhouette of the human body as the last entry so the browser
+    # renders it in the background
+    muscles_front.append('images/muscles/muscular_system_front.svg')
+    muscles_back.append('images/muscles/muscular_system_back.svg')
 
-                        # Add the muscles to the background list, but only once.
-                        #
-                        # While the combining effect (the more often a muscle gets
-                        # added, the more intense the colour) is interesting, the
-                        # end result is a very unnatural, very bright colour.
-                        if muscle.is_front and muscle_bg not in backgrounds_front:
-                            backgrounds_front.append(muscle_bg)
-                        elif not muscle.is_front and muscle_bg not in backgrounds_back:
-                            backgrounds_back.append(muscle_bg)
-
-        # Append the correct "main" background, with the silhouette of the human body
-        backgrounds_front.append('images/muscles/muscular_system_front.svg')
-        backgrounds_back.append('images/muscles/muscular_system_back.svg')
-
-        backgrounds = (backgrounds_front, backgrounds_back)
-
-        cache.set(cache_mapper.get_workout_muscle_bg(int(id)),
-                  (backgrounds_front, backgrounds_back))
-
-    template_data['muscle_backgrounds_front'] = backgrounds[0]
-    template_data['muscle_backgrounds_back'] = backgrounds[1]
+    template_data['workout'] = workout
+    template_data['muscle_backgrounds_front'] = muscles_front
+    template_data['muscle_backgrounds_back'] = muscles_back
 
     return render_to_response('workout/view.html',
                               template_data,
@@ -233,26 +217,35 @@ class WorkoutEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     login_required = True
 
 
-def get_last_weight(user, exercise, reps):
+class LastWeightHelper():
     '''
-    Helper function to retrieve the last workout log for a certain
-    user, exercise and repetition combination. Returns an emtpy string
-    if no entry is found
-
-    :param user:
-    :param exercise:
-    :param reps:
-    :return: WorkoutLog or '' if none is found
+    Small helper class to retrieve the last workout log for a certain
+    user, exercise and repetition combination.
     '''
-    last_log = WorkoutLog.objects.filter(user=user,
-                                         exercise=exercise,
-                                         reps=reps).order_by('-date')
-    if last_log.exists():
-        weight = last_log[0].weight
-    else:
-        weight = ''
+    user = None
+    last_weight_list = {}
 
-    return weight
+    def __init__(self, user):
+        self.user = user
+
+    def get_last_weight(self, exercise, reps):
+        '''
+        Returns an emtpy string if no entry is found
+
+        :param exercise:
+        :param reps:
+        :return: WorkoutLog or '' if none is found
+        '''
+        key = '{0}-{1}-{2}'.format(self.user.pk, exercise.pk, reps)
+
+        if self.last_weight_list.get(key) is None:
+            last_log = WorkoutLog.objects.filter(user=self.user,
+                                                 exercise=exercise,
+                                                 reps=reps).order_by('-date')
+            weight = last_log[0].weight if last_log.exists() else ''
+            self.last_weight_list[key] = weight
+
+        return self.last_weight_list.get(key)
 
 
 @login_required
@@ -262,13 +255,13 @@ def timer(request, day_pk):
     '''
 
     day = get_object_or_404(Day, pk=day_pk, training__user=request.user)
-    #day = Day.objects.get(pk=day_pk, training__user=request.user)
     canonical_day = day.canonical_representation
     context = {}
     step_list = []
+    last_log = LastWeightHelper(request.user)
 
     # Go through the workout day and create the individual 'pages'
-    for set_dict in canonical_day:
+    for set_dict in canonical_day['set_list']:
 
         if not set_dict['is_superset']:
             for exercise_dict in set_dict['exercise_list']:
@@ -280,9 +273,7 @@ def timer(request, day_pk):
                                       'exercise': exercise,
                                       'type': 'exercise',
                                       'reps': reps,
-                                      'weight': get_last_weight(user=request.user,
-                                                                exercise=exercise,
-                                                                reps=reps)})
+                                      'weight': last_log.get_last_weight(exercise, reps)})
 
                     step_list.append({'current_step': uuid.uuid4().hex,
                                       'step_percent': 0,
@@ -304,9 +295,7 @@ def timer(request, day_pk):
                                       'exercise': exercise,
                                       'type': 'exercise',
                                       'reps': reps,
-                                      'weight': get_last_weight(user=request.user,
-                                                                exercise=exercise,
-                                                                reps=reps)})
+                                      'weight': last_log.get_last_weight(exercise, reps)})
 
                 step_list.append({'current_step': uuid.uuid4().hex,
                                   'step_percent': 0,

@@ -5,14 +5,14 @@
 
 
 <div data-role="popup"
-     id="editoptions-day-{{ day.id }}"
+     id="editoptions-day-{{ day.obj.id }}"
      data-theme="d"
      data-overlay-theme="a">
         <div data-role="header" data-theme="b">
-            <h3>{{day.description}}</h3>
+            <h3>{{day.obj.description}}</h3>
         </div>
         <div role="main" class="ui-content">
-        <a href="{% url 'day-log' day.id %}"
+        <a href="{% url 'day-log' day.obj.id %}"
            title="{% trans 'Add weight log to this day' %}"
            data-role="button">
                 <img src="{% static 'images/icons/statistics.svg' %}"
@@ -21,8 +21,8 @@
                      alt="{% trans 'Add weight log to this day' %}">
                     {% trans 'Add weight log to this day' %}
         </a>
-        {% if day.set_set.select_related|length > 0 %}
-        <a href="{% url 'workout-timer' day.id %}"
+        {% if day.set_list|length > 0 %}
+        <a href="{% url 'workout-timer' day.obj.id %}"
            title="{% trans 'Start gym mode' %}"
            data-role="button"
            data-ajax="false">
@@ -33,7 +33,7 @@
                     {% trans "Start gym mode" %}
         </a>
         {% endif %}
-        <a href="{% url 'day-edit' day.id %}"
+        <a href="{% url 'day-edit' day.obj.id %}"
             title="{% trans 'Edit' %}"
             data-role="button">
                 <img src="{% static 'images/icons/edit.svg' %}"
@@ -42,7 +42,7 @@
                      alt="{% trans 'Edit' %}">
                     {% trans 'Edit' %}
         </a>
-        <a href="{% url 'wger.manager.views.day.delete' workout.id day.id %}"
+        <a href="{% url 'wger.manager.views.day.delete' workout.id day.obj.id %}"
            title="{% trans 'Delete' %}"
            data-role="button">
                 <img src="{% static 'images/icons/trash.svg' %}"
@@ -55,15 +55,15 @@
 </div>
 
 
-{% for set in day.set_set.select_related %}
+{% for set in day.set_list %}
 <div data-role="popup"
-     id="editoptions-set-{{ set.id }}"
+     id="editoptions-set-{{ set.obj.id }}"
      data-overlay-theme="a">
         <div data-role="header" data-theme="b">
             <h3>{% trans "Options" %}</h3>
         </div>
         <div role="main" class="ui-content">
-        <a href="{% url 'wger.manager.views.set.edit' set.id %}"
+        <a href="{% url 'wger.manager.views.set.edit' set.obj.id %}"
            title="{% trans 'Delete' %}"
            data-role="button">
                 <img src="{% static 'images/icons/edit.svg' %}"
@@ -73,7 +73,7 @@
                      class="ui-li-icon ui-corner-none">
                 {% trans "Edit" %}
         </a>
-        <a href="{% url 'wger.manager.views.set.delete' set.id %}"
+        <a href="{% url 'wger.manager.views.set.delete' set.obj.id %}"
            title="{% trans 'Delete' %}"
            data-role="button">
                 <img src="{% static 'images/icons/trash.svg' %}"
@@ -85,11 +85,11 @@
         </a>
 
         <h5>{% trans "Exercises" %}</h5>
-        {% for exercise in set.exercises.select_related %}
-            <a href="{{ exercise.get_absolute_url }}"
-               title="{{ exercise.name }}"
+        {% for exercise in set.exercise_list %}
+            <a href="{{ exercise.obj.get_absolute_url }}"
+               title="{{ exercise.obj.name }}"
                data-role="button">
-                {{ exercise.name }}
+                {{ exercise.obj.name }}
         </a>
         {% endfor %}
     </div>
@@ -102,77 +102,46 @@
     data-split-icon="grid"
     data-split-theme="b">
     <li data-theme="b">
-        <a href="#editoptions-day-{{ day.id }}" data-rel="popup">
-        <h4>{{day.description}}</h4>
-        {% for day_of_week in day.day.select_related %}
-            {% trans day_of_week.day_of_week %}
-            {% if not forloop.last %}, {% endif %}
-        {% endfor %}
+        <a href="#editoptions-day-{{ day.obj.id }}" data-rel="popup">
+            <h4>{{ day.obj.description }}</h4>
+            {{ day.days_of_week.text }}
         </a>
 
-
-        <a href="{% url 'day-log' day.id %}"></a>
+        <a href="{% url 'day-log' day.obj.id %}"></a>
     </li>
-
-    {% for set in day.set_set.select_related %}
-    <li id="set-{{ set.id }}" data-icon="false">
-    <a href="#editoptions-set-{{ set.id }}"
+    {% for set in day.set_list %}
+    <li id="set-{{ set.obj.id }}" data-icon="false">
+    <a href="#editoptions-set-{{ set.obj.id }}"
        data-rel="popup"
        data-position-to="window">
 
-        {% for exercise in set.exercises.select_related %}
-            <div id="exercise-{{ exercise.id }}" class="ajax-set-edit-target">
-                <h3>{{ exercise.name }}</h3>
+        {% for exercise in set.exercise_list %}
+            <div id="exercise-{{ exercise.obj.id }}" class="ajax-set-edit-target">
+                <h3>{{ exercise.obj.name }}</h3>
 
                 <p><strong>
-                {% comment %}
-                    If there are more than 1 settings, don't output the repetitions
-                    e.g. "4 x 8 8 10 10" is shown only as "8 8 10 10", after all
-                    those 4 sets are not done four times! But "3 x 12" is stil shown
-                    like that.
-                {% endcomment %}
-                {% if exercise|get_current_settings:set.id|length == 1 %}
-                    {{ set.sets }} ×
-                {% endif %}
-
-                {% comment %}
-                    get_current_settings only does a exercise.setting_set.filter(set_id=set_id)
-                {% endcomment %}
-
-                <span class="settings-list">
-                {% for setting in exercise|get_current_settings:set.id %}
-                    <span id="setting-{{setting.id}}">
-                    {% if setting.reps == 99 %}
-                         ∞
-                    {%else%}
-                        {{setting.reps}}
-                    {%endif%}
-                    {% if not forloop.last %} – {% endif %}
-                    </span>
-                {% empty %}
-                    <a href="{% url 'set-edit' set.id %}"
+                {{exercise.setting_text}}
+                </strong></p>
+                {% if not exercise.setting_list %}
+                    <a href="{% url 'set-edit' set.obj.id %}"
                        data-role="button">
                         {% trans "This exercise has no repetitions." %}
                         {% trans "Edit them now."%}
                     </a>
-                {% endfor %} <!--for setting in exercise-->
-                </span>
-                </strong></p>
+                {% endif %}
 
                 <p class="exercise-comments">
-                    {% for comment in exercise.exercisecomment_set.all %}
+                    {% for comment in exercise.comment_list %}
                         {{comment}}<br>
                     {% endfor %}
                 </p>
-
-
             </div>
         {% endfor %} <!--for exercise in set-->
     </a>
     </li>
     {% empty %}
     <li>
-        <a href="{% url 'set-add' day.id %}"
+        <a href="{% url 'set-add' day.obj.id %}"
            data-ajax="false">
                {% trans "No exercises selected for this day." %}<br>
                {% trans "Add one now." %}
@@ -180,9 +149,9 @@
     </li>
     {% endfor %} <!--for set in day-->
 
-    {% if day.set_set.select_related %}
+    {% if day.set_list %}
     <li data-icon="arrow-r">
-        <a href="{% url 'set-add' day.id %}"
+        <a href="{% url 'set-add' day.obj.id %}"
            data-ajax="false"
            >{% trans "Add exercises to this workout day" %}</a>
     </li>

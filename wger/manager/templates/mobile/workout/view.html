@@ -45,9 +45,9 @@ $( document ).off("pageinit").on("pageinit", function() {
 </p>
 {% endif %}
 
-{% for day in workout.day_set.select_related %}
-    <div id="div-day-{{ day.id }}">
-        {% render_day day %}
+{% for day in workout.canonical_representation.day_list %}
+    <div id="div-day-{{ day.obj.id }}">
+        {% render_day day.obj %}
     </div>
 {% empty %}
 
