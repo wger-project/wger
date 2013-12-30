@@ -84,6 +84,86 @@ class PreferencesTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.context['user'].email, '')
 
 
+class UserBodyweightTestCase(WorkoutManagerTestCase):
+    '''
+    Tests the body weight generation/update function
+    '''
+
+    def test_bodyweight_new(self):
+        '''
+        Tests that a new weight entry is created
+        '''
+        user = User.objects.get(pk=2)
+        count_before = WeightEntry.objects.filter(user=user).count()
+
+        entry = user.userprofile.user_bodyweight(80)
+        count_after = WeightEntry.objects.filter(user=user).count()
+        self.assertEqual(count_before, count_after - 1)
+        self.assertEqual(entry.creation_date, datetime.date.today())
+
+    def test_bodyweight_new_2(self):
+        '''
+        Tests that a new weight entry is created
+        '''
+        user = User.objects.get(pk=2)
+        count_before = WeightEntry.objects.filter(user=user).count()
+        last_entry = WeightEntry.objects.filter(user=user).latest()
+        last_entry.creation_date = datetime.date.today() - datetime.timedelta(weeks=1)
+        last_entry.save()
+
+        entry = user.userprofile.user_bodyweight(80)
+        count_after = WeightEntry.objects.filter(user=user).count()
+        self.assertEqual(count_before, count_after - 1)
+        self.assertEqual(entry.creation_date, datetime.date.today())
+
+    def test_bodyweight_no_entries(self):
+        '''
+        Tests that a new weight entry is created if there are no weight entries
+        '''
+        user = User.objects.get(pk=2)
+        WeightEntry.objects.filter(user=user).delete()
+
+        count_before = WeightEntry.objects.filter(user=user).count()
+        entry = user.userprofile.user_bodyweight(80)
+        count_after = WeightEntry.objects.filter(user=user).count()
+        self.assertEqual(count_before, count_after - 1)
+        self.assertEqual(entry.creation_date, datetime.date.today())
+
+    def test_bodyweight_edit(self):
+        '''
+        Tests that the last weight entry is edited
+        '''
+        user = User.objects.get(pk=2)
+        last_entry = WeightEntry.objects.filter(user=user).latest()
+        last_entry.creation_date = datetime.date.today() - datetime.timedelta(days=3)
+        last_entry.save()
+
+        count_before = WeightEntry.objects.filter(user=user).count()
+        entry = user.userprofile.user_bodyweight(100)
+        count_after = WeightEntry.objects.filter(user=user).count()
+        self.assertEqual(count_before, count_after)
+        self.assertEqual(entry.pk, last_entry.pk)
+        self.assertEqual(entry.creation_date, last_entry.creation_date)
+        self.assertEqual(entry.weight, 100)
+
+    def test_bodyweight_edit_2(self):
+        '''
+        Tests that the last weight entry is edited
+        '''
+        user = User.objects.get(pk=2)
+        last_entry = WeightEntry.objects.filter(user=user).latest()
+        last_entry.creation_date = datetime.date.today()
+        last_entry.save()
+
+        count_before = WeightEntry.objects.filter(user=user).count()
+        entry = user.userprofile.user_bodyweight(100)
+        count_after = WeightEntry.objects.filter(user=user).count()
+        self.assertEqual(count_before, count_after)
+        self.assertEqual(entry.pk, last_entry.pk)
+        self.assertEqual(entry.creation_date, last_entry.creation_date)
+        self.assertEqual(entry.weight, 100)
+
+
 class AjaxPreferencesTestCase(WorkoutManagerTestCase):
     '''
     Tests editing user preferences via AJAX

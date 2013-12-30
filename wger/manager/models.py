@@ -957,11 +957,10 @@ by the US Department of Agriculture. It is extremely complete, with around
         '''
         Create a new weight entry as needed
         '''
-
         if (not WeightEntry.objects.filter(user=self.user).exists()
             or (datetime.date.today()
                 - WeightEntry.objects.filter(user=self.user).latest().creation_date
-                > datetime.timedelta(1))):
+                > datetime.timedelta(days=3))):
             entry = WeightEntry()
             entry.weight = weight
             entry.user = self.user
@@ -973,6 +972,7 @@ by the US Department of Agriculture. It is extremely complete, with around
             entry = WeightEntry.objects.filter(user=self.user).latest()
             entry.weight = weight
             entry.save()
+        return entry
 
 
 # Every new user gets a profile
