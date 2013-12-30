@@ -451,14 +451,14 @@ class Day(models.Model):
                     tmp_reps_text = []
                     tmp_reps = []
                     for i in setting_tmp:
-                        reps = str(i.reps) if i.reps != 99 else '∞'
+                        reps = str(i.reps) if i.reps != 99 else u'∞'
                         tmp_reps_text.append(reps)
                         tmp_reps.append(i.reps)
 
-                    setting_text = ' – '.join(tmp_reps_text)
+                    setting_text = u' – '.join(tmp_reps_text)
                     setting_list = tmp_reps
                 else:
-                    reps = setting_tmp[0].reps if setting_tmp[0].reps != 99 else '∞'
+                    reps = setting_tmp[0].reps if setting_tmp[0].reps != 99 else u'∞'
                     setting_text = u'{0} × {1}'.format(set_obj.sets, reps)
                     setting_list = [reps] * set_obj.sets
 
