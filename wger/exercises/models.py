@@ -34,7 +34,7 @@ from easy_thumbnails.signals import saved_file
 from easy_thumbnails.signal_handlers import generate_aliases_global
 
 from wger.utils.constants import EMAIL_FROM
-from wger.utils.cache import delete_template_fragment_cache
+from wger.utils.cache import delete_template_fragment_cache, reset_workout_canonical_form
 from wger.utils.cache import cache_mapper
 
 
@@ -267,6 +267,10 @@ class Exercise(models.Model):
             delete_template_fragment_cache('exercise-detail-header', self.id, language.id)
             delete_template_fragment_cache('exercise-detail-muscles', self.id, language.id)
 
+        # Cached workouts
+        for set in self.set_set.all():
+            reset_workout_canonical_form(set.exerciseday.training_id)
+
     def delete(self, *args, **kwargs):
         '''
         Reset all cached infos
@@ -282,6 +286,10 @@ class Exercise(models.Model):
             delete_template_fragment_cache('exercise-overview', language.id)
             delete_template_fragment_cache('exercise-detail-header', self.id, language.id)
             delete_template_fragment_cache('exercise-detail-muscles', self.id, language.id)
+
+        # Cached workouts
+        for set in self.set_set.all():
+            reset_workout_canonical_form(set.exerciseday.training.pk)
 
         super(Exercise, self).delete(*args, **kwargs)
 
@@ -510,6 +518,24 @@ class ExerciseComment(models.Model):
         Return a more human-readable representation
         '''
         return self.comment
+
+    def save(self, *args, **kwargs):
+        '''
+        Reset cached workouts
+        '''
+        for set in self.exercise.set_set.all():
+            reset_workout_canonical_form(set.exerciseday.training_id)
+
+        super(ExerciseComment, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        '''
+        Reset cached workouts
+        '''
+        for set in self.exercise.set_set.all():
+            reset_workout_canonical_form(set.exerciseday.training.pk)
+
+        super(ExerciseComment, self).delete(*args, **kwargs)
 
     def get_owner_object(self):
         '''

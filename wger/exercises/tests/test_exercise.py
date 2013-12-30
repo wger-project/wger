@@ -456,6 +456,42 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         self.assertNotEqual(old_detail_muscles, new_detail_muscles)
 
 
+class WorkoutCacheTestCase(WorkoutManagerTestCase):
+    '''
+    Workout cache test case
+    '''
+
+    def test_canonical_form_cache_save(self):
+        '''
+        Tests the workout cache when saving
+        '''
+        exercise = Exercise.objects.get(pk=2)
+        for set in exercise.set_set.all():
+            set.exerciseday.training.canonical_representation
+            workout_id = set.exerciseday.training_id
+            self.assertTrue(cache.get(cache_mapper.get_workout_canonical(workout_id)))
+
+            exercise.save()
+            self.assertFalse(cache.get(cache_mapper.get_workout_canonical(workout_id)))
+
+    def test_canonical_form_cache_delete(self):
+        '''
+        Tests the workout cache when deleting
+        '''
+        exercise = Exercise.objects.get(pk=2)
+
+        workout_ids = []
+        for set in exercise.set_set.all():
+            workout_id = set.exerciseday.training_id
+            workout_ids.append(workout_id)
+            set.exerciseday.training.canonical_representation
+            self.assertTrue(cache.get(cache_mapper.get_workout_canonical(workout_id)))
+
+        exercise.delete()
+        for workout_id in workout_ids:
+            self.assertFalse(cache.get(cache_mapper.get_workout_canonical(workout_id)))
+
+
 class ExerciseApiTestCase(ApiBaseResourceTestCase):
     '''
     Tests the exercise overview resource

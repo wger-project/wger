@@ -27,7 +27,7 @@ from wger.manager.tests.testcase import STATUS_CODES_FAIL
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import ApiBaseResourceTestCase
-from wger.utils.cache import get_template_cache_name
+from wger.utils.cache import get_template_cache_name, cache_mapper
 
 
 logger = logging.getLogger('wger.custom')
@@ -289,51 +289,65 @@ class SetEditEditTestCase(WorkoutManagerTestCase):
         self.edit_set(fail=False)
 
 
-class WorkoutCacheTestCase(WorkoutManagerTestCase):
+class SetWorkoutCacheTestCase(WorkoutManagerTestCase):
     '''
     Workout cache test case
     '''
 
-    def test_workout_view_set(self):
+    def test_canonical_form_cache_save(self):
         '''
-        Test the workout view cache is correctly generated on visit
+        Tests the workout cache when saving
         '''
+        set = Set.objects.get(pk=1)
+        set.exerciseday.training.canonical_representation
+        self.assertTrue(cache.get(cache_mapper.get_workout_canonical(set.exerciseday.training_id)))
 
-        self.user_login('admin')
-        self.client.get(reverse('workout-view', kwargs={'id': 1}))
+        set.save()
+        self.assertFalse(cache.get(cache_mapper.get_workout_canonical(set.exerciseday.training_id)))
 
-        # Edit a set
-        set1 = Set.objects.get(pk=1)
-        set1.order = 99
-        set1.save()
-        self.assertFalse(cache.get(get_template_cache_name('day-view', 1)))
-        self.assertTrue(cache.get(get_template_cache_name('day-view', 2)))
-
-        set1.delete()
-        self.assertFalse(cache.get(get_template_cache_name('day-view', 1)))
-        self.assertTrue(cache.get(get_template_cache_name('day-view', 2)))
-
-    def test_workout_view_setting(self):
+    def test_canonical_form_cache_delete(self):
         '''
-        Test the workout view cache is correctly generated on visit
+        Tests the workout cache when deleting
         '''
+        set = Set.objects.get(pk=1)
+        set.exerciseday.training.canonical_representation
+        self.assertTrue(cache.get(cache_mapper.get_workout_canonical(set.exerciseday.training_id)))
 
-        self.user_login('admin')
-        self.client.get(reverse('workout-view', kwargs={'id': 1}))
-
-        # Edit a setting
-        setting1 = Setting.objects.get(pk=1)
-        setting1.reps = 20
-        setting1.save()
-        self.assertFalse(cache.get(get_template_cache_name('day-view', 1)))
-        self.assertTrue(cache.get(get_template_cache_name('day-view', 2)))
-
-        setting1.delete()
-        self.assertFalse(cache.get(get_template_cache_name('day-view', 1)))
-        self.assertTrue(cache.get(get_template_cache_name('day-view', 2)))
+        set.delete()
+        self.assertFalse(cache.get(cache_mapper.get_workout_canonical(set.exerciseday.training_id)))
 
 
-class SetpiTestCase(ApiBaseResourceTestCase):
+class SettingWorkoutCacheTestCase(WorkoutManagerTestCase):
+    '''
+    Workout cache test case
+    '''
+
+    def test_canonical_form_cache_save(self):
+        '''
+        Tests the workout cache when saving
+        '''
+        setting = Setting.objects.get(pk=1)
+        workout_id = setting.set.exerciseday.training_id
+        setting.set.exerciseday.training.canonical_representation
+        self.assertTrue(cache.get(cache_mapper.get_workout_canonical(workout_id)))
+
+        setting.save()
+        self.assertFalse(cache.get(cache_mapper.get_workout_canonical(workout_id)))
+
+    def test_canonical_form_cache_delete(self):
+        '''
+        Tests the workout cache when deleting
+        '''
+        setting = Setting.objects.get(pk=1)
+        workout_id = setting.set.exerciseday.training_id
+        setting.set.exerciseday.training.canonical_representation
+        self.assertTrue(cache.get(cache_mapper.get_workout_canonical(workout_id)))
+
+        setting.delete()
+        self.assertFalse(cache.get(cache_mapper.get_workout_canonical(workout_id)))
+
+
+class SetApiTestCase(ApiBaseResourceTestCase):
     '''
     Tests the set overview resource
     '''

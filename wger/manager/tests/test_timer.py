@@ -52,26 +52,26 @@ class WorkoutTimerTestCase(WorkoutManagerTestCase):
             self.assertEqual(step_list[0]['weight'], '')
 
             self.assertEqual(step_list[1]['step_nr'], 2)
-            self.assertEqual(math.floor(step_list[0]['step_percent']), 28)
+            self.assertEqual(math.floor(step_list[1]['step_percent']), 28)
             self.assertEqual(step_list[1]['time'], 90)
             self.assertEqual(step_list[1]['type'], 'pause')
 
             self.assertEqual(step_list[2]['exercise'], Exercise.objects.get(pk=2))
             self.assertEqual(step_list[2]['reps'], 10)
             self.assertEqual(step_list[2]['step_nr'], 3)
-            self.assertEqual(math.floor(step_list[0]['step_percent']), 42)
+            self.assertEqual(math.floor(step_list[2]['step_percent']), 42)
             self.assertEqual(step_list[2]['type'], 'exercise')
             self.assertEqual(step_list[2]['weight'], '')
 
             self.assertEqual(step_list[3]['step_nr'], 4)
-            self.assertEqual(math.floor(step_list[0]['step_percent']), 57)
+            self.assertEqual(math.floor(step_list[3]['step_percent']), 57)
             self.assertEqual(step_list[3]['time'], 90)
             self.assertEqual(step_list[3]['type'], 'pause')
 
             self.assertEqual(step_list[4]['exercise'], Exercise.objects.get(pk=2))
             self.assertEqual(step_list[4]['reps'], 10)
             self.assertEqual(step_list[4]['step_nr'], 5)
-            self.assertEqual(math.floor(step_list[0]['step_percent']), 71)
+            self.assertEqual(math.floor(step_list[4]['step_percent']), 71)
             self.assertEqual(step_list[4]['type'], 'exercise')
             self.assertEqual(step_list[4]['weight'], '')
 

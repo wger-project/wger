@@ -15,7 +15,6 @@
 import datetime
 
 from django.core.urlresolvers import reverse
-from django.core.cache import cache
 
 from wger.manager.models import Workout
 
@@ -23,7 +22,6 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import ApiBaseResourceTestCase
-from wger.utils.cache import get_template_cache_name
 
 
 class AddWorkoutTestCase(WorkoutManagerTestCase):
@@ -130,26 +128,6 @@ class WorkoutModelTestCase(WorkoutManagerTestCase):
 
         workout.comment = u'my description'
         self.assertEqual(workout.__unicode__(), u'my description')
-
-
-class WorkoutCacheTestCase(WorkoutManagerTestCase):
-    '''
-    Workout cache test case
-    '''
-
-    def test_workout_view_day(self):
-        '''
-        Test the workout view cache is correctly generated on visit
-        '''
-
-        self.user_login('admin')
-        self.assertFalse(cache.get(get_template_cache_name('day-view', 1)))
-        self.assertFalse(cache.get(get_template_cache_name('day-view', 2)))
-
-        self.client.get(reverse('workout-view', kwargs={'id': 1}))
-
-        self.assertTrue(cache.get(get_template_cache_name('day-view', 1)))
-        self.assertTrue(cache.get(get_template_cache_name('day-view', 2)))
 
 
 class WorkoutApiTestCase(ApiBaseResourceTestCase):

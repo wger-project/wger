@@ -21,7 +21,7 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import ApiBaseResourceTestCase
-from wger.utils.cache import get_template_cache_name
+from wger.utils.cache import get_template_cache_name, cache_mapper
 
 
 class AddWorkoutDayTestCase(WorkoutManagerAddTestCase):
@@ -116,7 +116,7 @@ class RenderWorkoutDayTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('wger.manager.views.day.view', kwargs={'id': 5}))
 
         if fail:
-            self.assertIn(response.status_code, (302, 403))
+            self.assertEqual(response.status_code, 404)
             self.assertTemplateUsed('login.html')
 
         else:
@@ -152,34 +152,27 @@ class WorkoutCacheTestCase(WorkoutManagerTestCase):
     Workout cache test case
     '''
 
-    def test_workout_view_day(self):
+    def test_canonical_form_cache_save(self):
         '''
-        Test the workout view cache is correctly generated on visit
+        Tests the workout cache when saving
         '''
+        day = Day.objects.get(pk=1)
+        day.canonical_representation
+        self.assertTrue(cache.get(cache_mapper.get_workout_canonical(day.training_id)))
 
-        self.user_login('admin')
-        self.client.get(reverse('workout-view', kwargs={'id': 1}))
+        day.save()
+        self.assertFalse(cache.get(cache_mapper.get_workout_canonical(day.training_id)))
 
-        old_day1 = cache.get(get_template_cache_name('day-view', 1))
-        old_day2 = cache.get(get_template_cache_name('day-view', 2))
-        self.assertTrue(old_day1)
-        self.assertTrue(old_day2)
+    def test_canonical_form_cache_delete(self):
+        '''
+        Tests the workout cache when deleting
+        '''
+        day = Day.objects.get(pk=1)
+        day.canonical_representation
+        self.assertTrue(cache.get(cache_mapper.get_workout_canonical(day.training_id)))
 
-        day1 = Day.objects.get(pk=1)
-        day1.description = 'A new name'
-        day1.save()
-        self.assertFalse(cache.get(get_template_cache_name('day-view', 1)))
-        self.assertTrue(cache.get(get_template_cache_name('day-view', 2)))
-
-        self.client.get(reverse('workout-view', kwargs={'id': 1}))
-        new_day1 = cache.get(get_template_cache_name('day-view', 1))
-        new_day2 = cache.get(get_template_cache_name('day-view', 2))
-        self.assertNotEqual(old_day1, new_day1)
-        self.assertEqual(old_day2, new_day2)
-
-        day1.delete()
-        self.assertFalse(cache.get(get_template_cache_name('day-view', 1)))
-        self.assertTrue(cache.get(get_template_cache_name('day-view', 2)))
+        day.delete()
+        self.assertFalse(cache.get(cache_mapper.get_workout_canonical(day.training_id)))
 
 
 class DayTestCase(WorkoutManagerTestCase):

@@ -37,21 +37,13 @@ from wger.exercises.models import Language
 
 from wger.utils.helpers import DecimalJsonEncoder
 from wger.utils.helpers import disable_for_loaddata
-from wger.utils.cache import delete_template_fragment_cache
-from wger.utils.cache import cache_mapper
+from wger.utils.cache import cache_mapper, reset_workout_canonical_form
 from wger.weight.models import WeightEntry
 from wger.utils.fields import Html5DateField
 from wger.utils.fields import Html5DecimalField
 from wger.utils.fields import Html5IntegerField
 
 logger = logging.getLogger('wger.custom')
-
-
-#
-# Helper functions
-#
-def reset_workout_canonical_form(workout_id):
-    cache.delete(cache_mapper.get_workout_canonical(workout_id))
 
 
 #
@@ -90,6 +82,20 @@ class Workout(models.Model):
             return u"{0}".format(self.comment)
         else:
             return u"{0} ({1})".format(_('Workout'), self.creation_date)
+
+    def save(self, *args, **kwargs):
+        '''
+        Reset all cached infos
+        '''
+        reset_workout_canonical_form(self.id)
+        super(Workout, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        '''
+        Reset all cached infos
+        '''
+        reset_workout_canonical_form(self.id)
+        super(Workout, self).delete(*args, **kwargs)
 
     def get_owner_object(self):
         '''
@@ -438,7 +444,10 @@ class Day(models.Model):
                 # "Smart" textual representation
                 # This is a human representation of the settings, in a way that humans
                 # would also write: e.g. "8 8 10 10" but "4 x 10" and not "10 10 10 10"
-                if len(setting_tmp) > 1:
+                if len(setting_tmp) == 0:
+                    setting_text = ''
+                    setting_list = []
+                elif len(setting_tmp) > 1:
                     tmp_reps_text = []
                     tmp_reps = []
                     for i in setting_tmp:

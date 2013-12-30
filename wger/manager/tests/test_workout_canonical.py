@@ -12,6 +12,8 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+from django.core.cache import cache
+
 from wger.exercises.models import Exercise
 from wger.manager.models import Workout
 from wger.manager.models import DaysOfWeek
@@ -20,6 +22,7 @@ from wger.manager.models import Set
 from wger.manager.models import Setting
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.utils.cache import cache_mapper
 
 
 class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
@@ -99,3 +102,41 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
                           'obj': Set.objects.get(pk=3)}]
 
         self.assertEqual(day.canonical_representation['set_list'], canonical_form)
+
+
+class WorkoutCacheTestCase(WorkoutManagerTestCase):
+    '''
+    Test case for the workout canonical representation
+    '''
+
+    def test_canonical_form_cache(self):
+        '''
+        Tests that the workout cache of the canonical form is correctly generated
+        '''
+        self.assertFalse(cache.get(cache_mapper.get_workout_canonical(1)))
+
+        workout = Workout.objects.get(pk=1)
+        workout.canonical_representation
+        self.assertTrue(cache.get(cache_mapper.get_workout_canonical(1)))
+
+    def test_canonical_form_cache_save(self):
+        '''
+        Tests the workout cache when saving
+        '''
+        workout = Workout.objects.get(pk=1)
+        workout.canonical_representation
+        self.assertTrue(cache.get(cache_mapper.get_workout_canonical(1)))
+
+        workout.save()
+        self.assertFalse(cache.get(cache_mapper.get_workout_canonical(1)))
+
+    def test_canonical_form_cache_delete(self):
+        '''
+        Tests the workout cache when deleting
+        '''
+        workout = Workout.objects.get(pk=1)
+        workout.canonical_representation
+        self.assertTrue(cache.get(cache_mapper.get_workout_canonical(1)))
+
+        workout.delete()
+        self.assertFalse(cache.get(cache_mapper.get_workout_canonical(1)))

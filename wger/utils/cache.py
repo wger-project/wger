@@ -39,6 +39,10 @@ def delete_template_fragment_cache(fragment_name='', *args):
     cache.delete(get_template_cache_name(fragment_name, *args))
 
 
+def reset_workout_canonical_form(workout_id):
+    cache.delete(cache_mapper.get_workout_canonical(workout_id))
+
+
 class CacheKeyMapper(object):
     '''
     Simple class for mapping the cache keys of different objects
