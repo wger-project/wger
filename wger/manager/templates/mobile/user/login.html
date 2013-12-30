@@ -13,7 +13,8 @@
 {% block content %}
 <form action="{% url 'login' %}"
       method="post"
-      class="ym-form">
+      class="ym-form"
+      data-ajax="false">
       {% csrf_token %}
       <div class="ym-fbox-text ym-error">
           <div class="ym-message">
