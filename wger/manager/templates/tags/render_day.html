@@ -87,6 +87,7 @@ $(document).ready(function() {
                     <div id="exercise-{{ exercise.obj.id }}" class="ajax-set-edit-target">
                         <a href="{{ exercise.obj.get_absolute_url }}">{{ exercise.obj.name }}</a>:
 
+                        <span class="settings-list">
                         {{exercise.setting_text}}
                         {% if not exercise.setting_text %}
                             <a href="{% url 'set-edit' set.obj.id %}"
@@ -95,8 +96,7 @@ $(document).ready(function() {
                                     {% trans "Edit them now."%}
                             </a>
                         {% endif %}
-
-                        <span class="settings-list">
+                        </span>
 
                         <div class="exercise-comments dimmed">
                             <ul>
@@ -108,6 +108,8 @@ $(document).ready(function() {
                     </div>
                 {% endfor %} <!--for exercise in set-->
                 </div>
+            </td>
+        </tr>
         {% empty %}
         <tr>
             <td colspan="2">
@@ -116,10 +118,9 @@ $(document).ready(function() {
                        {% trans "No exercises selected for this day." %}
                        {% trans "Add one now." %}
                     </a>
-
-        {% endfor %} <!--for set in day-->
             </td>
         </tr>
+        {% endfor %} <!--for set in day-->
         <tr>
             <td colspan="2">
                 <a href="{% url 'set-add' day.obj.id %}"

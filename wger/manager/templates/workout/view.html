@@ -51,7 +51,7 @@ $(document).ready(function() {
 
 
 {% for day in workout.canonical_representation.day_list %}
-    <div id="div-day-{{ day.id }}">
+    <div id="div-day-{{ day.obj.id }}">
         {% render_day day.obj %}
     </div>
 {% empty %}
