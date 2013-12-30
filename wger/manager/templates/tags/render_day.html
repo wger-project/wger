@@ -55,6 +55,7 @@ $(document).ready(function() {
         <tr id="set-{{ set.obj.id }}">
             <td class="ym-g10">{{ forloop.counter }}
                 <span class="editoptions">
+                {% if day.set_list|length > 1 %}
                 <img src="{% static 'images/icons/move.svg' %}"
                      width="22"
                      height="22"
@@ -62,6 +63,7 @@ $(document).ready(function() {
                      title="{% trans 'Move me' %}"
                      class="dragndrop-handle">
                  <br>
+                 {% endif %}
                  <a href="{% url 'set-edit' set.obj.id %}"
                    title="{% trans 'Edit' %}"
                    class="modal-dialog">
