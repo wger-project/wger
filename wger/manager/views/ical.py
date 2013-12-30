@@ -79,19 +79,19 @@ def get_events_workout(calendar, workout, duration, start_date=None):
     generator = UIDGenerator()
     site = Site.objects.get(pk=settings.SITE_ID)
 
-    for day in workout.day_set.all():
+    for day in workout.canonical_representation['day_list']:
 
         # Make the description of the event with the day's exercises
         description_list = []
-        for set in day.set_set.select_related():
-            for exercise in set.exercises.select_related():
-                description_list.append(unicode(exercise))
-        description = ', '.join(description_list) if description_list else day.description
+        for set in day['set_list']:
+            for exercise in set['exercise_list']:
+                description_list.append(unicode(exercise['obj']))
+        description = ', '.join(description_list) if description_list else day['obj'].description
 
         # Make an event for each weekday
-        for weekday in day.day.all():
+        for weekday in day['days_of_week']['day_list']:
             event = Event()
-            event.add('summary', day.description)
+            event.add('summary', day['obj'].description)
             event.add('description', description)
             event.add('dtstart', next_weekday(start_date, weekday.id - 1))
             event.add('dtend', next_weekday(start_date, weekday.id - 1))
