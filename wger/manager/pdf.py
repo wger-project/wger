@@ -96,19 +96,17 @@ def workout_log(request, id):
     #
 
     # Days
-    for day in workout.day_set.select_related():
+    for day in workout.canonical_representation['day_list']:
         set_count = 1
         day_markers.append(len(data))
-        group_day_marker[day.id] = {'start': len(data), 'end': len(data)}
+        group_day_marker[day['obj'].id] = {'start': len(data), 'end': len(data)}
 
-        if not exercise_markers.get(day.id):
-            exercise_markers[day.id] = []
-
-        days_of_week = [_(day_of_week.day_of_week) for day_of_week in day.day.select_related()]
+        if not exercise_markers.get(day['obj'].id):
+            exercise_markers[day['obj'].id] = []
 
         P = Paragraph('<para align="center">%(days)s: %(description)s</para>' %
-                      {'days': ', '.join(days_of_week),
-                       'description': day.description},
+                      {'days': day['days_of_week']['text'],
+                       'description': day['obj'].description},
                       styleSheet["Bold"])
 
         data.append([P])
@@ -119,39 +117,20 @@ def workout_log(request, id):
         data.append([_('Nr.'), _('Exercise'), _('Reps')] + [_('Weight')] * nr_of_weeks)
 
         # Sets
-        for set_obj in day.set_set.select_related():
-            group_exercise_marker[set_obj.id] = {'start': len(data), 'end': len(data)}
+        #for set_obj in day.set_set.select_related():
+        for set in day['set_list']:
+            group_exercise_marker[set['obj'].id] = {'start': len(data), 'end': len(data)}
 
             # Exercises
-            for exercise in set_obj.exercises.select_related():
-
-                group_exercise_marker[set_obj.id]['end'] = len(data)
+            for exercise in set['exercise_list']:
+                group_exercise_marker[set['obj'].id]['end'] = len(data)
 
                  # Note: '+1' here because there's an emtpy cell between days
-                exercise_markers[day.id].append(len(data) + 1)
-                setting_data = []
+                exercise_markers[day['obj'].id].append(len(data) + 1)
 
-                # Settings
-                for setting in exercise.setting_set.filter(set_id=set_obj.id):
-                    if setting.reps == 99:
-                        repetitions = '∞'
-                    else:
-                        repetitions = str(setting.reps)
-                    setting_data.append(repetitions)
-
-                # If there are more than 1 settings, don't output the repetitions
-                # e.g. "4 x 8 8 10 10" is shown only as "8 8 10 10", after all
-                # those 4 sets are not done four times!
-                if len(setting_data) == 0:
-                    out = ''  # nothing set
-
-                elif len(setting_data) == 1:
-                    out = str(set_obj.sets) + ' × ' + setting_data[0]
-
-                elif len(setting_data) > 1:
-                    out = ', '.join(setting_data)
-
-                data.append([set_count, Paragraph(exercise.name, styleSheet["Small"]), out]
+                data.append([set_count,
+                             Paragraph(exercise['obj'].name, styleSheet["Small"]),
+                             exercise['setting_text']]
                             + [''] * nr_of_weeks)
             set_count += 1
 
@@ -161,7 +140,7 @@ def workout_log(request, id):
 
         set_count += 1
         data.append([''])
-        group_day_marker[day.id]['end'] = len(data)
+        group_day_marker[day['obj'].id]['end'] = len(data)
 
         # Set the widths and heights of rows and columns
         # Note: 'None' is treated as 'automatic'. Either there is only one value for the whole list
@@ -247,7 +226,7 @@ def workout_log(request, id):
 
         t._argW[0] = 0.6 * cm  # Exercise numbering
         t._argW[1] = 3.5 * cm  # Name of exercise
-        t._argW[2] = 1.9 * cm  # Repetitions
+        t._argW[2] = 2 * cm  # Repetitions
 
     # There is nothing to output
     else:
