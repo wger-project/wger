@@ -117,7 +117,12 @@ class Workout(models.Model):
             day_canonical_repr = []
             muscles_front = []
             muscles_back = []
-            for day in self.day_set.select_related():
+
+            # Sort list by weekday
+            day_list = [i for i in self.day_set.select_related()]
+            day_list.sort(key=lambda day: day.get_first_day_id)
+
+            for day in day_list:
                 canonical_repr_day = day.get_canonical_representation()
 
                 # Collect all muscles
