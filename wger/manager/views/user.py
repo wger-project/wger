@@ -39,6 +39,7 @@ from wger.exercises.models import Language
 from wger.manager.forms import UserPreferencesForm
 from wger.manager.forms import UserEmailForm
 from wger.manager.forms import RegistrationForm
+from wger.manager.forms import RegistrationFormNoCaptcha
 from wger.utils.constants import USER_TAB
 from wger.utils.user_agents import check_request_amazon, check_request_android
 
@@ -75,13 +76,17 @@ def registration(request):
     template_data = {}
     template_data.update(csrf(request))
 
+    # Don't use captcha when registering through an app
+    is_app = check_request_amazon(request) or check_request_android(request)
+    FormClass = RegistrationFormNoCaptcha if is_app else RegistrationForm
+
     if request.method == 'POST':
 
         # If the user is already logged in, redirect
         if request.user.is_authenticated():
             return HttpResponseRedirect(reverse('dashboard'))
 
-        form = RegistrationForm(data=request.POST)
+        form = FormClass(data=request.POST)
 
         # If the data is valid, log in and redirect
         if form.is_valid():
@@ -103,7 +108,7 @@ def registration(request):
             messages.success(request, _('You were successfully registered'))
             return HttpResponseRedirect(reverse('dashboard'))
     else:
-        form = RegistrationForm()
+        form = FormClass()
 
     template_data['form'] = form
     template_data['title'] = _('Register')

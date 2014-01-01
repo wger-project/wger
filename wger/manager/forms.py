@@ -80,9 +80,23 @@ class UserEmailForm(ModelForm):
 
 
 class RegistrationForm(UserCreationForm, UserEmailForm):
+    '''
+    Registration form
+    '''
     captcha = ReCaptchaField(attrs={'theme': 'clean'},
                              label=_('Confirmation text'),
                              help_text=_('As a security measure, please enter the previous words'),)
+
+
+class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
+    '''
+    Registration form without captcha field
+
+    This is used when registering through an app, in that case there is not
+    such a spam danger and simplifies the registration process on a mobile
+    device.
+    '''
+    pass
 
 
 class DemoUserForm(Form):
