@@ -22,13 +22,13 @@ function custom_modal_init()
 
     {% for schedule in schedules %}
     <li>
-        <a href="{% url 'schedule-view' schedule.id %}">
+        <a href="{% url 'schedule-view' schedule.id %}" data-ajax="false">
             <h3>{{ schedule.name }}</h3>
             <p>{{ schedule.start_date }}</p>
             {% if schedule.is_active %}
             <p class="ui-li-aside"><em>{% trans "active" %}</em></p>
             {% endif  %}
-            </a>
+        </a>
     </li>
     {% empty %}
     <li>
