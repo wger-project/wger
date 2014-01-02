@@ -122,6 +122,7 @@ def export(request, pk):
     response['Content-Disposition'] = \
         'attachment; filename=Calendar-workout-{0}.ics'.format(workout.pk)
     response.write(calendar.to_ical())
+    response['Content-Length'] = len(response.content)
     return response
 
 
@@ -148,4 +149,5 @@ def export_schedule(request, pk):
     response['Content-Disposition'] = \
         'attachment; filename=Calendar-schedule-{0}.ics'.format(schedule.pk)
     response.write(calendar.to_ical())
+    response['Content-Length'] = len(response.content)
     return response

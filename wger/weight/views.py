@@ -124,7 +124,6 @@ def export_csv(request):
     # Prepare the response headers
     filename = u"{0}-{1}".format('weightdata', request.user.username)
     response = HttpResponse(mimetype='text/csv')
-    response['Content-Disposition'] = 'attachment; filename=%s.csv' % filename
 
     # Convert all weight data to CSV
     writer = csv.writer(response)
@@ -136,6 +135,8 @@ def export_csv(request):
         writer.writerow([entry.weight, entry.creation_date])
 
     # Send the data to the browser
+    response['Content-Disposition'] = 'attachment; filename=%s.csv' % filename
+    response['Content-Length'] = len(response.content)
     return response
 
 

@@ -45,12 +45,11 @@ def workout_log(request, id):
     * http://www.reportlab.com/apis/reportlab/dev/platypus.html
     '''
 
-    #Load the workout
-    workout = get_object_or_404(Workout, pk=id, user=request.user)
-
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(mimetype='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename=Workout-{0}.pdf'.format(id)
+
+    #Load the workout
+    workout = get_object_or_404(Workout, pk=id, user=request.user)
 
     # Create the PDF object, using the response object as its "file."
     doc = SimpleDocTemplate(response,
@@ -274,4 +273,7 @@ def workout_log(request, id):
     # write the document and send the response to the browser
     doc.build(elements)
 
+    # Create the HttpResponse object with the appropriate PDF headers.
+    response['Content-Disposition'] = 'attachment; filename=Workout-{0}.pdf'.format(id)
+    response['Content-Length'] = len(response.content)
     return response

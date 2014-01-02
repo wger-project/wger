@@ -123,8 +123,7 @@ $(document).ready(function() {
 
 <h3>{% trans "Options" %}</h3>
 <p>
-<a href="{% url 'wger.manager.pdf.workout_log' workout.id %}"
-   target="_blank">
+<a href="{% url 'wger.manager.pdf.workout_log' workout.id %}">
     <img src="{% static 'images/icons/save.svg' %}"
          width="32"
          height="32"
