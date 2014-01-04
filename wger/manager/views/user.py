@@ -82,8 +82,8 @@ def registration(request):
 
     if request.method == 'POST':
 
-        # If the user is already logged in, redirect
-        if request.user.is_authenticated():
+        # Redirect regular users, in case they reached the registration page
+        if request.user.is_authenticated() and not request.user.userprofile.is_temporary:
             return HttpResponseRedirect(reverse('dashboard'))
 
         form = FormClass(data=request.POST)
