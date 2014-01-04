@@ -80,12 +80,11 @@ def registration(request):
     is_app = check_request_amazon(request) or check_request_android(request)
     FormClass = RegistrationFormNoCaptcha if is_app else RegistrationForm
 
+    # Redirect regular users, in case they reached the registration page
+    if request.user.is_authenticated() and not request.user.userprofile.is_temporary:
+        return HttpResponseRedirect(reverse('dashboard'))
+
     if request.method == 'POST':
-
-        # Redirect regular users, in case they reached the registration page
-        if request.user.is_authenticated() and not request.user.userprofile.is_temporary:
-            return HttpResponseRedirect(reverse('dashboard'))
-
         form = FormClass(data=request.POST)
 
         # If the data is valid, log in and redirect
