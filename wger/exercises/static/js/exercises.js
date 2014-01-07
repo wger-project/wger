@@ -26,8 +26,7 @@
 /*
  * Highlight a muscle in the overview
  */
-function highlight_muscle(element, perms_exercises)
-{
+function highlight_muscle(element, perms_exercises) {
     var div_id = $(element).data('target');
     var is_front = ($(element).data('isFront') == 'True') ? 'front' : 'back';
     var muscle_id = div_id.match(/\d+/);
@@ -41,8 +40,7 @@ function highlight_muscle(element, perms_exercises)
     $(element).removeClass('muscle-inactive');
     $(element).addClass('muscle-active');
 
-    if (perms_exercises)
-    {
+    if (perms_exercises) {
         $('#muscle-edit-box').show();
         $('.muscle-edit-name').html(muscle_name);
         $('#muscle-edit-edit-link').attr("href", "/exercise/muscle/" + muscle_id + "/edit/");
@@ -65,8 +63,7 @@ function highlight_muscle(element, perms_exercises)
  *
  */
 
-function weight_log_chart(data, div_id, reps_i18n, width_factor)
-{
+function weight_log_chart(data, div_id, reps_i18n, width_factor) {
 
     // Calculate the size
     var width_factor = typeof width_factor !== 'undefined' ? width_factor: 600;
@@ -99,8 +96,8 @@ function weight_log_chart(data, div_id, reps_i18n, width_factor)
     var line = d3.svg.line()
         .interpolate("cardinal")
         .tension(0.6)
-        .x(function(d) { return x(d.date); })
-        .y(function(d) { return y(d.weight); });
+        .x(function (d) { return x(d.date); })
+        .y(function (d) { return y(d.weight); });
 
     var svg = d3.select("#svg-" + div_id).append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -109,24 +106,23 @@ function weight_log_chart(data, div_id, reps_i18n, width_factor)
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-      color.domain(d3.keys(data[0]).filter(function(key){
-                                      //console.log(key);
-                                          return ($.inArray(key, ['date', 'id']) == -1);
-                                          })
-                          );
+      color.domain(d3.keys(data[0]).filter(function (key) {
+            return ($.inArray(key, ['date', 'id']) == -1);
+    })
+        );
 
       data.forEach(function(d) {
         d.date = parseDate(d.date);
       });
 
 
-      var reps = color.domain().map(function(name) {
+      var reps = color.domain().map(function (name) {
 
           var temp_values = data.filter(function(d) {
               return(+d[name] > 0);
               });
 
-          var filtered_values = temp_values.map(function(d) {
+          var filtered_values = temp_values.map(function (d) {
             return {date: d.date,
                     weight: +d[name],
                     log_id: d.id};
@@ -140,7 +136,7 @@ function weight_log_chart(data, div_id, reps_i18n, width_factor)
 
       //console.log(reps);
 
-      x.domain(d3.extent(data, function(d) { return d.date; }));
+      x.domain(d3.extent(data, function (d) { return d.date; }));
 
       // Add 1 kg of "breathing room" on the min value, so the diagrams don't look
       // too flat
