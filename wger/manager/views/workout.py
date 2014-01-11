@@ -303,8 +303,12 @@ def timer(request, day_pk):
                                   'type': 'pause',
                                   'time': 90})
 
-    # Remove the last pause step as it is not needed
-    step_list.pop()
+    # Remove the last pause step as it is not needed. If the list is empty,
+    # because the user didn't add any repetitions to any exercise, do nothing
+    try:
+        step_list.pop()
+    except IndexError:
+        pass
 
     # Go through the page list and calculate the correct value for step_percent
     for i, s in enumerate(step_list):
