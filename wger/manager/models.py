@@ -447,25 +447,7 @@ class Day(models.Model):
                     setting_tmp.append(setting)
 
                 # "Smart" textual representation
-                # This is a human representation of the settings, in a way that humans
-                # would also write: e.g. "8 8 10 10" but "4 x 10" and not "10 10 10 10"
-                if len(setting_tmp) == 0:
-                    setting_text = ''
-                    setting_list = []
-                elif len(setting_tmp) > 1:
-                    tmp_reps_text = []
-                    tmp_reps = []
-                    for i in setting_tmp:
-                        reps = str(i.reps) if i.reps != 99 else u'∞'
-                        tmp_reps_text.append(reps)
-                        tmp_reps.append(i.reps)
-
-                    setting_text = u' – '.join(tmp_reps_text)
-                    setting_list = tmp_reps
-                else:
-                    reps = setting_tmp[0].reps if setting_tmp[0].reps != 99 else u'∞'
-                    setting_text = u'{0} × {1}'.format(set_obj.sets, reps)
-                    setting_list = [reps] * set_obj.sets
+                setting_text, setting_list = reps_smart_text(setting_tmp, set_obj)
 
                 # Exercise comments
                 comment_list = []
@@ -477,6 +459,23 @@ class Day(models.Model):
                                      'setting_list': setting_list,
                                      'setting_text': setting_text,
                                      'comment_list': comment_list})
+
+            # If it's a superset, check that all exercises have the same repetitions.
+            # If not, just take the smallest number and drop the rest, because otherwise
+            # it doesn't make sense
+            if len(exercise_tmp) > 1:
+                common_reps = 100
+                for exercise in exercise_tmp:
+                    if len(exercise['setting_list']) < common_reps:
+                        common_reps = len(exercise['setting_list'])
+
+                for exercise in exercise_tmp:
+                    if len(exercise['setting_list']) > common_reps:
+                        exercise['setting_list'].pop(-1)
+                        exercise['setting_obj_list'].pop(-1)
+                        setting_text, setting_list = reps_smart_text(exercise['setting_obj_list'],
+                                                                     set_obj)
+                        exercise['setting_text'] = setting_text
 
             canonical_repr.append({'obj': set_obj,
                                    'exercise_list': exercise_tmp,
@@ -983,3 +982,38 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 
 post_save.connect(create_user_profile, sender=User)
+
+
+#
+# Helpers
+#
+def reps_smart_text(settings, set_obj):
+    '''
+    "Smart" textual representation
+    This is a human representation of the settings, in a way that humans
+    would also write: e.g. "8 8 10 10" but "4 x 10" and not "10 10 10 10"
+
+    :param settings:
+    :param set_obj:
+    :return setting_text, setting_list:
+    '''
+    if len(settings) == 0:
+        setting_text = ''
+        setting_list = []
+    elif len(settings) == 1:
+        reps = settings[0].reps if settings[0].reps != 99 else u'∞'
+        setting_text = u'{0} × {1}'.format(set_obj.sets, reps)
+        setting_list = [reps] * set_obj.sets
+    elif len(settings) > 1:
+        tmp_reps_text = []
+        tmp_reps = []
+        for i in settings:
+            reps = str(i.reps) if i.reps != 99 else u'∞'
+            tmp_reps_text.append(reps)
+            tmp_reps.append(i.reps)
+
+        setting_text = u' – '.join(tmp_reps_text)
+        setting_list = tmp_reps
+
+
+    return setting_text, setting_list
