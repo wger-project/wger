@@ -45,7 +45,7 @@ function custom_modal_init()
         {% with exercise_list=day_list|get_item:exercise.obj.id %}
 
             <div class="alert alert-info" style="text-align: center;margin-top:1em;">
-                <a href="{{ exercise.get_absolute_url }}">{{ exercise.obj.name }}</a>
+                <a href="{{ exercise.obj.get_absolute_url }}">{{ exercise.obj.name }}</a>
             </div>
 
             {% if exercise_list.log_by_date %}
