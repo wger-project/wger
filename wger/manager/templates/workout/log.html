@@ -24,12 +24,11 @@ function custom_modal_init()
 </p>
 {% endif %}
 
-
-{% for day in workout.day_set.select_related|dictsort:"get_first_day_id" %}
-    <h3>{{ day.description }}</h3>
+{% for day in workout.canonical_representation.day_list %}
+    <h3>{{ day.obj.description }}</h3>
 
     <p>
-    <a href="{% url 'day-log' day.id %}"
+    <a href="{% url 'day-log' day.obj.id %}"
        title="{% trans 'Add weight log to this day' %}">
            <img src="{% static 'images/icons/statistics.svg' %}"
                 width="32"
@@ -39,14 +38,14 @@ function custom_modal_init()
     </a>
     </p>
 
-    {% for set in day.set_set.select_related %}
-    {% for exercise in set.exercises.select_related %}
+    {% for set in day.set_list %}
+    {% for exercise in set.exercise_list %}
 
-        {% with day_list=workout_log|get_item:day.id %}
-        {% with exercise_list=day_list|get_item:exercise.id %}
+        {% with day_list=workout_log|get_item:day.obj.id %}
+        {% with exercise_list=day_list|get_item:exercise.obj.id %}
 
             <div class="alert alert-info" style="text-align: center;margin-top:1em;">
-                <a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a>
+                <a href="{{ exercise.get_absolute_url }}">{{ exercise.obj.name }}</a>
             </div>
 
             {% if exercise_list.log_by_date %}

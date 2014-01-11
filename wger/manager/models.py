@@ -17,13 +17,11 @@
 
 import datetime
 import logging
-import json
 import decimal
 
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
-from django.utils.datastructures import SortedDict
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator
 from django.core.urlresolvers import reverse
@@ -35,7 +33,6 @@ from django.core.validators import MinValueValidator
 from wger.exercises.models import Exercise
 from wger.exercises.models import Language
 
-from wger.utils.helpers import DecimalJsonEncoder
 from wger.utils.helpers import disable_for_loaddata
 from wger.utils.cache import cache_mapper, reset_workout_canonical_form
 from wger.weight.models import WeightEntry
@@ -640,56 +637,6 @@ class WorkoutLog(models.Model):
         Returns the object that has owner information
         '''
         return self
-
-    def process_log_entries(self, logs):
-        '''
-        Processes and regroups a list of log entries so they can be rendered
-        and passed to the D3 library to render a chart
-        '''
-
-        reps = []
-        entry_log = SortedDict()
-        chart_data = []
-        max_weight = {}
-
-        # Group by date
-        for entry in logs:
-            if entry.reps not in reps:
-                reps.append(entry.reps)
-
-            if not entry_log.get(entry.date):
-                entry_log[entry.date] = []
-            entry_log[entry.date].append(entry)
-
-            # Find the maximum weight per date per repetition.
-            # If on a day there are several entries with the same number of
-            # repetitions, but different weights, only the entry with the
-            # higher weight is shown in the chart
-            if not max_weight.get(entry.date):
-                max_weight[entry.date] = {entry.reps: entry.weight}
-
-            if not max_weight[entry.date].get(entry.reps):
-                max_weight[entry.date][entry.reps] = entry.weight
-
-            if entry.weight > max_weight[entry.date][entry.reps]:
-                max_weight[entry.date][entry.reps] = entry.weight
-
-        # Group by repetitions
-        for entry in logs:
-            temp = {'date': '%s' % entry.date,
-                    'id': 'workout-log-%s' % entry.id}
-
-            for rep in reps:
-                if entry.reps == rep:
-
-                    # Only add if entry is the maximum for the day
-                    if entry.weight == max_weight[entry.date][entry.reps]:
-                        temp[rep] = entry.weight
-                else:
-                    temp[rep] = 0
-            chart_data.append(temp)
-
-        return (entry_log, json.dumps(chart_data, cls=DecimalJsonEncoder))
 
 
 class UserProfile(models.Model):

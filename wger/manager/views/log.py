@@ -45,6 +45,7 @@ from wger.manager.forms import WorkoutLogForm
 
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerPermissionMixin
+from wger.weight.helpers import process_log_entries
 
 
 logger = logging.getLogger('wger.custom')
@@ -236,25 +237,26 @@ class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
         workout_log = {}
         entry = WorkoutLog()
 
-        for day in self.object.day_set.select_related():
-            workout_log[day.id] = {}
-
-            for set in day.set_set.select_related():
+        for day_list in self.object.canonical_representation['day_list']:
+            day_id = day_list['obj'].id
+            workout_log[day_id] = {}
+            for set_list in day_list['set_list']:
                 exercise_log = {}
+                for exercise_list in set_list['exercise_list']:
+                    exercise_id = exercise_list['obj'].id
+                    exercise_log[exercise_id] = []
 
-                for exercise in set.exercises.select_related():
-                    exercise_log[exercise.id] = []
-                    logs = exercise.workoutlog_set.filter(user=self.request.user,
-                                                          workout=self.object)
-                    entry_log, chart_data = entry.process_log_entries(logs)
+                    logs = exercise_list['obj'].workoutlog_set.filter(user=self.request.user,
+                                                                      workout=self.object)
+                    entry_log, chart_data = process_log_entries(logs)
                     if entry_log:
-                        exercise_log[exercise.id].append(entry_log)
+                        exercise_log[exercise_list['obj'].id].append(entry_log)
 
                     if exercise_log:
-                        workout_log[day.id][exercise.id] = {}
-                        workout_log[day.id][exercise.id]['log_by_date'] = entry_log
-                        workout_log[day.id][exercise.id]['div_uuid'] = 'div-' + str(uuid.uuid4())
-                        workout_log[day.id][exercise.id]['chart_data'] = chart_data
+                        workout_log[day_id][exercise_id] = {}
+                        workout_log[day_id][exercise_id]['log_by_date'] = entry_log
+                        workout_log[day_id][exercise_id]['div_uuid'] = 'div-' + str(uuid.uuid4())
+                        workout_log[day_id][exercise_id]['chart_data'] = chart_data
 
         context['workout_log'] = workout_log
         context['reps'] = _("Reps")
@@ -294,7 +296,7 @@ class WorkoutCalendar(HTMLCalendar):
                 body = []
 
                 for log in self.workout_logs[day]:
-                    url = reverse('workout-log', kwargs={'pk': log.workout.pk})
+                    url = reverse('workout-log', kwargs={'pk': log.workout_id})
                     formatted_date = date_obj.strftime('%Y-%m-%d')
                     body.append('<a href="{0}" data-log="log-{1}">'.format(url, formatted_date))
                     body.append(unicode(day))
@@ -337,21 +339,23 @@ def calendar(request, year=None, month=None):
         month = datetime.date.today().month
     else:
         month = int(month)
+
     context = {}
+    logs_filtered = []
+    temp_date_list = []
     logs = WorkoutLog.objects.filter(user=request.user,
                                      date__year=year,
                                      date__month=month).order_by('exercise')
-    logs_filtered = []
-    temp = []
 
+    # Process the logs, 'overview' list for the calendar
     for log in logs:
-        if not log.date in temp:
-            temp.append(log.date)
+        if not log.date in temp_date_list:
+            temp_date_list.append(log.date)
             logs_filtered.append(log)
 
     (current_workout, schedule) = Schedule.objects.get_current_workout(request.user)
     context['calendar'] = WorkoutCalendar(logs_filtered).formatmonth(year, month)
-    context['logs'] = WorkoutLog().process_log_entries(logs)[0]
+    context['logs'] = process_log_entries(logs)[0]
     context['current_year'] = year
     context['current_month'] = month
     context['current_workout'] = current_workout

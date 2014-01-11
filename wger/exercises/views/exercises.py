@@ -57,6 +57,7 @@ from wger.utils.cache import cache_mapper
 from wger.utils.widgets import TranslatedSelect
 from wger.utils.widgets import TranslatedSelectMultiple
 from wger.config.models import LanguageConfig
+from wger.weight.helpers import process_log_entries
 
 
 logger = logging.getLogger('wger.custom')
@@ -135,7 +136,7 @@ def view(request, id, slug=None):
     if request.user.is_authenticated():
         entry = WorkoutLog()
         logs = WorkoutLog.objects.filter(user=request.user, exercise=exercise)
-        entry_log, chart_data = entry.process_log_entries(logs)
+        entry_log, chart_data = process_log_entries(logs)
 
     template_data['logs'] = entry_log
     template_data['json'] = chart_data

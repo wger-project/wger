@@ -19,7 +19,11 @@ import StringIO
 import datetime
 import decimal
 import csv
+import json
 
+from django.utils.datastructures import SortedDict
+
+from wger.utils.helpers import DecimalJsonEncoder
 from wger.weight.models import WeightEntry
 
 logger = logging.getLogger('wger.custom')
@@ -54,3 +58,62 @@ def parse_weight_csv(request, cleaned_data):
             #logger.debug(e)
 
     return (weight_list, error_list)
+
+
+def process_log_entries(logs):
+    '''
+    Processes and regroups a list of log entries so they can be rendered
+    and passed to the D3 library to render a chart
+    '''
+
+    reps = []
+    entry_log = SortedDict()
+    chart_data = []
+    max_weight = {}
+
+    # Group by date
+    for entry in logs:
+        if entry.reps not in reps:
+            reps.append(entry.reps)
+
+        if not entry_log.get(entry.date):
+            entry_log[entry.date] = []
+        entry_log[entry.date].append(entry)
+
+        # Find the maximum weight per date per repetition.
+        # If on a day there are several entries with the same number of
+        # repetitions, but different weights, only the entry with the
+        # higher weight is shown in the chart
+        if not max_weight.get(entry.date):
+            max_weight[entry.date] = {entry.reps: entry.weight}
+
+        if not max_weight[entry.date].get(entry.reps):
+            max_weight[entry.date][entry.reps] = entry.weight
+
+        if entry.weight > max_weight[entry.date][entry.reps]:
+            max_weight[entry.date][entry.reps] = entry.weight
+
+    # Group by repetitions
+    reps_list = {}
+    for entry in logs:
+        temp = {'date': '%s' % entry.date,
+                'id': 'workout-log-%s' % entry.id}
+
+        # Only unique date, rep and weight combinations
+        if reps_list.get('{0}-{1}-{2}'.format(entry.date, entry.reps, entry.weight)):
+            continue
+        else:
+            reps_list['{0}-{1}-{2}'.format(entry.date, entry.reps, entry.weight)] = True
+
+        # Only add if weight is the maximum for the day
+        if entry.weight != max_weight[entry.date][entry.reps]:
+            continue
+
+        for rep in reps:
+            if entry.reps == rep:
+                temp[rep] = entry.weight
+            else:
+                temp[rep] = 0
+        chart_data.append(temp)
+
+    return entry_log, json.dumps(chart_data, cls=DecimalJsonEncoder)

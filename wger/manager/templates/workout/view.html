@@ -65,16 +65,9 @@ $(document).ready(function() {
 
 
 <p>
-<a href="{% url 'day-add' workout.id %}" class="modal-dialog">
-    {% trans "Add training day" %}
-</a>
-
-|
-<a id="exercise-comments-toggle" href="{% url 'preferences' %}">
-    {% trans "Show/Hide exercise comments" %}
-</a>
-
-
+    <a href="{% url 'day-add' workout.id %}" class="modal-dialog">{% trans "Add training day" %}</a>
+    |
+    <a id="exercise-comments-toggle" href="{% url 'preferences' %}">{% trans "Show/Hide exercise comments" %}</a>
 </p>
 {% endblock %}
 
