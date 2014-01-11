@@ -119,7 +119,7 @@ function weight_log_chart(data, div_id, reps_i18n, width_factor) {
       var reps = color.domain().map(function (name) {
 
           var temp_values = data.filter(function(d) {
-              return(+d[name] > 0);
+              return (d[name] != 'n.a');
               });
 
           var filtered_values = temp_values.map(function (d) {

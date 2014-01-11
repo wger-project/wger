@@ -113,7 +113,10 @@ def process_log_entries(logs):
             if entry.reps == rep:
                 temp[rep] = entry.weight
             else:
-                temp[rep] = 0
+                # Mark entries without data, this is later filtered out by D3.
+                # We use the string 'n.a' instead of 0 to differentiate actual exercises
+                # where no weight was used.
+                temp[rep] = 'n.a'
         chart_data.append(temp)
 
     return entry_log, json.dumps(chart_data, cls=DecimalJsonEncoder)
