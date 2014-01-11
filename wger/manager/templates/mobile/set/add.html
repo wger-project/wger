@@ -42,7 +42,7 @@ $(document).on('pageinit', function(){
     {% yaml_form_field form.exercise_list %}
     <tr>
         <td colspan="2">
-            <div id="exercise-search-log">
+            <div id="exercise-search-log"></div>
         </td>
     </tr>
     <tr>
@@ -51,6 +51,13 @@ $(document).on('pageinit', function(){
         </td>
         <td>
             <input name="sets" id="id_sets" min="1" max="10" value="{{ form.sets.value }}" type="range">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <p class="dimmed">{% blocktrans %}If you do the same repetitions for all sets,
+you can just enter one value: e.g. for 4 sets just enter one "10" for the repetitions, this
+automatically becomes "4 x 10".{% endblocktrans %}</p>
         </td>
     </tr>
 

@@ -1015,5 +1015,4 @@ def reps_smart_text(settings, set_obj):
         setting_text = u' – '.join(tmp_reps_text)
         setting_list = tmp_reps
 
-
     return setting_text, setting_list

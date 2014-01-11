@@ -175,8 +175,8 @@ class SetFormMobile(ModelForm):
     # https://code.djangoproject.com/ticket/9321
     def __init__(self, *args, **kwargs):
         super(SetFormMobile, self).__init__(*args, **kwargs)
-        self.fields['exercises'].help_text = _('You can search for more than one exercise, '
-                                               'they will be grouped together for a superset.')
+        self.fields['exercise_list'].help_text = _('You can search for more than one exercise, '
+                                                   'they will be grouped together for a superset.')
 
 
 class HelperDateForm(Form):
