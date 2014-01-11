@@ -52,6 +52,7 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
                                                            'setting_obj_list': [setting_1],
                                                            'setting_text': u'2 \xd7 8'}],
                                         'is_superset': False,
+                                        'has_settings': True,
                                         'muscles': {'back': [2], 'front': [1]},
                                         'obj': Set.objects.get(pk=1)}]}
         self.assertEqual(workout.canonical_representation['day_list'][0], canonical_form)
@@ -66,6 +67,7 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
                                                            'setting_obj_list': [setting_2],
                                                            'setting_text': u'4 \xd7 10'}],
                                         'is_superset': False,
+                                        'has_settings': True,
                                         'muscles': {'back': [2], 'front': []},
                                         'obj': Set.objects.get(pk=2)}]}
         self.assertEqual(workout.canonical_representation['day_list'][1], canonical_form)
@@ -85,8 +87,6 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
         day = Day.objects.get(pk=5)
         weekday1 = DaysOfWeek.objects.get(pk=3)
         weekday2 = DaysOfWeek.objects.get(pk=5)
-        #import pprint
-        #pprint.pprint(day.canonical_representation)
         self.assertEqual(day.canonical_representation['days_of_week'],
                          {'day_list': [weekday1, weekday2], 'text': u'Wednesday, Friday'})
         self.assertEqual(day.canonical_representation['muscles'], {'back': [2], 'front': []})
@@ -98,6 +98,7 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
                                               'setting_obj_list': [Setting.objects.get(pk=3)],
                                               'setting_text': u'4 \xd7 10'}],
                           'is_superset': False,
+                          'has_settings': True,
                           'muscles': {'back': [2], 'front': []},
                           'obj': Set.objects.get(pk=3)}]
 

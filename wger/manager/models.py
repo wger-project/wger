@@ -432,6 +432,7 @@ class Day(models.Model):
 
         for set_obj in self.set_set.select_related():
             exercise_tmp = []
+            has_setting_tmp = True
             for exercise in set_obj.exercises.select_related():
                 setting_tmp = []
 
@@ -448,6 +449,9 @@ class Day(models.Model):
 
                 # "Smart" textual representation
                 setting_text, setting_list = reps_smart_text(setting_tmp, set_obj)
+
+                # Flag indicating whether all exercises have settings
+                has_setting_tmp = True if len(setting_tmp) > 0 else False
 
                 # Exercise comments
                 comment_list = []
@@ -480,6 +484,7 @@ class Day(models.Model):
             canonical_repr.append({'obj': set_obj,
                                    'exercise_list': exercise_tmp,
                                    'is_superset': True if len(exercise_tmp) > 1 else False,
+                                   'has_settings': has_setting_tmp,
                                    'muscles': {
                                        'back': muscles_back,
                                        'front': muscles_front

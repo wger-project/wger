@@ -111,23 +111,24 @@
     </li>
     {% for set in day.set_list %}
     <li id="set-{{ set.obj.id }}" data-icon="false">
-    <a href="#editoptions-set-{{ set.obj.id }}"
-       data-rel="popup"
-       data-position-to="window">
+    {% if set.has_settings %}
+        <a href="#editoptions-set-{{ set.obj.id }}"
+           data-rel="popup"
+           data-position-to="window">
+    {% else %}
+        <a href="{% url 'set-edit' set.obj.id %}">
+    {% endif %}
 
         {% for exercise in set.exercise_list %}
             <div id="exercise-{{ exercise.obj.id }}" class="ajax-set-edit-target">
                 <h3>{{ exercise.obj.name }}</h3>
+                <p><strong>{{exercise.setting_text}}</strong></p>
 
-                <p><strong>
-                {{exercise.setting_text}}
-                </strong></p>
                 {% if not exercise.setting_list %}
-                    <a href="{% url 'set-edit' set.obj.id %}"
-                       data-role="button">
-                        {% trans "This exercise has no repetitions." %}
-                        {% trans "Edit them now."%}
-                    </a>
+                <p>
+                    {% trans "This exercise has no repetitions." %}<br>
+                    {% trans "Edit them now."%}
+                </p>
                 {% endif %}
 
                 <p class="exercise-comments">
