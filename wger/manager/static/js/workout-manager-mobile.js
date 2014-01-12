@@ -51,7 +51,4 @@ $(document).on('pageinit', function () {
     } else {
         console.debug('MozActivity not available, opening links as usual.');
     }
-
-    // Globally disable jQueryMobile's AJAX navigation
-    $.mobile.ajaxEnabled = false;
 });
