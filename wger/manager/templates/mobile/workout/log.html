@@ -31,12 +31,11 @@ $(document).on('pageinit', function(){
 {% for day in workout.canonical_representation.day_list %}
 <ul data-role="listview"
     style="margin-top: 3em;"
-    data-icon="add">
+    data-icon="plus">
     <li data-theme="b">
         <a href="{% url 'day-log' day.obj.id %}">
-        <h3>{{ day.description }}</h3>
+        <h3>{{ day.obj.description }}</h3>
         </a>
-
     </li>
 </ul>
 
