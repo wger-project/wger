@@ -24,7 +24,7 @@ $(document).ready(function() {
             {{ day.days_of_week.text }} – {{ day.obj.description }}
 
             <span class="editoptions" style="float: right;">
-                <a href="{% url 'wger.manager.views.day.delete' workout.id day.obj.id %}"
+                <a href="{% url 'day-delete' day.obj.id %}"
                    title="{% trans 'Delete' %}">
                        <img src="{% static 'images/icons/trash.svg' %}"
                             width="22"

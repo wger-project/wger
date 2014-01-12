@@ -42,7 +42,7 @@
                      alt="{% trans 'Edit' %}">
                     {% trans 'Edit' %}
         </a>
-        <a href="{% url 'wger.manager.views.day.delete' workout.id day.obj.id %}"
+        <a href="{% url 'day-delete' day.obj.id %}"
            title="{% trans 'Delete' %}"
            data-role="button">
                 <img src="{% static 'images/icons/trash.svg' %}"

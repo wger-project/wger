@@ -50,8 +50,7 @@ class DeleteWorkoutDayTestCase(WorkoutManagerTestCase):
 
         # Fetch the day edit page
         count_before = Day.objects.count()
-        response = self.client.get(reverse('wger.manager.views.day.delete', kwargs={'id': 3,
-                                           'day_id': 5}))
+        response = self.client.get(reverse('day-delete', kwargs={'pk': 5}))
         count_after = Day.objects.count()
 
         if fail:

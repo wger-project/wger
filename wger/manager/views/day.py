@@ -115,18 +115,14 @@ class DayCreateView(DayView, CreateView):
 
 
 @login_required
-def delete(request, id, day_id):
+def delete(request, pk):
     '''
-    Deletes the day with ID day_id belonging to workout with ID id
+    Deletes the given day
     '''
-
-    # Load the day
-    day = get_object_or_404(Day, pk=day_id)
-
-    # Check if the user is the owner of the object
-    if day.training.user == request.user:
+    day = get_object_or_404(Day, pk=pk)
+    if day.get_owner_object().user == request.user:
         day.delete()
-        return HttpResponseRedirect(reverse('workout-view', kwargs={'id': id}))
+        return HttpResponseRedirect(reverse('workout-view', kwargs={'id': day.training_id}))
     else:
         return HttpResponseForbidden()
 
