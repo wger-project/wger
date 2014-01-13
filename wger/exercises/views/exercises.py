@@ -284,7 +284,8 @@ class PendingExerciseListView(WgerPermissionMixin, ListView):
         '''
         Only show pending exercises
         '''
-        return Exercise.objects.filter(status=Exercise.EXERCISE_STATUS_PENDING)
+        return Exercise.objects.filter(status=Exercise.EXERCISE_STATUS_PENDING) \
+            .order_by('-creation_date')
 
 
 @permission_required('exercises.add_exercise')
