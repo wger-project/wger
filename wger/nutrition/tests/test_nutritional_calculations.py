@@ -57,7 +57,7 @@ class NutritionalValuesCalculationsTestCase(WorkoutManagerTestCase):
         self.assertEqual(result_item, result_meal)
 
         result_plan = plan.get_nutritional_values()
-        self.assertEqual(result_meal, result_plan)
+        self.assertEqual(result_meal, result_plan['total'])
 
         # One ingredient, 1 x unit 3
         item.delete()
@@ -78,7 +78,7 @@ class NutritionalValuesCalculationsTestCase(WorkoutManagerTestCase):
         self.assertEqual(result_item, result_meal)
 
         result_plan = plan.get_nutritional_values()
-        self.assertEqual(result_meal, result_plan)
+        self.assertEqual(result_meal, result_plan['total'])
 
         # Add another ingredient, 200 gr
         item2 = models.MealItem()
@@ -100,7 +100,7 @@ class NutritionalValuesCalculationsTestCase(WorkoutManagerTestCase):
         self.assertEqual(result_total, result_meal)
 
         result_plan = plan.get_nutritional_values()
-        self.assertEqual(result_meal, result_plan)
+        self.assertEqual(result_meal, result_plan['total'])
 
         # Add another ingredient, 20 gr
         item3 = models.MealItem()
@@ -122,4 +122,4 @@ class NutritionalValuesCalculationsTestCase(WorkoutManagerTestCase):
         self.assertEqual(result_total, result_meal)
 
         result_plan = plan.get_nutritional_values()
-        self.assertEqual(result_meal, result_plan)
+        self.assertEqual(result_meal, result_plan['total'])

@@ -119,8 +119,9 @@ def view(request, id):
     template_data['MEALITEM_WEIGHT_GRAM'] = MEALITEM_WEIGHT_GRAM
     template_data['MEALITEM_WEIGHT_UNIT'] = MEALITEM_WEIGHT_UNIT
 
-    # Get the nutrional info
-
+    # Get the nutritional info
+    import pprint
+    pprint.pprint(plan.get_nutritional_values())
     template_data['nutritional_data'] = plan.get_nutritional_values()
 
     return render_to_response('plan/view.html',

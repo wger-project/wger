@@ -40,6 +40,13 @@ from wger.utils.fields import Html5IntegerField
 MEALITEM_WEIGHT_GRAM = '1'
 MEALITEM_WEIGHT_UNIT = '2'
 
+TWOPLACES = decimal.Decimal('0.01')
+
+PROTEIN_FACTOR = 4
+CARBOHYDRATES_FACTOR = 4
+FAT_FACTOR = 9
+
+
 logger = logging.getLogger('wger.custom')
 
 
@@ -91,29 +98,59 @@ class NutritionPlan(models.Model):
 
     def get_nutritional_values(self):
         '''
-        Sums the nutrional info of all items in the plan
+        Sums the nutritional info of all items in the plan
         '''
-        nutritional_info = {'energy': 0,
+        result = {'total': {'energy': 0,
                             'protein': 0,
                             'carbohydrates': 0,
                             'carbohydrates_sugar': 0,
                             'fat': 0,
                             'fat_saturated': 0,
                             'fibres': 0,
-                            'sodium': 0}
+                            'sodium': 0},
+                  'percent': {'protein': 0,
+                              'carbohydrates': 0,
+                              'fat': 0},
+                  'per_kg': {'protein': 0,
+                             'carbohydrates': 0,
+                             'fat': 0}
+                  }
+
+        # Energy
         for meal in self.meal_set.select_related():
             values = meal.get_nutritional_values()
 
-            nutritional_info['energy'] += values['energy']
-            nutritional_info['protein'] += values['protein']
-            nutritional_info['carbohydrates'] += values['carbohydrates']
-            nutritional_info['carbohydrates_sugar'] += values['carbohydrates_sugar']
-            nutritional_info['fat'] += values['fat']
-            nutritional_info['fat_saturated'] += values['fat_saturated']
-            nutritional_info['fibres'] += values['fibres']
-            nutritional_info['sodium'] += values['sodium']
+            result['total']['energy'] += values['energy']
+            result['total']['protein'] += values['protein']
+            result['total']['carbohydrates'] += values['carbohydrates']
+            result['total']['carbohydrates_sugar'] += values['carbohydrates_sugar']
+            result['total']['fat'] += values['fat']
+            result['total']['fat_saturated'] += values['fat_saturated']
+            result['total']['fibres'] += values['fibres']
+            result['total']['sodium'] += values['sodium']
 
-        return nutritional_info
+        # In percent
+        if result['total']['energy']:
+            result['percent']['protein'] = ((result['total']['protein']
+                                            * PROTEIN_FACTOR
+                                            / result['total']['energy']) * 100).quantize(TWOPLACES)
+            result['percent']['carbohydrates'] = ((result['total']['carbohydrates']
+                                                  * CARBOHYDRATES_FACTOR
+                                                  / result['total']['energy']) * 100)\
+                .quantize(TWOPLACES)
+            result['percent']['fat'] = ((result['total']['fat']
+                                        * FAT_FACTOR
+                                        / result['total']['energy']) * 100).quantize(TWOPLACES)
+
+        # Per body weight
+        if self.user.userprofile.weight:
+            weight = decimal.Decimal(self.user.userprofile.weight)
+            result['per_kg']['protein'] = (result['total']['protein'] / weight).quantize(TWOPLACES)
+            result['per_kg']['carbohydrates'] = (result['total']['carbohydrates'] / weight) \
+                .quantize(TWOPLACES)
+            result['per_kg']['fat'] = (result['total']['fat'] / weight).quantize(TWOPLACES)
+
+        return result
 
     def get_owner_object(self):
         '''
@@ -128,7 +165,7 @@ class NutritionPlan(models.Model):
         '''
 
         goal_calories = self.user.userprofile.calories
-        actual_calories = self.get_nutritional_values()['energy']
+        actual_calories = self.get_nutritional_values()['total']['energy']
 
         # Within 3%
         if (actual_calories < goal_calories * 1.03) and (actual_calories > goal_calories * 0.97):
@@ -272,9 +309,9 @@ class Ingredient(models.Model):
         '''
 
         # Note: calculations in 100 grams, to save us the '/100' everywhere
-        energy_calculated = ((self.protein * 4) +
-                            (self.carbohydrates * 4) +
-                            (self.fat * 9))
+        energy_calculated = ((self.protein * PROTEIN_FACTOR) +
+                            (self.carbohydrates * CARBOHYDRATES_FACTOR) +
+                            (self.fat * FAT_FACTOR))
 
         # Compare the values, but be generous
         energy_upper = self.energy * (1 + (self.ENERGY_APPROXIMATION / decimal.Decimal('100.0')))
