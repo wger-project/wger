@@ -20,7 +20,6 @@ from wger.nutrition import models
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.utils.constants import TWOPLACES
 
-
 logger = logging.getLogger('wger.custom')
 
 
@@ -126,3 +125,20 @@ class NutritionalValuesCalculationsTestCase(WorkoutManagerTestCase):
 
         result_plan = plan.get_nutritional_values()
         self.assertEqual(result_meal, result_plan['total'])
+
+    def test_calculations_user(self):
+        '''
+        Tests the calculations
+        :return:
+        '''
+        self.user_login('test')
+        plan = models.NutritionPlan.objects.get(pk=4)
+        values = plan.get_nutritional_values()
+
+        self.assertEqual(values['percent']['carbohydrates'], Decimal(29.79).quantize(TWOPLACES))
+        self.assertEqual(values['percent']['fat'], Decimal(20.36).quantize(TWOPLACES))
+        self.assertEqual(values['percent']['protein'], Decimal(26.06).quantize(TWOPLACES))
+
+        self.assertEqual(values['per_kg']['carbohydrates'], Decimal(4.81).quantize(TWOPLACES))
+        self.assertEqual(values['per_kg']['fat'], Decimal(1.46).quantize(TWOPLACES))
+        self.assertEqual(values['per_kg']['protein'], Decimal(4.21).quantize(TWOPLACES))
