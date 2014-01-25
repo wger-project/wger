@@ -37,13 +37,19 @@ $(document).ready(function() {
         <tr>
             <th class="ym-g15">{% trans "Meal" %}</th>
             <th>{% trans "Contents" %}</th>
+            <th>{% trans "Energy" %}</th>
+            <th>{% trans "Protein" %}</th>
+            <th>{% trans "Carbohydrates" %}</th>
+            <th>{% trans "Fat" %}</th>
         </tr>
     </thead>
     <tbody>
 {% for meal in plan.meal_set.select_related %}
+    {% for item in meal.mealitem_set.select_related %}
     <tr>
-        <td>
-            {% trans "Nr."%} {{ forloop.counter }}
+        {% ifchanged meal.pk %}
+        <td rowspan="{{meal.mealitem_set.count}}">
+            {% trans "Nr."%} {{ forloop.parentloop.counter }}
             {% if meal.time %} &ndash; {{meal.time|time:"H:i"}}{% endif %}
 
             <div class="editoptions">
@@ -75,46 +81,50 @@ $(document).ready(function() {
                </a>
             </div>
         </td>
+        {% endifchanged %}
         <td>
-             <ul>
-            {% for item in meal.mealitem_set.select_related %}
-                <li>
-                    {% if item.get_unit_type == MEALITEM_WEIGHT_GRAM %}{{ item.amount|floatformat:"0" }}g
-                    {% else %}
-                        {{ item.amount|floatformat:"0" }} × {{ item.weight_unit.unit.name }}
-                    {% endif %}
-                    {{ item.ingredient.name }}
+            {% if item.get_unit_type == MEALITEM_WEIGHT_GRAM %}{{ item.amount|floatformat:"0" }}g
+            {% else %}
+                {{ item.amount|floatformat:"0" }} × {{ item.weight_unit.unit.name }}
+            {% endif %}
+            {{ item.ingredient.name }}
 
-                    <span class="editoptions">
-                        <a href="{% url 'wger.nutrition.views.meal_item.delete_meal_item' item.id %}"
-                           title="{% trans 'Delete' %}"
-                           class="delete-mealitem">
-                           <img src="{% static 'images/icons/trash.svg' %}"
-                                width="16"
-                                height="16"
-                                alt="{% trans 'Delete' %}">
-                        </a>
-                        <a href="{% url 'mealitem-edit' item.id %}"
-                           title="{% trans 'Edit' %}"
-                           class="modal-dialog edit-meal edit-mealitem">
-                            <img src="{% static 'images/icons/edit.svg' %}"
-                                 width="16"
-                                 height="16"
-                                 alt="{% trans 'Edit' %}">
-                        </a>
-                    </span>
-                </li>
-            {% empty %}
-               <a href="{% url 'mealitem-add' meal.id %}"
-                  title="{% trans 'Add one now.' %}"
-                  class="modal-dialog edit-meal btn btn-block">
-                    {% trans "No items for this meal." %}
-                    {% trans "Add one now."%}
+            <span class="editoptions">
+                <a href="{% url 'wger.nutrition.views.meal_item.delete_meal_item' item.id %}"
+                   title="{% trans 'Delete' %}"
+                   class="delete-mealitem">
+                   <img src="{% static 'images/icons/trash.svg' %}"
+                        width="16"
+                        height="16"
+                        alt="{% trans 'Delete' %}">
                 </a>
-            {% endfor %}
-            </ul>
-        </td>
-    </tr>
+                <a href="{% url 'mealitem-edit' item.id %}"
+                   title="{% trans 'Edit' %}"
+                   class="modal-dialog edit-meal edit-mealitem">
+                    <img src="{% static 'images/icons/edit.svg' %}"
+                         width="16"
+                         height="16"
+                         alt="{% trans 'Edit' %}">
+                </a>
+            </span>
+            </td>
+            <td>{{item.get_nutritional_values.energy|floatformat}}</td>
+            <td>{{item.get_nutritional_values.protein|floatformat}}</td>
+            <td>{{item.get_nutritional_values.carbohydrates|floatformat}}</td>
+            <td>{{item.get_nutritional_values.fat|floatformat}}</td>
+</tr>
+    {% empty %}
+    <tr>
+    <td colspan="7">
+       <a href="{% url 'mealitem-add' meal.id %}"
+          title="{% trans 'Add one now.' %}"
+          class="modal-dialog edit-meal btn btn-block">
+            {% trans "No items for this meal." %}
+            {% trans "Add one now."%}
+        </a>
+    </td>
+</tr>
+    {% endfor %}
 
 {% empty %}
 <p>
@@ -126,7 +136,7 @@ $(document).ready(function() {
 </p>
 {% endfor %}
         <tr>
-            <td colspan="2">
+            <td colspan="6">
             <a href="{% url 'meal-add' plan.id %}"
                class="modal-dialog">
                 <img src="{% static 'images/icons/edit.svg' %}"

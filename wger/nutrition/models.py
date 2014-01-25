@@ -593,40 +593,43 @@ class MealItem(models.Model):
                            self.weight_unit.amount *
                            self.weight_unit.gramm)
 
-        nutritional_info['energy'] += self.ingredient.energy * item_weight / 100
-        nutritional_info['protein'] += self.ingredient.protein * item_weight / 100
-        nutritional_info['carbohydrates'] += self.ingredient.carbohydrates * \
-            item_weight / 100
+        nutritional_info['energy'] += (self.ingredient.energy * item_weight / 100) \
+            .quantize(TWOPLACES)
+        nutritional_info['protein'] += (self.ingredient.protein * item_weight / 100) \
+            .quantize(TWOPLACES)
+        nutritional_info['carbohydrates'] += (self.ingredient.carbohydrates *
+                                              item_weight / 100).quantize(TWOPLACES)
 
         if self.ingredient.carbohydrates_sugar:
-            nutritional_info['carbohydrates_sugar'] += \
-                self.ingredient.carbohydrates_sugar * \
-                item_weight / 100
+            nutritional_info['carbohydrates_sugar'] += (self.ingredient.carbohydrates_sugar *
+                                                        item_weight / 100).quantize(TWOPLACES)
 
-        nutritional_info['fat'] += self.ingredient.fat * item_weight / 100
+        nutritional_info['fat'] += (self.ingredient.fat *
+                                    item_weight / 100).quantize(TWOPLACES)
         if self.ingredient.fat_saturated:
-            nutritional_info['fat_saturated'] += self.ingredient.fat_saturated * \
-                item_weight / 100
+            nutritional_info['fat_saturated'] += (self.ingredient.fat_saturated *
+                                                  item_weight / 100).quantize(TWOPLACES)
 
         if self.ingredient.fibres:
-            nutritional_info['fibres'] += self.ingredient.fibres * \
-                item_weight / 100
+            nutritional_info['fibres'] += (self.ingredient.fibres *
+                                           item_weight / 100).quantize(TWOPLACES)
 
         if self.ingredient.sodium:
-            nutritional_info['sodium'] += self.ingredient.sodium * \
-                item_weight / 100
+            nutritional_info['sodium'] += (self.ingredient.sodium *
+                                           item_weight / 100).quantize(TWOPLACES)
 
         return nutritional_info
 
     def get_nutritional_values_percent(self):
         '''
-        Calculates the percentage each macronutrients contribute to the
+        Calculates the percentage each macronutrient contributes to the
         total energy (approximation, since the factors 4, 4 and 9 are only
         a rule of thumb)
         '''
         values = self.get_nutritional_values()
-        result = {'protein': values['energy'] / values['protein'] * 4,
-                  'carbohydrates': values['energy'] / values['carbohydrates'] * 4,
-                  'fat': values['energy'] / values['fat'] * 9}
+        result = {'protein': values['energy'] / values['protein'] * PROTEIN_FACTOR,
+                  'carbohydrates': values['energy'] / values['carbohydrates'] *
+                  CARBOHYDRATES_FACTOR,
+                  'fat': values['energy'] / values['fat'] * FAT_FACTOR}
 
         return result
