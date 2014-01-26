@@ -35,6 +35,7 @@ from wger.exercises.models import Language
 
 from wger.utils.helpers import disable_for_loaddata
 from wger.utils.cache import cache_mapper, reset_workout_canonical_form
+from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
 from wger.utils.fields import Html5DateField
 from wger.utils.fields import Html5DecimalField
@@ -860,7 +861,7 @@ by the US Department of Agriculture. It is extremely complete, with around
         # Any of the entries is missing
             rate = 0
 
-        return decimal.Decimal(str(rate)).quantize(decimal.Decimal('.01'))
+        return decimal.Decimal(str(rate)).quantize(TWOPLACES)
 
     def calculate_activities(self):
         '''
@@ -902,7 +903,7 @@ by the US Department of Agriculture. It is extremely complete, with around
 
         # Total
         total = (sleep + work + sport + freetime) / 24.0
-        return decimal.Decimal(str(total)).quantize(decimal.Decimal('.01'))
+        return decimal.Decimal(str(total)).quantize(TWOPLACES)
 
     def user_bodyweight(self, weight):
         '''

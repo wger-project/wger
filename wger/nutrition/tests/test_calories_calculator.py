@@ -18,6 +18,7 @@ import datetime
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from wger.utils.constants import TWOPLACES
 
 from wger.weight.models import WeightEntry
 from wger.manager.tests.testcase import WorkoutManagerTestCase
@@ -52,8 +53,9 @@ class CaloresCalculatorTestCase(WorkoutManagerTestCase):
                                      'freetime_intensity': 1})
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content)
-        self.assertEqual(decimal.Decimal(result['factor']), decimal.Decimal('1.57'))
-        self.assertEqual(decimal.Decimal(result['activities']), decimal.Decimal('2920'))
+        self.assertEqual(decimal.Decimal(result['factor']),
+                         decimal.Decimal(1.57).quantize(TWOPLACES))
+        self.assertEqual(decimal.Decimal(result['activities']), decimal.Decimal(2920))
 
     def test_automatic_weight_entry(self):
         '''
