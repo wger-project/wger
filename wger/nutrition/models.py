@@ -310,18 +310,28 @@ class Ingredient(models.Model):
         '''
 
         # Note: calculations in 100 grams, to save us the '/100' everywhere
-        energy_calculated = ((self.protein * PROTEIN_FACTOR) +
-                            (self.carbohydrates * CARB_FACTOR) +
-                            (self.fat * FAT_FACTOR))
+        energy_protein = 0
+        if self.protein:
+            self.protein * PROTEIN_FACTOR
+
+        energy_carbohydrates = 0
+        if self.carbohydrates:
+            energy_carbohydrates = self.carbohydrates * CARB_FACTOR
+
+        energy_fat = 0
+        if self.fat:
+            energy_fat = self.fat * FAT_FACTOR
+
+        energy_calculated = energy_protein + energy_carbohydrates + energy_fat
 
         # Compare the values, but be generous
-        energy_upper = self.energy * (1 + (self.ENERGY_APPROXIMATION / Decimal(100.0)))
-        energy_lower = self.energy * (1 - (self.ENERGY_APPROXIMATION / Decimal(100.0)))
-        #logger.debug("{0} > {1} > {2}".format(energy_upper, energy_calculated, energy_lower))
+        if self.energy:
+            energy_upper = self.energy * (1 + (self.ENERGY_APPROXIMATION / Decimal(100.0)))
+            energy_lower = self.energy * (1 - (self.ENERGY_APPROXIMATION / Decimal(100.0)))
 
-        if not ((energy_upper > energy_calculated) and (energy_calculated > energy_lower)):
-            raise ValidationError(_('Total energy is not the approximate sum of the energy '
-                                    'provided by protein, carbohydrates and fat.'))
+            if not ((energy_upper > energy_calculated) and (energy_calculated > energy_lower)):
+                raise ValidationError(_('Total energy is not the approximate sum of the energy '
+                                        'provided by protein, carbohydrates and fat.'))
 
     def save(self, *args, **kwargs):
         '''
