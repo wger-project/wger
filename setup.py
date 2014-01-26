@@ -43,7 +43,7 @@ setup(
         'versiontools >= 1.6',
     ],
     install_requires=[
-        'django == 1.5.5',
+        'django == 1.6.1',
         'reportlab',
         'django-browserid == 0.9',
         'django-recaptcha',
