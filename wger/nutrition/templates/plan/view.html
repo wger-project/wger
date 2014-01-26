@@ -49,8 +49,10 @@ $(document).ready(function() {
     <tr>
         {% ifchanged meal.pk %}
         <td rowspan="{{meal.mealitem_set.count}}">
+            <strong>
             {% trans "Nr."%} {{ forloop.parentloop.counter }}
             {% if meal.time %} &ndash; {{meal.time|time:"H:i"}}{% endif %}
+            </strong>
 
             <div class="editoptions">
                 <a href="{% url 'wger.nutrition.views.meal.delete_meal' meal.id %}"

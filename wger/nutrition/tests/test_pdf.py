@@ -42,8 +42,9 @@ class NutritionalPlanPdfExportTestCase(WorkoutManagerTestCase):
             self.assertEqual(response['Content-Disposition'],
                              'attachment; filename=nutritional-plan.pdf')
 
-            # Approximate size, there's a timestamp in the document
-            self.assertGreater(len(response.content), 2800)
+            # Approximate size
+            self.assertGreater(int(response['Content-Length']), 33900)
+            self.assertLess(int(response['Content-Length']), 34000)
 
         # Create an empty plan
         user = User.objects.get(pk=2)
@@ -63,8 +64,9 @@ class NutritionalPlanPdfExportTestCase(WorkoutManagerTestCase):
             self.assertEqual(response['Content-Disposition'],
                              'attachment; filename=nutritional-plan.pdf')
 
-            # Approximate size, there's a timestamp in the document
-            self.assertGreater(len(response.content), 2800)
+            # Approximate size
+            self.assertGreater(int(response['Content-Length']), 33300)
+            self.assertLess(int(response['Content-Length']), 33380)
 
     def test_export_pdf_anonymous(self):
         '''
