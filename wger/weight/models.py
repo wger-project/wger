@@ -16,6 +16,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
@@ -28,7 +29,8 @@ class WeightEntry(models.Model):
     Model for a weight point
     '''
     creation_date = models.DateField(verbose_name=_('Date'))
-    weight = Html5FloatField(verbose_name=_('Weight'))
+    weight = Html5FloatField(verbose_name=_('Weight'),
+                             validators=[MinValueValidator(30), MaxValueValidator(300)])
     user = models.ForeignKey(User,
                              verbose_name=_('User'))
     '''

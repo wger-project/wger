@@ -21,6 +21,7 @@ from django.db import models
 
 from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
 from django.core.validators import MaxValueValidator
+from django.core.validators import MinValueValidator
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.core import mail
@@ -209,45 +210,53 @@ class Ingredient(models.Model):
     protein = Html5DecimalField(decimal_places=3,
                                 max_digits=6,
                                 verbose_name=_('Protein'),
-                                help_text=_('In g per 100g of product'))
+                                help_text=_('In g per 100g of product'),
+                                validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     carbohydrates = Html5DecimalField(decimal_places=3,
                                       max_digits=6,
                                       verbose_name=_('Carbohydrates'),
-                                      help_text=_('In g per 100g of product'))
+                                      help_text=_('In g per 100g of product'),
+                                      validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     carbohydrates_sugar = Html5DecimalField(decimal_places=3,
                                             max_digits=6,
                                             blank=True,
                                             null=True,
                                             verbose_name=_('Sugar content in carbohydrates'),
-                                            help_text=_('In g per 100g of product'))
+                                            help_text=_('In g per 100g of product'),
+                                            validators=[MinValueValidator(0),
+                                                        MaxValueValidator(100)])
 
     fat = Html5DecimalField(decimal_places=3,
                             max_digits=6,
                             verbose_name=_('Fat'),
-                            help_text=_('In g per 100g of product'))
+                            help_text=_('In g per 100g of product'),
+                            validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     fat_saturated = Html5DecimalField(decimal_places=3,
                                       max_digits=6,
                                       blank=True,
                                       null=True,
                                       verbose_name=_('Saturated fat content in fats'),
-                                      help_text=_('In g per 100g of product'))
+                                      help_text=_('In g per 100g of product'),
+                                      validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     fibres = Html5DecimalField(decimal_places=3,
                                max_digits=6,
                                blank=True,
                                null=True,
                                verbose_name=_('Fibres'),
-                               help_text=_('In g per 100g of product'))
+                               help_text=_('In g per 100g of product'),
+                               validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     sodium = Html5DecimalField(decimal_places=3,
                                max_digits=6,
                                blank=True,
                                null=True,
                                verbose_name=_('Sodium'),
-                               help_text=_('In g per 100g of product'))
+                               help_text=_('In g per 100g of product'),
+                               validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     #
     # Django methods
@@ -509,7 +518,7 @@ class MealItem(models.Model):
                                 editable=False)
     amount = Html5DecimalField(decimal_places=2,
                                max_digits=6,
-                               validators=[MaxValueValidator(1000)],
+                               validators=[MinValueValidator(1), MaxValueValidator(1000)],
                                verbose_name=_('Amount'))
 
     def __unicode__(self):
