@@ -14,10 +14,11 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
-import decimal
+from decimal import Decimal
 
 from wger.nutrition import models
 from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.utils.constants import TWOPLACES
 
 logger = logging.getLogger('wger.custom')
 
@@ -51,13 +52,13 @@ class NutritionalValuesCalculationsTestCase(WorkoutManagerTestCase):
         result_item = item.get_nutritional_values()
 
         for i in result_item:
-            self.assertEqual(result_item[i], getattr(ingredient, i))
+            self.assertEqual(result_item[i], Decimal(getattr(ingredient, i)).quantize(TWOPLACES))
 
         result_meal = meal.get_nutritional_values()
         self.assertEqual(result_item, result_meal)
 
         result_plan = plan.get_nutritional_values()
-        self.assertEqual(result_meal, result_plan)
+        self.assertEqual(result_meal, result_plan['total'])
 
         # One ingredient, 1 x unit 3
         item.delete()
@@ -72,13 +73,14 @@ class NutritionalValuesCalculationsTestCase(WorkoutManagerTestCase):
         result_item = item.get_nutritional_values()
 
         for i in result_item:
-            self.assertEqual(result_item[i], getattr(ingredient, i) * decimal.Decimal('12.0') / 100)
+            self.assertEqual(result_item[i],
+                             (getattr(ingredient, i) * Decimal(12.0) / 100).quantize(TWOPLACES))
 
         result_meal = meal.get_nutritional_values()
         self.assertEqual(result_item, result_meal)
 
         result_plan = plan.get_nutritional_values()
-        self.assertEqual(result_meal, result_plan)
+        self.assertEqual(result_meal, result_plan['total'])
 
         # Add another ingredient, 200 gr
         item2 = models.MealItem()
@@ -100,7 +102,7 @@ class NutritionalValuesCalculationsTestCase(WorkoutManagerTestCase):
         self.assertEqual(result_total, result_meal)
 
         result_plan = plan.get_nutritional_values()
-        self.assertEqual(result_meal, result_plan)
+        self.assertEqual(result_meal, result_plan['total'])
 
         # Add another ingredient, 20 gr
         item3 = models.MealItem()
@@ -115,11 +117,28 @@ class NutritionalValuesCalculationsTestCase(WorkoutManagerTestCase):
 
         for i in result_item3:
             self.assertEqual(result_item3[i],
-                             getattr(ingredient3, i) * decimal.Decimal('20.0') / 100)
+                             (getattr(ingredient3, i) * Decimal(20.0) / 100).quantize(TWOPLACES))
             result_total[i] = result_total[i] + result_item3[i]
 
         result_meal = meal.get_nutritional_values()
         self.assertEqual(result_total, result_meal)
 
         result_plan = plan.get_nutritional_values()
-        self.assertEqual(result_meal, result_plan)
+        self.assertEqual(result_meal, result_plan['total'])
+
+    def test_calculations_user(self):
+        '''
+        Tests the calculations
+        :return:
+        '''
+        self.user_login('test')
+        plan = models.NutritionPlan.objects.get(pk=4)
+        values = plan.get_nutritional_values()
+
+        self.assertEqual(values['percent']['carbohydrates'], Decimal(29.79).quantize(TWOPLACES))
+        self.assertEqual(values['percent']['fat'], Decimal(20.36).quantize(TWOPLACES))
+        self.assertEqual(values['percent']['protein'], Decimal(26.06).quantize(TWOPLACES))
+
+        self.assertEqual(values['per_kg']['carbohydrates'], Decimal(4.81).quantize(TWOPLACES))
+        self.assertEqual(values['per_kg']['fat'], Decimal(1.46).quantize(TWOPLACES))
+        self.assertEqual(values['per_kg']['protein'], Decimal(4.21).quantize(TWOPLACES))

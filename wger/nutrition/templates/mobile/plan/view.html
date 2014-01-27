@@ -95,7 +95,36 @@ $(document).ready(function() {
         <h3>{% trans "Options" %}</h3>
     </div>
 
+
     <div role="main" class="ui-content">
+    <h3>{{item.ingredient}}</h3>
+
+    <table>
+    <thead>
+        <tr>
+            <th colspan="2">{% trans "Nutritional data" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>{% trans "Energy" %}</td>
+        <td class="align-right">{{item.get_nutritional_values.energy|floatformat}} kcal</td>
+    </tr>
+    <tr>
+        <td>{% trans "Protein" %}</td>
+        <td class="align-right">{{item.get_nutritional_values.protein|floatformat}} g</td>
+    </tr>
+    <tr>
+        <td>{% trans "Carbohydrates" %}</td>
+        <td class="align-right">{{item.get_nutritional_values.carbohydrates|floatformat}} g</td>
+    </tr>
+    <tr>
+        <td>{% trans "Fat" %}</td>
+        <td class="align-right">{{item.get_nutritional_values.fat|floatformat}} g</td>
+    </tr>
+    </tbody>
+    </table>
+
     <a href="{% url 'wger.nutrition.views.meal_item.delete_meal_item' item.id %}"
        title="{% trans 'Delete' %}"
        data-role="button">
@@ -204,26 +233,22 @@ $(document).ready(function() {
 
 
 {% block sidebar %}
-<h3>{% trans "Nutritional data" %}</h3>
+<h3>{% trans "Energy" %}</h3>
 <table id="nutritional-data-energy">
     <thead>
         <tr>
-            <th colspan="2">
-                {% trans "Energy" %}
-            </th>
+            <th>{% trans "Energy" %}</th>
+            <th class="align-right">{{nutritional_data.total.energy|floatformat:"0"}} kcal</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>{% trans "Energy" %}</td>
-            <td class="align-right">{{nutritional_data.energy|floatformat:"0"}} kcal</td>
-        </tr>
         {% if user.userprofile.calories and plan.has_goal_calories %}
         {% with total=plan.get_calories_approximation %}
-        <tr>
+        <tr style="background-color:{% if total == 1 %}#8ae234;{% elif total == 2 %}#fce94f;{% elif total == 3 %}#fcaf3e;{% elif total > 3 %}#ef2929;{% endif %}">
             <td>{% trans "Goal" %}</td>
-            <td class="align-right" style="color:{% if total == 1 %}#8ae234;{% elif total == 2 %}#fce94f;{% elif total == 3 %}#fcaf3e;{% elif total > 3 %}#ef2929;{% endif %}">
-                <strong>{{user.userprofile.calories|floatformat:"0"}} kcal</strong></td>
+            <td class="align-right">
+                <strong>{{user.userprofile.calories|floatformat:"0"}} kcal</strong>
+            </td>
         </tr>
         {% endwith %}
         {% endif %}
@@ -238,54 +263,69 @@ $(document).ready(function() {
     </p>
 {% endif %}
 
-<table id="nutritional-data-macronutrients">
+<h3>{% trans "Nutritional data" %}</h3>
+<table>
     <thead>
-        <tr>
-            <th colspan="2">
-                {% trans "Macronutrients" %}
-            </th>
+        <tr style="height:4em;">
+            <th>{% trans "Macronutrients" %}</th>
+            <th class="align-right">{% trans "Total" %}</th>
+            <th class="align-right">{% trans "Percent of energy" %}</th>
+            <th class="align-right">{% trans "g per body kg" %}</th>
         </tr>
     </thead>
     <tbody>
         <tr>
+            <td>{% trans "Energy" %}</td>
+            <td class="align-right">{{nutritional_data.total.energy|floatformat}} kcal</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
             <td>{% trans "Protein" %}</td>
-            <td class="align-right">{{nutritional_data.protein|floatformat}} g</td>
+            <td class="align-right">{{nutritional_data.total.protein|floatformat}} g</td>
+            <td class="align-right">{{nutritional_data.percent.protein|floatformat}} %</td>
+            <td class="align-right">{{nutritional_data.per_kg.protein|floatformat}}</td>
         </tr>
         <tr>
             <td>{% trans "Carbohydrates" %}</td>
-            <td class="align-right">{{nutritional_data.carbohydrates|floatformat}} g</td>
+            <td class="align-right">{{nutritional_data.total.carbohydrates|floatformat}} g</td>
+            <td class="align-right">{{nutritional_data.percent.carbohydrates|floatformat}} %</td>
+            <td class="align-right">{{nutritional_data.per_kg.carbohydrates|floatformat}}</td>
         </tr>
         <tr>
             <td style="padding-left: 2em;">{% trans "Sugar content in carbohydrates" %}</td>
-            <td class="align-right">{{nutritional_data.carbohydrates_sugar|floatformat}} g</td>
+            <td class="align-right">{{nutritional_data.total.carbohydrates_sugar|floatformat}} g</td>
+            <td></td>
+            <td></td>
         </tr>
         <tr>
             <td>{% trans "Fat" %}</td>
-            <td class="align-right">{{nutritional_data.fat|floatformat}} g</td>
+            <td class="align-right">{{nutritional_data.total.fat|floatformat}} g</td>
+            <td class="align-right">{{nutritional_data.percent.fat|floatformat}} %</td>
+            <td class="align-right">{{nutritional_data.per_kg.fat|floatformat}}</td>
         </tr>
         <tr>
             <td style="padding-left: 2em;">{% trans "Saturated fat content in fats" %}</td>
-            <td class="align-right">{{nutritional_data.fat_saturated|floatformat}} g</td>
+            <td class="align-right">{{nutritional_data.total.fat_saturated|floatformat}} g</td>
+            <td></td>
+            <td></td>
         </tr>
-    </tbody>
-</table>
 
-<table id="nutritional-data-others">
-    <thead>
+
         <tr>
-            <th colspan="2">
-                {% trans "Others" %}
-            </th>
+            <th colspan="4">{% trans "Others" %}</th>
         </tr>
-    </thead>
-    <tbody>
         <tr>
             <td>{% trans "Fibres" %}</td>
-            <td class="align-right">{{nutritional_data.fibres|floatformat}} g</td>
+            <td class="align-right">{{nutritional_data.total.fibres|floatformat}} g</td>
+            <td></td>
+            <td></td>
         </tr>
         <tr>
             <td>{% trans "Sodium" %}</td>
-            <td class="align-right">{{nutritional_data.sodium|floatformat}} g</td>
+            <td class="align-right">{{nutritional_data.total.sodium|floatformat}} g</td>
+            <td></td>
+            <td></td>
         </tr>
     </tbody>
 </table>

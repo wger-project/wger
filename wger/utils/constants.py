@@ -14,6 +14,8 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+from decimal import Decimal
+
 
 # Navigation
 WORKOUT_TAB = 'workout'
@@ -22,6 +24,9 @@ WEIGHT_TAB = 'weight'
 NUTRITION_TAB = 'nutrition'
 SOFTWARE_TAB = 'software'
 USER_TAB = 'user'
+
+# Default quantization
+TWOPLACES = Decimal('0.01')
 
 # Valid date formats
 DATE_FORMATS = ['%d.%m.%Y',  # '25.10.2012'

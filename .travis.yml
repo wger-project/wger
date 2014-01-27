@@ -2,7 +2,6 @@ language: python
 
 # Python versions to test
 python:
-  - "2.6"
   - "2.7"
 
 # Manually define here the combinations of django and db versions to test

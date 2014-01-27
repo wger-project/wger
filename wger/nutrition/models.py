@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 import logging
-import decimal
+from decimal import Decimal
 
 from django.db import models
 
@@ -33,6 +33,7 @@ from django.utils import translation
 
 from wger.exercises.models import Language
 from wger.utils.constants import EMAIL_FROM
+from wger.utils.constants import TWOPLACES
 from wger.utils.cache import cache_mapper
 from wger.utils.fields import Html5TimeField
 from wger.utils.fields import Html5DecimalField
@@ -40,6 +41,12 @@ from wger.utils.fields import Html5IntegerField
 
 MEALITEM_WEIGHT_GRAM = '1'
 MEALITEM_WEIGHT_UNIT = '2'
+
+
+PROTEIN_FACTOR = 4
+CARB_FACTOR = 4
+FAT_FACTOR = 9
+
 
 logger = logging.getLogger('wger.custom')
 
@@ -92,29 +99,60 @@ class NutritionPlan(models.Model):
 
     def get_nutritional_values(self):
         '''
-        Sums the nutrional info of all items in the plan
+        Sums the nutritional info of all items in the plan
         '''
-        nutritional_info = {'energy': 0,
+        result = {'total': {'energy': 0,
                             'protein': 0,
                             'carbohydrates': 0,
                             'carbohydrates_sugar': 0,
                             'fat': 0,
                             'fat_saturated': 0,
                             'fibres': 0,
-                            'sodium': 0}
+                            'sodium': 0},
+                  'percent': {'protein': 0,
+                              'carbohydrates': 0,
+                              'fat': 0},
+                  'per_kg': {'protein': 0,
+                             'carbohydrates': 0,
+                             'fat': 0}
+                  }
+
+        # Energy
         for meal in self.meal_set.select_related():
             values = meal.get_nutritional_values()
 
-            nutritional_info['energy'] += values['energy']
-            nutritional_info['protein'] += values['protein']
-            nutritional_info['carbohydrates'] += values['carbohydrates']
-            nutritional_info['carbohydrates_sugar'] += values['carbohydrates_sugar']
-            nutritional_info['fat'] += values['fat']
-            nutritional_info['fat_saturated'] += values['fat_saturated']
-            nutritional_info['fibres'] += values['fibres']
-            nutritional_info['sodium'] += values['sodium']
+            result['total']['energy'] += values['energy']
+            result['total']['protein'] += values['protein']
+            result['total']['carbohydrates'] += values['carbohydrates']
+            result['total']['carbohydrates_sugar'] += values['carbohydrates_sugar']
+            result['total']['fat'] += values['fat']
+            result['total']['fat_saturated'] += values['fat_saturated']
+            result['total']['fibres'] += values['fibres']
+            result['total']['sodium'] += values['sodium']
 
-        return nutritional_info
+        # In percent
+        if result['total']['energy']:
+            result['percent']['protein'] = (result['total']['protein'] *
+                                            PROTEIN_FACTOR / result['total']['energy']) * 100
+            result['percent']['carbohydrates'] = (result['total']['carbohydrates'] *
+                                                  CARB_FACTOR / result['total']['energy']) * 100
+            result['percent']['fat'] = (result['total']['fat'] *
+                                        FAT_FACTOR / result['total']['energy']) * 100
+
+        # Per body weight
+        if self.user.userprofile.weight:
+            weight = Decimal(self.user.userprofile.weight)
+            result['per_kg']['protein'] = (result['total']['protein'] / weight).quantize(TWOPLACES)
+            result['per_kg']['carbohydrates'] = (result['total']['carbohydrates'] / weight) \
+                .quantize(TWOPLACES)
+            result['per_kg']['fat'] = (result['total']['fat'] / weight).quantize(TWOPLACES)
+
+        # Only 2 decimal places, anything else doesn't make sense
+        for key in ('total', 'percent', 'per_kg'):
+            for i in result[key]:
+                result[key][i] = Decimal(result[key][i]).quantize(TWOPLACES)
+
+        return result
 
     def get_owner_object(self):
         '''
@@ -129,7 +167,7 @@ class NutritionPlan(models.Model):
         '''
 
         goal_calories = self.user.userprofile.calories
-        actual_calories = self.get_nutritional_values()['energy']
+        actual_calories = self.get_nutritional_values()['total']['energy']
 
         # Within 3%
         if (actual_calories < goal_calories * 1.03) and (actual_calories > goal_calories * 0.97):
@@ -281,18 +319,28 @@ class Ingredient(models.Model):
         '''
 
         # Note: calculations in 100 grams, to save us the '/100' everywhere
-        energy_calculated = ((self.protein * 4) +
-                            (self.carbohydrates * 4) +
-                            (self.fat * 9))
+        energy_protein = 0
+        if self.protein:
+            self.protein * PROTEIN_FACTOR
+
+        energy_carbohydrates = 0
+        if self.carbohydrates:
+            energy_carbohydrates = self.carbohydrates * CARB_FACTOR
+
+        energy_fat = 0
+        if self.fat:
+            energy_fat = self.fat * FAT_FACTOR
+
+        energy_calculated = energy_protein + energy_carbohydrates + energy_fat
 
         # Compare the values, but be generous
-        energy_upper = self.energy * (1 + (self.ENERGY_APPROXIMATION / decimal.Decimal('100.0')))
-        energy_lower = self.energy * (1 - (self.ENERGY_APPROXIMATION / decimal.Decimal('100.0')))
-        #logger.debug("{0} > {1} > {2}".format(energy_upper, energy_calculated, energy_lower))
+        if self.energy:
+            energy_upper = self.energy * (1 + (self.ENERGY_APPROXIMATION / Decimal(100.0)))
+            energy_lower = self.energy * (1 - (self.ENERGY_APPROXIMATION / Decimal(100.0)))
 
-        if not ((energy_upper > energy_calculated) and (energy_calculated > energy_lower)):
-            raise ValidationError(_('Total energy is not the approximate sum of the energy '
-                                    'provided by protein, carbohydrates and fat.'))
+            if not ((energy_upper > energy_calculated) and (energy_calculated > energy_lower)):
+                raise ValidationError(_('Total energy is not the approximate sum of the energy '
+                                        'provided by protein, carbohydrates and fat.'))
 
     def save(self, *args, **kwargs):
         '''
@@ -339,11 +387,8 @@ class Ingredient(models.Model):
         ingredient = Ingredient.objects.get(pk=self.pk)
         if self != ingredient:
             return False
-            logger.debug('NOT equal')
-            #form.instance.update_date = datetime.datetime.today()
         else:
             return True
-            logger.debug('equal, not doing anything')
 
     def send_email(self, request):
         '''
@@ -494,6 +539,10 @@ class Meal(models.Model):
             nutritional_info['fibres'] += values['fibres']
             nutritional_info['sodium'] += values['sodium']
 
+        # Only 2 decimal places, anything else doesn't make sense
+        for i in nutritional_info:
+            nutritional_info[i] = Decimal(nutritional_info[i]).quantize(TWOPLACES)
+
         return nutritional_info
 
 
@@ -567,38 +616,38 @@ class MealItem(models.Model):
 
         nutritional_info['energy'] += self.ingredient.energy * item_weight / 100
         nutritional_info['protein'] += self.ingredient.protein * item_weight / 100
-        nutritional_info['carbohydrates'] += self.ingredient.carbohydrates * \
-            item_weight / 100
+        nutritional_info['carbohydrates'] += self.ingredient.carbohydrates * item_weight / 100
 
         if self.ingredient.carbohydrates_sugar:
-            nutritional_info['carbohydrates_sugar'] += \
-                self.ingredient.carbohydrates_sugar * \
-                item_weight / 100
+            nutritional_info['carbohydrates_sugar'] += self.ingredient.carbohydrates_sugar \
+                * item_weight / 100
 
         nutritional_info['fat'] += self.ingredient.fat * item_weight / 100
+
         if self.ingredient.fat_saturated:
-            nutritional_info['fat_saturated'] += self.ingredient.fat_saturated * \
-                item_weight / 100
+            nutritional_info['fat_saturated'] += self.ingredient.fat_saturated * item_weight / 100
 
         if self.ingredient.fibres:
-            nutritional_info['fibres'] += self.ingredient.fibres * \
-                item_weight / 100
+            nutritional_info['fibres'] += self.ingredient.fibres * item_weight / 100
 
         if self.ingredient.sodium:
-            nutritional_info['sodium'] += self.ingredient.sodium * \
-                item_weight / 100
+            nutritional_info['sodium'] += self.ingredient.sodium * item_weight / 100
+
+        # Only 2 decimal places, anything else doesn't make sense
+        for i in nutritional_info:
+            nutritional_info[i] = Decimal(nutritional_info[i]).quantize(TWOPLACES)
 
         return nutritional_info
 
     def get_nutritional_values_percent(self):
         '''
-        Calculates the percentage each macronutrients contribute to the
+        Calculates the percentage each macronutrient contributes to the
         total energy (approximation, since the factors 4, 4 and 9 are only
         a rule of thumb)
         '''
         values = self.get_nutritional_values()
-        result = {'protein': values['energy'] / values['protein'] * 4,
-                  'carbohydrates': values['energy'] / values['carbohydrates'] * 4,
-                  'fat': values['energy'] / values['fat'] * 9}
+        result = {'protein': values['energy'] / values['protein'] * PROTEIN_FACTOR,
+                  'carbohydrates': values['energy'] / values['carbohydrates'] * CARB_FACTOR,
+                  'fat': values['energy'] / values['fat'] * FAT_FACTOR}
 
         return result

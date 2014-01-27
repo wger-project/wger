@@ -20,6 +20,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
 from wger.exercises.models import Language
+from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
 from wger.manager.models import UserProfile
 from wger.manager.tests.testcase import WorkoutManagerTestCase
@@ -283,19 +284,23 @@ class PreferencesCalculationsTestCase(WorkoutManagerTestCase):
         self.user_login('test')
         user = User.objects.get(pk=2)
 
-        self.assertEqual(user.userprofile.calculate_activities(), decimal.Decimal('1.57'))
+        self.assertEqual(user.userprofile.calculate_activities(),
+                         decimal.Decimal(1.57).quantize(TWOPLACES))
 
         # Gender has no influence
         user.userprofile.gender = "2"
-        self.assertEqual(user.userprofile.calculate_activities(), decimal.Decimal('1.57'))
+        self.assertEqual(user.userprofile.calculate_activities(),
+                         decimal.Decimal(1.57).quantize(TWOPLACES))
 
         # Change some of the parameters
         user.userprofile.work_intensity = '3'
-        self.assertEqual(user.userprofile.calculate_activities(), decimal.Decimal('1.80'))
+        self.assertEqual(user.userprofile.calculate_activities(),
+                         decimal.Decimal(1.80).quantize(TWOPLACES))
 
         user.userprofile.work_intensity = '2'
         user.userprofile.sport_intensity = '2'
-        self.assertEqual(user.userprofile.calculate_activities(), decimal.Decimal('1.52'))
+        self.assertEqual(user.userprofile.calculate_activities(),
+                         decimal.Decimal(1.52).quantize(TWOPLACES))
 
 
 class UserProfileApiTestCase(ApiBaseResourceTestCase):

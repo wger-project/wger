@@ -119,8 +119,7 @@ def view(request, id):
     template_data['MEALITEM_WEIGHT_GRAM'] = MEALITEM_WEIGHT_GRAM
     template_data['MEALITEM_WEIGHT_UNIT'] = MEALITEM_WEIGHT_UNIT
 
-    # Get the nutrional info
-
+    # Get the nutritional info
     template_data['nutritional_data'] = plan.get_nutritional_values()
 
     return render_to_response('plan/view.html',
@@ -175,10 +174,10 @@ def export_pdf(request, id):
 
     #Load the workout
     plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
+    plan_data = plan.get_nutritional_values()
 
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(mimetype='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename=nutritional-plan.pdf'
 
     # Create the PDF object, using the response object as its "file."
     doc = SimpleDocTemplate(response,
@@ -196,7 +195,6 @@ def export_pdf(request, id):
 
     # container for the 'Flowable' objects
     elements = []
-
     data = []
 
     # Iterate through the Plan
@@ -211,34 +209,31 @@ def export_pdf(request, id):
         meal_markers.append(len(data))
 
         if not meal.time:
-            P = Paragraph('<para align="center"><strong>%(meal_nr)s</strong></para>' %
-                          {'meal_nr': i},
+            p = Paragraph(u'<para align="center"><strong>{nr} {meal_nr}</strong></para>'
+                          .format(nr=_('Nr.'), meal_nr=i),
                           styleSheet["Normal"])
         else:
-            P = Paragraph('<para align="center"><strong>%(meal_nr)s - '
-                          '%(meal_time)s</strong></para>' %
-                          {'meal_nr': i,
-                           'meal_time': meal.time.strftime("%H:%M")},
+            p = Paragraph(u'<para align="center"><strong>'
+                          u'{nr} {meal_nr} - {meal_time}'
+                          u'</strong></para>'
+                          .format(nr=_('Nr.'), meal_nr=i, meal_time=meal.time.strftime("%H:%M")),
                           styleSheet["Normal"])
-        data.append([P])
+        data.append([p])
 
         # Ingredients
         for item in meal.mealitem_set.select_related():
             ingredient_markers.append(len(data))
 
-            P = Paragraph('<para>%s</para>' % item.ingredient.name,
-                          styleSheet["Normal"])
-
+            p = Paragraph(u'<para>{0}</para>'.format(item.ingredient.name), styleSheet["Normal"])
             if item.get_unit_type() == MEALITEM_WEIGHT_GRAM:
                 unit_name = 'g'
             else:
                 unit_name = ' ' + item.weight_unit.unit.name
-            data.append([u"{0}{1}".format(item.amount, unit_name), P])
+
+            data.append([Paragraph(u"{0}{1}".format(item.amount, unit_name), styleSheet["Normal"]),
+                         p])
 
     # Set general table styles
-
-    #('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-    #('BOX', (0,0), (-1,-1), 0.25, colors.black)
     table_style = []
 
     # Set specific styles, e.g. background for title cells
@@ -255,7 +250,7 @@ def export_pdf(request, id):
         t = Table(data, style=table_style)
 
         # Manually set the width of the columns
-        t._argW[0] = 2 * cm
+        t._argW[0] = 2.5 * cm
 
     # There is nothing to output
     else:
@@ -264,26 +259,71 @@ def export_pdf(request, id):
 
     # Set the title (if available)
     if plan.description:
-        P = Paragraph('<para align="center"><strong>%(description)s</strong></para>' %
+        p = Paragraph('<para align="center"><strong>%(description)s</strong></para>' %
                       {'description': plan.description},
                       styleSheet["Normal"])
-        elements.append(P)
+        elements.append(p)
 
         # Filler
-        P = Paragraph('<para> </para>', styleSheet["Normal"])
-        elements.append(P)
+        p = Paragraph('<para> </para>', styleSheet["Normal"])
+        elements.append(p)
 
     # append the table to the document
     elements.append(t)
+    elements.append(Paragraph('<para>&nbsp;</para>', styleSheet["Normal"]))
+
+    # Create table with nutritional calculations
+    data = []
+    data.append([Paragraph(u'<para align="center">{0}</para>'.format(_('Nutritional data')),
+                 styleSheet["Bold"])])
+    data.append([Paragraph(_('Macronutrients'), styleSheet["Normal"]),
+                 Paragraph(_('Total'), styleSheet["Normal"]),
+                 Paragraph(_('Percent of energy'), styleSheet["Normal"]),
+                 Paragraph(_('g per body kg'), styleSheet["Normal"])])
+    data.append([Paragraph(_('Energy'), styleSheet["Normal"]),
+                 Paragraph(unicode(plan_data['total']['energy']), styleSheet["Normal"])])
+    data.append([Paragraph(_('Protein'), styleSheet["Normal"]),
+                 Paragraph(unicode(plan_data['total']['protein']), styleSheet["Normal"]),
+                 Paragraph(unicode(plan_data['percent']['protein']), styleSheet["Normal"]),
+                 Paragraph(unicode(plan_data['per_kg']['protein']), styleSheet["Normal"])])
+    data.append([Paragraph(_('Carbohydrates'), styleSheet["Normal"]),
+                 Paragraph(unicode(plan_data['total']['carbohydrates']), styleSheet["Normal"]),
+                 Paragraph(unicode(plan_data['percent']['carbohydrates']), styleSheet["Normal"]),
+                 Paragraph(unicode(plan_data['per_kg']['carbohydrates']), styleSheet["Normal"])])
+    data.append([Paragraph(_('Sugar content in carbohydrates'), styleSheet["Normal"]),
+                 Paragraph(unicode(plan_data['total']['carbohydrates_sugar']),
+                           styleSheet["Normal"])])
+    data.append([Paragraph(_('Fat'), styleSheet["Normal"]),
+                 Paragraph(unicode(plan_data['total']['fat']), styleSheet["Normal"]),
+                 Paragraph(unicode(plan_data['percent']['fat']), styleSheet["Normal"]),
+                 Paragraph(unicode(plan_data['per_kg']['fat']), styleSheet["Normal"])])
+    data.append([Paragraph(_('Saturated fat content in fats'), styleSheet["Normal"]),
+                 Paragraph(unicode(plan_data['total']['fat_saturated']), styleSheet["Normal"])])
+    data.append([Paragraph(_('Fibres'), styleSheet["Normal"]),
+                 Paragraph(unicode(plan_data['total']['fibres']), styleSheet["Normal"])])
+    data.append([Paragraph(_('Sodium'), styleSheet["Normal"]),
+                 Paragraph(unicode(plan_data['total']['sodium']), styleSheet["Normal"])])
+
+    table_style = []
+    table_style.append(('BOX', (0, 0), (-1, -1), 1.25, colors.black))
+    table_style.append(('GRID', (0, 0), (-1, -1), 0.40, colors.black))
+    table_style.append(('SPAN', (0, 0), (-1, 0)))  # Title
+    table_style.append(('SPAN', (1, 2), (-1, 2)))  # Energy
+    table_style.append(('SPAN', (1, 5), (-1, 5)))  # Sugar
+    table_style.append(('SPAN', (1, 7), (-1, 7)))  # Saturated fats
+    table_style.append(('SPAN', (1, 8), (-1, 8)))  # Fibres
+    table_style.append(('SPAN', (1, 9), (-1, 9)))  # Sodium
+    t = Table(data, style=table_style)
+    t._argW[0] = 5 * cm
+    elements.append(t)
 
     # Footer, add filler paragraph
-    P = Paragraph('<para> </para>', styleSheet["Normal"])
-    elements.append(P)
+    elements.append(Paragraph('<para>&nbsp;</para>', styleSheet["Normal"]))
 
     # Print date and info
     created = datetime.date.today().strftime("%d.%m.%Y")
     url = reverse('nutrition-view', kwargs={'id': plan.id})
-    P = Paragraph('''<para align="left">
+    p = Paragraph('''<para align="left">
                         %(date)s -
                         <a href="%(url)s">%(url)s</a> -
                         %(created)s
@@ -294,7 +334,9 @@ def export_pdf(request, id):
                    'version': get_version(),
                    'url': request.build_absolute_uri(url), },
                   styleSheet["Normal"])
-    elements.append(P)
+    elements.append(p)
     doc.build(elements)
 
+    response['Content-Disposition'] = 'attachment; filename=nutritional-plan.pdf'
+    response['Content-Length'] = len(response.content)
     return response
