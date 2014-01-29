@@ -78,7 +78,7 @@ def overview(request):
     template_data['categories'] = categories
     template_data['active_languages'] = languages
 
-    return render_to_response('overview.html',
+    return render_to_response('exercise/overview.html',
                               template_data,
                               context_instance=RequestContext(request))
 
@@ -144,7 +144,7 @@ def view(request, id, slug=None):
     template_data['reps'] = _("Reps")
 
     # Render
-    return render_to_response('view.html',
+    return render_to_response('exercise/view.html',
                               template_data,
                               context_instance=RequestContext(request))
 
