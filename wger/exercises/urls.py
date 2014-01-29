@@ -102,5 +102,8 @@ urlpatterns = patterns('wger.exercises.views',
     url(r'^equipment/(?P<pk>\d+)/delete$',
         equipment.EquipmentDeleteView.as_view(),
         name='equipment-delete'),
+    url(r'^equipment/overview$',
+        equipment.EquipmentOverviewView.as_view(),
+        name='equipment-overview'),
 
 )

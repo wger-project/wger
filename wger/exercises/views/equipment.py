@@ -113,3 +113,13 @@ class EquipmentDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
                                          kwargs={'pk': pk})
 
         return context
+
+
+class EquipmentOverviewView(WgerPermissionMixin, ListView):
+    '''
+    Overview with all exercises, group by equipment
+    '''
+
+    model = Equipment
+    template_name = 'equipment/overview.html'
+    context_object_name = 'equipment_list'
