@@ -264,6 +264,8 @@ class Exercise(models.Model):
         for language in Language.objects.all():
             delete_template_fragment_cache('muscle-overview', language.id)
             delete_template_fragment_cache('exercise-overview', language.id)
+            delete_template_fragment_cache('exercise-overview-mobile', language.id)
+            delete_template_fragment_cache('exercise-overview-search', language.id)
             delete_template_fragment_cache('exercise-detail-header', self.id, language.id)
             delete_template_fragment_cache('exercise-detail-muscles', self.id, language.id)
 
@@ -284,6 +286,8 @@ class Exercise(models.Model):
         for language in Language.objects.all():
             delete_template_fragment_cache('muscle-overview', language.id)
             delete_template_fragment_cache('exercise-overview', language.id)
+            delete_template_fragment_cache('exercise-overview-mobile', language.id)
+            delete_template_fragment_cache('exercise-overview-search', language.id)
             delete_template_fragment_cache('exercise-detail-header', self.id, language.id)
             delete_template_fragment_cache('exercise-detail-muscles', self.id, language.id)
 
@@ -426,6 +430,8 @@ class ExerciseImage(models.Model):
         for language in Language.objects.all():
             delete_template_fragment_cache('muscle-overview', language.id)
             delete_template_fragment_cache('exercise-overview', language.id)
+            delete_template_fragment_cache('exercise-overview-mobile', language.id)
+            delete_template_fragment_cache('exercise-overview-search', language.id)
             delete_template_fragment_cache('exercise-detail-header',
                                            self.exercise.id,
                                            language.id)
@@ -445,6 +451,8 @@ class ExerciseImage(models.Model):
         for language in Language.objects.all():
             delete_template_fragment_cache('muscle-overview', language.id)
             delete_template_fragment_cache('exercise-overview', language.id)
+            delete_template_fragment_cache('exercise-overview-mobile', language.id)
+            delete_template_fragment_cache('exercise-overview-search', language.id)
             delete_template_fragment_cache('exercise-detail-header', self.exercise.id, language.id)
             delete_template_fragment_cache('exercise-detail-muscles', self.exercise.id, language.id)
 

@@ -46,13 +46,13 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.context['active_tab'], 'exercises')
 
         # Correct categories are shown
-        category_1 = response.context['categories'][0]
+        category_1 = response.context['exercises'][0].category
         self.assertEqual(category_1.id, 2)
         self.assertEqual(category_1.name, "Another category")
 
-        category_2 = response.context['categories'][1]
-        self.assertEqual(category_2.id, 1)
-        self.assertEqual(category_2.name, "Category")
+        category_2 = response.context['exercises'][1].category
+        self.assertEqual(category_2.id, 3)
+        self.assertEqual(category_2.name, "Yet another category")
 
         # Correct exercises in the categories
         exercises_1 = category_1.exercise_set.all()
@@ -413,6 +413,12 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         Test that the template cache for the overview is correctly reseted when
         performing certain operations
         '''
+        self.assertFalse(cache.get(cache_mapper.get_exercise_key(2)))
+        self.assertFalse(cache.get(cache_mapper.get_exercise_muscle_bg_key(2)))
+        self.assertFalse(cache.get(get_template_cache_name('muscle-overview', 2)))
+        self.assertFalse(cache.get(get_template_cache_name('exercise-overview', 2)))
+        self.assertFalse(cache.get(get_template_cache_name('exercise-detail-header', 2, 2)))
+        self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
 
         self.client.get(reverse('exercise-overview'))
         self.client.get(reverse('exercise-view', kwargs={'id': 2}))

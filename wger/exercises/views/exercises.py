@@ -63,24 +63,24 @@ from wger.weight.helpers import process_log_entries
 logger = logging.getLogger('wger.custom')
 
 
-def overview(request):
+class ExerciseListView(WgerPermissionMixin, ListView):
     '''
-    Overview with all exercises
+    Generic view to list all exercises
     '''
-    languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
 
-    template_data = {}
-    template_data.update(csrf(request))
+    model = Exercise
+    template_name = 'exercise/overview.html'
+    context_object_name = 'exercises'
 
-    #logger.debug(languages)
-    categories = ExerciseCategory.objects.all()
-
-    template_data['categories'] = categories
-    template_data['active_languages'] = languages
-
-    return render_to_response('exercise/overview.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+    def get_queryset(self):
+        '''
+        Filter to only active exercises in the configured languages
+        '''
+        languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
+        return Exercise.objects.filter(status__in=Exercise.EXERCISE_STATUS_OK) \
+            .filter(language__in=languages) \
+            .order_by('category__id') \
+            .select_related()
 
 
 def view(request, id, slug=None):

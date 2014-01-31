@@ -58,21 +58,25 @@ $(document).ready(function() {
         Main Content
 -->
 {% block content %}
+
 {% cache cache_timeout exercise-overview language.id %}
+{% regroup exercises by category as exercise_list %}
 <div id="tabs">
     <ul>
-        {% for category in categories %}
-        <li id="cat-{{ category.id }}"><a href="#cat{{ category.id }}">{% trans category.name %}</a></li>
+        {% for item in exercise_list %}
+        <li id="cat-{{ item.grouper.id }}">
+            <a href="#cat{{ item.grouper.id }}">{% trans item.grouper.name %}</a>
+        </li>
         {% empty %}
         <li>{% trans "No categories." %} {% trans "Use link to create one" %}</li>
         {% endfor %}
     </ul>
 
-    {% for category in categories %}
-    <div id="cat{{ category.id }}">
+    {% for item in exercise_list %}
+    <div id="cat{{ item.grouper.id }}">
         <table class="narrow">
         <tbody>
-            {% for exercise in category|get_active_exercises:active_languages %}
+        {% for exercise in item.list %}
                 <tr>
                     <td style="padding-left:0px;">
                         {% if exercise.main_image %}
@@ -95,13 +99,15 @@ $(document).ready(function() {
                         </p>
                     </td>
                 </tr>
-            {% endfor %}
+        {% endfor %}
         </tbody>
         </table>
     </div>
     {% endfor %}
 </div>
 {% endcache %}
+
+
 {% endblock %}
 
 
@@ -135,10 +141,10 @@ $(document).ready(function() {
 
 {% if perms.exercises %}
     <h3>{% trans "Options" %}</h3>
-        {% if categories %}
+        {% if exercises %}
+        {% with exercise=exercises|first %}
         <p>
-        {% with category=categories|first %}
-        <a href="{% url 'exercisecategory-edit' category.id %}"
+        <a href="{% url 'exercisecategory-edit' exercise.category.id %}"
            class="modal-dialog"
            id="current-category-edit">
             <img src="{% static 'images/icons/edit.svg' %}"
@@ -147,13 +153,12 @@ $(document).ready(function() {
                  alt="{% trans 'Edit category' %}"
                  title="{% trans 'Edit category' %}">
                 {% trans "Edit category" %}:
-                <span class="current-category-name">{{category.name}}</span>
+                <span class="current-category-name">{% trans exercise.category.name %}</span>
         </a>
         </p>
-        {% endwith %}
+
         <p>
-        {% with category=categories|first %}
-        <a href="{% url 'exercisecategory-delete' category.id %}"
+        <a href="{% url 'exercisecategory-delete' exercise.category.id %}"
            class="modal-dialog"
            id="current-category-delete">
             <img src="{% static 'images/icons/trash.svg' %}"
@@ -162,10 +167,10 @@ $(document).ready(function() {
                  alt="{% trans 'Delete category' %}"
                  title="{% trans 'Delete category' %}">
                 {% trans "Delete category" %}:
-                <span class="current-category-name">{{category.name}}</span>
+                <span class="current-category-name">{% trans exercise.category.name %}</span>
         </a>
-        {% endwith %}
         </p>
+        {% endwith %}
         {% endif %}
 
         <p>

@@ -12,7 +12,7 @@ urlpatterns = patterns('wger.exercises.views',
 
     # Exercises
     url(r'^overview/$',
-        exercises.overview,
+        exercises.ExerciseListView.as_view(),
         name='exercise-overview'),
 
     url(r'^search/$',
