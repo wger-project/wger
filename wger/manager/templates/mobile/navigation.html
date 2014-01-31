@@ -48,6 +48,7 @@
         <ul data-role="listview" data-divider-theme="a">
             <li><a href="{% url 'exercise-overview' %}">{% trans "Exercises" %}</a></li>
             <li><a href="{% url 'muscle-overview' %}" data-ajax="false">{% trans "Muscle overview" %}</a></li>
+            <li><a href="{% url 'equipment-overview' %}">{% trans "Equipment overview" %}</a></li>
             {% if user.is_authenticated and not user.userprofile.is_temporary %}
             <li><a href="{% url 'exercise-add' %}" data-ajax="false">{% trans "Add new exercise" %}</a></li>
             {% endif %}
