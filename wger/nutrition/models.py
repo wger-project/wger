@@ -321,7 +321,7 @@ class Ingredient(models.Model):
         # Note: calculations in 100 grams, to save us the '/100' everywhere
         energy_protein = 0
         if self.protein:
-            self.protein * PROTEIN_FACTOR
+            energy_protein = self.protein * PROTEIN_FACTOR
 
         energy_carbohydrates = 0
         if self.carbohydrates:
