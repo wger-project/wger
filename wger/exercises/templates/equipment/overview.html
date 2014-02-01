@@ -55,6 +55,7 @@ $(function() {
         <table class="narrow">
         <tbody>
             {% for exercise in equipment.exercise_set.all %}
+            {% if exercise.language in exercise_languages %}
                 <tr>
                     <td style="padding-left:0px;">
                         {% if exercise.main_image %}
@@ -69,6 +70,7 @@ $(function() {
                         {{ exercise.name }}</a>
                     </td>
                 </tr>
+            {% endif %}
             {% empty %}
                 <tr>
                     <td>

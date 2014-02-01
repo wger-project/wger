@@ -23,6 +23,7 @@
 
         <ul data-role="listview">
         {% for exercise in equipment.exercise_set.all %}
+        {% if exercise.language in exercise_languages %}
             <li>
                 <a href="{{ exercise.get_absolute_url }}" data-ajax="false">
                 {% if exercise.main_image.image %}
@@ -30,6 +31,7 @@
                 {% endif %}
                 {{ exercise.name }}</a>
             </li>
+        {% endif %}
         {% empty %}
             <li>
                 {% trans "No exercises for this equipment. Add or edit an exercise and set the equipment." %}
