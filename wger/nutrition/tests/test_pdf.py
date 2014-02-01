@@ -66,7 +66,7 @@ class NutritionalPlanPdfExportTestCase(WorkoutManagerTestCase):
 
             # Approximate size
             self.assertGreater(int(response['Content-Length']), 33300)
-            self.assertLess(int(response['Content-Length']), 33400)
+            self.assertLess(int(response['Content-Length']), 33420)
 
     def test_export_pdf_anonymous(self):
         '''
