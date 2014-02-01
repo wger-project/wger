@@ -329,42 +329,28 @@ def search(request):
                                  .order_by('category__name', 'name')
                                  .distinct())
 
-    # AJAX-request, this comes from the autocompleter. Create a list and send
-    # it back as JSON
-    if request.is_ajax():
+    results = []
+    for exercise in exercises:
+        if exercise.exerciseimage_set.exists():
+            image_obj = exercise.exerciseimage_set.filter(is_main=True)[0]
+            image = image_obj.image.url
+            t = get_thumbnailer(image_obj.image)
+            thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
+        else:
+            image = None
+            thumbnail = None
 
-        results = []
-        for exercise in exercises:
-            if exercise.exerciseimage_set.exists():
-                image_obj = exercise.exerciseimage_set.filter(is_main=True)[0]
-                image = image_obj.image.url
-                t = get_thumbnailer(image_obj.image)
-                thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
-            else:
-                image = None
-                thumbnail = None
+        exercise_json = {}
+        exercise_json['id'] = exercise.id
+        exercise_json['name'] = exercise.name
+        exercise_json['value'] = exercise.name
+        exercise_json['category'] = _(exercise.category.name)
+        exercise_json['image'] = image
+        exercise_json['image_thumbnail'] = thumbnail
 
-            exercise_json = {}
-            exercise_json['id'] = exercise.id
-            exercise_json['name'] = exercise.name
-            exercise_json['value'] = exercise.name
-            exercise_json['category'] = _(exercise.category.name)
-            exercise_json['image'] = image
-            exercise_json['image_thumbnail'] = thumbnail
+        results.append(exercise_json)
+    data = json.dumps(results)
 
-            results.append(exercise_json)
-        data = json.dumps(results)
-
-        # Return the results to the server
-        mimetype = 'application/json'
-        return HttpResponse(data, mimetype)
-
-    # Usual search (perhaps JS disabled), present the results as normal HTML page
-    else:
-        template_data = {}
-        template_data.update(csrf(request))
-        template_data['exercises'] = exercises
-        template_data['search_term'] = q
-        return render_to_response('exercise_search.html',
-                                  template_data,
-                                  context_instance=RequestContext(request))
+    # Return the results to the server
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
