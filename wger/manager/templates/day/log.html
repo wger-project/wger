@@ -20,6 +20,14 @@ $(document).ready(function () {
 {% csrf_token %}
 {{formset.management_form}}
 
+{% if session_form.non_field_errors %}
+<div class="ym-fbox-text ym-error">
+    {% for error in session_form.non_field_errors %}
+         <p class="ym-message">{% trans error %}</p>
+    {% endfor %}
+</div>
+{% endif %}
+
 <table class="workout-log-table">
 {% yaml_form_field dateform.date %}
 

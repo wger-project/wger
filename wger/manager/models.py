@@ -666,10 +666,11 @@ class WorkoutSession(models.Model):
     )
 
     user = models.ForeignKey(User,
-                             verbose_name=_('User'),
-                             editable=False)
+                             verbose_name=_('User'))
     '''
     The user the workout session belongs to
+
+    See note in weight.models.WeightEntry about why this is not editable=False
     '''
 
     workout = models.ForeignKey(Workout,
@@ -705,12 +706,16 @@ class WorkoutSession(models.Model):
     The user's general impression of workout
     '''
 
-    time_start = models.TimeField(verbose_name=_('Start time'))
+    time_start = models.TimeField(verbose_name=_('Start time'),
+                                  blank=True,
+                                  null=True)
     '''
     Time the workout session started
     '''
 
-    time_end = models.TimeField(verbose_name=_('Finish time'))
+    time_end = models.TimeField(verbose_name=_('Finish time'),
+                                blank=True,
+                                null=True)
     '''
     Time the workout session ended
     '''
@@ -726,6 +731,18 @@ class WorkoutSession(models.Model):
         Set other properties
         '''
         ordering = ["date", ]
+        unique_together = ("date", "user")
+
+    def clean(self):
+        '''
+        Perform some additional validations
+        '''
+
+        if (not self.time_end and self.time_start) or (self.time_end and not self.time_start):
+            raise ValidationError(_("If you enter a time, you must enter both start and end time."))
+
+        if self.time_end and self.time_start and self.time_start > self.time_end:
+            raise ValidationError(_("The start time cannot be after the end time."))
 
     def get_owner_object(self):
         '''

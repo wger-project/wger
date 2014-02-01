@@ -28,7 +28,6 @@ from django.http import HttpResponseForbidden
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
-from django.utils.formats import date_format
 from django.forms.models import modelformset_factory
 
 from django.views.generic import UpdateView
@@ -204,8 +203,7 @@ def add(request, pk):
         # (we only add new logs here and that seems to be the fastest way)
         formset = WorkoutLogFormSet(queryset=WorkoutLog.objects.none())
 
-        formatted_date = date_format(datetime.date.today(), "SHORT_DATE_FORMAT")
-        dateform = HelperDateForm(initial={'date': formatted_date})
+        dateform = HelperDateForm(initial={'date': datetime.date.today()})
         session_form = HelperWorkoutSessionForm()
 
     # Pass the correct forms to the exercise list

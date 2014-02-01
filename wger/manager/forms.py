@@ -189,7 +189,7 @@ class HelperWorkoutSessionForm(ModelForm):
     '''
     class Meta:
         model = WorkoutSession
-        exclude = ('date', )
+        exclude = ('date', 'user')
 
 
 class WorkoutLogForm(ModelForm):
