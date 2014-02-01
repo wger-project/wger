@@ -24,7 +24,7 @@ from wger.weight.models import WeightEntry
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 
-class CaloresCalculatorTestCase(WorkoutManagerTestCase):
+class CaloriesCalculatorTestCase(WorkoutManagerTestCase):
     '''
     Tests the calories calculator methods and views
     '''
@@ -57,7 +57,7 @@ class CaloresCalculatorTestCase(WorkoutManagerTestCase):
                          decimal.Decimal(1.57).quantize(TWOPLACES))
         self.assertEqual(decimal.Decimal(result['activities']), decimal.Decimal(2920))
 
-    def test_automatic_weight_entry(self):
+    def test_automatic_weight_entry_bmi(self):
         '''
         Tests that weight entries are automatically created or updated
         '''
@@ -129,7 +129,7 @@ class CaloresCalculatorTestCase(WorkoutManagerTestCase):
         user = User.objects.get(username=self.current_user)
         self.assertEqual(user.userprofile.calories, 2000)
 
-    def test_automatic_weight_entry(self):
+    def test_automatic_weight_entry_bmr(self):
         '''
         Tests that weight entries are automatically created or updated
         '''

@@ -27,7 +27,7 @@ from wger.manager.tests.testcase import STATUS_CODES_FAIL
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import ApiBaseResourceTestCase
-from wger.utils.cache import get_template_cache_name, cache_mapper
+from wger.utils.cache import cache_mapper
 
 
 logger = logging.getLogger('wger.custom')
@@ -78,7 +78,6 @@ class SetAddTestCase(WorkoutManagerAddTestCase):
 
         set_obj = Set.objects.get(pk=4)
         exercise1 = Exercise.objects.get(pk=1)
-        exercise2 = Exercise.objects.get(pk=2)
 
         # Check that everything got where it's supposed to
         for exercise in set_obj.exercises.all():

@@ -235,7 +235,6 @@ class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
 
         # Prepare the entries for rendering and the D3 chart
         workout_log = {}
-        entry = WorkoutLog()
 
         for day_list in self.object.canonical_representation['day_list']:
             day_id = day_list['obj'].id

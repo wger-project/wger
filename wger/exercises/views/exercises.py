@@ -134,7 +134,6 @@ def view(request, id, slug=None):
     entry_log = []
     chart_data = []
     if request.user.is_authenticated():
-        entry = WorkoutLog()
         logs = WorkoutLog.objects.filter(user=request.user, exercise=exercise)
         entry_log, chart_data = process_log_entries(logs)
 

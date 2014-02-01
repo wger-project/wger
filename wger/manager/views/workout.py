@@ -24,7 +24,6 @@ from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
-from django.core.cache import cache
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
@@ -37,14 +36,12 @@ from wger.manager.models import Workout
 from wger.manager.models import WorkoutLog
 from wger.manager.models import Schedule
 from wger.manager.models import Day
-from wger.manager.models import Setting
 from wger.manager.forms import WorkoutForm
 from wger.manager.forms import WorkoutCopyForm
 
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
-from wger.utils.cache import cache_mapper
 
 logger = logging.getLogger('wger.custom')
 

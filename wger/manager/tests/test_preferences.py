@@ -19,10 +19,8 @@ import decimal
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
-from wger.exercises.models import Language
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
-from wger.manager.models import UserProfile
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import ApiBaseResourceTestCase
 

@@ -18,17 +18,14 @@ import datetime
 
 from django.template import loader
 from django.core.management.base import BaseCommand
-from django.contrib.auth.models import User
 from django.core import mail
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.utils import translation
-from django.core.urlresolvers import reverse
 
 from django.contrib.sites.models import Site
 from wger.manager.models import UserProfile
 from wger.manager.models import Schedule
-from wger.manager.models import Workout
 from wger.utils.constants import EMAIL_FROM
 
 

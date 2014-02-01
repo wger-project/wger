@@ -21,7 +21,7 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import ApiBaseResourceTestCase
-from wger.utils.cache import get_template_cache_name, cache_mapper
+from wger.utils.cache import cache_mapper
 
 
 class AddWorkoutDayTestCase(WorkoutManagerAddTestCase):

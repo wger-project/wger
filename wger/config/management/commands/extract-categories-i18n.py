@@ -18,7 +18,6 @@ from django.core.management.base import BaseCommand
 
 from wger.exercises.models import ExerciseCategory
 from wger.exercises.models import Equipment
-from wger.exercises.models import ExerciseImage
 
 
 class Command(BaseCommand):

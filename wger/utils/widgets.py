@@ -120,7 +120,6 @@ class ExerciseAjaxSelect(SelectMultiple):
     def render(self, name, value, attrs=None, choices=()):
         if value is None:
             value = []
-        final_attrs = self.build_attrs(attrs, name=name)
 
         output = [u'<div class="ym-fbox-text">']
         output.append(u'<input type="text" id="exercise-search">')

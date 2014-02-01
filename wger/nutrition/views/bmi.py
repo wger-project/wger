@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-import datetime
 import logging
 import json
 
@@ -24,7 +23,6 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 
 from wger.nutrition.forms import BmiForm
-from wger.weight.models import WeightEntry
 from wger.utils import helpers
 
 logger = logging.getLogger('wger.custom')
