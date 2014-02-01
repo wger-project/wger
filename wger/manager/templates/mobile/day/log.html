@@ -19,6 +19,14 @@
 
 <table class="workout-log-table">
 {% yaml_form_field dateform.date %}
+
+{% for field in session_form %}
+    {% if field.name == 'impression' %}
+        {% yaml_form_field field "ym-fbox-select" %}
+    {% else %}
+        {% yaml_form_field field %}
+    {% endif %}
+{% endfor %}
 </table>
 
 <h3>{% trans "Exercises" %}</h3>

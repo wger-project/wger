@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
-from django.forms import ModelForm, SplitDateTimeWidget
 
 from django.http import HttpResponseForbidden
 from django.core.urlresolvers import reverse
@@ -25,8 +24,6 @@ from django.views.generic import UpdateView
 from django.views.generic import CreateView
 
 from wger.manager.models import Workout, WorkoutSession
-
-from wger.manager.forms import WorkoutLogForm
 
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerPermissionMixin

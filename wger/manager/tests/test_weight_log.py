@@ -59,6 +59,10 @@ class WeightLogTestCase(WorkoutManagerTestCase):
         count_before = WorkoutLog.objects.count()
         response = self.client.post(reverse('day-log', kwargs={'pk': 1}),
                                     {'date': '2012-01-01',
+                                     'notes': 'My cool impression',
+                                     'impression': '3',
+                                     'time_start': datetime.time(10, 0),
+                                     'time_end': datetime.time(12, 0),
                                      'form-0-reps': 10,
                                      'form-0-weight': 10,
                                      'form-TOTAL_FORMS': 3,
@@ -68,11 +72,10 @@ class WeightLogTestCase(WorkoutManagerTestCase):
 
         count_after = WorkoutLog.objects.count()
 
+        # Logged out users get a 302 redirect to login page
+        # Users not owning the workout, a 403, forbidden
         if fail:
-            # Logged out users get a 302 redirect to login page
-            # Users not owning the workout, a 403, forbidden
             self.assertTrue(response.status_code in (302, 403))
-
             self.assertEqual(count_before, count_after)
         else:
             self.assertEqual(response.status_code, 302)

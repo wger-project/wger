@@ -41,6 +41,7 @@ from wger.manager.models import WorkoutLog
 from wger.manager.models import Schedule
 
 from wger.manager.forms import HelperDateForm
+from wger.manager.forms import HelperWorkoutSessionForm
 from wger.manager.forms import WorkoutLogForm
 
 from wger.utils.generic_views import WgerFormMixin
@@ -166,7 +167,6 @@ def add(request, pk):
         # Make a copy of the POST data and go through it. The reason for this is
         # that the form expects a value for the exercise which is not present in
         # the form (for space and usability reasons)
-
         post_copy = request.POST.copy()
 
         for form_id in form_to_exercise:
@@ -176,21 +176,29 @@ def add(request, pk):
         # Pass the new data to the forms
         formset = WorkoutLogFormSet(data=post_copy)
         dateform = HelperDateForm(data=post_copy)
+        session_form = HelperWorkoutSessionForm(data=post_copy)
 
-        if dateform.is_valid():
+        # If all the data is valid, save and redirect to log overview page
+        if dateform.is_valid() and session_form.is_valid() and formset.is_valid():
             log_date = dateform.cleaned_data['date']
 
-            # If the data is valid, save and redirect to log overview page
-            if formset.is_valid():
-                instances = formset.save(commit=False)
-                for instance in instances:
+            # Workout Session
+            instance = session_form.save(commit=False)
+            instance.date = log_date
+            instance.user = request.user
+            instance.workout = day.training
+            instance.save()
 
-                    instance.user = request.user
-                    instance.workout = day.training
-                    instance.date = log_date
-                    instance.save()
+            # Log entries
+            instances = formset.save(commit=False)
+            for instance in instances:
 
-                return HttpResponseRedirect(reverse('workout-log', kwargs={'pk': day.training_id}))
+                instance.user = request.user
+                instance.workout = day.training
+                instance.date = log_date
+                instance.save()
+
+            return HttpResponseRedirect(reverse('workout-log', kwargs={'pk': day.training_id}))
     else:
         # Initialise the formset with a queryset that won't return any objects
         # (we only add new logs here and that seems to be the fastest way)
@@ -198,6 +206,7 @@ def add(request, pk):
 
         formatted_date = date_format(datetime.date.today(), "SHORT_DATE_FORMAT")
         dateform = HelperDateForm(initial={'date': formatted_date})
+        session_form = HelperWorkoutSessionForm()
 
     # Pass the correct forms to the exercise list
     for exercise in exercise_list:
@@ -211,6 +220,7 @@ def add(request, pk):
     template_data['exercise_list'] = exercise_list
     template_data['formset'] = formset
     template_data['dateform'] = dateform
+    template_data['session_form'] = session_form
     template_data['form_action'] = reverse('day-log', kwargs={'pk': pk})
 
     return render_to_response('day/log.html',

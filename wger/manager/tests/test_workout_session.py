@@ -14,13 +14,12 @@
 
 import datetime
 
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.core.urlresolvers import reverse_lazy
 
 from wger.manager.models import Workout, WorkoutSession
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
-from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
@@ -46,8 +45,6 @@ class AddWorkoutSessionTestCase(WorkoutManagerAddTestCase):
         'time_start': datetime.time(10, 0),
         'time_end': datetime.time(13, 0)
     }
-    #user_success = 'test'
-    #user_fail = 'admin'
 
 
 class EditWorkoutSessionTestCase(WorkoutManagerEditTestCase):
@@ -58,8 +55,6 @@ class EditWorkoutSessionTestCase(WorkoutManagerEditTestCase):
     object_class = WorkoutSession
     url = 'workout-session-edit'
     pk = 3
-    #user_success = 'test'
-    #user_fail = 'admin'
     data = {
         'user': 1,
         'workout': 2,

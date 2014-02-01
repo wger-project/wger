@@ -178,9 +178,18 @@ class SetFormMobile(ModelForm):
 
 class HelperDateForm(Form):
     '''
-    A helper form with only a date input
+    A helper form used in the workout log view
     '''
     date = DateField(input_formats=DATE_FORMATS, widget=Html5DateInput())
+
+
+class HelperWorkoutSessionForm(ModelForm):
+    '''
+    A helper form used in the workout log view
+    '''
+    class Meta:
+        model = WorkoutSession
+        exclude = ('date', )
 
 
 class WorkoutLogForm(ModelForm):
