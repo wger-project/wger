@@ -39,6 +39,7 @@ from django.views.generic import ListView
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
+import django_mobile
 
 from easy_thumbnails.files import get_thumbnailer
 from easy_thumbnails.alias import aliases

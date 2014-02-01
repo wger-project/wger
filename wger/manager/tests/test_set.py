@@ -44,13 +44,15 @@ class SetAddTestCase(WorkoutManagerAddTestCase):
     user_success = 'test'
     user_fail = 'admin'
     data = {'exercises': [1, ],
+            'exercise_list': 1,  # Only for mobile version
             'sets': 4,
             'exercise1-TOTAL_FORMS': 4,
             'exercise1-INITIAL_FORMS': 0,
             'exercise1-MAX_NUM_FORMS': 1000}
     data_ignore = ('exercise1-TOTAL_FORMS',
                    'exercise1-INITIAL_FORMS',
-                   'exercise1-MAX_NUM_FORMS')
+                   'exercise1-MAX_NUM_FORMS',
+                   'exercise_list')
 
     def test_add_set(self, fail=False):
         '''
@@ -61,6 +63,7 @@ class SetAddTestCase(WorkoutManagerAddTestCase):
         self.user_login('test')
         exercises_id = [1, 2]
         post_data = {'exercises': exercises_id,
+                     'exercise_list': 1,  # Only for mobile version
                      'sets': 4,
                      'exercise1-TOTAL_FORMS': 4,
                      'exercise1-INITIAL_FORMS': 0,
@@ -150,7 +153,9 @@ class TestSetOrderTestCase(WorkoutManagerTestCase):
         Helper function that adds a set to a day
         '''
         nr_sets = 4
-        post_data = {'exercises': exercises_id, 'sets': nr_sets}
+        post_data = {'exercises': exercises_id,
+                     'exercise_list': exercises_id[0],  # Only for mobile version
+                     'sets': nr_sets}
         for exercise_id in exercises_id:
             post_data['exercise{0}-TOTAL_FORMS'.format(exercise_id)] = nr_sets
             post_data['exercise{0}-INITIAL_FORMS'.format(exercise_id)] = 0
@@ -176,10 +181,9 @@ class TestSetOrderTestCase(WorkoutManagerTestCase):
 
     def test_set_order(self, logged_in=False):
         '''
-        Helper function to test creating workouts
+        Helper function that add some sets and checks the order
         '''
 
-        # Add some sets and check the order
         self.user_login('test')
         orig = self.get_order()
         exercises = (1, 2, 3, 81, 84, 91, 111)

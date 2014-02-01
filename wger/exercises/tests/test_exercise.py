@@ -69,9 +69,10 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
         # Only authorized users see the edit links
         if admin:
             self.assertNotContains(response, 'Only registered users can do this')
-            self.assertContains(response, 'Edit category')
-            self.assertContains(response, 'Delete category')
-            self.assertContains(response, 'Add category')
+            if not self.is_mobile:
+                self.assertContains(response, 'Edit category')
+                self.assertContains(response, 'Delete category')
+                self.assertContains(response, 'Add category')
         else:
             self.assertNotContains(response, 'Edit category')
             self.assertNotContains(response, 'Delete category')
@@ -392,21 +393,28 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         '''
         Test the exercise overview cache is correctly generated on visit
         '''
-
-        self.assertFalse(cache.get(get_template_cache_name('exercise-overview', 2)))
-        self.client.get(reverse('exercise-overview'))
-        self.assertTrue(cache.get(get_template_cache_name('exercise-overview', 2)))
+        if self.is_mobile:
+            self.assertFalse(cache.get(get_template_cache_name('exercise-overview-mobile', 2)))
+            self.assertFalse(cache.get(get_template_cache_name('exercise-overview-search', 2)))
+            self.client.get(reverse('exercise-overview'))
+            self.assertTrue(cache.get(get_template_cache_name('exercise-overview-mobile', 2)))
+            self.assertTrue(cache.get(get_template_cache_name('exercise-overview-search', 2)))
+        else:
+            self.assertFalse(cache.get(get_template_cache_name('exercise-overview', 2)))
+            self.client.get(reverse('exercise-overview'))
+            self.assertTrue(cache.get(get_template_cache_name('exercise-overview', 2)))
 
     def test_exercise_detail(self):
         '''
         Test that the exercise detail cache is correctly generated on visit
         '''
 
-        self.assertFalse(cache.get(get_template_cache_name('exercise-detail-header', 2, 2)))
-        self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
-        self.client.get(reverse('exercise-view', kwargs={'id': 2}))
-        self.assertTrue(cache.get(get_template_cache_name('exercise-detail-header', 2, 2)))
-        self.assertTrue(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
+        if not self.is_mobile:
+            self.assertFalse(cache.get(get_template_cache_name('exercise-detail-header', 2, 2)))
+            self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
+            self.client.get(reverse('exercise-view', kwargs={'id': 2}))
+            self.assertTrue(cache.get(get_template_cache_name('exercise-detail-header', 2, 2)))
+            self.assertTrue(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
 
     def test_overview_cache_update(self):
         '''
@@ -416,6 +424,8 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         self.assertFalse(cache.get(cache_mapper.get_exercise_key(2)))
         self.assertFalse(cache.get(cache_mapper.get_exercise_muscle_bg_key(2)))
         self.assertFalse(cache.get(get_template_cache_name('muscle-overview', 2)))
+        self.assertFalse(cache.get(get_template_cache_name('muscle-overview-mobile', 2)))
+        self.assertFalse(cache.get(get_template_cache_name('muscle-overview-search', 2)))
         self.assertFalse(cache.get(get_template_cache_name('exercise-overview', 2)))
         self.assertFalse(cache.get(get_template_cache_name('exercise-detail-header', 2, 2)))
         self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
@@ -427,6 +437,10 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         old_exercise_bg = cache.get(cache_mapper.get_exercise_muscle_bg_key(2))
         old_muscle_overview = cache.get(get_template_cache_name('muscle-overview', 2))
         old_exercise_overview = cache.get(get_template_cache_name('exercise-overview', 2))
+        old_exercise_overview_mobile = cache.get(get_template_cache_name('exercise-overview-mobile',
+                                                                         2))
+        old_exercise_overview_search = cache.get(get_template_cache_name('exercise-overview-search',
+                                                                         2))
         old_detail_header = cache.get(get_template_cache_name('exercise-detail-header', 2, 2))
         old_detail_muscles = cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2))
 
@@ -440,6 +454,8 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         self.assertFalse(cache.get(cache_mapper.get_exercise_muscle_bg_key(2)))
         self.assertFalse(cache.get(get_template_cache_name('muscle-overview', 2)))
         self.assertFalse(cache.get(get_template_cache_name('exercise-overview', 2)))
+        self.assertFalse(cache.get(get_template_cache_name('exercise-overview-mobile', 2)))
+        self.assertFalse(cache.get(get_template_cache_name('exercise-overview-search', 2)))
         self.assertFalse(cache.get(get_template_cache_name('exercise-detail-header', 2, 2)))
         self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
 
@@ -451,15 +467,23 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         new_exercise_bg = cache.get(cache_mapper.get_exercise_muscle_bg_key(2))
         new_muscle_overview = cache.get(get_template_cache_name('muscle-overview', 2))
         new_exercise_overview = cache.get(get_template_cache_name('exercise-overview', 2))
+        new_exercise_overview_mobile = cache.get(get_template_cache_name('exercise-overview-mobile',
+                                                                         2))
+        new_exercise_overview_search = cache.get(get_template_cache_name('exercise-overview-search',
+                                                                         2))
         new_detail_header = cache.get(get_template_cache_name('exercise-detail-header', 2, 2))
         new_detail_muscles = cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2))
 
         self.assertNotEqual(old_exercise.name, new_exercise.name)
-        self.assertNotEqual(old_exercise_bg, new_exercise_bg)
-        self.assertNotEqual(old_muscle_overview, new_muscle_overview)
-        self.assertNotEqual(old_exercise_overview, new_exercise_overview)
-        self.assertNotEqual(old_detail_header, new_detail_header)
-        self.assertNotEqual(old_detail_muscles, new_detail_muscles)
+        if not self.is_mobile:
+            self.assertNotEqual(old_exercise_bg, new_exercise_bg)
+            self.assertNotEqual(old_exercise_overview, new_exercise_overview)
+            self.assertNotEqual(old_muscle_overview, new_muscle_overview)
+            self.assertNotEqual(old_detail_header, new_detail_header)
+            self.assertNotEqual(old_detail_muscles, new_detail_muscles)
+        else:
+            self.assertNotEqual(old_exercise_overview_mobile, new_exercise_overview_mobile)
+            self.assertNotEqual(old_exercise_overview_search, new_exercise_overview_search)
 
 
 class WorkoutCacheTestCase(WorkoutManagerTestCase):

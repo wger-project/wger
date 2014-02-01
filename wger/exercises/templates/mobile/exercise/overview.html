@@ -34,6 +34,8 @@
             {% endfor %}
         </ul>
     </div>
+    {% empty %}
+        <li>{% trans "No categories." %} {% trans "Use link to create one" %}</li>
     {% endfor %}
 </div>
 {% endcache %}
