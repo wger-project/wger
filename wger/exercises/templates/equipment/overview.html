@@ -9,34 +9,22 @@
 <!--
         Title
 -->
-{% block title %}{% trans "Exercises" %}{% endblock %}
-
+{% block title %}{% trans "Equipment overview" %}{% endblock %}
 
 
 {% block header %}
-<script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
-<script>
-
-function custom_modal_init()
-{
-    init_tinymce();
+<style>
+.ui-accordion .ui-accordion-content{
+    padding: 0px;
 }
-
-$(document).ready(function() {
-    // Init the tabs for the exercises
-    $( "#tabs" ).tabs({
-
-        // On selecting a category, set the values to edit it
-        activate: function(event, ui) {
-                category_id = ui.newTab.attr('id').match(/\d+/);
-                $(".current-category-name").html($("#cat-" + category_id).text());
-                $("#current-category-edit").attr("href", "/exercise/category/" + category_id + "/edit/");
-                $("#current-category-delete").attr("href", "/exercise/category/" + category_id + "/delete/");
-            }
-    }).addClass( "ui-tabs-vertical ui-helper-clearfix" );
-
-    // Prevent the form from being submited if JavaScript is enabled
-    $("#exercise_search_form").submit(function() {return false;});
+</style>
+ <script>
+$(function() {
+    $("#accordion").accordion({
+        collapsible: true,
+        heightStyle: "content",
+        active: false
+    });
 
     // Init the autocompleter
     $("#exercise-search").catcomplete({
@@ -48,48 +36,9 @@ $(document).ready(function() {
                 // Path is hard coded here, because we can't use the url-tag
                 window.location.href = '/exercise/' + ui.item.id + '/view/'
             }
-        });
+    });
 });
 </script>
-
-<style>
-.ui-tabs-vertical {
-    width: 100%;
-    /*width: 55em;*/
-}
-.ui-tabs-vertical .ui-tabs-nav {
-    padding: .2em .1em .2em .2em;
-    float: left;
-    width: 20%;
-    /*width: 12em;*/
-}
-
-.ui-tabs-vertical .ui-tabs-nav li {
-    clear: left;
-    width: 100%;
-    border-bottom-width: 1px !important;
-    border-right-width: 0 !important;
-    margin: 0 -1px .2em 0;
-}
-
-.ui-tabs-vertical .ui-tabs-nav li a {
-    display:block;
-}
-
-.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active {
-    padding-bottom: 0;
-    padding-right: .1em;
-    border-right-width: 1px;
-    border-right-width: 1px;
-}
-
-.ui-tabs-vertical .ui-tabs-panel {
-    padding: 1em;
-    float: right;
-    width: 70%;
-    /*width: 40em;*/
-}
-</style>
 {% endblock %}
 
 
@@ -97,15 +46,11 @@ $(document).ready(function() {
         Main Content
 -->
 {% block content %}
-<div id="tabs">
-    <ul>
-        {% for equipment in equipment_list %}
-        <li id="cat-{{ equipment.id }}"><a href="#cat{{ equipment.id }}">{% trans equipment.name %}</a></li>
-        {% endfor %}
-    </ul>
-
+<div id="accordion">
     {% for equipment in equipment_list %}
-    <div id="cat{{ equipment.id }}">
+    <h3>{% trans equipment.name %}</h3>
+
+    <div>
         <table class="narrow">
         <tbody>
             {% for exercise in equipment.exercise_set.all %}
@@ -168,67 +113,20 @@ $(document).ready(function() {
 </p>
 
 
-{% if perms.exercises %}
-    <h3>{% trans "Options" %}</h3>
-        {% if categories %}
-        <p>
-        {% with category=categories|first %}
-        <a href="{% url 'exercisecategory-edit' category.id %}"
-           class="modal-dialog"
-           id="current-category-edit">
-            <img src="{% static 'images/icons/edit.svg' %}"
-                 width="32"
-                 height="32"
-                 alt="{% trans 'Edit category' %}"
-                 title="{% trans 'Edit category' %}">
-                {% trans "Edit category" %}:
-                <span class="current-category-name">{{category.name}}</span>
-        </a>
-        </p>
-        {% endwith %}
-        <p>
-        {% with category=categories|first %}
-        <a href="{% url 'exercisecategory-delete' category.id %}"
-           class="modal-dialog"
-           id="current-category-delete">
-            <img src="{% static 'images/icons/trash.svg' %}"
-                 width="32"
-                 height="32"
-                 alt="{% trans 'Delete category' %}"
-                 title="{% trans 'Delete category' %}">
-                {% trans "Delete category" %}:
-                <span class="current-category-name">{{category.name}}</span>
-        </a>
-        {% endwith %}
-        </p>
-        {% endif %}
 
-        <p>
-        <a href="{% url 'exercisecategory-add' %}"
-           class="modal-dialog">
-            <img src="{% static 'images/icons/folder-new.svg' %}"
-                 width="32"
-                 height="32"
-                 alt="{% trans 'Add category' %}"
-                 title="{% trans 'Add category' %}">
-         {% trans "Add category" %}
-        </a>
-    </p>
-{% endif %}
+<h3>{% trans "Search" %}</h3>
 
-    <h3>{% trans "Search" %}</h3>
-
-    <div class="ui-widget">
-        <form action="{% url 'wger.exercises.views.exercises.search' %}"
-              method="get"
-              id="exercise_search_form">
-            {% csrf_token %}
-            <input name="term"
-                   type="search"
-                   id="exercise-search"
-                   class="ajax-form-element"
-                   placeholder="{% trans 'exercise name' %}"
-                   style="width:100%;">
-       </form>
-    </div>
+<div class="ui-widget">
+    <form action="{% url 'wger.exercises.views.exercises.search' %}"
+          method="get"
+          id="exercise_search_form">
+        {% csrf_token %}
+        <input name="term"
+               type="search"
+               id="exercise-search"
+               class="ajax-form-element"
+               placeholder="{% trans 'exercise name' %}"
+               style="width:100%;">
+   </form>
+</div>
 {% endblock %}
