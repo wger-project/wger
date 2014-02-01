@@ -348,7 +348,7 @@ def search(request):
             exercise_json['id'] = exercise.id
             exercise_json['name'] = exercise.name
             exercise_json['value'] = exercise.name
-            exercise_json['category'] = exercise.category.name
+            exercise_json['category'] = _(exercise.category.name)
             exercise_json['image'] = image
             exercise_json['image_thumbnail'] = thumbnail
 
