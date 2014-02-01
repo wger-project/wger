@@ -715,11 +715,23 @@ class WorkoutSession(models.Model):
     Time the workout session ended
     '''
 
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return u"{0} - {1}".format(self.workout, self.date)
+
     class Meta:
         '''
         Set other properties
         '''
         ordering = ["date", ]
+
+    def get_owner_object(self):
+        '''
+        Returns the object that has owner information
+        '''
+        return self
 
 
 class UserProfile(models.Model):

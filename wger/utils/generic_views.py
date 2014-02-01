@@ -192,7 +192,7 @@ class WgerFormMixin(ModelFormMixin, WgerPermissionMixin):
 
         # Nothing to see, please move along
         if owner_object and owner_object.user != self.request.user:
-            return HttpResponseForbidden()
+            return HttpResponseForbidden('You are not allowed to access this object')
 
         # Dispatch normally
         return super(WgerFormMixin, self).dispatch(request, *args, **kwargs)

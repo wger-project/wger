@@ -92,7 +92,7 @@ urlpatterns = patterns('wger.manager.views',
         workout_session.WorkoutSessionAddView.as_view(),
         name='workout-session-add'),
     url(r'^workout/session/(?P<pk>\d+)/edit$',
-        workout_session.WorkoutSessionUpdateView.as_view,
+        workout_session.WorkoutSessionUpdateView.as_view(),
         name='workout-session-edit'),
 
     # Timer
