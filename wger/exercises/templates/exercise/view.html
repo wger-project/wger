@@ -80,7 +80,12 @@ included in the database.{% endblocktrans %}
 <p><strong>{% trans "Category" %}:</strong> {% trans exercise.category.name %}</p>
 
 {% if exercise.equipment.all %}
-    <p><strong>{% trans "Equipment" %}:</strong> {{ exercise.equipment.all|join:", " }}</p>
+    <p><strong>{% trans "Equipment" %}:</strong>
+        {% for equipment in exercise.equipment.all %}
+            {% trans equipment.name %}
+            {% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </p>
 {% endif %}
 
 <div>{{ exercise.description|safe }}</div>
@@ -219,7 +224,6 @@ included in the database.{% endblocktrans %}
     {% endfor %}
     {% endwith %}
     </div>
-
 {% endif %}
 {% endwith %}
 
