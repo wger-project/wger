@@ -46,6 +46,7 @@ $(function() {
         Main Content
 -->
 {% block content %}
+{% cache cache_timeout equipment-overview language.id %}
 <div id="accordion">
     {% for equipment in equipment_list %}
     <h3>{% trans equipment.name %}</h3>
@@ -72,7 +73,7 @@ $(function() {
                 <tr>
                     <td>
                         <p>
-                            {% trans "No exercises in this category. Add or edit an exercise and set its category" %}
+                            {% trans "No exercises for this equipment. Add or edit an exercise and set the equipment." %}
                         </p>
                     </td>
                 </tr>
@@ -82,6 +83,7 @@ $(function() {
     </div>
     {% endfor %}
 </div>
+{% endcache %}
 {% endblock %}
 
 

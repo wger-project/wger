@@ -3,6 +3,7 @@
 {% load staticfiles %}
 {% load wger_extras %}
 {% load thumbnail %}
+{% load cache %}
 
 <!--
         Title
@@ -14,7 +15,7 @@
         Main Content
 -->
 {% block content %}
-
+{% cache cache_timeout equipment-overview-mobile language.id %}
 <div data-role="collapsible-set" data-theme="c" data-content-theme="c">
 {% for equipment in equipment_list %}
     <div data-role="collapsible">
@@ -29,14 +30,16 @@
                 {% endif %}
                 {{ exercise.name }}</a>
             </li>
-        {% endfor %}    
+        {% empty %}
+            <li>
+                {% trans "No exercises for this equipment. Add or edit an exercise and set the equipment." %}
+            </li>
+        {% endfor %}
         </ul>
     </div>
 {% endfor %}
-    
 </div>
-
-    
+{% endcache %}
 {% endblock %}
 
 
@@ -47,6 +50,7 @@
 <h3>{% trans "Search" %}</h3>
 <br>
 
+{% cache cache_timeout exercise-overview-search language.id %}
 <ul data-role="listview"
     data-theme="c"
     data-filter="true"
@@ -54,8 +58,8 @@
     data-inset="true"
     data-filter-placeholder="{% trans 'exercise name' %}"
     id="exercise_search_form">
-    {% for category in categories %}
-    {% for exercise in category|get_active_exercises:active_languages %}
+    {% for equipment in equipment_list %}
+    {% for exercise in equipment.exercise_set.all %}
         <li>
             <a href="{{ exercise.get_absolute_url }}" data-ajax="false">
             {% if exercise.main_image.image %}
@@ -66,7 +70,7 @@
     {% endfor %}
     {% endfor %}
 </ul>
-
+{% endcache %}
 
 <h3>{% trans "Add new exercise" %}</h3>
 <p>

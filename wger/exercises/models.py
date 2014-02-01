@@ -268,6 +268,8 @@ class Exercise(models.Model):
             delete_template_fragment_cache('exercise-overview-search', language.id)
             delete_template_fragment_cache('exercise-detail-header', self.id, language.id)
             delete_template_fragment_cache('exercise-detail-muscles', self.id, language.id)
+            delete_template_fragment_cache('equipment-overview', language.id)
+            delete_template_fragment_cache('equipment-overview-mobile', language.id)
 
         # Cached workouts
         for set in self.set_set.all():
@@ -290,6 +292,8 @@ class Exercise(models.Model):
             delete_template_fragment_cache('exercise-overview-search', language.id)
             delete_template_fragment_cache('exercise-detail-header', self.id, language.id)
             delete_template_fragment_cache('exercise-detail-muscles', self.id, language.id)
+            delete_template_fragment_cache('equipment-overview', language.id)
+            delete_template_fragment_cache('equipment-overview-mobile', language.id)
 
         # Cached workouts
         for set in self.set_set.all():
@@ -432,6 +436,8 @@ class ExerciseImage(models.Model):
             delete_template_fragment_cache('exercise-overview', language.id)
             delete_template_fragment_cache('exercise-overview-mobile', language.id)
             delete_template_fragment_cache('exercise-overview-search', language.id)
+            delete_template_fragment_cache('equipment-overview', language.id)
+            delete_template_fragment_cache('equipment-overview-mobile', language.id)
             delete_template_fragment_cache('exercise-detail-header',
                                            self.exercise.id,
                                            language.id)
@@ -455,6 +461,8 @@ class ExerciseImage(models.Model):
             delete_template_fragment_cache('exercise-overview-search', language.id)
             delete_template_fragment_cache('exercise-detail-header', self.exercise.id, language.id)
             delete_template_fragment_cache('exercise-detail-muscles', self.exercise.id, language.id)
+            delete_template_fragment_cache('equipment-overview', language.id)
+            delete_template_fragment_cache('equipment-overview-mobile', language.id)
 
         # Make sure there is always a main image
         if not ExerciseImage.objects.filter(exercise=self.exercise, is_main=True).count()\
