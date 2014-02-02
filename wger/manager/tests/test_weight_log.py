@@ -14,10 +14,14 @@
 
 import logging
 import datetime
+from django.contrib.auth.models import User
 
 from django.core.urlresolvers import reverse, reverse_lazy
 
+from wger.exercises.models import Exercise
 from wger.manager.models import WorkoutLog
+from wger.manager.models import Workout
+from wger.manager.models import WorkoutSession
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
@@ -26,7 +30,7 @@ from wger.manager.tests.testcase import ApiBaseResourceTestCase
 logger = logging.getLogger('wger.custom')
 
 
-class WeightLogTestCase(WorkoutManagerTestCase):
+class WeightLogOverviewAddTestCase(WorkoutManagerTestCase):
     '''
     Tests the weight log functionality
     '''
@@ -105,9 +109,61 @@ class WeightLogTestCase(WorkoutManagerTestCase):
         self.add_weight_log(fail=True)
 
 
+class WeightlogTestCase(WorkoutManagerTestCase):
+    '''
+    Tests other model methods
+    '''
+
+    def test_get_workout_session(self):
+        '''
+        Test the get_workout_session method
+        '''
+
+        user1 = User.objects.get(pk=1)
+        user2 = User.objects.get(pk=2)
+        workout1 = Workout.objects.get(pk=2)
+        workout2 = Workout.objects.get(pk=2)
+
+        WorkoutLog.objects.all().delete()
+        l = WorkoutLog()
+        l.user = user1
+        l.date = datetime.date(2014, 01, 05)
+        l.exercise = Exercise.objects.get(pk=1)
+        l.workout = workout1
+        l.weight = 10
+        l.reps = 10
+        l.save()
+
+        session1 = WorkoutSession()
+        session1.user = user1
+        session1.workout = workout1
+        session1.notes = 'Something here'
+        session1.impression = '3'
+        session1.date = datetime.date(2014, 01, 05)
+        session1.save()
+
+        session2 = WorkoutSession()
+        session2.user = user1
+        session2.workout = workout1
+        session2.notes = 'Something else here'
+        session2.impression = '1'
+        session2.date = datetime.date(2014, 01, 01)
+        session2.save()
+
+        session3 = WorkoutSession()
+        session3.user = user2
+        session3.workout = workout2
+        session3.notes = 'The notes here'
+        session3.impression = '2'
+        session3.date = datetime.date(2014, 01, 05)
+        session3.save()
+
+        self.assertEqual(l.get_workout_session(), session1)
+
+
 class WeightLogAddTestCase(WorkoutManagerAddTestCase):
     '''
-    Tests editing a Workout
+    Tests adding a WorkoutLog
     '''
 
     object_class = WorkoutLog

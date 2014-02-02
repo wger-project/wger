@@ -42,6 +42,15 @@ $(document).ready(function() {
             <a href="{{first_log.workout.get_absolute_url}}" class="btn">{% trans "Workout" %}</a>
             <a href="{% url 'workout-log' first_log.workout.id %}" class="btn">{% trans "Log overview" %}</a>
         </p>
+        {% with session=first_log.get_workout_session %}
+        {% if session %}
+        <p>
+            <strong>{% trans "Notes" %}:</strong> {{session.notes}}<br>
+            <strong>{% trans "General impression" %}: </strong> {% trans session.get_impression_display %}<br>
+            <strong>{% trans "Time" %}:</strong> {{session.time_start|time:"H:i"}} - {{session.time_end|time:"H:i"}}
+        </p>
+        {% endif %}
+        {% endwith %}
     {% endwith %}
     {% endwith %}
     <ul class="grouper-list">

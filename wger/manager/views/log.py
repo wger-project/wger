@@ -35,6 +35,7 @@ from django.views.generic import CreateView
 from django.views.generic import DetailView
 
 from wger.manager.models import Workout
+from wger.manager.models import WorkoutSession
 from wger.manager.models import Day
 from wger.manager.models import WorkoutLog
 from wger.manager.models import Schedule
@@ -181,12 +182,13 @@ def add(request, pk):
         if dateform.is_valid() and session_form.is_valid() and formset.is_valid():
             log_date = dateform.cleaned_data['date']
 
-            # Workout Session
-            instance = session_form.save(commit=False)
-            instance.date = log_date
-            instance.user = request.user
-            instance.workout = day.training
-            instance.save()
+            # Save the Workout Session only if there is not already one for this date
+            if not WorkoutSession.objects.get(user=request.user, date=log_date):
+                instance = session_form.save(commit=False)
+                instance.date = log_date
+                instance.user = request.user
+                instance.workout = day.training
+                instance.save()
 
             # Log entries
             instances = formset.save(commit=False)

@@ -649,6 +649,20 @@ class WorkoutLog(models.Model):
         '''
         return self
 
+    def get_workout_session(self, date=None):
+        '''
+        Returns the corresponding workout session
+
+        :return the WorkoutSession object or None if nothing was found
+        '''
+        if not date:
+            date = self.date
+
+        try:
+            return WorkoutSession.objects.filter(user=self.user).get(date=date)
+        except WorkoutSession.DoesNotExist:
+            return None
+
 
 class WorkoutSession(models.Model):
     '''
@@ -681,8 +695,7 @@ class WorkoutSession(models.Model):
     '''
 
     date = Html5DateField(verbose_name=_('Date'),
-                          editable=False,
-                          auto_now_add=True)
+                          editable=False)
     '''
     The date the workout session was performed
     '''
