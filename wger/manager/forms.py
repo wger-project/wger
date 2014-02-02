@@ -183,15 +183,6 @@ class HelperDateForm(Form):
     date = DateField(input_formats=DATE_FORMATS, widget=Html5DateInput())
 
 
-class HelperWorkoutSessionForm(ModelForm):
-    '''
-    A helper form used in the workout log view
-    '''
-    class Meta:
-        model = WorkoutSession
-        exclude = ('date', 'user')
-
-
 class WorkoutLogForm(ModelForm):
     '''
     Helper form for a WorkoutLog.
@@ -209,7 +200,30 @@ class WorkoutLogForm(ModelForm):
         exclude = ('exercise', )
 
 
-class WorkoutSessionForm(ModelForm):
+class HelperWorkoutSessionForm(ModelForm):
+    '''
+    A helper form used in the workout log view
+    '''
     class Meta:
         model = WorkoutSession
-        exclude = ('time_start', 'time_end')
+        exclude = ('date', 'user')
+
+
+class WorkoutSessionForm(ModelForm):
+    '''
+    Workout Session form
+    '''
+    class Meta:
+        model = WorkoutSession
+        exclude = ('user', )
+
+
+class WorkoutSessionHiddenFieldsForm(ModelForm):
+    '''
+    Workout Session form used in the timer view
+    '''
+    class Meta:
+        model = WorkoutSession
+        widgets = {'time_start': widgets.HiddenInput(),
+                   'time_end': widgets.HiddenInput(),
+                   'user': widgets.HiddenInput()}

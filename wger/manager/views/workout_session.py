@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
+import datetime
 
 from django.http import HttpResponseForbidden
 from django.core.urlresolvers import reverse
@@ -22,6 +23,7 @@ from django.utils.translation import ugettext as _
 
 from django.views.generic import UpdateView
 from django.views.generic import CreateView
+from wger.manager.forms import WorkoutSessionForm
 
 from wger.manager.models import Workout, WorkoutSession
 
@@ -59,6 +61,7 @@ class WorkoutSessionAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     Generic view to add a new workout session entry
     '''
     model = WorkoutSession
+    form_class = WorkoutSessionForm
     login_required = True
 
     def dispatch(self, request, *args, **kwargs):
@@ -66,7 +69,7 @@ class WorkoutSessionAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
         Check for ownership
         '''
         workout = Workout.objects.get(pk=kwargs['workout_pk'])
-        if workout.user != request.user:
+        if workout.get_owner_object().user != request.user:
             return HttpResponseForbidden()
 
         return super(WorkoutSessionAddView, self).dispatch(request, *args, **kwargs)
@@ -89,4 +92,5 @@ class WorkoutSessionAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
         workout = Workout.objects.get(pk=self.kwargs['workout_pk'])
         form.instance.workout = workout
         form.instance.user = self.request.user
+        form.instance.date = datetime.date.today()
         return super(WorkoutSessionAddView, self).form_valid(form)
