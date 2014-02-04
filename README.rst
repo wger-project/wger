@@ -121,11 +121,14 @@ All the code and the content is freely available:
 Licence
 =======
 
-The application is licenced under the Affero GNU General Public License 3 or later
-(AGPL 3+).
+The application is licenced under the Affero GNU General Public License 3 or
+later (AGPL 3+).
 
 The initial exercise and ingredient data is licensed additionally under a
 Creative Commons Attribution Share-Alike 3.0 (CC-BY-SA 3.0)
+
+The documentation is released under a CC-BY-SA either version 4 of the License,
+or (at your option) any later version.
 
 Some images where taken from Wikipedia, see the SOURCES file in their respective
 folders for more details.
