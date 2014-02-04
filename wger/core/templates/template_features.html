@@ -17,8 +17,9 @@
 -->
 
 
-{% load i18n staticfiles compress %}
+{% load i18n staticfiles compress wger_extras %}
 <html lang="{{language.short_name}}">
+{% spaceless_config %}
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8">
@@ -108,4 +109,5 @@
 
 <script src="{% static 'js/shariff.min.js' %}"></script>
 </body>
+{% endspaceless_config %}
 </html>

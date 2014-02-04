@@ -315,5 +315,6 @@ IGNORABLE_404_URLS = (
 # Application specific configuration options
 #
 WGER_SETTINGS = {
-    'USE_RECAPTCHA': False
+    'USE_RECAPTCHA': False,
+    'REMOVE_WHITESPACE': False
 }
