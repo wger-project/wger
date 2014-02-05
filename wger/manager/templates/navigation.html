@@ -45,6 +45,7 @@
                                     <li><a href="{% url 'muscle-overview' %}">{% trans "Muscle overview" %}</a></li>
                                     <li><a href="{% url 'equipment-overview' %}">{% trans "Equipment overview" %}</a></li>
                                     {% if user.is_authenticated and not user.userprofile.is_temporary %}
+                                    <li class="divider"></li>
                                     <li><a href="{% url 'exercise-add' %}">{% trans "Add new exercise" %}</a><li>
                                     {% endif %}
 
