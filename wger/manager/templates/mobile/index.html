@@ -98,13 +98,18 @@
      data-overlay-theme="a">
     <div data-role="header">
          <h4>{% trans "Start gym mode" %}</h4>
-     </div>
+    </div>
 
     <div role="main" class="ui-content">
-        <div style="margin-bottom: 1.5em;">{% blocktrans %}Use the gym mode to
+        <p>{% blocktrans %}Use the gym mode to
 start an interactive training session. If you enter lifted weights, they will
 be added to your workout log. A timer between sets helps you keep track of the
-pauses you do.{% endblocktrans %}</div>
+pauses you do.{% endblocktrans %}</p>
+        <p>
+            <strong>{% trans "Tip:" %}</strong>
+            {% blocktrans %}You can deactivate the timer or set
+its default duration in your settings.{% endblocktrans %}
+        </p>
 
         <ul data-role="listview" data-inset="true" style="margin-bottom:1em;">
             {% if current_workout %}

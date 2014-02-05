@@ -271,12 +271,12 @@ def timer(request, day_pk):
                                       'type': 'exercise',
                                       'reps': reps,
                                       'weight': last_log.get_last_weight(exercise, reps)})
-
-                    step_list.append({'current_step': uuid.uuid4().hex,
-                                      'step_percent': 0,
-                                      'step_nr': len(step_list) + 1,
-                                      'type': 'pause',
-                                      'time': 90})
+                    if request.user.userprofile.timer_active:
+                        step_list.append({'current_step': uuid.uuid4().hex,
+                                          'step_percent': 0,
+                                          'step_nr': len(step_list) + 1,
+                                          'type': 'pause',
+                                          'time': request.user.userprofile.timer_pause})
 
         # Supersets need extra work to group the exercises and reps together
         else:
@@ -294,11 +294,12 @@ def timer(request, day_pk):
                                       'reps': reps,
                                       'weight': last_log.get_last_weight(exercise, reps)})
 
-                step_list.append({'current_step': uuid.uuid4().hex,
-                                  'step_percent': 0,
-                                  'step_nr': len(step_list) + 1,
-                                  'type': 'pause',
-                                  'time': 90})
+                if request.user.userprofile.timer_active:
+                    step_list.append({'current_step': uuid.uuid4().hex,
+                                      'step_percent': 0,
+                                      'step_nr': len(step_list) + 1,
+                                      'type': 'pause',
+                                      'time': 90})
 
     # Remove the last pause step as it is not needed. If the list is empty,
     # because the user didn't add any repetitions to any exercise, do nothing
