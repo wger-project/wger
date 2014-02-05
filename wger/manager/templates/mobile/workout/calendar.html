@@ -33,16 +33,31 @@ $(document).ready(function() {
     {# TODO: what if some of the entries don't belong to a workout? #}
     {% with tmp=grouped_logs|first %}
     {% with first_log=tmp.list|first %}
-    <div class="ui-grid-a">
-        <div class="ui-block-a">
-            <a href="{{first_log.workout.get_absolute_url}}" data-role="button">{% trans "Workout" %}</a>
+        <div class="ui-grid-a">
+            <div class="ui-block-a">
+                <a href="{{first_log.workout.get_absolute_url}}"
+                   data-role="button"
+                   data-icon="arrow-r">{% trans "Workout" %}</a>
+            </div>
+            <div class="ui-block-b">
+                <a href="{% url 'workout-log' first_log.workout.id %}"
+                   data-role="button"
+                   data-icon="arrow-r">{% trans "Log overview" %}</a>
+            </div>
         </div>
-        <div class="ui-block-b">
-            <a href="{% url 'workout-log' first_log.workout.id %}" data-role="button">{% trans "Log overview" %}</a>
-        </div>
-    </div>
+
+        {% with session=first_log.get_workout_session %}
+        {% if session %}
+        <p>
+            <strong>{% trans "Notes" %}:</strong> {{session.notes}}<br>
+            <strong>{% trans "General impression" %}: </strong> {% trans session.get_impression_display %}<br>
+            <strong>{% trans "Time" %}:</strong> {{session.time_start|time:"H:i"}} - {{session.time_end|time:"H:i"}}
+        </p>
+        {% endif %}
+        {% endwith %}
     {% endwith %}
     {% endwith %}
+
     <ul class="grouper-list">
     {% for i in grouped_logs %}
         <li>{{i.grouper}}

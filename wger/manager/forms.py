@@ -26,15 +26,15 @@ from django.forms import CharField
 from django.forms import DecimalField
 from django.forms import ValidationError
 from django.forms import widgets
-
+from django.forms import ModelChoiceField
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User as Django_User
-
 from django.utils.translation import ugettext as _
 
 from captcha.fields import ReCaptchaField
 
-from wger.manager.models import UserProfile
+from wger.exercises.models import Exercise
+from wger.manager.models import UserProfile, WorkoutSession
 from wger.manager.models import Workout
 from wger.manager.models import Day
 from wger.manager.models import Set
@@ -157,9 +157,6 @@ class SetForm(ModelForm):
         self.fields['exercises'].help_text = _('You can search for more than one exercise, '
                                                'they will be grouped together for a superset.')
 
-from wger.exercises.models import Exercise
-from django.forms import ModelChoiceField
-
 
 class SetFormMobile(ModelForm):
     '''
@@ -181,7 +178,7 @@ class SetFormMobile(ModelForm):
 
 class HelperDateForm(Form):
     '''
-    A helper form with only a date input
+    A helper form used in the workout log view
     '''
     date = DateField(input_formats=DATE_FORMATS, widget=Html5DateInput())
 
@@ -201,3 +198,32 @@ class WorkoutLogForm(ModelForm):
     class Meta:
         model = WorkoutLog
         exclude = ('exercise', )
+
+
+class HelperWorkoutSessionForm(ModelForm):
+    '''
+    A helper form used in the workout log view
+    '''
+    class Meta:
+        model = WorkoutSession
+        exclude = ('date', 'user')
+
+
+class WorkoutSessionForm(ModelForm):
+    '''
+    Workout Session form
+    '''
+    class Meta:
+        model = WorkoutSession
+        exclude = ('user', )
+
+
+class WorkoutSessionHiddenFieldsForm(ModelForm):
+    '''
+    Workout Session form used in the timer view
+    '''
+    class Meta:
+        model = WorkoutSession
+        widgets = {'time_start': widgets.HiddenInput(),
+                   'time_end': widgets.HiddenInput(),
+                   'user': widgets.HiddenInput()}

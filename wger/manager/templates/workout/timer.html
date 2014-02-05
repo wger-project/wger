@@ -24,7 +24,7 @@
 
 var div_height = $( window ).height() * 0.80;
 var div_width = $( window ).width() * 0.85;
-var start = new Date().getTime();
+var start = new Date();
 
 var counter = {
 
@@ -208,8 +208,8 @@ $(document).ready(function() {
         // If we have reached the last page, compute total workout time
         if (next_step.is('#workout-complete'))
         {
-            var end = new Date().getTime();
-            var milliseconds = (end - start);
+            var end = new Date();
+            var milliseconds = (end.getTime() - start.getTime());
 
             var hours = (milliseconds/1000) / 3600;
             var minutes = (milliseconds/1000) / 60 - Math.floor(hours)*60;
@@ -219,10 +219,27 @@ $(document).ready(function() {
             minutes = (minutes < 10) ? '0' + minutes : minutes;
             seconds = (seconds < 10) ? '0' + seconds : seconds;
 
+            //a.toLocaleTimeString()
             $('#total_time').html(Math.floor(hours) + ':' + Math.floor(minutes) + ':' + Math.floor(seconds));
+
+            $('#id_time_start').val(start.getHours() + ':' + start.getMinutes());
+            $('#id_time_end').val(end.getHours() + ':' + end.getMinutes());
+            $('#id_date').val(end.getFullYear() + '-' + end.getMonth() + '-' + end.getDay());
+            $('#id_user').val('1');
         }
 
     });
+
+    // Bind the button to save the workout session form
+    $('#save_button_form').bind("click", function(e) {
+        e.preventDefault();
+        console.log($('#session-form').serialize());
+        $.post( $('#session-form').attr('action'),
+                $('#session-form').serialize(),
+                function( data ) {
+                    console.log(data);
+                });
+        });
 });
 </script>
 {% endblock %}
@@ -373,17 +390,37 @@ $(document).ready(function() {
     <h2>{% trans "Workout complete!" %}</h2>
 
     <div class="filler_div">
+        <form action="{% url 'workout-session-add' workout.id %}" id="session-form">
+        {% csrf_token %}
+
+        {% for field in session_form %}
+            {% yaml_form_field field %}
+        {% endfor %}
+        </form>
     </div>
 
     <div class="sub_header">
         <h2><strong>{% trans "Time" %}:</strong> <span id="total_time">MM:SS</span></h2>
     </div>
 
-    <a class="bottom_button"
-       href="{% url 'dashboard' %}"
-       data-role="button"
-       data-ajax="false"
-       data-iconpos="right">{% trans "Dashboard" %}</a>
+    <div class="ui-grid-a bottom_buttons">
+        <div class="ui-block-a">
+            <a href="{% url 'dashboard' %}"
+               data-role="button"
+               data-icon="arrow-r"
+               data-ajax="false"
+               data-iconpos="right">{% trans "Dashboard" %}</a>
+        </div>
+        <div class="ui-block-b">
+            <a href=""
+               id="save_button_form"
+               data-role="button"
+               data-icon="check"
+               data-ajax="false"
+               data-iconpos="right">{% trans "Save" %}</a>
+        </div>
+    </div>
+
 
     <div id="progress-{{step.current_step}}" class="progress-bar">
         <span style="width: 100%;"></span>

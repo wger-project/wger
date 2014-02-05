@@ -37,6 +37,7 @@ from wger.manager.models import WorkoutLog
 from wger.manager.models import Schedule
 from wger.manager.models import Day
 from wger.manager.forms import WorkoutForm
+from wger.manager.forms import WorkoutSessionHiddenFieldsForm
 from wger.manager.forms import WorkoutCopyForm
 
 from wger.utils.generic_views import WgerFormMixin
@@ -316,6 +317,7 @@ def timer(request, day_pk):
     context['step_list'] = step_list
     context['canonical_day'] = canonical_day
     context['workout'] = day.training
+    context['session_form'] = WorkoutSessionHiddenFieldsForm()
     return render_to_response('workout/timer.html',
                               context,
                               context_instance=RequestContext(request))

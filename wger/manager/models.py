@@ -649,6 +649,120 @@ class WorkoutLog(models.Model):
         '''
         return self
 
+    def get_workout_session(self, date=None):
+        '''
+        Returns the corresponding workout session
+
+        :return the WorkoutSession object or None if nothing was found
+        '''
+        if not date:
+            date = self.date
+
+        try:
+            return WorkoutSession.objects.filter(user=self.user).get(date=date)
+        except WorkoutSession.DoesNotExist:
+            return None
+
+
+class WorkoutSession(models.Model):
+    '''
+    Model for a workout session
+    '''
+
+    IMPRESSION_BAD = '1'
+    IMPRESSION_NEUTRAL = '2'
+    IMPRESSION_GOOD = '3'
+
+    IMPRESSION = (
+        (IMPRESSION_BAD, _("Bad")),
+        (IMPRESSION_NEUTRAL, _('Neutral')),
+        (IMPRESSION_GOOD, _('Good')),
+    )
+
+    user = models.ForeignKey(User,
+                             verbose_name=_('User'))
+    '''
+    The user the workout session belongs to
+
+    See note in weight.models.WeightEntry about why this is not editable=False
+    '''
+
+    workout = models.ForeignKey(Workout,
+                                verbose_name=_('Workout'),
+                                editable=False)
+    '''
+    The workout the session belongs to
+    '''
+
+    date = Html5DateField(verbose_name=_('Date'),
+                          editable=False)
+    '''
+    The date the workout session was performed
+    '''
+
+    notes = models.TextField(verbose_name=_('Notes'),
+                             null=True,
+                             blank=True,
+                             help_text=_('Any notes you might want to save about this workout '
+                                         'session.'))
+    '''
+    User notes about the workout
+    '''
+
+    impression = models.CharField(verbose_name=_('General impression'),
+                                  max_length=2,
+                                  choices=IMPRESSION,
+                                  default=IMPRESSION_NEUTRAL,
+                                  help_text=_('Your impression about this workout session. '
+                                              'Did you exercise as well as you could?'))
+    '''
+    The user's general impression of workout
+    '''
+
+    time_start = models.TimeField(verbose_name=_('Start time'),
+                                  blank=True,
+                                  null=True)
+    '''
+    Time the workout session started
+    '''
+
+    time_end = models.TimeField(verbose_name=_('Finish time'),
+                                blank=True,
+                                null=True)
+    '''
+    Time the workout session ended
+    '''
+
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return u"{0} - {1}".format(self.workout, self.date)
+
+    class Meta:
+        '''
+        Set other properties
+        '''
+        ordering = ["date", ]
+        unique_together = ("date", "user")
+
+    def clean(self):
+        '''
+        Perform some additional validations
+        '''
+
+        if (not self.time_end and self.time_start) or (self.time_end and not self.time_start):
+            raise ValidationError(_("If you enter a time, you must enter both start and end time."))
+
+        if self.time_end and self.time_start and self.time_start > self.time_end:
+            raise ValidationError(_("The start time cannot be after the end time."))
+
+    def get_owner_object(self):
+        '''
+        Returns the object that has owner information
+        '''
+        return self
+
 
 class UserProfile(models.Model):
     GENDER_MALE = '1'
