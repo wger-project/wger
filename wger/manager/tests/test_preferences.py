@@ -54,7 +54,9 @@ class PreferencesTestCase(WorkoutManagerTestCase):
                                      'workout_reminder_active': True,
                                      'workout_reminder': '30',
                                      'workout_duration': 12,
-                                     'notification_language': 2})
+                                     'notification_language': 2,
+                                     'timer_active': False,
+                                     'timer_pause': 100})
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('preferences'))
@@ -73,7 +75,9 @@ class PreferencesTestCase(WorkoutManagerTestCase):
                                      'workout_reminder_active': True,
                                      'workout_reminder': 22,
                                      'workout_duration': 10,
-                                     'notification_language': 2})
+                                     'notification_language': 2,
+                                     'timer_active': True,
+                                     'timer_pause': 40})
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('preferences'))

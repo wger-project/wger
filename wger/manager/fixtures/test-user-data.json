@@ -254,7 +254,9 @@
             "workout_reminder_active": false,
             "workout_reminder": 20,
             "workout_duration": 8,
-            "notification_language": 1
+            "notification_language": 1,
+	    "timer_active": true,
+	    "timer_pause": 90
         }
     }, 
     {
@@ -279,7 +281,9 @@
             "workout_reminder_active": true,
             "workout_reminder": 14,
             "workout_duration": 12,
-            "notification_language": 2
+            "notification_language": 2,
+	    "timer_active": true,
+	    "timer_pause": 90
         }
     }, 
     {
