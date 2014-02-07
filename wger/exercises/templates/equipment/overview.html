@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+{% load cache %}
+{% load thumbnail %}
+
+<!--
+        Title
+-->
+{% block title %}{% trans "Equipment overview" %}{% endblock %}
+
+
+{% block header %}
+<style>
+.ui-accordion .ui-accordion-content{
+    padding: 0px;
+}
+</style>
+ <script>
+$(function() {
+    $("#accordion").accordion({
+        collapsible: true,
+        heightStyle: "content",
+        active: false
+    });
+
+    // Init the autocompleter
+    $("#exercise-search").catcomplete({
+            source: "{% url 'wger.exercises.views.exercises.search' %}",
+            minLength: 2,
+            select: function(event, ui) {
+
+                // Redirect to exercise after clicking on a result
+                // Path is hard coded here, because we can't use the url-tag
+                window.location.href = '/exercise/' + ui.item.id + '/view/'
+            }
+    });
+});
+</script>
+{% endblock %}
+
+
+<!--
+        Main Content
+-->
+{% block content %}
+{% cache cache_timeout equipment-overview language.id %}
+<div id="accordion">
+    {% for equipment in equipment_list %}
+    <h3>{% trans equipment.name %}</h3>
+
+    <div>
+        <table class="narrow">
+        <tbody>
+            {% for exercise in equipment.exercise_set.all %}
+            {% if exercise.language in exercise_languages %}
+                <tr>
+                    <td style="padding-left:0px;">
+                        {% if exercise.main_image %}
+                        <div style="width:60px;height:60px;text-align:center;float:left;">
+                        <img src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}"
+                             alt=""
+                             style="vertical-align:middle;max-width:100%; max-height:100%;">
+                         </div>
+                         {% endif %}
+
+                        <a href="{{ exercise.get_absolute_url }}">
+                        {{ exercise.name }}</a>
+                    </td>
+                </tr>
+            {% endif %}
+            {% empty %}
+                <tr>
+                    <td>
+                        <p>
+                            {% trans "No exercises for this equipment. Add or edit an exercise and set the equipment." %}
+                        </p>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+    {% endfor %}
+</div>
+{% endcache %}
+{% endblock %}
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}
+<h3>{% trans "Add new exercise" %}</h3>
+<p>
+    {% if user.is_authenticated and not user.userprofile.is_temporary %}
+    <a href="{% url 'exercise-add' %}">
+    <img src="{% static 'images/icons/new.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Add new exercise' %}"
+         title="{% trans 'Add new exercise' %}">
+    {% trans "Add new exercise" %}
+    </a>
+    {% else %}
+    <img src="{% static 'images/icons/new.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Add new exercise' %}"
+         title="{% trans 'Add new exercise' %}">
+    <span>
+    {% trans "Only registered users can do this" %}
+    </span>
+    {% endif %}
+</p>
+
+
+
+<h3>{% trans "Search" %}</h3>
+
+<div class="ui-widget">
+    <form action="{% url 'wger.exercises.views.exercises.search' %}"
+          method="get"
+          id="exercise_search_form">
+        {% csrf_token %}
+        <input name="term"
+               type="search"
+               id="exercise-search"
+               class="ajax-form-element"
+               placeholder="{% trans 'exercise name' %}"
+               style="width:100%;">
+   </form>
+</div>
+{% endblock %}

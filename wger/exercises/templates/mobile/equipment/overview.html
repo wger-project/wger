@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+{% load thumbnail %}
+{% load cache %}
+
+<!--
+        Title
+-->
+{% block title %}{% trans "Exercises" %}{% endblock %}
+
+
+<!--
+        Main Content
+-->
+{% block content %}
+{% cache cache_timeout equipment-overview-mobile language.id %}
+<div data-role="collapsible-set" data-theme="c" data-content-theme="c">
+{% for equipment in equipment_list %}
+    <div data-role="collapsible">
+        <h3>{% trans equipment.name %}</h3>
+
+        <ul data-role="listview">
+        {% for exercise in equipment.exercise_set.all %}
+        {% if exercise.language in exercise_languages %}
+            <li>
+                <a href="{{ exercise.get_absolute_url }}" data-ajax="false">
+                {% if exercise.main_image.image %}
+                <img src="{{ exercise.main_image.image|thumbnail_url:'small' }}">
+                {% endif %}
+                {{ exercise.name }}</a>
+            </li>
+        {% endif %}
+        {% empty %}
+            <li>
+                {% trans "No exercises for this equipment. Add or edit an exercise and set the equipment." %}
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endfor %}
+</div>
+{% endcache %}
+{% endblock %}
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}
+<h3>{% trans "Search" %}</h3>
+<br>
+
+{% cache cache_timeout exercise-overview-search language.id %}
+<ul data-role="listview"
+    data-theme="c"
+    data-filter="true"
+    data-filter-reveal="true"
+    data-inset="true"
+    data-filter-placeholder="{% trans 'exercise name' %}"
+    id="exercise_search_form">
+    {% for equipment in equipment_list %}
+    {% for exercise in equipment.exercise_set.all %}
+        <li>
+            <a href="{{ exercise.get_absolute_url }}" data-ajax="false">
+            {% if exercise.main_image.image %}
+            <img src="{{ exercise.main_image.image|thumbnail_url:'small' }}">
+            {% endif %}
+            {{ exercise.name }}</a>
+        </li>
+    {% endfor %}
+    {% endfor %}
+</ul>
+{% endcache %}
+
+<h3>{% trans "Add new exercise" %}</h3>
+<p>
+    {% if user.is_authenticated and not user.userprofile.is_temporary %}
+    <a href="{% url 'exercise-add' %}" data-role="button">
+    <img src="{% static 'images/icons/new.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Add new exercise' %}"
+         title="{% trans 'Add new exercise' %}">
+    {% trans "Add new exercise" %}
+    </a>
+    {% else %}
+    <span data-role="button" class="ui-disabled">
+    <img src="{% static 'images/icons/new.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Add new exercise' %}"
+         title="{% trans 'Add new exercise' %}">
+    {% trans "Only registered users can do this" %}
+    </span>
+    {% endif %}
+</p>
+
+
+{% if perms.exercises %}
+    <h3>{% trans "Options" %}</h3>
+        {% if categories %}
+        <p>
+        {% with category=categories|first %}
+        <a href="{% url 'exercisecategory-edit' category.id %}"
+           data-role="button"
+           id="current-category-edit">
+            <img src="{% static 'images/icons/edit.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Edit category' %}"
+                 title="{% trans 'Edit category' %}">
+                {% trans "Edit category" %}:
+                <span class="current-category-name">{{category.name}}</span>
+        </a>
+        </p>
+        {% endwith %}
+        <p>
+        {% with category=categories|first %}
+        <a href="{% url 'exercisecategory-delete' category.id %}"
+           data-role="button"
+           id="current-category-delete">
+            <img src="{% static 'images/icons/trash.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Delete category' %}"
+                 title="{% trans 'Delete category' %}">
+                {% trans "Delete category" %}:
+                <span class="current-category-name">{{category.name}}</span>
+        </a>
+        {% endwith %}
+        </p>
+        {% endif %}
+
+        <p>
+        <a href="{% url 'exercisecategory-add' %}"
+           data-role="button">
+            <img src="{% static 'images/icons/folder-new.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Add category' %}"
+                 title="{% trans 'Add category' %}">
+         {% trans "Add category" %}
+        </a>
+    </p>
+{% endif %}
+{% endblock %}

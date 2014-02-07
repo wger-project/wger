@@ -24,6 +24,7 @@ from django.views.generic import CreateView
 from django.views.generic import UpdateView
 from django.views.generic import DeleteView
 from django.views.generic import ListView
+from wger.config.models import LanguageConfig
 
 from wger.exercises.models import Equipment
 
@@ -31,6 +32,7 @@ from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
+from wger.utils.language import load_item_languages
 
 
 logger = logging.getLogger('wger.custom')
@@ -112,4 +114,22 @@ class EquipmentDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
         context['form_action'] = reverse('equipment-delete',
                                          kwargs={'pk': pk})
 
+        return context
+
+
+class EquipmentOverviewView(WgerPermissionMixin, ListView):
+    '''
+    Overview with all exercises, group by equipment
+    '''
+
+    model = Equipment
+    template_name = 'equipment/overview.html'
+    context_object_name = 'equipment_list'
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(EquipmentOverviewView, self).get_context_data(**kwargs)
+        context['exercise_languages'] = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
         return context

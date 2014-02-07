@@ -24,18 +24,6 @@
  **************************************************************/
 
 
-/* Overwrite the font used for UI elements */
-.ui-widget {
-    font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
-}
-.ui-widget input,
-.ui-widget select,
-.ui-widget textarea,
-.ui-widget button {
-    font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
-}
-
-
 /* Add a max-height for the autocompleter */
 .ui-autocomplete {
     max-height: 300px;

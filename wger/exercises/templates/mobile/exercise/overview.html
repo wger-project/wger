@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+{% load thumbnail %}
+{% load cache %}
+
+<!--
+        Title
+-->
+{% block title %}{% trans "Exercises" %}{% endblock %}
+
+
+<!--
+        Main Content
+-->
+{% block content %}
+{% cache cache_timeout exercise-overview-mobile language.id %}
+{% regroup exercises by category as exercise_list %}
+<div data-role="collapsible-set" data-theme="c" data-content-theme="c">
+    {% for item in exercise_list %}
+    <div data-role="collapsible">
+        <h3>{% trans item.grouper.name %}</h3>
+
+        <ul data-role="listview">
+            {% for exercise in item.list %}
+            <li>
+                <a href="{{ exercise.get_absolute_url }}" data-ajax="false">
+                {% if exercise.main_image.image %}
+                <img src="{{ exercise.main_image.image|thumbnail_url:'small' }}">
+                {% endif %}
+                {{ exercise.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% empty %}
+        <li>{% trans "No categories." %} {% trans "Use link to create one" %}</li>
+    {% endfor %}
+</div>
+{% endcache %}
+{% endblock %}
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}
+<h3>{% trans "Search" %}</h3>
+<br>
+
+{% cache cache_timeout exercise-overview-search language.id %}
+{% regroup exercises by category as exercise_list %}
+<ul data-role="listview"
+    data-theme="c"
+    data-filter="true"
+    data-filter-reveal="true"
+    data-inset="true"
+    data-filter-placeholder="{% trans 'exercise name' %}"
+    id="exercise_search_form">
+    {% for item in exercise_list %}
+    {% for exercise in item.list %}
+        <li>
+            <a href="{{ exercise.get_absolute_url }}" data-ajax="false">
+            {% if exercise.main_image.image %}
+            <img src="{{ exercise.main_image.image|thumbnail_url:'small' }}">
+            {% endif %}
+            {{ exercise.name }}</a>
+        </li>
+    {% endfor %}
+    {% endfor %}
+</ul>
+{% endcache %}
+
+
+<h3>{% trans "Add new exercise" %}</h3>
+<p>
+    {% if user.is_authenticated and not user.userprofile.is_temporary %}
+    <a href="{% url 'exercise-add' %}" data-role="button">
+    <img src="{% static 'images/icons/new.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Add new exercise' %}"
+         title="{% trans 'Add new exercise' %}">
+    {% trans "Add new exercise" %}
+    </a>
+    {% else %}
+    <span data-role="button" class="ui-disabled">
+    <img src="{% static 'images/icons/new.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Add new exercise' %}"
+         title="{% trans 'Add new exercise' %}">
+    {% trans "Only registered users can do this" %}
+    </span>
+    {% endif %}
+</p>
+{% endblock %}

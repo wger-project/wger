@@ -67,6 +67,7 @@ class BaseTestCase(object):
                 'test-workout-data',
                 'test-schedules')
     current_user = 'anonymous'
+    is_mobile = False
 
     def setUp(self):
         '''
@@ -78,7 +79,8 @@ class BaseTestCase(object):
 
         # Test the mobile templates
         if os.environ.get('TEST_MOBILE') == 'True':
-            django_mobile.set_flavour('mobile')
+            settings.FLAVOURS = ('mobile',)
+            self.is_mobile = True
 
         # Set logging level
         logging.disable(logging.INFO)

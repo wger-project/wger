@@ -70,10 +70,10 @@ class MuscleCacheTestCase(WorkoutManagerTestCase):
         Test the muscle overview cache is correctly generated on visit
         '''
 
-        # No cache for overview for language 2
-        self.assertFalse(cache.get(get_template_cache_name('muscle-overview', 2)))
-        self.client.get(reverse('muscle-overview'))
-        self.assertTrue(cache.get(get_template_cache_name('muscle-overview', 2)))
+        if not self.is_mobile:
+            self.assertFalse(cache.get(get_template_cache_name('muscle-overview', 2)))
+            self.client.get(reverse('muscle-overview'))
+            self.assertTrue(cache.get(get_template_cache_name('muscle-overview', 2)))
 
 
 class MuscleOverviewTestCase(WorkoutManagerTestCase):
