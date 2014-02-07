@@ -237,7 +237,7 @@ $(document).ready(function() {
         $.post( $('#session-form').attr('action'),
                 $('#session-form').serialize(),
                 function( data ) {
-                    console.log(data);
+
                 });
         });
 });
@@ -258,7 +258,7 @@ $(document).ready(function() {
         {% endfor %}
     </div>
 
-    <a class="next bottom_button"
+    <a class="next bottom_button wide_link"
        href="#"
        data-role="button"
        data-icon="arrow-r"
@@ -320,14 +320,14 @@ $(document).ready(function() {
 
             <div class="ui-grid-a bottom_buttons">
                 <div class="ui-block-a">
-                    <a class="next"
+                    <a class="next wide_link"
                        href="#"
                        data-role="button"
                        data-icon="forward"
                        data-iconpos="right">{% trans "Skip" %}</a>
                 </div>
                 <div class="ui-block-b">
-                    <a class="next save_log"
+                    <a class="next save_log wide_link"
                        href="#"
                        data-role="button"
                        data-icon="arrow-r"
@@ -374,7 +374,7 @@ $(document).ready(function() {
                 </div>
             </div>
 
-            <a class="next bottom_button"
+            <a class="next bottom_button wide_link"
                href="#"
                data-role="button"
                data-icon="forward"
@@ -391,11 +391,46 @@ $(document).ready(function() {
 
     <div class="filler_div">
         <form action="{% url 'workout-session-add' workout.id %}" id="session-form">
-        {% csrf_token %}
+            {% csrf_token %}
+            {{ session_form.time_start }}
+            {{ session_form.time_end }}
+            {{ session_form.user }}
 
-        {% for field in session_form %}
-            {% yaml_form_field field %}
-        {% endfor %}
+            <div data-role="popup"
+                 id="info-{{session_form.notes.auto_id}}"
+                 data-overlay-theme="a">
+                <div data-role="header">
+                     <h4>{% trans "Info" %}</h4>
+                </div>
+                <div role="main" class="ui-content">
+                    {% trans session_form.notes.help_text %}
+                </div>
+            </div>
+            <label for="{{session_form.notes.auto_id}}">
+                <a href="#info-{{session_form.notes.auto_id}}"
+                   class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-icon-info ui-btn-icon-notext"
+                   data-rel="popup"></a>
+                {% trans session_form.notes.label %}
+            </label>
+            {{ session_form.notes }}
+
+            <div data-role="popup"
+                 id="info-{{session_form.impression.auto_id}}"
+                 data-overlay-theme="a">
+                <div data-role="header">
+                     <h4>{% trans "Info" %}</h4>
+                </div>
+                <div role="main" class="ui-content">
+                    {% trans session_form.impression.help_text %}
+                </div>
+            </div>
+            <label for="{{session_form.impression.auto_id}}">
+                <a href="#info-{{session_form.impression.auto_id}}"
+                   class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-icon-info ui-btn-icon-notext"
+                   data-rel="popup"></a>
+                {% trans session_form.impression.label %}
+            </label>
+            {{ session_form.impression }}
         </form>
     </div>
 
@@ -406,6 +441,7 @@ $(document).ready(function() {
     <div class="ui-grid-a bottom_buttons">
         <div class="ui-block-a">
             <a href="{% url 'dashboard' %}"
+               class="wide_link"
                data-role="button"
                data-icon="arrow-r"
                data-ajax="false"
@@ -414,6 +450,7 @@ $(document).ready(function() {
         <div class="ui-block-b">
             <a href=""
                id="save_button_form"
+               class="wide_link"
                data-role="button"
                data-icon="check"
                data-ajax="false"
