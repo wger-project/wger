@@ -141,7 +141,7 @@ def add(request, pk):
         for exercise in exercise_set.exercises.all():
 
             # Maximum possible values
-            total_sets = total_sets + int(exercise_set.sets)
+            total_sets += int(exercise_set.sets)
             counter_before = counter
             counter = counter + int(exercise_set.sets) - 1
             form_id_range = range(counter_before, counter + 1)
@@ -151,7 +151,7 @@ def add(request, pk):
                                           'sets': int(exercise_set.sets),
                                           'form_ids': form_id_range}
 
-            counter = counter + 1
+            counter += 1
             # Helper mapping form-ID <--> Exercise
             for id in form_id_range:
                 form_to_exercise[id] = exercise
@@ -183,7 +183,7 @@ def add(request, pk):
             log_date = dateform.cleaned_data['date']
 
             # Save the Workout Session only if there is not already one for this date
-            if not WorkoutSession.objects.get(user=request.user, date=log_date):
+            if not WorkoutSession.objects.filter(user=request.user, date=log_date).exists():
                 instance = session_form.save(commit=False)
                 instance.date = log_date
                 instance.user = request.user
