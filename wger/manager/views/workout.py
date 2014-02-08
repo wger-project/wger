@@ -16,9 +16,10 @@
 
 import logging
 import uuid
+import datetime
 
 from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
@@ -33,6 +34,7 @@ from django.views.generic import DeleteView
 from django.views.generic import UpdateView
 
 from wger.manager.models import Workout
+from wger.manager.models import WorkoutSession
 from wger.manager.models import WorkoutLog
 from wger.manager.models import Schedule
 from wger.manager.models import Day
@@ -312,12 +314,21 @@ def timer(request, day_pk):
     for i, s in enumerate(step_list):
         step_list[i]['step_percent'] = (i + 1) * 100.0 / len(step_list)
 
+    # Depending on whether there is already a workout session for today, update
+    # the current one or create a new one (this will be the most usual case)
+    if WorkoutSession.objects.filter(user=request.user, date=datetime.date.today()).exists():
+        session = WorkoutSession.objects.get(user=request.user, date=datetime.date.today())
+        url = reverse('workout-session-edit', kwargs={'pk': session.pk})
+        session_form = WorkoutSessionHiddenFieldsForm(instance=session)
+    else:
+        url = reverse('workout-session-add', kwargs={'workout_pk': day.training_id})
+        session_form = WorkoutSessionHiddenFieldsForm()
+
     # Render template
     context['day'] = day
     context['step_list'] = step_list
     context['canonical_day'] = canonical_day
     context['workout'] = day.training
-    context['session_form'] = WorkoutSessionHiddenFieldsForm()
-    return render_to_response('workout/timer.html',
-                              context,
-                              context_instance=RequestContext(request))
+    context['session_form'] = session_form
+    context['form_action'] = url
+    return render(request, 'workout/timer.html', context)

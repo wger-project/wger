@@ -233,7 +233,6 @@ $(document).ready(function() {
     // Bind the button to save the workout session form
     $('#save_button_form').bind("click", function(e) {
         e.preventDefault();
-        console.log($('#session-form').serialize());
         $.post( $('#session-form').attr('action'),
                 $('#session-form').serialize(),
                 function( data ) {
@@ -245,6 +244,9 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block content %}
+{#            #}
+{# Start page #}
+{#            #}
 <div id="timer-container" style="position: relative; top:-40px; margin:0px, padding: 0px;">
 <ul id="workout-timer">
 <li class="timer-step" id="div-warmup" data-number="0">
@@ -265,7 +267,11 @@ $(document).ready(function() {
        data-iconpos="right"
        data-theme="d">{% trans "Start!" %}</a>
 </li>
+
 {% for step in step_list %}
+    {#               #}
+    {# exercise page #}
+    {#               #}
     {% if step.type == 'exercise' %}
         <li class="timer-step exercise-step"
             id="div-{{step.current_step}}"
@@ -339,6 +345,10 @@ $(document).ready(function() {
                 <span style="width: {{step.step_percent|stringformat:'f'}}%;"></span>
             </div>
         </li>
+
+    {#            #}
+    {# pause page #}
+    {#            #}
     {% else %}
         <li class="timer-step pause-step"
             id="div-{{step.current_step}}"
@@ -386,11 +396,15 @@ $(document).ready(function() {
         </li>
     {% endif %}
 {% endfor %}
+
+{#           #}
+{# last page #}
+{#           #}
 <li class="timer-step" id="workout-complete">
     <h2>{% trans "Workout complete!" %}</h2>
 
     <div class="filler_div">
-        <form action="{% url 'workout-session-add' workout.id %}" id="session-form">
+        <form action="{{ form_action }}" id="session-form">
             {% csrf_token %}
             {{ session_form.time_start }}
             {{ session_form.time_end }}
