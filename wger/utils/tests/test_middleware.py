@@ -19,7 +19,7 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 class RobotsExclusionMiddlewareTestCase(WorkoutManagerTestCase):
     '''
-    Teststhe robots exclusion middleware
+    Tests the robots exclusion middleware
     '''
 
     def test_middleware_manager(self):
