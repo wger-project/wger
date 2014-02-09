@@ -43,12 +43,14 @@ class WorkoutSessionUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     Generic view to edit an existing workout session entry
     '''
     model = WorkoutSession
+    form_class = WorkoutSessionForm
     login_required = True
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutSessionUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('workout-log-edit', kwargs={'pk': self.object.id})
+        context['form_action'] = reverse('workout-session-edit', kwargs={'pk': self.object.id})
         context['title'] = _('Edit workout session for %s') % self.object.date
+        context['select_lists'] = ('impression', )
 
         return context
 
