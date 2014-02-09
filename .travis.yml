@@ -16,11 +16,11 @@ env:
 
 # Install the application
 install:
-#  - sh -c "if [ '$DB' = 'mysql' ]; then pip install mysql-python --use-mirrors; fi"
-  - sh -c "if [ '$DB' = 'postgresql' ]; then pip install psycopg2 --use-mirrors; fi"
+#  - sh -c "if [ '$DB' = 'mysql' ]; then pip install mysql-python; fi"
+  - sh -c "if [ '$DB' = 'postgresql' ]; then pip install psycopg2; fi"
   
-  - pip install -r requirements.txt --use-mirrors
-  - pip install -q Django==$DJANGO_VERSION --use-mirrors
+  - pip install -r requirements.txt
+  - pip install -q Django==$DJANGO_VERSION
   - python extras/scripts/create_local_settings.py
 
 # Create test databases
