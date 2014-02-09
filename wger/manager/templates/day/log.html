@@ -102,8 +102,9 @@ $(document).ready(function () {
 
 {% block sidebar %}
 <h3>{% trans "Info" %}</h3>
-<p>{% blocktrans %}The description for a workout session (impression, notes, time)
-will only be saved if there is no entry for the given date.{% endblocktrans %}</p>
+<p>{% blocktrans %}A new workout session (impression, notes, time) will
+be created if there isn't already one for the selected date. If there is, it
+will simply be edited. Weight entries are always added.{% endblocktrans %}</p>
 
 <h3>{% trans "Options" %}</h3>
 <p>
