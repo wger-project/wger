@@ -49,13 +49,13 @@ class WorkoutSessionUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     def get_context_data(self, **kwargs):
         context = super(WorkoutSessionUpdateView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('workout-session-edit', kwargs={'pk': self.object.id})
-        context['title'] = _('Edit workout session for %s') % self.object.date
+        context['title'] = _('Edit workout impression for {0}').format(self.object.date)
         context['select_lists'] = ('impression', )
 
         return context
 
     def get_success_url(self):
-        return reverse('workout-log', kwargs={'pk': self.object.workout_id})
+        return reverse('workout-calendar')
 
 
 class WorkoutSessionAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
@@ -80,11 +80,12 @@ class WorkoutSessionAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
         context = super(WorkoutSessionAddView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('workout-session-add',
                                          kwargs={'workout_pk': self.kwargs['workout_pk']})
-        context['title'] = _('New workout session')
+        context['title'] = _('New workout impression')
+        context['select_lists'] = ('impression', )
         return context
 
     def get_success_url(self):
-        return reverse('workout-log', kwargs={'pk': self.kwargs['workout_pk']})
+        return reverse('workout-calendar')
 
     def form_valid(self, form):
         '''

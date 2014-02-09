@@ -35,14 +35,19 @@ $(document).ready(function() {
     {% with first_log=tmp.list|first %}
     {% with session=first_log.get_workout_session %}
 
-                <a href="{{first_log.workout.get_absolute_url}}"
-                   data-role="button">{{ first_log.workout }}</a>
+        <a href="{{first_log.workout.get_absolute_url}}"
+           data-role="button">{{ first_log.workout }}</a>
 
-                <a href="{% url 'workout-log' first_log.workout.id %}"
-                   data-role="button">{% trans "Log overview" %}</a>
+        <a href="{% url 'workout-log' first_log.workout.id %}"
+           data-role="button">{% trans "Log overview" %}</a>
 
-                    <a href="{% url 'workout-session-edit' session.pk %}"
-                       data-role="button">{% trans "Edit session" %}</a>
+        {% if session %}
+            <a href="{% url 'workout-session-edit' session.pk %}"
+               data-role="button">{% trans "Edit workout session" %}</a>
+        {% else %}
+            <a href="{% url 'workout-session-add' first_log.workout_id %}"
+               data-role="button">{% trans "Add workout impression" %}</a>
+        {% endif %}
 
 
         {% if session %}
@@ -54,8 +59,9 @@ $(document).ready(function() {
                     -/-
                 {% endif %}<br>
             <strong>{% trans "General impression" %}: </strong> {% trans session.get_impression_display %}<br>
-            <strong>{% trans "Notes" %}:</strong> {{session.notes}}
+            <strong>{% trans "Notes" %}:</strong> {{session.notes|default:'-/-'}}
         </p>
+        {% else %}
         {% endif %}
     {% endwith %}
     {% endwith %}

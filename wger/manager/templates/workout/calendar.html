@@ -43,7 +43,9 @@ $(document).ready(function() {
             <a href="{{first_log.workout.get_absolute_url}}" class="btn">{{ first_log.workout }}</a>
             <a href="{% url 'workout-log' first_log.workout.id %}" class="btn">{% trans "Log overview" %}</a>
             {% if session %}
-                <a href="{% url 'workout-session-edit' session.pk %}" class="btn modal-dialog">{% trans "Edit session" %}</a>
+                <a href="{% url 'workout-session-edit' session.pk %}" class="btn modal-dialog">{% trans "Edit workout session" %}</a>
+            {% else %}
+                <a href="{% url 'workout-session-add' first_log.workout_id %}" class="btn modal-dialog">{% trans "Add workout impression" %}</a>
             {% endif %}
         </p>
         {% if session %}
@@ -55,7 +57,7 @@ $(document).ready(function() {
                     -/-
                 {% endif %}<br>
             <strong>{% trans "General impression" %}: </strong> {% trans session.get_impression_display %}<br>
-            <strong>{% trans "Notes" %}:</strong> {{session.notes}}
+            <strong>{% trans "Notes" %}:</strong> {{session.notes|default:'-/-'}}
         </p>
         {% endif %}
     {% endwith %}
