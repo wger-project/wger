@@ -14,7 +14,9 @@ jQuery(function($){
 		dayNamesShort: ['dom','lun','mar','mié','juv','vie','sáb'],
 		dayNamesMin: ['D','L','M','X','J','V','S'],
 		weekHeader: 'Sm',
-		dateFormat: 'dd.mm.yy',
+		//dateFormat: 'dd.mm.yy',
+		// Replacing the default date format to make handling dates with JS easier
+		dateFormat: 'yy-mm-dd',
 		firstDay: 1,
 		isRTL: false,
 		showMonthAfterYear: false,

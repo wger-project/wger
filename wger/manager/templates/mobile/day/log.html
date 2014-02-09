@@ -6,7 +6,14 @@
 
 {% block title %}{% trans "New weight log" %}  – {{day.description}}{% endblock %}
 
-{% block header %}{% endblock %}
+{% block header %}
+<script type="text/javascript">
+$(document).ready(function () {
+    get_workout_session();
+});
+</script>
+
+{% endblock %}
 
 {% block content %}
 <form action="{{form_action}}"

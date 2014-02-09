@@ -182,13 +182,20 @@ def add(request, pk):
         if dateform.is_valid() and session_form.is_valid() and formset.is_valid():
             log_date = dateform.cleaned_data['date']
 
+            if WorkoutSession.objects.filter(user=request.user, date=log_date).exists():
+                session = WorkoutSession.objects.get(user=request.user, date=log_date)
+                session_form = HelperWorkoutSessionForm(data=post_copy, instance=session)
+
             # Save the Workout Session only if there is not already one for this date
+            instance = session_form.save(commit=False)
             if not WorkoutSession.objects.filter(user=request.user, date=log_date).exists():
-                instance = session_form.save(commit=False)
                 instance.date = log_date
                 instance.user = request.user
                 instance.workout = day.training
-                instance.save()
+            else:
+                session = WorkoutSession.objects.get(user=request.user, date=log_date)
+                instance.instance = session
+            instance.save()
 
             # Log entries
             instances = formset.save(commit=False)
@@ -206,7 +213,14 @@ def add(request, pk):
         formset = WorkoutLogFormSet(queryset=WorkoutLog.objects.none())
 
         dateform = HelperDateForm(initial={'date': datetime.date.today()})
-        session_form = HelperWorkoutSessionForm()
+        #session_form = HelperWorkoutSessionForm()
+        # Depending on whether there is already a workout session for today, update
+        # the current one or create a new one (this will be the most usual case)
+        if WorkoutSession.objects.filter(user=request.user, date=datetime.date.today()).exists():
+            session = WorkoutSession.objects.get(user=request.user, date=datetime.date.today())
+            session_form = HelperWorkoutSessionForm(instance=session)
+        else:
+            session_form = HelperWorkoutSessionForm()
 
     # Pass the correct forms to the exercise list
     for exercise in exercise_list:

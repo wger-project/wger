@@ -16,6 +16,8 @@
 
 from tastypie import fields
 from tastypie.authentication import ApiKeyAuthentication
+from tastypie.authentication import MultiAuthentication
+from tastypie.authentication import SessionAuthentication
 from tastypie.resources import ModelResource
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
 
@@ -95,7 +97,7 @@ class WorkoutSessionResource(ModelResource):
 
     class Meta:
         queryset = WorkoutSession.objects.all()
-        authentication = ApiKeyAuthentication()
+        authentication = MultiAuthentication(SessionAuthentication(), ApiKeyAuthentication())
         authorization = UserObjectsOnlyAuthorization()
         filtering = {'id': ALL,
                      "date": ALL,
