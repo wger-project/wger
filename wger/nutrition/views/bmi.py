@@ -18,12 +18,12 @@
 import logging
 import json
 
-from django.template import RequestContext
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 
 from wger.nutrition.forms import BmiForm
 from wger.utils import helpers
+
 
 logger = logging.getLogger('wger.custom')
 
@@ -41,9 +41,7 @@ def view(request):
     form_data = {'height': request.user.userprofile.height,
                  'weight': request.user.userprofile.weight}
     context['form'] = BmiForm(initial=form_data)
-    return render_to_response('bmi/form.html',
-                              context,
-                              context_instance=RequestContext(request))
+    return render(request, 'bmi/form.html', context)
 
 
 def calculate(request):

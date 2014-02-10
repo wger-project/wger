@@ -17,8 +17,7 @@ import logging
 import json
 import uuid
 
-from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -38,7 +37,6 @@ from django.views.generic import ListView
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
-
 from easy_thumbnails.files import get_thumbnailer
 from easy_thumbnails.alias import aliases
 
@@ -141,9 +139,7 @@ def view(request, id, slug=None):
     template_data['reps'] = _("Reps")
 
     # Render
-    return render_to_response('exercise/view.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+    return render(request, 'exercise/view.html', template_data)
 
 
 class ExercisesEditAddView(WgerFormMixin):

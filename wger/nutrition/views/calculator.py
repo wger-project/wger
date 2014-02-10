@@ -18,9 +18,8 @@
 import logging
 import json
 
-from django.template import RequestContext
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 
 from wger.nutrition.forms import BmrForm
 from wger.nutrition.forms import PhysicalActivitiesForm
@@ -49,9 +48,7 @@ def view(request):
     context['form_activities'] = PhysicalActivitiesForm(instance=request.user.userprofile)
     context['form_calories'] = DailyCaloriesForm(instance=request.user.userprofile)
 
-    return render_to_response('rate/form.html',
-                              context,
-                              context_instance=RequestContext(request))
+    return render(request, 'rate/form.html', context)
 
 
 def calculate_bmr(request):

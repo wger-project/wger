@@ -16,9 +16,7 @@
 
 import logging
 
-
-from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
@@ -27,7 +25,6 @@ from django.core import mail
 from django.utils.translation import ugettext as _
 from django.views.generic.edit import FormView
 from django.views.generic import TemplateView
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as django_login
@@ -35,12 +32,9 @@ from django.contrib.auth import login as django_login
 from wger.manager import forms
 from wger.manager.demo import create_demo_entries
 from wger.manager.demo import create_temporary_user
-
 from wger.manager.models import DaysOfWeek
 from wger.manager.models import Schedule
-
 from wger.nutrition.models import NutritionPlan
-
 from wger.weight.models import WeightEntry
 
 
@@ -136,9 +130,7 @@ def dashboard(request):
         # Load the nutritional info
         template_data['nutritional_info'] = plan.get_nutritional_values()
 
-    return render_to_response('index.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+    return render(request, 'index.html', template_data)
 
 
 class ContactClassView(TemplateView):

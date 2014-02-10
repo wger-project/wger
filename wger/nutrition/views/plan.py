@@ -16,8 +16,7 @@
 import logging
 import datetime
 
-from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -27,18 +26,15 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
-
 from django.views.generic import DeleteView
 from django.views.generic import UpdateView
-
-from wger.nutrition.models import NutritionPlan
-from wger.nutrition.models import MEALITEM_WEIGHT_GRAM
-from wger.nutrition.models import MEALITEM_WEIGHT_UNIT
-
 from reportlab.lib.pagesizes import A4, cm
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
 from reportlab.lib import colors
 
+from wger.nutrition.models import NutritionPlan
+from wger.nutrition.models import MEALITEM_WEIGHT_GRAM
+from wger.nutrition.models import MEALITEM_WEIGHT_UNIT
 from wger import get_version
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
@@ -62,9 +58,7 @@ def overview(request):
     plans = NutritionPlan.objects.filter(user=request.user)
     template_data['plans'] = plans
 
-    return render_to_response('plan/overview.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+    return render(request, 'plan/overview.html', template_data)
 
 
 @login_required
@@ -122,9 +116,7 @@ def view(request, id):
     # Get the nutritional info
     template_data['nutritional_data'] = plan.get_nutritional_values()
 
-    return render_to_response('plan/view.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+    return render(request, 'plan/view.html', template_data)
 
 
 @login_required

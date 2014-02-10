@@ -16,8 +16,7 @@
 import logging
 import json
 
-from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -32,7 +31,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
-
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
@@ -42,7 +40,6 @@ from wger.nutrition.forms import UnitChooserForm
 from wger.nutrition.models import MealItem
 from wger.nutrition.models import Ingredient
 from wger.nutrition.models import IngredientWeightUnit
-
 from wger.utils import helpers
 from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.generic_views import WgerFormMixin
@@ -51,6 +48,7 @@ from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.language import load_language
 from wger.utils.language import load_ingredient_languages
 from wger.utils.cache import cache_mapper
+
 
 logger = logging.getLogger('wger.custom')
 
@@ -92,9 +90,7 @@ def view(request, id, slug=None):
                                                   'amount': 100,
                                                   'unit': None})
 
-    return render_to_response('ingredient/view.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+    return render(request, 'ingredient/view.html', template_data)
 
 
 class IngredientDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
@@ -248,9 +244,7 @@ def search(request):
         template_data.update(csrf(request))
         template_data['ingredients'] = ingredients
         template_data['search_term'] = q
-        return render_to_response('ingredient/search.html',
-                                  template_data,
-                                  context_instance=RequestContext(request))
+        return render(request, 'ingredient/search.html', template_data)
 
 
 @login_required

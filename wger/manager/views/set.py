@@ -18,8 +18,7 @@ import logging
 
 from django.forms.models import modelformset_factory
 from django.forms.models import inlineformset_factory
-from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -27,16 +26,12 @@ from django.http import HttpResponseForbidden
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from django.db import models
-
 from django.contrib.auth.decorators import login_required
-
 
 from wger.manager.models import Day
 from wger.manager.models import Set
 from wger.manager.models import Setting
-
 from wger.exercises.models import Exercise
-
 from wger.manager.forms import SetForm, SetFormMobile
 from wger.utils.language import load_item_languages
 from wger.config.models import LanguageConfig
@@ -124,9 +119,7 @@ def create(request, day_pk):
     context['max_sets'] = Set.MAX_SETS
     context['formsets'] = formsets
     context['form_action'] = reverse('set-add', kwargs={'day_pk': day_pk})
-    return render_to_response('set/add.html',
-                              context,
-                              context_instance=RequestContext(request))
+    return render(request, 'set/add.html', context)
 
 
 @login_required
@@ -143,10 +136,10 @@ def get_formset(request, exercise_pk, reps=Set.DEFAULT_SETS):
     formset = SettingFormSet(queryset=Setting.objects.none(),
                              prefix='exercise{0}'.format(exercise_pk))
 
-    return render_to_response("set/formset.html",
-                              {'formset': formset,
-                               'exercise': exercise},
-                              context_instance=RequestContext(request))
+    return render(request,
+                  "set/formset.html",
+                  {'formset': formset,
+                   'exercise': exercise})
 
 
 @login_required
@@ -222,9 +215,7 @@ def edit(request, pk):
     context = {}
     context['formsets'] = formsets
     context['form_action'] = reverse('set-edit', kwargs={'pk': pk})
-    return render_to_response('set/edit.html',
-                              context,
-                              context_instance=RequestContext(request))
+    return render(request, 'set/edit.html', context)
 
 
 @login_required

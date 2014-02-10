@@ -16,25 +16,20 @@
 
 import logging
 
-from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy
-
 from django.contrib.auth.decorators import login_required
-
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
 
 from wger.manager.models import DaysOfWeek
 from wger.manager.models import Workout
 from wger.manager.models import Day
-
 from wger.manager.forms import DayForm
-
 from wger.utils.generic_views import WgerFormMixin
 
 
@@ -141,6 +136,4 @@ def view(request, id):
 
     template_data['day'] = day
 
-    return render_to_response('day/view.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+    return render(request, 'day/view.html', template_data)

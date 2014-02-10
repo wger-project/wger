@@ -16,15 +16,13 @@
 
 import logging
 
-from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from django.utils import translation
-
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as django_login
 from django.contrib.auth import logout as django_logout
@@ -32,7 +30,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User as Django_User
 from django.contrib.auth.views import login as django_loginview
 from django.contrib import messages
-
 from tastypie.models import ApiKey
 
 from wger.exercises.models import Language
@@ -115,9 +112,7 @@ def registration(request):
     template_data['form_action'] = reverse('registration')
     template_data['submit_text'] = _('Register')
 
-    return render_to_response('form.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+    return render(request, 'form.html', template_data)
 
 
 @login_required
@@ -165,9 +160,7 @@ def preferences(request):
         messages.success(request, _('Settings successfully updated'))
         return HttpResponseRedirect(reverse('preferences'))
     else:
-        return render_to_response('user/preferences.html',
-                                  template_data,
-                                  context_instance=RequestContext(request))
+        return render(request, 'user/preferences.html', template_data)
 
 
 @login_required
@@ -225,6 +218,4 @@ def api_key(request):
 
     context['key'] = key
 
-    return render_to_response('user/api_key.html',
-                              context,
-                              context_instance=RequestContext(request))
+    return render(request, 'user/api_key.html', context)

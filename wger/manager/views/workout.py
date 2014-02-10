@@ -18,8 +18,7 @@ import logging
 import uuid
 import datetime
 
-from django.template import RequestContext
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
@@ -27,9 +26,7 @@ from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
-
 from django.contrib.auth.decorators import login_required
-
 from django.views.generic import DeleteView
 from django.views.generic import UpdateView
 
@@ -41,10 +38,10 @@ from wger.manager.models import Day
 from wger.manager.forms import WorkoutForm
 from wger.manager.forms import WorkoutSessionHiddenFieldsForm
 from wger.manager.forms import WorkoutCopyForm
-
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
+
 
 logger = logging.getLogger('wger.custom')
 
@@ -65,9 +62,7 @@ def overview(request):
     template_data['workouts'] = latest_workouts
     template_data['current_workout'] = current_workout
 
-    return render_to_response('workout/overview.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+    return render(request, 'workout/overview.html', template_data)
 
 
 @login_required
@@ -98,9 +93,7 @@ def view(request, id):
     template_data['muscle_backgrounds_front'] = muscles_front
     template_data['muscle_backgrounds_back'] = muscles_back
 
-    return render_to_response('workout/view.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+    return render(request, 'workout/view.html', template_data)
 
 
 @login_required
@@ -175,9 +168,7 @@ def copy_workout(request, pk):
         template_data['form_fields'] = [workout_form['comment']]
         template_data['submit_text'] = _('Copy')
 
-        return render_to_response('form.html',
-                                  template_data,
-                                  context_instance=RequestContext(request))
+        return render(request, 'form.html', template_data)
 
 
 @login_required

@@ -19,9 +19,7 @@ import csv
 import json
 import datetime
 
-
-from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.forms import ModelForm
@@ -38,17 +36,15 @@ from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 from django.db.models import Min
 from django.db.models import Max
-
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
+from django.forms import widgets
 
 from wger.weight.models import WeightEntry
 from wger.weight import helpers
-
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.constants import DATE_FORMATS
 from wger.utils.widgets import Html5DateInput
-from django.forms import widgets
 
 
 logger = logging.getLogger('wger.custom')
@@ -164,9 +160,7 @@ def overview(request):
                                     {'year': max_date.year,
                                      'month': max_date.month,
                                      'day': max_date.day}
-    return render_to_response('weight_overview.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+    return render(request, 'weight_overview.html', template_data)
 
 
 @login_required

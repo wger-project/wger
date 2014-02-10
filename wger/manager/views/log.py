@@ -20,8 +20,7 @@ import datetime
 from calendar import HTMLCalendar
 from itertools import groupby
 
-from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
@@ -29,7 +28,6 @@ from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from django.forms.models import modelformset_factory
-
 from django.views.generic import UpdateView
 from django.views.generic import CreateView
 from django.views.generic import DetailView
@@ -39,11 +37,9 @@ from wger.manager.models import WorkoutSession
 from wger.manager.models import Day
 from wger.manager.models import WorkoutLog
 from wger.manager.models import Schedule
-
 from wger.manager.forms import HelperDateForm
 from wger.manager.forms import HelperWorkoutSessionForm
 from wger.manager.forms import WorkoutLogForm
-
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerPermissionMixin
 from wger.weight.helpers import process_log_entries
@@ -237,9 +233,7 @@ def add(request, pk):
     template_data['session_form'] = session_form
     template_data['form_action'] = reverse('day-log', kwargs={'pk': pk})
 
-    return render_to_response('day/log.html',
-                              template_data,
-                              context_instance=RequestContext(request))
+    return render(request, 'day/log.html', template_data)
 
 
 class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
@@ -383,6 +377,4 @@ def calendar(request, year=None, month=None):
     context['current_month'] = month
     context['current_workout'] = current_workout
     context['month_list'] = WorkoutLog.objects.filter(user=request.user).dates('date', 'month')
-    return render_to_response('workout/calendar.html',
-                              context,
-                              context_instance=RequestContext(request))
+    return render(request, 'workout/calendar.html', context)
