@@ -27,28 +27,22 @@ from django.forms import ModelForm
 from django.forms import ModelChoiceField
 from django.core import mail
 from django.core.cache import cache
-from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import permission_required
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
-
 from django.views.generic import ListView
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
-import django_mobile
-
 from easy_thumbnails.files import get_thumbnailer
 from easy_thumbnails.alias import aliases
 
 from wger.manager.models import WorkoutLog
-
 from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseCategory
-
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin

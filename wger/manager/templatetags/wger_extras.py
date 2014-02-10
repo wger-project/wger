@@ -16,7 +16,6 @@
 
 from django import template
 
-from wger.exercises.models import Exercise
 from wger.utils.constants import PAGINATION_MAX_TOTAL_PAGES
 from wger.utils.constants import PAGINATION_PAGES_AROUND_CURRENT
 

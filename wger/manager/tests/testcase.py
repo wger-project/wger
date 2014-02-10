@@ -22,7 +22,6 @@ from django.core.urlresolvers import reverse
 from django.core.urlresolvers import NoReverseMatch
 from django.core.cache import cache
 from django.conf import settings
-import django_mobile
 
 from django.test import TestCase
 
