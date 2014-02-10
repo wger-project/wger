@@ -88,7 +88,7 @@
 <body>
 {% browserid_info %}
 <header>
-    <div class="float-right" style="margin-right:1em;margin-top:0em;">
+    <div class="float-right" style="margin-right:1em;margin-top:0em;position:absolute;right:0px;">
 
         {% if user.is_authenticated and not user.userprofile.is_temporary %}
             <a href="{% url 'wger.manager.views.user.preferences' %}">
