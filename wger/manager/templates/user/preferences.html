@@ -6,39 +6,63 @@
 
 {% block title %}{% trans "Preferences" %}{% endblock %}
 
+{% block header %}
+ <script>
+$(function() {
+    $("#preferences-accordion").accordion({
+        heightStyle: "content"
+    });
+});
+</script>
+{% endblock %}
+
+
 
 {% block content %}
 <form action="{% url 'preferences' %}"
       method="post"
       class="ym-form">
-      {% csrf_token %}
-      {{ form.non_field_errors }}
-<table>
-{% for field in form %}
-    {% if field.name in select_lists %}
-        {% yaml_form_field field "ym-fbox-select" %}
-    {% else %}
-        {% yaml_form_field field %}
-    {% endif %}
-{% endfor %}
-</table>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
 
+    <div id="preferences-accordion">
+        <h3>{% trans "Email" %}</h3>
+        <div>
+            <table>
+                {% yaml_form_field email_form.email %}
+            </table>
+        </div>
 
-<h3>{% trans "Email" %}</h3>
+        <h3>{% trans "Workout reminders" %}</h3>
+        <div>
+            <table>
+                {% yaml_form_field form.workout_reminder_active %}
+                {% yaml_form_field form.workout_duration %}
+                {% yaml_form_field form.workout_reminder %}
+            </table>
+        </div>
 
-{{ email_form.non_field_errors }}
-<table>
-{% yaml_form_field email_form.email %}
-    <tr>
-        <td colspan="2">
-            <input type="submit" value="{% trans 'Save' %}">
-        </td>
-    </tr>
-</table>
+        <h3>{% trans "Gym mode" %} ({% trans "mobile version only" %})</h3>
+        <div>
+            <table>
+                {% yaml_form_field form.timer_active %}
+                {% yaml_form_field form.timer_pause %}
+            </table>
+        </div>
+
+        <h3>{% trans "Other settings" %}</h3>
+        <div>
+            <table>
+                {% yaml_form_field form.notification_language "ym-fbox-select" %}
+                {% yaml_form_field form.show_comments %}
+                {% yaml_form_field form.show_english_ingredients %}
+            </table>
+        </div>
+    </div>
+    <input type="submit" value="{% trans 'Save' %}">
 </form>
-
-
 {% endblock %}
+
 
 {% block sidebar %}
 <h3>{% trans "Options" %}</h3>
