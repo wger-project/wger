@@ -146,6 +146,7 @@ class WorkoutTimerWorkoutSessionTestCase(WorkoutManagerTestCase):
         Tests that the correct urls and forms for workout session is passed
         '''
         WorkoutSession.objects.all().delete()
+        self.user_login('test')
 
         response = self.client.get(reverse('workout-timer', kwargs={'day_pk': 5}))
         self.assertEqual(response.context['form_action'],
