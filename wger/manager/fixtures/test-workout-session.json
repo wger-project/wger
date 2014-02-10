@@ -1,0 +1,41 @@
+[
+    {
+        "pk": 1, 
+        "model": "manager.workoutsession", 
+        "fields": {
+            "impression": "2", 
+            "time_start": "17:00:00", 
+            "workout": 1,
+            "time_end": "18:30:00", 
+            "user": 1, 
+            "date": "2014-01-15",
+            "notes": "Notes come here"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "manager.workoutsession",
+        "fields": {
+            "impression": "3",
+            "time_start": "17:00:00",
+            "workout": 1,
+            "time_end": "18:00:00",
+            "user": 1,
+            "date": "2014-01-20",
+            "notes": "Even more notes and impressions"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "manager.workoutsession",
+        "fields": {
+            "impression": "3",
+            "time_start": "10:00:00",
+            "workout": 2,
+            "time_end": "15:00:00",
+            "user": 1,
+            "date": "2014-01-30",
+            "notes": "I spent the whole day in the gym"
+        }
+    }
+]

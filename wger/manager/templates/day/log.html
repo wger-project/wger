@@ -10,6 +10,8 @@
 <script type="text/javascript">
 $(document).ready(function () {
     $( "#id_date" ).datepicker();
+
+    get_workout_session();
 });
 </script>
 
@@ -20,21 +22,24 @@ $(document).ready(function () {
 {% csrf_token %}
 {{formset.management_form}}
 
-<table class="workout-log-table">
-<tr>
-    <td>
-        {% trans dateform.date.label %}
-    </td>
-    <td>
-        <div class= "ym-fbox-text {% if dateform.date.errors %}ym-error{% endif %}">
-        {{dateform.date}}
-        </div>
+{% if session_form.non_field_errors %}
+<div class="ym-fbox-text ym-error">
+    {% for error in session_form.non_field_errors %}
+         <p class="ym-message">{% trans error %}</p>
+    {% endfor %}
+</div>
+{% endif %}
 
-        <div class="ym-fbox-text {% if dateform.date.errors %}ym-error{% endif %}">
-             <span class="ym-message">{{dateform.date.errors}}</span>
-         </div>
-    </td>
-</tr>
+<table class="workout-log-table">
+{% yaml_form_field dateform.date %}
+
+{% for field in session_form %}
+    {% if field.name == 'impression' %}
+        {% yaml_form_field field "ym-fbox-select" %}
+    {% else %}
+        {% yaml_form_field field %}
+    {% endif %}
+{% endfor %}
 </table>
 
 <h3>{% trans "Exercises" %}</h3>
@@ -96,6 +101,11 @@ $(document).ready(function () {
 
 
 {% block sidebar %}
+<h3>{% trans "Info" %}</h3>
+<p>{% blocktrans %}A new workout session (impression, notes, time) will
+be created if there isn't already one for the selected date. If there is, it
+will simply be edited. Weight entries are always added.{% endblocktrans %}</p>
+
 <h3>{% trans "Options" %}</h3>
 <p>
 <a href="{% url 'workout-view' day.training.id %}">

@@ -16,6 +16,8 @@
 
 from tastypie import fields
 from tastypie.authentication import ApiKeyAuthentication
+from tastypie.authentication import MultiAuthentication
+from tastypie.authentication import SessionAuthentication
 from tastypie.resources import ModelResource
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
 
@@ -23,6 +25,7 @@ from wger.exercises.api.resources import ExerciseResource
 from wger.utils.resources import UserObjectsOnlyAuthorization
 
 from wger.manager.models import UserProfile
+from wger.manager.models import WorkoutSession
 from wger.manager.models import Workout
 from wger.manager.models import Schedule
 from wger.manager.models import ScheduleStep
@@ -77,6 +80,29 @@ class WorkoutResource(ModelResource):
         filtering = {'id': ALL,
                      "comment": ALL,
                      "creation_date": ALL}
+
+
+class WorkoutSessionResource(ModelResource):
+    '''
+    Resource for workout sessions
+    '''
+
+    workout = fields.ToOneField('wger.manager.api.resources.WorkoutResource', 'workout')
+
+    def authorized_read_list(self, object_list, bundle):
+        '''
+        Filter to own objects
+        '''
+        return object_list.filter(user=bundle.request.user)
+
+    class Meta:
+        queryset = WorkoutSession.objects.all()
+        authentication = MultiAuthentication(SessionAuthentication(), ApiKeyAuthentication())
+        authorization = UserObjectsOnlyAuthorization()
+        filtering = {'id': ALL,
+                     "date": ALL,
+                     "time_start": ALL,
+                     "time_end": ALL}
 
 
 class ScheduleStepResource(ModelResource):

@@ -14,11 +14,15 @@
 
 import logging
 import math
+import datetime
 
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from wger.exercises.models import Exercise
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.exercises.models import Exercise
+from wger.manager.models import WorkoutSession
+from wger.manager.models import Workout
 
 logger = logging.getLogger('wger.custom')
 
@@ -97,3 +101,34 @@ class WorkoutTimerTestCase(WorkoutManagerTestCase):
 
         self.user_login('admin')
         self.timer(fail=False)
+
+
+class WorkoutTimerWorkoutSessionTestCase(WorkoutManagerTestCase):
+    '''
+    Other tests
+    '''
+
+    def test_workout_session(self):
+        '''
+        Tests that the correct urls and forms for workout session is passed
+        '''
+        self.user_login('test')
+        WorkoutSession.objects.all().delete()
+
+        response = self.client.get(reverse('workout-timer', kwargs={'day_pk': 5}))
+        self.assertEqual(response.context['form_action'],
+                         reverse('workout-session-add', kwargs={'workout_pk': 3}))
+
+        session = WorkoutSession()
+        session.user = User.objects.get(username='test')
+        session.workout = Workout.objects.get(pk=2)
+        session.date = datetime.date.today()
+        session.notes = 'Something here'
+        session.impression = '2'
+        session.time_start = datetime.time(11, 00)
+        session.time_end = datetime.time(13, 00)
+        session.save()
+
+        response = self.client.get(reverse('workout-timer', kwargs={'day_pk': 5}))
+        self.assertEqual(response.context['form_action'],
+                         reverse('workout-session-edit', kwargs={'pk': session.pk}))

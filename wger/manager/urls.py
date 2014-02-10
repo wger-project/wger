@@ -15,6 +15,7 @@ from wger.manager.views.day import DayCreateView
 from wger.manager.views import misc
 from wger.manager.views import ical
 from wger.manager.views import user
+from wger.manager.views import workout_session
 
 from wger.utils.constants import USER_TAB
 
@@ -85,6 +86,14 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^workout/(?P<pk>\d+)/ical$',
         ical.export,
         name='workout-ical'),
+
+    # Workout session
+    url(r'^workout/session/(?P<workout_pk>\d+)/add$',
+        workout_session.WorkoutSessionAddView.as_view(),
+        name='workout-session-add'),
+    url(r'^workout/session/(?P<pk>\d+)/edit$',
+        workout_session.WorkoutSessionUpdateView.as_view(),
+        name='workout-session-edit'),
 
     # Timer
     url(r'^workout/(?P<day_pk>\d+)/timer$',

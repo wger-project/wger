@@ -46,6 +46,13 @@ def check_current_request(request):
     Simple helper function that checks whether the current request hit one
     of the 'special' paths (paths that need a logged in user).
     '''
+
+    # Don't create guest users for requests that are accessing the site
+    # through the REST API
+    if 'api' in request.path:
+        return False
+
+    # Other paths
     match = False
     for path in SPECIAL_PATHS:
         if path in request.path:
@@ -96,9 +103,7 @@ class RobotsExclusionMiddleware(object):
     def process_response(self, request, response):
         # Don't set it if it's already in the response
         if check_current_request(request) and response.get('X-Robots-Tag', None) is None:
-            #logger.debug("Adding X-Robots header")
             response['X-Robots-Tag'] = 'noindex, nofollow'
             return response
         else:
-            #logger.debug("Not adding X-Robots header")
             return response

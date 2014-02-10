@@ -474,3 +474,29 @@ function prefetch_images(imageArray) {
     });
 }
 
+
+/*
+ * Helper function used in the workout log dialog to fetch existing
+ * workout sessions through the REST API
+ */
+ function get_workout_session() {
+    $('#id_date').on('change', function() {
+        var date = $('#id_date').val();
+        if(date) {
+            $.get( '/api/v1/workoutsession/?date=' + date, function( result ) {
+                if (result.objects.length == 1) {
+                    $('#id_notes').val(result.objects[0].notes)
+                    $('#id_impression').val(result.objects[0].impression)
+                    $('#id_time_start').val(result.objects[0].time_start)
+                    $('#id_time_end').val(result.objects[0].time_end)
+                }
+                else {
+                    $('#id_notes').val('');
+                    $('#id_impression').val('2');
+                    $('#id_time_start').val('');
+                    $('#id_time_end').val('');
+                }
+            });
+        }
+    });
+}

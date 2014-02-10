@@ -45,6 +45,7 @@ v1_api.register(manager_api.DayResource())
 v1_api.register(manager_api.SetResource())
 v1_api.register(manager_api.SettingResource())
 v1_api.register(manager_api.WorkoutLogResource())
+v1_api.register(manager_api.WorkoutSessionResource())
 
 # Weight app
 v1_api.register(weight_api.WeightEntryResource())

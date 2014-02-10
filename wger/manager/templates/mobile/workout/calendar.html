@@ -33,16 +33,40 @@ $(document).ready(function() {
     {# TODO: what if some of the entries don't belong to a workout? #}
     {% with tmp=grouped_logs|first %}
     {% with first_log=tmp.list|first %}
-    <div class="ui-grid-a">
-        <div class="ui-block-a">
-            <a href="{{first_log.workout.get_absolute_url}}" data-role="button">{% trans "Workout" %}</a>
-        </div>
-        <div class="ui-block-b">
-            <a href="{% url 'workout-log' first_log.workout.id %}" data-role="button">{% trans "Log overview" %}</a>
-        </div>
-    </div>
+    {% with session=first_log.get_workout_session %}
+
+        <a href="{{first_log.workout.get_absolute_url}}"
+           data-role="button">{{ first_log.workout }}</a>
+
+        <a href="{% url 'workout-log' first_log.workout.id %}"
+           data-role="button">{% trans "Log overview" %}</a>
+
+        {% if session %}
+            <a href="{% url 'workout-session-edit' session.pk %}"
+               data-role="button">{% trans "Edit workout session" %}</a>
+        {% else %}
+            <a href="{% url 'workout-session-add' first_log.workout_id %}"
+               data-role="button">{% trans "Add workout impression" %}</a>
+        {% endif %}
+
+
+        {% if session %}
+        <p>
+            <strong>{% trans "Time" %}:</strong>
+                {% if session.time_start %}
+                    {{session.time_start|time:"H:i"}} - {{session.time_end|time:"H:i"}}
+                {% else %}
+                    -/-
+                {% endif %}<br>
+            <strong>{% trans "General impression" %}: </strong> {% trans session.get_impression_display %}<br>
+            <strong>{% trans "Notes" %}:</strong> {{session.notes|default:'-/-'}}
+        </p>
+        {% else %}
+        {% endif %}
     {% endwith %}
     {% endwith %}
+    {% endwith %}
+
     <ul class="grouper-list">
     {% for i in grouped_logs %}
         <li>{{i.grouper}}

@@ -24,7 +24,7 @@
 
 var div_height = $( window ).height() * 0.80;
 var div_width = $( window ).width() * 0.85;
-var start = new Date().getTime();
+var start = new Date();
 
 var counter = {
 
@@ -208,8 +208,8 @@ $(document).ready(function() {
         // If we have reached the last page, compute total workout time
         if (next_step.is('#workout-complete'))
         {
-            var end = new Date().getTime();
-            var milliseconds = (end - start);
+            var end = new Date();
+            var milliseconds = (end.getTime() - start.getTime());
 
             var hours = (milliseconds/1000) / 3600;
             var minutes = (milliseconds/1000) / 60 - Math.floor(hours)*60;
@@ -219,15 +219,34 @@ $(document).ready(function() {
             minutes = (minutes < 10) ? '0' + minutes : minutes;
             seconds = (seconds < 10) ? '0' + seconds : seconds;
 
+            //a.toLocaleTimeString()
             $('#total_time').html(Math.floor(hours) + ':' + Math.floor(minutes) + ':' + Math.floor(seconds));
+
+            $('#id_time_start').val(start.getHours() + ':' + start.getMinutes());
+            $('#id_time_end').val(end.getHours() + ':' + end.getMinutes());
+            $('#id_date').val(end.getFullYear() + '-' + end.getMonth() + '-' + end.getDay());
+            $('#id_user').val('1');
         }
 
     });
+
+    // Bind the button to save the workout session form
+    $('#save_button_form').bind("click", function(e) {
+        e.preventDefault();
+        $.post( $('#session-form').attr('action'),
+                $('#session-form').serialize(),
+                function( data ) {
+
+                });
+        });
 });
 </script>
 {% endblock %}
 
 {% block content %}
+{#            #}
+{# Start page #}
+{#            #}
 <div id="timer-container" style="position: relative; top:-40px; margin:0px, padding: 0px;">
 <ul id="workout-timer">
 <li class="timer-step" id="div-warmup" data-number="0">
@@ -241,14 +260,18 @@ $(document).ready(function() {
         {% endfor %}
     </div>
 
-    <a class="next bottom_button"
+    <a class="next bottom_button wide_link"
        href="#"
        data-role="button"
        data-icon="arrow-r"
        data-iconpos="right"
        data-theme="d">{% trans "Start!" %}</a>
 </li>
+
 {% for step in step_list %}
+    {#               #}
+    {# exercise page #}
+    {#               #}
     {% if step.type == 'exercise' %}
         <li class="timer-step exercise-step"
             id="div-{{step.current_step}}"
@@ -303,14 +326,14 @@ $(document).ready(function() {
 
             <div class="ui-grid-a bottom_buttons">
                 <div class="ui-block-a">
-                    <a class="next"
+                    <a class="next wide_link"
                        href="#"
                        data-role="button"
                        data-icon="forward"
                        data-iconpos="right">{% trans "Skip" %}</a>
                 </div>
                 <div class="ui-block-b">
-                    <a class="next save_log"
+                    <a class="next save_log wide_link"
                        href="#"
                        data-role="button"
                        data-icon="arrow-r"
@@ -322,6 +345,10 @@ $(document).ready(function() {
                 <span style="width: {{step.step_percent|stringformat:'f'}}%;"></span>
             </div>
         </li>
+
+    {#            #}
+    {# pause page #}
+    {#            #}
     {% else %}
         <li class="timer-step pause-step"
             id="div-{{step.current_step}}"
@@ -357,7 +384,7 @@ $(document).ready(function() {
                 </div>
             </div>
 
-            <a class="next bottom_button"
+            <a class="next bottom_button wide_link"
                href="#"
                data-role="button"
                data-icon="forward"
@@ -369,21 +396,82 @@ $(document).ready(function() {
         </li>
     {% endif %}
 {% endfor %}
+
+{#           #}
+{# last page #}
+{#           #}
 <li class="timer-step" id="workout-complete">
     <h2>{% trans "Workout complete!" %}</h2>
 
     <div class="filler_div">
+        <form action="{{ form_action }}" id="session-form">
+            {% csrf_token %}
+            {{ session_form.time_start }}
+            {{ session_form.time_end }}
+            {{ session_form.user }}
+
+            <div data-role="popup"
+                 id="info-{{session_form.notes.auto_id}}"
+                 data-overlay-theme="a">
+                <div data-role="header">
+                     <h4>{% trans "Info" %}</h4>
+                </div>
+                <div role="main" class="ui-content">
+                    {% trans session_form.notes.help_text %}
+                </div>
+            </div>
+            <label for="{{session_form.notes.auto_id}}">
+                <a href="#info-{{session_form.notes.auto_id}}"
+                   class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-icon-info ui-btn-icon-notext"
+                   data-rel="popup"></a>
+                {% trans session_form.notes.label %}
+            </label>
+            {{ session_form.notes }}
+
+            <div data-role="popup"
+                 id="info-{{session_form.impression.auto_id}}"
+                 data-overlay-theme="a">
+                <div data-role="header">
+                     <h4>{% trans "Info" %}</h4>
+                </div>
+                <div role="main" class="ui-content">
+                    {% trans session_form.impression.help_text %}
+                </div>
+            </div>
+            <label for="{{session_form.impression.auto_id}}">
+                <a href="#info-{{session_form.impression.auto_id}}"
+                   class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-icon-info ui-btn-icon-notext"
+                   data-rel="popup"></a>
+                {% trans session_form.impression.label %}
+            </label>
+            {{ session_form.impression }}
+        </form>
     </div>
 
     <div class="sub_header">
         <h2><strong>{% trans "Time" %}:</strong> <span id="total_time">MM:SS</span></h2>
     </div>
 
-    <a class="bottom_button"
-       href="{% url 'dashboard' %}"
-       data-role="button"
-       data-ajax="false"
-       data-iconpos="right">{% trans "Dashboard" %}</a>
+    <div class="ui-grid-a bottom_buttons">
+        <div class="ui-block-a">
+            <a href="{% url 'dashboard' %}"
+               class="wide_link"
+               data-role="button"
+               data-icon="arrow-r"
+               data-ajax="false"
+               data-iconpos="right">{% trans "Dashboard" %}</a>
+        </div>
+        <div class="ui-block-b">
+            <a href=""
+               id="save_button_form"
+               class="wide_link"
+               data-role="button"
+               data-icon="check"
+               data-ajax="false"
+               data-iconpos="right">{% trans "Save" %}</a>
+        </div>
+    </div>
+
 
     <div id="progress-{{step.current_step}}" class="progress-bar">
         <span style="width: 100%;"></span>

@@ -33,9 +33,9 @@
 {% csrf_token %}
 
 {% if form.non_field_errors %}
-<div class="ym-fbox-text ym-error">
+<div class="form-error">
     {% for error in form.non_field_errors %}
-        <p class="ym-message">{% trans error %}</p>
+        <p class="form-error-message">{% trans error %}</p>
     {% endfor %}
 </div>
 {% endif %}

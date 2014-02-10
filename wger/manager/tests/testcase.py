@@ -65,6 +65,7 @@ class BaseTestCase(object):
                 'test-ingredients',
                 'test-nutrition-data',
                 'test-workout-data',
+                'test-workout-session',
                 'test-schedules')
     current_user = 'anonymous'
     is_mobile = False
