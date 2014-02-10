@@ -235,8 +235,7 @@ def search(request):
         data = json.dumps(results)
 
         # Return the results to the server
-        mimetype = 'application/json'
-        return HttpResponse(data, mimetype)
+        return HttpResponse(data, content_type='application/json')
 
     # Usual search (perhaps JS disabled), present the results as normal HTML page
     else:

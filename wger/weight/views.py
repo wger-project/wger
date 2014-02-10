@@ -118,7 +118,7 @@ def export_csv(request):
     '''
 
     # Prepare the response headers
-    response = HttpResponse(mimetype='text/csv')
+    response = HttpResponse(content_type='text/csv')
 
     # Convert all weight data to CSV
     writer = csv.writer(response)
@@ -189,8 +189,7 @@ def get_weight_data(request):
                            'id': i.id})
 
     # Return the results to the server
-    mimetype = 'application/json'
-    return HttpResponse(json.dumps(chart_data), mimetype)
+    return HttpResponse(json.dumps(chart_data), content_type='application/json')
 
 
 CSV_DATE_FORMAT = (('%d.%m.%Y', 'DD.MM.YYYY (30.01.2012)'),

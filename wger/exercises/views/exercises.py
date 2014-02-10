@@ -350,6 +350,5 @@ def search(request):
         results.append(exercise_json)
     data = json.dumps(results)
 
-    # Return the results to the server
-    mimetype = 'application/json'
-    return HttpResponse(data, mimetype)
+    # Return the results to the client
+    return HttpResponse(data, content_type='application/json')

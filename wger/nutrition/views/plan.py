@@ -169,7 +169,7 @@ def export_pdf(request, id):
     plan_data = plan.get_nutritional_values()
 
     # Create the HttpResponse object with the appropriate PDF headers.
-    response = HttpResponse(mimetype='application/pdf')
+    response = HttpResponse(content_type='application/pdf')
 
     # Create the PDF object, using the response object as its "file."
     doc = SimpleDocTemplate(response,

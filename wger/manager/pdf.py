@@ -46,7 +46,7 @@ def workout_log(request, id):
     '''
 
     # Create the HttpResponse object with the appropriate PDF headers.
-    response = HttpResponse(mimetype='application/pdf')
+    response = HttpResponse(content_type='application/pdf')
 
     #Load the workout
     workout = get_object_or_404(Workout, pk=id, user=request.user)

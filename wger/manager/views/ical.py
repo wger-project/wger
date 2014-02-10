@@ -118,7 +118,7 @@ def export(request, pk):
     get_events_workout(calendar, workout, request.user.userprofile.workout_duration)
 
     # Send the file to the user
-    response = HttpResponse(mimetype='text/calendar')
+    response = HttpResponse(content_type='text/calendar')
     response['Content-Disposition'] = \
         'attachment; filename=Calendar-workout-{0}.ics'.format(workout.pk)
     response.write(calendar.to_ical())
@@ -145,7 +145,7 @@ def export_schedule(request, pk):
         start_date = start_date + datetime.timedelta(weeks=step.duration)
 
     # Send the file to the user
-    response = HttpResponse(mimetype='text/calendar')
+    response = HttpResponse(content_type='text/calendar')
     response['Content-Disposition'] = \
         'attachment; filename=Calendar-schedule-{0}.ics'.format(schedule.pk)
     response.write(calendar.to_ical())
