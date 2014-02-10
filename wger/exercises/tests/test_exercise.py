@@ -292,7 +292,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
                                     {'category': 1,
                                      'name': 'my test exercise',
                                      'muscles': []})
-        self.assertTrue(response.context['form'].errors['muscles'])
+        self.assertFalse(response.context['form'].errors.get('muscles'))
 
         # No muscles - editing
         response = self.client.post(reverse('exercise-edit', kwargs={'pk': '1'}),
@@ -300,7 +300,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
                                      'name': 'my test exercise',
                                      'muscles': []})
         if admin:
-            self.assertTrue(response.context['form'].errors['muscles'])
+            self.assertFalse(response.context['form'].errors.get('muscles'))
         else:
             self.assertIn(response.status_code, STATUS_CODES_FAIL)
 

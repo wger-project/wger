@@ -16,7 +16,7 @@
 
 from django.core.management.base import BaseCommand
 
-from wger.exercises.models import ExerciseCategory
+from wger.exercises.models import ExerciseCategory, Muscle
 from wger.exercises.models import Equipment
 
 
@@ -38,3 +38,8 @@ class Command(BaseCommand):
         for equipment in Equipment.objects.all():
             self.stdout.write('msgid "{0}"\n'
                               'msgstr ""\n\n'.format(equipment))
+
+        # Muscles
+        for muscle in Muscle.objects.all():
+            self.stdout.write('msgid "{0}"\n'
+                              'msgstr ""\n\n'.format(muscle))

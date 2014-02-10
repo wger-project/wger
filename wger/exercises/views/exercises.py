@@ -25,6 +25,7 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.forms import ModelForm
 from django.forms import ModelChoiceField
+from django.forms import ModelMultipleChoiceField
 from django.core import mail
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
@@ -37,12 +38,14 @@ from django.views.generic import ListView
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
+
 from easy_thumbnails.files import get_thumbnailer
 from easy_thumbnails.alias import aliases
 
 from wger.manager.models import WorkoutLog
-from wger.exercises.models import Exercise
+from wger.exercises.models import Exercise, Muscle
 from wger.exercises.models import ExerciseCategory
+from wger.exercises.widgets import MuscleTranslatedSelectMultiple
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
@@ -153,9 +156,9 @@ class ExercisesEditAddView(WgerFormMixin):
 
     form_fields = ['name',
                    'category',
+                   'description',
                    'muscles',
                    'muscles_secondary',
-                   'description',
                    'equipment']
 
     title = ugettext_lazy('Add exercise')
@@ -168,9 +171,15 @@ class ExercisesEditAddView(WgerFormMixin):
         # have we access to the currently used language. In other places Django defaults
         # to 'en-us'.
         class ExerciseForm(ModelForm):
-            #language = load_language()
             category = ModelChoiceField(queryset=ExerciseCategory.objects.all(),
                                         widget=TranslatedSelect())
+            muscles = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
+                                               widget=MuscleTranslatedSelectMultiple(),
+                                               required=False)
+
+            muscles_secondary = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
+                                                         widget=MuscleTranslatedSelectMultiple(),
+                                                         required=False)
 
             class Meta:
                 model = Exercise
@@ -191,9 +200,8 @@ class ExerciseUpdateView(ExercisesEditAddView, UpdateView, WgerPermissionMixin):
 
     def form_valid(self, form):
         '''
-        Set the user field, otherwise it will get reset to Null
+        Set the user
         '''
-
         form.instance.user = Exercise.objects.get(pk=self.object.id).user
         return super(ExerciseUpdateView, self).form_valid(form)
 
@@ -216,9 +224,9 @@ class ExerciseAddView(ExercisesEditAddView, CreateView, WgerPermissionMixin):
     def form_valid(self, form):
         '''
         Set the user that submitted the exercise
-        '''
 
-        # set the submitter, if admin, set approrpiate status
+        If admin, set appropriate status
+        '''
         form.instance.user = self.request.user.username
         form.instance.language = load_language()
         if self.request.user.has_perm('exercises.add_exercise'):
@@ -254,10 +262,11 @@ class ExerciseDeleteView(WgerDeleteMixin, DeleteView):
     messages = ugettext_lazy('Exercise successfully deleted')
     permission_required = 'exercises.delete_exercise'
 
-    # Send some additional data to the template
     def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
         context = super(ExerciseDeleteView, self).get_context_data(**kwargs)
-
         context['title'] = _('Delete exercise %s?') % self.object.name
         context['form_action'] = reverse('exercise-delete', kwargs={'pk': self.kwargs['pk']})
 

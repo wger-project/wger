@@ -200,15 +200,15 @@ class Exercise(models.Model):
 
     muscles = models.ManyToManyField(Muscle,
                                      verbose_name=_('Primary muscles'),
-                                     )
+                                     null=True,
+                                     blank=True)
     '''Main muscles trained by the exercise'''
 
     muscles_secondary = models.ManyToManyField(Muscle,
                                                verbose_name=_('Secondary muscles'),
                                                related_name='secondary_muscles',
                                                null=True,
-                                               blank=True
-                                               )
+                                               blank=True)
     '''Secondary muscles trained by the exercise'''
 
     equipment = models.ManyToManyField(Equipment,
