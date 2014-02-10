@@ -41,11 +41,7 @@
 
 <table>
     {% for current_field in form_fields %}
-        {% if current_field.name in select_lists %}
-            {% yaml_form_field current_field "ym-fbox-select" %}
-        {% else %}
-            {% yaml_form_field current_field %}
-        {% endif %}
+        {% yaml_form_field current_field %}
     {% endfor %}
     <tr>
         <td colspan="2">

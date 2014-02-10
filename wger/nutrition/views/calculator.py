@@ -46,11 +46,7 @@ def view(request):
 
     context = {}
     context['form'] = BmrForm(initial=form_data)
-    context['select_lists'] = 'gender'
     context['form_activities'] = PhysicalActivitiesForm(instance=request.user.userprofile)
-    context['select_lists_activities'] = ('work_intensity',
-                                          'sport_intensity',
-                                          'freetime_intensity')
     context['form_calories'] = DailyCaloriesForm(instance=request.user.userprofile)
 
     return render_to_response('rate/form.html',

@@ -54,7 +54,6 @@ class ExerciseImageEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     def get_context_data(self, **kwargs):
         context = super(ExerciseImageEditView, self).get_context_data(**kwargs)
         context['enctype'] = 'multipart/form-data'
-        context['select_lists'] = ('license', )
         context['form_action'] = reverse('exerciseimage-edit',
                                          kwargs={'pk': self.object.id})
 
@@ -83,7 +82,6 @@ class ExerciseImageAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
         '''
         context = super(ExerciseImageAddView, self).get_context_data(**kwargs)
         context['enctype'] = 'multipart/form-data'
-        context['select_lists'] = ('license', )
         context['form_action'] = reverse('exerciseimage-add',
                                          kwargs={'exercise_pk': self.kwargs['exercise_pk']})
 

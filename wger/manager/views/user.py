@@ -160,7 +160,6 @@ def preferences(request):
 
     template_data['form'] = form
     template_data['email_form'] = email_form
-    template_data['select_lists'] = ('notification_language',)
 
     if redirect:
         messages.success(request, _('Settings successfully updated'))

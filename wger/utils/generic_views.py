@@ -17,7 +17,6 @@
 import logging
 import bleach
 
-from django.forms import models
 from django.utils.translation import ugettext_lazy
 from django.contrib import messages
 from django.core.urlresolvers import reverse
@@ -25,13 +24,13 @@ from django.core.urlresolvers import reverse_lazy
 from django.core.context_processors import csrf
 from django.views.generic.edit import ModelFormMixin
 from django.views.generic import TemplateView
-
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
 
 from wger.utils.constants import HTML_TAG_WHITELIST
 from wger.utils.constants import HTML_ATTRIBUTES_WHITELIST
 from wger.utils.constants import HTML_STYLES_WHITELIST
+
 
 logger = logging.getLogger('wger.custom')
 
@@ -138,13 +137,6 @@ class WgerFormMixin(ModelFormMixin, WgerPermissionMixin):
         # Use the the order as defined in the model
         else:
             context['form_fields'] = kwargs['form']
-
-        # Drop down lists get a special CSS class
-        select_list = []
-        for i in context['form_fields']:
-            if isinstance(i.field, models.ModelChoiceField):
-                select_list.append(i.name)
-        context['select_lists'] = select_list
 
         # Custom JS code on form (autocompleter, editor, etc.)
         context['custom_js'] = self.custom_js

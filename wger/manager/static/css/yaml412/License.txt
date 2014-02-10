@@ -1,0 +1,36 @@
+/**
+ * "Yet Another Multicolumn Layout" - YAML CSS Framework
+ *
+ * License Information
+ *
+ * @copyright       Copyright 2005-2013, Dirk Jesse
+ * @license         CC-BY 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                  YAML-CDL (http://www.yaml.de/license.html)
+ * @link            http://www.yaml.de
+ */
+
+YAML under Creative Commons License (CC-BY 2.0)
+===============================================
+
+The YAML framework is published under the Creative Commons Attribution 2.0 License (CC-BY 2.0), which permits
+both private and commercial use (http://creativecommons.org/licenses/by/2.0/).
+
+Condition: For the free use of the YAML framework, a backlink to the YAML homepage (http://www.yaml.de) in a
+suitable place (e.g.: footer of the website or in the imprint) is required.
+
+In general it would be nice to get a short note when new YAML-based projects are released. If you are highly
+pleased with YAML, perhaps you would like to take a look at my Amazon wish list?
+https://www.amazon.de/gp/registry/wishlist/108Q0YYJ49UC2/
+
+YAML under Commercial Distribution License (YAML-CDL)
+=====================================================
+
+If you are a commercial software developer and you want to release your software under a license that doesn't
+fit to the Creative Commons Attribution 2.0 License], you may purchase a commercial license. We offer the
+following commercial license models:
+
+- Project Related License
+- General License
+- OEM License
+
+Full license texts and contact information are available at: http://www.yaml.de/license.html
