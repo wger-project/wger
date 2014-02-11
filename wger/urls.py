@@ -65,6 +65,7 @@ sitemaps = {'exercises': ExercisesSitemap,
 #
 urlpatterns = i18n_patterns('',
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^', include('wger.core.urls', namespace='core', app_name='core')),
     url(r'^', include('wger.manager.urls')),
     url(r'exercise/', include('wger.exercises.urls')),
     url(r'weight/', include('wger.weight.urls')),

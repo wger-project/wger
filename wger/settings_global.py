@@ -194,6 +194,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 
     # Apps from workout manager
+    'wger.core',
     'wger.manager',
     'wger.weight',
     'wger.exercises',
