@@ -15,6 +15,10 @@ from wger.manager.views.day import DayCreateView
 from wger.manager.views import misc
 from wger.manager.views import ical
 from wger.manager.views import user
+from wger.manager.views import workout
+from wger.manager.views import log
+from wger.manager.views import set
+from wger.manager.views import day
 from wger.manager.views import workout_session
 
 from wger.utils.constants import USER_TAB
@@ -24,40 +28,40 @@ urlpatterns = patterns('wger.manager.views',
 
     # The landing page
     url(r'^$',
-        'misc.index',
+        misc.index,
         name='index'),
 
     # The dashboard
     url(r'^dashboard$',
-        'misc.dashboard',
+        misc.dashboard,
         name='dashboard'),
 
     # User
     url(r'^user/logout$',
-        'user.logout',
+        user.logout,
         name='logout'),
     url(r'^user/registration$',
-        'user.registration',
+        user.registration,
         name='registration'),
     url(r'^user/preferences$',
-        'user.preferences',
+        user.preferences,
         name='preferences'),
     url(r'^user/demo-entries$',
-        'misc.demo_entries',
+        misc.demo_entries,
         name='demo-entries'),
     url(r'^user/api-key$',
-        'user.api_key',
+        user.api_key,
         name='api-key'),
 
     # Workout
     url(r'^workout/overview$',
-        'workout.overview',
+        workout.overview,
         name='workout-overview'),
     url(r'^workout/add$',
-        'workout.add',
+        workout.add,
         name='workout-add'),
     url(r'^workout/(?P<pk>\d+)/copy/$',
-        'workout.copy_workout',
+        workout.copy_workout,
         name='workout-copy'),
     url(r'^workout/(?P<pk>\d+)/edit/$',
         WorkoutEditView.as_view(),
@@ -78,10 +82,10 @@ urlpatterns = patterns('wger.manager.views',
         WorkoutLogAddView.as_view(),
         name='workout-log-add'),
     url(r'^workout/calendar$',
-        'log.calendar',
+        log.calendar,
         name='workout-calendar'),
     url(r'^workout/calendar/(?P<year>\d{4})-(?P<month>\d{1,2})$',
-        'log.calendar',
+        log.calendar,
         name='workout-calendar'),
     url(r'^workout/(?P<pk>\d+)/ical$',
         ical.export,
@@ -97,18 +101,18 @@ urlpatterns = patterns('wger.manager.views',
 
     # Timer
     url(r'^workout/(?P<day_pk>\d+)/timer$',
-        'workout.timer',
+        workout.timer,
         name='workout-timer'),
 
     # Schedules
     url(r'^workout/schedule/overview$',
-        'schedule.overview',
+        schedule.overview,
         name='schedule-overview'),
     url(r'^workout/schedule/add$',
         schedule.ScheduleCreateView.as_view(),
         name='schedule-add'),
     url(r'^workout/schedule/(?P<pk>\d+)/view/$',
-        'schedule.view',
+        schedule.view,
         name='schedule-view'),
     url(r'^workout/schedule/(?P<pk>\d+)/edit/$',
         schedule.ScheduleEditView.as_view(),
@@ -120,7 +124,7 @@ urlpatterns = patterns('wger.manager.views',
         ical.export_schedule,
         name='schedule-ical'),
     url(r'^workout/schedule/api/(?P<pk>\d+)/edit$',
-        'schedule.edit_step_api',
+        schedule.edit_step_api,
         name='schedule-edit-api'),
 
     # Schedule steps
@@ -142,28 +146,28 @@ urlpatterns = patterns('wger.manager.views',
         login_required(DayCreateView.as_view()),
         name='day-add'),
     url(r'^workout/day/(?P<pk>\d+)/delete/$',
-        'day.delete',
+        day.delete,
         name='day-delete'),
     url(r'^workout/day/(?P<id>\d+)/view/$', 'day.view'),
     url(r'^workout/day/(?P<pk>\d+)/log/add/$',
-        'log.add',
+        log.add,
         name='day-log'),
 
     # Sets and Settings
     url(r'^workout/day/(?P<day_pk>\d+)/set/add/$',
-        'set.create',
+        set.create,
         name='set-add'),
     url(r'^workout/get-formset/(?P<exercise_pk>\d+)/(?P<reps>\d+)/',
-        'set.get_formset',
+        set.get_formset,
         name='set-get-formset'),  # Used by JS
     url(r'^workout/set/(?P<pk>\d+)/delete$', 'set.delete'),
     url(r'^workout/set/(?P<pk>\d+)/edit/$',
-        'set.edit',
+        set.edit,
         name='set-edit'),
 
     # AJAX
-    url(r'^workout/api/edit-set$', 'set.api_edit_set'),
-    url(r'^workout/api/user-preferences$', 'user.api_user_preferences'),
+    url(r'^workout/api/edit-set$', set.api_edit_set),
+    url(r'^workout/api/user-preferences$', user.api_user_preferences),
 
     # Others
     url(r'^about$',
@@ -191,8 +195,7 @@ urlpatterns = urlpatterns + patterns('',
     url(r'^user/password/change$',
         'django.contrib.auth.views.password_change',
         {'template_name': 'user/change_password.html',
-          'post_change_redirect': reverse_lazy('preferences'),
-          'extra_context': {'active_tab': USER_TAB}},
+          'post_change_redirect': reverse_lazy('preferences')},
         name='change-password'),
 
     url(r'^user/password/reset/$',

@@ -30,8 +30,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as django_login
 
 from wger.manager import forms
-from wger.manager.demo import create_demo_entries
-from wger.manager.demo import create_temporary_user
+from wger.core.demo import create_demo_entries
+from wger.core.demo import create_temporary_user
 from wger.manager.models import DaysOfWeek
 from wger.manager.models import Schedule
 from wger.nutrition.models import NutritionPlan
