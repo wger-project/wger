@@ -32,7 +32,7 @@ class MuscleTranslatedSelectMultiple(SelectMultiple):
 
         # There is a translation, show both
         else:
-            out_string = '{0} - {1}'.format(option_label, _(option_label))
+            out_string = u'{0} - {1}'.format(option_label, _(option_label))
 
         return super(MuscleTranslatedSelectMultiple, self).render_option(selected_choices,
                                                                          option_value,
