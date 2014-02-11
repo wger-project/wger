@@ -1,7 +1,6 @@
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
-from django.views.generic import TemplateView
 
 from wger.manager.views import schedule
 from wger.manager.views import schedule_step
@@ -12,7 +11,6 @@ from wger.manager.views.log import WorkoutLogAddView
 from wger.manager.views.log import WorkoutLogUpdateView
 from wger.manager.views.day import DayEditView
 from wger.manager.views.day import DayCreateView
-from wger.manager.views import misc
 from wger.manager.views import ical
 from wger.manager.views import user
 from wger.manager.views import workout
@@ -21,20 +19,8 @@ from wger.manager.views import set
 from wger.manager.views import day
 from wger.manager.views import workout_session
 
-from wger.utils.constants import USER_TAB
-
 
 urlpatterns = patterns('wger.manager.views',
-
-    # The landing page
-    url(r'^$',
-        misc.index,
-        name='index'),
-
-    # The dashboard
-    url(r'^dashboard$',
-        misc.dashboard,
-        name='dashboard'),
 
     # User
     url(r'^user/logout$',
@@ -46,9 +32,6 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^user/preferences$',
         user.preferences,
         name='preferences'),
-    url(r'^user/demo-entries$',
-        misc.demo_entries,
-        name='demo-entries'),
     url(r'^user/api-key$',
         user.api_key,
         name='api-key'),
@@ -168,17 +151,6 @@ urlpatterns = patterns('wger.manager.views',
     # AJAX
     url(r'^workout/api/edit-set$', set.api_edit_set),
     url(r'^workout/api/user-preferences$', user.api_user_preferences),
-
-    # Others
-    url(r'^about$',
-        TemplateView.as_view(template_name="misc/about.html"),
-        name='about'),
-    url(r'^contact$',
-        misc.ContactClassView.as_view(template_name="misc/contact.html"),
-        name='contact'),
-    url(r'^feedback$',
-        misc.FeedbackClass.as_view(),
-        name='feedback'),
 )
 
 # PDF stuff is in a different file

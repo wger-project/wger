@@ -49,7 +49,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         Tests that the helper function creates demo data (workout, etc.)
         for the demo users
         '''
-        self.client.get(reverse('dashboard'))
+        self.client.get(reverse('core:dashboard'))
         self.assertEqual(self.count_temp_users(), 2)
         user = User.objects.get(pk=4)
         self.assertEqual(user.userprofile.is_temporary, True)
@@ -77,7 +77,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         Tests that the helper function that creates demo data filters out
         existing dates for the weight entries
         '''
-        self.client.get(reverse('dashboard'))
+        self.client.get(reverse('core:dashboard'))
         self.assertEqual(self.count_temp_users(), 2)
         user = User.objects.get(pk=4)
 
@@ -116,12 +116,12 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         self.assertEqual(self.count_temp_users(), 1)
 
         # These pages will create one
-        self.client.get(reverse('dashboard'))
+        self.client.get(reverse('core:dashboard'))
         self.assertEqual(self.count_temp_users(), 2)
 
         # The new user is automatically logged in, so no new user is created
         # after the first visit
-        self.client.get(reverse('dashboard'))
+        self.client.get(reverse('core:dashboard'))
         self.assertEqual(self.count_temp_users(), 2)
 
         # Try some other pages
@@ -143,7 +143,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         '''
         demo_notice_text = 'You are using a guest account'
         self.user_login('demo')
-        self.assertContains(self.client.get(reverse('dashboard')), demo_notice_text)
+        self.assertContains(self.client.get(reverse('core:dashboard')), demo_notice_text)
         self.assertContains(self.client.get(reverse('workout-overview')),
                             demo_notice_text)
         self.assertContains(self.client.get(reverse('exercise-overview')),

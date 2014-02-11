@@ -79,7 +79,7 @@ def registration(request):
 
     # Redirect regular users, in case they reached the registration page
     if request.user.is_authenticated() and not request.user.userprofile.is_temporary:
-        return HttpResponseRedirect(reverse('dashboard'))
+        return HttpResponseRedirect(reverse('core:dashboard'))
 
     if request.method == 'POST':
         form = FormClass(data=request.POST)
@@ -102,7 +102,7 @@ def registration(request):
             user = authenticate(username=username, password=password)
             django_login(request, user)
             messages.success(request, _('You were successfully registered'))
-            return HttpResponseRedirect(reverse('dashboard'))
+            return HttpResponseRedirect(reverse('core:dashboard'))
     else:
         form = FormClass()
 

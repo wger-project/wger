@@ -49,7 +49,7 @@ def index(request):
     Index page
     '''
     if request.user.is_authenticated():
-        return HttpResponseRedirect(reverse('dashboard'))
+        return HttpResponseRedirect(reverse('core:dashboard'))
     else:
         return HttpResponseRedirect(reverse('software:features'))
 
@@ -73,7 +73,7 @@ def demo_entries(request):
                                     'logs, (body) weight and nutrition plan entries so you can '
                                     'better see what  this site can do. Feel free to edit or '
                                     'delete them!'))
-    return HttpResponseRedirect(reverse('dashboard'))
+    return HttpResponseRedirect(reverse('core:dashboard'))
 
 
 @login_required
@@ -138,7 +138,7 @@ class ContactClassView(TemplateView):
         context = super(ContactClassView, self).get_context_data(**kwargs)
         context.update({'contribute': reverse('software:contribute'),
                         'issues': reverse('software:issues'),
-                        'feedback': reverse('feedback')})
+                        'feedback': reverse('core:feedback')})
         return context
 
 
@@ -153,7 +153,7 @@ class FeedbackClass(FormView):
         context = super(FeedbackClass, self).get_context_data(**kwargs)
         context['title'] = _('Feedback')
         context['form_fields'] = kwargs['form']
-        context['form_action'] = reverse('feedback')
+        context['form_action'] = reverse('core:feedback')
         context['submit_text'] = _('Send')
         context['contribute_url'] = reverse('software:contribute')
         return context

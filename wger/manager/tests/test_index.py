@@ -32,7 +32,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
         Helper function to test the dashboard
         '''
 
-        response = self.client.get(reverse('index'))
+        response = self.client.get(reverse('core:index'))
 
         # Everybody is redirected
         self.assertEqual(response.status_code, 302)
@@ -42,7 +42,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
         Workout.objects.all().delete()
         WeightEntry.objects.all().delete()
 
-        response = self.client.get(reverse('dashboard'))
+        response = self.client.get(reverse('core:dashboard'))
         # There is something to send to the template
         self.assertEqual(response.status_code, 200)
         self.assertFalse(response.context['weight'])
@@ -54,7 +54,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
         # 1. Add a workout
         #
         self.client.get(reverse('workout-add'))
-        response = self.client.get(reverse('dashboard'))
+        response = self.client.get(reverse('core:dashboard'))
 
         self.assertEqual(response.status_code, 200)
         self.assertFalse(response.context['weight'])
@@ -66,7 +66,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
         # 2. Add a nutrition plan
         #
         self.client.get(reverse('nutrition-add'))
-        response = self.client.get(reverse('dashboard'))
+        response = self.client.get(reverse('core:dashboard'))
 
         self.assertEqual(response.status_code, 200)
         self.assertFalse(response.context['weight'])
@@ -81,7 +81,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
                          {'weight': 100,
                           'creation_date': '2012-01-01',
                           'user': 1},)
-        response = self.client.get(reverse('dashboard'))
+        response = self.client.get(reverse('core:dashboard'))
 
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context['weight'])

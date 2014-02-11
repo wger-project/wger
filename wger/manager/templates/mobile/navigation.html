@@ -21,7 +21,7 @@
         <a href="#" data-rel="close">{% trans "Close" %}</a>
     </li>
     <li data-theme="c"  style="margin-top:1.5em;">
-        <a href="{% url 'index' %}">{% trans "Dashboard" %}</a>
+        <a href="{% url 'core:index' %}">{% trans "Dashboard" %}</a>
     </li>
 </ul>
 
@@ -130,8 +130,8 @@
             {% endif %}
 
             {# Contact #}
-            <li><a href="{% url 'contact' %}">{% trans "Get in touch" %}</a></li>
-            <li><a href="{% url 'about' %}">{% trans "About" %}</a></li>
+            <li><a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a></li>
+            <li><a href="{% url 'core:about' %}">{% trans "About" %}</a></li>
 
             {# Site version #}
             <li><a href="?flavour=full" data-ajax="false">{% trans "Desktop version" %}</a></li>

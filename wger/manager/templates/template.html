@@ -109,7 +109,7 @@
             <a href="{% url 'wger.manager.views.user.registration' %}">{% trans "Register" %}</a>
         {% endif %}
         |
-        <a href="{% url 'contact' %}">{% trans "Get in touch" %}</a>
+        <a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a>
         |
 
         {# Render the links to the other languages #}
@@ -146,7 +146,7 @@
                     <div class="abox ainfo" style="padding:0.6em; margin: 0em 0em 1em 0em;text-align:center;font-size:95%;">
                     {% trans "You are using a guest account, data entered will be deleted after a week."%}
                     {% if not has_demo_data %}
-                    <a href="{% url 'demo-entries' %}" rel="nofollow" class="btn btn-success btn-small">{% trans "Create some demo entries" %} »</a>
+                    <a href="{% url 'core:demo-entries' %}" rel="nofollow" class="btn btn-success btn-small">{% trans "Create some demo entries" %} »</a>
                     {% endif %}
                     </div>
                 {% endif %}
@@ -173,9 +173,9 @@
             </div>
             <div class="ym-g80 ym-gl">
                 <div class="ym-gbox-left">
-                <a href="{% url 'about' %}">{% trans "About" %}</a>
+                <a href="{% url 'core:about' %}">{% trans "About" %}</a>
                 | <a href="{% url 'software:contribute' %}">{% trans "Contribute!" %}</a>
-                | <a href="{% url 'contact' %}">{% trans "Get in touch" %}</a>
+                | <a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a>
                 | <a href="?flavour=mobile">{% trans "Mobile version" %}</a>
                 </div>
             </div>
