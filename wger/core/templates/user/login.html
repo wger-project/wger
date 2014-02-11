@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block content %}
-<form action="{% url 'login' %}"
+<form action="{% url 'core:login' %}"
       method="post"
       class="ym-form">
       {% csrf_token %}
@@ -61,7 +61,7 @@
 {% block sidebar %}
 <h3>{% trans "No account?" %}</h3>
 <p>
-    <a href="{% url 'wger.manager.views.user.registration' %}">
+    <a href="{% url 'core:registration' %}">
         <img src="{% static 'images/icons/register.svg' %}"
              width="32"
              height="32"
@@ -71,7 +71,7 @@
 
 <h3>{% trans "Forgot password?" %}</h3>
 <p>
-    <a href="{% url 'django.contrib.auth.views.password_reset' %}">
+    <a href="{% url 'core:password_reset' %}">
         <img src="{% static 'images/icons/reset-password.svg' %}"
              width="32"
              height="32"

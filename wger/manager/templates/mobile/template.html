@@ -66,7 +66,7 @@
             </div>
             <div role="main" class="ui-content">
             {% trans "You are using a guest account, data entered will be deleted after a week."%}
-            <a href="{% url 'wger.manager.views.user.registration' %}"
+            <a href="{% url 'core:registration' %}"
                rel="nofollow"
                data-role="button"
                data-mini="true"
@@ -117,7 +117,7 @@
         <ul>
             <li>
             {% if not user.is_authenticated %}
-                <a href="{% url 'login' %}" data-ajax="false">{% trans "Login" %}</a>
+                <a href="{% url 'core:login' %}" data-ajax="false">{% trans "Login" %}</a>
             {% else %}
                 <a href="{% url 'core:index' %}">{% trans "Dashboard" %}</a>
             {% endif %}

@@ -123,7 +123,7 @@
             {# Preferences #}
             {% if user.is_authenticated and not user.userprofile.is_temporary %}
             <li>
-                <a href="{% url 'wger.manager.views.user.preferences' %}">
+                <a href="{% url 'core:preferences' %}">
                 {% trans "Preferences" %}
                 </a>
             </li>
@@ -147,7 +147,7 @@
             {# Logout #}
             {% if user.is_authenticated and not user.userprofile.is_temporary %}
             <li>
-                <a href="{% url 'logout' %}" data-ajax="false" class="browserid-logout">{% trans "Logout" %}</a>
+                <a href="{% url 'core:logout' %}" data-ajax="false" class="browserid-logout">{% trans "Logout" %}</a>
             </li>
             {% endif %}
         </ul>
@@ -170,10 +170,10 @@
 
 <ul data-role="listview" data-inset="false" style="margin-top:2em;" data-theme="c">
     <li>
-        <a href="{% url 'login' %}">{% trans "Login" %}</a>
+        <a href="{% url 'core:login' %}">{% trans "Login" %}</a>
     </li>
     <li>
-        <a href="{% url 'wger.manager.views.user.registration' %}" data-ajax="false">{% trans "Register" %}</a>
+        <a href="{% url 'core:registration' %}" data-ajax="false">{% trans "Register" %}</a>
     </li>
 </ul>
 {% endif %}

@@ -38,7 +38,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
         '''
 
         self.user_login('test')
-        response = self.client.get(reverse('preferences'))
+        response = self.client.get(reverse('core:preferences'))
 
         profile = User.objects.get(username='test').userprofile
         self.assertFalse(profile.show_comments)
@@ -47,7 +47,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
         self.assertTemplateUsed('preferences.html')
 
         # Change some preferences
-        response = self.client.post(reverse('preferences'),
+        response = self.client.post(reverse('core:preferences'),
                                     {'show_comments': True,
                                      'show_english_ingredients': True,
                                      'email': 'my-new-email@example.com',
@@ -59,7 +59,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
                                      'timer_pause': 100})
 
         self.assertEqual(response.status_code, 302)
-        response = self.client.get(reverse('preferences'))
+        response = self.client.get(reverse('core:preferences'))
         profile = User.objects.get(username='test').userprofile
         self.assertTrue(profile.show_english_ingredients)
         self.assertTrue(profile.workout_reminder_active)
@@ -68,7 +68,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
         self.assertEqual(User.objects.get(username='test').email, 'my-new-email@example.com')
 
         # Change some preferences
-        response = self.client.post(reverse('preferences'),
+        response = self.client.post(reverse('core:preferences'),
                                     {'show_comments': False,
                                      'show_english_ingredients': True,
                                      'email': '',
@@ -80,7 +80,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
                                      'timer_pause': 40})
 
         self.assertEqual(response.status_code, 302)
-        response = self.client.get(reverse('preferences'))
+        response = self.client.get(reverse('core:preferences'))
         profile = response.context['user'].userprofile
         self.assertFalse(profile.show_comments)
         self.assertTrue(profile.show_english_ingredients)
@@ -178,7 +178,7 @@ class AjaxPreferencesTestCase(WorkoutManagerTestCase):
         '''
 
         # Set the 'show comments' option
-        response = self.client.get(reverse('wger.manager.views.user.api_user_preferences'),
+        response = self.client.get(reverse('core:user-api-preferences'),
                                    {'do': 'set_show-comments',
                                     'show': '1'},
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -186,14 +186,14 @@ class AjaxPreferencesTestCase(WorkoutManagerTestCase):
         self.assertEqual('Success', response.content)
         self.assertEqual(response.status_code, 200)
 
-        response = self.client.get(reverse('preferences'))
+        response = self.client.get(reverse('core:preferences'))
         profile = response.context['user'].userprofile
         self.assertTrue(profile.show_comments)
         self.assertFalse(profile.show_english_ingredients)
         self.assertEqual(response.context['user'].email, 'test@example.com')
 
         # Set the 'english ingredients' option
-        response = self.client.get(reverse('wger.manager.views.user.api_user_preferences'),
+        response = self.client.get(reverse('core:user-api-preferences'),
                                    {'do': 'set_english-ingredients',
                                     'show': '1'},
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -201,7 +201,7 @@ class AjaxPreferencesTestCase(WorkoutManagerTestCase):
         self.assertEqual('Success', response.content)
         self.assertEqual(response.status_code, 200)
 
-        response = self.client.get(reverse('preferences'))
+        response = self.client.get(reverse('core:preferences'))
         profile = response.context['user'].userprofile
         self.assertTrue(profile.show_comments)
         self.assertTrue(profile.show_english_ingredients)

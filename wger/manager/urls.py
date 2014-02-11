@@ -1,18 +1,9 @@
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse_lazy
 
 from wger.manager.views import schedule
 from wger.manager.views import schedule_step
-from wger.manager.views.workout import WorkoutEditView
-from wger.manager.views.workout import WorkoutDeleteView
-from wger.manager.views.log import WorkoutLogDetailView
-from wger.manager.views.log import WorkoutLogAddView
-from wger.manager.views.log import WorkoutLogUpdateView
-from wger.manager.views.day import DayEditView
-from wger.manager.views.day import DayCreateView
 from wger.manager.views import ical
-from wger.manager.views import user
 from wger.manager.views import workout
 from wger.manager.views import log
 from wger.manager.views import set
@@ -21,20 +12,6 @@ from wger.manager.views import workout_session
 
 
 urlpatterns = patterns('wger.manager.views',
-
-    # User
-    url(r'^user/logout$',
-        user.logout,
-        name='logout'),
-    url(r'^user/registration$',
-        user.registration,
-        name='registration'),
-    url(r'^user/preferences$',
-        user.preferences,
-        name='preferences'),
-    url(r'^user/api-key$',
-        user.api_key,
-        name='api-key'),
 
     # Workout
     url(r'^workout/overview$',
@@ -47,22 +24,22 @@ urlpatterns = patterns('wger.manager.views',
         workout.copy_workout,
         name='workout-copy'),
     url(r'^workout/(?P<pk>\d+)/edit/$',
-        WorkoutEditView.as_view(),
+        workout.WorkoutEditView.as_view(),
         name='workout-edit'),
     url(r'^workout/(?P<pk>\d+)/delete/$',
-        WorkoutDeleteView.as_view(),
+        workout.WorkoutDeleteView.as_view(),
         name='workout-delete'),
     url(r'^workout/(?P<id>\d+)/view/$',
         'workout.view',
         name='workout-view'),
     url(r'^workout/(?P<pk>\d+)/log/$',
-        WorkoutLogDetailView.as_view(),
+        log.WorkoutLogDetailView.as_view(),
         name='workout-log'),
     url(r'^workout/log/edit-entry/(?P<pk>\d+)$',
-        WorkoutLogUpdateView.as_view(),
+        log.WorkoutLogUpdateView.as_view(),
         name='workout-log-edit'),
     url(r'^workout/(?P<workout_pk>\d+)/log/add$',
-        WorkoutLogAddView.as_view(),
+        log.WorkoutLogAddView.as_view(),
         name='workout-log-add'),
     url(r'^workout/calendar$',
         log.calendar,
@@ -123,10 +100,10 @@ urlpatterns = patterns('wger.manager.views',
 
     # Days
     url(r'^workout/day/(?P<pk>\d+)/edit/$',
-        login_required(DayEditView.as_view()),
+        login_required(day.DayEditView.as_view()),
         name='day-edit'),
     url(r'^workout/(?P<workout_pk>\d+)/day/add/$',
-        login_required(DayCreateView.as_view()),
+        login_required(day.DayCreateView.as_view()),
         name='day-add'),
     url(r'^workout/day/(?P<pk>\d+)/delete/$',
         day.delete,
@@ -150,43 +127,9 @@ urlpatterns = patterns('wger.manager.views',
 
     # AJAX
     url(r'^workout/api/edit-set$', set.api_edit_set),
-    url(r'^workout/api/user-preferences$', user.api_user_preferences),
 )
 
 # PDF stuff is in a different file
 urlpatterns = urlpatterns + patterns('wger.manager.pdf',
      url(r'^workout/(?P<id>\d+)/pdf/$', 'workout_log'))
 
-# Password reset is implemented by Django, no need to cook our own soup here
-# (besides the templates)
-urlpatterns = urlpatterns + patterns('',
-    url(r'^user/login$',
-        user.login,
-        name='login'),
-
-    url(r'^user/password/change$',
-        'django.contrib.auth.views.password_change',
-        {'template_name': 'user/change_password.html',
-          'post_change_redirect': reverse_lazy('preferences')},
-        name='change-password'),
-
-    url(r'^user/password/reset/$',
-        'django.contrib.auth.views.password_reset',
-        {'template_name': 'user/password_reset_form.html'},
-        name='password_reset'),
-
-    url(r'^user/password/reset/done/$',
-        'django.contrib.auth.views.password_reset_done',
-        {'template_name': 'user/password_reset_done.html'},
-        name='password_reset_done'),
-
-    url(r'^user/password/reset/check/(?P<uidb36>[0-9A-Za-z]{1,13})-(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        'django.contrib.auth.views.password_reset_confirm',
-        {'template_name': 'user/password_reset_confirm.html'},
-        name='password_reset_confirm'),
-
-    url(r'^user/password/reset/complete/$',
-        'django.contrib.auth.views.password_reset_complete',
-        {'template_name': 'user/password_reset_complete.html'},
-        name='password_reset_complete'),
-    )

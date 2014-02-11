@@ -11,7 +11,7 @@
 {% block header %}{% endblock %}
 
 {% block content %}
-<form action="{% url 'login' %}"
+<form action="{% url 'core:login' %}"
       method="post"
       class="ym-form"
       data-ajax="false">
@@ -60,7 +60,7 @@
 {% block sidebar %}
 <h3>{% trans "No account?" %}</h3>
 <p>
-    <a href="{% url 'wger.manager.views.user.registration' %}"
+    <a href="{% url 'core:registration' %}"
        data-role="button"
        data-ajax="false">
         <img src="{% static 'images/icons/register.svg' %}"
@@ -72,7 +72,7 @@
 
 <h3>{% trans "Forgot password?" %}</h3>
 <p>
-    <a href="{% url 'django.contrib.auth.views.password_reset' %}" data-role="button">
+    <a href="{% url 'core:password_reset' %}" data-role="button">
         <img src="{% static 'images/icons/reset-password.svg' %}"
          width="32"
          height="32"

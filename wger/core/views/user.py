@@ -63,7 +63,7 @@ def logout(request):
     django_logout(request)
     if user.is_authenticated() and user.userprofile.is_temporary:
         user.delete()
-    return HttpResponseRedirect(reverse('login'))
+    return HttpResponseRedirect(reverse('core:login'))
 
 
 def registration(request):
@@ -109,7 +109,7 @@ def registration(request):
     template_data['form'] = form
     template_data['title'] = _('Register')
     template_data['form_fields'] = [i for i in form]
-    template_data['form_action'] = reverse('registration')
+    template_data['form_action'] = reverse('core:registration')
     template_data['submit_text'] = _('Register')
 
     return render(request, 'form.html', template_data)
@@ -158,7 +158,7 @@ def preferences(request):
 
     if redirect:
         messages.success(request, _('Settings successfully updated'))
-        return HttpResponseRedirect(reverse('preferences'))
+        return HttpResponseRedirect(reverse('core:preferences'))
     else:
         return render(request, 'user/preferences.html', template_data)
 
@@ -214,7 +214,7 @@ def api_key(request):
         key.save()
 
         # Redirect to get rid of the GET parameter
-        return HttpResponseRedirect(reverse('api-key'))
+        return HttpResponseRedirect(reverse('core:api-key'))
 
     context['key'] = key
 

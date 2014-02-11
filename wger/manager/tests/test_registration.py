@@ -30,7 +30,7 @@ class RegistrationTestCase(WorkoutManagerTestCase):
     def test_register(self):
 
         # Fetch the registration page
-        response = self.client.get(reverse('registration'))
+        response = self.client.get(reverse('core:registration'))
         self.assertEqual(response.status_code, 200)
 
         # Fill in the registration form
@@ -42,20 +42,20 @@ class RegistrationTestCase(WorkoutManagerTestCase):
         count_before = User.objects.count()
 
         # Wrong email
-        response = self.client.post(reverse('registration'), registration_data)
+        response = self.client.post(reverse('core:registration'), registration_data)
         self.assertFalse(response.context['form'].is_valid())
         self.user_logout()
 
         # Correct email
         registration_data['email'] = 'my.email@example.com'
-        response = self.client.post(reverse('registration'), registration_data)
+        response = self.client.post(reverse('core:registration'), registration_data)
         count_after = User.objects.count()
         self.assertEqual(response.status_code, 302)
         self.assertEqual(count_before + 1, count_after)
         self.user_logout()
 
         # Username already exists
-        response = self.client.post(reverse('registration'), registration_data)
+        response = self.client.post(reverse('core:registration'), registration_data)
         count_after = User.objects.count()
         self.assertFalse(response.context['form'].is_valid())
         self.assertEqual(response.status_code, 200)
@@ -63,7 +63,7 @@ class RegistrationTestCase(WorkoutManagerTestCase):
 
         # Email already exists
         registration_data['username'] = 'my.other.username'
-        response = self.client.post(reverse('registration'), registration_data)
+        response = self.client.post(reverse('core:registration'), registration_data)
         count_after = User.objects.count()
         self.assertFalse(response.context['form'].is_valid())
         self.assertEqual(response.status_code, 200)
@@ -71,13 +71,13 @@ class RegistrationTestCase(WorkoutManagerTestCase):
 
         # No email
         registration_data['email'] = ''
-        response = self.client.post(reverse('registration'), registration_data)
+        response = self.client.post(reverse('core:registration'), registration_data)
         count_after = User.objects.count()
         self.assertEqual(response.status_code, 302)
         self.assertEqual(count_before + 2, count_after)
 
         # Already logged in
-        response = self.client.post(reverse('registration'), registration_data)
+        response = self.client.post(reverse('core:registration'), registration_data)
         count_after = User.objects.count()
         self.assertEqual(response.status_code, 302)
         self.assertEqual(count_before + 2, count_after)

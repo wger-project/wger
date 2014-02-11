@@ -30,7 +30,7 @@ class ChangePasswordTestCase(WorkoutManagerTestCase):
     def change_password(self, fail=True):
 
         # Fetch the change passwort page
-        response = self.client.get(reverse('change-password'))
+        response = self.client.get(reverse('core:change-password'))
 
         if fail:
             self.assertEqual(response.status_code, 302)
@@ -42,7 +42,7 @@ class ChangePasswordTestCase(WorkoutManagerTestCase):
                      'new_password1': 'secret',
                      'new_password2': 'secret'}
 
-        response = self.client.post(reverse('change-password'), form_data)
+        response = self.client.post(reverse('core:change-password'), form_data)
         self.assertEqual(response.status_code, 302)
 
         # Check the new password was accepted

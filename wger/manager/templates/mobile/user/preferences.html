@@ -8,7 +8,7 @@
 
 
 {% block content %}
-<form action="{% url 'preferences' %}"
+<form action="{% url 'core:preferences' %}"
       method="post"
       class="ym-form">
       {% csrf_token %}
@@ -60,7 +60,7 @@
 {% block sidebar %}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url 'api-key' %}"
+    <a href="{% url 'core:api-key' %}"
        data-role="button">
     <img src="{% static 'images/icons/internet.svg' %}"
          width="32"
@@ -70,7 +70,7 @@
     {% trans "API key" %}</a>
 </p>
 <p>
-    <a href="{% url 'change-password' %}"
+    <a href="{% url 'core:change-password' %}"
        data-role="button">
     <img src="{% static 'images/icons/preferences.svg' %}"
          width="32"
@@ -80,7 +80,7 @@
     {% trans "Change password" %}</a>
 </p>
 <p>
-    <a href="{% url 'logout' %}"
+    <a href="{% url 'core:logout' %}"
        data-role="button"
        class="browserid-logout">
     <img src="{% static 'images/icons/logout.svg' %}"

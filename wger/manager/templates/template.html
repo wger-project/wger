@@ -91,7 +91,7 @@
     <div class="float-right" style="margin-right:1em;margin-top:0em;position:absolute;right:0px;">
 
         {% if user.is_authenticated and not user.userprofile.is_temporary %}
-            <a href="{% url 'wger.manager.views.user.preferences' %}">
+            <a href="{% url 'core:preferences' %}">
             {% if user.email %}
                 {{user.email}}
             {% else %}
@@ -100,13 +100,13 @@
             </a>
             |
 
-            <a href="{% url 'logout' %}" class="browserid-logout">
+            <a href="{% url 'core:logout' %}" class="browserid-logout">
             {% trans "Logout" %}
             </a>
         {% else %}
-            <a href="{% url 'login' %}">{% trans "Login" %}</a>
+            <a href="{% url 'core:login' %}">{% trans "Login" %}</a>
             |
-            <a href="{% url 'wger.manager.views.user.registration' %}">{% trans "Register" %}</a>
+            <a href="{% url 'core:registration' %}">{% trans "Register" %}</a>
         {% endif %}
         |
         <a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a>

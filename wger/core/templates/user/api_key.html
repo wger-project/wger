@@ -57,9 +57,9 @@ https://wger.de/api/v1/workout/?username={{user.username}}&api_key={% if key %}{
 
 <p>
 {% if key %}
-    <a href="{% url 'api-key' %}?new_key=true" class="btn btn-block">{% trans 'Delete current API key and generate new one' %}</a>
+    <a href="{% url 'core:api-key' %}?new_key=true" class="btn btn-block">{% trans 'Delete current API key and generate new one' %}</a>
 {% else %}
-    <a href="{% url 'api-key' %}?new_key=true" class="btn btn-block">{% trans 'Generate new API key' %}</a>
+    <a href="{% url 'core:api-key' %}?new_key=true" class="btn btn-block">{% trans 'Generate new API key' %}</a>
 {% endif %}
 </p>
 

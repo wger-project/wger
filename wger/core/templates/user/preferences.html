@@ -19,7 +19,7 @@ $(function() {
 
 
 {% block content %}
-<form action="{% url 'preferences' %}"
+<form action="{% url 'core:preferences' %}"
       method="post"
       class="ym-form">
     {% csrf_token %}
@@ -67,7 +67,7 @@ $(function() {
 {% block sidebar %}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url 'logout' %}"
+    <a href="{% url 'core:logout' %}"
        class="browserid-logout">
     <img src="{% static 'images/icons/logout.svg' %}"
          width="32"
@@ -77,7 +77,7 @@ $(function() {
     {% trans "Logout" %}</a>
 </p>
 <p>
-    <a href="{% url 'change-password' %}">
+    <a href="{% url 'core:change-password' %}">
     <img src="{% static 'images/icons/preferences.svg' %}"
          width="32"
          height="32"
@@ -86,7 +86,7 @@ $(function() {
     {% trans "Change password" %}</a>
 </p>
 <p>
-    <a href="{% url 'api-key' %}">
+    <a href="{% url 'core:api-key' %}">
     <img src="{% static 'images/icons/internet.svg' %}"
          width="32"
          height="32"
