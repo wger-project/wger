@@ -145,7 +145,7 @@ class ContactClassView(TemplateView):
 
 class FeedbackClass(FormView):
     template_name = 'form.html'
-    success_url = reverse_lazy('contact')
+    success_url = reverse_lazy('core:contact')
 
     def get_context_data(self, **kwargs):
         '''

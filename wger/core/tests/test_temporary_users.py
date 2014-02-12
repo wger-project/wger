@@ -103,7 +103,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         self.assertEqual(self.count_temp_users(), 1)
 
         # These pages should not create a user
-        self.client.get(reverse('contact'))
+        self.client.get(reverse('core:contact'))
         self.assertEqual(self.count_temp_users(), 1)
 
         self.client.get(reverse('software:code'))
