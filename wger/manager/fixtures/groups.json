@@ -97,17 +97,17 @@
                 ], 
                 [
                     "add_language", 
-                    "exercises", 
+                    "core",
                     "language"
                 ], 
                 [
                     "change_language", 
-                    "exercises", 
+                    "core",
                     "language"
                 ], 
                 [
                     "delete_language", 
-                    "exercises", 
+                    "core",
                     "language"
                 ], 
                 [
