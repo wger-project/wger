@@ -5,7 +5,7 @@
     :license: GNU GPL, see LICENSE for more details.
 """
 
-VERSION = (1, 4, 0, 'alpha', 1)
+VERSION = (1, 4, 0, 'alpha', 2)
 RELEASE = False
 
 
