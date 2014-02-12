@@ -21,13 +21,13 @@ from tastypie.authentication import SessionAuthentication
 from tastypie.resources import ModelResource
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
 
+from wger.core.api.resources import DaysOfWeekResource
 from wger.exercises.api.resources import ExerciseResource
 from wger.utils.resources import UserObjectsOnlyAuthorization
 from wger.manager.models import WorkoutSession
 from wger.manager.models import Workout
 from wger.manager.models import Schedule
 from wger.manager.models import ScheduleStep
-from wger.manager.models import DaysOfWeek
 from wger.manager.models import Day
 from wger.manager.models import Set
 from wger.manager.models import Setting
@@ -123,17 +123,6 @@ class ScheduleResource(ModelResource):
                      'is_active': ALL,
                      'is_loop': ALL,
                      'name': ALL}
-
-
-class DaysOfWeekResource(ModelResource):
-    '''
-    Resource for days of the week
-    '''
-
-    class Meta:
-        queryset = DaysOfWeek.objects.all()
-        filtering = {'id': ALL,
-                     'day_of_week': ALL}
 
 
 class DayResource(ModelResource):

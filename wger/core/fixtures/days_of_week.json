@@ -1,49 +1,49 @@
 [
     {
         "pk": 1, 
-        "model": "manager.daysofweek", 
+        "model": "core.daysofweek", 
         "fields": {
             "day_of_week": "Monday"
         }
     }, 
     {
         "pk": 2, 
-        "model": "manager.daysofweek", 
+        "model": "core.daysofweek", 
         "fields": {
             "day_of_week": "Tuesday"
         }
     }, 
     {
         "pk": 3, 
-        "model": "manager.daysofweek", 
+        "model": "core.daysofweek", 
         "fields": {
             "day_of_week": "Wednesday"
         }
     }, 
     {
         "pk": 4, 
-        "model": "manager.daysofweek", 
+        "model": "core.daysofweek", 
         "fields": {
             "day_of_week": "Thursday"
         }
     }, 
     {
         "pk": 5, 
-        "model": "manager.daysofweek", 
+        "model": "core.daysofweek", 
         "fields": {
             "day_of_week": "Friday"
         }
     }, 
     {
         "pk": 6, 
-        "model": "manager.daysofweek", 
+        "model": "core.daysofweek", 
         "fields": {
             "day_of_week": "Saturday"
         }
     }, 
     {
         "pk": 7, 
-        "model": "manager.daysofweek", 
+        "model": "core.daysofweek", 
         "fields": {
             "day_of_week": "Sunday"
         }

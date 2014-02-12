@@ -127,17 +127,17 @@
                 ], 
                 [
                     "add_daysofweek", 
-                    "manager", 
+                    "core",
                     "daysofweek"
                 ], 
                 [
                     "change_daysofweek", 
-                    "manager", 
+                    "core",
                     "daysofweek"
                 ], 
                 [
                     "delete_daysofweek", 
-                    "manager", 
+                    "core",
                     "daysofweek"
                 ], 
                 [

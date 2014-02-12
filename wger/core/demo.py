@@ -25,7 +25,7 @@ from django.utils.translation import ugettext as _
 
 from wger.weight.models import WeightEntry
 from wger.exercises.models import Exercise
-from wger.manager.models import DaysOfWeek
+from wger.core.models import DaysOfWeek
 from wger.manager.models import Workout
 from wger.manager.models import Day
 from wger.manager.models import Set

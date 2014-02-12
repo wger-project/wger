@@ -395,3 +395,26 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 
 post_save.connect(create_user_profile, sender=User)
+
+
+class DaysOfWeek(models.Model):
+    '''
+    Model for the days of the week
+
+    This model is needed so that 'Day' can have multiple days of the week selected
+    '''
+
+    day_of_week = models.CharField(max_length=9,
+                                   verbose_name=_('Day of the week'))
+
+    class Meta:
+        '''
+        Order by day-ID, this is needed for some DBs
+        '''
+        ordering = ["pk", ]
+
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return self.day_of_week

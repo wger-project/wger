@@ -28,6 +28,7 @@ from django.core.exceptions import ValidationError
 from django.core.cache import cache
 from django.core.validators import MinValueValidator
 
+from wger.core.models import DaysOfWeek
 from wger.exercises.models import Exercise
 from wger.utils.cache import cache_mapper, reset_workout_canonical_form
 from wger.utils.fields import Html5DateField
@@ -327,29 +328,6 @@ class ScheduleStep(models.Model):
         Return a more human-readable representation
         '''
         return u"ID: {0}".format(self.id)
-
-
-class DaysOfWeek(models.Model):
-    '''
-    Model for the days of the week
-
-    This model is needed so that 'Day' can have multiple days of the week selected
-    '''
-
-    day_of_week = models.CharField(max_length=9,
-                                   verbose_name=_('Day of the week'))
-
-    class Meta:
-        '''
-        Order by day-ID, this is needed for some DBs
-        '''
-        ordering = ["pk", ]
-
-    def __unicode__(self):
-        '''
-        Return a more human-readable representation
-        '''
-        return self.day_of_week
 
 
 class Day(models.Model):

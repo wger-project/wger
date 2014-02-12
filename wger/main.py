@@ -361,8 +361,8 @@ def run_south():
     '''
 
     # Manually set the order, otherwise postgreSQL rightfully complains
-    execute_from_command_line(["", "migrate", "wger.manager"])
     execute_from_command_line(["", "migrate", "wger.config"])
+    execute_from_command_line(["", "migrate", "wger.manager"])
     execute_from_command_line(["", "migrate", "wger.exercises"])
     execute_from_command_line(["", "migrate", "wger.core"])
     execute_from_command_line(["", "migrate", "wger.nutrition"])
@@ -377,7 +377,6 @@ def load_fixtures():
     '''
     Loads all fixtures
     '''
-
     os.chdir('wger')
     current_dir = os.getcwd()
 
@@ -385,14 +384,14 @@ def load_fixtures():
     path = os.path.join(current_dir, 'core', 'fixtures/')
     call_command("loaddata", path + "users")
     call_command("loaddata", path + "languages")
+    call_command("loaddata", path + "days_of_week")
 
     # Config
     path = os.path.join(current_dir, 'config', 'fixtures/')
     call_command("loaddata", path + "language_config.json")
 
     # Manager
-    path = os.path.join(current_dir, 'manager', 'fixtures/')
-    call_command("loaddata", path + "days_of_week")
+    #path = os.path.join(current_dir, 'manager', 'fixtures/')
 
     # Exercises
     path = os.path.join(current_dir, 'exercises', 'fixtures/')

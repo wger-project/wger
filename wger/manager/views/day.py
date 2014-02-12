@@ -26,7 +26,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
 
-from wger.manager.models import DaysOfWeek
+from wger.core.models import DaysOfWeek
 from wger.manager.models import Workout
 from wger.manager.models import Day
 from wger.manager.forms import DayForm

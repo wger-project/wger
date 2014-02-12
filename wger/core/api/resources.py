@@ -18,7 +18,9 @@ from tastypie.authentication import ApiKeyAuthentication
 from tastypie.constants import ALL
 from tastypie.resources import ModelResource
 
-from wger.core.models import UserProfile, Language
+from wger.core.models import UserProfile
+from wger.core.models import Language
+from wger.core.models import DaysOfWeek
 from wger.utils.resources import UserObjectsOnlyAuthorization
 
 
@@ -49,3 +51,14 @@ class LanguageResource(ModelResource):
         filtering = {'id': ALL,
                      "full_name": ALL,
                      "short_name": ALL}
+
+
+class DaysOfWeekResource(ModelResource):
+    '''
+    Resource for days of the week
+    '''
+
+    class Meta:
+        queryset = DaysOfWeek.objects.all()
+        filtering = {'id': ALL,
+                     'day_of_week': ALL}

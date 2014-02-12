@@ -33,7 +33,7 @@ from wger.core.forms import FeedbackRegisteredForm
 from wger.core.forms import FeedbackAnonymousForm
 from wger.core.demo import create_demo_entries
 from wger.core.demo import create_temporary_user
-from wger.manager.models import DaysOfWeek
+from wger.core.models import DaysOfWeek
 from wger.manager.models import Schedule
 from wger.nutrition.models import NutritionPlan
 from wger.weight.models import WeightEntry
