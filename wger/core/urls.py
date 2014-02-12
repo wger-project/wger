@@ -18,13 +18,11 @@
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
 from django.contrib.auth import views
-
-from wger.config.views import languages
-from wger.config.views import language_config
 from django.core.urlresolvers import reverse_lazy
 
 from wger.core.views import user
 from wger.core.views import misc
+
 
 urlpatterns = patterns('',
 
