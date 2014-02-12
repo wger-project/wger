@@ -7,6 +7,10 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ('exercises', '0014_auto__del_field_exercise_user_tmp__add_field_exercise_user'),
+    )
+
     def forwards(self, orm):
         # Adding model 'LanguageConfig'
         db.create_table(u'config_languageconfig', (
