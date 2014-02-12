@@ -17,10 +17,8 @@
 from tastypie import fields
 from tastypie.resources import ModelResource
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
-
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
-from wger.core.models import Language
 
 from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseCategory
@@ -115,11 +113,3 @@ class MuscleResource(ModelResource):
         filtering = {'id': ALL,
                      "name": ALL,
                      "is_front": ALL}
-
-
-class LanguageResource(ModelResource):
-    class Meta:
-        queryset = Language.objects.all()
-        filtering = {'id': ALL,
-                     "full_name": ALL,
-                     "short_name": ALL}

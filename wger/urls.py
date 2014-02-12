@@ -1,6 +1,7 @@
 from django.conf.urls import include, url
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.i18n import patterns
+from wger.core.api.resources import UserProfileResource, LanguageResource
 
 from wger.exercises.sitemap import ExercisesSitemap
 from wger.nutrition.sitemap import NutritionSitemap
@@ -24,7 +25,7 @@ v1_api.register(exercises_api.ExerciseCommentResource())
 v1_api.register(exercises_api.ExerciseImageResource())
 v1_api.register(exercises_api.ExerciseResource())
 v1_api.register(exercises_api.MuscleResource())
-v1_api.register(exercises_api.LanguageResource())
+v1_api.register(LanguageResource())
 v1_api.register(exercises_api.EquipmentResource())
 
 # Nutrition app
@@ -36,7 +37,7 @@ v1_api.register(nutrition_api.MealItemResource())
 v1_api.register(nutrition_api.IngredientToWeightUnit())
 
 # Manager app
-v1_api.register(manager_api.UserProfileResource())
+v1_api.register(UserProfileResource())
 v1_api.register(manager_api.WorkoutResource())
 v1_api.register(manager_api.ScheduleResource())
 v1_api.register(manager_api.ScheduleStepResource())

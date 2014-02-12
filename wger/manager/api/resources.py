@@ -20,11 +20,9 @@ from tastypie.authentication import MultiAuthentication
 from tastypie.authentication import SessionAuthentication
 from tastypie.resources import ModelResource
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
-from wger.core.models import UserProfile
 
 from wger.exercises.api.resources import ExerciseResource
 from wger.utils.resources import UserObjectsOnlyAuthorization
-
 from wger.manager.models import WorkoutSession
 from wger.manager.models import Workout
 from wger.manager.models import Schedule
@@ -36,30 +34,6 @@ from wger.manager.models import Setting
 from wger.manager.models import WorkoutLog
 
 
-#
-# User related resources
-#
-class UserProfileResource(ModelResource):
-    '''
-    Resource for user profiles
-    '''
-
-    def authorized_read_list(self, object_list, bundle):
-        '''
-        Filter to own objects
-        '''
-        return object_list.filter(user=bundle.request.user)
-
-    class Meta:
-        excludes = ('is_temporary', )
-        queryset = UserProfile.objects.all()
-        authentication = ApiKeyAuthentication()
-        authorization = UserObjectsOnlyAuthorization()
-
-
-#
-# Workout related resources
-#
 class WorkoutResource(ModelResource):
     '''
     Resource for workouts
