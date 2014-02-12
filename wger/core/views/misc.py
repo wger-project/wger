@@ -29,7 +29,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as django_login
 
-from wger.manager import forms
+from wger.core.forms import FeedbackRegisteredForm
+from wger.core.forms import FeedbackAnonymousForm
 from wger.core.demo import create_demo_entries
 from wger.core.demo import create_temporary_user
 from wger.manager.models import DaysOfWeek
@@ -164,9 +165,9 @@ class FeedbackClass(FormView):
         (either with reCaptcha field or not)
         '''
         if self.request.user.userprofile.is_temporary:
-            return forms.FeedbackAnonymousForm
+            return FeedbackAnonymousForm
         else:
-            return forms.FeedbackRegisteredForm
+            return FeedbackRegisteredForm
 
     def form_valid(self, form):
         '''

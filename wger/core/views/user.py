@@ -30,15 +30,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User as Django_User
 from django.contrib.auth.views import login as django_loginview
 from django.contrib import messages
+
 from tastypie.models import ApiKey
 
 from wger.exercises.models import Language
-from wger.manager.forms import UserPreferencesForm
-from wger.manager.forms import UserEmailForm
-from wger.manager.forms import RegistrationForm
-from wger.manager.forms import RegistrationFormNoCaptcha
 from wger.utils.constants import USER_TAB
 from wger.utils.user_agents import check_request_amazon, check_request_android
+from wger.core.forms import UserPreferencesForm
+from wger.core.forms import UserEmailForm
+from wger.core.forms import RegistrationForm
+from wger.core.forms import RegistrationFormNoCaptcha
 
 logger = logging.getLogger('wger.custom')
 
