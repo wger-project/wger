@@ -30,8 +30,8 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
 from django.utils import translation
+from wger.core.models import Language
 
-from wger.exercises.models import Language
 from wger.utils.constants import EMAIL_FROM
 from wger.utils.constants import TWOPLACES
 from wger.utils.cache import cache_mapper

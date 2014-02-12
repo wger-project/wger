@@ -32,8 +32,8 @@ from django.contrib.auth.views import login as django_loginview
 from django.contrib import messages
 
 from tastypie.models import ApiKey
+from wger.core.models import Language
 
-from wger.exercises.models import Language
 from wger.utils.constants import USER_TAB
 from wger.utils.user_agents import check_request_amazon, check_request_android
 from wger.core.forms import UserPreferencesForm

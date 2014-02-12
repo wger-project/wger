@@ -22,8 +22,7 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.styles import StyleSheet1
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
-
-from wger.exercises.models import Language
+from wger.core.models import Language
 
 # ************************
 # Language functions

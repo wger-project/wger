@@ -20,13 +20,13 @@ from tastypie.constants import ALL, ALL_WITH_RELATIONS
 
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
+from wger.core.models import Language
 
 from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseCategory
 from wger.exercises.models import ExerciseComment
 from wger.exercises.models import ExerciseImage
 from wger.exercises.models import Muscle
-from wger.exercises.models import Language
 from wger.exercises.models import Equipment
 
 

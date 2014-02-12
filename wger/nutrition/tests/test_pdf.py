@@ -14,9 +14,9 @@
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from wger.core.models import Language
 
 from wger.nutrition.models import NutritionPlan
-from wger.exercises.models import Language
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 

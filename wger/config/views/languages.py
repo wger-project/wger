@@ -26,9 +26,7 @@ from django.views.generic import CreateView
 from django.views.generic import DetailView
 from django.views.generic import DeleteView
 from django.views.generic import UpdateView
-
-from wger.exercises.models import Language
-
+from wger.core.models import Language
 
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerFormMixin

@@ -98,17 +98,17 @@
                  
                 [
                     "add_language", 
-                    "exercises", 
+                    "core",
                     "language"
                 ], 
                 [
                     "change_language", 
-                    "exercises", 
+                    "core",
                     "language"
                 ], 
                 [
                     "delete_language", 
-                    "exercises", 
+                    "core",
                     "language"
                 ], 
                 [
@@ -234,7 +234,7 @@
     },
     {
         "pk": 1, 
-        "model": "manager.userprofile", 
+        "model": "core.userprofile",
         "fields": {
             "is_temporary": false, 
             "show_comments": false, 
@@ -261,7 +261,7 @@
     }, 
     {
         "pk": 2, 
-        "model": "manager.userprofile", 
+        "model": "core.userprofile",
         "fields": {
             "is_temporary": false, 
             "show_comments": false, 
@@ -288,7 +288,7 @@
     }, 
     {
         "pk": 3, 
-        "model": "manager.userprofile", 
+        "model": "core.userprofile",
         "fields": {
             "is_temporary": true, 
             "show_comments": false, 

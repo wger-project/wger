@@ -21,8 +21,8 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
 from django.core.cache import cache
+from wger.core.models import Language
 
-from wger.exercises.models import Language
 from wger.utils.cache import delete_template_fragment_cache
 from wger.utils.cache import cache_mapper
 

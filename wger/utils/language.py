@@ -17,8 +17,8 @@ import logging
 from django.utils import translation
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.cache import cache
+from wger.core.models import Language
 
-from wger.exercises.models import Language
 from wger.config.models import LanguageConfig
 from wger.utils.cache import cache_mapper
 

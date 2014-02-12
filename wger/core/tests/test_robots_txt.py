@@ -13,9 +13,9 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from django.core.urlresolvers import reverse
+from wger.core.models import Language
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.exercises.models import Language
 
 
 class RobotsTxtTestCase(WorkoutManagerTestCase):

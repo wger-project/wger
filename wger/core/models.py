@@ -15,20 +15,64 @@
 # You should have received a copy of the GNU Affero General Public License
 import datetime
 import decimal
+from django.core.urlresolvers import reverse
 
 from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.utils.translation import ugettext_lazy as _, ugettext_lazy
+from django.utils.translation import ugettext_lazy as _
 
 from wger.utils.helpers import disable_for_loaddata
 from wger.utils.constants import TWOPLACES
 from wger.utils.fields import Html5IntegerField
 
-from wger.exercises.models import Language
 from wger.weight.models import WeightEntry
+
+
+class Language(models.Model):
+    '''
+    Language of an item (exercise, workout, etc.)
+    '''
+
+    #e.g. 'de'
+    short_name = models.CharField(max_length=2,
+                                  verbose_name=_('Language short name'))
+
+    #e.g. 'Deutsch'
+    full_name = models.CharField(max_length=30,
+                                 verbose_name=_('Language full name'))
+
+    class Meta:
+        '''
+        Set Meta options
+        '''
+        ordering = ["full_name", ]
+
+    #
+    # Django methods
+    #
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return u"{0} ({1})".format(self.full_name, self.short_name)
+
+    def get_absolute_url(self):
+        '''
+        Returns the canonical URL to view a language
+        '''
+        return reverse('config:language-view', kwargs={'pk': self.id})
+
+    #
+    # Own methods
+    #
+    def get_owner_object(self):
+        '''
+        Muscle has no owner information
+        '''
+        return False
 
 
 class UserProfile(models.Model):
