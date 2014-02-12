@@ -19,7 +19,7 @@
     },
     {
         "pk": 1, 
-        "model": "manager.userprofile", 
+        "model": "core.userprofile", 
         "fields": {
             "is_temporary": false, 
             "show_comments": false, 
