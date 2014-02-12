@@ -32,7 +32,6 @@ class Command(BaseCommand):
         exercises = Exercise.objects.filter(status=Exercise.EXERCISE_STATUS_ACCEPTED)
         usernames = []
         for exercise in exercises:
-            username = exercise.user.username
-            if username not in usernames:
-                usernames.append(username)
-                self.stdout.write('{0}\n'.format(username))
+            if exercise.user not in usernames:
+                usernames.append(exercise.user)
+                self.stdout.write(exercise.user)
