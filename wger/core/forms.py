@@ -20,8 +20,7 @@ from django.contrib.auth.models import User as Django_User
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm, EmailField, Form, CharField, widgets
 from django.utils.translation import ugettext as _
-
-from wger.manager.models import UserProfile
+from wger.core.models import UserProfile
 
 
 class UserPreferencesForm(ModelForm):
