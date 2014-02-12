@@ -20,8 +20,7 @@ import datetime
 import decimal
 import csv
 import json
-
-from django.utils.datastructures import SortedDict
+from collections import OrderedDict
 
 from wger.utils.helpers import DecimalJsonEncoder
 from wger.weight.models import WeightEntry
@@ -67,7 +66,7 @@ def process_log_entries(logs):
     '''
 
     reps = []
-    entry_log = SortedDict()
+    entry_log = OrderedDict()
     chart_data = []
     max_weight = {}
 
