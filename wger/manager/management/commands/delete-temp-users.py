@@ -18,7 +18,7 @@ import datetime
 
 from django.utils.timezone import now
 from django.core.management.base import BaseCommand
-from wger.manager.models import UserProfile
+from wger.core.models import UserProfile
 
 
 class Command(BaseCommand):

@@ -28,61 +28,17 @@ from django.core import mail
 from django.core.cache import cache
 from django.db.models.signals import pre_save
 from django.db.models.signals import post_delete
-
 from easy_thumbnails.files import get_thumbnailer
 from easy_thumbnails.signals import saved_file
 from easy_thumbnails.signal_handlers import generate_aliases_global
 
+from wger.core.models import Language
 from wger.utils.constants import EMAIL_FROM
 from wger.utils.cache import delete_template_fragment_cache, reset_workout_canonical_form
 from wger.utils.cache import cache_mapper
 
 
 logger = logging.getLogger('wger.custom')
-
-
-class Language(models.Model):
-    '''
-    Language of an item (exercise, workout, etc.)
-    '''
-
-    #e.g. 'de'
-    short_name = models.CharField(max_length=2,
-                                  verbose_name=_('Language short name'))
-
-    #e.g. 'Deutsch'
-    full_name = models.CharField(max_length=30,
-                                 verbose_name=_('Language full name'))
-
-    class Meta:
-        '''
-        Set Meta options
-        '''
-        ordering = ["full_name", ]
-
-    #
-    # Django methods
-    #
-    def __unicode__(self):
-        '''
-        Return a more human-readable representation
-        '''
-        return u"{0} ({1})".format(self.full_name, self.short_name)
-
-    def get_absolute_url(self):
-        '''
-        Returns the canonical URL to view a language
-        '''
-        return reverse('config:language-view', kwargs={'pk': self.id})
-
-    #
-    # Own methods
-    #
-    def get_owner_object(self):
-        '''
-        Muscle has no owner information
-        '''
-        return False
 
 
 class Muscle(models.Model):

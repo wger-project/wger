@@ -1,0 +1,51 @@
+[
+    {
+        "pk": 1, 
+        "model": "core.daysofweek", 
+        "fields": {
+            "day_of_week": "Monday"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "core.daysofweek", 
+        "fields": {
+            "day_of_week": "Tuesday"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "core.daysofweek", 
+        "fields": {
+            "day_of_week": "Wednesday"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "core.daysofweek", 
+        "fields": {
+            "day_of_week": "Thursday"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "core.daysofweek", 
+        "fields": {
+            "day_of_week": "Friday"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "core.daysofweek", 
+        "fields": {
+            "day_of_week": "Saturday"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "core.daysofweek", 
+        "fields": {
+            "day_of_week": "Sunday"
+        }
+    }
+]

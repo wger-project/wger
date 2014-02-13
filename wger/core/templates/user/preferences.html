@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+
+{% block title %}{% trans "Preferences" %}{% endblock %}
+
+{% block header %}
+ <script>
+$(function() {
+    $("#preferences-accordion").accordion({
+        heightStyle: "content"
+    });
+});
+</script>
+{% endblock %}
+
+
+
+{% block content %}
+<form action="{% url 'core:preferences' %}"
+      method="post"
+      class="ym-form">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <div id="preferences-accordion">
+        <h3>{% trans "Email" %}</h3>
+        <div>
+            <table>
+                {% yaml_form_field email_form.email %}
+            </table>
+        </div>
+
+        <h3>{% trans "Workout reminders" %}</h3>
+        <div>
+            <table>
+                {% yaml_form_field form.workout_reminder_active %}
+                {% yaml_form_field form.workout_duration %}
+                {% yaml_form_field form.workout_reminder %}
+            </table>
+        </div>
+
+        <h3>{% trans "Gym mode" %} ({% trans "mobile version only" %})</h3>
+        <div>
+            <table>
+                {% yaml_form_field form.timer_active %}
+                {% yaml_form_field form.timer_pause %}
+            </table>
+        </div>
+
+        <h3>{% trans "Other settings" %}</h3>
+        <div>
+            <table>
+                {% yaml_form_field form.notification_language "ym-fbox-select" %}
+                {% yaml_form_field form.show_comments %}
+                {% yaml_form_field form.show_english_ingredients %}
+            </table>
+        </div>
+    </div>
+    <input type="submit" value="{% trans 'Save' %}">
+</form>
+{% endblock %}
+
+
+{% block sidebar %}
+<h3>{% trans "Options" %}</h3>
+<p>
+    <a href="{% url 'core:logout' %}"
+       class="browserid-logout">
+    <img src="{% static 'images/icons/logout.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Logout' %}"
+         title="{% trans 'Logout' %}">
+    {% trans "Logout" %}</a>
+</p>
+<p>
+    <a href="{% url 'core:change-password' %}">
+    <img src="{% static 'images/icons/preferences.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Change password' %}"
+         title="{% trans 'Change password' %}">
+    {% trans "Change password" %}</a>
+</p>
+<p>
+    <a href="{% url 'core:api-key' %}">
+    <img src="{% static 'images/icons/internet.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'API key' %}"
+         title="{% trans 'API key' %}">
+    {% trans "API key" %}</a>
+</p>
+{% endblock %}

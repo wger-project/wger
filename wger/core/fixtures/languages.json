@@ -1,0 +1,42 @@
+[
+    {
+        "pk": 1, 
+        "model": "core.language", 
+        "fields": {
+            "short_name": "de", 
+            "full_name": "Deutsch"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "core.language", 
+        "fields": {
+            "short_name": "en", 
+            "full_name": "English"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "core.language", 
+        "fields": {
+            "short_name": "bg", 
+            "full_name": "\u0431\u044a\u043b\u0433\u0430\u0440\u0441\u043a\u0438 \u0435\u0437\u0438\u043a"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "core.language", 
+        "fields": {
+            "short_name": "es", 
+            "full_name": "Espa\u00f1ol"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "core.language", 
+        "fields": {
+            "short_name": "ru", 
+            "full_name": "\u0420\u0443\u0441\u0441\u043a\u0438\u0439"
+        }
+    }
+]

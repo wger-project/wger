@@ -209,7 +209,7 @@ $(document).ready(function() {
 {% if language.short_name != 'en' %}
     <p>
     {% trans "If you find the ingredient list too short, you might want to activate the preference to also show English ingredients." %}
-    <a href="{% url 'preferences' %}" id="ajax-english-ingredients">{% trans "That's done here" %}</a>:
+    <a href="{% url 'core:preferences' %}" id="ajax-english-ingredients">{% trans "That's done here" %}</a>:
     {% if user.userprofile.show_english_ingredients %}
     <img src="{% static 'images/icons/status-on.svg' %}"
          width="20"

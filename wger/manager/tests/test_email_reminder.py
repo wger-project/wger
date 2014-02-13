@@ -17,9 +17,10 @@ import datetime
 from django.core.management import call_command
 from django.core import mail
 from django.contrib.auth.models import User
+from wger.core.models import UserProfile
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.models import Schedule, UserProfile
+from wger.manager.models import Schedule
 from wger.manager.models import Workout
 
 

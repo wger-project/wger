@@ -24,7 +24,7 @@ from django.conf import settings
 from django.utils import translation
 
 from django.contrib.sites.models import Site
-from wger.manager.models import UserProfile
+from wger.core.models import UserProfile
 from wger.manager.models import Schedule
 from wger.utils.constants import EMAIL_FROM
 

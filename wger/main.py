@@ -26,6 +26,7 @@ import webbrowser
 
 import django.conf
 from django.core.management import execute_from_command_line
+from django.core.management import call_command
 
 from wger import get_version
 
@@ -347,10 +348,11 @@ def init_south():
     '''
     print("* Initialising south")
     execute_from_command_line(["", "migrate", "wger.exercises", "0001", "--fake"])
+    execute_from_command_line(["", "migrate", "wger.config", "0001", "--fake"])
     execute_from_command_line(["", "migrate", "wger.manager", "0001", "--fake"])
     execute_from_command_line(["", "migrate", "wger.nutrition", "0001", "--fake"])
     execute_from_command_line(["", "migrate", "wger.weight", "0001", "--fake"])
-    execute_from_command_line(["", "migrate", "wger.config", "0001", "--fake"])
+    execute_from_command_line(["", "migrate", "wger.core", "0001"])
 
 
 def run_south():
@@ -359,11 +361,12 @@ def run_south():
     '''
 
     # Manually set the order, otherwise postgreSQL rightfully complains
-    execute_from_command_line(["", "migrate", "wger.exercises"])
+    execute_from_command_line(["", "migrate", "wger.config"])
     execute_from_command_line(["", "migrate", "wger.manager"])
+    execute_from_command_line(["", "migrate", "wger.exercises"])
+    execute_from_command_line(["", "migrate", "wger.core"])
     execute_from_command_line(["", "migrate", "wger.nutrition"])
     execute_from_command_line(["", "migrate", "wger.weight"])
-    execute_from_command_line(["", "migrate", "wger.config"])
 
     # Other apps
     execute_from_command_line(["", "migrate", "easy_thumbnails"])
@@ -374,18 +377,34 @@ def load_fixtures():
     '''
     Loads all fixtures
     '''
+    os.chdir('wger')
+    current_dir = os.getcwd()
 
-    execute_from_command_line(["", "loaddata", "users"])
-    execute_from_command_line(["", "loaddata", "languages"])
-    execute_from_command_line(["", "loaddata", "language_config"])
-    execute_from_command_line(["", "loaddata", "days_of_week"])
-    execute_from_command_line(["", "loaddata", "muscles"])
-    execute_from_command_line(["", "loaddata", "categories"])
-    execute_from_command_line(["", "loaddata", "exercises"])
-    execute_from_command_line(["", "loaddata", "equipment"])
-    execute_from_command_line(["", "loaddata", "ingredients"])
-    execute_from_command_line(["", "loaddata", "weight_units"])
-    execute_from_command_line(["", "loaddata", "ingredient_units"])
+    # Core
+    path = os.path.join(current_dir, 'core', 'fixtures/')
+    call_command("loaddata", path + "users")
+    call_command("loaddata", path + "languages")
+    call_command("loaddata", path + "days_of_week")
+
+    # Config
+    path = os.path.join(current_dir, 'config', 'fixtures/')
+    call_command("loaddata", path + "language_config.json")
+
+    # Manager
+    #path = os.path.join(current_dir, 'manager', 'fixtures/')
+
+    # Exercises
+    path = os.path.join(current_dir, 'exercises', 'fixtures/')
+    call_command("loaddata", path + "muscles")
+    call_command("loaddata", path + "categories")
+    call_command("loaddata", path + "exercises")
+    call_command("loaddata", path + "equipment")
+
+    # Nutrition
+    path = os.path.join(current_dir, 'nutrition', 'fixtures/')
+    call_command("loaddata", path + "ingredients")
+    call_command("loaddata", path + "weight_units")
+    call_command("loaddata", path + "ingredient_units")
 
 
 def run_syncdb():

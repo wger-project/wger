@@ -17,16 +17,15 @@
 from tastypie import fields
 from tastypie.resources import ModelResource
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
-
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
 
+from wger.core.api.resources import LanguageResource
 from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseCategory
 from wger.exercises.models import ExerciseComment
 from wger.exercises.models import ExerciseImage
 from wger.exercises.models import Muscle
-from wger.exercises.models import Language
 from wger.exercises.models import Equipment
 
 
@@ -42,7 +41,7 @@ class ExerciseResource(ModelResource):
                                 'exerciseimage_set')
     equipment = fields.ToManyField('wger.exercises.api.resources.EquipmentResource',
                                    'equipment')
-    language = fields.ToOneField('wger.exercises.api.resources.LanguageResource', 'language')
+    language = fields.ToOneField(LanguageResource, 'language')
     creation_date = fields.DateField(attribute='creation_date', null=True)
 
     class Meta:
@@ -115,11 +114,3 @@ class MuscleResource(ModelResource):
         filtering = {'id': ALL,
                      "name": ALL,
                      "is_front": ALL}
-
-
-class LanguageResource(ModelResource):
-    class Meta:
-        queryset = Language.objects.all()
-        filtering = {'id': ALL,
-                     "full_name": ALL,
-                     "short_name": ALL}

@@ -20,85 +20,26 @@ This file contains forms used in the application
 
 from django.forms import Form
 from django.forms import ModelForm
-from django.forms import EmailField
 from django.forms import DateField
 from django.forms import CharField
 from django.forms import DecimalField
-from django.forms import ValidationError
 from django.forms import widgets
 from django.forms import ModelChoiceField
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User as Django_User
 from django.utils.translation import ugettext as _
 
 from captcha.fields import ReCaptchaField
 
 from wger.exercises.models import Exercise
-from wger.manager.models import UserProfile, WorkoutSession
+from wger.manager.models import WorkoutSession
 from wger.manager.models import Workout
 from wger.manager.models import Day
 from wger.manager.models import Set
 from wger.manager.models import WorkoutLog
-
 from wger.utils.widgets import TranslatedSelectMultiple
 from wger.utils.widgets import ExerciseAjaxSelect
 from wger.utils.constants import DATE_FORMATS
 from wger.utils.widgets import Html5DateInput
 from wger.utils.widgets import Html5NumberInput
-
-
-class UserPreferencesForm(ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ('show_comments',
-                  'show_english_ingredients',
-                  'workout_reminder_active',
-                  'workout_reminder',
-                  'workout_duration',
-                  'notification_language',
-                  'timer_active',
-                  'timer_pause')
-
-
-class UserEmailForm(ModelForm):
-    email = EmailField(label=_("Email"),
-                       help_text=_("Only needed to reset your password in case you forget it."),
-                       required=False)
-
-    class Meta:
-        model = Django_User
-        fields = ('email', )
-
-    def clean_email(self):
-        # Email must be unique systemwide
-        email = self.cleaned_data["email"]
-        if not email:
-            return email
-        try:
-            Django_User.objects.get(email=email)
-        except Django_User.DoesNotExist:
-            return email
-        raise ValidationError(_("This email is already used."))
-
-
-class RegistrationForm(UserCreationForm, UserEmailForm):
-    '''
-    Registration form
-    '''
-    captcha = ReCaptchaField(attrs={'theme': 'clean'},
-                             label=_('Confirmation text'),
-                             help_text=_('As a security measure, please enter the previous words'),)
-
-
-class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
-    '''
-    Registration form without captcha field
-
-    This is used when registering through an app, in that case there is not
-    such a spam danger and simplifies the registration process on a mobile
-    device.
-    '''
-    pass
 
 
 class DemoUserForm(Form):
@@ -117,26 +58,6 @@ class WorkoutCopyForm(Form):
     comment = CharField(max_length=100,
                         help_text=_('The goal or description of the new workout.'),
                         required=False)
-
-
-class FeedbackRegisteredForm(Form):
-    '''
-    Feedback form used for logged in users
-    '''
-    comment = CharField(max_length=500,
-                        min_length=10,
-                        widget=widgets.Textarea,
-                        help_text=_('What do you want to say?'),
-                        required=True)
-
-
-class FeedbackAnonymousForm(FeedbackRegisteredForm):
-    '''
-    Feedback form used for anonymous users (has additionally a reCaptcha field)
-    '''
-    captcha = ReCaptchaField(attrs={'theme': 'clean'},
-                             label=_('Confirmation text'),
-                             help_text=_('As a security measure, please enter the previous words'),)
 
 
 class DayForm(ModelForm):

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+{% load i18n %}{% load staticfiles %}{% load cache %}{% load browserid %}{% load compress %}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <meta name="author" content="Roland Geider">
+
+    <!--
+    This file is part of wger Workout Manager
+
+    wger Workout Manager is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    wger Workout Manager is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with wger Workout Manager. If not, see <http://www.gnu.org/licenses/>.
+    -->
+
+
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+
+    {% compress css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.mobile.icons.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-mobile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-mobile.structure.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-common.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-mobile.css' %}">
+    {% endcompress %}
+    {% browserid_css %}
+
+    {% compress js %}
+    <script src="{% static 'js/jquery.js' %}"          type="text/javascript"></script>
+    <script src="{% static 'js/jquerymobile-conf.js' %}"          type="text/javascript"></script>
+    <script src="{% static 'js/jquery-ui.js' %}"       type="text/javascript"></script>
+    <script src="{% static 'js/jquery-mobile.js' %}"   type="text/javascript"></script>
+    <script src="{% static 'js/d3.js' %}"></script>
+    <script src="{% static 'js/workout-manager.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/workout-manager-mobile.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/exercises.js' %}"></script>
+    <script src="{% static 'js/weight.js' %}"></script>
+    <script src="{% static 'js/nutrition.js' %}"></script>
+    <script src="{% static 'js/browserid.js' %}"       type="text/javascript"></script>
+    {% endcompress %}
+
+    {% block header %}{% endblock %}
+
+</head>
+<body>
+{% browserid_info %}
+<div data-role="page" id="page-{{request_full_path|slugify}}" data-url="{{request_full_path}}" data-theme="c">
+    {% block scripts %}{% endblock %}
+    {% if not user.is_authenticated or user.userprofile.is_temporary %}
+        <div data-role="popup" data-overlay-theme="a" id="popupGuestUser-{{request_full_path|slugify}}">
+            <div data-role="header" >
+                <h3>{% trans "Info" %}</h3>
+            </div>
+            <div role="main" class="ui-content">
+            {% trans "You are using a guest account, data entered will be deleted after a week."%}
+            <a href="{% url 'core:registration' %}"
+               rel="nofollow"
+               data-role="button"
+               data-mini="true"
+               data-theme="c"
+               data-ajax="false">{% trans "Register" %} »</a>
+            {% if not has_demo_data %}
+            <a href="{% url 'core:demo-entries' %}"
+               rel="nofollow"
+               data-role="button"
+               data-mini="true"
+               data-theme="e"
+               data-ajax="false">{% trans "Create some demo entries" %} »</a>
+            {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    <header data-role="header" data-theme="b" data-position="fixed">
+        <h1>wger</h1>
+        <a href="#main-panel-navigation"
+           class="ui-icon-nodisc"
+           data-rel="popup"
+           data-theme="a"
+           data-icon="bars"
+           data-iconshadow="false">{% trans "Menu" %}</a>
+       {% if not user.is_authenticated or user.userprofile.is_temporary %}
+            <a href="#popupGuestUser-{{request_full_path|slugify}}"
+               class="ui-icon-nodisc"
+               data-rel="popup"
+               data-inline="true"
+               data-transition="pop"
+               data-theme="a"
+               data-icon="info"
+               data-iconshadow="false">{% trans "Info" %}</a>
+      {% endif %}
+    </header>
+
+    <div data-role="panel" id="main-panel-navigation" data-display="overlay">
+    {% include 'navigation.html' %}
+    </div>
+
+    <div class="invisible" id="ajax-info"></div>
+
+
+
+    {% block template %}{% endblock %}
+
+    <div data-role="navbar">
+        <ul>
+            <li>
+            {% if not user.is_authenticated %}
+                <a href="{% url 'core:login' %}" data-ajax="false">{% trans "Login" %}</a>
+            {% else %}
+                <a href="{% url 'core:index' %}">{% trans "Dashboard" %}</a>
+            {% endif %}
+            </li>
+
+            {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'workout-overview' %}">{% trans "Workouts" %}</a>
+            </li>
+            <li>
+                <a href="{% url 'nutrition-overview' %}">{% trans "Nutrition" %}</a>
+            </li>
+            {% endif %}
+
+            {% if not user.is_authenticated %}
+            <li>
+                <a href="{% url 'software:features' %}">{% trans "Features" %}</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+
+</div><!-- /page -->
+
+<script src="https://login.persona.org/include.js" type="text/javascript"></script>
+
+</body>
+</html>

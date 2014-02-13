@@ -22,8 +22,7 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.styles import StyleSheet1
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
-
-from wger.exercises.models import Language
+from wger.core.models import Language
 
 # ************************
 # Language functions
@@ -78,11 +77,11 @@ def load_ingredient_languages(request):
 
 # register new truetype fonts for reportlab
 pdfmetrics.registerFont(TTFont(
-    'OpenSans', path_join(settings.SITE_ROOT, 'manager/static/fonts/OpenSans-Light.ttf')))
+    'OpenSans', path_join(settings.SITE_ROOT, 'core/static/fonts/OpenSans-Light.ttf')))
 pdfmetrics.registerFont(TTFont(
-    'OpenSans-Bold', path_join(settings.SITE_ROOT, 'manager/static/fonts/OpenSans-Bold.ttf')))
+    'OpenSans-Bold', path_join(settings.SITE_ROOT, 'core/static/fonts/OpenSans-Bold.ttf')))
 pdfmetrics.registerFont(TTFont(
-    'OpenSans-Regular', path_join(settings.SITE_ROOT, 'manager/static/fonts/OpenSans-Regular.ttf')))
+    'OpenSans-Regular', path_join(settings.SITE_ROOT, 'core/static/fonts/OpenSans-Regular.ttf')))
 
 styleSheet = StyleSheet1()
 styleSheet.add(ParagraphStyle(

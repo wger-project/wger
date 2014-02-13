@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+
+{% block title %}{% trans "API key" %}{% endblock %}
+
+
+{% block content %}
+<p>{% blocktrans %}Generate an API key if you want to interact with wger via
+the <a href="/api/v1/?format=json" rel="nofollow">REST API</a> it provides (for
+public resources such as the exercises or ingredients, you don't need to provide
+anything). You must pass this information together with your username either in
+the header or in the request as GET parameters. For example:{% endblocktrans %}
+
+<pre>
+# In header
+Authorization: ApiKey {{user.username}}:{% if key %}{{key.key|truncatechars:15}}{% else %}1234567890abcde...{% endif %}
+
+# In GET parameter
+https://wger.de/api/v1/workout/?username={{user.username}}&api_key={% if key %}{{key.key|truncatechars:15}}{% else %}1234567890abcde...{% endif %}
+</pre>
+</p>
+
+<table>
+    <tr>
+        <td>
+            {% trans "Your API key" %}
+        </td>
+        <td>
+            {% if key %}
+                <strong>{{key.key}}</strong>
+            {% else %}
+                <em>{% trans "You have no API key yet" %}</em>
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {% trans "Your username" %}
+        </td>
+        <td>
+            <strong>{{user.username}}</strong>
+        </td>
+    </tr>
+</table>
+
+
+
+
+{% endblock %}
+
+{% block sidebar %}
+
+<h3>{% trans "Options" %}</h3>
+
+<p>
+{% if key %}
+    <a href="{% url 'core:api-key' %}?new_key=true" class="btn btn-block">{% trans 'Delete current API key and generate new one' %}</a>
+{% else %}
+    <a href="{% url 'core:api-key' %}?new_key=true" class="btn btn-block">{% trans 'Generate new API key' %}</a>
+{% endif %}
+</p>
+
+
+
+<p>
+    <a href="{% url 'software:api' %}" class="btn btn-block">{% trans 'Documentation' %}</a>
+</p>
+
+{% endblock %}

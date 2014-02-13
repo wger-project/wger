@@ -27,7 +27,7 @@ class RobotsExclusionMiddlewareTestCase(WorkoutManagerTestCase):
         Test the middleware on URLs from manager app
         '''
 
-        response = self.client.get(reverse('dashboard'))
+        response = self.client.get(reverse('core:dashboard'))
         self.assertTrue(response.get('X-Robots-Tag'))
 
         response = self.client.get(reverse('workout-overview'))
@@ -36,13 +36,13 @@ class RobotsExclusionMiddlewareTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('schedule-overview'))
         self.assertTrue(response.get('X-Robots-Tag'))
 
-        response = self.client.get(reverse('feedback'))
+        response = self.client.get(reverse('core:feedback'))
         self.assertTrue(response.get('X-Robots-Tag'))
 
-        response = self.client.get(reverse('about'))
+        response = self.client.get(reverse('core:about'))
         self.assertTrue(response.get('X-Robots-Tag'))
 
-        response = self.client.get(reverse('contact'))
+        response = self.client.get(reverse('core:contact'))
         self.assertFalse(response.get('X-Robots-Tag'))
 
     def test_middleware_software(self):

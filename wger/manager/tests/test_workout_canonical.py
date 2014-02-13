@@ -14,9 +14,9 @@
 
 from django.core.cache import cache
 
+from wger.core.models import DaysOfWeek
 from wger.exercises.models import Exercise
 from wger.manager.models import Workout
-from wger.manager.models import DaysOfWeek
 from wger.manager.models import Day
 from wger.manager.models import Set
 from wger.manager.models import Setting

@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% trans "Dashboard" %}{% endblock %}
+
+
+{% block content %}
+<div data-role="popup"
+     id="current-workout-{{request_full_path|slugify}}"
+     data-overlay-theme="a">
+    <div data-role="header">
+        <h3>{% trans "Current workout" %}</h3>
+    </div>
+    <div role="main" class="ui-content">
+         {% if current_workout %}
+         <ul data-role="listview" data-inset="false" style="margin-bottom:1em;" data-theme="b">
+            <li>
+                <a href="{% url 'workout-view' current_workout.id %}"
+
+                   data-mini="true"
+                   data-ajax="false">
+                    {{ current_workout }}
+                </a>
+            </li>
+        </ul>
+
+        <ul>
+            {% for day, exercises, is_workout in weekdays %}
+            <li>
+                <span {% if not is_workout %}class="dimmed"{% endif%}>
+                {{ day }}: {{ exercises }}
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% if schedule %}
+        <p>
+            → {% trans "This workout is part of a schedule:" %}
+            <a href="{{schedule.get_absolute_url}}">{{schedule.name}}</a>
+        </p>
+        {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+
+<div data-role="popup"
+     id="current-nutrition-plan-{{request_full_path|slugify}}"
+     data-overlay-theme="a">
+    <div data-role="header">
+         <h4>{% trans "Current nutrition plan" %}</h4>
+     </div>
+    <div role="main" class="ui-content">
+         {% if plan %}
+         <ul data-role="listview" data-inset="false" style="margin-bottom:1em;" data-theme="b">
+            <li>
+                <a href="{% url 'nutrition-view' plan.id %}"
+                   data-mini="true"
+                   data-ajax="false">
+                    {{ plan }}
+                </a>
+            </li>
+        </ul>
+
+        <ul>
+           <li>
+               {% trans "Energy" %}: {{nutritional_info.energy|floatformat}} kcal
+           </li>
+           <li>
+               {% trans "Protein" %}: {{nutritional_info.protein|floatformat}} g
+           </li>
+           <li>
+               {% trans "Carbohydrates" %}: {{nutritional_info.carbohydrates|floatformat}} g
+           </li>
+           <li>
+               {% trans "Fat" %}: {{nutritional_info.fat|floatformat}} g
+           </li>
+        </ul>
+
+        {% if weight %}
+        <p>
+            {% trans "Your current weight is: "%} <strong>{{weight.weight|floatformat}} kg.</strong>
+        </p>
+        {% endif %}
+
+        {% endif %}
+    </div>
+</div>
+
+{% if not user.is_authenticated or user.userprofile.is_temporary %}
+<p><em>{% trans "You are using a guest account, data entered will be deleted after a week."%}</em></p>
+{% endif %}
+
+<div data-role="popup"
+     id="timer-current-workout-{{request_full_path|slugify}}"
+     data-overlay-theme="a">
+    <div data-role="header">
+         <h4>{% trans "Start gym mode" %}</h4>
+    </div>
+
+    <div role="main" class="ui-content">
+        <p>{% blocktrans %}Use the gym mode to
+start an interactive training session. If you enter lifted weights, they will
+be added to your workout log. A timer between sets helps you keep track of the
+pauses you do.{% endblocktrans %}</p>
+        <p>
+            <strong>{% trans "Tip:" %}</strong>
+            {% blocktrans %}You can deactivate the timer or set
+its default duration in your settings.{% endblocktrans %}
+        </p>
+
+        <ul data-role="listview" data-inset="true" style="margin-bottom:1em;">
+            {% if current_workout %}
+                {% for day in current_workout.canonical_representation.day_list %}
+                <li>
+                    {% if day.set_list|length > 0 %}<a href="{% url 'workout-timer' day.obj.pk %}" data-ajax="false">{% endif %}
+                    {{day.obj.description}}
+                    {% if day.set_list|length > 0 %}</a>{% endif %}
+                </li>
+                {% empty %}
+                    <li>
+                    <a href="{% url 'day-add' current_workout.id %}" data-ajax="false">
+                        {% trans "No days for this workout." %}<br>
+                        {% trans "Add training day." %}
+                        </a>
+                    </li>
+                {% endfor %}
+            {% else %}
+            <li>
+                <a href="{% url 'workout-add' %}" data-ajax="false">
+                {% trans "No workouts found." %}<br>
+                    {% trans "Add one now." %}
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+
+
+
+<a href="#timer-current-workout-{{request_full_path|slugify}}"
+   data-role="button"
+   data-rel="popup">
+    <img src="{% static 'images/icons/play.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Start current workout' %}"
+         title="{% trans 'Start current workout' %}">
+    <br>
+    {% trans "Start current workout" %}
+</a>
+
+
+<div class="ui-grid-a">
+    <div class="ui-block-a">
+        {% if current_workout %}
+            <a href="#current-workout-{{request_full_path|slugify}}"
+               data-role="button"
+               data-rel="popup"
+               data-position-to="window">
+                <img src="{% static 'images/icons/list.svg' %}"
+                     width="32"
+                     height="32"
+                     alt="{{current_workout}}"
+                     title="{{current_workout}}">
+                <br>
+                {{current_workout}}
+            </a>
+        {% else %}
+            <a href="{% url 'workout-add' %}" data-role="button">
+                <img src="{% static 'images/icons/add.svg' %}"
+                     width="32"
+                     height="32"
+                     alt="{% trans 'Workout' %}"
+                     title="{% trans 'Workout' %}">
+                <br>
+                {% trans "Workout" %}
+            </a>
+        {% endif %}
+    </div>
+    <div class="ui-block-b">
+        <a href="{% url 'workout-calendar' %}" data-role="button" data-ajax="false">
+            <img src="{% static 'images/icons/calendar.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Calendar' %}"
+                 title="{% trans 'Calendar' %}">
+            <br>
+            {% trans "Calendar" %}
+        </a>
+    </div>
+    <div class="ui-block-a">
+        {% if plan %}
+        <a href="#current-nutrition-plan-{{request_full_path|slugify}}"
+           data-role="button"
+           data-rel="popup"
+           data-position-to="window">
+            <img src="{% static 'images/icons/list.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Nutrition' %}"
+                 title="{% trans 'Nutrition' %}">
+            <br>
+            {{plan}}
+        </a>
+        {% else %}
+            <a href="{% url 'nutrition-add' %}" data-role="button">
+                <img src="{% static 'images/icons/add.svg' %}"
+                     width="32"
+                     height="32"
+                     alt="{% trans 'Workouts' %}"
+                     title="{% trans 'Workouts' %}">
+                <br>
+                {% trans "Nutrition plan" %}
+            </a>
+        {% endif %}
+    </div>
+    <div class="ui-block-b">
+
+        <a href="{% url 'weight-overview' %}" data-role="button" data-ajax="false">
+            <img src="{% static 'images/icons/statistics.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Weight overview' %}"
+                 title="{% trans 'Weight overview' %}">
+            <br>
+            {% trans "Weight overview" %}
+        </a>
+    </div>
+    <div class="ui-block-a">
+        <a href="{% url 'core:preferences' %}" data-role="button">
+            <img src="{% static 'images/icons/preferences.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Preferences' %}"
+                 title="{% trans 'Preferences' %}">
+            <br>
+            {% trans "Preferences" %}
+        </a>
+    </div>
+    <div class="ui-block-b">
+        <a href="{% url 'core:contact' %}" data-role="button">
+            <img src="{% static 'images/icons/mail.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Get in touch' %}"
+                 title="{% trans 'Get in touch' %}">
+            <br>
+            {% trans "Get in touch" %}
+        </a>
+    </div>
+</div>
+{% endblock %}

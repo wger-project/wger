@@ -12,6 +12,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+from wger.core.models import UserProfile
 
 from wger.manager import models as manager_models
 
@@ -21,6 +22,6 @@ admin.site.register(manager_models.Workout)
 admin.site.register(manager_models.Set)
 admin.site.register(manager_models.Day)
 admin.site.register(manager_models.WorkoutLog)
-admin.site.register(manager_models.UserProfile)
+admin.site.register(UserProfile)
 
 admin.site.register(manager_models.Setting)
