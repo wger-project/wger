@@ -1,0 +1,20 @@
+[
+    {
+        "pk": 1, 
+        "model": "core.license", 
+        "fields": {
+            "url": "", 
+            "full_name": "A cool and free license - Germany", 
+            "short_name": "ACAFL - DE"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "core.license", 
+        "fields": {
+            "url": "https://another-cool-license.org/acl-2.1", 
+            "full_name": "Another cool license 2.1", 
+            "short_name": "ACL 2.1"
+        }
+    }
+]
