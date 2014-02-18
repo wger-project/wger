@@ -384,6 +384,7 @@ def load_fixtures():
     path = os.path.join(current_dir, 'core', 'fixtures/')
     call_command("loaddata", path + "users")
     call_command("loaddata", path + "languages")
+    call_command("loaddata", path + "licenses")
     call_command("loaddata", path + "days_of_week")
 
     # Config

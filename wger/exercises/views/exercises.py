@@ -137,8 +137,9 @@ def view(request, id, slug=None):
     template_data['json'] = chart_data
     template_data['svg_uuid'] = str(uuid.uuid4())
     template_data['reps'] = _("Reps")
+    template_data['author'] = exercise.user if not exercise.license_author \
+        else exercise.license_author
 
-    # Render
     return render(request, 'exercise/view.html', template_data)
 
 
@@ -155,7 +156,9 @@ class ExercisesEditAddView(WgerFormMixin):
                    'description',
                    'muscles',
                    'muscles_secondary',
-                   'equipment']
+                   'equipment',
+                   'license',
+                   'license_author']
 
     title = ugettext_lazy('Add exercise')
     custom_js = 'init_tinymce();'

@@ -33,6 +33,7 @@ from easy_thumbnails.signals import saved_file
 from easy_thumbnails.signal_handlers import generate_aliases_global
 
 from wger.core.models import Language
+from wger.core.models import License
 from wger.utils.constants import EMAIL_FROM
 from wger.utils.cache import delete_template_fragment_cache, reset_workout_canonical_form
 from wger.utils.cache import cache_mapper
@@ -173,6 +174,20 @@ class Exercise(models.Model):
                                        blank=True)
     '''Equipment needed by this exercise'''
 
+    license = models.ForeignKey(License,
+                                verbose_name=_('License'),
+                                default=1)
+    '''The exercise's license'''
+
+    license_author = models.CharField(verbose_name=_('Author'),
+                                      max_length=50,
+                                      blank=True,
+                                      null=True,
+                                      help_text=_('If you are not the author of the image, enter '
+                                                  'the name here. This is needed for some licenses '
+                                                  'e.g. the CC-BY-SA.'))
+    '''The author if it is not the uploader'''
+
     # Non-editable fields
     user = models.CharField(verbose_name=_('User'), null=True, blank=True, max_length=100)
     '''The user that submitted the exercise'''
@@ -194,8 +209,6 @@ class Exercise(models.Model):
     #
     # Django methods
     #
-
-    # Metaclass to set some other properties
     class Meta:
         ordering = ["name", ]
 
