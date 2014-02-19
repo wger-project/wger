@@ -58,7 +58,9 @@ class ExerciseResource(ModelResource):
                      "language": ALL_WITH_RELATIONS,
                      "muscles": ALL_WITH_RELATIONS,
                      "status": ALL,
-                     "name": ALL}
+                     "name": ALL,
+                     "license": ALL,
+                     "license_author": ALL}
 
 
 class EquipmentResource(ModelResource):
