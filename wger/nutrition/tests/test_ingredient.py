@@ -57,7 +57,9 @@ class EditIngredientTestCase(WorkoutManagerEditTestCase):
             'fat_saturated': 3.14,
             'fibres': 2.1,
             'protein': 20,
-            'carbohydrates': 10}
+            'carbohydrates': 10,
+            'license': 2,
+            'license_author': 'me!'}
 
     def post_test_hook(self):
         '''
@@ -85,7 +87,9 @@ class AddIngredientTestCase(WorkoutManagerAddTestCase):
             'fat_saturated': 3.14,
             'fibres': 2.1,
             'protein': 20,
-            'carbohydrates': 10}
+            'carbohydrates': 10,
+            'license': 2,
+            'license_author': 'me!'}
 
     def post_test_hook(self):
         '''
@@ -391,6 +395,8 @@ class IngredientApiTestCase(ApiBaseResourceTestCase):
     resource = 'ingredient'
     user = None
     resource_updatable = False
+    data = {'language': 1,
+            'license': 2}
 
 
 class IngredientDetailApiTestCase(ApiBaseResourceTestCase):

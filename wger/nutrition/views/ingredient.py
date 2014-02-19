@@ -114,7 +114,24 @@ class IngredientDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
         return context
 
 
-class IngredientEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
+class IngredientMixin(WgerFormMixin):
+    '''
+    Manually set the order of the fields
+    '''
+    form_fields = ['name',
+                   'energy',
+                   'protein',
+                   'carbohydrates',
+                   'carbohydrates_sugar',
+                   'fat',
+                   'fat_saturated',
+                   'fibres',
+                   'sodium',
+                   'license',
+                   'license_author']
+
+
+class IngredientEditView(IngredientMixin, UpdateView, WgerPermissionMixin):
     '''
     Generic view to update an existing ingredient
     '''
@@ -126,7 +143,7 @@ class IngredientEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     permission_required = 'nutrition.change_ingredient'
 
 
-class IngredientCreateView(WgerFormMixin, CreateView):
+class IngredientCreateView(IngredientMixin, CreateView):
     '''
     Generic view to add a new ingredient
     '''

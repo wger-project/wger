@@ -26,9 +26,13 @@ from wger.nutrition.models import NutritionPlan
 from wger.nutrition.models import Meal
 from wger.nutrition.models import MealItem
 from wger.utils.resources import UserObjectsOnlyAuthorization
+from wger.core.api.resources import LicenseResource
 
 
 class IngredientResource(ModelResource):
+
+    license = fields.ToOneField(LicenseResource, 'license')
+
     class Meta:
         queryset = Ingredient.objects.all()
         filtering = {'id': ALL,
@@ -43,7 +47,9 @@ class IngredientResource(ModelResource):
                      'protein': ALL,
                      'sodium': ALL,
                      'status': ALL,
-                     'update_date': ALL}
+                     'update_date': ALL,
+                     'license': ALL,
+                     'license_author': ALL}
 
 
 class WeightUnitResource(ModelResource):
