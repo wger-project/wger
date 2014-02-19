@@ -24,9 +24,6 @@ from django.views.generic import ListView
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login as django_login
 
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin

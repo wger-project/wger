@@ -33,7 +33,6 @@ from easy_thumbnails.signals import saved_file
 from easy_thumbnails.signal_handlers import generate_aliases_global
 
 from wger.core.models import Language
-from wger.core.models import License
 from wger.utils.models import AbstractLicenseModel
 from wger.utils.constants import EMAIL_FROM
 from wger.utils.cache import delete_template_fragment_cache, reset_workout_canonical_form
