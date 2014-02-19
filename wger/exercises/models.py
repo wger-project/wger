@@ -175,9 +175,6 @@ class Exercise(AbstractLicenseModel, models.Model):
     '''Equipment needed by this exercise'''
 
     # Non-editable fields
-    user = models.CharField(verbose_name=_('User'), null=True, blank=True, max_length=100)
-    '''The user that submitted the exercise'''
-
     status = models.CharField(max_length=2,
                               choices=EXERCISE_STATUS,
                               default=EXERCISE_STATUS_PENDING,
@@ -292,7 +289,7 @@ class Exercise(AbstractLicenseModel, models.Model):
             user = User.objects.get(username=self.user)
         except User.DoesNotExist:
             return
-        if self.user and user.email:
+        if self.license_author and user.email:
             translation.activate(user.userprofile.notification_language.short_name)
             url = request.build_absolute_uri(self.get_absolute_url())
             subject = _('Exercise was successfully added to the general database')

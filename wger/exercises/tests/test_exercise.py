@@ -257,10 +257,10 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         # Exercise was saved
         exercise = Exercise.objects.get(pk=exercise_id)
         if admin:
-            self.assertEqual(exercise.user, 'admin')
+            self.assertEqual(exercise.license_author, 'wger.de')
             self.assertEqual(exercise.status, Exercise.EXERCISE_STATUS_ADMIN)
         else:
-            self.assertEqual(exercise.user, 'test')
+            self.assertEqual(exercise.license_author, 'test')
             self.assertEqual(exercise.status, Exercise.EXERCISE_STATUS_PENDING)
 
         response = self.client.get(reverse('exercise-view', kwargs={'id': exercise_id}))

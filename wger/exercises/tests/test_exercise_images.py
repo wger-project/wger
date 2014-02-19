@@ -111,7 +111,7 @@ class AddExerciseImageTestCase(WorkoutManagerAddTestCase):
     user_fail = False
     data = {'is_main': True,
             'image': open('wger/exercises/tests/protestschwein.jpg', 'rb'),
-            'license': '1'}
+            'license': 1}
 
 
 class EditExerciseImageTestCase(WorkoutManagerEditTestCase):
@@ -123,7 +123,7 @@ class EditExerciseImageTestCase(WorkoutManagerEditTestCase):
     url = 'exerciseimage-edit'
     pk = 2
     data = {'is_main': True,
-            'license': '1'}
+            'license': 1}
 
 
 class DeleteExerciseImageTestCase(WorkoutManagerDeleteTestCase):
