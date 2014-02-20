@@ -18,6 +18,7 @@ import logging
 import datetime
 
 from django.http import HttpResponseForbidden
+from django.http import HttpResponseBadRequest
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 
@@ -65,6 +66,20 @@ class WorkoutSessionAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     form_class = WorkoutSessionForm
     login_required = True
 
+    def get_date(self):
+        '''
+        Returns a date object from the URL parameters or None if no date
+        could be created
+        '''
+        try:
+            date = datetime.date(int(self.kwargs['year']),
+                                 int(self.kwargs['month']),
+                                 int(self.kwargs['day']))
+        except ValueError:
+            date = None
+
+        return date
+
     def dispatch(self, request, *args, **kwargs):
         '''
         Check for ownership
@@ -73,13 +88,19 @@ class WorkoutSessionAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
         if workout.get_owner_object().user != request.user:
             return HttpResponseForbidden()
 
+        if not self.get_date():
+            return HttpResponseBadRequest('You need to use a valid date')
+
         return super(WorkoutSessionAddView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutSessionAddView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('workout-session-add',
-                                         kwargs={'workout_pk': self.kwargs['workout_pk']})
-        context['title'] = _('New workout impression')
+                                         kwargs={'workout_pk': self.kwargs['workout_pk'],
+                                                 'year': self.kwargs['year'],
+                                                 'month': self.kwargs['month'],
+                                                 'day': self.kwargs['day']})
+        context['title'] = _('New workout impression for the {0}'.format(self.get_date()))
         return context
 
     def get_success_url(self):
@@ -93,5 +114,5 @@ class WorkoutSessionAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
         workout = Workout.objects.get(pk=self.kwargs['workout_pk'])
         form.instance.workout = workout
         form.instance.user = self.request.user
-        form.instance.date = datetime.date.today()
+        form.instance.date = self.get_date()
         return super(WorkoutSessionAddView, self).form_valid(form)

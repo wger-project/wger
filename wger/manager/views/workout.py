@@ -313,7 +313,11 @@ def timer(request, day_pk):
         url = reverse('workout-session-edit', kwargs={'pk': session.pk})
         session_form = WorkoutSessionHiddenFieldsForm(instance=session)
     else:
-        url = reverse('workout-session-add', kwargs={'workout_pk': day.training_id})
+        today = datetime.date.today()
+        url = reverse('workout-session-add', kwargs={'workout_pk': day.training_id,
+                                                     'year': today.year,
+                                                     'month': today.month,
+                                                     'day': today.day})
         session_form = WorkoutSessionHiddenFieldsForm()
 
     # Render template

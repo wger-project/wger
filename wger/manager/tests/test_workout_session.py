@@ -36,7 +36,10 @@ class AddWorkoutSessionTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = WorkoutSession
-    url = reverse_lazy('workout-session-add', kwargs={'workout_pk': 1})
+    url = reverse_lazy('workout-session-add', kwargs={'workout_pk': 1,
+                                                      'year': datetime.date.today().year,
+                                                      'month': datetime.date.today().month,
+                                                      'day': datetime.date.today().day})
     pk = 4
     data = {
         'user': 1,

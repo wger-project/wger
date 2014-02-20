@@ -45,7 +45,7 @@ $(document).ready(function() {
             {% if session %}
                 <a href="{% url 'workout-session-edit' session.pk %}" class="btn modal-dialog">{% trans "Edit workout session" %}</a>
             {% else %}
-                <a href="{% url 'workout-session-add' first_log.workout_id %}" class="btn modal-dialog">{% trans "Add workout impression" %}</a>
+                <a href="{% url 'workout-session-add' first_log.workout_id date|date:'Y' date|date:'m' date|date:'d' %}" class="btn modal-dialog">{% trans "Add workout impression" %}</a>
             {% endif %}
         </p>
         {% if session %}

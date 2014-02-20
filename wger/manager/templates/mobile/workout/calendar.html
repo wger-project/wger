@@ -45,7 +45,7 @@ $(document).ready(function() {
             <a href="{% url 'workout-session-edit' session.pk %}"
                data-role="button">{% trans "Edit workout session" %}</a>
         {% else %}
-            <a href="{% url 'workout-session-add' first_log.workout_id %}"
+            <a href="{% url 'workout-session-add' first_log.workout_id date|date:'Y' date|date:'m' date|date:'d' %}"
                data-role="button">{% trans "Add workout impression" %}</a>
         {% endif %}
 

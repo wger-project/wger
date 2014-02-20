@@ -69,7 +69,7 @@ urlpatterns = patterns('wger.manager.views',
         name='workout-ical'),
 
     # Workout session
-    url(r'^workout/session/(?P<workout_pk>\d+)/add$',
+    url(r'^workout/session/(?P<workout_pk>\d+)/add/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})$',
         workout_session.WorkoutSessionAddView.as_view(),
         name='workout-session-add'),
     url(r'^workout/session/(?P<pk>\d+)/edit$',
