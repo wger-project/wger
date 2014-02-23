@@ -43,7 +43,7 @@ class NutritionalPlanPdfExportTestCase(WorkoutManagerTestCase):
                              'attachment; filename=nutritional-plan.pdf')
 
             # Approximate size
-            self.assertGreater(int(response['Content-Length']), 33900)
+            self.assertGreater(int(response['Content-Length']), 32000)
             self.assertLess(int(response['Content-Length']), 34000)
 
         # Create an empty plan

@@ -286,7 +286,7 @@ class Exercise(AbstractLicenseModel, models.Model):
         submitted exercises only)
         '''
         try:
-            user = User.objects.get(username=self.user)
+            user = User.objects.get(username=self.license_author)
         except User.DoesNotExist:
             return
         if self.license_author and user.email:
