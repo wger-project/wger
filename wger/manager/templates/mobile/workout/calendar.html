@@ -25,10 +25,48 @@ $(document).ready(function() {
 {{calendar|safe}}
 
 {% for date in logs %}
+{% regroup logs|get_item:date by exercise as grouped_logs %}
+
+{#                                   #}
+{# Popups to edit or delete the logs #}
+{#                                   #}
+{% for i in grouped_logs %}
+{% for log in i.list %}
+<div data-role="popup"
+     id="log-popup-{{log.pk}}"
+     data-overlay-theme="a">
+
+    <div data-role="header" data-theme="b">
+        <h3>{% trans "Options" %} - {{log.reps}} × {{log.weight}}</h3>
+    </div>
+
+    <div role="main" class="ui-content">
+        <a href="{% url 'workout-log-delete' log.pk %}"
+           title="{% trans 'Delete' %}"
+           data-role="button">
+               <img src="{% static 'images/icons/trash.svg' %}"
+                    width="22"
+                    height="22"
+                    alt="{% trans 'Delete' %}">
+        {% trans 'Delete' %}
+        </a>
+        <a href="{% url 'workout-log-edit' log.pk %}"
+           title="{% trans 'Edit' %}"
+           data-role="button">
+               <img src="{% static 'images/icons/edit.svg' %}"
+                    width="22"
+                    height="22"
+                    alt="{% trans 'Edit' %}">
+        {% trans 'Edit' %}
+        </a>
+    </div>
+</div>
+{% endfor %}
+{% endfor %}
+
 <div id="log-{{date|date:'Y-m-d'}}" class="calendar-log-data">
     <h3>{{date}}</h3>
 
-    {% regroup logs|get_item:date by exercise as grouped_logs %}
 
     {# TODO: what if some of the entries don't belong to a workout? #}
     {% with tmp=grouped_logs|first %}
@@ -67,12 +105,15 @@ $(document).ready(function() {
     {% endwith %}
     {% endwith %}
 
+    {#      #}
+    {# Logs #}
+    {#      #}
     <ul class="grouper-list">
     {% for i in grouped_logs %}
         <li>{{i.grouper}}
         <ul>
         {% for log in i.list %}
-            <li>{{log.reps}} × {{log.weight}}</li>
+            <li><a href="#log-popup-{{log.pk}}" data-rel="popup">{{log.reps}} × {{log.weight}}</a></li>
         {% endfor %}
         </ul>
         </li>

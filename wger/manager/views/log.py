@@ -26,11 +26,14 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy
 from django.forms.models import modelformset_factory
 from django.views.generic import UpdateView
 from django.views.generic import CreateView
 from django.views.generic import DetailView
+from django.views.generic import DeleteView
 
 from wger.manager.models import Workout
 from wger.manager.models import WorkoutSession
@@ -41,6 +44,7 @@ from wger.manager.forms import HelperDateForm
 from wger.manager.forms import HelperWorkoutSessionForm
 from wger.manager.forms import WorkoutLogForm
 from wger.utils.generic_views import WgerFormMixin
+from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
 from wger.weight.helpers import process_log_entries
 
@@ -57,6 +61,7 @@ class WorkoutLogUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
     model = WorkoutLog
     form_class = WorkoutLogForm
+    success_url = reverse_lazy('workout-calendar')
     login_required = True
     custom_js = '''$(document).ready(function () {
         init_weight_log_datepicker();
@@ -68,9 +73,6 @@ class WorkoutLogUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
         context['title'] = _('Edit log entry for %s') % self.object.exercise.name
 
         return context
-
-    def get_success_url(self):
-        return reverse('workout-log', kwargs={'pk': self.object.workout_id})
 
 
 class WorkoutLogAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
@@ -110,6 +112,18 @@ class WorkoutLogAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
         form.instance.workout = workout
         form.instance.user = self.request.user
         return super(WorkoutLogAddView, self).form_valid(form)
+
+
+class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
+    '''
+    Delete a workout log
+    '''
+
+    model = WorkoutLog
+    success_url = reverse_lazy('workout-calendar')
+    title = ugettext_lazy('Delete workout log')
+    form_action_urlname = 'workout-log-delete'
+    login_required = True
 
 
 def add(request, pk):

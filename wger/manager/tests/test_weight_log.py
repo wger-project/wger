@@ -25,6 +25,7 @@ from wger.manager.models import WorkoutSession
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 logger = logging.getLogger('wger.custom')
@@ -173,6 +174,16 @@ class WeightLogAddTestCase(WorkoutManagerAddTestCase):
             'weight': 120.5,
             'date': datetime.date.today(),
             'exercise': 1}
+
+
+class WeightLogDeleteTestCase(WorkoutManagerDeleteTestCase):
+    '''
+    Tests deleting a WorkoutLog
+    '''
+
+    object_class = WorkoutLog
+    url = reverse_lazy('workout-log-delete', kwargs={'pk': 1})
+    pk = 1
 
 
 class WeightLogEntryEditTestCase(WorkoutManagerTestCase):

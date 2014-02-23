@@ -68,7 +68,27 @@ $(document).ready(function() {
         <li>{{i.grouper}}
         <ul>
         {% for log in i.list %}
-            <li>{{log.reps}} × {{log.weight}}</li>
+            <li>
+                {{log.reps}} × {{log.weight}}
+                <span class="editoptions">
+                    <a href="{% url 'workout-log-delete' log.pk %}"
+                       title="{% trans 'Delete' %}"
+                       class="modal-dialog">
+                           <img src="{% static 'images/icons/trash.svg' %}"
+                                width="16"
+                                height="16"
+                                alt="{% trans 'Delete' %}">
+                    </a>
+                    <a href="{% url 'workout-log-edit' log.pk %}"
+                       title="{% trans 'Edit' %}"
+                       class="modal-dialog">
+                           <img src="{% static 'images/icons/edit.svg' %}"
+                                width="16"
+                                height="16"
+                                alt="{% trans 'Edit' %}">
+                    </a>
+                </span>
+            </li>
         {% endfor %}
         </ul>
         </li>

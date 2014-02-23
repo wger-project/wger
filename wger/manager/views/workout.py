@@ -190,10 +190,13 @@ class WorkoutDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
 
     model = Workout
     success_url = reverse_lazy('workout-overview')
-    title = ugettext_lazy('Delete workout')
-    form_action_urlname = 'workout-delete'
-    messages = ugettext_lazy('Workout was successfully deleted')
+    title = ugettext_lazy('Delete workout log')
+    messages = ugettext_lazy('Workout log was successfully deleted')
     login_required = True
+
+    def get_context_data(self, **kwargs):
+        context = super(WorkoutDeleteView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('workout-delete', kwargs={'pk': self.object.id})
 
 
 class WorkoutEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
