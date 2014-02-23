@@ -2,7 +2,6 @@
 {% load staticfiles %}
 
 <h3>{% trans "Free license" %}</h3>
-
 <p>
     {% trans "This content is available under the following license:" %}
     <strong>{{license}}</strong>
@@ -14,6 +13,4 @@
         <br>
         <a rel="license" href="{{license.url}}">{% trans "Click here for more information" %}</a>
     {% endif %}
-    
-    
 </p>
