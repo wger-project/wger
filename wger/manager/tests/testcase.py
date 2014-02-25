@@ -530,14 +530,13 @@ class ApiBaseResourceTestCase(ResourceTestCase, BaseTestCase):
             response = self.api_client.get(self.url)
             self.assertValidJSONResponse(response)
 
+
+##  NOTE: post is not implemented by tastypie - dashdrum 2/20/2014
     def test_post(self):
         '''
         Tests a POST request
-
-        Read-only at the moment, all requests fail
         '''
-
-        # Only perform the checks on derived classes
+         # Only perform the checks on derived classes
         if self.__class__.__name__ == 'ApiBaseResourceTestCase':
             return
 
@@ -546,18 +545,19 @@ class ApiBaseResourceTestCase(ResourceTestCase, BaseTestCase):
             response = self.api_client.post(self.url, data=self.data)
             self.assertHttpUnauthorized(response)
 
-            # User with access
             if self.resource_updatable:
-                response = self.api_client.post(self.url,
-                                                data=self.data,
-                                                authentication=self.get_credentials())
-                self.assertHttpNotImplemented(response)
 
                 # If a different user should fail, test
                 response = self.api_client.post(self.url,
                                                 data=self.data,
                                                 authentication=self.get_credentials(self.user_fail))
-                self.assertHttpNotImplemented(response)
+                self.assertHttpUnauthorized(response)
+                
+                # User with access
+                response = self.api_client.post(self.url,
+                                                data=self.data,
+                                                authentication=self.get_credentials())
+                self.assertHttpAccepted(response)
 
         # public resource (ingredients, exercises), no authentication needed
         else:
@@ -570,8 +570,6 @@ class ApiBaseResourceTestCase(ResourceTestCase, BaseTestCase):
     def test_delete(self):
         '''
         Tests a DELETE request
-
-        Read-only at the moment, all requests fail
         '''
 
         # Only perform the checks on derived classes
@@ -583,16 +581,18 @@ class ApiBaseResourceTestCase(ResourceTestCase, BaseTestCase):
             response = self.api_client.delete(self.url)
             self.assertHttpUnauthorized(response)
 
-            # User with access
+            
             if self.resource_updatable:
-                response = self.api_client.delete(self.url, authentication=self.get_credentials())
-                self.assertHttpUnauthorized(response)
 
                 # If a different user should fail, test
                 authentication = self.get_credentials(self.user_fail)
                 response = self.api_client.delete(self.url,
                                                   authentication=authentication)
                 self.assertHttpUnauthorized(response)
+                
+                # User with access 
+                response = self.api_client.delete(self.url, authentication=self.get_credentials())
+                self.assertHttpAccepted(response)
 
         # public resource (ingredients, exercises), no authentication needed
         else:
@@ -605,8 +605,6 @@ class ApiBaseResourceTestCase(ResourceTestCase, BaseTestCase):
     def test_put(self):
         '''
         Tests a PUT request
-
-        Read-only at the moment, all requests fail
         '''
 
         # Only perform the checks on derived classes
@@ -623,7 +621,7 @@ class ApiBaseResourceTestCase(ResourceTestCase, BaseTestCase):
                 response = self.api_client.put(self.url,
                                                data=self.data,
                                                authentication=self.get_credentials())
-                self.assertHttpUnauthorized(response)
+                self.assertHttpAccepted(response)
 
                 # If a different user should fail, test
                 response = self.api_client.put(self.url,
@@ -642,8 +640,6 @@ class ApiBaseResourceTestCase(ResourceTestCase, BaseTestCase):
     def test_patch(self):
         '''
         Tests a PATCH request
-
-        Read-only at the moment, all requests fail
         '''
 
         # Only perform the checks on derived classes
@@ -660,7 +656,7 @@ class ApiBaseResourceTestCase(ResourceTestCase, BaseTestCase):
                 response = self.api_client.patch(self.url,
                                                  data=self.data,
                                                  authentication=self.get_credentials())
-                self.assertHttpUnauthorized(response)
+                self.assertHttpAccepted(response)
 
                 # If a different user should fail, test
                 authentication = self.get_credentials(self.user_fail)

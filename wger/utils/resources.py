@@ -15,6 +15,7 @@
 import logging
 
 from tastypie.authorization import ReadOnlyAuthorization
+from tastypie.exceptions import TastypieError, Unauthorized
 
 logger = logging.getLogger('wger.custom')
 
@@ -35,3 +36,29 @@ class UserObjectsOnlyAuthorization(ReadOnlyAuthorization):
         # Objects without owner information can be accessed
         except AttributeError:
             return True
+
+    def create_detail(self, object_list, bundle):
+        ### In what scenario is this method used?  - dashdrum 2/20/2014
+        raise TastypieError('create_detail authorization check')
+        try:
+            return bundle.obj.get_owner_object().user == bundle.request.user
+        except AttributeError:
+            raise Unauthorized("You are not allowed to access that resource.")
+
+    def update_detail(self, object_list, bundle):
+        # Check for an owner_object and compare users
+        try:
+            return bundle.obj.get_owner_object().user == bundle.request.user
+        # Only objects with owner information should use this authorization class
+        # Fail authorization attempt if the attribute is not found
+        except AttributeError:
+            raise Unauthorized("You are not allowed to access that resource.")
+
+    def delete_detail(self, object_list, bundle):
+        # Check for an owner_object and compare users
+        try:
+            return bundle.obj.get_owner_object().user == bundle.request.user
+        # Only objects with owner information should use this authorization class
+        # Fail authorization attempt if the attribute is not found
+        except AttributeError:
+            raise Unauthorized("You are not allowed to access that resource.")
