@@ -12,7 +12,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Trizeps Seildr\u00fccken"
         }
@@ -30,7 +30,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Bizeps am Kabel"
         }
@@ -48,7 +48,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 3
             ], 
@@ -69,7 +69,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Ausfallschritte im Gehen"
         }
@@ -87,7 +87,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 8
             ], 
@@ -107,7 +107,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 8
             ], 
@@ -127,7 +127,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 5
             ], 
@@ -148,7 +148,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 8
             ], 
@@ -168,7 +168,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2, 
                 1, 
@@ -190,7 +190,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2, 
                 1, 
@@ -212,7 +212,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 1, 
                 13
@@ -233,7 +233,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 15
             ], 
@@ -253,7 +253,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 7
             ], 
@@ -273,7 +273,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2, 
                 5
@@ -294,7 +294,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2, 
                 5
@@ -315,7 +315,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2, 
                 12, 
@@ -337,7 +337,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Fliegende KH Flachbank"
         }
@@ -355,7 +355,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Frontdr\u00fccken KH"
         }
@@ -373,7 +373,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Seitheben KH"
         }
@@ -391,7 +391,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Butterfly reverse"
         }
@@ -409,7 +409,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Beinbeuger liegend"
         }
@@ -427,7 +427,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 15
             ], 
@@ -447,7 +447,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 13
             ], 
@@ -467,7 +467,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Frenchpress \u00df-Stange"
         }
@@ -485,7 +485,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 13
             ], 
@@ -505,7 +505,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Trizepsmaschine"
         }
@@ -523,7 +523,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 13
             ], 
@@ -543,7 +543,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 4, 
                 6
@@ -564,7 +564,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2
             ], 
@@ -584,7 +584,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Umsetzen"
         }
@@ -602,7 +602,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Crunches an Negativbank"
         }
@@ -620,7 +620,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Crunches am Seil"
         }
@@ -638,7 +638,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 3
             ], 
@@ -658,7 +658,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 3
             ], 
@@ -678,7 +678,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2, 
                 1, 
@@ -700,7 +700,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 1, 
                 13
@@ -721,7 +721,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2, 
                 4
@@ -742,7 +742,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Beinstrecker"
         }
@@ -762,7 +762,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 5
             ], 
@@ -782,7 +782,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2, 
                 5
@@ -801,7 +801,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Rudern aufgelegt"
         }
@@ -819,7 +819,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 13
             ], 
@@ -839,7 +839,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Trizepsdr\u00fccken KH \u00fcber Kopf"
         }
@@ -857,7 +857,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 13
             ], 
@@ -877,7 +877,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 9
             ], 
@@ -897,7 +897,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2, 
                 1, 
@@ -919,7 +919,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "MGM-Maschine"
         }
@@ -940,7 +940,7 @@
             "equipment": [
                 1
             ], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Good Mornings"
         }
@@ -958,7 +958,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Crunches an Maschine"
         }
@@ -976,7 +976,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Butterfly eng"
         }
@@ -994,7 +994,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 5
             ], 
@@ -1014,7 +1014,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 8
             ], 
@@ -1035,7 +1035,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Ausfallschritte stehend"
         }
@@ -1053,7 +1053,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Crunches am Stuhl"
         }
@@ -1071,7 +1071,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Sit Ups"
         }
@@ -1089,7 +1089,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Frenchpress KH"
         }
@@ -1107,7 +1107,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2, 
                 1
@@ -1126,7 +1126,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Hyperextensions"
         }
@@ -1144,7 +1144,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2, 
                 5
@@ -1166,7 +1166,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 1
             ], 
@@ -1186,7 +1186,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Trizeps Seildr\u00fccken mit Stange"
         }
@@ -1204,7 +1204,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Frontheben am Kabel"
         }
@@ -1222,7 +1222,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Frontdr\u00fccken MP"
         }
@@ -1240,7 +1240,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 5
             ], 
@@ -1260,7 +1260,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Dips zwischen 2 B\u00e4nke"
         }
@@ -1278,7 +1278,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Beinstrecker einbeinig"
         }
@@ -1296,7 +1296,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2, 
                 1
@@ -1317,7 +1317,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2
             ], 
@@ -1337,7 +1337,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Beinbeuger stehend"
         }
@@ -1355,7 +1355,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Fliegende KH Schr\u00e4gbank"
         }
@@ -1373,7 +1373,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 13
             ], 
@@ -1393,7 +1393,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2, 
                 1, 
@@ -1415,7 +1415,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2, 
                 5
@@ -1437,7 +1437,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 1
             ], 
@@ -1457,7 +1457,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 13
             ], 
@@ -1477,7 +1477,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 13
             ], 
@@ -1497,7 +1497,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 4, 
                 6
@@ -1518,7 +1518,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Dips between two benches"
         }
@@ -1538,7 +1538,7 @@
             "equipment": [
                 2
             ], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "French press (skullcrusher) SZ-bar"
         }
@@ -1558,7 +1558,7 @@
             "equipment": [
                 3
             ], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "French press (skullcrusher) dumbbells"
         }
@@ -1578,7 +1578,7 @@
             "equipment": [
                 3
             ], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Hammercurls"
         }
@@ -1596,7 +1596,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Dumbbells on scott machine"
         }
@@ -1614,7 +1614,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2, 
                 4
@@ -1635,7 +1635,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Triceps extensions on cable"
         }
@@ -1653,7 +1653,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Triceps extensions on cable with bar"
         }
@@ -1671,7 +1671,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 3
             ], 
@@ -1691,7 +1691,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Crunches with cable"
         }
@@ -1709,7 +1709,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Negative crunches"
         }
@@ -1727,7 +1727,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Crunches on machine"
         }
@@ -1745,7 +1745,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Sit-ups"
         }
@@ -1765,7 +1765,7 @@
             "equipment": [
                 3
             ], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2, 
                 5
@@ -1786,7 +1786,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2
             ], 
@@ -1806,7 +1806,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Butterfly narrow grip"
         }
@@ -1826,7 +1826,7 @@
             "equipment": [
                 1
             ], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Decline bench press barbell"
         }
@@ -1846,7 +1846,7 @@
             "equipment": [
                 3
             ], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Decline bench press dumbbell"
         }
@@ -1864,7 +1864,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 15
             ], 
@@ -1884,7 +1884,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 7
             ], 
@@ -1904,7 +1904,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 15
             ], 
@@ -1925,7 +1925,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 8
             ], 
@@ -1945,7 +1945,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2, 
                 1, 
@@ -1967,7 +1967,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2, 
                 1, 
@@ -1989,7 +1989,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Rowing, seated"
         }
@@ -2007,7 +2007,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2, 
                 1
@@ -2028,7 +2028,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 2, 
                 1
@@ -2049,7 +2049,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 8
             ], 
@@ -2069,7 +2069,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 8
             ], 
@@ -2089,7 +2089,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 8
             ], 
@@ -2109,7 +2109,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 8
             ], 
@@ -2129,7 +2129,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 8
             ], 
@@ -2149,7 +2149,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Good mornings"
         }
@@ -2167,7 +2167,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Leg curls (sitting)"
         }
@@ -2185,7 +2185,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Leg curls (standing)"
         }
@@ -2203,7 +2203,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Shoulder press, barbell"
         }
@@ -2221,7 +2221,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Fly with cable"
         }
@@ -2239,7 +2239,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Shoulder press, dumbbells"
         }
@@ -2257,7 +2257,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Butterfly reverse"
         }
@@ -2275,7 +2275,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 3
             ], 
@@ -2295,7 +2295,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 3
             ], 
@@ -2316,7 +2316,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 1
             ], 
@@ -2336,7 +2336,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Hyperextensions"
         }
@@ -2354,7 +2354,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Biceps curl with cable"
         }
@@ -2372,7 +2372,7 @@
             "language": 2, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Leg press on hackenschmidt machine"
         }
@@ -2390,7 +2390,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Seitheben am Kabel, einarmig"
         }
@@ -2408,7 +2408,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Beinbeuger sitzend"
         }
@@ -2426,7 +2426,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 13
             ], 
@@ -2446,7 +2446,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Ausfallschritt Trizepsdr\u00fccken \u00fc. Kopf, \u00df-Stange"
         }
@@ -2464,7 +2464,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 1, 
                 13
@@ -2485,7 +2485,7 @@
             "language": 1, 
             "creation_date": null, 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 5
             ], 
@@ -2505,7 +2505,7 @@
             "language": 2, 
             "creation_date": "2013-05-05", 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 13
             ], 
@@ -2525,7 +2525,7 @@
             "language": 2, 
             "creation_date": "2013-05-05", 
             "equipment": [], 
-            "user": "admin", 
+            "license_author": "admin", 
             "muscles_secondary": [], 
             "name": "Triceps machine"
         }
@@ -2543,7 +2543,7 @@
             "language": 2, 
             "creation_date": "2013-05-05", 
             "equipment": [], 
-            "user": "admin", 
+            "license_author": "admin", 
             "muscles_secondary": [
                 2, 
                 1, 
@@ -2565,7 +2565,7 @@
             "language": 2, 
             "creation_date": "2013-05-05", 
             "equipment": [], 
-            "user": "admin", 
+            "license_author": "admin", 
             "muscles_secondary": [], 
             "name": "MGM machine"
         }
@@ -2583,7 +2583,7 @@
             "language": 2, 
             "creation_date": "2013-05-05", 
             "equipment": [], 
-            "user": "admin", 
+            "license_author": "admin", 
             "muscles_secondary": [], 
             "name": "Rowing, lying on bench"
         }
@@ -2601,7 +2601,7 @@
             "language": 2, 
             "creation_date": "2013-05-05", 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 1, 
                 13
@@ -2622,7 +2622,7 @@
             "language": 2, 
             "creation_date": "2013-05-05", 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 1, 
                 13
@@ -2645,7 +2645,7 @@
             "equipment": [
                 3
             ], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Fly with dumbbells"
         }
@@ -2665,7 +2665,7 @@
             "equipment": [
                 3
             ], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Fly with dumbbells, decline bench"
         }
@@ -2684,7 +2684,7 @@
             "language": 2, 
             "creation_date": "2013-05-05", 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [
                 1
             ], 
@@ -2704,7 +2704,7 @@
             "language": 2, 
             "creation_date": "2013-05-05", 
             "equipment": [], 
-            "user": "admin", 
+            "license_author": "admin", 
             "muscles_secondary": [], 
             "name": "Lateral raises"
         }
@@ -2722,7 +2722,7 @@
             "language": 2, 
             "creation_date": "2013-05-05", 
             "equipment": [], 
-            "user": "admin", 
+            "license_author": "admin", 
             "muscles_secondary": [], 
             "name": "Lateral raises on cable, one armed"
         }
@@ -2742,7 +2742,7 @@
             "equipment": [
                 1
             ], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Shrugs, barbells"
         }
@@ -2762,7 +2762,7 @@
             "equipment": [
                 3
             ], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Shrugs, dumbbells"
         }
@@ -2780,7 +2780,7 @@
             "language": 2, 
             "creation_date": "2013-05-05", 
             "equipment": [], 
-            "user": "admin", 
+            "license_author": "admin", 
             "muscles_secondary": [], 
             "name": "Shoulder press, on machine"
         }
@@ -2798,7 +2798,7 @@
             "language": 1, 
             "creation_date": "2013-05-05", 
             "equipment": [], 
-            "user": "admin", 
+            "license_author": "admin", 
             "muscles_secondary": [], 
             "name": "Frontdr\u00fccken LH"
         }
@@ -2816,7 +2816,7 @@
             "language": 2, 
             "creation_date": "2013-05-08", 
             "equipment": [], 
-            "user": "admin", 
+            "license_author": "admin", 
             "muscles_secondary": [], 
             "name": "Leg curls (laying)"
         }
@@ -2834,7 +2834,7 @@
             "language": 2, 
             "creation_date": "2013-05-08", 
             "equipment": [], 
-            "user": null, 
+            "license_author": null, 
             "muscles_secondary": [], 
             "name": "Shoulder press, on multi press"
         }
@@ -2852,7 +2852,7 @@
             "language": 2, 
             "creation_date": "2013-05-17", 
             "equipment": [], 
-            "user": "Vl2V2sP42RNfDng1zCSZB7fZqlo", 
+            "license_author": "Vl2V2sP42RNfDng1zCSZB7fZqlo", 
             "muscles_secondary": [
                 1
             ], 
@@ -2872,7 +2872,7 @@
             "language": 1, 
             "creation_date": "2013-05-24", 
             "equipment": [], 
-            "user": "flori", 
+            "license_author": "flori", 
             "muscles_secondary": [
                 1
             ], 
@@ -2892,7 +2892,7 @@
             "language": 2, 
             "creation_date": "2013-05-27", 
             "equipment": [], 
-            "user": "WrmZ", 
+            "license_author": "WrmZ", 
             "muscles_secondary": [
                 5
             ], 
@@ -2913,7 +2913,7 @@
             "language": 2, 
             "creation_date": "2013-05-28", 
             "equipment": [], 
-            "user": "minifigmaster125", 
+            "license_author": "minifigmaster125", 
             "muscles_secondary": [
                 2, 
                 1, 
@@ -2935,7 +2935,7 @@
             "language": 2, 
             "creation_date": "2013-06-21", 
             "equipment": [], 
-            "user": "Mahoney", 
+            "license_author": "Mahoney", 
             "muscles_secondary": [
                 1
             ], 
@@ -2955,7 +2955,7 @@
             "language": 2, 
             "creation_date": "2013-06-21", 
             "equipment": [], 
-            "user": "Mahoney", 
+            "license_author": "Mahoney", 
             "muscles_secondary": [], 
             "name": "Triceps dips"
         }
@@ -2973,7 +2973,7 @@
             "language": 2, 
             "creation_date": "2013-06-21", 
             "equipment": [], 
-            "user": "Mahoney", 
+            "license_author": "Mahoney", 
             "muscles_secondary": [
                 5
             ], 
@@ -2993,7 +2993,7 @@
             "language": 2, 
             "creation_date": "2013-06-21", 
             "equipment": [], 
-            "user": "Mahoney", 
+            "license_author": "Mahoney", 
             "muscles_secondary": [
                 8
             ], 
@@ -3013,7 +3013,7 @@
             "language": 2, 
             "creation_date": "2013-06-21", 
             "equipment": [], 
-            "user": "Mahoney", 
+            "license_author": "Mahoney", 
             "muscles_secondary": [
                 14
             ], 
@@ -3033,7 +3033,7 @@
             "language": 2, 
             "creation_date": "2013-06-22", 
             "equipment": [], 
-            "user": "robhoyt", 
+            "license_author": "robhoyt", 
             "muscles_secondary": [], 
             "name": "Hanging Leg Raises"
         }
@@ -3051,7 +3051,7 @@
             "language": 2, 
             "creation_date": "2013-06-23", 
             "equipment": [], 
-            "user": "robhoyt", 
+            "license_author": "robhoyt", 
             "muscles_secondary": [], 
             "name": "Cable Woodchoppers"
         }
@@ -3069,7 +3069,7 @@
             "language": 2, 
             "creation_date": "2013-07-01", 
             "equipment": [], 
-            "user": "kwrindy", 
+            "license_author": "kwrindy", 
             "muscles_secondary": [
                 11
             ], 
@@ -3089,7 +3089,7 @@
             "language": 2, 
             "creation_date": "2013-07-06", 
             "equipment": [], 
-            "user": "djblitzd", 
+            "license_author": "djblitzd", 
             "muscles_secondary": [], 
             "name": "Splinter Sit-ups"
         }
@@ -3109,7 +3109,7 @@
             "language": 1, 
             "creation_date": "2013-07-18", 
             "equipment": [], 
-            "user": "flori", 
+            "license_author": "flori", 
             "muscles_secondary": [
                 8, 
                 10, 
@@ -3134,7 +3134,7 @@
             "language": 1, 
             "creation_date": "2013-07-19", 
             "equipment": [], 
-            "user": "flori", 
+            "license_author": "flori", 
             "muscles_secondary": [
                 11
             ], 
@@ -3154,7 +3154,7 @@
             "language": 2, 
             "creation_date": "2013-07-19", 
             "equipment": [], 
-            "user": "kwrindy", 
+            "license_author": "kwrindy", 
             "muscles_secondary": [
                 6
             ], 
@@ -3174,7 +3174,7 @@
             "language": 2, 
             "creation_date": "2013-07-19", 
             "equipment": [], 
-            "user": "kwrindy", 
+            "license_author": "kwrindy", 
             "muscles_secondary": [], 
             "name": "Leg Extension"
         }
@@ -3192,7 +3192,7 @@
             "language": 2, 
             "creation_date": "2013-07-24", 
             "equipment": [], 
-            "user": "oliser67", 
+            "license_author": "oliser67", 
             "muscles_secondary": [], 
             "name": "Trazioni alla sbarra presa inversa"
         }
@@ -3210,7 +3210,7 @@
             "language": 2, 
             "creation_date": "2013-07-24", 
             "equipment": [], 
-            "user": "oliser67", 
+            "license_author": "oliser67", 
             "muscles_secondary": [], 
             "name": "Trazioni alla sbarra presa inversa"
         }
@@ -3228,7 +3228,7 @@
             "language": 2, 
             "creation_date": "2013-07-24", 
             "equipment": [], 
-            "user": "oliser67", 
+            "license_author": "oliser67", 
             "muscles_secondary": [], 
             "name": "Trazioni alla sbarra presa inversa"
         }
@@ -3246,7 +3246,7 @@
             "language": 2, 
             "creation_date": "2013-07-24", 
             "equipment": [], 
-            "user": "oliser67", 
+            "license_author": "oliser67", 
             "muscles_secondary": [], 
             "name": "Chin-ups"
         }
@@ -3264,7 +3264,7 @@
             "language": 2, 
             "creation_date": "2013-07-30", 
             "equipment": [], 
-            "user": "OGhTebfCxhexZXuf35mUxV9C--A", 
+            "license_author": "OGhTebfCxhexZXuf35mUxV9C--A", 
             "muscles_secondary": [], 
             "name": "Perfect Push Up"
         }
@@ -3282,7 +3282,7 @@
             "language": 2, 
             "creation_date": "2013-07-30", 
             "equipment": [], 
-            "user": "OGhTebfCxhexZXuf35mUxV9C--A", 
+            "license_author": "OGhTebfCxhexZXuf35mUxV9C--A", 
             "muscles_secondary": [], 
             "name": "Squat Jumps"
         }
@@ -3300,7 +3300,7 @@
             "language": 2, 
             "creation_date": "2013-07-31", 
             "equipment": [], 
-            "user": "Horal_cz", 
+            "license_author": "Horal_cz", 
             "muscles_secondary": [
                 2
             ], 
@@ -3320,7 +3320,7 @@
             "language": 2, 
             "creation_date": "2013-08-04", 
             "equipment": [], 
-            "user": "drthurlow", 
+            "license_author": "drthurlow", 
             "muscles_secondary": [], 
             "name": "Lat Pull Down (Straight Back)"
         }
@@ -3338,7 +3338,7 @@
             "language": 2, 
             "creation_date": "2013-08-04", 
             "equipment": [], 
-            "user": "drthurlow", 
+            "license_author": "drthurlow", 
             "muscles_secondary": [], 
             "name": "Lat Pull Down (Leaning back)"
         }
@@ -3356,7 +3356,7 @@
             "language": 2, 
             "creation_date": "2013-08-11", 
             "equipment": [], 
-            "user": "sistab2", 
+            "license_author": "sistab2", 
             "muscles_secondary": [
                 10
             ], 
@@ -3376,7 +3376,7 @@
             "language": 2, 
             "creation_date": "2013-08-11", 
             "equipment": [], 
-            "user": "sistab2", 
+            "license_author": "sistab2", 
             "muscles_secondary": [
                 8
             ], 
@@ -3398,7 +3398,7 @@
             "equipment": [
                 1
             ], 
-            "user": "sistab2", 
+            "license_author": "sistab2", 
             "muscles_secondary": [
                 6
             ], 
@@ -3420,7 +3420,7 @@
             "equipment": [
                 1
             ], 
-            "user": "sistab2", 
+            "license_author": "sistab2", 
             "muscles_secondary": [
                 1
             ], 
@@ -3440,7 +3440,7 @@
             "language": 2, 
             "creation_date": "2013-08-12", 
             "equipment": [], 
-            "user": "cgoob883", 
+            "license_author": "cgoob883", 
             "muscles_secondary": [
                 13
             ], 
@@ -3462,7 +3462,7 @@
             "language": 2, 
             "creation_date": "2013-08-20", 
             "equipment": [], 
-            "user": "powerade69", 
+            "license_author": "powerade69", 
             "muscles_secondary": [], 
             "name": "Cross-Bench Dumbbell Pullovers"
         }
@@ -3483,7 +3483,7 @@
             "equipment": [
                 7
             ], 
-            "user": "maxamillion1414", 
+            "license_author": "maxamillion1414", 
             "muscles_secondary": [
                 2
             ], 
@@ -3503,7 +3503,7 @@
             "language": 1, 
             "creation_date": "2013-09-08", 
             "equipment": [], 
-            "user": "admin", 
+            "license_author": "admin", 
             "muscles_secondary": [], 
             "name": "Nackenziehen"
         }
@@ -3521,7 +3521,7 @@
             "language": 2, 
             "creation_date": "2013-09-22", 
             "equipment": [], 
-            "user": "ThisGirl0819", 
+            "license_author": "ThisGirl0819", 
             "muscles_secondary": [], 
             "name": "Overhand Cable Curl"
         }
@@ -3539,7 +3539,7 @@
             "language": 1, 
             "creation_date": "2013-11-09", 
             "equipment": [], 
-            "user": "admin", 
+            "license_author": "admin", 
             "muscles_secondary": [], 
             "name": "Brustpresse"
         }
@@ -3557,7 +3557,7 @@
             "language": 1, 
             "creation_date": "2013-11-09", 
             "equipment": [], 
-            "user": "admin", 
+            "license_author": "admin", 
             "muscles_secondary": [
                 8
             ], 
@@ -3898,14 +3898,6 @@
         "fields": {
             "comment": "Fl\u00fcssige Bewegung, keine Pausen oben oder unten", 
             "exercise": 24
-        }
-    }, 
-    {
-        "pk": 48, 
-        "model": "exercises.exercisecomment", 
-        "fields": {
-            "comment": "Fl\u00fcssige Bewegung, keine Pausen oben oder unten", 
-            "exercise": 2
         }
     }, 
     {

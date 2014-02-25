@@ -7,10 +7,6 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
-    depends_on = (
-        ('core', '0003_auto__add_language__chg_field_userprofile_notification_language.py'),
-    )
-
     def forwards(self, orm):
 
         # Changing field 'WeightUnit.language'

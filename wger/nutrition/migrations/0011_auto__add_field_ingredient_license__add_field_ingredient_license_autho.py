@@ -7,6 +7,10 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ('core', '0005_auto__add_license'),
+    )
+
     def forwards(self, orm):
         # Adding field 'Ingredient.license'
         db.add_column(u'nutrition_ingredient', 'license',
