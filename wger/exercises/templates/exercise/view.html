@@ -306,16 +306,6 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 </p>
 <hr>
 
-{% if exercise.status == exercise.EXERCISE_STATUS_ACCEPTED %}
-<div class="alert" style="margin-top:1em;">
-<h3>{% trans "User submitted exercise" %}</h3>
-{% with username=exercise.user %}
-<p>{% blocktrans %}This exercise was submitted by <strong>{{username}}</strong>.{% endblocktrans %}
-{% endwith %}
-</div>
-<hr>
-{% endif %}
-
 {% if perms.exercises %}
 <h3>{% trans "Options" %}</h3>
 <p>
