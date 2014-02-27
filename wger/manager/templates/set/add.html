@@ -47,6 +47,13 @@ function custom_page_init()
             <input type="hidden" id="id_sets" name="sets" value="{{ form.sets.value }}">
         </td>
     </tr>
+    <tr>
+        <td colspan="2">
+            <p class="dimmed">{% blocktrans %}If you do the same repetitions for all sets,
+you can just enter one value: e.g. for 4 sets just enter one "10" for the repetitions, this
+automatically becomes "4 x 10".{% endblocktrans %}</p>
+        </td>
+    </tr>
 
     <tr>
         <td colspan="2">
