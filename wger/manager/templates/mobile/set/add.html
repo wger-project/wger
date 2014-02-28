@@ -47,7 +47,7 @@ $(document).on('pageinit', function(){
     </tr>
     <tr>
         <td style="text-align:right;width:40%;">
-            <label for="slider">{{form.sets.label}}</label>
+            <label for="id_sets">{{form.sets.label}}</label>
         </td>
         <td>
             <input name="sets" id="id_sets" min="1" max="10" value="{{ form.sets.value }}" type="range">
@@ -80,5 +80,5 @@ automatically becomes "4 x 10".{% endblocktrans %}</p>
         </td>
     </tr>
 </table>
-
+</form>
 {% endblock %}
