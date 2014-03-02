@@ -26,9 +26,10 @@ from wger.manager.views import log
 from wger.manager.views import set
 from wger.manager.views import day
 from wger.manager.views import workout_session
+from wger.manager import pdf
 
 
-urlpatterns = patterns('wger.manager.views',
+urlpatterns = patterns('',
 
     # Workout
     url(r'^workout/overview$',
@@ -47,7 +48,7 @@ urlpatterns = patterns('wger.manager.views',
         workout.WorkoutDeleteView.as_view(),
         name='workout-delete'),
     url(r'^workout/(?P<id>\d+)/view/$',
-        'workout.view',
+        workout.view,
         name='workout-view'),
     url(r'^workout/(?P<pk>\d+)/log/$',
         log.WorkoutLogDetailView.as_view(),
@@ -70,6 +71,13 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^workout/(?P<pk>\d+)/ical$',
         ical.export,
         name='workout-ical'),
+    # PDF
+    url(r'^workout/(?P<id>\d+)/pdf/log$',
+         pdf.workout_log,
+         name='workout-pdf-log'),
+     url(r'^workout/(?P<id>\d+)/pdf/table$',
+         pdf.workout_view,
+         name='workout-pdf-table'),
 
     # Workout session
     url(r'^workout/session/(?P<workout_pk>\d+)/add/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})$',
@@ -128,7 +136,8 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^workout/day/(?P<pk>\d+)/delete/$',
         day.delete,
         name='day-delete'),
-    url(r'^workout/day/(?P<id>\d+)/view/$', 'day.view'),
+    url(r'^workout/day/(?P<id>\d+)/view/$',
+        day.view),
     url(r'^workout/day/(?P<pk>\d+)/log/add/$',
         log.add,
         name='day-log'),
@@ -140,7 +149,8 @@ urlpatterns = patterns('wger.manager.views',
     url(r'^workout/get-formset/(?P<exercise_pk>\d+)/(?P<reps>\d+)/',
         set.get_formset,
         name='set-get-formset'),  # Used by JS
-    url(r'^workout/set/(?P<pk>\d+)/delete$', 'set.delete'),
+    url(r'^workout/set/(?P<pk>\d+)/delete$',
+        set.delete),
     url(r'^workout/set/(?P<pk>\d+)/edit/$',
         set.edit,
         name='set-edit'),
@@ -148,8 +158,3 @@ urlpatterns = patterns('wger.manager.views',
     # AJAX
     url(r'^workout/api/edit-set$', set.api_edit_set),
 )
-
-# PDF stuff is in a different file
-urlpatterns = urlpatterns + patterns('wger.manager.pdf',
-     url(r'^workout/(?P<id>\d+)/pdf/$', 'workout_log'))
-

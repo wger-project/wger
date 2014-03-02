@@ -124,10 +124,9 @@ $( document ).off("pageinit").on("pageinit", function() {
 
 <h3>{% trans "Options" %}</h3>
 
-<a href="{% url 'wger.manager.pdf.workout_log' workout.id %}"
+<a href="#export-pdf-link"
    data-role="button"
-   data-ajax="false"
-   class="pdf-button">
+   data-rel="popup">
     <img src="{% static 'images/icons/save.svg' %}"
          width="32"
          height="32"
@@ -211,6 +210,29 @@ an appointment for each training day with the appropriate exercises.{% endblockt
            {% trans "Export calendar file" %}
         </a>
         </p>
+    </div>
+</div>
+
+<div data-role="popup"
+     id="export-pdf-link"
+     data-overlay-theme="a">
+     <div data-role="header" data-theme="b">
+        <h3>{% trans "Download as PDF" %}</h3>
+    </div>
+    <div role="main" class="ui-content">
+        <a href="{% url 'workout-pdf-log' workout.id %}"
+           data-role="button"
+           data-ajax="false"
+           class="pdf-button">
+        {% trans "Log" %}
+        </a>
+
+        <a href="{% url 'workout-pdf-table' workout.id %}"
+           data-role="button"
+           data-ajax="false"
+           class="pdf-button">
+        {% trans "Table" %}
+        </a>
     </div>
 </div>
 {% endblock %}

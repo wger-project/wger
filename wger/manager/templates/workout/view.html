@@ -116,14 +116,15 @@ $(document).ready(function() {
 
 <h3>{% trans "Options" %}</h3>
 <p>
-<a href="{% url 'wger.manager.pdf.workout_log' workout.id %}">
     <img src="{% static 'images/icons/save.svg' %}"
          width="32"
          height="32"
          alt="{% trans 'Download as PDF' %}"
          title="{% trans 'Download as PDF' %}">
-    {% trans "Download as PDF" %}
-</a>
+    {% trans "Download as PDF" %}:
+    <a href="{% url 'workout-pdf-log' workout.id %}">{% trans "Log" %}</a>
+    |
+    <a href="{% url 'workout-pdf-table' workout.id %}">{% trans "Table" %}</a>
 </p>
 
 <p>

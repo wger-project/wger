@@ -17,7 +17,7 @@ from django.core.urlresolvers import reverse
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 
-class WorkoutPdfExportTestCase(WorkoutManagerTestCase):
+class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
     '''
     Tests exporting a workout as a pdf
     '''
@@ -28,17 +28,68 @@ class WorkoutPdfExportTestCase(WorkoutManagerTestCase):
         '''
 
         # Create a workout
-        response = self.client.get(reverse('wger.manager.pdf.workout_log', kwargs={'id': 3}))
+        response = self.client.get(reverse('workout-pdf-log', kwargs={'id': 3}))
 
         if fail:
             self.assertIn(response.status_code, (404, 302))
         else:
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response['Content-Type'], 'application/pdf')
-            self.assertEqual(response['Content-Disposition'], 'attachment; filename=Workout-3.pdf')
+            self.assertEqual(response['Content-Disposition'],
+                             'attachment; filename=Workout-3-log.pdf')
 
-            # Approximate size, there's a timestamp in the document
-            self.assertGreater(len(response.content), 3200)
+            # Approximate size only
+            self.assertGreater(int(response['Content-Length']), 31000)
+            self.assertLess(int(response['Content-Length']), 35000)
+
+    def test_export_pdf_anonymous(self):
+        '''
+        Tests exporting a workout as a pdf as an anonymous user
+        '''
+
+        self.export_pdf(fail=True)
+
+    def test_export_pdf_owner(self):
+        '''
+        Tests exporting a workout as a pdf as the owner user
+        '''
+
+        self.user_login('test')
+        self.export_pdf(fail=False)
+
+    def test_export_pdf_other(self):
+        '''
+        Tests exporting a workout as a pdf as a logged user not owning the data
+        '''
+
+        self.user_login('admin')
+        self.export_pdf(fail=True)
+
+
+class WorkoutPdfTableExportTestCase(WorkoutManagerTestCase):
+    '''
+    Tests exporting a workout as a pdf
+    '''
+
+    def export_pdf(self, fail=False):
+        '''
+        Helper function to test exporting a workout as a pdf
+        '''
+
+        # Create a workout
+        response = self.client.get(reverse('workout-pdf-table', kwargs={'id': 3}))
+
+        if fail:
+            self.assertIn(response.status_code, (404, 302))
+        else:
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response['Content-Type'], 'application/pdf')
+            self.assertEqual(response['Content-Disposition'],
+                             'attachment; filename=Workout-3-table.pdf')
+
+            # Approximate size only
+            self.assertGreater(int(response['Content-Length']), 31000)
+            self.assertLess(int(response['Content-Length']), 35000)
 
     def test_export_pdf_anonymous(self):
         '''
