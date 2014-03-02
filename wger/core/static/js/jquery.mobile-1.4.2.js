@@ -1,6 +1,6 @@
 /*!
-* jQuery Mobile 1.4.1
-* Git HEAD hash: 18c1e32bfc4e0e92756dedc105d799131607f5bb <> Date: Wed Feb 12 2014 22:15:20 UTC
+* jQuery Mobile 1.4.2
+* Git HEAD hash: 9d9a42a27d0c693e8b5569c3a10d771916af5045 <> Date: Fri Feb 28 2014 17:32:01 UTC
 * http://jquerymobile.com
 *
 * Copyright 2010, 2014 jQuery Foundation, Inc. and other contributors
@@ -30,7 +30,7 @@
 	$.extend( $.mobile, {
 
 		// Version of the jQuery Mobile Framework
-		version: "1.4.1",
+		version: "1.4.2",
 
 		// Deprecated and no longer used in 1.4 remove in 1.5
 		// Define the url parameter used for referencing widget-generated sub-pages.
@@ -520,6 +520,36 @@ $.ui.plugin = {
 
 (function( $, window, undefined ) {
 
+	// Subtract the height of external toolbars from the page height, if the page does not have
+	// internal toolbars of the same type
+	var compensateToolbars = function( page, desiredHeight ) {
+		var pageParent = page.parent(),
+			toolbarsAffectingHeight = [],
+			externalHeaders = pageParent.children( ":jqmData(role='header')" ),
+			internalHeaders = page.children( ":jqmData(role='header')" ),
+			externalFooters = pageParent.children( ":jqmData(role='footer')" ),
+			internalFooters = page.children( ":jqmData(role='footer')" );
+
+		// If we have no internal headers, but we do have external headers, then their height
+		// reduces the page height
+		if ( internalHeaders.length === 0 && externalHeaders.length > 0 ) {
+			toolbarsAffectingHeight = toolbarsAffectingHeight.concat( externalHeaders.toArray() );
+		}
+
+		// If we have no internal footers, but we do have external footers, then their height
+		// reduces the page height
+		if ( internalFooters.length === 0 && externalFooters.length > 0 ) {
+			toolbarsAffectingHeight = toolbarsAffectingHeight.concat( externalFooters.toArray() );
+		}
+
+		$.each( toolbarsAffectingHeight, function( index, value ) {
+			desiredHeight -= $( value ).outerHeight();
+		});
+
+		// Height must be at least zero
+		return Math.max( 0, desiredHeight );
+	};
+
 	$.extend( $.mobile, {
 		// define the window and the document objects
 		window: $( window ),
@@ -650,7 +680,8 @@ $.ui.plugin = {
 				pageHeight = page.height(),
 				pageOuterHeight = page.outerHeight( true );
 
-			height = ( typeof height === "number" ) ? height : $.mobile.getScreenHeight();
+			height = compensateToolbars( page,
+				( typeof height === "number" ) ? height : $.mobile.getScreenHeight() );
 
 			page.css( "min-height", height - ( pageOuterHeight - pageHeight ) );
 		},
@@ -3155,7 +3186,6 @@ if ( !$.support.boxShadow ) {
 
 		// All lower case if not a vendor prop
 		if ( props[ test ][ "prefix" ] === "" ) {
-			props[ test ][ "duration" ] = props[ test ][ "duration" ].toLowerCase();
 			props[ test ][ "event" ] = props[ test ][ "event" ].toLowerCase();
 		}
 	});
@@ -3191,8 +3221,8 @@ if ( !$.support.boxShadow ) {
 				}
 
 				// If we could not read a duration use the default
-				if ( duration === 0 || duration === undefined ) {
-					duration = $.fn.animationComplete.default;
+				if ( duration === 0 || duration === undefined || isNaN( duration ) ) {
+					duration = $.fn.animationComplete.defaultDuration;
 				}
 			}
 
@@ -3219,7 +3249,7 @@ if ( !$.support.boxShadow ) {
 	};
 
 	// Allow default callback to be configured on mobileInit
-	$.fn.animationComplete.default = 1000;
+	$.fn.animationComplete.defaultDuration = 1000;
 })( jQuery );
 
 // This plugin is an experiment for abstracting away the touch and mouse
@@ -4478,11 +4508,6 @@ $.widget( "mobile.page", {
 		_create: function() {
 			this.setLastScrollEnabled = true;
 
-			// TODO consider moving the navigation handler OUT of widget into
-			//      some other object as glue between the navigate event and the
-			//      content widget load and change methods
-			this._on( this.window, { navigate: "_filterNavigateEvents" });
-
 			this._on( this.window, {
 				// disable an scroll setting when a hashchange has been fired,
 				// this only works because the recording of the scroll position
@@ -4494,6 +4519,11 @@ $.widget( "mobile.page", {
 				// fired in that case
 				scrollstop: "_delayedRecordScroll"
 			});
+
+			// TODO consider moving the navigation handler OUT of widget into
+			//      some other object as glue between the navigate event and the
+			//      content widget load and change methods
+			this._on( this.window, { navigate: "_filterNavigateEvents" });
 
 			// TODO move from page* events to content* events
 			this._on({ pagechange: "_afterContentChange" });
@@ -5634,6 +5664,9 @@ $.widget( "mobile.page", {
 
 		// resolved on domready
 	var domreadyDeferred = $.Deferred(),
+
+		// resolved and nulled on window.load()
+		loadDeferred = $.Deferred(),
 		documentUrl = $.mobile.path.documentUrl,
 
 		// used to track last vclicked element to make sure its value is added to form data
@@ -6035,12 +6068,28 @@ $.widget( "mobile.page", {
 		$.mobile.pageContainer.pagecontainer();
 
 		//set page min-heights to be device specific
-		$.mobile.document.bind( "pageshow", $.mobile.resetActivePageHeight );
+		$.mobile.document.bind( "pageshow", function() {
+
+			// We need to wait for window.load to make sure that styles have already been rendered,
+			// otherwise heights of external toolbars will have the wrong value
+			if ( loadDeferred ) {
+				loadDeferred.done( $.mobile.resetActivePageHeight );
+			} else {
+				$.mobile.resetActivePageHeight();
+			}
+		});
 		$.mobile.window.bind( "throttledresize", $.mobile.resetActivePageHeight );
 
 	};//navreadyDeferred done callback
 
 	$( function() { domreadyDeferred.resolve(); } );
+
+	$.mobile.window.load( function() {
+
+		// Resolve and null the deferred
+		loadDeferred.resolve();
+		loadDeferred = null;
+	});
 
 	$.when( domreadyDeferred, $.mobile.navreadyDeferred ).done( function() { $.mobile._registerInternalEvents(); } );
 })( jQuery );
@@ -6174,12 +6223,19 @@ $.widget( "mobile.page", {
 			//      better transitions with fewer bugs. Ie, it's not guaranteed that the
 			//      object will be created and transition will be run immediately after as
 			//      it is today. So we wait until transition is invoked to gather the following
-			var reverseClass = this.reverse ? " reverse" : "",
+			var none,
+				reverseClass = this.reverse ? " reverse" : "",
 				screenHeight = $.mobile.getScreenHeight(),
-				maxTransitionOverride = $.mobile.maxTransitionWidth !== false && $.mobile.window.width() > $.mobile.maxTransitionWidth,
-				none = !$.support.cssTransitions || !$.support.cssAnimations || maxTransitionOverride || !this.name || this.name === "none" || Math.max( $.mobile.window.scrollTop(), this.toScroll ) > $.mobile.getMaxScrollForTransition();
+				maxTransitionOverride = $.mobile.maxTransitionWidth !== false &&
+					$.mobile.window.width() > $.mobile.maxTransitionWidth;
 
 			this.toScroll = $.mobile.navigate.history.getActive().lastScroll || $.mobile.defaultHomeScroll;
+
+			none = !$.support.cssTransitions || !$.support.cssAnimations ||
+				maxTransitionOverride || !this.name || this.name === "none" ||
+				Math.max( $.mobile.window.scrollTop(), this.toScroll ) >
+					$.mobile.getMaxScrollForTransition();
+
 			this.toggleViewportClass();
 
 			if ( this.$from && !none ) {
@@ -6840,7 +6896,7 @@ $.widget( "mobile.collapsible", {
 	},
 
 	_applyOptions: function( options ) {
-		var isCollapsed, newTheme, oldTheme, hasCorners,
+		var isCollapsed, newTheme, oldTheme, hasCorners, hasIcon,
 			elem = this.element,
 			currentOpts = this._renderedOptions,
 			ui = this._ui,
@@ -6857,38 +6913,61 @@ $.widget( "mobile.collapsible", {
 
 		isCollapsed = elem.hasClass( "ui-collapsible-collapsed" );
 
-		// Only options referring to the current state need to be applied right away
-		// It is enough to store options covering the alternate in this.options.
+		// We only need to apply the cue text for the current state right away.
+		// The cue text for the alternate state will be stored in the options
+		// and applied the next time the collapsible's state is toggled
 		if ( isCollapsed ) {
 			if ( opts.expandCueText !== undefined ) {
 				status.text( opts.expandCueText );
-			}
-			if ( opts.collapsedIcon !== undefined ) {
-				if ( currentOpts.collapsedIcon ) {
-					anchor.removeClass( "ui-icon-" + currentOpts.collapsedIcon );
-				}
-				if ( opts.collapsedIcon ) {
-					anchor.addClass( "ui-icon-" + opts.collapsedIcon );
-				}
 			}
 		} else {
 			if ( opts.collapseCueText !== undefined ) {
 				status.text( opts.collapseCueText );
 			}
-			if ( opts.expandedIcon !== undefined ) {
-				if ( currentOpts.expandedIcon ) {
-					anchor.removeClass( "ui-icon-" + currentOpts.expandedIcon );
-				}
-				if ( opts.expandedIcon ) {
-					anchor.addClass( "ui-icon-" + opts.expandedIcon );
-				}
-			}
 		}
 
-		if ( opts.iconpos !== undefined ) {
-			anchor
-				.removeClass( iconposClass( currentOpts.iconpos ) )
-				.addClass( iconposClass( opts.iconpos ) );
+		// Update icon
+
+		// Is it supposed to have an icon?
+		hasIcon =
+
+			// If the collapsedIcon is being set, consult that
+			( opts.collapsedIcon !== undefined ? opts.collapsedIcon !== false :
+
+				// Otherwise consult the existing option value
+				currentOpts.collapsedIcon !== false );
+
+
+		// If any icon-related options have changed, make sure the new icon
+		// state is reflected by first removing all icon-related classes
+		// reflecting the current state and then adding all icon-related
+		// classes for the new state
+		if ( !( opts.iconpos === undefined &&
+			opts.collapsedIcon === undefined &&
+			opts.expandedIcon === undefined ) ) {
+
+			// Remove all current icon-related classes
+			anchor.removeClass( [ iconposClass( currentOpts.iconpos ) ]
+				.concat( ( currentOpts.expandedIcon ?
+					[ "ui-icon-" + currentOpts.expandedIcon ] : [] ) )
+				.concat( ( currentOpts.collapsedIcon ?
+					[ "ui-icon-" + currentOpts.collapsedIcon ] : [] ) )
+				.join( " " ) );
+
+			// Add new classes if an icon is supposed to be present
+			if ( hasIcon ) {
+				anchor.addClass(
+					[ iconposClass( opts.iconpos !== undefined ?
+						opts.iconpos : currentOpts.iconpos ) ]
+						.concat( isCollapsed ?
+							[ "ui-icon-" + ( opts.collapsedIcon !== undefined ?
+								opts.collapsedIcon :
+								currentOpts.collapsedIcon ) ] :
+							[ "ui-icon-" + ( opts.expandedIcon !== undefined ?
+								opts.expandedIcon :
+								currentOpts.expandedIcon ) ] )
+						.join( " " ) );
+			}
 		}
 
 		if ( opts.theme !== undefined ) {
@@ -7596,6 +7675,8 @@ $.mobile.behaviors.formReset = {
 
 (function( $, undefined ) {
 
+var escapeId = $.mobile.path.hashToSelector;
+
 $.widget( "mobile.checkboxradio", $.extend( {
 
 	initSelector: "input:not( :jqmData(role='flipswitch' ) )[type='checkbox'],input[type='radio']:not( :jqmData(role='flipswitch' ))",
@@ -7622,7 +7703,7 @@ $.widget( "mobile.checkboxradio", $.extend( {
 				input
 					.closest( "form, fieldset, :jqmData(role='page'), :jqmData(role='dialog')" )
 					.find( "label" )
-					.filter( "[for='" + $.mobile.path.hashToSelector( input[0].id ) + "']" )
+					.filter( "[for='" + escapeId( input[0].id ) + "']" )
 					.first(),
 			inputtype = input[0].type,
 			checkedClass = "ui-" + inputtype + "-on",
@@ -7708,17 +7789,9 @@ $.widget( "mobile.checkboxradio", $.extend( {
 	},
 
 	_handleInputVClick: function() {
-		var $this = this.element;
-
 		// Adds checked attribute to checked input when keyboard is used
-		if ( $this.is( ":checked" ) ) {
-
-			$this.prop( "checked", true);
-			this._getInputSet().not( $this ).prop( "checked", false );
-		} else {
-			$this.prop( "checked", false );
-		}
-
+		this.element.prop( "checked", this.element.is( ":checked" ) );
+		this._getInputSet().not( this.element ).prop( "checked", false );
 		this._updateAll();
 	},
 
@@ -7762,14 +7835,51 @@ $.widget( "mobile.checkboxradio", $.extend( {
 		});
 	},
 
-	//returns either a set of radios with the same name attribute, or a single checkbox
+	// Returns those radio buttons that are supposed to be in the same group as
+	// this radio button. In the case of a checkbox or a radio lacking a name
+	// attribute, it returns this.element.
 	_getInputSet: function() {
-		if ( this.inputtype === "checkbox" ) {
-			return this.element;
-		}
+		var selector, formId,
+			radio = this.element[ 0 ],
+			name = radio.name,
+			form = radio.form,
+			doc = this.element.parents().last().get( 0 ),
 
-		return this.element.closest( "form, :jqmData(role='page'), :jqmData(role='dialog')" )
-			.find( "input[name='" + this.element[ 0 ].name + "'][type='" + this.inputtype + "']" );
+			// A radio is always a member of its own group
+			radios = this.element;
+
+		// Only start running selectors if this is an attached radio button with a name
+		if ( name && this.inputtype === "radio" && doc ) {
+			selector = "input[type='radio'][name='" + escapeId( name ) + "']";
+
+			// If we're inside a form
+			if ( form ) {
+				formId = form.id;
+
+				// If the form has an ID, collect radios scattered throught the document which
+				// nevertheless are part of the form by way of the value of their form attribute
+				if ( formId ) {
+					radios = $( selector + "[form='" + escapeId( formId ) + "']", doc );
+				}
+
+				// Also add to those the radios in the form itself
+				radios = $( form ).find( selector ).filter( function() {
+
+					// Some radios inside the form may belong to some other form by virtue of
+					// having a form attribute defined on them, so we must filter them out here
+					return ( this.form === form );
+				}).add( radios );
+
+			// If we're outside a form
+			} else {
+
+				// Collect all those radios which are also outside of a form and match our name
+				radios = $( selector, doc ).filter( function() {
+					return !this.form;
+				});
+			}
+		}
+		return radios;
 	},
 
 	_updateAll: function() {
@@ -8005,12 +8115,18 @@ $.widget( "mobile.button", {
 	},
 
 	refresh: function( create ) {
+		var originalElement,
+			isDisabled = this.element.prop( "disabled" );
+
 		if ( this.options.icon && this.options.iconpos === "notext" && this.element.attr( "title" ) ) {
 			this.element.attr( "title", this.element.val() );
 		}
 		if ( !create ) {
-			var originalElement = this.element.detach();
+			originalElement = this.element.detach();
 			$( this.wrapper ).text( this.element.val() ).append( originalElement );
+		}
+		if ( this.options.disabled !== isDisabled ) {
+			this._setOptions({ disabled: isDisabled });
 		}
 	}
 });
@@ -9555,7 +9671,7 @@ $.widget( "mobile.flipswitch", $.extend({
 				"keyup": "_timeout",
 				"change": "_timeout",
 				"input": "_timeout",
-				"paste": "_timeout",
+				"paste": "_timeout"
 			});
 
 			// Attach to the various you-have-become-visible notifications that the
@@ -11945,8 +12061,7 @@ $.widget( "mobile.controlgroup", $.extend( {
 				role: role,
 				page: page,
 				leftbtn: leftbtn,
-				rightbtn: rightbtn,
-				backBtn: null
+				rightbtn: rightbtn
 			});
 			this.element.attr( "role", role === "header" ? "banner" : "contentinfo" ).addClass( "ui-" + role );
 			this.refresh();
@@ -12020,18 +12135,15 @@ $.widget( "mobile.controlgroup", $.extend( {
 
 		},
 		_addBackButton: function() {
-			var theme,
-				options = this.options;
-
-			if ( !this.backBtn ) {
+			var options = this.options,
 				theme = options.backBtnTheme || options.theme;
-				this.backBtn = $( "<a role='button' href='javascript:void(0);' " +
-					"class='ui-btn ui-corner-all ui-shadow ui-btn-left " +
-						( theme ? "ui-btn-" + theme + " " : "" ) +
-						"ui-toolbar-back-btn ui-icon-carat-l ui-btn-icon-left' " +
-					"data-" + $.mobile.ns + "rel='back'>" + options.backBtnText + "</a>" )
-						.prependTo( this.element );
-			}
+
+			$( "<a role='button' href='javascript:void(0);' " +
+				"class='ui-btn ui-corner-all ui-shadow ui-btn-left " +
+					( theme ? "ui-btn-" + theme + " " : "" ) +
+					"ui-toolbar-back-btn ui-icon-carat-l ui-btn-icon-left' " +
+				"data-" + $.mobile.ns + "rel='back'>" + options.backBtnText + "</a>" )
+					.prependTo( this.element );
 		},
 		_addHeadingClasses: function() {
 			this.element.children( "h1, h2, h3, h4, h5, h6" )
@@ -12085,7 +12197,6 @@ $.widget( "mobile.controlgroup", $.extend( {
 			this._addTransitionClass();
 			this._bindPageEvents();
 			this._bindToggleHandlers();
-			this._setOptions( this.options );
 		},
 
 		_setOptions: function( o ) {
@@ -12680,7 +12791,6 @@ $.widget( "mobile.panel", {
 		positionFixed: false
 	},
 
-	_panelID: null,
 	_closeLink: null,
 	_parentPage: null,
 	_page: null,
@@ -12691,19 +12801,20 @@ $.widget( "mobile.panel", {
 
 	_create: function() {
 		var el = this.element,
-			parentPage = el.closest( ":jqmData(role='page')" );
+			parentPage = el.closest( ".ui-page, :jqmData(role='page')" );
 
 		// expose some private props to other methods
 		$.extend( this, {
-			_panelID: el.attr( "id" ),
 			_closeLink: el.find( ":jqmData(rel='close')" ),
 			_parentPage: ( parentPage.length > 0 ) ? parentPage : false,
+			_openedPage: null,
 			_page: this._getPage,
 			_panelInner: this._getPanelInner(),
-			_wrapper: this._getWrapper,
 			_fixedToolbars: this._getFixedToolbars
 		});
-
+		if ( this.options.display !== "overlay" ){
+			this._getWrapper();
+		}
 		this._addPanelClasses();
 
 		// if animating, add the class to do so
@@ -12737,7 +12848,7 @@ $.widget( "mobile.panel", {
 		var self = this,
 			target = self._parentPage ? self._parentPage.parent() : self.element.parent();
 
-		self._modal = $( "<div class='" + self.options.classes.modal + "' data-panelid='" + self._panelID + "'></div>" )
+		self._modal = $( "<div class='" + self.options.classes.modal + "'></div>" )
 			.on( "mousedown", function() {
 				self.close();
 			})
@@ -12745,21 +12856,20 @@ $.widget( "mobile.panel", {
 	},
 
 	_getPage: function() {
-		var page = this._parentPage ? this._parentPage : $( "." + $.mobile.activePageClass );
+		var page = this._openedPage || this._parentPage || $( "." + $.mobile.activePageClass );
 
 		return page;
 	},
 
 	_getWrapper: function() {
 		var wrapper = this._page().find( "." + this.options.classes.pageWrapper );
-
 		if ( wrapper.length === 0 ) {
 			wrapper = this._page().children( ".ui-header:not(.ui-header-fixed), .ui-content:not(.ui-popup), .ui-footer:not(.ui-footer-fixed)" )
 				.wrapAll( "<div class='" + this.options.classes.pageWrapper + "'></div>" )
 				.parent();
 		}
 
-		return wrapper;
+		this._wrapper = wrapper;
 	},
 
 	_getFixedToolbars: function() {
@@ -12815,7 +12925,7 @@ $.widget( "mobile.panel", {
 		});
 	},
 
-	_positionPanel: function() {
+	_positionPanel: function( scrollToTop ) {
 		var self = this,
 			panelInnerHeight = self._panelInner.outerHeight(),
 			expand = panelInnerHeight > $.mobile.getScreenHeight();
@@ -12825,7 +12935,9 @@ $.widget( "mobile.panel", {
 				self._unfixPanel();
 				$.mobile.resetActivePageHeight( panelInnerHeight );
 			}
-			window.scrollTo( 0, $.mobile.defaultHomeScroll );
+			if ( scrollToTop ) {
+				this.window[ 0 ].scrollTo( 0, $.mobile.defaultHomeScroll );
+			}
 		} else {
 			self._fixPanel();
 		}
@@ -12869,9 +12981,13 @@ $.widget( "mobile.panel", {
 	},
 
 	_handleClick: function( e ) {
-		if (  e.currentTarget.href.split( "#" )[ 1 ] === this._panelID && this._panelID !== undefined ) {
+		var link,
+			panelId = this.element.attr( "id" );
+
+		if ( e.currentTarget.href.split( "#" )[ 1 ] === panelId && panelId !== undefined ) {
+
 			e.preventDefault();
-			var link = $( e.target );
+			link = $( e.target );
 			if ( link.hasClass( "ui-btn" ) ) {
 				link.addClass( $.mobile.activeBtnClass );
 				this.element.one( "panelopen panelclose", function() {
@@ -12917,7 +13033,11 @@ $.widget( "mobile.panel", {
 					self.close();
 				}
 			});
-
+		if ( !this._parentPage && this.options.display !== "overlay" ) {
+			this._on( this.document, {
+				"pageshow": "_getWrapper"
+			});
+		}
 		// Clean up open panels after page hide
 		if ( self._parentPage ) {
 			this.document.on( "pagehide", ":jqmData(role='page')", function() {
@@ -12949,7 +13069,7 @@ $.widget( "mobile.panel", {
 					self._page().jqmData( "panel", "open" );
 
 					if ( $.support.cssTransform3d && !!o.animate && o.display !== "overlay" ) {
-						self._wrapper().addClass( o.classes.animate );
+						self._wrapper.addClass( o.classes.animate );
 						self._fixedToolbars().addClass( o.classes.animate );
 					}
 
@@ -12968,13 +13088,13 @@ $.widget( "mobile.panel", {
 						.removeClass( o.classes.panelClosed )
 						.addClass( o.classes.panelOpen );
 
-					self._positionPanel();
+					self._positionPanel( true );
 
 					self._pageContentOpenClasses = self._getPosDisplayClasses( o.classes.pageContentPrefix );
 
 					if ( o.display !== "overlay" ) {
 						self._page().parent().addClass( o.classes.pageContainer );
-						self._wrapper().addClass( self._pageContentOpenClasses );
+						self._wrapper.addClass( self._pageContentOpenClasses );
 						self._fixedToolbars().addClass( self._pageContentOpenClasses );
 					}
 
@@ -12988,13 +13108,15 @@ $.widget( "mobile.panel", {
 				complete = function() {
 
 					if ( o.display !== "overlay" ) {
-						self._wrapper().addClass( o.classes.pageContentPrefix + "-open" );
+						self._wrapper.addClass( o.classes.pageContentPrefix + "-open" );
 						self._fixedToolbars().addClass( o.classes.pageContentPrefix + "-open" );
 					}
 
 					self._bindFixListener();
 
 					self._trigger( "open" );
+
+					self._openedPage = self._page();
 				};
 
 			self._trigger( "beforeopen" );
@@ -13021,7 +13143,7 @@ $.widget( "mobile.panel", {
 					self.element.removeClass( o.classes.panelOpen );
 
 					if ( o.display !== "overlay" ) {
-						self._wrapper().removeClass( self._pageContentOpenClasses );
+						self._wrapper.removeClass( self._pageContentOpenClasses );
 						self._fixedToolbars().removeClass( self._pageContentOpenClasses );
 					}
 
@@ -13044,12 +13166,12 @@ $.widget( "mobile.panel", {
 
 					if ( o.display !== "overlay" ) {
 						self._page().parent().removeClass( o.classes.pageContainer );
-						self._wrapper().removeClass( o.classes.pageContentPrefix + "-open" );
+						self._wrapper.removeClass( o.classes.pageContentPrefix + "-open" );
 						self._fixedToolbars().removeClass( o.classes.pageContentPrefix + "-open" );
 					}
 
 					if ( $.support.cssTransform3d && !!o.animate && o.display !== "overlay" ) {
-						self._wrapper().removeClass( o.classes.animate );
+						self._wrapper.removeClass( o.classes.animate );
 						self._fixedToolbars().removeClass( o.classes.animate );
 					}
 
@@ -13060,6 +13182,8 @@ $.widget( "mobile.panel", {
 					self._page().jqmRemoveData( "panel" );
 
 					self._trigger( "close" );
+
+					self._openedPage = null;
 				};
 
 			self._trigger( "beforeclose" );
@@ -13084,7 +13208,7 @@ $.widget( "mobile.panel", {
 			//  remove the wrapper if not in use by another panel
 			otherPanels = $( "body > :mobile-panel" ).add( $.mobile.activePage.find( ":mobile-panel" ) );
 			if ( otherPanels.not( ".ui-panel-display-overlay" ).not( this.element ).length === 0 ) {
-				this._wrapper().children().unwrap();
+				this._wrapper.children().unwrap();
 			}
 
 			if ( this._open ) {
@@ -13380,7 +13504,8 @@ $.widget( "mobile.table", $.mobile.table, {
 
 		if ( !create && this.options.mode === "columntoggle" ) {
 			// columns not being replaced must be cleared from input toggle-locks
-			this._unlockCells( this.allHeaders );
+			this._unlockCells( this.element.find( ".ui-table-cell-hidden, " +
+				".ui-table-cell-visible" ) );
 
 			// update columntoggles and cells
 			this._addToggles( this._menu, create );

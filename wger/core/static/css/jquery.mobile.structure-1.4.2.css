@@ -1,6 +1,6 @@
 /*!
-* jQuery Mobile 1.4.1
-* Git HEAD hash: 18c1e32bfc4e0e92756dedc105d799131607f5bb <> Date: Wed Feb 12 2014 22:15:20 UTC
+* jQuery Mobile 1.4.2
+* Git HEAD hash: 9d9a42a27d0c693e8b5569c3a10d771916af5045 <> Date: Fri Feb 28 2014 17:32:01 UTC
 * http://jquerymobile.com
 *
 * Copyright 2010, 2014 jQuery Foundation, Inc. and other contributors
@@ -2487,7 +2487,7 @@ ol.ui-listview > li > .ui-btn,
 ol.ui-listview > li.ui-li-static {
 	vertical-align: middle;
 }
-ol.ui-listview > li > .ui-btn:before,
+ol.ui-listview > li > .ui-btn:first-child:before,
 ol.ui-listview > li.ui-li-static:before,
 ol.ui-listview > li.ui-field-contain > label:before,
 ol.ui-listview > li.ui-field-contain > .ui-controlgroup-label:before {
@@ -2698,14 +2698,13 @@ div.ui-slider-switch.ui-mini {
 .ui-field-contain div.ui-slider-switch {
 	margin: 0;
 }
-@media (min-width: 28em) {
-	/* ui-hide-label deprecated in 1.4. TODO: Remove in 1.5 */
-	.ui-field-contain div.ui-slider-switch,
-	.ui-field-contain.ui-hide-label div.ui-slider-switch {
-		display: inline-block;
-		width: 5.8em;
-	}
-}	
+/* ui-hide-label deprecated in 1.4. TODO: Remove in 1.5 */
+.ui-field-contain div.ui-slider-switch,
+.ui-field-contain.ui-hide-label div.ui-slider-switch,
+html .ui-popup .ui-field-contain div.ui-slider-switch {
+	display: inline-block;
+	width: 5.8em;
+}
 /* slider tooltip
 -----------------------------------------------------------------------------------------------------------*/
 .ui-slider-popup {
@@ -2986,19 +2985,20 @@ textarea.ui-input-text.ui-textinput-autogrow {
 	padding: 1px;
 	text-indent: 1em; /* Override this to center text if you use a label other than "off" */
 }
-@media (min-width: 28em) {
-	.ui-field-contain > label + .ui-flipswitch {
-		display: inline-block;
-		width: 5.875em; /* If you override the width for .ui-flipswitch you should repeat the same value here */
-		-webkit-box-sizing: content-box;
-		-moz-box-sizing: content-box;
-		-ms-box-sizing: content-box;
-		box-sizing: content-box;
-	}
-	.ui-field-contain .ui-flipswitch.ui-flipswitch-active {
-		width: 1.875em;
-	}
-}	
+/* Override field container CSS to prevent the flipswitch from becomming full width */
+html .ui-field-contain > label + .ui-flipswitch,
+html .ui-popup .ui-field-contain > label + .ui-flipswitch {
+	display: inline-block;
+	width: 5.875em; /* If you override the width for .ui-flipswitch you should repeat the same value here */
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	-ms-box-sizing: content-box;
+	box-sizing: content-box;
+}
+.ui-field-contain .ui-flipswitch.ui-flipswitch-active,
+.ui-popup .ui-field-contain .ui-flipswitch.ui-flipswitch-active {
+	width: 1.875em;
+}
 .ui-table {
 	border: 0;
 	border-collapse: collapse;
