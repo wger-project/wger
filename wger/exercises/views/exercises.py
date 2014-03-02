@@ -192,15 +192,7 @@ class ExerciseUpdateView(ExercisesEditAddView, UpdateView, WgerPermissionMixin):
     '''
     Generic view to update an existing exercise
     '''
-
     permission_required = 'exercises.change_exercise'
-
-    def form_valid(self, form):
-        '''
-        Set the user
-        '''
-        form.instance.user = Exercise.objects.get(pk=self.object.id).user
-        return super(ExerciseUpdateView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super(ExerciseUpdateView, self).get_context_data(**kwargs)
