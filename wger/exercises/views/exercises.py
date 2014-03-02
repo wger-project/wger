@@ -138,7 +138,6 @@ def view(request, id, slug=None):
     template_data['svg_uuid'] = str(uuid.uuid4())
     template_data['reps'] = _("Reps")
 
-    # Render
     return render(request, 'exercise/view.html', template_data)
 
 
@@ -155,7 +154,9 @@ class ExercisesEditAddView(WgerFormMixin):
                    'description',
                    'muscles',
                    'muscles_secondary',
-                   'equipment']
+                   'equipment',
+                   'license',
+                   'license_author']
 
     title = ugettext_lazy('Add exercise')
     custom_js = 'init_tinymce();'
@@ -223,11 +224,17 @@ class ExerciseAddView(ExercisesEditAddView, CreateView, WgerPermissionMixin):
 
         If admin, set appropriate status
         '''
-        form.instance.user = self.request.user.username
         form.instance.language = load_language()
+
         if self.request.user.has_perm('exercises.add_exercise'):
             form.instance.status = Exercise.EXERCISE_STATUS_ADMIN
+            if not form.instance.license_author:
+                form.instance.license_author = 'wger.de'
+
         else:
+            if not form.instance.license_author:
+                form.instance.license_author = self.request.user.username
+
             subject = _('New user submitted exercise')
             message = _('''The user {0} submitted a new exercise "{1}".'''.format(
                         self.request.user.username, form.instance.name))

@@ -95,13 +95,14 @@ def yaml_form_field(field, css_class='ym-fbox-text'):
             'css_class': css_class}
 
 
-@register.inclusion_tag('tags/cc-by-sa-sidebar.html')
-def cc_by_sa_sidebar(language):
+@register.inclusion_tag('tags/license-sidebar.html')
+def license_sidebar(license, author=None):
     '''
-    Renders the Creative Commons license notice
+    Renders the license notice for exercises
     '''
 
-    return {'language': language}
+    return {'license': license,
+            'author': author}
 
 
 @register.inclusion_tag('tags/language_select.html', takes_context=True)

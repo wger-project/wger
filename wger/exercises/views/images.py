@@ -25,6 +25,7 @@ from django.views.generic import DeleteView
 
 from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseImage
+from wger.exercises.forms import ExerciseImageForm
 
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
@@ -46,6 +47,7 @@ class ExerciseImageEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     model = ExerciseImage
     title = ugettext_lazy('Edit exercise image')
     permission_required = 'exercises.change_exerciseimage'
+    form_class = ExerciseImageForm
 
     def get_success_url(self):
         return reverse('exercise-view', kwargs={'id': self.object.exercise.id})
@@ -68,9 +70,12 @@ class ExerciseImageAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     model = ExerciseImage
     title = ugettext_lazy('Add exercise image')
     permission_required = 'exercises.add_exerciseimage'
+    form_class = ExerciseImageForm
 
     def form_valid(self, form):
         form.instance.exercise = Exercise.objects.get(pk=self.kwargs['exercise_pk'])
+        if not form.instance.license_author:
+            form.instance.license_author = self.request.user.username
         return super(ExerciseImageAddView, self).form_valid(form)
 
     def get_success_url(self):

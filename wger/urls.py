@@ -28,7 +28,7 @@ from wger.nutrition.api import resources as nutrition_api
 from wger.utils.generic_views import TextTemplateView
 from wger.utils.generic_views import WebappManifestView
 from wger.manager.api import resources as manager_api
-from wger.core.api.resources import UserProfileResource, LanguageResource, DaysOfWeekResource
+from wger.core.api import resources as core_api
 from wger.weight.api import resources as weight_api
 
 #
@@ -42,7 +42,6 @@ v1_api.register(exercises_api.ExerciseCommentResource())
 v1_api.register(exercises_api.ExerciseImageResource())
 v1_api.register(exercises_api.ExerciseResource())
 v1_api.register(exercises_api.MuscleResource())
-v1_api.register(LanguageResource())
 v1_api.register(exercises_api.EquipmentResource())
 
 # Nutrition app
@@ -54,11 +53,9 @@ v1_api.register(nutrition_api.MealItemResource())
 v1_api.register(nutrition_api.IngredientToWeightUnit())
 
 # Manager app
-v1_api.register(UserProfileResource())
 v1_api.register(manager_api.WorkoutResource())
 v1_api.register(manager_api.ScheduleResource())
 v1_api.register(manager_api.ScheduleStepResource())
-v1_api.register(DaysOfWeekResource())
 v1_api.register(manager_api.DayResource())
 v1_api.register(manager_api.SetResource())
 v1_api.register(manager_api.SettingResource())
@@ -67,6 +64,14 @@ v1_api.register(manager_api.WorkoutSessionResource())
 
 # Weight app
 v1_api.register(weight_api.WeightEntryResource())
+
+
+# Core app
+v1_api.register(core_api.LanguageResource())
+v1_api.register(core_api.DaysOfWeekResource())
+v1_api.register(core_api.UserProfileResource())
+v1_api.register(core_api.LicenseResource())
+
 
 from django.contrib import admin
 admin.autodiscover()

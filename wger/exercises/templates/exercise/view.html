@@ -149,45 +149,6 @@ included in the database.{% endblocktrans %}
 {% if images %}
     <h3>{% trans "Images" %}</h3>
 
-
-<!--
-    {% with main_image=images|first %}
-        <div class="image-gallery" style="width:450px;margin-left:auto;margin-right:auto;">
-        <div class="image-box" style="width:400px;padding-bottom:340px;">
-            <div class="boxInner">
-                <img src="{{ main_image.image|thumbnail_url:'medium' }}"
-                     alt=""
-                     class="gallery-image">
-
-                <div class="titleBox">
-                    <a href="{{ main_image.image.url }}"
-                       target="_blank"
-                       class=" no-hover">
-                         {% trans "Download" %}</a>
-                    {% if perms.exercises.change_exerciseimage %}
-                    |
-                    <a href="{% url 'exerciseimage-delete' exercise.pk main_image.pk %}"
-                       class="modal-dialog no-hover">
-                         {% trans 'Delete' %}</a> |
-                    <a href="{% url 'exerciseimage-edit' main_image.pk %}"
-                       class="no-hover">
-                         {% trans 'Edit' %}</a>
-                    {% endif %}
-
-                    <br>
-                    {{main_image.get_license_display}}
-                    {% if main_image.license_author %}
-                         – {{main_image.license_author}}
-                    {% endif %}
-
-                </div>
-            </div>
-        </div>
-        </div>
-    {% endwith %}
--->
-
-
     <div class="image-gallery">
     {% with other_images=images %}
     {% for image in other_images %}
@@ -345,16 +306,6 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 </p>
 <hr>
 
-{% if exercise.status == exercise.EXERCISE_STATUS_ACCEPTED %}
-<div class="alert" style="margin-top:1em;">
-<h3>{% trans "User submitted exercise" %}</h3>
-{% with username=exercise.user %}
-<p>{% blocktrans %}This exercise was submitted by <strong>{{username}}</strong>.{% endblocktrans %}
-{% endwith %}
-</div>
-<hr>
-{% endif %}
-
 {% if perms.exercises %}
 <h3>{% trans "Options" %}</h3>
 <p>
@@ -378,6 +329,6 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 </p>
 {% endif %}
 
-{% cc_by_sa_sidebar language %}
+{% license_sidebar exercise.license exercise.license_author %}
 
 {% endblock %}

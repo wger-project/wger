@@ -1,0 +1,29 @@
+[
+    {
+        "pk": 1, 
+        "model": "core.license", 
+        "fields": {
+            "url": "https://creativecommons.org/licenses/by-sa/3.0/deed.en", 
+            "full_name": " Creative Commons Attribution Share Alike 3", 
+            "short_name": "CC-BY-SA 3"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "core.license", 
+        "fields": {
+            "url": "https://creativecommons.org/licenses/by-sa/4.0/deed.en", 
+            "full_name": "Creative Commons Attribution Share Alike 4", 
+            "short_name": "CC-BY-SA 4"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "core.license", 
+        "fields": {
+            "url": "http://creativecommons.org/publicdomain/zero/1.0/", 
+            "full_name": "Creative Commons Public Domain 1.0", 
+            "short_name": "CC0"
+        }
+    }
+]

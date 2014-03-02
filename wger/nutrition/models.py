@@ -30,6 +30,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
 from django.utils import translation
+
 from wger.core.models import Language
 
 from wger.utils.constants import EMAIL_FROM
@@ -38,6 +39,7 @@ from wger.utils.cache import cache_mapper
 from wger.utils.fields import Html5TimeField
 from wger.utils.fields import Html5DecimalField
 from wger.utils.fields import Html5IntegerField
+from wger.utils.models import AbstractLicenseModel
 
 MEALITEM_WEIGHT_GRAM = '1'
 MEALITEM_WEIGHT_UNIT = '2'
@@ -183,7 +185,7 @@ class NutritionPlan(models.Model):
             return 4
 
 
-class Ingredient(models.Model):
+class Ingredient(AbstractLicenseModel, models.Model):
     '''
     An ingredient, with some approximate nutrition values
     '''

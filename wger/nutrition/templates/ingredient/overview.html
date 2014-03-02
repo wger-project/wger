@@ -49,26 +49,9 @@ $(document).ready(function() {
 
 <div style="padding-top:3em;"></div>
 {% pagination paginator page_obj %}
-
-
 {% endblock %}
 
 {% block sidebar %}
-<h3>{% trans "Search" %}</h3>
-<div class="ui-widget">
-    <form action="{% url 'ingredient-search' %}"
-            method="get"
-            id="search_form">
-        {% csrf_token %}
-        <input name="term"
-                type="search"
-                id="ingredient-search"
-                class="ajax-form-element"
-                placeholder="{% trans 'ingredient name' %}"
-                style="width:100%;">
-    </form>
-</div>
-
 {% if user.is_authenticated and not user.userprofile.is_temporary %}
 <h3>{% trans "Add ingredient" %}</h3>
 <p>
@@ -83,5 +66,18 @@ $(document).ready(function() {
 </p>
 {% endif %}
 
-{% cc_by_sa_sidebar language %}
+<h3>{% trans "Search" %}</h3>
+<div class="ui-widget">
+    <form action="{% url 'ingredient-search' %}"
+            method="get"
+            id="search_form">
+        {% csrf_token %}
+        <input name="term"
+                type="search"
+                id="ingredient-search"
+                class="ajax-form-element"
+                placeholder="{% trans 'ingredient name' %}"
+                style="width:100%;">
+    </form>
+</div>
 {% endblock %}

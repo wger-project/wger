@@ -21,6 +21,8 @@ from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
 
 from wger.core.api.resources import LanguageResource
+from wger.core.api.resources import LicenseResource
+
 from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseCategory
 from wger.exercises.models import ExerciseComment
@@ -42,6 +44,8 @@ class ExerciseResource(ModelResource):
     equipment = fields.ToManyField('wger.exercises.api.resources.EquipmentResource',
                                    'equipment')
     language = fields.ToOneField(LanguageResource, 'language')
+    license = fields.ToOneField(LicenseResource, 'license')
+
     creation_date = fields.DateField(attribute='creation_date', null=True)
 
     class Meta:
@@ -54,7 +58,9 @@ class ExerciseResource(ModelResource):
                      "language": ALL_WITH_RELATIONS,
                      "muscles": ALL_WITH_RELATIONS,
                      "status": ALL,
-                     "name": ALL}
+                     "name": ALL,
+                     "license": ALL,
+                     "license_author": ALL}
 
 
 class EquipmentResource(ModelResource):
@@ -75,6 +81,7 @@ class ExerciseCategoryResource(ModelResource):
 
 class ExerciseImageResource(ModelResource):
     exercise = fields.ToOneField('wger.exercises.api.resources.ExerciseResource', 'exercise')
+    license = fields.ToOneField(LicenseResource, 'license')
 
     class Meta:
         queryset = ExerciseImage.objects.all()

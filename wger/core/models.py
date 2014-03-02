@@ -13,13 +13,14 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
 import datetime
 import decimal
-from django.core.urlresolvers import reverse
 
 from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import ugettext_lazy as _
@@ -418,3 +419,47 @@ class DaysOfWeek(models.Model):
         Return a more human-readable representation
         '''
         return self.day_of_week
+
+
+class License(models.Model):
+    '''
+    License for an item (exercise, ingredient, etc.)
+    '''
+
+    full_name = models.CharField(max_length=60,
+                                 verbose_name=_('Full name'))
+    '''Full name'''
+
+    short_name = models.CharField(max_length=15,
+                                  verbose_name=_('Short name, e.g. CC-BY-SA 3'))
+    '''Short name, e.g. CC-BY-SA 3'''
+
+    url = models.URLField(verbose_name=_('Link'),
+                          help_text=_('Link to license text or other information'),
+                          blank=True,
+                          null=True)
+    '''URL to full license text or other information'''
+
+    class Meta:
+        '''
+        Set Meta options
+        '''
+        ordering = ["full_name", ]
+
+    #
+    # Django methods
+    #
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return u"{0} ({1})".format(self.full_name, self.short_name)
+
+    #
+    # Own methods
+    #
+    def get_owner_object(self):
+        '''
+        License has no owner information
+        '''
+        return None

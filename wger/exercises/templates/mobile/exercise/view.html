@@ -342,16 +342,6 @@ $(document).ready(function() {
 {% endif %}
 
 
-{% if exercise.status == exercise.EXERCISE_STATUS_ACCEPTED %}
-<div class="alert" style="margin-top:1em;">
-<h3>{% trans "User submitted exercise" %}</h3>
-{% with username=exercise.user %}
-<p>{% blocktrans %}This exercise was submitted by <strong>{{username}}</strong>.{% endblocktrans %}
-{% endwith %}
-</div>
-<hr>
-{% endif %}
-
-{% cc_by_sa_sidebar language %}
+{% license_sidebar exercise.license exercise.license_author %}
 
 {% endblock %}

@@ -33,6 +33,7 @@ from easy_thumbnails.signals import saved_file
 from easy_thumbnails.signal_handlers import generate_aliases_global
 
 from wger.core.models import Language
+from wger.utils.models import AbstractLicenseModel
 from wger.utils.constants import EMAIL_FROM
 from wger.utils.cache import delete_template_fragment_cache, reset_workout_canonical_form
 from wger.utils.cache import cache_mapper
@@ -122,7 +123,7 @@ class ExerciseCategory(models.Model):
         return False
 
 
-class Exercise(models.Model):
+class Exercise(AbstractLicenseModel, models.Model):
     '''
     Model for an exercise
     '''
@@ -174,9 +175,6 @@ class Exercise(models.Model):
     '''Equipment needed by this exercise'''
 
     # Non-editable fields
-    user = models.CharField(verbose_name=_('User'), null=True, blank=True, max_length=100)
-    '''The user that submitted the exercise'''
-
     status = models.CharField(max_length=2,
                               choices=EXERCISE_STATUS,
                               default=EXERCISE_STATUS_PENDING,
@@ -194,8 +192,6 @@ class Exercise(models.Model):
     #
     # Django methods
     #
-
-    # Metaclass to set some other properties
     class Meta:
         ordering = ["name", ]
 
@@ -290,10 +286,10 @@ class Exercise(models.Model):
         submitted exercises only)
         '''
         try:
-            user = User.objects.get(username=self.user)
+            user = User.objects.get(username=self.license_author)
         except User.DoesNotExist:
             return
-        if self.user and user.email:
+        if self.license_author and user.email:
             translation.activate(user.userprofile.notification_language.short_name)
             url = request.build_absolute_uri(self.get_absolute_url())
             subject = _('Exercise was successfully added to the general database')
@@ -318,20 +314,10 @@ def exercise_image_upload_dir(instance, filename):
     return "exercise-images/{0}/{1}".format(instance.exercise.id, filename)
 
 
-class ExerciseImage(models.Model):
+class ExerciseImage(AbstractLicenseModel, models.Model):
     '''
     Model for an exercise image
     '''
-
-    IMAGE_LICENSE_CC_BY_SA_3 = '1'
-    IMAGE_LICENSE_CC_BY_SA_4 = '3'
-    IMAGE_LICENSE_PUBLIC_DOMAIN = '2'
-
-    IMAGE_LICENSE = (
-        (IMAGE_LICENSE_CC_BY_SA_3, 'CC-BY-SA 3.0'),
-        (IMAGE_LICENSE_CC_BY_SA_4, 'CC-BY-SA 4.0'),
-        (IMAGE_LICENSE_PUBLIC_DOMAIN, _('Public domain')),
-    )
 
     exercise = models.ForeignKey(Exercise,
                                  verbose_name=_('Exercise'),
@@ -342,21 +328,6 @@ class ExerciseImage(models.Model):
                               help_text=_('Only PNG and JPEG formats are supported'),
                               upload_to=exercise_image_upload_dir)
     '''Uploaded image'''
-
-    license = models.CharField(verbose_name=_('License'),
-                               max_length=2,
-                               choices=IMAGE_LICENSE,
-                               default=IMAGE_LICENSE_CC_BY_SA_3)
-    '''The license the image is released under'''
-
-    license_author = models.CharField(verbose_name=_('Author'),
-                                      max_length=50,
-                                      blank=True,
-                                      null=True,
-                                      help_text=_('If you are not the author of the image, enter '
-                                                  'the name here. This is needed for some licenses '
-                                                  'e.g. the CC-BY-SA.'))
-    '''The author of the image if it is not the uploader'''
 
     is_main = models.BooleanField(verbose_name=_('Is main picture'),
                                   default=False,

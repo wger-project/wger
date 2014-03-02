@@ -7,27 +7,29 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ('core', '0005_auto__add_license'),
+    )
+
     def forwards(self, orm):
+        # Adding field 'Ingredient.license'
+        db.add_column(u'nutrition_ingredient', 'license',
+                      self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['core.License']),
+                      keep_default=False)
 
-        # Changing field 'WeightUnit.language'
-        db.alter_column(u'nutrition_weightunit', 'language_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.Language']))
+        # Adding field 'Ingredient.license_author'
+        db.add_column(u'nutrition_ingredient', 'license_author',
+                      self.gf('django.db.models.fields.CharField')(max_length=50, null=True, blank=True),
+                      keep_default=False)
 
-        # Changing field 'NutritionPlan.language'
-        db.alter_column(u'nutrition_nutritionplan', 'language_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.Language']))
-
-        # Changing field 'Ingredient.language'
-        db.alter_column(u'nutrition_ingredient', 'language_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.Language']))
 
     def backwards(self, orm):
+        # Deleting field 'Ingredient.license'
+        db.delete_column(u'nutrition_ingredient', 'license_id')
 
-        # Changing field 'WeightUnit.language'
-        db.alter_column(u'nutrition_weightunit', 'language_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['exercises.Language']))
+        # Deleting field 'Ingredient.license_author'
+        db.delete_column(u'nutrition_ingredient', 'license_author')
 
-        # Changing field 'NutritionPlan.language'
-        db.alter_column(u'nutrition_nutritionplan', 'language_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['exercises.Language']))
-
-        # Changing field 'Ingredient.language'
-        db.alter_column(u'nutrition_ingredient', 'language_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['exercises.Language']))
 
     models = {
         u'auth.group': {
@@ -72,6 +74,13 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'short_name': ('django.db.models.fields.CharField', [], {'max_length': '2'})
         },
+        u'core.license': {
+            'Meta': {'ordering': "['full_name']", 'object_name': 'License'},
+            'full_name': ('django.db.models.fields.CharField', [], {'max_length': '60'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'short_name': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
+            'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
+        },
         u'nutrition.ingredient': {
             'Meta': {'ordering': "['name']", 'object_name': 'Ingredient'},
             'carbohydrates': ('wger.utils.fields.Html5DecimalField', [], {'max_digits': '6', 'decimal_places': '3'}),
@@ -83,6 +92,8 @@ class Migration(SchemaMigration):
             'fibres': ('wger.utils.fields.Html5DecimalField', [], {'null': 'True', 'max_digits': '6', 'decimal_places': '3', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'language': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['core.Language']"}),
+            'license': ('django.db.models.fields.related.ForeignKey', [], {'default': '1', 'to': u"orm['core.License']"}),
+            'license_author': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'protein': ('wger.utils.fields.Html5DecimalField', [], {'max_digits': '6', 'decimal_places': '3'}),
             'sodium': ('wger.utils.fields.Html5DecimalField', [], {'null': 'True', 'max_digits': '6', 'decimal_places': '3', 'blank': 'True'}),

@@ -7,10 +7,6 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
-    depends_on = (
-        ('core', '0002_auto__add_userprofile'),
-    )
-
     def forwards(self, orm):
         '''
         Don't do anything here, everything happens in 0002_auto__add_userprofile

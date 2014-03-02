@@ -22,6 +22,7 @@ from django.core.urlresolvers import reverse_lazy
 
 from wger.core.views import user
 from wger.core.views import misc
+from wger.core.views import license
 
 
 urlpatterns = patterns('',
@@ -57,6 +58,23 @@ urlpatterns = patterns('',
     url(r'^workout/api/user-preferences$',
         user.api_user_preferences,
         name='user-api-preferences'),
+
+    # Licenses
+    url(r'^license/list$',
+        license.LicenseListView.as_view(),
+        name='license-list'),
+    url(r'^license/add$',
+        license.LicenseAddView.as_view(),
+        name='license-add'),
+    url(r'^license/(?P<pk>\d+)/edit',
+        license.LicenseUpdateView.as_view(),
+        name='license-edit'),
+    url(r'^license/(?P<pk>\d+)/delete',
+        license.LicenseDeleteView.as_view(),
+        name='license-delete'),
+    
+    
+    
 
     # Others
     url(r'^about$',

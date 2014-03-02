@@ -38,7 +38,9 @@ class OverviewPlanTestCase(WorkoutManagerTestCase):
             "fat_saturated": 3.24,
             "fibres": 0.0,
             "protein": 25.63,
-            "carbohydrates": 0.0
+            "carbohydrates": 0.0,
+            'license': 1,
+            'license_author': 'internet'
         }
         for i in range(0, 50):
             self.client.post(reverse('ingredient-add'), data)

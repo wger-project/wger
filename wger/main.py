@@ -347,24 +347,22 @@ def init_south():
     Only perform the south initialisation
     '''
     print("* Initialising south")
+    execute_from_command_line(["", "migrate", "wger.core", "0001"])
     execute_from_command_line(["", "migrate", "wger.exercises", "0001", "--fake"])
     execute_from_command_line(["", "migrate", "wger.config", "0001", "--fake"])
     execute_from_command_line(["", "migrate", "wger.manager", "0001", "--fake"])
     execute_from_command_line(["", "migrate", "wger.nutrition", "0001", "--fake"])
     execute_from_command_line(["", "migrate", "wger.weight", "0001", "--fake"])
-    execute_from_command_line(["", "migrate", "wger.core", "0001"])
 
 
 def run_south():
     '''
     Run all south migrations
     '''
-
-    # Manually set the order, otherwise postgreSQL rightfully complains
+    execute_from_command_line(["", "migrate", "wger.core"])
     execute_from_command_line(["", "migrate", "wger.config"])
     execute_from_command_line(["", "migrate", "wger.manager"])
     execute_from_command_line(["", "migrate", "wger.exercises"])
-    execute_from_command_line(["", "migrate", "wger.core"])
     execute_from_command_line(["", "migrate", "wger.nutrition"])
     execute_from_command_line(["", "migrate", "wger.weight"])
 
@@ -382,8 +380,9 @@ def load_fixtures():
 
     # Core
     path = os.path.join(current_dir, 'core', 'fixtures/')
-    call_command("loaddata", path + "users")
     call_command("loaddata", path + "languages")
+    call_command("loaddata", path + "users")
+    call_command("loaddata", path + "licenses")
     call_command("loaddata", path + "days_of_week")
 
     # Config
@@ -395,10 +394,10 @@ def load_fixtures():
 
     # Exercises
     path = os.path.join(current_dir, 'exercises', 'fixtures/')
+    call_command("loaddata", path + "equipment")
     call_command("loaddata", path + "muscles")
     call_command("loaddata", path + "categories")
     call_command("loaddata", path + "exercises")
-    call_command("loaddata", path + "equipment")
 
     # Nutrition
     path = os.path.join(current_dir, 'nutrition', 'fixtures/')

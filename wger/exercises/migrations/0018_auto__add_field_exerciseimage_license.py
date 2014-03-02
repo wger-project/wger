@@ -8,14 +8,16 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Adding field 'ExerciseImage.license'
+        db.add_column(u'exercises_exerciseimage', 'license',
+                      self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['core.License']),
+                      keep_default=False)
 
-        # Changing field 'Exercise.language'
-        db.alter_column(u'exercises_exercise', 'language_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.Language']))
 
     def backwards(self, orm):
+        # Deleting field 'ExerciseImage.license'
+        db.delete_column(u'exercises_exerciseimage', 'license_id')
 
-        # Changing field 'Exercise.language'
-        db.alter_column(u'exercises_exercise', 'language_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['exercises.Language']))
 
     models = {
         u'core.language': {
@@ -23,6 +25,13 @@ class Migration(SchemaMigration):
             'full_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'short_name': ('django.db.models.fields.CharField', [], {'max_length': '2'})
+        },
+        u'core.license': {
+            'Meta': {'ordering': "['full_name']", 'object_name': 'License'},
+            'full_name': ('django.db.models.fields.CharField', [], {'max_length': '60'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'short_name': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
+            'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
         },
         u'exercises.equipment': {
             'Meta': {'ordering': "['name']", 'object_name': 'Equipment'},
@@ -37,6 +46,8 @@ class Migration(SchemaMigration):
             'equipment': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['exercises.Equipment']", 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'language': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['core.Language']"}),
+            'license': ('django.db.models.fields.related.ForeignKey', [], {'default': '1', 'to': u"orm['core.License']"}),
+            'license_author': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
             'muscles': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['exercises.Muscle']", 'null': 'True', 'blank': 'True'}),
             'muscles_secondary': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'related_name': "'secondary_muscles'", 'null': 'True', 'symmetrical': 'False', 'to': u"orm['exercises.Muscle']"}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
@@ -60,7 +71,7 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
             'is_main': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'license': ('django.db.models.fields.CharField', [], {'default': "'1'", 'max_length': '2'}),
+            'license': ('django.db.models.fields.related.ForeignKey', [], {'default': '1', 'to': u"orm['core.License']"}),
             'license_author': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'})
         },
         u'exercises.muscle': {

@@ -57,6 +57,8 @@ filter_dump(data, ('exercises.equipment', 'exercises.equipment',), 'equipment.js
 #
 # Other
 #
-filter_dump(data, ('exercises.language',), 'languages.json')
+filter_dump(data, ('core.language',), 'languages.json')
+filter_dump(data, ('core.license',), 'licenses.json')
 filter_dump(data, ('config.languageconfig',), 'language_config.json')
+
 filter_dump(data, ('auth.group',), 'groups.json')

@@ -21,6 +21,51 @@
                     "languageconfig"
                 ], 
                 [
+                    "add_daysofweek", 
+                    "core", 
+                    "daysofweek"
+                ], 
+                [
+                    "change_daysofweek", 
+                    "core", 
+                    "daysofweek"
+                ], 
+                [
+                    "delete_daysofweek", 
+                    "core", 
+                    "daysofweek"
+                ], 
+                [
+                    "add_language", 
+                    "core", 
+                    "language"
+                ], 
+                [
+                    "change_language", 
+                    "core", 
+                    "language"
+                ], 
+                [
+                    "delete_language", 
+                    "core", 
+                    "language"
+                ], 
+                [
+                    "add_license", 
+                    "core", 
+                    "license"
+                ], 
+                [
+                    "change_license", 
+                    "core", 
+                    "license"
+                ], 
+                [
+                    "delete_license", 
+                    "core", 
+                    "license"
+                ], 
+                [
                     "add_equipment", 
                     "exercises", 
                     "equipment"
@@ -95,22 +140,6 @@
                     "exercises", 
                     "exerciseimage"
                 ], 
-                 
-                [
-                    "add_language", 
-                    "core",
-                    "language"
-                ], 
-                [
-                    "change_language", 
-                    "core",
-                    "language"
-                ], 
-                [
-                    "delete_language", 
-                    "core",
-                    "language"
-                ], 
                 [
                     "add_muscle", 
                     "exercises", 
@@ -125,21 +154,6 @@
                     "delete_muscle", 
                     "exercises", 
                     "muscle"
-                ], 
-                [
-                    "add_daysofweek", 
-                    "core",
-                    "daysofweek"
-                ], 
-                [
-                    "change_daysofweek", 
-                    "core",
-                    "daysofweek"
-                ], 
-                [
-                    "delete_daysofweek", 
-                    "core",
-                    "daysofweek"
                 ], 
                 [
                     "add_ingredient", 

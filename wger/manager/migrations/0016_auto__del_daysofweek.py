@@ -7,24 +7,17 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
-    depends_on = (
-        ('core', '0004_auto__add_daysofweek'),
-    )
-
     def forwards(self, orm):
         '''
         Don't do anything here, everything happens in 0004_auto__add_daysofweek
         '''
-        #pass
-        db.alter_column('manager_day', 'day_id', self.gf('django.db.models.fields.related.ManyToManyField')(to=orm['core.DaysOfWeek']))
-        #db.alter_column('manager_day', 'day_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.DaysOfWeek']))
+        pass
 
     def backwards(self, orm):
         '''
         Don't do anything here, everything happens in 0004_auto__add_daysofweek
         '''
-        # Foreign keys
-        db.alter_column('manager_day', 'day_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['manager.DaysOfWeek']))
+        pass
 
     models = {
         u'auth.group': {

@@ -18,10 +18,11 @@ from tastypie.authentication import ApiKeyAuthentication
 from tastypie.constants import ALL
 from tastypie.resources import ModelResource
 
+from wger.utils.resources import UserObjectsOnlyAuthorization
 from wger.core.models import UserProfile
 from wger.core.models import Language
 from wger.core.models import DaysOfWeek
-from wger.utils.resources import UserObjectsOnlyAuthorization
+from wger.core.models import License
 
 
 class UserProfileResource(ModelResource):
@@ -62,3 +63,15 @@ class DaysOfWeekResource(ModelResource):
         queryset = DaysOfWeek.objects.all()
         filtering = {'id': ALL,
                      'day_of_week': ALL}
+
+
+class LicenseResource(ModelResource):
+    '''
+    Resource for licenses
+    '''
+    class Meta:
+        queryset = License.objects.all()
+        filtering = {'id': ALL,
+                     "full_name": ALL,
+                     "short_name": ALL,
+                     "url": ALL}

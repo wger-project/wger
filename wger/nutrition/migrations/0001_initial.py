@@ -7,6 +7,10 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ('exercises', '0003_auto__add_field_exercise_language'),
+    )
+
     def forwards(self, orm):
         # Adding model 'NutritionPlan'
         db.create_table('nutrition_nutritionplan', (

@@ -109,6 +109,7 @@
             {% if perms.exercises %}
             <li data-role="list-divider">{% trans "Administration" %}</li>
             <li><a href="{% url 'config:language-overview' %}">{% trans "Languages" %} </a></li>
+            <li><a href="{% url 'core:license-list' %}">{% trans "Licenses" %} </a></li>
             {% endif %}
         </ul>
     </div>
