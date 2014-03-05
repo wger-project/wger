@@ -81,7 +81,7 @@ class NutritionPlan(models.Model):
                                             help_text=_("Tick the box if you want to mark this "
                                                         "plan as having a goal amount of calories. "
                                                         "You can use the calculator or enter the "
-                                                        "yourself."))
+                                                        "value yourself."))
     '''A flag indicating whether the plan has a goal amount of calories'''
 
     def __unicode__(self):
