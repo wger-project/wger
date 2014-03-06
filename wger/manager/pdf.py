@@ -425,9 +425,10 @@ def workout_view(request, id):
         t = Table(data, colwidths, rowheights, style=table_style)
 
         # Manually set the width of the columns
-        t._argW[0] = 0.6 * cm  # Numbering
-        t._argW[1] = 9 * cm  # Exercise
-        t._argW[2] = 4 * cm  # Repetitions
+        if len(t._argW) > 1:
+            t._argW[0] = 0.6 * cm  # Numbering
+            t._argW[1] = 9 * cm  # Exercise
+            t._argW[2] = 4 * cm  # Repetitions
 
     # There is nothing to output
     else:
