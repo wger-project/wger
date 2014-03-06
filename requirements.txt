@@ -3,7 +3,6 @@ django-browserid==0.9
 django-recaptcha
 reportlab
 django_mobile
-django-discover-runner
 pep8
 bleach
 south < 2.0
