@@ -183,20 +183,22 @@ def add(request):
     return HttpResponseRedirect(reverse('workout-view', kwargs={'id': workout.id}))
 
 
-class WorkoutDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
+class WorkoutDeleteView(WgerDeleteMixin, DeleteView):
     '''
     Generic view to delete a workout routine
     '''
 
     model = Workout
     success_url = reverse_lazy('workout-overview')
-    title = ugettext_lazy('Delete workout log')
+    title = ugettext_lazy('Delete workout')
     messages = ugettext_lazy('Workout log was successfully deleted')
     login_required = True
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutDeleteView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('workout-delete', kwargs={'pk': self.object.id})
+
+        return context
 
 
 class WorkoutEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
