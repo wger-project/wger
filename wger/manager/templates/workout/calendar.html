@@ -100,9 +100,10 @@ $(document).ready(function() {
 
 
 {% block sidebar %}
-<div id="calendar-day-select-popup" style="display:none;">
+<div id="calendar-day-select-popup"
+     style="display:none;"
+     title="{% trans 'Add log to day' %}">
     <div>
-    <h3>{% trans "Add log to day" %}</h3>
         {% if current_workout %}
         <p>{% blocktrans %}Click to add weight logs to a training
 day in your current workout:{% endblocktrans %} {{current_workout}}</p>
