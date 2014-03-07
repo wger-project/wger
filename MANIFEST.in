@@ -3,20 +3,27 @@ include AGPL.txt
 include CC-BY-SA.txt
 include manage.py
 
+recursive-include wger/core/static *
+recursive-include wger/core/templates *
+recursive-include wger/core/fixtures *
+
 recursive-include wger/manager/static *
 recursive-include wger/manager/templates *
 recursive-include wger/manager/fixtures *
 
 recursive-include wger/exercises/templates *
+recursive-include wger/exercises/static *
 recursive-include wger/exercises/fixtures *
 
 recursive-include wger/nutrition/templates *
+recursive-include wger/nutrition/static *
 recursive-include wger/nutrition/fixtures *
 
 recursive-include wger/software/templates *
 recursive-include wger/software/static *
 
 recursive-include wger/weight/templates *
+recursive-include wger/weight/static *
 recursive-include wger/weight/fixtures *
 
 recursive-include wger/config/templates *
@@ -24,3 +31,4 @@ recursive-include wger/config/fixtures *
 
 recursive-include wger/locale *.mo *.po
 recursive-include wger *.html
+
