@@ -4,6 +4,21 @@
 
 {% block title %} {% trans "Dashboard" %}{% endblock %}
 
+{% block header %}
+<script>
+$(document).ready(function() {
+    // Popup for adding logs
+    $('#logging-popup-link').click(function(e){
+        e.preventDefault();
+        $('#calendar-day-select-popup').dialog({
+            modal: true
+        });
+    });
+ });
+</script>
+{% endblock %}
+
+
 
 {% block content %}
 <div class="ym-grid linearize-level-1">
@@ -11,6 +26,23 @@
         <div class="ym-gbox-left">
             <h3>{% trans "Workout"%}</h3>
             {% if current_workout %}
+            <div id="calendar-day-select-popup"
+                 style="display:none;"
+                 title="{% trans 'Add log to day' %}">
+                <div>
+                    {% if current_workout %}
+                    <p>{% blocktrans %}Click to add weight logs to a training
+day in your current workout:{% endblocktrans %} {{current_workout}}</p>
+
+                    {% for day in current_workout.day_set.all %}
+                        <a href="{% url 'day-log' day.pk %}" class="btn btn-block">{{day.description}}</a>
+                    {% endfor %}
+                {% endif %}
+                </div>
+            </div>
+
+
+
             <p>
             <a href="{% url 'workout-view' current_workout.id %}">
                 {% if current_workout.comment %}
@@ -34,6 +66,10 @@
                 </li>
                 {% endfor %}
             </ul>
+
+            {% if current_workout.day_set.all %}
+            <p><a href="" id="logging-popup-link">{% trans "Add new log" %}</a></p>
+            {% endif %}
 
             {% if schedule %}
             <p>
