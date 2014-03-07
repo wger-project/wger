@@ -23,6 +23,7 @@ import tempfile
 import threading
 import time
 import webbrowser
+import inspect
 
 import django.conf
 from django.core.management import execute_from_command_line
@@ -375,15 +376,15 @@ def load_fixtures():
     '''
     Loads all fixtures
     '''
-    os.chdir('wger')
+    os.chdir(os.path.dirname(inspect.stack()[0][1]))
     current_dir = os.getcwd()
 
     # Core
     path = os.path.join(current_dir, 'core', 'fixtures/')
-    call_command("loaddata", path + "languages")
-    call_command("loaddata", path + "users")
-    call_command("loaddata", path + "licenses")
-    call_command("loaddata", path + "days_of_week")
+    call_command("loaddata", path + "languages.json")
+    call_command("loaddata", path + "users.json")
+    call_command("loaddata", path + "licenses.json")
+    call_command("loaddata", path + "days_of_week.json")
 
     # Config
     path = os.path.join(current_dir, 'config', 'fixtures/')
@@ -394,16 +395,16 @@ def load_fixtures():
 
     # Exercises
     path = os.path.join(current_dir, 'exercises', 'fixtures/')
-    call_command("loaddata", path + "equipment")
-    call_command("loaddata", path + "muscles")
-    call_command("loaddata", path + "categories")
-    call_command("loaddata", path + "exercises")
+    call_command("loaddata", path + "equipment.json")
+    call_command("loaddata", path + "muscles.json")
+    call_command("loaddata", path + "categories.json")
+    call_command("loaddata", path + "exercises.json")
 
     # Nutrition
     path = os.path.join(current_dir, 'nutrition', 'fixtures/')
-    call_command("loaddata", path + "ingredients")
-    call_command("loaddata", path + "weight_units")
-    call_command("loaddata", path + "ingredient_units")
+    call_command("loaddata", path + "ingredients.json")
+    call_command("loaddata", path + "weight_units.json")
+    call_command("loaddata", path + "ingredient_units.json")
 
 
 def run_syncdb():
