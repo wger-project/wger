@@ -65,7 +65,7 @@ class WorkoutICalExportTestCase(WorkoutManagerTestCase):
                              'attachment; filename=Calendar-workout-3.ics')
 
             # Approximate size
-            self.assertGreater(len(response.content), 550)
+            self.assertGreater(len(response.content), 540)
             self.assertLess(len(response.content), 560)
 
     def test_export_ical_anonymous(self):
