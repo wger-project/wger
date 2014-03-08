@@ -262,9 +262,13 @@ fixtures:</p>
 
 <code>
 $ python manage.py syncdb
+$ python manage.py migrate core
 $ python manage.py migrate --all
+$ python manage.py loaddata licenses
 $ python manage.py loaddata languages
+$ python manage.py loaddata language_config
 $ python manage.py loaddata days_of_week
+$ python manage.py loaddata equipment
 $ python manage.py loaddata muscles
 $ python manage.py loaddata categories
 $ python manage.py loaddata exercises
