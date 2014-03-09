@@ -415,7 +415,7 @@ class Day(models.Model):
                         muscles_back.append(muscle.id)
 
                 for setting in Setting.objects.filter(set=set_obj,
-                                                      exercise=exercise).order_by('order'):
+                                                      exercise=exercise).order_by('order', 'id'):
                     setting_tmp.append(setting)
 
                 # "Smart" textual representation
