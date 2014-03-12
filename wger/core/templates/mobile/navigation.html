@@ -3,10 +3,11 @@
 
 <div data-role="popup"
      id="language-options-{{request_full_path|slugify}}"
-     data-overlay-theme="a"
-     class="ui-content">
-     <div>
-     <h3>{% trans "Language" %}</h3>
+     data-overlay-theme="a">
+    <div data-role="header">
+       <h3>{% trans "Language" %}</h3>
+    </div>
+    <div role="main" class="ui-content">
     {% for language in languages %}
         {% language_select language %}
     {% endfor %}
