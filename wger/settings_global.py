@@ -33,13 +33,13 @@ ADMINS = (
 MANAGERS = ADMINS
 
 # Restrict the available languages
-ugettext = lambda s: s
 LANGUAGES = (
-            ('en', ugettext('English')),
-            ('de', ugettext('German')),
-            ('bg', ugettext('Bulgarian')),
-            ('es', ugettext('Spanish')),
-            ('ru', ugettext('Russian')),
+            ('en', 'English'),
+            ('de', 'German'),
+            ('bg', 'Bulgarian'),
+            ('es', 'Spanish'),
+            ('ru', 'Russian'),
+            ('nl', 'Dutch'),
 )
 
 # Default language code for this installation. All choices can be found here:
