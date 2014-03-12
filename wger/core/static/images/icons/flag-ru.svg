@@ -1,43 +1,111 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg height="256" id="svg3290" inkscape:output_extension="org.inkscape.output.svg.inkscape" inkscape:version="0.46" sodipodi:docname="Flag_of_Russia.svg" sodipodi:version="0.32" version="1.0" width="256" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg">
-  <metadata>
-    <rdf:RDF xmlns:cc="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-      <cc:Work rdf:about="">
-        <dc:title></dc:title>
-        <dc:description></dc:description>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="170.66701"
+   id="svg3290"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="flag-ru.svg"
+   sodipodi:version="0.32"
+   version="1.0"
+   width="256">
+  <metadata
+     id="metadata3">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title />
+        <dc:description />
         <dc:subject>
           <rdf:Bag>
             <rdf:li>unsorted</rdf:li>
           </rdf:Bag>
         </dc:subject>
         <dc:publisher>
-          <cc:Agent rdf:about="http://www.openclipart.org/">
+          <cc:Agent
+             rdf:about="http://www.openclipart.org/">
             <dc:title>Open Clip Art Library, Source: Wikimedia Commons, Source: Wikimedia Commons, Source: Wikimedia Commons, Source: Wikimedia Commons</dc:title>
           </cc:Agent>
         </dc:publisher>
         <dc:creator>
           <cc:Agent>
-            <dc:title></dc:title>
+            <dc:title />
           </cc:Agent>
         </dc:creator>
         <dc:rights>
           <cc:Agent>
-            <dc:title></dc:title>
+            <dc:title />
           </cc:Agent>
         </dc:rights>
-        <dc:date></dc:date>
+        <dc:date />
         <dc:format>image/svg+xml</dc:format>
-        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-        <cc:license rdf:resource="http://en.wikipedia.org/wiki/Public_domain"/>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://en.wikipedia.org/wiki/Public_domain" />
         <dc:language>en</dc:language>
       </cc:Work>
     </rdf:RDF>
   </metadata>
-  <defs id="defs3299">
-    <inkscape:perspective id="perspective3303" inkscape:persp3d-origin="225 : 100 : 1" inkscape:vp_x="0 : 150 : 1" inkscape:vp_y="0 : 1000 : 0" inkscape:vp_z="450 : 150 : 1" sodipodi:type="inkscape:persp3d"/>
+  <defs
+     id="defs3299">
+    <inkscape:perspective
+       id="perspective3303"
+       inkscape:persp3d-origin="225 : 100 : 1"
+       inkscape:vp_x="0 : 150 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="450 : 150 : 1"
+       sodipodi:type="inkscape:persp3d" />
   </defs>
-  <sodipodi:namedview bordercolor="#666666" borderopacity="1.0" gridtolerance="10.0" guidetolerance="10.0" id="base" inkscape:current-layer="svg3290" inkscape:cx="225" inkscape:cy="150" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:window-height="718" inkscape:window-width="854" inkscape:window-x="75" inkscape:window-y="244" inkscape:zoom="1.2422222" objecttolerance="10.0" pagecolor="#ffffff" showgrid="false"/>
-  <rect height="56.888996" id="rect3292" style="fill:#ffffff" width="256" x="0" y="42.333"/>
-  <rect height="56.888996" id="rect3294" style="fill:#0000ff" width="256" x="0" y="99.222008"/>
-  <rect height="56.888996" id="rect3296" style="fill:#ff0000" width="256" x="0" y="156.11101"/>
+  <sodipodi:namedview
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10.0"
+     guidetolerance="10.0"
+     id="base"
+     inkscape:current-layer="svg3290"
+     inkscape:cx="225"
+     inkscape:cy="107"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:window-height="718"
+     inkscape:window-width="854"
+     inkscape:window-x="211"
+     inkscape:window-y="245"
+     inkscape:zoom="1.2422222"
+     objecttolerance="10.0"
+     pagecolor="#ffffff"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-maximized="0" />
+  <rect
+     height="56.888996"
+     id="rect3292"
+     style="fill:#ffffff"
+     width="256"
+     x="0"
+     y="0" />
+  <rect
+     height="56.888996"
+     id="rect3294"
+     style="fill:#0000ff"
+     width="256"
+     x="0"
+     y="56.889008" />
+  <rect
+     height="56.888996"
+     id="rect3296"
+     style="fill:#ff0000"
+     width="256"
+     x="0"
+     y="113.77801" />
 </svg>
