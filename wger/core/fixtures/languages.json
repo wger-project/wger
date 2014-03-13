@@ -38,5 +38,13 @@
             "short_name": "ru", 
             "full_name": "\u0420\u0443\u0441\u0441\u043a\u0438\u0439"
         }
+    }, 
+    {
+        "pk": 6, 
+        "model": "core.language", 
+        "fields": {
+            "short_name": "nl", 
+            "full_name": "Nederlands"
+        }
     }
 ]
