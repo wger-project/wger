@@ -113,7 +113,7 @@ class Command(BaseCommand):
         # Compose and send the email
         translation.activate(user.userprofile.notification_language.short_name)
         context = {}
-        context['site'] = Site.objects.get(pk=settings.SITE_ID)
+        context['site'] = Site.objects.get_current()
         context['workout'] = workout
         context['expired'] = True if delta.days < 0 else False
         context['days'] = abs(delta.days)
