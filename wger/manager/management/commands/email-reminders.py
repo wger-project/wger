@@ -20,7 +20,6 @@ from django.template import loader
 from django.core.management.base import BaseCommand
 from django.core import mail
 from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
 from django.utils import translation
 
 from django.contrib.sites.models import Site

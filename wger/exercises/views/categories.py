@@ -54,7 +54,6 @@ class ExerciseCategoryAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
 
     def form_valid(self, form):
         form.instance.language = load_language()
-
         return super(ExerciseCategoryAddView, self).form_valid(form)
 
 

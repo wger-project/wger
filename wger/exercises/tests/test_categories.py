@@ -12,9 +12,14 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+from django.core.cache import cache
+from django.core.urlresolvers import reverse
 
 from wger.exercises.models import ExerciseCategory
+from wger.utils.cache import get_template_cache_name
+
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
+from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import ApiBaseResourceTestCase
@@ -52,6 +57,51 @@ class AddExerciseCategoryTestCase(WorkoutManagerAddTestCase):
     url = 'exercisecategory-add'
     pk = 5
     data = {'name': 'A new category'}
+
+
+class ExerciseCategoryCacheTestCase(WorkoutManagerTestCase):
+    '''
+    Cache test case
+    '''
+
+    def test_overview_cache_update(self):
+        '''
+        Test that the template cache for the overview is correctly reseted when
+        performing certain operations
+        '''
+
+        self.client.get(reverse('exercise-overview'))
+        self.client.get(reverse('exercise-view', kwargs={'id': 2}))
+
+        old_exercise_overview = cache.get(get_template_cache_name('exercise-overview', 2))
+        old_exercise_overview_mobile = cache.get(get_template_cache_name('exercise-overview-mobile',
+                                                                         2))
+        old_exercise_overview_search = cache.get(get_template_cache_name('exercise-overview-search',
+                                                                         2))
+
+        category = ExerciseCategory.objects.get(pk=2)
+        category.name = 'Cool category'
+        category.save()
+
+        self.assertFalse(cache.get(get_template_cache_name('exercise-overview', 2)))
+        self.assertFalse(cache.get(get_template_cache_name('exercise-overview-mobile', 2)))
+        self.assertFalse(cache.get(get_template_cache_name('exercise-overview-search', 2)))
+
+        self.client.get(reverse('exercise-overview'))
+        self.client.get(reverse('muscle-overview'))
+        self.client.get(reverse('exercise-view', kwargs={'id': 2}))
+
+        new_exercise_overview = cache.get(get_template_cache_name('exercise-overview', 2))
+        new_exercise_overview_mobile = cache.get(get_template_cache_name('exercise-overview-mobile',
+                                                                         2))
+        new_exercise_overview_search = cache.get(get_template_cache_name('exercise-overview-search',
+                                                                         2))
+
+        if not self.is_mobile:
+            self.assertNotEqual(old_exercise_overview, new_exercise_overview)
+        else:
+            self.assertNotEqual(old_exercise_overview_mobile, new_exercise_overview_mobile)
+            self.assertNotEqual(old_exercise_overview_search, new_exercise_overview_search)
 
 
 class ExerciseCategoryApiTestCase(ApiBaseResourceTestCase):

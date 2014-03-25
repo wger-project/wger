@@ -122,6 +122,30 @@ class ExerciseCategory(models.Model):
         '''
         return False
 
+    def save(self, *args, **kwargs):
+        '''
+        Reset all cached infos
+        '''
+
+        super(ExerciseCategory, self).save(*args, **kwargs)
+
+        # Cached template fragments
+        for language in Language.objects.all():
+            delete_template_fragment_cache('exercise-overview', language.id)
+            delete_template_fragment_cache('exercise-overview-mobile', language.id)
+            delete_template_fragment_cache('exercise-overview-search', language.id)
+
+    def delete(self, *args, **kwargs):
+        '''
+        Reset all cached infos
+        '''
+        for language in Language.objects.all():
+            delete_template_fragment_cache('exercise-overview', language.id)
+            delete_template_fragment_cache('exercise-overview-mobile', language.id)
+            delete_template_fragment_cache('exercise-overview-search', language.id)
+
+        super(ExerciseCategory, self).delete(*args, **kwargs)
+
 
 class Exercise(AbstractLicenseModel, models.Model):
     '''
