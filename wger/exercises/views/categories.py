@@ -71,7 +71,7 @@ class ExerciseCategoryUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin)
     def get_context_data(self, **kwargs):
         context = super(ExerciseCategoryUpdateView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('exercisecategory-edit', kwargs={'pk': self.object.id})
-        context['title'] = _('Edit %s') % self.object.name
+        context['title'] = _(u'Edit %s') % self.object.name
 
         return context
 
@@ -96,7 +96,7 @@ class ExerciseCategoryDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixi
     def get_context_data(self, **kwargs):
         context = super(ExerciseCategoryDeleteView, self).get_context_data(**kwargs)
 
-        context['title'] = _('Delete category %s?') % self.object.name
+        context['title'] = _(u'Delete category %s?') % self.object.name
         context['form_action'] = reverse('exercisecategory-delete', kwargs={'pk': self.object.id})
 
         return context

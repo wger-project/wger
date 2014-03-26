@@ -197,7 +197,7 @@ class ExerciseUpdateView(ExercisesEditAddView, UpdateView, WgerPermissionMixin):
     def get_context_data(self, **kwargs):
         context = super(ExerciseUpdateView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('exercise-edit', kwargs={'pk': self.object.id})
-        context['title'] = _('Edit %s') % self.object.name
+        context['title'] = _(u'Edit %s') % self.object.name
 
         return context
 
@@ -228,7 +228,7 @@ class ExerciseAddView(ExercisesEditAddView, CreateView, WgerPermissionMixin):
                 form.instance.license_author = self.request.user.username
 
             subject = _('New user submitted exercise')
-            message = _('''The user {0} submitted a new exercise "{1}".'''.format(
+            message = _(u'''The user {0} submitted a new exercise "{1}".'''.format(
                         self.request.user.username, form.instance.name))
             mail.mail_admins(subject,
                              message,
@@ -262,7 +262,7 @@ class ExerciseDeleteView(WgerDeleteMixin, DeleteView):
         Send some additional data to the template
         '''
         context = super(ExerciseDeleteView, self).get_context_data(**kwargs)
-        context['title'] = _('Delete exercise %s?') % self.object.name
+        context['title'] = _(u'Delete exercise %s?') % self.object.name
         context['form_action'] = reverse('exercise-delete', kwargs={'pk': self.kwargs['pk']})
 
         return context

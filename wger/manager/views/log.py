@@ -70,7 +70,7 @@ class WorkoutLogUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     def get_context_data(self, **kwargs):
         context = super(WorkoutLogUpdateView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('workout-log-edit', kwargs={'pk': self.object.id})
-        context['title'] = _('Edit log entry for %s') % self.object.exercise.name
+        context['title'] = _(u'Edit log entry for %s') % self.object.exercise.name
 
         return context
 

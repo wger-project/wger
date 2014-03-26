@@ -115,7 +115,6 @@ class MealItemCreateView(WgerFormMixin, CreateView):
         '''
         context = super(MealItemCreateView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('mealitem-add', kwargs={'meal_id': self.meal.id})
-        #context['ingredient'] = self.request.POST.get('ingredient', '')
         context['ingredient_searchfield'] = self.request.POST.get('ingredient_searchfield', '')
         return context
 
@@ -147,6 +146,5 @@ class MealItemEditView(WgerFormMixin, UpdateView):
         Send some additional data to the template
         '''
         context = super(MealItemEditView, self).get_context_data(**kwargs)
-        #context['ingredient'] = self.object.ingredient.id
         context['ingredient_searchfield'] = self.object.ingredient.name
         return context

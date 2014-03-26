@@ -108,7 +108,7 @@ class IngredientDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     def get_context_data(self, **kwargs):
         context = super(IngredientDeleteView, self).get_context_data(**kwargs)
 
-        context['title'] = _('Delete %s?') % self.object.name
+        context['title'] = _(u'Delete %s?') % self.object.name
         context['form_action'] = reverse('ingredient-delete', kwargs={'pk': self.object.id})
 
         return context
@@ -161,7 +161,7 @@ class IngredientCreateView(IngredientMixin, CreateView):
             form.instance.status = Ingredient.INGREDIENT_STATUS_ADMIN
         else:
             subject = _('New user submitted ingredient')
-            message = _('''The user {0} submitted a new ingredient "{1}".'''.format(
+            message = _(u'''The user {0} submitted a new ingredient "{1}".'''.format(
                         self.request.user.username, form.instance.name))
             mail.mail_admins(subject,
                              message,
