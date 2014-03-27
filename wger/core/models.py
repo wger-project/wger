@@ -37,11 +37,11 @@ class Language(models.Model):
     Language of an item (exercise, workout, etc.)
     '''
 
-    #e.g. 'de'
+    # e.g. 'de'
     short_name = models.CharField(max_length=2,
                                   verbose_name=_('Language short name'))
 
-    #e.g. 'Deutsch'
+    # e.g. 'Deutsch'
     full_name = models.CharField(max_length=30,
                                  verbose_name=_('Language full name'))
 
@@ -318,8 +318,8 @@ by the US Department of Agriculture. It is extremely complete, with around
                     + (6.25 * self.height)  # in cm
                     - (5 * self.age)  # in years
                     + factor)
-        except TypeError:
         # Any of the entries is missing
+        except TypeError:
             rate = 0
 
         return decimal.Decimal(str(rate)).quantize(TWOPLACES)

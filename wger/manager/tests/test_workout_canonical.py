@@ -97,10 +97,10 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
                                               'setting_list': [10, 10, 10, 10],
                                               'setting_obj_list': [Setting.objects.get(pk=3)],
                                               'setting_text': u'4 \xd7 10'}],
-                          'is_superset': False,
-                          'has_settings': True,
-                          'muscles': {'back': [2], 'front': []},
-                          'obj': Set.objects.get(pk=3)}]
+                           'is_superset': False,
+                           'has_settings': True,
+                           'muscles': {'back': [2], 'front': []},
+                           'obj': Set.objects.get(pk=3)}]
 
         self.assertEqual(day.canonical_representation['set_list'], canonical_form)
 

@@ -95,7 +95,6 @@ class AddIngredientTestCase(WorkoutManagerAddTestCase):
         '''
         Test that the creation date and the status are correctly set
         '''
-        #print self.current_user
         if self.current_user == 'admin':
             ingredient = Ingredient.objects.get(pk=self.pk)
             self.assertEqual(ingredient.creation_date, datetime.date.today())

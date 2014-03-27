@@ -78,8 +78,6 @@ class CopyWorkoutTestCase(WorkoutManagerTestCase):
                 sets_copy = days_copy[i].set_set.all()
 
                 for j in range(days_original[i].set_set.count()):
-                    #sets_original_id = sets_original[j].id
-                    #sets_copy_id = sets_copy[j].id
 
                     self.assertEqual(sets_original[j].sets, sets_copy[j].sets)
                     self.assertEqual(sets_original[j].order, sets_copy[j].order)

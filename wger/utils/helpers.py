@@ -36,7 +36,6 @@ class DecimalJsonEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, decimal.Decimal):
             return str(obj)
-            #return "%.2f" % obj
         return json.JSONEncoder.default(self, obj)
 
 
@@ -49,7 +48,7 @@ def disable_for_loaddata(signal_handler):
     @wraps(signal_handler)
     def wrapper(*args, **kwargs):
         if kwargs['raw']:
-            #print "Skipping signal for {0} {1}".format(args, kwargs)
+            # print "Skipping signal for {0} {1}".format(args, kwargs)
             return
         signal_handler(*args, **kwargs)
     return wrapper

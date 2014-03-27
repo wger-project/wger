@@ -27,7 +27,7 @@ For a full list of options, visit:
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
 ADMINS = (
-    #('Your name', 'your_email@example.com.net'),
+    # ('Your name', 'your_email@example.com.net'),
 )
 
 MANAGERS = ADMINS
@@ -131,7 +131,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    #'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
     'compressor.finders.CompressorFinder',
 )
 
@@ -142,14 +142,14 @@ TEMPLATE_LOADERS = (
 
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-    #'django.template.loaders.eggs.Loader',
+    # 'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    #'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
     # Custom authentication middleware. Creates users on-the-fly for certain
     # paths
     'wger.utils.middleware.WgerAuthenticationMiddleware',
@@ -177,7 +177,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    #'',
+    # '',
 )
 
 INSTALLED_APPS = (
@@ -328,5 +328,5 @@ THUMBNAIL_ALIASES = {
 #
 
 # The default is not DEBUG, override if needed
-#COMPRESS_ENABLED = True
+# COMPRESS_ENABLED = True
 COMPRESS_ROOT = STATIC_ROOT

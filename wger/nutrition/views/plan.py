@@ -164,7 +164,7 @@ def export_pdf(request, id):
     * http://www.reportlab.com/apis/reportlab/dev/platypus.html
     '''
 
-    #Load the workout
+    # Load the workout
     plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
     plan_data = plan.get_nutritional_values()
 

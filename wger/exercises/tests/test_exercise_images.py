@@ -136,22 +136,22 @@ class DeleteExerciseImageTestCase(WorkoutManagerDeleteTestCase):
     pk = 1
 
 
-#class ExerciseImagesApiTestCase(ApiBaseResourceTestCase):
-    #'''
-    #Tests the exercise image overview resource
-    #'''
-    #resource = 'exerciseimage'
-    #user = None
-    #resource_updatable = False
-    #data = {"is_main": "true",
-            #"exercise": "/api/v1/exercise/1/",
-            #"id": 1}
+# class ExerciseImagesApiTestCase(ApiBaseResourceTestCase):
+    # '''
+    # Tests the exercise image overview resource
+    # '''
+    # resource = 'exerciseimage'
+    # user = None
+    # resource_updatable = False
+    # data = {"is_main": "true",
+    #         "exercise": "/api/v1/exercise/1/",
+    #         "id": 1}
 
 
-#class ExerciseImageDetailApiTestCase(ApiBaseResourceTestCase):
-    #'''
-    #Tests accessing a specific exercise image
-    #'''
-    #resource = 'exerciseimage/1'
-    #user = None
-    #resource_updatable = False
+# class ExerciseImageDetailApiTestCase(ApiBaseResourceTestCase):
+    # '''
+    # Tests accessing a specific exercise image
+    # '''
+    # resource = 'exerciseimage/1'
+    # user = None
+    # resource_updatable = False

@@ -27,8 +27,6 @@ class WeightEntryResource(ModelResource):
     Resource for weight entries
     '''
 
-    #meals = fields.ToManyField('wger.nutrition.api.resources.MealResource', 'meal_set')
-
     def authorized_read_list(self, object_list, bundle):
         '''
         Filter to own objects

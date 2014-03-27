@@ -33,7 +33,6 @@ def parse_weight_csv(request, cleaned_data):
     try:
         dialect = csv.Sniffer().sniff(cleaned_data['csv_input'])
     except csv.Error:
-        #logger.debug('Error while sniffing CSV format')
         dialect = 'excel'
 
     # csv.reader expects a file-like object, so use StringIO
@@ -53,8 +52,6 @@ def parse_weight_csv(request, cleaned_data):
 
         except (ValueError, IndexError, decimal.InvalidOperation):
             error_list.append(row)
-            #logger.debug(row)
-            #logger.debug(e)
 
     return (weight_list, error_list)
 

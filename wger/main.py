@@ -391,7 +391,7 @@ def load_fixtures():
     call_command("loaddata", path + "language_config.json")
 
     # Manager
-    #path = os.path.join(current_dir, 'manager', 'fixtures/')
+    # path = os.path.join(current_dir, 'manager', 'fixtures/')
 
     # Exercises
     path = os.path.join(current_dir, 'exercises', 'fixtures/')

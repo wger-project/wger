@@ -48,13 +48,13 @@ def workout_log(request, id):
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(content_type='application/pdf')
 
-    #Load the workout
+    # Load the workout
     workout = get_object_or_404(Workout, pk=id, user=request.user)
 
     # Create the PDF object, using the response object as its "file."
     doc = SimpleDocTemplate(response,
                             pagesize=A4,
-                            #pagesize = landscape(A4),
+                            # pagesize = landscape(A4),
                             leftMargin=cm,
                             rightMargin=cm,
                             topMargin=0.5 * cm,
@@ -116,7 +116,6 @@ def workout_log(request, id):
         data.append([_('Nr.'), _('Exercise'), _('Reps')] + [_('Weight')] * nr_of_weeks)
 
         # Sets
-        #for set_obj in day.set_set.select_related():
         for set in day['set_list']:
             group_exercise_marker[set['obj'].id] = {'start': len(data), 'end': len(data)}
 
@@ -124,7 +123,7 @@ def workout_log(request, id):
             for exercise in set['exercise_list']:
                 group_exercise_marker[set['obj'].id]['end'] = len(data)
 
-                 # Note: '+1' here because there's an emtpy cell between days
+                # Note: '+1' here because there's an emtpy cell between days
                 exercise_markers[day['obj'].id].append(len(data) + 1)
 
                 data.append([set_count,
@@ -133,11 +132,6 @@ def workout_log(request, id):
                             + [''] * nr_of_weeks)
             set_count += 1
 
-        # Note: as above with _('Date'), the _('Impression') has to be here on
-        #       the 1st cell so it is shown after adding a span
-        #data.append([_('Impression'), '', ''])
-
-        set_count += 1
         data.append([''])
         group_day_marker[day['obj'].id]['end'] = len(data)
 
@@ -148,8 +142,6 @@ def workout_log(request, id):
         rowheights = [None] * len(data)
 
     # Set general table styles
-    #('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-    #('BOX', (0,0), (-1,-1), 1.25, colors.black),
     table_style = [('FONT', (0, 0), (-1, -1), 'OpenSans'),
                    ('FONTSIZE', (0, 0), (-1, -1), 8),
                    ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
@@ -200,8 +192,6 @@ def workout_log(request, id):
     for marker in group_day_marker:
         start_marker = group_day_marker[marker]['start']
         end_marker = group_day_marker[marker]['end']
-
-        #table_style.append(('ALIGN', (0, end_marker - 2), (2, end_marker - 2), 'RIGHT'))
 
         # There is an empty cell between the day blocks, set a border around them
         table_style.append(('INNERGRID',
@@ -288,13 +278,13 @@ def workout_view(request, id):
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(content_type='application/pdf')
 
-    #Load the workout
+    # Load the workout
     workout = get_object_or_404(Workout, pk=id, user=request.user)
 
     # Create the PDF object, using the response object as its "file."
     doc = SimpleDocTemplate(response,
                             pagesize=A4,
-                            #pagesize = landscape(A4),
+                            # pagesize = landscape(A4),
                             leftMargin=cm,
                             rightMargin=cm,
                             topMargin=0.5 * cm,
@@ -344,7 +334,6 @@ def workout_view(request, id):
         data.append([p])
 
         # Sets
-        #for set_obj in day.set_set.select_related():
         for set in day['set_list']:
             group_exercise_marker[set['obj'].id] = {'start': len(data), 'end': len(data)}
 
@@ -352,7 +341,7 @@ def workout_view(request, id):
             for exercise in set['exercise_list']:
                 group_exercise_marker[set['obj'].id]['end'] = len(data)
 
-                 # Note: '+1' here because there's an emtpy cell between days
+                # Note: '+1' here because there's an emtpy cell between days
                 exercise_markers[day['obj'].id].append(len(data) + 1)
                 data.append([set_count,
                              Paragraph(exercise['obj'].name, styleSheet["Small"]),

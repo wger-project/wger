@@ -52,7 +52,7 @@ class WeightUnitIngredientCreateView(WgerFormMixin, CreateView, WgerPermissionMi
     title = ugettext_lazy('Add a new weight unit')
     permission_required = 'nutrition.add_ingredientweightunit'
 
-     # Send some additional data to the template
+    # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(WeightUnitIngredientCreateView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('weight-unit-ingredient-add',

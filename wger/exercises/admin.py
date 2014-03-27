@@ -27,7 +27,6 @@ class ExerciseCommentInline(admin.TabularInline):  # admin.StackedInline
 
 
 class ExerciseAdmin(admin.ModelAdmin):
-    #fields = ['name',]
 
     inlines = [ExerciseCommentInline]
 

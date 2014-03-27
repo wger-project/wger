@@ -223,7 +223,6 @@ def add(request, pk):
         formset = WorkoutLogFormSet(queryset=WorkoutLog.objects.none())
 
         dateform = HelperDateForm(initial={'date': datetime.date.today()})
-        #session_form = HelperWorkoutSessionForm()
         # Depending on whether there is already a workout session for today, update
         # the current one or create a new one (this will be the most usual case)
         if WorkoutSession.objects.filter(user=request.user, date=datetime.date.today()).exists():
@@ -380,7 +379,7 @@ def calendar(request, year=None, month=None):
 
     # Process the logs, 'overview' list for the calendar
     for log in logs:
-        if not log.date in temp_date_list:
+        if log.date not in temp_date_list:
             temp_date_list.append(log.date)
             logs_filtered.append(log)
 

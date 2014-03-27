@@ -65,8 +65,6 @@ def load_item_languages(item):
 
     # Load the configurations we are interested in and return the languages
     if not languages:
-
-        #LanguageConfig.SHOW_ITEM_LIST
         languages = []
 
         config = LanguageConfig.objects.filter(language=language, item=item, show=True)

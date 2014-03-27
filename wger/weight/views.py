@@ -57,7 +57,6 @@ class WeightForm(ModelForm):
         model = WeightEntry
         widgets = {
             'user': widgets.HiddenInput(),
-            #'weight': Html5NumberInput()
             }
 
 
@@ -193,11 +192,11 @@ def get_weight_data(request):
 
 
 CSV_DATE_FORMAT = (('%d.%m.%Y', 'DD.MM.YYYY (30.01.2012)'),
-                  ('%d.%m.%y', 'DD.MM.YY (30.01.12)'),
-                  ('%Y-%m-%d', 'YYYY-MM-DD (2012-01-30)'),
-                  ('%y-%m-%d', 'YY-MM-DD (12-01-30)'),
-                  ('%m/%d/%Y', 'MM/DD/YYYY (01/30/2012)'),
-                  ('%m/%d/%y', 'MM/DD/YY (01/30/12)'),)
+                   ('%d.%m.%y', 'DD.MM.YY (30.01.12)'),
+                   ('%Y-%m-%d', 'YYYY-MM-DD (2012-01-30)'),
+                   ('%y-%m-%d', 'YY-MM-DD (12-01-30)'),
+                   ('%m/%d/%Y', 'MM/DD/YYYY (01/30/2012)'),
+                   ('%m/%d/%y', 'MM/DD/YY (01/30/12)'),)
 
 
 class WeightCsvImportForm(Form):

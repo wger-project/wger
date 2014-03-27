@@ -78,10 +78,10 @@ def view(request, id):
     muscles_front = []
     muscles_back = []
     for i in canonical['muscles']['front']:
-        if not i in muscles_front:
+        if i not in muscles_front:
             muscles_front.append('images/muscles/main/muscle-{0}.svg'.format(i))
     for i in canonical['muscles']['back']:
-        if not i in muscles_back:
+        if i not in muscles_back:
             muscles_back.append('images/muscles/main/muscle-{0}.svg'.format(i))
 
     # Append the silhouette of the human body as the last entry so the browser

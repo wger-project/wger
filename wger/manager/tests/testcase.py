@@ -346,7 +346,6 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
 
         if fail:
             self.assertIn(response.status_code, STATUS_CODES_FAIL)
-            #self.assertTemplateUsed('login.html')
 
         else:
             self.assertEqual(response.status_code, 200)
