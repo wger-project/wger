@@ -19,6 +19,7 @@ from decimal import Decimal
 
 from django.db import models
 
+from django.template.loader import render_to_string
 from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
 from django.core.validators import MaxValueValidator
 from django.core.validators import MinValueValidator
@@ -28,7 +29,6 @@ from django.core import mail
 from django.core.cache import cache
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext
 from django.utils import translation
 
 from wger.core.models import Language
@@ -401,13 +401,11 @@ class Ingredient(AbstractLicenseModel, models.Model):
             translation.activate(self.user.userprofile.notification_language.short_name)
             url = request.build_absolute_uri(self.get_absolute_url())
             subject = _('Ingredient was successfully added to the general database')
-            message = (ugettext("Your ingredient '{0}' was successfully added to the general "
-                       "database.\n\n"
-                       "It is now available on the ingredient overview and can be\n"
-                       "added to nutrition plans. You can access it on this address:\n"
-                       "{1}\n\n").format(self.name, url) +
-                       ugettext("Thank you for contributing and making this site better!\n"
-                                "   the wger.de team"))
+            context = {
+                'ingredient': self.name,
+                'url': url
+            }
+            message = render_to_string('ingredient/email_new.html', context)
             mail.send_mail(subject,
                            message,
                            EMAIL_FROM,

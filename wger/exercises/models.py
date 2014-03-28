@@ -18,10 +18,10 @@
 import logging
 
 from django.db import models
+from django.template.loader import render_to_string
 from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext
 from django.utils import translation
 from django.core.urlresolvers import reverse
 from django.core import mail
@@ -317,13 +317,11 @@ class Exercise(AbstractLicenseModel, models.Model):
             translation.activate(user.userprofile.notification_language.short_name)
             url = request.build_absolute_uri(self.get_absolute_url())
             subject = _('Exercise was successfully added to the general database')
-            message = (ugettext("Your exercise '{0}' was successfully added to the general"
-                       "database.\n\n"
-                       "It is now available on the exercise and muscle overview and can be\n"
-                       "added to workouts. You can access it on this address:\n"
-                       "{1}\n\n").format(self.name, url) +
-                       ugettext("Thank you for contributing and making this site better!\n"
-                                "   the wger.de team"))
+            context = {
+                'exercise': self.name,
+                'url': url
+            }
+            message = render_to_string('exercise/email_new.html', context)
             mail.send_mail(subject,
                            message,
                            EMAIL_FROM,
