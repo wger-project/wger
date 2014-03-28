@@ -76,8 +76,6 @@ class ExerciseCategoryCacheTestCase(WorkoutManagerTestCase):
         old_exercise_overview = cache.get(get_template_cache_name('exercise-overview', 2))
         old_exercise_overview_mobile = cache.get(get_template_cache_name('exercise-overview-mobile',
                                                                          2))
-        old_exercise_overview_search = cache.get(get_template_cache_name('exercise-overview-search',
-                                                                         2))
 
         category = ExerciseCategory.objects.get(pk=2)
         category.name = 'Cool category'
@@ -94,14 +92,11 @@ class ExerciseCategoryCacheTestCase(WorkoutManagerTestCase):
         new_exercise_overview = cache.get(get_template_cache_name('exercise-overview', 2))
         new_exercise_overview_mobile = cache.get(get_template_cache_name('exercise-overview-mobile',
                                                                          2))
-        new_exercise_overview_search = cache.get(get_template_cache_name('exercise-overview-search',
-                                                                         2))
 
         if not self.is_mobile:
             self.assertNotEqual(old_exercise_overview, new_exercise_overview)
         else:
             self.assertNotEqual(old_exercise_overview_mobile, new_exercise_overview_mobile)
-            self.assertNotEqual(old_exercise_overview_search, new_exercise_overview_search)
 
 
 class ExerciseCategoryApiTestCase(ApiBaseResourceTestCase):
