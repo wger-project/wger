@@ -749,7 +749,7 @@ def reps_smart_text(settings, set_obj):
     elif len(settings) == 1:
         reps = settings[0].reps if settings[0].reps != 99 else u'∞'
         setting_text = u'{0} × {1}'.format(set_obj.sets, reps)
-        setting_list = [reps] * set_obj.sets
+        setting_list = [settings[0].reps] * set_obj.sets
     elif len(settings) > 1:
         tmp_reps_text = []
         tmp_reps = []
