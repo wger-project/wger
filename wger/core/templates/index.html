@@ -104,19 +104,18 @@ day in your current workout:{% endblocktrans %} {{current_workout}}</p>
                </a>
                </p>
                – {{ plan.creation_date }}
-
                <ul>
                    <li>
-                       {% trans "Energy" %}: {{nutritional_info.energy|floatformat}} kcal
+                       {% trans "Energy" %}: {{nutritional_info.total.energy|floatformat}} kcal
                    </li>
                    <li>
-                       {% trans "Protein" %}: {{nutritional_info.protein|floatformat}} g
+                       {% trans "Protein" %}: {{nutritional_info.total.protein|floatformat}} g
                    </li>
                    <li>
-                       {% trans "Carbohydrates" %}: {{nutritional_info.carbohydrates|floatformat}} g
+                       {% trans "Carbohydrates" %}: {{nutritional_info.total.carbohydrates|floatformat}} g
                    </li>
                    <li>
-                       {% trans "Fat" %}: {{nutritional_info.fat|floatformat}} g
+                       {% trans "Fat" %}: {{nutritional_info.total.fat|floatformat}} g
                    </li>
                </ul>
 
