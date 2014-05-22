@@ -22,7 +22,7 @@ https://wger.de/api/v1/workout/?username={{user.username}}&api_key={% if key %}{
 </pre>
 </p>
 
-<table>
+<table class="table">
     <tr>
         <td>
             {% trans "Your API key" %}
@@ -56,16 +56,16 @@ https://wger.de/api/v1/workout/?username={{user.username}}&api_key={% if key %}{
 
 <p>
 {% if key %}
-    <a href="{% url 'core:api-key' %}?new_key=true" class="btn btn-block">{% trans 'Delete current API key and generate new one' %}</a>
+    <a href="{% url 'core:api-key' %}?new_key=true" class="btn btn-block btn-default">{% trans 'Delete current API key and generate new one' %}</a>
 {% else %}
-    <a href="{% url 'core:api-key' %}?new_key=true" class="btn btn-block">{% trans 'Generate new API key' %}</a>
+    <a href="{% url 'core:api-key' %}?new_key=true" class="btn btn-block btn-default">{% trans 'Generate new API key' %}</a>
 {% endif %}
 </p>
 
 
 
 <p>
-    <a href="{% url 'software:api' %}" class="btn btn-block">{% trans 'Documentation' %}</a>
+    <a href="{% url 'software:api' %}" class="btn btn-block btn-default">{% trans 'Documentation' %}</a>
 </p>
 
 {% endblock %}
