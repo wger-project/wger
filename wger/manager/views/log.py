@@ -315,6 +315,7 @@ class WorkoutCalendar(HTMLCalendar):
         super(WorkoutCalendar, self).__init__()
         self.workout_logs = self.group_by_day(workout_logs)
 
+
     def formatday(self, day, weekday):
         if day != 0:
             cssclass = self.cssclasses[weekday]
@@ -336,8 +337,25 @@ class WorkoutCalendar(HTMLCalendar):
         return self.day_cell('noday', '&nbsp;')
 
     def formatmonth(self, year, month):
+        '''
+        Format the table header. This is the same code from python's calendar module
+        but with an additional 'table' class
+        '''
         self.year, self.month = year, month
-        return super(WorkoutCalendar, self).formatmonth(year, month)
+        v = []
+        a = v.append
+        a('<table border="0" cellpadding="0" cellspacing="0" class="month table">')
+        a('\n')
+        a(self.formatmonthname(year, month))
+        a('\n')
+        a(self.formatweekheader())
+        a('\n')
+        for week in self.monthdays2calendar(year, month):
+            a(self.formatweek(week))
+            a('\n')
+        a('</table>')
+        a('\n')
+        return ''.join(v)
 
     def group_by_day(self, workout_logs):
         '''

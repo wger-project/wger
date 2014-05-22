@@ -15,10 +15,10 @@ $(document).ready(function() {
 })
 </script>
 
-<table class="bordertable workout-table" id="table-day-{{ day.obj.id }}">
+<table class="table table-bordered workout-table" id="table-day-{{ day.obj.id }}">
 <thead>
     <tr id="day-{{ day.obj.id }}">
-        <th colspan="2">
+        <th colspan="2" style="background: none repeat scroll 0% 0% #E0E0E0;">
 
             {{ day.days_of_week.text }} – {{ day.obj.description }}
 

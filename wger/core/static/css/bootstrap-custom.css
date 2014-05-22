@@ -13,6 +13,10 @@ body {
     margin-bottom: 0px;
 }
 
+#main-content{
+    min-height: 40em;
+}
+
 #nav, .navbar-inverse .navbar-inner {
   background-color: #1b1b1b;
   background-image: -moz-linear-gradient(top, #222222, #111111);

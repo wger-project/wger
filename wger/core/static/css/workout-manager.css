@@ -219,7 +219,7 @@ header span.regular{
  * Make more space for the page title
  */
 #page-title{
-    margin-top: 0px;
+    margin-top: 0.5em;
 }
 
 #content-wrapper{

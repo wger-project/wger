@@ -7,7 +7,7 @@
 
 {% block content %}
 {% if workouts %}
-    <table id="workout-table">
+<table class="table">
     <thead>
     <tr>
         <th>{% trans "Description" %}</th>
@@ -22,7 +22,7 @@
                 {{ workout }}
             </a>
             {% if workout == current_workout %}
-            <span class="label label-info">{% trans "active" %}</span>
+            <span class="label label-primary">{% trans "active" %}</span>
             {% endif %}
         </td>
         <td>
@@ -31,7 +31,7 @@
     </tr>
     {% endfor %}
     </tbody>
-    </table>
+</table>
 {% else %}
     <p>
         <a href="{% url 'workout-add' %}" class="btn btn-block">

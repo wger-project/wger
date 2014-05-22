@@ -5630,7 +5630,7 @@ button.close {
 .nav:after,
 .navbar:after,
 .navbar-header:after,
-.navbar-collapse:after,
+.navbar-collapse:after,modal-dialog
 .pager:after,
 .panel-body:after,
 .modal-footer:after {

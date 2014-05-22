@@ -41,62 +41,56 @@ $(document).ready(function() {
 {% cache cache_timeout muscle-overview language.id %}
 {% trans "Hover with the mouse over the muscles to show corresponding exercises." %}
 
-<div class="ym-grid linearize-level-1">
-    <div class="ym-g33 ym-gl">
-        <div class="ym-gbox-left">
-            <h3 style="padding-bottom:0.5em;">{% trans "Muscles" %}</h3>
-            <div id="muscle-system"
-                 class="muscle-background"
-                 style="background-image: url('/static/images/muscles/muscular_system_front.svg');">
-            </div>
+<div class="row">
+    <div class="col-md-4">
+        <h3 style="padding-bottom:0.5em;">{% trans "Muscles" %}</h3>
+        <div id="muscle-system"
+             class="muscle-background"
+             style="background-image: url('/static/images/muscles/muscular_system_front.svg');">
         </div>
     </div>
-    <div class="ym-g33 ym-gl">
-        <div class="ym-gbox-left">
-            {# Why do we need to use |first? #}
-            {% regroup muscle_list|first by is_front as muscle_group %}
-            {% for group in muscle_group %}
-                {% if group.grouper %}
-                    <h3>{% trans "Front side" %}</h3>
-                {% else %}
-                    <h3>{% trans "Back side" %}</h3>
-                {% endif %}
+    <div class="col-md-4">
+        {# Why do we need to use |first? #}
+        {% regroup muscle_list|first by is_front as muscle_group %}
+        {% for group in muscle_group %}
+            {% if group.grouper %}
+                <h3>{% trans "Front side" %}</h3>
+            {% else %}
+                <h3>{% trans "Back side" %}</h3>
+            {% endif %}
 
-                <ul class="muscle-list">
-                {% for muscle in group.list %}
-                <li class="muscle"
-                    data-target="muscle-{{muscle.id}}"
-                    data-is-front="{{muscle.is_front}}"
-                    data-name="{{muscle.name}}"
-                    itemscope itemtype="http://schema.org/Muscle">
-                    <span itemprop="name">{{muscle.name}}</span>
-                </li>
-                {% endfor %}
-                </ul>
+            <ul class="muscle-list">
+            {% for muscle in group.list %}
+            <li class="muscle"
+                data-target="muscle-{{muscle.id}}"
+                data-is-front="{{muscle.is_front}}"
+                data-name="{{muscle.name}}"
+                itemscope itemtype="http://schema.org/Muscle">
+                <span itemprop="name">{{muscle.name}}</span>
+            </li>
             {% endfor %}
-        </div>
+            </ul>
+        {% endfor %}
     </div>
-    <div class="ym-g33 ym-gr">
-        <div class="ym-gbox-right">
-            {% for muscle in muscle_list|first %}
-                <div id="muscle-{{muscle.id}}" style="display:none;" class="exercise-list">
-                    <h3>{% trans "Exercises" %}</h3>
-                    <ul class="exercise-overview">
-                        {% for exercise in muscle.exercise_set.select_related %}
-                        {% if exercise.language in active_languages %}
-                        <li class="exercise">
-                            <a href="{{exercise.get_absolute_url}}">{{exercise}}</a>
-                        </li>
-                        {% endif %}
-                        {% empty %}
-                        <li>
-                            <em>{% trans "No exercises that mainly train this muscle" %}</em>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endfor %}
-        </div>
+    <div class="col-md-4">
+        {% for muscle in muscle_list|first %}
+            <div id="muscle-{{muscle.id}}" style="display:none;" class="exercise-list">
+                <h3>{% trans "Exercises" %}</h3>
+                <ul class="exercise-overview">
+                    {% for exercise in muscle.exercise_set.select_related %}
+                    {% if exercise.language in active_languages %}
+                    <li class="exercise">
+                        <a href="{{exercise.get_absolute_url}}">{{exercise}}</a>
+                    </li>
+                    {% endif %}
+                    {% empty %}
+                    <li>
+                        <em>{% trans "No exercises that mainly train this muscle" %}</em>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
     </div>
 </div>
 {% endcache %}

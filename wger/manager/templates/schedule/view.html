@@ -58,7 +58,7 @@ $(document).ready(function() {
 
 {% block content %}
 <div id="schedule-table-container">
-<table id="schedule-table">
+<table id="schedule-table" class="table">
     <thead>
     <tr>
         <th>{% trans "Nr." %}</th>
@@ -74,8 +74,6 @@ $(document).ready(function() {
             {{ forloop.counter }}
         </td>
         <td style="min-width: 6em;">
-<!--             {{ forloop.counter }} -->
-
             <span class="editoptions">
                 <img src="{% static 'images/icons/move.svg' %}"
                      width="22"

@@ -1,6 +1,6 @@
 {% extends "template.html" %}
 {% block template %}
-<h2 id="page-title">{% block title %}{% endblock %}</h2>
+<h2 id="page-title" class="page-header">{% block title %}{% endblock %}</h2>
 <div class="row">
     <div class="col-md-8" id="main-content">
         {% if messages and not no_messages %}

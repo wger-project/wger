@@ -17,7 +17,7 @@ function custom_modal_init()
 {% endblock %}
 
 {% block content %}
-<table id="workout-table">
+<table class="table">
     <thead>
     <tr>
         <th>{% trans "Description" %}</th>
@@ -32,7 +32,7 @@ function custom_modal_init()
                 {{ schedule.name }}
             </a>
             {% if schedule.is_active %}
-            <span class="label label-info">{% trans "active" %}</span>
+            <span class="label label-primary">{% trans "active" %}</span>
             {% endif  %}
         </td>
         <td>

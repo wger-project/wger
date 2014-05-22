@@ -38,15 +38,25 @@ $(document).ready(function() {
     {% with tmp=grouped_logs|first %}
     {% with first_log=tmp.list|first %}
     {% with session=first_log.get_workout_session %}
-        <p>
-            <a href="{{first_log.workout.get_absolute_url}}" class="btn">{{ first_log.workout }}</a>
-            <a href="{% url 'workout-log' first_log.workout.id %}" class="btn">{% trans "Log overview" %}</a>
-            {% if session %}
-                <a href="{% url 'workout-session-edit' session.pk %}" class="btn modal-dialog">{% trans "Edit workout session" %}</a>
-            {% else %}
-                <a href="{% url 'workout-session-add' first_log.workout_id date|date:'Y' date|date:'m' date|date:'d' %}" class="btn modal-dialog">{% trans "Add workout impression" %}</a>
-            {% endif %}
-        </p>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="{{first_log.workout.get_absolute_url}}" class="btn btn-default btn-block">{{ first_log.workout }}</a>
+                </div>
+
+                <div class="col-md-4">
+                <a href="{% url 'workout-log' first_log.workout.id %}" class="btn btn-default btn-block">{% trans "Log overview" %}</a>
+                </div>
+
+                <div class="col-md-4">
+                    {% if session %}
+                        <a href="{% url 'workout-session-edit' session.pk %}" class="btn btn-default btn-block modal-dialog">{% trans "Edit workout session" %}</a>
+                    {% else %}
+                        <a href="{% url 'workout-session-add' first_log.workout_id date|date:'Y' date|date:'m' date|date:'d' %}" class="btn btn-default btn-block modal-dialog">{% trans "Add workout impression" %}</a>
+                    {% endif %}
+                </div>
+             </div>
+        </div>
         {% if session %}
         <p>
             <strong>{% trans "Time" %}:</strong>

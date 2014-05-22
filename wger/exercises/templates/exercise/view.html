@@ -40,31 +40,27 @@ included in the database.{% endblocktrans %}
 </p>
 
 {% if perms.exercises %}
-<div class="ym-grid linearize-level-1">
-    <div class="ym-g50 ym-gl">
-        <div class="ym-gbox-left">
-            <div class="alert alert-success">
-                <a href="{% url 'exercise-accept' exercise.id %}">
-                    <img src="{% static 'images/icons/status-on.svg' %}"
-                        width="32"
-                        height="32"
-                        alt="{% trans 'Accept' %}">
-                    {% trans "Accept" %}
-                </a>
-            </div>
+<div class="container-fluid">
+    <div class="col-md-6">
+        <div class="alert alert-success">
+            <a href="{% url 'exercise-accept' exercise.id %}">
+                <img src="{% static 'images/icons/status-on.svg' %}"
+                    width="32"
+                    height="32"
+                    alt="{% trans 'Accept' %}">
+                {% trans "Accept" %}
+            </a>
         </div>
     </div>
-    <div class="ym-g50 ym-gl">
-        <div class="ym-gbox-left">
-            <div class="alert alert-error">
-                <a href="{% url 'exercise-decline' exercise.id %}">
-                    <img src="{% static 'images/icons/status-off.svg' %}"
-                        width="32"
-                        height="32"
-                        alt="{% trans 'Decline' %}">
-                    {% trans "Decline" %}
-                </a>
-            </div>
+    <div class="col-md-6">
+        <div class="alert alert-error">
+            <a href="{% url 'exercise-decline' exercise.id %}">
+                <img src="{% static 'images/icons/status-off.svg' %}"
+                    width="32"
+                    height="32"
+                    alt="{% trans 'Decline' %}">
+                {% trans "Decline" %}
+            </a>
         </div>
     </div>
 </div>
@@ -223,44 +219,42 @@ included in the database.{% endblocktrans %}
     {% trans "Secondary muscles" %}
 </div>
 
-<div class="ym-grid linearize-level-1" style="margin-top:1em;">
-    <div class="ym-g33 ym-gl">
-        <div class="ym-gbox-left">
-            <div id="muscle-front" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-            </div>
-            <ul>
-                {% for muscle in muscles %}
-                {% if muscle.is_front %}
-                <li>{{muscle.name}}</li>
-                {% endif %}
-                {% endfor %}
 
-                {% for muscle in muscles_secondary %}
-                {% if muscle.is_front %}
-                <li>{{muscle.name}}</li>
-                {% endif %}
-                {% endfor %}
-            </ul>
+
+<div class="container-fluid" style="margin-top:1em;">
+    <div class="col-md-6">
+        <div id="muscle-front" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
         </div>
+        <ul>
+            {% for muscle in muscles %}
+            {% if muscle.is_front %}
+            <li>{{muscle.name}}</li>
+            {% endif %}
+            {% endfor %}
+
+            {% for muscle in muscles_secondary %}
+            {% if muscle.is_front %}
+            <li>{{muscle.name}}</li>
+            {% endif %}
+            {% endfor %}
+        </ul>
     </div>
-    <div class="ym-g33 ym-gl">
-        <div class="ym-gbox-right">
+    <div class="col-md-6">
         <div id="muscle-back" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
         </div>
         <ul>
-        {% for muscle in muscles %}
-        {% if not muscle.is_front %}
-        <li>{{muscle.name}}</li>
-        {% endif %}
-        {% endfor %}
+            {% for muscle in muscles %}
+            {% if not muscle.is_front %}
+            <li>{{muscle.name}}</li>
+            {% endif %}
+            {% endfor %}
 
-        {% for muscle in muscles_secondary %}
-        {% if not muscle.is_front %}
-        <li>{{muscle.name}}</li>
-        {% endif %}
-        {% endfor %}
+            {% for muscle in muscles_secondary %}
+            {% if not muscle.is_front %}
+            <li>{{muscle.name}}</li>
+            {% endif %}
+            {% endfor %}
         </ul>
-        </div>
     </div>
 </div>
 
