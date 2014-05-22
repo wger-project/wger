@@ -1,3 +1,14 @@
+html {
+  font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
+  -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+}
+
+body {
+    font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
+    background-color: #204A87;
+}
+
 .navbar {
     margin-bottom: 0px;
 }

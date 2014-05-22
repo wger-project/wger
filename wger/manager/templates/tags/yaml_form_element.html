@@ -1,34 +1,35 @@
 {% load i18n %}
+{% load wger_extras %}
 {% if not field.is_hidden %}
-<tr id="form-{{field.name}}">
-    <td style="text-align:right;">
-    {% if field.errors %}<div class="ym-fbox-text ym-error"><span class="ym-message">{% endif %}
-    <label for="{{field.auto_id}}">
+<div class="form-group {% if field.errors %}has-error{% endif %}" id="form-{{field.name}}">
+
+    <label for="{{field.auto_id}}" class="col-md-3 control-label">
         {% trans field.label %}
-    </label>
-    {% if not field.field.required %}<span style="font-size:90%;">— <em>{% trans "Optional" %}</em></span>{% endif %}
-    {% if field.errors %}</span></div>{% endif %}
-    </td>
-    <td>
-        <div class="{{css_class}} {% if field.errors %}ym-error{% endif %}">
-        {{ field }}
-        </div>
-
-        {% if field.errors %}
-            <div class="ym-fbox-text ym-error">
-                {% for error in field.errors %}
-                    <p class="ym-message">{% trans error %}</p>
-                {% endfor %}
-            </div>
+        {% if not field.field.required %}
+            <br>
+            <span style="font-size:90%;">— <em>{% trans "Optional" %}</em></span>
         {% endif %}
+    </label>
 
-        {% if field.help_text %}<p class="dimmed">{% trans field.help_text %}</p>{% endif %}
-    </td>
-</tr>
+    <div class="col-md-9">
+    {% if not field|is_checkbox %}
+        {{ field|form_field_add_css:'form-control' }}
+    {% else %}
+        {{ field }}
+    {% endif %}
+
+    <span class="help-block">
+    {% for error in field.errors %}
+        <p>
+            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+            {% trans error %}
+        </p>
+    {% endfor %}
+    {% if field.help_text %}{% trans field.help_text %}{% endif %}
+    </span>
+    </div>
+
+</div>
 {% else %}
-    {#                                        #}
-    {#  TODO: the resulting HTML is not valid #}
-    {#  and all the form rendering functions  #}
-    {#  should be made more flexible anyway   #}
     {{field}}
 {% endif %}

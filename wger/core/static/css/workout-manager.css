@@ -21,6 +21,17 @@
  *
  **************************************************************/
 
+#main-footer{
+    background: none repeat scroll 0% 0% #EEE;
+    border-top: 1px solid #E5E5E5;
+    border-bottom: 1px solid #000;
+    padding-top: 1em;
+}
+
+#main{
+    background-color: #FFF;
+}
+
 
 /*
  * Images in links are vertically aligned

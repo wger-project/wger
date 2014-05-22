@@ -94,24 +94,21 @@ $(document).ready(function() {
     {% trans "Images show combined muscles as trained by the exercises on the workout." %}
 </p>
 
-<div class="ym-grid linearize-level-1">
-    <div class="ym-g40 ym-gl">
-        <div class="ym-gbox-left">
-            <div id="muscle-front"
-                 class="muscle-background"
-                 style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-            </div>
+<div class="row">
+    <div class="col-md-6">
+        <div id="muscle-front"
+             class="muscle-background"
+             style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
         </div>
     </div>
-    <div class="ym-g60 ym-gr">
-        <div class="ym-gbox-right">
-            <div id="muscle-back"
-                     class="muscle-background"
-                     style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-            </div>
+    <div class="col-md-6">
+        <div id="muscle-back"
+                 class="muscle-background"
+                 style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
         </div>
     </div>
 </div>
+
 
 <h3>{% trans "Options" %}</h3>
 <p>

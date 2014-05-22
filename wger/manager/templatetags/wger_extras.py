@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from django import template
+from django.forms.widgets import CheckboxInput
 
 from wger.utils.constants import PAGINATION_MAX_TOTAL_PAGES
 from wger.utils.constants import PAGINATION_PAGES_AROUND_CURRENT
@@ -84,6 +85,30 @@ def render_weight_log(log, div_uuid):
     return {'log': log,
             'div_uuid': div_uuid}
 
+
+@register.filter(name='form_field_add_css')
+def form_field_add_css(field, css):
+    '''
+    Adds a CSS class to a form field. This is needed among other places for
+    bootstrap 3, which needs a 'form-control' class in the field itself
+    '''
+    #return field.as_widget(attrs={"class": css})
+    #return field
+    if hasattr(field, 'as_widget'):
+        return field.as_widget(attrs={"class": css})
+    else:
+        return field
+
+
+@register.filter(name='is_checkbox')
+def is_checkbox(field):
+    '''
+    Tests if a field element is a checkbox, as it needs to be handled slightly different
+
+    :param field: a form field
+    :return: boolen
+    '''
+    return field.field.widget.__class__.__name__ == CheckboxInput().__class__.__name__
 
 @register.inclusion_tag('tags/yaml_form_element.html')
 def yaml_form_field(field, css_class='ym-fbox-text'):
