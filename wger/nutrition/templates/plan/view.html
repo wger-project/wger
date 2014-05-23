@@ -31,10 +31,10 @@ $(document).ready(function() {
 </p>
 {% endif %}
 
-<table class="bordertable">
+<table class="table table-bordered">
     <thead>
-        <tr>
-            <th class="ym-g15">{% trans "Meal" %}</th>
+        <tr style="background: #E0E0E0;">
+            <th>{% trans "Meal" %}</th>
             <th>{% trans "Contents" %}</th>
             <th>{% trans "Energy" %}</th>
             <th>{% trans "Protein" %}</th>
@@ -176,7 +176,7 @@ $(document).ready(function() {
 
 
 <h3>{% trans "Nutritional data" %}</h3>
-<table>
+<table class="table table-condensed">
     <thead>
         <tr>
             <th>{% trans "Macronutrients" %}</th>
@@ -247,7 +247,7 @@ $(document).ready(function() {
 
 {% block sidebar %}
 <h3>{% trans "Energy" %}</h3>
-<table id="nutritional-data-energy">
+<table class="table table-condensed" id="nutritional-data-energy">
     <thead>
         <tr>
             <th>{% trans "Energy" %}</th>

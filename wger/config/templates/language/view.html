@@ -7,7 +7,7 @@
 
 
 {% block content %}
-<table>
+<table class="table">
 <thead>
     <tr>
         <th>{% trans "Language short name" %}</th>
@@ -29,7 +29,7 @@ exercises and ingredients will be shown for the current language (for example
 the exercises should be shown in languages A, B and C; the ingredients only
 in A).{% endblocktrans %}</p>
 
-<table>
+<table class="table">
 <thead>
     <tr>
         <th>{% trans "Language full name" %}</th>
@@ -40,7 +40,7 @@ in A).{% endblocktrans %}</p>
     {% for config in view_language.language_source.all %}
     {% ifchanged config.get_item_display %}
     <tr>
-        <td colspan="2" style="text-align:center; background-color:#eeeeec;">{{config.get_item_display}}</td>
+        <td colspan="2" class="active" style="text-align:center;">{{config.get_item_display}}</td>
     </tr>
     {% endifchanged %}
     <tr>

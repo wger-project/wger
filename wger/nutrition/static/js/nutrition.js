@@ -22,10 +22,9 @@
 
 function update_ingredient_value(url)
 {
-    form_data = $('#nutritional-values-form').serializeArray();
+    var form_data = $('#nutritional-values-form').serializeArray();
     $.post(url, form_data, function(data) {
 
-        console.log(data);
         // Show any validation errors
         $('#calculator-errors').html('');
         if (data['errors'])
@@ -44,7 +43,7 @@ function update_ingredient_value(url)
         $('#value-fat-saturated').html(parseFloat(data['fat_saturated']).toFixed(2));
         $('#value-fibres').html(parseFloat(data['fibres']).toFixed(2));
         $('#value-sodium').html(parseFloat(data['sodium']).toFixed(2));
-        });
+    });
 }
 
 function init_ingredient_detail(url)

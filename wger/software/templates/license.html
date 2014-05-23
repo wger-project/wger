@@ -10,28 +10,38 @@
 <p>{% blocktrans %}wger Workout Manager is Free/Libre Open Source
 Software (FLOSS).{% endblocktrans %}</p>
 
-
-<img src="{% static 'images/agpl-v3.svg' %}"
-     width="88"
-     height="31"
-     alt="{% trans 'Released under the Affero GPL' %}"
-     title="{% trans 'Released under the Affero GPL' %}"
-     class="float-left">
-<p>{% blocktrans %}wger Workout Manager is released under the <strong>Affero GNU
+<div class="row">
+    <div class="col-md-2">
+        <img src="{% static 'images/agpl-v3.svg' %}"
+             width="88"
+             height="31"
+             alt="{% trans 'Released under the Affero GPL' %}"
+             title="{% trans 'Released under the Affero GPL' %}"
+             class="float-left">
+    </div>
+    <div class="col-md-10">
+        <p>{% blocktrans %}wger Workout Manager is released under the <strong>Affero GNU
 General Public License (AGPL)  Version 3+</strong> and can (under the conditions
 of the license) be used, modified and distributed (also with modifications)
 without restrictions.{% endblocktrans %}</p>
+    </div>
+</div>
 
-<img src="{% static 'images/cc-by-sa.svg' %}"
-     width="88"
-     height="31"
-     alt="{% trans 'CC-BY-SA' %}"
-     title="{% trans 'CC-BY-SA' %}"
-     class="float-left">
-<p>{% blocktrans %}The data fixtures with the exercise and ingredient lists are
+<div class="row">
+    <div class="col-md-2">
+        <img src="{% static 'images/cc-by-sa.svg' %}"
+             width="88"
+             height="31"
+             alt="{% trans 'CC-BY-SA' %}"
+             title="{% trans 'CC-BY-SA' %}"
+             class="float-left">
+    </div>
+    <div class="col-md-10">
+        <p>{% blocktrans %}The data fixtures with the exercise and ingredient lists are
 released additionally under a <strong>Creative Commons Attribution Share Alike 3
 (CC-BY-SA)</strong> license.</a>{% endblocktrans %}</p>
-
+    </div>
+</div>
 
 <p>{% blocktrans %}A copy of both licenses is contained in every wger Workout
 Manager release and can be read in the

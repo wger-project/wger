@@ -27,31 +27,27 @@ the search.{% endblocktrans %}
 </p>
 
 {% if perms.exercises %}
-<div class="ym-grid linearize-level-1">
-    <div class="ym-g50 ym-gl">
-        <div class="ym-gbox-left">
-            <div class="alert alert-success">
-                <a href="{% url 'ingredient-accept' ingredient.id %}">
-                    <img src="{% static 'images/icons/status-on.svg' %}"
-                        width="32"
-                        height="32"
-                        alt="{% trans 'Accept' %}">
-                    {% trans "Accept" %}
-                </a>
-            </div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="alert alert-success">
+            <a href="{% url 'ingredient-accept' ingredient.id %}">
+                <img src="{% static 'images/icons/status-on.svg' %}"
+                    width="32"
+                    height="32"
+                    alt="{% trans 'Accept' %}">
+                {% trans "Accept" %}
+            </a>
         </div>
     </div>
-    <div class="ym-g50 ym-gl">
-        <div class="ym-gbox-left">
-            <div class="alert alert-error">
-                <a href="{% url 'ingredient-decline' ingredient.id %}">
-                    <img src="{% static 'images/icons/status-off.svg' %}"
-                        width="32"
-                        height="32"
-                        alt="{% trans 'Decline' %}">
-                    {% trans "Decline" %}
-                </a>
-            </div>
+    <div class="col-md-6">
+        <div class="alert alert-error">
+            <a href="{% url 'ingredient-decline' ingredient.id %}">
+                <img src="{% static 'images/icons/status-off.svg' %}"
+                    width="32"
+                    height="32"
+                    alt="{% trans 'Decline' %}">
+                {% trans "Decline" %}
+            </a>
         </div>
     </div>
 </div>
@@ -66,31 +62,31 @@ the search.{% endblocktrans %}
 <div itemscope itemtype="http://schema.org/NutritionInformation">
 <meta itemprop="name" content="{{ingredient.name}}" />
 
-<form class="ym-form"
+<form class="form-horizontal"
       method="post"
       action="{% url 'ingredient-get-values' ingredient.id %}"
       id="nutritional-values-form"
       style="background-color: transparent; border-width: 0px; box-shadow: 0px 0px 0px 0px transparent;">
     {% csrf_token %}
     <div id="calculator-errors" class="ym-error"></div>
-    <input type="hidden" value="{{ingredient.id}}" name="ingredient"></input>
+    <input type="hidden" value="{{ingredient.id}}" name="ingredient">
 
-    <div class="ym-grid">
-        <div class="ym-g33 ym-gl" style="text-align:right;">
+    <div class="row">
+        <div class="col-md-4" style="text-align:right;">
         {% trans 'Nutritional values in' %}
         </div>
 
-        <div class="ym-g33 ym-gl">
-            <div class="ym-fbox-text {% if form.amount.errors %}ym-error{% endif %}">{{form.amount}}</div>
+        <div class="col-md-4">
+            <div class="ym-fbox-text {% if form.amount.errors %}ym-error{% endif %}">{{form.amount|form_field_add_css:'form-control'}}</div>
         </div>
 
-        <div class="ym-g33 ym-gl">
-            <div class="ym-fbox-select {% if form.unit.errors %}ym-error{% endif %}">{{form.unit}}</div>
+        <div class="col-md-4">
+            <div class="ym-fbox-select {% if form.unit.errors %}ym-error{% endif %}">{{form.unit|form_field_add_css:'form-control'}}</div>
         </div>
     </div>
 </form>
 
-<table>
+<table class="table">
     <thead>
         <tr>
             <th colspan="2">
@@ -146,7 +142,7 @@ the search.{% endblocktrans %}
     </tbody>
 </table>
 
-<table>
+<table class="table">
     <thead>
         <tr>
             <th colspan="2">

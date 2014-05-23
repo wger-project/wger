@@ -30,13 +30,11 @@ $(document).ready(function() {
 
 {% block content %}
 {% if ingredients_list %}
-<ul>
+<div class="list-group">
     {% for ingredient in ingredients_list %}
-    <li>
-        <a href="{{ ingredient.get_absolute_url }}">{{ ingredient.name }}</a>
-    </li>
+        <a  class="list-group-item" href="{{ ingredient.get_absolute_url }}">{{ ingredient.name }}</a>
     {% endfor %}
-</ul>
+</div>
 {% else %}
     <p>
         <a href="{% url 'ingredient-add' %}" class="btn btn-block">

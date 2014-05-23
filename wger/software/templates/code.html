@@ -16,7 +16,7 @@
 installation instructions see below.{% endblocktrans %}</p>
 
 <p>
-<a class="btn btn-primary"
+<a class="btn btn-primary btn-block"
    href="https://pypi.python.org/packages/source/w/wger/wger-1.4.tar.gz">
    {% trans "download stable version:" %} 1.4</a>
 </p>
@@ -31,12 +31,12 @@ easy to set up, but you can skip this step if you don't mind installing all
 dependencies system-wide (in that case, install django and the other applications
 with a <code>sudo</code>).{% endblocktrans %}</p>
 
-<code>
+<pre>
 $ sudo apt-get install python-virtualenv
 $ sudo apt-get install python-dev
 $ virtualenv python-django
 $ source python-django/bin/activate
-</code>
+</pre>
 
 <p>{% blocktrans %}Get the application from PyPI, initialise and start it.{% endblocktrans %}</p>
 
@@ -127,21 +127,21 @@ to install more packages if you want the thumbnailer to be able to read more
 image formats, consult the documentation <a href="http://pillow.readthedocs.org">for pillow</a>
 for more details):</p>
 
-<code>
+<pre>
 $ sudo apt-get install python-virtualenv
 $ sudo apt-get install python-dev
 $ virtualenv python-django
 $ source python-django/bin/activate
 $ pip install -r requirements.txt
-</code>
+</pre>
 
 <p>Get the code, create a superuser and start the webserver:</p>
 
-<code>
+<pre>
 $ git clone https://github.com/rolandgeider/wger.git
 $ cd wger
 $ python start.py
-</code>
+</pre>
 
 <p>That's it. You can either start the server again with
 <code>start.py</code> or do it the django way with
@@ -260,7 +260,7 @@ $ python extras/scripts/create_local_settings.py
 <p>Initialise the database, create a super user and load these
 fixtures:</p>
 
-<code>
+<pre>
 $ python manage.py syncdb
 $ python manage.py migrate core
 $ python manage.py migrate --all
@@ -275,7 +275,7 @@ $ python manage.py loaddata exercises
 $ python manage.py loaddata ingredients
 $ python manage.py loaddata weight_units
 $ python manage.py loaddata ingredient_units
-</code>
+</pre>
 
 <p>What you do next depends on the server you use and how you
 want to serve the application (mod_wsgi, fastCGI). There is a sample <code>wsgi.py</code>
