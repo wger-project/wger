@@ -119,7 +119,7 @@ $(document).ready(function() {
     <td colspan="7">
        <a href="{% url 'mealitem-add' meal.id %}"
           title="{% trans 'Add one now.' %}"
-          class="wger-modal-dialog edit-meal btn btn-block">
+          class="wger-modal-dialog edit-meal btn btn-default btn-block">
             {% trans "No items for this meal." %}
             {% trans "Add one now."%}
         </a>
@@ -130,7 +130,7 @@ $(document).ready(function() {
 {% empty %}
 <p>
      <a href="{% url 'meal-add' plan.id %}"
-        class="wger-modal-dialog btn btn-block">
+        class="wger-modal-dialog btn btn-default btn-block">
             {% trans "No meals for this plan." %}
             {% trans "Add one now." %}
         </a>

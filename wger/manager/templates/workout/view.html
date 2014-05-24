@@ -47,7 +47,7 @@ $(document).ready(function() {
     </div>
 {% empty %}
     <p>
-    <a href="{% url 'day-add' workout.id %}" class="wger-modal-dialog btn btn-block">
+    <a href="{% url 'day-add' workout.id %}" class="wger-modal-dialog btn btn-default btn-block">
     {% trans "No days for this workout." %}
     {% trans "Add training day" %}
     </a>

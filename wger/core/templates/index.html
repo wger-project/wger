@@ -88,7 +88,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
 
         {% else %}
             <p>
-                <a href="{% url 'workout-add' %}" class="btn btn-block">
+                <a href="{% url 'workout-add' %}" class="btn btn-block btn-default">
                 {% trans "No workouts found." %} {% trans "Add one now." %}
                 </a>
             </p>
@@ -125,7 +125,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
 
         {% else %}
             <p>
-                <a href="{% url 'nutrition-add' %}" class="btn btn-block">
+                <a href="{% url 'nutrition-add' %}" class="btn btn-block btn-default">
                 {% trans "No nutrition plans." %} {% trans "Add one now." %}
                 </a>
             </p>

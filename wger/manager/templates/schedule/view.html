@@ -102,7 +102,7 @@ $(function() {
     {% empty %}
     <tr>
         <td colspan="4">
-            <a href="{% url 'step-add' schedule.id %}" class="wger-modal-dialog btn btn-block">
+            <a href="{% url 'step-add' schedule.id %}" class="wger-modal-dialog btn btn-block btn-default">
             {% trans "No workouts found." %} {% trans "Add one now." %}
             </a>
         </td>
