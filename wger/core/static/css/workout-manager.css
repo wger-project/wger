@@ -276,68 +276,9 @@ div.info a, div.info a:hover, div.info a:active{
 
 
 /**************************************************************
- * Pagination styles
+ * extra-bold fonts
  **************************************************************/
-.pagination a:hover
-{
-    color:black;
-}
 
-ul.pagination li{
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    margin-right: 0.5em;
-}
-
-ul.pagination .deactivated,
-ul.pagination a{
-    margin-right: 0.5em;
-}
-
-ul.pagination .active{
-    background: #204a87;
-    color: white;
-    font-weight: bold;
-    display: block;
-    float: left;
-    padding: 3px 9px;
-    border-radius: 3px;
-    border: 1px solid black;
-}
-
-ul.pagination .deactivated{
-    background: #D3D7CF;
-    color: #555753;
-    display: block;
-    float: left;
-    padding: 3px 9px;
-    border-radius: 3px;
-    border: 1px solid #D3D7CF;
-}
-
-
-ul.pagination a:link,
-ul.pagination a:visited {
-    box-shadow: 0 0 4px #EEEEEE inset;
-    color: #0e509e;
-    display: block;
-    float: left;
-    padding: 3px 9px;
-    border-radius: 3px;
-    border: 1px solid #d3d7cf;
-}
-
-ul.pagination a:hover
-{
-    border: 1px solid #2e3436;
-    box-shadow: 0 0 4px #3465a4 inset;
-}
-
-
-/*
- * Definition for extra-bold fonts
- */
 .extra-bold{
     font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
     font-weight: 300;
@@ -356,4 +297,20 @@ ul.pagination a:hover
 }
 #formset .ym-fbox-text{
     /*float: none;*/
+}
+
+/**************************************************************
+ * Carousel on the feature page
+ **************************************************************/
+#feature-carousel .carousel-caption {
+    background-color: red;
+}
+
+#feature-carousel .carousel-caption
+{
+    background-color: rgba(0, 0, 0, 0.75);
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
 }
