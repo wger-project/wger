@@ -315,7 +315,6 @@ class WorkoutCalendar(HTMLCalendar):
         super(WorkoutCalendar, self).__init__()
         self.workout_logs = self.group_by_day(workout_logs)
 
-
     def formatday(self, day, weekday):
         if day != 0:
             cssclass = self.cssclasses[weekday]

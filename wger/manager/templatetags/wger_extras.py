@@ -92,12 +92,7 @@ def form_field_add_css(field, css):
     Adds a CSS class to a form field. This is needed among other places for
     bootstrap 3, which needs a 'form-control' class in the field itself
     '''
-    #return field.as_widget(attrs={"class": css})
-    #return field
-    if hasattr(field, 'as_widget'):
-        return field.as_widget(attrs={"class": css})
-    else:
-        return field
+    return field.as_widget(attrs={"class": css})
 
 
 @register.filter(name='is_checkbox')
@@ -109,6 +104,7 @@ def is_checkbox(field):
     :return: boolen
     '''
     return field.field.widget.__class__.__name__ == CheckboxInput().__class__.__name__
+
 
 @register.inclusion_tag('tags/yaml_form_element.html')
 def yaml_form_field(field, css_class='ym-fbox-text'):
