@@ -45,7 +45,7 @@ in A).{% endblocktrans %}</p>
     {% endifchanged %}
     <tr>
         <td>
-            <a href="{% url 'config:languageconfig-edit' config.id %}" class="modal-dialog">
+            <a href="{% url 'config:languageconfig-edit' config.id %}" class="wger-modal-dialog">
             {{config.language_target.full_name}}
             </a>
         </td>
@@ -73,7 +73,7 @@ in A).{% endblocktrans %}</p>
 
 <p>
     <a href="{% url 'config:language-edit' view_language.id %}"
-       class="modal-dialog">
+       class="wger-modal-dialog">
         <img src="{% static 'images/icons/edit.svg' %}"
              width="32"
              height="32"
@@ -85,7 +85,7 @@ in A).{% endblocktrans %}</p>
 
 <p>
     <a href="{% url 'config:language-delete' view_language.id %}"
-       class="modal-dialog">
+       class="wger-modal-dialog">
         <img src="{% static 'images/icons/trash.svg' %}"
              width="32"
              height="32"

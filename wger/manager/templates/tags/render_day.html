@@ -32,7 +32,7 @@ $(document).ready(function() {
                 </a>
                 <a href="{% url 'day-edit' day.obj.id %}"
                    title="{% trans 'Edit' %}"
-                   class="modal-dialog">
+                   class="wger-modal-dialog">
                        <img src="{% static 'images/icons/edit.svg' %}"
                             width="22"
                             height="22"
@@ -65,7 +65,7 @@ $(document).ready(function() {
                  {% endif %}
                  <a href="{% url 'set-edit' set.obj.id %}"
                    title="{% trans 'Edit' %}"
-                   class="modal-dialog">
+                   class="wger-modal-dialog">
                        <img src="{% static 'images/icons/edit.svg' %}"
                             width="22"
                             height="22"
@@ -90,7 +90,7 @@ $(document).ready(function() {
                         {{exercise.setting_text}}
                         {% if not exercise.setting_text %}
                             <a href="{% url 'set-edit' set.obj.id %}"
-                               class="modal-dialog btn btn-block">
+                               class="wger-modal-dialog btn btn-default btn-block">
                                     {% trans "This exercise has no repetitions." %}
                                     {% trans "Edit them now."%}
                             </a>
@@ -113,7 +113,7 @@ $(document).ready(function() {
         <tr>
             <td colspan="2">
                     <a href="{% url 'set-add' day.obj.id %}"
-                       class="modal-dialog btn btn-block">
+                       class="wger-modal-dialog btn btn-default btn-block">
                        {% trans "No exercises selected for this day." %}
                        {% trans "Add one now." %}
                     </a>
@@ -123,7 +123,7 @@ $(document).ready(function() {
         <tr>
             <td colspan="2">
                 <a href="{% url 'set-add' day.obj.id %}"
-                   class="modal-dialog">{% trans "Add exercises to this workout day" %}</a>
+                   class="wger-modal-dialog">{% trans "Add exercises to this workout day" %}</a>
             </td>
         </tr>
     </tbody>

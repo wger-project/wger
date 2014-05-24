@@ -118,7 +118,21 @@
 {% include 'navigation.html' %}
 <div id="main">
     <div class="container">
-        <div class="ym-gbox-left box invisible" id="ajax-info"></div>
+        <div class="modal fade" id="wger-ajax-info" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="ajax-info-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body" id="ajax-info-content">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div id="current-url" data-current-url="{{request_full_path}}"></div>
         <div id="current-language" data-current-language="{{language.short_name}}"></div>
 
@@ -126,12 +140,11 @@
             <div class="abox ainfo" style="padding:0.6em; margin: 0em 0em 1em 0em;text-align:center;font-size:95%;">
             {% trans "You are using a guest account, data entered will be deleted after a week."%}
             {% if not has_demo_data %}
-            <a href="{% url 'core:demo-entries' %}" rel="nofollow" class="btn btn-success btn-small">{% trans "Create some demo entries" %} »</a>
+            <a href="{% url 'core:demo-entries' %}" rel="nofollow" class="btn btn-success btn-xs">{% trans "Create some demo entries" %} »</a>
             {% endif %}
             </div>
         {% endif %}
         {% block template %}{% endblock %}
-
     </div>
 </div>
 
@@ -151,7 +164,6 @@
         | <a href="{% url 'software:contribute' %}">{% trans "Contribute!" %}</a>
         | <a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a>
         | <a href="?flavour=mobile" rel="nofollow">{% trans "Mobile version" %}</a>
-        </div>
 
         <em class="dimmed" style="font-size: 80%;">{{version}}</em>
     </div>

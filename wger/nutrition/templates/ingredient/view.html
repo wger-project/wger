@@ -197,7 +197,7 @@ the search.{% endblocktrans %}
 <p>
 <a href="{% url 'ingredient-delete' ingredient.id %}"
    title="{% trans 'Delete ingredient' %}"
-   class="modal-dialog">
+   class="wger-modal-dialog">
    <img src="{% static 'images/icons/trash.svg' %}"
         width="32"
         height="32"
@@ -222,7 +222,7 @@ the search.{% endblocktrans %}
 <h3>{% trans "Weight units" %}</h3>
 <p>
 <a href="{% url 'weight-unit-ingredient-add' ingredient.id %}"
-   class="modal-dialog">
+   class="wger-modal-dialog">
        <img src="{% static 'images/icons/new.svg' %}"
             width="32"
             height="32"
@@ -246,7 +246,7 @@ the search.{% endblocktrans %}
                 <span class="editoptions float-right">
                     <a href="{% url 'weight-unit-ingredient-edit' unit.id %}"
                        title="{% trans 'Edit' %}"
-                       class="modal-dialog">
+                       class="wger-modal-dialog">
                            <img src="{% static 'images/icons/edit.svg' %}"
                                 width="16"
                                 height="16"
@@ -255,7 +255,7 @@ the search.{% endblocktrans %}
                     </a>
                     <a href="{% url 'weight-unit-ingredient-delete' unit.id %}"
                        title="{% trans 'Delete' %}"
-                       class="modal-dialog">
+                       class="wger-modal-dialog">
                            <img src="{% static 'images/icons/trash.svg' %}"
                                 width="16"
                                 height="16"

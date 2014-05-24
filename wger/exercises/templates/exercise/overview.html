@@ -137,7 +137,7 @@ $(document).ready(function() {
         {% with exercise=exercises|first %}
         <p>
         <a href="{% url 'exercisecategory-edit' exercise.category.id %}"
-           class="modal-dialog"
+           class="wger-modal-dialog"
            id="current-category-edit">
             <img src="{% static 'images/icons/edit.svg' %}"
                  width="32"
@@ -151,7 +151,7 @@ $(document).ready(function() {
 
         <p>
         <a href="{% url 'exercisecategory-delete' exercise.category.id %}"
-           class="modal-dialog"
+           class="wger-modal-dialog"
            id="current-category-delete">
             <img src="{% static 'images/icons/trash.svg' %}"
                  width="32"
@@ -167,7 +167,7 @@ $(document).ready(function() {
 
         <p>
         <a href="{% url 'exercisecategory-add' %}"
-           class="modal-dialog">
+           class="wger-modal-dialog">
             <img src="{% static 'images/icons/folder-new.svg' %}"
                  width="32"
                  height="32"

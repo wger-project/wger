@@ -141,58 +141,51 @@ function init_tinymce() {
  * Open a modal dialog for form editing
  */
 function form_modal_dialog() {
-    // Initialise a modal dialog
-    $("#ajax-info").dialog({
-        autoOpen: false,
-        width: 600,
-        modal: true,
-        position: 'top'
-    });
-
     // Unbind all other click events so we don't do this more than once
-    $(".modal-dialog").off();
+    $(".wger-modal-dialog").off();
 
     // Load the edit dialog when the user clicks on an edit link
-    $(".modal-dialog").click(function (e) {
+    $(".wger-modal-dialog").click(function (e) {
         e.preventDefault();
         var targetUrl = $(this).attr("href");
 
         // Show a loader while we fetch the real page
-        $("#ajax-info").html('<div style="text-align:center;">' +
+        $("#ajax-info-content").html('<div style="text-align:center;">' +
                                 '<img src="/static/images/loader.svg" ' +
                                      'width="48" ' +
                                      'height="48"> ' +
                              '</div>');
-        $("#ajax-info").dialog({title: 'Loading...'});
-        $("#ajax-info").dialog("open");
+        //$("#wger-ajax-info").modal({title: 'Loading...'});
+        $("#wger-ajax-info").modal("show");
 
-        $("#ajax-info").load(targetUrl + " .ym-form", function (responseText, textStatus) {
-            // Call other custom initialisation functions
-            // (e.g. if the form as an autocompleter, it has to be initialised again)
-            if (typeof custom_modal_init !== "undefined") {
-                custom_modal_init();
-            }
+        $("#ajax-info-content").load(targetUrl + " .form-horizontal",
+                                     function(responseText, textStatus, XMLHttpRequest){
+                                        // Call other custom initialisation functions
+                                        // (e.g. if the form as an autocompleter, it has to be initialised again)
+                                        if (typeof custom_modal_init !== "undefined") {
+                                            custom_modal_init();
+                                        }
 
-            // Set the new title
-            $("#ajax-info").dialog({title: $(responseText).find("#page-title").html()});
+                                        // Set the new title
+                                        $("#ajax-info-title").html($(responseText).find("#page-title").html());
 
-            // If there is a form in the modal dialog (there usually is) prevent the submit
-            // button from submitting it and do it here with an AJAX request. If there
-            // are errors (there is an element with the class 'ym-error' in the result)
-            // reload the content back into the dialog so the user can correct the entries.
-            // If there isn't assume all was saved correctly and load that result into the
-            // page's main DIV (#main-content). All this must be done like this because there
-            // doesn't seem to be any reliable and easy way to detect redirects with AJAX.
-            if ($(responseText).find(".ym-form").length > 0) {
-                modal_dialog_form_edit();
-            }
-        });
+                                        // If there is a form in the modal dialog (there usually is) prevent the submit
+                                        // button from submitting it and do it here with an AJAX request. If there
+                                        // are errors (there is an element with the class 'ym-error' in the result)
+                                        // reload the content back into the dialog so the user can correct the entries.
+                                        // If there isn't assume all was saved correctly and load that result into the
+                                        // page's main DIV (#main-content). All this must be done like this because there
+                                        // doesn't seem to be any reliable and easy way to detect redirects with AJAX.
+                                        if ($(responseText).find(".form-horizontal").length > 0) {
+                                            modal_dialog_form_edit();
+                                        }
+                                     });
     });
 }
 
 
 function modal_dialog_form_edit() {
-    var form = $("#ajax-info").find(".ym-form");
+    var form = $("#ajax-info-content").find("form");
     var submit = $(form).find("#form-save");
 
     submit.click(function (e) {
@@ -206,12 +199,12 @@ function modal_dialog_form_edit() {
         submit.off();
 
         // Show a loader while we fetch the real page
-        $("#ajax-info .ym-form").html('<div style="text-align:center;">' +
+        $("#ajax-info-content form").html('<div style="text-align:center;">' +
                                 '<img src="/static/images/loader.svg" ' +
                                      'width="48" ' +
                                      'height="48"> ' +
                              '</div>');
-        $("#ajax-info").dialog({title: 'Processing...'}); // TODO: translate this
+        $("#ajax-info-title").html('Processing'); // TODO: translate this
 
 
         // OK, we did the POST, what do we do with the result?
@@ -226,16 +219,14 @@ function modal_dialog_form_edit() {
                 jqXHR.setRequestHeader("X-wger-no-messages", "1");
             },
             success: function (data,  textStatus, jqXHR) {
-                if ($(data).find('.ym-form .ym-error').length > 0) {
+                if ($(data).find('form .has-error').length > 0) {
                     // we must do the same with the new form as before, binding the click-event,
                     // checking for errors etc, so it calls itself here again.
-
-                    $("#ajax-info .ym-form").html($(data).find('.ym-form').html());
-                    $("#ajax-info").dialog({title: $(data).find("#main-content h2").html()});
-
+                    $("#ajax-info-content form").html($(data).find('form').html());
+                    $("#ajax-info-title").html($(data).find("#page-title").html());
                     modal_dialog_form_edit();
                 } else {
-                    $("#ajax-info").dialog("close");
+                    $("#wger-ajax-info").modal("hide");
 
                     // If there  was a redirect we must change the URL of the browser. Otherwise
                     // a reload would not change the adress bar, but the content would.
@@ -272,7 +263,7 @@ function modal_dialog_form_edit() {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 //console.log(errorThrown); // INTERNAL SERVER ERROR
-                $("#ajax-info").html(jqXHR.responseText);
+                $("#ajax-info-content").html(jqXHR.responseText);
             }
         });
     });

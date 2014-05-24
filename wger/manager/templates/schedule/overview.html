@@ -42,7 +42,7 @@ function custom_modal_init()
     {% empty %}
     <tr>
         <td colspan="3">
-            <a href="{% url 'schedule-add' %}" class="modal-dialog btn btn-block">
+            <a href="{% url 'schedule-add' %}" class="wger-modal-dialog btn btn-block">
             {% trans "No schedules found." %} {% trans "Add one now." %}
             </a>
         </td>
@@ -70,7 +70,7 @@ deactivate it, if it is a loop.{% endblocktrans %}</p>
 <h3>{% trans "Add schedule" %}</h3>
 <p>
 <a href="{% url 'schedule-add' %}"
-   class="modal-dialog">
+   class="wger-modal-dialog">
 <img src="{% static 'images/icons/new.svg' %}"
     width="32"
     height="32"

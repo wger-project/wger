@@ -20,7 +20,7 @@
 <tr>
     <td class="no-hover">
         <a href="{% url 'core:license-delete' license.id %}"
-           class="modal-dialog">
+           class="wger-modal-dialog">
             <img src="{% static 'images/icons/trash.svg' %}"
                  width="22"
                  height="22"
@@ -28,7 +28,7 @@
                  title="{% trans 'Delete' %}">
         </a>
         <a href="{% url 'core:license-edit' license.id %}"
-           class="modal-dialog">
+           class="wger-modal-dialog">
             <img src="{% static 'images/icons/edit.svg' %}"
                  width="22"
                  height="22"
@@ -57,7 +57,7 @@
 <h3>{% trans "Options" %}</h3>
 <p>
        <a href="{% url 'core:license-add' %}"
-          class="modal-dialog">
+          class="wger-modal-dialog">
        <img src="{% static 'images/icons/new.svg' %}"
             width="32"
             height="32"
