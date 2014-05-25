@@ -15,11 +15,15 @@
 <p>{% blocktrans %}Click here to download the last stable version. For
 installation instructions see below.{% endblocktrans %}</p>
 
-<p>
-<a class="btn btn-primary btn-block"
-   href="https://pypi.python.org/packages/source/w/wger/wger-1.4.tar.gz">
-   {% trans "download stable version:" %} 1.4</a>
-</p>
+<div style="text-align:center">
+    <a class="btn btn-primary  btn-lg" href="https://pypi.python.org/packages/source/w/wger/wger-1.4.tar.gz">
+        <span class="glyphicon glyphicon-save"></span>
+        {% trans "download stable version:" %}
+        <br>
+        <small>v1.4 | tar.gz | 4MB</small>
+    </a>
+</div>
+
 
 <p>{% blocktrans %}In short, these are the steps needed for an installation
 on a linux or OS X machine, with python already installed. If you want to develop,
@@ -40,10 +44,10 @@ $ source python-django/bin/activate
 
 <p>{% blocktrans %}Get the application from PyPI, initialise and start it.{% endblocktrans %}</p>
 
-<code>
+<pre>
 $ pip install wger
 $ wger
-</code>
+</pre>
 
 <p>{% blocktrans %}The script will, on first run, create a configuration
 file and a SQLite database with a standard superuser:{% endblocktrans %}</p>
@@ -87,17 +91,33 @@ init</a> or <a href="http://git-scm.com/book">Pro Git</a>. Both repositories
 are mantained in sync, so you should be able to work on either one (issues
 and pull requests are only collected in github).</p>
 
-<p>
-<a class="btn btn-primary" href="https://github.com/rolandgeider/wger">github (GIT) »</a>
-    the main repository. All work happens here<br>
+<div class="row" style="margin-bottom: 1em;">
+<div class="col-md-3">
+    <a class="btn btn-primary btn-block" href="https://github.com/rolandgeider/wger">
+        github (GIT)
+        <br>
+        <small>the main repository</small>
+    </a>
+</div>
+<div class="col-md-9">
     <code>git clone https://github.com/rolandgeider/wger.git</code>
-</p>
+</div>
+</div>
 
-<p>
-<a class="btn btn-primary" href="https://bitbucket.org/rolandgeider/wger">bitbucket (HG) »</a>
-    a mirror of the main repo<br>
+
+<div class="row">
+<div class="col-md-3">
+    <a class="btn btn-default btn-block" href="https://bitbucket.org/rolandgeider/wger">
+        bitbucket (HG)
+        <br>
+        <small>a mirror of the main repo</small>
+    </a>
+</div>
+<div class="col-md-9">
     <code>hg clone https://bitbucket.org/rolandgeider/wger</code>
-</p>
+</div>
+</div>
+
 
 
 <p>The file structure you get once you clone the repo should be self explaining:</p>
@@ -191,8 +211,8 @@ management functions that are sometimes needed:</p>
 <ul>
     <li>
         <strong>settings.py:</strong> the settings for the local installation.
-        You can overwrite global settings here, the output of <em>python start.py
-        --show-config</em> will show you the default location.
+        You can overwrite global settings here, the output of <code>python start.py
+        --show-config</code> will show you the default location.
     </li>
     <li>
         <strong>settings_global.py:</strong> global settings, usually this file
