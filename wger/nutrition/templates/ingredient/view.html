@@ -68,7 +68,7 @@ the search.{% endblocktrans %}
       id="nutritional-values-form"
       style="background-color: transparent; border-width: 0px; box-shadow: 0px 0px 0px 0px transparent;">
     {% csrf_token %}
-    <div id="calculator-errors" class="ym-error"></div>
+    <div id="calculator-errors"></div>
     <input type="hidden" value="{{ingredient.id}}" name="ingredient">
 
     <div class="row">
@@ -77,11 +77,11 @@ the search.{% endblocktrans %}
         </div>
 
         <div class="col-md-4">
-            <div class="ym-fbox-text {% if form.amount.errors %}ym-error{% endif %}">{{form.amount|form_field_add_css:'form-control'}}</div>
+            <div>{{form.amount|form_field_add_css:'form-control'}}</div>
         </div>
 
         <div class="col-md-4">
-            <div class="ym-fbox-select {% if form.unit.errors %}ym-error{% endif %}">{{form.unit|form_field_add_css:'form-control'}}</div>
+            <div>{{form.unit|form_field_add_css:'form-control'}}</div>
         </div>
     </div>
 </form>

@@ -49,16 +49,6 @@ a img{
     display: none;
 }
 
-.ym-g10
-{
-    width: 10%;
-}
-
-.ym-g15
-{
-    width: 15%;
-}
-
 .align-right
 {
     text-align: right;
@@ -157,32 +147,9 @@ div.muscle-background
 }
 
 
-
 /**************************************************************
- * Classes Error form
+ * Workout log
  **************************************************************/
-
-/*
- * 'form-error' is inserted by the JQuery form validator and the styling
- * is copied from the yaml ones, for consistency
- */
-.ym-form a {
-    color:black;
-}
-.ym-form .form-error {
-    color: #880000;
-}
-.ym-form label.form-error {
-    font-weight: bold;
-}
-
-.ym-form input.form-error {
-    box-shadow: none;
-    background-color: #880000;
-    color: black;
-}
-
-
 /*
  * Workout log entry page needs the horizontal space
  */
@@ -310,17 +277,11 @@ div.info a, div.info a:hover, div.info a:active{
     float: right;
     margin-right: 1em;
 }
-#formset .ym-fbox-text{
-    /*float: none;*/
-}
+
 
 /**************************************************************
  * Carousel on the feature page
  **************************************************************/
-#feature-carousel .carousel-caption {
-    background-color: red;
-}
-
 #feature-carousel .carousel-caption
 {
     background-color: rgba(0, 0, 0, 0.75);

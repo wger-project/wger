@@ -52,7 +52,7 @@ $(document).ready(function() {
     <tbody>
         {% for set in day.set_list %}
         <tr id="set-{{ set.obj.id }}">
-            <td class="ym-g10">{{ forloop.counter }}
+            <td>{{ forloop.counter }}
                 <span class="editoptions">
                 {% if day.set_list|length > 1 %}
                 <img src="{% static 'images/icons/move.svg' %}"

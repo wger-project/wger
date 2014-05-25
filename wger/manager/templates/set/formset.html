@@ -5,7 +5,7 @@
 {{ formset.management_form }}
 {% for field in formset %}
 
-    <div class="ym-fbox-text {% if field.errors %}ym-error{% endif %}"  style="display:table-cell;width: 5em;padding-right:0px;">
+    <div style="display:table-cell;width: 5em;padding-right:0px;">
         {% for i in field %}
             {{i|form_field_add_css:'form-control'}}
         {% endfor %}
