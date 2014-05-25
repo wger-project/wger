@@ -9,7 +9,6 @@
 <script type="text/javascript">
 $(document).ready(function () {
     $( "#id_date" ).datepicker();
-
     get_workout_session();
 });
 </script>
@@ -17,83 +16,61 @@ $(document).ready(function () {
 {% endblock %}
 
 {% block content %}
-<form action="{{form_action}}" method="POST" class="ym-form" style="overflow-x: auto;">
-{% csrf_token %}
-{{formset.management_form}}
+<form action="{{form_action}}" method="POST" class="form-horizontal">
+    {% csrf_token %}
+    {{formset.management_form}}
 
-{% if session_form.non_field_errors %}
-<div class="ym-fbox-text ym-error">
-    {% for error in session_form.non_field_errors %}
-         <p class="ym-message">{% trans error %}</p>
+    {% render_form_errors session_form %}
+    {% render_form_field dateform.date %}
+
+    {% for field in session_form %}
+        {% render_form_field field %}
     {% endfor %}
-</div>
-{% endif %}
 
-<table class="workout-log-table">
-{% yaml_form_field dateform.date %}
 
-{% for field in session_form %}
-    {% if field.name == 'impression' %}
-        {% yaml_form_field field "ym-fbox-select" %}
-    {% else %}
-        {% yaml_form_field field %}
-    {% endif %}
-{% endfor %}
-</table>
+    <div style="overflow-x: auto;margin-bottom: 1em;">
+    {% for set in day.set_set.select_related %}
+    {% for exercise in set.exercises.select_related %}
+        {% with value=exercises|get_item:exercise.id %}
+        <div class="form-group workout-log-table {% if field.errors %}has-error{% endif %}">
+            <div {% if field.errors %}class="has-error has-feedback"{% endif %}>
+                <label class="col-md-3 control-label">
+                    {{value.obj.name}}
+                </label>
 
-<h3>{% trans "Exercises" %}</h3>
-<table class="workout-log-table">
-
-{% for set in day.set_set.select_related %}
-{% for exercise in set.exercises.select_related %}
-    {% with value=exercises|get_item:exercise.id %}
-    <tr>
-        <td style="max-width: 5em; padding-right:0.4em;">
-            {{value.obj.name}}
-        </td>
-
-        {% for form in value.forms %}
-        <td class="narrow-input">
-            <div class= "ym-fbox-text narrow-input {% if form.reps.errors %}ym-error{% endif %}">
-                {{form.reps}}
+                <div class="col-md-9">
+                    <table class="table">
+                    <tr>
+                    {% for form in value.forms %}
+                        <td>
+                            {{ form.reps|form_field_add_css:'form-control narrow-input' }}
+                        </td>
+                        <td>
+                            {{ form.weight|form_field_add_css:'form-control narrow-input' }}
+                        </td>
+                    {% endfor %}
+                    </tr>
+                    <tr>
+                    {% for form in value.forms %}
+                        <td>{% trans "Reps" %}</td>
+                        <td>{% trans "kg." %}</td>
+                    {% endfor %}
+                    </tr>
+                    </table>
+                </div>
             </div>
-
-            <div class="ym-fbox-text narrow-input {% if form.reps.errors %}ym-error{% endif %}">
-                 <span class="ym-message">{% trans "Reps" %}</span>
-            </div>
-        </td>
-        <td>
-            <div class= "ym-fbox-text narrow-input {% if form.weight.errors %}ym-error{% endif %}">
-                {{form.weight}}
-            </div>
-
-            <div class="ym-fbox-text narrow-input {% if form.weight.errors %}ym-error{% endif %}" >
-                <span class="ym-message">kg.</span>
-            </div>
-        </td>
-        {% endfor %}
-    </tr>
-    {% endwith %}
-{% endfor %}
-{% empty %}
-<tr>
-    <td>
+        </div>
+        {% endwith %}
+    {% endfor %}
+    {% empty %}
         {% trans "Add exercises to this training day before adding a log." %}
-
         <br>
         <a href="{% url 'workout-view' day.training.id %}">{% trans "Back to workout" %}</a>
-    </td>
-</tr>
-{% endfor %}
-</table>
+    {% endfor %}
+    </div>
 
-<table>
-<tr>
-    <td style="text-align:center;">
-        <input type="submit" value="{% trans 'Save' %}" id="form-save" style="width: 95%;">
-    </td>
-</tr>
-</table>
+    {% render_form_submit %}
+
 </form>
 
 {% endblock %}

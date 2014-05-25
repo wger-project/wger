@@ -36,7 +36,7 @@ $(function() {
             </div>
             <div id="collapseEmail" class="panel-collapse collapse in">
             <div class="panel-body">
-                {% yaml_form_field email_form.email %}
+                {% render_form_field email_form.email %}
             </div>
             </div>
         </div>
@@ -52,9 +52,9 @@ $(function() {
             </div>
             <div id="collapseReminder" class="panel-collapse collapse">
             <div class="panel-body">
-                {% yaml_form_field form.workout_reminder_active %}
-                {% yaml_form_field form.workout_duration %}
-                {% yaml_form_field form.workout_reminder %}
+                {% render_form_field form.workout_reminder_active %}
+                {% render_form_field form.workout_duration %}
+                {% render_form_field form.workout_reminder %}
             </div>
             </div>
         </div>
@@ -69,8 +69,8 @@ $(function() {
             </div>
             <div id="collapseGymMode" class="panel-collapse collapse">
             <div class="panel-body">
-                {% yaml_form_field form.timer_active %}
-                {% yaml_form_field form.timer_pause %}
+                {% render_form_field form.timer_active %}
+                {% render_form_field form.timer_pause %}
             </div>
             </div>
         </div>
@@ -86,9 +86,9 @@ $(function() {
             </div>
             <div id="collapseOther" class="panel-collapse collapse">
             <div class="panel-body">
-                {% yaml_form_field form.notification_language "ym-fbox-select" %}
-                {% yaml_form_field form.show_comments %}
-                {% yaml_form_field form.show_english_ingredients %}
+                {% render_form_field form.notification_language %}
+                {% render_form_field form.show_comments %}
+                {% render_form_field form.show_english_ingredients %}
             </div>
             </div>
         </div>

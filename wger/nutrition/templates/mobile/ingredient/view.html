@@ -66,8 +66,7 @@ the search.{% endblocktrans %}
 <div itemscope itemtype="http://schema.org/NutritionInformation">
 <meta itemprop="name" content="{{ingredient.name}}" />
 
-<form class="ym-form"
-      method="post"
+<form method="post"
       action="{% url 'ingredient-get-values' ingredient.id %}"
       id="nutritional-values-form"
       style="background-color: transparent; border-width: 0px; box-shadow: 0px 0px 0px 0px transparent;">
@@ -169,7 +168,7 @@ the search.{% endblocktrans %}
             <td>{% trans "Sodium" %}</td>
             <td itemprop="sodiumContent" id="value-sodium">
                 {% if ingredient.sodium %}
-                    <span id="value-fibres">{{ingredient.sodium}}</span> g
+                    <span id="value-sodium">{{ingredient.sodium}}</span> g
                 {% else %}
                     {% trans "n.A." %}
                 {% endif %}

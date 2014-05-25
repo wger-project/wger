@@ -121,8 +121,8 @@ class ExerciseAjaxSelect(SelectMultiple):
         if value is None:
             value = []
 
-        output = [u'<div class="ym-fbox-text">']
-        output.append(u'<input type="text" id="exercise-search">')
+        output = [u'<div>']
+        output.append(u'<input type="text" id="exercise-search" class="form-control">')
         output.append(u'</div>')
 
         output.append('<div id="exercise-search-log">')

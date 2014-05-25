@@ -20,8 +20,7 @@ $(document).ready(function() {
 
 {% block content %}
 <form action="{{ form_action }}"
-      method="post"
-      class="ym-form">
+      method="post">
 {% csrf_token %}
 {{ form.non_field_errors }}
 {{form.ingredient}}
@@ -44,8 +43,8 @@ $(document).ready(function() {
 
 
 
-    {% yaml_form_field form.amount %}
-    {% yaml_form_field form.weight_unit "ym-fbox-select" %}
+    {% render_form_field form.amount %}
+    {% render_form_field form.weight_unit %}
     <tr>
         <td colspan="2">
             <a href="{% url 'core:index' %}"

@@ -19,34 +19,12 @@
 
 
 {% block content %}
-
 <form action="{{form_action}}"
       method="post"
       class="form-horizontal"
       role="form"
       {% if enctype %}enctype="{{enctype}}"{% endif %}>
-    {% csrf_token %}
-
-    {% if form.non_field_errors %}
-    <div class="has-error">
-        {% for error in form.non_field_errors %}
-            <p>{% trans error %}</p>
-        {% endfor %}
-    </div>
-    {% endif %}
-
-    {% for current_field in form_fields %}
-        {% yaml_form_field current_field %}
-    {% endfor %}
-
-    <div class="form-group">
-        <div class="row">
-        <div class="col-md-offset-3 col-md-9">
-            <input type="submit" value="{{submit_text}}" id="form-save" class="btn btn-default btn-block">
-        </div>
-        </div>
-    </div>
-
+    {% render_form_fields form %}
 </form>
 {% endblock %}
 

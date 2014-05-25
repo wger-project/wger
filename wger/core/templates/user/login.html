@@ -14,23 +14,9 @@
 {% block content %}
 <form action="{% url 'core:login' %}"
       method="post"
-      class="ym-form">
-      {% csrf_token %}
-      <div class="ym-fbox-text ym-error">
-          <div class="ym-message">
-              {{ form.non_field_errors }}
-          </div>
-       </div>
-      <input type="hidden" name="next" value="{{next}}">
-<table>
-{% yaml_form_field form.username %}
-{% yaml_form_field form.password %}
-    <tr>
-        <td colspan="2">
-            <input type="submit" value="{% trans 'Login' %}" id="form-save">
-        </td>
-    </tr>
-</table>
+      class="form-horizontal">
+    {% trans 'Login' as submit_text %}
+    {% render_form_fields form submit_text %}
 </form>
 
 {% if not hide_persona %}

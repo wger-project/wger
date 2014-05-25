@@ -1,0 +1,13 @@
+{% load wger_extras %}
+
+{% csrf_token %}
+
+{% render_form_errors form %}
+
+{% for field in form %}
+    {% render_form_field field %}
+{% endfor %}
+
+{% if show_save and submit_text %}
+    {% render_form_submit submit_text %}
+{% endif %}

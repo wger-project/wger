@@ -85,7 +85,9 @@ a img{
     cursor:move
 }
 
-
+/**************************************************************
+ * Mouse hover options
+ **************************************************************/
 /*
  * Hide the edit options (edit, delete) on tables, only show them when the mouse is over the row
  */
@@ -93,6 +95,25 @@ a img{
 {
     visibility: hidden;
 }
+
+tr:hover .editoptions, tbody tr:hover td .editoptions, ul:hover .editoptions
+{
+    visibility: visible;
+}
+
+
+/*
+ * Deactivate the default background color on hover
+ */
+.editoptions a:hover,
+.ui-tabs-nav a:hover,
+.ui-tabs-nav a:focus,
+.ajax-exercise-select a:hover,
+.no-hover a:hover,
+.no-hover:hover {
+    background-color: transparent;
+}
+
 
 /*
  * Images inside a link are set to greyscale till mouseover
@@ -165,19 +186,12 @@ div.muscle-background
 /*
  * Workout log entry page needs the horizontal space
  */
-.workout-log-table .narrow-input
-{
-    width: 3em;
-
+.workout-log-table .narrow-input {
+    width: 4em;
 }
 
-.ym-form .workout-log-table div.ym-fbox-text{
-    padding: 0em;
-}
-
-.ym-form .workout-log-table td{
-    padding-left: 0em;
-    padding-right: 0em;
+.workout-log-table .form-control {
+    display: inline;
 }
 
 

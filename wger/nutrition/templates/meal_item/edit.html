@@ -22,40 +22,27 @@ $(document).ready(function() {
 {% block content %}
 <form action="{{ form_action }}"
       method="post"
-      class="ym-form">
-{% csrf_token %}
-{{ form.non_field_errors }}
-{{form.ingredient}}
-<table>
-    <tr>
-        <td style="text-align:right;">
-            <label for="id_ingredient_searchfield">
+      class="form-horizontal">
+    {% csrf_token %}
+    {% render_form_errors form %}
+    {{form.ingredient}}
+
+    <div class="form-group {% if field.errors %}has-error{% endif %}" id="form-id_ingredient_searchfield">
+        <label for="id_ingredient_searchfield" class="col-md-3 control-label">
             {% trans "Ingredient name" %}
-            </label>
-        </td>
-        <td>
-            <div class="ym-fbox-text">
+        </label>
+
+        <div class="col-md-9">
             <input type="text"
                    id="id_ingredient_searchfield"
                    name="ingredient_searchfield"
-                   value="{{ingredient_searchfield}}">
-            </div>
+                   value="{{ingredient_searchfield}}"
+                   class="form-control">
             <div id="exercise_name" class="ym-fbox-text"></div>
-        </td>
-    </tr>
-    
-    
-    
-    {% yaml_form_field form.amount %}
-    {% yaml_form_field form.weight_unit "ym-fbox-select" %}
-    <tr>
-        <td colspan="2">
-            <input type="submit" value="{% trans 'Save' %}" id="form-save">
-        </td>
-    </tr>
-</table>
+        </div>
+    </div>
+    {% render_form_field form.amount %}
+    {% render_form_field form.weight_unit %}
+    {% render_form_submit submit_text %}
 </form>
-
-
-
 {% endblock %}

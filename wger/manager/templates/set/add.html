@@ -31,43 +31,44 @@ function custom_page_init()
 
 <form action="{{form_action}}"
       method="post"
-      class="ym-form">
+      class="form-horizontal">
 
-{% csrf_token %}
-<table>
-    {% yaml_form_field form.exercises %}
-    <tr>
-        <td style="text-align:right;">
-            <label for="slider">{{form.sets.label}}</label>
-        </td>
-        <td>
+    {% csrf_token %}
+    {% render_form_field form.exercises %}
+    <div class="form-group">
+        <label for="slider" class="col-md-3 control-label">
+            {{form.sets.label}}
+        </label>
+
+        <div class="col-md-9">
             <div id="slider"></div>
             <span id="slider-show">{{form.sets.value}}</span>
             <input type="hidden" id="id_sets" name="sets" value="{{ form.sets.value }}">
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <p class="dimmed">{% blocktrans %}If you do the same repetitions for all sets,
-you can just enter one value: e.g. for 4 sets just enter one "10" for the repetitions, this
-automatically becomes "4 x 10".{% endblocktrans %}</p>
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td colspan="2">
-            <div id="formsets">
-            {% for formset in formsets %}
-                    {% include 'set/formset.html' with exercise=formset.exercise formset=formset.formset %}
-            {% endfor %}
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <input type="submit" value="{% trans 'Save' %}" id="form-save">
-        </td>
-    </tr>
-</table>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">
+            {% trans "Repetitions "%}
+        </label>
+        <div class=" col-md-9">
+        <span class="help-block">{% blocktrans %}If you do the same repetitions for all sets,
+you can just enter one value: e.g. for 4 sets just enter one "10" for the repetitions, this
+automatically becomes "4 x 10".{% endblocktrans %}</span>
+        </div>
+    </div>
+    <div class="form-group">
+    <div class="col-md-offset-3 col-md-9">
+        <div id="formsets">
+        {% for formset in formsets %}
+                {% include 'set/formset.html' with exercise=formset.exercise formset=formset.formset %}
+        {% endfor %}
+        </div>
+    </div>
+    </div>
+
+
+    {% render_form_submit %}
 </form>
 {% endblock %}

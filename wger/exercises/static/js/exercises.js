@@ -178,7 +178,7 @@ function weight_log_chart(data, div_id, reps_i18n, width_factor) {
             svg.selectAll(".dot" + temp_name)
               .data(d.values)
             .enter().append("circle")
-              .attr("class", "dot modal-dialog " + color_class)
+              .attr("class", "dot wger-modal-dialog " + color_class)
               .attr("cx", line.x())
               .attr("cy", line.y())
               .attr("id", function(d) { return d.log_id; })

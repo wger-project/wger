@@ -8,8 +8,7 @@
 
 {% block content %}
 <form action="{% url 'core:preferences' %}"
-      method="post"
-      class="ym-form">
+      method="post">
       {% csrf_token %}
       {{ form.non_field_errors }}
 
@@ -17,30 +16,30 @@
         <div data-role="collapsible" data-collapsed="false">
             <h3>{% trans "Email" %}</h3>
             <table>
-                {% yaml_form_field email_form.email %}
+                {% render_form_field email_form.email %}
             </table>
         </div>
         <div data-role="collapsible">
             <h3>{% trans "Workout reminders" %}</h3>
             <table>
-                {% yaml_form_field form.workout_reminder_active %}
-                {% yaml_form_field form.workout_duration %}
-                {% yaml_form_field form.workout_reminder %}
+                {% render_form_field form.workout_reminder_active %}
+                {% render_form_field form.workout_duration %}
+                {% render_form_field form.workout_reminder %}
             </table>
         </div>
         <div data-role="collapsible">
             <h3>{% trans "Gym mode" %}</h3>
             <table>
-                {% yaml_form_field form.timer_active %}
-                {% yaml_form_field form.timer_pause %}
+                {% render_form_field form.timer_active %}
+                {% render_form_field form.timer_pause %}
             </table>
         </div>
         <div data-role="collapsible">
             <h3>{% trans "Other settings" %}</h3>
             <table>
-                {% yaml_form_field form.notification_language %}
-                {% yaml_form_field form.show_comments %}
-                {% yaml_form_field form.show_english_ingredients %}
+                {% render_form_field form.notification_language %}
+                {% render_form_field form.show_comments %}
+                {% render_form_field form.show_english_ingredients %}
             </table>
         </div>
     </div>

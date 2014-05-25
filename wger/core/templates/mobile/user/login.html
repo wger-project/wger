@@ -12,7 +12,6 @@
 {% block content %}
 <form action="{% url 'core:login' %}"
       method="post"
-      class="ym-form"
       data-ajax="false">
       {% csrf_token %}
       <div class="ym-fbox-text ym-error">
@@ -22,8 +21,8 @@
        </div>
       <input type="hidden" name="next" value="{{next}}">
 <table>
-{% yaml_form_field form.username %}
-{% yaml_form_field form.password %}
+{% render_form_field form.username %}
+{% render_form_field form.password %}
     <tr>
         <td colspan="2">
             <input type="submit" value="{% trans 'Login' %}" id="form-save">

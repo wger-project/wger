@@ -48,23 +48,6 @@ nav {
 }
 
 
-tr:hover .editoptions, tbody tr:hover td .editoptions, ul:hover .editoptions
-{
-    visibility: visible;
-}
-
-
-/*
- * Deactivate the default background color on hover
- */
-.editoptions a:hover,
-.ui-tabs-nav a:hover,
-.ui-tabs-nav a:focus,
-.ajax-exercise-select a:hover,
-.no-hover a:hover,
-.no-hover:hover {
-    background-color: transparent;
-}
 
 
 /*
