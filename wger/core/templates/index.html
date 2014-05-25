@@ -167,17 +167,6 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
 
 
 {% block sidebar %}
-<h3>{% trans "Options" %}</h3>
-<p>
-<a href="{% url 'core:preferences' %}">
-<img src="{% static 'images/icons/preferences.svg' %}"
-     width="32"
-     height="32"
-     alt="{% trans 'My preferences' %}"
-     title="{% trans 'My preferences' %}">
-{% trans "My preferences" %}</a>
-</p>
-
 <h3>{% trans "Info" %}</h3>
 <p>{% blocktrans %}The current workout is selected from your active schedule
 or, if you don't have one, simply by date.{% endblocktrans %}</p>

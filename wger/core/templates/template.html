@@ -80,34 +80,40 @@
 <body>
 {% browserid_info %}
 <header>
-    <div class="float-right" style="margin-right:1em;margin-top:0em;position:absolute;right:0px;">
-
-        {% if user.is_authenticated and not user.userprofile.is_temporary %}
-            <a href="{% url 'core:preferences' %}">
-            {% if user.email %}
-                {{user.email}}
-            {% else %}
-                {{user.username}}
-            {% endif %}
-            </a>
+    <div class="container">
+        <div class="row">
+        <div class="col-md-offset-8 col-md-4" style="text-align: right;">
+            <a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a>
             |
 
-            <a href="{% url 'core:logout' %}" class="browserid-logout">
-            {% trans "Logout" %}
-            </a>
-        {% else %}
-            <a href="{% url 'core:login' %}">{% trans "Login" %}</a>
-            |
-            <a href="{% url 'core:registration' %}">{% trans "Register" %}</a>
-        {% endif %}
-        |
-        <a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a>
-        |
-
-        {# Render the links to the other languages #}
-        {% for language in languages %}
-        {% language_select language %}
-        {% endfor %}
+            {#                                         #}
+            {# Render the links to the other languages #}
+            {#                                         #}
+            <div class="btn-group" style="text-align: left;">
+                <button type="button" class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown">
+                    <img src="/static/images/icons/flag-{{language.short_name}}.svg"
+                         width="18"
+                         height="11"
+                         alt="{% trans language.full_name %}"
+                         title="{% trans language.full_name %}"
+                         style="border: 1px solid #151515;">
+                    {{language.full_name}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    {% for language in languages %}
+                    {% language_select language %}
+                    {% endfor %}
+                    <li class="divider"></li>
+                    <li>
+                        <a href="https://www.transifex.com/projects/p/wger-workout-manager/">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            {% trans "Translate" %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </div>
     </div>
 
     <div class="container">

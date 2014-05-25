@@ -33,36 +33,24 @@ body {
     background-color: #204A87;
 }
 
-.navbar {
-    margin-bottom: 0px;
-}
 
 #main-content{
     min-height: 40em;
 }
 
-#nav, .navbar-inverse .navbar-inner {
-  background-color: #1b1b1b;
-  background-image: -moz-linear-gradient(top, #222222, #111111);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#222222), to(#111111));
-  background-image: -webkit-linear-gradient(top, #222222, #111111);
-  background-image: -o-linear-gradient(top, #222222, #111111);
-  background-image: linear-gradient(to bottom, #222222, #111111);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff111111', GradientType=0);
-  border-color: transparent;
+.navbar {
+    margin-bottom: 0px;
 }
-
-.dropdown li{
-    margin-left:0px;
-}
-
 
 .close{
     float:right;
     opacity: 0.2;
     font-weight: bold;
 }
+
+/**************************************************************
+ * Alerts
+ **************************************************************/
 
 /*
  * Links within boostrap's alert boxes are rendered in black
@@ -136,4 +124,12 @@ fieldset[disabled] .btn-default.active {
 .btn-default .badge {
   color: #fff;
   background-color: #babdb6;
+}
+
+/**************************************************************
+ * Header
+ **************************************************************/
+header a:hover, header  a:focus {
+    color: white;
+    /*text-decoration: none;*/
 }
