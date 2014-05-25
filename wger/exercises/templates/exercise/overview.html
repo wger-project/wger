@@ -66,6 +66,8 @@ $(document).ready(function() {
     <li {% if forloop.first %}class="active"{% endif %}>
         <a href="#tab-{{ item.grouper.id }}" id="category-{{ item.grouper.id }}" data-toggle="tab">{% trans item.grouper.name %}</a>
     </li>
+    {% empty %}
+        <li>{% trans "No categories." %} {% trans "Use link to create one" %}</li>
     {% endfor %}
 </ul>
 
@@ -89,6 +91,12 @@ $(document).ready(function() {
                     {{ exercise.name }}
                 </div>
             </div>
+            </a>
+        {% empty %}
+            <a href="#" class="list-group-item">
+                <div class="col-md-offset-1 col-md-10" >
+                    {% trans "No exercises in this category. Add or edit an exercise and set its category" %}
+                </div>
             </a>
         {% endfor %}
         </div>
