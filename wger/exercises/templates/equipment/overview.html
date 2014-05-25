@@ -50,25 +50,38 @@ $(function() {
                 </a>
             </h4>
         </div>
-        <div id="collapse-{{equipment.pk}}" class="panel-collapse collapse {% if forloop.first %}in{% endif %}">
+        <div id="collapse-{{equipment.pk}}" class="panel-collapse collapse">
             <div class="panel-body">
                 <div class="list-group">
                     {% for exercise in equipment.exercise_set.all %}
                     {% if exercise.language in exercise_languages %}
                     <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
-                        <div class="row">
-                            <div class="col-md-1">
-                                {% if exercise.main_image %}
-                                <span class="pull-left" style="width:60px;height:60px;">
-                                <img src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}"
-                                     alt=""
-                                     style="max-width:100%; max-height:100%;">
+                        <div class="media">
+                            <div style="width:60px;height:60px;" class="pull-left">
+
+                            {% if exercise.main_image %}
+                                <img alt="{{ exercise.name }}"
+                                 class="media-object "
+                                 style="max-width:100%; max-height:100%;"
+                                 src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
+                            {% else %}
+                            <img alt="{% trans 'Placeholder image for exercise' %}"
+                                 class="media-object "
+                                 style="max-width:100%; max-height:100%; opacity: 0.4;"
+                                 src="{% static 'images/icons/image-placeholder.svg' %}">
+                            {% endif %}
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">{{ exercise.name }}</h4>
+                                <span class="text-muted">
+                                    {% trans exercise.category.name %}
+                                    <!--
+                                    {% trans "Main muscles" %}: {{ exercise.muscles.all|join:", " }}
+                                    <br>
+                                    {% trans "Secondary muscles" %}: {{ exercise.muscles_secondary.all|join:", " }}
+                                    -->
                                 </span>
-                                {% endif %}
-                            </div>
-                            <div class="col-md-10" >
-                                {{ exercise.name }}
-                            </div>
+                             </div>
                         </div>
                     </a>
                     {% endif %}

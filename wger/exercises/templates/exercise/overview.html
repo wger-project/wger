@@ -77,20 +77,26 @@ $(document).ready(function() {
         <div class="list-group">
         {% for exercise in item.list|dictsort:"name" %}
             <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
-            <div class="row">
-                <div class="col-md-1">
+                <div class="media">
+                    <div style="width:60px;height:60px;" class="pull-left">
+
                     {% if exercise.main_image %}
-                    <span class="pull-left" style="width:60px;height:60px;">
-                    <img src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}"
-                         alt=""
-                         style="max-width:100%; max-height:100%;">
-                    </span>
+                        <img alt="{{ exercise.name }}"
+                         class="media-object "
+                         style="max-width:100%; max-height:100%;"
+                         src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
+                    {% else %}
+                    <img alt="{% trans 'Placeholder image for exercise' %}"
+                         class="media-object "
+                         style="max-width:100%; max-height:100%; opacity: 0.4;"
+                         src="{% static 'images/icons/image-placeholder.svg' %}">
                     {% endif %}
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ exercise.name }}</h4>
+                        <span class="text-muted">{{ exercise.equipment.all|join:", " }}</span>
+                     </div>
                 </div>
-                <div class="col-md-10" >
-                    {{ exercise.name }}
-                </div>
-            </div>
             </a>
         {% empty %}
             <a href="#" class="list-group-item">
