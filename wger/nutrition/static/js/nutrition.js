@@ -73,7 +73,7 @@ function init_english_ingredients()
         e.preventDefault();
 
         // Update the status icon and the data attribute
-        switch_to = $('#english-ingredients-status').data('showIngredients') == 'true' ? 0 : 1;
+        var switch_to = $('#english-ingredients-status').data('showIngredients') == 'true' ? 0 : 1;
         if ( switch_to == 1 )
         {
             $('#english-ingredients-status').attr("src", "/static/images/icons/status-on.svg");
