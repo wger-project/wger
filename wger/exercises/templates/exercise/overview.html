@@ -75,7 +75,7 @@ $(document).ready(function() {
     {% for item in exercise_list %}
     <div class="tab-pane {% if forloop.first %}active{% endif %}" id="tab-{{ item.grouper.id }}">
         <div class="list-group">
-        {% for exercise in item.list %}
+        {% for exercise in item.list|dictsort:"name" %}
             <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
             <div class="row">
                 <div class="col-md-1">
