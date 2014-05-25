@@ -1,3 +1,27 @@
+/*
+    This file is part of Workout Manager
+
+    Workout Manager is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Workout Manager is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with Workout Manager. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/**************************************************************
+ *
+ * Adapt some of bootstrap's CSS classes and styles
+ *
+ **************************************************************/
+
+
 html {
   font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
   -webkit-text-size-adjust: 100%;
@@ -67,4 +91,49 @@ body {
 .alert .close {
     opacity: 0.8;
     text-decoration: none;
+}
+
+/**************************************************************
+ * Buttons
+ **************************************************************/
+.btn-default {
+  color: #333;
+  background-color: #eeeeec;
+  border-color: #ccc;
+}
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active,
+.open .dropdown-toggle.btn-default {
+  color: black;
+  background-color: #babdb6;
+  border-color: #888a85;
+}
+.btn-default:active,
+.btn-default.active,
+.open .dropdown-toggle.btn-default {
+  background-image: none;
+}
+.btn-default.disabled,
+.btn-default[disabled],
+fieldset[disabled] .btn-default,
+.btn-default.disabled:hover,
+.btn-default[disabled]:hover,
+fieldset[disabled] .btn-default:hover,
+.btn-default.disabled:focus,
+.btn-default[disabled]:focus,
+fieldset[disabled] .btn-default:focus,
+.btn-default.disabled:active,
+.btn-default[disabled]:active,
+fieldset[disabled] .btn-default:active,
+.btn-default.disabled.active,
+.btn-default[disabled].active,
+fieldset[disabled] .btn-default.active {
+  background-color: #babdb6;
+  border-color: #ccc;
+}
+.btn-default .badge {
+  color: #fff;
+  background-color: #babdb6;
 }
