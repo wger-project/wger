@@ -85,6 +85,7 @@ def render_weight_log(log, div_uuid):
     return {'log': log,
             'div_uuid': div_uuid}
 
+
 @register.inclusion_tag('tags/license-sidebar.html')
 def license_sidebar(license, author=None):
     '''
@@ -113,6 +114,7 @@ def get_item(dictionary, key):
     '''
     return dictionary.get(key)
 
+
 #
 # Form utils
 #
@@ -134,7 +136,6 @@ def is_checkbox(field):
     :return: boolen
     '''
     return field.field.widget.__class__.__name__ == CheckboxInput().__class__.__name__
-
 
 
 @register.inclusion_tag('tags/render_form_element.html')
