@@ -81,15 +81,15 @@
 {% browserid_info %}
 <header>
     <div class="container">
-        <div class="row">
-        <div class="col-md-offset-8 col-md-4" style="text-align: right;">
+        <div class="row pull-right">
+        <div class="col-md-offset-8 col-md-4">
             <a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a>
             |
 
             {#                                         #}
             {# Render the links to the other languages #}
             {#                                         #}
-            <div class="btn-group" style="text-align: left;">
+            <div class="btn-group">
                 <button type="button" class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown">
                     <img src="/static/images/icons/flag-{{language.short_name}}.svg"
                          width="18"
