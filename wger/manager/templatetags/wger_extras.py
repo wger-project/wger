@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from django import template
-from django.forms.widgets import CheckboxInput
+from django.forms.widgets import CheckboxInput, ClearableFileInput
 
 from wger.utils.constants import PAGINATION_MAX_TOTAL_PAGES
 from wger.utils.constants import PAGINATION_PAGES_AROUND_CURRENT
@@ -136,6 +136,17 @@ def is_checkbox(field):
     :return: boolen
     '''
     return field.field.widget.__class__.__name__ == CheckboxInput().__class__.__name__
+
+
+@register.filter(name='is_fileupload')
+def is_fileupload(field):
+    '''
+    Tests if a field element is a file upload, as it needs to be handled slightly different
+
+    :param field: a form field
+    :return: boolen
+    '''
+    return field.field.widget.__class__.__name__ == ClearableFileInput().__class__.__name__
 
 
 @register.inclusion_tag('tags/render_form_element.html')
