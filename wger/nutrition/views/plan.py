@@ -93,7 +93,7 @@ class PlanEditView(WgerFormMixin, UpdateView):
     '''
 
     model = NutritionPlan
-    title = ugettext_lazy('Add a new nutritional plan')
+    title = ugettext_lazy('Edit nutritional plan')
     form_action_urlname = 'nutrition-edit'
 
 
