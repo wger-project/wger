@@ -65,7 +65,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
         <ul>
             {% for day, exercise, is_workout in weekdays %}
             <li>
-                {% if not is_workout %}<span class="dimmed">{% endif%}
+                {% if not is_workout %}<span class="text-muted">{% endif%}
                 {{ day }}:
 
                 {{ exercise }}

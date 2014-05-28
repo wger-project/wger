@@ -20,8 +20,7 @@ function custom_modal_init()
 {% block content %}
 {% if plan.description %}
 <p>
-    <strong>{% trans "Goal" %}:</strong>
-    <span class="dimmed">{{plan.description}}</span>
+    <strong>{% trans "Goal" %}:</strong> {{plan.description}}
 </p>
 {% endif %}
 
