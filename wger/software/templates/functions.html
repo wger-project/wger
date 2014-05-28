@@ -12,19 +12,8 @@ your exercises and workouts. It started as a pet project of mine to replace my
 growing collection of different spreadsheets, but it has become something other
 people could also find useful.{% endblocktrans %}</p>
 
-<div id="myCarousel" class="carousel slide" style="border: 1px solid rgb(221, 221, 221);margin-top: 1em;">
-    <!--
-    <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-    <li data-target="#myCarousel" data-slide-to="3"></li>
-    <li data-target="#myCarousel" data-slide-to="4"></li>
-    <li data-target="#myCarousel" data-slide-to="5"></li>
-    <li data-target="#myCarousel" data-slide-to="6"></li>
-    </ol>
-    -->
-    <!-- Carousel items -->
+<div id="feature-carousel" class="carousel slide" data-ride="carousel" style="border: 1px solid rgb(221, 221, 221);margin-top: 1em;">
+
     <div class="carousel-inner">
         <div class="item active">
             <img src="{% static 'images/screen7-crop.png' %}" width="700">
@@ -91,41 +80,46 @@ ingredients.{% endblocktrans %}</p>
         </div>
     </div>
     <!-- Carousel nav -->
-    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    <a class="carousel-control left" href="#feature-carousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#feature-carousel" data-slide="next">&rsaquo;</a>
 </div>
 
 
 <h3>{% trans "In short:" %}</h3>
 
-<div class="ym-grid linearize-level-1">
-    <div class="ym-g33 ym-gl">
-        <div class="ym-gbox-left">
-            <div class="warning box">
-            <h3>{% trans "a workout manager" %}</h3>
-            <p>{% blocktrans %}create and manage your workout routines by selecting how
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">{% trans "a workout manager" %}</h3>
+            </div>
+            <div class="panel-body">
+            {% blocktrans %}create and manage your workout routines by selecting how
             many days your workout constists of, and adding different exercises to each.
-            Print the generated PDF to keep a log.{% endblocktrans %}</p>
+            Print the generated PDF to keep a log.{% endblocktrans %}
             </div>
         </div>
     </div>
-    <div class="ym-g33 ym-gl">
-        <div class="ym-gbox-left">
-            <div class="warning box">
-            <h3>{% trans "a weight tracker" %}</h3>
-            <p>{% blocktrans %}keep track of your progress with the weight log chart
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">{% trans "a weight tracker" %}</h3>
+            </div>
+            <div class="panel-body">
+            {% blocktrans %}keep track of your progress with the weight log chart
             for each exercise and your own body weight. This makes it easy to see if you
-            are reaching your goals or need to adjust something.{% endblocktrans %}</p>
+            are reaching your goals or need to adjust something.{% endblocktrans %}
             </div>
         </div>
     </div>
-    <div class="ym-g33 ym-gr">
-        <div class="ym-gbox-left">
-            <div class="warning box">
-            <h3>{% trans "a nutrition manager" %}</h3>
-            <p>{% blocktrans %}create a diet plan and see its nutritional
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">{% trans "a nutrition manager" %}</h3>
+            </div>
+            <div class="panel-body">{% blocktrans %}create a diet plan and see its nutritional
             values (total energy, protein, carbohydrates, and so on) about
-            it. Select from more than 8000 ingredients for this.{% endblocktrans %}</p>
+            it. Select from more than 8000 ingredients for this.{% endblocktrans %}
             </div>
         </div>
     </div>
@@ -154,7 +148,7 @@ do.{% endblocktrans %}</p>
 <a name="pdf-export"></a>
 <h3>{% trans "PDF export" %}</h3>
 
-{% with link='href="/static/pdf/workout-pdf-1.0.3-en.pdf" data-ajax="false" class="pdf-button"' %}
+{% with link='href="/static/pdf/workout-pdf-1.5-en.pdf" data-ajax="false" class="pdf-button"' %}
 <p>{% blocktrans %}It can also generate a PDF with your current routine.
 This is suitable for printing so you can bring it to the gym and keep a log
 for 7 weeks. In case you wonder how it looks like, <a {{link}}>here's a sample</a>.{% endblocktrans %}
@@ -231,7 +225,7 @@ keep track of what you actually ate during the day and how it compares to
 what the plan says. It simply shows you the nutritional values of the plan
 you create.{% endblocktrans %}</p>
 
-{% with link='href="/static/pdf/nutrition-plan-pdf-1.0-en.pdf" data-ajax="false" class="pdf-button"' %}
+{% with link='href="/static/pdf/nutrition-plan-pdf-1.4-en.pdf" data-ajax="false" class="pdf-button"' %}
 <p>{% blocktrans %}It can also be downloaded as a PDF you can keep on your
 fridge, so you don't forget to follow the plan... And as with the workout
 log, <a {{link}}>here's a sample</a>.{% endblocktrans %}</p>

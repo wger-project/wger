@@ -26,14 +26,6 @@ $(document).ready(function() {
         $(".exercise-comments").hide();
     {% endif %}
     toggle_comments();
-
-    // Popup for exporting ical file
-    $('#export-ical-link').click(function(e){
-        e.preventDefault();
-        $('#export-ical-popup').dialog({
-            modal: true
-        });
-    });
  });
 </script>
 {% endblock %}
@@ -55,7 +47,7 @@ $(document).ready(function() {
     </div>
 {% empty %}
     <p>
-    <a href="{% url 'day-add' workout.id %}" class="modal-dialog btn btn-block">
+    <a href="{% url 'day-add' workout.id %}" class="wger-modal-dialog btn btn-default btn-block">
     {% trans "No days for this workout." %}
     {% trans "Add training day" %}
     </a>
@@ -64,7 +56,7 @@ $(document).ready(function() {
 
 
 <p>
-    <a href="{% url 'day-add' workout.id %}" class="modal-dialog">{% trans "Add training day" %}</a>
+    <a href="{% url 'day-add' workout.id %}" class="wger-modal-dialog">{% trans "Add training day" %}</a>
     |
     <a id="exercise-comments-toggle" href="{% url 'core:preferences' %}">{% trans "Show/Hide exercise comments" %}</a>
 </p>
@@ -94,24 +86,21 @@ $(document).ready(function() {
     {% trans "Images show combined muscles as trained by the exercises on the workout." %}
 </p>
 
-<div class="ym-grid linearize-level-1">
-    <div class="ym-g40 ym-gl">
-        <div class="ym-gbox-left">
-            <div id="muscle-front"
-                 class="muscle-background"
-                 style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-            </div>
+<div class="row">
+    <div class="col-md-6">
+        <div id="muscle-front"
+             class="muscle-background"
+             style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
         </div>
     </div>
-    <div class="ym-g60 ym-gr">
-        <div class="ym-gbox-right">
-            <div id="muscle-back"
-                     class="muscle-background"
-                     style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-            </div>
+    <div class="col-md-6">
+        <div id="muscle-back"
+                 class="muscle-background"
+                 style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
         </div>
     </div>
 </div>
+
 
 <h3>{% trans "Options" %}</h3>
 <p>
@@ -139,7 +128,7 @@ $(document).ready(function() {
 
 <p>
 <a href="{% url 'workout-edit' workout.id %}"
-   class="modal-dialog">
+   class="wger-modal-dialog">
    <img src="{% static 'images/icons/edit.svg' %}"
          width="32"
          height="32"
@@ -150,7 +139,7 @@ $(document).ready(function() {
 </p>
 
 <p>
-<a href="#export-ical-popup" id="export-ical-link">
+<a data-toggle="modal" data-target="#export-ical-popup">
    <img src="{% static 'images/icons/calendar.svg' %}"
          width="32"
          height="32"
@@ -162,7 +151,7 @@ $(document).ready(function() {
 
 <p>
 <a href="{% url 'workout-copy' workout.id %}"
-   class="modal-dialog">
+   class="wger-modal-dialog">
    <img src="{% static 'images/icons/copy.svg' %}"
          width="32"
          height="32"
@@ -174,7 +163,7 @@ $(document).ready(function() {
 
 <p>
 <a href="{% url 'workout-delete' workout.id %}"
-   class="modal-dialog">
+   class="wger-modal-dialog">
     <img src="{% static 'images/icons/trash.svg' %}"
          width="32"
          height="32"
@@ -183,24 +172,31 @@ $(document).ready(function() {
 </a>
 </p>
 
-<div id="export-ical-popup"
-     style="display:none;"
-     title="{% trans 'Export calendar file' %}">
-    <div>
-        <p>{% trans "Export this workout as a calendar file." %}</p>
-        <p>{% blocktrans %}You can then import the file it into your calendar
+
+<div class="modal fade" id="export-ical-popup">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{% trans "Export calendar file" %}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{% trans "Export this workout as a calendar file." %}</p>
+                <p>{% blocktrans %}You can then import the file it into your calendar
 application for example google calendar, outlook or iCal. This will create
 an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
-        <p>
-        <a href="{% url 'workout-ical' workout.id %}" class="btn btn-block">
-           <img src="{% static 'images/icons/calendar.svg' %}"
-                 width="32"
-                 height="32"
-                 alt="{% trans 'Export calendar file' %}"
-                 title="{% trans 'Export calendar file' %}">
-           {% trans "Export calendar file" %}
-        </a>
-        </p>
+                <p>
+                <a href="{% url 'workout-ical' workout.id %}" class="btn btn-block btn-default">
+                   <img src="{% static 'images/icons/calendar.svg' %}"
+                         width="32"
+                         height="32"
+                         alt="{% trans 'Export calendar file' %}"
+                         title="{% trans 'Export calendar file' %}">
+                   {% trans "Export calendar file" %}
+                </a>
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -28,23 +28,14 @@ at rest. This is the minimum energy needed for the body to function, without any
 additional physical activity.{% endblocktrans %}</p>
 <form action="{% url 'calories-calculate-bmr' %}"
       method="post"
-      class="ym-form calories-autoform"
+      class="calories-autoform form-horizontal"
       id="bmr-form">
-{% csrf_token %}
+    {% csrf_token %}
+    {% render_form_errors form %}
 
-{% if form.non_field_errors %}
-<div class="ym-fbox-text ym-error">
-    {% for error in form.non_field_errors %}
-        <p class="ym-message">{% trans error %}</p>
-    {% endfor %}
-</div>
-{% endif %}
-
-<table>
     {% for current_field in form %}
-        {% yaml_form_field current_field %}
+        {% render_form_field current_field %}
     {% endfor %}
-</table>
 </form>
 
 <div id="bmr-result-container" style="display:hidden;">
@@ -64,40 +55,24 @@ the additional physical activity and is used to calculate the total energy
 required per day.{% endblocktrans %}</p>
 <form action="{% url 'calories-calculate-activities' %}"
       method="post"
-      class="ym-form calories-autoform"
+      class="form-horizontal calories-autoform"
       id="activities-form">
-{% csrf_token %}
+    {% csrf_token %}
+    {% render_form_errors form_activities %}
+    {% render_form_field form_activities.sleep_hours %}
 
-{% if form.non_field_errors %}
-<div class="ym-fbox-text ym-error">
-    {% for error in form_activities.non_field_errors %}
-        <p class="ym-message">{% trans error %}</p>
-    {% endfor %}
-</div>
-{% endif %}
-
-
-<table>
-    {% yaml_form_field form_activities.sleep_hours %}
-</table>
-
-<div class="ym-grid linearize-level-1">
-    <div class="ym-g50 ym-gl">
-        <table>
-        {% yaml_form_field form_activities.work_hours %}
-        {% yaml_form_field form_activities.sport_hours %}
-        {% yaml_form_field form_activities.freetime_hours %}
-        </table>
+    <div class="row">
+        <div class="col-md-6">
+            {% render_form_field form_activities.work_hours %}
+            {% render_form_field form_activities.sport_hours %}
+            {% render_form_field form_activities.freetime_hours %}
+        </div>
+        <div class="col-md-6">
+            {% render_form_field form_activities.work_intensity %}
+            {% render_form_field form_activities.sport_intensity %}
+            {% render_form_field form_activities.freetime_intensity %}
+        </div>
     </div>
-    <div class="ym-g50 ym-gl">
-        <table>
-        {% yaml_form_field form_activities.work_intensity "ym-fbox-select" %}
-        {% yaml_form_field form_activities.sport_intensity "ym-fbox-select" %}
-        {% yaml_form_field form_activities.freetime_intensity "ym-fbox-select" %}
-        </table>
-    </div>
-</div>
-
 </form>
 
 <div id="activities-result-container" style="display:hidden;">
@@ -113,20 +88,20 @@ required per day.{% endblocktrans %}</p>
 needs based on your level of physical activity.{% endblocktrans %}</p>
 <form action=""
       method="post"
-      class="ym-form calories-autoform"
+      class="form-horizontal calories-autoform"
       id="base-calories-form">
-{% csrf_token %}
-<table>
-    <tr>
-        <td>{% trans "Basic caloric intake" %}</td>
-        <td><span id="id_base_calories"></span></td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <input type="submit" value="{% trans 'Calculate basic caloric intake' %}" id="form-calculate-daily-calories">
-        </td>
-    </tr>
-</table>
+    {% csrf_token %}
+    <table class="table">
+        <tr>
+            <td>{% trans "Basic caloric intake" %}</td>
+            <td><span id="id_base_calories"></span></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" class="btn btn-default btn-block" value="{% trans 'Calculate basic caloric intake' %}" id="form-calculate-daily-calories">
+            </td>
+        </tr>
+    </table>
 </form>
 
 
@@ -136,28 +111,25 @@ you might just enter yourself the amount of calories if you know the value.{% en
 </p>
 <form action="{% url 'calories-calculate-total' %}"
       method="post"
-      class="ym-form"
+      class="form-horizontal"
       id="total-calories-form">
-{% csrf_token %}
-<table>
-     {% yaml_form_field form_calories.additional_calories %}
-    {% yaml_form_field form_calories.calories %}
-    <tr>
-        <td colspan="2">
-            <input type="submit" value="{% trans 'Transfer basic intake to total daily calories' %}" id="form-transfer-calories">
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <input type="submit" value="{% trans 'Add additional calories to total daily calories' %}" id="add-calories-total">
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <input type="submit" value="{% trans 'Save total calories to profile' %}" id="form-update-calories">
-        </td>
-    </tr>
-</table>
+    <div class="row">
+    {% csrf_token %}
+    {% render_form_field form_calories.additional_calories %}
+    {% render_form_field form_calories.calories %}
+
+    <p>
+        <input type="submit" class="btn btn-default btn-block" value="{% trans 'Transfer basic intake to total daily calories' %}" id="form-transfer-calories">
+    </p>
+
+    <p>
+        <input type="submit" class="btn btn-default btn-block" value="{% trans 'Add additional calories to total daily calories' %}" id="add-calories-total">
+    </p>
+
+    <p>
+        <input type="submit" class="btn btn-default btn-block" value="{% trans 'Save total calories to profile' %}" id="form-update-calories">
+    </p>
+    </div>
 </form>
 
 

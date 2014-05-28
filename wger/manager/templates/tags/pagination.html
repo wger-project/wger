@@ -1,17 +1,16 @@
 {% load i18n %}
 
-<div class="pagination">
-
 <ul class="pagination">
-    
-    <li>
-        {% if page.has_previous %}
+    {% if page.has_previous %}
+        <li>
             <a href="?page={{ page.previous_page_number }}"
                class="load-maincontent">« {% trans "previous" %}</a>
-        {% else %}
-            <span class="deactivated">« {% trans "previous" %}</span>
-        {% endif %}
-    </li>
+        </li>
+    {% else %}
+        <li class="disabled">
+            <a href="#">« {% trans "previous" %}</a>
+        </li>
+    {% endif %}
     
     {% for i in page_range %}
         {% if page.number != i %}
@@ -21,19 +20,20 @@
            </li>
         {% else %}
             <li class="active">
-            {{i}}
+                <a href="#">{{i}}</a>
             </li>
         {% endif %}
     {% endfor %}
     
-    <li>
         {% if page.has_next %}
-        <a href="?page={{ page.next_page_number }}"
-           class="load-maincontent">{%trans "next" %} »</a>
+            <li>
+                <a href="?page={{ page.next_page_number }}"
+                   class="load-maincontent">{%trans "next" %} »</a>
+            </li>
         {% else %}
-            <span class="deactivated">{%trans "next" %} »</span>
+            <li class="disabled">
+                <a href="#">{%trans "next" %} »</a>
+            </li>
         {% endif %}
-    </li>
 </ul>
-</div>
 

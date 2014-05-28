@@ -6,55 +6,56 @@
 
 
 {% block content %}
-<div class="ym-grid linearize-level-1">
-    <div class="ym-g66 ym-gl">
-        <div class="ym-gbox-left">
-
+<div class="row">
+    <div class="col-md-6">
 <p>{% blocktrans %}Thank you for your interest. Feel free to use any of the
 ways below to send feedback you have about any aspect of the site. For
 support, it's better to use the mailing list
 (<a href="mailto:wger@googlegroups.com">wger@googlegroups.com</a>), to report
 a bug, consider doing it through the <a href="{{issues}}">issue tracker</a>
 .{% endblocktrans %}</p>
-
-        </div>
     </div>
-    <div class="ym-g33 ym-gl">
-        <div class="ym-gbox-left alert alert-block alert-info">
+
+    <div class="col-md-6">
+        <div class="alert alert-block alert-info">
             {% blocktrans %}If you want to further help and improve this project,
 you might also be interested <a href="{{contribute}}">in contributing</a>.{% endblocktrans %}
         </div>
     </div>
+
 </div>
 
-<div class="ym-grid linearize-level-1">
-    <div class="ym-g33 ym-gl">
-        <div class="ym-gbox-left">
-
+<div class="row">
+    <div class="col-md-4">
         <h3>{% trans "Feedback form" %}</h3>
         <p>{% blocktrans %}A simple contact form. Remember that
 if you want an answer, you need to include some way to contact you.{% endblocktrans %}</p>
-        <p><a class="btn" href="{{feedback}}">{% trans "Open feedback form" %}</a></p>
-        </div>
     </div>
-    <div class="ym-g33 ym-gl">
-        <div class="ym-gbox-left">
 
+    <div class="col-md-4">
         <h3>{% trans "Twitter" %}</h3>
         <p>{% blocktrans %}We are also on twitter. Write us and tell us what
 you think! Except patches, don't send patches via twitter.{% endblocktrans %}</p>
-        <p><a href="https://twitter.com/wger_de"
-              class="btn twitter-mention-button">{% trans "tweet to @wger_de" %}</a></p>
-        </div>
     </div>
-    <div class="ym-g33 ym-gl">
-        <div class="ym-gbox-left">
-            <h3>{% trans "Forum / Mailing list" %}</h3>
-            <p>{% blocktrans %}Use the public group to get support for your
+
+
+    <div class="col-md-4">
+        <h3>{% trans "Forum / Mailing list" %}</h3>
+        <p>{% blocktrans %}Use the public group to get support for your
 local wger installation, discuss issues or your new idea, etc.
 (no registration needed){% endblocktrans %}</p>
-            <p><a href="https://groups.google.com/group/wger" class="btn">{% trans "Go to mailing list" %}</a></p>
-        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <a class="btn btn-default btn-block" href="{{feedback}}">{% trans "Open feedback form" %}</a>
+    </div>
+    <div class="col-md-4">
+        <a href="https://twitter.com/wger_de"
+              class="btn btn-default btn-block twitter-mention-button">{% trans "tweet to @wger_de" %}</a>
+    </div>
+    <div class="col-md-4">
+        <a href="https://groups.google.com/group/wger" class="btn btn-default btn-block">{% trans "Go to mailing list" %}</a>
     </div>
 </div>
 

@@ -22,10 +22,9 @@
 
 function update_ingredient_value(url)
 {
-    form_data = $('#nutritional-values-form').serializeArray();
+    var form_data = $('#nutritional-values-form').serializeArray();
     $.post(url, form_data, function(data) {
 
-        console.log(data);
         // Show any validation errors
         $('#calculator-errors').html('');
         if (data['errors'])
@@ -44,7 +43,7 @@ function update_ingredient_value(url)
         $('#value-fat-saturated').html(parseFloat(data['fat_saturated']).toFixed(2));
         $('#value-fibres').html(parseFloat(data['fibres']).toFixed(2));
         $('#value-sodium').html(parseFloat(data['sodium']).toFixed(2));
-        });
+    });
 }
 
 function init_ingredient_detail(url)
@@ -68,30 +67,6 @@ function init_ingredient_detail(url)
 /*
  * Update the user's preferences
  */
-function init_english_ingredients()
-{
-    $("#ajax-english-ingredients").click(function(e) {
-        e.preventDefault();
-
-        // Update the status icon and the data attribute
-        switch_to = $('#english-ingredients-status').data('showIngredients') == 'true' ? 0 : 1;
-        if ( switch_to == 1 )
-        {
-            $('#english-ingredients-status').attr("src", "/static/images/icons/status-on.svg");
-            $('#english-ingredients-status').data('showIngredients', 'true');
-        }
-        else if ( switch_to == 0 )
-        {
-            $('#english-ingredients-status').attr("src", "/static/images/icons/status-off.svg");
-            $('#english-ingredients-status').data('showIngredients', 'false');
-        }
-
-        // Update the settings
-        $("#ajax-info").load('/' + get_current_language() + "/workout/api/user-preferences?do=set_english-ingredients&show=" + switch_to);
-    });
-}
-
-
 function init_ingredient_autocompleter()
 {
     // Init the autocompleter

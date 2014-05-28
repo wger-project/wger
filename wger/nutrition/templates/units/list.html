@@ -8,7 +8,7 @@
 
 {% block content %}
 
-<table>
+<table class="table">
 <thead>
 <tr>
     <th>{% trans "Actions" %}</th>
@@ -20,7 +20,7 @@
 <tr>
     <td class="no-hover">
         <a href="{% url 'weight-unit-delete' unit.id %}"
-           class="modal-dialog">
+           class="wger-modal-dialog">
             <img src="{% static 'images/icons/trash.svg' %}"
                  width="22"
                  height="22"
@@ -28,7 +28,7 @@
                  title="{% trans 'Delete' %}">
         </a>
         <a href="{% url 'weight-unit-edit' unit.id %}"
-           class="modal-dialog">
+           class="wger-modal-dialog">
             <img src="{% static 'images/icons/edit.svg' %}"
                  width="22"
                  height="22"
@@ -58,7 +58,7 @@
 <h3>{% trans "Options" %}</h3>
 <p>
        <a href="{% url 'weight-unit-add' %}"
-          class="modal-dialog">
+          class="wger-modal-dialog">
        <img src="{% static 'images/icons/new.svg' %}"
             width="32"
             height="32"

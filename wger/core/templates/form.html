@@ -12,43 +12,19 @@
     {{custom_js|safe}}
 </script>
 {% endif %}
-
 {% endblock %}
 
-<!--
-        Title
--->
+
 {% block title %}{{title}}{% endblock %}
 
 
-<!--
-        Main Content
--->
 {% block content %}
 <form action="{{form_action}}"
-      {% if enctype %}enctype="{{enctype}}"{% endif %}
       method="post"
-      class="ym-form">
-{% csrf_token %}
-
-{% if form.non_field_errors %}
-<div class="ym-fbox-text ym-error">
-    {% for error in form.non_field_errors %}
-        <p class="ym-message">{% trans error %}</p>
-    {% endfor %}
-</div>
-{% endif %}
-
-<table>
-    {% for current_field in form_fields %}
-        {% yaml_form_field current_field %}
-    {% endfor %}
-    <tr>
-        <td colspan="2">
-            <input type="submit" value="{{submit_text}}" id="form-save">
-        </td>
-    </tr>
-</table>
+      class="form-horizontal"
+      role="form"
+      {% if enctype %}enctype="{{enctype}}"{% endif %}>
+    {% render_form_fields form %}
 </form>
 {% endblock %}
 

@@ -19,12 +19,6 @@
 </style>
  <script>
 $(function() {
-    $("#accordion").accordion({
-        collapsible: true,
-        heightStyle: "content",
-        active: false
-    });
-
     // Init the autocompleter
     $("#exercise-search").catcomplete({
             source: "{% url 'wger.exercises.views.exercises.search' %}",
@@ -46,41 +40,57 @@ $(function() {
 -->
 {% block content %}
 {% cache cache_timeout equipment-overview language.id %}
-<div id="accordion">
+<div class="panel-group" id="accordion">
     {% for equipment in equipment_list %}
-    <h3>{% trans equipment.name %}</h3>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{equipment.pk}}">
+            {% trans equipment.name %}
+                </a>
+            </h4>
+        </div>
+        <div id="collapse-{{equipment.pk}}" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="list-group">
+                    {% for exercise in equipment.exercise_set.all %}
+                    {% if exercise.language in exercise_languages %}
+                    <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
+                        <div class="media">
+                            <div style="width:60px;height:60px;" class="pull-left">
 
-    <div>
-        <table class="narrow">
-        <tbody>
-            {% for exercise in equipment.exercise_set.all %}
-            {% if exercise.language in exercise_languages %}
-                <tr>
-                    <td style="padding-left:0px;">
-                        {% if exercise.main_image %}
-                        <div style="width:60px;height:60px;text-align:center;float:left;">
-                        <img src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}"
-                             alt=""
-                             style="vertical-align:middle;max-width:100%; max-height:100%;">
-                         </div>
-                         {% endif %}
-
-                        <a href="{{ exercise.get_absolute_url }}">
-                        {{ exercise.name }}</a>
-                    </td>
-                </tr>
-            {% endif %}
-            {% empty %}
-                <tr>
-                    <td>
-                        <p>
-                            {% trans "No exercises for this equipment. Add or edit an exercise and set the equipment." %}
-                        </p>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-        </table>
+                            {% if exercise.main_image %}
+                                <img alt="{{ exercise.name }}"
+                                 class="media-object "
+                                 style="max-width:100%; max-height:100%;"
+                                 src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
+                            {% else %}
+                            <img alt="{% trans 'Placeholder image for exercise' %}"
+                                 class="media-object "
+                                 style="max-width:100%; max-height:100%; opacity: 0.4;"
+                                 src="{% static 'images/icons/image-placeholder.svg' %}">
+                            {% endif %}
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">{{ exercise.name }}</h4>
+                                <span class="text-muted">
+                                    {% trans exercise.category.name %}
+                                    <!--
+                                    {% trans "Main muscles" %}: {{ exercise.muscles.all|join:", " }}
+                                    <br>
+                                    {% trans "Secondary muscles" %}: {{ exercise.muscles_secondary.all|join:", " }}
+                                    -->
+                                </span>
+                             </div>
+                        </div>
+                    </a>
+                    {% endif %}
+                    {% empty %}
+                        {% trans "No exercises for this equipment. Add or edit an exercise and set the equipment." %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
     {% endfor %}
 </div>

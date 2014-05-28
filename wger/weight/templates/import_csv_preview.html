@@ -8,8 +8,8 @@
 
 {% block content %}
 <h3>{% trans "Successfully converted values" %}</h3>
-<div class="box success">{% trans "The following values could be converted." %}</div>
-<table class="narrow">
+<div class="alert alert-success">{% trans "The following values could be converted." %}</div>
+<table class="table">
 <tr>
     <th>{% trans "Date" %}</th>
     <th>{% trans "Weight" %}</th>
@@ -27,7 +27,7 @@
 <h3>{% trans "Errors" %}</h3>
 
 {% if error_list %}
-    <div  class="box error">{% trans "The following values could not be converted." %}</div>
+    <div class="alert alert-danger">{% trans "The following values could not be converted." %}</div>
 
     <p>{% blocktrans %}These values could not be converted to a weight log entry.
     The reasons for this could be anything from an unrecognised date or number
@@ -38,7 +38,7 @@
     <p>{% blocktrans %}Remember that the expected structure is <strong>date</strong>
     on the first columns and <strong>weight</strong> on the second.{% endblocktrans %}</p>
 
-    <table class="narrow">
+    <table class="table">
     <tr>
         <th>{% trans "Date" %}</th>
         <th>{% trans "Weight" %}</th>
@@ -64,13 +64,12 @@ will simply be ignored. It's up to you to decide whether they are useful
 
 <form action="{{form_action}}"
       method="post"
-      class="ym-form">
-{% csrf_token %}
-{% for field in form %}{{ field.as_hidden }}{% endfor %}
+      class="form-horizontal">
 
-<input type="hidden" name="{{ stage_field }}" value="2" />
-<input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}" />
-<p><input type="submit" value="{% trans 'Import' %}" /></p>
+    <input type="hidden" name="{{ stage_field }}" value="2" />
+    <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}" />
+    {% trans 'Import' as submit_text %}
+    {% render_form_fields form submit_text %}
 </form>
 
 
@@ -82,19 +81,11 @@ you want.{% endblocktrans %}</p>
 
 <form action="{{form_action}}"
       method="post"
-      class="ym-form">
-{% csrf_token %}
-{{ form.non_field_errors }}
-<input type="hidden" name="{{ stage_field }}" value="1" />
-<table>
-    {% yaml_form_field form.csv_input %}
-    {% yaml_form_field form.date_format "ym-fbox-select" %}
-    <tr>
-        <td colspan="2">
-            <input type="submit" value="{% trans 'Re-Submit' %}" id="form-save">
-        </td>
-    </tr>
-</table>
+      class="form">
+
+    <input type="hidden" name="{{ stage_field }}" value="1" />
+    {% trans 'Re-Submit' as submit_text %}
+    {% render_form_fields form submit_text %}
 </form>
 
 {% endblock %}

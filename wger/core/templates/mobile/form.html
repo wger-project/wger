@@ -28,7 +28,6 @@
 <form action="{{form_action}}"
       enctype="multipart/form-data"
       method="post"
-      class="ym-form"
       data-ajax="false">
 {% csrf_token %}
 
@@ -42,7 +41,7 @@
 
 <table>
     {% for current_field in form_fields %}
-        {% yaml_form_field current_field %}
+        {% render_form_field current_field %}
     {% endfor %}
     <tr>
         <td colspan="2">

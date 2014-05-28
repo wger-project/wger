@@ -127,7 +127,7 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         if self.is_mobile:
             self.assertContains(response, '<p class="ui-li-aside"><em>active</em></p>')
         else:
-            self.assertContains(response, '<span class="label label-info">active</span>')
+            self.assertContains(response, '<span class="label label-primary">active</span>')
         schedule = Schedule.objects.get(pk=4)
         schedule.is_active = False
         schedule.save()
@@ -138,7 +138,7 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         if self.is_mobile:
             self.assertNotContains(response, '<p class="ui-li-aside"><em>active</em></p>')
         else:
-            self.assertNotContains(response, '<span class="label label-info">active</span>')
+            self.assertNotContains(response, '<span class="label label-primary">active</span>')
 
     def test_schedule_active(self):
         '''

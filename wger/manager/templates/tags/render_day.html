@@ -15,10 +15,10 @@ $(document).ready(function() {
 })
 </script>
 
-<table class="bordertable workout-table" id="table-day-{{ day.obj.id }}">
+<table class="table table-bordered workout-table" id="table-day-{{ day.obj.id }}">
 <thead>
     <tr id="day-{{ day.obj.id }}">
-        <th colspan="2">
+        <th colspan="2" style="background: none repeat scroll 0% 0% #E0E0E0;">
 
             {{ day.days_of_week.text }} – {{ day.obj.description }}
 
@@ -32,7 +32,7 @@ $(document).ready(function() {
                 </a>
                 <a href="{% url 'day-edit' day.obj.id %}"
                    title="{% trans 'Edit' %}"
-                   class="modal-dialog">
+                   class="wger-modal-dialog">
                        <img src="{% static 'images/icons/edit.svg' %}"
                             width="22"
                             height="22"
@@ -52,7 +52,7 @@ $(document).ready(function() {
     <tbody>
         {% for set in day.set_list %}
         <tr id="set-{{ set.obj.id }}">
-            <td class="ym-g10">{{ forloop.counter }}
+            <td>{{ forloop.counter }}
                 <span class="editoptions">
                 {% if day.set_list|length > 1 %}
                 <img src="{% static 'images/icons/move.svg' %}"
@@ -65,7 +65,7 @@ $(document).ready(function() {
                  {% endif %}
                  <a href="{% url 'set-edit' set.obj.id %}"
                    title="{% trans 'Edit' %}"
-                   class="modal-dialog">
+                   class="wger-modal-dialog">
                        <img src="{% static 'images/icons/edit.svg' %}"
                             width="22"
                             height="22"
@@ -90,14 +90,14 @@ $(document).ready(function() {
                         {{exercise.setting_text}}
                         {% if not exercise.setting_text %}
                             <a href="{% url 'set-edit' set.obj.id %}"
-                               class="modal-dialog btn btn-block">
+                               class="wger-modal-dialog btn btn-default btn-block">
                                     {% trans "This exercise has no repetitions." %}
                                     {% trans "Edit them now."%}
                             </a>
                         {% endif %}
                         </span>
 
-                        <div class="exercise-comments dimmed">
+                        <div class="exercise-comments text-muted">
                             <ul>
                             {% for comment in exercise.comment_list %}
                                 <li>{{comment}}</li>
@@ -113,7 +113,7 @@ $(document).ready(function() {
         <tr>
             <td colspan="2">
                     <a href="{% url 'set-add' day.obj.id %}"
-                       class="modal-dialog btn btn-block">
+                       class="wger-modal-dialog btn btn-default btn-block">
                        {% trans "No exercises selected for this day." %}
                        {% trans "Add one now." %}
                     </a>
@@ -123,7 +123,7 @@ $(document).ready(function() {
         <tr>
             <td colspan="2">
                 <a href="{% url 'set-add' day.obj.id %}"
-                   class="modal-dialog">{% trans "Add exercises to this workout day" %}</a>
+                   class="wger-modal-dialog">{% trans "Add exercises to this workout day" %}</a>
             </td>
         </tr>
     </tbody>

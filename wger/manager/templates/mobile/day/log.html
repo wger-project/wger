@@ -17,7 +17,6 @@ $(document).ready(function () {
 {% block content %}
 <form action="{{form_action}}"
       method="POST"
-      class="ym-form"
       style="overflow-x: auto;"
       data-ajax="false">
 {% csrf_token %}
@@ -32,13 +31,13 @@ $(document).ready(function () {
 {% endif %}
 
 <table class="workout-log-table">
-{% yaml_form_field dateform.date %}
+{% render_form_field dateform.date %}
 
 {% for field in session_form %}
     {% if field.name == 'impression' %}
-        {% yaml_form_field field "ym-fbox-select" %}
+        {% render_form_field field %}
     {% else %}
-        {% yaml_form_field field %}
+        {% render_form_field field %}
     {% endif %}
 {% endfor %}
 </table>

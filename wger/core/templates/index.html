@@ -5,162 +5,161 @@
 {% block title %} {% trans "Dashboard" %}{% endblock %}
 
 {% block header %}
-<script>
-$(document).ready(function() {
-    // Popup for adding logs
-    $('#logging-popup-link').click(function(e){
-        e.preventDefault();
-        $('#calendar-day-select-popup').dialog({
-            modal: true
-        });
-    });
- });
-</script>
 {% endblock %}
 
 
 
 {% block content %}
-<div class="ym-grid linearize-level-1">
-    <div class="ym-g50 ym-gl">
-        <div class="ym-gbox-left">
-            <h3>{% trans "Workout"%}</h3>
-            {% if current_workout %}
-            <div id="calendar-day-select-popup"
-                 style="display:none;"
-                 title="{% trans 'Add log to day' %}">
-                <div>
-                    {% if current_workout %}
-                    <p>{% blocktrans %}Click to add weight logs to a training
-day in your current workout:{% endblocktrans %} {{current_workout}}</p>
-
-                    {% for day in current_workout.day_set.all %}
-                        <a href="{% url 'day-log' day.pk %}" class="btn btn-block">{{day.description}}</a>
-                    {% endfor %}
-                {% endif %}
-                </div>
+{% if current_workout %}
+<div class="modal fade" id="calendar-day-select-popup">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{% trans 'Add log to day' %}</h4>
             </div>
+            <div class="modal-body">
+                {% if current_workout %}
+                <p>{% blocktrans %}Click to add weight logs to a training
+day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</strong></p>
 
-
-
-            <p>
-            <a href="{% url 'workout-view' current_workout.id %}">
-                {% if current_workout.comment %}
-                    {{ current_workout.comment }}
-                {% else %}
-                    {% trans "Workout" %}
-                {% endif %}
-            </a>
-            </p>
-             – {{ current_workout.creation_date }}
-
-            <ul>
-                {% for day, exercise, is_workout in weekdays %}
-                <li>
-                    {% if not is_workout %}<span class="dimmed">{% endif%}
-                    {{ day }}:
-
-                    {{ exercise }}
-                    {% if not is_workout %}</span>{% endif%}
-
-                </li>
+                {% for day in current_workout.day_set.all %}
+                    <a href="{% url 'day-log' day.pk %}" class="btn btn-block btn-default">{{day.description}}</a>
                 {% endfor %}
-            </ul>
 
-            {% if current_workout.day_set.all %}
-            <p><a href="" id="logging-popup-link">{% trans "Add new log" %}</a></p>
-            {% endif %}
-
-            {% if schedule %}
-            <p>
-                → {% trans "This workout is part of a schedule:" %}
-                <a href="{{schedule.get_absolute_url}}">{{schedule.name}}</a>
-            </p>
-            {% endif %}
-
-            {% else %}
+                {% else %}
+                <p><em>{% trans "No workouts found." %}</em></p>
                 <p>
-                    <a href="{% url 'workout-add' %}" class="btn btn-block">
-                    {% trans "No workouts found." %} {% trans "Add one now." %}
-                    </a>
+                <a href="{% url 'workout-add' %}" class="btn btn-block btn-default">
+                   <img src="{% static 'images/icons/add.svg' %}"
+                        width="22"
+                        height="22"
+                        alt="">
+                    {% trans "Add one now." %}
+                </a>
                 </p>
-            {% endif %}
-        </div>
-    </div>
-    <div class="ym-g50 ym-gr">
-        <div class="ym-gbox-right">
-
-
-            <h3>{% trans "Nutrition plan"%}</h3>
-
-            {% if plan %}
-                <p>
-                <a href="{% url 'nutrition-view' plan.id %}">
-                    {% if plan.description %}
-                        {{ plan.description }}
-                    {% else %}
-                        {% trans "Nutrition plan" %}
-                    {% endif %}
-               </a>
-               </p>
-               – {{ plan.creation_date }}
-               <ul>
-                   <li>
-                       {% trans "Energy" %}: {{nutritional_info.total.energy|floatformat}} kcal
-                   </li>
-                   <li>
-                       {% trans "Protein" %}: {{nutritional_info.total.protein|floatformat}} g
-                   </li>
-                   <li>
-                       {% trans "Carbohydrates" %}: {{nutritional_info.total.carbohydrates|floatformat}} g
-                   </li>
-                   <li>
-                       {% trans "Fat" %}: {{nutritional_info.total.fat|floatformat}} g
-                   </li>
-               </ul>
-
-            {% else %}
-                <p>
-                    <a href="{% url 'nutrition-add' %}" class="btn btn-block">
-                    {% trans "No nutrition plans." %} {% trans "Add one now." %}
-                    </a>
-                </p>
-            {% endif %}
-            {% if weight %}
-            <p>
-                {% trans "Your current weight is: "%} <strong>{{weight.weight|floatformat}} kg.</strong>
-            </p>
-            {% endif %}
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>
 
-<div class="ym-grid linearize-level-1">
-    <div class="ym-g50 ym-gl">
-        <div class="ym-gbox-left">
+
+<div class="row">
+    <div class="col-md-6">
+        <h3>{% trans "Workout"%}</h3>
+
+
+
+        <p>
+        <a href="{% url 'workout-view' current_workout.id %}">
+            {% if current_workout.comment %}
+                {{ current_workout.comment }}
+            {% else %}
+                {% trans "Workout" %}
+            {% endif %}
+        </a>
+        </p>
+         – {{ current_workout.creation_date }}
+
+        <ul>
+            {% for day, exercise, is_workout in weekdays %}
+            <li>
+                {% if not is_workout %}<span class="text-muted">{% endif%}
+                {{ day }}:
+
+                {{ exercise }}
+                {% if not is_workout %}</span>{% endif%}
+
+            </li>
+            {% endfor %}
+        </ul>
+
+        {% if current_workout.day_set.all %}
+        <p><a href="#" id="logging-popup-link" data-toggle="modal" data-target="#calendar-day-select-popup">{% trans "Add new log" %}</a></p>
+        {% endif %}
+
+        {% if schedule %}
+        <p>
+            → {% trans "This workout is part of a schedule:" %}
+            <a href="{{schedule.get_absolute_url}}">{{schedule.name}}</a>
+        </p>
+        {% endif %}
+
+        {% else %}
             <p>
-                <a href="{% url 'workout-add' %}">
-                <img src="{% static 'images/icons/new.svg' %}"
-                     width="32"
-                     height="32"
-                     alt="{% trans 'Add workout' %}"
-                     title="{% trans 'Add workout' %}">
-                {% trans "Add workout" %}</a>
+                <a href="{% url 'workout-add' %}" class="btn btn-block btn-default">
+                {% trans "No workouts found." %} {% trans "Add one now." %}
+                </a>
             </p>
-        </div>
+        {% endif %}
     </div>
-    <div class="ym-g50 ym-gr">
-        <div class="ym-gbox-right">
+    <div class="col-md-6">
+        <h3>{% trans "Nutrition plan"%}</h3>
+
+        {% if plan %}
             <p>
-                <a href="{% url 'nutrition-add' %}">
-                <img src="{% static 'images/icons/new.svg' %}"
-                     width="32"
-                     height="32"
-                     alt="{% trans 'Add nutrition plan' %}"
-                     title="{% trans 'Add nutrition plan' %}">
-                    {% trans "Add nutrition plan" %}</a>
+            <a href="{% url 'nutrition-view' plan.id %}">
+                {% if plan.description %}
+                    {{ plan.description }}
+                {% else %}
+                    {% trans "Nutrition plan" %}
+                {% endif %}
+           </a>
+           </p>
+           – {{ plan.creation_date }}
+           <ul>
+               <li>
+                   {% trans "Energy" %}: {{nutritional_info.total.energy|floatformat}} kcal
+               </li>
+               <li>
+                   {% trans "Protein" %}: {{nutritional_info.total.protein|floatformat}} g
+               </li>
+               <li>
+                   {% trans "Carbohydrates" %}: {{nutritional_info.total.carbohydrates|floatformat}} g
+               </li>
+               <li>
+                   {% trans "Fat" %}: {{nutritional_info.total.fat|floatformat}} g
+               </li>
+           </ul>
+
+        {% else %}
+            <p>
+                <a href="{% url 'nutrition-add' %}" class="btn btn-block btn-default">
+                {% trans "No nutrition plans." %} {% trans "Add one now." %}
+                </a>
             </p>
-        </div>
+        {% endif %}
+        {% if weight %}
+        <p>
+            {% trans "Your current weight is: "%} <strong>{{weight.weight|floatformat}} kg.</strong>
+        </p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <p>
+            <a href="{% url 'workout-add' %}">
+            <img src="{% static 'images/icons/new.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Add workout' %}"
+                 title="{% trans 'Add workout' %}">
+            {% trans "Add workout" %}</a>
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p>
+            <a href="{% url 'nutrition-add' %}">
+            <img src="{% static 'images/icons/new.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Add nutrition plan' %}"
+                 title="{% trans 'Add nutrition plan' %}">
+                {% trans "Add nutrition plan" %}</a>
+        </p>
     </div>
 </div>
 {% endblock %}
@@ -168,17 +167,6 @@ day in your current workout:{% endblocktrans %} {{current_workout}}</p>
 
 
 {% block sidebar %}
-<h3>{% trans "Options" %}</h3>
-<p>
-<a href="{% url 'core:preferences' %}">
-<img src="{% static 'images/icons/preferences.svg' %}"
-     width="32"
-     height="32"
-     alt="{% trans 'My preferences' %}"
-     title="{% trans 'My preferences' %}">
-{% trans "My preferences" %}</a>
-</p>
-
 <h3>{% trans "Info" %}</h3>
 <p>{% blocktrans %}The current workout is selected from your active schedule
 or, if you don't have one, simply by date.{% endblocktrans %}</p>

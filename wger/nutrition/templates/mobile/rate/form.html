@@ -42,7 +42,7 @@ additional physical activity.{% endblocktrans %}</p>
 
 <table>
     {% for current_field in form %}
-        {% yaml_form_field current_field %}
+        {% render_form_field current_field %}
     {% endfor %}
 </table>
 </form>
@@ -78,7 +78,7 @@ required per day.{% endblocktrans %}</p>
 
 
 <table>
-    {% yaml_form_field form_activities.sleep_hours %}
+    {% render_form_field form_activities.sleep_hours %}
     <tr>
         <td class="dimmed">{% trans form_activities.work_hours.help_text %}</td>
         <td class="dimmed">{% trans form_activities.work_intensity.label %}</td>
@@ -151,8 +151,8 @@ you might just enter yourself the amount of calories if you know the value.{% en
       id="total-calories-form">
 {% csrf_token %}
 <table>
-     {% yaml_form_field form_calories.additional_calories %}
-     {% yaml_form_field form_calories.calories %}
+     {% render_form_field form_calories.additional_calories %}
+     {% render_form_field form_calories.calories %}
 </table>
 
 <input type="submit" value="{% trans 'Transfer basic intake to total daily calories' %}" id="form-transfer-calories">

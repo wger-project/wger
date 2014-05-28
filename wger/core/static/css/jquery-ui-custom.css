@@ -31,3 +31,7 @@
     overflow-x: hidden; /* prevent horizontal scrollbar */
 }
 
+/* Increase the z-index so bootstrap's modals, etc. don't interfere */
+.ui-front {
+    z-index: 9999;
+}

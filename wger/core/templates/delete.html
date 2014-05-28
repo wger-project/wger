@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load staticfiles %} 
+{% load staticfiles %}
+{% load wger_extras %}
 
 <!--
         Title
@@ -14,16 +15,25 @@
 {% block content %}
 <form action="{{form_action}}"
       method="post"
-      class="ym-form">
+      class="form-horizontal">
     {% csrf_token %}
-    <img src="{% static  'images/icons/warning.svg' %}"
+
+    <div class="form-group">
+    <div class="col-md-3">
+        <img src="{% static  'images/icons/warning.svg' %}"
          width="48"
          height="48"
-         class="flexible float-left"
-         alt="{% trans "Are you sure you want to delete this? This action cannot be undone." %}">
-    <p>{% trans "Are you sure you want to delete this? This action cannot be undone." %}</p>
-    <p>{{ delete_message }}</p>
-    <p><input type="submit" value="{% trans 'Delete' %}"></p>
+         alt="{% trans 'Are you sure you want to delete this? This action cannot be undone.' %}">
+    </div>
+
+    <div class="col-md-9">
+        {% trans "Are you sure you want to delete this? This action cannot be undone." %}
+        {{ delete_message }}
+    </div>
+    </div>
+
+    {% trans 'Yes, delete' as submit_text %}
+    {% render_form_submit submit_text 'danger' %}
 </form>
 {% endblock %}
 

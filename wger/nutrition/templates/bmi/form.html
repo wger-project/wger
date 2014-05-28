@@ -57,28 +57,10 @@ $(document).ready(function () {
 
 <form action="{% url 'bmi-calculate' %}"
       method="post"
-      class="ym-form"
+      class="form-horizontal"
       id="bmi-form">
-{% csrf_token %}
-
-{% if form.non_field_errors %}
-<div class="ym-fbox-text ym-error">
-    {% for error in form.non_field_errors %}
-        <p class="ym-message">{% trans error %}</p>
-    {% endfor %}
-</div>
-{% endif %}
-
-<table>
-    {% for current_field in form %}
-        {% yaml_form_field current_field %}
-    {% endfor %}
-    <tr>
-        <td colspan="2">
-            <input type="submit" value="{% trans 'Calculate' %}" id="form-save">
-        </td>
-    </tr>
-</table>
+    {% trans 'Calculate' as submit_text %}
+    {% render_form_fields form submit_text %}
 </form>
 
 <div id="bmi-result-container" style="display:hidden;">

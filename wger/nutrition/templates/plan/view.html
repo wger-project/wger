@@ -12,12 +12,6 @@ function custom_modal_init()
     // Init the autocompleter after loading the modal dialog
     init_ingredient_autocompleter();
 }
-
-$(document).ready(function() {
-
-    // Check if the user wants to see ingredients in english
-    init_english_ingredients();
-});
 </script>
 {% endblock %}
 
@@ -26,15 +20,14 @@ $(document).ready(function() {
 {% block content %}
 {% if plan.description %}
 <p>
-    <strong>{% trans "Goal" %}:</strong>
-    <span class="dimmed">{{plan.description}}</span>
+    <strong>{% trans "Goal" %}:</strong> {{plan.description}}
 </p>
 {% endif %}
 
-<table class="bordertable">
+<table class="table table-bordered">
     <thead>
-        <tr>
-            <th class="ym-g15">{% trans "Meal" %}</th>
+        <tr style="background: #E0E0E0;">
+            <th>{% trans "Meal" %}</th>
             <th>{% trans "Contents" %}</th>
             <th>{% trans "Energy" %}</th>
             <th>{% trans "Protein" %}</th>
@@ -64,7 +57,7 @@ $(document).ready(function() {
                 </a>
                 <a href="{% url 'meal-edit' meal.id %}"
                    title="{% trans 'Edit' %}"
-                   class="modal-dialog">
+                   class="wger-modal-dialog">
                     <img src="{% static 'images/icons/edit.svg' %}"
                          width="16"
                          height="16"
@@ -73,7 +66,7 @@ $(document).ready(function() {
                 </a>
                 <a href="{% url 'mealitem-add' meal.id %}"
                    title="{% trans 'Add' %}"
-                   class="modal-dialog edit-meal">
+                   class="wger-modal-dialog edit-meal">
                     <img src="{% static 'images/icons/add.svg' %}"
                          width="16"
                          height="16"
@@ -101,7 +94,7 @@ $(document).ready(function() {
                 </a>
                 <a href="{% url 'mealitem-edit' item.id %}"
                    title="{% trans 'Edit' %}"
-                   class="modal-dialog edit-meal edit-mealitem">
+                   class="wger-modal-dialog edit-meal edit-mealitem">
                     <img src="{% static 'images/icons/edit.svg' %}"
                          width="16"
                          height="16"
@@ -119,7 +112,7 @@ $(document).ready(function() {
     <td colspan="7">
        <a href="{% url 'mealitem-add' meal.id %}"
           title="{% trans 'Add one now.' %}"
-          class="modal-dialog edit-meal btn btn-block">
+          class="wger-modal-dialog edit-meal btn btn-default btn-block">
             {% trans "No items for this meal." %}
             {% trans "Add one now."%}
         </a>
@@ -130,7 +123,7 @@ $(document).ready(function() {
 {% empty %}
 <p>
      <a href="{% url 'meal-add' plan.id %}"
-        class="modal-dialog btn btn-block">
+        class="wger-modal-dialog btn btn-default btn-block">
             {% trans "No meals for this plan." %}
             {% trans "Add one now." %}
         </a>
@@ -139,7 +132,7 @@ $(document).ready(function() {
         <tr>
             <td colspan="6">
             <a href="{% url 'meal-add' plan.id %}"
-               class="modal-dialog">
+               class="wger-modal-dialog">
                 <img src="{% static 'images/icons/edit.svg' %}"
                      width="16"
                      height="16"
@@ -155,28 +148,13 @@ $(document).ready(function() {
 {% if language.short_name != 'en' %}
     <p>
     {% trans "If you find the ingredient list too short, you might want to activate the preference to also show English ingredients." %}
-    <a href="{% url 'core:preferences' %}" id="ajax-english-ingredients">{% trans "That's done here" %}</a>:
-    {% if user.userprofile.show_english_ingredients %}
-    <img src="{% static 'images/icons/status-on.svg' %}"
-         width="20"
-         height="20"
-         alt=""
-         id="english-ingredients-status"
-         data-show-ingredients="true">
-    {% else %}
-    <img src="{% static 'images/icons/status-off.svg' %}"
-         width="20"
-         height="20"
-         alt=""
-         id="english-ingredients-status"
-         data-show-ingredients="false">
-    {% endif %}
+    <a href="{% url 'core:preferences' %}" id="ajax-english-ingredients">{% trans "That's done here" %}</a>.
     </p>
 {% endif %}
 
 
 <h3>{% trans "Nutritional data" %}</h3>
-<table>
+<table class="table table-condensed">
     <thead>
         <tr>
             <th>{% trans "Macronutrients" %}</th>
@@ -247,7 +225,7 @@ $(document).ready(function() {
 
 {% block sidebar %}
 <h3>{% trans "Energy" %}</h3>
-<table id="nutritional-data-energy">
+<table class="table table-condensed" id="nutritional-data-energy">
     <thead>
         <tr>
             <th>{% trans "Energy" %}</th>
@@ -293,7 +271,7 @@ $(document).ready(function() {
 
 <p>
 <a href="{% url 'nutrition-edit' plan.id %}"
-   class="modal-dialog">
+   class="wger-modal-dialog">
     <img src="{% static 'images/icons/edit.svg' %}"
          width="32"
          height="32"
@@ -315,7 +293,7 @@ $(document).ready(function() {
 
 <p>
 <a href="{% url 'nutrition-delete' plan.id %}"
-   class="modal-dialog">
+   class="wger-modal-dialog">
     <img src="{% static 'images/icons/trash.svg' %}"
          width="32"
          height="32"

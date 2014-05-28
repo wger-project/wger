@@ -28,18 +28,11 @@
     -->
 
     {% compress css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/yaml412/yaml/core/base.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/yaml412/yaml/forms/gray-theme.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/yaml412/yaml/screen/typography.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/yaml412/yaml/screen/screen-FULLPAGE-layout.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/yaml412/yaml/print/print.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/custom-yaml.css' %}">
-
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-common.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui-custom.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">
     {% endcompress %}
 
@@ -52,7 +45,7 @@
     <script src="{% static 'js/workout-manager.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/browserid.js' %}"       type="text/javascript"></script>
     <script src="{% static 'js/ubuntu-unity.js' %}"    type="text/javascript"></script>
-    <script src="{% static 'js/bootstrap.js' %}"       type="text/javascript"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"       type="text/javascript"></script>
     <script src="{% static 'js/exercises.js' %}"       type="text/javascript"></script>
     <script src="{% static 'js/weight.js' %}"          type="text/javascript"></script>
     <script src="{% static 'js/nutrition.js' %}"       type="text/javascript"></script>
@@ -87,104 +80,100 @@
 <body>
 {% browserid_info %}
 <header>
-    <div class="float-right" style="margin-right:1em;margin-top:0em;position:absolute;right:0px;">
-
-        {% if user.is_authenticated and not user.userprofile.is_temporary %}
-            <a href="{% url 'core:preferences' %}">
-            {% if user.email %}
-                {{user.email}}
-            {% else %}
-                {{user.username}}
-            {% endif %}
-            </a>
+    <div class="container">
+        <div class="row">
+        <div class="col-md-offset-9 col-md-3">
+            <a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a>
             |
 
-            <a href="{% url 'core:logout' %}" class="browserid-logout">
-            {% trans "Logout" %}
-            </a>
-        {% else %}
-            <a href="{% url 'core:login' %}">{% trans "Login" %}</a>
-            |
-            <a href="{% url 'core:registration' %}">{% trans "Register" %}</a>
-        {% endif %}
-        |
-        <a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a>
-        |
-
-        {# Render the links to the other languages #}
-        {% for language in languages %}
-        {% language_select language %}
-        {% endfor %}
+            {#                                         #}
+            {# Render the links to the other languages #}
+            {#                                         #}
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown">
+                    <img src="/static/images/icons/flag-{{language.short_name}}.svg"
+                         width="18"
+                         height="11"
+                         alt="{% trans language.full_name %}"
+                         title="{% trans language.full_name %}"
+                         style="border: 1px solid #151515;">
+                    {{language.full_name}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    {% for language in languages %}
+                    {% language_select language %}
+                    {% endfor %}
+                    <li class="divider"></li>
+                    <li>
+                        <a href="https://www.transifex.com/projects/p/wger-workout-manager/">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            {% trans "Translate" %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </div>
     </div>
 
-    <div class="ym-wrapper">
-        <div class="ym-wbox">
-            <span class="name">wger</span>
-            <span class="regular">| Workout Manager</span>
-        </div>
+    <div class="container">
+        <span class="name">wger</span>
+        <span class="regular">| Workout Manager</span>
     </div>
 </header>
 {% include 'navigation.html' %}
 <div id="main">
-    <div class="ym-wrapper">
-        <section >
-            <div class="ym-grid linearize-level-1">
-                <article class="ym-g80 ym-gl">
-                    <div class="ym-gbox-left box invisible" id="ajax-info">
-
+    <div class="container">
+        <div class="modal fade" id="wger-ajax-info" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="ajax-info-title">Modal title</h4>
                     </div>
-                </article>
+                    <div class="modal-body" id="ajax-info-content">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                    </div>
+                </div>
             </div>
-        </section>
-        <div class="ym-wbox" id="content-wrapper">
-            <section class="ym-grid linearize-level-1">
-                <div id="current-url" data-current-url="{{request_full_path}}"></div>
-                <div id="current-language" data-current-language="{{language.short_name}}"></div>
-
-                {% if not user.is_authenticated or user.userprofile.is_temporary %}
-                    <div class="abox ainfo" style="padding:0.6em; margin: 0em 0em 1em 0em;text-align:center;font-size:95%;">
-                    {% trans "You are using a guest account, data entered will be deleted after a week."%}
-                    {% if not has_demo_data %}
-                    <a href="{% url 'core:demo-entries' %}" rel="nofollow" class="btn btn-success btn-small">{% trans "Create some demo entries" %} »</a>
-                    {% endif %}
-                    </div>
-                {% endif %}
-                {% block template %}{% endblock %}
-            </section>
         </div>
+        <div id="current-url" data-current-url="{{request_full_path}}"></div>
+        <div id="current-language" data-current-language="{{language.short_name}}"></div>
+
+        {% if not user.is_authenticated or user.userprofile.is_temporary %}
+            <div class="abox ainfo" style="padding:0.6em; margin: 0em 0em 1em 0em;text-align:center;font-size:95%;">
+            {% trans "You are using a guest account, data entered will be deleted after a week."%}
+            {% if not has_demo_data %}
+            <a href="{% url 'core:demo-entries' %}" rel="nofollow" class="btn btn-success btn-xs">{% trans "Create some demo entries" %} »</a>
+            {% endif %}
+            </div>
+        {% endif %}
+        {% block template %}{% endblock %}
     </div>
 </div>
 
 
 
-<footer>
-    <div class="ym-wrapper">
-    <div class="ym-wbox">
-        <div class="ym-grid linearize-level-1">
-            <div class="ym-g10 ym-gl">
-                <a href="https://github.com/rolandgeider/wger" class="no-hover">
-                    <img src="{% static 'images/agpl-v3.svg' %}"
-                         width="88"
-                         height="31"
-                         alt="{% trans 'Released under the Affero GPL' %}"
-                         title="{% trans 'Released under the Affero GPL' %}">
-                </a>
-            </div>
-            <div class="ym-g80 ym-gl">
-                <div class="ym-gbox-left">
-                <a href="{% url 'core:about' %}">{% trans "About" %}</a>
-                | <a href="{% url 'software:contribute' %}">{% trans "Contribute!" %}</a>
-                | <a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a>
-                | <a href="?flavour=mobile" rel="nofollow">{% trans "Mobile version" %}</a>
-                </div>
-            </div>
-            <div class="ym-g10 ym-gr align-right">
-                <div class="ym-gbox-right">
-                    <em class="dimmed" style="font-size: 80%;">{{version}}</em>
-                </div>
-            </div>
+<footer id="main-footer">
+    <div class="container">
+        <a href="https://github.com/rolandgeider/wger" class="no-hover">
+            <img src="{% static 'images/agpl-v3.svg' %}"
+                 width="88"
+                 height="31"
+                 alt="{% trans 'Released under the Affero GPL' %}"
+                 title="{% trans 'Released under the Affero GPL' %}">
+        </a>
+
+        <a href="{% url 'core:about' %}">{% trans "About" %}</a>
+        | <a href="{% url 'software:contribute' %}">{% trans "Contribute!" %}</a>
+        | <a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a>
+        | <a href="?flavour=mobile" rel="nofollow">{% trans "Mobile version" %}</a>
+
+        <div class="navbar-right">
+            <em class="text-muted" style="font-size: 80%;">{{version}}</em>
         </div>
-    </div>
     </div>
 </footer>
 

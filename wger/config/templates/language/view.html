@@ -7,7 +7,7 @@
 
 
 {% block content %}
-<table>
+<table class="table">
 <thead>
     <tr>
         <th>{% trans "Language short name" %}</th>
@@ -29,7 +29,7 @@ exercises and ingredients will be shown for the current language (for example
 the exercises should be shown in languages A, B and C; the ingredients only
 in A).{% endblocktrans %}</p>
 
-<table>
+<table class="table">
 <thead>
     <tr>
         <th>{% trans "Language full name" %}</th>
@@ -40,12 +40,12 @@ in A).{% endblocktrans %}</p>
     {% for config in view_language.language_source.all %}
     {% ifchanged config.get_item_display %}
     <tr>
-        <td colspan="2" style="text-align:center; background-color:#eeeeec;">{{config.get_item_display}}</td>
+        <td colspan="2" class="active" style="text-align:center;">{{config.get_item_display}}</td>
     </tr>
     {% endifchanged %}
     <tr>
         <td>
-            <a href="{% url 'config:languageconfig-edit' config.id %}" class="modal-dialog">
+            <a href="{% url 'config:languageconfig-edit' config.id %}" class="wger-modal-dialog">
             {{config.language_target.full_name}}
             </a>
         </td>
@@ -73,7 +73,7 @@ in A).{% endblocktrans %}</p>
 
 <p>
     <a href="{% url 'config:language-edit' view_language.id %}"
-       class="modal-dialog">
+       class="wger-modal-dialog">
         <img src="{% static 'images/icons/edit.svg' %}"
              width="32"
              height="32"
@@ -85,7 +85,7 @@ in A).{% endblocktrans %}</p>
 
 <p>
     <a href="{% url 'config:language-delete' view_language.id %}"
-       class="modal-dialog">
+       class="wger-modal-dialog">
         <img src="{% static 'images/icons/trash.svg' %}"
              width="32"
              height="32"

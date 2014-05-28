@@ -7,20 +7,10 @@
 {% block content %}
 <form action="{{form_action}}"
       method="post"
-      class="ym-form">
-{% csrf_token %}
-{{ form.non_field_errors }}
-<input type="hidden" name="{{ stage_field }}" value="1" />
-<table>
-    {% yaml_form_field form.csv_input %}
-    {% yaml_form_field form.date_format "ym-fbox-select" %}
+      class="form-horizontal">
 
-    <tr>
-        <td colspan="2">
-            <input type="submit" value="{% trans 'Submit' %}" id="form-save">
-        </td>
-    </tr>
-</table>
+    {% trans 'Submit' as submit_text %}
+    {% render_form_fields form submit_text %}
 </form>
 {% endblock %}
 
