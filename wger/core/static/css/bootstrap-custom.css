@@ -48,6 +48,17 @@ body {
     font-weight: bold;
 }
 
+/* Don't underline links on hover */
+a:hover, a:focus {
+    background-color: #4d87c7;
+    color: white;
+    text-decoration: none;
+}
+
+.carousel a:hover, .carousel a:focus {
+    background-color: transparent;
+}
+
 /**************************************************************
  * Alerts
  **************************************************************/
