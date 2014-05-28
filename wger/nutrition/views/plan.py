@@ -253,7 +253,7 @@ def export_pdf(request, id):
     if plan.description:
         p = Paragraph('<para align="center"><strong>%(description)s</strong></para>' %
                       {'description': plan.description},
-                      styleSheet["Normal"])
+                      styleSheet["Bold"])
         elements.append(p)
 
         # Filler
