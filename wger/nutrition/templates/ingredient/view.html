@@ -29,26 +29,22 @@ the search.{% endblocktrans %}
 {% if perms.exercises %}
 <div class="row">
     <div class="col-md-6">
-        <div class="alert alert-success">
-            <a href="{% url 'ingredient-accept' ingredient.id %}">
-                <img src="{% static 'images/icons/status-on.svg' %}"
-                    width="32"
-                    height="32"
-                    alt="{% trans 'Accept' %}">
-                {% trans "Accept" %}
-            </a>
-        </div>
+        <a href="{% url 'ingredient-accept' ingredient.id %}" class="btn btn-default btn-block">
+            <img src="{% static 'images/icons/status-on.svg' %}"
+                width="32"
+                height="32"
+                alt="{% trans 'Accept' %}">
+            {% trans "Accept" %}
+        </a>
     </div>
     <div class="col-md-6">
-        <div class="alert alert-error">
-            <a href="{% url 'ingredient-decline' ingredient.id %}">
-                <img src="{% static 'images/icons/status-off.svg' %}"
-                    width="32"
-                    height="32"
-                    alt="{% trans 'Decline' %}">
-                {% trans "Decline" %}
-            </a>
-        </div>
+        <a href="{% url 'ingredient-decline' ingredient.id %}" class="btn btn-default btn-block">
+            <img src="{% static 'images/icons/status-off.svg' %}"
+                width="32"
+                height="32"
+                alt="{% trans 'Decline' %}">
+            {% trans "Decline" %}
+        </a>
     </div>
 </div>
 {% endif %} {# end check permissions #}
