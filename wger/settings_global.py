@@ -223,6 +223,9 @@ INSTALLED_APPS = (
 
     # CSS/JS compressor
     'compressor',
+
+    # REST framework
+    'rest_framework',
 )
 
 
@@ -330,3 +333,10 @@ THUMBNAIL_ALIASES = {
 # The default is not DEBUG, override if needed
 # COMPRESS_ENABLED = True
 COMPRESS_ROOT = STATIC_ROOT
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission',),
+    'PAGINATE_BY': 20,
+    'PAGINATE_BY_PARAM': 'limit',  # Allow client to override, using `?limit=xxx`.
+}

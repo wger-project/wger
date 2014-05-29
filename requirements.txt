@@ -12,3 +12,4 @@ pillow
 easy-thumbnails
 django_compressor
 icalendar
+djangorestframework
