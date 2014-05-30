@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block content %}
-<form action="{% url 'core:login' %}"
+<form action="{% url 'core:login' %}{% if next %}?next={{next}}{% endif %}"
       method="post"
       class="form-horizontal">
     {% trans 'Login' as submit_text %}
