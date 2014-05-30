@@ -43,56 +43,54 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
         </div>
     </div>
 </div>
-
+{% endif %}
 
 <div class="row">
     <div class="col-md-6">
         <h3>{% trans "Workout"%}</h3>
 
-
-
-        <p>
-        <a href="{% url 'workout-view' current_workout.id %}">
-            {% if current_workout.comment %}
-                {{ current_workout.comment }}
-            {% else %}
-                {% trans "Workout" %}
-            {% endif %}
-        </a>
-        </p>
-         – {{ current_workout.creation_date }}
-
-        <ul>
-            {% for day, exercise, is_workout in weekdays %}
-            <li>
-                {% if not is_workout %}<span class="text-muted">{% endif%}
-                {{ day }}:
-
-                {{ exercise }}
-                {% if not is_workout %}</span>{% endif%}
-
-            </li>
-            {% endfor %}
-        </ul>
-
-        {% if current_workout.day_set.all %}
-        <p><a href="#" id="logging-popup-link" data-toggle="modal" data-target="#calendar-day-select-popup">{% trans "Add new log" %}</a></p>
-        {% endif %}
-
-        {% if schedule %}
-        <p>
-            → {% trans "This workout is part of a schedule:" %}
-            <a href="{{schedule.get_absolute_url}}">{{schedule.name}}</a>
-        </p>
-        {% endif %}
-
-        {% else %}
+        {% if current_workout %}
             <p>
-                <a href="{% url 'workout-add' %}" class="btn btn-block btn-default">
-                {% trans "No workouts found." %} {% trans "Add one now." %}
-                </a>
+            <a href="{% url 'workout-view' current_workout.id %}">
+                {% if current_workout.comment %}
+                    {{ current_workout.comment }}
+                {% else %}
+                    {% trans "Workout" %}
+                {% endif %}
+            </a>
             </p>
+             – {{ current_workout.creation_date }}
+
+            <ul>
+                {% for day, exercise, is_workout in weekdays %}
+                <li>
+                    {% if not is_workout %}<span class="text-muted">{% endif%}
+                    {{ day }}:
+
+                    {{ exercise }}
+                    {% if not is_workout %}</span>{% endif%}
+
+                </li>
+                {% endfor %}
+            </ul>
+
+            {% if current_workout.day_set.all %}
+                <p><a href="#" id="logging-popup-link" data-toggle="modal" data-target="#calendar-day-select-popup">{% trans "Add new log" %}</a></p>
+            {% endif %}
+
+            {% if schedule %}
+                <p>
+                    → {% trans "This workout is part of a schedule:" %}
+                    <a href="{{schedule.get_absolute_url}}">{{schedule.name}}</a>
+                </p>
+            {% endif %}
+
+        {% else %} {# no workout #}
+            <a href="{% url 'workout-add' %}" class="btn btn-block btn-default">
+            {% trans "No workouts found." %} {% trans "Add one now." %}
+            </a>
         {% endif %}
+
     </div>
     <div class="col-md-6">
         <h3>{% trans "Nutrition plan"%}</h3>
