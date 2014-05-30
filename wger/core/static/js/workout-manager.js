@@ -160,6 +160,12 @@ function form_modal_dialog() {
 
         $("#ajax-info-content").load(targetUrl + " .form-horizontal",
                                      function(responseText, textStatus, XMLHttpRequest){
+
+                                        if (textStatus == "error") {
+                                            $("#ajax-info-title").html("Sorry but an error occured")
+                                            $("#ajax-info-content").html(XMLHttpRequest.status + " " + XMLHttpRequest.statusText);
+                                        }
+
                                         // Call other custom initialisation functions
                                         // (e.g. if the form as an autocompleter, it has to be initialised again)
                                         if (typeof custom_modal_init !== "undefined") {
