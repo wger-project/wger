@@ -72,12 +72,6 @@ class WgerPermissionMixin(object):
 class WgerFormMixin(ModelFormMixin, WgerPermissionMixin):
     template_name = 'form.html'
 
-    form_fields = []
-    '''
-    The form fields to be displayed. If left unset, the ones from the form
-    will be used.
-    '''
-
     custom_js = ''
     '''
     Custom javascript to be executed.
@@ -128,15 +122,7 @@ class WgerFormMixin(ModelFormMixin, WgerPermissionMixin):
         context.update(csrf(self.request))
 
         context['sidebar'] = self.sidebar
-
-        # Custom order for form fields. The list comprehension is to avoid
-        # weird problems with django's template when accessing the fields with "form.fieldname"
-        if self.form_fields:
-            context['form_fields'] = [kwargs['form'][i] for i in self.form_fields]
-
-        # Use the the order as defined in the model
-        else:
-            context['form_fields'] = kwargs['form']
+        context['form_fields'] = kwargs['form']
 
         # Custom JS code on form (autocompleter, editor, etc.)
         context['custom_js'] = self.custom_js

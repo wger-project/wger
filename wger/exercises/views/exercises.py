@@ -148,16 +148,6 @@ class ExercisesEditAddView(WgerFormMixin):
     '''
     model = Exercise
     sidebar = 'exercise/form.html'
-
-    form_fields = ['name',
-                   'category',
-                   'description',
-                   'muscles',
-                   'muscles_secondary',
-                   'equipment',
-                   'license',
-                   'license_author']
-
     title = ugettext_lazy('Add exercise')
     custom_js = 'init_tinymce();'
     clean_html = ('description', )
@@ -181,6 +171,14 @@ class ExercisesEditAddView(WgerFormMixin):
             class Meta:
                 model = Exercise
                 widgets = {'equipment': TranslatedSelectMultiple()}
+                fields = ['name',
+                          'category',
+                          'description',
+                          'muscles',
+                          'muscles_secondary',
+                          'equipment',
+                          'license',
+                          'license_author']
 
             class Media:
                 js = ('js/tinymce/tinymce.min.js',)
