@@ -31,7 +31,7 @@ from django.contrib.auth.models import User as Django_User
 from django.contrib.auth.views import login as django_loginview
 from django.contrib import messages
 
-from tastypie.models import ApiKey
+from rest_framework.authtoken.models import Token
 from wger.core.models import Language
 
 from wger.utils.constants import USER_TAB
@@ -203,20 +203,18 @@ def api_key(request):
     context.update(csrf(request))
 
     try:
-        key = ApiKey.objects.get(user=request.user)
-    except ApiKey.DoesNotExist:
-        key = False
+        token = Token.objects.get(user=request.user)
+    except Token.DoesNotExist:
+        token = False
     if request.GET.get('new_key'):
-        if key:
-            key.delete()
+        if token:
+            token.delete()
 
-        key = ApiKey()
-        key.user = request.user
-        key.save()
+        token = Token.objects.create(user=request.user)
 
         # Redirect to get rid of the GET parameter
         return HttpResponseRedirect(reverse('core:api-key'))
 
-    context['key'] = key
+    context['token'] = token
 
     return render(request, 'user/api_key.html', context)

@@ -1,7 +1,7 @@
 [
     {
         "pk": 1, 
-        "model": "tastypie.apikey", 
+        "model": "authtoken.token",
         "fields": {
             "user": 1, 
             "key": "apikey-admin", 
@@ -10,7 +10,7 @@
     }, 
     {
         "pk": 2, 
-        "model": "tastypie.apikey", 
+        "model": "authtoken.token",
         "fields": {
             "user": 2, 
             "key": "apikey-test", 
@@ -19,7 +19,7 @@
     }, 
     {
         "pk": 3, 
-        "model": "tastypie.apikey", 
+        "model": "authtoken.token",
         "fields": {
             "user": 3, 
             "key": "apikey-demo", 
