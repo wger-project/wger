@@ -9,12 +9,6 @@
 
 
 /*
- * There are no datepickers in the mobile version
- */
-function init_weight_datepicker() {
-}
-
-/*
  * Open a modal dialog for form editing
  */
 function form_modal_dialog() {

@@ -63,9 +63,6 @@ class WorkoutLogUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     form_class = WorkoutLogForm
     success_url = reverse_lazy('workout-calendar')
     login_required = True
-    custom_js = '''$(document).ready(function () {
-        init_weight_log_datepicker();
-    });'''
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutLogUpdateView, self).get_context_data(**kwargs)

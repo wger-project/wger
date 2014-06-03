@@ -66,9 +66,6 @@ class WeightAddView(WgerFormMixin, CreateView):
     '''
     model = WeightEntry
     form_class = WeightForm
-    custom_js = '''$(document).ready(function () {
-        init_weight_datepicker();
-    });'''
     title = ugettext_lazy('Add weight entry')
     form_action = reverse_lazy('weight-add')
     success_url = reverse_lazy('weight-overview')
