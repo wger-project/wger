@@ -27,6 +27,7 @@ from django.http import HttpResponseForbidden
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
+from django.utils import formats
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 from django.forms.models import modelformset_factory
@@ -63,9 +64,6 @@ class WorkoutLogUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     form_class = WorkoutLogForm
     success_url = reverse_lazy('workout-calendar')
     login_required = True
-    custom_js = '''$(document).ready(function () {
-        init_weight_log_datepicker();
-    });'''
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutLogUpdateView, self).get_context_data(**kwargs)
@@ -222,7 +220,9 @@ def add(request, pk):
         # (we only add new logs here and that seems to be the fastest way)
         formset = WorkoutLogFormSet(queryset=WorkoutLog.objects.none())
 
-        dateform = HelperDateForm(initial={'date': datetime.date.today()})
+        dateform = HelperDateForm(initial={'date': formats.date_format(datetime.date.today(),
+                                                                       "SHORT_DATE_FORMAT")})
+
         # Depending on whether there is already a workout session for today, update
         # the current one or create a new one (this will be the most usual case)
         if WorkoutSession.objects.filter(user=request.user, date=datetime.date.today()).exists():

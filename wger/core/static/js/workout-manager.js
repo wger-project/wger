@@ -161,6 +161,11 @@ function form_modal_dialog() {
         $("#ajax-info-content").load(targetUrl + " .form-horizontal",
                                      function(responseText, textStatus, XMLHttpRequest){
 
+                                        // Initialise datepickers for any date input
+                                        $('#ajax-info-content input[type="date"]').datepicker({autoclose: true,
+                                                                                               language: $('html').attr('lang'),
+                                                                                           });
+
                                         if (textStatus == "error") {
                                             $("#ajax-info-title").html("Sorry but an error occured")
                                             $("#ajax-info-content").html(XMLHttpRequest.status + " " + XMLHttpRequest.statusText);
@@ -414,19 +419,6 @@ function init_edit_set() {
         }
     });
 }
-
-function init_schedule_datepicker() {
-    $("#id_start_date").datepicker();
-}
-
-function init_weight_datepicker() {
-    $("#id_creation_date").datepicker();
-}
-
-function init_weight_log_datepicker() {
-    $("#id_date").datepicker();
-}
-
 
 
 function toggle_weight_log_table() {

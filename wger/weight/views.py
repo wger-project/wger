@@ -32,6 +32,7 @@ from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.formtools.preview import FormPreview
+from django.utils import formats
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 from django.db.models import Min
@@ -66,9 +67,6 @@ class WeightAddView(WgerFormMixin, CreateView):
     '''
     model = WeightEntry
     form_class = WeightForm
-    custom_js = '''$(document).ready(function () {
-        init_weight_datepicker();
-    });'''
     title = ugettext_lazy('Add weight entry')
     form_action = reverse_lazy('weight-add')
     success_url = reverse_lazy('weight-overview')
@@ -81,7 +79,7 @@ class WeightAddView(WgerFormMixin, CreateView):
         to pass the user here.
         '''
         return {'user': self.request.user,
-                'creation_date': datetime.date.today()}
+                'creation_date': formats.date_format(datetime.date.today(), "SHORT_DATE_FORMAT")}
 
     def form_valid(self, form):
         '''
@@ -97,9 +95,6 @@ class WeightUpdateView(WgerFormMixin, UpdateView):
     '''
     model = WeightEntry
     form_class = WeightForm
-    custom_js = '''$(document).ready(function () {
-        init_weight_datepicker();
-    });'''
     success_url = reverse_lazy('weight-overview')
 
     def get_context_data(self, **kwargs):
