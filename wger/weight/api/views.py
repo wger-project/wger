@@ -16,45 +16,26 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from rest_framework import viewsets
+from wger.weight.api.serializers import WeightEntrySerializer
 
-from wger.core.models import UserProfile, Language, DaysOfWeek, License
+from wger.weight.models import WeightEntry
 
 
-viewsets.ReadOnlyModelViewSet
-
-class UserProfileViewSet(viewsets.ModelViewSet):
+class WeightEntryViewSet(viewsets.ModelViewSet):
     '''
-    API endpoint for workout objects
+    API endpoint for nutrition plan objects
     '''
-    model = UserProfile
+    model = WeightEntry
+    serializer_class = WeightEntrySerializer
 
     def get_queryset(self):
         '''
         Only allow access to appropriate objects
         '''
-        return UserProfile.objects.filter(user=self.request.user)
+        return WeightEntry.objects.filter(user=self.request.user)
 
-    def create(self, request):
-        pass
-
-
-class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
-    '''
-    API endpoint for workout objects
-    '''
-    model = Language
-
-
-class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
-    '''
-    API endpoint for workout objects
-    '''
-    model = DaysOfWeek
-
-
-class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
-    '''
-    API endpoint for workout objects
-    '''
-    model = License
-
+    def pre_save(self, obj):
+        '''
+        Set the owner
+        '''
+        obj.user = self.request.user

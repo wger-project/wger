@@ -21,7 +21,6 @@ from rest_framework.response import Response
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
 
-from wger.exercises.api.serializers import ExerciseImageSerializer
 from wger.exercises.models import Exercise
 from wger.exercises.models import Equipment
 from wger.exercises.models import ExerciseCategory
@@ -36,37 +35,19 @@ class ExerciseViewSet(viewsets.ModelViewSet):
     '''
     model = Exercise
 
-    def get_queryset(self):
-        '''
-        Only allow access to appropriate objects
-        '''
-        return Exercise.objects.all()
 
-
-class EquipmentViewSet(viewsets.ModelViewSet):
+class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     API endpoint for workout objects
     '''
     model = Equipment
 
-    def get_queryset(self):
-        '''
-        Only allow access to appropriate objects
-        '''
-        return Equipment.objects.all()
 
-
-class ExerciseCategoryViewSet(viewsets.ModelViewSet):
+class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     API endpoint for workout objects
     '''
     model = ExerciseCategory
-
-    def get_queryset(self):
-        '''
-        Only allow access to appropriate objects
-        '''
-        return ExerciseCategory.objects.all()
 
 
 class ExerciseImageViewSet(viewsets.ModelViewSet):
@@ -74,12 +55,6 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
     API endpoint for exercise image objects
     '''
     model = ExerciseImage
-
-    def get_queryset(self):
-        '''
-        Only allow access to appropriate objects
-        '''
-        return ExerciseImage.objects.all()
 
     @link()
     def thumbnails(self, request, pk):
@@ -95,27 +70,15 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
         return Response(thumbnails)
 
 
-class ExerciseCommentViewSet(viewsets.ModelViewSet):
+class ExerciseCommentViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     API endpoint for workout objects
     '''
     model = ExerciseComment
 
-    def get_queryset(self):
-        '''
-        Only allow access to appropriate objects
-        '''
-        return ExerciseComment.objects.all()
 
-
-class MuscleViewSet(viewsets.ModelViewSet):
+class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     API endpoint for workout objects
     '''
     model = Muscle
-
-    def get_queryset(self):
-        '''
-        Only allow access to appropriate objects
-        '''
-        return Muscle.objects.all()

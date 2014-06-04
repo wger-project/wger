@@ -37,6 +37,8 @@ from wger.weight.api import resources as weight_api
 from wger.manager.api import views as manager_api_views
 from wger.core.api import views as core_api_views
 from wger.exercises.api import views as exercises_api_views
+from wger.nutrition.api import views as nutrition_api_views
+from wger.weight.api import views as weight_api_views
 
 #
 # REST API
@@ -103,8 +105,15 @@ router.register(r'exercisecomment', exercises_api_views.ExerciseCommentViewSet)
 router.register(r'muscle', exercises_api_views.MuscleViewSet)
 
 # Nutrition app
+router.register(r'ingredient', nutrition_api_views.IngredientViewSet)
+router.register(r'weightunit', nutrition_api_views.WeightUnitViewSet)
+router.register(r'ingredienttoweightunit', nutrition_api_views.IngredientWeightUnitViewSet)
+router.register(r'nutrition', nutrition_api_views.NutritionPlanViewSet)
+router.register(r'meal', nutrition_api_views.MealViewSet)
+router.register(r'mealitem', nutrition_api_views.MealItemViewSet)
 
 # Weight app
+router.register(r'weight', weight_api_views.WeightEntryViewSet)
 
 
 from django.contrib import admin
