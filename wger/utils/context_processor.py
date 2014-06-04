@@ -45,7 +45,8 @@ def processor(request):
         'i18n_path': i18n_path,
 
         # Translation links
-        'datepicker_i18n_path': 'js/jquery.ui.datepicker-{0}.js'.format(language.short_name),
+        'datepicker_i18n_path': 'js/bootstrap-datepicker/locales/bootstrap-datepicker.{0}.js'.
+        format(language.short_name),
 
         # Flag for guest users
         'has_demo_data': request.session.get('has_demo_data', False),
