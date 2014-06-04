@@ -20,8 +20,6 @@ from rest_framework import viewsets
 from wger.core.models import UserProfile, Language, DaysOfWeek, License
 
 
-viewsets.ReadOnlyModelViewSet
-
 class UserProfileViewSet(viewsets.ModelViewSet):
     '''
     API endpoint for workout objects
@@ -57,4 +55,3 @@ class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
     API endpoint for workout objects
     '''
     model = License
-
