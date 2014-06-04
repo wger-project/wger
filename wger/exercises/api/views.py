@@ -31,21 +31,28 @@ from wger.exercises.models import Muscle
 
 class ExerciseViewSet(viewsets.ModelViewSet):
     '''
-    API endpoint for workout objects
+    API endpoint for exercise objects
     '''
     model = Exercise
+
+    def pre_save(self, obj):
+        '''
+        Set the license data
+        '''
+        if not obj.license_author:
+            obj.license_author = self.request.user.username
 
 
 class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
     '''
-    API endpoint for workout objects
+    API endpoint for equipment objects
     '''
     model = Equipment
 
 
 class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     '''
-    API endpoint for workout objects
+    API endpoint for exercise categories objects
     '''
     model = ExerciseCategory
 
@@ -69,16 +76,23 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
                                  'settings': aliases.get(alias)}
         return Response(thumbnails)
 
+    def pre_save(self, obj):
+        '''
+        Set the license data
+        '''
+        if not obj.license_author:
+            obj.license_author = self.request.user.username
+
 
 class ExerciseCommentViewSet(viewsets.ReadOnlyModelViewSet):
     '''
-    API endpoint for workout objects
+    API endpoint for exercise comment objects
     '''
     model = ExerciseComment
 
 
 class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
     '''
-    API endpoint for workout objects
+    API endpoint for muscle objects
     '''
     model = Muscle
