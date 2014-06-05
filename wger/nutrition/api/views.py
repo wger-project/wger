@@ -18,10 +18,13 @@
 from rest_framework import viewsets
 from wger.nutrition.api.serializers import NutritionPlanSerializer
 
-from wger.nutrition.models import Ingredient, Meal, MealItem
+from wger.nutrition.models import Ingredient
+from wger.nutrition.models import Meal
+from wger.nutrition.models import MealItem
 from wger.nutrition.models import WeightUnit
 from wger.nutrition.models import IngredientWeightUnit
 from wger.nutrition.models import NutritionPlan
+from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
 class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
@@ -65,7 +68,7 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         obj.user = self.request.user
 
 
-class MealViewSet(viewsets.ModelViewSet):
+class MealViewSet(WgerOwnerObjectModelViewSet):
     '''
     API endpoint for meal objects
     '''
@@ -77,8 +80,20 @@ class MealViewSet(viewsets.ModelViewSet):
         '''
         return NutritionPlan.objects.filter(plan__user=self.request.user)
 
+    def pre_save(self, obj):
+        '''
+        Set the order
+        '''
+        obj.order = 1
 
-class MealItemViewSet(viewsets.ModelViewSet):
+    def get_owner_objects(self):
+        '''
+        Return objects to check for ownership permission
+        '''
+        return [NutritionPlan.objects.get(pk=self.request.DATA['plan'])]
+
+
+class MealItemViewSet(WgerOwnerObjectModelViewSet):
     '''
     API endpoint for meal item objects
     '''
@@ -89,3 +104,15 @@ class MealItemViewSet(viewsets.ModelViewSet):
         Only allow access to appropriate objects
         '''
         return MealItem.objects.filter(meal__plan__user=self.request.user)
+
+    def pre_save(self, obj):
+        '''
+        Set the order
+        '''
+        obj.order = 1
+
+    def get_owner_objects(self):
+        '''
+        Return objects to check for ownership permission
+        '''
+        return [Meal.objects.get(pk=self.request.DATA['meal'])]

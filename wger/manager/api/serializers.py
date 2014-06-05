@@ -16,10 +16,10 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from rest_framework import serializers
-from rest_framework.decorators import link
-from rest_framework.response import Response
 
 from wger.manager.models import Workout
+from wger.manager.models import Schedule
+from wger.manager.models import WorkoutLog
 from wger.manager.models import WorkoutSession
 
 
@@ -44,4 +44,22 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = WorkoutSession
+        exclude = ('user',)
+
+
+class WorkoutLogSerializer(serializers.ModelSerializer):
+    '''
+    Workout session serializer
+    '''
+    class Meta:
+        model = WorkoutLog
+        exclude = ('user',)
+
+
+class ScheduleSerializer(serializers.ModelSerializer):
+    '''
+    Schedule serializer
+    '''
+    class Meta:
+        model = Schedule
         exclude = ('user',)

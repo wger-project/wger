@@ -87,6 +87,7 @@ router.register(r'workoutsession', manager_api_views.WorkoutSessionViewSet)
 router.register(r'schedulestep', manager_api_views.ScheduleStepViewSet)
 router.register(r'schedule', manager_api_views.ScheduleViewSet)
 router.register(r'day', manager_api_views.DayViewSet)
+router.register(r'set', manager_api_views.SetViewSet)
 router.register(r'setting', manager_api_views.SettingViewSet)
 router.register(r'workoutlog', manager_api_views.WorkoutLogViewSet)
 
