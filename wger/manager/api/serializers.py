@@ -28,7 +28,7 @@ class WorkoutSerializer(serializers.ModelSerializer):
     Workout serializer
     '''
 
-    #canonical_representation = serializers.SerializerMethodField('get_canonical_representation')
+    # canonical_representation = serializers.SerializerMethodField('get_canonical_representation')
 
     class Meta:
         model = Workout
