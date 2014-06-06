@@ -27,6 +27,18 @@ class WgerPermission(permissions.BasePermission):
     only safe methods (GET, HEAD or OPTIONS)
     '''
 
+    def has_permission(self, request, view):
+        '''
+        Access to public resources is allowed for all, for others, the user
+        has to be authenticated
+
+        The is_public flag is not present in all views, e.g. the special APIRoot
+        view. If it is not present, treat is as a public endpoint
+        '''
+        if hasattr(view, 'is_private') and view.is_private:
+            return request.user and request.user.is_authenticated()
+        return True
+
     def has_object_permission(self, request, view, obj):
         '''
         Perform the check

@@ -16,6 +16,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from rest_framework import viewsets
+from rest_framework.permissions import AllowAny
 
 from wger.core.models import UserProfile, Language, DaysOfWeek, License
 
@@ -25,6 +26,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     API endpoint for workout objects
     '''
     model = UserProfile
+    is_private = True
 
     def get_queryset(self):
         '''

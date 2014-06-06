@@ -47,6 +47,7 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     '''
     model = Workout
     serializer_class = WorkoutSerializer
+    is_private = True
 
     def get_queryset(self):
         '''
@@ -78,6 +79,7 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
     '''
     model = WorkoutSession
     serializer_class = WorkoutSessionSerializer
+    is_private = True
 
     def get_queryset(self):
         '''
@@ -107,6 +109,7 @@ class ScheduleStepViewSet(WgerOwnerObjectModelViewSet):
           object of type 'int' has no len()
     '''
     model = ScheduleStep
+    is_private = True
 
     def get_queryset(self):
         '''
@@ -134,6 +137,7 @@ class ScheduleViewSet(viewsets.ModelViewSet):
     '''
     model = Schedule
     serializer_class = ScheduleSerializer
+    is_private = True
 
     def get_queryset(self):
         '''
@@ -154,6 +158,7 @@ class DayViewSet(WgerOwnerObjectModelViewSet):
     '''
     model = Day
     serializer_class = DaySerializer
+    is_private = True
 
     def get_queryset(self):
         '''
@@ -174,6 +179,7 @@ class SetViewSet(WgerOwnerObjectModelViewSet):
     '''
     model = Set
     serializer_class = SetSerializer
+    is_private = True
 
     def get_queryset(self):
         '''
@@ -194,6 +200,7 @@ class SettingViewSet(WgerOwnerObjectModelViewSet):
     '''
     model = Setting
     serializer_class = SettingSerializer
+    is_private = True
 
     def get_queryset(self):
         '''
@@ -220,6 +227,7 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
     '''
     model = WorkoutLog
     serializer_class = WorkoutLogSerializer
+    is_private = True
 
     def get_queryset(self):
         '''

@@ -27,6 +27,7 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
     '''
     model = WeightEntry
     serializer_class = WeightEntrySerializer
+    is_private = True
 
     def get_queryset(self):
         '''

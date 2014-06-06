@@ -54,6 +54,7 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
     '''
     model = NutritionPlan
     serializer_class = NutritionPlanSerializer
+    is_private = True
 
     def get_queryset(self):
         '''
@@ -73,6 +74,7 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
     API endpoint for meal objects
     '''
     model = Meal
+    is_private = True
 
     def get_queryset(self):
         '''
@@ -98,6 +100,7 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
     API endpoint for meal item objects
     '''
     model = MealItem
+    is_private = True
 
     def get_queryset(self):
         '''
