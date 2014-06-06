@@ -14,14 +14,22 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
+
 import datetime
 
 from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework.decorators import link
 
 from wger.manager.api.serializers import WorkoutSerializer
+from wger.manager.api.serializers import WorkoutCanonicalFormSerializer
+from wger.manager.api.serializers import DaySerializer
+from wger.manager.api.serializers import SettingSerializer
+from wger.manager.api.serializers import SetSerializer
 from wger.manager.api.serializers import ScheduleSerializer
 from wger.manager.api.serializers import WorkoutLogSerializer
 from wger.manager.api.serializers import WorkoutSessionSerializer
+
 from wger.manager.models import Workout
 from wger.manager.models import Set
 from wger.manager.models import ScheduleStep
@@ -51,6 +59,17 @@ class WorkoutViewSet(viewsets.ModelViewSet):
         Set the owner
         '''
         obj.user = self.request.user
+
+    @link()
+    def canonical_representation(self, request, pk):
+        '''
+        Output the canonical representation of a workout
+
+        This is basically the same form as used in the application
+        '''
+
+        out = WorkoutCanonicalFormSerializer(self.get_object().canonical_representation).data
+        return Response(out)
 
 
 class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
@@ -134,6 +153,7 @@ class DayViewSet(WgerOwnerObjectModelViewSet):
     API endpoint for training day objects
     '''
     model = Day
+    serializer_class = DaySerializer
 
     def get_queryset(self):
         '''
@@ -153,6 +173,7 @@ class SetViewSet(WgerOwnerObjectModelViewSet):
     API endpoint for workout set objects
     '''
     model = Set
+    serializer_class = SetSerializer
 
     def get_queryset(self):
         '''
@@ -172,6 +193,7 @@ class SettingViewSet(WgerOwnerObjectModelViewSet):
     API endpoint for repetition setting objects
     '''
     model = Setting
+    serializer_class = SettingSerializer
 
     def get_queryset(self):
         '''
