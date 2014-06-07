@@ -16,6 +16,9 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from rest_framework import viewsets
+from rest_framework.decorators import link
+from rest_framework.response import Response
+
 from wger.nutrition.api.serializers import NutritionPlanSerializer
 
 from wger.nutrition.models import Ingredient
@@ -24,6 +27,7 @@ from wger.nutrition.models import MealItem
 from wger.nutrition.models import WeightUnit
 from wger.nutrition.models import IngredientWeightUnit
 from wger.nutrition.models import NutritionPlan
+
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
@@ -68,6 +72,13 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         '''
         obj.user = self.request.user
 
+    @link()
+    def nutritional_values(self, request, pk):
+        '''
+        Return an overview of the nutritional plan's values
+        '''
+        return Response(NutritionPlan.objects.get(pk=pk).get_nutritional_values())
+
 
 class MealViewSet(WgerOwnerObjectModelViewSet):
     '''
@@ -80,7 +91,7 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
         '''
         Only allow access to appropriate objects
         '''
-        return NutritionPlan.objects.filter(plan__user=self.request.user)
+        return Meal.objects.filter(plan__user=self.request.user)
 
     def pre_save(self, obj):
         '''
@@ -93,6 +104,13 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
         Return objects to check for ownership permission
         '''
         return [NutritionPlan.objects.get(pk=self.request.DATA['plan'])]
+
+    @link()
+    def nutritional_values(self, request, pk):
+        '''
+        Return an overview of the nutritional plan's values
+        '''
+        return Response(Meal.objects.get(pk=pk).get_nutritional_values())
 
 
 class MealItemViewSet(WgerOwnerObjectModelViewSet):
@@ -119,3 +137,10 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
         Return objects to check for ownership permission
         '''
         return [Meal.objects.get(pk=self.request.DATA['meal'])]
+
+    @link()
+    def nutritional_values(self, request, pk):
+        '''
+        Return an overview of the nutritional plan's values
+        '''
+        return Response(MealItem.objects.get(pk=pk).get_nutritional_values())
