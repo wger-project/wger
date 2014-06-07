@@ -74,6 +74,7 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
             t = get_thumbnailer(image.image)
             thumbnails[alias] = {'url': t.get_thumbnail(aliases.get(alias)).url,
                                  'settings': aliases.get(alias)}
+        thumbnails['original'] = image.image.url
         return Response(thumbnails)
 
     def pre_save(self, obj):
