@@ -185,7 +185,7 @@ class SetViewSet(WgerOwnerObjectModelViewSet):
         '''
         Only allow access to appropriate objects
         '''
-        return Setting.objects.filter(exerciseday__training__user=self.request.user)
+        return Set.objects.filter(exerciseday__training__user=self.request.user)
 
     def get_owner_objects(self):
         '''
