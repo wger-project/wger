@@ -110,6 +110,7 @@ class ScheduleStepViewSet(WgerOwnerObjectModelViewSet):
     '''
     model = ScheduleStep
     is_private = True
+    ordering_fields = '__all__'
 
     def get_queryset(self):
         '''

@@ -27,6 +27,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     '''
     model = UserProfile
     is_private = True
+    ordering_fields = '__all__'
 
     def get_queryset(self):
         '''
@@ -43,6 +44,7 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
     API endpoint for workout objects
     '''
     model = Language
+    ordering_fields = '__all__'
 
 
 class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
@@ -50,6 +52,7 @@ class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
     API endpoint for workout objects
     '''
     model = DaysOfWeek
+    ordering_fields = '__all__'
 
 
 class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
@@ -57,3 +60,4 @@ class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
     API endpoint for workout objects
     '''
     model = License
+    ordering_fields = '__all__'

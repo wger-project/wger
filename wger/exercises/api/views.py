@@ -34,6 +34,7 @@ class ExerciseViewSet(viewsets.ModelViewSet):
     API endpoint for exercise objects
     '''
     model = Exercise
+    ordering_fields = '__all__'
 
     def pre_save(self, obj):
         '''
@@ -48,6 +49,7 @@ class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
     API endpoint for equipment objects
     '''
     model = Equipment
+    ordering_fields = '__all__'
 
 
 class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -55,6 +57,7 @@ class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     API endpoint for exercise categories objects
     '''
     model = ExerciseCategory
+    ordering_fields = '__all__'
 
 
 class ExerciseImageViewSet(viewsets.ModelViewSet):
@@ -62,6 +65,7 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
     API endpoint for exercise image objects
     '''
     model = ExerciseImage
+    ordering_fields = '__all__'
 
     @link()
     def thumbnails(self, request, pk):
@@ -90,6 +94,7 @@ class ExerciseCommentViewSet(viewsets.ReadOnlyModelViewSet):
     API endpoint for exercise comment objects
     '''
     model = ExerciseComment
+    ordering_fields = '__all__'
 
 
 class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
@@ -97,3 +102,4 @@ class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
     API endpoint for muscle objects
     '''
     model = Muscle
+    ordering_fields = '__all__'

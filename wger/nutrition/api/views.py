@@ -36,6 +36,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     API endpoint for ingredient objects
     '''
     model = Ingredient
+    ordering_fields = '__all__'
 
 
 class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
@@ -43,6 +44,7 @@ class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     API endpoint for weight unit objects
     '''
     model = WeightUnit
+    ordering_fields = '__all__'
 
 
 class IngredientWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
@@ -50,6 +52,7 @@ class IngredientWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     API endpoint for many-to-many table ingredient-weight unit objects
     '''
     model = IngredientWeightUnit
+    ordering_fields = '__all__'
 
 
 class NutritionPlanViewSet(viewsets.ModelViewSet):
@@ -59,6 +62,7 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
     model = NutritionPlan
     serializer_class = NutritionPlanSerializer
     is_private = True
+    ordering_fields = '__all__'
 
     def get_queryset(self):
         '''
@@ -86,6 +90,7 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
     '''
     model = Meal
     is_private = True
+    ordering_fields = '__all__'
 
     def get_queryset(self):
         '''
@@ -119,6 +124,7 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
     '''
     model = MealItem
     is_private = True
+    ordering_fields = '__all__'
 
     def get_queryset(self):
         '''
