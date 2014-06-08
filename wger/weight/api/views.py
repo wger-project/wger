@@ -29,6 +29,8 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
     serializer_class = WeightEntrySerializer
     is_private = True
     ordering_fields = '__all__'
+    filter_fields = ('creation_date',
+                     'weight')
 
     def get_queryset(self):
         '''

@@ -108,8 +108,8 @@ router.register(r'muscle', exercises_api_views.MuscleViewSet)
 # Nutrition app
 router.register(r'ingredient', nutrition_api_views.IngredientViewSet)
 router.register(r'weightunit', nutrition_api_views.WeightUnitViewSet)
-router.register(r'ingredienttoweightunit', nutrition_api_views.IngredientWeightUnitViewSet)
-router.register(r'nutrition', nutrition_api_views.NutritionPlanViewSet)
+router.register(r'ingredientweightunit', nutrition_api_views.IngredientWeightUnitViewSet)
+router.register(r'nutritionplan', nutrition_api_views.NutritionPlanViewSet)
 router.register(r'meal', nutrition_api_views.MealViewSet)
 router.register(r'mealitem', nutrition_api_views.MealItemViewSet)
 

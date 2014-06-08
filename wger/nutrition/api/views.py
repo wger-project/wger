@@ -37,6 +37,21 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     model = Ingredient
     ordering_fields = '__all__'
+    filter_fields = ('carbohydrates',
+                     'carbohydrates_sugar',
+                     'creation_date',
+                     'energy',
+                     'fat',
+                     'fat_saturated',
+                     'fibres',
+                     'name',
+                     'protein',
+                     'sodium',
+                     'status',
+                     'update_date',
+                     'language',
+                     'license',
+                     'license_author')
 
 
 class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
@@ -45,6 +60,8 @@ class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     model = WeightUnit
     ordering_fields = '__all__'
+    filter_fields = ('language',
+                     'name')
 
 
 class IngredientWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
@@ -53,6 +70,10 @@ class IngredientWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     model = IngredientWeightUnit
     ordering_fields = '__all__'
+    filter_fields = ('amount',
+                     'gramm',
+                     'ingredient',
+                     'unit')
 
 
 class NutritionPlanViewSet(viewsets.ModelViewSet):
@@ -63,6 +84,9 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
     serializer_class = NutritionPlanSerializer
     is_private = True
     ordering_fields = '__all__'
+    filter_fields = ('creation_date',
+                     'description',
+                     'has_goal_calories')
 
     def get_queryset(self):
         '''
@@ -91,6 +115,9 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
     model = Meal
     is_private = True
     ordering_fields = '__all__'
+    filter_fields = ('order',
+                     'plan',
+                     'time')
 
     def get_queryset(self):
         '''
@@ -125,6 +152,11 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
     model = MealItem
     is_private = True
     ordering_fields = '__all__'
+    filter_fields = ('amount',
+                     'ingredient',
+                     'meal',
+                     'order',
+                     'weight_unit')
 
     def get_queryset(self):
         '''

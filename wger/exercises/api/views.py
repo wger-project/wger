@@ -35,6 +35,16 @@ class ExerciseViewSet(viewsets.ModelViewSet):
     '''
     model = Exercise
     ordering_fields = '__all__'
+    filter_fields = ('category',
+                     'creation_date',
+                     'description',
+                     'language', 
+                     'muscles',
+                     'status', 
+                     'name', 
+                     'license',
+                     'license_author'
+    )
 
     def pre_save(self, obj):
         '''
@@ -50,6 +60,7 @@ class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     model = Equipment
     ordering_fields = '__all__'
+    filter_fields = ('name',)
 
 
 class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -58,6 +69,7 @@ class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     model = ExerciseCategory
     ordering_fields = '__all__'
+    filter_fields = ('name',)
 
 
 class ExerciseImageViewSet(viewsets.ModelViewSet):
@@ -66,6 +78,10 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
     '''
     model = ExerciseImage
     ordering_fields = '__all__'
+    filter_fields = ('image',
+                     'is_main',
+                     'license',
+                     'license_author')
 
     @link()
     def thumbnails(self, request, pk):
@@ -95,6 +111,8 @@ class ExerciseCommentViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     model = ExerciseComment
     ordering_fields = '__all__'
+    filter_fields = ('comment',
+                     'exercise')
 
 
 class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
@@ -103,3 +121,5 @@ class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     model = Muscle
     ordering_fields = '__all__'
+    filter_fields = ('name',
+                     'is_front')

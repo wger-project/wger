@@ -45,6 +45,8 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     model = Language
     ordering_fields = '__all__'
+    filter_fields = ('full_name',
+                     'short_name')
 
 
 class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
@@ -53,6 +55,7 @@ class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     model = DaysOfWeek
     ordering_fields = '__all__'
+    filter_fields = ('day_of_week', )
 
 
 class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
@@ -61,3 +64,6 @@ class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     model = License
     ordering_fields = '__all__'
+    filter_fields = ('full_name',
+                     'short_name',
+                     'url')
