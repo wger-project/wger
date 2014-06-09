@@ -15,6 +15,7 @@
 
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
+from wger.core.tests import api_base_test
 
 from wger.exercises.models import Equipment
 from wger.exercises.models import Exercise
@@ -23,7 +24,6 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
 from wger.utils.cache import get_template_cache_name, cache_mapper
 
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
@@ -166,19 +166,10 @@ class EquipmentCacheTestCase(WorkoutManagerTestCase):
             self.assertNotEqual(old_search, new_search)
 
 
-class EquipmentApiTestCase(ApiBaseResourceTestCase):
+class EquipmentApiTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
     Tests the equipment overview resource
     '''
-    resource = 'equipment'
-    user = None
-    resource_updatable = False
-
-
-class EquipmentDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific equipment
-    '''
-    resource = 'equipment/1'
-    user = None
-    resource_updatable = False
+    pk = 1
+    resource = Equipment
+    private_resource = False

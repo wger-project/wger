@@ -38,13 +38,12 @@ class ExerciseViewSet(viewsets.ModelViewSet):
     filter_fields = ('category',
                      'creation_date',
                      'description',
-                     'language', 
+                     'language',
                      'muscles',
-                     'status', 
-                     'name', 
+                     'status',
+                     'name',
                      'license',
-                     'license_author'
-    )
+                     'license_author')
 
     def pre_save(self, obj):
         '''

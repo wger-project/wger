@@ -14,12 +14,12 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from wger.core.models import License
+from wger.core.tests import api_base_test
 
 from wger.manager.tests.testcase import WorkoutManagerAccessTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 
 class LicenseOverviewTest(WorkoutManagerAccessTestCase):
@@ -65,19 +65,10 @@ class EditLicenseTestCase(WorkoutManagerEditTestCase):
             'short_name': 'SH 1.1'}
 
 
-class LicenseApiTestCase(ApiBaseResourceTestCase):
+class LicenseApiTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
     Tests the license resource
     '''
-    resource = 'license'
-    user = None
-    resource_updatable = False
-
-
-class LicenseDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific license
-    '''
-    resource = 'license/1'
-    user = None
-    resource_updatable = False
+    pk = 1
+    resource = License
+    private_resource = False

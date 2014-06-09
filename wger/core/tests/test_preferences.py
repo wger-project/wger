@@ -18,11 +18,12 @@ import decimal
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from wger.core.models import UserProfile
+from wger.core.tests import api_base_test
 
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
 from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 logger = logging.getLogger('wger.custom')
 
@@ -305,16 +306,20 @@ class PreferencesCalculationsTestCase(WorkoutManagerTestCase):
                          decimal.Decimal(1.52).quantize(TWOPLACES))
 
 
-class UserProfileApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests the user preferences overview resource
-    '''
-    resource = 'userprofile'
-    resource_updatable = False
-
-
-class UserProfileDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific user preference (there's only one anyway)
-    '''
-    resource = 'userprofile/2'
+# TODO: the user can't delete or create new profiles
+# class UserProfileApiTestCase(api_base_test.ApiBaseResourceTestCase):
+#     '''
+#     Tests the user preferences overview resource
+#     '''
+#     pk = 2
+#     resource = UserProfile
+#     private_resource = True
+#     data = {'show_comments': False,
+#             'show_english_ingredients': True,
+#             'email': '',
+#             'workout_reminder_active': True,
+#             'workout_reminder': 22,
+#             'workout_duration': 10,
+#             'notification_language': 2,
+#             'timer_active': True,
+#             'timer_pause': 40}

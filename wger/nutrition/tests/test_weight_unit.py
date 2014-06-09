@@ -14,6 +14,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.core.urlresolvers import reverse
+from wger.core.tests import api_base_test
 
 from wger.nutrition.models import WeightUnit
 
@@ -21,7 +22,6 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 
@@ -98,19 +98,11 @@ class WeightUnitOverviewTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 404)
 
 
-class WeightUnitApiTestCase(ApiBaseResourceTestCase):
+class WeightUnitApiTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
     Tests the weight unit overview resource
     '''
-    resource = 'weightunit'
-    user = None
-    resource_updatable = False
-
-
-class WeightUnitDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific weight unit
-    '''
-    resource = 'weightunit/1'
-    user = None
-    resource_updatable = False
+    pk = 1
+    resource = WeightUnit
+    private_resource = False
+    data = {'name': 'The weight unit name'}

@@ -17,15 +17,14 @@ import json
 from django.core import mail
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
+from wger.core.tests import api_base_test
 
 from wger.exercises.models import Exercise
 from wger.exercises.models import Muscle
 from wger.exercises.models import ExerciseCategory
-
 from wger.manager.tests.testcase import STATUS_CODES_FAIL
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
 from wger.utils.cache import get_template_cache_name
 from wger.utils.cache import cache_mapper
 
@@ -515,30 +514,22 @@ class WorkoutCacheTestCase(WorkoutManagerTestCase):
             self.assertFalse(cache.get(cache_mapper.get_workout_canonical(workout_id)))
 
 
-class ExerciseApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests the exercise overview resource
-    '''
-    resource = 'exercise'
-    user = None
-    resource_updatable = False
-    data = {"category": "/api/v1/exercisecategory/1/",
-            "comments": [],
-            "creation_date": "2013-01-01",
-            "description": "Something here",
-            "id": 1,
-            "language": "/api/v1/language/2/",
-            "muscles": [
-                "/api/v1/muscle/1/"
-            ],
-            "name": "foobar",
-            "status": "5"}
-
-
-class ExerciseDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific Exercise
-    '''
-    resource = 'exercise/3'
-    user = None
-    resource_updatable = False
+# TODO: fix test, all registered users can upload exercises
+# class ExerciseApiTestCase(api_base_test.ApiBaseResourceTestCase):
+#     '''
+#     Tests the exercise overview resource
+#     '''
+#     pk = 1
+#     resource = Exercise
+#     private_resource = False
+#     data = {"category": "1",
+#             "comments": [],
+#             "creation_date": "2013-01-01",
+#             "description": "Something here",
+#             "id": 1,
+#             "language": "2",
+#             "muscles": [
+#                 "1"
+#             ],
+#             "name": "foobar",
+#             "status": "5"}

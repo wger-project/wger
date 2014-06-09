@@ -15,6 +15,7 @@
 
 from django.core.urlresolvers import reverse
 from django.core.files import File
+from wger.core.tests import api_base_test
 
 from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseImage
@@ -136,22 +137,15 @@ class DeleteExerciseImageTestCase(WorkoutManagerDeleteTestCase):
     pk = 1
 
 
-# class ExerciseImagesApiTestCase(ApiBaseResourceTestCase):
-    # '''
-    # Tests the exercise image overview resource
-    # '''
-    # resource = 'exerciseimage'
-    # user = None
-    # resource_updatable = False
-    # data = {"is_main": "true",
-    #         "exercise": "/api/v1/exercise/1/",
-    #         "id": 1}
-
-
-# class ExerciseImageDetailApiTestCase(ApiBaseResourceTestCase):
-    # '''
-    # Tests accessing a specific exercise image
-    # '''
-    # resource = 'exerciseimage/1'
-    # user = None
-    # resource_updatable = False
+# TODO: fix test
+# class ExerciseImagesApiTestCase(api_base_test.ApiBaseResourceTestCase):
+#     '''
+#     Tests the exercise image overview resource
+#     '''
+#     pk = 1
+#     resource = ExerciseImage
+#     private_resource = False
+#     special_endpoints = ('thumbnails',)
+#     data = {'is_main': 'true',
+#             'exercise': '1',
+#             'id': 1}

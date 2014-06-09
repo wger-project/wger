@@ -14,19 +14,19 @@
 
 import logging
 import datetime
-from django.contrib.auth.models import User
 
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse, reverse_lazy
 
+from wger.core.tests import api_base_test
 from wger.exercises.models import Exercise
 from wger.manager.models import WorkoutLog
 from wger.manager.models import Workout
 from wger.manager.models import WorkoutSession
-
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
+
 
 logger = logging.getLogger('wger.custom')
 
@@ -246,16 +246,15 @@ class WeightLogEntryEditTestCase(WorkoutManagerTestCase):
         self.edit_log_entry(fail=True)
 
 
-class WorkoutLogApiTestCase(ApiBaseResourceTestCase):
+class WorkoutLogApiTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
     Tests the workout log overview resource
     '''
-    resource = 'workoutlog'
-    resource_updatable = False
-
-
-class WorkoutLogDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific workoutlog
-    '''
-    resource = 'workoutlog/5'
+    pk = 5
+    resource = WorkoutLog
+    private_resource = True
+    data = {"exercise": 1,
+            "workout": 3,
+            "reps": 3,
+            "weight": 2,
+            "date": datetime.date.today()}

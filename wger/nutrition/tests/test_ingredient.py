@@ -18,6 +18,7 @@ import datetime
 
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
+from wger.core.tests import api_base_test
 
 from wger.nutrition.models import Ingredient
 from wger.nutrition.models import Meal
@@ -28,7 +29,6 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 
 class DeleteIngredientTestCase(WorkoutManagerDeleteTestCase):
@@ -387,21 +387,12 @@ class IngredientTestCase(WorkoutManagerTestCase):
         self.assertRaises(ValidationError, ingredient.full_clean)
 
 
-class IngredientApiTestCase(ApiBaseResourceTestCase):
+class IngredientApiTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
-    Tests the ingredient overview resource
+    Tests the ingredient API resource
     '''
-    resource = 'ingredient'
-    user = None
-    resource_updatable = False
+    pk = 4
+    resource = Ingredient
+    private_resource = False
     data = {'language': 1,
             'license': 2}
-
-
-class IngredientDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific ingredient
-    '''
-    resource = 'ingredient/4'
-    user = None
-    resource_updatable = False

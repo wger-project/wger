@@ -15,6 +15,7 @@
 
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
+from wger.core.tests import api_base_test
 
 from wger.exercises.models import Muscle
 
@@ -22,7 +23,6 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
 from wger.utils.cache import get_template_cache_name
 
 
@@ -101,19 +101,12 @@ class MuscleOverviewTestCase(WorkoutManagerTestCase):
         self.assertNotContains(response, 'After adding a muscle')
 
 
-class MuscleApiTestCase(ApiBaseResourceTestCase):
+class MuscleApiTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
     Tests the muscle overview resource
     '''
-    resource = 'muscle'
-    user = None
-    resource_updatable = False
-
-
-class MuscleDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific muscle
-    '''
-    resource = 'muscle/1'
-    user = None
-    resource_updatable = False
+    pk = 1
+    resource = Muscle
+    private_resource = False
+    data = {'name': 'The name',
+            'is_front': True}

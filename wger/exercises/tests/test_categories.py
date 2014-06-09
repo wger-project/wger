@@ -14,6 +14,7 @@
 
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
+from wger.core.tests import api_base_test
 
 from wger.exercises.models import ExerciseCategory
 from wger.utils.cache import get_template_cache_name
@@ -22,7 +23,6 @@ from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 
 class DeleteExerciseCategoryTestCase(WorkoutManagerDeleteTestCase):
@@ -99,19 +99,10 @@ class ExerciseCategoryCacheTestCase(WorkoutManagerTestCase):
             self.assertNotEqual(old_exercise_overview_mobile, new_exercise_overview_mobile)
 
 
-class ExerciseCategoryApiTestCase(ApiBaseResourceTestCase):
+class ExerciseCategoryApiTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
     Tests the exercise category overview resource
     '''
-    resource = 'exercisecategory'
-    user = None
-    resource_updatable = False
-
-
-class ExerciseCategoryDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific exercise category
-    '''
-    resource = 'exercisecategory/2'
-    user = None
-    resource_updatable = False
+    pk = 2
+    resource = ExerciseCategory
+    private_resource = False

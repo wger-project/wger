@@ -37,5 +37,18 @@
             "date": "2014-01-30",
             "notes": "I spent the whole day in the gym"
         }
+    },
+    {
+        "pk": 4,
+        "model": "manager.workoutsession",
+        "fields": {
+            "impression": "3",
+            "time_start": "10:00:00",
+            "workout": 3,
+            "time_end": "10:15:00",
+            "user": 2,
+            "date": "2014-01-30",
+            "notes": "Something, something else"
+        }
     }
 ]

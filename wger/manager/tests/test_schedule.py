@@ -18,16 +18,16 @@ import datetime
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
+from wger.core.tests import api_base_test
 from wger.manager.models import Schedule
 from wger.manager.models import ScheduleStep
 from wger.manager.models import Workout
-
 from wger.manager.tests.testcase import STATUS_CODES_FAIL
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
+
 
 logger = logging.getLogger('wger.custom')
 
@@ -480,16 +480,14 @@ class ScheduleModelTestCase(WorkoutManagerTestCase):
         self.assertTrue(schedule.get_current_scheduled_workout().workout, workout)
 
 
-class ScheduleApiTestCase(ApiBaseResourceTestCase):
+class ScheduleApiTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
     Tests the schedule overview resource
     '''
-    resource = 'schedule'
-    resource_updatable = False
-
-
-class ScheduleDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific schedule
-    '''
-    resource = 'schedule/1'
+    pk = 1
+    resource = Schedule
+    private_resource = True
+    data = {'name': 'An updated name',
+            'start_date': datetime.date.today(),
+            'is_active': True,
+            'is_loop': True}

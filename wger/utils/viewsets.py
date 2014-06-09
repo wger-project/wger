@@ -26,6 +26,17 @@ class WgerOwnerObjectModelViewSet(viewsets.ModelViewSet):
     '''
     def create(self, request, *args, **kwargs):
         '''
+        Check for creation (PUT, POST)
+        '''
+        for obj in self.get_owner_objects():
+            if obj.get_owner_object().user != request.user:
+                raise exceptions.PermissionDenied('You are not allowed to do this')
+        else:
+            return super(WgerOwnerObjectModelViewSet, self).create(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        '''
+        Check for updates (PUT, PATCH)
         '''
         for obj in self.get_owner_objects():
             if obj.get_owner_object().user != request.user:

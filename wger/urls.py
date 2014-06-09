@@ -99,14 +99,14 @@ router.register(r'license', core_api_views.LicenseViewSet)
 
 # Exercises app
 router.register(r'exercise', exercises_api_views.ExerciseViewSet)
-router.register(r'equipment', exercises_api_views.EquipmentViewSet)
+router.register(r'equipment', exercises_api_views.EquipmentViewSet, base_name='api')
 router.register(r'exercisecategory', exercises_api_views.ExerciseCategoryViewSet)
 router.register(r'exerciseimage', exercises_api_views.ExerciseImageViewSet)
 router.register(r'exercisecomment', exercises_api_views.ExerciseCommentViewSet)
 router.register(r'muscle', exercises_api_views.MuscleViewSet)
 
 # Nutrition app
-router.register(r'ingredient', nutrition_api_views.IngredientViewSet)
+router.register(r'ingredient', nutrition_api_views.IngredientViewSet, base_name='api')
 router.register(r'weightunit', nutrition_api_views.WeightUnitViewSet)
 router.register(r'ingredientweightunit', nutrition_api_views.IngredientWeightUnitViewSet)
 router.register(r'nutritionplan', nutrition_api_views.NutritionPlanViewSet)
@@ -114,7 +114,7 @@ router.register(r'meal', nutrition_api_views.MealViewSet)
 router.register(r'mealitem', nutrition_api_views.MealItemViewSet)
 
 # Weight app
-router.register(r'weight', weight_api_views.WeightEntryViewSet)
+router.register(r'weightentry', weight_api_views.WeightEntryViewSet)
 
 
 from django.contrib import admin
@@ -154,6 +154,6 @@ urlpatterns = urlpatterns + patterns('',
         name='robots'),
     url(r'^manifest\.webapp$', WebappManifestView.as_view(template_name="manifest.webapp")),
     url(r'^amazon-manifest\.webapp$', WebappManifestView.as_view(template_name="amazon-manifest.webapp")),
-    url(r'api/v2/', include(router.urls)),
     url(r'^api/', include(v1_api.urls)),
+    url(r'api/v2/', include(router.urls)),
 )
