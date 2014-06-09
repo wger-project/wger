@@ -59,7 +59,8 @@ def processor(request):
 
     # Pseudo-intelligent navigation here
     if '/software/' in request.get_full_path() \
-       or '/contact' in request.get_full_path():
+       or '/contact' in request.get_full_path() \
+       or '/api/v2' in request.get_full_path():
             context['active_tab'] = constants.SOFTWARE_TAB
 
     elif '/exercise/' in request.get_full_path():
