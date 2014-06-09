@@ -7,22 +7,15 @@
 
 {% block content %}
 <p>wger Workout Manager provides a full REST API to all database
-objects: <a href="/api/v1/?format=json" rel="nofollow">https://wger.de/api/v1/</a></p>
-
-<p>The API uses HATEOAS, so you should be able to browse
-through the necessary endpoints without having to consult an extensive
-documentation. At the moment, the API only supports read operations, but
-support for full POST/PUT/DELETE/PATCH is planned for the near future.</p>
-
-<p>You should always use HTTPS if possible when communicating with the server.</p>
+objects: <a href="/api/v2/" rel="nofollow">https://wger.de/api/v2/</a></p>
 
 
 <h3>Authentication</h3>
 <p>Public endpoints, such as the list of exercises or the
 ingredients can be accessed without authentication. For <strong>user owned
 objects such as workouts, you need to generate an API KEY</strong> and pass
-it along with the username either in the header or in form of GET parameters.
-See the link on the sidebar for details.</p>
+it in the header, see the link on the sidebar for details.</p>
+<p>You should always use HTTPS if possible when communicating with the server.</p>
 
 
 <div class="row">
@@ -65,86 +58,148 @@ See the link on the sidebar for details.</p>
 
 
 <h3>Fetching Data</h3>
-<!--
-Many of the explanations are taken from
-https://django-tastypie.readthedocs.org/en/latest/interacting.html
--->
 
-<p>If you explore the API with a browser, you will need to add a <code>?format=json</code>
-to these URLs. You don't need to do this when using other tools or when explicitly
-sending the Accept header to "application/json".</p>
-
-<h4>Api-Wide</h4>
-<code>
-curl https://wger.de/api/v1/ | python -m json.tool
-</code>
-
-<p>This lists out all the different resources available. Each one is listed by
-the "resource_name" and provides the "list_endpoint" and the schema for the
-resource. Note that these links try to direct you to other parts of the API,
-to make exploration/discovery easier.</p>
-
-
-<h4>Getting A Collection Of Resources</h4>
 <pre>
-curl https://wger.de/api/v1/exercise/ | python -m json.tool
-curl https://wger.de/api/v1/exercise/schema/ | python -m json.tool
+# Api-Wide
+/api/v2/
+
+# Object detail view
+/api/v2/&lt;endpoint&gt;/&lt;id&gt;/
 </pre>
 
+<p>
+    This lists out all the different resources available. If you visit the
+    link with a browser, you'll get a human-browsable HTML version of the
+    contents. If you are logged in, you can use the built in form to try
+    different requests (POST, PATCH, etc.)
+</p>
 
-<ul>
-    <li>By default, you get a paginated set of objects</li>
-    <li>In "meta", you get a "previous" and "next". If available, these are URIs to the previous and next pages.</li>
-    <li>?limit=0 returns all resources, without pagination.</li>
-    <li>You get a list of resources/objects under the "objects" key.</li>
-    <li>Each resources/object has a "resource_uri" field that points to the detail view for that object.</li>
-    <li>Foreign keys are represented as URIs.</li>
-</ul>
+<p>
+    You can do a <code>OPTIONS /api/v2/&lt;endpoint&gt;/</code> to get more
+    information on the endpoint such as the accepted formats. It also outputs
+    a listing with all the resource's fields, their type (date, int, etc.) and
+    a short description. This is more easier done when using the browseable
+    version.
+</p>
 
 
-<p>You can also filter the resources, the syntax is the same as the Django ORM.
-Take a look at the <a href="https://docs.djangoproject.com/en/1.6/ref/models/querysets/#field-lookups">field
-lookup documentation</a> for more details on how to use the individual lookups.
-The following field lookups are supported, but don't always make sense
-for all fields (in that case you'll just get an emtpy result). Alternatively you
-can just specify the IDs you want or provide an offset.</p>
 
-<ul>
-    <li>exact/iexact</li>
-    <li>contains/icontains</li>
-    <li>in</li>
-    <li>gt/gte</li>
-    <li>lt/lte</li>
-    <li>startswith/istartswith</li>
-    <li>endswith/iendswith</li>
-    <li>range</li>
-    <li>isnull</li>
-    <li>year</li>
-    <li>month</li>
-    <li>day</li>
-    <li>week_day</li>
-    <li>hour</li>
-    <li>minute</li>
-    <li>second</li>
-</ul>
+<h3>Miscellaneous operations</h3>
+<h4>Ordering</h4>
+<p>
+    Simply use <code>?ordering=&lt;fieldname&gt;</code> to order by that field.
+    You can also specify more than one field name, just give it a list separated
+    by commas <code>?ordering=&lt;field1&gt;,&lt;field2&gt;</code>. To reverse
+    the order use like in django a <code>-</code> in front of the field.
+</p>
 
+
+
+<h4>Pagination</h4>
+<p>
+    By default all results are paginated by 20 elements per page. If you want to
+    change this value, add a <code>?limit=&lt;xxx&gt;</code> to your query.
+    You will find in the answer JSON the <code>next</code> and <code>previous</code>
+    keywords with links to the next or previous result pages.
+</p>
+
+
+
+<h4>Filtering resources</h4>
+<p>
+    You can easily filter all resources by specifying the filter queries in the
+    URL: <code>?&lt;fieldname&gt;=&lt;value&gt;</code>, combinations are possible,
+    just separate the filters with a comma: <code>?&lt;f1&gt;=&lt;v1&gt;,&lt;f2&gt;=&lt;v2&gt;</code>.
+    Please note that for boolean values you must pass 'False' or 'True' other
+    values, e.g. 1, 0, false, etc. will be ignored. Like with not filtered queries,
+    your objects will be available under the 'results' key.
+</p>
+<p>
+    It is not possible to specify more than one value, e.g. category 1 or 2.
+    To achieve this, just repeat the filter. See example below.
+</p>
 <p>Some examples:</p>
 
-<pre>
-curl https://wger.de/api/v1/exercise/?name__istartswith=bicep | python -m json.tool
-curl https://wger.de/api/v1/exercise/?status__in=2,4,5 | python -m json.tool
-curl https://wger.de/api/v1/exercise/?language=1 | python -m json.tool
-curl https://wger.de/api/v1/exercise/?category__name__istartswith=ba | python -m json.tool
-curl https://wger.de/api/v1/exercise/1/ | python -m json.tool
+<ul>
+    <li>All exercises in German: <code>api/v2/exercise/?language=1</code></li>
+    <li>'Main' image for all exercises: <code>api/v2/exerciseimage/?is_main=True</code></li>
+    <li>Exercises that train the biceps or the triceps:
+        <code>api/v2/exercise/?muscles=1&muscles=5</code>
+    </li>
+</ul>
 
-# quoting needed for bash
-curl "https://wger.de/api/v1/exercise/set/1;3/" | python -m json.tool
-curl "https://wger.de/api/v1/exercise/?offset=20&limit=20" | python -m json.tool
 
-# Note: the "| python -m json.tool" is only for formatting the returned JSON
-</pre>
 
-<p></p>
+
+<h3>Special endpoints</h3>
+<p>
+    The following endpoints provide additional information, comfort functions, etc.:
+</p>
+<div class="row">
+    <div class="col-md-1">
+        <code>api/v2/workout/&lt;id&gt;/canonical_representation/</code>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-offset-1 col-md-10">
+        This is a complete representation of a workout, including all objects
+        like workout days, exercises, etc. This form used by the django application
+        to render workouts or perform other operations. The data is cached so,
+        accessing or using is faster than performing many different requests.
+    </div>
+</div>
+
+
+<div class="row" style="margin-top: 1em;">
+    <div class="col-md-1">
+        <code>api/v2/exerciseimage/&lt;id&gt;/thumbnails/</code>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-offset-1 col-md-10">
+        Returns a list of available thumbnails for this image. The 'settings' key
+        refers to the settings used by the thumbnailing application to generate
+        that image. The special key 'original' is simply a downloadable link to
+        the original image used.
+    </div>
+</div>
+
+
+<div class="row" style="margin-top: 1em;">
+    <div class="col-md-1">
+        <code>api/v2/nutritionplan/&lt;id&gt;/nutritional_values/</code><br>
+        <code>api/v2/meal/&lt;id&gt;/nutritional_values/</code><br>
+        <code>api/v2/mealitem/&lt;id&gt;/nutritional_values/</code>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-offset-1 col-md-10">
+        Returns the total nutritional values for a nutritional plan, a meal or
+        an individual meal item. The nutritional plan lists this under the
+        'total' key, the other two return a flat list.
+
+        The nutritional plan also returns under the 'per_kg' key the calculated
+        values of grams per user body weight (if available) and 'percent' lists
+        the percent each macronutrient contributes to the total calories.
+    </div>
+</div>
+
+
+
+<h3>/api/v1</h3>
+<div class="panel panel-warning">
+    <div class="panel-heading">
+        <h3 class="panel-title">Deprecation warning</h3>
+    </div>
+    <div class="panel-body">
+        The first API supported only read operations. Due to different reasons
+        it is being deprecated and should not be used anymore, it will be
+        deactivated on June 2015.
+    </div>
+</div>
+<p>
+</p>
+
 {% endblock %}
 
 
@@ -155,6 +210,6 @@ This is also new for us, if you plan on using the API,
 <a href="https://groups.google.com/group/wger">we'd love to hear from you</a>.
 </div>
 
-<p><a href="/api/v1/?format=json" class="btn btn-block btn-default" rel="nofollow">Browse the API</a></p>
+<p><a href="/api/v2/" class="btn btn-block btn-default" rel="nofollow">Browse the API</a></p>
 <p><a href="{% url 'core:api-key' %}" class="btn btn-block btn-default">Generate API KEY</a></p>
 {% endblock %}

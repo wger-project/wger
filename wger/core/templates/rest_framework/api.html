@@ -17,9 +17,12 @@
     {#             #}
     {% block breadcrumbs %}
     <ol class="breadcrumb">
+        <li>
+            <a href="{% url 'software:api' %}">Api Documentation</a>
+        </li>
         {% for breadcrumb_name, breadcrumb_url in breadcrumblist %}
             {% if not forloop.last %}
-                <li class="active">
+                <li>
                     <a href="{{ breadcrumb_url }}">{{ breadcrumb_name }}</a>
                 </li>
             {% else %}
@@ -118,7 +121,7 @@
             {% with form=raw_data_post_form %}
             <form action="{{ request.get_full_path }}" method="POST" class="form-horizontal" role="form">
                 <fieldset>
-                    {% render_form_fields form 'Send' %}
+                    {% render_form_fields form 'POST' %}
                 </fieldset>
             </form>
             {% endwith %}
