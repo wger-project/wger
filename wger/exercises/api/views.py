@@ -28,6 +28,7 @@ from wger.exercises.models import ExerciseCategory
 from wger.exercises.models import ExerciseImage
 from wger.exercises.models import ExerciseComment
 from wger.exercises.models import Muscle
+from wger.utils.permissions import CreateOnly
 
 
 class ExerciseViewSet(viewsets.ModelViewSet):
@@ -35,7 +36,7 @@ class ExerciseViewSet(viewsets.ModelViewSet):
     API endpoint for exercise objects
     '''
     model = Exercise
-    permission_classes = (IsAuthenticatedOrReadOnly, )
+    permission_classes = (IsAuthenticatedOrReadOnly, CreateOnly)
     ordering_fields = '__all__'
     filter_fields = ('category',
                      'creation_date',
@@ -78,7 +79,7 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
     API endpoint for exercise image objects
     '''
     model = ExerciseImage
-    permission_classes = (IsAuthenticatedOrReadOnly, )
+    permission_classes = (IsAuthenticatedOrReadOnly, CreateOnly)
     ordering_fields = '__all__'
     filter_fields = ('image',
                      'is_main',
