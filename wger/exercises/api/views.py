@@ -17,6 +17,7 @@
 
 from rest_framework import viewsets
 from rest_framework.decorators import link
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
@@ -34,6 +35,7 @@ class ExerciseViewSet(viewsets.ModelViewSet):
     API endpoint for exercise objects
     '''
     model = Exercise
+    permission_classes = (IsAuthenticatedOrReadOnly, )
     ordering_fields = '__all__'
     filter_fields = ('category',
                      'creation_date',
@@ -76,6 +78,7 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
     API endpoint for exercise image objects
     '''
     model = ExerciseImage
+    permission_classes = (IsAuthenticatedOrReadOnly, )
     ordering_fields = '__all__'
     filter_fields = ('image',
                      'is_main',
