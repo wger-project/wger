@@ -1,0 +1,1529 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="842.5"
+   height="665"
+   id="svg12215"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="Neues Dokument 10">
+  <defs
+     id="defs12217" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="140.88754"
+     inkscape:cy="598.3036"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="910"
+     inkscape:window-height="690"
+     inkscape:window-x="476"
+     inkscape:window-y="170"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata12220">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-551.9696,-579.9515)">
+    <g
+       class="node"
+       id="node26"
+       transform="matrix(1.25,0,0,1.25,-1320.5304,2710.5765)">
+      <title
+         id="title1762">wger_exercises_models_Exercise</title>
+      <polygon
+         style="fill:#eee8aa;stroke:none"
+         id="polygon1764"
+         points="1601,-1344 1601,-1486 1781,-1486 1781,-1344 1601,-1344 " />
+      <polygon
+         style="fill:#698b22;stroke:none"
+         id="polygon1766"
+         points="1601,-1461 1601,-1486 1781,-1486 1781,-1461 1601,-1461 " />
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1768"
+         font-size="8.00"
+         y="-1476.1"
+         x="1660.5">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Bold"
+         id="text1770"
+         font-size="8.00"
+         y="-1476.1"
+         x="1674.5">     Exercise</text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Bold"
+         id="text1772"
+         font-size="8.00"
+         y="-1468.1"
+         x="1639.5">&lt;</text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Italic"
+         id="text1774"
+         font-size="8.00"
+         y="-1468.1"
+         x="1644.5">AbstractLicenseModel</text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Bold"
+         id="text1776"
+         font-size="8.00"
+         y="-1468.1"
+         x="1723.5">&gt;      </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1778"
+         font-size="8.00"
+         y="-1453.6"
+         x="1603">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1780"
+         font-size="8.00"
+         y="-1453.6"
+         x="1617">id</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1782"
+         font-size="8.00"
+         y="-1453.6"
+         x="1625">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1784"
+         font-size="8.00"
+         y="-1453.6"
+         x="1688">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1786"
+         font-size="8.00"
+         y="-1453.6"
+         x="1702">AutoField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1788"
+         font-size="8.00"
+         y="-1453.6"
+         x="1742">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1790"
+         font-size="8.00"
+         y="-1440.6"
+         x="1603">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1792"
+         font-size="8.00"
+         y="-1440.6"
+         x="1617">category</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1794"
+         font-size="8.00"
+         y="-1440.6"
+         x="1652">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1796"
+         font-size="8.00"
+         y="-1440.6"
+         x="1688">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1798"
+         font-size="8.00"
+         y="-1440.6"
+         x="1702">ForeignKey (id)</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1800"
+         font-size="8.00"
+         y="-1440.6"
+         x="1764">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1802"
+         font-size="8.00"
+         y="-1427.6"
+         x="1603">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1804"
+         font-size="8.00"
+         y="-1427.6"
+         x="1617">language</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1806"
+         font-size="8.00"
+         y="-1427.6"
+         x="1654">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1808"
+         font-size="8.00"
+         y="-1427.6"
+         x="1688">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1810"
+         font-size="8.00"
+         y="-1427.6"
+         x="1702">ForeignKey (id)</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1812"
+         font-size="8.00"
+         y="-1427.6"
+         x="1764">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1814"
+         font-size="8.00"
+         y="-1414.6"
+         x="1603">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica ItalicBold"
+         id="text1816"
+         font-size="8.00"
+         y="-1414.6"
+         x="1617">license</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1818"
+         font-size="8.00"
+         y="-1414.6"
+         x="1648">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1820"
+         font-size="8.00"
+         y="-1414.6"
+         x="1688">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica ItalicBold"
+         id="text1822"
+         font-size="8.00"
+         y="-1414.6"
+         x="1702">ForeignKey (id)</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1824"
+         font-size="8.00"
+         y="-1414.6"
+         x="1765">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1826"
+         font-size="8.00"
+         y="-1401.6"
+         x="1603">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text1828"
+         font-size="8.00"
+         y="-1401.6"
+         x="1617">creation_date</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1830"
+         font-size="8.00"
+         y="-1401.6"
+         x="1666">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1832"
+         font-size="8.00"
+         y="-1401.6"
+         x="1688">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text1834"
+         font-size="8.00"
+         y="-1401.6"
+         x="1702">DateField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1836"
+         font-size="8.00"
+         y="-1401.6"
+         x="1737">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1838"
+         font-size="8.00"
+         y="-1388.6"
+         x="1603">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text1840"
+         font-size="8.00"
+         y="-1388.6"
+         x="1617">description</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1842"
+         font-size="8.00"
+         y="-1388.6"
+         x="1656">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1844"
+         font-size="8.00"
+         y="-1388.6"
+         x="1688">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text1846"
+         font-size="8.00"
+         y="-1388.6"
+         x="1702">TextField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1848"
+         font-size="8.00"
+         y="-1388.6"
+         x="1736">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1850"
+         font-size="8.00"
+         y="-1375.6"
+         x="1603">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:Helvetica Italic"
+         id="text1852"
+         font-size="8.00"
+         y="-1375.6"
+         x="1617">license_author</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1854"
+         font-size="8.00"
+         y="-1375.6"
+         x="1669">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1856"
+         font-size="8.00"
+         y="-1375.6"
+         x="1688">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:Helvetica Italic"
+         id="text1858"
+         font-size="8.00"
+         y="-1375.6"
+         x="1702">CharField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1860"
+         font-size="8.00"
+         y="-1375.6"
+         x="1738">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1862"
+         font-size="8.00"
+         y="-1362.6"
+         x="1603">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text1864"
+         font-size="8.00"
+         y="-1362.6"
+         x="1617">name</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1866"
+         font-size="8.00"
+         y="-1362.6"
+         x="1638">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1868"
+         font-size="8.00"
+         y="-1362.6"
+         x="1688">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text1870"
+         font-size="8.00"
+         y="-1362.6"
+         x="1702">CharField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1872"
+         font-size="8.00"
+         y="-1362.6"
+         x="1738">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1874"
+         font-size="8.00"
+         y="-1349.6"
+         x="1603">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text1876"
+         font-size="8.00"
+         y="-1349.6"
+         x="1617">status</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1878"
+         font-size="8.00"
+         y="-1349.6"
+         x="1639">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1880"
+         font-size="8.00"
+         y="-1349.6"
+         x="1688">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text1882"
+         font-size="8.00"
+         y="-1349.6"
+         x="1702">CharField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1884"
+         font-size="8.00"
+         y="-1349.6"
+         x="1738">     </text>
+    </g>
+    <g
+       class="node"
+       id="node22"
+       transform="matrix(1.25,0,0,1.25,-1320.5304,2710.5765)">
+      <title
+         id="title2314">wger_utils_models_AbstractLicenseModel</title>
+      <polygon
+         style="fill:#eee8aa;stroke:none"
+         id="polygon2316"
+         points="1992.5,-1179 1992.5,-1223 2171.5,-1223 2171.5,-1179 1992.5,-1179 " />
+      <polygon
+         style="fill:#698b22;stroke:none"
+         id="polygon2318"
+         points="1993,-1205 1993,-1223 2172,-1223 2172,-1205 1993,-1205 " />
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2320"
+         font-size="8.00"
+         y="-1213.1"
+         x="2017.5">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Bold"
+         id="text2322"
+         font-size="8.00"
+         y="-1213.1"
+         x="2031.5">     AbstractLicenseModel      </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2324"
+         font-size="8.00"
+         y="-1197.6"
+         x="1995">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2326"
+         font-size="8.00"
+         y="-1197.6"
+         x="2009">license</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2328"
+         font-size="8.00"
+         y="-1197.6"
+         x="2037">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2330"
+         font-size="8.00"
+         y="-1197.6"
+         x="2080">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2332"
+         font-size="8.00"
+         y="-1197.6"
+         x="2094">ForeignKey (id)</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2334"
+         font-size="8.00"
+         y="-1197.6"
+         x="2156">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2336"
+         font-size="8.00"
+         y="-1184.6"
+         x="1995">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text2338"
+         font-size="8.00"
+         y="-1184.6"
+         x="2009">license_author</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2340"
+         font-size="8.00"
+         y="-1184.6"
+         x="2061">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2342"
+         font-size="8.00"
+         y="-1184.6"
+         x="2080">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text2344"
+         font-size="8.00"
+         y="-1184.6"
+         x="2094">CharField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2346"
+         font-size="8.00"
+         y="-1184.6"
+         x="2130">     </text>
+    </g>
+    <g
+       class="node"
+       id="node23"
+       transform="matrix(1.25,0,0,1.25,-1320.5304,2710.5765)">
+      <title
+         id="title2367">wger_exercises_models_Muscle</title>
+      <polygon
+         style="fill:#eee8aa;stroke:none"
+         id="polygon2369"
+         points="1658.5,-1172.5 1658.5,-1229.5 1797.5,-1229.5 1797.5,-1172.5 1658.5,-1172.5 " />
+      <polygon
+         style="fill:#698b22;stroke:none"
+         id="polygon2371"
+         points="1659,-1211 1659,-1229 1798,-1229 1798,-1211 1659,-1211 " />
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2373"
+         font-size="8.00"
+         y="-1219.1"
+         x="1694">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Bold"
+         id="text2375"
+         font-size="8.00"
+         y="-1219.1"
+         x="1708">     Muscle      </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2377"
+         font-size="8.00"
+         y="-1203.6"
+         x="1661">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2379"
+         font-size="8.00"
+         y="-1203.6"
+         x="1675">id</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2381"
+         font-size="8.00"
+         y="-1203.6"
+         x="1683">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2383"
+         font-size="8.00"
+         y="-1203.6"
+         x="1721">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2385"
+         font-size="8.00"
+         y="-1203.6"
+         x="1735">AutoField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2387"
+         font-size="8.00"
+         y="-1203.6"
+         x="1775">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2389"
+         font-size="8.00"
+         y="-1190.6"
+         x="1661">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text2391"
+         font-size="8.00"
+         y="-1190.6"
+         x="1675">is_front</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2393"
+         font-size="8.00"
+         y="-1190.6"
+         x="1702">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2395"
+         font-size="8.00"
+         y="-1190.6"
+         x="1721">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text2397"
+         font-size="8.00"
+         y="-1190.6"
+         x="1735">BooleanField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2399"
+         font-size="8.00"
+         y="-1190.6"
+         x="1782">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2401"
+         font-size="8.00"
+         y="-1177.6"
+         x="1661">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text2403"
+         font-size="8.00"
+         y="-1177.6"
+         x="1675">name</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2405"
+         font-size="8.00"
+         y="-1177.6"
+         x="1696">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2407"
+         font-size="8.00"
+         y="-1177.6"
+         x="1721">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text2409"
+         font-size="8.00"
+         y="-1177.6"
+         x="1735">CharField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2411"
+         font-size="8.00"
+         y="-1177.6"
+         x="1771">     </text>
+    </g>
+    <g
+       class="node"
+       id="node24"
+       transform="matrix(1.25,0,0,1.25,-1320.5304,2710.5765)">
+      <title
+         id="title2414">wger_exercises_models_Equipment</title>
+      <polygon
+         style="fill:#eee8aa;stroke:none"
+         id="polygon2416"
+         points="1832,-1179 1832,-1223 1958,-1223 1958,-1179 1832,-1179 " />
+      <polygon
+         style="fill:#698b22;stroke:none"
+         id="polygon2418"
+         points="1832,-1205 1832,-1223 1958,-1223 1958,-1205 1832,-1205 " />
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2420"
+         font-size="8.00"
+         y="-1213.1"
+         x="1853">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Bold"
+         id="text2422"
+         font-size="8.00"
+         y="-1213.1"
+         x="1867">     Equipment      </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2424"
+         font-size="8.00"
+         y="-1197.6"
+         x="1834">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2426"
+         font-size="8.00"
+         y="-1197.6"
+         x="1848">id</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2428"
+         font-size="8.00"
+         y="-1197.6"
+         x="1856">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2430"
+         font-size="8.00"
+         y="-1197.6"
+         x="1888">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2432"
+         font-size="8.00"
+         y="-1197.6"
+         x="1902">AutoField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2434"
+         font-size="8.00"
+         y="-1197.6"
+         x="1942">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2436"
+         font-size="8.00"
+         y="-1184.6"
+         x="1834">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text2438"
+         font-size="8.00"
+         y="-1184.6"
+         x="1848">name</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2440"
+         font-size="8.00"
+         y="-1184.6"
+         x="1869">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2442"
+         font-size="8.00"
+         y="-1184.6"
+         x="1888">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text2444"
+         font-size="8.00"
+         y="-1184.6"
+         x="1902">CharField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2446"
+         font-size="8.00"
+         y="-1184.6"
+         x="1938">     </text>
+    </g>
+    <g
+       class="node"
+       id="node25"
+       transform="matrix(1.25,0,0,1.25,-1320.5304,2710.5765)">
+      <title
+         id="title2449">wger_exercises_models_ExerciseCategory</title>
+      <polygon
+         style="fill:#eee8aa;stroke:none"
+         id="polygon2451"
+         points="1498,-1179 1498,-1223 1624,-1223 1624,-1179 1498,-1179 " />
+      <polygon
+         style="fill:#698b22;stroke:none"
+         id="polygon2453"
+         points="1498,-1205 1498,-1223 1624,-1223 1624,-1205 1498,-1205 " />
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2455"
+         font-size="8.00"
+         y="-1213.1"
+         x="1505.5">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Bold"
+         id="text2457"
+         font-size="8.00"
+         y="-1213.1"
+         x="1519.5">     ExerciseCategory      </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2459"
+         font-size="8.00"
+         y="-1197.6"
+         x="1500">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2461"
+         font-size="8.00"
+         y="-1197.6"
+         x="1514">id</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2463"
+         font-size="8.00"
+         y="-1197.6"
+         x="1522">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2465"
+         font-size="8.00"
+         y="-1197.6"
+         x="1554">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2467"
+         font-size="8.00"
+         y="-1197.6"
+         x="1568">AutoField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2469"
+         font-size="8.00"
+         y="-1197.6"
+         x="1608">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2471"
+         font-size="8.00"
+         y="-1184.6"
+         x="1500">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text2473"
+         font-size="8.00"
+         y="-1184.6"
+         x="1514">name</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2475"
+         font-size="8.00"
+         y="-1184.6"
+         x="1535">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2477"
+         font-size="8.00"
+         y="-1184.6"
+         x="1554">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text2479"
+         font-size="8.00"
+         y="-1184.6"
+         x="1568">CharField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2481"
+         font-size="8.00"
+         y="-1184.6"
+         x="1604">     </text>
+    </g>
+    <g
+       class="edge"
+       id="edge34"
+       transform="matrix(1.25,0,0,1.25,-1320.5304,2710.5765)">
+      <title
+         id="title2493">wger_exercises_models_Exercise-&gt;wger_utils_models_AbstractLicenseModel</title>
+      <path
+         style="fill:none;stroke:#000000"
+         inkscape:connector-curvature="0"
+         id="path2495"
+         d="m 1788.55,-1362.98 c 51.72,27.25 116.24,61.58 173.45,92.98 22.22,12.2 46.59,25.94 67.53,37.86" />
+      <polygon
+         style="fill:none;stroke:#000000"
+         id="polygon2497"
+         points="2027.85,-1229.07 2031.32,-1235.15 2031.32,-1235.15 2038.27,-1227.16 " />
+      <text
+         style="font-size:8px;text-anchor:middle;font-family:'Helvetica,sans-Serif'"
+         id="text2499"
+         font-size="8.00"
+         y="-1263.6"
+         x="2012">abstract</text>
+      <text
+         style="font-size:8px;text-anchor:middle;font-family:'Helvetica,sans-Serif'"
+         id="text2501"
+         font-size="8.00"
+         y="-1254.6"
+         x="2012">inheritance</text>
+    </g>
+    <g
+       class="edge"
+       id="edge31"
+       transform="matrix(1.25,0,0,1.25,-1320.5304,2710.5765)">
+      <title
+         id="title2504">wger_exercises_models_Exercise-&gt;wger_exercises_models_Muscle</title>
+      <path
+         style="fill:none;stroke:#000000"
+         inkscape:connector-curvature="0"
+         id="path2506"
+         d="m 1637.25,-1332.32 c -10.73,26.66 -14.81,55.71 -0.25,80.32 2.77,4.69 6.16,8.97 9.98,12.87" />
+      <ellipse
+         style="fill:#000000;stroke:#000000"
+         sodipodi:ry="4.00002"
+         sodipodi:rx="4.00002"
+         sodipodi:cy="-1336.1"
+         sodipodi:cx="1638.87"
+         d="m 1642.87,-1336.1 c 0,2.2092 -1.7909,4 -4,4 -2.2092,0 -4,-1.7908 -4,-4 0,-2.2091 1.7908,-4 4,-4 2.2091,0 4,1.7909 4,4 z"
+         id="ellipse2508"
+         ry="4.00002"
+         rx="4.00002"
+         cy="-1336.1"
+         cx="1638.87" />
+      <ellipse
+         style="fill:#000000;stroke:#000000"
+         sodipodi:ry="4.00002"
+         sodipodi:rx="4.00002"
+         sodipodi:cy="-1236.4"
+         sodipodi:cx="1649.9301"
+         d="m 1653.9301,-1236.4 c 0,2.2091 -1.7909,4 -4,4 -2.2092,0 -4.0001,-1.7909 -4.0001,-4 0,-2.2092 1.7909,-4 4.0001,-4 2.2091,0 4,1.7908 4,4 z"
+         id="ellipse2510"
+         ry="4.00002"
+         rx="4.00002"
+         cy="-1236.4"
+         cx="1649.9301" />
+      <text
+         style="font-size:8px;text-anchor:middle;font-family:'Helvetica,sans-Serif'"
+         id="text2512"
+         font-size="8.00"
+         y="-1259.1"
+         x="1670.5">muscles (exercise)</text>
+    </g>
+    <g
+       class="edge"
+       id="edge32"
+       transform="matrix(1.25,0,0,1.25,-1320.5304,2710.5765)">
+      <title
+         id="title2515">wger_exercises_models_Exercise-&gt;wger_exercises_models_Muscle</title>
+      <path
+         style="fill:none;stroke:#000000"
+         inkscape:connector-curvature="0"
+         id="path2517"
+         d="m 1705.37,-1331.66 c 5.41,31.02 11.32,64.89 15.75,90.23" />
+      <ellipse
+         style="fill:#000000;stroke:#000000"
+         sodipodi:ry="4.00001"
+         sodipodi:rx="4.00001"
+         sodipodi:cy="-1335.91"
+         sodipodi:cx="1704.63"
+         d="m 1708.63,-1335.91 c 0,2.2091 -1.7909,4 -4,4 -2.2091,0 -4,-1.7909 -4,-4 0,-2.2092 1.7909,-4 4,-4 2.2091,0 4,1.7908 4,4 z"
+         id="ellipse2519"
+         ry="4.00001"
+         rx="4.00001"
+         cy="-1335.91"
+         cx="1704.63" />
+      <ellipse
+         style="fill:#000000;stroke:#000000"
+         sodipodi:ry="4.00001"
+         sodipodi:rx="4.00001"
+         sodipodi:cy="-1237.46"
+         sodipodi:cx="1721.8101"
+         d="m 1725.8101,-1237.46 c 0,2.2092 -1.7909,4 -4,4 -2.2092,0 -4.0001,-1.7908 -4.0001,-4 0,-2.2091 1.7909,-4 4.0001,-4 2.2091,0 4,1.7909 4,4 z"
+         id="ellipse2521"
+         ry="4.00001"
+         rx="4.00001"
+         cy="-1237.46"
+         cx="1721.8101" />
+      <text
+         style="font-size:8px;text-anchor:middle;font-family:'Helvetica,sans-Serif'"
+         id="text2523"
+         font-size="8.00"
+         y="-1259.1"
+         x="1794">muscles_secondary (secondary_muscles)</text>
+    </g>
+    <g
+       class="edge"
+       id="edge33"
+       transform="matrix(1.25,0,0,1.25,-1320.5304,2710.5765)">
+      <title
+         id="title2526">wger_exercises_models_Exercise-&gt;wger_exercises_models_Equipment</title>
+      <path
+         style="fill:none;stroke:#000000"
+         inkscape:connector-curvature="0"
+         id="path2528"
+         d="m 1795.12,-1347.63 c 28.04,21.93 56.28,48.31 76.88,77.63 7.28,10.36 12.4,23.2 15.93,34.92" />
+      <ellipse
+         style="fill:#000000;stroke:#000000"
+         sodipodi:ry="4.00002"
+         sodipodi:rx="4.00002"
+         sodipodi:cy="-1350.08"
+         sodipodi:cx="1791.9301"
+         d="m 1795.9301,-1350.08 c 0,2.2092 -1.7909,4.0001 -4,4.0001 -2.2092,0 -4.0001,-1.7909 -4.0001,-4.0001 0,-2.2091 1.7909,-4 4.0001,-4 2.2091,0 4,1.7909 4,4 z"
+         id="ellipse2530"
+         ry="4.00002"
+         rx="4.00002"
+         cy="-1350.08"
+         cx="1791.9301" />
+      <ellipse
+         style="fill:#000000;stroke:#000000"
+         sodipodi:ry="4.00001"
+         sodipodi:rx="4.00001"
+         sodipodi:cy="-1231.04"
+         sodipodi:cx="1889.0601"
+         d="m 1893.0601,-1231.04 c 0,2.2091 -1.7909,4 -4,4 -2.2092,0 -4.0001,-1.7909 -4.0001,-4 0,-2.2092 1.7909,-4 4.0001,-4 2.2091,0 4,1.7908 4,4 z"
+         id="ellipse2532"
+         ry="4.00001"
+         rx="4.00001"
+         cy="-1231.04"
+         cx="1889.0601" />
+      <text
+         style="font-size:8px;text-anchor:middle;font-family:'Helvetica,sans-Serif'"
+         id="text2534"
+         font-size="8.00"
+         y="-1259.1"
+         x="1920">equipment (exercise)</text>
+    </g>
+    <g
+       class="edge"
+       id="edge29"
+       transform="matrix(1.25,0,0,1.25,-1320.5304,2710.5765)">
+      <title
+         id="title2537">wger_exercises_models_Exercise-&gt;wger_exercises_models_ExerciseCategory</title>
+      <path
+         style="fill:none;stroke:#000000"
+         inkscape:connector-curvature="0"
+         id="path2539"
+         d="m 1597.69,-1333.39 c -16.21,19 -30.72,40.47 -39.69,63.39 -5.29,13.54 -4.81,29.76 -2.88,42.97" />
+      <ellipse
+         style="fill:#000000;stroke:#000000"
+         sodipodi:ry="4.00002"
+         sodipodi:rx="4.00002"
+         sodipodi:cy="-1336.72"
+         sodipodi:cx="1600.62"
+         d="m 1604.62,-1336.72 c 0,2.2092 -1.7909,4 -4,4 -2.2092,0 -4,-1.7908 -4,-4 0,-2.2091 1.7908,-4 4,-4 2.2091,0 4,1.7909 4,4 z"
+         id="ellipse2541"
+         ry="4.00002"
+         rx="4.00002"
+         cy="-1336.72"
+         cx="1600.62" />
+      <text
+         style="font-size:8px;text-anchor:middle;font-family:'Helvetica,sans-Serif'"
+         id="text2543"
+         font-size="8.00"
+         y="-1259.1"
+         x="1592.5">category (exercise)</text>
+    </g>
+    <g
+       class="node"
+       id="node27"
+       transform="matrix(1.25,0,0,1.25,-1320.5304,2710.5765)">
+      <title
+         id="title2546">wger_exercises_models_ExerciseImage</title>
+      <polygon
+         style="fill:#eee8aa;stroke:none"
+         id="polygon2548"
+         points="1824,-1601.5 1824,-1704.5 2004,-1704.5 2004,-1601.5 1824,-1601.5 " />
+      <polygon
+         style="fill:#698b22;stroke:none"
+         id="polygon2550"
+         points="1824,-1679 1824,-1704 2004,-1704 2004,-1679 1824,-1679 " />
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2552"
+         font-size="8.00"
+         y="-1694.1"
+         x="1872">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Bold"
+         id="text2554"
+         font-size="8.00"
+         y="-1694.1"
+         x="1886">     ExerciseImage</text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Bold"
+         id="text2556"
+         font-size="8.00"
+         y="-1686.1"
+         x="1862.5">&lt;</text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Italic"
+         id="text2558"
+         font-size="8.00"
+         y="-1686.1"
+         x="1867.5">AbstractLicenseModel</text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Bold"
+         id="text2560"
+         font-size="8.00"
+         y="-1686.1"
+         x="1946.5">&gt;      </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2562"
+         font-size="8.00"
+         y="-1671.6"
+         x="1826">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2564"
+         font-size="8.00"
+         y="-1671.6"
+         x="1840">id</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2566"
+         font-size="8.00"
+         y="-1671.6"
+         x="1848">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2568"
+         font-size="8.00"
+         y="-1671.6"
+         x="1911">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2570"
+         font-size="8.00"
+         y="-1671.6"
+         x="1925">AutoField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2572"
+         font-size="8.00"
+         y="-1671.6"
+         x="1965">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2574"
+         font-size="8.00"
+         y="-1658.6"
+         x="1826">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2576"
+         font-size="8.00"
+         y="-1658.6"
+         x="1840">exercise</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2578"
+         font-size="8.00"
+         y="-1658.6"
+         x="1873">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2580"
+         font-size="8.00"
+         y="-1658.6"
+         x="1911">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2582"
+         font-size="8.00"
+         y="-1658.6"
+         x="1925">ForeignKey (id)</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2584"
+         font-size="8.00"
+         y="-1658.6"
+         x="1987">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2586"
+         font-size="8.00"
+         y="-1645.6"
+         x="1826">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica ItalicBold"
+         id="text2588"
+         font-size="8.00"
+         y="-1645.6"
+         x="1840">license</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2590"
+         font-size="8.00"
+         y="-1645.6"
+         x="1871">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2592"
+         font-size="8.00"
+         y="-1645.6"
+         x="1911">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica ItalicBold"
+         id="text2594"
+         font-size="8.00"
+         y="-1645.6"
+         x="1925">ForeignKey (id)</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2596"
+         font-size="8.00"
+         y="-1645.6"
+         x="1988">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2598"
+         font-size="8.00"
+         y="-1632.6"
+         x="1826">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text2600"
+         font-size="8.00"
+         y="-1632.6"
+         x="1840">image</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2602"
+         font-size="8.00"
+         y="-1632.6"
+         x="1862">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2604"
+         font-size="8.00"
+         y="-1632.6"
+         x="1911">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text2606"
+         font-size="8.00"
+         y="-1632.6"
+         x="1925">ImageField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2608"
+         font-size="8.00"
+         y="-1632.6"
+         x="1965">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2610"
+         font-size="8.00"
+         y="-1619.6"
+         x="1826">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text2612"
+         font-size="8.00"
+         y="-1619.6"
+         x="1840">is_main</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2614"
+         font-size="8.00"
+         y="-1619.6"
+         x="1868">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2616"
+         font-size="8.00"
+         y="-1619.6"
+         x="1911">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text2618"
+         font-size="8.00"
+         y="-1619.6"
+         x="1925">BooleanField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2620"
+         font-size="8.00"
+         y="-1619.6"
+         x="1972">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2622"
+         font-size="8.00"
+         y="-1606.6"
+         x="1826">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:Helvetica Italic"
+         id="text2624"
+         font-size="8.00"
+         y="-1606.6"
+         x="1840">license_author</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2626"
+         font-size="8.00"
+         y="-1606.6"
+         x="1892">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2628"
+         font-size="8.00"
+         y="-1606.6"
+         x="1911">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:Helvetica Italic"
+         id="text2630"
+         font-size="8.00"
+         y="-1606.6"
+         x="1925">CharField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2632"
+         font-size="8.00"
+         y="-1606.6"
+         x="1961">     </text>
+    </g>
+    <g
+       class="edge"
+       id="edge36"
+       transform="matrix(1.25,0,0,1.25,-1320.5304,2710.5765)">
+      <title
+         id="title2635">wger_exercises_models_ExerciseImage-&gt;wger_utils_models_AbstractLicenseModel</title>
+      <path
+         style="fill:none;stroke:#000000"
+         inkscape:connector-curvature="0"
+         id="path2637"
+         d="m 1934.43,-1597.27 c 34.98,93.7 105.39,282.28 134.51,360.27" />
+      <polygon
+         style="fill:none;stroke:#000000"
+         id="polygon2639"
+         points="2065.82,-1235.32 2072.38,-1237.77 2072.38,-1237.77 2072.6,-1227.18 " />
+      <text
+         style="font-size:8px;text-anchor:middle;font-family:'Helvetica,sans-Serif'"
+         id="text2641"
+         font-size="8.00"
+         y="-1417.6"
+         x="2073">abstract</text>
+      <text
+         style="font-size:8px;text-anchor:middle;font-family:'Helvetica,sans-Serif'"
+         id="text2643"
+         font-size="8.00"
+         y="-1408.6"
+         x="2073">inheritance</text>
+    </g>
+    <g
+       class="edge"
+       id="edge35"
+       transform="matrix(1.25,0,0,1.25,-1320.5304,2710.5765)">
+      <title
+         id="title2646">wger_exercises_models_ExerciseImage-&gt;wger_exercises_models_Exercise</title>
+      <path
+         style="fill:none;stroke:#000000"
+         inkscape:connector-curvature="0"
+         id="path2648"
+         d="m 1856.54,-1591.19 c -29.14,30.84 -64.78,68.56 -95.52,101.08" />
+      <ellipse
+         style="fill:#000000;stroke:#000000"
+         sodipodi:ry="4.00002"
+         sodipodi:rx="4.00002"
+         sodipodi:cy="-1594.36"
+         sodipodi:cx="1859.53"
+         d="m 1863.53,-1594.36 c 0,2.2092 -1.7908,4 -4,4 -2.2091,0 -4,-1.7908 -4,-4 0,-2.2091 1.7909,-4 4,-4 2.2092,0 4,1.7909 4,4 z"
+         id="ellipse2650"
+         ry="4.00002"
+         rx="4.00002"
+         cy="-1594.36"
+         cx="1859.53" />
+      <text
+         style="font-size:8px;text-anchor:middle;font-family:'Helvetica,sans-Serif'"
+         id="text2652"
+         font-size="8.00"
+         y="-1563.1"
+         x="1880.5">exercise (exerciseimage)</text>
+    </g>
+    <g
+       class="node"
+       id="node28"
+       transform="matrix(1.25,0,0,1.25,-1320.5304,2710.5765)">
+      <title
+         id="title2655">wger_exercises_models_ExerciseComment</title>
+      <polygon
+         style="fill:#eee8aa;stroke:none"
+         id="polygon2657"
+         points="1610.5,-1624.5 1610.5,-1681.5 1771.5,-1681.5 1771.5,-1624.5 1610.5,-1624.5 " />
+      <polygon
+         style="fill:#698b22;stroke:none"
+         id="polygon2659"
+         points="1611,-1663 1611,-1681 1772,-1681 1772,-1663 1611,-1663 " />
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2661"
+         font-size="8.00"
+         y="-1671.1"
+         x="1635.5">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Bold"
+         id="text2663"
+         font-size="8.00"
+         y="-1671.1"
+         x="1649.5">     ExerciseComment      </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2665"
+         font-size="8.00"
+         y="-1655.6"
+         x="1613">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2667"
+         font-size="8.00"
+         y="-1655.6"
+         x="1627">id</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2669"
+         font-size="8.00"
+         y="-1655.6"
+         x="1635">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2671"
+         font-size="8.00"
+         y="-1655.6"
+         x="1680">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2673"
+         font-size="8.00"
+         y="-1655.6"
+         x="1694">AutoField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2675"
+         font-size="8.00"
+         y="-1655.6"
+         x="1734">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2677"
+         font-size="8.00"
+         y="-1642.6"
+         x="1613">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2679"
+         font-size="8.00"
+         y="-1642.6"
+         x="1627">exercise</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2681"
+         font-size="8.00"
+         y="-1642.6"
+         x="1660">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2683"
+         font-size="8.00"
+         y="-1642.6"
+         x="1680">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2685"
+         font-size="8.00"
+         y="-1642.6"
+         x="1694">ForeignKey (id)</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2687"
+         font-size="8.00"
+         y="-1642.6"
+         x="1756">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2689"
+         font-size="8.00"
+         y="-1629.6"
+         x="1613">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text2691"
+         font-size="8.00"
+         y="-1629.6"
+         x="1627">comment</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2693"
+         font-size="8.00"
+         y="-1629.6"
+         x="1661">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2695"
+         font-size="8.00"
+         y="-1629.6"
+         x="1680">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text2697"
+         font-size="8.00"
+         y="-1629.6"
+         x="1694">CharField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2699"
+         font-size="8.00"
+         y="-1629.6"
+         x="1730">     </text>
+    </g>
+    <g
+       class="edge"
+       id="edge37"
+       transform="matrix(1.25,0,0,1.25,-1320.5304,2710.5765)">
+      <title
+         id="title2702">wger_exercises_models_ExerciseComment-&gt;wger_exercises_models_Exercise</title>
+      <path
+         style="fill:none;stroke:#000000"
+         inkscape:connector-curvature="0"
+         id="path2704"
+         d="m 1691,-1612.07 c 0,33.21 0,81.37 0,121.65" />
+      <ellipse
+         style="fill:#000000;stroke:#000000"
+         sodipodi:ry="4"
+         sodipodi:rx="4"
+         sodipodi:cy="-1616.17"
+         sodipodi:cx="1691"
+         d="m 1695,-1616.17 c 0,2.2091 -1.7909,4 -4,4 -2.2091,0 -4,-1.7909 -4,-4 0,-2.2092 1.7909,-4 4,-4 2.2091,0 4,1.7908 4,4 z"
+         id="ellipse2706"
+         ry="4"
+         rx="4"
+         cy="-1616.17"
+         cx="1691" />
+      <text
+         style="font-size:8px;text-anchor:middle;font-family:'Helvetica,sans-Serif'"
+         id="text2708"
+         font-size="8.00"
+         y="-1563.1"
+         x="1741">exercise (exercisecomment)</text>
+    </g>
+  </g>
+</svg>

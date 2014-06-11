@@ -185,6 +185,85 @@ it in the header, see the link on the sidebar for details.</p>
 </div>
 
 
+<h3>Data documentation</h3>
+<p>The data structures should be pretty forward and easy to understand: a workout
+is composed of workout days. Each day has different exercises they in turn have
+repetitions, and so on. These diagrams are automatically generated from the
+database structure, which is basically exposed through the API 1-to-1. Click on
+the images to download a bigger version.</p>
+
+
+<div class="panel-group" id="api-accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#api-accordion" href="#api-workout">
+                Workouts
+                </a>
+            </h4>
+        </div>
+        <div id="api-workout" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <a href="{% static 'images/api/db-manager.svg' %}">
+                    <img src="{% static 'images/api/db-manager.svg' %}" class="img-responsive">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#api-accordion" href="#api-nutrition">
+                Nutrition
+                </a>
+            </h4>
+        </div>
+        <div id="api-nutrition" class="panel-collapse collapse">
+            <div class="panel-body">
+                <a href="{% static 'images/api/db-nutrition.svg' %}">
+                    <img src="{% static 'images/api/db-nutrition.svg' %}" class="img-responsive">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#api-accordion" href="#api-exercises">
+                Exercises
+                </a>
+            </h4>
+        </div>
+        <div id="api-exercises" class="panel-collapse collapse">
+            <div class="panel-body">
+                <a href="{% static 'images/api/db-exercises.svg' %}">
+                    <img src="{% static 'images/api/db-exercises.svg' %}" class="img-responsive">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#api-accordion" href="#api-all">
+                Complete DB
+                </a>
+            </h4>
+        </div>
+        <div id="api-all" class="panel-collapse collapse">
+            <div class="panel-body">
+                <a href="{% static 'images/api/db-all.svg' %}">
+                    <img src="{% static 'images/api/db-all.svg' %}" class="img-responsive">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <h3>/api/v1</h3>
 <div class="panel panel-warning">
