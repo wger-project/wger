@@ -40,7 +40,7 @@ $(document).ready(function() {
 
     // Init the autocompleter
     $("#exercise-search").catcomplete({
-            source: "/api/v2/exercise/search/",
+            source: "{% url 'exercise-search' %}",
             minLength: 2,
             select: function(event, ui) {
 
@@ -195,7 +195,7 @@ $(document).ready(function() {
     <h3>{% trans "Search" %}</h3>
 
     <div class="ui-widget">
-        <form action="/api/v2/exercise/search/"
+        <form action="{% url 'exercise-search' %}"
               method="get"
               id="exercise_search_form">
             {% csrf_token %}

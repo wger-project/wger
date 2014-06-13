@@ -157,9 +157,11 @@ urlpatterns = urlpatterns + patterns('',
 
     # API
     url(r'^api/', include(v1_api.urls)),
-    url(r'^api/v2/exercise/search/', exercises_api_views.search),
-    url(r'^api/v2/ingredient/search/',
+    url(r'^api/v2/exercise/search/$',
+        exercises_api_views.search,
+        name='exercise-search'),
+    url(r'^api/v2/ingredient/search/$',
         nutrition_api_views.search,
         name='ingredient-search'),
-    url(r'api/v2/', include(router.urls)),
+    url(r'^api/v2/', include(router.urls)),
 )

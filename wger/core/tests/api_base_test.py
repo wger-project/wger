@@ -113,7 +113,6 @@ class ApiGetTestCase(object):
         Tests accessing the detail view of a resource
 
         '''
-        # TODO: why does this sometimes redirect to '/en/api/...' ?!?!
 
         if self.private_resource:
             response = self.client.get(self.url_detail)
@@ -122,15 +121,11 @@ class ApiGetTestCase(object):
             # Logged in owner user
             self.get_credentials()
             response = self.client.get(self.url_detail)
-            if response.status_code == 302:
-                response = self.client.get(response.url)
             self.assertEqual(response.status_code, status.HTTP_200_OK)
 
             # Different logged in user
             self.get_credentials(self.user_fail)
             response = self.client.get(self.url_detail)
-            if response.status_code == 302:
-                response = self.client.get(response.url)
             self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
         else:
@@ -172,8 +167,6 @@ class ApiGetTestCase(object):
             # Different logged in user
             self.get_credentials(self.user_fail)
             response = self.client.get(self.url_detail)
-            if response.status_code == 302:
-                response = self.client.get(response.url)
             self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
 
@@ -306,8 +299,6 @@ class ApiPatchTestCase(object):
             # Different logged in user
             self.get_credentials(self.user_fail)
             response = self.client.patch(self.url_detail, data=self.data)
-            if response.status_code == 302:
-                response = self.client.patch(response.url, data=self.data)
             self.assertIn(response.status_code,
                           (status.HTTP_403_FORBIDDEN, status.HTTP_404_NOT_FOUND))
         else:
@@ -486,8 +477,6 @@ class ApiDeleteTestCase(object):
             # Different logged in user
             self.get_credentials(self.user_fail)
             response = self.client.delete(self.url_detail)
-            if response.status_code == 302:
-                response = self.client.delete(response.url)
             self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
         else:

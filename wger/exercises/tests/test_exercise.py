@@ -330,7 +330,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         '''
 
         # 1 hit, "Very cool exercise"
-        response = self.client.get('/api/v2/exercise/search/',
+        response = self.client.get(reverse('exercise-search'),
                                    {'term': 'cool'})
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content)
@@ -342,7 +342,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         self.assertEqual(result[0]['image_thumbnail'], None)
 
         # 0 hits, "Pending exercise"
-        response = self.client.get('/api/v2/exercise/search/',
+        response = self.client.get(reverse('exercise-search'),
                                    {'term': 'Pending'})
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content)
