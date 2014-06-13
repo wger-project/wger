@@ -16,11 +16,17 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from rest_framework import viewsets
-from rest_framework.decorators import link
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
+from rest_framework.decorators import link
+from rest_framework.decorators import api_view
+
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
+
+from django.utils.translation import ugettext as _
+
+from wger.config.models import LanguageConfig
 
 from wger.exercises.models import Exercise
 from wger.exercises.models import Equipment
@@ -28,6 +34,7 @@ from wger.exercises.models import ExerciseCategory
 from wger.exercises.models import ExerciseImage
 from wger.exercises.models import ExerciseComment
 from wger.exercises.models import Muscle
+from wger.utils.language import load_item_languages
 from wger.utils.permissions import CreateOnly
 
 
@@ -54,6 +61,47 @@ class ExerciseViewSet(viewsets.ModelViewSet):
         '''
         if not obj.license_author:
             obj.license_author = self.request.user.username
+
+
+@api_view(['GET'])
+def search(request):
+    '''
+    Searches for exercises.
+
+    This format is currently used by the exercise search autocompleter
+    '''
+    q = request.GET.get('term', None)
+    results = []
+    if not q:
+        return Response(results)
+
+    languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
+    exercises = (Exercise.objects.filter(name__icontains=q)
+                                 .filter(language__in=languages)
+                                 .filter(status__in=Exercise.EXERCISE_STATUS_OK)
+                                 .order_by('category__name', 'name')
+                                 .distinct())
+
+    for exercise in exercises:
+        if exercise.exerciseimage_set.exists():
+            image_obj = exercise.exerciseimage_set.filter(is_main=True)[0]
+            image = image_obj.image.url
+            t = get_thumbnailer(image_obj.image)
+            thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
+        else:
+            image = None
+            thumbnail = None
+
+        exercise_json = {'id': exercise.id,
+                         'name': exercise.name,
+                         'value': exercise.name,
+                         'category': _(exercise.category.name),
+                         'image': image,
+                         'image_thumbnail': thumbnail}
+
+        results.append(exercise_json)
+
+    return Response(results)
 
 
 class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):

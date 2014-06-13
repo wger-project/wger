@@ -32,8 +32,6 @@ urlpatterns = patterns('wger.exercises.views',
         exercises.ExerciseListView.as_view(),
         name='exercise-overview'),
 
-    url(r'^search/$',
-        exercises.search),
     url(r'^(?P<id>\d+)/view/$',
         exercises.view,
         name='exercise-view'),

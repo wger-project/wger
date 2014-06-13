@@ -154,6 +154,9 @@ urlpatterns = urlpatterns + patterns('',
         name='robots'),
     url(r'^manifest\.webapp$', WebappManifestView.as_view(template_name="manifest.webapp")),
     url(r'^amazon-manifest\.webapp$', WebappManifestView.as_view(template_name="amazon-manifest.webapp")),
+
+    # API
     url(r'^api/', include(v1_api.urls)),
+    url(r'^api/v2/exercise/search/', exercises_api_views.search),
     url(r'api/v2/', include(router.urls)),
 )

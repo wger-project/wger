@@ -14,12 +14,10 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 import logging
-import json
 import uuid
 
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.forms import ModelForm
@@ -37,8 +35,6 @@ from django.views.generic import ListView
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
-from easy_thumbnails.files import get_thumbnailer
-from easy_thumbnails.alias import aliases
 
 from wger.manager.models import WorkoutLog
 from wger.exercises.models import Exercise, Muscle
@@ -310,44 +306,3 @@ def decline(request, pk):
     exercise.save()
     messages.success(request, _('Exercise was successfully marked as rejected'))
     return HttpResponseRedirect(exercise.get_absolute_url())
-
-
-def search(request):
-    '''
-    Search an exercise, return the result as a JSON list
-    '''
-
-    # Perform the search
-    q = request.GET.get('term', '')
-
-    languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
-    exercises = (Exercise.objects.filter(name__icontains=q)
-                                 .filter(language__in=languages)
-                                 .filter(status__in=Exercise.EXERCISE_STATUS_OK)
-                                 .order_by('category__name', 'name')
-                                 .distinct())
-
-    results = []
-    for exercise in exercises:
-        if exercise.exerciseimage_set.exists():
-            image_obj = exercise.exerciseimage_set.filter(is_main=True)[0]
-            image = image_obj.image.url
-            t = get_thumbnailer(image_obj.image)
-            thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
-        else:
-            image = None
-            thumbnail = None
-
-        exercise_json = {}
-        exercise_json['id'] = exercise.id
-        exercise_json['name'] = exercise.name
-        exercise_json['value'] = exercise.name
-        exercise_json['category'] = _(exercise.category.name)
-        exercise_json['image'] = image
-        exercise_json['image_thumbnail'] = thumbnail
-
-        results.append(exercise_json)
-    data = json.dumps(results)
-
-    # Return the results to the client
-    return HttpResponse(data, content_type='application/json')

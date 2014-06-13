@@ -362,7 +362,7 @@ function init_remove_exercise_formset() {
 function init_edit_set() {
     // Initialise the autocompleter (our widget, defined above)
     $("#exercise-search").catcomplete({
-        source: '/' + get_current_language() + "/exercise/search/",
+        source: '/api/v2/exercise/search/',
         minLength: 2,
         select: function (event, ui) {
 
