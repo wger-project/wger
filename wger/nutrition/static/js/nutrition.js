@@ -80,24 +80,26 @@ function init_ingredient_autocompleter()
             $('#exercise_name').html(ui.item.label);
 
             // See if the ingredient has any units and set the values for the forms
-            $.get('/' + get_current_language() + '/nutrition/ingredient/' + ui.item.id + '/get-units',
-                  function(data){
+            $.get('/api/v2/ingredientweightunit/?ingredient=' + ui.item.id, function(unit_data) {
 
-                        // Remove any old units, if any
-                        var options = $('#id_weight_unit').find('option');
-                        $.each(options, function(index, option_obj) {
-                            if (option_obj.value != '')
-                            {
-                                $(option_obj).remove();
-                            }
-                        });
+                // Remove any old units, if any
+                var options = $('#id_weight_unit').find('option');
+                $.each(options, function(index, option_obj) {
+                    if (option_obj.value != '')
+                    {
+                        $(option_obj).remove();
+                    }
+                });
 
-                        // Add new units, if any
-                        $.each(data, function(index, value) {
-                            $('#id_unit').append(new Option(value.name, value.id));
-                            $('#id_weight_unit').append(new Option(value.name_model, value.id));
-                        });
-                  });
+                // Add new units, if any
+                $.each(unit_data.results, function(index, value) {
+                    $.get('/api/v2/weightunit/' + value.unit + '/', function(unit) {
+                        var unit_name = unit.name + ' (' + value.gramm + 'g)';
+                        $('#id_unit').append(new Option(unit_name, value.id));
+                        $('#id_weight_unit').append(new Option(unit_name, value.id));
+                    });
+                });
+            });
         }
     });
 }

@@ -223,24 +223,6 @@ def decline(request, pk):
     return HttpResponseRedirect(ingredient.get_absolute_url())
 
 
-@login_required
-def ajax_get_ingredient_units(request, pk):
-    '''
-    Fetches the available ingredient units
-    '''
-
-    units = IngredientWeightUnit.objects.filter(ingredient_id=pk)
-    result = []
-    for unit in units:
-        result.append({'id': unit.id,
-                       'name': unit.unit.name,
-                       'amount': unit.amount,
-                       'name_model': unicode(unit)})
-
-    return HttpResponse(json.dumps(result, cls=helpers.DecimalJsonEncoder),
-                        'application/json')
-
-
 def ajax_get_ingredient_values(request, pk):
     '''
     Calculates the nutritional values for the given amount and exercise
