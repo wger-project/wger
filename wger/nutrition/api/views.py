@@ -16,7 +16,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from rest_framework import viewsets
-from rest_framework.decorators import link
+from rest_framework.decorators import link, api_view
 from rest_framework.response import Response
 
 from wger.nutrition.api.serializers import NutritionPlanSerializer
@@ -27,6 +27,7 @@ from wger.nutrition.models import MealItem
 from wger.nutrition.models import WeightUnit
 from wger.nutrition.models import IngredientWeightUnit
 from wger.nutrition.models import NutritionPlan
+from wger.utils.language import load_ingredient_languages
 
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
@@ -52,6 +53,36 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
                      'language',
                      'license',
                      'license_author')
+
+
+@api_view(['GET'])
+def search(request):
+    '''
+    Searches for ingredients.
+
+    This format is currently used by the ingredient search autocompleter
+    '''
+    q = request.GET.get('term', None)
+    results = []
+    if not q:
+        return Response(results)
+
+    languages = load_ingredient_languages(request)
+
+    # Perform the search
+    q = request.GET.get('term', '')
+    ingredients = Ingredient.objects.filter(name__icontains=q,
+                                            language__in=languages,
+                                            status__in=Ingredient.INGREDIENT_STATUS_OK)
+
+    results = []
+    for ingredient in ingredients:
+        ingredient_json = {'id': ingredient.id,
+                           'name': ingredient.name,
+                           'value': ingredient.name}
+        results.append(ingredient_json)
+
+    return Response(results)
 
 
 class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):

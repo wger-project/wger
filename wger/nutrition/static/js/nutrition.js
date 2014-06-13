@@ -71,7 +71,7 @@ function init_ingredient_autocompleter()
 {
     // Init the autocompleter
     $("#id_ingredient_searchfield").autocomplete({
-        source: '/' + get_current_language() + "/nutrition/ingredient/search/",
+        source: '/api/v2/ingredient/search/',
         minLength: 2,
         select: function(event, ui) {
 

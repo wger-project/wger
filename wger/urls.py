@@ -106,7 +106,7 @@ router.register(r'exercisecomment', exercises_api_views.ExerciseCommentViewSet)
 router.register(r'muscle', exercises_api_views.MuscleViewSet)
 
 # Nutrition app
-router.register(r'ingredient', nutrition_api_views.IngredientViewSet, base_name='api')
+router.register(r'ingredient', nutrition_api_views.IngredientViewSet, base_name='api-ingredient')
 router.register(r'weightunit', nutrition_api_views.WeightUnitViewSet)
 router.register(r'ingredientweightunit', nutrition_api_views.IngredientWeightUnitViewSet)
 router.register(r'nutritionplan', nutrition_api_views.NutritionPlanViewSet)
@@ -158,5 +158,8 @@ urlpatterns = urlpatterns + patterns('',
     # API
     url(r'^api/', include(v1_api.urls)),
     url(r'^api/v2/exercise/search/', exercises_api_views.search),
+    url(r'^api/v2/ingredient/search/',
+        nutrition_api_views.search,
+        name='ingredient-search'),
     url(r'api/v2/', include(router.urls)),
 )

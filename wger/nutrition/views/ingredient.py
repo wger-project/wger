@@ -223,46 +223,6 @@ def decline(request, pk):
     return HttpResponseRedirect(ingredient.get_absolute_url())
 
 
-def search(request):
-    '''
-    Search for an exercise, return the result as a JSON list or as HTML page, depending on how
-    the function was invoked
-    '''
-
-    # Filter the ingredients the user will see by its language
-    # (the user can also want to see ingredients in English, see load_ingredient_languages)
-    languages = load_ingredient_languages(request)
-
-    # Perform the search
-    q = request.GET.get('term', '')
-    ingredients = Ingredient.objects.filter(name__icontains=q,
-                                            language__in=languages,
-                                            status__in=Ingredient.INGREDIENT_STATUS_OK)
-
-    # AJAX-request, this comes from the autocompleter. Create a list and send it back as JSON
-    if request.is_ajax():
-
-        results = []
-        for ingredient in ingredients:
-            ingredient_json = {}
-            ingredient_json['id'] = ingredient.id
-            ingredient_json['name'] = ingredient.name
-            ingredient_json['value'] = ingredient.name
-            results.append(ingredient_json)
-        data = json.dumps(results)
-
-        # Return the results to the server
-        return HttpResponse(data, content_type='application/json')
-
-    # Usual search (perhaps JS disabled), present the results as normal HTML page
-    else:
-        template_data = {}
-        template_data.update(csrf(request))
-        template_data['ingredients'] = ingredients
-        template_data['search_term'] = q
-        return render(request, 'ingredient/search.html', template_data)
-
-
 @login_required
 def ajax_get_ingredient_units(request, pk):
     '''

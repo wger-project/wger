@@ -169,20 +169,6 @@ class IngredientSearchTestCase(WorkoutManagerTestCase):
         Helper function
         '''
 
-        # Perform the search
-        response = self.client.get(reverse('ingredient-search'), {'term': 'test'})
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['ingredients']), 2)
-        self.assertEqual(response.context['ingredients'][0].name,
-                         'Ingredient, test, 2, organic, raw')
-        self.assertEqual(response.context['ingredients'][1].name, 'Test ingredient 1')
-
-        # Search for an ingredient pending review (0 hits, "Pending ingredient")
-        response = self.client.get(reverse('ingredient-search'), {'term': 'Pending'})
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['ingredients']), 0)
-
-        # AJAX-Search
         kwargs = {'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'}
         response = self.client.get(reverse('ingredient-search'), {'term': 'test'}, **kwargs)
         self.assertEqual(response.status_code, 200)
@@ -191,7 +177,7 @@ class IngredientSearchTestCase(WorkoutManagerTestCase):
         self.assertEqual(result[0]['value'], 'Ingredient, test, 2, organic, raw')
         self.assertEqual(result[1]['value'], 'Test ingredient 1')
 
-        # AJAX Search for an ingredient pending review (0 hits, "Pending ingredient")
+        # Search for an ingredient pending review (0 hits, "Pending ingredient")
         response = self.client.get(reverse('ingredient-search'), {'term': 'Pending'}, **kwargs)
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content)
