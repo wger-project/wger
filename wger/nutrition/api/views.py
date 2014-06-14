@@ -211,7 +211,7 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
         '''
         Return objects to check for ownership permission
         '''
-        return [NutritionPlan.objects.get(pk=self.request.DATA['plan'])]
+        return [(NutritionPlan, 'plan')]
 
     @link()
     def nutritional_values(self, request, pk):
@@ -250,7 +250,7 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
         '''
         Return objects to check for ownership permission
         '''
-        return [Meal.objects.get(pk=self.request.DATA['meal'])]
+        return [(Meal, 'meal')]
 
     @link()
     def nutritional_values(self, request, pk):

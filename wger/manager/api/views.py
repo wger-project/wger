@@ -103,7 +103,7 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
         '''
         Return objects to check for ownership permission
         '''
-        return [Workout.objects.get(pk=self.request.DATA['workout'])]
+        return [(Workout, 'workout')]
 
 
 class ScheduleStepViewSet(WgerOwnerObjectModelViewSet):
@@ -137,8 +137,8 @@ class ScheduleStepViewSet(WgerOwnerObjectModelViewSet):
         '''
         Return objects to check for ownership permission
         '''
-        return [Workout.objects.get(pk=self.request.DATA['workout']),
-                Schedule.objects.get(pk=self.request.DATA['schedule'])]
+        return [(Workout, 'workout'),
+                (Schedule, 'schedule')]
 
 
 class ScheduleViewSet(viewsets.ModelViewSet):
@@ -186,7 +186,7 @@ class DayViewSet(WgerOwnerObjectModelViewSet):
         '''
         Return objects to check for ownership permission
         '''
-        return [Workout.objects.get(pk=self.request.DATA['training'])]
+        return [(Workout, 'training')]
 
 
 class SetViewSet(WgerOwnerObjectModelViewSet):
@@ -211,7 +211,7 @@ class SetViewSet(WgerOwnerObjectModelViewSet):
         '''
         Return objects to check for ownership permission
         '''
-        return [Day.objects.get(pk=self.request.DATA['exerciseday'])]
+        return [(Day, 'exerciseday')]
 
 
 class SettingViewSet(WgerOwnerObjectModelViewSet):
@@ -243,7 +243,7 @@ class SettingViewSet(WgerOwnerObjectModelViewSet):
         '''
         Return objects to check for ownership permission
         '''
-        return [Set.objects.get(pk=self.request.DATA['set'])]
+        return [(Set, 'set')]
 
 
 class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
@@ -276,4 +276,4 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
         '''
         Return objects to check for ownership permission
         '''
-        return [Workout.objects.get(pk=self.request.DATA['workout'])]
+        return [(Workout, 'workout')]

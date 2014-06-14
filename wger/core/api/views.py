@@ -46,7 +46,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         '''
         Return objects to check for ownership permission
         '''
-        return [User.objects.get(pk=self.request.DATA['user'])]
+        return [(User, 'user')]
 
 
 class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
