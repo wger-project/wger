@@ -233,11 +233,17 @@ function init_calories_calculator()
 
     $("#form-update-calories").click(function(e){
         e.preventDefault();
-        var form_url = $("#total-calories-form").attr('action');
-        $.post(form_url,
-               $("#total-calories-form").serialize(),
-               function(data) {
-               });
+
+        // Get own ID and update the user profile
+        $.get('/api/v2/userprofile', function(data) {
+        }).done(function(userprofile) {
+            var total_calories = $("#id_calories")[0].value;
+            $.ajax({
+                url:'/api/v2/userprofile/' + userprofile.results[0].id + '/',
+                type: 'PATCH',
+                data: {calories: total_calories}
+            });
+        });
     });
 
     $(".calories-autoform").click(function(e){

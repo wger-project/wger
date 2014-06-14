@@ -143,7 +143,4 @@ urlpatterns = patterns('wger.nutrition.views',
     url(r'^calculator/calories/activities$',
         calculator.calculate_activities,
         name='calories-calculate-activities'),  # JS
-    url(r'^calculator/calories/total$',
-        calculator.update_total,
-        name='calories-calculate-total'),  # JS
 )
