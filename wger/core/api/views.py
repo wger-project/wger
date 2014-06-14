@@ -15,10 +15,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from rest_framework import viewsets
-from rest_framework.permissions import AllowAny
+from django.contrib.auth.models import User
 
-from wger.core.models import UserProfile, Language, DaysOfWeek, License
+from rest_framework import viewsets
+
+from wger.core.models import UserProfile
+from wger.core.models import Language
+from wger.core.models import DaysOfWeek
+from wger.core.models import License
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):
@@ -37,6 +41,12 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
     def create(self, request):
         pass
+
+    def get_owner_objects(self):
+        '''
+        Return objects to check for ownership permission
+        '''
+        return [User.objects.get(pk=self.request.DATA['user'])]
 
 
 class LanguageViewSet(viewsets.ReadOnlyModelViewSet):

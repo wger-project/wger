@@ -172,18 +172,8 @@ def api_user_preferences(request):
 
     if request.is_ajax():
 
-        # Show comments on workout view
-        if request.GET.get('do') == 'set_show-comments':
-            new_value = int(request.GET.get('show'))
-
-            profile = request.user.userprofile
-            profile.show_comments = new_value
-            profile.save()
-
-            return HttpResponse(_('Success'))
-
         # Show ingredients in english
-        elif request.GET.get('do') == 'set_english-ingredients':
+        if request.GET.get('do') == 'set_english-ingredients':
             new_value = int(request.GET.get('show'))
 
             profile = request.user.userprofile

@@ -178,21 +178,6 @@ class AjaxPreferencesTestCase(WorkoutManagerTestCase):
         Helper function to test the preferences page
         '''
 
-        # Set the 'show comments' option
-        response = self.client.get(reverse('core:user-api-preferences'),
-                                   {'do': 'set_show-comments',
-                                    'show': '1'},
-                                   HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-
-        self.assertEqual('Success', response.content)
-        self.assertEqual(response.status_code, 200)
-
-        response = self.client.get(reverse('core:preferences'))
-        profile = response.context['user'].userprofile
-        self.assertTrue(profile.show_comments)
-        self.assertFalse(profile.show_english_ingredients)
-        self.assertEqual(response.context['user'].email, 'test@example.com')
-
         # Set the 'english ingredients' option
         response = self.client.get(reverse('core:user-api-preferences'),
                                    {'do': 'set_english-ingredients',

@@ -25,6 +25,48 @@
 
 "use strict";
 
+
+/*
+ * AJAX related functions
+ *
+ * See https://docs.djangoproject.com/en/dev/ref/contrib/csrf/#ajax for
+ * more information
+ */
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    crossDomain: false, // obviates need for sameOrigin test
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type)) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        }
+    }
+});
+
+
+/*
+ * Others
+ */
 function get_current_language() {
     /* Returns a short name, like 'en' or 'de' */
     return $('#current-language').data('currentLanguage');
@@ -89,6 +131,8 @@ function setup_sortable() {
 }
 
 
+
+
 /*
  *
  * Functions related to the user's preferences
@@ -106,7 +150,15 @@ function toggle_comments() {
             showComment = 0;
         }
 
-        $("#ajax-info").load('/' + get_current_language() + "/workout/api/user-preferences?do=set_show-comments&show=" + showComment);
+        // Get own ID and update the user profile
+        $.get('/api/v2/userprofile', function(data) {
+        }).done(function(userprofile) {
+            $.ajax({
+                url:'/api/v2/userprofile/' + userprofile.results[0].id + '/',
+                type: 'PATCH',
+                data: {show_comments: showComment}
+            });
+        });
     });
 }
 
