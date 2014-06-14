@@ -16,13 +16,15 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.contrib.auth.models import User
-
 from rest_framework import viewsets
 
 from wger.core.models import UserProfile
 from wger.core.models import Language
 from wger.core.models import DaysOfWeek
 from wger.core.models import License
+from wger.core.api.serializers import UserprofileSerializer
+from wger.utils.permissions import UpdateOnlyPermission
+from wger.utils.permissions import WgerPermission
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):
@@ -31,16 +33,14 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     '''
     model = UserProfile
     is_private = True
-    ordering_fields = '__all__'
+    serializer_class = UserprofileSerializer
+    permission_classes = (WgerPermission, UpdateOnlyPermission)
 
     def get_queryset(self):
         '''
         Only allow access to appropriate objects
         '''
         return UserProfile.objects.filter(user=self.request.user)
-
-    def create(self, request):
-        pass
 
     def get_owner_objects(self):
         '''

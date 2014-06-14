@@ -57,7 +57,7 @@ class WgerPermission(permissions.BasePermission):
         return False
 
 
-class CreateOnly(permissions.BasePermission):
+class CreateOnlyPermission(permissions.BasePermission):
     '''
     Custom permission that permits read access the resource but limits the
     write operations to creating (POSTing) new objects only and does not
@@ -70,3 +70,15 @@ class CreateOnly(permissions.BasePermission):
                 (request.user and
                  request.user.is_authenticated() and
                  request.method == 'POST'))
+
+
+class UpdateOnlyPermission(permissions.BasePermission):
+    '''
+    Custom permission that restricts write operations to PATCH. This is currently
+    used for the user profile.
+    '''
+
+    def has_permission(self, request, view):
+        return (request.user and
+                request.user.is_authenticated() and
+                request.method in ['GET', 'HEAD', 'OPTIONS', 'PATCH'])
