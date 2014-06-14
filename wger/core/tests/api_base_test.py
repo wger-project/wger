@@ -220,9 +220,11 @@ class ApiPostTestCase(object):
 
             # Authorized user (owner)
             self.get_credentials()
+            count_before = self.resource.objects.all().count()
             response = self.client.post(self.url, data=self.data)
             self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-            # TODO: check the answer and load from DB
+            count_after = self.resource.objects.all().count()
+            self.assertEqual(count_before + 1, count_after)
 
             # Different logged in user
             self.get_credentials(self.user_fail)
@@ -290,10 +292,9 @@ class ApiPatchTestCase(object):
             self.assertIn(response.status_code, (status.HTTP_201_CREATED, status.HTTP_200_OK))
 
             # Try updating each of the object's values
-            # TODO:
-            # for key in self.data:
-            #    response = self.client.patch(self.url_detail, data={key: self.data[key]})
-            #    self.assertEqual(response.status_code, status.HTTP_200_OK)
+            for key in self.data:
+                response = self.client.patch(self.url_detail, data={key: self.data[key]})
+                self.assertEqual(response.status_code, status.HTTP_200_OK)
 
             # Different logged in user
             self.get_credentials(self.user_fail)
@@ -384,11 +385,27 @@ class ApiPutTestCase(object):
             self.assertIn(response.status_code, (status.HTTP_200_OK, status.HTTP_201_CREATED))
 
             # Different logged in user
+            count_before = self.resource.objects.all().count()
             self.get_credentials(self.user_fail)
             response = self.client.put(self.url_detail, data=self.data)
-            self.assertIn(response.status_code,
-                          (status.HTTP_403_FORBIDDEN, status.HTTP_201_CREATED))
-            # TODO: check why sometimes 201/403
+            count_after = self.resource.objects.all().count()
+
+            # Even if we PUT to a detail resource that does not belong to us,
+            # the created object will have the correct user assigned.
+            #
+            # Currently resources that have a 'user' field 'succeed'
+            if response.status_code == status.HTTP_201_CREATED:
+                # print('201: {0}'.format(self.url_detail))
+                obj = self.resource.objects.get(pk=response.data['id'])
+                obj2 = self.resource.objects.get(pk=self.pk)
+                self.assertNotEqual(obj.get_owner_object().user.username,
+                                    obj2.get_owner_object().user.username)
+                self.assertEqual(obj.get_owner_object().user.username, self.user_fail)
+                self.assertEqual(count_before + 1, count_after)
+
+            elif response.status_code == status.HTTP_403_FORBIDDEN:
+                # print('403: {0}'.format(self.url_detail))
+                self.assertEqual(count_before, count_after)
         else:
             # Anonymous user
             response = self.client.put(self.url_detail, data=self.data)
@@ -464,14 +481,19 @@ class ApiDeleteTestCase(object):
         '''
         if self.private_resource:
             # Anonymous user
+            count_before = self.resource.objects.all().count()
             response = self.client.delete(self.url_detail)
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+            count_after = self.resource.objects.all().count()
+            self.assertEqual(count_before, count_after)
 
             # Authorized user (owner)
             self.get_credentials()
+            count_before = self.resource.objects.all().count()
             response = self.client.delete(self.url_detail)
             self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-            # TODO: check the DB
+            count_after = self.resource.objects.all().count()
+            self.assertEqual(count_before - 1, count_after)
 
             # Different logged in user
             self.get_credentials(self.user_fail)

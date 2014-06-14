@@ -349,14 +349,13 @@ class SettingWorkoutCacheTestCase(WorkoutManagerTestCase):
         self.assertFalse(cache.get(cache_mapper.get_workout_canonical(workout_id)))
 
 
-# TODO: fix testcase
-# class SetApiTestCase(api_base_test.ApiBaseResourceTestCase):
-#     '''
-#     Tests the set overview resource
-#     '''
-#     pk = 3
-#     resource = Set
-#     private_resource = True
-#     data = {'exerciseday': 5,
-#             'sets': 4,
-#             'exercises': [1, 2, 3]}
+class SetApiTestCase(api_base_test.ApiBaseResourceTestCase):
+    '''
+    Tests the set overview resource
+    '''
+    pk = 3
+    resource = Set
+    private_resource = True
+    data = {'exerciseday': 5,
+            'sets': 4,
+            'exercises': [1, 2, 3]}
