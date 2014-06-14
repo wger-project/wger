@@ -216,35 +216,3 @@ def edit(request, pk):
     context['formsets'] = formsets
     context['form_action'] = reverse('set-edit', kwargs={'pk': pk})
     return render(request, 'set/edit.html', context)
-
-
-@login_required
-def api_edit_set(request):
-    '''
-    Allows to edit the order of the sets via an AJAX call
-    '''
-
-    if request.is_ajax():
-
-        # Set the order of the reps
-        if request.GET.get('do') == 'set_order':
-            day_id = request.GET.get('day_id')
-            new_set_order = request.GET.get('order')
-
-            order = 0
-            for i in new_set_order.strip(',').split(','):
-                if not i:
-                    continue
-                set_id = i.split('-')[1]
-                order += 1
-
-                set_obj = get_object_or_404(Set, pk=set_id, exerciseday=day_id)
-
-                # Check if the user is the owner of the object
-                if set_obj.exerciseday.training.user == request.user:
-                    set_obj.order = order
-                    set_obj.save()
-                else:
-                    return HttpResponseForbidden()
-
-            return HttpResponse(_('Success'))

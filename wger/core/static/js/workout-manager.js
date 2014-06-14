@@ -112,15 +112,23 @@ function setup_sortable() {
         update : function (event, ui) {
             // Monkey around the HTML, till we find the IDs of the set and the day
             var day_element = ui.item.parent().parent().find('tr').first().attr('id'); //day-xy
-            var day_id = day_element.match(/\d+/);
+            var day_id = day_element.match(/\d+/)[0];
 
             // returns something in the form "set-1,set-2,set-3,"
             var order = $(this).sortable('toArray');
 
-            //$("#ajax-info").show();
-            //$("#ajax-info").addClass('success');
-            $.get('/' + get_current_language() + "/workout/api/edit-set" + "?do=set_order&day_id=" + day_id + "&order=" + order);
-
+            $.each(order, function (index, value) {
+                if (value) {
+                var set_pk = value.match(/\d+/)[0];
+                    $.ajax({
+                       url:'/api/v2/set/' + set_pk + '/',
+                       type: 'PATCH',
+                       data: {'order': index + 1}
+                    }).done(function(data) {
+                        //console.log(data);
+                    });
+                }
+            });
 
             // TODO: it seems to be necessary to call the view two times before it returns
             //       current data.

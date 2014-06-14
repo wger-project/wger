@@ -154,7 +154,4 @@ urlpatterns = patterns('',
     url(r'^workout/set/(?P<pk>\d+)/edit/$',
         set.edit,
         name='set-edit'),
-
-    # AJAX
-    url(r'^workout/api/edit-set$', set.api_edit_set),
 )
