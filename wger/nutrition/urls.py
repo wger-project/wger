@@ -96,9 +96,6 @@ urlpatterns = patterns('wger.nutrition.views',
     url(r'^ingredient/(?P<id>\d+)/view/(?P<slug>[-\w]+)/$',
         ingredient.view,
         name='ingredient-view'),
-    url(r'^ingredient/(?P<pk>\d+)/get-nutritional-values$',
-        ingredient.ajax_get_ingredient_values,
-        name='ingredient-get-values'),
 
     # Ingredient units
     url(r'^ingredient/unit/list/$',

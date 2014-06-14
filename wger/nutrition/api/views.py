@@ -16,10 +16,12 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from rest_framework import viewsets
-from rest_framework.decorators import link, api_view
+from rest_framework.decorators import link
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from wger.nutrition.api.serializers import NutritionPlanSerializer
+from wger.nutrition.forms import UnitChooserForm
 
 from wger.nutrition.models import Ingredient
 from wger.nutrition.models import Meal
@@ -27,8 +29,8 @@ from wger.nutrition.models import MealItem
 from wger.nutrition.models import WeightUnit
 from wger.nutrition.models import IngredientWeightUnit
 from wger.nutrition.models import NutritionPlan
-from wger.utils.language import load_ingredient_languages
 
+from wger.utils.language import load_ingredient_languages
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
@@ -53,6 +55,49 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
                      'language',
                      'license',
                      'license_author')
+
+    @link()
+    def get_values(self, request, pk):
+        '''
+        Calculates the nutritional values for current ingredient and
+        the given amount and unit.
+
+        This function basically just performs a multiplication (in the model), and
+        is a candidate to be moved to pure AJAX calls, however doing it like this
+        keeps the logic nicely hidden and respects the DRY principle.
+        '''
+
+        result = {'energy': 0,
+                  'protein': 0,
+                  'carbohydrates': 0,
+                  'carbohydrates_sugar': 0,
+                  'fat': 0,
+                  'fat_saturated': 0,
+                  'fibres': 0,
+                  'sodium': 0,
+                  'errors': []}
+        ingredient = self.get_object()
+
+        form = UnitChooserForm(request.GET)
+
+        if form.is_valid():
+
+            # Create a temporary MealItem object
+            if form.cleaned_data['unit']:
+                unit_id = form.cleaned_data['unit'].id
+            else:
+                unit_id = None
+
+            item = MealItem()
+            item.ingredient = ingredient
+            item.weight_unit_id = unit_id
+            item.amount = form.cleaned_data['amount']
+
+            result = item.get_nutritional_values()
+        else:
+            result['errors'] = form.errors
+
+        return Response(result)
 
 
 @api_view(['GET'])

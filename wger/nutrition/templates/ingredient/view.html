@@ -8,7 +8,7 @@
 {% block header %}
 <script>
 $(document).ready(function() {
-    init_ingredient_detail("{% url 'ingredient-get-values' ingredient.id %}");
+    init_ingredient_detail("{% url 'api-ingredient-get-values' ingredient.id %}");
 });
 </script>
 {% endblock %}
@@ -63,11 +63,10 @@ the search.{% endblocktrans %}
 <meta itemprop="name" content="{{ingredient.name}}" />
 
 <form class="form-horizontal"
-      method="post"
-      action="{% url 'ingredient-get-values' ingredient.id %}"
+      method="GET"
+      action="{% url 'api-ingredient-get-values' ingredient.id %}"
       id="nutritional-values-form"
       style="background-color: transparent; border-width: 0px; box-shadow: 0px 0px 0px 0px transparent;">
-    {% csrf_token %}
     <div id="calculator-errors"></div>
     <input type="hidden" value="{{ingredient.id}}" name="ingredient">
 

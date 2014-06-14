@@ -14,20 +14,16 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 import logging
-import json
 
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.core import mail
-from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.core.cache import cache
 from django.contrib.auth.decorators import permission_required
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
@@ -37,10 +33,7 @@ from django.views.generic import UpdateView
 from django.views.generic import ListView
 
 from wger.nutrition.forms import UnitChooserForm
-from wger.nutrition.models import MealItem
 from wger.nutrition.models import Ingredient
-from wger.nutrition.models import IngredientWeightUnit
-from wger.utils import helpers
 from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
@@ -221,43 +214,3 @@ def decline(request, pk):
     ingredient.save()
     messages.success(request, _('Ingredient was successfully marked as rejected'))
     return HttpResponseRedirect(ingredient.get_absolute_url())
-
-
-def ajax_get_ingredient_values(request, pk):
-    '''
-    Calculates the nutritional values for the given amount and exercise
-    '''
-
-    result = {'energy': 0,
-              'protein': 0,
-              'carbohydrates': 0,
-              'carbohydrates_sugar': 0,
-              'fat': 0,
-              'fat_saturated': 0,
-              'fibres': 0,
-              'sodium': 0,
-              'errors': []}
-    ingredient = get_object_or_404(Ingredient, pk=pk)
-
-    if request.method == 'POST':
-        form = UnitChooserForm(request.POST)
-
-        if form.is_valid():
-
-            # Create a temporary MealItem object
-            if form.cleaned_data['unit']:
-                unit_id = form.cleaned_data['unit'].id
-            else:
-                unit_id = None
-
-            item = MealItem()
-            item.ingredient = ingredient
-            item.weight_unit_id = unit_id
-            item.amount = form.cleaned_data['amount']
-
-            result = item.get_nutritional_values()
-        else:
-            result['errors'] = form.errors
-
-    return HttpResponse(json.dumps(result, cls=helpers.DecimalJsonEncoder),
-                        'application/json')

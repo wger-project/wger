@@ -23,7 +23,7 @@
 function update_ingredient_value(url)
 {
     var form_data = $('#nutritional-values-form').serializeArray();
-    $.post(url, form_data, function(data) {
+    $.get(url, form_data, function(data) {
 
         // Show any validation errors
         $('#calculator-errors').html('');

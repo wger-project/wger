@@ -210,10 +210,10 @@ class IngredientValuesTestCase(WorkoutManagerTestCase):
         '''
 
         # Get the nutritional values in 1 gram of product
-        response = self.client.post(reverse('ingredient-get-values', kwargs={'pk': 1}),
-                                    {'amount': 1,
-                                     'ingredient': 1,
-                                     'unit': ''})
+        response = self.client.get(reverse('api-ingredient-get-values', kwargs={'pk': 1}),
+                                   {'amount': 1,
+                                    'ingredient': 1,
+                                    'unit': ''})
 
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content)
@@ -228,10 +228,10 @@ class IngredientValuesTestCase(WorkoutManagerTestCase):
                                   u'carbohydrates': u'0.00'})
 
         # Get the nutritional values in 1 unit of product
-        response = self.client.post(reverse('ingredient-get-values', kwargs={'pk': 1}),
-                                    {'amount': 1,
-                                     'ingredient': 1,
-                                     'unit': 2})
+        response = self.client.get(reverse('api-ingredient-get-values', kwargs={'pk': 1}),
+                                   {'amount': 1,
+                                    'ingredient': 1,
+                                    'unit': 2})
 
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content)
