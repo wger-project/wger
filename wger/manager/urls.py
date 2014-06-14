@@ -111,9 +111,6 @@ urlpatterns = patterns('',
     url(r'^workout/schedule/(?P<pk>\d+)/ical$',
         ical.export_schedule,
         name='schedule-ical'),
-    url(r'^workout/schedule/api/(?P<pk>\d+)/edit$',
-        schedule.edit_step_api,
-        name='schedule-edit-api'),
 
     # Schedule steps
     url(r'^workout/schedule/(?P<schedule_pk>\d+)/step/add$',

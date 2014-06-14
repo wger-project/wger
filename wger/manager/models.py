@@ -308,8 +308,7 @@ class ScheduleStep(models.Model):
 
     order = models.IntegerField(verbose_name=_('Order'),
                                 max_length=1,
-                                default=1,
-                                editable=False)
+                                default=1)
 
     def get_owner_object(self):
         '''

@@ -111,32 +111,3 @@ class ScheduleEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     title = ugettext_lazy('Edit schedule')
     form_action_urlname = 'schedule-edit'
     login_required = True
-
-
-def edit_step_api(request, pk):
-    schedule = get_object_or_404(Schedule, pk=pk, user=request.user)
-
-    # Set the order
-    if request.GET.get('do') == 'set_order':
-        new_set_order = request.GET.get('order')
-
-        order = 0
-        for i in new_set_order.strip(',').split(','):
-            # If the order items are not well formatted, ignore them
-            try:
-                step_id = i.split('-')[1]
-            except IndexError:
-                continue
-            order += 1
-
-            # If the step does not exist or belongs to somebody else, ignore it
-            try:
-                step = ScheduleStep.objects.get(pk=step_id, schedule=schedule)
-            except ScheduleStep.DoesNotExist:
-                continue
-
-            # Save
-            step.order = order
-            step.save()
-
-        return HttpResponse(_('Success'))

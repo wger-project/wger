@@ -18,7 +18,19 @@ function init_sortable()
             // returns something in the form "step-1,step-2,step-3,"
             var order = $( this ).sortable('toArray');
 
-            $.get('/' + get_current_language() + "/workout/schedule/api/" + schedule_id + "/edit" + "?do=set_order&order=" + order);
+            $.each(order, function (index, value) {
+                if (value) {
+                    var step_pk = value.match(/\d+/)[0];
+                    $.ajax({
+                       url:'/api/v2/schedulestep/' + step_pk + '/',
+                       type: 'PATCH',
+                       data: {'order': index + 1}
+                    }).done(function(data) {
+                        //console.log(data);
+                    });
+                }
+            });
+
             current_url = $("#current-url").data('currentUrl');
 
             // TODO: again, why do we need to do this twice. Otherwise, sometimes

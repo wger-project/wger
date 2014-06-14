@@ -127,12 +127,6 @@ class ScheduleStepViewSet(WgerOwnerObjectModelViewSet):
         '''
         return ScheduleStep.objects.filter(schedule__user=self.request.user)
 
-    def pre_save(self, obj):
-        '''
-        Set the order
-        '''
-        obj.order = 1
-
     def get_owner_objects(self):
         '''
         Return objects to check for ownership permission
