@@ -57,14 +57,13 @@ class DeleteScheduleStepTestCase(WorkoutManagerDeleteTestCase):
     pk = 2
 
 
-# TODO: fix this
-# class ScheduleStepApiTestCase(api_base_test.ApiBaseResourceTestCase):
-#     '''
-#     Tests the schedule step overview resource
-#     '''
-#     pk = 4
-#     resource = ScheduleStep
-#     private_resource = True
-#     data = {'workout': '3',
-#             'schedule': '1',
-#             'duration': '8'}
+class ScheduleStepApiTestCase(api_base_test.ApiBaseResourceTestCase):
+    '''
+    Tests the schedule step overview resource
+    '''
+    pk = 4
+    resource = ScheduleStep
+    private_resource = True
+    data = {'workout': '3',
+            'schedule': '1',
+            'duration': '8'}

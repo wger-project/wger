@@ -292,15 +292,13 @@ class ScheduleStep(models.Model):
         ordering = ["order", ]
 
     schedule = models.ForeignKey(Schedule,
-                                 verbose_name=_('schedule'),
-                                 editable=False)
+                                 verbose_name=_('schedule'))
     '''The schedule is step belongs to'''
 
     workout = models.ForeignKey(Workout)
     '''The workout this step manages'''
 
-    duration = Html5IntegerField(max_length=1,
-                                 verbose_name=_('Duration'),
+    duration = Html5IntegerField(verbose_name=_('Duration'),
                                  help_text=_('The duration in weeks'),
                                  default=4,
                                  validators=[MinValueValidator(1), MaxValueValidator(25)])

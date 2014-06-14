@@ -60,7 +60,7 @@ class StepCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
 
             class Meta:
                 model = ScheduleStep
-                exclude = ('order',)
+                exclude = ('order', 'schedule')
 
         return StepForm
 
@@ -107,7 +107,7 @@ class StepEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
 
             class Meta:
                 model = ScheduleStep
-                exclude = ('order',)
+                exclude = ('order', 'schedule')
 
         return StepForm
 

@@ -109,10 +109,8 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
 class ScheduleStepViewSet(WgerOwnerObjectModelViewSet):
     '''
     API endpoint for schedule step objects
-
-    TODO: error while POSTing
-          object of type 'int' has no len()
     '''
+
     model = ScheduleStep
     is_private = True
     ordering_fields = '__all__'
