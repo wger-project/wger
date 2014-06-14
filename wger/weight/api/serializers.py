@@ -16,11 +16,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from rest_framework import serializers
-from rest_framework.decorators import link
-from rest_framework.response import Response
 
-from wger.manager.models import Workout
-from wger.manager.models import WorkoutSession
 from wger.weight.models import WeightEntry
 
 

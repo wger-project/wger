@@ -17,7 +17,6 @@
 import logging
 
 from django.shortcuts import render
-from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
@@ -30,10 +29,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User as Django_User
 from django.contrib.auth.views import login as django_loginview
 from django.contrib import messages
-
 from rest_framework.authtoken.models import Token
-from wger.core.models import Language
 
+from wger.core.models import Language
 from wger.utils.constants import USER_TAB
 from wger.utils.user_agents import check_request_amazon, check_request_android
 from wger.core.forms import UserPreferencesForm

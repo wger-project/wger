@@ -14,9 +14,8 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
-from django.http.response import HttpResponse
 
-from rest_framework import status, exceptions
+from rest_framework import exceptions
 from rest_framework import viewsets
 
 

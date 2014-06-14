@@ -20,11 +20,9 @@ from django.forms.models import modelformset_factory
 from django.forms.models import inlineformset_factory
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext as _
 from django.db import models
 from django.contrib.auth.decorators import login_required
 
