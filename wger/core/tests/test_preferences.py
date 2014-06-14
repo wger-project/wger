@@ -168,40 +168,6 @@ class UserBodyweightTestCase(WorkoutManagerTestCase):
         self.assertEqual(entry.weight, 100)
 
 
-class AjaxPreferencesTestCase(WorkoutManagerTestCase):
-    '''
-    Tests editing user preferences via AJAX
-    '''
-
-    def preferences(self):
-        '''
-        Helper function to test the preferences page
-        '''
-
-        # Set the 'english ingredients' option
-        response = self.client.get(reverse('core:user-api-preferences'),
-                                   {'do': 'set_english-ingredients',
-                                    'show': '1'},
-                                   HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-
-        self.assertEqual('Success', response.content)
-        self.assertEqual(response.status_code, 200)
-
-        response = self.client.get(reverse('core:preferences'))
-        profile = response.context['user'].userprofile
-        self.assertTrue(profile.show_comments)
-        self.assertTrue(profile.show_english_ingredients)
-        self.assertEqual(response.context['user'].email, 'test@example.com')
-
-    def test_preferences_logged_in(self):
-        '''
-        Tests the preferences page as a logged in user
-        '''
-
-        self.user_login('test')
-        self.preferences()
-
-
 class PreferencesCalculationsTestCase(WorkoutManagerTestCase):
     '''
     Tests the different calculation method in the user profile

@@ -165,25 +165,6 @@ def preferences(request):
 
 
 @login_required
-def api_user_preferences(request):
-    '''
-    Allows the user to edit its preferences via AJAX calls
-    '''
-
-    if request.is_ajax():
-
-        # Show ingredients in english
-        if request.GET.get('do') == 'set_english-ingredients':
-            new_value = int(request.GET.get('show'))
-
-            profile = request.user.userprofile
-            profile.show_english_ingredients = new_value
-            profile.save()
-
-            return HttpResponse(_('Success'))
-
-
-@login_required
 def api_key(request):
     '''
     Allows the user to generate an API key for the REST API
