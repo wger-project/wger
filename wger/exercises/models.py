@@ -328,6 +328,28 @@ class Exercise(AbstractLicenseModel, models.Model):
                            [user.email],
                            fail_silently=True)
 
+    def set_author(self, request):
+        '''
+        Set author and status
+
+        This is only used when creating exercises (via web or API)
+        '''
+        if request.user.has_perm('exercises.add_exercise'):
+            self.status = self.EXERCISE_STATUS_ADMIN
+            if not self.license_author:
+                self.license_author = 'wger.de'
+
+        else:
+            if not self.license_author:
+                self.license_author = request.user.username
+
+            subject = _('New user submitted exercise')
+            message = _(u'''The user {0} submitted a new exercise "{1}".'''.format(
+                        request.user.username, self.name))
+            mail.mail_admins(subject,
+                             message,
+                             fail_silently=True)
+
 
 def exercise_image_upload_dir(instance, filename):
     '''

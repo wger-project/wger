@@ -27,7 +27,6 @@ from easy_thumbnails.files import get_thumbnailer
 from django.utils.translation import ugettext as _
 
 from wger.config.models import LanguageConfig
-
 from wger.exercises.models import Exercise
 from wger.exercises.models import Equipment
 from wger.exercises.models import ExerciseCategory
@@ -35,6 +34,7 @@ from wger.exercises.models import ExerciseImage
 from wger.exercises.models import ExerciseComment
 from wger.exercises.models import Muscle
 from wger.utils.language import load_item_languages
+from wger.utils.language import load_language
 from wger.utils.permissions import CreateOnlyPermission
 
 
@@ -57,10 +57,10 @@ class ExerciseViewSet(viewsets.ModelViewSet):
 
     def pre_save(self, obj):
         '''
-        Set the license data
+        Set language, author and status
         '''
-        if not obj.license_author:
-            obj.license_author = self.request.user.username
+        obj.language = load_language()
+        obj.set_author(self.request)
 
 
 @api_view(['GET'])

@@ -208,28 +208,10 @@ class ExerciseAddView(ExercisesEditAddView, CreateView, WgerPermissionMixin):
 
     def form_valid(self, form):
         '''
-        Set the user that submitted the exercise
-
-        If admin, set appropriate status
+        Set language, author and status
         '''
         form.instance.language = load_language()
-
-        if self.request.user.has_perm('exercises.add_exercise'):
-            form.instance.status = Exercise.EXERCISE_STATUS_ADMIN
-            if not form.instance.license_author:
-                form.instance.license_author = 'wger.de'
-
-        else:
-            if not form.instance.license_author:
-                form.instance.license_author = self.request.user.username
-
-            subject = _('New user submitted exercise')
-            message = _(u'''The user {0} submitted a new exercise "{1}".'''.format(
-                        self.request.user.username, form.instance.name))
-            mail.mail_admins(subject,
-                             message,
-                             fail_silently=True)
-
+        form.instance.set_author(self.request)
         return super(ExerciseAddView, self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
