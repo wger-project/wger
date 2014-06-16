@@ -78,7 +78,7 @@ def search(request):
     languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
     exercises = (Exercise.objects.filter(name__icontains=q)
                                  .filter(language__in=languages)
-                                 .filter(status__in=Exercise.EXERCISE_STATUS_OK)
+                                 .filter(status=Exercise.STATUS_ACCEPTED)
                                  .order_by('category__name', 'name')
                                  .distinct())
 
@@ -152,8 +152,7 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
         '''
         Set the license data
         '''
-        if not obj.license_author:
-            obj.license_author = self.request.user.username
+        obj.set_author(self.request)
 
 
 class ExerciseCommentViewSet(viewsets.ReadOnlyModelViewSet):

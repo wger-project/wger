@@ -39,6 +39,7 @@ class MainImageTestCase(WorkoutManagerTestCase):
             db_filename = filename
         image = ExerciseImage()
         image.exercise = exercise
+        image.status = ExerciseImage.STATUS_ACCEPTED
         image.image.save(
             filename,
             File(open('wger/exercises/tests/{0}'.format(filename)), 'rb')

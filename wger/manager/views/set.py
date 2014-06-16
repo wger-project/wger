@@ -73,8 +73,8 @@ def create(request, day_pk):
     # by language and status
     if request.flavour == 'mobile':
         languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
-        form.fields['exercise_list'].queryset = Exercise.objects.filter(language__in=languages) \
-                                    .filter(status__in=Exercise.EXERCISE_STATUS_OK)
+        form.fields['exercise_list'].queryset = Exercise.objects.accepted() \
+                                                        .filter(language__in=languages)
 
     # If the form and all formsets validate, save them
     if request.method == "POST":

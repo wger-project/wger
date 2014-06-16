@@ -69,7 +69,7 @@ class ExerciseListView(WgerPermissionMixin, ListView):
         Filter to only active exercises in the configured languages
         '''
         languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
-        return Exercise.objects.filter(status__in=Exercise.EXERCISE_STATUS_OK) \
+        return Exercise.objects.accepted() \
             .filter(language__in=languages) \
             .order_by('category__id') \
             .select_related()
@@ -260,8 +260,7 @@ class PendingExerciseListView(WgerPermissionMixin, ListView):
         '''
         Only show pending exercises
         '''
-        return Exercise.objects.filter(status=Exercise.EXERCISE_STATUS_PENDING) \
-            .order_by('-creation_date')
+        return Exercise.objects.pending().order_by('-creation_date')
 
 
 @permission_required('exercises.add_exercise')
@@ -270,7 +269,7 @@ def accept(request, pk):
     Accepts a pending user submitted exercise and emails the user, if possible
     '''
     exercise = get_object_or_404(Exercise, pk=pk)
-    exercise.status = Exercise.EXERCISE_STATUS_ACCEPTED
+    exercise.status = Exercise.STATUS_ACCEPTED
     exercise.save()
     exercise.send_email(request)
     messages.success(request, _('Exercise was successfully added to the general database'))
@@ -284,7 +283,7 @@ def decline(request, pk):
     Declines and deletes a pending user submitted exercise
     '''
     exercise = get_object_or_404(Exercise, pk=pk)
-    exercise.status = Exercise.EXERCISE_STATUS_DECLINED
+    exercise.status = Exercise.STATUS_DECLINED
     exercise.save()
     messages.success(request, _('Exercise was successfully marked as rejected'))
     return HttpResponseRedirect(exercise.get_absolute_url())

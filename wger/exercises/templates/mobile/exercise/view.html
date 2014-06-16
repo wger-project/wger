@@ -30,7 +30,7 @@ function custom_modal_init()
 -->
 {% block content %}
 
-{% if exercise.status == exercise.EXERCISE_STATUS_PENDING %}
+{% if exercise.status == exercise.STATUS_PENDING %}
 <div class="alert">
 <h3>{% trans "Exercise is pending review" %}</h3>
 <p>{% blocktrans %}This user submitted exercise is pending a decision to be
