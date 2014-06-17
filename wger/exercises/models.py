@@ -276,11 +276,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         '''
         Return the main image for the exercise or None if nothing is found
         '''
-        has_image = self.exerciseimage_set.exists()
-        image = None
-        if has_image:
-            image = self.exerciseimage_set.filter(is_main=True)[0]
-        return image
+        return self.exerciseimage_set.accepted().filter(is_main=True).first()
 
     def get_owner_object(self):
         '''

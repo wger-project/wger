@@ -54,7 +54,7 @@ class MainImageTestCase(WorkoutManagerTestCase):
         exercise = Exercise.objects.get(pk=2)
         self.save_image(exercise, 'protestschwein.jpg')
 
-        image = ExerciseImage.objects.get(pk=3)
+        image = ExerciseImage.objects.get(pk=4)
         self.assertTrue(image.is_main)
 
     def test_auto_main_image_multiple(self):
@@ -66,10 +66,10 @@ class MainImageTestCase(WorkoutManagerTestCase):
         self.save_image(exercise, 'protestschwein.jpg')
         self.save_image(exercise, 'wildschwein.jpg')
 
-        image = ExerciseImage.objects.get(pk=3)
+        image = ExerciseImage.objects.get(pk=4)
         self.assertTrue(image.is_main)
 
-        image = ExerciseImage.objects.get(pk=4)
+        image = ExerciseImage.objects.get(pk=5)
         self.assertFalse(image.is_main)
 
     def test_delete_main_image(self):
@@ -84,15 +84,6 @@ class MainImageTestCase(WorkoutManagerTestCase):
         self.save_image(exercise, 'wildschwein.jpg')
         self.save_image(exercise, 'wildschwein.jpg')
 
-        image = ExerciseImage.objects.get(pk=3)
-        self.assertTrue(image.is_main)
-        image.delete()
-
-        self.assertTrue(ExerciseImage.objects.get(pk=4).is_main)
-        self.assertFalse(ExerciseImage.objects.get(pk=5).is_main)
-        self.assertFalse(ExerciseImage.objects.get(pk=6).is_main)
-        self.assertFalse(ExerciseImage.objects.get(pk=7).is_main)
-
         image = ExerciseImage.objects.get(pk=4)
         self.assertTrue(image.is_main)
         image.delete()
@@ -100,6 +91,15 @@ class MainImageTestCase(WorkoutManagerTestCase):
         self.assertTrue(ExerciseImage.objects.get(pk=5).is_main)
         self.assertFalse(ExerciseImage.objects.get(pk=6).is_main)
         self.assertFalse(ExerciseImage.objects.get(pk=7).is_main)
+        self.assertFalse(ExerciseImage.objects.get(pk=8).is_main)
+
+        image = ExerciseImage.objects.get(pk=5)
+        self.assertTrue(image.is_main)
+        image.delete()
+
+        self.assertTrue(ExerciseImage.objects.get(pk=6).is_main)
+        self.assertFalse(ExerciseImage.objects.get(pk=7).is_main)
+        self.assertFalse(ExerciseImage.objects.get(pk=8).is_main)
 
 
 class AddExerciseImageTestCase(WorkoutManagerAddTestCase):

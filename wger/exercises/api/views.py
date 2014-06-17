@@ -83,8 +83,8 @@ def search(request):
                                  .distinct())
 
     for exercise in exercises:
-        if exercise.exerciseimage_set.exists():
-            image_obj = exercise.exerciseimage_set.filter(is_main=True)[0]
+        if exercise.main_image:
+            image_obj = exercise.main_image
             image = image_obj.image.url
             t = get_thumbnailer(image_obj.image)
             thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
