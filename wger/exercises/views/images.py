@@ -74,8 +74,7 @@ class ExerciseImageAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
 
     def form_valid(self, form):
         form.instance.exercise = Exercise.objects.get(pk=self.kwargs['exercise_pk'])
-        if not form.instance.license_author:
-            form.instance.license_author = self.request.user.username
+        form.instance.set_author(self.request)
         return super(ExerciseImageAddView, self).form_valid(form)
 
     def get_success_url(self):
