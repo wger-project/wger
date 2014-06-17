@@ -109,7 +109,7 @@ class AddExerciseImageTestCase(WorkoutManagerAddTestCase):
 
     object_class = ExerciseImage
     url = reverse('exerciseimage-add', kwargs={'exercise_pk': 1})
-    pk = 3
+    pk = 4
     user_fail = False
     data = {'is_main': True,
             'image': open('wger/exercises/tests/protestschwein.jpg', 'rb'),

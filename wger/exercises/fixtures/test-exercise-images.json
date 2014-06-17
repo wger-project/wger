@@ -20,5 +20,16 @@
             "status": "2",
             "license": "2"
         }
+    },
+    {
+        "pk": 3,
+        "model": "exercises.exerciseimage",
+        "fields": {
+            "image": "exercise-images/1/wildschwein.jpg",
+            "exercise": 2,
+            "is_main": false,
+            "status": "1",
+            "license": "2"
+        }
     }
 ]

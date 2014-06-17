@@ -14,8 +14,11 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 import logging
+from django.contrib.auth.decorators import permission_required
 
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy
 from django.utils.translation import ugettext as _
 
@@ -120,3 +123,29 @@ class ExerciseImageDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
                                          kwargs={'pk': pk, 'exercise_pk': exercise_pk})
 
         return context
+
+
+@permission_required('exercises.change_exerciseimage')
+def accept(request, pk):
+    '''
+    Accepts a pending user submitted image and emails the user, if possible
+    '''
+    image = get_object_or_404(ExerciseImage, pk=pk)
+    image.status = ExerciseImage.STATUS_ACCEPTED
+    image.save()
+    # image.send_email(request)
+
+    return HttpResponseRedirect(image.exercise.get_absolute_url())
+
+
+@permission_required('exercises.change_exerciseimage')
+def decline(request, pk):
+    '''
+    Declines and deletes a pending user submitted image
+    '''
+    image = get_object_or_404(ExerciseImage, pk=pk)
+    image.status = ExerciseImage.STATUS_DECLINED
+    image.save()
+    # image.send_email(request)
+
+    return HttpResponseRedirect(image.exercise.get_absolute_url())

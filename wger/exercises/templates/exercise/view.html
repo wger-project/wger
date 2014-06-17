@@ -183,6 +183,37 @@ included in the database.{% endblocktrans %}
 {% endif %}
 {% endwith %}
 
+{% if perms.exercises.change_exerciseimage %}
+{% with images=exercise.exerciseimage_set.pending %}
+{% if images %}
+<h3>{% trans "Pending images" %}</h3>
+<div class="list-group">
+    {% for image in images %}
+        <div class="list-group-item">
+            <div class="media">
+                <div style="width:60px;height:60px;" class="pull-left">
+                    <a href="{{image.image.url}}">
+                        <img alt="{{ image.exercise.name }}"
+                             class="media-object "
+                             style="max-width:100%; max-height:100%;"
+                             src="{{ image.image|thumbnail_url:'thumbnail' }}">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">{{ image.image }}</h4>
+                    <a href="{% url 'exerciseimage-accept' image.pk %}" class="btn btn-default btn-sm">{% trans "Accept" %}</a>
+                    <a href="{% url 'exerciseimage-decline' image.pk %}" class="btn btn-default btn-sm">{% trans "Decline" %}</a>
+                    <a href="{% url 'exerciseimage-delete' exercise.pk image.pk %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a>
+                 </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+{% endif %}  {# end check permission #}
+
+
 {% if perms.exercises %}
 <p>
     <a href="{% url 'exerciseimage-add' exercise.id %}"
