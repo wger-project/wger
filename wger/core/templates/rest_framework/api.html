@@ -4,8 +4,14 @@
 {% load wger_extras %}
 
 {% block header %}
+<link rel="stylesheet" type="text/css" href="{% static 'rest_framework/css/prettify.css' %}"/>
 <script src="{% static 'rest_framework/js/prettify-min.js' %}"></script>
-<script src="{% static 'rest_framework/js/default.js' %}"></script>
+
+<script>
+    $(document).ready(function() {
+        prettyPrint();
+    });
+</script>
 {% endblock %}
 
 {% block title %}REST API - {{ name }}{% endblock %}
