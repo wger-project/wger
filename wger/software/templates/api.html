@@ -31,9 +31,9 @@ it in the header, see the link on the sidebar for details.</p>
             <li>ingredient</li>
             <li>ingredienttoweightunit</li>
             <li>language</li>
+            <li>license</li>
             <li>muscle</li>
             <li>weightunit</li>
-            <li>license</li>
         </ul>
     </div>
     <div class="col-md-6">
@@ -55,6 +55,37 @@ it in the header, see the link on the sidebar for details.</p>
     </div>
 </div>
 
+
+<h3>Format negotiation</h3>
+<p>
+    At the moment only JSON and the browsable HTML view are supported, but other
+    formats such as YAML or XML could be theoretically be added, should the
+    need arise. Because of this, for the majority of REST clients it will not be
+    necessary to explicitly set the format, but you have the following options:
+</p>
+<ul>
+    <li>Set the <strong>Accept</strong> header:
+        <ul>
+            <li><code>application/json</code></li>
+            <li>
+                <code>application/json; indent=4</code> - useful for debugging, will
+                indent the result
+            </li>
+            <li>
+                <code>text/html</code> - browsable HTML view
+            </li>
+        </ul>
+    </li>
+    <li>
+        Set the format <strong>directly in the URL</strong>:
+        <ul>
+            <li><code>/api/v2/&lt;endpoint&gt;/.json</code></li>
+            <li>
+                <code>/api/v2/&lt;endpoint&gt;/.api</code> - browsable HTML view
+            </li>
+        </ul>
+    </li>
+</ul>
 
 
 <h3>Fetching Data</h3>
@@ -109,26 +140,30 @@ it in the header, see the link on the sidebar for details.</p>
 <p>
     You can easily filter all resources by specifying the filter queries in the
     URL: <code>?&lt;fieldname&gt;=&lt;value&gt;</code>, combinations are possible,
-    just separate the filters with a comma: <code>?&lt;f1&gt;=&lt;v1&gt;,&lt;f2&gt;=&lt;v2&gt;</code>.
+    the filters will be AND-joined: <code>?&lt;f1&gt;=&lt;v1&gt;&amp;&lt;f2&gt;=&lt;v2&gt;</code>.
     Please note that for boolean values you must pass 'False' or 'True' other
     values, e.g. 1, 0, false, etc. will be ignored. Like with not filtered queries,
     your objects will be available under the 'results' key.
 </p>
 <p>
-    It is not possible to specify more than one value, e.g. category 1 or 2.
-    To achieve this, just repeat the filter. See example below.
+    Note that it is not currently possible to specify more than one value, e.g.
+    category 1 or 2.
 </p>
 <p>Some examples:</p>
 
 <ul>
     <li>All exercises in German: <code>api/v2/exercise/?language=1</code></li>
     <li>'Main' image for all exercises: <code>api/v2/exerciseimage/?is_main=True</code></li>
-    <li>Exercises that train the biceps or the triceps:
-        <code>api/v2/exercise/?muscles=1&muscles=5</code>
+    <li>Exercises that train the biceps with barbells:  <code>api/v2/exercise/?muscles=1&equipment=3</code>
     </li>
 </ul>
 
-
+<h4>Submitting exercise images</h4>
+<p>
+    If you want to submit exercise pictures, remember that you have to set the
+    correct header <code>Content-Type: multipart/form-data</code>, otherwise the
+    file upload won't work.
+</p>
 
 
 <h3>Special endpoints</h3>
@@ -263,6 +298,38 @@ the images to download a bigger version.</p>
     </div>
 </div>
 
+
+
+<h3>Tools</h3>
+<p>
+    You can play and experiment with the API by sending the requests with many
+    tools, here are two:
+</p>
+
+<pre>
+# In the terminal, e.g. bash
+curl -H "Authorization: Token 123456..." \
+     -H "Accept: application/json; indent=4" \
+     -X PATCH --data '{"key": value, ...}' \
+     --dump-header -
+     https://wger.de/api/v2/....
+</pre>
+
+<pre>
+# In the python console
+>>> import requests
+>>> import json
+>>> from pprint import pprint
+>>>
+>>> url = 'https://wger.de/api/v2/....'
+>>> data = '{"key": "value"}'
+>>> headers = {'Accept': 'application/json',
+               'Authorization': 'Token 12345...'}
+>>> r = requests.patch(url=url, data=data, headers=headers)
+>>> r
+>>> r.content
+>>> pprint(json.loads(r.content))
+</pre>
 
 
 <h3>/api/v1</h3>

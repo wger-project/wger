@@ -33,7 +33,8 @@ Authorization: Token {% if token %}{{token.key}}{% else %}1234567890abcde...{% e
 
 
 # Example with curl
-curl -X GET https://wger.de/api/v2/workout/ -H 'Authorization: Token {% if token %}{{token.key}}{% else %}1234567890abcde...{% endif %}'
+curl -X GET https://wger.de/api/v2/workout/ \
+     -H 'Authorization: Token {% if token %}{{token.key}}{% else %}1234567890abcde...{% endif %}'
 </pre>
 
 {% endblock %}
