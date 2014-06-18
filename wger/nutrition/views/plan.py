@@ -28,8 +28,12 @@ from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 from django.views.generic import DeleteView
 from django.views.generic import UpdateView
+
 from reportlab.lib.pagesizes import A4, cm
-from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
+from reportlab.platypus import Paragraph
+from reportlab.platypus import SimpleDocTemplate
+from reportlab.platypus import Table
+from reportlab.platypus import Spacer
 from reportlab.lib import colors
 
 from wger.nutrition.models import NutritionPlan
@@ -257,8 +261,7 @@ def export_pdf(request, id):
         elements.append(p)
 
         # Filler
-        p = Paragraph('<para> </para>', styleSheet["Normal"])
-        elements.append(p)
+        elements.append(Spacer(10*cm, 0.5*cm))
 
     # append the table to the document
     elements.append(t)
@@ -309,10 +312,8 @@ def export_pdf(request, id):
     t._argW[0] = 5 * cm
     elements.append(t)
 
-    # Footer, add filler paragraph
-    elements.append(Paragraph('<para>&nbsp;</para>', styleSheet["Normal"]))
-
-    # Print date and info
+    # Footer, date and info
+    elements.append(Spacer(10*cm, 0.5*cm))
     created = datetime.date.today().strftime("%d.%m.%Y")
     url = reverse('nutrition-view', kwargs={'id': plan.id})
     p = Paragraph('''<para align="left">

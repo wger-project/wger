@@ -27,7 +27,10 @@ from wger.manager.models import Workout
 from wger.utils.pdf import styleSheet
 
 from reportlab.lib.pagesizes import A4, cm
-from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
+from reportlab.platypus import Paragraph
+from reportlab.platypus import SimpleDocTemplate
+from reportlab.platypus import Table
+from reportlab.platypus import Spacer
 from reportlab.lib import colors
 
 from wger import get_version
@@ -234,17 +237,13 @@ def workout_log(request, id):
         elements.append(P)
 
         # Filler
-        P = Paragraph('<para> </para>', styleSheet["Normal"])
-        elements.append(P)
+        elements.append(Spacer(10*cm, 0.5*cm))
 
     # Append the table
     elements.append(t)
 
-    # Footer, add filler paragraph
-    P = Paragraph('<para> </para>', styleSheet["Normal"])
-    elements.append(P)
-
-    # Print date and info
+    # Footer, date and info
+    elements.append(Spacer(10*cm, 0.5*cm))
     created = datetime.date.today().strftime("%d.%m.%Y")
     url = reverse('workout-view', kwargs={'id': workout.id})
     P = Paragraph('''<para align="left">
@@ -436,17 +435,13 @@ def workout_view(request, id):
         elements.append(p)
 
         # Filler
-        p = Paragraph('<para> </para>', styleSheet["Normal"])
-        elements.append(p)
+        elements.append(Spacer(10*cm, 0.5*cm))
 
     # Append the table
     elements.append(t)
 
-    # Footer, add filler paragraph
-    p = Paragraph('<para> </para>', styleSheet["Normal"])
-    elements.append(p)
-
-    # Print date and info
+    # Footer, date and info
+    elements.append(Spacer(10*cm, 0.5*cm))
     created = datetime.date.today().strftime("%d.%m.%Y")
     url = reverse('workout-view', kwargs={'id': workout.id})
     p = Paragraph('''<para align="left">
