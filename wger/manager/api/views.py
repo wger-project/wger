@@ -83,6 +83,9 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
     serializer_class = WorkoutSessionSerializer
     is_private = True
     filter_fields = ('date',
+                     'workout',
+                     'notes',
+                     'impression',
                      'time_start',
                      'time_end')
 
@@ -142,6 +145,7 @@ class ScheduleViewSet(viewsets.ModelViewSet):
     is_private = True
     filter_fields = ('is_active',
                      'is_loop',
+                     'start_date',
                      'name')
 
     def get_queryset(self):

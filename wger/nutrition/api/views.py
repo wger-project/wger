@@ -53,6 +53,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
                      'status',
                      'update_date',
                      'language',
+                     'user',
                      'license',
                      'license_author')
 
@@ -161,6 +162,7 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
     is_private = True
     ordering_fields = '__all__'
     filter_fields = ('creation_date',
+                     'language',
                      'description',
                      'has_goal_calories')
 

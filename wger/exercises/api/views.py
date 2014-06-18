@@ -50,8 +50,10 @@ class ExerciseViewSet(viewsets.ModelViewSet):
                      'description',
                      'language',
                      'muscles',
+                     'muscles_secondary',
                      'status',
                      'name',
+                     'equipment',
                      'license',
                      'license_author')
 
@@ -129,8 +131,9 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
     model = ExerciseImage
     permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'
-    filter_fields = ('image',
-                     'is_main',
+    filter_fields = ('is_main',
+                     'status',
+                     'exercise',
                      'license',
                      'license_author')
 
