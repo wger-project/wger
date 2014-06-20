@@ -1,186 +1,227 @@
 {% load i18n %}{% load cache %}{% load wger_extras %}
-
-
-<div data-role="popup"
-     id="language-options-{{request_full_path|slugify}}"
-     data-overlay-theme="a">
-    <div data-role="header">
-       <h3>{% trans "Language" %}</h3>
-    </div>
-    <div role="main" class="ui-content">
-    {% for language in languages %}
-        {% language_select language %}
-    {% endfor %}
-    </div>
-</div>
-
-
-{#                        #}
-{# Close button for panel #}
-{#                        #}
-<ul data-role="listview">
-    <li data-icon="delete" data-theme="a">
-        <a href="#" data-rel="close">{% trans "Close" %}</a>
-    </li>
-    <li data-theme="c"  style="margin-top:1.5em;">
-        <a href="{% url 'core:index' %}">{% trans "Dashboard" %}</a>
-    </li>
-</ul>
-
-
-<div data-role="collapsible-set" data-inset="false" style="margin-top:1em;">
-
-    {#             #}
-    {# Workout tab #}
-    {#             #}
-    <div data-role="collapsible" data-content-theme="d">
-        <h3>{% trans "Workouts" %}</h3>
-        <ul data-role="listview">
-            <li><a href="{% url 'workout-overview' %}" rel="nofollow">{% trans "Workouts" %}</a></li>
-            <li><a href="{% url 'workout-calendar' %}" rel="nofollow" data-ajax="false">{% trans "Calendar" %}</a></li>
-            <li><a href="{% url 'schedule-overview' %}" rel="nofollow">{% trans "Workouts schedules" %}</a></li>
-        </ul>
-    </div>
-
-    {#               #}
-    {# Exercises tab #}
-    {#               #}
-    <div data-role="collapsible" data-content-theme="d">
-        <h3>{% trans "Exercises" %}</h3>
-        <ul data-role="listview" data-divider-theme="a">
-            <li><a href="{% url 'exercise-overview' %}">{% trans "Exercises" %}</a></li>
-            <li><a href="{% url 'muscle-overview' %}" data-ajax="false">{% trans "Muscle overview" %}</a></li>
-            <li><a href="{% url 'equipment-overview' %}">{% trans "Equipment overview" %}</a></li>
-            {% if user.is_authenticated and not user.userprofile.is_temporary %}
-            <li><a href="{% url 'exercise-add' %}" data-ajax="false">{% trans "Add new exercise" %}</a></li>
-            {% endif %}
-
-            {% if perms.exercises %}
-            <li data-role="list-divider">{% trans "Administration" %}</li>
-            <li><a href="{% url 'exercise-pending' %}">{% trans "Exercises pending review" %}</a></li>
-            <li><a href="{% url 'equipment-list' %}">{% trans "Equipment" %}</a></li>
-            {% endif %}
-        </ul>
-    </div>
-
-    {#            #}
-    {# Weight tab #}
-    {#            #}
-    <div data-role="collapsible" data-content-theme="d">
-        <h3>{% trans "Weight" %}</h3>
-        <ul data-role="listview">
-            <li><a href="{% url 'weight-overview' %}" rel="nofollow" data-ajax="false">{% trans "Weight overview" %}</a></li>
-            <li><a href="{% url 'weight-add' %}" rel="nofollow" >{% trans "Add weight entry" %}</a></li>
-        </ul>
-    </div>
-
-    {#               #}
-    {# Nutrition tab #}
-    {#               #}
-    <div data-role="collapsible" data-content-theme="d">
-        <h3>{% trans "Nutrition" %}</h3>
-        <ul data-role="listview" data-divider-theme="a">
-            <li><a href="{% url 'nutrition-overview' %}" rel="nofollow">{% trans "Nutrition plans" %}</a></li>
-            <li><a href="{% url 'ingredient-list' %}">{% trans "Ingredient overview" %}</a></li>
-            <li><a href="{% url 'bmi-view' %}" rel="nofollow" data-ajax="false">{% trans "BMI calculator" %}</a></li>
-            <li><a href="{% url 'calories-calculator' %}" rel="nofollow" data-ajax="false">{% trans "Daily calories calculator" %}</a></li>
-            {% if perms.exercises %}
-                <li data-role="list-divider">{% trans "Administration" %}</li>
-                <li><a href="{% url 'weight-unit-list' %}">{% trans "Ingredient weight units" %}</a></li>
-                <li><a href="{% url 'ingredient-pending' %}">{% trans "Ingredients pending review" %}</a></li>
-            {% endif %}
-        </ul>
-    </div>
-
-    {#              #}
-    {# Software tab #}
-    {#              #}
-    <div data-role="collapsible" data-content-theme="d">
-        <h3>{% trans "About this software" %}</h3>
-        <ul data-role="listview" data-divider-theme="a">
-            <li><a href="{% url 'software:features' %}">{% trans "Features" %}</a></li>
-            <li><a href="{% url 'software:contribute' %}">{% trans "Contribute!" %} </a></li>
-            <li><a href="{% url 'software:issues' %}">{% trans "Problems and wishes" %} </a></li>
-            <li data-role="list-divider">{% trans "Developers" %}</li>
-            <li><a href="{% url 'software:code' %}">{% trans "Get the code" %} </a></li>
-            <li><a href="{% url 'software:api' %}">{% trans "REST API" %} </a></li>
-            <li><a href="{% url 'software:license' %}">{% trans "License" %} </a></li>
-            <li><a href="{% url 'software:changelog' %}">{% trans "Changelog" %} </a></li>
-            <li><a href="https://github.com/rolandgeider/wger">{% trans "Github" %} </a></li>
-            <li><a href="https://www.transifex.com/projects/p/wger-workout-manager/">{% trans "Translate with Transifex" %} </a></li>
-            {% if perms.exercises %}
-            <li data-role="list-divider">{% trans "Administration" %}</li>
-            <li><a href="{% url 'config:language-overview' %}">{% trans "Languages" %} </a></li>
-            <li><a href="{% url 'core:license-list' %}">{% trans "Licenses" %} </a></li>
-            {% endif %}
-        </ul>
-    </div>
-
-    {#             #}
-    {# Options tab #}
-    {#             #}
-    <div data-role="collapsible" data-content-theme="d">
-        <h3>{% trans "Options" %}</h3>
-        <ul data-role="listview">
-
-            {# Preferences #}
-            {% if user.is_authenticated and not user.userprofile.is_temporary %}
-            <li>
-                <a href="{% url 'core:preferences' %}">
-                {% trans "Preferences" %}
-                </a>
-            </li>
-            {% endif %}
-
-            {# Contact #}
-            <li><a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a></li>
-            <li><a href="{% url 'core:about' %}">{% trans "About" %}</a></li>
-
-            {# Site version #}
-            <li><a href="?flavour=full" data-ajax="false" rel="nofollow">{% trans "Desktop version" %}</a></li>
-
-            {# Language #}
-            <li>
-                <a href="#language-options-{{request_full_path|slugify}}"
-                   data-rel="popup"
-                   data-position-to="window">{% trans "Language" %}
-               </a>
-            </li>
-
-            {# Logout #}
-            {% if user.is_authenticated and not user.userprofile.is_temporary %}
-            <li>
-                <a href="{% url 'core:logout' %}" data-ajax="false" class="browserid-logout">{% trans "Logout" %}</a>
-            </li>
-            {% endif %}
-        </ul>
+<div class="modal fade" id="language-options">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{% trans "Language" %}</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    {% for language in languages %}
+                        {% language_select language %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 
 
+<nav id="nav">
+    <div>
+        <div class="navbar navbar-default navbar-fixed-top ">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-navigation">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                </div>
+                <div class="navbar-collapse collapse" id="main-navbar-navigation">
+                    <ul class="nav navbar-nav">
+                        {#          #}
+                        {# User tab #}
+                        {#          #}
+                        <li {% if active_tab == 'user' %}class="active"{% endif %}><a href="{% url 'core:index' %}">{% trans "Dashboard" %}</a></li>
 
 
-
-{#           #}
-{# Login tab #}
-{#           #}
-{% if not user.is_authenticated or user.userprofile.is_temporary %}
-<!--
-<h4 style="margin-bottom:0px;">{% trans "Options" %}</h4>
-
-<br>
--->
-
-<ul data-role="listview" data-inset="false" style="margin-top:2em;" data-theme="c">
-    <li>
-        <a href="{% url 'core:login' %}">{% trans "Login" %}</a>
-    </li>
-    <li>
-        <a href="{% url 'core:registration' %}" data-ajax="false">{% trans "Register" %}</a>
-    </li>
-</ul>
-{% endif %}
+                        {#             #}
+                        {# Workout tab #}
+                        {#             #}
+                        <li class="dropdown {% if active_tab == 'workout' %}active{% endif %}">
+                            <a href="{% url 'workout-overview' %}"
+                               rel="nofollow"
+                               class="dropdown-toggle"
+                               data-toggle="dropdown">{% trans "Workouts" %} <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'workout-overview' %}" rel="nofollow">{% trans "Workouts" %}</a></li>
+                                <li><a href="{% url 'workout-calendar' %}" rel="nofollow">{% trans "Calendar" %}</a></li>
+                                <li><a href="{% url 'schedule-overview' %}" rel="nofollow">{% trans "Workouts schedules" %}</a></li>
+                            </ul>
+                        </li>
 
 
+                        {#               #}
+                        {# Exercises tab #}
+                        {#               #}
+                        <li class="dropdown {% if active_tab == 'exercises' %}active{% endif %}">
+                            <a href="{% url 'exercise-overview' %}"
+                               class="dropdown-toggle"
+                               data-toggle="dropdown">{% trans "Exercises" %} <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'exercise-overview' %}">{% trans "Exercises" %}</a></li>
+                                <li><a href="{% url 'muscle-overview' %}">{% trans "Muscle overview" %}</a></li>
+                                <li><a href="{% url 'equipment-overview' %}">{% trans "Equipment overview" %}</a></li>
+                                {% if user.is_authenticated and not user.userprofile.is_temporary %}
+                                <li class="divider"></li>
+                                <li><a href="{% url 'exercise-add' %}">{% trans "Add new exercise" %}</a><li>
+                                {% endif %}
 
+                                {% cache cache_timeout user-admin-exercises user.id language.id %}
+                                {% if perms.exercises %}
+                                <li class="divider"></li>
+                                <li class="nav-header">{% trans "Administration" %}</li>
+                                <li><a href="{% url 'exercise-pending' %}">{% trans "Exercises pending review" %}</a></li>
+                                <li><a href="{% url 'equipment-list' %}">{% trans "Equipment" %}</a></li>
+                                {% endif %}
+                                {% endcache %}
+                            </ul>
+                        </li>
+
+
+                        {#            #}
+                        {# Weight tab #}
+                        {#            #}
+                        <li class="dropdown{% if active_tab == 'weight'    %} active{% endif %}">
+
+                            <a href="{% url 'weight-overview' %}"
+                               class="dropdown-toggle"
+                               data-toggle="dropdown"
+                               rel="nofollow">{% trans "Weight" %} <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'weight-overview' %}" rel="nofollow">{% trans "Weight overview" %}</a></li>
+                                <li><a href="{% url 'weight-add' %}" rel="nofollow">{% trans "Add weight entry" %}</a></li>
+                            </ul>
+                        </li>
+
+
+                        {#               #}
+                        {# Nutrition tab #}
+                        {#               #}
+                        <li class="dropdown {% if active_tab == 'nutrition' %}active{% endif %}">
+                            <a href="{% url 'nutrition-overview' %}"
+                               class="dropdown-toggle"
+                               data-toggle="dropdown"
+                               rel="nofollow">{% trans "Nutrition" %} <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                            <li><a href="{% url 'nutrition-overview' %}" rel="nofollow">{% trans "Nutrition plans" %}</a></li>
+                            <li><a href="{% url 'ingredient-list' %}">{% trans "Ingredient overview" %}</a></li>
+                            <li><a href="{% url 'bmi-view' %}" rel="nofollow">{% trans "BMI calculator" %}</a></li>
+                            <li><a href="{% url 'calories-calculator' %}" rel="nofollow">{% trans "Daily calories calculator" %}</a></li>
+                            {% cache cache_timeout user-admin-ingredients user.id language.id %}
+                            {% if perms.exercises %}
+                                <li class="divider"></li>
+                                <li class="nav-header">{% trans "Administration" %}</li>
+                                <li><a href="{% url 'weight-unit-list' %}">{% trans "Ingredient weight units" %}</a></li>
+                                <li><a href="{% url 'ingredient-pending' %}">{% trans "Ingredients pending review" %}</a></li>
+                            {% endif %}
+                            {% endcache %}
+                            </ul>
+                        </li>
+
+
+                        {#              #}
+                        {# Software tab #}
+                        {#              #}
+                        <li class="dropdown {% if active_tab == 'software' %}active{% endif %}">
+                            <a href=""
+                               class="dropdown-toggle"
+                               data-toggle="dropdown">{% trans "About this software" %} <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'software:features' %}">{% trans "Features" %}</a></li>
+                                <li><a href="{% url 'software:contribute' %}">{% trans "Contribute!" %} </a></li>
+                                <li><a href="{% url 'software:issues' %}">{% trans "Problems and wishes" %} </a></li>
+                                <li class="divider"></li>
+                                <li><a href="{% url 'software:code' %}">{% trans "Get the code" %} </a></li>
+                                <li><a href="{% url 'software:api' %}">{% trans "REST API" %} </a></li>
+                                <li><a href="{% url 'software:license' %}">{% trans "License" %} </a></li>
+                                <li><a href="{% url 'software:changelog' %}">{% trans "Changelog" %} </a></li>
+                                <li><a href="https://github.com/rolandgeider/wger">{% trans "Github" %} </a></li>
+                                <li><a href="https://www.transifex.com/projects/p/wger-workout-manager/">{% trans "Translate with Transifex" %} </a></li>
+                                {% cache cache_timeout user-admin-software user.id language.id %}
+                                {% if perms.exercises %}
+                                <li class="divider"></li>
+                                <li class="nav-header">{% trans "Administration" %}</li>
+                                <li><a href="{% url 'config:language-overview' %}">{% trans "Languages" %} </a></li>
+                                <li><a href="{% url 'core:license-list' %}">{% trans "Licenses" %} </a></li>
+                                {% endif  %}
+                                {% endcache %}
+                            </ul>
+                        </li>
+
+                        {#                     #}
+                        {# Options and contact #}
+                        {#                     #}
+                        <li class="dropdown">
+                            <a href=""
+                               class="dropdown-toggle"
+                               data-toggle="dropdown">{% trans "Options" %} <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+
+                                {# Contact #}
+                                <li><a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a></li>
+                                <li><a href="{% url 'core:about' %}">{% trans "About" %}</a></li>
+
+                                {# Site version #}
+                                <li><a href="?flavour=full" data-ajax="false" rel="nofollow">{% trans "Desktop version" %}</a></li>
+
+                                {# Language #}
+                                <li class="dropdown">
+                                    <a href="#language-options" data-toggle="modal">{% trans "Language" %}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+
+                    {#             #}
+                    {# Options tab #}
+                    {#             #}
+                    {% if not user.is_authenticated or user.userprofile.is_temporary %}
+                    <ul class="nav navbar-nav pull-right">
+                        <li class="divider-vertical"></li>
+                        <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            {% trans "Login" %} / {% trans "Register" %}
+                        <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'core:login' %}">{% trans "Login" %}</a></li>
+                            <li><a href="{% url 'core:registration' %}">{% trans "Register" %}</a></li>
+                            <li><a href="{% url 'core:password_reset' %}">{% trans "Reset password" %}</a></li>
+                        </ul>
+                        </li>
+                    </ul>
+                    {% else %}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            {% if user.email %}
+                                {{user.email}}
+                            {% else %}
+                                {{user.username}}
+                            {% endif %}
+                            <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{% url 'core:preferences' %}">{% trans "My preferences" %}</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'core:logout' %}" class="browserid-logout">
+                                    <span class="glyphicon glyphicon-log-out"></span>
+                                    {% trans "Logout" %}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    {% endif %}
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+</nav>
 

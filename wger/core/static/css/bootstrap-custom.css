@@ -134,7 +134,3 @@ fieldset[disabled] .btn-default.active {
 /**************************************************************
  * Header
  **************************************************************/
-header a:hover, header  a:focus {
-    color: white;
-    /*text-decoration: none;*/
-}

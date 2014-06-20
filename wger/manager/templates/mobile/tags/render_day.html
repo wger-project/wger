@@ -4,119 +4,125 @@
 
 
 
-<div data-role="popup"
-     id="editoptions-day-{{ day.obj.id }}"
-     data-theme="d"
-     data-overlay-theme="a">
-        <div data-role="header" data-theme="b">
-            <h3>{{day.obj.description}}</h3>
+<div class="modal fade" id="editoptions-day-{{ day.obj.id }}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{{day.obj.description}}</h4>
+            </div>
+            <div class="modal-body">
+                <a href="{% url 'day-log' day.obj.id %}"
+                   title="{% trans 'Add weight log to this day' %}"
+                   {% auto_link_css flavour %}>
+                        <img src="{% static 'images/icons/statistics.svg' %}"
+                             width="22"
+                             height="22"
+                             alt="{% trans 'Add weight log to this day' %}">
+                            {% trans 'Add weight log to this day' %}
+                </a>
+                {% if day.set_list|length > 0 %}
+                <a href="{% url 'workout-timer' day.obj.id %}"
+                   title="{% trans 'Start gym mode' %}"
+                   {% auto_link_css flavour %}>
+                        <img src="{% static 'images/icons/play.svg' %}"
+                             width="22"
+                             height="22"
+                             alt="{% trans 'Start gym mode' %}">
+                            {% trans "Start gym mode" %}
+                </a>
+                {% endif %}
+                <a href="{% url 'day-edit' day.obj.id %}"
+                    title="{% trans 'Edit' %}"
+                    {% auto_link_css flavour %}>
+                        <img src="{% static 'images/icons/edit.svg' %}"
+                             width="22"
+                             height="22"
+                             alt="{% trans 'Edit' %}">
+                            {% trans 'Edit' %}
+                </a>
+                <a href="{% url 'day-delete' day.obj.id %}"
+                   title="{% trans 'Delete' %}"
+                   {% auto_link_css flavour %}>
+                        <img src="{% static 'images/icons/trash.svg' %}"
+                             width="22"
+                             height="22"
+                             alt="{% trans 'Delete' %}">
+                             {% trans "Delete" %}
+                </a>
+            </div>
         </div>
-        <div role="main" class="ui-content">
-        <a href="{% url 'day-log' day.obj.id %}"
-           title="{% trans 'Add weight log to this day' %}"
-           data-role="button">
-                <img src="{% static 'images/icons/statistics.svg' %}"
-                     width="22"
-                     height="22"
-                     alt="{% trans 'Add weight log to this day' %}">
-                    {% trans 'Add weight log to this day' %}
-        </a>
-        {% if day.set_list|length > 0 %}
-        <a href="{% url 'workout-timer' day.obj.id %}"
-           title="{% trans 'Start gym mode' %}"
-           data-role="button"
-           data-ajax="false">
-                <img src="{% static 'images/icons/play.svg' %}"
-                     width="22"
-                     height="22"
-                     alt="{% trans 'Start gym mode' %}">
-                    {% trans "Start gym mode" %}
-        </a>
-        {% endif %}
-        <a href="{% url 'day-edit' day.obj.id %}"
-            title="{% trans 'Edit' %}"
-            data-role="button">
-                <img src="{% static 'images/icons/edit.svg' %}"
-                     width="22"
-                     height="22"
-                     alt="{% trans 'Edit' %}">
-                    {% trans 'Edit' %}
-        </a>
-        <a href="{% url 'day-delete' day.obj.id %}"
-           title="{% trans 'Delete' %}"
-           data-role="button">
-                <img src="{% static 'images/icons/trash.svg' %}"
-                     width="22"
-                     height="22"
-                     alt="{% trans 'Delete' %}">
-                     {% trans "Delete" %}
-        </a>
-        </div>
+    </div>
 </div>
 
 
-{% for set in day.set_list %}
-<div data-role="popup"
-     id="editoptions-set-{{ set.obj.id }}"
-     data-overlay-theme="a">
-        <div data-role="header" data-theme="b">
-            <h3>{% trans "Options" %}</h3>
-        </div>
-        <div role="main" class="ui-content">
-        <a href="{% url 'wger.manager.views.set.edit' set.obj.id %}"
-           title="{% trans 'Delete' %}"
-           data-role="button">
-                <img src="{% static 'images/icons/edit.svg' %}"
-                     width="16"
-                     height="16"
-                     alt="{% trans 'Edit' %}"
-                     class="ui-li-icon ui-corner-none">
-                {% trans "Edit" %}
-        </a>
-        <a href="{% url 'wger.manager.views.set.delete' set.obj.id %}"
-           title="{% trans 'Delete' %}"
-           data-role="button">
-                <img src="{% static 'images/icons/trash.svg' %}"
-                     width="16"
-                     height="16"
-                     alt="{% trans 'Delete' %}"
-                     class="ui-li-icon ui-corner-none">
-                {% trans "Delete" %}
-        </a>
 
-        <h5>{% trans "Exercises" %}</h5>
-        {% for exercise in set.exercise_list %}
-            <a href="{{ exercise.obj.get_absolute_url }}"
-               title="{{ exercise.obj.name }}"
-               data-role="button">
-                {{ exercise.obj.name }}
-        </a>
-        {% endfor %}
+
+{% for set in day.set_list %}
+<div class="modal fade" id="editoptions-set-{{ set.obj.id }}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">
+                    {% trans "Options" %} –
+                    {% blocktrans with set_nr=forloop.counter %}Set Nr. {{set_nr}}{% endblocktrans %}
+                </h4>
+            </div>
+            <div class="modal-body">
+                <a href="{% url 'wger.manager.views.set.edit' set.obj.id %}"
+                   title="{% trans 'Delete' %}"
+                   {% auto_link_css flavour %}>
+                        <img src="{% static 'images/icons/edit.svg' %}"
+                             width="16"
+                             height="16"
+                             alt="{% trans 'Edit' %}">
+                        {% trans "Edit" %}
+                </a>
+                <a href="{% url 'wger.manager.views.set.delete' set.obj.id %}"
+                   title="{% trans 'Delete' %}"
+                   {% auto_link_css flavour %}>
+                        <img src="{% static 'images/icons/trash.svg' %}"
+                             width="16"
+                             height="16"
+                             alt="{% trans 'Delete' %}">
+                        {% trans "Delete" %}
+                </a>
+
+                <h5>{% trans "Exercises" %}</h5>
+                {% for exercise in set.exercise_list %}
+                    <a href="{{ exercise.obj.get_absolute_url }}"
+                       title="{{ exercise.obj.name }}"
+                       {% auto_link_css flavour %}>
+                        {{ exercise.obj.name }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </div>
 {% endfor %}
 
-<ul data-role="listview"
+
+<div class="list-group"
     id="table-day-{{ day.obj.id }}"
-    style="margin-top: 3em;"
-    data-split-icon="grid"
-    data-split-theme="b">
-    <li data-theme="b">
-        <a href="#editoptions-day-{{ day.obj.id }}" data-rel="popup">
+    style="margin-top: 3em;">
+
+        <a href="#editoptions-day-{{ day.obj.id }}" class="list-group-item active" data-toggle="modal">
             <h4>{{ day.obj.description }}</h4>
             {{ day.days_of_week.text }}
         </a>
 
-        <a href="{% url 'day-log' day.obj.id %}"></a>
-    </li>
     {% for set in day.set_list %}
-    <li id="set-{{ set.obj.id }}" data-icon="false">
     {% if set.has_settings %}
         <a href="#editoptions-set-{{ set.obj.id }}"
-           data-rel="popup"
-           data-position-to="window">
+           class="list-group-item"
+           data-toggle="modal"
+           id="set-{{ set.obj.id }}">
     {% else %}
-        <a href="{% url 'set-edit' set.obj.id %}">
+        <a href="{% url 'set-edit' set.obj.id %}"
+           id="set-{{ set.obj.id }}"
+           class="list-group-item">
     {% endif %}
 
         {% for exercise in set.exercise_list %}
@@ -139,11 +145,10 @@
             </div>
         {% endfor %} <!--for exercise in set-->
     </a>
-    </li>
     {% empty %}
     <li>
         <a href="{% url 'set-add' day.obj.id %}"
-           data-ajax="false">
+           class="list-group-item">
                {% trans "No exercises selected for this day." %}<br>
                {% trans "Add one now." %}
             </a>
@@ -151,12 +156,9 @@
     {% endfor %} <!--for set in day-->
 
     {% if day.set_list %}
-    <li data-icon="arrow-r">
         <a href="{% url 'set-add' day.obj.id %}"
-           data-ajax="false"
-           >{% trans "Add exercises to this workout day" %}</a>
-    </li>
+           {% auto_link_css flavour 'list-group-item' %}>{% trans "Add exercises to this workout day" %}</a>
     {% endif %}
 
-</ul>
+</div>
 

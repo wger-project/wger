@@ -21,6 +21,12 @@
  *
  **************************************************************/
 
+body {
+    background-color: white;
+}
+
+body { padding-top: 50px; }
+
 
 /* Use Open Sans for the body text */
 .ui-body-c,
@@ -687,5 +693,6 @@ div#timer-container div.progress-bar span{
     bottom: -1px;
     left: -1px;
 
-    background-color: rgb(170, 170, 170);
+    background-color: #204A87;
+    /*background-color: rgb(170, 170, 170);*/
 }

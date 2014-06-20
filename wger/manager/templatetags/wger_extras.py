@@ -36,12 +36,13 @@ def get_current_settings(exercise, set_id):
 
 
 @register.inclusion_tag('tags/render_day.html')
-def render_day(day):
+def render_day(day, flavour):
     '''
     Renders a day as it will be displayed in the workout overview
     '''
     return {'day':     day.canonical_representation,
-            'workout': day.training}
+            'workout': day.training,
+            'flavour': flavour}
 
 
 @register.inclusion_tag('tags/pagination.html')
@@ -113,6 +114,21 @@ def get_item(dictionary, key):
     Allows to access a specific key in a dictionary in a template
     '''
     return dictionary.get(key)
+
+from django import template
+
+
+@register.simple_tag
+def auto_link_css(flavour='full', css='css'):
+    '''
+    dddd
+
+    :param flavour:
+    :param css:
+    :return:
+    '''
+    css = css + ' btn btn-default btn-block' if flavour == 'mobile' else css
+    return 'class="{0}"'.format(css)
 
 
 #

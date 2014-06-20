@@ -47,7 +47,7 @@ $( document ).off("pageinit").on("pageinit", function() {
 
 {% for day in workout.canonical_representation.day_list %}
     <div id="div-day-{{ day.obj.id }}">
-        {% render_day day.obj %}
+        {% render_day day.obj flavour %}
     </div>
 {% empty %}
 
@@ -105,15 +105,14 @@ $( document ).off("pageinit").on("pageinit", function() {
     {% trans "Images show combined muscles as trained by the exercises on the workout." %}
 </p>
 
-<div class="ui-grid-a">
-    <div class="ui-block-a">
+<div class="row">
+    <div class="col-xs-6">
         <div id="muscle-front"
                 class="muscle-background"
                 style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
         </div>
     </div>
-
-    <div class="ui-block-b">
+    <div class="col-xs-6">
         <div id="muscle-back"
                 class="muscle-background"
                 style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
@@ -122,11 +121,10 @@ $( document ).off("pageinit").on("pageinit", function() {
 </div>
 
 
+
 <h3>{% trans "Options" %}</h3>
 
-<a href="#export-pdf-link"
-   data-role="button"
-   data-rel="popup">
+<a href="#export-pdf-link" data-toggle="modal" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/save.svg' %}"
          width="32"
          height="32"
@@ -135,8 +133,7 @@ $( document ).off("pageinit").on("pageinit", function() {
     {% trans "Download as PDF" %}
 </a>
 
-<a href="{% url 'workout-log' workout.id %}"
-   data-role="button">
+<a href="{% url 'workout-log' workout.id %}" {% auto_link_css flavour %}>
    <img src="{% static 'images/icons/statistics.svg' %}"
          width="32"
          height="32"
@@ -145,8 +142,7 @@ $( document ).off("pageinit").on("pageinit", function() {
    {% trans "View weight log" %}
 </a>
 
-<a href="{% url 'workout-edit' workout.id %}"
-   data-role="button">
+<a href="{% url 'workout-edit' workout.id %}" {% auto_link_css flavour %}>
    <img src="{% static 'images/icons/edit.svg' %}"
          width="32"
          height="32"
@@ -155,10 +151,7 @@ $( document ).off("pageinit").on("pageinit", function() {
    {% trans "Edit workout" %}
 </a>
 
-<a href="#export-ical-link"
-   data-rel="popup"
-   data-role="button"
-   data-position-to="window">
+<a href="#export-ical-link" data-toggle="modal" {% auto_link_css flavour %}>
    <img src="{% static 'images/icons/calendar.svg' %}"
          width="32"
          height="32"
@@ -167,8 +160,7 @@ $( document ).off("pageinit").on("pageinit", function() {
    {% trans "Export calendar file" %}
 </a>
 
-<a href="{% url 'workout-copy' workout.id %}"
-   data-role="button">
+<a href="{% url 'workout-copy' workout.id %}" {% auto_link_css flavour %}>
    <img src="{% static 'images/icons/copy.svg' %}"
          width="32"
          height="32"
@@ -177,8 +169,7 @@ $( document ).off("pageinit").on("pageinit", function() {
    {% trans "Make a copy of this workout" %}
 </a>
 
-<a href="{% url 'workout-delete' workout.id %}"
-   data-role="button">
+<a href="{% url 'workout-delete' workout.id %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/trash.svg' %}"
          width="32"
          height="32"
@@ -187,52 +178,53 @@ $( document ).off("pageinit").on("pageinit", function() {
 </a>
 
 
-<div data-role="popup"
-     id="export-ical-link"
-     data-overlay-theme="a">
-     <div data-role="header" data-theme="b">
-        <h3>{% trans "Export calendar file" %}</h3>
-    </div>
-    <div role="main" class="ui-content">
-        <p>{% trans "Export this workout as a calendar file." %}</p>
-        <p>{% blocktrans %}You can then import the file it into your calendar
+
+<div class="modal fade" id="export-ical-link">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{% trans "Export calendar file" %}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{% trans "Export this workout as a calendar file." %}</p>
+                <p>{% blocktrans %}You can then import the file it into your calendar
 application for example google calendar, outlook or iCal. This will create
 an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
-        <p>
-        <a href="{% url 'workout-ical' workout.id %}"
-           data-role="button"
-           target="_blank">
-           <img src="{% static 'images/icons/calendar.svg' %}"
-                 width="32"
-                 height="32"
-                 alt="{% trans 'Export calendar file' %}"
-                 title="{% trans 'Export calendar file' %}">
-           {% trans "Export calendar file" %}
-        </a>
-        </p>
+                <p>
+                <a href="{% url 'workout-ical' workout.id %}" {% auto_link_css flavour %}>
+                   <img src="{% static 'images/icons/calendar.svg' %}"
+                         width="32"
+                         height="32"
+                         alt="{% trans 'Export calendar file' %}"
+                         title="{% trans 'Export calendar file' %}">
+                   {% trans "Export calendar file" %}
+                </a>
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 
-<div data-role="popup"
-     id="export-pdf-link"
-     data-overlay-theme="a">
-     <div data-role="header" data-theme="b">
-        <h3>{% trans "Download as PDF" %}</h3>
-    </div>
-    <div role="main" class="ui-content">
-        <a href="{% url 'workout-pdf-log' workout.id %}"
-           data-role="button"
-           data-ajax="false"
-           class="pdf-button">
+
+
+<div class="modal fade" id="export-pdf-link">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{% trans "Download as PDF" %}</h4>
+            </div>
+            <div class="modal-body">
+                <a href="{% url 'workout-pdf-log' workout.id %}" {% auto_link_css flavour "pdf-button" %}>
         {% trans "Log" %}
         </a>
 
-        <a href="{% url 'workout-pdf-table' workout.id %}"
-           data-role="button"
-           data-ajax="false"
-           class="pdf-button">
+        <a href="{% url 'workout-pdf-table' workout.id %}" {% auto_link_css flavour "pdf-button" %}>
         {% trans "Table" %}
         </a>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

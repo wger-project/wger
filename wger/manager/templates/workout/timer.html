@@ -252,7 +252,7 @@ $(document).ready(function() {
 {#            #}
 {# Start page #}
 {#            #}
-<div id="timer-container" style="position: relative; top:-40px; margin:0px, padding: 0px;">
+<div id="timer-container" style="position: relative; top:-60px; margin:0px, padding: 0px;">
 <ul id="workout-timer">
 <li class="timer-step" id="div-warmup" data-number="0">
     <h2>{% trans "Your workout today" %}</h2>
@@ -265,12 +265,8 @@ $(document).ready(function() {
         {% endfor %}
     </div>
 
-    <a class="next bottom_button wide_link"
-       href="#"
-       data-role="button"
-       data-icon="arrow-r"
-       data-iconpos="right"
-       data-theme="d">{% trans "Start!" %}</a>
+    <a class="next bottom_button wide_link btn btn-primary"
+       href="#">{% trans "Start!" %}</a>
 </li>
 
 {% for step in step_list %}
@@ -295,26 +291,26 @@ $(document).ready(function() {
                        id="id-date-{{step.current_step}}"
                        value="{% now 'Y-m-j' %}"
                        type="hidden">
-            <div class="filler_div">
-                <div class="ui-grid-a">
-                    <div class="ui-block-a">
-                        <label for="id-reps-{{step.current_step}}">{% trans "Repetitions" %}:</label>
-                        <input name="reps"
-                               id="id-reps-{{step.current_step}}"
-                               placeholder="{% trans 'Repetitions' %}"
-                               value="{{step.reps}}"
-                               type="number"
-                               autocomplete="off">
-                    </div>
-                    <div class="ui-block-b" style="padding-left: 0.5em;">
-                        <label for="id-weight-{{step.current_step}}">{% trans "Weight" %}:</label>
-                        <input name="weight"
-                               id="id-weight-{{step.current_step}}"
-                               placeholder="{% trans 'Weight' %}"
-                               value="{{step.weight|unlocalize}}"
-                               type="number"
-                               autocomplete="off">
-                    </div>
+            <div class="row filler_div">
+                <div class="col-xs-6">
+                    <label for="id-reps-{{step.current_step}}">{% trans "Repetitions" %}:</label>
+                    <input name="reps"
+                           id="id-reps-{{step.current_step}}"
+                           placeholder="{% trans 'Repetitions' %}"
+                           value="{{step.reps}}"
+                           type="number"
+                           autocomplete="off"
+                           class="form-control">
+                </div>
+                <div class="col-xs-6">
+                    <label for="id-weight-{{step.current_step}}">{% trans "Weight" %}:</label>
+                    <input name="weight"
+                           id="id-weight-{{step.current_step}}"
+                           placeholder="{% trans 'Weight' %}"
+                           value="{{step.weight|unlocalize}}"
+                           type="number"
+                           autocomplete="off"
+                           class="form-control">
                 </div>
             </div>
             </form>
@@ -329,22 +325,18 @@ $(document).ready(function() {
                 </h2>
             </div>
 
-            <div class="ui-grid-a bottom_buttons">
-                <div class="ui-block-a">
-                    <a class="next wide_link"
-                       href="#"
-                       data-role="button"
-                       data-icon="forward"
-                       data-iconpos="right">{% trans "Skip" %}</a>
+            <div class="row bottom_buttons">
+                <div class="col-xs-6">
+                    <a class="next wide_link btn btn-default"
+                       href="#"><!-- {% trans "Skip" %}--> <span class="glyphicon glyphicon-forward"></span>
+                    </a>
                 </div>
-                <div class="ui-block-b">
-                    <a class="next save_log wide_link"
-                       href="#"
-                       data-role="button"
-                       data-icon="arrow-r"
-                       data-iconpos="right">{% trans "Save" %}</a>
+                <div class="col-xs-6">
+                    <a class="next save_log wide_link btn btn-success"
+                       href="#">{% trans "Save" %} <span class="glyphicon glyphicon-save"></span></a>
                 </div>
-            </div><!-- /grid-a -->
+            </div>
+
 
             <div id="progress-{{step.current_step}}" class="progress-bar">
                 <span style="width: {{step.step_percent|stringformat:'f'}}%;"></span>
@@ -366,34 +358,26 @@ $(document).ready(function() {
             <canvas id="canvas-div-{{step.current_step}}" width="150" height="150"></canvas>
             </div>
 
-            <div class="ui-grid-a sub_header">
-                <div class="ui-block-a">
-                        <h2><span id="counter-{{step.current_step}}">{{step.time}}</span></h2>
-                </div>
 
-                <div class="ui-block-b">
-                    <div class="ui-grid-a">
-                        <div class="ui-block-a">
-                            <a class="start timer-plus"
-                               href="#"
-                               data-role="button"
-                               id="button-plus-{{step.current_step}}">+10</a>
-                        </div>
-                        <div class="ui-block-b">
-                            <a class="start timer-minus"
-                               href="#"
-                               data-role="button"
-                               id="button-minus-{{step.current_step}}">-10</a>
-                        </div>
-                    </div>
+            <div class="row sub_header">
+                <div class="col-xs-4">
+                    <h2><span id="counter-{{step.current_step}}">{{step.time}}</span></h2>
+                </div>
+                <div class="col-xs-4">
+                    <a class="start timer-plus btn btn-default"
+                       href="#"
+                       id="button-plus-{{step.current_step}}">+10</a>
+                </div>
+                <div class="col-xs-4">
+                    <a class="start timer-minus btn btn-default"
+                       href="#"
+                       id="button-minus-{{step.current_step}}">-10</a>
                 </div>
             </div>
 
-            <a class="next bottom_button wide_link"
-               href="#"
-               data-role="button"
-               data-icon="forward"
-               data-iconpos="right">{% trans "Skip" %}</a>
+
+            <a class="next bottom_button wide_link btn btn-default"
+               href="#"><!--{% trans "Skip" %}--> <span class="glyphicon glyphicon-forward"></a>
 
             <div id="progress-{{step.current_step}}" class="progress-bar">
                 <span style="width: {{step.step_percent|stringformat:'f'}}%;"></span>
