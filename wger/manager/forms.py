@@ -70,6 +70,7 @@ class DayForm(ModelForm):
 class SetForm(ModelForm):
     class Meta:
         model = Set
+        exclude = ('order', 'exerciseday')
         widgets = {'exercises': ExerciseAjaxSelect(), }
 
     # We need to overwrite the init method here because otherwise Django
@@ -89,6 +90,7 @@ class SetFormMobile(ModelForm):
 
     class Meta:
         model = Set
+        exclude = ('order', 'exerciseday')
 
     # We need to overwrite the init method here because otherwise Django
     # will outut a default help text, regardless of the widget used

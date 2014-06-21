@@ -477,14 +477,12 @@ class Set(models.Model):
     MAX_SETS = 7
 
     exerciseday = models.ForeignKey(Day,
-                                    verbose_name=_('Exercise day'),
-                                    editable=False)
-    exercises = models.ManyToManyField(Exercise, verbose_name=_('Exercises'))
-    order = Html5IntegerField(max_length=1,
-                              blank=True,
+                                    verbose_name=_('Exercise day'))
+    exercises = models.ManyToManyField(Exercise,
+                                       verbose_name=_('Exercises'))
+    order = Html5IntegerField(blank=True,
                               null=True,
-                              verbose_name=_('Order'),
-                              editable=False)
+                              verbose_name=_('Order'))
     sets = Html5IntegerField(validators=[MinValueValidator(0), MaxValueValidator(MAX_SETS)],
                              verbose_name=_('Number of sets'),
                              default=DEFAULT_SETS)
