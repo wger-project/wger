@@ -55,7 +55,7 @@
         "pk": 1,
         "model": "exercises.exercise",
         "fields": {
-            "status": "5",
+            "status": "2",
             "category": 2,
             "language": 1,
             "muscles": [
@@ -73,7 +73,7 @@
         "pk": 2,
         "model": "exercises.exercise",
         "fields": {
-            "status": "5",
+            "status": "2",
             "category": 2,
             "language": 2,
             "muscles": [
@@ -91,7 +91,7 @@
         "pk": 3,
         "model": "exercises.exercise",
         "fields": {
-            "status": "5",
+            "status": "2",
             "category": 3,
             "language": 1,
             "muscles": [
@@ -120,7 +120,7 @@
         "pk": 35,
         "model": "exercises.exercise",
         "fields": {
-            "status": "5",
+            "status": "2",
             "category": 3,
             "language": 1,
             "muscles": [
@@ -135,7 +135,7 @@
         "pk": 81,
         "model": "exercises.exercise",
         "fields": {
-            "status": "5",
+            "status": "2",
             "category": 3,
             "language": 1,
             "muscles": [
@@ -150,7 +150,7 @@
         "pk": 84,
         "model": "exercises.exercise",
         "fields": {
-            "status": "5",
+            "status": "2",
             "category": 3,
             "language": 2,
             "muscles": [
@@ -165,7 +165,7 @@
         "pk": 91,
         "model": "exercises.exercise",
         "fields": {
-            "status": "5",
+            "status": "2",
             "category": 3,
             "language": 2,
             "muscles": [
@@ -180,7 +180,7 @@
         "pk": 111,
         "model": "exercises.exercise",
         "fields": {
-            "status": "5",
+            "status": "2",
             "category": 3,
             "language": 2,
             "muscles": [
@@ -195,7 +195,7 @@
         "pk": 126,
         "model": "exercises.exercise",
         "fields": {
-            "status": "5",
+            "status": "2",
             "category": 3,
             "language": 2,
             "muscles": [

@@ -20,11 +20,9 @@ from django.forms.models import modelformset_factory
 from django.forms.models import inlineformset_factory
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext as _
 from django.db import models
 from django.contrib.auth.decorators import login_required
 
@@ -75,8 +73,8 @@ def create(request, day_pk):
     # by language and status
     if request.flavour == 'mobile':
         languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
-        form.fields['exercise_list'].queryset = Exercise.objects.filter(language__in=languages) \
-                                    .filter(status__in=Exercise.EXERCISE_STATUS_OK)
+        form.fields['exercise_list'].queryset = Exercise.objects.accepted() \
+                                                        .filter(language__in=languages)
 
     # If the form and all formsets validate, save them
     if request.method == "POST":
@@ -216,35 +214,3 @@ def edit(request, pk):
     context['formsets'] = formsets
     context['form_action'] = reverse('set-edit', kwargs={'pk': pk})
     return render(request, 'set/edit.html', context)
-
-
-@login_required
-def api_edit_set(request):
-    '''
-    Allows to edit the order of the sets via an AJAX call
-    '''
-
-    if request.is_ajax():
-
-        # Set the order of the reps
-        if request.GET.get('do') == 'set_order':
-            day_id = request.GET.get('day_id')
-            new_set_order = request.GET.get('order')
-
-            order = 0
-            for i in new_set_order.strip(',').split(','):
-                if not i:
-                    continue
-                set_id = i.split('-')[1]
-                order += 1
-
-                set_obj = get_object_or_404(Set, pk=set_id, exerciseday=day_id)
-
-                # Check if the user is the owner of the object
-                if set_obj.exerciseday.training.user == request.user:
-                    set_obj.order = order
-                    set_obj.save()
-                else:
-                    return HttpResponseForbidden()
-
-            return HttpResponse(_('Success'))

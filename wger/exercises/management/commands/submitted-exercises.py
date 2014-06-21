@@ -29,7 +29,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        exercises = Exercise.objects.filter(status=Exercise.EXERCISE_STATUS_ACCEPTED)
+        exercises = Exercise.objects.accepted()
         usernames = []
         for exercise in exercises:
             if exercise.user not in usernames:

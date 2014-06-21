@@ -15,6 +15,7 @@
 
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
+from wger.core.tests import api_base_test
 
 from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseComment
@@ -22,7 +23,6 @@ from wger.exercises.models import ExerciseComment
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
 from wger.utils.cache import cache_mapper
 
 
@@ -139,22 +139,13 @@ class WorkoutCacheTestCase(WorkoutManagerTestCase):
             self.assertFalse(cache.get(cache_mapper.get_workout_canonical(workout_id)))
 
 
-class ExerciseCommentApiTestCase(ApiBaseResourceTestCase):
+class ExerciseCommentApiTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
     Tests the exercise comment overview resource
     '''
-    resource = 'exercisecomment'
-    user = None
-    resource_updatable = False
+    pk = 1
+    resource = ExerciseComment
+    private_resource = False
     data = {"comment": "a cool comment",
-            "exercise": "/api/v1/exercise/1/",
+            "exercise": "1",
             "id": 1}
-
-
-class ExerciseCommentDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific exercise comment
-    '''
-    resource = 'exercisecomment/1'
-    user = None
-    resource_updatable = False

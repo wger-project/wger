@@ -1,0 +1,2034 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="998.75"
+   height="946.25"
+   id="svg9307"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="db-manager.svg">
+  <defs
+     id="defs9309" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="427.16038"
+     inkscape:cy="506.94779"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="837"
+     inkscape:window-height="590"
+     inkscape:window-x="573"
+     inkscape:window-y="148"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata9312">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-46.33929,-150.6658)">
+    <g
+       class="node"
+       id="node13"
+       transform="matrix(1.25,0,0,1.25,-788.03571,2790.0408)">
+      <title
+         id="title1378">wger_manager_models_Workout</title>
+      <polygon
+         style="fill:#eee8aa;stroke:none"
+         id="polygon1380"
+         points="873,-1380 873,-1450 1049,-1450 1049,-1380 873,-1380 " />
+      <polygon
+         style="fill:#698b22;stroke:none"
+         id="polygon1382"
+         points="873,-1432 873,-1450 1049,-1450 1049,-1432 873,-1432 " />
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1384"
+         font-size="8.00"
+         y="-1440.1"
+         x="923.5">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Bold"
+         id="text1386"
+         font-size="8.00"
+         y="-1440.1"
+         x="937.5">     Workout      </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1388"
+         font-size="8.00"
+         y="-1424.6"
+         x="875">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1390"
+         font-size="8.00"
+         y="-1424.6"
+         x="889">id</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1392"
+         font-size="8.00"
+         y="-1424.6"
+         x="897">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1394"
+         font-size="8.00"
+         y="-1424.6"
+         x="957">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1396"
+         font-size="8.00"
+         y="-1424.6"
+         x="971">AutoField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1398"
+         font-size="8.00"
+         y="-1424.6"
+         x="1011">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1400"
+         font-size="8.00"
+         y="-1411.6"
+         x="875">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1402"
+         font-size="8.00"
+         y="-1411.6"
+         x="889">user</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1404"
+         font-size="8.00"
+         y="-1411.6"
+         x="907">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1406"
+         font-size="8.00"
+         y="-1411.6"
+         x="957">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1408"
+         font-size="8.00"
+         y="-1411.6"
+         x="971">ForeignKey (id)</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1410"
+         font-size="8.00"
+         y="-1411.6"
+         x="1033">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1412"
+         font-size="8.00"
+         y="-1398.6"
+         x="875">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text1414"
+         font-size="8.00"
+         y="-1398.6"
+         x="889">comment</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1416"
+         font-size="8.00"
+         y="-1398.6"
+         x="923">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1418"
+         font-size="8.00"
+         y="-1398.6"
+         x="957">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text1420"
+         font-size="8.00"
+         y="-1398.6"
+         x="971">CharField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1422"
+         font-size="8.00"
+         y="-1398.6"
+         x="1007">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1424"
+         font-size="8.00"
+         y="-1385.6"
+         x="875">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text1426"
+         font-size="8.00"
+         y="-1385.6"
+         x="889">creation_date</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1428"
+         font-size="8.00"
+         y="-1385.6"
+         x="938">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1430"
+         font-size="8.00"
+         y="-1385.6"
+         x="957">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text1432"
+         font-size="8.00"
+         y="-1385.6"
+         x="971">DateField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1434"
+         font-size="8.00"
+         y="-1385.6"
+         x="1006">     </text>
+    </g>
+    <g
+       class="node"
+       id="node14"
+       transform="matrix(1.25,0,0,1.25,-788.03571,2790.0408)">
+      <title
+         id="title1446">wger_manager_models_Schedule</title>
+      <polygon
+         style="fill:#eee8aa;stroke:none"
+         id="polygon1448"
+         points="1162,-1367 1162,-1463 1326,-1463 1326,-1367 1162,-1367 " />
+      <polygon
+         style="fill:#698b22;stroke:none"
+         id="polygon1450"
+         points="1162,-1445 1162,-1463 1326,-1463 1326,-1445 1162,-1445 " />
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1452"
+         font-size="8.00"
+         y="-1453.1"
+         x="1205">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Bold"
+         id="text1454"
+         font-size="8.00"
+         y="-1453.1"
+         x="1219">     Schedule      </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1456"
+         font-size="8.00"
+         y="-1437.6"
+         x="1164">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1458"
+         font-size="8.00"
+         y="-1437.6"
+         x="1178">id</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1460"
+         font-size="8.00"
+         y="-1437.6"
+         x="1186">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1462"
+         font-size="8.00"
+         y="-1437.6"
+         x="1234">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1464"
+         font-size="8.00"
+         y="-1437.6"
+         x="1248">AutoField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1466"
+         font-size="8.00"
+         y="-1437.6"
+         x="1288">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1468"
+         font-size="8.00"
+         y="-1424.6"
+         x="1164">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1470"
+         font-size="8.00"
+         y="-1424.6"
+         x="1178">user</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1472"
+         font-size="8.00"
+         y="-1424.6"
+         x="1196">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1474"
+         font-size="8.00"
+         y="-1424.6"
+         x="1234">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1476"
+         font-size="8.00"
+         y="-1424.6"
+         x="1248">ForeignKey (id)</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1478"
+         font-size="8.00"
+         y="-1424.6"
+         x="1310">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1480"
+         font-size="8.00"
+         y="-1411.6"
+         x="1164">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text1482"
+         font-size="8.00"
+         y="-1411.6"
+         x="1178">is_active</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1484"
+         font-size="8.00"
+         y="-1411.6"
+         x="1209">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1486"
+         font-size="8.00"
+         y="-1411.6"
+         x="1234">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text1488"
+         font-size="8.00"
+         y="-1411.6"
+         x="1248">BooleanField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1490"
+         font-size="8.00"
+         y="-1411.6"
+         x="1295">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1492"
+         font-size="8.00"
+         y="-1398.6"
+         x="1164">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text1494"
+         font-size="8.00"
+         y="-1398.6"
+         x="1178">is_loop</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1496"
+         font-size="8.00"
+         y="-1398.6"
+         x="1203">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1498"
+         font-size="8.00"
+         y="-1398.6"
+         x="1234">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text1500"
+         font-size="8.00"
+         y="-1398.6"
+         x="1248">BooleanField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1502"
+         font-size="8.00"
+         y="-1398.6"
+         x="1295">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1504"
+         font-size="8.00"
+         y="-1385.6"
+         x="1164">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text1506"
+         font-size="8.00"
+         y="-1385.6"
+         x="1178">name</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1508"
+         font-size="8.00"
+         y="-1385.6"
+         x="1199">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1510"
+         font-size="8.00"
+         y="-1385.6"
+         x="1234">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text1512"
+         font-size="8.00"
+         y="-1385.6"
+         x="1248">CharField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1514"
+         font-size="8.00"
+         y="-1385.6"
+         x="1284">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1516"
+         font-size="8.00"
+         y="-1372.6"
+         x="1164">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text1518"
+         font-size="8.00"
+         y="-1372.6"
+         x="1178">start_date</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1520"
+         font-size="8.00"
+         y="-1372.6"
+         x="1215">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1522"
+         font-size="8.00"
+         y="-1372.6"
+         x="1234">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text1524"
+         font-size="8.00"
+         y="-1372.6"
+         x="1248">Html5DateField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1526"
+         font-size="8.00"
+         y="-1372.6"
+         x="1304">     </text>
+    </g>
+    <g
+       class="node"
+       id="node15"
+       transform="matrix(1.25,0,0,1.25,-788.03571,2790.0408)">
+      <title
+         id="title1538">wger_manager_models_ScheduleStep</title>
+      <polygon
+         style="fill:#eee8aa;stroke:none"
+         id="polygon1540"
+         points="1084,-1611.5 1084,-1694.5 1250,-1694.5 1250,-1611.5 1084,-1611.5 " />
+      <polygon
+         style="fill:#698b22;stroke:none"
+         id="polygon1542"
+         points="1084,-1676 1084,-1694 1250,-1694 1250,-1676 1084,-1676 " />
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1544"
+         font-size="8.00"
+         y="-1684.1"
+         x="1119">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Bold"
+         id="text1546"
+         font-size="8.00"
+         y="-1684.1"
+         x="1133">     ScheduleStep      </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1548"
+         font-size="8.00"
+         y="-1668.6"
+         x="1086">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1550"
+         font-size="8.00"
+         y="-1668.6"
+         x="1100">id</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1552"
+         font-size="8.00"
+         y="-1668.6"
+         x="1108">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1554"
+         font-size="8.00"
+         y="-1668.6"
+         x="1156">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1556"
+         font-size="8.00"
+         y="-1668.6"
+         x="1170">AutoField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1558"
+         font-size="8.00"
+         y="-1668.6"
+         x="1210">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1560"
+         font-size="8.00"
+         y="-1655.6"
+         x="1086">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1562"
+         font-size="8.00"
+         y="-1655.6"
+         x="1100">schedule</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1564"
+         font-size="8.00"
+         y="-1655.6"
+         x="1137">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1566"
+         font-size="8.00"
+         y="-1655.6"
+         x="1156">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1568"
+         font-size="8.00"
+         y="-1655.6"
+         x="1170">ForeignKey (id)</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1570"
+         font-size="8.00"
+         y="-1655.6"
+         x="1232">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1572"
+         font-size="8.00"
+         y="-1642.6"
+         x="1086">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1574"
+         font-size="8.00"
+         y="-1642.6"
+         x="1100">workout</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1576"
+         font-size="8.00"
+         y="-1642.6"
+         x="1133">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1578"
+         font-size="8.00"
+         y="-1642.6"
+         x="1156">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1580"
+         font-size="8.00"
+         y="-1642.6"
+         x="1170">ForeignKey (id)</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1582"
+         font-size="8.00"
+         y="-1642.6"
+         x="1232">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1584"
+         font-size="8.00"
+         y="-1629.6"
+         x="1086">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text1586"
+         font-size="8.00"
+         y="-1629.6"
+         x="1100">duration</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1588"
+         font-size="8.00"
+         y="-1629.6"
+         x="1130">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1590"
+         font-size="8.00"
+         y="-1629.6"
+         x="1156">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text1592"
+         font-size="8.00"
+         y="-1629.6"
+         x="1170">Html5IntegerField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1594"
+         font-size="8.00"
+         y="-1629.6"
+         x="1234">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1596"
+         font-size="8.00"
+         y="-1616.6"
+         x="1086">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text1598"
+         font-size="8.00"
+         y="-1616.6"
+         x="1100">order</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1600"
+         font-size="8.00"
+         y="-1616.6"
+         x="1120">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1602"
+         font-size="8.00"
+         y="-1616.6"
+         x="1156">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text1604"
+         font-size="8.00"
+         y="-1616.6"
+         x="1170">IntegerField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1606"
+         font-size="8.00"
+         y="-1616.6"
+         x="1213">     </text>
+    </g>
+    <g
+       class="edge"
+       id="edge15"
+       transform="matrix(1.25,0,0,1.25,-788.03571,2790.0408)">
+      <title
+         id="title1609">wger_manager_models_ScheduleStep-&gt;wger_manager_models_Workout</title>
+      <path
+         style="fill:none;stroke:#000000"
+         inkscape:connector-curvature="0"
+         id="path1611"
+         d="m 1109.22,-1601.54 c -10.71,10.12 -21.56,20.92 -31.22,31.54 -33.89,37.26 -68.23,83.73 -90.863,115.82" />
+      <ellipse
+         style="fill:#000000;stroke:#000000"
+         sodipodi:ry="4.00002"
+         sodipodi:rx="4.00002"
+         sodipodi:cy="-1604.35"
+         sodipodi:cx="1112.22"
+         d="m 1116.22,-1604.35 c 0,2.2092 -1.7909,4 -4,4 -2.2092,0 -4,-1.7908 -4,-4 0,-2.2091 1.7908,-4 4,-4 2.2091,0 4,1.7909 4,4 z"
+         id="ellipse1613"
+         ry="4.00002"
+         rx="4.00002"
+         cy="-1604.35"
+         cx="1112.22" />
+      <text
+         style="font-size:8px;text-anchor:middle;font-family:'Helvetica,sans-Serif'"
+         id="text1615"
+         font-size="8.00"
+         y="-1563.1"
+         x="1120">workout (schedulestep)</text>
+    </g>
+    <g
+       class="edge"
+       id="edge14"
+       transform="matrix(1.25,0,0,1.25,-788.03571,2790.0408)">
+      <title
+         id="title1618">wger_manager_models_ScheduleStep-&gt;wger_manager_models_Schedule</title>
+      <path
+         style="fill:none;stroke:#000000"
+         inkscape:connector-curvature="0"
+         id="path1620"
+         d="m 1163.3,-1599.46 c 0.25,13.05 1.51,26.89 4.7,39.46 8.3,32.75 25.41,66.3 41.3,92.77" />
+      <ellipse
+         style="fill:#000000;stroke:#000000"
+         sodipodi:ry="4"
+         sodipodi:rx="4"
+         sodipodi:cy="-1603.46"
+         sodipodi:cx="1163.29"
+         d="m 1167.29,-1603.46 c 0,2.2092 -1.7908,4 -4,4 -2.2091,0 -4,-1.7908 -4,-4 0,-2.2091 1.7909,-4 4,-4 2.2092,0 4,1.7909 4,4 z"
+         id="ellipse1622"
+         ry="4"
+         rx="4"
+         cy="-1603.46"
+         cx="1163.29" />
+      <text
+         style="font-size:8px;text-anchor:middle;font-family:'Helvetica,sans-Serif'"
+         id="text1624"
+         font-size="8.00"
+         y="-1563.1"
+         x="1211.5">schedule (schedulestep)</text>
+    </g>
+    <g
+       class="node"
+       id="node16"
+       transform="matrix(1.25,0,0,1.25,-788.03571,2790.0408)">
+      <title
+         id="title1627">wger_manager_models_Day</title>
+      <polygon
+         style="fill:#eee8aa;stroke:none"
+         id="polygon1629"
+         points="1284,-1624.5 1284,-1681.5 1450,-1681.5 1450,-1624.5 1284,-1624.5 " />
+      <polygon
+         style="fill:#698b22;stroke:none"
+         id="polygon1631"
+         points="1284,-1663 1284,-1681 1450,-1681 1450,-1663 1284,-1663 " />
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1633"
+         font-size="8.00"
+         y="-1671.1"
+         x="1338.5">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Bold"
+         id="text1635"
+         font-size="8.00"
+         y="-1671.1"
+         x="1352.5">     Day      </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1637"
+         font-size="8.00"
+         y="-1655.6"
+         x="1286">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1639"
+         font-size="8.00"
+         y="-1655.6"
+         x="1300">id</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1641"
+         font-size="8.00"
+         y="-1655.6"
+         x="1308">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1643"
+         font-size="8.00"
+         y="-1655.6"
+         x="1358">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1645"
+         font-size="8.00"
+         y="-1655.6"
+         x="1372">AutoField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1647"
+         font-size="8.00"
+         y="-1655.6"
+         x="1412">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1649"
+         font-size="8.00"
+         y="-1642.6"
+         x="1286">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1651"
+         font-size="8.00"
+         y="-1642.6"
+         x="1300">training</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1653"
+         font-size="8.00"
+         y="-1642.6"
+         x="1331">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1655"
+         font-size="8.00"
+         y="-1642.6"
+         x="1358">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1657"
+         font-size="8.00"
+         y="-1642.6"
+         x="1372">ForeignKey (id)</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1659"
+         font-size="8.00"
+         y="-1642.6"
+         x="1434">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1661"
+         font-size="8.00"
+         y="-1629.6"
+         x="1286">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text1663"
+         font-size="8.00"
+         y="-1629.6"
+         x="1300">description</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1665"
+         font-size="8.00"
+         y="-1629.6"
+         x="1339">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1667"
+         font-size="8.00"
+         y="-1629.6"
+         x="1358">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text1669"
+         font-size="8.00"
+         y="-1629.6"
+         x="1372">CharField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1671"
+         font-size="8.00"
+         y="-1629.6"
+         x="1408">     </text>
+    </g>
+    <g
+       class="edge"
+       id="edge16"
+       transform="matrix(1.25,0,0,1.25,-788.03571,2790.0408)">
+      <title
+         id="title1685">wger_manager_models_Day-&gt;wger_manager_models_Workout</title>
+      <path
+         style="fill:none;stroke:#000000"
+         inkscape:connector-curvature="0"
+         id="path1687"
+         d="m 1331.39,-1614.43 c -20.49,19.33 -47.8,41.49 -76.39,54.43 -45.13,20.42 -64.02,-0.44 -110,18 -52.47,21.04 -104.94,59.06 -140.34,87.85" />
+      <ellipse
+         style="fill:#000000;stroke:#000000"
+         sodipodi:ry="4.00002"
+         sodipodi:rx="4.00002"
+         sodipodi:cy="-1617.29"
+         sodipodi:cx="1334.37"
+         d="m 1338.37,-1617.29 c 0,2.2091 -1.7909,4 -4,4 -2.2092,0 -4,-1.7909 -4,-4 0,-2.2092 1.7908,-4.0001 4,-4.0001 2.2091,0 4,1.7909 4,4.0001 z"
+         id="ellipse1689"
+         ry="4.00002"
+         rx="4.00002"
+         cy="-1617.29"
+         cx="1334.37" />
+      <text
+         style="font-size:8px;text-anchor:middle;font-family:'Helvetica,sans-Serif'"
+         id="text1691"
+         font-size="8.00"
+         y="-1563.1"
+         x="1297">training (day)</text>
+    </g>
+    <g
+       class="node"
+       id="node17"
+       transform="matrix(1.25,0,0,1.25,-788.03571,2790.0408)">
+      <title
+         id="title1694">wger_manager_models_Set</title>
+      <polygon
+         style="fill:#eee8aa;stroke:none"
+         id="polygon1696"
+         points="1274,-1808 1274,-1878 1450,-1878 1450,-1808 1274,-1808 " />
+      <polygon
+         style="fill:#698b22;stroke:none"
+         id="polygon1698"
+         points="1274,-1860 1274,-1878 1450,-1878 1450,-1860 1274,-1860 " />
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1700"
+         font-size="8.00"
+         y="-1868.1"
+         x="1335">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Bold"
+         id="text1702"
+         font-size="8.00"
+         y="-1868.1"
+         x="1349">     Set      </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1704"
+         font-size="8.00"
+         y="-1852.6"
+         x="1276">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1706"
+         font-size="8.00"
+         y="-1852.6"
+         x="1290">id</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1708"
+         font-size="8.00"
+         y="-1852.6"
+         x="1298">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1710"
+         font-size="8.00"
+         y="-1852.6"
+         x="1356">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1712"
+         font-size="8.00"
+         y="-1852.6"
+         x="1370">AutoField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1714"
+         font-size="8.00"
+         y="-1852.6"
+         x="1410">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1716"
+         font-size="8.00"
+         y="-1839.6"
+         x="1276">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1718"
+         font-size="8.00"
+         y="-1839.6"
+         x="1290">exerciseday</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1720"
+         font-size="8.00"
+         y="-1839.6"
+         x="1337">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1722"
+         font-size="8.00"
+         y="-1839.6"
+         x="1356">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1724"
+         font-size="8.00"
+         y="-1839.6"
+         x="1370">ForeignKey (id)</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1726"
+         font-size="8.00"
+         y="-1839.6"
+         x="1432">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1728"
+         font-size="8.00"
+         y="-1826.6"
+         x="1276">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text1730"
+         font-size="8.00"
+         y="-1826.6"
+         x="1290">order</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1732"
+         font-size="8.00"
+         y="-1826.6"
+         x="1310">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1734"
+         font-size="8.00"
+         y="-1826.6"
+         x="1356">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text1736"
+         font-size="8.00"
+         y="-1826.6"
+         x="1370">Html5IntegerField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1738"
+         font-size="8.00"
+         y="-1826.6"
+         x="1434">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1740"
+         font-size="8.00"
+         y="-1813.6"
+         x="1276">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text1742"
+         font-size="8.00"
+         y="-1813.6"
+         x="1290">sets</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1744"
+         font-size="8.00"
+         y="-1813.6"
+         x="1305">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1746"
+         font-size="8.00"
+         y="-1813.6"
+         x="1356">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text1748"
+         font-size="8.00"
+         y="-1813.6"
+         x="1370">Html5IntegerField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1750"
+         font-size="8.00"
+         y="-1813.6"
+         x="1434">     </text>
+    </g>
+    <g
+       class="edge"
+       id="edge18"
+       transform="matrix(1.25,0,0,1.25,-788.03571,2790.0408)">
+      <title
+         id="title1753">wger_manager_models_Set-&gt;wger_manager_models_Day</title>
+      <path
+         style="fill:none;stroke:#000000"
+         inkscape:connector-curvature="0"
+         id="path1755"
+         d="m 1363.24,-1795.53 c 0.9,34.17 2.12,79.7 2.92,109.78" />
+      <ellipse
+         style="fill:#000000;stroke:#000000"
+         sodipodi:ry="4"
+         sodipodi:rx="4"
+         sodipodi:cy="-1799.96"
+         sodipodi:cx="1363.12"
+         d="m 1367.12,-1799.96 c 0,2.2092 -1.7909,4 -4,4 -2.2091,0 -4,-1.7908 -4,-4 0,-2.2091 1.7909,-4 4,-4 2.2091,0 4,1.7909 4,4 z"
+         id="ellipse1757"
+         ry="4"
+         rx="4"
+         cy="-1799.96"
+         cx="1363.12" />
+      <text
+         style="font-size:8px;text-anchor:middle;font-family:'Helvetica,sans-Serif'"
+         id="text1759"
+         font-size="8.00"
+         y="-1762.1"
+         x="1395.5">exerciseday (set)</text>
+    </g>
+    <g
+       class="node"
+       id="node18"
+       transform="matrix(1.25,0,0,1.25,-788.03571,2790.0408)">
+      <title
+         id="title1898">wger_manager_models_Setting</title>
+      <polygon
+         style="fill:#eee8aa;stroke:none"
+         id="polygon1900"
+         points="1285.5,-1973 1285.5,-2069 1448.5,-2069 1448.5,-1973 1285.5,-1973 " />
+      <polygon
+         style="fill:#698b22;stroke:none"
+         id="polygon1902"
+         points="1286,-2051 1286,-2069 1449,-2069 1449,-2051 1286,-2051 " />
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1904"
+         font-size="8.00"
+         y="-2059.1001"
+         x="1332.5">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Bold"
+         id="text1906"
+         font-size="8.00"
+         y="-2059.1001"
+         x="1346.5">     Setting      </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1908"
+         font-size="8.00"
+         y="-2043.6"
+         x="1288">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1910"
+         font-size="8.00"
+         y="-2043.6"
+         x="1302">id</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1912"
+         font-size="8.00"
+         y="-2043.6"
+         x="1310">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1914"
+         font-size="8.00"
+         y="-2043.6"
+         x="1355">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1916"
+         font-size="8.00"
+         y="-2043.6"
+         x="1369">AutoField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1918"
+         font-size="8.00"
+         y="-2043.6"
+         x="1409">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1920"
+         font-size="8.00"
+         y="-2030.6"
+         x="1288">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1922"
+         font-size="8.00"
+         y="-2030.6"
+         x="1302">exercise</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1924"
+         font-size="8.00"
+         y="-2030.6"
+         x="1335">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1926"
+         font-size="8.00"
+         y="-2030.6"
+         x="1355">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1928"
+         font-size="8.00"
+         y="-2030.6"
+         x="1369">ForeignKey (id)</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1930"
+         font-size="8.00"
+         y="-2030.6"
+         x="1431">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1932"
+         font-size="8.00"
+         y="-2017.6"
+         x="1288">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1934"
+         font-size="8.00"
+         y="-2017.6"
+         x="1302">set</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1936"
+         font-size="8.00"
+         y="-2017.6"
+         x="1315">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1938"
+         font-size="8.00"
+         y="-2017.6"
+         x="1355">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text1940"
+         font-size="8.00"
+         y="-2017.6"
+         x="1369">ForeignKey (id)</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1942"
+         font-size="8.00"
+         y="-2017.6"
+         x="1431">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1944"
+         font-size="8.00"
+         y="-2004.6"
+         x="1288">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text1946"
+         font-size="8.00"
+         y="-2004.6"
+         x="1302">comment</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1948"
+         font-size="8.00"
+         y="-2004.6"
+         x="1336">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1950"
+         font-size="8.00"
+         y="-2004.6"
+         x="1355">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text1952"
+         font-size="8.00"
+         y="-2004.6"
+         x="1369">CharField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1954"
+         font-size="8.00"
+         y="-2004.6"
+         x="1405">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1956"
+         font-size="8.00"
+         y="-1991.6"
+         x="1288">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text1958"
+         font-size="8.00"
+         y="-1991.6"
+         x="1302">order</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1960"
+         font-size="8.00"
+         y="-1991.6"
+         x="1322">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1962"
+         font-size="8.00"
+         y="-1991.6"
+         x="1355">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text1964"
+         font-size="8.00"
+         y="-1991.6"
+         x="1369">Html5IntegerField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1966"
+         font-size="8.00"
+         y="-1991.6"
+         x="1433">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1968"
+         font-size="8.00"
+         y="-1978.6"
+         x="1288">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text1970"
+         font-size="8.00"
+         y="-1978.6"
+         x="1302">reps</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1972"
+         font-size="8.00"
+         y="-1978.6"
+         x="1318">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1974"
+         font-size="8.00"
+         y="-1978.6"
+         x="1355">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text1976"
+         font-size="8.00"
+         y="-1978.6"
+         x="1369">Html5IntegerField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text1978"
+         font-size="8.00"
+         y="-1978.6"
+         x="1433">     </text>
+    </g>
+    <g
+       class="edge"
+       id="edge20"
+       transform="matrix(1.25,0,0,1.25,-788.03571,2790.0408)">
+      <title
+         id="title1981">wger_manager_models_Setting-&gt;wger_manager_models_Set</title>
+      <path
+         style="fill:none;stroke:#000000"
+         inkscape:connector-curvature="0"
+         id="path1983"
+         d="m 1365.31,-1960.35 c -0.74,25.91 -1.58,55.49 -2.23,78.34" />
+      <ellipse
+         style="fill:#000000;stroke:#000000"
+         sodipodi:ry="4"
+         sodipodi:rx="4"
+         sodipodi:cy="-1964.62"
+         sodipodi:cx="1365.4301"
+         d="m 1369.4301,-1964.62 c 0,2.2091 -1.7909,4 -4,4 -2.2092,0 -4,-1.7909 -4,-4 0,-2.2091 1.7908,-4 4,-4 2.2091,0 4,1.7909 4,4 z"
+         id="ellipse1985"
+         ry="4"
+         rx="4"
+         cy="-1964.62"
+         cx="1365.4301" />
+      <text
+         style="font-size:8px;text-anchor:middle;font-family:'Helvetica,sans-Serif'"
+         id="text1987"
+         font-size="8.00"
+         y="-1944.1"
+         x="1386.5">set (setting)</text>
+    </g>
+    <g
+       class="node"
+       id="node19"
+       transform="matrix(1.25,0,0,1.25,-788.03571,2790.0408)">
+      <title
+         id="title1999">wger_manager_models_WorkoutLog</title>
+      <polygon
+         style="fill:#eee8aa;stroke:none"
+         id="polygon2001"
+         points="884.5,-1598.5 884.5,-1707.5 1049.5,-1707.5 1049.5,-1598.5 884.5,-1598.5 " />
+      <polygon
+         style="fill:#698b22;stroke:none"
+         id="polygon2003"
+         points="885,-1689 885,-1707 1050,-1707 1050,-1689 885,-1689 " />
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2005"
+         font-size="8.00"
+         y="-1697.1"
+         x="922">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Bold"
+         id="text2007"
+         font-size="8.00"
+         y="-1697.1"
+         x="936">     WorkoutLog      </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2009"
+         font-size="8.00"
+         y="-1681.6"
+         x="887">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2011"
+         font-size="8.00"
+         y="-1681.6"
+         x="901">id</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2013"
+         font-size="8.00"
+         y="-1681.6"
+         x="909">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2015"
+         font-size="8.00"
+         y="-1681.6"
+         x="953">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2017"
+         font-size="8.00"
+         y="-1681.6"
+         x="967">AutoField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2019"
+         font-size="8.00"
+         y="-1681.6"
+         x="1007">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2021"
+         font-size="8.00"
+         y="-1668.6"
+         x="887">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2023"
+         font-size="8.00"
+         y="-1668.6"
+         x="901">exercise</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2025"
+         font-size="8.00"
+         y="-1668.6"
+         x="934">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2027"
+         font-size="8.00"
+         y="-1668.6"
+         x="953">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2029"
+         font-size="8.00"
+         y="-1668.6"
+         x="967">ForeignKey (id)</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2031"
+         font-size="8.00"
+         y="-1668.6"
+         x="1029">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2033"
+         font-size="8.00"
+         y="-1655.6"
+         x="887">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2035"
+         font-size="8.00"
+         y="-1655.6"
+         x="901">user</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2037"
+         font-size="8.00"
+         y="-1655.6"
+         x="919">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2039"
+         font-size="8.00"
+         y="-1655.6"
+         x="953">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2041"
+         font-size="8.00"
+         y="-1655.6"
+         x="967">ForeignKey (id)</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2043"
+         font-size="8.00"
+         y="-1655.6"
+         x="1029">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2045"
+         font-size="8.00"
+         y="-1642.6"
+         x="887">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2047"
+         font-size="8.00"
+         y="-1642.6"
+         x="901">workout</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2049"
+         font-size="8.00"
+         y="-1642.6"
+         x="934">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2051"
+         font-size="8.00"
+         y="-1642.6"
+         x="953">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2053"
+         font-size="8.00"
+         y="-1642.6"
+         x="967">ForeignKey (id)</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2055"
+         font-size="8.00"
+         y="-1642.6"
+         x="1029">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2057"
+         font-size="8.00"
+         y="-1629.6"
+         x="887">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text2059"
+         font-size="8.00"
+         y="-1629.6"
+         x="901">date</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2061"
+         font-size="8.00"
+         y="-1629.6"
+         x="917">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2063"
+         font-size="8.00"
+         y="-1629.6"
+         x="953">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text2065"
+         font-size="8.00"
+         y="-1629.6"
+         x="967">Html5DateField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2067"
+         font-size="8.00"
+         y="-1629.6"
+         x="1023">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2069"
+         font-size="8.00"
+         y="-1616.6"
+         x="887">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text2071"
+         font-size="8.00"
+         y="-1616.6"
+         x="901">reps</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2073"
+         font-size="8.00"
+         y="-1616.6"
+         x="917">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2075"
+         font-size="8.00"
+         y="-1616.6"
+         x="953">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text2077"
+         font-size="8.00"
+         y="-1616.6"
+         x="967">Html5IntegerField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2079"
+         font-size="8.00"
+         y="-1616.6"
+         x="1031">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2081"
+         font-size="8.00"
+         y="-1603.6"
+         x="887">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text2083"
+         font-size="8.00"
+         y="-1603.6"
+         x="901">weight</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2085"
+         font-size="8.00"
+         y="-1603.6"
+         x="925">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2087"
+         font-size="8.00"
+         y="-1603.6"
+         x="953">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text2089"
+         font-size="8.00"
+         y="-1603.6"
+         x="967">Html5DecimalField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2091"
+         font-size="8.00"
+         y="-1603.6"
+         x="1034">     </text>
+    </g>
+    <g
+       class="edge"
+       id="edge24"
+       transform="matrix(1.25,0,0,1.25,-788.03571,2790.0408)">
+      <title
+         id="title2103">wger_manager_models_WorkoutLog-&gt;wger_manager_models_Workout</title>
+      <path
+         style="fill:none;stroke:#000000"
+         inkscape:connector-curvature="0"
+         id="path2105"
+         d="m 962.672,-1586.2 c -0.264,5.48 -0.494,10.93 -0.672,16.2 -1.329,39.41 -1.458,84.53 -1.329,115.7" />
+      <ellipse
+         style="fill:#000000;stroke:#000000"
+         sodipodi:ry="4"
+         sodipodi:rx="4"
+         sodipodi:cy="-1590.23"
+         sodipodi:cx="962.87799"
+         d="m 966.87799,-1590.23 c 0,2.2092 -1.79086,4 -4,4 -2.20914,0 -4,-1.7908 -4,-4 0,-2.2091 1.79086,-4 4,-4 2.20914,0 4,1.7909 4,4 z"
+         id="ellipse2107"
+         ry="4"
+         rx="4"
+         cy="-1590.23"
+         cx="962.87799" />
+      <text
+         style="font-size:8px;text-anchor:middle;font-family:'Helvetica,sans-Serif'"
+         id="text2109"
+         font-size="8.00"
+         y="-1563.1"
+         x="1000">workout (workoutlog)</text>
+    </g>
+    <g
+       class="node"
+       id="node20"
+       transform="matrix(1.25,0,0,1.25,-788.03571,2790.0408)">
+      <title
+         id="title2121">wger_manager_models_WorkoutSession</title>
+      <polygon
+         style="fill:#eee8aa;stroke:none"
+         id="polygon2123"
+         points="684,-1592 684,-1714 850,-1714 850,-1592 684,-1592 " />
+      <polygon
+         style="fill:#698b22;stroke:none"
+         id="polygon2125"
+         points="684,-1696 684,-1714 850,-1714 850,-1696 684,-1696 " />
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2127"
+         font-size="8.00"
+         y="-1704.1"
+         x="713.5">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#ffffff;font-family:Helvetica Bold"
+         id="text2129"
+         font-size="8.00"
+         y="-1704.1"
+         x="727.5">     WorkoutSession      </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2131"
+         font-size="8.00"
+         y="-1688.6"
+         x="686">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2133"
+         font-size="8.00"
+         y="-1688.6"
+         x="700">id</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2135"
+         font-size="8.00"
+         y="-1688.6"
+         x="708">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2137"
+         font-size="8.00"
+         y="-1688.6"
+         x="758">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2139"
+         font-size="8.00"
+         y="-1688.6"
+         x="772">AutoField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2141"
+         font-size="8.00"
+         y="-1688.6"
+         x="812">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2143"
+         font-size="8.00"
+         y="-1675.6"
+         x="686">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2145"
+         font-size="8.00"
+         y="-1675.6"
+         x="700">user</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2147"
+         font-size="8.00"
+         y="-1675.6"
+         x="718">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2149"
+         font-size="8.00"
+         y="-1675.6"
+         x="758">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2151"
+         font-size="8.00"
+         y="-1675.6"
+         x="772">ForeignKey (id)</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2153"
+         font-size="8.00"
+         y="-1675.6"
+         x="834">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2155"
+         font-size="8.00"
+         y="-1662.6"
+         x="686">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2157"
+         font-size="8.00"
+         y="-1662.6"
+         x="700">workout</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2159"
+         font-size="8.00"
+         y="-1662.6"
+         x="733">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2161"
+         font-size="8.00"
+         y="-1662.6"
+         x="758">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:Helvetica Bold"
+         id="text2163"
+         font-size="8.00"
+         y="-1662.6"
+         x="772">ForeignKey (id)</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2165"
+         font-size="8.00"
+         y="-1662.6"
+         x="834">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2167"
+         font-size="8.00"
+         y="-1649.6"
+         x="686">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text2169"
+         font-size="8.00"
+         y="-1649.6"
+         x="700">date</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2171"
+         font-size="8.00"
+         y="-1649.6"
+         x="716">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2173"
+         font-size="8.00"
+         y="-1649.6"
+         x="758">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text2175"
+         font-size="8.00"
+         y="-1649.6"
+         x="772">Html5DateField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2177"
+         font-size="8.00"
+         y="-1649.6"
+         x="828">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2179"
+         font-size="8.00"
+         y="-1636.6"
+         x="686">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text2181"
+         font-size="8.00"
+         y="-1636.6"
+         x="700">impression</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2183"
+         font-size="8.00"
+         y="-1636.6"
+         x="739">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2185"
+         font-size="8.00"
+         y="-1636.6"
+         x="758">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica '"
+         id="text2187"
+         font-size="8.00"
+         y="-1636.6"
+         x="772">CharField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2189"
+         font-size="8.00"
+         y="-1636.6"
+         x="808">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2191"
+         font-size="8.00"
+         y="-1623.6"
+         x="686">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text2193"
+         font-size="8.00"
+         y="-1623.6"
+         x="700">notes</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2195"
+         font-size="8.00"
+         y="-1623.6"
+         x="720">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2197"
+         font-size="8.00"
+         y="-1623.6"
+         x="758">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text2199"
+         font-size="8.00"
+         y="-1623.6"
+         x="772">TextField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2201"
+         font-size="8.00"
+         y="-1623.6"
+         x="806">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2203"
+         font-size="8.00"
+         y="-1610.6"
+         x="686">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text2205"
+         font-size="8.00"
+         y="-1610.6"
+         x="700">time_end</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2207"
+         font-size="8.00"
+         y="-1610.6"
+         x="734">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2209"
+         font-size="8.00"
+         y="-1610.6"
+         x="758">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text2211"
+         font-size="8.00"
+         y="-1610.6"
+         x="772">TimeField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2213"
+         font-size="8.00"
+         y="-1610.6"
+         x="808">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2215"
+         font-size="8.00"
+         y="-1597.6"
+         x="686">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text2217"
+         font-size="8.00"
+         y="-1597.6"
+         x="700">time_start</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2219"
+         font-size="8.00"
+         y="-1597.6"
+         x="736">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2221"
+         font-size="8.00"
+         y="-1597.6"
+         x="758">     </text>
+      <text
+         style="font-size:8px;text-anchor:start;fill:#7b7b7b;font-family:'Helvetica '"
+         id="text2223"
+         font-size="8.00"
+         y="-1597.6"
+         x="772">TimeField</text>
+      <text
+         style="font-size:8px;text-anchor:start;font-family:'Helvetica,sans-Serif'"
+         id="text2225"
+         font-size="8.00"
+         y="-1597.6"
+         x="808">     </text>
+    </g>
+    <g
+       class="edge"
+       id="edge26"
+       transform="matrix(1.25,0,0,1.25,-788.03571,2790.0408)">
+      <title
+         id="title2237">wger_manager_models_WorkoutSession-&gt;wger_manager_models_Workout</title>
+      <path
+         style="fill:none;stroke:#000000"
+         inkscape:connector-curvature="0"
+         id="path2239"
+         d="m 824.967,-1581.48 c 34.262,41.68 76.322,92.84 104.523,127.15" />
+      <ellipse
+         style="fill:#000000;stroke:#000000"
+         sodipodi:ry="4.00002"
+         sodipodi:rx="4.00002"
+         sodipodi:cy="-1584.73"
+         sodipodi:cx="822.29498"
+         d="m 826.295,-1584.73 c 0,2.2092 -1.79087,4 -4.00002,4 -2.20915,0 -4.00002,-1.7908 -4.00002,-4 0,-2.2091 1.79087,-4 4.00002,-4 2.20915,0 4.00002,1.7909 4.00002,4 z"
+         id="ellipse2241"
+         ry="4.00002"
+         rx="4.00002"
+         cy="-1584.73"
+         cx="822.29498" />
+      <text
+         style="font-size:8px;text-anchor:middle;font-family:'Helvetica,sans-Serif'"
+         id="text2243"
+         font-size="8.00"
+         y="-1563.1"
+         x="887">workout (workoutsession)</text>
+    </g>
+  </g>
+</svg>

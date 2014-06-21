@@ -14,12 +14,10 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 import logging
-import json
 import uuid
 
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.forms import ModelForm
@@ -37,8 +35,6 @@ from django.views.generic import ListView
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
-from easy_thumbnails.files import get_thumbnailer
-from easy_thumbnails.alias import aliases
 
 from wger.manager.models import WorkoutLog
 from wger.exercises.models import Exercise, Muscle
@@ -73,7 +69,7 @@ class ExerciseListView(WgerPermissionMixin, ListView):
         Filter to only active exercises in the configured languages
         '''
         languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
-        return Exercise.objects.filter(status__in=Exercise.EXERCISE_STATUS_OK) \
+        return Exercise.objects.accepted() \
             .filter(language__in=languages) \
             .order_by('category__id') \
             .select_related()
@@ -210,28 +206,10 @@ class ExerciseAddView(ExercisesEditAddView, CreateView, WgerPermissionMixin):
 
     def form_valid(self, form):
         '''
-        Set the user that submitted the exercise
-
-        If admin, set appropriate status
+        Set language, author and status
         '''
         form.instance.language = load_language()
-
-        if self.request.user.has_perm('exercises.add_exercise'):
-            form.instance.status = Exercise.EXERCISE_STATUS_ADMIN
-            if not form.instance.license_author:
-                form.instance.license_author = 'wger.de'
-
-        else:
-            if not form.instance.license_author:
-                form.instance.license_author = self.request.user.username
-
-            subject = _('New user submitted exercise')
-            message = _(u'''The user {0} submitted a new exercise "{1}".'''.format(
-                        self.request.user.username, form.instance.name))
-            mail.mail_admins(subject,
-                             message,
-                             fail_silently=True)
-
+        form.instance.set_author(self.request)
         return super(ExerciseAddView, self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
@@ -280,8 +258,7 @@ class PendingExerciseListView(WgerPermissionMixin, ListView):
         '''
         Only show pending exercises
         '''
-        return Exercise.objects.filter(status=Exercise.EXERCISE_STATUS_PENDING) \
-            .order_by('-creation_date')
+        return Exercise.objects.pending().order_by('-creation_date')
 
 
 @permission_required('exercises.add_exercise')
@@ -290,7 +267,7 @@ def accept(request, pk):
     Accepts a pending user submitted exercise and emails the user, if possible
     '''
     exercise = get_object_or_404(Exercise, pk=pk)
-    exercise.status = Exercise.EXERCISE_STATUS_ACCEPTED
+    exercise.status = Exercise.STATUS_ACCEPTED
     exercise.save()
     exercise.send_email(request)
     messages.success(request, _('Exercise was successfully added to the general database'))
@@ -304,48 +281,7 @@ def decline(request, pk):
     Declines and deletes a pending user submitted exercise
     '''
     exercise = get_object_or_404(Exercise, pk=pk)
-    exercise.status = Exercise.EXERCISE_STATUS_DECLINED
+    exercise.status = Exercise.STATUS_DECLINED
     exercise.save()
     messages.success(request, _('Exercise was successfully marked as rejected'))
     return HttpResponseRedirect(exercise.get_absolute_url())
-
-
-def search(request):
-    '''
-    Search an exercise, return the result as a JSON list
-    '''
-
-    # Perform the search
-    q = request.GET.get('term', '')
-
-    languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
-    exercises = (Exercise.objects.filter(name__icontains=q)
-                                 .filter(language__in=languages)
-                                 .filter(status__in=Exercise.EXERCISE_STATUS_OK)
-                                 .order_by('category__name', 'name')
-                                 .distinct())
-
-    results = []
-    for exercise in exercises:
-        if exercise.exerciseimage_set.exists():
-            image_obj = exercise.exerciseimage_set.filter(is_main=True)[0]
-            image = image_obj.image.url
-            t = get_thumbnailer(image_obj.image)
-            thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
-        else:
-            image = None
-            thumbnail = None
-
-        exercise_json = {}
-        exercise_json['id'] = exercise.id
-        exercise_json['name'] = exercise.name
-        exercise_json['value'] = exercise.name
-        exercise_json['category'] = _(exercise.category.name)
-        exercise_json['image'] = image
-        exercise_json['image_thumbnail'] = thumbnail
-
-        results.append(exercise_json)
-    data = json.dumps(results)
-
-    # Return the results to the client
-    return HttpResponse(data, content_type='application/json')

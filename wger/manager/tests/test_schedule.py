@@ -18,16 +18,16 @@ import datetime
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
+from wger.core.tests import api_base_test
 from wger.manager.models import Schedule
 from wger.manager.models import ScheduleStep
 from wger.manager.models import Workout
-
 from wger.manager.tests.testcase import STATUS_CODES_FAIL
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
+
 
 logger = logging.getLogger('wger.custom')
 
@@ -202,113 +202,6 @@ class ScheduleEndDateTestCase(WorkoutManagerTestCase):
         self.assertEqual(schedule.get_end_date(), schedule.start_date)
 
 
-class ScheduleAjaxTestCase(WorkoutManagerTestCase):
-    '''
-    Tests the AJAX reordering call for steps
-    '''
-
-    def test_schedule_api_owner_1(self):
-        '''
-        Tests the AJAX reordering as the owner user. All IDs exist and are owned
-        '''
-        self.user_login()
-        response = self.client.get(reverse('schedule-edit-api', kwargs={'pk': 2}),
-                                   {'do': 'set_order', 'order': 'step-3,step-1,step-2'})
-        self.assertEqual(response.status_code, 200)
-
-        schedule = Schedule.objects.get(pk=2)
-        steps = schedule.schedulestep_set.all()
-        self.assertEqual(steps[0].id, 3)
-        self.assertEqual(steps[1].id, 1)
-        self.assertEqual(steps[2].id, 2)
-
-    def test_schedule_api_owner_2(self):
-        '''
-        Tests the AJAX reordering as the owner user. All IDs exist and are owned
-        '''
-
-        self.user_login()
-        response = self.client.get(reverse('schedule-edit-api', kwargs={'pk': 2}),
-                                   {'do': 'set_order', 'order': 'step-3,step-2,step-1'})
-        self.assertEqual(response.status_code, 200)
-
-        schedule = Schedule.objects.get(pk=2)
-        steps = schedule.schedulestep_set.all()
-        self.assertEqual(steps[0].id, 3)
-        self.assertEqual(steps[1].id, 2)
-        self.assertEqual(steps[2].id, 1)
-
-    def test_schedule_api_owner_3(self):
-        '''
-        Tests the AJAX reordering as the owner user, wrong step in the order list
-        '''
-        self.user_login()
-        response = self.client.get(reverse('schedule-edit-api', kwargs={'pk': 2}),
-                                   {'do': 'set_order', 'order': 'step-3,step-1,step-2,step-44'})
-        self.assertEqual(response.status_code, 200)
-
-        schedule = Schedule.objects.get(pk=2)
-        steps = schedule.schedulestep_set.all()
-        self.assertEqual(steps[0].id, 3)
-        self.assertEqual(steps[1].id, 1)
-        self.assertEqual(steps[2].id, 2)
-
-    def test_schedule_api_owner_4(self):
-        '''
-        Tests the AJAX reordering as the owner user, wrong step in the order list
-        '''
-        self.user_login()
-        response = self.client.get(reverse('schedule-edit-api', kwargs={'pk': 2}),
-                                   {'do': 'set_order', 'order': 'foo,bar-47,step-2,step-1,step-3'})
-        self.assertEqual(response.status_code, 200)
-
-        schedule = Schedule.objects.get(pk=2)
-        steps = schedule.schedulestep_set.all()
-        self.assertEqual(steps[0].id, 2)
-        self.assertEqual(steps[1].id, 1)
-        self.assertEqual(steps[2].id, 3)
-
-    def test_schedule_api_owner_5(self):
-        '''
-        Tests the AJAX reordering as the owner user, wrong step in the order list
-        '''
-        self.user_login()
-        response = self.client.get(reverse('schedule-edit-api', kwargs={'pk': 2}),
-                                   {'do': 'set_order', 'order': 'blahrg'})
-        self.assertEqual(response.status_code, 200)
-
-        schedule = Schedule.objects.get(pk=2)
-        steps = schedule.schedulestep_set.all()
-        self.assertEqual(steps[0].id, 1)
-        self.assertEqual(steps[1].id, 2)
-        self.assertEqual(steps[2].id, 3)
-
-    def test_schedule_api_other_1(self):
-        '''
-        Tests the AJAX reordering as a different user
-        '''
-        self.user_login('test')
-        response = self.client.get(reverse('schedule-edit-api', kwargs={'pk': 2}),
-                                   {'do': 'set_order', 'order': 'step-3,step-1,step-2'})
-        self.assertIn(response.status_code, STATUS_CODES_FAIL)
-
-    def test_schedule_api_other_2(self):
-        '''
-        Tests the AJAX reordering as a different user, steps belong to a different schedule
-        '''
-        self.user_login('test')
-        response = self.client.get(reverse('schedule-edit-api', kwargs={'pk': 1}),
-                                   {'do': 'set_order', 'order': 'step-3,step-1,step-2'})
-        self.assertEqual(response.status_code, 200)
-
-        # No change in order
-        schedule = Schedule.objects.get(pk=2)
-        steps = schedule.schedulestep_set.all()
-        self.assertEqual(steps[0].id, 1)
-        self.assertEqual(steps[1].id, 2)
-        self.assertEqual(steps[2].id, 3)
-
-
 class ScheduleModelTestCase(WorkoutManagerTestCase):
     '''
     Tests the model methods
@@ -480,16 +373,14 @@ class ScheduleModelTestCase(WorkoutManagerTestCase):
         self.assertTrue(schedule.get_current_scheduled_workout().workout, workout)
 
 
-class ScheduleApiTestCase(ApiBaseResourceTestCase):
+class ScheduleApiTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
     Tests the schedule overview resource
     '''
-    resource = 'schedule'
-    resource_updatable = False
-
-
-class ScheduleDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific schedule
-    '''
-    resource = 'schedule/1'
+    pk = 1
+    resource = Schedule
+    private_resource = True
+    data = {'name': 'An updated name',
+            'start_date': datetime.date.today(),
+            'is_active': True,
+            'is_loop': True}

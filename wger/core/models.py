@@ -387,6 +387,12 @@ by the US Department of Agriculture. It is extremely complete, with around
             entry.save()
         return entry
 
+    def get_owner_object(self):
+        '''
+        Returns the object that has owner information
+        '''
+        return self
+
 
 # Every new user gets a profile
 @disable_for_loaddata

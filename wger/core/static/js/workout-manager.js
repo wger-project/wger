@@ -25,6 +25,48 @@
 
 "use strict";
 
+
+/*
+ * AJAX related functions
+ *
+ * See https://docs.djangoproject.com/en/dev/ref/contrib/csrf/#ajax for
+ * more information
+ */
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    crossDomain: false, // obviates need for sameOrigin test
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type)) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        }
+    }
+});
+
+
+/*
+ * Others
+ */
 function get_current_language() {
     /* Returns a short name, like 'en' or 'de' */
     return $('#current-language').data('currentLanguage');
@@ -70,15 +112,23 @@ function setup_sortable() {
         update : function (event, ui) {
             // Monkey around the HTML, till we find the IDs of the set and the day
             var day_element = ui.item.parent().parent().find('tr').first().attr('id'); //day-xy
-            var day_id = day_element.match(/\d+/);
+            var day_id = day_element.match(/\d+/)[0];
 
             // returns something in the form "set-1,set-2,set-3,"
             var order = $(this).sortable('toArray');
 
-            //$("#ajax-info").show();
-            //$("#ajax-info").addClass('success');
-            $.get('/' + get_current_language() + "/workout/api/edit-set" + "?do=set_order&day_id=" + day_id + "&order=" + order);
-
+            $.each(order, function (index, value) {
+                if (value) {
+                var set_pk = value.match(/\d+/)[0];
+                    $.ajax({
+                       url:'/api/v2/set/' + set_pk + '/',
+                       type: 'PATCH',
+                       data: {'order': index + 1}
+                    }).done(function(data) {
+                        //console.log(data);
+                    });
+                }
+            });
 
             // TODO: it seems to be necessary to call the view two times before it returns
             //       current data.
@@ -87,6 +137,8 @@ function setup_sortable() {
         }
     });
 }
+
+
 
 
 /*
@@ -106,7 +158,15 @@ function toggle_comments() {
             showComment = 0;
         }
 
-        $("#ajax-info").load('/' + get_current_language() + "/workout/api/user-preferences?do=set_show-comments&show=" + showComment);
+        // Get own ID and update the user profile
+        $.get('/api/v2/userprofile', function(data) {
+        }).done(function(userprofile) {
+            $.ajax({
+                url:'/api/v2/userprofile/' + userprofile.results[0].id + '/',
+                type: 'PATCH',
+                data: {show_comments: showComment}
+            });
+        });
     });
 }
 
@@ -373,7 +433,7 @@ function init_remove_exercise_formset() {
 function init_edit_set() {
     // Initialise the autocompleter (our widget, defined above)
     $("#exercise-search").catcomplete({
-        source: '/' + get_current_language() + "/exercise/search/",
+        source: '/api/v2/exercise/search/',
         minLength: 2,
         select: function (event, ui) {
 

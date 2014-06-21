@@ -223,6 +223,10 @@ INSTALLED_APPS = (
 
     # CSS/JS compressor
     'compressor',
+
+    # REST framework
+    'rest_framework',
+    'rest_framework.authtoken'
 )
 
 
@@ -330,3 +334,17 @@ THUMBNAIL_ALIASES = {
 # The default is not DEBUG, override if needed
 # COMPRESS_ENABLED = True
 COMPRESS_ROOT = STATIC_ROOT
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission',),
+    'PAGINATE_BY': 20,
+    'PAGINATE_BY_PARAM': 'limit',  # Allow client to override, using `?limit=xxx`.
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.OrderingFilter',
+                                'rest_framework.filters.DjangoFilterBackend',)
+}

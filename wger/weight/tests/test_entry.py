@@ -13,12 +13,12 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import datetime
+from wger.core.tests import api_base_test
 
 from wger.weight.models import WeightEntry
 
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 
 class AddWeightEntryTestCase(WorkoutManagerAddTestCase):
@@ -50,16 +50,12 @@ class EditWeightEntryTestCase(WorkoutManagerEditTestCase):
     user_fail = 'admin'
 
 
-class WeightEntryTestCase(ApiBaseResourceTestCase):
+class WeightEntryTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
     Tests the weight entry overview resource
     '''
-    resource = 'weightentry'
-    resource_updatable = False
-
-
-class WeightEntryDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific weight entry
-    '''
-    resource = 'weightentry/3'
+    pk = 3
+    resource = WeightEntry
+    private_resource = True
+    data = {'weight': 100,
+            'creation_date': datetime.date(2013, 2, 1)}

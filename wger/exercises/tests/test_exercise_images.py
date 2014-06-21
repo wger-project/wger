@@ -15,6 +15,7 @@
 
 from django.core.urlresolvers import reverse
 from django.core.files import File
+from wger.core.tests import api_base_test
 
 from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseImage
@@ -38,6 +39,7 @@ class MainImageTestCase(WorkoutManagerTestCase):
             db_filename = filename
         image = ExerciseImage()
         image.exercise = exercise
+        image.status = ExerciseImage.STATUS_ACCEPTED
         image.image.save(
             filename,
             File(open('wger/exercises/tests/{0}'.format(filename)), 'rb')
@@ -52,7 +54,7 @@ class MainImageTestCase(WorkoutManagerTestCase):
         exercise = Exercise.objects.get(pk=2)
         self.save_image(exercise, 'protestschwein.jpg')
 
-        image = ExerciseImage.objects.get(pk=3)
+        image = ExerciseImage.objects.get(pk=4)
         self.assertTrue(image.is_main)
 
     def test_auto_main_image_multiple(self):
@@ -64,10 +66,10 @@ class MainImageTestCase(WorkoutManagerTestCase):
         self.save_image(exercise, 'protestschwein.jpg')
         self.save_image(exercise, 'wildschwein.jpg')
 
-        image = ExerciseImage.objects.get(pk=3)
+        image = ExerciseImage.objects.get(pk=4)
         self.assertTrue(image.is_main)
 
-        image = ExerciseImage.objects.get(pk=4)
+        image = ExerciseImage.objects.get(pk=5)
         self.assertFalse(image.is_main)
 
     def test_delete_main_image(self):
@@ -82,15 +84,6 @@ class MainImageTestCase(WorkoutManagerTestCase):
         self.save_image(exercise, 'wildschwein.jpg')
         self.save_image(exercise, 'wildschwein.jpg')
 
-        image = ExerciseImage.objects.get(pk=3)
-        self.assertTrue(image.is_main)
-        image.delete()
-
-        self.assertTrue(ExerciseImage.objects.get(pk=4).is_main)
-        self.assertFalse(ExerciseImage.objects.get(pk=5).is_main)
-        self.assertFalse(ExerciseImage.objects.get(pk=6).is_main)
-        self.assertFalse(ExerciseImage.objects.get(pk=7).is_main)
-
         image = ExerciseImage.objects.get(pk=4)
         self.assertTrue(image.is_main)
         image.delete()
@@ -98,6 +91,15 @@ class MainImageTestCase(WorkoutManagerTestCase):
         self.assertTrue(ExerciseImage.objects.get(pk=5).is_main)
         self.assertFalse(ExerciseImage.objects.get(pk=6).is_main)
         self.assertFalse(ExerciseImage.objects.get(pk=7).is_main)
+        self.assertFalse(ExerciseImage.objects.get(pk=8).is_main)
+
+        image = ExerciseImage.objects.get(pk=5)
+        self.assertTrue(image.is_main)
+        image.delete()
+
+        self.assertTrue(ExerciseImage.objects.get(pk=6).is_main)
+        self.assertFalse(ExerciseImage.objects.get(pk=7).is_main)
+        self.assertFalse(ExerciseImage.objects.get(pk=8).is_main)
 
 
 class AddExerciseImageTestCase(WorkoutManagerAddTestCase):
@@ -107,7 +109,7 @@ class AddExerciseImageTestCase(WorkoutManagerAddTestCase):
 
     object_class = ExerciseImage
     url = reverse('exerciseimage-add', kwargs={'exercise_pk': 1})
-    pk = 3
+    pk = 4
     user_fail = False
     data = {'is_main': True,
             'image': open('wger/exercises/tests/protestschwein.jpg', 'rb'),
@@ -136,22 +138,15 @@ class DeleteExerciseImageTestCase(WorkoutManagerDeleteTestCase):
     pk = 1
 
 
-# class ExerciseImagesApiTestCase(ApiBaseResourceTestCase):
-    # '''
-    # Tests the exercise image overview resource
-    # '''
-    # resource = 'exerciseimage'
-    # user = None
-    # resource_updatable = False
-    # data = {"is_main": "true",
-    #         "exercise": "/api/v1/exercise/1/",
-    #         "id": 1}
-
-
-# class ExerciseImageDetailApiTestCase(ApiBaseResourceTestCase):
-    # '''
-    # Tests accessing a specific exercise image
-    # '''
-    # resource = 'exerciseimage/1'
-    # user = None
-    # resource_updatable = False
+# TODO: fix test
+# class ExerciseImagesApiTestCase(api_base_test.ApiBaseResourceTestCase):
+#     '''
+#     Tests the exercise image overview resource
+#     '''
+#     pk = 1
+#     resource = ExerciseImage
+#     private_resource = False
+#     special_endpoints = ('thumbnails',)
+#     data = {'is_main': 'true',
+#             'exercise': '1',
+#             'id': 1}

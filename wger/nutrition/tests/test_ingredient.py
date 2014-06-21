@@ -18,6 +18,7 @@ import datetime
 
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
+from wger.core.tests import api_base_test
 
 from wger.nutrition.models import Ingredient
 from wger.nutrition.models import Meal
@@ -28,7 +29,6 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 
 class DeleteIngredientTestCase(WorkoutManagerDeleteTestCase):
@@ -169,20 +169,6 @@ class IngredientSearchTestCase(WorkoutManagerTestCase):
         Helper function
         '''
 
-        # Perform the search
-        response = self.client.get(reverse('ingredient-search'), {'term': 'test'})
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['ingredients']), 2)
-        self.assertEqual(response.context['ingredients'][0].name,
-                         'Ingredient, test, 2, organic, raw')
-        self.assertEqual(response.context['ingredients'][1].name, 'Test ingredient 1')
-
-        # Search for an ingredient pending review (0 hits, "Pending ingredient")
-        response = self.client.get(reverse('ingredient-search'), {'term': 'Pending'})
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['ingredients']), 0)
-
-        # AJAX-Search
         kwargs = {'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'}
         response = self.client.get(reverse('ingredient-search'), {'term': 'test'}, **kwargs)
         self.assertEqual(response.status_code, 200)
@@ -191,7 +177,7 @@ class IngredientSearchTestCase(WorkoutManagerTestCase):
         self.assertEqual(result[0]['value'], 'Ingredient, test, 2, organic, raw')
         self.assertEqual(result[1]['value'], 'Test ingredient 1')
 
-        # AJAX Search for an ingredient pending review (0 hits, "Pending ingredient")
+        # Search for an ingredient pending review (0 hits, "Pending ingredient")
         response = self.client.get(reverse('ingredient-search'), {'term': 'Pending'}, **kwargs)
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content)
@@ -213,50 +199,6 @@ class IngredientSearchTestCase(WorkoutManagerTestCase):
         self.search_ingredient()
 
 
-class IngredientUnitSearchTestCase(WorkoutManagerTestCase):
-    '''
-    Tests the ingredient unit search functions
-    '''
-
-    def search_ingredient_unit(self, fail=True):
-        '''
-        Helper function
-        '''
-
-        # Search for an ingredient that has units
-        response = self.client.get(reverse('ingredient-get-units', kwargs={'pk': 1}))
-        if fail:
-            self.assertEqual(response.status_code, 302)
-        else:
-            self.assertEqual(response.status_code, 200)
-            result = json.loads(response.content)
-            self.assertEqual(len(result), 5)
-
-        # Search for an ingredient that has no units
-        response = self.client.get(reverse('ingredient-get-units', kwargs={'pk': 2}))
-        if fail:
-            self.assertEqual(response.status_code, 302)
-        else:
-            self.assertEqual(response.status_code, 200)
-            result = json.loads(response.content)
-            self.assertEqual(len(result), 0)
-
-    def test_search_ingredient_unit_anonymous(self):
-        '''
-        Test searching for an ingredient by an anonymous user
-        '''
-
-        self.search_ingredient_unit(fail=True)
-
-    def test_search_ingredient_unit_logged_in(self):
-        '''
-        Test searching for an ingredient by a logged in user
-        '''
-
-        self.user_login('test')
-        self.search_ingredient_unit(fail=False)
-
-
 class IngredientValuesTestCase(WorkoutManagerTestCase):
     '''
     Tests the nutritional value calculator for an ingredient
@@ -268,10 +210,10 @@ class IngredientValuesTestCase(WorkoutManagerTestCase):
         '''
 
         # Get the nutritional values in 1 gram of product
-        response = self.client.post(reverse('ingredient-get-values', kwargs={'pk': 1}),
-                                    {'amount': 1,
-                                     'ingredient': 1,
-                                     'unit': ''})
+        response = self.client.get(reverse('api-ingredient-get-values', kwargs={'pk': 1}),
+                                   {'amount': 1,
+                                    'ingredient': 1,
+                                    'unit': ''})
 
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content)
@@ -286,10 +228,10 @@ class IngredientValuesTestCase(WorkoutManagerTestCase):
                                   u'carbohydrates': u'0.00'})
 
         # Get the nutritional values in 1 unit of product
-        response = self.client.post(reverse('ingredient-get-values', kwargs={'pk': 1}),
-                                    {'amount': 1,
-                                     'ingredient': 1,
-                                     'unit': 2})
+        response = self.client.get(reverse('api-ingredient-get-values', kwargs={'pk': 1}),
+                                   {'amount': 1,
+                                    'ingredient': 1,
+                                    'unit': 2})
 
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content)
@@ -387,21 +329,12 @@ class IngredientTestCase(WorkoutManagerTestCase):
         self.assertRaises(ValidationError, ingredient.full_clean)
 
 
-class IngredientApiTestCase(ApiBaseResourceTestCase):
+class IngredientApiTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
-    Tests the ingredient overview resource
+    Tests the ingredient API resource
     '''
-    resource = 'ingredient'
-    user = None
-    resource_updatable = False
+    pk = 4
+    resource = Ingredient
+    private_resource = False
     data = {'language': 1,
             'license': 2}
-
-
-class IngredientDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific ingredient
-    '''
-    resource = 'ingredient/4'
-    user = None
-    resource_updatable = False

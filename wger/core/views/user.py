@@ -17,7 +17,6 @@
 import logging
 
 from django.shortcuts import render
-from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
@@ -30,10 +29,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User as Django_User
 from django.contrib.auth.views import login as django_loginview
 from django.contrib import messages
+from rest_framework.authtoken.models import Token
 
-from tastypie.models import ApiKey
 from wger.core.models import Language
-
 from wger.utils.constants import USER_TAB
 from wger.utils.user_agents import check_request_amazon, check_request_android
 from wger.core.forms import UserPreferencesForm
@@ -166,35 +164,6 @@ def preferences(request):
 
 
 @login_required
-def api_user_preferences(request):
-    '''
-    Allows the user to edit its preferences via AJAX calls
-    '''
-
-    if request.is_ajax():
-
-        # Show comments on workout view
-        if request.GET.get('do') == 'set_show-comments':
-            new_value = int(request.GET.get('show'))
-
-            profile = request.user.userprofile
-            profile.show_comments = new_value
-            profile.save()
-
-            return HttpResponse(_('Success'))
-
-        # Show ingredients in english
-        elif request.GET.get('do') == 'set_english-ingredients':
-            new_value = int(request.GET.get('show'))
-
-            profile = request.user.userprofile
-            profile.show_english_ingredients = new_value
-            profile.save()
-
-            return HttpResponse(_('Success'))
-
-
-@login_required
 def api_key(request):
     '''
     Allows the user to generate an API key for the REST API
@@ -204,20 +173,18 @@ def api_key(request):
     context.update(csrf(request))
 
     try:
-        key = ApiKey.objects.get(user=request.user)
-    except ApiKey.DoesNotExist:
-        key = False
+        token = Token.objects.get(user=request.user)
+    except Token.DoesNotExist:
+        token = False
     if request.GET.get('new_key'):
-        if key:
-            key.delete()
+        if token:
+            token.delete()
 
-        key = ApiKey()
-        key.user = request.user
-        key.save()
+        token = Token.objects.create(user=request.user)
 
         # Redirect to get rid of the GET parameter
         return HttpResponseRedirect(reverse('core:api-key'))
 
-    context['key'] = key
+    context['token'] = token
 
     return render(request, 'user/api_key.html', context)

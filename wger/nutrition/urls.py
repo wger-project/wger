@@ -96,15 +96,6 @@ urlpatterns = patterns('wger.nutrition.views',
     url(r'^ingredient/(?P<id>\d+)/view/(?P<slug>[-\w]+)/$',
         ingredient.view,
         name='ingredient-view'),
-    url(r'^ingredient/search/$',
-        ingredient.search,
-        name='ingredient-search'),
-    url(r'^ingredient/(?P<pk>\d+)/get-units$',
-        ingredient.ajax_get_ingredient_units,
-        name='ingredient-get-units'),
-    url(r'^ingredient/(?P<pk>\d+)/get-nutritional-values$',
-        ingredient.ajax_get_ingredient_values,
-        name='ingredient-get-values'),
 
     # Ingredient units
     url(r'^ingredient/unit/list/$',
@@ -152,7 +143,4 @@ urlpatterns = patterns('wger.nutrition.views',
     url(r'^calculator/calories/activities$',
         calculator.calculate_activities,
         name='calories-calculate-activities'),  # JS
-    url(r'^calculator/calories/total$',
-        calculator.update_total,
-        name='calories-calculate-total'),  # JS
 )

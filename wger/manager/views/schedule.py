@@ -18,9 +18,7 @@ import logging
 
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
 from django.core.urlresolvers import reverse_lazy
-from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
@@ -28,7 +26,6 @@ from django.views.generic import DeleteView
 from django.views.generic import UpdateView
 
 from wger.manager.models import Schedule
-from wger.manager.models import ScheduleStep
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
@@ -111,32 +108,3 @@ class ScheduleEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     title = ugettext_lazy('Edit schedule')
     form_action_urlname = 'schedule-edit'
     login_required = True
-
-
-def edit_step_api(request, pk):
-    schedule = get_object_or_404(Schedule, pk=pk, user=request.user)
-
-    # Set the order
-    if request.GET.get('do') == 'set_order':
-        new_set_order = request.GET.get('order')
-
-        order = 0
-        for i in new_set_order.strip(',').split(','):
-            # If the order items are not well formatted, ignore them
-            try:
-                step_id = i.split('-')[1]
-            except IndexError:
-                continue
-            order += 1
-
-            # If the step does not exist or belongs to somebody else, ignore it
-            try:
-                step = ScheduleStep.objects.get(pk=step_id, schedule=schedule)
-            except ScheduleStep.DoesNotExist:
-                continue
-
-            # Save
-            step.order = order
-            step.save()
-
-        return HttpResponse(_('Success'))

@@ -16,6 +16,7 @@
 import datetime
 
 from django.core.urlresolvers import reverse
+from wger.core.tests import api_base_test
 
 from wger.nutrition.models import Meal
 from wger.nutrition.models import NutritionPlan
@@ -23,7 +24,6 @@ from wger.nutrition.models import NutritionPlan
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 
 class EditMealTestCase(WorkoutManagerEditTestCase):
@@ -109,16 +109,14 @@ class PlanDetailTestCase(WorkoutManagerTestCase):
         self.get_plan_detail_page(fail=True)
 
 
-class MealApiTestCase(ApiBaseResourceTestCase):
+class MealApiTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
     Tests the meal overview resource
     '''
-    resource = 'meal'
-    resource_updatable = False
-
-
-class MealDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific meal
-    '''
-    resource = 'meal/2'
+    pk = 2
+    resource = Meal
+    private_resource = True
+    special_endpoints = ('nutritional_values',)
+    data = {'time': datetime.time(9, 2),
+            'plan': 4,
+            'order': 1}

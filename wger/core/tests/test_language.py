@@ -17,12 +17,12 @@
 
 from django.core.urlresolvers import reverse_lazy
 from wger.core.models import Language
+from wger.core.tests import api_base_test
 
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import WorkoutManagerAccessTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 
 class LanguageOverviewTest(WorkoutManagerAccessTestCase):
@@ -77,19 +77,10 @@ class DeleteLanguageTestCase(WorkoutManagerDeleteTestCase):
     pk = 1
 
 
-class LanguageApiTestCase(ApiBaseResourceTestCase):
+class LanguageApiTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
     Tests the language overview resource
     '''
-    resource = 'language'
-    user = None
-    resource_updatable = False
-
-
-class LanguageDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific language
-    '''
-    resource = 'language/1'
-    user = None
-    resource_updatable = False
+    pk = 1
+    resource = Language
+    private_resource = False

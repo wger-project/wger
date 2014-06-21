@@ -14,20 +14,16 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 import logging
-import json
 
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.core import mail
-from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.core.cache import cache
 from django.contrib.auth.decorators import permission_required
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
@@ -37,10 +33,7 @@ from django.views.generic import UpdateView
 from django.views.generic import ListView
 
 from wger.nutrition.forms import UnitChooserForm
-from wger.nutrition.models import MealItem
 from wger.nutrition.models import Ingredient
-from wger.nutrition.models import IngredientWeightUnit
-from wger.utils import helpers
 from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
@@ -221,101 +214,3 @@ def decline(request, pk):
     ingredient.save()
     messages.success(request, _('Ingredient was successfully marked as rejected'))
     return HttpResponseRedirect(ingredient.get_absolute_url())
-
-
-def search(request):
-    '''
-    Search for an exercise, return the result as a JSON list or as HTML page, depending on how
-    the function was invoked
-    '''
-
-    # Filter the ingredients the user will see by its language
-    # (the user can also want to see ingredients in English, see load_ingredient_languages)
-    languages = load_ingredient_languages(request)
-
-    # Perform the search
-    q = request.GET.get('term', '')
-    ingredients = Ingredient.objects.filter(name__icontains=q,
-                                            language__in=languages,
-                                            status__in=Ingredient.INGREDIENT_STATUS_OK)
-
-    # AJAX-request, this comes from the autocompleter. Create a list and send it back as JSON
-    if request.is_ajax():
-
-        results = []
-        for ingredient in ingredients:
-            ingredient_json = {}
-            ingredient_json['id'] = ingredient.id
-            ingredient_json['name'] = ingredient.name
-            ingredient_json['value'] = ingredient.name
-            results.append(ingredient_json)
-        data = json.dumps(results)
-
-        # Return the results to the server
-        return HttpResponse(data, content_type='application/json')
-
-    # Usual search (perhaps JS disabled), present the results as normal HTML page
-    else:
-        template_data = {}
-        template_data.update(csrf(request))
-        template_data['ingredients'] = ingredients
-        template_data['search_term'] = q
-        return render(request, 'ingredient/search.html', template_data)
-
-
-@login_required
-def ajax_get_ingredient_units(request, pk):
-    '''
-    Fetches the available ingredient units
-    '''
-
-    units = IngredientWeightUnit.objects.filter(ingredient_id=pk)
-    result = []
-    for unit in units:
-        result.append({'id': unit.id,
-                       'name': unit.unit.name,
-                       'amount': unit.amount,
-                       'name_model': unicode(unit)})
-
-    return HttpResponse(json.dumps(result, cls=helpers.DecimalJsonEncoder),
-                        'application/json')
-
-
-def ajax_get_ingredient_values(request, pk):
-    '''
-    Calculates the nutritional values for the given amount and exercise
-    '''
-
-    result = {'energy': 0,
-              'protein': 0,
-              'carbohydrates': 0,
-              'carbohydrates_sugar': 0,
-              'fat': 0,
-              'fat_saturated': 0,
-              'fibres': 0,
-              'sodium': 0,
-              'errors': []}
-    ingredient = get_object_or_404(Ingredient, pk=pk)
-
-    if request.method == 'POST':
-        form = UnitChooserForm(request.POST)
-
-        if form.is_valid():
-
-            # Create a temporary MealItem object
-            if form.cleaned_data['unit']:
-                unit_id = form.cleaned_data['unit'].id
-            else:
-                unit_id = None
-
-            item = MealItem()
-            item.ingredient = ingredient
-            item.weight_unit_id = unit_id
-            item.amount = form.cleaned_data['amount']
-
-            result = item.get_nutritional_values()
-        else:
-            result['errors'] = form.errors
-
-    return HttpResponse(json.dumps(result, cls=helpers.DecimalJsonEncoder),
-                        'application/json')

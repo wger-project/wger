@@ -16,12 +16,11 @@ import datetime
 
 from django.core.urlresolvers import reverse
 
+from wger.core.tests import api_base_test
 from wger.manager.models import Workout
-
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 
 class AddWorkoutTestCase(WorkoutManagerTestCase):
@@ -130,16 +129,12 @@ class WorkoutModelTestCase(WorkoutManagerTestCase):
         self.assertEqual(workout.__unicode__(), u'my description')
 
 
-class WorkoutApiTestCase(ApiBaseResourceTestCase):
+class WorkoutApiTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
     Tests the workout overview resource
     '''
-    resource = 'workout'
-    resource_updatable = False
-
-
-class WorkoutDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific workout
-    '''
-    resource = 'workout/3'
+    pk = 3
+    resource = Workout
+    private_resource = True
+    special_endpoints = ('canonical_representation',)
+    data = {'comment': 'A new comment'}

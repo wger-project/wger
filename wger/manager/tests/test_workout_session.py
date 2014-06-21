@@ -13,17 +13,17 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import datetime
+
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-
 from django.core.urlresolvers import reverse_lazy
 
+from wger.core.tests import api_base_test
 from wger.manager.models import Workout, WorkoutSession
-
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
+
 
 '''
 Tests for workout sessions
@@ -40,7 +40,7 @@ class AddWorkoutSessionTestCase(WorkoutManagerAddTestCase):
                                                       'year': datetime.date.today().year,
                                                       'month': datetime.date.today().month,
                                                       'day': datetime.date.today().day})
-    pk = 4
+    pk = 5
     data = {
         'user': 1,
         'workout': 1,
@@ -131,18 +131,16 @@ class WorkoutSessionTestCase(WorkoutManagerTestCase):
         self.assertRaises(ValidationError, session.full_clean)
 
 
-class WorkoutSessionApiTestCase(ApiBaseResourceTestCase):
+class WorkoutSessionApiTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
     Tests the workout overview resource
     '''
-    resource = 'workoutsession'
-    resource_updatable = False
-
-
-class WorkoutSessionDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific workout
-    '''
-    resource = 'workoutsession/1'
-    user_fail = 'test'
-    user = 'admin'
+    pk = 4
+    resource = WorkoutSession
+    private_resource = True
+    data = {'workout': 3,
+            'date': datetime.date(2014, 01, 30),
+            'notes': 'My new insights',
+            'impression': '3',
+            'time_start': datetime.time(10, 0),
+            'time_end': datetime.time(13, 0)}

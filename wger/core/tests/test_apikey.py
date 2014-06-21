@@ -17,7 +17,7 @@ import logging
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
-from tastypie.models import ApiKey
+from rest_framework.authtoken.models import Token
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
@@ -41,14 +41,14 @@ class ApiKeyTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('core:api-key'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Delete current API key and generate new one')
-        self.assertTrue(ApiKey.objects.get(user=user))
+        self.assertTrue(Token.objects.get(user=user))
 
         # User has no keys
-        ApiKey.objects.get(user=user).delete()
+        Token.objects.get(user=user).delete()
         response = self.client.get(reverse('core:api-key'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'You have no API key yet')
-        self.assertRaises(ApiKey.DoesNotExist, ApiKey.objects.get, user=user)
+        self.assertRaises(Token.DoesNotExist, Token.objects.get, user=user)
 
     def test_api_key_page_generation(self):
         '''
@@ -57,7 +57,7 @@ class ApiKeyTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         user = User.objects.get(username='test')
-        key_before = ApiKey.objects.get(user=user)
+        key_before = Token.objects.get(user=user)
 
         response = self.client.get(reverse('core:api-key'), {'new_key': True})
         self.assertEqual(response.status_code, 302)
@@ -65,7 +65,7 @@ class ApiKeyTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Delete current API key and generate new one')
 
-        key_after = ApiKey.objects.get(user=user)
+        key_after = Token.objects.get(user=user)
         self.assertTrue(key_after)
 
         # New key is different from the one before

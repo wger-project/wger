@@ -6,6 +6,7 @@
             "image": "exercise-images/1/protestschwein.jpg",
             "exercise": 1,
             "is_main": true,
+            "status": "2",
             "license": "1"
         }
     },
@@ -16,6 +17,18 @@
             "image": "exercise-images/1/wildschwein.jpg",
             "exercise": 1,
             "is_main": false,
+            "status": "2",
+            "license": "2"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "exercises.exerciseimage",
+        "fields": {
+            "image": "exercise-images/1/wildschwein.jpg",
+            "exercise": 2,
+            "is_main": false,
+            "status": "1",
             "license": "2"
         }
     }

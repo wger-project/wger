@@ -15,6 +15,7 @@
 
 from django.core.urlresolvers import reverse_lazy
 from django.core.urlresolvers import reverse
+from wger.core.tests import api_base_test
 
 from wger.nutrition.models import WeightUnit
 from wger.nutrition.models import IngredientWeightUnit
@@ -23,7 +24,6 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 
 class AddWeightUnitIngredientTestCase(WorkoutManagerAddTestCase):
@@ -99,25 +99,15 @@ class WeightUnitFormTestCase(WorkoutManagerTestCase):
                 self.assertIn(unit.name, choices)
 
 
-class WeightUnitToIngredientApiTestCase(ApiBaseResourceTestCase):
+class WeightUnitToIngredientApiTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
-    Tests the weight unit to ingredient overview resource
+    Tests the weight unit to ingredient API resource
     '''
-    resource = 'ingredienttoweightunit'
-    user = None
-    resource_updatable = False
-    data = {"amount": "1",
-            "gramm": 240,
-            "id": 1,
-            "ingredient": "/api/v1/ingredient/1/",
-            "resource_uri": "/api/v1/ingredienttoweightunit/1/",
-            "unit": "/api/v1/weightunit/1/"}
-
-
-class WeightUnitToIngredientDeatilApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific weight unit to ingredient entry
-    '''
-    resource = 'ingredienttoweightunit/1'
-    user = None
-    resource_updatable = False
+    pk = 1
+    resource = IngredientWeightUnit
+    private_resource = False
+    data = {'amount': '1',
+            'gramm': 240,
+            'id': 1,
+            'ingredient': '1',
+            'unit': '1'}

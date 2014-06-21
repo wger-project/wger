@@ -14,12 +14,12 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.core.urlresolvers import reverse
+from wger.core.tests import api_base_test
 
 from wger.nutrition.models import NutritionPlan
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 
 class DeletePlanTestCase(WorkoutManagerDeleteTestCase):
@@ -79,16 +79,13 @@ class PlanDailyCaloriesTestCase(WorkoutManagerTestCase):
         self.assertContains(response, 'goal amount of calories')
 
 
-class PlanApiTestCase(ApiBaseResourceTestCase):
+class PlanApiTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
     Tests the nutritional plan overview resource
     '''
-    resource = 'nutritionplan'
-    resource_updatable = False
-
-
-class MealDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific meal
-    '''
-    resource = 'nutritionplan/4'
+    pk = 4
+    resource = NutritionPlan
+    private_resource = True
+    special_endpoints = ('nutritional_values',)
+    data = {'description': 'The description',
+            'language': 1}

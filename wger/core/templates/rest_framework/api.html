@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% load rest_framework %}
+{% load wger_extras %}
+{% load wger_extras %}
+
+{% block header %}
+<link rel="stylesheet" type="text/css" href="{% static 'rest_framework/css/prettify.css' %}"/>
+<script src="{% static 'rest_framework/js/prettify-min.js' %}"></script>
+
+<script>
+    $(document).ready(function() {
+        prettyPrint();
+    });
+</script>
+{% endblock %}
+
+{% block title %}REST API - {{ name }}{% endblock %}
+
+{% block content %}
+
+    {#             #}
+    {# Breadcrumbs #}
+    {#             #}
+    {% block breadcrumbs %}
+    <ol class="breadcrumb">
+        <li>
+            <a href="{% url 'software:api' %}">Api Documentation</a>
+        </li>
+        {% for breadcrumb_name, breadcrumb_url in breadcrumblist %}
+            {% if not forloop.last %}
+                <li>
+                    <a href="{{ breadcrumb_url }}">{{ breadcrumb_name }}</a>
+                </li>
+            {% else %}
+                <li class="active">
+                    {{ breadcrumb_name }}
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ol>
+    {% endblock %}
+
+
+
+    {#            #}
+    {# GET button #}
+    {#            #}
+    {% if 'GET' in allowed_methods %}
+        <form id="get-form" class="pull-right">
+            <fieldset>
+                <div class="btn-group format-selection">
+                    <a class="btn btn-primary js-tooltip" href='{{ request.get_full_path }}' rel="nofollow" title="Make a GET request on the {{ name }} resource">GET</a>
+
+                    <button class="btn btn-primary dropdown-toggle js-tooltip" data-toggle="dropdown" title="Specify a format for the GET request">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% for format in available_formats %}
+                            <li>
+                                <a class="js-tooltip format-option" href='{% add_query_param request api_settings.URL_FORMAT_OVERRIDE format %}' rel="nofollow" title="Make a GET request on the {{ name }} resource with the format set to `{{ format }}`">{{ format }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </fieldset>
+        </form>
+    {% endif %}
+
+    {#                #}
+    {# OPTIONS button #}
+    {#                #}
+    {% if options_form %}
+        <form class="pull-right" action="{{ request.get_full_path }}" method="POST" style="margin-right: 1em;">
+            {% csrf_token %}
+            <input type="hidden" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="OPTIONS" />
+            <button class="btn btn-primary js-tooltip" title="Make an OPTIONS request on the {{ name }} resource">OPTIONS</button>
+        </form>
+    {% endif %}
+
+    {#               #}
+    {# DELETE button #}
+    {#               #}
+    {% if delete_form %}
+        <form class="pull-right" action="{{ request.get_full_path }}" method="POST" style="margin-right: 1em;">
+            {% csrf_token %}
+            <input type="hidden" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="DELETE" />
+            <button class="btn btn-danger js-tooltip" title="Make a DELETE request on the {{ name }} resource">DELETE</button>
+        </form>
+    {% endif %}
+    <div class="clearfix"></div>
+
+
+
+    {#                             #}
+    {# Object/endpoint description #}
+    {#                             #}
+    <div>
+        <!--<h3>{{ name }}</h3>-->
+
+
+        {% block description %}
+        <p>{{ description }}</p>
+        {% endblock %}
+
+        <div class="request-info" style="clear: both" >
+            <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
+        </div>
+        <div class="response-info">
+            <pre class="prettyprint"><div class="meta nocode"><b>HTTP {{ response.status_code }} {{ response.status_text }}</b>{% autoescape off %}
+{% for key, val in response_headers.items %}<b>{{ key }}:</b> <span class="lit">{{ val|break_long_headers|urlize_quoted_links }}</span>
+{% endfor %}
+        </div>{{ content|urlize_quoted_links }}</pre>{% endautoescape %}
+        </div>
+    </div>
+
+
+
+
+    {#        #}
+    {# Forms  #}
+    {#        #}
+    {% if display_edit_forms %}
+
+        {% if post_form or raw_data_post_form %}
+            <h3>Edit form</h3>
+            {% with form=raw_data_post_form %}
+            <form action="{{ request.get_full_path }}" method="POST" class="form-horizontal" role="form">
+                <fieldset>
+                    {% render_form_fields form 'POST' %}
+                </fieldset>
+            </form>
+            {% endwith %}
+        {% endif %}
+
+        {% if put_form or raw_data_put_form or raw_data_patch_form %}
+            <h3>Edit form</h3>
+            {% with form=raw_data_put_or_patch_form %}
+            <form action="{{ request.get_full_path }}" method="POST" class="form-horizontal" role="form">
+                <fieldset>
+                    {% csrf_token %}
+                    {% for field in form %}
+                        {% render_form_field field %}
+                    {% endfor %}
+                    <div class="form-group">
+                        <div class="col-md-offset-3 col-md-9">
+                            {% if raw_data_put_form %}
+                            <button class="btn btn-default btn-block js-tooltip" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="PUT" title="Make a PUT request on the {{ name }} resource">PUT</button>
+                            {% endif %}
+                            {% if raw_data_patch_form %}
+                            <button class="btn btn-default btn-block js-tooltip" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="PATCH" title="Make a PATCH request on the {{ name }} resource">PATCH</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            {% endwith %}
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+<h4>Info</h4>
+<p>This live browsing view was copied and adapted from
+    <a href="http://www.django-rest-framework.org/">Django REST framework</a>,
+    who also powers the API behind the scenes.
+</p>
+{% endblock %}

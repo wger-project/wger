@@ -14,12 +14,12 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.core.urlresolvers import reverse
+from wger.core.tests import api_base_test
 
 from wger.nutrition.models import MealItem
 
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 
 class EditMealItemUnitTestCase(WorkoutManagerEditTestCase):
@@ -72,16 +72,14 @@ class AddMealItemWeightTestCase(WorkoutManagerAddTestCase):
             'ingredient': 1}
 
 
-class MealItemApiTestCase(ApiBaseResourceTestCase):
+class MealItemApiTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
     Tests the meal overview resource
     '''
-    resource = 'mealitem'
-    resource_updatable = False
-
-
-class MealItemDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific meal
-    '''
-    resource = 'mealitem/10'
+    pk = 10
+    resource = MealItem
+    private_resource = True
+    special_endpoints = ('nutritional_values',)
+    data = {'meal': 2,
+            'amount': 100,
+            'ingredient': 1}

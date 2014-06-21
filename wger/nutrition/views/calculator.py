@@ -100,27 +100,3 @@ def calculate_activities(request):
 
     # Return the results to the client
     return HttpResponse(data, 'application/json')
-
-
-def update_total(request):
-    '''
-    Calculates the total calories
-
-    TODO: this really should be moved to an API so we can just update this
-          setting in the user profile
-    '''
-
-    data = []
-
-    form = DailyCaloriesForm(data=request.POST, instance=request.user.userprofile)
-    if form.is_valid():
-        form.save()
-
-        # Save the total calories
-        request.user.userprofile.calories = form.cleaned_data['calories']
-        request.user.userprofile.save()
-    else:
-        logger.debug(form.errors)
-
-    # Return the results to the client
-    return HttpResponse(data, 'application/json')

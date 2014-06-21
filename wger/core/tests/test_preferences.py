@@ -18,11 +18,12 @@ import decimal
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from wger.core.models import UserProfile
+from wger.core.tests import api_base_test
 
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
 from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
 
 logger = logging.getLogger('wger.custom')
 
@@ -167,55 +168,6 @@ class UserBodyweightTestCase(WorkoutManagerTestCase):
         self.assertEqual(entry.weight, 100)
 
 
-class AjaxPreferencesTestCase(WorkoutManagerTestCase):
-    '''
-    Tests editing user preferences via AJAX
-    '''
-
-    def preferences(self):
-        '''
-        Helper function to test the preferences page
-        '''
-
-        # Set the 'show comments' option
-        response = self.client.get(reverse('core:user-api-preferences'),
-                                   {'do': 'set_show-comments',
-                                    'show': '1'},
-                                   HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-
-        self.assertEqual('Success', response.content)
-        self.assertEqual(response.status_code, 200)
-
-        response = self.client.get(reverse('core:preferences'))
-        profile = response.context['user'].userprofile
-        self.assertTrue(profile.show_comments)
-        self.assertFalse(profile.show_english_ingredients)
-        self.assertEqual(response.context['user'].email, 'test@example.com')
-
-        # Set the 'english ingredients' option
-        response = self.client.get(reverse('core:user-api-preferences'),
-                                   {'do': 'set_english-ingredients',
-                                    'show': '1'},
-                                   HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-
-        self.assertEqual('Success', response.content)
-        self.assertEqual(response.status_code, 200)
-
-        response = self.client.get(reverse('core:preferences'))
-        profile = response.context['user'].userprofile
-        self.assertTrue(profile.show_comments)
-        self.assertTrue(profile.show_english_ingredients)
-        self.assertEqual(response.context['user'].email, 'test@example.com')
-
-    def test_preferences_logged_in(self):
-        '''
-        Tests the preferences page as a logged in user
-        '''
-
-        self.user_login('test')
-        self.preferences()
-
-
 class PreferencesCalculationsTestCase(WorkoutManagerTestCase):
     '''
     Tests the different calculation method in the user profile
@@ -305,16 +257,20 @@ class PreferencesCalculationsTestCase(WorkoutManagerTestCase):
                          decimal.Decimal(1.52).quantize(TWOPLACES))
 
 
-class UserProfileApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests the user preferences overview resource
-    '''
-    resource = 'userprofile'
-    resource_updatable = False
-
-
-class UserProfileDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific user preference (there's only one anyway)
-    '''
-    resource = 'userprofile/2'
+# TODO: the user can't delete or create new profiles
+# class UserProfileApiTestCase(api_base_test.ApiBaseResourceTestCase):
+#     '''
+#     Tests the user preferences overview resource
+#     '''
+#     pk = 2
+#     resource = UserProfile
+#     private_resource = True
+#     data = {'show_comments': False,
+#             'show_english_ingredients': True,
+#             'email': '',
+#             'workout_reminder_active': True,
+#             'workout_reminder': 22,
+#             'workout_duration': 10,
+#             'notification_language': 2,
+#             'timer_active': True,
+#             'timer_pause': 40}

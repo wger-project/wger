@@ -23,7 +23,7 @@
 function update_ingredient_value(url)
 {
     var form_data = $('#nutritional-values-form').serializeArray();
-    $.post(url, form_data, function(data) {
+    $.get(url, form_data, function(data) {
 
         // Show any validation errors
         $('#calculator-errors').html('');
@@ -71,7 +71,7 @@ function init_ingredient_autocompleter()
 {
     // Init the autocompleter
     $("#id_ingredient_searchfield").autocomplete({
-        source: '/' + get_current_language() + "/nutrition/ingredient/search/",
+        source: '/api/v2/ingredient/search/',
         minLength: 2,
         select: function(event, ui) {
 
@@ -80,24 +80,26 @@ function init_ingredient_autocompleter()
             $('#exercise_name').html(ui.item.label);
 
             // See if the ingredient has any units and set the values for the forms
-            $.get('/' + get_current_language() + '/nutrition/ingredient/' + ui.item.id + '/get-units',
-                  function(data){
+            $.get('/api/v2/ingredientweightunit/?ingredient=' + ui.item.id, function(unit_data) {
 
-                        // Remove any old units, if any
-                        var options = $('#id_weight_unit').find('option');
-                        $.each(options, function(index, option_obj) {
-                            if (option_obj.value != '')
-                            {
-                                $(option_obj).remove();
-                            }
-                        });
+                // Remove any old units, if any
+                var options = $('#id_weight_unit').find('option');
+                $.each(options, function(index, option_obj) {
+                    if (option_obj.value != '')
+                    {
+                        $(option_obj).remove();
+                    }
+                });
 
-                        // Add new units, if any
-                        $.each(data, function(index, value) {
-                            $('#id_unit').append(new Option(value.name, value.id));
-                            $('#id_weight_unit').append(new Option(value.name_model, value.id));
-                        });
-                  });
+                // Add new units, if any
+                $.each(unit_data.results, function(index, value) {
+                    $.get('/api/v2/weightunit/' + value.unit + '/', function(unit) {
+                        var unit_name = unit.name + ' (' + value.gramm + 'g)';
+                        $('#id_unit').append(new Option(unit_name, value.id));
+                        $('#id_weight_unit').append(new Option(unit_name, value.id));
+                    });
+                });
+            });
         }
     });
 }
@@ -231,11 +233,17 @@ function init_calories_calculator()
 
     $("#form-update-calories").click(function(e){
         e.preventDefault();
-        var form_url = $("#total-calories-form").attr('action');
-        $.post(form_url,
-               $("#total-calories-form").serialize(),
-               function(data) {
-               });
+
+        // Get own ID and update the user profile
+        $.get('/api/v2/userprofile', function(data) {
+        }).done(function(userprofile) {
+            var total_calories = $("#id_calories")[0].value;
+            $.ajax({
+                url:'/api/v2/userprofile/' + userprofile.results[0].id + '/',
+                type: 'PATCH',
+                data: {calories: total_calories}
+            });
+        });
     });
 
     $(".calories-autoform").click(function(e){

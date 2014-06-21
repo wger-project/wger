@@ -112,23 +112,6 @@ class CaloriesCalculatorTestCase(WorkoutManagerTestCase):
         result = json.loads(response.content)
         self.assertEqual(result, {'bmr': '1780'})
 
-    def test_total_calories_form(self):
-        '''
-        Tests the form with the total calories
-        '''
-
-        self.user_login('test')
-        user = User.objects.get(username=self.current_user)
-        self.assertEqual(user.userprofile.calories, 3500)
-
-        response = self.client.post(reverse('calories-calculate-total'),
-                                    {'additional_calories': 0,
-                                     'calories': 2000})
-        self.assertEqual(response.status_code, 200)
-
-        user = User.objects.get(username=self.current_user)
-        self.assertEqual(user.userprofile.calories, 2000)
-
     def test_automatic_weight_entry_bmr(self):
         '''
         Tests that weight entries are automatically created or updated

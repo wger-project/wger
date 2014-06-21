@@ -117,19 +117,19 @@ class ExerciseAcceptTestCase(WorkoutManagerTestCase):
         Helper function
         '''
         exercise = Exercise.objects.get(pk=4)
-        self.assertEqual(exercise.status, Exercise.EXERCISE_STATUS_PENDING)
+        self.assertEqual(exercise.status, Exercise.STATUS_PENDING)
         response = self.client.get(reverse('exercise-accept', kwargs={'pk': 4}))
         exercise = Exercise.objects.get(pk=4)
 
         self.assertEqual(response.status_code, 302)
 
         if not fail:
-            self.assertEqual(exercise.status, Exercise.EXERCISE_STATUS_ACCEPTED)
+            self.assertEqual(exercise.status, Exercise.STATUS_ACCEPTED)
             response = self.client.get(response['Location'])
             self.assertEqual(response.status_code, 200)
             self.assertEqual(len(mail.outbox), 1)
         else:
-            self.assertEqual(exercise.status, Exercise.EXERCISE_STATUS_PENDING)
+            self.assertEqual(exercise.status, Exercise.STATUS_PENDING)
             self.assertEqual(len(mail.outbox), 0)
 
     def test_accept_admin(self):
@@ -166,18 +166,18 @@ class ExerciseRejectTestCase(WorkoutManagerTestCase):
         Helper function
         '''
         exercise = Exercise.objects.get(pk=4)
-        self.assertEqual(exercise.status, Exercise.EXERCISE_STATUS_PENDING)
+        self.assertEqual(exercise.status, Exercise.STATUS_PENDING)
         response = self.client.get(reverse('exercise-decline', kwargs={'pk': 4}))
         exercise = Exercise.objects.get(pk=4)
         self.assertEqual(response.status_code, 302)
 
         if not fail:
-            self.assertEqual(exercise.status, Exercise.EXERCISE_STATUS_DECLINED)
+            self.assertEqual(exercise.status, Exercise.STATUS_DECLINED)
             response = self.client.get(response['Location'])
             self.assertEqual(response.status_code, 200)
 
         else:
-            self.assertEqual(exercise.status, Exercise.EXERCISE_STATUS_PENDING)
+            self.assertEqual(exercise.status, Exercise.STATUS_PENDING)
 
     def test_reject_admin(self):
         '''

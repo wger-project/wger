@@ -15,12 +15,11 @@
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 
+from wger.core.tests import api_base_test
 from wger.manager.models import Day
-
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
-from wger.manager.tests.testcase import ApiBaseResourceTestCase
 from wger.utils.cache import cache_mapper
 
 
@@ -191,16 +190,14 @@ class DayTestCase(WorkoutManagerTestCase):
         self.assertEqual(day.get_first_day_id, 1)
 
 
-class DayApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests the day overview resource
-    '''
-    resource = 'day'
-    resource_updatable = False
-
-
-class DayDetailApiTestCase(ApiBaseResourceTestCase):
-    '''
-    Tests accessing a specific day
-    '''
-    resource = 'day/5'
+# class DayApiTestCase(api_base_test.ApiBaseResourceTestCase):
+#     '''
+#     Tests the day API resource
+#     '''
+#     pk = 5
+#     resource = Day
+#     private_resource = True
+#     data = {"training": 3,
+#             "description": "API update",
+#             "day": [1, 4]
+#             }

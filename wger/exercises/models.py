@@ -33,9 +33,12 @@ from easy_thumbnails.signals import saved_file
 from easy_thumbnails.signal_handlers import generate_aliases_global
 
 from wger.core.models import Language
+from wger.utils.managers import SubmissionManager
 from wger.utils.models import AbstractLicenseModel
+from wger.utils.models import AbstractSubmissionModel
 from wger.utils.constants import EMAIL_FROM
-from wger.utils.cache import delete_template_fragment_cache, reset_workout_canonical_form
+from wger.utils.cache import delete_template_fragment_cache
+from wger.utils.cache import reset_workout_canonical_form
 from wger.utils.cache import cache_mapper
 
 
@@ -147,28 +150,13 @@ class ExerciseCategory(models.Model):
         super(ExerciseCategory, self).delete(*args, **kwargs)
 
 
-class Exercise(AbstractLicenseModel, models.Model):
+class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     '''
     Model for an exercise
     '''
 
-    EXERCISE_STATUS_PENDING = '1'
-    EXERCISE_STATUS_ACCEPTED = '2'
-    EXERCISE_STATUS_DECLINED = '3'
-    EXERCISE_STATUS_ADMIN = '4'
-    EXERCISE_STATUS_SYSTEM = '5'
-
-    EXERCISE_STATUS = (
-        (EXERCISE_STATUS_PENDING, _('Pending')),
-        (EXERCISE_STATUS_ACCEPTED, _('Accepted')),
-        (EXERCISE_STATUS_DECLINED, _('Declined')),
-        (EXERCISE_STATUS_ADMIN, _('Submitted by administrator')),
-        (EXERCISE_STATUS_SYSTEM, _('System exercise')),
-    )
-
-    EXERCISE_STATUS_OK = (EXERCISE_STATUS_ACCEPTED,
-                          EXERCISE_STATUS_ADMIN,
-                          EXERCISE_STATUS_SYSTEM)
+    objects = SubmissionManager()
+    '''Custom manager'''
 
     category = models.ForeignKey(ExerciseCategory,
                                  verbose_name=_('Category'))
@@ -198,14 +186,10 @@ class Exercise(AbstractLicenseModel, models.Model):
                                        blank=True)
     '''Equipment needed by this exercise'''
 
-    # Non-editable fields
-    status = models.CharField(max_length=2,
-                              choices=EXERCISE_STATUS,
-                              default=EXERCISE_STATUS_PENDING,
-                              editable=False)
-    '''Status, e.g. accepted or declined'''
-
-    creation_date = models.DateField(_('Date'), auto_now_add=True, null=True, blank=True)
+    creation_date = models.DateField(_('Date'),
+                                     auto_now_add=True,
+                                     null=True,
+                                     blank=True)
     '''The submission date'''
 
     language = models.ForeignKey(Language,
@@ -292,11 +276,7 @@ class Exercise(AbstractLicenseModel, models.Model):
         '''
         Return the main image for the exercise or None if nothing is found
         '''
-        has_image = self.exerciseimage_set.exists()
-        image = None
-        if has_image:
-            image = self.exerciseimage_set.filter(is_main=True)[0]
-        return image
+        return self.exerciseimage_set.accepted().filter(is_main=True).first()
 
     def get_owner_object(self):
         '''
@@ -328,6 +308,28 @@ class Exercise(AbstractLicenseModel, models.Model):
                            [user.email],
                            fail_silently=True)
 
+    def set_author(self, request):
+        '''
+        Set author and status
+
+        This is only used when creating exercises (via web or API)
+        '''
+        if request.user.has_perm('exercises.add_exercise'):
+            self.status = self.STATUS_ACCEPTED
+            if not self.license_author:
+                self.license_author = 'wger.de'
+
+        else:
+            if not self.license_author:
+                self.license_author = request.user.username
+
+            subject = _('New user submitted exercise')
+            message = _(u'''The user {0} submitted a new exercise "{1}".'''.format(
+                        request.user.username, self.name))
+            mail.mail_admins(subject,
+                             message,
+                             fail_silently=True)
+
 
 def exercise_image_upload_dir(instance, filename):
     '''
@@ -336,10 +338,13 @@ def exercise_image_upload_dir(instance, filename):
     return "exercise-images/{0}/{1}".format(instance.exercise.id, filename)
 
 
-class ExerciseImage(AbstractLicenseModel, models.Model):
+class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     '''
     Model for an exercise image
     '''
+
+    objects = SubmissionManager()
+    '''Custom manager'''
 
     exercise = models.ForeignKey(Exercise,
                                  verbose_name=_('Exercise'),
@@ -373,8 +378,10 @@ class ExerciseImage(AbstractLicenseModel, models.Model):
             ExerciseImage.objects.filter(exercise=self.exercise).update(is_main=False)
             self.is_main = True
         else:
-            if ExerciseImage.objects.filter(exercise=self.exercise).count() == 0 \
-               or not ExerciseImage.objects.filter(exercise=self.exercise, is_main=True).count():
+            if ExerciseImage.objects.accepted().filter(exercise=self.exercise).count() == 0 \
+               or not ExerciseImage.objects.accepted() \
+                            .filter(exercise=self.exercise, is_main=True)\
+                            .count():
                 self.is_main = True
 
         #
@@ -414,9 +421,15 @@ class ExerciseImage(AbstractLicenseModel, models.Model):
             delete_template_fragment_cache('equipment-overview-mobile', language.id)
 
         # Make sure there is always a main image
-        if not ExerciseImage.objects.filter(exercise=self.exercise, is_main=True).count()\
-           and ExerciseImage.objects.filter(exercise=self.exercise).filter(is_main=False).count():
-                image = ExerciseImage.objects.filter(exercise=self.exercise, is_main=False)[0]
+        if not ExerciseImage.objects.accepted() \
+                .filter(exercise=self.exercise, is_main=True).count() \
+           and ExerciseImage.objects.accepted() \
+                .filter(exercise=self.exercise) \
+                .filter(is_main=False) \
+                .count():
+
+                image = ExerciseImage.objects.accepted() \
+                    .filter(exercise=self.exercise, is_main=False)[0]
                 image.is_main = True
                 image.save()
 
@@ -425,6 +438,30 @@ class ExerciseImage(AbstractLicenseModel, models.Model):
         Image has no owner information
         '''
         return False
+
+    def set_author(self, request):
+        '''
+        Set author and status
+
+        This is only used when creating images (via web or API)
+        '''
+        if request.user.has_perm('exercises.add_exerciseimage'):
+            self.status = self.STATUS_ACCEPTED
+            if not self.license_author:
+                self.license_author = 'wger.de'
+
+        else:
+            if not self.license_author:
+                self.license_author = request.user.username
+
+            subject = _('New user submitted image')
+            message = _(u'''The user {0} submitted a new image "{1}" for exercise {2}.'''.format(
+                        request.user.username,
+                        self.name,
+                        self.exercise))
+            mail.mail_admins(subject,
+                             message,
+                             fail_silently=True)
 
 
 def delete_exercise_image_on_delete(sender, instance, **kwargs):

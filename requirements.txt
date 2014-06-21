@@ -12,3 +12,5 @@ pillow
 easy-thumbnails
 django_compressor
 icalendar
+djangorestframework==2.3.13
+django-filter

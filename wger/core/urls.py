@@ -54,11 +54,6 @@ urlpatterns = patterns('',
         misc.demo_entries,
         name='demo-entries'),
 
-    # AJAX!
-    url(r'^workout/api/user-preferences$',
-        user.api_user_preferences,
-        name='user-api-preferences'),
-
     # Licenses
     url(r'^license/list$',
         license.LicenseListView.as_view(),
