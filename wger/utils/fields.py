@@ -19,9 +19,6 @@ from south.modelsinspector import add_introspection_rules
 
 from wger.utils.widgets import Html5FormDateField
 from wger.utils.widgets import Html5FormTimeField
-from wger.utils.widgets import Html5FormDecimalField
-from wger.utils.widgets import Html5FormIntegerField
-from wger.utils.widgets import Html5FormFloatField
 
 logger = logging.getLogger('wger.custom')
 
@@ -54,53 +51,8 @@ class Html5DateField(models.DateField):
         return super(Html5DateField, self).formfield(**defaults)
 
 
-class Html5DecimalField(models.DecimalField):
-    '''
-    Custom decimal field that uses the Html5NumberInput widget
-    '''
-
-    def formfield(self, **kwargs):
-        '''
-        Use our custom field
-        '''
-        defaults = {'form_class': Html5FormDecimalField}
-        defaults.update(kwargs)
-        return super(Html5DecimalField, self).formfield(**defaults)
-
-
-class Html5FloatField(models.FloatField):
-    '''
-    Custom decimal field that uses the Html5NumberInput widget
-    '''
-
-    def formfield(self, **kwargs):
-        '''
-        Use our custom field
-        '''
-        defaults = {'form_class': Html5FormFloatField}
-        defaults.update(kwargs)
-        return super(Html5FloatField, self).formfield(**defaults)
-
-
-class Html5IntegerField(models.IntegerField):
-    '''
-    Custom integer field that uses the Html5NumberInput widget
-    '''
-
-    def formfield(self, **kwargs):
-        '''
-        Use our custom field
-        '''
-        defaults = {'form_class': Html5FormIntegerField}
-        defaults.update(kwargs)
-        return super(Html5IntegerField, self).formfield(**defaults)
-
-
 #
 # Add instrospection rules so south can still work with these fields
 #
 add_introspection_rules([], ["^wger\.utils\.fields\.Html5TimeField"])
 add_introspection_rules([], ["^wger\.utils\.fields\.Html5DateField"])
-add_introspection_rules([], ["^wger\.utils\.fields\.Html5DecimalField"])
-add_introspection_rules([], ["^wger\.utils\.fields\.Html5FloatField"])
-add_introspection_rules([], ["^wger\.utils\.fields\.Html5IntegerField"])

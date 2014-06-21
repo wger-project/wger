@@ -22,7 +22,6 @@ from django.forms import Form
 from django.forms import ModelForm
 from django.forms import DateField
 from django.forms import CharField
-from django.forms import DecimalField
 from django.forms import widgets
 from django.forms import ModelChoiceField
 from django.utils.translation import ugettext as _
@@ -40,7 +39,6 @@ from wger.utils.widgets import TranslatedSelectMultiple
 from wger.utils.widgets import ExerciseAjaxSelect
 from wger.utils.constants import DATE_FORMATS
 from wger.utils.widgets import Html5DateInput
-from wger.utils.widgets import Html5NumberInput
 
 
 class DemoUserForm(Form):
@@ -118,14 +116,7 @@ class HelperDateForm(Form):
 class WorkoutLogForm(ModelForm):
     '''
     Helper form for a WorkoutLog.
-
-    The field for the weight is overwritten here, activating localization (so a
-    German user can  use ',' as the separator)
     '''
-    weight = DecimalField(decimal_places=2,
-                          max_digits=5,
-                          localize=True,
-                          widget=Html5NumberInput())
 
     class Meta:
         model = WorkoutLog

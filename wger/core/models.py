@@ -18,6 +18,7 @@ import datetime
 import decimal
 
 from django.db import models
+from django.db.models import IntegerField
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -27,7 +28,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from wger.utils.helpers import disable_for_loaddata
 from wger.utils.constants import TWOPLACES
-from wger.utils.fields import Html5IntegerField
 
 from wger.weight.models import WeightEntry
 
@@ -128,17 +128,17 @@ by the US Department of Agriculture. It is extremely complete, with around
                                                               'to work.'),
                                                   default=False)
 
-    workout_reminder = Html5IntegerField(verbose_name=_('Remind before expiration'),
-                                         help_text=_('The number of days you want to be reminded '
-                                                     'before a workout expires.'),
-                                         default=14,
-                                         validators=[MinValueValidator(1), MaxValueValidator(30)])
-    workout_duration = Html5IntegerField(verbose_name=_('Default duration of workouts'),
-                                         help_text=_('Default duration in weeks of workouts not '
-                                                     'in a schedule. Used for email workout '
-                                                     'reminders.'),
-                                         default=12,
-                                         validators=[MinValueValidator(1), MaxValueValidator(30)])
+    workout_reminder = IntegerField(verbose_name=_('Remind before expiration'),
+                                    help_text=_('The number of days you want to be reminded '
+                                                'before a workout expires.'),
+                                    default=14,
+                                    validators=[MinValueValidator(1), MaxValueValidator(30)])
+    workout_duration = IntegerField(verbose_name=_('Default duration of workouts'),
+                                    help_text=_('Default duration in weeks of workouts not '
+                                                'in a schedule. Used for email workout '
+                                                'reminders.'),
+                                    default=12,
+                                    validators=[MinValueValidator(1), MaxValueValidator(30)])
     last_workout_notification = models.DateField(editable=False,
                                                  blank=False,
                                                  null=True)
@@ -165,11 +165,11 @@ by the US Department of Agriculture. It is extremely complete, with around
     Switch to activate pauses in the gym view
     '''
 
-    timer_pause = Html5IntegerField(verbose_name=_('Default duration of workout pauses'),
-                                    help_text=_('Default duration in seconds of pauses used by '
-                                                'the timer in the gym mode.'),
-                                    default=90,
-                                    validators=[MinValueValidator(10), MaxValueValidator(400)])
+    timer_pause = IntegerField(verbose_name=_('Default duration of workout pauses'),
+                               help_text=_('Default duration in seconds of pauses used by '
+                                           'the timer in the gym mode.'),
+                               default=90,
+                               validators=[MinValueValidator(10), MaxValueValidator(400)])
     '''
     Default duration of workout pauses in the gym view
     '''
@@ -177,18 +177,18 @@ by the US Department of Agriculture. It is extremely complete, with around
     #
     # User statistics
     #
-    age = Html5IntegerField(max_length=2,
-                            verbose_name=_('Age'),
-                            blank=False,
-                            null=True,
-                            validators=[MinValueValidator(10), MaxValueValidator(100)])
+    age = IntegerField(max_length=2,
+                       verbose_name=_('Age'),
+                       blank=False,
+                       null=True,
+                       validators=[MinValueValidator(10), MaxValueValidator(100)])
     '''The user's age'''
 
-    height = Html5IntegerField(max_length=2,
-                               verbose_name=_('Height (cm)'),
-                               blank=False,
-                               validators=[MinValueValidator(140), MaxValueValidator(230)],
-                               null=True)
+    height = IntegerField(max_length=2,
+                          verbose_name=_('Height (cm)'),
+                          blank=False,
+                          validators=[MinValueValidator(140), MaxValueValidator(230)],
+                          null=True)
     '''The user's height'''
 
     gender = models.CharField(max_length=1,
@@ -198,20 +198,20 @@ by the US Department of Agriculture. It is extremely complete, with around
                               null=True)
     '''Gender'''
 
-    sleep_hours = Html5IntegerField(verbose_name=_('Hours of sleep'),
-                                    help_text=_('The average hours of sleep per day'),
-                                    default=7,
-                                    blank=False,
-                                    null=True,
-                                    validators=[MinValueValidator(4), MaxValueValidator(10)])
+    sleep_hours = IntegerField(verbose_name=_('Hours of sleep'),
+                               help_text=_('The average hours of sleep per day'),
+                               default=7,
+                               blank=False,
+                               null=True,
+                               validators=[MinValueValidator(4), MaxValueValidator(10)])
     '''The average hours of sleep per day'''
 
-    work_hours = Html5IntegerField(verbose_name=_('Work'),
-                                   help_text=_('Average hours per day'),
-                                   default=8,
-                                   blank=False,
-                                   null=True,
-                                   validators=[MinValueValidator(1), MaxValueValidator(15)])
+    work_hours = IntegerField(verbose_name=_('Work'),
+                              help_text=_('Average hours per day'),
+                              default=8,
+                              blank=False,
+                              null=True,
+                              validators=[MinValueValidator(1), MaxValueValidator(15)])
     '''The average hours at work per day'''
 
     work_intensity = models.CharField(verbose_name=_('Physical intensity'),
@@ -223,12 +223,12 @@ by the US Department of Agriculture. It is extremely complete, with around
                                       null=True)
     '''Physical intensity of work'''
 
-    sport_hours = Html5IntegerField(verbose_name=_('Sport'),
-                                    help_text=_('Average hours per week'),
-                                    default=3,
-                                    blank=False,
-                                    null=True,
-                                    validators=[MinValueValidator(1), MaxValueValidator(30)])
+    sport_hours = IntegerField(verbose_name=_('Sport'),
+                               help_text=_('Average hours per week'),
+                               default=3,
+                               blank=False,
+                               null=True,
+                               validators=[MinValueValidator(1), MaxValueValidator(30)])
     '''The average hours performing sports per week'''
 
     sport_intensity = models.CharField(verbose_name=_('Physical intensity'),
@@ -240,12 +240,12 @@ by the US Department of Agriculture. It is extremely complete, with around
                                        null=True)
     '''Physical intensity of sport activities'''
 
-    freetime_hours = Html5IntegerField(verbose_name=_('Free time'),
-                                       help_text=_('Average hours per day'),
-                                       default=8,
-                                       blank=False,
-                                       null=True,
-                                       validators=[MinValueValidator(1), MaxValueValidator(15)])
+    freetime_hours = IntegerField(verbose_name=_('Free time'),
+                                  help_text=_('Average hours per day'),
+                                  default=8,
+                                  blank=False,
+                                  null=True,
+                                  validators=[MinValueValidator(1), MaxValueValidator(15)])
     '''The average hours of free time per day'''
 
     freetime_intensity = models.CharField(verbose_name=_('Physical intensity'),
@@ -257,12 +257,12 @@ by the US Department of Agriculture. It is extremely complete, with around
                                           null=True)
     '''Physical intensity during free time'''
 
-    calories = Html5IntegerField(verbose_name=_('Total daily calories'),
-                                 help_text=_('Total caloric intake, including e.g. any surplus'),
-                                 default=2500,
-                                 blank=False,
-                                 null=True,
-                                 validators=[MinValueValidator(1500), MaxValueValidator(5000)])
+    calories = IntegerField(verbose_name=_('Total daily calories'),
+                            help_text=_('Total caloric intake, including e.g. any surplus'),
+                            default=2500,
+                            blank=False,
+                            null=True,
+                            validators=[MinValueValidator(1500), MaxValueValidator(5000)])
     '''Basic caloric intake based on physical activity'''
 
     @property
@@ -299,7 +299,8 @@ by the US Department of Agriculture. It is extremely complete, with around
         - weight in kg
         - height in m
         '''
-        return self.weight / (self.height / 100.0 * self.height / 100.0)
+        return self.weight / (self.height / decimal.Decimal(100) *
+                              self.height / decimal.Decimal(100.0))
 
     def calculate_basal_metabolic_rate(self, formula=1):
         '''
@@ -307,15 +308,11 @@ by the US Department of Agriculture. It is extremely complete, with around
 
         Currently only the Mifflin-St.Jeor formula is supported
         '''
-
-        if self.gender == self.GENDER_MALE:
-            factor = 5
-        else:
-            factor = -161
+        factor = 5 if self.gender == self.GENDER_MALE else -161
 
         try:
             rate = ((10 * self.weight)  # in kg
-                    + (6.25 * self.height)  # in cm
+                    + (decimal.Decimal(6.25) * self.height)  # in cm
                     - (5 * self.age)  # in years
                     + factor)
         # Any of the entries is missing

@@ -85,31 +85,9 @@ class Html5NumberInput(TextInput):
     input_type = 'number'
 
 
-class Html5FormDecimalField(fields.DecimalField):
-    '''
-    HTML5 form time field
-    '''
-    widget = Html5NumberInput
-
-
-class Html5FormIntegerField(fields.IntegerField):
-    '''
-    HTML5 form time field
-    '''
-    widget = Html5NumberInput
-
-
-class Html5FormFloatField(fields.FloatField):
-    '''
-    HTML5 form time field
-    '''
-    widget = Html5NumberInput
-
 #
 # Others
 #
-
-
 class ExerciseAjaxSelect(SelectMultiple):
     '''
     Custom widget that allows to select exercises from an autocompleter

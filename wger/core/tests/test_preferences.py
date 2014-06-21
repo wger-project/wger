@@ -206,7 +206,9 @@ class PreferencesCalculationsTestCase(WorkoutManagerTestCase):
 
         user = User.objects.get(pk=2)
         bmi = user.userprofile.calculate_bmi()
-        self.assertEqual(bmi, user.userprofile.weight / (1.80 * 1.80))
+        self.assertEqual(bmi,
+                         user.userprofile.weight.quantize(TWOPLACES)
+                         / decimal.Decimal(1.80 * 1.80).quantize(TWOPLACES))
 
     def test_basal_metabolic_rate(self):
         '''

@@ -32,8 +32,6 @@ from wger.core.models import DaysOfWeek
 from wger.exercises.models import Exercise
 from wger.utils.cache import cache_mapper, reset_workout_canonical_form
 from wger.utils.fields import Html5DateField
-from wger.utils.fields import Html5DecimalField
-from wger.utils.fields import Html5IntegerField
 
 
 logger = logging.getLogger('wger.custom')
@@ -298,10 +296,10 @@ class ScheduleStep(models.Model):
     workout = models.ForeignKey(Workout)
     '''The workout this step manages'''
 
-    duration = Html5IntegerField(verbose_name=_('Duration'),
-                                 help_text=_('The duration in weeks'),
-                                 default=4,
-                                 validators=[MinValueValidator(1), MaxValueValidator(25)])
+    duration = models.IntegerField(verbose_name=_('Duration'),
+                                   help_text=_('The duration in weeks'),
+                                   default=4,
+                                   validators=[MinValueValidator(1), MaxValueValidator(25)])
     '''The duration in weeks'''
 
     order = models.IntegerField(verbose_name=_('Order'),
@@ -479,12 +477,12 @@ class Set(models.Model):
                                     verbose_name=_('Exercise day'))
     exercises = models.ManyToManyField(Exercise,
                                        verbose_name=_('Exercises'))
-    order = Html5IntegerField(blank=True,
-                              null=True,
-                              verbose_name=_('Order'))
-    sets = Html5IntegerField(validators=[MinValueValidator(0), MaxValueValidator(MAX_SETS)],
-                             verbose_name=_('Number of sets'),
-                             default=DEFAULT_SETS)
+    order = models.IntegerField(blank=True,
+                                null=True,
+                                verbose_name=_('Order'))
+    sets = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(MAX_SETS)],
+                               verbose_name=_('Number of sets'),
+                               default=DEFAULT_SETS)
 
     # Metaclass to set some other properties
     class Meta:
@@ -527,10 +525,10 @@ class Setting(models.Model):
     set = models.ForeignKey(Set, verbose_name=_('Sets'))
     exercise = models.ForeignKey(Exercise,
                                  verbose_name=_('Exercises'))
-    reps = Html5IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)],
-                             verbose_name=_('Repetitions'))
-    order = Html5IntegerField(blank=True,
-                              verbose_name=_('Order'))
+    reps = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)],
+                               verbose_name=_('Repetitions'))
+    order = models.IntegerField(blank=True,
+                                verbose_name=_('Order'))
     comment = models.CharField(max_length=100,
                                blank=True,
                                verbose_name=_('Comment'))
@@ -581,13 +579,13 @@ class WorkoutLog(models.Model):
     workout = models.ForeignKey(Workout,
                                 verbose_name=_('Workout'))
 
-    reps = Html5IntegerField(verbose_name=_('Repetitions'),
-                             validators=[MinValueValidator(0)])
-
-    weight = Html5DecimalField(decimal_places=2,
-                               max_digits=5,
-                               verbose_name=_('Weight'),
+    reps = models.IntegerField(verbose_name=_('Repetitions'),
                                validators=[MinValueValidator(0)])
+
+    weight = models.DecimalField(decimal_places=2,
+                                 max_digits=5,
+                                 verbose_name=_('Weight'),
+                                 validators=[MinValueValidator(0)])
     date = Html5DateField(verbose_name=_('Date'))
 
     # Metaclass to set some other properties
