@@ -24,6 +24,7 @@ from django.utils.translation import ugettext_lazy
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
 
+from wger.exercises.forms import CommentForm
 from wger.exercises.models import Exercise
 from wger.exercises.models import ExerciseComment
 
@@ -45,6 +46,7 @@ class ExerciseCommentEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
 
     model = ExerciseComment
+    form_class = CommentForm
     title = ugettext_lazy('Edit exercise comment')
     permission_required = 'exercises.change_exercisecomment'
 

@@ -31,6 +31,7 @@ from wger.nutrition.models import IngredientWeightUnit
 from wger.nutrition.models import NutritionPlan
 
 from wger.utils.language import load_ingredient_languages
+from wger.utils.language import load_language
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
@@ -177,6 +178,7 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         Set the owner
         '''
         obj.user = self.request.user
+        obj.language = load_language()
 
     @link()
     def nutritional_values(self, request, pk):

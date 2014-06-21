@@ -30,7 +30,9 @@ from wger.manager.models import Day
 from wger.manager.models import Set
 from wger.manager.models import Setting
 from wger.exercises.models import Exercise
-from wger.manager.forms import SetForm, SetFormMobile
+from wger.manager.forms import SetForm
+from wger.manager.forms import SetFormMobile
+from wger.manager.forms import SettingForm
 from wger.utils.language import load_item_languages
 from wger.config.models import LanguageConfig
 
@@ -40,9 +42,10 @@ logger = logging.getLogger('wger.custom')
 # ************************
 # Set functions
 # ************************
-SETTING_FORMSET_EXCLUDE = ('comment',)
+SETTING_FORMSET_EXCLUDE = ('comment', 'exercise', 'set', 'order')
 
 SettingFormset = modelformset_factory(Setting,
+                                      form=SettingForm,
                                       exclude=SETTING_FORMSET_EXCLUDE,
                                       can_delete=True,
                                       can_order=False,

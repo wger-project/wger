@@ -79,6 +79,7 @@ class WorkoutLogAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
     model = WorkoutLog
     login_required = True
+    form_class = WorkoutLogForm
 
     def dispatch(self, request, *args, **kwargs):
         '''
@@ -167,7 +168,7 @@ def add(request, pk):
     # Define the formset here because now we know the value to pass to 'extra'
     WorkoutLogFormSet = modelformset_factory(WorkoutLog,
                                              form=WorkoutLogForm,
-                                             exclude=('date',),
+                                             exclude=('date', 'workout'),
                                              extra = total_sets)
     # Process the request
     if request.method == 'POST':

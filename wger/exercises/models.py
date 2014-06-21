@@ -193,8 +193,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     '''The submission date'''
 
     language = models.ForeignKey(Language,
-                                 verbose_name=_('Language'),
-                                 editable=False)
+                                 verbose_name=_('Language'))
     '''The exercise's language'''
 
     #
@@ -347,8 +346,7 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
     '''Custom manager'''
 
     exercise = models.ForeignKey(Exercise,
-                                 verbose_name=_('Exercise'),
-                                 editable=False)
+                                 verbose_name=_('Exercise'))
     '''The exercise the image belongs to'''
 
     image = models.ImageField(verbose_name=_('Image'),

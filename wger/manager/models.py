@@ -327,8 +327,7 @@ class Day(models.Model):
     '''
 
     training = models.ForeignKey(Workout,
-                                 verbose_name=_('Workout'),
-                                 editable=False)
+                                 verbose_name=_('Workout'))
     description = models.CharField(max_length=100,
                                    verbose_name=_('Description'),
                                    help_text=_('Ususally a description about what parts are '
@@ -525,15 +524,13 @@ class Setting(models.Model):
     Settings for an exercise (weight, reps, etc.)
     '''
 
-    set = models.ForeignKey(Set, verbose_name=_('Sets'), editable=False)
+    set = models.ForeignKey(Set, verbose_name=_('Sets'))
     exercise = models.ForeignKey(Exercise,
-                                 verbose_name=_('Exercises'),
-                                 editable=False)
+                                 verbose_name=_('Exercises'))
     reps = Html5IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)],
                              verbose_name=_('Repetitions'))
     order = Html5IntegerField(blank=True,
-                              verbose_name=_('Order'),
-                              editable=False)
+                              verbose_name=_('Order'))
     comment = models.CharField(max_length=100,
                                blank=True,
                                verbose_name=_('Comment'))
@@ -579,13 +576,14 @@ class WorkoutLog(models.Model):
     user = models.ForeignKey(User,
                              verbose_name=_('User'),
                              editable=False)
-    exercise = models.ForeignKey(Exercise, verbose_name=_('Exercise'))
+    exercise = models.ForeignKey(Exercise,
+                                 verbose_name=_('Exercise'))
     workout = models.ForeignKey(Workout,
-                                verbose_name=_('Workout'),
-                                editable=False)
+                                verbose_name=_('Workout'))
 
     reps = Html5IntegerField(verbose_name=_('Repetitions'),
                              validators=[MinValueValidator(0)])
+
     weight = Html5DecimalField(decimal_places=2,
                                max_digits=5,
                                verbose_name=_('Weight'),
@@ -649,14 +647,12 @@ class WorkoutSession(models.Model):
     '''
 
     workout = models.ForeignKey(Workout,
-                                verbose_name=_('Workout'),
-                                editable=False)
+                                verbose_name=_('Workout'))
     '''
     The workout the session belongs to
     '''
 
-    date = Html5DateField(verbose_name=_('Date'),
-                          editable=False)
+    date = Html5DateField(verbose_name=_('Date'))
     '''
     The date the workout session was performed
     '''

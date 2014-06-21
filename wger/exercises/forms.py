@@ -17,6 +17,7 @@
 from django import forms
 
 from wger.exercises.models import ExerciseImage
+from wger.exercises.models import ExerciseComment
 
 
 class ExerciseImageForm(forms.ModelForm):
@@ -26,3 +27,9 @@ class ExerciseImageForm(forms.ModelForm):
                   'is_main',
                   'license',
                   'license_author')
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = ExerciseComment
+        exclude = ('exercise',)

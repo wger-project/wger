@@ -34,6 +34,7 @@ from wger.manager.models import WorkoutSession
 from wger.manager.models import Workout
 from wger.manager.models import Day
 from wger.manager.models import Set
+from wger.manager.models import Setting
 from wger.manager.models import WorkoutLog
 from wger.utils.widgets import TranslatedSelectMultiple
 from wger.utils.widgets import ExerciseAjaxSelect
@@ -63,7 +64,7 @@ class WorkoutCopyForm(Form):
 class DayForm(ModelForm):
     class Meta:
         model = Day
-
+        exclude = ('training',)
         widgets = {'day': TranslatedSelectMultiple()}
 
 
@@ -101,6 +102,12 @@ class SetFormMobile(ModelForm):
                                                    'they will be grouped together for a superset.')
 
 
+class SettingForm(ModelForm):
+    class Meta:
+        model = Setting
+        exclude = ('set', 'exercise', 'order', 'comment')
+
+
 class HelperDateForm(Form):
     '''
     A helper form used in the workout log view
@@ -122,7 +129,7 @@ class WorkoutLogForm(ModelForm):
 
     class Meta:
         model = WorkoutLog
-        exclude = ('exercise', )
+        exclude = ('workout', )
 
 
 class HelperWorkoutSessionForm(ModelForm):
@@ -131,7 +138,7 @@ class HelperWorkoutSessionForm(ModelForm):
     '''
     class Meta:
         model = WorkoutSession
-        exclude = ('date', 'user')
+        exclude = ('user', 'workout', 'date')
 
 
 class WorkoutSessionForm(ModelForm):
@@ -140,7 +147,7 @@ class WorkoutSessionForm(ModelForm):
     '''
     class Meta:
         model = WorkoutSession
-        exclude = ('user', )
+        exclude = ('user', 'workout', 'date')
 
 
 class WorkoutSessionHiddenFieldsForm(ModelForm):
