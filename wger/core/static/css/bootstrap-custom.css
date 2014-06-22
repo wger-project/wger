@@ -33,9 +33,10 @@ body {
     background-color: #204A87;
 }
 
-
-#main-content{
-    min-height: 40em;
+@media (min-width: 992px) {
+    #main-content{
+        min-height: 40em;
+    }
 }
 
 .navbar {
@@ -52,6 +53,15 @@ body {
 .carousel a:hover, .carousel a:focus {
     background-color: transparent;
 }
+
+.wger-list-group-item {
+    background-color: #F5F5F5;
+}
+
+.page-header {
+    margin-top: 10px;
+}
+
 
 /**************************************************************
  * Alerts

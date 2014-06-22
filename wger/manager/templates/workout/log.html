@@ -6,6 +6,11 @@
 {% block title %}{% trans "Weight log for workout" %}{% endblock %}
 
 {% block header %}
+<script>
+$(document).ready(function() {
+    toggle_weight_log_table();
+});
+</script>
 {% endblock %}
 
 {% block content %}
@@ -20,7 +25,8 @@
 
     <p>
     <a href="{% url 'day-log' day.obj.id %}"
-       title="{% trans 'Add weight log to this day' %}">
+       title="{% trans 'Add weight log to this day' %}"
+       {% auto_link_css flavour %}>
            <img src="{% static 'images/icons/statistics.svg' %}"
                 width="32"
                 height="32"
@@ -45,7 +51,10 @@
 
                     <script>
                     $(document).ready(function() {
-                    weight_log_chart({{exercise_list.chart_data|safe}}, "{{exercise_list.div_uuid}}", "{{reps}}")
+                    weight_log_chart({{exercise_list.chart_data|safe}},
+                                    "{{exercise_list.div_uuid}}",
+                                    "{{reps}}",
+                                    $('#content').width());
                     });
                     </script>
                 {% endwith %}
@@ -73,7 +82,7 @@
 {% block sidebar %}
 <h3>{% trans "Options" %}</h3>
 <p>
-<a href="{% url 'workout-view' workout.id %}">
+<a href="{% url 'workout-view' workout.id %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/list.svg' %}"
          width="32"
          height="32"

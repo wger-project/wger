@@ -31,33 +31,34 @@ $(document).ready(function() {
 {#                                   #}
 {% for i in grouped_logs %}
 {% for log in i.list %}
-<div data-role="popup"
-     id="log-popup-{{log.pk}}"
-     data-overlay-theme="a">
-
-    <div data-role="header" data-theme="b">
-        <h3>{% trans "Options" %} - {{log.reps}} × {{log.weight}}</h3>
-    </div>
-
-    <div role="main" class="ui-content">
-        <a href="{% url 'workout-log-delete' log.pk %}"
-           title="{% trans 'Delete' %}"
-           data-role="button">
-               <img src="{% static 'images/icons/trash.svg' %}"
-                    width="22"
-                    height="22"
-                    alt="{% trans 'Delete' %}">
-        {% trans 'Delete' %}
-        </a>
-        <a href="{% url 'workout-log-edit' log.pk %}"
-           title="{% trans 'Edit' %}"
-           data-role="button">
-               <img src="{% static 'images/icons/edit.svg' %}"
-                    width="22"
-                    height="22"
-                    alt="{% trans 'Edit' %}">
-        {% trans 'Edit' %}
-        </a>
+<div class="modal fade" id="log-popup-{{log.pk}}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{% trans "Options" %} - {{log.reps}} × {{log.weight}}</h4>
+            </div>
+            <div class="modal-body">
+                <a href="{% url 'workout-log-delete' log.pk %}"
+                   title="{% trans 'Delete' %}"
+                   class="btn btn-default btn-block">
+                       <img src="{% static 'images/icons/trash.svg' %}"
+                            width="22"
+                            height="22"
+                            alt="{% trans 'Delete' %}">
+                {% trans 'Delete' %}
+                </a>
+                <a href="{% url 'workout-log-edit' log.pk %}"
+                   title="{% trans 'Edit' %}"
+                   class="btn btn-default btn-block">
+                       <img src="{% static 'images/icons/edit.svg' %}"
+                            width="22"
+                            height="22"
+                            alt="{% trans 'Edit' %}">
+                {% trans 'Edit' %}
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 {% endfor %}
@@ -73,17 +74,17 @@ $(document).ready(function() {
     {% with session=first_log.get_workout_session %}
 
         <a href="{{first_log.workout.get_absolute_url}}"
-           data-role="button">{{ first_log.workout }}</a>
+           class="btn btn-default btn-block">{{ first_log.workout }}</a>
 
         <a href="{% url 'workout-log' first_log.workout.id %}"
-           data-role="button">{% trans "Log overview" %}</a>
+           class="btn btn-default btn-block">{% trans "Log overview" %}</a>
 
         {% if session %}
             <a href="{% url 'workout-session-edit' session.pk %}"
-               data-role="button">{% trans "Edit workout session" %}</a>
+               class="btn btn-default btn-block">{% trans "Edit workout session" %}</a>
         {% else %}
             <a href="{% url 'workout-session-add' first_log.workout_id date|date:'Y' date|date:'m' date|date:'d' %}"
-               data-role="button">{% trans "Add workout impression" %}</a>
+               class="btn btn-default btn-block">{% trans "Add workout impression" %}</a>
         {% endif %}
 
 
@@ -109,12 +110,17 @@ $(document).ready(function() {
     {#      #}
     <ul class="grouper-list">
     {% for i in grouped_logs %}
-        <li>{{i.grouper}}
-        <ul>
-        {% for log in i.list %}
-            <li><a href="#log-popup-{{log.pk}}" data-rel="popup">{{log.reps}} × {{log.weight}}</a></li>
-        {% endfor %}
-        </ul>
+        <li>
+            {{i.grouper}}
+            <ul>
+                {% for log in i.list %}
+                <li>
+                    <a href="#log-popup-{{log.pk}}" data-toggle="modal">
+                        {{log.reps}} × {{log.weight}}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
         </li>
     {% endfor %}
     </ul>
@@ -125,41 +131,48 @@ $(document).ready(function() {
 
 
 {% block sidebar %}
-<div data-role="popup"
-     id="calendar-day-select-popup"
-     data-overlay-theme="a">
-    <div data-role="header" data-theme="b">
-    <h3>{% trans "Add log to day" %}</h3>
-    </div>
-    <div role="main" class="ui-content">
-         {% if current_workout %}
-         <p>{% blocktrans %}Click to add weight logs to a training
+<div class="modal fade" id="calendar-day-select-popup">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{% trans "Add log to day" %}</h4>
+            </div>
+            <div class="modal-body">
+                {% if current_workout %}
+                    <p>{% blocktrans %}Click to add weight logs to a training
 day in your current workout:{% endblocktrans %} {{current_workout}}</p>
 
-         <ul data-role="listview" data-inset="true">
-            {% for day in current_workout.day_set.all %}
-                <li><a href="{% url 'day-log' day.pk %}">{{day.description}}</a></li>
-            {% endfor %}
-         </ul>
-         {% else %}
-         <p><em>{% trans "No workouts found." %}</em></p>
-         <a href="{% url 'workout-add' %}" data-role="button">
-            <img src="{% static 'images/icons/add.svg' %}"
-                 width="22"
-                height="22"
-                alt="">
-             {% trans "Add one now." %}
-         </a>
-         {% endif %}
+                     <div class="list-group">
+                        {% for day in current_workout.day_set.all %}
+                            <a href="{% url 'day-log' day.pk %}" class="list-group-item wger-list-group-item">
+                                <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                                {{day.description}}
+                            </a>
+                        {% endfor %}
+                     </div>
+                 {% else %}
+                     <p><em>{% trans "No workouts found." %}</em></p>
+                     <a href="{% url 'workout-add' %}" class="btn btn-default btn-block">
+                        <img src="{% static 'images/icons/add.svg' %}"
+                             width="22"
+                            height="22"
+                            alt="">
+                         {% trans "Add one now." %}
+                     </a>
+                 {% endif %}
+            </div>
+        </div>
     </div>
 </div>
+
 
 <h3>{% trans 'Info' %}</h3>
 <p>{% blocktrans %}The coloured days in the calendar have weight logs,
 you can click on them to see the details.{% endblocktrans %}</p>
 
 <h3>{% trans 'Log' %}</h3>
-    <a href="{% url 'workout-calendar' %}" data-role="button" data-ajax="false">
+    <a href="{% url 'workout-calendar' %}" class="btn btn-default btn-block">
         <img src="{% static 'images/icons/calendar.svg' %}"
              width="32"
              height="32"
@@ -167,26 +180,33 @@ you can click on them to see the details.{% endblocktrans %}</p>
              >
     {% trans "Go to current month" %}</a>
 
-    <a href="#calendar-day-select-popup" data-role="button" data-rel="popup">
+    <a href="#calendar-day-select-popup" class="btn btn-default btn-block" data-toggle="modal">
         <img src="{% static 'images/icons/add.svg' %}"
              width="32"
              height="32"
              alt="{% trans 'Add new log' %}">
     {% trans "Add new log" %}</a>
 
-<div class="timeline-log">
-<ul data-role="listview" data-inset="true">
-{% for date in month_list %}
-    {% ifchanged date.year %}
-        <li data-role="list-divider" data-theme="b">{{ date|date:"Y" }}</li>
-    {% endifchanged %}
-    {% if current_month = date.month and current_year = date.year %}
-        <li>{{date|date:"F"}}</li>
-    {% else %}
-        <li><a href="{% url 'workout-calendar' date.year date.month %}" data-ajax="false">{{date|date:"F"}}</a></li>
-    {% endif %}
-{% endfor %}
-</ul>
+<div class="timeline-log" style="margin-top: 1em;">
+    <div class="list-group">
+    {% for date in month_list %}
+        {% ifchanged date.year %}
+            <a href="#" class="list-group-item active">
+                {{ date|date:"Y" }}
+            </a>
+        {% endifchanged %}
+        {% if current_month = date.month and current_year = date.year %}
+            <a href="{% url 'workout-calendar' date.year date.month %}" class="list-group-item wger-list-group-item">
+                <em>{{date|date:"F"}}</em>
+            </a>
+        {% else %}
+            <a href="{% url 'workout-calendar' date.year date.month %}" class="list-group-item wger-list-group-item">
+                <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                {{date|date:"F"}}
+            </a>
+        {% endif %}
+    {% endfor %}
+    </div>
 </div>
 
 {% endblock %}

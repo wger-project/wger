@@ -9,10 +9,13 @@
 {% block content %}
 <div class="list-group">
     {% for workout in workouts %}
-        <a href="{% url 'workout-view' workout.id %}" class="list-group-item">
+        <a href="{% url 'workout-view' workout.id %}" class="list-group-item wger-list-group-item">
+            <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+
             {% if workout == current_workout %}
             <span class="label label-primary pull-right"><em>{% trans "active" %}</em></span>
             {% endif %}
+
             <h3 class="list-group-item-heading">{{ workout }}</h3>
             <p class="list-group-item-text">{{ workout.creation_date }}</p>
         </a>

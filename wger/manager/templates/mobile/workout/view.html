@@ -51,33 +51,25 @@ $( document ).off("pageinit").on("pageinit", function() {
     </div>
 {% empty %}
 
-    <ul data-role="listview" data-inset="false">
-        <li>
-            <a href="{% url 'day-add' workout.id %}">
+    <div class="list-group">
+        <a href="{% url 'day-add' workout.id %}" class="list-group-item list-group-item-success">
             {% trans "No days for this workout." %}<br>
             {% trans "Add training day." %}
-            </a>
-        </li>
-    </ul>
+        </a>
+    </div>
 {% endfor %}
 
 
 <p style="margin-top:2em;">
-<a href="{% url 'day-add' workout.id %}"
-   data-role="button"
-   data-mini="true">
-    {% trans "Add training day" %}
-</a>
-
-
-<a id="exercise-comments-toggle"
-   href="{% url 'core:preferences' %}"
-   data-role="button"
-   data-mini="true">
-    {% trans "Show/Hide exercise comments" %}
-</a>
-
-
+    <a href="{% url 'day-add' workout.id %}" {% auto_link_css flavour %}>
+        {% trans "Add training day" %}
+    </a>
+    
+    <a id="exercise-comments-toggle"
+       href="{% url 'core:preferences' %}"
+       {% auto_link_css flavour %}>
+        {% trans "Show/Hide exercise comments" %}
+    </a>
 </p>
 {% endblock %}
 

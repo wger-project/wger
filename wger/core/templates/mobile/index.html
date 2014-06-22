@@ -104,7 +104,8 @@ its default duration in your settings.{% endblocktrans %}
                     {% if current_workout %}
                         {% for day in current_workout.canonical_representation.day_list %}
                                 {% if day.set_list|length > 0 %}
-                                    <a href="{% url 'workout-timer' day.obj.pk %}" class="list-group-item">
+                                    <a href="{% url 'workout-timer' day.obj.pk %}" class="list-group-item wger-list-group-item">
+                                        <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                                         {{day.obj.description}}
                                     </a>
                                 {% else %}
@@ -112,13 +113,15 @@ its default duration in your settings.{% endblocktrans %}
                                 {% endif %}
                         {% empty %}
                             <a href="{% url 'day-add' current_workout.id %}" class="list-group-item">
+                                <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                                 {% trans "No days for this workout." %}<br>
                                 {% trans "Add training day." %}
                                 </a>
                         {% endfor %}
                     {% else %}
                         <a href="{% url 'workout-add' %}" class="list-group-item">
-                        {% trans "No workouts found." %}<br>
+                            <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                            {% trans "No workouts found." %}<br>
                             {% trans "Add one now." %}
                         </a>
                     {% endif %}

@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
+{% load i18n staticfiles wger_extras %}
 
 {% block title %}{{schedule.name}}{% endblock %}
 
@@ -9,69 +8,71 @@
 
 {% block content %}
 {% for step in schedule.schedulestep_set.select_related %}
-<div data-role="popup"
-     id="step-{{step.id}}"
-     data-theme="d"
-     data-overlay-theme="a">
-    <div data-role="header" data-theme="b">
-        <h3>{%trans "Options" %}</h3>
-    </div>
+<div class="modal fade" id="step-{{step.id}}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{%trans "Options" %}</h4>
+            </div>
+            <div class="modal-body">
+                <a href="{% url 'workout-view' step.workout.id %}"
+                   title="{% trans 'Workout' %}"
+                   class="btn btn-default btn-block">
+                       {% trans 'Workout' %}</a>
 
-    <div role="main" class="ui-content">
-    <a href="{% url 'step-edit' step.id %}"
-           title="{% trans 'Edit' %}"
-           data-role="button">
-               <img src="{% static 'images/icons/edit.svg' %}"
-                    width="22"
-                    height="22"
-                    alt="{% trans 'Edit' %}">{% trans 'Edit' %}</a>
-     <a href="{% url 'step-delete' step.id %}"
-        title="{% trans 'Delete' %}"
-        data-role="button">
-            <img src="{% static 'images/icons/trash.svg' %}"
-                 width="22"
-                 height="22"
-                 alt="{% trans 'Delete' %}">{% trans 'Delete' %}</a>
+                <a href="{% url 'step-edit' step.id %}"
+                   title="{% trans 'Edit' %}"
+                   class="btn btn-default btn-block">
+                       <img src="{% static 'images/icons/edit.svg' %}"
+                            width="22"
+                            height="22"
+                            alt="{% trans 'Edit' %}">{% trans 'Edit' %}</a>
+                <a href="{% url 'step-delete' step.id %}"
+                   title="{% trans 'Delete' %}"
+                   class="btn btn-default btn-block">
+                        <img src="{% static 'images/icons/trash.svg' %}"
+                             width="22"
+                             height="22"
+                             alt="{% trans 'Delete' %}">{% trans 'Delete' %}</a>
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 {% endfor %}
 
-<ul data-role="listview" data-inset="false" data-split-icon="gear" data-split-theme="d">
+<div class="list-group wger-mobile-list-group">
 {% for step in schedule.schedulestep_set.select_related %}
-    <li>
-        <a href="{% url 'workout-view' step.workout.id %}">
-            <h3>{{ forloop.counter }} - {{ step.workout }}</h3>
+    <a href="#step-{{step.id}}" data-toggle="modal" class="list-group-item wger-list-group-item">
+        <span class="glyphicon glyphicon-cog pull-right"></span>
+
+        {% if active_workout == step %}
+        <span class="label label-primary pull-right"><em>{% trans "active" %}</em></span>
+        {% endif  %}
+
+        <h4 class="list-group-item-heading">{{ forloop.counter }} - {{ step.workout }}</h4>
+        <div class="list-group-item-text">
             <p>{{ workout.creation_date }}</p>
-
             <p>{% trans "Weeks" %}: {{ step.duration }}</p>
-
-            {% if active_workout == step %}
-            <p class="ui-li-aside"><em>{% trans "active" %}</em></p>
-            {% endif  %}
-        </a>
-
-        <a href="#step-{{step.id}}"
-           data-rel="popup"
-           data-position-to="window"
-           data-transition="pop"></a>
-        </a>
-    </li>
+        </div>
+    </a>
 {% empty %}
-    <li>
-        <a href="{% url 'step-add' schedule.id %}">
+        <a href="{% url 'step-add' schedule.id %}" class="list-group-item wger-list-group-item">
         {% trans "No workouts found." %}<br>{% trans "Add one now." %}
         </a>
-    </li>
 {% endfor %}
-<li>
-    <a href="{% url 'step-add' schedule.id %}">{% trans "Add workout" %}</a>
-</li>
+        <a href="{% url 'step-add' schedule.id %}" class="list-group-item list-group-item-success">
+            <span class="glyphicon glyphicon-plus"></span>
+            {% trans "Add workout" %}
+        </a>
+</div>
 {% if schedule.is_loop %}
-    <li>
+    <div class="alert alert-info" style="margin-bottom:0px;">
         {% trans "This schedule is a loop and will go through the workouts above till you deactivate it" %}
-    </li>
+    </div>
 {% endif %}
-</ul>
+
 
 {% endblock %}
 
@@ -86,9 +87,8 @@ than once.{% endblocktrans %}</p>
 <h3>{% trans "Options" %}</h3>
 <p>
 <a href="#export-ical-link"
-   data-rel="popup"
-   data-role="button"
-   data-position-to="window">
+   class="btn btn-default btn-block"
+   data-toggle="modal">
 <img src="{% static 'images/icons/calendar.svg' %}"
     width="32"
     height="32"
@@ -99,7 +99,7 @@ than once.{% endblocktrans %}</p>
 
 <p>
 <a href="{% url 'schedule-edit' schedule.id %}"
-   data-role="button">
+   class="btn btn-default btn-block">
 <img src="{% static 'images/icons/edit.svg' %}"
     width="32"
     height="32"
@@ -110,7 +110,7 @@ than once.{% endblocktrans %}</p>
 
 <p>
 <a href="{% url 'schedule-delete' schedule.id %}"
-   data-role="button">
+   class="btn btn-default btn-block">
 <img src="{% static 'images/icons/trash.svg' %}"
     width="32"
     height="32"
@@ -119,29 +119,30 @@ than once.{% endblocktrans %}</p>
 {% trans "Delete schedule" %}</a>
 </p>
 
-<div data-role="popup"
-     id="export-ical-link"
-     data-overlay-theme="a">
-    <div data-role="header" data-theme="b">
-        <h3>{% trans "Export calendar file" %}</h3>
-    </div>
-    <div role="main" class="ui-content">
-        <p>{% trans "Export this schedule as a calendar file." %}</p>
-        <p>{% blocktrans %}You can then import the file it into your calendar
+<div class="modal fade" id="export-ical-link">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{% trans "Export calendar file" %}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{% trans "Export this schedule as a calendar file." %}</p>
+                <p>{% blocktrans %}You can then import the file it into your calendar
 application for example google calendar, outlook or iCal. This will create
 an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
-        <p>
-        <a href="{% url 'schedule-ical' schedule.id %}"
-           data-role="button"
-           target="_blank">
-           <img src="{% static 'images/icons/calendar.svg' %}"
-                 width="32"
-                 height="32"
-                 alt="{% trans 'Export calendar file' %}"
-                 title="{% trans 'Export calendar file' %}">
-           {% trans "Export calendar file" %}
-        </a>
-        </p>
+                <p>
+                <a href="{% url 'schedule-ical' schedule.id %}" {% auto_link_css flavour %}>
+                   <img src="{% static 'images/icons/calendar.svg' %}"
+                         width="32"
+                         height="32"
+                         alt="{% trans 'Export calendar file' %}"
+                         title="{% trans 'Export calendar file' %}">
+                   {% trans "Export calendar file" %}
+                </a>
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

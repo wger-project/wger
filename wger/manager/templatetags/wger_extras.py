@@ -115,17 +115,15 @@ def get_item(dictionary, key):
     '''
     return dictionary.get(key)
 
-from django import template
-
 
 @register.simple_tag
-def auto_link_css(flavour='full', css='css'):
+def auto_link_css(flavour='full', css=''):
     '''
-    dddd
+    Adds the appropriate classes to a sidebar link depending on the site version
 
-    :param flavour:
-    :param css:
-    :return:
+    :param flavour: flavour of the site: 'mobile' or 'full'
+    :param css: the CSS class, if any, of the link
+    :return: the complete CSS classes, wrapped in class="foo"
     '''
     css = css + ' btn btn-default btn-block' if flavour == 'mobile' else css
     return 'class="{0}"'.format(css)

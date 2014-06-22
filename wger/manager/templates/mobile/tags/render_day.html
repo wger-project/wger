@@ -109,6 +109,8 @@
     style="margin-top: 3em;">
 
         <a href="#editoptions-day-{{ day.obj.id }}" class="list-group-item active" data-toggle="modal">
+            <span class="glyphicon glyphicon-cog pull-right"></span>
+
             <h4>{{ day.obj.description }}</h4>
             {{ day.days_of_week.text }}
         </a>
@@ -116,17 +118,19 @@
     {% for set in day.set_list %}
     {% if set.has_settings %}
         <a href="#editoptions-set-{{ set.obj.id }}"
-           class="list-group-item"
+           class="list-group-item wger-list-group-item"
            data-toggle="modal"
            id="set-{{ set.obj.id }}">
     {% else %}
         <a href="{% url 'set-edit' set.obj.id %}"
            id="set-{{ set.obj.id }}"
-           class="list-group-item">
+           class="list-group-item wger-list-group-item">
     {% endif %}
 
+        <span class="glyphicon glyphicon-cog pull-right"></span>
         {% for exercise in set.exercise_list %}
             <div id="exercise-{{ exercise.obj.id }}" class="ajax-set-edit-target">
+
                 <h3>{{ exercise.obj.name }}</h3>
                 <p><strong>{{exercise.setting_text}}</strong></p>
 
@@ -137,7 +141,7 @@
                 </p>
                 {% endif %}
 
-                <p class="exercise-comments">
+                <p class="text-muted">
                     {% for comment in exercise.comment_list %}
                         {{comment}}<br>
                     {% endfor %}
@@ -146,18 +150,18 @@
         {% endfor %} <!--for exercise in set-->
     </a>
     {% empty %}
-    <li>
-        <a href="{% url 'set-add' day.obj.id %}"
-           class="list-group-item">
-               {% trans "No exercises selected for this day." %}<br>
-               {% trans "Add one now." %}
-            </a>
-    </li>
+    <a href="{% url 'set-add' day.obj.id %}"
+       class="list-group-item list-group-item-success">
+           {% trans "No exercises selected for this day." %}<br>
+           {% trans "Add one now." %}
+    </a>
     {% endfor %} <!--for set in day-->
 
     {% if day.set_list %}
-        <a href="{% url 'set-add' day.obj.id %}"
-           {% auto_link_css flavour 'list-group-item' %}>{% trans "Add exercises to this workout day" %}</a>
+        <a href="{% url 'set-add' day.obj.id %}" class="list-group-item list-group-item-success">
+            <span class="glyphicon glyphicon-plus"></span>
+            {% trans "Add exercises to this workout day" %}
+        </a>
     {% endif %}
 
 </div>
