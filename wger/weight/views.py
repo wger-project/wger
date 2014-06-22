@@ -16,7 +16,6 @@
 
 import logging
 import csv
-import json
 import datetime
 
 from django.shortcuts import render
@@ -40,6 +39,8 @@ from django.db.models import Max
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
 from django.forms import widgets
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 from wger.weight.models import WeightEntry
 from wger.weight import helpers
@@ -158,6 +159,7 @@ def overview(request):
 
 
 @login_required
+@api_view(['GET'])
 def get_weight_data(request):
     '''
     Process the data to pass it to the JS libraries to generate an SVG image
@@ -182,8 +184,8 @@ def get_weight_data(request):
                            'y': i.weight,
                            'id': i.id})
 
-    # Return the results to the server
-    return HttpResponse(json.dumps(chart_data), content_type='application/json')
+    # Return the results to the client
+    return Response(chart_data)
 
 
 CSV_DATE_FORMAT = (('%d.%m.%Y', 'DD.MM.YYYY (30.01.2012)'),
