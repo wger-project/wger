@@ -48,6 +48,7 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     model = Workout
     serializer_class = WorkoutSerializer
     is_private = True
+    ordering_fields = '__all__'
     filter_fields = ('comment',
                      'creation_date')
 
@@ -82,6 +83,7 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
     model = WorkoutSession
     serializer_class = WorkoutSessionSerializer
     is_private = True
+    ordering_fields = '__all__'
     filter_fields = ('date',
                      'workout',
                      'notes',
@@ -143,6 +145,7 @@ class ScheduleViewSet(viewsets.ModelViewSet):
     model = Schedule
     serializer_class = ScheduleSerializer
     is_private = True
+    ordering_fields = '__all__'
     filter_fields = ('is_active',
                      'is_loop',
                      'start_date',
@@ -168,6 +171,7 @@ class DayViewSet(WgerOwnerObjectModelViewSet):
     model = Day
     serializer_class = DaySerializer
     is_private = True
+    ordering_fields = '__all__'
     filter_fields = ('description',
                      'training',
                      'day')
@@ -192,6 +196,7 @@ class SetViewSet(WgerOwnerObjectModelViewSet):
     model = Set
     serializer_class = SetSerializer
     is_private = True
+    ordering_fields = '__all__'
     filter_fields = ('exerciseday',
                      'order',
                      'sets',
@@ -217,6 +222,7 @@ class SettingViewSet(WgerOwnerObjectModelViewSet):
     model = Setting
     serializer_class = SettingSerializer
     is_private = True
+    ordering_fields = '__all__'
     filter_fields = ('exercise',
                      'order',
                      'reps',
@@ -249,6 +255,7 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
     model = WorkoutLog
     serializer_class = WorkoutLogSerializer
     is_private = True
+    ordering_fields = '__all__'
     filter_fields = ('date',
                      'exercise',
                      'reps',

@@ -35,6 +35,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     is_private = True
     serializer_class = UserprofileSerializer
     permission_classes = (WgerPermission, UpdateOnlyPermission)
+    ordering_fields = '__all__'
 
     def get_queryset(self):
         '''
