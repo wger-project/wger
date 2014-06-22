@@ -41,7 +41,7 @@ class UnitChooserForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(UnitChooserForm, self).__init__(*args, **kwargs)
 
-        if len(args) and args[0]['ingredient']:
+        if len(args) and args[0].get('ingredient'):
             ingredient_id = args[0]['ingredient']
 
         elif kwargs.get('data'):
