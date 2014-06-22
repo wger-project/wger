@@ -325,8 +325,8 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             subject = _('New user submitted exercise')
             message = _(u'''The user {0} submitted a new exercise "{1}".'''.format(
                         request.user.username, self.name))
-            mail.mail_admins(subject,
-                             message,
+            mail.mail_admins(unicode(subject),
+                             unicode(message),
                              fail_silently=True)
 
 
@@ -457,8 +457,8 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
                         request.user.username,
                         self.name,
                         self.exercise))
-            mail.mail_admins(subject,
-                             message,
+            mail.mail_admins(unicode(subject),
+                             unicode(message),
                              fail_silently=True)
 
 
