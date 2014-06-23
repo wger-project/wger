@@ -32,7 +32,12 @@ $(document).ready(function() {
 {% if ingredients_list %}
 <div class="list-group">
     {% for ingredient in ingredients_list %}
-        <a  class="list-group-item" href="{{ ingredient.get_absolute_url }}">{{ ingredient.name }}</a>
+        <a  class="list-group-item {% if flavour == 'mobile' %}wger-list-group-item{% endif %}" href="{{ ingredient.get_absolute_url }}">
+            {% if flavour == 'mobile' %}
+                <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+            {% endif %}
+            {{ ingredient.name }}
+        </a>
     {% endfor %}
 </div>
 {% else %}
@@ -52,7 +57,7 @@ $(document).ready(function() {
 {% if user.is_authenticated and not user.userprofile.is_temporary %}
 <h3>{% trans "Add ingredient" %}</h3>
 <p>
-       <a href="{% url 'ingredient-add' %}">
+       <a href="{% url 'ingredient-add' %}" {% auto_link_css flavour %}>
        <img src="{% static 'images/icons/new.svg' %}"
             width="32"
             height="32"

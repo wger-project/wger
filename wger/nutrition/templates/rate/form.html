@@ -62,12 +62,12 @@ required per day.{% endblocktrans %}</p>
     {% render_form_field form_activities.sleep_hours %}
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 col-xs-6">
             {% render_form_field form_activities.work_hours %}
             {% render_form_field form_activities.sport_hours %}
             {% render_form_field form_activities.freetime_hours %}
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 col-xs-6">
             {% render_form_field form_activities.work_intensity %}
             {% render_form_field form_activities.sport_intensity %}
             {% render_form_field form_activities.freetime_intensity %}
@@ -109,12 +109,13 @@ needs based on your level of physical activity.{% endblocktrans %}</p>
 might include e.g. a surplus or deficit if you are bulking or cutting. Alternatively
 you might just enter yourself the amount of calories if you know the value.{% endblocktrans %}
 </p>
+
 <form action=""
       method="post"
       class="form-horizontal"
       id="total-calories-form">
-    <div class="row">
     {% csrf_token %}
+
     {% render_form_field form_calories.additional_calories %}
     {% render_form_field form_calories.calories %}
 
@@ -129,10 +130,7 @@ you might just enter yourself the amount of calories if you know the value.{% en
     <p>
         <input type="submit" class="btn btn-default btn-block" value="{% trans 'Save total calories to profile' %}" id="form-update-calories">
     </p>
-    </div>
 </form>
-
-
 {% endblock %}
 
 

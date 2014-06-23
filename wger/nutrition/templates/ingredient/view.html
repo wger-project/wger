@@ -192,7 +192,7 @@ the search.{% endblocktrans %}
 <p>
 <a href="{% url 'ingredient-delete' ingredient.id %}"
    title="{% trans 'Delete ingredient' %}"
-   class="wger-modal-dialog">
+   {% auto_link_css flavour "wger-modal-dialog" %}>
    <img src="{% static 'images/icons/trash.svg' %}"
         width="32"
         height="32"
@@ -204,7 +204,8 @@ the search.{% endblocktrans %}
 
 <p>
 <a href="{% url 'ingredient-edit' ingredient.id %}"
-   title="{% trans 'Edit ingredient' %}">
+   title="{% trans 'Edit ingredient' %}"
+   {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/edit.svg' %}"
          width="32"
          height="32"
@@ -217,7 +218,7 @@ the search.{% endblocktrans %}
 <h3>{% trans "Weight units" %}</h3>
 <p>
 <a href="{% url 'weight-unit-ingredient-add' ingredient.id %}"
-   class="wger-modal-dialog">
+   {% auto_link_css flavour "wger-modal-dialog" %}>
        <img src="{% static 'images/icons/new.svg' %}"
             width="32"
             height="32"
@@ -241,7 +242,7 @@ the search.{% endblocktrans %}
                 <span class="editoptions float-right">
                     <a href="{% url 'weight-unit-ingredient-edit' unit.id %}"
                        title="{% trans 'Edit' %}"
-                       class="wger-modal-dialog">
+                       {% auto_link_css flavour "wger-modal-dialog" %}>
                            <img src="{% static 'images/icons/edit.svg' %}"
                                 width="16"
                                 height="16"
@@ -250,7 +251,7 @@ the search.{% endblocktrans %}
                     </a>
                     <a href="{% url 'weight-unit-ingredient-delete' unit.id %}"
                        title="{% trans 'Delete' %}"
-                       class="wger-modal-dialog">
+                       {% auto_link_css flavour "wger-modal-dialog" %}>
                            <img src="{% static 'images/icons/trash.svg' %}"
                                 width="16"
                                 height="16"

@@ -1,27 +1,24 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
+{% load i18n staticfiles wger_extras %}
 
 {% block title %}{% trans "Your nutrition plans" %}{% endblock %}
 
 
 {% block content %}
-<ul data-role="listview" data-inset="false">
+<div class="list-group">
     {% for plan in plans %}
-    <li>
-        <a href="{% url 'nutrition-view' plan.id %}" data-ajax="false">
-            <h3>{{plan}}</h3>
-            <p>{{ plan.creation_date }}</p>
+        <a href="{% url 'nutrition-view' plan.id %}" class="list-group-item wger-list-group-item">
+            <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+
+            <h3 class="list-group-item-heading">{{plan}}</h3>
+            <p class="list-group-item-text">{{ plan.creation_date }}</p>
         </a>
-    </li>
     {% empty %}
-    <li>
-        <a href="{% url 'nutrition-add' %}">
-        {% trans "No nutrition plans." %}<br> {% trans "Add one now." %}
+        <a href="{% url 'nutrition-add' %}" class="list-group-item wger-list-group-item">
+        {% trans "No nutrition plans." %}<br>
+            {% trans "Add one now." %}
         </a>
-    </li>
     {% endfor %}
-</ul>
 {% endblock %}
 
 
@@ -29,7 +26,7 @@
 {% block sidebar%}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url 'nutrition-add' %}" id="nutrition-create-new" data-role="button">
+    <a href="{% url 'nutrition-add' %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/new.svg' %}"
          width="32"
          height="32"
@@ -39,7 +36,7 @@
 </p>
 
 <p>
-    <a href="{% url 'ingredient-list' %}" id="ingredient-overview" data-role="button">
+    <a href="{% url 'ingredient-list' %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/list.svg' %}"
          width="32"
          height="32"

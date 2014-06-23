@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
+{% load i18n staticfiles wger_extras %}
 
 {% block title %}{% trans "Languages" %}{% endblock %}
 
@@ -31,7 +29,7 @@
 {% block sidebar %}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url 'config:language-add' %}">
+    <a href="{% url 'config:language-add' %}" {% auto_link_css flavour %}>
         <img src="{% static 'images/icons/folder-new.svg' %}"
              width="32"
              height="32"

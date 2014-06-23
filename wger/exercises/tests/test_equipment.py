@@ -150,10 +150,7 @@ class EquipmentCacheTestCase(WorkoutManagerTestCase):
         new_search = cache.get(get_template_cache_name('exercise-overview-search', 2))
 
         self.assertNotEqual(old_exercise.name, new_exercise.name)
-        if not self.is_mobile:
-            self.assertNotEqual(old_overview, new_overview)
-        else:
-            self.assertNotEqual(old_search, new_search)
+        self.assertNotEqual(old_overview, new_overview)
 
 
 class EquipmentApiTestCase(api_base_test.ApiBaseResourceTestCase):

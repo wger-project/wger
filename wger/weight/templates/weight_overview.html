@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
+{% load i18n staticfiles wger_extras %}
 
 <!--
         Title
@@ -40,7 +39,7 @@ $(document).ready(function () {
 
 <p>
 <a href="{% url 'weight-add' %}"
-   class="wger-modal-dialog"
+   {% auto_link_css flavour "wger-modal-dialog" %}
    id="add-weight-entry">{% trans "Add weight entry" %}</a>
 </p>
 
@@ -65,7 +64,8 @@ on the background resets it.
 <h3>{% trans "Options" %}</h3>
 <p>
     <a href="{% url 'wger.weight.views.export_csv' %}"
-       target="_blank">
+       target="_blank"
+       {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/save.svg' %}"
          width="32"
          height="32"
@@ -76,7 +76,7 @@ on the background resets it.
 </p>
 
 <p>
-    <a href="{% url 'weight-import-csv' %}">
+    <a href="{% url 'weight-import-csv' %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/csv-table.svg' %}"
          width="32"
          height="32"
