@@ -1,7 +1,5 @@
 {% extends "base_wide.html" %}
-{% load i18n %}
-{% load staticfiles %}
-{% load cache %}
+{% load i18n staticfiles cache wger_extras %}
 
 <!--
         Title
@@ -22,13 +20,16 @@ $(document).ready(function() {
 
 
     // Hightlight the first element
-    highlight_muscle($('.muscle').first(), {%if perms.exercises%}true{%else%}false{%endif%});
+    highlight_muscle($('.muscle').first(), {% if perms.exercises %}true{% else %}false{% endif %});
 
     // Highlight on hover
     $('.muscle').hover(function(e) {
         e.preventDefault();
-        highlight_muscle(this, {%if perms.exercises%}true{%else%}false{%endif%});
+        highlight_muscle(this, {% if perms.exercises %}true{% else %}false{% endif %});
     });
+
+    // Highlight on click
+
 });
 </script>
 {% endblock %}
@@ -42,14 +43,14 @@ $(document).ready(function() {
 {% trans "Hover with the mouse over the muscles to show corresponding exercises." %}
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 col-xs-6">
         <h3 style="padding-bottom:0.5em;">{% trans "Muscles" %}</h3>
         <div id="muscle-system"
              class="muscle-background"
              style="background-image: url('/static/images/muscles/muscular_system_front.svg');">
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 col-xs-6">
         {# Why do we need to use |first? #}
         {% regroup muscle_list|first by is_front as muscle_group %}
         {% for group in muscle_group %}
@@ -101,7 +102,7 @@ $(document).ready(function() {
 <p>
 <a href="{% url 'muscle-add' %}"
    title="{% trans 'Add muscle' %}"
-   class="wger-modal-dialog">
+   {% auto_link_css flavour "wger-modal-dialog" %}>
    <img src="{% static 'images/icons/new.svg' %}"
         width="32"
         height="32"
@@ -119,7 +120,7 @@ folder <em>images/muscles</em>.{% endblocktrans %}</p>
 <div id="muscle-edit-box" style="display:none;">
 <p>
     <a href="{% url 'muscle-edit' 1 %}"
-       class="wger-modal-dialog"
+       {% auto_link_css flavour "wger-modal-dialog" %}
        id="muscle-edit-edit-link">
        <img src="{% static 'images/icons/edit.svg' %}"
             width="32"
@@ -129,7 +130,7 @@ folder <em>images/muscles</em>.{% endblocktrans %}</p>
 </p>
 <p>
     <a href="{% url 'muscle-delete' 1 %}"
-       class="wger-modal-dialog"
+       {% auto_link_css flavour "wger-modal-dialog" %}
        id="muscle-edit-delete-link">
       <img src="{% static 'images/icons/trash.svg' %}"
             width="32"

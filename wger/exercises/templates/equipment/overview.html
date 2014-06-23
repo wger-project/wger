@@ -105,7 +105,7 @@ $(function() {
 <h3>{% trans "Add new exercise" %}</h3>
 <p>
     {% if user.is_authenticated and not user.userprofile.is_temporary %}
-    <a href="{% url 'exercise-add' %}">
+    <a href="{% url 'exercise-add' %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/new.svg' %}"
          width="32"
          height="32"
@@ -137,7 +137,7 @@ $(function() {
         <input name="term"
                type="search"
                id="exercise-search"
-               class="ajax-form-element"
+               class="ajax-form-element form-control"
                placeholder="{% trans 'exercise name' %}"
                style="width:100%;">
    </form>

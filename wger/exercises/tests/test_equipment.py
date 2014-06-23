@@ -110,13 +110,8 @@ class EquipmentCacheTestCase(WorkoutManagerTestCase):
         Test the equipment overview cache is correctly generated on visit
         '''
         if self.is_mobile:
-            self.assertFalse(cache.get(get_template_cache_name('equipment-overview-mobile', 2)))
             self.assertFalse(cache.get(get_template_cache_name('exercise-overview-search', 2)))
             self.client.get(reverse('equipment-overview'))
-            if self.is_mobile:
-                self.assertTrue(cache.get(get_template_cache_name('equipment-overview-mobile', 2)))
-            else:
-                self.assertTrue(cache.get(get_template_cache_name('exercise-overview-search', 2)))
         else:
             self.assertFalse(cache.get(get_template_cache_name('equipment-overview', 2)))
             self.client.get(reverse('equipment-overview'))
@@ -129,7 +124,6 @@ class EquipmentCacheTestCase(WorkoutManagerTestCase):
         '''
 
         self.assertFalse(cache.get(get_template_cache_name('equipment-overview', 2)))
-        self.assertFalse(cache.get(get_template_cache_name('equipment-overview-mobile', 2)))
         self.assertFalse(cache.get(get_template_cache_name('exercise-overview-search', 2)))
 
         self.client.get(reverse('equipment-overview'))
@@ -137,7 +131,6 @@ class EquipmentCacheTestCase(WorkoutManagerTestCase):
 
         old_exercise = cache.get(cache_mapper.get_exercise_key(2))
         old_overview = cache.get(get_template_cache_name('equipment-overview', 2))
-        old_overview_mobile = cache.get(get_template_cache_name('equipment-overview-mobile', 2))
         old_search = cache.get(get_template_cache_name('exercise-overview-search', 2))
 
         exercise = Exercise.objects.get(pk=2)
@@ -147,7 +140,6 @@ class EquipmentCacheTestCase(WorkoutManagerTestCase):
         exercise.save()
 
         self.assertFalse(cache.get(get_template_cache_name('equipment-overview', 2)))
-        self.assertFalse(cache.get(get_template_cache_name('equipment-overview-mobile', 2)))
         self.assertFalse(cache.get(get_template_cache_name('exercise-overview-search', 2)))
 
         self.client.get(reverse('equipment-overview'))
@@ -155,14 +147,12 @@ class EquipmentCacheTestCase(WorkoutManagerTestCase):
 
         new_exercise = cache.get(cache_mapper.get_exercise_key(2))
         new_overview = cache.get(get_template_cache_name('equipment-overview', 2))
-        new_overview_mobile = cache.get(get_template_cache_name('equipment-overview-mobile', 2))
         new_search = cache.get(get_template_cache_name('exercise-overview-search', 2))
 
         self.assertNotEqual(old_exercise.name, new_exercise.name)
         if not self.is_mobile:
             self.assertNotEqual(old_overview, new_overview)
         else:
-            self.assertNotEqual(old_overview_mobile, new_overview_mobile)
             self.assertNotEqual(old_search, new_search)
 
 

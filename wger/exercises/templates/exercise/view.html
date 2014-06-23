@@ -245,8 +245,8 @@ included in the database.{% endblocktrans %}
 
 
 
-<div class="container-fluid" style="margin-top:1em;">
-    <div class="col-md-6">
+<div class="row" style="margin-top:1em;">
+    <div class="col-md-6 col-xs-6">
         <div id="muscle-front" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
         </div>
         <ul>
@@ -263,7 +263,7 @@ included in the database.{% endblocktrans %}
             {% endfor %}
         </ul>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 col-xs-6">
         <div id="muscle-back" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
         </div>
         <ul>
@@ -312,7 +312,7 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 
 <h3>{% trans "Back to overview" %}</h3>
 <p>
-    <a href="{% url 'exercise-overview' %}">
+    <a href="{% url 'exercise-overview' %}" {% auto_link_css flavour %}>
         <img src="{% static 'images/icons/list.svg' %}"
              width="32"
              height="32"
@@ -326,7 +326,7 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 {% if perms.exercises %}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url 'exercise-edit' exercise.id %}">
+    <a href="{% url 'exercise-edit' exercise.id %}" {% auto_link_css flavour "wger-modal-dialog" %}>
         <img src="{% static 'images/icons/edit.svg' %}"
              width="32"
              height="32"
@@ -336,7 +336,7 @@ weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
 </p>
 <p>
     <a href="{% url 'exercise-delete' exercise.id %}"
-       class="wger-modal-dialog">
+       {% auto_link_css flavour "wger-modal-dialog" %}>
         <img src="{% static 'images/icons/trash.svg' %}"
              width="32"
              height="32"
