@@ -124,8 +124,12 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('schedule-overview'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['schedules']), 3)
-        self.assertContains(response,
-                            '<span class="label label-primary pull-right"><em>active</em></span>')
+        if self.is_mobile:
+            self.assertInHTML('<span class="label label-primary pull-right"><em>active</em></span>',
+                              response.content)
+        else:
+            self.assertInHTML('<span class="label label-primary">active</span>',
+                              response.content)
         schedule = Schedule.objects.get(pk=4)
         schedule.is_active = False
         schedule.save()
