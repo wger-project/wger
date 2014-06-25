@@ -1,0 +1,14 @@
+{% load i18n %}
+{% load staticfiles %}
+
+<a href="{{i18n_path}}" class="list-group-item wger-list-group-item">
+<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+
+    <img src="{% static path %}"
+         width="18"
+         height="11"
+         alt="{% trans language_name %}"
+         title="{% trans language_name %}"
+         style="border: 1px solid #151515;">
+    {% trans language_name %}
+</a>
