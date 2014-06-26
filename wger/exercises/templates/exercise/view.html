@@ -297,7 +297,7 @@ included in the database.{% endblocktrans %}
 
 <script>
 $(document).ready(function() {
-weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}")
+    weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}", $('#content').width());
 });
 </script>
 {% endif %}
