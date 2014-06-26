@@ -215,21 +215,6 @@ its default duration in your settings.{% endblocktrans %}
         {% endif %}
     </div>
     <div class="col-xs-6" style="padding-left: 7px;">
-        <a href="{% url 'core:preferences' %}" class="btn btn-default btn-block">
-            <img src="{% static 'images/icons/preferences.svg' %}"
-                 width="32"
-                 height="32"
-                 alt="{% trans 'Preferences' %}"
-                 title="{% trans 'Preferences' %}">
-            <br>
-            {% trans "Preferences" %}
-        </a>
-    </div>
-</div>
-
-
-<div class="row" style="margin-top: 1em;">
-    <div class="col-xs-6" style="padding-right: 7px;">
         <a href="{% url 'weight-overview' %}" class="btn btn-default btn-block">
             <img src="{% static 'images/icons/statistics.svg' %}"
                  width="32"
@@ -238,6 +223,21 @@ its default duration in your settings.{% endblocktrans %}
                  title="{% trans 'Weight overview' %}">
             <br>
             {% trans "Weight overview" %}
+        </a>
+    </div>
+</div>
+
+
+<div class="row" style="margin-top: 1em;">
+    <div class="col-xs-6" style="padding-right: 7px;">
+        <a href="{% url 'core:preferences' %}" class="btn btn-default btn-block">
+            <img src="{% static 'images/icons/preferences.svg' %}"
+                 width="32"
+                 height="32"
+                 alt="{% trans 'Preferences' %}"
+                 title="{% trans 'Preferences' %}">
+            <br>
+            {% trans "Preferences" %}
         </a>
     </div>
 
