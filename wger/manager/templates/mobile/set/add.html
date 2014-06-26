@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
+{% load i18n staticfiles wger_extras %}
 
 
 <!--
@@ -16,12 +14,57 @@
 -->
 {% block header %}
 <script>
-$(document).on('pageinit', function(){
+$(document).ready(function() {
     init_edit_set();
 
     // Slider to set the number of sets
-    $( "#id_sets" ).on( "slidestop", function(event, ui) {
+    $("#id_sets").on("change", function() {
+
         update_all_exercise_formset();
+        $('#id_sets_value').html($("#id_sets").val());
+    });
+
+
+    // Update the exercise list when the categories change
+    $("#id_categories_list").on("change", function() {
+
+        // Remember to filter by exercise language
+        $.get('/api/v2/language/?short_name=' + get_current_language(), function(data){
+            var language_pk = data.results[0].id;
+            var category_pk = $("#id_categories_list").val();
+            var base_url = '/api/v2/exercise/';
+            var filter = '?limit=999&language=' + language_pk;
+
+            if (category_pk != '') {
+                filter += '&category=' + category_pk;
+            }
+
+            $.get(base_url + filter, function(data){
+
+                // Sort the results by name, at the moment it's not possible
+                // to search and sort the API at the same time
+                data.results.sort(function(a, b) {
+                    if (a.name < b.name) {
+                        return -1;
+                    }
+                    if (a.name > b.name) {
+                        return 1;
+                    }
+                    return 0
+                });
+
+                // Remove existing options
+                $('#id_exercise_list')
+                    .find('option')
+                    .remove();
+
+                // ..and add the new ones
+                $("#id_exercise_list").append(new Option('---------', ''));
+                $.each(data.results, function(index, exercise) {
+                    $("#id_exercise_list").append(new Option(exercise.name, exercise.id));
+                });
+            });
+        });
     });
 });
 </script>
@@ -35,48 +78,48 @@ $(document).on('pageinit', function(){
 <form action="{{form_action}}"
       method="post">
 
-{% csrf_token %}
-<table>
+    {% csrf_token %}
+    {% render_form_field form.categories_list %}
     {% render_form_field form.exercise_list %}
-    <tr>
-        <td colspan="2">
-            <div id="exercise-search-log"></div>
-        </td>
-    </tr>
-    <tr>
-        <td style="text-align:right;width:40%;">
-            <label for="id_sets">{{form.sets.label}}</label>
-        </td>
-        <td>
-            <input name="sets" id="id_sets" min="1" max="10" value="{{ form.sets.value }}" type="range">
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <p class="dimmed">{% blocktrans %}If you do the same repetitions for all sets,
-you can just enter one value: e.g. for 4 sets just enter one "10" for the repetitions, this
-automatically becomes "4 x 10".{% endblocktrans %}</p>
-        </td>
-    </tr>
+    <div class="form-group">
+    <div class="col-md-offset-3 col-md-9">
+        <div id="exercise-search-log"></div>
+    </div>
+    </div>
 
-    <tr>
-        <td colspan="2">
-            <div id="formsets">
+    <div div class="form-group">
+        <div class="col-md-3">
+            <label for="id_sets" class="control-label">
+                {{form.sets.label}}
+                - <span id="id_sets_value">{{ form.sets.value }}</span>
+            </label>
+        </div>
+        <div class="col-md-9">
+            <input name="sets"
+                       id="id_sets"
+                       min="1"
+                       max="10"
+                       value="{{ form.sets.value }}"
+                       type="range"
+                       class="form-control">
+        </div>
+    </div>
+    <div div class="form-group">
+        <div class="col-md-3">
+            <span class="text-muted">{% blocktrans %}If you do the same repetitions for all sets,
+you can just enter one value: e.g. for 4 sets just enter one "10" for the repetitions, this
+automatically becomes "4 x 10".{% endblocktrans %}</span>
+        </div>
+    </div>
+
+
+    <div div class="form-group">
+        <div class="col-md-3" id="formsets">
             {% for formset in formsets %}
                     {% include 'set/formset.html' with exercise=formset.exercise formset=formset.formset %}
             {% endfor %}
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <a href="{% url 'core:index' %}"
-               data-role="button"
-               data-rel="back"
-               data-mini="true">{% trans "Cancel" %}</a>
-            <input type="submit" value="{% trans 'Save' %}" id="form-save">
-        </td>
-    </tr>
-</table>
+        </div>
+    </div>
+    {% render_form_submit %}
 </form>
 {% endblock %}
