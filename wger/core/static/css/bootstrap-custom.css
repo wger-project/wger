@@ -100,6 +100,20 @@ body {
     margin-left: -30px;
 }
 
+#nav {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: fixed;
+    background-color: #eeeeec;
+    padding-left: 1em;
+    margin-left: -15px;
+    border-right: 1px solid #888a85;
+    border-bottom: 1px solid #888a85;
+    width: 60%;
+    height: 90%;
+    z-index: 99;
+}
+
 @media screen and (max-width: 767px) {
     .row-offcanvas {
         position: relative;
