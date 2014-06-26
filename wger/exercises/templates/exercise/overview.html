@@ -13,14 +13,7 @@
 
 
 {% block header %}
-<script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
 <script>
-
-function custom_modal_init()
-{
-    init_tinymce();
-}
-
 $(document).ready(function() {
 
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
