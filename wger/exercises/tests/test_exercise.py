@@ -387,10 +387,8 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         '''
         if self.is_mobile:
             self.assertFalse(cache.get(get_template_cache_name('exercise-overview-mobile', 2)))
-            self.assertFalse(cache.get(get_template_cache_name('exercise-overview-search', 2)))
             self.client.get(reverse('exercise-overview'))
             self.assertTrue(cache.get(get_template_cache_name('exercise-overview-mobile', 2)))
-            self.assertTrue(cache.get(get_template_cache_name('exercise-overview-search', 2)))
         else:
             self.assertFalse(cache.get(get_template_cache_name('exercise-overview', 2)))
             self.client.get(reverse('exercise-overview'))
@@ -431,8 +429,6 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         old_exercise_overview = cache.get(get_template_cache_name('exercise-overview', 2))
         old_exercise_overview_mobile = cache.get(get_template_cache_name('exercise-overview-mobile',
                                                                          2))
-        old_exercise_overview_search = cache.get(get_template_cache_name('exercise-overview-search',
-                                                                         2))
         old_detail_header = cache.get(get_template_cache_name('exercise-detail-header', 2, 2))
         old_detail_muscles = cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2))
 
@@ -447,7 +443,6 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         self.assertFalse(cache.get(get_template_cache_name('muscle-overview', 2)))
         self.assertFalse(cache.get(get_template_cache_name('exercise-overview', 2)))
         self.assertFalse(cache.get(get_template_cache_name('exercise-overview-mobile', 2)))
-        self.assertFalse(cache.get(get_template_cache_name('exercise-overview-search', 2)))
         self.assertFalse(cache.get(get_template_cache_name('exercise-detail-header', 2, 2)))
         self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
 
@@ -461,8 +456,6 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         new_exercise_overview = cache.get(get_template_cache_name('exercise-overview', 2))
         new_exercise_overview_mobile = cache.get(get_template_cache_name('exercise-overview-mobile',
                                                                          2))
-        new_exercise_overview_search = cache.get(get_template_cache_name('exercise-overview-search',
-                                                                         2))
         new_detail_header = cache.get(get_template_cache_name('exercise-detail-header', 2, 2))
         new_detail_muscles = cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2))
 
@@ -475,7 +468,6 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
             self.assertNotEqual(old_detail_muscles, new_detail_muscles)
         else:
             self.assertNotEqual(old_exercise_overview_mobile, new_exercise_overview_mobile)
-            self.assertNotEqual(old_exercise_overview_search, new_exercise_overview_search)
 
 
 class WorkoutCacheTestCase(WorkoutManagerTestCase):

@@ -61,7 +61,6 @@ class Command(BaseCommand):
                 delete_template_fragment_cache('muscle-overview', language.id)
                 delete_template_fragment_cache('exercise-overview', language.id)
                 delete_template_fragment_cache('exercise-overview-mobile', language.id)
-                delete_template_fragment_cache('exercise-overview-search', language.id)
                 delete_template_fragment_cache('equipment-overview', language.id)
 
             for language in Language.objects.all():
