@@ -15,7 +15,7 @@ install:
 #  - sh -c "if [ '$DB' = 'mysql' ]; then pip install mysql-python; fi"
   - sh -c "if [ '$DB' = 'postgresql' ]; then pip install psycopg2; fi"
   
-  - pip install -r requirements.txt
+  - pip install -r requirements_devel.txt
   - pip install -q Django==$DJANGO_VERSION
   - python extras/scripts/create_local_settings.py
 
@@ -31,10 +31,13 @@ before_script:
 script:
 
   # Regular application
-  - ./manage.py test
+  - coverage run --source='.' ./manage.py test
 
   # Mobile version
   - TEST_MOBILE=True ./manage.py test
 
   # Formatting
   - pep8 --max-line-length=100 --exclude="urls.py,*migrations*" wger
+
+  # Code coverage
+  - coverage report
