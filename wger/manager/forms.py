@@ -92,7 +92,8 @@ class SetFormMobile(ModelForm):
     categories_list = ModelChoiceField(ExerciseCategory.objects,
                                        empty_label=_('All categories'),
                                        label=_('Categories'),
-                                       widget=TranslatedSelect())
+                                       widget=TranslatedSelect(),
+                                       required=False)
     exercise_list = ModelChoiceField(Exercise.objects)
 
     class Meta:
@@ -164,4 +165,5 @@ class WorkoutSessionHiddenFieldsForm(ModelForm):
         model = WorkoutSession
         widgets = {'time_start': widgets.HiddenInput(),
                    'time_end': widgets.HiddenInput(),
-                   'user': widgets.HiddenInput()}
+                   'user': widgets.HiddenInput(),
+                   'notes': widgets.Textarea(attrs={'rows': 3})}

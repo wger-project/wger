@@ -132,6 +132,8 @@ function paginate_to(index){
 
 $(document).ready(function() {
 
+    $('#page-title').remove();
+
     $('.timer-step').width(div_width);
     $('.timer-step').height(div_height);
 
@@ -238,7 +240,7 @@ $(document).ready(function() {
                 // After clicking on the save button once, disable it
                 function( data ) {
                     $('#save_button_form').unbind("click");
-                    $('#save_button_form').addClass('ui-disabled');
+                    $('#save_button_form').addClass('disabled');
                     $('#save_button_form').bind("click", function(e) {
                         e.preventDefault();
                     });
@@ -252,7 +254,7 @@ $(document).ready(function() {
 {#            #}
 {# Start page #}
 {#            #}
-<div id="timer-container" style="position: relative; top:-60px; margin:0px, padding: 0px;">
+<div id="timer-container" style="position: relative; margin:0px, padding: 0px;">
 <ul id="workout-timer">
 <li class="timer-step" id="div-warmup" data-number="0">
     <h2>{% trans "Your workout today" %}</h2>
@@ -399,41 +401,59 @@ $(document).ready(function() {
             {{ session_form.time_end }}
             {{ session_form.user }}
 
-            <div data-role="popup"
-                 id="info-{{session_form.notes.auto_id}}"
-                 data-overlay-theme="a">
-                <div data-role="header">
-                     <h4>{% trans "Info" %}</h4>
-                </div>
-                <div role="main" class="ui-content">
-                    {% trans session_form.notes.help_text %}
+
+            <div class="modal fade" id="info-{{session_form.notes.auto_id}}">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">{% trans "Info" %}</h4>
+                        </div>
+                        <div class="modal-body">
+                            {% trans session_form.notes.help_text %}
+                        </div>
+                    </div>
                 </div>
             </div>
+
             <label for="{{session_form.notes.auto_id}}">
                 <a href="#info-{{session_form.notes.auto_id}}"
-                   class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-icon-info ui-btn-icon-notext"
-                   data-rel="popup"></a>
+                   class="btn btn-default btn-sm"
+                   data-toggle="modal">
+                    <span class="glyphicon glyphicon-asterisk"></span>
+                   </a>
                 {% trans session_form.notes.label %}
             </label>
-            {{ session_form.notes }}
+            {{ session_form.notes|form_field_add_css:'form-control' }}
 
-            <div data-role="popup"
-                 id="info-{{session_form.impression.auto_id}}"
-                 data-overlay-theme="a">
-                <div data-role="header">
-                     <h4>{% trans "Info" %}</h4>
-                </div>
-                <div role="main" class="ui-content">
-                    {% trans session_form.impression.help_text %}
+            <div class="modal fade" id="info-{{session_form.impression.auto_id}}">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">{% trans "Info" %}</h4>
+                        </div>
+                        <div class="modal-body">
+                            {% trans session_form.impression.help_text %}
+                        </div>
+                    </div>
                 </div>
             </div>
             <label for="{{session_form.impression.auto_id}}">
                 <a href="#info-{{session_form.impression.auto_id}}"
-                   class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-icon-info ui-btn-icon-notext"
-                   data-rel="popup"></a>
+                   class="btn btn-default btn-sm"
+                   data-toggle="modal">
+                    <span class="glyphicon glyphicon-asterisk"></span>
+                   </a>
                 {% trans session_form.impression.label %}
             </label>
-            {{ session_form.impression }}
+            {{ session_form.impression|form_field_add_css:'form-control' }}
+
+            <!--
+            {% render_form_field session_form.notes %}
+            {% render_form_field session_form.impression %}
+            -->
+
         </form>
     </div>
 
@@ -441,23 +461,18 @@ $(document).ready(function() {
         <h2><strong>{% trans "Time" %}:</strong> <span id="total_time">MM:SS</span></h2>
     </div>
 
-    <div class="ui-grid-a bottom_buttons">
-        <div class="ui-block-a">
+    <div class="row bottom_buttons">
+        <div class="col-xs-6">
             <a href="{% url 'core:dashboard' %}"
-               class="wide_link"
-               data-role="button"
-               data-icon="arrow-r"
-               data-ajax="false"
-               data-iconpos="right">{% trans "Dashboard" %}</a>
+               class="wide_link btn btn-default">{% trans "Dashboard" %}</a>
         </div>
-        <div class="ui-block-b">
+        <div class="col-xs-6">
             <a href=""
                id="save_button_form"
-               class="wide_link"
-               data-role="button"
-               data-icon="check"
-               data-ajax="false"
-               data-iconpos="right">{% trans "Save" %}</a>
+               class="wide_link btn btn-success">
+                {% trans "Save" %}
+                <span class="glyphicon glyphicon-save"></span>
+            </a>
         </div>
     </div>
 

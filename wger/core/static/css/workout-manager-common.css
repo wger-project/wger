@@ -62,23 +62,6 @@
 
 
 
-
-
-/* Use Open Sans for the body text */
-.ui-body-c,
-.ui-body-c input,
-.ui-body-c select,
-.ui-body-c textarea,
-.ui-body-c button {
-    font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
-    font-weight: 300;
-}
-.ui-body-c .ui-link{
-    font-weight: normal;
-}
-
-
-
 /**************************************************************
  * Styling for the SVG elements on the weight chart
  **************************************************************/
@@ -263,7 +246,7 @@ body .boxInner:hover .titleBox, body.touch .boxInner.touchFocus .titleBox {
     font-size: 80%;
 }
 
-.titleBox a, .titleBox .ui-link {
+.titleBox a {
     color: white;
 
     text-shadow: none;
