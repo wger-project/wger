@@ -71,7 +71,12 @@
                                 </div>
                                 <div class="media-body">
                                     <h4 class="media-heading">{{ exercise.name }}</h4>
-                                    <span class="text-muted">{{ exercise.equipment.all|join:", " }}</span>
+                                    <span class="text-muted">
+                                        {% for equipment in exercise.equipment.all %}
+                                            {% trans equipment.name %}
+                                            {% if not forloop.last %},{% endif %}
+                                        {% endfor %}
+                                    </span>
                                 </div>
                             </div>
                         </a>

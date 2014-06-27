@@ -12,11 +12,6 @@
 
 
 {% block header %}
-<style>
-.ui-accordion .ui-accordion-content{
-    padding: 0px;
-}
-</style>
  <script>
 $(function() {
     // Init the autocompleter
@@ -128,18 +123,15 @@ $(function() {
 
 
 <h3>{% trans "Search" %}</h3>
-
-<div class="ui-widget">
-    <form action="{% url 'exercise-search' %}"
-          method="get"
-          id="exercise_search_form">
-        {% csrf_token %}
-        <input name="term"
-               type="search"
-               id="exercise-search"
-               class="ajax-form-element form-control"
-               placeholder="{% trans 'exercise name' %}"
-               style="width:100%;">
-   </form>
-</div>
+<form action="{% url 'exercise-search' %}"
+      method="get"
+      id="exercise_search_form">
+    {% csrf_token %}
+    <input name="term"
+           type="search"
+           id="exercise-search"
+           class="ajax-form-element form-control"
+           placeholder="{% trans 'exercise name' %}"
+           style="width:100%;">
+</form>
 {% endblock %}
