@@ -77,9 +77,32 @@
             wger
         </span>
     </div>
+
+    <div class="hidden-xs" role="navigation">
+        {% include 'navigation.html' %}
+    </div>
 </header>
 
 <div class="container">
+
+    <div class="modal fade" id="language-options">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{% trans "Language" %}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group">
+                        {% for language in languages %}
+                            {% language_select language %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="main" class="row-offcanvas row-offcanvas-left">
         <div class="modal fade" id="wger-ajax-info" tabindex="-1" role="dialog">
             <div class="modal-dialog">
@@ -108,13 +131,11 @@
             </div>
         {% endif %}
 
-        {#<div class="col-xs-12 col-sm-9"> #}
         <div id="main-template">
             {% block template %}{% endblock %}
         </div>
 
-        {# <div class="col-xs-7 col-sm-3 sidebar-offcanvas" role="navigation"> #}
-        <div class="sidebar-offcanvas" role="navigation">
+        <div class="sidebar-offcanvas visible-xs" role="navigation">
             {% include 'navigation.html' %}
         </div>
     </div>
