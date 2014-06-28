@@ -57,7 +57,7 @@
 <h3>{% trans "Options" %}</h3>
 <p>
        <a href="{% url 'core:license-add' %}"
-          class="wger-modal-dialog">
+          {% auto_link_css flavour "wger-modal-dialog" %}>
        <img src="{% static 'images/icons/new.svg' %}"
             width="32"
             height="32"
