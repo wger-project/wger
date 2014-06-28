@@ -52,7 +52,7 @@
         <div id="collapse-{{item.grouper.pk}}" class="panel-collapse collapse">
             <div class="panel-body">
                 <div class="list-group">
-                    {% for exercise in item.list %}
+                    {% for exercise in item.list|dictsort:"name" %}
                         <a href="{{ exercise.get_absolute_url }}" class="list-group-item wger-list-group-item">
                             <div class="media">
                                 <span class="glyphicon glyphicon-chevron-right pull-right"></span>
