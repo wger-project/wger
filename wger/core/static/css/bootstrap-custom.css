@@ -64,11 +64,6 @@ body {
 }
 
 
-.wger-mobile-list-group > .list-group-item {
-    background-color: #F5F5F5;
-}
-
-
 .application-name {
     text-shadow: 2px 3px 3px #292929;
     font-family: "Open Sans Bold",Arial,Helvetica,sans-serif;

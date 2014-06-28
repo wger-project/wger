@@ -42,7 +42,7 @@
 </div>
 {% endfor %}
 
-<div class="list-group wger-mobile-list-group">
+<div class="list-group">
 {% for step in schedule.schedulestep_set.select_related %}
     <a href="#step-{{step.id}}" data-toggle="modal" class="list-group-item wger-list-group-item">
         <span class="glyphicon glyphicon-cog pull-right"></span>
