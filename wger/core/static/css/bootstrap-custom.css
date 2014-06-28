@@ -28,14 +28,16 @@ html {
       -ms-text-size-adjust: 100%;
 }
 
+
 body {
     font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
     background-color: #204A87;
 }
 
-
-#main-content{
-    min-height: 40em;
+@media (min-width: 992px) {
+    #main-content{
+        min-height: 40em;
+    }
 }
 
 .navbar {
@@ -51,6 +53,128 @@ body {
 
 .carousel a:hover, .carousel a:focus {
     background-color: transparent;
+}
+
+.wger-list-group-item {
+    background-color: #F5F5F5;
+}
+
+.page-header {
+    margin-top: 10px;
+}
+
+
+.application-name {
+    text-shadow: 2px 3px 3px #292929;
+    font-family: "Open Sans Bold",Arial,Helvetica,sans-serif;
+    font-weight: 300;
+    font-size: 180%;
+    color: #FFF;
+    width: 50%;
+    text-align: center;
+    margin-top: 0.2em;
+}
+
+
+/**************************************************************
+ * Off Canvas menu
+ *
+ * http://getbootstrap.com/examples/offcanvas/
+ **************************************************************/
+html,
+body {
+    overflow-x: hidden; /* Prevent scroll on narrow devices */
+}
+
+#main-template {
+    overflow-x: hidden;
+}
+
+.sidebar-offcanvas #main-navbar-navigation {
+    border-color: transparent;
+    margin-left: -30px;
+}
+
+.row-offcanvas #nav {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: fixed;
+    background-color: #eeeeec;
+    padding-left: 1em;
+    margin-left: -15px;
+    border-right: 1px solid #888a85;
+    border-bottom: 1px solid #888a85;
+    width: 60%;
+    height: 90%;
+    z-index: 99;
+}
+
+@media screen and (max-width: 767px) {
+    .row-offcanvas {
+        position: relative;
+        -webkit-transition: all .25s ease-out;
+           -moz-transition: all .25s ease-out;
+                transition: all .25s ease-out;
+    }
+
+    .row-offcanvas-right {
+        right: 0;
+    }
+
+    .row-offcanvas-left {
+        left: 0;
+    }
+
+    .row-offcanvas-right
+    .sidebar-offcanvas {
+        right: -70%;
+    }
+
+    .row-offcanvas-left
+    .sidebar-offcanvas {
+        left: -70%;
+    }
+
+    .row-offcanvas-right.active {
+        right: 70%;
+    }
+
+    .row-offcanvas-left.active {
+        left: 70%;
+    }
+
+    .sidebar-offcanvas {
+        position: absolute;
+        top: 0;
+        width: 70%;
+    }
+}
+
+
+/**************************************************************
+ * forward-port nav-header to bootstrap 3
+ **************************************************************/
+
+.nav-header {
+  display: block;
+  padding: 3px 15px;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 20px;
+  color: #999999;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+.nav li + .nav-header {
+  margin-top: 9px;
+}
+
+.nav-list > li > a,
+.nav-list .nav-header {
+  margin-right: -15px;
+  margin-left: -15px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 /**************************************************************
@@ -134,7 +258,3 @@ fieldset[disabled] .btn-default.active {
 /**************************************************************
  * Header
  **************************************************************/
-header a:hover, header  a:focus {
-    color: white;
-    /*text-decoration: none;*/
-}

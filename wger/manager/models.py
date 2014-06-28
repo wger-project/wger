@@ -471,7 +471,7 @@ class Set(models.Model):
     Model for a set of exercises
     '''
     DEFAULT_SETS = 4
-    MAX_SETS = 7
+    MAX_SETS = 10
 
     exerciseday = models.ForeignKey(Day,
                                     verbose_name=_('Exercise day'))

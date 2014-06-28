@@ -10,6 +10,28 @@
 -->
 {% block title %}{% trans "Exercises" %}{% endblock %}
 
+{% block header %}
+<script>
+    $(document).ready(function() {
+
+        // Prevent the form from being submited if JavaScript is enabled
+        $("#exercise_search_form").submit(function() {return false;});
+
+        // Init the autocompleter
+        $("#exercise-search").catcomplete({
+                source: "{% url 'exercise-search' %}",
+                minLength: 2,
+                select: function(event, ui) {
+
+                    // Redirect to exercise after clicking on a result
+                    // Path is hard coded here, because we can't use the url-tag
+                    window.location.href = '/exercise/' + ui.item.id + '/view/'
+                }
+            });
+    });
+</script>
+{% endblock %}
+
 
 <!--
         Main Content
@@ -17,22 +39,51 @@
 {% block content %}
 {% cache cache_timeout exercise-overview-mobile language.id %}
 {% regroup exercises by category as exercise_list %}
-<div data-role="collapsible-set" data-theme="c" data-content-theme="c">
+<div class="panel-group" id="accordion">
     {% for item in exercise_list %}
-    <div data-role="collapsible">
-        <h3>{% trans item.grouper.name %}</h3>
-
-        <ul data-role="listview">
-            {% for exercise in item.list %}
-            <li>
-                <a href="{{ exercise.get_absolute_url }}" data-ajax="false">
-                {% if exercise.main_image.image %}
-                <img src="{{ exercise.main_image.image|thumbnail_url:'small' }}">
-                {% endif %}
-                {{ exercise.name }}</a>
-            </li>
-            {% endfor %}
-        </ul>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{item.grouper.pk}}">
+                {% trans item.grouper.name %}
+                </a>
+            </h4>
+        </div>
+        <div id="collapse-{{item.grouper.pk}}" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="list-group">
+                    {% for exercise in item.list|dictsort:"name" %}
+                        <a href="{{ exercise.get_absolute_url }}" class="list-group-item wger-list-group-item">
+                            <div class="media">
+                                <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                                <div style="width:60px;height:60px;" class="pull-left">
+                                    {% if exercise.main_image %}
+                                        <img alt="{{ exercise.name }}"
+                                         class="media-object "
+                                         style="max-width:100%; max-height:100%;"
+                                         src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
+                                    {% else %}
+                                    <img alt="{% trans 'Placeholder image for exercise' %}"
+                                         class="media-object "
+                                         style="max-width:100%; max-height:100%; opacity: 0.4;"
+                                         src="{% static 'images/icons/image-placeholder.svg' %}">
+                                    {% endif %}
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading">{{ exercise.name }}</h4>
+                                    <span class="text-muted">
+                                        {% for equipment in exercise.equipment.all %}
+                                            {% trans equipment.name %}
+                                            {% if not forloop.last %},{% endif %}
+                                        {% endfor %}
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
     {% empty %}
         <li>{% trans "No categories." %} {% trans "Use link to create one" %}</li>
@@ -46,37 +97,24 @@
         Side bar
 -->
 {% block sidebar %}
-<h3>{% trans "Search" %}</h3>
-<br>
+    <h3>{% trans "Search" %}</h3>
 
-{% cache cache_timeout exercise-overview-search language.id %}
-{% regroup exercises by category as exercise_list %}
-<ul data-role="listview"
-    data-theme="c"
-    data-filter="true"
-    data-filter-reveal="true"
-    data-inset="true"
-    data-filter-placeholder="{% trans 'exercise name' %}"
-    id="exercise_search_form">
-    {% for item in exercise_list %}
-    {% for exercise in item.list %}
-        <li>
-            <a href="{{ exercise.get_absolute_url }}" data-ajax="false">
-            {% if exercise.main_image.image %}
-            <img src="{{ exercise.main_image.image|thumbnail_url:'small' }}">
-            {% endif %}
-            {{ exercise.name }}</a>
-        </li>
-    {% endfor %}
-    {% endfor %}
-</ul>
-{% endcache %}
+    <form action="{% url 'exercise-search' %}"
+          method="get"
+          id="exercise_search_form">
+        {% csrf_token %}
+        <input name="term"
+               type="search"
+               id="exercise-search"
+               class="ajax-form-element form-control"
+               placeholder="{% trans 'exercise name' %}">
+   </form>
 
 
 <h3>{% trans "Add new exercise" %}</h3>
 <p>
     {% if user.is_authenticated and not user.userprofile.is_temporary %}
-    <a href="{% url 'exercise-add' %}" data-role="button">
+    <a href="{% url 'exercise-add' %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/new.svg' %}"
          width="32"
          height="32"

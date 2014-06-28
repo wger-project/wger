@@ -6,143 +6,139 @@
 
 
 {% block content %}
-<div data-role="popup"
-     id="current-workout-{{request_full_path|slugify}}"
-     data-overlay-theme="a">
-    <div data-role="header">
-        <h3>{% trans "Current workout" %}</h3>
-    </div>
-    <div role="main" class="ui-content">
-         {% if current_workout %}
-         <ul data-role="listview" data-inset="false" style="margin-bottom:1em;" data-theme="b">
-            <li>
-                <a href="{% url 'workout-view' current_workout.id %}"
+<div class="modal fade" id="current-workout">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{% trans "Current workout" %}</h4>
+                {% if current_workout %}
+                    <h5><a href="{% url 'workout-view' current_workout.id %}">{{ current_workout }}</a></h5>
+                {% endif %}
+            </div>
+            <div class="modal-body">
+                {% if current_workout %}
 
-                   data-mini="true"
-                   data-ajax="false">
-                    {{ current_workout }}
-                </a>
-            </li>
-        </ul>
-
-        <ul>
-            {% for day, exercises, is_workout in weekdays %}
-            <li>
-                <span {% if not is_workout %}class="dimmed"{% endif%}>
-                {{ day }}: {{ exercises }}
-                </span>
-            </li>
-            {% endfor %}
-        </ul>
-        {% if schedule %}
-        <p>
-            → {% trans "This workout is part of a schedule:" %}
-            <a href="{{schedule.get_absolute_url}}">{{schedule.name}}</a>
-        </p>
-        {% endif %}
-        {% endif %}
+                <ul class="list-group">
+                    {% for day, exercises, is_workout in weekdays %}
+                    <li class="list-group-item">
+                        <span {% if not is_workout %}class="text-muted"{% endif%}>
+                        {{ day }}: {{ exercises }}
+                        </span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% if schedule %}
+                <p>
+                    → {% trans "This workout is part of a schedule:" %}
+                    <a href="{{schedule.get_absolute_url}}">{{schedule.name}}</a>
+                </p>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
     </div>
 </div>
 
 
-<div data-role="popup"
-     id="current-nutrition-plan-{{request_full_path|slugify}}"
-     data-overlay-theme="a">
-    <div data-role="header">
-         <h4>{% trans "Current nutrition plan" %}</h4>
-     </div>
-    <div role="main" class="ui-content">
-         {% if plan %}
-         <ul data-role="listview" data-inset="false" style="margin-bottom:1em;" data-theme="b">
-            <li>
-                <a href="{% url 'nutrition-view' plan.id %}"
-                   data-mini="true"
-                   data-ajax="false">
-                    {{ plan }}
-                </a>
-            </li>
-        </ul>
 
-        <ul>
-           <li>
-               {% trans "Energy" %}: {{nutritional_info.total.energy|floatformat}} kcal
-           </li>
-           <li>
-               {% trans "Protein" %}: {{nutritional_info.total.protein|floatformat}} g
-           </li>
-           <li>
-               {% trans "Carbohydrates" %}: {{nutritional_info.total.carbohydrates|floatformat}} g
-           </li>
-           <li>
-               {% trans "Fat" %}: {{nutritional_info.total.fat|floatformat}} g
-           </li>
-        </ul>
+<div class="modal fade" id="current-nutrition-plan">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{% trans "Current nutrition plan" %}</h4>
+                {% if plan %}
+                <h5><a href="{% url 'nutrition-view' plan.id %}">{{ plan }}</a></h5>
+                {% endif %}
+            </div>
+            <div class="modal-body">
+                {% if plan %}
+                <ul class="list-group">
+                   <li class="list-group-item">
+                       {% trans "Energy" %}: {{nutritional_info.total.energy|floatformat}} kcal
+                   </li>
+                   <li class="list-group-item">
+                       {% trans "Protein" %}: {{nutritional_info.total.protein|floatformat}} g
+                   </li>
+                   <li class="list-group-item">
+                       {% trans "Carbohydrates" %}: {{nutritional_info.total.carbohydrates|floatformat}} g
+                   </li>
+                   <li class="list-group-item">
+                       {% trans "Fat" %}: {{nutritional_info.total.fat|floatformat}} g
+                   </li>
+                </ul>
 
-        {% if weight %}
-        <p>
-            {% trans "Your current weight is: "%} <strong>{{weight.weight|floatformat}} kg.</strong>
-        </p>
-        {% endif %}
+                {% if weight %}
+                <p>
+                    {% trans "Your current weight is: "%} <strong>{{weight.weight|floatformat}} kg.</strong>
+                </p>
+                {% endif %}
 
-        {% endif %}
+                {% endif %}
+            </div>
+        </div>
     </div>
 </div>
 
-{% if not user.is_authenticated or user.userprofile.is_temporary %}
-<p><em>{% trans "You are using a guest account, data entered will be deleted after a week."%}</em></p>
-{% endif %}
-
-<div data-role="popup"
-     id="timer-current-workout-{{request_full_path|slugify}}"
-     data-overlay-theme="a">
-    <div data-role="header">
-         <h4>{% trans "Start gym mode" %}</h4>
-    </div>
-
-    <div role="main" class="ui-content">
-        <p>{% blocktrans %}Use the gym mode to
+<div class="modal fade" id="timer-current-workout">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{% trans "Start gym mode" %}</h4>
+                <h5></h5>
+            </div>
+            <div class="modal-body">
+                <p>{% blocktrans %}Use the gym mode to
 start an interactive training session. If you enter lifted weights, they will
 be added to your workout log. A timer between sets helps you keep track of the
 pauses you do.{% endblocktrans %}</p>
-        <p>
-            <strong>{% trans "Tip:" %}</strong>
-            {% blocktrans %}You can deactivate the timer or set
+                <p>
+                    <strong>{% trans "Tip:" %}</strong>
+                    {% blocktrans %}You can deactivate the timer or set
 its default duration in your settings.{% endblocktrans %}
-        </p>
+                </p>
 
-        <ul data-role="listview" data-inset="true" style="margin-bottom:1em;">
-            {% if current_workout %}
-                {% for day in current_workout.canonical_representation.day_list %}
-                <li>
-                    {% if day.set_list|length > 0 %}<a href="{% url 'workout-timer' day.obj.pk %}" data-ajax="false">{% endif %}
-                    {{day.obj.description}}
-                    {% if day.set_list|length > 0 %}</a>{% endif %}
-                </li>
-                {% empty %}
-                    <li>
-                    <a href="{% url 'day-add' current_workout.id %}" data-ajax="false">
-                        {% trans "No days for this workout." %}<br>
-                        {% trans "Add training day." %}
+                <div class="list-group">
+                    {% if current_workout %}
+                        {% for day in current_workout.canonical_representation.day_list %}
+                                {% if day.set_list|length > 0 %}
+                                    <a href="{% url 'workout-timer' day.obj.pk %}" class="list-group-item wger-list-group-item">
+                                        <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                                        {{day.obj.description}}
+                                    </a>
+                                {% else %}
+                                <span class="list-group-item">{{day.obj.description}}</span>
+                                {% endif %}
+                        {% empty %}
+                            <a href="{% url 'day-add' current_workout.id %}" class="list-group-item">
+                                <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                                {% trans "No days for this workout." %}<br>
+                                {% trans "Add training day." %}
+                                </a>
+                        {% endfor %}
+                    {% else %}
+                        <a href="{% url 'workout-add' %}" class="list-group-item">
+                            <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                            {% trans "No workouts found." %}<br>
+                            {% trans "Add one now." %}
                         </a>
-                    </li>
-                {% endfor %}
-            {% else %}
-            <li>
-                <a href="{% url 'workout-add' %}" data-ajax="false">
-                {% trans "No workouts found." %}<br>
-                    {% trans "Add one now." %}
-                </a>
-            </li>
-            {% endif %}
-        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 
 
-<a href="#timer-current-workout-{{request_full_path|slugify}}"
-   data-role="button"
-   data-rel="popup">
+
+
+
+<a href="#timer-current-workout"
+   data-toggle="modal"
+   class="btn btn-default btn-block">
     <img src="{% static 'images/icons/play.svg' %}"
          width="32"
          height="32"
@@ -152,14 +148,12 @@ its default duration in your settings.{% endblocktrans %}
     {% trans "Start current workout" %}
 </a>
 
-
-<div class="ui-grid-a">
-    <div class="ui-block-a">
+<div class="row" style="margin-top: 1em;">
+    <div class="col-xs-6" style="padding-right: 7px;">
         {% if current_workout %}
-            <a href="#current-workout-{{request_full_path|slugify}}"
-               data-role="button"
-               data-rel="popup"
-               data-position-to="window">
+            <a href="#current-workout"
+               data-toggle="modal"
+               class="btn btn-default btn-block">
                 <img src="{% static 'images/icons/list.svg' %}"
                      width="32"
                      height="32"
@@ -169,7 +163,7 @@ its default duration in your settings.{% endblocktrans %}
                 {{current_workout}}
             </a>
         {% else %}
-            <a href="{% url 'workout-add' %}" data-role="button">
+            <a href="{% url 'workout-add' %}" class="btn btn-default btn-block">
                 <img src="{% static 'images/icons/add.svg' %}"
                      width="32"
                      height="32"
@@ -180,8 +174,8 @@ its default duration in your settings.{% endblocktrans %}
             </a>
         {% endif %}
     </div>
-    <div class="ui-block-b">
-        <a href="{% url 'workout-calendar' %}" data-role="button" data-ajax="false">
+    <div class="col-xs-6" style="padding-left: 7px;">
+        <a href="{% url 'workout-calendar' %}" class="btn btn-default btn-block">
             <img src="{% static 'images/icons/calendar.svg' %}"
                  width="32"
                  height="32"
@@ -190,13 +184,16 @@ its default duration in your settings.{% endblocktrans %}
             <br>
             {% trans "Calendar" %}
         </a>
+
     </div>
-    <div class="ui-block-a">
+</div>
+
+<div class="row" style="margin-top: 1em;">
+    <div class="col-xs-6" style="padding-right: 7px;">
         {% if plan %}
-        <a href="#current-nutrition-plan-{{request_full_path|slugify}}"
-           data-role="button"
-           data-rel="popup"
-           data-position-to="window">
+        <a href="#current-nutrition-plan"
+           data-toggle="modal"
+           class="btn btn-default btn-block">
             <img src="{% static 'images/icons/list.svg' %}"
                  width="32"
                  height="32"
@@ -206,7 +203,7 @@ its default duration in your settings.{% endblocktrans %}
             {{plan}}
         </a>
         {% else %}
-            <a href="{% url 'nutrition-add' %}" data-role="button">
+            <a href="{% url 'nutrition-add' %}" class="btn btn-default btn-block">
                 <img src="{% static 'images/icons/add.svg' %}"
                      width="32"
                      height="32"
@@ -217,9 +214,8 @@ its default duration in your settings.{% endblocktrans %}
             </a>
         {% endif %}
     </div>
-    <div class="ui-block-b">
-
-        <a href="{% url 'weight-overview' %}" data-role="button" data-ajax="false">
+    <div class="col-xs-6" style="padding-left: 7px;">
+        <a href="{% url 'weight-overview' %}" class="btn btn-default btn-block">
             <img src="{% static 'images/icons/statistics.svg' %}"
                  width="32"
                  height="32"
@@ -229,8 +225,12 @@ its default duration in your settings.{% endblocktrans %}
             {% trans "Weight overview" %}
         </a>
     </div>
-    <div class="ui-block-a">
-        <a href="{% url 'core:preferences' %}" data-role="button">
+</div>
+
+
+<div class="row" style="margin-top: 1em;">
+    <div class="col-xs-6" style="padding-right: 7px;">
+        <a href="{% url 'core:preferences' %}" class="btn btn-default btn-block">
             <img src="{% static 'images/icons/preferences.svg' %}"
                  width="32"
                  height="32"
@@ -240,8 +240,9 @@ its default duration in your settings.{% endblocktrans %}
             {% trans "Preferences" %}
         </a>
     </div>
-    <div class="ui-block-b">
-        <a href="{% url 'core:contact' %}" data-role="button">
+
+    <div class="col-xs-6" style="padding-left: 7px;">
+        <a href="{% url 'core:contact' %}" class="btn btn-default btn-block">
             <img src="{% static 'images/icons/mail.svg' %}"
                  width="32"
                  height="32"

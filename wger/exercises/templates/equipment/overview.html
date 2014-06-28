@@ -12,11 +12,6 @@
 
 
 {% block header %}
-<style>
-.ui-accordion .ui-accordion-content{
-    padding: 0px;
-}
-</style>
  <script>
 $(function() {
     // Init the autocompleter
@@ -45,8 +40,8 @@ $(function() {
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{equipment.pk}}">
-            {% trans equipment.name %}
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{equipment.pk}}">
+                    {% trans equipment.name %}
                 </a>
             </h4>
         </div>
@@ -105,7 +100,7 @@ $(function() {
 <h3>{% trans "Add new exercise" %}</h3>
 <p>
     {% if user.is_authenticated and not user.userprofile.is_temporary %}
-    <a href="{% url 'exercise-add' %}">
+    <a href="{% url 'exercise-add' %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/new.svg' %}"
          width="32"
          height="32"
@@ -128,18 +123,15 @@ $(function() {
 
 
 <h3>{% trans "Search" %}</h3>
-
-<div class="ui-widget">
-    <form action="{% url 'exercise-search' %}"
-          method="get"
-          id="exercise_search_form">
-        {% csrf_token %}
-        <input name="term"
-               type="search"
-               id="exercise-search"
-               class="ajax-form-element"
-               placeholder="{% trans 'exercise name' %}"
-               style="width:100%;">
-   </form>
-</div>
+<form action="{% url 'exercise-search' %}"
+      method="get"
+      id="exercise_search_form">
+    {% csrf_token %}
+    <input name="term"
+           type="search"
+           id="exercise-search"
+           class="ajax-form-element form-control"
+           placeholder="{% trans 'exercise name' %}"
+           style="width:100%;">
+</form>
 {% endblock %}

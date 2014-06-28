@@ -1,1 +1,0 @@
-jquery.mobile-1.4.2.min.js

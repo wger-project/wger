@@ -26,7 +26,7 @@ function form_modal_dialog() {
 /*
  * Handle external links with a Web Activity when in Firefox OS
  */
-$(document).on('pageinit', function () {
+$(document).ready(function() {
     if (typeof MozActivity != 'undefined') {
         /*
          * External links

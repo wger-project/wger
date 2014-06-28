@@ -83,7 +83,6 @@ class ExerciseCategoryCacheTestCase(WorkoutManagerTestCase):
 
         self.assertFalse(cache.get(get_template_cache_name('exercise-overview', 2)))
         self.assertFalse(cache.get(get_template_cache_name('exercise-overview-mobile', 2)))
-        self.assertFalse(cache.get(get_template_cache_name('exercise-overview-search', 2)))
 
         self.client.get(reverse('exercise-overview'))
         self.client.get(reverse('muscle-overview'))

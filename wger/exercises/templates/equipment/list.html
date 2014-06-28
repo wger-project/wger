@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
+{% load i18n staticfiles wger_extras %}
 
 {% block title %}{% trans "Equipment list" %}{% endblock %}
 
@@ -58,7 +56,7 @@
 <h3>{% trans "Options" %}</h3>
 <p>
        <a href="{% url 'equipment-add' %}"
-          class="wger-modal-dialog">
+          {% auto_link_css flavour "wger-modal-dialog" %}>
        <img src="{% static 'images/icons/new.svg' %}"
             width="32"
             height="32"

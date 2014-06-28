@@ -13,22 +13,11 @@
 
 
 {% block header %}
-<script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
 <script>
-
-function custom_modal_init()
-{
-    init_tinymce();
-}
-
 $(document).ready(function() {
 
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-
-
-        console.log(e.target);
         var category_id = $(e.target).attr('id').match(/\d+/);
-        console.log(category_id);
         $(".current-category-name").html($("#category-" + category_id).text());
         $("#current-category-edit").attr("href", "/exercise/category/" + category_id + "/edit/");
         $("#current-category-delete").attr("href", "/exercise/category/" + category_id + "/delete/");
@@ -77,6 +66,9 @@ $(document).ready(function() {
         <div class="list-group">
         {% for exercise in item.list|dictsort:"name" %}
             <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
+                <div class="visible-xs">
+                    <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                </div>
                 <div class="media">
                     <div style="width:60px;height:60px;" class="pull-left">
 
@@ -94,7 +86,12 @@ $(document).ready(function() {
                     </div>
                     <div class="media-body">
                         <h4 class="media-heading">{{ exercise.name }}</h4>
-                        <span class="text-muted">{{ exercise.equipment.all|join:", " }}</span>
+                        <span class="text-muted">
+                            {% for equipment in exercise.equipment.all %}
+                                {% trans equipment.name %}
+                                {% if not forloop.last %},{% endif %}
+                            {% endfor %}
+                        </span>
                      </div>
                 </div>
             </a>
@@ -124,7 +121,7 @@ $(document).ready(function() {
 <h3>{% trans "Add new exercise" %}</h3>
 <p>
     {% if user.is_authenticated and not user.userprofile.is_temporary %}
-    <a href="{% url 'exercise-add' %}">
+    <a href="{% url 'exercise-add' %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/new.svg' %}"
          width="32"
          height="32"
@@ -151,7 +148,7 @@ $(document).ready(function() {
         {% with exercise=exercises|first %}
         <p>
         <a href="{% url 'exercisecategory-edit' exercise.category.id %}"
-           class="wger-modal-dialog"
+           {% auto_link_css flavour "wger-modal-dialog" %}
            id="current-category-edit">
             <img src="{% static 'images/icons/edit.svg' %}"
                  width="32"
@@ -165,7 +162,7 @@ $(document).ready(function() {
 
         <p>
         <a href="{% url 'exercisecategory-delete' exercise.category.id %}"
-           class="wger-modal-dialog"
+           {% auto_link_css flavour "wger-modal-dialog" %}
            id="current-category-delete">
             <img src="{% static 'images/icons/trash.svg' %}"
                  width="32"
@@ -181,7 +178,7 @@ $(document).ready(function() {
 
         <p>
         <a href="{% url 'exercisecategory-add' %}"
-           class="wger-modal-dialog">
+           {% auto_link_css flavour "wger-modal-dialog" %}>
             <img src="{% static 'images/icons/folder-new.svg' %}"
                  width="32"
                  height="32"
@@ -194,17 +191,15 @@ $(document).ready(function() {
 
     <h3>{% trans "Search" %}</h3>
 
-    <div class="ui-widget">
-        <form action="{% url 'exercise-search' %}"
-              method="get"
-              id="exercise_search_form">
-            {% csrf_token %}
-            <input name="term"
-                   type="search"
-                   id="exercise-search"
-                   class="ajax-form-element form-control"
-                   placeholder="{% trans 'exercise name' %}"
-                   style="width:100%;">
-       </form>
-    </div>
+    <form action="{% url 'exercise-search' %}"
+          method="get"
+          id="exercise_search_form">
+        {% csrf_token %}
+        <input name="term"
+               type="search"
+               id="exercise-search"
+               class="ajax-form-element form-control"
+               placeholder="{% trans 'exercise name' %}"
+               >
+   </form>
 {% endblock %}

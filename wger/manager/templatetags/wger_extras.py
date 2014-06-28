@@ -36,12 +36,13 @@ def get_current_settings(exercise, set_id):
 
 
 @register.inclusion_tag('tags/render_day.html')
-def render_day(day):
+def render_day(day, flavour):
     '''
     Renders a day as it will be displayed in the workout overview
     '''
     return {'day':     day.canonical_representation,
-            'workout': day.training}
+            'workout': day.training,
+            'flavour': flavour}
 
 
 @register.inclusion_tag('tags/pagination.html')
@@ -113,6 +114,19 @@ def get_item(dictionary, key):
     Allows to access a specific key in a dictionary in a template
     '''
     return dictionary.get(key)
+
+
+@register.simple_tag
+def auto_link_css(flavour='full', css=''):
+    '''
+    Adds the appropriate classes to a sidebar link depending on the site version
+
+    :param flavour: flavour of the site: 'mobile' or 'full'
+    :param css: the CSS class, if any, of the link
+    :return: the complete CSS classes, wrapped in class="foo"
+    '''
+    css = css + ' btn btn-default btn-block' if flavour == 'mobile' else css
+    return 'class="{0}"'.format(css)
 
 
 #

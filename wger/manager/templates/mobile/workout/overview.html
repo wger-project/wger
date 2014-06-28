@@ -1,37 +1,37 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load staticfiles %}
+{% load wger_extras %}
 
 {% block title %}{% trans "Your workouts" %}{% endblock %}
 
 
 {% block content %}
-<ul data-role="listview" data-inset="false">
+<div class="list-group">
     {% for workout in workouts %}
-        <li>
-            <a href="{% url 'workout-view' workout.id %}" data-ajax="false">
-                <h3>{{ workout }}</h3>
-                <p>{{ workout.creation_date }}</p>
-                {% if workout == current_workout %}
-                <p class="ui-li-aside"><em>{% trans "active" %}</em></p>
-                {% endif %}
-            </a>
-        </li>
+        <a href="{% url 'workout-view' workout.id %}" class="list-group-item wger-list-group-item">
+            <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+
+            {% if workout == current_workout %}
+            <span class="label label-primary pull-right"><em>{% trans "active" %}</em></span>
+            {% endif %}
+
+            <h3 class="list-group-item-heading">{{ workout }}</h3>
+            <p class="list-group-item-text">{{ workout.creation_date }}</p>
+        </a>
     {% empty %}
-    <li>
-        <a href="{% url 'workout-add' %}">
+        <a href="{% url 'workout-add' %}" class="list-group-item">
         {% trans "No workouts found." %}<br>{% trans "Add one now." %}
         </a>
-    </li>
     {% endfor %}
-</ul>
+</div>
 {% endblock %}
 
 
 {% block sidebar %}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url 'workout-add' %}" data-role="button">
+    <a href="{% url 'workout-add' %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/new.svg' %}"
          width="32"
          height="32"

@@ -136,7 +136,6 @@ class ExerciseCategory(models.Model):
         for language in Language.objects.all():
             delete_template_fragment_cache('exercise-overview', language.id)
             delete_template_fragment_cache('exercise-overview-mobile', language.id)
-            delete_template_fragment_cache('exercise-overview-search', language.id)
 
     def delete(self, *args, **kwargs):
         '''
@@ -145,7 +144,6 @@ class ExerciseCategory(models.Model):
         for language in Language.objects.all():
             delete_template_fragment_cache('exercise-overview', language.id)
             delete_template_fragment_cache('exercise-overview-mobile', language.id)
-            delete_template_fragment_cache('exercise-overview-search', language.id)
 
         super(ExerciseCategory, self).delete(*args, **kwargs)
 
@@ -224,11 +222,9 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             delete_template_fragment_cache('muscle-overview', language.id)
             delete_template_fragment_cache('exercise-overview', language.id)
             delete_template_fragment_cache('exercise-overview-mobile', language.id)
-            delete_template_fragment_cache('exercise-overview-search', language.id)
             delete_template_fragment_cache('exercise-detail-header', self.id, language.id)
             delete_template_fragment_cache('exercise-detail-muscles', self.id, language.id)
             delete_template_fragment_cache('equipment-overview', language.id)
-            delete_template_fragment_cache('equipment-overview-mobile', language.id)
 
         # Cached workouts
         for set in self.set_set.all():
@@ -248,11 +244,9 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             delete_template_fragment_cache('muscle-overview', language.id)
             delete_template_fragment_cache('exercise-overview', language.id)
             delete_template_fragment_cache('exercise-overview-mobile', language.id)
-            delete_template_fragment_cache('exercise-overview-search', language.id)
             delete_template_fragment_cache('exercise-detail-header', self.id, language.id)
             delete_template_fragment_cache('exercise-detail-muscles', self.id, language.id)
             delete_template_fragment_cache('equipment-overview', language.id)
-            delete_template_fragment_cache('equipment-overview-mobile', language.id)
 
         # Cached workouts
         for set in self.set_set.all():
@@ -389,9 +383,7 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
             delete_template_fragment_cache('muscle-overview', language.id)
             delete_template_fragment_cache('exercise-overview', language.id)
             delete_template_fragment_cache('exercise-overview-mobile', language.id)
-            delete_template_fragment_cache('exercise-overview-search', language.id)
             delete_template_fragment_cache('equipment-overview', language.id)
-            delete_template_fragment_cache('equipment-overview-mobile', language.id)
             delete_template_fragment_cache('exercise-detail-header',
                                            self.exercise.id,
                                            language.id)
@@ -412,11 +404,9 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
             delete_template_fragment_cache('muscle-overview', language.id)
             delete_template_fragment_cache('exercise-overview', language.id)
             delete_template_fragment_cache('exercise-overview-mobile', language.id)
-            delete_template_fragment_cache('exercise-overview-search', language.id)
             delete_template_fragment_cache('exercise-detail-header', self.exercise.id, language.id)
             delete_template_fragment_cache('exercise-detail-muscles', self.exercise.id, language.id)
             delete_template_fragment_cache('equipment-overview', language.id)
-            delete_template_fragment_cache('equipment-overview-mobile', language.id)
 
         # Make sure there is always a main image
         if not ExerciseImage.objects.accepted() \

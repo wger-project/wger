@@ -9,27 +9,25 @@
 {% endblock %}
 
 {% block content %}
-<ul data-role="listview" data-inset="false">
+<div class="list-group">
 
     {% for schedule in schedules %}
-    <li>
-        <a href="{% url 'schedule-view' schedule.id %}" data-ajax="false">
-            <h3>{{ schedule.name }}</h3>
-            <p>{{ schedule.start_date }}</p>
+        <a href="{% url 'schedule-view' schedule.id %}" class="list-group-item wger-list-group-item">
+            <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+
             {% if schedule.is_active %}
-            <p class="ui-li-aside"><em>{% trans "active" %}</em></p>
+            <span class="label label-primary pull-right"><em>{% trans "active" %}</em></span>
             {% endif  %}
+            <h3 class="list-group-item-heading">{{ schedule.name }}</h3>
+            <p class="list-group-item-text">{{ schedule.start_date }}</p>
         </a>
-    </li>
     {% empty %}
-    <li>
-        <a href="{% url 'schedule-add' %}">
+        <a href="{% url 'schedule-add' %}" class="list-group-item">
             {% trans "No schedules found." %}<br>
             {% trans "Add one now." %}
         </a>
-    </li>
     {% endfor %}
-</ul>
+</div>
 {% endblock %}
 
 
@@ -48,13 +46,13 @@ deactivate it, if it is a loop.{% endblocktrans %}</p>
 
 <h3>{% trans "Add schedule" %}</h3>
 <p>
-<a href="{% url 'schedule-add' %}"
-   data-role="button">
-<img src="{% static 'images/icons/new.svg' %}"
-    width="32"
-    height="32"
-    alt="{% trans 'Add schedule' %}"
-    title="{% trans 'Add schedule' %}">
-{% trans "Add schedule" %}</a>
+    <a href="{% url 'schedule-add' %}"
+       class="btn btn-default btn-block">
+    <img src="{% static 'images/icons/new.svg' %}"
+        width="32"
+        height="32"
+        alt="{% trans 'Add schedule' %}"
+        title="{% trans 'Add schedule' %}">
+    {% trans "Add schedule" %}</a>
 </p>
 {% endblock %}

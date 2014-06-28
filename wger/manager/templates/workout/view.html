@@ -43,7 +43,7 @@ $(document).ready(function() {
 
 {% for day in workout.canonical_representation.day_list %}
     <div id="div-day-{{ day.obj.id }}">
-        {% render_day day.obj %}
+        {% render_day day.obj flavour %}
     </div>
 {% empty %}
     <p>
@@ -89,13 +89,13 @@ $(document).ready(function() {
 <div class="row">
     <div class="col-md-6">
         <div id="muscle-front"
-             class="muscle-background"
+             class="muscle-background center-block"
              style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
         </div>
     </div>
     <div class="col-md-6">
         <div id="muscle-back"
-                 class="muscle-background"
+                 class="muscle-background center-block"
                  style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
         </div>
     </div>
