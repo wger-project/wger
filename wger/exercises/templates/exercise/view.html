@@ -238,7 +238,7 @@ included in the database.{% endblocktrans %}
 
 <div class="row" style="margin-top:1em;">
     <div class="col-md-6 col-xs-6">
-        <div id="muscle-front" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+        <div id="muscle-front" class="muscle-background center-block" style="background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
         </div>
         <ul>
             {% for muscle in muscles %}
@@ -255,7 +255,7 @@ included in the database.{% endblocktrans %}
         </ul>
     </div>
     <div class="col-md-6 col-xs-6">
-        <div id="muscle-back" class="muscle-background" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+        <div id="muscle-back" class="muscle-background center-block" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
         </div>
         <ul>
             {% for muscle in muscles %}

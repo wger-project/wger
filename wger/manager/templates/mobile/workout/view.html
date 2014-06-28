@@ -100,13 +100,13 @@ $(document).ready(function() {
 <div class="row">
     <div class="col-xs-6">
         <div id="muscle-front"
-                class="muscle-background"
+                class="muscle-background center-block"
                 style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
         </div>
     </div>
     <div class="col-xs-6">
         <div id="muscle-back"
-                class="muscle-background"
+                class="muscle-background center-block"
                 style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
         </div>
     </div>
