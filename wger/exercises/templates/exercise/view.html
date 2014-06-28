@@ -288,6 +288,7 @@ included in the database.{% endblocktrans %}
 
 <script>
 $(document).ready(function() {
+    toggle_weight_log_table();
     weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}", $('#content').width());
 });
 </script>
