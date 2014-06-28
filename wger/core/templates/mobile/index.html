@@ -22,7 +22,7 @@
                 <ul class="list-group">
                     {% for day, exercises, is_workout in weekdays %}
                     <li class="list-group-item">
-                        <span {% if not is_workout %}class="dimmed"{% endif%}>
+                        <span {% if not is_workout %}class="text-muted"{% endif%}>
                         {{ day }}: {{ exercises }}
                         </span>
                     </li>
