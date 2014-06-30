@@ -532,12 +532,12 @@ function prefetch_images(imageArray) {
     $('#id_date').on('change', function() {
         var date = $('#id_date').val();
         if(date) {
-            $.get( '/api/v1/workoutsession/?date=' + date, function( result ) {
-                if (result.objects.length == 1) {
-                    $('#id_notes').val(result.objects[0].notes)
-                    $('#id_impression').val(result.objects[0].impression)
-                    $('#id_time_start').val(result.objects[0].time_start)
-                    $('#id_time_end').val(result.objects[0].time_end)
+            $.get( '/api/v2/workoutsession/?date=' + date, function(data) {
+                if (data.results.length == 1) {
+                    $('#id_notes').val(data.results[0].notes)
+                    $('#id_impression').val(data.results[0].impression)
+                    $('#id_time_start').val(data.results[0].time_start)
+                    $('#id_time_end').val(data.results[0].time_end)
                 }
                 else {
                     $('#id_notes').val('');
