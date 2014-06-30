@@ -17,7 +17,7 @@
 $(document).ready(function () {
 
     $.getJSON("/weight/api/get_weight_data/", function(json) {
-        weight_chart(json);
+        weight_chart(json, $('#content').width());
     });
 });
 </script>
