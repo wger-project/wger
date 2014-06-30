@@ -142,6 +142,10 @@ class WgerFormMixin(ModelFormMixin, WgerPermissionMixin):
         # Text used in the submit button
         context['submit_text'] = self.submit_text
 
+        # Template to extend. For AJAX requests we don't need the rest of the
+        # template, only the form
+        context['extend_template'] = 'base_empty.html' if self.request.is_ajax() else 'base.html'
+
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -244,6 +248,10 @@ class WgerDeleteMixin(ModelFormMixin, WgerPermissionMixin):
 
         # Additional delete message
         context['delete_message'] = self.delete_message
+
+        # Template to extend. For AJAX requests we don't need the rest of the
+        # template, only the form
+        context['extend_template'] = 'base_empty.html' if self.request.is_ajax() else 'base.html'
 
         return context
 

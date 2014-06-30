@@ -81,10 +81,10 @@ $(document).ready(function() {
 
         {% if session %}
             <a href="{% url 'workout-session-edit' session.pk %}"
-               class="btn btn-default btn-block">{% trans "Edit workout session" %}</a>
+               class="btn btn-default btn-block wger-modal-dialog">{% trans "Edit workout session" %}</a>
         {% else %}
             <a href="{% url 'workout-session-add' first_log.workout_id date|date:'Y' date|date:'m' date|date:'d' %}"
-               class="btn btn-default btn-block">{% trans "Add workout impression" %}</a>
+               class="btn btn-default btn-block wger-modal-dialog">{% trans "Add workout impression" %}</a>
         {% endif %}
 
 

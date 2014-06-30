@@ -34,7 +34,7 @@
                 {% endif %}
                 <a href="{% url 'day-edit' day.obj.id %}"
                     title="{% trans 'Edit' %}"
-                    {% auto_link_css flavour %}>
+                    {% auto_link_css flavour "wger-modal-dialog" %}>
                         <img src="{% static 'images/icons/edit.svg' %}"
                              width="22"
                              height="22"
@@ -71,8 +71,8 @@
             </div>
             <div class="modal-body">
                 <a href="{% url 'wger.manager.views.set.edit' set.obj.id %}"
-                   title="{% trans 'Delete' %}"
-                   {% auto_link_css flavour %}>
+                   title="{% trans 'Edit' %}"
+                   {% auto_link_css flavour "wger-modal-dialog" %}>
                         <img src="{% static 'images/icons/edit.svg' %}"
                              width="16"
                              height="16"
@@ -95,7 +95,7 @@
                        title="{{ exercise.obj.name }}"
                        {% auto_link_css flavour %}>
                         {{ exercise.obj.name }}
-                </a>
+                    </a>
                 {% endfor %}
             </div>
         </div>

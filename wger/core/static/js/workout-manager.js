@@ -209,22 +209,26 @@ function form_modal_dialog() {
         e.preventDefault();
         var targetUrl = $(this).attr("href");
 
+        // It's not possible to have more than one modal open at any time, so close them
+        $('.modal').modal('hide');
+
         // Show a loader while we fetch the real page
         $("#ajax-info-content").html('<div style="text-align:center;">' +
                                 '<img src="/static/images/loader.svg" ' +
                                      'width="48" ' +
                                      'height="48"> ' +
                              '</div>');
-        //$("#wger-ajax-info").modal({title: 'Loading...'});
+        $("#ajax-info-title").html('Loading...');
         $("#wger-ajax-info").modal("show");
 
         $("#ajax-info-content").load(targetUrl + " .form-horizontal",
                                      function(responseText, textStatus, XMLHttpRequest){
 
                                         // Initialise datepickers for any date input
+                                        if (typeof $.datepicker !== "undefined") {
                                         $('#ajax-info-content input[type="date"]').datepicker({autoclose: true,
-                                                                                               language: $('html').attr('lang'),
-                                                                                           });
+                                                                                               language: $('html').attr('lang')});
+                                        }
 
                                         if (textStatus == "error") {
                                             $("#ajax-info-title").html("Sorry but an error occured")
@@ -238,7 +242,20 @@ function form_modal_dialog() {
                                         }
 
                                         // Set the new title
-                                        $("#ajax-info-title").html($(responseText).find("#page-title").html());
+                                        var modal_title = '';
+                                        if ($(responseText).find("#page-title").length > 0) {
+                                            // Complete HTML page
+                                            modal_title = $(responseText).find("#page-title").html();
+                                            console.log('aaaa');
+                                            console.log(modal_title);
+                                        }
+                                        else {
+                                            // Page fragment
+                                            modal_title = $(responseText).filter("#page-title").html();
+                                            console.log('bbbb');
+                                            console.log(modal_title);
+                                        }
+                                        $("#ajax-info-title").html(modal_title);
 
                                         // If there is a form in the modal dialog (there usually is) prevent the submit
                                         // button from submitting it and do it here with an AJAX request. If there

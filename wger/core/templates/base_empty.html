@@ -1,0 +1,23 @@
+{% block template %}
+<h2 id="page-title" class="page-header">{% block title %}{% endblock %}</h2>
+<div class="row">
+    <div class="col-sm-8" id="main-content">
+        {% if messages and not no_messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags == 'warning'%}alert-error{% elif message.tags == 'info' %}alert-info{% elif message.tags == 'success' %}alert-success{% endif %}">
+                <a href="#" class="close extra-bold" data-dismiss="alert">&times;</a>
+                {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div id="content">
+        {% block content %}{% endblock %}
+        </div>
+    </div>
+    <div class="col-sm-4" id="main-sidebar">
+        {% block sidebar %}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}

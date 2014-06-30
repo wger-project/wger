@@ -63,7 +63,7 @@ $(document).ready(function() {
                 </a>
                 <a href="{% url 'meal-edit' meal.id %}"
                    title="{% trans 'Edit' %}"
-                   {% auto_link_css flavour %}>
+                   {% auto_link_css flavour "wger-modal-dialog" %}>
                     <img src="{% static 'images/icons/edit.svg' %}"
                          width="22"
                          height="22"
@@ -195,7 +195,7 @@ $(document).ready(function() {
 </div>
 {% empty %}
 <a href="{% url 'meal-add' plan.id %}"
-   data-role="button">
+   {% auto_link_css flavour "wger-modal-dialog" %}>
         {% trans "No meals for this plan." %}<br>
         {% trans "Add one now." %}
 </a>
@@ -203,7 +203,7 @@ $(document).ready(function() {
 
 <p style="margin-top:2em;">
     <a href="{% url 'meal-add' plan.id %}"
-       {% auto_link_css flavour %}>{% trans "Add a new meal" %}</a>
+       {% auto_link_css flavour "wger-modal-dialog" %}>{% trans "Add a new meal" %}</a>
 </p>
 
 
@@ -345,7 +345,7 @@ $(document).ready(function() {
 </a>
 
 <a href="{% url 'nutrition-edit' plan.id %}"
-   {% auto_link_css flavour %}>
+   {% auto_link_css flavour "wger-modal-dialog" %}>
     <img src="{% static 'images/icons/edit.svg' %}"
          width="32"
          height="32"
@@ -363,7 +363,7 @@ $(document).ready(function() {
 </a>
 
 <a href="{% url 'nutrition-delete' plan.id %}"
-   {% auto_link_css flavour %}>
+   {% auto_link_css flavour "wger-modal-dialog" %}>
     <img src="{% static 'images/icons/trash.svg' %}"
          width="32"
          height="32"

@@ -113,6 +113,7 @@ def registration(request):
     template_data['form_fields'] = [i for i in form]
     template_data['form_action'] = reverse('core:registration')
     template_data['submit_text'] = _('Register')
+    template_data['extend_template'] = 'base.html'
 
     return render(request, 'form.html', template_data)
 

@@ -9,21 +9,6 @@
 
 
 /*
- * Open a modal dialog for form editing
- */
-function form_modal_dialog() {
-    // Unbind all other click events so we don't do this more than once
-    $(".modal-dialog").off();
-
-    // Load the edit dialog when the user clicks on an edit link
-    $(".modal-dialog").click(function (e) {
-        e.preventDefault();
-        window.location.href = $(this).attr("href");
-    });
-}
-
-
-/*
  * Handle external links with a Web Activity when in Firefox OS
  */
 $(document).ready(function() {

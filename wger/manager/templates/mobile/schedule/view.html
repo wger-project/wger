@@ -23,7 +23,7 @@
 
                 <a href="{% url 'step-edit' step.id %}"
                    title="{% trans 'Edit' %}"
-                   class="btn btn-default btn-block">
+                   class="btn btn-default btn-block wger-modal-dialog">
                        <img src="{% static 'images/icons/edit.svg' %}"
                             width="22"
                             height="22"
@@ -58,11 +58,11 @@
         </div>
     </a>
 {% empty %}
-        <a href="{% url 'step-add' schedule.id %}" class="list-group-item wger-list-group-item">
+        <a href="{% url 'step-add' schedule.id %}" class="list-group-item wger-list-group-item wger-modal-dialog">
         {% trans "No workouts found." %}<br>{% trans "Add one now." %}
         </a>
 {% endfor %}
-        <a href="{% url 'step-add' schedule.id %}" class="list-group-item list-group-item-success">
+        <a href="{% url 'step-add' schedule.id %}" class="list-group-item list-group-item-success wger-modal-dialog">
             <span class="glyphicon glyphicon-plus"></span>
             {% trans "Add workout" %}
         </a>
@@ -99,7 +99,7 @@ than once.{% endblocktrans %}</p>
 
 <p>
 <a href="{% url 'schedule-edit' schedule.id %}"
-   class="btn btn-default btn-block">
+   class="btn btn-default btn-block wger-modal-dialog">
 <img src="{% static 'images/icons/edit.svg' %}"
     width="32"
     height="32"
@@ -110,7 +110,7 @@ than once.{% endblocktrans %}</p>
 
 <p>
 <a href="{% url 'schedule-delete' schedule.id %}"
-   class="btn btn-default btn-block">
+   class="btn btn-default btn-block wger-modal-dialog">
 <img src="{% static 'images/icons/trash.svg' %}"
     width="32"
     height="32"

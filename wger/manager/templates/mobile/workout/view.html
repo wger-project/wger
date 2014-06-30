@@ -11,6 +11,13 @@
 
 {% block scripts %}
 <script>
+function custom_modal_init()
+{
+    // Set up the edit set functions on modal dialogs
+    init_edit_set();
+}
+
+
 $(document).ready(function() {
     /*
      * Show/Hide the comments to the exercises
@@ -52,7 +59,7 @@ $(document).ready(function() {
 {% empty %}
 
     <div class="list-group">
-        <a href="{% url 'day-add' workout.id %}" class="list-group-item list-group-item-success">
+        <a href="{% url 'day-add' workout.id %}" class="list-group-item list-group-item-success wger-modal-dialog">
             {% trans "No days for this workout." %}<br>
             {% trans "Add training day." %}
         </a>
@@ -61,7 +68,7 @@ $(document).ready(function() {
 
 
 <p style="margin-top:2em;">
-    <a href="{% url 'day-add' workout.id %}" {% auto_link_css flavour %}>
+    <a href="{% url 'day-add' workout.id %}" {% auto_link_css flavour "wger-modal-dialog" %}>
         {% trans "Add training day" %}
     </a>
     
@@ -134,7 +141,7 @@ $(document).ready(function() {
    {% trans "View weight log" %}
 </a>
 
-<a href="{% url 'workout-edit' workout.id %}" {% auto_link_css flavour %}>
+<a href="{% url 'workout-edit' workout.id %}" {% auto_link_css flavour "wger-modal-dialog" %}>
    <img src="{% static 'images/icons/edit.svg' %}"
          width="32"
          height="32"
@@ -152,7 +159,7 @@ $(document).ready(function() {
    {% trans "Export calendar file" %}
 </a>
 
-<a href="{% url 'workout-copy' workout.id %}" {% auto_link_css flavour %}>
+<a href="{% url 'workout-copy' workout.id %}" {% auto_link_css flavour "wger-modal-dialog" %}>
    <img src="{% static 'images/icons/copy.svg' %}"
          width="32"
          height="32"
@@ -161,7 +168,7 @@ $(document).ready(function() {
    {% trans "Make a copy of this workout" %}
 </a>
 
-<a href="{% url 'workout-delete' workout.id %}" {% auto_link_css flavour %}>
+<a href="{% url 'workout-delete' workout.id %}" {% auto_link_css flavour "wger-modal-dialog" %}>
     <img src="{% static 'images/icons/trash.svg' %}"
          width="32"
          height="32"

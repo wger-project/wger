@@ -167,6 +167,7 @@ def copy_workout(request, pk):
         template_data['form_action'] = reverse('workout-copy', kwargs={'pk': workout.id})
         template_data['form_fields'] = [workout_form['comment']]
         template_data['submit_text'] = _('Copy')
+        template_data['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
 
         return render(request, 'form.html', template_data)
 

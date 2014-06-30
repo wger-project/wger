@@ -42,7 +42,6 @@
     <script src="{% static 'js/jquery.js' %}"          type="text/javascript"></script>
     <script src="{% static 'js/jquery-ui.js' %}"       type="text/javascript"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"   type="text/javascript"></script>
-    <script src="{% static 'js/bootstrap-datepicker/bootstrap-datepicker.min.js' %}"   type="text/javascript"></script>
     <script src="{% static 'js/d3.js' %}"></script>
     <script src="{% static 'js/workout-manager.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/workout-manager-mobile.js' %}" type="text/javascript"></script>
@@ -56,6 +55,9 @@
         $('[data-toggle=offcanvas]').click(function () {
             $('.row-offcanvas').toggleClass('active')
         });
+
+        // Init the modal dialog for editing forms
+        form_modal_dialog();
     });
     </script>
     {% endcompress %}
