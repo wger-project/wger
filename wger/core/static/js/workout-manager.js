@@ -246,14 +246,10 @@ function form_modal_dialog() {
                                         if ($(responseText).find("#page-title").length > 0) {
                                             // Complete HTML page
                                             modal_title = $(responseText).find("#page-title").html();
-                                            console.log('aaaa');
-                                            console.log(modal_title);
                                         }
                                         else {
                                             // Page fragment
                                             modal_title = $(responseText).filter("#page-title").html();
-                                            console.log('bbbb');
-                                            console.log(modal_title);
                                         }
                                         $("#ajax-info-title").html(modal_title);
 
@@ -449,25 +445,27 @@ function init_remove_exercise_formset() {
 
 function init_edit_set() {
     // Initialise the autocompleter (our widget, defined above)
-    $("#exercise-search").catcomplete({
-        source: '/api/v2/exercise/search/',
-        minLength: 2,
-        select: function (event, ui) {
+    if (jQuery.ui) {
+        $("#exercise-search").catcomplete({
+            source: '/api/v2/exercise/search/',
+            minLength: 2,
+            select: function (event, ui) {
 
-            // Add the exercise to the list
-            add_exercise(ui.item);
+                // Add the exercise to the list
+                add_exercise(ui.item);
 
-            // Load formsets
-            get_exercise_formset(ui.item.id);
+                // Load formsets
+                get_exercise_formset(ui.item.id);
 
-            // Init the remove buttons
-            init_remove_exercise_formset();
+                // Init the remove buttons
+                init_remove_exercise_formset();
 
-            // Reset the autocompleter
-            $(this).val("");
-            return false;
-        }
-    });
+                // Reset the autocompleter
+                $(this).val("");
+                return false;
+            }
+        });
+    }
 
     // Mobile select box
     $('#id_exercise_list').change(function (e) {
@@ -483,17 +481,55 @@ function init_edit_set() {
     init_remove_exercise_formset();
 
     // Slider to set the number of sets
-    $("#slider").slider({
-        range: "min",
-        value: $("#id_sets").val(),
-        step: 1,
-        min: 1,
-        max: 7,
-        slide: function (event, ui) {
-            $("#id_sets").val(ui.value);
-            $("#slider-show").html(ui.value);
-            update_all_exercise_formset();
-        }
+    $("#id_sets").on("change", function() {
+        update_all_exercise_formset();
+        $('#id_sets_value').html($("#id_sets").val());
+    });
+
+
+    /*
+     * Mobile version only
+     */
+    // Update the exercise list when the categories change
+    $("#id_categories_list").on("change", function() {
+
+        // Remember to filter by exercise language
+        $.get('/api/v2/language/?short_name=' + get_current_language(), function(data){
+            var language_pk = data.results[0].id;
+            var category_pk = $("#id_categories_list").val();
+            var base_url = '/api/v2/exercise/';
+            var filter = '?limit=999&language=' + language_pk;
+
+            if (category_pk != '') {
+                filter += '&category=' + category_pk;
+            }
+
+            $.get(base_url + filter, function(data){
+
+                // Sort the results by name, at the moment it's not possible
+                // to search and sort the API at the same time
+                data.results.sort(function(a, b) {
+                    if (a.name < b.name) {
+                        return -1;
+                    }
+                    if (a.name > b.name) {
+                        return 1;
+                    }
+                    return 0
+                });
+
+                // Remove existing options
+                $('#id_exercise_list')
+                    .find('option')
+                    .remove();
+
+                // ..and add the new ones
+                $("#id_exercise_list").append(new Option('---------', ''));
+                $.each(data.results, function(index, exercise) {
+                    $("#id_exercise_list").append(new Option(exercise.name, exercise.id));
+                });
+            });
+        });
     });
 }
 
