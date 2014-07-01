@@ -193,7 +193,7 @@ than once.{% endblocktrans %}</p>
 application for example google calendar, outlook or iCal. This will create
 an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
                 <p>
-                <a href="{% url 'schedule-ical' schedule.id %}" class="btn btn-block btn-default">
+                <a href="{% url 'schedule-ical' schedule.id uid token %}" class="btn btn-block btn-default">
                    <img src="{% static 'images/icons/calendar.svg' %}"
                          width="32"
                          height="32"

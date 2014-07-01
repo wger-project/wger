@@ -39,8 +39,6 @@ $(document).ready(function() {
 </p>
 {% endif %}
 
-
-
 {% for day in workout.canonical_representation.day_list %}
     <div id="div-day-{{ day.obj.id }}">
         {% render_day day.obj flavour %}
@@ -110,9 +108,9 @@ $(document).ready(function() {
          alt="{% trans 'Download as PDF' %}"
          title="{% trans 'Download as PDF' %}">
     {% trans "Download as PDF" %}:
-    <a href="{% url 'workout-pdf-log' workout.id %}">{% trans "Log" %}</a>
+    <a href="{% url 'workout-pdf-log' workout.id uid token %}">{% trans "Log" %}</a>
     |
-    <a href="{% url 'workout-pdf-table' workout.id %}">{% trans "Table" %}</a>
+    <a href="{% url 'workout-pdf-table' workout.id uid token %}">{% trans "Table" %}</a>
 </p>
 
 <p>
@@ -186,7 +184,7 @@ $(document).ready(function() {
 application for example google calendar, outlook or iCal. This will create
 an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
                 <p>
-                <a href="{% url 'workout-ical' workout.id %}" class="btn btn-block btn-default">
+                <a href="{% url 'workout-ical' workout.id uid token %}" class="btn btn-block btn-default">
                    <img src="{% static 'images/icons/calendar.svg' %}"
                          width="32"
                          height="32"

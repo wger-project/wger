@@ -29,6 +29,7 @@ from wger.manager.models import Schedule
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
+from wger.utils.helpers import make_token
 
 
 logger = logging.getLogger('wger.custom')
@@ -53,8 +54,10 @@ def view(request, pk):
     Show the workout schedule
     '''
     template_data = {}
+    user = request.user
+    uid, token = make_token(user)
 
-    schedule = get_object_or_404(Schedule, pk=pk, user=request.user)
+    schedule = get_object_or_404(Schedule, pk=pk, user=user)
     template_data['schedule'] = schedule
     if schedule.is_active:
         template_data['active_workout'] = schedule.get_current_scheduled_workout()
@@ -62,6 +65,9 @@ def view(request, pk):
         template_data['active_workout'] = False
 
     schedule.get_current_scheduled_workout()
+
+    template_data['uid'] = uid
+    template_data['token'] = token
 
     return render(request, 'schedule/view.html', template_data)
 

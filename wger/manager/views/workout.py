@@ -41,6 +41,7 @@ from wger.manager.forms import WorkoutCopyForm
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
+from wger.utils.helpers import make_token
 
 
 logger = logging.getLogger('wger.custom')
@@ -71,8 +72,10 @@ def view(request, id):
     Show the workout with the given ID
     '''
     template_data = {}
-    workout = get_object_or_404(Workout, pk=id, user=request.user)
+    user = request.user
+    workout = get_object_or_404(Workout, pk=id, user=user)
     canonical = workout.canonical_representation
+    uid, token = make_token(user)
 
     # Create the backgrounds that show what muscles the workout will work on
     muscles_front = []
@@ -92,6 +95,8 @@ def view(request, id):
     template_data['workout'] = workout
     template_data['muscle_backgrounds_front'] = muscles_front
     template_data['muscle_backgrounds_back'] = muscles_back
+    template_data['uid'] = uid
+    template_data['token'] = token
 
     return render(request, 'workout/view.html', template_data)
 

@@ -11,10 +11,12 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+from django.contrib.auth.models import User
 
 from django.core.urlresolvers import reverse
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.utils.helpers import make_token
 
 
 class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
@@ -22,12 +24,31 @@ class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
     Tests exporting a workout as a pdf
     '''
 
+    def export_pdf_token(self):
+        '''
+        Helper function to test exporting a workout as a pdf using tokens
+        '''
+
+        user = User.objects.get(username='test')
+        uid, token = make_token(user)
+        response = self.client.get(reverse('workout-pdf-log', kwargs={'id': 3,
+                                                                      'uidb64': uid,
+                                                                      'token': token}))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/pdf')
+        self.assertEqual(response['Content-Disposition'],
+                         'attachment; filename=Workout-3-log.pdf')
+
+        # Approximate size only
+        self.assertGreater(int(response['Content-Length']), 31000)
+        self.assertLess(int(response['Content-Length']), 35000)
+
     def export_pdf(self, fail=False):
         '''
         Helper function to test exporting a workout as a pdf
         '''
 
-        # Create a workout
         response = self.client.get(reverse('workout-pdf-log', kwargs={'id': 3}))
 
         if fail:
@@ -48,6 +69,7 @@ class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
         '''
 
         self.export_pdf(fail=True)
+        self.export_pdf_token()
 
     def test_export_pdf_owner(self):
         '''
@@ -56,6 +78,7 @@ class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         self.export_pdf(fail=False)
+        self.export_pdf_token()
 
     def test_export_pdf_other(self):
         '''
@@ -64,12 +87,33 @@ class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
 
         self.user_login('admin')
         self.export_pdf(fail=True)
+        self.export_pdf_token()
 
 
 class WorkoutPdfTableExportTestCase(WorkoutManagerTestCase):
     '''
     Tests exporting a workout as a pdf
     '''
+
+    def export_pdf_token(self):
+        '''
+        Helper function to test exporting a workout as a pdf using tokens
+        '''
+
+        user = User.objects.get(username='test')
+        uid, token = make_token(user)
+        response = self.client.get(reverse('workout-pdf-table', kwargs={'id': 3,
+                                                                        'uidb64': uid,
+                                                                        'token': token}))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/pdf')
+        self.assertEqual(response['Content-Disposition'],
+                         'attachment; filename=Workout-3-table.pdf')
+
+        # Approximate size only
+        self.assertGreater(int(response['Content-Length']), 31000)
+        self.assertLess(int(response['Content-Length']), 35000)
 
     def export_pdf(self, fail=False):
         '''
@@ -97,6 +141,7 @@ class WorkoutPdfTableExportTestCase(WorkoutManagerTestCase):
         '''
 
         self.export_pdf(fail=True)
+        self.export_pdf_token()
 
     def test_export_pdf_owner(self):
         '''
@@ -105,6 +150,7 @@ class WorkoutPdfTableExportTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         self.export_pdf(fail=False)
+        self.export_pdf_token()
 
     def test_export_pdf_other(self):
         '''
@@ -113,3 +159,4 @@ class WorkoutPdfTableExportTestCase(WorkoutManagerTestCase):
 
         self.user_login('admin')
         self.export_pdf(fail=True)
+        self.export_pdf_token()

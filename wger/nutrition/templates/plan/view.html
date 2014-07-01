@@ -258,7 +258,7 @@ function custom_modal_init()
 
 <h3>{% trans "Options" %}</h3>
 <p>
-<a href="{% url 'wger.nutrition.views.plan.export_pdf' plan.id %}"
+<a href="{% url 'nutrition-export-pdf' plan.id uid token %}"
    target="_blank">
     <img src="{% static 'images/icons/save.svg' %}"
          width="32"

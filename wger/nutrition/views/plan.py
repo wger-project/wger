@@ -19,6 +19,7 @@ import datetime
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
+from django.http import HttpResponseForbidden
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
@@ -42,6 +43,7 @@ from wger.nutrition.models import MEALITEM_WEIGHT_UNIT
 from wger import get_version
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
+from wger.utils.helpers import check_token, make_token
 from wger.utils.pdf import styleSheet
 from wger.utils.language import load_language
 
@@ -107,8 +109,10 @@ def view(request, id):
     Show the nutrition plan with the given ID
     '''
     template_data = {}
+    user = request.user
+    uid, token = make_token(user)
 
-    plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
+    plan = get_object_or_404(NutritionPlan, pk=id, user=user)
     template_data['plan'] = plan
 
     # Load the language and pass it to the template
@@ -119,6 +123,10 @@ def view(request, id):
 
     # Get the nutritional info
     template_data['nutritional_data'] = plan.get_nutritional_values()
+
+    # Tokens for the links
+    template_data['uid'] = uid
+    template_data['token'] = token
 
     return render(request, 'plan/view.html', template_data)
 
@@ -158,8 +166,7 @@ def copy(request, pk):
     return HttpResponseRedirect(reverse('nutrition-view', kwargs={'id': plan.id}))
 
 
-@login_required
-def export_pdf(request, id):
+def export_pdf(request, id, uidb64=None, token=None):
     '''
     Generates a PDF with the contents of a nutrition plan
 
@@ -168,8 +175,17 @@ def export_pdf(request, id):
     * http://www.reportlab.com/apis/reportlab/dev/platypus.html
     '''
 
-    # Load the workout
-    plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
+    # Load the plan
+    if uidb64 is not None and token is not None:
+        if check_token(uidb64, token):
+            plan = get_object_or_404(NutritionPlan, pk=id)
+        else:
+            return HttpResponseForbidden()
+    else:
+        if request.user.is_anonymous():
+            return HttpResponseForbidden()
+        plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
+
     plan_data = plan.get_nutritional_values()
 
     # Create the HttpResponse object with the appropriate PDF headers.

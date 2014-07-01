@@ -18,12 +18,14 @@ import logging
 import datetime
 
 from django.http import HttpResponse
+from django.http import HttpResponseForbidden
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
 
 from wger.manager.models import Workout
+from wger.utils.helpers import check_token
 from wger.utils.pdf import styleSheet
 
 from reportlab.lib.pagesizes import A4, cm
@@ -38,8 +40,7 @@ from wger import get_version
 logger = logging.getLogger('wger.custom')
 
 
-@login_required
-def workout_log(request, id):
+def workout_log(request, id, uidb64=None, token=None):
     '''
     Generates a PDF with the contents of the given workout
 
@@ -48,11 +49,19 @@ def workout_log(request, id):
     * http://www.reportlab.com/apis/reportlab/dev/platypus.html
     '''
 
+    # Load the workout
+    if uidb64 is not None and token is not None:
+        if check_token(uidb64, token):
+            workout = get_object_or_404(Workout, pk=id)
+        else:
+            return HttpResponseForbidden()
+    else:
+        if request.user.is_anonymous():
+            return HttpResponseForbidden()
+        workout = get_object_or_404(Workout, pk=id, user=request.user)
+
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(content_type='application/pdf')
-
-    # Load the workout
-    workout = get_object_or_404(Workout, pk=id, user=request.user)
 
     # Create the PDF object, using the response object as its "file."
     doc = SimpleDocTemplate(response,
@@ -269,7 +278,7 @@ def workout_log(request, id):
 
 
 @login_required
-def workout_view(request, id):
+def workout_view(request, id, uidb64=None, token=None):
     '''
     Generates a PDF with the contents of the workout, without table for logs
     '''
@@ -278,7 +287,13 @@ def workout_view(request, id):
     response = HttpResponse(content_type='application/pdf')
 
     # Load the workout
-    workout = get_object_or_404(Workout, pk=id, user=request.user)
+    if uidb64 is not None and token is not None:
+        if check_token(uidb64, token):
+            workout = get_object_or_404(Workout, pk=id)
+    else:
+        if request.user.is_anonymous():
+            return HttpResponseForbidden()
+        workout = get_object_or_404(Workout, pk=id, user=request.user)
 
     # Create the PDF object, using the response object as its "file."
     doc = SimpleDocTemplate(response,

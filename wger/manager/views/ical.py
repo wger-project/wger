@@ -23,6 +23,7 @@ from icalendar.tools import UIDGenerator
 
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
+from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib.sites.models import Site
@@ -30,6 +31,7 @@ from django.contrib.sites.models import Site
 from wger import get_version
 from wger.manager.models import Workout, Schedule
 from wger.utils.helpers import next_weekday
+from wger.utils.helpers import check_token
 
 
 logger = logging.getLogger('wger.custom')
@@ -102,14 +104,21 @@ def get_events_workout(calendar, workout, duration, start_date=None):
 
 
 # Views
-@login_required
-def export(request, pk):
+def export(request, pk, uidb64=None, token=None):
     '''
     Export the current workout as an iCal file
     '''
 
-    # Load workout
-    workout = get_object_or_404(Workout, pk=pk, user=request.user)
+    # Load the workout
+    if uidb64 is not None and token is not None:
+        if check_token(uidb64, token):
+            workout = get_object_or_404(Workout, pk=pk)
+        else:
+            return HttpResponseForbidden()
+    else:
+        if request.user.is_anonymous():
+            return HttpResponseForbidden()
+        workout = get_object_or_404(Workout, pk=pk, user=request.user)
 
     # Create the calendar
     calendar = get_calendar()
@@ -127,13 +136,19 @@ def export(request, pk):
 
 
 @login_required
-def export_schedule(request, pk):
+def export_schedule(request, pk, uidb64=None, token=None):
     '''
     Export the current schedule as an iCal file
     '''
 
-    # Load schedule
-    schedule = get_object_or_404(Schedule, pk=pk, user=request.user)
+    # Load the schedule
+    if uidb64 is not None and token is not None:
+        if check_token(uidb64, token):
+            schedule = get_object_or_404(Schedule, pk=pk)
+        else:
+            return HttpResponseForbidden()
+    else:
+        schedule = get_object_or_404(Schedule, pk=pk, user=request.user)
 
     # Create the calendar
     calendar = get_calendar()

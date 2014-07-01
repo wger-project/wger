@@ -31,15 +31,6 @@ $(document).ready(function() {
     {% endif %}
         toggle_comments();
 
-    /*
-     * At the moment (Oct. 2013), firefox OS has no possibility to download
-     * authenticated files, like these PDFs: when using web activities, we
-     * can only pass the PDF's URL to the reader but this will fail, since that
-     * application is not authenticated.
-     */
-    if(typeof MozActivity != 'undefined') {
-        $(".pdf-button").remove();
-    }
 });
 </script>
 {% endblock %}
@@ -191,7 +182,7 @@ $(document).ready(function() {
 application for example google calendar, outlook or iCal. This will create
 an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
                 <p>
-                <a href="{% url 'workout-ical' workout.id %}" {% auto_link_css flavour %}>
+                <a href="{% url 'workout-ical' workout.id uid token %}" {% auto_link_css flavour %}>
                    <img src="{% static 'images/icons/calendar.svg' %}"
                          width="32"
                          height="32"
@@ -215,13 +206,13 @@ an appointment for each training day with the appropriate exercises.{% endblockt
                 <h4 class="modal-title">{% trans "Download as PDF" %}</h4>
             </div>
             <div class="modal-body">
-                <a href="{% url 'workout-pdf-log' workout.id %}" {% auto_link_css flavour "pdf-button" %}>
-        {% trans "Log" %}
-        </a>
+                <a href="{% url 'workout-pdf-log' workout.id uid token %}" {% auto_link_css flavour %}>
+                {% trans "Log" %}
+                </a>
 
-        <a href="{% url 'workout-pdf-table' workout.id %}" {% auto_link_css flavour "pdf-button" %}>
-        {% trans "Table" %}
-        </a>
+                <a href="{% url 'workout-pdf-table' workout.id uid token %}" {% auto_link_css flavour %}>
+                {% trans "Table" %}
+                </a>
             </div>
         </div>
     </div>

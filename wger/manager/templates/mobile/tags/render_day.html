@@ -151,14 +151,14 @@
     </a>
     {% empty %}
     <a href="{% url 'set-add' day.obj.id %}"
-       class="list-group-item list-group-item-success">
+       class="list-group-item list-group-item-success wger-modal-dialog">
            {% trans "No exercises selected for this day." %}<br>
            {% trans "Add one now." %}
     </a>
     {% endfor %} <!--for set in day-->
 
     {% if day.set_list %}
-        <a href="{% url 'set-add' day.obj.id %}" class="list-group-item list-group-item-success">
+        <a href="{% url 'set-add' day.obj.id %}" class="list-group-item list-group-item-success wger-modal-dialog">
             <span class="glyphicon glyphicon-plus"></span>
             {% trans "Add exercises to this workout day" %}
         </a>

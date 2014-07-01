@@ -35,15 +35,21 @@ function custom_page_init()
 
     {% csrf_token %}
     {% render_form_field form.exercises %}
-    <div class="form-group">
-        <label for="slider" class="col-md-3 control-label">
-            {{form.sets.label}}
-        </label>
-
+    <div div class="form-group">
+        <div class="col-md-3">
+            <label for="id_sets" class="control-label">
+                {{form.sets.label}}
+                - <span id="id_sets_value">{{ form.sets.value }}</span>
+            </label>
+        </div>
         <div class="col-md-9">
-            <div id="slider"></div>
-            <span id="slider-show">{{form.sets.value}}</span>
-            <input type="hidden" id="id_sets" name="sets" value="{{ form.sets.value }}">
+            <input name="sets"
+                   id="id_sets"
+                   min="1"
+                   max="10"
+                   value="{{ form.sets.value }}"
+                   type="range"
+                   class="form-control">
         </div>
     </div>
 

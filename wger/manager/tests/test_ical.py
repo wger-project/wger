@@ -13,11 +13,12 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import datetime
+from django.contrib.auth.models import User
 
 from django.core.urlresolvers import reverse
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.utils.helpers import next_weekday
+from wger.utils.helpers import next_weekday, make_token
 
 
 # TODO: parse the generated calendar files with the icalendar library
@@ -49,6 +50,26 @@ class WorkoutICalExportTestCase(WorkoutManagerTestCase):
     Tests exporting the ical file for a workout
     '''
 
+    def export_ical_token(self):
+        '''
+        Helper function that checks exporing an ical file using tokens for access
+        '''
+
+        user = User.objects.get(username='test')
+        uid, token = make_token(user)
+        response = self.client.get(reverse('workout-ical', kwargs={'pk': 3,
+                                                                   'uidb64': uid,
+                                                                   'token': token}))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'text/calendar')
+        self.assertEqual(response['Content-Disposition'],
+                         'attachment; filename=Calendar-workout-3.ics')
+
+        # Approximate size
+        self.assertGreater(len(response.content), 540)
+        self.assertLess(len(response.content), 560)
+
     def export_ical(self, fail=False):
         '''
         Helper function
@@ -74,6 +95,7 @@ class WorkoutICalExportTestCase(WorkoutManagerTestCase):
         '''
 
         self.export_ical(fail=True)
+        self.export_ical_token()
 
     def test_export_ical_owner(self):
         '''
@@ -82,6 +104,7 @@ class WorkoutICalExportTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         self.export_ical(fail=False)
+        self.export_ical_token()
 
     def test_export_ical_other(self):
         '''
@@ -90,12 +113,33 @@ class WorkoutICalExportTestCase(WorkoutManagerTestCase):
 
         self.user_login('admin')
         self.export_ical(fail=True)
+        self.export_ical_token()
 
 
 class ScheduleICalExportTestCase(WorkoutManagerTestCase):
     '''
-    Tests exporting the ical file for a scheduel
+    Tests exporting the ical file for a schedule
     '''
+
+    def export_ical_token(self):
+        '''
+        Helper function that checks exporing an ical file using tokens for access
+        '''
+
+        user = User.objects.get(username='test')
+        uid, token = make_token(user)
+        response = self.client.get(reverse('schedule-ical', kwargs={'pk': 2,
+                                                                    'uidb64': uid,
+                                                                    'token': token}))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'text/calendar')
+        self.assertEqual(response['Content-Disposition'],
+                         'attachment; filename=Calendar-schedule-2.ics')
+
+        # Approximate size
+        self.assertGreater(len(response.content), 1650)
+        self.assertLess(len(response.content), 1660)
 
     def export_ical(self, fail=False):
         '''
@@ -122,6 +166,7 @@ class ScheduleICalExportTestCase(WorkoutManagerTestCase):
         '''
 
         self.export_ical(fail=True)
+        self.export_ical_token()
 
     def test_export_ical_owner(self):
         '''
@@ -130,6 +175,7 @@ class ScheduleICalExportTestCase(WorkoutManagerTestCase):
 
         self.user_login('admin')
         self.export_ical(fail=False)
+        self.export_ical_token()
 
     def test_export_ical_other(self):
         '''
@@ -138,3 +184,4 @@ class ScheduleICalExportTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         self.export_ical(fail=True)
+        self.export_ical_token()

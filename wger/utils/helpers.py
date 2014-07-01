@@ -20,6 +20,10 @@ import json
 import datetime
 
 from functools import wraps
+from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
 
 logger = logging.getLogger('wger.custom')
@@ -72,3 +76,34 @@ def next_weekday(date, weekday):
     if days_ahead <= 0:
         days_ahead += 7
     return date + datetime.timedelta(days_ahead)
+
+
+def make_token(user):
+    '''
+    Convenience function that generates the UID and token for a user
+
+    :param user: a user object
+    :return: the uid and the token
+    '''
+    uid = urlsafe_base64_encode(force_bytes(user.pk))
+    token = default_token_generator.make_token(user)
+
+    return uid, token
+
+
+def check_token(uidb64, token):
+    '''
+    Checks that the user token is correct.
+
+    :param uidb:
+    :param token:
+    :return: True on success, False in all other situations
+    '''
+    if uidb64 is not None and token is not None:
+        uid = urlsafe_base64_decode(uidb64)
+        user = User.objects.get(pk=uid)
+
+        if user is not None and default_token_generator.check_token(user, token):
+            return True
+
+    return False

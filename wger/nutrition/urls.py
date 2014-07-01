@@ -47,8 +47,12 @@ urlpatterns = patterns('wger.nutrition.views',
     url(r'^(?P<pk>\d+)/edit/$',
         login_required(plan.PlanEditView.as_view()),
         name='nutrition-edit'),
+    url(r'^(?P<id>\d+)/pdf/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
+        plan.export_pdf,
+        name='nutrition-export-pdf'),
     url(r'^(?P<id>\d+)/pdf/$',
-        plan.export_pdf),
+        plan.export_pdf,
+        name='nutrition-export-pdf'),
 
     # Meals
     url(r'^(?P<plan_pk>\d+)/meal/add/$',
