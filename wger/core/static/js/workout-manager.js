@@ -109,6 +109,7 @@ function setup_sortable() {
     $(".workout-table tbody").sortable({
         handle: '.dragndrop-handle',
         revert: true,
+        axis: 'y',
         update : function (event, ui) {
             // Monkey around the HTML, till we find the IDs of the set and the day
             var day_element = ui.item.parent().parent().find('tr').first().attr('id'); //day-xy
