@@ -1,7 +1,5 @@
 {% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
-
+{% load staticfiles wger_extras thumbnail %}
 
 
 <div class="modal fade" id="editoptions-day-{{ day.obj.id }}">
@@ -108,6 +106,9 @@
     id="table-day-{{ day.obj.id }}"
     style="margin-top: 3em;">
 
+        {#     #}
+        {# Day #}
+        {#     #}
         <a href="#editoptions-day-{{ day.obj.id }}" class="list-group-item active" data-toggle="modal">
             <span class="glyphicon glyphicon-cog pull-right"></span>
 
@@ -115,37 +116,61 @@
             {{ day.days_of_week.text }}
         </a>
 
-    {% for set in day.set_list %}
-    {% if set.has_settings %}
-        <a href="#editoptions-set-{{ set.obj.id }}"
-           class="list-group-item wger-list-group-item"
-           data-toggle="modal"
-           id="set-{{ set.obj.id }}">
-    {% else %}
-        <a href="{% url 'set-edit' set.obj.id %}"
-           id="set-{{ set.obj.id }}"
-           class="list-group-item wger-list-group-item">
-    {% endif %}
 
-        <span class="glyphicon glyphicon-cog pull-right"></span>
+    {#      #}
+    {# Sets #}
+    {#      #}
+    {% for set in day.set_list %}
+        {% if set.has_settings %}
+            <a href="#editoptions-set-{{ set.obj.id }}"
+               class="list-group-item wger-list-group-item"
+               data-toggle="modal"
+               id="set-{{ set.obj.id }}">
+        {% else %}
+            <a href="{% url 'set-edit' set.obj.id %}"
+               id="set-{{ set.obj.id }}"
+               class="list-group-item wger-list-group-item">
+        {% endif %}
+
+                <span class="glyphicon glyphicon-cog pull-right"></span>
+
+
         {% for exercise in set.exercise_list %}
             <div id="exercise-{{ exercise.obj.id }}" class="ajax-set-edit-target">
+                <div class="media">
+                    <span class="pull-left" style="width:64px;height:64px;">
+                        {% if exercise.obj.main_image %}
+                        <img class="media-object"
+                             src="{{ exercise.obj.main_image.image|thumbnail_url:'small' }}"
+                             alt="{{exercise.obj}}"
+                             style="max-width:100%; max-height:100%;">
+                        {% else %}
+                        <img class="media-object"
+                             src="{% static 'images/icons/image-placeholder.svg' %}"
+                             alt=""
+                             style="opacity: 0.3; max-width:100%; max-height:100%;">
+                        {% endif %}
+                    </span>
+                    <div class="media-body">
+                        <h4 class="media-heading">
+                            {{ exercise.obj.name }}
+                        </h4>
+                        <p><strong>{{exercise.setting_text}}</strong></p>
 
-                <h3>{{ exercise.obj.name }}</h3>
-                <p><strong>{{exercise.setting_text}}</strong></p>
+                        {% if not exercise.setting_list %}
+                        <p>
+                            {% trans "This exercise has no repetitions." %}<br>
+                            {% trans "Edit them now."%}
+                        </p>
+                        {% endif %}
 
-                {% if not exercise.setting_list %}
-                <p>
-                    {% trans "This exercise has no repetitions." %}<br>
-                    {% trans "Edit them now."%}
-                </p>
-                {% endif %}
-
-                <p class="text-muted">
-                    {% for comment in exercise.comment_list %}
-                        {{comment}}<br>
-                    {% endfor %}
-                </p>
+                        <p class="text-muted">
+                            {% for comment in exercise.comment_list %}
+                                {{comment}}<br>
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
             </div>
         {% endfor %} <!--for exercise in set-->
     </a>

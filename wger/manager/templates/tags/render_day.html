@@ -1,6 +1,5 @@
 {% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
+{% load staticfiles wger_extras thumbnail %}
 
 <script>
 $(document).ready(function() {
@@ -52,7 +51,8 @@ $(document).ready(function() {
     <tbody>
         {% for set in day.set_list %}
         <tr id="set-{{ set.obj.id }}">
-            <td style="width: 15%;">{{ forloop.counter }}
+            <td style="width: 15%;border-right-width: 0px;">
+                <h5><strong>{{ forloop.counter }}</strong></h5>
                 <span class="editoptions">
                 {% if day.set_list|length > 1 %}
                 <img src="{% static 'images/icons/move.svg' %}"
@@ -61,9 +61,9 @@ $(document).ready(function() {
                      alt="{% trans 'Move me' %}"
                      title="{% trans 'Move me' %}"
                      class="dragndrop-handle">
-                 <br>
-                 {% endif %}
-                 <a href="{% url 'set-edit' set.obj.id %}"
+                <br>
+                {% endif %}
+                <a href="{% url 'set-edit' set.obj.id %}"
                    title="{% trans 'Edit' %}"
                    class="wger-modal-dialog">
                        <img src="{% static 'images/icons/edit.svg' %}"
@@ -71,40 +71,61 @@ $(document).ready(function() {
                             height="22"
                             alt="{% trans 'Edit' %}">
                 </a>
-                 <a href="{% url 'wger.manager.views.set.delete' set.obj.id %}"
-                    title="{% trans 'Delete' %}">
+                    <br>
+                <a href="{% url 'wger.manager.views.set.delete' set.obj.id %}"
+                   title="{% trans 'Delete' %}">
                         <img src="{% static 'images/icons/trash.svg' %}"
                              width="16"
                              height="16"
                              alt="{% trans 'Delete' %}">
                 </a>
-                 </span>
+                </span>
             </td>
-            <td>
+            <td style="border-left-width: 0px;">
                 <div class="exercise-list">
                 {% for exercise in set.exercise_list %}
-                    <div id="exercise-{{ exercise.obj.id }}" class="ajax-set-edit-target">
-                        <a href="{{ exercise.obj.get_absolute_url }}">{{ exercise.obj.name }}</a>:
-
-                        <span class="settings-list">
-                        {{exercise.setting_text}}
-                        {% if not exercise.setting_text %}
-                            <a href="{% url 'set-edit' set.obj.id %}"
-                               class="wger-modal-dialog btn btn-default btn-block">
-                                    {% trans "This exercise has no repetitions." %}
-                                    {% trans "Edit them now."%}
+                <div id="exercise-{{ exercise.obj.id }}" class="ajax-set-edit-target">
+                    <div class="media">
+                        <span class="pull-left" style="width:64px;height:64px;">
+                            <a href="{{exercise.obj.get_absolute_url}}" >
+                            {% if exercise.obj.main_image %}
+                            <img class="media-object img-responsive"
+                                 src="{{ exercise.obj.main_image.image|thumbnail_url:'small' }}"
+                                 alt="{{exercise.obj}}"
+                                 style="max-width:100%; max-height:100%;">
+                            {% else %}
+                            <img class="media-object img-responsive"
+                                 src="{% static 'images/icons/image-placeholder.svg' %}"
+                                 alt=""
+                                 style="opacity: 0.4;max-width:100%; max-height:100%;">
+                            {% endif %}
                             </a>
-                        {% endif %}
                         </span>
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                {{ exercise.obj.name }}
+                            </h4>
+                            <p>{{exercise.setting_text}}</p>
 
-                        <div class="exercise-comments text-muted">
-                            <ul>
-                            {% for comment in exercise.comment_list %}
-                                <li>{{comment}}</li>
-                            {% endfor %}
-                            </ul>
+                            {% if not exercise.setting_list %}
+                            <p>
+                                {% trans "This exercise has no repetitions." %}<br>
+                                <a href="{% url 'set-edit' set.obj.id %}" class="wger-modal-dialog">
+                                {% trans "Edit them now."%}
+                                </a>
+                            </p>
+                            {% endif %}
+
+                            {% if exercise.comment_list %}
+                            <p class="text-muted">
+                                {% for comment in exercise.comment_list %}
+                                    {{comment}}<br>
+                                {% endfor %}
+                            </p>
+                            {% endif %}
                         </div>
                     </div>
+                </div>
                 {% endfor %} <!--for exercise in set-->
                 </div>
             </td>
