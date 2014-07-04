@@ -67,52 +67,58 @@ class Command(BaseCommand):
         except ValidationError:
             raise CommandError('Please enter a valid URL')
 
+        exercise_api = "{0}/api/v2/exercise/?limit=999"
+        image_api = "{0}/api/v2/exerciseimage/?exercise={1}"
+        thumbnail_api = "{0}/api/v2/exerciseimage/{1}/thumbnails/"
+
         # Get all exercises
-        result = json.load(urllib.urlopen("{0}/api/v1/exercise/?limit=0".format(remote_url)))
-        for exercise_json in result['objects']:
+        result = json.load(urllib.urlopen(exercise_api.format(remote_url)))
+        for exercise_json in result['results']:
             exercise_name = exercise_json['name']
             exercise_id = exercise_json['id']
 
+            self.stdout.write('')
             self.stdout.write(u"*** Processing {0} (ID: {1})".format(exercise_name, exercise_id))
 
             try:
                 exercise = Exercise.objects.get(pk=exercise_id)
             except Exercise.DoesNotExist:
-                self.stdout.write('Remote exercise not found in local DB, skipping...')
-                self.stdout.write('')
+                self.stdout.write('    Remote exercise not found in local DB, skipping...')
                 continue
 
-            if exercise_json['images']:
+            # Get all images
+            images = json.load(urllib.urlopen(image_api.format(remote_url, exercise_id)))
 
-                # Get all images
-                for image_resource in exercise_json['images']:
+            if images['count']:
 
-                    result = json.load(urllib.urlopen("{0}{1}".format(remote_url, image_resource)))
-                    image_name = os.path.basename(result['image'])
-                    self.stdout.write('Fetching image {0} - {1}'.format(result['id'], image_name))
+                for image_json in images['results']:
+                    image_id = image_json['id']
+                    result = json.load(urllib.urlopen(thumbnail_api.format(remote_url,
+                                                                           image_id)))
 
-                    image_id = result['id']
+                    image_name = os.path.basename(result['original'])
+                    self.stdout.write('    Fetching image {0} - {1}'.format(image_id, image_name))
 
                     try:
                         image = ExerciseImage.objects.get(pk=image_id)
-                        self.stdout.write('--> Image already present locally, skipping...')
+                        self.stdout.write('    --> Image already present locally, skipping...')
                         continue
                     except ExerciseImage.DoesNotExist:
-                        self.stdout.write('--> Image not found in local DB, creating now...')
+                        self.stdout.write('    --> Image not found in local DB, creating now...')
                         image = ExerciseImage()
                         image.pk = image_id
 
                     # Save the downloaded image, see link for details
                     # http://stackoverflow.com/questions/1308386/programmatically-saving-image-to-
-                    retrieved_image = urllib.urlretrieve(result['image'])
+                    retrieved_image = urllib.urlretrieve(result['original'])
                     image.exercise = exercise
-                    image.is_main = result['is_main']
+                    image.is_main = image_json['is_main']
+                    image.status = image_json['status']
                     image.image.save(
                         os.path.basename(image_name),
                         File(open(retrieved_image[0]), 'rb')
                     )
                     image.save()
-            else:
-                self.stdout.write('No images for this exercise, nothing to do')
 
-            self.stdout.write('')
+            else:
+                self.stdout.write('    No images for this exercise, nothing to do')
