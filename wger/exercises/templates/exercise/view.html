@@ -318,7 +318,7 @@ $(document).ready(function() {
 {% if perms.exercises %}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url 'exercise-edit' exercise.id %}" {% auto_link_css flavour "wger-modal-dialog" %}>
+    <a href="{% url 'exercise-edit' exercise.id %}" {% auto_link_css flavour %}>
         <img src="{% static 'images/icons/edit.svg' %}"
              width="32"
              height="32"

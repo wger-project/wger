@@ -239,11 +239,12 @@ class ExercisesTestCase(WorkoutManagerTestCase):
 
         # Add an exercise
         count_before = Exercise.objects.count()
+        description = 'a nice, long and accurate description for the exercise'
         response = self.client.post(reverse('exercise-add'),
                                     {'category': 2,
                                      'name': 'my test exercise',
                                      'license': 1,
-                                     'description': 'a nice, long and accurate description',
+                                     'description': description,
                                      'muscles': [1, 2]})
         count_after = Exercise.objects.count()
         self.assertEqual(response.status_code, 302)

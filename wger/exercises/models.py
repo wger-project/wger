@@ -26,6 +26,7 @@ from django.utils import translation
 from django.core.urlresolvers import reverse
 from django.core import mail
 from django.core.cache import cache
+from django.core.validators import MinLengthValidator
 from django.db.models.signals import pre_save
 from django.db.models.signals import post_delete
 from easy_thumbnails.files import get_thumbnailer
@@ -159,7 +160,8 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     category = models.ForeignKey(ExerciseCategory,
                                  verbose_name=_('Category'))
     description = models.TextField(max_length=2000,
-                                   verbose_name=_('Description'))
+                                   verbose_name=_('Description'),
+                                   validators=[MinLengthValidator(40)])
     '''Description on how to perform the exercise'''
 
     name = models.CharField(max_length=200,
