@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load browserid %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+
+{% block title %} {% trans "Delete account" %}{% endblock %}
+
+
+{% block header %}
+{% browserid_css %}
+{% endblock %}
+
+{% block content %}
+
+<form action="{% url 'core:user-delete' %}"
+      method="post"
+      class="form-horizontal"
+      role="form">
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <h3 class="panel-title">{% trans "Are you sure?" %}</h3>
+        </div>
+        <div class="panel-body">
+            <p>{% blocktrans %}This action will delete your user account.
+It will also  irrevocably remove all your data and can't be undone. {% endblocktrans %}</p>
+
+                {% render_form_fields form 'tmp' False %}
+                {% render_form_submit 'Delete' 'danger' %}
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+
+{% block sidebar %}
+{% endblock %}

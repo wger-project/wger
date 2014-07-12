@@ -18,7 +18,7 @@ from captcha.fields import ReCaptchaField
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User as Django_User
 from django.core.exceptions import ValidationError
-from django.forms import ModelForm, EmailField, Form, CharField, widgets
+from django.forms import ModelForm, EmailField, Form, CharField, widgets, PasswordInput
 from django.utils.translation import ugettext as _
 from wger.core.models import UserProfile
 
@@ -55,6 +55,31 @@ class UserEmailForm(ModelForm):
         except Django_User.DoesNotExist:
             return email
         raise ValidationError(_("This email is already used."))
+
+
+class PasswordConfirmationForm(Form):
+    '''
+    A simple password confirmation form.
+
+    This can be used to make sure the user really wants to perform a dangerous
+    action. The form must be initialised with a user object.
+    '''
+    password = CharField(label=_("Password"),
+                         widget=PasswordInput,
+                         help_text=_('Please enter your current password.'))
+
+    def __init__(self, user, data=None):
+        self.user = user
+        super(PasswordConfirmationForm, self).__init__(data=data)
+
+    def clean_password(self):
+        '''
+        Check that the password supplied matches the one for the user
+        '''
+        password = self.cleaned_data.get('password', None)
+        if not self.user.check_password(password):
+            raise ValidationError(_('Invalid password'))
+        return self.cleaned_data.get("password")
 
 
 class RegistrationForm(UserCreationForm, UserEmailForm):

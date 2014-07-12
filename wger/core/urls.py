@@ -38,6 +38,9 @@ urlpatterns = patterns('',
         name='dashboard'),
 
     # User
+    url(r'^user/delete$',
+        user.delete,
+        name='user-delete'),
     url(r'^user/logout$',
         user.logout,
         name='logout'),

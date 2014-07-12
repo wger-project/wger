@@ -35,6 +35,7 @@ from wger.core.models import Language
 from wger.utils.constants import USER_TAB
 from wger.utils.user_agents import check_request_amazon, check_request_android
 from wger.core.forms import UserPreferencesForm
+from wger.core.forms import PasswordConfirmationForm
 from wger.core.forms import UserEmailForm
 from wger.core.forms import RegistrationForm
 from wger.core.forms import RegistrationFormNoCaptcha
@@ -55,6 +56,24 @@ def login(request):
     return django_loginview(request,
                             template_name='user/login.html',
                             extra_context=context)
+
+
+@login_required()
+def delete(request):
+    '''
+    Delete the user account and all his data. Requires password confirmation first
+    '''
+    form = PasswordConfirmationForm(user=request.user)
+    if request.method == 'POST':
+        form = PasswordConfirmationForm(data=request.POST, user=request.user)
+        if form.is_valid():
+            request.user.delete()
+            django_logout(request)
+            messages.success(request, _('Your account was successfully deleted'))
+            return HttpResponseRedirect(reverse('software:features'))
+    context = {'form': form}
+
+    return render(request, 'user/delete_account.html', context)
 
 
 def logout(request):

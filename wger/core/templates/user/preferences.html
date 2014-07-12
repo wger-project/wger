@@ -133,4 +133,14 @@ $(function() {
          title="{% trans 'API key' %}">
     {% trans "API key" %}</a>
 </p>
+
+<p style="margin-top: 2em;">
+    <a href="{% url 'core:user-delete' %}" {% auto_link_css flavour %}>
+    <img src="{% static 'images/icons/trash.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Delete account' %}"
+         title="{% trans 'Delete account' %}">
+    {% trans "Delete account" %}</a>
+ </p>
 {% endblock %}
