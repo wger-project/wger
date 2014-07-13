@@ -181,22 +181,6 @@ body {
  * Alerts
  **************************************************************/
 
-/*
- * Links within boostrap's alert boxes are rendered in black
- */
-.alert a{
-    color: black;
-    text-decoration: underline;
-}
-
-
-.alert a:hover{
-    color: white;
-    text-decoration: underline;
-    text-shadow: none;
-}
-
-
 .label, .badge {
     font-weight: normal;
 }

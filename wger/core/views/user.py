@@ -119,7 +119,10 @@ def trainer_login(request, user_pk):
 
     if not own:
         request.session['trainer.identity'] = orig_user_pk
-        return HttpResponseRedirect(reverse('core:index'))
+        if request.GET.get('next'):
+            return HttpResponseRedirect(request.GET['next'])
+        else:
+            return HttpResponseRedirect(reverse('core:index'))
     else:
         return HttpResponseRedirect(reverse('core:gym-user-list',
                                             kwargs={'pk': user.userprofile.gym_id}))

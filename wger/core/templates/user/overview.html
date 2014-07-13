@@ -7,6 +7,8 @@
 
 
 {% block content %}
+{% url 'core:trainer-login' current_user.pk as trainer_login %}
+
 
 <h3>{% trans "Workouts" %} ({% trans "last 10" %})</h3>
 <table class="table">
@@ -20,7 +22,7 @@
 {% for workout in current_user.workout_set.all|slice:":10" %}
 <tr>
     <td>
-        <a href="{% url 'workout-view' workout.pk %}">{{workout}}</a>
+        <a href="{{trainer_login}}?next={% url 'workout-view' workout.pk %}">{{workout}}</a>
     </td>
     <td>
         {{workout.creation_date}}
@@ -34,8 +36,9 @@
 </tbody>
 </table>
 {% if perms.core.gym_trainer %}
-<a href="{% url 'core:trainer-login' current_user.pk %}" class="btn btn-success btn-sm">{% trans "Log in as this user" %}</a>
-<a href="{% url 'workout-add' current_user.pk %}" class="btn btn-default btn-sm">{% trans "Add workout" %}</a>
+
+<a href="{{trainer_login}}" class="btn btn-success btn-sm">{% trans "Log in as this user" %}</a>
+<a href="{{trainer_login}}?next={% url 'workout-add' %}" class="btn btn-default btn-sm">{% trans "Add workout" %}</a>
 {% endif %}
 
 
