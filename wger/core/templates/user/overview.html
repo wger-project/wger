@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+
+{% block title %}{% trans "User" %}: {{current_user|format_username}}{% endblock %}
+
+
+{% block content %}
+
+<h3>{% trans "Workouts" %} ({% trans "last 10" %})</h3>
+<table class="table">
+<thead>
+<tr>
+    <th>{% trans "Name" %}</th>
+    <th>{% trans "Date" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for workout in current_user.workout_set.all|slice:":10" %}
+<tr>
+    <td>
+        <a href="{% url 'workout-view' workout.pk %}">{{workout}}</a>
+    </td>
+    <td>
+        {{workout.creation_date}}
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="2">{% trans "No workouts found." %}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% if perms.core.gym_trainer %}
+<a href="{% url 'core:trainer-login' current_user.pk %}" class="btn btn-success btn-sm">{% trans "Log in as this user" %}</a>
+<a href="{% url 'workout-add' current_user.pk %}" class="btn btn-default btn-sm">{% trans "Add workout" %}</a>
+{% endif %}
+
+
+
+
+<h3>{% trans "Log" %}</h3>
+<table class="table">
+<thead>
+<tr>
+    <th>{% trans "Date" %}</th>
+    <th>{% trans "Impression" %}</th>
+    <th>{% trans "Time" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for log in current_user.workoutsession_set.all|slice:":10" %}
+<tr>
+    <td>
+        {{log.date}}
+    </td>
+    <td>
+        {{log.get_impression_display}}
+    </td>
+    <td>
+        {% if log.time_start and log.time_end %}
+            {{log.time_start|time:"H:i"}} - {{log.time_end|time:"H:i"}}
+        {% else %}
+            -/-
+        {% endif %}
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="3">{% trans "No logs found." %}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}
+
+
+{% block sidebar %}
+{% if perms.core.manage_gym %}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %}<span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="{% url 'core:user-edit' current_user.pk %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
+        </li>
+        <li>
+            {% if current_user.is_active %}
+                <a href="{% url 'core:user-deactivate' current_user.pk %}" >{% trans "Deactivate user"%}</a>
+            {% else %}
+                <a href="{% url 'core:user-activate' current_user.pk %}">{% trans "Activate user"%}</a>
+            {% endif %}
+        </li>
+    </ul>
+</div>
+{% endif %}
+<h4 >{% trans "Details" %}</h4>
+
+<table class="table">
+    <tr>
+        <td>{% trans "Nr." %}</td>
+        <td>{{current_user.pk}}</td>
+    </tr>
+    <tr>
+        <td>{% trans "Name" %}</td>
+        <td>{{current_user.first_name}}</td>
+    </tr>
+    <tr>
+        <td>{% trans "Last name" %}</td>
+        <td>{{current_user.last_name}}</td>
+    </tr>
+    <tr>
+        <td>{% trans "Email" %}</td>
+        <td>
+            {% if user.email %}
+                <a href="mailto:{{current_user.email}}">{{current_user.email}}</a>
+            {% else %}
+                -/-
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td>{% trans "Registered" %}</td>
+        <td>{{current_user.date_joined}}</td>
+    </tr>
+    <tr>
+        <td>{% trans "Last login" %}</td>
+        <td>{{current_user.last_login}}</td>
+    </tr>
+{% if perms.core.manage_gym %}
+    <tr {% if not current_user.is_active %}class="danger"{% endif%}>
+        <td>{% trans "Status" %}</td>
+        <td>
+            {% if current_user.is_active %}
+                {% trans "Active" %}
+            {% else %}
+                {% trans "Inactive" %}
+            {% endif %}
+        </td>
+    </tr>
+{% endif %}
+</table>
+{% endblock %}

@@ -1,4 +1,4 @@
-{% load i18n %}{% load cache %}
+{% load i18n %}{% load cache %}{% load wger_extras %}
 <nav id="nav">
     <div>
         <div class="navbar navbar-inverse ">
@@ -45,7 +45,7 @@
                                 <li><a href="{% url 'exercise-overview' %}">{% trans "Exercises" %}</a></li>
                                 <li><a href="{% url 'muscle-overview' %}">{% trans "Muscle overview" %}</a></li>
                                 <li><a href="{% url 'equipment-overview' %}">{% trans "Equipment overview" %}</a></li>
-                                {% if user.is_authenticated and not user.userprofile.is_temporary %}
+                                {% if user.is_authenticated and not user.userprofile.is_temporary and not trainer_identity %}
                                 <li class="divider"></li>
                                 <li><a href="{% url 'exercise-add' %}">{% trans "Add new exercise" %}</a><li>
                                 {% endif %}
@@ -121,14 +121,22 @@
                                 <li><a href="{% url 'software:changelog' %}">{% trans "Changelog" %} </a></li>
                                 <li><a href="https://github.com/rolandgeider/wger">{% trans "Github" %} </a></li>
                                 <li><a href="https://www.transifex.com/projects/p/wger-workout-manager/">{% trans "Translate with Transifex" %} </a></li>
-                                {% cache cache_timeout user-admin-software user.id language.id %}
-                                {% if perms.exercises %}
-                                <li class="divider"></li>
-                                <li class="nav-header">{% trans "Administration" %}</li>
-                                <li><a href="{% url 'config:language-overview' %}">{% trans "Languages" %} </a></li>
-                                <li><a href="{% url 'core:license-list' %}">{% trans "Licenses" %} </a></li>
+                                {% if perms.exercises or perms.core.manage_gyms or perms.core.manage_gym or perms.core.gym_trainer %}
+                                    <li class="divider"></li>
+                                    <li class="nav-header">{% trans "Administration" %}</li>
+                                    <li><a href="{% url 'config:language-overview' %}">{% trans "Languages" %} </a></li>
+                                    <li><a href="{% url 'core:license-list' %}">{% trans "Licenses" %} </a></li>
+                                    {% if perms.core.manage_gyms %}
+                                        <li><a href="{% url 'core:gym-list' %}">{% trans "Gyms" %} </a></li>
+                                    {% endif  %}
+
+                                    {# it's not possible to group expressions '(a or b) and c' #}
+                                    {% if perms.core.gym_trainer or perms.core.manage_gym %}
+                                    {% if user.userprofile.gym %}
+                                        <li><a href="{% url 'core:gym-user-list' user.userprofile.gym.pk %}">{{user.userprofile.gym}}</a></li>
+                                    {% endif  %}
+                                    {% endif  %}
                                 {% endif  %}
-                                {% endcache %}
                             </ul>
                         </li>
                     </ul>
@@ -156,23 +164,21 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            {% if user.email %}
-                                {{user.email}}
-                            {% else %}
-                                {{user.username}}
-                            {% endif %}
+                            {{user|format_username}}
                             <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
                                     <a href="{% url 'core:preferences' %}">{% trans "My preferences" %}</a>
                                 </li>
+                                {% if not trainer_identity %}
                                 <li>
                                     <a href="{% url 'core:logout' %}" class="browserid-logout">
                                     <span class="glyphicon glyphicon-log-out"></span>
                                     {% trans "Logout" %}
                                     </a>
                                 </li>
+                                {% endif %}
                             </ul>
                         </li>
                     </ul>

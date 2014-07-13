@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+
+{% block title %}{% trans "Members in gym" %} - {{gym}}{% endblock %}
+
+
+{% block content %}
+<table class="table">
+<thead>
+<tr>
+    <th>{% trans "ID" %}</th>
+    <th>{% trans "Username" %}</th>
+    <th>{% trans "Name" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for current_user in object_list %}
+<tr>
+    <td>
+        {{current_user.obj.pk}}
+    </td>
+    <td>
+        {% if current_user.perms.any_admin %}
+            {{current_user.obj}}
+        {% else %}
+            <a href="{% url 'core:user-overview' current_user.obj.pk %}">{{current_user.obj}}</a>
+        {% endif %}
+
+
+        {% if current_user.perms.gym_trainer %}
+            <span class="label label-primary">{% trans "Trainer" %}</span>
+        {% endif %}
+
+        {% if current_user.perms.manage_gym %}
+            <span class="label label-primary">{% trans "Gym manager" %}</span>
+        {% endif %}
+
+        {% if current_user.perms.manage_gyms %}
+            <span class="label label-primary">{% trans "General manager" %}</span>
+        {% endif %}
+    </td>
+    <td>
+        {{current_user.obj.get_full_name}}
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="2">{% trans "No users for this gym found" %}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}
+
+
+{% block sidebar %}
+
+{% if perms.core.manage_gym %}
+<h3>{% trans "Options" %}</h3>
+<p>
+   <a href="{% url 'core:gym-add-user' gym.pk %}"
+      {% auto_link_css flavour "wger-modal-dialog" %}>
+   <img src="{% static 'images/icons/new.svg' %}"
+        width="32"
+        height="32"
+        alt="{% trans 'Add member' %}"
+        title="{% trans 'Add member' %}">
+   {% trans "Add member" %}
+   </a>
+</p>
+{% endif %}
+{% endblock %}

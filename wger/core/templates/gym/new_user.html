@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+
+{% block title %}{{user_data.user.get_full_name}}{% endblock %}
+
+
+{% block content %}
+<table class="table">
+    <tr>
+        <th>{% trans "User" %}</th>
+        <td>{{user_data.user.get_full_name}} ({{user_data.user}})</td>
+    </tr>
+    <tr>
+        <th>{% trans "Password" %}</th>
+        <td>{{user_data.password}}</td>
+    </tr>
+    <tr>
+        <th>{% trans "Email" %}</th>
+        <td>{{user_data.user.email}}</td>
+    </tr>
+    <tr>
+        <th>{% trans "Gym" %}</th>
+        <td>{{user_data.user.userprofile.gym}}</td>
+    </tr>
+</table>
+
+<a href="{% url 'core:gym-user-list' user_data.user.userprofile.gym.pk %}">
+{% trans "Back to gym" %}
+</a>
+{% endblock %}
+
+
+
+
+{% block sidebar %}
+<h3>{% trans "Info" %}</h3>
+<p>
+    {% blocktrans %}Please write down the user password, this value cannot be recovered later.{% endblocktrans %}
+</p>
+{% endblock %}

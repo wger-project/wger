@@ -23,6 +23,7 @@ from django.core.urlresolvers import reverse_lazy
 from wger.core.views import user
 from wger.core.views import misc
 from wger.core.views import license
+from wger.core.views import gym
 
 
 urlpatterns = patterns('',
@@ -44,6 +45,9 @@ urlpatterns = patterns('',
     url(r'^user/logout$',
         user.logout,
         name='logout'),
+    url(r'^user/(?P<user_pk>\d+)/trainer-login$',
+        user.trainer_login,
+        name='trainer-login'),
     url(r'^user/registration$',
         user.registration,
         name='registration'),
@@ -56,6 +60,18 @@ urlpatterns = patterns('',
     url(r'^user/demo-entries$',
         misc.demo_entries,
         name='demo-entries'),
+    url(r'^user/(?P<pk>\d+)/activate',
+        user.UserActivateView.as_view(),
+        name='user-activate'),
+    url(r'^user/(?P<pk>\d+)/deactivate',
+        user.UserDeactivateView.as_view(),
+        name='user-deactivate'),
+    url(r'^user/(?P<pk>\d+)/edit',
+        user.UserEditView.as_view(),
+        name='user-edit'),
+    url(r'^user/(?P<pk>\d+)/overview',
+        user.UserDetailView.as_view(),
+        name='user-overview'),
 
     # Licenses
     url(r'^license/list$',
@@ -71,7 +87,29 @@ urlpatterns = patterns('',
         license.LicenseDeleteView.as_view(),
         name='license-delete'),
     
-    
+    # Gyms
+    url(r'^gym/list$',
+        gym.GymListView.as_view(),
+        name='gym-list'),
+    url(r'^gym/new-user-data$',
+        gym.gym_new_user_info,
+        name='gym-new-user-data'),
+    url(r'^gym/(?P<pk>\d+)/members',
+        gym.GymUserListView.as_view(),
+        name='gym-user-list'),
+    url(r'^gym/(?P<gym_pk>\d+)/add-member',
+        gym.GymAddUserView.as_view(),
+        name='gym-add-user'),
+    url(r'^gym/add$',
+        gym.GymAddView.as_view(),
+        name='gym-add'),
+    url(r'^gym/(?P<pk>\d+)/edit',
+        gym.GymUpdateView.as_view(),
+        name='gym-edit'),
+    url(r'^gym/(?P<pk>\d+)/delete',
+        gym.GymDeleteView.as_view(),
+        name='gym-delete'),
+
     
 
     # Others

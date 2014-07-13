@@ -55,10 +55,14 @@ filter_dump(data, ('exercises.exercise', 'exercises.exercisecomment',), 'exercis
 filter_dump(data, ('exercises.equipment', 'exercises.equipment',), 'equipment.json')
 
 #
-# Other
+# Core
 #
+filter_dump(data, ('core.gym',), 'gyms.json')
 filter_dump(data, ('core.language',), 'languages.json')
 filter_dump(data, ('core.license',), 'licenses.json')
 filter_dump(data, ('config.languageconfig',), 'language_config.json')
 
+#
+# Other
+#
 filter_dump(data, ('auth.group',), 'groups.json')

@@ -93,23 +93,37 @@ class UserProfile(models.Model):
         (INTENSITY_HIGH, _('High')),
     )
 
-    # This field is required.
     user = models.OneToOneField(User,
                                 editable=False)
+    '''
+    The user
+    '''
 
-    # Flag to mark a temporary user (demo account)
+    gym = models.ForeignKey('Gym',
+                            editable=False,
+                            null=True,
+                            blank=True)
+    '''
+    The gym this user belongs to, if any
+    '''
+
     is_temporary = models.BooleanField(default=False,
                                        editable=False)
+    '''
+    Flag to mark a temporary user (demo account)
+    '''
 
     #
     # User preferences
     #
 
-    # Show exercise comments on workout view
     show_comments = models.BooleanField(verbose_name=_('Show exercise comments'),
                                         help_text=_('Check to show exercise comments on the '
                                                     'workout view'),
                                         default=True)
+    '''
+    Show exercise comments on workout view
+    '''
 
     # Also show ingredients in english while composing a nutritional plan
     # (obviously this is only meaningful if the user has a language other than english)
@@ -464,5 +478,41 @@ class License(models.Model):
     def get_owner_object(self):
         '''
         License has no owner information
+        '''
+        return None
+
+
+class Gym(models.Model):
+    '''
+    Model for a gym
+    '''
+
+    class Meta:
+        permissions = (
+            ("gym_trainer", "Trainer, can see the users for a gym"),
+            ("manage_gym", "Admin, can manage users for a gym"),
+            ("manage_gyms", "Admin, can administrate the different gyms"),
+        )
+
+    name = models.CharField(max_length=60,
+                            verbose_name=_('Name'))
+    '''Gym name'''
+
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return self.name
+
+    def delete(self, using=None):
+        '''
+        Make sure that there are no users with this gym in their profiles
+        '''
+        UserProfile.objects.filter(gym=self).update(gym=None)
+        super(Gym, self).delete(using)
+
+    def get_owner_object(self):
+        '''
+        Gym has no owner information
         '''
         return None

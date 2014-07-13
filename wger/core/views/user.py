@@ -16,25 +16,27 @@
 
 import logging
 
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _, ugettext_lazy
 from django.utils import translation
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as django_login
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User as Django_User
+from django.contrib.auth.models import User as Django_User, User
 from django.contrib.auth.views import login as django_loginview
 from django.contrib import messages
+from django.views.generic import RedirectView, UpdateView, DetailView
 from rest_framework.authtoken.models import Token
 
 from wger.core.models import Language
 from wger.utils.constants import USER_TAB
+from wger.utils.generic_views import WgerPermissionMixin, WgerFormMixin
 from wger.utils.user_agents import check_request_amazon, check_request_android
-from wger.core.forms import UserPreferencesForm
+from wger.core.forms import UserPreferencesForm, UserPersonalInformationForm
 from wger.core.forms import PasswordConfirmationForm
 from wger.core.forms import UserEmailForm
 from wger.core.forms import RegistrationForm
@@ -74,6 +76,53 @@ def delete(request):
     context = {'form': form}
 
     return render(request, 'user/delete_account.html', context)
+
+
+@login_required()
+def trainer_login(request, user_pk):
+    '''
+    Allows a trainer to 'log in' as the selected user
+    '''
+    user = get_object_or_404(User, pk=user_pk)
+    orig_user_pk = request.user.pk
+
+    # Changing only between the same gym
+    if request.user.userprofile.gym != user.userprofile.gym:
+        return HttpResponseForbidden()
+
+    # No changing if identity is not set
+    if not request.user.has_perm('core.gym_trainer') \
+            and not request.session.get('trainer.identity'):
+        return HttpResponseForbidden()
+
+    # Changing between trainers or managers is not allowed
+    if request.user.has_perm('core.gym_trainer') \
+            and (user.has_perm('core.gym_trainer')
+                 or user.has_perm('core.manage_gym')
+                 or user.has_perm('core.manage_gyms')):
+        return HttpResponseForbidden()
+
+    # Check if we're switching back to our original account
+    own = False
+    if (user.has_perm('core.gym_trainer')
+            or user.has_perm('core.manage_gym')
+            or user.has_perm('core.manage_gyms')):
+        own = True
+
+    # Note: it seems we have to manually set the authentication backend here
+    # - https://docs.djangoproject.com/en/1.6/topics/auth/default/#auth-web-requests
+    # - http://stackoverflow.com/questions/3807777/django-login-without-authenticating
+    if own:
+        del(request.session['trainer.identity'])
+    user.backend = 'django.contrib.auth.backends.ModelBackend'
+    django_login(request, user)
+
+    if not own:
+        request.session['trainer.identity'] = orig_user_pk
+        return HttpResponseRedirect(reverse('core:index'))
+    else:
+        return HttpResponseRedirect(reverse('core:gym-user-list',
+                                            kwargs={'pk': user.userprofile.gym_id}))
 
 
 def logout(request):
@@ -160,20 +209,16 @@ def preferences(request):
         form = UserPreferencesForm(instance=request.user.userprofile)
 
     # Process the email form
-    #
-    # this is a bit ugly, but we need to take special care here, only instatiating
-    # the form when the user changes its password, otherwise the email form will
-    # check the adress for uniqueness and fail, because it will find one user (the
-    # current one) using it. But if he changes it, we want to check that nobody else
-    # has that email
-    if request.method == 'POST' and request.POST["email"] != request.user.email:
-        email_form = UserEmailForm(data=request.POST, instance=request.user)
+    if request.method == 'POST':
+        email_form = UserPersonalInformationForm(data=request.POST, instance=request.user)
+
         if email_form.is_valid() and redirect:
-            request.user.email = email_form.cleaned_data['email']
-            request.user.save()
+            email_form.save()
             redirect = True
+        else:
+            redirect = False
     else:
-        email_form = UserEmailForm(instance=request.user)
+        email_form = UserPersonalInformationForm(instance=request.user)
 
     template_data['form'] = form
     template_data['email_form'] = email_form
@@ -183,6 +228,90 @@ def preferences(request):
         return HttpResponseRedirect(reverse('core:preferences'))
     else:
         return render(request, 'user/preferences.html', template_data)
+
+
+class UserDeactivateView(WgerPermissionMixin, RedirectView):
+    '''
+    Deactivates a user
+    '''
+    permanent = False
+    model = User
+    permission_required = ('core.manage_gym', 'core.gym_trainer')
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Only managers and trainers for this gym can access the members
+        '''
+        edit_user = get_object_or_404(User, pk=self.kwargs['pk'])
+        if (request.user.has_perm('core.manage_gym') or request.user.has_perm('core.gym_trainer')
+                and request.user.userprofile.gym_id == edit_user.userprofile.gym_id):
+            return super(UserDeactivateView, self).dispatch(request, *args, **kwargs)
+        return HttpResponseForbidden()
+
+    def get_redirect_url(self, pk):
+        edit_user = get_object_or_404(User, pk=pk)
+        edit_user.is_active = False
+        edit_user.save()
+        messages.success(self.request, _('The user was successfully deactivated'))
+        return reverse('core:user-overview', kwargs=({'pk': pk}))
+
+
+class UserActivateView(WgerPermissionMixin, RedirectView):
+    '''
+    Activates a previously deactivated user
+    '''
+    permanent = False
+    model = User
+    permission_required = ('core.manage_gym', 'core.gym_trainer')
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Only managers and trainers for this gym can access the members
+        '''
+        edit_user = get_object_or_404(User, pk=self.kwargs['pk'])
+        if (request.user.has_perm('core.manage_gym') or request.user.has_perm('core.gym_trainer')
+                and request.user.userprofile.gym_id == edit_user.userprofile.gym_id):
+            return super(UserActivateView, self).dispatch(request, *args, **kwargs)
+        return HttpResponseForbidden()
+
+    def get_redirect_url(self, pk):
+        edit_user = get_object_or_404(User, pk=pk)
+        edit_user.is_active = True
+        edit_user.save()
+        messages.success(self.request, _('The user was successfully activated'))
+        return reverse('core:user-overview', kwargs=({'pk': pk}))
+
+
+class UserEditView(WgerFormMixin, UpdateView):
+    '''
+    View to update the personal information of an user by an admin
+    '''
+
+    model = User
+    title = ugettext_lazy('Edit user')
+    permission_required = 'core.manage_gym'
+    form_class = UserPersonalInformationForm
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Only managers and trainers for this gym can access the members
+        '''
+        if request.user.userprofile.gym == self.get_object().userprofile.gym:
+            return super(UserEditView, self).dispatch(request, *args, **kwargs)
+        else:
+            return HttpResponseForbidden()
+
+    def get_success_url(self):
+        return reverse('core:user-overview', kwargs={'pk': self.kwargs['pk']})
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(UserEditView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('core:user-edit', kwargs={'pk': self.object.id})
+        context['title'] = _('Edit {0}'.format(self.object))
+        return context
 
 
 @login_required
@@ -210,3 +339,22 @@ def api_key(request):
     context['token'] = token
 
     return render(request, 'user/api_key.html', context)
+
+
+class UserDetailView(WgerPermissionMixin, DetailView):
+    '''
+    Overview of all available gyms
+    '''
+    model = User
+    permission_required = ('core.manage_gym', 'core.gym_trainer')
+    template_name = 'user/overview.html'
+    context_object_name = 'current_user'
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Only managers for this gym can access the members
+        '''
+        if request.user.userprofile.gym == self.get_object().userprofile.gym:
+            return super(UserDetailView, self).dispatch(request, *args, **kwargs)
+        else:
+            return HttpResponseForbidden()

@@ -184,6 +184,36 @@
                     "delete_ingredientweightunit", 
                     "nutrition", 
                     "ingredientweightunit"
+                ],
+                [
+                    "add_gym",
+                    "core",
+                    "gym"
+                ],
+                [
+                    "change_gym",
+                    "core",
+                    "gym"
+                ],
+                [
+                    "delete_gym",
+                    "core",
+                    "gym"
+                ],
+                [
+                    "gym_trainer",
+                    "core",
+                    "gym"
+                ],
+                [
+                    "manage_gym",
+                    "core",
+                    "gym"
+                ],
+                [
+                    "manage_gyms",
+                    "core",
+                    "gym"
                 ]
             ]
         }
@@ -269,8 +299,9 @@
             "workout_reminder": 20,
             "workout_duration": 8,
             "notification_language": 1,
-	    "timer_active": true,
-	    "timer_pause": 90
+	        "timer_active": true,
+	        "timer_pause": 90,
+	        "gym": 1
         }
     }, 
     {
@@ -296,8 +327,9 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	    "timer_active": true,
-	    "timer_pause": 90
+	        "timer_active": true,
+	        "timer_pause": 90,
+	        "gym": 1
         }
     }, 
     {
