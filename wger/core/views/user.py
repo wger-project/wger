@@ -299,7 +299,8 @@ class UserEditView(WgerFormMixin, UpdateView):
         '''
         Only managers and trainers for this gym can access the members
         '''
-        if request.user.userprofile.gym == self.get_object().userprofile.gym:
+        if request.user.is_authenticated() \
+                and request.user.userprofile.gym == self.get_object().userprofile.gym:
             return super(UserEditView, self).dispatch(request, *args, **kwargs)
         else:
             return HttpResponseForbidden()

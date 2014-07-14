@@ -3,30 +3,30 @@
 {% load staticfiles %}
 {% load wger_extras %}
 
-{% block title %}{{user_data.user.get_full_name}}{% endblock %}
+{% block title %}{{new_user|format_username}}{% endblock %}
 
 
 {% block content %}
 <table class="table">
     <tr>
         <th>{% trans "User" %}</th>
-        <td>{{user_data.user.get_full_name}} ({{user_data.user}})</td>
+        <td>{{new_user.get_full_name}} ({{new_user}})</td>
     </tr>
     <tr>
         <th>{% trans "Password" %}</th>
-        <td>{{user_data.password}}</td>
+        <td>{{password}}</td>
     </tr>
     <tr>
         <th>{% trans "Email" %}</th>
-        <td>{{user_data.user.email}}</td>
+        <td>{{new_user.email}}</td>
     </tr>
     <tr>
         <th>{% trans "Gym" %}</th>
-        <td>{{user_data.user.userprofile.gym}}</td>
+        <td>{{new_user.userprofile.gym}}</td>
     </tr>
 </table>
 
-<a href="{% url 'core:gym-user-list' user_data.user.userprofile.gym.pk %}">
+<a href="{% url 'core:gym-user-list' new_user.userprofile.gym.pk %}">
 {% trans "Back to gym" %}
 </a>
 {% endblock %}

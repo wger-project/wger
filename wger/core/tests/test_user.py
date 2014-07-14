@@ -131,10 +131,11 @@ class GymAddUserTestCase(WorkoutManagerTestCase):
         else:
             self.assertEqual(count_before + 1, count_after)
             self.assertEqual(response.status_code, 302)
-            self.assertTrue(self.client.session['gym.user']['user'])
+            self.assertTrue(self.client.session['gym.user']['user_pk'], 3)
             self.assertTrue(self.client.session['gym.user']['password'])
             self.assertEqual(len(self.client.session['gym.user']['password']), 15)
-            self.assertEqual(self.client.session['gym.user']['user'].userprofile.gym_id, 1)
+            new_user = User.objects.get(pk=self.client.session['gym.user']['user_pk'])
+            self.assertEqual(new_user.userprofile.gym_id, 1)
 
     def test_add_user_authorized(self):
         '''

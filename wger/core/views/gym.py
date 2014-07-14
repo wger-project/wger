@@ -16,9 +16,10 @@
 
 import logging
 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Permission
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.http.response import HttpResponseForbidden
@@ -103,6 +104,7 @@ class GymAddView(WgerFormMixin, CreateView):
     permission_required = 'core.add_gym'
 
 
+@login_required
 def gym_new_user_info(request):
     '''
     Shows info about a newly created user
@@ -110,7 +112,9 @@ def gym_new_user_info(request):
     if not (request.user.has_perm('core.manage_gym') or request.user.has_perm('core.manage_gym')):
         return HttpResponseForbidden()
 
-    return render(request, 'gym/new_user.html', {'user_data': request.session['gym.user']})
+    context = {'new_user': User.objects.get(pk=request.session['gym.user']['user_pk']),
+               'password': request.session['gym.user']['password']}
+    return render(request, 'gym/new_user.html', context)
 
 
 class GymAddUserView(WgerFormMixin, CreateView):
@@ -130,6 +134,7 @@ class GymAddUserView(WgerFormMixin, CreateView):
         '''
         if not request.user.is_authenticated():
             return HttpResponseForbidden()
+
         gym_id = request.user.userprofile.gym_id
         if request.user.has_perm('core.manage_gym') and gym_id == int(self.kwargs['gym_pk']):
             return super(GymAddUserView, self).dispatch(request, *args, **kwargs)
@@ -161,7 +166,7 @@ class GymAddUserView(WgerFormMixin, CreateView):
                                                     codename='manage_gym')
             user.user_permissions.add(permission)
 
-        self.request.session['gym.user'] = {'user': user,
+        self.request.session['gym.user'] = {'user_pk': user.pk,
                                             'password': password}
 
         return super(GymAddUserView, self).form_valid(form)
