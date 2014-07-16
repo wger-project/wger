@@ -100,7 +100,7 @@
     </ul>
 </div>
 {% endif %}
-<h4 >{% trans "Details" %}</h4>
+<h4>{% trans "Details" %}</h4>
 
 <table class="table">
     <tr>
@@ -146,4 +146,12 @@
     </tr>
 {% endif %}
 </table>
+
+<a href="{% url 'core:gym-user-list' current_user.userprofile.gym.pk %}" {% auto_link_css flavour %}>
+    <img src="{% static 'images/icons/list.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Back to overview' %}">
+{% trans "Back to gym" %}
+</a>
 {% endblock %}
