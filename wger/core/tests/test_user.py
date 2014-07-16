@@ -13,8 +13,12 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from django.contrib.auth.models import User
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 
+from wger.core.models import UserProfile
+from wger.core.models import Gym
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 
@@ -156,6 +160,109 @@ class GymAddUserTestCase(WorkoutManagerTestCase):
         Tests adding a user a logged out user
         '''
         self.add_user(fail=True)
+
+
+class TrainerLoginTestCase(WorkoutManagerTestCase):
+    '''
+    Tests the trainer login view (switching to user ID)
+    '''
+
+    def test_anonymous(self):
+        '''
+        Test the trainer login as an anonymous user
+        '''
+        response = self.client.get(reverse('core:trainer-login', kwargs={'user_pk': 1}))
+        self.assertEqual(response.status_code, 302)
+        self.assertFalse(self.client.session.get('trainer.identity'))
+
+    def test_user(self):
+        '''
+        Test the trainer login as a logged in user without rights
+        '''
+        self.user_login('test')
+        response = self.client.get(reverse('core:trainer-login', kwargs={'user_pk': 1}))
+        self.assertEqual(response.status_code, 403)
+        self.assertFalse(self.client.session.get('trainer.identity'))
+
+    def test_trainer(self):
+        '''
+        Test the trainer login as a logged in user with enough rights
+        '''
+        self.user_login('admin')
+        response = self.client.get(reverse('core:trainer-login', kwargs={'user_pk': 2}))
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(self.client.session.get('trainer.identity'))
+
+    def test_wrong_gym(self):
+        '''
+        Test changing the identity to a user in a different gym
+        '''
+        profile = UserProfile.objects.get(user_id=2)
+        profile.gym_id = 2
+        profile.save()
+        self.user_login('admin')
+        response = self.client.get(reverse('core:trainer-login', kwargs={'user_pk': 2}))
+        self.assertEqual(response.status_code, 403)
+        self.assertFalse(self.client.session.get('trainer.identity'))
+
+    def test_gym_trainer(self):
+        '''
+        Test changing the identity to a user with trainer rights
+        '''
+        user = User.objects.get(pk=2)
+        content_type = ContentType.objects.get_for_model(Gym)
+        permission = Permission.objects.get(content_type=content_type, codename='gym_trainer')
+        user.user_permissions.add(permission)
+
+        self.user_login('admin')
+        response = self.client.get(reverse('core:trainer-login', kwargs={'user_pk': 2}))
+        self.assertEqual(response.status_code, 403)
+        self.assertFalse(self.client.session.get('trainer.identity'))
+
+    def test_gym_manager(self):
+        '''
+        Test changing the identity to a user with gym management rights
+        '''
+        user = User.objects.get(pk=2)
+        content_type = ContentType.objects.get_for_model(Gym)
+        permission = Permission.objects.get(content_type=content_type, codename='manage_gym')
+        user.user_permissions.add(permission)
+
+        self.user_login('admin')
+        response = self.client.get(reverse('core:trainer-login', kwargs={'user_pk': 2}))
+        self.assertEqual(response.status_code, 403)
+        self.assertFalse(self.client.session.get('trainer.identity'))
+
+    def test_gyms_manager(self):
+        '''
+        Test changing the identity to a user with gyms management rights
+        '''
+        user = User.objects.get(pk=2)
+        content_type = ContentType.objects.get_for_model(Gym)
+        permission = Permission.objects.get(content_type=content_type, codename='manage_gyms')
+        user.user_permissions.add(permission)
+
+        self.user_login('admin')
+        response = self.client.get(reverse('core:trainer-login', kwargs={'user_pk': 2}))
+        self.assertEqual(response.status_code, 403)
+        self.assertFalse(self.client.session.get('trainer.identity'))
+
+
+class TrainerLogoutTestCase(WorkoutManagerTestCase):
+    '''
+    Tests the trainer logout view (switching back to trainer ID)
+    '''
+
+    def test_logout(self):
+        '''
+        Test the trainer login as an anonymous user
+        '''
+        self.user_login('admin')
+        response = self.client.get(reverse('core:trainer-login', kwargs={'user_pk': 2}))
+        self.assertTrue(self.client.session.get('trainer.identity'))
+
+        response = self.client.get(reverse('core:trainer-login', kwargs={'user_pk': 1}))
+        self.assertFalse(self.client.session.get('trainer.identity'))
 
 
 class EditUserTestCase(WorkoutManagerEditTestCase):

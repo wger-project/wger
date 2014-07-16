@@ -34,11 +34,12 @@ from rest_framework.authtoken.models import Token
 
 from wger.core.models import Language
 from wger.utils.constants import USER_TAB
-from wger.utils.generic_views import WgerPermissionMixin, WgerFormMixin
-from wger.utils.user_agents import check_request_amazon, check_request_android
+from wger.utils.generic_views import WgerPermissionMixin
+from wger.utils.generic_views import WgerFormMixin
+from wger.utils.user_agents import check_request_amazon
+from wger.utils.user_agents import check_request_android
 from wger.core.forms import UserPreferencesForm, UserPersonalInformationForm
 from wger.core.forms import PasswordConfirmationForm
-from wger.core.forms import UserEmailForm
 from wger.core.forms import RegistrationForm
 from wger.core.forms import RegistrationFormNoCaptcha
 

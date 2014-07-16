@@ -354,7 +354,8 @@
             "workout_reminder_active": true,
             "workout_reminder": 10,
             "workout_duration": 15,
-            "notification_language": 2
+            "notification_language": 2,
+            "gym": 2
         }
     }
 ]
