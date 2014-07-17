@@ -3,7 +3,7 @@
 {% load staticfiles %}
 {% load wger_extras %}
 
-{% block title %}{% trans "Members in gym" %} - {{gym}}{% endblock %}
+{% block title %}{{gym}}{% endblock %}
 
 
 {% block content %}
@@ -56,6 +56,52 @@
 
 
 {% block sidebar %}
+
+{% if perms.core.manage_gym %}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="{% url 'core:gym-edit' gym.id %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
+        </li>
+    </ul>
+</div>
+{% endif %}
+
+<h4>{% trans "Details" %}</h4>
+<table class="table">
+    <tr>
+        <th>{% trans "Name" %}</th>
+        <td>{{gym.name}}</td>
+    </tr>
+    <tr>
+        <th>{% trans "Phone" %}</th>
+        <td>{{gym.phone}}</td>
+    </tr>
+    <tr>
+        <th>{% trans "Email" %}</th>
+        <td>
+            {% if gym.email %}
+                <a href="{{gym.email}}">{{gym.email}}</a>
+            {% else %}
+                -/-
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>{% trans "Owner" %}</th>
+        <td>{{gym.owner}}</td>
+    </tr>
+    <tr>
+        <th>{% trans "Address" %}</th>
+        <td>
+            {{gym.zip_code}} {{gym.city}}<br>
+            {{gym.street}}
+        </td>
+    </tr>
+</table>
 
 {% if perms.core.manage_gym %}
 <h3>{% trans "Options" %}</h3>
