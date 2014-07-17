@@ -498,6 +498,41 @@ class Gym(models.Model):
                             verbose_name=_('Name'))
     '''Gym name'''
 
+    phone = models.CharField(verbose_name=_('Phone'),
+                             max_length=20,
+                             blank=True,
+                             null=True)
+    '''Phone number'''
+
+    email = models.EmailField(verbose_name=_('Email'),
+                              blank=True,
+                              null=True)
+    '''Email'''
+
+    owner = models.CharField(verbose_name=_('Owner'),
+                             max_length=100,
+                             blank=True,
+                             null=True)
+    '''Gym owner'''
+
+    zip_code = models.IntegerField(_(u'ZIP code'),
+                                   max_length=5,
+                                   blank=True,
+                                   null=True)
+    '''ZIP code'''
+
+    city = models.CharField(_(u'City'),
+                            max_length=30,
+                            blank=True,
+                            null=True)
+    '''City'''
+
+    street = models.CharField(_(u'Street'),
+                              max_length=30,
+                              blank=True,
+                              null=True)
+    '''Street'''
+
     def __unicode__(self):
         '''
         Return a more human-readable representation
