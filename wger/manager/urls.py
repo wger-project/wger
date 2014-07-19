@@ -22,6 +22,7 @@ from wger.manager.views import schedule
 from wger.manager.views import schedule_step
 from wger.manager.views import ical
 from wger.manager.views import workout
+from wger.manager.views import routines
 from wger.manager.views import log
 from wger.manager.views import set
 from wger.manager.views import day
@@ -134,6 +135,14 @@ urlpatterns = patterns('',
     url(r'^workout/schedule/step/(?P<pk>\d+)/delete$',
         schedule_step.StepDeleteView.as_view(),
         name='step-delete'),
+
+    # Routines generator
+    url(r'^workout/routines/generator$',
+        routines.overview,
+        name='routines-generator'),
+    url(r'^workout/routines/(?P<name>\w+)$',
+        routines.detail,
+        name='routines-detail'),
 
     # Days
     url(r'^workout/day/(?P<pk>\d+)/edit/$',

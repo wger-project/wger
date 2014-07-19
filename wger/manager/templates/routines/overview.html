@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n staticfiles wger_extras %}
+
+{% block title %}{% trans "Weightlifting routines generator" %}{% endblock %}
+
+
+{% block content %}
+<table class="table">
+    <thead>
+    <tr>
+        <th>{% trans "Name" %}</th>
+        <th>{% trans "Description" %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for routine in routines.values %}
+    <tr>
+        <td>
+            <a href="{% url 'routines-detail' 'korte' %}">{{routine.name}}</a>
+        </td>
+        <td>{{routine.description}}</td>
+    </tr>
+
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+
+{% block sidebar %}
+<h4>{% trans "Info" %}</h4>
+<p>{% blocktrans %}If you don't quite like the routine, you can edit and change
+any part of it once you have added it to your list.{% endblocktrans %}</p>
+{% endblock %}
