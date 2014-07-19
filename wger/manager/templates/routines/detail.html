@@ -6,11 +6,12 @@
 
 {% block content %}
 <p>{{routine.description}}</p>
-<table class="table">
+<table class="table table-condensed">
     <thead>
     <tr>
         <th>{% trans "Exercise" %}</th>
         <th>{% trans "Reps" %}</th>
+        <th>{% trans "Weight" %}</th>
     </tr>
     </thead>
     <tbody>
@@ -19,7 +20,7 @@
 
         {% ifchanged config.week %}
         <tr>
-            <th colspan="2" class="active">
+            <th colspan="3" class="active">
                 {% trans "Week" %} {{config.week}}
             </th>
         </tr>
@@ -27,7 +28,7 @@
 
         {% ifchanged config.day %}
         <tr>
-            <th colspan="2">
+            <th colspan="3">
                 {% trans "Day" %} {{config.day}}
             </th>
         </tr>
@@ -35,10 +36,13 @@
 
         <tr>
             <td>
-                {{config.set}} &ndash; {{config.exercise}}
+                {{config.exercise}}
             </td>
             <td>
-                {{config.reps}} x {{config.weight}} {% trans "kg." %}
+                {{config.sets}} × {{config.reps}}
+            </td>
+            <td>
+                {{config.weight}} {% trans "kg." %}
             </td>
         </tr>
     {% endfor %}
@@ -66,11 +70,19 @@ any part of it once you have added it to your list.{% endblocktrans %}</p>
 </p>
 <p>
     <a href="{% url 'routines-generator' %}" {% auto_link_css flavour %}>
+        <img src="{% static 'images/icons/save.svg' %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Download as PDF' %}">
+        {% trans "Download as PDF" %}
+    </a>
+</p>
+<p>
+    <a href="{% url 'routines-generator' %}" {% auto_link_css flavour %}>
         <img src="{% static 'images/icons/list.svg' %}"
              width="32"
              height="32"
-             alt="{% trans 'Routine generator' %}"
-             >
+             alt="{% trans 'Routine generator' %}">
         {% trans "Routine generator" %}
     </a>
 </p>

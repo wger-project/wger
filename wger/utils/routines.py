@@ -46,27 +46,61 @@ class Routine(object):
         '''
         Iterate over the exercises and generate the complete routine
         '''
+        out = self.prepare_sets()
 
+        for week in sorted(out):
+            for day in sorted(out[week]):
+                for i in out[week][day]:
+                    yield i
+
+    def prepare_sets(self):
+        '''
+        Prepares the sets so that they can be more easily displayed.
+
+        At the moment this method only collapses sets with the same repetitions
+        and weight (2x100, 2x100, 2x100 --> (3 x 2 100kg)
+
+        :return: a dictionary with the reduced sets
+        '''
+
+        out = {}
         for week in sorted(self.routines):
+            out[week] = {}
             for day in sorted(self.routines[week]):
+
+                out[week][day] = []
+                tmp = {}
                 for set_nr in sorted(self.routines[week][day]):
                     exercise_config = self.routines[week][day][set_nr]
                     exercise_config.current_week = week
                     exercise_config.current_day = day
                     exercise_config.current_set = set_nr
-
                     reps, weight = exercise_config.get_routine()
-                    yield {'week': week,
-                           'day': day,
-                           'set': set_nr,
-                           'weight': weight,
-                           'reps': reps,
-                           'exercise': exercise_config}
+
+                    if not tmp.get((exercise_config.name, reps, weight)):
+                        tmp[(exercise_config.name, reps, weight)] = {'sets': 1,
+                                                                     'set_nr': set_nr,
+                                                                     'reps': reps,
+                                                                     'weight': weight,
+                                                                     'config': exercise_config}
+                    else:
+                        tmp[(exercise_config.name, reps, weight)]['sets'] += 1
+
+                # Sorting by the set number because that allows us to sort the
+                # exercises according to the order defined in the exercise config
+                for value in sorted(tmp.values(), key=lambda k: k['set_nr']):
+                    out[week][day].append({'week': week,
+                                           'day': day,
+                                           'sets': value['sets'],
+                                           'weight': value['weight'],
+                                           'reps': value['reps'],
+                                           'exercise': value['config']})
+        return out
 
     def add(self, exercise_config):
         '''
         Add an exercise to this routine
-        :param exercise:
+        :param exercise_config:
         '''
         self.exercise_configs.append(exercise_config)
 
