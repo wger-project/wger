@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
+from wger.manager.routines.helpers import round_weight
 
 logger = logging.getLogger('wger.custom')
 
@@ -78,6 +79,9 @@ class Routine(object):
                     exercise_config.current_day = day
                     exercise_config.current_set = set_nr
                     reps, weight = exercise_config.get_routine()
+
+                    # Round weight to something usable
+                    weight = round_weight(weight)
 
                     if not tmp.get((exercise_config.name, reps, weight)):
                         tmp[(exercise_config.name, reps, weight)] = {'sets': 1,
