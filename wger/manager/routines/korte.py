@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
+import os
 
 from django.utils.translation import ugettext as _
 
@@ -203,9 +204,9 @@ class DeadliftConfig(ExerciseConfig):
             else:
                 return 3, (MAX_DEADLIFT + 6) * 0.60
 
-
 korte = Routine(weeks=8,
                 name='Korte 3x3',
+                short_name=os.path.basename(__file__).replace('.py', ''),
                 description=_("Pure German volume training (GVT). You will squat, "
                               "bench, and deadlift. That's it. Good luck."))
 

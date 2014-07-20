@@ -30,10 +30,12 @@ class Routine(object):
     weeks = 8
     description = ''
     name = ''
+    short_name = ''
 
-    def __init__(self, weeks=8, name='', description=''):
+    def __init__(self, weeks=8, name='', short_name='', description=''):
         self.weeks = weeks
         self.name = name
+        self.short_name = short_name
         self.description = description
 
         # Initialise the routines dictionary

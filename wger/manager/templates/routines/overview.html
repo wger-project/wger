@@ -5,25 +5,14 @@
 
 
 {% block content %}
-<table class="table">
-    <thead>
-    <tr>
-        <th>{% trans "Name" %}</th>
-        <th>{% trans "Description" %}</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for routine in routines.values %}
-    <tr>
-        <td>
-            <a href="{% url 'routines-detail' 'korte' %}">{{routine.name}}</a>
-        </td>
-        <td>{{routine.description}}</td>
-    </tr>
-
-    {% endfor %}
-    </tbody>
-</table>
+<div class="list-group">
+    {% for routine in routines.values %}  
+        <a href="{% url 'routines-detail' routine.short_name %}" class="list-group-item">
+            <h4 class="list-group-item-heading">{{routine.name}}</h4>
+            <p class="list-group-item-text">{{routine.description}}</p>
+        </a>
+  {% endfor %}
+</div>
 {% endblock %}
 
 
