@@ -143,6 +143,9 @@ urlpatterns = patterns('',
     url(r'^workout/routines/(?P<name>\w+)$',
         routines.detail,
         name='routines-detail'),
+    url(r'^workout/routines/(?P<name>\w+)/pdf$',
+        routines.export_pdf,
+        name='routines-pdf'),
 
     # Days
     url(r'^workout/day/(?P<pk>\d+)/edit/$',

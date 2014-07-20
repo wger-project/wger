@@ -69,7 +69,7 @@ any part of it once you have added it to your list.{% endblocktrans %}</p>
     </a>
 </p>
 <p>
-    <a href="{% url 'routines-generator' %}" {% auto_link_css flavour %}>
+    <a href="{% url 'routines-pdf' routine.short_name %}" {% auto_link_css flavour %}>
         <img src="{% static 'images/icons/save.svg' %}"
              width="32"
              height="32"

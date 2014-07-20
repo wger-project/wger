@@ -206,7 +206,7 @@ class DeadliftConfig(ExerciseConfig):
 
 korte = Routine(weeks=8,
                 name='Korte 3x3',
-                short_name=os.path.basename(__file__).replace('.py', ''),
+                short_name=os.path.splitext(os.path.basename(__file__))[0],
                 description=_("Pure German volume training (GVT). You will squat, "
                               "bench, and deadlift. That's it. Good luck."))
 
