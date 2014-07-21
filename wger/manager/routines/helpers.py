@@ -53,10 +53,7 @@ def render_routine_week(week_data):
     table_style = [('FONT', (0, 0), (-1, -1), 'OpenSans'),
                    ('FONTSIZE', (0, 0), (-1, -1), 10),
                    ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-                   ('LEFTPADDING', (0, 0), (-1, -1), 2),
-                   ('RIGHTPADDING', (0, 0), (-1, -1), 0),
-                   ('TOPPADDING', (0, 0), (-1, -1), 3),
-                   ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
+                   ('ALIGN', (-1, 0), (-1, -1), 'RIGHT'),
                    ('BOX', (0, 1), (-1, 0), 0.25, colors.black)]
 
     t = Table(data, style=table_style, hAlign='LEFT')
