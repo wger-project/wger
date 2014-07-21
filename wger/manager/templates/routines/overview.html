@@ -7,7 +7,8 @@
 {% block content %}
 <div class="list-group">
     {% for routine in routines.values %}  
-        <a href="{% url 'routines-detail' routine.short_name %}" class="list-group-item">
+        <a href="{% url 'routines-detail' routine.short_name %}" class="list-group-item wger-list-group-item">
+            <span class="glyphicon glyphicon-chevron-right pull-right visible-xs-block"></span>
             <h4 class="list-group-item-heading">{{routine.name}}</h4>
             <p class="list-group-item-text">{{routine.description}}</p>
         </a>

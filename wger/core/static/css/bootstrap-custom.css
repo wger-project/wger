@@ -55,8 +55,10 @@ body {
     background-color: transparent;
 }
 
-.wger-list-group-item {
-    background-color: #F5F5F5;
+@media screen and (max-width: 767px) {
+    .wger-list-group-item {
+        background-color: #F5F5F5;
+    }
 }
 
 .page-header {
