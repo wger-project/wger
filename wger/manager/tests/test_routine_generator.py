@@ -14,9 +14,11 @@
 
 from decimal import Decimal
 
-from wger.manager.routines.helpers import round_weight
+from django.core.urlresolvers import reverse
 
+from wger.manager.routines.helpers import round_weight
 from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.manager.views.routines import routines
 
 
 class RoutineWeightWeightTestCase(WorkoutManagerTestCase):
@@ -37,3 +39,42 @@ class RoutineWeightWeightTestCase(WorkoutManagerTestCase):
         self.assertEqual(round_weight(6, 5), Decimal(5))
         self.assertEqual(round_weight(7, 5), Decimal(5))
         self.assertEqual(round_weight(8, 5), Decimal(10))
+
+
+class RoutinePdfExportTestCase(WorkoutManagerTestCase):
+    '''
+    Tests exporting the routines as a pdf
+    '''
+
+    def export_pdf(self):
+        '''
+        Helper function to test exporting a routine as a pdf
+        '''
+
+        for routine in routines:
+
+            response = self.client.get(reverse('routines-pdf', kwargs={'name': routine}))
+
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response['Content-Type'], 'application/pdf')
+            self.assertEqual(response['Content-Disposition'],
+                             'attachment; filename=Routine-{0}.pdf'.format(routine))
+
+            # Approximate size only
+            self.assertGreater(int(response['Content-Length']), 31000)
+            self.assertLess(int(response['Content-Length']), 38000)
+
+    def test_export_pdf_anonymous(self):
+        '''
+        Tests exporting a routine as a pdf as an anonymous user
+        '''
+
+        self.export_pdf()
+
+    def test_export_pdf_logged_in(self):
+        '''
+        Tests exporting a routine as a pdf a a logged in user
+        '''
+
+        self.user_login('test')
+        self.export_pdf()
