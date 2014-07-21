@@ -41,6 +41,60 @@ class RoutineWeightWeightTestCase(WorkoutManagerTestCase):
         self.assertEqual(round_weight(8, 5), Decimal(10))
 
 
+class RoutineOverviewAccessTestCase(WorkoutManagerTestCase):
+    '''
+    Test accessing the routine overview page
+    '''
+
+    def routine_overview(self):
+        '''
+        Helper function to test accessing the routine overview
+        '''
+        response = self.client.get(reverse('routines-generator'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_routine_overview_anonymous(self):
+        '''
+        Tests accessing the routine overview page as an anonymous user
+        '''
+        self.routine_overview()
+
+    def test_routine_overview_logged_in(self):
+        '''
+        Tests accessing the routine overview page as a logged in user
+        '''
+        self.user_login('test')
+        self.routine_overview()
+
+
+class RoutineDetailAccessTestCase(WorkoutManagerTestCase):
+    '''
+    Test accessing the routine detail page
+    '''
+
+    def routine_detail(self):
+        '''
+        Helper function to test accessing the detail overview
+        '''
+        for routine in routines:
+
+            response = self.client.get(reverse('routines-detail', kwargs={'name': routine}))
+            self.assertEqual(response.status_code, 200)
+
+    def test_routine_detail_anonymous(self):
+        '''
+        Tests accessing the routine detail page as an anonymous user
+        '''
+        self.routine_detail()
+
+    def test_routine_detail_logged_in(self):
+        '''
+        Tests accessing the routine detail page as a logged in user
+        '''
+        self.user_login('test')
+        self.routine_detail()
+
+
 class RoutinePdfExportTestCase(WorkoutManagerTestCase):
     '''
     Tests exporting the routines as a pdf
@@ -73,7 +127,7 @@ class RoutinePdfExportTestCase(WorkoutManagerTestCase):
 
     def test_export_pdf_logged_in(self):
         '''
-        Tests exporting a routine as a pdf a a logged in user
+        Tests exporting a routine as a pdf as a logged in user
         '''
 
         self.user_login('test')
