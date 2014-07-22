@@ -52,6 +52,7 @@ class BaseTestCase(object):
 
     fixtures = ('days_of_week',
                 'test-languages',
+                'test-language-mapper',
                 'test-licenses',
                 'test-user-data',
                 'test-apikeys',

@@ -46,6 +46,37 @@ from wger.utils.cache import cache_mapper
 logger = logging.getLogger('wger.custom')
 
 
+class ExerciseLanguageMapper(models.Model):
+    '''
+    A simple mapper used to identify the same exercises across languages
+
+    This is only used at the moment in places like the routine generator,
+    where it's necessary to know what IDs an exercise has in the different
+    languages
+    '''
+
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return self.get_language('en').name
+
+    def get_language(self, language):
+        '''
+        Gets the exercise corresponding to the language
+
+        Raises a KeyError if the language is not found
+
+        :param language: the short name
+        :return the exercise object
+        '''
+        for exercise in self.exercise_set.all():
+            if exercise.language.short_name == language:
+                return exercise
+
+        raise KeyError('Language {0} not found'.format(language))
+
+
 class Muscle(models.Model):
     '''
     Muscle an exercise works out
@@ -195,6 +226,12 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     language = models.ForeignKey(Language,
                                  verbose_name=_('Language'))
     '''The exercise's language'''
+
+    language_mapper = models.ForeignKey(ExerciseLanguageMapper,
+                                        null=True,
+                                        blank=True,
+                                        editable=False)
+    '''A language mapper'''
 
     #
     # Django methods
