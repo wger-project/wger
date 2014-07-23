@@ -28,23 +28,25 @@ from reportlab.platypus import Paragraph
 from reportlab.platypus import Spacer
 
 from rest_framework.reverse import reverse
+from wger.manager.forms import RoutineSettingsForm
 from wger.manager.routines.helpers import render_routine_week
 
-from wger.manager.routines.korte import korte
+from wger.manager.routines import routines
 from wger.utils.pdf import styleSheet
 from wger.utils.pdf import render_footer
 
 
 logger = logging.getLogger('wger.custom')
 
-routines = {'korte': korte}
-
 
 def overview(request):
     '''
     An overview of all the available routines
     '''
-    context = {'routines': routines}
+    form = RoutineSettingsForm
+
+    context = {'routines': routines,
+               'form': form}
     return render(request, 'routines/overview.html', context)
 
 

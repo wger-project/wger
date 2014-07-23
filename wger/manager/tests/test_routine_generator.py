@@ -17,8 +17,8 @@ from decimal import Decimal
 from django.core.urlresolvers import reverse
 
 from wger.manager.routines.helpers import round_weight
+from wger.manager.routines import routines
 from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.views.routines import routines
 
 
 class RoutineWeightWeightTestCase(WorkoutManagerTestCase):
