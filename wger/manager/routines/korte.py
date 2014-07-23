@@ -210,10 +210,10 @@ korte = Routine(weeks=8,
                 description=_("Pure German volume training (GVT). You will squat, "
                               "bench, and deadlift. That's it. Good luck."))
 
-e1 = SquatConfig('Squats', None)
-e2 = BenchConfig('Bench', None)
-e3 = DeadliftConfig('Deadlift', None)
+squat_config = SquatConfig('Squats', 2)
+bench_config = BenchConfig('Bench', 1)
+deadlift_config = DeadliftConfig('Deadlift', 3)
 
-korte.add(e1)
-korte.add(e2)
-korte.add(e3)
+korte.add(squat_config)
+korte.add(bench_config)
+korte.add(deadlift_config)

@@ -13,6 +13,8 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
+
+from wger.exercises.models import ExerciseLanguageMapper
 from wger.manager.routines.helpers import round_weight
 
 logger = logging.getLogger('wger.custom')
@@ -134,6 +136,7 @@ class ExerciseConfig(object):
     '''
 
     name = ''
+    exercise_mapper = None
     user = None
     current_week = 0
     current_day = 0
@@ -152,9 +155,9 @@ class ExerciseConfig(object):
     }
     '''
 
-    def __init__(self, name, user):
+    def __init__(self, name, mapper_pk):
         self.name = name
-        self.user = user
+        self.exercise_mapper = ExerciseLanguageMapper.objects.get(pk=mapper_pk)
 
     def __repr__(self):
         return self.__unicode__()
