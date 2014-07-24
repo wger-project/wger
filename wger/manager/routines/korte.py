@@ -22,10 +22,6 @@ from wger.utils.routines import ExerciseConfig
 
 logger = logging.getLogger('wger.custom')
 
-MAX_SQUAT = 100
-MAX_BENCH = 110
-MAX_DEADLIFT = 120
-
 
 class SquatConfig(ExerciseConfig):
 
@@ -57,34 +53,36 @@ class SquatConfig(ExerciseConfig):
     }
 
     def get_routine(self):
+        max_squat = self.user_config['max_squat']
+
         if self.current_week == 1:
-            return 5, (MAX_SQUAT + 11) * 0.58
+            return 5, (max_squat + 11) * 0.58
         elif self.current_week == 2:
-            return 5, (MAX_SQUAT + 11) * 0.6
+            return 5, (max_squat + 11) * 0.6
         elif self.current_week == 3:
-            return 5, (MAX_SQUAT + 11) * 0.62
+            return 5, (max_squat + 11) * 0.62
         elif self.current_week == 4:
-            return 5, (MAX_SQUAT + 11) * 0.64
+            return 5, (max_squat + 11) * 0.64
         elif self.current_week == 5:
             if self.current_day != 3:
-                return 3, (MAX_SQUAT + 11) * 0.6
+                return 3, (max_squat + 11) * 0.6
             else:
-                return 1, (MAX_SQUAT + 11) * 0.80
+                return 1, (max_squat + 11) * 0.80
         elif self.current_week == 6:
             if self.current_day != 3:
-                return 3, (MAX_SQUAT + 11) * 0.6
+                return 3, (max_squat + 11) * 0.6
             else:
-                return 1, (MAX_SQUAT + 11) * 0.85
+                return 1, (max_squat + 11) * 0.85
         elif self.current_week == 7:
             if self.current_day != 3:
-                return 3, (MAX_SQUAT + 11) * 0.6
+                return 3, (max_squat + 11) * 0.6
             else:
-                return 1, (MAX_SQUAT + 11) * 0.90
+                return 1, (max_squat + 11) * 0.90
         elif self.current_week == 8:
             if self.current_day != 3:
-                return 3, (MAX_SQUAT + 11) * 0.6
+                return 3, (max_squat + 11) * 0.6
             else:
-                return 1, (MAX_SQUAT + 11) * 0.95
+                return 1, (max_squat + 11) * 0.95
 
 
 class BenchConfig(ExerciseConfig):
@@ -116,34 +114,36 @@ class BenchConfig(ExerciseConfig):
     }
 
     def get_routine(self):
+        max_bench = self.user_config['max_bench']
+
         if self.current_week == 1:
-            return 5, (MAX_BENCH + 4) * 0.58
+            return 5, (max_bench + 4) * 0.58
         elif self.current_week == 2:
-            return 5, (MAX_BENCH + 4) * 0.6
+            return 5, (max_bench + 4) * 0.6
         elif self.current_week == 3:
-            return 5, (MAX_BENCH + 4) * 0.62
+            return 5, (max_bench + 4) * 0.62
         elif self.current_week == 4:
-            return 5, (MAX_BENCH + 4) * 0.64
+            return 5, (max_bench + 4) * 0.64
         elif self.current_week == 5:
             if self.current_day != 2:
-                return 4, (MAX_BENCH + 4) * 0.6
+                return 4, (max_bench + 4) * 0.6
             else:
-                return 1, (MAX_BENCH + 4) * 0.80
+                return 1, (max_bench + 4) * 0.80
         elif self.current_week == 6:
             if self.current_day == 2:
-                return 1, (MAX_BENCH + 4) * 0.85
+                return 1, (max_bench + 4) * 0.85
             else:
-                return 4, (MAX_BENCH + 4) * 0.6
+                return 4, (max_bench + 4) * 0.6
         elif self.current_week == 7:
             if self.current_day == 2:
-                return 1, (MAX_BENCH + 4) * 0.90
+                return 1, (max_bench + 4) * 0.90
             else:
-                return 4, (MAX_BENCH + 4) * 0.6
+                return 4, (max_bench + 4) * 0.6
         elif self.current_week == 8:
             if self.current_day == 2:
-                return 1, (MAX_BENCH + 4) * 0.95
+                return 1, (max_bench + 4) * 0.95
             else:
-                return 4, (MAX_BENCH + 4) * 0.6
+                return 4, (max_bench + 4) * 0.6
 
 
 class DeadliftConfig(ExerciseConfig):
@@ -175,34 +175,36 @@ class DeadliftConfig(ExerciseConfig):
     }
 
     def get_routine(self):
+        max_deadlift = self.user_config['max_deadlift']
+
         if self.current_week == 1:
-            return 5, (MAX_DEADLIFT + 6) * 0.58
+            return 5, (max_deadlift + 6) * 0.58
         elif self.current_week == 2:
-            return 5, (MAX_DEADLIFT + 6) * 0.6
+            return 5, (max_deadlift + 6) * 0.6
         elif self.current_week == 3:
-            return 5, (MAX_DEADLIFT + 6) * 0.62
+            return 5, (max_deadlift + 6) * 0.62
         elif self.current_week == 4:
-            return 5, (MAX_DEADLIFT + 6) * 0.64
+            return 5, (max_deadlift + 6) * 0.64
         elif self.current_week == 5:
             if self.current_day == 1:
-                return 1, (MAX_DEADLIFT + 6) * 0.80
+                return 1, (max_deadlift + 6) * 0.80
             else:
-                return 3, (MAX_DEADLIFT + 6) * 0.60
+                return 3, (max_deadlift + 6) * 0.60
         elif self.current_week == 6:
             if self.current_day == 1:
-                return 1, (MAX_DEADLIFT + 6) * 0.85
+                return 1, (max_deadlift + 6) * 0.85
             else:
-                return 3, (MAX_DEADLIFT + 6) * 0.60
+                return 3, (max_deadlift + 6) * 0.60
         elif self.current_week == 7:
             if self.current_day == 1:
-                return 1, (MAX_DEADLIFT + 6) * 0.90
+                return 1, (max_deadlift + 6) * 0.90
             else:
-                return 3, (MAX_DEADLIFT + 6) * 0.60
+                return 3, (max_deadlift + 6) * 0.60
         elif self.current_week == 8:
             if self.current_day == 1:
-                return 1, (MAX_DEADLIFT + 6) * 0.95
+                return 1, (max_deadlift + 6) * 0.95
             else:
-                return 3, (MAX_DEADLIFT + 6) * 0.60
+                return 3, (max_deadlift + 6) * 0.60
 
 korte = Routine(weeks=8,
                 name='Korte 3x3',

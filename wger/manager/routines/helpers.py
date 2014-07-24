@@ -62,14 +62,3 @@ def render_routine_week(week_data):
     t._argW[2] = 4 * cm  # Repetitions
     t._argW[3] = 4 * cm  # Weight
     return t
-
-
-def round_weight(weight, base=2.5):
-    '''
-    Rounds the weights used for the generated routines depending on the use
-
-    :param weight: the original weight
-    :param base: the base to round to
-    :return: a rounded decimal
-    '''
-    return decimal.Decimal(base * round(float(weight)/base)).quantize(TWOPLACES)

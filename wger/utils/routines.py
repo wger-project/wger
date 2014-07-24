@@ -11,11 +11,11 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-
+import decimal
 import logging
 
 from wger.exercises.models import ExerciseLanguageMapper
-from wger.manager.routines.helpers import round_weight
+from wger.utils.constants import TWOPLACES
 
 logger = logging.getLogger('wger.custom')
 
@@ -34,6 +34,7 @@ class Routine(object):
     description = ''
     name = ''
     short_name = ''
+    user_config = {}
 
     def __init__(self, weeks=8, name='', short_name='', description=''):
         self.weeks = weeks
@@ -58,6 +59,25 @@ class Routine(object):
                 for i in out[week][day]:
                     yield i
 
+    def set_user_config(self, config):
+        '''
+        Sets the config dictionary (max bench, target bench, etc.).
+
+        This is passed each exercise
+        '''
+        self.user_config = config
+
+    @staticmethod
+    def round_weight(weight, base=2.5):
+        '''
+        Rounds the weights used for the generated routines depending on the use
+
+        :param weight: the original weight
+        :param base: the base to round to
+        :return: a rounded decimal
+        '''
+        return decimal.Decimal(base * round(float(weight)/base)).quantize(TWOPLACES)
+
     def prepare_sets(self):
         '''
         Prepares the sets so that they can be more easily displayed.
@@ -80,10 +100,12 @@ class Routine(object):
                     exercise_config.current_week = week
                     exercise_config.current_day = day
                     exercise_config.current_set = set_nr
+                    exercise_config.set_user_config(self.user_config)
+
                     reps, weight = exercise_config.get_routine()
 
                     # Round weight to something usable
-                    weight = round_weight(weight)
+                    weight = self.round_weight(weight, self.user_config['round_to'])
 
                     if not tmp.get((exercise_config.name, reps, weight)):
                         tmp[(exercise_config.name, reps, weight)] = {'sets': 1,
@@ -141,6 +163,7 @@ class ExerciseConfig(object):
     current_week = 0
     current_day = 0
     current_set = 0
+    user_config = {}
 
     data = {}
     '''
@@ -164,6 +187,12 @@ class ExerciseConfig(object):
 
     def __unicode__(self):
         return self.name
+
+    def set_user_config(self, config):
+        '''
+        Sets the config dictionary (max bench, target bench, etc.)
+        '''
+        self.user_config = config
 
     def get_routine(self):
         '''

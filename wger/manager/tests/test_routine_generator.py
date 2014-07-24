@@ -16,9 +16,9 @@ from decimal import Decimal
 
 from django.core.urlresolvers import reverse
 
-from wger.manager.routines.helpers import round_weight
 from wger.manager.routines import routines
 from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.utils.routines import Routine
 
 
 class RoutineWeightWeightTestCase(WorkoutManagerTestCase):
@@ -30,15 +30,15 @@ class RoutineWeightWeightTestCase(WorkoutManagerTestCase):
         '''
         Test the weight helper for the routines
         '''
-        self.assertEqual(round_weight(1.9), Decimal(2.5))
-        self.assertEqual(round_weight(2.1), Decimal(2.5))
-        self.assertEqual(round_weight(3), Decimal(2.5))
-        self.assertEqual(round_weight(4), Decimal(5))
+        self.assertEqual(Routine.round_weight(1.9), Decimal(2.5))
+        self.assertEqual(Routine.round_weight(2.1), Decimal(2.5))
+        self.assertEqual(Routine.round_weight(3), Decimal(2.5))
+        self.assertEqual(Routine.round_weight(4), Decimal(5))
 
-        self.assertEqual(round_weight(4.5, 5), Decimal(5))
-        self.assertEqual(round_weight(6, 5), Decimal(5))
-        self.assertEqual(round_weight(7, 5), Decimal(5))
-        self.assertEqual(round_weight(8, 5), Decimal(10))
+        self.assertEqual(Routine.round_weight(4.5, 5), Decimal(5))
+        self.assertEqual(Routine.round_weight(6, 5), Decimal(5))
+        self.assertEqual(Routine.round_weight(7, 5), Decimal(5))
+        self.assertEqual(Routine.round_weight(8, 5), Decimal(10))
 
 
 class RoutineOverviewAccessTestCase(WorkoutManagerTestCase):

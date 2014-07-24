@@ -56,8 +56,14 @@ def detail(request, name):
     '''
 
     context = {}
+    config = {'round_to': 2.5,
+              'max_squat': 120,
+              'max_bench': 130,
+              'max_deadlift': 150}
     try:
-        context['routine'] = routines[name]
+        routine = routines[name]
+        routine.set_user_config(config)
+        context['routine'] = routine
     except KeyError:
         return HttpResponseNotFound()
 
