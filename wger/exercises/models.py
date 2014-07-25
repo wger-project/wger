@@ -76,6 +76,19 @@ class ExerciseLanguageMapper(models.Model):
 
         raise KeyError('Language {0} not found'.format(language))
 
+    def get_all_languages(self):
+        '''
+        Returns a dictionary with all available languages
+        '''
+        out = cache.get(cache_mapper.get_exercise_language_mapper(self))
+        if not out:
+            out = {}
+            for exercise in self.exercise_set.all():
+                out[exercise.language.short_name] = exercise
+            cache.set(cache_mapper.get_exercise_language_mapper(self), out)
+
+        return out
+
 
 class Muscle(models.Model):
     '''

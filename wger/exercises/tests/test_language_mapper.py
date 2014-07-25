@@ -12,8 +12,11 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+from django.core.cache import cache
+
 from wger.exercises.models import ExerciseLanguageMapper
 from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.utils.cache import cache_mapper
 
 
 class LanguageMapperTestCase(WorkoutManagerTestCase):
@@ -29,3 +32,19 @@ class LanguageMapperTestCase(WorkoutManagerTestCase):
         self.assertEqual(mapper.get_language('en').pk, 84)
         self.assertEqual(mapper.get_language('de').pk, 1)
         self.assertRaises(KeyError, lambda: mapper.get_language('gr'))
+
+
+class LanguageMapperCacheTestCase(WorkoutManagerTestCase):
+    '''
+    Language mapper cache test case
+    '''
+
+    def test_cache(self):
+        '''
+        Test that the cache is correctly generated
+        '''
+        mapper = ExerciseLanguageMapper.objects.get(pk=1)
+
+        self.assertFalse(cache.get(cache_mapper.get_exercise_language_mapper(mapper)))
+        mapper.get_all_languages()
+        self.assertTrue(cache.get(cache_mapper.get_exercise_language_mapper(mapper)))
