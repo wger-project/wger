@@ -3,6 +3,12 @@
 *.swp
 *~
 
+# Database
+*.sqlite
+
+# Local settings
+settings.py
+
 # Package building
 *.egg-info
 build/*
