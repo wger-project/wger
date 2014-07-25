@@ -30,7 +30,7 @@ from reportlab.platypus import Spacer
 from rest_framework.reverse import reverse
 from wger.manager.routines.helpers import render_routine_week
 
-from wger.manager.routines import routines
+from wger.manager import routines
 from wger.utils.pdf import styleSheet
 from wger.utils.pdf import render_footer
 
@@ -42,7 +42,7 @@ def overview(request):
     '''
     An overview of all the available routines
     '''
-    context = {'routines': routines}
+    context = {'routines': routines.get_routines()}
     return render(request, 'routines/overview.html', context)
 
 
@@ -56,8 +56,9 @@ def detail(request, name):
               'max_squat': 120,
               'max_bench': 130,
               'max_deadlift': 150}
+
     try:
-        routine = routines[name]
+        routine = routines.get_routines()[name]
         routine.set_user_config(config)
         context['routine'] = routine
     except KeyError:
@@ -70,8 +71,14 @@ def export_pdf(request, name):
     '''
     Exports a routine as a PDF
     '''
+    config = {'round_to': 2.5,
+              'max_squat': 120,
+              'max_bench': 130,
+              'max_deadlift': 150}
+
     try:
-        routine = routines[name]
+        routine = routines.get_routines()[name]
+        routine.set_user_config(config)
     except KeyError:
         return HttpResponseNotFound()
 

@@ -16,7 +16,7 @@ from decimal import Decimal
 
 from django.core.urlresolvers import reverse
 
-from wger.manager.routines import routines
+from wger.manager import routines
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.utils.routines import Routine
 
@@ -76,7 +76,7 @@ class RoutineDetailAccessTestCase(WorkoutManagerTestCase):
         '''
         Helper function to test accessing the detail overview
         '''
-        for routine in routines:
+        for routine in routines.get_routines():
 
             response = self.client.get(reverse('routines-detail', kwargs={'name': routine}))
             self.assertEqual(response.status_code, 200)
@@ -105,7 +105,7 @@ class RoutinePdfExportTestCase(WorkoutManagerTestCase):
         Helper function to test exporting a routine as a pdf
         '''
 
-        for routine in routines:
+        for routine in routines.get_routines():
 
             response = self.client.get(reverse('routines-pdf', kwargs={'name': routine}))
 

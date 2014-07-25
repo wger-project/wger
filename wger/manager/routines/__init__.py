@@ -14,6 +14,12 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from wger.manager.routines.korte import korte
+from wger.manager.routines import korte
 
-routines = {'korte': korte}
+
+def get_routines():
+    '''
+    Initialise and return all available routines
+    '''
+
+    return {'korte': korte.get_routine()}

@@ -206,16 +206,24 @@ class DeadliftConfig(ExerciseConfig):
             else:
                 return 3, (max_deadlift + 6) * 0.60
 
-korte = Routine(weeks=8,
-                name='Korte 3x3',
-                short_name=os.path.splitext(os.path.basename(__file__))[0],
-                description=_("Pure German volume training (GVT). You will squat, "
-                              "bench, and deadlift. That's it. Good luck."))
 
-squat_config = SquatConfig('Squats', 2)
-bench_config = BenchConfig('Bench', 1)
-deadlift_config = DeadliftConfig('Deadlift', 3)
+def get_routine():
+    '''
+    Initialise and return this routine
+    '''
 
-korte.add(squat_config)
-korte.add(bench_config)
-korte.add(deadlift_config)
+    korte = Routine(weeks=8,
+                    name='Korte 3x3',
+                    short_name=os.path.splitext(os.path.basename(__file__))[0],
+                    description=_("Pure German volume training (GVT). You will squat, "
+                                  "bench, and deadlift. That's it. Good luck."))
+
+    squat_config = SquatConfig('Squats', 2)
+    bench_config = BenchConfig('Bench', 1)
+    deadlift_config = DeadliftConfig('Deadlift', 3)
+
+    korte.add(squat_config)
+    korte.add(bench_config)
+    korte.add(deadlift_config)
+
+    return korte
