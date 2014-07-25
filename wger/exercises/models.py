@@ -54,6 +54,7 @@ class ExerciseLanguageMapper(models.Model):
     where it's necessary to know what IDs an exercise has in the different
     languages
     '''
+    id = models.AutoField(primary_key=True)
 
     def __unicode__(self):
         '''
