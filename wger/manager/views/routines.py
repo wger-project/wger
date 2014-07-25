@@ -28,7 +28,6 @@ from reportlab.platypus import Paragraph
 from reportlab.platypus import Spacer
 
 from rest_framework.reverse import reverse
-from wger.manager.forms import RoutineSettingsForm
 from wger.manager.routines.helpers import render_routine_week
 
 from wger.manager.routines import routines
@@ -43,10 +42,7 @@ def overview(request):
     '''
     An overview of all the available routines
     '''
-    form = RoutineSettingsForm
-
-    context = {'routines': routines,
-               'form': form}
+    context = {'routines': routines}
     return render(request, 'routines/overview.html', context)
 
 
