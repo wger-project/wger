@@ -168,27 +168,39 @@ it in the header, see the link on the sidebar for details.</p>
 
 <h3>Special endpoints</h3>
 <p>
-    The following endpoints provide additional information, comfort functions, etc.:
+    The following endpoints provide additional information, comfort functions, etc.
+    <em>and are not listed in the browsable API</em>:
 </p>
+
+<div>
+    <code>/api/v2/routine-generator/</code><br>
+    <code>/api/v2/routine-generator/&lt;name&gt;/</code>
+</div>
 <div class="row">
-    <div class="col-md-1">
-        <code>api/v2/workout/&lt;id&gt;/canonical_representation/</code>
+    <div class="col-md-offset-1 col-md-10">
+        This endpoint provides access to predefines routines. To get
+        the actual values for the exercises (repetitions, weight), access
+        the detail URL (use the name from the overview) and pass the
+        following values <code>max_bench</code>, <code>max_deadlift</code>,
+        <code>max_squat</code> and <code>round_to</code> as GET parameters.
     </div>
+</div>
+
+<div style="margin-top: 1em;">
+    <code>api/v2/workout/&lt;id&gt;/canonical_representation/</code>
 </div>
 <div class="row">
     <div class="col-md-offset-1 col-md-10">
         This is a complete representation of a workout, including all objects
-        like workout days, exercises, etc. This form used by the django application
+        like workout days, exercises, etc. This form is used by the django application
         to render workouts or perform other operations. The data is cached so,
-        accessing or using is faster than performing many different requests.
+        accessing or using it is faster than performing many different requests.
     </div>
 </div>
 
 
-<div class="row" style="margin-top: 1em;">
-    <div class="col-md-1">
-        <code>api/v2/exerciseimage/&lt;id&gt;/thumbnails/</code>
-    </div>
+<div style="margin-top: 1em;">
+    <code>api/v2/exerciseimage/&lt;id&gt;/thumbnails/</code>
 </div>
 <div class="row">
     <div class="col-md-offset-1 col-md-10">
@@ -200,12 +212,10 @@ it in the header, see the link on the sidebar for details.</p>
 </div>
 
 
-<div class="row" style="margin-top: 1em;">
-    <div class="col-md-1">
-        <code>api/v2/nutritionplan/&lt;id&gt;/nutritional_values/</code><br>
-        <code>api/v2/meal/&lt;id&gt;/nutritional_values/</code><br>
-        <code>api/v2/mealitem/&lt;id&gt;/nutritional_values/</code>
-    </div>
+<div style="margin-top: 1em;">
+    <code>api/v2/nutritionplan/&lt;id&gt;/nutritional_values/</code><br>
+    <code>api/v2/meal/&lt;id&gt;/nutritional_values/</code><br>
+    <code>api/v2/mealitem/&lt;id&gt;/nutritional_values/</code>
 </div>
 <div class="row">
     <div class="col-md-offset-1 col-md-10">
@@ -353,7 +363,7 @@ curl -H "Authorization: Token 123456..." \
 {% block sidebar %}
 <div class="alert alert-info" style="margin-top:1em;">
 This is also new for us, if you plan on using the API,
-<a href="https://groups.google.com/group/wger">we'd love to hear from you</a>.
+<a href="https://groups.google.com/group/wger" class="alert-link">we'd love to hear from you</a>.
 </div>
 
 <p><a href="/api/v2/" class="btn btn-block btn-default" rel="nofollow">Browse the API</a></p>

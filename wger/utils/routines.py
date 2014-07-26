@@ -34,7 +34,10 @@ class Routine(object):
     description = ''
     name = ''
     short_name = ''
-    user_config = {}
+    user_config = {'round_to': 2.5,
+                   'max_squat': 100,
+                   'max_bench': 100,
+                   'max_deadlift': 100}
 
     def __init__(self, weeks=8, name='', short_name='', description=''):
         self.weeks = weeks
