@@ -15,10 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
-
-from django.http import HttpResponseNotFound, HttpResponse
-from django.utils.translation import ugettext as _
-from django.shortcuts import render
+import datetime
 
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
@@ -27,10 +24,26 @@ from reportlab.platypus import KeepTogether
 from reportlab.platypus import Paragraph
 from reportlab.platypus import Spacer
 
-from rest_framework.reverse import reverse
-from wger.manager.routines.helpers import render_routine_week
+from django.http import HttpResponseNotFound
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from django.utils.translation import ugettext as _
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
+from rest_framework.reverse import reverse
+
+from wger.core.models import DaysOfWeek
+from wger.manager.models import Workout
+from wger.manager.models import Day
+from wger.manager.models import Set
+from wger.manager.models import Setting
+from wger.manager.models import Schedule
+from wger.manager.models import ScheduleStep
+from wger.manager.routines.helpers import render_routine_week
 from wger.manager import routines
+
+from wger.utils.language import load_language
 from wger.utils.pdf import styleSheet
 from wger.utils.pdf import render_footer
 
@@ -65,6 +78,89 @@ def detail(request, name):
         return HttpResponseNotFound()
 
     return render(request, 'routines/detail.html', context)
+
+
+@login_required
+def make_schedule(request, name):
+    '''
+    Creates a schedule out of a routine
+    '''
+
+    config = {'round_to': 2.5,
+              'max_squat': 120,
+              'max_bench': 130,
+              'max_deadlift': 150}
+
+    try:
+        routine = routines.get_routines()[name]
+        routine.set_user_config(config)
+    except KeyError:
+        return HttpResponseNotFound()
+
+    schedule = Schedule()
+    schedule.user = request.user
+    schedule.name = routine.name
+    schedule.start_date = datetime.date.today()
+    schedule.is_active = True
+    schedule.is_loop = False
+    schedule.save()
+
+    current_week = 0
+    current_day = 0
+    for config in routine:
+        if config['week'] != current_week:
+            current_day = 0
+            current_week = config['week']
+
+            workout = Workout()
+            workout.user = request.user
+            workout.comment = _('Week {0} of {1}'.format(current_week, routine.name))
+            workout.save()
+
+            step = ScheduleStep()
+            step.schedule = schedule
+            step.workout = workout
+            step.duration = 1
+            step.order = 1
+            step.save()
+
+        if config['day'] != current_day:
+            current_day = config['day']
+
+            day = Day()
+            day.training = workout
+            day.description = _('Day {0}'.format(current_day))
+            day.save()
+
+            day_of_week = DaysOfWeek.objects.get(pk=current_day)
+            day.day.add(day_of_week)
+            day.save()
+
+        set = Set()
+        set.exerciseday = day
+        set.sets = config['sets']
+        set.save()
+
+        # Some monkeying around to get the exercise PK for our language
+        mapper = config['exercise'].exercise_mapper
+        language = load_language()
+        languages = mapper.get_all_languages()
+        try:
+            exercise = languages[language.short_name]
+        except KeyError:
+            exercise = languages['en']
+
+        set.exercises.add(exercise)
+
+        setting = Setting()
+        setting.set = set
+        setting.exercise = exercise
+        setting.reps = config['reps']
+        setting.order = 1
+        setting.save()
+
+    return HttpResponseRedirect(reverse('schedule-view',
+                                        kwargs={'pk': schedule.id}))
 
 
 def export_pdf(request, name):

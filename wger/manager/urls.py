@@ -149,6 +149,9 @@ urlpatterns = patterns('',
     url(r'^workout/routines/(?P<name>\w+)/pdf$',
         routines.export_pdf,
         name='routines-pdf'),
+    url(r'^workout/routines/(?P<name>\w+)/create-schedule$',
+        routines.make_schedule,
+        name='routines-create-schedule'),
 
     # Days
     url(r'^workout/day/(?P<pk>\d+)/edit/$',
