@@ -15,10 +15,12 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
+import datetime
+from django.http import HttpResponseRedirect
 
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.utils.translation import ugettext_lazy
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
@@ -70,6 +72,23 @@ def view(request, pk):
     template_data['token'] = token
 
     return render(request, 'schedule/view.html', template_data)
+
+
+@login_required
+def start(request, pk):
+    '''
+    Starts a schedule
+
+    This simply sets the start date to today and the schedule is marked as
+    being active.
+    '''
+
+    schedule = get_object_or_404(Schedule, pk=pk, user=request.user)
+    schedule.is_active = True
+    schedule.start_date = datetime.date.today()
+    schedule.save()
+    return HttpResponseRedirect(reverse('schedule-view',
+                                        kwargs={'pk': schedule.id}))
 
 
 class ScheduleCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):

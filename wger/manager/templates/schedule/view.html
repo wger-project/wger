@@ -52,6 +52,35 @@ $(function() {
 {% endblock %}
 
 {% block content %}
+<table class="table">
+    <tr>
+        <th style="width: 30%;">{% trans "Start date" %}</th>
+        <td>{{schedule.start_date}}</td>
+    </tr>
+    <tr>
+        <th>{% trans "Schedule active" %}</th>
+        <td>
+            {% if schedule.is_active %}
+                <span class="glyphicon glyphicon-ok"></span>
+            {% else %}
+                <span class="glyphicon glyphicon-remove"></span>
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>{% trans "Is loop" %}</th>
+        <td>
+            {% if schedule.is_loop %}
+                <span class="glyphicon glyphicon-ok"></span>
+                <em>{% trans "This schedule is a loop and will go through the workouts above till you deactivate it" %}</em>
+            {% else %}
+                <span class="glyphicon glyphicon-remove"></span>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+
 <div id="schedule-table-container">
 <table id="schedule-table" class="table">
     <thead>
@@ -113,29 +142,26 @@ $(function() {
         </td>
     </tr>
     {% endfor %}
-    {% if schedule.is_loop %}
     <tr>
         <td colspan="4">
-            <div class="alert alert-info" style="margin-bottom:0px;">
-            {% trans "This schedule is a loop and will go through the workouts above till you deactivate it" %}
-            </div>
+            {% if not schedule.is_active %}
+            <a href="{% url 'schedule-start' schedule.pk %}" class="btn btn-success btn-sm">
+                <span class="glyphicon glyphicon-play"></span>
+                {% trans "Start schedule" %}
+            </a>
+            {% endif %}
+
+            <a href="{% url 'step-add' schedule.id %}" class="wger-modal-dialog btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-plus"></span>
+                {% trans "Add workout" %}
+            </a>
+        </td>
+        <td colspan="2">
         </td>
     </tr>
-    {% endif %}
     </tbody>
 </table>
 </div>
-
-<p>
-<a href="{% url 'step-add' schedule.id %}"
-   class="wger-modal-dialog">
-<img src="{% static 'images/icons/new.svg' %}"
-    width="32"
-    height="32"
-    alt="{% trans 'Add workout' %}"
-    title="{% trans 'Add workout' %}">
-{% trans "Add workout" %}</a>
-</p>
 {% endblock %}
 
 

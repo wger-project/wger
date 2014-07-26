@@ -171,6 +171,49 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         self.assertTrue(schedule2.is_active)
         self.assertFalse(schedule3.is_active)
 
+    def start_schedule(self, fail=False):
+        '''
+        Helper function
+        '''
+
+        schedule = Schedule.objects.get(pk=2)
+        self.assertFalse(schedule.is_active)
+        self.assertNotEqual(schedule.start_date, datetime.date.today())
+
+        response = self.client.get(reverse('schedule-start', kwargs={'pk': 2}))
+        schedule = Schedule.objects.get(pk=2)
+        if fail:
+            self.assertIn(response.status_code, STATUS_CODES_FAIL)
+            self.assertFalse(schedule.is_active)
+            self.assertNotEqual(schedule.start_date, datetime.date.today())
+        else:
+            self.assertEqual(response.status_code, 302)
+            self.assertTrue(schedule.is_active)
+            self.assertEqual(schedule.start_date, datetime.date.today())
+
+    def test_start_schedule_owner(self):
+        '''
+        Tests starting a schedule as the owning user
+        '''
+
+        self.user_login()
+        self.start_schedule()
+
+    def test_start_schedule_other(self):
+        '''
+        Tests starting a schedule as a different user
+        '''
+
+        self.user_login('test')
+        self.start_schedule(fail=True)
+
+    def test_start_schedule_anonymous(self):
+        '''
+        Tests starting a schedule as a logged out user
+        '''
+
+        self.start_schedule(fail=True)
+
 
 class ScheduleEndDateTestCase(WorkoutManagerTestCase):
     '''
