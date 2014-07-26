@@ -51,7 +51,7 @@ def detail(request, name):
     Detail view for a routine
     '''
 
-    context = {}
+    context = {'back_url': reverse('routines-generator')}
     config = {'round_to': 2.5,
               'max_squat': 120,
               'max_bench': 130,

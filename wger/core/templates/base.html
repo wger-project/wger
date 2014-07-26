@@ -1,6 +1,14 @@
 {% extends "template.html" %}
 {% block template %}
-<h2 id="page-title" class="page-header">{% block title %}{% endblock %}</h2>
+
+<h2 id="page-title" class="page-header">
+    {% if back_url %}
+    <a href="{{back_url}}" class="btn btn-default">
+        <span class="pull-left glyphicon glyphicon-chevron-left" style="font-size: 80%;"></span>
+    </a>
+    {% endif %}
+    {% block title %}{% endblock %}
+</h2>
 <div class="row">
     <div class="col-sm-8" id="main-content">
         {% if messages and not no_messages %}
