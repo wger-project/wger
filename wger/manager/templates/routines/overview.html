@@ -3,16 +3,30 @@
 
 {% block title %}{% trans "Weightlifting routines generator" %}{% endblock %}
 
+{% block header %}
+<script src="{% static 'js/angularjs/angular.js' %}"></script>
+<script>
+angular.module("routineGenerator", ["ngRoute"])
+.config(function ($routeProvider) {
+    $routeProvider.when("/detail/:name", {
+        templateUrl: "/partials/routine-generator/detail",
+        controller: "routineDetailCtrl"
+    });
+
+    $routeProvider.otherwise({
+        templateUrl: "/partials/routine-generator/overview"
+    });
+});
+</script>
+<script src="{% static 'js/angularjs/ng-modules/angular-route.js' %}"></script>
+<script src="{% static 'js/angularjs/controllers/wger.js' %}"></script>
+{% endblock %}
 
 {% block content %}
-<div class="list-group">
-    {% for routine in routines.values %}  
-        <a href="{% url 'routines-detail' routine.short_name %}" class="list-group-item wger-list-group-item">
-            <span class="glyphicon glyphicon-chevron-right pull-right visible-xs-block"></span>
-            <h4 class="list-group-item-heading">{{routine.name}}</h4>
-            <p class="list-group-item-text">{{routine.description}}</p>
-        </a>
-  {% endfor %}
+<div data-ng-app="routineGenerator">
+<div data-ng-controller="routineListCtrl">
+    <ng-view />
+</div>
 </div>
 {% endblock %}
 

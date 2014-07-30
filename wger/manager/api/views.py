@@ -296,7 +296,8 @@ def routines_overview(request):
     for key in routine_list:
 
         out[key] = {'description': routine_list[key].description,
-                    'name': routine_list[key].name}
+                    'name': routine_list[key].name,
+                    'short_name': key}
     return Response(out)
 
 
@@ -317,4 +318,7 @@ def routines_detail_view(request, name):
 
     routine.set_user_config(config_serializer.data)
     return Response({'config': config_serializer.data,
-                     'items': RoutineExerciseConfigSerializer(routine, many=True).data})
+                     'items': RoutineExerciseConfigSerializer(routine, many=True).data,
+                     'routine': {'description': routine.description,
+                                 'name': routine.name,
+                                 'short_name': name}})

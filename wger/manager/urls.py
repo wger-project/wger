@@ -28,6 +28,7 @@ from wger.manager.views import set
 from wger.manager.views import day
 from wger.manager.views import workout_session
 from wger.manager import pdf
+from wger.utils.generic_views import TextTemplateView
 
 
 urlpatterns = patterns('',
@@ -152,6 +153,12 @@ urlpatterns = patterns('',
     url(r'^workout/routines/(?P<name>\w+)/create-schedule$',
         routines.make_schedule,
         name='routines-create-schedule'),
+    url(r'^partials/routine-generator/detail$',
+        TextTemplateView.as_view(template_name="routines/angular_detail.html"),
+        name='routines-partial-detail'),
+    url(r'^partials/routine-generator/overview$',
+        TextTemplateView.as_view(template_name="routines/angular_overview.html"),
+        name='routines-partial-overview'),
 
     # Days
     url(r'^workout/day/(?P<pk>\d+)/edit/$',

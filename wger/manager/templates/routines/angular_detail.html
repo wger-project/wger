@@ -1,20 +1,36 @@
-{% extends "base.html" %}
 {% load i18n staticfiles wger_extras %}
-
-{% block title %}{{routine.name}}{% endblock %}
-
-
-{% block content %}
-<p>{{routine.description}}</p>
+<p>{% verbatim %}{{data.routine.routine.description}}{% endverbatim %}</p>
 <table class="table table-condensed">
     <thead>
     <tr>
+        <th>{% trans "Week" %}</th>
+        <th>{% trans "Day" %}</th>
         <th>{% trans "Exercise" %}</th>
         <th>{% trans "Reps" %}</th>
         <th>{% trans "Weight" %}</th>
     </tr>
     </thead>
     <tbody>
+        {% verbatim %}
+        <tr data-ng-repeat="config in data.routine.items">
+            <td>
+                {{config.week}}
+            </td>
+            <td>
+                {{config.day}}
+            </td>
+            <td>
+                {{config.exercise.name}}
+            </td>
+            <td>
+                {{config.sets}} × {{config.reps}}
+            </td>
+            <td>
+                {{config.weight}}{% endverbatim %} {% trans "kg." %}
+            </td>
+        </tr>
+
+    <!--
     {% for config in routine %}
 
 
@@ -46,12 +62,13 @@
             </td>
         </tr>
     {% endfor %}
+    -->
     </tbody>
 </table>
-{% endblock %}
 
 
 {% block sidebar %}
+{% comment %}
 <h4>{% trans "Info" %}</h4>
 <p>{% blocktrans %}If you don't quite like the routine, you can edit and change
 any part of it once you have added it to your list.{% endblocktrans %}</p>
@@ -89,4 +106,6 @@ any part of it once you have added it to your list.{% endblocktrans %}</p>
         {% trans "Routine generator" %}
     </a>
 </p>
+{% endcomment %}
 {% endblock %}
+
