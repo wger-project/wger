@@ -67,34 +67,6 @@ class RoutineOverviewAccessTestCase(WorkoutManagerTestCase):
         self.routine_overview()
 
 
-class RoutineDetailAccessTestCase(WorkoutManagerTestCase):
-    '''
-    Test accessing the routine detail page
-    '''
-
-    def routine_detail(self):
-        '''
-        Helper function to test accessing the detail overview
-        '''
-        for routine in routines.get_routines():
-
-            response = self.client.get(reverse('routines-detail', kwargs={'name': routine}))
-            self.assertEqual(response.status_code, 200)
-
-    def test_routine_detail_anonymous(self):
-        '''
-        Tests accessing the routine detail page as an anonymous user
-        '''
-        self.routine_detail()
-
-    def test_routine_detail_logged_in(self):
-        '''
-        Tests accessing the routine detail page as a logged in user
-        '''
-        self.user_login('test')
-        self.routine_detail()
-
-
 class RoutinePdfExportTestCase(WorkoutManagerTestCase):
     '''
     Tests exporting the routines as a pdf

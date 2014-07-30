@@ -17,6 +17,7 @@
 
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
 
 from wger.manager.views import schedule
 from wger.manager.views import schedule_step
@@ -28,7 +29,6 @@ from wger.manager.views import set
 from wger.manager.views import day
 from wger.manager.views import workout_session
 from wger.manager import pdf
-from wger.utils.generic_views import TextTemplateView
 
 
 urlpatterns = patterns('',
@@ -142,11 +142,8 @@ urlpatterns = patterns('',
 
     # Routines generator
     url(r'^workout/routines/generator$',
-        routines.overview,
+        TemplateView.as_view(template_name="routines/overview.html"),
         name='routines-generator'),
-    url(r'^workout/routines/(?P<name>\w+)$',
-        routines.detail,
-        name='routines-detail'),
     url(r'^workout/routines/(?P<name>\w+)/pdf$',
         routines.export_pdf,
         name='routines-pdf'),
@@ -154,10 +151,10 @@ urlpatterns = patterns('',
         routines.make_schedule,
         name='routines-create-schedule'),
     url(r'^partials/routine-generator/detail$',
-        TextTemplateView.as_view(template_name="routines/angular_detail.html"),
+        TemplateView.as_view(template_name="routines/angular_detail.html"),
         name='routines-partial-detail'),
     url(r'^partials/routine-generator/overview$',
-        TextTemplateView.as_view(template_name="routines/angular_overview.html"),
+        TemplateView.as_view(template_name="routines/angular_overview.html"),
         name='routines-partial-overview'),
 
     # Days

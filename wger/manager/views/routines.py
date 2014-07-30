@@ -51,35 +51,6 @@ from wger.utils.pdf import render_footer
 logger = logging.getLogger('wger.custom')
 
 
-def overview(request):
-    '''
-    An overview of all the available routines
-    '''
-    context = {'routines': routines.get_routines()}
-    return render(request, 'routines/overview.html', context)
-
-
-def detail(request, name):
-    '''
-    Detail view for a routine
-    '''
-
-    context = {'back_url': reverse('routines-generator')}
-    config = {'round_to': 2.5,
-              'max_squat': 120,
-              'max_bench': 130,
-              'max_deadlift': 150}
-
-    try:
-        routine = routines.get_routines()[name]
-        routine.set_user_config(config)
-        context['routine'] = routine
-    except KeyError:
-        return HttpResponseNotFound()
-
-    return render(request, 'routines/detail.html', context)
-
-
 @login_required
 def make_schedule(request, name):
     '''
