@@ -1,4 +1,5 @@
 {% load i18n staticfiles wger_extras %}
+<h3>{% verbatim %}{{data.routine.routine.name}}{% endverbatim %}</h3>
 <p>{% verbatim %}{{data.routine.routine.description}}{% endverbatim %}</p>
 <table class="table table-condensed">
     <thead>
@@ -66,18 +67,10 @@
     </tbody>
 </table>
 
-
-{% block sidebar %}
-{% comment %}
-<h4>{% trans "Info" %}</h4>
-<p>{% blocktrans %}If you don't quite like the routine, you can edit and change
-any part of it once you have added it to your list.{% endblocktrans %}</p>
-
-
 <h4>{% trans "Options" %}</h4>
 {% if user.is_authenticated %}
 <p>
-    <a href="{% url 'routines-create-schedule' routine.short_name %}" {% auto_link_css flavour %}>
+    <a href="/workout/routines/{% verbatim %}{{data.routine.routine.short_name}}{% endverbatim %}/create-schedule/" {% auto_link_css flavour %}>
         <img src="{% static 'images/icons/status-on.svg' %}"
              width="32"
              height="32"
@@ -89,7 +82,7 @@ any part of it once you have added it to your list.{% endblocktrans %}</p>
 {% endif %}
 
 <p>
-    <a href="{% url 'routines-pdf' routine.short_name %}" {% auto_link_css flavour %}>
+    <a href="/workout/routines/{% verbatim %}{{data.routine.routine.short_name}}{% endverbatim %}/pdf" {% auto_link_css flavour %}>
         <img src="{% static 'images/icons/save.svg' %}"
              width="32"
              height="32"
@@ -106,6 +99,3 @@ any part of it once you have added it to your list.{% endblocktrans %}</p>
         {% trans "Routine generator" %}
     </a>
 </p>
-{% endcomment %}
-{% endblock %}
-
