@@ -19,7 +19,7 @@ import datetime
 
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
-from reportlab.platypus import SimpleDocTemplate
+from reportlab.platypus import SimpleDocTemplate, Table
 from reportlab.platypus import KeepTogether
 from reportlab.platypus import Paragraph
 from reportlab.platypus import Spacer
@@ -138,14 +138,14 @@ def export_pdf(request, name):
     '''
     Exports a routine as a PDF
     '''
-    config = {'round_to': 2.5,
-              'max_squat': 120,
-              'max_bench': 130,
-              'max_deadlift': 150}
+    user_config = {'round_to': 2.5,
+                   'max_squat': 120,
+                   'max_bench': 130,
+                   'max_deadlift': 150}
 
     try:
         routine = routines.get_routines()[name]
-        routine.set_user_config(config)
+        routine.set_user_config(user_config)
     except KeyError:
         return HttpResponseNotFound()
 
@@ -182,9 +182,22 @@ def export_pdf(request, name):
         s = Spacer(10*cm, 0.5*cm)
         elements.append(KeepTogether([p, t, s]))
 
+    # Config data
+    data = []
+    p = Paragraph('<para>{0}</para>'.format(_("Routine configuration")), styleSheet["Bold"])
+    data.append([p])
+    data.append([_('Max Bench'), user_config['max_bench']])
+    data.append([_('Max Squat'), user_config['max_squat']])
+    data.append([_('Max Deadlift'), user_config['max_deadlift']])
+    data.append([_('Weights rounded to'), user_config['round_to']])
+    table_style = [('FONT', (0, 0), (-1, -1), 'OpenSans')]
+    t = Table(data, style=table_style, hAlign='LEFT')
+    t._argW[0] = 5 * cm
+    elements.append(t)
+
     # Footer
     elements.append(Spacer(10*cm, 0.5*cm))
-    url = reverse('routines-detail', kwargs={'name': routine.short_name})
+    url = reverse('routines-generator')
     elements.append(render_footer(request.build_absolute_uri(url)))
 
     # Create the HttpResponse object with the appropriate PDF headers.
