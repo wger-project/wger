@@ -1,6 +1,6 @@
 {% load i18n staticfiles wger_extras %}
-<h3>{% verbatim %}{{data.routine.routine.name}}{% endverbatim %}</h3>
-<p>{% verbatim %}{{data.routine.routine.description}}{% endverbatim %}</p>
+<h3>{% verbatim %}{{data.routine.name}}{% endverbatim %}</h3>
+<p>{% verbatim %}{{data.routine.description}}{% endverbatim %}</p>
 <table class="table table-condensed">
     <thead>
     <tr>
@@ -8,12 +8,12 @@
         <th>{% trans "Day" %}</th>
         <th>{% trans "Exercise" %}</th>
         <th>{% trans "Reps" %}</th>
-        <th>{% trans "Weight" %}</th>
+        <th style="text-align: right;">{% trans "Weight" %}</th>
     </tr>
     </thead>
     <tbody>
         {% verbatim %}
-        <tr data-ng-repeat="config in data.routine.items">
+        <tr data-ng-repeat="config in data.items">
             <td>
                 {{config.week}}
             </td>
@@ -26,7 +26,7 @@
             <td>
                 {{config.sets}} × {{config.reps}}
             </td>
-            <td>
+            <td style="text-align: right;">
                 {{config.weight}}{% endverbatim %} {% trans "kg." %}
             </td>
         </tr>
@@ -70,7 +70,7 @@
 <h4>{% trans "Options" %}</h4>
 {% if user.is_authenticated %}
 <p>
-    <a href="/workout/routines/{% verbatim %}{{data.routine.routine.short_name}}{% endverbatim %}/create-schedule/" {% auto_link_css flavour %}>
+    <a href="/workout/routines/{% verbatim %}{{data.routine.short_name}}{% endverbatim %}/create-schedule/" {% auto_link_css flavour %}>
         <img src="{% static 'images/icons/status-on.svg' %}"
              width="32"
              height="32"
@@ -82,7 +82,7 @@
 {% endif %}
 
 <p>
-    <a href="/workout/routines/{% verbatim %}{{data.routine.routine.short_name}}{% endverbatim %}/pdf" {% auto_link_css flavour %}>
+    <a href="/workout/routines/{% verbatim %}{{data.routine.short_name}}{% endverbatim %}/pdf" {% auto_link_css flavour %}>
         <img src="{% static 'images/icons/save.svg' %}"
              width="32"
              height="32"

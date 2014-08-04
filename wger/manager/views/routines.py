@@ -51,6 +51,13 @@ from wger.utils.pdf import render_footer
 logger = logging.getLogger('wger.custom')
 
 
+def overview(request):
+    '''
+    Render the routine generator overview page
+    '''
+    return render(request, 'routines/overview.html', {'ng_app': 'routineGenerator'})
+
+
 @login_required
 def make_schedule(request, name):
     '''

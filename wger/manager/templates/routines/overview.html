@@ -6,7 +6,7 @@
 {% block header %}
 <script src="{% static 'js/angularjs/angular.js' %}"></script>
 <script>
-angular.module("routineGenerator", ["ngRoute"])
+angular.module("routineGenerator", ["ngRoute", "ngResource"])
 .config(function ($routeProvider) {
     $routeProvider.when("/detail/:name", {
         templateUrl: "/partials/routine-generator/detail",
@@ -19,14 +19,13 @@ angular.module("routineGenerator", ["ngRoute"])
 });
 </script>
 <script src="{% static 'js/angularjs/ng-modules/angular-route.js' %}"></script>
-<script src="{% static 'js/angularjs/controllers/wger.js' %}"></script>
+<script src="{% static 'js/angularjs/ng-modules/angular-resource.js' %}"></script>
+<script src="{% static 'js/angularjs/controllers/wger.js' %}"></script>e
 {% endblock %}
 
 {% block content %}
-<div data-ng-app="routineGenerator">
 <div data-ng-controller="routineListCtrl">
-    <ng-view />
-</div>
+    <data-ng-view />
 </div>
 {% endblock %}
 
@@ -35,4 +34,13 @@ angular.module("routineGenerator", ["ngRoute"])
 <h4>{% trans "Info" %}</h4>
 <p>{% blocktrans %}If you don't quite like the routine, you can edit and change
 any part of it once you have added it to your list.{% endblocktrans %}</p>
+
+<div >
+<form data-ng-controller="routineDetailCtrl">
+    Max bench <input type="number" min="0" max="300" step="1" name="max_bench" value="100" data-ng-model="config.max_bench"><br>
+    Max squat <input type="number" min="0" max="300" step="1" name="max_squat" value="100" data-ng-model="config.max_squat"><br>
+    Max deadlift <input type="number" min="0" max="300" step="1" name="max_deadlift" value="100" data-ng-model="config.max_deadlift">
+    <button class="btn btn-default" data-ng-click="showRoutine()">{% trans "Update routine" %}</button>
+</form>
+</div>
 {% endblock %}

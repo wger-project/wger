@@ -142,7 +142,7 @@ urlpatterns = patterns('',
 
     # Routines generator
     url(r'^workout/routines/generator$',
-        TemplateView.as_view(template_name="routines/overview.html"),
+        routines.overview,
         name='routines-generator'),
     url(r'^workout/routines/(?P<name>\w+)/pdf$',
         routines.export_pdf,

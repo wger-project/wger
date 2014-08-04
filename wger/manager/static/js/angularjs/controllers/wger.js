@@ -16,31 +16,48 @@
 
 angular.module("routineGenerator")
 .constant('dataUrl', "/api/v2/routine-generator/")
-.controller("routineListCtrl", function ($scope, $http, dataUrl) {
+.controller("routineListCtrl", function ($scope, $resource, $http, dataUrl) {
     $scope.data = {};
 
-    $http.get(dataUrl)
-        .success(function (data) {
-            $scope.data.routines = data
-        })
-        .error(function (error) {
-            $scope.data.error = error;
-        });
+    $scope.routinesResource = $resource(dataUrl, {}, {'query': {isArray: false}});
+    $scope.listRoutines = function () {
+        $scope.routines = $scope.routinesResource.query();
+    }
+
+    $scope.listRoutines();
 })
-.controller("routineDetailCtrl", function ($scope, $http, $routeParams, dataUrl) {
+.controller("routineDetailCtrl", function ($scope, $http, $resource, $routeParams, dataUrl) {
     $scope.data = {};
+    $scope.config = {max_deadlift: 100,
+                     max_bench: 100,
+                     max_squat: 100,
+                     round_to: 1.25,
+                     name: ''};
 
-    $scope.$on("$routeChangeSuccess", function (){
+    $scope.routineResource = $resource(dataUrl + ':name/',
+                                        {
+                                            name: 'korte',
+                                            max_deadlift: 100,
+                                            max_bench: 100,
+                                            max_squat: 100,
+                                            round_to: 2.5
+                                        },
+                                        {'query': {isArray: false}}
+                                );
 
-        $http.get(dataUrl + $routeParams['name'] + '/?max_deadlift=100&max_bench=100&max_squat=100&round_to=2.5')
-            .success(function (data) {
-                console.log(data);
-                $scope.data.routine = data
-            })
-            .error(function (error) {
-                $scope.data.error = error;
-            });
+    $scope.showRoutine = function () {
+        $scope.config.name = $routeParams['name'];
+        $scope.data = $scope.routineResource.query( {
+                                            name: 'korte',
+                                            max_deadlift: $scope.config.max_deadlift,
+                                            max_bench: $scope.config.max_bench,
+                                            max_squat: $scope.config.max_squat,
+                                            round_to: 2.5
+                                        });
+        $scope.data.$promise.then(function (data) {
+            //console.log(data);
+        });
+    }
 
-    });
-
+    $scope.showRoutine();
 });
