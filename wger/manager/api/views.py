@@ -316,6 +316,10 @@ def routines_detail_view(request, name):
     except KeyError:
         return HttpResponseNotFound()
 
+    # Save the data to the session
+    request.session['routine_config'] = config_serializer.data
+
+    # And return everything together
     routine.set_user_config(config_serializer.data)
     return Response({'config': config_serializer.data,
                      'items': RoutineExerciseConfigSerializer(routine, many=True).data,

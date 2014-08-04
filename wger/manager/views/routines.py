@@ -55,7 +55,11 @@ def overview(request):
     '''
     Render the routine generator overview page
     '''
-    return render(request, 'routines/overview.html', {'ng_app': 'routineGenerator'})
+
+    context = {'ng_app': 'routineGenerator',
+               'user_config': request.session.get('routine_config')}
+
+    return render(request, 'routines/overview.html', context)
 
 
 @login_required
@@ -145,11 +149,8 @@ def export_pdf(request, name):
     '''
     Exports a routine as a PDF
     '''
-    user_config = {'round_to': 2.5,
-                   'max_squat': 120,
-                   'max_bench': 130,
-                   'max_deadlift': 150}
 
+    user_config = request.session['routine_config']
     try:
         routine = routines.get_routines()[name]
         routine.set_user_config(user_config)
