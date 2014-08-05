@@ -68,14 +68,11 @@ def make_schedule(request, name):
     Creates a schedule out of a routine
     '''
 
-    config = {'round_to': 2.5,
-              'max_squat': 120,
-              'max_bench': 130,
-              'max_deadlift': 150}
+    user_config = request.session['routine_config']
 
     try:
         routine = routines.get_routines()[name]
-        routine.set_user_config(config)
+        routine.set_user_config(user_config)
     except KeyError:
         return HttpResponseNotFound()
 
