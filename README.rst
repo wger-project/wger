@@ -90,8 +90,5 @@ The application is licenced under the Affero GNU General Public License 3 or lat
 The initial exercise and ingredient data is licensed additionally under a
 Creative Commons Attribution Share-Alike 3.0 (CC-BY-SA 3.0)
 
-The YAML CSS framework is licensed under a Creative Commons Attribution 2.0
-License (CC-BY 2.0)
-
 Some images where taken from Wikipedia, see the SOURCES file in their respective
 folders for more details.
