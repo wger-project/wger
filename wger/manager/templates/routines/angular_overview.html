@@ -1,14 +1,14 @@
 {% load i18n staticfiles wger_extras %}
 
-<div data-ng-app="wgerWorkoutManager">
 <div class="list-group" data-ng-controller="routineListCtrl">
     {% verbatim %}
-    <a href="#/detail/{{routine.short_name}}" class="list-group-item wger-list-group-item" data-ng-repeat="routine in routines">
+    <a href="#/view/{{routine.short_name}}"
+       class="list-group-item wger-list-group-item"
+       data-ng-repeat="routine in routines">
         <span class="glyphicon glyphicon-chevron-right pull-right visible-xs-block"></span>
         <h4 class="list-group-item-heading">{{routine.name}}</h4>
         <p class="list-group-item-text">{{routine.description}}</p>
     </a>
     {% endverbatim %}
-</div>
 </div>
 

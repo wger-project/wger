@@ -1,4 +1,6 @@
 {% load i18n staticfiles wger_extras %}
+
+<div class="list-group" data-ng-controller="routineDetailCtrl">
 <h3>{% verbatim %}{{data.routine.name}}{% endverbatim %}</h3>
 <p>{% verbatim %}{{data.routine.description}}{% endverbatim %}</p>
 <table class="table table-condensed">
@@ -99,3 +101,4 @@
         {% trans "Routine generator" %}
     </a>
 </p>
+</div>

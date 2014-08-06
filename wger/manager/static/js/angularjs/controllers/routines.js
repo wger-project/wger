@@ -28,36 +28,28 @@ angular.module("routineGenerator")
 })
 .controller("routineDetailCtrl", function ($scope, $http, $resource, $routeParams, dataUrl) {
     $scope.data = {};
-    $scope.config = {max_deadlift: 100,
+    $scope.config = {name: 'korte',
+                     max_deadlift: 100,
                      max_bench: 100,
                      max_squat: 100,
-                     round_to: 1.25,
-                     name: ''};
+                     round_to: 2.5
+                    };
 
-    $scope.routineResource = $resource(dataUrl + ':name/',
-                                        {
-                                            name: 'korte',
-                                            max_deadlift: 100,
-                                            max_bench: 100,
-                                            max_squat: 100,
-                                            round_to: 2.5
-                                        },
-                                        {'query': {isArray: false}}
-                                );
+    $scope.routineResource = $resource(dataUrl + ':name/', {}, {'query': {isArray: false}});
 
-    $scope.showRoutine = function () {
+    $scope.getRoutine = function () {
         $scope.config.name = $routeParams['name'];
-        $scope.data = $scope.routineResource.query( {
-                                            name: 'korte',
+        $scope.data = $scope.routineResource.query({
+                                            name: $scope.config.name,
                                             max_deadlift: $scope.config.max_deadlift,
                                             max_bench: $scope.config.max_bench,
                                             max_squat: $scope.config.max_squat,
-                                            round_to: 2.5
+                                            round_to: $scope.config.round_to
                                         });
         $scope.data.$promise.then(function (data) {
             //console.log(data);
         });
-    }
+    };
 
-    $scope.showRoutine();
+    $scope.getRoutine();
 });
