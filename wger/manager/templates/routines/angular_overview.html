@@ -1,14 +1,26 @@
 {% load i18n staticfiles wger_extras %}
 
-<div class="list-group" data-ng-controller="routineListCtrl">
-    {% verbatim %}
-    <a href="#/view/{{routine.short_name}}"
-       class="list-group-item wger-list-group-item"
-       data-ng-repeat="routine in routines">
-        <span class="glyphicon glyphicon-chevron-right pull-right visible-xs-block"></span>
-        <h4 class="list-group-item-heading">{{routine.name}}</h4>
-        <p class="list-group-item-text">{{routine.description}}</p>
-    </a>
-    {% endverbatim %}
+<div class="row" data-ng-controller="routineListCtrl">
+    <div class="col-sm-8">
+        <div class="list-group" >
+            {% verbatim %}
+            <a href="#/view/{{routine.short_name}}"
+               class="list-group-item wger-list-group-item"
+               data-ng-repeat="routine in routines">
+                <span class="glyphicon glyphicon-chevron-right pull-right visible-xs-block"></span>
+                <h4 class="list-group-item-heading">{{routine.name}}</h4>
+                <p class="list-group-item-text">{{routine.description}}</p>
+            </a>
+            {% endverbatim %}
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <h4>{% trans "Info" %}</h4>
+        <p>{% blocktrans %}If you don't quite like the routine, you can edit and change
+any part of it once you have added it to your list.{% endblocktrans %}</p>
+    </div>
 </div>
+
+
+
 

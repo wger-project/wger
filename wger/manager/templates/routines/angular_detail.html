@@ -1,104 +1,149 @@
 {% load i18n staticfiles wger_extras %}
 
-<div class="list-group" data-ng-controller="routineDetailCtrl">
-<h3>{% verbatim %}{{data.routine.name}}{% endverbatim %}</h3>
-<p>{% verbatim %}{{data.routine.description}}{% endverbatim %}</p>
-<table class="table table-condensed">
-    <thead>
-    <tr>
-        <th>{% trans "Week" %}</th>
-        <th>{% trans "Day" %}</th>
-        <th>{% trans "Exercise" %}</th>
-        <th>{% trans "Reps" %}</th>
-        <th style="text-align: right;">{% trans "Weight" %}</th>
-    </tr>
-    </thead>
-    <tbody>
-        {% verbatim %}
-        <tr data-ng-repeat="config in data.items">
-            <td>
-                {{config.week}}
-            </td>
-            <td>
-                {{config.day}}
-            </td>
-            <td>
-                {{config.exercise.name}}
-            </td>
-            <td>
-                {{config.sets}} × {{config.reps}}
-            </td>
-            <td style="text-align: right;">
-                {{config.weight}}{% endverbatim %} {% trans "kg." %}
-            </td>
-        </tr>
+<div class="row" data-ng-controller="routineDetailCtrl">
+    <div class="col-sm-8">
+        <h3>
+            <a href="{% url 'routines-generator' %}" {% auto_link_css flavour "btn btn-default" %}>
+            <span class="pull-left glyphicon glyphicon-chevron-left" style="font-size: 80%;"></span>
+            </a>
+            {% verbatim %}{{data.routine.name}}{% endverbatim %}
+        </h3>
+        <p>{% verbatim %}{{data.routine.description}}{% endverbatim %}</p>
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th>{% trans "Week" %}</th>
+                <th>{% trans "Day" %}</th>
+                <th>{% trans "Exercise" %}</th>
+                <th>{% trans "Reps" %}</th>
+                <th style="text-align: right;">{% trans "Weight" %}</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% verbatim %}
+                <tr data-ng-repeat="config in data.items">
+                    <td>
+                        {{config.week}}
+                    </td>
+                    <td>
+                        {{config.day}}
+                    </td>
+                    <td>
+                        {{config.exercise.name}}
+                    </td>
+                    <td>
+                        {{config.sets}} × {{config.reps}}
+                    </td>
+                    <td style="text-align: right;">
+                        {{config.weight}}{% endverbatim %} {% trans "kg." %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-4">
+        <h4>{% trans "Info" %}</h4>
+        <p>{% blocktrans %}If you don't quite like the routine, you can edit and change
+any part of it once you have added it to your list.{% endblocktrans %}</p>
 
-    <!--
-    {% for config in routine %}
+        <h4>{% trans "Configuration" %}</h4>
+        <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <label for="max_bench" class="col-md-3 control-label">
+                {% trans "Max bench" %}
+            </label>
+            <div class="col-md-9">
+                <input type="number"
+                       min="0"
+                       max="300"
+                       step="1"
+                       id="max_bench"
+                       name="max_bench"
+                       value="{{user_config.max_bench}}"
+                       data-ng-model="config.max_bench"
+                       class="form-control">
+            </div>
+        </div>
 
+        <div class="form-group">
+            <label for="max_squat" class="col-md-3 control-label">
+                {% trans "Max squat" %}
+            </label>
+            <div class="col-md-9">
+                <input type="number"
+                       min="0"
+                       max="300"
+                       step="1"
+                       id="max_squat"
+                       name="max_squat"
+                       value="{{user_config.max_squat}}"
+                       data-ng-model="config.max_squat"
+                       class="form-control">
+            </div>
+        </div>
 
-        {% ifchanged config.week %}
-        <tr>
-            <th colspan="3" class="active">
-                {% trans "Week" %} {{config.week}}
-            </th>
-        </tr>
-        {% endifchanged %}
+        <div class="form-group">
+            <label for="max_deadlift" class="col-md-3 control-label">
+                {% trans "Max deadlift" %}
+            </label>
+            <div class="col-md-9">
+                <input type="number"
+                       min="0"
+                       max="300"
+                       step="1"
+                       id="max_deadlift"
+                       name="max_deadlift"
+                       value="{{user_config.deadlift}}"
+                       data-ng-model="config.max_deadlift"
+                       class="form-control">
+            </div>
+        </div>
 
-        {% ifchanged config.day %}
-        <tr>
-            <th colspan="3">
-                {% trans "Day" %} {{config.day}}
-            </th>
-        </tr>
-        {% endifchanged %}
+        <div class="form-group">
+            <label for="round_to" class="col-md-3 control-label">
+                {% trans "Round to" %}
+            </label>
+            <div class="col-md-9">
+                <input type="number"
+                       min="0"
+                       max="5"
+                       step="0.1"
+                       id="round_to"
+                       name="round_to"
+                       value="{{user_config.round_to}}"
+                       data-ng-model="config.round_to"
+                       class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                <button class="btn btn-default btn-block" data-ng-click="getRoutine()">{% trans "Update routine" %}</button>
+            </div>
+        </div>
+    </form>
 
-        <tr>
-            <td>
-                {{config.exercise}}
-            </td>
-            <td>
-                {{config.sets}} × {{config.reps}}
-            </td>
-            <td>
-                {{config.weight}} {% trans "kg." %}
-            </td>
-        </tr>
-    {% endfor %}
-    -->
-    </tbody>
-</table>
+        <h4>{% trans "Options" %}</h4>
+        <p>
+            <a href="/workout/routines/{% verbatim %}{{data.routine.short_name}}{% endverbatim %}/pdf" {% auto_link_css flavour %}>
+                <img src="{% static 'images/icons/save.svg' %}"
+                     width="32"
+                     height="32"
+                     alt="{% trans 'Download as PDF' %}">
+                {% trans "Download as PDF" %}
+            </a>
+        </p>
 
-<h4>{% trans "Options" %}</h4>
-{% if user.is_authenticated %}
-<p>
-    <a href="/workout/routines/{% verbatim %}{{data.routine.short_name}}{% endverbatim %}/create-schedule" {% auto_link_css flavour %}>
-        <img src="{% static 'images/icons/status-on.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Use this routine' %}"
-             >
-        {% trans "Use this routine" %}
-    </a>
-</p>
-{% endif %}
-
-<p>
-    <a href="/workout/routines/{% verbatim %}{{data.routine.short_name}}{% endverbatim %}/pdf" {% auto_link_css flavour %}>
-        <img src="{% static 'images/icons/save.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Download as PDF' %}">
-        {% trans "Download as PDF" %}
-    </a>
-</p>
-<p>
-    <a href="{% url 'routines-generator' %}" {% auto_link_css flavour %}>
-        <img src="{% static 'images/icons/list.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Routine generator' %}">
-        {% trans "Routine generator" %}
-    </a>
-</p>
+        {% if user.is_authenticated %}
+        <p>
+            <a href="/workout/routines/{% verbatim %}{{data.routine.short_name}}{% endverbatim %}/create-schedule" {% auto_link_css flavour %}>
+                <img src="{% static 'images/icons/status-on.svg' %}"
+                     width="32"
+                     height="32"
+                     alt="{% trans 'Use this routine' %}"
+                     >
+                {% trans "Use this routine" %}
+            </a>
+        </p>
+        {% endif %}
+    </div>
 </div>

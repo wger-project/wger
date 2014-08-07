@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_wide.html" %}
 {% load i18n staticfiles wger_extras %}
 
 {% block title %}{% trans "Weightlifting routines generator" %}{% endblock %}
@@ -25,87 +25,4 @@ angular.module("routineGenerator", ["ngRoute", "ngResource"])
 
 {% block content %}
 <data-ng-view></data-ng-view>
-{% endblock %}
-
-
-{% block sidebar %}
-<h4>{% trans "Info" %}</h4>
-<p>{% blocktrans %}If you don't quite like the routine, you can edit and change
-any part of it once you have added it to your list.{% endblocktrans %}</p>
-
-<h4>{% trans "Configuration" %}</h4>
-<form data-ng-controller="routineDetailCtrl" class="form-horizontal" role="form">
-    <div class="form-group">
-        <label for="max_bench" class="col-md-3 control-label">
-            {% trans "Max bench" %}
-        </label>
-        <div class="col-md-9">
-            <input type="number"
-                   min="0"
-                   max="300"
-                   step="1"
-                   id="max_bench"
-                   name="max_bench"
-                   value="{{user_config.max_bench}}"
-                   data-ng-model="config.max_bench"
-                   class="form-control">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="max_squat" class="col-md-3 control-label">
-            {% trans "Max squat" %}
-        </label>
-        <div class="col-md-9">
-            <input type="number"
-                   min="0"
-                   max="300"
-                   step="1"
-                   id="max_squat"
-                   name="max_squat"
-                   value="{{user_config.max_squat}}"
-                   data-ng-model="config.max_squat"
-                   class="form-control">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="max_deadlift" class="col-md-3 control-label">
-            {% trans "Max deadlift" %}
-        </label>
-        <div class="col-md-9">
-            <input type="number"
-                   min="0"
-                   max="300"
-                   step="1"
-                   id="max_deadlift"
-                   name="max_deadlift"
-                   value="{{user_config.deadlift}}"
-                   data-ng-model="config.max_deadlift"
-                   class="form-control">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="round_to" class="col-md-3 control-label">
-            {% trans "Round to" %}
-        </label>
-        <div class="col-md-9">
-            <input type="number"
-                   min="0"
-                   max="5"
-                   step="0.1"
-                   id="round_to"
-                   name="round_to"
-                   value="{{user_config.round_to}}"
-                   data-ng-model="config.round_to"
-                   class="form-control">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-3 col-md-9">
-            <button class="btn btn-default btn-block" data-ng-click="getRoutine()">{% trans "Update routine" %}</button>
-        </div>
-    </div>
-</form>
 {% endblock %}
