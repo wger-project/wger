@@ -3,7 +3,7 @@
 <div class="row" data-ng-controller="routineDetailCtrl">
     <div class="col-sm-8">
         <h3>
-            <a href="{% url 'routines-generator' %}" {% auto_link_css flavour "btn btn-default" %}>
+            <a href="{% url 'routines-generator' %}" class="btn btn-default">
             <span class="pull-left glyphicon glyphicon-chevron-left" style="font-size: 80%;"></span>
             </a>
             {% verbatim %}{{data.routine.name}}{% endverbatim %}
