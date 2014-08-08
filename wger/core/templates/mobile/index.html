@@ -153,7 +153,8 @@ its default duration in your settings.{% endblocktrans %}
         {% if current_workout %}
             <a href="#current-workout"
                data-toggle="modal"
-               class="btn btn-default btn-block">
+               class="btn btn-default btn-block"
+               style="white-space: normal;">
                 <img src="{% static 'images/icons/list.svg' %}"
                      width="32"
                      height="32"
@@ -175,7 +176,9 @@ its default duration in your settings.{% endblocktrans %}
         {% endif %}
     </div>
     <div class="col-xs-6" style="padding-left: 7px;">
-        <a href="{% url 'workout-calendar' %}" class="btn btn-default btn-block">
+        <a href="{% url 'workout-calendar' %}"
+           class="btn btn-default btn-block"
+           style="white-space: normal;">
             <img src="{% static 'images/icons/calendar.svg' %}"
                  width="32"
                  height="32"
@@ -193,7 +196,8 @@ its default duration in your settings.{% endblocktrans %}
         {% if plan %}
         <a href="#current-nutrition-plan"
            data-toggle="modal"
-           class="btn btn-default btn-block">
+           class="btn btn-default btn-block"
+           style="white-space: normal;">
             <img src="{% static 'images/icons/list.svg' %}"
                  width="32"
                  height="32"
