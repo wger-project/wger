@@ -17,10 +17,10 @@ $(document).ready(function() {
 <table class="table table-bordered workout-table" id="table-day-{{ day.obj.id }}">
 <thead>
     <tr id="day-{{ day.obj.id }}">
-        <th colspan="2" style="background: none repeat scroll 0% 0% #E0E0E0;">
+        <th colspan="2" style="background: none repeat scroll 0% 0% #F5F5F5;">
 
             {{ day.days_of_week.text }} – {{ day.obj.description }}
-
+            {% if not compact %}
             <span class="editoptions" style="float: right;">
                 <a href="{% url 'day-delete' day.obj.id %}"
                    title="{% trans 'Delete' %}">
@@ -45,6 +45,7 @@ $(document).ready(function() {
                             alt="{% trans 'Add weight log to this day' %}">
                 </a>
             </span>
+            {% endif %}
         </th>
     </tr>
     </thead>
@@ -53,6 +54,8 @@ $(document).ready(function() {
         <tr id="set-{{ set.obj.id }}">
             <td style="width: 15%;border-right-width: 0px;">
                 <h5><strong>{{ forloop.counter }}</strong></h5>
+
+                {% if not compact %}
                 <span class="editoptions">
                 {% if day.set_list|length > 1 %}
                 <img src="{% static 'images/icons/move.svg' %}"
@@ -80,6 +83,7 @@ $(document).ready(function() {
                              alt="{% trans 'Delete' %}">
                 </a>
                 </span>
+                {% endif %}
             </td>
             <td style="border-left-width: 0px;">
                 <div class="exercise-list">
@@ -116,12 +120,14 @@ $(document).ready(function() {
                             </p>
                             {% endif %}
 
+                            {% if not compact %}
                             {% if exercise.comment_list %}
                             <p class="text-muted">
                                 {% for comment in exercise.comment_list %}
                                     {{comment}}<br>
                                 {% endfor %}
                             </p>
+                            {% endif %}
                             {% endif %}
                         </div>
                     </div>
@@ -131,6 +137,7 @@ $(document).ready(function() {
             </td>
         </tr>
         {% empty %}
+        {% if not compact %}
         <tr>
             <td colspan="2">
                     <a href="{% url 'set-add' day.obj.id %}"
@@ -140,12 +147,15 @@ $(document).ready(function() {
                     </a>
             </td>
         </tr>
+        {% endif %}
         {% endfor %} <!--for set in day-->
+        {% if not compact %}
         <tr>
             <td colspan="2">
                 <a href="{% url 'set-add' day.obj.id %}"
                    class="wger-modal-dialog">{% trans "Add exercises to this workout day" %}</a>
             </td>
         </tr>
+        {% endif %}
     </tbody>
 </table>

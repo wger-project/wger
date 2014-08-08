@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load staticfiles wger_extras thumbnail %}
 
-
+{% if not compact %}
 <div class="modal fade" id="editoptions-day-{{ day.obj.id }}">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -52,10 +52,10 @@
         </div>
     </div>
 </div>
+{% endif %}
 
 
-
-
+{% if not compact %}
 {% for set in day.set_list %}
 <div class="modal fade" id="editoptions-set-{{ set.obj.id }}">
     <div class="modal-dialog">
@@ -100,6 +100,7 @@
     </div>
 </div>
 {% endfor %}
+{% endif %}
 
 
 <div class="list-group"
@@ -110,7 +111,9 @@
         {# Day #}
         {#     #}
         <a href="#editoptions-day-{{ day.obj.id }}" class="list-group-item active" data-toggle="modal">
+            {% if not compact %}
             <span class="glyphicon glyphicon-cog pull-right"></span>
+            {% endif %}
 
             <h4>{{ day.obj.description }}</h4>
             {{ day.days_of_week.text }}
@@ -132,7 +135,9 @@
                class="list-group-item wger-list-group-item">
         {% endif %}
 
+                {% if not compact %}
                 <span class="glyphicon glyphicon-cog pull-right"></span>
+                {% endif %}
 
 
         {% for exercise in set.exercise_list %}
@@ -164,29 +169,35 @@
                         </p>
                         {% endif %}
 
+                        {% if not compact %}
                         <p class="text-muted">
                             {% for comment in exercise.comment_list %}
                                 {{comment}}<br>
                             {% endfor %}
                         </p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         {% endfor %} <!--for exercise in set-->
     </a>
     {% empty %}
+    {% if not compact %}
     <a href="{% url 'set-add' day.obj.id %}"
        class="list-group-item list-group-item-success wger-modal-dialog">
            {% trans "No exercises selected for this day." %}<br>
            {% trans "Add one now." %}
     </a>
+    {% endif %}
     {% endfor %} <!--for set in day-->
 
     {% if day.set_list %}
+    {% if not compact %}
         <a href="{% url 'set-add' day.obj.id %}" class="list-group-item list-group-item-success wger-modal-dialog">
             <span class="glyphicon glyphicon-plus"></span>
             {% trans "Add exercises to this workout day" %}
         </a>
+    {% endif %}
     {% endif %}
 
 </div>

@@ -11,19 +11,39 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+import datetime
 
 from django.core.urlresolvers import reverse_lazy
 
 from wger.core.tests import api_base_test
 from wger.manager.models import ScheduleStep
+from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 
 
+class ScheduleStepTestCase(WorkoutManagerTestCase):
+    '''
+    Other tests
+    '''
+
+    def test_schedule_dates_util(self, fail=False):
+        '''
+        Test the get_dates() method
+        '''
+        s1 = ScheduleStep.objects.get(pk=1)
+        s2 = ScheduleStep.objects.get(pk=2)
+        s3 = ScheduleStep.objects.get(pk=3)
+
+        self.assertEqual(s1.get_dates(), (datetime.date(2013, 4, 21), datetime.date(2013, 5, 12)))
+        self.assertEqual(s2.get_dates(), (datetime.date(2013, 5, 12), datetime.date(2013, 6, 16)))
+        self.assertEqual(s3.get_dates(), (datetime.date(2013, 6, 16), datetime.date(2013, 6, 30)))
+
+
 class CreateScheduleStepTestCase(WorkoutManagerAddTestCase):
     '''
-    Tests adding a schedule
+    Tests adding a schedule step
     '''
 
     object_class = ScheduleStep
@@ -37,7 +57,7 @@ class CreateScheduleStepTestCase(WorkoutManagerAddTestCase):
 
 class EditScheduleStepTestCase(WorkoutManagerEditTestCase):
     '''
-    Tests editing a schedule
+    Tests editing a schedule step
     '''
 
     object_class = ScheduleStep
@@ -49,7 +69,7 @@ class EditScheduleStepTestCase(WorkoutManagerEditTestCase):
 
 class DeleteScheduleStepTestCase(WorkoutManagerDeleteTestCase):
     '''
-    Tests editing a schedule
+    Tests editing a schedule step
     '''
 
     object_class = ScheduleStep

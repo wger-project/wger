@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load staticfiles %}
+{% load staticfiles wger_extras %}
 
 {% block title %}{{schedule.name}}{% endblock %}
 
@@ -105,17 +105,17 @@ $(function() {
                      alt="{% trans 'Move me' %}"
                      title="{% trans 'Move me' %}"
                      class="dragndrop-handle">
-                 <a href="{% url 'step-edit' step.id %}"
+                <a href="{% url 'step-edit' step.id %}"
                    title="{% trans 'Edit' %}"
                    class="wger-modal-dialog">
-                       <img src="{% static 'images/icons/edit.svg' %}"
+                    <img src="{% static 'images/icons/edit.svg' %}"
                             width="22"
                             height="22"
                             alt="{% trans 'Edit' %}">
                 </a>
-                 <a href="{% url 'step-delete' step.id %}"
-                    title="{% trans 'Delete' %}"
-                    class="wger-modal-dialog">
+                <a href="{% url 'step-delete' step.id %}"
+                   title="{% trans 'Delete' %}"
+                   class="wger-modal-dialog">
                         <img src="{% static 'images/icons/trash.svg' %}"
                              width="22"
                              height="22"
@@ -162,6 +162,47 @@ $(function() {
     </tbody>
 </table>
 </div>
+
+
+{% for step in schedule.schedulestep_set.select_related %}
+{% with step_dates=step.get_dates %}
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        {% blocktrans count weeks=step.duration %}{{ weeks }} Week
+                            {% plural %}{{ weeks }} Weeks
+                        {% endblocktrans %}
+                    </h3>
+
+                        {% if active_workout == step %}
+                            <span class="label label-info">{% trans "active" %}</span>
+                        {% endif  %}
+                </div>
+                <div class="panel-body">
+                    <span>{{step_dates.0}} <br> {{step_dates.1}}</span>
+                </div>
+                <div class="panel-footer">
+                    <a href="{% url 'workout-view' step.workout.id %}"
+                       class="btn btn-default btn-block btn-sm"
+                       style="white-space: normal;">
+                        <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                        {{ step.workout }}
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+        {% for day in step.workout.canonical_representation.day_list %}
+            <div id="div-day-{{ day.obj.id }}">
+                {% render_day day.obj flavour True %}
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endwith %}
+{% endfor %}
 {% endblock %}
 
 
@@ -205,6 +246,7 @@ than once.{% endblocktrans %}</p>
     title="{% trans 'Delete schedule' %}">
 {% trans "Delete schedule" %}</a>
 </p>
+
 
 <div class="modal fade" id="export-ical-popup">
     <div class="modal-dialog">
