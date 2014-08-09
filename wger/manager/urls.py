@@ -128,6 +128,12 @@ urlpatterns = patterns('',
     url(r'^workout/schedule/(?P<pk>\d+)/ical$',
         ical.export_schedule,
         name='schedule-ical'),
+    url(r'^workout/schedule/(?P<pk>\d+)/pdf/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
+        schedule.export_pdf,
+        name='schedule-pdf'),
+    url(r'^workout/schedule/(?P<pk>\d+)/pdf$',
+        schedule.export_pdf,
+        name='schedule-pdf'),
 
     # Schedule steps
     url(r'^workout/schedule/(?P<schedule_pk>\d+)/step/add$',

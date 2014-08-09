@@ -215,7 +215,6 @@ than once.{% endblocktrans %}</p>
 
 <h3>{% trans "Options" %}</h3>
 <p>
-
 <a href="#" data-toggle="modal" data-target="#export-ical-popup">
 <img src="{% static 'images/icons/calendar.svg' %}"
     width="32"
@@ -223,6 +222,16 @@ than once.{% endblocktrans %}</p>
     alt="{% trans 'Export calendar file' %}"
     title="{% trans 'Export calendar file' %}">
 {% trans "Export calendar file" %}</a>
+</p>
+
+<p>
+<a href="{% url 'schedule-pdf' schedule.id uid token %}">
+<img src="{% static 'images/icons/save.svg' %}"
+    width="32"
+    height="32"
+    alt="{% trans 'Download as PDF' %}"
+    title="{% trans 'Download as PDF' %}">
+{% trans "Download as PDF" %}:</a>
 </p>
 
 <p>

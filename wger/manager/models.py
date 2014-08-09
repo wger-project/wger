@@ -224,6 +224,12 @@ class Schedule(models.Model):
     def get_absolute_url(self):
         return reverse('schedule-view', kwargs={'pk': self.id})
 
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return self.name
+
     def get_owner_object(self):
         '''
         Returns the object that has owner information
