@@ -106,9 +106,16 @@ class FeedbackRegisteredForm(Form):
     '''
     Feedback form used for logged in users
     '''
+    contact = CharField(max_length=50,
+                        min_length=10,
+                        label=_('Contact'),
+                        help_text=_('Some way of answering your (email, etc.)'),
+                        required=False)
+
     comment = CharField(max_length=500,
                         min_length=10,
                         widget=widgets.Textarea,
+                        label=_('Comment'),
                         help_text=_('What do you want to say?'),
                         required=True)
 

@@ -28,6 +28,8 @@ from django.views.generic import TemplateView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as django_login
+from django.template.loader import render_to_string
+
 
 from wger.core.forms import FeedbackRegisteredForm
 from wger.core.forms import FeedbackAnonymousForm
@@ -147,6 +149,14 @@ class FeedbackClass(FormView):
     template_name = 'form.html'
     success_url = reverse_lazy('core:contact')
 
+    def get_initial(self):
+        '''
+        Fill in the contact, if available
+        '''
+        if self.request.user.is_authenticated():
+            return {'contact': self.request.user.email}
+        return {}
+
     def get_context_data(self, **kwargs):
         '''
         Set necessary template data to correctly render the form
@@ -172,15 +182,16 @@ class FeedbackClass(FormView):
 
     def form_valid(self, form):
         '''
-        Send an email to the
+        Send the feedback to the administrators
         '''
         messages.success(self.request, _('Your feedback was successfully sent. Thank you!'))
-        message = "Feedback posted by an anonymous user"
-        if self.request.user.is_authenticated():
-            message = u"Feedback posted by {0}".format(self.request.user.username)
 
-        message += (u"\n"
-                    u"Message follows:\n"
-                    u"----------------\n\n{0}".format(form.cleaned_data['comment']))
-        mail.mail_admins(_('New feedback'), message)
+        context = {}
+        context['user'] = self.request.user
+        context['form_data'] = form.cleaned_data
+
+        subject = 'New feedback'
+        message = render_to_string('user/email_feedback.html', context)
+        mail.mail_admins(subject, message)
+
         return super(FeedbackClass, self).form_valid(form)

@@ -24,7 +24,7 @@
       class="form-horizontal"
       role="form"
       {% if enctype %}enctype="{{enctype}}"{% endif %}>
-    {% render_form_fields form %}
+    {% render_form_fields form submit_text %}
 </form>
 {% endblock %}
 
