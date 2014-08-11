@@ -18,13 +18,12 @@
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 
+from wger.weight.forms import WeightCsvImportForm
 from wger.weight.views import WeightAddView
 from wger.weight.views import WeightUpdateView
 from wger.weight.views import WeightCsvImportFormPreview
-from wger.weight.views import WeightCsvImportForm
 
 urlpatterns = patterns('wger.weight.views',
-
     url(r'^add/$',
         login_required(WeightAddView.as_view()),
         name='weight-add'),
@@ -42,6 +41,4 @@ urlpatterns = patterns('wger.weight.views',
         'overview',
         name='weight-overview'),
     url(r'^api/get_weight_data/$', 'get_weight_data'),
-
-
 )
