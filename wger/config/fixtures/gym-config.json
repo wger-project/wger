@@ -1,0 +1,9 @@
+[
+    {
+        "pk": 1, 
+        "model": "config.gymconfig", 
+        "fields": {
+            "default_gym": null
+        }
+    }
+]

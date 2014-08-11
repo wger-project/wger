@@ -36,7 +36,7 @@
 
 {% block sidebar %}
 {% if perms.core.add_gym %}
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 <p>
        <a href="{% url 'core:gym-add' %}"
           {% auto_link_css flavour "wger-modal-dialog" %}>
@@ -46,6 +46,21 @@
             alt="{% trans 'Add new gym' %}"
             title="{% trans 'Add new gym' %}">
        {% trans "Add new gym" %}
+       </a>
+</p>
+{% endif %}
+
+{% if perms.core.change_gymconfig %}
+<h4>{% trans "Default gym" %}</h4>
+<p>
+       <a href="{% url 'config:gymconfig-edit' %}"
+          {% auto_link_css flavour %}>
+       <img src="{% static 'images/icons/list.svg' %}"
+            width="32"
+            height="32"
+            alt="{% trans 'Default gym configuration' %}"
+            title="{% trans 'Default gym configuration' %}">
+       {% trans "Default gym configuration" %}
        </a>
 </p>
 {% endif %}

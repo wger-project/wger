@@ -42,6 +42,7 @@ from wger.core.forms import UserPreferencesForm, UserPersonalInformationForm
 from wger.core.forms import PasswordConfirmationForm
 from wger.core.forms import RegistrationForm
 from wger.core.forms import RegistrationFormNoCaptcha
+from wger.config.models import GymConfig
 
 logger = logging.getLogger('wger.custom')
 
@@ -168,9 +169,14 @@ def registration(request):
                                                    password)
             user.save()
 
-            # Save the notification language
+            # Pre-set some values of the user's profile
             language = Language.objects.get(short_name=translation.get_language())
             user.userprofile.notification_language = language
+
+            gym_config = GymConfig.objects.get(pk=1)
+            if gym_config:
+                user.userprofile.gym = gym_config.default_gym
+
             user.userprofile.save()
 
             user = authenticate(username=username, password=password)

@@ -19,6 +19,7 @@ from django.conf.urls import patterns, url
 
 from wger.config.views import languages
 from wger.config.views import language_config
+from wger.config.views import gym_config
 
 
 urlpatterns = patterns('',
@@ -40,8 +41,13 @@ urlpatterns = patterns('',
         languages.LanguageCreateView.as_view(),
         name='language-add'),
 
-    # Language configs
-    url(r'^language/config/(?P<pk>\d+)/edit',
-        language_config.LanguageConfigUpdateView.as_view(),
-        name='languageconfig-edit'),
+   # Language configs
+   url(r'^language-config/(?P<pk>\d+)/edit',
+       language_config.LanguageConfigUpdateView.as_view(),
+       name='languageconfig-edit'),
+
+   # Gym config
+   url(r'^default-gym',
+       gym_config.GymConfigUpdateView.as_view(),
+       name='gymconfig-edit'),
 )
