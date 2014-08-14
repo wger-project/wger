@@ -745,6 +745,52 @@ class WorkoutSession(models.Model):
         return self
 
 
+class WeightConfig(models.Model):
+    '''
+    Model for weight configuration settings
+    '''
+
+    schedule_step = models.ForeignKey(ScheduleStep, editable=False)
+    '''
+    The schedule step the weight config belongs to
+    '''
+
+    setting = models.ForeignKey(Setting, editable=False)
+    '''
+    The setting the weight config belongs to
+    '''
+
+    start = models.DecimalField(_('Starting weight'),
+                                decimal_places=2,
+                                max_digits=5,
+                                validators=[MinValueValidator(0),
+                                            MaxValueValidator(400)])
+    '''
+    Weight at the start
+    '''
+
+    increment = models.DecimalField(_('Weekly weight increment'),
+                                    decimal_places=2,
+                                    max_digits=4,
+                                    validators=[MinValueValidator(0),
+                                                MaxValueValidator(10)])
+    '''
+    Weekly weight increment
+    '''
+
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return u"Start weight: {0}, increment: {1}".format(self.start, self.increment)
+
+    def get_owner_object(self):
+        '''
+        Return the object that has owner information
+        '''
+        return self.schedule_step.workout
+
+
 #
 # Helpers
 #
