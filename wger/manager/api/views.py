@@ -33,6 +33,7 @@ from wger.manager.api.serializers import ScheduleSerializer
 from wger.manager.api.serializers import WorkoutLogSerializer
 from wger.manager.api.serializers import WorkoutSessionSerializer
 from wger.manager.models import Workout
+from wger.manager.models import WeightConfig
 from wger.manager.models import Set
 from wger.manager.models import ScheduleStep
 from wger.manager.models import Schedule
@@ -283,6 +284,25 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
         Return objects to check for ownership permission
         '''
         return [(Workout, 'workout')]
+
+
+class WeightConfigViewSet(viewsets.ModelViewSet):
+    '''
+    API endpoint for schedule weight config objects
+    '''
+    model = WeightConfig
+    is_private = True
+    ordering_fields = '__all__'
+    filter_fields = ('schedule_step',
+                     'setting',
+                     'start',
+                     'increment')
+
+    def get_queryset(self):
+        '''
+        Only allow access to appropriate objects
+        '''
+        return WeightConfig.objects.filter(schedule_step__workout__user=self.request.user)
 
 
 @api_view(['GET'])

@@ -90,6 +90,7 @@ router.register(r'day', manager_api_views.DayViewSet)
 router.register(r'set', manager_api_views.SetViewSet)
 router.register(r'setting', manager_api_views.SettingViewSet)
 router.register(r'workoutlog', manager_api_views.WorkoutLogViewSet)
+router.register(r'weightconfig', manager_api_views.WeightConfigViewSet)
 
 # Core app
 router.register(r'userprofile', core_api_views.UserProfileViewSet)
