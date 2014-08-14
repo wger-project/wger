@@ -9,18 +9,47 @@ For more details and a live system, refer to the project's site: https://wger.de
 Installation
 ============
 
-These are the basic steps to download the application from PyPI and get it
-running. There are more detailed installation instructions (e.g. for
-development) on https://wger.de/software/code
+These are the basic steps to install and run the application locally on a
+linux system. For more detailed instruccions and other deployment options,
+consult https://wger.de/software/code
 
-1) Install the necessary packages and their dependencies
+
+Development version (from git)
+------------------------------
+
+1) Install the necessary packages and their dependencies in a virtualenv
 
 ::
 
- $ sudo apt-get install python-virtualenv
- $ sudo apt-get install python-dev
- $ virtualenv python-django
- $ source python-django/bin/activate
+ $ sudo apt-get install python-dev python-virtualenv
+ $ virtualenv venv-django
+ $ source venv-django/bin/activate
+
+2) Start the application. This will create a SQlite database and populate it
+   with data on the first run.
+
+::
+
+ $ git clone https://github.com/rolandgeider/wger.git
+ $ cd wger
+ $ pip install -r requirements.txt  # or requirements_devel.txt to develop
+ $ python start.py
+
+ # After the first run you can just use django's development server
+ $ python manage.py runserver
+
+3) Log in as: **admin**, password **admin**
+
+Stable version (from PyPI)
+--------------------------
+
+1) Install the necessary packages and their dependencies in a virtualenv
+
+::
+
+ $ sudo apt-get install python-dev python-virtualenv
+ $ virtualenv venv-django
+ $ source venv-django/bin/activate
  $ pip install wger
 
 
@@ -38,7 +67,8 @@ development) on https://wger.de/software/code
 Command line options
 --------------------
 
-The available options for the ``wger`` command are ::
+The available options for the ``wger`` command (if installed from PyPI) or
+``start.py`` (if installed from source) are the following ::
 
  Usage: main.py [options]
 
