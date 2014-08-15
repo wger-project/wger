@@ -304,6 +304,13 @@ class WeightConfigViewSet(viewsets.ModelViewSet):
         '''
         return WeightConfig.objects.filter(schedule_step__workout__user=self.request.user)
 
+    def get_owner_objects(self):
+        '''
+        Return objects to check for ownership permission
+        '''
+        return [(ScheduleStep, 'schedule_step'),
+                (Setting, 'setting')]
+
 
 @api_view(['GET'])
 def routines_overview(request):
