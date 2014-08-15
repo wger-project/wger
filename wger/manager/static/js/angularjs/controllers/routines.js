@@ -39,15 +39,30 @@ angular.module("routineGenerator")
 
     $scope.getRoutine = function () {
         $scope.config.name = $routeParams['name'];
-        $scope.data = $scope.routineResource.query({
-                                            name: $scope.config.name,
-                                            max_deadlift: $scope.config.max_deadlift,
-                                            max_bench: $scope.config.max_bench,
-                                            max_squat: $scope.config.max_squat,
-                                            round_to: $scope.config.round_to
-                                        });
-        $scope.data.$promise.then(function (data) {
-            //console.log(data);
+        var promise = $scope.routineResource.query({
+                                    name: $scope.config.name,
+                                    max_deadlift: $scope.config.max_deadlift,
+                                    max_bench: $scope.config.max_bench,
+                                    max_squat: $scope.config.max_squat,
+                                    round_to: $scope.config.round_to
+                                });
+        promise.$promise.then(function (data) {
+            // Move the data into the following format: [week][day][exercise]
+            var tmp = {};
+            $scope.data = data;
+            angular.forEach(data.items, function(value, key) {
+                if(angular.isUndefined(tmp[value.week])) {
+                    tmp[value.week] = {};
+                }
+
+                if(angular.isUndefined(tmp[value.week][value.day])) {
+                    tmp[value.week][value.day] = [];
+                }
+
+                tmp[value.week][value.day].push(value);
+            });
+
+            $scope.data.items = tmp;
         });
     };
 

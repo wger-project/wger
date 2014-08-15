@@ -9,37 +9,50 @@
             {% verbatim %}{{data.routine.name}}{% endverbatim %}
         </h3>
         <p>{% verbatim %}{{data.routine.description}}{% endverbatim %}</p>
-        <table class="table table-condensed">
-            <thead>
-            <tr>
-                <th>{% trans "Week" %}</th>
-                <th>{% trans "Day" %}</th>
-                <th>{% trans "Exercise" %}</th>
-                <th>{% trans "Reps" %}</th>
-                <th style="text-align: right;">{% trans "Weight" %}</th>
-            </tr>
-            </thead>
-            <tbody>
-                {% verbatim %}
-                <tr data-ng-repeat="config in data.items">
-                    <td>
-                        {{config.week}}
-                    </td>
-                    <td>
-                        {{config.day}}
-                    </td>
-                    <td>
-                        {{config.exercise.name}}
-                    </td>
-                    <td>
-                        {{config.sets}} × {{config.reps}}
-                    </td>
-                    <td style="text-align: right;">
-                        {{config.weight}}{% endverbatim %} {% trans "kg." %}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+
+
+        <div data-ng-repeat="(week, week_values) in data.items" >
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                {% trans "Week" %} {% verbatim %}{{ week }}{% endverbatim %}
+                            </h3>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div>
+                        <table class="table table-condensed">
+                            <tr data-ng-repeat="(day, day_values) in week_values" >
+                                <td>
+                                    {% trans "Day" %} {% verbatim %}{{day}}{% endverbatim %}
+                                </td>
+                                <td>
+                                    <table style="width: 100%;">
+                                        <tr data-ng-repeat="config in day_values">
+                                            <td>
+                                                {% verbatim %}{{config.exercise.name}}{% endverbatim %}
+                                            </td>
+                                            <td style="width:25%;">
+                                                {% verbatim %}{{config.sets}} x {{config.reps}}{% endverbatim %}
+                                            </td>
+                                            <td style="text-align:right;width:25%;">
+                                                {% verbatim %}{{config.weight}}{% endverbatim %} {% trans "kg." %}
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
     <div class="col-sm-4">
         <h4>{% trans "Info" %}</h4>
