@@ -269,7 +269,7 @@ class SetEditEditTestCase(WorkoutManagerTestCase):
             setting = Setting.objects.get(pk=3)
             self.assertEqual(setting.reps, 5)
 
-            setting = Setting.objects.get(pk=4)
+            setting = Setting.objects.get(pk=5)
             self.assertEqual(setting.reps, 13)
 
         self.post_test_hook()

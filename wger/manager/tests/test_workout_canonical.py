@@ -94,9 +94,10 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
 
         canonical_form = [{'exercise_list': [{'obj': Exercise.objects.get(pk=2),
                                               'comment_list': [u'Foobar'],
-                                              'setting_list': [10, 10, 10, 10],
-                                              'setting_obj_list': [Setting.objects.get(pk=3)],
-                                              'setting_text': u'4 \xd7 10'}],
+                                              'setting_list': [10, 8],
+                                              'setting_obj_list': [Setting.objects.get(pk=3),
+                                                                   Setting.objects.get(pk=4)],
+                                              'setting_text': u'10 \u2013 8'}],
                            'is_superset': False,
                            'has_settings': True,
                            'muscles': {'back': [2], 'front': []},

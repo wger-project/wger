@@ -750,6 +750,12 @@ class WeightConfig(models.Model):
     Model for weight configuration settings
     '''
 
+    class Meta:
+        '''
+        Set other configuration options
+        '''
+        unique_together = (('schedule_step', 'setting'),)
+
     schedule_step = models.ForeignKey(ScheduleStep, editable=False)
     '''
     The schedule step the weight config belongs to

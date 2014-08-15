@@ -29,6 +29,6 @@ class WeightConfigApiTestCase(api_base_test.ApiBaseResourceTestCase):
     resource = WeightConfig
     private_resource = True
     data = {"schedule_step": 4,
-            "setting": 3,
+            "setting": 4,
             "start": 3,
             "increment": 2}

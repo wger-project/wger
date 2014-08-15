@@ -156,6 +156,17 @@
             "exercise": 2
         }
     },
+    {
+        "pk": 4,
+        "model": "manager.setting",
+        "fields": {
+            "comment": "",
+            "set": 3,
+            "reps": 8,
+            "order": 2,
+            "exercise": 2
+        }
+    },
 
     {
         "pk": 1, 
