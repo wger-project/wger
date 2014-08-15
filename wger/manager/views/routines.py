@@ -35,6 +35,7 @@ from rest_framework.reverse import reverse
 
 from wger.core.models import DaysOfWeek
 from wger.manager.models import Workout
+from wger.manager.models import WeightConfig
 from wger.manager.models import Day
 from wger.manager.models import Set
 from wger.manager.models import Setting
@@ -137,6 +138,13 @@ def make_schedule(request, name):
         setting.reps = config['reps']
         setting.order = 1
         setting.save()
+
+        weight_config = WeightConfig()
+        weight_config.schedule_step = step
+        weight_config.setting = setting
+        weight_config.start = config['weight']
+        weight_config.increment = 0
+        weight_config.save()
 
     return HttpResponseRedirect(reverse('schedule-view',
                                         kwargs={'pk': schedule.id}))
