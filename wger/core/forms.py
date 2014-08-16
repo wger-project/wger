@@ -32,6 +32,7 @@ class UserPreferencesForm(ModelForm):
                   'workout_reminder',
                   'workout_duration',
                   'notification_language',
+                  'routines_round_to',
                   'timer_active',
                   'timer_pause')
 

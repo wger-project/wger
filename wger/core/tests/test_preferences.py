@@ -57,7 +57,8 @@ class PreferencesTestCase(WorkoutManagerTestCase):
                                      'workout_duration': 12,
                                      'notification_language': 2,
                                      'timer_active': False,
-                                     'timer_pause': 100})
+                                     'timer_pause': 100,
+                                     'routines_round_to': 2.5})
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('core:preferences'))
@@ -78,7 +79,8 @@ class PreferencesTestCase(WorkoutManagerTestCase):
                                      'workout_duration': 10,
                                      'notification_language': 2,
                                      'timer_active': True,
-                                     'timer_pause': 40})
+                                     'timer_pause': 40,
+                                     'routines_round_to': 2.5})
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('core:preferences'))
