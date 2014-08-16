@@ -140,10 +140,10 @@ class RoutineConfigSerializer(serializers.Serializer):
     '''
     Serializer for the configuration options of a workout
     '''
-    round_to = serializers.DecimalField()
-    max_bench = serializers.DecimalField()
-    max_deadlift = serializers.DecimalField()
-    max_squat = serializers.DecimalField()
+    round_to = serializers.FloatField()
+    max_bench = serializers.FloatField()
+    max_deadlift = serializers.FloatField()
+    max_squat = serializers.FloatField()
 
 
 class RoutineExerciseConfigSerializer(serializers.Serializer):

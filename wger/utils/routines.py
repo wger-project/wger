@@ -44,6 +44,8 @@ class Routine(object):
         self.name = name
         self.short_name = short_name
         self.description = description
+        self.routines = {}
+        self.exercise_configs = []
 
         # Initialise the routines dictionary
         for week in range(1, self.weeks + 1):

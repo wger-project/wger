@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from wger.manager.routines import korte
+from wger.manager.routines import smolov_squat_1
+from wger.manager.routines import smolov_squat_2
 
 
 def get_routines():
@@ -22,4 +24,6 @@ def get_routines():
     Initialise and return all available routines
     '''
 
-    return {'korte': korte.get_routine()}
+    return {'korte': korte.get_routine(),
+            'smolov_squat_1': smolov_squat_1.get_routine(),
+            'smolov_squat_2': smolov_squat_2.get_routine()}
