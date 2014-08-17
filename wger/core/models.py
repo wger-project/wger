@@ -269,9 +269,10 @@ by the US Department of Agriculture. It is extremely complete, with around
     # Routines
     #
     routines_round_to = models.DecimalField(verbose_name=_('Round weight in routines'),
-                                            help_text=_('On routines and schedules the calculated '
-                                                        'weight will be rounded UP to the next '
-                                                        'multiple of this value.'),
+                                            help_text=_('The weight of the smallest plate you have '
+                                                        'available. On routines and schedules the '
+                                                        'calculated  weight will be rounded UP to '
+                                                        'the next multiple of this value.'),
                                             max_digits=4,
                                             decimal_places=2,
                                             validators=[MinValueValidator(1),
