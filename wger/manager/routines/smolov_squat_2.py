@@ -192,7 +192,7 @@ def get_routine():
     smolov = Routine(weeks=5,
                      name='Smolov Squat - Part 2',
                      short_name=os.path.splitext(os.path.basename(__file__))[0],
-                     description=_("This is part two of a two part routine. Your should have "
+                     description=_("This is part two of a two part routine. You should have "
                                    "established a fresh squat max in part one that you will "
                                    "use now to grind out another PR at the end of these brutal "
                                    "sessions."))
