@@ -181,7 +181,7 @@ class SquatConfig(ExerciseConfig):
                 elif 2 <= self.current_set <= 6:
                     return 4, max_squat * 0.85
             elif self.current_day == 3:
-                return 1, max_squat  # TODO: return here a special value for 'absolute max'
+                return 1, 'max'
 
 
 def get_routine():

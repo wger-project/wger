@@ -104,7 +104,7 @@ class SquatConfig(ExerciseConfig):
 
         # Week 5
         elif self.current_week == 5:
-            return 1, max_squat  # TODO: return here a special value for 'absolute max'
+            return 1, 'max'
 
 
 def get_routine():

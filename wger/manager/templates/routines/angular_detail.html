@@ -40,9 +40,22 @@
                                                 {% verbatim %}{{config.sets}} x {{config.reps}}{% endverbatim %}
                                             </td>
                                             <td style="text-align:right;width:25%;">
-                                                {% verbatim %}{{config.weight}}{% endverbatim %} {% trans "kg." %}
-                                            </td>
 
+                                                <div ng-switch on="config.weight">
+                                                    <span ng-switch-when="max">
+                                                        {% trans "your max!" %}
+                                                    </span>
+
+                                                    <span ng-switch-when="auto">
+                                                        {% trans "some weight" %}
+                                                    </span>
+
+                                                    <span ng-switch-default>
+                                                        {% verbatim %}{{config.weight}}{% endverbatim %}
+                                                        {% trans "kg." %}
+                                                    </span>
+                                                </div>
+                                            </td>
                                         </tr>
                                     </table>
                                 </td>

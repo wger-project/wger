@@ -45,10 +45,15 @@ def render_routine_week(week_data):
             print_day = ''
 
         # Routine data
+        weight = day['weight']
+        if day['weight'] == 'max':
+            weight = _('your max!')
+        elif day['weight'] == 'auto':
+            weight = _('some weight')
         data.append([print_day,
                      day['exercise'],
                      u"{0} × {1}".format(day['sets'], day['reps']),
-                     day['weight']])
+                     weight])
 
     table_style = [('FONT', (0, 0), (-1, -1), 'OpenSans'),
                    ('FONTSIZE', (0, 0), (-1, -1), 10),

@@ -81,6 +81,8 @@ class Routine(object):
         :param base: the base to round to
         :return: a rounded decimal
         '''
+        if weight in ('auto', 'max'):
+            return weight
         return decimal.Decimal(base * round(float(weight)/base)).quantize(TWOPLACES)
 
     def prepare_sets(self):
@@ -208,9 +210,13 @@ class ExerciseConfig(object):
         perform any calculations needed to generate the weight and the repetitions
         for the set.
 
-        In case the weight is not important or not provided by the routine (e.g.
-        for other, not important exercises), the special value 'auto' might be
-        returned for the weight.
+        Special values:
+
+        * 'auto' if the weight is not is not important or not provided by the
+        routine (e.g. for other, not important exercises), the special value
+        'auto' might be returned for the weight.
+
+        * 'max' to tell the user he must do the humanly maximum possible
 
         :return: a tuple with the number of sets and the weight
         '''

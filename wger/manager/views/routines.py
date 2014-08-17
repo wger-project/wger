@@ -142,7 +142,14 @@ def make_schedule(request, name):
         weight_config = WeightConfig()
         weight_config.schedule_step = step
         weight_config.setting = setting
-        weight_config.start = config['weight']
+
+        # Take care of the special weight values
+        if config['weight'] == 'auto':
+            weight_config.start = 0
+        elif config['weight'] == 'max':
+            weight_config.start = 0
+        else:
+            weight_config.start = config['weight']
         weight_config.increment = 0
         weight_config.save()
 
