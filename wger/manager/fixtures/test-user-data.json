@@ -271,7 +271,8 @@
             "notification_language": 1,
             "timer_active": true,
             "timer_pause": 90,
-            "routines_round_to": 1.25
+            "routines_round_to": 1.25,
+            "weight_unit": "kg"
         }
     }, 
     {
@@ -299,7 +300,8 @@
             "notification_language": 2,
             "timer_active": true,
             "timer_pause": 90,
-            "routines_round_to": 5
+            "routines_round_to": 5,
+            "weight_unit": "kg"
         }
     }, 
     {
@@ -325,7 +327,8 @@
             "workout_reminder": 10,
             "workout_duration": 15,
             "notification_language": 2,
-            "routines_round_to": 1.25
+            "routines_round_to": 1.25,
+            "weight_unit": "lb"
         }
     }
 ]

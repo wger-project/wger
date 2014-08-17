@@ -58,7 +58,8 @@ class PreferencesTestCase(WorkoutManagerTestCase):
                                      'notification_language': 2,
                                      'timer_active': False,
                                      'timer_pause': 100,
-                                     'routines_round_to': 2.5})
+                                     'routines_round_to': 2.5,
+                                     'weight_unit': 'kg'})
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('core:preferences'))
@@ -80,7 +81,8 @@ class PreferencesTestCase(WorkoutManagerTestCase):
                                      'notification_language': 2,
                                      'timer_active': True,
                                      'timer_pause': 40,
-                                     'routines_round_to': 2.5})
+                                     'routines_round_to': 2.5,
+                                     'weight_unit': 'kg'})
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('core:preferences'))
