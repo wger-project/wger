@@ -6,7 +6,7 @@
             {% verbatim %}
             <a href="#/view/{{routine.short_name}}"
                class="list-group-item wger-list-group-item"
-               data-ng-repeat="routine in routines">
+               data-ng-repeat="routine in routines | filter:search | orderBy:'name' ">
                 <span class="glyphicon glyphicon-chevron-right pull-right visible-xs-block"></span>
                 <h4 class="list-group-item-heading">{{routine.name}}</h4>
                 <p class="list-group-item-text">{{routine.description}}</p>
@@ -15,6 +15,11 @@
         </div>
     </div>
     <div class="col-sm-4">
+        <h4>{% trans "Search" %}</h4>
+        <form class="form-horizontal" role="form">
+            <input type="text" class="form-control" ng-model="search">
+        </form>
+        
         <h4>{% trans "Info" %}</h4>
         <p>{% blocktrans %}If you don't quite like the routine, you can edit and change
 any part of it once you have added it to your list.{% endblocktrans %}</p>

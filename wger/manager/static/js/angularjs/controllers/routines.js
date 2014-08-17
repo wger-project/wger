@@ -18,10 +18,26 @@ angular.module("routineGenerator")
 .constant('dataUrl', "/api/v2/routine-generator/")
 .controller("routineListCtrl", function ($scope, $resource, $http, dataUrl) {
     $scope.data = {};
+    $scope.search = '';
 
     $scope.routinesResource = $resource(dataUrl, {}, {'query': {isArray: false}});
     $scope.listRoutines = function () {
-        $scope.routines = $scope.routinesResource.query();
+        var promise = $scope.routinesResource.query();
+
+        // Moving the data to an array because filters don't work on objects.
+        // see https://github.com/angular/angular.js/issues/6490
+        promise.$promise.then(function (data) {
+            var tmp = [];
+            angular.forEach(data, function(value, key) {
+
+                // Check needed to filter out a promise object
+                if(angular.isDefined(value.name)) {
+                    tmp.push(value);
+                }
+            });
+
+            $scope.routines = tmp;
+        });
     }
 
     $scope.listRoutines();
