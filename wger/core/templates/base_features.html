@@ -1,0 +1,9 @@
+{% extends "template_features.html" %}
+{% block template %}
+<h2 id="page-title" class="page-header">{% block title %}{% endblock %}</h2>
+<div class="row">
+    <div class="col-md-12" id="main-content">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+{% endblock %}
