@@ -46,7 +46,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
 {% endif %}
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-sm-6">
         <h3>{% trans "Workout"%}</h3>
 
         {% if current_workout %}
@@ -92,7 +92,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
         {% endif %}
 
     </div>
-    <div class="col-md-6">
+    <div class="col-sm-6">
         <h3>{% trans "Nutrition plan"%}</h3>
 
         {% if plan %}
@@ -137,7 +137,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
 </div>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-sm-6">
         <p>
             <a href="{% url 'workout-add' %}">
             <img src="{% static 'images/icons/new.svg' %}"
@@ -148,7 +148,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
             {% trans "Add workout" %}</a>
         </p>
     </div>
-    <div class="col-md-6">
+    <div class="col-sm-6">
         <p>
             <a href="{% url 'nutrition-add' %}">
             <img src="{% static 'images/icons/new.svg' %}"
