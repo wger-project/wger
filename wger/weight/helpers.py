@@ -36,7 +36,7 @@ def parse_weight_csv(request, cleaned_data):
         dialect = 'excel'
 
     # csv.reader expects a file-like object, so use StringIO
-    parsed_csv = csv.reader(six.StringIO.StringIO(cleaned_data['csv_input']),
+    parsed_csv = csv.reader(six.StringIO(cleaned_data['csv_input']),
                             dialect)
 
     weight_list = []

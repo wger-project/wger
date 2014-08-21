@@ -139,7 +139,7 @@ class ScheduleICalExportTestCase(WorkoutManagerTestCase):
 
         # Approximate size
         self.assertGreater(len(response.content), 1650)
-        self.assertLess(len(response.content), 1660)
+        self.assertLess(len(response.content), 1670)
 
     def export_ical(self, fail=False):
         '''
@@ -158,7 +158,7 @@ class ScheduleICalExportTestCase(WorkoutManagerTestCase):
 
             # Approximate size
             self.assertGreater(len(response.content), 1650)
-            self.assertLess(len(response.content), 1660)
+            self.assertLess(len(response.content), 1670)
 
     def test_export_ical_anonymous(self):
         '''

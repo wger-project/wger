@@ -12,6 +12,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+import six
 import os
 import decimal
 import logging
@@ -23,6 +24,7 @@ from django.core.urlresolvers import NoReverseMatch
 from django.core.cache import cache
 from django.conf import settings
 from django.test import TestCase
+from wger.utils.constants import TWOPLACES
 
 
 STATUS_CODES_FAIL = (302, 403, 404)
@@ -39,7 +41,7 @@ def get_reverse(url, kwargs={}):
         # everything was already done in the individual test case
         url = url
 
-    return url
+    return six.text_type(url)
 
 
 class BaseTestCase(object):
@@ -122,7 +124,7 @@ class WorkoutManagerTestCase(BaseTestCase, TestCase):
         current_field_class = field.__class__.__name__
 
         # Standard types, simply compare
-        if current_field_class in ('unicode', 'int', 'float', 'time', 'date'):
+        if current_field_class in ('unicode', 'str', 'int', 'float', 'time', 'date'):
             self.assertEqual(field, value)
 
         # boolean, convert
@@ -131,7 +133,8 @@ class WorkoutManagerTestCase(BaseTestCase, TestCase):
 
         # decimal, convert
         elif current_field_class == 'Decimal':
-            self.assertEqual(field, decimal.Decimal(unicode(value)))
+            # TODO: use FOURPLACES when routine branch is merged
+            self.assertEqual(field.quantize(TWOPLACES), decimal.Decimal(value).quantize(TWOPLACES))
 
         # Related manager, iterate
         elif current_field_class == 'ManyRelatedManager':

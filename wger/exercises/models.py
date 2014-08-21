@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+import six
 import logging
 
 from django.db import models
@@ -321,8 +322,8 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             subject = _('New user submitted exercise')
             message = _(u'''The user {0} submitted a new exercise "{1}".'''.format(
                         request.user.username, self.name))
-            mail.mail_admins(unicode(subject),
-                             unicode(message),
+            mail.mail_admins(six.text_type(subject),
+                             six.text_type(message),
                              fail_silently=True)
 
 
@@ -449,8 +450,8 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
                         request.user.username,
                         self.name,
                         self.exercise))
-            mail.mail_admins(unicode(subject),
-                             unicode(message),
+            mail.mail_admins(six.text_type(subject),
+                             six.text_type(message),
                              fail_silently=True)
 
 

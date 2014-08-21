@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+import six
 import datetime
 import logging
 
@@ -337,7 +338,7 @@ class Day(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return u"{0} for TP {1}".format(self.description, unicode(self.training))
+        return u"{0} for TP {1}".format(self.description, six.text_type(self.training))
 
     def get_owner_object(self):
         '''
@@ -456,7 +457,7 @@ class Day(models.Model):
 
         return {'obj': self,
                 'days_of_week': {
-                    'text': u', '.join([unicode(_(i.day_of_week))
+                    'text': u', '.join([six.text_type(_(i.day_of_week))
                                        for i in tmp_days_of_week]),
                     'day_list': tmp_days_of_week},
                 'muscles': {

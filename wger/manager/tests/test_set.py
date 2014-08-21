@@ -75,7 +75,7 @@ class SetAddTestCase(WorkoutManagerAddTestCase):
                      'exercise2-INITIAL_FORMS': 0,
                      'exercise2-MAX_NUM_FORMS': 1000,
                      'exercise2-0-reps': 8}
-        response = self.client.post(reverse_lazy('set-add', kwargs={'day_pk': 5}), post_data)
+        response = self.client.post(reverse('set-add', kwargs={'day_pk': 5}), post_data)
         self.assertEqual(response.status_code, 302)
 
         set_obj = Set.objects.get(pk=4)

@@ -12,6 +12,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+import six
 import logging
 import datetime
 
@@ -129,7 +130,7 @@ class ScheduleTestCase(WorkoutManagerTestCase):
                               response.content)
         else:
             self.assertInHTML('<span class="label label-primary">active</span>',
-                              response.content)
+                              six.text_type(response.content))
         schedule = Schedule.objects.get(pk=4)
         schedule.is_active = False
         schedule.save()
