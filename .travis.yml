@@ -6,13 +6,11 @@ python:
 
 # Manually define here the combinations of django and db versions to test
 env:
-#  - DJANGO_VERSION=1.6.5 DB=mysql
   - DJANGO_VERSION=1.6.5 DB=postgresql
   - DJANGO_VERSION=1.6.5 DB=sqlite
 
 # Install the application
 install:
-#  - sh -c "if [ '$DB' = 'mysql' ]; then pip install mysql-python; fi"
   - sh -c "if [ '$DB' = 'postgresql' ]; then pip install psycopg2; fi"
   
   - pip install -r requirements_devel.txt
@@ -23,9 +21,6 @@ install:
 before_script:
   - sh -c "if [ '$DB' = 'postgresql' ]; then psql -c 'DROP DATABASE IF EXISTS test_wger;' -U postgres; fi"
   - sh -c "if [ '$DB' = 'postgresql' ]; then psql -c 'CREATE DATABASE test_wger;' -U postgres; fi"
-
-#  - sh -c "if [ '$DB' = 'mysql' ]; then sudo apt-get install python-mysqldb; fi"
-#  - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE IF NOT EXISTS test_wger CHARACTER SET utf8;'; fi"
 
 # Do the tests
 script:
