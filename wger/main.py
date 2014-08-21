@@ -10,9 +10,7 @@
     :license: GNU GPL, see LICENSE for more details.
 """
 
-# for python 2.5 support
-from __future__ import with_statement
-
+import six
 import base64
 import ctypes
 import optparse
@@ -477,7 +475,7 @@ def start_browser(url):
 
 
 def fs2unicode(s):
-    if isinstance(s, unicode):
+    if isinstance(s, six.text_type):
         return s
     fs_encoding = sys.getfilesystemencoding() or sys.getdefaultencoding()
     return s.decode(fs_encoding)

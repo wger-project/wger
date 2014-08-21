@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
-import StringIO
+import six
 import datetime
 import decimal
 import csv
@@ -36,7 +36,7 @@ def parse_weight_csv(request, cleaned_data):
         dialect = 'excel'
 
     # csv.reader expects a file-like object, so use StringIO
-    parsed_csv = csv.reader(StringIO.StringIO(cleaned_data['csv_input']),
+    parsed_csv = csv.reader(six.StringIO.StringIO(cleaned_data['csv_input']),
                             dialect)
 
     weight_list = []

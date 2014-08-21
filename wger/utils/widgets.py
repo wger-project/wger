@@ -25,7 +25,7 @@ from django.forms.widgets import TextInput
 from django.forms import fields
 
 from django.utils.translation import ugettext as _
-from django.utils.encoding import force_unicode
+from django.utils.encoding import force_text
 from django.utils.html import escape
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
@@ -113,14 +113,14 @@ class ExerciseAjaxSelect(SelectMultiple):
 
     def render_options(self, choices, selected_choices):
         # Normalize to strings.
-        selected_choices = set(force_unicode(v) for v in selected_choices)
+        selected_choices = set(force_text(v) for v in selected_choices)
         output = []
         for option_value, option_label in chain(self.choices, choices):
             output.append(self.render_option(selected_choices, option_value, option_label))
         return u'\n'.join(output)
 
     def render_option(self, selected_choices, option_value, option_label):
-        option_value = force_unicode(option_value)
+        option_value = force_text(option_value)
         if option_value in selected_choices:
 
             return u'''
@@ -133,7 +133,7 @@ class ExerciseAjaxSelect(SelectMultiple):
                         </a> %(value)s
                         <input type="hidden" name="exercises" value="%(id)s">
                     </div>
-            ''' % {'value': conditional_escape(force_unicode(option_label)),
+            ''' % {'value': conditional_escape(force_text(option_label)),
                    'id': escape(option_value),
                    'div_id': uuid.uuid4()}
 
