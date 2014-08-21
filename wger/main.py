@@ -121,11 +121,11 @@ def process_options(argv=None):
 
     opts, args = parser.parse_args(argv)
     if opts.version:
-        print get_version()
+        print(get_version())
         exit(0)
     if opts.show_config:
-        print "Settings file: %s" % get_user_config_path('wger', 'settings.py')
-        print "Database file: %s" % get_user_data_path('wger', 'database.sqlite')
+        print("Settings file: %s" % get_user_config_path('wger', 'settings.py'))
+        print("Database file: %s" % get_user_data_path('wger', 'database.sqlite'))
         exit(0)
     if args:
         sys.stderr.write("This command does not take arguments!\n\n")
@@ -224,7 +224,7 @@ def _main(opts, database_path=None):
 
 def create_settings(settings_path, database_path=None, url=None):
     settings_module = os.path.dirname(settings_path)
-    print "* No settings file found. Creating one at %s" % settings_module
+    print("* No settings file found. Creating one at %s" % settings_module)
 
     if database_path is _portable_db_path:
         database_path = get_portable_db_path()
@@ -235,8 +235,8 @@ def create_settings(settings_path, database_path=None, url=None):
         dbpath_value = repr(fs2unicode(database_path))
 
     media_folder_path = get_user_data_path('wger', 'media')
-    print "Please edit your settings file and enter the values for the reCaptcha keys "
-    print "You can leave this empty, but won't be able to register new users"
+    print("Please edit your settings file and enter the values for the reCaptcha keys ")
+    print("You can leave this empty, but won't be able to register new users")
     recaptcha_public_key = ''
     recaptcha_private_key = ''
 
@@ -293,7 +293,7 @@ def setup_django_environment(settings_path):
     settings_file = os.path.basename(settings_path)
     settings_module_name = "".join(settings_file.split('.')[:-1])
     if '.' in settings_module_name:
-        print "'.' is not an allowed character in the settings-file"
+        print("'.' is not an allowed character in the settings-file")
         sys.exit(1)
     settings_module_dir = os.path.dirname(settings_path)
     sys.path.append(settings_module_dir)
@@ -337,7 +337,7 @@ def database_exists():
     except DatabaseError:
         return False
     except ImproperlyConfigured:
-        print "Your settings file seems broken"
+        print("Your settings file seems broken")
         sys.exit(0)
     else:
         return True
