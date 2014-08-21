@@ -62,7 +62,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'wger.utils.context_processor.processor',
     'django.contrib.auth.context_processors.auth',
     'django.contrib.messages.context_processors.messages',
-    'django_browserid.context_processors.browserid',
 
     # Django mobile
     'django_mobile.context_processors.flavour',

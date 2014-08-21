@@ -8,7 +8,12 @@
 
 
 {% block header %}
-{% browserid_css %}
+<link rel="stylesheet" href="{% static 'browserid/persona-buttons.css' %}">
+<script src="https://login.persona.org/include.js"></script>
+<script src="{% static 'browserid/api.js' %}"></script>
+<script src="{% static 'browserid/browserid.js' %}"></script>
+
+{% browserid_info %}
 {% endblock %}
 
 {% block content %}

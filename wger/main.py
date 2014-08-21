@@ -68,6 +68,7 @@ RECAPTCHA_PRIVATE_KEY = '%(recaptcha_private_key)s'
 # The site's URL (e.g. http://www.my-local-gym.com or http://localhost:8000)
 # This is needed for Mozilla's BrowserID to work
 SITE_URL = '%(siteurl)s'
+BROWSERID_AUDIENCES = [SITE_URL]
 
 # This might be a good idea if you setup memcached
 #SESSION_ENGINE = "django.contrib.sessions.backends.cache"

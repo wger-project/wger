@@ -155,6 +155,9 @@ urlpatterns = urlpatterns + patterns('',
     url(r'^manifest\.webapp$', WebappManifestView.as_view(template_name="manifest.webapp")),
     url(r'^amazon-manifest\.webapp$', WebappManifestView.as_view(template_name="amazon-manifest.webapp")),
 
+    # persona (browserID) login
+    url(r'^browserid/', include('django_browserid.urls')),
+
     # API
     url(r'^api/', include(v1_api.urls)),
     url(r'^api/v2/exercise/search/$',
