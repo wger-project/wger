@@ -299,6 +299,12 @@ by the US Department of Agriculture. It is extremely complete, with around
         - weight in kg
         - height in m
         '''
+
+        # If not all the data is available, return 0, otherwise the result
+        # of the calculation below breaks django's template filters
+        if not self.weight or not self.height:
+            return 0
+
         return self.weight / (self.height / decimal.Decimal(100) *
                               self.height / decimal.Decimal(100.0))
 

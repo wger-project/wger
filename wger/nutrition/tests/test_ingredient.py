@@ -19,6 +19,7 @@ import datetime
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 from wger.core.tests import api_base_test
+from wger.core.models import Language
 
 from wger.nutrition.models import Ingredient
 from wger.nutrition.models import Meal
@@ -172,7 +173,7 @@ class IngredientSearchTestCase(WorkoutManagerTestCase):
         kwargs = {'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'}
         response = self.client.get(reverse('ingredient-search'), {'term': 'test'}, **kwargs)
         self.assertEqual(response.status_code, 200)
-        result = json.loads(response.content)
+        result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result), 2)
         self.assertEqual(result[0]['value'], 'Ingredient, test, 2, organic, raw')
         self.assertEqual(result[1]['value'], 'Test ingredient 1')
@@ -180,7 +181,7 @@ class IngredientSearchTestCase(WorkoutManagerTestCase):
         # Search for an ingredient pending review (0 hits, "Pending ingredient")
         response = self.client.get(reverse('ingredient-search'), {'term': 'Pending'}, **kwargs)
         self.assertEqual(response.status_code, 200)
-        result = json.loads(response.content)
+        result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result), 0)
 
     def test_search_ingredient_anonymous(self):
@@ -216,7 +217,7 @@ class IngredientValuesTestCase(WorkoutManagerTestCase):
                                     'unit': ''})
 
         self.assertEqual(response.status_code, 200)
-        result = json.loads(response.content)
+        result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result), 8)
         self.assertEqual(result, {u'sodium': u'0.01',
                                   u'energy': u'1.76',
@@ -234,7 +235,7 @@ class IngredientValuesTestCase(WorkoutManagerTestCase):
                                     'unit': 2})
 
         self.assertEqual(response.status_code, 200)
-        result = json.loads(response.content)
+        result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result), 8)
         self.assertEqual(result, {u'sodium': u'0.61',
                                   u'energy': u'196.24',
@@ -269,6 +270,8 @@ class IngredientTestCase(WorkoutManagerTestCase):
         '''
         Tests the custom compare method based on values
         '''
+        language = Language.objects.get(pk=1)
+
         ingredient1 = Ingredient.objects.get(pk=1)
         ingredient2 = Ingredient.objects.get(pk=1)
         ingredient2.name = 'A different name altogether'
@@ -278,10 +281,12 @@ class IngredientTestCase(WorkoutManagerTestCase):
         ingredient1.name = 'ingredient name'
         ingredient1.energy = 150
         ingredient1.protein = 30
+        ingredient1.language = language
 
         ingredient2 = Ingredient()
         ingredient2.name = 'ingredient name'
         ingredient2.energy = 150
+        ingredient2.language = language
         self.assertFalse(ingredient1 == ingredient2)
 
         ingredient2.protein = 31

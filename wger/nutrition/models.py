@@ -24,6 +24,7 @@ from django.template.defaultfilters import slugify  # django.utils.text.slugify 
 from django.core.validators import MaxValueValidator
 from django.core.validators import MinValueValidator
 from django.core.exceptions import ValidationError
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.core import mail
 from django.core.cache import cache

@@ -52,7 +52,7 @@ class CaloriesCalculatorTestCase(WorkoutManagerTestCase):
                                      'freetime_hours': 8,
                                      'freetime_intensity': 1})
         self.assertEqual(response.status_code, 200)
-        result = json.loads(response.content)
+        result = json.loads(response.content.decode('utf8'))
         self.assertEqual(decimal.Decimal(result['factor']),
                          decimal.Decimal(1.57).quantize(TWOPLACES))
         self.assertEqual(decimal.Decimal(result['activities']), decimal.Decimal(2920))
@@ -109,7 +109,7 @@ class CaloriesCalculatorTestCase(WorkoutManagerTestCase):
                                      'gender': 1,
                                      'weight': 80})
         self.assertEqual(response.status_code, 200)
-        result = json.loads(response.content)
+        result = json.loads(response.content.decode('utf8'))
         self.assertEqual(result, {'bmr': '1780'})
 
     def test_automatic_weight_entry_bmr(self):

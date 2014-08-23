@@ -65,7 +65,7 @@ $(document).ready(function () {
 
 <div id="bmi-result-container" style="display:hidden;">
     <h3>{% trans 'Results' %}</h3>
-    <p>{% trans 'Your BMI is: ' %} <strong><span id="bmi-result-value">{{user.userprofile.calculate_bmi|floatformat:2}}</span></strong></p>
+    <p>{% trans 'Your BMI is: ' %} <strong><span id="bmi-result-value">{{user.userprofile.calculate_bmi|floatformat:1}}</span></strong></p>
 </div>
 
 

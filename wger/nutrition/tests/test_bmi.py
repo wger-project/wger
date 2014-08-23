@@ -38,6 +38,7 @@ class BmiTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_calculator(self):
+
         '''
         Tests the calculator itself
         '''
@@ -47,7 +48,7 @@ class BmiTestCase(WorkoutManagerTestCase):
                                     {'height': 180,
                                      'weight': 80})
         self.assertEqual(response.status_code, 200)
-        bmi = json.loads(response.content)
+        bmi = json.loads(response.content.decode('utf8'))
         self.assertEqual(decimal.Decimal(bmi['bmi']), decimal.Decimal(24.69).quantize(TWOPLACES))
         self.assertEqual(decimal.Decimal(bmi['weight']), decimal.Decimal(80))
         self.assertEqual(decimal.Decimal(bmi['height']), decimal.Decimal(180))

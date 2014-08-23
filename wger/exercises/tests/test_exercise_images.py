@@ -42,7 +42,7 @@ class MainImageTestCase(WorkoutManagerTestCase):
         image.status = ExerciseImage.STATUS_ACCEPTED
         image.image.save(
             filename,
-            File(open('wger/exercises/tests/{0}'.format(filename)), 'rb')
+            File(open('wger/exercises/tests/{0}'.format(filename), encoding='latin1'), 'rb')
         )
         image.save()
 

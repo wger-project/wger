@@ -425,13 +425,7 @@ class WorkoutManagerAccessTestCase(WorkoutManagerTestCase):
         if self.__class__.__name__ == 'WorkoutManagerAccessTestCase':
             return
 
-        try:
-            response = self.client.get(reverse(self.url))
-        except NoReverseMatch:
-            # URL needs special care and doesn't need to be reversed here,
-            # everything was already done in the individual test case
-            response = self.client.get(self.url)
-
+        response = self.client.get(get_reverse(self.url))
         if fail:
             self.assertIn(response.status_code, STATUS_CODES_FAIL)
             if response.status_code == 302:

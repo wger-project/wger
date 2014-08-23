@@ -23,6 +23,7 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.contrib.auth.decorators import login_required
 
@@ -195,7 +196,8 @@ def edit(request, pk):
                 instances = formset['formset'].save(commit=False)
                 for instance in instances:
                     # If the setting has already a set, we are editing...
-                    if hasattr(instance, 'set'):
+                    try:
+                        instance.set
 
                         # Check that we are allowed to do this
                         if instance.get_owner_object().user != request.user:
@@ -204,7 +206,7 @@ def edit(request, pk):
                         instance.save()
 
                     # ...if not, create a new setting
-                    else:
+                    except ObjectDoesNotExist:
                         instance.set = set_obj
                         instance.order = 1
                         instance.exercise = formset['exercise']
