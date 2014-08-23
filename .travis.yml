@@ -3,6 +3,8 @@ language: python
 # Python versions to test
 python:
   - "2.7"
+  - "3.3"
+  - "3.4"
 
 # Manually define here the combinations of django and db versions to test
 env:
@@ -15,6 +17,7 @@ install:
   
   - pip install -r requirements_devel.txt
   - pip install -q Django==$DJANGO_VERSION
+  - pip install --upgrade django-tastypie
   - python extras/scripts/create_local_settings.py
 
 # Create test databases
