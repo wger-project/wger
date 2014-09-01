@@ -12,6 +12,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+import six
 
 from django.core.urlresolvers import reverse
 from django.core.files import File
@@ -40,10 +41,16 @@ class MainImageTestCase(WorkoutManagerTestCase):
         image = ExerciseImage()
         image.exercise = exercise
         image.status = ExerciseImage.STATUS_ACCEPTED
-        image.image.save(
-            filename,
-            File(open('wger/exercises/tests/{0}'.format(filename), encoding='latin1'), 'rb')
-        )
+        if six.PY2:
+            image.image.save(
+                filename,
+                File(open('wger/exercises/tests/{0}'.format(filename)), 'rb')
+            )
+        else:
+            image.image.save(
+                filename,
+                File(open('wger/exercises/tests/{0}'.format(filename), encoding='latin1'), 'rb')
+            )
         image.save()
 
     def test_auto_main_image(self):
