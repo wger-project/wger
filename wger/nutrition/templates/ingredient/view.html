@@ -28,7 +28,7 @@ the search.{% endblocktrans %}
 
 {% if perms.exercises %}
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-sm-6">
         <a href="{% url 'ingredient-accept' ingredient.id %}" class="btn btn-default btn-block">
             <img src="{% static 'images/icons/status-on.svg' %}"
                 width="32"
@@ -37,7 +37,7 @@ the search.{% endblocktrans %}
             {% trans "Accept" %}
         </a>
     </div>
-    <div class="col-md-6">
+    <div class="col-sm-6">
         <a href="{% url 'ingredient-decline' ingredient.id %}" class="btn btn-default btn-block">
             <img src="{% static 'images/icons/status-off.svg' %}"
                 width="32"

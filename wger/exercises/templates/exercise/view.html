@@ -29,7 +29,7 @@ included in the database.{% endblocktrans %}
 
 {% if perms.exercises %}
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-sm-6">
         <a href="{% url 'exercise-accept' exercise.id %}" class="btn btn-default btn-block">
             <img src="{% static 'images/icons/status-on.svg' %}"
                 width="32"
@@ -38,7 +38,7 @@ included in the database.{% endblocktrans %}
             {% trans "Accept" %}
         </a>
     </div>
-    <div class="col-md-6">
+    <div class="col-sm-6">
         <a href="{% url 'exercise-decline' exercise.id %}" class="btn btn-default btn-block">
             <img src="{% static 'images/icons/status-off.svg' %}"
                 width="32"
