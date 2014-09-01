@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-common.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-mobile.css' %}">
     {% endcompress %}
-    {% browserid_css %}
 
     {% compress js %}
     <script src="{% static 'js/jquery.js' %}"          type="text/javascript"></script>
@@ -69,7 +68,6 @@
 
 </head>
 <body>
-{% browserid_info %}
 <header>
     <div class="navbar navbar-fixed-top" style="background-color: #204A87;">
         <button type="button"
