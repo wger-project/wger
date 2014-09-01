@@ -43,14 +43,14 @@ $(document).ready(function() {
 {% trans "Hover with the mouse over the muscles to show corresponding exercises." %}
 
 <div class="row">
-    <div class="col-md-4 col-xs-6">
+    <div class="col-sm-4 col-xs-6">
         <h3 style="padding-bottom:0.5em;">{% trans "Muscles" %}</h3>
         <div id="muscle-system"
              class="muscle-background"
              style="background-image: url('/static/images/muscles/muscular_system_front.svg');">
         </div>
     </div>
-    <div class="col-md-4 col-xs-6">
+    <div class="col-sm-4 col-xs-6">
         {# Why do we need to use |first? #}
         {% regroup muscle_list|first by is_front as muscle_group %}
         {% for group in muscle_group %}
@@ -73,7 +73,7 @@ $(document).ready(function() {
             </ul>
         {% endfor %}
     </div>
-    <div class="col-md-4 col-xs-12">
+    <div class="col-sm-4 col-xs-12">
         {% for muscle in muscle_list|first %}
             <div id="muscle-{{muscle.id}}" style="display:none;" class="exercise-list">
                 <h3>{% trans "Exercises" %}</h3>
