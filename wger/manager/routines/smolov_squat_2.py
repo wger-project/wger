@@ -19,6 +19,7 @@ from django.utils.translation import ugettext as _
 
 from wger.utils.routines import Routine
 from wger.utils.routines import ExerciseConfig
+from wger.utils.routines import RoutineExercise
 
 logger = logging.getLogger('wger.custom')
 
@@ -191,13 +192,15 @@ def get_routine():
 
     smolov = Routine(weeks=5,
                      name='Smolov Squat - Part 2',
-                     short_name=os.path.splitext(os.path.basename(__file__))[0],
+                     slug=os.path.splitext(os.path.basename(__file__))[0],
                      description=_("This is part two of a two part routine. You should have "
                                    "established a fresh squat max in part one that you will "
                                    "use now to grind out another PR at the end of these brutal "
                                    "sessions."))
 
-    squat_config = SquatConfig('Squats', 2)
-    smolov.add(squat_config)
+    squat = RoutineExercise(mapper_pk=2)
+    squat.add_config(SquatConfig('Squats', 2))
+
+    smolov.add(squat)
 
     return smolov

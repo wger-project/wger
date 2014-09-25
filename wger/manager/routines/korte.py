@@ -19,6 +19,7 @@ from django.utils.translation import ugettext as _
 
 from wger.utils.routines import Routine
 from wger.utils.routines import ExerciseConfig
+from wger.utils.routines import RoutineExercise
 
 logger = logging.getLogger('wger.custom')
 
@@ -212,18 +213,22 @@ def get_routine():
     Initialise and return this routine
     '''
 
-    korte = Routine(weeks=8,
-                    name='Korte 3x3',
-                    short_name=os.path.splitext(os.path.basename(__file__))[0],
+    korte = Routine(name='Korte 3x3',
+                    slug=os.path.splitext(os.path.basename(__file__))[0],
                     description=_("Pure German volume training (GVT). You will squat, "
                                   "bench, and deadlift. That's it. Good luck."))
 
-    squat_config = SquatConfig('Squats', 2)
-    bench_config = BenchConfig('Bench', 1)
-    deadlift_config = DeadliftConfig('Deadlift', 3)
+    squat = RoutineExercise(mapper_pk=2)
+    squat.add_config(SquatConfig('Squats', 2))
 
-    korte.add(squat_config)
-    korte.add(bench_config)
-    korte.add(deadlift_config)
+    bench = RoutineExercise(mapper_pk=1)
+    bench.add_config(BenchConfig('Bench', 1))
+
+    deadlift = RoutineExercise(mapper_pk=3)
+    deadlift.add_config(DeadliftConfig('Deadlift', 3))
+
+    korte.add(squat)
+    korte.add(bench)
+    korte.add(deadlift)
 
     return korte

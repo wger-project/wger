@@ -750,11 +750,63 @@ class WeightConfig(models.Model):
     Model for weight configuration settings
     '''
 
+    MODE_STATIC = 'static'
+    MODE_DYNAMIC = 'dynamic'
+    MODE = (
+        (MODE_STATIC, _('Static')),
+        (MODE_DYNAMIC, _('Dynamic'))
+    )
+
+    DYNAMIC_MODE_LAST = 'last'
+    DYNAMIC_MODE_2_WEEKS = '2weeks'
+    DYNAMIC_MODE_4_WEEKS = '4weeks'
+    DYNAMIC_MODE = (
+        (DYNAMIC_MODE_LAST, _('Last workout')),
+        (DYNAMIC_MODE_2_WEEKS, _('Best workout in last {0} weeks').format(2)),
+        (DYNAMIC_MODE_4_WEEKS, _('Best workout in last {0} weeks').format(4))
+    )
+
+    UNITS_KG = 'kg'
+    UNITS_LB = 'lb'
+    UNITS = (
+        (UNITS_KG, _('Metric (kilogram)')),
+        (UNITS_LB, _('Imperial (pound)'))
+    )
+
+    VALUE_WEIGHT = 'weight'
+    VALUE_PERCENTAGE = 'percent'
+    VALUE = (
+        (VALUE_WEIGHT, _('Constant value')),
+        (VALUE_PERCENTAGE, _('Percent'))
+    )
+
     class Meta:
         '''
         Set other configuration options
         '''
         unique_together = (('schedule_step', 'setting'),)
+
+    increment_mode = models.CharField(_('Mode'),
+                                      help_text=_('Select the mode by which the weight increase '
+                                                  'is determined. "Static" increases the weight by '
+                                                  'a specific amount, "dynamic" can do that based '
+                                                  'on your workout performance.'),
+                                      max_length=7,
+                                      choices=MODE,
+                                      default=MODE_STATIC)
+    '''
+    General weight increment mode
+    '''
+
+    dynamic_mode = models.CharField(_('Dynamic mode'),
+                                    help_text=_('Select the time frame used to select your '
+                                                'base weight.'),
+                                    max_length=7,
+                                    choices=DYNAMIC_MODE,
+                                    default=DYNAMIC_MODE_LAST)
+    '''
+    General weight increment mode
+    '''
 
     schedule_step = models.ForeignKey(ScheduleStep, editable=False)
     '''
@@ -782,6 +834,22 @@ class WeightConfig(models.Model):
                                                 MaxValueValidator(10)])
     '''
     Weekly weight increment
+    '''
+
+    weight_unit = models.CharField(verbose_name=_('Weight unit'),
+                                   max_length=2,
+                                   choices=UNITS,
+                                   default=UNITS_KG)
+    '''
+    Weight unit
+    '''
+
+    value = models.CharField(verbose_name=_('Weight unit'),
+                             max_length=2,
+                             choices=VALUE,
+                             default=VALUE_WEIGHT)
+    '''
+    Weight unit
     '''
 
     def __unicode__(self):
