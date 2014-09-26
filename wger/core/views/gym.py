@@ -89,6 +89,8 @@ class GymUserListView(WgerPermissionMixin, ListView):
         '''
         context = super(GymUserListView, self).get_context_data(**kwargs)
         context['gym'] = Gym.objects.get(pk=self.kwargs['pk'])
+        context['admin_count'] = len([i for i in context['object_list'] if i['perms']['any_admin']])
+        context['user_count'] = len([i for i in context['object_list'] if not i['perms']['any_admin']])
         return context
 
 

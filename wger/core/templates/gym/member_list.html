@@ -40,7 +40,7 @@
 
 
 
-<h4>{% trans "Administrators and trainers"  %}</h4>
+<h4>{% trans "Administrators and trainers" %}</h4>
 <table class="table">
 <thead>
 <tr>
@@ -131,6 +131,10 @@
             {{gym.zip_code}} {{gym.city}}<br>
             {{gym.street}}
         </td>
+    </tr>
+    <tr>
+        <th>{% trans "Members" %}</th>
+        <td>{{user_count}}</td>
     </tr>
 </table>
 
