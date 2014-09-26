@@ -546,6 +546,12 @@ class Gym(models.Model):
         UserProfile.objects.filter(gym=self).update(gym=None)
         super(Gym, self).delete(using)
 
+    def get_absolute_url(self):
+        '''
+        Return the URL for this object
+        '''
+        return reverse('core:gym-user-list', kwargs={'pk': self.pk})
+
     def get_owner_object(self):
         '''
         Gym has no owner information
