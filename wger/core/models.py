@@ -493,6 +493,7 @@ class Gym(models.Model):
             ("manage_gym", "Admin, can manage users for a gym"),
             ("manage_gyms", "Admin, can administrate the different gyms"),
         )
+        ordering = ["name", ]
 
     name = models.CharField(max_length=60,
                             verbose_name=_('Name'))
