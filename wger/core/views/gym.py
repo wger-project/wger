@@ -128,7 +128,7 @@ class GymAddUserView(WgerFormMixin, CreateView):
 
     model = User
     title = ugettext_lazy('Add user to gym')
-    success_url = reverse_lazy('core:gym-new-user-data')
+    success_url = reverse_lazy('core:gym:new-user-data')
     permission_required = 'core.manage_gym'
     form_class = GymUserAddForm
 
