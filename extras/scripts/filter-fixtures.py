@@ -65,7 +65,7 @@ filter_dump(data, ('core.license',), 'licenses.json')
 # Configurations
 #
 filter_dump(data, ('config.languageconfig',), 'language_config.json')
-filter_dump(data, ('config.gymconfig',), 'gym-config.json')
+filter_dump(data, ('config.gymconfig',), 'gym_config.json')
 
 #
 # Other
