@@ -365,7 +365,8 @@ class UserDetailView(WgerPermissionMixin, DetailView):
         '''
         Only managers for this gym can access the members
         '''
-        if request.user.userprofile.gym == self.get_object().userprofile.gym:
+        user = request.user
+        if user.is_authenticated() and user.userprofile.gym == self.get_object().userprofile.gym:
             return super(UserDetailView, self).dispatch(request, *args, **kwargs)
         else:
             return HttpResponseForbidden()
