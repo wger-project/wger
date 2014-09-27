@@ -89,8 +89,10 @@ class GymUserListView(WgerPermissionMixin, ListView):
         '''
         context = super(GymUserListView, self).get_context_data(**kwargs)
         context['gym'] = Gym.objects.get(pk=self.kwargs['pk'])
-        context['admin_count'] = len([i for i in context['object_list'] if i['perms']['any_admin']])
-        context['user_count'] = len([i for i in context['object_list'] if not i['perms']['any_admin']])
+        context['admin_count'] = len([i for i in context['object_list']
+                                      if i['perms']['any_admin']])
+        context['user_count'] = len([i for i in context['object_list']
+                                     if not i['perms']['any_admin']])
         return context
 
 
@@ -100,9 +102,9 @@ class GymAddView(WgerFormMixin, CreateView):
     '''
 
     model = Gym
-    success_url = reverse_lazy('core:gym-list')
+    success_url = reverse_lazy('core:gym:list')
     title = ugettext_lazy('Add gym')
-    form_action = reverse_lazy('core:gym-add')
+    form_action = reverse_lazy('core:gym:add')
     permission_required = 'core.add_gym'
 
 
@@ -175,7 +177,7 @@ class GymAddUserView(WgerFormMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(GymAddUserView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('core:gym-add-user',
+        context['form_action'] = reverse('core:gym:add-user',
                                          kwargs={'gym_pk': self.kwargs['gym_pk']})
         return context
 
@@ -194,7 +196,7 @@ class GymUpdateView(WgerFormMixin, UpdateView):
         Send some additional data to the template
         '''
         context = super(GymUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('core:gym-edit', kwargs={'pk': self.object.id})
+        context['form_action'] = reverse('core:gym:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit {0}'.format(self.object))
         return context
 
@@ -205,7 +207,7 @@ class GymDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
 
     model = Gym
-    success_url = reverse_lazy('core:gym-list')
+    success_url = reverse_lazy('core:gym:list')
     permission_required = 'core.delete_gym'
 
     def get_context_data(self, **kwargs):
@@ -214,5 +216,5 @@ class GymDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
         '''
         context = super(GymDeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?'.format(self.object))
-        context['form_action'] = reverse('core:gym-delete', kwargs={'pk': self.kwargs['pk']})
+        context['form_action'] = reverse('core:gym:delete', kwargs={'pk': self.kwargs['pk']})
         return context

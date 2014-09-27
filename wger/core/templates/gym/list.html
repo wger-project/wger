@@ -12,17 +12,17 @@
     {% for gym in gym_list %}
     <li class="list-group-item ">
         <div class="pull-right">
-            <a href="{% url 'core:gym-delete' gym.id %}"
+            <a href="{% url 'core:gym:delete' gym.id %}"
                class="btn btn-danger btn-xs wger-modal-dialog">
                 {% trans 'Delete' %}
             </a>
-            <a href="{% url 'core:gym-edit' gym.id %}"
+            <a href="{% url 'core:gym:edit' gym.id %}"
                class="btn btn-default btn-xs wger-modal-dialog">
                 {% trans 'Edit' %}
             </a>
         </div>
         {% if perms.core.manage_gym and user.userprofile.gym == gym %}
-            <a href="{% url 'core:gym-user-list' gym.pk %}">{{gym}}</a>
+            <a href="{% url 'core:gym:user-list' gym.pk %}">{{gym}}</a>
         {% else %}
             {{gym}}
         {% endif %}
@@ -38,7 +38,7 @@
 {% if perms.core.add_gym %}
 <h4>{% trans "Options" %}</h4>
 <p>
-       <a href="{% url 'core:gym-add' %}"
+       <a href="{% url 'core:gym:add' %}"
           {% auto_link_css flavour "wger-modal-dialog" %}>
        <img src="{% static 'images/icons/new.svg' %}"
             width="32"

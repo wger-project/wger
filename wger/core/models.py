@@ -550,7 +550,7 @@ class Gym(models.Model):
         '''
         Return the URL for this object
         '''
-        return reverse('core:gym-user-list', kwargs={'pk': self.pk})
+        return reverse('core:gym:user-list', kwargs={'pk': self.pk})
 
     def get_owner_object(self):
         '''

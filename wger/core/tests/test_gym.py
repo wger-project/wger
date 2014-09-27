@@ -28,7 +28,7 @@ class GymOverviewTest(WorkoutManagerAccessTestCase):
     '''
     Tests accessing the gym overview page
     '''
-    url = 'core:gym-list'
+    url = 'core:gym:list'
     anonymous_fail = True
 
 
@@ -36,7 +36,7 @@ class GymUserOverviewTest(WorkoutManagerAccessTestCase):
     '''
     Tests accessing the gym user overview page
     '''
-    url = reverse_lazy('core:gym-user-list', kwargs={'pk': 1})
+    url = reverse_lazy('core:gym:user-list', kwargs={'pk': 1})
     anonymous_fail = True
 
 
@@ -45,7 +45,7 @@ class AddGymTestCase(WorkoutManagerAddTestCase):
     Tests adding a new gym
     '''
     object_class = Gym
-    url = 'core:gym-add'
+    url = 'core:gym:add'
     data = {'name': 'The name her'}
     pk = 4
 
@@ -56,7 +56,7 @@ class DeleteGymTestCase(WorkoutManagerDeleteTestCase):
     '''
 
     object_class = Gym
-    url = 'core:gym-delete'
+    url = 'core:gym:delete'
     pk = 2
 
 
@@ -66,7 +66,7 @@ class EditGymTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = Gym
-    url = 'core:gym-edit'
+    url = 'core:gym:edit'
     pk = 1
     data = {'name': 'A different name'}
 

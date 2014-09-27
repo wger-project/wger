@@ -26,7 +26,7 @@
     </tr>
 </table>
 
-<a href="{% url 'core:gym-user-list' new_user.userprofile.gym.pk %}" {% auto_link_css flavour %}>
+<a href="{% url 'core:gym:user-list' new_user.userprofile.gym.pk %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/list.svg' %}"
          width="32"
          height="32"

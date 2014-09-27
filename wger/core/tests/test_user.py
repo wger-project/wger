@@ -115,13 +115,13 @@ class GymAddUserTestCase(WorkoutManagerTestCase):
         Helper function to add users
         '''
         count_before = User.objects.all().count()
-        response = self.client.get(reverse('core:gym-add-user', kwargs={'gym_pk': 1}))
+        response = self.client.get(reverse('core:gym:add-user', kwargs={'gym_pk': 1}))
         if fail:
             self.assertEqual(response.status_code, 403)
         else:
             self.assertEqual(response.status_code, 200)
 
-        response = self.client.post(reverse('core:gym-add-user', kwargs={'gym_pk': 1}),
+        response = self.client.post(reverse('core:gym:add-user', kwargs={'gym_pk': 1}),
                                     {'first_name': 'Cletus',
                                      'last_name': 'Spuckle',
                                      'username': 'cletus',

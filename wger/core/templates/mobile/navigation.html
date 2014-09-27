@@ -209,13 +209,13 @@
                                     <li><a href="{% url 'config:language-overview' %}">{% trans "Languages" %} </a></li>
                                     <li><a href="{% url 'core:license-list' %}">{% trans "Licenses" %} </a></li>
                                     {% if perms.core.manage_gyms %}
-                                        <li><a href="{% url 'core:gym-list' %}">{% trans "Gyms" %} </a></li>
+                                        <li><a href="{% url 'core:gym:list' %}">{% trans "Gyms" %} </a></li>
                                     {% endif  %}
 
                                     {# it's not possible to group expressions '(a or b) and c' #}
                                     {% if perms.core.gym_trainer or perms.core.manage_gym %}
                                     {% if user.userprofile.gym %}
-                                        <li><a href="{% url 'core:gym-user-list' user.userprofile.gym.pk %}">{{user.userprofile.gym}}</a></li>
+                                        <li><a href="{% url 'core:gym:user-list' user.userprofile.gym.pk %}">{{user.userprofile.gym}}</a></li>
                                     {% endif  %}
                                     {% endif  %}
                                 {% endif  %}

@@ -95,7 +95,7 @@
     </button>
     <ul class="dropdown-menu" role="menu">
         <li>
-            <a href="{% url 'core:gym-edit' gym.id %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
+            <a href="{% url 'core:gym:edit' gym.id %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
         </li>
     </ul>
 </div>
@@ -141,7 +141,7 @@
 {% if perms.core.manage_gym %}
 <h3>{% trans "Options" %}</h3>
 <p>
-   <a href="{% url 'core:gym-add-user' gym.pk %}"
+   <a href="{% url 'core:gym:add-user' gym.pk %}"
       {% auto_link_css flavour "wger-modal-dialog" %}>
    <img src="{% static 'images/icons/new.svg' %}"
         width="32"

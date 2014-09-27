@@ -126,7 +126,7 @@ def trainer_login(request, user_pk):
         else:
             return HttpResponseRedirect(reverse('core:index'))
     else:
-        return HttpResponseRedirect(reverse('core:gym-user-list',
+        return HttpResponseRedirect(reverse('core:gym:user-list',
                                             kwargs={'pk': user.userprofile.gym_id}))
 
 
