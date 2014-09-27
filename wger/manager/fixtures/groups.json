@@ -6,6 +6,21 @@
             "name": "admin", 
             "permissions": [
                 [
+                    "add_gymconfig", 
+                    "config", 
+                    "gymconfig"
+                ], 
+                [
+                    "change_gymconfig", 
+                    "config", 
+                    "gymconfig"
+                ], 
+                [
+                    "delete_gymconfig", 
+                    "config", 
+                    "gymconfig"
+                ], 
+                [
                     "add_languageconfig", 
                     "config", 
                     "languageconfig"
@@ -21,19 +36,24 @@
                     "languageconfig"
                 ], 
                 [
-                    "add_daysofweek", 
+                    "add_gym", 
                     "core", 
-                    "daysofweek"
+                    "gym"
                 ], 
                 [
-                    "change_daysofweek", 
+                    "change_gym", 
                     "core", 
-                    "daysofweek"
+                    "gym"
                 ], 
                 [
-                    "delete_daysofweek", 
+                    "delete_gym", 
                     "core", 
-                    "daysofweek"
+                    "gym"
+                ], 
+                [
+                    "add_exercisecomment", 
+                    "core", 
+                    "language"
                 ], 
                 [
                     "add_language", 
@@ -41,7 +61,17 @@
                     "language"
                 ], 
                 [
+                    "change_exercisecomment", 
+                    "core", 
+                    "language"
+                ], 
+                [
                     "change_language", 
+                    "core", 
+                    "language"
+                ], 
+                [
+                    "delete_exercisecomment", 
                     "core", 
                     "language"
                 ], 
@@ -66,7 +96,42 @@
                     "license"
                 ], 
                 [
+                    "add_exercisecategory", 
+                    "core", 
+                    "userprofile"
+                ], 
+                [
+                    "change_exercisecategory", 
+                    "core", 
+                    "userprofile"
+                ], 
+                [
+                    "delete_exercisecategory", 
+                    "core", 
+                    "userprofile"
+                ], 
+                [
                     "add_equipment", 
+                    "easy_thumbnails", 
+                    "thumbnail"
+                ], 
+                [
+                    "change_equipment", 
+                    "easy_thumbnails", 
+                    "thumbnail"
+                ], 
+                [
+                    "delete_equipment", 
+                    "easy_thumbnails", 
+                    "thumbnail"
+                ], 
+                [
+                    "add_equipment", 
+                    "exercises", 
+                    "equipment"
+                ], 
+                [
+                    "add_ingredient", 
                     "exercises", 
                     "equipment"
                 ], 
@@ -76,7 +141,17 @@
                     "equipment"
                 ], 
                 [
+                    "change_ingredient", 
+                    "exercises", 
+                    "equipment"
+                ], 
+                [
                     "delete_equipment", 
+                    "exercises", 
+                    "equipment"
+                ], 
+                [
+                    "delete_ingredient", 
                     "exercises", 
                     "equipment"
                 ], 
@@ -156,34 +231,109 @@
                     "muscle"
                 ], 
                 [
-                    "add_ingredient", 
-                    "nutrition", 
-                    "ingredient"
+                    "add_language", 
+                    "manager", 
+                    "setting"
                 ], 
                 [
-                    "change_ingredient", 
-                    "nutrition", 
-                    "ingredient"
+                    "change_language", 
+                    "manager", 
+                    "setting"
                 ], 
                 [
-                    "delete_ingredient", 
-                    "nutrition", 
-                    "ingredient"
+                    "delete_language", 
+                    "manager", 
+                    "setting"
+                ], 
+                [
+                    "add_daysofweek", 
+                    "manager", 
+                    "workout"
+                ], 
+                [
+                    "change_daysofweek", 
+                    "manager", 
+                    "workout"
+                ], 
+                [
+                    "delete_daysofweek", 
+                    "manager", 
+                    "workout"
+                ], 
+                [
+                    "add_muscle", 
+                    "manager", 
+                    "workoutlog"
+                ], 
+                [
+                    "change_muscle", 
+                    "manager", 
+                    "workoutlog"
+                ], 
+                [
+                    "delete_muscle", 
+                    "manager", 
+                    "workoutlog"
                 ], 
                 [
                     "add_ingredientweightunit", 
                     "nutrition", 
-                    "ingredientweightunit"
+                    "ingredient"
                 ], 
                 [
                     "change_ingredientweightunit", 
                     "nutrition", 
-                    "ingredientweightunit"
+                    "ingredient"
                 ], 
                 [
                     "delete_ingredientweightunit", 
                     "nutrition", 
-                    "ingredientweightunit"
+                    "ingredient"
+                ], 
+                [
+                    "add_languageconfig", 
+                    "nutrition", 
+                    "mealitem"
+                ], 
+                [
+                    "change_languageconfig", 
+                    "nutrition", 
+                    "mealitem"
+                ], 
+                [
+                    "delete_languageconfig", 
+                    "nutrition", 
+                    "mealitem"
+                ], 
+                [
+                    "add_exerciseimage", 
+                    "tastypie", 
+                    "apiaccess"
+                ], 
+                [
+                    "change_exerciseimage", 
+                    "tastypie", 
+                    "apiaccess"
+                ], 
+                [
+                    "delete_exerciseimage", 
+                    "tastypie", 
+                    "apiaccess"
+                ], 
+                [
+                    "add_exercise", 
+                    "weight", 
+                    "weightentry"
+                ], 
+                [
+                    "change_exercise", 
+                    "weight", 
+                    "weightentry"
+                ], 
+                [
+                    "delete_exercise", 
+                    "weight", 
+                    "weightentry"
                 ]
             ]
         }
