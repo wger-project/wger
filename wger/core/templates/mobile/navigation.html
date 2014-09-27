@@ -206,8 +206,12 @@
                                 {% if perms.exercises or perms.core.manage_gyms or perms.core.manage_gym or perms.core.gym_trainer %}
                                     <li class="divider"></li>
                                     <li class="nav-header">{% trans "Administration" %}</li>
-                                    <li><a href="{% url 'config:language-overview' %}">{% trans "Languages" %} </a></li>
-                                    <li><a href="{% url 'core:license-list' %}">{% trans "Licenses" %} </a></li>
+                                    {% if perms.core.change_language %}
+                                        <li><a href="{% url 'config:language-overview' %}">{% trans "Languages" %} </a></li>
+                                    {% endif %}
+                                    {% if perms.core.change_license %}
+                                        <li><a href="{% url 'core:license-list' %}">{% trans "Licenses" %} </a></li>
+                                    {% endif %}
                                     {% if perms.core.manage_gyms %}
                                         <li><a href="{% url 'core:gym:list' %}">{% trans "Gyms" %} </a></li>
                                     {% endif  %}
