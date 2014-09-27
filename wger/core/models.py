@@ -489,9 +489,9 @@ class Gym(models.Model):
 
     class Meta:
         permissions = (
-            ("gym_trainer", "Trainer, can see the users for a gym"),
-            ("manage_gym", "Admin, can manage users for a gym"),
-            ("manage_gyms", "Admin, can administrate the different gyms"),
+            ("gym_trainer", _("Trainer, can see the users for a gym")),
+            ("manage_gym", _("Admin, can manage users for a gym")),
+            ("manage_gyms", _("Admin, can administrate the different gyms")),
         )
         ordering = ["name", ]
 
