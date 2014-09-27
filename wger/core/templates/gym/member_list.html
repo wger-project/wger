@@ -115,7 +115,7 @@
         <th>{% trans "Email" %}</th>
         <td>
             {% if gym.email %}
-                <a href="{{gym.email}}">{{gym.email}}</a>
+                <a href="mailto:{{gym.email}}">{{gym.email}}</a>
             {% else %}
                 -/-
             {% endif %}
