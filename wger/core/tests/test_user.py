@@ -12,6 +12,8 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+import datetime
+
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
@@ -160,6 +162,38 @@ class GymAddUserTestCase(WorkoutManagerTestCase):
         Tests adding a user a logged out user
         '''
         self.add_user(fail=True)
+
+    def new_user_data_export(self, fail=False):
+        '''
+        Helper function to test exporting the data of a newly created user
+        '''
+        response = self.client.get(reverse('core:gym:new-user-data-export'))
+        if fail:
+            self.assertIn(response.status_code, (302, 403))
+        else:
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response['Content-Type'], 'text/csv')
+            today = datetime.date.today()
+            filename = 'User-data-{t.year}-{t.month:02d}-{t.day:02d}-cletus.csv'.format(t=today)
+            self.assertEqual(response['Content-Disposition'],
+                             'attachment; filename={}'.format(filename))
+            self.assertGreaterEqual(len(response.content), 90)
+            self.assertLessEqual(len(response.content), 120)
+
+    def test_new_user_data_export(self):
+        '''
+        Test exporting the data of a newly created user
+        '''
+        self.user_login('admin')
+        self.add_user()
+        self.new_user_data_export(fail=False)
+
+        self.user_logout()
+        self.new_user_data_export(fail=True)
+
+        self.user_logout()
+        self.user_login('test')
+        self.new_user_data_export(fail=True)
 
 
 class TrainerLoginTestCase(WorkoutManagerTestCase):

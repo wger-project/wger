@@ -13,7 +13,8 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-
+import csv
+import datetime
 import logging
 
 from django.contrib.auth.decorators import login_required
@@ -22,8 +23,8 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
-from django.http.response import HttpResponseForbidden
-from django.shortcuts import render
+from django.http.response import HttpResponseForbidden, HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 from django.views.generic import ListView
@@ -113,12 +114,49 @@ def gym_new_user_info(request):
     '''
     Shows info about a newly created user
     '''
-    if not (request.user.has_perm('core.manage_gym') or request.user.has_perm('core.manage_gym')):
+    if not request.user.has_perm('core.manage_gym'):
         return HttpResponseForbidden()
 
-    context = {'new_user': User.objects.get(pk=request.session['gym.user']['user_pk']),
+    if not request.session.get('gym.user'):
+        return HttpResponseRedirect(reverse('core:gym:list'))
+
+    context = {'new_user': get_object_or_404(User, pk=request.session['gym.user']['user_pk']),
                'password': request.session['gym.user']['password']}
     return render(request, 'gym/new_user.html', context)
+
+
+@login_required
+def gym_new_user_info_export(request):
+    '''
+    Exports the info of newly created user
+    '''
+    if not request.user.has_perm('core.manage_gym'):
+        return HttpResponseForbidden()
+
+    if not request.session.get('gym.user'):
+        return HttpResponseRedirect(reverse('core:gym:list'))
+
+    new_user = get_object_or_404(User, pk=request.session['gym.user']['user_pk'])
+    new_username = new_user.username
+    password = request.session['gym.user']['password']
+
+    # Crease CSV 'file'
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    writer.writerow([_('User name'), _('First name'), _('Last name'), _('Gym'), _('Password')])
+    writer.writerow([new_username,
+                     new_user.first_name,
+                     new_user.last_name,
+                     new_user.userprofile.gym.name,
+                     password])
+
+    # Send the data to the browser
+    today = datetime.date.today()
+    filename = 'User-data-{t.year}-{t.month:02d}-{t.day:02d}-{user}.csv'.format(t=today,
+                                                                                user=new_username)
+    response['Content-Disposition'] = 'attachment; filename={0}'.format(filename)
+    response['Content-Length'] = len(response.content)
+    return response
 
 
 class GymAddUserView(WgerFormMixin, CreateView):
