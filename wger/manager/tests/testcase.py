@@ -68,6 +68,7 @@ class BaseTestCase(object):
                 'test-workout-session',
                 'test-schedules')
     current_user = 'anonymous'
+    current_password = ''
     is_mobile = False
 
     def setUp(self):
@@ -110,8 +111,10 @@ class WorkoutManagerTestCase(BaseTestCase, TestCase):
         '''
         Login the user, by default as 'admin'
         '''
-        self.client.login(username=user, password='%(user)s%(user)s' % {'user': user})
+        password = '{0}{0}'.format(user)
+        self.client.login(username=user, password=password)
         self.current_user = user
+        self.current_password = password
 
     def user_logout(self):
         '''

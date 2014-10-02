@@ -139,7 +139,7 @@
 </table>
 
 {% if perms.core.manage_gym %}
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 <p>
    <a href="{% url 'core:gym:add-user' gym.pk %}"
       {% auto_link_css flavour "wger-modal-dialog" %}>

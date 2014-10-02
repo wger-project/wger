@@ -45,7 +45,7 @@ class GymConfigTestCase(WorkoutManagerTestCase):
                              'email': 'my.email@example.com',
                              'recaptcha_response_field': 'PASSED', }
         self.client.post(reverse('core:registration'), registration_data)
-        new_user = User.objects.get(pk=4)
+        new_user = User.objects.get(pk=14)
 
         self.assertEqual(new_user.userprofile.gym, gym)
 
@@ -67,7 +67,7 @@ class GymConfigTestCase(WorkoutManagerTestCase):
                              'recaptcha_response_field': 'PASSED', }
         self.client.post(reverse('core:registration'), registration_data)
 
-        new_user = User.objects.get(pk=4)
+        new_user = User.objects.get(pk=14)
         self.assertEqual(new_user.userprofile.gym_id, None)
 
     def test_update_userprofile(self):
@@ -83,4 +83,4 @@ class GymConfigTestCase(WorkoutManagerTestCase):
         gym_config.default_gym = gym
         gym_config.save()
 
-        self.assertEqual(UserProfile.objects.filter(gym=gym).count(), 3)
+        self.assertEqual(UserProfile.objects.filter(gym=gym).count(), 13)

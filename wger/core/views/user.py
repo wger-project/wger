@@ -63,19 +63,49 @@ def login(request):
 
 
 @login_required()
-def delete(request):
+def delete(request, user_pk=None):
     '''
-    Delete the user account and all his data. Requires password confirmation first
+    Delete a user account and all his data, requires password confirmation first
+
+    If no user_pk is present, the user visiting the URL will be deleted, otherwise
+    a gym administrator is deleting a different user
     '''
+
+    if user_pk:
+        user = get_object_or_404(User, pk=user_pk)
+        form_action = reverse('core:user-delete', kwargs={'user_pk': user_pk})
+
+        # Forbidden if the user has not enough rights, doesn't belong to the
+        # gym or is an admin as well
+        if (not request.user.has_perm('core.manage_gym')
+                or request.user.userprofile.gym_id != user.userprofile.gym_id
+                or user.has_perm('core.manage_gym')
+                or user.has_perm('core.gym_trainer')
+                or user.has_perm('core.manage_gyms')):
+            return HttpResponseForbidden()
+    else:
+        user = request.user
+        form_action = reverse('core:user-delete')
+
     form = PasswordConfirmationForm(user=request.user)
+
     if request.method == 'POST':
         form = PasswordConfirmationForm(data=request.POST, user=request.user)
         if form.is_valid():
-            request.user.delete()
-            django_logout(request)
-            messages.success(request, _('Your account was successfully deleted'))
-            return HttpResponseRedirect(reverse('software:features'))
-    context = {'form': form}
+
+            user.delete()
+            messages.success(request,
+                             _('Account "{0}" was successfully deleted').format(user.username))
+
+            if not user_pk:
+                django_logout(request)
+                return HttpResponseRedirect(reverse('software:features'))
+            else:
+                gym_pk = request.user.userprofile.gym_id
+                return HttpResponseRedirect(reverse('core:gym:user-list', kwargs={'pk': gym_pk}))
+    context = {'form': form,
+               'user_delete': user,
+               'form_action': form_action}
 
     return render(request, 'user/delete_account.html', context)
 

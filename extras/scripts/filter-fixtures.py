@@ -71,3 +71,4 @@ filter_dump(data, ('config.gymconfig',), 'gym_config.json')
 # Other
 #
 filter_dump(data, ('auth.group',), 'groups.json')
+filter_dump(data, ('auth.user',), 'users.json')

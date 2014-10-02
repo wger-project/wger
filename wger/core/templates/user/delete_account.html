@@ -13,7 +13,7 @@
 
 {% block content %}
 
-<form action="{% url 'core:user-delete' %}"
+<form action="{{form_action}}"
       method="post"
       class="form-horizontal"
       role="form">
@@ -22,8 +22,10 @@
             <h3 class="panel-title">{% trans "Are you sure?" %}</h3>
         </div>
         <div class="panel-body">
-            <p>{% blocktrans %}This action will delete your user account.
-It will also  irrevocably remove all your data and can't be undone. {% endblocktrans %}</p>
+            {% with username=user_delete|format_username %}
+            <p>{% blocktrans %}This action will delete the user account "{{username}}".
+It will also  irrevocably remove all the data associated with it (workouts, logs, etc.)
+and can't be undone. {% endblocktrans %}{% endwith %}</p>
 
                 {% render_form_fields form 'tmp' False %}
                 {% render_form_submit 'Delete' 'danger' %}
