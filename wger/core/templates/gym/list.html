@@ -21,11 +21,7 @@
                 {% trans 'Edit' %}
             </a>
         </div>
-        {% if perms.core.manage_gym and user.userprofile.gym == gym %}
-            <a href="{% url 'core:gym:user-list' gym.pk %}">{{gym}}</a>
-        {% else %}
-            {{gym}}
-        {% endif %}
+        <a href="{% url 'core:gym:user-list' gym.pk %}">{{gym}}</a>
     </li>
     {% endfor %}
 </ul>
