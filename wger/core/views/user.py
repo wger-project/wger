@@ -17,7 +17,8 @@
 import logging
 
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponseRedirect
+from django.http import HttpResponseForbidden
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _, ugettext_lazy
@@ -32,7 +33,6 @@ from django.contrib import messages
 from django.views.generic import RedirectView, UpdateView, DetailView
 from rest_framework.authtoken.models import Token
 
-from wger.core.models import Language
 from wger.utils.constants import USER_TAB
 from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.generic_views import WgerFormMixin
@@ -42,7 +42,13 @@ from wger.core.forms import UserPreferencesForm, UserPersonalInformationForm
 from wger.core.forms import PasswordConfirmationForm
 from wger.core.forms import RegistrationForm
 from wger.core.forms import RegistrationFormNoCaptcha
+from wger.core.models import Language
+from wger.manager.models import WorkoutLog
+from wger.manager.models import WorkoutSession
+from wger.manager.models import Workout
+from wger.nutrition.models import NutritionPlan
 from wger.config.models import GymConfig
+from wger.weight.models import WeightEntry
 
 logger = logging.getLogger('wger.custom')
 
@@ -400,3 +406,23 @@ class UserDetailView(WgerPermissionMixin, DetailView):
             return super(UserDetailView, self).dispatch(request, *args, **kwargs)
         else:
             return HttpResponseForbidden()
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(UserDetailView, self).get_context_data(**kwargs)
+        out = []
+        workouts = Workout.objects.filter(user=self.object).all()
+        for workout in workouts:
+            logs = WorkoutLog.objects.filter(workout=workout)
+            out.append({'workout': workout,
+                        'logs': logs.dates('date', 'day').count(),
+                        'last_log': logs.last()})
+        context['workouts'] = out
+        context['weight_entries'] = WeightEntry.objects.filter(user=self.object)\
+            .order_by('-creation_date')[:5]
+        context['nutrition_plans'] = NutritionPlan.objects.filter(user=self.object)\
+            .order_by('-creation_date')[:5]
+        context['session'] = WorkoutSession.objects.filter(user=self.object).order_by('-date')[:10]
+        return context

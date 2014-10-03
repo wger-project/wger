@@ -10,22 +10,30 @@
 {% url 'core:trainer-login' current_user.pk as trainer_login %}
 
 
-<h3>{% trans "Workouts" %} ({% trans "last 10" %})</h3>
+<h3>{% trans "Workouts" %} <small>({% trans "last 10" %})</small></h3>
 <table class="table">
 <thead>
 <tr>
-    <th>{% trans "Name" %}</th>
-    <th>{% trans "Date" %}</th>
+    <th style="width: 20%;">{% trans "Date" %}</th>
+    <th>{% trans "Description" %}</th>
+    <th>{% trans "Number of logs (days)" %}</th>
+    <th>{% trans "Last log" %}</th>
 </tr>
 </thead>
 <tbody>
-{% for workout in current_user.workout_set.all|slice:":10" %}
+{% for workout in workouts %}
 <tr>
     <td>
-        <a href="{{trainer_login}}?next={% url 'workout-view' workout.pk %}">{{workout}}</a>
+        {{workout.workout.creation_date}}
     </td>
     <td>
-        {{workout.creation_date}}
+        <a href="{{trainer_login}}?next={% url 'workout-view' workout.workout.pk %}">{{workout.workout}}</a>
+    </td>
+    <td>
+        {{workout.logs|default:'-/-'}}
+    </td>
+    <td>
+        {{workout.last_log.date|default:'-/-'}}
     </td>
 </tr>
 {% empty %}
@@ -36,31 +44,35 @@
 </tbody>
 </table>
 {% if perms.core.gym_trainer %}
-
 <a href="{{trainer_login}}" class="btn btn-success btn-sm">{% trans "Log in as this user" %}</a>
+<a href="{{trainer_login}}?next={% url 'workout-calendar' %}" class="btn btn-default btn-sm">{% trans "Calendar" %}</a>
 <a href="{{trainer_login}}?next={% url 'workout-add' %}" class="btn btn-default btn-sm">{% trans "Add workout" %}</a>
 {% endif %}
 
 
 
 
-<h3>{% trans "Log" %}</h3>
+<h4>{% trans "Log" %} <small>({% trans "last 10" %})</small></h4>
 <table class="table">
 <thead>
 <tr>
-    <th>{% trans "Date" %}</th>
+    <th style="width: 20%;">{% trans "Date" %}</th>
     <th>{% trans "General impression" %}</th>
+    <th>{% trans "Notes" %}</th>
     <th>{% trans "Time" %}</th>
 </tr>
 </thead>
 <tbody>
-{% for log in current_user.workoutsession_set.all|slice:":10" %}
+{% for log in session %}
 <tr>
     <td>
         {{log.date}}
     </td>
     <td>
         {{log.get_impression_display}}
+    </td>
+    <td>
+        {{log.notes|truncatewords:6|default:'-/-'}}
     </td>
     <td>
         {% if log.time_start and log.time_end %}
@@ -73,6 +85,75 @@
 {% empty %}
 <tr>
     <td colspan="3">{% trans "No logs found." %}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+
+<h3>{% trans "Weight" %} <small>({% trans "last 5" %})</small></h3>
+<table class="table">
+<thead>
+<tr>
+    <th style="width: 20%;">{% trans "Date" %}</th>
+    <th>{% trans "Weight" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for weight in weight_entries %}
+<tr>
+    <td>
+        {{weight.creation_date}}
+    </td>
+    <td>
+        {{weight.weight}}
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="3">{% trans "No logs found." %}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% if perms.core.gym_trainer %}
+<a href="{{trainer_login}}?next={% url 'weight-overview' %}" class="btn btn-default btn-sm">{% trans "Weight overview" %}</a>
+{% endif %}
+
+
+<h3>{% trans "Nutrition plans" %} <small>({% trans "last 5" %})</small></h3>
+<table class="table">
+<thead>
+<tr>
+    <th style="width: 20%;">{% trans "Date" %}</th>
+    <th>{% trans "Description" %}</th>
+    <th>{% trans "Energy" %}</th>
+    <th>{% trans "Protein" %}</th>
+    <th>{% trans "Carbohydrates" %}</th>
+    <th>{% trans "Fat" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for nutrition_plan in nutrition_plans %}
+<tr>
+    <td>
+        {{nutrition_plan.creation_date}}
+    </td>
+    <td>
+        <a href="{{trainer_login}}?next={% url 'nutrition-view' nutrition_plan.id %}">{{nutrition_plan.description}}</a>
+    </td>
+    <td>
+        {{nutrition_plan.get_nutritional_values.total.energy|floatformat}}kcal
+    </td>
+    <td>
+        {{nutrition_plan.get_nutritional_values.total.protein|floatformat}}g
+    </td>
+    <td>
+        {{nutrition_plan.get_nutritional_values.total.carbohydrates|floatformat}}g
+    </td>
+    <td>
+        {{nutrition_plan.get_nutritional_values.total.fat|floatformat}}g
+    </td>
 </tr>
 {% endfor %}
 </tbody>
