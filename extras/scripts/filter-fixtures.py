@@ -19,7 +19,7 @@ Simple script that filters the output of django's dumpdata command into more
 manageable chunks.
 
 Create the data.json e.g. with:
-    python ../../manage.py dumpdata --indent=4 > data.json
+    python ../../manage.py dumpdata --indent 4 --natural > data.json
 '''
 
 import json

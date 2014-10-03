@@ -51,27 +51,12 @@
                     "gym"
                 ], 
                 [
-                    "add_exercisecomment", 
-                    "core", 
-                    "language"
-                ], 
-                [
                     "add_language", 
                     "core", 
                     "language"
                 ], 
                 [
-                    "change_exercisecomment", 
-                    "core", 
-                    "language"
-                ], 
-                [
                     "change_language", 
-                    "core", 
-                    "language"
-                ], 
-                [
-                    "delete_exercisecomment", 
                     "core", 
                     "language"
                 ], 
@@ -96,42 +81,7 @@
                     "license"
                 ], 
                 [
-                    "add_exercisecategory", 
-                    "core", 
-                    "userprofile"
-                ], 
-                [
-                    "change_exercisecategory", 
-                    "core", 
-                    "userprofile"
-                ], 
-                [
-                    "delete_exercisecategory", 
-                    "core", 
-                    "userprofile"
-                ], 
-                [
                     "add_equipment", 
-                    "easy_thumbnails", 
-                    "thumbnail"
-                ], 
-                [
-                    "change_equipment", 
-                    "easy_thumbnails", 
-                    "thumbnail"
-                ], 
-                [
-                    "delete_equipment", 
-                    "easy_thumbnails", 
-                    "thumbnail"
-                ], 
-                [
-                    "add_equipment", 
-                    "exercises", 
-                    "equipment"
-                ], 
-                [
-                    "add_ingredient", 
                     "exercises", 
                     "equipment"
                 ], 
@@ -141,17 +91,7 @@
                     "equipment"
                 ], 
                 [
-                    "change_ingredient", 
-                    "exercises", 
-                    "equipment"
-                ], 
-                [
                     "delete_equipment", 
-                    "exercises", 
-                    "equipment"
-                ], 
-                [
-                    "delete_ingredient", 
                     "exercises", 
                     "equipment"
                 ], 
@@ -229,111 +169,83 @@
                     "delete_muscle", 
                     "exercises", 
                     "muscle"
+                ]
+            ]
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "auth.group", 
+        "fields": {
+            "name": "general_gym_manager", 
+            "permissions": [
+                [
+                    "add_gymconfig", 
+                    "config", 
+                    "gymconfig"
                 ], 
                 [
-                    "add_language", 
-                    "manager", 
-                    "setting"
+                    "change_gymconfig", 
+                    "config", 
+                    "gymconfig"
                 ], 
                 [
-                    "change_language", 
-                    "manager", 
-                    "setting"
+                    "delete_gymconfig", 
+                    "config", 
+                    "gymconfig"
                 ], 
                 [
-                    "delete_language", 
-                    "manager", 
-                    "setting"
+                    "add_gym", 
+                    "core", 
+                    "gym"
                 ], 
                 [
-                    "add_daysofweek", 
-                    "manager", 
-                    "workout"
+                    "change_gym", 
+                    "core", 
+                    "gym"
                 ], 
                 [
-                    "change_daysofweek", 
-                    "manager", 
-                    "workout"
+                    "delete_gym", 
+                    "core", 
+                    "gym"
                 ], 
                 [
-                    "delete_daysofweek", 
-                    "manager", 
-                    "workout"
+                    "manage_gyms", 
+                    "core", 
+                    "gym"
+                ]
+            ]
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "auth.group", 
+        "fields": {
+            "name": "gym_manager", 
+            "permissions": [
+                [
+                    "change_gym", 
+                    "core", 
+                    "gym"
                 ], 
                 [
-                    "add_muscle", 
-                    "manager", 
-                    "workoutlog"
-                ], 
+                    "manage_gym", 
+                    "core", 
+                    "gym"
+                ]
+            ]
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "auth.group", 
+        "fields": {
+            "name": "gym_trainer", 
+            "permissions": [
                 [
-                    "change_muscle", 
-                    "manager", 
-                    "workoutlog"
-                ], 
-                [
-                    "delete_muscle", 
-                    "manager", 
-                    "workoutlog"
-                ], 
-                [
-                    "add_ingredientweightunit", 
-                    "nutrition", 
-                    "ingredient"
-                ], 
-                [
-                    "change_ingredientweightunit", 
-                    "nutrition", 
-                    "ingredient"
-                ], 
-                [
-                    "delete_ingredientweightunit", 
-                    "nutrition", 
-                    "ingredient"
-                ], 
-                [
-                    "add_languageconfig", 
-                    "nutrition", 
-                    "mealitem"
-                ], 
-                [
-                    "change_languageconfig", 
-                    "nutrition", 
-                    "mealitem"
-                ], 
-                [
-                    "delete_languageconfig", 
-                    "nutrition", 
-                    "mealitem"
-                ], 
-                [
-                    "add_exerciseimage", 
-                    "tastypie", 
-                    "apiaccess"
-                ], 
-                [
-                    "change_exerciseimage", 
-                    "tastypie", 
-                    "apiaccess"
-                ], 
-                [
-                    "delete_exerciseimage", 
-                    "tastypie", 
-                    "apiaccess"
-                ], 
-                [
-                    "add_exercise", 
-                    "weight", 
-                    "weightentry"
-                ], 
-                [
-                    "change_exercise", 
-                    "weight", 
-                    "weightentry"
-                ], 
-                [
-                    "delete_exercise", 
-                    "weight", 
-                    "weightentry"
+                    "gym_trainer", 
+                    "core", 
+                    "gym"
                 ]
             ]
         }
