@@ -18,9 +18,8 @@ import datetime
 import logging
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
-from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.http.response import HttpResponseForbidden, HttpResponse, HttpResponseRedirect
@@ -57,15 +56,17 @@ class GymUserListView(WgerPermissionMixin, ListView):
     Overview of all users for a specific gym
     '''
     model = User
-    permission_required = ('core.manage_gym', 'core.gym_trainer')
+    permission_required = ('core.manage_gym', 'core.gym_trainer', 'core.manage_gyms')
     template_name = 'gym/member_list.html'
 
     def dispatch(self, request, *args, **kwargs):
         '''
         Only managers and trainers for this gym can access the members
         '''
-        if (request.user.has_perm('core.manage_gym') or request.user.has_perm('core.gym_trainer')) \
-                and request.user.userprofile.gym_id == int(self.kwargs['pk']):
+        if request.user.has_perm('core.manage_gyms') \
+         or ((request.user.has_perm('core.manage_gym') 
+                or request.user.has_perm('core.gym_trainer')) 
+            and request.user.userprofile.gym_id == int(self.kwargs['pk'])):
             return super(GymUserListView, self).dispatch(request, *args, **kwargs)
         return HttpResponseForbidden()
 
@@ -198,15 +199,13 @@ class GymAddUserView(WgerFormMixin, CreateView):
         user.userprofile.gym = gym
         user.userprofile.save()
 
+        # Set appropriate group
         if form.cleaned_data['role'] != 'user':
-            content_type = ContentType.objects.get_for_model(Gym)
             if form.cleaned_data['role'] == 'trainer':
-                permission = Permission.objects.get(content_type=content_type,
-                                                    codename='gym_trainer')
+                group = Group.objects.get(name='gym_trainer')
             elif form.cleaned_data['role'] == 'admin':
-                permission = Permission.objects.get(content_type=content_type,
-                                                    codename='manage_gym')
-            user.user_permissions.add(permission)
+                group = Group.objects.get(name='gym_manager')
+            user.groups.add(group)
 
         self.request.session['gym.user'] = {'user_pk': user.pk,
                                             'password': password}
@@ -228,6 +227,17 @@ class GymUpdateView(WgerFormMixin, UpdateView):
     model = Gym
     title = ugettext_lazy('Edit gym')
     permission_required = 'core.change_gym'
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Only managers for this gym can add new members
+        '''
+
+        if request.user.has_perm('core.manage_gym'):
+            gym_id = request.user.userprofile.gym_id
+            if gym_id != int(self.kwargs['pk']):
+                return HttpResponseForbidden()
+        return super(GymUpdateView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         '''
