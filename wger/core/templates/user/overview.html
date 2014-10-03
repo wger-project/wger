@@ -121,7 +121,7 @@
     <tr>
         <td>{% trans "Email" %}</td>
         <td>
-            {% if user.email %}
+            {% if current_user.email %}
                 <a href="mailto:{{current_user.email}}">{{current_user.email}}</a>
             {% else %}
                 -/-
