@@ -6,14 +6,30 @@
 {% block title %}{{gym}}{% endblock %}
 
 
+{% block header %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/jquery.dataTables.min.css' %}">
+<script src="{% static 'js/jquery.dataTables.min.js' %}" ></script>
+<script>
+$(document).ready( function () {
+    /* Make table sortable */
+    $('#main_member_list').DataTable({
+        paging: false,
+        bFilter: false,
+        bInfo : false
+    });
+});
+</script>
+{% endblock %}
+
 {% block content %}
 {% if perms.core.manage_gym or perms.core.gym_trainer %}
-<table class="table">
+<table class="table" id="main_member_list">
 <thead>
 <tr>
     <th style="width: 10%;">{% trans "ID" %}</th>
-    <th style="width: 45%;">{% trans "Username" %}</th>
+    <th style="width: 40%;">{% trans "Username" %}</th>
     <th>{% trans "Name" %}</th>
+    <th>{% trans "Last activity" %}</th>
 </tr>
 </thead>
 <tbody>
@@ -28,6 +44,9 @@
     </td>
     <td>
         {{current_user.obj.get_full_name}}
+    </td>
+    <td data-order="{{current_user.last_log|date:'U'}}">
+        {{current_user.last_log|default:'-/-'}}
     </td>
 </tr>
 {% endif %}
@@ -46,7 +65,7 @@
 <thead>
 <tr>
     <th style="width: 10%;">{% trans "ID" %}</th>
-    <th style="width: 45%;">{% trans "Username" %}</th>
+    <th style="width: 40%;">{% trans "Username" %}</th>
     <th>{% trans "Name" %}</th>
 </tr>
 </thead>

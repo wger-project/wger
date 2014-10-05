@@ -33,6 +33,7 @@ from django.views.generic import UpdateView
 
 from wger.core.forms import GymUserAddForm
 from wger.core.models import Gym
+from wger.core.helpers import get_user_last_activity
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
@@ -64,9 +65,9 @@ class GymUserListView(WgerPermissionMixin, ListView):
         Only managers and trainers for this gym can access the members
         '''
         if request.user.has_perm('core.manage_gyms') \
-         or ((request.user.has_perm('core.manage_gym') 
-                or request.user.has_perm('core.gym_trainer')) 
-            and request.user.userprofile.gym_id == int(self.kwargs['pk'])):
+            or ((request.user.has_perm('core.manage_gym')
+                or request.user.has_perm('core.gym_trainer'))
+                and request.user.userprofile.gym_id == int(self.kwargs['pk'])):
             return super(GymUserListView, self).dispatch(request, *args, **kwargs)
         return HttpResponseForbidden()
 
@@ -77,6 +78,7 @@ class GymUserListView(WgerPermissionMixin, ListView):
         out = []
         for u in User.objects.filter(userprofile__gym_id=self.kwargs['pk']):
             out.append({'obj': u,
+                        'last_log': get_user_last_activity(u),
                         'perms': {'manage_gym': u.has_perm('core.manage_gym'),
                                   'manage_gyms': u.has_perm('core.manage_gyms'),
                                   'gym_trainer': u.has_perm('core.gym_trainer'),
