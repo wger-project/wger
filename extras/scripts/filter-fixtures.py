@@ -55,6 +55,11 @@ filter_dump(data, ('exercises.exercise', 'exercises.exercisecomment',), 'exercis
 filter_dump(data, ('exercises.equipment', 'exercises.equipment',), 'equipment.json')
 
 #
+# Gym
+#
+filter_dump(data, ('gym.gym',), 'gyms.json')
+
+#
 # Core
 #
 filter_dump(data, ('core.gym',), 'gyms.json')

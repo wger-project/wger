@@ -36,21 +36,6 @@
                     "languageconfig"
                 ], 
                 [
-                    "add_gym", 
-                    "core", 
-                    "gym"
-                ], 
-                [
-                    "change_gym", 
-                    "core", 
-                    "gym"
-                ], 
-                [
-                    "delete_gym", 
-                    "core", 
-                    "gym"
-                ], 
-                [
                     "add_language", 
                     "core", 
                     "language"
@@ -169,6 +154,36 @@
                     "delete_muscle", 
                     "exercises", 
                     "muscle"
+                ], 
+                [
+                    "add_gym", 
+                    "gym", 
+                    "gym"
+                ], 
+                [
+                    "change_gym", 
+                    "gym", 
+                    "gym"
+                ], 
+                [
+                    "delete_gym", 
+                    "gym", 
+                    "gym"
+                ],
+                [
+                    "manage_gyms",
+                    "gym",
+                    "gym"
+                ],
+                [
+                    "manage_gym",
+                    "gym",
+                    "gym"
+                ],
+                [
+                    "gym_trainer",
+                    "gym",
+                    "gym"
                 ]
             ]
         }
@@ -196,22 +211,22 @@
                 ], 
                 [
                     "add_gym", 
-                    "core", 
+                    "gym", 
                     "gym"
                 ], 
                 [
                     "change_gym", 
-                    "core", 
+                    "gym", 
                     "gym"
                 ], 
                 [
                     "delete_gym", 
-                    "core", 
+                    "gym", 
                     "gym"
                 ], 
                 [
                     "manage_gyms", 
-                    "core", 
+                    "gym", 
                     "gym"
                 ]
             ]
@@ -225,12 +240,12 @@
             "permissions": [
                 [
                     "change_gym", 
-                    "core", 
+                    "gym", 
                     "gym"
                 ], 
                 [
                     "manage_gym", 
-                    "core", 
+                    "gym", 
                     "gym"
                 ]
             ]
@@ -244,7 +259,7 @@
             "permissions": [
                 [
                     "gym_trainer", 
-                    "core", 
+                    "gym", 
                     "gym"
                 ]
             ]

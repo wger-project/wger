@@ -43,7 +43,7 @@
 {% endfor %}
 </tbody>
 </table>
-{% if perms.core.gym_trainer %}
+{% if perms.gym.gym_trainer %}
 <a href="{{trainer_login}}" class="btn btn-success btn-sm">{% trans "Log in as this user" %}</a>
 <a href="{{trainer_login}}?next={% url 'workout-calendar' %}" class="btn btn-default btn-sm">{% trans "Calendar" %}</a>
 <a href="{{trainer_login}}?next={% url 'workout-add' %}" class="btn btn-default btn-sm">{% trans "Add workout" %}</a>
@@ -116,7 +116,7 @@
 {% endfor %}
 </tbody>
 </table>
-{% if perms.core.gym_trainer %}
+{% if perms.gym.gym_trainer %}
 <a href="{{trainer_login}}?next={% url 'weight-overview' %}" class="btn btn-default btn-sm">{% trans "Weight overview" %}</a>
 {% endif %}
 
@@ -162,7 +162,7 @@
 
 
 {% block sidebar %}
-{% if perms.core.manage_gym %}
+{% if perms.gym.manage_gym %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
@@ -217,7 +217,7 @@
         <td>{% trans "Last login" %}</td>
         <td>{{current_user.last_login}}</td>
     </tr>
-{% if perms.core.manage_gym %}
+{% if perms.gym.manage_gym %}
     <tr {% if not current_user.is_active %}class="danger"{% endif%}>
         <td>{% trans "Status" %}</td>
         <td>
@@ -231,7 +231,7 @@
 {% endif %}
 </table>
 
-<a href="{% url 'core:gym:user-list' current_user.userprofile.gym.pk %}" {% auto_link_css flavour %}>
+<a href="{% url 'gym:gym:user-list' current_user.userprofile.gym.pk %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/list.svg' %}"
          width="32"
          height="32"

@@ -19,7 +19,8 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
 from wger.config.models import GymConfig
-from wger.core.models import Gym, UserProfile
+from wger.core.models import UserProfile
+from wger.gym.models import Gym
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 

@@ -40,7 +40,7 @@ cannot be recovered later.{% endblocktrans %}
 
 <h4>{% trans "Options" %}</h4>
 <p>
-<a href="{% url 'core:gym:new-user-data-export' %}" {% auto_link_css flavour %}>
+<a href="{% url 'gym:gym:new-user-data-export' %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/save.svg' %}"
          width="32"
          height="32"
@@ -50,7 +50,7 @@ cannot be recovered later.{% endblocktrans %}
 </p>
 
 <p>
-<a href="{% url 'core:gym:user-list' new_user.userprofile.gym.pk %}" {% auto_link_css flavour %}>
+<a href="{% url 'gym:gym:user-list' new_user.userprofile.gym.pk %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/list.svg' %}"
          width="32"
          height="32"

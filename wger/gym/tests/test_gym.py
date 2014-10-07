@@ -12,10 +12,11 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
 
-from wger.core.models import Gym
 from wger.core.models import UserProfile
+from wger.gym.models import Gym
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAccessTestCase
@@ -28,7 +29,7 @@ class GymOverviewTest(WorkoutManagerAccessTestCase):
     '''
     Tests accessing the gym overview page
     '''
-    url = 'core:gym:list'
+    url = 'gym:gym:list'
     anonymous_fail = True
 
 
@@ -36,7 +37,7 @@ class GymUserOverviewTest(WorkoutManagerAccessTestCase):
     '''
     Tests accessing the gym user overview page
     '''
-    url = reverse_lazy('core:gym:user-list', kwargs={'pk': 1})
+    url = reverse_lazy('gym:gym:user-list', kwargs={'pk': 1})
     anonymous_fail = True
 
 
@@ -45,8 +46,8 @@ class AddGymTestCase(WorkoutManagerAddTestCase):
     Tests adding a new gym
     '''
     object_class = Gym
-    url = 'core:gym:add'
-    data = {'name': 'The name her'}
+    url = 'gym:gym:add'
+    data = {'name': 'The name here'}
     pk = 4
 
 
@@ -56,7 +57,7 @@ class DeleteGymTestCase(WorkoutManagerDeleteTestCase):
     '''
 
     object_class = Gym
-    url = 'core:gym:delete'
+    url = 'gym:gym:delete'
     pk = 2
 
 
@@ -66,7 +67,7 @@ class EditGymTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = Gym
-    url = 'core:gym:edit'
+    url = 'gym:gym:edit'
     pk = 1
     data = {'name': 'A different name'}
 

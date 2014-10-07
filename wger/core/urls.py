@@ -23,35 +23,7 @@ from django.core.urlresolvers import reverse_lazy
 from wger.core.views import user
 from wger.core.views import misc
 from wger.core.views import license
-from wger.core.views import gym
 
-# Gyms
-patterns_gym = patterns('',
-    url(r'^list$',
-        gym.GymListView.as_view(),
-        name='list'),
-    url(r'^new-user-data/view$',
-        gym.gym_new_user_info,
-        name='new-user-data'),
-    url(r'^new-user-data/export$',
-        gym.gym_new_user_info_export,
-        name='new-user-data-export'),
-    url(r'^(?P<pk>\d+)/members',
-        gym.GymUserListView.as_view(),
-        name='user-list'),
-    url(r'^(?P<gym_pk>\d+)/add-member',
-        gym.GymAddUserView.as_view(),
-        name='add-user'),
-    url(r'^add$',
-        gym.GymAddView.as_view(),
-        name='add'),
-    url(r'^(?P<pk>\d+)/edit',
-        gym.GymUpdateView.as_view(),
-        name='edit'),
-    url(r'^(?P<pk>\d+)/delete',
-        gym.GymDeleteView.as_view(),
-        name='delete'),
-)
 
 urlpatterns = patterns('',
 
@@ -116,10 +88,6 @@ urlpatterns = patterns('',
     url(r'^license/(?P<pk>\d+)/delete',
         license.LicenseDeleteView.as_view(),
         name='license-delete'),
-    
-    url(r'^gym/', include(patterns_gym, namespace="gym")),
-
-    
 
     # Others
     url(r'^about$',

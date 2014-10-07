@@ -22,7 +22,7 @@ $(document).ready( function () {
 {% endblock %}
 
 {% block content %}
-{% if perms.core.manage_gym or perms.core.gym_trainer %}
+{% if perms.gym.manage_gym or perms.gym.gym_trainer %}
 <table class="table" id="main_member_list">
 <thead>
 <tr>
@@ -115,7 +115,7 @@ $(document).ready( function () {
     </button>
     <ul class="dropdown-menu" role="menu">
         <li>
-            <a href="{% url 'core:gym:edit' gym.id %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
+            <a href="{% url 'gym:gym:edit' gym.id %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
         </li>
     </ul>
 </div>
@@ -158,10 +158,10 @@ $(document).ready( function () {
     </tr>
 </table>
 
-{% if perms.core.manage_gym %}
+{% if perms.gym.manage_gym %}
 <h4>{% trans "Options" %}</h4>
 <p>
-   <a href="{% url 'core:gym:add-user' gym.pk %}"
+   <a href="{% url 'gym:gym:add-user' gym.pk %}"
       {% auto_link_css flavour "wger-modal-dialog" %}>
    <img src="{% static 'images/icons/new.svg' %}"
         width="32"

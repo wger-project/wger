@@ -168,7 +168,7 @@
                                 {#               #}
                                 {# Adminstration #}
                                 {#               #}
-                                {% if perms.exercises or perms.core.manage_gyms or perms.core.manage_gym or perms.core.gym_trainer %}
+                                {% if perms.exercises or perms.gym.manage_gyms or perms.gym.manage_gym or perms.gym.gym_trainer %}
                                     <li class="divider"></li>
                                     <li class="nav-header">{% trans "Administration" %}</li>
                                     {% if perms.core.change_language %}
@@ -177,14 +177,14 @@
                                     {% if perms.core.change_license %}
                                         <li><a href="{% url 'core:license-list' %}">{% trans "Licenses" %} </a></li>
                                     {% endif %}
-                                    {% if perms.core.manage_gyms %}
-                                        <li><a href="{% url 'core:gym:list' %}">{% trans "Gyms" %} </a></li>
+                                    {% if perms.gym.manage_gyms %}
+                                        <li><a href="{% url 'gym:gym:list' %}">{% trans "Gyms" %} </a></li>
                                     {% endif  %}
 
                                     {# it's not possible to group expressions '(a or b) and c' #}
-                                    {% if perms.core.gym_trainer or perms.core.manage_gym %}
+                                    {% if perms.gym.gym_trainer or perms.gym.manage_gym %}
                                     {% if user.userprofile.gym %}
-                                        <li><a href="{% url 'core:gym:user-list' user.userprofile.gym.pk %}">{{user.userprofile.gym}}</a></li>
+                                        <li><a href="{% url 'gym:gym:user-list' user.userprofile.gym.pk %}">{{user.userprofile.gym}}</a></li>
                                     {% endif  %}
                                     {% endif  %}
                                 {% endif  %}

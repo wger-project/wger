@@ -32,8 +32,8 @@ from django.views.generic import CreateView
 from django.views.generic import UpdateView
 
 from wger.core.forms import GymUserAddForm
-from wger.core.models import Gym
 from wger.core.helpers import get_user_last_activity
+from wger.gym.models import Gym
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
@@ -48,7 +48,7 @@ class GymListView(WgerPermissionMixin, ListView):
     Overview of all available gyms
     '''
     model = Gym
-    permission_required = 'core.manage_gyms'
+    permission_required = 'gym.manage_gyms'
     template_name = 'gym/list.html'
 
 
@@ -57,16 +57,16 @@ class GymUserListView(WgerPermissionMixin, ListView):
     Overview of all users for a specific gym
     '''
     model = User
-    permission_required = ('core.manage_gym', 'core.gym_trainer', 'core.manage_gyms')
+    permission_required = ('gym.manage_gym', 'gym.gym_trainer', 'gym.manage_gyms')
     template_name = 'gym/member_list.html'
 
     def dispatch(self, request, *args, **kwargs):
         '''
         Only managers and trainers for this gym can access the members
         '''
-        if request.user.has_perm('core.manage_gyms') \
-            or ((request.user.has_perm('core.manage_gym')
-                or request.user.has_perm('core.gym_trainer'))
+        if request.user.has_perm('gym.manage_gyms') \
+            or ((request.user.has_perm('gym.manage_gym')
+                or request.user.has_perm('gym.gym_trainer'))
                 and request.user.userprofile.gym_id == int(self.kwargs['pk'])):
             return super(GymUserListView, self).dispatch(request, *args, **kwargs)
         return HttpResponseForbidden()
@@ -79,12 +79,12 @@ class GymUserListView(WgerPermissionMixin, ListView):
         for u in User.objects.filter(userprofile__gym_id=self.kwargs['pk']):
             out.append({'obj': u,
                         'last_log': get_user_last_activity(u),
-                        'perms': {'manage_gym': u.has_perm('core.manage_gym'),
-                                  'manage_gyms': u.has_perm('core.manage_gyms'),
-                                  'gym_trainer': u.has_perm('core.gym_trainer'),
-                                  'any_admin': u.has_perm('core.manage_gym')
-                                               or u.has_perm('core.manage_gyms')
-                                               or u.has_perm('core.gym_trainer')}})
+                        'perms': {'manage_gym': u.has_perm('gym.manage_gym'),
+                                  'manage_gyms': u.has_perm('gym.manage_gyms'),
+                                  'gym_trainer': u.has_perm('gym.gym_trainer'),
+                                  'any_admin': u.has_perm('gym.manage_gym')
+                                               or u.has_perm('gym.manage_gyms')
+                                               or u.has_perm('gym.gym_trainer')}})
         return out
 
     def get_context_data(self, **kwargs):
@@ -106,10 +106,10 @@ class GymAddView(WgerFormMixin, CreateView):
     '''
 
     model = Gym
-    success_url = reverse_lazy('core:gym:list')
+    success_url = reverse_lazy('gym:gym:list')
     title = ugettext_lazy('Add gym')
-    form_action = reverse_lazy('core:gym:add')
-    permission_required = 'core.add_gym'
+    form_action = reverse_lazy('gym:gym:add')
+    permission_required = 'gym.add_gym'
 
 
 @login_required
@@ -117,11 +117,11 @@ def gym_new_user_info(request):
     '''
     Shows info about a newly created user
     '''
-    if not request.user.has_perm('core.manage_gym'):
+    if not request.user.has_perm('gym.manage_gym'):
         return HttpResponseForbidden()
 
     if not request.session.get('gym.user'):
-        return HttpResponseRedirect(reverse('core:gym:list'))
+        return HttpResponseRedirect(reverse('gym:gym:list'))
 
     context = {'new_user': get_object_or_404(User, pk=request.session['gym.user']['user_pk']),
                'password': request.session['gym.user']['password']}
@@ -133,11 +133,11 @@ def gym_new_user_info_export(request):
     '''
     Exports the info of newly created user
     '''
-    if not request.user.has_perm('core.manage_gym'):
+    if not request.user.has_perm('gym.manage_gym'):
         return HttpResponseForbidden()
 
     if not request.session.get('gym.user'):
-        return HttpResponseRedirect(reverse('core:gym:list'))
+        return HttpResponseRedirect(reverse('gym:gym:list'))
 
     new_user = get_object_or_404(User, pk=request.session['gym.user']['user_pk'])
     new_username = new_user.username
@@ -169,8 +169,8 @@ class GymAddUserView(WgerFormMixin, CreateView):
 
     model = User
     title = ugettext_lazy('Add user to gym')
-    success_url = reverse_lazy('core:gym:new-user-data')
-    permission_required = 'core.manage_gym'
+    success_url = reverse_lazy('gym:gym:new-user-data')
+    permission_required = 'gym.manage_gym'
     form_class = GymUserAddForm
 
     def dispatch(self, request, *args, **kwargs):
@@ -181,7 +181,7 @@ class GymAddUserView(WgerFormMixin, CreateView):
             return HttpResponseForbidden()
 
         gym_id = request.user.userprofile.gym_id
-        if request.user.has_perm('core.manage_gym') and gym_id == int(self.kwargs['gym_pk']):
+        if request.user.has_perm('gym.manage_gym') and gym_id == int(self.kwargs['gym_pk']):
             return super(GymAddUserView, self).dispatch(request, *args, **kwargs)
         return HttpResponseForbidden()
 
@@ -216,7 +216,7 @@ class GymAddUserView(WgerFormMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(GymAddUserView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('core:gym:add-user',
+        context['form_action'] = reverse('gym:gym:add-user',
                                          kwargs={'gym_pk': self.kwargs['gym_pk']})
         return context
 
@@ -228,14 +228,14 @@ class GymUpdateView(WgerFormMixin, UpdateView):
 
     model = Gym
     title = ugettext_lazy('Edit gym')
-    permission_required = 'core.change_gym'
+    permission_required = 'gym.change_gym'
 
     def dispatch(self, request, *args, **kwargs):
         '''
         Only managers for this gym can add new members
         '''
 
-        if request.user.has_perm('core.manage_gym'):
+        if request.user.has_perm('gym.manage_gym'):
             gym_id = request.user.userprofile.gym_id
             if gym_id != int(self.kwargs['pk']):
                 return HttpResponseForbidden()
@@ -246,7 +246,7 @@ class GymUpdateView(WgerFormMixin, UpdateView):
         Send some additional data to the template
         '''
         context = super(GymUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('core:gym:edit', kwargs={'pk': self.object.id})
+        context['form_action'] = reverse('gym:gym:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit {0}'.format(self.object))
         return context
 
@@ -257,8 +257,8 @@ class GymDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
 
     model = Gym
-    success_url = reverse_lazy('core:gym:list')
-    permission_required = 'core.delete_gym'
+    success_url = reverse_lazy('gym:gym:list')
+    permission_required = 'gym.delete_gym'
 
     def get_context_data(self, **kwargs):
         '''
@@ -266,5 +266,5 @@ class GymDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
         '''
         context = super(GymDeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?'.format(self.object))
-        context['form_action'] = reverse('core:gym:delete', kwargs={'pk': self.kwargs['pk']})
+        context['form_action'] = reverse('gym:gym:delete', kwargs={'pk': self.kwargs['pk']})
         return context

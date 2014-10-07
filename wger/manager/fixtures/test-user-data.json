@@ -1,225 +1,6 @@
 [
     {
         "pk": 1, 
-        "model": "auth.group", 
-        "fields": {
-            "name": "admin", 
-            "permissions": [
-                [
-                    "add_languageconfig", 
-                    "config", 
-                    "languageconfig"
-                ], 
-                [
-                    "change_languageconfig", 
-                    "config", 
-                    "languageconfig"
-                ], 
-                [
-                    "delete_languageconfig", 
-                    "config", 
-                    "languageconfig"
-                ], 
-                [
-                    "add_daysofweek", 
-                    "core", 
-                    "daysofweek"
-                ], 
-                [
-                    "change_daysofweek", 
-                    "core", 
-                    "daysofweek"
-                ], 
-                [
-                    "delete_daysofweek", 
-                    "core", 
-                    "daysofweek"
-                ], 
-                [
-                    "add_language", 
-                    "core", 
-                    "language"
-                ], 
-                [
-                    "change_language", 
-                    "core", 
-                    "language"
-                ], 
-                [
-                    "delete_language", 
-                    "core", 
-                    "language"
-                ], 
-                [
-                    "add_license", 
-                    "core", 
-                    "license"
-                ], 
-                [
-                    "change_license", 
-                    "core", 
-                    "license"
-                ], 
-                [
-                    "delete_license", 
-                    "core", 
-                    "license"
-                ], 
-                [
-                    "add_equipment", 
-                    "exercises", 
-                    "equipment"
-                ], 
-                [
-                    "change_equipment", 
-                    "exercises", 
-                    "equipment"
-                ], 
-                [
-                    "delete_equipment", 
-                    "exercises", 
-                    "equipment"
-                ], 
-                [
-                    "add_exercise", 
-                    "exercises", 
-                    "exercise"
-                ], 
-                [
-                    "change_exercise", 
-                    "exercises", 
-                    "exercise"
-                ], 
-                [
-                    "delete_exercise", 
-                    "exercises", 
-                    "exercise"
-                ], 
-                [
-                    "add_exercisecategory", 
-                    "exercises", 
-                    "exercisecategory"
-                ], 
-                [
-                    "change_exercisecategory", 
-                    "exercises", 
-                    "exercisecategory"
-                ], 
-                [
-                    "delete_exercisecategory", 
-                    "exercises", 
-                    "exercisecategory"
-                ], 
-                [
-                    "add_exercisecomment", 
-                    "exercises", 
-                    "exercisecomment"
-                ], 
-                [
-                    "change_exercisecomment", 
-                    "exercises", 
-                    "exercisecomment"
-                ], 
-                [
-                    "delete_exercisecomment", 
-                    "exercises", 
-                    "exercisecomment"
-                ], 
-                [
-                    "add_exerciseimage", 
-                    "exercises", 
-                    "exerciseimage"
-                ], 
-                [
-                    "change_exerciseimage", 
-                    "exercises", 
-                    "exerciseimage"
-                ], 
-                [
-                    "delete_exerciseimage", 
-                    "exercises", 
-                    "exerciseimage"
-                ], 
-                [
-                    "add_muscle", 
-                    "exercises", 
-                    "muscle"
-                ], 
-                [
-                    "change_muscle", 
-                    "exercises", 
-                    "muscle"
-                ], 
-                [
-                    "delete_muscle", 
-                    "exercises", 
-                    "muscle"
-                ], 
-                [
-                    "add_ingredient", 
-                    "nutrition", 
-                    "ingredient"
-                ], 
-                [
-                    "change_ingredient", 
-                    "nutrition", 
-                    "ingredient"
-                ], 
-                [
-                    "delete_ingredient", 
-                    "nutrition", 
-                    "ingredient"
-                ], 
-                [
-                    "add_ingredientweightunit", 
-                    "nutrition", 
-                    "ingredientweightunit"
-                ], 
-                [
-                    "change_ingredientweightunit", 
-                    "nutrition", 
-                    "ingredientweightunit"
-                ], 
-                [
-                    "delete_ingredientweightunit", 
-                    "nutrition", 
-                    "ingredientweightunit"
-                ],
-                [
-                    "add_gym",
-                    "core",
-                    "gym"
-                ],
-                [
-                    "change_gym",
-                    "core",
-                    "gym"
-                ],
-                [
-                    "delete_gym",
-                    "core",
-                    "gym"
-                ],
-                [
-                    "gym_trainer",
-                    "core",
-                    "gym"
-                ],
-                [
-                    "manage_gym",
-                    "core",
-                    "gym"
-                ],
-                [
-                    "manage_gyms",
-                    "core",
-                    "gym"
-                ]
-            ]
-        }
-    },
-    {
-        "pk": 1, 
         "model": "auth.user", 
         "fields": {
             "username": "admin", 
@@ -287,14 +68,12 @@
             "is_superuser": false,
             "is_staff": false,
             "last_login": "2013-03-30T00:23:21.592Z",
-            "groups": [],
-            "user_permissions": [
+            "groups": [
                 [
-                    "gym_trainer",
-                    "core",
-                    "gym"
+                    "gym_trainer"
                 ]
             ],
+            "user_permissions": [],
             "password": "pbkdf2_sha256$12000$BaNi2p83rltB$fYAI0Y1Wxyo1DoQf8uJC6W1y3fK9HzmI7t8bN//Mzvo=",
             "email": "",
             "date_joined": "2013-03-30T00:23:21.592Z"
@@ -311,14 +90,12 @@
             "is_superuser": false,
             "is_staff": false,
             "last_login": "2013-03-30T00:23:21.592Z",
-            "groups": [],
-            "user_permissions": [
+            "groups": [
                 [
-                    "gym_trainer",
-                    "core",
-                    "gym"
+                    "gym_trainer"
                 ]
             ],
+            "user_permissions": [],
             "password": "pbkdf2_sha256$12000$fgvAIvZjOH3f$ufayZhSXYPIgEhAiimIv6coPAPWcE0MwLZKVOTsJMM0=",
             "email": "",
             "date_joined": "2013-03-30T00:23:21.592Z"
@@ -335,14 +112,12 @@
             "is_superuser": false,
             "is_staff": false,
             "last_login": "2013-03-30T00:23:21.592Z",
-            "groups": [],
-            "user_permissions": [
+            "groups": [
                 [
-                    "gym_trainer",
-                    "core",
-                    "gym"
+                    "gym_trainer"
                 ]
             ],
+            "user_permissions": [],
             "password": "pbkdf2_sha256$12000$IsWVvB7BuF2p$ZwLPKiGB5wP6XVx5qYI2hKu5CWODQX3gVUDvXEr1XqM=",
             "email": "",
             "date_joined": "2013-03-30T00:23:21.592Z"
@@ -359,14 +134,12 @@
             "is_superuser": false,
             "is_staff": false,
             "last_login": "2013-03-30T00:23:21.592Z",
-            "groups": [],
-            "user_permissions": [
+            "groups": [
                 [
-                    "gym_trainer",
-                    "core",
-                    "gym"
+                    "gym_trainer"
                 ]
             ],
+            "user_permissions": [],
             "password": "pbkdf2_sha256$12000$U11MFXGmVZCy$znXUYY6Nt9t25mqGaCumxe9qe91pjQSr3fNWQb+SZms=",
             "email": "",
             "date_joined": "2013-03-30T00:23:21.592Z"
@@ -383,14 +156,12 @@
             "is_superuser": false,
             "is_staff": false,
             "last_login": "2013-03-30T00:23:21.592Z",
-            "groups": [],
-            "user_permissions": [
+            "groups": [
                 [
-                    "gym_trainer",
-                    "core",
-                    "gym"
+                    "gym_trainer"
                 ]
             ],
+            "user_permissions": [],
             "password": "pbkdf2_sha256$12000$N1LjFaFdFKXD$Bd4rFH4+pXY9R3xOOE6rLfFLZ9Y7zri+UmzAEWgADWE=",
             "email": "",
             "date_joined": "2013-03-30T00:23:21.592Z"
@@ -407,14 +178,12 @@
             "is_superuser": false,
             "is_staff": false,
             "last_login": "2013-03-30T00:23:21.592Z",
-            "groups": [],
-            "user_permissions": [
+            "groups": [
                 [
-                    "manage_gym",
-                    "core",
-                    "gym"
+                    "gym_manager"
                 ]
             ],
+            "user_permissions": [],
             "password": "pbkdf2_sha256$12000$YHyCIzh0CYNt$kEeqDYK9mw4d9+X5uxpav/rVAFEQuJyT2GRaTdtpaFI=",
             "email": "",
             "date_joined": "2013-03-30T00:23:21.592Z"
@@ -431,14 +200,12 @@
             "is_superuser": false,
             "is_staff": false,
             "last_login": "2013-03-30T00:23:21.592Z",
-            "groups": [],
-            "user_permissions": [
+            "groups": [
                 [
-                    "manage_gym",
-                    "core",
-                    "gym"
+                    "gym_manager"
                 ]
             ],
+            "user_permissions": [],
             "password": "pbkdf2_sha256$12000$JpQW8y8VEnIJ$LgBr+wCAU00/Lpec0Iq/og8oqEOT0yS2C8C1UakI1Uo=",
             "email": "",
             "date_joined": "2013-03-30T00:23:21.592Z"
@@ -455,14 +222,12 @@
             "is_superuser": false,
             "is_staff": false,
             "last_login": "2013-03-30T00:23:21.592Z",
-            "groups": [],
-            "user_permissions": [
+            "groups": [
                 [
-                    "manage_gym",
-                    "core",
-                    "gym"
+                    "gym_manager"
                 ]
             ],
+            "user_permissions": [],
             "password": "pbkdf2_sha256$12000$lHge7s7afhrb$Nb5M0jcoSX0ZbT3P70D4XDtke37u+NKdoBfXNd9LFng=",
             "email": "",
             "date_joined": "2013-03-30T00:23:21.592Z"
@@ -479,14 +244,12 @@
             "is_superuser": false,
             "is_staff": false,
             "last_login": "2013-03-30T00:23:21.592Z",
-            "groups": [],
-            "user_permissions": [
+            "groups": [
                 [
-                    "manage_gyms",
-                    "core",
-                    "gym"
+                    "general_gym_manager"
                 ]
             ],
+            "user_permissions": [],
             "password": "pbkdf2_sha256$12000$q1ZLvhPFKbRp$Q1dgERaIC1YSWdWI8XwxwDlP0J5c52n+Nu2UFKRT0Mc=",
             "email": "",
             "date_joined": "2013-03-30T00:23:21.592Z"
@@ -503,14 +266,12 @@
             "is_superuser": false,
             "is_staff": false,
             "last_login": "2013-03-30T00:23:21.592Z",
-            "groups": [],
-            "user_permissions": [
+            "groups": [
                 [
-                    "manage_gyms",
-                    "core",
-                    "gym"
+                    "general_gym_manager"
                 ]
             ],
+            "user_permissions": [],
             "password": "pbkdf2_sha256$12000$gy3Rnm5zmJFb$3yjL9nKmDkwWlZwYVTUfUe/E2MPcWbYdrucauAx78lw=",
             "email": "",
             "date_joined": "2013-03-30T00:23:21.592Z"

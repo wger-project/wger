@@ -83,11 +83,11 @@ def delete(request, user_pk=None):
 
         # Forbidden if the user has not enough rights, doesn't belong to the
         # gym or is an admin as well
-        if (not request.user.has_perm('core.manage_gym')
+        if (not request.user.has_perm('gym.manage_gym')
                 or request.user.userprofile.gym_id != user.userprofile.gym_id
-                or user.has_perm('core.manage_gym')
-                or user.has_perm('core.gym_trainer')
-                or user.has_perm('core.manage_gyms')):
+                or user.has_perm('gym.manage_gym')
+                or user.has_perm('gym.gym_trainer')
+                or user.has_perm('gym.manage_gyms')):
             return HttpResponseForbidden()
     else:
         user = request.user
@@ -108,7 +108,7 @@ def delete(request, user_pk=None):
                 return HttpResponseRedirect(reverse('software:features'))
             else:
                 gym_pk = request.user.userprofile.gym_id
-                return HttpResponseRedirect(reverse('core:gym:user-list', kwargs={'pk': gym_pk}))
+                return HttpResponseRedirect(reverse('gym:gym:user-list', kwargs={'pk': gym_pk}))
     context = {'form': form,
                'user_delete': user,
                'form_action': form_action}
@@ -129,22 +129,22 @@ def trainer_login(request, user_pk):
         return HttpResponseForbidden()
 
     # No changing if identity is not set
-    if not request.user.has_perm('core.gym_trainer') \
+    if not request.user.has_perm('gym.gym_trainer') \
             and not request.session.get('trainer.identity'):
         return HttpResponseForbidden()
 
     # Changing between trainers or managers is not allowed
-    if request.user.has_perm('core.gym_trainer') \
-            and (user.has_perm('core.gym_trainer')
-                 or user.has_perm('core.manage_gym')
-                 or user.has_perm('core.manage_gyms')):
+    if request.user.has_perm('gym.gym_trainer') \
+            and (user.has_perm('gym.gym_trainer')
+                 or user.has_perm('gym.manage_gym')
+                 or user.has_perm('gym.manage_gyms')):
         return HttpResponseForbidden()
 
     # Check if we're switching back to our original account
     own = False
-    if (user.has_perm('core.gym_trainer')
-            or user.has_perm('core.manage_gym')
-            or user.has_perm('core.manage_gyms')):
+    if (user.has_perm('gym.gym_trainer')
+            or user.has_perm('gym.manage_gym')
+            or user.has_perm('gym.manage_gyms')):
         own = True
 
     # Note: it seems we have to manually set the authentication backend here
@@ -162,7 +162,7 @@ def trainer_login(request, user_pk):
         else:
             return HttpResponseRedirect(reverse('core:index'))
     else:
-        return HttpResponseRedirect(reverse('core:gym:user-list',
+        return HttpResponseRedirect(reverse('gym:gym:user-list',
                                             kwargs={'pk': user.userprofile.gym_id}))
 
 
@@ -282,14 +282,14 @@ class UserDeactivateView(WgerPermissionMixin, RedirectView):
     '''
     permanent = False
     model = User
-    permission_required = ('core.manage_gym', 'core.gym_trainer')
+    permission_required = ('gym.manage_gym', 'gym.gym_trainer')
 
     def dispatch(self, request, *args, **kwargs):
         '''
         Only managers and trainers for this gym can access the members
         '''
         edit_user = get_object_or_404(User, pk=self.kwargs['pk'])
-        if (request.user.has_perm('core.manage_gym') or request.user.has_perm('core.gym_trainer')
+        if (request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')
                 and request.user.userprofile.gym_id == edit_user.userprofile.gym_id):
             return super(UserDeactivateView, self).dispatch(request, *args, **kwargs)
         return HttpResponseForbidden()
@@ -308,14 +308,14 @@ class UserActivateView(WgerPermissionMixin, RedirectView):
     '''
     permanent = False
     model = User
-    permission_required = ('core.manage_gym', 'core.gym_trainer')
+    permission_required = ('gym.manage_gym', 'gym.gym_trainer')
 
     def dispatch(self, request, *args, **kwargs):
         '''
         Only managers and trainers for this gym can access the members
         '''
         edit_user = get_object_or_404(User, pk=self.kwargs['pk'])
-        if (request.user.has_perm('core.manage_gym') or request.user.has_perm('core.gym_trainer')
+        if (request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')
                 and request.user.userprofile.gym_id == edit_user.userprofile.gym_id):
             return super(UserActivateView, self).dispatch(request, *args, **kwargs)
         return HttpResponseForbidden()
@@ -335,7 +335,7 @@ class UserEditView(WgerFormMixin, UpdateView):
 
     model = User
     title = ugettext_lazy('Edit user')
-    permission_required = 'core.manage_gym'
+    permission_required = 'gym.manage_gym'
     form_class = UserPersonalInformationForm
 
     def dispatch(self, request, *args, **kwargs):
@@ -393,7 +393,7 @@ class UserDetailView(WgerPermissionMixin, DetailView):
     Overview of all available gyms
     '''
     model = User
-    permission_required = ('core.manage_gym', 'core.gym_trainer')
+    permission_required = ('gym.manage_gym', 'gym.gym_trainer')
     template_name = 'user/overview.html'
     context_object_name = 'current_user'
 
