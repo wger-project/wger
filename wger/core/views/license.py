@@ -72,7 +72,7 @@ class LicenseUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
         '''
         context = super(LicenseUpdateView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('core:license-edit', kwargs={'pk': self.object.id})
-        context['title'] = _('Edit {0}'.format(self.object))
+        context['title'] = _(u'Edit {0}').format(self.object)
         return context
 
 
@@ -90,6 +90,6 @@ class LicenseDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
         Send some additional data to the template
         '''
         context = super(LicenseDeleteView, self).get_context_data(**kwargs)
-        context['title'] = _('Delete license {0}?'.format(self.object))
+        context['title'] = _(u'Delete {0}?').format(self.object)
         context['form_action'] = reverse('core:license-delete', kwargs={'pk': self.kwargs['pk']})
         return context

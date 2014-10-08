@@ -191,7 +191,7 @@ class ExerciseUpdateView(ExercisesEditAddView, UpdateView, WgerPermissionMixin):
     def get_context_data(self, **kwargs):
         context = super(ExerciseUpdateView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('exercise-edit', kwargs={'pk': self.object.id})
-        context['title'] = _(u'Edit %s') % self.object.name
+        context['title'] = _(u'Edit {0}').format(self.object.name)
 
         return context
 
@@ -238,7 +238,7 @@ class ExerciseDeleteView(WgerDeleteMixin, DeleteView):
         Send some additional data to the template
         '''
         context = super(ExerciseDeleteView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Delete exercise %s?') % self.object.name
+        context['title'] = _(u'Delete {0}?').format(self.object.name)
         context['form_action'] = reverse('exercise-delete', kwargs={'pk': self.kwargs['pk']})
 
         return context

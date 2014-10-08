@@ -101,7 +101,7 @@ class IngredientDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     def get_context_data(self, **kwargs):
         context = super(IngredientDeleteView, self).get_context_data(**kwargs)
 
-        context['title'] = _(u'Delete %s?') % self.object.name
+        context['title'] = _(u'Delete {0}?').format(self.object.name)
         context['form_action'] = reverse('ingredient-delete', kwargs={'pk': self.object.id})
 
         return context
