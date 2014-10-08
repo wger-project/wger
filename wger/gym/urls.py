@@ -18,6 +18,7 @@
 from django.conf.urls import patterns, url, include
 
 from wger.gym.views import gym
+from wger.gym.views import config
 
 # 'sub patterns' for gyms
 patterns_gym = patterns('',
@@ -47,10 +48,18 @@ patterns_gym = patterns('',
         name='delete'),
 )
 
+# 'sub patterns' for gym config
+patterns_gymconfig = patterns('',
+    url(r'^config/(?P<pk>\d+)/edit$',
+        config.GymConfigUpdateView.as_view(),
+        name='edit'),
+)
+
 #
 # All patterns for this app
 #
 urlpatterns = patterns('',
 
     url(r'^', include(patterns_gym, namespace="gym")),
+    url(r'^', include(patterns_gymconfig, namespace="config")),
 )

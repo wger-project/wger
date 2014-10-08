@@ -1,0 +1,26 @@
+[
+    {
+        "pk": 1, 
+        "model": "gym.gymconfig", 
+        "fields": {
+            "gym": 1, 
+            "weeks_inactive": 7
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "gym.gymconfig", 
+        "fields": {
+            "gym": 3, 
+            "weeks_inactive": 4
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "gym.gymconfig", 
+        "fields": {
+            "gym": 2, 
+            "weeks_inactive": 2
+        }
+    }
+]

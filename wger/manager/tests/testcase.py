@@ -56,6 +56,7 @@ class BaseTestCase(object):
                 'test-languages',
                 'test-licenses',
                 'test-gyms',
+                'test-gymsconfig',
                 'test-user-data',
                 'test-apikeys',
                 'test-weight-data',

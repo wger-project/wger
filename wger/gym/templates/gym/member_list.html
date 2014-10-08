@@ -107,7 +107,9 @@ $(document).ready( function () {
 
 
 {% block sidebar %}
-
+{#             #}
+{# Gym details #}
+{#             #}
 {% if perms.core.change_gym %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
@@ -158,6 +160,37 @@ $(document).ready( function () {
     </tr>
 </table>
 
+
+{#                   #}
+{# Gym configuration #}
+{#                   #}
+{% if perms.core.change_gym %}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="{% url 'gym:config:edit' gym.config.id %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
+        </li>
+    </ul>
+</div>
+{% endif %}
+
+<h4>{% trans "Configuration" %}</h4>
+<table class="table">
+    <tr>
+        <th>{% trans "Inactive members" %}</th>
+        <td>{{gym.config.weeks_inactive}} {% trans 'weeks' %}</td>
+    </tr>
+</table>
+
+
+
+
+{#               #}
+{# Other options #}
+{#               #}
 {% if perms.gym.manage_gym %}
 <h4>{% trans "Options" %}</h4>
 <p>

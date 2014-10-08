@@ -169,21 +169,26 @@
                     "delete_gym", 
                     "gym", 
                     "gym"
-                ],
+                ], 
                 [
-                    "manage_gyms",
-                    "gym",
+                    "gym_trainer", 
+                    "gym", 
                     "gym"
-                ],
+                ], 
                 [
-                    "manage_gym",
-                    "gym",
+                    "manage_gym", 
+                    "gym", 
                     "gym"
-                ],
+                ], 
                 [
-                    "gym_trainer",
-                    "gym",
+                    "manage_gyms", 
+                    "gym", 
                     "gym"
+                ], 
+                [
+                    "change_gymconfig", 
+                    "gym", 
+                    "gymconfig"
                 ]
             ]
         }
@@ -247,6 +252,11 @@
                     "manage_gym", 
                     "gym", 
                     "gym"
+                ], 
+                [
+                    "change_gymuserconfig", 
+                    "gym", 
+                    "gymuserconfig"
                 ]
             ]
         }

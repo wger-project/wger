@@ -25,6 +25,7 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import ugettext_lazy as _
+from wger.gym.models import Gym
 
 from wger.utils.helpers import disable_for_loaddata
 from wger.utils.constants import TWOPLACES
@@ -99,7 +100,7 @@ class UserProfile(models.Model):
     The user
     '''
 
-    gym = models.ForeignKey('Gym',
+    gym = models.ForeignKey(Gym,
                             editable=False,
                             null=True,
                             blank=True)
@@ -478,83 +479,5 @@ class License(models.Model):
     def get_owner_object(self):
         '''
         License has no owner information
-        '''
-        return None
-
-
-class Gym(models.Model):
-    '''
-    Model for a gym
-    '''
-
-    class Meta:
-        permissions = (
-            ("gym_trainer", _("Trainer, can see the users for a gym")),
-            ("manage_gym", _("Admin, can manage users for a gym")),
-            ("manage_gyms", _("Admin, can administrate the different gyms")),
-        )
-        ordering = ["name", ]
-
-    name = models.CharField(max_length=60,
-                            verbose_name=_('Name'))
-    '''Gym name'''
-
-    phone = models.CharField(verbose_name=_('Phone'),
-                             max_length=20,
-                             blank=True,
-                             null=True)
-    '''Phone number'''
-
-    email = models.EmailField(verbose_name=_('Email'),
-                              blank=True,
-                              null=True)
-    '''Email'''
-
-    owner = models.CharField(verbose_name=_('Owner'),
-                             max_length=100,
-                             blank=True,
-                             null=True)
-    '''Gym owner'''
-
-    zip_code = models.IntegerField(_(u'ZIP code'),
-                                   max_length=5,
-                                   blank=True,
-                                   null=True)
-    '''ZIP code'''
-
-    city = models.CharField(_(u'City'),
-                            max_length=30,
-                            blank=True,
-                            null=True)
-    '''City'''
-
-    street = models.CharField(_(u'Street'),
-                              max_length=30,
-                              blank=True,
-                              null=True)
-    '''Street'''
-
-    def __unicode__(self):
-        '''
-        Return a more human-readable representation
-        '''
-        return self.name
-
-    def delete(self, using=None):
-        '''
-        Make sure that there are no users with this gym in their profiles
-        '''
-        UserProfile.objects.filter(gym=self).update(gym=None)
-        super(Gym, self).delete(using)
-
-    def get_absolute_url(self):
-        '''
-        Return the URL for this object
-        '''
-        return reverse('core:gym:user-list', kwargs={'pk': self.pk})
-
-    def get_owner_object(self):
-        '''
-        Gym has no owner information
         '''
         return None

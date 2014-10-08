@@ -15,13 +15,14 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
-from django.db import models
+from django.db import models as m
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
 
 
-class Gym(models.Model):
+class Gym(m.Model):
     '''
     Model for a gym
     '''
@@ -34,43 +35,43 @@ class Gym(models.Model):
         )
         ordering = ["name", ]
 
-    name = models.CharField(max_length=60,
-                            verbose_name=_('Name'))
+    name = m.CharField(max_length=60,
+                       verbose_name=_('Name'))
     '''Gym name'''
 
-    phone = models.CharField(verbose_name=_('Phone'),
-                             max_length=20,
-                             blank=True,
-                             null=True)
+    phone = m.CharField(verbose_name=_('Phone'),
+                        max_length=20,
+                        blank=True,
+                        null=True)
     '''Phone number'''
 
-    email = models.EmailField(verbose_name=_('Email'),
-                              blank=True,
-                              null=True)
+    email = m.EmailField(verbose_name=_('Email'),
+                         blank=True,
+                         null=True)
     '''Email'''
 
-    owner = models.CharField(verbose_name=_('Owner'),
-                             max_length=100,
-                             blank=True,
-                             null=True)
+    owner = m.CharField(verbose_name=_('Owner'),
+                        max_length=100,
+                        blank=True,
+                        null=True)
     '''Gym owner'''
 
-    zip_code = models.IntegerField(_(u'ZIP code'),
-                                   max_length=5,
-                                   blank=True,
-                                   null=True)
-    '''ZIP code'''
-
-    city = models.CharField(_(u'City'),
-                            max_length=30,
-                            blank=True,
-                            null=True)
-    '''City'''
-
-    street = models.CharField(_(u'Street'),
-                              max_length=30,
+    zip_code = m.IntegerField(_(u'ZIP code'),
+                              max_length=5,
                               blank=True,
                               null=True)
+    '''ZIP code'''
+
+    city = m.CharField(_(u'City'),
+                       max_length=30,
+                       blank=True,
+                       null=True)
+    '''City'''
+
+    street = m.CharField(_(u'Street'),
+                         max_length=30,
+                         blank=True,
+                         null=True)
     '''Street'''
 
     def __unicode__(self):
@@ -101,3 +102,61 @@ class Gym(models.Model):
         Gym has no owner information
         '''
         return None
+
+
+class GymConfig(m.Model):
+    '''
+    Configuration options for a gym
+    '''
+
+    gym = m.OneToOneField(Gym,
+                          related_name='config',
+                          editable=False)
+    '''
+    Gym this configuration belongs to
+    '''
+
+    weeks_inactive = m.PositiveIntegerField(verbose_name=_('Reminder inactive members'),
+                                            help_text=_('Number of weeks since the last time a '
+                                            'user logged his presence to be considered inactive'),
+                                            default=4,
+                                            max_length=2)
+    '''
+    Reminder inactive members
+    '''
+
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return ugettext(u'Configuration for {}'.format(self.gym.name))
+
+
+class GymUserConfig(m.Model):
+    '''
+    User (actually administrator/trainer) configuration options for a specific gym
+    '''
+
+    class Meta:
+        unique_together = ('gym', 'user')
+        '''
+        Only one entry per user and gym
+        '''
+
+    gym = m.OneToOneField(Gym,
+                          editable=False)
+    '''
+    Gym this configuration belongs to
+    '''
+
+    user = m.OneToOneField(User,
+                           editable=False)
+    '''
+    User this configuration belongs to
+    '''
+
+    overview_inactive = m.BooleanField(verbose_name=_('Receive overview of inactive members'),
+                                       default=True)
+    '''
+    Reminder inactive members
+    '''
