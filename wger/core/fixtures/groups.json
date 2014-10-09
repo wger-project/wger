@@ -189,6 +189,51 @@
                     "change_gymconfig", 
                     "gym", 
                     "gymconfig"
+                ], 
+                [
+                    "add_ingredient", 
+                    "nutrition", 
+                    "ingredient"
+                ], 
+                [
+                    "change_ingredient", 
+                    "nutrition", 
+                    "ingredient"
+                ], 
+                [
+                    "delete_ingredient", 
+                    "nutrition", 
+                    "ingredient"
+                ], 
+                [
+                    "add_ingredientweightunit", 
+                    "nutrition", 
+                    "ingredientweightunit"
+                ], 
+                [
+                    "change_ingredientweightunit", 
+                    "nutrition", 
+                    "ingredientweightunit"
+                ], 
+                [
+                    "delete_ingredientweightunit", 
+                    "nutrition", 
+                    "ingredientweightunit"
+                ], 
+                [
+                    "add_weightunit", 
+                    "nutrition", 
+                    "weightunit"
+                ], 
+                [
+                    "change_weightunit", 
+                    "nutrition", 
+                    "weightunit"
+                ], 
+                [
+                    "delete_weightunit", 
+                    "nutrition", 
+                    "weightunit"
                 ]
             ]
         }
