@@ -98,14 +98,13 @@ body {
 .row-offcanvas #nav {
     overflow-y: scroll;
     overflow-x: hidden;
-    position: fixed;
+    position: absolute;
     background-color: #eeeeec;
     padding-left: 1em;
     margin-left: -15px;
     border-right: 1px solid #888a85;
     border-bottom: 1px solid #888a85;
-    width: 60%;
-    height: 90%;
+    width: 100%;
     z-index: 99;
 }
 
