@@ -13,31 +13,15 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-import csv
-import datetime
 import logging
 
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group
-from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
-from django.http.response import HttpResponseForbidden, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.http.response import HttpResponseForbidden
 from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
-from django.views.generic import ListView
-from django.views.generic import DeleteView
-from django.views.generic import CreateView
 from django.views.generic import UpdateView
 
-from wger.core.forms import GymUserAddForm
-from wger.core.helpers import get_user_last_activity
-from wger.gym.models import Gym, GymConfig
+from wger.gym.models import GymConfig
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import WgerDeleteMixin
-from wger.utils.generic_views import WgerPermissionMixin
-from wger.utils.helpers import password_generator
 
 
 logger = logging.getLogger('wger.custom')

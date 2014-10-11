@@ -1,0 +1,13 @@
+{% load i18n wger_extras %}
+{% blocktrans %}The following users have not visited the gym in the last {{ weeks }} weeks{% endblocktrans %}
+
+{% trans "User"|ljust:"25" %} {% trans "Last activity" %}
+---------------------------------------------------------
+{% for user in user_list|dictsort:"last_activity" %}{% spaceless %}
+{{ user.user|format_username|ljust:"25" }} {{ user.last_activity }} ({{user.last_activity|timesince}})
+{% endspaceless %}
+{% endfor %}
+{% for user in user_list_no_activity %}{% spaceless %}
+{{ user.user|format_username|ljust:"25" }} -/-
+{% endspaceless %}
+{% endfor %}
