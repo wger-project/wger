@@ -1,0 +1,44 @@
+User for general use
+--------------------
+#1  admin    super user
+#2  test     regular user most data belongs to him
+#3  demo     demo user
+
+
+Gym members
+-----------
+
+Gym 1 - Test 123
+================
+#1  admin
+#2  test
+#4  trainer1
+#5  trainer2
+#6  trainer3
+#9  manager1#10 manager2
+#12 general_manager1
+#14 member1
+#15 member2
+#16 member3
+#17 member4
+#18 member5
+
+
+Gym 2 - A cool gym
+==================
+#3  demo
+#7  trainer4
+#8  trainer5
+#11 manager2
+#13 general_manager1
+#19 member6
+#20 member7
+
+
+Gym 3 - Muscle Gym
+==================
+#21 member8
+#22 member9
+#23 member10
+#24 member11
+

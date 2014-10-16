@@ -63,11 +63,16 @@ class Command(BaseCommand):
                 last_activity = get_user_last_activity(user)
                 if not last_activity:
                     user_list_no_activity.append({'user': user, 'last_activity': last_activity})
-                elif last_activity - today < datetime.timedelta(weeks=weeks):
+                elif last_activity - today > datetime.timedelta(weeks=weeks):
                     user_list.append({'user': user, 'last_activity': last_activity})
 
             if user_list or user_list_no_activity:
                 for trainer in trainer_list:
+
+                    # Profile might not have email
+                    if not trainer.email:
+                        continue
+
                     translation.activate(trainer.userprofile.notification_language.short_name)
                     subject = _('Reminder of inactive members')
                     context = {
