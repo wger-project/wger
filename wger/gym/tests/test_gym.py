@@ -82,7 +82,7 @@ class GymTestCase(WorkoutManagerTestCase):
         Tests that deleting a gym also removes it from all user profiles
         '''
         gym = Gym.objects.get(pk=1)
-        self.assertEqual(UserProfile.objects.filter(gym=gym).count(), 8)
+        self.assertEqual(UserProfile.objects.filter(gym=gym).count(), 17)
 
         gym.delete()
         self.assertEqual(UserProfile.objects.filter(gym=gym).count(), 0)
