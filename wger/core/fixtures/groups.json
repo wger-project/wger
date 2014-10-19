@@ -186,11 +186,6 @@
                     "gym"
                 ], 
                 [
-                    "change_gymconfig", 
-                    "gym", 
-                    "gymconfig"
-                ], 
-                [
                     "add_ingredient", 
                     "nutrition", 
                     "ingredient"
@@ -245,17 +240,7 @@
             "name": "general_gym_manager", 
             "permissions": [
                 [
-                    "add_gymconfig", 
-                    "config", 
-                    "gymconfig"
-                ], 
-                [
                     "change_gymconfig", 
-                    "config", 
-                    "gymconfig"
-                ], 
-                [
-                    "delete_gymconfig", 
                     "config", 
                     "gymconfig"
                 ], 
@@ -299,9 +284,9 @@
                     "gym"
                 ], 
                 [
-                    "change_gymuserconfig", 
+                    "change_gymconfig", 
                     "gym", 
-                    "gymuserconfig"
+                    "gymconfig"
                 ]
             ]
         }
