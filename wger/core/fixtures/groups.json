@@ -186,6 +186,11 @@
                     "gym"
                 ], 
                 [
+                    "change_gymadminconfig", 
+                    "gym", 
+                    "gymadminconfig"
+                ], 
+                [
                     "add_ingredient", 
                     "nutrition", 
                     "ingredient"
@@ -263,6 +268,11 @@
                     "manage_gyms", 
                     "gym", 
                     "gym"
+                ], 
+                [
+                    "change_gymadminconfig", 
+                    "gym", 
+                    "gymadminconfig"
                 ]
             ]
         }
@@ -284,6 +294,11 @@
                     "gym"
                 ], 
                 [
+                    "change_gymadminconfig", 
+                    "gym", 
+                    "gymadminconfig"
+                ], 
+                [
                     "change_gymconfig", 
                     "gym", 
                     "gymconfig"
@@ -301,8 +316,21 @@
                     "gym_trainer", 
                     "gym", 
                     "gym"
+                ], 
+                [
+                    "change_gymadminconfig", 
+                    "gym", 
+                    "gymadminconfig"
                 ]
             ]
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "auth.group", 
+        "fields": {
+            "name": "gym_member", 
+            "permissions": []
         }
     }
 ]

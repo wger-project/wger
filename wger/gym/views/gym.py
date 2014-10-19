@@ -203,12 +203,13 @@ class GymAddUserView(WgerFormMixin, CreateView):
         user.userprofile.save()
 
         # Set appropriate permission group
-        if form.cleaned_data['role'] != 'user':
-            if form.cleaned_data['role'] == 'trainer':
-                group = Group.objects.get(name='gym_trainer')
-            elif form.cleaned_data['role'] == 'admin':
-                group = Group.objects.get(name='gym_manager')
-            user.groups.add(group)
+        if form.cleaned_data['role'] == 'trainer':
+            group = Group.objects.get(name='gym_trainer')
+        elif form.cleaned_data['role'] == 'admin':
+            group = Group.objects.get(name='gym_manager')
+        elif form.cleaned_data['role'] == 'user':
+            group = Group.objects.get(name='gym_member')
+        user.groups.add(group)
 
         self.request.session['gym.user'] = {'user_pk': user.pk,
                                             'password': password}
