@@ -36,6 +36,7 @@ class GymAddUserTestCase(WorkoutManagerTestCase):
         Helper function to add users
         '''
         count_before = User.objects.all().count()
+        GymAdminConfig.objects.all().delete()
         response = self.client.get(reverse('gym:gym:add-user', kwargs={'gym_pk': 1}))
         self.assertEqual(GymAdminConfig.objects.all().count(), 0)
         if fail:

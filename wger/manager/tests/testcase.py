@@ -58,6 +58,7 @@ class BaseTestCase(object):
                 'test-gyms',
                 'test-gymsconfig',
                 'test-user-data',
+                'test-gym-adminconfig.json',
                 'test-apikeys',
                 'test-weight-data',
                 'test-equipment',

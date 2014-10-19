@@ -177,13 +177,44 @@ $(document).ready( function () {
 </div>
 {% endif %}
 
-<h4>{% trans "Configuration" %}</h4>
+<h4>{% trans "Gym configuration" %}</h4>
 <table class="table">
     <tr>
         <th>{% trans "Inactive members" %}</th>
         <td>{{gym.config.weeks_inactive}} {% trans 'weeks' %}</td>
     </tr>
 </table>
+
+
+
+
+{#                     #}
+{# Admin configuration #}
+{#                     #}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">        <li>
+            <a href="{% url 'gym:admin_config:edit' user.gymadminconfig.id %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
+        </li>
+    </ul>
+</div>
+
+<h4>{% trans "My configuration" %}</h4>
+<table class="table">
+    <tr>
+        <th>{% trans "Overview inactive members" %}</th>
+        <td>
+            {% if user.gymadminconfig.overview_inactive %}
+                <span class="glyphicon glyphicon-ok"></span>
+            {% else %}
+                <span class="glyphicon glyphicon-remove"></span>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
 
 
 

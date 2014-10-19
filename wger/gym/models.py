@@ -140,8 +140,8 @@ class AbstractGymUserConfigModel(m.Model):
     class Meta:
         abstract = True
 
-    gym = m.OneToOneField(Gym,
-                          editable=False)
+    gym = m.ForeignKey(Gym,
+                       editable=False)
     '''
     Gym this configuration belongs to
     '''
@@ -164,8 +164,15 @@ class GymAdminConfig(AbstractGymUserConfigModel, m.Model):
         Only one entry per user and gym
         '''
 
-    overview_inactive = m.BooleanField(verbose_name=_('Receive overview of inactive members'),
+    overview_inactive = m.BooleanField(verbose_name=_('Overview inactive members'),
+                                       help_text=_('Receive email overviews of inactive members'),
                                        default=True)
     '''
     Reminder inactive members
     '''
+
+    def get_owner_object(self):
+        '''
+        Returns the object that has owner information
+        '''
+        return self
