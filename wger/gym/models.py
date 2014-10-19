@@ -132,16 +132,13 @@ class GymConfig(m.Model):
         return ugettext(u'Configuration for {}'.format(self.gym.name))
 
 
-class GymUserConfig(m.Model):
+class AbstractGymUserConfigModel(m.Model):
     '''
-    User (actually administrator/trainer) configuration options for a specific gym
+    Abstract class for member and admin gym configuration models
     '''
 
     class Meta:
-        unique_together = ('gym', 'user')
-        '''
-        Only one entry per user and gym
-        '''
+        abstract = True
 
     gym = m.OneToOneField(Gym,
                           editable=False)
@@ -154,6 +151,18 @@ class GymUserConfig(m.Model):
     '''
     User this configuration belongs to
     '''
+
+
+class GymAdminConfig(AbstractGymUserConfigModel, m.Model):
+    '''
+    Administrator/trainer configuration options for a specific gym
+    '''
+
+    class Meta:
+        unique_together = ('gym', 'user')
+        '''
+        Only one entry per user and gym
+        '''
 
     overview_inactive = m.BooleanField(verbose_name=_('Receive overview of inactive members'),
                                        default=True)

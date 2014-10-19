@@ -21,6 +21,7 @@ from django.core.urlresolvers import reverse
 
 from wger.core.models import UserProfile
 from wger.gym.models import Gym
+from wger.gym.models import GymAdminConfig
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 
@@ -36,6 +37,7 @@ class GymAddUserTestCase(WorkoutManagerTestCase):
         '''
         count_before = User.objects.all().count()
         response = self.client.get(reverse('gym:gym:add-user', kwargs={'gym_pk': 1}))
+        self.assertEqual(GymAdminConfig.objects.all().count(), 0)
         if fail:
             self.assertEqual(response.status_code, 403)
         else:
@@ -59,6 +61,7 @@ class GymAddUserTestCase(WorkoutManagerTestCase):
             self.assertTrue(self.client.session['gym.user']['password'])
             self.assertEqual(len(self.client.session['gym.user']['password']), 15)
             new_user = User.objects.get(pk=self.client.session['gym.user']['user_pk'])
+            self.assertEqual(GymAdminConfig.objects.all().count(), 1)
             self.assertEqual(new_user.userprofile.gym_id, 1)
 
     def test_add_user_authorized(self):

@@ -32,8 +32,10 @@ from django.views.generic import CreateView
 from django.views.generic import UpdateView
 
 from wger.core.forms import GymUserAddForm
-from wger.gym.helpers import get_user_last_activity
+from wger.gym.helpers import get_user_last_activity, is_any_gym_admin
 from wger.gym.models import Gym, GymConfig
+from wger.gym.models import GymAdminConfig
+
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
@@ -82,9 +84,7 @@ class GymUserListView(WgerPermissionMixin, ListView):
                         'perms': {'manage_gym': u.has_perm('gym.manage_gym'),
                                   'manage_gyms': u.has_perm('gym.manage_gyms'),
                                   'gym_trainer': u.has_perm('gym.gym_trainer'),
-                                  'any_admin': u.has_perm('gym.manage_gym')
-                                               or u.has_perm('gym.manage_gyms')
-                                               or u.has_perm('gym.gym_trainer')}})
+                                  'any_admin': is_any_gym_admin(u)}})
         return out
 
     def get_context_data(self, **kwargs):
@@ -110,16 +110,6 @@ class GymAddView(WgerFormMixin, CreateView):
     title = ugettext_lazy('Add gym')
     form_action = reverse_lazy('gym:gym:add')
     permission_required = 'gym.add_gym'
-
-    def form_valid(self, form):
-        '''
-        Create a config object
-        '''
-        config = GymConfig()
-        config.gym = form.save()
-        config.save()
-
-        return super(GymAddView, self).form_valid(form)
 
 
 @login_required
@@ -208,10 +198,11 @@ class GymAddUserView(WgerFormMixin, CreateView):
         user.last_name = form.cleaned_data['last_name']
         form.instance = user
 
+        # Update profile
         user.userprofile.gym = gym
         user.userprofile.save()
 
-        # Set appropriate group
+        # Set appropriate permission group
         if form.cleaned_data['role'] != 'user':
             if form.cleaned_data['role'] == 'trainer':
                 group = Group.objects.get(name='gym_trainer')
@@ -221,6 +212,16 @@ class GymAddUserView(WgerFormMixin, CreateView):
 
         self.request.session['gym.user'] = {'user_pk': user.pk,
                                             'password': password}
+
+        # Create config
+        if is_any_gym_admin(user):
+            config = GymAdminConfig()
+        else:
+            pass
+
+        config.user = user
+        config.gym = gym
+        config.save()
 
         return super(GymAddUserView, self).form_valid(form)
 
