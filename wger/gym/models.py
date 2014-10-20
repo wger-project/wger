@@ -131,6 +131,12 @@ class GymConfig(m.Model):
         '''
         return ugettext(u'Configuration for {}'.format(self.gym.name))
 
+    def get_owner_object(self):
+        '''
+        Config has no user owner
+        '''
+        return None
+
 
 class AbstractGymUserConfigModel(m.Model):
     '''
