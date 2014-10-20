@@ -73,6 +73,10 @@ class Command(BaseCommand):
                     if not trainer.email:
                         continue
 
+                    # Check trainer preferences
+                    if not trainer.gymadminconfig.overview_inactive:
+                        continue
+
                     translation.activate(trainer.userprofile.notification_language.short_name)
                     subject = _('Reminder of inactive members')
                     context = {
