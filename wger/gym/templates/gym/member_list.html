@@ -110,7 +110,7 @@ $(document).ready( function () {
 {#             #}
 {# Gym details #}
 {#             #}
-{% if perms.core.change_gym %}
+{% if perms.gym.change_gym %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
@@ -164,7 +164,7 @@ $(document).ready( function () {
 {#                   #}
 {# Gym configuration #}
 {#                   #}
-{% if perms.core.change_gym %}
+{% if perms.gym.change_gym %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>

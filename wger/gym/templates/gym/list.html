@@ -45,7 +45,7 @@
        </a>
 </p>
 {% endif %}
-{% if perms.core.change_gymconfig %}
+{% if perms.gym.change_gymconfig %}
 <p>
        <a href="{% url 'config:gymconfig-edit' %}"
           {% auto_link_css flavour %}>
