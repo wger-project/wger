@@ -24,6 +24,7 @@ from django.core.management.base import BaseCommand
 from django.template.loader import render_to_string
 
 from wger.utils.constants import EMAIL_FROM
+from wger.gym.helpers import is_any_gym_admin
 from wger.gym.helpers import get_user_last_activity
 from wger.gym.models import Gym
 
@@ -55,9 +56,13 @@ class Command(BaseCommand):
 
                 if user.has_perm('gym.gym_trainer'):
                     trainer_list.append(user)
+
+                # Check appropriate permissions
+                if is_any_gym_admin(user):
                     continue
 
-                if user.has_perm('gym.manage_gyms') or user.has_perm('gym.manage_gym'):
+                # Check user preferences
+                if not user.gymuserconfig.include_inactive:
                     continue
 
                 last_activity = get_user_last_activity(user)

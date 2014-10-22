@@ -1,0 +1,119 @@
+[
+    {
+        "pk": 1, 
+        "model": "gym.gymuserconfig", 
+        "fields": {
+            "gym": 1, 
+            "include_inactive": true, 
+            "user": 2
+        }
+    },
+    {
+        "pk": 2,
+        "model": "gym.gymuserconfig",
+        "fields": {
+            "gym": 2,
+            "include_inactive": true,
+            "user": 3
+        }
+    },
+    {
+        "pk": 3,
+        "model": "gym.gymuserconfig",
+        "fields": {
+            "gym": 1,
+            "include_inactive": true,
+            "user": 14
+        }
+    },
+    {
+        "pk": 4,
+        "model": "gym.gymuserconfig", 
+        "fields": {
+            "gym": 1, 
+            "include_inactive": true, 
+            "user": 15
+        }
+    }, 
+    {
+        "pk": 5,
+        "model": "gym.gymuserconfig", 
+        "fields": {
+            "gym": 1, 
+            "include_inactive": true, 
+            "user": 16
+        }
+    }, 
+    {
+        "pk": 6,
+        "model": "gym.gymuserconfig", 
+        "fields": {
+            "gym": 1, 
+            "include_inactive": true, 
+            "user": 17
+        }
+    }, 
+    {
+        "pk": 7,
+        "model": "gym.gymuserconfig", 
+        "fields": {
+            "gym": 1, 
+            "include_inactive": true, 
+            "user": 18
+        }
+    }, 
+    {
+        "pk": 8,
+        "model": "gym.gymuserconfig", 
+        "fields": {
+            "gym": 2,
+            "include_inactive": true, 
+            "user": 19
+        }
+    },
+    {
+        "pk": 9,
+        "model": "gym.gymuserconfig",
+        "fields": {
+            "gym": 2,
+            "include_inactive": true,
+            "user": 20
+        }
+    },
+    {
+        "pk": 10,
+        "model": "gym.gymuserconfig",
+        "fields": {
+            "gym": 3,
+            "include_inactive": true,
+            "user": 21
+        }
+    },
+    {
+        "pk": 11,
+        "model": "gym.gymuserconfig",
+        "fields": {
+            "gym": 3,
+            "include_inactive": true,
+            "user": 22
+        }
+    },
+    {
+        "pk": 12,
+        "model": "gym.gymuserconfig",
+        "fields": {
+            "gym": 3,
+            "include_inactive": true,
+            "user": 23
+        }
+    },
+    {
+        "pk": 13,
+        "model": "gym.gymuserconfig",
+        "fields": {
+            "gym": 3,
+            "include_inactive": true,
+            "user": 24
+        }
+    }
+]

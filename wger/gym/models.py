@@ -182,3 +182,29 @@ class GymAdminConfig(AbstractGymUserConfigModel, m.Model):
         Returns the object that has owner information
         '''
         return self
+
+
+class GymUserConfig(AbstractGymUserConfigModel, m.Model):
+    '''
+    Gym member configuration options for a specific gym
+    '''
+
+    class Meta:
+        unique_together = ('gym', 'user')
+        '''
+        Only one entry per user and gym
+        '''
+
+    include_inactive = m.BooleanField(verbose_name=_('Include in inactive overview'),
+                                      help_text=_('Include this user in the email list with '
+                                      'inactive members'),
+                                      default=True)
+    '''
+    Include user in inactive overview
+    '''
+
+    def get_owner_object(self):
+        '''
+        Returns the object that has owner information
+        '''
+        return self

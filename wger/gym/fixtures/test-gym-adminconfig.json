@@ -7,25 +7,7 @@
             "user": 1, 
             "overview_inactive": true
         }
-    }, 
-    {
-        "pk": 2, 
-        "model": "gym.gymadminconfig", 
-        "fields": {
-            "gym": 1, 
-            "user": 2, 
-            "overview_inactive": true
-        }
-    }, 
-    {
-        "pk": 3, 
-        "model": "gym.gymadminconfig", 
-        "fields": {
-            "gym": 2, 
-            "user": 3, 
-            "overview_inactive": true
-        }
-    }, 
+    },
     {
         "pk": 4, 
         "model": "gym.gymadminconfig", 
@@ -113,105 +95,6 @@
         "fields": {
             "gym": 2, 
             "user": 13, 
-            "overview_inactive": true
-        }
-    }, 
-    {
-        "pk": 14, 
-        "model": "gym.gymadminconfig", 
-        "fields": {
-            "gym": 1, 
-            "user": 14, 
-            "overview_inactive": true
-        }
-    },
-    {
-        "pk": 15, 
-        "model": "gym.gymadminconfig", 
-        "fields": {
-            "gym": 1, 
-            "user": 15, 
-            "overview_inactive": true
-        }
-    },
-    {
-        "pk": 16, 
-        "model": "gym.gymadminconfig", 
-        "fields": {
-            "gym": 1, 
-            "user": 16, 
-            "overview_inactive": true
-        }
-    },
-    {
-        "pk": 17, 
-        "model": "gym.gymadminconfig", 
-        "fields": {
-            "gym": 1, 
-            "user": 17,  
-            "overview_inactive": true
-        }
-    },
-    {
-        "pk": 18, 
-        "model": "gym.gymadminconfig", 
-        "fields": {
-            "gym": 1, 
-            "user": 18, 
-            "overview_inactive": true
-        }
-    },
-    {
-        "pk": 19, 
-        "model": "gym.gymadminconfig", 
-        "fields": {
-            "gym": 2, 
-            "user": 19, 
-            "overview_inactive": true
-        }
-    },
-    {
-        "pk": 20, 
-        "model": "gym.gymadminconfig", 
-        "fields": {
-            "gym": 2, 
-            "user": 20, 
-            "overview_inactive": true
-        }
-    },
-    {
-        "pk": 21, 
-        "model": "gym.gymadminconfig", 
-        "fields": {
-            "gym": 3, 
-            "user": 21, 
-            "overview_inactive": true
-        }
-    },
-    {
-        "pk": 22, 
-        "model": "gym.gymadminconfig", 
-        "fields": {
-            "gym": 3, 
-            "user": 22, 
-            "overview_inactive": true
-        }
-    },
-    {
-        "pk": 23, 
-        "model": "gym.gymadminconfig", 
-        "fields": {
-            "gym": 3, 
-            "user": 23, 
-            "overview_inactive": true
-        }
-    },
-    {
-        "pk": 24, 
-        "model": "gym.gymadminconfig", 
-        "fields": {
-            "gym": 3, 
-            "user": 24, 
             "overview_inactive": true
         }
     }

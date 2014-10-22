@@ -58,8 +58,9 @@ filter_dump(data, ('exercises.equipment', 'exercises.equipment',), 'equipment.js
 # Gym
 #
 filter_dump(data, ('gym.gym',), 'gyms.json')
-filter_dump(data, ('gym.gymconfig',), 'gyms_config.json')
+filter_dump(data, ('gym.gymconfig',), 'gym_config.json')
 filter_dump(data, ('gym.gymadminconfig',), 'gym_adminconfig.json')
+filter_dump(data, ('gym.gymuserconfig',), 'gym_userconfig.json')
 
 #
 # Core

@@ -11,13 +11,13 @@ Gym members
 Gym 1 - Test 123
 ================
 #1  admin
-#2  test
 #4  trainer1
 #5  trainer2
 #6  trainer3
 #9  manager1
 #10 manager2
 #12 general_manager1
+#2  test
 #14 member1
 #15 member2
 #16 member3
@@ -27,11 +27,11 @@ Gym 1 - Test 123
 
 Gym 2 - A cool gym
 ==================
-#3  demo
 #7  trainer4
 #8  trainer5
 #11 manager2
 #13 general_manager1
+#3  demo
 #19 member6
 #20 member7
 

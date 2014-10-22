@@ -35,6 +35,7 @@ from wger.core.forms import GymUserAddForm
 from wger.gym.helpers import get_user_last_activity, is_any_gym_admin
 from wger.gym.models import Gym, GymConfig
 from wger.gym.models import GymAdminConfig
+from wger.gym.models import GymUserConfig
 
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
@@ -218,7 +219,7 @@ class GymAddUserView(WgerFormMixin, CreateView):
         if is_any_gym_admin(user):
             config = GymAdminConfig()
         else:
-            pass
+            config = GymUserConfig()
 
         config.user = user
         config.gym = gym
