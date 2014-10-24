@@ -129,13 +129,29 @@ page, so you keep them in mind.{% endblocktrans %}</p>
     <div class="col-sm-4 col-xs-6">
         <h4>
             <strong>
+            <span class="glyphicon glyphicon-home"></span>
+            {% trans "Gym management" %}
+            </strong>
+        </h4>
+        <p>{% blocktrans %}Use the application for your gym to manage its
+members, their workouts and progress. Keep an eye on inactive members with
+optional notifications. You can create users with different roles to
+distribute the administrative tasks such as trainer or gym manager.{% endblocktrans %}</p>
+        
+        <img src="{% static 'images/gym-management-1.5.png' %}"
+             class="img-responsive img-rounded"
+             alt="">
+        
+        <!--
+        <h4>
+            <strong>
             <span class="glyphicon glyphicon-th-list"></span>
             {% trans "Routine generator" %}
             </strong>
         </h4>
         <p>{% blocktrans %}Automatically generate a routine according to
 your current strength level. You can either print them as a PDF or add them
-to your own collection and custimize them them till you are happy with the
+to your own collection and customize them them till you are happy with the
 result. {% endblocktrans %} {% trans "The routines include among others:" %}</p>
         <ul>
             <li>{% trans "Foobar 5-3-1" %}</li>
@@ -147,7 +163,7 @@ result. {% endblocktrans %} {% trans "The routines include among others:" %}</p>
             {% trans "Take a look" %}
             <span class="glyphicon glyphicon-chevron-right"></span>
         </a>
-
+        -->
     </div>
 </div>
 
@@ -160,8 +176,8 @@ result. {% endblocktrans %} {% trans "The routines include among others:" %}</p>
             </strong>
         </h4>
         <p>{% blocktrans %}All of the code running wger is open source, allowing
-the public to openly review its security and anyone can contribute towards
-the development of wger.{% endblocktrans %}</p>
+the public to openly review its security. Anyone can contribute towards
+the development of wger or deploy private installations.{% endblocktrans %}</p>
     </div>
     <div class="col-sm-4 col-xs-6">
         <h4>
