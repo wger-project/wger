@@ -31,7 +31,7 @@ from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
 
-from wger.core.forms import GymUserAddForm
+from wger.gym.forms import GymUserAddForm
 from wger.gym.helpers import get_user_last_activity, is_any_gym_admin
 from wger.gym.models import Gym, GymConfig
 from wger.gym.models import GymAdminConfig
