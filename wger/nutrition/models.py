@@ -462,7 +462,7 @@ class IngredientWeightUnit(models.Model):
                                    editable=False)
     unit = models.ForeignKey(WeightUnit, verbose_name=_('Weight unit'))
 
-    gramm = models.IntegerField(verbose_name=_('Amount in gramms'))
+    gramm = models.IntegerField(verbose_name=_('Amount in grams'))
     amount = models.DecimalField(decimal_places=2,
                                  max_digits=5,
                                  default=1,
