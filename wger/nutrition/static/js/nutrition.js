@@ -94,7 +94,7 @@ function init_ingredient_autocompleter()
                 // Add new units, if any
                 $.each(unit_data.results, function(index, value) {
                     $.get('/api/v2/weightunit/' + value.unit + '/', function(unit) {
-                        var unit_name = unit.name + ' (' + value.gramm + 'g)';
+                        var unit_name = unit.name + ' (' + value.gram + 'g)';
                         $('#id_unit').append(new Option(unit_name, value.id));
                         $('#id_weight_unit').append(new Option(unit_name, value.id));
                     });

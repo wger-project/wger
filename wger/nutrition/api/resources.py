@@ -72,7 +72,7 @@ class IngredientToWeightUnit(ModelResource):
         queryset = IngredientWeightUnit.objects.all()
         filtering = {'id': ALL,
                      'amount': ALL,
-                     'gramm': ALL,
+                     'gram': ALL,
                      'ingredient': ALL_WITH_RELATIONS,
                      'unit': ALL_WITH_RELATIONS}
 

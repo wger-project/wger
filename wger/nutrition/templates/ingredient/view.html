@@ -238,7 +238,7 @@ the search.{% endblocktrans %}
     {% for unit in ingredient.ingredientweightunit_set.select_related %}
         <tr>
             <td>
-                {{unit.amount}} {{unit.unit.name}} = {{unit.gramm}}g
+                {{unit.amount}} {{unit.unit.name}} = {{unit.gram}}g
                 <span class="editoptions float-right">
                     <a href="{% url 'weight-unit-ingredient-edit' unit.id %}"
                        title="{% trans 'Edit' %}"

@@ -462,7 +462,7 @@ class IngredientWeightUnit(models.Model):
                                    editable=False)
     unit = models.ForeignKey(WeightUnit, verbose_name=_('Weight unit'))
 
-    gramm = models.IntegerField(verbose_name=_('Amount in grams'))
+    gram = models.IntegerField(verbose_name=_('Amount in grams'))
     amount = models.DecimalField(decimal_places=2,
                                  max_digits=5,
                                  default=1,
@@ -482,7 +482,7 @@ class IngredientWeightUnit(models.Model):
 
         return u"{0}{1} ({2}g)".format(self.amount if self.amount > 1 else '',
                                        self.unit.name,
-                                       self.gramm)
+                                       self.gram)
 
 
 class Meal(models.Model):
@@ -618,7 +618,7 @@ class MealItem(models.Model):
         else:
             item_weight = (self.amount *
                            self.weight_unit.amount *
-                           self.weight_unit.gramm)
+                           self.weight_unit.gram)
 
         nutritional_info['energy'] += self.ingredient.energy * item_weight / 100
         nutritional_info['protein'] += self.ingredient.protein * item_weight / 100

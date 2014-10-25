@@ -35,7 +35,7 @@ class AddWeightUnitIngredientTestCase(WorkoutManagerAddTestCase):
     url = reverse_lazy('weight-unit-ingredient-add',
                        kwargs={'ingredient_pk': 1})
     data = {'unit': 5,
-            'gramm': 123,
+            'gram': 123,
             'amount': 1}
     pk = 9875
 
@@ -59,7 +59,7 @@ class EditWeightUnitTestCase(WorkoutManagerEditTestCase):
     url = 'weight-unit-ingredient-edit'
     pk = 1
     data = {'unit': 5,
-            'gramm': 10,
+            'gram': 10,
             'amount': 0.3}
 
 
@@ -107,7 +107,7 @@ class WeightUnitToIngredientApiTestCase(api_base_test.ApiBaseResourceTestCase):
     resource = IngredientWeightUnit
     private_resource = False
     data = {'amount': '1',
-            'gramm': 240,
+            'gram': 240,
             'id': 1,
             'ingredient': '1',
             'unit': '1'}
