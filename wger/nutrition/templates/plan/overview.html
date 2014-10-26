@@ -12,6 +12,7 @@
     <tr>
         <th>{% trans "Description" %}</th>
         <th>{% trans "Date" %}</th>
+        <th>{% trans "Energy" %}</th>
     </tr>
     </thead>
     <tbody>
@@ -28,6 +29,9 @@
         </td>
         <td>
             {{ plan.creation_date }}
+        </td>
+        <td>
+            {{ plan.get_nutritional_values.total.energy|floatformat }} kcal
         </td>
     </tr>
     {% endfor %}

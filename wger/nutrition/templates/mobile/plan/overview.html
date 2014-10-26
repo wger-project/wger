@@ -11,7 +11,10 @@
             <span class="glyphicon glyphicon-chevron-right pull-right"></span>
 
             <h3 class="list-group-item-heading">{{plan}}</h3>
-            <p class="list-group-item-text">{{ plan.creation_date }}</p>
+            <p class="list-group-item-text">
+                {{ plan.creation_date }} –
+                {{ plan.get_nutritional_values.total.energy|floatformat }} kcal
+            </p>
         </a>
     {% empty %}
         <a href="{% url 'nutrition-add' %}" class="list-group-item wger-list-group-item">
