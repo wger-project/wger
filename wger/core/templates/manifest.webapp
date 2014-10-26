@@ -2,7 +2,7 @@
 {
     "name": "wger Workout Manager",
     "version": "{{version}}",
-    "description": "A workout, nutrition and weight manager",
+    "description": "FLOSS workout, fitness and weight manager/tracker",
     "launch_path": "/dashboard",
     "icons": {
         "16": "{% static 'images/logos/logo-marketplace-16.png' %}",
@@ -15,12 +15,13 @@
         "256": "{% static 'images/logos/logo-marketplace-256.png' %}"
     },
     "developer": {
-        "name": "Roland Geider"
+        "name": "Roland Geider",
+        "url": "https://github.com/rolandgeider/wger"
     },
     "default_locale": "en",
     "locales": {
         "de": {
-            "description": "Ein Trainingsplan-, Gewichts- und Ernährungsplanmanager"
+            "description": "FLOSS Trainingsplan-,  Fitness- und Gewichtsmanager/-Tracker"
         }
     }
 }
