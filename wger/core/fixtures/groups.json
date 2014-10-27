@@ -196,6 +196,11 @@
                     "gymconfig"
                 ], 
                 [
+                    "change_gymuserconfig", 
+                    "gym", 
+                    "gymuserconfig"
+                ], 
+                [
                     "add_ingredient", 
                     "nutrition", 
                     "ingredient"
@@ -326,6 +331,11 @@
                     "change_gymadminconfig", 
                     "gym", 
                     "gymadminconfig"
+                ], 
+                [
+                    "change_gymuserconfig", 
+                    "gym", 
+                    "gymuserconfig"
                 ]
             ]
         }

@@ -231,6 +231,38 @@
 {% endif %}
 </table>
 
+{#                   #}
+{# Gym configuration #}
+{#                   #}
+
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="{% url 'gym:user_config:edit' current_user.gymuserconfig.pk %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
+        </li>
+    </ul>
+</div>
+
+
+<h4>{% trans "Configuration" %}</h4>
+<table class="table">
+    <tr>
+        <th>{% trans 'Include in inactive overview' %}</th>
+        <td>
+            {% if current_user.gymuserconfig.include_inactive %}
+                <span class="glyphicon glyphicon-ok"></span>
+            {% else %}
+                <span class="glyphicon glyphicon-remove"></span>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+
+
 <a href="{% url 'gym:gym:user-list' current_user.userprofile.gym.pk %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/list.svg' %}"
          width="32"

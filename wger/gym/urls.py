@@ -20,6 +20,7 @@ from django.conf.urls import patterns, url, include
 from wger.gym.views import gym
 from wger.gym.views import config
 from wger.gym.views import admin_config
+from wger.gym.views import user_config
 
 
 # 'sub patterns' for gyms
@@ -65,6 +66,13 @@ patterns_adminconfig = patterns('',
         name='edit'),
 )
 
+# 'sub patterns' for gym user config
+patterns_userconfig = patterns('',
+    url(r'^(?P<pk>\d+)/edit$',
+        user_config.ConfigUpdateView.as_view(),
+        name='edit'),
+)
+
 #
 # All patterns for this app
 #
@@ -73,4 +81,5 @@ urlpatterns = patterns('',
     url(r'^', include(patterns_gym, namespace="gym")),
     url(r'^config/', include(patterns_gymconfig, namespace="config")),
     url(r'^admin-config/', include(patterns_adminconfig, namespace="admin_config")),
+    url(r'^user-config/', include(patterns_userconfig, namespace="user_config")),
 )

@@ -205,6 +205,7 @@ class GymUserConfig(AbstractGymUserConfigModel, m.Model):
 
     def get_owner_object(self):
         '''
-        Returns the object that has owner information
+        While the model has a user foreign key, this is editable by all
+        trainers in the gym.
         '''
-        return self
+        return None
