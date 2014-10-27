@@ -13,10 +13,10 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
 import logging
 
 from django.core.urlresolvers import reverse
-from django.http.response import HttpResponseForbidden
 from django.utils.translation import ugettext as _
 from django.views.generic import UpdateView
 

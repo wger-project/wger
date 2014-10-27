@@ -209,3 +209,51 @@ class GymUserConfig(AbstractGymUserConfigModel, m.Model):
         trainers in the gym.
         '''
         return None
+
+
+class AdminUserNote(m.Model):
+    '''
+    Administrator notes about a member
+    '''
+
+    class Meta:
+        '''
+        Order by time
+        '''
+        ordering = ["-timestamp_created", ]
+
+    user = m.ForeignKey(User,
+                        editable=False,
+                        related_name='adminusernote_user')
+    '''
+    User this note belongs to
+    '''
+
+    member = m.ForeignKey(User,
+                          editable=False,
+                          related_name='adminusernote_member')
+    '''
+    Gym member this note refers to
+    '''
+
+    timestamp_created = m.DateTimeField(auto_now_add=True)
+    '''
+    Time when this note was created
+    '''
+
+    timestamp_edited = m.DateTimeField(auto_now=True)
+    '''
+    Last time when this note was edited
+    '''
+
+    note = m.TextField(verbose_name=_('Note'))
+    '''
+    Actual note
+    '''
+
+    def get_owner_object(self):
+        '''
+        While the model has a user foreign key, this is editable by all
+        trainers in the gym.
+        '''
+        return None

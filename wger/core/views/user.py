@@ -32,6 +32,7 @@ from django.contrib.auth.views import login as django_loginview
 from django.contrib import messages
 from django.views.generic import RedirectView, UpdateView, DetailView
 from rest_framework.authtoken.models import Token
+from wger.gym.models import AdminUserNote
 
 from wger.utils.constants import USER_TAB
 from wger.utils.generic_views import WgerPermissionMixin
@@ -425,4 +426,5 @@ class UserDetailView(WgerPermissionMixin, DetailView):
         context['nutrition_plans'] = NutritionPlan.objects.filter(user=self.object)\
             .order_by('-creation_date')[:5]
         context['session'] = WorkoutSession.objects.filter(user=self.object).order_by('-date')[:10]
+        context['admin_notes'] = AdminUserNote.objects.filter(member=self.object)[:5]
         return context

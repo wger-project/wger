@@ -231,15 +231,55 @@
 {% endif %}
 </table>
 
-{#                   #}
-{# Gym configuration #}
-{#                   #}
 
+
+{#             #}
+{# Admin notes #}
+{#             #}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="{% url 'gym:admin_note:list' current_user.pk %}">{% trans "Overview" %}</a>
+        </li>
+        <li>
+            <a href="{% url 'gym:admin_note:add' current_user.pk %}" class="wger-modal-dialog">{% trans "Add"%}</a>
+        </li>
+    </ul>
+</div>
+
+
+<h4>{% trans "Notes" %}</h4>
+<table class="table">
+    {% for note in admin_notes %}
+    <tr>
+        <td>
+            {{ note.timestamp_created }}
+        </td>
+        <td>
+            {{ note.note|truncatewords:10 }}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td>
+            {% trans "Nothing found" %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{#                   #}
+{# Gym configuration #}
+{#                   #}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+
         <li>
             <a href="{% url 'gym:user_config:edit' current_user.gymuserconfig.pk %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
         </li>

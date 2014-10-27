@@ -61,6 +61,7 @@ filter_dump(data, ('gym.gym',), 'gyms.json')
 filter_dump(data, ('gym.gymconfig',), 'gym_config.json')
 filter_dump(data, ('gym.gymadminconfig',), 'gym_adminconfig.json')
 filter_dump(data, ('gym.gymuserconfig',), 'gym_userconfig.json')
+filter_dump(data, ('gym.adminusernote',), 'gym_admin_user_notes.json')
 
 #
 # Core
