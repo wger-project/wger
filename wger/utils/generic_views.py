@@ -67,7 +67,7 @@ class WgerPermissionMixin(object):
 
             if self.permission_required:
                 has_permission = False
-                if self.permission_required.__class__.__name__ == 'tuple':
+                if isinstance(self.permission_required, tuple):
                     for permission in self.permission_required:
                         if request.user.has_perm(permission):
                             has_permission = True
