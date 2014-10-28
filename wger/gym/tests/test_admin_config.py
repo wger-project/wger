@@ -12,12 +12,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import datetime
-
-from django.core.urlresolvers import reverse
-
-from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 
 from wger.gym.models import GymAdminConfig

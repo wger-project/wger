@@ -23,7 +23,6 @@ from wger.core.models import UserProfile
 from wger.gym.models import Gym
 from wger.gym.models import GymAdminConfig
 from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 
 
 class GymAddUserTestCase(WorkoutManagerTestCase):
@@ -214,8 +213,8 @@ class TrainerLogoutTestCase(WorkoutManagerTestCase):
         Test the trainer login as an anonymous user
         '''
         self.user_login('admin')
-        response = self.client.get(reverse('core:trainer-login', kwargs={'user_pk': 2}))
+        self.client.get(reverse('core:trainer-login', kwargs={'user_pk': 2}))
         self.assertTrue(self.client.session.get('trainer.identity'))
 
-        response = self.client.get(reverse('core:trainer-login', kwargs={'user_pk': 1}))
+        self.client.get(reverse('core:trainer-login', kwargs={'user_pk': 1}))
         self.assertFalse(self.client.session.get('trainer.identity'))

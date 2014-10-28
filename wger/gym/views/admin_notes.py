@@ -16,7 +16,6 @@
 import logging
 
 from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.models import User
 from django.http.response import HttpResponseForbidden
 from django.utils.translation import ugettext as _
@@ -26,7 +25,6 @@ from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
 
-from wger.gym.models import Gym
 from wger.gym.models import AdminUserNote
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin

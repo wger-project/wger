@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import datetime
-from optparse import make_option
 
 from django.core import mail
 from django.utils import translation

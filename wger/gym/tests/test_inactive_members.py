@@ -12,14 +12,10 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import datetime
-
 from django.core.management import call_command
 from django.core import mail
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.models import WorkoutLog
-from wger.manager.models import WorkoutSession
 
 
 class EmailInactiveUserTestCase(WorkoutManagerTestCase):

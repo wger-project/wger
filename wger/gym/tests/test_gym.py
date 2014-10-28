@@ -12,12 +12,10 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
-from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
 
 from wger.core.models import UserProfile
 from wger.gym.models import Gym
-
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAccessTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
