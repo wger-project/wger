@@ -16,6 +16,7 @@
 import logging
 
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseForbidden
 from django.utils.translation import ugettext as _
 from django.views.generic import UpdateView
 
@@ -33,6 +34,20 @@ class ConfigUpdateView(WgerFormMixin, UpdateView):
 
     model = GymUserConfig
     permission_required = 'gym.change_gymuserconfig'
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Only managers for this gym can edit the user settings
+        '''
+
+        if not request.user.is_authenticated():
+            return HttpResponseForbidden()
+
+        config = self.get_object()
+        gym_id = request.user.userprofile.gym_id
+        if gym_id != config.gym.pk:
+            return HttpResponseForbidden()
+        return super(ConfigUpdateView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         '''
