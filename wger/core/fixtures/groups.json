@@ -323,6 +323,21 @@
             "name": "gym_trainer", 
             "permissions": [
                 [
+                    "add_adminusernote", 
+                    "gym", 
+                    "adminusernote"
+                ], 
+                [
+                    "change_adminusernote", 
+                    "gym", 
+                    "adminusernote"
+                ], 
+                [
+                    "delete_adminusernote", 
+                    "gym", 
+                    "adminusernote"
+                ], 
+                [
                     "gym_trainer", 
                     "gym", 
                     "gym"

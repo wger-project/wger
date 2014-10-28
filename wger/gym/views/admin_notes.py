@@ -55,6 +55,9 @@ class ListView(WgerPermissionMixin, ListView):
         '''
         Can only add notes to users in own gym
         '''
+        if not request.user.is_authenticated():
+            return HttpResponseForbidden()
+
         user = User.objects.get(pk=self.kwargs['user_pk'])
         self.member = user
         gym_id = user.userprofile.gym_id
@@ -93,6 +96,9 @@ class AddView(WgerFormMixin, CreateView):
         '''
         Can only add notes to users in own gym
         '''
+        if not request.user.is_authenticated():
+            return HttpResponseForbidden()
+
         user = User.objects.get(pk=self.kwargs['user_pk'])
         self.member = user
         gym_id = user.userprofile.gym_id
@@ -137,6 +143,9 @@ class UpdateView(WgerFormMixin, UpdateView):
         '''
         Only trainers for this gym can edit user notes
         '''
+
+        if not request.user.is_authenticated():
+            return HttpResponseForbidden()
 
         note = self.get_object()
         if note.member.userprofile.gym_id != request.user.userprofile.gym_id:
