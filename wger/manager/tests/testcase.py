@@ -111,6 +111,18 @@ class WorkoutManagerTestCase(BaseTestCase, TestCase):
     Testcase to use with the regular website
     '''
 
+    user_success = 'admin'
+    '''
+    A list of users to test for success. For convenience, a string can be used
+    as well if there is only one user.
+    '''
+
+    user_fail = 'test'
+    '''
+    A list of users to test for failure. For convenience, a string can be used
+    as well if there is only one user.
+    '''
+
     def user_login(self, user='admin'):
         '''
         Login the user, by default as 'admin'
@@ -173,8 +185,6 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
     object_class = ''
     url = ''
     pk = None
-    user_success = 'admin'
-    user_fail = 'test'
 
     def delete_object(self, fail=False):
         '''
@@ -225,20 +235,31 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
 
     def test_delete_object_authorized(self):
         '''
-        Tests deleting the object as an authorized user
+        Tests deleting the object as the authorized users
         '''
+        if isinstance(self.user_success, tuple):
+            users = self.user_success
+        else:
+            users = [self.user_success]
 
-        self.user_login(self.user_success)
-        self.delete_object(fail=False)
+        for user in users:
+            self.user_login(user)
+            self.delete_object(fail=False)
 
     def test_delete_object_other(self):
         '''
-        Tests deleting the object as an unauthorized, logged in user
+        Tests deleting the object as the unauthorized, logged in users
         '''
 
         if self.user_fail:
-            self.user_login(self.user_fail)
-            self.delete_object(fail=True)
+            if isinstance(self.user_fail, tuple):
+                users = self.user_fail
+            else:
+                users = [self.user_fail]
+
+            for user in users:
+                self.user_login(user)
+                self.delete_object(fail=True)
 
 
 class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
@@ -250,8 +271,6 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
     object_class = ''
     url = ''
     pk = None
-    user_success = 'admin'
-    user_fail = 'test'
     data = {}
     data_ignore = ()
 
@@ -308,20 +327,30 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
 
     def test_edit_object_authorized(self):
         '''
-        Tests editing the object as an authorized user
+        Tests editing the object as the authorized users
         '''
+        if isinstance(self.user_success, tuple):
+            users = self.user_success
+        else:
+            users = [self.user_success]
 
-        self.user_login(self.user_success)
-        self.edit_object(fail=False)
+        for user in users:
+            self.user_login(user)
+            self.edit_object(fail=False)
 
     def test_edit_object_other(self):
         '''
-        Tests editing the object as an unauthorized, logged in user
+        Tests editing the object as the unauthorized, logged in users
         '''
-
         if self.user_fail:
-            self.user_login(self.user_fail)
-            self.edit_object(fail=True)
+            if isinstance(self.user_fail, tuple):
+                users = self.user_fail
+            else:
+                users = [self.user_fail]
+
+            for user in users:
+                self.user_login(user)
+                self.edit_object(fail=True)
 
 
 class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
@@ -333,8 +362,6 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
     object_class = ''
     url = ''
     pk = None
-    user_success = 'admin'
-    user_fail = 'test'
     anonymous_fail = True
     data = {}
     data_ignore = ()
@@ -398,20 +425,32 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
 
     def test_add_object_authorized(self):
         '''
-        Tests adding the object as an authorized user
+        Tests adding the object as the authorized users
         '''
 
-        self.user_login(self.user_success)
-        self.add_object(fail=False)
+        if isinstance(self.user_success, tuple):
+            users = self.user_success
+        else:
+            users = [self.user_success]
+
+        for user in users:
+            self.user_login(user)
+            self.add_object(fail=False)
 
     def test_add_object_other(self):
         '''
-        Tests adding the object as an unauthorized, logged in user
+        Tests adding the object as the unauthorized, logged in users
         '''
 
-        self.user_login(self.user_fail)
         if self.user_fail:
-            self.add_object(fail=True)
+            if isinstance(self.user_fail, tuple):
+                users = self.user_fail
+            else:
+                users = [self.user_fail]
+
+            for user in users:
+                self.user_login(self.user_fail)
+                self.add_object(fail=True)
 
 
 class WorkoutManagerAccessTestCase(WorkoutManagerTestCase):
@@ -421,8 +460,6 @@ class WorkoutManagerAccessTestCase(WorkoutManagerTestCase):
     '''
 
     url = ''
-    user_success = 'admin'
-    user_fail = 'test'
     anonymous_fail = True
 
     def access(self, fail=True):
@@ -458,17 +495,29 @@ class WorkoutManagerAccessTestCase(WorkoutManagerTestCase):
 
     def test_access_authorized(self):
         '''
-        Tests accessing the URL as an authorized user
+        Tests accessing the URL as the authorized users
         '''
 
-        self.user_login(self.user_success)
-        self.access(fail=False)
+        if isinstance(self.user_success, tuple):
+            users = self.user_success
+        else:
+            users = [self.user_success]
+
+        for user in users:
+            self.user_login(user)
+            self.access(fail=False)
 
     def test_access_other(self):
         '''
-        Tests accessing the URL as an unauthorized, logged in user
+        Tests accessing the URL as the unauthorized, logged in users
         '''
 
-        self.user_login(self.user_fail)
-        self.access(fail=True)
-        self.user_logout()
+        if isinstance(self.user_fail, tuple):
+            users = self.user_fail
+        else:
+            users = [self.user_fail]
+
+        for user in users:
+            self.user_login(user)
+            self.access(fail=True)
+            self.user_logout()
