@@ -83,9 +83,10 @@ class DeleteGymTestCase(WorkoutManagerDeleteTestCase):
     pk = 2
     object_class = AdminUserNote
     url = 'gym:admin_note:delete'
-    user_success = ('trainer1',
-                    'trainer2',
-                    'trainer3')
+    user_success = 'trainer1'
+    # user_success = ('trainer1',
+    #                'trainer2',
+    #                'trainer3')
     user_fail = ('member1',
                  'manager1',
                  'manager2',

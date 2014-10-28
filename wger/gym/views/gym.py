@@ -247,6 +247,8 @@ class GymUpdateView(WgerFormMixin, UpdateView):
         '''
         Only managers for this gym can add new members
         '''
+        if not request.user.is_authenticated():
+            return HttpResponseForbidden()
 
         if request.user.has_perm('gym.manage_gym'):
             gym_id = request.user.userprofile.gym_id

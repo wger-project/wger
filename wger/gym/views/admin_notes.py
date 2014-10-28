@@ -178,6 +178,8 @@ class DeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
         '''
         Only trainers for this gym can delete user notes
         '''
+        if not request.user.is_authenticated():
+            return HttpResponseForbidden()
 
         note = self.get_object()
         if note.member.userprofile.gym_id != request.user.userprofile.gym_id:
