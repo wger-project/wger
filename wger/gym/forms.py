@@ -27,14 +27,16 @@ class GymUserAddForm(UserPersonalInformationForm):
     USER = 'user'
     GYM_ADMIN = 'admin'
     TRAINER = 'trainer'
+    MANAGER = 'manager'
     ROLES = (
         (USER, _('User')),
         (TRAINER, _('Trainer')),
         (GYM_ADMIN, _('Gym administrator')),
+        (MANAGER, _('General manager')),
     )
 
-    role = forms.ChoiceField(choices=ROLES,
-                             initial=USER)
+    role = forms.MultipleChoiceField(choices=ROLES,
+                                     initial=USER)
     username = forms.RegexField(label=_("Username"),
                                 max_length=30,
                                 regex=r'^[\w.@+-]+$',

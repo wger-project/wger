@@ -203,14 +203,15 @@ class GymAddUserView(WgerFormMixin, CreateView):
         user.userprofile.gym = gym
         user.userprofile.save()
 
-        # Set appropriate permission group
-        if form.cleaned_data['role'] == 'trainer':
-            group = Group.objects.get(name='gym_trainer')
-        elif form.cleaned_data['role'] == 'admin':
-            group = Group.objects.get(name='gym_manager')
-        elif form.cleaned_data['role'] == 'user':
-            group = Group.objects.get(name='gym_member')
-        user.groups.add(group)
+        # Set appropriate permission groups
+        if 'user' in form.cleaned_data['role']:
+            user.groups.add(Group.objects.get(name='gym_member'))
+        if 'trainer' in form.cleaned_data['role']:
+            user.groups.add(Group.objects.get(name='gym_trainer'))
+        if 'admin' in form.cleaned_data['role']:
+            user.groups.add(Group.objects.get(name='gym_manager'))
+        if 'manager' in form.cleaned_data['role']:
+            user.groups.add(Group.objects.get(name='general_gym_manager'))
 
         self.request.session['gym.user'] = {'user_pk': user.pk,
                                             'password': password}
@@ -228,6 +229,9 @@ class GymAddUserView(WgerFormMixin, CreateView):
         return super(GymAddUserView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
         context = super(GymAddUserView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('gym:gym:add-user',
                                          kwargs={'gym_pk': self.kwargs['gym_pk']})
