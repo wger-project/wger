@@ -174,6 +174,12 @@ class GymAddUserView(WgerFormMixin, CreateView):
     permission_required = 'gym.manage_gym'
     form_class = GymUserAddForm
 
+    def get_initial(self):
+        '''
+        Pre-select the 'user' role
+        '''
+        return {'role': ['user']}
+
     def dispatch(self, request, *args, **kwargs):
         '''
         Only managers for this gym can add new members
