@@ -48,7 +48,7 @@
 {% if perms.gym.change_gymconfig %}
 <p>
        <a href="{% url 'config:gymconfig-edit' %}"
-          {% auto_link_css flavour %}>
+          {% auto_link_css flavour "wger-modal-dialog" %}>
        <img src="{% static 'images/icons/list.svg' %}"
             width="32"
             height="32"
