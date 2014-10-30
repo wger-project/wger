@@ -17,7 +17,7 @@ import csv
 import datetime
 import logging
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -31,7 +31,7 @@ from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
 
-from wger.gym.forms import GymUserAddForm
+from wger.gym.forms import GymUserAddForm, GymUserPermisssionForm
 from wger.gym.helpers import get_user_last_activity, is_any_gym_admin
 from wger.gym.models import Gym
 from wger.gym.models import GymAdminConfig
@@ -161,6 +161,65 @@ def gym_new_user_info_export(request):
     response['Content-Disposition'] = 'attachment; filename={0}'.format(filename)
     response['Content-Length'] = len(response.content)
     return response
+
+
+@login_required
+@permission_required('gym.manage_gym')
+def gym_permissions_user_edit(request, user_pk):
+    '''
+    Edits the permissions of a gym member
+    '''
+    user = User.objects.get(pk=user_pk)
+
+    if user.userprofile.gym != user.userprofile.gym:
+        return HttpResponseForbidden()
+
+    if request.method == 'POST':
+        form = GymUserPermisssionForm(request.POST)
+
+        if form.is_valid():
+
+            # Remove the user from all gym permission groups
+            user.groups.remove(Group.objects.get(name='gym_member'))
+            user.groups.remove(Group.objects.get(name='gym_trainer'))
+            user.groups.remove(Group.objects.get(name='gym_manager'))
+            user.groups.remove(Group.objects.get(name='general_gym_manager'))
+
+            # Set appropriate permission groups
+            if 'user' in form.cleaned_data['role']:
+                user.groups.add(Group.objects.get(name='gym_member'))
+            if 'trainer' in form.cleaned_data['role']:
+                user.groups.add(Group.objects.get(name='gym_trainer'))
+            if 'admin' in form.cleaned_data['role']:
+                user.groups.add(Group.objects.get(name='gym_manager'))
+            if 'manager' in form.cleaned_data['role']:
+                user.groups.add(Group.objects.get(name='general_gym_manager'))
+
+            return HttpResponseRedirect(reverse('gym:gym:user-list',
+                                                kwargs={'pk': user.userprofile.gym.pk}))
+    else:
+        initial_data = {}
+        if user.groups.filter(name='gym_member').exists():
+            initial_data['user'] = True
+
+        if user.groups.filter(name='gym_trainer').exists():
+            initial_data['trainer'] = True
+
+        if user.groups.filter(name='gym_manager').exists():
+            initial_data['admin'] = True
+
+        if user.groups.filter(name='general_gym_manager').exists():
+            initial_data['manager'] = True
+
+        form = GymUserPermisssionForm(initial={'role': initial_data})
+
+    context = {}
+    context['title'] = user.get_full_name()
+    context['form'] = form
+    context['form_action'] = reverse('gym:gym:edit-user-permission', kwargs={'user_pk': user.pk})
+    context['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
+
+    return render(request, 'form.html', context)
 
 
 class GymAddUserView(WgerFormMixin, CreateView):

@@ -67,6 +67,9 @@ $(document).ready( function () {
     <th style="width: 10%;">{% trans "ID" %}</th>
     <th style="width: 40%;">{% trans "Username" %}</th>
     <th>{% trans "Name" %}</th>
+    {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
+        <th>{% trans "Actions" %}</th>
+    {% endif %}
 </tr>
 </thead>
 <tbody>
@@ -94,11 +97,19 @@ $(document).ready( function () {
     <td>
         {{current_user.obj.get_full_name}}
     </td>
+
+    {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
+    <td style="text-align: right;">
+        <a href="{% url 'gym:gym:edit-user-permission' current_user.obj.pk %}" class="btn btn-default btn-xs wger-modal-dialog">
+            <span class="glyphicon glyphicon-wrench"></span>
+        </a>
+    </td>
+    {% endif %}
 </tr>
 {% endif %}
 {% empty %}
 <tr>
-    <td colspan="2">{% trans "No users for this gym found" %}</td>
+    <td colspan="3">{% trans "No users for this gym found" %}</td>
 </tr>
 {% endfor %}
 </tbody>

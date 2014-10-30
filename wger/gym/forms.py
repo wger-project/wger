@@ -20,9 +20,9 @@ from django.utils.translation import ugettext as _
 from wger.core.forms import UserPersonalInformationForm
 
 
-class GymUserAddForm(UserPersonalInformationForm):
+class GymUserPermisssionForm(forms.ModelForm):
     '''
-    Form used when adding a user to a gym
+    Form used to set the permission group of a gym member
     '''
     USER = 'user'
     GYM_ADMIN = 'admin'
@@ -35,8 +35,23 @@ class GymUserAddForm(UserPersonalInformationForm):
         (MANAGER, _('General manager')),
     )
 
+    class Meta:
+        model = User
+        fields = ('role',)
+
     role = forms.MultipleChoiceField(choices=ROLES,
                                      initial=USER)
+
+
+class GymUserAddForm(GymUserPermisssionForm, UserPersonalInformationForm):
+    '''
+    Form used when adding a user to a gym
+    '''
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'username', 'email', 'role',)
+
     username = forms.RegexField(label=_("Username"),
                                 max_length=30,
                                 regex=r'^[\w.@+-]+$',
@@ -45,10 +60,6 @@ class GymUserAddForm(UserPersonalInformationForm):
                                 error_messages={
                                 'invalid': _("This value may contain only letters, numbers and "
                                              "@/.//-/_ characters.")})
-
-    class Meta:
-        model = User
-        fields = ('first_name', 'last_name', 'username', 'email', 'role',)
 
     def clean_username(self):
         '''

@@ -50,6 +50,9 @@ patterns_gym = patterns('',
     url(r'^(?P<pk>\d+)/delete$',
         gym.GymDeleteView.as_view(),
         name='delete'),
+    url(r'^user/(?P<user_pk>\d+)/permission-edit$',
+        gym.gym_permissions_user_edit,
+        name='edit-user-permission'),
 )
 
 # 'sub patterns' for gym config
