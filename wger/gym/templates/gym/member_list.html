@@ -68,7 +68,7 @@ $(document).ready( function () {
     <th style="width: 40%;">{% trans "Username" %}</th>
     <th>{% trans "Name" %}</th>
     {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
-        <th>{% trans "Actions" %}</th>
+        <th style="text-align: right;">{% trans "Roles" %}</th>
     {% endif %}
 </tr>
 </thead>
@@ -192,7 +192,7 @@ $(document).ready( function () {
 <table class="table">
     <tr>
         <th>{% trans "Inactive members" %}</th>
-        <td>{{gym.config.weeks_inactive}} {% trans 'weeks' %}</td>
+        <td style="text-align: right;">{{gym.config.weeks_inactive}} {% trans 'weeks' %}</td>
     </tr>
 </table>
 
@@ -206,7 +206,8 @@ $(document).ready( function () {
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu" role="menu">        <li>
+    <ul class="dropdown-menu" role="menu">
+        <li>
             <a href="{% url 'gym:admin_config:edit' user.gymadminconfig.id %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
         </li>
     </ul>
@@ -216,7 +217,7 @@ $(document).ready( function () {
 <table class="table">
     <tr>
         <th>{% trans "Overview inactive members" %}</th>
-        <td>
+        <td style="text-align: right;">
             {% if user.gymadminconfig.overview_inactive %}
                 <span class="glyphicon glyphicon-ok"></span>
             {% else %}
