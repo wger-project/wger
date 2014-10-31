@@ -40,6 +40,7 @@ LANGUAGES = (
             ('es', 'Spanish'),
             ('ru', 'Russian'),
             ('nl', 'Dutch'),
+            ('pt', 'Portuguese'),
 )
 
 # Default language code for this installation. All choices can be found here:
