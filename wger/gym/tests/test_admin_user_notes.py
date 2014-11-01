@@ -14,6 +14,7 @@
 
 from django.core.urlresolvers import reverse_lazy
 
+from wger.manager.tests.testcase import delete_testcase_add_methods
 from wger.manager.tests.testcase import WorkoutManagerAccessTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
@@ -85,13 +86,14 @@ class DeleteAdminNoteTestCase(WorkoutManagerDeleteTestCase):
     pk = 2
     object_class = AdminUserNote
     url = 'gym:admin_note:delete'
-    user_success = 'trainer1'
-    # user_success = ('trainer1',
-    #                'trainer2',
-    #                'trainer3')
+    user_success = ('trainer1',
+                    'trainer2',
+                    'trainer3')
     user_fail = ('member1',
                  'manager1',
                  'manager2',
                  'trainer4',
                  'general_manager1',
                  'general_manager2')
+
+delete_testcase_add_methods(DeleteAdminNoteTestCase)

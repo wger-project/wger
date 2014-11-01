@@ -52,6 +52,30 @@ def get_user_list(users):
         return [users]
 
 
+def delete_testcase_add_methods(cls):
+    '''
+    Helper function that dynamically adds test methods.
+
+    This is a bit of a hack, but it's the easiest way of making sure that
+    all the setup and teardown work is performed for each test user (and,
+    most importantly for us, that the database is reseted every time).
+
+    This must be called if the testcase has more than one success user
+    '''
+
+    for user in get_user_list(cls.user_fail):
+        def test_unauthorized(self):
+            self.user_login(user)
+            self.delete_object(fail=False)
+        setattr(cls, 'test_unauthorized_{0}'.format(user), test_unauthorized)
+
+    for user in get_user_list(cls.user_success):
+        def test_authorized(self):
+            self.user_login(user)
+            self.delete_object(fail=False)
+        setattr(cls, 'test_authorized_{0}'.format(user), test_authorized)
+
+
 class BaseTestCase(object):
     '''
     Base test case.
@@ -193,9 +217,9 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
     GET will only show a confirmation dialog.
     '''
 
-    object_class = ''
-    url = ''
     pk = None
+    url = ''
+    object_class = ''
 
     def delete_object(self, fail=False):
         '''
@@ -241,24 +265,21 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
         '''
         Tests deleting the object as an anonymous user
         '''
-
         self.delete_object(fail=True)
 
     def test_delete_object_authorized(self):
         '''
-        Tests deleting the object as the authorized users
+        Tests deleting the object as the authorized user
         '''
-
-        for user in get_user_list(self.user_success):
-            self.user_login(user)
+        if not isinstance(self.user_success, tuple):
+            self.user_login(self.user_success)
             self.delete_object(fail=False)
 
     def test_delete_object_other(self):
         '''
         Tests deleting the object as the unauthorized, logged in users
         '''
-
-        if self.user_fail:
+        if self.user_fail and not isinstance(self.user_success, tuple):
             for user in get_user_list(self.user_fail):
                 self.user_login(user)
                 self.delete_object(fail=True)

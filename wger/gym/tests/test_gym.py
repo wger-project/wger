@@ -16,6 +16,7 @@ from django.core.urlresolvers import reverse_lazy
 
 from wger.core.models import UserProfile
 from wger.gym.models import Gym
+from wger.manager.tests.testcase import delete_testcase_add_methods
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAccessTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
@@ -84,6 +85,18 @@ class DeleteGymTestCase(WorkoutManagerDeleteTestCase):
     pk = 2
     object_class = Gym
     url = 'gym:gym:delete'
+    user_success = ('admin',
+                    'general_manager1',
+                    'general_manager2')
+    user_fail = ('member1',
+                 'member2',
+                 'trainer2',
+                 'trainer3',
+                 'trainer4',
+                 'manager1',
+                 'manager3')
+
+delete_testcase_add_methods(DeleteGymTestCase)
 
 
 class EditGymTestCase(WorkoutManagerEditTestCase):
