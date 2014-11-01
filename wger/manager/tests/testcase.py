@@ -42,6 +42,16 @@ def get_reverse(url, kwargs={}):
     return url
 
 
+def get_user_list(users):
+    '''
+    Helper function that returns a list with users to test
+    '''
+    if isinstance(users, tuple):
+        return users
+    else:
+        return [users]
+
+
 class BaseTestCase(object):
     '''
     Base test case.
@@ -238,12 +248,8 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
         '''
         Tests deleting the object as the authorized users
         '''
-        if isinstance(self.user_success, tuple):
-            users = self.user_success
-        else:
-            users = [self.user_success]
 
-        for user in users:
+        for user in get_user_list(self.user_success):
             self.user_login(user)
             self.delete_object(fail=False)
 
@@ -253,12 +259,7 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
         '''
 
         if self.user_fail:
-            if isinstance(self.user_fail, tuple):
-                users = self.user_fail
-            else:
-                users = [self.user_fail]
-
-            for user in users:
+            for user in get_user_list(self.user_fail):
                 self.user_login(user)
                 self.delete_object(fail=True)
 
@@ -329,12 +330,7 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
         '''
         Tests editing the object as the authorized users
         '''
-        if isinstance(self.user_success, tuple):
-            users = self.user_success
-        else:
-            users = [self.user_success]
-
-        for user in users:
+        for user in get_user_list(self.user_success):
             self.user_login(user)
             self.edit_object(fail=False)
 
@@ -343,12 +339,7 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
         Tests editing the object as the unauthorized, logged in users
         '''
         if self.user_fail:
-            if isinstance(self.user_fail, tuple):
-                users = self.user_fail
-            else:
-                users = [self.user_fail]
-
-            for user in users:
+            for user in get_user_list(self.user_fail):
                 self.user_login(user)
                 self.edit_object(fail=True)
 
@@ -427,12 +418,7 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
         Tests adding the object as the authorized users
         '''
 
-        if isinstance(self.user_success, tuple):
-            users = self.user_success
-        else:
-            users = [self.user_success]
-
-        for user in users:
+        for user in get_user_list(self.user_success):
             self.user_login(user)
             self.add_object(fail=False)
 
@@ -442,12 +428,7 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
         '''
 
         if self.user_fail:
-            if isinstance(self.user_fail, tuple):
-                users = self.user_fail
-            else:
-                users = [self.user_fail]
-
-            for user in users:
+            for user in get_user_list(self.user_fail):
                 self.user_login(self.user_fail)
                 self.add_object(fail=True)
 
@@ -497,12 +478,7 @@ class WorkoutManagerAccessTestCase(WorkoutManagerTestCase):
         Tests accessing the URL as the authorized users
         '''
 
-        if isinstance(self.user_success, tuple):
-            users = self.user_success
-        else:
-            users = [self.user_success]
-
-        for user in users:
+        for user in get_user_list(self.user_success):
             self.user_login(user)
             self.access(fail=False)
 
@@ -511,12 +487,7 @@ class WorkoutManagerAccessTestCase(WorkoutManagerTestCase):
         Tests accessing the URL as the unauthorized, logged in users
         '''
 
-        if isinstance(self.user_fail, tuple):
-            users = self.user_fail
-        else:
-            users = [self.user_fail]
-
-        for user in users:
+        for user in get_user_list(self.user_fail):
             self.user_login(user)
             self.access(fail=True)
             self.user_logout()
