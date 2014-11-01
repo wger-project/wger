@@ -242,6 +242,7 @@
 {#             #}
 {# Admin notes #}
 {#             #}
+{% if perms.gym.add_adminusernote %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
@@ -255,7 +256,6 @@
         </li>
     </ul>
 </div>
-
 
 <h4>{% trans "Notes" %}</h4>
 <table class="table">
@@ -276,10 +276,12 @@
     </tr>
     {% endfor %}
 </table>
+{% endif %}
 
 {#                   #}
 {# Gym configuration #}
 {#                   #}
+{% if perms.gym.change_gymuserconfig %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
@@ -291,7 +293,7 @@
         </li>
     </ul>
 </div>
-
+{% endif %}
 
 <h4>{% trans "Configuration" %}</h4>
 <table class="table">

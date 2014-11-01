@@ -175,7 +175,7 @@ $(document).ready( function () {
 {#                   #}
 {# Gym configuration #}
 {#                   #}
-{% if perms.gym.change_gym %}
+{% if perms.gym.change_gymconfig %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
@@ -234,7 +234,7 @@ $(document).ready( function () {
 {#               #}
 {# Other options #}
 {#               #}
-{% if perms.gym.manage_gym %}
+{% if perms.gym.manage_gym or perms.gym.manage_gyms %}
 <h4>{% trans "Options" %}</h4>
 <p>
    <a href="{% url 'gym:gym:add-user' gym.pk %}"

@@ -17,7 +17,7 @@ import csv
 import datetime
 import logging
 
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -118,11 +118,15 @@ def gym_new_user_info(request):
     '''
     Shows info about a newly created user
     '''
-    if not request.user.has_perm('gym.manage_gym'):
+    if not request.user.is_authenticated():
         return HttpResponseForbidden()
 
     if not request.session.get('gym.user'):
         return HttpResponseRedirect(reverse('gym:gym:list'))
+
+    if not request.user.has_perm('gym.manage_gyms') \
+            and not request.user.has_perm('gym.manage_gym'):
+        return HttpResponseForbidden()
 
     context = {'new_user': get_object_or_404(User, pk=request.session['gym.user']['user_pk']),
                'password': request.session['gym.user']['password']}
@@ -134,11 +138,15 @@ def gym_new_user_info_export(request):
     '''
     Exports the info of newly created user
     '''
-    if not request.user.has_perm('gym.manage_gym'):
+    if not request.user.is_authenticated():
         return HttpResponseForbidden()
 
     if not request.session.get('gym.user'):
         return HttpResponseRedirect(reverse('gym:gym:list'))
+
+    if not request.user.has_perm('gym.manage_gyms') \
+            and not request.user.has_perm('gym.manage_gym'):
+        return HttpResponseForbidden()
 
     new_user = get_object_or_404(User, pk=request.session['gym.user']['user_pk'])
     new_username = new_user.username
@@ -163,15 +171,21 @@ def gym_new_user_info_export(request):
     return response
 
 
-@login_required
-@permission_required('gym.manage_gym')
 def gym_permissions_user_edit(request, user_pk):
     '''
     Edits the permissions of a gym member
     '''
-    user = User.objects.get(pk=user_pk)
+    user = get_object_or_404(User, pk=user_pk)
 
-    if user.userprofile.gym != user.userprofile.gym:
+    if not request.user.is_authenticated():
+        return HttpResponseForbidden()
+
+    if not request.user.has_perm('gym.manage_gyms') \
+            and not request.user.has_perm('gym.manage_gym'):
+        return HttpResponseForbidden()
+
+    if request.user.has_perm('gym.manage_gym') \
+            and request.user.userprofile.gym != user.userprofile.gym:
         return HttpResponseForbidden()
 
     if request.method == 'POST':
@@ -230,7 +244,7 @@ class GymAddUserView(WgerFormMixin, CreateView):
     model = User
     title = ugettext_lazy('Add user to gym')
     success_url = reverse_lazy('gym:gym:new-user-data')
-    permission_required = 'gym.manage_gym'
+    permission_required = ('gym.manage_gym', 'gym.manage_gyms')
     form_class = GymUserAddForm
 
     def get_initial(self):
@@ -246,10 +260,15 @@ class GymAddUserView(WgerFormMixin, CreateView):
         if not request.user.is_authenticated():
             return HttpResponseForbidden()
 
-        gym_id = request.user.userprofile.gym_id
-        if request.user.has_perm('gym.manage_gym') and gym_id == int(self.kwargs['gym_pk']):
-            return super(GymAddUserView, self).dispatch(request, *args, **kwargs)
-        return HttpResponseForbidden()
+        if not request.user.has_perm('gym.manage_gyms') \
+                and not request.user.has_perm('gym.manage_gym'):
+            return HttpResponseForbidden()
+
+        if request.user.has_perm('gym.manage_gym') \
+                and request.user.userprofile.gym_id != int(self.kwargs['gym_pk']):
+            return HttpResponseForbidden()
+
+        return super(GymAddUserView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         '''
@@ -320,8 +339,7 @@ class GymUpdateView(WgerFormMixin, UpdateView):
             return HttpResponseForbidden()
 
         if request.user.has_perm('gym.manage_gym'):
-            gym_id = request.user.userprofile.gym_id
-            if gym_id != int(self.kwargs['pk']):
+            if request.user.userprofile.gym_id != int(self.kwargs['pk']):
                 return HttpResponseForbidden()
         return super(GymUpdateView, self).dispatch(request, *args, **kwargs)
 

@@ -12,14 +12,18 @@
     {% for note in adminusernote_list %}
     <li class="list-group-item ">
         <div class="pull-right">
+            {% if perms.gym.delete_adminusernote %}
             <a href="{% url 'gym:admin_note:delete' note.pk %}"
                class="btn btn-danger btn-xs wger-modal-dialog">
                 {% trans 'Delete' %}
             </a>
+            {% endif %}
+            {% if perms.gym.change_adminusernote %}
             <a href="{% url 'gym:admin_note:edit' note.pk %}"
                class="btn btn-default btn-xs wger-modal-dialog">
                 {% trans 'Edit' %}
             </a>
+            {% endif %}
         </div>
 
         <h4 class="list-group-item-heading">{{ note.timestamp_created }} - {{ note.user|format_username }}</h4>
@@ -34,6 +38,7 @@
 
 {% block sidebar %}
 <h4>{% trans "Options" %}</h4>
+{% if perms.gym.add_adminusernote %}
 <p>
        <a href="{% url 'gym:admin_note:add' member.pk %}"
           {% auto_link_css flavour "wger-modal-dialog" %}>
@@ -45,6 +50,7 @@
        {% trans "Add" %}
        </a>
 </p>
+{% endif %}
 
 <p>
     <a href="{% url 'core:user-overview' member.pk %}" {% auto_link_css flavour %}>

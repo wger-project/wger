@@ -30,7 +30,8 @@ class GymOverviewTest(WorkoutManagerAccessTestCase):
     url = 'gym:gym:list'
     anonymous_fail = True
     user_success = ('admin',
-                    'general_manager1')
+                    'general_manager1',
+                    'general_manager2')
     user_fail = ('member1',
                  'member2',
                  'trainer2',
@@ -49,7 +50,8 @@ class GymUserOverviewTest(WorkoutManagerAccessTestCase):
                     'trainer2',
                     'trainer3',
                     'manager1',
-                    'general_manager1')
+                    'general_manager1',
+                    'general_manager2')
     user_fail = ('member1',
                  'member2',
                  'trainer4',
@@ -96,7 +98,8 @@ class EditGymTestCase(WorkoutManagerEditTestCase):
     data = {'name': 'A different name'}
     user_success = ('admin',
                     'manager1',
-                    'general_manager1')
+                    'general_manager1',
+                    'general_manager2')
     user_fail = ('member1',
                  'member2',
                  'trainer2',

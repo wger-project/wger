@@ -22,7 +22,7 @@ from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.gym.models import AdminUserNote
 
 
-class GymOverviewTest(WorkoutManagerAccessTestCase):
+class AdminNoteOverviewTest(WorkoutManagerAccessTestCase):
     '''
     Tests accessing the gym overview page
     '''
@@ -35,10 +35,11 @@ class GymOverviewTest(WorkoutManagerAccessTestCase):
                  'manager1',
                  'manager2',
                  'trainer4',
-                 'general_manager1')
+                 'general_manager1',
+                 'general_manager2')
 
 
-class AddGymTestCase(WorkoutManagerAddTestCase):
+class AddAdminNoteTestCase(WorkoutManagerAddTestCase):
     '''
     Tests adding a new gym
     '''
@@ -53,10 +54,11 @@ class AddGymTestCase(WorkoutManagerAddTestCase):
                  'manager1',
                  'manager2',
                  'trainer4',
-                 'general_manager1')
+                 'general_manager1',
+                 'general_manager2')
 
 
-class EditConfigTestCase(WorkoutManagerEditTestCase):
+class EditAdminNoteTestCase(WorkoutManagerEditTestCase):
     '''
     Tests editing an admin config
     '''
@@ -71,11 +73,12 @@ class EditConfigTestCase(WorkoutManagerEditTestCase):
                  'manager1',
                  'manager2',
                  'trainer4',
-                 'general_manager1')
+                 'general_manager1',
+                 'general_manager2')
     data = {'note': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr'}
 
 
-class DeleteGymTestCase(WorkoutManagerDeleteTestCase):
+class DeleteAdminNoteTestCase(WorkoutManagerDeleteTestCase):
     '''
     Tests deleting a gym
     '''
@@ -91,4 +94,5 @@ class DeleteGymTestCase(WorkoutManagerDeleteTestCase):
                  'manager1',
                  'manager2',
                  'trainer4',
-                 'general_manager1')
+                 'general_manager1',
+                 'general_manager2')

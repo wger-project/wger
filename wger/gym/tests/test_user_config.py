@@ -31,7 +31,8 @@ class EditConfigTestCase(WorkoutManagerEditTestCase):
                     'trainer2',
                     'trainer3',
                     'admin')
-    user_fail = ('general_manager1'
+    user_fail = ('general_manager1',
+                 'general_manager2',
                  'member1',
                  'member2',
                  'trainer4',

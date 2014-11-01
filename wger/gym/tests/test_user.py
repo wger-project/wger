@@ -66,16 +66,37 @@ class GymAddUserTestCase(WorkoutManagerTestCase):
 
     def test_add_user_authorized(self):
         '''
-        Tests adding a user as an administrator
+        Tests adding a user as authorized user
         '''
         self.user_login('admin')
         self.add_user()
 
+    def test_add_user_authorized2(self):
+        '''
+        Tests adding a user as authorized user
+        '''
+        self.user_login('general_manager1')
+        self.add_user()
+
     def test_add_user_unauthorized(self):
         '''
-        Tests adding a user a different user
+        Tests adding a user an unauthorized user
         '''
         self.user_login('test')
+        self.add_user(fail=True)
+
+    def test_add_user_unauthorized2(self):
+        '''
+        Tests adding a user an unauthorized user
+        '''
+        self.user_login('trainer1')
+        self.add_user(fail=True)
+
+    def test_add_user_unauthorized3(self):
+        '''
+        Tests adding a user an unauthorized user
+        '''
+        self.user_login('manager3')
         self.add_user(fail=True)
 
     def test_add_user_logged_out(self):
