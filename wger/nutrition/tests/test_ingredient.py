@@ -77,7 +77,6 @@ class AddIngredientTestCase(WorkoutManagerAddTestCase):
 
     object_class = Ingredient
     url = 'ingredient-add'
-    pk = 5371
     user_fail = False
     data = {'name': 'A new ingredient',
             'sodium': 2,
@@ -96,11 +95,11 @@ class AddIngredientTestCase(WorkoutManagerAddTestCase):
         Test that the creation date and the status are correctly set
         '''
         if self.current_user == 'admin':
-            ingredient = Ingredient.objects.get(pk=self.pk)
+            ingredient = Ingredient.objects.get(pk=self.pk_after)
             self.assertEqual(ingredient.creation_date, datetime.date.today())
             self.assertEqual(ingredient.status, Ingredient.INGREDIENT_STATUS_ADMIN)
         elif self.current_user == 'test':
-            ingredient = Ingredient.objects.get(pk=self.pk)
+            ingredient = Ingredient.objects.get(pk=self.pk_after)
             self.assertEqual(ingredient.status, Ingredient.INGREDIENT_STATUS_PENDING)
 
 

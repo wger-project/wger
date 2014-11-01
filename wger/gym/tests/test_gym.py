@@ -62,7 +62,6 @@ class AddGymTestCase(WorkoutManagerAddTestCase):
     '''
     Tests adding a new gym
     '''
-    pk = 4
     object_class = Gym
     url = 'gym:gym:add'
     data = {'name': 'The name here'}

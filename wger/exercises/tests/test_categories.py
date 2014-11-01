@@ -55,7 +55,6 @@ class AddExerciseCategoryTestCase(WorkoutManagerAddTestCase):
 
     object_class = ExerciseCategory
     url = 'exercisecategory-add'
-    pk = 5
     data = {'name': 'A new category'}
 
 

@@ -39,7 +39,6 @@ class SetAddTestCase(WorkoutManagerAddTestCase):
 
     object_class = Set
     url = reverse_lazy('set-add', kwargs={'day_pk': 5})
-    pk = 4
     user_success = 'test'
     user_fail = 'admin'
     data = {'exercises': [1, ],

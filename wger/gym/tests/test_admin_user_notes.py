@@ -43,7 +43,6 @@ class AddAdminNoteTestCase(WorkoutManagerAddTestCase):
     '''
     Tests adding a new gym
     '''
-    pk = 3
     object_class = AdminUserNote
     url = reverse_lazy('gym:admin_note:add', kwargs={'user_pk': 14})
     data = {'note': 'The note text goes here'}

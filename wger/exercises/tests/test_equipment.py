@@ -37,7 +37,6 @@ class AddEquipmentTestCase(WorkoutManagerAddTestCase):
     object_class = Equipment
     url = 'equipment-add'
     data = {'name': 'A new equipment'}
-    pk = 4
 
 
 class DeleteEquipmentTestCase(WorkoutManagerDeleteTestCase):

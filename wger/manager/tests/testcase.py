@@ -362,7 +362,8 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
 
     object_class = ''
     url = ''
-    pk = None
+    pk_before = None
+    pk_after = None
     anonymous_fail = True
     data = {}
     data_ignore = ()
@@ -387,27 +388,25 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
 
         # Enter the data
         count_before = self.object_class.objects.count()
+        self.pk_before = self.object_class.objects.all().order_by('id').last().pk
         response = self.client.post(get_reverse(self.url), self.data)
-
         count_after = self.object_class.objects.count()
+        self.pk_after = self.object_class.objects.all().order_by('id').last().pk
+
         if fail:
             self.assertIn(response.status_code, STATUS_CODES_FAIL)
-            self.assertTemplateUsed('login.html')
-
-            self.assertRaises(self.object_class.DoesNotExist,
-                              self.object_class.objects.get,
-                              pk=self.pk)
+            self.assertEqual(self.pk_before, self.pk_after)
             self.assertEqual(count_before, count_after)
 
         else:
             self.assertEqual(response.status_code, 302)
-            entry = self.object_class.objects.get(pk=self.pk)
+            self.assertGreater(self.pk_after, self.pk_before)
+            entry = self.object_class.objects.get(pk=self.pk_after)
 
             # Check that the data is correct
-            for i in self.data:
-                if i not in self.data_ignore:
-                    current_field = getattr(entry, i)
-                    self.compare_fields(current_field, self.data[i])
+            for i in [j for j in self.data if j not in self.data_ignore]:
+                current_field = getattr(entry, i)
+                self.compare_fields(current_field, self.data[i])
 
             self.assertEqual(count_before + 1, count_after)
 

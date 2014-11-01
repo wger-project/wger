@@ -28,7 +28,6 @@ class CreateScheduleStepTestCase(WorkoutManagerAddTestCase):
 
     object_class = ScheduleStep
     url = reverse_lazy('step-add', kwargs={'schedule_pk': 1})
-    pk = 5
     user_success = 'test'
     user_fail = False
     data = {'workout': 3,

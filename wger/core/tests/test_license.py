@@ -40,7 +40,6 @@ class AddLicenseTestCase(WorkoutManagerAddTestCase):
     url = 'core:license-add'
     data = {'full_name': 'Something here',
             'short_name': 'SH'}
-    pk = 3
 
 
 class DeleteLicenseTestCase(WorkoutManagerDeleteTestCase):

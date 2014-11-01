@@ -33,7 +33,6 @@ class AddMuscleTestCase(WorkoutManagerAddTestCase):
 
     object_class = Muscle
     url = 'muscle-add'
-    pk = 4
     data = {'name': 'A new muscle',
             'is_front': True}
 
