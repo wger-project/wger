@@ -351,6 +351,21 @@
                     "change_gymuserconfig", 
                     "gym", 
                     "gymuserconfig"
+                ], 
+                [
+                    "add_userdocument", 
+                    "gym", 
+                    "userdocument"
+                ], 
+                [
+                    "change_userdocument", 
+                    "gym", 
+                    "userdocument"
+                ], 
+                [
+                    "delete_userdocument", 
+                    "gym", 
+                    "userdocument"
                 ]
             ]
         }

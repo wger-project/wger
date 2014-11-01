@@ -25,10 +25,10 @@ from django.views.generic import DeleteView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
 
-from wger.gym.models import AdminUserNote
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
+from wger.gym.models import UserDocument
 
 
 logger = logging.getLogger('wger.custom')
@@ -38,16 +38,16 @@ class ListView(WgerPermissionMixin, ListView):
     '''
     Overview of all available admin notes
     '''
-    model = AdminUserNote
-    permission_required = 'gym.add_adminusernote'
-    template_name = 'admin_notes/list.html'
+    model = UserDocument
+    permission_required = 'gym.add_userdocument'
+    template_name = 'document/list.html'
     member = None
 
     def get_queryset(self):
         '''
-        Only notes for current user
+        Only documents for current user
         '''
-        return AdminUserNote.objects.filter(member_id=self.kwargs['user_pk'])
+        return UserDocument.objects.filter(member_id=self.kwargs['user_pk'])
 
     def dispatch(self, request, *args, **kwargs):
         '''
@@ -67,7 +67,7 @@ class ListView(WgerPermissionMixin, ListView):
         Send some additional data to the template
         '''
         context = super(ListView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('gym:admin_note:add',
+        context['form_action'] = reverse('gym:document:add',
                                          kwargs={'user_pk': self.kwargs['user_pk']})
         context['member'] = self.member
         return context
@@ -75,31 +75,30 @@ class ListView(WgerPermissionMixin, ListView):
 
 class AddView(WgerFormMixin, CreateView):
     '''
-    View to add a new admin note
+    View to add a new document
     '''
 
-    model = AdminUserNote
+    model = UserDocument
     title = ugettext_lazy('Add note')
-    permission_required = 'gym.add_adminusernote'
+    permission_required = 'gym.add_userdocument'
     member = None
 
     def get_success_url(self):
         '''
         Redirect back to user page
         '''
-        return reverse('gym:admin_note:list', kwargs={'user_pk': self.member.pk})
+        return reverse('gym:document:list', kwargs={'user_pk': self.member.pk})
 
     def dispatch(self, request, *args, **kwargs):
         '''
-        Can only add notes to users in own gym
+        Can only add documents to users in own gym
         '''
         if not request.user.is_authenticated():
             return HttpResponseForbidden()
 
         user = User.objects.get(pk=self.kwargs['user_pk'])
         self.member = user
-        gym_id = user.userprofile.gym_id
-        if gym_id != request.user.userprofile.gym_id:
+        if user.userprofile.gym_id != request.user.userprofile.gym_id:
             return HttpResponseForbidden()
         return super(AddView, self).dispatch(request, *args, **kwargs)
 
@@ -107,6 +106,9 @@ class AddView(WgerFormMixin, CreateView):
         '''
         Set user instances
         '''
+        form.instance.original_name = form.cleaned_data['document'].name
+        if not form.cleaned_data['name']:
+            form.instance.name = form.cleaned_data['document'].name
         form.instance.member = self.member
         form.instance.user = self.request.user
         return super(AddView, self).form_valid(form)
@@ -116,25 +118,26 @@ class AddView(WgerFormMixin, CreateView):
         Send some additional data to the template
         '''
         context = super(AddView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('gym:admin_note:add',
+        context['enctype'] = 'multipart/form-data'
+        context['form_action'] = reverse('gym:document:add',
                                          kwargs={'user_pk': self.kwargs['user_pk']})
         return context
 
 
 class UpdateView(WgerFormMixin, UpdateView):
     '''
-    View to update an existing admin note
+    View to update an existing document
     '''
 
-    model = AdminUserNote
-    permission_required = 'gym.change_adminusernote'
+    model = UserDocument
+    permission_required = 'gym.change_userdocument'
 
     def get_success_url(self):
         '''
         Redirect back to user page
         '''
-        return reverse('gym:admin_note:list', kwargs={'user_pk':
-                                                      self.object.member.pk})
+        return reverse('gym:document:list', kwargs={'user_pk':
+                                                    self.object.member.pk})
 
     def dispatch(self, request, *args, **kwargs):
         '''
@@ -154,28 +157,28 @@ class UpdateView(WgerFormMixin, UpdateView):
         Send some additional data to the template
         '''
         context = super(UpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('gym:admin_note:edit', kwargs={'pk': self.object.id})
+        context['form_action'] = reverse('gym:document:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit {0}'.format(self.object))
         return context
 
 
 class DeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
-    View to delete an existing admin note
+    View to delete an existing document
     '''
 
-    model = AdminUserNote
-    permission_required = 'gym.delete_adminusernote'
+    model = UserDocument
+    permission_required = 'gym.delete_userdocument'
 
     def get_success_url(self):
         '''
         Redirect back to user page
         '''
-        return reverse('gym:admin_note:list', kwargs={'user_pk': self.object.member.pk})
+        return reverse('gym:document:list', kwargs={'user_pk': self.object.member.pk})
 
     def dispatch(self, request, *args, **kwargs):
         '''
-        Only trainers for this gym can delete user notes
+        Only trainers for this gym can delete documents
         '''
         if not request.user.is_authenticated():
             return HttpResponseForbidden()
@@ -191,5 +194,5 @@ class DeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
         '''
         context = super(DeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?'.format(self.object))
-        context['form_action'] = reverse('gym:admin_note:delete', kwargs={'pk': self.kwargs['pk']})
+        context['form_action'] = reverse('gym:document:delete', kwargs={'pk': self.kwargs['pk']})
         return context

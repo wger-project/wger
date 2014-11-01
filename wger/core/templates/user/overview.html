@@ -257,7 +257,7 @@
     </ul>
 </div>
 
-<h4>{% trans "Notes" %}</h4>
+<h4>{% trans "Notes" %} <small>({% trans "last 5" %})</small></h4>
 <table class="table">
     {% for note in admin_notes %}
     <tr>
@@ -277,6 +277,57 @@
     {% endfor %}
 </table>
 {% endif %}
+
+
+
+{#           #}
+{# Documents #}
+{#           #}
+{% if perms.gym.add_userdocument %}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="{% url 'gym:document:list' current_user.pk %}">{% trans "Overview" %}</a>
+        </li>
+        <li>
+            <a href="{% url 'gym:document:add' current_user.pk %}">{% trans "Add"%}</a>
+        </li>
+    </ul>
+</div>
+
+<h4>{% trans "Documents" %} <small>({% trans "last 5" %})</small></h4>
+<table class="table">
+    {% for document in current_user.userdocument_member.all %}
+    <tr>
+        <td>
+            <a href="{{ document.document.url }}"
+               class="btn btn-default btn-xs"
+               title="{% trans 'Download' %}"
+               download="{{ document.original_name }}">
+                <span class="glyphicon glyphicon-download"></span>
+            </a>
+        </td>
+        <td>
+            {{ document.timestamp_created }}
+        </td>
+        <td>
+            {{ document.name }}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td>
+            {% trans "Nothing found" %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+
 
 {#                   #}
 {# Gym configuration #}

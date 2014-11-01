@@ -14,6 +14,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+import uuid
 
 from django.db import models as m
 from django.contrib.auth.models import User
@@ -250,6 +251,87 @@ class AdminUserNote(m.Model):
     '''
     Actual note
     '''
+
+    def get_owner_object(self):
+        '''
+        While the model has a user foreign key, this is editable by all
+        trainers in the gym.
+        '''
+        return None
+
+
+def gym_document_upload_dir(instance, filename):
+    '''
+    Returns the upload target for documents
+    '''
+    return "gym/documents/{0}/{1}/{2}".format(instance.member.userprofile.gym.id,
+                                              instance.member.id,
+                                              uuid.uuid4())
+
+
+class UserDocument(m.Model):
+    '''
+    Model for a document
+    '''
+
+    class Meta:
+        '''
+        Order by time
+        '''
+        ordering = ["-timestamp_created", ]
+
+    user = m.ForeignKey(User,
+                        editable=False,
+                        related_name='userdocument_user')
+    '''
+    User this note belongs to
+    '''
+
+    member = m.ForeignKey(User,
+                          editable=False,
+                          related_name='userdocument_member')
+    '''
+    Gym member this note refers to
+    '''
+
+    timestamp_created = m.DateTimeField(auto_now_add=True)
+    '''
+    Time when this note was created
+    '''
+
+    timestamp_edited = m.DateTimeField(auto_now=True)
+    '''
+    Last time when this note was edited
+    '''
+
+    document = m.FileField(verbose_name=_('Document'),
+                           upload_to=gym_document_upload_dir)
+    '''
+    Uploaded document
+    '''
+
+    original_name = m.CharField(max_length=128,
+                                editable=False)
+    '''
+    Original document name when uploaded
+    '''
+
+    name = m.CharField(max_length=60,
+                       verbose_name=_('Name'),
+                       help_text=_('Will use file name if nothing provided'),
+                       blank=True)
+    '''
+    Name or description
+    '''
+
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        if self.name != self.original_name:
+            return "{} ({})".format(self.name, self.original_name)
+        else:
+            return "{}".format(self.name)
 
     def get_owner_object(self):
         '''

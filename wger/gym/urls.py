@@ -22,6 +22,7 @@ from wger.gym.views import config
 from wger.gym.views import admin_config
 from wger.gym.views import user_config
 from wger.gym.views import admin_notes
+from wger.gym.views import document
 
 
 # 'sub patterns' for gyms
@@ -93,6 +94,22 @@ patterns_admin_notes = patterns('',
         name='delete'),
 )
 
+# 'sub patterns' for user documents
+patterns_documents = patterns('',
+    url(r'^list/user/(?P<user_pk>\d+)$',
+        document.ListView.as_view(),
+        name='list'),
+    url(r'^add/user/(?P<user_pk>\d+)$',
+        document.AddView.as_view(),
+        name='add'),
+    url(r'^(?P<pk>\d+)/edit$',
+        document.UpdateView.as_view(),
+        name='edit'),
+    url(r'^(?P<pk>\d+)/delete$',
+        document.DeleteView.as_view(),
+        name='delete'),
+)
+
 #
 # All patterns for this app
 #
@@ -103,4 +120,5 @@ urlpatterns = patterns('',
     url(r'^admin-config/', include(patterns_adminconfig, namespace="admin_config")),
     url(r'^user-config/', include(patterns_userconfig, namespace="user_config")),
     url(r'^notes/', include(patterns_admin_notes, namespace="admin_note")),
+    url(r'^document/', include(patterns_documents, namespace="document")),
 )

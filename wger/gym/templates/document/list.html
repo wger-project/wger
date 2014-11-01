@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+
+{% block title %}{{ member|format_username }} - {% trans "Documents" %}{% endblock %}
+
+
+{% block content %}
+
+<ul class="list-group">
+    {% for document in userdocument_list %}
+    <li class="list-group-item ">
+        <div class="pull-right">
+            <a href="{{ document.document.url }}"
+               class="btn btn-default btn-xs"
+               download="{{ document.original_name }}">
+                <span class="glyphicon glyphicon-download"></span>
+                {% trans 'Download' %}
+            </a>
+
+            {% if perms.gym.delete_userdocument %}
+            <a href="{% url 'gym:document:delete' document.pk %}"
+               class="btn btn-danger btn-xs wger-modal-dialog">
+                {% trans 'Delete' %}
+            </a>
+            {% endif %}
+            {% if perms.gym.change_userdocument %}
+            <a href="{% url 'gym:document:edit' document.pk %}"
+               class="btn btn-default btn-xs wger-modal-dialog">
+                {% trans 'Edit' %}
+            </a>
+            {% endif %}
+        </div>
+
+        <h4 class="list-group-item-heading">{{ document.timestamp_created }} - {{ document.user|format_username }}</h4>
+        <p class="list-group-item-text">{{ document.name }}</p>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+
+
+
+{% block sidebar %}
+<h4>{% trans "Options" %}</h4>
+{% if perms.gym.add_userdocument %}
+<p>
+       <a href="{% url 'gym:document:add' member.pk %}" {% auto_link_css flavour %}>
+       <img src="{% static 'images/icons/new.svg' %}"
+            width="32"
+            height="32"
+            alt="{% trans 'Add' %}"
+            title="{% trans 'Add' %}">
+       {% trans "Add" %}
+       </a>
+</p>
+{% endif %}
+
+<p>
+    <a href="{% url 'core:user-overview' member.pk %}" {% auto_link_css flavour %}>
+    <img src="{% static 'images/icons/list.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Back' context 'like forward/back not chest/back' %}">
+    {% trans 'Back' context 'like forward/back not chest/back' %}
+</a>
+</p>
+{% endblock %}
