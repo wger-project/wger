@@ -310,10 +310,9 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 302)
 
             # Check that the data is correct
-            for i in self.data:
-                if i not in self.data_ignore:
-                    current_field = getattr(entry_after, i)
-                    self.compare_fields(current_field, self.data[i])
+            for i in [j for j in self.data if j not in self.data_ignore]:
+                current_field = getattr(entry_after, i)
+                self.compare_fields(current_field, self.data[i])
 
             # The page we are redirected to doesn't trigger an error
             response = self.client.get(response['Location'])
