@@ -17,10 +17,12 @@
 
 from django.conf import settings
 from django.db.models.signals import post_save
+from django.db.models.signals import post_delete
 from django.dispatch import receiver
 
 from wger.gym.models import Gym
 from wger.gym.models import GymConfig
+from wger.gym.models import UserDocument
 
 
 @receiver(post_save, sender=Gym)
@@ -34,3 +36,12 @@ def gym_config(sender, instance, created, **kwargs):
     config = GymConfig()
     config.gym = instance
     config.save()
+
+
+@receiver(post_delete, sender=UserDocument)
+def delete_user_document_on_delete(sender, instance, **kwargs):
+    '''
+    Deletes the document from the disk as well
+    '''
+
+    instance.document.delete(save=False)
