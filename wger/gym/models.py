@@ -296,12 +296,12 @@ class UserDocument(m.Model):
 
     timestamp_created = m.DateTimeField(auto_now_add=True)
     '''
-    Time when this note was created
+    Time when this document was created
     '''
 
     timestamp_edited = m.DateTimeField(auto_now=True)
     '''
-    Last time when this note was edited
+    Last time when this document was edited
     '''
 
     document = m.FileField(verbose_name=_('Document'),
