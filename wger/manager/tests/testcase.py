@@ -95,6 +95,7 @@ class BaseTestCase(object):
                 'test-gym-adminconfig.json',
                 'test-gym-userconfig.json',
                 'test-admin-user-notes',
+                'test-gym-user-documents',
                 'test-apikeys',
                 'test-weight-data',
                 'test-equipment',
@@ -296,6 +297,13 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
     pk = None
     data = {}
     data_ignore = ()
+    fileupload = None
+    '''
+    If the form requires a file upload, specify the field name and the file path
+    here in a list or tuple:
+
+    ['fielname', 'path']
+    '''
 
     def edit_object(self, fail=False):
         '''
@@ -318,7 +326,16 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 200)
 
         # Try to edit the object
-        response = self.client.post(get_reverse(self.url, kwargs={'pk': self.pk}), self.data)
+        # Special care if there are any file uploads
+        if self.fileupload:
+            field_name = self.fileupload[0]
+            filepath = self.fileupload[1]
+            with open(filepath, 'rb') as testfile:
+                self.data[field_name] = testfile
+                url = get_reverse(self.url, kwargs={'pk': self.pk})
+                response = self.client.post(url, self.data)
+        else:
+            response = self.client.post(get_reverse(self.url, kwargs={'pk': self.pk}), self.data)
 
         entry_after = self.object_class.objects.get(pk=self.pk)
 
@@ -378,6 +395,13 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
     anonymous_fail = True
     data = {}
     data_ignore = ()
+    fileupload = None
+    '''
+    If the form requires a file upload, specify the field name and the file path
+    here in a list or tuple:
+
+    ['fielname', 'path']
+    '''
 
     def add_object(self, fail=False):
         '''
@@ -400,7 +424,16 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
         # Enter the data
         count_before = self.object_class.objects.count()
         self.pk_before = self.object_class.objects.all().order_by('id').last().pk
-        response = self.client.post(get_reverse(self.url), self.data)
+
+        # Special care if there are any file uploads
+        if self.fileupload:
+            field_name = self.fileupload[0]
+            filepath = self.fileupload[1]
+            with open(filepath, 'rb') as testfile:
+                self.data[field_name] = testfile
+                response = self.client.post(get_reverse(self.url), self.data)
+        else:
+            response = self.client.post(get_reverse(self.url), self.data)
         count_after = self.object_class.objects.count()
         self.pk_after = self.object_class.objects.all().order_by('id').last().pk
 
