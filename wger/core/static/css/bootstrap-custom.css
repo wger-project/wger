@@ -240,5 +240,10 @@ fieldset[disabled] .btn-default.active {
 }
 
 /**************************************************************
- * Header
+ * Headers in sidebar
  **************************************************************/
+ #main-sidebar h4, #main-sidebar .h4,
+ #main-sidebar h5, #main-sidebar .h5,
+ #main-sidebar h6, #main-sidebar .h6 {
+    margin-top: 0px;
+}
