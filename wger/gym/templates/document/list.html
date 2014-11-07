@@ -27,14 +27,18 @@
             {% endif %}
             {% if perms.gym.change_userdocument %}
             <a href="{% url 'gym:document:edit' document.pk %}"
-               class="btn btn-default btn-xs wger-modal-dialog">
+               class="btn btn-default btn-xs">
                 {% trans 'Edit' %}
             </a>
             {% endif %}
         </div>
 
-        <h4 class="list-group-item-heading">{{ document.timestamp_created }} - {{ document.user|format_username }}</h4>
-        <p class="list-group-item-text">{{ document.name }}</p>
+        <h4 class="list-group-item-heading">{{ document.name }}</h4>
+
+        <p class="list-group-item-text">{{ document.timestamp_created }} - {{ document.user|format_username }}</p>
+        {% if document.note %}
+        <p class="list-group-item-text">{{ document.note }}</p>
+        {% endif %}
     </li>
     {% endfor %}
 </ul>

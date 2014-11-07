@@ -324,6 +324,13 @@ class UserDocument(m.Model):
     Name or description
     '''
 
+    note = m.TextField(verbose_name=_('Note'),
+                       blank=True,
+                       null=True)
+    '''
+    Note with additional information
+    '''
+
     def __unicode__(self):
         '''
         Return a more human-readable representation
