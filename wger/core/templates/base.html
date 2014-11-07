@@ -1,4 +1,4 @@
-{% extends "template.html" %}{% load i18n %}{% load wger_extras %}
+{% extends "template.html" %}{% load i18n wger_extras django_bootstrap_breadcrumbs %}
 {% block template %}
 {% if trainer_identity %}
 <div class="alert alert-info" style="margin-top: 1em;">
@@ -19,6 +19,8 @@ browsing the site as the user "{{current_user}}", all actions are performed on h
                 </div>
             {% endfor %}
         {% endif %}
+
+        {% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap3.html" %}
 
         <div id="content">
         {% block content %}{% endblock %}

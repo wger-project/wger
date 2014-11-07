@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-{% load i18n %}
-{% load browserid %}
-{% load staticfiles %}
-{% load wger_extras %}
-{% load compress %}
+{% load i18n browserid staticfiles wger_extras compress django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+    {% clear_breadcrumbs %}
+{% endblock %}
+
 <html lang="{{language.short_name}}">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

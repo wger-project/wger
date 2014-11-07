@@ -1,9 +1,19 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
 
-{% block title %}{{ member|format_username }} - {% trans "Documents" %}{% endblock %}
+{% block title %}{% trans "Documents" %}{% endblock %}
+
+
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% if perms.gym.manage_gyms %}
+        {% breadcrumb "Gyms" "gym:gym:list" %}
+    {% endif %}
+    {% breadcrumb_raw member.userprofile.gym "gym:gym:user-list" member.userprofile.gym.pk %}
+    {% breadcrumb_raw member|format_username "core:user-overview" member.pk %}
+    {% breadcrumb "Documents" "gym:document:list" member.pk %}
+{% endblock %}
 
 
 {% block content %}
@@ -48,8 +58,8 @@
 
 
 {% block sidebar %}
-<h4>{% trans "Options" %}</h4>
 {% if perms.gym.add_userdocument %}
+<h4>{% trans "Options" %}</h4>
 <p>
        <a href="{% url 'gym:document:add' member.pk %}" {% auto_link_css flavour %}>
        <img src="{% static 'images/icons/new.svg' %}"
@@ -61,14 +71,4 @@
        </a>
 </p>
 {% endif %}
-
-<p>
-    <a href="{% url 'core:user-overview' member.pk %}" {% auto_link_css flavour %}>
-    <img src="{% static 'images/icons/list.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Back' context 'like forward/back not chest/back' %}">
-    {% trans 'Back' context 'like forward/back not chest/back' %}
-</a>
-</p>
 {% endblock %}

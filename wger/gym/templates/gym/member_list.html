@@ -1,9 +1,16 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
 
 {% block title %}{{gym}}{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% if perms.gym.manage_gyms %}
+        {% breadcrumb "Gyms" "gym:gym:list" %}
+        {% breadcrumb_raw gym "gym:gym:user_list" gym.pk %}
+    {% endif %}
+{% endblock %}
 
 
 {% block header %}

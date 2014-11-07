@@ -66,6 +66,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
     # Django mobile
     'django_mobile.context_processors.flavour',
+
+    # Breadcrumbs
+    'django.core.context_processors.request'
 )
 
 # Store the user messages in the session
@@ -227,7 +230,10 @@ INSTALLED_APPS = (
 
     # REST framework
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+
+    # Breadcrumbs
+    'django_bootstrap_breadcrumbs',
 )
 
 

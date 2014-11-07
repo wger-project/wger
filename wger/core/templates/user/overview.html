@@ -1,9 +1,18 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
 
-{% block title %}{% trans "User" %}: {{current_user|format_username}}{% endblock %}
+{% block title %}{{current_user|format_username}}{% endblock %}
+
+
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% if perms.gym.manage_gyms %}
+        {% breadcrumb "Gyms" "gym:gym:list" %}
+    {% endif %}
+    {% breadcrumb_raw current_user.userprofile.gym "gym:gym:user-list" current_user.userprofile.gym.pk %}
+    {% breadcrumb_raw current_user|format_username "core:user-overview" current_user.pk %}
+{% endblock %}
 
 
 {% block content %}
@@ -17,7 +26,7 @@
     <th style="width: 20%;">{% trans "Date" %}</th>
     <th>{% trans "Description" %}</th>
     <th>{% trans "Number of logs (days)" %}</th>
-    <th>{% trans "Last log" %}</th>
+    <th>{% trans "Last activity" %}</th>
 </tr>
 </thead>
 <tbody>
@@ -359,14 +368,4 @@
         </td>
     </tr>
 </table>
-
-
-
-<a href="{% url 'gym:gym:user-list' current_user.userprofile.gym.pk %}" {% auto_link_css flavour %}>
-    <img src="{% static 'images/icons/list.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Back to overview' %}">
-{% trans "Back to gym" %}
-</a>
 {% endblock %}
