@@ -25,13 +25,7 @@
     </li>
     {% endfor %}
 </ul>
-{% endblock %}
 
-
-
-
-{% block sidebar %}
-<h4>{% trans "Options" %}</h4>
 {% if perms.core.add_gym %}
 <p>
        <a href="{% url 'gym:gym:add' %}"
@@ -45,18 +39,31 @@
        </a>
 </p>
 {% endif %}
-{% if perms.gym.change_gymconfig %}
-<p>
-       <a href="{% url 'config:gymconfig-edit' %}"
-          {% auto_link_css flavour "wger-modal-dialog" %}>
-       <img src="{% static 'images/icons/list.svg' %}"
-            width="32"
-            height="32"
-            alt="{% trans 'Default gym configuration' %}"
-            title="{% trans 'Default gym configuration' %}">
-       {% trans "Default gym configuration" %}
-       </a>
-</p>
+{% endblock %}
+
+
+
+
+{% block sidebar %}
+{% if perms.config.change_gymconfig %}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="{% url 'config:gymconfig-edit' %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
+        </li>
+    </ul>
+</div>
 {% endif %}
+<h4>{% trans "Global gym configuration" %}</h4>
+<table class="table">
+    <tr>
+        <th>{% trans "Default gym" %}</th>
+        <td>{{ global_gym_config.default_gym|default:"-/-" }}</td>
+    </tr>
+</table>
+
 
 {% endblock %}

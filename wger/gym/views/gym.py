@@ -36,6 +36,7 @@ from wger.gym.helpers import get_user_last_activity, is_any_gym_admin
 from wger.gym.models import Gym
 from wger.gym.models import GymAdminConfig
 from wger.gym.models import GymUserConfig
+from wger.config.models import GymConfig as GlobalGymConfig
 
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
@@ -53,6 +54,14 @@ class GymListView(WgerPermissionMixin, ListView):
     model = Gym
     permission_required = 'gym.manage_gyms'
     template_name = 'gym/list.html'
+
+    def get_context_data(self, **kwargs):
+        '''
+        Pass other info to the template
+        '''
+        context = super(GymListView, self).get_context_data(**kwargs)
+        context['global_gym_config'] = GlobalGymConfig.objects.all().first()
+        return context
 
 
 class GymUserListView(WgerPermissionMixin, ListView):
