@@ -70,7 +70,7 @@ $(document).ready(function() {
                     <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                 </div>
                 <div class="media">
-                    <div style="width:60px;height:60px;" class="pull-left">
+                    <div style="width:60px;height:60px;" class="media-left">
 
                     {% if exercise.main_image %}
                         <img alt="{{ exercise.name }}"
@@ -84,7 +84,7 @@ $(document).ready(function() {
                          src="{% static 'images/icons/image-placeholder.svg' %}">
                     {% endif %}
                     </div>
-                    <div class="media-body">
+                    <div class="media-body" style="position: absolute; top: 10px; left: 100px;">
                         <h4 class="media-heading">{{ exercise.name }}</h4>
                         <span class="text-muted">
                             {% for equipment in exercise.equipment.all %}

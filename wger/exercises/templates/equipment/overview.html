@@ -52,7 +52,7 @@ $(function() {
                     {% if exercise.language in exercise_languages %}
                     <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
                         <div class="media">
-                            <div style="width:60px;height:60px;" class="pull-left">
+                            <div style="width:60px;height:60px;" class="media-left">
 
                             {% if exercise.main_image %}
                                 <img alt="{{ exercise.name }}"
@@ -66,7 +66,7 @@ $(function() {
                                  src="{% static 'images/icons/image-placeholder.svg' %}">
                             {% endif %}
                             </div>
-                            <div class="media-body">
+                            <div class="media-body" style="position: absolute; top: 10px; left: 100px;">
                                 <h4 class="media-heading">{{ exercise.name }}</h4>
                                 <span class="text-muted">
                                     {% trans exercise.category.name %}
