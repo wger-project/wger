@@ -5,26 +5,16 @@
 {% block title %}{% trans "Features" %}{% endblock %}
 
 {% block content %}
-
-<div class="row">
-    <div class="col-sm-8 col-xs-12">
-        {% blocktrans %}wger Workout Manager is a free, open source web application that manages
-your exercises and workouts. It started as a pet project of mine to replace my
-growing collection of different spreadsheets, but it has become something other
-people could also find useful.{% endblocktrans %}
-    </div>
-</div>
-
 <div class="jumbotron">
 <div class="row">
     <div class="col-sm-4 col-xs-6">
-        <img src="{% static 'images/logos/logo-marketplace.svg' %}" style="width: 100%;">
+        <img src="{% static 'images/logos/logo-marketplace.svg' %}" class="img-responsive">
     </div>
     <div class="col-sm-5 col-xs-6">
         <h2>{% trans "Your body." %}</h2>
         <h2>{% trans "Your workouts." %}</h2>
-        <h2>{% trans "Your control." %}</h2>
-        <h2>{% trans "Your cheesy slogan." %}</h2>
+        <h2>{% trans "Your data." %}</h2>
+        <h2>{% trans "Your progress." %}</h2>
     </div>
     <div class="col-sm-3 col-xs-12">
         {% if not user.is_authenticated or user.userprofile.is_temporary %}
@@ -43,6 +33,20 @@ people could also find useful.{% endblocktrans %}
     </div>
 </div>
 </div>
+
+
+
+
+
+<div class="row">
+    <div class="col-sm-8 col-xs-12">
+        {% blocktrans %}wger Workout Manager is a free, open source web application that manages
+your exercises and workouts. It started as a pet project of mine to replace my
+growing collection of different spreadsheets, but it has become something other
+people could also find useful.{% endblocktrans %}
+    </div>
+</div>
+
 
 
 
@@ -179,7 +183,7 @@ result. {% endblocktrans %} {% trans "The routines include among others:" %}</p>
 the public to openly review its security. Anyone can contribute towards
 the development of wger or deploy private installations.{% endblocktrans %}</p>
     </div>
-    <div class="col-sm-4 col-xs-6">
+    <div class="col-sm-4 col-xs-12">
         <h4>
             <strong>
             <span class="glyphicon glyphicon-globe"></span>
@@ -191,7 +195,7 @@ the development of wger or deploy private installations.{% endblocktrans %}</p>
             <span class="glyphicon glyphicon-chevron-right"></span>
         </a>
         <a href="{% url 'software:issues' %}" class="btn btn-primary btn-block">
-            {% trans "Report an issue" %}
+            {% trans "Report issue or wish" %}
             <span class="glyphicon glyphicon-chevron-right"></span>
         </a>
         <a href="https://www.transifex.com/projects/p/wger-workout-manager/" class="btn btn-primary btn-block">
@@ -199,7 +203,7 @@ the development of wger or deploy private installations.{% endblocktrans %}</p>
             <span class="glyphicon glyphicon-chevron-right"></span>
         </a>
     </div>
-    <div class="col-sm-4 col-xs-6">
+    <div class="col-sm-4 col-xs-12">
         <h4>
             <strong>
             <span class="glyphicon glyphicon-retweet"></span>
@@ -210,11 +214,6 @@ the development of wger or deploy private installations.{% endblocktrans %}</p>
 to all data. To access publicly accessible data such as exercises you don't need
 any form of authentication, for other objects such as workouts you need to get
 an API key.{% endblocktrans %}</p>
-
-        <a href="{% url 'software:api' %}" class="btn btn-default btn-xs pull-right">
-            {% trans "Take a look" %}
-            <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
     </div>
 </div>
 
@@ -229,15 +228,16 @@ an API key.{% endblocktrans %}</p>
         <ul>
             <li>{% trans "Smooth performance and easy user interface." %}</li>
             <li>{% trans "Export workouts, nutrition plans and routines as PDF" %}</li>
-            <li>{% trans "Create complex routines, specify how much the exercise weights increase each week" %}</li>
+            <!--<li>{% trans "Create complex routines, specify how much the exercise weights increase each week" %}</li>-->
             <li>{% trans "Gym-optimised view with countdown to easily log weights during the workout" %}</li>
             <li>{% trans "Export your routines to an application such as iCal or google calendar." %}</li>
-            <li>{% trans "Support for both metric (kg) and imperial (lb) values" %}</li>
             <li>{% trans "Receive email notifications to remind you to change your routine (optional)" %}</li>
             <li>{% trans "Calendar view with last workouts for easy overview and control" %}</li>
+            <li>{% trans "Support for both metric (kg) and imperial (lb) weight units" %}</li>
+            <li>{% trans "Available in many languages" %}</li>
             <li>{% trans "BMI and daily calories calculator" %}</li>
             <li>{% trans "Automatically calculated grams per body weight of your diet plan" %}</li>
-            <li>{% trans "Mobile and desktop versions" %}</li>
+            <li>{% trans "Mobile friendly version" %}</li>
         </ul>
     </div>
 </div>
