@@ -150,21 +150,25 @@ class RoutineExerciseConfigSerializer(serializers.Serializer):
     '''
     Serializer for the canonical form of a workout
     '''
-    week = serializers.IntegerField()
+    week = serializers.IntegerField(source='current_week')
+    day = serializers.IntegerField(source='current_day')
+    set = serializers.IntegerField(source='current_set')
+    unit = serializers.CharField()
+
     weight = serializers.DecimalField()
     reps = serializers.IntegerField()
     sets = serializers.IntegerField()
-    day = serializers.IntegerField()
-    exercise = serializers.CharField(source='exercise', read_only=True)
+    increment_mode = serializers.CharField()
+    exercise = serializers.CharField(read_only=True)
 
     def transform_exercise(self, obj, value):
         '''
         Return the available languages for the exercise
         '''
         out = {}
-        mapper = obj['exercise'].exercise_mapper.get_all_languages()
+        mapper = obj['config'].routine_exercise.exercise_mapper.get_all_languages()
         for lang in mapper:
             out[lang] = mapper[lang].pk
 
-        return {'name': value,
+        return {'name': unicode(obj['config'].routine_exercise.exercise_mapper),
                 'ids': out}

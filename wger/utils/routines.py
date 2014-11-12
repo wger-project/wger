@@ -83,11 +83,12 @@ class Routine(object):
     def get_data_list(self):
         '''
         Convenience method that returns a list with the weeks, days and sets
-        for which this exercise is responsible
+        for which this routine has data
         '''
         out = {}
         for exercise in self.exercise_configs:
             for config in exercise.configs:
+                config.set_user_config(self.user_config)
                 data = config.get_data_list()
                 for week in data:
                     if not out.get(week):
@@ -250,12 +251,8 @@ class ExerciseConfig(object):
     }
     '''
 
-    def __init__(self,
-                 increment_mode='static',
-                 unit='kg'):
+    def __init__(self):
         self.user_config = {}
-        self.increment_mode = 'static' if increment_mode == 'static' else 'dynamic'
-        self.unit = unit if unit in ('kg', 'lb', 'percent') else 'kg'
 
         if self.unit == 'percent' and (self.increment < 0 or self.increment > 10):
             raise ValueError('Percentage must be between 0 and 10')
@@ -311,6 +308,13 @@ class ExerciseConfig(object):
 
                     step += 1
 
+    def get_routine(self):
+        '''
+
+        :return:
+        '''
+        raise NotImplementedError
+
     def get_routine_data(self):
         '''
         Generates the actual routine.
@@ -323,10 +327,11 @@ class ExerciseConfig(object):
         :return: a tuple with the number of sets and the weight
         '''
         if self.increment_mode == 'manual':
-            raise NotImplementedError
+            reps, weight = self.get_routine()
+            #
 
         # Automatic calculation
-        if self.increment_mode == 'static':
+        elif self.increment_mode == 'static':
             step = self.get_step(self.current_week, self.current_day, self.current_set)
             if not step:
                 raise KeyError("Config does not provide data for current step")
@@ -352,4 +357,6 @@ class ExerciseConfig(object):
                 'current_set': self.current_set,
                 'reps': reps,
                 'weight': weight,
+                'unit': self.unit,
+                'increment_mode': self.increment_mode,
                 'config': self}

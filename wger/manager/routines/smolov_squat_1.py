@@ -121,7 +121,7 @@ def get_routine():
                                    "two and wreck that as well."))
 
     squat = RoutineExercise(mapper_pk=2)
-    squat.add_config(SquatConfig('Squats', 2))
+    squat.add_config(SquatConfig())
 
     smolov.add(squat)
 

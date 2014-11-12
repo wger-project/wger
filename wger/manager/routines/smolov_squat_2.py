@@ -199,7 +199,7 @@ def get_routine():
                                    "sessions."))
 
     squat = RoutineExercise(mapper_pk=2)
-    squat.add_config(SquatConfig('Squats', 2))
+    squat.add_config(SquatConfig())
 
     smolov.add(squat)
 

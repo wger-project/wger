@@ -25,8 +25,9 @@ logger = logging.getLogger('wger.custom')
 
 
 class SquatConfig(ExerciseConfig):
-
-    data = {
+    increment_mode = 'manual'
+    sets = 1
+    responsibility = {
         1: {1: [1, 2, 3, 4, 5],
             2: [1, 2, 3, 4, 5],
             3: [1, 2, 3, 4, 5]},
@@ -87,7 +88,9 @@ class SquatConfig(ExerciseConfig):
 
 
 class BenchConfig(ExerciseConfig):
-    data = {
+    increment_mode = 'manual'
+    sets = 1
+    responsibility = {
         1: {1: [6, 7, 8, 9, 10],
             2: [6, 7, 8, 9, 10],
             3: [6, 7, 8, 9, 10]},
@@ -148,7 +151,9 @@ class BenchConfig(ExerciseConfig):
 
 
 class DeadliftConfig(ExerciseConfig):
-    data = {
+    increment_mode = 'manual'
+    sets = 1
+    responsibility = {
         1: {1: [11, 12, 13, 14, 15],
             2: [11, 12, 13, 14, 15],
             3: [11, 12, 13, 14, 15]},
@@ -219,13 +224,13 @@ def get_routine():
                                   "bench, and deadlift. That's it. Good luck."))
 
     squat = RoutineExercise(mapper_pk=2)
-    squat.add_config(SquatConfig('Squats', 2))
+    squat.add_config(SquatConfig())
 
     bench = RoutineExercise(mapper_pk=1)
-    bench.add_config(BenchConfig('Bench', 1))
+    bench.add_config(BenchConfig())
 
     deadlift = RoutineExercise(mapper_pk=3)
-    deadlift.add_config(DeadliftConfig('Deadlift', 3))
+    deadlift.add_config(DeadliftConfig())
 
     korte.add(squat)
     korte.add(bench)
