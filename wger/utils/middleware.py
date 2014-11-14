@@ -71,7 +71,7 @@ def get_user(request):
             request.session['has_demo_data'] = False
 
         # Django didn't find a user, so create one now
-        if create_user and not user.is_authenticated():
+        if request.method == 'GET' and create_user and not user.is_authenticated():
 
             logger.debug('creating a new guest user now')
             user = create_temporary_user()
