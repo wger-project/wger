@@ -222,7 +222,7 @@ def export_pdf(request, name):
 
     # Create the HttpResponse object with the appropriate PDF headers.
     doc.build(elements)
-    filename = 'Routine-{0}.pdf'.format(routine.short_name)
+    filename = 'Routine-{0}.pdf'.format(routine.slug)
     response['Content-Disposition'] = 'attachment; filename={0}'.format(filename)
     response['Content-Length'] = len(response.content)
     return response

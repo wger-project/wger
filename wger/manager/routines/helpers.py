@@ -47,7 +47,7 @@ def render_routine_week(week_data):
         elif day['weight'] == 'auto':
             weight = _('some weight')
         data.append([print_day,
-                     day['exercise'],
+                     day['config'].routine_exercise.get_exercise(),
                      u"{0} × {1}".format(day['sets'], day['reps']),
                      weight])
 

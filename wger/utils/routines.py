@@ -14,8 +14,8 @@
 import decimal
 import logging
 import math
-from django.core.exceptions import ImproperlyConfigured
 
+from django.utils.translation import get_language
 from django.utils.translation import ugettext as _
 from wger.exercises.models import ExerciseLanguageMapper
 from wger.utils.constants import TWOPLACES, FOURPLACES
@@ -137,6 +137,23 @@ class RoutineExercise(object):
     def __init__(self, mapper_pk):
         self.exercise_mapper = ExerciseLanguageMapper.objects.get(pk=mapper_pk)
         self.configs = []
+
+    def get_exercise(self, language=None):
+        '''
+        Returns the exercise database object in the specified language. Defaults
+        to English if language is not available
+
+        :param language: Short name of language such as 'de' or 'en', optional
+        '''
+
+        try:
+            if language:
+                language = language
+            else:
+                language = get_language()
+            return self.exercise_mapper.get_language(language)
+        except KeyError:
+            return self.exercise_mapper.get_language('en')
 
     def add_config(self, config):
         '''
