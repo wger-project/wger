@@ -150,9 +150,9 @@ class RoutineExerciseConfigSerializer(serializers.Serializer):
     '''
     Serializer for the canonical form of a workout
     '''
-    week = serializers.IntegerField(source='current_week')
-    day = serializers.IntegerField(source='current_day')
-    set = serializers.IntegerField(source='current_set')
+    week = serializers.IntegerField(source='week')
+    day = serializers.IntegerField(source='day')
+    set = serializers.IntegerField(source='set')
     unit = serializers.CharField()
 
     weight = serializers.DecimalField()

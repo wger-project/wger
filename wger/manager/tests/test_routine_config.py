@@ -15,13 +15,34 @@
 from decimal import Decimal
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.utils.constants import FOURPLACES
-from wger.utils.routines import Routine, ExerciseConfig, RoutineExercise
+from wger.utils.routines import ExerciseConfig
 
 
 '''
 Test the different aspects of the routine configuration
 '''
+
+user_config = {'round_to': 1.25}
+
+
+class RoutineWeightWeightTestCase(WorkoutManagerTestCase):
+    '''
+    Test the weight helper for the routines
+    '''
+
+    def test_weight(self):
+        '''
+        Test the weight helper for the routines
+        '''
+        self.assertEqual(ExerciseConfig.round_weight(1.9), Decimal(2.5))
+        self.assertEqual(ExerciseConfig.round_weight(2.1), Decimal(2.5))
+        self.assertEqual(ExerciseConfig.round_weight(3), Decimal(2.5))
+        self.assertEqual(ExerciseConfig.round_weight(4), Decimal(5))
+
+        self.assertEqual(ExerciseConfig.round_weight(4.5, 5), Decimal(5))
+        self.assertEqual(ExerciseConfig.round_weight(6, 5), Decimal(5))
+        self.assertEqual(ExerciseConfig.round_weight(7, 5), Decimal(5))
+        self.assertEqual(ExerciseConfig.round_weight(8, 5), Decimal(10))
 
 
 class ExerciseConfigTestCase(WorkoutManagerTestCase):
@@ -65,15 +86,17 @@ class ExerciseConfigWeightTestCase(WorkoutManagerTestCase):
         class TestConfig(ExerciseConfig):
             increment = 1.25
             start_weight = 100
+            increment_mode = 'dynamic'
             responsibility = {1: {1: [1],
                                   2: [2],
                                   3: [2],
                                   4: [2]}}
-        config = TestConfig(increment_mode='dynamic')
+        config = TestConfig()
 
         for step in [(1, 1, 1), (1, 2, 2), (1, 3, 2), (1, 4, 2)]:
             config.set_current_step(step[0], step[1], step[2])
-            self.assertEqual(config.get_routine_data(), u'Dynamic value. Add to schedule.')
+            self.assertEqual(config.get_routine_data()['weight'],
+                             u'Dynamic value. Add to schedule.')
 
     def test_static_routine(self):
         '''
@@ -83,47 +106,54 @@ class ExerciseConfigWeightTestCase(WorkoutManagerTestCase):
         class TestConfig(ExerciseConfig):
             increment = 1.25
             start_weight = 100
+            increment_mode = 'static'
             responsibility = {1: {1: [1],
                                   2: [2],
                                   3: [2],
                                   4: [2]}}
-        config = TestConfig(increment_mode='static')
+        config = TestConfig()
+        config.set_user_config(user_config)
         config.set_current_step(1, 1, 1)
-        self.assertEqual(config.get_routine_data(), Decimal(101.25))
+        self.assertEqual(config.get_routine_data()['weight'], Decimal(101.25))
 
         config.set_current_step(1, 2, 2)
-        self.assertEqual(config.get_routine_data(), Decimal(102.5))
+        self.assertEqual(config.get_routine_data()['weight'], Decimal(102.5))
 
         config.set_current_step(1, 3, 2)
-        self.assertEqual(config.get_routine_data(), Decimal(103.75))
+        self.assertEqual(config.get_routine_data()['weight'], Decimal(103.75))
 
         config.set_current_step(1, 4, 2)
-        self.assertEqual(config.get_routine_data(), Decimal(105))
+        self.assertEqual(config.get_routine_data()['weight'], Decimal(105))
 
     def test_static_routine_percent(self):
         '''
         Test static routine weight increase, percent increase
+
+        All weights are rounded to nearest 1.25
         '''
 
         class TestConfig(ExerciseConfig):
             increment = 5
             start_weight = 100
+            increment_mode = 'static'
+            unit = 'percent'
             responsibility = {1: {1: [1],
                                   2: [2],
                                   3: [2],
                                   4: [2]}}
-        config = TestConfig(increment_mode='static', unit='percent')
+        config = TestConfig()
+        config.set_user_config(user_config)
         config.set_current_step(1, 1, 1)
-        self.assertEqual(config.get_routine_data(), Decimal(105))
+        self.assertEqual(config.get_routine_data()['weight'], Decimal(105))
 
         config.set_current_step(1, 2, 2)
-        self.assertEqual(config.get_routine_data(), Decimal(110.25))
+        self.assertEqual(config.get_routine_data()['weight'], Decimal(110))  # 110.25 rounded
 
         config.set_current_step(1, 3, 2)
-        self.assertEqual(config.get_routine_data(), Decimal(115.7625).quantize(FOURPLACES))
+        self.assertEqual(config.get_routine_data()['weight'], Decimal(116.25))  # 115.7625 rounded
 
         config.set_current_step(1, 4, 2)
-        self.assertEqual(config.get_routine_data(), Decimal(121.5506).quantize(FOURPLACES))
+        self.assertEqual(config.get_routine_data()['weight'], Decimal(121.25))  # 121.5506 rounded
 
     def test_static_routine_percent_validation(self):
         '''
@@ -133,5 +163,7 @@ class ExerciseConfigWeightTestCase(WorkoutManagerTestCase):
         class TestConfig(ExerciseConfig):
             increment = 15
             start_weight = 100
+            increment_mode = 'static'
+            unit = 'percent'
             responsibility = {1: {1: [1]}}
-        self.assertRaises(ValueError, TestConfig, increment_mode='static', unit='percent')
+        self.assertRaises(ValueError, TestConfig)

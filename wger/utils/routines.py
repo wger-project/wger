@@ -107,19 +107,6 @@ class Routine(object):
                             out[week][day][set_nr] = config
         return out
 
-    @staticmethod
-    def round_weight(weight, base=2.5):
-        '''
-        Rounds the weights used for the generated routines depending on the use
-
-        :param weight: the original weight
-        :param base: the base to round to
-        :return: a rounded python decimal with two decimal places
-        '''
-        if weight in ('auto', 'max'):
-            return weight
-        return decimal.Decimal(base * round(float(weight)/base)).quantize(TWOPLACES)
-
     def add(self, exercise_config):
         '''
         Add an exercise to this routine
@@ -310,10 +297,24 @@ class ExerciseConfig(object):
 
     def get_routine(self):
         '''
+        Only implemented for 'manual' weight increases.
 
-        :return:
+        :return: sets, reps, weight
         '''
         raise NotImplementedError
+
+    @staticmethod
+    def round_weight(weight, base=2.5):
+        '''
+        Rounds the weights used for the generated routines depending on the use
+
+        :param weight: the original weight
+        :param base: the base to round to
+        :return: a rounded python decimal with two decimal places
+        '''
+        if weight in ('auto', 'max'):
+            return weight
+        return decimal.Decimal(base * round(float(weight)/base)).quantize(TWOPLACES)
 
     def get_routine_data(self):
         '''
@@ -324,11 +325,17 @@ class ExerciseConfig(object):
         perform any calculations needed to generate the weight and the repetitions
         for the set.
 
-        :return: a tuple with the number of sets and the weight
+        :return: dictionary
         '''
+        sets = self.sets
         if self.increment_mode == 'manual':
-            reps, weight = self.get_routine()
-            #
+            try:
+                sets, reps, weight = self.get_routine()
+            except TypeError:
+                logger.error('Error on Week {1}, Day {2}, Set {3}'.format(self.current_week,
+                                                                          self.current_day,
+                                                                          self.current_set))
+            weight = self.round_weight(weight, self.user_config['round_to'])
 
         # Automatic calculation
         elif self.increment_mode == 'static':
@@ -343,7 +350,7 @@ class ExerciseConfig(object):
                 weight = self.start_weight + (step * self.increment)
 
             reps = self.reps
-            weight = decimal.Decimal(weight).quantize(FOURPLACES)
+            weight = self.round_weight(weight, self.user_config['round_to'])
 
         # Dynamic, depends on users past performance and can only be used when
         # imported into a schedule
@@ -351,10 +358,10 @@ class ExerciseConfig(object):
             reps = self.reps
             weight = _(u'Dynamic value. Add to schedule.')
 
-        return {'sets': self.sets,
-                'current_week': self.current_week,
-                'current_day': self.current_day,
-                'current_set': self.current_set,
+        return {'sets': sets,
+                'week': self.current_week,
+                'day': self.current_day,
+                'set': self.current_set,
                 'reps': reps,
                 'weight': weight,
                 'unit': self.unit,
