@@ -33,7 +33,6 @@ class Routine(object):
     '''
     routines = {}
     exercise_configs = []
-    weeks = 8
     name = ''
     '''
     Name of the routine
@@ -51,8 +50,7 @@ class Routine(object):
 
     user_config = {}
 
-    def __init__(self, weeks=8, name='', slug='', description=''):
-        self.weeks = weeks
+    def __init__(self, name='', slug='', description=''):
         self.name = name
         self.slug = slug
         self.description = description
