@@ -28,29 +28,29 @@ class SquatConfig(ExerciseConfig):
     increment_mode = 'manual'
     sets = 1
     responsibility = {
-        1: {1: [1, 2, 3, 4, 5],
-            2: [1, 2, 3, 4, 5],
-            3: [1, 2, 3, 4, 5]},
-        2: {1: [1, 2, 3, 4, 5],
-            2: [1, 2, 3, 4, 5],
-            3: [1, 2, 3, 4, 5]},
-        3: {1: [1, 2, 3, 4, 5],
-            2: [1, 2, 3, 4, 5],
-            3: [1, 2, 3, 4, 5]},
-        4: {1: [1, 2, 3, 4, 5],
-            2: [1, 2, 3, 4, 5],
-            3: [1, 2, 3, 4, 5]},
-        5: {1: [1, 2, 3],
-            2: [1, 2, 3],
+        1: {1: [1],
+            2: [1],
             3: [1]},
-        6: {1: [1, 2, 3],
-            2: [1, 2, 3],
+        2: {1: [1],
+            2: [1],
             3: [1]},
-        7: {1: [1, 2, 3],
-            2: [1, 2, 3],
+        3: {1: [1],
+            2: [1],
             3: [1]},
-        8: {1: [1, 2, 3],
-            2: [1, 2, 3],
+        4: {1: [1],
+            2: [1],
+            3: [1]},
+        5: {1: [1],
+            2: [1],
+            3: [1]},
+        6: {1: [1],
+            2: [1],
+            3: [1]},
+        7: {1: [1],
+            2: [1],
+            3: [1]},
+        8: {1: [1],
+            2: [1],
             3: [1]},
     }
 
@@ -58,159 +58,158 @@ class SquatConfig(ExerciseConfig):
         max_squat = self.user_config['max_squat']
 
         if self.current_week == 1:
-            return 5, (max_squat + 11) * 0.58
+            return 8, 5, (max_squat + 11) * 0.58
         elif self.current_week == 2:
-            return 5, (max_squat + 11) * 0.6
+            return 8, 5, (max_squat + 11) * 0.6
         elif self.current_week == 3:
-            return 5, (max_squat + 11) * 0.62
+            return 8, 5, (max_squat + 11) * 0.62
         elif self.current_week == 4:
-            return 5, (max_squat + 11) * 0.64
+            return 8, 5, (max_squat + 11) * 0.64
         elif self.current_week == 5:
             if self.current_day != 3:
-                return 3, (max_squat + 11) * 0.6
+                return 3, 3, (max_squat + 11) * 0.6
             else:
-                return 1, (max_squat + 11) * 0.80
+                return 1, 1, (max_squat + 11) * 0.80
         elif self.current_week == 6:
             if self.current_day != 3:
-                return 3, (max_squat + 11) * 0.6
+                return 3, 3, (max_squat + 11) * 0.6
             else:
-                return 1, (max_squat + 11) * 0.85
+                return 1, 1, (max_squat + 11) * 0.85
         elif self.current_week == 7:
             if self.current_day != 3:
-                return 3, (max_squat + 11) * 0.6
+                return 3, 3, (max_squat + 11) * 0.6
             else:
-                return 1, (max_squat + 11) * 0.90
+                return 1, 1, (max_squat + 11) * 0.90
         elif self.current_week == 8:
             if self.current_day != 3:
-                return 3, (max_squat + 11) * 0.6
+                return 3, 3, (max_squat + 11) * 0.6
             else:
-                return 1, (max_squat + 11) * 0.95
+                return 1, 1, (max_squat + 11) * 0.95
 
 
 class BenchConfig(ExerciseConfig):
     increment_mode = 'manual'
     sets = 1
     responsibility = {
-        1: {1: [6, 7, 8, 9, 10],
-            2: [6, 7, 8, 9, 10],
-            3: [6, 7, 8, 9, 10]},
-        2: {1: [6, 7, 8, 9, 10],
-            2: [6, 7, 8, 9, 10],
-            3: [6, 7, 8, 9, 10]},
-        3: {1: [6, 7, 8, 9, 10],
-            2: [6, 7, 8, 9, 10],
-            3: [6, 7, 8, 9, 10]},
-        4: {1: [6, 7, 8, 9, 10],
-            2: [6, 7, 8, 9, 10],
-            3: [6, 7, 8, 9, 10]},
-        5: {1: [4, 5, 6, 7, 8],
-            2: [4],
-            3: [2, 3, 4, 5, 6]},
-        6: {1: [4, 5, 6, 7, 8],
-            2: [4],
-            3: [2, 3, 4, 5, 6]},
-        7: {1: [4, 5, 6, 7, 8],
-            2: [4],
-            3: [2, 3, 4, 5, 6]},
-        8: {1: [4, 5, 6, 7, 8],
-            2: [4],
-            3: [2, 3, 4, 5, 6]},
+        1: {1: [2],
+            2: [2],
+            3: [2]},
+        2: {1: [2],
+            2: [2],
+            3: [2]},
+        3: {1: [2],
+            2: [2],
+            3: [2]},
+        4: {1: [2],
+            2: [2],
+            3: [2]},
+        5: {1: [2],
+            2: [2],
+            3: [2]},
+        6: {1: [2],
+            2: [2],
+            3: [2]},
+        7: {1: [2],
+            2: [2],
+            3: [2]},
+        8: {1: [2],
+            2: [2],
+            3: [2]},
     }
 
     def get_routine(self):
         max_bench = self.user_config['max_bench']
 
         if self.current_week == 1:
-            return 5, (max_bench + 4) * 0.58
+            return 8, 5, (max_bench + 4) * 0.58
         elif self.current_week == 2:
-            return 5, (max_bench + 4) * 0.6
+            return 8, 5, (max_bench + 4) * 0.6
         elif self.current_week == 3:
-            return 5, (max_bench + 4) * 0.62
+            return 8, 5, (max_bench + 4) * 0.62
         elif self.current_week == 4:
-            return 5, (max_bench + 4) * 0.64
+            return 8, 5, (max_bench + 4) * 0.64
         elif self.current_week == 5:
             if self.current_day != 2:
-                return 4, (max_bench + 4) * 0.6
+                return 5, 4, (max_bench + 4) * 0.6
             else:
-                return 1, (max_bench + 4) * 0.80
+                return 1, 1, (max_bench + 4) * 0.80
         elif self.current_week == 6:
             if self.current_day == 2:
-                return 1, (max_bench + 4) * 0.85
+                return 1, 1, (max_bench + 4) * 0.85
             else:
-                return 4, (max_bench + 4) * 0.6
+                return 5, 4, (max_bench + 4) * 0.6
         elif self.current_week == 7:
             if self.current_day == 2:
-                return 1, (max_bench + 4) * 0.90
+                return 5, 1, (max_bench + 4) * 0.90
             else:
-                return 4, (max_bench + 4) * 0.6
+                return 1, 4, (max_bench + 4) * 0.6
         elif self.current_week == 8:
             if self.current_day == 2:
-                return 1, (max_bench + 4) * 0.95
+                return 5, 1, (max_bench + 4) * 0.95
             else:
-                return 4, (max_bench + 4) * 0.6
+                return 1, 4, (max_bench + 4) * 0.6
 
 
 class DeadliftConfig(ExerciseConfig):
     increment_mode = 'manual'
-    sets = 1
     responsibility = {
-        1: {1: [11, 12, 13, 14, 15],
-            2: [11, 12, 13, 14, 15],
-            3: [11, 12, 13, 14, 15]},
-        2: {1: [11, 12, 13, 14, 15],
-            2: [11, 12, 13, 14, 15],
-            3: [11, 12, 13, 14, 15]},
-        3: {1: [11, 12, 13, 14, 15],
-            2: [11, 12, 13, 14, 15],
-            3: [11, 12, 13, 14, 15]},
-        4: {1: [11, 12, 13, 14, 15],
-            2: [11, 12, 13, 14, 15],
-            3: [11, 12, 13, 14, 15]},
-        5: {1: [9],
-            2: [5, 6, 7],
-            3: [7, 8, 9]},
-        6: {1: [9],
-            2: [5, 6, 7],
-            3: [7, 8, 9]},
-        7: {1: [9],
-            2: [5, 6, 7],
-            3: [7, 8, 9]},
-        8: {1: [9],
-            2: [5, 6, 7],
-            3: [7, 8, 9]},
+        1: {1: [3],
+            2: [3],
+            3: [3]},
+        2: {1: [3],
+            2: [3],
+            3: [3]},
+        3: {1: [3],
+            2: [3],
+            3: [3]},
+        4: {1: [3],
+            2: [3],
+            3: [3]},
+        5: {1: [3],
+            2: [3],
+            3: [3]},
+        6: {1: [3],
+            2: [3],
+            3: [3]},
+        7: {1: [3],
+            2: [3],
+            3: [3]},
+        8: {1: [3],
+            2: [3],
+            3: [3]},
     }
 
     def get_routine(self):
         max_deadlift = self.user_config['max_deadlift']
 
         if self.current_week == 1:
-            return 5, (max_deadlift + 6) * 0.58
+            return 8, 5, (max_deadlift + 6) * 0.58
         elif self.current_week == 2:
-            return 5, (max_deadlift + 6) * 0.6
+            return 8, 5, (max_deadlift + 6) * 0.6
         elif self.current_week == 3:
-            return 5, (max_deadlift + 6) * 0.62
+            return 8, 5, (max_deadlift + 6) * 0.62
         elif self.current_week == 4:
-            return 5, (max_deadlift + 6) * 0.64
+            return 8, 5, (max_deadlift + 6) * 0.64
         elif self.current_week == 5:
             if self.current_day == 1:
-                return 1, (max_deadlift + 6) * 0.80
+                return 1, 1, (max_deadlift + 6) * 0.80
             else:
-                return 3, (max_deadlift + 6) * 0.60
+                return 3, 3, (max_deadlift + 6) * 0.60
         elif self.current_week == 6:
             if self.current_day == 1:
-                return 1, (max_deadlift + 6) * 0.85
+                return 1, 1, (max_deadlift + 6) * 0.85
             else:
-                return 3, (max_deadlift + 6) * 0.60
+                return 3, 3, (max_deadlift + 6) * 0.60
         elif self.current_week == 7:
             if self.current_day == 1:
-                return 1, (max_deadlift + 6) * 0.90
+                return 1, 1, (max_deadlift + 6) * 0.90
             else:
-                return 3, (max_deadlift + 6) * 0.60
+                return 3, 3, (max_deadlift + 6) * 0.60
         elif self.current_week == 8:
             if self.current_day == 1:
-                return 1, (max_deadlift + 6) * 0.95
+                return 1, 1, (max_deadlift + 6) * 0.95
             else:
-                return 3, (max_deadlift + 6) * 0.60
+                return 3, 3, (max_deadlift + 6) * 0.60
 
 
 def get_routine():

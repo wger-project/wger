@@ -25,23 +25,23 @@ logger = logging.getLogger('wger.custom')
 
 
 class SquatConfig(ExerciseConfig):
-
-    data = {
-        1: {1: [1, 2, 3, 4, 5, 6, 7],
-            2: [1, 2, 3, 4, 5, 6, 7],
-            3: [1, 2, 3, 4, 5, 6, 7, 8]},
+    increment_mode = 'manual'
+    responsibility = {
+        1: {1: [1, 2, 3, 4],
+            2: [1, 2, 3, 4],
+            3: [1, 2, 3, 4]},
         2: {1: [1, 2, 3, 4],
-            2: [1, 2, 3, 4, 5],
-            3: [1, 2, 3, 4, 5, 6, 7],
-            4: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]},
+            2: [1, 2, 3, 4],
+            3: [1, 2, 3, 4],
+            4: [1, 2, 3, 4]},
         3: {1: [1, 2, 3, 4],
-            2: [1, 2, 3, 4, 5],
-            3: [1, 2, 3, 4, 5, 6, 7],
-            4: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]},
+            2: [1, 2, 3, 4],
+            3: [1, 2, 3, 4],
+            4: [1, 2, 3, 4]},
         4: {1: [1, 2, 3, 4],
-            2: [1, 2, 3, 4, 5],
-            3: [1, 2, 3, 4, 5, 6, 7],
-            4: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]},
+            2: [1, 2, 3, 4],
+            3: [1, 2, 3, 4],
+            4: [1, 2, 3, 4]},
         5: {1: [1],
             2: [1]}
     }
@@ -52,60 +52,60 @@ class SquatConfig(ExerciseConfig):
         # Week 1
         if self.current_week == 1:
             if 1 <= self.current_day <= 2:
-                if 1 <= self.current_set <= 3:
-                    return 8, max_squat * 0.65
+                if self.current_set == 1:
+                    return 3, 8, max_squat * 0.65
+                elif self.current_set == 2:
+                    return 1, 5, max_squat * 0.70
+                elif self.current_set == 3:
+                    return 2, 2, max_squat * 0.75
                 elif self.current_set == 4:
-                    return 5, max_squat * 0.70
-                elif 5 <= self.current_set <= 6:
-                    return 2, max_squat * 0.75
-                elif self.current_set == 7:
-                    return 2, max_squat * 0.80
+                    return 1, 1, max_squat * 0.80
             elif self.current_day == 3:
-                if 1 <= self.current_set <= 4:
-                    return 5, max_squat * 0.70
-                elif self.current_set == 5:
-                    return 3, max_squat * 0.75
-                elif 6 <= self.current_set <= 7:
-                    return 2, max_squat * 0.80
-                elif self.current_set == 8:
-                    return 1, max_squat * 0.90
+                if self.current_set == 1:
+                    return 1, 5, max_squat * 0.70
+                elif self.current_set == 2:
+                    return 1, 3, max_squat * 0.75
+                elif self.current_set == 3:
+                    return 2, 2, max_squat * 0.80
+                elif self.current_set == 4:
+                    return 1, 1, max_squat * 0.90
 
         # Week 2
         elif self.current_week == 2:
             if self.current_day == 1:
-                return 9, max_squat * 0.70
+                return 4, 9, max_squat * 0.70
             elif self.current_day == 2:
-                return 7, max_squat * 0.75
+                return 5, 7, max_squat * 0.75
             elif self.current_day == 3:
-                return 5, max_squat * 0.80
+                return 7, 5, max_squat * 0.80
             elif self.current_day == 4:
-                return 3, max_squat * 0.85
+                return 10, 3, max_squat * 0.85
 
         # Week 3
         elif self.current_week == 3:
             if self.current_day == 1:
-                return 9, (max_squat * 0.70) + 9
+                return 4, 9, (max_squat * 0.70) + 9
             elif self.current_day == 2:
-                return 7, (max_squat * 0.75) + 9
+                return 5, 7, (max_squat * 0.75) + 9
             elif self.current_day == 3:
-                return 5, (max_squat * 0.80) + 9
+                return 7, 5, (max_squat * 0.80) + 9
             elif self.current_day == 4:
-                return 3, (max_squat * 0.85) + 9
+                return 10, 3, (max_squat * 0.85) + 9
 
         # Week 4
         elif self.current_week == 4:
             if self.current_day == 1:
-                return 9, (max_squat * 0.70) + 13
+                return 4, 9, (max_squat * 0.70) + 13
             elif self.current_day == 2:
-                return 7, (max_squat * 0.75) + 13
+                return 5, 7, (max_squat * 0.75) + 13
             elif self.current_day == 3:
-                return 5, (max_squat * 0.80) + 13
+                return 7, 5, (max_squat * 0.80) + 13
             elif self.current_day == 4:
-                return 3, (max_squat * 0.85) + 13
+                return 10, 3, (max_squat * 0.85) + 13
 
         # Week 5
         elif self.current_week == 5:
-            return 1, 'max'
+            return 1, 1, 'max'
 
 
 def get_routine():
@@ -113,8 +113,7 @@ def get_routine():
     Initialise and return this routine
     '''
 
-    smolov = Routine(weeks=5,
-                     name='Smolov Squat - Part 1',
+    smolov = Routine(name='Smolov Squat - Part 1',
                      slug=os.path.splitext(os.path.basename(__file__))[0],
                      description=_("This is the part one of a two part routine. Bang this thing "
                                    "out, get a new max, then take the new max on over to part "
