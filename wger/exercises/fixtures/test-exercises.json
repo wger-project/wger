@@ -101,7 +101,7 @@
             ],
             "description": "",
             "name": "Boring exercise",
-            "language_mapper": null
+            "language_mapper": 3
         }
     },
     {
@@ -181,7 +181,7 @@
             "muscles_secondary":[],
             "description": "",
             "name": "Needed for demo user",
-            "language_mapper": null
+            "language_mapper": 3
         }
     },
     {

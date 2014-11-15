@@ -75,8 +75,8 @@ class RoutinePdfExportTestCase(WorkoutManagerTestCase):
                              'attachment; filename=Routine-{0}.pdf'.format(routine))
 
             # Approximate size only
-            self.assertGreater(int(response['Content-Length']), 31000)
-            self.assertLess(int(response['Content-Length']), 38000)
+            self.assertGreater(int(response['Content-Length']), 44000)
+            self.assertLess(int(response['Content-Length']), 53000)
 
     def test_export_pdf_anonymous(self):
         '''
