@@ -13,15 +13,11 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-import decimal
-
 from django.utils.translation import ugettext as _
 
 from reportlab.lib import colors
 from reportlab.lib.units import cm
 from reportlab.platypus import Table
-
-from wger.utils.constants import TWOPLACES
 
 
 def render_routine_week(week_data):
