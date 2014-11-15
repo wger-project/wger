@@ -121,15 +121,7 @@ def make_schedule(request, name):
         set.sets = config['sets']
         set.save()
 
-        # Some monkeying around to get the exercise PK for our language
-        mapper = config['exercise'].exercise_mapper
-        language = load_language()
-        languages = mapper.get_all_languages()
-        try:
-            exercise = languages[language.short_name]
-        except KeyError:
-            exercise = languages['en']
-
+        exercise = config['config'].routine_exercise.get_exercise()
         set.exercises.add(exercise)
 
         setting = Setting()
