@@ -17,14 +17,16 @@ from django.utils.translation import ugettext as _
 
 from reportlab.lib import colors
 from reportlab.lib.units import cm
-from reportlab.platypus import Table
+from reportlab.platypus import Table, Paragraph
+from wger.utils.pdf import styleSheet
 
 
-def render_routine_week(week_data):
+def render_routine_week(week_data, request):
     '''
     Helper function that renders a week of a routine.
 
     :param week_data:
+    :param request: the request object (needed to generate clickable exercise names)
     :return: a reportlab Table object
     '''
     data = [[_('Day'), _('Exercise'), _('Repetitions'), _('Weight')]]
@@ -46,8 +48,12 @@ def render_routine_week(week_data):
             weight = _('your max!')
         elif day['weight'] == 'auto':
             weight = _('some weight')
+
+        exercise = day['config'].routine_exercise.get_exercise()
+        url = request.build_absolute_uri(exercise.get_absolute_url())
+        p = Paragraph('<a href="{0}">{1}</a>'.format(url, exercise), styleSheet["Normal"])
         data.append([print_day,
-                     day['config'].routine_exercise.get_exercise(),
+                     p,
                      u"{0} × {1}".format(day['sets'], day['reps']),
                      weight])
 

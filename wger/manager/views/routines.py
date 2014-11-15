@@ -198,7 +198,7 @@ def export_pdf(request, name):
 
     for week in tmp:
         p = Paragraph('<para>{0} {1}</para>'.format(_("Week"), week), styleSheet["Bold"])
-        t = render_routine_week(tmp[week])
+        t = render_routine_week(tmp[week], request)
         s = Spacer(10*cm, 0.5*cm)
         elements.append(KeepTogether([p, t, s]))
 
