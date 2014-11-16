@@ -348,18 +348,8 @@ def routines_detail_view(request, name):
 
     # And return everything together
     routine.set_user_config(config_serializer.data)
-    items = []
-    data_list = routine.get_data_list()
-
-    for week in data_list:
-        for day in data_list[week]:
-            for set_nr in data_list[week][day]:
-                config = data_list[week][day][set_nr]
-                config.set_current_step(week, day, set_nr)
-                items.append(RoutineExerciseConfigSerializer(config.get_routine_data()).data)
-
     return Response({'config': config_serializer.data,
-                     'items': items,
+                     'items': RoutineExerciseConfigSerializer(routine, many=True).data,
                      'routine': {'description': routine.description,
                                  'name': routine.name,
                                  'short_name': name}})
