@@ -3,7 +3,7 @@
 #
 
 Django>=1.6,<1.7
-django-browserid==0.10.1
+django-browserid==0.11
 django-recaptcha
 reportlab
 django_mobile
