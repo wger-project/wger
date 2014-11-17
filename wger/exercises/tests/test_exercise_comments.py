@@ -33,7 +33,6 @@ class AddExerciseCommentTestCase(WorkoutManagerAddTestCase):
 
     object_class = ExerciseComment
     url = reverse('exercisecomment-add', kwargs={'exercise_pk': 1})
-    pk = 3
     user_fail = False
     data = {'comment': 'a new cool comment'}
 

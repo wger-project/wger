@@ -37,7 +37,6 @@ class AddWeightUnitIngredientTestCase(WorkoutManagerAddTestCase):
     data = {'unit': 5,
             'gram': 123,
             'amount': 1}
-    pk = 9875
 
 
 class DeleteWeightUnitIngredientTestCase(WorkoutManagerDeleteTestCase):

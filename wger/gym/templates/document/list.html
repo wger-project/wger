@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
+
+{% block title %}{% trans "Documents" %}{% endblock %}
+
+
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% if perms.gym.manage_gyms %}
+        {% breadcrumb "Gyms" "gym:gym:list" %}
+    {% endif %}
+    {% breadcrumb_raw member.userprofile.gym "gym:gym:user-list" member.userprofile.gym.pk %}
+    {% breadcrumb_raw member|format_username "core:user-overview" member.pk %}
+    {% breadcrumb "Documents" "gym:document:list" member.pk %}
+{% endblock %}
+
+
+{% block content %}
+
+<ul class="list-group">
+    {% for document in userdocument_list %}
+    <li class="list-group-item ">
+        <div class="pull-right">
+            <a href="{{ document.document.url }}"
+               class="btn btn-default btn-xs"
+               download="{{ document.original_name }}">
+                <span class="glyphicon glyphicon-download"></span>
+                {% trans 'Download' %}
+            </a>
+
+            {% if perms.gym.delete_userdocument %}
+            <a href="{% url 'gym:document:delete' document.pk %}"
+               class="btn btn-danger btn-xs wger-modal-dialog">
+                {% trans 'Delete' %}
+            </a>
+            {% endif %}
+            {% if perms.gym.change_userdocument %}
+            <a href="{% url 'gym:document:edit' document.pk %}"
+               class="btn btn-default btn-xs">
+                {% trans 'Edit' %}
+            </a>
+            {% endif %}
+        </div>
+
+        <h4 class="list-group-item-heading">{{ document.name }}</h4>
+
+        <p class="list-group-item-text">{{ document.timestamp_created }} - {{ document.user|format_username }}</p>
+        {% if document.note %}
+        <p class="list-group-item-text">{{ document.note }}</p>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+
+
+
+{% block sidebar %}
+{% if perms.gym.add_userdocument %}
+<h4>{% trans "Options" %}</h4>
+<p>
+       <a href="{% url 'gym:document:add' member.pk %}" {% auto_link_css flavour %}>
+       <img src="{% static 'images/icons/new.svg' %}"
+            width="32"
+            height="32"
+            alt="{% trans 'Add' %}"
+            title="{% trans 'Add' %}">
+       {% trans "Add" %}
+       </a>
+</p>
+{% endif %}
+{% endblock %}

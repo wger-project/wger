@@ -45,7 +45,10 @@ class WgerPermissionMixin(object):
 
     permission_required = False
     '''
-    The name of the permission required to access this class
+    The name of the permission required to access this class.
+
+    This can be a string or a tuple, in the latter case having any of the permissions
+    listed is enough to access the resource
     '''
 
     login_required = False
@@ -62,8 +65,17 @@ class WgerPermissionMixin(object):
             if not request.user.is_authenticated():
                 return HttpResponseRedirect(reverse_lazy('core:login') + '?next=%s' % request.path)
 
-            if self.permission_required and not request.user.has_perm(self.permission_required):
-                return HttpResponseForbidden()
+            if self.permission_required:
+                has_permission = False
+                if isinstance(self.permission_required, tuple):
+                    for permission in self.permission_required:
+                        if request.user.has_perm(permission):
+                            has_permission = True
+                elif request.user.has_perm(self.permission_required):
+                    has_permission = True
+
+                if not has_permission:
+                    return HttpResponseForbidden('You are not allowed to access this object')
 
         # Dispatch normally
         return super(WgerPermissionMixin, self).dispatch(request, *args, **kwargs)

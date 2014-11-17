@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
 from django.views.generic import TemplateView
 from django.contrib.auth import views
 from django.core.urlresolvers import reverse_lazy
@@ -41,9 +41,15 @@ urlpatterns = patterns('',
     url(r'^user/delete$',
         user.delete,
         name='user-delete'),
+    url(r'^user/(?P<user_pk>\d+)/delete$',
+        user.delete,
+        name='user-delete'),
     url(r'^user/logout$',
         user.logout,
         name='logout'),
+    url(r'^user/(?P<user_pk>\d+)/trainer-login$',
+        user.trainer_login,
+        name='trainer-login'),
     url(r'^user/registration$',
         user.registration,
         name='registration'),
@@ -56,6 +62,18 @@ urlpatterns = patterns('',
     url(r'^user/demo-entries$',
         misc.demo_entries,
         name='demo-entries'),
+    url(r'^user/(?P<pk>\d+)/activate',
+        user.UserActivateView.as_view(),
+        name='user-activate'),
+    url(r'^user/(?P<pk>\d+)/deactivate',
+        user.UserDeactivateView.as_view(),
+        name='user-deactivate'),
+    url(r'^user/(?P<pk>\d+)/edit',
+        user.UserEditView.as_view(),
+        name='user-edit'),
+    url(r'^user/(?P<pk>\d+)/overview',
+        user.UserDetailView.as_view(),
+        name='user-overview'),
 
     # Licenses
     url(r'^license/list$',
@@ -70,9 +88,6 @@ urlpatterns = patterns('',
     url(r'^license/(?P<pk>\d+)/delete',
         license.LicenseDeleteView.as_view(),
         name='license-delete'),
-    
-    
-    
 
     # Others
     url(r'^about$',

@@ -129,6 +129,19 @@ def auto_link_css(flavour='full', css=''):
     return 'class="{0}"'.format(css)
 
 
+@register.filter
+def format_username(user):
+    '''
+    Formats the username according to the information available
+    '''
+    if user.get_full_name():
+        return user.get_full_name()
+    elif user.email:
+        return user.email
+    else:
+        return user.username
+
+
 #
 # Form utils
 #

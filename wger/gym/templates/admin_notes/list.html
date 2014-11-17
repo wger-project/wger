@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
+
+{% block title %}{% trans "User notes" %}{% endblock %}
+
+
+
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% if perms.gym.manage_gyms %}
+        {% breadcrumb "Gyms" "gym:gym:list" %}
+    {% endif %}
+    {% breadcrumb_raw member.userprofile.gym "gym:gym:user-list" member.userprofile.gym.pk %}
+    {% breadcrumb_raw member|format_username "core:user-overview" member.pk %}
+    {% breadcrumb "User notes" "gym:user_notes:list" member.pk %}
+{% endblock %}
+
+
+{% block content %}
+<ul class="list-group">
+    {% for note in adminusernote_list %}
+    <li class="list-group-item ">
+        <div class="pull-right">
+            {% if perms.gym.delete_adminusernote %}
+            <a href="{% url 'gym:admin_note:delete' note.pk %}"
+               class="btn btn-danger btn-xs wger-modal-dialog">
+                {% trans 'Delete' %}
+            </a>
+            {% endif %}
+            {% if perms.gym.change_adminusernote %}
+            <a href="{% url 'gym:admin_note:edit' note.pk %}"
+               class="btn btn-default btn-xs wger-modal-dialog">
+                {% trans 'Edit' %}
+            </a>
+            {% endif %}
+        </div>
+
+        <h4 class="list-group-item-heading">{{ note.timestamp_created }} - {{ note.user|format_username }}</h4>
+        <p class="list-group-item-text">{{ note.note }}</p>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+
+
+
+{% block sidebar %}
+{% if perms.gym.add_adminusernote %}
+<h4>{% trans "Options" %}</h4>
+<p>
+       <a href="{% url 'gym:admin_note:add' member.pk %}"
+          {% auto_link_css flavour "wger-modal-dialog" %}>
+       <img src="{% static 'images/icons/new.svg' %}"
+            width="32"
+            height="32"
+            alt="{% trans 'Add' %}"
+            title="{% trans 'Add' %}">
+       {% trans "Add" %}
+       </a>
+</p>
+{% endif %}
+{% endblock %}

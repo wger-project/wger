@@ -30,7 +30,6 @@ class AddWorkoutDayTestCase(WorkoutManagerAddTestCase):
 
     object_class = Day
     url = reverse('day-add', kwargs={'workout_pk': 3})
-    pk = 6
     user_success = 'test'
     user_fail = 'admin'
     data = {'description': 'a new day',

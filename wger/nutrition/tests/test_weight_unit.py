@@ -34,7 +34,6 @@ class AddWeightUnitTestCase(WorkoutManagerAddTestCase):
     object_class = WeightUnit
     url = 'weight-unit-add'
     data = {'name': 'A new weight unit'}
-    pk = 7
 
 
 class DeleteWeightUnitTestCase(WorkoutManagerDeleteTestCase):

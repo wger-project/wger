@@ -19,7 +19,7 @@ Simple script that filters the output of django's dumpdata command into more
 manageable chunks.
 
 Create the data.json e.g. with:
-    python ../../manage.py dumpdata --indent=4 > data.json
+    python ../../manage.py dumpdata --indent 4 --natural > data.json
 '''
 
 import json
@@ -55,10 +55,30 @@ filter_dump(data, ('exercises.exercise', 'exercises.exercisecomment',), 'exercis
 filter_dump(data, ('exercises.equipment', 'exercises.equipment',), 'equipment.json')
 
 #
-# Other
+# Gym
 #
+filter_dump(data, ('gym.gym',), 'gyms.json')
+filter_dump(data, ('gym.gymconfig',), 'gym_config.json')
+filter_dump(data, ('gym.gymadminconfig',), 'gym_adminconfig.json')
+filter_dump(data, ('gym.gymuserconfig',), 'gym_userconfig.json')
+filter_dump(data, ('gym.adminusernote',), 'gym_admin_user_notes.json')
+filter_dump(data, ('gym.userdocument',), 'gym_user_documents.json')
+
+#
+# Core
+#
+filter_dump(data, ('core.gym',), 'gyms.json')
 filter_dump(data, ('core.language',), 'languages.json')
 filter_dump(data, ('core.license',), 'licenses.json')
-filter_dump(data, ('config.languageconfig',), 'language_config.json')
 
+#
+# Configurations
+#
+filter_dump(data, ('config.languageconfig',), 'language_config.json')
+filter_dump(data, ('config.gymconfig',), 'gym_config.json')
+
+#
+# Other
+#
 filter_dump(data, ('auth.group',), 'groups.json')
+filter_dump(data, ('auth.user',), 'users.json')

@@ -50,7 +50,6 @@ class CreateLanguageTestCase(WorkoutManagerAddTestCase):
 
     object_class = Language
     url = 'config:language-add'
-    pk = 3
     data = {'short_name': 'dk',
             'full_name': 'Dansk'}
 

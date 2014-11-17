@@ -14,6 +14,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+import os
+import random
+import string
 import logging
 import decimal
 import json
@@ -24,7 +27,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-
 
 logger = logging.getLogger('wger.custom')
 
@@ -107,3 +109,19 @@ def check_token(uidb64, token):
             return True
 
     return False
+
+
+def password_generator(length=15):
+    '''
+    A simple password generator
+
+    Also removes some 'problematic' characters like O and 0
+    :param length: the length of the password
+    :return: the generated password
+    '''
+    chars = string.ascii_letters + string.digits
+    random.seed = (os.urandom(1024))
+    for char in ('I', '1', 'O', '0', 'o'):
+        chars = chars.replace(char, '')
+
+    return ''.join(random.choice(chars) for i in range(length))

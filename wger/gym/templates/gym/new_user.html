@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+
+{% block title %}{{new_user|format_username}}{% endblock %}
+
+
+{% block content %}
+<table class="table">
+    <tr>
+        <th>{% trans "User" %}</th>
+        <td>{{new_user.get_full_name}} ({{new_user}})</td>
+    </tr>
+    <tr>
+        <th>{% trans "Password" %}</th>
+        <td>{{password}}</td>
+    </tr>
+    <tr>
+        <th>{% trans "Email" %}</th>
+        <td>{{new_user.email|default:'-/-'}}</td>
+    </tr>
+    <tr>
+        <th>{% trans "Gym" %}</th>
+        <td>{{new_user.userprofile.gym}}</td>
+    </tr>
+</table>
+{% endblock %}
+
+
+
+
+{% block sidebar %}
+<h4>{% trans "Info" %}</h4>
+<p>
+    {% blocktrans %}Please write down the user password or save the exported
+file, which contains all the user data, and keep it in a safe place. The password
+cannot be recovered later.{% endblocktrans %}
+</p>
+
+<h4>{% trans "Options" %}</h4>
+<p>
+<a href="{% url 'gym:gym:new-user-data-export' %}" {% auto_link_css flavour %}>
+    <img src="{% static 'images/icons/save.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Export user data' %}">
+    {% trans "Export user data" %}
+</a>
+</p>
+
+<p>
+<a href="{% url 'gym:gym:user-list' new_user.userprofile.gym.pk %}" {% auto_link_css flavour %}>
+    <img src="{% static 'images/icons/list.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Back to overview' %}">
+    {% trans "Back to gym" %}
+</a>
+</p>
+{% endblock %}

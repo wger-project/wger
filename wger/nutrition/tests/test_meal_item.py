@@ -54,7 +54,6 @@ class AddMealItemUnitTestCase(WorkoutManagerAddTestCase):
 
     object_class = MealItem
     url = reverse('mealitem-add', kwargs={'meal_id': 3})
-    pk = 22
     data = {'amount': 1,
             'ingredient': 1,
             'weight_unit': 1}
@@ -67,7 +66,6 @@ class AddMealItemWeightTestCase(WorkoutManagerAddTestCase):
 
     object_class = MealItem
     url = reverse('mealitem-add', kwargs={'meal_id': 3})
-    pk = 22
     data = {'amount': 100,
             'ingredient': 1}
 

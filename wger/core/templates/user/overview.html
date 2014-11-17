@@ -1,0 +1,371 @@
+{% extends "base.html" %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
+
+{% block title %}{{current_user|format_username}}{% endblock %}
+
+
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% if perms.gym.manage_gyms %}
+        {% breadcrumb "Gyms" "gym:gym:list" %}
+    {% endif %}
+    {% breadcrumb_raw current_user.userprofile.gym "gym:gym:user-list" current_user.userprofile.gym.pk %}
+    {% breadcrumb_raw current_user|format_username "core:user-overview" current_user.pk %}
+{% endblock %}
+
+
+{% block content %}
+{% url 'core:trainer-login' current_user.pk as trainer_login %}
+
+
+<h3>{% trans "Workouts" %} <small>({% trans "last 10" %})</small></h3>
+<table class="table">
+<thead>
+<tr>
+    <th style="width: 20%;">{% trans "Date" %}</th>
+    <th>{% trans "Description" %}</th>
+    <th>{% trans "Number of logs (days)" %}</th>
+    <th>{% trans "Last activity" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for workout in workouts %}
+<tr>
+    <td>
+        {{workout.workout.creation_date}}
+    </td>
+    <td>
+        <a href="{{trainer_login}}?next={% url 'workout-view' workout.workout.pk %}">{{workout.workout}}</a>
+    </td>
+    <td>
+        {{workout.logs|default:'-/-'}}
+    </td>
+    <td>
+        {{workout.last_log.date|default:'-/-'}}
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="2">{% trans "No workouts found." %}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% if perms.gym.gym_trainer %}
+<a href="{{trainer_login}}" class="btn btn-success btn-sm">{% trans "Log in as this user" %}</a>
+<a href="{{trainer_login}}?next={% url 'workout-calendar' %}" class="btn btn-default btn-sm">{% trans "Calendar" %}</a>
+<a href="{{trainer_login}}?next={% url 'workout-add' %}" class="btn btn-default btn-sm">{% trans "Add workout" %}</a>
+{% endif %}
+
+
+
+
+<h4>{% trans "Log" %} <small>({% trans "last 10" %})</small></h4>
+<table class="table">
+<thead>
+<tr>
+    <th style="width: 20%;">{% trans "Date" %}</th>
+    <th>{% trans "General impression" %}</th>
+    <th>{% trans "Notes" %}</th>
+    <th>{% trans "Time" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for log in session %}
+<tr>
+    <td>
+        {{log.date}}
+    </td>
+    <td>
+        {{log.get_impression_display}}
+    </td>
+    <td>
+        {{log.notes|truncatewords:6|default:'-/-'}}
+    </td>
+    <td>
+        {% if log.time_start and log.time_end %}
+            {{log.time_start|time:"H:i"}} - {{log.time_end|time:"H:i"}}
+        {% else %}
+            -/-
+        {% endif %}
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="3">{% trans "No logs found." %}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+
+<h3>{% trans "Weight" %} <small>({% trans "last 5" %})</small></h3>
+<table class="table">
+<thead>
+<tr>
+    <th style="width: 20%;">{% trans "Date" %}</th>
+    <th>{% trans "Weight" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for weight in weight_entries %}
+<tr>
+    <td>
+        {{weight.creation_date}}
+    </td>
+    <td>
+        {{weight.weight}}
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="3">{% trans "No logs found." %}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% if perms.gym.gym_trainer %}
+<a href="{{trainer_login}}?next={% url 'weight-overview' %}" class="btn btn-default btn-sm">{% trans "Weight overview" %}</a>
+{% endif %}
+
+
+<h3>{% trans "Nutrition plans" %} <small>({% trans "last 5" %})</small></h3>
+<table class="table">
+<thead>
+<tr>
+    <th style="width: 20%;">{% trans "Date" %}</th>
+    <th>{% trans "Description" %}</th>
+    <th>{% trans "Energy" %}</th>
+    <th>{% trans "Protein" %}</th>
+    <th>{% trans "Carbohydrates" %}</th>
+    <th>{% trans "Fat" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for nutrition_plan in nutrition_plans %}
+<tr>
+    <td>
+        {{nutrition_plan.creation_date}}
+    </td>
+    <td>
+        <a href="{{trainer_login}}?next={% url 'nutrition-view' nutrition_plan.id %}">{{nutrition_plan.description}}</a>
+    </td>
+    <td>
+        {{nutrition_plan.get_nutritional_values.total.energy|floatformat}}kcal
+    </td>
+    <td>
+        {{nutrition_plan.get_nutritional_values.total.protein|floatformat}}g
+    </td>
+    <td>
+        {{nutrition_plan.get_nutritional_values.total.carbohydrates|floatformat}}g
+    </td>
+    <td>
+        {{nutrition_plan.get_nutritional_values.total.fat|floatformat}}g
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}
+
+
+{% block sidebar %}
+{% if perms.gym.manage_gym %}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="{% url 'core:user-edit' current_user.pk %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            {% if current_user.is_active %}
+                <a href="{% url 'core:user-deactivate' current_user.pk %}" >{% trans "Deactivate user"%}</a>
+            {% else %}
+                <a href="{% url 'core:user-activate' current_user.pk %}">{% trans "Activate user"%}</a>
+            {% endif %}
+        </li>
+        {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
+        <li>
+            <a href="{% url 'gym:gym:edit-user-permission' current_user.pk %}" class="wger-modal-dialog">{% trans "Roles"%}</a>
+        </li>
+        {% endif %}
+        <li>
+            <a href="{% url 'core:user-delete' current_user.pk %}" class="wger-modal-dialog">{% trans "Delete"%}</a>
+        </li>
+    </ul>
+</div>
+{% endif %}
+<h4>{% trans "Details" %}</h4>
+
+<table class="table">
+    <tr>
+        <td>{% trans "Nr." %}</td>
+        <td>{{current_user.pk}}</td>
+    </tr>
+    <tr>
+        <td>{% trans "Name" %}</td>
+        <td>{{current_user.first_name}}</td>
+    </tr>
+    <tr>
+        <td>{% trans "Last name" %}</td>
+        <td>{{current_user.last_name}}</td>
+    </tr>
+    <tr>
+        <td>{% trans "Email" %}</td>
+        <td>
+            {% if current_user.email %}
+                <a href="mailto:{{current_user.email}}">{{current_user.email}}</a>
+            {% else %}
+                -/-
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td>{% trans "Registered" %}</td>
+        <td>{{current_user.date_joined}}</td>
+    </tr>
+    <tr>
+        <td>{% trans "Last login" %}</td>
+        <td>{{current_user.last_login}}</td>
+    </tr>
+{% if perms.gym.manage_gym %}
+    <tr {% if not current_user.is_active %}class="danger"{% endif%}>
+        <td>{% trans "Status" %}</td>
+        <td>
+            {% if current_user.is_active %}
+                {% trans "Active" %}
+            {% else %}
+                {% trans "Inactive" %}
+            {% endif %}
+        </td>
+    </tr>
+{% endif %}
+</table>
+
+
+
+{#             #}
+{# Admin notes #}
+{#             #}
+{% if perms.gym.add_adminusernote %}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="{% url 'gym:admin_note:list' current_user.pk %}">{% trans "Overview" %}</a>
+        </li>
+        <li>
+            <a href="{% url 'gym:admin_note:add' current_user.pk %}" class="wger-modal-dialog">{% trans "Add"%}</a>
+        </li>
+    </ul>
+</div>
+
+<h4>{% trans "Notes" %} <small>({% trans "last 5" %})</small></h4>
+<table class="table">
+    {% for note in admin_notes %}
+    <tr>
+        <td>
+            {{ note.timestamp_created }}
+        </td>
+        <td>
+            {{ note.note|truncatewords:10 }}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td>
+            {% trans "Nothing found" %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+
+
+{#           #}
+{# Documents #}
+{#           #}
+{% if perms.gym.add_userdocument %}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="{% url 'gym:document:list' current_user.pk %}">{% trans "Overview" %}</a>
+        </li>
+        <li>
+            <a href="{% url 'gym:document:add' current_user.pk %}">{% trans "Add"%}</a>
+        </li>
+    </ul>
+</div>
+
+<h4>{% trans "Documents" %} <small>({% trans "last 5" %})</small></h4>
+<table class="table">
+    {% for document in current_user.userdocument_member.all %}
+    <tr>
+        <td>
+            <a href="{{ document.document.url }}"
+               class="btn btn-default btn-xs"
+               title="{% trans 'Download' %}"
+               download="{{ document.original_name }}">
+                <span class="glyphicon glyphicon-download"></span>
+            </a>
+        </td>
+        <td>
+            {{ document.timestamp_created }}
+        </td>
+        <td>
+            {{ document.name }}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td>
+            {% trans "Nothing found" %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+
+
+{#                   #}
+{# Gym configuration #}
+{#                   #}
+{% if perms.gym.change_gymuserconfig %}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+
+        <li>
+            <a href="{% url 'gym:user_config:edit' current_user.gymuserconfig.pk %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
+        </li>
+    </ul>
+</div>
+{% endif %}
+
+<h4>{% trans "Configuration" %}</h4>
+<table class="table">
+    <tr>
+        <th>{% trans 'Include in inactive overview' %}</th>
+        <td style="text-align: right;">
+            {% if current_user.gymuserconfig.include_inactive %}
+                <span class="glyphicon glyphicon-ok"></span>
+            {% else %}
+                <span class="glyphicon glyphicon-remove"></span>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+{% endblock %}

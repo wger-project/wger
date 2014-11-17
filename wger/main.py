@@ -381,6 +381,7 @@ def load_fixtures():
     # Core
     path = os.path.join(current_dir, 'core', 'fixtures/')
     call_command("loaddata", path + "languages.json")
+    call_command("loaddata", path + "groups.json")
     call_command("loaddata", path + "users.json")
     call_command("loaddata", path + "licenses.json")
     call_command("loaddata", path + "days_of_week.json")
@@ -388,6 +389,7 @@ def load_fixtures():
     # Config
     path = os.path.join(current_dir, 'config', 'fixtures/')
     call_command("loaddata", path + "language_config.json")
+    call_command("loaddata", path + "gym_config.json")
 
     # Manager
     # path = os.path.join(current_dir, 'manager', 'fixtures/')

@@ -44,6 +44,40 @@ def get_reverse(url, kwargs={}):
     return six.text_type(url)
 
 
+def get_user_list(users):
+    '''
+    Helper function that returns a list with users to test
+    '''
+    if isinstance(users, tuple):
+        return users
+    else:
+        return [users]
+
+
+def delete_testcase_add_methods(cls):
+    '''
+    Helper function that dynamically adds test methods.
+
+    This is a bit of a hack, but it's the easiest way of making sure that
+    all the setup and teardown work is performed for each test user (and,
+    most importantly for us, that the database is reseted every time).
+
+    This must be called if the testcase has more than one success user
+    '''
+
+    for user in get_user_list(cls.user_fail):
+        def test_unauthorized(self):
+            self.user_login(user)
+            self.delete_object(fail=False)
+        setattr(cls, 'test_unauthorized_{0}'.format(user), test_unauthorized)
+
+    for user in get_user_list(cls.user_success):
+        def test_authorized(self):
+            self.user_login(user)
+            self.delete_object(fail=False)
+        setattr(cls, 'test_authorized_{0}'.format(user), test_authorized)
+
+
 class BaseTestCase(object):
     '''
     Base test case.
@@ -53,9 +87,17 @@ class BaseTestCase(object):
     '''
 
     fixtures = ('days_of_week',
+                'gym_config',
+                'groups',
                 'test-languages',
                 'test-licenses',
+                'test-gyms',
+                'test-gymsconfig',
                 'test-user-data',
+                'test-gym-adminconfig.json',
+                'test-gym-userconfig.json',
+                'test-admin-user-notes',
+                'test-gym-user-documents',
                 'test-apikeys',
                 'test-weight-data',
                 'test-equipment',
@@ -68,6 +110,7 @@ class BaseTestCase(object):
                 'test-workout-session',
                 'test-schedules')
     current_user = 'anonymous'
+    current_password = ''
     is_mobile = False
 
     def setUp(self):
@@ -106,12 +149,26 @@ class WorkoutManagerTestCase(BaseTestCase, TestCase):
     Testcase to use with the regular website
     '''
 
+    user_success = 'admin'
+    '''
+    A list of users to test for success. For convenience, a string can be used
+    as well if there is only one user.
+    '''
+
+    user_fail = 'test'
+    '''
+    A list of users to test for failure. For convenience, a string can be used
+    as well if there is only one user.
+    '''
+
     def user_login(self, user='admin'):
         '''
         Login the user, by default as 'admin'
         '''
-        self.client.login(username=user, password='%(user)s%(user)s' % {'user': user})
+        password = '{0}{0}'.format(user)
+        self.client.login(username=user, password=password)
         self.current_user = user
+        self.current_password = password
 
     def user_logout(self):
         '''
@@ -164,11 +221,9 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
     GET will only show a confirmation dialog.
     '''
 
-    object_class = ''
-    url = ''
     pk = None
-    user_success = 'admin'
-    user_fail = 'test'
+    url = ''
+    object_class = ''
 
     def delete_object(self, fail=False):
         '''
@@ -214,25 +269,24 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
         '''
         Tests deleting the object as an anonymous user
         '''
-
         self.delete_object(fail=True)
 
     def test_delete_object_authorized(self):
         '''
-        Tests deleting the object as an authorized user
+        Tests deleting the object as the authorized user
         '''
-
-        self.user_login(self.user_success)
-        self.delete_object(fail=False)
+        if not isinstance(self.user_success, tuple):
+            self.user_login(self.user_success)
+            self.delete_object(fail=False)
 
     def test_delete_object_other(self):
         '''
-        Tests deleting the object as an unauthorized, logged in user
+        Tests deleting the object as the unauthorized, logged in users
         '''
-
-        if self.user_fail:
-            self.user_login(self.user_fail)
-            self.delete_object(fail=True)
+        if self.user_fail and not isinstance(self.user_success, tuple):
+            for user in get_user_list(self.user_fail):
+                self.user_login(user)
+                self.delete_object(fail=True)
 
 
 class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
@@ -244,10 +298,15 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
     object_class = ''
     url = ''
     pk = None
-    user_success = 'admin'
-    user_fail = 'test'
     data = {}
     data_ignore = ()
+    fileupload = None
+    '''
+    If the form requires a file upload, specify the field name and the file path
+    here in a list or tuple:
+
+    ['fielname', 'path']
+    '''
 
     def edit_object(self, fail=False):
         '''
@@ -270,7 +329,16 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 200)
 
         # Try to edit the object
-        response = self.client.post(get_reverse(self.url, kwargs={'pk': self.pk}), self.data)
+        # Special care if there are any file uploads
+        if self.fileupload:
+            field_name = self.fileupload[0]
+            filepath = self.fileupload[1]
+            with open(filepath, 'rb') as testfile:
+                self.data[field_name] = testfile
+                url = get_reverse(self.url, kwargs={'pk': self.pk})
+                response = self.client.post(url, self.data)
+        else:
+            response = self.client.post(get_reverse(self.url, kwargs={'pk': self.pk}), self.data)
 
         entry_after = self.object_class.objects.get(pk=self.pk)
 
@@ -284,10 +352,9 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 302)
 
             # Check that the data is correct
-            for i in self.data:
-                if i not in self.data_ignore:
-                    current_field = getattr(entry_after, i)
-                    self.compare_fields(current_field, self.data[i])
+            for i in [j for j in self.data if j not in self.data_ignore]:
+                current_field = getattr(entry_after, i)
+                self.compare_fields(current_field, self.data[i])
 
             # The page we are redirected to doesn't trigger an error
             response = self.client.get(response['Location'])
@@ -302,20 +369,20 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
 
     def test_edit_object_authorized(self):
         '''
-        Tests editing the object as an authorized user
+        Tests editing the object as the authorized users
         '''
-
-        self.user_login(self.user_success)
-        self.edit_object(fail=False)
+        for user in get_user_list(self.user_success):
+            self.user_login(user)
+            self.edit_object(fail=False)
 
     def test_edit_object_other(self):
         '''
-        Tests editing the object as an unauthorized, logged in user
+        Tests editing the object as the unauthorized, logged in users
         '''
-
         if self.user_fail:
-            self.user_login(self.user_fail)
-            self.edit_object(fail=True)
+            for user in get_user_list(self.user_fail):
+                self.user_login(user)
+                self.edit_object(fail=True)
 
 
 class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
@@ -326,12 +393,18 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
 
     object_class = ''
     url = ''
-    pk = None
-    user_success = 'admin'
-    user_fail = 'test'
+    pk_before = None
+    pk_after = None
     anonymous_fail = True
     data = {}
     data_ignore = ()
+    fileupload = None
+    '''
+    If the form requires a file upload, specify the field name and the file path
+    here in a list or tuple:
+
+    ['fielname', 'path']
+    '''
 
     def add_object(self, fail=False):
         '''
@@ -353,27 +426,34 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
 
         # Enter the data
         count_before = self.object_class.objects.count()
-        response = self.client.post(get_reverse(self.url), self.data)
+        self.pk_before = self.object_class.objects.all().order_by('id').last().pk
 
+        # Special care if there are any file uploads
+        if self.fileupload:
+            field_name = self.fileupload[0]
+            filepath = self.fileupload[1]
+            with open(filepath, 'rb') as testfile:
+                self.data[field_name] = testfile
+                response = self.client.post(get_reverse(self.url), self.data)
+        else:
+            response = self.client.post(get_reverse(self.url), self.data)
         count_after = self.object_class.objects.count()
+        self.pk_after = self.object_class.objects.all().order_by('id').last().pk
+
         if fail:
             self.assertIn(response.status_code, STATUS_CODES_FAIL)
-            self.assertTemplateUsed('login.html')
-
-            self.assertRaises(self.object_class.DoesNotExist,
-                              self.object_class.objects.get,
-                              pk=self.pk)
+            self.assertEqual(self.pk_before, self.pk_after)
             self.assertEqual(count_before, count_after)
 
         else:
             self.assertEqual(response.status_code, 302)
-            entry = self.object_class.objects.get(pk=self.pk)
+            self.assertGreater(self.pk_after, self.pk_before)
+            entry = self.object_class.objects.get(pk=self.pk_after)
 
             # Check that the data is correct
-            for i in self.data:
-                if i not in self.data_ignore:
-                    current_field = getattr(entry, i)
-                    self.compare_fields(current_field, self.data[i])
+            for i in [j for j in self.data if j not in self.data_ignore]:
+                current_field = getattr(entry, i)
+                self.compare_fields(current_field, self.data[i])
 
             self.assertEqual(count_before + 1, count_after)
 
@@ -392,20 +472,22 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
 
     def test_add_object_authorized(self):
         '''
-        Tests adding the object as an authorized user
+        Tests adding the object as the authorized users
         '''
 
-        self.user_login(self.user_success)
-        self.add_object(fail=False)
+        for user in get_user_list(self.user_success):
+            self.user_login(user)
+            self.add_object(fail=False)
 
     def test_add_object_other(self):
         '''
-        Tests adding the object as an unauthorized, logged in user
+        Tests adding the object as the unauthorized, logged in users
         '''
 
-        self.user_login(self.user_fail)
         if self.user_fail:
-            self.add_object(fail=True)
+            for user in get_user_list(self.user_fail):
+                self.user_login(self.user_fail)
+                self.add_object(fail=True)
 
 
 class WorkoutManagerAccessTestCase(WorkoutManagerTestCase):
@@ -415,8 +497,6 @@ class WorkoutManagerAccessTestCase(WorkoutManagerTestCase):
     '''
 
     url = ''
-    user_success = 'admin'
-    user_fail = 'test'
     anonymous_fail = True
 
     def access(self, fail=True):
@@ -446,17 +526,19 @@ class WorkoutManagerAccessTestCase(WorkoutManagerTestCase):
 
     def test_access_authorized(self):
         '''
-        Tests accessing the URL as an authorized user
+        Tests accessing the URL as the authorized users
         '''
 
-        self.user_login(self.user_success)
-        self.access(fail=False)
+        for user in get_user_list(self.user_success):
+            self.user_login(user)
+            self.access(fail=False)
 
     def test_access_other(self):
         '''
-        Tests accessing the URL as an unauthorized, logged in user
+        Tests accessing the URL as the unauthorized, logged in users
         '''
 
-        self.user_login(self.user_fail)
-        self.access(fail=True)
-        self.user_logout()
+        for user in get_user_list(self.user_fail):
+            self.user_login(user)
+            self.access(fail=True)
+            self.user_logout()

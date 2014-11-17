@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-{% load i18n staticfiles cache compress wger_extras %}
+{% load i18n staticfiles wger_extras compress django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+    {% clear_breadcrumbs %}
+{% endblock %}
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

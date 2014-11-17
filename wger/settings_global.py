@@ -66,6 +66,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
     # Django mobile
     'django_mobile.context_processors.flavour',
+
+    # Breadcrumbs
+    'django.core.context_processors.request'
 )
 
 # Store the user messages in the session
@@ -202,6 +205,7 @@ INSTALLED_APPS = (
     'wger.software',
     'wger.utils',
     'wger.config',
+    'wger.gym',
 
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
     'captcha',
@@ -226,7 +230,10 @@ INSTALLED_APPS = (
 
     # REST framework
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+
+    # Breadcrumbs
+    'django_bootstrap_breadcrumbs',
 )
 
 
@@ -347,4 +354,10 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',
                                 'rest_framework.filters.OrderingFilter',)
+}
+
+
+# Configure south database migrations
+SOUTH_MIGRATION_MODULES = {
+    'easy_thumbnails': 'easy_thumbnails.south_migrations',
 }

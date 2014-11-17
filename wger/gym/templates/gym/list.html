@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+
+{% block title %}{% trans "Gym list" %}{% endblock %}
+
+
+{% block content %}
+
+<ul class="list-group">
+    {% for gym in gym_list %}
+    <li class="list-group-item ">
+        <div class="pull-right">
+            <a href="{% url 'gym:gym:delete' gym.id %}"
+               class="btn btn-danger btn-xs wger-modal-dialog">
+                {% trans 'Delete' %}
+            </a>
+            <a href="{% url 'gym:gym:edit' gym.id %}"
+               class="btn btn-default btn-xs wger-modal-dialog">
+                {% trans 'Edit' %}
+            </a>
+        </div>
+        <a href="{% url 'gym:gym:user-list' gym.pk %}">{{gym}}</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% if perms.core.add_gym %}
+<p>
+       <a href="{% url 'gym:gym:add' %}"
+          {% auto_link_css flavour "wger-modal-dialog" %}>
+       <img src="{% static 'images/icons/new.svg' %}"
+            width="32"
+            height="32"
+            alt="{% trans 'Add new gym' %}"
+            title="{% trans 'Add new gym' %}">
+       {% trans "Add new gym" %}
+       </a>
+</p>
+{% endif %}
+{% endblock %}
+
+
+
+
+{% block sidebar %}
+{% if perms.config.change_gymconfig %}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="{% url 'config:gymconfig-edit' %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
+        </li>
+    </ul>
+</div>
+{% endif %}
+<h4>{% trans "Global gym configuration" %}</h4>
+<table class="table">
+    <tr>
+        <th>{% trans "Default gym" %}</th>
+        <td>{{ global_gym_config.default_gym|default:"-/-" }}</td>
+    </tr>
+</table>
+
+
+{% endblock %}

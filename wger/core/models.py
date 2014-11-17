@@ -25,6 +25,7 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import ugettext_lazy as _
+from wger.gym.models import Gym
 
 from wger.utils.helpers import disable_for_loaddata
 from wger.utils.constants import TWOPLACES
@@ -93,23 +94,37 @@ class UserProfile(models.Model):
         (INTENSITY_HIGH, _('High')),
     )
 
-    # This field is required.
     user = models.OneToOneField(User,
                                 editable=False)
+    '''
+    The user
+    '''
 
-    # Flag to mark a temporary user (demo account)
+    gym = models.ForeignKey(Gym,
+                            editable=False,
+                            null=True,
+                            blank=True)
+    '''
+    The gym this user belongs to, if any
+    '''
+
     is_temporary = models.BooleanField(default=False,
                                        editable=False)
+    '''
+    Flag to mark a temporary user (demo account)
+    '''
 
     #
     # User preferences
     #
 
-    # Show exercise comments on workout view
     show_comments = models.BooleanField(verbose_name=_('Show exercise comments'),
                                         help_text=_('Check to show exercise comments on the '
                                                     'workout view'),
                                         default=True)
+    '''
+    Show exercise comments on workout view
+    '''
 
     # Also show ingredients in english while composing a nutritional plan
     # (obviously this is only meaningful if the user has a language other than english)

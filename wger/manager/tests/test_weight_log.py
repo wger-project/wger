@@ -169,7 +169,6 @@ class WeightLogAddTestCase(WorkoutManagerAddTestCase):
 
     object_class = WorkoutLog
     url = reverse_lazy('workout-log-add', kwargs={'workout_pk': 1})
-    pk = 6
     data = {'reps': 10,
             'weight': 120.5,
             'date': datetime.date.today(),

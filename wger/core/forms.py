@@ -16,14 +16,15 @@
 
 from captcha.fields import ReCaptchaField
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User as Django_User
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django.forms import ModelForm, EmailField, Form, CharField, widgets, PasswordInput
+from django import forms
+from django.forms import EmailField, Form, CharField, widgets, PasswordInput
 from django.utils.translation import ugettext as _
 from wger.core.models import UserProfile
 
 
-class UserPreferencesForm(ModelForm):
+class UserPreferencesForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('show_comments',
@@ -36,25 +37,47 @@ class UserPreferencesForm(ModelForm):
                   'timer_pause')
 
 
-class UserEmailForm(ModelForm):
+class UserEmailForm(forms.ModelForm):
     email = EmailField(label=_("Email"),
                        help_text=_("Only needed to reset your password in case you forget it."),
                        required=False)
 
     class Meta:
-        model = Django_User
+        model = User
         fields = ('email', )
 
     def clean_email(self):
-        # Email must be unique systemwide
+        '''
+        Email must be unique system wide
+
+        However, this check should only be performed when the user changes his
+        email, otherwise the uniqueness check will because it will find one user
+        (the current one) using the same email. Only when the user changes it, do
+        we want to check that nobody else has that email
+        '''
+
         email = self.cleaned_data["email"]
         if not email:
             return email
         try:
-            Django_User.objects.get(email=email)
-        except Django_User.DoesNotExist:
+            user = User.objects.get(email=email)
+            if user.email == self.instance.email:
+                return email
+        except User.DoesNotExist:
             return email
+
         raise ValidationError(_("This email is already used."))
+
+
+class UserPersonalInformationForm(UserEmailForm):
+    first_name = forms.CharField(label=_('First name'),
+                                 required=False)
+    last_name = forms.CharField(label=_('Last name'),
+                                required=False)
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
 
 
 class PasswordConfirmationForm(Form):
@@ -102,22 +125,22 @@ class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
     pass
 
 
-class FeedbackRegisteredForm(Form):
+class FeedbackRegisteredForm(forms.Form):
     '''
     Feedback form used for logged in users
     '''
-    contact = CharField(max_length=50,
-                        min_length=10,
-                        label=_('Contact'),
-                        help_text=_('Some way of answering your (email, etc.)'),
-                        required=False)
+    contact = forms.CharField(max_length=50,
+                              min_length=10,
+                              label=_('Contact'),
+                              help_text=_('Some way of answering your (email, etc.)'),
+                              required=False)
 
-    comment = CharField(max_length=500,
-                        min_length=10,
-                        widget=widgets.Textarea,
-                        label=_('Comment'),
-                        help_text=_('What do you want to say?'),
-                        required=True)
+    comment = forms.CharField(max_length=500,
+                              min_length=10,
+                              widget=widgets.Textarea,
+                              label=_('Comment'),
+                              help_text=_('What do you want to say?'),
+                              required=True)
 
 
 class FeedbackAnonymousForm(FeedbackRegisteredForm):

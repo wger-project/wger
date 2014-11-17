@@ -180,22 +180,6 @@ body {
  * Alerts
  **************************************************************/
 
-/*
- * Links within boostrap's alert boxes are rendered in black
- */
-.alert a{
-    color: black;
-    text-decoration: underline;
-}
-
-
-.alert a:hover{
-    color: white;
-    text-decoration: underline;
-    text-shadow: none;
-}
-
-
 .label, .badge {
     font-weight: normal;
 }
@@ -255,5 +239,10 @@ fieldset[disabled] .btn-default.active {
 }
 
 /**************************************************************
- * Header
+ * Headers in sidebar
  **************************************************************/
+ #main-sidebar h4, #main-sidebar .h4,
+ #main-sidebar h5, #main-sidebar .h5,
+ #main-sidebar h6, #main-sidebar .h6 {
+    margin-top: 0px;
+}

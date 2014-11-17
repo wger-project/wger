@@ -40,7 +40,6 @@ class AddWorkoutSessionTestCase(WorkoutManagerAddTestCase):
                                                       'year': datetime.date.today().year,
                                                       'month': datetime.date.today().month,
                                                       'day': datetime.date.today().day})
-    pk = 5
     data = {
         'user': 1,
         'workout': 1,

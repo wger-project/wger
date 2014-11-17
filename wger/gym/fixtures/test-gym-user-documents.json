@@ -1,0 +1,41 @@
+[
+    {
+        "pk": 1, 
+        "model": "gym.userdocument", 
+        "fields": {
+            "timestamp_created": "2014-11-01T19:31:03.184Z", 
+            "timestamp_edited": "2014-11-01T19:31:03.184Z", 
+            "name": "A description",
+            "original_name": "something_else.pdf",
+            "member": 14,
+            "user": 4,
+            "document": "gym/documents/1/14/4828abd8-e77b-4f79-a4cf-edd69bbd5df8"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "gym.userdocument", 
+        "fields": {
+            "timestamp_created": "2014-11-06T20:07:31.261Z", 
+            "timestamp_edited": "2014-11-06T20:07:31.261Z", 
+            "name": "Test 123", 
+            "original_name": "1234567890_abcdefghijk.jpg",
+            "member": 14,
+            "user": 5,
+            "document": "gym/documents/1/6/f61d54d5-627d-4fd3-86a7-ac549d76b4e6"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "gym.userdocument",
+        "fields": {
+            "timestamp_created": "2014-11-06T20:07:31.261Z",
+            "timestamp_edited": "2014-11-06T20:07:31.261Z",
+            "name": "Test 123",
+            "original_name": "upload.txt",
+            "member": 14,
+            "user": 5,
+            "document": "gym/documents/1/6/34c507d8-b8e3-4f7b-823c-693c1d80c0c3"
+        }
+    }
+]

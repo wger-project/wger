@@ -55,7 +55,10 @@ def processor(request):
         'no_messages': request.META.get('HTTP_X_WGER_NO_MESSAGES', False),
 
         # Default cache time for template fragment caching
-        'cache_timeout': settings.CACHES['default']['TIMEOUT']
+        'cache_timeout': settings.CACHES['default']['TIMEOUT'],
+
+        # Used for logged in trainers
+        'trainer_identity': request.session.get('trainer.identity'),
     }
 
     # Pseudo-intelligent navigation here

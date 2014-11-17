@@ -40,7 +40,6 @@ class CreateScheduleTestCase(WorkoutManagerAddTestCase):
 
     object_class = Schedule
     url = 'schedule-add'
-    pk = 5
     user_success = 'test'
     user_fail = False
     data = {'name': 'My cool schedule',

@@ -31,7 +31,6 @@ class AddWeightEntryTestCase(WorkoutManagerAddTestCase):
 
     object_class = WeightEntry
     url = 'weight-add'
-    pk = 8
     user_fail = False
     data = {'weight': decimal.Decimal(81.1).quantize(TWOPLACES),
             'creation_date': datetime.date(2013, 2, 1),

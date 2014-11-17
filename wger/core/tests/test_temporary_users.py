@@ -51,7 +51,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         '''
         self.client.get(reverse('core:dashboard'))
         self.assertEqual(self.count_temp_users(), 2)
-        user = User.objects.get(pk=4)
+        user = User.objects.get(pk=25)
         self.assertEqual(user.userprofile.is_temporary, True)
         self.assertEqual(Workout.objects.filter(user=user).count(), 0)
 

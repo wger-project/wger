@@ -1,195 +1,6 @@
 [
     {
         "pk": 1, 
-        "model": "auth.group", 
-        "fields": {
-            "name": "admin", 
-            "permissions": [
-                [
-                    "add_languageconfig", 
-                    "config", 
-                    "languageconfig"
-                ], 
-                [
-                    "change_languageconfig", 
-                    "config", 
-                    "languageconfig"
-                ], 
-                [
-                    "delete_languageconfig", 
-                    "config", 
-                    "languageconfig"
-                ], 
-                [
-                    "add_daysofweek", 
-                    "core", 
-                    "daysofweek"
-                ], 
-                [
-                    "change_daysofweek", 
-                    "core", 
-                    "daysofweek"
-                ], 
-                [
-                    "delete_daysofweek", 
-                    "core", 
-                    "daysofweek"
-                ], 
-                [
-                    "add_language", 
-                    "core", 
-                    "language"
-                ], 
-                [
-                    "change_language", 
-                    "core", 
-                    "language"
-                ], 
-                [
-                    "delete_language", 
-                    "core", 
-                    "language"
-                ], 
-                [
-                    "add_license", 
-                    "core", 
-                    "license"
-                ], 
-                [
-                    "change_license", 
-                    "core", 
-                    "license"
-                ], 
-                [
-                    "delete_license", 
-                    "core", 
-                    "license"
-                ], 
-                [
-                    "add_equipment", 
-                    "exercises", 
-                    "equipment"
-                ], 
-                [
-                    "change_equipment", 
-                    "exercises", 
-                    "equipment"
-                ], 
-                [
-                    "delete_equipment", 
-                    "exercises", 
-                    "equipment"
-                ], 
-                [
-                    "add_exercise", 
-                    "exercises", 
-                    "exercise"
-                ], 
-                [
-                    "change_exercise", 
-                    "exercises", 
-                    "exercise"
-                ], 
-                [
-                    "delete_exercise", 
-                    "exercises", 
-                    "exercise"
-                ], 
-                [
-                    "add_exercisecategory", 
-                    "exercises", 
-                    "exercisecategory"
-                ], 
-                [
-                    "change_exercisecategory", 
-                    "exercises", 
-                    "exercisecategory"
-                ], 
-                [
-                    "delete_exercisecategory", 
-                    "exercises", 
-                    "exercisecategory"
-                ], 
-                [
-                    "add_exercisecomment", 
-                    "exercises", 
-                    "exercisecomment"
-                ], 
-                [
-                    "change_exercisecomment", 
-                    "exercises", 
-                    "exercisecomment"
-                ], 
-                [
-                    "delete_exercisecomment", 
-                    "exercises", 
-                    "exercisecomment"
-                ], 
-                [
-                    "add_exerciseimage", 
-                    "exercises", 
-                    "exerciseimage"
-                ], 
-                [
-                    "change_exerciseimage", 
-                    "exercises", 
-                    "exerciseimage"
-                ], 
-                [
-                    "delete_exerciseimage", 
-                    "exercises", 
-                    "exerciseimage"
-                ], 
-                [
-                    "add_muscle", 
-                    "exercises", 
-                    "muscle"
-                ], 
-                [
-                    "change_muscle", 
-                    "exercises", 
-                    "muscle"
-                ], 
-                [
-                    "delete_muscle", 
-                    "exercises", 
-                    "muscle"
-                ], 
-                [
-                    "add_ingredient", 
-                    "nutrition", 
-                    "ingredient"
-                ], 
-                [
-                    "change_ingredient", 
-                    "nutrition", 
-                    "ingredient"
-                ], 
-                [
-                    "delete_ingredient", 
-                    "nutrition", 
-                    "ingredient"
-                ], 
-                [
-                    "add_ingredientweightunit", 
-                    "nutrition", 
-                    "ingredientweightunit"
-                ], 
-                [
-                    "change_ingredientweightunit", 
-                    "nutrition", 
-                    "ingredientweightunit"
-                ], 
-                [
-                    "delete_ingredientweightunit", 
-                    "nutrition", 
-                    "ingredientweightunit"
-                ]
-            ]
-        }
-    },
-    {
-        "pk": 1, 
         "model": "auth.user", 
         "fields": {
             "username": "admin", 
@@ -241,9 +52,427 @@
             "last_login": "2013-03-30T00:23:21.592Z", 
             "groups": [], 
             "user_permissions": [], 
-            "password": "pbkdf2_sha256$10000$ncxgfFxHcKK3$oiXpDkxJ1ox765pRuMQh/s50yq7GUPayinBFb6ReeX4=", 
+            "password": "pbkdf2_sha256$10000$ncxgfFxHcKK3$oiXpDkxJ1ox765pRuMQh/s50yq7GUPayinBFb6ReeX4=",
             "email": "", 
             "date_joined": "2013-03-30T00:23:21.592Z"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "auth.user",
+        "fields": {
+            "username": "trainer1",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2013-03-30T00:23:21.592Z",
+            "groups": [
+                [
+                    "gym_trainer"
+                ]
+            ],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$12000$BaNi2p83rltB$fYAI0Y1Wxyo1DoQf8uJC6W1y3fK9HzmI7t8bN//Mzvo=",
+            "email": "trainer1@example.com",
+            "date_joined": "2013-03-30T00:23:21.592Z"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "auth.user",
+        "fields": {
+            "username": "trainer2",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2013-03-30T00:23:21.592Z",
+            "groups": [
+                [
+                    "gym_trainer"
+                ]
+            ],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$12000$fgvAIvZjOH3f$ufayZhSXYPIgEhAiimIv6coPAPWcE0MwLZKVOTsJMM0=",
+            "email": "trainer2@example.com",
+            "date_joined": "2013-03-30T00:23:21.592Z"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "auth.user",
+        "fields": {
+            "username": "trainer3",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2013-03-30T00:23:21.592Z",
+            "groups": [
+                [
+                    "gym_trainer"
+                ]
+            ],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$12000$IsWVvB7BuF2p$ZwLPKiGB5wP6XVx5qYI2hKu5CWODQX3gVUDvXEr1XqM=",
+            "email": "trainer3@example.com",
+            "date_joined": "2013-03-30T00:23:21.592Z"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "auth.user",
+        "fields": {
+            "username": "trainer4",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2013-03-30T00:23:21.592Z",
+            "groups": [
+                [
+                    "gym_trainer"
+                ]
+            ],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$12000$U11MFXGmVZCy$znXUYY6Nt9t25mqGaCumxe9qe91pjQSr3fNWQb+SZms=",
+            "email": "trainer4@example.com",
+            "date_joined": "2013-03-30T00:23:21.592Z"
+        }
+    },
+    {
+        "pk": 8,
+        "model": "auth.user",
+        "fields": {
+            "username": "trainer5",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2013-03-30T00:23:21.592Z",
+            "groups": [
+                [
+                    "gym_trainer"
+                ]
+            ],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$12000$N1LjFaFdFKXD$Bd4rFH4+pXY9R3xOOE6rLfFLZ9Y7zri+UmzAEWgADWE=",
+            "email": "trainer5@example.com",
+            "date_joined": "2013-03-30T00:23:21.592Z"
+        }
+    },
+    {
+        "pk": 9,
+        "model": "auth.user",
+        "fields": {
+            "username": "manager1",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2013-03-30T00:23:21.592Z",
+            "groups": [
+                [
+                    "gym_manager"
+                ]
+            ],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$12000$YHyCIzh0CYNt$kEeqDYK9mw4d9+X5uxpav/rVAFEQuJyT2GRaTdtpaFI=",
+            "email": "manager1@example.com",
+            "date_joined": "2013-03-30T00:23:21.592Z"
+        }
+    },
+    {
+        "pk": 10,
+        "model": "auth.user",
+        "fields": {
+            "username": "manager2",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2013-03-30T00:23:21.592Z",
+            "groups": [
+                [
+                    "gym_manager"
+                ]
+            ],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$12000$JpQW8y8VEnIJ$LgBr+wCAU00/Lpec0Iq/og8oqEOT0yS2C8C1UakI1Uo=",
+            "email": "manager2@example.com",
+            "date_joined": "2013-03-30T00:23:21.592Z"
+        }
+    },
+    {
+        "pk": 11,
+        "model": "auth.user",
+        "fields": {
+            "username": "manager3",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2013-03-30T00:23:21.592Z",
+            "groups": [
+                [
+                    "gym_manager"
+                ]
+            ],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$12000$lHge7s7afhrb$Nb5M0jcoSX0ZbT3P70D4XDtke37u+NKdoBfXNd9LFng=",
+            "email": "manager3@example.com",
+            "date_joined": "2013-03-30T00:23:21.592Z"
+        }
+    },
+    {
+        "pk": 12,
+        "model": "auth.user",
+        "fields": {
+            "username": "general_manager1",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2013-03-30T00:23:21.592Z",
+            "groups": [
+                [
+                    "general_gym_manager"
+                ]
+            ],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$12000$q1ZLvhPFKbRp$Q1dgERaIC1YSWdWI8XwxwDlP0J5c52n+Nu2UFKRT0Mc=",
+            "email": "general_manager1@example.com",
+            "date_joined": "2013-03-30T00:23:21.592Z"
+        }
+    },
+    {
+        "pk": 13,
+        "model": "auth.user",
+        "fields": {
+            "username": "general_manager2",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2013-03-30T00:23:21.592Z",
+            "groups": [
+                [
+                    "general_gym_manager"
+                ]
+            ],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$12000$gy3Rnm5zmJFb$3yjL9nKmDkwWlZwYVTUfUe/E2MPcWbYdrucauAx78lw=",
+            "email": "general_manager2@example.com",
+            "date_joined": "2013-03-30T00:23:21.592Z"
+        }
+    },
+    {
+        "pk": 14, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "member1", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_staff": false, 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$12000$tvRb4UoTTrNA$02ZacbgPTU9n3erervJjNJ6pPnYcT5WCdK8A7vKNsWQ=", 
+            "date_joined": "2013-03-30T00:23:21.592Z", 
+            "first_name": "", 
+            "is_superuser": false, 
+            "last_login": "2013-03-30T00:23:21.592Z", 
+            "email": "member1@example.com"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "member2", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_staff": false, 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$12000$EmUrOsFPNqad$pVs/qtc6HTNBElh3JTML1t0pu0HrVCgInTRjH1kGR70=", 
+            "date_joined": "2013-03-30T00:23:21.592Z", 
+            "first_name": "", 
+            "is_superuser": false, 
+            "last_login": "2013-03-30T00:23:21.592Z", 
+            "email": "member2@example.com"
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "member3", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_staff": false, 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$12000$u2LgFL6ZAoRj$Ta4N0lDL0ITirzY+1X43Ovu0La/aRuIgbsB6/V3M2Cc=", 
+            "date_joined": "2013-03-30T00:23:21.592Z", 
+            "first_name": "", 
+            "is_superuser": false, 
+            "last_login": "2013-03-30T00:23:21.592Z", 
+            "email": "member3@example.com"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "member4", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_staff": false, 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$12000$8UWUtO9ISbvS$03anO5xZwW5/9bfKnHvd59jXN7zjZ0feg3ZigNgql2c=", 
+            "date_joined": "2013-03-30T00:23:21.592Z", 
+            "first_name": "", 
+            "is_superuser": false, 
+            "last_login": "2013-03-30T00:23:21.592Z", 
+            "email": "member4@example.com"
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "member5", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_staff": false, 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$12000$icmsz2q1iPt9$Hye1b2lb5aSfAh8qSJ0As3eQ859X+gPWRLMrg+RgBr8=", 
+            "date_joined": "2013-03-30T00:23:21.592Z", 
+            "first_name": "", 
+            "is_superuser": false, 
+            "last_login": "2013-03-30T00:23:21.592Z", 
+            "email": "member5@example.com"
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "member6", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_staff": false, 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$12000$DrZmCJLgdwmB$EHjhx5Q0TGfQuEIONQ16ZS7y+68ZzRkfrT8+jO9PqtA=", 
+            "date_joined": "2013-03-30T00:23:21.592Z", 
+            "first_name": "", 
+            "is_superuser": false, 
+            "last_login": "2013-03-30T00:23:21.592Z", 
+            "email": "member6@example.com"
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "member7", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_staff": false, 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$12000$TmyjzRJywZvs$CixnTYFGK8/dcAARAQOJE6gIPDmDiI/r3MCE81WZRU4=", 
+            "date_joined": "2013-03-30T00:23:21.592Z", 
+            "first_name": "", 
+            "is_superuser": false, 
+            "last_login": "2013-03-30T00:23:21.592Z", 
+            "email": "member7@example.com"
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "member8", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_staff": false, 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$12000$GSsralc7hddi$R0CFaVao8DDukttGl3rAgge/kcxFdOKGdl4c7koGIdU=", 
+            "date_joined": "2013-03-30T00:23:21.592Z", 
+            "first_name": "", 
+            "is_superuser": false, 
+            "last_login": "2013-03-30T00:23:21.592Z", 
+            "email": "member8@example.com"
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "member9", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_staff": false, 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$12000$sJ5O9GgTuABf$PocdJ38fKz7F7MaP/mB5ruDbZs1FHPl6ANW8qmuvPtY=", 
+            "date_joined": "2013-03-30T00:23:21.592Z", 
+            "first_name": "", 
+            "is_superuser": false, 
+            "last_login": "2013-03-30T00:23:21.592Z", 
+            "email": "member9@example.com"
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "member10", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_staff": false, 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$12000$Tq889HV1Bfl6$NsSvfLamynFbcsvPth7TUNam7SMvUteDp4+T0fCJqDU=", 
+            "date_joined": "2013-03-30T00:23:21.592Z", 
+            "first_name": "", 
+            "is_superuser": false, 
+            "last_login": "2013-03-30T00:23:21.592Z", 
+            "email": "member10@example.com"
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "member11", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_staff": false, 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$12000$o3tY1figj6zP$Z/qOvtvxnGTj3QSxTQBskLNH4rNBKJqBdOQ/5/JKkdk=", 
+            "date_joined": "2013-03-30T00:23:21.592Z", 
+            "first_name": "", 
+            "is_superuser": false, 
+            "last_login": "2013-03-30T00:23:21.592Z", 
+            "email": "member11@example.com"
         }
     },
     {
@@ -269,8 +498,9 @@
             "workout_reminder": 20,
             "workout_duration": 8,
             "notification_language": 1,
-	    "timer_active": true,
-	    "timer_pause": 90
+	        "timer_active": true,
+	        "timer_pause": 90,
+	        "gym": 1
         }
     }, 
     {
@@ -296,8 +526,9 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	    "timer_active": true,
-	    "timer_pause": 90
+	        "timer_active": true,
+	        "timer_pause": 90,
+	        "gym": 1
         }
     }, 
     {
@@ -322,7 +553,596 @@
             "workout_reminder_active": true,
             "workout_reminder": 10,
             "workout_duration": 15,
-            "notification_language": 2
+            "notification_language": 2,
+            "gym": 2
+        }
+    },
+    {
+        "pk": 4,
+        "model": "core.userprofile",
+        "fields": {
+            "is_temporary": false,
+            "show_comments": false,
+            "show_english_ingredients": false,
+            "user": 4,
+            "gender": "1",
+            "age": 20,
+            "sport_intensity": "3",
+            "calories": 3500,
+            "height": 180,
+            "sport_hours": 6,
+            "sleep_hours": 7,
+            "work_intensity": "1",
+            "freetime_intensity": "1",
+            "work_hours": 8,
+            "freetime_hours": 8,
+            "workout_reminder_active": true,
+            "workout_reminder": 14,
+            "workout_duration": 12,
+            "notification_language": 2,
+	        "timer_active": true,
+	        "timer_pause": 90,
+	        "gym": 1
+        }
+    },
+    {
+        "pk": 5,
+        "model": "core.userprofile",
+        "fields": {
+            "is_temporary": false,
+            "show_comments": false,
+            "show_english_ingredients": false,
+            "user": 5,
+            "gender": "1",
+            "age": 20,
+            "sport_intensity": "3",
+            "calories": 3500,
+            "height": 180,
+            "sport_hours": 6,
+            "sleep_hours": 7,
+            "work_intensity": "1",
+            "freetime_intensity": "1",
+            "work_hours": 8,
+            "freetime_hours": 8,
+            "workout_reminder_active": true,
+            "workout_reminder": 14,
+            "workout_duration": 12,
+            "notification_language": 2,
+	        "timer_active": true,
+	        "timer_pause": 90,
+	        "gym": 1
+        }
+    },
+    {
+        "pk": 6,
+        "model": "core.userprofile",
+        "fields": {
+            "is_temporary": false,
+            "show_comments": false,
+            "show_english_ingredients": false,
+            "user": 6,
+            "gender": "1",
+            "age": 20,
+            "sport_intensity": "3",
+            "calories": 3500,
+            "height": 180,
+            "sport_hours": 6,
+            "sleep_hours": 7,
+            "work_intensity": "1",
+            "freetime_intensity": "1",
+            "work_hours": 8,
+            "freetime_hours": 8,
+            "workout_reminder_active": true,
+            "workout_reminder": 14,
+            "workout_duration": 12,
+            "notification_language": 2,
+	        "timer_active": true,
+	        "timer_pause": 90,
+	        "gym": 1
+        }
+    },
+    {
+        "pk": 7,
+        "model": "core.userprofile",
+        "fields": {
+            "is_temporary": false,
+            "show_comments": false,
+            "show_english_ingredients": false,
+            "user": 7,
+            "gender": "1",
+            "age": 20,
+            "sport_intensity": "3",
+            "calories": 3500,
+            "height": 180,
+            "sport_hours": 6,
+            "sleep_hours": 7,
+            "work_intensity": "1",
+            "freetime_intensity": "1",
+            "work_hours": 8,
+            "freetime_hours": 8,
+            "workout_reminder_active": true,
+            "workout_reminder": 14,
+            "workout_duration": 12,
+            "notification_language": 2,
+	        "timer_active": true,
+	        "timer_pause": 90,
+	        "gym": 2
+        }
+    },
+    {
+        "pk": 8,
+        "model": "core.userprofile",
+        "fields": {
+            "is_temporary": false,
+            "show_comments": false,
+            "show_english_ingredients": false,
+            "user": 8,
+            "gender": "1",
+            "age": 20,
+            "sport_intensity": "3",
+            "calories": 3500,
+            "height": 180,
+            "sport_hours": 6,
+            "sleep_hours": 7,
+            "work_intensity": "1",
+            "freetime_intensity": "1",
+            "work_hours": 8,
+            "freetime_hours": 8,
+            "workout_reminder_active": true,
+            "workout_reminder": 14,
+            "workout_duration": 12,
+            "notification_language": 2,
+	        "timer_active": true,
+	        "timer_pause": 90,
+	        "gym": 2
+        }
+    },
+    {
+        "pk": 9,
+        "model": "core.userprofile",
+        "fields": {
+            "is_temporary": false,
+            "show_comments": false,
+            "show_english_ingredients": false,
+            "user": 9,
+            "gender": "1",
+            "age": 20,
+            "sport_intensity": "3",
+            "calories": 3500,
+            "height": 180,
+            "sport_hours": 6,
+            "sleep_hours": 7,
+            "work_intensity": "1",
+            "freetime_intensity": "1",
+            "work_hours": 8,
+            "freetime_hours": 8,
+            "workout_reminder_active": true,
+            "workout_reminder": 14,
+            "workout_duration": 12,
+            "notification_language": 2,
+	        "timer_active": true,
+	        "timer_pause": 90,
+	        "gym": 1
+        }
+    },
+    {
+        "pk": 10,
+        "model": "core.userprofile",
+        "fields": {
+            "is_temporary": false,
+            "show_comments": false,
+            "show_english_ingredients": false,
+            "user": 10,
+            "gender": "1",
+            "age": 20,
+            "sport_intensity": "3",
+            "calories": 3500,
+            "height": 180,
+            "sport_hours": 6,
+            "sleep_hours": 7,
+            "work_intensity": "1",
+            "freetime_intensity": "1",
+            "work_hours": 8,
+            "freetime_hours": 8,
+            "workout_reminder_active": true,
+            "workout_reminder": 14,
+            "workout_duration": 12,
+            "notification_language": 2,
+	        "timer_active": true,
+	        "timer_pause": 90,
+	        "gym": 1
+        }
+    },
+    {
+        "pk": 11,
+        "model": "core.userprofile",
+        "fields": {
+            "is_temporary": false,
+            "show_comments": false,
+            "show_english_ingredients": false,
+            "user": 11,
+            "gender": "1",
+            "age": 20,
+            "sport_intensity": "3",
+            "calories": 3500,
+            "height": 180,
+            "sport_hours": 6,
+            "sleep_hours": 7,
+            "work_intensity": "1",
+            "freetime_intensity": "1",
+            "work_hours": 8,
+            "freetime_hours": 8,
+            "workout_reminder_active": true,
+            "workout_reminder": 14,
+            "workout_duration": 12,
+            "notification_language": 2,
+	        "timer_active": true,
+	        "timer_pause": 90,
+	        "gym": 2
+        }
+    },
+    {
+        "pk": 12,
+        "model": "core.userprofile",
+        "fields": {
+            "is_temporary": false,
+            "show_comments": false,
+            "show_english_ingredients": false,
+            "user": 12,
+            "gender": "1",
+            "age": 20,
+            "sport_intensity": "3",
+            "calories": 3500,
+            "height": 180,
+            "sport_hours": 6,
+            "sleep_hours": 7,
+            "work_intensity": "1",
+            "freetime_intensity": "1",
+            "work_hours": 8,
+            "freetime_hours": 8,
+            "workout_reminder_active": true,
+            "workout_reminder": 14,
+            "workout_duration": 12,
+            "notification_language": 2,
+	        "timer_active": true,
+	        "timer_pause": 90,
+	        "gym": 1
+        }
+    },
+    {
+        "pk": 13,
+        "model": "core.userprofile",
+        "fields": {
+            "is_temporary": false,
+            "show_comments": false,
+            "show_english_ingredients": false,
+            "user": 13,
+            "gender": "1",
+            "age": 20,
+            "sport_intensity": "3",
+            "calories": 3500,
+            "height": 180,
+            "sport_hours": 6,
+            "sleep_hours": 7,
+            "work_intensity": "1",
+            "freetime_intensity": "1",
+            "work_hours": 8,
+            "freetime_hours": 8,
+            "workout_reminder_active": true,
+            "workout_reminder": 14,
+            "workout_duration": 12,
+            "notification_language": 2,
+	        "timer_active": true,
+	        "timer_pause": 90,
+	        "gym": 2
+        }
+    },
+        {
+        "pk": 14, 
+        "model": "core.userprofile", 
+        "fields": {
+            "workout_reminder": 20, 
+            "height": 180, 
+            "show_english_ingredients": false, 
+            "show_comments": false, 
+            "workout_duration": 8, 
+            "sleep_hours": 7, 
+            "freetime_hours": 8, 
+            "gym": 1, 
+            "sport_intensity": "3", 
+            "workout_reminder_active": false, 
+            "work_intensity": "1", 
+            "user": 14, 
+            "timer_active": true, 
+            "timer_pause": 90, 
+            "work_hours": 8, 
+            "freetime_intensity": "1", 
+            "gender": "1", 
+            "age": 30, 
+            "notification_language": 1, 
+            "calories": 3500, 
+            "sport_hours": 6, 
+            "is_temporary": false
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "core.userprofile", 
+        "fields": {
+            "workout_reminder": 20, 
+            "height": 180, 
+            "show_english_ingredients": false, 
+            "show_comments": false, 
+            "workout_duration": 8, 
+            "sleep_hours": 7, 
+            "freetime_hours": 8, 
+            "gym": 1, 
+            "sport_intensity": "3", 
+            "workout_reminder_active": false, 
+            "work_intensity": "1", 
+            "user": 15, 
+            "timer_active": true, 
+            "timer_pause": 90, 
+            "work_hours": 8, 
+            "freetime_intensity": "1", 
+            "gender": "1", 
+            "age": 30, 
+            "notification_language": 1, 
+            "calories": 3500, 
+            "sport_hours": 6, 
+            "is_temporary": false
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "core.userprofile", 
+        "fields": {
+            "workout_reminder": 20, 
+            "height": 180, 
+            "show_english_ingredients": false, 
+            "show_comments": false, 
+            "workout_duration": 8, 
+            "sleep_hours": 7, 
+            "freetime_hours": 8, 
+            "gym": 1, 
+            "sport_intensity": "3", 
+            "workout_reminder_active": false, 
+            "work_intensity": "1", 
+            "user": 16, 
+            "timer_active": true, 
+            "timer_pause": 90, 
+            "work_hours": 8, 
+            "freetime_intensity": "1", 
+            "gender": "1", 
+            "age": 30, 
+            "notification_language": 1, 
+            "calories": 3500, 
+            "sport_hours": 6, 
+            "is_temporary": false
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "core.userprofile", 
+        "fields": {
+            "workout_reminder": 20, 
+            "height": 180, 
+            "show_english_ingredients": false, 
+            "show_comments": false, 
+            "workout_duration": 8, 
+            "sleep_hours": 7, 
+            "freetime_hours": 8, 
+            "gym": 1, 
+            "sport_intensity": "3", 
+            "workout_reminder_active": false, 
+            "work_intensity": "1", 
+            "user": 17, 
+            "timer_active": true, 
+            "timer_pause": 90, 
+            "work_hours": 8, 
+            "freetime_intensity": "1", 
+            "gender": "1", 
+            "age": 30, 
+            "notification_language": 1, 
+            "calories": 3500, 
+            "sport_hours": 6, 
+            "is_temporary": false
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "core.userprofile", 
+        "fields": {
+            "workout_reminder": 20, 
+            "height": 180, 
+            "show_english_ingredients": false, 
+            "show_comments": false, 
+            "workout_duration": 8, 
+            "sleep_hours": 7, 
+            "freetime_hours": 8, 
+            "gym": 1, 
+            "sport_intensity": "3", 
+            "workout_reminder_active": false, 
+            "work_intensity": "1", 
+            "user": 18, 
+            "timer_active": true, 
+            "timer_pause": 90, 
+            "work_hours": 8, 
+            "freetime_intensity": "1", 
+            "gender": "1", 
+            "age": 30, 
+            "notification_language": 1, 
+            "calories": 3500, 
+            "sport_hours": 6, 
+            "is_temporary": false
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "core.userprofile", 
+        "fields": {
+            "workout_reminder": 20, 
+            "height": 180, 
+            "show_english_ingredients": false, 
+            "show_comments": false, 
+            "workout_duration": 8, 
+            "sleep_hours": 7, 
+            "freetime_hours": 8, 
+            "gym": 2, 
+            "sport_intensity": "3", 
+            "workout_reminder_active": false, 
+            "work_intensity": "1", 
+            "user": 19, 
+            "timer_active": true, 
+            "timer_pause": 90, 
+            "work_hours": 8, 
+            "freetime_intensity": "1", 
+            "gender": "1", 
+            "age": 30, 
+            "notification_language": 1, 
+            "calories": 3500, 
+            "sport_hours": 6, 
+            "is_temporary": false
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "core.userprofile", 
+        "fields": {
+            "workout_reminder": 20, 
+            "height": 180, 
+            "show_english_ingredients": false, 
+            "show_comments": false, 
+            "workout_duration": 8, 
+            "sleep_hours": 7, 
+            "freetime_hours": 8, 
+            "gym": 2, 
+            "sport_intensity": "3", 
+            "workout_reminder_active": false, 
+            "work_intensity": "1", 
+            "user": 20, 
+            "timer_active": true, 
+            "timer_pause": 90, 
+            "work_hours": 8, 
+            "freetime_intensity": "1", 
+            "gender": "1", 
+            "age": 30, 
+            "notification_language": 1, 
+            "calories": 3500, 
+            "sport_hours": 6, 
+            "is_temporary": false
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "core.userprofile", 
+        "fields": {
+            "workout_reminder": 20, 
+            "height": 180, 
+            "show_english_ingredients": false, 
+            "show_comments": false, 
+            "workout_duration": 8, 
+            "sleep_hours": 7, 
+            "freetime_hours": 8, 
+            "gym": 1, 
+            "sport_intensity": "3", 
+            "workout_reminder_active": false, 
+            "work_intensity": "1", 
+            "user": 21, 
+            "timer_active": true, 
+            "timer_pause": 90, 
+            "work_hours": 8, 
+            "freetime_intensity": "1", 
+            "gender": "1", 
+            "age": 30, 
+            "notification_language": 1, 
+            "calories": 3500, 
+            "sport_hours": 6, 
+            "is_temporary": false
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "core.userprofile", 
+        "fields": {
+            "workout_reminder": 20, 
+            "height": 180, 
+            "show_english_ingredients": false, 
+            "show_comments": false, 
+            "workout_duration": 8, 
+            "sleep_hours": 7, 
+            "freetime_hours": 8, 
+            "gym": 1, 
+            "sport_intensity": "3", 
+            "workout_reminder_active": false, 
+            "work_intensity": "1", 
+            "user": 22, 
+            "timer_active": true, 
+            "timer_pause": 90, 
+            "work_hours": 8, 
+            "freetime_intensity": "1", 
+            "gender": "1", 
+            "age": 30, 
+            "notification_language": 1, 
+            "calories": 3500, 
+            "sport_hours": 6, 
+            "is_temporary": false
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "core.userprofile", 
+        "fields": {
+            "workout_reminder": 20, 
+            "height": 180, 
+            "show_english_ingredients": false, 
+            "show_comments": false, 
+            "workout_duration": 8, 
+            "sleep_hours": 7, 
+            "freetime_hours": 8, 
+            "gym": 1, 
+            "sport_intensity": "3", 
+            "workout_reminder_active": false, 
+            "work_intensity": "1", 
+            "user": 23, 
+            "timer_active": true, 
+            "timer_pause": 90, 
+            "work_hours": 8, 
+            "freetime_intensity": "1", 
+            "gender": "1", 
+            "age": 30, 
+            "notification_language": 1, 
+            "calories": 3500, 
+            "sport_hours": 6, 
+            "is_temporary": false
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "core.userprofile", 
+        "fields": {
+            "workout_reminder": 20, 
+            "height": 180, 
+            "show_english_ingredients": false, 
+            "show_comments": false, 
+            "workout_duration": 8, 
+            "sleep_hours": 7, 
+            "freetime_hours": 8, 
+            "gym": 1, 
+            "sport_intensity": "3", 
+            "workout_reminder_active": false, 
+            "work_intensity": "1", 
+            "user": 24, 
+            "timer_active": true, 
+            "timer_pause": 90, 
+            "work_hours": 8, 
+            "freetime_intensity": "1", 
+            "gender": "1", 
+            "age": 30, 
+            "notification_language": 1, 
+            "calories": 3500, 
+            "sport_hours": 6, 
+            "is_temporary": false
         }
     }
 ]
