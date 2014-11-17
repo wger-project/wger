@@ -330,7 +330,7 @@ class WorkoutCalendar(HTMLCalendar):
                     url = reverse('workout-log', kwargs={'pk': log.workout_id})
                     formatted_date = date_obj.strftime('%Y-%m-%d')
                     body.append('<a href="{0}" data-log="log-{1}">'.format(url, formatted_date))
-                    body.append(unicode(day))
+                    body.append(repr(day))
                     body.append('</a>')
                 return self.day_cell(cssclass, '{0}'.format(''.join(body)))
             return self.day_cell(cssclass, day)
