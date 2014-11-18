@@ -80,7 +80,7 @@ def add(request):
     plan.language = load_language()
     plan.save()
 
-    return HttpResponseRedirect(reverse('nutrition-view', kwargs={'id': plan.id}))
+    return HttpResponseRedirect(reverse('nutrition:plan:view', kwargs={'id': plan.id}))
 
 
 class PlanDeleteView(WgerDeleteMixin, DeleteView):
@@ -89,9 +89,9 @@ class PlanDeleteView(WgerDeleteMixin, DeleteView):
     '''
 
     model = NutritionPlan
-    success_url = reverse_lazy('nutrition-overview')
+    success_url = reverse_lazy('nutrition:plan:overview')
     title = ugettext_lazy('Delete nutritional plan?')
-    form_action_urlname = 'nutrition-delete'
+    form_action_urlname = 'nutrition:plan:delete'
     messages = ugettext_lazy('Nutritional plan was successfully deleted')
 
 
@@ -102,7 +102,7 @@ class PlanEditView(WgerFormMixin, UpdateView):
 
     model = NutritionPlan
     title = ugettext_lazy('Edit nutritional plan')
-    form_action_urlname = 'nutrition-edit'
+    form_action_urlname = 'nutrition:plan:edit'
 
 
 @login_required
@@ -165,7 +165,7 @@ def copy(request, pk):
             item.save()
 
     # Redirect
-    return HttpResponseRedirect(reverse('nutrition-view', kwargs={'id': plan.id}))
+    return HttpResponseRedirect(reverse('nutrition:plan:view', kwargs={'id': plan.id}))
 
 
 def export_pdf(request, id, uidb64=None, token=None):
@@ -337,7 +337,7 @@ def export_pdf(request, id, uidb64=None, token=None):
     # Footer, date and info
     elements.append(Spacer(10*cm, 0.5*cm))
     created = datetime.date.today().strftime("%d.%m.%Y")
-    url = reverse('nutrition-view', kwargs={'id': plan.id})
+    url = reverse('nutrition:plan:view', kwargs={'id': plan.id})
     p = Paragraph('''<para align="left">
                         %(date)s -
                         <a href="%(url)s">%(url)s</a> -

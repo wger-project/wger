@@ -26,7 +26,7 @@ $(document).ready(function() {
 <p>{% blocktrans %}The basal metabolic rate is the amount of energy expended daily
 at rest. This is the minimum energy needed for the body to function, without any
 additional physical activity.{% endblocktrans %}</p>
-<form action="{% url 'calories-calculate-bmr' %}"
+<form action="{% url 'nutrition:calories:bmr' %}"
       method="post"
       class="calories-autoform form-horizontal"
       id="bmr-form">
@@ -53,7 +53,7 @@ additional physical activity.{% endblocktrans %}</p>
 <p>{% blocktrans %}The physical activity level (PAL) is a factor used to to express
 the additional physical activity and is used to calculate the total energy
 required per day.{% endblocktrans %}</p>
-<form action="{% url 'calories-calculate-activities' %}"
+<form action="{% url 'nutrition:calories:activities' %}"
       method="post"
       class="form-horizontal calories-autoform"
       id="activities-form">

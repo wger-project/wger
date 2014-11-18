@@ -32,7 +32,7 @@ class EditMealTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = Meal
-    url = 'meal-edit'
+    url = 'nutrition:meal:edit'
     pk = 5
     data = {'time': datetime.time(8, 12)}
 
@@ -43,7 +43,7 @@ class AddMealTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = Meal
-    url = reverse('meal-add', kwargs={'plan_pk': 4})
+    url = reverse('nutrition:meal:add', kwargs={'plan_pk': 4})
     data = {'time': datetime.time(9, 2)}
     user_success = 'test'
     user_fail = 'admin'
@@ -59,7 +59,7 @@ class PlanOverviewTestCase(WorkoutManagerTestCase):
         Helper function to test the nutrition plan overview
         '''
 
-        response = self.client.get(reverse('nutrition-overview'))
+        response = self.client.get(reverse('nutrition:plan:overview'))
 
         # Page exists
         self.assertEqual(response.status_code, 200)
@@ -83,7 +83,7 @@ class PlanDetailTestCase(WorkoutManagerTestCase):
         Helper function to test the plan detail view
         '''
 
-        response = self.client.get(reverse('nutrition-view', kwargs={'id': 1}))
+        response = self.client.get(reverse('nutrition:plan:view', kwargs={'id': 1}))
 
         # Page exists
         if fail:

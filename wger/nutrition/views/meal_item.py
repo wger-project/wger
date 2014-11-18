@@ -81,7 +81,7 @@ def delete_meal_item(request, item_id):
     # Only delete if the user is the owner
     if plan.user == request.user:
         item.delete()
-        return HttpResponseRedirect(reverse('nutrition-view', kwargs={'id': plan.id}))
+        return HttpResponseRedirect(reverse('nutrition:plan:view', kwargs={'id': plan.id}))
     else:
         return HttpResponseForbidden()
 
@@ -107,14 +107,15 @@ class MealItemCreateView(WgerFormMixin, CreateView):
             return HttpResponseForbidden()
 
     def get_success_url(self):
-        return reverse('nutrition-view', kwargs={'id': self.meal.plan.id})
+        return reverse('nutrition:plan:view', kwargs={'id': self.meal.plan.id})
 
     def get_context_data(self, **kwargs):
         '''
         Send some additional data to the template
         '''
         context = super(MealItemCreateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('mealitem-add', kwargs={'meal_id': self.meal.id})
+        context['form_action'] = reverse('nutrition:meal_item:add',
+                                         kwargs={'meal_id': self.meal.id})
         context['ingredient_searchfield'] = self.request.POST.get('ingredient_searchfield', '')
         return context
 
@@ -135,11 +136,11 @@ class MealItemEditView(WgerFormMixin, UpdateView):
     model = MealItem
     form_class = MealItemForm
     title = ugettext_lazy('Edit meal item')
-    form_action_urlname = 'mealitem-edit'
+    form_action_urlname = 'nutrition:meal_item:edit'
     template_name = 'meal_item/edit.html'
 
     def get_success_url(self):
-        return reverse('nutrition-view', kwargs={'id': self.object.meal.plan.id})
+        return reverse('nutrition:plan:view', kwargs={'id': self.object.meal.plan.id})
 
     def get_context_data(self, **kwargs):
         '''

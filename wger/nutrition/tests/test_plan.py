@@ -28,7 +28,7 @@ class DeletePlanTestCase(WorkoutManagerDeleteTestCase):
     '''
 
     object_class = NutritionPlan
-    url = 'nutrition-delete'
+    url = 'nutrition:plan:delete'
     pk = 2
 
 
@@ -38,7 +38,7 @@ class EditPlanTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = NutritionPlan
-    url = 'nutrition-edit'
+    url = 'nutrition:plan:edit'
     pk = 2
     data = {'description': 'My new description'}
 
@@ -55,7 +55,7 @@ class PlanDailyCaloriesTestCase(WorkoutManagerTestCase):
         self.user_login('test')
 
         # Can't find goal calories text
-        response = self.client.get(reverse('nutrition-view', kwargs={'id': 1}))
+        response = self.client.get(reverse('nutrition:plan:view', kwargs={'id': 1}))
         self.assertFalse(response.context['plan'].has_goal_calories)
 
         self.assertEqual(response.status_code, 200)
@@ -73,7 +73,7 @@ class PlanDailyCaloriesTestCase(WorkoutManagerTestCase):
         plan.save()
 
         # Can find goal calories text
-        response = self.client.get(reverse('nutrition-view', kwargs={'id': 1}))
+        response = self.client.get(reverse('nutrition:plan:view', kwargs={'id': 1}))
         self.assertTrue(response.context['plan'].has_goal_calories)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'goal amount of calories')

@@ -32,7 +32,7 @@ class AddWeightUnitIngredientTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = IngredientWeightUnit
-    url = reverse_lazy('weight-unit-ingredient-add',
+    url = reverse_lazy('nutrition:unit_ingredient:add',
                        kwargs={'ingredient_pk': 1})
     data = {'unit': 5,
             'gram': 123,
@@ -45,7 +45,7 @@ class DeleteWeightUnitIngredientTestCase(WorkoutManagerDeleteTestCase):
     '''
 
     object_class = IngredientWeightUnit
-    url = 'weight-unit-ingredient-delete'
+    url = 'nutrition:unit_ingredient:delete'
     pk = 1
 
 
@@ -55,7 +55,7 @@ class EditWeightUnitTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = IngredientWeightUnit
-    url = 'weight-unit-ingredient-edit'
+    url = 'nutrition:unit_ingredient:edit'
     pk = 1
     data = {'unit': 5,
             'gram': 10,
@@ -72,7 +72,7 @@ class WeightUnitFormTestCase(WorkoutManagerTestCase):
         Tests the form in the add view
         '''
         self.user_login('admin')
-        response = self.client.get(reverse('weight-unit-ingredient-add',
+        response = self.client.get(reverse('nutrition:unit_ingredient:add',
                                            kwargs={'ingredient_pk': 1}))
 
         choices = [text for value, text in response.context['form']['unit'].field.choices]
@@ -87,7 +87,7 @@ class WeightUnitFormTestCase(WorkoutManagerTestCase):
         Tests that the form in the edit view only shows weigh units in the user's language
         '''
         self.user_login('admin')
-        response = self.client.get(reverse('weight-unit-ingredient-edit',
+        response = self.client.get(reverse('nutrition:unit_ingredient:edit',
                                            kwargs={'pk': 1}))
 
         choices = [text for value, text in response.context['form']['unit'].field.choices]

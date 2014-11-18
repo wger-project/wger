@@ -93,7 +93,7 @@
                         {# Nutrition tab #}
                         {#               #}
                         <li class="dropdown">
-                            <a href="{% url 'nutrition-overview' %}"
+                            <a href="{% url 'nutrition:plan:overview' %}"
                                class="dropdown-toggle"
                                data-toggle="dropdown"
                                rel="nofollow">
@@ -102,16 +102,16 @@
                                 {% if active_tab == 'nutrition' %}</strong>{% endif %}
                             </a>
                             <ul class="dropdown-menu">
-                            <li><a href="{% url 'nutrition-overview' %}" rel="nofollow">{% trans "Nutrition plans" %}</a></li>
-                            <li><a href="{% url 'ingredient-list' %}">{% trans "Ingredient overview" %}</a></li>
-                            <li><a href="{% url 'bmi-view' %}" rel="nofollow">{% trans "BMI calculator" %}</a></li>
-                            <li><a href="{% url 'calories-calculator' %}" rel="nofollow">{% trans "Daily calories calculator" %}</a></li>
+                            <li><a href="{% url 'nutrition:plan:overview' %}" rel="nofollow">{% trans "Nutrition plans" %}</a></li>
+                            <li><a href="{% url 'nutrition:ingredient:list' %}">{% trans "Ingredient overview" %}</a></li>
+                            <li><a href="{% url 'nutrition:bmi:view' %}" rel="nofollow">{% trans "BMI calculator" %}</a></li>
+                            <li><a href="{% url 'nutrition:calories:view' %}" rel="nofollow">{% trans "Daily calories calculator" %}</a></li>
                             {% cache cache_timeout user-admin-ingredients user.id language.id %}
                             {% if perms.exercises %}
                                 <li class="divider"></li>
                                 <li class="nav-header">{% trans "Administration" %}</li>
-                                <li><a href="{% url 'weight-unit-list' %}">{% trans "Ingredient weight units" %}</a></li>
-                                <li><a href="{% url 'ingredient-pending' %}">{% trans "Ingredients pending review" %}</a></li>
+                                <li><a href="{% url 'nutrition:weight_unit:list' %}">{% trans "Ingredient weight units" %}</a></li>
+                                <li><a href="{% url 'nutrition:ingredient:pending' %}">{% trans "Ingredients pending review" %}</a></li>
                             {% endif %}
                             {% endcache %}
                             </ul>

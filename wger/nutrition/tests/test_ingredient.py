@@ -38,7 +38,7 @@ class DeleteIngredientTestCase(WorkoutManagerDeleteTestCase):
     '''
 
     object_class = Ingredient
-    url = 'ingredient-delete'
+    url = 'nutrition:ingredient:delete'
     pk = 1
 
 
@@ -48,7 +48,7 @@ class EditIngredientTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = Ingredient
-    url = 'ingredient-edit'
+    url = 'nutrition:ingredient:edit'
     pk = 1
     data = {'name': 'A new name',
             'sodium': 2,
@@ -77,7 +77,7 @@ class AddIngredientTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = Ingredient
-    url = 'ingredient-add'
+    url = 'nutrition:ingredient:add'
     user_fail = False
     data = {'name': 'A new ingredient',
             'sodium': 2,
@@ -114,7 +114,7 @@ class IngredientDetailTestCase(WorkoutManagerTestCase):
         Tests the ingredient details page
         '''
 
-        response = self.client.get(reverse('ingredient-view', kwargs={'id': 6}))
+        response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'id': 6}))
         self.assertEqual(response.status_code, 200)
 
         # Correct tab is selected
@@ -132,7 +132,7 @@ class IngredientDetailTestCase(WorkoutManagerTestCase):
             self.assertNotContains(response, 'pending review')
 
         # Non-existent ingredients throw a 404.
-        response = self.client.get(reverse('ingredient-view', kwargs={'id': 42}))
+        response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'id': 42}))
         self.assertEqual(response.status_code, 404)
 
     def test_ingredient_detail_editor(self):

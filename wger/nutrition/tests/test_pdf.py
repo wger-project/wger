@@ -34,7 +34,7 @@ class NutritionalPlanPdfExportTestCase(WorkoutManagerTestCase):
 
         user = User.objects.get(pk=2)
         uid, token = make_token(user)
-        response = self.client.get(reverse('nutrition-export-pdf',
+        response = self.client.get(reverse('nutrition:plan:export-pdf',
                                    kwargs={'id': 4,
                                            'uidb64': uid,
                                            'token': token}))
@@ -54,7 +54,7 @@ class NutritionalPlanPdfExportTestCase(WorkoutManagerTestCase):
         '''
 
         # Get a plan
-        response = self.client.get(reverse('nutrition-export-pdf',
+        response = self.client.get(reverse('nutrition:plan:export-pdf',
                                    kwargs={'id': 4}))
 
         if fail:
@@ -76,7 +76,7 @@ class NutritionalPlanPdfExportTestCase(WorkoutManagerTestCase):
         plan.user = user
         plan.language = language
         plan.save()
-        response = self.client.get(reverse('nutrition-export-pdf',
+        response = self.client.get(reverse('nutrition:plan:export-pdf',
                                    kwargs={'id': plan.id}))
 
         if fail:

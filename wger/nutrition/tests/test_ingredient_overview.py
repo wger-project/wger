@@ -43,33 +43,33 @@ class OverviewPlanTestCase(WorkoutManagerTestCase):
             'license_author': 'internet'
         }
         for i in range(0, 50):
-            self.client.post(reverse('ingredient-add'), data)
+            self.client.post(reverse('nutrition:ingredient:add'), data)
 
         # Page exists
         self.user_logout()
-        response = self.client.get(reverse('ingredient-list'))
+        response = self.client.get(reverse('nutrition:ingredient:list'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['ingredients_list']), PAGINATION_OBJECTS_PER_PAGE)
 
-        response = self.client.get(reverse('ingredient-list'), {'page': 2})
+        response = self.client.get(reverse('nutrition:ingredient:list'), {'page': 2})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['ingredients_list']), PAGINATION_OBJECTS_PER_PAGE)
 
         rest_ingredients = 13
-        response = self.client.get(reverse('ingredient-list'), {'page': 3})
+        response = self.client.get(reverse('nutrition:ingredient:list'), {'page': 3})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['ingredients_list']), rest_ingredients)
 
         # 'last' is a special case
-        response = self.client.get(reverse('ingredient-list'), {'page': 'last'})
+        response = self.client.get(reverse('nutrition:ingredient:list'), {'page': 'last'})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['ingredients_list']), rest_ingredients)
 
         # Page does not exist
-        response = self.client.get(reverse('ingredient-list'), {'page': 100})
+        response = self.client.get(reverse('nutrition:ingredient:list'), {'page': 100})
         self.assertEqual(response.status_code, 404)
 
-        response = self.client.get(reverse('ingredient-list'), {'page': 'foobar'})
+        response = self.client.get(reverse('nutrition:ingredient:list'), {'page': 'foobar'})
         self.assertEqual(response.status_code, 404)
 
     def ingredient_overview(self, logged_in=True, demo=False, admin=False):
@@ -78,7 +78,7 @@ class OverviewPlanTestCase(WorkoutManagerTestCase):
         '''
 
         # Page exists
-        response = self.client.get(reverse('ingredient-list'))
+        response = self.client.get(reverse('nutrition:ingredient:list'))
         self.assertEqual(response.status_code, 200)
 
         # No ingredients pending review

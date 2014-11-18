@@ -34,7 +34,7 @@ class CaloriesCalculatorTestCase(WorkoutManagerTestCase):
         Access the page
         '''
 
-        response = self.client.get(reverse('calories-calculator'))
+        response = self.client.get(reverse('nutrition:calories:view'))
         self.assertEqual(response.status_code, 200)
 
     def test_calculator(self):
@@ -43,7 +43,7 @@ class CaloriesCalculatorTestCase(WorkoutManagerTestCase):
         '''
 
         self.user_login('test')
-        response = self.client.post(reverse('calories-calculate-activities'),
+        response = self.client.post(reverse('nutrition:calories:activities'),
                                     {'sleep_hours': 7,
                                      'work_hours': 8,
                                      'work_intensity': 1,
@@ -67,7 +67,7 @@ class CaloriesCalculatorTestCase(WorkoutManagerTestCase):
 
         # Existing weight entry is old, a new one is created
         entry1 = WeightEntry.objects.filter(user=user).latest()
-        response = self.client.post(reverse('bmi-calculate'),
+        response = self.client.post(reverse('nutrition:bmi:calculate'),
                                     {'height': 180,
                                      'weight': 80})
         self.assertEqual(response.status_code, 200)
@@ -79,7 +79,7 @@ class CaloriesCalculatorTestCase(WorkoutManagerTestCase):
         entry2.delete()
         entry1.creation_date = datetime.date.today()
         entry1.save()
-        response = self.client.post(reverse('bmi-calculate'),
+        response = self.client.post(reverse('nutrition:bmi:calculate'),
                                     {'height': 180,
                                      'weight': 80})
         self.assertEqual(response.status_code, 200)
@@ -89,7 +89,7 @@ class CaloriesCalculatorTestCase(WorkoutManagerTestCase):
 
         # No existing entries
         WeightEntry.objects.filter(user=user).delete()
-        response = self.client.post(reverse('bmi-calculate'),
+        response = self.client.post(reverse('nutrition:bmi:calculate'),
                                     {'height': 180,
                                      'weight': 80})
         self.assertEqual(response.status_code, 200)
@@ -103,7 +103,7 @@ class CaloriesCalculatorTestCase(WorkoutManagerTestCase):
         '''
 
         self.user_login('test')
-        response = self.client.post(reverse('calories-calculate-bmr'),
+        response = self.client.post(reverse('nutrition:calories:bmr'),
                                     {'age': 30,
                                      'height': 180,
                                      'gender': 1,
@@ -122,7 +122,7 @@ class CaloriesCalculatorTestCase(WorkoutManagerTestCase):
 
         # Existing weight entry is old, a new one is created
         entry1 = WeightEntry.objects.filter(user=user).latest()
-        response = self.client.post(reverse('calories-calculate-bmr'),
+        response = self.client.post(reverse('nutrition:calories:bmr'),
                                     {'age': 30,
                                      'height': 180,
                                      'gender': 1,
@@ -136,7 +136,7 @@ class CaloriesCalculatorTestCase(WorkoutManagerTestCase):
         entry2.delete()
         entry1.creation_date = datetime.date.today()
         entry1.save()
-        response = self.client.post(reverse('calories-calculate-bmr'),
+        response = self.client.post(reverse('nutrition:calories:bmr'),
                                     {'age': 30,
                                      'height': 180,
                                      'gender': 1,
@@ -148,7 +148,7 @@ class CaloriesCalculatorTestCase(WorkoutManagerTestCase):
 
         # No existing entries
         WeightEntry.objects.filter(user=user).delete()
-        response = self.client.post(reverse('calories-calculate-bmr'),
+        response = self.client.post(reverse('nutrition:calories:bmr'),
                                     {'age': 30,
                                      'height': 180,
                                      'gender': 1,

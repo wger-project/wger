@@ -93,7 +93,7 @@ class IngredientDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
 
     model = Ingredient
     template_name = 'delete.html'
-    success_url = reverse_lazy('ingredient-list')
+    success_url = reverse_lazy('nutrition:ingredient:list')
     messages = ugettext_lazy('Ingredient successfully deleted')
     permission_required = 'nutrition.delete_ingredient'
 
@@ -102,7 +102,8 @@ class IngredientDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
         context = super(IngredientDeleteView, self).get_context_data(**kwargs)
 
         context['title'] = _(u'Delete {0}?').format(self.object.name)
-        context['form_action'] = reverse('ingredient-delete', kwargs={'pk': self.object.id})
+        context['form_action'] = reverse('nutrition:ingredient:delete',
+                                         kwargs={'pk': self.object.id})
 
         return context
 
@@ -131,7 +132,7 @@ class IngredientEditView(IngredientMixin, UpdateView, WgerPermissionMixin):
 
     model = Ingredient
     title = ugettext_lazy('Edit ingredient')
-    form_action_urlname = 'ingredient-edit'
+    form_action_urlname = 'nutrition:ingredient:edit'
     messages = ugettext_lazy('Ingredient successfully updated')
     permission_required = 'nutrition.change_ingredient'
 
@@ -143,7 +144,7 @@ class IngredientCreateView(IngredientMixin, CreateView):
 
     model = Ingredient
     title = ugettext_lazy('Add a new ingredient')
-    form_action = reverse_lazy('ingredient-add')
+    form_action = reverse_lazy('nutrition:ingredient:add')
     sidebar = 'ingredient/form.html'
 
     def form_valid(self, form):

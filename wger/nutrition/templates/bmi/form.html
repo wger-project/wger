@@ -55,7 +55,7 @@ $(document).ready(function () {
 -->
 {% block content %}
 
-<form action="{% url 'bmi-calculate' %}"
+<form action="{% url 'nutrition:bmi:calculate' %}"
       method="post"
       class="form-horizontal"
       id="bmi-form">

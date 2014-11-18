@@ -65,7 +65,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
         #
         # 2. Add a nutrition plan
         #
-        self.client.get(reverse('nutrition-add'))
+        self.client.get(reverse('nutrition:plan:add'))
         response = self.client.get(reverse('core:dashboard'))
 
         self.assertEqual(response.status_code, 200)

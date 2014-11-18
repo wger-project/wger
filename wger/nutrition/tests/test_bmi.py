@@ -34,7 +34,7 @@ class BmiTestCase(WorkoutManagerTestCase):
         Access the BMI page
         '''
 
-        response = self.client.get(reverse('bmi-view'))
+        response = self.client.get(reverse('nutrition:bmi:view'))
         self.assertEqual(response.status_code, 200)
 
     def test_calculator(self):
@@ -44,7 +44,7 @@ class BmiTestCase(WorkoutManagerTestCase):
         '''
 
         self.user_login('test')
-        response = self.client.post(reverse('bmi-calculate'),
+        response = self.client.post(reverse('nutrition:bmi:calculate'),
                                     {'height': 180,
                                      'weight': 80})
         self.assertEqual(response.status_code, 200)
@@ -63,7 +63,7 @@ class BmiTestCase(WorkoutManagerTestCase):
 
         # Existing weight entry is old, a new one is created
         entry1 = WeightEntry.objects.filter(user=user).latest()
-        response = self.client.post(reverse('bmi-calculate'),
+        response = self.client.post(reverse('nutrition:bmi:calculate'),
                                     {'height': 180,
                                      'weight': 80})
         self.assertEqual(response.status_code, 200)
@@ -75,7 +75,7 @@ class BmiTestCase(WorkoutManagerTestCase):
         entry2.delete()
         entry1.creation_date = datetime.date.today()
         entry1.save()
-        response = self.client.post(reverse('bmi-calculate'),
+        response = self.client.post(reverse('nutrition:bmi:calculate'),
                                     {'height': 180,
                                      'weight': 80})
         self.assertEqual(response.status_code, 200)
@@ -85,7 +85,7 @@ class BmiTestCase(WorkoutManagerTestCase):
 
         # No existing entries
         WeightEntry.objects.filter(user=user).delete()
-        response = self.client.post(reverse('bmi-calculate'),
+        response = self.client.post(reverse('nutrition:bmi:calculate'),
                                     {'height': 180,
                                      'weight': 80})
         self.assertEqual(response.status_code, 200)

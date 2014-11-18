@@ -112,7 +112,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         self.client.get(reverse('exercise:exercise:overview'))
         self.assertEqual(self.count_temp_users(), 1)
 
-        self.client.get(reverse('ingredient-list'))
+        self.client.get(reverse('nutrition:ingredient:list'))
         self.assertEqual(self.count_temp_users(), 1)
 
         # These pages will create one
@@ -134,7 +134,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         self.assertEqual(self.count_temp_users(), 4)
 
         self.user_logout()
-        self.client.get(reverse('nutrition-overview'))
+        self.client.get(reverse('nutrition:plan:overview'))
         self.assertEqual(self.count_temp_users(), 5)
 
     def test_demo_user_notice(self):
@@ -149,7 +149,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         self.assertContains(self.client.get(reverse('exercise:exercise:overview')),
                             demo_notice_text)
         self.assertContains(self.client.get(reverse('exercise:muscle:overview')), demo_notice_text)
-        self.assertContains(self.client.get(reverse('nutrition-overview')),
+        self.assertContains(self.client.get(reverse('nutrition:plan:overview')),
                             demo_notice_text)
         self.assertContains(self.client.get(reverse('software:issues')), demo_notice_text)
         self.assertContains(self.client.get(reverse('software:license')), demo_notice_text)

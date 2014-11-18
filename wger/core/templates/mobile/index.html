@@ -49,7 +49,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">{% trans "Current nutrition plan" %}</h4>
                 {% if plan %}
-                <h5><a href="{% url 'nutrition-view' plan.id %}">{{ plan }}</a></h5>
+                <h5><a href="{% url 'nutrition:plan:view' plan.id %}">{{ plan }}</a></h5>
                 {% endif %}
             </div>
             <div class="modal-body">
@@ -207,7 +207,7 @@ its default duration in your settings.{% endblocktrans %}
             {{plan}}
         </a>
         {% else %}
-            <a href="{% url 'nutrition-add' %}" class="btn btn-default btn-block">
+            <a href="{% url 'nutrition:plan:add' %}" class="btn btn-default btn-block">
                 <img src="{% static 'images/icons/add.svg' %}"
                      width="32"
                      height="32"

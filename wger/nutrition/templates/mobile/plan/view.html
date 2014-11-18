@@ -41,7 +41,7 @@ $(document).ready(function() {
                 </h4>
             </div>
             <div class="modal-body">
-                <a href="{% url 'wger.nutrition.views.meal.delete_meal' meal.id %}"
+                <a href="{% url 'nutrition:meal:delete' meal.id %}"
                    title="{% trans 'Delete' %}"
                    {% auto_link_css flavour %}>
                    <img src="{% static 'images/icons/trash.svg' %}"
@@ -51,7 +51,7 @@ $(document).ready(function() {
                         title="{% trans 'Delete meal' %}">
                         {% trans "Delete meal" %}
                 </a>
-                <a href="{% url 'meal-edit' meal.id %}"
+                <a href="{% url 'nutrition:meal:edit' meal.id %}"
                    title="{% trans 'Edit' %}"
                    {% auto_link_css flavour "wger-modal-dialog" %}>
                     <img src="{% static 'images/icons/edit.svg' %}"
@@ -61,7 +61,7 @@ $(document).ready(function() {
                          title="{% trans 'Edit meal' %}">
                          {% trans "Edit meal" %}
                 </a>
-                <a href="{% url 'mealitem-add' meal.id %}"
+                <a href="{% url 'nutrition:meal_item:add' meal.id %}"
                    title="{% trans 'Add' %}"
                    {% auto_link_css flavour %}>
                     <img src="{% static 'images/icons/add.svg' %}"
@@ -119,7 +119,7 @@ $(document).ready(function() {
                     </tbody>
                     </table>
 
-                    <a href="{% url 'wger.nutrition.views.meal_item.delete_meal_item' item.id %}"
+                    <a href="{% url 'nutrition:meal_item:delete' item.id %}"
                        title="{% trans 'Delete' %}"
                        {% auto_link_css flavour %}>
                        <img src="{% static 'images/icons/trash.svg' %}"
@@ -128,7 +128,7 @@ $(document).ready(function() {
                             alt="{% trans 'Delete' %}">
                             {% trans "Delete" %}
                     </a>
-                    <a href="{% url 'mealitem-edit' item.id %}"
+                    <a href="{% url 'nutrition:meal_item:edit' item.id %}"
                        title="{% trans 'Edit' %}"
                        {% auto_link_css flavour %}>
                         <img src="{% static 'images/icons/edit.svg' %}"
@@ -168,14 +168,14 @@ $(document).ready(function() {
             </p>
         </a>
     {% if forloop.last %}
-        <a href="{% url 'mealitem-add' meal.id %}"
+        <a href="{% url 'nutrition:meal_item:add' meal.id %}"
            class="list-group-item list-group-item-success">
             <span class="glyphicon glyphicon-plus"></span>
             {% trans "Add item to meal" %}
         </a>
     {% endif %}
     {% empty %}
-        <a href="{% url 'mealitem-add' meal.id %}"
+        <a href="{% url 'nutrition:meal_item:add' meal.id %}"
            title="{% trans 'Add one now.' %}"
            class="list-group-item list-group-item-success">
             {% trans "No items for this meal." %}<br>
@@ -184,7 +184,7 @@ $(document).ready(function() {
     {% endfor %}
 </div>
 {% empty %}
-<a href="{% url 'meal-add' plan.id %}"
+<a href="{% url 'nutrition:meal:add' plan.id %}"
    {% auto_link_css flavour "wger-modal-dialog" %}>
         {% trans "No meals for this plan." %}<br>
         {% trans "Add one now." %}
@@ -192,7 +192,7 @@ $(document).ready(function() {
 {% endfor %}
 
 <p style="margin-top:2em;">
-    <a href="{% url 'meal-add' plan.id %}"
+    <a href="{% url 'nutrition:meal:add' plan.id %}"
        {% auto_link_css flavour "wger-modal-dialog" %}>{% trans "Add a new meal" %}</a>
 </p>
 
@@ -250,7 +250,7 @@ $(document).ready(function() {
 {% if plan.has_goal_calories %}
     <p>{% blocktrans %}You have selected that this nutritional plan has a
     goal amount of calories. Use the calculator or enter the value yourself.{% endblocktrans %}
-    <a href="{% url 'calories-calculator' %}">{% trans "That's done here" %}</a>
+    <a href="{% url 'nutrition:calories:view' %}">{% trans "That's done here" %}</a>
     </p>
 {% endif %}
 
@@ -324,7 +324,7 @@ $(document).ready(function() {
 
 
 <h3>{% trans "Options" %}</h3>
-<a href="{% url 'nutrition-export-pdf' plan.id uid token %}"
+<a href="{% url 'nutrition:plan:export-pdf' plan.id uid token %}"
    {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/save.svg' %}"
          width="32"
@@ -334,7 +334,7 @@ $(document).ready(function() {
     {% trans "Download as PDF" %}
 </a>
 
-<a href="{% url 'nutrition-edit' plan.id %}"
+<a href="{% url 'nutrition:plan:edit' plan.id %}"
    {% auto_link_css flavour "wger-modal-dialog" %}>
     <img src="{% static 'images/icons/edit.svg' %}"
          width="32"
@@ -343,7 +343,7 @@ $(document).ready(function() {
     {% trans "Edit nutrition plan" %}
 </a>
 
-<a href="{% url 'nutrition-copy' plan.id %}"
+<a href="{% url 'nutrition:plan:copy' plan.id %}"
    {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/copy.svg' %}"
          width="32"
@@ -352,7 +352,7 @@ $(document).ready(function() {
     {% trans "Make a copy of this nutrition plan" %}
 </a>
 
-<a href="{% url 'nutrition-delete' plan.id %}"
+<a href="{% url 'nutrition:plan:delete' plan.id %}"
    {% auto_link_css flavour "wger-modal-dialog" %}>
     <img src="{% static 'images/icons/trash.svg' %}"
          width="32"

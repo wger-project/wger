@@ -47,7 +47,7 @@ function custom_modal_init()
             </strong>
 
             <div class="editoptions">
-                <a href="{% url 'wger.nutrition.views.meal.delete_meal' meal.id %}"
+                <a href="{% url 'nutrition:meal:delete' meal.id %}"
                    title="{% trans 'Delete' %}">
                    <img src="{% static 'images/icons/trash.svg' %}"
                         width="16"
@@ -55,7 +55,7 @@ function custom_modal_init()
                         alt="{% trans 'Delete meal' %}"
                         title="{% trans 'Delete meal' %}">
                 </a>
-                <a href="{% url 'meal-edit' meal.id %}"
+                <a href="{% url 'nutrition:meal:edit' meal.id %}"
                    title="{% trans 'Edit' %}"
                    class="wger-modal-dialog">
                     <img src="{% static 'images/icons/edit.svg' %}"
@@ -64,7 +64,7 @@ function custom_modal_init()
                          alt="{% trans 'Edit meal' %}"
                          title="{% trans 'Edit meal' %}">
                 </a>
-                <a href="{% url 'mealitem-add' meal.id %}"
+                <a href="{% url 'nutrition:meal_item:add' meal.id %}"
                    title="{% trans 'Add' %}"
                    class="wger-modal-dialog edit-meal">
                     <img src="{% static 'images/icons/add.svg' %}"
@@ -84,7 +84,7 @@ function custom_modal_init()
             {{ item.ingredient.name }}
 
             <span class="editoptions">
-                <a href="{% url 'wger.nutrition.views.meal_item.delete_meal_item' item.id %}"
+                <a href="{% url 'nutrition:meal_item:delete' item.id %}"
                    title="{% trans 'Delete' %}"
                    class="delete-mealitem">
                    <img src="{% static 'images/icons/trash.svg' %}"
@@ -92,7 +92,7 @@ function custom_modal_init()
                         height="16"
                         alt="{% trans 'Delete' %}">
                 </a>
-                <a href="{% url 'mealitem-edit' item.id %}"
+                <a href="{% url 'nutrition:meal_item:edit' item.id %}"
                    title="{% trans 'Edit' %}"
                    class="wger-modal-dialog edit-meal edit-mealitem">
                     <img src="{% static 'images/icons/edit.svg' %}"
@@ -110,7 +110,7 @@ function custom_modal_init()
     {% empty %}
     <tr>
     <td colspan="7">
-       <a href="{% url 'mealitem-add' meal.id %}"
+       <a href="{% url 'nutrition:meal_item:add' meal.id %}"
           title="{% trans 'Add one now.' %}"
           class="wger-modal-dialog edit-meal btn btn-default btn-block">
             {% trans "No items for this meal." %}
@@ -122,7 +122,7 @@ function custom_modal_init()
 
 {% empty %}
 <p>
-     <a href="{% url 'meal-add' plan.id %}"
+     <a href="{% url 'nutrition:meal:add' plan.id %}"
         class="wger-modal-dialog btn btn-default btn-block">
             {% trans "No meals for this plan." %}
             {% trans "Add one now." %}
@@ -131,7 +131,7 @@ function custom_modal_init()
 {% endfor %}
         <tr>
             <td colspan="6">
-            <a href="{% url 'meal-add' plan.id %}"
+            <a href="{% url 'nutrition:meal:add' plan.id %}"
                class="wger-modal-dialog">
                 <img src="{% static 'images/icons/edit.svg' %}"
                      width="16"
@@ -249,7 +249,7 @@ function custom_modal_init()
 {% if plan.has_goal_calories %}
     <p>{% blocktrans %}You have selected that this nutritional plan has a
     goal amount of calories. Use the calculator or enter the value yourself.{% endblocktrans %}
-    <a href="{% url 'calories-calculator' %}">{% trans "That's done here" %}</a>
+    <a href="{% url 'nutrition:calories:view' %}">{% trans "That's done here" %}</a>
     </p>
 {% endif %}
 
@@ -258,7 +258,7 @@ function custom_modal_init()
 
 <h3>{% trans "Options" %}</h3>
 <p>
-<a href="{% url 'nutrition-export-pdf' plan.id uid token %}"
+<a href="{% url 'nutrition:plan:export-pdf' plan.id uid token %}"
    target="_blank">
     <img src="{% static 'images/icons/save.svg' %}"
          width="32"
@@ -270,7 +270,7 @@ function custom_modal_init()
 </p>
 
 <p>
-<a href="{% url 'nutrition-edit' plan.id %}"
+<a href="{% url 'nutrition:plan:edit' plan.id %}"
    class="wger-modal-dialog">
     <img src="{% static 'images/icons/edit.svg' %}"
          width="32"
@@ -282,7 +282,7 @@ function custom_modal_init()
 
 
 <p>
-<a href="{% url 'nutrition-copy' plan.id %}">
+<a href="{% url 'nutrition:plan:copy' plan.id %}">
     <img src="{% static 'images/icons/copy.svg' %}"
          width="32"
          height="32"
@@ -292,7 +292,7 @@ function custom_modal_init()
 </p>
 
 <p>
-<a href="{% url 'nutrition-delete' plan.id %}"
+<a href="{% url 'nutrition:plan:delete' plan.id %}"
    class="wger-modal-dialog">
     <img src="{% static 'images/icons/trash.svg' %}"
          width="32"

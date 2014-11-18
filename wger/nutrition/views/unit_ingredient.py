@@ -55,12 +55,12 @@ class WeightUnitIngredientCreateView(WgerFormMixin, CreateView, WgerPermissionMi
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(WeightUnitIngredientCreateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('weight-unit-ingredient-add',
+        context['form_action'] = reverse('nutrition:unit_ingredient:add',
                                          kwargs={'ingredient_pk': self.kwargs['ingredient_pk']})
         return context
 
     def get_success_url(self):
-        return reverse('ingredient-view', kwargs={'id': self.kwargs['ingredient_pk']})
+        return reverse('nutrition:ingredient:view', kwargs={'id': self.kwargs['ingredient_pk']})
 
     def form_valid(self, form):
         ingredient = get_object_or_404(Ingredient, pk=self.kwargs['ingredient_pk'])
@@ -88,11 +88,11 @@ class WeightUnitIngredientUpdateView(WgerFormMixin, UpdateView, WgerPermissionMi
 
     model = IngredientWeightUnit
     title = ugettext_lazy('Edit a weight unit to ingredient connection')
-    form_action_urlname = 'weight-unit-ingredient-edit'
+    form_action_urlname = 'nutrition:unit_ingredient:edit'
     permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):
-        return reverse('ingredient-view', kwargs={'id': self.object.ingredient.id})
+        return reverse('nutrition:ingredient:view', kwargs={'id': self.object.ingredient.id})
 
     def get_form_class(self):
         '''
@@ -115,8 +115,8 @@ class WeightUnitIngredientDeleteView(WgerDeleteMixin, DeleteView, WgerPermission
 
     model = IngredientWeightUnit
     title = ugettext_lazy('Delete weight unit?')
-    form_action_urlname = 'weight-unit-ingredient-delete'
+    form_action_urlname = 'nutrition:unit_ingredient:delete'
     permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):
-        return reverse('ingredient-view', kwargs={'id': self.object.ingredient.id})
+        return reverse('nutrition:ingredient:view', kwargs={'id': self.object.ingredient.id})

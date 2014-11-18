@@ -19,7 +19,7 @@
     {% for plan in plans %}
     <tr>
         <td>
-            <a href="{% url 'nutrition-view' plan.id %}">
+            <a href="{% url 'nutrition:plan:view' plan.id %}">
                 {% if plan.description %}
                     {{ plan.description }}
                 {% else %}
@@ -39,7 +39,7 @@
     </table>
 {% else %}
     <p>
-        <a href="{% url 'nutrition-add' %}" class="btn btn-default btn-block">
+        <a href="{% url 'nutrition:plan:add' %}" class="btn btn-default btn-block">
         {% trans "No nutrition plans." %} {% trans "Add one now." %}
         </a>
     </p>
@@ -52,7 +52,7 @@
 {% block sidebar%}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url 'nutrition-add' %}" id="nutrition-create-new">
+    <a href="{% url 'nutrition:plan:add' %}" id="nutrition-create-new">
     <img src="{% static 'images/icons/new.svg' %}"
          width="32"
          height="32"
@@ -62,7 +62,7 @@
 </p>
 
 <p>
-    <a href="{% url 'ingredient-list' %}" id="ingredient-overview">
+    <a href="{% url 'nutrition:ingredient:list' %}" id="ingredient-overview">
     <img src="{% static 'images/icons/list.svg' %}"
          width="32"
          height="32"

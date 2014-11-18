@@ -63,11 +63,11 @@ class WeightUnitCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
 
     model = WeightUnit
     title = ugettext_lazy('Add new weight unit')
-    form_action = reverse_lazy('weight-unit-add')
+    form_action = reverse_lazy('nutrition:weight_unit:add')
     permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):
-        return reverse('weight-unit-list')
+        return reverse('nutrition:weight_unit:list')
 
     def form_valid(self, form):
         form.instance.language = load_language()
@@ -80,9 +80,9 @@ class WeightUnitDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
 
     model = WeightUnit
-    success_url = reverse_lazy('weight-unit-list')
+    success_url = reverse_lazy('nutrition:weight_unit:list')
     title = ugettext_lazy('Delete weight unit?')
-    form_action_urlname = 'weight-unit-delete'
+    form_action_urlname = 'nutrition:weight_unit:delete'
     permission_required = 'nutrition.delete_ingredientweightunit'
 
 
@@ -93,8 +93,8 @@ class WeightUnitUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
 
     model = WeightUnit
     title = ugettext_lazy('Edit a weight unit')
-    form_action_urlname = 'weight-unit-edit'
+    form_action_urlname = 'nutrition:weight_unit:edit'
     permission_required = 'nutrition.change_ingredientweightunit'
 
     def get_success_url(self):
-        return reverse('weight-unit-list')
+        return reverse('nutrition:weight_unit:list')
