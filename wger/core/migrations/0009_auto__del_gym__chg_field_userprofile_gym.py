@@ -7,6 +7,10 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ('gym', '0002_copy_gyms'),
+    )
+
     def forwards(self, orm):
         # Deleting model 'Gym'
         db.delete_table(u'core_gym')
