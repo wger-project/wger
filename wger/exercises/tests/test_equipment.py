@@ -35,7 +35,7 @@ class AddEquipmentTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = Equipment
-    url = 'equipment-add'
+    url = 'exercise:equipment:add'
     data = {'name': 'A new equipment'}
 
 
@@ -45,7 +45,7 @@ class DeleteEquipmentTestCase(WorkoutManagerDeleteTestCase):
     '''
 
     object_class = Equipment
-    url = 'equipment-delete'
+    url = 'exercise:equipment:delete'
     pk = 1
 
 
@@ -55,7 +55,7 @@ class EditEquipmentTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = Equipment
-    url = 'equipment-edit'
+    url = 'exercise:equipment:edit'
     pk = 1
     data = {'name': 'A new name'}
 
@@ -71,31 +71,31 @@ class EquipmentListTestCase(WorkoutManagerTestCase):
         self.user_login('admin')
         data = {"name": "A new entry"}
         for i in range(0, 50):
-            self.client.post(reverse('equipment-add'), data)
+            self.client.post(reverse('exercise:equipment:add'), data)
 
         # Page exists and the pagination works
-        response = self.client.get(reverse('equipment-list'))
+        response = self.client.get(reverse('exercise:equipment:list'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['equipment_list']), PAGINATION_OBJECTS_PER_PAGE)
 
-        response = self.client.get(reverse('equipment-list'), {'page': 2})
+        response = self.client.get(reverse('exercise:equipment:list'), {'page': 2})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['equipment_list']), PAGINATION_OBJECTS_PER_PAGE)
 
-        response = self.client.get(reverse('equipment-list'), {'page': 3})
+        response = self.client.get(reverse('exercise:equipment:list'), {'page': 3})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['equipment_list']), 3)
 
         # 'last' is a special case
-        response = self.client.get(reverse('equipment-list'), {'page': 'last'})
+        response = self.client.get(reverse('exercise:equipment:list'), {'page': 'last'})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['equipment_list']), 3)
 
         # Page does not exist
-        response = self.client.get(reverse('equipment-list'), {'page': 100})
+        response = self.client.get(reverse('exercise:equipment:list'), {'page': 100})
         self.assertEqual(response.status_code, 404)
 
-        response = self.client.get(reverse('equipment-list'), {'page': 'foobar'})
+        response = self.client.get(reverse('exercise:equipment:list'), {'page': 'foobar'})
         self.assertEqual(response.status_code, 404)
 
 
@@ -109,10 +109,10 @@ class EquipmentCacheTestCase(WorkoutManagerTestCase):
         Test the equipment overview cache is correctly generated on visit
         '''
         if self.is_mobile:
-            self.client.get(reverse('equipment-overview'))
+            self.client.get(reverse('exercise:equipment:overview'))
         else:
             self.assertFalse(cache.get(get_template_cache_name('equipment-overview', 2)))
-            self.client.get(reverse('equipment-overview'))
+            self.client.get(reverse('exercise:equipment:overview'))
             self.assertTrue(cache.get(get_template_cache_name('equipment-overview', 2)))
 
     def test_equipmet_cache_update(self):
@@ -123,8 +123,8 @@ class EquipmentCacheTestCase(WorkoutManagerTestCase):
 
         self.assertFalse(cache.get(get_template_cache_name('equipment-overview', 2)))
 
-        self.client.get(reverse('equipment-overview'))
-        self.client.get(reverse('exercise-view', kwargs={'id': 2}))
+        self.client.get(reverse('exercise:equipment:overview'))
+        self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
         old_exercise = cache.get(cache_mapper.get_exercise_key(2))
         old_overview = cache.get(get_template_cache_name('equipment-overview', 2))
@@ -137,8 +137,8 @@ class EquipmentCacheTestCase(WorkoutManagerTestCase):
 
         self.assertFalse(cache.get(get_template_cache_name('equipment-overview', 2)))
 
-        self.client.get(reverse('equipment-overview'))
-        self.client.get(reverse('exercise-view', kwargs={'id': 2}))
+        self.client.get(reverse('exercise:equipment:overview'))
+        self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
         new_exercise = cache.get(cache_mapper.get_exercise_key(2))
         new_overview = cache.get(get_template_cache_name('equipment-overview', 2))

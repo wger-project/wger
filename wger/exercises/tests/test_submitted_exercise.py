@@ -30,7 +30,7 @@ class ExercisesPendingTestCase(WorkoutManagerTestCase):
         '''
         Helper function
         '''
-        response = self.client.get(reverse('exercise-pending'))
+        response = self.client.get(reverse('exercise:exercise:pending'))
         if not fail:
             self.assertEqual(response.status_code, 200)
             self.assertEqual(len(response.context['exercise_list']), 1)
@@ -70,7 +70,7 @@ class ExercisesPendingDetailTestCase(WorkoutManagerTestCase):
         '''
         Helper function
         '''
-        response = self.client.get(reverse('exercise-view', kwargs={'id': 4}))
+        response = self.client.get(reverse('exercise:exercise:view', kwargs={'id': 4}))
         self.assertContains(response, 'Exercise is pending')
 
         if not fail:
@@ -118,7 +118,7 @@ class ExerciseAcceptTestCase(WorkoutManagerTestCase):
         '''
         exercise = Exercise.objects.get(pk=4)
         self.assertEqual(exercise.status, Exercise.STATUS_PENDING)
-        response = self.client.get(reverse('exercise-accept', kwargs={'pk': 4}))
+        response = self.client.get(reverse('exercise:exercise:accept', kwargs={'pk': 4}))
         exercise = Exercise.objects.get(pk=4)
 
         self.assertEqual(response.status_code, 302)
@@ -167,7 +167,7 @@ class ExerciseRejectTestCase(WorkoutManagerTestCase):
         '''
         exercise = Exercise.objects.get(pk=4)
         self.assertEqual(exercise.status, Exercise.STATUS_PENDING)
-        response = self.client.get(reverse('exercise-decline', kwargs={'pk': 4}))
+        response = self.client.get(reverse('exercise:exercise:decline', kwargs={'pk': 4}))
         exercise = Exercise.objects.get(pk=4)
         self.assertEqual(response.status_code, 302)
 

@@ -100,7 +100,7 @@ $(document).ready(function() {
 <h3>{% trans "Options" %}</h3>
 
 <p>
-<a href="{% url 'muscle-add' %}"
+<a href="{% url 'exercise:muscle:add' %}"
    title="{% trans 'Add muscle' %}"
    {% auto_link_css flavour "wger-modal-dialog" %}>
    <img src="{% static 'images/icons/new.svg' %}"
@@ -119,7 +119,7 @@ folder <em>images/muscles</em>.{% endblocktrans %}</p>
 
 <div id="muscle-edit-box" style="display:none;">
 <p>
-    <a href="{% url 'muscle-edit' 1 %}"
+    <a href="{% url 'exercise:muscle:edit' 1 %}"
        {% auto_link_css flavour "wger-modal-dialog" %}
        id="muscle-edit-edit-link">
        <img src="{% static 'images/icons/edit.svg' %}"
@@ -129,7 +129,7 @@ folder <em>images/muscles</em>.{% endblocktrans %}</p>
             title="{% trans 'Edit muscle' %}">{% trans 'Edit muscle' %}: <span class="muscle-edit-name"></span></a>
 </p>
 <p>
-    <a href="{% url 'muscle-delete' 1 %}"
+    <a href="{% url 'exercise:muscle:delete' 1 %}"
        {% auto_link_css flavour "wger-modal-dialog" %}
        id="muscle-edit-delete-link">
       <img src="{% static 'images/icons/trash.svg' %}"

@@ -32,7 +32,7 @@ class AddMuscleTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = Muscle
-    url = 'muscle-add'
+    url = 'exercise:muscle:add'
     data = {'name': 'A new muscle',
             'is_front': True}
 
@@ -43,7 +43,7 @@ class EditMuscleTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = Muscle
-    url = 'muscle-edit'
+    url = 'exercise:muscle:edit'
     pk = 1
     data = {'name': 'The new name',
             'is_front': True}
@@ -55,7 +55,7 @@ class DeleteMuscleTestCase(WorkoutManagerDeleteTestCase):
     '''
 
     object_class = Muscle
-    url = 'muscle-delete'
+    url = 'exercise:muscle:delete'
     pk = 1
 
 
@@ -71,7 +71,7 @@ class MuscleCacheTestCase(WorkoutManagerTestCase):
 
         if not self.is_mobile:
             self.assertFalse(cache.get(get_template_cache_name('muscle-overview', 2)))
-            self.client.get(reverse('muscle-overview'))
+            self.client.get(reverse('exercise:muscle:overview'))
             self.assertTrue(cache.get(get_template_cache_name('muscle-overview', 2)))
 
 
@@ -86,14 +86,14 @@ class MuscleOverviewTestCase(WorkoutManagerTestCase):
         '''
 
         self.user_login('admin')
-        response = self.client.get(reverse('muscle-overview'))
+        response = self.client.get(reverse('exercise:muscle:overview'))
         self.assertContains(response, 'Edit muscle')
         self.assertContains(response, 'Delete muscle')
         self.assertContains(response, 'Add muscle')
         self.assertContains(response, 'After adding a muscle')
 
         self.user_logout()
-        response = self.client.get(reverse('muscle-overview'))
+        response = self.client.get(reverse('exercise:muscle:overview'))
         self.assertNotContains(response, 'Edit muscle')
         self.assertNotContains(response, 'Delete muscle')
         self.assertNotContains(response, 'Add muscle')

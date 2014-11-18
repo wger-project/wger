@@ -207,7 +207,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         '''
         Returns the canonical URL to view an exercise
         '''
-        return reverse('exercise-view', kwargs={'id': self.id, 'slug': slugify(self.name)})
+        return reverse('exercise:exercise:view', kwargs={'id': self.id, 'slug': slugify(self.name)})
 
     def save(self, *args, **kwargs):
         '''

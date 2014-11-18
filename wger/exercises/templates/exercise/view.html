@@ -30,7 +30,7 @@ included in the database.{% endblocktrans %}
 {% if perms.exercises %}
 <div class="row">
     <div class="col-sm-6">
-        <a href="{% url 'exercise-accept' exercise.id %}" class="btn btn-default btn-block">
+        <a href="{% url 'exercise:exercise:accept' exercise.id %}" class="btn btn-default btn-block">
             <img src="{% static 'images/icons/status-on.svg' %}"
                 width="32"
                 height="32"
@@ -39,7 +39,7 @@ included in the database.{% endblocktrans %}
         </a>
     </div>
     <div class="col-sm-6">
-        <a href="{% url 'exercise-decline' exercise.id %}" class="btn btn-default btn-block">
+        <a href="{% url 'exercise:exercise:decline' exercise.id %}" class="btn btn-default btn-block">
             <img src="{% static 'images/icons/status-off.svg' %}"
                 width="32"
                 height="32"
@@ -84,14 +84,14 @@ included in the database.{% endblocktrans %}
         {{ comment }}
         {% if perms.exercises %}
         <span class="editoptions">
-            <a href="{% url 'exercisecomment-delete' comment.id %}"
+            <a href="{% url 'exercise:comment:delete' comment.id %}"
                title="{% trans 'Delete' %}">
                <img src="{% static 'images/icons/trash.svg' %}"
                     width="16"
                     height="16"
                     alt="{% trans 'Delete' %}">
             </a>
-            <a href="{% url 'exercisecomment-edit' comment.id %}"
+            <a href="{% url 'exercise:comment:edit' comment.id %}"
                title="{% trans 'Edit' %}"
                class="wger-modal-dialog">
                <img src="{% static 'images/icons/edit.svg' %}"
@@ -109,7 +109,7 @@ included in the database.{% endblocktrans %}
 
 {% if perms.exercises %}
 <p>
-    <a href="{% url 'exercisecomment-add' exercise.id %}"
+    <a href="{% url 'exercise:comment:add' exercise.id %}"
        title="{% trans 'Add' %}"
        class="wger-modal-dialog">
         <img src="{% static 'images/icons/add.svg' %}"
@@ -144,10 +144,10 @@ included in the database.{% endblocktrans %}
                          {% trans "Download" %}</a>
                     {% if perms.exercises.change_exerciseimage %}
                     |
-                    <a href="{% url 'exerciseimage-delete' exercise.pk image.pk %}"
+                    <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}"
                        class="wger-modal-dialog no-hover">
                          {% trans 'Delete' %}</a> |
-                    <a href="{% url 'exerciseimage-edit' image.pk %}"
+                    <a href="{% url 'exercise:image:edit' image.pk %}"
                        class="no-hover">
                          {% trans 'Edit' %}</a>
                     {% endif %}
@@ -185,9 +185,9 @@ included in the database.{% endblocktrans %}
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading">{{ image.image }}</h4>
-                    <a href="{% url 'exerciseimage-accept' image.pk %}" class="btn btn-default btn-sm">{% trans "Accept" %}</a>
-                    <a href="{% url 'exerciseimage-decline' image.pk %}" class="btn btn-default btn-sm">{% trans "Decline" %}</a>
-                    <a href="{% url 'exerciseimage-delete' exercise.pk image.pk %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a>
+                    <a href="{% url 'exercise:image:accept' image.pk %}" class="btn btn-default btn-sm">{% trans "Accept" %}</a>
+                    <a href="{% url 'exercise:image:decline' image.pk %}" class="btn btn-default btn-sm">{% trans "Decline" %}</a>
+                    <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a>
                  </div>
             </div>
         </div>
@@ -200,7 +200,7 @@ included in the database.{% endblocktrans %}
 
 {% if perms.exercises %}
 <p>
-    <a href="{% url 'exerciseimage-add' exercise.id %}"
+    <a href="{% url 'exercise:image:add' exercise.id %}"
        title="{% trans 'Add' %}">
         <img src="{% static 'images/icons/add.svg' %}"
             width="16"
@@ -304,7 +304,7 @@ $(document).ready(function() {
 
 <h3>{% trans "Back to overview" %}</h3>
 <p>
-    <a href="{% url 'exercise-overview' %}" {% auto_link_css flavour %}>
+    <a href="{% url 'exercise:exercise:overview' %}" {% auto_link_css flavour %}>
         <img src="{% static 'images/icons/list.svg' %}"
              width="32"
              height="32"
@@ -318,7 +318,7 @@ $(document).ready(function() {
 {% if perms.exercises %}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url 'exercise-edit' exercise.id %}" {% auto_link_css flavour %}>
+    <a href="{% url 'exercise:exercise:edit' exercise.id %}" {% auto_link_css flavour %}>
         <img src="{% static 'images/icons/edit.svg' %}"
              width="32"
              height="32"
@@ -327,7 +327,7 @@ $(document).ready(function() {
     </a>
 </p>
 <p>
-    <a href="{% url 'exercise-delete' exercise.id %}"
+    <a href="{% url 'exercise:exercise:delete' exercise.id %}"
        {% auto_link_css flavour "wger-modal-dialog" %}>
         <img src="{% static 'images/icons/trash.svg' %}"
              width="32"

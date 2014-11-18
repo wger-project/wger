@@ -31,7 +31,7 @@ class DeleteExerciseCategoryTestCase(WorkoutManagerDeleteTestCase):
     '''
 
     object_class = ExerciseCategory
-    url = 'exercisecategory-delete'
+    url = 'exercise:category:delete'
     pk = 4
     user_success = 'admin'
     user_fail = 'test'
@@ -43,7 +43,7 @@ class EditExerciseCategoryTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = ExerciseCategory
-    url = 'exercisecategory-edit'
+    url = 'exercise:category:edit'
     pk = 3
     data = {'name': 'A different name'}
 
@@ -54,7 +54,7 @@ class AddExerciseCategoryTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = ExerciseCategory
-    url = 'exercisecategory-add'
+    url = 'exercise:category:add'
     data = {'name': 'A new category'}
 
 
@@ -69,8 +69,8 @@ class ExerciseCategoryCacheTestCase(WorkoutManagerTestCase):
         performing certain operations
         '''
 
-        self.client.get(reverse('exercise-overview'))
-        self.client.get(reverse('exercise-view', kwargs={'id': 2}))
+        self.client.get(reverse('exercise:exercise:overview'))
+        self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
         old_exercise_overview = cache.get(get_template_cache_name('exercise-overview', 2))
         old_exercise_overview_mobile = cache.get(get_template_cache_name('exercise-overview-mobile',
@@ -83,9 +83,9 @@ class ExerciseCategoryCacheTestCase(WorkoutManagerTestCase):
         self.assertFalse(cache.get(get_template_cache_name('exercise-overview', 2)))
         self.assertFalse(cache.get(get_template_cache_name('exercise-overview-mobile', 2)))
 
-        self.client.get(reverse('exercise-overview'))
-        self.client.get(reverse('muscle-overview'))
-        self.client.get(reverse('exercise-view', kwargs={'id': 2}))
+        self.client.get(reverse('exercise:exercise:overview'))
+        self.client.get(reverse('exercise:muscle:overview'))
+        self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
         new_exercise_overview = cache.get(get_template_cache_name('exercise-overview', 2))
         new_exercise_overview_mobile = cache.get(get_template_cache_name('exercise-overview-mobile',

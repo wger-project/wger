@@ -53,13 +53,13 @@ class ExerciseImageEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     form_class = ExerciseImageForm
 
     def get_success_url(self):
-        return reverse('exercise-view', kwargs={'id': self.object.exercise.id})
+        return reverse('exercise:exercise:view', kwargs={'id': self.object.exercise.id})
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(ExerciseImageEditView, self).get_context_data(**kwargs)
         context['enctype'] = 'multipart/form-data'
-        context['form_action'] = reverse('exerciseimage-edit',
+        context['form_action'] = reverse('exercise:image:edit',
                                          kwargs={'pk': self.object.id})
 
         return context
@@ -81,7 +81,7 @@ class ExerciseImageAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
         return super(ExerciseImageAddView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('exercise-view', kwargs={'id': self.object.exercise.id})
+        return reverse('exercise:exercise:view', kwargs={'id': self.object.exercise.id})
 
     def get_context_data(self, **kwargs):
         '''
@@ -89,7 +89,7 @@ class ExerciseImageAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
         '''
         context = super(ExerciseImageAddView, self).get_context_data(**kwargs)
         context['enctype'] = 'multipart/form-data'
-        context['form_action'] = reverse('exerciseimage-add',
+        context['form_action'] = reverse('exercise:image:add',
                                          kwargs={'exercise_pk': self.kwargs['exercise_pk']})
 
         return context
@@ -108,7 +108,7 @@ class ExerciseImageDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
         '''
         Return to exercise image
         '''
-        return reverse('exercise-view', kwargs={'id': self.kwargs['exercise_pk']})
+        return reverse('exercise:exercise:view', kwargs={'id': self.kwargs['exercise_pk']})
 
     def get_context_data(self, **kwargs):
         '''
@@ -119,7 +119,7 @@ class ExerciseImageDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
         context = super(ExerciseImageDeleteView, self).get_context_data(**kwargs)
 
         context['title'] = _('Delete exercise image?')
-        context['form_action'] = reverse('exerciseimage-delete',
+        context['form_action'] = reverse('exercise:image:delete',
                                          kwargs={'pk': pk, 'exercise_pk': exercise_pk})
 
         return context

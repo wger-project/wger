@@ -109,7 +109,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         self.client.get(reverse('software:code'))
         self.assertEqual(self.count_temp_users(), 1)
 
-        self.client.get(reverse('exercise-overview'))
+        self.client.get(reverse('exercise:exercise:overview'))
         self.assertEqual(self.count_temp_users(), 1)
 
         self.client.get(reverse('ingredient-list'))
@@ -146,9 +146,9 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         self.assertContains(self.client.get(reverse('core:dashboard')), demo_notice_text)
         self.assertContains(self.client.get(reverse('workout-overview')),
                             demo_notice_text)
-        self.assertContains(self.client.get(reverse('exercise-overview')),
+        self.assertContains(self.client.get(reverse('exercise:exercise:overview')),
                             demo_notice_text)
-        self.assertContains(self.client.get(reverse('muscle-overview')), demo_notice_text)
+        self.assertContains(self.client.get(reverse('exercise:muscle:overview')), demo_notice_text)
         self.assertContains(self.client.get(reverse('nutrition-overview')),
                             demo_notice_text)
         self.assertContains(self.client.get(reverse('software:issues')), demo_notice_text)

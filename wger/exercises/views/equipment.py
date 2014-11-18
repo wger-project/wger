@@ -62,12 +62,12 @@ class EquipmentEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     model = Equipment
     title = ugettext_lazy('Edit equipment')
     permission_required = 'exercises.change_equipment'
-    success_url = reverse_lazy('equipment-list')
+    success_url = reverse_lazy('exercise:equipment:list')
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(EquipmentEditView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('equipment-edit',
+        context['form_action'] = reverse('exercise:equipment:edit',
                                          kwargs={'pk': self.object.id})
 
         return context
@@ -81,14 +81,14 @@ class EquipmentAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     model = Equipment
     title = ugettext_lazy('Add equipment')
     permission_required = 'exercises.add_equipment'
-    success_url = reverse_lazy('equipment-list')
+    success_url = reverse_lazy('exercise:equipment:list')
 
     def get_context_data(self, **kwargs):
         '''
         Send some additional data to the template
         '''
         context = super(EquipmentAddView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('equipment-add')
+        context['form_action'] = reverse('exercise:equipment:add')
 
         return context
 
@@ -101,7 +101,7 @@ class EquipmentDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     model = Equipment
     messages = ugettext_lazy('Successfully deleted')
     permission_required = 'exercises.delete_equipment'
-    success_url = reverse_lazy('equipment-list')
+    success_url = reverse_lazy('exercise:equipment:list')
 
     def get_context_data(self, **kwargs):
         '''
@@ -111,7 +111,7 @@ class EquipmentDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
         context = super(EquipmentDeleteView, self).get_context_data(**kwargs)
 
         context['title'] = _('Delete equipment?')
-        context['form_action'] = reverse('equipment-delete',
+        context['form_action'] = reverse('exercise:equipment:delete',
                                          kwargs={'pk': pk})
 
         return context

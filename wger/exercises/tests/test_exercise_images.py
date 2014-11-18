@@ -115,7 +115,7 @@ class AddExerciseImageTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = ExerciseImage
-    url = reverse('exerciseimage-add', kwargs={'exercise_pk': 1})
+    url = reverse('exercise:image:add', kwargs={'exercise_pk': 1})
     user_fail = False
     data = {'is_main': True,
             'image': open('wger/exercises/tests/protestschwein.jpg', 'rb'),
@@ -128,7 +128,7 @@ class EditExerciseImageTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = ExerciseImage
-    url = 'exerciseimage-edit'
+    url = 'exercise:image:edit'
     pk = 2
     data = {'is_main': True,
             'license': 1}
@@ -140,7 +140,7 @@ class DeleteExerciseImageTestCase(WorkoutManagerDeleteTestCase):
     '''
 
     object_class = ExerciseImage
-    url = reverse('exerciseimage-delete', kwargs={'exercise_pk': 1, 'pk': 1})
+    url = reverse('exercise:image:delete', kwargs={'exercise_pk': 1, 'pk': 1})
     pk = 1
 
 

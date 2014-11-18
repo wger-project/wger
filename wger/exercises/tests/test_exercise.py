@@ -36,7 +36,7 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
         Tests the exercise overview page
         '''
 
-        response = self.client.get(reverse('exercise-overview'))
+        response = self.client.get(reverse('exercise:exercise:overview'))
 
         # Page exists
         self.assertEqual(response.status_code, 200)
@@ -120,7 +120,7 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
         '''
         self.user_login('admin')
         ExerciseCategory.objects.all().delete()
-        response = self.client.get(reverse('exercise-overview'))
+        response = self.client.get(reverse('exercise:exercise:overview'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'No categories')
 
@@ -135,7 +135,7 @@ class ExerciseDetailTestCase(WorkoutManagerTestCase):
         Tests the exercise details page
         '''
 
-        response = self.client.get(reverse('exercise-view', kwargs={'id': 1}))
+        response = self.client.get(reverse('exercise:exercise:view', kwargs={'id': 1}))
         self.assertEqual(response.status_code, 200)
 
         # Correct tab is selected
@@ -165,7 +165,7 @@ class ExerciseDetailTestCase(WorkoutManagerTestCase):
             self.assertNotContains(response, 'Exercise is pending')
 
         # Ensure that non-existent exercises throw a 404.
-        response = self.client.get(reverse('exercise-view', kwargs={'id': 42}))
+        response = self.client.get(reverse('exercise:exercise:view', kwargs={'id': 42}))
         self.assertEqual(response.status_code, 404)
 
     def test_exercise_detail_editor(self):
@@ -204,7 +204,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
 
         # Add an exercise
         count_before = Exercise.objects.count()
-        response = self.client.post(reverse('exercise-add'),
+        response = self.client.post(reverse('exercise:exercise:add'),
                                     {'category': 2,
                                      'name': 'my test exercise',
                                      'license': 1,
@@ -240,7 +240,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         # Add an exercise
         count_before = Exercise.objects.count()
         description = 'a nice, long and accurate description for the exercise'
-        response = self.client.post(reverse('exercise-add'),
+        response = self.client.post(reverse('exercise:exercise:add'),
                                     {'category': 2,
                                      'name': 'my test exercise',
                                      'license': 1,
@@ -263,7 +263,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
             self.assertEqual(exercise.license_author, 'test')
             self.assertEqual(exercise.status, Exercise.STATUS_PENDING)
 
-        response = self.client.get(reverse('exercise-view', kwargs={'id': exercise_id}))
+        response = self.client.get(reverse('exercise:exercise:view', kwargs={'id': exercise_id}))
         self.assertEqual(response.status_code, 200)
 
         # Navigation tab
@@ -273,7 +273,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         self.assertEqual(exercise_1.name, 'my test exercise')
 
         # Wrong category - adding
-        response = self.client.post(reverse('exercise-add'),
+        response = self.client.post(reverse('exercise:exercise:add'),
                                     {'category': 111,
                                      'name': 'my test exercise',
                                      'license': 1,
@@ -281,7 +281,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         self.assertTrue(response.context['form'].errors['category'])
 
         # Wrong category - editing
-        response = self.client.post(reverse('exercise-edit', kwargs={'pk': '1'}),
+        response = self.client.post(reverse('exercise:exercise:edit', kwargs={'pk': '1'}),
                                     {'category': 111,
                                      'name': 'my test exercise',
                                      'license': 1,
@@ -292,7 +292,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
             self.assertIn(response.status_code, STATUS_CODES_FAIL)
 
         # No muscles - adding
-        response = self.client.post(reverse('exercise-add'),
+        response = self.client.post(reverse('exercise:exercise:add'),
                                     {'category': 1,
                                      'name': 'my test exercise',
                                      'license': 1,
@@ -300,7 +300,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         self.assertFalse(response.context['form'].errors.get('muscles'))
 
         # No muscles - editing
-        response = self.client.post(reverse('exercise-edit', kwargs={'pk': '1'}),
+        response = self.client.post(reverse('exercise:exercise:edit', kwargs={'pk': '1'}),
                                     {'category': 1,
                                      'name': 'my test exercise',
                                      'license': 1,
@@ -371,7 +371,7 @@ class DeleteExercisesTestCase(WorkoutManagerDeleteTestCase):
     '''
 
     object_class = Exercise
-    url = 'exercise-delete'
+    url = 'exercise:exercise:delete'
     pk = 2
     user_success = 'admin'
     user_fail = 'test'
@@ -388,11 +388,11 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         '''
         if self.is_mobile:
             self.assertFalse(cache.get(get_template_cache_name('exercise-overview-mobile', 2)))
-            self.client.get(reverse('exercise-overview'))
+            self.client.get(reverse('exercise:exercise:overview'))
             self.assertTrue(cache.get(get_template_cache_name('exercise-overview-mobile', 2)))
         else:
             self.assertFalse(cache.get(get_template_cache_name('exercise-overview', 2)))
-            self.client.get(reverse('exercise-overview'))
+            self.client.get(reverse('exercise:exercise:overview'))
             self.assertTrue(cache.get(get_template_cache_name('exercise-overview', 2)))
 
     def test_exercise_detail(self):
@@ -403,7 +403,7 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         if not self.is_mobile:
             self.assertFalse(cache.get(get_template_cache_name('exercise-detail-header', 2, 2)))
             self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
-            self.client.get(reverse('exercise-view', kwargs={'id': 2}))
+            self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
             self.assertTrue(cache.get(get_template_cache_name('exercise-detail-header', 2, 2)))
             self.assertTrue(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
 
@@ -421,8 +421,8 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         self.assertFalse(cache.get(get_template_cache_name('exercise-detail-header', 2, 2)))
         self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
 
-        self.client.get(reverse('exercise-overview'))
-        self.client.get(reverse('exercise-view', kwargs={'id': 2}))
+        self.client.get(reverse('exercise:exercise:overview'))
+        self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
         old_exercise = cache.get(cache_mapper.get_exercise_key(2))
         old_exercise_bg = cache.get(cache_mapper.get_exercise_muscle_bg_key(2))
@@ -447,9 +447,9 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         self.assertFalse(cache.get(get_template_cache_name('exercise-detail-header', 2, 2)))
         self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
 
-        self.client.get(reverse('exercise-overview'))
-        self.client.get(reverse('muscle-overview'))
-        self.client.get(reverse('exercise-view', kwargs={'id': 2}))
+        self.client.get(reverse('exercise:exercise:overview'))
+        self.client.get(reverse('exercise:muscle:overview'))
+        self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
         new_exercise = cache.get(cache_mapper.get_exercise_key(2))
         new_exercise_bg = cache.get(cache_mapper.get_exercise_muscle_bg_key(2))

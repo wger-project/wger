@@ -32,7 +32,7 @@ class AddExerciseCommentTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = ExerciseComment
-    url = reverse('exercisecomment-add', kwargs={'exercise_pk': 1})
+    url = reverse('exercise:comment:add', kwargs={'exercise_pk': 1})
     user_fail = False
     data = {'comment': 'a new cool comment'}
 
@@ -43,7 +43,7 @@ class EditExerciseCommentTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = ExerciseComment
-    url = 'exercisecomment-edit'
+    url = 'exercise:comment:edit'
     pk = 1
     data = {'comment': 'an edited comment'}
 
@@ -66,7 +66,7 @@ class ExercisecommentsTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(comments), 1)
 
         # Delete the comment
-        response = self.client.post(reverse('exercisecomment-delete', kwargs={'id': 1}))
+        response = self.client.post(reverse('exercise:comment:delete', kwargs={'id': 1}))
         comments = exercise_1.exercisecomment_set.all()
 
         self.assertEqual(response.status_code, 302)

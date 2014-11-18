@@ -38,24 +38,24 @@
                         {# Exercises tab #}
                         {#               #}
                         <li class="dropdown {% if active_tab == 'exercises' %}active{% endif %}">
-                            <a href="{% url 'exercise-overview' %}"
+                            <a href="{% url 'exercise:exercise:overview' %}"
                                class="dropdown-toggle"
                                data-toggle="dropdown">{% trans "Exercises" %} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{% url 'exercise-overview' %}">{% trans "Exercises" %}</a></li>
-                                <li><a href="{% url 'muscle-overview' %}">{% trans "Muscle overview" %}</a></li>
-                                <li><a href="{% url 'equipment-overview' %}">{% trans "Equipment overview" %}</a></li>
+                                <li><a href="{% url 'exercise:exercise:overview' %}">{% trans "Exercises" %}</a></li>
+                                <li><a href="{% url 'exercise:muscle:overview' %}">{% trans "Muscle overview" %}</a></li>
+                                <li><a href="{% url 'exercise:equipment:overview' %}">{% trans "Equipment overview" %}</a></li>
                                 {% if user.is_authenticated and not user.userprofile.is_temporary and not trainer_identity %}
                                 <li class="divider"></li>
-                                <li><a href="{% url 'exercise-add' %}">{% trans "Add new exercise" %}</a><li>
+                                <li><a href="{% url 'exercise:exercise:add' %}">{% trans "Add new exercise" %}</a><li>
                                 {% endif %}
 
                                 {% cache cache_timeout user-admin-exercises user.id language.id %}
                                 {% if perms.exercises %}
                                 <li class="divider"></li>
                                 <li class="nav-header">{% trans "Administration" %}</li>
-                                <li><a href="{% url 'exercise-pending' %}">{% trans "Exercises pending review" %}</a></li>
-                                <li><a href="{% url 'equipment-list' %}">{% trans "Equipment" %}</a></li>
+                                <li><a href="{% url 'exercise:exercise:pending' %}">{% trans "Exercises pending review" %}</a></li>
+                                <li><a href="{% url 'exercise:equipment:list' %}">{% trans "Equipment" %}</a></li>
                                 {% endif %}
                                 {% endcache %}
                             </ul>

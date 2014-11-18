@@ -73,11 +73,11 @@ class RobotsExclusionMiddlewareTestCase(WorkoutManagerTestCase):
         Test the middleware on URLs from exercises app
         '''
 
-        response = self.client.get(reverse('exercise-overview'))
+        response = self.client.get(reverse('exercise:exercise:overview'))
         self.assertFalse(response.get('X-Robots-Tag'))
 
-        response = self.client.get(reverse('exercise-view', kwargs={'id': 1}))
+        response = self.client.get(reverse('exercise:exercise:view', kwargs={'id': 1}))
         self.assertFalse(response.get('X-Robots-Tag'))
 
-        response = self.client.get(reverse('muscle-overview'))
+        response = self.client.get(reverse('exercise:muscle:overview'))
         self.assertFalse(response.get('X-Robots-Tag'))

@@ -17,7 +17,7 @@
 {% for equipment in equipment_list %}
 <tr>
     <td class="no-hover">
-        <a href="{% url 'equipment-delete' equipment.id %}"
+        <a href="{% url 'exercise:equipment:delete' equipment.id %}"
            class="wger-modal-dialog">
             <img src="{% static 'images/icons/trash.svg' %}"
                  width="22"
@@ -25,7 +25,7 @@
                  alt="{% trans 'Delete' %}"
                  title="{% trans 'Delete' %}">
         </a>
-        <a href="{% url 'equipment-edit' equipment.id %}"
+        <a href="{% url 'exercise:equipment:edit' equipment.id %}"
            class="wger-modal-dialog">
             <img src="{% static 'images/icons/edit.svg' %}"
                  width="22"
@@ -55,7 +55,7 @@
 {% if perms.exercises.add_equipment %}
 <h3>{% trans "Options" %}</h3>
 <p>
-       <a href="{% url 'equipment-add' %}"
+       <a href="{% url 'exercise:equipment:add' %}"
           {% auto_link_css flavour "wger-modal-dialog" %}>
        <img src="{% static 'images/icons/new.svg' %}"
             width="32"
