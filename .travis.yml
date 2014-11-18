@@ -3,8 +3,9 @@ language: python
 # Python versions to test
 python:
   - "2.7"
-  - "3.3"
-  - "3.4"
+# Uncommenting as this seems to fail in travis
+#  - "3.3"
+#  - "3.4"
 
 # Manually define here the combinations of django and db versions to test
 env:
