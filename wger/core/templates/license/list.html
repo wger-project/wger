@@ -19,7 +19,7 @@
 {% for license in license_list %}
 <tr>
     <td class="no-hover">
-        <a href="{% url 'core:license-delete' license.id %}"
+        <a href="{% url 'core:license:delete' license.id %}"
            class="wger-modal-dialog">
             <img src="{% static 'images/icons/trash.svg' %}"
                  width="22"
@@ -27,7 +27,7 @@
                  alt="{% trans 'Delete' %}"
                  title="{% trans 'Delete' %}">
         </a>
-        <a href="{% url 'core:license-edit' license.id %}"
+        <a href="{% url 'core:license:edit' license.id %}"
            class="wger-modal-dialog">
             <img src="{% static 'images/icons/edit.svg' %}"
                  width="22"
@@ -56,7 +56,7 @@
 {% if perms.core.add_license %}
 <h3>{% trans "Options" %}</h3>
 <p>
-       <a href="{% url 'core:license-add' %}"
+       <a href="{% url 'core:license:add' %}"
           {% auto_link_css flavour "wger-modal-dialog" %}>
        <img src="{% static 'images/icons/new.svg' %}"
             width="32"

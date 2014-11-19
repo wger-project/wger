@@ -11,7 +11,7 @@
         {% breadcrumb "Gyms" "gym:gym:list" %}
     {% endif %}
     {% breadcrumb_raw member.userprofile.gym "gym:gym:user-list" member.userprofile.gym.pk %}
-    {% breadcrumb_raw member|format_username "core:user-overview" member.pk %}
+    {% breadcrumb_raw member|format_username "core:user:overview" member.pk %}
     {% breadcrumb "Documents" "gym:document:list" member.pk %}
 {% endblock %}
 

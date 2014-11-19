@@ -148,7 +148,7 @@ function custom_modal_init()
 {% if language.short_name != 'en' %}
     <p>
     {% trans "If you find the ingredient list too short, you might want to activate the preference to also show English ingredients." %}
-    <a href="{% url 'core:preferences' %}" id="ajax-english-ingredients">{% trans "That's done here" %}</a>.
+    <a href="{% url 'core:user:preferences' %}" id="ajax-english-ingredients">{% trans "That's done here" %}</a>.
     </p>
 {% endif %}
 

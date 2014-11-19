@@ -18,7 +18,7 @@ $(function() {
 
 
 {% block content %}
-<form action="{% url 'core:preferences' %}"
+<form action="{% url 'core:user:preferences' %}"
       method="post"
       class="form-horizontal">
     {% csrf_token %}
@@ -109,7 +109,7 @@ $(function() {
 {% block sidebar %}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url 'core:logout' %}" {% auto_link_css flavour "browserid-logout" %}>
+    <a href="{% url 'core:user:logout' %}" {% auto_link_css flavour "browserid-logout" %}>
     <img src="{% static 'images/icons/logout.svg' %}"
          width="32"
          height="32"
@@ -118,7 +118,7 @@ $(function() {
     {% trans "Logout" %}</a>
 </p>
 <p>
-    <a href="{% url 'core:change-password' %}" {% auto_link_css flavour "wger-modal-dialog" %}>
+    <a href="{% url 'core:user:change-password' %}" {% auto_link_css flavour "wger-modal-dialog" %}>
     <img src="{% static 'images/icons/preferences.svg' %}"
          width="32"
          height="32"
@@ -127,7 +127,7 @@ $(function() {
     {% trans "Change password" %}</a>
 </p>
 <p>
-    <a href="{% url 'core:api-key' %}" {% auto_link_css flavour %}>
+    <a href="{% url 'core:user:api-key' %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/internet.svg' %}"
          width="32"
          height="32"
@@ -137,7 +137,7 @@ $(function() {
 </p>
 
 <p style="margin-top: 2em;">
-    <a href="{% url 'core:user-delete' %}" {% auto_link_css flavour "wger-modal-dialog" %}>
+    <a href="{% url 'core:user:delete' %}" {% auto_link_css flavour "wger-modal-dialog" %}>
     <img src="{% static 'images/icons/trash.svg' %}"
          width="32"
          height="32"

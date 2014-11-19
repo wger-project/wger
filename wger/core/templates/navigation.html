@@ -138,9 +138,9 @@
                         <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{% url 'core:login' %}">{% trans "Login" %}</a></li>
-                            <li><a href="{% url 'core:registration' %}">{% trans "Register" %}</a></li>
-                            <li><a href="{% url 'core:password_reset' %}">{% trans "Reset password" %}</a></li>
+                            <li><a href="{% url 'core:user:login' %}">{% trans "Login" %}</a></li>
+                            <li><a href="{% url 'core:user:registration' %}">{% trans "Register" %}</a></li>
+                            <li><a href="{% url 'core:user:password_reset' %}">{% trans "Reset password" %}</a></li>
                         </ul>
                         </li>
                     </ul>
@@ -153,12 +153,12 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="{% url 'core:preferences' %}">{% trans "My preferences" %}</a>
+                                    <a href="{% url 'core:user:preferences' %}">{% trans "My preferences" %}</a>
                                 </li>
                                 {% if not trainer_identity %}
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="{% url 'core:logout' %}" class="browserid-logout">
+                                    <a href="{% url 'core:user:logout' %}" class="browserid-logout">
                                     <span class="glyphicon glyphicon-log-out"></span>
                                     {% trans "Logout" %}
                                     </a>
@@ -175,7 +175,7 @@
                                         <li><a href="{% url 'config:language:overview' %}">{% trans "Languages" %} </a></li>
                                     {% endif %}
                                     {% if perms.core.change_license %}
-                                        <li><a href="{% url 'core:license-list' %}">{% trans "Licenses" %} </a></li>
+                                        <li><a href="{% url 'core:license:list' %}">{% trans "Licenses" %} </a></li>
                                     {% endif %}
                                     {% if perms.gym.manage_gyms %}
                                         <li><a href="{% url 'gym:gym:list' %}">{% trans "Gyms" %} </a></li>

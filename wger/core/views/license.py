@@ -50,9 +50,9 @@ class LicenseAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
 
     model = License
-    success_url = reverse_lazy('core:license-list')
+    success_url = reverse_lazy('core:license:list')
     title = ugettext_lazy('Add license')
-    form_action = reverse_lazy('core:license-add')
+    form_action = reverse_lazy('core:license:add')
     permission_required = 'core.add_license'
 
 
@@ -63,7 +63,7 @@ class LicenseUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
 
     model = License
     title = ugettext_lazy('Edit license')
-    success_url = reverse_lazy('core:license-list')
+    success_url = reverse_lazy('core:license:list')
     permission_required = 'core.change_license'
 
     def get_context_data(self, **kwargs):
@@ -71,7 +71,7 @@ class LicenseUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
         Send some additional data to the template
         '''
         context = super(LicenseUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('core:license-edit', kwargs={'pk': self.object.id})
+        context['form_action'] = reverse('core:license:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit {0}').format(self.object)
         return context
 
@@ -82,7 +82,7 @@ class LicenseDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
 
     model = License
-    success_url = reverse_lazy('core:license-list')
+    success_url = reverse_lazy('core:license:list')
     permission_required = 'core.delete_license'
 
     def get_context_data(self, **kwargs):
@@ -91,5 +91,5 @@ class LicenseDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
         '''
         context = super(LicenseDeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object)
-        context['form_action'] = reverse('core:license-delete', kwargs={'pk': self.kwargs['pk']})
+        context['form_action'] = reverse('core:license:delete', kwargs={'pk': self.kwargs['pk']})
         return context

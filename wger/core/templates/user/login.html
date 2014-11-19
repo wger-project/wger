@@ -17,7 +17,7 @@
 {% endblock %}
 
 {% block content %}
-<form action="{% url 'core:login' %}{% if next %}?next={{next}}{% endif %}"
+<form action="{% url 'core:user:login' %}{% if next %}?next={{next}}{% endif %}"
       method="post"
       class="form-horizontal">
     {% trans 'Login' as submit_text %}
@@ -53,7 +53,7 @@
 {% block sidebar %}
 <h3>{% trans "No account?" %}</h3>
 <p>
-    <a href="{% url 'core:registration' %}" {% auto_link_css flavour %}>
+    <a href="{% url 'core:user:registration' %}" {% auto_link_css flavour %}>
         <img src="{% static 'images/icons/register.svg' %}"
              width="32"
              height="32"
@@ -63,7 +63,7 @@
 
 <h3>{% trans "Forgot password?" %}</h3>
 <p>
-    <a href="{% url 'core:password_reset' %}" {% auto_link_css flavour %}>
+    <a href="{% url 'core:user:password_reset' %}" {% auto_link_css flavour %}>
         <img src="{% static 'images/icons/reset-password.svg' %}"
              width="32"
              height="32"

@@ -39,7 +39,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
         '''
 
         self.user_login('test')
-        response = self.client.get(reverse('core:preferences'))
+        response = self.client.get(reverse('core:user:preferences'))
 
         profile = User.objects.get(username='test').userprofile
         self.assertFalse(profile.show_comments)
@@ -48,7 +48,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
         self.assertTemplateUsed('preferences.html')
 
         # Change some preferences
-        response = self.client.post(reverse('core:preferences'),
+        response = self.client.post(reverse('core:user:preferences'),
                                     {'show_comments': True,
                                      'show_english_ingredients': True,
                                      'email': 'my-new-email@example.com',
@@ -60,7 +60,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
                                      'timer_pause': 100})
 
         self.assertEqual(response.status_code, 302)
-        response = self.client.get(reverse('core:preferences'))
+        response = self.client.get(reverse('core:user:preferences'))
         profile = User.objects.get(username='test').userprofile
         self.assertTrue(profile.show_english_ingredients)
         self.assertTrue(profile.workout_reminder_active)
@@ -69,7 +69,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
         self.assertEqual(User.objects.get(username='test').email, 'my-new-email@example.com')
 
         # Change some preferences
-        response = self.client.post(reverse('core:preferences'),
+        response = self.client.post(reverse('core:user:preferences'),
                                     {'show_comments': False,
                                      'show_english_ingredients': True,
                                      'email': '',
@@ -81,7 +81,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
                                      'timer_pause': 40})
 
         self.assertEqual(response.status_code, 302)
-        response = self.client.get(reverse('core:preferences'))
+        response = self.client.get(reverse('core:user:preferences'))
         profile = response.context['user'].userprofile
         self.assertFalse(profile.show_comments)
         self.assertTrue(profile.show_english_ingredients)

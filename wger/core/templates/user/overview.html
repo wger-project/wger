@@ -11,12 +11,12 @@
         {% breadcrumb "Gyms" "gym:gym:list" %}
     {% endif %}
     {% breadcrumb_raw current_user.userprofile.gym "gym:gym:user-list" current_user.userprofile.gym.pk %}
-    {% breadcrumb_raw current_user|format_username "core:user-overview" current_user.pk %}
+    {% breadcrumb_raw current_user|format_username "core:user:overview" current_user.pk %}
 {% endblock %}
 
 
 {% block content %}
-{% url 'core:trainer-login' current_user.pk as trainer_login %}
+{% url 'core:user:trainer-login' current_user.pk as trainer_login %}
 
 
 <h3>{% trans "Workouts" %} <small>({% trans "last 10" %})</small></h3>
@@ -178,14 +178,14 @@
     </button>
     <ul class="dropdown-menu" role="menu">
         <li>
-            <a href="{% url 'core:user-edit' current_user.pk %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
+            <a href="{% url 'core:user:edit' current_user.pk %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
         </li>
         <li class="divider"></li>
         <li>
             {% if current_user.is_active %}
-                <a href="{% url 'core:user-deactivate' current_user.pk %}" >{% trans "Deactivate user"%}</a>
+                <a href="{% url 'core:user:deactivate' current_user.pk %}" >{% trans "Deactivate user"%}</a>
             {% else %}
-                <a href="{% url 'core:user-activate' current_user.pk %}">{% trans "Activate user"%}</a>
+                <a href="{% url 'core:user:activate' current_user.pk %}">{% trans "Activate user"%}</a>
             {% endif %}
         </li>
         {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
@@ -194,7 +194,7 @@
         </li>
         {% endif %}
         <li>
-            <a href="{% url 'core:user-delete' current_user.pk %}" class="wger-modal-dialog">{% trans "Delete"%}</a>
+            <a href="{% url 'core:user:delete' current_user.pk %}" class="wger-modal-dialog">{% trans "Delete"%}</a>
         </li>
     </ul>
 </div>

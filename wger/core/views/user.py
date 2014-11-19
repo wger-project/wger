@@ -80,7 +80,7 @@ def delete(request, user_pk=None):
 
     if user_pk:
         user = get_object_or_404(User, pk=user_pk)
-        form_action = reverse('core:user-delete', kwargs={'user_pk': user_pk})
+        form_action = reverse('core:user:delete', kwargs={'user_pk': user_pk})
 
         # Forbidden if the user has not enough rights, doesn't belong to the
         # gym or is an admin as well
@@ -92,7 +92,7 @@ def delete(request, user_pk=None):
             return HttpResponseForbidden()
     else:
         user = request.user
-        form_action = reverse('core:user-delete')
+        form_action = reverse('core:user:delete')
 
     form = PasswordConfirmationForm(user=request.user)
 
@@ -175,7 +175,7 @@ def logout(request):
     django_logout(request)
     if user.is_authenticated() and user.userprofile.is_temporary:
         user.delete()
-    return HttpResponseRedirect(reverse('core:login'))
+    return HttpResponseRedirect(reverse('core:user:login'))
 
 
 def registration(request):
@@ -226,7 +226,7 @@ def registration(request):
     template_data['form'] = form
     template_data['title'] = _('Register')
     template_data['form_fields'] = [i for i in form]
-    template_data['form_action'] = reverse('core:registration')
+    template_data['form_action'] = reverse('core:user:registration')
     template_data['submit_text'] = _('Register')
     template_data['extend_template'] = 'base.html'
 
@@ -272,7 +272,7 @@ def preferences(request):
 
     if redirect:
         messages.success(request, _('Settings successfully updated'))
-        return HttpResponseRedirect(reverse('core:preferences'))
+        return HttpResponseRedirect(reverse('core:user:preferences'))
     else:
         return render(request, 'user/preferences.html', template_data)
 
@@ -300,7 +300,7 @@ class UserDeactivateView(WgerPermissionMixin, RedirectView):
         edit_user.is_active = False
         edit_user.save()
         messages.success(self.request, _('The user was successfully deactivated'))
-        return reverse('core:user-overview', kwargs=({'pk': pk}))
+        return reverse('core:user:overview', kwargs=({'pk': pk}))
 
 
 class UserActivateView(WgerPermissionMixin, RedirectView):
@@ -326,7 +326,7 @@ class UserActivateView(WgerPermissionMixin, RedirectView):
         edit_user.is_active = True
         edit_user.save()
         messages.success(self.request, _('The user was successfully activated'))
-        return reverse('core:user-overview', kwargs=({'pk': pk}))
+        return reverse('core:user:overview', kwargs=({'pk': pk}))
 
 
 class UserEditView(WgerFormMixin, UpdateView):
@@ -350,14 +350,14 @@ class UserEditView(WgerFormMixin, UpdateView):
             return HttpResponseForbidden()
 
     def get_success_url(self):
-        return reverse('core:user-overview', kwargs={'pk': self.kwargs['pk']})
+        return reverse('core:user:overview', kwargs={'pk': self.kwargs['pk']})
 
     def get_context_data(self, **kwargs):
         '''
         Send some additional data to the template
         '''
         context = super(UserEditView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('core:user-edit', kwargs={'pk': self.object.id})
+        context['form_action'] = reverse('core:user:edit', kwargs={'pk': self.object.id})
         context['title'] = _('Edit {0}'.format(self.object))
         return context
 
@@ -382,7 +382,7 @@ def api_key(request):
         token = Token.objects.create(user=request.user)
 
         # Redirect to get rid of the GET parameter
-        return HttpResponseRedirect(reverse('core:api-key'))
+        return HttpResponseRedirect(reverse('core:user:api-key'))
 
     context['token'] = token
 

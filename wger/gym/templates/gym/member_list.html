@@ -47,7 +47,7 @@ $(document).ready( function () {
         {{current_user.obj.pk}}
     </td>
     <td>
-        <a href="{% url 'core:user-overview' current_user.obj.pk %}">{{current_user.obj}}</a>
+        <a href="{% url 'core:user:overview' current_user.obj.pk %}">{{current_user.obj}}</a>
     </td>
     <td>
         {{current_user.obj.get_full_name}}

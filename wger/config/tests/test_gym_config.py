@@ -45,7 +45,7 @@ class GymConfigTestCase(WorkoutManagerTestCase):
                              'password2': 'secret',
                              'email': 'my.email@example.com',
                              'recaptcha_response_field': 'PASSED', }
-        self.client.post(reverse('core:registration'), registration_data)
+        self.client.post(reverse('core:user:registration'), registration_data)
         new_user = User.objects.all().last()
 
         self.assertEqual(new_user.userprofile.gym, gym)
@@ -66,7 +66,7 @@ class GymConfigTestCase(WorkoutManagerTestCase):
                              'password2': 'secret',
                              'email': 'my.email@example.com',
                              'recaptcha_response_field': 'PASSED', }
-        self.client.post(reverse('core:registration'), registration_data)
+        self.client.post(reverse('core:user:registration'), registration_data)
 
         new_user = User.objects.all().last()
         self.assertEqual(new_user.userprofile.gym_id, None)

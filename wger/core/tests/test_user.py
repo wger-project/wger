@@ -39,7 +39,7 @@ class StatusUserTestCase(WorkoutManagerTestCase):
         user.save()
         self.assertFalse(user.is_active)
 
-        response = self.client.get(reverse('core:user-activate', kwargs={'pk': user.pk}))
+        response = self.client.get(reverse('core:user:activate', kwargs={'pk': user.pk}))
         user = User.objects.get(pk=2)
 
         if fail:
@@ -76,7 +76,7 @@ class StatusUserTestCase(WorkoutManagerTestCase):
         user = User.objects.get(pk=2)
         self.assertTrue(user.is_active)
 
-        response = self.client.get(reverse('core:user-deactivate', kwargs={'pk': user.pk}))
+        response = self.client.get(reverse('core:user:deactivate', kwargs={'pk': user.pk}))
         user = User.objects.get(pk=2)
 
         if fail:
@@ -113,7 +113,7 @@ class EditUserTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = User
-    url = 'core:user-edit'
+    url = 'core:user:edit'
     pk = 2
     data = {'email': 'another.email@example.com',
             'first_name': 'Name',

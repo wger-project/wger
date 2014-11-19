@@ -63,7 +63,8 @@ class WgerPermissionMixin(object):
 
         if self.login_required or self.permission_required:
             if not request.user.is_authenticated():
-                return HttpResponseRedirect(reverse_lazy('core:login') + '?next=%s' % request.path)
+                return HttpResponseRedirect(reverse_lazy('core:user:login')
+                                            + '?next={0}'.format(request.path))
 
             if self.permission_required:
                 has_permission = False

@@ -153,7 +153,7 @@
             <div class="abox ainfo" style="padding:0.6em; margin: 0em 0em 1em 0em;text-align:center;font-size:95%;">
             {% trans "You are using a guest account, data entered will be deleted after a week."%}
             {% if not has_demo_data %}
-            <a href="{% url 'core:demo-entries' %}" rel="nofollow" class="btn btn-success btn-xs">{% trans "Create some demo entries" %} »</a>
+            <a href="{% url 'core:user:demo-entries' %}" rel="nofollow" class="btn btn-success btn-xs">{% trans "Create some demo entries" %} »</a>
             {% endif %}
             </div>
         {% endif %}
