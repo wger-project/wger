@@ -30,7 +30,7 @@ class LanguageOverviewTest(WorkoutManagerAccessTestCase):
     Tests accessing the system's languages
     '''
 
-    url = 'config:language-overview'
+    url = 'config:language:overview'
     anonymous_fail = True
 
 
@@ -39,7 +39,7 @@ class LanguageDetailViewTest(WorkoutManagerAccessTestCase):
     Tests accessing a detail view of a language
     '''
 
-    url = reverse_lazy('config:language-view', kwargs={'pk': 1})
+    url = reverse_lazy('config:language:view', kwargs={'pk': 1})
     anonymous_fail = True
 
 
@@ -49,7 +49,7 @@ class CreateLanguageTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = Language
-    url = 'config:language-add'
+    url = 'config:language:add'
     data = {'short_name': 'dk',
             'full_name': 'Dansk'}
 
@@ -60,7 +60,7 @@ class EditLanguageTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = Language
-    url = 'config:language-edit'
+    url = 'config:language:edit'
     pk = 1
     data = {'short_name': 'dk',
             'full_name': 'Dansk'}
@@ -72,7 +72,7 @@ class DeleteLanguageTestCase(WorkoutManagerDeleteTestCase):
     '''
 
     object_class = Language
-    url = 'config:language-delete'
+    url = 'config:language:delete'
     pk = 1
 
 

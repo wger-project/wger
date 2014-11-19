@@ -15,39 +15,54 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
 
 from wger.config.views import languages
 from wger.config.views import language_config
 from wger.config.views import gym_config
 
 
-urlpatterns = patterns('',
-
-   # Languages
-   url(r'^language/list$',
+# sub patterns for languages
+patterns_language = patterns('',
+   url(r'^list$',
         languages.LanguageListView.as_view(),
-        name='language-overview'),
-   url(r'^language/(?P<pk>\d+)/view$',
+        name='overview'),
+   url(r'^(?P<pk>\d+)/view$',
         languages.LanguageDetailView.as_view(),
-        name='language-view'),
-   url(r'^language/(?P<pk>\d+)/delete$',
+        name='view'),
+   url(r'^(?P<pk>\d+)/delete$',
         languages.LanguageDeleteView.as_view(),
-        name='language-delete'),
-   url(r'^language/(?P<pk>\d+)/edit',
+        name='delete'),
+   url(r'^(?P<pk>\d+)/edit',
         languages.LanguageEditView.as_view(),
-        name='language-edit'),
-   url(r'^language/add$',
+        name='edit'),
+   url(r'^add$',
         languages.LanguageCreateView.as_view(),
-        name='language-add'),
+        name='add'),
+)
 
-   # Language configs
-   url(r'^language-config/(?P<pk>\d+)/edit',
+
+# sub patterns for language configs
+patterns_language_config = patterns('',
+   url(r'^(?P<pk>\d+)/edit',
        language_config.LanguageConfigUpdateView.as_view(),
-       name='languageconfig-edit'),
+       name='edit'),
+)
 
-   # Gym config
-   url(r'^default-gym',
+
+# sub patterns for default gym
+patterns_gym_config = patterns('',
+   url(r'^edit$',
        gym_config.GymConfigUpdateView.as_view(),
-       name='gymconfig-edit'),
+       name='edit'),
+)
+
+
+#
+# Actual patterns
+#
+urlpatterns = patterns('',
+   url(r'^language/', include(patterns_language, namespace="language")),
+   url(r'^language-config/', include(patterns_language_config, namespace="language_config")),
+   url(r'^gym-config/', include(patterns_gym_config, namespace="gym_config")),
 )

@@ -172,7 +172,7 @@
                                     <li class="divider"></li>
                                     <li class="nav-header">{% trans "Administration" %}</li>
                                     {% if perms.core.change_language %}
-                                        <li><a href="{% url 'config:language-overview' %}">{% trans "Languages" %} </a></li>
+                                        <li><a href="{% url 'config:language:overview' %}">{% trans "Languages" %} </a></li>
                                     {% endif %}
                                     {% if perms.core.change_license %}
                                         <li><a href="{% url 'core:license-list' %}">{% trans "Licenses" %} </a></li>

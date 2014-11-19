@@ -44,6 +44,6 @@ class GymConfigUpdateView(WgerFormMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(GymConfigUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('config:gymconfig-edit')
+        context['form_action'] = reverse('config:gym_config:edit')
         context['title'] = _('Edit')
         return context
