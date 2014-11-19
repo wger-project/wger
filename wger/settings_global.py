@@ -149,6 +149,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -234,6 +235,9 @@ INSTALLED_APPS = (
 
     # Breadcrumbs
     'django_bootstrap_breadcrumbs',
+
+    # CORS
+    'corsheaders',
 )
 
 
@@ -361,3 +365,8 @@ REST_FRAMEWORK = {
 SOUTH_MIGRATION_MODULES = {
     'easy_thumbnails': 'easy_thumbnails.south_migrations',
 }
+
+
+# Set CORS policy: allow all hosts to access the API
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_URLS_REGEX = r'^/api/.*$'
