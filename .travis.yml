@@ -7,10 +7,13 @@ python:
 #  - "3.3"
 #  - "3.4"
 
-# Manually define here the combinations of django and db versions to test
+# Manually define here the combinations environment variables to test
+# https://github.com/travis-ci/travis-ci/issues/1519
 env:
-  - DJANGO_VERSION=1.6.8 DB=postgresql
-  - DJANGO_VERSION=1.6.8 DB=sqlite
+  - DJANGO_VERSION=1.6.8 TEST_MOBILE=True  DB=postgresql
+  - DJANGO_VERSION=1.6.8 TEST_MOBILE=True  DB=sqlite
+  - DJANGO_VERSION=1.6.8 TEST_MOBILE=False DB=postgresql
+  - DJANGO_VERSION=1.6.8 TEST_MOBILE=False DB=sqlite
 
 # Install the application
 install:
@@ -31,9 +34,6 @@ script:
 
   # Regular application
   - coverage run --source='.' ./manage.py test
-
-  # Mobile version
-  - TEST_MOBILE=True ./manage.py test
 
   # Formatting
   - pep8 --max-line-length=100 --exclude="urls.py,*migrations*" wger
