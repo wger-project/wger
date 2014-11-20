@@ -2,7 +2,7 @@
 {% load i18n staticfiles wger_extras %}
 
 
-{% block title %}{% trans "Features" %}{% endblock %}
+
 
 {% block content %}
 <div class="jumbotron">
@@ -53,22 +53,23 @@ people could also find useful.{% endblocktrans %}
 <div class="row" style="margin-top: 1em;">
     <div class="col-sm-4 col-xs-12">
         <h4>
-            <strong>
             <span class="glyphicon glyphicon-user"></span>
+            <strong>
             {% trans "Workouts" %}
             </strong>
         </h4>
-        <p>{% blocktrans %}create and manage your workout routines by selecting how
-many days your workout constists of, and adding different exercises to each.{% endblocktrans %}
+        <p>{% blocktrans %}Create and manage your workout routines by selecting how
+many days your workout consists of, and adding different exercises to each. You can
+also combine different workouts into a schedule.{% endblocktrans %}
         </p>
         <img src="{% static 'images/workout-manager-1.0.3-en.png' %}"
              class="img-responsive img-rounded"
-             alt="">
+             alt="{% trans 'Workouts' %}">
     </div>
     <div class="col-sm-4 col-xs-6">
         <h4>
-            <strong>
             <span class="glyphicon glyphicon-stats"></span>
+            <strong>
             {% trans "Workout log" %}
             </strong>
         </h4>
@@ -79,29 +80,46 @@ The raw numbers are still accessible as a table.{% endblocktrans %}
             {% trans "You can also enter notes and a general impression (great, neutral, etc.)" %}</p>
             <img src="{% static 'images/workout-log-1.1-en.png' %}"
                  class="img-responsive img-rounded"
-                 alt="">
+                 alt="{% trans 'Workout log' %}">
     </div>
     <div class="col-sm-4 col-xs-6">
         <h4>
-            <strong>
             <span class="glyphicon glyphicon-list-alt"></span>
+            <strong>
             {% trans "Nutrition" %}
             </strong>
         </h4>
-        <p>{% blocktrans %}create a diet plan and see its nutritional
+        <p>{% blocktrans %}Create a diet plan and see its nutritional
 values (total energy, protein, carbohydrates, and so on) about
 it. Select from more than 8000 ingredients for this.{% endblocktrans %}</p>
         <img src="{% static 'images/nutrition-manager-1.0.3-en.png' %}"
              class="img-responsive img-rounded"
-             alt="">
+             alt="{% trans 'Nutrition' %}">
     </div>
 </div>
 
 <div class="row" style="margin-top: 1em;">
     <div class="col-sm-4 col-xs-12">
+        <!--
         <h4>
+            <span class="glyphicon glyphicon-th-list"></span>
             <strong>
+            {% trans "Routine generator" %}
+            </strong>
+        </h4>
+        <p>{% blocktrans %}Automatically generate a routine according to
+your current strength level. You can either print them as a PDF or add them
+to your own collection and customize them them till you are happy with the
+result.{% endblocktrans %} {% trans "The routines include among others:" %}</p>
+        <ul>
+            <li>Foobar 5-3-1</li>
+            <li>Foobar cool</li>
+            <li>Foobar even cooler</li>
+        </ul>
+        -->
+        <h4>
             <span class="glyphicon glyphicon-signal"></span>
+            <strong>
             {% trans "Weight tracker" %}
             </strong>
         </h4>
@@ -110,13 +128,13 @@ for each exercise and your own body weight. This makes it easy to see if you
 are reaching your goals or need to adjust something.{% endblocktrans %}</p>
         <img src="{% static 'images/weight-chart-1.0.3-en.png' %}"
              class="img-responsive img-rounded"
-             alt="">
+             alt="{% trans 'Weight tracker' %}">
     </div>
 
     <div class="col-sm-4 col-xs-6">
         <h4>
-            <strong>
             <span class="glyphicon glyphicon-ok"></span>
+            <strong>
             {% trans "Exercise database" %}
             </strong>
         </h4>
@@ -127,66 +145,43 @@ about the form to perform them. This is displayed in the workout overview
 page, so you keep them in mind.{% endblocktrans %}</p>
         <img src="{% static 'images/muscle-overview-1.1-en.png' %}"
      class="img-responsive img-rounded"
-     alt="">
+     alt="{% trans 'Exercise database' %}">
     </div>
 
     <div class="col-sm-4 col-xs-6">
         <h4>
-            <strong>
             <span class="glyphicon glyphicon-home"></span>
+            <strong>
             {% trans "Gym management" %}
             </strong>
         </h4>
         <p>{% blocktrans %}Use the application for your gym to manage its
-members, their workouts and progress. Keep an eye on inactive members with
+members, their workouts and attendance. Keep an eye on inactive members with
 optional notifications. You can create users with different roles to
 distribute the administrative tasks such as trainer or gym manager.{% endblocktrans %}</p>
         
         <img src="{% static 'images/gym-management-1.5.png' %}"
              class="img-responsive img-rounded"
-             alt="">
-        
-        <!--
-        <h4>
-            <strong>
-            <span class="glyphicon glyphicon-th-list"></span>
-            {% trans "Routine generator" %}
-            </strong>
-        </h4>
-        <p>{% blocktrans %}Automatically generate a routine according to
-your current strength level. You can either print them as a PDF or add them
-to your own collection and customize them them till you are happy with the
-result. {% endblocktrans %} {% trans "The routines include among others:" %}</p>
-        <ul>
-            <li>{% trans "Foobar 5-3-1" %}</li>
-            <li>{% trans "Foobar cool" %}</li>
-            <li>{% trans "Foobar even cooler" %}</li>
-        </ul>
-
-        <a href="" class="btn btn-default btn-xs pull-right">
-            {% trans "Take a look" %}
-            <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
-        -->
+             alt="{% trans 'Gym management' %}">
     </div>
 </div>
 
 <div class="row" style="margin-top: 1em;">
     <div class="col-sm-4 col-xs-12">
         <h4>
-            <strong>
             <span class="glyphicon glyphicon-eye-open"></span>
+            <strong>
             {% trans "100% Open Source" %}
             </strong>
         </h4>
         <p>{% blocktrans %}All of the code running wger is open source, allowing
-the public to openly review its security. Anyone can contribute towards
+the public to openly review its code and security. Anyone can contribute towards
 the development of wger or deploy private installations.{% endblocktrans %}</p>
     </div>
     <div class="col-sm-4 col-xs-12">
         <h4>
-            <strong>
             <span class="glyphicon glyphicon-globe"></span>
+            <strong>
             {% trans "Join and help" %}
             </strong>
         </h4>
@@ -195,7 +190,7 @@ the development of wger or deploy private installations.{% endblocktrans %}</p>
             <span class="glyphicon glyphicon-chevron-right"></span>
         </a>
         <a href="{% url 'software:issues' %}" class="btn btn-primary btn-block">
-            {% trans "Report issue or wish" %}
+            {% trans "Problems and wishes" %}
             <span class="glyphicon glyphicon-chevron-right"></span>
         </a>
         <a href="https://www.transifex.com/projects/p/wger-workout-manager/" class="btn btn-primary btn-block">
@@ -205,8 +200,8 @@ the development of wger or deploy private installations.{% endblocktrans %}</p>
     </div>
     <div class="col-sm-4 col-xs-12">
         <h4>
-            <strong>
             <span class="glyphicon glyphicon-retweet"></span>
+            <strong>
             {% trans "REST API" %}
             </strong>
         </h4>
@@ -220,8 +215,8 @@ an API key.{% endblocktrans %}</p>
 <div class="row">
     <div class="col-sm-8">
         <h4>
-            <strong>
             <span class="glyphicon glyphicon-plus"></span>
+            <strong>
             {% trans "Other features" %}
             </strong>
         </h4>
@@ -230,14 +225,15 @@ an API key.{% endblocktrans %}</p>
             <li>{% trans "Export workouts, nutrition plans and routines as PDF" %}</li>
             <!--<li>{% trans "Create complex routines, specify how much the exercise weights increase each week" %}</li>-->
             <li>{% trans "Gym-optimised view with countdown to easily log weights during the workout" %}</li>
-            <li>{% trans "Export your routines to an application such as iCal or google calendar." %}</li>
+            <li>{% trans "Export your routines and workouts to an application such as iCal or google calendar." %}</li>
             <li>{% trans "Receive email notifications to remind you to change your routine (optional)" %}</li>
-            <li>{% trans "Calendar view with last workouts for easy overview and control" %}</li>
-            <li>{% trans "Support for both metric (kg) and imperial (lb) weight units" %}</li>
+            <li>{% trans "Calendar view with last workouts and weight logs for easy overview and control" %}</li>
+            <!--<li>{% trans "Support for both metric (kg) and imperial (lb) weight units" %}</li>-->
             <li>{% trans "Available in many languages" %}</li>
             <li>{% trans "BMI and daily calories calculator" %}</li>
-            <li>{% trans "Automatically calculated grams per body weight of your diet plan" %}</li>
+            <li>{% trans "Automatically calculated grams of macronutrients per body weight" %}</li>
             <li>{% trans "Mobile friendly version" %}</li>
+            <li>{% trans "Import and export your weight data to and from CSV" %}</li>
         </ul>
     </div>
 </div>
