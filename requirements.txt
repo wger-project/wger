@@ -20,6 +20,7 @@ django-bootstrap-breadcrumbs
 djangorestframework==2.3.13
 django-filter
 django-tastypie==0.9.16
+django-cors-headers
 
 # Python3 compatibility
 six
