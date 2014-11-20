@@ -30,7 +30,7 @@ class WeightCsvExportTestCase(WorkoutManagerTestCase):
         '''
         Helper function to test the CSV export
         '''
-        response = self.client.get(reverse('wger.weight.views.export_csv'))
+        response = self.client.get(reverse('weight:export-csv'))
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'text/csv')

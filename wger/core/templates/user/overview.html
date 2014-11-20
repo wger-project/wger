@@ -126,7 +126,7 @@
 </tbody>
 </table>
 {% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}?next={% url 'weight-overview' %}" class="btn btn-default btn-sm">{% trans "Weight overview" %}</a>
+<a href="{{trainer_login}}?next={% url 'weight:overview' %}" class="btn btn-default btn-sm">{% trans "Weight overview" %}</a>
 {% endif %}
 
 

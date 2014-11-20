@@ -77,7 +77,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
         #
         # 3. Add a weight entry
         #
-        self.client.post(reverse('weight-add'),
+        self.client.post(reverse('weight:add'),
                          {'weight': 100,
                           'creation_date': '2012-01-01',
                           'user': 1},)

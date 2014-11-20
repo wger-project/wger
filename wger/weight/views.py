@@ -51,8 +51,8 @@ class WeightAddView(WgerFormMixin, CreateView):
     model = WeightEntry
     form_class = WeightForm
     title = ugettext_lazy('Add weight entry')
-    form_action = reverse_lazy('weight-add')
-    success_url = reverse_lazy('weight-overview')
+    form_action = reverse_lazy('weight:add')
+    success_url = reverse_lazy('weight:overview')
 
     def get_initial(self):
         '''
@@ -78,11 +78,11 @@ class WeightUpdateView(WgerFormMixin, UpdateView):
     '''
     model = WeightEntry
     form_class = WeightForm
-    success_url = reverse_lazy('weight-overview')
+    success_url = reverse_lazy('weight:overview')
 
     def get_context_data(self, **kwargs):
         context = super(WeightUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('weight-edit', kwargs={'pk': self.object.id})
+        context['form_action'] = reverse('weight:edit', kwargs={'pk': self.object.id})
         context['title'] = _('Edit weight entry for the %s') % self.object.creation_date
 
         return context
@@ -182,7 +182,7 @@ class WeightCsvImportFormPreview(FormPreview):
         return {'form': form,
                 'stage_field': self.unused_name('stage'),
                 'state': self.state,
-                'form_action': reverse('weight-import-csv')}
+                'form_action': reverse('weight:import-csv')}
 
     def process_preview(self, request, form, context):
         context['weight_list'], context['error_list'] = helpers.parse_weight_csv(request,
@@ -192,4 +192,4 @@ class WeightCsvImportFormPreview(FormPreview):
     def done(self, request, cleaned_data):
         weight_list, error_list = helpers.parse_weight_csv(request, cleaned_data)
         WeightEntry.objects.bulk_create(weight_list)
-        return HttpResponseRedirect(reverse('weight-overview'))
+        return HttpResponseRedirect(reverse('weight:overview'))

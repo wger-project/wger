@@ -74,7 +74,7 @@
                         {#            #}
                         <li class="dropdown">
 
-                            <a href="{% url 'weight-overview' %}"
+                            <a href="{% url 'weight:overview' %}"
                                class="dropdown-toggle"
                                data-toggle="dropdown"
                                rel="nofollow">
@@ -83,8 +83,8 @@
                                 {% if active_tab == 'weight' %}</strong>{% endif %}
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="{% url 'weight-overview' %}" rel="nofollow">{% trans "Weight overview" %}</a></li>
-                                <li><a href="{% url 'weight-add' %}" rel="nofollow">{% trans "Add weight entry" %}</a></li>
+                                <li><a href="{% url 'weight:overview' %}" rel="nofollow">{% trans "Weight overview" %}</a></li>
+                                <li><a href="{% url 'weight:add' %}" rel="nofollow">{% trans "Add weight entry" %}</a></li>
                             </ul>
                         </li>
 

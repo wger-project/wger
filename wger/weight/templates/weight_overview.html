@@ -38,7 +38,7 @@ $(document).ready(function () {
 <div id="weight_diagram"></div>
 
 <p>
-<a href="{% url 'weight-add' %}"
+<a href="{% url 'weight:add' %}"
    {% auto_link_css flavour "wger-modal-dialog" %}
    id="add-weight-entry">{% trans "Add weight entry" %}</a>
 </p>
@@ -63,7 +63,7 @@ on the background resets it.
 
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url 'wger.weight.views.export_csv' %}"
+    <a href="{% url 'weight:export-csv' %}"
        target="_blank"
        {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/save.svg' %}"
@@ -76,7 +76,7 @@ on the background resets it.
 </p>
 
 <p>
-    <a href="{% url 'weight-import-csv' %}" {% auto_link_css flavour %}>
+    <a href="{% url 'weight:import-csv' %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/csv-table.svg' %}"
          width="32"
          height="32"

@@ -19,26 +19,29 @@ from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 
 from wger.weight.forms import WeightCsvImportForm
-from wger.weight.views import WeightAddView
-from wger.weight.views import WeightUpdateView
-from wger.weight.views import WeightCsvImportFormPreview
+from wger.weight import views
 
-urlpatterns = patterns('wger.weight.views',
+
+urlpatterns = patterns('',
     url(r'^add/$',
-        login_required(WeightAddView.as_view()),
-        name='weight-add'),
+        login_required(views.WeightAddView.as_view()),
+        name='add'),
 
     url(r'^(?P<pk>\d+)/edit/$',
-        login_required(WeightUpdateView.as_view()),
-        name='weight-edit'),
+        login_required(views.WeightUpdateView.as_view()),
+        name='edit'),
 
-    url(r'^export-csv/$', 'export_csv'),
+    url(r'^export-csv/$',
+        views.export_csv,
+        name='export-csv'),
     url(r'^import-csv/$',
-        login_required(WeightCsvImportFormPreview(WeightCsvImportForm)),
-        name='weight-import-csv'),
+        login_required(views.WeightCsvImportFormPreview(WeightCsvImportForm)),
+        name='import-csv'),
     
     url(r'^overview/$',
-        'overview',
-        name='weight-overview'),
-    url(r'^api/get_weight_data/$', 'get_weight_data'),
+        views.overview,
+        name='overview'),
+    url(r'^api/get_weight_data/$', # JS
+        views.get_weight_data,
+        name='weight-data'),
 )
