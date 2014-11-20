@@ -152,16 +152,16 @@
         <a href="{{trainer_login}}?next={% url 'nutrition:plan:view' nutrition_plan.id %}">{{nutrition_plan.description}}</a>
     </td>
     <td>
-        {{nutrition_plan.get_nutritional_values.total.energy|floatformat}}kcal
+        {{nutrition_plan.get_nutritional_values.total.energy|floatformat}} {% trans "kcal" %}
     </td>
     <td>
-        {{nutrition_plan.get_nutritional_values.total.protein|floatformat}}g
+        {{nutrition_plan.get_nutritional_values.total.protein|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
     </td>
     <td>
-        {{nutrition_plan.get_nutritional_values.total.carbohydrates|floatformat}}g
+        {{nutrition_plan.get_nutritional_values.total.carbohydrates|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
     </td>
     <td>
-        {{nutrition_plan.get_nutritional_values.total.fat|floatformat}}g
+        {{nutrition_plan.get_nutritional_values.total.fat|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
     </td>
 </tr>
 {% endfor %}

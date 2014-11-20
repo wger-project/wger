@@ -31,7 +31,7 @@
             {{ plan.creation_date }}
         </td>
         <td>
-            {{ plan.get_nutritional_values.total.energy|floatformat }} kcal
+            {{ plan.get_nutritional_values.total.energy|floatformat }} {% trans "kcal" %}
         </td>
     </tr>
     {% endfor %}

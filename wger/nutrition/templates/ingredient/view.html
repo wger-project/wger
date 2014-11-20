@@ -93,26 +93,26 @@ the search.{% endblocktrans %}
         <tr>
             <td style="width:80%;">{% trans "Energy" %}</td>
             <td itemprop="calories">
-                <span id="value-energy">{{ingredient.energy}}</span> kcal
+                <span id="value-energy">{{ingredient.energy}}</span> {% trans "kcal" %}
             </td>
         </tr>
         <tr>
             <td>{% trans "Protein" %}</td>
             <td itemprop="proteinContent">
-                <span id="value-protein">{{ingredient.protein}}</span> g
+                <span id="value-protein">{{ingredient.protein}}</span> {% trans "g" context "weight unit, i.e. grams" %}
             </td>
         </tr>
         <tr>
             <td>{% trans "Carbohydrates" %}</td>
             <td itemprop="carbohydrateContent">
-                <span id="value-carbohydrates">{{ingredient.carbohydrates}}</span> g
+                <span id="value-carbohydrates">{{ingredient.carbohydrates}}</span> {% trans "g" context "weight unit, i.e. grams" %}
             </td>
         </tr>
         <tr>
             <td style="padding-left: 3em;">{% trans "Sugar content in carbohydrates" %}</td>
             <td itemprop="sugarContent">
                 {% if ingredient.carbohydrates_sugar %}
-                    <span id="value-carbohydrates-sugar">{{ingredient.carbohydrates_sugar}}</span> g
+                    <span id="value-carbohydrates-sugar">{{ingredient.carbohydrates_sugar}}</span> {% trans "g" context "weight unit, i.e. grams" %}
                 {% else %}
                     {% trans "n.A." %}
                 {% endif %}
@@ -121,14 +121,14 @@ the search.{% endblocktrans %}
         <tr>
             <td>{% trans "Fat" %}</td>
             <td itemprop="fatContent">
-                <span id="value-fat">{{ingredient.fat}}</span> g
+                <span id="value-fat">{{ingredient.fat}}</span> {% trans "g" context "weight unit, i.e. grams" %}
             </td>
         </tr>
         <tr>
             <td style="padding-left: 3em;">{% trans "Saturated fat content in fats" %}</td>
             <td itemprop="saturatedFatContent">
                 {% if ingredient.fat_saturated %}
-                    <span id="value-fat-saturated">{{ingredient.fat_saturated}}</span> g
+                    <span id="value-fat-saturated">{{ingredient.fat_saturated}}</span> {% trans "g" context "weight unit, i.e. grams" %}
                 {% else %}
                     {% trans "n.A." %}
                 {% endif %}
@@ -150,7 +150,7 @@ the search.{% endblocktrans %}
             <td style="width:80%;">{% trans "Fibres" %}</td>
             <td itemprop="fiberContent" id="value-fibres">
                 {% if ingredient.fibres %}
-                    <span id="value-fibres">{{ingredient.fibres}}</span> g
+                    <span id="value-fibres">{{ingredient.fibres}}</span> {% trans "g" context "weight unit, i.e. grams" %}
                 {% else %}
                     {% trans "n.A." %}
                 {% endif %}
@@ -160,7 +160,7 @@ the search.{% endblocktrans %}
             <td>{% trans "Sodium" %}</td>
             <td itemprop="sodiumContent" id="value-sodium">
                 {% if ingredient.sodium %}
-                    <span id="value-fibres">{{ingredient.sodium}}</span> g
+                    <span id="value-fibres">{{ingredient.sodium}}</span> {% trans "g" context "weight unit, i.e. grams" %}
                 {% else %}
                     {% trans "n.A." %}
                 {% endif %}

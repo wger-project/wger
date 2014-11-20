@@ -108,16 +108,16 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
            – {{ plan.creation_date }}
            <ul>
                <li>
-                   {% trans "Energy" %}: {{nutritional_info.total.energy|floatformat}} kcal
+                   {% trans "Energy" %}: {{nutritional_info.total.energy|floatformat}} {% trans "kcal" %}
                </li>
                <li>
-                   {% trans "Protein" %}: {{nutritional_info.total.protein|floatformat}} g
+                   {% trans "Protein" %}: {{nutritional_info.total.protein|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
                </li>
                <li>
-                   {% trans "Carbohydrates" %}: {{nutritional_info.total.carbohydrates|floatformat}} g
+                   {% trans "Carbohydrates" %}: {{nutritional_info.total.carbohydrates|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
                </li>
                <li>
-                   {% trans "Fat" %}: {{nutritional_info.total.fat|floatformat}} g
+                   {% trans "Fat" %}: {{nutritional_info.total.fat|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
                </li>
            </ul>
 
@@ -130,7 +130,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
         {% endif %}
         {% if weight %}
         <p>
-            {% trans "Your current weight is: "%} <strong>{{weight.weight|floatformat}} kg.</strong>
+            {% trans "Your current weight is: "%} <strong>{{weight.weight|floatformat}} {% trans "kg" %}</strong>
         </p>
         {% endif %}
     </div>
