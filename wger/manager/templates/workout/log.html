@@ -24,7 +24,7 @@ $(document).ready(function() {
     <h3>{{ day.obj.description }}</h3>
 
     <p>
-    <a href="{% url 'day-log' day.obj.id %}"
+    <a href="{% url 'manager:day:log' day.obj.id %}"
        title="{% trans 'Add weight log to this day' %}"
        {% auto_link_css flavour %}>
            <img src="{% static 'images/icons/statistics.svg' %}"
@@ -82,7 +82,7 @@ $(document).ready(function() {
 {% block sidebar %}
 <h3>{% trans "Options" %}</h3>
 <p>
-<a href="{% url 'workout-view' workout.id %}" {% auto_link_css flavour %}>
+<a href="{% url 'manager:workout:view' workout.id %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/list.svg' %}"
          width="32"
          height="32"

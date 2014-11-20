@@ -38,7 +38,7 @@ class WorkoutTimerTestCase(WorkoutManagerTestCase):
         '''
 
         # Fetch the timer page
-        response = self.client.get(reverse('workout-timer', kwargs={'day_pk': 2}))
+        response = self.client.get(reverse('manager:workout:timer', kwargs={'day_pk': 2}))
 
         if fail:
             self.assertEqual(response.status_code, 404)
@@ -149,9 +149,9 @@ class WorkoutTimerWorkoutSessionTestCase(WorkoutManagerTestCase):
         self.user_login('test')
 
         today = datetime.date.today()
-        response = self.client.get(reverse('workout-timer', kwargs={'day_pk': 5}))
+        response = self.client.get(reverse('manager:workout:timer', kwargs={'day_pk': 5}))
         self.assertEqual(response.context['form_action'],
-                         reverse('workout-session-add', kwargs={'workout_pk': 3,
+                         reverse('manager:session:add', kwargs={'workout_pk': 3,
                                                                 'year': today.year,
                                                                 'month': today.month,
                                                                 'day': today.day}))
@@ -166,6 +166,6 @@ class WorkoutTimerWorkoutSessionTestCase(WorkoutManagerTestCase):
         session.time_end = datetime.time(13, 00)
         session.save()
 
-        response = self.client.get(reverse('workout-timer', kwargs={'day_pk': 5}))
+        response = self.client.get(reverse('manager:workout:timer', kwargs={'day_pk': 5}))
         self.assertEqual(response.context['form_action'],
-                         reverse('workout-session-edit', kwargs={'pk': session.pk}))
+                         reverse('manager:session:edit', kwargs={'pk': session.pk}))

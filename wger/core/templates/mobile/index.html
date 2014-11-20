@@ -13,7 +13,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">{% trans "Current workout" %}</h4>
                 {% if current_workout %}
-                    <h5><a href="{% url 'workout-view' current_workout.id %}">{{ current_workout }}</a></h5>
+                    <h5><a href="{% url 'manager:workout:view' current_workout.id %}">{{ current_workout }}</a></h5>
                 {% endif %}
             </div>
             <div class="modal-body">
@@ -104,7 +104,7 @@ its default duration in your settings.{% endblocktrans %}
                     {% if current_workout %}
                         {% for day in current_workout.canonical_representation.day_list %}
                                 {% if day.set_list|length > 0 %}
-                                    <a href="{% url 'workout-timer' day.obj.pk %}" class="list-group-item wger-list-group-item">
+                                    <a href="{% url 'manager:workout:timer' day.obj.pk %}" class="list-group-item wger-list-group-item">
                                         <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                                         {{day.obj.description}}
                                     </a>
@@ -112,14 +112,14 @@ its default duration in your settings.{% endblocktrans %}
                                 <span class="list-group-item">{{day.obj.description}}</span>
                                 {% endif %}
                         {% empty %}
-                            <a href="{% url 'day-add' current_workout.id %}" class="list-group-item">
+                            <a href="{% url 'manager:day:add' current_workout.id %}" class="list-group-item">
                                 <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                                 {% trans "No days for this workout." %}<br>
                                 {% trans "Add training day." %}
                                 </a>
                         {% endfor %}
                     {% else %}
-                        <a href="{% url 'workout-add' %}" class="list-group-item">
+                        <a href="{% url 'manager:workout:add' %}" class="list-group-item">
                             <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                             {% trans "No workouts found." %}<br>
                             {% trans "Add one now." %}
@@ -164,7 +164,7 @@ its default duration in your settings.{% endblocktrans %}
                 {{current_workout}}
             </a>
         {% else %}
-            <a href="{% url 'workout-add' %}" class="btn btn-default btn-block">
+            <a href="{% url 'manager:workout:add' %}" class="btn btn-default btn-block">
                 <img src="{% static 'images/icons/add.svg' %}"
                      width="32"
                      height="32"
@@ -176,7 +176,7 @@ its default duration in your settings.{% endblocktrans %}
         {% endif %}
     </div>
     <div class="col-xs-6" style="padding-left: 7px;">
-        <a href="{% url 'workout-calendar' %}"
+        <a href="{% url 'manager:workout:calendar' %}"
            class="btn btn-default btn-block"
            style="white-space: normal;">
             <img src="{% static 'images/icons/calendar.svg' %}"

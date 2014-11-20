@@ -49,13 +49,13 @@ class WorkoutSessionUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutSessionUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('workout-session-edit', kwargs={'pk': self.object.id})
+        context['form_action'] = reverse('manager:session:edit', kwargs={'pk': self.object.id})
         context['title'] = _('Edit workout impression for {0}').format(self.object.date)
 
         return context
 
     def get_success_url(self):
-        return reverse('workout-calendar')
+        return reverse('manager:workout:calendar')
 
 
 class WorkoutSessionAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
@@ -95,7 +95,7 @@ class WorkoutSessionAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutSessionAddView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('workout-session-add',
+        context['form_action'] = reverse('manager:session:add',
                                          kwargs={'workout_pk': self.kwargs['workout_pk'],
                                                  'year': self.kwargs['year'],
                                                  'month': self.kwargs['month'],
@@ -104,7 +104,7 @@ class WorkoutSessionAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
         return context
 
     def get_success_url(self):
-        return reverse('workout-calendar')
+        return reverse('manager:workout:calendar')
 
     def form_valid(self, form):
         '''

@@ -38,7 +38,7 @@ class SetAddTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = Set
-    url = reverse_lazy('set-add', kwargs={'day_pk': 5})
+    url = reverse_lazy('manager:set:add', kwargs={'day_pk': 5})
     user_success = 'test'
     user_fail = 'admin'
     data = {'exercises': [1, ],
@@ -74,7 +74,7 @@ class SetAddTestCase(WorkoutManagerAddTestCase):
                      'exercise2-INITIAL_FORMS': 0,
                      'exercise2-MAX_NUM_FORMS': 1000,
                      'exercise2-0-reps': 8}
-        response = self.client.post(reverse('set-add', kwargs={'day_pk': 5}), post_data)
+        response = self.client.post(reverse('manager:set:add', kwargs={'day_pk': 5}), post_data)
         self.assertEqual(response.status_code, 302)
 
         set_obj = Set.objects.get(pk=4)
@@ -104,7 +104,7 @@ class SetDeleteTestCase(WorkoutManagerTestCase):
 
         # Fetch the overview page
         count_before = Set.objects.count()
-        response = self.client.get(reverse('wger.manager.views.set.delete', kwargs={'pk': 3}))
+        response = self.client.get(reverse('manager:set:delete', kwargs={'pk': 3}))
         count_after = Set.objects.count()
 
         if fail:
@@ -158,7 +158,7 @@ class TestSetOrderTestCase(WorkoutManagerTestCase):
             post_data['exercise{0}-INITIAL_FORMS'.format(exercise_id)] = 0
             post_data['exercise{0}-MAX_NUM_FORMS'.format(exercise_id)] = 1000
 
-        response = self.client.post(reverse('set-add', kwargs={'day_pk': 5}),
+        response = self.client.post(reverse('manager:set:add', kwargs={'day_pk': 5}),
                                     post_data)
 
         return response
@@ -203,7 +203,7 @@ class TestSetAddFormset(WorkoutManagerTestCase):
         Helper function
         '''
         exercise = Exercise.objects.get(pk=1)
-        response = self.client.get(reverse('set-get-formset',
+        response = self.client.get(reverse('manager:set:get-formset',
                                    kwargs={'exercise_pk': 1, 'reps': 4}))
 
         self.assertEqual(response.status_code, 200)
@@ -230,7 +230,7 @@ class SetEditEditTestCase(WorkoutManagerTestCase):
         '''
 
         # Fetch the edit page
-        response = self.client.get(reverse('set-edit', kwargs={'pk': 3}))
+        response = self.client.get(reverse('manager:set:edit', kwargs={'pk': 3}))
         entry_before = Set.objects.get(pk=3)
 
         if fail:
@@ -239,7 +239,7 @@ class SetEditEditTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 200)
 
         # Try to edit the object
-        response = self.client.post(reverse('set-edit', kwargs={'pk': 3}),
+        response = self.client.post(reverse('manager:set:edit', kwargs={'pk': 3}),
                                     {'exercise2-TOTAL_FORMS': 4,
                                      'exercise2-INITIAL_FORMS': 1,
                                      'exercise2-MAX_NUM_FORMS': 1000,

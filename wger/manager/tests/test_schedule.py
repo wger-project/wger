@@ -39,7 +39,7 @@ class CreateScheduleTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = Schedule
-    url = 'schedule-add'
+    url = 'manager:schedule:add'
     user_success = 'test'
     user_fail = False
     data = {'name': 'My cool schedule',
@@ -54,7 +54,7 @@ class DeleteScheduleTestCase(WorkoutManagerDeleteTestCase):
     '''
 
     object_class = Schedule
-    url = 'schedule-delete'
+    url = 'manager:schedule:delete'
     pk = 1
     user_success = 'test'
     user_fail = 'admin'
@@ -66,7 +66,7 @@ class EditScheduleTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = Schedule
-    url = 'schedule-edit'
+    url = 'manager:schedule:edit'
     pk = 3
     data = {'name': 'An updated name',
             'start_date': datetime.date.today(),
@@ -84,7 +84,7 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         Helper function
         '''
 
-        response = self.client.get(reverse('schedule-view', kwargs={'pk': 2}))
+        response = self.client.get(reverse('manager:schedule:view', kwargs={'pk': 2}))
         if fail:
             self.assertIn(response.status_code, STATUS_CODES_FAIL)
         else:
@@ -95,7 +95,7 @@ class ScheduleTestCase(WorkoutManagerTestCase):
             schedule.is_loop = False
             schedule.save()
 
-            response = self.client.get(reverse('schedule-view', kwargs={'pk': 2}))
+            response = self.client.get(reverse('manager:schedule:view', kwargs={'pk': 2}))
             self.assertEqual(response.status_code, 200)
             self.assertNotContains(response, 'This schedule is a loop')
 
@@ -121,7 +121,7 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         '''
         self.user_login()
 
-        response = self.client.get(reverse('schedule-overview'))
+        response = self.client.get(reverse('manager:schedule:overview'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['schedules']), 3)
         if self.is_mobile:
@@ -134,7 +134,7 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         schedule.is_active = False
         schedule.save()
 
-        response = self.client.get(reverse('schedule-overview'))
+        response = self.client.get(reverse('manager:schedule:overview'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['schedules']), 3)
         if self.is_mobile:

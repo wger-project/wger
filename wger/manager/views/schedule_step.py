@@ -66,12 +66,12 @@ class StepCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
 
     def get_context_data(self, **kwargs):
         context = super(StepCreateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('step-add',
+        context['form_action'] = reverse('manager:step:add',
                                          kwargs={'schedule_pk': self.kwargs['schedule_pk']})
         return context
 
     def get_success_url(self):
-        return reverse('schedule-view', kwargs={'pk': self.kwargs['schedule_pk']})
+        return reverse('manager:schedule:view', kwargs={'pk': self.kwargs['schedule_pk']})
 
     def form_valid(self, form):
         '''Set the schedule and the order'''
@@ -91,7 +91,7 @@ class StepEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
 
     model = ScheduleStep
     title = ugettext_lazy('Edit workout')
-    form_action_urlname = 'step-edit'
+    form_action_urlname = 'manager:step:edit'
     login_required = True
 
     def get_form_class(self):
@@ -112,7 +112,7 @@ class StepEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
         return StepForm
 
     def get_success_url(self):
-        return reverse('schedule-view', kwargs={'pk': self.object.schedule_id})
+        return reverse('manager:schedule:view', kwargs={'pk': self.object.schedule_id})
 
 
 class StepDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
@@ -122,9 +122,9 @@ class StepDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
 
     model = ScheduleStep
     title = ugettext_lazy('Delete workout')
-    form_action_urlname = 'step-delete'
+    form_action_urlname = 'manager:step:delete'
     messages = ugettext_lazy('Workout was successfully deleted')
     login_required = True
 
     def get_success_url(self):
-        return reverse('schedule-view', kwargs={'pk': self.object.schedule.id})
+        return reverse('manager:schedule:view', kwargs={'pk': self.object.schedule.id})

@@ -57,9 +57,9 @@ class WorkoutICalExportTestCase(WorkoutManagerTestCase):
 
         user = User.objects.get(username='test')
         uid, token = make_token(user)
-        response = self.client.get(reverse('workout-ical', kwargs={'pk': 3,
-                                                                   'uidb64': uid,
-                                                                   'token': token}))
+        response = self.client.get(reverse('manager:workout:ical', kwargs={'pk': 3,
+                                                                           'uidb64': uid,
+                                                                           'token': token}))
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'text/calendar')
@@ -75,7 +75,7 @@ class WorkoutICalExportTestCase(WorkoutManagerTestCase):
         Helper function
         '''
 
-        response = self.client.get(reverse('workout-ical', kwargs={'pk': 3}))
+        response = self.client.get(reverse('manager:workout:ical', kwargs={'pk': 3}))
 
         if fail:
             self.assertIn(response.status_code, (404, 302))
@@ -128,9 +128,9 @@ class ScheduleICalExportTestCase(WorkoutManagerTestCase):
 
         user = User.objects.get(username='test')
         uid, token = make_token(user)
-        response = self.client.get(reverse('schedule-ical', kwargs={'pk': 2,
-                                                                    'uidb64': uid,
-                                                                    'token': token}))
+        response = self.client.get(reverse('manager:schedule:ical', kwargs={'pk': 2,
+                                                                            'uidb64': uid,
+                                                                            'token': token}))
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'text/calendar')
@@ -146,7 +146,7 @@ class ScheduleICalExportTestCase(WorkoutManagerTestCase):
         Helper function
         '''
 
-        response = self.client.get(reverse('schedule-ical', kwargs={'pk': 2}))
+        response = self.client.get(reverse('manager:schedule:ical', kwargs={'pk': 2}))
 
         if fail:
             self.assertIn(response.status_code, (404, 302))

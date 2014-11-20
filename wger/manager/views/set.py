@@ -110,7 +110,7 @@ def create(request, day_pk):
                     instance.exercise = formset['exercise']
                     instance.save()
 
-            return HttpResponseRedirect(reverse('workout-view',
+            return HttpResponseRedirect(reverse('manager:workout:view',
                                         kwargs={'id': day.get_owner_object().id}))
         else:
             logger.debug(form.errors)
@@ -120,7 +120,7 @@ def create(request, day_pk):
     context['day'] = day
     context['max_sets'] = Set.MAX_SETS
     context['formsets'] = formsets
-    context['form_action'] = reverse('set-add', kwargs={'day_pk': day_pk})
+    context['form_action'] = reverse('manager:set:add', kwargs={'day_pk': day_pk})
     context['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
     return render(request, 'set/add.html', context)
 
@@ -157,7 +157,7 @@ def delete(request, pk):
     # Check if the user is the owner of the object
     if set_obj.get_owner_object().user == request.user:
         set_obj.delete()
-        return HttpResponseRedirect(reverse('workout-view',
+        return HttpResponseRedirect(reverse('manager:workout:view',
                                             kwargs={'id': set_obj.get_owner_object().id}))
     else:
         return HttpResponseForbidden()
@@ -212,11 +212,11 @@ def edit(request, pk):
                         instance.exercise = formset['exercise']
                         instance.save()
 
-            return HttpResponseRedirect(reverse('workout-view',
+            return HttpResponseRedirect(reverse('manager:workout:view',
                                         kwargs={'id': set_obj.get_owner_object().id}))
 
     # Other context we need
     context = {}
     context['formsets'] = formsets
-    context['form_action'] = reverse('set-edit', kwargs={'pk': pk})
+    context['form_action'] = reverse('manager:set:edit', kwargs={'pk': pk})
     return render(request, 'set/edit.html', context)

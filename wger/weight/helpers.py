@@ -93,7 +93,7 @@ def process_log_entries(logs):
     reps_list = {}
     for entry in logs:
         temp = {'date': '%s' % entry.date,
-                'id': 'workout-log-%s' % entry.id}
+                'id': 'manager:workout:log-%s' % entry.id}
 
         # Only unique date, rep and weight combinations
         if reps_list.get('{0}-{1}-{2}'.format(entry.date, entry.reps, entry.weight)):

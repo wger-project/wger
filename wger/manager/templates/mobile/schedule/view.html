@@ -16,19 +16,19 @@
                 <h4 class="modal-title">{%trans "Options" %}</h4>
             </div>
             <div class="modal-body">
-                <a href="{% url 'workout-view' step.workout.id %}"
+                <a href="{% url 'manager:workout:view' step.workout.id %}"
                    title="{% trans 'Workout' %}"
                    class="btn btn-default btn-block">
                        {% trans 'Workout' %}</a>
 
-                <a href="{% url 'step-edit' step.id %}"
+                <a href="{% url 'manager:step:edit' step.id %}"
                    title="{% trans 'Edit' %}"
                    class="btn btn-default btn-block wger-modal-dialog">
                        <img src="{% static 'images/icons/edit.svg' %}"
                             width="22"
                             height="22"
                             alt="{% trans 'Edit' %}">{% trans 'Edit' %}</a>
-                <a href="{% url 'step-delete' step.id %}"
+                <a href="{% url 'manager:step:delete' step.id %}"
                    title="{% trans 'Delete' %}"
                    class="btn btn-default btn-block">
                         <img src="{% static 'images/icons/trash.svg' %}"
@@ -58,11 +58,11 @@
         </div>
     </a>
 {% empty %}
-        <a href="{% url 'step-add' schedule.id %}" class="list-group-item wger-list-group-item wger-modal-dialog">
+        <a href="{% url 'manager:step:add' schedule.id %}" class="list-group-item wger-list-group-item wger-modal-dialog">
         {% trans "No workouts found." %}<br>{% trans "Add one now." %}
         </a>
 {% endfor %}
-        <a href="{% url 'step-add' schedule.id %}" class="list-group-item list-group-item-success wger-modal-dialog">
+        <a href="{% url 'manager:step:add' schedule.id %}" class="list-group-item list-group-item-success wger-modal-dialog">
             <span class="glyphicon glyphicon-plus"></span>
             {% trans "Add workout" %}
         </a>
@@ -98,7 +98,7 @@ than once.{% endblocktrans %}</p>
 </p>
 
 <p>
-<a href="{% url 'schedule-edit' schedule.id %}"
+<a href="{% url 'manager:schedule:edit' schedule.id %}"
    class="btn btn-default btn-block wger-modal-dialog">
 <img src="{% static 'images/icons/edit.svg' %}"
     width="32"
@@ -109,7 +109,7 @@ than once.{% endblocktrans %}</p>
 </p>
 
 <p>
-<a href="{% url 'schedule-delete' schedule.id %}"
+<a href="{% url 'manager:schedule:delete' schedule.id %}"
    class="btn btn-default btn-block wger-modal-dialog">
 <img src="{% static 'images/icons/trash.svg' %}"
     width="32"
@@ -132,7 +132,7 @@ than once.{% endblocktrans %}</p>
 application for example google calendar, outlook or iCal. This will create
 an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
                 <p>
-                <a href="{% url 'schedule-ical' schedule.id uid token %}" {% auto_link_css flavour %}>
+                <a href="{% url 'manager:schedule:ical' schedule.id uid token %}" {% auto_link_css flavour %}>
                    <img src="{% static 'images/icons/calendar.svg' %}"
                          width="32"
                          height="32"

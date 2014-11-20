@@ -53,7 +53,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
         #
         # 1. Add a workout
         #
-        self.client.get(reverse('workout-add'))
+        self.client.get(reverse('manager:workout:add'))
         response = self.client.get(reverse('core:dashboard'))
 
         self.assertEqual(response.status_code, 200)

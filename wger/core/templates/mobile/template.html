@@ -154,7 +154,7 @@
         <a href="{% url 'core:index' %}" {% auto_link_css flavour %}>{% trans "Dashboard" %}</a>
     </div>
     <div class="btn-group">
-        <a href="{% url 'workout-overview' %}" {% auto_link_css flavour %}>{% trans "Workouts" %}</a>
+        <a href="{% url 'manager:workout:overview' %}" {% auto_link_css flavour %}>{% trans "Workouts" %}</a>
     </div>
     <div class="btn-group">
         <a href="{% url 'nutrition:plan:overview' %}" {% auto_link_css flavour %}>{% trans "Nutrition" %}</a>

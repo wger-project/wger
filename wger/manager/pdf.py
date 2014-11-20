@@ -254,7 +254,7 @@ def workout_log(request, id, uidb64=None, token=None):
     # Footer, date and info
     elements.append(Spacer(10*cm, 0.5*cm))
     created = datetime.date.today().strftime("%d.%m.%Y")
-    url = reverse('workout-view', kwargs={'id': workout.id})
+    url = reverse('manager:workout:view', kwargs={'id': workout.id})
     P = Paragraph('''<para align="left">
                         %(date)s -
                         <a href="%(url)s">%(url)s</a> -
@@ -458,7 +458,7 @@ def workout_view(request, id, uidb64=None, token=None):
     # Footer, date and info
     elements.append(Spacer(10*cm, 0.5*cm))
     created = datetime.date.today().strftime("%d.%m.%Y")
-    url = reverse('workout-view', kwargs={'id': workout.id})
+    url = reverse('manager:workout:view', kwargs={'id': workout.id})
     p = Paragraph('''<para align="left">
                         %(date)s -
                         <a href="%(url)s">%(url)s</a> -

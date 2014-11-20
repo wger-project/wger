@@ -46,7 +46,7 @@ $(document).ready(function() {
 {% empty %}
 
     <div class="list-group">
-        <a href="{% url 'day-add' workout.id %}" class="list-group-item list-group-item-success wger-modal-dialog">
+        <a href="{% url 'manager:day:add' workout.id %}" class="list-group-item list-group-item-success wger-modal-dialog">
             {% trans "No days for this workout." %}<br>
             {% trans "Add training day." %}
         </a>
@@ -55,7 +55,7 @@ $(document).ready(function() {
 
 
 <p style="margin-top:2em;">
-    <a href="{% url 'day-add' workout.id %}" {% auto_link_css flavour "wger-modal-dialog" %}>
+    <a href="{% url 'manager:day:add' workout.id %}" {% auto_link_css flavour "wger-modal-dialog" %}>
         {% trans "Add training day" %}
     </a>
     
@@ -119,7 +119,7 @@ $(document).ready(function() {
     {% trans "Download as PDF" %}
 </a>
 
-<a href="{% url 'workout-log' workout.id %}" {% auto_link_css flavour %}>
+<a href="{% url 'manager:log:log' workout.id %}" {% auto_link_css flavour %}>
    <img src="{% static 'images/icons/statistics.svg' %}"
          width="32"
          height="32"
@@ -128,7 +128,7 @@ $(document).ready(function() {
    {% trans "View weight log" %}
 </a>
 
-<a href="{% url 'workout-edit' workout.id %}" {% auto_link_css flavour "wger-modal-dialog" %}>
+<a href="{% url 'manager:workout:edit' workout.id %}" {% auto_link_css flavour "wger-modal-dialog" %}>
    <img src="{% static 'images/icons/edit.svg' %}"
          width="32"
          height="32"
@@ -146,7 +146,7 @@ $(document).ready(function() {
    {% trans "Export calendar file" %}
 </a>
 
-<a href="{% url 'workout-copy' workout.id %}" {% auto_link_css flavour "wger-modal-dialog" %}>
+<a href="{% url 'manager:workout:copy' workout.id %}" {% auto_link_css flavour "wger-modal-dialog" %}>
    <img src="{% static 'images/icons/copy.svg' %}"
          width="32"
          height="32"
@@ -155,7 +155,7 @@ $(document).ready(function() {
    {% trans "Make a copy of this workout" %}
 </a>
 
-<a href="{% url 'workout-delete' workout.id %}" {% auto_link_css flavour "wger-modal-dialog" %}>
+<a href="{% url 'manager:workout:delete' workout.id %}" {% auto_link_css flavour "wger-modal-dialog" %}>
     <img src="{% static 'images/icons/trash.svg' %}"
          width="32"
          height="32"
@@ -178,7 +178,7 @@ $(document).ready(function() {
 application for example google calendar, outlook or iCal. This will create
 an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
                 <p>
-                <a href="{% url 'workout-ical' workout.id uid token %}" {% auto_link_css flavour %}>
+                <a href="{% url 'manager:workout:ical' workout.id uid token %}" {% auto_link_css flavour %}>
                    <img src="{% static 'images/icons/calendar.svg' %}"
                          width="32"
                          height="32"
@@ -202,11 +202,11 @@ an appointment for each training day with the appropriate exercises.{% endblockt
                 <h4 class="modal-title">{% trans "Download as PDF" %}</h4>
             </div>
             <div class="modal-body">
-                <a href="{% url 'workout-pdf-log' workout.id uid token %}" {% auto_link_css flavour %}>
+                <a href="{% url 'manager:workout:pdf-log' workout.id uid token %}" {% auto_link_css flavour %}>
                 {% trans "Log" %}
                 </a>
 
-                <a href="{% url 'workout-pdf-table' workout.id uid token %}" {% auto_link_css flavour %}>
+                <a href="{% url 'manager:workout:pdf-table' workout.id uid token %}" {% auto_link_css flavour %}>
                 {% trans "Table" %}
                 </a>
             </div>

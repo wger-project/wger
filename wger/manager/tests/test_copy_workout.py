@@ -33,7 +33,7 @@ class CopyWorkoutTestCase(WorkoutManagerTestCase):
         '''
 
         # Open the copy workout form
-        response = self.client.get(reverse('workout-copy', kwargs={'pk': '3'}))
+        response = self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))
         if not owner:
             self.assertEqual(response.status_code, 404)
         else:
@@ -41,7 +41,7 @@ class CopyWorkoutTestCase(WorkoutManagerTestCase):
 
         # Copy the workout
         count_before = Workout.objects.count()
-        response = self.client.post(reverse('workout-copy', kwargs={'pk': '3'}),
+        response = self.client.post(reverse('manager:workout:copy', kwargs={'pk': '3'}),
                                     {'comment': 'A copied workout'})
         count_after = Workout.objects.count()
 
@@ -54,7 +54,7 @@ class CopyWorkoutTestCase(WorkoutManagerTestCase):
             self.assertTemplateUsed('workout/view.html')
 
         # Test accessing the copied workout
-        response = self.client.get(reverse('workout-view', kwargs={'id': 4}))
+        response = self.client.get(reverse('manager:workout:view', kwargs={'id': 4}))
 
         if not owner:
             self.assertEqual(response.status_code, 404)

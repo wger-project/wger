@@ -78,9 +78,9 @@ class ScheduleCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
 
     model = Schedule
-    success_url = reverse_lazy('schedule-overview')
+    success_url = reverse_lazy('manager:schedule:overview')
     title = ugettext_lazy('Create schedule')
-    form_action = reverse_lazy('schedule-add')
+    form_action = reverse_lazy('manager:schedule:add')
     login_required = True
 
     def form_valid(self, form):
@@ -89,7 +89,7 @@ class ScheduleCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
         return super(ScheduleCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('schedule-view', kwargs={'pk': self.object.id})
+        return reverse_lazy('manager:schedule:view', kwargs={'pk': self.object.id})
 
 
 class ScheduleDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
@@ -98,9 +98,9 @@ class ScheduleDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
 
     model = Schedule
-    success_url = reverse_lazy('schedule-overview')
+    success_url = reverse_lazy('manager:schedule:overview')
     title = ugettext_lazy('Delete schedule')
-    form_action_urlname = 'schedule-delete'
+    form_action_urlname = 'manager:schedule:delete'
     messages = ugettext_lazy('Schedule was successfully deleted')
     login_required = True
 
@@ -112,5 +112,5 @@ class ScheduleEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
 
     model = Schedule
     title = ugettext_lazy('Edit schedule')
-    form_action_urlname = 'schedule-edit'
+    form_action_urlname = 'manager:schedule:edit'
     login_required = True

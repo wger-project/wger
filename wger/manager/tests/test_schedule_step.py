@@ -27,7 +27,7 @@ class CreateScheduleStepTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = ScheduleStep
-    url = reverse_lazy('step-add', kwargs={'schedule_pk': 1})
+    url = reverse_lazy('manager:step:add', kwargs={'schedule_pk': 1})
     user_success = 'test'
     user_fail = False
     data = {'workout': 3,
@@ -40,7 +40,7 @@ class EditScheduleStepTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = ScheduleStep
-    url = 'step-edit'
+    url = 'manager:step:edit'
     pk = 2
     data = {'workout': 1,
             'duration': 8}
@@ -52,7 +52,7 @@ class DeleteScheduleStepTestCase(WorkoutManagerDeleteTestCase):
     '''
 
     object_class = ScheduleStep
-    url = 'step-delete'
+    url = 'manager:step:delete'
     pk = 2
 
 

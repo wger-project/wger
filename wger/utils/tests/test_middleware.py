@@ -30,10 +30,10 @@ class RobotsExclusionMiddlewareTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('core:dashboard'))
         self.assertTrue(response.get('X-Robots-Tag'))
 
-        response = self.client.get(reverse('workout-overview'))
+        response = self.client.get(reverse('manager:workout:overview'))
         self.assertTrue(response.get('X-Robots-Tag'))
 
-        response = self.client.get(reverse('schedule-overview'))
+        response = self.client.get(reverse('manager:schedule:overview'))
         self.assertTrue(response.get('X-Robots-Tag'))
 
         response = self.client.get(reverse('core:feedback'))

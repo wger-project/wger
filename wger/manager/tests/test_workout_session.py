@@ -36,7 +36,7 @@ class AddWorkoutSessionTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = WorkoutSession
-    url = reverse_lazy('workout-session-add', kwargs={'workout_pk': 1,
+    url = reverse_lazy('manager:session:add', kwargs={'workout_pk': 1,
                                                       'year': datetime.date.today().year,
                                                       'month': datetime.date.today().month,
                                                       'day': datetime.date.today().day})
@@ -57,7 +57,7 @@ class EditWorkoutSessionTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = WorkoutSession
-    url = 'workout-session-edit'
+    url = 'manager:session:edit'
     pk = 3
     data = {
         'user': 1,

@@ -62,12 +62,12 @@ class WorkoutLogUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
     model = WorkoutLog
     form_class = WorkoutLogForm
-    success_url = reverse_lazy('workout-calendar')
+    success_url = reverse_lazy('manager:workout:calendar')
     login_required = True
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutLogUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('workout-log-edit', kwargs={'pk': self.object.id})
+        context['form_action'] = reverse('manager:log:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit log entry for %s') % self.object.exercise.name
 
         return context
@@ -93,14 +93,14 @@ class WorkoutLogAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutLogAddView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('workout-log-add',
+        context['form_action'] = reverse('manager:log:add',
                                          kwargs={'workout_pk': self.kwargs['workout_pk']})
         context['title'] = _('New log entry')
 
         return context
 
     def get_success_url(self):
-        return reverse('workout-log', kwargs={'pk': self.kwargs['workout_pk']})
+        return reverse('manager:log:log', kwargs={'pk': self.kwargs['workout_pk']})
 
     def form_valid(self, form):
         '''
@@ -119,9 +119,9 @@ class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
 
     model = WorkoutLog
-    success_url = reverse_lazy('workout-calendar')
+    success_url = reverse_lazy('manager:workout:calendar')
     title = ugettext_lazy('Delete workout log')
-    form_action_urlname = 'workout-log-delete'
+    form_action_urlname = 'manager:log:delete'
     login_required = True
 
 
@@ -215,7 +215,7 @@ def add(request, pk):
                 instance.date = log_date
                 instance.save()
 
-            return HttpResponseRedirect(reverse('workout-log', kwargs={'pk': day.training_id}))
+            return HttpResponseRedirect(reverse('manager:log:log', kwargs={'pk': day.training_id}))
     else:
         # Initialise the formset with a queryset that won't return any objects
         # (we only add new logs here and that seems to be the fastest way)
@@ -245,7 +245,7 @@ def add(request, pk):
     template_data['formset'] = formset
     template_data['dateform'] = dateform
     template_data['session_form'] = session_form
-    template_data['form_action'] = reverse('day-log', kwargs={'pk': pk})
+    template_data['form_action'] = reverse('manager:day:log', kwargs={'pk': pk})
 
     return render(request, 'day/log.html', template_data)
 
@@ -327,7 +327,7 @@ class WorkoutCalendar(HTMLCalendar):
                 body = []
 
                 for log in self.workout_logs[day]:
-                    url = reverse('workout-log', kwargs={'pk': log.workout_id})
+                    url = reverse('manager:log:log', kwargs={'pk': log.workout_id})
                     formatted_date = date_obj.strftime('%Y-%m-%d')
                     body.append('<a href="{0}" data-log="log-{1}">'.format(url, formatted_date))
                     body.append(repr(day))

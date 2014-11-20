@@ -37,14 +37,14 @@ $(document).ready(function() {
                 </div>
 
                 <div class="col-md-4">
-                <a href="{% url 'workout-log' first_log.workout.id %}" class="btn btn-default btn-block">{% trans "Log overview" %}</a>
+                <a href="{% url 'manager:log:log' first_log.workout.id %}" class="btn btn-default btn-block">{% trans "Log overview" %}</a>
                 </div>
 
                 <div class="col-md-4">
                     {% if session %}
-                        <a href="{% url 'workout-session-edit' session.pk %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Edit workout session" %}</a>
+                        <a href="{% url 'manager:session:edit' session.pk %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Edit workout session" %}</a>
                     {% else %}
-                        <a href="{% url 'workout-session-add' first_log.workout_id date|date:'Y' date|date:'m' date|date:'d' %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Add workout impression" %}</a>
+                        <a href="{% url 'manager:session:add' first_log.workout_id date|date:'Y' date|date:'m' date|date:'d' %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Add workout impression" %}</a>
                     {% endif %}
                 </div>
              </div>
@@ -72,7 +72,7 @@ $(document).ready(function() {
             <li>
                 {{log.reps}} × {{log.weight}}
                 <span class="editoptions">
-                    <a href="{% url 'workout-log-delete' log.pk %}"
+                    <a href="{% url 'manager:log:delete' log.pk %}"
                        title="{% trans 'Delete' %}"
                        class="wger-modal-dialog">
                            <img src="{% static 'images/icons/trash.svg' %}"
@@ -80,7 +80,7 @@ $(document).ready(function() {
                                 height="16"
                                 alt="{% trans 'Delete' %}">
                     </a>
-                    <a href="{% url 'workout-log-edit' log.pk %}"
+                    <a href="{% url 'manager:log:edit' log.pk %}"
                        title="{% trans 'Edit' %}"
                        class="wger-modal-dialog">
                            <img src="{% static 'images/icons/edit.svg' %}"
@@ -115,13 +115,13 @@ $(document).ready(function() {
 day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</strong></p>
 
                 {% for day in current_workout.day_set.all %}
-                    <a href="{% url 'day-log' day.pk %}" class="btn btn-block btn-default">{{day.description}}</a>
+                    <a href="{% url 'manager:day:log' day.pk %}" class="btn btn-block btn-default">{{day.description}}</a>
                 {% endfor %}
 
                 {% else %}
                 <p><em>{% trans "No workouts found." %}</em></p>
                 <p>
-                <a href="{% url 'workout-add' %}" class="btn btn-block btn-default">
+                <a href="{% url 'manager:workout:add' %}" class="btn btn-block btn-default">
                    <img src="{% static 'images/icons/add.svg' %}"
                         width="22"
                         height="22"
@@ -141,7 +141,7 @@ you can click on them to see the details.{% endblocktrans %}</p>
 
 <h3>{% trans 'Log' %}</h3>
 <p>
-    <a href="{% url 'workout-calendar' %}">
+    <a href="{% url 'manager:workout:calendar' %}">
         <img src="{% static 'images/icons/calendar.svg' %}"
              width="32"
              height="32"
@@ -164,7 +164,7 @@ you can click on them to see the details.{% endblocktrans %}</p>
     {% if current_month = date.month and current_year = date.year %}
         <span>{{date|date:"F"}}</span><br>
     {% else %}
-        <span><a href="{% url 'workout-calendar' date.year date.month %}">{{date|date:"F"}}</a></span><br>
+        <span><a href="{% url 'manager:workout:calendar' date.year date.month %}">{{date|date:"F"}}</a></span><br>
     {% endif %}
 {% endfor %}
 </div>

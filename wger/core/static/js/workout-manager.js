@@ -398,7 +398,7 @@ function get_exercise_formset(exercise_id) {
     var set_value = $('#id_sets').val();
     if (set_value && parseInt(set_value, 10) && exercise_id && parseInt(exercise_id, 10)) {
         var formset_url = '/' + get_current_language() +
-                          '/workout/get-formset/' +  exercise_id +
+                          '/workout/set/get-formset/' +  exercise_id +
                           '/' + set_value + '/';
 
         $.get(formset_url, function (data) {
@@ -418,7 +418,7 @@ function update_all_exercise_formset() {
             var exercise_id = value.value;
             if (exercise_id && parseInt(exercise_id, 10)) {
                 var formset_url = '/' + get_current_language() +
-                            '/workout/get-formset/' +  exercise_id +
+                            '/workout/set/get-formset/' +  exercise_id +
                             '/' + set_value + '/';
                 $.get(formset_url, function (data) {
                     $('#formset-exercise-' + exercise_id).remove();

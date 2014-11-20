@@ -24,13 +24,13 @@
 day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</strong></p>
 
                 {% for day in current_workout.day_set.all %}
-                    <a href="{% url 'day-log' day.pk %}" class="btn btn-block btn-default">{{day.description}}</a>
+                    <a href="{% url 'manager:day:log' day.pk %}" class="btn btn-block btn-default">{{day.description}}</a>
                 {% endfor %}
 
                 {% else %}
                 <p><em>{% trans "No workouts found." %}</em></p>
                 <p>
-                <a href="{% url 'workout-add' %}" class="btn btn-block btn-default">
+                <a href="{% url 'manager:workout:add' %}" class="btn btn-block btn-default">
                    <img src="{% static 'images/icons/add.svg' %}"
                         width="22"
                         height="22"
@@ -51,7 +51,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
 
         {% if current_workout %}
             <p>
-            <a href="{% url 'workout-view' current_workout.id %}">
+            <a href="{% url 'manager:workout:view' current_workout.id %}">
                 {% if current_workout.comment %}
                     {{ current_workout.comment }}
                 {% else %}
@@ -86,7 +86,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
             {% endif %}
 
         {% else %} {# no workout #}
-            <a href="{% url 'workout-add' %}" class="btn btn-block btn-default">
+            <a href="{% url 'manager:workout:add' %}" class="btn btn-block btn-default">
             {% trans "No workouts found." %} {% trans "Add one now." %}
             </a>
         {% endif %}
@@ -139,7 +139,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
 <div class="row">
     <div class="col-sm-6">
         <p>
-            <a href="{% url 'workout-add' %}">
+            <a href="{% url 'manager:workout:add' %}">
             <img src="{% static 'images/icons/new.svg' %}"
                  width="32"
                  height="32"

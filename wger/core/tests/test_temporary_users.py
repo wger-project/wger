@@ -126,7 +126,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
 
         # Try some other pages
         self.user_logout()
-        self.client.get(reverse('workout-overview'))
+        self.client.get(reverse('manager:workout:overview'))
         self.assertEqual(self.count_temp_users(), 3)
 
         self.user_logout()
@@ -144,7 +144,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         demo_notice_text = 'You are using a guest account'
         self.user_login('demo')
         self.assertContains(self.client.get(reverse('core:dashboard')), demo_notice_text)
-        self.assertContains(self.client.get(reverse('workout-overview')),
+        self.assertContains(self.client.get(reverse('manager:workout:overview')),
                             demo_notice_text)
         self.assertContains(self.client.get(reverse('exercise:exercise:overview')),
                             demo_notice_text)

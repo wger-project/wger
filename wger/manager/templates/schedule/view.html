@@ -76,7 +76,7 @@ $(function() {
                      alt="{% trans 'Move me' %}"
                      title="{% trans 'Move me' %}"
                      class="dragndrop-handle">
-                 <a href="{% url 'step-edit' step.id %}"
+                 <a href="{% url 'manager:step:edit' step.id %}"
                    title="{% trans 'Edit' %}"
                    class="wger-modal-dialog">
                        <img src="{% static 'images/icons/edit.svg' %}"
@@ -84,7 +84,7 @@ $(function() {
                             height="22"
                             alt="{% trans 'Edit' %}">
                 </a>
-                 <a href="{% url 'step-delete' step.id %}"
+                 <a href="{% url 'manager:step:delete' step.id %}"
                     title="{% trans 'Delete' %}"
                     class="wger-modal-dialog">
                         <img src="{% static 'images/icons/trash.svg' %}"
@@ -95,7 +95,7 @@ $(function() {
             </span>
         </td>
         <td>
-            <a href="{% url 'workout-view' step.workout.id %}">{{ step.workout }}</a>
+            <a href="{% url 'manager:workout:view' step.workout.id %}">{{ step.workout }}</a>
             {% if active_workout == step %}
             <span class="label label-info">{% trans "active" %}</span>
             {% endif  %}
@@ -107,7 +107,7 @@ $(function() {
     {% empty %}
     <tr>
         <td colspan="4">
-            <a href="{% url 'step-add' schedule.id %}" class="wger-modal-dialog btn btn-block btn-default">
+            <a href="{% url 'manager:step:add' schedule.id %}" class="wger-modal-dialog btn btn-block btn-default">
             {% trans "No workouts found." %} {% trans "Add one now." %}
             </a>
         </td>
@@ -127,7 +127,7 @@ $(function() {
 </div>
 
 <p>
-<a href="{% url 'step-add' schedule.id %}"
+<a href="{% url 'manager:step:add' schedule.id %}"
    class="wger-modal-dialog">
 <img src="{% static 'images/icons/new.svg' %}"
     width="32"
@@ -159,7 +159,7 @@ than once.{% endblocktrans %}</p>
 </p>
 
 <p>
-<a href="{% url 'schedule-edit' schedule.id %}"
+<a href="{% url 'manager:schedule:edit' schedule.id %}"
    class="wger-modal-dialog">
 <img src="{% static 'images/icons/edit.svg' %}"
     width="32"
@@ -170,7 +170,7 @@ than once.{% endblocktrans %}</p>
 </p>
 
 <p>
-<a href="{% url 'schedule-delete' schedule.id %}"
+<a href="{% url 'manager:schedule:delete' schedule.id %}"
    class="wger-modal-dialog">
 <img src="{% static 'images/icons/trash.svg' %}"
     width="32"
@@ -193,7 +193,7 @@ than once.{% endblocktrans %}</p>
 application for example google calendar, outlook or iCal. This will create
 an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
                 <p>
-                <a href="{% url 'schedule-ical' schedule.id uid token %}" class="btn btn-block btn-default">
+                <a href="{% url 'manager:schedule:ical' schedule.id uid token %}" class="btn btn-block btn-default">
                    <img src="{% static 'images/icons/calendar.svg' %}"
                          width="32"
                          height="32"

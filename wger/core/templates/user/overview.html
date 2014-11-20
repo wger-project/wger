@@ -36,7 +36,7 @@
         {{workout.workout.creation_date}}
     </td>
     <td>
-        <a href="{{trainer_login}}?next={% url 'workout-view' workout.workout.pk %}">{{workout.workout}}</a>
+        <a href="{{trainer_login}}?next={% url 'manager:workout:view' workout.workout.pk %}">{{workout.workout}}</a>
     </td>
     <td>
         {{workout.logs|default:'-/-'}}
@@ -54,8 +54,8 @@
 </table>
 {% if perms.gym.gym_trainer %}
 <a href="{{trainer_login}}" class="btn btn-success btn-sm">{% trans "Log in as this user" %}</a>
-<a href="{{trainer_login}}?next={% url 'workout-calendar' %}" class="btn btn-default btn-sm">{% trans "Calendar" %}</a>
-<a href="{{trainer_login}}?next={% url 'workout-add' %}" class="btn btn-default btn-sm">{% trans "Add workout" %}</a>
+<a href="{{trainer_login}}?next={% url 'manager:workout:calendar' %}" class="btn btn-default btn-sm">{% trans "Calendar" %}</a>
+<a href="{{trainer_login}}?next={% url 'manager:workout:add' %}" class="btn btn-default btn-sm">{% trans "Add workout" %}</a>
 {% endif %}
 
 

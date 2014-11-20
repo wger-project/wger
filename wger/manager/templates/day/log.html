@@ -63,7 +63,7 @@ $(document).ready(function () {
     {% empty %}
         {% trans "Add exercises to this training day before adding a log." %}
         <br>
-        <a href="{% url 'workout-view' day.training.id %}">{% trans "Back to workout" %}</a>
+        <a href="{% url 'manager:workout:view' day.training.id %}">{% trans "Back to workout" %}</a>
     {% endfor %}
     </div>
 
@@ -82,7 +82,7 @@ will simply be edited. Weight entries are always added.{% endblocktrans %}</p>
 
 <h3>{% trans "Options" %}</h3>
 <p>
-<a href="{% url 'workout-view' day.training.id %}" {% auto_link_css flavour %}>
+<a href="{% url 'manager:workout:view' day.training.id %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/list.svg' %}"
          width="32"
          height="32"

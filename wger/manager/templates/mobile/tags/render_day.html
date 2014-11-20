@@ -10,7 +10,7 @@
                 <h4 class="modal-title">{{day.obj.description}}</h4>
             </div>
             <div class="modal-body">
-                <a href="{% url 'day-log' day.obj.id %}"
+                <a href="{% url 'manager:day:log' day.obj.id %}"
                    title="{% trans 'Add weight log to this day' %}"
                    {% auto_link_css flavour %}>
                         <img src="{% static 'images/icons/statistics.svg' %}"
@@ -20,7 +20,7 @@
                             {% trans 'Add weight log to this day' %}
                 </a>
                 {% if day.set_list|length > 0 %}
-                <a href="{% url 'workout-timer' day.obj.id %}"
+                <a href="{% url 'manager:workout:timer' day.obj.id %}"
                    title="{% trans 'Start gym mode' %}"
                    {% auto_link_css flavour %}>
                         <img src="{% static 'images/icons/play.svg' %}"
@@ -30,7 +30,7 @@
                             {% trans "Start gym mode" %}
                 </a>
                 {% endif %}
-                <a href="{% url 'day-edit' day.obj.id %}"
+                <a href="{% url 'manager:day:edit' day.obj.id %}"
                     title="{% trans 'Edit' %}"
                     {% auto_link_css flavour "wger-modal-dialog" %}>
                         <img src="{% static 'images/icons/edit.svg' %}"
@@ -39,7 +39,7 @@
                              alt="{% trans 'Edit' %}">
                             {% trans 'Edit' %}
                 </a>
-                <a href="{% url 'day-delete' day.obj.id %}"
+                <a href="{% url 'manager:day:delete' day.obj.id %}"
                    title="{% trans 'Delete' %}"
                    {% auto_link_css flavour %}>
                         <img src="{% static 'images/icons/trash.svg' %}"
@@ -68,7 +68,7 @@
                 </h4>
             </div>
             <div class="modal-body">
-                <a href="{% url 'wger.manager.views.set.edit' set.obj.id %}"
+                <a href="{% url 'manager:set:edit' set.obj.id %}"
                    title="{% trans 'Edit' %}"
                    {% auto_link_css flavour "wger-modal-dialog" %}>
                         <img src="{% static 'images/icons/edit.svg' %}"
@@ -77,7 +77,7 @@
                              alt="{% trans 'Edit' %}">
                         {% trans "Edit" %}
                 </a>
-                <a href="{% url 'wger.manager.views.set.delete' set.obj.id %}"
+                <a href="{% url 'manager:set:delete' set.obj.id %}"
                    title="{% trans 'Delete' %}"
                    {% auto_link_css flavour %}>
                         <img src="{% static 'images/icons/trash.svg' %}"
@@ -127,7 +127,7 @@
                data-toggle="modal"
                id="set-{{ set.obj.id }}">
         {% else %}
-            <a href="{% url 'set-edit' set.obj.id %}"
+            <a href="{% url 'manager:set:edit' set.obj.id %}"
                id="set-{{ set.obj.id }}"
                class="list-group-item wger-list-group-item">
         {% endif %}
@@ -136,7 +136,7 @@
 
 
         {% for exercise in set.exercise_list %}
-            <div id="exercise-{{ exercise.obj.id }}" class="ajax-set-edit-target">
+            <div id="exercise-{{ exercise.obj.id }}" class="ajax-manager:set:edit-target">
                 <div class="media">
                     <span class="pull-left" style="width:64px;height:64px;">
                         {% if exercise.obj.main_image %}
@@ -175,7 +175,7 @@
         {% endfor %} <!--for exercise in set-->
     </a>
     {% empty %}
-    <a href="{% url 'set-add' day.obj.id %}"
+    <a href="{% url 'manager:set:add' day.obj.id %}"
        class="list-group-item list-group-item-success wger-modal-dialog">
            {% trans "No exercises selected for this day." %}<br>
            {% trans "Add one now." %}
@@ -183,7 +183,7 @@
     {% endfor %} <!--for set in day-->
 
     {% if day.set_list %}
-        <a href="{% url 'set-add' day.obj.id %}" class="list-group-item list-group-item-success wger-modal-dialog">
+        <a href="{% url 'manager:set:add' day.obj.id %}" class="list-group-item list-group-item-success wger-modal-dialog">
             <span class="glyphicon glyphicon-plus"></span>
             {% trans "Add exercises to this workout day" %}
         </a>

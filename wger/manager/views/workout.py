@@ -160,7 +160,7 @@ def copy_workout(request, pk):
                             setting_copy.set = current_set_copy
                             setting_copy.save()
 
-            return HttpResponseRedirect(reverse('workout-view',
+            return HttpResponseRedirect(reverse('manager:workout:view',
                                                 kwargs={'id': workout.id}))
     else:
         workout_form = WorkoutCopyForm({'comment': workout.comment})
@@ -169,7 +169,7 @@ def copy_workout(request, pk):
         template_data.update(csrf(request))
         template_data['title'] = _('Copy workout')
         template_data['form'] = workout_form
-        template_data['form_action'] = reverse('workout-copy', kwargs={'pk': workout.id})
+        template_data['form_action'] = reverse('manager:workout:copy', kwargs={'pk': workout.id})
         template_data['form_fields'] = [workout_form['comment']]
         template_data['submit_text'] = _('Copy')
         template_data['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
@@ -186,7 +186,7 @@ def add(request):
     workout.user = request.user
     workout.save()
 
-    return HttpResponseRedirect(reverse('workout-view', kwargs={'id': workout.id}))
+    return HttpResponseRedirect(reverse('manager:workout:view', kwargs={'id': workout.id}))
 
 
 class WorkoutDeleteView(WgerDeleteMixin, DeleteView):
@@ -195,14 +195,14 @@ class WorkoutDeleteView(WgerDeleteMixin, DeleteView):
     '''
 
     model = Workout
-    success_url = reverse_lazy('workout-overview')
+    success_url = reverse_lazy('manager:workout:overview')
     title = ugettext_lazy('Delete workout')
     messages = ugettext_lazy('Workout was successfully deleted')
     login_required = True
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutDeleteView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('workout-delete', kwargs={'pk': self.object.id})
+        context['form_action'] = reverse('manager:workout:delete', kwargs={'pk': self.object.id})
 
         return context
 
@@ -215,7 +215,7 @@ class WorkoutEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     model = Workout
     form_class = WorkoutForm
     title = ugettext_lazy('Edit workout')
-    form_action_urlname = 'workout-edit'
+    form_action_urlname = 'manager:workout:edit'
     login_required = True
 
 
@@ -321,11 +321,11 @@ def timer(request, day_pk):
     # the current one or create a new one (this will be the most usual case)
     if WorkoutSession.objects.filter(user=request.user, date=datetime.date.today()).exists():
         session = WorkoutSession.objects.get(user=request.user, date=datetime.date.today())
-        url = reverse('workout-session-edit', kwargs={'pk': session.pk})
+        url = reverse('manager:session:edit', kwargs={'pk': session.pk})
         session_form = WorkoutSessionHiddenFieldsForm(instance=session)
     else:
         today = datetime.date.today()
-        url = reverse('workout-session-add', kwargs={'workout_pk': day.training_id,
+        url = reverse('manager:session:add', kwargs={'workout_pk': day.training_id,
                                                      'year': today.year,
                                                      'month': today.month,
                                                      'day': today.day})
