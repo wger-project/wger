@@ -18,8 +18,9 @@ import logging
 
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.utils.translation import ugettext_lazy
+from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
 from django.views.generic import DeleteView
@@ -99,10 +100,17 @@ class ScheduleDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
 
     model = Schedule
     success_url = reverse_lazy('manager:schedule:overview')
-    title = ugettext_lazy('Delete schedule')
     form_action_urlname = 'manager:schedule:delete'
-    messages = ugettext_lazy('Schedule was successfully deleted')
+    messages = ugettext_lazy('Successfully deleted')
     login_required = True
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(ScheduleDeleteView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Delete {0}?').format(self.object)
+        return context
 
 
 class ScheduleEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
@@ -111,6 +119,13 @@ class ScheduleEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
 
     model = Schedule
-    title = ugettext_lazy('Edit schedule')
     form_action_urlname = 'manager:schedule:edit'
     login_required = True
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(ScheduleEditView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Edit {0}').format(self.object)
+        return context

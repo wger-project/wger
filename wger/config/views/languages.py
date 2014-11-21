@@ -71,11 +71,13 @@ class LanguageDeleteView(WgerDeleteMixin, DeleteView):
 
     model = Language
     success_url = reverse_lazy('config:language:overview')
-    messages = ugettext_lazy('Language successfully deleted')
+    messages = ugettext_lazy('Successfully deleted')
     permission_required = 'core.delete_language'
 
-    # Send some additional data to the template
     def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
         context = super(LanguageDeleteView, self).get_context_data(**kwargs)
 
         context['title'] = _(u'Delete {0}?').format(self.object.full_name)
@@ -90,6 +92,13 @@ class LanguageEditView(WgerFormMixin, UpdateView):
     '''
 
     model = Language
-    title = ugettext_lazy('Edit')
     form_action_urlname = 'config:language:edit'
     permission_required = 'core.change_language'
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(LanguageEditView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Edit {0}').format(self.object.full_name)
+        return context

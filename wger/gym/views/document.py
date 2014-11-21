@@ -158,7 +158,7 @@ class UpdateView(WgerFormMixin, UpdateView):
         '''
         context = super(UpdateView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('gym:document:edit', kwargs={'pk': self.object.id})
-        context['title'] = _(u'Edit {0}'.format(self.object))
+        context['title'] = _(u'Edit {0}').format(self.object)
         return context
 
 

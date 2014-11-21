@@ -90,9 +90,16 @@ class PlanDeleteView(WgerDeleteMixin, DeleteView):
 
     model = NutritionPlan
     success_url = reverse_lazy('nutrition:plan:overview')
-    title = ugettext_lazy('Delete nutritional plan?')
     form_action_urlname = 'nutrition:plan:delete'
-    messages = ugettext_lazy('Nutritional plan was successfully deleted')
+    messages = ugettext_lazy('Successfully deleted')
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(PlanDeleteView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Delete {0}?').format(self.object)
+        return context
 
 
 class PlanEditView(WgerFormMixin, UpdateView):
@@ -101,8 +108,15 @@ class PlanEditView(WgerFormMixin, UpdateView):
     '''
 
     model = NutritionPlan
-    title = ugettext_lazy('Edit nutritional plan')
     form_action_urlname = 'nutrition:plan:edit'
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(PlanEditView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Edit {0}').format(self.object)
+        return context
 
 
 @login_required
@@ -196,7 +210,7 @@ def export_pdf(request, id, uidb64=None, token=None):
     # Create the PDF object, using the response object as its "file."
     doc = SimpleDocTemplate(response,
                             pagesize=A4,
-                            title=_('Workout'),
+                            title=_('Nutrition plan'),
                             author='wger Workout Manager',
                             subject=_('Nutritional plan %s') % request.user.username)
 

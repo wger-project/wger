@@ -222,6 +222,12 @@ class Schedule(models.Model):
                                               "in a loop (i.e. A, B, C, A, B, C, and so on)"))
     '''A flag indicating whether the schedule should act as a loop'''
 
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return self.name
+
     def get_absolute_url(self):
         return reverse('manager:schedule:view', kwargs={'pk': self.id})
 
@@ -317,7 +323,7 @@ class ScheduleStep(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return u"ID: {0}".format(self.id)
+        return self.workout.comment
 
 
 class Day(models.Model):
@@ -338,7 +344,7 @@ class Day(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return u"{0} for TP {1}".format(self.description, six.text_type(self.training))
+        return self.description
 
     def get_owner_object(self):
         '''

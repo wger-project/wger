@@ -72,7 +72,6 @@ class MuscleUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
 
     model = Muscle
-    title = ugettext_lazy('Edit muscle')
     success_url = reverse_lazy('exercise:muscle:overview')
     permission_required = 'exercises.change_muscle'
 
@@ -94,6 +93,7 @@ class MuscleDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     model = Muscle
     success_url = reverse_lazy('exercise:muscle:overview')
     permission_required = 'exercises.delete_muscle'
+    messages = ugettext_lazy('Successfully deleted')
 
     def get_context_data(self, **kwargs):
         '''

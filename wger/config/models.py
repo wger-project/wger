@@ -46,11 +46,9 @@ class LanguageConfig(models.Model):
     )
 
     language = models.ForeignKey(Language,
-                                 verbose_name=_('Language'),
                                  related_name='language_source',
                                  editable=False)
     language_target = models.ForeignKey(Language,
-                                        verbose_name=_('Language to configure'),
                                         related_name='language_target',
                                         editable=False)
     item = models.CharField(max_length=2,

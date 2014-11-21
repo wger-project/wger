@@ -22,6 +22,7 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy
+from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
@@ -82,8 +83,13 @@ class DayEditView(DayView, UpdateView):
     Generic view to update an existing exercise day
     '''
 
-    title = ugettext_lazy('Edit workout day')
     form_action_urlname = 'manager:day:edit'
+
+    # Send some additional data to the template
+    def get_context_data(self, **kwargs):
+        context = super(DayEditView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Edit {0}').format(self.object)
+        return context
 
 
 class DayCreateView(DayView, CreateView):

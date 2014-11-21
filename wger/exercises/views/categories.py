@@ -49,7 +49,6 @@ class ExerciseCategoryAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     success_url = reverse_lazy('exercise:exercise:overview')
     title = ugettext_lazy('Add category')
     form_action = reverse_lazy('exercise:category:add')
-    messages = ugettext_lazy('Category was successfully created')
     permission_required = 'exercises.add_exercisecategory'
 
     def form_valid(self, form):
@@ -64,7 +63,6 @@ class ExerciseCategoryUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin)
 
     model = ExerciseCategory
     success_url = reverse_lazy('exercise:exercise:overview')
-    messages = ugettext_lazy('Category successfully edited')
     permission_required = 'exercises.change_exercisecategory'
 
     # Send some additional data to the template
@@ -89,7 +87,7 @@ class ExerciseCategoryDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixi
     model = ExerciseCategory
     success_url = reverse_lazy('exercise:exercise:overview')
     delete_message = ugettext_lazy('This will also delete all exercises in this category.')
-    messages = ugettext_lazy('Category successfully deleted')
+    messages = ugettext_lazy('Successfully deleted')
     permission_required = 'exercises.delete_exercisecategory'
 
     # Send some additional data to the template

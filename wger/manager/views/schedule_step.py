@@ -18,6 +18,7 @@ import logging
 
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy
+from django.utils.translation import ugettext as _
 from django.db import models
 from django.forms import ModelForm
 from django.forms import ModelChoiceField
@@ -121,10 +122,18 @@ class StepDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
 
     model = ScheduleStep
-    title = ugettext_lazy('Delete workout')
     form_action_urlname = 'manager:step:delete'
-    messages = ugettext_lazy('Workout was successfully deleted')
+    messages = ugettext_lazy('Successfully deleted')
     login_required = True
 
     def get_success_url(self):
         return reverse('manager:schedule:view', kwargs={'pk': self.object.schedule.id})
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(StepDeleteView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Delete {0}?').format(self.object)
+        context['form_action'] = reverse('core:license:delete', kwargs={'pk': self.kwargs['pk']})
+        return context

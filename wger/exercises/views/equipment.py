@@ -60,13 +60,13 @@ class EquipmentEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
 
     model = Equipment
-    title = ugettext_lazy('Edit equipment')
     permission_required = 'exercises.change_equipment'
     success_url = reverse_lazy('exercise:equipment:list')
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(EquipmentEditView, self).get_context_data(**kwargs)
+        context['title'] = _('Edit {0}').format(self.object)
         context['form_action'] = reverse('exercise:equipment:edit',
                                          kwargs={'pk': self.object.id})
 
@@ -79,7 +79,7 @@ class EquipmentAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
 
     model = Equipment
-    title = ugettext_lazy('Add equipment')
+    title = ugettext_lazy('Add new equipment')
     permission_required = 'exercises.add_equipment'
     success_url = reverse_lazy('exercise:equipment:list')
 

@@ -47,7 +47,7 @@ class ExerciseCommentEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
 
     model = ExerciseComment
     form_class = CommentForm
-    title = ugettext_lazy('Edit exercise comment')
+    title = ugettext_lazy('Edit')
     permission_required = 'exercises.change_exercisecomment'
 
     def get_success_url(self):

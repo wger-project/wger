@@ -230,7 +230,7 @@ class ExerciseDeleteView(WgerDeleteMixin, DeleteView):
     model = Exercise
     success_url = reverse_lazy('exercise:exercise:overview')
     delete_message = ugettext_lazy('This will delete the exercise from all workouts.')
-    messages = ugettext_lazy('Exercise successfully deleted')
+    messages = ugettext_lazy('Successfully deleted')
     permission_required = 'exercises.delete_exercise'
 
     def get_context_data(self, **kwargs):

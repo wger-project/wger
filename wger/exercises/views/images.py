@@ -71,7 +71,7 @@ class ExerciseImageAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
 
     model = ExerciseImage
-    title = ugettext_lazy('Add exercise image')
+    title = ugettext_lazy('Add new image')
     permission_required = 'exercises.add_exerciseimage'
     form_class = ExerciseImageForm
 
