@@ -240,7 +240,7 @@ the search.{% endblocktrans %}
             <td>
                 {{unit.amount}} {{unit.unit.name}} = {{unit.gram}}g
                 <span class="editoptions float-right">
-                    <a href="{% url 'nutrition:weight_unit:edit' unit.id %}"
+                    <a href="{% url 'nutrition:unit_ingredient:edit' unit.id %}"
                        title="{% trans 'Edit' %}"
                        {% auto_link_css flavour "wger-modal-dialog" %}>
                            <img src="{% static 'images/icons/edit.svg' %}"
@@ -249,7 +249,7 @@ the search.{% endblocktrans %}
                                 alt="{% trans 'Edit' %}"
                                 title="{% trans 'Edit' %}">
                     </a>
-                    <a href="{% url 'nutrition:weight_unit:delete' unit.id %}"
+                    <a href="{% url 'nutrition:unit_ingredient:delete' unit.id %}"
                        title="{% trans 'Delete' %}"
                        {% auto_link_css flavour "wger-modal-dialog" %}>
                            <img src="{% static 'images/icons/trash.svg' %}"
