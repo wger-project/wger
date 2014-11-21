@@ -19,15 +19,15 @@
     <div class="col-sm-3 col-xs-12">
         {% if not user.is_authenticated or user.userprofile.is_temporary %}
         <p>
-            <a href="{% url 'core:demo-entries' %}" class="btn btn-success btn-lg btn-block">{% trans "Try it now" %}</a>
+            <a href="{% url 'core:user:demo-entries' %}" class="btn btn-success btn-lg btn-block">{% trans "Try it now" %}</a>
         </p>
 
         <p>
-            <a href="{% url 'core:registration' %}" class="btn btn-default btn-lg btn-block">{% trans "Register" %}</a>
+            <a href="{% url 'core:user:registration' %}" class="btn btn-default btn-lg btn-block">{% trans "Register" %}</a>
         </p>
 
         <p>
-            <a href="{% url 'core:login' %}" class="btn btn-default btn-lg btn-block">{% trans "Login" %}</a>
+            <a href="{% url 'core:user:login' %}" class="btn btn-default btn-lg btn-block">{% trans "Login" %}</a>
         </p>
         {% endif %}
     </div>
