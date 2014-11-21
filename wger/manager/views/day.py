@@ -120,12 +120,9 @@ def delete(request, pk):
     '''
     Deletes the given day
     '''
-    day = get_object_or_404(Day, pk=pk)
-    if day.get_owner_object().user == request.user:
-        day.delete()
-        return HttpResponseRedirect(reverse('manager:workout:view', kwargs={'id': day.training_id}))
-    else:
-        return HttpResponseForbidden()
+    day = get_object_or_404(Day, training__user=request.user, pk=pk)
+    day.delete()
+    return HttpResponseRedirect(reverse('manager:workout:view', kwargs={'id': day.training_id}))
 
 
 @login_required

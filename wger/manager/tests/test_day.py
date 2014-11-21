@@ -52,7 +52,7 @@ class DeleteWorkoutDayTestCase(WorkoutManagerTestCase):
         count_after = Day.objects.count()
 
         if fail:
-            self.assertIn(response.status_code, (302, 403))
+            self.assertIn(response.status_code, (302, 404))
             self.assertTemplateUsed('login.html')
             self.assertEqual(count_before, count_after)
 
