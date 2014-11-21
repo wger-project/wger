@@ -89,7 +89,7 @@ def create_demo_entries(user):
     day2.day.add(wednesday)
 
     # Biceps curls with dumbbell
-    if(language.short_name == 'de'):
+    if language.short_name == 'de':
         exercise = Exercise.objects.get(pk=26)
     else:
         exercise = Exercise.objects.get(pk=81)
@@ -112,7 +112,7 @@ def create_demo_entries(user):
             weight_log.append(log)
 
     # French press
-    if(language.short_name == 'de'):
+    if language.short_name == 'de':
         exercise = Exercise.objects.get(pk=25)
     else:
         exercise = Exercise.objects.get(pk=84)
@@ -134,7 +134,7 @@ def create_demo_entries(user):
             weight_log.append(log)
 
     # Squats
-    if(language.short_name == 'de'):
+    if language.short_name == 'de':
         exercise = Exercise.objects.get(pk=6)
     else:
         exercise = Exercise.objects.get(pk=111)
@@ -156,7 +156,7 @@ def create_demo_entries(user):
             weight_log.append(log)
 
     # Crunches
-    if(language.short_name == 'de'):
+    if language.short_name == 'de':
         exercise = Exercise.objects.get(pk=4)
     else:
         exercise = Exercise.objects.get(pk=91)
@@ -169,7 +169,7 @@ def create_demo_entries(user):
     setting_list.append(Setting(set=day_set, exercise=exercise, reps=35, order=3))
 
     # Leg raises, supersets with crunches
-    if(language.short_name == 'de'):
+    if language.short_name == 'de':
         exercise = Exercise.objects.get(pk=35)
     else:
         exercise = Exercise.objects.get(pk=126)
@@ -215,7 +215,7 @@ def create_demo_entries(user):
     meal.save()
 
     # Oatmeal
-    if(language.short_name == 'de'):
+    if language.short_name == 'de':
         ingredient = Ingredient.objects.get(pk=8197)
     else:
         ingredient = Ingredient.objects.get(pk=2126)
@@ -228,7 +228,7 @@ def create_demo_entries(user):
     mealitem.save()
 
     # Milk
-    if(language.short_name == 'de'):
+    if language.short_name == 'de':
         ingredient = Ingredient.objects.get(pk=8198)
     else:
         ingredient = Ingredient.objects.get(pk=154)
@@ -241,7 +241,7 @@ def create_demo_entries(user):
     mealitem.save()
 
     # Protein powder
-    if(language.short_name == 'de'):
+    if language.short_name == 'de':
         ingredient = Ingredient.objects.get(pk=8244)
     else:
         ingredient = Ingredient.objects.get(pk=196)
@@ -262,7 +262,7 @@ def create_demo_entries(user):
     meal.save()
 
     # Bread, in slices
-    if(language.short_name == 'de'):
+    if language.short_name == 'de':
         ingredient = Ingredient.objects.get(pk=8225)
         unit = None
         amount = 80
@@ -280,7 +280,7 @@ def create_demo_entries(user):
     mealitem.save()
 
     # Turkey
-    if(language.short_name == 'de'):
+    if language.short_name == 'de':
         ingredient = Ingredient.objects.get(pk=8201)
     else:
         ingredient = Ingredient.objects.get(pk=1643)
@@ -293,7 +293,7 @@ def create_demo_entries(user):
     mealitem.save()
 
     # Cottage cheese
-    if(language.short_name == 'de'):
+    if language.short_name == 'de':
         ingredient = Ingredient.objects.get(pk=8222)  # TODO: check this!
     else:
         ingredient = Ingredient.objects.get(pk=17)
@@ -306,7 +306,7 @@ def create_demo_entries(user):
     mealitem.save()
 
     # Tomato, one
-    if(language.short_name == 'de'):
+    if language.short_name == 'de':
         ingredient = Ingredient.objects.get(pk=8217)
         unit = None
         amount = 120
