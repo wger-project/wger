@@ -320,7 +320,7 @@ $(document).ready(function() {
             <div class="sub_header">
                 <h2>
                 {% if step.weight %}
-                    {{step.reps}} × {{step.weight}} kg.
+                    {{step.reps}} × {{step.weight}} {% trans "kg" %}.
                 {% else %}
                     {% if step.reps == 99 %}∞{% else %}{{step.reps}}{% endif %} {% trans "reps" %}
                 {% endif %}

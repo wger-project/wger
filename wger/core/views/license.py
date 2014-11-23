@@ -51,7 +51,7 @@ class LicenseAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
 
     model = License
     success_url = reverse_lazy('core:license:list')
-    title = ugettext_lazy('Add new license')
+    title = ugettext_lazy('Add')
     form_action = reverse_lazy('core:license:add')
     permission_required = 'core.add_license'
 

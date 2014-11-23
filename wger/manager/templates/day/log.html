@@ -3,7 +3,7 @@
 {% load staticfiles %}
 {% load wger_extras %}
 
-{% block title %}{% trans "New weight log" %}  – {{day.description}}{% endblock %}
+{% block title %}{% trans "New weight log" %} – {{day.description}}{% endblock %}
 
 {% block header %}
 <script type="text/javascript">
@@ -51,7 +51,7 @@ $(document).ready(function () {
                     <tr>
                     {% for form in value.forms %}
                         <td>{% trans "Reps" %}</td>
-                        <td>{% trans "kg." %}</td>
+                        <td>{% trans "kg" %}</td>
                     {% endfor %}
                     </tr>
                     </table>
