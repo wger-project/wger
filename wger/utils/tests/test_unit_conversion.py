@@ -56,15 +56,20 @@ class WeightConversionTestCase(WorkoutManagerTestCase):
         '''
         weight1 = AbstractWeight(80, 'kg')
         weight2 = AbstractWeight(10, 'kg')
-        sum = weight1 + weight2
-        self.assertEqual(sum.kg, 90)
+        out = weight1 + weight2
+        self.assertEqual(out.kg, 90)
 
         weight1 = AbstractWeight(80, 'kg')
         weight2 = AbstractWeight(10, 'lb')
-        sum = weight1 + weight2
-        self.assertEqual(sum.kg, Decimal(84.5359).quantize(FOURPLACES))
+        out = weight1 + weight2
+        self.assertEqual(out.kg, Decimal(84.5359).quantize(FOURPLACES))
 
         weight1 = AbstractWeight(80, 'lb')
         weight2 = AbstractWeight(10, 'lb')
-        sum = weight1 + weight2
-        self.assertEqual(sum.lb, Decimal(90))
+        out = weight1 + weight2
+        self.assertEqual(out.lb, Decimal(90))
+
+        weight1 = AbstractWeight(80, 'kg')
+        weight2 = 20
+        out = weight1 + weight2
+        self.assertEqual(out.kg, Decimal(100))

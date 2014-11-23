@@ -52,8 +52,11 @@ class AbstractWeight(object):
         '''
         Implement adding abstract weights.
 
-        For simplicity, the sum always occurs in kg
+        For simplicity, the sum always occurs in kg. If the 'other' number is
+        not an abstract weight, it will be converted to one (in kg)
         '''
+        if not isinstance(other, AbstractWeight):
+            other = AbstractWeight(other)
         return AbstractWeight(self.kg + other.kg)
 
     @property
