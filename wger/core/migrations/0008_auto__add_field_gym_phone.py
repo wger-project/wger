@@ -7,6 +7,10 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ('config', '0003_auto__add_gymconfig__chg_field_languageconfig_language_target__chg_fie'),
+    )
+
     def forwards(self, orm):
         # Adding field 'Gym.phone'
         db.add_column(u'core_gym', 'phone',
