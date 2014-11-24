@@ -144,6 +144,7 @@ class RoutineConfigSerializer(serializers.Serializer):
     max_bench = serializers.FloatField()
     max_deadlift = serializers.FloatField()
     max_squat = serializers.FloatField()
+    unit = serializers.CharField()
 
 
 class RoutineExerciseConfigSerializer(serializers.Serializer):

@@ -48,7 +48,8 @@ angular.module("routineGenerator")
                      max_deadlift: 100,
                      max_bench: 100,
                      max_squat: 100,
-                     round_to: 2.5
+                     round_to: 2.5,
+                     unit: 'kg'
                     };
 
     $scope.routineResource = $resource(dataUrl + ':name/', {}, {'query': {isArray: false}});
@@ -60,7 +61,8 @@ angular.module("routineGenerator")
                                     max_deadlift: $scope.config.max_deadlift,
                                     max_bench: $scope.config.max_bench,
                                     max_squat: $scope.config.max_squat,
-                                    round_to: $scope.config.round_to
+                                    round_to: $scope.config.round_to,
+                                    unit: $scope.config.unit
                                 });
         promise.$promise.then(function (data) {
             // Move the data into the following format: [week][day][exercise]

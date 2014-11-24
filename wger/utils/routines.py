@@ -18,7 +18,8 @@ import math
 from django.utils.translation import get_language
 from django.utils.translation import ugettext as _
 from wger.exercises.models import ExerciseLanguageMapper
-from wger.utils.constants import TWOPLACES, FOURPLACES
+from wger.utils.constants import TWOPLACES
+from wger.utils.units import AbstractWeight
 
 logger = logging.getLogger('wger.custom')
 
@@ -346,6 +347,8 @@ class ExerciseConfig(object):
         if self.increment_mode == 'manual':
             try:
                 sets, reps, weight = self.get_routine()
+                if isinstance(weight, AbstractWeight):
+                    weight = getattr(weight, self.unit)
             except TypeError:
                 logger.error('Error on Week {1}, Day {2}, Set {3}'.format(self.current_week,
                                                                           self.current_day,

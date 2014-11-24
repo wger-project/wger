@@ -2,13 +2,19 @@
 
 <div class="row" data-ng-controller="routineDetailCtrl">
     <div class="col-sm-8">
-        <h3>
-            <a href="{% url 'routines-generator' %}" class="btn btn-default">
-            <span class="pull-left glyphicon glyphicon-chevron-left" style="font-size: 80%;"></span>
-            </a>
-            {% verbatim %}{{data.routine.name}}{% endverbatim %}
-        </h3>
-        <p>{% verbatim %}{{data.routine.description}}{% endverbatim %}</p>
+        <div class="row">
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-9">
+                    <h3>
+                        <a href="{% url 'routines-generator' %}" class="btn btn-default">
+                            <span class="pull-left glyphicon glyphicon-chevron-left" style="font-size: 80%;"></span>
+                        </a>
+                        {% verbatim %}{{data.routine.name}}{% endverbatim %}
+                    </h3>
+                <p>{% verbatim %}{{data.routine.description}}{% endverbatim %}</p>
+            </div>
+        </div>
 
 
         <div data-ng-repeat="(week, week_values) in data.items" >
@@ -139,6 +145,21 @@ any part of it once you have added it to your list.{% endblocktrans %}</p>
                        value="{{user_config.round_to}}"
                        data-ng-model="config.round_to"
                        class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="unit" class="col-md-3 control-label">
+                {% trans "Weight unit" %}
+            </label>
+            <div class="col-md-9">
+                <select class="form-control"
+                        name="unit"
+                        id="unit"
+                        data-ng-model="config.unit">
+                    <option value="kg">{% trans 'kg' %}</option>
+                    <option value="lb">{% trans 'lb' %}</option>
+                </select>
             </div>
         </div>
         <div class="form-group">

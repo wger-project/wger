@@ -20,6 +20,7 @@ from django.utils.translation import ugettext as _
 from wger.utils.routines import Routine
 from wger.utils.routines import ExerciseConfig
 from wger.utils.routines import RoutineExercise
+from wger.utils.units import AbstractWeight
 
 logger = logging.getLogger('wger.custom')
 
@@ -45,7 +46,7 @@ class SquatConfig(ExerciseConfig):
     }
 
     def get_routine(self):
-        max_squat = self.user_config['max_squat']
+        max_squat = AbstractWeight(self.user_config['max_squat'], self.user_config['unit'])
 
         # Week 1
         if self.current_week == 1:
@@ -108,7 +109,7 @@ class SquatConfig(ExerciseConfig):
                     return 1, 3, max_squat * 0.75
                 elif self.current_set == 3:
                     return 1, 4, max_squat * 0.85
-                elif 4 <= self.current_set <= 7:
+                elif self.current_set == 4:
                     return 4, 5, max_squat * 0.90
 
         # Week 3

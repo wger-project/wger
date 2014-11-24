@@ -48,6 +48,12 @@ class AbstractWeight(object):
         self.weight = Decimal(weight).quantize(FOURPLACES)
         self.is_kg = True if mode == 'kg' else False
 
+    def __mul__(self, other):
+        '''
+        Implement multiplying abstract weights.
+        '''
+        return AbstractWeight(self.weight * Decimal(other))
+
     def __add__(self, other):
         '''
         Implement adding abstract weights.

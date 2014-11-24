@@ -20,6 +20,7 @@ from django.utils.translation import ugettext as _
 from wger.utils.routines import Routine
 from wger.utils.routines import ExerciseConfig
 from wger.utils.routines import RoutineExercise
+from wger.utils.units import AbstractWeight
 
 logger = logging.getLogger('wger.custom')
 
@@ -47,7 +48,7 @@ class SquatConfig(ExerciseConfig):
     }
 
     def get_routine(self):
-        max_squat = self.user_config['max_squat']
+        max_squat = AbstractWeight(self.user_config['max_squat'], self.user_config['unit'])
 
         # Week 1
         if self.current_week == 1:
@@ -84,24 +85,24 @@ class SquatConfig(ExerciseConfig):
         # Week 3
         elif self.current_week == 3:
             if self.current_day == 1:
-                return 4, 9, (max_squat * 0.70) + 9
+                return 4, 9, (max_squat * 0.70) + AbstractWeight(20, 'lb')
             elif self.current_day == 2:
-                return 5, 7, (max_squat * 0.75) + 9
+                return 5, 7, (max_squat * 0.75) + AbstractWeight(20, 'lb')
             elif self.current_day == 3:
-                return 7, 5, (max_squat * 0.80) + 9
+                return 7, 5, (max_squat * 0.80) + AbstractWeight(20, 'lb')
             elif self.current_day == 4:
-                return 10, 3, (max_squat * 0.85) + 9
+                return 10, 3, (max_squat * 0.85) + AbstractWeight(20, 'lb')
 
         # Week 4
         elif self.current_week == 4:
             if self.current_day == 1:
-                return 4, 9, (max_squat * 0.70) + 13
+                return 4, 9, (max_squat * 0.70) + AbstractWeight(30, 'lb')
             elif self.current_day == 2:
-                return 5, 7, (max_squat * 0.75) + 13
+                return 5, 7, (max_squat * 0.75) + AbstractWeight(30, 'lb')
             elif self.current_day == 3:
-                return 7, 5, (max_squat * 0.80) + 13
+                return 7, 5, (max_squat * 0.80) + AbstractWeight(30, 'lb')
             elif self.current_day == 4:
-                return 10, 3, (max_squat * 0.85) + 13
+                return 10, 3, (max_squat * 0.85) + AbstractWeight(30, 'lb')
 
         # Week 5
         elif self.current_week == 5:
