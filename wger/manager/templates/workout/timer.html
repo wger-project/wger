@@ -254,7 +254,7 @@ $(document).ready(function() {
 {#            #}
 {# Start page #}
 {#            #}
-<div id="timer-container" style="position: relative; margin:0px, padding: 0px;">
+<div id="timer-container" style="position: relative; margin:0px; padding: 0px;">
 <ul id="workout-timer">
 <li class="timer-step" id="div-warmup" data-number="0">
     <h2>{% trans "Your workout today" %}</h2>
@@ -379,7 +379,7 @@ $(document).ready(function() {
 
 
             <a class="next bottom_button wide_link btn btn-default"
-               href="#">{% trans "Skip" %} <span class="glyphicon glyphicon-forward"></a>
+               href="#">{% trans "Skip" %} <span class="glyphicon glyphicon-forward"></span></a>
 
             <div id="progress-{{step.current_step}}" class="progress-bar">
                 <span style="width: {{step.step_percent|stringformat:'f'}}%;"></span>
