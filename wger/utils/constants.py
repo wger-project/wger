@@ -27,6 +27,7 @@ USER_TAB = 'user'
 
 # Default quantization
 TWOPLACES = Decimal('0.01')
+FOURPLACES = Decimal('0.0001')
 
 # Valid date formats
 DATE_FORMATS = ['%d.%m.%Y',  # '25.10.2012'
