@@ -130,7 +130,15 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
         {% endif %}
         {% if weight %}
         <p>
-            {% trans "Your current weight is: "%} <strong>{{weight.weight|floatformat}} {% trans "kg" %}</strong>
+            {% trans "Your current weight is: "%}
+            <strong>
+                {{weight.weight|floatformat}}
+                {% if user.userprofile.weight_unit == 'kg' %}
+                    {% trans "kg" %}
+                {% else %}
+                    {% trans "lb" %}
+                {% endif %}
+            </strong>
         </p>
         {% endif %}
     </div>
