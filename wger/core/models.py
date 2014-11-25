@@ -29,6 +29,7 @@ from wger.gym.models import Gym
 
 from wger.utils.helpers import disable_for_loaddata
 from wger.utils.constants import TWOPLACES
+from wger.utils.units import AbstractWeight
 
 from wger.weight.models import WeightEntry
 
@@ -339,8 +340,9 @@ by the US Department of Agriculture. It is extremely complete, with around
         if not self.weight or not self.height:
             return 0
 
-        return self.weight / (self.height / decimal.Decimal(100) *
-                              self.height / decimal.Decimal(100.0))
+        weight = self.weight if self.weight_unit == 'kg' else AbstractWeight(self.weight, 'lb').kg
+        return weight / (self.height / decimal.Decimal(100) *
+                         self.height / decimal.Decimal(100.0))
 
     def calculate_basal_metabolic_rate(self, formula=1):
         '''
@@ -349,9 +351,10 @@ by the US Department of Agriculture. It is extremely complete, with around
         Currently only the Mifflin-St.Jeor formula is supported
         '''
         factor = 5 if self.gender == self.GENDER_MALE else -161
+        weight = self.weight if self.weight_unit == 'kg' else AbstractWeight(self.weight, 'lb').kg
 
         try:
-            rate = ((10 * self.weight)  # in kg
+            rate = ((10 * weight)  # in kg
                     + (decimal.Decimal(6.25) * self.height)  # in cm
                     - (5 * self.age)  # in years
                     + factor)
