@@ -94,6 +94,13 @@ class UserProfile(models.Model):
         (INTENSITY_HIGH, _('High')),
     )
 
+    UNITS_KG = 'kg'
+    UNITS_LB = 'lb'
+    UNITS = (
+        (UNITS_KG, _('Metric (kilogram)')),
+        (UNITS_LB, _('Imperial (pound)'))
+    )
+
     user = models.OneToOneField(User,
                                 editable=False)
     '''
@@ -279,6 +286,18 @@ by the US Department of Agriculture. It is extremely complete, with around
                             null=True,
                             validators=[MinValueValidator(1500), MaxValueValidator(5000)])
     '''Basic caloric intake based on physical activity'''
+
+    #
+    # Others
+    #
+    weight_unit = models.CharField(verbose_name=_('Weight unit'),
+                                   help_text=_('Select your preferred unit. This setting controls '
+                                               'how the weight entries are interpreted if there '
+                                               'are any calculations as well as their display.'),
+                                   max_length=2,
+                                   choices=UNITS,
+                                   default=UNITS_KG)
+    '''Preferred weight unit'''
 
     @property
     def weight(self):
