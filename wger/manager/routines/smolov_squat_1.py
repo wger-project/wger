@@ -114,7 +114,7 @@ def get_routine():
     Initialise and return this routine
     '''
 
-    smolov = Routine(name='Smolov Squat - Part 1',
+    smolov = Routine(name=_('Smolov Squat - Part 1'),
                      slug=os.path.splitext(os.path.basename(__file__))[0],
                      description=_("This is the part one of a two part routine. Bang this thing "
                                    "out, get a new max, then take the new max on over to part "

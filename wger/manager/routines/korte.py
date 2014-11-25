@@ -221,7 +221,7 @@ def get_routine():
     Initialise and return this routine
     '''
 
-    korte = Routine(name='Korte 3x3',
+    korte = Routine(name=_('Korte 3x3'),
                     slug=os.path.splitext(os.path.basename(__file__))[0],
                     description=_("Pure German volume training (GVT). You will squat, "
                                   "bench, and deadlift. That's it. Good luck."))
