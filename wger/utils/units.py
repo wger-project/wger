@@ -59,7 +59,9 @@ class AbstractWeight(object):
     @property
     def kg(self):
         '''
-        :return: Return the weight in kilograms
+        Return the weight in kilograms
+
+        :return: decimal
         '''
         if self.is_kg:
             return self.weight
@@ -67,11 +69,31 @@ class AbstractWeight(object):
             return (self.weight * self.LB_IN_KG).quantize(FOURPLACES)
 
     @property
+    def g(self):
+        '''
+        Return the weight in grams
+
+        :return: decimal
+        '''
+        return self.kg * 1000
+
+    @property
     def lb(self):
         '''
-        :return: Return the weight in pounds
+        Return the weight in pounds
+
+        :return: decimal
         '''
         if self.is_kg:
             return (self.weight * self.KG_IN_LBS).quantize(FOURPLACES)
         else:
             return self.weight
+
+    @property
+    def oz(self):
+        '''
+        Return the weight in ounces
+
+        :return: decimal
+        '''
+        return self.lb * 16

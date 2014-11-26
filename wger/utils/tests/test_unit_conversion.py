@@ -68,3 +68,14 @@ class WeightConversionTestCase(WorkoutManagerTestCase):
         weight2 = AbstractWeight(10, 'lb')
         sum = weight1 + weight2
         self.assertEqual(sum.lb, Decimal(90))
+
+    def test_subunits(self):
+        '''
+        Test weight subunit calculations
+        '''
+
+        tmp = AbstractWeight(10)
+        self.assertEqual(tmp.g, 10000)
+
+        tmp = AbstractWeight(2, 'lb')
+        self.assertEqual(tmp.oz, 32)
