@@ -16,6 +16,8 @@
 
 from django import template
 from django.forms.widgets import CheckboxInput, ClearableFileInput
+from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import pgettext
 
 from wger.utils.constants import PAGINATION_MAX_TOTAL_PAGES
 from wger.utils.constants import PAGINATION_PAGES_AROUND_CURRENT
@@ -127,6 +129,27 @@ def auto_link_css(flavour='full', css=''):
     '''
     css = css + ' btn btn-default btn-block' if flavour == 'mobile' else css
     return 'class="{0}"'.format(css)
+
+
+@register.simple_tag
+def trans_weight_unit(unit, user):
+    '''
+    Returns the correct (translated) weight unit
+
+    :param unit: the weight unit. Allowed values are 'kg' and 'g'
+    :param user: the user object, needed to access the profile
+    :return: translated unit
+    '''
+    if user.userprofile.weight_unit == 'kg':
+        if unit == 'kg':
+            return _('kg')
+        if unit == 'g':
+            return pgettext("weight unit, i.e. grams", "g")
+    else:
+        if unit == 'kg':
+            return _('lb')
+        if unit == 'g':
+            return pgettext("weight unit, i.e. ounces", "oz")
 
 
 @register.filter

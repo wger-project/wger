@@ -320,13 +320,7 @@ $(document).ready(function() {
             <div class="sub_header">
                 <h2>
                 {% if step.weight %}
-                    {{step.reps}} × {{step.weight}}
-                    {% if user.userprofile.weight_unit == 'kg' %}
-                        {% trans "kg" %}
-                    {% else %}
-                        {% trans "lb" %}
-                    {% endif %}
-                    .
+                    {{step.reps}} × {{step.weight}} {% trans_weight_unit 'kg' user %}
                 {% else %}
                     {% if step.reps == 99 %}∞{% else %}{{step.reps}}{% endif %} {% trans "reps" %}
                 {% endif %}

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load staticfiles %}
+{% load wger_extras %}
 
 {% block title %}{% trans "Dashboard" %}{% endblock %}
 
@@ -111,14 +112,13 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
                     {% trans "Energy" %}: {{nutritional_info.total.energy|floatformat}} {% trans "kcal" %}
                 </li>
                 <li>
-                    {% trans "Protein" %}: {{nutritional_info.total.protein|floatformat}}
-                    {% trans "g" context "weight unit, i.e. grams" %}
+                    {% trans "Protein" %}: {{nutritional_info.total.protein|floatformat}} {% trans_weight_unit 'g' user %}
                 </li>
                 <li>
-                    {% trans "Carbohydrates" %}: {{nutritional_info.total.carbohydrates|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
+                    {% trans "Carbohydrates" %}: {{nutritional_info.total.carbohydrates|floatformat}} {% trans_weight_unit 'g' user %}
                 </li>
                 <li>
-                    {% trans "Fat" %}: {{nutritional_info.total.fat|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
+                    {% trans "Fat" %}: {{nutritional_info.total.fat|floatformat}} {% trans_weight_unit 'g' user %}
                 </li>
             </ul>
 
@@ -133,12 +133,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
         <p>
             {% trans "Your current weight is: "%}
             <strong>
-                {{weight.weight|floatformat}}
-                {% if user.userprofile.weight_unit == 'kg' %}
-                    {% trans "kg" %}
-                {% else %}
-                    {% trans "lb" %}
-                {% endif %}
+                {{weight.weight|floatformat}} {% trans_weight_unit 'kg' user %}
             </strong>
         </p>
         {% endif %}

@@ -52,11 +52,7 @@ $(document).ready(function () {
                     {% for form in value.forms %}
                         <td>{% trans "Reps" %}</td>
                         <td>
-                            {% if user.userprofile.weight_unit == 'kg' %}
-                                {% trans "kg" %}
-                            {% else %}
-                                {% trans "lb" %}
-                            {% endif %}
+                            {% trans_weight_unit 'kg' user %}
                         </td>
                     {% endfor %}
                     </tr>
