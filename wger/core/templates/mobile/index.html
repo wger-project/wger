@@ -55,18 +55,18 @@
             <div class="modal-body">
                 {% if plan %}
                 <ul class="list-group">
-                   <li class="list-group-item">
-                       {% trans "Energy" %}: {{nutritional_info.total.energy|floatformat}} {% trans "kcal" %}
-                   </li>
-                   <li class="list-group-item">
-                       {% trans "Protein" %}: {{nutritional_info.total.protein|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
-                   </li>
-                   <li class="list-group-item">
-                       {% trans "Carbohydrates" %}: {{nutritional_info.total.carbohydrates|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
-                   </li>
-                   <li class="list-group-item">
-                       {% trans "Fat" %}: {{nutritional_info.total.fat|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
-                   </li>
+                    <li class="list-group-item">
+                        {% trans "Energy" %}: {{nutritional_info.total.energy|floatformat}} {% trans "kcal" %}
+                    </li>
+                    <li class="list-group-item">
+                        {% trans "Protein" %}: {{nutritional_info.total.protein|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
+                    </li>
+                    <li class="list-group-item">
+                        {% trans "Carbohydrates" %}: {{nutritional_info.total.carbohydrates|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
+                    </li>
+                    <li class="list-group-item">
+                        {% trans "Fat" %}: {{nutritional_info.total.fat|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
+                    </li>
                 </ul>
 
                 {% if weight %}

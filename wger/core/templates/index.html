@@ -103,23 +103,24 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
                 {% else %}
                     {% trans "Nutrition plan" %}
                 {% endif %}
-           </a>
-           </p>
-           – {{ plan.creation_date }}
-           <ul>
-               <li>
-                   {% trans "Energy" %}: {{nutritional_info.total.energy|floatformat}} {% trans "kcal" %}
-               </li>
-               <li>
-                   {% trans "Protein" %}: {{nutritional_info.total.protein|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
-               </li>
-               <li>
-                   {% trans "Carbohydrates" %}: {{nutritional_info.total.carbohydrates|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
-               </li>
-               <li>
-                   {% trans "Fat" %}: {{nutritional_info.total.fat|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
-               </li>
-           </ul>
+            </a>
+            </p>
+            – {{ plan.creation_date }}
+            <ul>
+                <li>
+                    {% trans "Energy" %}: {{nutritional_info.total.energy|floatformat}} {% trans "kcal" %}
+                </li>
+                <li>
+                    {% trans "Protein" %}: {{nutritional_info.total.protein|floatformat}}
+                    {% trans "g" context "weight unit, i.e. grams" %}
+                </li>
+                <li>
+                    {% trans "Carbohydrates" %}: {{nutritional_info.total.carbohydrates|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
+                </li>
+                <li>
+                    {% trans "Fat" %}: {{nutritional_info.total.fat|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
+                </li>
+            </ul>
 
         {% else %}
             <p>
