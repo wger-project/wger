@@ -56,20 +56,21 @@
                         <a href="{{ exercise.get_absolute_url }}" class="list-group-item wger-list-group-item">
                             <div class="media">
                                 <span class="glyphicon glyphicon-chevron-right pull-right"></span>
-                                <div style="width:60px;height:60px;" class="pull-left">
-                                    {% if exercise.main_image %}
-                                        <img alt="{{ exercise.name }}"
+                                <div style="width:60px;height:60px;" class="media-left">
+
+                                {% if exercise.main_image %}
+                                    <img alt="{{ exercise.name }}"
                                          class="media-object "
                                          style="max-width:100%; max-height:100%;"
                                          src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
-                                    {% else %}
+                                {% else %}
                                     <img alt="{% trans 'Placeholder image for exercise' %}"
                                          class="media-object "
                                          style="max-width:100%; max-height:100%; opacity: 0.4;"
                                          src="{% static 'images/icons/image-placeholder.svg' %}">
-                                    {% endif %}
+                                {% endif %}
                                 </div>
-                                <div class="media-body">
+                                <div class="media-body" style="position: absolute; top: 10px; left: 100px;">
                                     <h4 class="media-heading">{{ exercise.name }}</h4>
                                     <span class="text-muted">
                                         {% for equipment in exercise.equipment.all %}
@@ -77,7 +78,7 @@
                                             {% if not forloop.last %},{% endif %}
                                         {% endfor %}
                                     </span>
-                                </div>
+                                 </div>
                             </div>
                         </a>
                     {% endfor %}
