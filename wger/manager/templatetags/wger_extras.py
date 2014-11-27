@@ -132,15 +132,16 @@ def auto_link_css(flavour='full', css=''):
 
 
 @register.simple_tag
-def trans_weight_unit(unit, user):
+def trans_weight_unit(unit, user=None):
     '''
     Returns the correct (translated) weight unit
 
     :param unit: the weight unit. Allowed values are 'kg' and 'g'
-    :param user: the user object, needed to access the profile
+    :param user: the user object, needed to access the profile. If this evaluates
+                 to False, metric is used
     :return: translated unit
     '''
-    if user.userprofile.weight_unit == 'kg':
+    if not user or user.userprofile.weight_unit == 'kg':
         if unit == 'kg':
             return _('kg')
         if unit == 'g':
