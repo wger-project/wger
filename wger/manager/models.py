@@ -15,10 +15,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-import six
 import datetime
 import logging
 
+import six
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
@@ -31,6 +31,7 @@ from django.core.validators import MinValueValidator
 
 from wger.core.models import DaysOfWeek
 from wger.exercises.models import Exercise
+from wger.manager.helpers import reps_smart_text
 from wger.utils.cache import cache_mapper, reset_workout_canonical_form
 from wger.utils.fields import Html5DateField
 
@@ -724,37 +725,3 @@ class WorkoutSession(models.Model):
         Returns the object that has owner information
         '''
         return self
-
-
-#
-# Helpers
-#
-def reps_smart_text(settings, set_obj):
-    '''
-    "Smart" textual representation
-    This is a human representation of the settings, in a way that humans
-    would also write: e.g. "8 8 10 10" but "4 x 10" and not "10 10 10 10"
-
-    :param settings:
-    :param set_obj:
-    :return setting_text, setting_list:
-    '''
-    if len(settings) == 0:
-        setting_text = ''
-        setting_list = []
-    elif len(settings) == 1:
-        reps = settings[0].reps if settings[0].reps != 99 else u'∞'
-        setting_text = u'{0} × {1}'.format(set_obj.sets, reps)
-        setting_list = [settings[0].reps] * set_obj.sets
-    elif len(settings) > 1:
-        tmp_reps_text = []
-        tmp_reps = []
-        for i in settings:
-            reps = str(i.reps) if i.reps != 99 else u'∞'
-            tmp_reps_text.append(reps)
-            tmp_reps.append(i.reps)
-
-        setting_text = u' – '.join(tmp_reps_text)
-        setting_list = tmp_reps
-
-    return setting_text, setting_list
