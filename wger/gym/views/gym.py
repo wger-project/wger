@@ -333,7 +333,7 @@ class GymAddUserView(WgerFormMixin, CreateView):
 
 class GymUpdateView(WgerFormMixin, UpdateView):
     '''
-    View to update an existing license
+    View to update an existing gym
     '''
 
     model = Gym
@@ -342,12 +342,13 @@ class GymUpdateView(WgerFormMixin, UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         '''
-        Only managers for this gym can add new members
+        Only managers for this gym and general managers can edit the gym
         '''
         if not request.user.is_authenticated():
             return HttpResponseForbidden()
 
-        if request.user.has_perm('gym.manage_gym'):
+        if request.user.has_perm('gym.manage_gym')\
+                and not request.user.has_perm('gym.manage_gyms'):
             if request.user.userprofile.gym_id != int(self.kwargs['pk']):
                 return HttpResponseForbidden()
         return super(GymUpdateView, self).dispatch(request, *args, **kwargs)
