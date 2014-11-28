@@ -101,7 +101,7 @@ delete_testcase_add_methods(DeleteGymTestCase)
 
 class EditGymTestCase(WorkoutManagerEditTestCase):
     '''
-    Tests editing a license
+    Tests editing a gym
     '''
 
     object_class = Gym
@@ -122,7 +122,7 @@ class EditGymTestCase(WorkoutManagerEditTestCase):
 
 class GymTestCase(WorkoutManagerTestCase):
     '''
-    Tests other methods
+    Tests other gym methods
     '''
 
     def test_delete_gym(self):
