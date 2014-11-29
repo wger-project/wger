@@ -326,6 +326,14 @@ by the US Department of Agriculture. It is extremely complete, with around
         '''
         return u"Profile for user {0}".format(self.user)
 
+    @property
+    def use_metric(self):
+        '''
+        Simple helper that checks whether the user uses metric units or not
+        :return: Boolean
+        '''
+        return self.weight_unit == 'kg'
+
     def calculate_bmi(self):
         '''
         Calculates the user's BMI
