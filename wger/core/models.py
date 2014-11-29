@@ -348,7 +348,7 @@ by the US Department of Agriculture. It is extremely complete, with around
         if not self.weight or not self.height:
             return 0
 
-        weight = self.weight if self.weight_unit == 'kg' else AbstractWeight(self.weight, 'lb').kg
+        weight = self.weight if self.use_metric else AbstractWeight(self.weight, 'lb').kg
         return weight / (self.height / decimal.Decimal(100) *
                          self.height / decimal.Decimal(100.0))
 
@@ -359,7 +359,7 @@ by the US Department of Agriculture. It is extremely complete, with around
         Currently only the Mifflin-St.Jeor formula is supported
         '''
         factor = 5 if self.gender == self.GENDER_MALE else -161
-        weight = self.weight if self.weight_unit == 'kg' else AbstractWeight(self.weight, 'lb').kg
+        weight = self.weight if self.use_metric else AbstractWeight(self.weight, 'lb').kg
 
         try:
             rate = ((10 * weight)  # in kg

@@ -141,7 +141,7 @@ def trans_weight_unit(unit, user=None):
                  to False, metric is used
     :return: translated unit
     '''
-    if not user or user.userprofile.weight_unit == 'kg':
+    if not user or user.userprofile.use_metric:
         if unit == 'kg':
             return _('kg')
         if unit == 'g':
