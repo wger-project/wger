@@ -246,3 +246,21 @@ fieldset[disabled] .btn-default.active {
  #main-sidebar h6, #main-sidebar .h6 {
     margin-top: 0px;
 }
+
+
+ /**************************************************************
+ * Fix issue with body shifting
+ *
+ * Opening modal dialogs shifted the whole body by 15px to the left.
+ * While this appears to be https://github.com/twbs/bootstrap/issues/9855
+ * it doesn't seem to be fixed here. When it does, these fixes can be removed
+ **************************************************************/
+ body.modal-open {
+    padding-right: 0 !important;
+
+}
+/*
+body.modal {
+    overflow-y: hidden;
+}
+*/
