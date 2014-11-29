@@ -39,6 +39,7 @@ from wger.utils.constants import TWOPLACES
 from wger.utils.cache import cache_mapper
 from wger.utils.fields import Html5TimeField
 from wger.utils.models import AbstractLicenseModel
+from wger.utils.units import AbstractWeight
 
 MEALITEM_WEIGHT_GRAM = '1'
 MEALITEM_WEIGHT_UNIT = '2'
@@ -47,6 +48,10 @@ MEALITEM_WEIGHT_UNIT = '2'
 PROTEIN_FACTOR = 4
 CARB_FACTOR = 4
 FAT_FACTOR = 9
+
+PROTEIN_FACTOR_OZ = 113
+CARB_FACTOR_OZ = 113
+FAT_FACTOR_OZ = 225
 
 
 logger = logging.getLogger('wger.custom')
@@ -102,6 +107,7 @@ class NutritionPlan(models.Model):
         '''
         Sums the nutritional info of all items in the plan
         '''
+        use_metric = self.user.userprofile.use_metric
         result = {'total': {'energy': 0,
                             'protein': 0,
                             'carbohydrates': 0,
@@ -120,7 +126,7 @@ class NutritionPlan(models.Model):
 
         # Energy
         for meal in self.meal_set.select_related():
-            values = meal.get_nutritional_values()
+            values = meal.get_nutritional_values(use_metric=use_metric)
 
             result['total']['energy'] += values['energy']
             result['total']['protein'] += values['protein']
@@ -130,26 +136,32 @@ class NutritionPlan(models.Model):
             result['total']['fat_saturated'] += values['fat_saturated']
             result['total']['fibres'] += values['fibres']
             result['total']['sodium'] += values['sodium']
+        energy = result['total']['energy']
 
         # In percent
-        if result['total']['energy']:
-            result['percent']['protein'] = (result['total']['protein'] *
-                                            PROTEIN_FACTOR / result['total']['energy']) * 100
-            result['percent']['carbohydrates'] = (result['total']['carbohydrates'] *
-                                                  CARB_FACTOR / result['total']['energy']) * 100
-            result['percent']['fat'] = (result['total']['fat'] *
-                                        FAT_FACTOR / result['total']['energy']) * 100
+        if energy:
+            tmp_protein = result['total']['protein'] / energy * 100
+            tmp_carbohydrates = result['total']['carbohydrates'] / energy * 100
+            tmp_fat = result['total']['fat'] / energy * 100
+
+            if use_metric:
+                result['percent']['protein'] = tmp_protein * PROTEIN_FACTOR
+                result['percent']['carbohydrates'] = tmp_carbohydrates * CARB_FACTOR
+                result['percent']['fat'] = tmp_fat * FAT_FACTOR
+            else:
+                result['percent']['protein'] = tmp_protein * PROTEIN_FACTOR_OZ
+                result['percent']['carbohydrates'] = tmp_carbohydrates * CARB_FACTOR_OZ
+                result['percent']['fat'] = tmp_fat * FAT_FACTOR_OZ
 
         # Per body weight
         if self.user.userprofile.weight:
             weight = Decimal(self.user.userprofile.weight)
-            result['per_kg']['protein'] = (result['total']['protein'] / weight).quantize(TWOPLACES)
-            result['per_kg']['carbohydrates'] = (result['total']['carbohydrates'] / weight) \
-                .quantize(TWOPLACES)
-            result['per_kg']['fat'] = (result['total']['fat'] / weight).quantize(TWOPLACES)
+            result['per_kg']['protein'] = result['total']['protein'] / weight
+            result['per_kg']['carbohydrates'] = result['total']['carbohydrates'] / weight
+            result['per_kg']['fat'] = result['total']['fat'] / weight
 
         # Only 2 decimal places, anything else doesn't make sense
-        for key in ('total', 'percent', 'per_kg'):
+        for key in result.keys():
             for i in result[key]:
                 result[key][i] = Decimal(result[key][i]).quantize(TWOPLACES)
 
@@ -518,9 +530,11 @@ class Meal(models.Model):
         '''
         return self.plan
 
-    def get_nutritional_values(self):
+    def get_nutritional_values(self, use_metric=True):
         '''
         Sums the nutrional info of all items in the meal
+
+        :param use_metric Flag that controls the units used
         '''
         nutritional_info = {'energy': 0,
                             'protein': 0,
@@ -534,7 +548,7 @@ class Meal(models.Model):
         # Get the calculated values from the meal item and add them
         for item in self.mealitem_set.select_related():
 
-            values = item.get_nutritional_values()
+            values = item.get_nutritional_values(use_metric=use_metric)
 
             nutritional_info['energy'] += values['energy']
             nutritional_info['protein'] += values['protein']
@@ -601,9 +615,11 @@ class MealItem(models.Model):
         else:
             return MEALITEM_WEIGHT_GRAM
 
-    def get_nutritional_values(self):
+    def get_nutritional_values(self, use_metric=True):
         '''
         Sums the nutrional info for the ingredient in the MealItem
+
+        :param use_metric Flag that controls the units used
         '''
         nutritional_info = {'energy': 0,
                             'protein': 0,
@@ -644,17 +660,15 @@ class MealItem(models.Model):
         for i in nutritional_info:
             nutritional_info[i] = Decimal(nutritional_info[i]).quantize(TWOPLACES)
 
+        # If necessary, convert weight units
+        if not use_metric:
+            for key, value in nutritional_info.iteritems():
+
+                # Energy is not a weight!
+                if key == 'energy':
+                    continue
+
+                # Everything else, to ounces
+                nutritional_info[key] = AbstractWeight(value, 'g').oz
+
         return nutritional_info
-
-    def get_nutritional_values_percent(self):
-        '''
-        Calculates the percentage each macronutrient contributes to the
-        total energy (approximation, since the factors 4, 4 and 9 are only
-        a rule of thumb)
-        '''
-        values = self.get_nutritional_values()
-        result = {'protein': values['energy'] / values['protein'] * PROTEIN_FACTOR,
-                  'carbohydrates': values['energy'] / values['carbohydrates'] * CARB_FACTOR,
-                  'fat': values['energy'] / values['fat'] * FAT_FACTOR}
-
-        return result
