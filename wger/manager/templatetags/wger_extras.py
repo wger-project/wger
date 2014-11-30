@@ -36,13 +36,14 @@ def get_current_settings(exercise, set_id):
 
 
 @register.inclusion_tag('tags/render_day.html')
-def render_day(day, flavour):
+def render_day(day, flavour, compact=False):
     '''
     Renders a day as it will be displayed in the workout overview
     '''
-    return {'day':     day.canonical_representation,
+    return {'day': day.canonical_representation,
             'workout': day.training,
-            'flavour': flavour}
+            'flavour': flavour,
+            'compact': compact}
 
 
 @register.inclusion_tag('tags/pagination.html')

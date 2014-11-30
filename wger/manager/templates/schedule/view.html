@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load staticfiles %}
+{% load staticfiles wger_extras %}
 
 {% block title %}{{schedule.name}}{% endblock %}
 
@@ -52,6 +52,35 @@ $(function() {
 {% endblock %}
 
 {% block content %}
+<table class="table">
+    <tr>
+        <th style="width: 30%;">{% trans "Start date" %}</th>
+        <td>{{schedule.start_date}}</td>
+    </tr>
+    <tr>
+        <th>{% trans "Schedule active" %}</th>
+        <td>
+            {% if schedule.is_active %}
+                <span class="glyphicon glyphicon-ok"></span>
+            {% else %}
+                <span class="glyphicon glyphicon-remove"></span>
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>{% trans "Is loop" %}</th>
+        <td>
+            {% if schedule.is_loop %}
+                <span class="glyphicon glyphicon-ok"></span>
+                <em>{% trans "This schedule is a loop and will go through the workouts above till you deactivate it" %}</em>
+            {% else %}
+                <span class="glyphicon glyphicon-remove"></span>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+
 <div id="schedule-table-container">
 <table id="schedule-table" class="table">
     <thead>
@@ -79,19 +108,17 @@ $(function() {
                  <a href="{% url 'manager:step:edit' step.id %}"
                    title="{% trans 'Edit' %}"
                    class="wger-modal-dialog">
-                       <img src="{% static 'images/icons/edit.svg' %}"
+                    <img src="{% static 'images/icons/edit.svg' %}"
                             width="22"
                             height="22"
-                            alt="{% trans 'Edit' %}">
-                </a>
-                 <a href="{% url 'manager:step:delete' step.id %}"
-                    title="{% trans 'Delete' %}"
-                    class="wger-modal-dialog">
+                            alt="{% trans 'Edit' %}"></a>
+                <a href="{% url 'manager:step:delete' step.id %}"
+                   title="{% trans 'Delete' %}"
+                   class="wger-modal-dialog">
                         <img src="{% static 'images/icons/trash.svg' %}"
                              width="22"
                              height="22"
-                             alt="{% trans 'Delete' %}">
-                </a>
+                             alt="{% trans 'Delete' %}"></a>
             </span>
         </td>
         <td>
@@ -113,29 +140,67 @@ $(function() {
         </td>
     </tr>
     {% endfor %}
-    {% if schedule.is_loop %}
     <tr>
         <td colspan="4">
-            <div class="alert alert-info" style="margin-bottom:0px;">
-            {% trans "This schedule is a loop and will go through the workouts above till you deactivate it" %}
-            </div>
+            {% if not schedule.is_active %}
+            <a href="{% url 'manager:schedule:start' schedule.pk %}" class="btn btn-success btn-sm">
+                <span class="glyphicon glyphicon-play"></span>
+                {% trans "Start schedule" %}
+            </a>
+            {% endif %}
+
+            <a href="{% url 'manager:step:add' schedule.id %}" class="wger-modal-dialog btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-plus"></span>
+                {% trans "Add workout" %}
+            </a>
+        </td>
+        <td colspan="2">
         </td>
     </tr>
-    {% endif %}
     </tbody>
 </table>
 </div>
 
-<p>
-<a href="{% url 'manager:step:add' schedule.id %}"
-   class="wger-modal-dialog">
-<img src="{% static 'images/icons/new.svg' %}"
-    width="32"
-    height="32"
-    alt="{% trans 'Add workout' %}"
-    title="{% trans 'Add workout' %}">
-{% trans "Add workout" %}</a>
-</p>
+
+{% for step in schedule.schedulestep_set.select_related %}
+{% with step_dates=step.get_dates %}
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        {% blocktrans count weeks=step.duration %}{{ weeks }} Week
+                            {% plural %}{{ weeks }} Weeks
+                        {% endblocktrans %}
+                    </h3>
+
+                        {% if active_workout == step %}
+                            <span class="label label-info">{% trans "active" %}</span>
+                        {% endif  %}
+                </div>
+                <div class="panel-body">
+                    <span>{{step_dates.0}} <br> {{step_dates.1}}</span>
+                </div>
+                <div class="panel-footer">
+                    <a href="{% url 'manager:workout:view' step.workout.id %}"
+                       class="btn btn-default btn-block btn-sm"
+                       style="white-space: normal;">
+                        <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                        {{ step.workout }}
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+        {% for day in step.workout.canonical_representation.day_list %}
+            <div id="div-day-{{ day.obj.id }}">
+                {% render_day day.obj flavour True %}
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endwith %}
+{% endfor %}
 {% endblock %}
 
 
@@ -148,7 +213,6 @@ than once.{% endblocktrans %}</p>
 
 <h3>{% trans "Options" %}</h3>
 <p>
-
 <a href="#" data-toggle="modal" data-target="#export-ical-popup">
 <img src="{% static 'images/icons/calendar.svg' %}"
     width="32"
@@ -156,6 +220,16 @@ than once.{% endblocktrans %}</p>
     alt="{% trans 'Export calendar file' %}"
     title="{% trans 'Export calendar file' %}">
 {% trans "Export calendar file" %}</a>
+</p>
+
+<p>
+<a href="{% url 'manager:schedule:pdf' schedule.id uid token %}">
+<img src="{% static 'images/icons/save.svg' %}"
+    width="32"
+    height="32"
+    alt="{% trans 'Download as PDF' %}"
+    title="{% trans 'Download as PDF' %}">
+{% trans "Download as PDF" %}</a>
 </p>
 
 <p>
@@ -179,6 +253,7 @@ than once.{% endblocktrans %}</p>
     title="{% trans 'Delete schedule' %}">
 {% trans "Delete schedule" %}</a>
 </p>
+
 
 <div class="modal fade" id="export-ical-popup">
     <div class="modal-dialog">

@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load staticfiles wger_extras thumbnail %}
 
-
+{% if not compact %}
 <div class="modal fade" id="editoptions-day-{{ day.obj.id }}">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -52,10 +52,10 @@
         </div>
     </div>
 </div>
+{% endif %}
 
 
-
-
+{% if not compact %}
 {% for set in day.set_list %}
 <div class="modal fade" id="editoptions-set-{{ set.obj.id }}">
     <div class="modal-dialog">
@@ -100,6 +100,7 @@
     </div>
 </div>
 {% endfor %}
+{% endif %}
 
 
 <div class="list-group"
@@ -110,7 +111,9 @@
         {# Day #}
         {#     #}
         <a href="#editoptions-day-{{ day.obj.id }}" class="list-group-item active" data-toggle="modal">
+            {% if not compact %}
             <span class="glyphicon glyphicon-cog pull-right"></span>
+            {% endif %}
 
             <h4>{{ day.obj.description }}</h4>
             {{ day.days_of_week.text }}
@@ -132,61 +135,75 @@
                class="list-group-item wger-list-group-item">
         {% endif %}
 
+                {% if not compact %}
                 <span class="glyphicon glyphicon-cog pull-right"></span>
+                {% endif %}
 
 
         {% for exercise in set.exercise_list %}
             <div id="exercise-{{ exercise.obj.id }}" class="ajax-manager:set:edit-target">
                 <div class="media">
-                    <span class="pull-left" style="width:64px;height:64px;">
-                        {% if exercise.obj.main_image %}
-                        <img class="media-object"
-                             src="{{ exercise.obj.main_image.image|thumbnail_url:'small' }}"
-                             alt="{{exercise.obj}}"
-                             style="max-width:100%; max-height:100%;">
-                        {% else %}
-                        <img class="media-object"
-                             src="{% static 'images/icons/image-placeholder.svg' %}"
-                             alt=""
-                             style="opacity: 0.3; max-width:100%; max-height:100%;">
-                        {% endif %}
-                    </span>
-                    <div class="media-body">
-                        <h4 class="media-heading">
-                            {{ exercise.obj.name }}
-                        </h4>
-                        <p><strong>{{exercise.setting_text}}</strong></p>
+                        <div style="width:60px;height:60px;" class="media-left">
+                            <a href="{{exercise.obj.get_absolute_url}}" >
+                            {% if exercise.obj.main_image %}
+                            <img class="media-object"
+                                 src="{{ exercise.obj.main_image.image|thumbnail_url:'small' }}"
+                                 alt="{{exercise.obj}}"
+                                 style="max-width:100%; max-height:100%;">
+                            {% else %}
+                            <img class="media-object"
+                                 src="{% static 'images/icons/image-placeholder.svg' %}"
+                                 alt="{% trans 'Placeholder image for exercise' %}"
+                                 style="opacity: 0.4;max-width:100%; max-height:100%;">
+                            {% endif %}
+                            </a>
+                        </div>
+                        <div class="media-body" style="position: relative; top: 10px; left: 100px;">
+                            <h4 class="media-heading">
+                                {{ exercise.obj.name }}
+                            </h4>
+                            <p>{{exercise.setting_text}}</p>
 
-                        {% if not exercise.setting_list %}
-                        <p>
-                            {% trans "This exercise has no repetitions." %}<br>
-                            {% trans "Edit them now."%}
-                        </p>
-                        {% endif %}
+                            {% if not exercise.setting_list %}
+                            <p>
+                                {% trans "This exercise has no repetitions." %}<br>
+                                <a href="{% url 'manager:set:edit' set.obj.id %}" class="wger-modal-dialog">
+                                {% trans "Edit them now."%}
+                                </a>
+                            </p>
+                            {% endif %}
 
-                        <p class="text-muted">
-                            {% for comment in exercise.comment_list %}
-                                {{comment}}<br>
-                            {% endfor %}
-                        </p>
+                            {% if not compact %}
+                            {% if exercise.comment_list %}
+                            <p class="text-muted">
+                                {% for comment in exercise.comment_list %}
+                                    {{comment}}<br>
+                                {% endfor %}
+                            </p>
+                            {% endif %}
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
             </div>
         {% endfor %} <!--for exercise in set-->
     </a>
     {% empty %}
+    {% if not compact %}
     <a href="{% url 'manager:set:add' day.obj.id %}"
        class="list-group-item list-group-item-success wger-modal-dialog">
            {% trans "No exercises selected for this day." %}<br>
            {% trans "Add one now." %}
     </a>
+    {% endif %}
     {% endfor %} <!--for set in day-->
 
     {% if day.set_list %}
+    {% if not compact %}
         <a href="{% url 'manager:set:add' day.obj.id %}" class="list-group-item list-group-item-success wger-modal-dialog">
             <span class="glyphicon glyphicon-plus"></span>
             {% trans "Add exercises to this workout day" %}
         </a>
+    {% endif %}
     {% endif %}
 
 </div>

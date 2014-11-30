@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from os.path import join as path_join
+import datetime
 
 from django.conf import settings
 from django.utils import translation
@@ -22,7 +23,10 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.styles import StyleSheet1
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
+from reportlab.platypus import Paragraph
+from wger import get_version
 from wger.core.models import Language
+
 
 # ************************
 # Language functions
@@ -75,6 +79,25 @@ def load_ingredient_languages(request):
     return languages
 
 
+def render_footer(url, date=None):
+    '''
+    Renders the footer used in the different PDFs
+    :return: a Paragraph object
+    '''
+    if not date:
+        date = datetime.date.today().strftime("%d.%m.%Y")
+        p = Paragraph('''<para>
+                            {date} -
+                            <a href="{url}">{url}</a> -
+                            wger Workout Manager
+                            {version}
+                        </para>'''.format(date=date,
+                                          url=url,
+                                          version=get_version()),
+                      styleSheet["Normal"])
+    return p
+
+
 # register new truetype fonts for reportlab
 pdfmetrics.registerFont(TTFont(
     'OpenSans', path_join(settings.SITE_ROOT, 'core/static/fonts/OpenSans-Light.ttf')))
@@ -94,6 +117,18 @@ styleSheet.add(ParagraphStyle(
                parent=styleSheet['Normal'],
                fontSize=8,
                name='Small',
+               ))
+styleSheet.add(ParagraphStyle(
+               parent=styleSheet['Normal'],
+               name='HeaderBold',
+               fontSize=14,
+               fontName='OpenSans-Bold',
+               ))
+styleSheet.add(ParagraphStyle(
+               parent=styleSheet['Normal'],
+               name='SubHeader',
+               fontSize=12,
+               fontName='OpenSans',
                ))
 styleSheet.add(ParagraphStyle(
                parent=styleSheet['Normal'],

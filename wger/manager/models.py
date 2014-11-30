@@ -326,6 +326,26 @@ class ScheduleStep(models.Model):
         '''
         return self.workout.comment
 
+    def get_dates(self):
+        '''
+        Calculate the start and end date for this step
+        '''
+
+        steps = self.schedule.schedulestep_set.all()
+        start_date = end_date = self.schedule.start_date
+        previous = 0
+
+        if not steps:
+            return False
+
+        for step in steps:
+            start_date += datetime.timedelta(weeks=previous)
+            end_date += datetime.timedelta(weeks=step.duration)
+            previous = step.duration
+
+            if step == self:
+                return start_date, end_date
+
 
 class Day(models.Model):
     '''

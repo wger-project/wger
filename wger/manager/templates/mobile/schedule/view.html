@@ -42,6 +42,45 @@
 </div>
 {% endfor %}
 
+
+<table class="table">
+    <tr>
+        <th style="width: 30%;">{% trans "Start date" %}</th>
+        <td>{{schedule.start_date}}</td>
+    </tr>
+    <tr>
+        <th>{% trans "Schedule active" %}</th>
+        <td>
+            {% if schedule.is_active %}
+                <span class="glyphicon glyphicon-ok"></span>
+            {% else %}
+                <span class="glyphicon glyphicon-remove"></span>
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>{% trans "Is loop" %}</th>
+        <td>
+            {% if schedule.is_loop %}
+                <span class="glyphicon glyphicon-ok"></span>
+                <em>{% trans "This schedule is a loop and will go through the workouts above till you deactivate it" %}</em>
+            {% else %}
+                <span class="glyphicon glyphicon-remove"></span>
+            {% endif %}
+        </td>
+    </tr>
+    {% if not schedule.is_active %}
+    <tr>
+        <td colspan="2">
+            <a href="{% url 'schedule-start' schedule.pk %}" class="btn btn-success btn-sm">
+                <span class="glyphicon glyphicon-play"></span>
+                {% trans "Start schedule" %}
+            </a>
+        </td>
+    </tr>
+    {% endif %}
+</table>
+
 <div class="list-group">
 {% for step in schedule.schedulestep_set.select_related %}
     <a href="#step-{{step.id}}" data-toggle="modal" class="list-group-item wger-list-group-item">
@@ -67,13 +106,6 @@
             {% trans "Add workout" %}
         </a>
 </div>
-{% if schedule.is_loop %}
-    <div class="alert alert-info" style="margin-bottom:0px;">
-        {% trans "This schedule is a loop and will go through the workouts above till you deactivate it" %}
-    </div>
-{% endif %}
-
-
 {% endblock %}
 
 
@@ -85,6 +117,17 @@ edit the order per drag-and-drop. It's also possible to add one workout more
 than once.{% endblocktrans %}</p>
 
 <h3>{% trans "Options" %}</h3>
+
+<p>
+<a href="{% url 'manager:schedule:pdf' schedule.id uid token %}" class="btn btn-default btn-block">
+<img src="{% static 'images/icons/save.svg' %}"
+    width="32"
+    height="32"
+    alt="{% trans 'Download as PDF' %}"
+    title="{% trans 'Download as PDF' %}">
+{% trans "Download as PDF" %}</a>
+</p>
+
 <p>
 <a href="#export-ical-link"
    class="btn btn-default btn-block"
