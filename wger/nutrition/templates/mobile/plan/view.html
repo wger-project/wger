@@ -37,7 +37,7 @@ $(document).ready(function() {
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">
-                    {% trans "Options" %} –
+                    {% trans "Options" %} {% if meal.time %} – {{meal.time|time:"H:i"}}{% endif %}
                 </h4>
             </div>
             <div class="modal-body">
@@ -92,6 +92,12 @@ $(document).ready(function() {
                 </div>
                 <div class="modal-body">
                     <h3>{{item.ingredient}}</h3>
+                    <h4>
+                        {% if item.get_unit_type == MEALITEM_WEIGHT_GRAM %}{{ item.amount|floatformat:"0" }}g
+                        {% else %}
+                            {{ item.amount|floatformat:"0" }} × {{ item.weight_unit.unit.name }}
+                        {% endif %}
+                    </h4>
 
                     <table class="table">
                     <thead>
