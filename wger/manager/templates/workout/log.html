@@ -47,7 +47,7 @@ $(document).ready(function() {
 
             {% if exercise_list.log_by_date %}
                 {% with list=exercise_list.log_by_date %}
-                    {% render_weight_log list exercise_list.div_uuid %}
+                    {% render_weight_log list exercise_list.div_uuid user %}
 
                     <script>
                     $(document).ready(function() {

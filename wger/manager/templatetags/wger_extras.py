@@ -80,13 +80,14 @@ def pagination(paginator, page):
 
 
 @register.inclusion_tag('tags/render_weight_log.html')
-def render_weight_log(log, div_uuid):
+def render_weight_log(log, div_uuid, user=None):
     '''
     Renders a weight log series
     '''
 
     return {'log': log,
-            'div_uuid': div_uuid}
+            'div_uuid': div_uuid,
+            'user': user}
 
 
 @register.inclusion_tag('tags/license-sidebar.html')
