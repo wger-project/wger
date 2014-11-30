@@ -30,19 +30,19 @@ function custom_modal_init()
         <tr style="background: #E0E0E0;">
             <th>{% trans "Meal" %}</th>
             <th>{% trans "Contents" %}</th>
-            <th>{% trans "Energy" %}</th>
-            <th>{% trans "Protein" %}</th>
-            <th>{% trans "Carbohydrates" %}</th>
-            <th>{% trans "Fat" %}</th>
+            <th class="align-right">{% trans "Energy" %}</th>
+            <th class="align-right">{% trans "Protein" %}</th>
+            <th class="align-right">{% trans "Carbohydrates" %}</th>
+            <th class="align-right">{% trans "Fat" %}</th>
         </tr>
     </thead>
     <tbody>
     <tr>
         <td colspan="2"></td>
-        <td>{% trans 'kcal' %}</td>
-        <td>{% trans_weight_unit 'g' user %}</td>
-        <td>{% trans_weight_unit 'g' user %}</td>
-        <td>{% trans_weight_unit 'g' user %}</td>
+        <td class="align-right">{% trans 'kcal' %}</td>
+        <td class="align-right">{% trans_weight_unit 'g' user %}</td>
+        <td class="align-right">{% trans_weight_unit 'g' user %}</td>
+        <td class="align-right">{% trans_weight_unit 'g' user %}</td>
     </tr>
 {% for meal in plan.meal_set.select_related %}
     {% for item in meal.mealitem_set.select_related %}
@@ -110,10 +110,10 @@ function custom_modal_init()
                 </a>
             </span>
             </td>
-            <td>{{item.get_nutritional_values.energy|floatformat}}</td>
-            <td>{{item.get_nutritional_values.protein|floatformat}}</td>
-            <td>{{item.get_nutritional_values.carbohydrates|floatformat}}</td>
-            <td>{{item.get_nutritional_values.fat|floatformat}}</td>
+            <td class="align-right">{{item.get_nutritional_values.energy|floatformat}}</td>
+            <td class="align-right">{{item.get_nutritional_values.protein|floatformat}}</td>
+            <td class="align-right">{{item.get_nutritional_values.carbohydrates|floatformat}}</td>
+            <td class="align-right">{{item.get_nutritional_values.fat|floatformat}}</td>
 </tr>
     {% empty %}
     <tr>
