@@ -46,7 +46,7 @@ coverage.xml
 
 # Django stuff:
 *.log
-settings.py
+settings*.py
 *.sqlite
 /CACHE
 
