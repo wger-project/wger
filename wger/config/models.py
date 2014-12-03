@@ -23,7 +23,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.cache import cache
 from wger.core.models import Language
 from wger.core.models import UserProfile
-from wger.gym.models import Gym
+from wger.gym.helpers import is_any_gym_admin
+from wger.gym.models import Gym, GymUserConfig
 
 from wger.utils.cache import delete_template_fragment_cache
 from wger.utils.cache import cache_mapper
@@ -149,9 +150,24 @@ class GymConfig(models.Model):
 
     def save(self, *args, **kwargs):
         '''
-        All users that have no gym set in the profile are edited
+        Perform additional tasks
         '''
         if self.default_gym:
+
+            # All users that have no gym set in the profile are edited
             UserProfile.objects.filter(gym=None).update(gym=self.default_gym)
+
+            # All users in the gym must have a gym config
+            for profile in UserProfile.objects.filter(gym=self.default_gym):
+                user = profile.user
+                if not is_any_gym_admin(user):
+                    try:
+                        user.gymuserconfig
+                    except GymUserConfig.DoesNotExist:
+                        config = GymUserConfig()
+                        config.gym = self.default_gym
+                        config.user = user
+                        config.save()
+                        logger.debug('Creating GymUserConfig for user {0}'.format(user.username))
 
         return super(GymConfig, self).save(*args, **kwargs)

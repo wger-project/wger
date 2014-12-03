@@ -32,7 +32,7 @@ from django.contrib.auth.views import login as django_loginview
 from django.contrib import messages
 from django.views.generic import RedirectView, UpdateView, DetailView
 from rest_framework.authtoken.models import Token
-from wger.gym.models import AdminUserNote
+from wger.gym.models import AdminUserNote, GymUserConfig
 
 from wger.utils.constants import USER_TAB
 from wger.utils.generic_views import WgerPermissionMixin
@@ -210,9 +210,16 @@ def registration(request):
             language = Language.objects.get(short_name=translation.get_language())
             user.userprofile.notification_language = language
 
+            # Set default gym, if needed
             gym_config = GymConfig.objects.get(pk=1)
-            if gym_config:
+            if gym_config.default_gym:
                 user.userprofile.gym = gym_config.default_gym
+
+                # Create gym user configuration object
+                config = GymUserConfig()
+                config.gym = gym_config.default_gym
+                config.user = user
+                config.save()
 
             user.userprofile.save()
 

@@ -20,7 +20,7 @@ from django.core.urlresolvers import reverse
 
 from wger.config.models import GymConfig
 from wger.core.models import UserProfile
-from wger.gym.models import Gym
+from wger.gym.models import Gym, GymUserConfig
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 
@@ -49,13 +49,13 @@ class GymConfigTestCase(WorkoutManagerTestCase):
         new_user = User.objects.all().last()
 
         self.assertEqual(new_user.userprofile.gym, gym)
+        self.assertEqual(new_user.gymuserconfig.gym, gym)
 
     def test_no_default_gym(self):
         '''
         Test the user registration without a default gym
         '''
 
-        gym = Gym.objects.get(pk=2)
         gym_config = GymConfig.objects.get(pk=1)
         gym_config.default_gym = None
         gym_config.save()
@@ -70,6 +70,7 @@ class GymConfigTestCase(WorkoutManagerTestCase):
 
         new_user = User.objects.all().last()
         self.assertEqual(new_user.userprofile.gym_id, None)
+        self.assertRaises(GymUserConfig.DoesNotExist, GymUserConfig.objects.get, user=new_user)
 
     def test_update_userprofile(self):
         '''
@@ -77,6 +78,7 @@ class GymConfigTestCase(WorkoutManagerTestCase):
         '''
 
         UserProfile.objects.update(gym=None)
+        GymUserConfig.objects.all().delete()
         self.assertEqual(UserProfile.objects.exclude(gym=None).count(), 0)
 
         gym = Gym.objects.get(pk=2)
@@ -84,4 +86,8 @@ class GymConfigTestCase(WorkoutManagerTestCase):
         gym_config.default_gym = gym
         gym_config.save()
 
+        # 24 users in total
         self.assertEqual(UserProfile.objects.filter(gym=gym).count(), 24)
+
+        # 13 non-managers
+        self.assertEqual(GymUserConfig.objects.filter(gym=gym).count(), 13)
