@@ -16,6 +16,8 @@
 
 from django import template
 from django.forms.widgets import CheckboxInput, ClearableFileInput
+from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import pgettext
 
 from wger.utils.constants import PAGINATION_MAX_TOTAL_PAGES
 from wger.utils.constants import PAGINATION_PAGES_AROUND_CURRENT
@@ -79,13 +81,14 @@ def pagination(paginator, page):
 
 
 @register.inclusion_tag('tags/render_weight_log.html')
-def render_weight_log(log, div_uuid):
+def render_weight_log(log, div_uuid, user=None):
     '''
     Renders a weight log series
     '''
 
     return {'log': log,
-            'div_uuid': div_uuid}
+            'div_uuid': div_uuid,
+            'user': user}
 
 
 @register.inclusion_tag('tags/license-sidebar.html')
@@ -128,6 +131,28 @@ def auto_link_css(flavour='full', css=''):
     '''
     css = css + ' btn btn-default btn-block' if flavour == 'mobile' else css
     return 'class="{0}"'.format(css)
+
+
+@register.simple_tag
+def trans_weight_unit(unit, user=None):
+    '''
+    Returns the correct (translated) weight unit
+
+    :param unit: the weight unit. Allowed values are 'kg' and 'g'
+    :param user: the user object, needed to access the profile. If this evaluates
+                 to False, metric is used
+    :return: translated unit
+    '''
+    if not user or user.userprofile.use_metric:
+        if unit == 'kg':
+            return _('kg')
+        if unit == 'g':
+            return pgettext("weight unit, i.e. grams", "g")
+    else:
+        if unit == 'kg':
+            return _('lb')
+        if unit == 'g':
+            return pgettext("weight unit, i.e. ounces", "oz")
 
 
 @register.filter

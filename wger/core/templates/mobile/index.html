@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load staticfiles %}
+{% load wger_extras %}
 
 {% block title %}{% trans "Dashboard" %}{% endblock %}
 
@@ -55,23 +56,26 @@
             <div class="modal-body">
                 {% if plan %}
                 <ul class="list-group">
-                   <li class="list-group-item">
-                       {% trans "Energy" %}: {{nutritional_info.total.energy|floatformat}} {% trans "kcal" %}
-                   </li>
-                   <li class="list-group-item">
-                       {% trans "Protein" %}: {{nutritional_info.total.protein|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
-                   </li>
-                   <li class="list-group-item">
-                       {% trans "Carbohydrates" %}: {{nutritional_info.total.carbohydrates|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
-                   </li>
-                   <li class="list-group-item">
-                       {% trans "Fat" %}: {{nutritional_info.total.fat|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
-                   </li>
+                    <li class="list-group-item">
+                        {% trans "Energy" %}: {{nutritional_info.total.energy|floatformat}} {% trans "kcal" %}
+                    </li>
+                    <li class="list-group-item">
+                        {% trans "Protein" %}: {{nutritional_info.total.protein|floatformat}} {% trans_weight_unit 'g' user %}
+                    </li>
+                    <li class="list-group-item">
+                        {% trans "Carbohydrates" %}: {{nutritional_info.total.carbohydrates|floatformat}} {% trans_weight_unit 'g' user %}
+                    </li>
+                    <li class="list-group-item">
+                        {% trans "Fat" %}: {{nutritional_info.total.fat|floatformat}} {% trans_weight_unit 'g' user %}
+                    </li>
                 </ul>
 
                 {% if weight %}
                 <p>
-                    {% trans "Your current weight is: "%} <strong>{{weight.weight|floatformat}} {% trans "kg" %}</strong>
+                    {% trans "Your current weight is: "%}
+                    <strong>
+                        {{weight.weight|floatformat}} {% trans_weight_unit 'kg' user %}
+                    </strong>
                 </p>
                 {% endif %}
 

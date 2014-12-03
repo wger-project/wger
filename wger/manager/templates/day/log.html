@@ -51,7 +51,9 @@ $(document).ready(function () {
                     <tr>
                     {% for form in value.forms %}
                         <td>{% trans "Reps" %}</td>
-                        <td>{% trans "kg" %}</td>
+                        <td>
+                            {% trans_weight_unit 'kg' user %}
+                        </td>
                     {% endfor %}
                     </tr>
                     </table>

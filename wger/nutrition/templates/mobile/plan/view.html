@@ -37,7 +37,7 @@ $(document).ready(function() {
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">
-                    {% trans "Options" %} –
+                    {% trans "Options" %} {% if meal.time %} – {{meal.time|time:"H:i"}}{% endif %}
                 </h4>
             </div>
             <div class="modal-body">
@@ -92,6 +92,12 @@ $(document).ready(function() {
                 </div>
                 <div class="modal-body">
                     <h3>{{item.ingredient}}</h3>
+                    <h4>
+                        {% if item.get_unit_type == MEALITEM_WEIGHT_GRAM %}{{ item.amount|floatformat:"0" }}g
+                        {% else %}
+                            {{ item.amount|floatformat:"0" }} × {{ item.weight_unit.unit.name }}
+                        {% endif %}
+                    </h4>
 
                     <table class="table">
                     <thead>
@@ -106,15 +112,15 @@ $(document).ready(function() {
                     </tr>
                     <tr>
                         <td>{% trans "Protein" %}</td>
-                        <td class="align-right">{{item.get_nutritional_values.protein|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}</td>
+                        <td class="align-right">{{item.get_nutritional_values.protein|floatformat}} {% trans_weight_unit 'g' user %}</td>
                     </tr>
                     <tr>
                         <td>{% trans "Carbohydrates" %}</td>
-                        <td class="align-right">{{item.get_nutritional_values.carbohydrates|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}</td>
+                        <td class="align-right">{{item.get_nutritional_values.carbohydrates|floatformat}} {% trans_weight_unit 'g' user %}</td>
                     </tr>
                     <tr>
                         <td>{% trans "Fat" %}</td>
-                        <td class="align-right">{{item.get_nutritional_values.fat|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}</td>
+                        <td class="align-right">{{item.get_nutritional_values.fat|floatformat}} {% trans_weight_unit 'g' user %}</td>
                     </tr>
                     </tbody>
                     </table>
@@ -273,31 +279,31 @@ $(document).ready(function() {
         </tr>
         <tr>
             <td>{% trans "Protein" %}</td>
-            <td class="align-right">{{nutritional_data.total.protein|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}</td>
+            <td class="align-right">{{nutritional_data.total.protein|floatformat}} {% trans_weight_unit 'g' user %}</td>
             <td class="align-right">{{nutritional_data.percent.protein|floatformat}} %</td>
             <td class="align-right">{{nutritional_data.per_kg.protein|floatformat}}</td>
         </tr>
         <tr>
             <td>{% trans "Carbohydrates" %}</td>
-            <td class="align-right">{{nutritional_data.total.carbohydrates|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}</td>
+            <td class="align-right">{{nutritional_data.total.carbohydrates|floatformat}} {% trans_weight_unit 'g' user %}</td>
             <td class="align-right">{{nutritional_data.percent.carbohydrates|floatformat}} %</td>
             <td class="align-right">{{nutritional_data.per_kg.carbohydrates|floatformat}}</td>
         </tr>
         <tr>
             <td style="padding-left: 2em;">{% trans "Sugar content in carbohydrates" %}</td>
-            <td class="align-right">{{nutritional_data.total.carbohydrates_sugar|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}</td>
+            <td class="align-right">{{nutritional_data.total.carbohydrates_sugar|floatformat}} {% trans_weight_unit 'g' user %}</td>
             <td></td>
             <td></td>
         </tr>
         <tr>
             <td>{% trans "Fat" %}</td>
-            <td class="align-right">{{nutritional_data.total.fat|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}</td>
+            <td class="align-right">{{nutritional_data.total.fat|floatformat}} {% trans_weight_unit 'g' user %}</td>
             <td class="align-right">{{nutritional_data.percent.fat|floatformat}} %</td>
             <td class="align-right">{{nutritional_data.per_kg.fat|floatformat}}</td>
         </tr>
         <tr>
             <td style="padding-left: 2em;">{% trans "Saturated fat content in fats" %}</td>
-            <td class="align-right">{{nutritional_data.total.fat_saturated|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}</td>
+            <td class="align-right">{{nutritional_data.total.fat_saturated|floatformat}} {% trans_weight_unit 'g' user %}</td>
             <td></td>
             <td></td>
         </tr>
@@ -308,13 +314,13 @@ $(document).ready(function() {
         </tr>
         <tr>
             <td>{% trans "Fibres" %}</td>
-            <td class="align-right">{{nutritional_data.total.fibres|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}</td>
+            <td class="align-right">{{nutritional_data.total.fibres|floatformat}} {% trans_weight_unit 'g' user %}</td>
             <td></td>
             <td></td>
         </tr>
         <tr>
             <td>{% trans "Sodium" %}</td>
-            <td class="align-right">{{nutritional_data.total.sodium|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}</td>
+            <td class="align-right">{{nutritional_data.total.sodium|floatformat}} {% trans_weight_unit 'g' user %}</td>
             <td></td>
             <td></td>
         </tr>

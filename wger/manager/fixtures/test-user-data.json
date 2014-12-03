@@ -500,7 +500,8 @@
             "notification_language": 1,
 	        "timer_active": true,
 	        "timer_pause": 90,
-	        "gym": 1
+	        "gym": 1,
+            "weight_unit": "kg"
         }
     }, 
     {
@@ -528,7 +529,8 @@
             "notification_language": 2,
 	        "timer_active": true,
 	        "timer_pause": 90,
-	        "gym": 1
+	        "gym": 1,
+            "weight_unit": "kg"
         }
     }, 
     {
@@ -554,7 +556,8 @@
             "workout_reminder": 10,
             "workout_duration": 15,
             "notification_language": 2,
-            "gym": 2
+            "gym": 2,
+            "weight_unit": "kg"
         }
     },
     {
@@ -582,7 +585,8 @@
             "notification_language": 2,
 	        "timer_active": true,
 	        "timer_pause": 90,
-	        "gym": 1
+	        "gym": 1,
+            "weight_unit": "kg"
         }
     },
     {
@@ -610,7 +614,8 @@
             "notification_language": 2,
 	        "timer_active": true,
 	        "timer_pause": 90,
-	        "gym": 1
+	        "gym": 1,
+            "weight_unit": "kg"
         }
     },
     {
@@ -638,7 +643,8 @@
             "notification_language": 2,
 	        "timer_active": true,
 	        "timer_pause": 90,
-	        "gym": 1
+	        "gym": 1,
+            "weight_unit": "kg"
         }
     },
     {
@@ -666,7 +672,8 @@
             "notification_language": 2,
 	        "timer_active": true,
 	        "timer_pause": 90,
-	        "gym": 2
+	        "gym": 2,
+            "weight_unit": "lb"
         }
     },
     {
@@ -694,7 +701,8 @@
             "notification_language": 2,
 	        "timer_active": true,
 	        "timer_pause": 90,
-	        "gym": 2
+	        "gym": 2,
+            "weight_unit": "lb"
         }
     },
     {
@@ -722,7 +730,8 @@
             "notification_language": 2,
 	        "timer_active": true,
 	        "timer_pause": 90,
-	        "gym": 1
+	        "gym": 1,
+            "weight_unit": "kg"
         }
     },
     {
@@ -750,7 +759,8 @@
             "notification_language": 2,
 	        "timer_active": true,
 	        "timer_pause": 90,
-	        "gym": 1
+	        "gym": 1,
+            "weight_unit": "kg"
         }
     },
     {
@@ -778,7 +788,8 @@
             "notification_language": 2,
 	        "timer_active": true,
 	        "timer_pause": 90,
-	        "gym": 2
+	        "gym": 2,
+            "weight_unit": "lb"
         }
     },
     {
@@ -806,7 +817,8 @@
             "notification_language": 2,
 	        "timer_active": true,
 	        "timer_pause": 90,
-	        "gym": 1
+	        "gym": 1,
+            "weight_unit": "kg"
         }
     },
     {
@@ -834,7 +846,8 @@
             "notification_language": 2,
 	        "timer_active": true,
 	        "timer_pause": 90,
-	        "gym": 2
+	        "gym": 2,
+            "weight_unit": "lb"
         }
     },
         {
@@ -862,7 +875,8 @@
             "notification_language": 1, 
             "calories": 3500, 
             "sport_hours": 6, 
-            "is_temporary": false
+            "is_temporary": false,
+            "weight_unit": "kg"
         }
     }, 
     {
@@ -890,7 +904,8 @@
             "notification_language": 1, 
             "calories": 3500, 
             "sport_hours": 6, 
-            "is_temporary": false
+            "is_temporary": false,
+            "weight_unit": "kg"
         }
     }, 
     {
@@ -918,7 +933,8 @@
             "notification_language": 1, 
             "calories": 3500, 
             "sport_hours": 6, 
-            "is_temporary": false
+            "is_temporary": false,
+            "weight_unit": "kg"
         }
     }, 
     {
@@ -946,7 +962,8 @@
             "notification_language": 1, 
             "calories": 3500, 
             "sport_hours": 6, 
-            "is_temporary": false
+            "is_temporary": false,
+            "weight_unit": "kg"
         }
     }, 
     {
@@ -974,7 +991,8 @@
             "notification_language": 1, 
             "calories": 3500, 
             "sport_hours": 6, 
-            "is_temporary": false
+            "is_temporary": false,
+            "weight_unit": "kg"
         }
     }, 
     {
@@ -1002,7 +1020,8 @@
             "notification_language": 1, 
             "calories": 3500, 
             "sport_hours": 6, 
-            "is_temporary": false
+            "is_temporary": false,
+            "weight_unit": "lb"
         }
     }, 
     {
@@ -1030,7 +1049,8 @@
             "notification_language": 1, 
             "calories": 3500, 
             "sport_hours": 6, 
-            "is_temporary": false
+            "is_temporary": false,
+            "weight_unit": "lb"
         }
     }, 
     {
@@ -1058,7 +1078,8 @@
             "notification_language": 1, 
             "calories": 3500, 
             "sport_hours": 6, 
-            "is_temporary": false
+            "is_temporary": false,
+            "weight_unit": "kg"
         }
     }, 
     {
@@ -1086,7 +1107,8 @@
             "notification_language": 1, 
             "calories": 3500, 
             "sport_hours": 6, 
-            "is_temporary": false
+            "is_temporary": false,
+            "weight_unit": "kg"
         }
     }, 
     {
@@ -1114,7 +1136,8 @@
             "notification_language": 1, 
             "calories": 3500, 
             "sport_hours": 6, 
-            "is_temporary": false
+            "is_temporary": false,
+            "weight_unit": "kg"
         }
     }, 
     {
@@ -1142,7 +1165,8 @@
             "notification_language": 1, 
             "calories": 3500, 
             "sport_hours": 6, 
-            "is_temporary": false
+            "is_temporary": false,
+            "weight_unit": "kg"
         }
     }
 ]

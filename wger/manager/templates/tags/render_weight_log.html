@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load staticfiles %}
+{% load wger_extras %}
 <div class="weight-chart-table-toggle" data-toggle-target="table-{{div_uuid}}">
 <p>
     <a href="#">
@@ -23,7 +24,9 @@
             <tr>
                 <td style="text-align:right;">{% trans "Reps" %}</td>
                 <td></td>
-                <td style="padding:0px;">{% trans "kg" %}</td>
+                <td style="padding:0px;">
+                    {% trans_weight_unit 'kg' user %}
+                </td>
             </tr>
             {% for entry in entry_list %}
             <tr>

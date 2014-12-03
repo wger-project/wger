@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load staticfiles %}
+{% load wger_extras %}
 
 {% block title %}{% trans "Dashboard" %}{% endblock %}
 
@@ -103,23 +104,23 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
                 {% else %}
                     {% trans "Nutrition plan" %}
                 {% endif %}
-           </a>
-           </p>
-           – {{ plan.creation_date }}
-           <ul>
-               <li>
-                   {% trans "Energy" %}: {{nutritional_info.total.energy|floatformat}} {% trans "kcal" %}
-               </li>
-               <li>
-                   {% trans "Protein" %}: {{nutritional_info.total.protein|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
-               </li>
-               <li>
-                   {% trans "Carbohydrates" %}: {{nutritional_info.total.carbohydrates|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
-               </li>
-               <li>
-                   {% trans "Fat" %}: {{nutritional_info.total.fat|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
-               </li>
-           </ul>
+            </a>
+            </p>
+            – {{ plan.creation_date }}
+            <ul>
+                <li>
+                    {% trans "Energy" %}: {{nutritional_info.total.energy|floatformat}} {% trans "kcal" %}
+                </li>
+                <li>
+                    {% trans "Protein" %}: {{nutritional_info.total.protein|floatformat}} {% trans_weight_unit 'g' user %}
+                </li>
+                <li>
+                    {% trans "Carbohydrates" %}: {{nutritional_info.total.carbohydrates|floatformat}} {% trans_weight_unit 'g' user %}
+                </li>
+                <li>
+                    {% trans "Fat" %}: {{nutritional_info.total.fat|floatformat}} {% trans_weight_unit 'g' user %}
+                </li>
+            </ul>
 
         {% else %}
             <p>
@@ -130,7 +131,10 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
         {% endif %}
         {% if weight %}
         <p>
-            {% trans "Your current weight is: "%} <strong>{{weight.weight|floatformat}} {% trans "kg" %}</strong>
+            {% trans "Your current weight is: "%}
+            <strong>
+                {{weight.weight|floatformat}} {% trans_weight_unit 'kg' user %}
+            </strong>
         </p>
         {% endif %}
     </div>

@@ -115,7 +115,7 @@
         {{weight.creation_date}}
     </td>
     <td>
-        {{weight.weight}}
+        {{weight.weight}} {% trans_weight_unit 'kg' current_user %}
     </td>
 </tr>
 {% empty %}
@@ -155,13 +155,13 @@
         {{nutrition_plan.get_nutritional_values.total.energy|floatformat}} {% trans "kcal" %}
     </td>
     <td>
-        {{nutrition_plan.get_nutritional_values.total.protein|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
+        {{nutrition_plan.get_nutritional_values.total.protein|floatformat}} {% trans_weight_unit 'g' current_user %}
     </td>
     <td>
-        {{nutrition_plan.get_nutritional_values.total.carbohydrates|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
+        {{nutrition_plan.get_nutritional_values.total.carbohydrates|floatformat}} {% trans_weight_unit 'g' current_user %}
     </td>
     <td>
-        {{nutrition_plan.get_nutritional_values.total.fat|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}
+        {{nutrition_plan.get_nutritional_values.total.fat|floatformat}} {% trans_weight_unit 'g' current_user %}
     </td>
 </tr>
 {% endfor %}

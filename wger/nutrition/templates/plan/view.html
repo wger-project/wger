@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load staticfiles %}
+{% load wger_extras %}
 
 {% block title %}{% trans "Nutrition plan" %} – {{ plan.creation_date}}{% endblock %}
 
@@ -29,13 +30,20 @@ function custom_modal_init()
         <tr style="background: #E0E0E0;">
             <th>{% trans "Meal" %}</th>
             <th>{% trans "Contents" %}</th>
-            <th>{% trans "Energy" %}</th>
-            <th>{% trans "Protein" %}</th>
-            <th>{% trans "Carbohydrates" %}</th>
-            <th>{% trans "Fat" %}</th>
+            <th class="align-right">{% trans "Energy" %}</th>
+            <th class="align-right">{% trans "Protein" %}</th>
+            <th class="align-right">{% trans "Carbohydrates" %}</th>
+            <th class="align-right">{% trans "Fat" %}</th>
         </tr>
     </thead>
     <tbody>
+    <tr>
+        <td colspan="2"></td>
+        <td class="align-right">{% trans 'kcal' %}</td>
+        <td class="align-right">{% trans_weight_unit 'g' user %}</td>
+        <td class="align-right">{% trans_weight_unit 'g' user %}</td>
+        <td class="align-right">{% trans_weight_unit 'g' user %}</td>
+    </tr>
 {% for meal in plan.meal_set.select_related %}
     {% for item in meal.mealitem_set.select_related %}
     <tr>
@@ -102,10 +110,10 @@ function custom_modal_init()
                 </a>
             </span>
             </td>
-            <td>{{item.get_nutritional_values.energy|floatformat}}</td>
-            <td>{{item.get_nutritional_values.protein|floatformat}}</td>
-            <td>{{item.get_nutritional_values.carbohydrates|floatformat}}</td>
-            <td>{{item.get_nutritional_values.fat|floatformat}}</td>
+            <td class="align-right">{{item.get_nutritional_values.energy|floatformat}}</td>
+            <td class="align-right">{{item.get_nutritional_values.protein|floatformat}}</td>
+            <td class="align-right">{{item.get_nutritional_values.carbohydrates|floatformat}}</td>
+            <td class="align-right">{{item.get_nutritional_values.fat|floatformat}}</td>
 </tr>
     {% empty %}
     <tr>
@@ -172,31 +180,31 @@ function custom_modal_init()
         </tr>
         <tr>
             <td>{% trans "Protein" %}</td>
-            <td class="align-right">{{nutritional_data.total.protein|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}</td>
+            <td class="align-right">{{nutritional_data.total.protein|floatformat}} {% trans_weight_unit 'g' user %}</td>
             <td class="align-right">{{nutritional_data.percent.protein|floatformat}} %</td>
             <td class="align-right">{{nutritional_data.per_kg.protein|floatformat}}</td>
         </tr>
         <tr>
             <td>{% trans "Carbohydrates" %}</td>
-            <td class="align-right">{{nutritional_data.total.carbohydrates|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}</td>
+            <td class="align-right">{{nutritional_data.total.carbohydrates|floatformat}} {% trans_weight_unit 'g' user %}</td>
             <td class="align-right">{{nutritional_data.percent.carbohydrates|floatformat}} %</td>
             <td class="align-right">{{nutritional_data.per_kg.carbohydrates|floatformat}}</td>
         </tr>
         <tr>
             <td style="padding-left: 2em;">{% trans "Sugar content in carbohydrates" %}</td>
-            <td class="align-right">{{nutritional_data.total.carbohydrates_sugar|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}</td>
+            <td class="align-right">{{nutritional_data.total.carbohydrates_sugar|floatformat}} {% trans_weight_unit 'g' user %}</td>
             <td></td>
             <td></td>
         </tr>
         <tr>
             <td>{% trans "Fat" %}</td>
-            <td class="align-right">{{nutritional_data.total.fat|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}</td>
+            <td class="align-right">{{nutritional_data.total.fat|floatformat}} {% trans_weight_unit 'g' user %}</td>
             <td class="align-right">{{nutritional_data.percent.fat|floatformat}} %</td>
             <td class="align-right">{{nutritional_data.per_kg.fat|floatformat}}</td>
         </tr>
         <tr>
             <td style="padding-left: 2em;">{% trans "Saturated fat content in fats" %}</td>
-            <td class="align-right">{{nutritional_data.total.fat_saturated|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}</td>
+            <td class="align-right">{{nutritional_data.total.fat_saturated|floatformat}} {% trans_weight_unit 'g' user %}</td>
             <td></td>
             <td></td>
         </tr>
@@ -207,13 +215,13 @@ function custom_modal_init()
         </tr>
         <tr>
             <td>{% trans "Fibres" %}</td>
-            <td class="align-right">{{nutritional_data.total.fibres|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}</td>
+            <td class="align-right">{{nutritional_data.total.fibres|floatformat}} {% trans_weight_unit 'g' user %}</td>
             <td></td>
             <td></td>
         </tr>
         <tr>
             <td>{% trans "Sodium" %}</td>
-            <td class="align-right">{{nutritional_data.total.sodium|floatformat}} {% trans "g" context "weight unit, i.e. grams" %}</td>
+            <td class="align-right">{{nutritional_data.total.sodium|floatformat}} {% trans_weight_unit 'g' user %}</td>
             <td></td>
             <td></td>
         </tr>
