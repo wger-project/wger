@@ -90,27 +90,33 @@ $(document).ready(function() {
                 {% for exercise in set.exercise_list %}
                 <div id="exercise-{{ exercise.obj.id }}" class="ajax-set-edit-target">
                     <div class="media">
-                        <div style="width:60px;height:60px;" class="media-left">
+
+
+                        <div class="media-left">
                             <a href="{{exercise.obj.get_absolute_url}}" >
                             {% if exercise.obj.main_image %}
-                            <img class="media-object img-responsive"
+                            <img class="img-responsive"
                                  src="{{ exercise.obj.main_image.image|thumbnail_url:'small' }}"
                                  alt="{{exercise.obj}}"
-                                 style="max-width:100%; max-height:100%;">
+                                 style="width:64px; max-height:64px;">
                             {% else %}
-                            <img class="media-object img-responsive"
+                            <img class="img-responsive"
                                  src="{% static 'images/icons/image-placeholder.svg' %}"
                                  alt="{% trans 'Placeholder image for exercise' %}"
-                                 style="opacity: 0.4; max-width:100%; max-height:100%;">
+                                 style="opacity: 0.4; width:60px; max-height:60px;">
                             {% endif %}
                             </a>
                         </div>
-                        <div class="media-body" style="position: relative; top: 10px; left: 100px;">
+
+
+
+                        <div class="media-body">
                             <h4 class="media-heading">
                                 {{ exercise.obj.name }}
                             </h4>
                             <p>{{exercise.setting_text}}</p>
 
+                            {% if not compact %}
                             {% if not exercise.setting_list %}
                             <p>
                                 {% trans "This exercise has no repetitions." %}<br>
@@ -120,7 +126,6 @@ $(document).ready(function() {
                             </p>
                             {% endif %}
 
-                            {% if not compact %}
                             {% if exercise.comment_list %}
                             <p class="text-muted">
                                 {% for comment in exercise.comment_list %}
