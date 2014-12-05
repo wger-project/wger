@@ -27,23 +27,20 @@ $(document).ready(function() {
                        <img src="{% static 'images/icons/trash.svg' %}"
                             width="22"
                             height="22"
-                            alt="{% trans 'Delete' %}">
-                </a>
+                            alt="{% trans 'Delete' %}"></a>
                 <a href="{% url 'manager:day:edit' day.obj.id %}"
                    title="{% trans 'Edit' %}"
                    class="wger-modal-dialog">
                        <img src="{% static 'images/icons/edit.svg' %}"
                             width="22"
                             height="22"
-                            alt="{% trans 'Edit' %}">
-                </a>
+                            alt="{% trans 'Edit' %}"></a>
                 <a href="{% url 'manager:day:log' day.obj.id %}"
                    title="{% trans 'Add weight log to this day' %}">
                        <img src="{% static 'images/icons/statistics.svg' %}"
                             width="22"
                             height="22"
-                            alt="{% trans 'Add weight log to this day' %}">
-                </a>
+                            alt="{% trans 'Add weight log to this day' %}"></a>
             </span>
             {% endif %}
         </th>

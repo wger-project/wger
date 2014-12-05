@@ -78,16 +78,14 @@ $(document).ready(function() {
                            <img src="{% static 'images/icons/trash.svg' %}"
                                 width="16"
                                 height="16"
-                                alt="{% trans 'Delete' %}">
-                    </a>
+                                alt="{% trans 'Delete' %}"></a>
                     <a href="{% url 'manager:log:edit' log.pk %}"
                        title="{% trans 'Edit' %}"
                        class="wger-modal-dialog">
                            <img src="{% static 'images/icons/edit.svg' %}"
                                 width="16"
                                 height="16"
-                                alt="{% trans 'Edit' %}">
-                    </a>
+                                alt="{% trans 'Edit' %}"></a>
                 </span>
             </li>
         {% endfor %}

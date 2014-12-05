@@ -61,8 +61,7 @@ function custom_modal_init()
                         width="16"
                         height="16"
                         alt="{% trans 'Delete meal' %}"
-                        title="{% trans 'Delete meal' %}">
-                </a>
+                        title="{% trans 'Delete meal' %}"></a>
                 <a href="{% url 'nutrition:meal:edit' meal.id %}"
                    title="{% trans 'Edit' %}"
                    class="wger-modal-dialog">
@@ -70,8 +69,7 @@ function custom_modal_init()
                          width="16"
                          height="16"
                          alt="{% trans 'Edit meal' %}"
-                         title="{% trans 'Edit meal' %}">
-                </a>
+                         title="{% trans 'Edit meal' %}"></a>
                 <a href="{% url 'nutrition:meal_item:add' meal.id %}"
                    title="{% trans 'Add' %}"
                    class="wger-modal-dialog edit-meal">
@@ -79,8 +77,7 @@ function custom_modal_init()
                          width="16"
                          height="16"
                          alt="{% trans 'Add item to meal' %}"
-                         title="{% trans 'Add item to meal' %}">
-               </a>
+                         title="{% trans 'Add item to meal' %}"></a>
             </div>
         </td>
         {% endifchanged %}
@@ -98,16 +95,14 @@ function custom_modal_init()
                    <img src="{% static 'images/icons/trash.svg' %}"
                         width="16"
                         height="16"
-                        alt="{% trans 'Delete' %}">
-                </a>
+                        alt="{% trans 'Delete' %}"></a>
                 <a href="{% url 'nutrition:meal_item:edit' item.id %}"
                    title="{% trans 'Edit' %}"
                    class="wger-modal-dialog edit-meal edit-mealitem">
                     <img src="{% static 'images/icons/edit.svg' %}"
                          width="16"
                          height="16"
-                         alt="{% trans 'Edit' %}">
-                </a>
+                         alt="{% trans 'Edit' %}"></a>
             </span>
             </td>
             <td class="align-right">{{item.get_nutritional_values.energy|floatformat}}</td>
