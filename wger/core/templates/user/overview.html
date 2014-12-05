@@ -19,7 +19,7 @@
 {% url 'core:user:trainer-login' current_user.pk as trainer_login %}
 
 
-<h3>{% trans "Workouts" %} <small>({% trans "last 10" %})</small></h3>
+<h3>{% trans "Workouts" %} <small>({% blocktrans with number=10 %}last {{ number }}{% endblocktrans %})</small></h3>
 <table class="table">
 <thead>
 <tr>
@@ -61,7 +61,7 @@
 
 
 
-<h4>{% trans "Log" %} <small>({% trans "last 10" %})</small></h4>
+<h4>{% trans "Log" %} <small>({% blocktrans with number=10 %}last {{ number }}{% endblocktrans %})</small></h4>
 <table class="table">
 <thead>
 <tr>
@@ -93,14 +93,14 @@
 </tr>
 {% empty %}
 <tr>
-    <td colspan="3">{% trans "No logs found." %}</td>
+    <td colspan="3">{% trans "Nothing found" %}</td>
 </tr>
 {% endfor %}
 </tbody>
 </table>
 
 
-<h3>{% trans "Weight" %} <small>({% trans "last 5" %})</small></h3>
+<h3>{% trans "Weight" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h3>
 <table class="table">
 <thead>
 <tr>
@@ -120,7 +120,7 @@
 </tr>
 {% empty %}
 <tr>
-    <td colspan="3">{% trans "No logs found." %}</td>
+    <td colspan="3">{% trans "Nothing found" %}</td>
 </tr>
 {% endfor %}
 </tbody>
@@ -130,7 +130,7 @@
 {% endif %}
 
 
-<h3>{% trans "Nutrition plans" %} <small>({% trans "last 5" %})</small></h3>
+<h3>{% trans "Nutrition plans" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h3>
 <table class="table">
 <thead>
 <tr>
@@ -162,6 +162,12 @@
     </td>
     <td>
         {{nutrition_plan.get_nutritional_values.total.fat|floatformat}} {% trans_weight_unit 'g' current_user %}
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="6">
+        {% trans "Nothing found" %}
     </td>
 </tr>
 {% endfor %}
@@ -266,7 +272,7 @@
     </ul>
 </div>
 
-<h4>{% trans "Notes" %} <small>({% trans "last 5" %})</small></h4>
+<h4>{% trans "Notes" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h4>
 <table class="table">
     {% for note in admin_notes %}
     <tr>
@@ -307,7 +313,7 @@
     </ul>
 </div>
 
-<h4>{% trans "Documents" %} <small>({% trans "last 5" %})</small></h4>
+<h4>{% trans "Documents" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h4>
 <table class="table">
     {% for document in current_user.userdocument_member.all %}
     <tr>
