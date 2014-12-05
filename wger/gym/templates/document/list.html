@@ -50,6 +50,10 @@
         <p class="list-group-item-text">{{ document.note }}</p>
         {% endif %}
     </li>
+    {% empty %}
+        <li class="list-group-item">
+            {% trans "Nothing found" %}
+        </li>
     {% endfor %}
 </ul>
 {% endblock %}

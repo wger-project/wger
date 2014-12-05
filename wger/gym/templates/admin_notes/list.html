@@ -39,6 +39,10 @@
         <h4 class="list-group-item-heading">{{ note.timestamp_created }} - {{ note.user|format_username }}</h4>
         <p class="list-group-item-text">{{ note.note }}</p>
     </li>
+    {% empty %}
+    <li class="list-group-item">
+        {% trans "Nothing found" %}
+    </li>
     {% endfor %}
 </ul>
 {% endblock %}
