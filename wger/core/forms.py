@@ -133,7 +133,7 @@ class FeedbackRegisteredForm(forms.Form):
     contact = forms.CharField(max_length=50,
                               min_length=10,
                               label=_('Contact'),
-                              help_text=_('Some way of answering your (email, etc.)'),
+                              help_text=_('Some way of answering you (email, etc.)'),
                               required=False)
 
     comment = forms.CharField(max_length=500,
