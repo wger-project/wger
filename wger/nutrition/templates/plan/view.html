@@ -168,7 +168,13 @@ function custom_modal_init()
             <th>{% trans "Macronutrients" %}</th>
             <th class="align-right">{% trans "Total" %}</th>
             <th class="align-right">{% trans "Percent of energy" %}</th>
-            <th class="align-right">{% trans "g per body kg" %}</th>
+            <th class="align-right">
+                {% if user.userprofile.use_metric %}
+                    {% trans "g per body kg" %}
+                {% else %}
+                    {% trans "oz per body lb" %}
+                {% endif %}
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -182,13 +188,13 @@ function custom_modal_init()
             <td>{% trans "Protein" %}</td>
             <td class="align-right">{{nutritional_data.total.protein|floatformat}} {% trans_weight_unit 'g' user %}</td>
             <td class="align-right">{{nutritional_data.percent.protein|floatformat}} %</td>
-            <td class="align-right">{{nutritional_data.per_kg.protein|floatformat}}</td>
+            <td class="align-right">{{nutritional_data.per_kg.protein|floatformat:2}}</td>
         </tr>
         <tr>
             <td>{% trans "Carbohydrates" %}</td>
             <td class="align-right">{{nutritional_data.total.carbohydrates|floatformat}} {% trans_weight_unit 'g' user %}</td>
             <td class="align-right">{{nutritional_data.percent.carbohydrates|floatformat}} %</td>
-            <td class="align-right">{{nutritional_data.per_kg.carbohydrates|floatformat}}</td>
+            <td class="align-right">{{nutritional_data.per_kg.carbohydrates|floatformat:2}}</td>
         </tr>
         <tr>
             <td style="padding-left: 2em;">{% trans "Sugar content in carbohydrates" %}</td>
@@ -200,7 +206,7 @@ function custom_modal_init()
             <td>{% trans "Fat" %}</td>
             <td class="align-right">{{nutritional_data.total.fat|floatformat}} {% trans_weight_unit 'g' user %}</td>
             <td class="align-right">{{nutritional_data.percent.fat|floatformat}} %</td>
-            <td class="align-right">{{nutritional_data.per_kg.fat|floatformat}}</td>
+            <td class="align-right">{{nutritional_data.per_kg.fat|floatformat:2}}</td>
         </tr>
         <tr>
             <td style="padding-left: 2em;">{% trans "Saturated fat content in fats" %}</td>
