@@ -31,17 +31,11 @@
 </ul>
 
 {% if perms.core.add_gym %}
-<p>
-       <a href="{% url 'gym:gym:add' %}"
-          {% auto_link_css flavour "wger-modal-dialog" %}>
-       <img src="{% static 'images/icons/new.svg' %}"
-            width="32"
-            height="32"
-            alt="{% trans 'Add new gym' %}"
-            title="{% trans 'Add new gym' %}">
-       {% trans "Add new gym" %}
+    <div class="pull-right">
+        <a href="{% url 'gym:gym:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+            {% trans "Add new gym" %}
        </a>
-</p>
+   </div>
 {% endif %}
 {% endblock %}
 
