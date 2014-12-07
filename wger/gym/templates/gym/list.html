@@ -23,6 +23,10 @@
         </div>
         <a href="{% url 'gym:gym:user-list' gym.pk %}">{{gym}}</a>
     </li>
+    {% empty %}
+        <li class="list-group-item">
+            {% trans "Nothing found" %}
+        </li>
     {% endfor %}
 </ul>
 
