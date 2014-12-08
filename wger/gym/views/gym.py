@@ -164,7 +164,7 @@ def gym_new_user_info_export(request):
     # Crease CSV 'file'
     response = HttpResponse(content_type='text/csv')
     writer = csv.writer(response)
-    writer.writerow([_('User name'), _('First name'), _('Last name'), _('Gym'), _('Password')])
+    writer.writerow([_('Username'), _('First name'), _('Last name'), _('Gym'), _('Password')])
     writer.writerow([new_username,
                      new_user.first_name,
                      new_user.last_name,
