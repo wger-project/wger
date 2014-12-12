@@ -10,7 +10,7 @@ Installation
 ============
 
 These are the basic steps to install and run the application locally on a
-linux system. For more detailed instruccions and other deployment options,
+linux system. For more detailed instructions and other deployment options,
 consult https://wger.de/software/code
 
 
