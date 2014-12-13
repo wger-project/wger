@@ -3,8 +3,8 @@
         "pk": 1, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 5
             ], 
@@ -22,8 +22,8 @@
         "pk": 3, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 1
             ], 
@@ -41,8 +41,8 @@
         "pk": 4, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 10, 
-            "status": "5", 
             "muscles": [
                 6
             ], 
@@ -50,7 +50,9 @@
             "license": 1, 
             "language": 1, 
             "creation_date": null, 
-            "equipment": [], 
+            "equipment": [
+                8
+            ], 
             "license_author": "wger.de", 
             "muscles_secondary": [
                 3
@@ -62,8 +64,8 @@
         "pk": 5, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "5", 
             "muscles": [
                 8, 
                 10
@@ -84,8 +86,8 @@
         "pk": 6, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "5", 
             "muscles": [
                 10
             ], 
@@ -105,8 +107,8 @@
         "pk": 7, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "5", 
             "muscles": [
                 10
             ], 
@@ -128,8 +130,8 @@
         "pk": 8, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "5", 
             "muscles": [
                 9
             ], 
@@ -151,8 +153,8 @@
         "pk": 9, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [
                 12, 
                 10
@@ -175,8 +177,8 @@
         "pk": 10, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [
                 12
             ], 
@@ -198,16 +200,18 @@
         "pk": 11, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [
                 12
             ], 
-            "description": "", 
+            "description": "<p>Nehme eine Flachbank und setze das Knie eines Beines auf ein Ende, das andere Bein ist daneben und leicht angewinkelt. Beuge deinen Oberk\u00f6rper nach vorn und benutze deine Hand um dich abzust\u00fctzen. Der R\u00fccken macht einen leichten Hohlkreuz. Greife die Hantel mit der freien Hand und hebe sie eng am K\u00f6rper entlang (achte auf die Ellenbogen). Bringe sie langsam nach unten und wiederhole die Bewegung sobald du unten angekommen bist. Wechsle danach die Seite.</p>\n<p>\u00a0</p>", 
             "license": 1, 
             "language": 1, 
             "creation_date": null, 
-            "equipment": [], 
+            "equipment": [
+                3
+            ], 
             "license_author": "wger.de", 
             "muscles_secondary": [
                 2, 
@@ -221,8 +225,8 @@
         "pk": 12, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [
                 12
             ], 
@@ -243,8 +247,8 @@
         "pk": 13, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 14, 
-            "status": "5", 
             "muscles": [
                 7
             ], 
@@ -264,8 +268,8 @@
         "pk": 14, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 14, 
-            "status": "5", 
             "muscles": [
                 15
             ], 
@@ -285,8 +289,8 @@
         "pk": 15, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "5", 
             "muscles": [
                 4
             ], 
@@ -310,8 +314,8 @@
         "pk": 16, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "5", 
             "muscles": [
                 4
             ], 
@@ -335,8 +339,8 @@
         "pk": 17, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "5", 
             "muscles": [
                 4
             ], 
@@ -344,7 +348,9 @@
             "license": 1, 
             "language": 1, 
             "creation_date": null, 
-            "equipment": [], 
+            "equipment": [
+                1
+            ], 
             "license_author": "wger.de", 
             "muscles_secondary": [
                 2, 
@@ -358,8 +364,8 @@
         "pk": 18, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "5", 
             "muscles": [
                 4
             ], 
@@ -380,8 +386,8 @@
         "pk": 19, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "5", 
             "muscles": [
                 2
             ], 
@@ -402,8 +408,8 @@
         "pk": 20, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "5", 
             "muscles": [
                 2
             ], 
@@ -423,8 +429,8 @@
         "pk": 21, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "5", 
             "muscles": [
                 2
             ], 
@@ -442,8 +448,8 @@
         "pk": 22, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "5", 
             "muscles": [
                 11
             ], 
@@ -461,8 +467,8 @@
         "pk": 23, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 14, 
-            "status": "5", 
             "muscles": [
                 7
             ], 
@@ -482,8 +488,8 @@
         "pk": 24, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 1
             ], 
@@ -505,8 +511,8 @@
         "pk": 25, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 5
             ], 
@@ -526,8 +532,8 @@
         "pk": 26, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 1
             ], 
@@ -549,8 +555,8 @@
         "pk": 27, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 5
             ], 
@@ -568,8 +574,8 @@
         "pk": 28, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 1
             ], 
@@ -577,7 +583,9 @@
             "license": 1, 
             "language": 1, 
             "creation_date": null, 
-            "equipment": [], 
+            "equipment": [
+                3
+            ], 
             "license_author": "wger.de", 
             "muscles_secondary": [
                 13
@@ -589,8 +597,8 @@
         "pk": 29, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 5
             ], 
@@ -611,8 +619,8 @@
         "pk": 30, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "5", 
             "muscles": [
                 4
             ], 
@@ -632,8 +640,8 @@
         "pk": 31, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "5", 
             "muscles": [
                 4
             ], 
@@ -653,8 +661,8 @@
         "pk": 32, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 10, 
-            "status": "5", 
             "muscles": [
                 6
             ], 
@@ -672,8 +680,8 @@
         "pk": 33, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 10, 
-            "status": "5", 
             "muscles": [
                 6
             ], 
@@ -691,8 +699,8 @@
         "pk": 34, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 10, 
-            "status": "5", 
             "muscles": [
                 6
             ], 
@@ -714,8 +722,8 @@
         "pk": 35, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 10, 
-            "status": "5", 
             "muscles": [
                 6
             ], 
@@ -735,8 +743,8 @@
         "pk": 36, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [
                 12
             ], 
@@ -760,8 +768,8 @@
         "pk": 37, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [
                 12
             ], 
@@ -782,8 +790,8 @@
         "pk": 38, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 5
             ], 
@@ -806,8 +814,8 @@
         "pk": 39, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "5", 
             "muscles": [
                 10
             ], 
@@ -825,8 +833,8 @@
         "pk": 40, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "5", 
             "muscles": [
                 12, 
                 4, 
@@ -848,8 +856,8 @@
         "pk": 41, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "5", 
             "muscles": [
                 4
             ], 
@@ -873,8 +881,8 @@
         "pk": 42, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "5", 
             "muscles": [], 
             "description": "", 
             "license": 1, 
@@ -890,16 +898,18 @@
         "pk": 44, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 1
             ], 
-            "description": "<p>Halte die Hantel mit etwa schulterbreitem Griff, die Arme sind ausgestreckt. Beuge die Arme und brige die Hantel mit einer schnellen Bewegung nach oben. Ohne Pause wird das Gewicht nun kontrolliert nach unten gebracht. Beachte, dass die Bewegung nach oben schneller ist als nach unten.</p>\r\n<p>W&auml;hrend des Bewegungablaufs darf der K&ouml;rper nicht mitschwingen. Die Ellenbogen bleiben dabei immer an der Stelle.</p>", 
+            "description": "<p>Halte die Hantel mit etwa schulterbreitem Griff, die Arme sind ausgestreckt. Beuge die Arme und brige die Hantel mit einer schnellen Bewegung nach oben. Ohne Pause wird das Gewicht nun kontrolliert nach unten gebracht. Beachte, dass die Bewegung nach oben schneller ist als nach unten.</p>\n<p>W\u00e4hrend des Bewegungablaufs darf der K\u00f6rper nicht mitschwingen. Die Ellenbogen bleiben dabei immer an der Stelle.</p>", 
             "license": 1, 
             "language": 1, 
             "creation_date": null, 
-            "equipment": [], 
+            "equipment": [
+                2
+            ], 
             "license_author": "wger.de", 
             "muscles_secondary": [
                 13
@@ -911,8 +921,8 @@
         "pk": 45, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 5
             ], 
@@ -932,8 +942,8 @@
         "pk": 46, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 1
             ], 
@@ -955,8 +965,8 @@
         "pk": 47, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "5", 
             "muscles": [
                 2
             ], 
@@ -979,8 +989,8 @@
         "pk": 48, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [
                 12
             ], 
@@ -1002,8 +1012,8 @@
         "pk": 49, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [
                 12
             ], 
@@ -1021,8 +1031,8 @@
         "pk": 50, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [
                 11, 
                 8
@@ -1043,12 +1053,12 @@
         "pk": 51, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 10, 
-            "status": "5", 
             "muscles": [
                 6
             ], 
-            "description": "", 
+            "description": "\n<p>Ablauf wie bei regul\u00e4re Crunches, nur mit zus\u00e4tzlichem Gewicht an der Maschine.</p>\n<p>Setzte dich hin, beide F\u00fc\u00dfe stabil auf dem Boden. Nehme die Gewichte, Kabel, etc. fest und f\u00fchre eine rollende Bewegung nach vorn (die Wirbels\u00e4ule sollte sich idealerweise Wirbel f\u00fcr Wirbel von der Lehne l\u00f6sen). Kehre langsam in die Ausgangsposition zur\u00fcck.</p>\n", 
             "license": 1, 
             "language": 1, 
             "creation_date": null, 
@@ -1062,8 +1072,8 @@
         "pk": 52, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "5", 
             "muscles": [
                 4
             ], 
@@ -1081,8 +1091,8 @@
         "pk": 53, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "5", 
             "muscles": [
                 2
             ], 
@@ -1102,8 +1112,8 @@
         "pk": 54, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "5", 
             "muscles": [
                 10
             ], 
@@ -1123,8 +1133,8 @@
         "pk": 55, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "5", 
             "muscles": [
                 8, 
                 10
@@ -1145,27 +1155,29 @@
         "pk": 56, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 10, 
-            "status": "5", 
             "muscles": [
                 6
             ], 
-            "description": "", 
+            "description": "\n<p>Der Ablauf der \u00dcbung ist im Prinzip wie bei den normalen Crunches, nur legst du dich auf eine Schr\u00e4gbank oder eine andere geeignete Fl\u00e4che. Stelle sicher, dass du nicht rutschen kannst indem du die Beine \u00fcber den Rand anwikelst oder sonstwo festhalten kannst. Halte die H\u00e4nde hinter dem Nacken verschr\u00e4nkt. Aus dieser Position f\u00fchre den Oberk\u00f6rper so weit nach oben, bis Kopf oder Ellenbogen die Knie ber\u00fchren.</p>\n<p>Es ist wichtig, dass dieser Vorgang mit einer rollenden Bewegung durchgef\u00fchrt wird: die Wirbels\u00e4ule sollte sich Wirbel f\u00fcr Wirbel von der Matte l\u00f6sen. Ein Hohlkreuz ist stets zu vermeiden.</p>\n", 
             "license": 1, 
             "language": 1, 
             "creation_date": null, 
-            "equipment": [], 
+            "equipment": [
+                9
+            ], 
             "license_author": "wger.de", 
             "muscles_secondary": [], 
-            "name": "Crunches am Stuhl"
+            "name": "Crunches an Schr\u00e4gbank"
         }
     }, 
     {
         "pk": 57, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 10, 
-            "status": "5", 
             "muscles": [
                 6
             ], 
@@ -1183,8 +1195,8 @@
         "pk": 58, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 5
             ], 
@@ -1204,8 +1216,8 @@
         "pk": 59, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [
                 12
             ], 
@@ -1228,8 +1240,8 @@
         "pk": 60, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [], 
             "description": "<p>Lege dich auf das Polster so, dass der Bauchnabel kurz vor der Vorderkante liegt, der Oberk\u00f6rper h\u00e4ngt frei nach unten. Spanne die gesamte R\u00fcckenmuskulatur an, und bringe den Oberk\u00f6rper nach oben bis er waagerecht ist (nicht h\u00f6her). Gehe nun langsam wieder nach unten (Muskelanspannung nicht vergessen).</p>", 
             "license": 1, 
@@ -1245,8 +1257,8 @@
         "pk": 61, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "5", 
             "muscles": [
                 4
             ], 
@@ -1267,8 +1279,8 @@
         "pk": 62, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "5", 
             "muscles": [
                 2, 
                 9
@@ -1291,8 +1303,8 @@
         "pk": 63, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 5
             ], 
@@ -1310,8 +1322,8 @@
         "pk": 65, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "5", 
             "muscles": [
                 2
             ], 
@@ -1329,8 +1341,8 @@
         "pk": 66, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "5", 
             "muscles": [
                 2
             ], 
@@ -1348,8 +1360,8 @@
         "pk": 67, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "5", 
             "muscles": [
                 2
             ], 
@@ -1369,8 +1381,8 @@
         "pk": 68, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 5
             ], 
@@ -1378,7 +1390,9 @@
             "license": 1, 
             "language": 1, 
             "creation_date": null, 
-            "equipment": [], 
+            "equipment": [
+                8
+            ], 
             "license_author": "wger.de", 
             "muscles_secondary": [], 
             "name": "Dips zwischen 2 B\u00e4nke"
@@ -1388,8 +1402,8 @@
         "pk": 69, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "5", 
             "muscles": [
                 10
             ], 
@@ -1407,8 +1421,8 @@
         "pk": 70, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [
                 12
             ], 
@@ -1431,8 +1445,8 @@
         "pk": 71, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "5", 
             "muscles": [
                 4
             ], 
@@ -1452,12 +1466,12 @@
         "pk": 72, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "5", 
             "muscles": [
                 11
             ], 
-            "description": "", 
+            "description": "<p>Diese \u00dcbung wird jeweils mit einem Bein durchgef\u00fchrt.</p>\n<p>Stelle dich vor der Maschine und stelle deine Waden hinter dem Polster (setzte die H\u00f6he so ein, dass es knapp unter den Waden ansetzt). Beuge nun das Bein bis dein Knie einen rechten Winkel einnimmt, bringe das Gewicht nun langsam und kontrolliert wieder nach unten.</p>", 
             "license": 1, 
             "language": 1, 
             "creation_date": null, 
@@ -1471,8 +1485,8 @@
         "pk": 73, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "5", 
             "muscles": [
                 4
             ], 
@@ -1493,8 +1507,8 @@
         "pk": 74, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 1
             ], 
@@ -1516,8 +1530,8 @@
         "pk": 76, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [
                 12
             ], 
@@ -1539,8 +1553,8 @@
         "pk": 77, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "5", 
             "muscles": [
                 4
             ], 
@@ -1564,8 +1578,8 @@
         "pk": 79, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "5", 
             "muscles": [
                 2, 
                 9
@@ -1586,8 +1600,8 @@
         "pk": 80, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 1
             ], 
@@ -1609,8 +1623,8 @@
         "pk": 81, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 1
             ], 
@@ -1632,8 +1646,8 @@
         "pk": 82, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 5
             ], 
@@ -1654,8 +1668,8 @@
         "pk": 83, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 5
             ], 
@@ -1675,8 +1689,8 @@
         "pk": 84, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 5
             ], 
@@ -1697,8 +1711,8 @@
         "pk": 85, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 5
             ], 
@@ -1719,8 +1733,8 @@
         "pk": 86, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 1
             ], 
@@ -1740,8 +1754,8 @@
         "pk": 87, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 1
             ], 
@@ -1759,8 +1773,8 @@
         "pk": 88, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 5
             ], 
@@ -1784,8 +1798,8 @@
         "pk": 89, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 5
             ], 
@@ -1803,8 +1817,8 @@
         "pk": 90, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 5
             ], 
@@ -1822,8 +1836,8 @@
         "pk": 91, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 10, 
-            "status": "5", 
             "muscles": [
                 6
             ], 
@@ -1846,8 +1860,8 @@
         "pk": 92, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 10, 
-            "status": "5", 
             "muscles": [
                 6
             ], 
@@ -1865,8 +1879,8 @@
         "pk": 93, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 10, 
-            "status": "5", 
             "muscles": [
                 6
             ], 
@@ -1884,12 +1898,12 @@
         "pk": 94, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 10, 
-            "status": "5", 
             "muscles": [
                 6
             ], 
-            "description": "", 
+            "description": "<p>The procedure is very similar as for regular crunches, only with the additional weight of the machine. Sit on the machine, put both feet firmly on the ground. Grab the to the weights, cables, etc. and do a rolling motion forwards (the spine should ideally lose touch vertebra by vertebra). Slowly return to the starting position. </p>", 
             "license": 1, 
             "language": 2, 
             "creation_date": null, 
@@ -1903,8 +1917,8 @@
         "pk": 95, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 10, 
-            "status": "5", 
             "muscles": [
                 6
             ], 
@@ -1922,8 +1936,8 @@
         "pk": 97, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "5", 
             "muscles": [
                 4
             ], 
@@ -1947,8 +1961,8 @@
         "pk": 98, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "5", 
             "muscles": [
                 4
             ], 
@@ -1968,8 +1982,8 @@
         "pk": 99, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "5", 
             "muscles": [
                 4
             ], 
@@ -1987,8 +2001,8 @@
         "pk": 100, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "5", 
             "muscles": [
                 4
             ], 
@@ -2008,8 +2022,8 @@
         "pk": 101, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "5", 
             "muscles": [
                 4
             ], 
@@ -2029,8 +2043,8 @@
         "pk": 102, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 14, 
-            "status": "5", 
             "muscles": [
                 7
             ], 
@@ -2050,8 +2064,8 @@
         "pk": 103, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 14, 
-            "status": "5", 
             "muscles": [
                 15
             ], 
@@ -2071,8 +2085,8 @@
         "pk": 104, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 14, 
-            "status": "5", 
             "muscles": [
                 7
             ], 
@@ -2092,8 +2106,8 @@
         "pk": 105, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [
                 12, 
                 10
@@ -2116,8 +2130,8 @@
         "pk": 106, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [
                 12
             ], 
@@ -2139,8 +2153,8 @@
         "pk": 107, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [
                 12
             ], 
@@ -2164,8 +2178,8 @@
         "pk": 108, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [
                 12
             ], 
@@ -2183,8 +2197,8 @@
         "pk": 109, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [
                 12
             ], 
@@ -2207,8 +2221,8 @@
         "pk": 110, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [
                 12
             ], 
@@ -2231,8 +2245,8 @@
         "pk": 111, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "5", 
             "muscles": [
                 10
             ], 
@@ -2254,8 +2268,8 @@
         "pk": 112, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "5", 
             "muscles": [
                 10
             ], 
@@ -2277,16 +2291,18 @@
         "pk": 113, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "5", 
             "muscles": [
                 10
             ], 
-            "description": "", 
+            "description": "<p>Take two dumbbells in your hands, stand straight, feet about shoulder wide. Take one long step so that the front knee is approximately forming a right angle. The back leg is streched, the knee is low but doesn't touch the ground. \"Complete\" the step by standing up and repeat the movement with the other leg.</p>", 
             "license": 1, 
             "language": 2, 
             "creation_date": null, 
-            "equipment": [], 
+            "equipment": [
+                3
+            ], 
             "license_author": "wger.de", 
             "muscles_secondary": [
                 8
@@ -2298,8 +2314,8 @@
         "pk": 114, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "5", 
             "muscles": [
                 10
             ], 
@@ -2319,8 +2335,8 @@
         "pk": 115, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "5", 
             "muscles": [
                 10
             ], 
@@ -2340,8 +2356,8 @@
         "pk": 116, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "5", 
             "muscles": [
                 11
             ], 
@@ -2359,8 +2375,8 @@
         "pk": 117, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "5", 
             "muscles": [
                 11
             ], 
@@ -2378,8 +2394,8 @@
         "pk": 118, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "5", 
             "muscles": [
                 11
             ], 
@@ -2397,8 +2413,8 @@
         "pk": 119, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "5", 
             "muscles": [
                 2
             ], 
@@ -2418,8 +2434,8 @@
         "pk": 122, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "5", 
             "muscles": [
                 4
             ], 
@@ -2437,8 +2453,8 @@
         "pk": 123, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "5", 
             "muscles": [
                 2
             ], 
@@ -2458,8 +2474,8 @@
         "pk": 124, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "5", 
             "muscles": [
                 2
             ], 
@@ -2477,8 +2493,8 @@
         "pk": 125, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 10, 
-            "status": "5", 
             "muscles": [
                 6
             ], 
@@ -2500,8 +2516,8 @@
         "pk": 126, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 10, 
-            "status": "5", 
             "muscles": [
                 6
             ], 
@@ -2521,8 +2537,8 @@
         "pk": 127, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "5", 
             "muscles": [
                 2, 
                 9
@@ -2545,8 +2561,8 @@
         "pk": 128, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [
                 9
             ], 
@@ -2564,8 +2580,8 @@
         "pk": 129, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 1
             ], 
@@ -2583,8 +2599,8 @@
         "pk": 130, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "5", 
             "muscles": [
                 10
             ], 
@@ -2602,8 +2618,8 @@
         "pk": 132, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "5", 
             "muscles": [
                 2
             ], 
@@ -2621,12 +2637,12 @@
         "pk": 133, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "5", 
             "muscles": [
                 11
             ], 
-            "description": "", 
+            "description": "<p>Setze dich auf das Ger\u00e4ts und schiebe dich so weit nach hinten, bis du die R\u00fcckenlehne ber\u00fchrst. Lege deine Beine auf das Polster (verstelle die H\u00f6he so, dass es knapp unter den Waden Kontakt macht). Dr\u00fccke nun das Gewicht nach unten indem du die Beine beugst, die Fu\u00dfspitzen sind angespannt und zeigen nach oben (90\u00b0 Winkel). Bringe dann das Gewicht langsam wieder hoch, strecke aber die Beine nicht komplett aus.</p>", 
             "license": 1, 
             "language": 1, 
             "creation_date": null, 
@@ -2640,8 +2656,8 @@
         "pk": 134, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 1
             ], 
@@ -2661,8 +2677,8 @@
         "pk": 135, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "5", 
             "muscles": [
                 5
             ], 
@@ -2680,8 +2696,8 @@
         "pk": 136, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "5", 
             "muscles": [
                 12
             ], 
@@ -2702,8 +2718,8 @@
         "pk": 137, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "5", 
             "muscles": [
                 9
             ], 
@@ -2725,8 +2741,8 @@
         "pk": 138, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "4", 
             "muscles": [
                 1
             ], 
@@ -2746,8 +2762,8 @@
         "pk": 139, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 8, 
-            "status": "4", 
             "muscles": [
                 5
             ], 
@@ -2765,8 +2781,8 @@
         "pk": 140, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "4", 
             "muscles": [
                 12
             ], 
@@ -2788,8 +2804,8 @@
         "pk": 141, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "4", 
             "muscles": [
                 12
             ], 
@@ -2807,8 +2823,8 @@
         "pk": 142, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "4", 
             "muscles": [
                 12
             ], 
@@ -2826,8 +2842,8 @@
         "pk": 143, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "4", 
             "muscles": [
                 12
             ], 
@@ -2841,15 +2857,15 @@
                 1, 
                 13
             ], 
-            "name": "Long-Pulley"
+            "name": "Long-Pulley (low row)"
         }
     }, 
     {
         "pk": 144, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "4", 
             "muscles": [
                 12
             ], 
@@ -2870,8 +2886,8 @@
         "pk": 145, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "4", 
             "muscles": [
                 4
             ], 
@@ -2891,8 +2907,8 @@
         "pk": 146, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "4", 
             "muscles": [
                 4
             ], 
@@ -2912,8 +2928,8 @@
         "pk": 147, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "4", 
             "muscles": [
                 2, 
                 9
@@ -2934,8 +2950,8 @@
         "pk": 148, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "4", 
             "muscles": [
                 2
             ], 
@@ -2955,8 +2971,8 @@
         "pk": 149, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "4", 
             "muscles": [
                 2
             ], 
@@ -2974,8 +2990,8 @@
         "pk": 150, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "4", 
             "muscles": [
                 2
             ], 
@@ -2995,8 +3011,8 @@
         "pk": 151, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "4", 
             "muscles": [
                 2
             ], 
@@ -3016,8 +3032,8 @@
         "pk": 152, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "4", 
             "muscles": [
                 2
             ], 
@@ -3035,8 +3051,8 @@
         "pk": 153, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "4", 
             "muscles": [
                 2
             ], 
@@ -3057,8 +3073,8 @@
         "pk": 154, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "4", 
             "muscles": [
                 11
             ], 
@@ -3076,8 +3092,8 @@
         "pk": 155, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 13, 
-            "status": "4", 
             "muscles": [
                 2
             ], 
@@ -3095,8 +3111,8 @@
         "pk": 157, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 12, 
             "status": "1", 
+            "category": 12, 
             "muscles": [
                 2
             ], 
@@ -3116,8 +3132,8 @@
         "pk": 158, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 12, 
             "status": "2", 
+            "category": 12, 
             "muscles": [
                 12
             ], 
@@ -3137,8 +3153,8 @@
         "pk": 159, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 11, 
             "status": "1", 
+            "category": 11, 
             "muscles": [
                 4
             ], 
@@ -3158,8 +3174,8 @@
         "pk": 160, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 9, 
             "status": "2", 
+            "category": 9, 
             "muscles": [
                 11, 
                 8
@@ -3182,8 +3198,8 @@
         "pk": 161, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 12, 
             "status": "2", 
+            "category": 12, 
             "muscles": [
                 8
             ], 
@@ -3203,8 +3219,8 @@
         "pk": 162, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 8, 
             "status": "2", 
+            "category": 8, 
             "muscles": [
                 5
             ], 
@@ -3222,8 +3238,8 @@
         "pk": 163, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 11, 
             "status": "2", 
+            "category": 11, 
             "muscles": [
                 4
             ], 
@@ -3246,8 +3262,8 @@
         "pk": 164, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 13, 
             "status": "2", 
+            "category": 13, 
             "muscles": [
                 2
             ], 
@@ -3267,8 +3283,8 @@
         "pk": 165, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 10, 
             "status": "2", 
+            "category": 10, 
             "muscles": [
                 6
             ], 
@@ -3288,8 +3304,8 @@
         "pk": 166, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 10, 
             "status": "2", 
+            "category": 10, 
             "muscles": [
                 6
             ], 
@@ -3307,8 +3323,8 @@
         "pk": 167, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 10, 
             "status": "2", 
+            "category": 10, 
             "muscles": [
                 14
             ], 
@@ -3326,8 +3342,8 @@
         "pk": 168, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 11, 
             "status": "2", 
+            "category": 11, 
             "muscles": [
                 4
             ], 
@@ -3347,8 +3363,8 @@
         "pk": 170, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 10, 
             "status": "2", 
+            "category": 10, 
             "muscles": [
                 14
             ], 
@@ -3366,8 +3382,8 @@
         "pk": 172, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 8, 
             "status": "2", 
+            "category": 8, 
             "muscles": [
                 2, 
                 1, 
@@ -3395,8 +3411,8 @@
         "pk": 174, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 9, 
             "status": "2", 
+            "category": 9, 
             "muscles": [
                 8, 
                 6
@@ -3417,8 +3433,8 @@
         "pk": 176, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 10, 
             "status": "2", 
+            "category": 10, 
             "muscles": [
                 14
             ], 
@@ -3440,8 +3456,8 @@
         "pk": 177, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 9, 
             "status": "2", 
+            "category": 9, 
             "muscles": [
                 10
             ], 
@@ -3456,49 +3472,11 @@
         }
     }, 
     {
-        "pk": 178, 
-        "model": "exercises.exercise", 
-        "fields": {
-            "category": 12, 
-            "status": "1", 
-            "muscles": [
-                12
-            ], 
-            "description": "<p>Trazioni alla sbarra presa inversa</p>", 
-            "license": 1, 
-            "language": 2, 
-            "creation_date": "2013-07-24", 
-            "equipment": [], 
-            "license_author": "oliser67", 
-            "muscles_secondary": [], 
-            "name": "Trazioni alla sbarra presa inversa"
-        }
-    }, 
-    {
         "pk": 179, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 12, 
             "status": "1", 
-            "muscles": [
-                12
-            ], 
-            "description": "<p>Trazioni alla sbarra presa inversa</p>", 
-            "license": 1, 
-            "language": 2, 
-            "creation_date": "2013-07-24", 
-            "equipment": [], 
-            "license_author": "oliser67", 
-            "muscles_secondary": [], 
-            "name": "Trazioni alla sbarra presa inversa"
-        }
-    }, 
-    {
-        "pk": 180, 
-        "model": "exercises.exercise", 
-        "fields": {
             "category": 12, 
-            "status": "1", 
             "muscles": [
                 12
             ], 
@@ -3516,8 +3494,8 @@
         "pk": 181, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 12, 
             "status": "2", 
+            "category": 12, 
             "muscles": [
                 12
             ], 
@@ -3537,8 +3515,8 @@
         "pk": 182, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 11, 
             "status": "2", 
+            "category": 11, 
             "muscles": [
                 4
             ], 
@@ -3556,8 +3534,8 @@
         "pk": 185, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 9, 
             "status": "2", 
+            "category": 9, 
             "muscles": [
                 10
             ], 
@@ -3575,8 +3553,8 @@
         "pk": 186, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 8, 
             "status": "1", 
+            "category": 8, 
             "muscles": [
                 5
             ], 
@@ -3596,8 +3574,8 @@
         "pk": 187, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 12, 
             "status": "2", 
+            "category": 12, 
             "muscles": [
                 12
             ], 
@@ -3615,8 +3593,8 @@
         "pk": 188, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 12, 
             "status": "2", 
+            "category": 12, 
             "muscles": [
                 12
             ], 
@@ -3634,8 +3612,8 @@
         "pk": 189, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 13, 
             "status": "2", 
+            "category": 13, 
             "muscles": [
                 4
             ], 
@@ -3655,8 +3633,8 @@
         "pk": 190, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 13, 
             "status": "2", 
+            "category": 13, 
             "muscles": [
                 9
             ], 
@@ -3676,8 +3654,8 @@
         "pk": 191, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 9, 
             "status": "2", 
+            "category": 9, 
             "muscles": [
                 8
             ], 
@@ -3699,8 +3677,8 @@
         "pk": 192, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 11, 
             "status": "2", 
+            "category": 11, 
             "muscles": [
                 4
             ], 
@@ -3723,8 +3701,8 @@
         "pk": 193, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 8, 
             "status": "2", 
+            "category": 8, 
             "muscles": [
                 13
             ], 
@@ -3744,8 +3722,8 @@
         "pk": 194, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 11, 
             "status": "2", 
+            "category": 11, 
             "muscles": [
                 12, 
                 4, 
@@ -3765,8 +3743,8 @@
         "pk": 195, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 8, 
             "status": "2", 
+            "category": 8, 
             "muscles": [
                 1, 
                 11
@@ -3789,8 +3767,8 @@
         "pk": 196, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "4", 
             "muscles": [
                 12
             ], 
@@ -3808,8 +3786,8 @@
         "pk": 197, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 10, 
             "status": "2", 
+            "category": 10, 
             "muscles": [
                 1
             ], 
@@ -3827,8 +3805,8 @@
         "pk": 199, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 11, 
-            "status": "4", 
             "muscles": [
                 4
             ], 
@@ -3846,8 +3824,8 @@
         "pk": 200, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 9, 
-            "status": "4", 
             "muscles": [
                 10
             ], 
@@ -3867,8 +3845,8 @@
         "pk": 201, 
         "model": "exercises.exercise", 
         "fields": {
+            "status": "2", 
             "category": 12, 
-            "status": "4", 
             "muscles": [
                 12
             ], 
@@ -3886,8 +3864,8 @@
         "pk": 202, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 12, 
             "status": "2", 
+            "category": 12, 
             "muscles": [
                 12, 
                 9
@@ -3911,8 +3889,8 @@
         "pk": 203, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 8, 
             "status": "2", 
+            "category": 8, 
             "muscles": [
                 2, 
                 4, 
@@ -3939,8 +3917,8 @@
         "pk": 204, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 12, 
             "status": "2", 
+            "category": 12, 
             "muscles": [
                 12
             ], 
@@ -3958,8 +3936,8 @@
         "pk": 205, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 8, 
             "status": "2", 
+            "category": 8, 
             "muscles": [
                 1
             ], 
@@ -3979,8 +3957,8 @@
         "pk": 206, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 11, 
             "status": "2", 
+            "category": 11, 
             "muscles": [
                 4
             ], 
@@ -4001,8 +3979,8 @@
         "pk": 207, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 11, 
             "status": "2", 
+            "category": 11, 
             "muscles": [
                 4
             ], 
@@ -4020,8 +3998,8 @@
         "pk": 208, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 8, 
             "status": "2", 
+            "category": 8, 
             "muscles": [
                 1
             ], 
@@ -4041,8 +4019,8 @@
         "pk": 209, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 9, 
             "status": "2", 
+            "category": 9, 
             "muscles": [
                 11
             ], 
@@ -4064,8 +4042,8 @@
         "pk": 210, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 11, 
             "status": "2", 
+            "category": 11, 
             "muscles": [
                 4
             ], 
@@ -4086,8 +4064,8 @@
         "pk": 211, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 11, 
             "status": "2", 
+            "category": 11, 
             "muscles": [
                 4
             ], 
@@ -4105,8 +4083,8 @@
         "pk": 212, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 12, 
             "status": "2", 
+            "category": 12, 
             "muscles": [
                 12
             ], 
@@ -4126,8 +4104,8 @@
         "pk": 213, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 12, 
             "status": "2", 
+            "category": 12, 
             "muscles": [
                 12
             ], 
@@ -4145,8 +4123,8 @@
         "pk": 214, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 12, 
             "status": "2", 
+            "category": 12, 
             "muscles": [
                 12
             ], 
@@ -4164,8 +4142,8 @@
         "pk": 215, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 12, 
             "status": "2", 
+            "category": 12, 
             "muscles": [
                 12
             ], 
@@ -4185,8 +4163,8 @@
         "pk": 216, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 12, 
             "status": "2", 
+            "category": 12, 
             "muscles": [
                 12
             ], 
@@ -4206,8 +4184,8 @@
         "pk": 217, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 8, 
             "status": "2", 
+            "category": 8, 
             "muscles": [
                 5
             ], 
@@ -4230,8 +4208,8 @@
         "pk": 218, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 8, 
             "status": "2", 
+            "category": 8, 
             "muscles": [
                 5
             ], 
@@ -4251,8 +4229,8 @@
         "pk": 219, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 12, 
             "status": "1", 
+            "category": 12, 
             "muscles": [
                 10, 
                 6
@@ -4275,8 +4253,8 @@
         "pk": 221, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 13, 
             "status": "2", 
+            "category": 13, 
             "muscles": [
                 2, 
                 9
@@ -4295,8 +4273,8 @@
         "pk": 222, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 8, 
             "status": "2", 
+            "category": 8, 
             "muscles": [
                 1
             ], 
@@ -4318,8 +4296,8 @@
         "pk": 223, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 9, 
             "status": "2", 
+            "category": 9, 
             "muscles": [], 
             "description": "<p>Oberschenkel Innenseite!</p>", 
             "license": 1, 
@@ -4335,8 +4313,8 @@
         "pk": 224, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 12, 
             "status": "2", 
+            "category": 12, 
             "muscles": [
                 12
             ], 
@@ -4354,8 +4332,8 @@
         "pk": 225, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 11, 
             "status": "2", 
+            "category": 11, 
             "muscles": [
                 4
             ], 
@@ -4375,8 +4353,8 @@
         "pk": 226, 
         "model": "exercises.exercise", 
         "fields": {
-            "category": 12, 
             "status": "2", 
+            "category": 12, 
             "muscles": [
                 12
             ], 
@@ -4388,6 +4366,1178 @@
             "license_author": "mhs_79", 
             "muscles_secondary": [], 
             "name": "Lat-Ziehen mit gesteckten Armen am Seilzug"
+        }
+    }, 
+    {
+        "pk": 227, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 13, 
+            "muscles": [], 
+            "description": "<p>Very common shoulder exercise.</p>\n<p>\u00a0</p>\n<p>As shown here:\u00a0https://www.youtube.com/watch?v=vj2w851ZHRM</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-03-09", 
+            "equipment": [
+                3
+            ], 
+            "license_author": "trzr23", 
+            "muscles_secondary": [], 
+            "name": "Arnold Shoulder Press"
+        }
+    }, 
+    {
+        "pk": 228, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 13, 
+            "muscles": [
+                2
+            ], 
+            "description": "<p>Zwei Kurzhanteln mit den Handfl\u00e4chen nach innen vor der Brust halten, Ellbogen unterhalb der Handgelenke.</p>\n<p>Ellbogen nach au\u00dfen bringen und Hanteln \u00fcber den Kopf heben. Drehung kommt aus dem Ellbogen, nicht aus den Armen!</p>\n<p>Wenn die Arme durchgestreckt sind, die gleiche Bewegung r\u00fcckw\u00e4rts ausf\u00fchren.</p>", 
+            "license": 3, 
+            "language": 1, 
+            "creation_date": "2014-03-09", 
+            "equipment": [
+                3
+            ], 
+            "license_author": "bloody_disgrace", 
+            "muscles_secondary": [
+                3, 
+                9, 
+                5
+            ], 
+            "name": "Arnold Press"
+        }
+    }, 
+    {
+        "pk": 229, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 13, 
+            "muscles": [
+                2
+            ], 
+            "description": "<p>The military press is a variation of the overhead press weight training exercise using very strict form and no pre-movement momentum.The military press targets the deltoid muscles in the shoulders as well as the triceps. Additionally, it works the core and legs, which the lifter uses to help stabilize the weight.The lift begins with the lifter standing and the barbell on the anterior deltoids. The lifter then raises the barbell overhead by pressing the palms of the hands against the underside of the barbell.</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-03-09", 
+            "equipment": [
+                1
+            ], 
+            "license_author": "Wikipedia", 
+            "muscles_secondary": [
+                4, 
+                5
+            ], 
+            "name": "Military Press"
+        }
+    }, 
+    {
+        "pk": 230, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 10, 
+            "muscles": [
+                6
+            ], 
+            "description": "<p>Lege dich auf die Matte, die Arme sind ausgestreckt und bilden einen rechten Winkel mit dem K\u00f6rper. Bringe mit etwas Schwung die Beine in eine senkrechte Position. Hebe nun mit einer kontrollierten Bewegung den Becken etwa 5 cm. hoch. und bringe ihn langsam wieder runter. Ohne Pausen wird die Bewegung wiederholt.</p>", 
+            "license": 1, 
+            "language": 1, 
+            "creation_date": "2014-03-09", 
+            "equipment": [
+                4
+            ], 
+            "license_author": "wger.de", 
+            "muscles_secondary": [], 
+            "name": "Beckenheben"
+        }
+    }, 
+    {
+        "pk": 231, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 8, 
+            "muscles": [
+                1
+            ], 
+            "description": "<p>Wie \"Bizeps am Kabel\", nur mit einer \u00df-Stange</p>", 
+            "license": 2, 
+            "language": 1, 
+            "creation_date": "2014-03-09", 
+            "equipment": [], 
+            "license_author": "wger.de", 
+            "muscles_secondary": [], 
+            "name": "Bizeps am Kabel, \u00df-Stange"
+        }
+    }, 
+    {
+        "pk": 232, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 8, 
+            "muscles": [
+                5
+            ], 
+            "description": "<p>Stelle dich auf einer Bank, wie beim einarmigen KH-rudern: ein Knie und eine Hand auf die Bank, das andere Bein ist auf dem Boden und gibt Halt. Nehme die KH, der Vorderarm macht einen rechten Winkel und zeigt nach unten. Ohne die Ellenbogen zu bewegen, bringe das Gewicht hoch.</p>", 
+            "license": 2, 
+            "language": 1, 
+            "creation_date": "2014-03-09", 
+            "equipment": [
+                8, 
+                3
+            ], 
+            "license_author": "wger.de", 
+            "muscles_secondary": [], 
+            "name": "Kick-Backs"
+        }
+    }, 
+    {
+        "pk": 233, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 13, 
+            "muscles": [
+                2
+            ], 
+            "description": "<p>To execute the exercise, the lifter stands with their feet shoulder width apart and weights or resistance handles held by their side with a pronated (overhand) grip.</p>\n<p>The movement is to bring the arms up in front of the body to eye level and with only a slight bend in the elbow. This isolates the anterior deltoid muscle (front of the shoulder) and uses the anterior deltoid to lift the weight.</p>\n<p>When lifting it is important to keep the body still so the anterior deltoid is fully utilised; if the weight cannot be lifted by standing still then it is too heavy and a lower weight is needed. It is important to keep a slight bend in the elbow when lifting as keeping the elbow locked will add stress to the elbow joint and could cause injury.</p>\n<p>A neutral grip, similar to that used in the hammer curl, can also be used. With this variation the weight is again raised to eye level, but out to a 45 degree angle from the front of the body. This may be beneficial for those with shoulder injuries, particularly those related to the rotator cuff.</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-03-24", 
+            "equipment": [
+                1, 
+                3
+            ], 
+            "license_author": "Manu, wikipedia", 
+            "muscles_secondary": [
+                1, 
+                3
+            ], 
+            "name": "Front raises"
+        }
+    }, 
+    {
+        "pk": 235, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 8, 
+            "muscles": [], 
+            "description": "<p>\u0444\u044b\u0432 \u0444\u044b\u0432\u044b\u0444\u044b\u0444 \u0432\u044b</p>", 
+            "license": 1, 
+            "language": 5, 
+            "creation_date": "2014-03-27", 
+            "equipment": [], 
+            "license_author": "\u0432\u0432\u0432", 
+            "muscles_secondary": [], 
+            "name": "\u0412\u0435\u043b\u043e\u0442\u0440\u0435\u043d\u0430\u0436\u043e\u0440"
+        }
+    }, 
+    {
+        "pk": 236, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 9, 
+            "muscles": [], 
+            "description": "<p>\u0437\u0430\u043d\u044f\u0442\u0438\u0435 \u043d\u0430 \u0432\u0435\u043b\u043e\u0442\u0440\u0435\u043d\u0430\u0436\u043e\u0440\u0435</p>", 
+            "license": 1, 
+            "language": 5, 
+            "creation_date": "2014-03-27", 
+            "equipment": [
+                7
+            ], 
+            "license_author": "wger.de", 
+            "muscles_secondary": [], 
+            "name": "\u0412\u0435\u043b\u043e\u0442\u0440\u0435\u043d\u0430\u0436\u043e\u0440"
+        }
+    }, 
+    {
+        "pk": 237, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 13, 
+            "muscles": [], 
+            "description": "<p>Seated on a bench bWith the dumbbells on the floor bend over at 45 Degrees and then slowly raise each dumbbell to shoulder height and hold for a couple seconds before lowering to the starting position.\u00a0</p>\n<p>\u00a0</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-03-30", 
+            "equipment": [
+                3
+            ], 
+            "license_author": "YYCfit", 
+            "muscles_secondary": [], 
+            "name": "Rear Delt Raises"
+        }
+    }, 
+    {
+        "pk": 238, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 10, 
+            "muscles": [], 
+            "description": "<p>Get into a position on the floor supporting your weight on your forearms and toes. Arms are bent and directly below the shoulder.\u00a0</p>\n<p>Keep your body straight at all times and hold this position as long as possible. To increase difficulty an arm or leg can be raised while performing this exercise. \u00a0</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-03-31", 
+            "equipment": [], 
+            "license_author": "YYCfit", 
+            "muscles_secondary": [], 
+            "name": "Plank"
+        }
+    }, 
+    {
+        "pk": 239, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 10, 
+            "muscles": [], 
+            "description": "<p>Zielmuskeln: Schr\u00e4ger Bauchmuskel</p>\n<p>Unterst\u00fctzende Muskulatur: Gerader Bauchmuskel</p>", 
+            "license": 1, 
+            "language": 1, 
+            "creation_date": "2014-04-08", 
+            "equipment": [
+                3
+            ], 
+            "license_author": "klabautermann", 
+            "muscles_secondary": [
+                6
+            ], 
+            "name": "Seitliches Oberk\u00f6rperbeugen mit KH"
+        }
+    }, 
+    {
+        "pk": 240, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 10, 
+            "muscles": [
+                14
+            ], 
+            "description": "<p>Zielmuskeln: Schr\u00e4ger Bauchmuskel</p>\n<p>Unterst\u00fctzende Muskulatur: Gerader Bauchmuskel</p>\n<p>Erforderliches Equipment: Roman Chair</p>\n<ul>\n<li>Gerader K\u00f6rper in der Ausgangsposition</li>\n<li>Oberk\u00f6rper in Richtung Boden beugen</li>\n<li>Wenn der Oberk\u00f6rper ungef\u00e4hr parallel zum Boden ist, mit der Aufw\u00e4rtsbewegung beginnen</li>\n<li>H\u00e4nde wahlweise hinter dem Kopf oder vor der Brust</li>\n</ul>", 
+            "license": 1, 
+            "language": 1, 
+            "creation_date": "2014-04-08", 
+            "equipment": [], 
+            "license_author": "klabautermann", 
+            "muscles_secondary": [
+                6
+            ], 
+            "name": "Seitliches Oberk\u00f6rperbeugen am Ger\u00e4t"
+        }
+    }, 
+    {
+        "pk": 241, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 13, 
+            "muscles": [], 
+            "description": "<ul>\n<li>\u00dcbung kann im Sitzen oder im Stehen ausgef\u00fchrt werden</li>\n<li>R\u00fccken durchgestreckt, Blick geradeaus, unteren R\u00fccken und Bauchmuskulatur anspannen</li>\n<li>Ellenbogen nicht zu weit absenken, idealerweise bis maximal zur Schulterh\u00f6he</li>\n</ul>", 
+            "license": 1, 
+            "language": 1, 
+            "creation_date": "2014-04-08", 
+            "equipment": [
+                3
+            ], 
+            "license_author": "klabautermann", 
+            "muscles_secondary": [], 
+            "name": "Schulterdr\u00fccken KH"
+        }
+    }, 
+    {
+        "pk": 242, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 8, 
+            "muscles": [
+                1, 
+                13
+            ], 
+            "description": "<p>Sitz auf einer ca. 45\u00b0 nach hinten geneigten Schr\u00e4gbank; Oberk\u00f6rper und Kopf an die R\u00fcckenlehne angelehnt.</p>\n<p>Rumpfmuskulatur anspannen, R\u00fccken bleibt gerade, Blick geradeaus.</p>\n<p>Die Kurzhanteln werden jeweils im neutralen Hammergriff gefasst (Handinnenfl\u00e4chen zeigen zueinander). Die Arme h\u00e4ngen, leicht gebeugt, seitlich herab. Durch die Neigung der R\u00fcckenlehne befinden sich die leicht gebeugten Arme hinter der K\u00f6rperachse.</p>\n<p>Handgelenke in Verl\u00e4ngerung des Unterarms.</p>\n<p>Beugen und Strecken im Ellbogengelenk in einer gleichm\u00e4\u00dfigen, parallelen Bewegung nah am K\u00f6rper vorbei; Dabei zeigt der Oberarm weiter nahezu unver\u00e4ndert senkrecht nach unten.</p>\n<p>Die Unterarme w\u00e4hrend der Beugephase entweder ausw\u00e4rts drehen (Supination), so dass in der Endposition die Handinnenfl\u00e4che zum K\u00f6rper hin zeigt bzw. die Kurzhantel im Untergriff gehalten wird oder ohne Ausw\u00e4rtsdrehung der Unterarme beugen, so dass in der Endposition der Daumen zum K\u00f6rper zeigt bzw. die Kurzhantel im neutralen Hammergriff gehalten wird.</p>\n<p>Die Arme weder maximal beugen noch ganz durchstrecken.</p>\n<p>Bei der Spuinationsvariante werden die Unterarme in der Abw\u00e4rtsbewegung wieder nac innen zur\u00fcckgedreht.</p>\n<p>Richtige Atmung: Beim Beugen ausatmen, beim Strecken einatmen.</p>", 
+            "license": 1, 
+            "language": 1, 
+            "creation_date": "2014-04-08", 
+            "equipment": [
+                3
+            ], 
+            "license_author": "Konsumopfer", 
+            "muscles_secondary": [], 
+            "name": "Bizeps KH-Curls Schr\u00e4gbank"
+        }
+    }, 
+    {
+        "pk": 243, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 12, 
+            "muscles": [], 
+            "description": "<p>Aufrechte Sitzposition</p>\n<p>Oberk\u00f6rper leicht nach hinten beugen</p>\n<p>Stange im Obergriff fassen</p>\n<p>Stange vor dem Kopf nach unten zum Brustbein ziehen</p>\n<p>Stange zur\u00fcckf\u00fchren, bis Ellenbogen leicht gebeugt</p>", 
+            "license": 1, 
+            "language": 1, 
+            "creation_date": "2014-04-10", 
+            "equipment": [], 
+            "license_author": "Konsumopfer", 
+            "muscles_secondary": [], 
+            "name": "Latzug breit zur Brust"
+        }
+    }, 
+    {
+        "pk": 244, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 12, 
+            "muscles": [
+                12
+            ], 
+            "description": "<p>K\u00f6rper leicht nach hinten geneigt</p>\n<p>kein Hohlkreuz</p>\n<p>Rumpfmuskulatur angespannt</p>\n<p>schulterbreiter Untergriff</p>\n<p>Stange vor dem Kopf auf Brust herunterziehen</p>\n<p>Ellenbogen m\u00f6glichst eng am K\u00f6rper</p>\n<p>Stange soweit zur\u00fcck, dass Ellenbogen leicht gebeugt</p>", 
+            "license": 1, 
+            "language": 1, 
+            "creation_date": "2014-04-11", 
+            "equipment": [], 
+            "license_author": "Konsumopfer", 
+            "muscles_secondary": [
+                1
+            ], 
+            "name": "Latzug eng im Untergriff zur Brust"
+        }
+    }, 
+    {
+        "pk": 245, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 12, 
+            "muscles": [
+                12
+            ], 
+            "description": "<p>Geraden R\u00fccken lassen</p>", 
+            "license": 1, 
+            "language": 1, 
+            "creation_date": "2014-04-12", 
+            "equipment": [], 
+            "license_author": "Paul.Sichwardt", 
+            "muscles_secondary": [], 
+            "name": "Rudern eng zum Bauch"
+        }
+    }, 
+    {
+        "pk": 246, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "1", 
+            "category": 11, 
+            "muscles": [], 
+            "description": "<p>Grudi</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-04-12", 
+            "equipment": [], 
+            "license_author": "Topi88", 
+            "muscles_secondary": [], 
+            "name": "Propadanje"
+        }
+    }, 
+    {
+        "pk": 247, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "1", 
+            "category": 11, 
+            "muscles": [], 
+            "description": "<p>Klupa</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-04-12", 
+            "equipment": [], 
+            "license_author": "Topi88", 
+            "muscles_secondary": [], 
+            "name": "Bend\u017e"
+        }
+    }, 
+    {
+        "pk": 248, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "1", 
+            "category": 11, 
+            "muscles": [], 
+            "description": "<p>Razboj</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-04-12", 
+            "equipment": [], 
+            "license_author": "Topi88", 
+            "muscles_secondary": [], 
+            "name": "Razboj"
+        }
+    }, 
+    {
+        "pk": 249, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 9, 
+            "muscles": [
+                8, 
+                12
+            ], 
+            "description": "<p>It's a swing from the hip, not a squat!</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-04-18", 
+            "equipment": [], 
+            "license_author": "J120290", 
+            "muscles_secondary": [], 
+            "name": "Kettlebell Swings"
+        }
+    }, 
+    {
+        "pk": 250, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 8, 
+            "muscles": [], 
+            "description": "<p>DIE UNTERARME IM SITZEN AUF DIE KNIE ABST\u00dcTZEN DIE HANDFL\u00c4CHE\u00a0 NACH OBEN DIE LANGHANTEL ANHEBEN</p>", 
+            "license": 1, 
+            "language": 1, 
+            "creation_date": "2014-05-09", 
+            "equipment": [], 
+            "license_author": "tanatos", 
+            "muscles_secondary": [], 
+            "name": "unterarm heben"
+        }
+    }, 
+    {
+        "pk": 251, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 11, 
+            "muscles": [], 
+            "description": "<p>Brustmuskuatur</p>\n<p>Hinterer dreieckiger Schultermuskel</p>", 
+            "license": 1, 
+            "language": 1, 
+            "creation_date": "2014-05-10", 
+            "equipment": [], 
+            "license_author": "Susanne Bock", 
+            "muscles_secondary": [], 
+            "name": "Kabelziehen \u00fcber Kreuz"
+        }
+    }, 
+    {
+        "pk": 252, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 11, 
+            "muscles": [], 
+            "description": "<p>-Brustmuskulatur</p>\n<p>-Vorderer dreieckiger Schultermuskel</p>", 
+            "license": 3, 
+            "language": 1, 
+            "creation_date": "2014-05-10", 
+            "equipment": [], 
+            "license_author": "LOOX", 
+            "muscles_secondary": [], 
+            "name": "Kabelziehen von unten"
+        }
+    }, 
+    {
+        "pk": 254, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "1", 
+            "category": 12, 
+            "muscles": [], 
+            "description": "<p>Specific product for building strength in the trunk and latissimus dorsi muscles. The exercise involves pulling the two independent levers towards the chest, keeping the arms out in front and the elbows low, parallel to the shoulders. Resistance is provided by a weight stack which enables the workload to be adjusted to suit each type of user.</p>\n<p>-\u00a0http://www.technogym.com/gb/products/strength-training-equipment/core-exercise-equipment/selection/low-row/427</p>\n<p>\u00a0</p>\n<p>Muscels:</p>\n<ul>\n<li>Rhomboid</li>\n</ul>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-06-05", 
+            "equipment": [], 
+            "license_author": "aza11", 
+            "muscles_secondary": [
+                1, 
+                12
+            ], 
+            "name": "Low Row Machine"
+        }
+    }, 
+    {
+        "pk": 255, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 9, 
+            "muscles": [], 
+            "description": "<p>Interval Sprints</p>\n<p>20 sec Belastung</p>\n<p>30 sec Regen.</p>", 
+            "license": 1, 
+            "language": 1, 
+            "creation_date": "2014-06-09", 
+            "equipment": [], 
+            "license_author": "novadani", 
+            "muscles_secondary": [], 
+            "name": "HIIT"
+        }
+    }, 
+    {
+        "pk": 256, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 8, 
+            "muscles": [], 
+            "description": "<p>On an SZ-bar grip your hands on the outside of each bend and stand with your arms straight down, palms facing your legs.\u00a0Pull the bar (bending your arms at the elbow) to your chest, and the push the bar above your head (arms as straight as possible).\u00a0Return the bar to your chest by dropping your arms at the elbows.\u00a0Return the bar to it's origional position (stand with your arms straight down, palms facing your legs.)</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-06-12", 
+            "equipment": [
+                2
+            ], 
+            "license_author": "mbozi1", 
+            "muscles_secondary": [], 
+            "name": "Military Press"
+        }
+    }, 
+    {
+        "pk": 258, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 11, 
+            "muscles": [
+                14
+            ], 
+            "description": "<p>Exercise for upper external oblique muscles</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-07-01", 
+            "equipment": [
+                6
+            ], 
+            "license_author": "http://www.carinatum.com/", 
+            "muscles_secondary": [], 
+            "name": "Upper External Oblique"
+        }
+    }, 
+    {
+        "pk": 259, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 10, 
+            "muscles": [
+                6
+            ], 
+            "description": "<p>Auf Rolle liegend</p>", 
+            "license": 1, 
+            "language": 1, 
+            "creation_date": "2014-07-10", 
+            "equipment": [
+                4
+            ], 
+            "license_author": "andikeller", 
+            "muscles_secondary": [
+                14
+            ], 
+            "name": "Bauch stabilisation"
+        }
+    }, 
+    {
+        "pk": 260, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 11, 
+            "muscles": [
+                4
+            ], 
+            "description": "<p>With your feet raised approximately 30cm on a platform, align your shoulders, elbows and hands, then perform regular pushups. This emphasises the clavicular fibers of the pectoralis major.</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-07-12", 
+            "equipment": [
+                7
+            ], 
+            "license_author": "aszc", 
+            "muscles_secondary": [
+                2, 
+                5
+            ], 
+            "name": "Decline Pushups"
+        }
+    }, 
+    {
+        "pk": 261, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 9, 
+            "muscles": [
+                11, 
+                7, 
+                8, 
+                10
+            ], 
+            "description": "<p>\u0411\u0435\u0433 \u043f\u0440\u0435\u0434\u043e\u0441\u0442\u0430\u0432\u043b\u044f\u0435\u0442 \u0445\u043e\u0440\u043e\u0448\u0438\u0435 \u0443\u0441\u043b\u043e\u0432\u0438\u044f \u0432 \u043a\u0430\u0447\u0435\u0441\u0442\u0432\u0435 \u0430\u044d\u0440\u043e\u0431\u043d\u043e\u0439 \u0442\u0440\u0435\u043d\u0438\u0440\u043e\u0432\u043a\u0438, \u043a\u043e\u0442\u043e\u0440\u0430\u044f \u0443\u0432\u0435\u043b\u0438\u0447\u0438\u0432\u0430\u0435\u0442 \u043f\u043e\u0440\u043e\u0433 \u0432\u044b\u043d\u043e\u0441\u043b\u0438\u0432\u043e\u0441\u0442\u0438, \u043f\u043e\u043b\u043e\u0436\u0438\u0442\u0435\u043b\u044c\u043d\u043e \u0432\u043b\u0438\u044f\u0435\u0442 \u043d\u0430 \u0441\u0435\u0440\u0434\u0435\u0447\u043d\u043e-\u0441\u043e\u0441\u0443\u0434\u0438\u0441\u0442\u0443\u044e \u0441\u0438\u0441\u0442\u0435\u043c\u0443, \u043f\u043e\u0432\u044b\u0448\u0430\u0435\u0442 \u043e\u0431\u043c\u0435\u043d \u0432\u0435\u0449\u0435\u0441\u0442\u0432 \u0432 \u043e\u0440\u0433\u0430\u043d\u0438\u0437\u043c\u0435 \u0438, \u0442\u0430\u043a\u0438\u043c \u043e\u0431\u0440\u0430\u0437\u043e\u043c, \u043f\u043e\u043c\u043e\u0433\u0430\u0435\u0442 \u043e\u0441\u0443\u0449\u0435\u0441\u0442\u0432\u043b\u044f\u0442\u044c \u043a\u043e\u043d\u0442\u0440\u043e\u043b\u044c \u0437\u0430 \u0432\u0435\u0441\u043e\u043c \u0442\u0435\u043b\u0430. \u0411\u0435\u0433 \u043f\u043e\u0437\u0438\u0442\u0438\u0432\u043d\u043e \u0432\u043b\u0438\u044f\u0435\u0442 \u043d\u0430 \u0438\u043c\u043c\u0443\u043d\u043d\u0443\u044e \u0441\u0438\u0441\u0442\u0435\u043c\u0443 \u0438 \u0443\u043b\u0443\u0447\u0448\u0430\u0435\u0442 \u0442\u043e\u043d\u0443\u0441 \u043a\u043e\u0436\u0438. \u0423\u043a\u0440\u0435\u043f\u043b\u0435\u043d\u0438\u0435 \u043c\u0443\u0441\u043a\u0443\u043b\u0430\u0442\u0443\u0440\u044b \u043d\u043e\u0433 \u0438 \u0443\u043b\u0443\u0447\u0448\u0435\u043d\u0438\u0435 \u043e\u0431\u043c\u0435\u043d\u0430 \u0432\u0435\u0449\u0435\u0441\u0442\u0432 \u043f\u043e\u043c\u043e\u0433\u0430\u0435\u0442 \u043f\u0440\u0435\u0434\u043e\u0442\u0432\u0440\u0430\u0442\u0438\u0442\u044c \u0438 \u0443\u0441\u0442\u0440\u0430\u043d\u0438\u0442\u044c \u0446\u0435\u043b\u043b\u044e\u043b\u0438\u0442.</p>\n<p>https://ru.wikipedia.org/wiki/%D0%91%D0%B5%D0%B3</p>", 
+            "license": 1, 
+            "language": 5, 
+            "creation_date": "2014-07-20", 
+            "equipment": [], 
+            "license_author": "dewian000", 
+            "muscles_secondary": [], 
+            "name": "\u0411\u0435\u0433"
+        }
+    }, 
+    {
+        "pk": 262, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "1", 
+            "category": 12, 
+            "muscles": [], 
+            "description": "<p>Glute machine</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-07-22", 
+            "equipment": [], 
+            "license_author": "MaddieBeasley", 
+            "muscles_secondary": [], 
+            "name": "Glute"
+        }
+    }, 
+    {
+        "pk": 263, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 10, 
+            "muscles": [], 
+            "description": "<p>Crunches on roman chair</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-07-22", 
+            "equipment": [], 
+            "license_author": "MaddieBeasley", 
+            "muscles_secondary": [], 
+            "name": "Roman Chair"
+        }
+    }, 
+    {
+        "pk": 265, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 13, 
+            "muscles": [
+                2
+            ], 
+            "description": "<p>Steps:</p>\n<ol>\n<li>Start off placing an extension band around a post or in a secure position where it will not release and is at elbow level.</li>\n<li>Position yourself to the side of the band and with your hand that is opposite of the band, reach out and grab the handle.</li>\n<li>Bring the band to your chest keeping your elbow bent in a 90 degree angle then slowly rotate your arm in a backhand motion so that the band externally rotates out</li>\n<li>Continue out as far as possible so that you feel a stretch in your shoulders, hold for a count and then return back to the starting position.</li>\n<li>Repeat for as many reps and sets as desired.</li>\n</ol>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-07-27", 
+            "equipment": [], 
+            "license_author": "lauroernesto", 
+            "muscles_secondary": [], 
+            "name": "Cable External Rotation"
+        }
+    }, 
+    {
+        "pk": 266, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 13, 
+            "muscles": [], 
+            "description": "<p>Schulterdr\u00fccken im Sitzen mit der Langhantel</p>", 
+            "license": 1, 
+            "language": 1, 
+            "creation_date": "2014-08-14", 
+            "equipment": [], 
+            "license_author": "Konsumopfer", 
+            "muscles_secondary": [], 
+            "name": "Schulterdr\u00fccken LH"
+        }
+    }, 
+    {
+        "pk": 267, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "1", 
+            "category": 9, 
+            "muscles": [], 
+            "description": "<p>Depth Jumps</p>\n<p>\u00a0</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-08-20", 
+            "equipment": [], 
+            "license_author": "Fergy", 
+            "muscles_secondary": [], 
+            "name": "Depth Jumps"
+        }
+    }, 
+    {
+        "pk": 268, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 13, 
+            "muscles": [
+                9
+            ], 
+            "description": "<p>Bend over slightly while holding two dumbbells.\u00a0 Pull the dumbbells up to your chest, keeping your elbows as high as you can.</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-09-01", 
+            "equipment": [
+                3
+            ], 
+            "license_author": "lakerbeezel", 
+            "muscles_secondary": [], 
+            "name": "Bent High Pulls"
+        }
+    }, 
+    {
+        "pk": 269, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 9, 
+            "muscles": [], 
+            "description": "<p>Run on a treadmill</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-09-03", 
+            "equipment": [], 
+            "license_author": "foguinho.peruca", 
+            "muscles_secondary": [], 
+            "name": "Run - treadmill"
+        }
+    }, 
+    {
+        "pk": 270, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 11, 
+            "muscles": [
+                4
+            ], 
+            "description": "<p>Lower the bar to your chest and pause (but do not rest) there for 2 seconds. Press back up. use the same weight you would on bench press, but perform only single reps. Total the number of reps you did in one set of bench press (if you did 3 sets of 8 do 8 sinlge pause bench reps.</p>", 
+            "license": 3, 
+            "language": 2, 
+            "creation_date": "2014-09-08", 
+            "equipment": [
+                1, 
+                8
+            ], 
+            "license_author": "Mens Fitness", 
+            "muscles_secondary": [
+                5
+            ], 
+            "name": "Pause Bench"
+        }
+    }, 
+    {
+        "pk": 271, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 13, 
+            "muscles": [
+                2
+            ], 
+            "description": "<p>Stand with your feet at hip width and your shins against the bar. Grasp the bar at double shoulder width and, keeping your lower back flat, drive your heels into the floor to begin lifting the bar. When it's above your knees, explosively extend your hips and shrug your shoulders. Let the momentum carry the weight overhead.</p>", 
+            "license": 3, 
+            "language": 2, 
+            "creation_date": "2014-09-08", 
+            "equipment": [
+                1
+            ], 
+            "license_author": "Mens Fitness", 
+            "muscles_secondary": [], 
+            "name": "Snach"
+        }
+    }, 
+    {
+        "pk": 272, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "1", 
+            "category": 9, 
+            "muscles": [], 
+            "description": "<p>Biking</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-09-13", 
+            "equipment": [], 
+            "license_author": "colinp23", 
+            "muscles_secondary": [], 
+            "name": "Biking"
+        }
+    }, 
+    {
+        "pk": 273, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "1", 
+            "category": 9, 
+            "muscles": [], 
+            "description": "<p>Biking</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-09-13", 
+            "equipment": [], 
+            "license_author": "colinp23", 
+            "muscles_secondary": [], 
+            "name": "Biking"
+        }
+    }, 
+    {
+        "pk": 274, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 8, 
+            "muscles": [
+                5
+            ], 
+            "description": "<p>Position one dumbbell over head with both hands under inner plate (heart shaped grip).</p>\n<p>With elbows over head, lower forearm behind upper arm by flexing elbows. Flex wrists at bottom to avoid hitting dumbbell on back of neck. Raise dumbbell over head by extending elbows while hyperextending wrists. Return and repeat.</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-09-26", 
+            "equipment": [
+                3
+            ], 
+            "license_author": "tuninx", 
+            "muscles_secondary": [
+                2, 
+                4
+            ], 
+            "name": "Dumbbell Triceps Extension"
+        }
+    }, 
+    {
+        "pk": 275, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 8, 
+            "muscles": [
+                13
+            ], 
+            "description": "<p>Sit on bench. Grasp dumbbell between feet. Place back of upper arm to inner thigh. Lean into leg to raise elbow slightly.</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-10-04", 
+            "equipment": [
+                3
+            ], 
+            "license_author": "http://www.exrx.net/WeightExercises/Brachialis/DBC", 
+            "muscles_secondary": [
+                1
+            ], 
+            "name": "Dumbbell Concentration Curl"
+        }
+    }, 
+    {
+        "pk": 276, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 10, 
+            "muscles": [
+                14
+            ], 
+            "description": "<p>met de rug plat op de grond, benen in een hoek van 90 graden. armen naast het lichaam.</p>\n<p>\u00a0</p>\n<p>1 breng de schouders iets naar boven.</p>\n<p>2 buig het bovenlichaam iets naar rechts terwijl je met de rechterhand de rechterhiel aantikt.</p>\n<p>3 ga terug naar startpositie.\u00a0</p>\n<p>4 herhaal aan de linkerkant.</p>", 
+            "license": 1, 
+            "language": 6, 
+            "creation_date": "2014-10-06", 
+            "equipment": [
+                4
+            ], 
+            "license_author": "Naatje", 
+            "muscles_secondary": [
+                6
+            ], 
+            "name": "lying heel touches"
+        }
+    }, 
+    {
+        "pk": 278, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 12, 
+            "muscles": [
+                14
+            ], 
+            "description": "<p>AKA dumbbell side bends. Stand in line with the hips with slightly bent knees, maintain the natural curvature of the spine, hand stretched by the body, grip the barbell with one hand. <em>\u00a0</em>Make slow and controlled torso side flexions till you reach the angle of approximately 45\u00b0.</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-10-22", 
+            "equipment": [
+                3
+            ], 
+            "license_author": "GiglioRosso", 
+            "muscles_secondary": [
+                6
+            ], 
+            "name": "Side dumbbell trunk flexion"
+        }
+    }, 
+    {
+        "pk": 279, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 8, 
+            "muscles": [
+                5
+            ], 
+            "description": "<ol>\n<li>Start with a dumbbell in each hand and your palms facing your torso. Keep your back straight with a slight bend in the knees and bend forward at the waist. Your torso should be almost parallel to the floor. Make sure to keep your head up. Your upper arms should be close to your torso and parallel to the floor. Your forearms should be pointed towards the floor as you hold the weights. There should be a 90-degree angle formed between your forearm and upper arm. This is your starting position.</li>\n<li>Now, while keeping your upper arms stationary, exhale and use your triceps to lift the weights until the arm is fully extended. Focus on moving the forearm.</li>\n<li>After a brief pause at the top contraction, inhale and slowly lower the dumbbells back down to the starting position.</li>\n<li>Repeat the movement for the prescribed amount of repetitions.</li>\n</ol>\n<p><strong>Variations:</strong> This exercise can be executed also one arm at a time much like the one arm rows are performed.</p>\n<p>Also, if you like the one arm variety, you can use a low pulley handle instead of a dumbbell for better peak contraction. In this case, the palms should be facing up (supinated grip) as opposed to the torso (neutral grip).</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-10-22", 
+            "equipment": [
+                3
+            ], 
+            "license_author": "http://www.bodybuilding.com/", 
+            "muscles_secondary": [], 
+            "name": "Tricep Dumbbell Kickback"
+        }
+    }, 
+    {
+        "pk": 280, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 10, 
+            "muscles": [], 
+            "description": "<p>Ausgangspostion im Hang, die Beine sind angebhoben (Oberschenkel-Rumpf-Winkel 90\u00b0)</p>\n<p>Von hier aus kleine Hebebewegungen ausf\u00fchren, die H\u00fcftgelenke bleiben in der Endposition gebeugt (90\u00b0)</p>", 
+            "license": 1, 
+            "language": 1, 
+            "creation_date": "2014-10-24", 
+            "equipment": [
+                6
+            ], 
+            "license_author": "Konsumopfer", 
+            "muscles_secondary": [], 
+            "name": "Beinheben im Hang"
+        }
+    }, 
+    {
+        "pk": 281, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 10, 
+            "muscles": [], 
+            "description": "<p>Hold the L position for as long as possible</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-10-30", 
+            "equipment": [], 
+            "license_author": "bizyguy", 
+            "muscles_secondary": [], 
+            "name": "L hold"
+        }
+    }, 
+    {
+        "pk": 282, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 8, 
+            "muscles": [], 
+            "description": "<p>Im Sitzen Unterarme auf die Oberschenkel, Handr\u00fccken nach oben (Obergriff) und dann Kurzhanteln nach oben bewegen.</p>", 
+            "license": 1, 
+            "language": 1, 
+            "creation_date": "2014-10-31", 
+            "equipment": [], 
+            "license_author": "Konsumopfer", 
+            "muscles_secondary": [], 
+            "name": "Handgelenkstreckung"
+        }
+    }, 
+    {
+        "pk": 286, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "1", 
+            "category": 8, 
+            "muscles": [
+                1, 
+                11, 
+                13
+            ], 
+            "description": "<p>Grab dumbbells and walk</p>\n<p>\u00a0</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-11-02", 
+            "equipment": [
+                3
+            ], 
+            "license_author": "GrosseHund", 
+            "muscles_secondary": [
+                9
+            ], 
+            "name": "farmers walks"
+        }
+    }, 
+    {
+        "pk": 287, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "1", 
+            "category": 8, 
+            "muscles": [
+                1, 
+                13, 
+                5
+            ], 
+            "description": "<p>Grab kettlebell and walk while holding it between legs</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-11-02", 
+            "equipment": [
+                3
+            ], 
+            "license_author": "GrosseHund", 
+            "muscles_secondary": [
+                14, 
+                6
+            ], 
+            "name": "duck walks"
+        }
+    }, 
+    {
+        "pk": 288, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "1", 
+            "category": 13, 
+            "muscles": [
+                2, 
+                9
+            ], 
+            "description": "<p>Grab barbell and place on shoulders then walk</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-11-02", 
+            "equipment": [
+                1
+            ], 
+            "license_author": "GrosseHund", 
+            "muscles_secondary": [
+                14, 
+                6
+            ], 
+            "name": "yolk walks"
+        }
+    }, 
+    {
+        "pk": 289, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 8, 
+            "muscles": [
+                2, 
+                9
+            ], 
+            "description": "<p>Grab dumbbells and extend arms to side and hold as long as you can</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-11-02", 
+            "equipment": [
+                3
+            ], 
+            "license_author": "GrosseHund", 
+            "muscles_secondary": [
+                9
+            ], 
+            "name": "axe hold"
+        }
+    }, 
+    {
+        "pk": 290, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "1", 
+            "category": 14, 
+            "muscles": [
+                7, 
+                15
+            ], 
+            "description": "<p>Place car in neutral (with partner to apply breaks if necessary) and drive with legs to push car</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-11-02", 
+            "equipment": [], 
+            "license_author": "GrosseHund", 
+            "muscles_secondary": [
+                10
+            ], 
+            "name": "car push"
+        }
+    }, 
+    {
+        "pk": 291, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 8, 
+            "muscles": [
+                1, 
+                13, 
+                5
+            ], 
+            "description": "<p>Grab two cables stand in the middle so both have tension and hold</p>", 
+            "license": 1, 
+            "language": 2, 
+            "creation_date": "2014-11-02", 
+            "equipment": [], 
+            "license_author": "GrosseHund", 
+            "muscles_secondary": [
+                2
+            ], 
+            "name": "Hercules pillars"
+        }
+    }, 
+    {
+        "pk": 292, 
+        "model": "exercises.exercise", 
+        "fields": {
+            "status": "2", 
+            "category": 8, 
+            "muscles": [
+                5
+            ], 
+            "description": "<p>- Arm senkrecht nach oben halten</p>\n<p>- Arm beugen und Hantel hinter den Nacken f\u00fchren, dabei einatmen</p>\n<p>- Hantel wieder nach oben f\u00fchren bis Arm wieder gestreckt ist, dabei ausatmen</p>\n<p>! Darauf achten, dass Oberarm fixiert bleibt und sich nicht bewegt</p>\n<p>\u00a0</p>\n<p>-&gt; Angesprochene Muskeln: lateraler Kopf des Trizeps; langer Kopf des Trizeps</p>", 
+            "license": 1, 
+            "language": 1, 
+            "creation_date": "2014-12-01", 
+            "equipment": [
+                3
+            ], 
+            "license_author": "JonnFox", 
+            "muscles_secondary": [], 
+            "name": "Trizeps Unterarm heben \u00fcber Kopf"
         }
     }, 
     {
@@ -5196,6 +6346,46 @@
         "fields": {
             "comment": "Don't stretch your arms completly", 
             "exercise": 192
+        }
+    }, 
+    {
+        "pk": 111, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Beine gestreckt und gerade halten, nicht knicken", 
+            "exercise": 230
+        }
+    }, 
+    {
+        "pk": 112, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Ellenbogen eng am K\u00f6rper", 
+            "exercise": 231
+        }
+    }, 
+    {
+        "pk": 113, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Nicht mit dem K\u00f6rper schwingen", 
+            "exercise": 231
+        }
+    }, 
+    {
+        "pk": 114, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Ellenbogen eng am K\u00f6rper, nicht bewegen", 
+            "exercise": 232
+        }
+    }, 
+    {
+        "pk": 115, 
+        "model": "exercises.exercisecomment", 
+        "fields": {
+            "comment": "Nicht zu hohe Gewichte nehmen", 
+            "exercise": 232
         }
     }
 ]
