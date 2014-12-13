@@ -145,17 +145,19 @@
                 <div class="media">
                         <div class="media-left">
 
+                            <div style="width: 64px; height: 64px;">
                             {% if exercise.obj.main_image %}
                             <img class="img-responsive"
                                  src="{{ exercise.obj.main_image.image|thumbnail_url:'small' }}"
                                  alt="{{exercise.obj}}"
-                                 style="width:64px; max-height:64px;">
+                                 style="max-width: 100%; max-height: 100%;">
                             {% else %}
                             <img class="img-responsive"
                                  src="{% static 'images/icons/image-placeholder.svg' %}"
                                  alt="{% trans 'Placeholder image for exercise' %}"
-                                 style="opacity: 0.4; width:60px; max-height:60px;">
+                                 style="opacity: 0.4;">
                             {% endif %}
+                            </div>
 
                         </div>
                         <div class="media-body" style="position: relative; top: 10px; left: 100px;">
