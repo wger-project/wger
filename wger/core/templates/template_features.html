@@ -53,7 +53,10 @@
 </head>
 <body>
 
+{% if user.is_authenticated %}
 {% include 'navigation.html' %}
+{% endif  %}
+
 <div id="main">
     <div class="container">
         {% block template %}{% endblock %}
