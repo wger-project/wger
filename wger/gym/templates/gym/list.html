@@ -30,7 +30,7 @@
     {% endfor %}
 </ul>
 
-{% if perms.core.add_gym %}
+{% if perms.gym.add_gym %}
     <div class="pull-right">
         <a href="{% url 'gym:gym:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
             {% trans "Add new gym" %}
