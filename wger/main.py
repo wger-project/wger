@@ -353,6 +353,7 @@ def init_south():
     execute_from_command_line(["", "migrate", "wger.manager", "0001", "--fake"])
     execute_from_command_line(["", "migrate", "wger.nutrition", "0001", "--fake"])
     execute_from_command_line(["", "migrate", "wger.weight", "0001", "--fake"])
+    execute_from_command_line(["", "migrate", "wger.gym", "0001"])
 
 
 def run_south():
@@ -365,6 +366,7 @@ def run_south():
     execute_from_command_line(["", "migrate", "wger.exercises"])
     execute_from_command_line(["", "migrate", "wger.nutrition"])
     execute_from_command_line(["", "migrate", "wger.weight"])
+    execute_from_command_line(["", "migrate", "wger.gym"])
 
     # Other apps
     execute_from_command_line(["", "migrate", "easy_thumbnails"])
@@ -406,6 +408,12 @@ def load_fixtures():
     call_command("loaddata", path + "ingredients.json")
     call_command("loaddata", path + "weight_units.json")
     call_command("loaddata", path + "ingredient_units.json")
+
+    # Gym
+    path = os.path.join(current_dir, 'gym', 'fixtures/')
+    call_command("loaddata", path + "gym.json")
+    call_command("loaddata", path + "gym-config.json")
+    call_command("loaddata", path + "gym-adminconfig.json")
 
 
 def run_syncdb():
@@ -453,7 +461,10 @@ def create_or_reset_admin_user():
     except User.DoesNotExist:
         print("Created default admin user")
 
-    execute_from_command_line(["", "loaddata", "users"])
+    os.chdir(os.path.dirname(inspect.stack()[0][1]))
+    current_dir = os.getcwd()
+    path = os.path.join(current_dir, 'core', 'fixtures/')
+    call_command("loaddata", path + "users.json")
 
 
 def start_wger(addr, port, start_browser_url=None, extra_args=[]):
