@@ -273,7 +273,10 @@ class GymAddUserView(WgerFormMixin, CreateView):
                 and not request.user.has_perm('gym.manage_gym'):
             return HttpResponseForbidden()
 
+        # Gym managers can edit their own gym only, general gym managers
+        # can edit all gyms
         if request.user.has_perm('gym.manage_gym') \
+                and not request.user.has_perm('gym.manage_gyms') \
                 and request.user.userprofile.gym_id != int(self.kwargs['gym_pk']):
             return HttpResponseForbidden()
 
