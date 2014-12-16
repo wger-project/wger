@@ -19,7 +19,7 @@ django-bootstrap-breadcrumbs
 # REST API
 djangorestframework==2.3.13
 django-filter
-django-tastypie==0.9.16
+django-tastypie
 django-cors-headers
 
 # Python3 compatibility
