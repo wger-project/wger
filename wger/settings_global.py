@@ -194,8 +194,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
 
     # Apps from workout manager
     'wger.core',
@@ -220,16 +218,14 @@ INSTALLED_APPS = (
     # Django mobile
     'django_mobile',
 
-    # REST-API
-    'tastypie',
-
     # thumbnails
     'easy_thumbnails',
 
     # CSS/JS compressor
     'compressor',
 
-    # REST framework
+    # REST-API
+    'tastypie',
     'rest_framework',
     'rest_framework.authtoken',
 
