@@ -15,14 +15,17 @@ from wger import get_version
 with open('README.rst') as readme:
     long_description = readme.read()
 
+with open('requirements.txt') as requirements_production:
+    install_requires = requirements_production.readlines()
+
 setup(
     name='wger',
-    description='Workout and exercise manager',
+    description='FLOSS workout, fitness and weight manager/tracker written with Django',
     long_description=long_description,
     version=get_version(),
-    url='http://wger.de',
+    url='https://wger.de',
     author='Roland Geider',
-    author_email='roland@wger.de',
+    author_email='roland@geider.net',
     license='AGPL3+',
     packages=find_packages(exclude=['tests']),
     include_package_data=True,
@@ -34,28 +37,13 @@ setup(
         'Framework :: Django',
         'License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)',
         'Operating System :: OS Independent',
-        'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
     ],
-    setup_requires=[
-        'versiontools >= 1.6',
-    ],
-    install_requires=[
-        'django == 1.6.6',
-        'reportlab',
-        'django-browserid == 0.9',
-        'django-recaptcha',
-        'django_mobile',
-        'django-discover-runner',
-        'pep8',
-        'bleach',
-        'south < 2.0',
-        'django-tastypie',
-        'python-mimeparse',
-        'pillow',
-        'easy-thumbnails',
-        'django_compressor',
-        'icalendar'
-    ],
+    install_requires=install_requires,
     entry_points={
         'console_scripts': [
             'wger = wger.main:main',
