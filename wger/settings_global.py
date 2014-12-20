@@ -212,9 +212,6 @@ INSTALLED_APPS = (
     # The sitemaps app
     'django.contrib.sitemaps',
 
-    # South, for DB migrations
-    'south',
-
     # Django mobile
     'django_mobile',
 
@@ -354,12 +351,6 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',
                                 'rest_framework.filters.OrderingFilter',)
-}
-
-
-# Configure south database migrations
-SOUTH_MIGRATION_MODULES = {
-    'easy_thumbnails': 'easy_thumbnails.south_migrations',
 }
 
 

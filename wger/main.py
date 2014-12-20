@@ -185,21 +185,6 @@ def _main(opts, database_path=None):
     # Set the django environment to the settings
     setup_django_environment(settings_path)
 
-    # Check for south tables, this is only Only needed for the
-    # update 1.1.1 > 1.2, when south was introduced
-    from south.models import MigrationHistory
-    from django.db.utils import DatabaseError
-    try:
-        if database_exists() and not opts.syncdb:
-            history = MigrationHistory.objects.count()
-    except DatabaseError:
-        print("Manual database upgrade needed")
-        print("------------------------------")
-        print("The database schema changed after the 1.1.1 release. Run this script")
-        print("with the --syncdb option. This will upgrade the database, but will")
-        print("overwrite any changes you made to exercises and ingredients")
-        sys.exit()
-
     # Create Database if necessary
     if not database_exists() or opts.syncdb:
         run_syncdb()
@@ -347,26 +332,26 @@ def init_south():
     Only perform the south initialisation
     '''
     print("* Initialising south")
-    execute_from_command_line(["", "migrate", "wger.core", "0001"])
-    execute_from_command_line(["", "migrate", "wger.exercises", "0001", "--fake"])
-    execute_from_command_line(["", "migrate", "wger.config", "0001", "--fake"])
-    execute_from_command_line(["", "migrate", "wger.manager", "0001", "--fake"])
-    execute_from_command_line(["", "migrate", "wger.nutrition", "0001", "--fake"])
-    execute_from_command_line(["", "migrate", "wger.weight", "0001", "--fake"])
-    execute_from_command_line(["", "migrate", "wger.gym", "0001"])
+    execute_from_command_line(["", "migrate", "core", "0001"])
+    execute_from_command_line(["", "migrate", "exercises", "0001"])
+    execute_from_command_line(["", "migrate", "config", "0001"])
+    execute_from_command_line(["", "migrate", "manager", "0001"])
+    execute_from_command_line(["", "migrate", "nutrition", "0001"])
+    execute_from_command_line(["", "migrate", "weight", "0001"])
+    execute_from_command_line(["", "migrate", "gym", "0001"])
 
 
 def run_south():
     '''
     Run all south migrations
     '''
-    execute_from_command_line(["", "migrate", "wger.core"])
-    execute_from_command_line(["", "migrate", "wger.config"])
-    execute_from_command_line(["", "migrate", "wger.manager"])
-    execute_from_command_line(["", "migrate", "wger.exercises"])
-    execute_from_command_line(["", "migrate", "wger.nutrition"])
-    execute_from_command_line(["", "migrate", "wger.weight"])
-    execute_from_command_line(["", "migrate", "wger.gym"])
+    execute_from_command_line(["", "migrate", "core"])
+    execute_from_command_line(["", "migrate", "gym"])
+    execute_from_command_line(["", "migrate", "config"])
+    execute_from_command_line(["", "migrate", "manager"])
+    execute_from_command_line(["", "migrate", "exercises"])
+    execute_from_command_line(["", "migrate", "nutrition"])
+    execute_from_command_line(["", "migrate", "weight"])
 
     # Other apps
     execute_from_command_line(["", "migrate", "easy_thumbnails"])
@@ -379,6 +364,10 @@ def load_fixtures():
     '''
     os.chdir(os.path.dirname(inspect.stack()[0][1]))
     current_dir = os.getcwd()
+
+    # Gym
+    path = os.path.join(current_dir, 'gym', 'fixtures/')
+    call_command("loaddata", path + "gym.json")
 
     # Core
     path = os.path.join(current_dir, 'core', 'fixtures/')
@@ -423,26 +412,8 @@ def run_syncdb():
 
     print("* Intialising the database")
 
-    # Only needed for update 1.1.1 > 1.2
-    from south.models import MigrationHistory
-    from django.db.utils import DatabaseError
-    from django.db import transaction
-    from wger.manager.models import User
-    with transaction.commit_on_success():
-        try:
-            User.objects.count()
-            new_db = False
-        except DatabaseError:
-            new_db = True
-            transaction.rollback()
-
     # Create the tables
-    execute_from_command_line(["", "syncdb", "--noinput"])
-
-    # Only needed for update 1.1.1 > 1.2
-    history = MigrationHistory.objects.count()
-    if not history and not new_db:
-        init_south()
+    execute_from_command_line(["", "migrate"])
 
     # Perform the migrations
     run_south()

@@ -2,7 +2,7 @@
 # Requirements for wger for production
 #
 
-Django>=1.6,<1.7
+Django>=1.7,<1.8
 django-browserid==0.11
 django-recaptcha
 reportlab

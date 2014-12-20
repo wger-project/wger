@@ -572,8 +572,8 @@ class ApiDeleteTestCase(object):
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
-class ApiBaseResourceTestCase(ApiBaseTestCase,
-                              BaseTestCase,
+class ApiBaseResourceTestCase(BaseTestCase,
+                              ApiBaseTestCase,
 
                               ApiGetTestCase,
                               ApiPostTestCase,

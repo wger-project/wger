@@ -1,157 +1,121 @@
 # -*- coding: utf-8 -*-
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+import wger.utils.fields
+from django.conf import settings
+import django.core.validators
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    depends_on = (
-        ('exercises', '0003_auto__add_field_exercise_language'),
-    )
+    dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('core', '0001_initial'),
+    ]
 
-    def forwards(self, orm):
-        # Adding model 'NutritionPlan'
-        db.create_table('nutrition_nutritionplan', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('language', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['exercises.Language'])),
-            ('creation_date', self.gf('django.db.models.fields.DateField')(auto_now_add=True, blank=True)),
-            ('description', self.gf('django.db.models.fields.TextField')(max_length=2000, blank=True)),
-        ))
-        db.send_create_signal('nutrition', ['NutritionPlan'])
-
-        # Adding model 'Ingredient'
-        db.create_table('nutrition_ingredient', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('language', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['exercises.Language'])),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('energy', self.gf('django.db.models.fields.IntegerField')()),
-            ('protein', self.gf('django.db.models.fields.FloatField')()),
-            ('carbohydrates', self.gf('django.db.models.fields.FloatField')()),
-            ('carbohydrates_sugar', self.gf('django.db.models.fields.FloatField')(null=True, blank=True)),
-            ('fat', self.gf('django.db.models.fields.FloatField')(blank=True)),
-            ('fat_saturated', self.gf('django.db.models.fields.FloatField')(null=True, blank=True)),
-            ('fibres', self.gf('django.db.models.fields.FloatField')(null=True, blank=True)),
-            ('sodium', self.gf('django.db.models.fields.FloatField')(null=True, blank=True)),
-        ))
-        db.send_create_signal('nutrition', ['Ingredient'])
-
-        # Adding model 'Meal'
-        db.create_table('nutrition_meal', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('plan', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['nutrition.NutritionPlan'])),
-            ('order', self.gf('django.db.models.fields.IntegerField')(max_length=1, blank=True)),
-            ('time', self.gf('django.db.models.fields.TimeField')(null=True, blank=True)),
-        ))
-        db.send_create_signal('nutrition', ['Meal'])
-
-        # Adding model 'MealItem'
-        db.create_table('nutrition_mealitem', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('meal', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['nutrition.Meal'])),
-            ('order', self.gf('django.db.models.fields.IntegerField')(max_length=1, blank=True)),
-            ('amount_gramm', self.gf('django.db.models.fields.IntegerField')(max_length=4, blank=True)),
-            ('ingredient', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['nutrition.Ingredient'])),
-        ))
-        db.send_create_signal('nutrition', ['MealItem'])
-
-
-    def backwards(self, orm):
-        # Deleting model 'NutritionPlan'
-        db.delete_table('nutrition_nutritionplan')
-
-        # Deleting model 'Ingredient'
-        db.delete_table('nutrition_ingredient')
-
-        # Deleting model 'Meal'
-        db.delete_table('nutrition_meal')
-
-        # Deleting model 'MealItem'
-        db.delete_table('nutrition_mealitem')
-
-
-    models = {
-        'auth.group': {
-            'Meta': {'object_name': 'Group'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
-        },
-        'auth.permission': {
-            'Meta': {'ordering': "('content_type__app_label', 'content_type__model', 'codename')", 'unique_together': "(('content_type', 'codename'),)", 'object_name': 'Permission'},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        'auth.user': {
-            'Meta': {'object_name': 'User'},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
-        },
-        'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        'exercises.language': {
-            'Meta': {'object_name': 'Language'},
-            'full_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'short_name': ('django.db.models.fields.CharField', [], {'max_length': '2'})
-        },
-        'nutrition.ingredient': {
-            'Meta': {'ordering': "['name']", 'object_name': 'Ingredient'},
-            'carbohydrates': ('django.db.models.fields.FloatField', [], {}),
-            'carbohydrates_sugar': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
-            'energy': ('django.db.models.fields.IntegerField', [], {}),
-            'fat': ('django.db.models.fields.FloatField', [], {'blank': 'True'}),
-            'fat_saturated': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
-            'fibres': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'language': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['exercises.Language']"}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
-            'protein': ('django.db.models.fields.FloatField', [], {}),
-            'sodium': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'})
-        },
-        'nutrition.meal': {
-            'Meta': {'ordering': "['time']", 'object_name': 'Meal'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'order': ('django.db.models.fields.IntegerField', [], {'max_length': '1', 'blank': 'True'}),
-            'plan': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['nutrition.NutritionPlan']"}),
-            'time': ('django.db.models.fields.TimeField', [], {'null': 'True', 'blank': 'True'})
-        },
-        'nutrition.mealitem': {
-            'Meta': {'object_name': 'MealItem'},
-            'amount_gramm': ('django.db.models.fields.IntegerField', [], {'max_length': '4', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'ingredient': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['nutrition.Ingredient']"}),
-            'meal': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['nutrition.Meal']"}),
-            'order': ('django.db.models.fields.IntegerField', [], {'max_length': '1', 'blank': 'True'})
-        },
-        'nutrition.nutritionplan': {
-            'Meta': {'ordering': "['-creation_date']", 'object_name': 'NutritionPlan'},
-            'creation_date': ('django.db.models.fields.DateField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'description': ('django.db.models.fields.TextField', [], {'max_length': '2000', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'language': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['exercises.Language']"}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
-        }
-    }
-
-    complete_apps = ['nutrition']
+    operations = [
+        migrations.CreateModel(
+            name='Ingredient',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('license_author', models.CharField(help_text='If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.', max_length=50, null=True, verbose_name='Author', blank=True)),
+                ('status', models.CharField(default=b'1', max_length=2, editable=False, choices=[(b'1', 'Pending'), (b'2', 'Accepted'), (b'3', 'Declined'), (b'4', 'Submitted by administrator'), (b'5', 'System ingredient')])),
+                ('creation_date', models.DateField(auto_now_add=True, verbose_name='Date')),
+                ('update_date', models.DateField(auto_now=True, verbose_name='Date')),
+                ('name', models.CharField(max_length=200, verbose_name='Name')),
+                ('energy', models.IntegerField(help_text='In kcal per 100g', verbose_name='Energy')),
+                ('protein', models.DecimalField(help_text='In g per 100g of product', verbose_name='Protein', max_digits=6, decimal_places=3, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(100)])),
+                ('carbohydrates', models.DecimalField(help_text='In g per 100g of product', verbose_name='Carbohydrates', max_digits=6, decimal_places=3, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(100)])),
+                ('carbohydrates_sugar', models.DecimalField(decimal_places=3, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(100)], max_digits=6, blank=True, help_text='In g per 100g of product', null=True, verbose_name='Sugar content in carbohydrates')),
+                ('fat', models.DecimalField(help_text='In g per 100g of product', verbose_name='Fat', max_digits=6, decimal_places=3, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(100)])),
+                ('fat_saturated', models.DecimalField(decimal_places=3, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(100)], max_digits=6, blank=True, help_text='In g per 100g of product', null=True, verbose_name='Saturated fat content in fats')),
+                ('fibres', models.DecimalField(decimal_places=3, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(100)], max_digits=6, blank=True, help_text='In g per 100g of product', null=True, verbose_name='Fibres')),
+                ('sodium', models.DecimalField(decimal_places=3, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(100)], max_digits=6, blank=True, help_text='In g per 100g of product', null=True, verbose_name='Sodium')),
+                ('language', models.ForeignKey(editable=False, to='core.Language', verbose_name='Language')),
+                ('license', models.ForeignKey(default=2, verbose_name='License', to='core.License')),
+                ('user', models.ForeignKey(blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='User')),
+            ],
+            options={
+                'ordering': ['name'],
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='IngredientWeightUnit',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('gram', models.IntegerField(verbose_name='Amount in grams')),
+                ('amount', models.DecimalField(default=1, help_text='Unit amount, e.g. "1 Cup" or "1/2 spoon"', verbose_name='Amount', max_digits=5, decimal_places=2)),
+                ('ingredient', models.ForeignKey(editable=False, to='nutrition.Ingredient', verbose_name='Ingredient')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Meal',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('order', models.IntegerField(verbose_name='Order', max_length=1, editable=False, blank=True)),
+                ('time', wger.utils.fields.Html5TimeField(null=True, verbose_name='Time (approx)', blank=True)),
+            ],
+            options={
+                'ordering': ['time'],
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='MealItem',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('order', models.IntegerField(verbose_name='Order', max_length=1, editable=False, blank=True)),
+                ('amount', models.DecimalField(verbose_name='Amount', max_digits=6, decimal_places=2, validators=[django.core.validators.MinValueValidator(1), django.core.validators.MaxValueValidator(1000)])),
+                ('ingredient', models.ForeignKey(verbose_name='Ingredient', to='nutrition.Ingredient')),
+                ('meal', models.ForeignKey(editable=False, to='nutrition.Meal', verbose_name='Nutrition plan')),
+                ('weight_unit', models.ForeignKey(verbose_name='Weight unit', blank=True, to='nutrition.IngredientWeightUnit', null=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='NutritionPlan',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateField(auto_now_add=True, verbose_name='Creation date')),
+                ('description', models.TextField(help_text='A description of the goal of the plan, e.g. "Gain mass" or "Prepare for summer"', max_length=2000, verbose_name='Description', blank=True)),
+                ('has_goal_calories', models.BooleanField(default=False, help_text='Tick the box if you want to mark this plan as having a goal amount of calories. You can use the calculator or enter the value yourself.', verbose_name='Use daily calories')),
+                ('language', models.ForeignKey(editable=False, to='core.Language', verbose_name='Language')),
+                ('user', models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL, verbose_name='User')),
+            ],
+            options={
+                'ordering': ['-creation_date'],
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='WeightUnit',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=200, verbose_name='Name')),
+                ('language', models.ForeignKey(editable=False, to='core.Language', verbose_name='Language')),
+            ],
+            options={
+                'ordering': ['name'],
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='meal',
+            name='plan',
+            field=models.ForeignKey(editable=False, to='nutrition.NutritionPlan', verbose_name='Nutrition plan'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='ingredientweightunit',
+            name='unit',
+            field=models.ForeignKey(verbose_name='Weight unit', to='nutrition.WeightUnit'),
+            preserve_default=True,
+        ),
+    ]
