@@ -55,7 +55,7 @@ class WeightExportCsvTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'text/csv')
         self.assertGreaterEqual(len(response.content), 120)
-        self.assertLessEqual(len(response.content), 140)
+        self.assertLessEqual(len(response.content), 150)
 
     def test_csv_export_loged_in(self):
         '''
