@@ -31,7 +31,7 @@ SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 #
 # Application definition
 #
-SITE_ID = 1
+SITE_ID = 2
 ROOT_URLCONF = 'wger.urls'
 WSGI_APPLICATION = 'wger.wsgi.application'
 
@@ -122,6 +122,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
     # Breadcrumbs
     'django.core.context_processors.request'
+)
+
+TEMPLATE_LOADERS = (
+    # Django mobile
+    'django_mobile.loader.Loader',
+
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
 )
 
 # Store the user messages in the session

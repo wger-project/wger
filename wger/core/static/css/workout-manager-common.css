@@ -290,67 +290,44 @@ body .boxInner:hover .titleBox, body.touch .boxInner.touchFocus .titleBox {
 /**************************************************************
  * Weight log calendar
  **************************************************************/
- th.month, th.month:hover{
-    text-align: center;
-    background-color: #d3d7cf;
-    border-bottom: 2px solid black;
-}
-td.filled, td.filled:hover{
-    background-color: #ad7fa8;
-}
-
-td.filled a:hover{
-    /*background-color: inherit;*/
-}
-
-table.month tbody tr:hover td.filled{
-    background-color: #ad7fa8;
-}
-table.month td.filled a{
-    display: block;
-    height:100%;
-    width:100%;
-    color: black;
-}
-table.month td a{
-    color: black;
-    text-shadow: none;
-    text-decoration: none;
-}
 table.month td{
-    padding: 0px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left:7px;
-    margin-right:7px;
-}
-table.month th{
+    height: 4em;
     text-align: center;
-}
-table.month th {
-    height: 2em;
 }
 
 table.month td {
-    height: 4em;
-    width: 14.2857%;
+    width: 14.285%;
+}
+
+table.month th.month{
     text-align: center;
-    vertical-align: middle;
+    background-color: #eeeeec;
 }
 
-td.today, table.month tbody tr:hover td.today{
-    font-weight: bold;
-}
-.calendar-log-data{
-    display:none;
+table.month a.calendar-link{
+    height:100%;
 }
 
-.calendar-log-data ul.grouper-list > li{
-    float:left;
-    list-style:none;
-    margin-left:0px;
-    height: 120px;
-    clear: right;
+table.month td.session-bad {
+    background-color: #F2DEDE;
+}
+table.month td.session-bad:hover {
+    background-color: #C9302C;
+}
+
+table.month td.session-neutral {
+    background-color: #F5F5F5;
+}
+table.month td.session-neutral:hover {
+    background-color: #babdb6;
+}
+
+table.month td.session-good {
+    background-color: #dff0d8;
+}
+
+table.month td.session-good:hover {
+    background-color: #449D44;
 }
 
 @media only screen and (max-width : 480px) {

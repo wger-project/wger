@@ -314,7 +314,7 @@ class WorkoutCalendar(HTMLCalendar):
     '''
     def __init__(self, workout_logs):
         super(WorkoutCalendar, self).__init__()
-        self.workout_logs = self.group_by_day(workout_logs)
+        self.workout_logs = workout_logs
 
     def formatday(self, day, weekday):
         if day != 0:
@@ -323,56 +323,51 @@ class WorkoutCalendar(HTMLCalendar):
             if datetime.date.today() == date_obj:
                 cssclass += ' today'
             if day in self.workout_logs:
-                cssclass += ' filled'
-                body = []
+                current_log = self.workout_logs.get(day)
+                if current_log['impression'] == WorkoutSession.IMPRESSION_BAD:
+                    background_css = 'btn-danger'
+                elif current_log['impression'] == WorkoutSession.IMPRESSION_GOOD:
+                    background_css = 'btn-success'
+                else:
+                    background_css = 'btn-warning'
 
-                for log in self.workout_logs[day]:
-                    url = reverse('manager:log:log', kwargs={'pk': log.workout_id})
-                    formatted_date = date_obj.strftime('%Y-%m-%d')
-                    body.append('<a href="{0}" data-log="log-{1}">'.format(url, formatted_date))
-                    body.append(repr(day))
-                    body.append('</a>')
+                url = reverse('manager:log:log', kwargs={'pk': current_log['log'].workout_id})
+                formatted_date = date_obj.strftime('%Y-%m-%d')
+                body = []
+                body.append('<a href="{0}"'
+                            'data-log="log-{1}"'
+                            'class="btn btn-block {2} calendar-link">'.format(url,
+                                                                              formatted_date,
+                                                                              background_css))
+                body.append(repr(day))
+                body.append('</a>')
                 return self.day_cell(cssclass, '{0}'.format(''.join(body)))
             return self.day_cell(cssclass, day)
         return self.day_cell('noday', '&nbsp;')
 
     def formatmonth(self, year, month):
         '''
-        Format the table header. This is the same code from python's calendar module
-        but with an additional 'table' class
+        Format the table header. This is basically the same code from python's
+        calendar module but with additional bootstrap classes
         '''
         self.year, self.month = year, month
-        v = []
-        a = v.append
-        a('<table border="0" cellpadding="0" cellspacing="0" class="month table">')
-        a('\n')
-        a(self.formatmonthname(year, month))
-        a('\n')
-        a(self.formatweekheader())
-        a('\n')
+        out = []
+        out.append('<table class="month table table-bordered">\n')
+        out.append(self.formatmonthname(year, month))
+        out.append('\n')
+        out.append(self.formatweekheader())
+        out.append('\n')
         for week in self.monthdays2calendar(year, month):
-            a(self.formatweek(week))
-            a('\n')
-        a('</table>')
-        a('\n')
-        return ''.join(v)
-
-    def group_by_day(self, workout_logs):
-        '''
-        Helper function that
-        '''
-        field = lambda log: log.date.day
-        result = dict(
-            [(day, list(items)) for day, items in groupby(workout_logs, field)]
-        )
-
-        return result
+            out.append(self.formatweek(week))
+            out.append('\n')
+        out.append('</table>\n')
+        return ''.join(out)
 
     def day_cell(self, cssclass, body):
         '''
         Renders a day cell
         '''
-        return '<td class="{0}">{1}</td>'.format(cssclass, body)
+        return '<td class="{0}" style="vertical-align: middle;">{1}</td>'.format(cssclass, body)
 
 
 def calendar(request, year=None, month=None):
@@ -389,17 +384,24 @@ def calendar(request, year=None, month=None):
         month = int(month)
 
     context = {}
-    logs_filtered = []
-    temp_date_list = []
+    logs_filtered = {}
     logs = WorkoutLog.objects.filter(user=request.user,
                                      date__year=year,
                                      date__month=month).order_by('exercise')
 
-    # Process the logs, 'overview' list for the calendar
+    # Process the logs. Group by date and check for impressions
     for log in logs:
-        if log.date not in temp_date_list:
-            temp_date_list.append(log.date)
-            logs_filtered.append(log)
+        if log.date not in logs_filtered:
+            session = log.get_workout_session()
+
+            if session:
+                impression = session.impression
+            else:
+                # Default is 'neutral'
+                impression = WorkoutSession.IMPRESSION_NEUTRAL
+
+            logs_filtered[log.date.day] = {'impression': impression,
+                                           'log': log}
 
     (current_workout, schedule) = Schedule.objects.get_current_workout(request.user)
     context['calendar'] = WorkoutCalendar(logs_filtered).formatmonth(year, month)
@@ -407,5 +409,6 @@ def calendar(request, year=None, month=None):
     context['current_year'] = year
     context['current_month'] = month
     context['current_workout'] = current_workout
+    context['impressions'] = WorkoutSession.IMPRESSION
     context['month_list'] = WorkoutLog.objects.filter(user=request.user).dates('date', 'month')
     return render(request, 'workout/calendar.html', context)
