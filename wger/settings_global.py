@@ -14,175 +14,26 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import os
-import django
 from wger.main import fs2unicode
 
 '''
-This file contains the global settings that don't need to be changed by the user
+This file contains the global settings that don't usually need to be changed.
 For a full list of options, visit:
     https://docs.djangoproject.com/en/dev/ref/settings/
 '''
 
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
-ADMINS = (
-    # ('Your name', 'your_email@example.com.net'),
-)
-
-MANAGERS = ADMINS
-
-# Restrict the available languages
-LANGUAGES = (
-            ('en', 'English'),
-            ('de', 'German'),
-            ('bg', 'Bulgarian'),
-            ('es', 'Spanish'),
-            ('ru', 'Russian'),
-            ('nl', 'Dutch'),
-            ('pt', 'Portuguese'),
-)
-
-# Default language code for this installation. All choices can be found here:
-# http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en'
 
 #
-# Email prefix used
+# Application definition
 #
-EMAIL_SUBJECT_PREFIX = '[wger] '
-
-# Login-URL
-LOGIN_URL = '/user/login'
-
-# Redirect here after successful login
-LOGIN_REDIRECT_URL = '/'
-
-# Set the context processors
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'wger.utils.context_processor.processor',
-    'django.contrib.auth.context_processors.auth',
-    'django.contrib.messages.context_processors.messages',
-
-    # Django mobile
-    'django_mobile.context_processors.flavour',
-
-    # Breadcrumbs
-    'django.core.context_processors.request'
-)
-
-# Store the user messages in the session
-MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
-
-
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# On Unix systems, a value of None will cause Django to use the same
-# timezone as the operating system.
-# If running in a Windows environment this must be set to the same as your
-# system time zone.
-TIME_ZONE = None
-
-
 SITE_ID = 1
-
-# If you set this to False, Django will make some optimizations so as not
-# to load the internationalization machinery.
-USE_I18N = True
-
-# If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale.
-USE_L10N = True
-
-# All translation files are in one place
-LOCALE_PATHS = (
-    fs2unicode(os.path.join(SITE_ROOT, 'locale')),
-)
-
-# If you set this to False, Django will not use timezone-aware datetimes.
-USE_TZ = True
-
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
-
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash.
-# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = ''
-
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
-
-# URL prefix for static files.
-# Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
-
-# Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
-
-# List of finder classes that know how to find static files in
-# various locations.
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
-    'compressor.finders.CompressorFinder',
-)
-
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    # Django mobile
-    'django_mobile.loader.Loader',
-
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    # 'django.template.loaders.eggs.Loader',
-)
-
-MIDDLEWARE_CLASSES = (
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
-    # Custom authentication middleware. Creates users on-the-fly for certain
-    # paths
-    'wger.utils.middleware.WgerAuthenticationMiddleware',
-
-    # Send an appropriate Header so search engines don't index pages
-    'wger.utils.middleware.RobotsExclusionMiddleware',
-
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-
-    # Django mobile
-    'django_mobile.middleware.MobileDetectionMiddleware',
-    'django_mobile.middleware.SetFlavourMiddleware',
-)
-
-INTERNAL_IPS = ('127.0.0.1',)
-
 ROOT_URLCONF = 'wger.urls'
-
-# Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'wger.wsgi.application'
-
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    # '',
-)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -192,10 +43,11 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
 
-    # Apps from workout manager
+    # Apps from wger proper
     'wger.core',
     'wger.manager',
     'wger.weight',
@@ -233,20 +85,112 @@ INSTALLED_APPS = (
     'corsheaders',
 )
 
+MIDDLEWARE_CLASSES = (
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+
+    # Custom authentication middleware. Creates users on-the-fly for certain paths
+    'wger.utils.middleware.WgerAuthenticationMiddleware',
+
+    # Send an appropriate Header so search engines don't index pages
+    'wger.utils.middleware.RobotsExclusionMiddleware',
+
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+
+    # Django mobile
+    'django_mobile.middleware.MobileDetectionMiddleware',
+    'django_mobile.middleware.SetFlavourMiddleware',
+)
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'django_browserid.auth.BrowserIDBackend',
 )
 
+# Set the context processors
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'wger.utils.context_processor.processor',
+    'django.contrib.auth.context_processors.auth',
+    'django.contrib.messages.context_processors.messages',
+
+    # Django mobile
+    'django_mobile.context_processors.flavour',
+
+    # Breadcrumbs
+    'django.core.context_processors.request'
+)
+
+# Store the user messages in the session
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+
+    # Django compressor
+    'compressor.finders.CompressorFinder',
+)
+
+
+#
+# Email
+#
+EMAIL_SUBJECT_PREFIX = '[wger] '
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+#
+# Login
+#
+LOGIN_URL = '/user/login'
+LOGIN_REDIRECT_URL = '/'
+
+
+#
+# Internationalization
+#
+USE_TZ = True
+USE_I18N = True
+USE_L10N = True
+
+# Local time zone for this installation. Choices can be found here:
+# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+# although not all choices may be available on all operating systems.
+# On Unix systems, a value of None will cause Django to use the same
+# timezone as the operating system.
+# If running in a Windows environment this must be set to the same as your
+# system time zone.
+TIME_ZONE = None
+
+# Restrict the available languages
+LANGUAGES = (
+            ('en', 'English'),
+            ('de', 'German'),
+            ('bg', 'Bulgarian'),
+            ('es', 'Spanish'),
+            ('ru', 'Russian'),
+            ('nl', 'Dutch'),
+            ('pt', 'Portuguese'),
+)
+
+# Default language code for this installation.
+LANGUAGE_CODE = 'en'
+
+# All translation files are in one place
+LOCALE_PATHS = (
+    fs2unicode(os.path.join(BASE_DIR, 'locale')),
+)
 
 FLAVOURS_STORAGE_BACKEND = 'session'
 
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error when DEBUG=False.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
+
+#
+# Logging
+#
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -297,10 +241,16 @@ LOGGING = {
     }
 }
 
-# Force SSL to communicate with reCaptcha's servers
+
+#
+# ReCaptcha
+#
 RECAPTCHA_USE_SSL = True
 
-# Set local memory caching by default
+
+#
+# Cache
+#
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
@@ -310,7 +260,9 @@ CACHES = {
 }
 
 
-# Thumbnail sizes
+#
+# Easy thumbnails
+#
 THUMBNAIL_ALIASES = {
     '': {
         'micro': {'size': (30, 30)},
@@ -334,12 +286,17 @@ THUMBNAIL_ALIASES = {
 #
 # Django compressor
 #
+STATIC_ROOT = ''
+STATIC_URL = '/static/'
 
 # The default is not DEBUG, override if needed
 # COMPRESS_ENABLED = True
 COMPRESS_ROOT = STATIC_ROOT
 
 
+#
+# Django Rest Framework
+#
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission',),
     'PAGINATE_BY': 20,
@@ -354,6 +311,8 @@ REST_FRAMEWORK = {
 }
 
 
-# Set CORS policy: allow all hosts to access the API
+#
+# CORS headers: allow all hosts to access the API
+#
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_URLS_REGEX = r'^/api/.*$'

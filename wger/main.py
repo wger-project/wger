@@ -36,13 +36,13 @@ CONFIG_TEMPLATE = """#!/usr/bin/env python
 from wger.settings_global import *
 
 # Use 'DEBUG = True' to get more details for server errors
-# (Default for releases: 'False')
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('Your name', 'your_email@example.com.net'),
+    ('Your name', 'your_email@example.com'),
 )
+MANAGERS = ADMINS
 
 
 DATABASES = {
@@ -55,8 +55,6 @@ DATABASES = {
         'PORT': '%(dbport)s',
     }
 }
-
-SOUTH_TESTS_MIGRATE = False
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = %(default_key)r
@@ -75,6 +73,7 @@ BROWSERID_AUDIENCES = [SITE_URL]
 
 
 # Path to uploaded files
+# Absolute filesystem path to the directory that will hold user-uploaded files.
 MEDIA_ROOT = '%(media_folder_path)s'
 MEDIA_URL = SITE_URL + '/static/'
 if DEBUG:
