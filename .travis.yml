@@ -7,9 +7,8 @@ sudo: false
 # Python versions to test
 python:
   - "2.7"
-# Uncommenting as this seems to fail in travis
-#  - "3.3"
-#  - "3.4"
+  - "3.3"
+  - "3.4"
 
 # Manually define here the combinations environment variables to test
 # https://github.com/travis-ci/travis-ci/issues/1519
