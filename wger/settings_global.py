@@ -34,6 +34,7 @@ SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 SITE_ID = 1
 ROOT_URLCONF = 'wger.urls'
 WSGI_APPLICATION = 'wger.wsgi.application'
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'  # TODO: remove in django 1.8
 
 INSTALLED_APPS = (
     'django.contrib.auth',
