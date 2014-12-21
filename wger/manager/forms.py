@@ -154,6 +154,7 @@ class WorkoutSessionHiddenFieldsForm(ModelForm):
     '''
     class Meta:
         model = WorkoutSession
+        exclude = []
         widgets = {'time_start': widgets.HiddenInput(),
                    'time_end': widgets.HiddenInput(),
                    'user': widgets.HiddenInput(),
