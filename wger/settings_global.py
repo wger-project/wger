@@ -31,7 +31,7 @@ SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 #
 # Application definition
 #
-SITE_ID = 2
+SITE_ID = 1
 ROOT_URLCONF = 'wger.urls'
 WSGI_APPLICATION = 'wger.wsgi.application'
 
