@@ -109,22 +109,26 @@ $(document).ready(function() {
     {#      #}
     {# Logs #}
     {#      #}
-    <ul class="grouper-list">
+    <div class="row" style="margin-top: 2em;">
     {% for i in grouped_logs %}
-        <li>
-            {{i.grouper}}
-            <ul>
-                {% for log in i.list %}
-                <li>
-                    <a href="#log-popup-{{log.pk}}" data-toggle="modal">
-                        {{log.reps}} × {{log.weight}}
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-        </li>
+        <div class="col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ i.grouper }}</div>
+            <div class="panel-body" style="min-height: 8em;">
+                <ul>
+                    {% for log in i.list %}
+                    <li>
+                        <a href="#log-popup-{{log.pk}}" data-toggle="modal">
+                            {{log.reps}} × {{log.weight}}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        </div>
     {% endfor %}
-    </ul>
+    </div>
 </div>
 {% endfor %}
 {% endblock %}

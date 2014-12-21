@@ -190,7 +190,7 @@ LANGUAGE_CODE = 'en'
 
 # All translation files are in one place
 LOCALE_PATHS = (
-    fs2unicode(os.path.join(BASE_DIR, 'locale')),
+    fs2unicode(os.path.join(SITE_ROOT, 'locale')),
 )
 
 FLAVOURS_STORAGE_BACKEND = 'session'

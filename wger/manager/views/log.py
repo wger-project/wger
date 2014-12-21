@@ -18,7 +18,6 @@ import logging
 import uuid
 import datetime
 from calendar import HTMLCalendar
-from itertools import groupby
 
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
@@ -312,8 +311,8 @@ class WorkoutCalendar(HTMLCalendar):
     A calendar renderer, see this blog entry for details:
     * http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/
     '''
-    def __init__(self, workout_logs):
-        super(WorkoutCalendar, self).__init__()
+    def __init__(self, workout_logs, *args, **kwargs):
+        super(WorkoutCalendar, self).__init__(*args, **kwargs)
         self.workout_logs = workout_logs
 
     def formatday(self, day, weekday):
