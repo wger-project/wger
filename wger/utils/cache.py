@@ -43,6 +43,12 @@ def reset_workout_canonical_form(workout_id):
     cache.delete(cache_mapper.get_workout_canonical(workout_id))
 
 
+def reset_workout_log(user_pk, year, month):
+    delete_template_fragment_cache('workout-log-full', user_pk, year, month)
+    delete_template_fragment_cache('workout-log-mobile', user_pk, year, month)
+    cache.delete(cache_mapper.get_workout_log(user_pk, year, month))
+
+
 class CacheKeyMapper(object):
     '''
     Simple class for mapping the cache keys of different objects
@@ -55,6 +61,7 @@ class CacheKeyMapper(object):
     EXERCISE_CACHE_KEY_MUSCLE_BG = 'exercise-muscle-bg-{0}'
     INGREDIENT_CACHE_KEY = 'ingredient-{0}'
     WORKOUT_CANONICAL_REPRESENTATION = 'workout-canonical-representation-{0}'
+    WORKOUT_LOG = 'workout-log-user{0}-year{1}-month{2}'
 
     def get_exercise_key(self, param):
         '''
@@ -121,5 +128,11 @@ class CacheKeyMapper(object):
             pk = param
 
         return self.WORKOUT_CANONICAL_REPRESENTATION.format(pk)
+
+    def get_workout_log(self, user_pk, year, month):
+        '''
+        Return the workout canonical representation
+        '''
+        return self.WORKOUT_LOG.format(user_pk, year, month)
 
 cache_mapper = CacheKeyMapper()

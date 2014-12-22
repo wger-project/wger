@@ -15,14 +15,16 @@
 import datetime
 
 from django.contrib.auth.models import User
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
 
 from wger.core.tests import api_base_test
 from wger.manager.models import Workout, WorkoutSession
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
+from wger.utils.cache import cache_mapper, get_template_cache_name
 
 
 '''
@@ -128,6 +130,71 @@ class WorkoutSessionTestCase(WorkoutManagerTestCase):
         session.time_start = datetime.time(17, 0)
         session.time_end = datetime.time(13, 0)
         self.assertRaises(ValidationError, session.full_clean)
+
+
+class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
+    '''
+    Workout log cache test case
+    '''
+
+    def test_cache_update_session(self):
+        '''
+        Test that the caches are cleared when updating a workout session
+        '''
+        self.user_login('admin')
+        self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
+
+        session = WorkoutSession.objects.get(pk=1)
+        session.notes = 'Lorem ipsum'
+        session.save()
+
+        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
+        self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
+
+    def test_cache_update_session_2(self):
+        '''
+        Test that the caches are only cleared for a the session's month
+        '''
+        self.user_login('admin')
+        self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
+
+        # Session is from 2014
+        session = WorkoutSession.objects.get(pk=2)
+        session.notes = 'Lorem ipsum'
+        session.save()
+
+        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
+        self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
+        self.assertTrue(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
+
+    def test_cache_delete_session(self):
+        '''
+        Test that the caches are cleared when deleting a workout session
+        '''
+        self.user_login('admin')
+        self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
+
+        session = WorkoutSession.objects.get(pk=1)
+        session.delete()
+
+        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
+        self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
+
+    def test_cache_delete_session_2(self):
+        '''
+        Test that the caches are only cleared for a the session's month
+        '''
+        self.user_login('admin')
+        self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
+
+        session = WorkoutSession.objects.get(pk=2)
+        session.delete()
+
+        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
+        self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
+        self.assertTrue(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
 
 
 class WorkoutSessionApiTestCase(api_base_test.ApiBaseResourceTestCase):

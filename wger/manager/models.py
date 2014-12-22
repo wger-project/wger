@@ -32,7 +32,7 @@ from django.core.validators import MinValueValidator
 from wger.core.models import DaysOfWeek
 from wger.exercises.models import Exercise
 from wger.manager.helpers import reps_smart_text
-from wger.utils.cache import cache_mapper, reset_workout_canonical_form
+from wger.utils.cache import cache_mapper, reset_workout_canonical_form, reset_workout_log
 from wger.utils.fields import Html5DateField
 
 
@@ -648,6 +648,20 @@ class WorkoutLog(models.Model):
         except WorkoutSession.DoesNotExist:
             return None
 
+    def save(self, *args, **kwargs):
+        '''
+        Reset cache
+        '''
+        reset_workout_log(self.user_id, self.date.year, self.date.month)
+        super(WorkoutLog, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        '''
+        Reset cache
+        '''
+        reset_workout_log(self.user_id, self.date.year, self.date.month)
+        super(WorkoutLog, self).delete(*args, **kwargs)
+
 
 class WorkoutSession(models.Model):
     '''
@@ -745,3 +759,17 @@ class WorkoutSession(models.Model):
         Returns the object that has owner information
         '''
         return self
+
+    def save(self, *args, **kwargs):
+        '''
+        Reset cache
+        '''
+        reset_workout_log(self.user_id, self.date.year, self.date.month)
+        super(WorkoutSession, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        '''
+        Reset cache
+        '''
+        reset_workout_log(self.user_id, self.date.year, self.date.month)
+        super(WorkoutSession, self).delete(*args, **kwargs)

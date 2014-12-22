@@ -16,6 +16,7 @@ import logging
 import datetime
 
 from django.contrib.auth.models import User
+from django.core.cache import cache
 from django.core.urlresolvers import reverse, reverse_lazy
 
 from wger.core.tests import api_base_test
@@ -26,6 +27,7 @@ from wger.manager.models import WorkoutSession
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
+from wger.utils.cache import get_template_cache_name, cache_mapper
 
 
 logger = logging.getLogger('wger.custom')
@@ -244,6 +246,84 @@ class WeightLogEntryEditTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         self.edit_log_entry(fail=True)
+
+
+class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
+    '''
+    Workout log cache test case
+    '''
+
+    def test_calendar(self):
+        '''
+        Test the exercise overview cache is correctly generated on visit
+        '''
+        self.user_login('admin')
+        self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name('workout-log-full', 1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name('workout-log-mobile', 1, 2012, 10)))
+        self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
+
+        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
+        self.assertTrue(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
+        self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
+
+    def test_cache_update_log(self):
+        '''
+        Test that the caches are cleared when saving a log
+        '''
+        self.user_login('admin')
+        self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
+
+        log = WorkoutLog.objects.get(pk=1)
+        log.weight = 35
+        log.save()
+
+        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
+        self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
+
+    def test_cache_update_log_2(self):
+        '''
+        Test that the caches are only cleared for a the log's month
+        '''
+        self.user_login('admin')
+        self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
+
+        log = WorkoutLog.objects.get(pk=3)
+        log.weight = 35
+        log.save()
+
+        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
+        self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
+        self.assertTrue(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
+
+    def test_cache_delete_log(self):
+        '''
+        Test that the caches are cleared when deleting a log
+        '''
+        self.user_login('admin')
+        self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
+
+        log = WorkoutLog.objects.get(pk=1)
+        log.delete()
+
+        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
+        self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
+
+    def test_cache_delete_log_2(self):
+        '''
+        Test that the caches are only cleared for a the log's month
+        '''
+        self.user_login('admin')
+        self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
+
+        log = WorkoutLog.objects.get(pk=3)
+        log.delete()
+
+        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
+        self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
+        self.assertTrue(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
 
 
 class WorkoutLogApiTestCase(api_base_test.ApiBaseResourceTestCase):

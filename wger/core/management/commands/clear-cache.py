@@ -16,12 +16,13 @@
 
 from optparse import make_option
 
+from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand, CommandError
 
 from wger.core.models import Language
-from wger.manager.models import Workout
+from wger.manager.models import Workout, WorkoutLog
 from wger.exercises.models import Exercise
-from wger.utils.cache import reset_workout_canonical_form
+from wger.utils.cache import reset_workout_canonical_form, reset_workout_log
 from wger.utils.cache import delete_template_fragment_cache
 
 
@@ -57,6 +58,12 @@ class Command(BaseCommand):
 
         # Exercises, cached template fragments
         if options['clear_template']:
+            for user in User.objects.all():
+                for entry in WorkoutLog.objects.dates('date', 'year'):
+                    for month in range(1, 13):
+                        # print("User {0}, year {1}, month {2}".format(user.pk, entry.year, month))
+                        reset_workout_log(user.id, entry.year, month)
+
             for language in Language.objects.all():
                 delete_template_fragment_cache('muscle-overview', language.id)
                 delete_template_fragment_cache('exercise-overview', language.id)

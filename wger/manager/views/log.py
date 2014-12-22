@@ -23,6 +23,7 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
+from django.core.cache import cache
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
@@ -43,6 +44,7 @@ from wger.manager.models import Schedule
 from wger.manager.forms import HelperDateForm
 from wger.manager.forms import HelperWorkoutSessionForm
 from wger.manager.forms import WorkoutLogForm
+from wger.utils.cache import cache_mapper
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
@@ -383,24 +385,27 @@ def calendar(request, year=None, month=None):
         month = int(month)
 
     context = {}
-    logs_filtered = {}
     logs = WorkoutLog.objects.filter(user=request.user,
                                      date__year=year,
                                      date__month=month).order_by('exercise')
+    logs_filtered = cache.get(cache_mapper.get_workout_log(request.user.pk, year, month))
+    if not logs_filtered:
+        logs_filtered = {}
 
-    # Process the logs. Group by date and check for impressions
-    for log in logs:
-        if log.date not in logs_filtered:
-            session = log.get_workout_session()
+        # Process the logs. Group by date and check for impressions
+        for log in logs:
+            if log.date not in logs_filtered:
+                session = log.get_workout_session()
 
-            if session:
-                impression = session.impression
-            else:
-                # Default is 'neutral'
-                impression = WorkoutSession.IMPRESSION_NEUTRAL
+                if session:
+                    impression = session.impression
+                else:
+                    # Default is 'neutral'
+                    impression = WorkoutSession.IMPRESSION_NEUTRAL
 
-            logs_filtered[log.date.day] = {'impression': impression,
-                                           'log': log}
+                logs_filtered[log.date.day] = {'impression': impression,
+                                               'log': log}
+        cache.set(cache_mapper.get_workout_log(request.user.pk, year, month), logs_filtered)
 
     (current_workout, schedule) = Schedule.objects.get_current_workout(request.user)
     context['calendar'] = WorkoutCalendar(logs_filtered).formatmonth(year, month)

@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load wger_extras %}
+{% load cache %}
 
 {% block title %}{% trans "Workout log calendar" %}{% endblock %}
 
@@ -22,6 +23,7 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block content %}
+{% cache cache_timeout workout-log-mobile user.id current_year current_month %}
 {{calendar|safe}}
 
 {% for date in logs %}
@@ -131,6 +133,8 @@ $(document).ready(function() {
     </div>
 </div>
 {% endfor %}
+
+{% endcache %}
 {% endblock %}
 
 
