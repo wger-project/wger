@@ -125,9 +125,10 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('manager:schedule:overview'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['schedules']), 3)
+        self.assertTrue(response.context['schedules'][0].is_active)
         if self.is_mobile:
             self.assertInHTML('<span class="label label-primary pull-right"><em>active</em></span>',
-                              response.content)
+                              six.text_type(response.content))
         else:
             self.assertInHTML('<span class="label label-primary">active</span>',
                               six.text_type(response.content))
@@ -138,6 +139,8 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('manager:schedule:overview'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['schedules']), 3)
+        for i in range(0, 3):
+            self.assertFalse(response.context['schedules'][i].is_active)
         if self.is_mobile:
             self.assertNotContains(response, '<p class="ui-li-aside"><em>active</em></p>')
         else:
