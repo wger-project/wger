@@ -51,7 +51,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         '''
         self.client.get(reverse('core:dashboard'))
         self.assertEqual(self.count_temp_users(), 2)
-        user = User.objects.get(pk=4)
+        user = User.objects.get(pk=25)
         self.assertEqual(user.userprofile.is_temporary, True)
         self.assertEqual(Workout.objects.filter(user=user).count(), 0)
 
@@ -109,10 +109,10 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         self.client.get(reverse('software:code'))
         self.assertEqual(self.count_temp_users(), 1)
 
-        self.client.get(reverse('exercise-overview'))
+        self.client.get(reverse('exercise:exercise:overview'))
         self.assertEqual(self.count_temp_users(), 1)
 
-        self.client.get(reverse('ingredient-list'))
+        self.client.get(reverse('nutrition:ingredient:list'))
         self.assertEqual(self.count_temp_users(), 1)
 
         # These pages will create one
@@ -126,15 +126,15 @@ class DemoUserTestCase(WorkoutManagerTestCase):
 
         # Try some other pages
         self.user_logout()
-        self.client.get(reverse('workout-overview'))
+        self.client.get(reverse('manager:workout:overview'))
         self.assertEqual(self.count_temp_users(), 3)
 
         self.user_logout()
-        self.client.get(reverse('weight-overview'))
+        self.client.get(reverse('weight:overview'))
         self.assertEqual(self.count_temp_users(), 4)
 
         self.user_logout()
-        self.client.get(reverse('nutrition-overview'))
+        self.client.get(reverse('nutrition:plan:overview'))
         self.assertEqual(self.count_temp_users(), 5)
 
     def test_demo_user_notice(self):
@@ -144,12 +144,12 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         demo_notice_text = 'You are using a guest account'
         self.user_login('demo')
         self.assertContains(self.client.get(reverse('core:dashboard')), demo_notice_text)
-        self.assertContains(self.client.get(reverse('workout-overview')),
+        self.assertContains(self.client.get(reverse('manager:workout:overview')),
                             demo_notice_text)
-        self.assertContains(self.client.get(reverse('exercise-overview')),
+        self.assertContains(self.client.get(reverse('exercise:exercise:overview')),
                             demo_notice_text)
-        self.assertContains(self.client.get(reverse('muscle-overview')), demo_notice_text)
-        self.assertContains(self.client.get(reverse('nutrition-overview')),
+        self.assertContains(self.client.get(reverse('exercise:muscle:overview')), demo_notice_text)
+        self.assertContains(self.client.get(reverse('nutrition:plan:overview')),
                             demo_notice_text)
         self.assertContains(self.client.get(reverse('software:issues')), demo_notice_text)
         self.assertContains(self.client.get(reverse('software:license')), demo_notice_text)

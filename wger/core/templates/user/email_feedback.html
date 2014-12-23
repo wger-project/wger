@@ -1,0 +1,9 @@
+{% if user.is_authenticated %}
+Feedback posted by {{user.username}} (ID: {{user.id}})
+{% else %}
+Feedback posted by an anonymous user
+{% endif %}
+------------------------------
+
+Contact: {% if form_data.contact %}{{ form_data.contact }}{% else %}no contact{% endif %}
+Message: {{ form_data.comment }}

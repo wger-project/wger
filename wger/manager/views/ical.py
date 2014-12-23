@@ -14,6 +14,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+import six
 import logging
 import datetime
 
@@ -87,7 +88,7 @@ def get_events_workout(calendar, workout, duration, start_date=None):
         description_list = []
         for set in day['set_list']:
             for exercise in set['exercise_list']:
-                description_list.append(unicode(exercise['obj']))
+                description_list.append(six.text_type(exercise['obj']))
         description = ', '.join(description_list) if description_list else day['obj'].description
 
         # Make an event for each weekday

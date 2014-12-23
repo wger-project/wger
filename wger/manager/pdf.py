@@ -25,7 +25,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
 
 from wger.manager.models import Workout
-from wger.manager.utils import render_workout_day
+from wger.manager.helpers import render_workout_day
 from wger.utils.helpers import check_token
 from wger.utils.pdf import styleSheet
 from wger.utils.pdf import render_footer
@@ -94,7 +94,7 @@ def workout_log(request, id, uidb64=None, token=None):
 
     # Footer, date and info
     elements.append(Spacer(10*cm, 0.5*cm))
-    url = reverse('workout-view', kwargs={'id': workout.id})
+    url = reverse('manager:workout:view', kwargs={'id': workout.id})
     elements.append(render_footer(request.build_absolute_uri(url)))
 
     # write the document and send the response to the browser
@@ -287,7 +287,7 @@ def workout_view(request, id, uidb64=None, token=None):
     # Footer, date and info
     elements.append(Spacer(10*cm, 0.5*cm))
     created = datetime.date.today().strftime("%d.%m.%Y")
-    url = reverse('workout-view', kwargs={'id': workout.id})
+    url = reverse('manager:workout:view', kwargs={'id': workout.id})
     p = Paragraph('''<para align="left">
                         %(date)s -
                         <a href="%(url)s">%(url)s</a> -

@@ -27,6 +27,7 @@ from reportlab.platypus import Paragraph
 from wger import get_version
 from wger.core.models import Language
 
+
 # ************************
 # Language functions
 # ************************
@@ -85,16 +86,17 @@ def render_footer(url, date=None):
     '''
     if not date:
         date = datetime.date.today().strftime("%d.%m.%Y")
-    p = Paragraph('''<para>
-                        {date} -
-                        <a href="{url}">{url}</a> -
-                        wger Workout Manager
-                        {version}
-                    </para>'''.format(date=date,
-                                      url=url,
-                                      version=get_version()),
-                  styleSheet["Normal"])
+        p = Paragraph('''<para>
+                            {date} -
+                            <a href="{url}">{url}</a> -
+                            wger Workout Manager
+                            {version}
+                        </para>'''.format(date=date,
+                                          url=url,
+                                          version=get_version()),
+                      styleSheet["Normal"])
     return p
+
 
 # register new truetype fonts for reportlab
 pdfmetrics.registerFont(TTFont(

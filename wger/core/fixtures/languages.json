@@ -46,5 +46,13 @@
             "short_name": "nl", 
             "full_name": "Nederlands"
         }
+    }, 
+    {
+        "pk": 7, 
+        "model": "core.language", 
+        "fields": {
+            "short_name": "pt", 
+            "full_name": "Portugu\u00eas"
+        }
     }
 ]

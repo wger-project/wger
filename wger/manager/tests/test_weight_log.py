@@ -16,6 +16,7 @@ import logging
 import datetime
 
 from django.contrib.auth.models import User
+from django.core.cache import cache
 from django.core.urlresolvers import reverse, reverse_lazy
 
 from wger.core.tests import api_base_test
@@ -26,6 +27,7 @@ from wger.manager.models import WorkoutSession
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
+from wger.utils.cache import get_template_cache_name, cache_mapper
 
 
 logger = logging.getLogger('wger.custom')
@@ -42,7 +44,7 @@ class WeightLogOverviewAddTestCase(WorkoutManagerTestCase):
         '''
 
         # Fetch the overview page
-        response = self.client.get(reverse('workout-log', kwargs={'pk': 1}))
+        response = self.client.get(reverse('manager:log:log', kwargs={'pk': 1}))
 
         if fail:
             # Logged out users get a 302 redirect to login page
@@ -54,7 +56,7 @@ class WeightLogOverviewAddTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.context['workout'].id, 1)
 
         # Open the log entry page
-        response = self.client.get(reverse('day-log', kwargs={'pk': 1}))
+        response = self.client.get(reverse('manager:day:log', kwargs={'pk': 1}))
         if fail:
             self.assertTrue(response.status_code in (302, 403))
         else:
@@ -62,7 +64,7 @@ class WeightLogOverviewAddTestCase(WorkoutManagerTestCase):
 
         # Add new log entries
         count_before = WorkoutLog.objects.count()
-        response = self.client.post(reverse('day-log', kwargs={'pk': 1}),
+        response = self.client.post(reverse('manager:day:log', kwargs={'pk': 1}),
                                     {'date': '2012-01-01',
                                      'notes': 'My cool impression',
                                      'impression': '3',
@@ -128,7 +130,7 @@ class WeightlogTestCase(WorkoutManagerTestCase):
         WorkoutLog.objects.all().delete()
         l = WorkoutLog()
         l.user = user1
-        l.date = datetime.date(2014, 01, 05)
+        l.date = datetime.date(2014, 1, 5)
         l.exercise = Exercise.objects.get(pk=1)
         l.workout = workout1
         l.weight = 10
@@ -140,7 +142,7 @@ class WeightlogTestCase(WorkoutManagerTestCase):
         session1.workout = workout1
         session1.notes = 'Something here'
         session1.impression = '3'
-        session1.date = datetime.date(2014, 01, 05)
+        session1.date = datetime.date(2014, 1, 5)
         session1.save()
 
         session2 = WorkoutSession()
@@ -148,7 +150,7 @@ class WeightlogTestCase(WorkoutManagerTestCase):
         session2.workout = workout1
         session2.notes = 'Something else here'
         session2.impression = '1'
-        session2.date = datetime.date(2014, 01, 01)
+        session2.date = datetime.date(2014, 1, 1)
         session2.save()
 
         session3 = WorkoutSession()
@@ -156,7 +158,7 @@ class WeightlogTestCase(WorkoutManagerTestCase):
         session3.workout = workout2
         session3.notes = 'The notes here'
         session3.impression = '2'
-        session3.date = datetime.date(2014, 01, 05)
+        session3.date = datetime.date(2014, 1, 5)
         session3.save()
 
         self.assertEqual(l.get_workout_session(), session1)
@@ -168,8 +170,7 @@ class WeightLogAddTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = WorkoutLog
-    url = reverse_lazy('workout-log-add', kwargs={'workout_pk': 1})
-    pk = 6
+    url = reverse_lazy('manager:log:add', kwargs={'workout_pk': 1})
     data = {'reps': 10,
             'weight': 120.5,
             'date': datetime.date.today(),
@@ -182,7 +183,7 @@ class WeightLogDeleteTestCase(WorkoutManagerDeleteTestCase):
     '''
 
     object_class = WorkoutLog
-    url = reverse_lazy('workout-log-delete', kwargs={'pk': 1})
+    url = reverse_lazy('manager:log:delete', kwargs={'pk': 1})
     pk = 1
 
 
@@ -196,7 +197,7 @@ class WeightLogEntryEditTestCase(WorkoutManagerTestCase):
         Helper function to test edit log entries
         '''
 
-        response = self.client.get(reverse('workout-log-edit', kwargs={'pk': 1}))
+        response = self.client.get(reverse('manager:log:edit', kwargs={'pk': 1}))
         if fail:
             self.assertTrue(response.status_code in (302, 403))
 
@@ -204,7 +205,7 @@ class WeightLogEntryEditTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 200)
 
         date_before = WorkoutLog.objects.get(pk=1).date
-        response = self.client.post(reverse('workout-log-edit', kwargs={'pk': 1}),
+        response = self.client.post(reverse('manager:log:edit', kwargs={'pk': 1}),
                                     {'date': '2012-01-01',
                                      'reps': 10,
                                      'weight': 10,
@@ -245,6 +246,84 @@ class WeightLogEntryEditTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         self.edit_log_entry(fail=True)
+
+
+class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
+    '''
+    Workout log cache test case
+    '''
+
+    def test_calendar(self):
+        '''
+        Test the exercise overview cache is correctly generated on visit
+        '''
+        self.user_login('admin')
+        self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name('workout-log-full', 1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name('workout-log-mobile', 1, 2012, 10)))
+        self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
+
+        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
+        self.assertTrue(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
+        self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
+
+    def test_cache_update_log(self):
+        '''
+        Test that the caches are cleared when saving a log
+        '''
+        self.user_login('admin')
+        self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
+
+        log = WorkoutLog.objects.get(pk=1)
+        log.weight = 35
+        log.save()
+
+        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
+        self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
+
+    def test_cache_update_log_2(self):
+        '''
+        Test that the caches are only cleared for a the log's month
+        '''
+        self.user_login('admin')
+        self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
+
+        log = WorkoutLog.objects.get(pk=3)
+        log.weight = 35
+        log.save()
+
+        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
+        self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
+        self.assertTrue(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
+
+    def test_cache_delete_log(self):
+        '''
+        Test that the caches are cleared when deleting a log
+        '''
+        self.user_login('admin')
+        self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
+
+        log = WorkoutLog.objects.get(pk=1)
+        log.delete()
+
+        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
+        self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
+
+    def test_cache_delete_log_2(self):
+        '''
+        Test that the caches are only cleared for a the log's month
+        '''
+        self.user_login('admin')
+        self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
+
+        log = WorkoutLog.objects.get(pk=3)
+        log.delete()
+
+        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
+        self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
+        self.assertTrue(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
 
 
 class WorkoutLogApiTestCase(api_base_test.ApiBaseResourceTestCase):

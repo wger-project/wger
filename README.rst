@@ -1,7 +1,10 @@
-Thank you for downloading wger Workout Manager. Workout Manager is a free, open
-source web application that manages your exercises, workouts, weight and diet
-plans. It also offers a REST API for easy integration with other projects. It
-is written with python/django and uses jQuery and some D3js for charts.
+Thank you for downloading wger Workout Manager. wger is a free, open source web
+application that manages your exercises and personal workouts, weight and diet
+plans. It can also be used as a simple gym management utility, providing different
+administrative roles (trainer, manager, etc.). It offers a REST API as well, for
+easy integration with other projects and tools.
+
+It is written with python/django and uses jQuery and some D3js for charts.
 
 For more details and a live system, refer to the project's site: https://wger.de/
 
@@ -9,18 +12,51 @@ For more details and a live system, refer to the project's site: https://wger.de
 Installation
 ============
 
-These are the basic steps to download the application from PyPI and get it
-running. There are more detailed installation instructions (e.g. for
-development) on https://wger.de/software/code
+These are the basic steps to install and run the application locally on a
+linux system. For more detailed instructions and other deployment options,
+consult https://wger.de/software/code
 
-1) Install the necessary packages and their dependencies
+
+Development version (from git)
+------------------------------
+
+**Note:** You can safely install from master, it is almost always in a usable and stable
+state.
+
+
+1) Install the necessary packages and their dependencies in a virtualenv
 
 ::
 
- $ sudo apt-get install python-virtualenv
- $ sudo apt-get install python-dev
- $ virtualenv python-django
- $ source python-django/bin/activate
+ $ sudo apt-get install python-dev python-virtualenv
+ $ virtualenv venv-django
+ $ source venv-django/bin/activate
+
+2) Start the application. This will create a SQlite database and populate it
+   with data on the first run.
+
+::
+
+ $ git clone https://github.com/rolandgeider/wger.git
+ $ cd wger
+ $ pip install -r requirements.txt  # or requirements_devel.txt to develop
+ $ python start.py
+
+ # After the first run you can just use django's development server
+ $ python manage.py runserver
+
+3) Log in as: **admin**, password **admin**
+
+Stable version (from PyPI)
+--------------------------
+
+1) Install the necessary packages and their dependencies in a virtualenv
+
+::
+
+ $ sudo apt-get install python-dev python-virtualenv
+ $ virtualenv venv-django
+ $ source venv-django/bin/activate
  $ pip install wger
 
 
@@ -38,7 +74,8 @@ development) on https://wger.de/software/code
 Command line options
 --------------------
 
-The available options for the ``wger`` command are ::
+The available options for the ``wger`` command (if installed from PyPI) or
+``start.py`` (if installed from source) are the following ::
 
  Usage: main.py [options]
 
@@ -89,9 +126,6 @@ The application is licenced under the Affero GNU General Public License 3 or lat
 
 The initial exercise and ingredient data is licensed additionally under a
 Creative Commons Attribution Share-Alike 3.0 (CC-BY-SA 3.0)
-
-The YAML CSS framework is licensed under a Creative Commons Attribution 2.0
-License (CC-BY 2.0)
 
 Some images where taken from Wikipedia, see the SOURCES file in their respective
 folders for more details.

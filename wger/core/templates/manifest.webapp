@@ -2,7 +2,7 @@
 {
     "name": "wger Workout Manager",
     "version": "{{version}}",
-    "description": "A workout, nutrition and weight manager",
+    "description": "wger Workout Manager is a free, open source application that manages your exercises, workouts, weight and diet plans.",
     "launch_path": "/dashboard",
     "icons": {
         "16": "{% static 'images/logos/logo-marketplace-16.png' %}",
@@ -15,12 +15,22 @@
         "256": "{% static 'images/logos/logo-marketplace-256.png' %}"
     },
     "developer": {
-        "name": "Roland Geider"
+        "name": "Roland Geider",
+        "url": "https://github.com/rolandgeider/wger"
     },
     "default_locale": "en",
     "locales": {
         "de": {
-            "description": "Ein Trainingsplan-, Gewichts- und Ernährungsplanmanager"
+            "description": "wger Workout Manager ist eine freie, quelloffene Applikation die deine Trainings- und Ernährungsplanmanager sowie Gewichtslogbücher verwaltet."
+        },
+        "es": {
+            "description": "wger Workout Manager es una aplicación gratis de código abierto que administra tus rutinas, ejercicios, peso y dietas."
+        },
+        "ru": {
+            "description": "Менеджер Тренировок wger - это бесплатное приложение с открытым программным обеспечением, которое управляет вашими упражнениями, тренировками, весом и планом питания."
+        },
+        "pt": {
+            "description": "wger Gerenciador de Treinos é uma aplicação livre, gratuita e opensource que gerencia seus exercícios, treinos, peso e suas dietas."
         }
     }
 }

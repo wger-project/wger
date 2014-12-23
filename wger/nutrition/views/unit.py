@@ -18,6 +18,7 @@ import logging
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy
+from django.utils.translation import ugettext as _
 
 from django.views.generic import DeleteView
 from django.views.generic import CreateView
@@ -63,11 +64,11 @@ class WeightUnitCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
 
     model = WeightUnit
     title = ugettext_lazy('Add new weight unit')
-    form_action = reverse_lazy('weight-unit-add')
+    form_action = reverse_lazy('nutrition:weight_unit:add')
     permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):
-        return reverse('weight-unit-list')
+        return reverse('nutrition:weight_unit:list')
 
     def form_valid(self, form):
         form.instance.language = load_language()
@@ -80,10 +81,18 @@ class WeightUnitDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
 
     model = WeightUnit
-    success_url = reverse_lazy('weight-unit-list')
-    title = ugettext_lazy('Delete weight unit?')
-    form_action_urlname = 'weight-unit-delete'
+    success_url = reverse_lazy('nutrition:weight_unit:list')
+    form_action_urlname = 'nutrition:weight_unit:delete'
     permission_required = 'nutrition.delete_ingredientweightunit'
+    messages = ugettext_lazy('Successfully deleted')
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(WeightUnitDeleteView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Delete {0}?').format(self.object)
+        return context
 
 
 class WeightUnitUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
@@ -92,9 +101,16 @@ class WeightUnitUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
 
     model = WeightUnit
-    title = ugettext_lazy('Edit a weight unit')
-    form_action_urlname = 'weight-unit-edit'
+    form_action_urlname = 'nutrition:weight_unit:edit'
     permission_required = 'nutrition.change_ingredientweightunit'
 
     def get_success_url(self):
-        return reverse('weight-unit-list')
+        return reverse('nutrition:weight_unit:list')
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(WeightUnitUpdateView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Edit {0}').format(self.object)
+        return context

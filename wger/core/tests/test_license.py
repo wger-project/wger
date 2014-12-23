@@ -27,7 +27,7 @@ class LicenseOverviewTest(WorkoutManagerAccessTestCase):
     Tests the licese overview page
     '''
 
-    url = 'core:license-list'
+    url = 'core:license:list'
     anonymous_fail = True
 
 
@@ -37,10 +37,9 @@ class AddLicenseTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = License
-    url = 'core:license-add'
+    url = 'core:license:add'
     data = {'full_name': 'Something here',
             'short_name': 'SH'}
-    pk = 3
 
 
 class DeleteLicenseTestCase(WorkoutManagerDeleteTestCase):
@@ -49,7 +48,7 @@ class DeleteLicenseTestCase(WorkoutManagerDeleteTestCase):
     '''
 
     object_class = License
-    url = 'core:license-delete'
+    url = 'core:license:delete'
     pk = 1
 
 
@@ -59,7 +58,7 @@ class EditLicenseTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = License
-    url = 'core:license-edit'
+    url = 'core:license:edit'
     pk = 1
     data = {'full_name': 'Something here 1.1',
             'short_name': 'SH 1.1'}

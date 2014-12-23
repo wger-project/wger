@@ -18,6 +18,7 @@
 import datetime
 import logging
 
+import six
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
@@ -30,7 +31,8 @@ from django.core.validators import MinValueValidator
 
 from wger.core.models import DaysOfWeek
 from wger.exercises.models import Exercise
-from wger.utils.cache import cache_mapper, reset_workout_canonical_form
+from wger.manager.helpers import reps_smart_text
+from wger.utils.cache import cache_mapper, reset_workout_canonical_form, reset_workout_log
 from wger.utils.fields import Html5DateField
 
 
@@ -63,7 +65,7 @@ class Workout(models.Model):
         '''
         Returns the canonical URL to view a workout
         '''
-        return reverse('workout-view', kwargs={'id': self.id})
+        return reverse('manager:workout:view', kwargs={'id': self.id})
 
     def __unicode__(self):
         '''
@@ -221,8 +223,14 @@ class Schedule(models.Model):
                                               "in a loop (i.e. A, B, C, A, B, C, and so on)"))
     '''A flag indicating whether the schedule should act as a loop'''
 
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return self.name
+
     def get_absolute_url(self):
-        return reverse('schedule-view', kwargs={'pk': self.id})
+        return reverse('manager:schedule:view', kwargs={'pk': self.id})
 
     def __unicode__(self):
         '''
@@ -322,7 +330,27 @@ class ScheduleStep(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return u"ID: {0}".format(self.id)
+        return self.workout.comment
+
+    def get_dates(self):
+        '''
+        Calculate the start and end date for this step
+        '''
+
+        steps = self.schedule.schedulestep_set.all()
+        start_date = end_date = self.schedule.start_date
+        previous = 0
+
+        if not steps:
+            return False
+
+        for step in steps:
+            start_date += datetime.timedelta(weeks=previous)
+            end_date += datetime.timedelta(weeks=step.duration)
+            previous = step.duration
+
+            if step == self:
+                return start_date, end_date
 
     def get_dates(self):
         '''
@@ -363,7 +391,7 @@ class Day(models.Model):
         '''
         Return a more human-readable representation
         '''
-        return u"{0} for TP {1}".format(self.description, unicode(self.training))
+        return self.description
 
     def get_owner_object(self):
         '''
@@ -482,7 +510,7 @@ class Day(models.Model):
 
         return {'obj': self,
                 'days_of_week': {
-                    'text': u', '.join([unicode(_(i.day_of_week))
+                    'text': u', '.join([six.text_type(_(i.day_of_week))
                                        for i in tmp_days_of_week]),
                     'day_list': tmp_days_of_week},
                 'muscles': {
@@ -646,6 +674,20 @@ class WorkoutLog(models.Model):
         except WorkoutSession.DoesNotExist:
             return None
 
+    def save(self, *args, **kwargs):
+        '''
+        Reset cache
+        '''
+        reset_workout_log(self.user_id, self.date.year, self.date.month)
+        super(WorkoutLog, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        '''
+        Reset cache
+        '''
+        reset_workout_log(self.user_id, self.date.year, self.date.month)
+        super(WorkoutLog, self).delete(*args, **kwargs)
+
 
 class WorkoutSession(models.Model):
     '''
@@ -743,6 +785,20 @@ class WorkoutSession(models.Model):
         Returns the object that has owner information
         '''
         return self
+
+    def save(self, *args, **kwargs):
+        '''
+        Reset cache
+        '''
+        reset_workout_log(self.user_id, self.date.year, self.date.month)
+        super(WorkoutSession, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        '''
+        Reset cache
+        '''
+        reset_workout_log(self.user_id, self.date.year, self.date.month)
+        super(WorkoutSession, self).delete(*args, **kwargs)
 
 
 class WeightConfig(models.Model):
@@ -863,37 +919,3 @@ class WeightConfig(models.Model):
         Return the object that has owner information
         '''
         return self.schedule_step.workout
-
-
-#
-# Helpers
-#
-def reps_smart_text(settings, set_obj):
-    '''
-    "Smart" textual representation
-    This is a human representation of the settings, in a way that humans
-    would also write: e.g. "8 8 10 10" but "4 x 10" and not "10 10 10 10"
-
-    :param settings:
-    :param set_obj:
-    :return setting_text, setting_list:
-    '''
-    if len(settings) == 0:
-        setting_text = ''
-        setting_list = []
-    elif len(settings) == 1:
-        reps = settings[0].reps if settings[0].reps != 99 else u'∞'
-        setting_text = u'{0} × {1}'.format(set_obj.sets, reps)
-        setting_list = [settings[0].reps] * set_obj.sets
-    elif len(settings) > 1:
-        tmp_reps_text = []
-        tmp_reps = []
-        for i in settings:
-            reps = str(i.reps) if i.reps != 99 else u'∞'
-            tmp_reps_text.append(reps)
-            tmp_reps.append(i.reps)
-
-        setting_text = u' – '.join(tmp_reps_text)
-        setting_list = tmp_reps
-
-    return setting_text, setting_list

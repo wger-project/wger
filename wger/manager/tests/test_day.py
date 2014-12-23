@@ -29,8 +29,7 @@ class AddWorkoutDayTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = Day
-    url = reverse('day-add', kwargs={'workout_pk': 3})
-    pk = 6
+    url = reverse('manager:day:add', kwargs={'workout_pk': 3})
     user_success = 'test'
     user_fail = 'admin'
     data = {'description': 'a new day',
@@ -49,11 +48,11 @@ class DeleteWorkoutDayTestCase(WorkoutManagerTestCase):
 
         # Fetch the day edit page
         count_before = Day.objects.count()
-        response = self.client.get(reverse('day-delete', kwargs={'pk': 5}))
+        response = self.client.get(reverse('manager:day:delete', kwargs={'pk': 5}))
         count_after = Day.objects.count()
 
         if fail:
-            self.assertIn(response.status_code, (302, 403))
+            self.assertIn(response.status_code, (302, 404))
             self.assertTemplateUsed('login.html')
             self.assertEqual(count_before, count_after)
 
@@ -92,7 +91,7 @@ class EditWorkoutDayTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = Day
-    url = 'day-edit'
+    url = 'manager:day:edit'
     pk = 5
     user_success = 'test'
     user_fail = 'admin'
@@ -111,7 +110,7 @@ class RenderWorkoutDayTestCase(WorkoutManagerTestCase):
         '''
 
         # Fetch the day edit page
-        response = self.client.get(reverse('wger.manager.views.day.view', kwargs={'id': 5}))
+        response = self.client.get(reverse('manager:day:view', kwargs={'id': 5}))
 
         if fail:
             self.assertEqual(response.status_code, 404)

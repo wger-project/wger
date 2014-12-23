@@ -46,10 +46,9 @@ class ExerciseCategoryAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
 
     model = ExerciseCategory
-    success_url = reverse_lazy('exercise-overview')
+    success_url = reverse_lazy('exercise:exercise:overview')
     title = ugettext_lazy('Add category')
-    form_action = reverse_lazy('exercisecategory-add')
-    messages = ugettext_lazy('Category was successfully created')
+    form_action = reverse_lazy('exercise:category:add')
     permission_required = 'exercises.add_exercisecategory'
 
     def form_valid(self, form):
@@ -63,15 +62,14 @@ class ExerciseCategoryUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin)
     '''
 
     model = ExerciseCategory
-    success_url = reverse_lazy('exercise-overview')
-    messages = ugettext_lazy('Category successfully edited')
+    success_url = reverse_lazy('exercise:exercise:overview')
     permission_required = 'exercises.change_exercisecategory'
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(ExerciseCategoryUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercisecategory-edit', kwargs={'pk': self.object.id})
-        context['title'] = _(u'Edit %s') % self.object.name
+        context['form_action'] = reverse('exercise:category:edit', kwargs={'pk': self.object.id})
+        context['title'] = _(u'Edit {0}').format(self.object.name)
 
         return context
 
@@ -87,16 +85,16 @@ class ExerciseCategoryDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixi
     '''
 
     model = ExerciseCategory
-    success_url = reverse_lazy('exercise-overview')
+    success_url = reverse_lazy('exercise:exercise:overview')
     delete_message = ugettext_lazy('This will also delete all exercises in this category.')
-    messages = ugettext_lazy('Category successfully deleted')
+    messages = ugettext_lazy('Successfully deleted')
     permission_required = 'exercises.delete_exercisecategory'
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(ExerciseCategoryDeleteView, self).get_context_data(**kwargs)
 
-        context['title'] = _(u'Delete category %s?') % self.object.name
-        context['form_action'] = reverse('exercisecategory-delete', kwargs={'pk': self.object.id})
+        context['title'] = _(u'Delete {0}?').format(self.object.name)
+        context['form_action'] = reverse('exercise:category:delete', kwargs={'pk': self.object.id})
 
         return context

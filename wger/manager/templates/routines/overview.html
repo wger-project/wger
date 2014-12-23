@@ -10,11 +10,11 @@
 angular.module("routineGenerator", ["ngRoute", "ngResource"])
 .config(function ($routeProvider) {
     $routeProvider.when("/view/:name", {
-        templateUrl: "/partials/routine-generator/detail",
+        templateUrl: "/workout/routine/partials/routine-generator/detail",
     });
 
     $routeProvider.otherwise({
-        templateUrl: "/partials/routine-generator/overview"
+        templateUrl: "/workout/routine/partials/routine-generator/overview"
     });
 });
 </script>

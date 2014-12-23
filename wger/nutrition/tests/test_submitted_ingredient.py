@@ -29,7 +29,7 @@ class IngredientsPendingTestCase(WorkoutManagerTestCase):
         '''
         Helper function
         '''
-        response = self.client.get(reverse('ingredient-pending'))
+        response = self.client.get(reverse('nutrition:ingredient:pending'))
         if not fail:
             self.assertEqual(response.status_code, 200)
             self.assertEqual(len(response.context['ingredient_list']), 1)
@@ -69,7 +69,7 @@ class IngredientsPendingDetailTestCase(WorkoutManagerTestCase):
         '''
         Helper function
         '''
-        response = self.client.get(reverse('ingredient-view', kwargs={'id': 7}))
+        response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'id': 7}))
         self.assertContains(response, 'pending review')
 
         if not fail:
@@ -117,7 +117,7 @@ class IngredientAcceptTestCase(WorkoutManagerTestCase):
         '''
         ingredient = Ingredient.objects.get(pk=7)
         self.assertEqual(ingredient.status, Ingredient.INGREDIENT_STATUS_PENDING)
-        response = self.client.get(reverse('ingredient-accept', kwargs={'pk': 7}))
+        response = self.client.get(reverse('nutrition:ingredient:accept', kwargs={'pk': 7}))
         ingredient = Ingredient.objects.get(pk=7)
         self.assertEqual(response.status_code, 302)
 
@@ -165,7 +165,7 @@ class IngredientRejectTestCase(WorkoutManagerTestCase):
         '''
         ingredient = Ingredient.objects.get(pk=7)
         self.assertEqual(ingredient.status, Ingredient.INGREDIENT_STATUS_PENDING)
-        response = self.client.get(reverse('ingredient-decline', kwargs={'pk': 7}))
+        response = self.client.get(reverse('nutrition:ingredient:decline', kwargs={'pk': 7}))
         ingredient = Ingredient.objects.get(pk=7)
         self.assertEqual(response.status_code, 302)
 

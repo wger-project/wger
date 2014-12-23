@@ -53,7 +53,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
         #
         # 1. Add a workout
         #
-        self.client.get(reverse('workout-add'))
+        self.client.get(reverse('manager:workout:add'))
         response = self.client.get(reverse('core:dashboard'))
 
         self.assertEqual(response.status_code, 200)
@@ -65,7 +65,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
         #
         # 2. Add a nutrition plan
         #
-        self.client.get(reverse('nutrition-add'))
+        self.client.get(reverse('nutrition:plan:add'))
         response = self.client.get(reverse('core:dashboard'))
 
         self.assertEqual(response.status_code, 200)
@@ -77,7 +77,7 @@ class DashboardTestCase(WorkoutManagerTestCase):
         #
         # 3. Add a weight entry
         #
-        self.client.post(reverse('weight-add'),
+        self.client.post(reverse('weight:add'),
                          {'weight': 100,
                           'creation_date': '2012-01-01',
                           'user': 1},)

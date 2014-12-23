@@ -28,7 +28,7 @@ class EditMealItemUnitTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = MealItem
-    url = 'mealitem-edit'
+    url = 'nutrition:meal_item:edit'
     pk = 4
     data = {'amount': 1,
             'ingredient': 1,
@@ -41,7 +41,7 @@ class EditMealItemWeightTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = MealItem
-    url = 'mealitem-edit'
+    url = 'nutrition:meal_item:edit'
     pk = 4
     data = {'amount': 100,
             'ingredient': 1}
@@ -53,8 +53,7 @@ class AddMealItemUnitTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = MealItem
-    url = reverse('mealitem-add', kwargs={'meal_id': 3})
-    pk = 22
+    url = reverse('nutrition:meal_item:add', kwargs={'meal_id': 3})
     data = {'amount': 1,
             'ingredient': 1,
             'weight_unit': 1}
@@ -66,8 +65,7 @@ class AddMealItemWeightTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = MealItem
-    url = reverse('mealitem-add', kwargs={'meal_id': 3})
-    pk = 22
+    url = reverse('nutrition:meal_item:add', kwargs={'meal_id': 3})
     data = {'amount': 100,
             'ingredient': 1}
 

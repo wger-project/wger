@@ -94,16 +94,17 @@ class IngredientDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
 
     model = Ingredient
     template_name = 'delete.html'
-    success_url = reverse_lazy('ingredient-list')
-    messages = ugettext_lazy('Ingredient successfully deleted')
+    success_url = reverse_lazy('nutrition:ingredient:list')
+    messages = ugettext_lazy('Successfully deleted')
     permission_required = 'nutrition.delete_ingredient'
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(IngredientDeleteView, self).get_context_data(**kwargs)
 
-        context['title'] = _(u'Delete %s?') % self.object.name
-        context['form_action'] = reverse('ingredient-delete', kwargs={'pk': self.object.id})
+        context['title'] = _(u'Delete {0}?').format(self.object)
+        context['form_action'] = reverse('nutrition:ingredient:delete',
+                                         kwargs={'pk': self.object.id})
 
         return context
 
@@ -131,10 +132,16 @@ class IngredientEditView(IngredientMixin, UpdateView, WgerPermissionMixin):
     '''
 
     model = Ingredient
-    title = ugettext_lazy('Edit ingredient')
-    form_action_urlname = 'ingredient-edit'
-    messages = ugettext_lazy('Ingredient successfully updated')
+    form_action_urlname = 'nutrition:ingredient:edit'
     permission_required = 'nutrition.change_ingredient'
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(IngredientEditView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Edit {0}').format(self.object)
+        return context
 
 
 class IngredientCreateView(IngredientMixin, CreateView):
@@ -144,7 +151,7 @@ class IngredientCreateView(IngredientMixin, CreateView):
 
     model = Ingredient
     title = ugettext_lazy('Add a new ingredient')
-    form_action = reverse_lazy('ingredient-add')
+    form_action = reverse_lazy('nutrition:ingredient:add')
     sidebar = 'ingredient/form.html'
 
     def form_valid(self, form):

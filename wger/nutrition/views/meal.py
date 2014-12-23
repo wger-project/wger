@@ -53,12 +53,12 @@ class MealCreateView(WgerFormMixin, CreateView):
         return super(MealCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('nutrition-view', kwargs={'id': self.object.plan.id})
+        return reverse('nutrition:plan:view', kwargs={'id': self.object.plan.id})
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(MealCreateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('meal-add',
+        context['form_action'] = reverse('nutrition:meal:add',
                                          kwargs={'plan_pk': self.kwargs['plan_pk']})
 
         return context
@@ -71,10 +71,10 @@ class MealEditView(WgerFormMixin, UpdateView):
 
     model = Meal
     title = ugettext_lazy('Edit meal')
-    form_action_urlname = 'meal-edit'
+    form_action_urlname = 'nutrition:meal:edit'
 
     def get_success_url(self):
-        return reverse('nutrition-view', kwargs={'id': self.object.plan.id})
+        return reverse('nutrition:plan:view', kwargs={'id': self.object.plan.id})
 
 
 @login_required
@@ -90,6 +90,6 @@ def delete_meal(request, id):
     # Only delete if the user is the owner
     if plan.user == request.user:
         meal.delete()
-        return HttpResponseRedirect(reverse('nutrition-view', kwargs={'id': plan.id}))
+        return HttpResponseRedirect(reverse('nutrition:plan:view', kwargs={'id': plan.id}))
     else:
         return HttpResponseForbidden()

@@ -27,7 +27,7 @@ class RoutineOverviewAccessTestCase(WorkoutManagerTestCase):
         '''
         Helper function to test accessing the routine overview
         '''
-        response = self.client.get(reverse('routines-generator'))
+        response = self.client.get(reverse('manager:routine:generator'))
         self.assertEqual(response.status_code, 200)
 
     def test_routine_overview_anonymous(self):
@@ -67,7 +67,7 @@ class RoutinePdfExportTestCase(WorkoutManagerTestCase):
         # Create a PDF for all available routines
         for routine in routines.get_routines():
 
-            response = self.client.get(reverse('routines-pdf', kwargs={'name': routine}))
+            response = self.client.get(reverse('manager:routine:pdf', kwargs={'name': routine}))
 
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response['Content-Type'], 'application/pdf')

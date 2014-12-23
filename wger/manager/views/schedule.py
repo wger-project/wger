@@ -38,7 +38,7 @@ from reportlab.platypus import Paragraph
 from reportlab.platypus import Spacer
 
 from wger.manager.models import Schedule
-from wger.manager.utils import render_workout_day
+from wger.manager.helpers import render_workout_day
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
@@ -140,13 +140,11 @@ def export_pdf(request, pk, uidb64=None, token=None):
 
     # Footer, date and info
     elements.append(Spacer(10*cm, 0.5*cm))
-    url = reverse('schedule-view', kwargs={'pk': schedule.id})
+    url = reverse('manager:schedule:view', kwargs={'pk': schedule.id})
     elements.append(render_footer(request.build_absolute_uri(url)))
 
     # write the document and send the response to the browser
     doc.build(elements)
-
-    # Create the HttpResponse object with the appropriate PDF headers.
     response['Content-Disposition'] = 'attachment; filename=Schedule-{0}-log.pdf'.format(pk)
     response['Content-Length'] = len(response.content)
     return response
@@ -165,8 +163,7 @@ def start(request, pk):
     schedule.is_active = True
     schedule.start_date = datetime.date.today()
     schedule.save()
-    return HttpResponseRedirect(reverse('schedule-view',
-                                        kwargs={'pk': schedule.id}))
+    return HttpResponseRedirect(reverse('manager:schedule:view', kwargs={'pk': schedule.id}))
 
 
 class ScheduleCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
@@ -175,9 +172,9 @@ class ScheduleCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
 
     model = Schedule
-    success_url = reverse_lazy('schedule-overview')
+    success_url = reverse_lazy('manager:schedule:overview')
     title = ugettext_lazy('Create schedule')
-    form_action = reverse_lazy('schedule-add')
+    form_action = reverse_lazy('manager:schedule:add')
     login_required = True
 
     def form_valid(self, form):
@@ -186,7 +183,7 @@ class ScheduleCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
         return super(ScheduleCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('schedule-view', kwargs={'pk': self.object.id})
+        return reverse_lazy('manager:schedule:view', kwargs={'pk': self.object.id})
 
 
 class ScheduleDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
@@ -195,11 +192,18 @@ class ScheduleDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
 
     model = Schedule
-    success_url = reverse_lazy('schedule-overview')
-    title = ugettext_lazy('Delete schedule')
-    form_action_urlname = 'schedule-delete'
-    messages = ugettext_lazy('Schedule was successfully deleted')
+    success_url = reverse_lazy('manager:schedule:overview')
+    form_action_urlname = 'manager:schedule:delete'
+    messages = ugettext_lazy('Successfully deleted')
     login_required = True
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(ScheduleDeleteView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Delete {0}?').format(self.object)
+        return context
 
 
 class ScheduleEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
@@ -208,6 +212,13 @@ class ScheduleEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
 
     model = Schedule
-    title = ugettext_lazy('Edit schedule')
-    form_action_urlname = 'schedule-edit'
+    form_action_urlname = 'manager:schedule:edit'
     login_required = True
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(ScheduleEditView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Edit {0}').format(self.object)
+        return context

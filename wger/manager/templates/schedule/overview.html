@@ -20,7 +20,7 @@
     {% for schedule in schedules %}
     <tr>
         <td>
-            <a href="{% url 'schedule-view' schedule.id %}">
+            <a href="{% url 'manager:schedule:view' schedule.id %}">
                 {{ schedule.name }}
             </a>
             {% if schedule.is_active %}
@@ -34,7 +34,7 @@
     {% empty %}
     <tr>
         <td colspan="3">
-            <a href="{% url 'schedule-add' %}" class="wger-modal-dialog btn btn-block btn-default">
+            <a href="{% url 'manager:schedule:add' %}" class="wger-modal-dialog btn btn-block btn-default">
             {% trans "No schedules found." %} {% trans "Add one now." %}
             </a>
         </td>
@@ -61,7 +61,7 @@ deactivate it, if it is a loop.{% endblocktrans %}</p>
 
 <h3>{% trans "Add schedule" %}</h3>
 <p>
-<a href="{% url 'schedule-add' %}"
+<a href="{% url 'manager:schedule:add' %}"
    class="wger-modal-dialog">
 <img src="{% static 'images/icons/new.svg' %}"
     width="32"

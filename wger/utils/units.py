@@ -32,6 +32,9 @@ class AbstractWeight(object):
 
     For consistency, all results are converted to python decimal and quantized
     to four places
+    Internally, all values are stored as kilograms and are converted only if
+    needed. For consistency, all results are converted to python decimal and
+    quantized to four places
     '''
 
     KG_IN_LBS = Decimal(2.20462262)
@@ -43,10 +46,17 @@ class AbstractWeight(object):
     def __init__(self, weight, mode='kg'):
         '''
         :param weight: the numerical weight
-        :param mode: the mode, only the values 'kg' (default) and 'lb' are supported
+        :param mode: the mode, values 'kg' (default), 'g', 'lb' and 'oz' are supported
         '''
-        self.weight = Decimal(weight).quantize(FOURPLACES)
-        self.is_kg = True if mode == 'kg' else False
+        weight = self.normalize(weight)
+
+        if mode == 'g':
+            weight /= Decimal(1000)
+        elif mode == 'oz':
+            weight /= Decimal(16.0)
+
+        self.weight = weight
+        self.is_kg = True if mode in ('kg', 'g') else False
 
     def __mul__(self, other):
         '''
@@ -65,22 +75,65 @@ class AbstractWeight(object):
             other = AbstractWeight(other)
         return AbstractWeight(self.kg + other.kg)
 
+    @staticmethod
+    def normalize(value):
+        '''
+        Helper method that returns quantized
+        :param value:
+        :return: a quantized value to four decimal places
+        '''
+
+        return Decimal(value).quantize(FOURPLACES)
+
     @property
     def kg(self):
         '''
+        For simplicity, the sum always occurs in kg
         :return: Return the weight in kilograms
         '''
         if self.is_kg:
-            return self.weight
+            return self.normalize(self.weight)
         else:
-            return (self.weight * self.LB_IN_KG).quantize(FOURPLACES)
+            return self.normalize(self.weight * self.LB_IN_KG)
+
+    @property
+    def kg(self):
+        '''
+        Return the weight in kilograms
+
+        :return: decimal
+        '''
+        if self.is_kg:
+            return self.normalize(self.weight)
+        else:
+            return self.normalize(self.weight * self.LB_IN_KG)
+
+    @property
+    def g(self):
+        '''
+        Return the weight in grams
+
+        :return: decimal
+        '''
+        return self.normalize(self.kg * 1000)
 
     @property
     def lb(self):
         '''
-        :return: Return the weight in pounds
+        Return the weight in pounds
+
+        :return: decimal
         '''
         if self.is_kg:
-            return (self.weight * self.KG_IN_LBS).quantize(FOURPLACES)
+            return self.normalize(self.weight * self.KG_IN_LBS)
         else:
-            return self.weight
+            return self.normalize(self.weight)
+
+    @property
+    def oz(self):
+        '''
+        Return the weight in ounces
+
+        :return: decimal
+        '''
+        return self.normalize(self.lb * 16)

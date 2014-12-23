@@ -25,9 +25,11 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import ugettext_lazy as _
+from wger.gym.models import Gym
 
 from wger.utils.helpers import disable_for_loaddata
 from wger.utils.constants import TWOPLACES
+from wger.utils.units import AbstractWeight
 
 from wger.weight.models import WeightEntry
 
@@ -64,7 +66,7 @@ class Language(models.Model):
         '''
         Returns the canonical URL to view a language
         '''
-        return reverse('config:language-view', kwargs={'pk': self.id})
+        return reverse('config:language:view', kwargs={'pk': self.id})
 
     #
     # Own methods
@@ -100,23 +102,37 @@ class UserProfile(models.Model):
         (UNITS_LB, _('Imperial (pound)'))
     )
 
-    # This field is required.
     user = models.OneToOneField(User,
                                 editable=False)
+    '''
+    The user
+    '''
 
-    # Flag to mark a temporary user (demo account)
+    gym = models.ForeignKey(Gym,
+                            editable=False,
+                            null=True,
+                            blank=True)
+    '''
+    The gym this user belongs to, if any
+    '''
+
     is_temporary = models.BooleanField(default=False,
                                        editable=False)
+    '''
+    Flag to mark a temporary user (demo account)
+    '''
 
     #
     # User preferences
     #
 
-    # Show exercise comments on workout view
     show_comments = models.BooleanField(verbose_name=_('Show exercise comments'),
                                         help_text=_('Check to show exercise comments on the '
                                                     'workout view'),
                                         default=True)
+    '''
+    Show exercise comments on workout view
+    '''
 
     # Also show ingredients in english while composing a nutritional plan
     # (obviously this is only meaningful if the user has a language other than english)
@@ -324,6 +340,14 @@ by the US Department of Agriculture. It is extremely complete, with around
         '''
         return u"Profile for user {0}".format(self.user)
 
+    @property
+    def use_metric(self):
+        '''
+        Simple helper that checks whether the user uses metric units or not
+        :return: Boolean
+        '''
+        return self.weight_unit == 'kg'
+
     def calculate_bmi(self):
         '''
         Calculates the user's BMI
@@ -332,8 +356,15 @@ by the US Department of Agriculture. It is extremely complete, with around
         - weight in kg
         - height in m
         '''
-        return self.weight / (self.height / decimal.Decimal(100) *
-                              self.height / decimal.Decimal(100.0))
+
+        # If not all the data is available, return 0, otherwise the result
+        # of the calculation below breaks django's template filters
+        if not self.weight or not self.height:
+            return 0
+
+        weight = self.weight if self.use_metric else AbstractWeight(self.weight, 'lb').kg
+        return weight / (self.height / decimal.Decimal(100) *
+                         self.height / decimal.Decimal(100.0))
 
     def calculate_basal_metabolic_rate(self, formula=1):
         '''
@@ -342,9 +373,10 @@ by the US Department of Agriculture. It is extremely complete, with around
         Currently only the Mifflin-St.Jeor formula is supported
         '''
         factor = 5 if self.gender == self.GENDER_MALE else -161
+        weight = self.weight if self.use_metric else AbstractWeight(self.weight, 'lb').kg
 
         try:
-            rate = ((10 * self.weight)  # in kg
+            rate = ((10 * weight)  # in kg
                     + (decimal.Decimal(6.25) * self.height)  # in cm
                     - (5 * self.age)  # in years
                     + factor)

@@ -209,7 +209,7 @@ def export_pdf(request, name):
 
     # Footer
     elements.append(Spacer(10*cm, 0.5*cm))
-    url = reverse('routines-generator')
+    url = reverse('manager:routine:generator')
     elements.append(render_footer(request.build_absolute_uri(url)))
 
     # Create the HttpResponse object with the appropriate PDF headers.

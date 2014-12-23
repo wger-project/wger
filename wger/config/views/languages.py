@@ -43,14 +43,14 @@ class LanguageListView(WgerPermissionMixin, ListView):
     model = Language
     template_name = 'language/overview.html'
     context_object_name = 'language_list'
-    permission_required = 'config.add_languageconfig'
+    permission_required = 'core.change_language'
 
 
 class LanguageDetailView(WgerPermissionMixin, DetailView):
     model = Language
     template_name = 'language/view.html'
-    permission_required = 'config.add_languageconfig'
     context_object_name = 'view_language'
+    permission_required = 'core.change_language'
 
 
 class LanguageCreateView(WgerFormMixin, CreateView):
@@ -59,9 +59,9 @@ class LanguageCreateView(WgerFormMixin, CreateView):
     '''
 
     model = Language
-    title = ugettext_lazy('Add new language')
-    form_action = reverse_lazy('config:language-add')
-    permission_required = 'config.add_languageconfig'
+    title = ugettext_lazy('Add')
+    form_action = reverse_lazy('config:language:add')
+    permission_required = 'core.add_language'
 
 
 class LanguageDeleteView(WgerDeleteMixin, DeleteView):
@@ -70,16 +70,18 @@ class LanguageDeleteView(WgerDeleteMixin, DeleteView):
     '''
 
     model = Language
-    success_url = reverse_lazy('config:language-overview')
-    messages = ugettext_lazy('Language successfully deleted')
-    permission_required = 'config.add_languageconfig'
+    success_url = reverse_lazy('config:language:overview')
+    messages = ugettext_lazy('Successfully deleted')
+    permission_required = 'core.delete_language'
 
-    # Send some additional data to the template
     def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
         context = super(LanguageDeleteView, self).get_context_data(**kwargs)
 
-        context['title'] = _(u'Delete {0}?'.format(self.object.full_name))
-        context['form_action'] = reverse('config:language-delete', kwargs={'pk': self.object.id})
+        context['title'] = _(u'Delete {0}?').format(self.object.full_name)
+        context['form_action'] = reverse('config:language:delete', kwargs={'pk': self.object.id})
 
         return context
 
@@ -90,6 +92,13 @@ class LanguageEditView(WgerFormMixin, UpdateView):
     '''
 
     model = Language
-    title = ugettext_lazy('Edit')
-    form_action_urlname = 'config:language-edit'
-    permission_required = 'config.add_languageconfig'
+    form_action_urlname = 'config:language:edit'
+    permission_required = 'core.change_language'
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(LanguageEditView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Edit {0}').format(self.object.full_name)
+        return context

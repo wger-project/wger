@@ -21,12 +21,6 @@ import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from django.forms import ModelForm
-from django.forms import DateField
-from django.forms import CharField
-from django.forms import Textarea
-from django.forms import Form
-from django import forms
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
@@ -38,28 +32,16 @@ from django.db.models import Min
 from django.db.models import Max
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
-from django.forms import widgets
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
+from wger.weight.forms import WeightForm
 from wger.weight.models import WeightEntry
 from wger.weight import helpers
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.constants import DATE_FORMATS
-from wger.utils.widgets import Html5DateInput
 
 
 logger = logging.getLogger('wger.custom')
-
-
-class WeightForm(ModelForm):
-    creation_date = DateField(input_formats=DATE_FORMATS, widget=Html5DateInput())
-
-    class Meta:
-        model = WeightEntry
-        widgets = {
-            'user': widgets.HiddenInput(),
-            }
 
 
 class WeightAddView(WgerFormMixin, CreateView):
@@ -69,8 +51,8 @@ class WeightAddView(WgerFormMixin, CreateView):
     model = WeightEntry
     form_class = WeightForm
     title = ugettext_lazy('Add weight entry')
-    form_action = reverse_lazy('weight-add')
-    success_url = reverse_lazy('weight-overview')
+    form_action = reverse_lazy('weight:add')
+    success_url = reverse_lazy('weight:overview')
 
     def get_initial(self):
         '''
@@ -96,11 +78,11 @@ class WeightUpdateView(WgerFormMixin, UpdateView):
     '''
     model = WeightEntry
     form_class = WeightForm
-    success_url = reverse_lazy('weight-overview')
+    success_url = reverse_lazy('weight:overview')
 
     def get_context_data(self, **kwargs):
         context = super(WeightUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('weight-edit', kwargs={'pk': self.object.id})
+        context['form_action'] = reverse('weight:edit', kwargs={'pk': self.object.id})
         context['title'] = _('Edit weight entry for the %s') % self.object.creation_date
 
         return context
@@ -188,22 +170,6 @@ def get_weight_data(request):
     return Response(chart_data)
 
 
-CSV_DATE_FORMAT = (('%d.%m.%Y', 'DD.MM.YYYY (30.01.2012)'),
-                   ('%d.%m.%y', 'DD.MM.YY (30.01.12)'),
-                   ('%Y-%m-%d', 'YYYY-MM-DD (2012-01-30)'),
-                   ('%y-%m-%d', 'YY-MM-DD (12-01-30)'),
-                   ('%m/%d/%Y', 'MM/DD/YYYY (01/30/2012)'),
-                   ('%m/%d/%y', 'MM/DD/YY (01/30/12)'),)
-
-
-class WeightCsvImportForm(Form):
-    '''
-    A helper form with only a textarea
-    '''
-    csv_input = CharField(widget=Textarea, label=_('Input'))
-    date_format = forms.ChoiceField(choices=CSV_DATE_FORMAT, label=_('Date format'))
-
-
 class WeightCsvImportFormPreview(FormPreview):
     preview_template = 'import_csv_preview.html'
     form_template = 'import_csv_form.html'
@@ -216,7 +182,7 @@ class WeightCsvImportFormPreview(FormPreview):
         return {'form': form,
                 'stage_field': self.unused_name('stage'),
                 'state': self.state,
-                'form_action': reverse('weight-import-csv')}
+                'form_action': reverse('weight:import-csv')}
 
     def process_preview(self, request, form, context):
         context['weight_list'], context['error_list'] = helpers.parse_weight_csv(request,
@@ -226,4 +192,4 @@ class WeightCsvImportFormPreview(FormPreview):
     def done(self, request, cleaned_data):
         weight_list, error_list = helpers.parse_weight_csv(request, cleaned_data)
         WeightEntry.objects.bulk_create(weight_list)
-        return HttpResponseRedirect(reverse('weight-overview'))
+        return HttpResponseRedirect(reverse('weight:overview'))

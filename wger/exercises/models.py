@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+import six
 import logging
 
 from django.db import models
@@ -31,7 +32,7 @@ from django.db.models.signals import pre_save
 from django.db.models.signals import post_delete
 from easy_thumbnails.files import get_thumbnailer
 from easy_thumbnails.signals import saved_file
-from easy_thumbnails.signal_handlers import generate_aliases_global
+from easy_thumbnails.signal_handlers import generate_aliases
 
 from wger.core.models import Language
 from wger.utils.managers import SubmissionManager
@@ -256,7 +257,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         '''
         Returns the canonical URL to view an exercise
         '''
-        return reverse('exercise-view', kwargs={'id': self.id, 'slug': slugify(self.name)})
+        return reverse('exercise:exercise:view', kwargs={'id': self.id, 'slug': slugify(self.name)})
 
     def save(self, *args, **kwargs):
         '''
@@ -369,10 +370,10 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                 self.license_author = request.user.username
 
             subject = _('New user submitted exercise')
-            message = _(u'''The user {0} submitted a new exercise "{1}".'''.format(
-                        request.user.username, self.name))
-            mail.mail_admins(unicode(subject),
-                             unicode(message),
+            message = _(u'The user {0} submitted a new exercise "{1}".').format(
+                request.user.username, self.name)
+            mail.mail_admins(six.text_type(subject),
+                             six.text_type(message),
                              fail_silently=True)
 
 
@@ -495,12 +496,12 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
                 self.license_author = request.user.username
 
             subject = _('New user submitted image')
-            message = _(u'''The user {0} submitted a new image "{1}" for exercise {2}.'''.format(
-                        request.user.username,
-                        self.name,
-                        self.exercise))
-            mail.mail_admins(unicode(subject),
-                             unicode(message),
+            message = _(u'The user {0} submitted a new image "{1}" for exercise {2}.').format(
+                request.user.username,
+                self.name,
+                self.exercise)
+            mail.mail_admins(six.text_type(subject),
+                             six.text_type(message),
                              fail_silently=True)
 
 
@@ -540,8 +541,8 @@ def delete_exercise_image_on_update(sender, instance, **kwargs):
 pre_save.connect(delete_exercise_image_on_update, sender=ExerciseImage)
 
 
-# Generate all thumbnails when uploading a new image
-saved_file.connect(generate_aliases_global)
+# Generate thumbnails when uploading a new image
+saved_file.connect(generate_aliases)
 
 
 class ExerciseComment(models.Model):

@@ -35,7 +35,7 @@ class AbstractLicenseModel(models.Model):
 
     license = models.ForeignKey(License,
                                 verbose_name=_('License'),
-                                default=1)
+                                default=2)
     '''The item's license'''
 
     license_author = models.CharField(verbose_name=_('Author'),

@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load staticfiles %}
+{% load wger_extras %}
 
-{% block title %} {% trans "Dashboard" %}{% endblock %}
+{% block title %}{% trans "Dashboard" %}{% endblock %}
 
 {% block header %}
 {% endblock %}
@@ -24,13 +25,13 @@
 day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</strong></p>
 
                 {% for day in current_workout.day_set.all %}
-                    <a href="{% url 'day-log' day.pk %}" class="btn btn-block btn-default">{{day.description}}</a>
+                    <a href="{% url 'manager:day:log' day.pk %}" class="btn btn-block btn-default">{{day.description}}</a>
                 {% endfor %}
 
                 {% else %}
                 <p><em>{% trans "No workouts found." %}</em></p>
                 <p>
-                <a href="{% url 'workout-add' %}" class="btn btn-block btn-default">
+                <a href="{% url 'manager:workout:add' %}" class="btn btn-block btn-default">
                    <img src="{% static 'images/icons/add.svg' %}"
                         width="22"
                         height="22"
@@ -46,12 +47,12 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
 {% endif %}
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-sm-6">
         <h3>{% trans "Workout"%}</h3>
 
         {% if current_workout %}
             <p>
-            <a href="{% url 'workout-view' current_workout.id %}">
+            <a href="{% url 'manager:workout:view' current_workout.id %}">
                 {% if current_workout.comment %}
                     {{ current_workout.comment }}
                 {% else %}
@@ -86,60 +87,63 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
             {% endif %}
 
         {% else %} {# no workout #}
-            <a href="{% url 'workout-add' %}" class="btn btn-block btn-default">
+            <a href="{% url 'manager:workout:add' %}" class="btn btn-block btn-default">
             {% trans "No workouts found." %} {% trans "Add one now." %}
             </a>
         {% endif %}
 
     </div>
-    <div class="col-md-6">
+    <div class="col-sm-6">
         <h3>{% trans "Nutrition plan"%}</h3>
 
         {% if plan %}
             <p>
-            <a href="{% url 'nutrition-view' plan.id %}">
+            <a href="{% url 'nutrition:plan:view' plan.id %}">
                 {% if plan.description %}
                     {{ plan.description }}
                 {% else %}
                     {% trans "Nutrition plan" %}
                 {% endif %}
-           </a>
-           </p>
-           – {{ plan.creation_date }}
-           <ul>
-               <li>
-                   {% trans "Energy" %}: {{nutritional_info.total.energy|floatformat}} kcal
-               </li>
-               <li>
-                   {% trans "Protein" %}: {{nutritional_info.total.protein|floatformat}} g
-               </li>
-               <li>
-                   {% trans "Carbohydrates" %}: {{nutritional_info.total.carbohydrates|floatformat}} g
-               </li>
-               <li>
-                   {% trans "Fat" %}: {{nutritional_info.total.fat|floatformat}} g
-               </li>
-           </ul>
+            </a>
+            </p>
+            – {{ plan.creation_date }}
+            <ul>
+                <li>
+                    {% trans "Energy" %}: {{nutritional_info.total.energy|floatformat}} {% trans "kcal" %}
+                </li>
+                <li>
+                    {% trans "Protein" %}: {{nutritional_info.total.protein|floatformat}} {% trans_weight_unit 'g' user %}
+                </li>
+                <li>
+                    {% trans "Carbohydrates" %}: {{nutritional_info.total.carbohydrates|floatformat}} {% trans_weight_unit 'g' user %}
+                </li>
+                <li>
+                    {% trans "Fat" %}: {{nutritional_info.total.fat|floatformat}} {% trans_weight_unit 'g' user %}
+                </li>
+            </ul>
 
         {% else %}
             <p>
-                <a href="{% url 'nutrition-add' %}" class="btn btn-block btn-default">
+                <a href="{% url 'nutrition:plan:add' %}" class="btn btn-block btn-default">
                 {% trans "No nutrition plans." %} {% trans "Add one now." %}
                 </a>
             </p>
         {% endif %}
         {% if weight %}
         <p>
-            {% trans "Your current weight is: "%} <strong>{{weight.weight|floatformat}} kg.</strong>
+            {% trans "Your current weight is: "%}
+            <strong>
+                {{weight.weight|floatformat}} {% trans_weight_unit 'kg' user %}
+            </strong>
         </p>
         {% endif %}
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-sm-6">
         <p>
-            <a href="{% url 'workout-add' %}">
+            <a href="{% url 'manager:workout:add' %}">
             <img src="{% static 'images/icons/new.svg' %}"
                  width="32"
                  height="32"
@@ -148,9 +152,9 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
             {% trans "Add workout" %}</a>
         </p>
     </div>
-    <div class="col-md-6">
+    <div class="col-sm-6">
         <p>
-            <a href="{% url 'nutrition-add' %}">
+            <a href="{% url 'nutrition:plan:add' %}">
             <img src="{% static 'images/icons/new.svg' %}"
                  width="32"
                  height="32"

@@ -18,7 +18,7 @@
     {% for workout in workouts %}
     <tr>
         <td>
-            <a href="{% url 'workout-view' workout.id %}">
+            <a href="{% url 'manager:workout:view' workout.id %}">
                 {{ workout }}
             </a>
             {% if workout == current_workout %}
@@ -34,7 +34,7 @@
 </table>
 {% else %}
     <p>
-        <a href="{% url 'workout-add' %}" class="btn btn-block btn-default">
+        <a href="{% url 'manager:workout:add' %}" class="btn btn-block btn-default">
         {% trans "No workouts found." %} {% trans "Add one now." %}
         </a>
     </p>
@@ -47,7 +47,7 @@
 {% block sidebar %}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url 'workout-add' %}">
+    <a href="{% url 'manager:workout:add' %}">
     <img src="{% static 'images/icons/new.svg' %}"
          width="32"
          height="32"

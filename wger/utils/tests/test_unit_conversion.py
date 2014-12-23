@@ -73,3 +73,43 @@ class WeightConversionTestCase(WorkoutManagerTestCase):
         weight2 = 20
         out = weight1 + weight2
         self.assertEqual(out.kg, Decimal(100))
+
+    def test_conversion_subunits(self):
+        '''
+        Test the weight conversion with "subunits" (grams, ounces)
+        '''
+
+        tmp = AbstractWeight(100.1, 'g')
+        self.assertEqual(tmp.kg, Decimal(0.1001).quantize(FOURPLACES))
+
+        tmp = AbstractWeight(100, 'g')
+        self.assertEqual(tmp.kg, Decimal(0.1).quantize(FOURPLACES))
+
+        tmp = AbstractWeight(1000, 'g')
+        self.assertEqual(tmp.kg, 1)
+
+        tmp = AbstractWeight(1.5, 'oz')
+        self.assertEqual(tmp.lb, Decimal(0.0938).quantize(FOURPLACES))
+
+        tmp = AbstractWeight(2, 'oz')
+        self.assertEqual(tmp.lb, Decimal(0.125).quantize(FOURPLACES))
+
+        tmp = AbstractWeight(4, 'oz')
+        self.assertEqual(tmp.lb, Decimal(0.25).quantize(FOURPLACES))
+
+        tmp = AbstractWeight(8, 'oz')
+        self.assertEqual(tmp.lb, Decimal(0.5).quantize(FOURPLACES))
+
+        tmp = AbstractWeight(16, 'oz')
+        self.assertEqual(tmp.lb, 1)
+
+    def test_subunits(self):
+        '''
+        Test weight subunit calculations
+        '''
+
+        tmp = AbstractWeight(10)
+        self.assertEqual(tmp.g, 10000)
+
+        tmp = AbstractWeight(2, 'lb')
+        self.assertEqual(tmp.oz, 32)

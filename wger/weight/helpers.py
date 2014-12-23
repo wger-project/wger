@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
-import StringIO
+import six
 import datetime
 import decimal
 import csv
@@ -36,7 +36,7 @@ def parse_weight_csv(request, cleaned_data):
         dialect = 'excel'
 
     # csv.reader expects a file-like object, so use StringIO
-    parsed_csv = csv.reader(StringIO.StringIO(cleaned_data['csv_input']),
+    parsed_csv = csv.reader(six.StringIO(cleaned_data['csv_input']),
                             dialect)
 
     weight_list = []
@@ -93,7 +93,7 @@ def process_log_entries(logs):
     reps_list = {}
     for entry in logs:
         temp = {'date': '%s' % entry.date,
-                'id': 'workout-log-%s' % entry.id}
+                'id': 'manager:workout:log-%s' % entry.id}
 
         # Only unique date, rep and weight combinations
         if reps_list.get('{0}-{1}-{2}'.format(entry.date, entry.reps, entry.weight)):

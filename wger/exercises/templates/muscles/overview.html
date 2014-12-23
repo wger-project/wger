@@ -43,14 +43,14 @@ $(document).ready(function() {
 {% trans "Hover with the mouse over the muscles to show corresponding exercises." %}
 
 <div class="row">
-    <div class="col-md-4 col-xs-6">
+    <div class="col-sm-4 col-xs-6">
         <h3 style="padding-bottom:0.5em;">{% trans "Muscles" %}</h3>
         <div id="muscle-system"
              class="muscle-background"
              style="background-image: url('/static/images/muscles/muscular_system_front.svg');">
         </div>
     </div>
-    <div class="col-md-4 col-xs-6">
+    <div class="col-sm-4 col-xs-6">
         {# Why do we need to use |first? #}
         {% regroup muscle_list|first by is_front as muscle_group %}
         {% for group in muscle_group %}
@@ -73,7 +73,7 @@ $(document).ready(function() {
             </ul>
         {% endfor %}
     </div>
-    <div class="col-md-4 col-xs-12">
+    <div class="col-sm-4 col-xs-12">
         {% for muscle in muscle_list|first %}
             <div id="muscle-{{muscle.id}}" style="display:none;" class="exercise-list">
                 <h3>{% trans "Exercises" %}</h3>
@@ -100,7 +100,7 @@ $(document).ready(function() {
 <h3>{% trans "Options" %}</h3>
 
 <p>
-<a href="{% url 'muscle-add' %}"
+<a href="{% url 'exercise:muscle:add' %}"
    title="{% trans 'Add muscle' %}"
    {% auto_link_css flavour "wger-modal-dialog" %}>
    <img src="{% static 'images/icons/new.svg' %}"
@@ -119,7 +119,7 @@ folder <em>images/muscles</em>.{% endblocktrans %}</p>
 
 <div id="muscle-edit-box" style="display:none;">
 <p>
-    <a href="{% url 'muscle-edit' 1 %}"
+    <a href="{% url 'exercise:muscle:edit' 1 %}"
        {% auto_link_css flavour "wger-modal-dialog" %}
        id="muscle-edit-edit-link">
        <img src="{% static 'images/icons/edit.svg' %}"
@@ -129,7 +129,7 @@ folder <em>images/muscles</em>.{% endblocktrans %}</p>
             title="{% trans 'Edit muscle' %}">{% trans 'Edit muscle' %}: <span class="muscle-edit-name"></span></a>
 </p>
 <p>
-    <a href="{% url 'muscle-delete' 1 %}"
+    <a href="{% url 'exercise:muscle:delete' 1 %}"
        {% auto_link_css flavour "wger-modal-dialog" %}
        id="muscle-edit-delete-link">
       <img src="{% static 'images/icons/trash.svg' %}"

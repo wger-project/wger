@@ -38,14 +38,20 @@ from wger.utils.constants import TWOPLACES
 from wger.utils.cache import cache_mapper
 from wger.utils.fields import Html5TimeField
 from wger.utils.models import AbstractLicenseModel
+from wger.utils.units import AbstractWeight
 
 MEALITEM_WEIGHT_GRAM = '1'
 MEALITEM_WEIGHT_UNIT = '2'
 
-
-PROTEIN_FACTOR = 4
-CARB_FACTOR = 4
-FAT_FACTOR = 9
+ENERGY_FACTOR = {'protein': {'kg': 4,
+                             'lb': 113},
+                 'carbohydrates': {'kg': 4,
+                                   'lb': 113},
+                 'fat': {'kg': 9,
+                         'lb': 225}}
+'''
+Simple approximation of energy (kcal) provided per gram or ounce
+'''
 
 
 logger = logging.getLogger('wger.custom')
@@ -95,12 +101,14 @@ class NutritionPlan(models.Model):
         '''
         Returns the canonical URL to view this object
         '''
-        return reverse('nutrition-view', kwargs={'id': self.id})
+        return reverse('nutrition:plan:view', kwargs={'id': self.id})
 
     def get_nutritional_values(self):
         '''
         Sums the nutritional info of all items in the plan
         '''
+        use_metric = self.user.userprofile.use_metric
+        unit = 'kg' if use_metric else 'lb'
         result = {'total': {'energy': 0,
                             'protein': 0,
                             'carbohydrates': 0,
@@ -119,36 +127,26 @@ class NutritionPlan(models.Model):
 
         # Energy
         for meal in self.meal_set.select_related():
-            values = meal.get_nutritional_values()
+            values = meal.get_nutritional_values(use_metric=use_metric)
+            for key in result['total'].keys():
+                result['total'][key] += values[key]
 
-            result['total']['energy'] += values['energy']
-            result['total']['protein'] += values['protein']
-            result['total']['carbohydrates'] += values['carbohydrates']
-            result['total']['carbohydrates_sugar'] += values['carbohydrates_sugar']
-            result['total']['fat'] += values['fat']
-            result['total']['fat_saturated'] += values['fat_saturated']
-            result['total']['fibres'] += values['fibres']
-            result['total']['sodium'] += values['sodium']
+        energy = result['total']['energy']
 
         # In percent
-        if result['total']['energy']:
-            result['percent']['protein'] = (result['total']['protein'] *
-                                            PROTEIN_FACTOR / result['total']['energy']) * 100
-            result['percent']['carbohydrates'] = (result['total']['carbohydrates'] *
-                                                  CARB_FACTOR / result['total']['energy']) * 100
-            result['percent']['fat'] = (result['total']['fat'] *
-                                        FAT_FACTOR / result['total']['energy']) * 100
+        if energy:
+            for key in result['percent'].keys():
+                result['percent'][key] = \
+                    result['total'][key] * ENERGY_FACTOR[key][unit] / energy * 100
 
         # Per body weight
         if self.user.userprofile.weight:
             weight = Decimal(self.user.userprofile.weight)
-            result['per_kg']['protein'] = (result['total']['protein'] / weight).quantize(TWOPLACES)
-            result['per_kg']['carbohydrates'] = (result['total']['carbohydrates'] / weight) \
-                .quantize(TWOPLACES)
-            result['per_kg']['fat'] = (result['total']['fat'] / weight).quantize(TWOPLACES)
+            for key in result['per_kg'].keys():
+                result['per_kg'][key] = result['total'][key] / weight
 
         # Only 2 decimal places, anything else doesn't make sense
-        for key in ('total', 'percent', 'per_kg'):
+        for key in result.keys():
             for i in result[key]:
                 result[key][i] = Decimal(result[key][i]).quantize(TWOPLACES)
 
@@ -310,7 +308,8 @@ class Ingredient(AbstractLicenseModel, models.Model):
         '''
         Returns the canonical URL to view this object
         '''
-        return reverse('ingredient-view', kwargs={'id': self.id, 'slug': slugify(self.name)})
+        return reverse('nutrition:ingredient:view',
+                       kwargs={'id': self.id, 'slug': slugify(self.name)})
 
     def clean(self):
         '''
@@ -327,15 +326,15 @@ class Ingredient(AbstractLicenseModel, models.Model):
         # Note: calculations in 100 grams, to save us the '/100' everywhere
         energy_protein = 0
         if self.protein:
-            energy_protein = self.protein * PROTEIN_FACTOR
+            energy_protein = self.protein * ENERGY_FACTOR['protein']['kg']
 
         energy_carbohydrates = 0
         if self.carbohydrates:
-            energy_carbohydrates = self.carbohydrates * CARB_FACTOR
+            energy_carbohydrates = self.carbohydrates * ENERGY_FACTOR['carbohydrates']['kg']
 
         energy_fat = 0
         if self.fat:
-            energy_fat = self.fat * FAT_FACTOR
+            energy_fat = self.fat * ENERGY_FACTOR['fat']['kg']
 
         energy_calculated = energy_protein + energy_carbohydrates + energy_fat
 
@@ -438,11 +437,14 @@ class WeightUnit(models.Model):
     class Meta:
         ordering = ["name", ]
 
+    def __str__(self):
+        return self.__unicode__()
+
     def __unicode__(self):
         '''
         Return a more human-readable representation
         '''
-        return u"{0}".format(self.name)
+        return self.name
 
     def get_owner_object(self):
         '''
@@ -461,7 +463,7 @@ class IngredientWeightUnit(models.Model):
                                    editable=False)
     unit = models.ForeignKey(WeightUnit, verbose_name=_('Weight unit'))
 
-    gramm = models.IntegerField(verbose_name=_('Amount in gramms'))
+    gram = models.IntegerField(verbose_name=_('Amount in grams'))
     amount = models.DecimalField(decimal_places=2,
                                  max_digits=5,
                                  default=1,
@@ -481,7 +483,7 @@ class IngredientWeightUnit(models.Model):
 
         return u"{0}{1} ({2}g)".format(self.amount if self.amount > 1 else '',
                                        self.unit.name,
-                                       self.gramm)
+                                       self.gram)
 
 
 class Meal(models.Model):
@@ -516,9 +518,11 @@ class Meal(models.Model):
         '''
         return self.plan
 
-    def get_nutritional_values(self):
+    def get_nutritional_values(self, use_metric=True):
         '''
         Sums the nutrional info of all items in the meal
+
+        :param use_metric Flag that controls the units used
         '''
         nutritional_info = {'energy': 0,
                             'protein': 0,
@@ -532,16 +536,9 @@ class Meal(models.Model):
         # Get the calculated values from the meal item and add them
         for item in self.mealitem_set.select_related():
 
-            values = item.get_nutritional_values()
-
-            nutritional_info['energy'] += values['energy']
-            nutritional_info['protein'] += values['protein']
-            nutritional_info['carbohydrates'] += values['carbohydrates']
-            nutritional_info['carbohydrates_sugar'] += values['carbohydrates_sugar']
-            nutritional_info['fat'] += values['fat']
-            nutritional_info['fat_saturated'] += values['fat_saturated']
-            nutritional_info['fibres'] += values['fibres']
-            nutritional_info['sodium'] += values['sodium']
+            values = item.get_nutritional_values(use_metric=use_metric)
+            for key in nutritional_info.keys():
+                nutritional_info[key] += values[key]
 
         # Only 2 decimal places, anything else doesn't make sense
         for i in nutritional_info:
@@ -599,9 +596,11 @@ class MealItem(models.Model):
         else:
             return MEALITEM_WEIGHT_GRAM
 
-    def get_nutritional_values(self):
+    def get_nutritional_values(self, use_metric=True):
         '''
         Sums the nutrional info for the ingredient in the MealItem
+
+        :param use_metric Flag that controls the units used
         '''
         nutritional_info = {'energy': 0,
                             'protein': 0,
@@ -617,7 +616,7 @@ class MealItem(models.Model):
         else:
             item_weight = (self.amount *
                            self.weight_unit.amount *
-                           self.weight_unit.gramm)
+                           self.weight_unit.gram)
 
         nutritional_info['energy'] += self.ingredient.energy * item_weight / 100
         nutritional_info['protein'] += self.ingredient.protein * item_weight / 100
@@ -638,21 +637,19 @@ class MealItem(models.Model):
         if self.ingredient.sodium:
             nutritional_info['sodium'] += self.ingredient.sodium * item_weight / 100
 
+        # If necessary, convert weight units
+        if not use_metric:
+            for key, value in nutritional_info.iteritems():
+
+                # Energy is not a weight!
+                if key == 'energy':
+                    continue
+
+                # Everything else, to ounces
+                nutritional_info[key] = AbstractWeight(value, 'g').oz
+
         # Only 2 decimal places, anything else doesn't make sense
         for i in nutritional_info:
             nutritional_info[i] = Decimal(nutritional_info[i]).quantize(TWOPLACES)
 
         return nutritional_info
-
-    def get_nutritional_values_percent(self):
-        '''
-        Calculates the percentage each macronutrient contributes to the
-        total energy (approximation, since the factors 4, 4 and 9 are only
-        a rule of thumb)
-        '''
-        values = self.get_nutritional_values()
-        result = {'protein': values['energy'] / values['protein'] * PROTEIN_FACTOR,
-                  'carbohydrates': values['energy'] / values['carbohydrates'] * CARB_FACTOR,
-                  'fat': values['energy'] / values['fat'] * FAT_FACTOR}
-
-        return result

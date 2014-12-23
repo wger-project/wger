@@ -22,6 +22,9 @@ from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
 from django.core.cache import cache
 from wger.core.models import Language
+from wger.core.models import UserProfile
+from wger.gym.helpers import is_any_gym_admin
+from wger.gym.models import Gym, GymUserConfig
 
 from wger.utils.cache import delete_template_fragment_cache
 from wger.utils.cache import cache_mapper
@@ -44,11 +47,9 @@ class LanguageConfig(models.Model):
     )
 
     language = models.ForeignKey(Language,
-                                 verbose_name=_('Language'),
                                  related_name='language_source',
                                  editable=False)
     language_target = models.ForeignKey(Language,
-                                        verbose_name=_('Language to configure'),
                                         related_name='language_target',
                                         editable=False)
     item = models.CharField(max_length=2,
@@ -119,3 +120,54 @@ def init_language_config(sender, instance, created, **kwargs):
                         config.show = False
                     config.save()
 post_save.connect(init_language_config, sender=Language)
+
+
+class GymConfig(models.Model):
+    '''
+    System wide configuration for gyms
+
+    At the moment this only allows to set one gym as the default
+    TODO: close registration (users can only become members thorough an admin)
+    '''
+
+    default_gym = models.ForeignKey(Gym,
+                                    verbose_name=_('Default gym'),
+                                    help_text=_('Select the default gym for this installation. '
+                                                'This will assign all new registered users to this '
+                                                'gym and update all existing users without a '
+                                                'gym.'),
+                                    null=True,
+                                    blank=True)
+    '''
+    Default gym for the wger installation
+    '''
+
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return u"Default gym {0}".format(self.default_gym)
+
+    def save(self, *args, **kwargs):
+        '''
+        Perform additional tasks
+        '''
+        if self.default_gym:
+
+            # All users that have no gym set in the profile are edited
+            UserProfile.objects.filter(gym=None).update(gym=self.default_gym)
+
+            # All users in the gym must have a gym config
+            for profile in UserProfile.objects.filter(gym=self.default_gym):
+                user = profile.user
+                if not is_any_gym_admin(user):
+                    try:
+                        user.gymuserconfig
+                    except GymUserConfig.DoesNotExist:
+                        config = GymUserConfig()
+                        config.gym = self.default_gym
+                        config.user = user
+                        config.save()
+                        logger.debug('Creating GymUserConfig for user {0}'.format(user.username))
+
+        return super(GymConfig, self).save(*args, **kwargs)

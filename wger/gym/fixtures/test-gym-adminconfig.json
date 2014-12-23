@@ -1,0 +1,101 @@
+[
+    {
+        "pk": 1, 
+        "model": "gym.gymadminconfig", 
+        "fields": {
+            "gym": 1, 
+            "user": 1, 
+            "overview_inactive": true
+        }
+    },
+    {
+        "pk": 4, 
+        "model": "gym.gymadminconfig", 
+        "fields": {
+            "gym": 1, 
+            "user": 4, 
+            "overview_inactive": true
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "gym.gymadminconfig", 
+        "fields": {
+            "gym": 1, 
+            "user": 5, 
+            "overview_inactive": true
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "gym.gymadminconfig", 
+        "fields": {
+            "gym": 1, 
+            "user": 6, 
+            "overview_inactive": true
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "gym.gymadminconfig", 
+        "fields": {
+            "gym": 2, 
+            "user": 7, 
+            "overview_inactive": true
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "gym.gymadminconfig", 
+        "fields": {
+            "gym": 2, 
+            "user": 8, 
+            "overview_inactive": true
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "gym.gymadminconfig", 
+        "fields": {
+            "gym": 1, 
+            "user": 9, 
+            "overview_inactive": true
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "gym.gymadminconfig", 
+        "fields": {
+            "gym": 1, 
+            "user": 10, 
+            "overview_inactive": true
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "gym.gymadminconfig", 
+        "fields": {
+            "gym": 2, 
+            "user": 11, 
+            "overview_inactive": true
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "gym.gymadminconfig", 
+        "fields": {
+            "gym": 1, 
+            "user": 12, 
+            "overview_inactive": true
+        }
+    },
+    {
+        "pk": 13, 
+        "model": "gym.gymadminconfig", 
+        "fields": {
+            "gym": 2, 
+            "user": 13, 
+            "overview_inactive": true
+        }
+    }
+]

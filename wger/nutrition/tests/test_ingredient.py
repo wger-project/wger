@@ -19,6 +19,7 @@ import datetime
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 from wger.core.tests import api_base_test
+from wger.core.models import Language
 
 from wger.nutrition.models import Ingredient
 from wger.nutrition.models import Meal
@@ -37,7 +38,7 @@ class DeleteIngredientTestCase(WorkoutManagerDeleteTestCase):
     '''
 
     object_class = Ingredient
-    url = 'ingredient-delete'
+    url = 'nutrition:ingredient:delete'
     pk = 1
 
 
@@ -47,7 +48,7 @@ class EditIngredientTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = Ingredient
-    url = 'ingredient-edit'
+    url = 'nutrition:ingredient:edit'
     pk = 1
     data = {'name': 'A new name',
             'sodium': 2,
@@ -76,8 +77,7 @@ class AddIngredientTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = Ingredient
-    url = 'ingredient-add'
-    pk = 5371
+    url = 'nutrition:ingredient:add'
     user_fail = False
     data = {'name': 'A new ingredient',
             'sodium': 2,
@@ -96,11 +96,11 @@ class AddIngredientTestCase(WorkoutManagerAddTestCase):
         Test that the creation date and the status are correctly set
         '''
         if self.current_user == 'admin':
-            ingredient = Ingredient.objects.get(pk=self.pk)
+            ingredient = Ingredient.objects.get(pk=self.pk_after)
             self.assertEqual(ingredient.creation_date, datetime.date.today())
             self.assertEqual(ingredient.status, Ingredient.INGREDIENT_STATUS_ADMIN)
         elif self.current_user == 'test':
-            ingredient = Ingredient.objects.get(pk=self.pk)
+            ingredient = Ingredient.objects.get(pk=self.pk_after)
             self.assertEqual(ingredient.status, Ingredient.INGREDIENT_STATUS_PENDING)
 
 
@@ -114,7 +114,7 @@ class IngredientDetailTestCase(WorkoutManagerTestCase):
         Tests the ingredient details page
         '''
 
-        response = self.client.get(reverse('ingredient-view', kwargs={'id': 6}))
+        response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'id': 6}))
         self.assertEqual(response.status_code, 200)
 
         # Correct tab is selected
@@ -132,7 +132,7 @@ class IngredientDetailTestCase(WorkoutManagerTestCase):
             self.assertNotContains(response, 'pending review')
 
         # Non-existent ingredients throw a 404.
-        response = self.client.get(reverse('ingredient-view', kwargs={'id': 42}))
+        response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'id': 42}))
         self.assertEqual(response.status_code, 404)
 
     def test_ingredient_detail_editor(self):
@@ -172,7 +172,7 @@ class IngredientSearchTestCase(WorkoutManagerTestCase):
         kwargs = {'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'}
         response = self.client.get(reverse('ingredient-search'), {'term': 'test'}, **kwargs)
         self.assertEqual(response.status_code, 200)
-        result = json.loads(response.content)
+        result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result), 2)
         self.assertEqual(result[0]['value'], 'Ingredient, test, 2, organic, raw')
         self.assertEqual(result[1]['value'], 'Test ingredient 1')
@@ -180,7 +180,7 @@ class IngredientSearchTestCase(WorkoutManagerTestCase):
         # Search for an ingredient pending review (0 hits, "Pending ingredient")
         response = self.client.get(reverse('ingredient-search'), {'term': 'Pending'}, **kwargs)
         self.assertEqual(response.status_code, 200)
-        result = json.loads(response.content)
+        result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result), 0)
 
     def test_search_ingredient_anonymous(self):
@@ -216,7 +216,7 @@ class IngredientValuesTestCase(WorkoutManagerTestCase):
                                     'unit': ''})
 
         self.assertEqual(response.status_code, 200)
-        result = json.loads(response.content)
+        result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result), 8)
         self.assertEqual(result, {u'sodium': u'0.01',
                                   u'energy': u'1.76',
@@ -234,7 +234,7 @@ class IngredientValuesTestCase(WorkoutManagerTestCase):
                                     'unit': 2})
 
         self.assertEqual(response.status_code, 200)
-        result = json.loads(response.content)
+        result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result), 8)
         self.assertEqual(result, {u'sodium': u'0.61',
                                   u'energy': u'196.24',
@@ -269,6 +269,8 @@ class IngredientTestCase(WorkoutManagerTestCase):
         '''
         Tests the custom compare method based on values
         '''
+        language = Language.objects.get(pk=1)
+
         ingredient1 = Ingredient.objects.get(pk=1)
         ingredient2 = Ingredient.objects.get(pk=1)
         ingredient2.name = 'A different name altogether'
@@ -278,10 +280,12 @@ class IngredientTestCase(WorkoutManagerTestCase):
         ingredient1.name = 'ingredient name'
         ingredient1.energy = 150
         ingredient1.protein = 30
+        ingredient1.language = language
 
         ingredient2 = Ingredient()
         ingredient2.name = 'ingredient name'
         ingredient2.energy = 150
+        ingredient2.language = language
         self.assertFalse(ingredient1 == ingredient2)
 
         ingredient2.protein = 31

@@ -100,14 +100,13 @@ body {
 .row-offcanvas #nav {
     overflow-y: scroll;
     overflow-x: hidden;
-    position: fixed;
+    position: absolute;
     background-color: #eeeeec;
     padding-left: 1em;
     margin-left: -15px;
     border-right: 1px solid #888a85;
     border-bottom: 1px solid #888a85;
-    width: 60%;
-    height: 90%;
+    width: 100%;
     z-index: 99;
 }
 
@@ -183,22 +182,6 @@ body {
  * Alerts
  **************************************************************/
 
-/*
- * Links within boostrap's alert boxes are rendered in black
- */
-.alert a{
-    color: black;
-    text-decoration: underline;
-}
-
-
-.alert a:hover{
-    color: white;
-    text-decoration: underline;
-    text-shadow: none;
-}
-
-
 .label, .badge {
     font-weight: normal;
 }
@@ -258,5 +241,28 @@ fieldset[disabled] .btn-default.active {
 }
 
 /**************************************************************
- * Header
+ * Headers in sidebar
  **************************************************************/
+ #main-sidebar h4, #main-sidebar .h4,
+ #main-sidebar h5, #main-sidebar .h5,
+ #main-sidebar h6, #main-sidebar .h6 {
+    margin-top: 0px;
+}
+
+
+ /**************************************************************
+ * Fix issue with body shifting
+ *
+ * Opening modal dialogs shifted the whole body by 15px to the left.
+ * While this appears to be https://github.com/twbs/bootstrap/issues/9855
+ * it doesn't seem to be fixed here. When it does, these fixes can be removed
+ **************************************************************/
+ body.modal-open {
+    padding-right: 0 !important;
+
+}
+/*
+body.modal {
+    overflow-y: hidden;
+}
+*/

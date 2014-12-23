@@ -12,7 +12,7 @@
 <div class="list-group">
 
     {% for schedule in schedules %}
-        <a href="{% url 'schedule-view' schedule.id %}" class="list-group-item wger-list-group-item">
+        <a href="{% url 'manager:schedule:view' schedule.id %}" class="list-group-item wger-list-group-item">
             <span class="glyphicon glyphicon-chevron-right pull-right"></span>
 
             {% if schedule.is_active %}
@@ -22,7 +22,7 @@
             <p class="list-group-item-text">{{ schedule.start_date }}</p>
         </a>
     {% empty %}
-        <a href="{% url 'schedule-add' %}" class="list-group-item">
+        <a href="{% url 'manager:schedule:add' %}" class="list-group-item">
             {% trans "No schedules found." %}<br>
             {% trans "Add one now." %}
         </a>
@@ -46,7 +46,7 @@ deactivate it, if it is a loop.{% endblocktrans %}</p>
 
 <h3>{% trans "Add schedule" %}</h3>
 <p>
-    <a href="{% url 'schedule-add' %}"
+    <a href="{% url 'manager:schedule:add' %}"
        class="btn btn-default btn-block">
     <img src="{% static 'images/icons/new.svg' %}"
         width="32"

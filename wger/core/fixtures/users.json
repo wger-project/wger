@@ -7,10 +7,26 @@
             "first_name": "",
             "last_name": "Administrator",
             "is_active": true,
-            "is_superuser": true,
+            "is_superuser": false,
             "is_staff": true,
             "last_login": "2013-05-18T07:20:26.626Z",
-            "groups": [],
+            "groups": [
+                [
+                    "admin"
+                ],
+                [
+                    "general_gym_manager"
+                ],
+                [
+                    "gym_manager"
+                ],
+                [
+                    "gym_trainer"
+                ],
+                [
+                    "gym_member"
+                ]
+            ],
             "user_permissions": [],
             "password": "pbkdf2_sha256$10000$JHJGtYzk49FZ$n3oT+lcfGB3al1I8spSwo6JlJqu4rXwHHsPmeJup/z8=",
             "email": "",
@@ -24,7 +40,8 @@
             "is_temporary": false, 
             "show_comments": false, 
             "show_english_ingredients": false, 
-            "user": 1
+            "user": 1,
+            "gym": 1
         }
     }
 ]

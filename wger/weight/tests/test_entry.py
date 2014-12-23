@@ -13,7 +13,10 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import datetime
+import decimal
+
 from wger.core.tests import api_base_test
+from wger.utils.constants import TWOPLACES
 
 from wger.weight.models import WeightEntry
 
@@ -27,10 +30,9 @@ class AddWeightEntryTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = WeightEntry
-    url = 'weight-add'
-    pk = 8
+    url = 'weight:add'
     user_fail = False
-    data = {'weight': 81.1,
+    data = {'weight': decimal.Decimal(81.1).quantize(TWOPLACES),
             'creation_date': datetime.date(2013, 2, 1),
             'user': 1}
 
@@ -41,7 +43,7 @@ class EditWeightEntryTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = WeightEntry
-    url = 'weight-edit'
+    url = 'weight:edit'
     pk = 1
     data = {'weight': 100,
             'creation_date': datetime.date(2013, 2, 1),

@@ -55,7 +55,8 @@ class UnitChooserForm(forms.Form):
 
 
 class BmiForm(forms.ModelForm):
-    weight = forms.DecimalField(widget=Html5NumberInput())
+    weight = forms.DecimalField(widget=Html5NumberInput(),
+                                max_value=999)
 
     class Meta:
         model = UserProfile

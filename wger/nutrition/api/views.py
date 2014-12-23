@@ -149,7 +149,7 @@ class IngredientWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     model = IngredientWeightUnit
     ordering_fields = '__all__'
     filter_fields = ('amount',
-                     'gramm',
+                     'gram',
                      'ingredient',
                      'unit')
 

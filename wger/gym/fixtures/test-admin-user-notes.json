@@ -1,0 +1,24 @@
+[
+    {
+        "pk": 1, 
+        "model": "gym.adminusernote", 
+        "fields": {
+            "member": 14,
+            "timestamp_created": "2014-10-27T18:50:28.870Z", 
+            "note": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.", 
+            "user": 1,
+            "timestamp_edited": "2014-10-27T18:55:02.369Z"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "gym.adminusernote", 
+        "fields": {
+            "member": 14,
+            "timestamp_created": "2014-10-27T18:50:39.413Z", 
+            "note": "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.\r\n\r\nadsa ad aadad sasadsaa", 
+            "user": 1,
+            "timestamp_edited": "2014-10-27T18:59:39.927Z"
+        }
+    }
+]

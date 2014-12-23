@@ -26,6 +26,6 @@ class EditLanguageConfigTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = LanguageConfig
-    url = 'config:languageconfig-edit'
+    url = 'config:language_config:edit'
     pk = 1
     data = {'show': False}

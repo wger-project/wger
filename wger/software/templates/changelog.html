@@ -7,21 +7,55 @@
 {% block title %}{% trans "Changelog" %}{% endblock %}
 
 {% block content %}
-<h3>1.5 - IN DEVELOPMENT</h3>
+<h3>1.6 - IN DEVELOPMENT</h3>
 <h4>2014-XX-XX</h4>
 
 <ul>
-    <li>New Translation: Dutch (many thanks to David Machiels!)</li>
-    <li>New automatic weightlifting routine generator</li>
-    <li>Improvements to workout schedules
+    <li>
+      New automatic weightlifting routine generator
+      <a href="https://github.com/rolandgeider/wger/issues/87">#87</a>
+      <a href="https://github.com/rolandgeider/wger/issues/88">#88</a>
+    </li>
+    <li>
+        Improvements to the workout calendar
+        <a href="https://github.com/rolandgeider/wger/issues/98">#98</a>
+    </li>
+    <li>
+        Other improvements and bugfixes
+        <a href="https://github.com/rolandgeider/wger/issues/99">#99</a>
+    </li>
+</ul>
+
+
+<h3>1.5</h3>
+<h4>2014-12-16</h4>
+
+<ul>
+    <li>New Translations:
         <ul>
-            <li>Better overview of the individual workouts and their dates</li>
-            <li>Export full schedule as PDF with all workouts</li>
+            <li>Dutch (many thanks to David Machiels!)</li>
+            <li>
+                Portuguese (many thanks to Jefferson Campos! - <a href="http://jeffersoncampos.eti.br">website</a>, <a href="https://github.com/foguinhoperuca">github</a>)
+                <a href="https://github.com/rolandgeider/wger/issues/97">#97</a>
+            </li>
         </ul>
     </li>
-    <li>Support for metric and imperial units</li>
-    <li>Reduce amount of CSS and JS libraries by using bootstrap as much as possible</li>
-    <li>Improvements to the REST API
+    <li>
+        Add support for gym management
+        <a href="https://github.com/rolandgeider/wger/issues/85">#85</a>
+        <ul>
+            <li>Gym managers can create and manage gyms</li>
+            <li>Trainers can see the gym's users and their routines</li>
+        </ul>
+    </li>
+    <li>
+        Reduce amount of CSS and JS libraries by using bootstrap as much as possible
+        <a href="https://github.com/rolandgeider/wger/issues/73">#73</a>
+    </li>
+    <li>
+        Improvements to the REST API
+        <a href="https://github.com/rolandgeider/wger/issues/75">#75</a>
+>>>>>>> master
         <ul>
             <li>Add read-write access</li>
             <li>Add live browsing of the API with django rest framework</li>
@@ -30,7 +64,39 @@
         </ul>
     </li>
     <li>Show exercise pictures in workout as well</li>
-    <li>Allow the user to delete his account and data</li>
+    <li>
+        Detailed view of exercises and workouts in schedule
+        <a href="https://github.com/rolandgeider/wger/issues/86">#86</a>
+    </li>
+    <li>
+        Support for both metric (kg) and imperial (lb) weight units
+        <a href="https://github.com/rolandgeider/wger/issues/105">#70</a>
+    </li>
+    <li>
+        Allow the user to delete his account and data
+        <a href="https://github.com/rolandgeider/wger/issues/84">#84</a>
+    </li>
+    <li>Add contact field to feedback form</li>
+    <li>
+        Cleanup translation strings
+        <a href="https://github.com/rolandgeider/wger/issues/94">#94</a>
+    </li>
+    <li>
+        Python 3 compatibility!
+        <a href="https://github.com/rolandgeider/wger/issues/68">#68</a>
+    </li>
+    <li>
+        Other improvements and bugfixes
+        <a href="https://github.com/rolandgeider/wger/issues/51">#51</a>
+        <a href="https://github.com/rolandgeider/wger/issues/76">#76</a>
+        <a href="https://github.com/rolandgeider/wger/issues/80">#80</a>
+        <a href="https://github.com/rolandgeider/wger/issues/81">#81</a>
+        <a href="https://github.com/rolandgeider/wger/issues/82">#82</a>
+        <a href="https://github.com/rolandgeider/wger/issues/91">#91</a>
+        <a href="https://github.com/rolandgeider/wger/issues/92">#92</a>
+        <a href="https://github.com/rolandgeider/wger/issues/95">#95</a>
+        <a href="https://github.com/rolandgeider/wger/issues/96">#96</a>
+    </li>
 </ul>
 
 

@@ -18,6 +18,7 @@ import logging
 
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy
+from django.utils.translation import ugettext as _
 from django.db import models
 from django.forms import ModelForm
 from django.forms import ModelChoiceField
@@ -66,12 +67,12 @@ class StepCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
 
     def get_context_data(self, **kwargs):
         context = super(StepCreateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('step-add',
+        context['form_action'] = reverse('manager:step:add',
                                          kwargs={'schedule_pk': self.kwargs['schedule_pk']})
         return context
 
     def get_success_url(self):
-        return reverse('schedule-view', kwargs={'pk': self.kwargs['schedule_pk']})
+        return reverse('manager:schedule:view', kwargs={'pk': self.kwargs['schedule_pk']})
 
     def form_valid(self, form):
         '''Set the schedule and the order'''
@@ -91,7 +92,7 @@ class StepEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
 
     model = ScheduleStep
     title = ugettext_lazy('Edit workout')
-    form_action_urlname = 'step-edit'
+    form_action_urlname = 'manager:step:edit'
     login_required = True
 
     def get_form_class(self):
@@ -112,7 +113,7 @@ class StepEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
         return StepForm
 
     def get_success_url(self):
-        return reverse('schedule-view', kwargs={'pk': self.object.schedule_id})
+        return reverse('manager:schedule:view', kwargs={'pk': self.object.schedule_id})
 
 
 class StepDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
@@ -121,10 +122,18 @@ class StepDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
 
     model = ScheduleStep
-    title = ugettext_lazy('Delete workout')
-    form_action_urlname = 'step-delete'
-    messages = ugettext_lazy('Workout was successfully deleted')
+    form_action_urlname = 'manager:step:delete'
+    messages = ugettext_lazy('Successfully deleted')
     login_required = True
 
     def get_success_url(self):
-        return reverse('schedule-view', kwargs={'pk': self.object.schedule.id})
+        return reverse('manager:schedule:view', kwargs={'pk': self.object.schedule.id})
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(StepDeleteView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Delete {0}?').format(self.object)
+        context['form_action'] = reverse('core:license:delete', kwargs={'pk': self.kwargs['pk']})
+        return context

@@ -2,13 +2,15 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load wger_extras %}
+{% load cache %}
 
 {% block title %}{% trans "Workout log calendar" %}{% endblock %}
 
 {% block header %}
 <script>
 $(document).ready(function() {
-    $('table.month td.filled a').click(function(e){
+    $('.calendar-log-data').hide();
+    $('table.month td a.btn').click(function(e){
         e.preventDefault();
         $('.calendar-log-data').hide();
         $('#' + $(this).data('log')).toggle();
@@ -18,85 +20,90 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block content %}
+{% cache cache_timeout workout-log-full user.id current_year current_month %}
 {{calendar|safe}}
 
 {% for date in logs %}
-<div id="log-{{date|date:'Y-m-d'}}" class="calendar-log-data">
-    <h3>{{date}}</h3>
+    <div id="log-{{date|date:'Y-m-d'}}" class="calendar-log-data">
+        <h3>{{date}}</h3>
 
-    {% regroup logs|get_item:date by exercise as grouped_logs %}
+        {% regroup logs|get_item:date by exercise as grouped_logs %}
 
-    {# TODO: what if some of the entries don't belong to a workout? #}
-    {% with tmp=grouped_logs|first %}
-    {% with first_log=tmp.list|first %}
-    {% with session=first_log.get_workout_session %}
-        <div class="container-fluid">
+        {# TODO: what if some of the entries don't belong to a workout? #}
+        {% with tmp=grouped_logs|first %}
+        {% with first_log=tmp.list|first %}
+        {% with session=first_log.get_workout_session %}
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-sm-4">
                     <a href="{{first_log.workout.get_absolute_url}}" class="btn btn-default btn-block">{{ first_log.workout }}</a>
                 </div>
 
-                <div class="col-md-4">
-                <a href="{% url 'workout-log' first_log.workout.id %}" class="btn btn-default btn-block">{% trans "Log overview" %}</a>
+                <div class="col-sm-4">
+                <a href="{% url 'manager:log:log' first_log.workout.id %}" class="btn btn-default btn-block">{% trans "Log overview" %}</a>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-sm-4">
                     {% if session %}
-                        <a href="{% url 'workout-session-edit' session.pk %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Edit workout session" %}</a>
+                        <a href="{% url 'manager:session:edit' session.pk %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Edit workout session" %}</a>
                     {% else %}
-                        <a href="{% url 'workout-session-add' first_log.workout_id date|date:'Y' date|date:'m' date|date:'d' %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Add workout impression" %}</a>
+                        <a href="{% url 'manager:session:add' first_log.workout_id date|date:'Y' date|date:'m' date|date:'d' %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Add workout impression" %}</a>
                     {% endif %}
                 </div>
              </div>
+            {% if session %}
+            <p>
+                <strong>{% trans "Time" %}:</strong>
+                    {% if session.time_start %}
+                        {{session.time_start|time:"H:i"}} - {{session.time_end|time:"H:i"}}
+                    {% else %}
+                        -/-
+                    {% endif %}<br>
+                <strong>{% trans "General impression" %}: </strong> {% trans session.get_impression_display %}<br>
+                <strong>{% trans "Notes" %}:</strong> {{session.notes|default:'-/-'}}
+            </p>
+            {% endif %}
+        {% endwith %}
+        {% endwith %}
+        {% endwith %}
+
+
+        <div class="row" style="margin-top: 2em;">
+            {% for i in grouped_logs %}
+                <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{ i.grouper }}</div>
+                    <div class="panel-body" style="min-height: 8em;">
+                    <ul>
+                    {% for log in i.list %}
+                        <li>
+                            {{log.reps}} × {{log.weight}}
+                            <span class="editoptions">
+                                <a href="{% url 'manager:log:delete' log.pk %}"
+                                   title="{% trans 'Delete' %}"
+                                   class="wger-modal-dialog">
+                                       <img src="{% static 'images/icons/trash.svg' %}"
+                                            width="16"
+                                            height="16"
+                                            alt="{% trans 'Delete' %}"></a>
+                                <a href="{% url 'manager:log:edit' log.pk %}"
+                                   title="{% trans 'Edit' %}"
+                                   class="wger-modal-dialog">
+                                       <img src="{% static 'images/icons/edit.svg' %}"
+                                            width="16"
+                                            height="16"
+                                            alt="{% trans 'Edit' %}"></a>
+                            </span>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                    </div>
+                </div>
+                </div>
+            {% endfor %}
         </div>
-        {% if session %}
-        <p>
-            <strong>{% trans "Time" %}:</strong>
-                {% if session.time_start %}
-                    {{session.time_start|time:"H:i"}} - {{session.time_end|time:"H:i"}}
-                {% else %}
-                    -/-
-                {% endif %}<br>
-            <strong>{% trans "General impression" %}: </strong> {% trans session.get_impression_display %}<br>
-            <strong>{% trans "Notes" %}:</strong> {{session.notes|default:'-/-'}}
-        </p>
-        {% endif %}
-    {% endwith %}
-    {% endwith %}
-    {% endwith %}
-    <ul class="grouper-list">
-    {% for i in grouped_logs %}
-        <li>{{i.grouper}}
-        <ul>
-        {% for log in i.list %}
-            <li>
-                {{log.reps}} × {{log.weight}}
-                <span class="editoptions">
-                    <a href="{% url 'workout-log-delete' log.pk %}"
-                       title="{% trans 'Delete' %}"
-                       class="wger-modal-dialog">
-                           <img src="{% static 'images/icons/trash.svg' %}"
-                                width="16"
-                                height="16"
-                                alt="{% trans 'Delete' %}">
-                    </a>
-                    <a href="{% url 'workout-log-edit' log.pk %}"
-                       title="{% trans 'Edit' %}"
-                       class="wger-modal-dialog">
-                           <img src="{% static 'images/icons/edit.svg' %}"
-                                width="16"
-                                height="16"
-                                alt="{% trans 'Edit' %}">
-                    </a>
-                </span>
-            </li>
-        {% endfor %}
-        </ul>
-        </li>
-    {% endfor %}
-    </ul>
-</div>
+    </div>
 {% endfor %}
+{% endcache %}
 {% endblock %}
 
 
@@ -115,13 +122,13 @@ $(document).ready(function() {
 day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</strong></p>
 
                 {% for day in current_workout.day_set.all %}
-                    <a href="{% url 'day-log' day.pk %}" class="btn btn-block btn-default">{{day.description}}</a>
+                    <a href="{% url 'manager:day:log' day.pk %}" class="btn btn-block btn-default">{{day.description}}</a>
                 {% endfor %}
 
                 {% else %}
                 <p><em>{% trans "No workouts found." %}</em></p>
                 <p>
-                <a href="{% url 'workout-add' %}" class="btn btn-block btn-default">
+                <a href="{% url 'manager:workout:add' %}" class="btn btn-block btn-default">
                    <img src="{% static 'images/icons/add.svg' %}"
                         width="22"
                         height="22"
@@ -139,9 +146,15 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
 <p>{% blocktrans %}The coloured days in the calendar have weight logs,
 you can click on them to see the details.{% endblocktrans %}</p>
 
+<p>
+    <div style="background-color: #C9302C; display: inline;">&nbsp;</div> {{ impressions.0.1 }}<br>
+    <div style="background-color: #EC971F; display: inline;">&nbsp;</div> {{ impressions.1.1 }}<br>
+    <div style="background-color: #449D44; display: inline;">&nbsp;</div> {{ impressions.2.1 }}
+</p>
+
 <h3>{% trans 'Log' %}</h3>
 <p>
-    <a href="{% url 'workout-calendar' %}">
+    <a href="{% url 'manager:workout:calendar' %}">
         <img src="{% static 'images/icons/calendar.svg' %}"
              width="32"
              height="32"
@@ -164,7 +177,7 @@ you can click on them to see the details.{% endblocktrans %}</p>
     {% if current_month = date.month and current_year = date.year %}
         <span>{{date|date:"F"}}</span><br>
     {% else %}
-        <span><a href="{% url 'workout-calendar' date.year date.month %}">{{date|date:"F"}}</a></span><br>
+        <span><a href="{% url 'manager:workout:calendar' date.year date.month %}">{{date|date:"F"}}</a></span><br>
     {% endif %}
 {% endfor %}
 </div>

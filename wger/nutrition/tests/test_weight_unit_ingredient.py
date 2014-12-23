@@ -32,12 +32,11 @@ class AddWeightUnitIngredientTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = IngredientWeightUnit
-    url = reverse_lazy('weight-unit-ingredient-add',
+    url = reverse_lazy('nutrition:unit_ingredient:add',
                        kwargs={'ingredient_pk': 1})
     data = {'unit': 5,
-            'gramm': 123,
+            'gram': 123,
             'amount': 1}
-    pk = 9875
 
 
 class DeleteWeightUnitIngredientTestCase(WorkoutManagerDeleteTestCase):
@@ -46,7 +45,7 @@ class DeleteWeightUnitIngredientTestCase(WorkoutManagerDeleteTestCase):
     '''
 
     object_class = IngredientWeightUnit
-    url = 'weight-unit-ingredient-delete'
+    url = 'nutrition:unit_ingredient:delete'
     pk = 1
 
 
@@ -56,10 +55,10 @@ class EditWeightUnitTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = IngredientWeightUnit
-    url = 'weight-unit-ingredient-edit'
+    url = 'nutrition:unit_ingredient:edit'
     pk = 1
     data = {'unit': 5,
-            'gramm': 10,
+            'gram': 10,
             'amount': 0.3}
 
 
@@ -73,7 +72,7 @@ class WeightUnitFormTestCase(WorkoutManagerTestCase):
         Tests the form in the add view
         '''
         self.user_login('admin')
-        response = self.client.get(reverse('weight-unit-ingredient-add',
+        response = self.client.get(reverse('nutrition:unit_ingredient:add',
                                            kwargs={'ingredient_pk': 1}))
 
         choices = [text for value, text in response.context['form']['unit'].field.choices]
@@ -85,10 +84,10 @@ class WeightUnitFormTestCase(WorkoutManagerTestCase):
 
     def test_edit_weight_unit(self):
         '''
-        Tests that the form in the edit view only shows weigh units in the user's language
+        Tests that the form in the edit view only shows weight units in the user's language
         '''
         self.user_login('admin')
-        response = self.client.get(reverse('weight-unit-ingredient-edit',
+        response = self.client.get(reverse('nutrition:unit_ingredient:edit',
                                            kwargs={'pk': 1}))
 
         choices = [text for value, text in response.context['form']['unit'].field.choices]
@@ -107,7 +106,7 @@ class WeightUnitToIngredientApiTestCase(api_base_test.ApiBaseResourceTestCase):
     resource = IngredientWeightUnit
     private_resource = False
     data = {'amount': '1',
-            'gramm': 240,
+            'gram': 240,
             'id': 1,
             'ingredient': '1',
             'unit': '1'}

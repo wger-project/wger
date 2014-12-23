@@ -191,8 +191,8 @@ class ExerciseUpdateView(ExercisesEditAddView, UpdateView, WgerPermissionMixin):
 
     def get_context_data(self, **kwargs):
         context = super(ExerciseUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercise-edit', kwargs={'pk': self.object.id})
-        context['title'] = _(u'Edit %s') % self.object.name
+        context['form_action'] = reverse('exercise:exercise:edit', kwargs={'pk': self.object.id})
+        context['title'] = _(u'Edit {0}').format(self.object.name)
 
         return context
 
@@ -203,7 +203,7 @@ class ExerciseAddView(ExercisesEditAddView, CreateView, WgerPermissionMixin):
     '''
 
     login_required = True
-    form_action = reverse_lazy('exercise-add')
+    form_action = reverse_lazy('exercise:exercise:add')
 
     def form_valid(self, form):
         '''
@@ -229,9 +229,9 @@ class ExerciseDeleteView(WgerDeleteMixin, DeleteView):
     '''
 
     model = Exercise
-    success_url = reverse_lazy('exercise-overview')
+    success_url = reverse_lazy('exercise:exercise:overview')
     delete_message = ugettext_lazy('This will delete the exercise from all workouts.')
-    messages = ugettext_lazy('Exercise successfully deleted')
+    messages = ugettext_lazy('Successfully deleted')
     permission_required = 'exercises.delete_exercise'
 
     def get_context_data(self, **kwargs):
@@ -239,8 +239,9 @@ class ExerciseDeleteView(WgerDeleteMixin, DeleteView):
         Send some additional data to the template
         '''
         context = super(ExerciseDeleteView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Delete exercise %s?') % self.object.name
-        context['form_action'] = reverse('exercise-delete', kwargs={'pk': self.kwargs['pk']})
+        context['title'] = _(u'Delete {0}?').format(self.object.name)
+        context['form_action'] = reverse('exercise:exercise:delete',
+                                         kwargs={'pk': self.kwargs['pk']})
 
         return context
 

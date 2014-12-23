@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-{% load i18n %}{% load staticfiles %}{% load cache %}{% load browserid %}{% load compress %}{% load wger_extras %}
+{% load i18n staticfiles wger_extras compress django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+    {% clear_breadcrumbs %}
+{% endblock %}
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8">
     <meta name="author" content="Roland Geider">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!--
     This file is part of wger Workout Manager
@@ -25,7 +29,6 @@
 
 
     <title>{% block title %}{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
 
@@ -35,7 +38,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-common.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-mobile.css' %}">
     {% endcompress %}
-    {% browserid_css %}
 
     {% compress js %}
     <script src="{% static 'js/jquery.js' %}"          type="text/javascript"></script>
@@ -47,7 +49,6 @@
     <script src="{% static 'js/exercises.js' %}"></script>
     <script src="{% static 'js/weight.js' %}"></script>
     <script src="{% static 'js/nutrition.js' %}"></script>
-    <script src="{% static 'js/browserid.js' %}"       type="text/javascript"></script>
     {% endcompress %}
 
     {% block header %}{% endblock %}
@@ -70,7 +71,6 @@
 
 </head>
 <body>
-{% browserid_info %}
 <header>
     <div class="navbar navbar-fixed-top" style="background-color: #204A87;">
         <button type="button"
@@ -129,10 +129,18 @@
         <div id="current-language" data-current-language="{{language.short_name}}"></div>
 
         {% if not user.is_authenticated or user.userprofile.is_temporary %}
-            <div class="abox ainfo" style="padding:0.6em; margin: 0em 0em 1em 0em;text-align:center;font-size:95%;">
+            <div class="alert alert-warning" role="alert" style="padding:0.6em; margin-top: 1em; text-align:center; font-size:95%;">
             {% trans "You are using a guest account, data entered will be deleted after a week."%}
             {% if not has_demo_data %}
-            <a href="{% url 'core:demo-entries' %}" rel="nofollow" class="btn btn-success btn-xs">{% trans "Create some demo entries" %} »</a>
+            <a href="{% url 'core:user:demo-entries' %}" rel="nofollow" class="btn btn-success btn-xs">
+                {% trans "Create some demo entries" %}
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+            {% else %}
+                <a href="{% url 'core:user:registration' %}" class="btn btn-success btn-xs">
+                    {% trans "Register" %}
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
             {% endif %}
             </div>
         {% endif %}
@@ -154,14 +162,14 @@
         <a href="{% url 'core:index' %}" {% auto_link_css flavour %}>{% trans "Dashboard" %}</a>
     </div>
     <div class="btn-group">
-        <a href="{% url 'workout-overview' %}" {% auto_link_css flavour %}>{% trans "Workouts" %}</a>
+        <a href="{% url 'manager:workout:overview' %}" {% auto_link_css flavour %}>{% trans "Workouts" %}</a>
     </div>
     <div class="btn-group">
-        <a href="{% url 'nutrition-overview' %}" {% auto_link_css flavour %}>{% trans "Nutrition" %}</a>
+        <a href="{% url 'nutrition:plan:overview' %}" {% auto_link_css flavour %}>{% trans "Nutrition" %}</a>
     </div>
     {% else %}
     <div class="btn-group">
-        <a href="{% url 'core:login' %}" {% auto_link_css flavour %}>{% trans "Login" %}</a>
+        <a href="{% url 'core:user:login' %}" {% auto_link_css flavour %}>{% trans "Login" %}</a>
     </div>
     <div class="btn-group">
         <a href="{% url 'software:features' %}" {% auto_link_css flavour %}>{% trans "Features" %}</a>

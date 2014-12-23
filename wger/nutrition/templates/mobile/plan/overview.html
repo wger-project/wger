@@ -7,14 +7,17 @@
 {% block content %}
 <div class="list-group">
     {% for plan in plans %}
-        <a href="{% url 'nutrition-view' plan.id %}" class="list-group-item wger-list-group-item">
+        <a href="{% url 'nutrition:plan:view' plan.id %}" class="list-group-item wger-list-group-item">
             <span class="glyphicon glyphicon-chevron-right pull-right"></span>
 
             <h3 class="list-group-item-heading">{{plan}}</h3>
-            <p class="list-group-item-text">{{ plan.creation_date }}</p>
+            <p class="list-group-item-text">
+                {{ plan.creation_date }} –
+                {{ plan.get_nutritional_values.total.energy|floatformat }} {% trans "kcal" %}
+            </p>
         </a>
     {% empty %}
-        <a href="{% url 'nutrition-add' %}" class="list-group-item wger-list-group-item">
+        <a href="{% url 'nutrition:plan:add' %}" class="list-group-item wger-list-group-item">
         {% trans "No nutrition plans." %}<br>
             {% trans "Add one now." %}
         </a>
@@ -27,7 +30,7 @@
 {% block sidebar%}
 <h3>{% trans "Options" %}</h3>
 <p>
-    <a href="{% url 'nutrition-add' %}" {% auto_link_css flavour %}>
+    <a href="{% url 'nutrition:plan:add' %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/new.svg' %}"
          width="32"
          height="32"
@@ -37,7 +40,7 @@
 </p>
 
 <p>
-    <a href="{% url 'ingredient-list' %}" {% auto_link_css flavour %}>
+    <a href="{% url 'nutrition:ingredient:list' %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/list.svg' %}"
          width="32"
          height="32"

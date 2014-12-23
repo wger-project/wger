@@ -10,9 +10,7 @@
     :license: GNU GPL, see LICENSE for more details.
 """
 
-# for python 2.5 support
-from __future__ import with_statement
-
+import six
 import base64
 import ctypes
 import optparse
@@ -38,13 +36,13 @@ CONFIG_TEMPLATE = """#!/usr/bin/env python
 from wger.settings_global import *
 
 # Use 'DEBUG = True' to get more details for server errors
-# (Default for releases: 'False')
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('Your name', 'your_email@example.com.net'),
+    ('Your name', 'your_email@example.com'),
 )
+MANAGERS = ADMINS
 
 
 DATABASES = {
@@ -58,8 +56,6 @@ DATABASES = {
     }
 }
 
-SOUTH_TESTS_MIGRATE = False
-
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = %(default_key)r
 
@@ -70,12 +66,14 @@ RECAPTCHA_PRIVATE_KEY = '%(recaptcha_private_key)s'
 # The site's URL (e.g. http://www.my-local-gym.com or http://localhost:8000)
 # This is needed for Mozilla's BrowserID to work
 SITE_URL = '%(siteurl)s'
+BROWSERID_AUDIENCES = [SITE_URL]
 
 # This might be a good idea if you setup memcached
 #SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
 
 # Path to uploaded files
+# Absolute filesystem path to the directory that will hold user-uploaded files.
 MEDIA_ROOT = '%(media_folder_path)s'
 MEDIA_URL = SITE_URL + '/static/'
 if DEBUG:
@@ -121,11 +119,11 @@ def process_options(argv=None):
 
     opts, args = parser.parse_args(argv)
     if opts.version:
-        print get_version()
+        print(get_version())
         exit(0)
     if opts.show_config:
-        print "Settings file: %s" % get_user_config_path('wger', 'settings.py')
-        print "Database file: %s" % get_user_data_path('wger', 'database.sqlite')
+        print("Settings file: %s" % get_user_config_path('wger', 'settings.py'))
+        print("Database file: %s" % get_user_data_path('wger', 'database.sqlite'))
         exit(0)
     if args:
         sys.stderr.write("This command does not take arguments!\n\n")
@@ -186,21 +184,6 @@ def _main(opts, database_path=None):
     # Set the django environment to the settings
     setup_django_environment(settings_path)
 
-    # Check for south tables, this is only Only needed for the
-    # update 1.1.1 > 1.2, when south was introduced
-    from south.models import MigrationHistory
-    from django.db.utils import DatabaseError
-    try:
-        if database_exists() and not opts.syncdb:
-            history = MigrationHistory.objects.count()
-    except DatabaseError:
-        print("Manual database upgrade needed")
-        print("------------------------------")
-        print("The database schema changed after the 1.1.1 release. Run this script")
-        print("with the --syncdb option. This will upgrade the database, but will")
-        print("overwrite any changes you made to exercises and ingredients")
-        sys.exit()
-
     # Create Database if necessary
     if not database_exists() or opts.syncdb:
         run_syncdb()
@@ -224,7 +207,7 @@ def _main(opts, database_path=None):
 
 def create_settings(settings_path, database_path=None, url=None):
     settings_module = os.path.dirname(settings_path)
-    print "* No settings file found. Creating one at %s" % settings_module
+    print("* No settings file found. Creating one at %s" % settings_module)
 
     if database_path is _portable_db_path:
         database_path = get_portable_db_path()
@@ -235,8 +218,8 @@ def create_settings(settings_path, database_path=None, url=None):
         dbpath_value = repr(fs2unicode(database_path))
 
     media_folder_path = get_user_data_path('wger', 'media')
-    print "Please edit your settings file and enter the values for the reCaptcha keys "
-    print "You can leave this empty, but won't be able to register new users"
+    print("Please edit your settings file and enter the values for the reCaptcha keys ")
+    print("You can leave this empty, but won't be able to register new users")
     recaptcha_public_key = ''
     recaptcha_private_key = ''
 
@@ -293,7 +276,7 @@ def setup_django_environment(settings_path):
     settings_file = os.path.basename(settings_path)
     settings_module_name = "".join(settings_file.split('.')[:-1])
     if '.' in settings_module_name:
-        print "'.' is not an allowed character in the settings-file"
+        print("'.' is not an allowed character in the settings-file")
         sys.exit(1)
     settings_module_dir = os.path.dirname(settings_path)
     sys.path.append(settings_module_dir)
@@ -337,7 +320,7 @@ def database_exists():
     except DatabaseError:
         return False
     except ImproperlyConfigured:
-        print "Your settings file seems broken"
+        print("Your settings file seems broken")
         sys.exit(0)
     else:
         return True
@@ -348,24 +331,26 @@ def init_south():
     Only perform the south initialisation
     '''
     print("* Initialising south")
-    execute_from_command_line(["", "migrate", "wger.core", "0001"])
-    execute_from_command_line(["", "migrate", "wger.exercises", "0001", "--fake"])
-    execute_from_command_line(["", "migrate", "wger.config", "0001", "--fake"])
-    execute_from_command_line(["", "migrate", "wger.manager", "0001", "--fake"])
-    execute_from_command_line(["", "migrate", "wger.nutrition", "0001", "--fake"])
-    execute_from_command_line(["", "migrate", "wger.weight", "0001", "--fake"])
+    execute_from_command_line(["", "migrate", "core", "0001"])
+    execute_from_command_line(["", "migrate", "exercises", "0001"])
+    execute_from_command_line(["", "migrate", "config", "0001"])
+    execute_from_command_line(["", "migrate", "manager", "0001"])
+    execute_from_command_line(["", "migrate", "nutrition", "0001"])
+    execute_from_command_line(["", "migrate", "weight", "0001"])
+    execute_from_command_line(["", "migrate", "gym", "0001"])
 
 
 def run_south():
     '''
     Run all south migrations
     '''
-    execute_from_command_line(["", "migrate", "wger.core"])
-    execute_from_command_line(["", "migrate", "wger.config"])
-    execute_from_command_line(["", "migrate", "wger.manager"])
-    execute_from_command_line(["", "migrate", "wger.exercises"])
-    execute_from_command_line(["", "migrate", "wger.nutrition"])
-    execute_from_command_line(["", "migrate", "wger.weight"])
+    execute_from_command_line(["", "migrate", "core"])
+    execute_from_command_line(["", "migrate", "gym"])
+    execute_from_command_line(["", "migrate", "config"])
+    execute_from_command_line(["", "migrate", "manager"])
+    execute_from_command_line(["", "migrate", "exercises"])
+    execute_from_command_line(["", "migrate", "nutrition"])
+    execute_from_command_line(["", "migrate", "weight"])
 
     # Other apps
     execute_from_command_line(["", "migrate", "easy_thumbnails"])
@@ -379,9 +364,14 @@ def load_fixtures():
     os.chdir(os.path.dirname(inspect.stack()[0][1]))
     current_dir = os.getcwd()
 
+    # Gym
+    path = os.path.join(current_dir, 'gym', 'fixtures/')
+    call_command("loaddata", path + "gym.json")
+
     # Core
     path = os.path.join(current_dir, 'core', 'fixtures/')
     call_command("loaddata", path + "languages.json")
+    call_command("loaddata", path + "groups.json")
     call_command("loaddata", path + "users.json")
     call_command("loaddata", path + "licenses.json")
     call_command("loaddata", path + "days_of_week.json")
@@ -389,6 +379,7 @@ def load_fixtures():
     # Config
     path = os.path.join(current_dir, 'config', 'fixtures/')
     call_command("loaddata", path + "language_config.json")
+    call_command("loaddata", path + "gym_config.json")
 
     # Manager
     # path = os.path.join(current_dir, 'manager', 'fixtures/')
@@ -407,6 +398,12 @@ def load_fixtures():
     call_command("loaddata", path + "weight_units.json")
     call_command("loaddata", path + "ingredient_units.json")
 
+    # Gym
+    path = os.path.join(current_dir, 'gym', 'fixtures/')
+    call_command("loaddata", path + "gym.json")
+    call_command("loaddata", path + "gym-config.json")
+    call_command("loaddata", path + "gym-adminconfig.json")
+
 
 def run_syncdb():
     '''
@@ -415,26 +412,8 @@ def run_syncdb():
 
     print("* Intialising the database")
 
-    # Only needed for update 1.1.1 > 1.2
-    from south.models import MigrationHistory
-    from django.db.utils import DatabaseError
-    from django.db import transaction
-    from wger.manager.models import User
-    with transaction.commit_on_success():
-        try:
-            User.objects.count()
-            new_db = False
-        except DatabaseError:
-            new_db = True
-            transaction.rollback()
-
     # Create the tables
-    execute_from_command_line(["", "syncdb", "--noinput"])
-
-    # Only needed for update 1.1.1 > 1.2
-    history = MigrationHistory.objects.count()
-    if not history and not new_db:
-        init_south()
+    execute_from_command_line(["", "migrate"])
 
     # Perform the migrations
     run_south()
@@ -453,7 +432,10 @@ def create_or_reset_admin_user():
     except User.DoesNotExist:
         print("Created default admin user")
 
-    execute_from_command_line(["", "loaddata", "users"])
+    os.chdir(os.path.dirname(inspect.stack()[0][1]))
+    current_dir = os.getcwd()
+    path = os.path.join(current_dir, 'core', 'fixtures/')
+    call_command("loaddata", path + "users.json")
 
 
 def start_wger(addr, port, start_browser_url=None, extra_args=[]):
@@ -478,7 +460,7 @@ def start_browser(url):
 
 
 def fs2unicode(s):
-    if isinstance(s, unicode):
+    if isinstance(s, six.text_type):
         return s
     fs_encoding = sys.getfilesystemencoding() or sys.getdefaultencoding()
     return s.decode(fs_encoding)

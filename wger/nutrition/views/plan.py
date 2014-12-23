@@ -13,6 +13,8 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
+import six
 import logging
 import datetime
 
@@ -78,7 +80,7 @@ def add(request):
     plan.language = load_language()
     plan.save()
 
-    return HttpResponseRedirect(reverse('nutrition-view', kwargs={'id': plan.id}))
+    return HttpResponseRedirect(reverse('nutrition:plan:view', kwargs={'id': plan.id}))
 
 
 class PlanDeleteView(WgerDeleteMixin, DeleteView):
@@ -87,10 +89,17 @@ class PlanDeleteView(WgerDeleteMixin, DeleteView):
     '''
 
     model = NutritionPlan
-    success_url = reverse_lazy('nutrition-overview')
-    title = ugettext_lazy('Delete nutritional plan?')
-    form_action_urlname = 'nutrition-delete'
-    messages = ugettext_lazy('Nutritional plan was successfully deleted')
+    success_url = reverse_lazy('nutrition:plan:overview')
+    form_action_urlname = 'nutrition:plan:delete'
+    messages = ugettext_lazy('Successfully deleted')
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(PlanDeleteView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Delete {0}?').format(self.object)
+        return context
 
 
 class PlanEditView(WgerFormMixin, UpdateView):
@@ -99,8 +108,15 @@ class PlanEditView(WgerFormMixin, UpdateView):
     '''
 
     model = NutritionPlan
-    title = ugettext_lazy('Edit nutritional plan')
-    form_action_urlname = 'nutrition-edit'
+    form_action_urlname = 'nutrition:plan:edit'
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(PlanEditView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Edit {0}').format(self.object)
+        return context
 
 
 @login_required
@@ -163,7 +179,7 @@ def copy(request, pk):
             item.save()
 
     # Redirect
-    return HttpResponseRedirect(reverse('nutrition-view', kwargs={'id': plan.id}))
+    return HttpResponseRedirect(reverse('nutrition:plan:view', kwargs={'id': plan.id}))
 
 
 def export_pdf(request, id, uidb64=None, token=None):
@@ -194,7 +210,7 @@ def export_pdf(request, id, uidb64=None, token=None):
     # Create the PDF object, using the response object as its "file."
     doc = SimpleDocTemplate(response,
                             pagesize=A4,
-                            title=_('Workout'),
+                            title=_('Nutrition plan'),
                             author='wger Workout Manager',
                             subject=_('Nutritional plan %s') % request.user.username)
 
@@ -292,28 +308,32 @@ def export_pdf(request, id, uidb64=None, token=None):
                  Paragraph(_('Percent of energy'), styleSheet["Normal"]),
                  Paragraph(_('g per body kg'), styleSheet["Normal"])])
     data.append([Paragraph(_('Energy'), styleSheet["Normal"]),
-                 Paragraph(unicode(plan_data['total']['energy']), styleSheet["Normal"])])
+                 Paragraph(six.text_type(plan_data['total']['energy']), styleSheet["Normal"])])
     data.append([Paragraph(_('Protein'), styleSheet["Normal"]),
-                 Paragraph(unicode(plan_data['total']['protein']), styleSheet["Normal"]),
-                 Paragraph(unicode(plan_data['percent']['protein']), styleSheet["Normal"]),
-                 Paragraph(unicode(plan_data['per_kg']['protein']), styleSheet["Normal"])])
+                 Paragraph(six.text_type(plan_data['total']['protein']), styleSheet["Normal"]),
+                 Paragraph(six.text_type(plan_data['percent']['protein']), styleSheet["Normal"]),
+                 Paragraph(six.text_type(plan_data['per_kg']['protein']), styleSheet["Normal"])])
     data.append([Paragraph(_('Carbohydrates'), styleSheet["Normal"]),
-                 Paragraph(unicode(plan_data['total']['carbohydrates']), styleSheet["Normal"]),
-                 Paragraph(unicode(plan_data['percent']['carbohydrates']), styleSheet["Normal"]),
-                 Paragraph(unicode(plan_data['per_kg']['carbohydrates']), styleSheet["Normal"])])
+                 Paragraph(six.text_type(plan_data['total']['carbohydrates']),
+                           styleSheet["Normal"]),
+                 Paragraph(six.text_type(plan_data['percent']['carbohydrates']),
+                           styleSheet["Normal"]),
+                 Paragraph(six.text_type(plan_data['per_kg']['carbohydrates']),
+                           styleSheet["Normal"])])
     data.append([Paragraph(_('Sugar content in carbohydrates'), styleSheet["Normal"]),
-                 Paragraph(unicode(plan_data['total']['carbohydrates_sugar']),
+                 Paragraph(six.text_type(plan_data['total']['carbohydrates_sugar']),
                            styleSheet["Normal"])])
     data.append([Paragraph(_('Fat'), styleSheet["Normal"]),
-                 Paragraph(unicode(plan_data['total']['fat']), styleSheet["Normal"]),
-                 Paragraph(unicode(plan_data['percent']['fat']), styleSheet["Normal"]),
-                 Paragraph(unicode(plan_data['per_kg']['fat']), styleSheet["Normal"])])
+                 Paragraph(six.text_type(plan_data['total']['fat']), styleSheet["Normal"]),
+                 Paragraph(six.text_type(plan_data['percent']['fat']), styleSheet["Normal"]),
+                 Paragraph(six.text_type(plan_data['per_kg']['fat']), styleSheet["Normal"])])
     data.append([Paragraph(_('Saturated fat content in fats'), styleSheet["Normal"]),
-                 Paragraph(unicode(plan_data['total']['fat_saturated']), styleSheet["Normal"])])
+                 Paragraph(six.text_type(plan_data['total']['fat_saturated']),
+                           styleSheet["Normal"])])
     data.append([Paragraph(_('Fibres'), styleSheet["Normal"]),
-                 Paragraph(unicode(plan_data['total']['fibres']), styleSheet["Normal"])])
+                 Paragraph(six.text_type(plan_data['total']['fibres']), styleSheet["Normal"])])
     data.append([Paragraph(_('Sodium'), styleSheet["Normal"]),
-                 Paragraph(unicode(plan_data['total']['sodium']), styleSheet["Normal"])])
+                 Paragraph(six.text_type(plan_data['total']['sodium']), styleSheet["Normal"])])
 
     table_style = []
     table_style.append(('BOX', (0, 0), (-1, -1), 1.25, colors.black))
@@ -331,7 +351,7 @@ def export_pdf(request, id, uidb64=None, token=None):
     # Footer, date and info
     elements.append(Spacer(10*cm, 0.5*cm))
     created = datetime.date.today().strftime("%d.%m.%Y")
-    url = reverse('nutrition-view', kwargs={'id': plan.id})
+    url = reverse('nutrition:plan:view', kwargs={'id': plan.id})
     p = Paragraph('''<para align="left">
                         %(date)s -
                         <a href="%(url)s">%(url)s</a> -

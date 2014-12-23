@@ -28,8 +28,8 @@ the search.{% endblocktrans %}
 
 {% if perms.exercises %}
 <div class="row">
-    <div class="col-md-6">
-        <a href="{% url 'ingredient-accept' ingredient.id %}" class="btn btn-default btn-block">
+    <div class="col-sm-6">
+        <a href="{% url 'nutrition:ingredient:accept' ingredient.id %}" class="btn btn-default btn-block">
             <img src="{% static 'images/icons/status-on.svg' %}"
                 width="32"
                 height="32"
@@ -37,8 +37,8 @@ the search.{% endblocktrans %}
             {% trans "Accept" %}
         </a>
     </div>
-    <div class="col-md-6">
-        <a href="{% url 'ingredient-decline' ingredient.id %}" class="btn btn-default btn-block">
+    <div class="col-sm-6">
+        <a href="{% url 'nutrition:ingredient:decline' ingredient.id %}" class="btn btn-default btn-block">
             <img src="{% static 'images/icons/status-off.svg' %}"
                 width="32"
                 height="32"
@@ -93,26 +93,26 @@ the search.{% endblocktrans %}
         <tr>
             <td style="width:80%;">{% trans "Energy" %}</td>
             <td itemprop="calories">
-                <span id="value-energy">{{ingredient.energy}}</span> kcal
+                <span id="value-energy">{{ingredient.energy}}</span> {% trans "kcal" %}
             </td>
         </tr>
         <tr>
             <td>{% trans "Protein" %}</td>
             <td itemprop="proteinContent">
-                <span id="value-protein">{{ingredient.protein}}</span> g
+                <span id="value-protein">{{ingredient.protein}}</span> {% trans "g" context "weight unit, i.e. grams" %}
             </td>
         </tr>
         <tr>
             <td>{% trans "Carbohydrates" %}</td>
             <td itemprop="carbohydrateContent">
-                <span id="value-carbohydrates">{{ingredient.carbohydrates}}</span> g
+                <span id="value-carbohydrates">{{ingredient.carbohydrates}}</span> {% trans "g" context "weight unit, i.e. grams" %}
             </td>
         </tr>
         <tr>
             <td style="padding-left: 3em;">{% trans "Sugar content in carbohydrates" %}</td>
             <td itemprop="sugarContent">
                 {% if ingredient.carbohydrates_sugar %}
-                    <span id="value-carbohydrates-sugar">{{ingredient.carbohydrates_sugar}}</span> g
+                    <span id="value-carbohydrates-sugar">{{ingredient.carbohydrates_sugar}}</span> {% trans "g" context "weight unit, i.e. grams" %}
                 {% else %}
                     {% trans "n.A." %}
                 {% endif %}
@@ -121,14 +121,14 @@ the search.{% endblocktrans %}
         <tr>
             <td>{% trans "Fat" %}</td>
             <td itemprop="fatContent">
-                <span id="value-fat">{{ingredient.fat}}</span> g
+                <span id="value-fat">{{ingredient.fat}}</span> {% trans "g" context "weight unit, i.e. grams" %}
             </td>
         </tr>
         <tr>
             <td style="padding-left: 3em;">{% trans "Saturated fat content in fats" %}</td>
             <td itemprop="saturatedFatContent">
                 {% if ingredient.fat_saturated %}
-                    <span id="value-fat-saturated">{{ingredient.fat_saturated}}</span> g
+                    <span id="value-fat-saturated">{{ingredient.fat_saturated}}</span> {% trans "g" context "weight unit, i.e. grams" %}
                 {% else %}
                     {% trans "n.A." %}
                 {% endif %}
@@ -150,7 +150,7 @@ the search.{% endblocktrans %}
             <td style="width:80%;">{% trans "Fibres" %}</td>
             <td itemprop="fiberContent" id="value-fibres">
                 {% if ingredient.fibres %}
-                    <span id="value-fibres">{{ingredient.fibres}}</span> g
+                    <span id="value-fibres">{{ingredient.fibres}}</span> {% trans "g" context "weight unit, i.e. grams" %}
                 {% else %}
                     {% trans "n.A." %}
                 {% endif %}
@@ -160,7 +160,7 @@ the search.{% endblocktrans %}
             <td>{% trans "Sodium" %}</td>
             <td itemprop="sodiumContent" id="value-sodium">
                 {% if ingredient.sodium %}
-                    <span id="value-fibres">{{ingredient.sodium}}</span> g
+                    <span id="value-fibres">{{ingredient.sodium}}</span> {% trans "g" context "weight unit, i.e. grams" %}
                 {% else %}
                     {% trans "n.A." %}
                 {% endif %}
@@ -190,7 +190,7 @@ the search.{% endblocktrans %}
 <h3>{% trans "Options" %}</h3>
 
 <p>
-<a href="{% url 'ingredient-delete' ingredient.id %}"
+<a href="{% url 'nutrition:ingredient:delete' ingredient.id %}"
    title="{% trans 'Delete ingredient' %}"
    {% auto_link_css flavour "wger-modal-dialog" %}>
    <img src="{% static 'images/icons/trash.svg' %}"
@@ -203,7 +203,7 @@ the search.{% endblocktrans %}
 </p>
 
 <p>
-<a href="{% url 'ingredient-edit' ingredient.id %}"
+<a href="{% url 'nutrition:ingredient:edit' ingredient.id %}"
    title="{% trans 'Edit ingredient' %}"
    {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/edit.svg' %}"
@@ -217,7 +217,7 @@ the search.{% endblocktrans %}
 
 <h3>{% trans "Weight units" %}</h3>
 <p>
-<a href="{% url 'weight-unit-ingredient-add' ingredient.id %}"
+<a href="{% url 'nutrition:unit_ingredient:add' ingredient.id %}"
    {% auto_link_css flavour "wger-modal-dialog" %}>
        <img src="{% static 'images/icons/new.svg' %}"
             width="32"
@@ -238,26 +238,24 @@ the search.{% endblocktrans %}
     {% for unit in ingredient.ingredientweightunit_set.select_related %}
         <tr>
             <td>
-                {{unit.amount}} {{unit.unit.name}} = {{unit.gramm}}g
+                {{unit.amount}} {{unit.unit.name}} = {{unit.gram}}g
                 <span class="editoptions float-right">
-                    <a href="{% url 'weight-unit-ingredient-edit' unit.id %}"
+                    <a href="{% url 'nutrition:unit_ingredient:edit' unit.id %}"
                        title="{% trans 'Edit' %}"
                        {% auto_link_css flavour "wger-modal-dialog" %}>
                            <img src="{% static 'images/icons/edit.svg' %}"
                                 width="16"
                                 height="16"
                                 alt="{% trans 'Edit' %}"
-                                title="{% trans 'Edit' %}">
-                    </a>
-                    <a href="{% url 'weight-unit-ingredient-delete' unit.id %}"
+                                title="{% trans 'Edit' %}"></a>
+                    <a href="{% url 'nutrition:unit_ingredient:delete' unit.id %}"
                        title="{% trans 'Delete' %}"
                        {% auto_link_css flavour "wger-modal-dialog" %}>
                            <img src="{% static 'images/icons/trash.svg' %}"
                                 width="16"
                                 height="16"
                                 alt="{% trans 'Delete' %}"
-                                title="{% trans 'Delete' %}">
-                    </a>
+                                title="{% trans 'Delete' %}"></a>
                 </span>
             </td>
         </tr>

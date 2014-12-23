@@ -30,10 +30,10 @@ class RobotsExclusionMiddlewareTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('core:dashboard'))
         self.assertTrue(response.get('X-Robots-Tag'))
 
-        response = self.client.get(reverse('workout-overview'))
+        response = self.client.get(reverse('manager:workout:overview'))
         self.assertTrue(response.get('X-Robots-Tag'))
 
-        response = self.client.get(reverse('schedule-overview'))
+        response = self.client.get(reverse('manager:schedule:overview'))
         self.assertTrue(response.get('X-Robots-Tag'))
 
         response = self.client.get(reverse('core:feedback'))
@@ -59,13 +59,13 @@ class RobotsExclusionMiddlewareTestCase(WorkoutManagerTestCase):
         Test the middleware on URLs from nutrition app
         '''
 
-        response = self.client.get(reverse('ingredient-list'))
+        response = self.client.get(reverse('nutrition:ingredient:list'))
         self.assertFalse(response.get('X-Robots-Tag'))
 
-        response = self.client.get(reverse('ingredient-view', kwargs={'id': 1}))
+        response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'id': 1}))
         self.assertFalse(response.get('X-Robots-Tag'))
 
-        response = self.client.get(reverse('nutrition-overview'))
+        response = self.client.get(reverse('nutrition:plan:overview'))
         self.assertTrue(response.get('X-Robots-Tag'))
 
     def test_middleware_exercises(self):
@@ -73,11 +73,11 @@ class RobotsExclusionMiddlewareTestCase(WorkoutManagerTestCase):
         Test the middleware on URLs from exercises app
         '''
 
-        response = self.client.get(reverse('exercise-overview'))
+        response = self.client.get(reverse('exercise:exercise:overview'))
         self.assertFalse(response.get('X-Robots-Tag'))
 
-        response = self.client.get(reverse('exercise-view', kwargs={'id': 1}))
+        response = self.client.get(reverse('exercise:exercise:view', kwargs={'id': 1}))
         self.assertFalse(response.get('X-Robots-Tag'))
 
-        response = self.client.get(reverse('muscle-overview'))
+        response = self.client.get(reverse('exercise:muscle:overview'))
         self.assertFalse(response.get('X-Robots-Tag'))
