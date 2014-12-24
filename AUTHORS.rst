@@ -5,6 +5,7 @@ Developers
 ----------
 
 * Roland Geider – https://github.com/rolandgeider
+* Helen Sherwood-Taylor - https://github.com/helenst
 
 
 Translators
