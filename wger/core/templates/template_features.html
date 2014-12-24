@@ -61,6 +61,8 @@
     <div class="container">
         {% block template %}{% endblock %}
     </div>
+    <div id="current-url" data-current-url="{{request_full_path}}"></div>
+    <div id="current-language" data-current-language="{{language.short_name}}"></div>
 </div>
 
 
