@@ -6,6 +6,7 @@ Developers
 
 * Roland Geider – https://github.com/rolandgeider
 * Helen Sherwood-Taylor - https://github.com/helenst
+* Tushar Gupta - https://github.com/Tushar-Gupta
 
 
 Translators
