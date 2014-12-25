@@ -132,4 +132,7 @@ class EquipmentOverviewView(WgerPermissionMixin, ListView):
         '''
         context = super(EquipmentOverviewView, self).get_context_data(**kwargs)
         context['exercise_languages'] = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
+        for equipment in context['equipment_list']:
+            equipment.name = _(equipment.name)
+        context['equipment_list'] = sorted(context['equipment_list'],key=lambda equipment: equipment.name)
         return context
