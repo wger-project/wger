@@ -1,0 +1,28 @@
+{% extends "base_wide.html" %}
+{% load i18n staticfiles wger_extras %}
+
+{% block title %}{% trans "Weightlifting routines generator" %}{% endblock %}
+
+{% block header %}
+<script src="{% static 'js/angularjs/angular.js' %}"></script>
+
+<script>
+angular.module("routineGenerator", ["ngRoute", "ngResource"])
+.config(function ($routeProvider) {
+    $routeProvider.when("/view/:name", {
+        templateUrl: "/workout/routine/partials/routine-generator/detail",
+    });
+
+    $routeProvider.otherwise({
+        templateUrl: "/workout/routine/partials/routine-generator/overview"
+    });
+});
+</script>
+<script src="{% static 'js/angularjs/ng-modules/angular-route.js' %}"></script>
+<script src="{% static 'js/angularjs/ng-modules/angular-resource.js' %}"></script>
+<script src="{% static 'js/angularjs/controllers/routines.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<data-ng-view></data-ng-view>
+{% endblock %}

@@ -50,6 +50,30 @@ class WeightConversionTestCase(WorkoutManagerTestCase):
         self.assertEqual(tmp.lb, Decimal(176.3698).quantize(FOURPLACES))
         self.assertEqual(tmp.kg, 80)
 
+    def test_sum(self):
+        '''
+        Tests adding two abstract weights
+        '''
+        weight1 = AbstractWeight(80, 'kg')
+        weight2 = AbstractWeight(10, 'kg')
+        out = weight1 + weight2
+        self.assertEqual(out.kg, 90)
+
+        weight1 = AbstractWeight(80, 'kg')
+        weight2 = AbstractWeight(10, 'lb')
+        out = weight1 + weight2
+        self.assertEqual(out.kg, Decimal(84.5359).quantize(FOURPLACES))
+
+        weight1 = AbstractWeight(80, 'lb')
+        weight2 = AbstractWeight(10, 'lb')
+        out = weight1 + weight2
+        self.assertEqual(out.lb, Decimal(90))
+
+        weight1 = AbstractWeight(80, 'kg')
+        weight2 = 20
+        out = weight1 + weight2
+        self.assertEqual(out.kg, Decimal(100))
+
     def test_conversion_subunits(self):
         '''
         Test the weight conversion with "subunits" (grams, ounces)
@@ -78,25 +102,6 @@ class WeightConversionTestCase(WorkoutManagerTestCase):
 
         tmp = AbstractWeight(16, 'oz')
         self.assertEqual(tmp.lb, 1)
-
-    def test_sum(self):
-        '''
-        Tests adding two abstract weights
-        '''
-        weight1 = AbstractWeight(80, 'kg')
-        weight2 = AbstractWeight(10, 'kg')
-        sum = weight1 + weight2
-        self.assertEqual(sum.kg, 90)
-
-        weight1 = AbstractWeight(80, 'kg')
-        weight2 = AbstractWeight(10, 'lb')
-        sum = weight1 + weight2
-        self.assertEqual(sum.kg, Decimal(84.5359).quantize(FOURPLACES))
-
-        weight1 = AbstractWeight(80, 'lb')
-        weight2 = AbstractWeight(10, 'lb')
-        sum = weight1 + weight2
-        self.assertEqual(sum.lb, Decimal(90))
 
     def test_subunits(self):
         '''

@@ -90,6 +90,7 @@ class BaseTestCase(object):
                 'gym_config',
                 'groups',
                 'test-languages',
+                'test-language-mapper',
                 'test-licenses',
                 'test-gyms',
                 'test-gymsconfig',
@@ -108,6 +109,7 @@ class BaseTestCase(object):
                 'test-nutrition-data',
                 'test-workout-data',
                 'test-workout-session',
+                'test-weightconfig',
                 'test-schedules')
     current_user = 'anonymous'
     current_password = ''

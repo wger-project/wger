@@ -59,6 +59,7 @@ class CacheKeyMapper(object):
     LANGUAGE_CONFIG_CACHE_KEY = 'language-config-{0}-{1}'
     EXERCISE_CACHE_KEY = 'exercise-{0}'
     EXERCISE_CACHE_KEY_MUSCLE_BG = 'exercise-muscle-bg-{0}'
+    EXERCISE_CACHE_KEY_MAPPER = 'exercise-language-mapper-{0}'
     INGREDIENT_CACHE_KEY = 'ingredient-{0}'
     WORKOUT_CANONICAL_REPRESENTATION = 'workout-canonical-representation-{0}'
     WORKOUT_LOG = 'workout-log-user{0}-year{1}-month{2}'
@@ -84,6 +85,17 @@ class CacheKeyMapper(object):
             pk = param
 
         return self.EXERCISE_CACHE_KEY_MUSCLE_BG.format(pk)
+
+    def get_exercise_language_mapper(self, param):
+        '''
+        Return the exercise language mapper cache key
+        '''
+        try:
+            pk = param.pk
+        except AttributeError:
+            pk = param
+
+        return self.EXERCISE_CACHE_KEY_MAPPER.format(pk)
 
     def get_language_key(self, param):
         '''

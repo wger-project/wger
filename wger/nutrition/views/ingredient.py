@@ -79,6 +79,7 @@ def view(request, id, slug=None):
         ingredient = get_object_or_404(Ingredient, pk=id)
         cache.set(cache_mapper.get_ingredient_key(ingredient), ingredient)
     template_data['ingredient'] = ingredient
+    template_data['back_url'] = reverse('ingredient-list')
     template_data['form'] = UnitChooserForm(data={'ingredient_id': ingredient.id,
                                                   'amount': 100,
                                                   'unit': None})

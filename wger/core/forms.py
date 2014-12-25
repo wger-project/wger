@@ -34,6 +34,7 @@ class UserPreferencesForm(forms.ModelForm):
                   'workout_duration',
                   'notification_language',
                   'weight_unit',
+                  'routines_round_to',
                   'timer_active',
                   'timer_pause')
 

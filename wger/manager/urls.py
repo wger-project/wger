@@ -17,6 +17,7 @@
 
 from django.conf.urls import patterns, url, include
 from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
 
 from wger.manager.views import schedule
 from wger.manager.views import schedule_step
@@ -24,6 +25,7 @@ from wger.manager.views import ical
 from wger.manager.views import workout
 from wger.manager.views import log
 from wger.manager.views import set
+from wger.manager.views import routines
 from wger.manager.views import day
 from wger.manager.views import workout_session
 from wger.manager import pdf
@@ -92,6 +94,26 @@ patterns_workout = patterns('',
     url(r'^(?P<day_pk>\d+)/timer$',
         workout.timer,
         name='timer'),
+)
+
+
+# sub patterns for the routine generator
+patterns_routines = patterns('',
+    url(r'^generator$',
+        routines.overview,
+        name='generator'),
+    url(r'^(?P<name>\w+)/pdf$',
+        routines.export_pdf,
+        name='pdf'),
+    url(r'^(?P<name>\w+)/create-schedule$',
+        routines.make_schedule,
+        name='create-schedule'),
+    url(r'^partials/routine-generator/detail$',
+        TemplateView.as_view(template_name="routines/angular_detail.html"),
+        name='partial-detail'),
+    url(r'^partials/routine-generator/overview$',
+        TemplateView.as_view(template_name="routines/angular_overview.html"),
+        name='partial-overview'),
 )
 
 
@@ -196,6 +218,8 @@ patterns_step = patterns('',
 
 urlpatterns = patterns('',
    url(r'^', include(patterns_workout, namespace="workout")),
+   url(r'^routine/', include(patterns_routines, namespace="routine")),
+
    url(r'^log/', include(patterns_log, namespace="log")),
    url(r'^day/', include(patterns_day, namespace="day")),
    url(r'^set/', include(patterns_set, namespace="set")),

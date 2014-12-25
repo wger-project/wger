@@ -1,0 +1,12 @@
+[
+    {
+        "pk": 1, 
+        "model": "manager.weightconfig", 
+        "fields": {
+            "schedule_step": 4,
+            "setting": 3,
+            "increment": "1.5", 
+            "start": "20"
+        }
+    }
+]

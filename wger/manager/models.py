@@ -232,6 +232,12 @@ class Schedule(models.Model):
     def get_absolute_url(self):
         return reverse('manager:schedule:view', kwargs={'pk': self.id})
 
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return self.name
+
     def get_owner_object(self):
         '''
         Returns the object that has owner information
@@ -325,6 +331,26 @@ class ScheduleStep(models.Model):
         Return a more human-readable representation
         '''
         return self.workout.comment
+
+    def get_dates(self):
+        '''
+        Calculate the start and end date for this step
+        '''
+
+        steps = self.schedule.schedulestep_set.all()
+        start_date = end_date = self.schedule.start_date
+        previous = 0
+
+        if not steps:
+            return False
+
+        for step in steps:
+            start_date += datetime.timedelta(weeks=previous)
+            end_date += datetime.timedelta(weeks=step.duration)
+            previous = step.duration
+
+            if step == self:
+                return start_date, end_date
 
     def get_dates(self):
         '''
@@ -773,3 +799,123 @@ class WorkoutSession(models.Model):
         '''
         reset_workout_log(self.user_id, self.date.year, self.date.month)
         super(WorkoutSession, self).delete(*args, **kwargs)
+
+
+class WeightConfig(models.Model):
+    '''
+    Model for weight configuration settings
+    '''
+
+    MODE_STATIC = 'static'
+    MODE_DYNAMIC = 'dynamic'
+    MODE = (
+        (MODE_STATIC, _('Static')),
+        (MODE_DYNAMIC, _('Dynamic'))
+    )
+
+    DYNAMIC_MODE_LAST = 'last'
+    DYNAMIC_MODE_2_WEEKS = '2weeks'
+    DYNAMIC_MODE_4_WEEKS = '4weeks'
+    DYNAMIC_MODE = (
+        (DYNAMIC_MODE_LAST, _('Last workout')),
+        (DYNAMIC_MODE_2_WEEKS, _('Best workout in last {0} weeks').format(2)),
+        (DYNAMIC_MODE_4_WEEKS, _('Best workout in last {0} weeks').format(4))
+    )
+
+    UNITS_KG = 'kg'
+    UNITS_LB = 'lb'
+    UNITS = (
+        (UNITS_KG, _('Metric (kilogram)')),
+        (UNITS_LB, _('Imperial (pound)'))
+    )
+
+    VALUE_WEIGHT = 'weight'
+    VALUE_PERCENTAGE = 'percent'
+    VALUE = (
+        (VALUE_WEIGHT, _('Constant value')),
+        (VALUE_PERCENTAGE, _('Percent'))
+    )
+
+    class Meta:
+        '''
+        Set other configuration options
+        '''
+        unique_together = (('schedule_step', 'setting'),)
+
+    increment_mode = models.CharField(_('Mode'),
+                                      help_text=_('Select the mode by which the weight increase '
+                                                  'is determined. "Static" increases the weight by '
+                                                  'a specific amount, "dynamic" can do that based '
+                                                  'on your workout performance.'),
+                                      max_length=7,
+                                      choices=MODE,
+                                      default=MODE_STATIC)
+    '''
+    General weight increment mode
+    '''
+
+    dynamic_mode = models.CharField(_('Dynamic mode'),
+                                    help_text=_('Select the time frame used to select your '
+                                                'base weight.'),
+                                    max_length=7,
+                                    choices=DYNAMIC_MODE,
+                                    default=DYNAMIC_MODE_LAST)
+    '''
+    General weight increment mode
+    '''
+
+    schedule_step = models.ForeignKey(ScheduleStep, editable=False)
+    '''
+    The schedule step the weight config belongs to
+    '''
+
+    setting = models.ForeignKey(Setting, editable=False)
+    '''
+    The setting the weight config belongs to
+    '''
+
+    start = models.DecimalField(_('Starting weight'),
+                                decimal_places=2,
+                                max_digits=5,
+                                validators=[MinValueValidator(0),
+                                            MaxValueValidator(400)])
+    '''
+    Weight at the start
+    '''
+
+    increment = models.DecimalField(_('Weekly weight increment'),
+                                    decimal_places=2,
+                                    max_digits=4,
+                                    validators=[MinValueValidator(0),
+                                                MaxValueValidator(10)])
+    '''
+    Weekly weight increment
+    '''
+
+    weight_unit = models.CharField(verbose_name=_('Weight unit'),
+                                   max_length=2,
+                                   choices=UNITS,
+                                   default=UNITS_KG)
+    '''
+    Weight unit
+    '''
+
+    value = models.CharField(verbose_name=_('Weight unit'),
+                             max_length=2,
+                             choices=VALUE,
+                             default=VALUE_WEIGHT)
+    '''
+    Weight unit
+    '''
+
+    def __unicode__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return u"Start weight: {0}, increment: {1}".format(self.start, self.increment)
+
+    def get_owner_object(self):
+        '''
+        Return the object that has owner information
+        '''
+        return self.schedule_step.workout

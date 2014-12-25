@@ -130,3 +130,46 @@ class WorkoutCanonicalFormSerializer(serializers.Serializer):
     obj = WorkoutSerializer()
     muscles = serializers.Field()
     day_list = DayCanonicalFormSerializer(many=True)
+
+
+#
+# Routine Generator
+#
+
+class RoutineConfigSerializer(serializers.Serializer):
+    '''
+    Serializer for the configuration options of a workout
+    '''
+    round_to = serializers.FloatField()
+    max_bench = serializers.FloatField()
+    max_deadlift = serializers.FloatField()
+    max_squat = serializers.FloatField()
+    unit = serializers.CharField()
+
+
+class RoutineExerciseConfigSerializer(serializers.Serializer):
+    '''
+    Serializer for the canonical form of a workout
+    '''
+    week = serializers.IntegerField(source='week')
+    day = serializers.IntegerField(source='day')
+    set = serializers.IntegerField(source='set')
+    unit = serializers.CharField()
+
+    weight = serializers.DecimalField()
+    reps = serializers.IntegerField()
+    sets = serializers.IntegerField()
+    increment_mode = serializers.CharField()
+    exercise = serializers.CharField(read_only=True)
+
+    def transform_exercise(self, obj, value):
+        '''
+        Return the available languages for the exercise
+        '''
+        out = {}
+        mapper = obj['config'].routine_exercise.exercise_mapper.get_all_languages()
+        for lang in mapper:
+            out[lang] = mapper[lang].pk
+
+        return {'name': unicode(obj['config'].routine_exercise.exercise_mapper),
+                'ids': out}

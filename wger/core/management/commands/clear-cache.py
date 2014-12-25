@@ -18,10 +18,12 @@ from optparse import make_option
 
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand, CommandError
+from django.core.cache import cache
 
 from wger.core.models import Language
+from wger.exercises.models import Exercise, ExerciseLanguageMapper
+from wger.utils.cache import cache_mapper
 from wger.manager.models import Workout, WorkoutLog
-from wger.exercises.models import Exercise
 from wger.utils.cache import reset_workout_canonical_form, reset_workout_log
 from wger.utils.cache import delete_template_fragment_cache
 
@@ -36,24 +38,32 @@ class Command(BaseCommand):
                     action='store_true',
                     dest='clear_template',
                     default=False,
-                    help='Clear only template caches'),
+                    help='Clear template caches'),
 
         make_option('--clear-workout-cache',
                     action='store_true',
                     dest='clear_workout',
                     default=False,
-                    help='Clear only the workout canonical view'),
+                    help='Clear the workout canonical view'),
+
+        make_option('--clear-exercise-mapper',
+                    action='store_true',
+                    dest='clear_exercise_mapper',
+                    default=False,
+                    help='Clear the exercise language mapper cache'),
     )
 
-    help = 'Clears the application cache. You *must* pass an option selecting ' \
-           'what exactly you want to clear. See available options.'
+    help = 'Clears the application cache. You *must* pass at least one option ' \
+           'specifying what exactly you want to clear.'
 
     def handle(self, *args, **options):
         '''
         Process the options
         '''
 
-        if not options['clear_template'] and not options['clear_workout']:
+        if not options['clear_template'] \
+                and not options['clear_workout'] \
+                and not options['clear_exercise_mapper']:
             raise CommandError('Please select what cache you need to delete, see help')
 
         # Exercises, cached template fragments
@@ -82,3 +92,8 @@ class Command(BaseCommand):
         if options['clear_workout']:
             for w in Workout.objects.all():
                 reset_workout_canonical_form(w.pk)
+
+        # Exercise language mapper
+        if options['clear_exercise_mapper']:
+            for m in ExerciseLanguageMapper.objects.all():
+                cache.delete(cache_mapper.get_exercise_language_mapper(m))

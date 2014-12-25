@@ -1,0 +1,196 @@
+{% load i18n staticfiles wger_extras %}
+
+<div class="row" data-ng-controller="routineDetailCtrl">
+    <div class="col-sm-8">
+        <div class="row">
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-9">
+                    <h3>
+                        <a href="{% url 'manager:routine:generator' %}" class="btn btn-default">
+                            <span class="pull-left glyphicon glyphicon-chevron-left" style="font-size: 80%;"></span>
+                        </a>
+                        {% verbatim %}{{data.routine.name}}{% endverbatim %}
+                    </h3>
+                <p>{% verbatim %}{{data.routine.description}}{% endverbatim %}</p>
+            </div>
+        </div>
+
+
+        <div data-ng-repeat="(week, week_values) in data.items" >
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                {% trans "Week" %} {% verbatim %}{{ week }}{% endverbatim %}
+                            </h3>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div>
+                        <table class="table table-condensed">
+                            <tr data-ng-repeat="(day, day_values) in week_values" >
+                                <td>
+                                    {% trans "Day" %} {% verbatim %}{{day}}{% endverbatim %}
+                                </td>
+                                <td>
+                                    <table style="width: 100%;">
+                                        <tr data-ng-repeat="config in day_values">
+                                            <td>
+                                                {% verbatim %}{{config.exercise.name}}{% endverbatim %}
+                                            </td>
+                                            <td style="width:25%;">
+                                                {% verbatim %}{{config.sets}} x {{config.reps}}{% endverbatim %}
+                                            </td>
+                                            <td style="text-align:right;width:25%;">
+
+                                                <div ng-switch on="config.weight">
+                                                    <span ng-switch-when="max">
+                                                        {% trans "your max!" %}
+                                                    </span>
+
+                                                    <span ng-switch-when="auto">
+                                                        {% trans "some weight" %}
+                                                    </span>
+
+                                                    <span ng-switch-default>
+                                                        {% verbatim %}{{config.weight}}{% endverbatim %}
+                                                        {% trans user.userprofile.weight_unit %}
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-4">
+        <h4>{% trans "Info" %}</h4>
+        <p>{% blocktrans %}If you don't quite like the routine, you can edit and change
+any part of it once you have added it to your list.{% endblocktrans %}</p>
+
+        <h4>{% trans "Configuration" %}</h4>
+        <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <label for="max_bench" class="col-md-3 control-label">
+                {% trans "Max bench" %}
+            </label>
+            <div class="col-md-9">
+                <input type="number"
+                       min="0"
+                       max="300"
+                       step="1"
+                       id="max_bench"
+                       name="max_bench"
+                       value="{{user_config.max_bench}}"
+                       data-ng-model="config.max_bench"
+                       class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="max_squat" class="col-md-3 control-label">
+                {% trans "Max squat" %}
+            </label>
+            <div class="col-md-9">
+                <input type="number"
+                       min="0"
+                       max="300"
+                       step="1"
+                       id="max_squat"
+                       name="max_squat"
+                       value="{{user_config.max_squat}}"
+                       data-ng-model="config.max_squat"
+                       class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="max_deadlift" class="col-md-3 control-label">
+                {% trans "Max deadlift" %}
+            </label>
+            <div class="col-md-9">
+                <input type="number"
+                       min="0"
+                       max="300"
+                       step="1"
+                       id="max_deadlift"
+                       name="max_deadlift"
+                       value="{{user_config.deadlift}}"
+                       data-ng-model="config.max_deadlift"
+                       class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="round_to" class="col-md-3 control-label">
+                {% trans "Round to" %}
+            </label>
+            <div class="col-md-9">
+                <input type="number"
+                       min="0"
+                       max="5"
+                       step="0.1"
+                       id="round_to"
+                       name="round_to"
+                       value="{{user_config.round_to}}"
+                       data-ng-model="config.round_to"
+                       class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="unit" class="col-md-3 control-label">
+                {% trans "Weight unit" %}
+            </label>
+            <div class="col-md-9">
+                <select class="form-control"
+                        name="unit"
+                        id="unit"
+                        data-ng-model="config.unit">
+                    <option value="kg">{% trans 'kg' %}</option>
+                    <option value="lb">{% trans 'lb' %}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                <button class="btn btn-default btn-block" data-ng-click="getRoutine()">{% trans "Update routine" %}</button>
+            </div>
+        </div>
+    </form>
+
+        <h4>{% trans "Options" %}</h4>
+        <p>
+            <a href="/workout/routines/{% verbatim %}{{data.routine.short_name}}{% endverbatim %}/pdf" {% auto_link_css flavour %}>
+                <img src="{% static 'images/icons/save.svg' %}"
+                     width="32"
+                     height="32"
+                     alt="{% trans 'Download as PDF' %}">
+                {% trans "Download as PDF" %}
+            </a>
+        </p>
+
+        {% if user.is_authenticated %}
+        <p>
+            <a href="/workout/routines/{% verbatim %}{{data.routine.short_name}}{% endverbatim %}/create-schedule" {% auto_link_css flavour %}>
+                <img src="{% static 'images/icons/status-on.svg' %}"
+                     width="32"
+                     height="32"
+                     alt="{% trans 'Use this routine' %}"
+                     >
+                {% trans "Use this routine" %}
+            </a>
+        </p>
+        {% endif %}
+    </div>
+</div>

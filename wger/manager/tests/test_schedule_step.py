@@ -43,7 +43,7 @@ class ScheduleStepTestCase(WorkoutManagerTestCase):
 
 class CreateScheduleStepTestCase(WorkoutManagerAddTestCase):
     '''
-    Tests adding a schedule
+    Tests adding a schedule step
     '''
 
     object_class = ScheduleStep
@@ -56,7 +56,7 @@ class CreateScheduleStepTestCase(WorkoutManagerAddTestCase):
 
 class EditScheduleStepTestCase(WorkoutManagerEditTestCase):
     '''
-    Tests editing a schedule
+    Tests editing a schedule step
     '''
 
     object_class = ScheduleStep
@@ -68,7 +68,7 @@ class EditScheduleStepTestCase(WorkoutManagerEditTestCase):
 
 class DeleteScheduleStepTestCase(WorkoutManagerDeleteTestCase):
     '''
-    Tests editing a schedule
+    Tests editing a schedule step
     '''
 
     object_class = ScheduleStep

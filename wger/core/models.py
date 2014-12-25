@@ -289,9 +289,26 @@ by the US Department of Agriculture. It is extremely complete, with around
     '''Basic caloric intake based on physical activity'''
 
     #
+    # Routines
+    #
+    routines_round_to = models.DecimalField(verbose_name=_('Round weight in routines'),
+                                            help_text=_('The weight of the smallest plate you have '
+                                                        'available. On routines and schedules the '
+                                                        'calculated  weight will be rounded UP to '
+                                                        'the next multiple of this value.'),
+                                            max_digits=4,
+                                            decimal_places=2,
+                                            validators=[MinValueValidator(1),
+                                                        MaxValueValidator(5)],
+                                            default=1.25)
+
+    #
     # Others
     #
     weight_unit = models.CharField(verbose_name=_('Weight unit'),
+                                   help_text=_('Select your preferred unit. This setting controls '
+                                               'how the weight entries are interpreted if there '
+                                               'are any calculations as well as their display.'),
                                    max_length=2,
                                    choices=UNITS,
                                    default=UNITS_KG)

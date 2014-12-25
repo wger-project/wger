@@ -30,6 +30,8 @@ class AbstractWeight(object):
     '''
     Helper class to use when working with sensible (kg) or imperial units.
 
+    For consistency, all results are converted to python decimal and quantized
+    to four places
     Internally, all values are stored as kilograms and are converted only if
     needed. For consistency, all results are converted to python decimal and
     quantized to four places
@@ -56,12 +58,21 @@ class AbstractWeight(object):
         self.weight = weight
         self.is_kg = True if mode in ('kg', 'g') else False
 
+    def __mul__(self, other):
+        '''
+        Implement multiplying abstract weights.
+        '''
+        return AbstractWeight(self.weight * Decimal(other))
+
     def __add__(self, other):
         '''
         Implement adding abstract weights.
 
-        For simplicity, the sum always occurs in kg
+        For simplicity, the sum always occurs in kg. If the 'other' number is
+        not an abstract weight, it will be converted to one (in kg)
         '''
+        if not isinstance(other, AbstractWeight):
+            other = AbstractWeight(other)
         return AbstractWeight(self.kg + other.kg)
 
     @staticmethod
@@ -73,6 +84,17 @@ class AbstractWeight(object):
         '''
 
         return Decimal(value).quantize(FOURPLACES)
+
+    @property
+    def kg(self):
+        '''
+        For simplicity, the sum always occurs in kg
+        :return: Return the weight in kilograms
+        '''
+        if self.is_kg:
+            return self.normalize(self.weight)
+        else:
+            return self.normalize(self.weight * self.LB_IN_KG)
 
     @property
     def kg(self):
