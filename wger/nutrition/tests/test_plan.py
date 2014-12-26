@@ -31,7 +31,7 @@ class PlanRepresentationTestCase(WorkoutManagerTestCase):
         '''
         Test that the representation of an object is correct
         '''
-        p = NutritionPlan.objects.get(pk=1)
+        p = NutritionPlan.objects.get(pk=5)
         self.assertEqual("{0}".format(p), 'Description 1')
 
         p.description = ''
