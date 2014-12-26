@@ -121,7 +121,7 @@ def password_generator(length=15):
     '''
     chars = string.ascii_letters + string.digits
     random.seed = (os.urandom(1024))
-    for char in ('I', '1', 'O', '0', 'o'):
+    for char in ('I', '1', 'l', 'O', '0', 'o'):
         chars = chars.replace(char, '')
 
     return ''.join(random.choice(chars) for i in range(length))
