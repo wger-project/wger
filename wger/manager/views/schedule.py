@@ -88,7 +88,6 @@ def view(request, pk):
     return render(request, 'schedule/view.html', template_data)
 
 
-@login_required
 def export_pdf(request, pk, uidb64=None, token=None):
     '''
     Show the workout schedule

@@ -447,6 +447,14 @@ class SchedulePdfLogExportTestCase(WorkoutManagerTestCase):
         self.assertGreater(int(response['Content-Length']), 31000)
         self.assertLess(int(response['Content-Length']), 35000)
 
+        # Wrong or expired token
+        uid = 'MQ'
+        token = '3xv-57ef74923091fe7f186e'
+        response = self.client.get(reverse('manager:schedule:pdf', kwargs={'pk': 1,
+                                                                           'uidb64': uid,
+                                                                           'token': token}))
+        self.assertEqual(response.status_code, 403)
+
     def export_pdf(self, fail=False):
         '''
         Helper function to test exporting a workout as a pdf
@@ -455,7 +463,7 @@ class SchedulePdfLogExportTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('manager:schedule:pdf', kwargs={'pk': 1}))
 
         if fail:
-            self.assertIn(response.status_code, (404, 302))
+            self.assertIn(response.status_code, (403, 404, 302))
         else:
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response['Content-Type'], 'application/pdf')

@@ -41,7 +41,7 @@ class WorkoutTimerTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('manager:workout:timer', kwargs={'day_pk': 2}))
 
         if fail:
-            self.assertEqual(response.status_code, 404)
+            self.assertIn(response.status_code, (302, 404))
         else:
             self.assertEqual(response.status_code, 200)
 

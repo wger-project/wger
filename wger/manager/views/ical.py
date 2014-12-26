@@ -125,7 +125,7 @@ def export(request, pk, uidb64=None, token=None):
     calendar = get_calendar()
 
     # Create the events and add them to the calendar
-    get_events_workout(calendar, workout, request.user.userprofile.workout_duration)
+    get_events_workout(calendar, workout, workout.user.userprofile.workout_duration)
 
     # Send the file to the user
     response = HttpResponse(content_type='text/calendar')
@@ -136,7 +136,6 @@ def export(request, pk, uidb64=None, token=None):
     return response
 
 
-@login_required
 def export_schedule(request, pk, uidb64=None, token=None):
     '''
     Export the current schedule as an iCal file
@@ -149,6 +148,8 @@ def export_schedule(request, pk, uidb64=None, token=None):
         else:
             return HttpResponseForbidden()
     else:
+        if request.user.is_anonymous():
+            return HttpResponseForbidden()
         schedule = get_object_or_404(Schedule, pk=pk, user=request.user)
 
     # Create the calendar

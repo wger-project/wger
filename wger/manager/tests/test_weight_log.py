@@ -281,8 +281,8 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         '''
         self.user_login('admin')
         self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        self.assertFalse(cache.get(get_template_cache_name('workout-log-full', True, 1, 2012, 10)))
-        self.assertFalse(cache.get(get_template_cache_name('workout-log-mobile', True, 1, 2012, 10)))
+        for cache_key in ('workout-log-full', 'workout-log-mobile'):
+            self.assertFalse(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
         self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
 
         cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
@@ -296,10 +296,9 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         '''
         self.user_logout()
         self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        self.assertFalse(cache.get(get_template_cache_name('workout-log-full', True, 1, 2012, 10)))
-        self.assertFalse(cache.get(get_template_cache_name('workout-log-full', False, 1, 2012, 10)))
-        self.assertFalse(cache.get(get_template_cache_name('workout-log-mobile', True, 1, 2012, 10)))
-        self.assertFalse(cache.get(get_template_cache_name('workout-log-mobile', False, 1, 2012, 10)))
+        for cache_key in ('workout-log-full', 'workout-log-mobile'):
+            self.assertFalse(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
+            self.assertFalse(cache.get(get_template_cache_name(cache_key, False, 1, 2012, 10)))
         self.client.get(reverse('manager:workout:calendar', kwargs={'user_pk': 1,
                                                                     'year': 2012,
                                                                     'month': 10}))

@@ -106,7 +106,6 @@ def workout_log(request, id, uidb64=None, token=None):
     return response
 
 
-@login_required
 def workout_view(request, id, uidb64=None, token=None):
     '''
     Generates a PDF with the contents of the workout, without table for logs

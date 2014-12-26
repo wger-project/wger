@@ -115,7 +115,19 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         self.client.get(reverse('nutrition:ingredient:list'))
         self.assertEqual(self.count_temp_users(), 1)
 
-        # These pages will create one
+        self.user_logout()
+        self.client.get(reverse('manager:workout:overview'))
+        self.assertEqual(self.count_temp_users(), 1)
+
+        self.user_logout()
+        self.client.get(reverse('weight:overview'))
+        self.assertEqual(self.count_temp_users(), 1)
+
+        self.user_logout()
+        self.client.get(reverse('nutrition:plan:overview'))
+        self.assertEqual(self.count_temp_users(), 1)
+
+        # This page will create one
         self.client.get(reverse('core:dashboard'))
         self.assertEqual(self.count_temp_users(), 2)
 
@@ -123,19 +135,6 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         # after the first visit
         self.client.get(reverse('core:dashboard'))
         self.assertEqual(self.count_temp_users(), 2)
-
-        # Try some other pages
-        self.user_logout()
-        self.client.get(reverse('manager:workout:overview'))
-        self.assertEqual(self.count_temp_users(), 3)
-
-        self.user_logout()
-        self.client.get(reverse('weight:overview'))
-        self.assertEqual(self.count_temp_users(), 4)
-
-        self.user_logout()
-        self.client.get(reverse('nutrition:plan:overview'))
-        self.assertEqual(self.count_temp_users(), 5)
 
     def test_demo_user_notice(self):
         '''
