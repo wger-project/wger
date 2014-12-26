@@ -26,6 +26,18 @@ from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 
 
+class WeightUnitRepresentationTestCase(WorkoutManagerTestCase):
+    '''
+    Test the representation of a model
+    '''
+
+    def test_representation(self):
+        '''
+        Test that the representation of an object is correct
+        '''
+        self.assertEqual("{0}".format(WeightUnit.objects.get(pk=1)), 'Scheibe')
+
+
 class AddWeightUnitTestCase(WorkoutManagerAddTestCase):
     '''
     Tests adding a new weight unit

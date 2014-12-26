@@ -19,6 +19,7 @@ import logging
 
 from django.db import models
 from django.db.models.signals import post_save
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.core.cache import cache
 from wger.core.models import Language
@@ -33,6 +34,7 @@ from wger.utils.cache import cache_mapper
 logger = logging.getLogger('wger.custom')
 
 
+@python_2_unicode_compatible
 class LanguageConfig(models.Model):
     '''
     Configuration for languages
@@ -63,7 +65,7 @@ class LanguageConfig(models.Model):
         '''
         ordering = ["item", "language_target", ]
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
@@ -122,6 +124,7 @@ def init_language_config(sender, instance, created, **kwargs):
 post_save.connect(init_language_config, sender=Language)
 
 
+@python_2_unicode_compatible
 class GymConfig(models.Model):
     '''
     System wide configuration for gyms
@@ -142,7 +145,7 @@ class GymConfig(models.Model):
     Default gym for the wger installation
     '''
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''

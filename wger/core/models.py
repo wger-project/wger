@@ -24,6 +24,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from wger.gym.models import Gym
 
@@ -34,6 +35,7 @@ from wger.utils.units import AbstractWeight
 from wger.weight.models import WeightEntry
 
 
+@python_2_unicode_compatible
 class Language(models.Model):
     '''
     Language of an item (exercise, workout, etc.)
@@ -56,7 +58,7 @@ class Language(models.Model):
     #
     # Django methods
     #
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
@@ -78,6 +80,7 @@ class Language(models.Model):
         return False
 
 
+@python_2_unicode_compatible
 class UserProfile(models.Model):
     GENDER_MALE = '1'
     GENDER_FEMALE = '2'
@@ -317,7 +320,7 @@ by the US Department of Agriculture. It is extremely complete, with around
            and (self.sleep_hours + self.freetime_hours + self.work_hours) > 24):
                 raise ValidationError(_('The sum of all hours has to be 24'))
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
@@ -449,6 +452,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 post_save.connect(create_user_profile, sender=User)
 
 
+@python_2_unicode_compatible
 class DaysOfWeek(models.Model):
     '''
     Model for the days of the week
@@ -465,13 +469,14 @@ class DaysOfWeek(models.Model):
         '''
         ordering = ["pk", ]
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
         return self.day_of_week
 
 
+@python_2_unicode_compatible
 class License(models.Model):
     '''
     License for an item (exercise, ingredient, etc.)
@@ -500,7 +505,7 @@ class License(models.Model):
     #
     # Django methods
     #
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''

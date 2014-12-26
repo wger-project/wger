@@ -34,6 +34,19 @@ from wger.utils.helpers import make_token
 logger = logging.getLogger('wger.custom')
 
 
+class ScheduleRepresentationTestCase(WorkoutManagerTestCase):
+    '''
+    Test the representation of a model
+    '''
+
+    def test_representation(self):
+        '''
+        Test that the representation of an object is correct
+        '''
+        self.assertEqual("{0}".format(Schedule.objects.get(pk=1)),
+                         'my cool schedule that i found on the internet')
+
+
 class CreateScheduleTestCase(WorkoutManagerAddTestCase):
     '''
     Tests adding a schedule

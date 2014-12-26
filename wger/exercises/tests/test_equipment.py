@@ -29,6 +29,18 @@ from wger.utils.cache import get_template_cache_name, cache_mapper
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 
 
+class EquipmentRepresentationTestCase(WorkoutManagerTestCase):
+    '''
+    Test the representation of a model
+    '''
+
+    def test_representation(self):
+        '''
+        Test that the representation of an object is correct
+        '''
+        self.assertEqual("{0}".format(Equipment.objects.get(pk=1)), 'Dumbbells')
+
+
 class AddEquipmentTestCase(WorkoutManagerAddTestCase):
     '''
     Tests adding a new equipment

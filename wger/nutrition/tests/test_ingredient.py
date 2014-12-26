@@ -32,6 +32,18 @@ from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 
 
+class IngredientRepresentationTestCase(WorkoutManagerTestCase):
+    '''
+    Test the representation of a model
+    '''
+
+    def test_representation(self):
+        '''
+        Test that the representation of an object is correct
+        '''
+        self.assertEqual("{0}".format(Ingredient.objects.get(pk=1)), 'Test ingredient 1')
+
+
 class DeleteIngredientTestCase(WorkoutManagerDeleteTestCase):
     '''
     Tests deleting an ingredient

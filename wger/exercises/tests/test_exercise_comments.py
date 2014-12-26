@@ -26,6 +26,18 @@ from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.utils.cache import cache_mapper
 
 
+class ExerciseCommentRepresentationTestCase(WorkoutManagerTestCase):
+    '''
+    Test the representation of a model
+    '''
+
+    def test_representation(self):
+        '''
+        Test that the representation of an object is correct
+        '''
+        self.assertEqual("{0}".format(ExerciseComment.objects.get(pk=1)), 'test 123')
+
+
 class AddExerciseCommentTestCase(WorkoutManagerAddTestCase):
     '''
     Tests adding a comment to an exercise

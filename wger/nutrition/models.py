@@ -28,6 +28,7 @@ from django.core.urlresolvers import reverse
 from django.core import mail
 from django.core.cache import cache
 from django.contrib.auth.models import User
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.utils import translation
 
@@ -57,6 +58,7 @@ Simple approximation of energy (kcal) provided per gram or ounce
 logger = logging.getLogger('wger.custom')
 
 
+@python_2_unicode_compatible
 class NutritionPlan(models.Model):
     '''
     A nutrition plan
@@ -88,7 +90,7 @@ class NutritionPlan(models.Model):
                                                         "value yourself."))
     '''A flag indicating whether the plan has a goal amount of calories'''
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
@@ -181,6 +183,7 @@ class NutritionPlan(models.Model):
             return 4
 
 
+@python_2_unicode_compatible
 class Ingredient(AbstractLicenseModel, models.Model):
     '''
     An ingredient, with some approximate nutrition values
@@ -355,11 +358,11 @@ class Ingredient(AbstractLicenseModel, models.Model):
         super(Ingredient, self).save(*args, **kwargs)
         cache.delete(cache_mapper.get_ingredient_key(self.id))
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
-        return u"{0}".format(self.name)
+        return self.name
 
     def __eq__(self, other):
         '''
@@ -422,6 +425,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
         return False
 
 
+@python_2_unicode_compatible
 class WeightUnit(models.Model):
     '''
     A more human usable weight unit (spoon, table, slice...)
@@ -438,9 +442,6 @@ class WeightUnit(models.Model):
         ordering = ["name", ]
 
     def __str__(self):
-        return self.__unicode__()
-
-    def __unicode__(self):
         '''
         Return a more human-readable representation
         '''
@@ -453,6 +454,7 @@ class WeightUnit(models.Model):
         return None
 
 
+@python_2_unicode_compatible
 class IngredientWeightUnit(models.Model):
     '''
     A specific human usable weight unit for an ingredient
@@ -476,7 +478,7 @@ class IngredientWeightUnit(models.Model):
         '''
         return None
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
@@ -486,6 +488,7 @@ class IngredientWeightUnit(models.Model):
                                        self.gram)
 
 
+@python_2_unicode_compatible
 class Meal(models.Model):
     '''
     A meal
@@ -506,7 +509,7 @@ class Meal(models.Model):
                           blank=True,
                           verbose_name=_('Time (approx)'))
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
@@ -547,6 +550,7 @@ class Meal(models.Model):
         return nutritional_info
 
 
+@python_2_unicode_compatible
 class MealItem(models.Model):
     '''
     An item (component) of a meal
@@ -572,7 +576,7 @@ class MealItem(models.Model):
                                  validators=[MinValueValidator(1),
                                              MaxValueValidator(1000)])
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''

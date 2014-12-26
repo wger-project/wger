@@ -23,6 +23,7 @@ from django.template.loader import render_to_string
 from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils import translation
 from django.core.urlresolvers import reverse
 from django.core import mail
@@ -47,6 +48,7 @@ from wger.utils.cache import cache_mapper
 logger = logging.getLogger('wger.custom')
 
 
+@python_2_unicode_compatible
 class Muscle(models.Model):
     '''
     Muscle an exercise works out
@@ -63,7 +65,7 @@ class Muscle(models.Model):
     class Meta:
         ordering = ["name", ]
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
@@ -76,6 +78,7 @@ class Muscle(models.Model):
         return False
 
 
+@python_2_unicode_compatible
 class Equipment(models.Model):
     '''
     Equipment used or needed by an exercise
@@ -90,7 +93,7 @@ class Equipment(models.Model):
         '''
         ordering = ["name", ]
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
@@ -103,6 +106,7 @@ class Equipment(models.Model):
         return False
 
 
+@python_2_unicode_compatible
 class ExerciseCategory(models.Model):
     '''
     Model for an exercise category
@@ -115,7 +119,7 @@ class ExerciseCategory(models.Model):
         verbose_name_plural = _("Exercise Categories")
         ordering = ["name", ]
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
@@ -150,6 +154,7 @@ class ExerciseCategory(models.Model):
         super(ExerciseCategory, self).delete(*args, **kwargs)
 
 
+@python_2_unicode_compatible
 class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     '''
     Model for an exercise
@@ -257,7 +262,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
         super(Exercise, self).delete(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
@@ -495,6 +500,7 @@ pre_save.connect(delete_exercise_image_on_update, sender=ExerciseImage)
 saved_file.connect(generate_aliases)
 
 
+@python_2_unicode_compatible
 class ExerciseComment(models.Model):
     '''
     Model for an exercise comment
@@ -506,7 +512,7 @@ class ExerciseComment(models.Model):
                                verbose_name=_('Comment'),
                                help_text=_('A comment about how to correctly do this exercise.'))
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''

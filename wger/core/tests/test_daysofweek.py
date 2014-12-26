@@ -15,9 +15,22 @@
 
 from wger.core.models import DaysOfWeek
 from wger.core.tests import api_base_test
+from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 
-class LicenseApiTestCase(api_base_test.ApiBaseResourceTestCase):
+class DaysOfWeekRepresentationTestCase(WorkoutManagerTestCase):
+    '''
+    Test the representation of a model
+    '''
+
+    def test_representation(self):
+        '''
+        Test that the representation of an object is correct
+        '''
+        self.assertEqual("{0}".format(DaysOfWeek.objects.get(pk=1)), 'Monday')
+
+
+class DaysOfWeekApiTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
     Tests the days of week resource
     '''

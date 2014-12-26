@@ -24,6 +24,18 @@ from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 
 
+class GymRepresentationTestCase(WorkoutManagerTestCase):
+    '''
+    Test the representation of a model
+    '''
+
+    def test_representation(self):
+        '''
+        Test that the representation of an object is correct
+        '''
+        self.assertEqual("{0}".format(Gym.objects.get(pk=1)), 'Test 123')
+
+
 class GymOverviewTest(WorkoutManagerAccessTestCase):
     '''
     Tests accessing the gym overview page

@@ -17,6 +17,7 @@
 
 import datetime
 import logging
+from django.utils.encoding import python_2_unicode_compatible
 
 import six
 from django.db import models
@@ -42,6 +43,7 @@ logger = logging.getLogger('wger.custom')
 #
 # Classes
 #
+@python_2_unicode_compatible
 class Workout(models.Model):
     '''
     Model for a training schedule
@@ -67,7 +69,7 @@ class Workout(models.Model):
         '''
         return reverse('manager:workout:view', kwargs={'id': self.id})
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
@@ -179,6 +181,7 @@ class ScheduleManager(models.Manager):
         return (active_workout, schedule)
 
 
+@python_2_unicode_compatible
 class Schedule(models.Model):
     '''
     Model for a workout schedule.
@@ -223,7 +226,7 @@ class Schedule(models.Model):
                                               "in a loop (i.e. A, B, C, A, B, C, and so on)"))
     '''A flag indicating whether the schedule should act as a loop'''
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
@@ -283,6 +286,7 @@ class Schedule(models.Model):
         return end_date
 
 
+@python_2_unicode_compatible
 class ScheduleStep(models.Model):
     '''
     Model for a step in a workout schedule.
@@ -320,7 +324,7 @@ class ScheduleStep(models.Model):
         '''
         return self.workout
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
@@ -347,6 +351,7 @@ class ScheduleStep(models.Model):
                 return start_date, end_date
 
 
+@python_2_unicode_compatible
 class Day(models.Model):
     '''
     Model for a training day
@@ -361,7 +366,7 @@ class Day(models.Model):
     day = models.ManyToManyField(DaysOfWeek,
                                  verbose_name=_('Day'))
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
@@ -494,6 +499,7 @@ class Day(models.Model):
                 'set_list': canonical_repr}
 
 
+@python_2_unicode_compatible
 class Set(models.Model):
     '''
     Model for a set of exercises
@@ -516,7 +522,7 @@ class Set(models.Model):
     class Meta:
         ordering = ["order", ]
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
@@ -545,6 +551,7 @@ class Set(models.Model):
         super(Set, self).delete(*args, **kwargs)
 
 
+@python_2_unicode_compatible
 class Setting(models.Model):
     '''
     Settings for an exercise (weight, reps, etc.)
@@ -565,7 +572,7 @@ class Setting(models.Model):
     class Meta:
         ordering = ["order", "id"]
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
@@ -594,6 +601,7 @@ class Setting(models.Model):
         return self.set.exerciseday.training
 
 
+@python_2_unicode_compatible
 class WorkoutLog(models.Model):
     '''
     A log entry for an exercise
@@ -620,7 +628,7 @@ class WorkoutLog(models.Model):
     class Meta:
         ordering = ["date", "reps"]
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
@@ -663,6 +671,7 @@ class WorkoutLog(models.Model):
         super(WorkoutLog, self).delete(*args, **kwargs)
 
 
+@python_2_unicode_compatible
 class WorkoutSession(models.Model):
     '''
     Model for a workout session
@@ -730,7 +739,7 @@ class WorkoutSession(models.Model):
     Time the workout session ended
     '''
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''

@@ -85,7 +85,7 @@ class WorkoutSessionModelTestCase(WorkoutManagerTestCase):
         session = WorkoutSession()
         session.workout = Workout.objects.get(pk=1)
         session.date = datetime.date.today()
-        self.assertEqual(session.__unicode__(),
+        self.assertEqual('{0}'.format(session),
                          u'{0} - {1}'.format(Workout.objects.get(pk=1), datetime.date.today()))
 
 

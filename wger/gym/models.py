@@ -19,10 +19,12 @@ import uuid
 from django.db import models as m
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
 
 
+@python_2_unicode_compatible
 class Gym(m.Model):
     '''
     Model for a gym
@@ -75,7 +77,7 @@ class Gym(m.Model):
                          null=True)
     '''Street'''
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
@@ -105,6 +107,7 @@ class Gym(m.Model):
         return None
 
 
+@python_2_unicode_compatible
 class GymConfig(m.Model):
     '''
     Configuration options for a gym
@@ -126,7 +129,7 @@ class GymConfig(m.Model):
     Reminder inactive members
     '''
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''
@@ -269,6 +272,7 @@ def gym_document_upload_dir(instance, filename):
                                               uuid.uuid4())
 
 
+@python_2_unicode_compatible
 class UserDocument(m.Model):
     '''
     Model for a document
@@ -331,7 +335,7 @@ class UserDocument(m.Model):
     Note with additional information
     '''
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''

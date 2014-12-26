@@ -20,8 +20,20 @@ from wger.utils.constants import TWOPLACES
 
 from wger.weight.models import WeightEntry
 
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
+from wger.manager.tests.testcase import WorkoutManagerEditTestCase, WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+
+
+class MealRepresentationTestCase(WorkoutManagerTestCase):
+    '''
+    Test the representation of a model
+    '''
+
+    def test_representation(self):
+        '''
+        Test that the representation of an object is correct
+        '''
+        self.assertEqual("{0}".format(WeightEntry.objects.get(pk=1)), '2012-10-01: 77kg')
 
 
 class AddWeightEntryTestCase(WorkoutManagerAddTestCase):

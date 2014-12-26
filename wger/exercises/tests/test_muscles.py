@@ -26,6 +26,18 @@ from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.utils.cache import get_template_cache_name
 
 
+class MuscleRepresentationTestCase(WorkoutManagerTestCase):
+    '''
+    Test the representation of a model
+    '''
+
+    def test_representation(self):
+        '''
+        Test that the representation of an object is correct
+        '''
+        self.assertEqual("{0}".format(Muscle.objects.get(pk=1)), 'Anterior testoid')
+
+
 class AddMuscleTestCase(WorkoutManagerAddTestCase):
     '''
     Tests adding a muscle

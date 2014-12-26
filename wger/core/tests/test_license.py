@@ -15,11 +15,25 @@
 
 from wger.core.models import License
 from wger.core.tests import api_base_test
+from wger.exercises.models import Exercise
 
-from wger.manager.tests.testcase import WorkoutManagerAccessTestCase
+from wger.manager.tests.testcase import WorkoutManagerAccessTestCase, WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+
+
+class LicenseRepresentationTestCase(WorkoutManagerTestCase):
+    '''
+    Test the representation of a model
+    '''
+
+    def test_representation(self):
+        '''
+        Test that the representation of an object is correct
+        '''
+        self.assertEqual("{0}".format(Exercise.objects.get(pk=1)),
+                         'A cool and free license - Germany (ACAFL - DE)')
 
 
 class LicenseOverviewTest(WorkoutManagerAccessTestCase):

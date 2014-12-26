@@ -26,6 +26,18 @@ from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 
 
+class WeightUnitIngredientRepresentationTestCase(WorkoutManagerTestCase):
+    '''
+    Test the representation of a model
+    '''
+
+    def test_representation(self):
+        '''
+        Test that the representation of an object is correct
+        '''
+        self.assertEqual("{0}".format(IngredientWeightUnit.objects.get(pk=1)), 'Spoon (109g)')
+
+
 class AddWeightUnitIngredientTestCase(WorkoutManagerAddTestCase):
     '''
     Tests adding a new weight unit to an ingredient

@@ -19,9 +19,11 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 from django.contrib.auth.models import User
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 
+@python_2_unicode_compatible
 class WeightEntry(models.Model):
     '''
     Model for a weight point
@@ -52,7 +54,7 @@ class WeightEntry(models.Model):
         get_latest_by = "creation_date"
         unique_together = ("creation_date", "user")
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Return a more human-readable representation
         '''

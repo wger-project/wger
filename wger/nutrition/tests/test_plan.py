@@ -22,6 +22,23 @@ from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 
+class PlanRepresentationTestCase(WorkoutManagerTestCase):
+    '''
+    Test the representation of a model
+    '''
+
+    def test_representation(self):
+        '''
+        Test that the representation of an object is correct
+        '''
+        p = NutritionPlan.objects.get(pk=1)
+        self.assertEqual("{0}".format(p), 'Description 1')
+
+        p.description = ''
+        p.save()
+        self.assertEqual("{0}".format(p), 'Nutrition plan')
+
+
 class DeletePlanTestCase(WorkoutManagerDeleteTestCase):
     '''
     Tests deleting a nutritional plan

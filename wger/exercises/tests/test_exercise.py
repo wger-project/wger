@@ -29,6 +29,18 @@ from wger.utils.cache import get_template_cache_name
 from wger.utils.cache import cache_mapper
 
 
+class ExerciseRepresentationTestCase(WorkoutManagerTestCase):
+    '''
+    Test the representation of a model
+    '''
+
+    def test_representation(self):
+        '''
+        Test that the representation of an object is correct
+        '''
+        self.assertEqual("{0}".format(Exercise.objects.get(pk=1)), 'An exercise')
+
+
 class ExerciseIndexTestCase(WorkoutManagerTestCase):
 
     def exercise_index(self, logged_in=True, demo=False, admin=False):

@@ -19,10 +19,22 @@ from django.core.urlresolvers import reverse_lazy
 from wger.core.models import Language
 from wger.core.tests import api_base_test
 
-from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
+from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase, WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import WorkoutManagerAccessTestCase
+
+
+class LanguageRepresentationTestCase(WorkoutManagerTestCase):
+    '''
+    Test the representation of a model
+    '''
+
+    def test_representation(self):
+        '''
+        Test that the representation of an object is correct
+        '''
+        self.assertEqual("{0}".format(Language.objects.get(pk=1)), 'Deutsch (de)')
 
 
 class LanguageOverviewTest(WorkoutManagerAccessTestCase):
