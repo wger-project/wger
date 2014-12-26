@@ -33,6 +33,28 @@ from wger.utils.cache import get_template_cache_name, cache_mapper
 logger = logging.getLogger('wger.custom')
 
 
+class CalendarAccessTestCase(WorkoutManagerTestCase):
+    '''
+    Test accessing the calendar page
+    '''
+
+    def test_access_shared(self):
+        '''
+        Test accessing the URL of a shared calendar
+        '''
+        self.user_login('admin')
+        response = self.client.get(reverse('manager:workout:calendar', kwargs={'user_pk': 1}))
+        self.assertEqual(response.status_code, 200)
+
+        self.user_login('test')
+        response = self.client.get(reverse('manager:workout:calendar', kwargs={'user_pk': 1}))
+        self.assertEqual(response.status_code, 200)
+
+        self.user_logout()
+        response = self.client.get(reverse('manager:workout:calendar', kwargs={'user_pk': 1}))
+        self.assertEqual(response.status_code, 200)
+
+
 class WeightLogOverviewAddTestCase(WorkoutManagerTestCase):
     '''
     Tests the weight log functionality
@@ -259,13 +281,33 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         '''
         self.user_login('admin')
         self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        self.assertFalse(cache.get(get_template_cache_name('workout-log-full', 1, 2012, 10)))
-        self.assertFalse(cache.get(get_template_cache_name('workout-log-mobile', 1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name('workout-log-full', True, 1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name('workout-log-mobile', True, 1, 2012, 10)))
         self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
 
         cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
-        self.assertTrue(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
+        self.assertTrue(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
         self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
+
+    def test_calendar_anonymous(self):
+        '''
+        Test the exercise overview cache is correctly generated on visit
+        by anonymous users
+        '''
+        self.user_logout()
+        self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name('workout-log-full', True, 1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name('workout-log-full', False, 1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name('workout-log-mobile', True, 1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name('workout-log-mobile', False, 1, 2012, 10)))
+        self.client.get(reverse('manager:workout:calendar', kwargs={'user_pk': 1,
+                                                                    'year': 2012,
+                                                                    'month': 10}))
+
+        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
+        self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
+        self.assertTrue(cache.get(get_template_cache_name(cache_key, False, 1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
 
     def test_cache_update_log(self):
         '''
@@ -280,7 +322,7 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
 
         cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
         self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        self.assertFalse(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
 
     def test_cache_update_log_2(self):
         '''
@@ -295,7 +337,7 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
 
         cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
         self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        self.assertTrue(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
+        self.assertTrue(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
 
     def test_cache_delete_log(self):
         '''
@@ -309,7 +351,7 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
 
         cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
         self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        self.assertFalse(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
 
     def test_cache_delete_log_2(self):
         '''
@@ -323,7 +365,7 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
 
         cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
         self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        self.assertTrue(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
+        self.assertTrue(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
 
 
 class WorkoutLogApiTestCase(api_base_test.ApiBaseResourceTestCase):

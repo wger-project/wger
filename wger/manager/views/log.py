@@ -48,6 +48,7 @@ from wger.utils.cache import cache_mapper
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
+from wger.utils.helpers import check_access
 from wger.weight.helpers import process_log_entries
 
 
@@ -371,24 +372,23 @@ class WorkoutCalendar(HTMLCalendar):
         return '<td class="{0}" style="vertical-align: middle;">{1}</td>'.format(cssclass, body)
 
 
-def calendar(request, year=None, month=None):
+def calendar(request, user_pk=None, year=None, month=None):
     '''
     Show a calendar with all the workout logs
     '''
-    if not year:
-        year = datetime.date.today().year
-    else:
-        year = int(year)
-    if not month:
-        month = datetime.date.today().month
-    else:
-        month = int(month)
+    try:
+        is_owner, user = check_access(request.user, user_pk)
+    except ValueError:
+        return HttpResponseForbidden()
+
+    year = int(year) if year else datetime.date.today().year
+    month = int(month) if month else datetime.date.today().month
 
     context = {}
-    logs = WorkoutLog.objects.filter(user=request.user,
+    logs = WorkoutLog.objects.filter(user=user,
                                      date__year=year,
                                      date__month=month).order_by('exercise')
-    logs_filtered = cache.get(cache_mapper.get_workout_log(request.user.pk, year, month))
+    logs_filtered = cache.get(cache_mapper.get_workout_log(user.pk, year, month))
     if not logs_filtered:
         logs_filtered = {}
 
@@ -405,14 +405,16 @@ def calendar(request, year=None, month=None):
 
                 logs_filtered[log.date.day] = {'impression': impression,
                                                'log': log}
-        cache.set(cache_mapper.get_workout_log(request.user.pk, year, month), logs_filtered)
+        cache.set(cache_mapper.get_workout_log(user.pk, year, month), logs_filtered)
 
-    (current_workout, schedule) = Schedule.objects.get_current_workout(request.user)
+    (current_workout, schedule) = Schedule.objects.get_current_workout(user)
     context['calendar'] = WorkoutCalendar(logs_filtered).formatmonth(year, month)
     context['logs'] = process_log_entries(logs)[0]
     context['current_year'] = year
     context['current_month'] = month
     context['current_workout'] = current_workout
+    context['owner_user'] = user
+    context['is_owner'] = is_owner
     context['impressions'] = WorkoutSession.IMPRESSION
-    context['month_list'] = WorkoutLog.objects.filter(user=request.user).dates('date', 'month')
+    context['month_list'] = WorkoutLog.objects.filter(user=user).dates('date', 'month')
     return render(request, 'workout/calendar.html', context)

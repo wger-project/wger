@@ -23,7 +23,7 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block content %}
-{% cache cache_timeout workout-log-mobile user.id current_year current_month %}
+{% cache cache_timeout workout-log-mobile is_owner owner_user.id current_year current_month %}
 {{calendar|safe}}
 
 {% for date in logs %}
@@ -32,6 +32,7 @@ $(document).ready(function() {
 {#                                   #}
 {# Popups to edit or delete the logs #}
 {#                                   #}
+{% if is_owner %}
 {% for i in grouped_logs %}
 {% for log in i.list %}
 <div class="modal fade" id="log-popup-{{log.pk}}">
@@ -66,6 +67,7 @@ $(document).ready(function() {
 </div>
 {% endfor %}
 {% endfor %}
+{% endif %}
 
 <div id="log-{{date|date:'Y-m-d'}}" class="calendar-log-data">
     <h3>{{date}}</h3>
@@ -82,27 +84,38 @@ $(document).ready(function() {
         <a href="{% url 'manager:log:log' first_log.workout.id %}"
            class="btn btn-default btn-block">{% trans "Log overview" %}</a>
 
-        {% if session %}
-            <a href="{% url 'manager:session:edit' session.pk %}"
-               class="btn btn-default btn-block wger-modal-dialog">{% trans "Edit workout session" %}</a>
-        {% else %}
-            <a href="{% url 'manager:session:add' first_log.workout_id date|date:'Y' date|date:'m' date|date:'d' %}"
-               class="btn btn-default btn-block wger-modal-dialog">{% trans "Add workout impression" %}</a>
+        {% if is_owner %}
+            {% if session %}
+                <a href="{% url 'manager:session:edit' session.pk %}"
+                   class="btn btn-default btn-block wger-modal-dialog">{% trans "Edit workout session" %}</a>
+            {% else %}
+                <a href="{% url 'manager:session:add' first_log.workout_id date|date:'Y' date|date:'m' date|date:'d' %}"
+                   class="btn btn-default btn-block wger-modal-dialog">{% trans "Add workout impression" %}</a>
+            {% endif %}
         {% endif %}
 
 
         {% if session %}
-        <p>
-            <strong>{% trans "Time" %}:</strong>
-                {% if session.time_start %}
-                    {{session.time_start|time:"H:i"}} - {{session.time_end|time:"H:i"}}
-                {% else %}
-                    -/-
-                {% endif %}<br>
-            <strong>{% trans "General impression" %}: </strong> {% trans session.get_impression_display %}<br>
-            <strong>{% trans "Notes" %}:</strong> {{session.notes|default:'-/-'}}
-        </p>
-        {% else %}
+            <table class="table" style="margin-top: 2em;">
+                <tr>
+                    <th style="width: 30%">{% trans "Time" %}</th>
+                    <td>
+                        {% if session.time_start %}
+                            {{session.time_start|time:"H:i"}} - {{session.time_end|time:"H:i"}}
+                        {% else %}
+                            -/-
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{% trans "General impression" %}</th>
+                    <td>{% trans session.get_impression_display %}</td>
+                </tr>
+                <tr>
+                    <th>{% trans "Notes" %}</th>
+                    <td>{{session.notes|default:'-/-'}}</td>
+                </tr>
+            </table>
         {% endif %}
     {% endwith %}
     {% endwith %}
@@ -120,9 +133,13 @@ $(document).ready(function() {
                 <ul>
                     {% for log in i.list %}
                     <li>
-                        <a href="#log-popup-{{log.pk}}" data-toggle="modal">
+                        {% if is_owner %}
+                            <a href="#log-popup-{{log.pk}}" data-toggle="modal">
+                                {{log.reps}} × {{log.weight}}
+                            </a>
+                        {% else %}
                             {{log.reps}} × {{log.weight}}
-                        </a>
+                        {% endif %}
                     </li>
                     {% endfor %}
                 </ul>
