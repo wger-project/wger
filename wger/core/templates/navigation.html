@@ -53,7 +53,7 @@
                                 {% cache cache_timeout user-admin-exercises user.id language.id %}
                                 {% if perms.exercises %}
                                 <li class="divider"></li>
-                                <li class="nav-header">{% trans "Administration" %}</li>
+                                <li class="dropdown-header">{% trans "Administration" %}</li>
                                 <li><a href="{% url 'exercise:exercise:pending' %}">{% trans "Exercises pending review" %}</a></li>
                                 <li><a href="{% url 'exercise:equipment:list' %}">{% trans "Equipment" %}</a></li>
                                 {% endif %}
@@ -94,7 +94,7 @@
                             {% cache cache_timeout user-admin-ingredients user.id language.id %}
                             {% if perms.exercises %}
                                 <li class="divider"></li>
-                                <li class="nav-header">{% trans "Administration" %}</li>
+                                <li class="dropdown-header">{% trans "Administration" %}</li>
                                 <li><a href="{% url 'nutrition:weight_unit:list' %}">{% trans "Ingredient weight units" %}</a></li>
                                 <li><a href="{% url 'nutrition:ingredient:pending' %}">{% trans "Ingredients pending review" %}</a></li>
                             {% endif %}
@@ -170,7 +170,7 @@
                                 {#               #}
                                 {% if perms.exercises or perms.gym.manage_gyms or perms.gym.manage_gym or perms.gym.gym_trainer %}
                                     <li class="divider"></li>
-                                    <li class="nav-header">{% trans "Administration" %}</li>
+                                    <li class="dropdown-header">{% trans "Administration" %}</li>
                                     {% if perms.core.change_language %}
                                         <li><a href="{% url 'config:language:overview' %}">{% trans "Languages" %} </a></li>
                                     {% endif %}
