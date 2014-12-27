@@ -378,7 +378,8 @@ def calendar(request, uidb64=None, year=None, month=None):
     '''
     try:
         is_owner, user = check_access(request.user, uidb64)
-    except ValueError:
+    except TypeError as e:
+        # logger.debug("Type error while checking for access: {0}".format(e))
         return HttpResponseForbidden()
 
     uid, token = make_token(user)
