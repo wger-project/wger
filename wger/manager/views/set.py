@@ -111,7 +111,7 @@ def create(request, day_pk):
                     instance.save()
 
             return HttpResponseRedirect(reverse('manager:workout:view',
-                                        kwargs={'id': day.get_owner_object().id}))
+                                        kwargs={'pk': day.get_owner_object().id}))
         else:
             logger.debug(form.errors)
 
@@ -158,7 +158,7 @@ def delete(request, pk):
     if set_obj.get_owner_object().user == request.user:
         set_obj.delete()
         return HttpResponseRedirect(reverse('manager:workout:view',
-                                            kwargs={'id': set_obj.get_owner_object().id}))
+                                            kwargs={'pk': set_obj.get_owner_object().id}))
     else:
         return HttpResponseForbidden()
 
@@ -213,7 +213,7 @@ def edit(request, pk):
                         instance.save()
 
             return HttpResponseRedirect(reverse('manager:workout:view',
-                                        kwargs={'id': set_obj.get_owner_object().id}))
+                                        kwargs={'pk': set_obj.get_owner_object().id}))
 
     # Other context we need
     context = {}

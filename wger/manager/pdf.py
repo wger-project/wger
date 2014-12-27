@@ -94,8 +94,7 @@ def workout_log(request, id, uidb64=None, token=None):
 
     # Footer, date and info
     elements.append(Spacer(10*cm, 0.5*cm))
-    url = reverse('manager:workout:view', kwargs={'id': workout.id})
-    elements.append(render_footer(request.build_absolute_uri(url)))
+    elements.append(render_footer(request.build_absolute_uri(workout.get_absolute_url())))
 
     # write the document and send the response to the browser
     doc.build(elements)
@@ -286,7 +285,6 @@ def workout_view(request, id, uidb64=None, token=None):
     # Footer, date and info
     elements.append(Spacer(10*cm, 0.5*cm))
     created = datetime.date.today().strftime("%d.%m.%Y")
-    url = reverse('manager:workout:view', kwargs={'id': workout.id})
     p = Paragraph('''<para align="left">
                         %(date)s -
                         <a href="%(url)s">%(url)s</a> -
@@ -296,7 +294,7 @@ def workout_view(request, id, uidb64=None, token=None):
                   {'date': _("Created on the <b>%s</b>") % created,
                    'created': "wger Workout Manager",
                    'version': get_version(),
-                   'url': request.build_absolute_uri(url), },
+                   'url': request.build_absolute_uri(workout.get_absolute_url()), },
                   styleSheet["Normal"])
     elements.append(p)
 

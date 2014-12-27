@@ -82,7 +82,7 @@ $(document).ready(function() {
 {% block sidebar %}
 <h3>{% trans "Options" %}</h3>
 <p>
-<a href="{% url 'manager:workout:view' workout.id %}" {% auto_link_css flavour %}>
+<a href="{{ workout.get_absolute_url }}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/list.svg' %}"
          width="32"
          height="32"

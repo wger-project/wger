@@ -18,7 +18,7 @@
     {% for workout in workouts %}
     <tr>
         <td>
-            <a href="{% url 'manager:workout:view' workout.id %}">
+            <a href="{{ workout.get_absolute_url }}">
                 {{ workout }}
             </a>
             {% if workout == current_workout %}

@@ -45,7 +45,7 @@ class AddWorkoutTestCase(WorkoutManagerTestCase):
         self.assertGreater(count_after, count_before)
 
         # Test accessing workout
-        response = self.client.get(reverse('manager:workout:view', kwargs={'id': 1}))
+        response = self.client.get(reverse('manager:workout:view', kwargs={'pk': 1}))
 
         workout = Workout.objects.get(pk=1)
         self.assertEqual(response.context['workout'], workout)

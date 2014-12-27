@@ -303,7 +303,7 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         for cache_key in ('workout-log-full', 'workout-log-mobile'):
             self.assertFalse(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
             self.assertFalse(cache.get(get_template_cache_name(cache_key, False, 1, 2012, 10)))
-        self.client.get(reverse('manager:workout:calendar', kwargs={'user_pk': 1,
+        self.client.get(reverse('manager:workout:calendar', kwargs={'uidb64': make_uid(1),
                                                                     'year': 2012,
                                                                     'month': 10}))
 

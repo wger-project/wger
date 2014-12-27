@@ -67,13 +67,13 @@ def overview(request):
 
 
 @login_required
-def view(request, id):
+def view(request, pk):
     '''
     Show the workout with the given ID
     '''
     template_data = {}
     user = request.user
-    workout = get_object_or_404(Workout, pk=id, user=user)
+    workout = get_object_or_404(Workout, pk=pk, user=user)
     canonical = workout.canonical_representation
     uid, token = make_token(user)
 
@@ -161,7 +161,7 @@ def copy_workout(request, pk):
                             setting_copy.save()
 
             return HttpResponseRedirect(reverse('manager:workout:view',
-                                                kwargs={'id': workout.id}))
+                                                kwargs={'pk': workout.id}))
     else:
         workout_form = WorkoutCopyForm({'comment': workout.comment})
 
@@ -186,7 +186,7 @@ def add(request):
     workout.user = request.user
     workout.save()
 
-    return HttpResponseRedirect(reverse('manager:workout:view', kwargs={'id': workout.id}))
+    return HttpResponseRedirect(workout.get_absolute_url())
 
 
 class WorkoutDeleteView(WgerDeleteMixin, DeleteView):

@@ -16,7 +16,7 @@
                 <h4 class="modal-title">{%trans "Options" %}</h4>
             </div>
             <div class="modal-body">
-                <a href="{% url 'manager:workout:view' step.workout.id %}"
+                <a href="{{ step.workout.get_absolute_url }}"
                    title="{% trans 'Workout' %}"
                    class="btn btn-default btn-block">
                        {% trans 'Workout' %}</a>
