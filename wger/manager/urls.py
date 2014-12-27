@@ -30,16 +30,16 @@ from wger.manager import pdf
 
 # sub patterns for workout logs
 patterns_log = patterns('',
-    url(r'^(?P<pk>\d+)/log/$',
+    url(r'^(?P<pk>\d+)/view$',
         log.WorkoutLogDetailView.as_view(),
         name='log'),
-    url(r'^edit-entry/(?P<pk>\d+)$',
+    url(r'^(?P<pk>\d+)/edit$',  # JS
         log.WorkoutLogUpdateView.as_view(),
         name='edit'),
-    url(r'^delete-entry/(?P<pk>\d+)$',
+    url(r'^(?P<pk>\d+)/delete$',
         log.WorkoutLogDeleteView.as_view(),
         name='delete'),
-    url(r'^(?P<workout_pk>\d+)/log/add$',
+    url(r'^(?P<workout_pk>\d+)/add$',  # not used?
         log.WorkoutLogAddView.as_view(),
         name='add'),
 )
