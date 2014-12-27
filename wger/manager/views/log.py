@@ -48,7 +48,7 @@ from wger.utils.cache import cache_mapper
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
-from wger.utils.helpers import check_access
+from wger.utils.helpers import check_access, make_token
 from wger.weight.helpers import process_log_entries
 
 
@@ -372,15 +372,16 @@ class WorkoutCalendar(HTMLCalendar):
         return '<td class="{0}" style="vertical-align: middle;">{1}</td>'.format(cssclass, body)
 
 
-def calendar(request, user_pk=None, year=None, month=None):
+def calendar(request, uidb64=None, year=None, month=None):
     '''
     Show a calendar with all the workout logs
     '''
     try:
-        is_owner, user = check_access(request.user, user_pk)
+        is_owner, user = check_access(request.user, uidb64)
     except ValueError:
         return HttpResponseForbidden()
 
+    uid, token = make_token(user)
     year = int(year) if year else datetime.date.today().year
     month = int(month) if month else datetime.date.today().month
 
@@ -416,5 +417,6 @@ def calendar(request, user_pk=None, year=None, month=None):
     context['owner_user'] = user
     context['is_owner'] = is_owner
     context['impressions'] = WorkoutSession.IMPRESSION
+    context['uid'] = uid
     context['month_list'] = WorkoutLog.objects.filter(user=user).dates('date', 'month')
     return render(request, 'workout/calendar.html', context)

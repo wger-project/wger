@@ -204,7 +204,7 @@ you can click on them to see the details.{% endblocktrans %}</p>
 </p>
 
 <h3>{% trans 'Log' %}</h3>
-    <a href="{% url 'manager:workout:calendar' %}" class="btn btn-default btn-block">
+    <a href="{% url 'manager:workout:calendar' uid %}" class="btn btn-default btn-block">
         <img src="{% static 'images/icons/calendar.svg' %}"
              width="32"
              height="32"
@@ -212,12 +212,14 @@ you can click on them to see the details.{% endblocktrans %}</p>
              >
     {% trans "Go to current month" %}</a>
 
+    {% if is_owner %}
     <a href="#calendar-day-select-popup" class="btn btn-default btn-block" data-toggle="modal">
         <img src="{% static 'images/icons/add.svg' %}"
              width="32"
              height="32"
              alt="{% trans 'Add new log' %}">
     {% trans "Add new log" %}</a>
+    {% endif %}
 
 <div class="timeline-log" style="margin-top: 1em;">
     <div class="list-group">
@@ -228,11 +230,11 @@ you can click on them to see the details.{% endblocktrans %}</p>
             </a>
         {% endifchanged %}
         {% if current_month = date.month and current_year = date.year %}
-            <a href="{% url 'manager:workout:calendar' date.year date.month %}" class="list-group-item wger-list-group-item">
+            <a href="{% url 'manager:workout:calendar' uid date.year date.month %}" class="list-group-item wger-list-group-item">
                 <em>{{date|date:"F"}}</em>
             </a>
         {% else %}
-            <a href="{% url 'manager:workout:calendar' date.year date.month %}" class="list-group-item wger-list-group-item">
+            <a href="{% url 'manager:workout:calendar' uid date.year date.month %}" class="list-group-item wger-list-group-item">
                 <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                 {{date|date:"F"}}
             </a>

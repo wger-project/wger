@@ -81,6 +81,14 @@ def next_weekday(date, weekday):
     return date + datetime.timedelta(days_ahead)
 
 
+def make_uid(input):
+    '''
+    Small wrapper to generate a UID, usually used in URLs to allow for
+    anonymous access
+    '''
+    return urlsafe_base64_encode(force_bytes(input))
+
+
 def make_token(user):
     '''
     Convenience function that generates the UID and token for a user
@@ -88,7 +96,7 @@ def make_token(user):
     :param user: a user object
     :return: the uid and the token
     '''
-    uid = urlsafe_base64_encode(force_bytes(user.pk))
+    uid = make_uid(user.pk)
     token = default_token_generator.make_token(user)
 
     return uid, token
@@ -128,7 +136,7 @@ def password_generator(length=15):
     return ''.join(random.choice(chars) for i in range(length))
 
 
-def check_access(request_user, user_pk=None):
+def check_access(request_user, uidb64=None):
     '''
     Small helper function to check that the current (possibly unauthenticated)
     user can access a URL that the owner user shared the link.
@@ -137,9 +145,16 @@ def check_access(request_user, user_pk=None):
     :param user_pk: the user_pk parameter given to the view (if any)
     :return: returns False if unauthorized or a tuple otherwise (is_owner, user)
     '''
-    if user_pk:
+
+    if uidb64:
+        try:
+            user_pk = int(urlsafe_base64_decode(uidb64))
+        except ValueError as e:
+            logger.debug("Error while calculating UID: {0}".format(e))
+            return False
+
         user = get_object_or_404(User, pk=user_pk)
-        if request_user.pk == int(user_pk):
+        if request_user.pk == user_pk:
             user = request_user
         elif not user.userprofile.ro_access:
             return False

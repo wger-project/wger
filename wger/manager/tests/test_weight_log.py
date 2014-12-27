@@ -28,6 +28,7 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.utils.cache import get_template_cache_name, cache_mapper
+from wger.utils.helpers import make_uid
 
 
 logger = logging.getLogger('wger.custom')
@@ -40,18 +41,21 @@ class CalendarAccessTestCase(WorkoutManagerTestCase):
 
     def test_access_shared(self):
         '''
-        Test accessing the URL of a shared calendar
+        Test accessing the URL of a shared calendar page
         '''
         self.user_login('admin')
-        response = self.client.get(reverse('manager:workout:calendar', kwargs={'user_pk': 1}))
+        response = self.client.get(reverse('manager:workout:calendar',
+                                           kwargs={'uidb64': make_uid(1)}))
         self.assertEqual(response.status_code, 200)
 
         self.user_login('test')
-        response = self.client.get(reverse('manager:workout:calendar', kwargs={'user_pk': 1}))
+        response = self.client.get(reverse('manager:workout:calendar',
+                                           kwargs={'uidb64': make_uid(1)}))
         self.assertEqual(response.status_code, 200)
 
         self.user_logout()
-        response = self.client.get(reverse('manager:workout:calendar', kwargs={'user_pk': 1}))
+        response = self.client.get(reverse('manager:workout:calendar',
+                                           kwargs={'uidb64': make_uid(1)}))
         self.assertEqual(response.status_code, 200)
 
 
