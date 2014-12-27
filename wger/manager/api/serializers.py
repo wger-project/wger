@@ -171,5 +171,5 @@ class RoutineExerciseConfigSerializer(serializers.Serializer):
         for lang in mapper:
             out[lang] = mapper[lang].pk
 
-        return {'name': unicode(obj['config'].routine_exercise.exercise_mapper),
+        return {'name': "{0}".format((obj['config'].routine_exercise.exercise_mapper)),
                 'ids': out}

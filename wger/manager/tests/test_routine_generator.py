@@ -61,7 +61,8 @@ class RoutinePdfExportTestCase(WorkoutManagerTestCase):
         session['routine_config'] = {'round_to': 2.5,
                                      'max_squat': 120,
                                      'max_bench': 130,
-                                     'max_deadlift': 150}
+                                     'max_deadlift': 150,
+                                     'unit': 'kg'}
         session.save()
 
         # Create a PDF for all available routines

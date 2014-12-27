@@ -82,7 +82,7 @@ def view(request, id, slug=None):
 
     template_data = {}
     template_data['comment_edit'] = False
-    template_data['back_url'] = reverse('exercise-overview')
+    template_data['back_url'] = reverse('exercise:exercise:overview')
 
     # Load the exercise itself
     exercise = cache.get(cache_mapper.get_exercise_key(int(id)))

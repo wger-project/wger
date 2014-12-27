@@ -901,7 +901,7 @@ class WeightConfig(models.Model):
     '''
 
     value = models.CharField(verbose_name=_('Weight unit'),
-                             max_length=2,
+                             max_length=7,
                              choices=VALUE,
                              default=VALUE_WEIGHT)
     '''
