@@ -85,19 +85,18 @@ class CalendarAccessTestCase(WorkoutManagerTestCase):
         '''
         Test accessing the URL of a shared calendar page
         '''
+        url = reverse('manager:workout:calendar', kwargs={'uidb64': make_uid(1)})
+
         self.user_login('admin')
-        response = self.client.get(reverse('manager:workout:calendar',
-                                           kwargs={'uidb64': make_uid(1)}))
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
         self.user_login('test')
-        response = self.client.get(reverse('manager:workout:calendar',
-                                           kwargs={'uidb64': make_uid(1)}))
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
         self.user_logout()
-        response = self.client.get(reverse('manager:workout:calendar',
-                                           kwargs={'uidb64': make_uid(1)}))
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
 
