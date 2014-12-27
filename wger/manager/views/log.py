@@ -261,6 +261,7 @@ class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
     template_name = 'workout/log.html'
     login_required = True
     context_object_name = 'workout'
+    owner_user = None
 
     def get_context_data(self, **kwargs):
 
@@ -279,7 +280,7 @@ class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
                     exercise_id = exercise_list['obj'].id
                     exercise_log[exercise_id] = []
 
-                    logs = exercise_list['obj'].workoutlog_set.filter(user=self.request.user,
+                    logs = exercise_list['obj'].workoutlog_set.filter(user=self.owner_user,
                                                                       workout=self.object)
                     entry_log, chart_data = process_log_entries(logs)
                     if entry_log:
@@ -293,6 +294,8 @@ class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
 
         context['workout_log'] = workout_log
         context['reps'] = _("Reps")
+        context['owner_user'] = self.owner_user
+        context['is_owner'] = self.owner_user == self.request.user
 
         return context
 
@@ -301,8 +304,11 @@ class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
         Check for ownership
         '''
 
-        workout = Workout.objects.get(pk=kwargs['pk'])
-        if workout.user != request.user:
+        workout = get_object_or_404(Workout, pk=kwargs['pk'])
+        self.owner_user = workout.user
+        is_owner = request.user == self.owner_user
+
+        if not is_owner and not self.owner_user.userprofile.ro_access:
             return HttpResponseForbidden()
 
         # Dispatch normally

@@ -34,6 +34,48 @@ from wger.utils.helpers import make_uid
 logger = logging.getLogger('wger.custom')
 
 
+class WeightLogAccessTestCase(WorkoutManagerTestCase):
+    '''
+    Test accessing the weight log page
+    '''
+
+    def test_access_shared(self):
+        '''
+        Test accessing the URL of a shared weight log
+        '''
+        url = reverse('manager:log:log', kwargs={'pk': 1})
+
+        self.user_login('admin')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+        self.user_login('test')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+        self.user_logout()
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_access_not_shared(self):
+        '''
+        Test accessing the URL of a private weight log
+        '''
+        url = reverse('manager:log:log', kwargs={'pk': 3})
+
+        self.user_login('admin')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 403)
+
+        self.user_login('test')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+        self.user_logout()
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 403)
+
+
 class CalendarAccessTestCase(WorkoutManagerTestCase):
     '''
     Test accessing the calendar page
@@ -72,19 +114,15 @@ class WeightLogOverviewAddTestCase(WorkoutManagerTestCase):
         # Fetch the overview page
         response = self.client.get(reverse('manager:log:log', kwargs={'pk': 1}))
 
-        if fail:
-            # Logged out users get a 302 redirect to login page
-            # Users not owning the workout, a 403, forbidden
-            self.assertTrue(response.status_code in (302, 403))
-        else:
-            self.assertEqual(response.status_code, 200)
-            self.assertEqual(response.context['active_tab'], 'workout')
-            self.assertEqual(response.context['workout'].id, 1)
+        # All access OK, since user 1 has ro_access = True
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['active_tab'], 'workout')
+        self.assertEqual(response.context['workout'].id, 1)
 
         # Open the log entry page
         response = self.client.get(reverse('manager:day:log', kwargs={'pk': 1}))
         if fail:
-            self.assertTrue(response.status_code in (302, 403))
+            self.assertIn(response.status_code, (302, 403))
         else:
             self.assertEqual(response.status_code, 200)
 
@@ -108,7 +146,7 @@ class WeightLogOverviewAddTestCase(WorkoutManagerTestCase):
         # Logged out users get a 302 redirect to login page
         # Users not owning the workout, a 403, forbidden
         if fail:
-            self.assertTrue(response.status_code in (302, 403))
+            self.assertIn(response.status_code, (302, 403))
             self.assertEqual(count_before, count_after)
         else:
             self.assertEqual(response.status_code, 302)
