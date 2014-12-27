@@ -41,7 +41,7 @@ $(document).ready(function() {
 
 {% for day in workout.canonical_representation.day_list %}
     <div id="div-day-{{ day.obj.id }}">
-        {% render_day day.obj flavour %}
+        {% render_day day.obj is_owner %}
     </div>
 {% empty %}
 
@@ -55,6 +55,7 @@ $(document).ready(function() {
 
 
 <p style="margin-top:2em;">
+    {% if is_owner %}
     <a href="{% url 'manager:day:add' workout.id %}" {% auto_link_css flavour "wger-modal-dialog" %}>
         {% trans "Add training day" %}
     </a>
@@ -64,6 +65,7 @@ $(document).ready(function() {
        {% auto_link_css flavour %}>
         {% trans "Show/Hide exercise comments" %}
     </a>
+    {% endif %}
 </p>
 {% endblock %}
 
@@ -128,6 +130,7 @@ $(document).ready(function() {
    {% trans "View weight log" %}
 </a>
 
+{% if is_owner %}
 <a href="{% url 'manager:workout:edit' workout.id %}" {% auto_link_css flavour "wger-modal-dialog" %}>
    <img src="{% static 'images/icons/edit.svg' %}"
          width="32"
@@ -136,6 +139,7 @@ $(document).ready(function() {
          title="{% trans 'Edit workout' %}">
    {% trans "Edit workout" %}
 </a>
+{% endif %}
 
 <a href="#export-ical-link" data-toggle="modal" {% auto_link_css flavour %}>
    <img src="{% static 'images/icons/calendar.svg' %}"
@@ -146,6 +150,7 @@ $(document).ready(function() {
    {% trans "Export calendar file" %}
 </a>
 
+{% if is_owner %}
 <a href="{% url 'manager:workout:copy' workout.id %}" {% auto_link_css flavour "wger-modal-dialog" %}>
    <img src="{% static 'images/icons/copy.svg' %}"
          width="32"
@@ -162,7 +167,7 @@ $(document).ready(function() {
          alt="{% trans 'Delete this workout' %}">
     {% trans "Delete this workout" %}
 </a>
-
+{% endif %}
 
 
 <div class="modal fade" id="export-ical-link">

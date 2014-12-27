@@ -23,6 +23,48 @@ from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 
 
+class WorkoutAccessTestCase(WorkoutManagerTestCase):
+    '''
+    Test accessing the workout page
+    '''
+
+    def test_access_shared(self):
+        '''
+        Test accessing the URL of a shared workout
+        '''
+        workout = Workout.objects.get(pk=1)
+
+        self.user_login('admin')
+        response = self.client.get(workout.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+
+        self.user_login('test')
+        response = self.client.get(workout.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+
+        self.user_logout()
+        response = self.client.get(workout.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+
+    def test_access_not_shared(self):
+        '''
+        Test accessing the URL of a private workout
+        '''
+        workout = Workout.objects.get(pk=3)
+
+        self.user_login('admin')
+        response = self.client.get(workout.get_absolute_url())
+        self.assertEqual(response.status_code, 403)
+
+        self.user_login('test')
+        response = self.client.get(workout.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+
+        self.user_logout()
+        response = self.client.get(workout.get_absolute_url())
+        self.assertEqual(response.status_code, 403)
+
+
 class AddWorkoutTestCase(WorkoutManagerTestCase):
     '''
     Tests adding a Workout
