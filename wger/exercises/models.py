@@ -29,9 +29,6 @@ from django.core.urlresolvers import reverse
 from django.core import mail
 from django.core.cache import cache
 from django.core.validators import MinLengthValidator
-from django.db.models.signals import pre_save
-from django.db.models.signals import post_delete
-from easy_thumbnails.files import get_thumbnailer
 from easy_thumbnails.signals import saved_file
 from easy_thumbnails.signal_handlers import generate_aliases
 
@@ -458,46 +455,6 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
             mail.mail_admins(six.text_type(subject),
                              six.text_type(message),
                              fail_silently=True)
-
-
-def delete_exercise_image_on_delete(sender, instance, **kwargs):
-    '''
-    Delete the image, along with its thumbnails, from the disk
-    '''
-
-    thumbnailer = get_thumbnailer(instance.image)
-    thumbnailer.delete_thumbnails()
-    instance.image.delete(save=False)
-
-
-post_delete.connect(delete_exercise_image_on_delete, sender=ExerciseImage)
-
-
-def delete_exercise_image_on_update(sender, instance, **kwargs):
-    '''
-    Delete the corresponding image from the filesystem when the an ExerciseImage
-    object was changed
-    '''
-    if not instance.pk:
-        return False
-
-    try:
-        old_file = ExerciseImage.objects.get(pk=instance.pk).image
-    except ExerciseImage.DoesNotExist:
-        return False
-
-    new_file = instance.image
-    if not old_file == new_file:
-        thumbnailer = get_thumbnailer(instance.image)
-        thumbnailer.delete_thumbnails()
-        instance.image.delete(save=False)
-
-
-pre_save.connect(delete_exercise_image_on_update, sender=ExerciseImage)
-
-
-# Generate thumbnails when uploading a new image
-saved_file.connect(generate_aliases)
 
 
 @python_2_unicode_compatible

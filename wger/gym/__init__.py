@@ -1,17 +1,21 @@
-import wger.gym.signals
+# -*- coding: utf-8 -*-
 
+# This file is part of wger Workout Manager.
+#
+# wger Workout Manager is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# wger Workout Manager is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-# TODO: django1.7
-# http://stackoverflow.com/questions/2719038/where-should-signal-handlers-liv
+from wger import get_version
 
-# When you upgrade to Django 1.7, you would remove the "import .signals" from
-# your __ init__.py and add an yourapp/apps.py like the following:
-#
-# from django.apps import AppConfig
-#
-# class ReportsConfig(AppConfig):
-#    name = 'reports'
-#    verbose_name = "Reports"
-#
-#    def ready(self):
-#        import signals
+VERSION = get_version()
+default_app_config = 'wger.gym.apps.GymConfig'

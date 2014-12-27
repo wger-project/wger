@@ -9,14 +9,26 @@
 #
 # wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from wger import get_version
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 
-VERSION = get_version()
-default_app_config = 'wger.config.apps.ConfigConfig'
+from wger.core.models import UserProfile
+from wger.utils.helpers import disable_for_loaddata
+
+
+@disable_for_loaddata
+def create_user_profile(sender, instance, created, **kwargs):
+    '''
+    Every new user gets a profile
+    '''
+    if created:
+        UserProfile.objects.create(user=instance)
+
+
+post_save.connect(create_user_profile, sender=User)

@@ -19,7 +19,6 @@ import decimal
 
 from django.db import models
 from django.db.models import IntegerField
-from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
@@ -28,7 +27,6 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from wger.gym.models import Gym
 
-from wger.utils.helpers import disable_for_loaddata
 from wger.utils.constants import TWOPLACES
 from wger.utils.units import AbstractWeight
 
@@ -440,16 +438,6 @@ by the US Department of Agriculture. It is extremely complete, with around
         Returns the object that has owner information
         '''
         return self
-
-
-# Every new user gets a profile
-@disable_for_loaddata
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        UserProfile.objects.create(user=instance)
-
-
-post_save.connect(create_user_profile, sender=User)
 
 
 @python_2_unicode_compatible

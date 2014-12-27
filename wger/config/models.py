@@ -18,7 +18,6 @@
 import logging
 
 from django.db import models
-from django.db.models.signals import post_save
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.core.cache import cache
@@ -98,30 +97,6 @@ class LanguageConfig(models.Model):
         delete_template_fragment_cache('exercise-overview', self.language_id)
 
         super(LanguageConfig, self).delete(*args, **kwargs)
-
-
-def init_language_config(sender, instance, created, **kwargs):
-    '''
-    Creates language config entries when new languages are created
-    (all combinations of all languages)
-    '''
-    for language_source in Language.objects.all():
-        for language_target in Language.objects.all():
-            if not LanguageConfig.objects.filter(language=language_source)\
-                                         .filter(language_target=language_target)\
-                                         .exists():
-
-                for item in LanguageConfig.SHOW_ITEM_LIST:
-                    config = LanguageConfig()
-                    config.language = language_source
-                    config.language_target = language_target
-                    config.item = item[0]
-                    if language_source == language_target:
-                        config.show = True
-                    else:
-                        config.show = False
-                    config.save()
-post_save.connect(init_language_config, sender=Language)
 
 
 @python_2_unicode_compatible
