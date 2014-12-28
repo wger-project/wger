@@ -102,7 +102,11 @@ def check_token(uidb64, token):
     :return: True on success, False in all other situations
     '''
     if uidb64 is not None and token is not None:
-        uid = urlsafe_base64_decode(uidb64)
+        try:
+            uid = int(urlsafe_base64_decode(uidb64))
+        except ValueError as e:
+            logger.info("Could not decode UID: {0}".format(e))
+            return False
         user = User.objects.get(pk=uid)
 
         if user is not None and default_token_generator.check_token(user, token):
