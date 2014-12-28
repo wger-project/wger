@@ -119,6 +119,8 @@ def workout_view(request, id, uidb64=None, token=None):
     if uidb64 is not None and token is not None:
         if check_token(uidb64, token):
             workout = get_object_or_404(Workout, pk=id)
+        else:
+            return HttpResponseForbidden()
     else:
         if request.user.is_anonymous():
             return HttpResponseForbidden()
