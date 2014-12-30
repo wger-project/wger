@@ -44,6 +44,19 @@ class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
         self.assertGreater(int(response['Content-Length']), 31000)
         self.assertLess(int(response['Content-Length']), 35000)
 
+    def export_pdf_token_wrong(self):
+        '''
+        Helper function to test exporting a workout as a pdf using a wrong token
+        '''
+
+        uid = 'AB'
+        token = 'abc-11223344556677889900'
+        response = self.client.get(reverse('manager:workout:pdf-log', kwargs={'id': 3,
+                                                                              'uidb64': uid,
+                                                                              'token': token}))
+
+        self.assertEqual(response.status_code, 403)
+
     def export_pdf(self, fail=False):
         '''
         Helper function to test exporting a workout as a pdf
@@ -70,6 +83,7 @@ class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
 
         self.export_pdf(fail=True)
         self.export_pdf_token()
+        self.export_pdf_token_wrong()
 
     def test_export_pdf_owner(self):
         '''
@@ -79,6 +93,7 @@ class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
         self.user_login('test')
         self.export_pdf(fail=False)
         self.export_pdf_token()
+        self.export_pdf_token_wrong()
 
     def test_export_pdf_other(self):
         '''
@@ -88,6 +103,7 @@ class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
         self.user_login('admin')
         self.export_pdf(fail=True)
         self.export_pdf_token()
+        self.export_pdf_token_wrong()
 
 
 class WorkoutPdfTableExportTestCase(WorkoutManagerTestCase):
@@ -114,6 +130,19 @@ class WorkoutPdfTableExportTestCase(WorkoutManagerTestCase):
         # Approximate size only
         self.assertGreater(int(response['Content-Length']), 31000)
         self.assertLess(int(response['Content-Length']), 35000)
+
+    def export_pdf_token_wrong(self):
+        '''
+        Helper function to test exporting a workout as a pdf using a wrong token
+        '''
+
+        uid = 'AB'
+        token = 'abc-11223344556677889900'
+        response = self.client.get(reverse('manager:workout:pdf-table', kwargs={'id': 3,
+                                                                                'uidb64': uid,
+                                                                                'token': token}))
+
+        self.assertEqual(response.status_code, 403)
 
     def export_pdf(self, fail=False):
         '''
@@ -142,6 +171,7 @@ class WorkoutPdfTableExportTestCase(WorkoutManagerTestCase):
 
         self.export_pdf(fail=True)
         self.export_pdf_token()
+        self.export_pdf_token_wrong()
 
     def test_export_pdf_owner(self):
         '''
@@ -151,6 +181,7 @@ class WorkoutPdfTableExportTestCase(WorkoutManagerTestCase):
         self.user_login('test')
         self.export_pdf(fail=False)
         self.export_pdf_token()
+        self.export_pdf_token_wrong()
 
     def test_export_pdf_other(self):
         '''
@@ -160,3 +191,4 @@ class WorkoutPdfTableExportTestCase(WorkoutManagerTestCase):
         self.user_login('admin')
         self.export_pdf(fail=True)
         self.export_pdf_token()
+        self.export_pdf_token_wrong()
