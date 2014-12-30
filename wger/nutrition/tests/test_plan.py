@@ -22,6 +22,48 @@ from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 
+class PlanAccessTestCase(WorkoutManagerTestCase):
+    '''
+    Test accessing the workout page
+    '''
+
+    def test_access_shared(self):
+        '''
+        Test accessing the URL of a shared workout
+        '''
+        plan = NutritionPlan.objects.get(pk=5)
+
+        self.user_login('admin')
+        response = self.client.get(plan.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+
+        self.user_login('test')
+        response = self.client.get(plan.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+
+        self.user_logout()
+        response = self.client.get(plan.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+
+    def test_access_not_shared(self):
+        '''
+        Test accessing the URL of a private workout
+        '''
+        plan = NutritionPlan.objects.get(pk=4)
+
+        self.user_login('admin')
+        response = self.client.get(plan.get_absolute_url())
+        self.assertEqual(response.status_code, 403)
+
+        self.user_login('test')
+        response = self.client.get(plan.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+
+        self.user_logout()
+        response = self.client.get(plan.get_absolute_url())
+        self.assertEqual(response.status_code, 403)
+
+
 class DeletePlanTestCase(WorkoutManagerDeleteTestCase):
     '''
     Tests deleting a nutritional plan
