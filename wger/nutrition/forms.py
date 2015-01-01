@@ -20,7 +20,7 @@ from django import forms
 from django.utils.translation import ugettext as _
 from wger.core.models import UserProfile
 
-from wger.nutrition.models import IngredientWeightUnit
+from wger.nutrition.models import IngredientWeightUnit, Ingredient, MealItem
 from wger.utils.widgets import Html5NumberInput
 
 
@@ -110,3 +110,32 @@ class DailyCaloriesForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('calories',)
+
+
+class MealItemForm(forms.ModelForm):
+    weight_unit = forms.ModelChoiceField(queryset=IngredientWeightUnit.objects.none(),
+                                         empty_label="g",
+                                         required=False)
+    ingredient = forms.ModelChoiceField(queryset=Ingredient.objects.all(),
+                                        widget=forms.HiddenInput)
+
+    class Meta:
+        model = MealItem
+        exclude = []
+
+    def __init__(self, *args, **kwargs):
+        super(MealItemForm, self).__init__(*args, **kwargs)
+
+        # Get the ingredient_id
+        ingredient_id = None
+
+        if kwargs.get('instance'):
+            ingredient_id = kwargs['instance'].ingredient_id
+
+        if kwargs.get('data'):
+            ingredient_id = kwargs['data']['ingredient']
+
+        # Filter the available ingredients
+        if ingredient_id:
+            self.fields['weight_unit'].queryset = \
+                IngredientWeightUnit.objects.filter(ingredient_id=ingredient_id)

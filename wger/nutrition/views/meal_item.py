@@ -15,58 +15,22 @@
 # You should have received a copy of the GNU Affero General Public License
 import logging
 
-from django import forms
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext_lazy
-
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
 
+from wger.nutrition.forms import MealItemForm
 from wger.nutrition.models import Meal
 from wger.nutrition.models import MealItem
-from wger.nutrition.models import Ingredient
-from wger.nutrition.models import IngredientWeightUnit
-
 from wger.utils.generic_views import WgerFormMixin
 
 
 logger = logging.getLogger('wger.custom')
-
-
-# ************************
-# Meal ingredient functions
-# ************************
-class MealItemForm(forms.ModelForm):
-    weight_unit = forms.ModelChoiceField(queryset=IngredientWeightUnit.objects.none(),
-                                         empty_label="g",
-                                         required=False)
-    ingredient = forms.ModelChoiceField(queryset=Ingredient.objects.all(),
-                                        widget=forms.HiddenInput)
-
-    class Meta:
-        model = MealItem
-        exclude = []
-
-    def __init__(self, *args, **kwargs):
-        super(MealItemForm, self).__init__(*args, **kwargs)
-
-        # Get the ingredient_id
-        ingredient_id = None
-
-        if kwargs.get('instance'):
-            ingredient_id = kwargs['instance'].ingredient_id
-
-        if kwargs.get('data'):
-            ingredient_id = kwargs['data']['ingredient']
-
-        # Filter the available ingredients
-        if ingredient_id:
-            self.fields['weight_unit'].queryset = \
-                IngredientWeightUnit.objects.filter(ingredient_id=ingredient_id)
 
 
 @login_required
