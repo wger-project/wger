@@ -106,6 +106,51 @@
             {% trans "Add workout" %}
         </a>
 </div>
+
+{% for step in schedule.schedulestep_set.select_related %}
+{% with step_dates=step.get_dates %}
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        {% blocktrans count weeks=step.duration %}{{ weeks }} Week
+                            {% plural %}{{ weeks }} Weeks
+                        {% endblocktrans %}
+                    </h3>
+
+                        {% if active_workout == step %}
+                            <span class="label label-info">{% trans "active" %}</span>
+                        {% endif  %}
+                </div>
+                <div class="panel-body">
+                    <span>{{step_dates.0}} <br> {{step_dates.1}}</span>
+                </div>
+                <div class="panel-footer">
+                    <a href="{% url 'manager:workout:view' step.workout.id %}"
+                       class="btn btn-default btn-block btn-sm"
+                       style="white-space: normal;">
+                        <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                        {{ step.workout }}
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+        {% for day in step.workout.canonical_representation.day_list %}
+            <div id="div-day-{{ day.obj.id }}">
+                {% render_day day.obj flavour True %}
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endwith %}
+{% endfor %}
+
+
+
+
+
 {% endblock %}
 
 
