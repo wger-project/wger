@@ -398,7 +398,7 @@ def api_key(request):
 
 class UserDetailView(WgerPermissionMixin, DetailView):
     '''
-    Overview of all available gyms
+    User overview for gyms
     '''
     model = User
     permission_required = ('gym.manage_gym', 'gym.gym_trainer')
