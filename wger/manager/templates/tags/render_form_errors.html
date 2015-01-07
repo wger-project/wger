@@ -1,7 +1,7 @@
 {% load i18n %}
 
 {% if form.is_bound and not form.is_valid or form.non_field_errors or form.non_form_errors %}
-<div class="alert alert-danger">
+<div class="alert alert-danger has-error">
     {% blocktrans %}The form contains errors. Please verify and correct the
 data in the fields in red and submit the form again.{% endblocktrans %}
 

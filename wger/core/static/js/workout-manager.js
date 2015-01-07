@@ -304,36 +304,30 @@ function modal_dialog_form_edit() {
                 jqXHR.setRequestHeader("X-wger-no-messages", "1");
             },
             success: function (data,  textStatus, jqXHR) {
-                if ($(data).find('form .has-error').length > 0) {
-                    // we must do the same with the new form as before, binding the click-event,
-                    // checking for errors etc, so it calls itself here again.
-                    $("#ajax-info-content form").html($(data).find('form').html());
-                    $("#ajax-info-title").html($(data).find("#page-title").html());
-                    modal_dialog_form_edit();
-                } else {
-                    $("#wger-ajax-info").modal("hide");
-
-                    // If there  was a redirect we must change the URL of the browser. Otherwise
-                    // a reload would not change the adress bar, but the content would.
-                    // Since it is not possible to get this URL from the AJAX request, we read it out
-                    // from a hidden HTML DIV in the document...
-                    var current_url = $(data).find("#current-url").data('currentUrl');
-
-                    // TODO: There seems to be problems sometimes when using the technique below and
-                    //       bootstrap's menu bar (drop downs won't open). So just do a normal
-                    //       redirect.
-                    window.location.href = current_url;
-
-
+                var url = jqXHR.getResponseHeader('X-wger-redirect');
+                if (url) {
+                    window.location.href = url;
                     /*
-                    if(document.URL.indexOf(current_url))
-                    {
-                        history.pushState({}, "", current_url);
+                    if(document.URL.indexOf(url)) {
+                        history.pushState({}, "", url);
                     }
                     */
+                }
+                else {
 
-                    // Note: loading the new page like this executes all its JS code
-                    //$('body').html(data);
+                    if ($(data).find('form .has-error').length > 0) {
+                        // we must do the same with the new form as before, binding the click-event,
+                        // checking for errors etc, so it calls itself here again.
+                        $("#ajax-info-content form").html($(data).find('form').html());
+                        $("#ajax-info-title").html($(data).find("#page-title").html());
+                        modal_dialog_form_edit();
+                    }
+                    else {
+                        console.log('No X-wger-redirect found but also no .has-error!');
+                        $("#wger-ajax-info").modal("hide");
+                        $("#ajax-info-content form").html(data);
+                    }
+
                 }
 
                 // Call other custom initialisation functions

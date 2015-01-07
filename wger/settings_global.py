@@ -92,6 +92,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
 
+    # Javascript Header. Sends helper headers for AJAX
+    'wger.utils.middleware.JavascriptAJAXRedirectionMiddleware',
+
     # Custom authentication middleware. Creates users on-the-fly for certain paths
     'wger.utils.middleware.WgerAuthenticationMiddleware',
 

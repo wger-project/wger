@@ -13,10 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 '''
-Custom authentication middleware.
-
-This is basically Django's AuthenticationMiddleware, but creates a new temporary
-user automatically for anonymous users.
+Custom middleware
 '''
 
 import logging
@@ -107,3 +104,24 @@ class RobotsExclusionMiddleware(object):
             return response
         else:
             return response
+
+
+class JavascriptAJAXRedirectionMiddleware(object):
+    '''
+    Middleware that sends helper headers when working with AJAX.
+
+    This is used for AJAX forms due to limitations of javascript. The way it
+    was done before was to load the whole redirected page, then read from a DIV
+    in the page and redirect to that URL. This now just sends a header when the
+    form was called via the JS function form_modal_dialog() and no errors are
+    present.
+    '''
+
+    def process_response(self, request, response):
+
+        if request.META.get('HTTP_X_WGER_NO_MESSAGES') and b'has-error' not in response.content:
+
+            logger.debug('Sending X-wger-redirect')
+            response['X-wger-redirect'] = request.path
+            response.content = request.path
+        return response
