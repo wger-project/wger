@@ -101,9 +101,7 @@ class RobotsExclusionMiddleware(object):
         # Don't set it if it's already in the response
         if check_current_request(request) and response.get('X-Robots-Tag', None) is None:
             response['X-Robots-Tag'] = 'noindex, nofollow'
-            return response
-        else:
-            return response
+        return response
 
 
 class JavascriptAJAXRedirectionMiddleware(object):
