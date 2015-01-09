@@ -382,11 +382,7 @@ def calendar(request, username=None, year=None, month=None):
     '''
     Show a calendar with all the workout logs
     '''
-    try:
-        is_owner, user = check_access(request.user, username)
-    except TypeError as e:
-        # logger.debug("Type error while checking for access: {0}".format(e))
-        return HttpResponseForbidden()
+    is_owner, user = check_access(request.user, username)
 
     uid, token = make_token(user)
     year = int(year) if year else datetime.date.today().year

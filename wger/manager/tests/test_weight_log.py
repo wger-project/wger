@@ -106,7 +106,7 @@ class CalendarAccessTestCase(WorkoutManagerTestCase):
 
         self.user_login('admin')
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 404)
 
         self.user_login('test')
         response = self.client.get(url)
@@ -114,7 +114,7 @@ class CalendarAccessTestCase(WorkoutManagerTestCase):
 
         self.user_logout()
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 404)
 
 
 class WeightLogOverviewAddTestCase(WorkoutManagerTestCase):

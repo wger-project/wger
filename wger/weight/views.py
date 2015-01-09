@@ -121,11 +121,7 @@ def overview(request, username=None):
         * https://github.com/mbostock/d3
         * http://d3js.org/
     '''
-    try:
-        is_owner, user = check_access(request.user, username)
-    except TypeError as e:
-        # logger.debug("Type error while checking for access: {0}".format(e))
-        return HttpResponseForbidden()
+    is_owner, user = check_access(request.user, username)
 
     template_data = {}
 
@@ -155,11 +151,7 @@ def get_weight_data(request, username=None):
     Process the data to pass it to the JS libraries to generate an SVG image
     '''
 
-    try:
-        is_owner, user = check_access(request.user, username)
-    except TypeError as e:
-        # logger.info("Type error while checking for access: {0}".format(e))
-        return HttpResponseForbidden()
+    is_owner, user = check_access(request.user, username)
 
     date_min = request.GET.get('date_min', False)
     date_max = request.GET.get('date_max', True)
