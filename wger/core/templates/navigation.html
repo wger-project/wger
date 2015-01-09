@@ -37,7 +37,7 @@
                                data-toggle="dropdown">{% trans "Workouts" %} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="{% url 'manager:workout:overview' %}" rel="nofollow">{% trans "Workouts" %}</a></li>
-                                <li><a href="{% url 'manager:workout:calendar' %}" rel="nofollow">{% trans "Calendar" %}</a></li>
+                                <li><a href="{% url 'manager:workout:calendar' user.username %}" rel="nofollow">{% trans "Calendar" %}</a></li>
                                 <li><a href="{% url 'manager:schedule:overview' %}" rel="nofollow">{% trans "Workouts schedules" %}</a></li>
                             </ul>
                         </li>

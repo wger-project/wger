@@ -136,25 +136,19 @@ def password_generator(length=15):
     return ''.join(random.choice(chars) for i in range(length))
 
 
-def check_access(request_user, uidb64=None):
+def check_access(request_user, username=None):
     '''
     Small helper function to check that the current (possibly unauthenticated)
     user can access a URL that the owner user shared the link.
 
     :param request_user: the user in the current request
-    :param user_pk: the user_pk parameter given to the view (if any)
+    :param username: the username
     :return: returns False if unauthorized or a tuple otherwise (is_owner, user)
     '''
 
-    if uidb64:
-        try:
-            user_pk = int(urlsafe_base64_decode(uidb64))
-        except ValueError as e:
-            logger.debug("Error while calculating UID: {0}".format(e))
-            return False
-
-        user = get_object_or_404(User, pk=user_pk)
-        if request_user.pk == user_pk:
+    if username:
+        user = get_object_or_404(User, username=username)
+        if request_user.username == username:
             user = request_user
         elif not user.userprofile.ro_access:
             return False

@@ -378,12 +378,12 @@ class WorkoutCalendar(HTMLCalendar):
         return '<td class="{0}" style="vertical-align: middle;">{1}</td>'.format(cssclass, body)
 
 
-def calendar(request, uidb64=None, year=None, month=None):
+def calendar(request, username=None, year=None, month=None):
     '''
     Show a calendar with all the workout logs
     '''
     try:
-        is_owner, user = check_access(request.user, uidb64)
+        is_owner, user = check_access(request.user, username)
     except TypeError as e:
         # logger.debug("Type error while checking for access: {0}".format(e))
         return HttpResponseForbidden()

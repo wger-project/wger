@@ -168,7 +168,7 @@ you can click on them to see the details.{% endblocktrans %}</p>
 
 <h3>{% trans 'Log' %}</h3>
 <p>
-    <a href="{% url 'manager:workout:calendar' uid %}">
+    <a href="{% url 'manager:workout:calendar' owner_user %}">
         <img src="{% static 'images/icons/calendar.svg' %}"
              width="32"
              height="32"
@@ -195,7 +195,7 @@ you can click on them to see the details.{% endblocktrans %}</p>
     {% if current_month = date.month and current_year = date.year %}
         <span>{{date|date:"F"}}</span><br>
     {% else %}
-        <span><a href="{% url 'manager:workout:calendar' uid date.year date.month %}">{{date|date:"F"}}</a></span><br>
+        <span><a href="{% url 'manager:workout:calendar' owner_user date.year date.month %}">{{date|date:"F"}}</a></span><br>
     {% endif %}
 {% endfor %}
 </div>

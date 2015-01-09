@@ -28,7 +28,6 @@ from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.utils.cache import get_template_cache_name, cache_mapper
-from wger.utils.helpers import make_uid
 
 
 logger = logging.getLogger('wger.custom')
@@ -85,7 +84,7 @@ class CalendarAccessTestCase(WorkoutManagerTestCase):
         '''
         Test accessing the URL of a shared calendar page
         '''
-        url = reverse('manager:workout:calendar', kwargs={'uidb64': make_uid(1)})
+        url = reverse('manager:workout:calendar', kwargs={'username': 'admin'})
 
         self.user_login('admin')
         response = self.client.get(url)
@@ -103,7 +102,7 @@ class CalendarAccessTestCase(WorkoutManagerTestCase):
         '''
         Test accessing the URL of a unshared calendar page
         '''
-        url = reverse('manager:workout:calendar', kwargs={'uidb64': make_uid(2)})
+        url = reverse('manager:workout:calendar', kwargs={'username': 'test'})
 
         self.user_login('admin')
         response = self.client.get(url)
@@ -358,7 +357,7 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         for cache_key in ('workout-log-full', 'workout-log-mobile'):
             self.assertFalse(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
             self.assertFalse(cache.get(get_template_cache_name(cache_key, False, 1, 2012, 10)))
-        self.client.get(reverse('manager:workout:calendar', kwargs={'uidb64': make_uid(1),
+        self.client.get(reverse('manager:workout:calendar', kwargs={'username': 'admin',
                                                                     'year': 2012,
                                                                     'month': 10}))
 
