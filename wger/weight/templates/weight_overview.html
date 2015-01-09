@@ -16,7 +16,7 @@
 <script type="text/javascript">
 $(document).ready(function () {
 
-    $.getJSON("/weight/api/get_weight_data/", function(json) {
+    $.getJSON("/weight/api/get_weight_data/{{ owner_user.username }}", function(json) {
         weight_chart(json, $('#content').width());
     });
 });
@@ -37,6 +37,7 @@ $(document).ready(function () {
 
 <div id="weight_diagram"></div>
 
+{% if is_owner %}
 <p>
 <a href="{% url 'weight:add' %}"
    {% auto_link_css flavour "wger-modal-dialog" %}
@@ -46,6 +47,7 @@ $(document).ready(function () {
 <p>
     <em>{% trans "You can click on a value on the chart to edit it. "%}</em>
 </p>
+{% endif %}
 
 {% endblock %}
 
@@ -61,6 +63,7 @@ on the background resets it.
 {% endblocktrans %}</p>
 
 
+{% if is_owner %}
 <h3>{% trans "Options" %}</h3>
 <p>
     <a href="{% url 'weight:export-csv' %}"
@@ -85,6 +88,6 @@ on the background resets it.
         {% trans "Import from spreadsheet" %}
     </a>
 </p>
-
+{% endif %}
 
 {% endblock %}

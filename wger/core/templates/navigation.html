@@ -81,7 +81,7 @@
                                data-toggle="dropdown"
                                rel="nofollow">{% trans "Weight" %} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{% url 'weight:overview' %}" rel="nofollow">{% trans "Weight overview" %}</a></li>
+                                <li><a href="{% url 'weight:overview' user.username %}" rel="nofollow">{% trans "Weight overview" %}</a></li>
                                 <li><a href="{% url 'weight:add' %}" rel="nofollow">{% trans "Add weight entry" %}</a></li>
                             </ul>
                         </li>

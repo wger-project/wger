@@ -14,14 +14,57 @@
 
 import datetime
 import decimal
+from django.core.urlresolvers import reverse
 
 from wger.core.tests import api_base_test
 from wger.utils.constants import TWOPLACES
 
 from wger.weight.models import WeightEntry
 
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
+from wger.manager.tests.testcase import WorkoutManagerEditTestCase, WorkoutManagerTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+
+
+class WeightEntryAccessTestCase(WorkoutManagerTestCase):
+    '''
+    Test accessing the weight overview page
+    '''
+
+    def test_access_shared(self):
+        '''
+        Test accessing the URL of a shared weight overview
+        '''
+        url = reverse('weight:overview', kwargs={'username': 'admin'})
+
+        self.user_login('admin')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+        self.user_login('test')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+        self.user_logout()
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_access_not_shared(self):
+        '''
+        Test accessing the URL of an unshared weight overview
+        '''
+        url = reverse('weight:overview', kwargs={'username': 'test'})
+
+        self.user_login('admin')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 403)
+
+        self.user_login('test')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+        self.user_logout()
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 403)
 
 
 class AddWeightEntryTestCase(WorkoutManagerAddTestCase):
