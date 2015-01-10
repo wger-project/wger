@@ -149,7 +149,7 @@
         {{nutrition_plan.creation_date}}
     </td>
     <td>
-        <a href="{{trainer_login}}?next={% url 'nutrition:plan:view' nutrition_plan.id %}">{{nutrition_plan.description}}</a>
+        <a href="{{trainer_login}}?next={% url 'nutrition:plan:view' nutrition_plan.id %}">{{nutrition_plan}}</a>
     </td>
     <td>
         {{nutrition_plan.get_nutritional_values.total.energy|floatformat}} {% trans "kcal" %}
