@@ -420,6 +420,5 @@ def calendar(request, username=None, year=None, month=None):
     context['owner_user'] = user
     context['is_owner'] = is_owner
     context['impressions'] = WorkoutSession.IMPRESSION
-    context['uid'] = uid
     context['month_list'] = WorkoutLog.objects.filter(user=user).dates('date', 'month')
     return render(request, 'workout/calendar.html', context)
