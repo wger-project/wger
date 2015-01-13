@@ -26,7 +26,7 @@ def processor(request):
     full_path = request.get_full_path()
     i18n_path = {}
     for lang in settings.LANGUAGES:
-        i18n_path[lang[0]] = '/{0}{1}'.format(lang[0], full_path[3:])
+        i18n_path[lang[0]] = u'/{0}{1}'.format(lang[0], full_path[3:])
 
     context = {
         # Application version
