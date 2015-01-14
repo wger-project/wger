@@ -30,32 +30,26 @@ class CheckAccessTestCase(WorkoutManagerTestCase):
         '''
 
         user_share = User.objects.get(pk=1)
-        uid_share = make_uid(1)
         self.assertTrue(user_share.userprofile.ro_access)
 
         user_no_share = User.objects.get(pk=2)
-        uid_no_share = make_uid(2)
         self.assertFalse(user_no_share.userprofile.ro_access)
 
         anon = AnonymousUser()
 
-        uid3 = make_uid(100)
-
         # Logged out user
-        self.assertEqual(check_access(anon, uid_share), (False, user_share))
-        self.assertFalse(check_access(anon, uid_no_share))
-        self.assertRaises(Http404, check_access, anon, uid3)
-        self.assertFalse(check_access(anon, 'not a UID'))
-        self.assertFalse(check_access(anon))
+        self.assertEqual(check_access(anon, 'admin'), (False, user_share))
+        self.assertRaises(Http404, check_access, anon, 'test')
+        self.assertRaises(Http404, check_access, anon, 'not_a_username')
+        self.assertRaises(Http404, check_access, anon)
 
         # Logged in user
-        self.assertEqual(check_access(user_share, uid_share), (True, user_share))
-        self.assertFalse(check_access(user_share, uid_no_share))
+        self.assertEqual(check_access(user_share, 'admin'), (True, user_share))
+        self.assertRaises(Http404, check_access, user_share, 'test')
         self.assertEqual(check_access(user_share), (True, user_share))
-        self.assertRaises(Http404, check_access, user_share, uid3)
-        self.assertFalse(check_access(user_share, 'not a UID'))
+        self.assertRaises(Http404, check_access, user_share, 'not_a_username')
 
-        self.assertEqual(check_access(user_no_share, uid_share), (False, user_share))
-        self.assertEqual(check_access(user_no_share, uid_no_share), (True, user_no_share))
+        self.assertEqual(check_access(user_no_share, 'admin'), (False, user_share))
+        self.assertEqual(check_access(user_no_share, 'test'), (True, user_no_share))
         self.assertEqual(check_access(user_no_share), (True, user_no_share))
-        self.assertRaises(Http404, check_access, user_no_share, uid3)
+        self.assertRaises(Http404, check_access, user_no_share, 'not_a_username')
