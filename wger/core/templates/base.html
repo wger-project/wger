@@ -1,5 +1,23 @@
 {% extends "template.html" %}{% load i18n wger_extras django_bootstrap_breadcrumbs %}
 {% block template %}
+<div class="modal fade" id="shariffModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">{% trans "Share this page" %}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="shariff"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 {% if trainer_identity %}
 <div class="alert alert-info" style="margin-top: 1em;">
     {% blocktrans with current_user=user|format_username %}You are
@@ -10,7 +28,21 @@ browsing the site as the user "{{current_user}}", all actions are performed on h
     </a>
 </div>
 {% endif %}
-<h2 id="page-title" class="page-header">{% block title %}{% endblock %}</h2>
+
+<button type="button"
+        class="btn btn-default btn-xs pull-right"
+        data-toggle="modal"
+        data-target="#shariffModal"
+        style="margin-top: 0.5em;">
+    <span class="glyphicon glyphicon-retweet"></span>
+    {%  trans "Share" %}
+</button>
+
+
+<h2 id="page-title" class="page-header">
+    {% block title %}{% endblock %}
+</h2>
+
 <div class="row">
     <div class="col-sm-8" id="main-content">
         {% if messages and not no_messages %}
