@@ -33,6 +33,26 @@ from wger.utils.cache import get_template_cache_name, cache_mapper
 logger = logging.getLogger('wger.custom')
 
 
+class WorkoutLogShareButtonTestCase(WorkoutManagerTestCase):
+    '''
+    Test that the share button is correctly displayed and hidden
+    '''
+
+    def test_share_button(self):
+        url = reverse('manager:log:log', kwargs={'pk': 1})
+
+        response = self.client.get(url)
+        self.assertFalse(response.context['show_shariff'])
+
+        self.user_login('admin')
+        response = self.client.get(url)
+        self.assertTrue(response.context['show_shariff'])
+
+        self.user_login('test')
+        response = self.client.get(url)
+        self.assertFalse(response.context['show_shariff'])
+
+
 class WeightLogAccessTestCase(WorkoutManagerTestCase):
     '''
     Test accessing the weight log page
@@ -73,6 +93,26 @@ class WeightLogAccessTestCase(WorkoutManagerTestCase):
         self.user_logout()
         response = self.client.get(url)
         self.assertEqual(response.status_code, 403)
+
+
+class CalendarShareButtonTestCase(WorkoutManagerTestCase):
+    '''
+    Test that the share button is correctly displayed and hidden
+    '''
+
+    def test_share_button(self):
+        url = reverse('manager:workout:calendar', kwargs={'username': 'admin'})
+
+        response = self.client.get(url)
+        self.assertFalse(response.context['show_shariff'])
+
+        self.user_login('admin')
+        response = self.client.get(url)
+        self.assertTrue(response.context['show_shariff'])
+
+        self.user_login('test')
+        response = self.client.get(url)
+        self.assertFalse(response.context['show_shariff'])
 
 
 class CalendarAccessTestCase(WorkoutManagerTestCase):

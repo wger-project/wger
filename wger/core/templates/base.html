@@ -1,5 +1,6 @@
 {% extends "template.html" %}{% load i18n wger_extras django_bootstrap_breadcrumbs %}
 {% block template %}
+{% if show_shariff %}
 <div class="modal fade" id="shariffModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -16,6 +17,7 @@
         </div>
     </div>
 </div>
+{% endif %}
 
 
 {% if trainer_identity %}
@@ -29,6 +31,7 @@ browsing the site as the user "{{current_user}}", all actions are performed on h
 </div>
 {% endif %}
 
+{% if show_shariff %}
 <button type="button"
         class="btn btn-default btn-xs pull-right"
         data-toggle="modal"
@@ -37,6 +40,7 @@ browsing the site as the user "{{current_user}}", all actions are performed on h
     <span class="glyphicon glyphicon-retweet"></span>
     {%  trans "Share" %}
 </button>
+{% endif %}
 
 
 <h2 id="page-title" class="page-header">

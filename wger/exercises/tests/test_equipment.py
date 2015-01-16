@@ -29,6 +29,26 @@ from wger.utils.cache import get_template_cache_name, cache_mapper
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 
 
+class EquipmentShareButtonTestCase(WorkoutManagerTestCase):
+    '''
+    Test that the share button is correctly displayed and hidden
+    '''
+
+    def test_share_button(self):
+        url = reverse('exercise:equipment:overview')
+
+        response = self.client.get(url)
+        self.assertTrue(response.context['show_shariff'])
+
+        self.user_login('admin')
+        response = self.client.get(url)
+        self.assertTrue(response.context['show_shariff'])
+
+        self.user_login('test')
+        response = self.client.get(url)
+        self.assertTrue(response.context['show_shariff'])
+
+
 class AddEquipmentTestCase(WorkoutManagerAddTestCase):
     '''
     Tests adding a new equipment

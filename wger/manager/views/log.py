@@ -267,6 +267,7 @@ class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
 
         # Call the base implementation first to get a context
         context = super(WorkoutLogDetailView, self).get_context_data(**kwargs)
+        is_owner = self.owner_user == self.request.user
 
         # Prepare the entries for rendering and the D3 chart
         workout_log = {}
@@ -295,7 +296,8 @@ class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
         context['workout_log'] = workout_log
         context['reps'] = _("Reps")
         context['owner_user'] = self.owner_user
-        context['is_owner'] = self.owner_user == self.request.user
+        context['is_owner'] = is_owner
+        context['show_shariff'] = is_owner and self.owner_user.userprofile.ro_access
 
         return context
 
@@ -421,4 +423,5 @@ def calendar(request, username=None, year=None, month=None):
     context['is_owner'] = is_owner
     context['impressions'] = WorkoutSession.IMPRESSION
     context['month_list'] = WorkoutLog.objects.filter(user=user).dates('date', 'month')
+    context['show_shariff'] = is_owner and user.userprofile.ro_access
     return render(request, 'workout/calendar.html', context)

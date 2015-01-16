@@ -142,6 +142,7 @@ def overview(request, username=None):
 
     template_data['is_owner'] = is_owner
     template_data['owner_user'] = user
+    template_data['show_shariff'] = is_owner and user.userprofile.ro_access
     return render(request, 'weight_overview.html', template_data)
 
 

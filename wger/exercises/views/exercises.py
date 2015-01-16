@@ -74,6 +74,14 @@ class ExerciseListView(WgerPermissionMixin, ListView):
             .order_by('category__id') \
             .select_related()
 
+    def get_context_data(self, **kwargs):
+        '''
+        Pass additional data to the template
+        '''
+        context = super(ExerciseListView, self).get_context_data(**kwargs)
+        context['show_shariff'] = True
+        return context
+
 
 def view(request, id, slug=None):
     '''
@@ -82,6 +90,7 @@ def view(request, id, slug=None):
 
     template_data = {}
     template_data['comment_edit'] = False
+    template_data['show_shariff'] = True
 
     # Load the exercise itself
     exercise = cache.get(cache_mapper.get_exercise_key(int(id)))

@@ -26,6 +26,26 @@ from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.utils.cache import get_template_cache_name
 
 
+class MusclesShareButtonTestCase(WorkoutManagerTestCase):
+    '''
+    Test that the share button is correctly displayed and hidden
+    '''
+
+    def test_share_button(self):
+        url = reverse('exercise:muscle:overview')
+
+        response = self.client.get(url)
+        self.assertTrue(response.context['show_shariff'])
+
+        self.user_login('admin')
+        response = self.client.get(url)
+        self.assertTrue(response.context['show_shariff'])
+
+        self.user_login('test')
+        response = self.client.get(url)
+        self.assertTrue(response.context['show_shariff'])
+
+
 class AddMuscleTestCase(WorkoutManagerAddTestCase):
     '''
     Tests adding a muscle

@@ -22,6 +22,27 @@ from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 
+class PlanShareButtonTestCase(WorkoutManagerTestCase):
+    '''
+    Test that the share button is correctly displayed and hidden
+    '''
+
+    def test_share_button(self):
+        plan = NutritionPlan.objects.get(pk=5)
+        url = plan.get_absolute_url()
+
+        response = self.client.get(url)
+        self.assertFalse(response.context['show_shariff'])
+
+        self.user_login('admin')
+        response = self.client.get(url)
+        self.assertTrue(response.context['show_shariff'])
+
+        self.user_login('test')
+        response = self.client.get(url)
+        self.assertFalse(response.context['show_shariff'])
+
+
 class PlanAccessTestCase(WorkoutManagerTestCase):
     '''
     Test accessing the workout page

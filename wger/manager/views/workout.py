@@ -102,6 +102,7 @@ def view(request, pk):
     template_data['uid'] = uid
     template_data['token'] = token
     template_data['is_owner'] = is_owner
+    template_data['show_shariff'] = is_owner and user.userprofile.ro_access
 
     return render(request, 'workout/view.html', template_data)
 
