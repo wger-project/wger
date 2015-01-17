@@ -60,7 +60,6 @@ class Gym(m.Model):
     '''Gym owner'''
 
     zip_code = m.IntegerField(_(u'ZIP code'),
-                              max_length=5,
                               blank=True,
                               null=True)
     '''ZIP code'''
@@ -123,8 +122,7 @@ class GymConfig(m.Model):
     weeks_inactive = m.PositiveIntegerField(verbose_name=_('Reminder inactive members'),
                                             help_text=_('Number of weeks since the last time a '
                                             'user logged his presence to be considered inactive'),
-                                            default=4,
-                                            max_length=2)
+                                            default=4)
     '''
     Reminder inactive members
     '''

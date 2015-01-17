@@ -502,7 +502,6 @@ class Meal(models.Model):
                              verbose_name=_('Nutrition plan'),
                              editable=False)
     order = models.IntegerField(verbose_name=_('Order'),
-                                max_length=1,
                                 blank=True,
                                 editable=False)
     time = Html5TimeField(null=True,
@@ -567,7 +566,6 @@ class MealItem(models.Model):
                                     )
 
     order = models.IntegerField(verbose_name=_('Order'),
-                                max_length=1,
                                 blank=True,
                                 editable=False)
     amount = models.DecimalField(decimal_places=2,

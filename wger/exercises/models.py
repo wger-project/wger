@@ -171,9 +171,9 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                             verbose_name=_('Name'))
 
     muscles = models.ManyToManyField(Muscle,
-                                     verbose_name=_('Primary muscles'),
                                      null=True,
-                                     blank=True)
+                                     blank=True,
+                                     verbose_name=_('Primary muscles'))
     '''Main muscles trained by the exercise'''
 
     muscles_secondary = models.ManyToManyField(Muscle,

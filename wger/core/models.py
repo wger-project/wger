@@ -201,15 +201,13 @@ by the US Department of Agriculture. It is extremely complete, with around
     #
     # User statistics
     #
-    age = IntegerField(max_length=2,
-                       verbose_name=_('Age'),
+    age = IntegerField(verbose_name=_('Age'),
                        blank=False,
                        null=True,
                        validators=[MinValueValidator(10), MaxValueValidator(100)])
     '''The user's age'''
 
-    height = IntegerField(max_length=2,
-                          verbose_name=_('Height (cm)'),
+    height = IntegerField(verbose_name=_('Height (cm)'),
                           blank=False,
                           validators=[MinValueValidator(140), MaxValueValidator(230)],
                           null=True)
