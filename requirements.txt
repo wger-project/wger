@@ -8,7 +8,6 @@ django-recaptcha
 reportlab
 django_mobile
 bleach
-south < 2.0
 python-mimeparse
 pillow
 easy-thumbnails

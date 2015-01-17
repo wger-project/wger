@@ -15,7 +15,6 @@
 import logging
 
 from django.db import models
-from south.modelsinspector import add_introspection_rules
 
 from wger.utils.widgets import Html5FormDateField
 from wger.utils.widgets import Html5FormTimeField
@@ -62,8 +61,3 @@ class Html5DateField(models.DateField):
         return super(Html5DateField, self).formfield(**defaults)
 
 
-#
-# Add instrospection rules so south can still work with these fields
-#
-add_introspection_rules([], ["^wger\.utils\.fields\.Html5TimeField"])
-add_introspection_rules([], ["^wger\.utils\.fields\.Html5DateField"])
