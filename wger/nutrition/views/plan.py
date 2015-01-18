@@ -149,7 +149,7 @@ def view(request, id):
     template_data['token'] = token
     template_data['owner_user'] = user
     template_data['is_owner'] = is_owner
-    template_data['show_shariff'] = is_owner and user.userprofile.ro_access
+    template_data['show_shariff'] = is_owner
 
     return render(request, 'plan/view.html', template_data)
 

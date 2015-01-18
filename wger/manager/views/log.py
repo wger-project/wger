@@ -297,7 +297,7 @@ class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
         context['reps'] = _("Reps")
         context['owner_user'] = self.owner_user
         context['is_owner'] = is_owner
-        context['show_shariff'] = is_owner and self.owner_user.userprofile.ro_access
+        context['show_shariff'] = is_owner
 
         return context
 

@@ -67,12 +67,14 @@
             custom_page_init();
         }
 
-
         // Init the modal dialog for editing forms
         form_modal_dialog();
 
         // Initialise the hook to reload the main-content
         load_maincontent();
+
+        // Check for RO-access before allowing sharing
+        toggle_ro_access();
 
         $('input[type="date"]').datepicker({
                                             autoclose: true,
