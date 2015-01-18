@@ -91,7 +91,7 @@ class WorkoutICalExportTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('manager:workout:ical', kwargs={'pk': 3}))
 
         if fail:
-            self.assertIn(response.status_code, (404, 302))
+            self.assertIn(response.status_code, (403, 404, 302))
         else:
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response['Content-Type'], 'text/calendar')
@@ -178,7 +178,7 @@ class ScheduleICalExportTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('manager:schedule:ical', kwargs={'pk': 2}))
 
         if fail:
-            self.assertIn(response.status_code, (404, 302))
+            self.assertIn(response.status_code, (403, 404, 302))
         else:
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response['Content-Type'], 'text/calendar')

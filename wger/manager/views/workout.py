@@ -20,7 +20,7 @@ import datetime
 
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
@@ -66,14 +66,18 @@ def overview(request):
     return render(request, 'workout/overview.html', template_data)
 
 
-@login_required
-def view(request, id):
+def view(request, pk):
     '''
     Show the workout with the given ID
     '''
     template_data = {}
-    user = request.user
-    workout = get_object_or_404(Workout, pk=id, user=user)
+    workout = get_object_or_404(Workout, pk=pk)
+    user = workout.user
+    is_owner = request.user == user
+
+    if not is_owner and not user.userprofile.ro_access:
+        return HttpResponseForbidden()
+
     canonical = workout.canonical_representation
     uid, token = make_token(user)
 
@@ -97,6 +101,9 @@ def view(request, id):
     template_data['muscle_backgrounds_back'] = muscles_back
     template_data['uid'] = uid
     template_data['token'] = token
+    template_data['is_owner'] = is_owner
+    template_data['owner_user'] = user
+    template_data['show_shariff'] = is_owner
 
     return render(request, 'workout/view.html', template_data)
 
@@ -161,7 +168,7 @@ def copy_workout(request, pk):
                             setting_copy.save()
 
             return HttpResponseRedirect(reverse('manager:workout:view',
-                                                kwargs={'id': workout.id}))
+                                                kwargs={'pk': workout.id}))
     else:
         workout_form = WorkoutCopyForm({'comment': workout.comment})
 
@@ -186,7 +193,7 @@ def add(request):
     workout.user = request.user
     workout.save()
 
-    return HttpResponseRedirect(reverse('manager:workout:view', kwargs={'id': workout.id}))
+    return HttpResponseRedirect(workout.get_absolute_url())
 
 
 class WorkoutDeleteView(WgerDeleteMixin, DeleteView):

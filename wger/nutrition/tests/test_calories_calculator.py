@@ -35,6 +35,10 @@ class CaloriesCalculatorTestCase(WorkoutManagerTestCase):
         '''
 
         response = self.client.get(reverse('nutrition:calories:view'))
+        self.assertEqual(response.status_code, 302)
+
+        self.user_login('test')
+        response = self.client.get(reverse('nutrition:calories:view'))
         self.assertEqual(response.status_code, 200)
 
     def test_calculator(self):

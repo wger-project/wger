@@ -19,7 +19,7 @@ import csv
 import datetime
 
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
@@ -34,6 +34,7 @@ from django.views.generic import CreateView
 from django.views.generic import UpdateView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from wger.utils.helpers import check_access
 
 from wger.weight.forms import WeightForm
 from wger.weight.models import WeightEntry
@@ -112,8 +113,7 @@ def export_csv(request):
     return response
 
 
-@login_required
-def overview(request):
+def overview(request, username=None):
     '''
     Shows a plot with the weight data
 
@@ -121,11 +121,13 @@ def overview(request):
         * https://github.com/mbostock/d3
         * http://d3js.org/
     '''
+    is_owner, user = check_access(request.user, username)
+
     template_data = {}
 
-    min_date = WeightEntry.objects.filter(user=request.user).\
+    min_date = WeightEntry.objects.filter(user=user).\
         aggregate(Min('creation_date'))['creation_date__min']
-    max_date = WeightEntry.objects.filter(user=request.user).\
+    max_date = WeightEntry.objects.filter(user=user).\
         aggregate(Max('creation_date'))['creation_date__max']
     if min_date:
         template_data['min_date'] = 'new Date(%(year)s, %(month)s, %(day)s)' % \
@@ -137,24 +139,29 @@ def overview(request):
                                     {'year': max_date.year,
                                      'month': max_date.month,
                                      'day': max_date.day}
+
+    template_data['is_owner'] = is_owner
+    template_data['owner_user'] = user
+    template_data['show_shariff'] = is_owner
     return render(request, 'weight_overview.html', template_data)
 
 
-@login_required
 @api_view(['GET'])
-def get_weight_data(request):
+def get_weight_data(request, username=None):
     '''
     Process the data to pass it to the JS libraries to generate an SVG image
     '''
+
+    is_owner, user = check_access(request.user, username)
 
     date_min = request.GET.get('date_min', False)
     date_max = request.GET.get('date_max', True)
 
     if date_min and date_max:
-        weights = WeightEntry.objects.filter(user=request.user,
+        weights = WeightEntry.objects.filter(user=user,
                                              creation_date__range=(date_min, date_max))
     else:
-        weights = WeightEntry.objects.filter(user=request.user)
+        weights = WeightEntry.objects.filter(user=user)
 
     chart_data = []
 

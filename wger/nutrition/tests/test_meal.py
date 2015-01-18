@@ -99,7 +99,7 @@ class PlanDetailTestCase(WorkoutManagerTestCase):
 
         # Page exists
         if fail:
-            self.assertIn(response.status_code, (302, 404))
+            self.assertIn(response.status_code, (302, 403, 404))
         else:
             self.assertEqual(response.status_code, 200)
             plan = NutritionPlan.objects.get(pk=1)

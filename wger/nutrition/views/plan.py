@@ -119,17 +119,20 @@ class PlanEditView(WgerFormMixin, UpdateView):
         return context
 
 
-@login_required
 def view(request, id):
     '''
     Show the nutrition plan with the given ID
     '''
     template_data = {}
-    user = request.user
-    uid, token = make_token(user)
 
-    plan = get_object_or_404(NutritionPlan, pk=id, user=user)
-    template_data['plan'] = plan
+    plan = get_object_or_404(NutritionPlan, pk=id)
+    user = plan.user
+    is_owner = request.user == user
+
+    if not is_owner and not user.userprofile.ro_access:
+        return HttpResponseForbidden()
+
+    uid, token = make_token(user)
 
     # Load the language and pass it to the template
     language = load_language()
@@ -138,11 +141,15 @@ def view(request, id):
     template_data['MEALITEM_WEIGHT_UNIT'] = MEALITEM_WEIGHT_UNIT
 
     # Get the nutritional info
+    template_data['plan'] = plan
     template_data['nutritional_data'] = plan.get_nutritional_values()
 
     # Tokens for the links
     template_data['uid'] = uid
     template_data['token'] = token
+    template_data['owner_user'] = user
+    template_data['is_owner'] = is_owner
+    template_data['show_shariff'] = is_owner
 
     return render(request, 'plan/view.html', template_data)
 

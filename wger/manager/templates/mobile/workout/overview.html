@@ -9,7 +9,7 @@
 {% block content %}
 <div class="list-group">
     {% for workout in workouts %}
-        <a href="{% url 'manager:workout:view' workout.id %}" class="list-group-item wger-list-group-item">
+        <a href="{{ workout.get_abolute_url }} class="list-group-item wger-list-group-item">
             <span class="glyphicon glyphicon-chevron-right pull-right"></span>
 
             {% if workout == current_workout %}

@@ -18,6 +18,7 @@
 import logging
 import json
 
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -32,6 +33,7 @@ BMI views
 '''
 
 
+@login_required
 def view(request):
     '''
     The BMI calculator detail page
@@ -44,6 +46,7 @@ def view(request):
     return render(request, 'bmi/form.html', context)
 
 
+@login_required
 def calculate(request):
     '''
     Calculates the BMI

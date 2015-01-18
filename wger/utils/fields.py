@@ -59,5 +59,3 @@ class Html5DateField(models.DateField):
         defaults = {'form_class': Html5FormDateField}
         defaults.update(kwargs)
         return super(Html5DateField, self).formfield(**defaults)
-
-

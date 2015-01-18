@@ -70,6 +70,14 @@ class IngredientListView(ListView):
                                   .filter(status__in=Ingredient.INGREDIENT_STATUS_OK)
                                   .only('id', 'name'))
 
+    def get_context_data(self, **kwargs):
+        '''
+        Pass additional data to the template
+        '''
+        context = super(IngredientListView, self).get_context_data(**kwargs)
+        context['show_shariff'] = True
+        return context
+
 
 def view(request, id, slug=None):
     template_data = {}
@@ -82,6 +90,7 @@ def view(request, id, slug=None):
     template_data['form'] = UnitChooserForm(data={'ingredient_id': ingredient.id,
                                                   'amount': 100,
                                                   'unit': None})
+    template_data['show_shariff'] = True
 
     return render(request, 'ingredient/view.html', template_data)
 

@@ -52,7 +52,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
 
         {% if current_workout %}
             <p>
-            <a href="{% url 'manager:workout:view' current_workout.id %}">
+            <a href="{{ current_workout.get_absolute_url }}">
                 {% if current_workout.comment %}
                     {{ current_workout.comment }}
                 {% else %}

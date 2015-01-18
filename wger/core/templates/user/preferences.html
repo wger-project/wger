@@ -88,6 +88,7 @@ $(function() {
             </div>
             <div id="collapseOther" class="panel-collapse collapse">
             <div class="panel-body">
+                {% render_form_field form.ro_access %}
                 {% render_form_field form.notification_language %}
                 {% render_form_field form.weight_unit %}
                 {% render_form_field form.show_comments %}

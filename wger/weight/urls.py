@@ -37,10 +37,16 @@ urlpatterns = patterns('',
     url(r'^import-csv/$',
         login_required(views.WeightCsvImportFormPreview(WeightCsvImportForm)),
         name='import-csv'),
-    
+
+    url(r'^overview/(?P<username>[\w.@+-]+)$',
+        views.overview,
+        name='overview'),
     url(r'^overview/$',
         views.overview,
         name='overview'),
+    url(r'^api/get_weight_data/(?P<username>[\w.@+-]+)$', # JS
+        views.get_weight_data,
+        name='weight-data'),
     url(r'^api/get_weight_data/$', # JS
         views.get_weight_data,
         name='weight-data'),

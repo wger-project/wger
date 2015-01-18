@@ -1,0 +1,29 @@
+{% load i18n %}
+<div class="modal fade" id="shariffModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">{% trans "Share this page" %}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="shariff {% if is_owner and not owner_user.userprofile.ro_access %}hidden{% endif %}"></div>
+
+                {% if owner_user %}
+                <div class="noRoAccess {% if user.is_authenticated and is_owner and owner_user.userprofile.ro_access %}hidden{% endif %}">
+                    <p>{% blocktrans %}Before you share links and on social media you need to allow external access.{% endblocktrans %}</p>
+                    <p>
+                        <a href="{% url 'core:user:preferences' %}" id="toggle-ro-access" class="btn btn-success btn-sm">
+                            <span class="glyphicon glyphicon-ok"></span>
+                            {% trans "That's done here" %}
+                        </a>
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+            </div>
+        </div>
+    </div>
+</div>

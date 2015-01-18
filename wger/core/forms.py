@@ -35,7 +35,8 @@ class UserPreferencesForm(forms.ModelForm):
                   'notification_language',
                   'weight_unit',
                   'timer_active',
-                  'timer_pause')
+                  'timer_pause',
+                  'ro_access')
 
 
 class UserEmailForm(forms.ModelForm):

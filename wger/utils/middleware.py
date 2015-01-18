@@ -28,14 +28,7 @@ from wger.core.demo import create_temporary_user
 logger = logging.getLogger('wger.custom')
 
 
-SPECIAL_PATHS = ('dashboard',
-                 'workout',
-                 'weight',
-                 'nutrition/overview',
-                 'calculator',
-                 'preferences',  # from /user/preferences
-                 'feedback',
-                 'about',)
+SPECIAL_PATHS = ('dashboard',)
 
 
 def check_current_request(request):

@@ -20,7 +20,7 @@ $(document).ready(function() {
         <th colspan="2" style="background: none repeat scroll 0% 0% #F5F5F5;">
 
             {{ day.days_of_week.text }} – {{ day.obj.description }}
-            {% if not compact %}
+            {% if editable %}
             <span class="editoptions" style="float: right;">
                 <a href="{% url 'manager:day:delete' day.obj.id %}"
                    title="{% trans 'Delete' %}">
@@ -52,7 +52,7 @@ $(document).ready(function() {
             <td style="width: 15%;border-right-width: 0px;">
                 <h5><strong>{{ forloop.counter }}</strong></h5>
 
-                {% if not compact %}
+                {% if editable %}
                 <span class="editoptions">
                 {% if day.set_list|length > 1 %}
                 <img src="{% static 'images/icons/move.svg' %}"
@@ -115,7 +115,7 @@ $(document).ready(function() {
                             </h4>
                             <p>{{exercise.setting_text}}</p>
 
-                            {% if not compact %}
+                            {% if editable %}
                             {% if not exercise.setting_list %}
                             <p>
                                 {% trans "This exercise has no repetitions." %}<br>
@@ -126,7 +126,7 @@ $(document).ready(function() {
                             {% endif %}
 
                             {% if exercise.comment_list %}
-                            <p class="text-muted">
+                            <p class="text-muted exercise-comments">
                                 {% for comment in exercise.comment_list %}
                                     {{comment}}<br>
                                 {% endfor %}
@@ -141,7 +141,7 @@ $(document).ready(function() {
             </td>
         </tr>
         {% empty %}
-        {% if not compact %}
+        {% if editable %}
         <tr>
             <td colspan="2">
                     <a href="{% url 'manager:set:add' day.obj.id %}"
@@ -153,7 +153,7 @@ $(document).ready(function() {
         </tr>
         {% endif %}
         {% endfor %} <!--for set in day-->
-        {% if not compact %}
+        {% if editable %}
         <tr>
             <td colspan="2">
                 <a href="{% url 'manager:set:add' day.obj.id %}"

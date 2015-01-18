@@ -147,30 +147,79 @@ function setup_sortable() {
  * Functions related to the user's preferences
  *
  */
+function set_profile_field(field, newValue) {
+    /*
+     * Updates a single field in the user profile
+     */
+
+    var dataDict = new Object;
+    dataDict[field] = newValue;
+    $.get('/api/v2/userprofile', function(data) {
+        }).done(function(userprofile) {
+            console.log('Updating profile field "' + field + '" to value: ' + newValue);
+            $.ajax({
+                url:'/api/v2/userprofile/' + userprofile.results[0].id + '/',
+                type: 'PATCH',
+                data: dataDict
+            });
+        });
+}
+
+function get_profile_field(field) {
+    /*
+     * Get a single field from the user's profile
+     *
+     * Syncronous request, use sparingly!
+     */
+
+    var result;
+    $.ajax({
+                url:'/api/v2/userprofile/',
+                type: 'GET',
+                async: false,
+                success: function(userprofile) {
+                              result = userprofile.results[0][field];
+                          }
+            });
+    return result;
+}
+
 function toggle_comments() {
     $("#exercise-comments-toggle").click(function (e) {
         e.preventDefault();
 
-        if (showComment === 0) {
+        var showComment = get_profile_field('show_comments');
+        if(!showComment) {
             $('.exercise-comments').show();
-            showComment = 1;
-        } else if (showComment === 1) {
+        } else {
             $('.exercise-comments').hide();
-            showComment = 0;
         }
 
-        // Get own ID and update the user profile
-        $.get('/api/v2/userprofile', function(data) {
-        }).done(function(userprofile) {
-            $.ajax({
-                url:'/api/v2/userprofile/' + userprofile.results[0].id + '/',
-                type: 'PATCH',
-                data: {show_comments: showComment}
-            });
-        });
+        // Update user profile
+        set_profile_field('show_comments', !showComment);
     });
 }
 
+
+function toggle_ro_access() {
+    $("#toggle-ro-access").click(function (e) {
+        e.preventDefault();
+        var ro_access = get_profile_field('ro_access');
+
+        // Update user profile
+        set_profile_field('ro_access', !ro_access);
+
+        // Hide and show appropriate divs
+        if(!ro_access) {
+            $('#shariffModal .shariff').removeClass('hidden');
+            $('#shariffModal .noRoAccess').addClass('hidden');
+        }
+        else {
+            $('#shariffModal .shariff').addClass('hidden');
+            $('#shariffModal .noRoAccess').removeClass('hidden');
+        }
+    });
+}
 
 
 /*

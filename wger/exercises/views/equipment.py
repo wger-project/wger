@@ -135,4 +135,5 @@ class EquipmentOverviewView(WgerPermissionMixin, ListView):
         for equipment in context['equipment_list']:
             equipment.name = _(equipment.name)
         context['equipment_list'] = sorted(context['equipment_list'], key=lambda e: e.name)
+        context['show_shariff'] = True
         return context

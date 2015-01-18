@@ -23,6 +23,7 @@ $(document).ready(function() {
 {% for day in workout.canonical_representation.day_list %}
     <h3>{{ day.obj.description }}</h3>
 
+    {% if is_owner %}
     <p>
     <a href="{% url 'manager:day:log' day.obj.id %}"
        title="{% trans 'Add weight log to this day' %}"
@@ -34,6 +35,7 @@ $(document).ready(function() {
         {% trans 'Add weight log to this day' %}
     </a>
     </p>
+    {% endif %}
 
     {% for set in day.set_list %}
     {% for exercise in set.exercise_list %}
@@ -47,7 +49,7 @@ $(document).ready(function() {
 
             {% if exercise_list.log_by_date %}
                 {% with list=exercise_list.log_by_date %}
-                    {% render_weight_log list exercise_list.div_uuid user %}
+                    {% render_weight_log list exercise_list.div_uuid owner_user %}
 
                     <script>
                     $(document).ready(function() {
@@ -82,7 +84,7 @@ $(document).ready(function() {
 {% block sidebar %}
 <h3>{% trans "Options" %}</h3>
 <p>
-<a href="{% url 'manager:workout:view' workout.id %}" {% auto_link_css flavour %}>
+<a href="{{ workout.get_absolute_url }}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/list.svg' %}"
          width="32"
          height="32"

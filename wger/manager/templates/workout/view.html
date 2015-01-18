@@ -19,10 +19,8 @@ $(document).ready(function() {
 
     // Show/Hide the comments to the exercises
     {% if user.userprofile.show_comments %}
-        showComment = 1;
-    $(".exercise-comments").show();
+        $(".exercise-comments").show();
     {% else %}
-        showComment = 0;
         $(".exercise-comments").hide();
     {% endif %}
     toggle_comments();
@@ -41,23 +39,26 @@ $(document).ready(function() {
 
 {% for day in workout.canonical_representation.day_list %}
     <div id="div-day-{{ day.obj.id }}">
-        {% render_day day.obj flavour %}
+        {% render_day day.obj is_owner %}
     </div>
 {% empty %}
-    <p>
-    <a href="{% url 'manager:day:add' workout.id %}" class="wger-modal-dialog btn btn-default btn-block">
-    {% trans "No days for this workout." %}
-    {% trans "Add training day" %}
-    </a>
-    </p>
+    {% if is_owner %}
+        <p>
+            <a href="{% url 'manager:day:add' workout.id %}" class="wger-modal-dialog btn btn-default btn-block">
+            {% trans "No days for this workout." %}
+            {% trans "Add training day" %}
+            </a>
+        </p>
+    {% endif %}
 {% endfor %}
 
-
+{% if is_owner %}
 <p>
     <a href="{% url 'manager:day:add' workout.id %}" class="wger-modal-dialog">{% trans "Add training day" %}</a>
     |
     <a id="exercise-comments-toggle" href="{% url 'core:user:preferences' %}">{% trans "Show/Hide exercise comments" %}</a>
 </p>
+{% endif %}
 {% endblock %}
 
 
@@ -124,6 +125,7 @@ $(document).ready(function() {
 </a>
 </p>
 
+{% if is_owner %}
 <p>
 <a href="{% url 'manager:workout:edit' workout.id %}"
    class="wger-modal-dialog">
@@ -135,6 +137,7 @@ $(document).ready(function() {
    {% trans "Edit workout" %}
 </a>
 </p>
+{% endif %}
 
 <p>
 <a data-toggle="modal" data-target="#export-ical-popup">
@@ -147,6 +150,7 @@ $(document).ready(function() {
 </a>
 </p>
 
+{% if is_owner %}
 <p>
 <a href="{% url 'manager:workout:copy' workout.id %}"
    class="wger-modal-dialog">
@@ -169,7 +173,7 @@ $(document).ready(function() {
     {% trans "Delete this workout" %}
 </a>
 </p>
-
+{% endif %}
 
 <div class="modal fade" id="export-ical-popup">
     <div class="modal-dialog">

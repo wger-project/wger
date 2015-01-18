@@ -150,7 +150,7 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
 
         cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
         self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        self.assertFalse(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
 
     def test_cache_update_session_2(self):
         '''
@@ -166,7 +166,7 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
 
         cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
         self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        self.assertTrue(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
+        self.assertTrue(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
 
     def test_cache_delete_session(self):
         '''
@@ -180,7 +180,7 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
 
         cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
         self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        self.assertFalse(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
+        self.assertFalse(cache.get(get_template_cache_name(cache_key, 'True', 1, 2012, 10)))
 
     def test_cache_delete_session_2(self):
         '''
@@ -194,7 +194,7 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
 
         cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
         self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        self.assertTrue(cache.get(get_template_cache_name(cache_key, 1, 2012, 10)))
+        self.assertTrue(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
 
 
 class WorkoutSessionApiTestCase(api_base_test.ApiBaseResourceTestCase):

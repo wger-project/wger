@@ -65,7 +65,7 @@ class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('manager:workout:pdf-log', kwargs={'id': 3}))
 
         if fail:
-            self.assertIn(response.status_code, (404, 302))
+            self.assertIn(response.status_code, (403, 404, 302))
         else:
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response['Content-Type'], 'application/pdf')
@@ -153,7 +153,7 @@ class WorkoutPdfTableExportTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('manager:workout:pdf-table', kwargs={'id': 3}))
 
         if fail:
-            self.assertIn(response.status_code, (404, 302))
+            self.assertIn(response.status_code, (403, 404, 302))
         else:
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response['Content-Type'], 'application/pdf')

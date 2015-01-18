@@ -41,6 +41,26 @@ class EquipmentRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(Equipment.objects.get(pk=1)), 'Dumbbells')
 
 
+class EquipmentShareButtonTestCase(WorkoutManagerTestCase):
+    '''
+    Test that the share button is correctly displayed and hidden
+    '''
+
+    def test_share_button(self):
+        url = reverse('exercise:equipment:overview')
+
+        response = self.client.get(url)
+        self.assertTrue(response.context['show_shariff'])
+
+        self.user_login('admin')
+        response = self.client.get(url)
+        self.assertTrue(response.context['show_shariff'])
+
+        self.user_login('test')
+        response = self.client.get(url)
+        self.assertTrue(response.context['show_shariff'])
+
+
 class AddEquipmentTestCase(WorkoutManagerAddTestCase):
     '''
     Tests adding a new equipment

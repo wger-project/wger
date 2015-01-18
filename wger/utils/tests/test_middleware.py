@@ -31,16 +31,16 @@ class RobotsExclusionMiddlewareTestCase(WorkoutManagerTestCase):
         self.assertTrue(response.get('X-Robots-Tag'))
 
         response = self.client.get(reverse('manager:workout:overview'))
-        self.assertTrue(response.get('X-Robots-Tag'))
+        self.assertFalse(response.get('X-Robots-Tag'))
 
         response = self.client.get(reverse('manager:schedule:overview'))
-        self.assertTrue(response.get('X-Robots-Tag'))
+        self.assertFalse(response.get('X-Robots-Tag'))
 
         response = self.client.get(reverse('core:feedback'))
-        self.assertTrue(response.get('X-Robots-Tag'))
+        self.assertFalse(response.get('X-Robots-Tag'))
 
         response = self.client.get(reverse('core:about'))
-        self.assertTrue(response.get('X-Robots-Tag'))
+        self.assertFalse(response.get('X-Robots-Tag'))
 
         response = self.client.get(reverse('core:contact'))
         self.assertFalse(response.get('X-Robots-Tag'))
@@ -66,7 +66,7 @@ class RobotsExclusionMiddlewareTestCase(WorkoutManagerTestCase):
         self.assertFalse(response.get('X-Robots-Tag'))
 
         response = self.client.get(reverse('nutrition:plan:overview'))
-        self.assertTrue(response.get('X-Robots-Tag'))
+        self.assertFalse(response.get('X-Robots-Tag'))
 
     def test_middleware_exercises(self):
         '''

@@ -48,6 +48,7 @@ from wger.utils.cache import cache_mapper
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
+from wger.utils.helpers import check_access, make_token
 from wger.weight.helpers import process_log_entries
 
 
@@ -260,11 +261,13 @@ class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
     template_name = 'workout/log.html'
     login_required = True
     context_object_name = 'workout'
+    owner_user = None
 
     def get_context_data(self, **kwargs):
 
         # Call the base implementation first to get a context
         context = super(WorkoutLogDetailView, self).get_context_data(**kwargs)
+        is_owner = self.owner_user == self.request.user
 
         # Prepare the entries for rendering and the D3 chart
         workout_log = {}
@@ -278,7 +281,7 @@ class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
                     exercise_id = exercise_list['obj'].id
                     exercise_log[exercise_id] = []
 
-                    logs = exercise_list['obj'].workoutlog_set.filter(user=self.request.user,
+                    logs = exercise_list['obj'].workoutlog_set.filter(user=self.owner_user,
                                                                       workout=self.object)
                     entry_log, chart_data = process_log_entries(logs)
                     if entry_log:
@@ -292,6 +295,9 @@ class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
 
         context['workout_log'] = workout_log
         context['reps'] = _("Reps")
+        context['owner_user'] = self.owner_user
+        context['is_owner'] = is_owner
+        context['show_shariff'] = is_owner
 
         return context
 
@@ -300,8 +306,11 @@ class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
         Check for ownership
         '''
 
-        workout = Workout.objects.get(pk=kwargs['pk'])
-        if workout.user != request.user:
+        workout = get_object_or_404(Workout, pk=kwargs['pk'])
+        self.owner_user = workout.user
+        is_owner = request.user == self.owner_user
+
+        if not is_owner and not self.owner_user.userprofile.ro_access:
             return HttpResponseForbidden()
 
         # Dispatch normally
@@ -371,24 +380,21 @@ class WorkoutCalendar(HTMLCalendar):
         return '<td class="{0}" style="vertical-align: middle;">{1}</td>'.format(cssclass, body)
 
 
-def calendar(request, year=None, month=None):
+def calendar(request, username=None, year=None, month=None):
     '''
     Show a calendar with all the workout logs
     '''
-    if not year:
-        year = datetime.date.today().year
-    else:
-        year = int(year)
-    if not month:
-        month = datetime.date.today().month
-    else:
-        month = int(month)
+    is_owner, user = check_access(request.user, username)
+
+    uid, token = make_token(user)
+    year = int(year) if year else datetime.date.today().year
+    month = int(month) if month else datetime.date.today().month
 
     context = {}
-    logs = WorkoutLog.objects.filter(user=request.user,
+    logs = WorkoutLog.objects.filter(user=user,
                                      date__year=year,
                                      date__month=month).order_by('exercise')
-    logs_filtered = cache.get(cache_mapper.get_workout_log(request.user.pk, year, month))
+    logs_filtered = cache.get(cache_mapper.get_workout_log(user.pk, year, month))
     if not logs_filtered:
         logs_filtered = {}
 
@@ -405,14 +411,17 @@ def calendar(request, year=None, month=None):
 
                 logs_filtered[log.date.day] = {'impression': impression,
                                                'log': log}
-        cache.set(cache_mapper.get_workout_log(request.user.pk, year, month), logs_filtered)
+        cache.set(cache_mapper.get_workout_log(user.pk, year, month), logs_filtered)
 
-    (current_workout, schedule) = Schedule.objects.get_current_workout(request.user)
+    (current_workout, schedule) = Schedule.objects.get_current_workout(user)
     context['calendar'] = WorkoutCalendar(logs_filtered).formatmonth(year, month)
     context['logs'] = process_log_entries(logs)[0]
     context['current_year'] = year
     context['current_month'] = month
     context['current_workout'] = current_workout
+    context['owner_user'] = user
+    context['is_owner'] = is_owner
     context['impressions'] = WorkoutSession.IMPRESSION
-    context['month_list'] = WorkoutLog.objects.filter(user=request.user).dates('date', 'month')
+    context['month_list'] = WorkoutLog.objects.filter(user=user).dates('date', 'month')
+    context['show_shariff'] = is_owner and user.userprofile.ro_access
     return render(request, 'workout/calendar.html', context)

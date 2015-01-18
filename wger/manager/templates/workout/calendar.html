@@ -4,7 +4,7 @@
 {% load wger_extras %}
 {% load cache %}
 
-{% block title %}{% trans "Workout log calendar" %}{% endblock %}
+{% block title %}{% trans "Calendar" %}{% endblock %}
 
 {% block header %}
 <script>
@@ -20,7 +20,7 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block content %}
-{% cache cache_timeout workout-log-full user.id current_year current_month %}
+{% cache cache_timeout workout-log-full is_owner owner_user.id current_year current_month %}
 {{calendar|safe}}
 
 {% for date in logs %}
@@ -43,24 +43,36 @@ $(document).ready(function() {
                 </div>
 
                 <div class="col-sm-4">
-                    {% if session %}
-                        <a href="{% url 'manager:session:edit' session.pk %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Edit workout session" %}</a>
-                    {% else %}
-                        <a href="{% url 'manager:session:add' first_log.workout_id date|date:'Y' date|date:'m' date|date:'d' %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Add workout impression" %}</a>
+                    {% if is_owner %}
+                        {% if session %}
+                            <a href="{% url 'manager:session:edit' session.pk %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Edit workout session" %}</a>
+                        {% else %}
+                            <a href="{% url 'manager:session:add' first_log.workout_id date|date:'Y' date|date:'m' date|date:'d' %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Add workout impression" %}</a>
+                        {% endif %}
                     {% endif %}
                 </div>
              </div>
             {% if session %}
-            <p>
-                <strong>{% trans "Time" %}:</strong>
-                    {% if session.time_start %}
-                        {{session.time_start|time:"H:i"}} - {{session.time_end|time:"H:i"}}
-                    {% else %}
-                        -/-
-                    {% endif %}<br>
-                <strong>{% trans "General impression" %}: </strong> {% trans session.get_impression_display %}<br>
-                <strong>{% trans "Notes" %}:</strong> {{session.notes|default:'-/-'}}
-            </p>
+            <table class="table" style="margin-top: 2em;">
+                <tr>
+                    <th style="width: 30%">{% trans "Time" %}</th>
+                    <td>
+                        {% if session.time_start %}
+                            {{session.time_start|time:"H:i"}} - {{session.time_end|time:"H:i"}}
+                        {% else %}
+                            -/-
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{% trans "General impression" %}</th>
+                    <td>{% trans session.get_impression_display %}</td>
+                </tr>
+                <tr>
+                    <th>{% trans "Notes" %}</th>
+                    <td>{{session.notes|default:'-/-'}}</td>
+                </tr>
+            </table>
             {% endif %}
         {% endwith %}
         {% endwith %}
@@ -77,6 +89,7 @@ $(document).ready(function() {
                     {% for log in i.list %}
                         <li>
                             {{log.reps}} × {{log.weight}}
+                            {% if is_owner %}
                             <span class="editoptions">
                                 <a href="{% url 'manager:log:delete' log.pk %}"
                                    title="{% trans 'Delete' %}"
@@ -93,6 +106,7 @@ $(document).ready(function() {
                                             height="16"
                                             alt="{% trans 'Edit' %}"></a>
                             </span>
+                            {% endif %}
                         </li>
                     {% endfor %}
                     </ul>
@@ -154,13 +168,15 @@ you can click on them to see the details.{% endblocktrans %}</p>
 
 <h3>{% trans 'Log' %}</h3>
 <p>
-    <a href="{% url 'manager:workout:calendar' %}">
+    <a href="{% url 'manager:workout:calendar' owner_user %}">
         <img src="{% static 'images/icons/calendar.svg' %}"
              width="32"
              height="32"
              alt="{% trans 'Go to current month' %}">
     {% trans "Go to current month" %}</a>
 </p>
+
+{% if is_owner %}
 <p>
     <a href="#" id="calendar-day-select-link" data-toggle="modal" data-target="#ecalendar-day-select-popup">
         <img src="{% static 'images/icons/add.svg' %}"
@@ -169,6 +185,8 @@ you can click on them to see the details.{% endblocktrans %}</p>
              alt="{% trans 'Add new log' %}">
     {% trans "Add new log" %}</a>
 </p>
+{% endif %}
+
 <div class="timeline-log">
 {% for date in month_list %}
     {% ifchanged date.year %}
@@ -177,7 +195,7 @@ you can click on them to see the details.{% endblocktrans %}</p>
     {% if current_month = date.month and current_year = date.year %}
         <span>{{date|date:"F"}}</span><br>
     {% else %}
-        <span><a href="{% url 'manager:workout:calendar' date.year date.month %}">{{date|date:"F"}}</a></span><br>
+        <span><a href="{% url 'manager:workout:calendar' owner_user date.year date.month %}">{{date|date:"F"}}</a></span><br>
     {% endif %}
 {% endfor %}
 </div>

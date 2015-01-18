@@ -23,8 +23,11 @@ import json
 import datetime
 
 from functools import wraps
+
+from django.http import Http404
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
+from django.shortcuts import get_object_or_404
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
@@ -80,6 +83,14 @@ def next_weekday(date, weekday):
     return date + datetime.timedelta(days_ahead)
 
 
+def make_uid(input):
+    '''
+    Small wrapper to generate a UID, usually used in URLs to allow for
+    anonymous access
+    '''
+    return urlsafe_base64_encode(force_bytes(input))
+
+
 def make_token(user):
     '''
     Convenience function that generates the UID and token for a user
@@ -87,7 +98,7 @@ def make_token(user):
     :param user: a user object
     :return: the uid and the token
     '''
-    uid = urlsafe_base64_encode(force_bytes(user.pk))
+    uid = make_uid(user.pk)
     token = default_token_generator.make_token(user)
 
     return uid, token
@@ -129,3 +140,32 @@ def password_generator(length=15):
         chars = chars.replace(char, '')
 
     return ''.join(random.choice(chars) for i in range(length))
+
+
+def check_access(request_user, username=None):
+    '''
+    Small helper function to check that the current (possibly unauthenticated)
+    user can access a URL that the owner user shared the link.
+
+    Raises Http404 in case of error (no read-only access allowed)
+
+    :param request_user: the user in the current request
+    :param username: the username
+    :return: a tuple: (is_owner, user)
+    '''
+
+    if username:
+        user = get_object_or_404(User, username=username)
+        if request_user.username == username:
+            user = request_user
+        elif not user.userprofile.ro_access:
+            raise Http404('You are not allowed to access this page.')
+
+    # If there is no user_pk, just show the user his own data
+    else:
+        if not request_user.is_authenticated():
+            raise Http404('You are not allowed to access this page.')
+        user = request_user
+
+    is_owner = request_user == user
+    return is_owner, user

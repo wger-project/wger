@@ -44,8 +44,10 @@ def reset_workout_canonical_form(workout_id):
 
 
 def reset_workout_log(user_pk, year, month):
-    delete_template_fragment_cache('workout-log-full', user_pk, year, month)
-    delete_template_fragment_cache('workout-log-mobile', user_pk, year, month)
+    delete_template_fragment_cache('workout-log-full', True, user_pk, year, month)
+    delete_template_fragment_cache('workout-log-full', False, user_pk, year, month)
+    delete_template_fragment_cache('workout-log-mobile', True, user_pk, year, month)
+    delete_template_fragment_cache('workout-log-mobile', False, user_pk, year, month)
     cache.delete(cache_mapper.get_workout_log(user_pk, year, month))
 
 

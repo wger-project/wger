@@ -1,5 +1,19 @@
-{% extends "template.html" %}
+{% extends "template.html" %}{% load i18n %}
 {% block template %}
+{% if show_shariff %}
+    {% include 'misc/fragments/shariff_modal.html' %}
+{% endif %}
+
+{% if show_shariff %}
+    <button type="button"
+            class="btn btn-default btn-xs pull-right"
+            data-toggle="modal"
+            data-target="#shariffModal"
+            style="margin-top: 0.5em;">
+        <span class="glyphicon glyphicon-retweet"></span>
+        {%  trans "Share" %}
+    </button>
+{% endif %}
 <h2 id="page-title" class="page-header">{% block title %}{% endblock %}</h2>
 <div class="row">
     <div class="col-md-12" id="main-content">

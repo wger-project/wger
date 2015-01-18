@@ -41,6 +41,27 @@ class ExerciseRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(Exercise.objects.get(pk=1)), 'An exercise')
 
 
+class ExerciseShareButtonTestCase(WorkoutManagerTestCase):
+    '''
+    Test that the share button is correctly displayed and hidden
+    '''
+
+    def test_share_button(self):
+        exercise = Exercise.objects.get(pk=1)
+        url = exercise.get_absolute_url()
+
+        response = self.client.get(url)
+        self.assertTrue(response.context['show_shariff'])
+
+        self.user_login('admin')
+        response = self.client.get(url)
+        self.assertTrue(response.context['show_shariff'])
+
+        self.user_login('test')
+        response = self.client.get(url)
+        self.assertTrue(response.context['show_shariff'])
+
+
 class ExerciseIndexTestCase(WorkoutManagerTestCase):
 
     def exercise_index(self, logged_in=True, demo=False, admin=False):

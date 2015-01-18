@@ -125,7 +125,7 @@ class RenderWorkoutDayTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('manager:day:view', kwargs={'id': 5}))
 
         if fail:
-            self.assertEqual(response.status_code, 404)
+            self.assertIn(response.status_code, (302, 404))
             self.assertTemplateUsed('login.html')
 
         else:

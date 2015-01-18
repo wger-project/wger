@@ -36,7 +36,7 @@
         {{workout.workout.creation_date}}
     </td>
     <td>
-        <a href="{{trainer_login}}?next={% url 'manager:workout:view' workout.workout.pk %}">{{workout.workout}}</a>
+        <a href="{{trainer_login}}?next={{ workout.workout.get_absolute_url }}">{{workout.workout}}</a>
     </td>
     <td>
         {{workout.logs|default:'-/-'}}

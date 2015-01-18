@@ -38,6 +38,26 @@ class MuscleRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(Muscle.objects.get(pk=1)), 'Anterior testoid')
 
 
+class MusclesShareButtonTestCase(WorkoutManagerTestCase):
+    '''
+    Test that the share button is correctly displayed and hidden
+    '''
+
+    def test_share_button(self):
+        url = reverse('exercise:muscle:overview')
+
+        response = self.client.get(url)
+        self.assertTrue(response.context['show_shariff'])
+
+        self.user_login('admin')
+        response = self.client.get(url)
+        self.assertTrue(response.context['show_shariff'])
+
+        self.user_login('test')
+        response = self.client.get(url)
+        self.assertTrue(response.context['show_shariff'])
+
+
 class AddMuscleTestCase(WorkoutManagerAddTestCase):
     '''
     Tests adding a muscle

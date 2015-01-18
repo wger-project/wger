@@ -296,6 +296,13 @@ by the US Department of Agriculture. It is extremely complete, with around
                                    default=UNITS_KG)
     '''Preferred weight unit'''
 
+    ro_access = models.BooleanField(verbose_name=_('Allow external access'),
+                                    help_text=_('Allow external users to access your workouts and '
+                                                'logs in a read-only mode. You need to set this '
+                                                'before you can share links e.g. to social media.'),
+                                    default=False)
+    '''Allow anonymous read-only access'''
+
     @property
     def weight(self):
         '''

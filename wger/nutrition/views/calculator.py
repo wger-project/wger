@@ -18,6 +18,7 @@
 import logging
 import json
 
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -33,6 +34,7 @@ Protein calculator views
 '''
 
 
+@login_required
 def view(request):
     '''
     The basal metabolic rate detail page
@@ -51,6 +53,7 @@ def view(request):
     return render(request, 'rate/form.html', context)
 
 
+@login_required
 def calculate_bmr(request):
     '''
     Calculates the basal metabolic rate.
@@ -77,6 +80,7 @@ def calculate_bmr(request):
     return HttpResponse(data, 'application/json')
 
 
+@login_required
 def calculate_activities(request):
     '''
     Calculates the calories needed by additional physical activities

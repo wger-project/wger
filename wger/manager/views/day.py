@@ -49,7 +49,7 @@ class DayView(WgerFormMixin):
     form_class = DayForm
 
     def get_success_url(self):
-        return reverse('manager:workout:view', kwargs={'id': self.object.training_id})
+        return reverse('manager:workout:view', kwargs={'pk': self.object.training_id})
 
     def get_form(self, form_class):
         '''
@@ -122,7 +122,7 @@ def delete(request, pk):
     '''
     day = get_object_or_404(Day, training__user=request.user, pk=pk)
     day.delete()
-    return HttpResponseRedirect(reverse('manager:workout:view', kwargs={'id': day.training_id}))
+    return HttpResponseRedirect(reverse('manager:workout:view', kwargs={'pk': day.training_id}))
 
 
 @login_required

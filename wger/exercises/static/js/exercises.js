@@ -182,7 +182,7 @@ function weight_log_chart(data, div_id, reps_i18n, width_factor) {
               .attr("cx", line.x())
               .attr("cy", line.y())
               .attr("id", function(d) { return d.log_id; })
-              .attr("href", function(d) { return '/' + get_current_language() + '/workout/log/edit-entry/' +  d.log_id.match(/\d+/); })
+              .attr("href", function(d) { return '/' + get_current_language() + '/workout/log/' +  d.log_id.match(/\d+/) + '/edit'; })
               .attr("r", 5)
               .style("stroke", function(d) {
                 return color(color_name);

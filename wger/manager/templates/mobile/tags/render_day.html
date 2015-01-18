@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load staticfiles wger_extras thumbnail %}
 
-{% if not compact %}
+{% if not editable %}
 <div class="modal fade" id="editoptions-day-{{ day.obj.id }}">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -55,7 +55,7 @@
 {% endif %}
 
 
-{% if not compact %}
+{% if not editable %}
 {% for set in day.set_list %}
 <div class="modal fade" id="editoptions-set-{{ set.obj.id }}">
     <div class="modal-dialog">
@@ -111,7 +111,7 @@
         {# Day #}
         {#     #}
         <a href="#editoptions-day-{{ day.obj.id }}" class="list-group-item active" data-toggle="modal">
-            {% if not compact %}
+            {% if not editable %}
             <span class="glyphicon glyphicon-cog pull-right"></span>
             {% endif %}
 
@@ -135,7 +135,7 @@
                class="list-group-item  wger-modal-dialog">
         {% endif %}
 
-        {% if not compact %}
+        {% if not editable %}
         <span class="glyphicon glyphicon-cog pull-right"></span>
         {% endif %}
 
@@ -173,9 +173,9 @@
                             </p>
                             {% endif %}
 
-                            {% if not compact %}
+                            {% if not editable %}
                             {% if exercise.comment_list %}
-                            <p class="text-muted">
+                            <p class="text-muted exercise-comments">
                                 {% for comment in exercise.comment_list %}
                                     {{comment}}<br>
                                 {% endfor %}
@@ -188,7 +188,7 @@
         {% endfor %} <!--for exercise in set-->
     </a>
     {% empty %}
-    {% if not compact %}
+    {% if not editable %}
     <a href="{% url 'manager:set:add' day.obj.id %}"
        class="list-group-item list-group-item-success wger-modal-dialog">
            {% trans "No exercises selected for this day." %}<br>
@@ -198,7 +198,7 @@
     {% endfor %} <!--for set in day-->
 
     {% if day.set_list %}
-    {% if not compact %}
+    {% if not editable %}
         <a href="{% url 'manager:set:add' day.obj.id %}" class="list-group-item list-group-item-success wger-modal-dialog">
             <span class="glyphicon glyphicon-plus"></span>
             {% trans "Add exercises to this workout day" %}

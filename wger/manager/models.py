@@ -67,7 +67,7 @@ class Workout(models.Model):
         '''
         Returns the canonical URL to view a workout
         '''
-        return reverse('manager:workout:view', kwargs={'id': self.id})
+        return reverse('manager:workout:view', kwargs={'pk': self.id})
 
     def __str__(self):
         '''
