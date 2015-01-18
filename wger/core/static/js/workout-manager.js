@@ -188,16 +188,15 @@ function toggle_comments() {
     $("#exercise-comments-toggle").click(function (e) {
         e.preventDefault();
 
-        if (showComment === 0) {
+        var showComment = get_profile_field('show_comments');
+        if(!showComment) {
             $('.exercise-comments').show();
-            showComment = 1;
-        } else if (showComment === 1) {
+        } else {
             $('.exercise-comments').hide();
-            showComment = 0;
         }
 
         // Update user profile
-        set_profile_field('show_comments', showComment);
+        set_profile_field('show_comments', !showComment);
     });
 }
 
