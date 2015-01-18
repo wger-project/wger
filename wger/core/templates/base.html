@@ -1,22 +1,7 @@
 {% extends "template.html" %}{% load i18n wger_extras django_bootstrap_breadcrumbs %}
 {% block template %}
 {% if show_shariff %}
-<div class="modal fade" id="shariffModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">{% trans "Share this page" %}</h4>
-            </div>
-            <div class="modal-body">
-                <div class="shariff"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
-            </div>
-        </div>
-    </div>
-</div>
+    {% include 'misc/fragments/shariff_modal.html' %}
 {% endif %}
 
 
@@ -32,14 +17,14 @@ browsing the site as the user "{{current_user}}", all actions are performed on h
 {% endif %}
 
 {% if show_shariff %}
-<button type="button"
-        class="btn btn-default btn-xs pull-right"
-        data-toggle="modal"
-        data-target="#shariffModal"
-        style="margin-top: 0.5em;">
-    <span class="glyphicon glyphicon-retweet"></span>
-    {%  trans "Share" %}
-</button>
+    <button type="button"
+            class="btn btn-default btn-xs pull-right"
+            data-toggle="modal"
+            data-target="#shariffModal"
+            style="margin-top: 0.5em;">
+        <span class="glyphicon glyphicon-retweet"></span>
+        {%  trans "Share" %}
+    </button>
 {% endif %}
 
 
