@@ -139,7 +139,7 @@
         <div class="col-md-9">
         {% for day in step.workout.canonical_representation.day_list %}
             <div id="div-day-{{ day.obj.id }}">
-                {% render_day day.obj flavour True %}
+                {% render_day day.obj False %}
             </div>
         {% endfor %}
         </div>
