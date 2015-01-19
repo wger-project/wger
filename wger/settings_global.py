@@ -14,6 +14,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+import re
 from wger.main import fs2unicode
 
 '''
@@ -328,3 +329,11 @@ REST_FRAMEWORK = {
 #
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_URLS_REGEX = r'^/api/.*$'
+
+
+#
+# Ignore these URLs if they cause 404
+#
+IGNORABLE_404_URLS = (
+    re.compile(r'^/favicon\.ico$'),
+)
