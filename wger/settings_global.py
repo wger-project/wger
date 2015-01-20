@@ -330,5 +330,5 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_URLS_REGEX = r'^/api/.*$'
 
 WGER_SETTINGS = {
-    'USE_RECAPTCHA': True
+    'USE_RECAPTCHA': False
 }
