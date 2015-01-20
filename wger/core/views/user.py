@@ -190,7 +190,7 @@ def registration(request):
     FormClass = RegistrationFormNoCaptcha if is_app else RegistrationForm
 
     # Don't show captcha if the global parameter is false
-    if settings.WGER_SETTINGS['USE_RECAPTCHA'] == False:
+    if not settings.WGER_SETTINGS['USE_RECAPTCHA']:
         FormClass = RegistrationFormNoCaptcha
 
     # Redirect regular users, in case they reached the registration page
