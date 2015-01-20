@@ -328,3 +328,7 @@ REST_FRAMEWORK = {
 #
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_URLS_REGEX = r'^/api/.*$'
+
+WGER_SETTINGS = {
+    'USE_RECAPTCHA': False
+}

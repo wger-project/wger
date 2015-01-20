@@ -50,7 +50,7 @@ from wger.manager.models import Workout
 from wger.nutrition.models import NutritionPlan
 from wger.config.models import GymConfig
 from wger.weight.models import WeightEntry
-
+from django.conf import settings
 logger = logging.getLogger('wger.custom')
 
 
@@ -188,6 +188,10 @@ def registration(request):
     # Don't use captcha when registering through an app
     is_app = check_request_amazon(request) or check_request_android(request)
     FormClass = RegistrationFormNoCaptcha if is_app else RegistrationForm
+
+    # Don't show captcha if the global parameter is false
+    if not settings.WGER_SETTINGS['USE_RECAPTCHA']:
+        FormClass = RegistrationFormNoCaptcha
 
     # Redirect regular users, in case they reached the registration page
     if request.user.is_authenticated() and not request.user.userprofile.is_temporary:
