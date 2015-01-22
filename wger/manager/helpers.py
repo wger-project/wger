@@ -48,7 +48,7 @@ def render_workout_day(day, nr_of_weeks):
     set_count = 1
     day_markers.append(len(data))
 
-    p = Paragraph('<para align="center">%(days)s: %(description)s</para>' %
+    p = Paragraph(u'<para align="center">%(days)s: %(description)s</para>' %
                   {'days': day['days_of_week']['text'],
                    'description': day['obj'].description},
                   styleSheet["Bold"])

@@ -122,13 +122,13 @@ def export_pdf(request, pk, uidb64=None, token=None):
     elements = []
 
     # Set the title
-    p = Paragraph('<para align="center">{0}</para>'.format(schedule), styleSheet["HeaderBold"])
+    p = Paragraph(u'<para align="center">{0}</para>'.format(schedule), styleSheet["HeaderBold"])
     elements.append(p)
     elements.append(Spacer(10*cm, 0.5*cm))
 
     # Iterate through the Workout and render the training days
     for step in schedule.schedulestep_set.all():
-        p = Paragraph('<para>{0} {1}</para>'.format(step.duration, _('Weeks')),
+        p = Paragraph(u'<para>{0} {1}</para>'.format(step.duration, _('Weeks')),
                       styleSheet["HeaderBold"])
         elements.append(p)
         elements.append(Spacer(10*cm, 0.5*cm))
