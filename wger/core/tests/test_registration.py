@@ -16,6 +16,8 @@ import logging
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from wger.core.forms import RegistrationForm
+from wger.core.forms import RegistrationFormNoCaptcha
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
@@ -26,6 +28,19 @@ class RegistrationTestCase(WorkoutManagerTestCase):
     '''
     Tests registering a new user
     '''
+
+    def test_registration_captcha(self):
+        '''
+        Tests that the correct form is used depending on global
+        configuration settings
+        '''
+        with self.settings(WGER_SETTINGS={'USE_RECAPTCHA': True}):
+            response = self.client.get(reverse('core:user:registration'))
+            self.assertIsInstance(response.context['form'], RegistrationForm)
+
+        with self.settings(WGER_SETTINGS={'USE_RECAPTCHA': False}):
+            response = self.client.get(reverse('core:user:registration'))
+            self.assertIsInstance(response.context['form'], RegistrationFormNoCaptcha)
 
     def test_register(self):
 
