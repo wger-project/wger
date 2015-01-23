@@ -3,9 +3,25 @@
 {% load staticfiles %}
 {% load wger_extras %}
 
+{#           #}
+{# Opengraph #}
+{#           #}
+{% block opengraph %}
+    {{ block.super }}
+    <meta property="og:title" content="{% trans 'Nutrition plan' %}">
+    <meta property="og:description" content="{{ plan }} / {{owner_user.username}}">
+{% endblock %}
+
+
+{#       #}
+{# Title #}
+{#       #}
 {% block title %}{% trans "Nutrition plan" %} – {{ plan.creation_date}}{% endblock %}
 
 
+{#        #}
+{# Header #}
+{#        #}
 {% block header %}
 <script>
 function custom_modal_init()
@@ -18,6 +34,9 @@ function custom_modal_init()
 
 
 
+{#         #}
+{# Content #}
+{#         #}
 {% block content %}
 {% if plan.description %}
 <p>
@@ -241,7 +260,9 @@ function custom_modal_init()
 {% endblock %}
 
 
-
+{#          #}
+{# Side bar #}
+{#          #}
 {% block sidebar %}
 <h3>{% trans "Energy" %}</h3>
 <table class="table table-condensed" id="nutritional-data-energy">

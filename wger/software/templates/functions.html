@@ -1,9 +1,22 @@
 {% extends "base_features.html" %}
 {% load i18n staticfiles wger_extras %}
 
+{#           #}
+{# Opengraph #}
+{#           #}
+{% block opengraph %}
+    {{ block.super }}
+    <meta property="og:title" content="{% trans 'Features' %} - wger">
+
+    {% with username=owner_user.username %}
+        <meta property="og:description" content="{% blocktrans %}wger Workout Manager is a free, open source web application that manages your exercises and workouts. {% endblocktrans %}">
+    {% endwith %}
+{% endblock %}
 
 
-
+{#         #}
+{# Content #}
+{#         #}
 {% block content %}
 <div class="jumbotron">
 <div class="row">

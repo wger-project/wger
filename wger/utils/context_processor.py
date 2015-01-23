@@ -14,6 +14,8 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.templatetags.static import static
 
 from wger import get_version
 from wger.utils import constants
@@ -25,6 +27,8 @@ def processor(request):
     language = load_language()
     full_path = request.get_full_path()
     i18n_path = {}
+    static_path = static('images/logos/logo-marketplace-256.png')
+
     for lang in settings.LANGUAGES:
         i18n_path[lang[0]] = u'/{0}{1}'.format(lang[0], full_path[3:])
 
@@ -40,6 +44,11 @@ def processor(request):
 
         # The current path
         'request_full_path': full_path,
+
+        # The current full path with host
+        'request_absolute_path':  request.build_absolute_uri(),
+        'image_absolute_path':  request.build_absolute_uri(static_path),
+
 
         # Translation links
         'i18n_path': i18n_path,

@@ -4,8 +4,29 @@
 {% load wger_extras %}
 {% load cache %}
 
+
+{#           #}
+{# Opengraph #}
+{#           #}
+{% block opengraph %}
+    {{ block.super }}
+    <meta property="og:title" content="{% trans 'Calendar' %}">
+
+    {% with username=owner_user.username %}
+        <meta property="og:description" content="{% blocktrans %}Calendar for {{username}}{% endblocktrans %}">
+    {% endwith %}
+{% endblock %}
+
+
+{#       #}
+{# Title #}
+{#       #}
 {% block title %}{% trans "Calendar" %}{% endblock %}
 
+
+{#        #}
+{# Header #}
+{#        #}
 {% block header %}
 <script>
 $(document).ready(function() {
@@ -22,6 +43,10 @@ $(document).ready(function() {
 </script>
 {% endblock %}
 
+
+{#         #}
+{# Content #}
+{#         #}
 {% block content %}
 {% cache cache_timeout workout-log-mobile is_owner owner_user.id current_year current_month %}
 {{calendar|safe}}
@@ -155,7 +180,9 @@ $(document).ready(function() {
 {% endblock %}
 
 
-
+{#          #}
+{# Side bar #}
+{#          #}
 {% block sidebar %}
 <div class="modal fade" id="calendar-day-select-popup">
     <div class="modal-dialog">

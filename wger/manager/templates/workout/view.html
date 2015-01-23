@@ -3,8 +3,25 @@
 {% load staticfiles %}
 {% load wger_extras %}
 
+{#           #}
+{# Opengraph #}
+{#           #}
+{% block opengraph %}
+    {{ block.super }}
+    <meta property="og:title" content="{% trans 'Workout' %}">
+    <meta property="og:description" content="{{ workout }} / {{owner_user.username}}">
+{% endblock %}
+
+
+{#       #}
+{# Title #}
+{#       #}
 {% block title %}{% trans "Workout" %} – {{ workout.creation_date }}{% endblock %}
 
+
+{#        #}
+{# Header #}
+{#        #}
 {% block header %}
 <script>
 function custom_modal_init()
@@ -28,6 +45,10 @@ $(document).ready(function() {
 </script>
 {% endblock %}
 
+
+{#         #}
+{# Content #}
+{#         #}
 {% block content %}
 
 
@@ -63,9 +84,9 @@ $(document).ready(function() {
 
 
 
-<!--
-        Side bar
--->
+{#          #}
+{# Side bar #}
+{#          #}
 {% block sidebar %}
 <h3>{% trans "Steps" %}</h3>
 

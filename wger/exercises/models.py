@@ -17,6 +17,7 @@
 
 import six
 import logging
+import bleach
 
 from django.db import models
 from django.template.loader import render_to_string
@@ -275,6 +276,13 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         Return the main image for the exercise or None if nothing is found
         '''
         return self.exerciseimage_set.accepted().filter(is_main=True).first()
+
+    @property
+    def description_clean(self):
+        '''
+        Return the exercise description with all markup removed
+        '''
+        return bleach.clean(self.description, strip=True)
 
     def get_owner_object(self):
         '''

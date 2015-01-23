@@ -3,8 +3,26 @@
 {% load staticfiles %}
 {% load wger_extras %}
 
+
+{#           #}
+{# Opengraph #}
+{#           #}
+{% block opengraph %}
+    {{ block.super }}
+    <meta property="og:title" content="{% trans 'Weight log' %}">
+    <meta property="og:description" content="{% trans 'Weight log' %} / {{ workout }} / {{ owner_user.username }}">
+{% endblock %}
+
+
+{#       #}
+{# Title #}
+{#       #}
 {% block title %}{% trans "Weight log for workout" %}{% endblock %}
 
+
+{#        #}
+{# Header #}
+{#        #}
 {% block header %}
 <script>
 $(document).ready(function() {
@@ -13,6 +31,10 @@ $(document).ready(function() {
 </script>
 {% endblock %}
 
+
+{#         #}
+{# Content #}
+{#         #}
 {% block content %}
 {% if workout.comment %}
 <p>
@@ -77,10 +99,9 @@ $(document).ready(function() {
 {% endblock %}
 
 
-
-<!--
-        Side bar
--->
+{#          #}
+{# Side bar #}
+{#          #}
 {% block sidebar %}
 <h3>{% trans "Options" %}</h3>
 <p>
