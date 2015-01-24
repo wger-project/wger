@@ -30,8 +30,10 @@
     <!-- OpenGraph -->
     {% block opengraph %}
         <meta property="og:url" content="{{ request_absolute_path }}">
-        <meta property="og:image" content="{{ image_absolute_path }}">
         <meta property="og:type" content="website">
+    {% endblock %}
+    {% block opengraphimages %}
+        <meta property="og:image" content="{{ image_absolute_path }}">
     {% endblock %}
 
     <!-- twitter cards -->

@@ -13,6 +13,13 @@
     <meta property="og:title" content="{{ exercise.name }}">
     <meta property="og:description" content="{{ exercise.description_clean }}">
 {% endblock %}
+{% block opengraphimages %}
+    {% for image in exercise.exerciseimage_set.accepted %}
+        <meta property="og:image" content="{{ image.image.url }}">
+    {% empty %}
+        <meta property="og:image" content="{{ image_absolute_path }}">
+    {% endfor %}
+{% endblock %}
 
 
 {#       #}

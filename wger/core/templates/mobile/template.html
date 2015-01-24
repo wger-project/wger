@@ -25,8 +25,24 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8">
-    <meta name="author" content="Roland Geider">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Roland Geider">
+
+    <!-- OpenGraph -->
+    {% block opengraph %}
+        <meta property="og:url" content="{{ request_absolute_path }}">
+        <meta property="og:type" content="website">
+    {% endblock %}
+    {% block opengraphimages %}
+        <meta property="og:image" content="{{ image_absolute_path }}">
+    {% endblock %}
+
+    <!-- twitter cards -->
+    {% block twittercard %}
+        <meta content="summary" name="twitter:card">
+        <meta content="@wger_de" name="twitter:site">
+    {% endblock %}
+
     <title>{% block title %}{% endblock %}</title>
 
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
