@@ -41,7 +41,7 @@ from wger.nutrition.models import NutritionPlan
 from wger.weight.models import WeightEntry
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 # ************************

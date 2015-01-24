@@ -18,7 +18,7 @@ from decimal import Decimal
 from wger.utils.constants import TWOPLACES, FOURPLACES
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 '''

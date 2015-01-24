@@ -27,7 +27,7 @@ from wger.nutrition.forms import PhysicalActivitiesForm
 from wger.nutrition.forms import DailyCaloriesForm
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 '''
 Protein calculator views

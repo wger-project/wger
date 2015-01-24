@@ -37,7 +37,7 @@ from wger.manager.forms import SettingForm
 from wger.utils.language import load_item_languages
 from wger.config.models import LanguageConfig
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 # ************************

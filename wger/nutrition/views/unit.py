@@ -33,7 +33,7 @@ from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.language import load_language
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 # ************************
 # Weight units functions
 # ************************

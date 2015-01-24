@@ -41,7 +41,7 @@ from wger.nutrition.models import IngredientWeightUnit
 
 from wger.utils.language import load_language
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 def create_temporary_user():

@@ -43,7 +43,7 @@ from wger.utils.cache import reset_workout_canonical_form
 from wger.utils.cache import cache_mapper
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 @python_2_unicode_compatible

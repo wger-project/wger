@@ -31,7 +31,7 @@ from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.utils.helpers import make_token
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 class ScheduleRepresentationTestCase(WorkoutManagerTestCase):

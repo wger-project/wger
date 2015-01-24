@@ -30,7 +30,7 @@ from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 from wger.utils.cache import get_template_cache_name, cache_mapper
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 class WorkoutLogShareButtonTestCase(WorkoutManagerTestCase):

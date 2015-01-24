@@ -18,7 +18,7 @@ from django.core.urlresolvers import reverse
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 class WeightOverviewTestCase(WorkoutManagerTestCase):

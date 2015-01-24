@@ -19,7 +19,7 @@ from django.db import models
 from wger.utils.widgets import Html5FormDateField
 from wger.utils.widgets import Html5FormTimeField
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 #
 #

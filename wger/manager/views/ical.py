@@ -35,7 +35,7 @@ from wger.utils.helpers import next_weekday
 from wger.utils.helpers import check_token
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 '''

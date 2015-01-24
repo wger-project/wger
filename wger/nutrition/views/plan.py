@@ -50,7 +50,7 @@ from wger.utils.pdf import styleSheet
 from wger.utils.language import load_language
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 # ************************

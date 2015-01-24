@@ -32,7 +32,7 @@ from wger.utils.constants import HTML_ATTRIBUTES_WHITELIST
 from wger.utils.constants import HTML_STYLES_WHITELIST
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 class WgerPermissionMixin(object):

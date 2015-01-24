@@ -42,7 +42,7 @@ from wger.weight import helpers
 from wger.utils.generic_views import WgerFormMixin
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 class WeightAddView(WgerFormMixin, CreateView):

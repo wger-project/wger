@@ -55,7 +55,7 @@ Simple approximation of energy (kcal) provided per gram or ounce
 '''
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 @python_2_unicode_compatible

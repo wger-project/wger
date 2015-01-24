@@ -44,7 +44,7 @@ from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.helpers import password_generator
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 class GymListView(WgerPermissionMixin, ListView):

@@ -14,7 +14,7 @@
 
 import logging
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 def is_amazon_webview(user_agent):

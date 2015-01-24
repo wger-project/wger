@@ -33,7 +33,7 @@ from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.language import load_item_languages
 from wger.config.models import LanguageConfig
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 class MuscleListView(ListView):

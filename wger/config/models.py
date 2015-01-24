@@ -30,7 +30,7 @@ from wger.utils.cache import delete_template_fragment_cache
 from wger.utils.cache import cache_mapper
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 @python_2_unicode_compatible

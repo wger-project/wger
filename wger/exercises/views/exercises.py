@@ -52,7 +52,7 @@ from wger.config.models import LanguageConfig
 from wger.weight.helpers import process_log_entries
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 class ExerciseListView(WgerPermissionMixin, ListView):

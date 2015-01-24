@@ -31,7 +31,7 @@ from wger.utils.generic_views import WgerPermissionMixin
 from wger.gym.models import UserDocument
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 class ListView(WgerPermissionMixin, ListView):

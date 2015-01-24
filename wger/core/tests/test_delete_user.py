@@ -25,7 +25,7 @@ from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 class DeleteUserTestCase(WorkoutManagerTestCase):

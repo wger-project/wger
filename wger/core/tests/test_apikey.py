@@ -21,7 +21,7 @@ from rest_framework.authtoken.models import Token
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 class ApiKeyTestCase(WorkoutManagerTestCase):

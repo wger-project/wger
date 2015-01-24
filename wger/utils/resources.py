@@ -16,7 +16,7 @@ import logging
 
 from tastypie.authorization import ReadOnlyAuthorization
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 class UserObjectsOnlyAuthorization(ReadOnlyAuthorization):

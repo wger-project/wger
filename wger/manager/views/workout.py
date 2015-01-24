@@ -44,7 +44,7 @@ from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.helpers import make_token
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 # ************************

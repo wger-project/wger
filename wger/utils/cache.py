@@ -19,7 +19,7 @@ from django.core.cache import cache
 from django.utils.encoding import force_bytes
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 def get_template_cache_name(fragment_name='', *args):

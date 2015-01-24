@@ -23,7 +23,7 @@ from wger.config.models import LanguageConfig
 from wger.utils.cache import cache_mapper
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 # ************************

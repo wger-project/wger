@@ -25,7 +25,7 @@ from collections import OrderedDict
 from wger.utils.helpers import DecimalJsonEncoder
 from wger.weight.models import WeightEntry
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 def parse_weight_csv(request, cleaned_data):

@@ -24,7 +24,7 @@ from wger.nutrition.models import IngredientWeightUnit, Ingredient, MealItem
 from wger.utils.widgets import Html5NumberInput
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 class UnitChooserForm(forms.Form):

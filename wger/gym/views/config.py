@@ -24,7 +24,7 @@ from wger.gym.models import GymConfig
 from wger.utils.generic_views import WgerFormMixin
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 class GymConfigUpdateView(WgerFormMixin, UpdateView):

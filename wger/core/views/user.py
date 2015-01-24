@@ -51,7 +51,8 @@ from wger.nutrition.models import NutritionPlan
 from wger.config.models import GymConfig
 from wger.weight.models import WeightEntry
 from django.conf import settings
-logger = logging.getLogger('wger.custom')
+
+logger = logging.getLogger(__name__)
 
 
 def login(request):

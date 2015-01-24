@@ -35,7 +35,7 @@ from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.language import load_item_languages
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 '''
 Exercise equipment

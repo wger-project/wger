@@ -51,8 +51,7 @@ from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.helpers import check_access, make_token
 from wger.weight.helpers import process_log_entries
 
-
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 # ************************
@@ -386,6 +385,7 @@ def calendar(request, username=None, year=None, month=None):
     '''
     is_owner, user = check_access(request.user, username)
 
+    logger.info('aa bb cc')
     uid, token = make_token(user)
     year = int(year) if year else datetime.date.today().year
     month = int(month) if month else datetime.date.today().month

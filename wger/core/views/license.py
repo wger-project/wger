@@ -32,7 +32,7 @@ from wger.utils.generic_views import WgerPermissionMixin
 from wger.core.models import License
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 class LicenseListView(WgerPermissionMixin, ListView):

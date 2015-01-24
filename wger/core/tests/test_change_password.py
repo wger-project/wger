@@ -19,7 +19,7 @@ from django.contrib.auth.models import User
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 class ChangePasswordTestCase(WorkoutManagerTestCase):

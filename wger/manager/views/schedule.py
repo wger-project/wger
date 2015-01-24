@@ -48,7 +48,7 @@ from wger.utils.pdf import styleSheet
 from wger.utils.pdf import render_footer
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 @login_required

@@ -33,7 +33,7 @@ from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerPermissionMixin
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 class LanguageListView(WgerPermissionMixin, ListView):

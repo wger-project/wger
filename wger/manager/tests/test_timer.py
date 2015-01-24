@@ -24,7 +24,7 @@ from wger.exercises.models import Exercise
 from wger.manager.models import WorkoutSession
 from wger.manager.models import Workout
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 class WorkoutTimerTestCase(WorkoutManagerTestCase):

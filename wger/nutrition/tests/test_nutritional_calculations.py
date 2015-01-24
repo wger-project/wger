@@ -20,7 +20,7 @@ from wger.nutrition import models
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.utils.constants import TWOPLACES
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 class NutritionalValuesCalculationsTestCase(WorkoutManagerTestCase):

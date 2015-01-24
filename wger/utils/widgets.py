@@ -31,7 +31,7 @@ from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 #

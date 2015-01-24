@@ -37,7 +37,7 @@ from wger.utils.cache import cache_mapper, reset_workout_canonical_form, reset_w
 from wger.utils.fields import Html5DateField
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 #

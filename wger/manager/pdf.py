@@ -39,7 +39,7 @@ from reportlab.lib import colors
 
 from wger import get_version
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 def workout_log(request, id, uidb64=None, token=None):

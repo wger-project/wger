@@ -26,7 +26,7 @@ from wger.nutrition.forms import BmiForm
 from wger.utils import helpers
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 '''
 BMI views

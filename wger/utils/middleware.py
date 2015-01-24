@@ -25,7 +25,7 @@ from django.contrib.auth import login as django_login
 from wger.core.demo import create_temporary_user
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 SPECIAL_PATHS = ('dashboard',)

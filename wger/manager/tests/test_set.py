@@ -29,7 +29,7 @@ from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.utils.cache import cache_mapper
 
 
-logger = logging.getLogger('wger.custom')
+logger = logging.getLogger(__name__)
 
 
 class SetAddTestCase(WorkoutManagerAddTestCase):
