@@ -69,6 +69,10 @@
     <script src="{% static 'js/nutrition.js' %}"></script>
     {% endcompress %}
 
+    {% if language.short_name != 'en' %}
+    <script src="{% static datepicker_i18n_path %}"></script>
+    {% endif %}
+
     {% block header %}{% endblock %}
 
     <script>

@@ -188,14 +188,15 @@ it in the header, see the link on the sidebar for details.</p>
     The following endpoints provide additional information, comfort functions, etc.:
 </p>
 <div style="margin-top: 1em;">
-    <code>api/v2/workout/&lt;id&gt;/canonical_representation/</code>
+    <code>api/v2/workout/&lt;id&gt;/canonical_representation/</code><br>
+    <code>api/v2/day/&lt;id&gt;/canonical_representation/</code>
 </div>
 <div class="row">
     <div class="col-md-offset-1 col-md-10">
-        This is a complete representation of a workout, including all objects
-        like workout days, exercises, etc. This form used by the django application
+        This is a complete representation of a workout or day, including all objects
+        like muscles, exercises, etc. This form is used by the django application
         to render workouts or perform other operations. The data is cached so,
-        accessing or using is faster than performing many different requests.
+        accessing or using it is faster than performing many different requests.
     </div>
 </div>
 

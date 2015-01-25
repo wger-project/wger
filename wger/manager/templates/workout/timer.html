@@ -1,16 +1,25 @@
-{% extends "base.html" %}
-{% load i18n %}
-{% load l10n %}
-{% load staticfiles %}
-{% load wger_extras %}
-{% load cache %}
+{% extends "base_wide.html" %}
+{% load i18n l10n staticfiles wger_extras cache %}
 
 {% block title %}{% endblock %}
 
 {% block header %}
-<style>
+<script src="{% static 'js/angularjs/angular.js' %}"></script>
+<script>
+"use strict";
 
-</style>
+angular.module("workoutTimer", ["ngRoute", "ngResource"])
+    .config(function ($routeProvider) {
+        $routeProvider.when("/view/:step", {
+        templateUrl: "/workout/timer/partials/step"
+    });
+});
+</script>
+<script src="{% static 'js/angularjs/ng-modules/angular-route.js' %}"></script>
+<script src="{% static 'js/angularjs/ng-modules/angular-resource.js' %}"></script>
+<script src="{% static 'js/angularjs/controllers/timer.js' %}"></script>
+
+
 <script>
 "use strict";
 /*
@@ -254,6 +263,8 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block content %}
+<data-ng-view></data-ng-view>
+
 {#            #}
 {# Start page #}
 {#            #}
