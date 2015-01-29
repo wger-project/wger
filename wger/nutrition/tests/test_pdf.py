@@ -45,7 +45,7 @@ class NutritionalPlanPdfExportTestCase(WorkoutManagerTestCase):
                          'attachment; filename=nutritional-plan.pdf')
 
         # Approximate size
-        self.assertGreater(int(response['Content-Length']), 31000)
+        self.assertGreater(int(response['Content-Length']), 29000)
         self.assertLess(int(response['Content-Length']), 34000)
 
     def export_pdf(self, fail=False):
@@ -66,7 +66,7 @@ class NutritionalPlanPdfExportTestCase(WorkoutManagerTestCase):
                              'attachment; filename=nutritional-plan.pdf')
 
             # Approximate size
-            self.assertGreater(int(response['Content-Length']), 31000)
+            self.assertGreater(int(response['Content-Length']), 29000)
             self.assertLess(int(response['Content-Length']), 34000)
 
         # Create an empty plan
@@ -88,7 +88,7 @@ class NutritionalPlanPdfExportTestCase(WorkoutManagerTestCase):
                              'attachment; filename=nutritional-plan.pdf')
 
             # Approximate size
-            self.assertGreater(int(response['Content-Length']), 31000)
+            self.assertGreater(int(response['Content-Length']), 29000)
             self.assertLess(int(response['Content-Length']), 33420)
 
     def test_export_pdf_anonymous(self):

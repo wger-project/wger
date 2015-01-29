@@ -41,7 +41,7 @@ class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
                          'attachment; filename=Workout-3-log.pdf')
 
         # Approximate size only
-        self.assertGreater(int(response['Content-Length']), 31000)
+        self.assertGreater(int(response['Content-Length']), 29000)
         self.assertLess(int(response['Content-Length']), 35000)
 
     def export_pdf_token_wrong(self):
@@ -73,7 +73,7 @@ class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
                              'attachment; filename=Workout-3-log.pdf')
 
             # Approximate size only
-            self.assertGreater(int(response['Content-Length']), 31000)
+            self.assertGreater(int(response['Content-Length']), 29000)
             self.assertLess(int(response['Content-Length']), 35000)
 
     def test_export_pdf_anonymous(self):
@@ -128,7 +128,7 @@ class WorkoutPdfTableExportTestCase(WorkoutManagerTestCase):
                          'attachment; filename=Workout-3-table.pdf')
 
         # Approximate size only
-        self.assertGreater(int(response['Content-Length']), 31000)
+        self.assertGreater(int(response['Content-Length']), 29000)
         self.assertLess(int(response['Content-Length']), 35000)
 
     def export_pdf_token_wrong(self):
@@ -161,7 +161,7 @@ class WorkoutPdfTableExportTestCase(WorkoutManagerTestCase):
                              'attachment; filename=Workout-3-table.pdf')
 
             # Approximate size only
-            self.assertGreater(int(response['Content-Length']), 31000)
+            self.assertGreater(int(response['Content-Length']), 29000)
             self.assertLess(int(response['Content-Length']), 35000)
 
     def test_export_pdf_anonymous(self):

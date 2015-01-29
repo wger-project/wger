@@ -457,7 +457,7 @@ class SchedulePdfLogExportTestCase(WorkoutManagerTestCase):
                          'attachment; filename=Schedule-1-log.pdf')
 
         # Approximate size only
-        self.assertGreater(int(response['Content-Length']), 31000)
+        self.assertGreater(int(response['Content-Length']), 29000)
         self.assertLess(int(response['Content-Length']), 35000)
 
         # Wrong or expired token
@@ -484,7 +484,7 @@ class SchedulePdfLogExportTestCase(WorkoutManagerTestCase):
                              'attachment; filename=Schedule-1-log.pdf')
 
             # Approximate size only
-            self.assertGreater(int(response['Content-Length']), 31000)
+            self.assertGreater(int(response['Content-Length']), 29000)
             self.assertLess(int(response['Content-Length']), 35000)
 
     def test_export_pdf_anonymous(self):
