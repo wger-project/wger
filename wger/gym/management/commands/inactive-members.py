@@ -43,12 +43,17 @@ class Command(BaseCommand):
 
         for gym in Gym.objects.all():
             if int(options['verbosity']) >= 2:
-                self.stdout.write("Processing gym '{}' ".format(gym))
+                self.stdout.write("* Processing gym '{}' ".format(gym))
 
             user_list = []
             trainer_list = []
             user_list_no_activity = []
             weeks = gym.config.weeks_inactive
+
+            if not weeks:
+                if int(options['verbosity']) >= 2:
+                    self.stdout.write("  Reminders deactivatd, skipping")
+                continue
 
             for profile in gym.userprofile_set.all():
                 user = profile.user
