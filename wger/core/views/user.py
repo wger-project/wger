@@ -31,8 +31,8 @@ from django.contrib.auth.models import User as Django_User, User
 from django.contrib.auth.views import login as django_loginview
 from django.contrib import messages
 from django.views.generic import RedirectView, UpdateView, DetailView
+from django.conf import settings
 from rest_framework.authtoken.models import Token
-from wger.gym.models import AdminUserNote, GymUserConfig
 
 from wger.utils.constants import USER_TAB
 from wger.utils.generic_views import WgerPermissionMixin
@@ -50,7 +50,7 @@ from wger.manager.models import Workout
 from wger.nutrition.models import NutritionPlan
 from wger.config.models import GymConfig
 from wger.weight.models import WeightEntry
-from django.conf import settings
+from wger.gym.models import AdminUserNote, GymUserConfig
 
 logger = logging.getLogger(__name__)
 

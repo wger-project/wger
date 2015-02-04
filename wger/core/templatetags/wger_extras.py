@@ -18,6 +18,7 @@ from django import template
 from django.forms.widgets import CheckboxInput, ClearableFileInput
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext
+from django.conf import settings
 
 from wger.utils.constants import PAGINATION_MAX_TOTAL_PAGES
 from wger.utils.constants import PAGINATION_PAGES_AROUND_CURRENT
@@ -165,6 +166,29 @@ def format_username(user):
         return user.email
     else:
         return user.username
+
+
+class SpacelessNode(template.base.Node):
+    def __init__(self, nodelist):
+        self.nodelist = nodelist
+
+    def render(self, context):
+        if settings.WGER_SETTINGS['REMOVE_WHITESPACE']:
+            from django.utils.html import strip_spaces_between_tags
+            return strip_spaces_between_tags(self.nodelist.render(context).strip())
+        else:
+            return self.nodelist.render(context)
+
+
+@register.tag
+def spaceless_config(parser, token):
+    '''
+    This is django's spaceless tag, copied here to use our configurable
+    SpacelessNode
+    '''
+    nodelist = parser.parse(('endspaceless_config',))
+    parser.delete_first_token()
+    return SpacelessNode(nodelist)
 
 
 #
