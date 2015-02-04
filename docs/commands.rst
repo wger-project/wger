@@ -33,9 +33,8 @@ similar
   deletes all guest users older than 1 week. At the moment this value can't be
   configured
 
-
 **email-reminders**
-  sends out email remainders for user that need to create a new workout.
+  sends out email reminders for user that need to create a new workout.
 
 **inactive-members**
   Sends email for gym members that have not been to the gym for a specified

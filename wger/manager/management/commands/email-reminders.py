@@ -30,10 +30,10 @@ from wger.utils.constants import EMAIL_FROM
 
 class Command(BaseCommand):
     '''
-    Helper admin command to send out email remainders
+    Helper admin command to send out email reminders
     '''
 
-    help = 'Send out automatic email remainders for workouts'
+    help = 'Send out automatic email reminders for workouts'
 
     def handle(self, *args, **options):
         '''
