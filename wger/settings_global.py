@@ -188,6 +188,7 @@ LANGUAGES = (
             ('ru', 'Russian'),
             ('nl', 'Dutch'),
             ('pt', 'Portuguese'),
+            ('el', 'Greek'),
 )
 
 # Default language code for this installation.

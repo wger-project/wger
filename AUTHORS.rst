@@ -15,6 +15,7 @@ Translators
 
 * Bulgarian: Lyuboslav Petrov
 * Dutch: David Machiels
+* Greek: Mark Nicolaou
 * Portuguese: Jefferson Campos – http://jeffersoncampos.eti.br
 * Russian: Inna
 * Spanish: acv2facundo
