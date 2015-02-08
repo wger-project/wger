@@ -7,14 +7,15 @@ Updating the translation files
 ------------------------------
 
 wger uses django's translation infrastructure, but there are a couple of things
-that need to be considered. First, update your po files with the default django command (run this in the wger folder)::
+that need to be considered. First, update your po files with the usual django
+command (run this in the wger subfolder, not the root one)::
 
     django-admin makemessages --locale en
 
 Extract some translatable strings from the database such as exercise categories
 and muscle names::
 
-    python manage.py extract-i18n
+    python ../manage.py extract-i18n
 
 and add them to the end of ``locale/en/LC_MESSAGES/django.po``. Once you have
 translated the file, compile it with::
@@ -26,17 +27,52 @@ Adding new languages
 --------------------
 
 Besides adding the new translations to the locale folder, they have to be
-activated in django and in the application itself.
-
-* **django:** Add an entry to ``LANGUAGES`` in ``settings_global.py``
-* **wger:** Add the new language in the language admin page and set the
-  visibility of excercises and ingredients
-* **fixtures:** After having added the language in the admin module, export
-  the database, filter it with the ``filter-fixtures.py`` script in
-  ``extras/scripts`` and copy ``language_config.json`` to the fixtures folder
-  in the config app and ``languages.json`` to core.
-* **flag icon:** Add an appropriate flag icon in SVG format in ``images/icons/flag-NAME.svg``
-  in the static folder of the core application
+activated in the django settings file and in the application itself.
 
 .. note::
   At the moment composed language codes such as pt-BR are **not** supported.
+
+* **django:** Add an entry to ``LANGUAGES`` in ``wger/settings_global.py``
+
+* **wger:** Add the new language in the language admin page and set the
+  visibility of exercises and ingredients. For the short name, use the
+  language code such as 'fr', for the long name the native name, in this example
+  'français'.
+
+* **fixtures:** After having added the language in the admin module, the data
+  has to be exported so the current language configuration can be reproduced.
+  This is done with the ``filter-fixtures.py`` script:
+
+  * while in ``extras/scripts``, export the whole database to a json file with::
+
+      python ../../manage.py dumpdata --indent 4 --natural > data.json
+
+  * filter the database dump, this will generate a json file for each "important"
+    module::
+
+      python filter-fixtures.py
+
+  * copy the generated files ``languages.json`` and ``language_config.json`` to
+    the fixtures folder in core and config (you'll probably want to delete the
+    remaining json files)::
+
+      cp languages.json ../../wger/core/fixtures/
+      cp language_config.json ../../wger/config/fixtures/
+      rm *.json
+
+* **flag icon:** Add an appropriate flag icon in SVG format in ``images/icons/flag-CODE.svg``
+  in the static folder of the core application
+
+Getting new languages
+---------------------
+
+If you have a local installation and new languages arrive from upstream, you
+need to load the necessary data to the language tables in the database (note
+that you'll need to reload/restart the webserver so the new po files are picked
+up)::
+
+  python manage.py loaddata languages
+  python manage.py loaddata language_config
+
+Please note that this will overwrite any changes you might have done from the
+language administration module.
