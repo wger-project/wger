@@ -14,7 +14,6 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.templatetags.static import static
 
 from wger import get_version

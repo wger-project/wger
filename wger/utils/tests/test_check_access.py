@@ -16,7 +16,7 @@ from django.contrib.auth.models import User, AnonymousUser
 from django.http import Http404
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.utils.helpers import check_access, make_uid
+from wger.utils.helpers import check_access
 
 
 class CheckAccessTestCase(WorkoutManagerTestCase):

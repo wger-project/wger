@@ -15,9 +15,8 @@
 from django.core import mail
 from django.core.urlresolvers import reverse
 
-from wger.exercises.models import Exercise, ExerciseImage
+from wger.exercises.models import ExerciseImage
 
-from wger.manager.tests.testcase import STATUS_CODES_FAIL
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 

@@ -18,8 +18,6 @@ import decimal
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from wger.core.models import UserProfile
-from wger.core.tests import api_base_test
 
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry

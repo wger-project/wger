@@ -30,8 +30,6 @@ from django.core.urlresolvers import reverse
 from django.core import mail
 from django.core.cache import cache
 from django.core.validators import MinLengthValidator
-from easy_thumbnails.signals import saved_file
-from easy_thumbnails.signal_handlers import generate_aliases
 
 from wger.core.models import Language
 from wger.utils.managers import SubmissionManager

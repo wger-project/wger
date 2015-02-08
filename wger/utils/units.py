@@ -15,7 +15,7 @@
 import logging
 from decimal import Decimal
 
-from wger.utils.constants import TWOPLACES, FOURPLACES
+from wger.utils.constants import FOURPLACES
 
 
 logger = logging.getLogger(__name__)

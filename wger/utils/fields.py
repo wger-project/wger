@@ -21,17 +21,6 @@ from wger.utils.widgets import Html5FormTimeField
 
 logger = logging.getLogger(__name__)
 
-#
-#
-# Please note: it is necessary to import these fields with these names,
-# otherwise migrating from older versions will not work. Only if the migrations
-# are squashed one day (perhaps with django 1.7), can the imports be removed.
-#
-#
-from django.db.models import DecimalField as Html5DecimalField
-from django.db.models import FloatField as Html5FloatField
-from django.db.models import IntegerField as Html5IntegerField
-
 
 class Html5TimeField(models.TimeField):
     '''

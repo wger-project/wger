@@ -170,7 +170,7 @@ def add(request, pk):
     WorkoutLogFormSet = modelformset_factory(WorkoutLog,
                                              form=WorkoutLogForm,
                                              exclude=('date', 'workout'),
-                                             extra = total_sets)
+                                             extra=total_sets)
     # Process the request
     if request.method == 'POST':
 
