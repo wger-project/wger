@@ -15,6 +15,7 @@ django_compressor
 icalendar
 django-bootstrap-breadcrumbs
 sphinx
+django-sortedm2m
 
 # REST API
 djangorestframework==2.3.13

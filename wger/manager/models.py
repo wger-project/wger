@@ -29,6 +29,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import ValidationError
 from django.core.cache import cache
 from django.core.validators import MinValueValidator
+from sortedm2m.fields import SortedManyToManyField
 
 from wger.core.models import DaysOfWeek
 from wger.exercises.models import Exercise
@@ -508,8 +509,8 @@ class Set(models.Model):
 
     exerciseday = models.ForeignKey(Day,
                                     verbose_name=_('Exercise day'))
-    exercises = models.ManyToManyField(Exercise,
-                                       verbose_name=_('Exercises'))
+    exercises = SortedManyToManyField(Exercise,
+                                      verbose_name=_('Exercises'))
     order = models.IntegerField(blank=True,
                                 null=True,
                                 verbose_name=_('Order'))
