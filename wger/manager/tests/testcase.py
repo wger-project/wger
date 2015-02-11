@@ -193,8 +193,8 @@ class WorkoutManagerTestCase(BaseTestCase, TestCase):
             # TODO: use FOURPLACES when routine branch is merged
             self.assertEqual(field.quantize(TWOPLACES), decimal.Decimal(value).quantize(TWOPLACES))
 
-        # Related manager, iterate
-        elif current_field_class == 'ManyRelatedManager':
+        # Related manager and SortedManyToMany, iterate
+        elif current_field_class in ('ManyRelatedManager', 'SortedRelatedManager'):
             for j in field.all():
                 self.assertIn(j.id, value)
 
