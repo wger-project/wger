@@ -17,6 +17,7 @@
 
 from django.conf.urls import patterns, url, include
 from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
 
 from wger.manager.views import (
     pdf,
@@ -103,6 +104,12 @@ patterns_workout = [
     url(r'^(?P<day_pk>\d+)/timer$',
         workout.timer,
         name='timer'),
+    url(r'^timer/partials/step$',
+        TemplateView.as_view(template_name="timer/partial_detail.html"),
+        name='partial-detail'),
+    url(r'^timer/partials/overview$',
+        TemplateView.as_view(template_name="timer/partial_overview.html"),
+        name='partial-overview'),
 ]
 
 

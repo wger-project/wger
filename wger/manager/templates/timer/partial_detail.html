@@ -1,0 +1,11 @@
+{% load i18n staticfiles wger_extras %}
+<div data-ng-controller="timerCtrl">
+    <h1>Page {% verbatim %}{{page}}{% endverbatim %}</h1>
+
+    {% verbatim %}{{test}}{% endverbatim %}
+    <a href="#step/1" data-ng-click="setCurrentStep(1)">go to 1</a><br>
+    <a href="#step/2" data-ng-click="setCurrentStep(2)">go to 2</a><br>
+    <a href="#step/3" data-ng-click="setCurrentStep(3)">go to 3</a><br>
+    <a href="#step/4" data-ng-click="setCurrentStep(4)">go to 4</a><br>
+
+</div>

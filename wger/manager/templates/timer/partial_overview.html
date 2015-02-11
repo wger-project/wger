@@ -1,0 +1,15 @@
+{% load i18n staticfiles wger_extras %}
+<div data-ng-controller="timerCtrl">
+    <h1>{% trans "Your workout today" %}</h1>
+
+    {% verbatim %}
+    <ul>
+        <li data-ng-repeat="exercise in yourWorkout">
+            {{ exercise.exercise }}
+            {{ exercise.reps }}
+        </li>
+    </ul>
+    {% endverbatim %}
+    {% verbatim %}{{test}}{% endverbatim %}
+    <a href="#step/1" data-ng-click="setCurrentStep(1)">go to 1</a><br>
+</div>
