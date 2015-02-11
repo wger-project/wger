@@ -26,4 +26,10 @@ class UserprofileSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = UserProfile
-        exclude = ('user',)
+
+
+class UsernameSerializer(serializers.Serializer):
+    '''
+    Serializer to extract the username
+    '''
+    username = serializers.CharField()

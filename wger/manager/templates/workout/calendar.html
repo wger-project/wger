@@ -50,7 +50,10 @@ $(document).ready(function() {
 
 {% for date in logs %}
     <div id="log-{{date|date:'Y-m-d'}}" class="calendar-log-data">
-        <h3>{{date}}</h3>
+        <h3>
+            {{date}}
+            <small><a href="{% url 'manager:workout:calendar-day' owner_user date.year date.month date.day %}">{% trans 'Detail page' %}</a></small>
+        </h3>
 
         {% regroup logs|get_item:date by exercise as grouped_logs %}
 

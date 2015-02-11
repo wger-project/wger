@@ -385,7 +385,6 @@ def calendar(request, username=None, year=None, month=None):
     '''
     is_owner, user = check_access(request.user, username)
 
-    logger.info('aa bb cc')
     uid, token = make_token(user)
     year = int(year) if year else datetime.date.today().year
     month = int(month) if month else datetime.date.today().month
@@ -425,3 +424,26 @@ def calendar(request, username=None, year=None, month=None):
     context['month_list'] = WorkoutLog.objects.filter(user=user).dates('date', 'month')
     context['show_shariff'] = is_owner and user.userprofile.ro_access
     return render(request, 'workout/calendar.html', context)
+
+
+def day(request, username, year, month, day):
+    '''
+    Show the logs for a single day
+    '''
+    is_owner, user = check_access(request.user, username)
+
+    try:
+        date = datetime.date(int(year), int(month), int(day))
+    except ValueError as e:
+        logger.error("Error on date: {0}".format(e))
+        return HttpResponseForbidden()
+    logs = WorkoutLog.objects.filter(user=user,
+                                     date=date).order_by('id', 'exercise')
+    context = {}
+    context['logs'] = logs
+    context['date'] = date
+    context['owner_user'] = user
+    context['is_owner'] = is_owner
+    context['show_shariff'] = is_owner and user.userprofile.ro_access
+
+    return render(request, 'workout/calendar_day.html', context)
