@@ -1,5 +1,7 @@
-Installation
-============
+.. _install:
+
+Installation (production)
+=========================
 
 This file gives a broad description of the necessary steps to install wger on a
 production environment with apache as a webserver. Since this is a regular
@@ -127,6 +129,7 @@ Edit your ``settings.py`` file and set the database, ``SITE_URL``,
 
 Run the installation scritpt, this will load all initial data (exit after it
 is done and tries to start a web browser)::
+
   python start.py
 
 
