@@ -8,7 +8,6 @@
 
 {% block content %}
 
-<a name="stable-version"></a>
 <h3>{% trans "Installing the stable version" %}</h3>
 
 
@@ -61,18 +60,16 @@ file and a SQLite database with a standard superuser:{% endblocktrans %}</p>
 the application.{% endblocktrans %}</p>
 
 <p>{% blocktrans %}Use <code>wger --help</code> to see available options{% endblocktrans %}</p>
-
-
-
-
-<a name="developer-guide"></a>
-<h2>Further documentation</h2>
-
-<p>There is a more extensive installation and developer documentation available
-in the <code>docs</code> folder of the project. To compile it simply do a
-<code>make html</code> and open index.html in _build.</p>
-
 {% endblock %}
 
+
+
 {% block sidebar %}
+<h4>Further documentation</h4>
+
+<p>There are more detailed instructions, other deployment options as well as an
+administration guide available at <a href="https://wger.readthedocs.org">https://wger.readthedocs.org</a>
+or locally in your code repository in the docs folder (<code>make html</code>
+to compile, then open _build/index.html).</p>
+
 {% endblock %}
