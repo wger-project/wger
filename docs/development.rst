@@ -28,7 +28,8 @@ That's it. You can log in with the default administator user:
 * **passsword**: admin
 
 You can start the application again with the django server with
-``python manage.py runserver``. If you pull updates and there were database changes, you can apply them with a simple ``python manage.py migrate --all``.
+``python manage.py runserver``. If you pull updates and there were database
+changes, you can apply them with a simple ``python manage.py migrate --all``.
 
 Tips
 ----
@@ -84,8 +85,8 @@ Contributing
 
 * **Run the tests**: wger is proud to have a test coverage of over 90%. When you
   implement something new, don't forget to run the testsuite and write approriate
-  tests for the new code. If you use github, configure the awesome Travis CI, there
-  is already a .travis file in the sources.
+  tests for the new code. If you use github, configure the awesome Travis CI,
+  there is already a .travis file in the sources.
 
 * **Code according to PEP8**: check that the code is structured as per pep8 but
   with a maximum line length of 100. This can be checked automatically with the
@@ -96,4 +97,5 @@ Contributing
   python2, use django's suggestion to mantain sanity: code for py3 and treat
   py2 as a backwards compatibility requirement. If you need, you can use six.
   
-For other ways of contributing besides code, you might want to take a look at the contribute page.
+For other ways of contributing besides code, you might want to take a look at
+the contribute page.
