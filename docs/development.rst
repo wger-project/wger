@@ -48,6 +48,19 @@ code::
     mv /home/user/.local/share/wger/database.sqlite
 
 
+Miscelaneous settings
+~~~~~~~~~~~~~~~~~~~~~
+
+The following settings can be very useful during development (add to your
+settings.py):
+
+
+**Setting the email backend**
+   Use the console backend, all sent emails will be printed to it::
+
+       EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
 Using runserver_plus
 ~~~~~~~~~~~~~~~~~~~~
 
