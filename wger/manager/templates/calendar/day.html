@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n staticfiles wger_extras %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
 
 {#           #}
 {# Opengraph #}
@@ -12,6 +12,18 @@
         <meta property="og:description" content="{% blocktrans %}Workout log for {{username}} for {{date}}{% endblocktrans %}">
     {% endwith %}
 {% endblock %}
+
+
+{#             #}
+{# Breadcrumbs #}
+{#             #}
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% breadcrumb_raw date|date:'F' "manager:workout:calendar" owner_user date.year date.month %}
+    {% breadcrumb_raw date.day "manager:workout:calendar-day" owner_user date.year date.month date.day %}
+{% endblock %}
+
 
 {#       #}
 {# Title #}
