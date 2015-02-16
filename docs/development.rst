@@ -38,7 +38,7 @@ Moving important files
 ~~~~~~~~~~~~~~~~~~~~~~
 
 The start script places the settings file and the sqlite database in a non
-obvious place. For developement I suggest moving them to the folder with the
+obvious place. For development I suggest moving them to the folder with the
 code::
 
     $ python start.py --show-config
