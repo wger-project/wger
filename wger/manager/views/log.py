@@ -423,7 +423,7 @@ def calendar(request, username=None, year=None, month=None):
     context['impressions'] = WorkoutSession.IMPRESSION
     context['month_list'] = WorkoutLog.objects.filter(user=user).dates('date', 'month')
     context['show_shariff'] = is_owner and user.userprofile.ro_access
-    return render(request, 'workout/calendar.html', context)
+    return render(request, 'calendar/month.html', context)
 
 
 def day(request, username, year, month, day):
@@ -446,4 +446,4 @@ def day(request, username, year, month, day):
     context['is_owner'] = is_owner
     context['show_shariff'] = is_owner and user.userprofile.ro_access
 
-    return render(request, 'workout/calendar_day.html', context)
+    return render(request, 'calendar/day.html', context)
