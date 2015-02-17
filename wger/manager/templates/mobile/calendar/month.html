@@ -47,9 +47,6 @@ $(document).ready(function() {
 {% block content %}
 {{calendar|safe}}
 
-{% for date in logs %}
-{% regroup logs|get_item:date by exercise as grouped_logs %}
-
 {#                                   #}
 {# Popups to edit or delete the logs #}
 {#                                   #}
@@ -134,7 +131,6 @@ $(document).ready(function() {
     {% endfor %}
     </div>
 </div>
-{% endfor %}
 {% endfor %}
 
 {% endblock %}
