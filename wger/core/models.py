@@ -307,7 +307,7 @@ by the US Department of Agriculture. It is extremely complete, with around
     num_days_weight_reminder = models.IntegerField(verbose_name=_('Automatic reminders for weight entries'),
                                                    help_text=_('Number of days after the last weight entry (enter 0 to deactivate)'),
                                                    max_length=30,
-                                                   null=True)
+                                                   default=0)
     ''' Number of Days Reminder Weight '''
 
     @property
