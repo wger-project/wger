@@ -141,6 +141,7 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         '''
         Test that the caches are cleared when updating a workout session
         '''
+        log_hash = hash((1, 2012, 10))
         self.user_login('admin')
         self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
 
@@ -148,14 +149,14 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         session.notes = 'Lorem ipsum'
         session.save()
 
-        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
         self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        self.assertFalse(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
+        self.assertFalse(cache.get(cache_mapper.get_workout_log_list(log_hash)))
 
     def test_cache_update_session_2(self):
         '''
         Test that the caches are only cleared for a the session's month
         '''
+        log_hash = hash((1, 2012, 10))
         self.user_login('admin')
         self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
 
@@ -164,37 +165,36 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         session.notes = 'Lorem ipsum'
         session.save()
 
-        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
         self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        self.assertTrue(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
+        self.assertTrue(cache.get(cache_mapper.get_workout_log_list(log_hash)))
 
     def test_cache_delete_session(self):
         '''
         Test that the caches are cleared when deleting a workout session
         '''
+        log_hash = hash((1, 2012, 10))
         self.user_login('admin')
         self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
 
         session = WorkoutSession.objects.get(pk=1)
         session.delete()
 
-        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
         self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        self.assertFalse(cache.get(get_template_cache_name(cache_key, 'True', 1, 2012, 10)))
+        self.assertFalse(cache.get(cache_mapper.get_workout_log_list(log_hash)))
 
     def test_cache_delete_session_2(self):
         '''
         Test that the caches are only cleared for a the session's month
         '''
+        log_hash = hash((1, 2012, 10))
         self.user_login('admin')
         self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
 
         session = WorkoutSession.objects.get(pk=2)
         session.delete()
 
-        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
         self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        self.assertTrue(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
+        self.assertTrue(cache.get(cache_mapper.get_workout_log_list(log_hash)))
 
 
 class WorkoutSessionApiTestCase(api_base_test.ApiBaseResourceTestCase):

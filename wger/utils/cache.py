@@ -47,6 +47,8 @@ def reset_workout_log(user_pk, year, month, day=None):
     '''
     Resets the cached workout logs
     '''
+    cache.delete(cache_mapper.get_workout_log(user_pk, year, month))
+
     log_hash = hash((user_pk, year, month))
     cache.delete(cache_mapper.get_workout_log_list(log_hash))
 
