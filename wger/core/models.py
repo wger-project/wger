@@ -303,6 +303,12 @@ by the US Department of Agriculture. It is extremely complete, with around
                                     default=False)
     '''Allow anonymous read-only access'''
 
+    ''' Number of Days Reminder Weight '''
+    num_days_weight_reminder = models.IntegerField(verbose_name=_('Number of days Weight Reminder'),
+                                                   help_text=_('Num of days after the last entry to reminder the user'),
+                                                   max_length=30,
+                                                   null=True)
+
     @property
     def weight(self):
         '''
