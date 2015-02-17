@@ -660,14 +660,14 @@ class WorkoutLog(models.Model):
         '''
         Reset cache
         '''
-        reset_workout_log(self.user_id, self.date.year, self.date.month)
+        reset_workout_log(self.user_id, self.date.year, self.date.month, self.date.day)
         super(WorkoutLog, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         '''
         Reset cache
         '''
-        reset_workout_log(self.user_id, self.date.year, self.date.month)
+        reset_workout_log(self.user_id, self.date.year, self.date.month, self.date.day)
         super(WorkoutLog, self).delete(*args, **kwargs)
 
 

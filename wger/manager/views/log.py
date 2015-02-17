@@ -415,7 +415,7 @@ def calendar(request, username=None, year=None, month=None):
     (current_workout, schedule) = Schedule.objects.get_current_workout(user)
 
     context['calendar'] = WorkoutCalendar(logs_filtered).formatmonth(year, month)
-    context['logs'] = group_log_entries(logs)
+    context['logs'] = group_log_entries(logs, (user.pk, year, month))
     context['current_year'] = year
     context['current_month'] = month
     context['current_workout'] = current_workout
@@ -441,7 +441,7 @@ def day(request, username, year, month, day):
     logs = WorkoutLog.objects.filter(user=user,
                                      date=date).order_by('id', 'exercise')
     context = {}
-    context['logs'] = group_log_entries(logs)
+    context['logs'] = group_log_entries(logs, (user.pk, date.year, date.month, date.day))
     context['date'] = date
     context['owner_user'] = user
     context['is_owner'] = is_owner

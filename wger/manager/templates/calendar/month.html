@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n staticfiles wger_extras cache %}
+{% load i18n staticfiles wger_extras %}
 
 
 {#           #}
@@ -42,7 +42,6 @@ $(document).ready(function() {
 {# Content #}
 {#         #}
 {% block content %}
-{% cache cache_timeout workout-log-full is_owner owner_user.id current_year current_month %}
 {{calendar|safe}}
 
 {% for date, value in logs.items %}
@@ -93,7 +92,6 @@ $(document).ready(function() {
         </div>
     </div>
 {% endfor %}
-{% endcache %}
 {% endblock %}
 
 

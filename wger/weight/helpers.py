@@ -22,7 +22,10 @@ import csv
 import json
 from collections import OrderedDict
 
+from django.core.cache import cache
+
 from wger.utils.helpers import DecimalJsonEncoder
+from wger.utils.cache import cache_mapper
 from wger.weight.models import WeightEntry
 
 logger = logging.getLogger(__name__)
@@ -56,27 +59,34 @@ def parse_weight_csv(request, cleaned_data):
     return (weight_list, error_list)
 
 
-def group_log_entries(logs):
+def group_log_entries(logs, hash_dict):
     '''
     Processes and regroups a list of log entries so they can be more easily
     used in the different calendar pages
 
     :param logs: a list of logs
+    :param hash_dict: a dictionary in the form (username, year, month)
     :return: a dictionary with grouped logs by date and exercise
     '''
-    out = {}
 
-    for entry in logs:
-        if not out.get(entry.date):
-            out[entry.date] = {'date': entry.date,
-                               'workout': entry.workout,
-                               'session': entry.get_workout_session(),
-                               'logs': {}}
+    log_hash = hash(hash_dict)
+    out = cache.get(cache_mapper.get_workout_log_list(log_hash))
 
-        if not out[entry.date]['logs'].get(entry.exercise):
-            out[entry.date]['logs'][entry.exercise] = []
+    if not out:
 
-        out[entry.date]['logs'][entry.exercise].append(entry)
+        out = {}
+        for entry in logs:
+            if not out.get(entry.date):
+                out[entry.date] = {'date': entry.date,
+                                   'workout': entry.workout,
+                                   'session': entry.get_workout_session(),
+                                   'logs': {}}
+
+            if not out[entry.date]['logs'].get(entry.exercise):
+                out[entry.date]['logs'][entry.exercise] = []
+
+            out[entry.date]['logs'][entry.exercise].append(entry)
+        cache.set(cache_mapper.get_workout_log_list(log_hash), out)
     return out
 
 

@@ -58,11 +58,30 @@ class Command(BaseCommand):
 
         # Exercises, cached template fragments
         if options['clear_template']:
+            if int(options['verbosity']) >= 2:
+                self.stdout.write("*** Clearing templates")
+
             for user in User.objects.all():
-                for entry in WorkoutLog.objects.dates('date', 'year'):
-                    for month in range(1, 13):
-                        # print("User {0}, year {1}, month {2}".format(user.pk, entry.year, month))
-                        reset_workout_log(user.id, entry.year, month)
+                if int(options['verbosity']) >= 2:
+                    self.stdout.write("* Processing user {0}".format(user.username))
+
+                for entry in WorkoutLog.objects.filter(user=user).dates('date', 'year'):
+
+                    if int(options['verbosity']) >= 3:
+                        self.stdout.write("  Year {0}".format(entry.year))
+                    for month in WorkoutLog.objects.filter(user=user,
+                                                           date__year=entry.year).dates('date',
+                                                                                        'month'):
+                        if int(options['verbosity']) >= 3:
+                            self.stdout.write("    Month {0}".format(entry.month))
+                        reset_workout_log(user.id, entry.year, entry.month)
+                        for day in WorkoutLog.objects.filter(user=user,
+                                                             date__year=entry.year,
+                                                             date__month=month.month).dates('date',
+                                                                                            'day'):
+                            if int(options['verbosity']) >= 3:
+                                self.stdout.write("      Day {0}".format(day.day))
+                            reset_workout_log(user.id, entry.year, entry.month, day)
 
             for language in Language.objects.all():
                 delete_template_fragment_cache('muscle-overview', language.id)
