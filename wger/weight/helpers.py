@@ -56,6 +56,30 @@ def parse_weight_csv(request, cleaned_data):
     return (weight_list, error_list)
 
 
+def group_log_entries(logs):
+    '''
+    Processes and regroups a list of log entries so they can be more easily
+    used in the different calendar pages
+
+    :param logs: a list of logs
+    :return: a dictionary with grouped logs by date and exercise
+    '''
+    out = {}
+
+    for entry in logs:
+        if not out.get(entry.date):
+            out[entry.date] = {'date': entry.date,
+                               'workout': entry.workout,
+                               'session': entry.get_workout_session(),
+                               'logs': {}}
+
+        if not out[entry.date]['logs'].get(entry.exercise):
+            out[entry.date]['logs'][entry.exercise] = []
+
+        out[entry.date]['logs'][entry.exercise].append(entry)
+    return out
+
+
 def process_log_entries(logs):
     '''
     Processes and regroups a list of log entries so they can be rendered

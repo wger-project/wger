@@ -49,7 +49,7 @@ from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.helpers import check_access, make_token
-from wger.weight.helpers import process_log_entries
+from wger.weight.helpers import process_log_entries, group_log_entries
 
 logger = logging.getLogger(__name__)
 
@@ -413,8 +413,9 @@ def calendar(request, username=None, year=None, month=None):
         cache.set(cache_mapper.get_workout_log(user.pk, year, month), logs_filtered)
 
     (current_workout, schedule) = Schedule.objects.get_current_workout(user)
+
     context['calendar'] = WorkoutCalendar(logs_filtered).formatmonth(year, month)
-    context['logs'] = process_log_entries(logs)[0]
+    context['logs'] = group_log_entries(logs)
     context['current_year'] = year
     context['current_month'] = month
     context['current_workout'] = current_workout
@@ -440,7 +441,7 @@ def day(request, username, year, month, day):
     logs = WorkoutLog.objects.filter(user=user,
                                      date=date).order_by('id', 'exercise')
     context = {}
-    context['logs'] = logs
+    context['logs'] = group_log_entries(logs)
     context['date'] = date
     context['owner_user'] = user
     context['is_owner'] = is_owner

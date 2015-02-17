@@ -36,88 +36,45 @@
 {#         #}
 {% block content %}
 {% if logs %}
-    {% with first_log=logs|first %}
-    {% with session=first_log.get_workout_session %}
-        <div class="row">
-            <div class="col-sm-4">
-                <a href="{{first_log.workout.get_absolute_url}}" class="btn btn-default btn-block">{{ first_log.workout }}</a>
-            </div>
+    {% for date, value in logs.items %}
 
-            <div class="col-sm-4">
-            <a href="{% url 'manager:log:log' first_log.workout.id %}" class="btn btn-default btn-block">{% trans "Log overview" %}</a>
-            </div>
+        {% include 'calendar/partial_overview_table.html' %}
 
-            {% if is_owner %}
-            <div class="col-sm-4">
-                {% if session %}
-                    <a href="{% url 'manager:session:edit' session.pk %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Edit workout session" %}</a>
-                {% else %}
-                    <a href="{% url 'manager:session:add' first_log.workout_id date|date:'Y' date|date:'m' date|date:'d' %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Add workout impression" %}</a>
-                {% endif %}
-            </div>
-            {% endif %}
-         </div>
-        {% if session %}
-        <table class="table" style="margin-top: 2em;">
+
+        {% for exercise, logs in value.logs.items %}
+            <table class="table table-hover table-bordered" style="margin-top: 2em;">
+            <tr class="active">
+                <th>{{ exercise }}</th>
+            </tr>
+            {% for log in logs %}
             <tr>
-                <th style="width: 30%">{% trans "Time" %}</th>
                 <td>
-                    {% if session.time_start %}
-                        {{session.time_start|time:"H:i"}} - {{session.time_end|time:"H:i"}}
-                    {% else %}
-                        -/-
+                    {{log.reps}} × {{log.weight}} {% trans_weight_unit 'kg' owner_user %}
+
+                    {% if is_owner %}
+                    <span class="editoptions">
+                        <a href="{% url 'manager:log:delete' log.pk %}"
+                           title="{% trans 'Delete' %}"
+                           class="wger-modal-dialog">
+                               <img src="{% static 'images/icons/trash.svg' %}"
+                                    width="16"
+                                    height="16"
+                                    alt="{% trans 'Delete' %}"></a>
+                        <a href="{% url 'manager:log:edit' log.pk %}"
+                           title="{% trans 'Edit' %}"
+                           class="wger-modal-dialog">
+                               <img src="{% static 'images/icons/edit.svg' %}"
+                                    width="16"
+                                    height="16"
+                                    alt="{% trans 'Edit' %}"></a>
+                    </span>
                     {% endif %}
                 </td>
             </tr>
-            <tr>
-                <th>{% trans "General impression" %}</th>
-                <td>{% trans session.get_impression_display %}</td>
-            </tr>
-            <tr>
-                <th>{% trans "Notes" %}</th>
-                <td>{{session.notes|default:'-/-'}}</td>
-            </tr>
-        </table>
-        {% endif %}
-    {% endwith %}
-    {% endwith %}
+            {% endfor %}
+            </table>
 
-
-
-    {% regroup logs by exercise as grouped_logs %}
-    {% for i in grouped_logs %}
-
-    <table class="table table-hover table-bordered" style="margin-top: 2em;">
-        <tr class="active">
-            <th>{{ i.grouper }}</th>
-        </tr>
-        {% for log in i.list %}
-        <tr>
-            <td>
-                {{log.reps}} × {{log.weight}} {% trans_weight_unit 'kg' owner_user %}
-                
-                {% if is_owner %}
-                <span class="editoptions">
-                    <a href="{% url 'manager:log:delete' log.pk %}"
-                       title="{% trans 'Delete' %}"
-                       class="wger-modal-dialog">
-                           <img src="{% static 'images/icons/trash.svg' %}"
-                                width="16"
-                                height="16"
-                                alt="{% trans 'Delete' %}"></a>
-                    <a href="{% url 'manager:log:edit' log.pk %}"
-                       title="{% trans 'Edit' %}"
-                       class="wger-modal-dialog">
-                           <img src="{% static 'images/icons/edit.svg' %}"
-                                width="16"
-                                height="16"
-                                alt="{% trans 'Edit' %}"></a>
-                </span>
-                {% endif %}
-            </td>
-        </tr>
         {% endfor %}
-    </table>
     {% endfor %}
 {% else %}
     {% trans "Nothing found" %}
