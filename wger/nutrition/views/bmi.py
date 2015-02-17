@@ -107,7 +107,7 @@ def chart_data(request):
 
         {'key': 'obese_class_3', 'height': 150, 'weight': 190},
         {'key': 'obese_class_3', 'height': 200, 'weight': 190}
-        ])
+    ])
 
     # Return the results to the client
     return HttpResponse(data, 'application/json')

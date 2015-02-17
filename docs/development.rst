@@ -75,7 +75,7 @@ Contributing
 * **Code according to PEP8**: check that the code is structured as per pep8 but
   with a maximum line length of 100. This can be checked automatically with the
   pep8 tool (pip install pep8) from the command line (travis will do this as part 
-  of the tests): ``pep8 --max-line-length=100--exclude="urls.py,*migrations*" wger``
+  of the tests): ``pep8 wger``
 
 * **code for python3**: while the application should remain compatible with
   python2, use django's suggestion to mantain sanity: code for py3 and treat
