@@ -343,8 +343,8 @@ class WorkoutCalendar(HTMLCalendar):
                 url = reverse('manager:log:log', kwargs={'pk': current_log['log'].workout_id})
                 formatted_date = date_obj.strftime('%Y-%m-%d')
                 body = []
-                body.append('<a href="{0}"'
-                            'data-log="log-{1}"'
+                body.append('<a href="{0}" '
+                            'data-log="log-{1}" '
                             'class="btn btn-block {2} calendar-link">'.format(url,
                                                                               formatted_date,
                                                                               background_css))
