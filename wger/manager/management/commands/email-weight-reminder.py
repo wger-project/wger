@@ -57,7 +57,7 @@ class Command(BaseCommand):
                 if datediff >= profile.num_days_weight_reminder:
                     self.send_email(profile.user, last_entry)
             except WeightEntry.DoesNotExist:
-                print("At least one weight entry is required")
+                pass
 
 
     @staticmethod
@@ -76,7 +76,7 @@ class Command(BaseCommand):
         context['site'] = Site.objects.get_current()
         context['day'] = last_entry
 
-        subject = _('You have to entry your weight')
+        subject = _('You have to enter your weight')
         message = loader.render_to_string('workout/email_weight_reminder.html', context)
         mail.send_mail(subject,
                        message,
