@@ -502,7 +502,8 @@
 	        "timer_pause": 90,
 	        "gym": 1,
             "weight_unit": "kg",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": true,
+            "num_days_weight_reminder":0
         }
     }, 
     {
@@ -532,7 +533,8 @@
 	        "timer_pause": 90,
 	        "gym": 1,
             "weight_unit": "kg",
-            "ro_access": false, "num_days_weight_reminder":3
+            "ro_access": false,
+            "num_days_weight_reminder":3
         }
     }, 
     {
@@ -560,7 +562,8 @@
             "notification_language": 2,
             "gym": 2,
             "weight_unit": "kg",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": true,
+            "num_days_weight_reminder":0
         }
     },
     {
@@ -590,7 +593,8 @@
 	        "timer_pause": 90,
 	        "gym": 1,
             "weight_unit": "kg",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": false,
+            "num_days_weight_reminder":0
         }
     },
     {
@@ -620,7 +624,8 @@
 	        "timer_pause": 90,
 	        "gym": 1,
             "weight_unit": "kg",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": false,
+            "num_days_weight_reminder":0
         }
     },
     {
@@ -650,7 +655,8 @@
 	        "timer_pause": 90,
 	        "gym": 1,
             "weight_unit": "kg",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": false,
+            "num_days_weight_reminder":0
         }
     },
     {
@@ -680,7 +686,8 @@
 	        "timer_pause": 90,
 	        "gym": 2,
             "weight_unit": "lb",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": false,
+            "num_days_weight_reminder":0
         }
     },
     {
@@ -710,7 +717,8 @@
 	        "timer_pause": 90,
 	        "gym": 2,
             "weight_unit": "lb",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": true,
+            "num_days_weight_reminder":0
         }
     },
     {
@@ -740,7 +748,8 @@
 	        "timer_pause": 90,
 	        "gym": 1,
             "weight_unit": "kg",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": false,
+            "num_days_weight_reminder":0
         }
     },
     {
@@ -770,7 +779,8 @@
 	        "timer_pause": 90,
 	        "gym": 1,
             "weight_unit": "kg",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": false,
+            "num_days_weight_reminder":0
         }
     },
     {
@@ -800,7 +810,8 @@
 	        "timer_pause": 90,
 	        "gym": 2,
             "weight_unit": "lb",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": false,
+            "num_days_weight_reminder":0
         }
     },
     {
@@ -830,7 +841,8 @@
 	        "timer_pause": 90,
 	        "gym": 1,
             "weight_unit": "kg",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": false,
+            "num_days_weight_reminder":0
         }
     },
     {
@@ -860,7 +872,8 @@
 	        "timer_pause": 90,
 	        "gym": 2,
             "weight_unit": "lb",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": true,
+            "num_days_weight_reminder":0
         }
     },
         {
@@ -890,7 +903,8 @@
             "sport_hours": 6, 
             "is_temporary": false,
             "weight_unit": "kg",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": false,
+            "num_days_weight_reminder":0
         }
     }, 
     {
@@ -920,7 +934,8 @@
             "sport_hours": 6, 
             "is_temporary": false,
             "weight_unit": "kg",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": false,
+            "num_days_weight_reminder":0
         }
     }, 
     {
@@ -950,7 +965,8 @@
             "sport_hours": 6, 
             "is_temporary": false,
             "weight_unit": "kg",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": false,
+            "num_days_weight_reminder":0
         }
     }, 
     {
@@ -980,7 +996,8 @@
             "sport_hours": 6, 
             "is_temporary": false,
             "weight_unit": "kg",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": false,
+            "num_days_weight_reminder":0
         }
     }, 
     {
@@ -1010,7 +1027,8 @@
             "sport_hours": 6, 
             "is_temporary": false,
             "weight_unit": "kg",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": false,
+            "num_days_weight_reminder":0
         }
     }, 
     {
@@ -1040,7 +1058,8 @@
             "sport_hours": 6, 
             "is_temporary": false,
             "weight_unit": "lb",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": false,
+            "num_days_weight_reminder":0
         }
     }, 
     {
@@ -1070,7 +1089,8 @@
             "sport_hours": 6, 
             "is_temporary": false,
             "weight_unit": "lb",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": false,
+            "num_days_weight_reminder":0
         }
     }, 
     {
@@ -1100,7 +1120,8 @@
             "sport_hours": 6, 
             "is_temporary": false,
             "weight_unit": "kg",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": false,
+            "num_days_weight_reminder":0
         }
     }, 
     {
@@ -1130,7 +1151,8 @@
             "sport_hours": 6, 
             "is_temporary": false,
             "weight_unit": "kg",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": false,
+            "num_days_weight_reminder":0
         }
     }, 
     {
@@ -1160,7 +1182,8 @@
             "sport_hours": 6, 
             "is_temporary": false,
             "weight_unit": "kg",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": false,
+            "num_days_weight_reminder":0
         }
     }, 
     {
@@ -1190,7 +1213,8 @@
             "sport_hours": 6, 
             "is_temporary": false,
             "weight_unit": "kg",
-            "ro_access": false, "num_days_weight_reminder":0
+            "ro_access": false,
+            "num_days_weight_reminder":0
         }
     }
 ]
