@@ -56,6 +56,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
                                      'notification_language': 2,
                                      'timer_active': False,
                                      'timer_pause': 100,
+                                     'num_days_weight_reminder': 10,
                                      'weight_unit': 'kg'})
 
         self.assertEqual(response.status_code, 302)
@@ -78,6 +79,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
                                      'notification_language': 2,
                                      'timer_active': True,
                                      'timer_pause': 40,
+                                     'num_days_weight_reminder': 10,
                                      'weight_unit': 'lb'})
 
         self.assertEqual(response.status_code, 302)
