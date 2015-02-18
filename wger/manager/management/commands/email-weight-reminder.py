@@ -43,12 +43,10 @@ class Command(BaseCommand):
 
             # Onl continue if the user has provided an email address.
             # Checking it here so we check for NULL values and emtpy strings
-            #print("Checking User RWeight Reminder")
             if not profile.user.email:
                 continue
 
             today = datetime.datetime.now().date()
-            #print(today)
 
             try:
                 last_entry = WeightEntry.objects.filter(user=profile.user).latest().creation_date
@@ -58,7 +56,6 @@ class Command(BaseCommand):
                     self.send_email(profile.user, last_entry)
             except WeightEntry.DoesNotExist:
                 pass
-
 
     @staticmethod
     def send_email(user, last_entry):
