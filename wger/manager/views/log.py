@@ -319,17 +319,13 @@ def calendar(request, username=None, year=None, month=None):
     '''
     Show a calendar with all the workout logs
     '''
+    context = {}
     is_owner, user = check_access(request.user, username)
     year = int(year) if year else datetime.date.today().year
     month = int(month) if month else datetime.date.today().month
 
-    context = {}
-    logs = WorkoutLog.objects.filter(user=user,
-                                     date__year=year,
-                                     date__month=month).order_by('exercise')
-
     (current_workout, schedule) = Schedule.objects.get_current_workout(user)
-    grouped_log_entries = group_log_entries(logs, (user.pk, year, month))
+    grouped_log_entries = group_log_entries(user, year, month)
 
     context['calendar'] = WorkoutCalendar(grouped_log_entries).formatmonth(year, month)
     context['logs'] = grouped_log_entries
@@ -348,6 +344,7 @@ def day(request, username, year, month, day):
     '''
     Show the logs for a single day
     '''
+    context = {}
     is_owner, user = check_access(request.user, username)
 
     try:
@@ -355,9 +352,7 @@ def day(request, username, year, month, day):
     except ValueError as e:
         logger.error("Error on date: {0}".format(e))
         return HttpResponseForbidden()
-    logs = WorkoutLog.objects.filter(user=user, date=date).order_by('id', 'exercise')
-    context = {}
-    context['logs'] = group_log_entries(logs, (user.pk, date.year, date.month, date.day))
+    context['logs'] = group_log_entries(user, date.year, date.month, date.day)
     context['date'] = date
     context['owner_user'] = user
     context['is_owner'] = is_owner
