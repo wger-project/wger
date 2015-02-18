@@ -73,7 +73,10 @@ def group_log_entries(user, year, month, day=None):
 
     :return: a dictionary with grouped logs by date and exercise
     '''
-    log_hash = hash(frozenset([user.pk, year, month, day]))
+    if day:
+        log_hash = hash((user.pk, year, month, day))
+    else:
+        log_hash = hash((user.pk, year, month))
 
     # There can be workout sessions without any associated log entries, so it is
     # not enough so simply iterate through the logs
