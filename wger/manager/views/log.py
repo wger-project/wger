@@ -320,8 +320,6 @@ def calendar(request, username=None, year=None, month=None):
     Show a calendar with all the workout logs
     '''
     is_owner, user = check_access(request.user, username)
-
-    uid, token = make_token(user)
     year = int(year) if year else datetime.date.today().year
     month = int(month) if month else datetime.date.today().month
 
