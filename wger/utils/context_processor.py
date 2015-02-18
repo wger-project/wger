@@ -45,8 +45,8 @@ def processor(request):
         'request_full_path': full_path,
 
         # The current full path with host
-        'request_absolute_path':  request.build_absolute_uri(),
-        'image_absolute_path':  request.build_absolute_uri(static_path),
+        'request_absolute_path': request.build_absolute_uri(),
+        'image_absolute_path': request.build_absolute_uri(static_path),
 
 
         # Translation links

@@ -17,13 +17,11 @@
 import logging
 import uuid
 import datetime
-from calendar import HTMLCalendar
 
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
-from django.core.cache import cache
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
@@ -36,6 +34,7 @@ from django.views.generic import CreateView
 from django.views.generic import DetailView
 from django.views.generic import DeleteView
 
+from wger.manager.helpers import WorkoutCalendar
 from wger.manager.models import Workout
 from wger.manager.models import WorkoutSession
 from wger.manager.models import Day
@@ -44,12 +43,12 @@ from wger.manager.models import Schedule
 from wger.manager.forms import HelperDateForm
 from wger.manager.forms import HelperWorkoutSessionForm
 from wger.manager.forms import WorkoutLogForm
-from wger.utils.cache import cache_mapper
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
 from wger.utils.helpers import check_access, make_token
-from wger.weight.helpers import process_log_entries
+from wger.weight.helpers import process_log_entries, group_log_entries
+
 
 logger = logging.getLogger(__name__)
 
@@ -316,106 +315,20 @@ class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
         return super(WorkoutLogDetailView, self).dispatch(request, *args, **kwargs)
 
 
-class WorkoutCalendar(HTMLCalendar):
-    '''
-    A calendar renderer, see this blog entry for details:
-    * http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/
-    '''
-    def __init__(self, workout_logs, *args, **kwargs):
-        super(WorkoutCalendar, self).__init__(*args, **kwargs)
-        self.workout_logs = workout_logs
-
-    def formatday(self, day, weekday):
-        if day != 0:
-            cssclass = self.cssclasses[weekday]
-            date_obj = datetime.date(self.year, self.month, day)
-            if datetime.date.today() == date_obj:
-                cssclass += ' today'
-            if day in self.workout_logs:
-                current_log = self.workout_logs.get(day)
-                if current_log['impression'] == WorkoutSession.IMPRESSION_BAD:
-                    background_css = 'btn-danger'
-                elif current_log['impression'] == WorkoutSession.IMPRESSION_GOOD:
-                    background_css = 'btn-success'
-                else:
-                    background_css = 'btn-warning'
-
-                url = reverse('manager:log:log', kwargs={'pk': current_log['log'].workout_id})
-                formatted_date = date_obj.strftime('%Y-%m-%d')
-                body = []
-                body.append('<a href="{0}"'
-                            'data-log="log-{1}"'
-                            'class="btn btn-block {2} calendar-link">'.format(url,
-                                                                              formatted_date,
-                                                                              background_css))
-                body.append(repr(day))
-                body.append('</a>')
-                return self.day_cell(cssclass, '{0}'.format(''.join(body)))
-            return self.day_cell(cssclass, day)
-        return self.day_cell('noday', '&nbsp;')
-
-    def formatmonth(self, year, month):
-        '''
-        Format the table header. This is basically the same code from python's
-        calendar module but with additional bootstrap classes
-        '''
-        self.year, self.month = year, month
-        out = []
-        out.append('<table class="month table table-bordered">\n')
-        out.append(self.formatmonthname(year, month))
-        out.append('\n')
-        out.append(self.formatweekheader())
-        out.append('\n')
-        for week in self.monthdays2calendar(year, month):
-            out.append(self.formatweek(week))
-            out.append('\n')
-        out.append('</table>\n')
-        return ''.join(out)
-
-    def day_cell(self, cssclass, body):
-        '''
-        Renders a day cell
-        '''
-        return '<td class="{0}" style="vertical-align: middle;">{1}</td>'.format(cssclass, body)
-
-
 def calendar(request, username=None, year=None, month=None):
     '''
     Show a calendar with all the workout logs
     '''
+    context = {}
     is_owner, user = check_access(request.user, username)
-
-    logger.info('aa bb cc')
-    uid, token = make_token(user)
     year = int(year) if year else datetime.date.today().year
     month = int(month) if month else datetime.date.today().month
 
-    context = {}
-    logs = WorkoutLog.objects.filter(user=user,
-                                     date__year=year,
-                                     date__month=month).order_by('exercise')
-    logs_filtered = cache.get(cache_mapper.get_workout_log(user.pk, year, month))
-    if not logs_filtered:
-        logs_filtered = {}
-
-        # Process the logs. Group by date and check for impressions
-        for log in logs:
-            if log.date not in logs_filtered:
-                session = log.get_workout_session()
-
-                if session:
-                    impression = session.impression
-                else:
-                    # Default is 'neutral'
-                    impression = WorkoutSession.IMPRESSION_NEUTRAL
-
-                logs_filtered[log.date.day] = {'impression': impression,
-                                               'log': log}
-        cache.set(cache_mapper.get_workout_log(user.pk, year, month), logs_filtered)
-
     (current_workout, schedule) = Schedule.objects.get_current_workout(user)
-    context['calendar'] = WorkoutCalendar(logs_filtered).formatmonth(year, month)
-    context['logs'] = process_log_entries(logs)[0]
+    grouped_log_entries = group_log_entries(user, year, month)
+
+    context['calendar'] = WorkoutCalendar(grouped_log_entries).formatmonth(year, month)
+    context['logs'] = grouped_log_entries
     context['current_year'] = year
     context['current_month'] = month
     context['current_workout'] = current_workout
@@ -424,4 +337,25 @@ def calendar(request, username=None, year=None, month=None):
     context['impressions'] = WorkoutSession.IMPRESSION
     context['month_list'] = WorkoutLog.objects.filter(user=user).dates('date', 'month')
     context['show_shariff'] = is_owner and user.userprofile.ro_access
-    return render(request, 'workout/calendar.html', context)
+    return render(request, 'calendar/month.html', context)
+
+
+def day(request, username, year, month, day):
+    '''
+    Show the logs for a single day
+    '''
+    context = {}
+    is_owner, user = check_access(request.user, username)
+
+    try:
+        date = datetime.date(int(year), int(month), int(day))
+    except ValueError as e:
+        logger.error("Error on date: {0}".format(e))
+        return HttpResponseForbidden()
+    context['logs'] = group_log_entries(user, date.year, date.month, date.day)
+    context['date'] = date
+    context['owner_user'] = user
+    context['is_owner'] = is_owner
+    context['show_shariff'] = is_owner and user.userprofile.ro_access
+
+    return render(request, 'calendar/day.html', context)

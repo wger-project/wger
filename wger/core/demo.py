@@ -116,7 +116,7 @@ def create_demo_entries(user):
         exercise = Exercise.objects.get(pk=25)
     else:
         exercise = Exercise.objects.get(pk=84)
-    day_set = Set(exerciseday=day, sets=4,  order=2)
+    day_set = Set(exerciseday=day, sets=4, order=2)
     day_set.save()
     day_set.exercises.add(exercise)
 

@@ -660,14 +660,14 @@ class WorkoutLog(models.Model):
         '''
         Reset cache
         '''
-        reset_workout_log(self.user_id, self.date.year, self.date.month)
+        reset_workout_log(self.user_id, self.date.year, self.date.month, self.date.day)
         super(WorkoutLog, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         '''
         Reset cache
         '''
-        reset_workout_log(self.user_id, self.date.year, self.date.month)
+        reset_workout_log(self.user_id, self.date.year, self.date.month, self.date.day)
         super(WorkoutLog, self).delete(*args, **kwargs)
 
 
@@ -677,6 +677,7 @@ class WorkoutSession(models.Model):
     Model for a workout session
     '''
 
+    # Note: values hardcoded in manager.helpers.WorkoutCalendar
     IMPRESSION_BAD = '1'
     IMPRESSION_NEUTRAL = '2'
     IMPRESSION_GOOD = '3'

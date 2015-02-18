@@ -124,21 +124,21 @@ def export_pdf(request, pk, uidb64=None, token=None):
     # Set the title
     p = Paragraph(u'<para align="center">{0}</para>'.format(schedule), styleSheet["HeaderBold"])
     elements.append(p)
-    elements.append(Spacer(10*cm, 0.5*cm))
+    elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Iterate through the Workout and render the training days
     for step in schedule.schedulestep_set.all():
         p = Paragraph(u'<para>{0} {1}</para>'.format(step.duration, _('Weeks')),
                       styleSheet["HeaderBold"])
         elements.append(p)
-        elements.append(Spacer(10*cm, 0.5*cm))
+        elements.append(Spacer(10 * cm, 0.5 * cm))
 
         for day in step.workout.canonical_representation['day_list']:
             elements.append(render_workout_day(day, nr_of_weeks=7))
-            elements.append(Spacer(10*cm, 0.5*cm))
+            elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Footer, date and info
-    elements.append(Spacer(10*cm, 0.5*cm))
+    elements.append(Spacer(10 * cm, 0.5 * cm))
     url = reverse('manager:schedule:view', kwargs={'pk': schedule.id})
     elements.append(render_footer(request.build_absolute_uri(url)))
 

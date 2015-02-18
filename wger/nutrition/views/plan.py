@@ -300,7 +300,7 @@ def export_pdf(request, id, uidb64=None, token=None):
         elements.append(p)
 
         # Filler
-        elements.append(Spacer(10*cm, 0.5*cm))
+        elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # append the table to the document
     elements.append(t)
@@ -356,7 +356,7 @@ def export_pdf(request, id, uidb64=None, token=None):
     elements.append(t)
 
     # Footer, date and info
-    elements.append(Spacer(10*cm, 0.5*cm))
+    elements.append(Spacer(10 * cm, 0.5 * cm))
     created = datetime.date.today().strftime("%d.%m.%Y")
     url = reverse('nutrition:plan:view', kwargs={'id': plan.id})
     p = Paragraph('''<para align="left">

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
+
+{#           #}
+{# Opengraph #}
+{#           #}
+{% block opengraph %}
+    {{ block.super }}
+    <meta property="og:title" content="{% trans 'Workout log' %}">
+
+    {% with username=owner_user.username %}
+        <meta property="og:description" content="{% blocktrans %}Workout log for {{username}} for {{date}}{% endblocktrans %}">
+    {% endwith %}
+{% endblock %}
+
+
+{#             #}
+{# Breadcrumbs #}
+{#             #}
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% breadcrumb_raw date|date:'F' "manager:workout:calendar" owner_user date.year date.month %}
+    {% breadcrumb_raw date.day "manager:workout:calendar-day" owner_user date.year date.month date.day %}
+{% endblock %}
+
+
+{#       #}
+{# Title #}
+{#       #}
+{% block title %}{% trans "Workout log" %} – {{date}}{% endblock %}
+
+
+{#         #}
+{# Content #}
+{#         #}
+{% block content %}
+{% if logs %}
+    {% for date, value in logs.items %}
+
+        {% include 'calendar/partial_overview_table.html' %}
+
+
+        {% for exercise, logs in value.logs.items %}
+            <table class="table table-hover table-bordered" style="margin-top: 2em;">
+            <tr class="active">
+                <th>{{ exercise }}</th>
+            </tr>
+            {% for log in logs %}
+            <tr>
+                <td>
+                    {{log.reps}} × {{log.weight}} {% trans_weight_unit 'kg' owner_user %}
+
+                    {% if is_owner %}
+                    <span class="editoptions">
+                        <a href="{% url 'manager:log:delete' log.pk %}"
+                           title="{% trans 'Delete' %}"
+                           class="wger-modal-dialog">
+                               <img src="{% static 'images/icons/trash.svg' %}"
+                                    width="16"
+                                    height="16"
+                                    alt="{% trans 'Delete' %}"></a>
+                        <a href="{% url 'manager:log:edit' log.pk %}"
+                           title="{% trans 'Edit' %}"
+                           class="wger-modal-dialog">
+                               <img src="{% static 'images/icons/edit.svg' %}"
+                                    width="16"
+                                    height="16"
+                                    alt="{% trans 'Edit' %}"></a>
+                    </span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            </table>
+
+        {% endfor %}
+    {% endfor %}
+{% else %}
+    {% trans "Nothing found" %}
+{% endif %}
+{% endblock %}
+
+
+{#         #}
+{# Sidebar #}
+{#         #}
+{% block sidebar %}
+{% endblock %}

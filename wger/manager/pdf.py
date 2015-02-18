@@ -83,15 +83,15 @@ def workout_log(request, id, uidb64=None, token=None):
                   {'description': workout},
                   styleSheet["HeaderBold"])
     elements.append(p)
-    elements.append(Spacer(10*cm, 0.5*cm))
+    elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Iterate through the Workout and render the training days
     for day in workout.canonical_representation['day_list']:
         elements.append(render_workout_day(day, nr_of_weeks=7))
-        elements.append(Spacer(10*cm, 0.5*cm))
+        elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Footer, date and info
-    elements.append(Spacer(10*cm, 0.5*cm))
+    elements.append(Spacer(10 * cm, 0.5 * cm))
     elements.append(render_footer(request.build_absolute_uri(workout.get_absolute_url())))
 
     # write the document and send the response to the browser
@@ -277,13 +277,13 @@ def workout_view(request, id, uidb64=None, token=None):
         elements.append(p)
 
         # Filler
-        elements.append(Spacer(10*cm, 0.5*cm))
+        elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Append the table
     elements.append(t)
 
     # Footer, date and info
-    elements.append(Spacer(10*cm, 0.5*cm))
+    elements.append(Spacer(10 * cm, 0.5 * cm))
     created = datetime.date.today().strftime("%d.%m.%Y")
     p = Paragraph('''<para align="left">
                         %(date)s -

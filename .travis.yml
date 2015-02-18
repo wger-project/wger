@@ -39,7 +39,7 @@ script:
   - coverage run --source='.' ./manage.py test
 
   # Formatting
-  - pep8 --max-line-length=100 --exclude="urls.py,*migrations*" wger
+  - pep8 wger
 
   # Code coverage
   - coverage report

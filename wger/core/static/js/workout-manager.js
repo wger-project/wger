@@ -165,6 +165,30 @@ function set_profile_field(field, newValue) {
         });
 }
 
+
+function get_username() {
+    /*
+     * Get the current user's username
+     *
+     * Do not use with anonymous users!
+     *
+     * Syncronous request, use sparingly!
+     */
+
+    var user_id = get_profile_field('user');
+    var result;
+    $.ajax({
+        url:'/api/v2/userprofile/' + user_id + '/username/',
+        type: 'GET',
+        async: false,
+        success: function(user) {
+            result = user.username;
+        }
+    });
+    return result;
+}
+
+
 function get_profile_field(field) {
     /*
      * Get a single field from the user's profile
@@ -174,13 +198,13 @@ function get_profile_field(field) {
 
     var result;
     $.ajax({
-                url:'/api/v2/userprofile/',
-                type: 'GET',
-                async: false,
-                success: function(userprofile) {
-                              result = userprofile.results[0][field];
-                          }
-            });
+        url:'/api/v2/userprofile/',
+        type: 'GET',
+        async: false,
+        success: function(userprofile) {
+            result = userprofile.results[0][field];
+        }
+    });
     return result;
 }
 
