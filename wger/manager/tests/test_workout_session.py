@@ -149,7 +149,6 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         session.notes = 'Lorem ipsum'
         session.save()
 
-        self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
         self.assertFalse(cache.get(cache_mapper.get_workout_log_list(log_hash)))
 
     def test_cache_update_session_2(self):
@@ -165,7 +164,6 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         session.notes = 'Lorem ipsum'
         session.save()
 
-        self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
         self.assertTrue(cache.get(cache_mapper.get_workout_log_list(log_hash)))
 
     def test_cache_delete_session(self):
@@ -179,7 +177,6 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         session = WorkoutSession.objects.get(pk=1)
         session.delete()
 
-        self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
         self.assertFalse(cache.get(cache_mapper.get_workout_log_list(log_hash)))
 
     def test_cache_delete_session_2(self):
@@ -193,7 +190,6 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         session = WorkoutSession.objects.get(pk=2)
         session.delete()
 
-        self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
         self.assertTrue(cache.get(cache_mapper.get_workout_log_list(log_hash)))
 
 

@@ -47,7 +47,6 @@ def reset_workout_log(user_pk, year, month, day=None):
     '''
     Resets the cached workout logs
     '''
-    cache.delete(cache_mapper.get_workout_log(user_pk, year, month))
 
     log_hash = hash((user_pk, year, month))
     cache.delete(cache_mapper.get_workout_log_list(log_hash))
@@ -68,7 +67,6 @@ class CacheKeyMapper(object):
     EXERCISE_CACHE_KEY_MUSCLE_BG = 'exercise-muscle-bg-{0}'
     INGREDIENT_CACHE_KEY = 'ingredient-{0}'
     WORKOUT_CANONICAL_REPRESENTATION = 'workout-canonical-representation-{0}'
-    WORKOUT_LOG = 'workout-log-user{0}-year{1}-month{2}'
     WORKOUT_LOG_LIST = 'workout-log-hash-{0}'
 
     def get_exercise_key(self, param):
@@ -136,12 +134,6 @@ class CacheKeyMapper(object):
             pk = param
 
         return self.WORKOUT_CANONICAL_REPRESENTATION.format(pk)
-
-    def get_workout_log(self, user_pk, year, month):
-        '''
-        Return the workout canonical representation
-        '''
-        return self.WORKOUT_LOG.format(user_pk, year, month)
 
     def get_workout_log_list(self, hash_value):
         '''

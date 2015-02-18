@@ -326,33 +326,43 @@ class WorkoutCalendar(HTMLCalendar):
         self.workout_logs = workout_logs
 
     def formatday(self, day, weekday):
-        if day != 0:
-            cssclass = self.cssclasses[weekday]
-            date_obj = datetime.date(self.year, self.month, day)
-            if datetime.date.today() == date_obj:
-                cssclass += ' today'
-            if day in self.workout_logs:
-                current_log = self.workout_logs.get(day)
-                if current_log['impression'] == WorkoutSession.IMPRESSION_BAD:
-                    background_css = 'btn-danger'
-                elif current_log['impression'] == WorkoutSession.IMPRESSION_GOOD:
-                    background_css = 'btn-success'
-                else:
-                    background_css = 'btn-warning'
 
-                url = reverse('manager:log:log', kwargs={'pk': current_log['log'].workout_id})
-                formatted_date = date_obj.strftime('%Y-%m-%d')
-                body = []
-                body.append('<a href="{0}" '
-                            'data-log="log-{1}" '
-                            'class="btn btn-block {2} calendar-link">'.format(url,
-                                                                              formatted_date,
-                                                                              background_css))
-                body.append(repr(day))
-                body.append('</a>')
-                return self.day_cell(cssclass, '{0}'.format(''.join(body)))
+        # days belonging to last or next month are rendered empty
+        if day == 0:
+            return self.day_cell('noday', '&nbsp;')
+
+        date_obj = datetime.date(self.year, self.month, day)
+        cssclass = self.cssclasses[weekday]
+        if datetime.date.today() == date_obj:
+            cssclass += ' today'
+
+        # There are no logs for this day, doesn't need special attention
+        if date_obj not in self.workout_logs:
             return self.day_cell(cssclass, day)
-        return self.day_cell('noday', '&nbsp;')
+
+        # Day with a log, set background and link
+        entry = self.workout_logs.get(date_obj)
+        if entry['session']:
+            if entry['session'].impression == WorkoutSession.IMPRESSION_BAD:
+                background_css = 'btn-danger'
+            elif entry['session'].impression == WorkoutSession.IMPRESSION_GOOD:
+                background_css = 'btn-success'
+            else:
+                background_css = 'btn-warning'
+        else:
+            background_css = 'btn-warning'
+
+        url = reverse('manager:log:log', kwargs={'pk': entry['workout'].id})
+        formatted_date = date_obj.strftime('%Y-%m-%d')
+        body = []
+        body.append('<a href="{0}" '
+                    'data-log="log-{1}" '
+                    'class="btn btn-block {2} calendar-link">'.format(url,
+                                                                      formatted_date,
+                                                                      background_css))
+        body.append(repr(day))
+        body.append('</a>')
+        return self.day_cell(cssclass, '{0}'.format(''.join(body)))
 
     def formatmonth(self, year, month):
         '''
@@ -393,29 +403,12 @@ def calendar(request, username=None, year=None, month=None):
     logs = WorkoutLog.objects.filter(user=user,
                                      date__year=year,
                                      date__month=month).order_by('exercise')
-    logs_filtered = cache.get(cache_mapper.get_workout_log(user.pk, year, month))
-    if not logs_filtered:
-        logs_filtered = {}
-
-        # Process the logs. Group by date and check for impressions
-        for log in logs:
-            if log.date not in logs_filtered:
-                session = log.get_workout_session()
-
-                if session:
-                    impression = session.impression
-                else:
-                    # Default is 'neutral'
-                    impression = WorkoutSession.IMPRESSION_NEUTRAL
-
-                logs_filtered[log.date.day] = {'impression': impression,
-                                               'log': log}
-        cache.set(cache_mapper.get_workout_log(user.pk, year, month), logs_filtered)
 
     (current_workout, schedule) = Schedule.objects.get_current_workout(user)
+    grouped_log_entries = group_log_entries(logs, (user.pk, year, month))
 
-    context['calendar'] = WorkoutCalendar(logs_filtered).formatmonth(year, month)
-    context['logs'] = group_log_entries(logs, (user.pk, year, month))
+    context['calendar'] = WorkoutCalendar(grouped_log_entries).formatmonth(year, month)
+    context['logs'] = grouped_log_entries
     context['current_year'] = year
     context['current_month'] = month
     context['current_workout'] = current_workout
@@ -438,8 +431,7 @@ def day(request, username, year, month, day):
     except ValueError as e:
         logger.error("Error on date: {0}".format(e))
         return HttpResponseForbidden()
-    logs = WorkoutLog.objects.filter(user=user,
-                                     date=date).order_by('id', 'exercise')
+    logs = WorkoutLog.objects.filter(user=user, date=date).order_by('id', 'exercise')
     context = {}
     context['logs'] = group_log_entries(logs, (user.pk, date.year, date.month, date.day))
     context['date'] = date
