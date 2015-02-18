@@ -161,10 +161,10 @@ def process_log_entries(logs):
                 'id': 'manager:workout:log-%s' % entry.id}
 
         # Only unique date, rep and weight combinations
-        if reps_list.get('{0}-{1}-{2}'.format(entry.date, entry.reps, entry.weight)):
+        if reps_list.get((entry.date, entry.reps, entry.weight)):
             continue
         else:
-            reps_list['{0}-{1}-{2}'.format(entry.date, entry.reps, entry.weight)] = True
+            reps_list[(entry.date, entry.reps, entry.weight)] = True
 
         # Only add if weight is the maximum for the day
         if entry.weight != max_weight[entry.date][entry.reps]:
