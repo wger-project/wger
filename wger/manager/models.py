@@ -677,6 +677,7 @@ class WorkoutSession(models.Model):
     Model for a workout session
     '''
 
+    # Note: values hardcoded in manager.helpers.WorkoutCalendar
     IMPRESSION_BAD = '1'
     IMPRESSION_NEUTRAL = '2'
     IMPRESSION_GOOD = '3'
