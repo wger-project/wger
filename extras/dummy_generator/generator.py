@@ -17,6 +17,7 @@
 import os
 import sys
 import csv
+import uuid
 import random
 import django
 import argparse
@@ -32,7 +33,7 @@ django.setup()
 from django.contrib.auth.models import User
 from wger.gym.models import GymUserConfig
 
-parser = argparse.ArgumentParser(description='Dummy data generator')
+parser = argparse.ArgumentParser(description='Data generator. Please consult the documentaiton')
 parser.add_argument("model",
                     help="The kind of entries you want to generate",
                     choices=['users', 'workout', 'gyms', 'logs', 'exercises'])
@@ -57,14 +58,18 @@ if args.model == 'users':
             last_names.append(row[0])
 
     for i in range(1, 101):
+        uid = uuid.uuid4()
         name_data = random.choice(first_names)
         name = name_data[0]
         gender = name_data[1]
         surname = random.choice(last_names)
 
-        username = slugify('{0}, {1}'.format(name[1], surname))
+        username = slugify('{0}, {1} {2}'.format(name,
+                                                 surname[0],
+                                                 str(uid).split('-')[1]))
         email = '{0}@example.com'.format(username)
         password = username
+
         try:
             user = User.objects.create_user(username,
                                             email,
@@ -73,7 +78,8 @@ if args.model == 'users':
             user.last_name = surname
             user.save()
 
-        # Usernames are not guaranteed to be unique, so just ignore
+        # Even with the uuid part, usernames are not guaranteed to be unique,
+        # in this case, just ignore and continue
         except IntegrityError as e:
             continue
 
