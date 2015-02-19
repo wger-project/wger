@@ -18,74 +18,130 @@ angular.module("workoutTimer")
     .constant('workoutLogUrl', "/api/v2/workoutlog/")
     .constant('workoutSessionUrl', "/api/v2/workoutsession/")
     .constant('userprofileUrl', "/api/v2/userprofile/")
-    .service('Step', function ($rootScope, $resource, dataUrl) {
+    .service('Step', function ($rootScope, $resource, dataUrl, userprofileUrl) {
         "use strict";
 
-        var visitedStepList = [];
+        var dayCanonicalRepr;
+        var userProfile;
         var stepList = [];
         var yourWorkout = [];
-        //var timerResource = $resource(dataUrl);
-        var processSteps = function () {
+
+        var getDayCanonical = function () {
+            /*
+             * Loads the full canonical representation of the current day
+             */
             var promise = $resource(dataUrl, {}, {'query': {isArray: false}}).query();
             promise.$promise.then(function (data) {
-                //
-                var exercises = [];
-                angular.forEach(data.set_list, function (set_list) {
+                dayCanonicalRepr = data;
+            });
+        };
+        getDayCanonical();
 
+        var processSteps = function () {
+            /*
+             * Process the canonical representation and generate the initial steps
+             */
+            angular.forEach(dayCanonicalRepr.set_list, function (set_list) {
 
-                    // Make the workout overview
-                    angular.forEach(set_list.exercise_list, function (exercise) {
-                        yourWorkout.push({exercise: exercise.obj.name,
-                                          reps: exercise.setting_text});
-                    });
-
-                    if (set_list.is_superset) {
-                        angular.forEach(set_list.exercise_list, function (exercise_list) {
-                            var exercise = exercise_list.setting_obj_list[0].exercise;
-                            angular.forEach(exercise_list.setting_list, function (reps) {
-                                stepList.push({current_step: 123,
-                                               step_nr: stepList.length + 1,
-                                               step_percent: 0,
-                                               exercise: exercise,
-                                               type: 'exercise',
-                                               reps: reps,
-                                               weight: 'the_weight'});
-                            });
-                        });
-                    } else {
-                        console.log('is superset');
-                    }
-
-                }, exercises);
-
+                // Make the workout overview
+                angular.forEach(set_list.exercise_list, function (exercise) {
+                    yourWorkout.push({exercise: exercise.obj.name,
+                                      reps: exercise.setting_text});
+                });
                 $rootScope.$broadcast('yourWorkoutUpdated', {
                     yourWorkout: yourWorkout
                 });
+
+                if (set_list.is_superset) {
+                    var total_reps = set_list.exercise_list[0].setting_list.length;
+                    for (var i = 0; i <= total_reps; i++) {
+
+                        angular.forEach(set_list.exercise_list, function (exercise_list) {
+                            //
+                            var reps = exercise_list.setting_list[i];
+                            var exercise = exercise_list.obj;
+                            stepList.push({step_percent: 0,
+                                           exercise: exercise,
+                                           type: 'exercise',
+                                           reps: reps,
+                                           weight: 50});
+
+                            if (userProfile.timer_active) {
+                                stepList.push({step_percent: 0,
+                                               type: 'pause',
+                                               time: userProfile.timer_pause});
+                            }
+                        });
+                    }
+
+                // Supersets need extra work to group the exercises and reps together
+                } else {
+
+                    angular.forEach(set_list.exercise_list, function (exercise_list) {
+                        var exercise = exercise_list.setting_obj_list[0].exercise;
+                        angular.forEach(exercise_list.setting_list, function (reps) {
+                            stepList.push({step_percent: 0,
+                                           exercise: exercise,
+                                           type: 'exercise',
+                                           reps: reps,
+                                           weight: 50});
+
+                            if (userProfile.timer_active) {
+                                stepList.push({step_percent: 0,
+                                               type: 'pause',
+                                               time: userProfile.timer_pause});
+                            }
+                        });
+                    });
+                }
+            });
+
+            console.log(stepList);
+            $rootScope.$broadcast('stepListUpdated', {
+                stepList: stepList
+            });
+
+        };
+
+        var getProfile = function () {
+            /*
+             * Load the user's profile data, needed for pauses
+             */
+            var promise = $resource(userprofileUrl, {}, {'query': {isArray: false}}).query();
+            promise.$promise.then(function (data) {
+                userProfile = data.results[0];
+                processSteps();
             });
         };
-        processSteps();
+        getProfile();
+
 
         return {
-            setStep: function (step) {
-                stepList.push(step);
-                //console.log(stepList);
-                $rootScope.$broadcast('stepUpdated', {
-                    step: step
-                });
+            getStep: function (stepId) {
+                console.log(stepId);
+                console.log(stepList[stepId]);
+                return stepList[stepId];
             },
             getSteps: function () {
                 return stepList;
             }
         };
     })
-    .controller("timerCtrl", function ($scope, /*$resource,*/ /*$rootScope,*/ /*$http,*/ $routeParams, /*dataUrl,*/ Step) {
+    //.controller("timerCtrl", function ($scope, /*$resource,*/ /*$rootScope,*/ /*$http,*/ $routeParams, /*dataUrl,*/ Step) {
+    .controller("timerCtrl", function ($scope, $routeParams, Step) {
         'use strict';
         $scope.data = {};
-        $scope.page = $routeParams.step;
+        $scope.page =  parseInt($routeParams.step);
 
-        $scope.setCurrentStep = function (step) {
-            Step.setStep(step);
+        /*
+         * Load the current step
+         */
+        $scope.getStep = function () {
+            if($scope.page) {
+                $scope.stepData = Step.getStep($scope.page);
+            }
         };
+        $scope.getStep();
 
         $scope.$on('yourWorkoutUpdated', function (event, args) {
             $scope.yourWorkout = args.yourWorkout;

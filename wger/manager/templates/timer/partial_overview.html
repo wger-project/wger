@@ -1,4 +1,4 @@
-{% load i18n staticfiles wger_extras %}
+{% load i18n %}
 <div data-ng-controller="timerCtrl">
     <h1>{% trans "Your workout today" %}</h1>
 
@@ -10,6 +10,8 @@
         </li>
     </ul>
     {% endverbatim %}
-    {% verbatim %}{{test}}{% endverbatim %}
-    <a href="#step/1" data-ng-click="setCurrentStep(1)">go to 1</a><br>
+
+    <a class="bottom_button btn btn-primary btn-block" href="#step/1" data-ng-click="getStep(1)">
+        {% trans "Start!" %}
+    </a>
 </div>
