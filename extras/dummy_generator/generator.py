@@ -31,18 +31,54 @@ django.setup()
 
 # Must happen after calling django.setup()
 from django.contrib.auth.models import User
-from wger.gym.models import GymUserConfig
+from wger.gym.models import GymUserConfig, Gym
 
-parser = argparse.ArgumentParser(description='Data generator. Please consult the documentaiton')
-parser.add_argument("model",
-                    help="The kind of entries you want to generate",
-                    choices=['users', 'workout', 'gyms', 'logs', 'exercises'])
+parser = argparse.ArgumentParser(description='Data generator. Please consult the documentation')
+subparsers = parser.add_subparsers(help='The kind of entries you want to generate')
+
+# User options
+user_parser = subparsers.add_parser('users', help='Create users')
+user_parser.add_argument('number_users',
+                         action='store',
+                         help='Number of users to create',
+                         type=int)
+user_parser.add_argument('--add-to-gym',
+                         action='store',
+                         default='auto',
+                         help='Gym to assign the users to. Allowed values: auto, none, gym_id. '
+                              'Default: auto',
+                         choices=['auto', 'none'])
+user_parser.add_argument('--country',
+                         action='store',
+                         default='german',
+                         help='What country the generated users should belong to. Default: Germany',
+                         choices=['germany', 'ukraine', 'spain'])
+
+# Workout options
+workouts_parser = subparsers.add_parser('workouts', help='Create workouts')
+
+# Gym options
+gym_parser = subparsers.add_parser('gyms', help='Create gyms')
+
+# Log options
+logs_parser = subparsers.add_parser('logs', help='Create logs')
 
 args = parser.parse_args()
+print(args)
 
+#
+# User generator
+#
+if args.number_users:
+    print("** Generating {0} users".format(args.number_users))
 
-if args.model == 'users':
-    print("** Generating users")
+    try:
+        gym_list = [int(args.add_to_gym)]
+    except ValueError:
+        if args.add_to_gym == 'none':
+            gym_list = []
+        else:
+            gym_list = [i['id'] for i in Gym.objects.all().values()]
 
     first_names = []
     last_names = []
@@ -52,12 +88,12 @@ if args.model == 'users':
         for row in name_reader:
             first_names.append(row)
 
-    with open(os.path.join('csv', 'last_names_german.csv')) as name_file:
+    with open(os.path.join('csv', 'last_names_germany.csv')) as name_file:
         name_reader = csv.reader(name_file)
         for row in name_reader:
             last_names.append(row[0])
 
-    for i in range(1, 101):
+    for i in range(1, args.number_users):
         uid = uuid.uuid4()
         name_data = random.choice(first_names)
         name = name_data[0]
@@ -83,18 +119,15 @@ if args.model == 'users':
         except IntegrityError as e:
             continue
 
-        user.userprofile.gym_id = 1
-        user.userprofile.gender = '1' if gender == 'm' else 2
-        user.userprofile.save()
+        if gym_list:
+            gym_id = random.choice(gym_list)
+            user.userprofile.gym_id = gym_id
+            user.userprofile.gender = '1' if gender == 'm' else 2
+            user.userprofile.save()
 
-        config = GymUserConfig()
-        config.gym_id = 1
-        config.user = user
-        config.save()
+            config = GymUserConfig()
+            config.gym_id = gym_id
+            config.user = user
+            config.save()
 
-        # print('Name: {0}, {1}'.format(name, surname))
-        # print('Username: {0}'.format(username))
-        # print('Email: {0}'.format(email))
-        # print('')
-
-    pass
+        print('   - {0}, {1}'.format(name, surname))
