@@ -20,6 +20,7 @@ import csv
 import uuid
 import random
 import django
+import datetime
 import argparse
 
 from django.db import IntegrityError
@@ -32,6 +33,9 @@ django.setup()
 # Must happen after calling django.setup()
 from django.contrib.auth.models import User
 from wger.gym.models import GymUserConfig, Gym
+from wger.core.models import DaysOfWeek
+from wger.exercises.models import Exercise
+from wger.manager.models import Workout, Day, Set, Setting, Schedule, ScheduleStep
 
 parser = argparse.ArgumentParser(description='Data generator. Please consult the documentation')
 subparsers = parser.add_subparsers(help='The kind of entries you want to generate')
@@ -46,8 +50,7 @@ user_parser.add_argument('--add-to-gym',
                          action='store',
                          default='auto',
                          help='Gym to assign the users to. Allowed values: auto, none, gym_id. '
-                              'Default: auto',
-                         choices=['auto', 'none'])
+                              'Default: auto')
 user_parser.add_argument('--country',
                          action='store',
                          default='german',
@@ -56,6 +59,13 @@ user_parser.add_argument('--country',
 
 # Workout options
 workouts_parser = subparsers.add_parser('workouts', help='Create workouts')
+workouts_parser.add_argument('number_workouts',
+                             action='store',
+                             help='Number of workouts to create *per user*',
+                             type=int)
+workouts_parser.add_argument('--add-to-user',
+                             action='store',
+                             help='Add to the specified user-ID, not all existing users')
 
 # Gym options
 gym_parser = subparsers.add_parser('gyms', help='Create gyms')
@@ -64,10 +74,10 @@ gym_parser.add_argument('number_gyms',
                         help='Number of gyms to create',
                         type=int)
 # Log options
-logs_parser = subparsers.add_parser('logs', help='Create logs')
+# logs_parser = subparsers.add_parser('logs', help='Create logs')
 
 args = parser.parse_args()
-print(args)
+# print(args)
 
 #
 # User generator
@@ -168,3 +178,87 @@ if hasattr(args, 'number_gyms'):
         gym.save()
 
         print('   - {0}'.format(gym.name))
+
+#
+# Workout generator
+#
+if hasattr(args, 'number_workouts'):
+    print("** Generating {0} workouts per user".format(args.number_workouts))
+
+    if args.add_to_user:
+        userlist = [User.objects.get(pk=args.add_to_user)]
+    else:
+        userlist = [i for i in User.objects.all()]
+
+    for user in userlist:
+        print('   - generating for {0}'.format(user.username))
+
+        # Workouts
+        for i in range(1, args.number_workouts):
+
+            uid = str(uuid.uuid4()).split('-')
+            workout = Workout(user=user, comment='Dummy workout - {0}'.format(uid[1]))
+            workout.save()
+
+            # Select a random number of workout days
+            nr_of_days = random.randint(1, 5)
+            day_list = [i for i in range(1, 8)]
+            random.shuffle(day_list)
+
+            # Load all exercises to a list
+            exercise_list = [i for i in Exercise.objects.filter(language_id=2)]
+
+            for day in day_list[0:nr_of_days]:
+                uid = str(uuid.uuid4()).split('-')
+                weekday = DaysOfWeek.objects.get(pk=day)
+
+                day = Day(training=workout, description='Dummy day - {0}'.format(uid[0]))
+                day.save()
+                day.day.add(weekday)
+
+                # Select a random number of exercises
+                nr_of_exercises = random.randint(3, 10)
+                random.shuffle(exercise_list)
+                day_exercises = exercise_list[0: nr_of_exercises]
+                order = 1
+                for exercise in day_exercises:
+                    reps = random.choice([1, 3, 5, 8, 10, 12, 15])
+                    sets = random.randint(2, 4)
+
+                    day_set = Set(exerciseday=day, sets=sets, order=order)
+                    day_set.save()
+                    day_set.exercises.add(exercise)
+
+                    setting = Setting(set=day_set, exercise=exercise, reps=reps, order=order)
+                    setting.save()
+
+                    order += 1
+
+        # Schedules
+        nr_of_schedules = random.randint(1, 5)
+        user_workouts = [i for i in Workout.objects.filter(user=user)]
+        for i in range(0, nr_of_schedules):
+            uid = str(uuid.uuid4()).split('-')
+            start_date = datetime.date.today() - datetime.timedelta(days=random.randint(0, 30))
+
+            random.shuffle(user_workouts)
+
+            schedule = Schedule()
+            schedule.user = user
+            schedule.name = 'Dummy schedule - {0}'.format(uid[1])
+            schedule.start_date = start_date
+            schedule.is_active = True
+            schedule.is_loop = True
+            schedule.save()
+
+            nr_of_steps = random.randint(1, len(user_workouts))
+            order = 1
+            for j in range(1, nr_of_steps):
+                step = ScheduleStep()
+                step.schedule = schedule
+                step.workout = workout
+                step.duration = random.randint(1, 4)
+                step.order = order
+                step.save()
+
+                order += 1
