@@ -74,6 +74,36 @@ install the following packages::
     python manage.py runserver_plus [options]
 
 
+Dummy data generator
+~~~~~~~~~~~~~~~~~~~~
+
+To properly test the different parts of the application for usability or
+performance, it is often very useful to have some data to work with. For this
+reason, there is a dummy data generator script in
+extras/dummy_generator/generator.py. It allows you to generate entries for
+users, gyms, workouts and logs. For detailed usage options do::
+
+  python generator.py --help
+
+Or for options for, e.g. user generation::
+
+  python generator.py users --help
+
+To get you started, you might want to invoke the script in the following way. This
+will create 10 gyms and 300 users, randomly assigning them to a different gym. Each
+user will have 20 workouts::
+
+  python generator.py gyms 10
+  python generator.py users 300
+  python generator.py workouts 20
+
+.. note::
+   All generated users have their username as password.
+
+.. note::
+   While it is possible to generate hundreds of users, gyms are more restricted and
+   you will probably get duplicate names if you generate more than a dozen.
+
 Contributing
 ------------
 
