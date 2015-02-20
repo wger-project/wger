@@ -59,7 +59,10 @@ workouts_parser = subparsers.add_parser('workouts', help='Create workouts')
 
 # Gym options
 gym_parser = subparsers.add_parser('gyms', help='Create gyms')
-
+gym_parser.add_argument('number_gyms',
+                        action='store',
+                        help='Number of gyms to create',
+                        type=int)
 # Log options
 logs_parser = subparsers.add_parser('logs', help='Create logs')
 
@@ -69,7 +72,7 @@ print(args)
 #
 # User generator
 #
-if args.number_users:
+if hasattr(args, 'number_users'):
     print("** Generating {0} users".format(args.number_users))
 
     try:
@@ -131,3 +134,37 @@ if args.number_users:
             config.save()
 
         print('   - {0}, {1}'.format(name, surname))
+
+#
+# Gym generator
+#
+if hasattr(args, 'number_gyms'):
+    print("** Generating {0} gyms".format(args.number_gyms))
+
+    names_part1 = []
+    names_part2 = []
+
+    with open(os.path.join('csv', 'gym_names.csv')) as name_file:
+        name_reader = csv.reader(name_file)
+        for row in name_reader:
+            if row[0]:
+                names_part1.append(row[0])
+            if row[1]:
+                names_part2.append(row[1])
+
+    for i in range(1, args.number_gyms):
+        found = False
+        while not found:
+            part1 = random.choice(names_part1)
+            part2 = random.choice(names_part2)
+
+            # We don't want names like "Iron Iron"
+            if part1 != part2:
+                found = True
+
+        name = "{0} {1}".format(part1, part2)
+        gym = Gym()
+        gym.name = name
+        gym.save()
+
+        print('   - {0}'.format(gym.name))
