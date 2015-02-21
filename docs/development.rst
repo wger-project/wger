@@ -91,11 +91,12 @@ Or for options for, e.g. user generation::
 
 To get you started, you might want to invoke the script in the following way. This
 will create 10 gyms and 300 users, randomly assigning them to a different gym. Each
-user will have 20 workouts::
+user will have 20 workouts and each exercise in each workout 30 log entries::
 
   python generator.py gyms 10
   python generator.py users 300
   python generator.py workouts 20
+  python generator.py workouts 30
 
 .. note::
    All generated users have their username as password.
