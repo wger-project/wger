@@ -35,7 +35,14 @@ from django.contrib.auth.models import User
 from wger.gym.models import GymUserConfig, Gym
 from wger.core.models import DaysOfWeek
 from wger.exercises.models import Exercise
-from wger.manager.models import Workout, Day, Set, Setting, Schedule, ScheduleStep, WorkoutLog
+from wger.manager.models import Workout
+from wger.manager.models import Day
+from wger.manager.models import Set
+from wger.manager.models import Setting
+from wger.manager.models import Schedule
+from wger.manager.models import ScheduleStep
+from wger.manager.models import WorkoutLog
+from wger.manager.models import WorkoutSession
 
 parser = argparse.ArgumentParser(description='Data generator. Please consult the documentation')
 subparsers = parser.add_subparsers(help='The kind of entries you want to generate')
@@ -79,6 +86,14 @@ logs_parser.add_argument('number_logs',
                          action='store',
                          help='Number of logs to create per user and workout',
                          type=int)
+
+# Session options
+session_parser = subparsers.add_parser('sessions', help='Create sessions')
+session_parser.add_argument('impression_sessions',
+                            action='store',
+                            help='Impression for the sessions, default: random',
+                            default='random',
+                            choices=['random', 'good', 'neutral', 'bad'])
 
 
 args = parser.parse_args()
@@ -271,28 +286,38 @@ if hasattr(args, 'number_workouts'):
 #
 # Log generator
 #
-if hasattr(args, 'number_logs'):
-    print("** Generating {0} logs".format(args.number_logs))
+if hasattr(args, 'impression_sessions'):
+    print("** Generating workout sessions")
 
-    weight_log = []
+    session_list = []
 
     for user in User.objects.all():
         print('   - generating for {0}'.format(user.username))
 
-        for workout in Workout.objects.filter(user=user):
-            for day in workout.day_set.all():
-                for set in day.set_set.all():
-                    for setting in set.setting_set.all():
-                        for reps in (8, 10, 12):
-                            for i in range(1, args.number_logs):
-                                date = datetime.date.today() - datetime.timedelta(weeks=i)
-                                log = WorkoutLog(user=user,
-                                                 exercise=setting.exercise,
-                                                 workout=workout,
-                                                 reps=reps,
-                                                 weight=50 - reps + random.randint(1, 10),
-                                                 date=date)
-                                weight_log.append(log)
+        for date in WorkoutLog.objects.filter(user=user).dates('date', 'day'):
 
-    # Bulk-create all the logs
-    WorkoutLog.objects.bulk_create(weight_log)
+            # Only process for dates for which there isn't already a session
+            if not WorkoutSession.objects.filter(user=user, date=date).exists():
+
+                workout = WorkoutLog.objects.filter(user=user, date=date).first().workout
+
+                session = WorkoutSession()
+                session.date = date
+                session.user = user
+                session.workout = workout
+
+                if args.impression_sessions == 'good':
+                    session.impression = WorkoutSession.IMPRESSION_GOOD
+                elif args.impression_sessions == 'neutral':
+                    session.impression = WorkoutSession.IMPRESSION_NEUTRAL
+                elif args.impression_sessions == 'bad':
+                    session.impression = WorkoutSession.IMPRESSION_BAD
+                else:
+                    session.impression = random.choice([WorkoutSession.IMPRESSION_GOOD,
+                                                        WorkoutSession.IMPRESSION_NEUTRAL,
+                                                        WorkoutSession.IMPRESSION_BAD])
+
+                session_list.append(session)
+
+    # Bulk-create all the sessions
+    WorkoutSession.objects.bulk_create(session_list)
