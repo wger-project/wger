@@ -60,7 +60,7 @@ user_parser.add_argument('--add-to-gym',
                               'Default: auto')
 user_parser.add_argument('--country',
                          action='store',
-                         default='german',
+                         default='germany',
                          help='What country the generated users should belong to. Default: Germany',
                          choices=['germany', 'ukraine', 'spain'])
 
@@ -116,12 +116,12 @@ if hasattr(args, 'number_users'):
     first_names = []
     last_names = []
 
-    with open(os.path.join('csv', 'first_names_germany.csv')) as name_file:
+    with open(os.path.join('csv', 'first_names_{0}.csv'.format(args.country))) as name_file:
         name_reader = csv.reader(name_file)
         for row in name_reader:
             first_names.append(row)
 
-    with open(os.path.join('csv', 'last_names_germany.csv')) as name_file:
+    with open(os.path.join('csv', 'last_names_{0}.csv'.format(args.country))) as name_file:
         name_reader = csv.reader(name_file)
         for row in name_reader:
             last_names.append(row[0])
