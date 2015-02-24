@@ -171,6 +171,8 @@ if hasattr(args, 'number_users'):
 if hasattr(args, 'number_gyms'):
     print("** Generating {0} gyms".format(args.number_gyms))
 
+    gym_list = []
+
     names_part1 = []
     names_part2 = []
 
@@ -195,9 +197,13 @@ if hasattr(args, 'number_gyms'):
         name = "{0} {1}".format(part1, part2)
         gym = Gym()
         gym.name = name
-        gym.save()
+        gym_list.append(gym)
 
         print('   - {0}'.format(gym.name))
+
+    # Bulk-create all the gyms
+    Gym.objects.bulk_create(gym_list)
+
 
 #
 # Workout generator
