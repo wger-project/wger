@@ -292,6 +292,36 @@ if hasattr(args, 'number_workouts'):
 #
 # Log generator
 #
+if hasattr(args, 'number_logs'):
+    print("** Generating {0} logs".format(args.number_logs))
+
+    weight_log = []
+
+    for user in User.objects.all():
+        print('   - generating for {0}'.format(user.username))
+
+        for workout in Workout.objects.filter(user=user):
+            for day in workout.day_set.all():
+                for set in day.set_set.all():
+                    for setting in set.setting_set.all():
+                        for reps in (8, 10, 12):
+                            for i in range(1, args.number_logs):
+                                date = datetime.date.today() - datetime.timedelta(weeks=i)
+                                log = WorkoutLog(user=user,
+                                                 exercise=setting.exercise,
+                                                 workout=workout,
+                                                 reps=reps,
+                                                 weight=50 - reps + random.randint(1, 10),
+                                                 date=date)
+                                weight_log.append(log)
+
+    # Bulk-create all the logs
+    WorkoutLog.objects.bulk_create(weight_log)
+
+
+#
+# Session generator
+#
 if hasattr(args, 'impression_sessions'):
     print("** Generating workout sessions")
 
