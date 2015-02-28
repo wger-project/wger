@@ -79,6 +79,7 @@ class AddView(WgerFormMixin, CreateView):
     '''
 
     model = UserDocument
+    fields = '__all__'
     title = ugettext_lazy('Add note')
     permission_required = 'gym.add_userdocument'
     member = None
@@ -129,6 +130,7 @@ class UpdateView(WgerFormMixin, UpdateView):
     View to update an existing document
     '''
 
+    fields = '__all__'
     model = UserDocument
     permission_required = 'gym.change_userdocument'
 

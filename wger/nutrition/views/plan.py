@@ -108,6 +108,7 @@ class PlanEditView(WgerFormMixin, UpdateView):
     '''
 
     model = NutritionPlan
+    fields = '__all__'
     form_action_urlname = 'nutrition:plan:edit'
 
     def get_context_data(self, **kwargs):

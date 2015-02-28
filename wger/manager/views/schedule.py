@@ -171,6 +171,7 @@ class ScheduleCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
 
     model = Schedule
+    fields = '__all__'
     success_url = reverse_lazy('manager:schedule:overview')
     title = ugettext_lazy('Create schedule')
     form_action = reverse_lazy('manager:schedule:add')
@@ -211,6 +212,7 @@ class ScheduleEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
 
     model = Schedule
+    fields = '__all__'
     form_action_urlname = 'manager:schedule:edit'
     login_required = True
 

@@ -116,6 +116,7 @@ class GymAddView(WgerFormMixin, CreateView):
     '''
 
     model = Gym
+    fields = '__all__'
     success_url = reverse_lazy('gym:gym:list')
     title = ugettext_lazy('Add new gym')
     form_action = reverse_lazy('gym:gym:add')
@@ -340,6 +341,7 @@ class GymUpdateView(WgerFormMixin, UpdateView):
     '''
 
     model = Gym
+    fields = '__all__'
     title = ugettext_lazy('Edit gym')
     permission_required = 'gym.change_gym'
 
