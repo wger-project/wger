@@ -30,7 +30,7 @@ from wger.utils.constants import EMAIL_FROM
 
 class Command(BaseCommand):
     '''
-    Helper admin command to send out email remainders
+    Helper admin command to send out email reminders
     '''
 
     help = 'Send out automatic emails to reminder the user to input the weight'
