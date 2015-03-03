@@ -36,6 +36,9 @@ similar
 **email-reminders**
   sends out email reminders for user that need to create a new workout.
 
+**email-weight-reminders**
+  sends out email reminders for user that need to enter a new (body) weight entry.
+
 **inactive-members**
   Sends email for gym members that have not been to the gym for a specified
   amount of weeks.
