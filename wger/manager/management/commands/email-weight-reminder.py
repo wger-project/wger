@@ -33,7 +33,7 @@ class Command(BaseCommand):
     Helper admin command to send out email reminders
     '''
 
-    help = 'Send out automatic emails to reminder the user to input the weight'
+    help = 'Send out automatic emails to remind the user to enter the weight'
 
     def handle(self, *args, **options):
 
