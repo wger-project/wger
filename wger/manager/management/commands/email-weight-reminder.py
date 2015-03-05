@@ -74,7 +74,7 @@ class Command(BaseCommand):
         context['day'] = last_entry
 
         subject = _('You have to enter your weight')
-        message = loader.render_to_string('workout/email_weight_reminder.html', context)
+        message = loader.render_to_string('workout/email_weight_reminder.tpl', context)
         mail.send_mail(subject,
                        message,
                        EMAIL_FROM,
