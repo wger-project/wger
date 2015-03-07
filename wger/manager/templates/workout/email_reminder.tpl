@@ -14,6 +14,6 @@ reminders, deactivate the option in your settings.{% endblocktrans %}
 {% trans "the wger.de team" %}
 
 
-* http://{{site}}{{workout.get_absolute_url}}
-* http://{{site}}{% url 'manager:workout:add' %}
-* http://{{site}}{% url 'core:user:preferences' %}
+* https://{{site}}{{workout.get_absolute_url}}
+* https://{{site}}{% url 'manager:workout:add' %}
+* https://{{site}}{% url 'core:user:preferences' %}

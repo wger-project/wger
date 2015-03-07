@@ -11,5 +11,5 @@ reminders, deactivate the option in your settings.{% endblocktrans %}
 {% trans "the wger.de team" %}
 
 
-* http://{{site}}{% url 'weight:overview' %}
-* http://{{site}}{% url 'core:user:preferences' %}
+* https://{{site}}{% url 'weight:overview' %}
+* https://{{site}}{% url 'core:user:preferences' %}
