@@ -143,7 +143,7 @@ def overview(request, username=None):
     template_data['is_owner'] = is_owner
     template_data['owner_user'] = user
     template_data['show_shariff'] = is_owner
-    return render(request, 'weight_overview.html', template_data)
+    return render(request, 'overview.html', template_data)
 
 
 @api_view(['GET'])
@@ -166,11 +166,8 @@ def get_weight_data(request, username=None):
     chart_data = []
 
     for i in weights:
-        chart_data.append({'x': "%(month)s/%(day)s/%(year)s" % {
-                           'year': i.creation_date.year,
-                           'month': i.creation_date.month,
-                           'day': i.creation_date.day},
-                           'y': i.weight,
+        chart_data.append({'date': i.creation_date,
+                           'weight': i.weight,
                            'id': i.id})
 
     # Return the results to the client

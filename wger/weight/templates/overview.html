@@ -10,14 +10,41 @@
         Header data
 -->
 {% block header %}
-<script src="{% static 'js/jquery-globalize/lib/globalize.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/metricsgraphics.css' %}">
+<script src="{% static 'js/metricsgraphics.js' %}"></script>
 
 
 <script type="text/javascript">
 $(document).ready(function () {
 
     $.getJSON("/weight/api/get_weight_data/{{ owner_user.username }}", function(json) {
-        weight_chart(json, $('#content').width());
+
+        // Get the maximum and minimum weights
+        function y_value(d) { return parseFloat(d.weight); }
+        var max_y = d3.max(json, y_value);
+        var min_y = d3.min(json, y_value);
+
+        // Plot the data
+        MG.data_graphic({
+        data: MG.convert.date(json, 'date'),
+        target: '#weight_diagram',
+        animate_on_load: true,
+
+        x_accessor: 'date',
+        y_accessor: 'weight',
+
+        height: 250,
+        width: $('#content').width(),
+        full_width: true,
+        //y_rug: true,
+        //x_rug: true,
+
+        yax_count: 10,
+        max_y: max_y + 1,
+        min_y: min_y - 1,
+        show_secondary_x_label: false,
+        small_text: false
+        });
     });
 });
 </script>
