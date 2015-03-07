@@ -310,7 +310,7 @@ by the US Department of Agriculture. It is extremely complete, with around
                                                                'deactivate)'),
                                                    max_length=30,
                                                    default=0)
-    ''' Number of Days Reminder Weight '''
+    '''Number of Days for email weight reminder'''
 
     @property
     def weight(self):

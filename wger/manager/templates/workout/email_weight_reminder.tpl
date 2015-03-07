@@ -1,12 +1,13 @@
 {% spaceless %}{% load i18n %}
 
-{% blocktrans %}Your last weight entry is from {{day}}. Please click the link above to access wger and update this information. {% endblocktrans %}
+{% blocktrans %}Your last weight entry is from {{date}} ({{days}} days ago).
+Please click the link to access the application and enter a new one.{% endblocktrans %}
 
 {% endspaceless %}
 
-{% blocktrans %}You will regularly receive such reminders till you entry your weight.
-If you don't want to ever receive email
-reminders, deactivate the option in your settings.{% endblocktrans %}
+{% blocktrans %}You will regularly receive such reminders till you enter your current weight.{% endblocktrans %}
+{% blocktrans %}If you don't want to ever receive email reminders, deactivate the
+option in your settings.{% endblocktrans %}
 
 {% trans "the wger.de team" %}
 
