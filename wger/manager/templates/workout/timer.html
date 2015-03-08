@@ -8,7 +8,7 @@
 <script>
 "use strict";
 
-angular.module("workoutTimer", ["ngRoute", "ngResource"])
+angular.module("workoutTimer", ["ngRoute", "ngResource", "ngAnimate"])
     .constant('dataUrl', "/api/v2/day/{{ day.pk }}/canonical_representation/")
     .config(function ($routeProvider) {
         $routeProvider.when("/timer/:step", {
@@ -30,6 +30,7 @@ angular.module("workoutTimer", ["ngRoute", "ngResource"])
 </script>
 <script src="{% static 'js/angularjs/ng-modules/angular-route.js' %}"></script>
 <script src="{% static 'js/angularjs/ng-modules/angular-resource.js' %}"></script>
+<script src="{% static 'js/angularjs/ng-modules/angular-animate.js' %}"></script>
 <script src="{% static 'js/angularjs/controllers/timer.js' %}"></script>
 
 <script>
@@ -277,7 +278,7 @@ $(document).ready(function() {
 
 {% block content %}
     <div data-ng-app="workoutTimer">
-        <data-ng-view></data-ng-view>
+        <data-ng-view class="timer-step"></data-ng-view>
     </div>
 {% endblock %}
 
