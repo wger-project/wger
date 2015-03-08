@@ -1,6 +1,6 @@
 {% load i18n %}
-<div data-ng-controller="timerCtrl">
-    <h1>{% trans "Your workout today" %}</h1>
+<div data-ng-controller="workoutOverviewCtrl">
+    <h2>{% trans "Your workout today" %}</h2>
 
     {% verbatim %}
     <ul>
@@ -11,7 +11,7 @@
     </ul>
     {% endverbatim %}
 
-    <a class="bottom_button btn btn-primary btn-block" href="#step/1" data-ng-click="getStep(1)">
+    <a class="bottom_button btn btn-primary btn-block" href="#step/1">
         {% trans "Start!" %}
     </a>
 </div>

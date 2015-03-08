@@ -48,16 +48,17 @@ angular.module("workoutTimer")
                     yourWorkout.push({exercise: exercise.obj.name,
                                       reps: exercise.setting_text});
                 });
-                $rootScope.$broadcast('yourWorkoutUpdated', {
+                $rootScope.$broadcast('todaysWorkoutUpdated', {
                     yourWorkout: yourWorkout
                 });
 
+                // Make the list of exercise steps
+                // Supersets need extra work to group the exercises and reps together
                 if (set_list.is_superset) {
                     var total_reps = set_list.exercise_list[0].setting_list.length;
                     for (var i = 0; i <= total_reps; i++) {
 
                         angular.forEach(set_list.exercise_list, function (exercise_list) {
-                            //
                             var reps = exercise_list.setting_list[i];
                             var exercise = exercise_list.obj;
                             stepList.push({step_percent: 0,
@@ -74,11 +75,10 @@ angular.module("workoutTimer")
                         });
                     }
 
-                // Supersets need extra work to group the exercises and reps together
                 } else {
-
                     angular.forEach(set_list.exercise_list, function (exercise_list) {
                         var exercise = exercise_list.setting_obj_list[0].exercise;
+                        var reps = exercise_list.setting_list[i];
                         angular.forEach(exercise_list.setting_list, function (reps) {
                             stepList.push({step_percent: 0,
                                            exercise: exercise,
@@ -95,12 +95,6 @@ angular.module("workoutTimer")
                     });
                 }
             });
-
-            console.log(stepList);
-            $rootScope.$broadcast('stepListUpdated', {
-                stepList: stepList
-            });
-
         };
 
         var getProfile = function () {
@@ -127,10 +121,19 @@ angular.module("workoutTimer")
             }
         };
     })
+    .controller("workoutOverviewCtrl", function ($scope, Step) {
+        'use strict';
+
+        $scope.$on('todaysWorkoutUpdated', function (event, args) {
+            $scope.yourWorkout = args.yourWorkout;
+        });
+    })
     //.controller("timerCtrl", function ($scope, /*$resource,*/ /*$rootScope,*/ /*$http,*/ $routeParams, /*dataUrl,*/ Step) {
     .controller("timerCtrl", function ($scope, $routeParams, Step) {
         'use strict';
+
         $scope.data = {};
+        //$scope.totalPages = Step.getSteps().length;
         $scope.page =  parseInt($routeParams.step);
 
         /*
@@ -143,7 +146,4 @@ angular.module("workoutTimer")
         };
         $scope.getStep();
 
-        $scope.$on('yourWorkoutUpdated', function (event, args) {
-            $scope.yourWorkout = args.yourWorkout;
-        });
     });
