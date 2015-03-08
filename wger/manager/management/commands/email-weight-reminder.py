@@ -41,7 +41,7 @@ class Command(BaseCommand):
 
         for profile in profile_list:
 
-            # Onl continue if the user has provided an email address.
+            # Only continue if the user has provided an email address.
             # Checking it here so we check for NULL values and emtpy strings
             if not profile.user.email:
                 continue
