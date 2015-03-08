@@ -11,6 +11,7 @@
 -->
 {% block header %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/metricsgraphics.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/metricsgraphics-custom.css' %}">
 <script src="{% static 'js/metricsgraphics.js' %}"></script>
 
 
@@ -40,9 +41,10 @@ $(document).ready(function () {
         //x_rug: true,
 
         yax_count: 10,
+        xax_count: 10,
         max_y: max_y + 1,
         min_y: min_y - 1,
-        show_secondary_x_label: false,
+        show_secondary_x_label: true,
         small_text: false
         });
     });
