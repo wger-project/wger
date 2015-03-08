@@ -308,6 +308,8 @@ by the US Department of Agriculture. It is extremely complete, with around
                                                    help_text=_('Number of days after the last '
                                                                'weight entry (enter 0 to '
                                                                'deactivate)'),
+                                                   validators=[MinValueValidator(0),
+                                                               MaxValueValidator(30)],
                                                    max_length=30,
                                                    default=0)
     '''Number of Days for email weight reminder'''
