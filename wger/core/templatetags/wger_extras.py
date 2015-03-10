@@ -76,7 +76,7 @@ def pagination(paginator, page):
         page_range = paginator.page_range
 
     # Set the template variables
-    return {'page':       page,
+    return {'page': page,
             'page_range': page_range}
 
 

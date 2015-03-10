@@ -21,22 +21,23 @@ This documentation is intended for developers and administrators of the software
 
 Installation and development
 ----------------------------
+.. toctree::
+   :maxdepth: 2
 
-* :doc:`install`
+   development
+   install
+   commands
+   i18n
 
-  * :doc:`commands`
-  * :doc:`i18n`
-  * :doc:`settings`
-
-* :doc:`development`
 
 
 Administration guide
 --------------------
-* :doc:`gym`
-
 .. toctree::
    :maxdepth: 2
+
+   settings
+   gym
 
 
 Contact
@@ -81,5 +82,5 @@ Indices and tables
 
 * :ref:`genindex`
 * :ref:`search`
-.. * :ref:`modindex`
+* :ref:`modindex`
 

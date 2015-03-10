@@ -119,7 +119,7 @@ class Command(BaseCommand):
         context['days'] = abs(delta.days)
 
         subject = _('Workout will expire soon')
-        message = loader.render_to_string('workout/email_reminder.html', context)
+        message = loader.render_to_string('workout/email_reminder.tpl', context)
         mail.send_mail(subject,
                        message,
                        EMAIL_FROM,

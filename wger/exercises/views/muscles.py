@@ -61,6 +61,7 @@ class MuscleAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
 
     model = Muscle
+    fields = '__all__'
     success_url = reverse_lazy('exercise:muscle:overview')
     title = ugettext_lazy('Add muscle')
     form_action = reverse_lazy('exercise:muscle:add')
@@ -73,6 +74,7 @@ class MuscleUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
 
     model = Muscle
+    fields = '__all__'
     success_url = reverse_lazy('exercise:muscle:overview')
     permission_required = 'exercises.change_muscle'
 

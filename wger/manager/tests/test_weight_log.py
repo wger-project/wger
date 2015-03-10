@@ -375,94 +375,133 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
 
     def test_calendar(self):
         '''
-        Test the exercise overview cache is correctly generated on visit
+        Test the log cache is correctly generated on visit
         '''
+        log_hash = hash((1, 2012, 10))
         self.user_login('admin')
-        self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        for cache_key in ('workout-log-full', 'workout-log-mobile'):
-            self.assertFalse(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
-        self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
+        self.assertFalse(cache.get(cache_mapper.get_workout_log_list(log_hash)))
 
-        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
-        self.assertTrue(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
-        self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
+        self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
+        self.assertTrue(cache.get(cache_mapper.get_workout_log_list(log_hash)))
+
+    def test_calendar_day(self):
+        '''
+        Test the log cache on the calendar day view is correctly generated on visit
+        '''
+        log_hash = hash((1, 2012, 10, 1))
+        self.user_login('admin')
+        self.assertFalse(cache.get(cache_mapper.get_workout_log_list(log_hash)))
+
+        self.client.get(reverse('manager:workout:calendar-day', kwargs={'username': 'admin',
+                                                                        'year': 2012,
+                                                                        'month': 10,
+                                                                        'day': 1}))
+        self.assertTrue(cache.get(cache_mapper.get_workout_log_list(log_hash)))
 
     def test_calendar_anonymous(self):
         '''
-        Test the exercise overview cache is correctly generated on visit
-        by anonymous users
+        Test the log cache is correctly generated on visit by anonymous users
         '''
+        log_hash = hash((1, 2012, 10))
         self.user_logout()
-        self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        for cache_key in ('workout-log-full', 'workout-log-mobile'):
-            self.assertFalse(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
-            self.assertFalse(cache.get(get_template_cache_name(cache_key, False, 1, 2012, 10)))
+        self.assertFalse(cache.get(cache_mapper.get_workout_log_list(log_hash)))
+
         self.client.get(reverse('manager:workout:calendar', kwargs={'username': 'admin',
                                                                     'year': 2012,
                                                                     'month': 10}))
+        self.assertTrue(cache.get(cache_mapper.get_workout_log_list(log_hash)))
 
-        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
-        self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        self.assertTrue(cache.get(get_template_cache_name(cache_key, False, 1, 2012, 10)))
-        self.assertFalse(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
+    def test_calendar_day_anonymous(self):
+        '''
+        Test the log cache is correctly generated on visit by anonymous users
+        '''
+        log_hash = hash((1, 2012, 10, 1))
+        self.user_logout()
+        self.assertFalse(cache.get(cache_mapper.get_workout_log_list(log_hash)))
+
+        self.client.get(reverse('manager:workout:calendar-day', kwargs={'username': 'admin',
+                                                                        'year': 2012,
+                                                                        'month': 10,
+                                                                        'day': 1}))
+        self.assertTrue(cache.get(cache_mapper.get_workout_log_list(log_hash)))
 
     def test_cache_update_log(self):
         '''
         Test that the caches are cleared when saving a log
         '''
+        log_hash = hash((1, 2012, 10))
+        log_hash_day = hash((1, 2012, 10, 1))
         self.user_login('admin')
         self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
+        self.client.get(reverse('manager:workout:calendar-day', kwargs={'username': 'admin',
+                                                                        'year': 2012,
+                                                                        'month': 10,
+                                                                        'day': 1}))
 
         log = WorkoutLog.objects.get(pk=1)
         log.weight = 35
         log.save()
 
-        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
-        self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        self.assertFalse(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
+        self.assertFalse(cache.get(cache_mapper.get_workout_log_list(log_hash)))
+        self.assertFalse(cache.get(cache_mapper.get_workout_log_list(log_hash_day)))
 
     def test_cache_update_log_2(self):
         '''
         Test that the caches are only cleared for a the log's month
         '''
+        log_hash = hash((1, 2012, 10))
+        log_hash_day = hash((1, 2012, 10, 1))
         self.user_login('admin')
         self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
+        self.client.get(reverse('manager:workout:calendar-day', kwargs={'username': 'admin',
+                                                                        'year': 2012,
+                                                                        'month': 10,
+                                                                        'day': 1}))
 
         log = WorkoutLog.objects.get(pk=3)
         log.weight = 35
         log.save()
 
-        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
-        self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        self.assertTrue(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
+        self.assertTrue(cache.get(cache_mapper.get_workout_log_list(log_hash)))
+        self.assertTrue(cache.get(cache_mapper.get_workout_log_list(log_hash_day)))
 
     def test_cache_delete_log(self):
         '''
         Test that the caches are cleared when deleting a log
         '''
+        log_hash = hash((1, 2012, 10))
+        log_hash_day = hash((1, 2012, 10, 1))
         self.user_login('admin')
         self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
+        self.client.get(reverse('manager:workout:calendar-day', kwargs={'username': 'admin',
+                                                                        'year': 2012,
+                                                                        'month': 10,
+                                                                        'day': 1}))
 
         log = WorkoutLog.objects.get(pk=1)
         log.delete()
 
-        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
-        self.assertFalse(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        self.assertFalse(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
+        self.assertFalse(cache.get(cache_mapper.get_workout_log_list(log_hash)))
+        self.assertFalse(cache.get(cache_mapper.get_workout_log_list(log_hash_day)))
 
     def test_cache_delete_log_2(self):
         '''
         Test that the caches are only cleared for a the log's month
         '''
+        log_hash = hash((1, 2012, 10))
+        log_hash_day = hash((1, 2012, 10, 1))
         self.user_login('admin')
         self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
+        self.client.get(reverse('manager:workout:calendar-day', kwargs={'username': 'admin',
+                                                                        'year': 2012,
+                                                                        'month': 10,
+                                                                        'day': 1}))
 
         log = WorkoutLog.objects.get(pk=3)
         log.delete()
 
-        cache_key = 'workout-log-mobile' if self.is_mobile else 'workout-log-full'
-        self.assertTrue(cache.get(cache_mapper.get_workout_log(1, 2012, 10)))
-        self.assertTrue(cache.get(get_template_cache_name(cache_key, True, 1, 2012, 10)))
+        self.assertTrue(cache.get(cache_mapper.get_workout_log_list(log_hash)))
+        self.assertTrue(cache.get(cache_mapper.get_workout_log_list(log_hash_day)))
 
 
 class WorkoutLogApiTestCase(api_base_test.ApiBaseResourceTestCase):

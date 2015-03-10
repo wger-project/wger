@@ -23,7 +23,6 @@ from django.http import HttpResponseForbidden
 from django.forms import ModelForm
 from django.forms import ModelChoiceField
 from django.forms import ModelMultipleChoiceField
-from django.core import mail
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy

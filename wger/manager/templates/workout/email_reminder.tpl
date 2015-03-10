@@ -8,12 +8,13 @@
 
 {% blocktrans %}You will regularly receive such reminders till you add a new workout.
 Alternatively you can add workouts to a loop schedule, such schedules
-never produce reminders. If you don't want to ever receive email
-reminders, deactivate the option in your settings.{% endblocktrans %}
+never produce reminders.{% endblocktrans %}
+{% blocktrans %}If you don't want to ever receive email reminders, deactivate the
+option in your settings.{% endblocktrans %}
 
 {% trans "the wger.de team" %}
 
 
-* http://{{site}}{{workout.get_absolute_url}}
-* http://{{site}}{% url 'manager:workout:add' %}
-* http://{{site}}{% url 'core:user:preferences' %}
+* https://{{site}}{{workout.get_absolute_url}}
+* https://{{site}}{% url 'manager:workout:add' %}
+* https://{{site}}{% url 'core:user:preferences' %}

@@ -121,7 +121,7 @@ class MealItemForm(forms.ModelForm):
 
     class Meta:
         model = MealItem
-        exclude = []
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super(MealItemForm, self).__init__(*args, **kwargs)

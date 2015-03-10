@@ -45,6 +45,7 @@ class StepCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
 
     model = ScheduleStep
+    fields = '__all__'
     title = ugettext_lazy('Add workout')
     login_required = True
 

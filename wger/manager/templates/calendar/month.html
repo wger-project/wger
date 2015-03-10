@@ -1,8 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
-{% load cache %}
+{% load i18n staticfiles wger_extras %}
 
 
 {#           #}
@@ -45,73 +42,26 @@ $(document).ready(function() {
 {# Content #}
 {#         #}
 {% block content %}
-{% cache cache_timeout workout-log-full is_owner owner_user.id current_year current_month %}
 {{calendar|safe}}
 
-{% for date in logs %}
+{% for date, value in logs.items %}
     <div id="log-{{date|date:'Y-m-d'}}" class="calendar-log-data">
-        <h3>{{date}}</h3>
 
-        {% regroup logs|get_item:date by exercise as grouped_logs %}
+        <h3>
+            {{date}}
+            <small><a href="{% url 'manager:workout:calendar-day' owner_user date.year date.month date.day %}">{% trans 'Detail page' %}</a></small>
+        </h3>
 
-        {# TODO: what if some of the entries don't belong to a workout? #}
-        {% with tmp=grouped_logs|first %}
-        {% with first_log=tmp.list|first %}
-        {% with session=first_log.get_workout_session %}
-            <div class="row">
-                <div class="col-sm-4">
-                    <a href="{{first_log.workout.get_absolute_url}}" class="btn btn-default btn-block">{{ first_log.workout }}</a>
-                </div>
-
-                <div class="col-sm-4">
-                <a href="{% url 'manager:log:log' first_log.workout.id %}" class="btn btn-default btn-block">{% trans "Log overview" %}</a>
-                </div>
-
-                <div class="col-sm-4">
-                    {% if is_owner %}
-                        {% if session %}
-                            <a href="{% url 'manager:session:edit' session.pk %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Edit workout session" %}</a>
-                        {% else %}
-                            <a href="{% url 'manager:session:add' first_log.workout_id date|date:'Y' date|date:'m' date|date:'d' %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Add workout impression" %}</a>
-                        {% endif %}
-                    {% endif %}
-                </div>
-             </div>
-            {% if session %}
-            <table class="table" style="margin-top: 2em;">
-                <tr>
-                    <th style="width: 30%">{% trans "Time" %}</th>
-                    <td>
-                        {% if session.time_start %}
-                            {{session.time_start|time:"H:i"}} - {{session.time_end|time:"H:i"}}
-                        {% else %}
-                            -/-
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <th>{% trans "General impression" %}</th>
-                    <td>{% trans session.get_impression_display %}</td>
-                </tr>
-                <tr>
-                    <th>{% trans "Notes" %}</th>
-                    <td>{{session.notes|default:'-/-'}}</td>
-                </tr>
-            </table>
-            {% endif %}
-        {% endwith %}
-        {% endwith %}
-        {% endwith %}
-
+        {% include 'calendar/partial_overview_table.html' %}
 
         <div class="row" style="margin-top: 2em;">
-            {% for i in grouped_logs %}
+            {% for exercise, logs in value.logs.items %}
                 <div class="col-sm-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{ i.grouper }}</div>
+                    <div class="panel-heading">{{ exercise }}</div>
                     <div class="panel-body" style="min-height: 8em;">
                     <ul>
-                    {% for log in i.list %}
+                    {% for log in logs %}
                         <li>
                             {{log.reps}} × {{log.weight}}
                             {% if is_owner %}
@@ -142,7 +92,6 @@ $(document).ready(function() {
         </div>
     </div>
 {% endfor %}
-{% endcache %}
 {% endblock %}
 
 
@@ -188,9 +137,9 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
 you can click on them to see the details.{% endblocktrans %}</p>
 
 <p>
-    <div style="background-color: #C9302C; display: inline;">&nbsp;</div> {{ impressions.0.1 }}<br>
-    <div style="background-color: #EC971F; display: inline;">&nbsp;</div> {{ impressions.1.1 }}<br>
-    <div style="background-color: #449D44; display: inline;">&nbsp;</div> {{ impressions.2.1 }}
+    <span style="background-color: #C9302C; display: inline;">&nbsp;</span> {{ impressions.0.1 }}<br>
+    <span style="background-color: #EC971F; display: inline;">&nbsp;</span> {{ impressions.1.1 }}<br>
+    <span style="background-color: #449D44; display: inline;">&nbsp;</span> {{ impressions.2.1 }}
 </p>
 
 <h3>{% trans 'Log' %}</h3>

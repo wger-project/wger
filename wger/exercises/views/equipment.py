@@ -48,6 +48,7 @@ class EquipmentListView(WgerPermissionMixin, ListView):
     '''
 
     model = Equipment
+    fields = '__all__'
     template_name = 'equipment/list.html'
     context_object_name = 'equipment_list'
     paginate_by = PAGINATION_OBJECTS_PER_PAGE
@@ -60,6 +61,7 @@ class EquipmentEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
 
     model = Equipment
+    fields = '__all__'
     permission_required = 'exercises.change_equipment'
     success_url = reverse_lazy('exercise:equipment:list')
 

@@ -79,6 +79,7 @@ class AddView(WgerFormMixin, CreateView):
     '''
 
     model = AdminUserNote
+    fields = '__all__'
     title = ugettext_lazy('Add note')
     permission_required = 'gym.add_adminusernote'
     member = None
@@ -127,6 +128,7 @@ class UpdateView(WgerFormMixin, UpdateView):
     '''
 
     model = AdminUserNote
+    fields = '__all__'
     permission_required = 'gym.change_adminusernote'
 
     def get_success_url(self):

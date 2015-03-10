@@ -33,6 +33,7 @@ class ConfigUpdateView(WgerFormMixin, UpdateView):
     '''
 
     model = GymAdminConfig
+    fields = '__all__'
     permission_required = 'gym.change_gymadminconfig'
 
     def get_success_url(self):

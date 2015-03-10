@@ -1,3 +1,5 @@
+.. _gym:
+
 Gym admnistration
 =================
 

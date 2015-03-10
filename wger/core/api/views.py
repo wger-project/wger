@@ -17,11 +17,14 @@
 
 from django.contrib.auth.models import User
 from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework.decorators import link
 
 from wger.core.models import UserProfile
 from wger.core.models import Language
 from wger.core.models import DaysOfWeek
 from wger.core.models import License
+from wger.core.api.serializers import UsernameSerializer
 from wger.core.api.serializers import UserprofileSerializer
 from wger.utils.permissions import UpdateOnlyPermission
 from wger.utils.permissions import WgerPermission
@@ -48,6 +51,15 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         Return objects to check for ownership permission
         '''
         return [(User, 'user')]
+
+    @link()
+    def username(self, request, pk):
+        '''
+        Return the username
+        '''
+
+        user = self.get_object().user
+        return Response(UsernameSerializer(user).data)
 
 
 class LanguageViewSet(viewsets.ReadOnlyModelViewSet):

@@ -18,8 +18,6 @@ import decimal
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from wger.core.models import UserProfile
-from wger.core.tests import api_base_test
 
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
@@ -58,6 +56,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
                                      'notification_language': 2,
                                      'timer_active': False,
                                      'timer_pause': 100,
+                                     'num_days_weight_reminder': 10,
                                      'weight_unit': 'kg'})
 
         self.assertEqual(response.status_code, 302)
@@ -80,6 +79,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
                                      'notification_language': 2,
                                      'timer_active': True,
                                      'timer_pause': 40,
+                                     'num_days_weight_reminder': 10,
                                      'weight_unit': 'lb'})
 
         self.assertEqual(response.status_code, 302)
@@ -209,8 +209,8 @@ class PreferencesCalculationsTestCase(WorkoutManagerTestCase):
         user = User.objects.get(pk=2)
         bmi = user.userprofile.calculate_bmi()
         self.assertEqual(bmi,
-                         user.userprofile.weight.quantize(TWOPLACES)
-                         / decimal.Decimal(1.80 * 1.80).quantize(TWOPLACES))
+                         user.userprofile.weight.quantize(TWOPLACES) /
+                         decimal.Decimal(1.80 * 1.80).quantize(TWOPLACES))
 
     def test_basal_metabolic_rate(self):
         '''

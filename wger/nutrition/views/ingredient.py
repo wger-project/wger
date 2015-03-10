@@ -121,17 +121,18 @@ class IngredientMixin(WgerFormMixin):
     '''
     Manually set the order of the fields
     '''
-    form_fields = ['name',
-                   'energy',
-                   'protein',
-                   'carbohydrates',
-                   'carbohydrates_sugar',
-                   'fat',
-                   'fat_saturated',
-                   'fibres',
-                   'sodium',
-                   'license',
-                   'license_author']
+
+    fields = ['name',
+              'energy',
+              'protein',
+              'carbohydrates',
+              'carbohydrates_sugar',
+              'fat',
+              'fat_saturated',
+              'fibres',
+              'sodium',
+              'license',
+              'license_author']
 
 
 class IngredientEditView(IngredientMixin, UpdateView, WgerPermissionMixin):

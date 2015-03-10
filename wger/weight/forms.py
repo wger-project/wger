@@ -47,4 +47,4 @@ class WeightForm(ModelForm):
         exclude = []
         widgets = {
             'user': widgets.HiddenInput(),
-            }
+        }

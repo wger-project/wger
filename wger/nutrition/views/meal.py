@@ -43,6 +43,7 @@ class MealCreateView(WgerFormMixin, CreateView):
     '''
 
     model = Meal
+    fields = '__all__'
     title = ugettext_lazy('Add new meal')
     owner_object = {'pk': 'plan_pk', 'class': NutritionPlan}
 
@@ -70,6 +71,7 @@ class MealEditView(WgerFormMixin, UpdateView):
     '''
 
     model = Meal
+    fields = '__all__'
     title = ugettext_lazy('Edit meal')
     form_action_urlname = 'nutrition:meal:edit'
 

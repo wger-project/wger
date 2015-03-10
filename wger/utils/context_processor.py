@@ -14,7 +14,6 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.templatetags.static import static
 
 from wger import get_version
@@ -46,8 +45,8 @@ def processor(request):
         'request_full_path': full_path,
 
         # The current full path with host
-        'request_absolute_path':  request.build_absolute_uri(),
-        'image_absolute_path':  request.build_absolute_uri(static_path),
+        'request_absolute_path': request.build_absolute_uri(),
+        'image_absolute_path': request.build_absolute_uri(static_path),
 
 
         # Translation links

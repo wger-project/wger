@@ -16,6 +16,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 import six
+import uuid
 import logging
 import bleach
 
@@ -30,8 +31,6 @@ from django.core.urlresolvers import reverse
 from django.core import mail
 from django.core.cache import cache
 from django.core.validators import MinLengthValidator
-from easy_thumbnails.signals import saved_file
-from easy_thumbnails.signal_handlers import generate_aliases
 
 from wger.core.models import Language
 from wger.utils.managers import SubmissionManager
@@ -199,6 +198,14 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     language = models.ForeignKey(Language,
                                  verbose_name=_('Language'))
     '''The exercise's language'''
+
+    uuid = models.CharField(verbose_name='UUID',
+                            max_length=36,
+                            editable=False,
+                            default=uuid.uuid4)
+    '''
+    Globally unique ID, to identify the exercise across installations
+    '''
 
     #
     # Django methods

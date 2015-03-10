@@ -59,6 +59,7 @@ class LanguageCreateView(WgerFormMixin, CreateView):
     '''
 
     model = Language
+    fields = '__all__'
     title = ugettext_lazy('Add')
     form_action = reverse_lazy('config:language:add')
     permission_required = 'core.add_language'
@@ -92,6 +93,7 @@ class LanguageEditView(WgerFormMixin, UpdateView):
     '''
 
     model = Language
+    fields = '__all__'
     form_action_urlname = 'config:language:edit'
     permission_required = 'core.change_language'
 

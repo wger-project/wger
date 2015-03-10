@@ -29,6 +29,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import ValidationError
 from django.core.cache import cache
 from django.core.validators import MinValueValidator
+from sortedm2m.fields import SortedManyToManyField
 
 from wger.core.models import DaysOfWeek
 from wger.exercises.models import Exercise
@@ -508,8 +509,8 @@ class Set(models.Model):
 
     exerciseday = models.ForeignKey(Day,
                                     verbose_name=_('Exercise day'))
-    exercises = models.ManyToManyField(Exercise,
-                                       verbose_name=_('Exercises'))
+    exercises = SortedManyToManyField(Exercise,
+                                      verbose_name=_('Exercises'))
     order = models.IntegerField(blank=True,
                                 null=True,
                                 verbose_name=_('Order'))
@@ -659,14 +660,14 @@ class WorkoutLog(models.Model):
         '''
         Reset cache
         '''
-        reset_workout_log(self.user_id, self.date.year, self.date.month)
+        reset_workout_log(self.user_id, self.date.year, self.date.month, self.date.day)
         super(WorkoutLog, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         '''
         Reset cache
         '''
-        reset_workout_log(self.user_id, self.date.year, self.date.month)
+        reset_workout_log(self.user_id, self.date.year, self.date.month, self.date.day)
         super(WorkoutLog, self).delete(*args, **kwargs)
 
 
@@ -676,6 +677,7 @@ class WorkoutSession(models.Model):
     Model for a workout session
     '''
 
+    # Note: values hardcoded in manager.helpers.WorkoutCalendar
     IMPRESSION_BAD = '1'
     IMPRESSION_NEUTRAL = '2'
     IMPRESSION_GOOD = '3'

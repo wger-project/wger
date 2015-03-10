@@ -33,6 +33,7 @@ class GymConfigUpdateView(WgerFormMixin, UpdateView):
     '''
 
     model = GymConfig
+    fields = '__all__'
     permission_required = 'gym.change_gymconfig'
 
     def dispatch(self, request, *args, **kwargs):

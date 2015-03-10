@@ -239,6 +239,9 @@ $(document).ready(function() {
                 
                 // After clicking on the save button once, disable it
                 function( data ) {
+                    var today = new Date();
+                    var date = '/' + today.getFullYear() + '/' + (today.getMonth() + 1) + '/' + today.getDate();
+                    window.location = '/' + get_current_language() + '/workout/calendar/' + get_username() + date;
                     $('#save_button_form').unbind("click");
                     $('#save_button_form').addClass('disabled');
                     $('#save_button_form').bind("click", function(e) {
