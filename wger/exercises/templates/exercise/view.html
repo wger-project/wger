@@ -332,6 +332,20 @@ $(document).ready(function() {
 </p>
 <hr>
 
+{% if user.is_authenticated and not user.userprofile.is_temporary and not perms.exercises %}
+<h3>{% trans "Options" %}</h3>
+<p>
+    <a href="{% url 'exercise:exercise:correct' exercise.id %}" {% auto_link_css flavour %}>
+        <img src="{% static 'images/icons/edit.svg' %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Submit a correction' %}">
+        {% trans "Submit a correction" %}
+    </a>
+</p>
+{% endif %}
+
+
 {% if perms.exercises %}
 <h3>{% trans "Options" %}</h3>
 <p>
