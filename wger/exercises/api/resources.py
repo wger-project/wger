@@ -51,6 +51,7 @@ class ExerciseResource(ModelResource):
     class Meta:
         queryset = Exercise.objects.all()
         filtering = {'id': ALL,
+                     "uuid": ALL,
                      "category": ALL_WITH_RELATIONS,
                      "creation_date": ALL,
                      "description": ALL,
