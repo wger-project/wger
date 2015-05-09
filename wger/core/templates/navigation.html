@@ -76,7 +76,7 @@
                         {% if user.is_authenticated %}
                         <li class="dropdown{% if active_tab == 'weight' %} active{% endif %}">
 
-                            <a href="{% url 'weight:overview' %}"
+                            <a href="{% url 'weight:overview' user.username %}"
                                class="dropdown-toggle"
                                data-toggle="dropdown"
                                rel="nofollow">{% trans "Weight" %} <b class="caret"></b></a>

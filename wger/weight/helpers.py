@@ -94,10 +94,12 @@ def group_log_entries(user, year, month, day=None):
                                                  date__year=year,
                                                  date__month=month)
 
+    logs = logs.order_by('date', 'id')
     out = cache.get(cache_mapper.get_workout_log_list(log_hash))
+    # out = OrderedDict()
 
     if not out:
-        out = {}
+        out = OrderedDict()
 
         # Logs
         for entry in logs:
@@ -105,7 +107,7 @@ def group_log_entries(user, year, month, day=None):
                 out[entry.date] = {'date': entry.date,
                                    'workout': entry.workout,
                                    'session': entry.get_workout_session(),
-                                   'logs': {}}
+                                   'logs': OrderedDict()}
 
             if not out[entry.date]['logs'].get(entry.exercise):
                 out[entry.date]['logs'][entry.exercise] = []

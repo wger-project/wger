@@ -53,7 +53,6 @@ class WeightAddView(WgerFormMixin, CreateView):
     form_class = WeightForm
     title = ugettext_lazy('Add weight entry')
     form_action = reverse_lazy('weight:add')
-    success_url = reverse_lazy('weight:overview')
 
     def get_initial(self):
         '''
@@ -72,6 +71,12 @@ class WeightAddView(WgerFormMixin, CreateView):
         form.instance.user = self.request.user
         return super(WeightAddView, self).form_valid(form)
 
+    def get_success_url(self):
+        '''
+        Return to overview with username
+        '''
+        return reverse('weight:overview', kwargs={'username': self.object.user.username})
+
 
 class WeightUpdateView(WgerFormMixin, UpdateView):
     '''
@@ -79,7 +84,6 @@ class WeightUpdateView(WgerFormMixin, UpdateView):
     '''
     model = WeightEntry
     form_class = WeightForm
-    success_url = reverse_lazy('weight:overview')
 
     def get_context_data(self, **kwargs):
         context = super(WeightUpdateView, self).get_context_data(**kwargs)
@@ -87,6 +91,12 @@ class WeightUpdateView(WgerFormMixin, UpdateView):
         context['title'] = _('Edit weight entry for the %s') % self.object.creation_date
 
         return context
+
+    def get_success_url(self):
+        '''
+        Return to overview with username
+        '''
+        return reverse('weight:overview', kwargs={'username': self.object.user.username})
 
 
 @login_required
@@ -199,4 +209,5 @@ class WeightCsvImportFormPreview(FormPreview):
     def done(self, request, cleaned_data):
         weight_list, error_list = helpers.parse_weight_csv(request, cleaned_data)
         WeightEntry.objects.bulk_create(weight_list)
-        return HttpResponseRedirect(reverse('weight:overview'))
+        return HttpResponseRedirect(reverse('weight:overview',
+                                            kwargs={'username': request.user.username}))
