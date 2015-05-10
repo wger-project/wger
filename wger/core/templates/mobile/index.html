@@ -223,7 +223,7 @@ its default duration in your settings.{% endblocktrans %}
         {% endif %}
     </div>
     <div class="col-xs-6" style="padding-left: 7px;">
-        <a href="{% url 'weight:overview' %}" class="btn btn-default btn-block">
+        <a href="{% url 'weight:overview' user.username %}" class="btn btn-default btn-block">
             <img src="{% static 'images/icons/statistics.svg' %}"
                  width="32"
                  height="32"

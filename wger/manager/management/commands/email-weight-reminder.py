@@ -73,6 +73,7 @@ class Command(BaseCommand):
         context['site'] = Site.objects.get_current()
         context['date'] = last_entry
         context['days'] = datediff
+        context['user'] = user
 
         subject = _('You have to enter your weight')
         message = loader.render_to_string('workout/email_weight_reminder.tpl', context)

@@ -120,7 +120,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         self.assertEqual(self.count_temp_users(), 1)
 
         self.user_logout()
-        self.client.get(reverse('weight:overview'))
+        reverse('weight:overview', kwargs={'username': 'test'})
         self.assertEqual(self.count_temp_users(), 1)
 
         self.user_logout()

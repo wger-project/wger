@@ -12,5 +12,5 @@ option in your settings.{% endblocktrans %}
 {% trans "the wger.de team" %}
 
 
-* https://{{site}}{% url 'weight:overview' %}
+* https://{{site}}{% url 'weight:overview' user.username %}
 * https://{{site}}{% url 'core:user:preferences' %}
