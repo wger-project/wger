@@ -150,9 +150,29 @@ def overview(request, username=None):
                                      'month': max_date.month,
                                      'day': max_date.day}
 
+    last_five_weight_entries = WeightEntry.objects.filter(user=user).order_by('-date')[:5]
+    last_five_weight_entries_details = []
+
+    if last_five_weight_entries:
+        i = 0 
+
+        while (i != len(last_five_weight_entries)-1):
+            curr_entry = last_five_weight_entries[i]
+            prev_entry = last_five_weight_entries[i+1]
+            weight_diff = curr_entry.weight - prev_entry.weight 
+            if weight_diff > 0:
+                weight_diff = '+'+str(weight_diff)
+            day_diff = (curr_entry.date - prev_entry.date).days
+            last_five_weight_entries_details.append((curr_entry, weight_diff, day_diff))
+            i += 1
+
+        curr_entry = last_five_weight_entries[i] 
+        last_five_weight_entries_details.append((curr_entry,'-/-', '-/-'))
+
     template_data['is_owner'] = is_owner
     template_data['owner_user'] = user
     template_data['show_shariff'] = is_owner
+    template_data['last_five_weight_entries_details'] = last_five_weight_entries_details
     return render(request, 'weight_overview.html', template_data)
 
 
