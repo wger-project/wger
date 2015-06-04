@@ -41,12 +41,16 @@ The start script places the settings file and the sqlite database in a non
 obvious place. For development I suggest moving them to the folder with the
 code::
 
+    $ cd wger
     $ python start.py --show-config
     Settings file: /home/user/.config/wger/settings.py
     Database file: /home/user/.local/share/wger/database.sqlite
     
-    mv /home/user/.config/wger/settings.py .
-    mv /home/user/.local/share/wger/database.sqlite
+    $ mv /home/user/.config/wger/settings.py .
+    $ mv /home/user/.local/share/wger/database.sqlite
+
+    $ vim settings.py
+    # Update the path for the sqlite files in DATABASES section
 
 
 Miscelaneous settings
