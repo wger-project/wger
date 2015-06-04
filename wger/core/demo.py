@@ -188,13 +188,13 @@ def create_demo_entries(user):
     # (Body) weight entries
     #
     temp = []
-    existing_entries = [i.creation_date for i in WeightEntry.objects.filter(user=user)]
+    existing_entries = [i.date for i in WeightEntry.objects.filter(user=user)]
     for i in range(1, 20):
         creation_date = datetime.date.today() - datetime.timedelta(days=i)
         if creation_date not in existing_entries:
             entry = WeightEntry(user=user,
                                 weight=80 + 0.5 * i + random.randint(1, 3),
-                                creation_date=creation_date)
+                                date=creation_date)
             temp.append(entry)
     WeightEntry.objects.bulk_create(temp)
 

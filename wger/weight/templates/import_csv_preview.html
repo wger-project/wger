@@ -16,7 +16,7 @@
 </tr>
 {% for entry in weight_list %}
     <tr>
-        <td>{{ entry.creation_date|date:"SHORT_DATE_FORMAT" }}</td>
+        <td>{{ entry.date|date:"SHORT_DATE_FORMAT" }}</td>
         <td>{{ entry.weight }}</td>
     </tr>
 {% endfor %}

@@ -40,7 +40,7 @@ class WeightCsvImportForm(Form):
 
 
 class WeightForm(ModelForm):
-    creation_date = DateField(input_formats=DATE_FORMATS, widget=Html5DateInput())
+    date = DateField(input_formats=DATE_FORMATS, widget=Html5DateInput())
 
     class Meta:
         model = WeightEntry

@@ -51,7 +51,7 @@ def parse_weight_csv(request, cleaned_data):
             parsed_date = datetime.datetime.strptime(row[0], cleaned_data['date_format'])
             parsed_weight = decimal.Decimal(row[1].replace(',', '.'))
 
-            weight_list.append(WeightEntry(creation_date=parsed_date,
+            weight_list.append(WeightEntry(date=parsed_date,
                                            weight=parsed_weight,
                                            user=request.user))
 

@@ -105,7 +105,7 @@ class UserBodyweightTestCase(WorkoutManagerTestCase):
         entry = user.userprofile.user_bodyweight(80)
         count_after = WeightEntry.objects.filter(user=user).count()
         self.assertEqual(count_before, count_after - 1)
-        self.assertEqual(entry.creation_date, datetime.date.today())
+        self.assertEqual(entry.date, datetime.date.today())
 
     def test_bodyweight_new_2(self):
         '''
@@ -114,13 +114,13 @@ class UserBodyweightTestCase(WorkoutManagerTestCase):
         user = User.objects.get(pk=2)
         count_before = WeightEntry.objects.filter(user=user).count()
         last_entry = WeightEntry.objects.filter(user=user).latest()
-        last_entry.creation_date = datetime.date.today() - datetime.timedelta(weeks=1)
+        last_entry.date = datetime.date.today() - datetime.timedelta(weeks=1)
         last_entry.save()
 
         entry = user.userprofile.user_bodyweight(80)
         count_after = WeightEntry.objects.filter(user=user).count()
         self.assertEqual(count_before, count_after - 1)
-        self.assertEqual(entry.creation_date, datetime.date.today())
+        self.assertEqual(entry.date, datetime.date.today())
 
     def test_bodyweight_no_entries(self):
         '''
@@ -133,7 +133,7 @@ class UserBodyweightTestCase(WorkoutManagerTestCase):
         entry = user.userprofile.user_bodyweight(80)
         count_after = WeightEntry.objects.filter(user=user).count()
         self.assertEqual(count_before, count_after - 1)
-        self.assertEqual(entry.creation_date, datetime.date.today())
+        self.assertEqual(entry.date, datetime.date.today())
 
     def test_bodyweight_edit(self):
         '''
@@ -141,7 +141,7 @@ class UserBodyweightTestCase(WorkoutManagerTestCase):
         '''
         user = User.objects.get(pk=2)
         last_entry = WeightEntry.objects.filter(user=user).latest()
-        last_entry.creation_date = datetime.date.today() - datetime.timedelta(days=3)
+        last_entry.date = datetime.date.today() - datetime.timedelta(days=3)
         last_entry.save()
 
         count_before = WeightEntry.objects.filter(user=user).count()
@@ -149,7 +149,7 @@ class UserBodyweightTestCase(WorkoutManagerTestCase):
         count_after = WeightEntry.objects.filter(user=user).count()
         self.assertEqual(count_before, count_after)
         self.assertEqual(entry.pk, last_entry.pk)
-        self.assertEqual(entry.creation_date, last_entry.creation_date)
+        self.assertEqual(entry.date, last_entry.date)
         self.assertEqual(entry.weight, 100)
 
     def test_bodyweight_edit_2(self):
@@ -158,7 +158,7 @@ class UserBodyweightTestCase(WorkoutManagerTestCase):
         '''
         user = User.objects.get(pk=2)
         last_entry = WeightEntry.objects.filter(user=user).latest()
-        last_entry.creation_date = datetime.date.today()
+        last_entry.date = datetime.date.today()
         last_entry.save()
 
         count_before = WeightEntry.objects.filter(user=user).count()
@@ -166,7 +166,7 @@ class UserBodyweightTestCase(WorkoutManagerTestCase):
         count_after = WeightEntry.objects.filter(user=user).count()
         self.assertEqual(count_before, count_after)
         self.assertEqual(entry.pk, last_entry.pk)
-        self.assertEqual(entry.creation_date, last_entry.creation_date)
+        self.assertEqual(entry.date, last_entry.date)
         self.assertEqual(entry.weight, 100)
 
 
@@ -181,7 +181,7 @@ class PreferencesCalculationsTestCase(WorkoutManagerTestCase):
         self.user_login('test')
         user = User.objects.get(pk=2)
         entry = WeightEntry()
-        entry.creation_date = datetime.datetime.today()
+        entry.date = datetime.datetime.today()
         entry.user = user
         entry.weight = 100
         entry.save()

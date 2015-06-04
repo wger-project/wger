@@ -62,7 +62,7 @@ class WeightAddView(WgerFormMixin, CreateView):
         to pass the user here.
         '''
         return {'user': self.request.user,
-                'creation_date': formats.date_format(datetime.date.today(), "SHORT_DATE_FORMAT")}
+                'date': formats.date_format(datetime.date.today(), "SHORT_DATE_FORMAT")}
 
     def form_valid(self, form):
         '''
@@ -88,7 +88,7 @@ class WeightUpdateView(WgerFormMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(WeightUpdateView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('weight:edit', kwargs={'pk': self.object.id})
-        context['title'] = _('Edit weight entry for the %s') % self.object.creation_date
+        context['title'] = _('Edit weight entry for the %s') % self.object.date
 
         return context
 
@@ -115,7 +115,7 @@ def export_csv(request):
     writer.writerow([_('Weight').encode('utf8'), _('Date').encode('utf8')])
 
     for entry in weights:
-        writer.writerow([entry.weight, entry.creation_date])
+        writer.writerow([entry.weight, entry.date])
 
     # Send the data to the browser
     response['Content-Disposition'] = 'attachment; filename=Weightdata.csv'
@@ -136,9 +136,9 @@ def overview(request, username=None):
     template_data = {}
 
     min_date = WeightEntry.objects.filter(user=user).\
-        aggregate(Min('creation_date'))['creation_date__min']
+        aggregate(Min('date'))['date__min']
     max_date = WeightEntry.objects.filter(user=user).\
-        aggregate(Max('creation_date'))['creation_date__max']
+        aggregate(Max('date'))['date__max']
     if min_date:
         template_data['min_date'] = 'new Date(%(year)s, %(month)s, %(day)s)' % \
                                     {'year': min_date.year,
@@ -169,7 +169,7 @@ def get_weight_data(request, username=None):
 
     if date_min and date_max:
         weights = WeightEntry.objects.filter(user=user,
-                                             creation_date__range=(date_min, date_max))
+                                             date__range=(date_min, date_max))
     else:
         weights = WeightEntry.objects.filter(user=user)
 
@@ -177,9 +177,9 @@ def get_weight_data(request, username=None):
 
     for i in weights:
         chart_data.append({'x': "%(month)s/%(day)s/%(year)s" % {
-                           'year': i.creation_date.year,
-                           'month': i.creation_date.month,
-                           'day': i.creation_date.day},
+                           'year': i.date.year,
+                           'month': i.date.month,
+                           'day': i.date.day},
                            'y': i.weight,
                            'id': i.id})
 

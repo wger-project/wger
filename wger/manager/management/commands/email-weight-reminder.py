@@ -49,7 +49,7 @@ class Command(BaseCommand):
             today = datetime.datetime.now().date()
 
             try:
-                last_entry = WeightEntry.objects.filter(user=profile.user).latest().creation_date
+                last_entry = WeightEntry.objects.filter(user=profile.user).latest().date
                 datediff = (today - last_entry).days
 
                 if datediff >= profile.num_days_weight_reminder:

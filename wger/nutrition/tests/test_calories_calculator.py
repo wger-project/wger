@@ -81,7 +81,7 @@ class CaloriesCalculatorTestCase(WorkoutManagerTestCase):
 
         # Existing weight entry is from today, is updated
         entry2.delete()
-        entry1.creation_date = datetime.date.today()
+        entry1.date = datetime.date.today()
         entry1.save()
         response = self.client.post(reverse('nutrition:bmi:calculate'),
                                     {'height': 180,
@@ -99,7 +99,7 @@ class CaloriesCalculatorTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
         entry = WeightEntry.objects.filter(user=user).latest()
         self.assertEqual(entry.weight, 80)
-        self.assertEqual(entry.creation_date, datetime.date.today())
+        self.assertEqual(entry.date, datetime.date.today())
 
     def test_bmr(self):
         '''
@@ -138,7 +138,7 @@ class CaloriesCalculatorTestCase(WorkoutManagerTestCase):
 
         # Existing weight entry is from today, is updated
         entry2.delete()
-        entry1.creation_date = datetime.date.today()
+        entry1.date = datetime.date.today()
         entry1.save()
         response = self.client.post(reverse('nutrition:calories:bmr'),
                                     {'age': 30,
@@ -160,4 +160,4 @@ class CaloriesCalculatorTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
         entry = WeightEntry.objects.filter(user=user).latest()
         self.assertEqual(entry.weight, 80)
-        self.assertEqual(entry.creation_date, datetime.date.today())
+        self.assertEqual(entry.date, datetime.date.today())

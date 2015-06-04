@@ -103,7 +103,7 @@ def dashboard(request):
 
     # Load the last logged weight entry, if one exists
     try:
-        weight = WeightEntry.objects.filter(user=request.user).latest('creation_date')
+        weight = WeightEntry.objects.filter(user=request.user).latest('date')
     except ObjectDoesNotExist:
         weight = False
     template_data['weight'] = weight

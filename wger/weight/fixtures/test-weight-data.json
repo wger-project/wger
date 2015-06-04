@@ -5,7 +5,7 @@
         "fields": {
             "user": 2,
             "weight": 77,
-            "creation_date": "2012-10-01"
+            "date": "2012-10-01"
         }
     },
     {
@@ -14,7 +14,7 @@
         "fields": {
             "user": 2,
             "weight": 77.2,
-            "creation_date": "2012-10-10"
+            "date": "2012-10-10"
         }
     },
     {
@@ -23,7 +23,7 @@
         "fields": {
             "user": 2,
             "weight": 80.6,
-            "creation_date": "2012-11-01"
+            "date": "2012-11-01"
         }
     },
     {
@@ -32,7 +32,7 @@
         "fields": {
             "user": 2,
             "weight": 80,
-            "creation_date": "2013-01-01"
+            "date": "2013-01-01"
         }
     },
     {
@@ -41,7 +41,7 @@
         "fields": {
             "user": 2,
             "weight": 81,
-            "creation_date": "2013-01-10"
+            "date": "2013-01-10"
         }
     },
     {
@@ -50,7 +50,7 @@
         "fields": {
             "user": 2,
             "weight": 82,
-            "creation_date": "2013-01-20"
+            "date": "2013-01-20"
         }
     },
     {
@@ -59,7 +59,7 @@
         "fields": {
             "user": 2,
             "weight": 83,
-            "creation_date": "2013-01-30"
+            "date": "2013-01-30"
         }
     }
 ]
