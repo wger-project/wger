@@ -49,17 +49,25 @@ $(document).ready(function () {
     {% for entry_detail in last_five_weight_entries_details %}
         <tr>
             <td>{{ entry_detail.0.date }}</td>
+            <td>{{ entry_detail.0.weight }}</td>
+            <!-- weight diff and day diff below -->
             <td>
-            {% if entry_detail.0.weight and entry_detail.0.weight > 0 %}
-                +{{ entry_detail.0.weight }}
-            {% elif entry_detail.0.weight and entry_detail.0.weight < 0%}
-                {{ entry_detail.0.weight }}
-            {% else %}
-                '-/-'
-            {% endif %}
+                {% if entry_detail.1 > 0 %}
+                    +
+                {% endif %}
+                {% if entry_detail.1 %}
+                    {{ entry_detail.1 }}
+                {% else %}
+                    -/-
+                {% endif %}
             </td>
-            <td>{{ entry_detail.1 }}</td>
-            <td>{{ entry_detail.2 }}</td>
+            <td>
+                {% if entry_detail.2 %} 
+                    {{ entry_detail.2 }}
+                {% else %}
+                    -/-
+                {% endif %}
+            </td>
         </tr>
     {% endfor %}
 </table>
