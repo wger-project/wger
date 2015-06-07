@@ -153,21 +153,21 @@ def overview(request, username=None):
     last_five_weight_entries = WeightEntry.objects.filter(user=user).order_by('-date')[:5]
     last_five_weight_entries_details = []
 
-    if last_five_weight_entries:
-        i = 0 
+    for index, entry in enumerate(last_five_weight_entries):
+        curr_entry = entry
+        prev_entry_index = index + 1
 
-        while (i != len(last_five_weight_entries)-1):
-            curr_entry = last_five_weight_entries[i]
-            prev_entry = last_five_weight_entries[i+1]
-            weight_diff = curr_entry.weight - prev_entry.weight 
-            if weight_diff > 0:
-                weight_diff = '+'+str(weight_diff)
+        if prev_entry_index < len(last_five_weight_entries):
+            prev_entry = last_five_weight_entries[prev_entry_index]
+        else:
+            prev_entry = None
+
+        if prev_entry and curr_entry:
+            weight_diff = curr_entry.weight - prev_entry.weight
             day_diff = (curr_entry.date - prev_entry.date).days
-            last_five_weight_entries_details.append((curr_entry, weight_diff, day_diff))
-            i += 1
-
-        curr_entry = last_five_weight_entries[i] 
-        last_five_weight_entries_details.append((curr_entry,'-/-', '-/-'))
+        else:
+            weight_diff = day_diff = '-/-'
+        last_five_weight_entries_details.append((curr_entry, weight_diff, day_diff))
 
     template_data['is_owner'] = is_owner
     template_data['owner_user'] = user

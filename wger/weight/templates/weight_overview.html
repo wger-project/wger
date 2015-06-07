@@ -39,15 +39,16 @@ $(document).ready(function () {
 
 {% if is_owner %}
 {% if last_five_weight_entries_details %} 
-<table border="1" style="width:100%">
-    <tr>
-        <th>Date</th>
-        <th>Weight</th>
-        <th>Change</th>
-        <th>Days</th>
+<table class="table">
+    <tr>  
+        <th>{% trans 'Date' %}</th>
+        <th>{% trans 'Weight' %}</th>
+        <th>{% trans 'Change' %}</th>
+        <th>{% trans 'Days' %}</th>
     </tr>
     {% for entry_detail in last_five_weight_entries_details %}
-        <tr><td>{{ entry_detail.0.date }}</td>
+        <tr>
+            <td>{{ entry_detail.0.date }}</td>
             <td>{{ entry_detail.0.weight }}</td>
             <td>{{ entry_detail.1 }}</td>
             <td>{{ entry_detail.2 }}</td>

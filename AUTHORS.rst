@@ -8,7 +8,7 @@ Developers
 * Helen Sherwood-Taylor - https://github.com/helenst
 * Tushar Gupta - https://github.com/Tushar-Gupta
 * Matheus Zorzete Marchiore - https://github.com/marchiore
-
+* Yu Yu Aung - https://github.com/max111
 
 Translators
 -----------
