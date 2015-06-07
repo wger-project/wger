@@ -43,7 +43,7 @@ $(document).ready(function () {
     <tr>  
         <th>{% trans 'Date' %}</th>
         <th>{% trans 'Weight' %}</th>
-        <th>{% trans 'Change' %}</th>
+        <th>{% trans 'Change' context "Noun, not verb" %}</th>
         <th>{% trans 'Days' %}</th>
     </tr>
     {% for entry_detail in last_five_weight_entries_details %}
