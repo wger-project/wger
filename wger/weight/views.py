@@ -166,7 +166,7 @@ def overview(request, username=None):
             weight_diff = curr_entry.weight - prev_entry.weight
             day_diff = (curr_entry.date - prev_entry.date).days
         else:
-            weight_diff = day_diff = '-/-'
+            weight_diff = day_diff = None
         last_five_weight_entries_details.append((curr_entry, weight_diff, day_diff))
 
     template_data['is_owner'] = is_owner
