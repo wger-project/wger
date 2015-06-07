@@ -90,6 +90,7 @@ def view(request, pk):
     template_data['token'] = token
     template_data['is_owner'] = is_owner
     template_data['owner_user'] = user
+    template_data['show_shariff'] = is_owner
 
     return render(request, 'schedule/view.html', template_data)
 
