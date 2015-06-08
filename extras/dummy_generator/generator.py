@@ -100,7 +100,7 @@ session_parser.add_argument('impression_sessions',
 weight_parser = subparsers.add_parser('weight', help='Create weight entries')
 weight_parser.add_argument('number_weight',
                            action='store',
-                           help='Number of log entries to create per user',
+                           help='Number of weight entries to create per user',
                            type=int)
 weight_parser.add_argument('--add-to-user',
                            action='store',
