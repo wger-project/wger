@@ -33,6 +33,7 @@ from wger.utils.helpers import make_token
 
 logger = logging.getLogger(__name__)
 
+
 class ScheduleShareButtonTestCase(WorkoutManagerTestCase):
     '''
     Test that the share button is correctly displayed and hidden
@@ -51,6 +52,7 @@ class ScheduleShareButtonTestCase(WorkoutManagerTestCase):
         self.user_login('test')
         response = self.client.get(workout.get_absolute_url())
         self.assertFalse(response.context['show_shariff'])
+
 
 class ScheduleAccessTestCase(WorkoutManagerTestCase):
     '''
@@ -92,6 +94,7 @@ class ScheduleAccessTestCase(WorkoutManagerTestCase):
         self.user_logout()
         response = self.client.get(workout.get_absolute_url())
         self.assertEqual(response.status_code, 403)
+
 
 class ScheduleRepresentationTestCase(WorkoutManagerTestCase):
     '''
