@@ -9,6 +9,7 @@ Developers
 * Tushar Gupta - https://github.com/Tushar-Gupta
 * Matheus Zorzete Marchiore - https://github.com/marchiore
 * Yu Yu Aung - https://github.com/max111
+* Laszlo Ratsko - https://github.com/rlaszlo
 
 Translators
 -----------
