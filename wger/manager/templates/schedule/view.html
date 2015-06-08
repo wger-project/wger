@@ -2,6 +2,15 @@
 {% load i18n %}
 {% load staticfiles wger_extras %}
 
+{#           #}
+{# Opengraph #}
+{#           #}
+{% block opengraph %}
+    {{ block.super }}
+    <meta property="og:title" content="{% trans 'Schedule' %}">
+    <meta property="og:description" content="{{ schedule }} / {{owner_user.username}}">
+{% endblock %}
+
 {% block title %}{{schedule.name}}{% endblock %}
 
 {% block header %}
@@ -86,7 +95,9 @@ $(function() {
     <thead>
     <tr>
         <th>{% trans "Nr." %}</th>
+        {% if is_owner %}
         <th>{% trans "Actions" %}</th>
+        {% endif %}
         <th>{% trans "Workout" %}</th>
         <th>{% trans "Weeks" %}</th>
     </tr>
@@ -97,6 +108,7 @@ $(function() {
         <td>
             {{ forloop.counter }}
         </td>
+        {% if is_owner %}
         <td style="min-width: 6em;">
             <span class="editoptions">
                 <img src="{% static 'images/icons/move.svg' %}"
@@ -121,6 +133,7 @@ $(function() {
                              alt="{% trans 'Delete' %}"></a>
             </span>
         </td>
+        {% endif %}
         <td>
             <a href="{{ step.workout.get_absolute_url }}">{{ step.workout }}</a>
             {% if active_workout == step %}
@@ -132,6 +145,7 @@ $(function() {
         </td>
     </tr>
     {% empty %}
+    {% if is_owner %}
     <tr>
         <td colspan="4">
             <a href="{% url 'manager:step:add' schedule.id %}" class="wger-modal-dialog btn btn-block btn-default">
@@ -139,7 +153,9 @@ $(function() {
             </a>
         </td>
     </tr>
+    {% endif %}
     {% endfor %}
+    {% if is_owner %}
     <tr>
         <td colspan="4">
             {% if not schedule.is_active %}
@@ -157,6 +173,7 @@ $(function() {
         <td colspan="2">
         </td>
     </tr>
+    {% endif %}
     </tbody>
 </table>
 </div>
@@ -205,11 +222,13 @@ $(function() {
 
 
 {% block sidebar %}
+{% if is_owner %}
 <h3>{% trans "Adding workouts" %}</h3>
 
 <p>{% blocktrans %}Add as many workouts to the schedule as you want. You can
 edit the order per drag-and-drop. It's also possible to add one workout more
 than once.{% endblocktrans %}</p>
+{% endif %}
 
 <h3>{% trans "Options" %}</h3>
 <p>
@@ -231,7 +250,7 @@ than once.{% endblocktrans %}</p>
     title="{% trans 'Download as PDF' %}">
 {% trans "Download as PDF" %}</a>
 </p>
-
+{% if is_owner %}
 <p>
 <a href="{% url 'manager:schedule:edit' schedule.id %}"
    class="wger-modal-dialog">
@@ -253,7 +272,7 @@ than once.{% endblocktrans %}</p>
     title="{% trans 'Delete schedule' %}">
 {% trans "Delete schedule" %}</a>
 </p>
-
+{% endif %}
 
 <div class="modal fade" id="export-ical-popup">
     <div class="modal-dialog">
