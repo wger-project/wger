@@ -562,6 +562,12 @@ class Setting(models.Model):
                                  verbose_name=_('Exercises'))
     reps = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)],
                                verbose_name=_('Repetitions'))
+    weight = models.IntegerField(verbose_name=_('Weight'),
+                                 blank=True,
+                                 null=True,
+                                 validators=[MinValueValidator(0), MaxValueValidator(100)])
+    '''Planed weight for the repetitions'''
+
     order = models.IntegerField(blank=True,
                                 verbose_name=_('Order'))
     comment = models.CharField(max_length=100,
