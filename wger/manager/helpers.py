@@ -75,7 +75,7 @@ def render_workout_day(day, nr_of_weeks):
 
             data.append([set_count,
                          Paragraph(exercise['obj'].name, styleSheet["Small"]),
-                         exercise['setting_text']]
+                         Paragraph(exercise['setting_text'], styleSheet["Small"])]
                         + [''] * nr_of_weeks)
         set_count += 1
 
