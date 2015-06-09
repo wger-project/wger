@@ -562,10 +562,12 @@ class Setting(models.Model):
                                  verbose_name=_('Exercises'))
     reps = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)],
                                verbose_name=_('Repetitions'))
-    weight = models.IntegerField(verbose_name=_('Weight'),
+    weight = models.DecimalField(verbose_name=_('Weight'),
+                                 max_digits=6,
+                                 decimal_places=2,
                                  blank=True,
                                  null=True,
-                                 validators=[MinValueValidator(0), MaxValueValidator(100)])
+                                 validators=[MinValueValidator(0), MaxValueValidator(1500)])
     '''Planed weight for the repetitions'''
 
     order = models.IntegerField(blank=True,
