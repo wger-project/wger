@@ -226,6 +226,7 @@ class SettingViewSet(WgerOwnerObjectModelViewSet):
     filter_fields = ('exercise',
                      'order',
                      'reps',
+                     'weight',
                      'set',
                      'order')
 
