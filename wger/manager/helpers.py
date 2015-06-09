@@ -126,6 +126,7 @@ def render_workout_day(day, nr_of_weeks):
 def reps_smart_text(settings, set_obj):
     '''
     "Smart" textual representation
+
     This is a human representation of the settings, in a way that humans
     would also write: e.g. "8 8 10 10" but "4 x 10" and not "10 10 10 10"
 
@@ -133,18 +134,24 @@ def reps_smart_text(settings, set_obj):
     :param set_obj:
     :return setting_text, setting_list:
     '''
+    unit = _('kg') if set_obj.exerciseday.training.user.userprofile.use_metric else _('lb')
+
     if len(settings) == 0:
         setting_text = ''
         setting_list = []
     elif len(settings) == 1:
         reps = settings[0].reps if settings[0].reps != 99 else u'∞'
         setting_text = u'{0} × {1}'.format(set_obj.sets, reps)
+        if settings[0].weight:
+            setting_text += ' ({0}{1})'.format(settings[0].weight, unit)
         setting_list = [settings[0].reps] * set_obj.sets
     elif len(settings) > 1:
         tmp_reps_text = []
         tmp_reps = []
         for i in settings:
             reps = str(i.reps) if i.reps != 99 else u'∞'
+            if i.weight:
+                reps += ' ({0}{1})'.format(i.weight, unit)
             tmp_reps_text.append(reps)
             tmp_reps.append(i.reps)
 
