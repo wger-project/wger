@@ -98,6 +98,7 @@ class WorkoutCanonicalFormExerciseListSerializer(serializers.Serializer):
     '''
     setting_obj_list = SettingSerializer(many=True)
     setting_list = serializers.Field()
+    weight_list = serializers.Field()
     setting_text = serializers.Field()
     comment_list = serializers.Field()
 
