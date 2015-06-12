@@ -129,7 +129,8 @@
         "fields": {
             "comment": "", 
             "set": 1,
-            "reps": 8, 
+            "reps": 8,
+            "weight": null,
             "order": 1, 
             "exercise": 1
         }
@@ -140,7 +141,8 @@
         "fields": {
             "comment": "", 
             "set": 2, 
-            "reps": 10, 
+            "reps": 10,
+            "weight": 15,
             "order": 1, 
             "exercise": 2
         }
@@ -151,7 +153,8 @@
         "fields": {
             "comment": "", 
             "set": 3, 
-            "reps": 10, 
+            "reps": 10,
+            "weight": null,
             "order": 1, 
             "exercise": 2
         }
