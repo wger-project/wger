@@ -250,7 +250,7 @@ class LastWeightHelper():
         :param reps:
         :return: WorkoutLog or '' if none is found
         '''
-        key = u'{0}-{1}-{2}'.format(self.user.pk, exercise.pk, reps)
+        key = (self.user.pk, exercise.pk, reps)
 
         if self.last_weight_list.get(key) is None:
             last_log = WorkoutLog.objects.filter(user=self.user,
