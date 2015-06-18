@@ -19,7 +19,7 @@ import datetime
 
 from rest_framework import viewsets
 from rest_framework.response import Response
-from rest_framework.decorators import link
+from rest_framework.decorators import detail_route
 
 from wger.manager.api.serializers import WorkoutSerializer
 from wger.manager.api.serializers import WorkoutCanonicalFormSerializer
@@ -64,7 +64,7 @@ class WorkoutViewSet(viewsets.ModelViewSet):
         '''
         obj.user = self.request.user
 
-    @link()
+    @detail_route()
     def canonical_representation(self, request, pk):
         '''
         Output the canonical representation of a workout

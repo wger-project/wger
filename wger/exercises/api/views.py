@@ -18,7 +18,7 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
-from rest_framework.decorators import link
+from rest_framework.decorators import detail_route
 from rest_framework.decorators import api_view
 
 from easy_thumbnails.alias import aliases
@@ -137,7 +137,7 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
                      'license',
                      'license_author')
 
-    @link()
+    @detail_route()
     def thumbnails(self, request, pk):
         '''
         Return a list of the image's thumbnails

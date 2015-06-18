@@ -16,7 +16,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from rest_framework import viewsets
-from rest_framework.decorators import link
+from rest_framework.decorators import detail_route
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -58,7 +58,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
                      'license',
                      'license_author')
 
-    @link()
+    @detail_route()
     def get_values(self, request, pk):
         '''
         Calculates the nutritional values for current ingredient and
@@ -180,7 +180,7 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         obj.user = self.request.user
         obj.language = load_language()
 
-    @link()
+    @detail_route()
     def nutritional_values(self, request, pk):
         '''
         Return an overview of the nutritional plan's values
@@ -217,7 +217,7 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
         '''
         return [(NutritionPlan, 'plan')]
 
-    @link()
+    @detail_route()
     def nutritional_values(self, request, pk):
         '''
         Return an overview of the nutritional plan's values
@@ -256,7 +256,7 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
         '''
         return [(Meal, 'meal')]
 
-    @link()
+    @detail_route()
     def nutritional_values(self, request, pk):
         '''
         Return an overview of the nutritional plan's values
