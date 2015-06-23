@@ -17,7 +17,7 @@
 
 from rest_framework import serializers
 
-from wger.core.models import UserProfile
+from wger.core.models import UserProfile, Language, DaysOfWeek, License
 
 
 class UserprofileSerializer(serializers.ModelSerializer):
@@ -33,3 +33,27 @@ class UsernameSerializer(serializers.Serializer):
     Serializer to extract the username
     '''
     username = serializers.CharField()
+
+
+class LanguageSerializer(serializers.ModelSerializer):
+    '''
+    Language serializer
+    '''
+    class Meta:
+        model = Language
+
+
+class DaysOfWeekSerializer(serializers.ModelSerializer):
+    '''
+    DaysOfWeek serializer
+    '''
+    class Meta:
+        model = DaysOfWeek
+
+
+class LicenseSerializer(serializers.ModelSerializer):
+    '''
+    License serializer
+    '''
+    class Meta:
+        model = License
