@@ -20,7 +20,8 @@ from rest_framework.decorators import detail_route
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from wger.nutrition.api.serializers import NutritionPlanSerializer
+from wger.nutrition.api.serializers import NutritionPlanSerializer, IngredientWeightUnitSerializer, WeightUnitSerializer, \
+    MealItemSerializer, MealSerializer, IngredientSerializer
 from wger.nutrition.forms import UnitChooserForm
 
 from wger.nutrition.models import Ingredient
@@ -39,7 +40,8 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     API endpoint for ingredient objects
     '''
-    model = Ingredient
+    queryset = Ingredient.objects.all()
+    serializer_class = IngredientSerializer
     ordering_fields = '__all__'
     filter_fields = ('carbohydrates',
                      'carbohydrates_sugar',
@@ -136,7 +138,8 @@ class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     API endpoint for weight unit objects
     '''
-    model = WeightUnit
+    queryset = WeightUnit.objects.all()
+    serializer_class = WeightUnitSerializer
     ordering_fields = '__all__'
     filter_fields = ('language',
                      'name')
@@ -146,7 +149,8 @@ class IngredientWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     API endpoint for many-to-many table ingredient-weight unit objects
     '''
-    model = IngredientWeightUnit
+    queryset = IngredientWeightUnit.objects.all()
+    serializer_class = IngredientWeightUnitSerializer
     ordering_fields = '__all__'
     filter_fields = ('amount',
                      'gram',
@@ -173,12 +177,17 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         '''
         return NutritionPlan.objects.filter(user=self.request.user)
 
-    def pre_save(self, obj):
+    def perform_create(self, serializer):
         '''
         Set the owner
         '''
-        obj.user = self.request.user
-        obj.language = load_language()
+        serializer.save(user=self.request.user, language=load_language())
+
+    def perform_update(self, serializer):
+        '''
+        Set the owner
+        '''
+        serializer.save(user=self.request.user, language=load_language())
 
     @detail_route()
     def nutritional_values(self, request, pk):
@@ -193,6 +202,7 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
     API endpoint for meal objects
     '''
     model = Meal
+    serializer_class = MealSerializer
     is_private = True
     ordering_fields = '__all__'
     filter_fields = ('order',
@@ -205,11 +215,17 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
         '''
         return Meal.objects.filter(plan__user=self.request.user)
 
-    def pre_save(self, obj):
+    def perform_create(self, serializer):
         '''
         Set the order
         '''
-        obj.order = 1
+        serializer.save(order=1)
+
+    def perform_update(self, serializer):
+        '''
+        Set the order
+        '''
+        serializer.save(order=1)
 
     def get_owner_objects(self):
         '''
@@ -230,6 +246,7 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
     API endpoint for meal item objects
     '''
     model = MealItem
+    serializer_class = MealItemSerializer
     is_private = True
     ordering_fields = '__all__'
     filter_fields = ('amount',
@@ -244,11 +261,17 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
         '''
         return MealItem.objects.filter(meal__plan__user=self.request.user)
 
-    def pre_save(self, obj):
+    def perform_create(self, serializer):
         '''
         Set the order
         '''
-        obj.order = 1
+        serializer.save(order=1)
+
+    def perform_update(self, serializer):
+        '''
+        Set the order
+        '''
+        serializer.save(order=1)
 
     def get_owner_objects(self):
         '''
