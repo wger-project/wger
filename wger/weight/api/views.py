@@ -38,8 +38,14 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
         '''
         return WeightEntry.objects.filter(user=self.request.user)
 
-    def pre_save(self, obj):
+    def perform_create(self, serializer):
         '''
         Set the owner
         '''
-        obj.user = self.request.user
+        serializer.save(user=self.request.user)
+
+    def perform_update(self, serializer):
+        '''
+        Set the owner
+        '''
+        serializer.save(user=self.request.user)
