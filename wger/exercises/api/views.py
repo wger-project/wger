@@ -27,6 +27,8 @@ from easy_thumbnails.files import get_thumbnailer
 from django.utils.translation import ugettext as _
 
 from wger.config.models import LanguageConfig
+from wger.exercises.api.serializers import MuscleSerializer, ExerciseSerializer, ExerciseImageSerializer, \
+    ExerciseCategorySerializer, EquipmentSerializer, ExerciseCommentSerializer
 from wger.exercises.models import Exercise
 from wger.exercises.models import Equipment
 from wger.exercises.models import ExerciseCategory
@@ -43,6 +45,7 @@ class ExerciseViewSet(viewsets.ModelViewSet):
     API endpoint for exercise objects
     '''
     model = Exercise
+    serializer_class = ExerciseSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'
     filter_fields = ('category',
@@ -110,7 +113,8 @@ class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     API endpoint for equipment objects
     '''
-    model = Equipment
+    queryset = Equipment.objects.all()
+    serializer_class = EquipmentSerializer
     ordering_fields = '__all__'
     filter_fields = ('name',)
 
@@ -119,7 +123,8 @@ class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     API endpoint for exercise categories objects
     '''
-    model = ExerciseCategory
+    queryset = ExerciseCategory.objects.all()
+    serializer_class = ExerciseCategorySerializer
     ordering_fields = '__all__'
     filter_fields = ('name',)
 
@@ -129,6 +134,7 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
     API endpoint for exercise image objects
     '''
     model = ExerciseImage
+    serializer_class = ExerciseImageSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'
     filter_fields = ('is_main',
@@ -162,7 +168,8 @@ class ExerciseCommentViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     API endpoint for exercise comment objects
     '''
-    model = ExerciseComment
+    queryset = ExerciseComment.objects.all()
+    serializer_class = ExerciseCommentSerializer
     ordering_fields = '__all__'
     filter_fields = ('comment',
                      'exercise')
@@ -172,7 +179,8 @@ class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     API endpoint for muscle objects
     '''
-    model = Muscle
+    queryset = Muscle.objects.all()
+    serializer_class = MuscleSerializer
     ordering_fields = '__all__'
     filter_fields = ('name',
                      'is_front')
