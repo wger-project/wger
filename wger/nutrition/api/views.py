@@ -165,7 +165,6 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
     '''
     API endpoint for nutrition plan objects
     '''
-    model = NutritionPlan
     serializer_class = NutritionPlanSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -204,7 +203,6 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
     '''
     API endpoint for meal objects
     '''
-    model = Meal
     serializer_class = MealSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -248,7 +246,6 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
     '''
     API endpoint for meal item objects
     '''
-    model = MealItem
     serializer_class = MealItemSerializer
     is_private = True
     ordering_fields = '__all__'

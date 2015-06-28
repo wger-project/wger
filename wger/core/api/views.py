@@ -34,7 +34,6 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     '''
     API endpoint for workout objects
     '''
-    model = UserProfile
     is_private = True
     serializer_class = UserprofileSerializer
     permission_classes = (WgerPermission, UpdateOnlyPermission)

@@ -25,7 +25,6 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
     '''
     API endpoint for nutrition plan objects
     '''
-    model = WeightEntry
     serializer_class = WeightEntrySerializer
     is_private = True
     ordering_fields = '__all__'

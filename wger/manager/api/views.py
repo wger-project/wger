@@ -45,7 +45,6 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     '''
     API endpoint for workout objects
     '''
-    model = Workout
     serializer_class = WorkoutSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -86,7 +85,6 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
     '''
     API endpoint for workout sessions objects
     '''
-    model = WorkoutSession
     serializer_class = WorkoutSessionSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -128,8 +126,6 @@ class ScheduleStepViewSet(WgerOwnerObjectModelViewSet):
     '''
     API endpoint for schedule step objects
     '''
-
-    model = ScheduleStep
     serializer_class = ScheduleStepSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -156,7 +152,6 @@ class ScheduleViewSet(viewsets.ModelViewSet):
     '''
     API endpoint for schedule objects
     '''
-    model = Schedule
     serializer_class = ScheduleSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -188,7 +183,6 @@ class DayViewSet(WgerOwnerObjectModelViewSet):
     '''
     API endpoint for training day objects
     '''
-    model = Day
     serializer_class = DaySerializer
     is_private = True
     ordering_fields = '__all__'
@@ -213,7 +207,6 @@ class SetViewSet(WgerOwnerObjectModelViewSet):
     '''
     API endpoint for workout set objects
     '''
-    model = Set
     serializer_class = SetSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -239,7 +232,6 @@ class SettingViewSet(WgerOwnerObjectModelViewSet):
     '''
     API endpoint for repetition setting objects
     '''
-    model = Setting
     serializer_class = SettingSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -278,7 +270,6 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
     '''
     API endpoint for workout log objects
     '''
-    model = WorkoutLog
     serializer_class = WorkoutLogSerializer
     is_private = True
     ordering_fields = '__all__'
