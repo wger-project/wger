@@ -98,6 +98,9 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
             item.amount = form.cleaned_data['amount']
 
             result = item.get_nutritional_values()
+
+            for i in result:
+                result[i] = '{0:f}'.format(result[i])
         else:
             result['errors'] = form.errors
 
