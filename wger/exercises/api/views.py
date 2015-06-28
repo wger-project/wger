@@ -27,8 +27,9 @@ from easy_thumbnails.files import get_thumbnailer
 from django.utils.translation import ugettext as _
 
 from wger.config.models import LanguageConfig
-from wger.exercises.api.serializers import MuscleSerializer, ExerciseSerializer, ExerciseImageSerializer, \
-    ExerciseCategorySerializer, EquipmentSerializer, ExerciseCommentSerializer
+from wger.exercises.api.serializers import MuscleSerializer, ExerciseSerializer, \
+    ExerciseImageSerializer, ExerciseCategorySerializer, EquipmentSerializer, \
+    ExerciseCommentSerializer
 from wger.exercises.models import Exercise
 from wger.exercises.models import Equipment
 from wger.exercises.models import ExerciseCategory

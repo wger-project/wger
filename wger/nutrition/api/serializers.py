@@ -16,7 +16,8 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from rest_framework import serializers
-from wger.nutrition.models import NutritionPlan, IngredientWeightUnit, WeightUnit, MealItem, Meal, Ingredient
+from wger.nutrition.models import NutritionPlan, IngredientWeightUnit, \
+    WeightUnit, MealItem, Meal, Ingredient
 
 
 class NutritionPlanSerializer(serializers.ModelSerializer):

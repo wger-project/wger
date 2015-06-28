@@ -20,8 +20,9 @@ from rest_framework.decorators import detail_route
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from wger.nutrition.api.serializers import NutritionPlanSerializer, IngredientWeightUnitSerializer, WeightUnitSerializer, \
-    MealItemSerializer, MealSerializer, IngredientSerializer
+from wger.nutrition.api.serializers import NutritionPlanSerializer, \
+    IngredientWeightUnitSerializer, WeightUnitSerializer, MealItemSerializer, \
+    MealSerializer, IngredientSerializer
 from wger.nutrition.forms import UnitChooserForm
 
 from wger.nutrition.models import Ingredient
