@@ -112,6 +112,9 @@ patterns_session = patterns('',
     url(r'^(?P<pk>\d+)/edit$',
         workout_session.WorkoutSessionUpdateView.as_view(),
         name='edit'),
+    url(r'^(?P<pk>\d+)/delete$',
+        workout_session.WorkoutSessionDeleteView.as_view(),
+        name='delete'),
 )
 
 

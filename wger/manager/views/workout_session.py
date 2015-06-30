@@ -19,16 +19,16 @@ import datetime
 
 from django.http import HttpResponseForbidden
 from django.http import HttpResponseBadRequest
-from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.utils.translation import ugettext as _, ugettext_lazy
 
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, DeleteView
 from django.views.generic import CreateView
 from wger.manager.forms import WorkoutSessionForm
 
 from wger.manager.models import Workout, WorkoutSession
 
-from wger.utils.generic_views import WgerFormMixin
+from wger.utils.generic_views import WgerFormMixin, WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
 
 
@@ -116,3 +116,20 @@ class WorkoutSessionAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
         form.instance.user = self.request.user
         form.instance.date = self.get_date()
         return super(WorkoutSessionAddView, self).form_valid(form)
+
+
+class WorkoutSessionDeleteView(WgerDeleteMixin, DeleteView):
+    '''
+    Generic view to delete a workout routine
+    '''
+
+    model = WorkoutSession
+    success_url = reverse_lazy('manager:workout:overview')
+    messages = ugettext_lazy('Successfully deleted')
+    login_required = True
+
+    def get_context_data(self, **kwargs):
+        context = super(WorkoutSessionDeleteView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('manager:session:delete', kwargs={'pk': self.object.id})
+        context['title'] = _(u'Delete {0}?').format(self.object)
+        return context

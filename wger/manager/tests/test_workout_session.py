@@ -21,7 +21,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 
 from wger.core.tests import api_base_test
 from wger.manager.models import Workout, WorkoutSession
-from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.manager.tests.testcase import WorkoutManagerTestCase, WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.utils.cache import cache_mapper, get_template_cache_name
@@ -87,6 +87,16 @@ class WorkoutSessionModelTestCase(WorkoutManagerTestCase):
         session.date = datetime.date.today()
         self.assertEqual('{0}'.format(session),
                          u'{0} - {1}'.format(Workout.objects.get(pk=1), datetime.date.today()))
+
+
+class DeleteTestWorkoutTestCase(WorkoutManagerDeleteTestCase):
+    '''
+    Tests deleting a Workout
+    '''
+
+    object_class = WorkoutSession
+    url = 'manager:session:delete'
+    pk = 3
 
 
 class WorkoutSessionTestCase(WorkoutManagerTestCase):

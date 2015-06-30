@@ -12,7 +12,26 @@
     {% if is_owner %}
     <div class="col-sm-4">
         {% if value.session %}
-            <a href="{% url 'manager:session:edit' value.session.pk %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Edit workout session" %}</a>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {% trans "Workout session" %}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="{% url 'manager:session:edit' value.session.pk %}" class="wger-modal-dialog">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            {% trans "Edit" %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'manager:session:delete' value.session.pk %}" class="wger-modal-dialog">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            {% trans "Delete" %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
         {% else %}
             <a href="{% url 'manager:session:add' value.workout.id date|date:'Y' date|date:'m' date|date:'d' %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Add workout impression" %}</a>
         {% endif %}
