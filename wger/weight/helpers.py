@@ -53,7 +53,7 @@ def parse_weight_csv(request, cleaned_data):
             parsed_date = datetime.datetime.strptime(row[0], cleaned_data['date_format'])
             parsed_weight = decimal.Decimal(row[1].replace(',', '.'))
             duplicate_date_in_db = WeightEntry.objects.filter(date=parsed_date,
-                                                              user=request.user)
+                                                              user=request.user).exists()
             # within the list there are no duplicates
             unique_among_csv = (parsed_date, parsed_weight) not in distinct_weight_entries
             # there is no existing weight entry in the database for that date
