@@ -12,7 +12,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from datetime import date, timedelta, datetime
+from datetime import timedelta, datetime
 
 from django.core.management import call_command
 from django.core import mail

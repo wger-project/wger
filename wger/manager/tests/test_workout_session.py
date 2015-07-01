@@ -24,7 +24,7 @@ from wger.manager.models import Workout, WorkoutSession, WorkoutLog
 from wger.manager.tests.testcase import WorkoutManagerTestCase, WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
-from wger.utils.cache import cache_mapper, get_template_cache_name
+from wger.utils.cache import cache_mapper
 
 
 '''

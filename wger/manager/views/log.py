@@ -46,7 +46,7 @@ from wger.manager.forms import WorkoutLogForm
 from wger.utils.generic_views import WgerFormMixin
 from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.generic_views import WgerPermissionMixin
-from wger.utils.helpers import check_access, make_token
+from wger.utils.helpers import check_access
 from wger.weight.helpers import process_log_entries, group_log_entries
 
 
