@@ -20,7 +20,7 @@ from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse, reverse_lazy
 
 from wger.core.tests import api_base_test
-from wger.manager.models import Workout, WorkoutSession
+from wger.manager.models import Workout, WorkoutSession, WorkoutLog
 from wger.manager.tests.testcase import WorkoutManagerTestCase, WorkoutManagerDeleteTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import WorkoutManagerEditTestCase
@@ -97,6 +97,27 @@ class DeleteTestWorkoutTestCase(WorkoutManagerDeleteTestCase):
     object_class = WorkoutSession
     url = 'manager:session:delete'
     pk = 3
+
+
+class WorkoutSessionDeleteLogsTestCase(WorkoutManagerTestCase):
+    '''
+    Tests that deleting a session can also delete all weight logs
+    '''
+
+    def test_delete_logs(self):
+        self.user_login('admin')
+
+        session = WorkoutSession.objects.get(pk=1)
+        count_before = WorkoutLog.objects.filter(user__username=session.user.username,
+                                                 date=session.date).count()
+        self.assertEqual(count_before, 1)
+
+        response = self.client.post(reverse('manager:session:delete',
+                                            kwargs={'pk': 1, 'logs': 'logs'}))
+        self.assertEqual(response.status_code, 302)
+        count_after = WorkoutLog.objects.filter(user__username=session.user.username,
+                                                date=session.date).count()
+        self.assertEqual(count_after, 0)
 
 
 class WorkoutSessionTestCase(WorkoutManagerTestCase):

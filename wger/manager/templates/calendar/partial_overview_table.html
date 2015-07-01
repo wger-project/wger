@@ -30,6 +30,12 @@
                             {% trans "Delete" %}
                         </a>
                     </li>
+                    <li>
+                        <a href="{% url 'manager:session:delete' value.session.pk 'logs' %}" class="wger-modal-dialog">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            {% trans "Delete with logs" %}
+                        </a>
+                    </li>
                 </ul>
             </div>
         {% else %}
