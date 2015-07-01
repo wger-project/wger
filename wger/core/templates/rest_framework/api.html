@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load rest_framework %}
 {% load wger_extras %}
-{% load wger_extras %}
+{% load django_bootstrap_breadcrumbs %}
 
 {% block header %}
 <link rel="stylesheet" type="text/css" href="{% static 'rest_framework/css/prettify.css' %}"/>
@@ -16,32 +16,21 @@
 
 {% block title %}REST API - {{ name }}{% endblock %}
 
+{#             #}
+{# Breadcrumbs #}
+{#             #}
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% breadcrumb "Api Documentation" "software:api" %}
+    {% for breadcrumb_name, breadcrumb_url in breadcrumblist %}
+        {% breadcrumb_raw breadcrumb_name breadcrumb_url %}
+    {% endfor  %}
+{% endblock %}
+
+
+
 {% block content %}
-
-    {#             #}
-    {# Breadcrumbs #}
-    {#             #}
-    {% block breadcrumbs %}
-    <ol class="breadcrumb">
-        <li>
-            <a href="{% url 'software:api' %}">Api Documentation</a>
-        </li>
-        {% for breadcrumb_name, breadcrumb_url in breadcrumblist %}
-            {% if not forloop.last %}
-                <li>
-                    <a href="{{ breadcrumb_url }}">{{ breadcrumb_name }}</a>
-                </li>
-            {% else %}
-                <li class="active">
-                    {{ breadcrumb_name }}
-                </li>
-            {% endif %}
-        {% endfor %}
-    </ol>
-    {% endblock %}
-
-
-
     {#            #}
     {# GET button #}
     {#            #}

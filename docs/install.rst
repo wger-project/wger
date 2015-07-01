@@ -13,6 +13,9 @@ The application is compatible and regularly tested with
 * sqlite, postgres
 * python 2.7, 3.3 and 3.4
 
+See the :ref:`other-changes` section for content related changes to your
+installation.
+
 
 
 Databasse
@@ -142,3 +145,15 @@ the password as soon as you log in):
 Collect all static resources:: 
 
   python manage.py collectstatic
+
+
+.. _other-changes:
+
+Other changes
+-------------
+
+If you want to use the application as a public instance, you will probably want to
+change the following templates:
+
+* **tos.html**, for your own Terms Of Service here
+* **about.html**, for your contact address or other such legal requirements
