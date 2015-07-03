@@ -171,7 +171,6 @@ $(document).ready(function() {
 </a>
 </p>
 
-{% if is_owner %}
 <p>
 <a href="{% url 'manager:workout:copy' workout.id %}"
    class="wger-modal-dialog">
@@ -184,6 +183,7 @@ $(document).ready(function() {
 </a>
 </p>
 
+{% if is_owner %}
 <p>
 <a href="{% url 'manager:workout:delete' workout.id %}"
    class="wger-modal-dialog">

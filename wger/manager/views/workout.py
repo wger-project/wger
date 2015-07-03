@@ -114,7 +114,7 @@ def copy_workout(request, pk):
     Makes a copy of a workout
     '''
 
-    workout = get_object_or_404(Workout, pk=pk, user=request.user)
+    workout = get_object_or_404(Workout, pk=pk)
 
     # Process request
     if request.method == 'POST':
@@ -128,6 +128,7 @@ def copy_workout(request, pk):
             workout_copy = workout
             workout_copy.pk = None
             workout_copy.comment = workout_form.cleaned_data['comment']
+            workout_copy.user = request.user
             workout_copy.save()
 
             # Copy the days
