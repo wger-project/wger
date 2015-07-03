@@ -98,7 +98,7 @@ class CopyWorkoutTestCase(WorkoutManagerTestCase):
 
     def test_copy_workout_owner(self):
         '''
-        Test copying a workout as the owener user
+        Test copying a workout as the owner user
         '''
 
         self.user_login('test')
