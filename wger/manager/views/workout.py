@@ -115,6 +115,11 @@ def copy_workout(request, pk):
     '''
 
     workout = get_object_or_404(Workout, pk=pk)
+    user = workout.user
+    is_owner = request.user == user
+
+    if not is_owner and not user.userprofile.ro_access:
+        return HttpResponseForbidden()
 
     # Process request
     if request.method == 'POST':
