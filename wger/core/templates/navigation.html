@@ -199,7 +199,7 @@
                                     {#               #}
                                     {% if perms.exercises or perms.gym.manage_gyms or perms.gym.manage_gym or perms.gym.gym_trainer %}
                                         <li class="divider"></li>
-                                        <li class="nav-header">{% trans "Administration" %}</li>
+                                        <li class="dropdown-header">{% trans "Administration" %}</li>
                                         {% if perms.core.change_language %}
                                             <li><a href="{% url 'config:language:overview' %}">{% trans "Languages" %} </a></li>
                                         {% endif %}
