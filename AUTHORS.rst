@@ -10,6 +10,7 @@ Developers
 * Matheus Zorzete Marchiore - https://github.com/marchiore
 * Yu Yu Aung - https://github.com/max111
 * Laszlo Ratsko - https://github.com/rlaszlo
+* James Simas - https://github.com/jamessimas
 
 Translators
 -----------
