@@ -186,12 +186,6 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         '''
         serializer.save(user=self.request.user, language=load_language())
 
-    def perform_update(self, serializer):
-        '''
-        Set the owner
-        '''
-        serializer.save(user=self.request.user, language=load_language())
-
     @detail_route()
     def nutritional_values(self, request, pk):
         '''
@@ -218,12 +212,6 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
         return Meal.objects.filter(plan__user=self.request.user)
 
     def perform_create(self, serializer):
-        '''
-        Set the order
-        '''
-        serializer.save(order=1)
-
-    def perform_update(self, serializer):
         '''
         Set the order
         '''
@@ -263,12 +251,6 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
         return MealItem.objects.filter(meal__plan__user=self.request.user)
 
     def perform_create(self, serializer):
-        '''
-        Set the order
-        '''
-        serializer.save(order=1)
-
-    def perform_update(self, serializer):
         '''
         Set the order
         '''

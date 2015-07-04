@@ -42,9 +42,3 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
         Set the owner
         '''
         serializer.save(user=self.request.user)
-
-    def perform_update(self, serializer):
-        '''
-        Set the owner
-        '''
-        serializer.save(user=self.request.user)

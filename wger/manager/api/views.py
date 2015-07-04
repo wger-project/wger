@@ -63,12 +63,6 @@ class WorkoutViewSet(viewsets.ModelViewSet):
         '''
         serializer.save(user=self.request.user)
 
-    def perform_update(self, serializer):
-        '''
-        Set the owner
-        '''
-        serializer.save(user=self.request.user)
-
     @detail_route()
     def canonical_representation(self, request, pk):
         '''
@@ -102,13 +96,6 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
         return WorkoutSession.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
-        '''
-        Set the owner
-        '''
-        today = datetime.date.today()
-        serializer.save(date=today, user=self.request.user)
-
-    def perform_update(self, serializer):
         '''
         Set the owner
         '''
@@ -167,12 +154,6 @@ class ScheduleViewSet(viewsets.ModelViewSet):
         return Schedule.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
-        '''
-        Set the owner
-        '''
-        serializer.save(user=self.request.user)
-
-    def perform_update(self, serializer):
         '''
         Set the owner
         '''
@@ -253,12 +234,6 @@ class SettingViewSet(WgerOwnerObjectModelViewSet):
         '''
         serializer.save(order=1)
 
-    def perform_update(self, serializer):
-        '''
-        Set the order
-        '''
-        serializer.save(order=1)
-
     def get_owner_objects(self):
         '''
         Return objects to check for ownership permission
@@ -287,12 +262,6 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
         return WorkoutLog.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
-        '''
-        Set the owner
-        '''
-        serializer.save(user=self.request.user)
-
-    def perform_update(self, serializer):
         '''
         Set the owner
         '''
