@@ -60,12 +60,15 @@ class ExerciseViewSet(viewsets.ModelViewSet):
                      'license',
                      'license_author')
 
-    def pre_save(self, obj):
+    def perform_create(self, serializer):
         '''
-        Set language, author and status
+        Set author and status
         '''
-        obj.language = load_language()
+        language = load_language()
+        obj = serializer.save(language=language)
+        # Todo is it right to call set author after save?
         obj.set_author(self.request)
+        obj.save()
 
 
 @api_view(['GET'])
@@ -156,11 +159,14 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
         thumbnails['original'] = image.image.url
         return Response(thumbnails)
 
-    def pre_save(self, obj):
+    def perform_create(self, serializer):
         '''
         Set the license data
         '''
+        obj = serializer.save()
+        # Todo is it right to call set author after save?
         obj.set_author(self.request)
+        obj.save()
 
 
 class ExerciseCommentViewSet(viewsets.ReadOnlyModelViewSet):
