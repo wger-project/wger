@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import json
+import socket
 
 from django.core import mail
 from django.core.urlresolvers import reverse
@@ -290,7 +291,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         # Exercise was saved
         exercise = Exercise.objects.get(pk=exercise_id)
         if admin:
-            self.assertEqual(exercise.license_author, 'wger.de')
+            self.assertEqual(exercise.license_author, socket.gethostname().lower())
             self.assertEqual(exercise.status, Exercise.STATUS_ACCEPTED)
         else:
             self.assertEqual(exercise.license_author, 'test')
