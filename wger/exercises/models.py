@@ -19,6 +19,7 @@ import six
 import uuid
 import logging
 import bleach
+import socket
 
 from django.db import models
 from django.template.loader import render_to_string
@@ -330,7 +331,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         if request.user.has_perm('exercises.add_exercise'):
             self.status = self.STATUS_ACCEPTED
             if not self.license_author:
-                self.license_author = 'wger.de'
+                self.license_author = socket.gethostname().lower()
 
         else:
             if not self.license_author:
