@@ -3,12 +3,19 @@
 <div id="formset-exercise-{{exercise.id}}" style="margin-top: 1em;">
 <h4>{{exercise}}</h4>
 {{ formset.management_form }}
-{% for field in formset %}
 
-    <div style="display:table-cell;width: 5em;padding-right:0px;">
+{% for field in formset %}
+<div class="container-fluid">
+    <div class="row">
         {% for i in field %}
+            <div class="col-md-3">
+            {% if forloop.parentloop.first and not i.is_hidden %}
+                {{ i.label }}
+            {% endif %}
             {{i|form_field_add_css:'form-control'}}
+            </div>
         {% endfor %}
     </div>
+</div>
 {% endfor %}
 </div>
