@@ -42,7 +42,7 @@ class UserPreferencesForm(forms.ModelForm):
 
 class UserEmailForm(forms.ModelForm):
     email = EmailField(label=_("Email"),
-                       help_text=_("Only needed to reset your password in case you forget it."),
+                       help_text=_("Used for password resets and, optionally, email reminders."),
                        required=False)
 
     class Meta:
