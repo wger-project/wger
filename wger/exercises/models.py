@@ -19,7 +19,6 @@ import six
 import uuid
 import logging
 import bleach
-import socket
 import re
 
 from django.db import models
