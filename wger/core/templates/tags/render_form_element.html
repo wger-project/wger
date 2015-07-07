@@ -15,6 +15,8 @@
         <div class="col-md-9">
             {% if not field|is_checkbox and not field|is_fileupload %}
                 {{ field|form_field_add_css:'form-control' }}
+            {% elif field|is_checkbox %}
+                {{ field|form_field_add_css:'checkbox' }}
             {% else %}
                 {{ field }}
             {% endif %}
