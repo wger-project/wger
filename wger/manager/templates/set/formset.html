@@ -6,15 +6,36 @@
 
 {% for field in formset %}
 <div class="container-fluid" style="padding-top: 0.5em;">
+
+    {# Header row with field labels, only for first loop #}
     <div class="row">
         {% for i in field %}
-            {% if not i.is_hidden %}
-            <div class="col-md-4">
+        {% if not i.is_hidden %}
+            {% if forloop.first %}
+            <div class="col-xs-1">
+            </div>
             {% endif %}
 
-            {# field label only for first loop, as a header #}
-            {% if forloop.parentloop.first and not i.is_hidden %}
-                {{ i.label }}
+            {% if forloop.parentloop.first %}
+                <div class="col-xs-3">
+                    {{ i.label }}
+                </div>
+            {% endif %}
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    {# Form field rows #}
+    <div class="row">
+        {% for i in field %}
+            {% if forloop.first %}
+            <div class="col-xs-1" style="text-align: right;">
+                {{ forloop.parentloop.counter }})
+            </div>
+            {% endif %}
+
+            {% if not i.is_hidden %}
+            <div class="col-xs-3">
             {% endif %}
 
             {#  Field elements #}
