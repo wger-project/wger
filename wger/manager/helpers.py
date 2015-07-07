@@ -75,7 +75,7 @@ def render_workout_day(day, nr_of_weeks):
 
             data.append([set_count,
                          Paragraph(exercise['obj'].name, styleSheet["Small"]),
-                         exercise['setting_text']]
+                         Paragraph(exercise['setting_text'], styleSheet["Small"])]
                         + [''] * nr_of_weeks)
         set_count += 1
 
@@ -126,6 +126,7 @@ def render_workout_day(day, nr_of_weeks):
 def reps_smart_text(settings, set_obj):
     '''
     "Smart" textual representation
+
     This is a human representation of the settings, in a way that humans
     would also write: e.g. "8 8 10 10" but "4 x 10" and not "10 10 10 10"
 
@@ -133,25 +134,46 @@ def reps_smart_text(settings, set_obj):
     :param set_obj:
     :return setting_text, setting_list:
     '''
+    unit = _('kg') if set_obj.exerciseday.training.user.userprofile.use_metric else _('lb')
+
     if len(settings) == 0:
         setting_text = ''
         setting_list = []
+        weight_list = []
     elif len(settings) == 1:
         reps = settings[0].reps if settings[0].reps != 99 else u'∞'
         setting_text = u'{0} × {1}'.format(set_obj.sets, reps)
+
+        # The weight can be None, or a decimal. In that case, normalize so
+        # that we don't return e.g. '15.00', but always '15', independently of
+        # the database used.
+        weight = settings[0].weight.normalize() if settings[0].weight else settings[0].weight
+
+        if weight:
+            setting_text += ' ({0}{1})'.format(weight, unit)
         setting_list = [settings[0].reps] * set_obj.sets
+        weight_list = [weight] * set_obj.sets
+
     elif len(settings) > 1:
         tmp_reps_text = []
         tmp_reps = []
+        tmp_weight = []
         for i in settings:
             reps = str(i.reps) if i.reps != 99 else u'∞'
+            weight = i.weight
+            if i.weight:
+                # Normalize, see comment above
+                weight = i.weight.normalize()
+                reps += ' ({0}{1})'.format(weight, unit)
             tmp_reps_text.append(reps)
             tmp_reps.append(i.reps)
+            tmp_weight.append(weight)
 
         setting_text = u' – '.join(tmp_reps_text)
         setting_list = tmp_reps
+        weight_list = tmp_weight
 
-    return setting_text, setting_list
+    return setting_text, setting_list, weight_list
 
 
 class WorkoutCalendar(HTMLCalendar):

@@ -15,6 +15,7 @@
 import logging
 import math
 import datetime
+from decimal import Decimal
 
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -31,6 +32,23 @@ class WorkoutTimerTestCase(WorkoutManagerTestCase):
     '''
     Tests the timer view (gym mode) for a workout day
     '''
+
+    def test_timer_no_weight(self):
+        '''
+        Test the timer page when there are no saved weights
+        '''
+
+        # Fetch the timer page
+        self.user_login('test')
+        response = self.client.get(reverse('manager:workout:timer', kwargs={'day_pk': 5}))
+        self.assertEqual(response.status_code, 200)
+
+        # Check some of the steps
+        step_list = response.context['step_list']
+        step_list.reverse()
+
+        current_step = step_list.pop()
+        self.assertEqual(current_step['weight'], '')
 
     def timer(self, fail=True, pause_active=True, pause_seconds=90):
         '''
@@ -57,7 +75,7 @@ class WorkoutTimerTestCase(WorkoutManagerTestCase):
             self.assertEqual(math.floor(current_step['step_percent']),
                              math.floor(current_step['step_nr'] * (100.0 / list_length)))
             self.assertEqual(current_step['type'], 'exercise')
-            self.assertEqual(current_step['weight'], '')
+            self.assertEqual(current_step['weight'], Decimal(15))
 
             if pause_active:
                 current_step = step_list.pop()
@@ -74,7 +92,7 @@ class WorkoutTimerTestCase(WorkoutManagerTestCase):
             self.assertEqual(math.floor(current_step['step_percent']),
                              math.floor(current_step['step_nr'] * (100.0 / list_length)))
             self.assertEqual(current_step['type'], 'exercise')
-            self.assertEqual(current_step['weight'], '')
+            self.assertEqual(current_step['weight'], Decimal(15))
 
             if pause_active:
                 current_step = step_list.pop()
@@ -91,7 +109,7 @@ class WorkoutTimerTestCase(WorkoutManagerTestCase):
             self.assertEqual(math.floor(current_step['step_percent']),
                              math.floor(current_step['step_nr'] * (100.0 / list_length)))
             self.assertEqual(current_step['type'], 'exercise')
-            self.assertEqual(current_step['weight'], '')
+            self.assertEqual(current_step['weight'], Decimal(15))
 
     def test_timer_anonymous(self):
         '''

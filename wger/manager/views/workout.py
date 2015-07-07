@@ -248,21 +248,22 @@ class LastWeightHelper():
     def __init__(self, user):
         self.user = user
 
-    def get_last_weight(self, exercise, reps):
+    def get_last_weight(self, exercise, reps, default_weight):
         '''
         Returns an emtpy string if no entry is found
 
         :param exercise:
         :param reps:
+        :param default_weight:
         :return: WorkoutLog or '' if none is found
         '''
-        key = u'{0}-{1}-{2}'.format(self.user.pk, exercise.pk, reps)
-
+        key = (self.user.pk, exercise.pk, reps, default_weight)
         if self.last_weight_list.get(key) is None:
             last_log = WorkoutLog.objects.filter(user=self.user,
                                                  exercise=exercise,
                                                  reps=reps).order_by('-date')
-            weight = last_log[0].weight if last_log.exists() else ''
+            default_weight = '' if default_weight is None else default_weight
+            weight = last_log[0].weight if last_log.exists() else default_weight
             self.last_weight_list[key] = weight
 
         return self.last_weight_list.get(key)
@@ -286,14 +287,19 @@ def timer(request, day_pk):
         if not set_dict['is_superset']:
             for exercise_dict in set_dict['exercise_list']:
                 exercise = exercise_dict['obj']
-                for reps in exercise_dict['setting_list']:
+                for key, element in enumerate(exercise_dict['setting_list']):
+                    reps = exercise_dict['setting_list'][key]
+                    default_weight = last_log.get_last_weight(exercise,
+                                                              reps,
+                                                              exercise_dict['weight_list'][key])
+
                     step_list.append({'current_step': uuid.uuid4().hex,
                                       'step_percent': 0,
                                       'step_nr': len(step_list) + 1,
                                       'exercise': exercise,
                                       'type': 'exercise',
                                       'reps': reps,
-                                      'weight': last_log.get_last_weight(exercise, reps)})
+                                      'weight': default_weight})
                     if request.user.userprofile.timer_active:
                         step_list.append({'current_step': uuid.uuid4().hex,
                                           'step_percent': 0,
@@ -307,6 +313,7 @@ def timer(request, day_pk):
             for i in range(0, total_reps):
                 for exercise_dict in set_dict['exercise_list']:
                     reps = exercise_dict['setting_list'][i]
+                    default_weight = exercise_dict['weight_list'][i]
                     exercise = exercise_dict['obj']
 
                     step_list.append({'current_step': uuid.uuid4().hex,
@@ -315,7 +322,9 @@ def timer(request, day_pk):
                                       'exercise': exercise,
                                       'type': 'exercise',
                                       'reps': reps,
-                                      'weight': last_log.get_last_weight(exercise, reps)})
+                                      'weight': last_log.get_last_weight(exercise,
+                                                                         reps,
+                                                                         default_weight)})
 
                 if request.user.userprofile.timer_active:
                     step_list.append({'current_step': uuid.uuid4().hex,

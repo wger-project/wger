@@ -43,12 +43,12 @@ logger = logging.getLogger(__name__)
 # ************************
 # Set functions
 # ************************
-SETTING_FORMSET_EXCLUDE = ('comment', 'exercise', 'set', 'order')
+SETTING_FORMSET_FIELDS = ('reps', 'weight')
 
 SettingFormset = modelformset_factory(Setting,
                                       form=SettingForm,
-                                      exclude=SETTING_FORMSET_EXCLUDE,
-                                      can_delete=True,
+                                      fields=SETTING_FORMSET_FIELDS,
+                                      can_delete=False,
                                       can_order=False,
                                       extra=1)
 
@@ -135,7 +135,7 @@ def get_formset(request, exercise_pk, reps=Set.DEFAULT_SETS):
                                            Setting,
                                            can_delete=False,
                                            extra=int(reps),
-                                           exclude=SETTING_FORMSET_EXCLUDE)
+                                           fields=SETTING_FORMSET_FIELDS)
     formset = SettingFormSet(queryset=Setting.objects.none(),
                              prefix='exercise{0}'.format(exercise_pk))
 

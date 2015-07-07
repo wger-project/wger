@@ -440,7 +440,7 @@ class Day(models.Model):
                     setting_tmp.append(setting)
 
                 # "Smart" textual representation
-                setting_text, setting_list = reps_smart_text(setting_tmp, set_obj)
+                setting_text, setting_list, weight_list = reps_smart_text(setting_tmp, set_obj)
 
                 # Flag indicating whether all exercises have settings
                 has_setting_tmp = True if len(setting_tmp) > 0 else False
@@ -453,6 +453,7 @@ class Day(models.Model):
                 exercise_tmp.append({'obj': exercise,
                                      'setting_obj_list': setting_tmp,
                                      'setting_list': setting_list,
+                                     'weight_list': weight_list,
                                      'setting_text': setting_text,
                                      'comment_list': comment_list})
 
@@ -562,6 +563,14 @@ class Setting(models.Model):
                                  verbose_name=_('Exercises'))
     reps = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)],
                                verbose_name=_('Repetitions'))
+    weight = models.DecimalField(verbose_name=_('Weight'),
+                                 max_digits=6,
+                                 decimal_places=2,
+                                 blank=True,
+                                 null=True,
+                                 validators=[MinValueValidator(0), MaxValueValidator(1500)])
+    '''Planed weight for the repetitions'''
+
     order = models.IntegerField(blank=True,
                                 verbose_name=_('Order'))
     comment = models.CharField(max_length=100,
