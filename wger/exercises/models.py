@@ -331,7 +331,8 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         if request.user.has_perm('exercises.add_exercise'):
             self.status = self.STATUS_ACCEPTED
             if not self.license_author:
-                #  Get everything up to semicolon, exclusive. Example: my-gym.com:9090 returns my-gym.com
+                #  Get everything up to semicolon, exclusive.
+                #  Example: my-gym.com:9090 returns my-gym.com
                 results = re.search('^([^:]+).*', request.get_host())
 
                 if results:
