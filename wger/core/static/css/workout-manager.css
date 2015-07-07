@@ -269,9 +269,6 @@ div.info a, div.info a:hover, div.info a:active{
 /**************************************************************
  * Set edit window
  **************************************************************/
-#formsets input{
-    max-width: 5em;
-}
 #slider{
     width: 91%;
     float: right;
