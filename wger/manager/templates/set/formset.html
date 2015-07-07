@@ -9,10 +9,17 @@
     <div class="row">
         {% for i in field %}
             <div class="col-md-3">
+            {# field label only for first loop, as a header #}
             {% if forloop.parentloop.first and not i.is_hidden %}
                 {{ i.label }}
             {% endif %}
-            {{i|form_field_add_css:'form-control'}}
+
+            {#  Field elements #}
+            {% if i|is_checkbox %}
+                {{ i|form_field_add_css:'checkbox' }}
+            {% else %}
+                {{i|form_field_add_css:'form-control'}}
+            {% endif %}
             </div>
         {% endfor %}
     </div>
