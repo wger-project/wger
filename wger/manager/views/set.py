@@ -48,7 +48,7 @@ SETTING_FORMSET_FIELDS = ('reps', 'weight')
 SettingFormset = modelformset_factory(Setting,
                                       form=SettingForm,
                                       fields=SETTING_FORMSET_FIELDS,
-                                      can_delete=True,
+                                      can_delete=False,
                                       can_order=False,
                                       extra=1)
 
