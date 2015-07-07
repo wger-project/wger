@@ -290,7 +290,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         # Exercise was saved
         exercise = Exercise.objects.get(pk=exercise_id)
         if admin:
-            self.assertEqual(exercise.license_author, 'wger.de')
+            self.assertEqual(exercise.license_author, 'testserver')
             self.assertEqual(exercise.status, Exercise.STATUS_ACCEPTED)
         else:
             self.assertEqual(exercise.license_author, 'test')
