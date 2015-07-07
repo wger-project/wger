@@ -5,7 +5,7 @@
 {{ formset.management_form }}
 
 {% for field in formset %}
-<div class="container-fluid">
+<div class="container-fluid" style="padding-top: 0.5em;">
     <div class="row">
         {% for i in field %}
             {% if not i.is_hidden %}
