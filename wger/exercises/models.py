@@ -20,6 +20,7 @@ import uuid
 import logging
 import bleach
 import socket
+import re
 
 from django.db import models
 from django.template.loader import render_to_string
@@ -331,7 +332,15 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         if request.user.has_perm('exercises.add_exercise'):
             self.status = self.STATUS_ACCEPTED
             if not self.license_author:
-                self.license_author = socket.gethostname().lower()
+                #  Get everything up to semicolon, exclusive. Example: my-gym.com:9090 returns my-gym.com
+                results = re.search('^([^:]+).*', request.get_host())
+
+                if results:
+                    name = results.group(1)
+                else:
+                    name = request.get_host()
+
+                self.license_author = name
 
         else:
             if not self.license_author:
