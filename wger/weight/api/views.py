@@ -25,7 +25,6 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
     '''
     API endpoint for nutrition plan objects
     '''
-    model = WeightEntry
     serializer_class = WeightEntrySerializer
     is_private = True
     ordering_fields = '__all__'
@@ -38,8 +37,8 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
         '''
         return WeightEntry.objects.filter(user=self.request.user)
 
-    def pre_save(self, obj):
+    def perform_create(self, serializer):
         '''
         Set the owner
         '''
-        obj.user = self.request.user
+        serializer.save(user=self.request.user)
