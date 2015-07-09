@@ -1,6 +1,6 @@
 /**
- * @license AngularJS v1.3.10
- * (c) 2010-2014 Google, Inc. http://angularjs.org
+ * @license AngularJS v1.4.2
+ * (c) 2010-2015 Google, Inc. http://angularjs.org
  * License: MIT
  */
 (function(window, angular, undefined) {'use strict';
@@ -78,8 +78,8 @@ function $RouteProvider() {
    *    - `controller` – `{(string|function()=}` – Controller fn that should be associated with
    *      newly created scope or the name of a {@link angular.Module#controller registered
    *      controller} if passed as a string.
-   *    - `controllerAs` – `{string=}` – A controller alias name. If present the controller will be
-   *      published to scope under the `controllerAs` name.
+   *    - `controllerAs` – `{string=}` – An identifier name for a reference to the controller.
+   *      If present, the controller will be published to scope under the `controllerAs` name.
    *    - `template` – `{string=|function()=}` – html template as a string or a function that
    *      returns an html template as a string which should be used by {@link
    *      ngRoute.directive:ngView ngView} or {@link ng.directive:ngInclude ngInclude} directives.
@@ -440,9 +440,11 @@ function $RouteProvider() {
      * @name $route#$routeUpdate
      * @eventType broadcast on root scope
      * @description
-     *
      * The `reloadOnSearch` property has been set to false, and we are reusing the same
      * instance of the Controller.
+     *
+     * @param {Object} angularEvent Synthetic event object
+     * @param {Route} current Current/previous route information.
      */
 
     var forceReload = false,
@@ -482,21 +484,15 @@ function $RouteProvider() {
            * definitions will be interpolated into the location's path, while
            * remaining properties will be treated as query params.
            *
-           * @param {Object} newParams mapping of URL parameter names to values
+           * @param {!Object<string, string>} newParams mapping of URL parameter names to values
            */
           updateParams: function(newParams) {
             if (this.current && this.current.$$route) {
-              var searchParams = {}, self=this;
-
-              angular.forEach(Object.keys(newParams), function(key) {
-                if (!self.current.pathParams[key]) searchParams[key] = newParams[key];
-              });
-
               newParams = angular.extend({}, this.current.params, newParams);
               $location.path(interpolate(this.current.$$route.originalPath, newParams));
-              $location.search(angular.extend({}, $location.search(), searchParams));
-            }
-            else {
+              // interpolate modifies newParams, only query params are left
+              $location.search(newParams);
+            } else {
               throw $routeMinErr('norout', 'Tried updating route when with no current route');
             }
           }
@@ -600,9 +596,8 @@ function $RouteProvider() {
                 if (angular.isFunction(templateUrl)) {
                   templateUrl = templateUrl(nextRoute.params);
                 }
-                templateUrl = $sce.getTrustedResourceUrl(templateUrl);
                 if (angular.isDefined(templateUrl)) {
-                  nextRoute.loadedTemplateUrl = templateUrl;
+                  nextRoute.loadedTemplateUrl = $sce.valueOf(templateUrl);
                   template = $templateRequest(templateUrl);
                 }
               }
@@ -612,8 +607,8 @@ function $RouteProvider() {
               return $q.all(locals);
             }
           }).
-          // after route change
           then(function(locals) {
+            // after route change
             if (nextRoute == $route.current) {
               if (nextRoute) {
                 nextRoute.locals = locals;
