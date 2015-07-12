@@ -132,7 +132,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
     </div>
 </div>
 
-<h3>{% trans 'Info' %}</h3>
+<h4>{% trans 'Info' %}</h4>
 <p>{% blocktrans %}The coloured days in the calendar have weight logs,
 you can click on them to see the details.{% endblocktrans %}</p>
 
@@ -142,7 +142,7 @@ you can click on them to see the details.{% endblocktrans %}</p>
     <span style="background-color: #449D44; display: inline;">&nbsp;</span> {{ impressions.2.1 }}
 </p>
 
-<h3>{% trans 'Log' %}</h3>
+<h4>{% trans 'Log' %}</h4>
 <p>
     <a href="{% url 'manager:workout:calendar' owner_user %}">
         <img src="{% static 'images/icons/calendar.svg' %}"

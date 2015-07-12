@@ -118,7 +118,7 @@ $(document).ready(function() {
         Side bar
 -->
 {% block sidebar %}
-<h3>{% trans "Add new exercise" %}</h3>
+<h4>{% trans "Add new exercise" %}</h4>
 <p>
     {% if user.is_authenticated and not user.userprofile.is_temporary %}
     <a href="{% url 'exercise:exercise:add' %}" {% auto_link_css flavour %}>
@@ -143,7 +143,7 @@ $(document).ready(function() {
 
 
 {% if perms.exercises %}
-    <h3>{% trans "Options" %}</h3>
+    <h4>{% trans "Options" %}</h4>
         {% if exercises %}
         {% with exercise=exercises|first %}
         <p>
@@ -189,7 +189,7 @@ $(document).ready(function() {
     </p>
 {% endif %}
 
-    <h3>{% trans "Search" %}</h3>
+    <h4>{% trans "Search" %}</h4>
 
     <form action="{% url 'exercise-search' %}"
           method="get"

@@ -86,7 +86,7 @@
     {# Object/endpoint description #}
     {#                             #}
     <div>
-        <!--<h3>{{ name }}</h3>-->
+        <!--<h4>{{ name }}</h4>-->
 
 
         {% block description %}
@@ -113,7 +113,7 @@
     {% if display_edit_forms %}
 
         {% if post_form or raw_data_post_form %}
-            <h3>Edit form</h3>
+            <h4>Edit form</h4>
             {% with form=raw_data_post_form %}
             <form action="{{ request.get_full_path }}" method="POST" class="form-horizontal" role="form">
                 <fieldset>
@@ -124,7 +124,7 @@
         {% endif %}
 
         {% if put_form or raw_data_put_form or raw_data_patch_form %}
-            <h3>Edit form</h3>
+            <h4>Edit form</h4>
             {% with form=raw_data_put_or_patch_form %}
             <form action="{{ request.get_full_path }}" method="POST" class="form-horizontal" role="form">
                 <fieldset>

@@ -77,12 +77,12 @@ $(document).ready(function () {
 
 
 {% block sidebar %}
-<h3>{% trans "Info" %}</h3>
+<h4>{% trans "Info" %}</h4>
 <p>{% blocktrans %}A new workout session (impression, notes, time) will
 be created if there isn't already one for the selected date. If there is, it
 will simply be edited. Weight entries are always added.{% endblocktrans %}</p>
 
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 <p>
 <a href="{{ day.training.get_absolute_url }}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/list.svg' %}"

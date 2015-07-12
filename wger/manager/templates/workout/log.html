@@ -52,7 +52,7 @@ $(document).ready(function() {
 {% endif %}
 
 {% for day in workout.canonical_representation.day_list %}
-    <h3>{{ day.obj.description }}</h3>
+    <h4>{{ day.obj.description }}</h4>
 
     {% if is_owner %}
     <p>
@@ -112,7 +112,7 @@ $(document).ready(function() {
 {# Side bar #}
 {#          #}
 {% block sidebar %}
-<h3>{% trans "Notes" %}</h3>
+<h4>{% trans "Notes" %}</h4>
 <p>{% blocktrans %}This page shows the weight logs belonging to this workout
 only. Click on an exercise to see all the historical data for
 it.{% endblocktrans %}</p>

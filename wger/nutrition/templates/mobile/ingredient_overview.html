@@ -31,7 +31,7 @@
 
 {% block sidebar %}
 {% if perms.exercises %}
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 <p>
        <a href="{% url 'nutrition:ingredient:add' %}">
        <img src="{% static 'images/icons/new.svg' %}"

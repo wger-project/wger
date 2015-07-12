@@ -189,7 +189,7 @@ $(function() {
                         {% blocktrans count weeks=step.duration %}{{ weeks }} Week
                             {% plural %}{{ weeks }} Weeks
                         {% endblocktrans %}
-                    </h3>
+                    </h4>
 
                         {% if active_workout == step %}
                             <span class="label label-info">{% trans "active" %}</span>
@@ -223,14 +223,14 @@ $(function() {
 
 {% block sidebar %}
 {% if is_owner %}
-<h3>{% trans "Adding workouts" %}</h3>
+<h4>{% trans "Adding workouts" %}</h4>
 
 <p>{% blocktrans %}Add as many workouts to the schedule as you want. You can
 edit the order per drag-and-drop. It's also possible to add one workout more
 than once.{% endblocktrans %}</p>
 {% endif %}
 
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 <p>
 <a href="#" data-toggle="modal" data-target="#export-ical-popup">
 <img src="{% static 'images/icons/calendar.svg' %}"

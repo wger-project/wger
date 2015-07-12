@@ -32,7 +32,7 @@ $(function() {
                 <a data-toggle="collapse" data-parent="#preferences-accordion" href="#collapseEmail">
                 {% trans "Email" %}
                 </a>
-            </h3>
+            </h4>
             </div>
             <div id="collapseEmail" class="panel-collapse collapse in">
             <div class="panel-body">
@@ -50,7 +50,7 @@ $(function() {
                 <a data-toggle="collapse" data-parent="#preferences-accordion" href="#collapseReminder">
                 {% trans "Workout reminders" %}
                 </a>
-            </h3>
+            </h4>
             </div>
             <div id="collapseReminder" class="panel-collapse collapse">
             <div class="panel-body">
@@ -67,7 +67,7 @@ $(function() {
                 <a data-toggle="collapse" data-parent="#preferences-accordion" href="#collapseGymMode">
                 {% trans "Gym mode" %} ({% trans "mobile version only" %})
             </a>
-            </h3>
+            </h4>
             </div>
             <div id="collapseGymMode" class="panel-collapse collapse">
             <div class="panel-body">
@@ -84,7 +84,7 @@ $(function() {
                 <a data-toggle="collapse" data-parent="#preferences-accordion" href="#collapseOther">
                 {% trans "Other settings" %}
             </a>
-            </h3>
+            </h4>
             </div>
             <div id="collapseOther" class="panel-collapse collapse">
             <div class="panel-body">
@@ -110,7 +110,7 @@ $(function() {
 
 
 {% block sidebar %}
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 <p>
     <a href="{% url 'core:user:logout' %}" {% auto_link_css flavour "browserid-logout" %}>
     <img src="{% static 'images/icons/logout.svg' %}"

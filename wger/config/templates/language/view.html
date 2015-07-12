@@ -31,7 +31,7 @@
 </table>
 
 
-<h3>{% trans "Configuration" %}</h3>
+<h4>{% trans "Configuration" %}</h4>
 <p>{% blocktrans %}Use the configuration to select in what languages the
 exercises and ingredients will be shown for the current language (for example
 the exercises should be shown in languages A, B and C; the ingredients only
@@ -73,7 +73,7 @@ in A).{% endblocktrans %}</p>
 
 
 {% block sidebar %}
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 
 <p>
     <a href="{% url 'config:language:edit' view_language.id %}"

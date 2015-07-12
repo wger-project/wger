@@ -98,7 +98,7 @@
         Side bar
 -->
 {% block sidebar %}
-    <h3>{% trans "Search" %}</h3>
+    <h4>{% trans "Search" %}</h4>
 
     <form action="{% url 'exercise-search' %}"
           method="get"
@@ -112,7 +112,7 @@
    </form>
 
 
-<h3>{% trans "Add new exercise" %}</h3>
+<h4>{% trans "Add new exercise" %}</h4>
 <p>
     {% if user.is_authenticated and not user.userprofile.is_temporary %}
     <a href="{% url 'exercise:exercise:add' %}" {% auto_link_css flavour %}>
