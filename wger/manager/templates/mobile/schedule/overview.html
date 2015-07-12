@@ -18,7 +18,7 @@
             {% if schedule.is_active %}
             <span class="label label-primary pull-right"><em>{% trans "active" %}</em></span>
             {% endif  %}
-            <h3 class="list-group-item-heading">{{ schedule.name }}</h4>
+            <h4 class="list-group-item-heading">{{ schedule.name }}</h4>
             <p class="list-group-item-text">{{ schedule.start_date }}</p>
         </a>
     {% empty %}
