@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
 
 {% block title %}{{ingredient.name}}{% endblock %}
 
@@ -14,6 +12,13 @@ $(document).ready(function() {
 {% endblock %}
 
 
+
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% breadcrumb "Ingredients" "nutrition:ingredient:list" %}
+    {% breadcrumb ingredient ingredient.get_absolute_url %}
+{% endblock %}
 
 {% block content %}
 

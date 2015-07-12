@@ -1,9 +1,6 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
-{% load thumbnail %}
-{% load cache %}
+{% load i18n staticfiles wger_extras thumbnail cache django_bootstrap_breadcrumbs %}
+
 
 {#           #}
 {# Opengraph #}
@@ -19,6 +16,17 @@
     {% empty %}
         <meta property="og:image" content="{{ image_absolute_path }}">
     {% endfor %}
+{% endblock %}
+
+
+{#             #}
+{# Breadcrumbs #}
+{#             #}
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% breadcrumb "Exercises" "exercise:exercise:overview" %}
+    {% breadcrumb exercise exercise.get_absolute_url %}
 {% endblock %}
 
 
@@ -317,20 +325,6 @@ $(document).ready(function() {
 {# Side bar #}
 {#          #}
 {% block sidebar %}
-
-<h3>{% trans "Back to overview" %}</h3>
-<p>
-    <a href="{% url 'exercise:exercise:overview' %}" {% auto_link_css flavour %}>
-        <img src="{% static 'images/icons/list.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Back to overview' %}"
-             >
-        {% trans "Back to exercise overview" %}
-    </a>
-</p>
-<hr>
-
 {% if user.is_authenticated and not user.userprofile.is_temporary and not perms.exercises %}
 <h3>{% trans "Options" %}</h3>
 <p>
