@@ -26,6 +26,7 @@ from reportlab.platypus import KeepTogether
 
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
+from wger.utils.helpers import normalize_decimal
 
 from wger.utils.pdf import styleSheet
 
@@ -147,7 +148,10 @@ def reps_smart_text(settings, set_obj):
         # The weight can be None, or a decimal. In that case, normalize so
         # that we don't return e.g. '15.00', but always '15', independently of
         # the database used.
-        weight = settings[0].weight.normalize() if settings[0].weight else settings[0].weight
+        if settings[0].weight:
+            weight = normalize_decimal(settings[0].weight)
+        else:
+            weight = settings[0].weight
 
         if weight:
             setting_text += ' ({0}{1})'.format(weight, unit)
@@ -163,7 +167,7 @@ def reps_smart_text(settings, set_obj):
             weight = i.weight
             if i.weight:
                 # Normalize, see comment above
-                weight = i.weight.normalize()
+                weight = normalize_decimal(i.weight)
                 reps += ' ({0}{1})'.format(weight, unit)
             tmp_reps_text.append(reps)
             tmp_reps.append(i.reps)
