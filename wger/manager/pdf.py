@@ -184,10 +184,18 @@ def workout_view(request, id, uidb64=None, token=None):
 
                 # Note: '+1' here because there's an emtpy cell between days
                 exercise_markers[day['obj'].id].append(len(data) + 1)
+
+                # Process the settings
+                if exercise['has_weight']:
+                    setting_out = []
+                    for i in exercise['setting_text'].split(u'–'):
+                        setting_out.append(Paragraph(i, styleSheet["Small"], bulletText=''))
+                else:
+                    setting_out = Paragraph(exercise['setting_text'], styleSheet["Small"])
+
                 data.append([set_count,
                              Paragraph(exercise['obj'].name, styleSheet["Small"]),
-                             Paragraph(u'<para align="right">{0}</para>'
-                                       .format(exercise['setting_text']), styleSheet["Small"])])
+                             setting_out])
             set_count += 1
 
         data.append([''])
@@ -258,8 +266,8 @@ def workout_view(request, id, uidb64=None, token=None):
         # Manually set the width of the columns
         if len(t._argW) > 1:
             t._argW[0] = 0.6 * cm  # Numbering
-            t._argW[1] = 8 * cm  # Exercise
-            t._argW[2] = 5 * cm  # Repetitions
+            t._argW[1] = 10 * cm  # Exercise
+            t._argW[2] = 2.5 * cm  # Repetitions
 
     # There is nothing to output
     else:

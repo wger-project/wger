@@ -74,9 +74,17 @@ def render_workout_day(day, nr_of_weeks):
         for exercise in set['exercise_list']:
             group_exercise_marker[set['obj'].id]['end'] = len(data)
 
+            # Process the settings
+            if exercise['has_weight']:
+                setting_out = []
+                for i in exercise['setting_text'].split(u'–'):
+                    setting_out.append(Paragraph(i, styleSheet["Small"], bulletText=''))
+            else:
+                setting_out = Paragraph(exercise['setting_text'], styleSheet["Small"])
+
             data.append([set_count,
                          Paragraph(exercise['obj'].name, styleSheet["Small"]),
-                         Paragraph(exercise['setting_text'], styleSheet["Small"])]
+                         setting_out]
                         + [''] * nr_of_weeks)
         set_count += 1
 
@@ -119,7 +127,7 @@ def render_workout_day(day, nr_of_weeks):
     if len(t._argW) > 1:
         t._argW[0] = 0.6 * cm  # Numbering
         t._argW[1] = 4 * cm  # Exercise
-        t._argW[2] = 2 * cm  # Repetitions
+        t._argW[2] = 2.5 * cm  # Repetitions
 
     return KeepTogether(t)
 
