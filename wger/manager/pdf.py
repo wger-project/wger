@@ -186,7 +186,8 @@ def workout_view(request, id, uidb64=None, token=None):
                 exercise_markers[day['obj'].id].append(len(data) + 1)
                 data.append([set_count,
                              Paragraph(exercise['obj'].name, styleSheet["Small"]),
-                             exercise['setting_text']])
+                             Paragraph(u'<para align="right">{0}</para>'
+                                       .format(exercise['setting_text']), styleSheet["Small"])])
             set_count += 1
 
         data.append([''])
@@ -204,7 +205,7 @@ def workout_view(request, id, uidb64=None, token=None):
 
                    # Note: a padding of 3 seems to be the default
                    ('LEFTPADDING', (0, 0), (-1, -1), 2),
-                   ('RIGHTPADDING', (0, 0), (-1, -1), 0),
+                   ('RIGHTPADDING', (0, 0), (-1, -1), 2),
                    ('TOPPADDING', (0, 0), (-1, -1), 3),
                    ('BOTTOMPADDING', (0, 0), (-1, -1), 2), ]
 
@@ -257,8 +258,8 @@ def workout_view(request, id, uidb64=None, token=None):
         # Manually set the width of the columns
         if len(t._argW) > 1:
             t._argW[0] = 0.6 * cm  # Numbering
-            t._argW[1] = 9 * cm  # Exercise
-            t._argW[2] = 4 * cm  # Repetitions
+            t._argW[1] = 8 * cm  # Exercise
+            t._argW[2] = 5 * cm  # Repetitions
 
     # There is nothing to output
     else:
