@@ -287,8 +287,8 @@ def timer(request, day_pk):
         if not set_dict['is_superset']:
             for exercise_dict in set_dict['exercise_list']:
                 exercise = exercise_dict['obj']
-                for key, element in enumerate(exercise_dict['setting_list']):
-                    reps = exercise_dict['setting_list'][key]
+                for key, element in enumerate(exercise_dict['reps_list']):
+                    reps = exercise_dict['reps_list'][key]
                     default_weight = last_log.get_last_weight(exercise,
                                                               reps,
                                                               exercise_dict['weight_list'][key])
@@ -309,10 +309,10 @@ def timer(request, day_pk):
 
         # Supersets need extra work to group the exercises and reps together
         else:
-            total_reps = len(set_dict['exercise_list'][0]['setting_list'])
+            total_reps = len(set_dict['exercise_list'][0]['reps_list'])
             for i in range(0, total_reps):
                 for exercise_dict in set_dict['exercise_list']:
-                    reps = exercise_dict['setting_list'][i]
+                    reps = exercise_dict['reps_list'][i]
                     default_weight = exercise_dict['weight_list'][i]
                     exercise = exercise_dict['obj']
 
