@@ -20,9 +20,8 @@
     {% for schedule in schedules %}
     <tr>
         <td>
-            <a href="{% url 'manager:schedule:view' schedule.id %}">
-                {{ schedule.name }}
-            </a>
+            <a href="{% url 'manager:schedule:view' schedule.id %}">{{ schedule.name }}</a>
+
             {% if schedule.is_active %}
             <span class="label label-primary">{% trans "active" %}</span>
             {% endif  %}
