@@ -56,7 +56,8 @@ class UnitChooserForm(forms.Form):
 
 class BmiForm(forms.ModelForm):
     height = forms.DecimalField(widget=Html5NumberInput(),
-                                max_value=999)
+                                max_value=999,
+                                label=_('Height (cm)'))
     weight = forms.DecimalField(widget=Html5NumberInput(),
                                 max_value=999)
 
