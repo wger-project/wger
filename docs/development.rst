@@ -66,6 +66,26 @@ settings.py):
        EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
+Selectively running tests
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you do a ``python manage.py test`` you will run the complete testsuite, and
+this can take a while. You can control which tests will be executed like this.
+
+Test only the tests in the 'core' app::
+
+  python manage.py test wger.core
+
+Test only the tests in the 'test_user.py` file in the core app::
+
+  python manage.py test wger.core.tests.test_user
+
+Test only the tests in 'StatusUserTestCase' in the file 'test_user.py` file in
+the core app::
+
+  python manage.py test wger.core.tests.test_user.StatusUserTestCase
+
+
 Using runserver_plus
 ~~~~~~~~~~~~~~~~~~~~
 
