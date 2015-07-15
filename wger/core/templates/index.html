@@ -98,13 +98,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
 
         {% if plan %}
             <p>
-            <a href="{% url 'nutrition:plan:view' plan.id %}">
-                {% if plan.description %}
-                    {{ plan.description }}
-                {% else %}
-                    {% trans "Nutrition plan" %}
-                {% endif %}
-            </a>
+            <a href="{{ plan.get_absolute_url }}">{{ plan }}</a>
             </p>
             – {{ plan.creation_date }}
             <ul>

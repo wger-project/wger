@@ -7,7 +7,7 @@
 {% block content %}
 <div class="list-group">
     {% for plan in plans %}
-        <a href="{% url 'nutrition:plan:view' plan.id %}" class="list-group-item wger-list-group-item">
+        <a href="{{ plan.get_absolute_url }}" class="list-group-item wger-list-group-item">
             <span class="glyphicon glyphicon-chevron-right pull-right"></span>
 
             <h3 class="list-group-item-heading">{{plan}}</h4>
