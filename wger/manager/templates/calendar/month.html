@@ -58,8 +58,8 @@ $(document).ready(function() {
             {% for exercise, logs in value.logs.items %}
                 <div class="col-sm-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{ exercise }}</div>
-                    <div class="panel-body" style="min-height: 8em;">
+                    <div class="panel-heading" style="min-height: 4em;">{{ exercise }}</div>
+                    <div class="panel-body" style="min-height: 9em;">
                     <ul>
                     {% for log in logs %}
                         <li>
