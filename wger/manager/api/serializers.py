@@ -17,6 +17,7 @@
 
 from rest_framework import serializers
 
+from wger.core.api.serializers import DaysOfWeekSerializer
 from wger.manager.models import Workout, ScheduleStep
 from wger.manager.models import Day
 from wger.manager.models import Setting
@@ -130,7 +131,7 @@ class DaysOfWeekCanonicalFormSerializer(serializers.Serializer):
     '''
     text = serializers.ReadOnlyField()
     day_list = serializers.ListField(
-        child=serializers.CharField()
+        child=DaysOfWeekSerializer()
     )
 
 
