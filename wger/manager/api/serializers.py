@@ -18,6 +18,8 @@
 from rest_framework import serializers
 
 from wger.core.api.serializers import DaysOfWeekSerializer
+from wger.exercises.api.serializers import ExerciseSerializer
+
 from wger.manager.models import Workout, ScheduleStep
 from wger.manager.models import Day
 from wger.manager.models import Setting
@@ -112,6 +114,7 @@ class WorkoutCanonicalFormExerciseListSerializer(serializers.Serializer):
     weight_list = serializers.ReadOnlyField()
     setting_text = serializers.ReadOnlyField()
     comment_list = serializers.ReadOnlyField()
+    obj = ExerciseSerializer()
 
 
 class WorkoutCanonicalFormExerciseSerializer(serializers.Serializer):
