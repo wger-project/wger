@@ -111,7 +111,7 @@ $(document).ready(function() {
                     </h4>
                 </div>
                 <div class="modal-body">
-                    <h3>{{item.ingredient}}</h3>
+                    <h4>{{item.ingredient}}</h4>
                     <h4>
                         {% if item.get_unit_type == MEALITEM_WEIGHT_GRAM %}{{ item.amount|floatformat:"0" }}g
                         {% else %}
@@ -263,7 +263,7 @@ $(document).ready(function() {
 {# Side bar #}
 {#          #}
 {% block sidebar %}
-<h3>{% trans "Energy" %}</h3>
+<h4>{% trans "Energy" %}</h4>
 <table id="nutritional-data-energy" class="table">
     <thead>
         <tr>
@@ -293,7 +293,7 @@ $(document).ready(function() {
     </p>
 {% endif %}
 
-<h3>{% trans "Nutritional data" %}</h3>
+<h4>{% trans "Nutritional data" %}</h4>
 <table class="table table-condensed">
     <thead>
         <tr style="height:4em;">
@@ -368,7 +368,7 @@ $(document).ready(function() {
 
 
 
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 <a href="{% url 'nutrition:plan:export-pdf' plan.id uid token %}"
    {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/save.svg' %}"

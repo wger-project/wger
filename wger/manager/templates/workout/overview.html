@@ -18,9 +18,8 @@
     {% for workout in workouts %}
     <tr>
         <td>
-            <a href="{{ workout.get_absolute_url }}">
-                {{ workout }}
-            </a>
+            <a href="{{ workout.get_absolute_url }}">{{ workout }}</a>
+
             {% if workout == current_workout %}
             <span class="label label-primary">{% trans "active" %}</span>
             {% endif %}
@@ -45,7 +44,7 @@
 
 
 {% block sidebar %}
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 <p>
     <a href="{% url 'manager:workout:add' %}">
     <img src="{% static 'images/icons/new.svg' %}"

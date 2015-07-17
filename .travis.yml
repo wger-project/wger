@@ -13,10 +13,10 @@ python:
 # Manually define here the combinations environment variables to test
 # https://github.com/travis-ci/travis-ci/issues/1519
 env:
-  - DJANGO_VERSION=1.7.5 TEST_MOBILE=True  DB=postgresql
-  - DJANGO_VERSION=1.7.5 TEST_MOBILE=True  DB=sqlite
-  - DJANGO_VERSION=1.7.5 TEST_MOBILE=False DB=postgresql
-  - DJANGO_VERSION=1.7.5 TEST_MOBILE=False DB=sqlite
+  - DJANGO_VERSION=1.7.9 TEST_MOBILE=True  DB=postgresql
+  - DJANGO_VERSION=1.7.9 TEST_MOBILE=True  DB=sqlite
+  - DJANGO_VERSION=1.7.9 TEST_MOBILE=False DB=postgresql
+  - DJANGO_VERSION=1.7.9 TEST_MOBILE=False DB=sqlite
 
 # Install the application
 install:

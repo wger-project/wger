@@ -19,7 +19,7 @@
 {% url 'core:user:trainer-login' current_user.pk as trainer_login %}
 
 
-<h3>{% trans "Workouts" %} <small>({% blocktrans with number=10 %}last {{ number }}{% endblocktrans %})</small></h3>
+<h4>{% trans "Workouts" %} <small>({% blocktrans with number=10 %}last {{ number }}{% endblocktrans %})</small></h4>
 <table class="table">
 <thead>
 <tr>
@@ -100,7 +100,7 @@
 </table>
 
 
-<h3>{% trans "Weight" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h3>
+<h4>{% trans "Weight" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h4>
 <table class="table">
 <thead>
 <tr>
@@ -130,7 +130,7 @@
 {% endif %}
 
 
-<h3>{% trans "Nutrition plans" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h3>
+<h4>{% trans "Nutrition plans" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h4>
 <table class="table">
 <thead>
 <tr>
@@ -149,7 +149,7 @@
         {{nutrition_plan.creation_date}}
     </td>
     <td>
-        <a href="{{trainer_login}}?next={% url 'nutrition:plan:view' nutrition_plan.id %}">{{nutrition_plan}}</a>
+        <a href="{{trainer_login}}?next={{ nutrition_plan.get_absolute_url }}">{{nutrition_plan}}</a>
     </td>
     <td>
         {{nutrition_plan.get_nutritional_values.total.energy|floatformat}} {% trans "kcal" %}

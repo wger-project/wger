@@ -10,9 +10,6 @@
         Header data
 -->
 {% block header %}
-<script src="{% static 'js/jquery-globalize/lib/globalize.js' %}"></script>
-
-
 <script type="text/javascript">
 $(document).ready(function () {
 
@@ -91,7 +88,7 @@ $(document).ready(function () {
         Side bar
 -->
 {% block sidebar %}
-<h3>{% trans "Filter options" %}</h3>
+<h4>{% trans "Filter options" %}</h4>
 <p>{% blocktrans %}
 Use the second chart to pan or zoom by clicking and dragging the selection. Clicking
 on the background resets it.
@@ -99,7 +96,7 @@ on the background resets it.
 
 
 {% if is_owner %}
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 <p>
     <a href="{% url 'weight:export-csv' %}"
        target="_blank"

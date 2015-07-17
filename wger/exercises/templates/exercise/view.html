@@ -1,9 +1,6 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
-{% load thumbnail %}
-{% load cache %}
+{% load i18n staticfiles wger_extras thumbnail cache django_bootstrap_breadcrumbs %}
+
 
 {#           #}
 {# Opengraph #}
@@ -19,6 +16,17 @@
     {% empty %}
         <meta property="og:image" content="{{ image_absolute_path }}">
     {% endfor %}
+{% endblock %}
+
+
+{#             #}
+{# Breadcrumbs #}
+{#             #}
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% breadcrumb "Exercises" "exercise:exercise:overview" %}
+    {% breadcrumb exercise exercise.get_absolute_url %}
 {% endblock %}
 
 
@@ -41,7 +49,7 @@
 
 {% if exercise.status == exercise.STATUS_PENDING %}
 <div class="alert">
-<h3>{% trans "Exercise is pending review" %}</h3>
+<h4>{% trans "Exercise is pending review" %}</h4>
 <p>{% blocktrans %}This user submitted exercise is pending a decision to be
 included in the database.{% endblocktrans %}
 {% trans "Till then, it will not be shown in the overview or the search."  %}
@@ -95,7 +103,7 @@ included in the database.{% endblocktrans %}
 {# Comments #}
 {% with comments=exercise.exercisecomment_set.all %}
 {% if comments %}
-<h3>{% trans "Comments for this exercise" %}</h3>
+<h4>{% trans "Comments for this exercise" %}</h4>
 
 <ul>
 {% for comment in comments %}
@@ -143,7 +151,7 @@ included in the database.{% endblocktrans %}
 {# Images #}
 {% with images=exercise.exerciseimage_set.accepted %}
 {% if images %}
-    <h3>{% trans "Images" %}</h3>
+    <h4>{% trans "Images" %}</h4>
 
     <div class="image-gallery">
     {% with other_images=images %}
@@ -187,7 +195,7 @@ included in the database.{% endblocktrans %}
 {% if perms.exercises.change_exerciseimage %}
 {% with images=exercise.exerciseimage_set.pending %}
 {% if images %}
-<h3>{% trans "Pending images" %}</h3>
+<h4>{% trans "Pending images" %}</h4>
 <div class="list-group">
     {% for image in images %}
         <div class="list-group-item">
@@ -235,7 +243,7 @@ included in the database.{% endblocktrans %}
 {% with muscles_secondary=exercise.muscles_secondary.all %}
 
 {% if muscles %}
-<h3>{% trans "Muscles" %}</h3>
+<h4>{% trans "Muscles" %}</h4>
 <p>
     {% trans "The diagram shows the most used muscles on this exercise" %}
 </p>
@@ -297,11 +305,10 @@ included in the database.{% endblocktrans %}
 {% endcache %}
 
 {% if logs %}
-<h3>{% trans "Weight log" %}</h3>
+<h4>{% trans "Weight log" %}</h4>
 
 {% render_weight_log logs svg_uuid user %}
 <script src="{% static 'js/d3.js' %}"></script>
-<script src="{% static 'js/jquery-globalize/lib/globalize.js' %}"></script>
 
 <script>
 $(document).ready(function() {
@@ -318,22 +325,8 @@ $(document).ready(function() {
 {# Side bar #}
 {#          #}
 {% block sidebar %}
-
-<h3>{% trans "Back to overview" %}</h3>
-<p>
-    <a href="{% url 'exercise:exercise:overview' %}" {% auto_link_css flavour %}>
-        <img src="{% static 'images/icons/list.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Back to overview' %}"
-             >
-        {% trans "Back to exercise overview" %}
-    </a>
-</p>
-<hr>
-
 {% if user.is_authenticated and not user.userprofile.is_temporary and not perms.exercises %}
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 <p>
     <a href="{% url 'exercise:exercise:correct' exercise.id %}" {% auto_link_css flavour %}>
         <img src="{% static 'images/icons/edit.svg' %}"
@@ -347,7 +340,7 @@ $(document).ready(function() {
 
 
 {% if perms.exercises %}
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 <p>
     <a href="{% url 'exercise:exercise:edit' exercise.id %}" {% auto_link_css flavour %}>
         <img src="{% static 'images/icons/edit.svg' %}"

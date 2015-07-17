@@ -53,7 +53,7 @@
 
 {% block sidebar %}
 {% if perms.exercises.add_equipment %}
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 <p>
        <a href="{% url 'exercise:equipment:add' %}"
           {% auto_link_css flavour "wger-modal-dialog" %}>

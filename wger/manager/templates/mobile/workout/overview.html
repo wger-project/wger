@@ -16,7 +16,7 @@
             <span class="label label-primary pull-right"><em>{% trans "active" %}</em></span>
             {% endif %}
 
-            <h3 class="list-group-item-heading">{{ workout }}</h3>
+            <h3 class="list-group-item-heading">{{ workout }}</h4>
             <p class="list-group-item-text">{{ workout.creation_date }}</p>
         </a>
     {% empty %}
@@ -29,7 +29,7 @@
 
 
 {% block sidebar %}
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 <p>
     <a href="{% url 'manager:workout:add' %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/new.svg' %}"

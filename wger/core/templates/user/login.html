@@ -51,7 +51,7 @@
 
 
 {% block sidebar %}
-<h3>{% trans "No account?" %}</h3>
+<h4>{% trans "No account?" %}</h4>
 <p>
     <a href="{% url 'core:user:registration' %}" {% auto_link_css flavour %}>
         <img src="{% static 'images/icons/register.svg' %}"
@@ -61,7 +61,7 @@
         {% trans "Register" %}</a>
 </p>
 
-<h3>{% trans "Forgot password?" %}</h3>
+<h4>{% trans "Forgot password?" %}</h4>
 <p>
     <a href="{% url 'core:user:password_reset' %}" {% auto_link_css flavour %}>
         <img src="{% static 'images/icons/reset-password.svg' %}"

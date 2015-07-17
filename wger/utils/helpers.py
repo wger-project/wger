@@ -169,3 +169,22 @@ def check_access(request_user, username=None):
 
     is_owner = request_user == user
     return is_owner, user
+
+
+def normalize_decimal(d):
+    '''
+    Normalizes a decimal input
+
+    This simply performs a more "human" normalization, since python's decimal
+    normalize() converts "100" into "1e2", which is not a format usually used
+    when writing workout plans.
+
+    :param d: decimal to convert
+    :return: normalized decimal
+    '''
+    normalized = d.normalize()
+    sign, digits, exponent = normalized.as_tuple()
+    if exponent > 0:
+        return decimal.Decimal((sign, digits + (0,) * exponent, 0))
+    else:
+        return normalized

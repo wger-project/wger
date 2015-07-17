@@ -48,7 +48,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
 
 <div class="row">
     <div class="col-sm-6">
-        <h3>{% trans "Workout"%}</h3>
+        <h4>{% trans "Workout"%}</h4>
 
         {% if current_workout %}
             <p>
@@ -94,17 +94,11 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
 
     </div>
     <div class="col-sm-6">
-        <h3>{% trans "Nutrition plan"%}</h3>
+        <h4>{% trans "Nutrition plan"%}</h4>
 
         {% if plan %}
             <p>
-            <a href="{% url 'nutrition:plan:view' plan.id %}">
-                {% if plan.description %}
-                    {{ plan.description }}
-                {% else %}
-                    {% trans "Nutrition plan" %}
-                {% endif %}
-            </a>
+            <a href="{{ plan.get_absolute_url }}">{{ plan }}</a>
             </p>
             – {{ plan.creation_date }}
             <ul>
@@ -169,7 +163,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
 
 
 {% block sidebar %}
-<h3>{% trans "Info" %}</h3>
+<h4>{% trans "Info" %}</h4>
 <p>{% blocktrans %}The current workout is selected from your active schedule
 or, if you don't have one, simply by date.{% endblocktrans %}</p>
 

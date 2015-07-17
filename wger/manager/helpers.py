@@ -26,6 +26,7 @@ from reportlab.platypus import KeepTogether
 
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
+from wger.utils.helpers import normalize_decimal
 
 from wger.utils.pdf import styleSheet
 
@@ -73,9 +74,17 @@ def render_workout_day(day, nr_of_weeks):
         for exercise in set['exercise_list']:
             group_exercise_marker[set['obj'].id]['end'] = len(data)
 
+            # Process the settings
+            if exercise['has_weight']:
+                setting_out = []
+                for i in exercise['setting_text'].split(u'–'):
+                    setting_out.append(Paragraph(i, styleSheet["Small"], bulletText=''))
+            else:
+                setting_out = Paragraph(exercise['setting_text'], styleSheet["Small"])
+
             data.append([set_count,
                          Paragraph(exercise['obj'].name, styleSheet["Small"]),
-                         Paragraph(exercise['setting_text'], styleSheet["Small"])]
+                         setting_out]
                         + [''] * nr_of_weeks)
         set_count += 1
 
@@ -118,7 +127,7 @@ def render_workout_day(day, nr_of_weeks):
     if len(t._argW) > 1:
         t._argW[0] = 0.6 * cm  # Numbering
         t._argW[1] = 4 * cm  # Exercise
-        t._argW[2] = 2 * cm  # Repetitions
+        t._argW[2] = 2.5 * cm  # Repetitions
 
     return KeepTogether(t)
 
@@ -140,18 +149,25 @@ def reps_smart_text(settings, set_obj):
         setting_text = ''
         setting_list = []
         weight_list = []
+        reps_list = []
     elif len(settings) == 1:
         reps = settings[0].reps if settings[0].reps != 99 else u'∞'
         setting_text = u'{0} × {1}'.format(set_obj.sets, reps)
+        setting_list_text = u'{0}'.format(reps)
 
         # The weight can be None, or a decimal. In that case, normalize so
         # that we don't return e.g. '15.00', but always '15', independently of
         # the database used.
-        weight = settings[0].weight.normalize() if settings[0].weight else settings[0].weight
+        if settings[0].weight:
+            weight = normalize_decimal(settings[0].weight)
+        else:
+            weight = settings[0].weight
 
         if weight:
             setting_text += ' ({0}{1})'.format(weight, unit)
-        setting_list = [settings[0].reps] * set_obj.sets
+            setting_list_text += ' ({0}{1})'.format(weight, unit)
+        setting_list = [setting_list_text] * set_obj.sets
+        reps_list = [settings[0].reps] * set_obj.sets
         weight_list = [weight] * set_obj.sets
 
     elif len(settings) > 1:
@@ -163,17 +179,18 @@ def reps_smart_text(settings, set_obj):
             weight = i.weight
             if i.weight:
                 # Normalize, see comment above
-                weight = i.weight.normalize()
+                weight = normalize_decimal(i.weight)
                 reps += ' ({0}{1})'.format(weight, unit)
             tmp_reps_text.append(reps)
             tmp_reps.append(i.reps)
             tmp_weight.append(weight)
 
         setting_text = u' – '.join(tmp_reps_text)
-        setting_list = tmp_reps
+        setting_list = tmp_reps_text
+        reps_list = tmp_reps
         weight_list = tmp_weight
 
-    return setting_text, setting_list, weight_list
+    return setting_text, setting_list, weight_list, reps_list
 
 
 class WorkoutCalendar(HTMLCalendar):

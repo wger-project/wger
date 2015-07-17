@@ -19,7 +19,7 @@
     {% for plan in plans %}
     <tr>
         <td>
-            <a href="{% url 'nutrition:plan:view' plan.id %}">{{ plan }}</a>
+            <a href="{{ plan.get_absolute_url }}">{{ plan }}</a>
         </td>
         <td>
             {{ plan.creation_date }}
@@ -44,7 +44,7 @@
 
 
 {% block sidebar%}
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 <p>
     <a href="{% url 'nutrition:plan:add' %}" id="nutrition-create-new">
     <img src="{% static 'images/icons/new.svg' %}"

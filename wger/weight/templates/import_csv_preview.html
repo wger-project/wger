@@ -7,7 +7,7 @@
 
 
 {% block content %}
-<h3>{% trans "Successfully converted values" %}</h3>
+<h4>{% trans "Successfully converted values" %}</h4>
 <div class="alert alert-success">{% trans "The following values could be converted." %}</div>
 <table class="table">
 <tr>
@@ -24,7 +24,7 @@
 
 
 
-<h3>{% trans "Errors" %}</h3>
+<h4>{% trans "Errors" %}</h4>
 
 {% if error_list %}
     <div class="alert alert-danger">{% trans "The following values could not be converted." %}</div>

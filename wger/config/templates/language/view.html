@@ -1,9 +1,17 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
 
 {% block title %}{{ view_language }}{% endblock %}
+
+
+
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% breadcrumb "Languages" "config:language:overview" %}
+    {% breadcrumb view_language "config:language:view" view_language.pk %}
+{% endblock %}
+
 
 
 {% block content %}
@@ -23,7 +31,7 @@
 </table>
 
 
-<h3>{% trans "Configuration" %}</h3>
+<h4>{% trans "Configuration" %}</h4>
 <p>{% blocktrans %}Use the configuration to select in what languages the
 exercises and ingredients will be shown for the current language (for example
 the exercises should be shown in languages A, B and C; the ingredients only
@@ -65,7 +73,7 @@ in A).{% endblocktrans %}</p>
 
 
 {% block sidebar %}
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 
 <p>
     <a href="{% url 'config:language:edit' view_language.id %}"

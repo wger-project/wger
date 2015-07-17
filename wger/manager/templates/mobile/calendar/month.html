@@ -176,7 +176,7 @@ day in your current workout:{% endblocktrans %} {{current_workout}}</p>
 </div>
 
 
-<h3>{% trans 'Info' %}</h3>
+<h4>{% trans 'Info' %}</h4>
 <p>{% blocktrans %}The coloured days in the calendar have weight logs,
 you can click on them to see the details.{% endblocktrans %}</p>
 
@@ -186,7 +186,7 @@ you can click on them to see the details.{% endblocktrans %}</p>
     <span style="background-color: #449D44; display: inline;">&nbsp;</span> {{ impressions.2.1 }}
 </p>
 
-<h3>{% trans 'Log' %}</h3>
+<h4>{% trans 'Log' %}</h4>
     <a href="{% url 'manager:workout:calendar' owner_user %}" class="btn btn-default btn-block">
         <img src="{% static 'images/icons/calendar.svg' %}"
              width="32"
@@ -204,26 +204,18 @@ you can click on them to see the details.{% endblocktrans %}</p>
     {% trans "Add new log" %}</a>
     {% endif %}
 
-<div class="timeline-log" style="margin-top: 1em;">
-    <div class="list-group">
-    {% for date in month_list %}
-        {% ifchanged date.year %}
-            <a href="#" class="list-group-item active">
-                {{ date|date:"Y" }}
-            </a>
-        {% endifchanged %}
-        {% if current_month = date.month and current_year = date.year %}
-            <a href="{% url 'manager:workout:calendar' owner_user date.year date.month %}" class="list-group-item wger-list-group-item">
-                <em>{{date|date:"F"}}</em>
-            </a>
-        {% else %}
-            <a href="{% url 'manager:workout:calendar' owner_user date.year date.month %}" class="list-group-item wger-list-group-item">
-                <span class="glyphicon glyphicon-chevron-right pull-right"></span>
-                {{date|date:"F"}}
-            </a>
-        {% endif %}
-    {% endfor %}
+{% regroup month_list by year as year_list %}
+{% for year in year_list reversed %}
+<div class="panel panel-default" style="margin-top: 1em;">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{ year.grouper }}</h3>
     </div>
-</div>
 
+    <ul class="list-group">
+    {% for month in year.list %}
+        <a href="{% url 'manager:workout:calendar' owner_user year.grouper month.month %}" class="list-group-item">{{month|date:"F"}}</a>
+    {% endfor %}
+    </ul>
+</div>
+{% endfor %}
 {% endblock %}

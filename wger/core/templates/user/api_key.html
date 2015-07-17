@@ -17,7 +17,7 @@ anything). You must pass this information in the header in the format shown belo
 <p>{% blocktrans %}For security reasons, you should only access the API via HTTPS.{% endblocktrans %}</p>
 <div class="panel {% if token %}panel-success{% else %}panel-default{% endif %}">
     <div class="panel-heading">
-        <h3 class="panel-title">{% trans "Your API key" %}</h3>
+        <h3 class="panel-title">{% trans "Your API key" %}</h4>
     </div>
     <div class="panel-body">
         {% if token %}
@@ -41,7 +41,7 @@ curl -X GET https://wger.de/api/v2/workout/ \
 
 
 {% block sidebar %}
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 
 <p>
 {% if token %}
