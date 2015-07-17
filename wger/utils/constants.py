@@ -24,6 +24,7 @@ WEIGHT_TAB = 'weight'
 NUTRITION_TAB = 'nutrition'
 SOFTWARE_TAB = 'software'
 USER_TAB = 'user'
+GROUP_TAB = 'user'
 
 # Default quantization
 TWOPLACES = Decimal('0.01')
