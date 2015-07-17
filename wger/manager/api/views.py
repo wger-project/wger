@@ -186,7 +186,7 @@ class DayViewSet(WgerOwnerObjectModelViewSet):
         '''
         return Day.objects.filter(training__user=self.request.user)
 
-    @link()
+    @detail_route()
     def canonical_representation(self, request, pk):
         '''
         Output the canonical representation of a workout
