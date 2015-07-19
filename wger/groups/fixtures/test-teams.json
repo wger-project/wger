@@ -1,0 +1,50 @@
+[
+    {
+        "fields": {
+            "description": "Cool description here",
+            "image": "", 
+            "gym": null, 
+            "creation_date": "2015-07-19", 
+            "public": false, 
+            "name": "Cool team"
+        }, 
+        "model": "groups.group", 
+        "pk": 1
+    }, 
+    {
+        "fields": {
+            "description": "",
+            "image": "", 
+            "gym": null, 
+            "creation_date": "2015-07-19", 
+            "public": false,
+            "name": "Private group"
+        }, 
+        "model": "groups.group", 
+        "pk": 2
+    },
+    {
+        "fields": {
+            "description": "Some public group",
+            "image": "",
+            "gym": null,
+            "creation_date": "2015-07-19",
+            "public": true,
+            "name": "Public group"
+        },
+        "model": "groups.group",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "description": "If you can find us, you can train with us",
+            "image": "",
+            "gym": null,
+            "creation_date": "2015-07-19",
+            "public": true,
+            "name": "A Team"
+        },
+        "model": "groups.group",
+        "pk": 4
+    }
+]

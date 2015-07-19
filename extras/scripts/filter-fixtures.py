@@ -78,6 +78,11 @@ filter_dump(data, ('config.languageconfig',), 'language_config.json')
 filter_dump(data, ('config.gymconfig',), 'gym_config.json')
 
 #
+# Groups
+#
+filter_dump(data, ('groups.group',), 'teams.json')
+
+#
 # Other
 #
 filter_dump(data, ('auth.group',), 'groups.json')
