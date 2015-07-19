@@ -9,7 +9,7 @@ import wger.groups.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('gym', '0002_auto_20150717_2033'),
+        ('gym', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 

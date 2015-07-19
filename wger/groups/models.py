@@ -61,7 +61,9 @@ class Group(models.Model):
 
     image = models.ImageField(verbose_name=_('Image'),
                               help_text=_('Only PNG and JPEG formats are supported'),
-                              upload_to=group_image_upload_dir)
+                              upload_to=group_image_upload_dir,
+                              blank=True,
+                              null=True)
     '''Group's logo'''
 
     gym = models.ForeignKey(Gym,
