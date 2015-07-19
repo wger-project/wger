@@ -18,7 +18,7 @@ from django.utils.translation import ugettext_lazy
 
 from django.views.generic import ListView, CreateView, DetailView
 
-from wger.groups.models import Group
+from wger.groups.models import Group, Membership
 from wger.utils.generic_views import WgerPermissionMixin, WgerFormMixin
 
 
@@ -35,12 +35,11 @@ class ListView(WgerPermissionMixin, ListView):
         '''
         return Group.objects.filter(public=True)
 
+
 class AddView(WgerFormMixin, CreateView):
     '''
     View to add a new group
     '''
-
-    # TODO: add user to list of members and make him admin
 
     model = Group
     fields = ('name',
@@ -49,6 +48,22 @@ class AddView(WgerFormMixin, CreateView):
               'public')
     title = ugettext_lazy('Create new group')
     form_action = reverse_lazy('groups:group:add')
+
+    def form_valid(self, form):
+        '''
+        Add the user to list of members and make him admin
+        '''
+
+        # First save the form so the group gets saved to the database
+        out = super(AddView, self).form_valid(form)
+
+        membership = Membership()
+        membership.admin = True
+        membership.group = form.instance
+        membership.user = self.request.user
+        membership.save()
+
+        return out
 
 
 class DetailView(WgerPermissionMixin, DetailView):

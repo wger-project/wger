@@ -13,4 +13,15 @@
 
 
 {% block sidebar %}
+    <h4>{% trans "Members" %}</h4>
+    <ul>
+    {% for membership in object.membership_set.all %}
+        <li>
+            {{ membership.user.username }}
+            {% if membership.admin %}
+                <span class="label label-primary">{% trans "Admin" %}</span>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
 {% endblock %}
