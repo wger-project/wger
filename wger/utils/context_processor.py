@@ -19,14 +19,18 @@ from django.templatetags.static import static
 from wger import get_version
 from wger.utils import constants
 from wger.utils.language import load_language
+from wger.groups.models import Membership
 
 
 def processor(request):
+
+    user = request.user
 
     language = load_language()
     full_path = request.get_full_path()
     i18n_path = {}
     static_path = static('images/logos/logo-marketplace-256.png')
+    groups = Membership.objects.filter(user=user) if user.is_authenticated() else []
 
     for lang in settings.LANGUAGES:
         i18n_path[lang[0]] = u'/{0}{1}'.format(lang[0], full_path[3:])
@@ -67,6 +71,9 @@ def processor(request):
 
         # Used for logged in trainers
         'trainer_identity': request.session.get('trainer.identity'),
+
+        # Groups
+        'groups': groups,
     }
 
     # Pseudo-intelligent navigation here

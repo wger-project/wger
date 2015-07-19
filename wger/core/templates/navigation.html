@@ -38,7 +38,16 @@
                                 <li><a href="{% url 'manager:workout:overview' %}" rel="nofollow">{% trans "Workouts" %}</a></li>
                                 <li><a href="{% url 'manager:workout:calendar' user.username %}" rel="nofollow">{% trans "Calendar" %}</a></li>
                                 <li><a href="{% url 'manager:schedule:overview' %}" rel="nofollow">{% trans "Workouts schedules" %}</a></li>
+
+                                <li class="divider"></li>
                                 <li><a href="{% url 'groups:group:list' %}" rel="nofollow">{% trans "Groups" %}</a></li>
+
+                                {% if groups %}
+                                <li class="dropdown-header">{% trans "Your memberships" %}</li>
+                                {% for membership in groups %}
+                                    <li><a href="{% url 'groups:group:view' membership.group.pk %}" rel="nofollow">{{ membership.group }}</a></li>
+                                {% endfor %}
+                                {% endif %}
                             </ul>
                         </li>
                         {% endif %}
