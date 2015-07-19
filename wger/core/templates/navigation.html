@@ -38,7 +38,7 @@
                                 <li><a href="{% url 'manager:workout:overview' %}" rel="nofollow">{% trans "Workouts" %}</a></li>
                                 <li><a href="{% url 'manager:workout:calendar' user.username %}" rel="nofollow">{% trans "Calendar" %}</a></li>
                                 <li><a href="{% url 'manager:schedule:overview' %}" rel="nofollow">{% trans "Workouts schedules" %}</a></li>
-                                <li><a href="{% url 'manager:schedule:overview' %}" rel="nofollow">{% trans "Groups" %}</a></li>
+                                <li><a href="{% url 'groups:group:list' %}" rel="nofollow">{% trans "Groups" %}</a></li>
                             </ul>
                         </li>
                         {% endif %}

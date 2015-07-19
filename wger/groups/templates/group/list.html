@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+
+{% block title %}{% trans "Group list" %}{% endblock %}
+
+
+{% block content %}
+
+<ul class="list-group">
+    {% for group in object_list %}
+    <li class="list-group-item ">
+        <a href="{% url 'groups:group:view' group.pk %}">{{group}}</a>
+    </li>
+    {% empty %}
+        <li class="list-group-item">
+            {% trans "Nothing found" %}
+        </li>
+    {% endfor %}
+</ul>
+
+<div class="pull-right">
+    <a href="{% url 'groups:group:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+        {% trans "Create new group" %}
+   </a>
+</div>
+<div class="clearfix" style="padding-bottom: 2em;"></div>
+{% endblock %}
+
+
+
+
+{% block sidebar %}
+{% endblock %}

@@ -17,6 +17,7 @@
 
 import datetime
 import logging
+from django.core.urlresolvers import reverse
 from django.utils.encoding import python_2_unicode_compatible
 
 from django.db import models
@@ -79,6 +80,12 @@ class Group(models.Model):
         Return a more human-readable representation
         '''
         return self.name
+
+    def get_absolute_url(self):
+        '''
+        Return the detail view for this group
+        '''
+        return reverse('groups:group:view', kwargs={'pk': self.pk})
 
 
 class Membership(models.Model):

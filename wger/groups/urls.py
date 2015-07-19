@@ -18,12 +18,20 @@
 from django.conf.urls import patterns, url, include
 from django.contrib.auth.decorators import login_required
 
+from wger.groups.views import group
+
 
 # sub patterns for workout logs
 patterns_group = patterns('',
-    # url(r'^(?P<pk>\d+)/view$',
-    #     log.WorkoutLogDetailView.as_view(),
-    #     name='log'),
+    url(r'^list$',
+        group.ListView.as_view(),
+        name='list'),
+    url(r'^add$',
+        group.AddView.as_view(),
+        name='add'),
+    url(r'^(?P<pk>\d+)/view$',
+        group.DetailView.as_view(),
+        name='view'),
     # url(r'^(?P<pk>\d+)/edit$',  # JS
     #     log.WorkoutLogUpdateView.as_view(),
     #     name='edit'),
