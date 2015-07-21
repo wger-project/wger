@@ -87,6 +87,14 @@ class Group(models.Model):
         '''
         return reverse('groups:group:view', kwargs={'pk': self.pk})
 
+    def get_member_list(self):
+        '''
+        Returns a list with members, without admin information
+
+        Currently used in the template
+        '''
+        return [i.user for i in self.membership_set.all()]
+
 
 class Membership(models.Model):
     '''

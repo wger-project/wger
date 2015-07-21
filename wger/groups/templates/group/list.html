@@ -12,6 +12,20 @@
     {% for group in object_list %}
     <li class="list-group-item ">
         <a href="{% url 'groups:group:view' group.pk %}">{{group}}</a>
+
+        {% if not group.public %}
+            <span class="label label-warning">
+                <span class="glyphicon glyphicon-lock"></span>
+                {% trans "Private group" %}
+            </span>
+            &nbsp;
+        {% endif %}
+
+        {% if user in group.get_member_list %}
+            <span class="label label-primary">{% trans "Member" %}</span>
+        {% endif %}
+
+
     </li>
     {% empty %}
         <li class="list-group-item">

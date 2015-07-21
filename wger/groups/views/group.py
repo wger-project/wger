@@ -18,6 +18,7 @@ from django.http import HttpResponseForbidden
 from django.utils.translation import ugettext_lazy
 
 from django.views.generic import ListView, CreateView, DetailView
+from django.db.models import Q
 
 from wger.groups.models import Group, Membership
 from wger.utils.generic_views import WgerPermissionMixin, WgerFormMixin
@@ -33,9 +34,9 @@ class ListView(WgerPermissionMixin, ListView):
 
     def get_queryset(self):
         '''
-        List only public groups
+        List only public groups and groups the user is already a member of
         '''
-        return Group.objects.filter(public=True)
+        return Group.objects.filter(Q(public=True) | Q(members=self.request.user))
 
 
 class DetailView(WgerPermissionMixin, DetailView):
