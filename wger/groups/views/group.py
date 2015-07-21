@@ -14,6 +14,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 from django.core.urlresolvers import reverse_lazy
+from django.http import HttpResponseForbidden
 from django.utils.translation import ugettext_lazy
 
 from django.views.generic import ListView, CreateView, DetailView
@@ -73,4 +74,17 @@ class DetailView(WgerPermissionMixin, DetailView):
 
     # TODO: check permission/membership
     model = Group
+    login_required = True
     template_name = 'group/view.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Check for membership
+        '''
+        group = self.get_object()
+        if not group.public\
+                and request.user.is_authenticated()\
+                and not group.membership_set.filter(user=request.user):
+            return HttpResponseForbidden()
+
+        return super(DetailView, self).dispatch(request, *args, **kwargs)

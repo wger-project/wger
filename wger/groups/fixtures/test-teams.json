@@ -5,7 +5,7 @@
             "image": "", 
             "gym": null, 
             "creation_date": "2015-07-19", 
-            "public": false, 
+            "public": true,
             "name": "Cool team"
         }, 
         "model": "groups.group", 
@@ -45,6 +45,50 @@
             "name": "A Team"
         },
         "model": "groups.group",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "admin": true,
+            "group": 1,
+            "user": [
+                "admin"
+            ]
+        },
+        "model": "groups.membership",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "admin": false,
+            "group": 1,
+            "user": [
+                "test"
+            ]
+        },
+        "model": "groups.membership",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "admin": false,
+            "group": 1,
+            "user": [
+                "demo"
+            ]
+        },
+        "model": "groups.membership",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "admin": true,
+            "group": 2,
+            "user": [
+                "test"
+            ]
+        },
+        "model": "groups.membership",
         "pk": 4
     }
 ]
