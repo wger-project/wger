@@ -110,3 +110,9 @@ class Membership(models.Model):
     admin = models.BooleanField(verbose_name=_('Administrator'),
                                 default=False)
     '''Flag indicating whether the user is an administrator for the group'''
+
+    class Meta:
+        unique_together = ('group', 'user')
+        '''
+        Only one entry per user and group
+        '''
