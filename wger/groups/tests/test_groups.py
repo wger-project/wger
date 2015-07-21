@@ -11,10 +11,14 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 
 from wger.groups.models import Group
-from wger.manager.tests.testcase import WorkoutManagerTestCase, WorkoutManagerAccessTestCase
+from wger.manager.tests.testcase import (
+    WorkoutManagerTestCase,
+    WorkoutManagerAccessTestCase,
+    WorkoutManagerAddTestCase
+)
 
 
 class GroupRepresentationTestCase(WorkoutManagerTestCase):
@@ -65,6 +69,7 @@ class GroupOverviewTest(WorkoutManagerAccessTestCase):
     '''
     url = reverse_lazy('groups:group:list')
     anonymous_fail = True
+    user_fail = ()
     user_success = ('admin',
                     'test',
                     'demo',
@@ -74,4 +79,41 @@ class GroupOverviewTest(WorkoutManagerAccessTestCase):
                     'manager1',
                     'general_manager1',
                     'general_manager2')
+
+
+class CreateGroupTestCase(WorkoutManagerAddTestCase):
+    '''
+    Tests creating a new group
+    '''
+    object_class = Group
+    url = 'groups:group:add'
+    data = {'name': 'The name here',
+            'description': 'Description here'}
     user_fail = ()
+    user_success = ('admin',
+                    'test',
+                    'demo',
+                    'member1',
+                    'member2',
+                    'trainer2',
+                    'trainer3',
+                    'trainer4',
+                    'manager1',
+                    'manager3')
+
+
+class GroupUserJoinTestCase(WorkoutManagerTestCase):
+    '''
+    Tests different ways of joining a group
+    '''
+
+    def test_create_group(self):
+        '''
+        Creating a group joins the user and makes him an administrator
+        '''
+        self.user_login('test')
+        response = self.client.post(reverse('groups:group:add'),
+                                    {'name': 'Test group', 'description': 'Something clever'})
+        group = Group.objects.get(pk=5)
+        self.assertEqual(group.name, 'Test group')
+        self.assertTrue(group.membership_set.filter(user__username='test', admin=True).exists())
