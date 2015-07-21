@@ -36,7 +36,7 @@ class ListView(WgerPermissionMixin, ListView):
         '''
         List only public groups and groups the user is already a member of
         '''
-        return Group.objects.filter(Q(public=True) | Q(members=self.request.user))
+        return Group.objects.filter(Q(public=True) | Q(members=self.request.user)).distinct()
 
 
 class DetailView(WgerPermissionMixin, DetailView):
