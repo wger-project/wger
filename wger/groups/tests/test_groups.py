@@ -11,59 +11,67 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+from django.core.urlresolvers import reverse_lazy
 
 from wger.groups.models import Group
-from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.manager.tests.testcase import WorkoutManagerTestCase, WorkoutManagerAccessTestCase
 
 
-class GroupAccessTestCase(WorkoutManagerTestCase):
+class GroupRepresentationTestCase(WorkoutManagerTestCase):
     '''
-    Test accessing a group page
+    Test the representation of a model
     '''
 
-    def test_access_public(self):
+    def test_representation(self):
         '''
-        Test accessing the detail page of a public group
+        Test that the representation of an object is correct
         '''
-        group = Group.objects.get(pk=1)
+        self.assertEqual("{0}".format(Group.objects.get(pk=1)), 'Cool team')
 
-        # member
-        self.user_login('admin')
-        response = self.client.get(group.get_absolute_url())
-        self.assertEqual(response.status_code, 200)
 
-        # member
-        self.user_login('test')
-        response = self.client.get(group.get_absolute_url())
-        self.assertEqual(response.status_code, 200)
+class PublicGroupDetailAccessTest(WorkoutManagerAccessTestCase):
+    '''
+    Tests accessing a detail view of a public group
+    '''
+    url = reverse_lazy('groups:group:view', kwargs={'pk': 1})
+    anonymous_fail = True
+    user_success = ('admin',
+                    'test',
+                    'demo',
+                    'trainer1',
+                    'trainer2',
+                    'trainer3',
+                    'manager1',
+                    'general_manager1',
+                    'general_manager2')
+    user_fail = ()
 
-        # not member
-        self.user_login('trainer1')
-        response = self.client.get(group.get_absolute_url())
-        self.assertEqual(response.status_code, 200)
 
-        # not logged in
-        self.user_logout()
-        response = self.client.get(group.get_absolute_url())
-        self.assertEqual(response.status_code, 302)
+class PrivateGroupDetailAccessTest(WorkoutManagerAccessTestCase):
+    '''
+    Tests accessing a detail view of a private group
+    '''
+    url = reverse_lazy('groups:group:view', kwargs={'pk': 2})
+    anonymous_fail = True
+    user_success = ('test',)
+    user_fail = ('admin',
+                 'demo',
+                 'trainer1')
 
-    def test_access_private(self):
-        '''
-        Test accessing the detail page of a private group
-        '''
-        group = Group.objects.get(pk=2)
 
-        # Not member
-        self.user_login('admin')
-        response = self.client.get(group.get_absolute_url())
-        self.assertEqual(response.status_code, 403)
-
-        # Member
-        self.user_login('test')
-        response = self.client.get(group.get_absolute_url())
-        self.assertEqual(response.status_code, 200)
-
-        # Not logged in
-        self.user_logout()
-        response = self.client.get(group.get_absolute_url())
-        self.assertEqual(response.status_code, 302)
+class GroupOverviewTest(WorkoutManagerAccessTestCase):
+    '''
+    Tests accessing the group overview page
+    '''
+    url = reverse_lazy('groups:group:list')
+    anonymous_fail = True
+    user_success = ('admin',
+                    'test',
+                    'demo',
+                    'trainer1',
+                    'trainer2',
+                    'trainer3',
+                    'manager1',
+                    'general_manager1',
+                    'general_manager2')
+    user_fail = ()

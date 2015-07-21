@@ -25,9 +25,10 @@ from wger.utils.generic_views import WgerPermissionMixin, WgerFormMixin
 
 class ListView(WgerPermissionMixin, ListView):
     '''
-    Overview of all available gyms
+    Overview of all available groups
     '''
     model = Group
+    login_required = True
     template_name = 'group/list.html'
 
     def get_queryset(self):
@@ -35,6 +36,28 @@ class ListView(WgerPermissionMixin, ListView):
         List only public groups
         '''
         return Group.objects.filter(public=True)
+
+
+class DetailView(WgerPermissionMixin, DetailView):
+    '''
+    Detail view for a group
+    '''
+
+    model = Group
+    login_required = True
+    template_name = 'group/view.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Check for membership
+        '''
+        group = self.get_object()
+        if not group.public\
+                and request.user.is_authenticated()\
+                and not group.membership_set.filter(user=request.user):
+            return HttpResponseForbidden()
+
+        return super(DetailView, self).dispatch(request, *args, **kwargs)
 
 
 class AddView(WgerFormMixin, CreateView):
@@ -65,26 +88,3 @@ class AddView(WgerFormMixin, CreateView):
         membership.save()
 
         return out
-
-
-class DetailView(WgerPermissionMixin, DetailView):
-    '''
-    Detail view for a group
-    '''
-
-    # TODO: check permission/membership
-    model = Group
-    login_required = True
-    template_name = 'group/view.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        '''
-        Check for membership
-        '''
-        group = self.get_object()
-        if not group.public\
-                and request.user.is_authenticated()\
-                and not group.membership_set.filter(user=request.user):
-            return HttpResponseForbidden()
-
-        return super(DetailView, self).dispatch(request, *args, **kwargs)
