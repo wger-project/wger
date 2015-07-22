@@ -17,8 +17,8 @@ from wger.groups.models import Group
 from wger.manager.tests.testcase import (
     WorkoutManagerTestCase,
     WorkoutManagerAccessTestCase,
-    WorkoutManagerAddTestCase
-)
+    WorkoutManagerAddTestCase,
+    WorkoutManagerEditTestCase)
 
 
 class GroupRepresentationTestCase(WorkoutManagerTestCase):
@@ -100,3 +100,22 @@ class CreateGroupTestCase(WorkoutManagerAddTestCase):
                     'trainer4',
                     'manager1',
                     'manager3')
+
+
+class EditGroupTestCase(WorkoutManagerEditTestCase):
+    '''
+    Tests editing a group
+    '''
+
+    object_class = Group
+    url = 'groups:group:edit'
+    pk = 1
+    data = {'name': 'A different name'}
+    user_success = ('admin',)
+    user_fail = ('test',
+                 'member1',
+                 'member2',
+                 'trainer2',
+                 'trainer3',
+                 'trainer4',
+                 'manager3')

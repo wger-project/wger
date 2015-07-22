@@ -33,6 +33,9 @@ patterns_group = patterns('',
     url(r'^(?P<pk>\d+)/view$',
         group.DetailView.as_view(),
         name='view'),
+    url(r'^(?P<pk>\d+)/edit$',
+        group.UpdateView.as_view(),
+        name='edit'),
 )
 
 # sub patterns for group memberships

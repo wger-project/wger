@@ -13,15 +13,26 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseForbidden
 from django.utils.translation import ugettext_lazy
-
-from django.views.generic import ListView, CreateView, DetailView
+from django.utils.translation import ugettext as _
+from django.views.generic import (
+    ListView,
+    CreateView,
+    DetailView,
+    UpdateView
+)
 from django.db.models import Q
 
-from wger.groups.models import Group, Membership
-from wger.utils.generic_views import WgerPermissionMixin, WgerFormMixin
+from wger.groups.models import (
+    Group,
+    Membership
+)
+from wger.utils.generic_views import (
+    WgerPermissionMixin,
+    WgerFormMixin
+)
 
 
 class ListView(WgerPermissionMixin, ListView):
@@ -89,3 +100,36 @@ class AddView(WgerFormMixin, CreateView):
         membership.save()
 
         return out
+
+
+class UpdateView(WgerFormMixin, UpdateView):
+    '''
+    View to update an existing Group
+    '''
+
+    model = Group
+    fields = ('name', 'description', 'image', 'public')
+    login_required = True
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Only administrators for the group can edit it
+        '''
+        if not request.user.is_authenticated():
+            return HttpResponseForbidden()
+
+        group = self.get_object()
+        if group.membership_set.filter(user=request.user).exists() \
+                and group.membership_set.get(user=request.user).admin:
+            return super(UpdateView, self).dispatch(request, *args, **kwargs)
+
+        return HttpResponseForbidden()
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(UpdateView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('groups:group:edit', kwargs={'pk': self.object.id})
+        context['title'] = _(u'Edit {0}').format(self.object)
+        return context

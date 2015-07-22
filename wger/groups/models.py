@@ -95,6 +95,14 @@ class Group(models.Model):
         '''
         return [i.user for i in self.membership_set.all()]
 
+    def get_admins_list(self):
+        '''
+        Returns a list with admins, without admin information
+
+        Currently used in the template
+        '''
+        return [i.user for i in self.membership_set.filter(admin=True)]
+
 
 class Membership(models.Model):
     '''

@@ -30,6 +30,13 @@
                 </a>
             {% endif %}
             </li>
+
+            {% if user in object.get_admins_list %}
+                <li class="divider"></li>
+                <li>
+                    <a href="{% url 'groups:group:edit' object.pk %}">{% trans "Edit" %}</a>
+                </li>
+            {% endif %}
         </ul>
     </div>
 
