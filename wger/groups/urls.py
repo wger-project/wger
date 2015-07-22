@@ -19,9 +19,10 @@ from django.conf.urls import patterns, url, include
 from django.contrib.auth.decorators import login_required
 
 from wger.groups.views import group
+from wger.groups.views import membership
 
 
-# sub patterns for workout logs
+# sub patterns for groups
 patterns_group = patterns('',
     url(r'^list$',
         group.ListView.as_view(),
@@ -32,17 +33,19 @@ patterns_group = patterns('',
     url(r'^(?P<pk>\d+)/view$',
         group.DetailView.as_view(),
         name='view'),
-    # url(r'^(?P<pk>\d+)/edit$',  # JS
-    #     log.WorkoutLogUpdateView.as_view(),
-    #     name='edit'),
-    # url(r'^(?P<pk>\d+)/delete$',
-    #     log.WorkoutLogDeleteView.as_view(),
-    #     name='delete'),
-    # url(r'^(?P<workout_pk>\d+)/add$',  # not used?
-    #     log.WorkoutLogAddView.as_view(),
-    #     name='add'),
+)
+
+# sub patterns for group memberships
+patterns_membership = patterns('',
+    url(r'^(?P<group_pk>\d+)/join$',
+        membership.join_public_group,
+        name='join-public'),
+    url(r'^(?P<group_pk>\d+)/leave$',
+        membership.leave_group,
+        name='leave'),
 )
 
 urlpatterns = patterns('',
    url(r'^', include(patterns_group, namespace="group")),
+   url(r'^', include(patterns_membership, namespace="member")),
 )

@@ -100,20 +100,3 @@ class CreateGroupTestCase(WorkoutManagerAddTestCase):
                     'trainer4',
                     'manager1',
                     'manager3')
-
-
-class GroupUserJoinTestCase(WorkoutManagerTestCase):
-    '''
-    Tests different ways of joining a group
-    '''
-
-    def test_create_group(self):
-        '''
-        Creating a group joins the user and makes him an administrator
-        '''
-        self.user_login('test')
-        response = self.client.post(reverse('groups:group:add'),
-                                    {'name': 'Test group', 'description': 'Something clever'})
-        group = Group.objects.get(pk=5)
-        self.assertEqual(group.name, 'Test group')
-        self.assertTrue(group.membership_set.filter(user__username='test', admin=True).exists())
