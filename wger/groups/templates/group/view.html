@@ -13,27 +13,40 @@
 
 
 {% block sidebar %}
-    <h4>{% trans "Members" %}</h4>
-    <ul>
-    {% for membership in object.membership_set.all %}
-        <li>
-            {{ membership.user.username }}
-            {% if membership.admin %}
-                <span class="label label-primary">{% trans "Admin" %}</span>
+
+    <div class="btn-group pull-right">
+        <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+            {% trans "Actions" %} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li>
+            {% if user in group.get_member_list %}
+                <a href="{% url 'groups:member:leave' object.pk %}">
+                    {% trans "Leave group" %}
+                </a>
+            {% else %}
+                <a href="{% url 'groups:member:join-public' object.pk %}">
+                    {% trans "Join group" %}
+                </a>
             {% endif %}
+            </li>
+        </ul>
+    </div>
+
+
+    <h4>{% trans "Members" %}</h4>
+    <ul class="list-group">
+    {% for membership in object.membership_set.all %}
+    <li class="list-group-item ">
+        {{ membership.user.username }}
+        {% if membership.admin %}
+            <span class="label label-primary">{% trans "Admin" %}</span>
+        {% endif %}
+    </li>
+    {% empty %}
+        <li class="list-group-item">
+            {% trans "Nothing found" %}
         </li>
     {% endfor %}
     </ul>
-
-
-    {% if user in group.get_member_list %}
-        <a href="{% url 'groups:member:leave' object.pk %}">
-            {% trans "Leave group" %}
-        </a>
-    {% else %}
-        <a href="{% url 'groups:member:join-public' object.pk %}">
-            {% trans "Join group" %}
-        </a>
-    {% endif %}
-
 {% endblock %}
