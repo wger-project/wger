@@ -53,3 +53,19 @@ class GroupUserJoinTestCase(WorkoutManagerTestCase):
     def test_join_public_group_1(self):
         self.user_login('test')
         self.join_public_group()
+
+
+class GroupUserLeaveTestCase(WorkoutManagerTestCase):
+    '''
+    Tests different ways of leaving a group
+    '''
+
+    def test_leave_group(self):
+        '''
+        Leaving the group
+        '''
+        self.user_login('test')
+        group = Group.objects.get(pk=2)
+        self.assertEqual(group.membership_set.count(), 1)
+        self.client.get(reverse('groups:member:leave', kwargs={'group_pk': 2}))
+        self.assertEqual(group.membership_set.count(), 0)
