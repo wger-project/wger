@@ -80,7 +80,7 @@ class GroupUserLeaveTestCase(WorkoutManagerTestCase):
 
 class GroupAdminTestCase(WorkoutManagerTestCase):
     '''
-    Tests making a user an administrator of a group
+    Tests promoting and demoting administrators of a group
     '''
 
     def test_promote_admin_member(self):
@@ -125,4 +125,48 @@ class GroupAdminTestCase(WorkoutManagerTestCase):
         self.assertFalse(group.membership_set.filter(user_id=4).count())
         self.client.get(reverse('groups:member:promote', kwargs={'group_pk': 1,
                                                                  'user_pk': 4}))
+        self.assertFalse(group.membership_set.filter(user_id=4).count())
+
+    def test_demote_admin_member(self):
+        '''
+        Demoter is admin, other user is member
+        '''
+        self.user_login('admin')
+        group = Group.objects.get(pk=1)
+        self.assertFalse(group.membership_set.get(user_id=2).admin)
+        self.client.get(reverse('groups:member:demote', kwargs={'group_pk': 1,
+                                                                'user_pk': 2}))
+        self.assertFalse(group.membership_set.get(user_id=2).admin)
+
+    def test_demote_admin_member_other(self):
+        '''
+        Demoter is admin, other user is member of other group
+        '''
+        self.user_login('admin')
+        group = Group.objects.get(pk=1)
+        self.assertFalse(group.membership_set.filter(user_id=4).count())
+        self.client.get(reverse('groups:member:promote', kwargs={'group_pk': 1,
+                                                                 'user_pk': 4}))
+        self.assertFalse(group.membership_set.filter(user_id=4).count())
+
+    def test_demote_member_admin(self):
+        '''
+        Demoter is regular member, other user is admin
+        '''
+        self.user_login('test')
+        group = Group.objects.get(pk=1)
+        self.assertTrue(group.membership_set.get(user_id=1).admin)
+        self.client.get(reverse('groups:member:demote', kwargs={'group_pk': 1,
+                                                                'user_pk': 1}))
+        self.assertTrue(group.membership_set.get(user_id=1).admin)
+
+    def test_demote_member_member_other(self):
+        '''
+        Promoter is regular member, new user is member of other group
+        '''
+        self.user_login('test')
+        group = Group.objects.get(pk=1)
+        self.assertFalse(group.membership_set.filter(user_id=4).count())
+        self.client.get(reverse('groups:member:demote', kwargs={'group_pk': 1,
+                                                                'user_pk': 4}))
         self.assertFalse(group.membership_set.filter(user_id=4).count())

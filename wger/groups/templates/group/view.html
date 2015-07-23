@@ -55,6 +55,10 @@
             <a href="{% url 'groups:member:promote' object.pk membership.user.pk %}">{% trans "Promote to administrator" %}</a>
         {% endif %}
 
+        {% if user in object.get_admins_list and membership.user in object.get_admins_list %}
+            <a href="{% url 'groups:member:demote' object.pk membership.user.pk %}">{% trans "Demote administrator" %}</a>
+        {% endif %}
+
     </li>
     {% empty %}
         <li class="list-group-item">

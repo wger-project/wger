@@ -75,3 +75,24 @@ def promote(request, group_pk, user_pk):
     membership.admin = True
     membership.save()
     return HttpResponseRedirect(group.get_absolute_url())
+
+
+@login_required
+def demote(request, group_pk, user_pk):
+    '''
+    Demotes an administrator user
+    '''
+
+    # TODO: can one demote oneself?
+    group = get_object_or_404(Group, pk=group_pk)
+    user = get_object_or_404(User, pk=user_pk)
+
+    # Sanity checks
+    if not group.membership_set.filter(user=request.user, admin=True).exists()\
+            or not group.membership_set.filter(user=user).exists():
+        return HttpResponseForbidden()
+
+    membership = group.membership_set.get(user=user)
+    membership.admin = False
+    membership.save()
+    return HttpResponseRedirect(group.get_absolute_url())

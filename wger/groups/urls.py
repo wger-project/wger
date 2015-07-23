@@ -49,6 +49,9 @@ patterns_membership = patterns('',
     url(r'^(?P<group_pk>\d+)/(?P<user_pk>\d+)/promote$',
         membership.promote,
         name='promote'),
+    url(r'^(?P<group_pk>\d+)/(?P<user_pk>\d+)/demote$',
+        membership.demote,
+        name='demote'),
 )
 
 urlpatterns = patterns('',
