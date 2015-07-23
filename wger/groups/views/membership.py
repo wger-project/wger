@@ -58,9 +58,9 @@ def leave_group(request, group_pk):
 
 
 @login_required
-def make_admin(request, group_pk, user_pk):
+def promote(request, group_pk, user_pk):
     '''
-    Makes a user administrator of a group
+    Promotes a user administrator of a group
     '''
 
     group = get_object_or_404(Group, pk=group_pk)
