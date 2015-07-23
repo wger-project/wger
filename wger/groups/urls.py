@@ -46,6 +46,9 @@ patterns_membership = patterns('',
     url(r'^(?P<group_pk>\d+)/leave$',
         membership.leave_group,
         name='leave'),
+    url(r'^(?P<group_pk>\d+)/(?P<user_pk>\d+)/promote$',
+        membership.make_admin,
+        name='promote'),
 )
 
 urlpatterns = patterns('',

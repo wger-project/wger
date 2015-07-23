@@ -45,10 +45,16 @@
     <ul class="list-group">
     {% for membership in object.membership_set.all %}
     <li class="list-group-item ">
+
         {{ membership.user.username }}
         {% if membership.admin %}
             <span class="label label-primary">{% trans "Admin" %}</span>
         {% endif %}
+
+        {% if user in object.get_admins_list and membership.user not in object.get_admins_list %}
+            <a href="{% url 'groups:member:promote' object.pk membership.user.pk %}">{% trans "Promote to administrator" %}</a>
+        {% endif %}
+
     </li>
     {% empty %}
         <li class="list-group-item">
