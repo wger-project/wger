@@ -124,3 +124,8 @@ class Membership(models.Model):
         '''
         Only one entry per user and group
         '''
+
+        ordering = ["-admin", "user__username"]
+        '''
+        Admins first, then sort by username
+        '''
