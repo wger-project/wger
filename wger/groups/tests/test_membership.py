@@ -46,11 +46,17 @@ class GroupUserJoinTestCase(WorkoutManagerTestCase):
         self.client.get(reverse('groups:member:join-public', kwargs={'group_pk': 3}))
         self.assertEqual(group.membership_set.count(), 1)
 
-    def test_join_public_group_1(self):
+    def test_join_public_group_admin(self):
+        '''
+        Join public group as user admin
+        '''
         self.user_login('admin')
         self.join_public_group()
 
-    def test_join_public_group_1(self):
+    def test_join_public_group_test(self):
+        '''
+        Join public group as user test
+        '''
         self.user_login('test')
         self.join_public_group()
 
@@ -66,6 +72,57 @@ class GroupUserLeaveTestCase(WorkoutManagerTestCase):
         '''
         self.user_login('test')
         group = Group.objects.get(pk=2)
-        self.assertEqual(group.membership_set.count(), 1)
+        self.assertEqual(group.membership_set.count(), 2)
         self.client.get(reverse('groups:member:leave', kwargs={'group_pk': 2}))
-        self.assertEqual(group.membership_set.count(), 0)
+        self.assertEqual(group.membership_set.count(), 1)
+        self.assertEqual(group.membership_set.filter(user_id=2).count(), 0)
+
+
+class GroupAdminTestCase(WorkoutManagerTestCase):
+    '''
+    Tests making a user an administrator of a group
+    '''
+
+    def test_promote_admin_member(self):
+        '''
+        Promoter is admin, new user is member
+        '''
+        self.user_login('admin')
+        group = Group.objects.get(pk=1)
+        self.assertFalse(group.membership_set.get(user_id=2).admin)
+        self.client.get(reverse('groups:member:promote', kwargs={'group_pk': 1,
+                                                                 'user_pk': 2}))
+        self.assertTrue(group.membership_set.get(user_id=2).admin)
+
+    def test_promote_admin_member_other(self):
+        '''
+        Promoter is admin, new user is member of other group
+        '''
+        self.user_login('admin')
+        group = Group.objects.get(pk=1)
+        self.assertFalse(group.membership_set.filter(user_id=4).count())
+        self.client.get(reverse('groups:member:promote', kwargs={'group_pk': 1,
+                                                                 'user_pk': 4}))
+        self.assertFalse(group.membership_set.filter(user_id=4).count())
+
+    def test_promote_member_member(self):
+        '''
+        Promoter is regular member, new user is member of group
+        '''
+        self.user_login('test')
+        group = Group.objects.get(pk=1)
+        self.assertFalse(group.membership_set.get(user_id=3).admin)
+        self.client.get(reverse('groups:member:promote', kwargs={'group_pk': 1,
+                                                                 'user_pk': 3}))
+        self.assertFalse(group.membership_set.get(user_id=3).admin)
+
+    def test_promote_member_member_other(self):
+        '''
+        Promoter is regular member, new user is member of other group
+        '''
+        self.user_login('test')
+        group = Group.objects.get(pk=1)
+        self.assertFalse(group.membership_set.filter(user_id=4).count())
+        self.client.get(reverse('groups:member:promote', kwargs={'group_pk': 1,
+                                                                 'user_pk': 4}))
+        self.assertFalse(group.membership_set.filter(user_id=4).count())

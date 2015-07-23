@@ -90,5 +90,16 @@
         },
         "model": "groups.membership",
         "pk": 4
+    },
+    {
+        "fields": {
+            "admin": true,
+            "group": 2,
+            "user": [
+                "trainer1"
+            ]
+        },
+        "model": "groups.membership",
+        "pk": 5
     }
 ]
