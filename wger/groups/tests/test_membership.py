@@ -66,9 +66,9 @@ class GroupUserLeaveTestCase(WorkoutManagerTestCase):
     Tests different ways of leaving a group
     '''
 
-    def test_leave_group(self):
+    def test_leave_group_own(self):
         '''
-        Leaving the group
+        User leaves a group he is a member of
         '''
         self.user_login('test')
         group = Group.objects.get(pk=2)
@@ -76,6 +76,17 @@ class GroupUserLeaveTestCase(WorkoutManagerTestCase):
         self.client.get(reverse('groups:member:leave', kwargs={'group_pk': 2}))
         self.assertEqual(group.membership_set.count(), 1)
         self.assertEqual(group.membership_set.filter(user_id=2).count(), 0)
+
+    def test_leave_group_other(self):
+        '''
+        User leaves a group he is not member of
+        '''
+        self.user_login('admin')
+        group = Group.objects.get(pk=2)
+        self.assertEqual(group.membership_set.count(), 2)
+        self.client.get(reverse('groups:member:leave', kwargs={'group_pk': 2}))
+        self.assertEqual(group.membership_set.count(), 2)
+        self.assertEqual(group.membership_set.filter(user_id=1).count(), 0)
 
 
 class GroupAdminTestCase(WorkoutManagerTestCase):
