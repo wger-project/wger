@@ -41,9 +41,9 @@ class GroupUserJoinTestCase(WorkoutManagerTestCase):
         '''
         Everybody can join a public group (helper function)
         '''
-        group = Group.objects.get(pk=3)
+        group = Group.objects.get(pk=4)
         self.assertEqual(group.membership_set.count(), 0)
-        self.client.get(reverse('groups:member:join-public', kwargs={'group_pk': 3}))
+        self.client.get(reverse('groups:member:join-public', kwargs={'group_pk': 4}))
         self.assertEqual(group.membership_set.count(), 1)
 
     def test_join_public_group_admin(self):
@@ -88,6 +88,50 @@ class GroupUserLeaveTestCase(WorkoutManagerTestCase):
         self.assertEqual(group.membership_set.count(), 2)
         self.assertEqual(group.membership_set.filter(user_id=1).count(), 0)
 
+    def test_kick_out_admin_user(self):
+        '''
+        Admin kicks out regular user
+        '''
+        self.user_login('admin')
+        group = Group.objects.get(pk=1)
+        self.assertEqual(group.membership_set.count(), 3)
+        self.client.get(reverse('groups:member:leave', kwargs={'group_pk': 1, 'user_pk': 2}))
+        self.assertEqual(group.membership_set.count(), 2)
+        self.assertEqual(group.membership_set.filter(user_id=2).count(), 0)
+
+    def test_kick_out_user_user(self):
+        '''
+        User kicks out regular user
+        '''
+        self.user_login('demo')
+        group = Group.objects.get(pk=1)
+        self.assertEqual(group.membership_set.count(), 3)
+        self.client.get(reverse('groups:member:leave', kwargs={'group_pk': 1, 'user_pk': 2}))
+        self.assertEqual(group.membership_set.count(), 3)
+        self.assertEqual(group.membership_set.filter(user_id=2).count(), 1)
+
+    def test_kick_out_admin_user_other(self):
+        '''
+        Admin kicks out regular user of different group
+        '''
+        self.user_login('admin')
+        group = Group.objects.get(pk=2)
+        self.assertEqual(group.membership_set.count(), 2)
+        self.client.get(reverse('groups:member:leave', kwargs={'group_pk': 2, 'user_pk': 2}))
+        self.assertEqual(group.membership_set.count(), 2)
+        self.assertEqual(group.membership_set.filter(user_id=2).count(), 1)
+
+    def test_kick_out_user_user_other(self):
+        '''
+        User kicks out regular user of different group
+        '''
+        self.user_login('test')
+        group = Group.objects.get(pk=3)
+        self.assertEqual(group.membership_set.count(), 4)
+        self.client.get(reverse('groups:member:leave', kwargs={'group_pk': 2, 'user_pk': 15}))
+        self.assertEqual(group.membership_set.count(), 4)
+        self.assertEqual(group.membership_set.filter(user_id=14).count(), 1)
+
 
 class GroupAdminTestCase(WorkoutManagerTestCase):
     '''
@@ -101,8 +145,7 @@ class GroupAdminTestCase(WorkoutManagerTestCase):
         self.user_login('admin')
         group = Group.objects.get(pk=1)
         self.assertFalse(group.membership_set.get(user_id=2).admin)
-        self.client.get(reverse('groups:member:promote', kwargs={'group_pk': 1,
-                                                                 'user_pk': 2}))
+        self.client.get(reverse('groups:member:promote', kwargs={'group_pk': 1, 'user_pk': 2}))
         self.assertTrue(group.membership_set.get(user_id=2).admin)
 
     def test_promote_admin_member_other(self):
@@ -112,8 +155,7 @@ class GroupAdminTestCase(WorkoutManagerTestCase):
         self.user_login('admin')
         group = Group.objects.get(pk=1)
         self.assertFalse(group.membership_set.filter(user_id=4).count())
-        self.client.get(reverse('groups:member:promote', kwargs={'group_pk': 1,
-                                                                 'user_pk': 4}))
+        self.client.get(reverse('groups:member:promote', kwargs={'group_pk': 1, 'user_pk': 4}))
         self.assertFalse(group.membership_set.filter(user_id=4).count())
 
     def test_promote_member_member(self):

@@ -42,17 +42,23 @@ def join_public_group(request, group_pk):
 
 
 @login_required
-def leave_group(request, group_pk):
+def leave_group(request, group_pk, user_pk=None):
     '''
-    Lets a user leave a group
+    Removes a user from a group, either because he left or because an admin removed him
     '''
-
     # TODO: what if it's the last user
     group = get_object_or_404(Group, pk=group_pk)
-    if not group.membership_set.filter(user=request.user).exists():
+
+    if user_pk:
+        user = get_object_or_404(User, pk=user_pk)
+        if not group.membership_set.filter(user=request.user, admin=True).exists():
+            return HttpResponseForbidden()
+    else:
+        user = request.user
+    if not group.membership_set.filter(user=user).exists():
         return HttpResponseForbidden()
 
-    membership = group.membership_set.get(user=request.user)
+    membership = group.membership_set.get(user=user)
     membership.delete()
     return HttpResponseRedirect(reverse('groups:group:list'))
 

@@ -101,5 +101,49 @@
         },
         "model": "groups.membership",
         "pk": 5
+    },
+    {
+        "fields": {
+            "admin": true,
+            "group": 3,
+            "user": [
+                "member1"
+            ]
+        },
+        "model": "groups.membership",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "admin": false,
+            "group": 3,
+            "user": [
+                "member2"
+            ]
+        },
+        "model": "groups.membership",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "admin": false,
+            "group": 3,
+            "user": [
+                "member3"
+            ]
+        },
+        "model": "groups.membership",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "admin": false,
+            "group": 3,
+            "user": [
+                "member4"
+            ]
+        },
+        "model": "groups.membership",
+        "pk": 9
     }
 ]
