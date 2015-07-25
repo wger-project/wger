@@ -118,8 +118,8 @@ Sources
 
 All the code and the content is freely available:
 
-* **Main repository:** GIT, https://github.com/rolandgeider/wger
-* **Mirror:** HG, https://bitbucket.org/rolandgeider/wger
+* **Main repository:** https://github.com/rolandgeider/wger
+* **Mirror:** https://bitbucket.org/rolandgeider/wger
 
 
 Licence
