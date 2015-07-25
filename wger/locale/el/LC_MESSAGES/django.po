@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Mark Nicolaou <mark.nicolaou@gmail.com>, 2015
 # rge <roland@geider.net>, 2015
@@ -9,23 +9,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-05 20:20+0100\n"
-"PO-Revision-Date: 2015-01-25 15:51+0000\n"
+"POT-Creation-Date: 2015-07-07 22:06+0200\n"
+"PO-Revision-Date: 2015-07-07 20:10+0000\n"
 "Last-Translator: rge <roland@geider.net>\n"
-"Language-Team: Greek (http://www.transifex.com/projects/p/wger-workout-"
-"manager/language/el/)\n"
-"Language: el\n"
+"Language-Team: Greek (http://www.transifex.com/projects/p/wger-workout-manager/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: config/models.py:46 core/templates/navigation.html:53
 #: core/templates/navigation.html.py:55
 #: exercises/templates/exercise/overview.html:11
 #: exercises/templates/mobile/exercise/overview.html:11
-#: exercises/templates/muscles/overview.html:79 manager/models.py:512
-#: manager/models.py:561 manager/templates/mobile/tags/render_day.html:90
+#: exercises/templates/muscles/overview.html:79 manager/models.py:514
+#: manager/models.py:563 manager/templates/mobile/tags/render_day.html:72
 msgid "Exercises"
 msgstr "Ασκήσεις"
 
@@ -41,13 +40,10 @@ msgstr "Προεπιλεγμένο γυμναστήριο"
 msgid ""
 "Select the default gym for this installation. This will assign all new "
 "registered users to this gym and update all existing users without a gym."
-msgstr ""
-"Επιλέξτε το προκαθορισμένο γυμναστήριο για εγκατάσταση. Αυτό θα καθορίσει τα "
-"νέα εγγεγραμμένα μέλη και θα ενημερώσει τα υπάρχοντα μέλη που δεν έχουν "
-"γυμναστήριο."
+msgstr "Επιλέξτε το προκαθορισμένο γυμναστήριο για εγκατάσταση. Αυτό θα καθορίσει τα νέα εγγεγραμμένα μέλη και θα ενημερώσει τα υπάρχοντα μέλη που δεν έχουν γυμναστήριο."
 
 #: config/templates/language/overview.html:4
-#: core/templates/navigation.html:203
+#: core/templates/navigation.html:204
 msgid "Languages"
 msgstr "Γλώσσες"
 
@@ -64,22 +60,23 @@ msgstr "Γλώσσα κανονική ονομασία"
 
 #: config/templates/language/overview.html:30
 #: config/templates/language/view.html:68 core/templates/license/list.html:57
-#: core/templates/navigation.html:143 core/templates/user/api_key.html:44
-#: core/templates/user/preferences.html:112
+#: core/templates/navigation.html:144 core/templates/user/api_key.html:44
+#: core/templates/user/preferences.html:113
 #: exercises/templates/equipment/list.html:56
 #: exercises/templates/exercise/overview.html:146
 #: exercises/templates/exercise/view.html:336
+#: exercises/templates/exercise/view.html:350
 #: exercises/templates/muscles/overview.html:100
 #: gym/templates/admin_notes/list.html:55 gym/templates/document/list.html:66
 #: gym/templates/gym/member_list.html:245 gym/templates/gym/new_user.html:41
 #: manager/templates/day/log.html:85
+#: manager/templates/mobile/calendar/month.html:62
 #: manager/templates/mobile/schedule/view.html:16
 #: manager/templates/mobile/schedule/view.html:164
-#: manager/templates/mobile/tags/render_day.html:66
-#: manager/templates/mobile/workout/calendar.html:68
+#: manager/templates/mobile/tags/render_day.html:54
 #: manager/templates/mobile/workout/overview.html:32
 #: manager/templates/mobile/workout/view.html:131
-#: manager/templates/schedule/view.html:214
+#: manager/templates/schedule/view.html:233
 #: manager/templates/workout/log.html:106
 #: manager/templates/workout/overview.html:48
 #: manager/templates/workout/view.html:125
@@ -89,15 +86,15 @@ msgstr "Γλώσσα κανονική ονομασία"
 #: nutrition/templates/mobile/plan/view.html:60
 #: nutrition/templates/mobile/plan/view.html:110
 #: nutrition/templates/mobile/plan/view.html:371
-#: nutrition/templates/plan/overview.html:53
+#: nutrition/templates/plan/overview.html:47
 #: nutrition/templates/plan/view.html:299
 #: nutrition/templates/units/list.html:58
-#: weight/templates/weight_overview.html:67
+#: weight/templates/weight_overview.html:102
 msgid "Options"
 msgstr "Επιλογές"
 
 #: config/templates/language/overview.html:36
-#: config/templates/language/overview.html:38 config/views/languages.py:62
+#: config/templates/language/overview.html:38 config/views/languages.py:63
 #: core/templates/license/list.html:64 core/templates/license/list.html:65
 #: core/templates/license/list.html:66 core/templates/user/overview.html:270
 #: core/templates/user/overview.html:311 core/views/license.py:54
@@ -112,43 +109,26 @@ msgstr "Επιλογές"
 msgid "Add"
 msgstr "Προσθήκη"
 
-#: config/templates/language/overview.html:41
-msgid ""
-"After adding a new language here you need to add it to\n"
-"the global_settings.py file and make sure there is a corresponding flag "
-"icon\n"
-"in static/images/icons."
-msgstr ""
-"Μετα την προσθήκη μιάς νέας γλώσσας εδώ θα χρειαστεί να την προσθέσετε\n"
-"μέσα στο αρχείο global_settings.py και βεβαιωθείτε ότι υπάρχει σημαία που\n"
-"αντιστοιχεί μέσα στο static/images/icons."
-
 #: config/templates/language/view.html:26
-#: core/templates/user/overview.html:364 gym/views/admin_config.py:50
-#: gym/views/user_config.py:64
+#: core/templates/user/overview.html:364 gym/views/admin_config.py:51
+#: gym/views/user_config.py:65
 msgid "Configuration"
 msgstr "Παραμετροποίηση"
 
 #: config/templates/language/view.html:27
 msgid ""
 "Use the configuration to select in what languages the\n"
-"exercises and ingredients will be shown for the current language (for "
-"example\n"
+"exercises and ingredients will be shown for the current language (for example\n"
 "the exercises should be shown in languages A, B and C; the ingredients only\n"
 "in A)."
-msgstr ""
-"Χρησιμοποιήστε την παραμετροποίηση για να επιλέξετε σε ποιές γλώσσες\n"
-"οι ασκήσεις και τα συστατικά θα εμφανίζονται για την τρέχουσα γλώσσα (για\n"
-"παράδειγμα\n"
-"οι ασκήσεις θα πρέπει να εμφανίζονται στις γλώσσες A, B και Γ, τα συστατικά\n"
-"μόνο στην Α)."
+msgstr "Χρησιμοποιήστε την παραμετροποίηση για να επιλέξετε σε ποιές γλώσσες\nοι ασκήσεις και τα συστατικά θα εμφανίζονται για την τρέχουσα γλώσσα (για\nπαράδειγμα\nοι ασκήσεις θα πρέπει να εμφανίζονται στις γλώσσες A, B και Γ, τα συστατικά\nμόνο στην Α)."
 
 #: config/templates/language/view.html:36
 msgid "Show"
 msgstr "Εμφάνιση"
 
 #: config/templates/language/view.html:76
-#: config/templates/language/view.html:78 config/views/gym_config.py:48
+#: config/templates/language/view.html:78 config/views/gym_config.py:49
 #: config/views/language_config.py:48 core/templates/license/list.html:35
 #: core/templates/license/list.html:36 core/templates/tags/render_day.html:32
 #: core/templates/tags/render_day.html:37
@@ -160,28 +140,29 @@ msgstr "Εμφάνιση"
 #: exercises/templates/exercise/view.html:114
 #: exercises/templates/exercise/view.html:119
 #: exercises/templates/exercise/view.html:169
-#: exercises/templates/exercise/view.html:342
-#: exercises/templates/exercise/view.html:343 exercises/views/comments.py:50
+#: exercises/templates/exercise/view.html:356
+#: exercises/templates/exercise/view.html:357 exercises/views/comments.py:50
 #: gym/templates/admin_notes/list.html:34 gym/templates/document/list.html:41
 #: gym/templates/gym/list.html:21 gym/templates/gym/list.html.py:54
 #: gym/templates/gym/member_list.html:138
 #: gym/templates/gym/member_list.html:192
 #: gym/templates/gym/member_list.html:218
+#: manager/templates/calendar/day.html:64
+#: manager/templates/calendar/day.html:69
+#: manager/templates/calendar/month.html:77
+#: manager/templates/calendar/month.html:82
+#: manager/templates/calendar/partial_overview_table.html:24
+#: manager/templates/mobile/calendar/month.html:75
+#: manager/templates/mobile/calendar/month.html:80
+#: manager/templates/mobile/calendar/month.html:81
 #: manager/templates/mobile/schedule/view.html:25
 #: manager/templates/mobile/schedule/view.html:30
-#: manager/templates/mobile/tags/render_day.html:34
-#: manager/templates/mobile/tags/render_day.html:39
-#: manager/templates/mobile/tags/render_day.html:40
-#: manager/templates/mobile/tags/render_day.html:72
-#: manager/templates/mobile/tags/render_day.html:77
-#: manager/templates/mobile/tags/render_day.html:78
-#: manager/templates/mobile/workout/calendar.html:81
-#: manager/templates/mobile/workout/calendar.html:86
-#: manager/templates/mobile/workout/calendar.html:87
-#: manager/templates/schedule/view.html:109
-#: manager/templates/schedule/view.html:114
-#: manager/templates/workout/calendar.html:127
-#: manager/templates/workout/calendar.html:132
+#: manager/templates/mobile/tags/render_day.html:28
+#: manager/templates/mobile/tags/render_day.html:31
+#: manager/templates/mobile/tags/render_day.html:60
+#: manager/templates/mobile/tags/render_day.html:63
+#: manager/templates/schedule/view.html:121
+#: manager/templates/schedule/view.html:126
 #: nutrition/templates/ingredient/view.html:244
 #: nutrition/templates/ingredient/view.html:249
 #: nutrition/templates/ingredient/view.html:250
@@ -210,25 +191,25 @@ msgstr "Επεξεργασία"
 #: exercises/templates/exercise/view.html:111
 #: exercises/templates/exercise/view.html:166
 #: exercises/templates/exercise/view.html:207
-#: exercises/templates/exercise/view.html:352
-#: exercises/templates/exercise/view.html:353
+#: exercises/templates/exercise/view.html:366
+#: exercises/templates/exercise/view.html:367
 #: gym/templates/admin_notes/list.html:28 gym/templates/document/list.html:35
-#: gym/templates/gym/list.html:17
+#: gym/templates/gym/list.html:17 manager/templates/calendar/day.html:57
+#: manager/templates/calendar/day.html:62
+#: manager/templates/calendar/month.html:70
+#: manager/templates/calendar/month.html:75
+#: manager/templates/calendar/partial_overview_table.html:30
+#: manager/templates/mobile/calendar/month.html:66
+#: manager/templates/mobile/calendar/month.html:71
+#: manager/templates/mobile/calendar/month.html:72
 #: manager/templates/mobile/schedule/view.html:32
 #: manager/templates/mobile/schedule/view.html:37
-#: manager/templates/mobile/tags/render_day.html:43
-#: manager/templates/mobile/tags/render_day.html:48
-#: manager/templates/mobile/tags/render_day.html:49
-#: manager/templates/mobile/tags/render_day.html:81
-#: manager/templates/mobile/tags/render_day.html:86
-#: manager/templates/mobile/tags/render_day.html:87
-#: manager/templates/mobile/workout/calendar.html:72
-#: manager/templates/mobile/workout/calendar.html:77
-#: manager/templates/mobile/workout/calendar.html:78
-#: manager/templates/schedule/view.html:116
-#: manager/templates/schedule/view.html:121
-#: manager/templates/workout/calendar.html:120
-#: manager/templates/workout/calendar.html:125
+#: manager/templates/mobile/tags/render_day.html:34
+#: manager/templates/mobile/tags/render_day.html:37
+#: manager/templates/mobile/tags/render_day.html:66
+#: manager/templates/mobile/tags/render_day.html:69
+#: manager/templates/schedule/view.html:128
+#: manager/templates/schedule/view.html:133
 #: nutrition/templates/ingredient/view.html:252
 #: nutrition/templates/ingredient/view.html:257
 #: nutrition/templates/ingredient/view.html:258
@@ -244,34 +225,36 @@ msgstr "Επεξεργασία"
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: config/views/languages.py:74 exercises/views/categories.py:90
-#: exercises/views/equipment.py:102 exercises/views/exercises.py:242
-#: exercises/views/images.py:104 exercises/views/muscles.py:97
-#: manager/views/schedule.py:196 manager/views/schedule_step.py:126
-#: manager/views/workout.py:206 nutrition/views/ingredient.py:106
-#: nutrition/views/plan.py:94 nutrition/views/unit.py:87
+#: config/views/languages.py:75 exercises/views/categories.py:92
+#: exercises/views/equipment.py:104 exercises/views/exercises.py:290
+#: exercises/views/images.py:104 exercises/views/muscles.py:99
+#: manager/views/schedule.py:204 manager/views/schedule_step.py:127
+#: manager/views/workout.py:212 manager/views/workout_session.py:128
+#: nutrition/views/ingredient.py:106 nutrition/views/plan.py:94
+#: nutrition/views/unit.py:87
 msgid "Successfully deleted"
 msgstr "Επιτυχής διαγραφή"
 
-#: config/views/languages.py:83 core/views/license.py:92
-#: exercises/views/categories.py:97 exercises/views/exercises.py:250
-#: exercises/views/muscles.py:104 gym/views/admin_notes.py:193
-#: gym/views/document.py:196 gym/views/gym.py:383
-#: manager/views/schedule.py:204 manager/views/schedule_step.py:137
-#: manager/views/workout.py:212 nutrition/views/ingredient.py:113
-#: nutrition/views/plan.py:101 nutrition/views/unit.py:94
+#: config/views/languages.py:84 core/views/license.py:92
+#: exercises/views/categories.py:99 exercises/views/exercises.py:298
+#: exercises/views/muscles.py:106 gym/views/admin_notes.py:195
+#: gym/views/document.py:198 gym/views/gym.py:385
+#: manager/views/schedule.py:212 manager/views/schedule_step.py:138
+#: manager/views/workout.py:218 manager/views/workout_session.py:146
+#: nutrition/views/ingredient.py:113 nutrition/views/plan.py:101
+#: nutrition/views/unit.py:94
 #, python-brace-format
 msgid "Delete {0}?"
 msgstr "Διαγραφή {0}"
 
-#: config/views/languages.py:103 core/views/license.py:74
-#: core/views/user.py:373 exercises/views/categories.py:72
-#: exercises/views/equipment.py:69 exercises/views/exercises.py:203
-#: exercises/views/muscles.py:85 gym/views/admin_notes.py:158
-#: gym/views/config.py:60 gym/views/document.py:161 gym/views/gym.py:365
-#: manager/views/day.py:91 manager/views/schedule.py:222
-#: manager/views/workout.py:229 nutrition/views/ingredient.py:151
-#: nutrition/views/plan.py:118 nutrition/views/unit.py:115
+#: config/views/languages.py:105 core/views/license.py:74
+#: core/views/user.py:373 exercises/views/categories.py:74
+#: exercises/views/equipment.py:71 exercises/views/exercises.py:205
+#: exercises/views/muscles.py:87 gym/views/admin_notes.py:160
+#: gym/views/config.py:61 gym/views/document.py:163 gym/views/gym.py:367
+#: manager/views/day.py:90 manager/views/schedule.py:231
+#: manager/views/workout.py:235 nutrition/views/ingredient.py:152
+#: nutrition/views/plan.py:119 nutrition/views/unit.py:115
 #, python-brace-format
 msgid "Edit {0}"
 msgstr "Επεξεργασία {0}"
@@ -305,62 +288,61 @@ msgstr "Το τέλειο πρόγραμμα γυμναστικής μου"
 msgid "Empty placeholder schedule"
 msgstr "Άδειο placeholder ημερολογίου"
 
-#: core/forms.py:43 core/templates/user/overview.html:224
+#: core/forms.py:44 core/templates/user/overview.html:224
 #: core/templates/user/preferences.html:33 gym/models.py:51
 #: gym/templates/gym/member_list.html:155 gym/templates/gym/new_user.html:20
 msgid "Email"
 msgstr "Email"
 
-#: core/forms.py:44
-msgid "Only needed to reset your password in case you forget it."
+#: core/forms.py:45
+msgid "Used for password resets and, optionally, email reminders."
 msgstr ""
-"Απαιτείται μόνο στην περίπτωση αλλαγής του κωδικού εισόδου αν ξεχαστεί."
 
-#: core/forms.py:71
+#: core/forms.py:72
 msgid "This email is already used."
 msgstr "Αυτή η διεύθυνση email χρησιμοποιείται ήδη."
 
-#: core/forms.py:75 gym/views/gym.py:167
+#: core/forms.py:76 gym/views/gym.py:168
 msgid "First name"
 msgstr "Όνομα"
 
-#: core/forms.py:77 core/templates/user/overview.html:220 gym/views/gym.py:167
+#: core/forms.py:78 core/templates/user/overview.html:220 gym/views/gym.py:168
 msgid "Last name"
 msgstr "Επίθετο"
 
-#: core/forms.py:92 gym/templates/gym/new_user.html:16 gym/views/gym.py:167
+#: core/forms.py:93 gym/templates/gym/new_user.html:16 gym/views/gym.py:168
 msgid "Password"
 msgstr "Κωδικός"
 
-#: core/forms.py:94
+#: core/forms.py:95
 msgid "Please enter your current password."
 msgstr "Παρακαλώ πληκτρολογήστε τον τρέχων κωδικό σας."
 
-#: core/forms.py:106
+#: core/forms.py:107
 msgid "Invalid password"
 msgstr "Λάθος κωδικός"
 
-#: core/forms.py:115 core/forms.py:153 manager/forms.py:48
+#: core/forms.py:116 core/forms.py:154 manager/forms.py:48
 msgid "Confirmation text"
 msgstr "Κείμενο επιβεβαίωσης"
 
-#: core/forms.py:116 core/forms.py:154 manager/forms.py:49
+#: core/forms.py:117 core/forms.py:155 manager/forms.py:49
 msgid "As a security measure, please enter the previous words"
 msgstr "Ως μέτρο ασφαλείας, παρακαλούμε πληκτρολογήστε τις προηγούμενες λέξεις"
 
-#: core/forms.py:136
+#: core/forms.py:137
 msgid "Contact"
 msgstr "Επικοινωνία"
 
-#: core/forms.py:137
+#: core/forms.py:138
 msgid "Some way of answering you (email, etc.)"
 msgstr "Κάποιος τρόπος επικοινωνίας μαζί σας (email, κλπ)"
 
-#: core/forms.py:143 exercises/models.py:477 manager/models.py:568
+#: core/forms.py:144 exercises/models.py:484 manager/models.py:578
 msgid "Comment"
 msgstr "Σχόλια"
 
-#: core/forms.py:144
+#: core/forms.py:145
 msgid "What do you want to say?"
 msgstr "Τί θέλετε να πείτε;"
 
@@ -410,11 +392,7 @@ msgid ""
 "a nutritional plan. These ingredients are extracted from a list provided\n"
 "by the US Department of Agriculture. It is extremely complete, with around\n"
 "7000 entries, but can be somewhat overwhelming and make the search difficult."
-msgstr ""
-"Εμφάνιση των συστατικών και στην Αγγλική γλώσσα καθώς δημιουργείτε ένα\n"
-"διατροφικό πρόγραμμα. Αυτά τα συστατικά εξάγονται απο μιά λίστα που\n"
-"παρέχεται απο το Αμερικάνικο Υπουργείο Αγροτικής Ανάπτυξης. Είναι εξαιρετικά "
-"ολοκληρωμένο, όμως μπορεί να φανεί δύσκολο στην ανεύρεση."
+msgstr "Εμφάνιση των συστατικών και στην Αγγλική γλώσσα καθώς δημιουργείτε ένα\nδιατροφικό πρόγραμμα. Αυτά τα συστατικά εξάγονται απο μιά λίστα που\nπαρέχεται απο το Αμερικάνικο Υπουργείο Αγροτικής Ανάπτυξης. Είναι εξαιρετικά ολοκληρωμένο, όμως μπορεί να φανεί δύσκολο στην ανεύρεση."
 
 #: core/models.py:148
 msgid "Activate workout reminders"
@@ -424,9 +402,7 @@ msgstr "Ενεργοποίηση υπενθύμισης προπόνησης"
 msgid ""
 "Check to activate automatic reminders for workouts. You need to provide a "
 "valid email for this to work."
-msgstr ""
-"Επιλογή ενεργοποίησης αυτόματων υπενθυμίσεων για την προπόνηση. Θα πρέπει να "
-"παρέχετε ένα email για να λειτουργήσει."
+msgstr "Επιλογή ενεργοποίησης αυτόματων υπενθυμίσεων για την προπόνηση. Θα πρέπει να παρέχετε ένα email για να λειτουργήσει."
 
 #: core/models.py:155
 msgid "Remind before expiration"
@@ -444,9 +420,7 @@ msgstr "Προκαθορισμένη διάρκεια προπόνησης"
 msgid ""
 "Default duration in weeks of workouts not in a schedule. Used for email "
 "workout reminders."
-msgstr ""
-"Η προκαθορισμένη διάρκεια των προπονήσεων σε εβδομάδες που δεν είναι σε "
-"πρόγραμμα. Χρησιμοποιείται στην αποστολή email υπενθυμίσεων προπόνησης."
+msgstr "Η προκαθορισμένη διάρκεια των προπονήσεων σε εβδομάδες που δεν είναι σε πρόγραμμα. Χρησιμοποιείται στην αποστολή email υπενθυμίσεων προπόνησης."
 
 #: core/models.py:177
 msgid "Notification language"
@@ -456,9 +430,7 @@ msgstr "Γλώσσα ειδοποιήσεων"
 msgid ""
 "Language to use when sending you email notifications, e.g. email reminders "
 "for workouts. This does not affect the language used on the website."
-msgstr ""
-"Η γλώσσα που θα χρησιμοποιηθεί για την αποστολή email ειδοποιήσεων, π.χ. "
-"email υπενθυμίσεων για προπονήσεις. Δεν επηρεάζει την γλώσσα της εφαρμογής."
+msgstr "Η γλώσσα που θα χρησιμοποιηθεί για την αποστολή email ειδοποιήσεων, π.χ. email υπενθυμίσεων για προπονήσεις. Δεν επηρεάζει την γλώσσα της εφαρμογής."
 
 #: core/models.py:184
 msgid "Use pauses in workout timer"
@@ -475,9 +447,7 @@ msgstr "Προκαθορισμένη διάρκεια παύσης των προ
 #: core/models.py:193
 msgid ""
 "Default duration in seconds of pauses used by the timer in the gym mode."
-msgstr ""
-"Προκαθορισμένη διάρκεια σε δευτερόλεπτα για τις παύσεις που χρησιμοποιείται "
-"στους χρονομετρητές όταν βρίσκεται σε κατάσταση γυμναστηρίου."
+msgstr "Προκαθορισμένη διάρκεια σε δευτερόλεπτα για τις παύσεις που χρησιμοποιείται στους χρονομετρητές όταν βρίσκεται σε κατάσταση γυμναστηρίου."
 
 #: core/models.py:204
 msgid "Age"
@@ -529,8 +499,7 @@ msgstr "Συνολικές ημερήσιες θερμίδες"
 
 #: core/models.py:283
 msgid "Total caloric intake, including e.g. any surplus"
-msgstr ""
-"Συνολική εισαγωγή θερμίδων, συμπεριλαμβάνοντας π.χ. οποιαδήποτε υπερβολή"
+msgstr "Συνολική εισαγωγή θερμίδων, συμπεριλαμβάνοντας π.χ. οποιαδήποτε υπερβολή"
 
 #: core/models.py:293 nutrition/models.py:466 nutrition/models.py:563
 msgid "Weight unit"
@@ -546,27 +515,35 @@ msgid ""
 "You need to set this before you can share links e.g. to social media."
 msgstr ""
 
-#: core/models.py:324
+#: core/models.py:306
+msgid "Automatic reminders for weight entries"
+msgstr ""
+
+#: core/models.py:308
+msgid "Number of days after the last weight entry (enter 0 to deactivate)"
+msgstr ""
+
+#: core/models.py:335
 msgid "The sum of all hours has to be 24"
 msgstr "Το σύνολο όλων των ωρών θα πρέπει να είναι 24"
 
-#: core/models.py:457
+#: core/models.py:468
 msgid "Day of the week"
 msgstr "Ημέρα εβδομάδας"
 
-#: core/models.py:479
+#: core/models.py:490
 msgid "Full name"
 msgstr "Ονοματεπώνυμο"
 
-#: core/models.py:483
+#: core/models.py:494
 msgid "Short name, e.g. CC-BY-SA 3"
 msgstr "Μικρό όνομα, π.χ. CC-BY-SA 3"
 
-#: core/models.py:486
+#: core/models.py:497
 msgid "Link"
 msgstr "Σύνδεσμος"
 
-#: core/models.py:487
+#: core/models.py:498
 msgid "Link to license text or other information"
 msgstr "Σύνδεσμος σε κείμενο αδειοδότησης ή άλλης πληροφορίας"
 
@@ -598,12 +575,9 @@ msgstr "Κάτι συνέβει που προκάλεσε ένα σφάλμα."
 #, python-format
 msgid ""
 "You are\n"
-"browsing the site as the user \"%(current_user)s\", all actions are "
-"performed on his data.\n"
+"browsing the site as the user \"%(current_user)s\", all actions are performed on his data.\n"
 "    "
-msgstr ""
-"Περιηγήστε στην σελίδα ώς χρήστης \"%(current_user)s\", όλες οι ενέργειες θα "
-"έχουν ως αποτέλεσμα να επηρεάσουν αυτόν τον χρήστη."
+msgstr "Περιηγήστε στην σελίδα ώς χρήστης \"%(current_user)s\", όλες οι ενέργειες θα έχουν ως αποτέλεσμα να επηρεάσουν αυτόν τον χρήστη."
 
 #: core/templates/base.html:14
 #, python-format
@@ -617,8 +591,7 @@ msgstr ""
 
 #: core/templates/delete.html:26 core/templates/delete.html.py:30
 msgid "Are you sure you want to delete this? This action cannot be undone."
-msgstr ""
-"Θέλετε σίγουρα να διαγράψετε αυτό; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί."
+msgstr "Θέλετε σίγουρα να διαγράψετε αυτό; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί."
 
 #: core/templates/delete.html:35
 msgid "Yes, delete"
@@ -626,33 +599,29 @@ msgstr "Ναί, διαγραφή"
 
 #: core/templates/index.html:6 core/templates/mobile/index.html:6
 #: core/templates/mobile/template.html:182 core/templates/navigation.html:23
-#: manager/templates/workout/timer.html:467
+#: manager/templates/workout/timer.html:470
 msgid "Dashboard"
 msgstr "Πίνακας Ελέγχου"
 
-#: core/templates/index.html:20
-#: manager/templates/mobile/workout/calendar.html:192
-#: manager/templates/workout/calendar.html:158
+#: core/templates/index.html:20 manager/templates/calendar/month.html:107
+#: manager/templates/mobile/calendar/month.html:148
 msgid "Add log to day"
 msgstr "Προσθήκη ιστορικού στην μέρα"
 
-#: core/templates/index.html:24
-#: manager/templates/mobile/workout/calendar.html:196
-#: manager/templates/workout/calendar.html:162
+#: core/templates/index.html:24 manager/templates/calendar/month.html:111
+#: manager/templates/mobile/calendar/month.html:152
 msgid ""
 "Click to add weight logs to a training\n"
 "day in your current workout:"
-msgstr ""
-"Επιλέξτε για την εισαγωγή ιστορικού βαρών σε μιά μέρα \n"
-"προπόνησης στην τρέχουσα προπόνηση:"
+msgstr "Επιλέξτε για την εισαγωγή ιστορικού βαρών σε μιά μέρα \nπροπόνησης στην τρέχουσα προπόνηση:"
 
 #: core/templates/index.html:32 core/templates/index.html.py:91
 #: core/templates/mobile/index.html:128 core/templates/user/overview.html:50
+#: manager/templates/calendar/month.html:119
+#: manager/templates/mobile/calendar/month.html:164
 #: manager/templates/mobile/schedule/view.html:101
-#: manager/templates/mobile/workout/calendar.html:208
 #: manager/templates/mobile/workout/overview.html:24
-#: manager/templates/schedule/view.html:138
-#: manager/templates/workout/calendar.html:170
+#: manager/templates/schedule/view.html:152
 #: manager/templates/workout/overview.html:38
 msgid "No workouts found."
 msgstr "Δεν βρέθηκαν προπονήσεις."
@@ -660,21 +629,21 @@ msgstr "Δεν βρέθηκαν προπονήσεις."
 #: core/templates/index.html:39 core/templates/index.html.py:91
 #: core/templates/index.html:128 core/templates/mobile/index.html:129
 #: core/templates/tags/render_day.html:150
+#: manager/templates/calendar/month.html:126
+#: manager/templates/mobile/calendar/month.html:170
 #: manager/templates/mobile/schedule/overview.html:27
 #: manager/templates/mobile/schedule/view.html:101
-#: manager/templates/mobile/tags/render_day.html:195
-#: manager/templates/mobile/workout/calendar.html:214
+#: manager/templates/mobile/tags/render_day.html:178
 #: manager/templates/mobile/workout/overview.html:24
 #: manager/templates/schedule/overview.html:38
-#: manager/templates/schedule/view.html:138
-#: manager/templates/workout/calendar.html:177
+#: manager/templates/schedule/view.html:152
 #: manager/templates/workout/overview.html:38
 #: nutrition/templates/ingredient/overview.html:46
 #: nutrition/templates/mobile/plan/overview.html:22
 #: nutrition/templates/mobile/plan/view.html:211
 #: nutrition/templates/mobile/plan/view.html:214
 #: nutrition/templates/mobile/plan/view.html:224
-#: nutrition/templates/plan/overview.html:43
+#: nutrition/templates/plan/overview.html:37
 #: nutrition/templates/plan/view.html:141
 #: nutrition/templates/plan/view.html:144
 #: nutrition/templates/plan/view.html:157
@@ -683,24 +652,23 @@ msgstr "Προσθήκη τώρα."
 
 #: core/templates/index.html:51 core/templates/index.html.py:59
 #: core/templates/mobile/index.html:175 core/templates/mobile/index.html:176
-#: core/templates/mobile/index.html:178 manager/models.py:79
-#: manager/models.py:360 manager/models.py:615 manager/models.py:698
-#: manager/pdf.py:76 manager/pdf.py:135
+#: core/templates/mobile/index.html:178 manager/models.py:80
+#: manager/models.py:361 manager/models.py:625 manager/models.py:709
+#: manager/pdf.py:74 manager/pdf.py:133
 #: manager/templates/mobile/schedule/view.html:20
 #: manager/templates/mobile/schedule/view.html:22
 #: manager/templates/mobile/workout/view.html:11
 #: manager/templates/mobile/workout/view.html:19
-#: manager/templates/schedule/view.html:90
+#: manager/templates/schedule/view.html:101
 #: manager/templates/workout/view.html:11
-#: manager/templates/workout/view.html:19 manager/views/schedule.py:117
+#: manager/templates/workout/view.html:19 manager/views/schedule.py:124
 msgid "Workout"
 msgstr "Προπόνηση"
 
-#: core/templates/index.html:79
-#: manager/templates/mobile/workout/calendar.html:247
-#: manager/templates/mobile/workout/calendar.html:248
-#: manager/templates/workout/calendar.html:212
-#: manager/templates/workout/calendar.html:213
+#: core/templates/index.html:79 manager/templates/calendar/month.html:161
+#: manager/templates/calendar/month.html:162
+#: manager/templates/mobile/calendar/month.html:203
+#: manager/templates/mobile/calendar/month.html:204
 msgid "Add new log"
 msgstr "Νέα εγγραφή"
 
@@ -713,9 +681,8 @@ msgstr "Αυτή η προπόνηση είναι μέρος του προγρά
 #: nutrition/models.py:502 nutrition/models.py:559
 #: nutrition/templates/mobile/plan/view.html:10
 #: nutrition/templates/mobile/plan/view.html:18
-#: nutrition/templates/plan/overview.html:26
 #: nutrition/templates/plan/view.html:11 nutrition/templates/plan/view.html:19
-#: nutrition/views/plan.py:220
+#: nutrition/views/plan.py:221
 msgid "Nutrition plan"
 msgstr "Πρόγραμμα διατροφής"
 
@@ -730,7 +697,7 @@ msgstr "Πρόγραμμα διατροφής"
 #: nutrition/templates/plan/view.html:52
 #: nutrition/templates/plan/view.html:206
 #: nutrition/templates/plan/view.html:267
-#: nutrition/templates/plan/view.html:271 nutrition/views/plan.py:317
+#: nutrition/templates/plan/view.html:271 nutrition/views/plan.py:318
 msgid "Energy"
 msgstr "Ενέργεια"
 
@@ -742,7 +709,7 @@ msgstr "Ενέργεια"
 #: nutrition/templates/mobile/plan/view.html:271
 #: nutrition/templates/mobile/plan/view.html:280
 #: nutrition/templates/mobile/plan/view.html:315
-#: nutrition/templates/plan/overview.html:34
+#: nutrition/templates/plan/overview.html:28
 #: nutrition/templates/plan/view.html:61
 #: nutrition/templates/plan/view.html:207
 #: nutrition/templates/plan/view.html:272
@@ -756,7 +723,7 @@ msgstr "kcal"
 #: nutrition/templates/mobile/plan/view.html:134
 #: nutrition/templates/mobile/plan/view.html:320
 #: nutrition/templates/plan/view.html:53
-#: nutrition/templates/plan/view.html:212 nutrition/views/plan.py:319
+#: nutrition/templates/plan/view.html:212 nutrition/views/plan.py:320
 msgid "Protein"
 msgstr "Προτεϊνες"
 
@@ -766,7 +733,7 @@ msgstr "Προτεϊνες"
 #: nutrition/templates/mobile/plan/view.html:138
 #: nutrition/templates/mobile/plan/view.html:326
 #: nutrition/templates/plan/view.html:54
-#: nutrition/templates/plan/view.html:218 nutrition/views/plan.py:323
+#: nutrition/templates/plan/view.html:218 nutrition/views/plan.py:324
 msgid "Carbohydrates"
 msgstr "Υδατάνθρακες"
 
@@ -776,13 +743,13 @@ msgstr "Υδατάνθρακες"
 #: nutrition/templates/mobile/plan/view.html:142
 #: nutrition/templates/mobile/plan/view.html:338
 #: nutrition/templates/plan/view.html:55
-#: nutrition/templates/plan/view.html:230 nutrition/views/plan.py:333
+#: nutrition/templates/plan/view.html:230 nutrition/views/plan.py:334
 msgid "Fat"
 msgstr "Λιπαρή ύλη"
 
 #: core/templates/index.html:128
 #: nutrition/templates/mobile/plan/overview.html:21
-#: nutrition/templates/plan/overview.html:43
+#: nutrition/templates/plan/overview.html:37
 msgid "No nutrition plans."
 msgstr "Κανένα πρόγραμμα διατροφής."
 
@@ -796,11 +763,11 @@ msgstr "Το τρέχων βάρος σας είναι:"
 #: manager/templates/mobile/workout/overview.html:38
 #: manager/templates/mobile/workout/overview.html:39
 #: manager/templates/mobile/workout/overview.html:40
-#: manager/templates/schedule/view.html:154
+#: manager/templates/schedule/view.html:170
 #: manager/templates/workout/overview.html:54
 #: manager/templates/workout/overview.html:55
 #: manager/templates/workout/overview.html:56
-#: manager/views/schedule_step.py:48
+#: manager/views/schedule_step.py:49
 msgid "Add workout"
 msgstr "Νέα προπόνηση"
 
@@ -809,18 +776,17 @@ msgstr "Νέα προπόνηση"
 #: nutrition/templates/mobile/plan/overview.html:37
 #: nutrition/templates/mobile/plan/overview.html:38
 #: nutrition/templates/mobile/plan/overview.html:39
-#: nutrition/templates/plan/overview.html:59
-#: nutrition/templates/plan/overview.html:60
-#: nutrition/templates/plan/overview.html:61
+#: nutrition/templates/plan/overview.html:53
+#: nutrition/templates/plan/overview.html:54
+#: nutrition/templates/plan/overview.html:55
 msgid "Add nutrition plan"
 msgstr "Νέο πρόγραμμα διατροφής"
 
 #: core/templates/index.html:172 gym/templates/gym/new_user.html:34
-#: manager/templates/day/log.html:80
-#: manager/templates/mobile/workout/calendar.html:223
-#: manager/templates/workout/calendar.html:186
-#: manager/templates/workout/timer.html:410
-#: manager/templates/workout/timer.html:434
+#: manager/templates/calendar/month.html:135 manager/templates/day/log.html:80
+#: manager/templates/mobile/calendar/month.html:179
+#: manager/templates/workout/timer.html:413
+#: manager/templates/workout/timer.html:437
 #: nutrition/templates/rate/form.html:141
 msgid "Info"
 msgstr "Πληροφορίες"
@@ -829,17 +795,13 @@ msgstr "Πληροφορίες"
 msgid ""
 "The current workout is selected from your active schedule\n"
 "or, if you don't have one, simply by date."
-msgstr ""
-"Η τρέχουσα προπόνηση είναι επιλεγμένη απο το ενεργό πρόγραμμα\n"
-"ή αν δεν έχετε, απλώς απο την ημερομηνία."
+msgstr "Η τρέχουσα προπόνηση είναι επιλεγμένη απο το ενεργό πρόγραμμα\nή αν δεν έχετε, απλώς απο την ημερομηνία."
 
 #: core/templates/index.html:176
 msgid ""
 "After adding a workout or a nutritional plan, you can edit them to set a "
 "goal."
-msgstr ""
-"Μετά την εισαγωγή μιας προπόνησης ή ενός προγράμματος διατροφής, μπορείτε να "
-"τα επεξεργαστείτε και να ορίσετε στόχους."
+msgstr "Μετά την εισαγωγή μιας προπόνησης ή ενός προγράμματος διατροφής, μπορείτε να τα επεξεργαστείτε και να ορίσετε στόχους."
 
 #: core/templates/license/list.html:6
 msgid "License list"
@@ -852,18 +814,18 @@ msgstr "Λίστα αδειών"
 #: gym/templates/gym/member_list.html:134
 #: gym/templates/gym/member_list.html:188
 #: gym/templates/gym/member_list.html:214
-#: manager/templates/schedule/view.html:89
+#: manager/templates/schedule/view.html:99
 #: nutrition/templates/units/list.html:14
 msgid "Actions"
 msgstr "Ενέργειες"
 
 #: core/templates/license/list.html:15 core/templates/user/overview.html:216
-#: exercises/models.py:56 exercises/models.py:86 exercises/models.py:113
-#: exercises/models.py:172 exercises/templates/equipment/list.html:13
+#: exercises/models.py:55 exercises/models.py:85 exercises/models.py:112
+#: exercises/models.py:171 exercises/templates/equipment/list.html:13
 #: exercises/templates/exercise/pending.html:15 gym/models.py:42
 #: gym/models.py:322 gym/templates/gym/member_list.html:38
 #: gym/templates/gym/member_list.html:76
-#: gym/templates/gym/member_list.html:147 manager/models.py:205
+#: gym/templates/gym/member_list.html:147 manager/models.py:206
 #: nutrition/models.py:244 nutrition/models.py:438
 #: nutrition/templates/ingredient/pending.html:15
 #: nutrition/templates/ingredient/view.html:234
@@ -878,6 +840,7 @@ msgstr "Όνομα"
 #: exercises/templates/exercise/pending.html:30
 #: gym/templates/admin_notes/list.html:44 gym/templates/document/list.html:55
 #: gym/templates/gym/list.html:28 gym/templates/gym/member_list.html:62
+#: manager/templates/calendar/day.html:80
 #: nutrition/templates/ingredient/pending.html:30
 #: nutrition/templates/units/list.html:43
 msgid "Nothing found"
@@ -895,9 +858,7 @@ msgstr "Σχετικά με μας"
 
 #: core/templates/misc/about.html:9
 msgid "Responsible for the content of this site as per German law §5 TMG:"
-msgstr ""
-"Υπεύθυνος για το περιεχόμενο της σελίδας όπως χρήζει ο Γερμανικός νόμος §5 "
-"TMG:"
+msgstr "Υπεύθυνος για το περιεχόμενο της σελίδας όπως χρήζει ο Γερμανικός νόμος §5 TMG:"
 
 #: core/templates/misc/about.html:17
 msgid "GNUPG-Key:"
@@ -906,7 +867,7 @@ msgstr "GNUPG-Key:"
 #: core/templates/misc/contact.html:5 core/templates/mobile/index.html:257
 #: core/templates/mobile/index.html:258 core/templates/mobile/index.html:260
 #: core/templates/mobile/misc/contact.html:5
-#: core/templates/navigation.html:147 core/templates/template.html:111
+#: core/templates/navigation.html:148 core/templates/template.html:111
 #: core/templates/template.html.py:213
 #: core/templates/template_features.html:102
 #: software/templates/contribute.html:48
@@ -920,18 +881,10 @@ msgid ""
 "Thank you for your interest. Feel free to use any of the\n"
 "ways below to send feedback you have about any aspect of the site. For\n"
 "support, it's better to use the mailing list\n"
-"(<a href=\"mailto:wger@googlegroups.com\">wger@googlegroups.com</a>), to "
-"report\n"
-"a bug, consider doing it through the <a href=\"%(issues)s\">issue tracker</"
-"a>\n"
+"(<a href=\"mailto:wger@googlegroups.com\">wger@googlegroups.com</a>), to report\n"
+"a bug, consider doing it through the <a href=\"%(issues)s\">issue tracker</a>\n"
 "."
-msgstr ""
-"Ευχαριστούμε για το ενδιαφέρον σας. Αισθανθείτε ελεύθεροι να χρησιμοποιήσετε "
-"οποιονδήποτε απο τους παρακάτω τρόπους για να στείλετε\n"
-"feedback για την σελίδα. Για υποστήριξη, είναι καλύτερο να χρησιμοποιήσετε\n"
-"την λίστα αλληλογραφίας (<a href=\"mailto:wger@googlegroups.com"
-"\">wger@googlegroups.com</a>), για να αναφέρετε σφάλματα μέσα απο το <a href="
-"\"%(issues)s\">issue tracker</a>."
+msgstr "Ευχαριστούμε για το ενδιαφέρον σας. Αισθανθείτε ελεύθεροι να χρησιμοποιήσετε οποιονδήποτε απο τους παρακάτω τρόπους για να στείλετε\nfeedback για την σελίδα. Για υποστήριξη, είναι καλύτερο να χρησιμοποιήσετε\nτην λίστα αλληλογραφίας (<a href=\"mailto:wger@googlegroups.com\">wger@googlegroups.com</a>), για να αναφέρετε σφάλματα μέσα απο το <a href=\"%(issues)s\">issue tracker</a>."
 
 #: core/templates/misc/contact.html:21
 #: core/templates/mobile/misc/contact.html:17
@@ -951,9 +904,7 @@ msgstr "Φόρμα feedback"
 msgid ""
 "A simple contact form. Remember that\n"
 "if you want an answer, you need to include some way to contact you."
-msgstr ""
-"Μια απλή φόρμα επικοινωνίας. Θυμηθείτε ότι αν θέλετε\n"
-"απάντηση, θα πρέπει να εισάγετε κάποιο τρόπο επικοινωνίας σας."
+msgstr "Μια απλή φόρμα επικοινωνίας. Θυμηθείτε ότι αν θέλετε\nαπάντηση, θα πρέπει να εισάγετε κάποιο τρόπο επικοινωνίας σας."
 
 #: core/templates/misc/contact.html:36
 #: core/templates/mobile/misc/contact.html:27
@@ -965,9 +916,7 @@ msgstr "Twitter"
 msgid ""
 "We are also on twitter. Write us and tell us what\n"
 "you think! Except patches, don't send patches via twitter."
-msgstr ""
-"Είμαστε επίσης και στο twitter. Γράψτε και πείτε μας την\n"
-"άποψη σας! Εκτός απο patches, μήν στέλνετε patches μέσω twitter."
+msgstr "Είμαστε επίσης και στο twitter. Γράψτε και πείτε μας την\nάποψη σας! Εκτός απο patches, μήν στέλνετε patches μέσω twitter."
 
 #: core/templates/misc/contact.html:43
 #: core/templates/mobile/misc/contact.html:34
@@ -1003,7 +952,8 @@ msgstr ""
 
 #: core/templates/misc/fragments/shariff_modal.html:14
 msgid ""
-"Before you share links and on social media you need to allow external access."
+"Before you share links and on social media you need to allow external "
+"access."
 msgstr ""
 
 #: core/templates/misc/fragments/shariff_modal.html:18
@@ -1028,25 +978,18 @@ msgid "Current nutrition plan"
 msgstr "Τρέχων πρόγραμμα διατροφής"
 
 #: core/templates/mobile/index.html:93
+#: manager/templates/mobile/tags/render_day.html:21
 #: manager/templates/mobile/tags/render_day.html:24
-#: manager/templates/mobile/tags/render_day.html:29
-#: manager/templates/mobile/tags/render_day.html:30
 msgid "Start gym mode"
 msgstr "Εκκίνηση κατάστασης γυμναστηρίου"
 
 #: core/templates/mobile/index.html:97
 msgid ""
 "Use the gym mode to\n"
-"start an interactive training session. If you enter lifted weights, they "
-"will\n"
-"be added to your workout log. A timer between sets helps you keep track of "
-"the\n"
+"start an interactive training session. If you enter lifted weights, they will\n"
+"be added to your workout log. A timer between sets helps you keep track of the\n"
 "pauses you do."
-msgstr ""
-"Χρησιμοποιήστε την κατάσταση γυμναστηρίου \n"
-"για να ξεκινήσετε μια αλληλεπιδραστική συνεδρία. Αν εισάγετε βάρη, θα\n"
-"προστεθούν στο ιστορικό ασκήσεων σας. Ένας χρονομετρητής μεταξύ \n"
-"σετ σας βοηθά να καθορίζεται τις παύσεις που κάνετε."
+msgstr "Χρησιμοποιήστε την κατάσταση γυμναστηρίου \nγια να ξεκινήσετε μια αλληλεπιδραστική συνεδρία. Αν εισάγετε βάρη, θα\nπροστεθούν στο ιστορικό ασκήσεων σας. Ένας χρονομετρητής μεταξύ \nσετ σας βοηθά να καθορίζεται τις παύσεις που κάνετε."
 
 #: core/templates/mobile/index.html:102
 msgid "Tip:"
@@ -1056,9 +999,7 @@ msgstr "Βοήθεια:"
 msgid ""
 "You can deactivate the timer or set\n"
 "its default duration in your settings."
-msgstr ""
-"Μπορείτε να απενεργοποιήσετε τον χρονομετρητή ή να\n"
-"καθορίσετε προκαθορισμένες διάρκειες μέσα στις ρυθμίσεις."
+msgstr "Μπορείτε να απενεργοποιήσετε τον χρονομετρητή ή να\nκαθορίσετε προκαθορισμένες διάρκειες μέσα στις ρυθμίσεις."
 
 #: core/templates/mobile/index.html:121
 #: manager/templates/mobile/workout/view.html:68
@@ -1079,10 +1020,10 @@ msgstr "Εκκίνηση τρέχουσας προπόνησης"
 #: core/templates/mobile/index.html:189 core/templates/mobile/index.html:190
 #: core/templates/mobile/index.html:192 core/templates/navigation.html:40
 #: core/templates/user/overview.html:57
-#: manager/templates/mobile/workout/calendar.html:13
-#: manager/templates/mobile/workout/calendar.html:24
-#: manager/templates/workout/calendar.html:13
-#: manager/templates/workout/calendar.html:24
+#: manager/templates/calendar/month.html:10
+#: manager/templates/calendar/month.html:21
+#: manager/templates/mobile/calendar/month.html:10
+#: manager/templates/mobile/calendar/month.html:21
 msgid "Calendar"
 msgstr "Ημερολόγιο"
 
@@ -1111,8 +1052,8 @@ msgstr "Επισκόπηση βάρους"
 msgid "Preferences"
 msgstr "Προτιμήσεις"
 
-#: core/templates/mobile/template.html:119 core/templates/navigation.html:151
-#: exercises/models.py:200 nutrition/models.py:77 nutrition/models.py:221
+#: core/templates/mobile/template.html:119 core/templates/navigation.html:152
+#: exercises/models.py:199 nutrition/models.py:77 nutrition/models.py:221
 #: nutrition/models.py:435
 msgid "Language"
 msgstr "Γλώσσα"
@@ -1120,24 +1061,22 @@ msgstr "Γλώσσα"
 #: core/templates/mobile/template.html:153 core/templates/template.html:181
 msgid ""
 "You are using a guest account, data entered will be deleted after a week."
-msgstr ""
-"Χρησιμοποιείτε έναν λογαριασμό επισκέπτη. Τα δεδομένα που εισάγετε θα "
-"διαγραφούν σε μία εβδομάδα."
+msgstr "Χρησιμοποιείτε έναν λογαριασμό επισκέπτη. Τα δεδομένα που εισάγετε θα διαγραφούν σε μία εβδομάδα."
 
 #: core/templates/mobile/template.html:156 core/templates/template.html:184
 msgid "Create some demo entries"
 msgstr "Δημιουργήστε μερικές δοκιμαστικές εγγραφές"
 
-#: core/templates/mobile/template.html:161 core/templates/navigation.html:165
-#: core/templates/navigation.html.py:170 core/templates/template.html:189
+#: core/templates/mobile/template.html:161 core/templates/navigation.html:166
+#: core/templates/navigation.html.py:171 core/templates/template.html:189
 #: core/templates/user/login.html:60 core/templates/user/login.html.py:61
 #: core/views/user.py:239 core/views/user.py:242
 #: software/templates/functions.html:44
 msgid "Register"
 msgstr "Εγγραφή"
 
-#: core/templates/mobile/template.html:192 core/templates/navigation.html:165
-#: core/templates/navigation.html.py:169 core/templates/user/login.html:7
+#: core/templates/mobile/template.html:192 core/templates/navigation.html:166
+#: core/templates/navigation.html.py:170 core/templates/user/login.html:7
 #: core/templates/user/login.html.py:23 software/templates/functions.html:48
 msgid "Login"
 msgstr "Είσοδος"
@@ -1186,7 +1125,7 @@ msgid "Add new exercise"
 msgstr "Νέα άσκηση"
 
 #: core/templates/navigation.html:65 core/templates/navigation.html.py:107
-#: core/templates/navigation.html:201
+#: core/templates/navigation.html:202
 msgid "Administration"
 msgstr "Διαχείριση"
 
@@ -1194,21 +1133,23 @@ msgstr "Διαχείριση"
 msgid "Exercises pending review"
 msgstr "Ασκήσεις που αναμένουν εξέταση"
 
-#: core/templates/navigation.html:67 exercises/models.py:188
+#: core/templates/navigation.html:67 exercises/models.py:187
 #: exercises/templates/exercise/view.html:83
 msgid "Equipment"
 msgstr "Όργανα"
 
 #: core/templates/navigation.html:82 core/templates/user/overview.html:103
-#: core/templates/user/overview.html:108 manager/helpers.py:61
-#: manager/models.py:622 manager/templates/workout/timer.html:308
-#: manager/templates/workout/timer.html:311 weight/models.py:32
+#: core/templates/user/overview.html:108 manager/helpers.py:65
+#: manager/models.py:566 manager/models.py:632
+#: manager/templates/workout/timer.html:311
+#: manager/templates/workout/timer.html:314 weight/models.py:32
 #: weight/templates/import_csv_preview.html:15
-#: weight/templates/import_csv_preview.html:44 weight/views.py:105
+#: weight/templates/import_csv_preview.html:44
+#: weight/templates/weight_overview.html:45 weight/views.py:115
 msgid "Weight"
 msgstr "Βάρος"
 
-#: core/templates/navigation.html:85 weight/templates/weight_overview.html:44
+#: core/templates/navigation.html:85 weight/templates/weight_overview.html:79
 #: weight/views.py:54
 msgid "Add weight entry"
 msgstr "Νέα εγγραφή βάρους"
@@ -1223,9 +1164,9 @@ msgstr "Προγράμματα διατροφής"
 #: nutrition/templates/mobile/plan/overview.html:47
 #: nutrition/templates/mobile/plan/overview.html:48
 #: nutrition/templates/mobile/plan/overview.html:49
-#: nutrition/templates/plan/overview.html:69
-#: nutrition/templates/plan/overview.html:70
-#: nutrition/templates/plan/overview.html:71
+#: nutrition/templates/plan/overview.html:63
+#: nutrition/templates/plan/overview.html:64
+#: nutrition/templates/plan/overview.html:65
 msgid "Ingredient overview"
 msgstr "Επισκόπηση συστατικών"
 
@@ -1259,57 +1200,62 @@ msgstr "Συμβάλλετε!"
 msgid "Problems and wishes"
 msgstr "Προβλήματα και ευχές"
 
-#: core/templates/navigation.html:128 software/templates/code.html:7
+#: core/templates/navigation.html:127 core/templates/template.html:214
+#: software/templates/tos.html:7
+msgid "Terms of service"
+msgstr ""
+
+#: core/templates/navigation.html:129 software/templates/code.html:7
 #: software/templates/contribute.html:96
 msgid "Get the code"
 msgstr "Κατεβάστε τον κώδικα"
 
-#: core/templates/navigation.html:129 software/templates/functions.html:206
+#: core/templates/navigation.html:130 software/templates/functions.html:206
 msgid "REST API"
 msgstr "REST API"
 
-#: core/templates/navigation.html:130 software/templates/license.html:7
+#: core/templates/navigation.html:131 software/templates/license.html:7
 #: utils/models.py:37
 msgid "License"
 msgstr "Άδεια"
 
-#: core/templates/navigation.html:131 software/templates/changelog.html:7
+#: core/templates/navigation.html:132 software/templates/changelog.html:7
 msgid "Changelog"
 msgstr "Ιστορικό αλλαγών"
 
-#: core/templates/navigation.html:132
+#: core/templates/navigation.html:133
 msgid "Github"
 msgstr "Github"
 
-#: core/templates/navigation.html:133 software/templates/contribute.html:82
+#: core/templates/navigation.html:134 software/templates/contribute.html:82
 msgid "Translate with Transifex"
 msgstr "Μεταφράστε με το Transifex"
 
-#: core/templates/navigation.html:148 core/templates/template.html:211
+#: core/templates/navigation.html:149 core/templates/template.html:211
 #: core/templates/template_features.html:100
 msgid "About"
 msgstr "Σχετικά"
 
-#: core/templates/navigation.html:171 core/templates/user/login.html:70
+#: core/templates/navigation.html:172 core/templates/user/login.html:70
 #: core/templates/user/login.html.py:71
 msgid "Reset password"
 msgstr "Αλλαγή κωδικού"
 
-#: core/templates/navigation.html:184
+#: core/templates/navigation.html:185
 msgid "My preferences"
 msgstr "Οι προτιμήσεις μου"
 
-#: core/templates/navigation.html:191 core/templates/user/preferences.html:118
-#: core/templates/user/preferences.html:119
+#: core/templates/navigation.html:192 core/templates/user/preferences.html:119
 #: core/templates/user/preferences.html:120
+#: core/templates/user/preferences.html:121
 msgid "Logout"
 msgstr "Έξοδος"
 
-#: core/templates/navigation.html:206
+#: core/templates/navigation.html:207
 msgid "Licenses"
 msgstr "Άδειες"
 
-#: core/templates/navigation.html:209
+#: core/templates/navigation.html:210
 msgid "Gyms"
 msgstr "Γυμναστήρια"
 
@@ -1338,8 +1284,7 @@ msgstr "επόμενο"
 #: core/templates/tags/render_day.html:39
 #: core/templates/tags/render_day.html:43
 #: manager/templates/mobile/tags/render_day.html:14
-#: manager/templates/mobile/tags/render_day.html:19
-#: manager/templates/mobile/tags/render_day.html:20
+#: manager/templates/mobile/tags/render_day.html:17
 #: manager/templates/workout/log.html:51 manager/templates/workout/log.html:56
 #: manager/templates/workout/log.html:57
 msgid "Add weight log to this day"
@@ -1347,8 +1292,8 @@ msgstr "Προσθέστε νέα εγγραφή βάρους για αυτήν 
 
 #: core/templates/tags/render_day.html:61
 #: core/templates/tags/render_day.html:62
-#: manager/templates/schedule/view.html:105
-#: manager/templates/schedule/view.html:106
+#: manager/templates/schedule/view.html:117
+#: manager/templates/schedule/view.html:118
 msgid "Move me"
 msgstr "Μετακίνησε με"
 
@@ -1356,27 +1301,27 @@ msgstr "Μετακίνησε με"
 #: exercises/templates/equipment/overview.html:63
 #: exercises/templates/exercise/overview.html:81
 #: exercises/templates/mobile/exercise/overview.html:67
-#: manager/templates/mobile/tags/render_day.html:157
+#: manager/templates/mobile/tags/render_day.html:140
 msgid "Placeholder image for exercise"
 msgstr "Εικονίδιο placeholder για άσκηση"
 
 #: core/templates/tags/render_day.html:121
-#: manager/templates/mobile/tags/render_day.html:171
+#: manager/templates/mobile/tags/render_day.html:154
 msgid "This exercise has no repetitions."
 msgstr "Αυτή η άσκηση δεν έχει επαναλήψεις."
 
 #: core/templates/tags/render_day.html:123
-#: manager/templates/mobile/tags/render_day.html:172
+#: manager/templates/mobile/tags/render_day.html:155
 msgid "Edit them now."
 msgstr "Επεξεργαστείτε τώρα."
 
 #: core/templates/tags/render_day.html:149
-#: manager/templates/mobile/tags/render_day.html:194
+#: manager/templates/mobile/tags/render_day.html:177
 msgid "No exercises selected for this day."
 msgstr "Δεν επιλέχθηκαν ασκήσεις για αυτήν την μέρα."
 
 #: core/templates/tags/render_day.html:160
-#: manager/templates/mobile/tags/render_day.html:204
+#: manager/templates/mobile/tags/render_day.html:187
 msgid "Add exercises to this workout day"
 msgstr "Προσθέστε ασκήσεις για την προπόνηση σε αυτήν την μέρα"
 
@@ -1388,9 +1333,7 @@ msgstr "Προαιρετικό"
 msgid ""
 "The form contains errors. Please verify and correct the\n"
 "data in the fields in red and submit the form again."
-msgstr ""
-"Η φόρμα περιέχει σφάλματα. Παρακαλούμε ελέξτε και διορθώστε\n"
-"τα δεδομένα στα κόκκινα πεδία και υποβάλλετε ξανα την φόρμα."
+msgstr "Η φόρμα περιέχει σφάλματα. Παρακαλούμε ελέξτε και διορθώστε\nτα δεδομένα στα κόκκινα πεδία και υποβάλλετε ξανα την φόρμα."
 
 #: core/templates/tags/render_weight_log.html:10
 #: core/templates/tags/render_weight_log.html:11
@@ -1398,8 +1341,8 @@ msgid "Toggle data table"
 msgstr "Επιλογή πίνακα δεδομένων"
 
 #: core/templates/tags/render_weight_log.html:25
-#: exercises/views/exercises.py:144 manager/helpers.py:61
-#: manager/templates/day/log.html:53 manager/views/log.py:296
+#: exercises/views/exercises.py:146 manager/helpers.py:65
+#: manager/templates/day/log.html:53 manager/views/log.py:295
 msgid "Reps"
 msgstr "Επαναλήψεις"
 
@@ -1415,9 +1358,9 @@ msgstr "Μετάφραση"
 msgid "Released under the Affero GPL"
 msgstr "Released under the Affero GPL"
 
-#: core/templates/user/api_key.html:6 core/templates/user/preferences.html:136
-#: core/templates/user/preferences.html:137
+#: core/templates/user/api_key.html:6 core/templates/user/preferences.html:137
 #: core/templates/user/preferences.html:138
+#: core/templates/user/preferences.html:139
 msgid "API key"
 msgstr "Κλειδί API"
 
@@ -1426,21 +1369,13 @@ msgstr "Κλειδί API"
 msgid ""
 "Generate an API key if you want to interact with wger via\n"
 "the <a href=\"%(url)s\" rel=\"nofollow\">REST API</a> it provides (for\n"
-"public resources such as the exercises or ingredients, you don't need to "
-"provide\n"
-"anything). You must pass this information in the header in the format shown "
-"below."
-msgstr ""
-"Δημιουργήστε ένα κλειδί API, αν θέλετε να αλληλεπιδράσετε με το wger\n"
-"μέσω <a href=\"%(url)s\" rel=\"nofollow\">REST API</a> που παρέχει (για "
-"δημόσιους πόρους όπως ασκήσεις και συστατικά, δεν χρειάζεται να παρέχετε "
-"οτιδήποτε). Πρέπει να περάσετε αυτές τις πληροφορίες στην κεφαλίδα (header) "
-"στην διαμόρφωση που φαίνεται παρακάτω."
+"public resources such as the exercises or ingredients, you don't need to provide\n"
+"anything). You must pass this information in the header in the format shown below."
+msgstr "Δημιουργήστε ένα κλειδί API, αν θέλετε να αλληλεπιδράσετε με το wger\nμέσω <a href=\"%(url)s\" rel=\"nofollow\">REST API</a> που παρέχει (για δημόσιους πόρους όπως ασκήσεις και συστατικά, δεν χρειάζεται να παρέχετε οτιδήποτε). Πρέπει να περάσετε αυτές τις πληροφορίες στην κεφαλίδα (header) στην διαμόρφωση που φαίνεται παρακάτω."
 
 #: core/templates/user/api_key.html:17
 msgid "For security reasons, you should only access the API via HTTPS."
-msgstr ""
-"Για λόγους ασφαλείας, θα ήταν συνετό να έχετε πρόσβαση στο API μέσω HTTPS."
+msgstr "Για λόγους ασφαλείας, θα ήταν συνετό να έχετε πρόσβαση στο API μέσω HTTPS."
 
 #: core/templates/user/api_key.html:20
 msgid "Your API key"
@@ -1464,16 +1399,16 @@ msgstr "Βιβλιογραφία"
 
 #: core/templates/user/change_password.html:5
 #: core/templates/user/change_password.html:14
-#: core/templates/user/preferences.html:127
 #: core/templates/user/preferences.html:128
 #: core/templates/user/preferences.html:129
+#: core/templates/user/preferences.html:130
 msgid "Change password"
 msgstr "Αλλαγή κωδικού"
 
 #: core/templates/user/delete_account.html:7
-#: core/templates/user/preferences.html:146
 #: core/templates/user/preferences.html:147
 #: core/templates/user/preferences.html:148
+#: core/templates/user/preferences.html:149
 msgid "Delete account"
 msgstr "Διαγραφή λογαριασμού"
 
@@ -1485,14 +1420,9 @@ msgstr "Σίγουρα;"
 #, python-format
 msgid ""
 "This action will delete the user account \"%(username)s\".\n"
-"It will also  irrevocably remove all the data associated with it (workouts, "
-"logs, etc.)\n"
+"It will also  irrevocably remove all the data associated with it (workouts, logs, etc.)\n"
 "and can't be undone. "
-msgstr ""
-"Αυτή η ενέργεια θα διαγράψει τον λογαριασμό χρήστη \"%(username)s\".\n"
-"Επίσης θα αφαιρέσει και όλα τα δεδομένα που σχετίζονται με αυτόν "
-"(προπονήσεις, ιστορικά, κλπ)\n"
-"Αυτή η ενέργεια δεν αναιρείται."
+msgstr "Αυτή η ενέργεια θα διαγράψει τον λογαριασμό χρήστη \"%(username)s\".\nΕπίσης θα αφαιρέσει και όλα τα δεδομένα που σχετίζονται με αυτόν (προπονήσεις, ιστορικά, κλπ)\nΑυτή η ενέργεια δεν αναιρείται."
 
 #: core/templates/user/login.html:31
 msgid "or"
@@ -1505,16 +1435,10 @@ msgstr "Είσοδος με το Email σας"
 #: core/templates/user/login.html:43
 msgid ""
 "Persona (BrowserID) replaces multiple passwords, you don't\n"
-"    need to remember a new password for this site. For more information, "
-"please\n"
-"    take a look at the <a href=\"https://login.persona.org/\" target=\"_blank"
-"\">the\n"
+"    need to remember a new password for this site. For more information, please\n"
+"    take a look at the <a href=\"https://login.persona.org/\" target=\"_blank\">the\n"
 "    Persona website</a>."
-msgstr ""
-"Το Persona (BrowserID) αντικαθιστά τους πολλούς κωδικούς, δεν χρειάζεται να "
-"θυμάστε έναν καινούργιο κωδικό για αυτήν την σελίδα. Για περισσότερες\n"
-"πληροφορίες, δείτε εδώ <a href=\"https://login.persona.org/\" target=\"_blank"
-"\">η ιστοσελίδα Persona</a>."
+msgstr "Το Persona (BrowserID) αντικαθιστά τους πολλούς κωδικούς, δεν χρειάζεται να θυμάστε έναν καινούργιο κωδικό για αυτήν την σελίδα. Για περισσότερες\nπληροφορίες, δείτε εδώ <a href=\"https://login.persona.org/\" target=\"_blank\">η ιστοσελίδα Persona</a>."
 
 #: core/templates/user/login.html:54
 msgid "No account?"
@@ -1533,17 +1457,18 @@ msgstr "τελευταίο %(number)s"
 
 #: core/templates/user/overview.html:26 core/templates/user/overview.html:68
 #: core/templates/user/overview.html:107 core/templates/user/overview.html:137
-#: exercises/models.py:193 manager/helpers.py:60 manager/models.py:624
-#: manager/models.py:703 manager/templates/schedule/overview.html:16
+#: exercises/models.py:192 manager/helpers.py:64 manager/models.py:634
+#: manager/models.py:714 manager/templates/schedule/overview.html:16
 #: manager/templates/workout/overview.html:14 nutrition/models.py:237
 #: nutrition/models.py:238 nutrition/templates/plan/overview.html:14
 #: weight/models.py:31 weight/templates/import_csv_preview.html:14
-#: weight/templates/import_csv_preview.html:43 weight/views.py:105
+#: weight/templates/import_csv_preview.html:43
+#: weight/templates/weight_overview.html:44 weight/views.py:115
 msgid "Date"
 msgstr "Ημερομηνία"
 
 #: core/templates/user/overview.html:27 core/templates/user/overview.html:138
-#: exercises/models.py:167 manager/models.py:59 manager/models.py:362
+#: exercises/models.py:166 manager/models.py:60 manager/models.py:363
 #: manager/templates/schedule/overview.html:15
 #: manager/templates/workout/overview.html:13 nutrition/models.py:82
 #: nutrition/templates/plan/overview.html:13
@@ -1565,30 +1490,28 @@ msgid "Log in as this user"
 msgstr "Είσοδος ως αυτόν τον χρήστη"
 
 #: core/templates/user/overview.html:64
-#: manager/templates/mobile/workout/calendar.html:233
+#: manager/templates/calendar/month.html:145
+#: manager/templates/mobile/calendar/month.html:189
 #: manager/templates/mobile/workout/view.html:229
-#: manager/templates/workout/calendar.html:196
 #: manager/templates/workout/view.html:133
 msgid "Log"
 msgstr "Ιστορικό"
 
-#: core/templates/user/overview.html:69 manager/models.py:717
-#: manager/templates/mobile/workout/calendar.html:136
-#: manager/templates/workout/calendar.html:93
+#: core/templates/user/overview.html:69 manager/models.py:728
+#: manager/templates/calendar/partial_overview_table.html:60
 msgid "General impression"
 msgstr "Γενική εικόνα"
 
 #: core/templates/user/overview.html:70 core/templates/user/overview.html:275
-#: manager/models.py:708 manager/templates/mobile/workout/calendar.html:140
-#: manager/templates/workout/calendar.html:97
+#: manager/models.py:719
+#: manager/templates/calendar/partial_overview_table.html:64
 #: manager/templates/workout/log.html:117
 msgid "Notes"
 msgstr "Σημειώσεις"
 
 #: core/templates/user/overview.html:71
-#: manager/templates/mobile/workout/calendar.html:126
-#: manager/templates/workout/calendar.html:83
-#: manager/templates/workout/timer.html:461
+#: manager/templates/calendar/partial_overview_table.html:50
+#: manager/templates/workout/timer.html:464
 msgid "Time"
 msgstr "Ώρα"
 
@@ -1609,11 +1532,11 @@ msgstr "Ρόλοι"
 msgid "Details"
 msgstr "Λεπτομέρειες"
 
-#: core/templates/user/overview.html:212 manager/helpers.py:61
-#: manager/templates/schedule/view.html:88
+#: core/templates/user/overview.html:212 manager/helpers.py:65
+#: manager/templates/schedule/view.html:97
 #: nutrition/templates/mobile/plan/view.html:184
-#: nutrition/templates/plan/view.html:72 nutrition/views/plan.py:248
-#: nutrition/views/plan.py:254
+#: nutrition/templates/plan/view.html:72 nutrition/views/plan.py:249
+#: nutrition/views/plan.py:255
 msgid "Nr."
 msgstr "Νο."
 
@@ -1661,9 +1584,7 @@ msgstr "Ολοκληρώθηκε η αλλαγή κωδικού"
 
 #: core/templates/user/password_reset_complete.html:8
 msgid "Your password has been set.  You may go ahead and log in now."
-msgstr ""
-"Ο κωδικός σας έχει ρυθμιστεί. Μπορείτε να τον χρησιμοποιήσετε τώρα για "
-"είσοδο."
+msgstr "Ο κωδικός σας έχει ρυθμιστεί. Μπορείτε να τον χρησιμοποιήσετε τώρα για είσοδο."
 
 #: core/templates/user/password_reset_complete.html:10
 msgid "Log in"
@@ -1681,9 +1602,7 @@ msgstr "Εισαγωγή νέου κωδικού"
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
-msgstr ""
-"Παρακαλούμε πληκτρολογήστε τον νέο σας κωδικό δύο φορές ώστε να μπορέσουμε "
-"να επιβεβαιώσουμε ότι τον πληκτρολογήσατε σωστά."
+msgstr "Παρακαλούμε πληκτρολογήστε τον νέο σας κωδικό δύο φορές ώστε να μπορέσουμε να επιβεβαιώσουμε ότι τον πληκτρολογήσατε σωστά."
 
 #: core/templates/user/password_reset_confirm.html:18
 #: core/templates/user/password_reset_form.html:12
@@ -1698,9 +1617,7 @@ msgstr "Ανεπιτυχής αλλαγή κωδικού"
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
-msgstr ""
-"Ο σύνδεσμος της επαναφοράς του κωδικού ήταν εσφαλμένος, πιθανότατα έχει "
-"ξαναχρησιμοποιηθεί. Παρακαλούμε επιλέξτε ξανά την επαναφορά του κωδικού σας."
+msgstr "Ο σύνδεσμος της επαναφοράς του κωδικού ήταν εσφαλμένος, πιθανότατα έχει ξαναχρησιμοποιηθεί. Παρακαλούμε επιλέξτε ξανά την επαναφορά του κωδικού σας."
 
 #: core/templates/user/password_reset_done.html:4
 msgid "Password reset successful"
@@ -1710,18 +1627,14 @@ msgstr "Επιτυχής αλλαγή κωδικού"
 msgid ""
 "We've e-mailed you instructions for setting your password to the e-mail "
 "address you submitted. You should be receiving it shortly."
-msgstr ""
-"Σας έχουμε στείλει οδηγίες για να ρυθμίσετε τον κωδικό σας στην διεύθυνση  e-"
-"mail που μας έχετε υποβάλλει. Θα πρέπει να τις παραλάβετε σύντομα."
+msgstr "Σας έχουμε στείλει οδηγίες για να ρυθμίσετε τον κωδικό σας στην διεύθυνση  e-mail που μας έχετε υποβάλλει. Θα πρέπει να τις παραλάβετε σύντομα."
 
 #: core/templates/user/password_reset_email.html:2
 #, python-format
 msgid ""
-"You're receiving this e-mail because you requested a password reset for your "
-"user account at %(site_name)s."
-msgstr ""
-"Λαμβάνετε αυτό το e-mail γιατί έχετε υποβάλλει αίτημα επαναφοράς του κωδικού "
-"για τον λογαριασμό σας στο %(site_name)s."
+"You're receiving this e-mail because you requested a password reset for your"
+" user account at %(site_name)s."
+msgstr "Λαμβάνετε αυτό το e-mail γιατί έχετε υποβάλλει αίτημα επαναφοράς του κωδικού για τον λογαριασμό σας στο %(site_name)s."
 
 #: core/templates/user/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
@@ -1760,13 +1673,13 @@ msgstr "έκδοση μόνο για κινητό τηλέφωνο"
 msgid "Other settings"
 msgstr "Άλλες ρυθμίσεις"
 
-#: core/templates/user/preferences.html:104
-#: manager/templates/workout/timer.html:338
-#: manager/templates/workout/timer.html:473 utils/generic_views.py:111
+#: core/templates/user/preferences.html:105
+#: manager/templates/workout/timer.html:341
+#: manager/templates/workout/timer.html:476 utils/generic_views.py:111
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: core/templatetags/wger_extras.py:148
+#: core/templatetags/wger_extras.py:148 manager/helpers.py:137
 msgid "kg"
 msgstr "kg"
 
@@ -1782,7 +1695,7 @@ msgctxt "weight unit, i.e. grams"
 msgid "g"
 msgstr "g"
 
-#: core/templatetags/wger_extras.py:153
+#: core/templatetags/wger_extras.py:153 manager/helpers.py:137
 msgid "lb"
 msgstr "lb"
 
@@ -1796,11 +1709,7 @@ msgid ""
 "We have created sample workout, workout schedules, weight logs, (body) "
 "weight and nutrition plan entries so you can better see what  this site can "
 "do. Feel free to edit or delete them!"
-msgstr ""
-"Έχουμε δημιουργήσει κάποια δείγματα προπονήσεων, προγράμματα προπονήσεων, "
-"ιστορικά βαρών, βάρος (σώματος) και πλάνα διατροφής ώστε να μπορέσετε να "
-"δείτε πως μπορούμε να σας βοηθήσουμε. Μην διστάσετε να τις επεξεργαστείτε ή "
-"να τις διαγράψετε αν θέλετε."
+msgstr "Έχουμε δημιουργήσει κάποια δείγματα προπονήσεων, προγράμματα προπονήσεων, ιστορικά βαρών, βάρος (σώματος) και πλάνα διατροφής ώστε να μπορέσετε να δείτε πως μπορούμε να σας βοηθήσουμε. Μην διστάσετε να τις επεξεργαστείτε ή να τις διαγράψετε αν θέλετε."
 
 #: core/views/misc.py:127
 msgid "Rest day"
@@ -1843,77 +1752,74 @@ msgstr "Ο χρήστης ενεργοποιήθηκε με επιτυχία"
 msgid "Edit user"
 msgstr "Επεξεργασία χρήστη"
 
-#: exercises/models.py:57
+#: exercises/models.py:56
 msgid "In latin, e.g. \"Pectoralis major\""
 msgstr "Στα λατινικά, π.χ. \"Pectoralis major\""
 
-#: exercises/models.py:117
+#: exercises/models.py:116
 msgid "Exercise Categories"
 msgstr "Κατηγορίες ασκήσεων"
 
-#: exercises/models.py:165 exercises/templates/exercise/view.html:80
+#: exercises/models.py:164 exercises/templates/exercise/view.html:80
 msgid "Category"
 msgstr "Κατηγορία"
 
-#: exercises/models.py:177
+#: exercises/models.py:176
 msgid "Primary muscles"
 msgstr "Κύριοι μύς"
 
-#: exercises/models.py:181 exercises/templates/equipment/overview.html:76
+#: exercises/models.py:180 exercises/templates/equipment/overview.html:76
 #: exercises/templates/exercise/view.html:251
 msgid "Secondary muscles"
 msgstr "Δευτερεύοντες μύς"
 
-#: exercises/models.py:305 exercises/views/exercises.py:283
+#: exercises/models.py:312 exercises/views/exercises.py:331
 msgid "Exercise was successfully added to the general database"
 msgstr "Η άσκηση προστέθηκε με επιτυχία στην γενική βάση δεδομένων"
 
-#: exercises/models.py:332
+#: exercises/models.py:339
 msgid "New user submitted exercise"
 msgstr "Ένας νέος χρήστης πρόσθεσε μια άσκηση"
 
-#: exercises/models.py:333
+#: exercises/models.py:340
 #, python-brace-format
 msgid "The user {0} submitted a new exercise \"{1}\"."
 msgstr "Ο χρήστης {0} πρόσθεσε μια νέα άσκηση \"{1}\"."
 
-#: exercises/models.py:356 exercises/models.py:474 manager/helpers.py:61
-#: manager/models.py:613
+#: exercises/models.py:363 exercises/models.py:481 manager/helpers.py:65
+#: manager/models.py:623
 msgid "Exercise"
 msgstr "Άσκηση"
 
-#: exercises/models.py:359
+#: exercises/models.py:366
 msgid "Image"
 msgstr "Εικόνα"
 
-#: exercises/models.py:360
+#: exercises/models.py:367
 msgid "Only PNG and JPEG formats are supported"
 msgstr "Μόνο PNG και JPEG εικόνες υποστηρίζονται"
 
-#: exercises/models.py:364
+#: exercises/models.py:371
 msgid "Is main picture"
 msgstr "Είναι κύρια εικόνα"
 
-#: exercises/models.py:366
+#: exercises/models.py:373
 msgid ""
 "Tick the box if you want to set this image as the main one for the exercise "
 "(will be shown e.g. in the search). The first image is automatically marked "
 "by the system."
-msgstr ""
-"Τσεκάρετε αυτό του κουτί αν θέλετε να ρυθμίσετε την εικόνα ως η κύρια για "
-"αυτήν την άσκηση (θα εμφανίζεται π.χ. στην εύρεση). Η πρώτη εικόνα αυτόματα "
-"μαρκάρεται απο το σύστημα."
+msgstr "Τσεκάρετε αυτό του κουτί αν θέλετε να ρυθμίσετε την εικόνα ως η κύρια για αυτήν την άσκηση (θα εμφανίζεται π.χ. στην εύρεση). Η πρώτη εικόνα αυτόματα μαρκάρεται απο το σύστημα."
 
-#: exercises/models.py:458
+#: exercises/models.py:465
 msgid "New user submitted image"
 msgstr "Ένας νέος χρήστης υπέβαλε εικόνα"
 
-#: exercises/models.py:459
+#: exercises/models.py:466
 #, python-brace-format
 msgid "The user {0} submitted a new image \"{1}\" for exercise {2}."
 msgstr "Ο χρήστης {0} υπέβαλλε μιά νέα εικόνα \"{1}\" για την άσκηση {2}."
 
-#: exercises/models.py:478
+#: exercises/models.py:485
 msgid "A comment about how to correctly do this exercise."
 msgstr "Ένα σχόλιο για τον σωστό τρόπο εφαρμογής της άσκησης."
 
@@ -1923,7 +1829,7 @@ msgstr "Λίστα οργάνων"
 
 #: exercises/templates/equipment/list.html:63
 #: exercises/templates/equipment/list.html:64
-#: exercises/templates/equipment/list.html:65 exercises/views/equipment.py:82
+#: exercises/templates/equipment/list.html:65 exercises/views/equipment.py:84
 msgid "Add new equipment"
 msgstr "Νέο όργανο"
 
@@ -1936,9 +1842,7 @@ msgstr "Κύριοι μύες"
 msgid ""
 "No exercises for this equipment. Add or edit an exercise and set the "
 "equipment."
-msgstr ""
-"Δεν υπάρχουν ασκήσεις για αυτόν τον εξοπλισμό. Προσθέστε ή επεξεργαστείτε "
-"κάποια και ρυθμίστε την για τον εξοπλισμό αυτόν."
+msgstr "Δεν υπάρχουν ασκήσεις για αυτόν τον εξοπλισμό. Προσθέστε ή επεξεργαστείτε κάποια και ρυθμίστε την για τον εξοπλισμό αυτόν."
 
 #: exercises/templates/equipment/overview.html:118
 #: exercises/templates/exercise/overview.html:139
@@ -1965,26 +1869,20 @@ msgstr "ονομασία άσκησης"
 msgid ""
 "Your exercise '%(exercise)s' was successfully added to the general\n"
 "database."
-msgstr ""
-"Η άσκηση '%(exercise)s' σας προστέθηκε με επιτυχία στην γενική βάση "
-"δεδομένων."
+msgstr "Η άσκηση '%(exercise)s' σας προστέθηκε με επιτυχία στην γενική βάση δεδομένων."
 
 #: exercises/templates/exercise/email_new.html:4
 msgid ""
 "It is now available on the exercise and muscle overview and can be\n"
 "added to workouts. You can access it on this address:"
-msgstr ""
-"Είναι τώρα διαθέσιμη στην άσκηση και επισκόπηση μυών και μπορεί να προστεθεί "
-"στις προπονήσεις. Μπορείτε να την βρείτε στην διεύθυνση:"
+msgstr "Είναι τώρα διαθέσιμη στην άσκηση και επισκόπηση μυών και μπορεί να προστεθεί στις προπονήσεις. Μπορείτε να την βρείτε στην διεύθυνση:"
 
 #: exercises/templates/exercise/email_new.html:8
 #: nutrition/templates/ingredient/email_new.html:8
 msgid "Thank you for contributing and making this site better!"
-msgstr ""
-"Ευχαριστούμε για την συμβολή σας και κάνοντας την υπηρεσία μας καλύτερη!"
+msgstr "Ευχαριστούμε για την συμβολή σας και κάνοντας την υπηρεσία μας καλύτερη!"
 
 #: exercises/templates/exercise/email_new.html:9
-#: manager/templates/workout/email_reminder.html:14
 #: nutrition/templates/ingredient/email_new.html:9
 msgid "the wger.de team"
 msgstr "Η ομάδα wger.de"
@@ -1997,24 +1895,31 @@ msgstr "Υποβολή μιας άσκησης"
 msgid ""
 "Thank you for submitting an exercise. This is much\n"
 "appreciated!"
-msgstr ""
-"Ευχαριστούμε που υποβάλλατε μια άσκηση. Το εκτιμούμε\n"
-"πολύ!"
+msgstr "Ευχαριστούμε που υποβάλλατε μια άσκηση. Το εκτιμούμε\nπολύ!"
 
 #: exercises/templates/exercise/form.html:8
 msgid ""
 "After you submit the form, the administrators will be notified.\n"
 "Once it is reviewed, it will be added to the database. Till this happens,\n"
-"it will not be visible in the overview or the search. In case you added your "
-"email\n"
-"when you registered, you will get notified when the process is completed "
-"successfully."
+"it will not be visible in the overview or the search. In case you added your email\n"
+"when you registered, you will get notified when the process is completed successfully."
+msgstr "Μετά την υποβολή της φόρμας, οι διαχειριστές θα ειδοποιηθούν.\nΜόλις εξεταστεί, θα προστεθεί στην βάση δεδομένων. Έως ότου γίνει, δεν θα είναι ορατό στην επισκόπηση και στις ανευρέσεις. Σε περίπτωση που εισάγατε το email σας όταν εγγραφήκατε, θα ειδοποιηθείτε για την εξέλιξη της όταν ολοκληρωθεί με επιτυχία."
+
+#: exercises/templates/exercise/form_correct.html:4
+msgid "Correcting an exercise"
 msgstr ""
-"Μετά την υποβολή της φόρμας, οι διαχειριστές θα ειδοποιηθούν.\n"
-"Μόλις εξεταστεί, θα προστεθεί στην βάση δεδομένων. Έως ότου γίνει, δεν θα "
-"είναι ορατό στην επισκόπηση και στις ανευρέσεις. Σε περίπτωση που εισάγατε "
-"το email σας όταν εγγραφήκατε, θα ειδοποιηθείτε για την εξέλιξη της όταν "
-"ολοκληρωθεί με επιτυχία."
+
+#: exercises/templates/exercise/form_correct.html:5
+msgid ""
+"Thank you for correcting and improving this exercise.\n"
+"This is much appreciated!"
+msgstr ""
+
+#: exercises/templates/exercise/form_correct.html:8
+msgid ""
+"After you submit the form, the administrators will be notified.\n"
+"Once the changes are reviewed the exercise will be updated."
+msgstr ""
 
 #: exercises/templates/exercise/overview.html:59
 #: exercises/templates/mobile/exercise/overview.html:90
@@ -2029,9 +1934,7 @@ msgstr "Χρήση συνδέσμου για την δημιουργία ενό�
 #: exercises/templates/exercise/overview.html:101
 msgid ""
 "No exercises in this category. Add or edit an exercise and set its category"
-msgstr ""
-"Δεν υπάρχουν ασκήσεις σε αυτή τη κατηγορία. Προσθέστε ή επεξεργαστείτε μια "
-"άσκηση και καθορίστε την κατηγορία της."
+msgstr "Δεν υπάρχουν ασκήσεις σε αυτή τη κατηγορία. Προσθέστε ή επεξεργαστείτε μια άσκηση και καθορίστε την κατηγορία της."
 
 #: exercises/templates/exercise/overview.html:156
 #: exercises/templates/exercise/overview.html:157
@@ -2048,7 +1951,7 @@ msgstr "Διαγραφή κατηγορίας"
 #: exercises/templates/exercise/overview.html:185
 #: exercises/templates/exercise/overview.html:186
 #: exercises/templates/exercise/overview.html:187
-#: exercises/views/categories.py:50
+#: exercises/views/categories.py:51
 msgid "Add category"
 msgstr "Νέα κατηγορία"
 
@@ -2063,8 +1966,8 @@ msgstr "Ημερομηνία υποβολής"
 
 #: exercises/templates/exercise/pending.html:16 gym/forms.py:32
 #: gym/templates/gym/email_inactive_members.html:4
-#: gym/templates/gym/new_user.html:12 manager/models.py:64
-#: manager/models.py:197 manager/models.py:610 manager/models.py:690
+#: gym/templates/gym/new_user.html:12 manager/models.py:65
+#: manager/models.py:198 manager/models.py:620 manager/models.py:701
 #: nutrition/models.py:74 nutrition/models.py:225
 #: nutrition/templates/ingredient/pending.html:16 weight/models.py:37
 msgid "User"
@@ -2078,9 +1981,7 @@ msgstr "Αυτή η άσκηση αναμένει έγκριση"
 msgid ""
 "This user submitted exercise is pending a decision to be\n"
 "included in the database."
-msgstr ""
-"Ο χρήστης υπέβαλλε μια άσκηση η οποία αναμένει μιά απόφαση που πρέπει να "
-"συμπεριληφθεί στην βάση δεδομένων."
+msgstr "Ο χρήστης υπέβαλλε μια άσκηση η οποία αναμένει μιά απόφαση που πρέπει να συμπεριληφθεί στην βάση δεδομένων."
 
 #: exercises/templates/exercise/view.html:47
 msgid "Till then, it will not be shown in the overview or the search."
@@ -2136,9 +2037,7 @@ msgstr "Μύες"
 
 #: exercises/templates/exercise/view.html:240
 msgid "The diagram shows the most used muscles on this exercise"
-msgstr ""
-"Το διάγραμμα εμφανίζει τους μύς με την μεγαλύτερη δραστηριότητα σε αυτήν την "
-"άσκηση"
+msgstr "Το διάγραμμα εμφανίζει τους μύς με την μεγαλύτερη δραστηριότητα σε αυτήν την άσκηση"
 
 #: exercises/templates/exercise/view.html:300
 #: manager/templates/workout/log.html:12 manager/templates/workout/log.html:13
@@ -2155,11 +2054,14 @@ msgstr "Πίσω στην επισκόπηση"
 msgid "Back to exercise overview"
 msgstr "Πίσω στην επισκόπηση ασκήσεων"
 
+#: exercises/templates/exercise/view.html:342
+#: exercises/templates/exercise/view.html:343
+msgid "Submit a correction"
+msgstr ""
+
 #: exercises/templates/muscles/overview.html:43
 msgid "Hover with the mouse over the muscles to show corresponding exercises."
-msgstr ""
-"Τοποθετήστε το ποντίκι πάνω απο τους μύς για την εμφάνιση των σχετικών "
-"ασκήσεων"
+msgstr "Τοποθετήστε το ποντίκι πάνω απο τους μύς για την εμφάνιση των σχετικών ασκήσεων"
 
 #: exercises/templates/muscles/overview.html:58
 msgid "Front side"
@@ -2176,20 +2078,16 @@ msgstr "Δεν υπάρχουν ασκήσεις που να γυμνάζουν 
 #: exercises/templates/muscles/overview.html:104
 #: exercises/templates/muscles/overview.html:109
 #: exercises/templates/muscles/overview.html:110
-#: exercises/templates/muscles/overview.html:111 exercises/views/muscles.py:65
+#: exercises/templates/muscles/overview.html:111 exercises/views/muscles.py:66
 msgid "Add muscle"
 msgstr "Νέος μύς"
 
 #: exercises/templates/muscles/overview.html:115
 msgid ""
 "<strong>Important:</strong> After adding a muscle, you need\n"
-"to create a new SVG image with the contours of the muscle and place it in "
-"the\n"
+"to create a new SVG image with the contours of the muscle and place it in the\n"
 "folder <em>images/muscles</em>."
-msgstr ""
-"<strong>Σημαντικό:</strong> Μετά την προσθήκη ενός μύ, θα πρέπει\n"
-"να δημιουργήσετε μιά εικόνα SVG με τα περιγράμματα των μυών και \n"
-"τοποθετήστε την στον φάκελο <em>images/muscles</em>."
+msgstr "<strong>Σημαντικό:</strong> Μετά την προσθήκη ενός μύ, θα πρέπει\nνα δημιουργήσετε μιά εικόνα SVG με τα περιγράμματα των μυών και \nτοποθετήστε την στον φάκελο <em>images/muscles</em>."
 
 #: exercises/templates/muscles/overview.html:128
 #: exercises/templates/muscles/overview.html:129
@@ -2201,28 +2099,36 @@ msgstr "Επεξεργασία μύ"
 msgid "Delete muscle"
 msgstr "Διαγραφή μύ"
 
-#: exercises/views/categories.py:89
+#: exercises/views/categories.py:91
 msgid "This will also delete all exercises in this category."
-msgstr ""
-"Αυτή η λειτουργία θα διαγράψει και όλες τις ασκήσεις σε αυτήν την κατηγορία."
+msgstr "Αυτή η λειτουργία θα διαγράψει και όλες τις ασκήσεις σε αυτήν την κατηγορία."
 
 #: exercises/views/comments.py:71
 msgid "Add exercise comment"
 msgstr "Νέο σχόλιο άσκησης"
 
-#: exercises/views/equipment.py:113
+#: exercises/views/equipment.py:115
 msgid "Delete equipment?"
 msgstr "Διαγραφή οργάνου"
 
-#: exercises/views/exercises.py:156 software/templates/contribute.html:62
+#: exercises/views/exercises.py:158 software/templates/contribute.html:62
 msgid "Add exercise"
 msgstr "Νέα άσκηση"
 
-#: exercises/views/exercises.py:241
+#: exercises/views/exercises.py:242
+msgid "Thank you. Once the changes are reviewed the exercise will be updated."
+msgstr ""
+
+#: exercises/views/exercises.py:256
+#, python-brace-format
+msgid "Correct {0}"
+msgstr ""
+
+#: exercises/views/exercises.py:289
 msgid "This will delete the exercise from all workouts."
 msgstr "Αυτή η λειτουργία θα διαγράψει την άσκηση απο όλες τις προπονήσεις"
 
-#: exercises/views/exercises.py:296
+#: exercises/views/exercises.py:344
 msgid "Exercise was successfully marked as rejected"
 msgstr "Η άσκηση απορρίφθηκε με επιτυχία"
 
@@ -2247,20 +2153,17 @@ msgid "General manager"
 msgstr "Γενικός Διευθυντής"
 
 #: gym/forms.py:55 gym/templates/gym/member_list.html:37
-#: gym/templates/gym/member_list.html:75 gym/views/gym.py:167
+#: gym/templates/gym/member_list.html:75 gym/views/gym.py:168
 msgid "Username"
 msgstr "Όνομα χρήστη"
 
 #: gym/forms.py:58
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Απαιτείται. 30 χαρακτήρες ή λιγότερο. Γράμματα, ψηφία και @/./+/-/_ μόνο."
+msgstr "Απαιτείται. 30 χαρακτήρες ή λιγότερο. Γράμματα, ψηφία και @/./+/-/_ μόνο."
 
 #: gym/forms.py:61
 msgid "This value may contain only letters, numbers and @/.//-/_ characters."
-msgstr ""
-"Η τιμή θα πρέπει να περιλαμβάνει μόνον γράμματα, ψηφία και @/.//-/_ "
-"χαρακτήρες."
+msgstr "Η τιμή θα πρέπει να περιλαμβάνει μόνον γράμματα, ψηφία και @/.//-/_ χαρακτήρες."
 
 #: gym/forms.py:74
 msgid "A user with that username already exists."
@@ -2310,8 +2213,7 @@ msgstr "Υπενθύμιση ανενεργών μελών"
 msgid ""
 "Number of weeks since the last time a user logged his presence to be "
 "considered inactive"
-msgstr ""
-"Αριθμός εβδομάδων που κάποιος χρήστης συνδέθηκε ώστε να θεωρηθεί ανενεργός"
+msgstr "Αριθμός εβδομάδων που κάποιος χρήστης συνδέθηκε ώστε να θεωρηθεί ανενεργός"
 
 #: gym/models.py:134
 msgid "Configuration for {}"
@@ -2349,15 +2251,13 @@ msgstr "Σημειώσεις χρήστη"
 #, python-format
 msgid ""
 "The following users have not visited the gym in the last %(weeks)s weeks"
-msgstr ""
-"Οι παρακάτω χρήστες δεν έχουν επισκεφτεί το γυμναστήριο τις τελευταίες "
-"%(weeks)s εβδομάδες"
+msgstr "Οι παρακάτω χρήστες δεν έχουν επισκεφτεί το γυμναστήριο τις τελευταίες %(weeks)s εβδομάδες"
 
 #: gym/templates/gym/list.html:6
 msgid "Gym list"
 msgstr "Λίστα γυμναστηρίων"
 
-#: gym/templates/gym/list.html:36 gym/views/gym.py:120
+#: gym/templates/gym/list.html:36 gym/views/gym.py:121
 msgid "Add new gym"
 msgstr "Νέο γυμναστήριο"
 
@@ -2411,20 +2311,16 @@ msgstr "Οι ρυθμίσεις μου"
 msgid "Add member"
 msgstr "Νέο μέλος"
 
-#: gym/templates/gym/new_user.html:24 gym/views/gym.py:167
+#: gym/templates/gym/new_user.html:24 gym/views/gym.py:168
 msgid "Gym"
 msgstr "Γυμναστήριο"
 
 #: gym/templates/gym/new_user.html:36
 msgid ""
 "Please write down the user password or save the exported\n"
-"file, which contains all the user data, and keep it in a safe place. The "
-"password\n"
+"file, which contains all the user data, and keep it in a safe place. The password\n"
 "cannot be recovered later."
-msgstr ""
-"Παρακαλούμε σημειώστε το όνομα χρήστη ή αποθηκεύστε σε ένα αρχείο\n"
-"που συμπεριλαμβάνει όλα τα προσωπικά δεδομένα και φυλάξτε το σε ασφαλές "
-"σημείο. Ο κωδικός δεν μπορεί να ανακτηθεί αργότερα."
+msgstr "Παρακαλούμε σημειώστε το όνομα χρήστη ή αποθηκεύστε σε ένα αρχείο\nπου συμπεριλαμβάνει όλα τα προσωπικά δεδομένα και φυλάξτε το σε ασφαλές σημείο. Ο κωδικός δεν μπορεί να ανακτηθεί αργότερα."
 
 #: gym/templates/gym/new_user.html:47 gym/templates/gym/new_user.html.py:48
 msgid "Export user data"
@@ -2434,15 +2330,15 @@ msgstr "Εξαγωγή δεδομένων χρήστη"
 msgid "Back to gym"
 msgstr "Πίσω στο γυμναστήριο"
 
-#: gym/views/admin_notes.py:82 gym/views/document.py:82
+#: gym/views/admin_notes.py:83 gym/views/document.py:83
 msgid "Add note"
 msgstr "Νέα σημείωση"
 
-#: gym/views/gym.py:254
+#: gym/views/gym.py:255
 msgid "Add user to gym"
 msgstr "Προσθήκη χρήστη στο γυμναστήριο"
 
-#: gym/views/gym.py:343
+#: gym/views/gym.py:345
 msgid "Edit gym"
 msgstr "Επεξεργασία γυμναστηρίου"
 
@@ -2452,11 +2348,9 @@ msgstr "Ο στόχος ή περιγραφή της νέας προπόνηση
 
 #: manager/forms.py:82 manager/forms.py:106
 msgid ""
-"You can search for more than one exercise, they will be grouped together for "
-"a superset."
-msgstr ""
-"Μπορείτε να ψάξετε για περισσότερες από μία ασκήσεις, θα ομαδοποιηθούν σε "
-"μια ομάδα."
+"You can search for more than one exercise, they will be grouped together for"
+" a superset."
+msgstr "Μπορείτε να ψάξετε για περισσότερες από μία ασκήσεις, θα ομαδοποιηθούν σε μια ομάδα."
 
 #: manager/forms.py:91
 msgid "All categories"
@@ -2470,161 +2364,196 @@ msgstr "Κατηγορίες"
 msgid "Workout will expire soon"
 msgstr "Η προπόνηση θα λήξει σε λίγο"
 
-#: manager/models.py:58 nutrition/models.py:79
+#: manager/models.py:59 nutrition/models.py:79
 msgid "Creation date"
 msgstr "Ημερομηνία δημιουργίας"
 
-#: manager/models.py:62
+#: manager/models.py:63
 msgid ""
 "A short description or goal of the workout. For example 'Focus on back' or "
 "'Week 1 of program xy'."
-msgstr ""
-"Μια μικρή περιγραφή ή στόχος της προπόνησης. Για παράδειγμα \"Συγκεντρωθείτε "
-"στην πλάτη\" ή \"Εβδομάδα 1 του προγράμματος Χ\"."
+msgstr "Μια μικρή περιγραφή ή στόχος της προπόνησης. Για παράδειγμα \"Συγκεντρωθείτε στην πλάτη\" ή \"Εβδομάδα 1 του προγράμματος Χ\"."
 
-#: manager/models.py:207
+#: manager/models.py:208
 msgid "Name or short description of the schedule. For example 'Program XYZ'."
-msgstr ""
-"Ονομασία ή μικρή περιγραφή του προγράμματος. Για παράδειγμα \"Πρόγραμμα XYZ"
-"\"."
+msgstr "Ονομασία ή μικρή περιγραφή του προγράμματος. Για παράδειγμα \"Πρόγραμμα XYZ\"."
 
-#: manager/models.py:211 manager/templates/mobile/schedule/view.html:48
-#: manager/templates/schedule/view.html:57
+#: manager/models.py:212 manager/templates/mobile/schedule/view.html:48
+#: manager/templates/schedule/view.html:66
 msgid "Start date"
 msgstr "Ημερομηνία έναρξης"
 
-#: manager/models.py:215 manager/templates/mobile/schedule/view.html:52
-#: manager/templates/schedule/view.html:61
+#: manager/models.py:216 manager/templates/mobile/schedule/view.html:52
+#: manager/templates/schedule/view.html:70
 msgid "Schedule active"
 msgstr "Πρόγραμμα ενεργό"
 
-#: manager/models.py:217
+#: manager/models.py:218
 msgid ""
 "Tick the box if you want to mark this schedule as your active one (will be "
 "shown e.g. on your dashboard). All other schedules will then be marked as "
 "inactive"
-msgstr ""
-"Επιλέξτε το τετράγωνο αν θέλετε να χαρακτηρίσετε αυτό το πρόγραμμα ώς ενεργό "
-"(θα εμφανίζεται π.χ. στον πίνακα ελέγχου). Όλα τα υπόλοιπα προγράμματα θα "
-"χαρακτηριστούν ώς μή ενεργά μετά."
+msgstr "Επιλέξτε το τετράγωνο αν θέλετε να χαρακτηρίσετε αυτό το πρόγραμμα ώς ενεργό (θα εμφανίζεται π.χ. στον πίνακα ελέγχου). Όλα τα υπόλοιπα προγράμματα θα χαρακτηριστούν ώς μή ενεργά μετά."
 
-#: manager/models.py:223 manager/templates/mobile/schedule/view.html:62
-#: manager/templates/schedule/view.html:71
+#: manager/models.py:224 manager/templates/mobile/schedule/view.html:62
+#: manager/templates/schedule/view.html:80
 msgid "Is loop"
 msgstr "Είναι επανάληψη"
 
-#: manager/models.py:225
+#: manager/models.py:226
 msgid ""
-"Tick the box if you want to repeat the schedules in a loop (i.e. A, B, C, A, "
-"B, C, and so on)"
-msgstr ""
-"Επιλέξτε το τετράγωνο αν θέλετε να επαναλαμβάνετε τα προγράμματα σε κύκλο (π."
-"χ. Α, Β, Γ, Α, Β, Γ κ.ο.κ)"
+"Tick the box if you want to repeat the schedules in a loop (i.e. A, B, C, A,"
+" B, C, and so on)"
+msgstr "Επιλέξτε το τετράγωνο αν θέλετε να επαναλαμβάνετε τα προγράμματα σε κύκλο (π.χ. Α, Β, Γ, Α, Β, Γ κ.ο.κ)"
 
-#: manager/models.py:305
+#: manager/models.py:306
 msgid "schedule"
 msgstr "πρόγραμμα"
 
-#: manager/models.py:311
+#: manager/models.py:312
 msgid "Duration"
 msgstr "Διάρκεια"
 
-#: manager/models.py:312
+#: manager/models.py:313
 msgid "The duration in weeks"
 msgstr "Η διάρκεια σε εβδομάδες"
 
-#: manager/models.py:317 manager/models.py:515 manager/models.py:565
+#: manager/models.py:318 manager/models.py:517 manager/models.py:575
 #: nutrition/models.py:504 nutrition/models.py:568
 msgid "Order"
 msgstr "Διάταξη"
 
-#: manager/models.py:363
+#: manager/models.py:364
 msgid ""
-"Ususally a description about what parts are trained, like \"Arms\" or \"Pull "
-"Day\""
-msgstr ""
-"Συνήθως μια περιγραφή για τα σημεία που γυμνάζονται, όπως \"Χέρια\" ή "
-"\"Τετρακέφαλοι\""
+"Ususally a description about what parts are trained, like \"Arms\" or \"Pull"
+" Day\""
+msgstr "Συνήθως μια περιγραφή για τα σημεία που γυμνάζονται, όπως \"Χέρια\" ή \"Τετρακέφαλοι\""
 
-#: manager/models.py:366
+#: manager/models.py:367
 msgid "Day"
 msgstr "Μέρα"
 
-#: manager/models.py:510
+#: manager/models.py:512
 msgid "Exercise day"
 msgstr "Μέρα προπόνησης"
 
-#: manager/models.py:517
+#: manager/models.py:519
 msgid "Number of sets"
 msgstr "Αριθμός σέτ"
 
-#: manager/models.py:559
+#: manager/models.py:561
 msgid "Sets"
 msgstr "Σετ"
 
-#: manager/models.py:563 manager/models.py:617
-#: manager/templates/workout/timer.html:298
+#: manager/models.py:565 manager/models.py:627
 #: manager/templates/workout/timer.html:301
+#: manager/templates/workout/timer.html:304
 msgid "Repetitions"
 msgstr "Επαναλήψεις"
 
-#: manager/models.py:684
+#: manager/models.py:695
 msgid "Bad"
 msgstr "Κακό"
 
-#: manager/models.py:685
+#: manager/models.py:696
 msgid "Neutral"
 msgstr "Ουδέτερο"
 
-#: manager/models.py:686
+#: manager/models.py:697
 msgid "Good"
 msgstr "Καλό"
 
-#: manager/models.py:711
+#: manager/models.py:722
 msgid "Any notes you might want to save about this workout session."
-msgstr ""
-"Οτιδήποτε πληροφορίες που θέλετε να αποθηκεύσετε σε αυτήν την συνεδρία."
+msgstr "Οτιδήποτε πληροφορίες που θέλετε να αποθηκεύσετε σε αυτήν την συνεδρία."
 
-#: manager/models.py:721
+#: manager/models.py:732
 msgid ""
 "Your impression about this workout session. Did you exercise as well as you "
 "could?"
-msgstr ""
-"Οι εντυπώσεις σου για αυτήν την συνεδρία. Μπορέσατε να προπονηθείτε όσο "
-"θέλατε;"
+msgstr "Οι εντυπώσεις σου για αυτήν την συνεδρία. Μπορέσατε να προπονηθείτε όσο θέλατε;"
 
-#: manager/models.py:727
+#: manager/models.py:738
 msgid "Start time"
 msgstr "Ώρα έναρξης"
 
-#: manager/models.py:734
+#: manager/models.py:745
 msgid "Finish time"
 msgstr "Ώρα λήξης"
 
-#: manager/models.py:760
+#: manager/models.py:771
 msgid "If you enter a time, you must enter both start and end time."
-msgstr ""
-"Αν πληκτρολογήσετε την ώρα, θα πρέπει να πληκτρολογήσετε ώρα έναρξης και "
-"λήξης."
+msgstr "Αν πληκτρολογήσετε την ώρα, θα πρέπει να πληκτρολογήσετε ώρα έναρξης και λήξης."
 
-#: manager/models.py:763
+#: manager/models.py:774
 msgid "The start time cannot be after the end time."
 msgstr "Η ώρα έναρξης δεν μπορεί να είναι μετά την ώρα λήξης."
 
-#: manager/pdf.py:78 manager/pdf.py:137
+#: manager/pdf.py:76 manager/pdf.py:135
 #, python-format
 msgid "Workout for %s"
 msgstr "Προπόνηση για %s"
 
-#: manager/pdf.py:267
+#: manager/pdf.py:265
 msgid "<i>This is an empty workout, what did you expect on the PDF?</i>"
-msgstr ""
-"<i>Αυτό είναι μιά άδεια προπόνηση, τί περιμένατε να δείτε σε αυτό το PDF;</i>"
+msgstr "<i>Αυτό είναι μιά άδεια προπόνηση, τί περιμένατε να δείτε σε αυτό το PDF;</i>"
 
-#: manager/pdf.py:296 nutrition/views/plan.py:368
+#: manager/pdf.py:294 nutrition/views/plan.py:369
 #, python-format
 msgid "Created on the <b>%s</b>"
 msgstr "Δημιουργήθηκε την <b>%s</b>"
+
+#: manager/templates/calendar/day.html:9
+#: manager/templates/calendar/day.html:31 software/templates/functions.html:91
+#: software/templates/functions.html:101
+msgid "Workout log"
+msgstr "Ιστορικό προπονήσεων"
+
+#: manager/templates/calendar/day.html:12
+#, python-format
+msgid "Workout log for %(username)s for %(date)s"
+msgstr ""
+
+#: manager/templates/calendar/month.html:13
+#: manager/templates/mobile/calendar/month.html:13
+#, python-format
+msgid "Calendar for %(username)s"
+msgstr ""
+
+#: manager/templates/calendar/month.html:52
+#: manager/templates/mobile/calendar/month.html:97
+msgid "Detail page"
+msgstr ""
+
+#: manager/templates/calendar/month.html:136
+#: manager/templates/mobile/calendar/month.html:180
+msgid ""
+"The coloured days in the calendar have weight logs,\n"
+"you can click on them to see the details."
+msgstr "Οι χρωματισμένες μέρες στο ημερολόγιο έχουν ιστορικά βαρών,\nμπορείτε να τις επιλέξτε για να δείτε λεπτομέρειες."
+
+#: manager/templates/calendar/month.html:151
+#: manager/templates/calendar/month.html:152
+#: manager/templates/mobile/calendar/month.html:194
+#: manager/templates/mobile/calendar/month.html:196
+msgid "Go to current month"
+msgstr "Τρέχων μήνας"
+
+#: manager/templates/calendar/partial_overview_table.html:9
+msgid "Log overview"
+msgstr "Επισκόπηση ιστορικού"
+
+#: manager/templates/calendar/partial_overview_table.html:17
+msgid "Workout session"
+msgstr ""
+
+#: manager/templates/calendar/partial_overview_table.html:36
+msgid "Delete with logs"
+msgstr ""
+
+#: manager/templates/calendar/partial_overview_table.html:42
+msgid "Add workout impression"
+msgstr "Προσθήκη εντύπωσης προπόνησης"
 
 #: manager/templates/day/log.html:6
 msgid "New weight log"
@@ -2632,8 +2561,7 @@ msgstr "Νέα εγγραφή βάρους"
 
 #: manager/templates/day/log.html:66
 msgid "Add exercises to this training day before adding a log."
-msgstr ""
-"Προσθήκη ασκήσεων σε αυτην την μέρα προπόνησης πριν την προσθήκη ιστορικού"
+msgstr "Προσθήκη ασκήσεων σε αυτην την μέρα προπόνησης πριν την προσθήκη ιστορικού"
 
 #: manager/templates/day/log.html:68 manager/templates/day/log.html.py:91
 #: manager/templates/day/log.html:92 manager/templates/workout/log.html:112
@@ -2644,14 +2572,9 @@ msgstr "Πίσω στην προπόνηση"
 #: manager/templates/day/log.html:81
 msgid ""
 "A new workout session (impression, notes, time) will\n"
-"be created if there isn't already one for the selected date. If there is, "
-"it\n"
+"be created if there isn't already one for the selected date. If there is, it\n"
 "will simply be edited. Weight entries are always added."
-msgstr ""
-"Μιά νέα συνεδρία προπόνησης (σημειώσεις, χρόνοι κλπ) θα\n"
-"δημιουργηθούν αν δεν υπάρχει ήδη για την επιλεγμένη ημερομηνία. Αν\n"
-"υπάρχει τότε απλά θα την επεξεργαστείτε. Οι εγγραφές βάρους πάντα "
-"προστίθενται."
+msgstr "Μιά νέα συνεδρία προπόνησης (σημειώσεις, χρόνοι κλπ) θα\nδημιουργηθούν αν δεν υπάρχει ήδη για την επιλεγμένη ημερομηνία. Αν\nυπάρχει τότε απλά θα την επεξεργαστείτε. Οι εγγραφές βάρους πάντα προστίθενται."
 
 #: manager/templates/mobile/schedule/overview.html:5
 #: manager/templates/mobile/schedule/overview.html:35
@@ -2665,8 +2588,8 @@ msgstr "Τα προγράμματα σας"
 #: manager/templates/mobile/schedule/view.html:123
 #: manager/templates/mobile/workout/overview.html:16
 #: manager/templates/schedule/overview.html:27
-#: manager/templates/schedule/view.html:127
-#: manager/templates/schedule/view.html:178
+#: manager/templates/schedule/view.html:140
+#: manager/templates/schedule/view.html:195
 #: manager/templates/workout/overview.html:25
 msgid "active"
 msgstr "ενεργό"
@@ -2681,21 +2604,15 @@ msgstr "Δεν βρέθηκαν προγράμματα."
 msgid ""
 "Schedules are collections of workouts that you do in\n"
 "succession."
-msgstr ""
-"Τα προγράμματα είναι συλλογές απο προπονήσεις που\n"
-"κάνετε διαδοχικά."
+msgstr "Τα προγράμματα είναι συλλογές απο προπονήσεις που\nκάνετε διαδοχικά."
 
 #: manager/templates/mobile/schedule/overview.html:39
 #: manager/templates/schedule/overview.html:54
 msgid ""
 "You can indicate how long you want to do each workout\n"
 "before jumping to the next. It is also possible to create a loop, so you\n"
-"always do the same workouts in succession, e.g. A > B > C > A > B > C and so "
-"on."
-msgstr ""
-"Μπορείτε να υποδείξετε, πόσο θέλετε να κάνετε κάθε προπόνηση\n"
-"πριν μεταπηδήσετε στην επόμενη. Είναι δυνατό να δημιουργηθεί ένας βρόγχος "
-"ώστε πάντα να κάνετε τις ίδιες προπονήσεις διαδοχικά, π.χ. Α > Β > Γ κ.ο.κ."
+"always do the same workouts in succession, e.g. A > B > C > A > B > C and so on."
+msgstr "Μπορείτε να υποδείξετε, πόσο θέλετε να κάνετε κάθε προπόνηση\nπριν μεταπηδήσετε στην επόμενη. Είναι δυνατό να δημιουργηθεί ένας βρόγχος ώστε πάντα να κάνετε τις ίδιες προπονήσεις διαδοχικά, π.χ. Α > Β > Γ κ.ο.κ."
 
 #: manager/templates/mobile/schedule/overview.html:43
 #: manager/templates/schedule/overview.html:58
@@ -2703,10 +2620,7 @@ msgid ""
 "The currently active schedule will remain active (and be\n"
 "shown e.g. in your dashboard) till it reaches the last workout or till you\n"
 "deactivate it, if it is a loop."
-msgstr ""
-"Το τρέχων ενεργό πρόγραμμα θα παραμείνει ενεργό (και θα\n"
-"εμφανίζεται π.χ. στον πίνακα ελέγχου) έως ότου φτάσει στην τελευταία\n"
-"προπόνηση ή έως ότου το απενεργοποιήσετε, σε περίπτωση που είναι βρόγχος."
+msgstr "Το τρέχων ενεργό πρόγραμμα θα παραμείνει ενεργό (και θα\nεμφανίζεται π.χ. στον πίνακα ελέγχου) έως ότου φτάσει στην τελευταία\nπροπόνηση ή έως ότου το απενεργοποιήσετε, σε περίπτωση που είναι βρόγχος."
 
 #: manager/templates/mobile/schedule/overview.html:47
 #: manager/templates/mobile/schedule/overview.html:54
@@ -2720,26 +2634,24 @@ msgid "Add schedule"
 msgstr "Νέο πρόγραμμα"
 
 #: manager/templates/mobile/schedule/view.html:66
-#: manager/templates/schedule/view.html:75
+#: manager/templates/schedule/view.html:84
 msgid ""
 "This schedule is a loop and will go through the workouts above till you "
 "deactivate it"
-msgstr ""
-"Αυτό το πρόγραμμα είναι σε βρόγχο και θα περάσει απο όλες τις προπονήσεις "
-"μέχρι να απενεργοποιηθεί."
+msgstr "Αυτό το πρόγραμμα είναι σε βρόγχο και θα περάσει απο όλες τις προπονήσεις μέχρι να απενεργοποιηθεί."
 
 #: manager/templates/mobile/schedule/view.html:77
-#: manager/templates/schedule/view.html:148
+#: manager/templates/schedule/view.html:164
 msgid "Start schedule"
 msgstr "Έναρξη προγράμματος"
 
 #: manager/templates/mobile/schedule/view.html:96
-#: manager/templates/schedule/view.html:91 manager/views/schedule.py:131
+#: manager/templates/schedule/view.html:102 manager/views/schedule.py:138
 msgid "Weeks"
 msgstr "Εβδομάδες"
 
 #: manager/templates/mobile/schedule/view.html:117
-#: manager/templates/schedule/view.html:172
+#: manager/templates/schedule/view.html:189
 #, python-format
 msgid ""
 "%(weeks)s Week\n"
@@ -2751,21 +2663,17 @@ msgstr[0] "%(weeks)s Εβδομάδα"
 msgstr[1] "%(weeks)s Εβδομάδες"
 
 #: manager/templates/mobile/schedule/view.html:158
-#: manager/templates/schedule/view.html:208
+#: manager/templates/schedule/view.html:226
 msgid "Adding workouts"
 msgstr "Πρόσθεση προπονήσεων"
 
 #: manager/templates/mobile/schedule/view.html:160
-#: manager/templates/schedule/view.html:210
+#: manager/templates/schedule/view.html:228
 msgid ""
 "Add as many workouts to the schedule as you want. You can\n"
-"edit the order per drag-and-drop. It's also possible to add one workout "
-"more\n"
+"edit the order per drag-and-drop. It's also possible to add one workout more\n"
 "than once."
-msgstr ""
-"Προσθέστε όσες προπονήσεις θέλετε στο πρόγραμμα. Μπορείτε\n"
-"να επεξεργαστείτε την σειρά σέρνοντας την κάθε εγγραφή. Είναι δυνατό\n"
-"να προσθέσετε την ίδια προπόνηση περισσότερες απο μία φορές."
+msgstr "Προσθέστε όσες προπονήσεις θέλετε στο πρόγραμμα. Μπορείτε\nνα επεξεργαστείτε την σειρά σέρνοντας την κάθε εγγραφή. Είναι δυνατό\nνα προσθέσετε την ίδια προπόνηση περισσότερες απο μία φορές."
 
 #: manager/templates/mobile/schedule/view.html:171
 #: manager/templates/mobile/schedule/view.html:172
@@ -2774,9 +2682,9 @@ msgstr ""
 #: manager/templates/mobile/workout/view.html:138
 #: manager/templates/mobile/workout/view.html:139
 #: manager/templates/mobile/workout/view.html:225
-#: manager/templates/schedule/view.html:230
-#: manager/templates/schedule/view.html:231
-#: manager/templates/schedule/view.html:232
+#: manager/templates/schedule/view.html:249
+#: manager/templates/schedule/view.html:250
+#: manager/templates/schedule/view.html:251
 #: manager/templates/workout/view.html:130
 #: manager/templates/workout/view.html:131
 #: manager/templates/workout/view.html:132
@@ -2803,13 +2711,13 @@ msgstr "Αποθήκευση ώς PDF"
 #: manager/templates/mobile/workout/view.html:208
 #: manager/templates/mobile/workout/view.html:209
 #: manager/templates/mobile/workout/view.html:210
-#: manager/templates/schedule/view.html:220
-#: manager/templates/schedule/view.html:221
-#: manager/templates/schedule/view.html:222
-#: manager/templates/schedule/view.html:263
-#: manager/templates/schedule/view.html:275
-#: manager/templates/schedule/view.html:276
-#: manager/templates/schedule/view.html:277
+#: manager/templates/schedule/view.html:239
+#: manager/templates/schedule/view.html:240
+#: manager/templates/schedule/view.html:241
+#: manager/templates/schedule/view.html:282
+#: manager/templates/schedule/view.html:294
+#: manager/templates/schedule/view.html:295
+#: manager/templates/schedule/view.html:296
 #: manager/templates/workout/view.html:168
 #: manager/templates/workout/view.html:169
 #: manager/templates/workout/view.html:170
@@ -2823,38 +2731,35 @@ msgstr "Εξαγωγή αρχείου ημερολογίου"
 #: manager/templates/mobile/schedule/view.html:194
 #: manager/templates/mobile/schedule/view.html:195
 #: manager/templates/mobile/schedule/view.html:196
-#: manager/templates/schedule/view.html:241
-#: manager/templates/schedule/view.html:242
-#: manager/templates/schedule/view.html:243
+#: manager/templates/schedule/view.html:260
+#: manager/templates/schedule/view.html:261
+#: manager/templates/schedule/view.html:262
 msgid "Edit schedule"
 msgstr "Επεξεργασία προγράμματος"
 
 #: manager/templates/mobile/schedule/view.html:205
 #: manager/templates/mobile/schedule/view.html:206
 #: manager/templates/mobile/schedule/view.html:207
-#: manager/templates/schedule/view.html:252
-#: manager/templates/schedule/view.html:253
-#: manager/templates/schedule/view.html:254
+#: manager/templates/schedule/view.html:271
+#: manager/templates/schedule/view.html:272
+#: manager/templates/schedule/view.html:273
 msgid "Delete schedule"
 msgstr "Διαγραφή προγράμματος"
 
 #: manager/templates/mobile/schedule/view.html:218
-#: manager/templates/schedule/view.html:266
+#: manager/templates/schedule/view.html:285
 msgid "Export this schedule as a calendar file."
 msgstr "Εξαγωγή του προγράμματος ως αρχείο ημερολογίου."
 
 #: manager/templates/mobile/schedule/view.html:219
 #: manager/templates/mobile/workout/view.html:200
-#: manager/templates/schedule/view.html:267
+#: manager/templates/schedule/view.html:286
 #: manager/templates/workout/view.html:208
 msgid ""
 "You can then import the file it into your calendar\n"
 "application for example google calendar, outlook or iCal. This will create\n"
 "an appointment for each training day with the appropriate exercises."
-msgstr ""
-"Μπορείτε να εισάγετε αρχεία στην εφαρμογή ημερολογίου σας, για παράδειγμα "
-"google calendar, outlook ή iCal. Αυτό θα δημιουργήσει ένα\n"
-"γεγονός για κάθε ημέρα προπόνησης με τις αντίστοιχες ασκήσεις."
+msgstr "Μπορείτε να εισάγετε αρχεία στην εφαρμογή ημερολογίου σας, για παράδειγμα google calendar, outlook ή iCal. Αυτό θα δημιουργήσει ένα\nγεγονός για κάθε ημέρα προπόνησης με τις αντίστοιχες ασκήσεις."
 
 #: manager/templates/mobile/set/add.html:9 manager/templates/set/add.html:11
 #, python-format
@@ -2864,55 +2769,14 @@ msgstr "Προσθήκη ασκήσεων στην μέρα \"%(day_name)s\""
 #: manager/templates/mobile/set/add.html:60 manager/templates/set/add.html:62
 msgid ""
 "If you do the same repetitions for all sets,\n"
-"you can just enter one value: e.g. for 4 sets just enter one \"10\" for the "
-"repetitions, this\n"
+"you can just enter one value: e.g. for 4 sets just enter one \"10\" for the repetitions, this\n"
 "automatically becomes \"4 x 10\"."
-msgstr ""
-"Αν κάνετε τις ίδιες επαναλήψεις για όλα τα σετ,\n"
-"μπορείτε απλά να πληκτρολογήσετε μιά τιμή: π.χ. για 4 σετ απλά "
-"πληκτρολογήστε \"10\" στις επαναλήψεις, αυτό αυτόματα γίνεται \"4 x 10\"."
+msgstr "Αν κάνετε τις ίδιες επαναλήψεις για όλα τα σετ,\nμπορείτε απλά να πληκτρολογήσετε μιά τιμή: π.χ. για 4 σετ απλά πληκτρολογήστε \"10\" στις επαναλήψεις, αυτό αυτόματα γίνεται \"4 x 10\"."
 
-#: manager/templates/mobile/tags/render_day.html:67
+#: manager/templates/mobile/tags/render_day.html:55
 #, python-format
 msgid "Set Nr. %(set_nr)s"
 msgstr ""
-
-#: manager/templates/mobile/workout/calendar.html:16
-#: manager/templates/workout/calendar.html:16
-#, python-format
-msgid "Calendar for %(username)s"
-msgstr ""
-
-#: manager/templates/mobile/workout/calendar.html:110
-#: manager/templates/workout/calendar.html:67
-msgid "Log overview"
-msgstr "Επισκόπηση ιστορικού"
-
-#: manager/templates/mobile/workout/calendar.html:115
-#: manager/templates/workout/calendar.html:73
-msgid "Edit workout session"
-msgstr "Επεξεργασία συνεδρίας προπόνησης"
-
-#: manager/templates/mobile/workout/calendar.html:118
-#: manager/templates/workout/calendar.html:75
-msgid "Add workout impression"
-msgstr "Προσθήκη εντύπωσης προπόνησης"
-
-#: manager/templates/mobile/workout/calendar.html:224
-#: manager/templates/workout/calendar.html:187
-msgid ""
-"The coloured days in the calendar have weight logs,\n"
-"you can click on them to see the details."
-msgstr ""
-"Οι χρωματισμένες μέρες στο ημερολόγιο έχουν ιστορικά βαρών,\n"
-"μπορείτε να τις επιλέξτε για να δείτε λεπτομέρειες."
-
-#: manager/templates/mobile/workout/calendar.html:238
-#: manager/templates/mobile/workout/calendar.html:240
-#: manager/templates/workout/calendar.html:202
-#: manager/templates/workout/calendar.html:203
-msgid "Go to current month"
-msgstr "Τρέχων μήνας"
 
 #: manager/templates/mobile/workout/overview.html:6
 #: manager/templates/workout/overview.html:5
@@ -2964,9 +2828,7 @@ msgstr "Μύς που γυμνάστηκαν"
 #: manager/templates/workout/view.html:106
 msgid ""
 "Images show combined muscles as trained by the exercises on the workout."
-msgstr ""
-"Οι εικόνες δείχνουν τους συνδυασμένους μύες που γυμνάζονται απο τις ασκήσεις "
-"της προπόνησης."
+msgstr "Οι εικόνες δείχνουν τους συνδυασμένους μύες που γυμνάζονται απο τις ασκήσεις της προπόνησης."
 
 #: manager/templates/mobile/workout/view.html:146
 #: manager/templates/mobile/workout/view.html:147
@@ -2982,16 +2844,16 @@ msgstr "Εμφάνιση εγγραφής βάρους"
 #: manager/templates/mobile/workout/view.html:158
 #: manager/templates/workout/view.html:156
 #: manager/templates/workout/view.html:157
-#: manager/templates/workout/view.html:158 manager/views/schedule_step.py:94
+#: manager/templates/workout/view.html:158 manager/views/schedule_step.py:95
 msgid "Edit workout"
 msgstr "Επεξεργασία προπόνησης"
 
 #: manager/templates/mobile/workout/view.html:176
 #: manager/templates/mobile/workout/view.html:177
 #: manager/templates/mobile/workout/view.html:178
+#: manager/templates/workout/view.html:180
 #: manager/templates/workout/view.html:181
 #: manager/templates/workout/view.html:182
-#: manager/templates/workout/view.html:183
 msgid "Make a copy of this workout"
 msgstr "Δημιουργήστε ένα αντίγραφο αυτής της προπόνησης"
 
@@ -3012,6 +2874,10 @@ msgstr "Εξαγωγή αυτής της προπόνησης σε αρχείο 
 msgid "Table"
 msgstr "Πίνακας"
 
+#: manager/templates/schedule/view.html:10
+msgid "Schedule"
+msgstr ""
+
 #: manager/templates/set/add.html:59 manager/templates/set/edit.html:24
 msgid "Repetitions "
 msgstr "Επαναλήψεις"
@@ -3019,31 +2885,6 @@ msgstr "Επαναλήψεις"
 #: manager/templates/set/edit.html:11
 msgid "Edit set"
 msgstr "Επεξεργασία σετ"
-
-#: manager/templates/workout/email_reminder.html:3
-#, python-format
-msgid "Your current workout '%(workout)s' expired %(days)s days ago."
-msgstr "Η τρέχουσα προπόνηση '%(workout)s' έληξε πριν %(days)s μέρες"
-
-#: manager/templates/workout/email_reminder.html:5
-#, python-format
-msgid "Your current workout '%(workout)s' is about to expire in %(days)s days."
-msgstr ""
-"Η τρέχουσα προπόνηση '%(workout)s' πρόκειται να λήξει σε %(days)s μέρες."
-
-#: manager/templates/workout/email_reminder.html:9
-msgid ""
-"You will regularly receive such reminders till you add a new workout.\n"
-"Alternatively you can add workouts to a loop schedule, such schedules\n"
-"never produce reminders. If you don't want to ever receive email\n"
-"reminders, deactivate the option in your settings."
-msgstr ""
-"Θα λαμβάνετε σε τακτά διαστήματα υπενθυμίσεις έως ότου προσθέσετε μια νέα "
-"προπόνηση.\n"
-"Διαφορετικά μπορείτε να προσθέσετε προπονήσεις σε ένα επαναλαμβανόμενο "
-"πρόγραμμα, τέτοια προγράμματα δεν παράγουν υπενθυμίσεις. Αν δεν θέλετε ποτέ "
-"να λαμβάνετε υπενθυμίσεις, μπορείτε να απενεργοποιήσετε τις ειδοποιήσεις "
-"μέσα απο τις ρυθμίσεις σας."
 
 #: manager/templates/workout/log.html:20
 msgid "Weight log for workout"
@@ -3070,10 +2911,7 @@ msgid ""
 "This page shows the weight logs belonging to this workout\n"
 "only. Click on an exercise to see all the historical data for\n"
 "it."
-msgstr ""
-"Αυτή η σελίδα εμφανίζει το ιστορικό βάρους που ανήκει σε αυτήν την προπόνηση "
-"μόνο.\n"
-"Επιλέξτε μια άσκηση για να δείτε τα ιστορικά δεδομένα για αυτήν."
+msgstr "Αυτή η σελίδα εμφανίζει το ιστορικό βάρους που ανήκει σε αυτήν την προπόνηση μόνο.\nΕπιλέξτε μια άσκηση για να δείτε τα ιστορικά δεδομένα για αυτήν."
 
 #: manager/templates/workout/log.html:122
 msgid ""
@@ -3086,62 +2924,59 @@ msgid ""
 "If on a single day there is more than one entry with the\n"
 "same number of repetitions, but different weights, only the entry with the\n"
 "higher weight is shown in the diagram."
-msgstr ""
-"Αν σε μια μέρα υπάρχουν περισσότερες απο μία εγγραφές με τους \n"
-"ίδιους αριθμούς επαναλήψεων, αλλα διαφορετικών βαρών, μόνο η \n"
-"εγγραφή με το μεγαλύτερο βάρος θα εμφανιστεί στο διάγραμμα."
+msgstr "Αν σε μια μέρα υπάρχουν περισσότερες απο μία εγγραφές με τους \nίδιους αριθμούς επαναλήψεων, αλλα διαφορετικών βαρών, μόνο η \nεγγραφή με το μεγαλύτερο βάρος θα εμφανιστεί στο διάγραμμα."
 
-#: manager/templates/workout/timer.html:260
+#: manager/templates/workout/timer.html:263
 msgid "Your workout today"
 msgstr "Η σημερινή σας προπόνηση"
 
-#: manager/templates/workout/timer.html:271
+#: manager/templates/workout/timer.html:274
 msgid "Start!"
 msgstr "Ξεκινήστε!"
 
-#: manager/templates/workout/timer.html:325
+#: manager/templates/workout/timer.html:328
 msgid "reps"
 msgstr "επαναλήψεις"
 
-#: manager/templates/workout/timer.html:333
-#: manager/templates/workout/timer.html:382
+#: manager/templates/workout/timer.html:336
+#: manager/templates/workout/timer.html:385
 msgid "Skip"
 msgstr "Μεταπίδηση"
 
-#: manager/templates/workout/timer.html:357
+#: manager/templates/workout/timer.html:360
 msgid "Pause!"
 msgstr "Παύση!"
 
-#: manager/templates/workout/timer.html:395
+#: manager/templates/workout/timer.html:398
 msgid "Workout complete!"
 msgstr "Ολοκλήρωση προπόνησης!"
 
-#: manager/views/day.py:100
+#: manager/views/day.py:99
 msgid "Add workout day"
 msgstr "Προσθήκη ημέρας προπόνησης"
 
-#: manager/views/log.py:72
+#: manager/views/log.py:71
 #, python-format
 msgid "Edit log entry for %s"
 msgstr "Επεξεργασία εγγραφής ιστορικού για %s"
 
-#: manager/views/log.py:99
+#: manager/views/log.py:98
 msgid "New log entry"
 msgstr "Νέα εγγραφή ιστορικού"
 
-#: manager/views/log.py:124
+#: manager/views/log.py:123
 msgid "Delete workout log"
 msgstr "Διαγραφή ιστορικού προπόνησης"
 
-#: manager/views/schedule.py:175
+#: manager/views/schedule.py:183
 msgid "Create schedule"
 msgstr "Δημιουργία προγράμματος"
 
-#: manager/views/workout.py:177
+#: manager/views/workout.py:183
 msgid "Copy workout"
 msgstr "Αντιγραφή προπόνησης"
 
-#: manager/views/workout.py:181
+#: manager/views/workout.py:187
 msgid "Copy"
 msgstr "Αντιγραφή"
 
@@ -3154,6 +2989,10 @@ msgstr "Επεξεργασία εντύπτωσης προπόνησης για 
 #, python-brace-format
 msgid "New workout impression for the {0}"
 msgstr "Νέα εντύπωση προπόνησης για {0}"
+
+#: manager/views/workout_session.py:148
+msgid "This will delete all weight logs for this day as well."
+msgstr ""
 
 #: nutrition/forms.py:97 nutrition/templates/rate/form.html:96
 msgid "Basic caloric intake"
@@ -3171,17 +3010,13 @@ msgstr "Επιπλέον θερμίδες"
 msgid ""
 "Additional calories to add to the base rate (to substract, enter a negative "
 "number)"
-msgstr ""
-"Επιπλέον θερμίδες θα προστεθούν στην βασική τάση (για αφαίρεση, εισάγετε "
-"αρνητικό αριθμό)"
+msgstr "Επιπλέον θερμίδες θα προστεθούν στην βασική τάση (για αφαίρεση, εισάγετε αρνητικό αριθμό)"
 
 #: nutrition/models.py:83
 msgid ""
 "A description of the goal of the plan, e.g. \"Gain mass\" or \"Prepare for "
 "summer\""
-msgstr ""
-"Μια περιγραφή του στόχου ενός προγράμματος, π.χ. \"Προετοιμασία για το "
-"καλοκαίρι\" ή \"Πρόσθεση μάζας\""
+msgstr "Μια περιγραφή του στόχου ενός προγράμματος, π.χ. \"Προετοιμασία για το καλοκαίρι\" ή \"Πρόσθεση μάζας\""
 
 #: nutrition/models.py:85
 msgid "Use daily calories"
@@ -3191,10 +3026,7 @@ msgstr "Χρήση ημερήσιων θερμίδων"
 msgid ""
 "Tick the box if you want to mark this plan as having a goal amount of "
 "calories. You can use the calculator or enter the value yourself."
-msgstr ""
-"Επιλέξτε το κουτί αν θέλετε να σημειώσετε το πρόγραμμα σαν στόχος ποσότητας "
-"θερμίδων. Μπορείτε να χρησιμοποιήσετε τον υπολογιστή για να πληκτρολογήσετε "
-"την τιμή εσείς."
+msgstr "Επιλέξτε το κουτί αν θέλετε να σημειώσετε το πρόγραμμα σαν στόχος ποσότητας θερμίδων. Μπορείτε να χρησιμοποιήσετε τον υπολογιστή για να πληκτρολογήσετε την τιμή εσείς."
 
 #: nutrition/models.py:209 utils/models.py:68
 msgid "Pending"
@@ -3228,25 +3060,25 @@ msgstr "Σε g ανα 100g προϊόντος"
 
 #: nutrition/models.py:267 nutrition/templates/ingredient/view.html:112
 #: nutrition/templates/mobile/plan/view.html:332
-#: nutrition/templates/plan/view.html:224 nutrition/views/plan.py:330
+#: nutrition/templates/plan/view.html:224 nutrition/views/plan.py:331
 msgid "Sugar content in carbohydrates"
 msgstr "Περιεχόμενο σάκχαρων σε υδατάνθρακες"
 
 #: nutrition/models.py:283 nutrition/templates/ingredient/view.html:128
 #: nutrition/templates/mobile/plan/view.html:344
-#: nutrition/templates/plan/view.html:236 nutrition/views/plan.py:337
+#: nutrition/templates/plan/view.html:236 nutrition/views/plan.py:338
 msgid "Saturated fat content in fats"
 msgstr "Εκ των οποίων κορεσμένα λίπη"
 
 #: nutrition/models.py:292 nutrition/templates/ingredient/view.html:150
 #: nutrition/templates/mobile/plan/view.html:355
-#: nutrition/templates/plan/view.html:247 nutrition/views/plan.py:340
+#: nutrition/templates/plan/view.html:247 nutrition/views/plan.py:341
 msgid "Fibres"
 msgstr "Ίνες"
 
 #: nutrition/models.py:301 nutrition/templates/ingredient/view.html:160
 #: nutrition/templates/mobile/plan/view.html:361
-#: nutrition/templates/plan/view.html:253 nutrition/views/plan.py:342
+#: nutrition/templates/plan/view.html:253 nutrition/views/plan.py:343
 msgid "Sodium"
 msgstr "Νάτριο"
 
@@ -3254,11 +3086,9 @@ msgstr "Νάτριο"
 msgid ""
 "Total energy is not the approximate sum of the energy provided by protein, "
 "carbohydrates and fat."
-msgstr ""
-"Η συνολική ενέργεια δεν είναι το υπολογιζόμενο σύνολο της ενέργειας που "
-"παρέχεται απο προτεϊνες, υδατάνθρακες και λίπη"
+msgstr "Η συνολική ενέργεια δεν είναι το υπολογιζόμενο σύνολο της ενέργειας που παρέχεται απο προτεϊνες, υδατάνθρακες και λίπη"
 
-#: nutrition/models.py:409 nutrition/views/ingredient.py:218
+#: nutrition/models.py:409 nutrition/views/ingredient.py:219
 msgid "Ingredient was successfully added to the general database"
 msgstr "Το συστατικό προστέθηκε με επιτυχία στην γενική βάση δεδομένων"
 
@@ -3336,12 +3166,7 @@ msgid ""
 "If you have entered data in the weight section, the last entry will\n"
 "be used automatically. Otherwise the weight you enter here will be saved\n"
 "in a new entry."
-msgstr ""
-"Χρησιμοποιήστε την φόρμα για να υπολογίσετε το BMI σας (δείκτης μάζας "
-"σώματος).\n"
-"Αν έχετε εισάγει δεδομένα στην ενότητα βάρους, η τελευταία σας ενημέρωση θα\n"
-"χρησιμοποιηθεί αυτόματα. Ειδάλλως το βάρος που εισάγετε εδώ θα αποθηκευτεί "
-"ως η τελευταία σας ενημέρωση."
+msgstr "Χρησιμοποιήστε την φόρμα για να υπολογίσετε το BMI σας (δείκτης μάζας σώματος).\nΑν έχετε εισάγει δεδομένα στην ενότητα βάρους, η τελευταία σας ενημέρωση θα\nχρησιμοποιηθεί αυτόματα. Ειδάλλως το βάρος που εισάγετε εδώ θα αποθηκευτεί ως η τελευταία σας ενημέρωση."
 
 #: nutrition/templates/ingredient/email_new.html:1
 #, python-format
@@ -3354,10 +3179,7 @@ msgstr ""
 msgid ""
 "It is now available on the ingredient overview and can be\n"
 "added to nutrition plans. You can access it on this address:"
-msgstr ""
-"Είναι πλέον διαθέσιμο στην επισκόπηση συστατικών και μπορείτε\n"
-"να το προσθέσετε στα προγράμματα διατροφής. Μπορείτε να δείτε περισσότερα σε "
-"αυτήν την διεύθυνση:"
+msgstr "Είναι πλέον διαθέσιμο στην επισκόπηση συστατικών και μπορείτε\nνα το προσθέσετε στα προγράμματα διατροφής. Μπορείτε να δείτε περισσότερα σε αυτήν την διεύθυνση:"
 
 #: nutrition/templates/ingredient/form.html:4
 msgid "Submitting an ingredient"
@@ -3367,25 +3189,15 @@ msgstr "Υποβολή ενός συστατικού"
 msgid ""
 "Thank you for submitting an ingredient. This is much\n"
 "appreciated!"
-msgstr ""
-"Ευχαριστούμε για την υποβολή ενός συστατικού. Το\n"
-"εκτιμούμε πολύ!"
+msgstr "Ευχαριστούμε για την υποβολή ενός συστατικού. Το\nεκτιμούμε πολύ!"
 
 #: nutrition/templates/ingredient/form.html:8
 msgid ""
 "After you submit the form, the administrators will be notified.\n"
 "Once it is reviewed, it will be added to the database. Till this happens,\n"
-"it will not be visible in the overview or the search. In case you added your "
-"email\n"
-"when you registered, you will get notified when the process is completed "
-"sucessfully."
-msgstr ""
-"Μετα την υποβολή της φόρμας, οι διαχειριστές θα ειδοποιηθούν.\n"
-"Μόλις εξεταστεί, θα προστεθεί στην βάση δεδομένων. Έως ότου γίνει,\n"
-"δεν θα είναι ορατό στην επισκόπηση και στις ανευρέσεις. Σε περίπτωση που "
-"εισάγατε το email σας\n"
-"όταν εγγραφήκατε, θα ειδοποιηθείτε για την εξέλιξη της όταν ολοκληρωθεί με "
-"επιτυχία."
+"it will not be visible in the overview or the search. In case you added your email\n"
+"when you registered, you will get notified when the process is completed sucessfully."
+msgstr "Μετα την υποβολή της φόρμας, οι διαχειριστές θα ειδοποιηθούν.\nΜόλις εξεταστεί, θα προστεθεί στην βάση δεδομένων. Έως ότου γίνει,\nδεν θα είναι ορατό στην επισκόπηση και στις ανευρέσεις. Σε περίπτωση που εισάγατε το email σας\nόταν εγγραφήκατε, θα ειδοποιηθείτε για την εξέλιξη της όταν ολοκληρωθεί με επιτυχία."
 
 #: nutrition/templates/ingredient/overview.html:46
 #: nutrition/templates/mobile/ingredient_overview.html:21
@@ -3417,13 +3229,9 @@ msgstr "Συστατικά που αναμένουν εξέταση"
 #: nutrition/templates/ingredient/view.html:23
 msgid ""
 "This user submitted ingredient is pending a decision to be\n"
-"included in the database. Till then, it will not be shown in the overview "
-"or\n"
+"included in the database. Till then, it will not be shown in the overview or\n"
 "the search."
-msgstr ""
-"Ο χρήστης υπέβαλλε ένα συστατικό που αναμένει εξέταση προκειμένου να "
-"συμπεριληφθεί στην βάση δεδομένων. Έως τότε, δεν θα εμφανίζεται στην\n"
-"επισκόπηση ή στις ανευρέσεις."
+msgstr "Ο χρήστης υπέβαλλε ένα συστατικό που αναμένει εξέταση προκειμένου να συμπεριληφθεί στην βάση δεδομένων. Έως τότε, δεν θα εμφανίζεται στην\nεπισκόπηση ή στις ανευρέσεις."
 
 #: nutrition/templates/ingredient/view.html:71
 msgid "Nutritional values in"
@@ -3431,7 +3239,7 @@ msgstr "Διατροφικές αξίες σε"
 
 #: nutrition/templates/ingredient/view.html:88
 #: nutrition/templates/mobile/plan/view.html:300
-#: nutrition/templates/plan/view.html:192 nutrition/views/plan.py:313
+#: nutrition/templates/plan/view.html:192 nutrition/views/plan.py:314
 msgid "Macronutrients"
 msgstr "Θρεπτικά στοιχεία"
 
@@ -3513,7 +3321,7 @@ msgstr "Διαγραφή γεύματος"
 #: nutrition/templates/mobile/plan/view.html:81
 #: nutrition/templates/mobile/plan/view.html:82
 #: nutrition/templates/plan/view.html:91 nutrition/templates/plan/view.html:92
-#: nutrition/views/meal.py:73
+#: nutrition/views/meal.py:75
 msgid "Edit meal"
 msgstr "Επεξεργασία γεύματος"
 
@@ -3528,7 +3336,7 @@ msgstr "Προσθήκη είδους στο γεύμα"
 
 #: nutrition/templates/mobile/plan/view.html:125
 #: nutrition/templates/mobile/plan/view.html:296
-#: nutrition/templates/plan/view.html:188 nutrition/views/plan.py:311
+#: nutrition/templates/plan/view.html:188 nutrition/views/plan.py:312
 msgid "Nutritional data"
 msgstr "Διατροφικά δεδομένα"
 
@@ -3554,31 +3362,27 @@ msgstr "Προσθήκη νέου γεύματος"
 msgid ""
 "If you find the ingredient list too short, you might want to activate the "
 "preference to also show English ingredients."
-msgstr ""
-"Αν βρείτε την λίστα συστατικών πολύ μικρή, ίσως θελήσετε να ενεργοποιήσετε "
-"απο τις προτιμήσεις τα αγγλικά συστατικά επίσης."
+msgstr "Αν βρείτε την λίστα συστατικών πολύ μικρή, ίσως θελήσετε να ενεργοποιήσετε απο τις προτιμήσεις τα αγγλικά συστατικά επίσης."
 
 #: nutrition/templates/mobile/plan/view.html:290
 #: nutrition/templates/plan/view.html:290
 msgid ""
 "You have selected that this nutritional plan has a\n"
 "    goal amount of calories. Use the calculator or enter the value yourself."
-msgstr ""
-"Έχετε επιλέξει ότι αυτό το διατροφικό πρόγραμμα έχει εναν\n"
-"στόχο θερμίδων. Χρησιμοποιήστε τον υπολογιστή ή εισάγετε τις τιμές εσείς."
+msgstr "Έχετε επιλέξει ότι αυτό το διατροφικό πρόγραμμα έχει εναν\nστόχο θερμίδων. Χρησιμοποιήστε τον υπολογιστή ή εισάγετε τις τιμές εσείς."
 
 #: nutrition/templates/mobile/plan/view.html:301
-#: nutrition/templates/plan/view.html:193 nutrition/views/plan.py:314
+#: nutrition/templates/plan/view.html:193 nutrition/views/plan.py:315
 msgid "Total"
 msgstr "Σύνολο"
 
 #: nutrition/templates/mobile/plan/view.html:302
-#: nutrition/templates/plan/view.html:194 nutrition/views/plan.py:315
+#: nutrition/templates/plan/view.html:194 nutrition/views/plan.py:316
 msgid "Percent of energy"
 msgstr "Ποσοστό ενέργειας"
 
 #: nutrition/templates/mobile/plan/view.html:305
-#: nutrition/templates/plan/view.html:197 nutrition/views/plan.py:316
+#: nutrition/templates/plan/view.html:197 nutrition/views/plan.py:317
 msgid "g per body kg"
 msgstr "g ανα kg σώματος"
 
@@ -3623,13 +3427,9 @@ msgstr "Βασικός μεταβολικός ρυθμός"
 #: nutrition/templates/rate/form.html:26
 msgid ""
 "The basal metabolic rate is the amount of energy expended daily\n"
-"at rest. This is the minimum energy needed for the body to function, without "
-"any\n"
+"at rest. This is the minimum energy needed for the body to function, without any\n"
 "additional physical activity."
-msgstr ""
-"Ο βασικός μεταβολικός ρυθμός είναι η ποσότητα ενέργειας που καταναλώνεται "
-"καθημερινά σε ηρεμία. Είναι η ελάχιστη ενέργεια που χρειάζεται το σώμα για "
-"να λειτουργήσει, χωρίς επιπρόσθετες σωματικές δραστηριότητες."
+msgstr "Ο βασικός μεταβολικός ρυθμός είναι η ποσότητα ενέργειας που καταναλώνεται καθημερινά σε ηρεμία. Είναι η ελάχιστη ενέργεια που χρειάζεται το σώμα για να λειτουργήσει, χωρίς επιπρόσθετες σωματικές δραστηριότητες."
 
 #: nutrition/templates/rate/form.html:42
 msgid "Your basic metabolic rate is: "
@@ -3644,11 +3444,7 @@ msgid ""
 "The physical activity level (PAL) is a factor used to to express\n"
 "the additional physical activity and is used to calculate the total energy\n"
 "required per day."
-msgstr ""
-"Το σωματικό επίπεδο δραστηριότητας (PAL) είναι ένας παράγοντας που\n"
-"χρησιμοποιείται για να εκφραστεί η επιπλέον φυσική δραστηριότητα και\n"
-"χρησιμοποιείται στον υπολογισμό της συνολικής ενέργειας που απαιτείται\n"
-"ανα μέρα."
+msgstr "Το σωματικό επίπεδο δραστηριότητας (PAL) είναι ένας παράγοντας που\nχρησιμοποιείται για να εκφραστεί η επιπλέον φυσική δραστηριότητα και\nχρησιμοποιείται στον υπολογισμό της συνολικής ενέργειας που απαιτείται\nανα μέρα."
 
 #: nutrition/templates/rate/form.html:79
 msgid "Factor for daily activities: "
@@ -3658,10 +3454,7 @@ msgstr "Παράγοντας για καθημερινές δραστηριότ�
 msgid ""
 "The base caloric intake is the amount of calories your metabolism\n"
 "needs based on your level of physical activity."
-msgstr ""
-"Η βασική λήψη θερμίδων είναι η ποσότητα των θερμίδων που ο\n"
-"μεταβολισμός σας χρειάζεται βάσει του επιπέδου της φυσικής σας\n"
-"δραστηριότητας."
+msgstr "Η βασική λήψη θερμίδων είναι η ποσότητα των θερμίδων που ο\nμεταβολισμός σας χρειάζεται βάσει του επιπέδου της φυσικής σας\nδραστηριότητας."
 
 #: nutrition/templates/rate/form.html:101
 msgid "Calculate basic caloric intake"
@@ -3670,14 +3463,9 @@ msgstr "Υπολογισμός βασικής λήψης θερμίδων"
 #: nutrition/templates/rate/form.html:108
 msgid ""
 "The total calories are the actual total calories per day. This\n"
-"might include e.g. a surplus or deficit if you are bulking or cutting. "
-"Alternatively\n"
+"might include e.g. a surplus or deficit if you are bulking or cutting. Alternatively\n"
 "you might just enter yourself the amount of calories if you know the value."
-msgstr ""
-"Οι συνολικές θερμίδες είναι οι πραγματικές συνολικές θερμίδες ανα μέρα.\n"
-"Αυτό μπορεί να περιλαμβάνει π.χ. μιά αύξηση ή μείωση.\n"
-"Εναλλακτικά μπορείτε να εισάγετε μόνοι σας την ποσότητα των θερμίδων\n"
-"αν γνωρίζετε την ποσότητα."
+msgstr "Οι συνολικές θερμίδες είναι οι πραγματικές συνολικές θερμίδες ανα μέρα.\nΑυτό μπορεί να περιλαμβάνει π.χ. μιά αύξηση ή μείωση.\nΕναλλακτικά μπορείτε να εισάγετε μόνοι σας την ποσότητα των θερμίδων\nαν γνωρίζετε την ποσότητα."
 
 #: nutrition/templates/rate/form.html:123
 msgid "Transfer basic intake to total daily calories"
@@ -3696,42 +3484,37 @@ msgid ""
 "Please note that these calculations can only be an\n"
 "approximation. If you base your nutrition plan on these values, observe\n"
 "yourself for some weeks and change the total amount if needed."
-msgstr ""
-"Παρακαλούμε σημειώστε ότι οι υπολογισμοί είναι κατα προσέγγιση.\n"
-"Αν βασίζετε το διατροφικό σας πρόγραμμα με αυτες τις τιμές, παρατηρήστε\n"
-"τον εαυτό σας τις προσεχείς εβδομάδες και αλλάξτε την συνολική ποσότητα\n"
-"αν απαιτείται."
+msgstr "Παρακαλούμε σημειώστε ότι οι υπολογισμοί είναι κατα προσέγγιση.\nΑν βασίζετε το διατροφικό σας πρόγραμμα με αυτες τις τιμές, παρατηρήστε\nτον εαυτό σας τις προσεχείς εβδομάδες και αλλάξτε την συνολική ποσότητα\nαν απαιτείται."
 
-#: nutrition/views/ingredient.py:161
+#: nutrition/views/ingredient.py:162
 msgid "Add a new ingredient"
 msgstr "Προσθήκη νέου συστατικού"
 
-#: nutrition/views/ingredient.py:172
+#: nutrition/views/ingredient.py:173
 msgid "New user submitted ingredient"
 msgstr "Ένας χρήστης υπέβαλλε συστατικό"
 
-#: nutrition/views/ingredient.py:173
+#: nutrition/views/ingredient.py:174
 #, python-brace-format
 msgid "The user {0} submitted a new ingredient \"{1}\"."
 msgstr "Ο χρήστης {0} υπέβαλλε ένα νέο συστατικό \"{1}\"."
 
-#: nutrition/views/ingredient.py:231
+#: nutrition/views/ingredient.py:232
 msgid "Ingredient was successfully marked as rejected"
 msgstr "Το συστατικό απορρίφθηκε με επιτυχία"
 
-#: nutrition/views/meal.py:46
+#: nutrition/views/meal.py:47
 msgid "Add new meal"
 msgstr "Προσθήκη νέου γεύματος"
 
-#: nutrition/views/plan.py:222
+#: nutrition/views/plan.py:223
 #, python-format
 msgid "Nutritional plan %s"
 msgstr "Πρόγραμμα διατροφής %s"
 
-#: nutrition/views/plan.py:292
+#: nutrition/views/plan.py:293
 msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
-msgstr ""
-"<i>Αυτό είναι ένα άδειο πρόγραμμα, τί περιμένατε να δείτε σε αυτό το PDF;</i>"
+msgstr "<i>Αυτό είναι ένα άδειο πρόγραμμα, τί περιμένατε να δείτε σε αυτό το PDF;</i>"
 
 #: nutrition/views/unit_ingredient.py:52
 msgid "Add a new weight unit"
@@ -3745,112 +3528,79 @@ msgstr "Επεξεργασία μια μονάδας βάρους στον συ�
 msgid "Delete?"
 msgstr "Διαγραφη;"
 
-#: software/templates/code.html:12
+#: software/templates/code.html:11
 msgid "Installing the stable version"
 msgstr "Εγκατάσταση σταθερής έκδοσης"
 
-#: software/templates/code.html:15
+#: software/templates/code.html:14
 msgid ""
 "Click here to download the last stable version. For\n"
 "installation instructions see below."
-msgstr ""
-"Κάντε κλίκ εδώ για την μεταφόρτωση της τελευταίας σταθερής έκδοσης. Για\n"
-"οδηγίες εγκατάστασης δείτε παρακάτω."
+msgstr "Κάντε κλίκ εδώ για την μεταφόρτωση της τελευταίας σταθερής έκδοσης. Για\nοδηγίες εγκατάστασης δείτε παρακάτω."
 
-#: software/templates/code.html:21
+#: software/templates/code.html:20
 msgid "download stable version:"
 msgstr "μεταφόρτωση σταθερής έκδοσης:"
 
-#: software/templates/code.html:28
+#: software/templates/code.html:27
 msgid ""
 "In short, these are the steps needed for an installation\n"
-"on a linux or OS X machine, with python already installed. If you want to "
-"develop,\n"
+"on a linux or OS X machine, with python already installed. If you want to develop,\n"
 "see the sections below."
-msgstr ""
-"Εν συντομία, αυτά είναι τα βήματα που απαιτούνται για την εγκατάσταση\n"
-"σε linux ή OS X μηχανήματα, με την python ήδη εγκατεστημένη. Αν θέλετε\n"
-"να αναπτύξετε,\n"
-"δείτε τις παρακάτω ενότητες."
+msgstr "Εν συντομία, αυτά είναι τα βήματα που απαιτούνται για την εγκατάσταση\nσε linux ή OS X μηχανήματα, με την python ήδη εγκατεστημένη. Αν θέλετε\nνα αναπτύξετε,\nδείτε τις παρακάτω ενότητες."
 
-#: software/templates/code.html:32
+#: software/templates/code.html:31
 msgid ""
 "I personally like installing my development\n"
-"files on a virtualenv, it helps keep the system more or less clean and are "
-"very\n"
+"files on a virtualenv, it helps keep the system more or less clean and are very\n"
 "easy to set up, but you can skip this step if you don't mind installing all\n"
-"dependencies system-wide (in that case, install django and the other "
-"applications\n"
+"dependencies system-wide (in that case, install django and the other applications\n"
 "with a <code>sudo</code>)."
-msgstr ""
-"Προσωπικά μου αρέσει να εγκαθιστώ τα αρχεία ανάπτυξης μου σε ένα virtualenv, "
-"καθώς βοηθά να κρατήσεις το σύστημα πιό καθαρό και είναι πολύ ευκολότερη η "
-"ρύθμιση του. Ωστόσο μπορείτε να αποφύγετε αυτό το βήμα αν δεν σας πειράζει "
-"να εγκαταστήσετε όλες τις εξαρτώμενες εφαρμογές συστήματος (σε τέτοια "
-"περίπτωση, εγκαταστήστε το django και τις άλλες εφαρμογές με ένα <code>sudo</"
-"code>)."
+msgstr "Προσωπικά μου αρέσει να εγκαθιστώ τα αρχεία ανάπτυξης μου σε ένα virtualenv, καθώς βοηθά να κρατήσεις το σύστημα πιό καθαρό και είναι πολύ ευκολότερη η ρύθμιση του. Ωστόσο μπορείτε να αποφύγετε αυτό το βήμα αν δεν σας πειράζει να εγκαταστήσετε όλες τις εξαρτώμενες εφαρμογές συστήματος (σε τέτοια περίπτωση, εγκαταστήστε το django και τις άλλες εφαρμογές με ένα <code>sudo</code>)."
 
-#: software/templates/code.html:45
+#: software/templates/code.html:44
 msgid "Get the application from PyPI, initialise and start it."
 msgstr "Βρείτε την εφαρμογή απο το PyPI, αρχικοποιήστε και ξεκινήστε την."
 
-#: software/templates/code.html:52
+#: software/templates/code.html:51
 msgid ""
 "The script will, on first run, create a configuration\n"
 "file and a SQLite database with a standard superuser:"
-msgstr ""
-"Το script στην πρώτη εκκίνηση θα δημιουργήσει ένα αρχείο\n"
-"παραμέτρων και μια βάση δεδομένων SQLite με έναν τυπικό\n"
-"διαχειριστή:"
+msgstr "Το script στην πρώτη εκκίνηση θα δημιουργήσει ένα αρχείο\nπαραμέτρων και μια βάση δεδομένων SQLite με έναν τυπικό\nδιαχειριστή:"
 
-#: software/templates/code.html:56
+#: software/templates/code.html:55
 msgid "username:"
 msgstr "ονομα χρήστη:"
 
-#: software/templates/code.html:57
+#: software/templates/code.html:56
 msgid "password:"
 msgstr "κωδικός:"
 
-#: software/templates/code.html:60
+#: software/templates/code.html:59
 msgid ""
 "You can later simply call <code>wger</code> again to start\n"
 "the application."
-msgstr ""
-"Μπορείτε αργότερα να καλλέσετε <code>wger</code> ξανά\n"
-"για να ξεκινήσετε την εφαρμογή."
+msgstr "Μπορείτε αργότερα να καλλέσετε <code>wger</code> ξανά\nγια να ξεκινήσετε την εφαρμογή."
 
-#: software/templates/code.html:63
+#: software/templates/code.html:62
 msgid "Use <code>wger --help</code> to see available options"
-msgstr ""
-"Χρησιμοποιήστε <code>wger --help</code> για να δείτε τις \n"
-"διαθέσιμες επιλογές"
+msgstr "Χρησιμοποιήστε <code>wger --help</code> για να δείτε τις \nδιαθέσιμες επιλογές"
 
 #: software/templates/contribute.html:11
 msgid ""
 "wger Workout Manager is build by volunteers,\n"
-"the development process is open and freely accessible to anybody "
-"interested.\n"
+"the development process is open and freely accessible to anybody interested.\n"
 "If you are new to the free software world, we recommend to take a\n"
-"look <a href=\"http://schlitt.info/opensource/"
-"blog/0541_10_golden_rules_for_starting_with_open_source.html\">this\n"
+"look <a href=\"http://schlitt.info/opensource/blog/0541_10_golden_rules_for_starting_with_open_source.html\">this\n"
 "article</a> which summarizes they way open source projects work very well. "
-msgstr ""
-"Το wger Workout Manager χτίζεται απο εθελοντές,\n"
-"η διαδικασία ανάπτυξης είναι ανοιχτή και πλήρως διαθέσιμο σε οποιονδήποτε.\n"
-"Αν είστε νέος στον κόσμο του ελεύθερου λογισμικού, σας συνιστούμε να ρίξετε "
-"μιά ματιά σε αυτό <a href=\"http://schlitt.info/opensource/"
-"blog/0541_10_golden_rules_for_starting_with_open_source.html\">το άρθρο</a> "
-"που περιληπτικά αναφέρει πως τα προγράμματα ανοιχτού κώδικα δουλεύουν καλά."
+msgstr "Το wger Workout Manager χτίζεται απο εθελοντές,\nη διαδικασία ανάπτυξης είναι ανοιχτή και πλήρως διαθέσιμο σε οποιονδήποτε.\nΑν είστε νέος στον κόσμο του ελεύθερου λογισμικού, σας συνιστούμε να ρίξετε μιά ματιά σε αυτό <a href=\"http://schlitt.info/opensource/blog/0541_10_golden_rules_for_starting_with_open_source.html\">το άρθρο</a> που περιληπτικά αναφέρει πως τα προγράμματα ανοιχτού κώδικα δουλεύουν καλά."
 
 #: software/templates/contribute.html:18
 msgid ""
 "Any kind of contribution is appreciated and welcome.\n"
 "Use this opportunity and influence the direction of the\n"
 "project. "
-msgstr ""
-"Εκτιμούμε πολύ οποιοδήποτε είδος συνεισφοράς.\n"
-"Χρησιμοποιήστε αυτήν την ευκαιρία για να επηρεάσετε\n"
-"την εξέλιξη του έργου."
+msgstr "Εκτιμούμε πολύ οποιοδήποτε είδος συνεισφοράς.\nΧρησιμοποιήστε αυτήν την ευκαιρία για να επηρεάσετε\nτην εξέλιξη του έργου."
 
 #: software/templates/contribute.html:26
 msgid "Our goal"
@@ -3859,14 +3609,9 @@ msgstr "Ο στόχος μας"
 #: software/templates/contribute.html:29
 msgid ""
 "The goal is to build an awesome\n"
-"and flexible fitness manager, along with a comprehensive and complete list "
-"of exercises and\n"
+"and flexible fitness manager, along with a comprehensive and complete list of exercises and\n"
 "ingredients, all released under a free license."
-msgstr ""
-"Ο στόχος είναι να χτιστεί μιά καταπληκτική\n"
-"και ευέλικτη εφαρμογή διαχείρισης προπονήσεων, μαζί με μιά περιεκτική\n"
-"και ολοκληρωμένη λίστα ασκήσεων και διατροφών, όλα διανεμημένα κάτω απο "
-"δωρεάν αδειοδότηση."
+msgstr "Ο στόχος είναι να χτιστεί μιά καταπληκτική\nκαι ευέλικτη εφαρμογή διαχείρισης προπονήσεων, μαζί με μιά περιεκτική\nκαι ολοκληρωμένη λίστα ασκήσεων και διατροφών, όλα διανεμημένα κάτω απο δωρεάν αδειοδότηση."
 
 #: software/templates/contribute.html:41
 msgid "Use the site"
@@ -3876,14 +3621,9 @@ msgstr "Χρησιμοποιήστε το site"
 msgid ""
 "Simply use the site and tell your friends\n"
 "how useful it is! ;) . When you find something that you specially liked,\n"
-"could need some improvements or just doesn't work, tell us! This might not "
-"sound\n"
+"could need some improvements or just doesn't work, tell us! This might not sound\n"
 "like much, but is incredibly important!"
-msgstr ""
-"Απλα χρησιμοποιήστε την σελίδα και πείτε τους φίλους σας πόσο χρήσιμη "
-"είναι! ;) . Όταν βρείτε κάτι που σας άρεσε ιδιαίτερα, που χρειάζεται "
-"βελτίωση ή απλά δεν λειτουργεί, πείτε μας! Μπορεί να μην φαινεται αρκετό "
-"αυτό, αλλά είναι παρα πολύ σημαντικό!"
+msgstr "Απλα χρησιμοποιήστε την σελίδα και πείτε τους φίλους σας πόσο χρήσιμη είναι! ;) . Όταν βρείτε κάτι που σας άρεσε ιδιαίτερα, που χρειάζεται βελτίωση ή απλά δεν λειτουργεί, πείτε μας! Μπορεί να μην φαινεται αρκετό αυτό, αλλά είναι παρα πολύ σημαντικό!"
 
 #: software/templates/contribute.html:55
 msgid "Submit exercises"
@@ -3892,30 +3632,18 @@ msgstr "Υποβολή ασκήσεων"
 #: software/templates/contribute.html:58
 msgid ""
 "Submit those cool exercises that you absolutely\n"
-"love and do every week but are not in the list yet. If you think some "
-"description\n"
+"love and do every week but are not in the list yet. If you think some description\n"
 "is too short or some other detail is missing or could be improved, tell!"
-msgstr ""
-"Υποβάλλετε εκείνες τις τέλειες ασκήσεις που τόσο πολύ αγαπάτε\n"
-"και κάνετε κάθε εβδομάδα αλλα δεν έχουν μπεί ακόμα στην λίστα. Αν\n"
-"νομίζετε ότι κάποια περιγραφή\n"
-"είναι πολύ μικρή ή κάποια άλλη λεπτομέρεια λείπει ή μπορεί να βελτιωθεί, "
-"πείτε το!"
+msgstr "Υποβάλλετε εκείνες τις τέλειες ασκήσεις που τόσο πολύ αγαπάτε\nκαι κάνετε κάθε εβδομάδα αλλα δεν έχουν μπεί ακόμα στην λίστα. Αν\nνομίζετε ότι κάποια περιγραφή\nείναι πολύ μικρή ή κάποια άλλη λεπτομέρεια λείπει ή μπορεί να βελτιωθεί, πείτε το!"
 
 #: software/templates/contribute.html:75
 msgid ""
 "Do you want to use wger in your own language?\n"
 "Do you think the current translation could be improved?\n"
-"The translations are easily managed and edited online, if you are "
-"interested,\n"
+"The translations are easily managed and edited online, if you are interested,\n"
 "go to the transifex site, request access and we will set everything\n"
 "up. "
-msgstr ""
-"Θέλετε να χρησιμοποιήσετε το wger στην γλώσσα σας;\n"
-"Νομίζετε ότι η τρέχουσα μετάφραση μπορεί να βελτιωθεί;\n"
-"Οι μεταφράσεις μπορούν να διαχειριστούν εύκολα και να επεξεργαστούν online. "
-"Αν ενδιαφέρεστε, επισκεφτείτε την σελίδα της transifex, αιτηθείτε πρόσβαση "
-"και τα υπόλοιπα θα τα ετοιμάσουμε εμείς."
+msgstr "Θέλετε να χρησιμοποιήσετε το wger στην γλώσσα σας;\nΝομίζετε ότι η τρέχουσα μετάφραση μπορεί να βελτιωθεί;\nΟι μεταφράσεις μπορούν να διαχειριστούν εύκολα και να επεξεργαστούν online. Αν ενδιαφέρεστε, επισκεφτείτε την σελίδα της transifex, αιτηθείτε πρόσβαση και τα υπόλοιπα θα τα ετοιμάσουμε εμείς."
 
 #: software/templates/contribute.html:88
 msgid "Code"
@@ -3927,11 +3655,7 @@ msgid ""
 "repo and start hacking! Once you are ready, send a pull request and we\n"
 "will show the world. Take a look at the developer guide for more details\n"
 "on this."
-msgstr ""
-"Προφανώς, σας ενθαρρύνουμε θερμά να κάνετε έναν κλώνο του repo και να "
-"αρχίσετε τις μετατροπές! Εφόσον έχετε ξεκινήσει, στείλτε ένα αίτημα pull και "
-"θα το δείξουμε σε όλο τον κόσμο. Ρίξτε μιά ματιά στον οδηγό ανάπτυξης για "
-"περισσότερες πληροφορίες."
+msgstr "Προφανώς, σας ενθαρρύνουμε θερμά να κάνετε έναν κλώνο του repo και να αρχίσετε τις μετατροπές! Εφόσον έχετε ξεκινήσει, στείλτε ένα αίτημα pull και θα το δείξουμε σε όλο τον κόσμο. Ρίξτε μιά ματιά στον οδηγό ανάπτυξης για περισσότερες πληροφορίες."
 
 #: software/templates/functions.html:12
 msgid ""
@@ -3962,63 +3686,37 @@ msgstr "Δοκιμάστε τώρα"
 #: software/templates/functions.html:61
 msgid ""
 "wger Workout Manager is a free, open source web application that manages\n"
-"your exercises and workouts. It started as a pet project of mine to replace "
-"my\n"
-"growing collection of different spreadsheets, but it has become something "
-"other\n"
+"your exercises and workouts. It started as a pet project of mine to replace my\n"
+"growing collection of different spreadsheets, but it has become something other\n"
 "people could also find useful."
-msgstr ""
-"Το wger Workout Manager είναι μιά δωρεάν, ανοιχτού κώδικα διαδικτυακή "
-"εφαρμογή που διαχειρίζεται της ασκήσεις και της προπονήσεις σας. Ξεκίνησε "
-"σαν μιά μικρή ιδέα μου για να αντικαταστήσω την συνεχώς αυξημένη συλλογή "
-"λογιστικών φύλλων, αλλά έχει μετατραπεί πλέον σαν κάτι πολύ χρήσιμο για όλα "
-"τον κόσμο."
+msgstr "Το wger Workout Manager είναι μιά δωρεάν, ανοιχτού κώδικα διαδικτυακή εφαρμογή που διαχειρίζεται της ασκήσεις και της προπονήσεις σας. Ξεκίνησε σαν μιά μικρή ιδέα μου για να αντικαταστήσω την συνεχώς αυξημένη συλλογή λογιστικών φύλλων, αλλά έχει μετατραπεί πλέον σαν κάτι πολύ χρήσιμο για όλα τον κόσμο."
 
 #: software/templates/functions.html:79
 msgid ""
 "Create and manage your workout routines by selecting how\n"
-"many days your workout consists of, and adding different exercises to each. "
-"You can\n"
+"many days your workout consists of, and adding different exercises to each. You can\n"
 "also combine different workouts into a schedule."
-msgstr ""
-"Δημιουγρήστε και διαχειριστείτε τις ρουτίνες της προπόνησης σας επιλέγοντας "
-"απο πόσες μέρες απαρτίζεται και προσθέτοντας διάφορες ασκήσεις σε κάθε μιά.\n"
-"Μπορείτε επίσης να συνδυάσετε διαφορετικές προπονήσεις μέσα στο ημερολόγιο."
-
-#: software/templates/functions.html:91 software/templates/functions.html:101
-msgid "Workout log"
-msgstr "Ιστορικό προπονήσεων"
+msgstr "Δημιουγρήστε και διαχειριστείτε τις ρουτίνες της προπόνησης σας επιλέγοντας απο πόσες μέρες απαρτίζεται και προσθέτοντας διάφορες ασκήσεις σε κάθε μιά.\nΜπορείτε επίσης να συνδυάσετε διαφορετικές προπονήσεις μέσα στο ημερολόγιο."
 
 #: software/templates/functions.html:94
 msgid ""
 "You can enter\n"
-"the weights and repetitions you did for each exercise. As with the (body) "
-"weight,\n"
-"it will generate some diagrams so so you can see at a glance how well you "
-"are doing.\n"
+"the weights and repetitions you did for each exercise. As with the (body) weight,\n"
+"it will generate some diagrams so so you can see at a glance how well you are doing.\n"
 "The raw numbers are still accessible as a table."
-msgstr ""
-"Μπορείτε να εισάγετε βάρη\n"
-"και επαναλήψεις που κάνατε για κάθε άσκηση. Όσο για το βάρος (σώματος),\n"
-"θα παράγει κάποια διαγράμματα για να ξέρετε πόσο καλά τα πηγαίνετε.\n"
-"Οι αριθμοί συνεχίζουν να είναι διαθέσιμοι ως πίνακας."
+msgstr "Μπορείτε να εισάγετε βάρη\nκαι επαναλήψεις που κάνατε για κάθε άσκηση. Όσο για το βάρος (σώματος),\nθα παράγει κάποια διαγράμματα για να ξέρετε πόσο καλά τα πηγαίνετε.\nΟι αριθμοί συνεχίζουν να είναι διαθέσιμοι ως πίνακας."
 
 #: software/templates/functions.html:98
 msgid ""
 "You can also enter notes and a general impression (great, neutral, etc.)"
-msgstr ""
-"Μπορείτε επίσης να προσθέσετε σημειώσεις καθώς και μιά γενική εντύπωση "
-"(τέλεια, έτσι & έτσι, κλπ)"
+msgstr "Μπορείτε επίσης να προσθέσετε σημειώσεις καθώς και μιά γενική εντύπωση (τέλεια, έτσι & έτσι, κλπ)"
 
 #: software/templates/functions.html:110
 msgid ""
 "Create a diet plan and see its nutritional\n"
 "values (total energy, protein, carbohydrates, and so on) about\n"
 "it. Select from more than 8000 ingredients for this."
-msgstr ""
-"Δημιουργήστε ένα πλάνο δίαιτας και δείτε τις διατροφικές αξίες\n"
-"(σύνολο ενέργειας, προτεϊνες, υδατάνθρακες, κλπ) της.\n"
-"Επιλέξτε απο περισσότερα απο 8000 συστατικά."
+msgstr "Δημιουργήστε ένα πλάνο δίαιτας και δείτε τις διατροφικές αξίες\n(σύνολο ενέργειας, προτεϊνες, υδατάνθρακες, κλπ) της.\nΕπιλέξτε απο περισσότερα απο 8000 συστατικά."
 
 #: software/templates/functions.html:124 software/templates/functions.html:132
 msgid "Weight tracker"
@@ -4027,13 +3725,9 @@ msgstr "Ιχνηλάτης βάρους"
 #: software/templates/functions.html:127
 msgid ""
 "keep track of your progress with the weight log chart\n"
-"for each exercise and your own body weight. This makes it easy to see if "
-"you\n"
+"for each exercise and your own body weight. This makes it easy to see if you\n"
 "are reaching your goals or need to adjust something."
-msgstr ""
-"κρατήστε σημειώσεις της προόδου σας μαζί με ιστορικά και γραφήματα βαρών\n"
-"για κάθε άσκηση και του δικού σας βάρους. Αυτό καθιστά εύκολο να\n"
-"δείτε αν φτάνετε τους στόχους σας ή αν χρειάζεται να αλλάξετε κάτι."
+msgstr "κρατήστε σημειώσεις της προόδου σας μαζί με ιστορικά και γραφήματα βαρών\nγια κάθε άσκηση και του δικού σας βάρους. Αυτό καθιστά εύκολο να\nδείτε αν φτάνετε τους στόχους σας ή αν χρειάζεται να αλλάξετε κάτι."
 
 #: software/templates/functions.html:139 software/templates/functions.html:149
 msgid "Exercise database"
@@ -4042,15 +3736,10 @@ msgstr "Βάση δεδομένων ασκήσεων"
 #: software/templates/functions.html:143
 msgid ""
 "The exercise database contains around hundred exercises\n"
-"from which you can choose when creating a workout. Some have important "
-"notes\n"
+"from which you can choose when creating a workout. Some have important notes\n"
 "about the form to perform them. This is displayed in the workout overview\n"
 "page, so you keep them in mind."
-msgstr ""
-"Η βάση δεδομένων των ασκήσεων περιέχει περισσότερες απο εκατό ασκήσεις που "
-"μπορείτε να τις επιλέξτετε όταν δημιουργήσετε μιά προπόνηση. Μερικές έχουν "
-"σημαντικές πληροφορίες σχετικά με πως πρέπει να ακολουθούνται. Αυτές οι "
-"πληροφορίες εμφανίζονται στην επισκόπηση προπονήσεων, οπότε έχετε το υπόψη."
+msgstr "Η βάση δεδομένων των ασκήσεων περιέχει περισσότερες απο εκατό ασκήσεις που μπορείτε να τις επιλέξτετε όταν δημιουργήσετε μιά προπόνηση. Μερικές έχουν σημαντικές πληροφορίες σχετικά με πως πρέπει να ακολουθούνται. Αυτές οι πληροφορίες εμφανίζονται στην επισκόπηση προπονήσεων, οπότε έχετε το υπόψη."
 
 #: software/templates/functions.html:156 software/templates/functions.html:166
 msgid "Gym management"
@@ -4059,16 +3748,10 @@ msgstr "Διαχείριση γυμναστηρίου"
 #: software/templates/functions.html:159
 msgid ""
 "Use the application for your gym to manage its\n"
-"members, their workouts and attendance. Keep an eye on inactive members "
-"with\n"
+"members, their workouts and attendance. Keep an eye on inactive members with\n"
 "optional notifications. You can create users with different roles to\n"
 "distribute the administrative tasks such as trainer or gym manager."
-msgstr ""
-"Χρησιμοποιήστε την εφαρμογή για το γυμναστήριο σας για να διαχειριστείτε "
-"μέλη, τις προπονήσεις τους και τις παρουσίες τους. Μπορείτε\n"
-"να παρακολουθείτε μή ενεργά μέλη με προαιρετικές ειδοποιήσεις.\n"
-"Μπορείτε να δημιουργήσετε χρήστες με διαφορετικούς ρόλους για να επιμερήσετε "
-"τις εργασίες σας όπως γυμναστές και διευθυντές γυμναστηρίου."
+msgstr "Χρησιμοποιήστε την εφαρμογή για το γυμναστήριο σας για να διαχειριστείτε μέλη, τις προπονήσεις τους και τις παρουσίες τους. Μπορείτε\nνα παρακολουθείτε μή ενεργά μέλη με προαιρετικές ειδοποιήσεις.\nΜπορείτε να δημιουργήσετε χρήστες με διαφορετικούς ρόλους για να επιμερήσετε τις εργασίες σας όπως γυμναστές και διευθυντές γυμναστηρίου."
 
 #: software/templates/functions.html:175
 #, python-format
@@ -4078,13 +3761,9 @@ msgstr "100%% Ανοιχτός Κώδικας"
 #: software/templates/functions.html:178
 msgid ""
 "All of the code running wger is open source, allowing\n"
-"the public to openly review its code and security. Anyone can contribute "
-"towards\n"
+"the public to openly review its code and security. Anyone can contribute towards\n"
 "the development of wger or deploy private installations."
-msgstr ""
-"Όλος ο κώδικας που τρέχει το wger είναι ανοιχτού λογισμικού, επιτρέποντας το "
-"κοινό να εξετάσει τον κώδικα και την ασφάλεια του. Οποιοσδήποτε μπορεί να "
-"συνεισφέρει στην ανάπτυξη του wger ή να εγκαταστήσει ιδιωτικές εγκαταστάσεις."
+msgstr "Όλος ο κώδικας που τρέχει το wger είναι ανοιχτού λογισμικού, επιτρέποντας το κοινό να εξετάσει τον κώδικα και την ασφάλεια του. Οποιοσδήποτε μπορεί να συνεισφέρει στην ανάπτυξη του wger ή να εγκαταστήσει ιδιωτικές εγκαταστάσεις."
 
 #: software/templates/functions.html:186
 msgid "Join and help"
@@ -4097,10 +3776,8 @@ msgstr "Αναπτύξτε μαζί μας"
 #: software/templates/functions.html:209
 msgid ""
 "wger provides a REST API with full read write access\n"
-"to all data. To access publicly accessible data such as exercises you don't "
-"need\n"
-"any form of authentication, for other objects such as workouts you need to "
-"get\n"
+"to all data. To access publicly accessible data such as exercises you don't need\n"
+"any form of authentication, for other objects such as workouts you need to get\n"
 "an API key."
 msgstr ""
 
@@ -4118,11 +3795,9 @@ msgstr "Εξαγωγή προπονήσεων, προγραμμάτων προπ
 
 #: software/templates/functions.html:225
 msgid ""
-"Create complex routines, specify how much the exercise weights increase each "
-"week"
-msgstr ""
-"Δημιουργήστε πολύπλοκες ρουτίνες, καθορίστε πόσο αυξάνονται τα βάρη της "
-"άσκησης ανα βδομάδα"
+"Create complex routines, specify how much the exercise weights increase each"
+" week"
+msgstr "Δημιουργήστε πολύπλοκες ρουτίνες, καθορίστε πόσο αυξάνονται τα βάρη της άσκησης ανα βδομάδα"
 
 #: software/templates/functions.html:226
 msgid ""
@@ -4133,9 +3808,7 @@ msgstr ""
 msgid ""
 "Export your routines and workouts to an application such as iCal or google "
 "calendar."
-msgstr ""
-"Εξαγωγή των ρουτινών και των προπονήσεων σε μιά εφαρμογή όπως το iCal ή το "
-"google calendar."
+msgstr "Εξαγωγή των ρουτινών και των προπονήσεων σε μιά εφαρμογή όπως το iCal ή το google calendar."
 
 #: software/templates/functions.html:228
 msgid ""
@@ -4146,9 +3819,7 @@ msgstr "Λήψη ειδοποιήσεων για υπενθύμιση αλλαγ
 msgid ""
 "Calendar view with last workouts and weight logs for easy overview and "
 "control"
-msgstr ""
-"Επισκόπηση ημερολογίου με τις τελευταίες προπονήσεις και εγγραφές βαρών για "
-"εύκολη επισκόπηση και έλεγχο"
+msgstr "Επισκόπηση ημερολογίου με τις τελευταίες προπονήσεις και εγγραφές βαρών για εύκολη επισκόπηση και έλεγχο"
 
 #: software/templates/functions.html:230
 msgid "Support for both metric (kg) and imperial (lb) weight units"
@@ -4181,12 +3852,9 @@ msgstr "Αναφέρετε ένα πρόβλημα"
 #: software/templates/issues.html:15
 msgid ""
 "\n"
-"No software is perfect. For some severe errors, an email will be "
-"automatically sent, but\n"
-"not always, so I depend on you reporting everything that didn't behave as "
-"expected.\n"
-"Please describe in as much detail as you can what you were doing when the "
-"error\n"
+"No software is perfect. For some severe errors, an email will be automatically sent, but\n"
+"not always, so I depend on you reporting everything that didn't behave as expected.\n"
+"Please describe in as much detail as you can what you were doing when the error\n"
 "happened.\n"
 msgstr ""
 
@@ -4201,8 +3869,7 @@ msgstr "Βελτιώσεις"
 #: software/templates/issues.html:32
 msgid ""
 "\n"
-"The issue tracker can also be used to document enhancements to the "
-"software.\n"
+"The issue tracker can also be used to document enhancements to the software.\n"
 "If you have some suggestions or think a feature is missing, feel\n"
 "free to open a ticket. This can be anything from a slight change to a whole\n"
 "new section of the site. Please keep in mind that not all wishes can be\n"
@@ -4228,15 +3895,12 @@ msgstr ""
 msgid ""
 "wger Workout Manager is Free/Libre Open Source\n"
 "Software (FLOSS)."
-msgstr ""
-"Το wger Workout Manager είναι Λογισμικό\n"
-"Ελεύθερο/Ανοιχτού Κώδικα (FLOSS)."
+msgstr "Το wger Workout Manager είναι Λογισμικό\nΕλεύθερο/Ανοιχτού Κώδικα (FLOSS)."
 
 #: software/templates/license.html:23
 msgid ""
 "wger Workout Manager is released under the <strong>Affero GNU\n"
-"General Public License (AGPL)  Version 3+</strong> and can (under the "
-"conditions\n"
+"General Public License (AGPL)  Version 3+</strong> and can (under the conditions\n"
 "of the license) be used, modified and distributed (also with modifications)\n"
 "without restrictions."
 msgstr ""
@@ -4248,8 +3912,7 @@ msgstr "CC-BY-SA"
 #: software/templates/license.html:40
 msgid ""
 "The data fixtures with the exercise and ingredient lists are\n"
-"released additionally under a <strong>Creative Commons Attribution Share "
-"Alike 3\n"
+"released additionally under a <strong>Creative Commons Attribution Share Alike 3\n"
 "(CC-BY-SA)</strong> license.</a>"
 msgstr ""
 
@@ -4257,16 +3920,10 @@ msgstr ""
 msgid ""
 "A copy of both licenses is contained in every wger Workout\n"
 "Manager release and can be read in the\n"
-"<a href='https://github.com/rolandgeider/wger/blob/master/AGPL.txt'>AGPL."
-"txt</a>\n"
-"or <a href='https://github.com/rolandgeider/wger/blob/master/CC-BY-SA."
-"txt'>CC-BY-SA.txt</a>\n"
+"<a href='https://github.com/rolandgeider/wger/blob/master/AGPL.txt'>AGPL.txt</a>\n"
+"or <a href='https://github.com/rolandgeider/wger/blob/master/CC-BY-SA.txt'>CC-BY-SA.txt</a>\n"
 "files in the source code repository."
-msgstr ""
-"Ένα αντίγραφο απο και τις δύο αδειοδοτήσεις εμπεριέχεται σε κάθε διανομή του "
-"wger Workout Manager και μπορεί να διαβαστεί στο <a href='https://github.com/"
-"rolandgeider/wger/blob/master/AGPL.txt'>AGPL.txt</a> ή στο <a href='https://"
-"github.com/rolandgeider/wger/blob/master/CC-BY-SA.txt'>CC-BY-SA.txt</a>"
+msgstr "Ένα αντίγραφο απο και τις δύο αδειοδοτήσεις εμπεριέχεται σε κάθε διανομή του wger Workout Manager και μπορεί να διαβαστεί στο <a href='https://github.com/rolandgeider/wger/blob/master/AGPL.txt'>AGPL.txt</a> ή στο <a href='https://github.com/rolandgeider/wger/blob/master/CC-BY-SA.txt'>CC-BY-SA.txt</a>"
 
 #: utils/models.py:41
 msgid "Author"
@@ -4274,8 +3931,8 @@ msgstr ""
 
 #: utils/models.py:45
 msgid ""
-"If you are not the author, enter the name or source here. This is needed for "
-"some licenses e.g. the CC-BY-SA."
+"If you are not the author, enter the name or source here. This is needed for"
+" some licenses e.g. the CC-BY-SA."
 msgstr ""
 
 #: weight/forms.py:38
@@ -4285,6 +3942,10 @@ msgstr "Εισαγωγή"
 #: weight/forms.py:39
 msgid "Date format"
 msgstr "Μορφή ημερομηνίας"
+
+#: weight/management/commands/email-weight-reminder.py:78
+msgid "You have to enter your weight"
+msgstr ""
 
 #: weight/models.py:52
 msgid "Weight entry"
@@ -4302,17 +3963,13 @@ msgstr "Υποβολ΄"
 msgid ""
 "Use this import field to import your weight logs into Workout\n"
 "Manager."
-msgstr ""
-"Χρησιμοποιήστε το πεδίο εισαγωγής για να εισάγετε τις εγγραφές βάρους σας "
-"στο Workout Manager."
+msgstr "Χρησιμοποιήστε το πεδίο εισαγωγής για να εισάγετε τις εγγραφές βάρους σας στο Workout Manager."
 
 #: weight/templates/import_csv_form.html:22
 msgid ""
 "You can copy and paste from your spreadsheet into the text input,\n"
-"the system will try to guess the format to import. The only things to "
-"consider is\n"
-"that the first column is the <strong>date</strong>, the second the "
-"<strong>weight</strong>.\n"
+"the system will try to guess the format to import. The only things to consider is\n"
+"that the first column is the <strong>date</strong>, the second the <strong>weight</strong>.\n"
 "All further columns are ignored.\n"
 msgstr ""
 
@@ -4320,9 +3977,7 @@ msgstr ""
 msgid ""
 "If there are errors, you can correct or discard them in a\n"
 "second step."
-msgstr ""
-"Άν υπάρχουν σφάλματα, μπορείτε να τα διορθώσετε ή να τα διαγράψετε σε "
-"επόμενο βήμα."
+msgstr "Άν υπάρχουν σφάλματα, μπορείτε να τα διορθώσετε ή να τα διαγράψετε σε επόμενο βήμα."
 
 #: weight/templates/import_csv_preview.html:5
 msgid "Preview imported CSV entries"
@@ -4347,27 +4002,17 @@ msgstr "Οι παρακάτω τιμές δεν μπορούν να μετατρ
 #: weight/templates/import_csv_preview.html:32
 msgid ""
 "These values could not be converted to a weight log entry.\n"
-"    The reasons for this could be anything from an unrecognised date or "
-"number\n"
-"    format, a problem with the encoding or something else. Please check "
-"that\n"
-"    there are no obvious errors in the list (and correct them if there "
-"are!)\n"
+"    The reasons for this could be anything from an unrecognised date or number\n"
+"    format, a problem with the encoding or something else. Please check that\n"
+"    there are no obvious errors in the list (and correct them if there are!)\n"
 "    and try to import the list again."
-msgstr ""
-"Αυτές οι τιμές δεν ήταν δυνατό να μετατραπούν σε εγγραφές βάρους.\n"
-"Οι λόγοι μπορεί να είναι οτιδήποτε, απο μή αποδεκτή ημερομηνία ή διαμόρφωση "
-"αριθμού, ένα πρόβλημα με την κωδικοποίηση ή κάτι άλλο. Παρακαλούμε ελέγξτε "
-"ότι δεν υπάρχουν εμφανή λάθη στην λίστα (διορθώστε τα, αν υπάρχουν!)\n"
-"και ξαναπροσπαθήστε να κάνετε εισαγωγή ξανά."
+msgstr "Αυτές οι τιμές δεν ήταν δυνατό να μετατραπούν σε εγγραφές βάρους.\nΟι λόγοι μπορεί να είναι οτιδήποτε, απο μή αποδεκτή ημερομηνία ή διαμόρφωση αριθμού, ένα πρόβλημα με την κωδικοποίηση ή κάτι άλλο. Παρακαλούμε ελέγξτε ότι δεν υπάρχουν εμφανή λάθη στην λίστα (διορθώστε τα, αν υπάρχουν!)\nκαι ξαναπροσπαθήστε να κάνετε εισαγωγή ξανά."
 
 #: weight/templates/import_csv_preview.html:38
 msgid ""
 "Remember that the expected structure is <strong>date</strong>\n"
 "    on the first columns and <strong>weight</strong> on the second."
-msgstr ""
-"Θυμηθείτε ότι η αναμενόμενη δομή είναι <strong>ημερομηνία</strong>\n"
-"στην πρώτη στήλη και <strong>βάρος</strong> στην δεύτερη."
+msgstr "Θυμηθείτε ότι η αναμενόμενη δομή είναι <strong>ημερομηνία</strong>\nστην πρώτη στήλη και <strong>βάρος</strong> στην δεύτερη."
 
 #: weight/templates/import_csv_preview.html:55
 msgid "There were no errors, all entries could be converted!"
@@ -4380,16 +4025,10 @@ msgstr "Εισαγωγή όλων των επιτυχώς μεταβλημένω
 #: weight/templates/import_csv_preview.html:60
 msgid ""
 "Continue here if you want to import into your weight log all\n"
-"entries that were successfully converted. All entries that produced an "
-"error\n"
+"entries that were successfully converted. All entries that produced an error\n"
 "will simply be ignored. It's up to you to decide whether they are useful\n"
 "(unrecognised entries) or not (e.g. headers, comments, etc.)."
-msgstr ""
-"Συνεχίστε εδώ αν θέλετε να εισάγετε στο ιστορικό βάρους σας όλες\n"
-"τις εγγραφές που μετατράπηκαν με επιτυχία. Όλες οι εγγραφές που παρήγαγαν "
-"σφάλματα δεν θα ληφθούν υπόψη. Είναι στο δικό σας χέρι να αποφασίσετε αν "
-"είναι χρήσιμες (μή αναγνωρισμένες εγγραφές) ή όχι (π.χ. κεφαλίδες, σχόλια, "
-"κλπ)."
+msgstr "Συνεχίστε εδώ αν θέλετε να εισάγετε στο ιστορικό βάρους σας όλες\nτις εγγραφές που μετατράπηκαν με επιτυχία. Όλες οι εγγραφές που παρήγαγαν σφάλματα δεν θα ληφθούν υπόψη. Είναι στο δικό σας χέρι να αποφασίσετε αν είναι χρήσιμες (μή αναγνωρισμένες εγγραφές) ή όχι (π.χ. κεφαλίδες, σχόλια, κλπ)."
 
 #: weight/templates/import_csv_preview.html:71
 msgid "Import"
@@ -4403,9 +4042,7 @@ msgstr "Ή δοκιμάστε αργότερα"
 msgid ""
 "You can correct the list here and re-submit it as often as\n"
 "you want."
-msgstr ""
-"Μπορείτε να διορθώσετε την λίστα εδώ και να ξανα υποβάλλετε\n"
-"όσο συχνά θέλετε."
+msgstr "Μπορείτε να διορθώσετε την λίστα εδώ και να ξανα υποβάλλετε\nόσο συχνά θέλετε."
 
 #: weight/templates/import_csv_preview.html:87
 msgid "Re-Submit"
@@ -4415,112 +4052,136 @@ msgstr "Επανυποβολή"
 msgid "There is no chart here because there are no weight entries."
 msgstr "Δεν υπάρχει διάγραμμα εδώ γιατί δεν υπάρχουν εγγραφές βάρους."
 
-#: weight/templates/weight_overview.html:48
-msgid "You can click on a value on the chart to edit it. "
+#: weight/templates/weight_overview.html:46
+msgctxt "Noun, not verb"
+msgid "Change"
 msgstr ""
-"Μπορείτε να κάνετε κλίκ πάνω σε μια τιμή στο διάγραμμα για να την "
-"επεξεργαστείτε."
 
-#: weight/templates/weight_overview.html:59
+#: weight/templates/weight_overview.html:47
+msgid "Days"
+msgstr ""
+
+#: weight/templates/weight_overview.html:83
+msgid "You can click on a value on the chart to edit it. "
+msgstr "Μπορείτε να κάνετε κλίκ πάνω σε μια τιμή στο διάγραμμα για να την επεξεργαστείτε."
+
+#: weight/templates/weight_overview.html:94
 msgid "Filter options"
 msgstr "Επιλογές φίλτρου"
 
-#: weight/templates/weight_overview.html:60
+#: weight/templates/weight_overview.html:95
 msgid ""
 "\n"
-"Use the second chart to pan or zoom by clicking and dragging the selection. "
-"Clicking\n"
+"Use the second chart to pan or zoom by clicking and dragging the selection. Clicking\n"
 "on the background resets it.\n"
 msgstr ""
 
-#: weight/templates/weight_overview.html:75
-#: weight/templates/weight_overview.html:76
-#: weight/templates/weight_overview.html:77
+#: weight/templates/weight_overview.html:110
+#: weight/templates/weight_overview.html:111
+#: weight/templates/weight_overview.html:112
 msgid "Export as CSV"
 msgstr "Εξαγωγή σε CSV"
 
-#: weight/templates/weight_overview.html:86
-#: weight/templates/weight_overview.html:87
-#: weight/templates/weight_overview.html:88
+#: weight/templates/weight_overview.html:121
+#: weight/templates/weight_overview.html:122
+#: weight/templates/weight_overview.html:123
 msgid "Import from spreadsheet"
 msgstr "Εισαγωγή σε λογιστικό φύλλ"
 
-#: weight/views.py:87
+#: weight/views.py:91
 #, python-format
 msgid "Edit weight entry for the %s"
 msgstr "Επεξεργασία εγγραφής βάρους για την %s"
 
-#~ msgid "User name"
-#~ msgstr "Όνομα χρήστη"
+msgid "Abs"
+msgstr "Κοιλιακοί"
 
-#~ msgid "Workout log calendar"
-#~ msgstr "Ημερολόγιο προπονήσεων"
+msgid "Arms"
+msgstr "Χέρια"
 
-#~ msgid ""
-#~ "You should edit the settings.py and enter your\n"
-#~ "<a href=\"https://www.google.com/recaptcha\">reCaptcha keys</a>. You can "
-#~ "leave\n"
-#~ "this blank or enter bogus data, but you won't be able e.g. to register "
-#~ "new users."
-#~ msgstr ""
-#~ "Θα πρέπει να επεξεργαστείτε το settings.py και να εισάγετε\n"
-#~ "το <a href=\"https://www.google.com/recaptcha\">reCaptcha keys</a> σας. "
-#~ "Μπορείτε να αφήσετε κενό ή να εισάγετε άσχετα δεδομένα, αλλα δεν θα "
-#~ "μπορείτε να εισάγετε π.χ. νέους χρήστες."
+msgid "Back"
+msgstr "Πλάτη"
 
-#~ msgid ""
-#~ "For the sitemap.xml file to be correctly generated,\n"
-#~ "you need to set a correct domain name in the sites app (only needed for "
-#~ "search\n"
-#~ "engines). This is done via django's admin interface (/admin/)"
-#~ msgstr ""
-#~ "Για να δημιουργηθεί σωστά το sitemap.xml,\n"
-#~ "θα πρέπει να ορισετε ένα σωστό domain name στο sites app (χρειάζεται μόνο "
-#~ "στις μηχανές αναζήτησης).\n"
-#~ "Αυτό μπορεί να γίνει μέσα απο το admin περιβάλλον του django (/admin/)"
+msgid "Calves"
+msgstr "Μηροί"
 
-#~ msgid ""
-#~ "This is a Django application, so refer for details to its\n"
-#~ "<a href=\"https://docs.djangoproject.com/en/1.5/intro/install/"
-#~ "\">documentation page</a>\n"
-#~ "if things don't go as expected."
-#~ msgstr ""
-#~ "Είναι μιά εφαρμογή σε Django, οπότε ανατρέξτε για λεπτομέρειες στο <a "
-#~ "href=\"https://docs.djangoproject.com/en/1.5/intro/install/\"> σελίδα "
-#~ "βιβλιογραφίας σε περίπτωση που κάτι δεν πάει καλά."
+msgid "Chest"
+msgstr "Στήθος"
 
-#~ msgid "Abs"
-#~ msgstr "Κοιλιακοί"
+msgid "Legs"
+msgstr "Πόδια"
 
-#~ msgid "Arms"
-#~ msgstr "Χέρια"
+msgid "Shoulders"
+msgstr "Ώμοι"
 
-#~ msgid "Back"
-#~ msgstr "Πλάτη"
+msgid "Barbell"
+msgstr ""
 
-#~ msgid "Calves"
-#~ msgstr "Μηροί"
+msgid "Bench"
+msgstr "Πάγκος"
 
-#~ msgid "Chest"
-#~ msgstr "Στήθος"
+msgid "Dumbbell"
+msgstr "Αλτήρες"
 
-#~ msgid "Legs"
-#~ msgstr "Πόδια"
+msgid "Gym mat"
+msgstr "Πατάκι γυμναστηρίου"
 
-#~ msgid "Shoulders"
-#~ msgstr "Ώμοι"
+msgid "Incline bench"
+msgstr "Πάγκος με κλίση"
 
-#~ msgid "Bench"
-#~ msgstr "Πάγκος"
+msgid "Pull-up bar"
+msgstr ""
 
-#~ msgid "Dumbbell"
-#~ msgstr "Αλτήρες"
+msgid "SZ-Bar"
+msgstr ""
 
-#~ msgid "Gym mat"
-#~ msgstr "Πατάκι γυμναστηρίου"
+msgid "Swiss Ball"
+msgstr ""
 
-#~ msgid "Incline bench"
-#~ msgstr "Πάγκος με κλίση"
+msgid "none (bodyweight exercise)"
+msgstr "κανένα (άσκηση με το βάρος σώματος)"
 
-#~ msgid "none (bodyweight exercise)"
-#~ msgstr "κανένα (άσκηση με το βάρος σώματος)"
+msgid "Anterior deltoid"
+msgstr ""
+
+msgid "Biceps brachii"
+msgstr ""
+
+msgid "Biceps femoris"
+msgstr ""
+
+msgid "Brachialis"
+msgstr ""
+
+msgid "Gastrocnemius"
+msgstr ""
+
+msgid "Gluteus maximus"
+msgstr ""
+
+msgid "Latissimus dorsi"
+msgstr ""
+
+msgid "Obliquus externus abdominis"
+msgstr ""
+
+msgid "Pectoralis major"
+msgstr ""
+
+msgid "Quadriceps femoris"
+msgstr ""
+
+msgid "Rectus abdominis"
+msgstr ""
+
+msgid "Serratus anterior"
+msgstr ""
+
+msgid "Soleus"
+msgstr ""
+
+msgid "Trapezius"
+msgstr ""
+
+msgid "Triceps brachii"
+msgstr ""
