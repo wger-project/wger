@@ -45,6 +45,7 @@ class ExerciseViewSet(viewsets.ModelViewSet):
     '''
     API endpoint for exercise objects
     '''
+    queryset = Exercise.objects.all()
     serializer_class = ExerciseSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'
@@ -136,6 +137,7 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
     '''
     API endpoint for exercise image objects
     '''
+    queryset = ExerciseImage.objects.all()
     serializer_class = ExerciseImageSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'

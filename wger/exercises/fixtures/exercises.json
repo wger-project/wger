@@ -6307,6 +6307,375 @@
     }, 
     {
         "fields": {
+            "status": "2", 
+            "category": 10, 
+            "muscles": [
+                2, 
+                8, 
+                14, 
+                3
+            ], 
+            "description": "<p>Starting on back, move to the standing position with dumbbell in one hand. \u00a0Switch hands between reps.</p>", 
+            "license": 2, 
+            "language": 2, 
+            "name": "Turkish Get-Up", 
+            "creation_date": "2015-03-09", 
+            "equipment": [
+                3
+            ], 
+            "license_author": "dookie1481", 
+            "muscles_secondary": [
+                2, 
+                8, 
+                14, 
+                3
+            ], 
+            "uuid": "bd07fc6b-db86-4139-b6de-e328cea0f694"
+        }, 
+        "model": "exercises.exercise", 
+        "pk": 318
+    }, 
+    {
+        "fields": {
+            "status": "2", 
+            "category": 13, 
+            "muscles": [], 
+            "description": "<p>Stand up or sit , keep both weights in front against legs or at side. Keep arms at around a 90 degree angle. Lift elbows up slowly and squeese traps when at topmost position. Lower the weights slowly back to starting position.</p>\n<p>2 seconds up, 2 seconds down</p>", 
+            "license": 3, 
+            "language": 2, 
+            "name": "Side raise", 
+            "creation_date": "2015-03-15", 
+            "equipment": [
+                1
+            ], 
+            "license_author": "tobahl", 
+            "muscles_secondary": [], 
+            "uuid": "bd892f71-2b19-41c4-90e2-2cd4df82c621"
+        }, 
+        "model": "exercises.exercise", 
+        "pk": 319
+    }, 
+    {
+        "fields": {
+            "status": "2", 
+            "category": 9, 
+            "muscles": [], 
+            "description": "<p>Box step-ups w/ barbell, 45's on each side</p>", 
+            "license": 2, 
+            "language": 2, 
+            "name": "weighted step", 
+            "creation_date": "2015-04-07", 
+            "equipment": [
+                1
+            ], 
+            "license_author": "jigglychipmunk", 
+            "muscles_secondary": [], 
+            "uuid": "4aecc570-d535-4ec1-8290-2e1a5c482f48"
+        }, 
+        "model": "exercises.exercise", 
+        "pk": 320
+    }, 
+    {
+        "fields": {
+            "status": "2", 
+            "category": 9, 
+            "muscles": [], 
+            "description": "<p>box step ups w/ barbell and 45's on each side</p>", 
+            "license": 3, 
+            "language": 2, 
+            "name": "weighted step-ups", 
+            "creation_date": "2015-04-07", 
+            "equipment": [], 
+            "license_author": "jigglychipmunk", 
+            "muscles_secondary": [], 
+            "uuid": "1076ed41-6f7c-46c9-a28f-ab13fc1ab92c"
+        }, 
+        "model": "exercises.exercise", 
+        "pk": 321
+    }, 
+    {
+        "fields": {
+            "status": "1", 
+            "category": 10, 
+            "muscles": [
+                2
+            ], 
+            "description": "<ol>\n<li>Lie down on a bench with a barbell resting on your chest. Position your legs so they are secure on the extension of the abdominal bench.</li>\n<li>While inhaling, tighten your abdominals and glutes. Simultaneously curl your torso as you do when performing a sit-up and press the barbell to an overhead position while exhaling.\u00a0</li>\n<li>Lower your upper body back down to the starting position while bringing the barbell back down to your torso. Remember to breathe in while lowering the body.</li>\n</ol>\n<p>Caution:\u00a0It is best to have a spotter while performing this exercise so that it is easier to get the barbell and also get rid of it. Also, always start with an empty bar and do not use jerking motions at any time.</p>\n<p>\u00a0</p>\n<p>Reference:\u00a0http://www.bodybuilding.com/exercises/detail/view/name/press-sit-up</p>", 
+            "license": 3, 
+            "language": 2, 
+            "name": "Decline Press Sit-Up", 
+            "creation_date": "2015-05-02", 
+            "equipment": [
+                1, 
+                8
+            ], 
+            "license_author": "http://www.bodybuilding.com/exercises/detail/view/", 
+            "muscles_secondary": [], 
+            "uuid": "392a531f-f0d6-4f65-b890-63776fc6b053"
+        }, 
+        "model": "exercises.exercise", 
+        "pk": 323
+    }, 
+    {
+        "fields": {
+            "status": "1", 
+            "category": 10, 
+            "muscles": [], 
+            "description": "<p>1. Stand straight with shoulders and feet wide apart and hold a dumbbell in your left hand.</p>\n<p>2.\u00a0Starting position: Place your right hand on your\u00a0waist.</p>\n<p>3. Now, keep your head and back straight and bend only from your waist to your right.</p>\n<p>4. Inhale, and bend as much as you can and hold for a count of two.</p>\n<p>5.\u00a0Final position:\u00a0Get back to the start position, exhale as you do so.</p>\n<p>\u00a0</p>\n<p>6. Now perform the similar steps bending to your left.</p>\n<p>\u00a0</p>\n<p>Reference :\u00a0http://workouttrends.com/how-to-do-dumbbell-side-bends</p>", 
+            "license": 3, 
+            "language": 2, 
+            "name": "Dumbbell Side Bends", 
+            "creation_date": "2015-05-02", 
+            "equipment": [
+                3
+            ], 
+            "license_author": "http://workouttrends.com/how-to-do-dumbbell-side-b", 
+            "muscles_secondary": [], 
+            "uuid": "5399f95f-5fb3-4d5f-a60f-9c7a1d2add2b"
+        }, 
+        "model": "exercises.exercise", 
+        "pk": 324
+    }, 
+    {
+        "fields": {
+            "status": "2", 
+            "category": 10, 
+            "muscles": [
+                6
+            ], 
+            "description": "<p>Works your obliques and helps stabilize your spine. Lie on your side and support your body between your forearm and knee to your feet.</p>", 
+            "license": 2, 
+            "language": 2, 
+            "name": "Side Plank", 
+            "creation_date": "2015-05-21", 
+            "equipment": [
+                7
+            ], 
+            "license_author": "http://www.bodybuilding.com/", 
+            "muscles_secondary": [
+                14
+            ], 
+            "uuid": "a36f852f-a29f-4f93-81b6-1012047ac1ee"
+        }, 
+        "model": "exercises.exercise", 
+        "pk": 325
+    }, 
+    {
+        "fields": {
+            "status": "2", 
+            "category": 10, 
+            "muscles": [
+                8, 
+                14, 
+                6
+            ], 
+            "description": "<p>(A) Get in high plank position on your hands and toes.(B) Shift your weight to your left hand as you turn your body to the right; bend your right leg behind you and extend your right arm up. Return to the center and repeat on the opposite side. Continue, alternating sides.<strong>Make it easier:</strong>\u00a0Don\u2019t raise your arm after you bend your leg behind you.<strong>Make it harder:</strong>\u00a0Balance with your arm and leg extended for two counts.</p>", 
+            "license": 2, 
+            "language": 2, 
+            "name": "Full Sit Outs", 
+            "creation_date": "2015-06-02", 
+            "equipment": [
+                7
+            ], 
+            "license_author": "http://www.realsimple.com/health/fitness-exercise/", 
+            "muscles_secondary": [], 
+            "uuid": "bf9e572d-d138-43e9-a486-a5c6ad9033f8"
+        }, 
+        "model": "exercises.exercise", 
+        "pk": 326
+    }, 
+    {
+        "fields": {
+            "status": "2", 
+            "category": 9, 
+            "muscles": [], 
+            "description": "<p>Deadlift with short (&lt;1min) rest between sets.</p>", 
+            "license": 2, 
+            "language": 2, 
+            "name": "Speed Deadlift", 
+            "creation_date": "2015-06-11", 
+            "equipment": [], 
+            "license_author": "MrSteele", 
+            "muscles_secondary": [], 
+            "uuid": "273f9563-948a-44c8-9353-b7213703f502"
+        }, 
+        "model": "exercises.exercise", 
+        "pk": 328
+    }, 
+    {
+        "fields": {
+            "status": "2", 
+            "category": 13, 
+            "muscles": [], 
+            "description": "<p>You sit at the bench press device, back slightly tilted to the back. The bar should be about 20 cm in front of you. Then you push the bar and take it back again, as you would with a bench press.</p>\n<p>In this position you strain your chest muscles a lot less, which is nice if you want to train, but your chest hasn't recovered yet.</p>\n<p>Here's a link to a girl on a machine specialized for this exercise, to give a better description than my failing words above.</p>\n<p>http://www.schnell-online.de/db_imgs/products/img/t-80400.jpg</p>", 
+            "license": 2, 
+            "language": 2, 
+            "name": "Diagonal shoulder Press", 
+            "creation_date": "2015-06-12", 
+            "equipment": [
+                8
+            ], 
+            "license_author": "oboema", 
+            "muscles_secondary": [], 
+            "uuid": "ee291ad5-2064-4d0a-b252-c715f362e035"
+        }, 
+        "model": "exercises.exercise", 
+        "pk": 329
+    }, 
+    {
+        "fields": {
+            "status": "2", 
+            "category": 12, 
+            "muscles": [
+                8, 
+                12
+            ], 
+            "description": "<p>Lay flat on your stomach with your arms extended in front of you on the ground as your legs are lying flat. Lift both your arms and legs at the same time, as if you were flying, and contract the lower back. Make sure that you are breathing and, depending on your fitness level, hold the movement for at least two to five seconds per repetition.</p>", 
+            "license": 2, 
+            "language": 2, 
+            "name": "Superman", 
+            "creation_date": "2015-06-22", 
+            "equipment": [
+                4
+            ], 
+            "license_author": "baldurmen", 
+            "muscles_secondary": [], 
+            "uuid": "6572a8e9-083c-4622-8f0c-6107a013a490"
+        }, 
+        "model": "exercises.exercise", 
+        "pk": 330
+    }, 
+    {
+        "fields": {
+            "status": "1", 
+            "category": 9, 
+            "muscles": [], 
+            "description": "<p>3-5 Mi. Run\u00a0</p>\n<p>Record Distance per Workout</p>", 
+            "license": 2, 
+            "language": 2, 
+            "name": "Run", 
+            "creation_date": "2015-07-14", 
+            "equipment": [], 
+            "license_author": "kclark", 
+            "muscles_secondary": [], 
+            "uuid": "c568adc4-a305-4766-b71f-f79c8c7a9a05"
+        }, 
+        "model": "exercises.exercise", 
+        "pk": 337
+    }, 
+    {
+        "fields": {
+            "status": "2", 
+            "category": 11, 
+            "muscles": [
+                4
+            ], 
+            "description": "<p>Assume push-up position, with hands slightly wider than\u00a0shoulder width.</p>\n<p>Shift body weight as far as possible to one side,\u00a0allowing the elbow on that side to flex.\u00a0</p>\n<p>Reverse the motion, moving completely over to the other side.</p>\n<p>Return to the starting position, and repeat for the desired number of repetitions.</p>", 
+            "license": 2, 
+            "language": 2, 
+            "name": "Isometric Wipers", 
+            "creation_date": "2015-07-21", 
+            "equipment": [
+                7
+            ], 
+            "license_author": "cal.zabel", 
+            "muscles_secondary": [
+                6
+            ], 
+            "uuid": "20b88059-3958-4184-9134-b48656ad868d"
+        }, 
+        "model": "exercises.exercise", 
+        "pk": 338
+    }, 
+    {
+        "fields": {
+            "status": "2", 
+            "category": 12, 
+            "muscles": [
+                12
+            ], 
+            "description": "<ol>\n<li>Attach a single handle to a low cable.</li>\n<li>After selecting the correct weight, stand a couple feet back with a wide-split stance. Your arm should be extended and your shoulder forward. This will be your starting position.</li>\n<li>Perform the movement by retracting the shoulder and flexing the elbow. As you pull, supinate the wrist, turning the palm upward as you go.</li>\n<li>After a brief pause, return to the starting position.</li>\n</ol>", 
+            "license": 2, 
+            "language": 2, 
+            "name": "Shotgun Row", 
+            "creation_date": "2015-07-21", 
+            "equipment": [], 
+            "license_author": "cal.zabel", 
+            "muscles_secondary": [], 
+            "uuid": "b6492677-07df-4399-bc90-20b58e4dba35"
+        }, 
+        "model": "exercises.exercise", 
+        "pk": 339
+    }, 
+    {
+        "fields": {
+            "status": "2", 
+            "category": 12, 
+            "muscles": [], 
+            "description": "<ol>\n<li>Using a neutral grip, lean into an incline bench.</li>\n<li>Take a dumbbell in each hand with a neutral grip, beginning with the arms straight. This will be your starting position.</li>\n<li>Retract the shoulder blades and flex the elbows to row the dumbbells to your side.</li>\n<li>Pause at the top of the motion, and then return to the starting position.</li>\n</ol>", 
+            "license": 2, 
+            "language": 2, 
+            "name": "Incline Dumbbell Row", 
+            "creation_date": "2015-07-21", 
+            "equipment": [
+                8, 
+                3
+            ], 
+            "license_author": "cal.zabel", 
+            "muscles_secondary": [
+                12
+            ], 
+            "uuid": "fbbebbfc-a5b2-4573-8914-147ff60cb7c5"
+        }, 
+        "model": "exercises.exercise", 
+        "pk": 340
+    }, 
+    {
+        "fields": {
+            "status": "2", 
+            "category": 8, 
+            "muscles": [
+                5
+            ], 
+            "description": "<ol>\n<li>Assume a plank position on the ground. You should be supporting your bodyweight on your toes and forearms, keeping your torso straight. Your forearms should be shoulder-width apart. This will be your starting position.</li>\n<li>Pressing your palms firmly into the ground, extend through the elbows to raise your body from the ground. Keep your torso rigid as you perform the movement.</li>\n<li>Slowly lower your forearms back to the ground by allowing the elbows to flex.</li>\n<li>Repeat as needed.</li>\n</ol>", 
+            "license": 2, 
+            "language": 2, 
+            "name": "Body-Ups", 
+            "creation_date": "2015-07-21", 
+            "equipment": [
+                7
+            ], 
+            "license_author": "cal.zabel", 
+            "muscles_secondary": [], 
+            "uuid": "4e15a410-5530-4b86-964f-8af26e118e2b"
+        }, 
+        "model": "exercises.exercise", 
+        "pk": 341
+    }, 
+    {
+        "fields": {
+            "status": "2", 
+            "category": 9, 
+            "muscles": [
+                10
+            ], 
+            "description": "<p>Stand with feet slightly wider than shoulder-width apart, while standing as tall as you can.</p>\n<p>Grab a weight plate and hold it out in front of your body with arms straight out. Keep your core tight and stand with a natural arch in your back.</p>\n<p>Now, push hips back and bend knees down into a squat as far as you can. Hold for a few moments and bring yourself back up to the starting position.</p>", 
+            "license": 2, 
+            "language": 2, 
+            "name": "Braced Squat", 
+            "creation_date": "2015-07-23", 
+            "equipment": [], 
+            "license_author": "sevae", 
+            "muscles_secondary": [
+                8
+            ], 
+            "uuid": "5bd3ba00-8f4e-4935-a682-87b150d830c8"
+        }, 
+        "model": "exercises.exercise", 
+        "pk": 342
+    }, 
+    {
+        "fields": {
             "comment": "Nach innen drehen, die Ellenbogen zeigen zum Knie", 
             "exercise": 33
         }, 
