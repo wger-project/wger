@@ -9,14 +9,17 @@
 #
 # wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
+
+from django.apps import AppConfig
 
 
-from wger import get_version
+class GroupConfig(AppConfig):
+    name = 'wger.groups'
+    verbose_name = "Group"
 
-VERSION = get_version()
-default_app_config = 'wger.groups.apps.GroupConfig'
+    def ready(self):
+        import wger.groups.signals
