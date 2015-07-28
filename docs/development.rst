@@ -7,6 +7,7 @@ First, install all required packages::
 
   $ sudo apt-get install python-virtualenv
   $ sudo apt-get install python-dev
+  $ sudo apt-get install libjpeg8-dev libwebp-dev
   $ virtualenv python-django
   $ source python-django/bin/activate
   $ pip install -r requirements_devel.txt

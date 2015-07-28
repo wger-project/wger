@@ -83,6 +83,7 @@ might need to install more if you want the thumbnailer to be able to support
 more image formats, consult the documentation for pillow for more details)::
 
   sudo apt-get install git python-dev python-virtualenv
+  sudo apt-get install libjpeg8-dev libwebp-dev
   virtualenv venv-wger
   source venv-wger/bin/activate
 
