@@ -14,6 +14,11 @@
 
 {% block sidebar %}
 
+    {% if object.description %}
+    <h4>{% trans "Description" %}</h4>
+    <p style="white-space: pre-line;">{{ object.description }}</p>
+    {% endif %}
+
     <div class="btn-group pull-right">
         <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
             {% trans "Actions" %} <span class="caret"></span>
