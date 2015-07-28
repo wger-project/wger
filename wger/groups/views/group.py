@@ -101,6 +101,14 @@ class AddView(WgerFormMixin, CreateView):
 
         return out
 
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(AddView, self).get_context_data(**kwargs)
+        context['enctype'] = 'multipart/form-data'
+        return context
+
 
 class UpdateView(WgerFormMixin, UpdateView):
     '''
@@ -132,4 +140,5 @@ class UpdateView(WgerFormMixin, UpdateView):
         context = super(UpdateView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('groups:group:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit {0}').format(self.object)
+        context['enctype'] = 'multipart/form-data'
         return context

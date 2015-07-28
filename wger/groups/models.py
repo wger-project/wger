@@ -15,14 +15,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-import datetime
-import logging
+import uuid
+
 from django.core.urlresolvers import reverse
 from django.utils.encoding import python_2_unicode_compatible
-
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
+
 from wger.gym.models import Gym
 
 
@@ -30,7 +30,7 @@ def group_image_upload_dir(instance, filename):
     '''
     Returns the upload target for group logos
     '''
-    return "group-images/{0}/{1}".format(instance.group.id, filename)
+    return "group-images/{0}/{1}".format(instance.id, uuid.uuid4())
 
 
 @python_2_unicode_compatible

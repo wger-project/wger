@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
+{% load i18n staticfiles wger_extras thumbnail %}
 
 {% block title %}{{ object }}{% endblock %}
 
@@ -13,6 +11,10 @@
 
 
 {% block sidebar %}
+
+    {% if object.image %}
+    <img src="{{ object.image.url }}" class="img-responsive img-rounded">
+    {% endif %}
 
     {% if object.description %}
     <h4>{% trans "Description" %}</h4>
