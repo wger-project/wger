@@ -1,38 +1,52 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
+{% load i18n staticfiles wger_extras thumbnail %}
 
 {% block title %}{% trans "Group list" %}{% endblock %}
 
 
 {% block content %}
 
-<ul class="list-group">
+<div class="list-group">
     {% for group in object_list %}
-    <li class="list-group-item ">
-        <a href="{% url 'groups:group:view' group.pk %}">{{group}}</a>
+        <a href="{% url 'groups:group:view' group.pk %}" class="list-group-item">
+        <div class="media">
+            <div style="width:60px;height:60px;" class="media-left">
+            {% if group.image %}
+                <img alt="{{ group.name }}"
+                 class="media-object img-responsive img-circle img-thumbnail"
+                 style="max-width:100%; max-height:100%;"
+                 src="{{ group.image|thumbnail_url:'small_cropped'}}">
+            {% else %}
+                <img alt="{% trans 'Placeholder image' %}"
+                     class="media-object"
+                     style="opacity: 0.4; padding-left: 10px; padding-right: 10px;"
+                     src="{% static 'images/icons/image-placeholder.svg' %}">
+            {% endif %}
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">{{ group }}</h4>
 
-        {% if not group.public %}
-            <span class="label label-warning">
-                <span class="glyphicon glyphicon-lock"></span>
-                {% trans "Private group" %}
-            </span>
-            &nbsp;
-        {% endif %}
+                {% if not group.public %}
+                    <span class="label label-warning">
+                        <span class="glyphicon glyphicon-lock"></span>
+                        {% trans "Private group" %}
+                    </span>
+                    &nbsp;
+                {% endif %}
 
-        {% if user in group.get_member_list %}
-            <span class="label label-primary">{% trans "Member" %}</span>
-        {% endif %}
+                {% if user in group.get_member_list %}
+                    <span class="label label-primary">{% trans "Member" %}</span>
+                {% endif %}
 
-
-    </li>
+            </div>
+        </div>
+        </a>
     {% empty %}
-        <li class="list-group-item">
+        <a href="{% url 'groups:group:add' %}" class="list-group-item">
             {% trans "Nothing found" %}
-        </li>
+        </a>
     {% endfor %}
-</ul>
+</div>
 
 <div class="pull-right">
     <a href="{% url 'groups:group:add' %}" class="btn btn-success btn-sm wger-modal-dialog">

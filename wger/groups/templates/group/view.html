@@ -13,12 +13,13 @@
 {% block sidebar %}
 
     {% if object.image %}
-    <img src="{{ object.image.url }}" class="img-responsive img-rounded">
+        <img src="{{ object.image|thumbnail_url:'large' }}" class="img-responsive img-rounded">
+        <br>
     {% endif %}
 
     {% if object.description %}
-    <h4>{% trans "Description" %}</h4>
-    <p style="white-space: pre-line;">{{ object.description }}</p>
+        <h4>{% trans "Description" %}</h4>
+        <p style="white-space: pre-line;">{{ object.description }}</p>
     {% endif %}
 
     <div class="btn-group pull-right">
@@ -46,8 +47,6 @@
             {% endif %}
         </ul>
     </div>
-
-
     <h4>{% trans "Members" %}</h4>
     <ul class="list-group">
     {% for membership in object.membership_set.all %}
