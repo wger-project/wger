@@ -1,15 +1,35 @@
 {% extends "base.html" %}
-{% load i18n staticfiles wger_extras thumbnail %}
+{% load i18n staticfiles wger_extras thumbnail django_bootstrap_breadcrumbs %}
 
+{#             #}
+{# Breadcrumbs #}
+{#             #}
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% breadcrumb "Groups" "groups:group:list" %}
+    {% breadcrumb object object.get_absolute_url %}
+{% endblock %}
+
+
+{#       #}
+{# Title #}
+{#       #}
 {% block title %}{{ object }}{% endblock %}
 
 
+
+{#         #}
+{# Content #}
+{#         #}
 {% block content %}
 {% endblock %}
 
 
 
-
+{#         #}
+{# Sidebar #}
+{#         #}
 {% block sidebar %}
 
     {% if object.image %}
