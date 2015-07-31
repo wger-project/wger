@@ -112,6 +112,12 @@ class SettingForm(ModelForm):
         model = Setting
         exclude = ('set', 'exercise', 'order', 'comment')
 
+    def is_valid(self):
+        res = super(SettingForm, self).is_valid()
+        if 'reps' not in self.cleaned_data:
+            res = False
+        return res
+
 
 class HelperDateForm(Form):
     '''
