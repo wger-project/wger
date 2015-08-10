@@ -123,10 +123,12 @@ $(document).ready( function () {
 </table>
 
 
+{% if perms.gym.gym_trainer  %}
 <a href="{% url 'groups:group:add' gym.pk %}" class="btn btn-success btn-xs pull-right">
     <span class="glyphicon glyphicon-plus"></span>
     {% trans "Add" %}
 </a>
+{% endif %}
 <h4>{% trans "Groups" %}</h4>
 <table class="table">
     <tr>
@@ -137,7 +139,11 @@ $(document).ready( function () {
     {% for team in teams %}
         <tr>
             <td>
-                <a href="{{ team.get_absolute_url }}">{{ team }}</a>
+                {% if perms.gym.gym_trainer  %}
+                    <a href="{{ team.get_absolute_url }}">{{ team }}</a>
+                {% else %}
+                    {{ team }}
+                {% endif %}
             </td>
             <td>
                 {{ team.description|truncatewords:10 }}
