@@ -121,6 +121,37 @@ $(document).ready( function () {
 {% endfor %}
 </tbody>
 </table>
+
+
+<a href="{% url 'groups:group:add' gym.pk %}" class="btn btn-success btn-xs pull-right">
+    <span class="glyphicon glyphicon-plus"></span>
+    {% trans "Add" %}
+</a>
+<h4>{% trans "Groups" %}</h4>
+<table class="table">
+    <tr>
+        <th>{% trans "Name" %}</th>
+        <th>{% trans "Description" %}</th>
+        <th>{% trans "Members" %}</th>
+    </tr>
+    {% for team in teams %}
+        <tr>
+            <td>
+                <a href="{{ team.get_absolute_url }}">{{ team }}</a>
+            </td>
+            <td>
+                {{ team.description|truncatewords:10 }}
+            </td>
+            <td>
+                {{ team.members.count }}
+            </td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td>{% trans "Nothing found" %}</td>
+        </tr>
+    {% endfor %}
+</table>
 {% endblock %}
 
 

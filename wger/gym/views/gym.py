@@ -36,6 +36,7 @@ from wger.gym.helpers import get_user_last_activity, is_any_gym_admin
 from wger.gym.models import Gym
 from wger.gym.models import GymAdminConfig
 from wger.gym.models import GymUserConfig
+from wger.groups.models import Group as WgerGroup
 from wger.config.models import GymConfig as GlobalGymConfig
 
 from wger.utils.generic_views import WgerFormMixin
@@ -103,6 +104,7 @@ class GymUserListView(WgerPermissionMixin, ListView):
         '''
         context = super(GymUserListView, self).get_context_data(**kwargs)
         context['gym'] = Gym.objects.get(pk=self.kwargs['pk'])
+        context['teams'] = WgerGroup.objects.filter(gym_id=self.kwargs['pk'])
         context['admin_count'] = len([i for i in context['object_list']
                                       if i['perms']['any_admin']])
         context['user_count'] = len([i for i in context['object_list']
