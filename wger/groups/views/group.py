@@ -97,6 +97,11 @@ class AddView(WgerFormMixin, CreateView):
             form.instance.gym_id = self.kwargs['gym_pk']
             form.instance.save()
 
+        # If user belongs to a gym, add the group as well
+        if self.request.user.userprofile.gym:
+            form.instance.gym_id = self.request.user.userprofile.gym_id
+            form.instance.save()
+
         membership = Membership()
         membership.admin = True
         membership.group = form.instance
