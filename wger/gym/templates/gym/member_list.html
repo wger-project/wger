@@ -124,7 +124,7 @@ $(document).ready( function () {
 
 
 {% if perms.gym.gym_trainer  %}
-<a href="{% url 'groups:group:add' gym.pk %}" class="btn btn-success btn-xs pull-right">
+<a href="{% url 'groups:group:add' %}" class="btn btn-success btn-xs pull-right">
     <span class="glyphicon glyphicon-plus"></span>
     {% trans "Add" %}
 </a>

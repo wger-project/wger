@@ -83,6 +83,7 @@ class AddView(WgerFormMixin, CreateView):
               'image',
               'public')
     title = ugettext_lazy('Create new group')
+    form_action = reverse_lazy('groups:group:add')
 
     def form_valid(self, form):
         '''
@@ -92,12 +93,7 @@ class AddView(WgerFormMixin, CreateView):
         # First save the form so the group gets saved to the database
         out = super(AddView, self).form_valid(form)
 
-        # TODO: check that the user has sufficient rights for the gym
-        if self.kwargs.get('gym_pk'):
-            form.instance.gym_id = self.kwargs['gym_pk']
-            form.instance.save()
-
-        # If user belongs to a gym, add the group as well
+        # If the user is member of a gym, set the appropriate foreign keys
         if self.request.user.userprofile.gym:
             form.instance.gym_id = self.request.user.userprofile.gym_id
             form.instance.save()
@@ -116,11 +112,6 @@ class AddView(WgerFormMixin, CreateView):
         '''
         context = super(AddView, self).get_context_data(**kwargs)
         context['enctype'] = 'multipart/form-data'
-        if self.kwargs.get('gym_pk'):
-            context['form_action'] = reverse('groups:group:add',
-                                             kwargs={'gym_pk': self.kwargs['gym_pk']})
-        else:
-            context['form_action'] = reverse('groups:group:add')
 
         return context
 
