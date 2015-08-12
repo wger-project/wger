@@ -11,6 +11,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy, reverse
 
 from wger.groups.models import Group
@@ -31,11 +32,32 @@ class GroupUserJoinTestCase(WorkoutManagerTestCase):
         Creating a group joins the user and makes him an administrator
         '''
         self.user_login('test')
-        response = self.client.post(reverse('groups:group:add'),
-                                    {'name': 'Test group', 'description': 'Something clever'})
+        user = User.objects.get(username='test')
+        self.assertTrue(user.userprofile.gym)
+
+        self.client.post(reverse('groups:group:add'),
+                         {'name': 'Test group', 'description': 'Something clever'})
         group = Group.objects.get(pk=5)
         self.assertEqual(group.name, 'Test group')
         self.assertTrue(group.membership_set.filter(user__username='test', admin=True).exists())
+        self.assertEqual(group.gym_id, 1)
+
+    def test_create_group_no_gym(self):
+        '''
+        Creating a group joins the user and makes him an administrator
+
+        If the user doesn't belong to a gym, the group's gym reference is not set
+        '''
+        user = User.objects.get(username='test')
+        user.userprofile.gym = None
+        user.userprofile.save()
+
+        self.user_login('test')
+        self.client.post(reverse('groups:group:add'),
+                         {'name': 'Test group', 'description': 'Something clever'})
+        group = Group.objects.get(pk=5)
+        self.assertEqual(group.name, 'Test group')
+        self.assertFalse(group.gym)
 
     def join_public_group(self):
         '''
