@@ -33,6 +33,7 @@ from sortedm2m.fields import SortedManyToManyField
 
 from wger.core.models import DaysOfWeek
 from wger.exercises.models import Exercise
+from wger.groups.models import Group
 from wger.manager.helpers import reps_smart_text
 from wger.utils.cache import cache_mapper, reset_workout_canonical_form, reset_workout_log
 from wger.utils.fields import Html5DateField
@@ -63,6 +64,12 @@ class Workout(models.Model):
                                help_text=_("A short description or goal of the workout. For "
                                            "example 'Focus on back' or 'Week 1 of program xy'."))
     user = models.ForeignKey(User, verbose_name=_('User'))
+    '''The user this workout belongs to'''
+
+    group = models.ForeignKey(Group,
+                              editable=False,
+                              null=True)
+    '''The group this workout belongs to, if any'''
 
     def get_absolute_url(self):
         '''

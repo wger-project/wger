@@ -96,4 +96,25 @@
         </li>
     {% endfor %}
     </ul>
+
+
+    <div class="btn-group pull-right">
+        <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+            {% trans "Actions" %} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a href="{% url 'manager:workout:add' object.pk %}">{% trans 'Add workout' %}</a>
+            </li>
+        </ul>
+    </div>
+    <h4>{% trans "Workouts" %}</h4>
+    <div class="list-group">
+        {% for workout in object.workout_set.all %}
+        <a class="list-group-item" href="{{ workout.get_absolute_url }}">
+            {{ workout }}
+        </a>
+        {% endfor %}
+    </div>
+
 {% endblock %}

@@ -30,11 +30,17 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import DeleteView
 from django.views.generic import UpdateView
 
-from wger.manager.models import Workout
-from wger.manager.models import WorkoutSession
-from wger.manager.models import WorkoutLog
-from wger.manager.models import Schedule
-from wger.manager.models import Day
+from wger.groups.models import (
+    Group,
+    Membership
+)
+from wger.manager.models import (
+    Workout,
+    WorkoutSession,
+    WorkoutLog,
+    Schedule,
+    Day
+)
 from wger.manager.forms import WorkoutForm
 from wger.manager.forms import WorkoutSessionHiddenFieldsForm
 from wger.manager.forms import WorkoutCopyForm
@@ -191,12 +197,18 @@ def copy_workout(request, pk):
 
 
 @login_required
-def add(request):
+def add(request, group_pk=None):
     '''
     Add a new workout and redirect to its page
     '''
     workout = Workout()
     workout.user = request.user
+    if group_pk:
+        group = get_object_or_404(Group, pk=group_pk)
+        if not group.membership_set.filter(user=request.user).exists():
+            return HttpResponseForbidden()
+
+        workout.group = group
     workout.save()
 
     return HttpResponseRedirect(workout.get_absolute_url())

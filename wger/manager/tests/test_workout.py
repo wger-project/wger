@@ -13,9 +13,11 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import datetime
+from django.contrib.auth.models import User
 
 from django.core.urlresolvers import reverse
 
+from wger.groups.models import Group
 from wger.core.tests import api_base_test
 from wger.manager.models import Workout
 from wger.manager.tests.testcase import WorkoutManagerTestCase
@@ -89,6 +91,30 @@ class AddWorkoutTestCase(WorkoutManagerTestCase):
     '''
     Tests adding a Workout
     '''
+
+    def test_create_workout_gym(self):
+        '''
+        Create a workout, adding it to a group
+        '''
+
+        self.user_login('test')
+        group = Group.objects.get(id=1)
+        response = self.client.get(reverse('manager:workout:add', kwargs={'group_pk': 1}))
+        self.assertEqual(response.status_code, 302)
+
+        workout = Workout.objects.get(pk=4)
+        self.assertEqual(workout.group, group)
+
+    def test_create_workout_gym_other(self):
+        '''
+        Create a workout, adding it to a group the user is not a member of
+        '''
+
+        self.user_login('test')
+        response = self.client.get(reverse('manager:workout:add', kwargs={'group_pk': 3}))
+        self.assertEqual(response.status_code, 403)
+
+        self.assertFalse(Workout.objects.filter(pk=4).count())
 
     def create_workout(self):
         '''

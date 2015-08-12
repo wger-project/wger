@@ -49,6 +49,7 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     is_private = True
     ordering_fields = '__all__'
     filter_fields = ('comment',
+                     'group',
                      'creation_date')
 
     def get_queryset(self):
