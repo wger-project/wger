@@ -160,6 +160,9 @@ urlpatterns = urlpatterns + patterns('',
     # persona (browserID) login
     url(r'^browserid/', include('django_browserid.urls')),
 
+    # Django Activity Stream
+    url('^activity/', include('actstream.urls')),
+
     # API
     url(r'^api/', include(v1_api.urls)),
     url(r'^api/v2/exercise/search/$',

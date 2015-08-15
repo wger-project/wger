@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n staticfiles wger_extras thumbnail django_bootstrap_breadcrumbs %}
+{% load activity_tags %}
 
 {#             #}
 {# Breadcrumbs #}
@@ -23,6 +24,49 @@
 {# Content #}
 {#         #}
 {% block content %}
+
+
+    {# Render the activity stream #}
+    {% for event in last_activity %}
+
+        {# Actor #}
+        {{ event.actor }}
+
+
+        {# Verb #}
+{#            {{ event.verb }}#}
+        <span class="glyphicon
+            {% if event.verb == 'added' %}
+                glyphicon-plus
+            {% elif event.verb == 'created' %}
+                glyphicon-asterisk
+            {% elif event.verb == 'edited' %}
+                glyphicon-pencil
+            {% elif event.verb == 'left' %}
+                glyphicon-log-out
+            {% elif event.verb == 'joined' %}
+                glyphicon-log-in
+            {% elif event.verb == 'promoted' %}
+                glyphicon-sunglasses
+            {% endif %}
+        "></span>
+
+        {# Action object #}
+        {% if event.action_object %}
+            {% if event.action_object.get_absolute_url %}
+                <a href="{{ event.action_object.get_absolute_url }}">{{ event.action_object }}</a>
+            {% else %}
+                {{ event.action_object }}
+            {% endif %}
+        {% endif %}
+
+        {# Target #}
+{#        {% trans "group" %}#}
+{#        {{ event.target }}#}
+
+        {#  Time #}
+        {{ event.timestamp|timesince }} {% trans "ago" %}<br>
+    {% endfor %}
 {% endblock %}
 
 

@@ -15,15 +15,14 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from actstream import registry
-from django.apps import AppConfig, apps
+from django.apps import AppConfig
 
 
-class CoreConfig(AppConfig):
-    name = 'wger.core'
-    verbose_name = "Core"
+class ManagerConfig(AppConfig):
+    name = 'wger.manager'
+    verbose_name = "Manager"
 
     def ready(self):
-        import wger.core.signals
 
         # Register different models with django activity stream
-        registry.register(apps.get_model('auth.user'))
+        registry.register(self.get_model('Workout'))

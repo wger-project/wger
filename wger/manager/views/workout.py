@@ -18,6 +18,8 @@ import logging
 import uuid
 import datetime
 
+from actstream import action
+
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseForbidden
@@ -210,6 +212,10 @@ def add(request, group_pk=None):
 
         workout.group = group
     workout.save()
+
+    # Add event to django activity stream
+    if group_pk:
+        action.send(request.user, verb='added', action_object=workout, target=group)
 
     return HttpResponseRedirect(workout.get_absolute_url())
 

@@ -13,6 +13,10 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
+from actstream import action
+from actstream.models import target_stream
+
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseForbidden
 from django.utils.translation import ugettext_lazy
@@ -71,6 +75,14 @@ class DetailView(WgerPermissionMixin, DetailView):
 
         return super(DetailView, self).dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(DetailView, self).get_context_data(**kwargs)
+        context['last_activity'] = target_stream(self.get_object())[:20]
+        return context
+
 
 class AddView(WgerFormMixin, CreateView):
     '''
@@ -104,6 +116,8 @@ class AddView(WgerFormMixin, CreateView):
         membership.user = self.request.user
         membership.save()
 
+        # Add event to django activity stream
+        action.send(self.request.user, verb='created', target=form.instance)
         return out
 
     def get_context_data(self, **kwargs):
@@ -124,6 +138,13 @@ class UpdateView(WgerFormMixin, UpdateView):
     model = Group
     fields = ('name', 'description', 'image', 'public')
     login_required = True
+
+    def form_valid(self, form):
+        '''
+        Add event to django activity stream
+        '''
+        action.send(self.request.user, verb='edited', target=form.instance)
+        return super(UpdateView, self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
         '''

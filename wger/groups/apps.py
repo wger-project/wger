@@ -14,6 +14,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+from actstream import registry
 from django.apps import AppConfig
 
 
@@ -23,3 +24,7 @@ class GroupConfig(AppConfig):
 
     def ready(self):
         import wger.groups.signals
+
+        # Register different models with django activity stream
+        registry.register(self.get_model('Group'))
+        registry.register(self.get_model('Membership'))

@@ -14,6 +14,8 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+from actstream import action
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -38,6 +40,9 @@ def join_public_group(request, group_pk):
     membership.admin = False
     membership.save()
 
+    # Add event to django activity stream
+    action.send(request.user, verb='joined', target=group)
+
     return HttpResponseRedirect(group.get_absolute_url())
 
 
@@ -60,6 +65,10 @@ def leave_group(request, group_pk, user_pk=None):
 
     membership = group.membership_set.get(user=user)
     membership.delete()
+
+    # Add event to django activity stream
+    action.send(user, verb='left', target=group)
+
     return HttpResponseRedirect(reverse('groups:group:list'))
 
 
@@ -80,6 +89,10 @@ def promote(request, group_pk, user_pk):
     membership = group.membership_set.get(user=user)
     membership.admin = True
     membership.save()
+
+    # Add event to django activity stream
+    action.send(request.user, verb='promoted', action_object=user, target=group)
+
     return HttpResponseRedirect(group.get_absolute_url())
 
 
@@ -101,4 +114,8 @@ def demote(request, group_pk, user_pk):
     membership = group.membership_set.get(user=user)
     membership.admin = False
     membership.save()
+
+    # Add event to django activity stream
+    action.send(request.user, verb='demoted', action_object=user, target=group)
+
     return HttpResponseRedirect(group.get_absolute_url())

@@ -14,14 +14,13 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+from actstream import action
 
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, post_save
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 
 from easy_thumbnails.files import get_thumbnailer
-from easy_thumbnails.signal_handlers import generate_aliases
-from easy_thumbnails.signals import saved_file
 
 from wger.groups.models import Group
 
@@ -55,3 +54,19 @@ def delete_group_image_on_update(sender, instance, **kwargs):
         thumbnailer = get_thumbnailer(old_file)
         thumbnailer.delete_thumbnails()
         old_file.delete(save=False)
+
+#
+# @receiver(post_save, sender=Group)
+# def activity_add_group(sender, instance, created, **kwargs):
+#     '''
+#     Signal listener for groups
+#     '''
+#     if created:
+#         # get the user that created the group: since the group was just created
+#         # it's the only member
+#         user = instance.membership_set.first()
+#
+#         # group = Group.objects.get(name='MyGroup')
+#         action.send(user, verb='created', target=instance)
+#
+#         # action.send(instance, verb='was created')

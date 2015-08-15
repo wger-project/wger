@@ -86,6 +86,9 @@ INSTALLED_APPS = (
 
     # CORS
     'corsheaders',
+
+    # Django Activity Stream
+    'actstream'
 )
 
 MIDDLEWARE_CLASSES = (
