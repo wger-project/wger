@@ -25,16 +25,14 @@
 {#         #}
 {% block content %}
 
+<ul class="list-group">
 
     {# Render the activity stream #}
     {% for event in last_activity %}
+    <li class="list-group-item ">
 
-        {# Actor #}
-        {{ event.actor }}
-
-
+        <p class="list-group-item-text pull-right">
         {# Verb #}
-{#            {{ event.verb }}#}
         <span class="glyphicon
             {% if event.verb == 'added' %}
                 glyphicon-plus
@@ -61,12 +59,19 @@
         {% endif %}
 
         {# Target #}
-{#        {% trans "group" %}#}
 {#        {{ event.target }}#}
 
         {#  Time #}
-        {{ event.timestamp|timesince }} {% trans "ago" %}<br>
+        {{ event.timestamp|timesince }} {% trans "ago" %}
+        </p>
+
+        {# Actor #}
+        <h4 class="list-group-item-heading">
+            {{ event.actor }}
+        </h4>
+    </li>
     {% endfor %}
+    </ul>
 {% endblock %}
 
 
