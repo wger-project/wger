@@ -17,17 +17,22 @@
 from actstream import action
 from actstream.models import target_stream
 
-from django.core.urlresolvers import reverse_lazy, reverse
+from django.db.models import Q
 from django.http import HttpResponseForbidden
-from django.utils.translation import ugettext_lazy
-from django.utils.translation import ugettext as _
+from django.core.urlresolvers import (
+    reverse_lazy,
+    reverse
+)
+from django.utils.translation import (
+    ugettext_lazy,
+    ugettext as _
+)
 from django.views.generic import (
     ListView,
     CreateView,
     DetailView,
     UpdateView
 )
-from django.db.models import Q
 
 from wger.groups.models import (
     Group,
