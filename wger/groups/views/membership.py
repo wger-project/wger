@@ -69,7 +69,11 @@ def leave_group(request, group_pk, user_pk=None):
     # Add event to django activity stream
     action.send(user, verb='left', target=group)
 
-    return HttpResponseRedirect(reverse('groups:group:list'))
+    # Only return to the group overview if the user itself left the group
+    if user.pk == request.user.pk:
+        return HttpResponseRedirect(reverse('groups:group:list'))
+    else:
+        return HttpResponseRedirect(group.get_absolute_url())
 
 
 @login_required
