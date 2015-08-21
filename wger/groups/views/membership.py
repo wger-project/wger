@@ -19,10 +19,16 @@ from actstream import action
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+from django.http import (
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
 
-from wger.groups.models import Group, Membership
+from wger.groups.models import (
+    Group,
+    Membership
+)
 
 
 @login_required
