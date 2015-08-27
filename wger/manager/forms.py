@@ -75,7 +75,7 @@ class SetForm(ModelForm):
         widgets = {'exercises': ExerciseAjaxSelect(), }
 
     # We need to overwrite the init method here because otherwise Django
-    # will outut a default help text, regardless of the widget used
+    # will output a default help text, regardless of the widget used
     # https://code.djangoproject.com/ticket/9321
     def __init__(self, *args, **kwargs):
         super(SetForm, self).__init__(*args, **kwargs)
