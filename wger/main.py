@@ -62,6 +62,7 @@ SECRET_KEY = %(default_key)r
 # Your reCaptcha keys
 RECAPTCHA_PUBLIC_KEY = '%(recaptcha_public_key)s'
 RECAPTCHA_PRIVATE_KEY = '%(recaptcha_private_key)s'
+NOCAPTCHA = True
 
 # The site's URL (e.g. http://www.my-local-gym.com or http://localhost:8000)
 # This is needed for Mozilla's BrowserID to work

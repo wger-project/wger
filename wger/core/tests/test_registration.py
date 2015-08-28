@@ -53,7 +53,7 @@ class RegistrationTestCase(WorkoutManagerTestCase):
                              'password1': 'secret',
                              'password2': 'secret',
                              'email': 'not an email',
-                             'recaptcha_response_field': 'PASSED', }
+                             'g-recaptcha-response': 'PASSED', }
         count_before = User.objects.count()
 
         # Wrong email
