@@ -96,6 +96,7 @@ The available options for the ``wger`` command (if installed from PyPI) or
   -s SETTINGS, --settings=SETTINGS
                         Path to the wger configuration file.
   --no-reload           Do not reload the development server.
+  --no-browser          Do not open the application in a browser.
   --version             Show version and exit.
   --show-config         Show configuration paths and exit.
 

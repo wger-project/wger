@@ -109,6 +109,9 @@ def process_options(argv=None):
         "--no-reload", action="store_true",
         help="Do not reload the development server.")
     parser.add_option(
+        "--no-browser", action="store_true",
+        help="Do not open the application in a browser.")
+    parser.add_option(
         "--migrate-db", action="store_true",
         help="Runs all database migrations (safe operation).")
     parser.add_option(
@@ -171,12 +174,16 @@ def _main(opts, database_path=None):
     if settings_path is None:
         settings_path = get_user_config_path('wger', 'settings.py')
 
-    # Find url to wger
+    # Override URL if no browser should be started
     addr, port = detect_listen_opts(opts.address, opts.port)
-    if port == 80:
-        url = "http://{0}".format(addr)
+    if opts.no_browser:
+        url = None
     else:
-        url = "http://{0}:{1}".format(addr, port)
+        # Find url to wger
+        if port == 80:
+            url = "http://{0}".format(addr)
+        else:
+            url = "http://{0}:{1}".format(addr, port)
 
     # Create settings if necessary
     if not os.path.exists(settings_path):
@@ -203,6 +210,7 @@ def _main(opts, database_path=None):
         extra_args = ['--noreload']
     else:
         extra_args = []
+
     start_wger(addr, port, start_browser_url=url, extra_args=extra_args)
 
 

@@ -131,9 +131,9 @@ Edit your ``settings.py`` file and set the database, ``SITE_URL``,
   >>> MEDIA_ROOT = '/home/myuser/wger/media'
 
 Run the installation scritpt, this will load all initial data (exit after it
-is done and tries to start a web browser)::
+is done)::
 
-  python start.py
+  python start.py --no-browser
 
 
 Start.py will create a default administator user (you probably want to change
