@@ -44,7 +44,6 @@ def get_user_config_path(*args):
     return os.path.join(config_home, *args)
 
 
-
 def win32_get_app_data_path(*args):
     shell32 = ctypes.WinDLL("shell32.dll")
     SHGetFolderPath = shell32.SHGetFolderPathW

@@ -25,16 +25,43 @@ import webbrowser
 
 from invoke import run, task
 
-from django.core.management import call_command
+from django.core.management import (
+    call_command,
+    execute_from_command_line
+)
+
 from wger.utils.main import (
     get_user_data_path,
     get_user_config_path,
     detect_listen_opts,
-    setup_django_environment
+    setup_django_environment,
 )
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
+os.environ.setdefault(django.conf.ENVIRONMENT_VARIABLE, 'settings')
 django.setup()
+
+
+@task
+def start_app(settings=None, address='localhost', port=8000, browser=False):
+    '''
+    Starts the application and open it in a browser
+    '''
+    if browser:
+        start_browser("http://{0}:{1}".format(address, port))
+
+    start_wger(address, port)
+
+
+@task
+def start_wger(address='localhost', port=8000, extra_args=[]):
+    '''
+    Start the application using django's built in webserver
+    '''
+    argv = ["", "runserver", '--noreload'] + extra_args
+
+    argv.append("{0}:{1}".format(address, port))
+    execute_from_command_line(argv)
+
 
 
 @task
