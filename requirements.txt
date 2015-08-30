@@ -16,6 +16,7 @@ icalendar
 django-bootstrap-breadcrumbs
 sphinx
 django-sortedm2m
+invoke
 
 # REST API
 djangorestframework>=3.2,<3.3
