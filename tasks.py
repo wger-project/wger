@@ -65,7 +65,7 @@ def start_wger(address='localhost', port=8000, extra_args=[]):
 
 
 @task
-def bootstrap_app(settings=None, address='localhost', port=8000, no_browser=False, upgrade_db=False, reset_admin=False):
+def bootstrap_app(settings=None, address='localhost', port=8000, browser=False, upgrade_db=False, reset_admin=False):
     '''
     Performs all steps necessary to bootstrap the application
     '''
@@ -75,16 +75,13 @@ def bootstrap_app(settings=None, address='localhost', port=8000, no_browser=Fals
     # if settings_path is None:
     #     settings_path = get_user_config_path('wger', 'settings.py')
 
-    # Override URL if no browser should be started
     addr, port = detect_listen_opts(address, port)
-    if no_browser:
-        url = None
+
+    # Find url to wger
+    if port == 80:
+        url = "http://{0}".format(addr)
     else:
-        # Find url to wger
-        if port == 80:
-            url = "http://{0}".format(addr)
-        else:
-            url = "http://{0}:{1}".format(addr, port)
+        url = "http://{0}:{1}".format(addr, port)
 
     # Create settings if necessary
     if not os.path.exists(settings_path):
@@ -106,13 +103,7 @@ def bootstrap_app(settings=None, address='localhost', port=8000, no_browser=Fals
     elif reset_admin:
         create_or_reset_admin()
 
-    # Start wger
-    # if opts.no_reload:
-    #     extra_args = ['--noreload']
-    # else:
-    #     extra_args = []
-    #
-    # start_wger(addr, port, start_browser_url=url, extra_args=extra_args)
+    start_app(addr, port, browser=browser)
 
 
 @task
