@@ -86,12 +86,6 @@ def bootstrap_app(settings=None, address='localhost', port=8000, no_browser=Fals
         else:
             url = "http://{0}:{1}".format(addr, port)
 
-    # print(settings_path)
-    # print(port)
-    # print(url)
-    # sys.exit()
-
-
     # Create settings if necessary
     if not os.path.exists(settings_path):
         create_settings(settings_path, url=url)
