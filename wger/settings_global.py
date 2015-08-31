@@ -85,7 +85,22 @@ INSTALLED_APPS = (
 
     # CORS
     'corsheaders',
+
+    # django-bower for installing bower packages
+    'djangobower',
 )
+
+# added list of external libraries to be installed by bower
+BOWER_INSTALLED_APPS = (
+    'jquery',
+    'bootstrap',
+    'bootstrap-datepicker',
+    'd3',
+    'shariff',
+    'tinymce-dist',
+    'DataTables',
+)
+
 
 MIDDLEWARE_CLASSES = (
     'corsheaders.middleware.CorsMiddleware',
@@ -143,6 +158,8 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # added BowerFinder to list of static file finders
+    'djangobower.finders.BowerFinder',
 
     # Django compressor
     'compressor.finders.CompressorFinder',
@@ -281,6 +298,9 @@ STATIC_URL = '/static/'
 # COMPRESS_ENABLED = True
 COMPRESS_ROOT = STATIC_ROOT
 
+# BOWER components route
+BOWER_COMPONENTS_ROUTE = os.path.join(STATIC_ROOT, 'components')
+BOWER_PATH = os.path.join(BASE_DIR, 'node_modules', '.bin', 'bower')
 
 #
 # Django Rest Framework

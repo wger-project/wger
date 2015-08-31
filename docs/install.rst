@@ -43,7 +43,7 @@ Apache
 
 Install apache and the WSGI module::
 
-  sudo apt-get install apache2 libapache2-mod-wsgi
+  sudo apt-get install apache2 libapache2-mod-wsgi nodejs
   sudo vim /etc/apache2/apache2.conf
 
 
@@ -110,6 +110,8 @@ Get the application::
   git clone https://github.com/rolandgeider/wger.git
   cd wger
   pip install -r requirements.txt
+  npm install bower
+  python manage.py bower install
   python extras/scripts/create_local_settings.py
 
 Edit your ``settings.py`` file and set the database, ``SITE_URL``,

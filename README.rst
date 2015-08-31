@@ -32,9 +32,10 @@ state.
 
 ::
 
- $ sudo apt-get install python-dev python-virtualenv
+ $ sudo apt-get install python-dev python-virtualenv nodejs
  $ virtualenv venv-django
  $ source venv-django/bin/activate
+ $ npm install bower
 
 2) Start the application. This will create a SQlite database and populate it
    with data on the first run.
@@ -44,6 +45,7 @@ state.
  $ git clone https://github.com/rolandgeider/wger.git
  $ cd wger
  $ pip install -r requirements.txt  # or requirements_devel.txt to develop
+ $ python manage.py bower install
  $ python start.py
 
  # After the first run you can just use django's development server
