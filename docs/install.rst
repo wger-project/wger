@@ -110,6 +110,8 @@ Get the application::
   git clone https://github.com/rolandgeider/wger.git
   cd wger
   pip install -r requirements.txt
+  npm install bower
+  python manage.py bower install
   python extras/scripts/create_local_settings.py
 
 Edit your ``settings.py`` file and set the database, ``SITE_URL``,

@@ -20,6 +20,7 @@ and populate it with data on the first run::
 
   $ git clone https://github.com/rolandgeider/wger.git
   $ cd wger
+  $ python manage.py bower install
   $ python start.py
 
 That's it. You can log in with the default administator user:
