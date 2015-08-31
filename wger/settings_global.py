@@ -94,7 +94,6 @@ INSTALLED_APPS = (
 BOWER_INSTALLED_APPS = (
     'jquery',
     'bootstrap',
-    'jquery-ui',
     'bootstrap-datepicker',
     'd3',
     'shariff',
