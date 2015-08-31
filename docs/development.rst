@@ -5,11 +5,11 @@ Development
 
 First, install all required packages::
 
-  $ sudo apt-get install python-virtualenv
-  $ sudo apt-get install python-dev
+  $ sudo apt-get install python-virtualenv python-dev nodejs
   $ virtualenv python-django
   $ source python-django/bin/activate
   $ pip install -r requirements_devel.txt
+  $ npm install bower
 
 .. note::
    For python3 some packages have slightly different names such as ``python3-dev``

@@ -32,9 +32,10 @@ state.
 
 ::
 
- $ sudo apt-get install python-dev python-virtualenv
+ $ sudo apt-get install python-dev python-virtualenv nodejs
  $ virtualenv venv-django
  $ source venv-django/bin/activate
+ $ npm install bower
 
 2) Start the application. This will create a SQlite database and populate it
    with data on the first run.

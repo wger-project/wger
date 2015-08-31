@@ -43,7 +43,7 @@ Apache
 
 Install apache and the WSGI module::
 
-  sudo apt-get install apache2 libapache2-mod-wsgi
+  sudo apt-get install apache2 libapache2-mod-wsgi nodejs
   sudo vim /etc/apache2/apache2.conf
 
 
