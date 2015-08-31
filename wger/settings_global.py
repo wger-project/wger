@@ -87,7 +87,7 @@ INSTALLED_APPS = (
     'corsheaders',
 
     # django-bower for installing bower packages
-    'djangobower', 
+    'djangobower',
 )
 
 # added list of external libraries to be installed by bower
@@ -97,7 +97,7 @@ BOWER_INSTALLED_APPS = (
     'jquery-ui',
     'bootstrap-datepicker',
     'd3',
-    'shariff', 
+    'shariff',
     'tinymce-dist',
     'DataTables',
 )
@@ -301,6 +301,7 @@ COMPRESS_ROOT = STATIC_ROOT
 
 # BOWER components route
 BOWER_COMPONENTS_ROUTE = os.path.join(STATIC_ROOT, 'components')
+BOWER_PATH = os.path.join(BASE_DIR, 'node_modules', '.bin', 'bower')
 
 #
 # Django Rest Framework
