@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import os
-import sys
 import time
 import django
 import base64
@@ -35,6 +34,7 @@ from wger.utils.main import (
     get_user_config_path,
     detect_listen_opts,
     setup_django_environment,
+    database_exists
 )
 
 os.environ.setdefault(django.conf.ENVIRONMENT_VARIABLE, 'settings')
@@ -61,7 +61,6 @@ def start_wger(address='localhost', port=8000, extra_args=[]):
 
     argv.append("{0}:{1}".format(address, port))
     execute_from_command_line(argv)
-
 
 
 @task
@@ -104,29 +103,6 @@ def bootstrap_app(settings=None, address='localhost', port=8000, browser=False, 
         create_or_reset_admin()
 
     start_app(addr, port, browser=browser)
-
-
-@task
-def database_exists():
-    """Detect if the database exists"""
-
-    # can't be imported in global scope as they already require
-    # the settings module during import
-    from django.db import DatabaseError
-    from django.core.exceptions import ImproperlyConfigured
-    from wger.manager.models import User
-
-    try:
-        # TODO: Use another model, the User could be deactivated
-        User.objects.count()
-    except DatabaseError:
-        return False
-    except ImproperlyConfigured:
-        print("Your settings file seems broken")
-        sys.exit(0)
-    else:
-        return True
-
 
 
 @task
@@ -225,20 +201,6 @@ def migrate_db():
     Run all database migrations
     '''
     call_command("migrate")
-
-    '''
-    call_command(["migrate", "core"])
-    call_command(["migrate", "gym"])
-    call_command(["migrate", "config"])
-    call_command(["migrate", "manager"])
-    call_command(["migrate", "exercises"])
-    call_command(["migrate", "nutrition"])
-    call_command(["migrate", "weight"])
-
-    # Other apps
-    call_command(["migrate", "easy_thumbnails"])
-    call_command(["migrate", "tastypie"])
-    '''
 
 
 @task

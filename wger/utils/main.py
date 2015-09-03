@@ -94,3 +94,24 @@ def setup_django_environment(settings_path):
     settings_module_dir = os.path.dirname(settings_path)
     sys.path.append(settings_module_dir)
     os.environ[django.conf.ENVIRONMENT_VARIABLE] = '%s' % settings_module_name
+
+
+def database_exists():
+    """Detect if the database exists"""
+
+    # can't be imported in global scope as they already require
+    # the settings module during import
+    from django.db import DatabaseError
+    from django.core.exceptions import ImproperlyConfigured
+    from wger.manager.models import User
+
+    try:
+        # TODO: Use another model, the User could be deactivated
+        User.objects.count()
+    except DatabaseError:
+        return False
+    except ImproperlyConfigured:
+        print("Your settings file seems broken")
+        sys.exit(0)
+    else:
+        return True
