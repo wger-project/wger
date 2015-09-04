@@ -102,7 +102,7 @@ def bootstrap_app(settings=None, address='localhost', port=8000, browser=False, 
     elif reset_admin:
         create_or_reset_admin()
 
-    start_app(addr, port, browser=browser)
+    start_app(address=addr, port=port, browser=browser)
 
 
 @task
