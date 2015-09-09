@@ -34,10 +34,14 @@ from wger.utils.main import (
 )
 
 
-@task
-def start_wger(address='localhost', port=8000, browser=False, settings_path=None, extra_args=[]):
+@task(help={'address': 'Address to bind to. Default: localhost',
+            'port': 'Port to use. Default: 8000',
+            'browser': 'Whether to open the application in a browser window. Default: false',
+            'settings-path': 'Path to settings file. Leave empty for default',
+            'extra-args': 'Additional arguments to pass to the builtin server. Pass as string: "--arg1 --arg2=value". Default: none'})
+def start_wger(address='localhost', port=8000, browser=False, settings_path=None, extra_args=''):
     '''
-    Start the application using django's built in webserver and open it in a browser
+    Start the application using django's built in webserver
     '''
     if browser:
         start_browser("http://{0}:{1}".format(address, port))
@@ -48,7 +52,9 @@ def start_wger(address='localhost', port=8000, browser=False, settings_path=None
         setup_django_environment(settings_path)
         print('*** No settings given, using {0}'.format(settings_path))
 
-    argv = ["", "runserver", '--noreload'] + extra_args
+    argv = ["", "runserver", '--noreload']
+    for argument in extra_args.split(' '):
+        argv.append(argument)
     argv.append("{0}:{1}".format(address, port))
     execute_from_command_line(argv)
 
