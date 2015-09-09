@@ -48,3 +48,7 @@ MEDIA_URL = SITE_URL + '/static/'
 if DEBUG:
     # Serve the uploaded files like this only during development
     STATICFILES_DIRS = (MEDIA_ROOT, )
+
+
+# Allow all hosts to access the application. Change if used in production.
+ALLOWED_HOSTS = '*'
