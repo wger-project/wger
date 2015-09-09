@@ -94,6 +94,7 @@ def setup_django_environment(settings_path):
     settings_module_dir = os.path.dirname(settings_path)
     sys.path.append(settings_module_dir)
     os.environ[django.conf.ENVIRONMENT_VARIABLE] = '%s' % settings_module_name
+    django.setup()
 
 
 def database_exists():

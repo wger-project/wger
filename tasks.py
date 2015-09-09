@@ -16,7 +16,6 @@
 
 import os
 import time
-import django
 import base64
 import inspect
 import threading
@@ -36,9 +35,6 @@ from wger.utils.main import (
     setup_django_environment,
     database_exists
 )
-
-os.environ.setdefault(django.conf.ENVIRONMENT_VARIABLE, 'settings')
-django.setup()
 
 
 @task
@@ -71,8 +67,9 @@ def bootstrap_app(settings=None, address='localhost', port=8000, browser=False, 
 
     # Find the path to the settings
     settings_path = settings
-    # if settings_path is None:
-    #     settings_path = get_user_config_path('wger', 'settings.py')
+    if settings_path is None:
+        settings_path = get_user_config_path('wger', 'settings.py')
+        print('*** No settings given, using {0}'.format(settings_path))
 
     addr, port = detect_listen_opts(address, port)
 
@@ -83,7 +80,7 @@ def bootstrap_app(settings=None, address='localhost', port=8000, browser=False, 
         url = "http://{0}:{1}".format(addr, port)
 
     # Create settings if necessary
-    if not os.path.exists(settings_path):
+    if settings_path and not os.path.exists(settings_path):
         create_settings(settings_path, url=url)
 
     # Set the django environment to the settings
@@ -91,7 +88,9 @@ def bootstrap_app(settings=None, address='localhost', port=8000, browser=False, 
 
     # Create Database if necessary
     if not database_exists() or upgrade_db:
+        print('*** Database does not exist, creating one now')
         migrate_db()
+        load_fixtures()
         create_or_reset_admin()
 
     # Only run the south migrations
@@ -113,15 +112,13 @@ def create_settings(settings_path=None, database_path=None, url=None, database_t
     if settings_path is None:
         settings_path = get_user_config_path('wger', 'settings.py')
     settings_module = os.path.dirname(settings_path)
-    print("* Creating settings file at {0}".format(settings_module))
+    print("*** Creating settings file at {0}".format(settings_module))
 
     if database_path is None:
         database_path = get_user_data_path('wger', 'database.sqlite')
     dbpath_value = repr(database_path)
 
     media_folder_path = get_user_data_path('wger', 'media')
-    print("Please edit your settings file and enter the values for the reCaptcha keys ")
-    print("You can leave this empty, but won't be able to register new users")
 
     # Fill in the config file template
 
@@ -177,9 +174,9 @@ def create_or_reset_admin():
     from wger.manager.models import User
     try:
         admin = User.objects.get(username="admin")
-        print("Password for user admin was reset to 'admin'")
+        print("*** Password for user admin was reset to 'admin'")
     except User.DoesNotExist:
-        print("Created default admin user")
+        print("*** Created default admin user")
 
     os.chdir(os.path.dirname(inspect.stack()[0][1]))
     current_dir = os.path.join(os.getcwd(), 'wger')
