@@ -57,13 +57,10 @@ def start_wger(address='localhost', port=8000, browser=False, settings_path=None
 
 
 @task
-def bootstrap_wger(settings_path=None, address='localhost', port=8000, browser=False, upgrade_db=False, reset_admin=False):
+def bootstrap_wger(settings_path=None, database_path=None, address='localhost', port=8000, browser=False, upgrade_db=False, reset_admin=False):
     '''
     Performs all steps necessary to bootstrap the application
     '''
-
-    # Find the path to the settings and setup the django environment
-    setup_django_environment(settings_path)
 
     # Find url to wger
     address, port = detect_listen_opts(address, port)
@@ -74,14 +71,17 @@ def bootstrap_wger(settings_path=None, address='localhost', port=8000, browser=F
 
     # Create settings if necessary
     if settings_path and not os.path.exists(settings_path):
-        create_settings(settings_path, url=url)
+        create_settings(settings_path=settings_path, database_path=database_path, url=url)
+
+    # Find the path to the settings and setup the django environment
+    setup_django_environment(settings_path)
 
     # Create Database if necessary
     if not database_exists() or upgrade_db:
         print('*** Database does not exist, creating one now')
-        migrate_db()
-        load_fixtures()
-        create_or_reset_admin()
+        migrate_db(settings_path=settings_path)
+        load_fixtures(settings_path=settings_path)
+        create_or_reset_admin(settings_path=settings_path)
 
     # Only run the south migrations
     elif upgrade_db:
@@ -91,7 +91,7 @@ def bootstrap_wger(settings_path=None, address='localhost', port=8000, browser=F
     elif reset_admin:
         create_or_reset_admin()
 
-    start_wger(address=address, port=port, browser=browser)
+    start_wger(address=address, port=port, browser=browser, settings_path=settings_path)
 
 
 @task
