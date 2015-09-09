@@ -25,7 +25,7 @@ DATABASES = {{
 }}
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = {default_key}
+SECRET_KEY = '{default_key}'
 
 # Your reCaptcha keys
 RECAPTCHA_PUBLIC_KEY = ''
