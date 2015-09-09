@@ -106,8 +106,6 @@ def create_settings(settings_path=None, database_path=None, url=None, database_t
     '''
     if settings_path is None:
         settings_path = get_user_config_path('wger', 'settings.py')
-    # Set the django environment to the settings
-    setup_django_environment(settings_path)
 
     settings_module = os.path.dirname(settings_path)
     print("*** Creating settings file at {0}".format(settings_module))
