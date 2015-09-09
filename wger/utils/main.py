@@ -89,6 +89,16 @@ def detect_listen_opts(address, port):
 
 
 def setup_django_environment(settings_path):
+    '''
+    Setup the django environment
+    '''
+
+    # Use default settings if the user didn't specify something else
+    if settings_path is None:
+        settings_path = get_user_config_path('wger', 'settings.py')
+        print('*** No settings given, using {0}'.format(settings_path))
+
+    # Find out file path and fine name of settings and setup django
     settings_file = os.path.basename(settings_path)
     settings_module_name = "".join(settings_file.split('.')[:-1])
     if '.' in settings_module_name:

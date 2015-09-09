@@ -47,9 +47,6 @@ def start_wger(address='localhost', port=8000, browser=False, settings_path=None
         start_browser("http://{0}:{1}".format(address, port))
 
     # Find the path to the settings and setup the django environment
-    if settings_path is None:
-        settings_path = get_user_config_path('wger', 'settings.py')
-        print('*** No settings given, using {0}'.format(settings_path))
     setup_django_environment(settings_path)
 
     argv = ["", "runserver", '--noreload']
@@ -65,10 +62,8 @@ def bootstrap_wger(settings_path=None, address='localhost', port=8000, browser=F
     Performs all steps necessary to bootstrap the application
     '''
 
-    # Find the path to the settings
-    if settings_path is None:
-        settings_path = get_user_config_path('wger', 'settings.py')
-        print('*** No settings given, using {0}'.format(settings_path))
+    # Find the path to the settings and setup the django environment
+    setup_django_environment(settings_path)
 
     # Find url to wger
     address, port = detect_listen_opts(address, port)
@@ -80,9 +75,6 @@ def bootstrap_wger(settings_path=None, address='localhost', port=8000, browser=F
     # Create settings if necessary
     if settings_path and not os.path.exists(settings_path):
         create_settings(settings_path, url=url)
-
-    # Set the django environment to the settings
-    setup_django_environment(settings_path)
 
     # Create Database if necessary
     if not database_exists() or upgrade_db:
@@ -163,10 +155,13 @@ def create_settings(settings_path=None, database_path=None, url=None, database_t
 
 
 @task
-def create_or_reset_admin():
+def create_or_reset_admin(settings_path=None):
     '''
     Creates an admin user or resets the password for an existing one
     '''
+
+    # Find the path to the settings and setup the django environment
+    setup_django_environment(settings_path)
 
     # can't be imported in global scope as it already requires
     # the settings module during import
@@ -184,18 +179,26 @@ def create_or_reset_admin():
 
 
 @task
-def migrate_db():
+def migrate_db(settings_path=None):
     '''
     Run all database migrations
     '''
+
+    # Find the path to the settings and setup the django environment
+    setup_django_environment(settings_path)
+
     call_command("migrate")
 
 
 @task
-def load_fixtures():
+def load_fixtures(settings_path=None):
     '''
     Loads all fixtures
     '''
+
+    # Find the path to the settings and setup the django environment
+    setup_django_environment(settings_path)
+
     os.chdir(os.path.dirname(inspect.stack()[0][1]))
     current_dir = os.path.join(os.getcwd(), 'wger')
 
