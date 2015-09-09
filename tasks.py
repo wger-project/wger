@@ -241,3 +241,14 @@ def load_fixtures(settings_path=None):
     call_command("loaddata", path + "gym.json")
     call_command("loaddata", path + "gym-config.json")
     call_command("loaddata", path + "gym-adminconfig.json")
+
+
+@task
+def config_location():
+    '''
+    Returns the default location for the settings file and the data folder
+    '''
+    print('Default locations:')
+    print('* settings:      {0}'.format(get_user_config_path('wger', 'settings.py')))
+    print('* media folder:  {0}'.format(get_user_data_path('wger', 'media')))
+    print('* database path: {0}'.format(get_user_data_path('wger', 'database.sqlite')))
