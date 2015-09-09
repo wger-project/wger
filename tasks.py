@@ -60,24 +60,22 @@ def start_wger(address='localhost', port=8000, extra_args=[]):
 
 
 @task
-def bootstrap_app(settings=None, address='localhost', port=8000, browser=False, upgrade_db=False, reset_admin=False):
+def bootstrap_wger(settings_path=None, address='localhost', port=8000, browser=False, upgrade_db=False, reset_admin=False):
     '''
     Performs all steps necessary to bootstrap the application
     '''
 
     # Find the path to the settings
-    settings_path = settings
     if settings_path is None:
-        settings_path = get_user_config_path('wger', 'settings.py')
         print('*** No settings given, using {0}'.format(settings_path))
-
-    addr, port = detect_listen_opts(address, port)
+        settings_path = get_user_config_path('wger', 'settings.py')
 
     # Find url to wger
+    address, port = detect_listen_opts(address, port)
     if port == 80:
-        url = "http://{0}".format(addr)
+        url = "http://{0}".format(address)
     else:
-        url = "http://{0}:{1}".format(addr, port)
+        url = "http://{0}:{1}".format(address, port)
 
     # Create settings if necessary
     if settings_path and not os.path.exists(settings_path):
@@ -101,7 +99,7 @@ def bootstrap_app(settings=None, address='localhost', port=8000, browser=False, 
     elif reset_admin:
         create_or_reset_admin()
 
-    start_app(address=addr, port=port, browser=browser)
+    start_app(address=address, port=port, browser=browser)
 
 
 @task
@@ -111,6 +109,9 @@ def create_settings(settings_path=None, database_path=None, url=None, database_t
     '''
     if settings_path is None:
         settings_path = get_user_config_path('wger', 'settings.py')
+    # Set the django environment to the settings
+    setup_django_environment(settings_path)
+
     settings_module = os.path.dirname(settings_path)
     print("*** Creating settings file at {0}".format(settings_module))
 
@@ -253,4 +254,3 @@ def load_fixtures():
     call_command("loaddata", path + "gym.json")
     call_command("loaddata", path + "gym-config.json")
     call_command("loaddata", path + "gym-adminconfig.json")
-
