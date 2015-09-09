@@ -12,8 +12,11 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import logging
 import sys
+import time
+import logging
+import threading
+import webbrowser
 import os
 import ctypes
 import socket
@@ -116,3 +119,17 @@ def database_exists():
         sys.exit(0)
     else:
         return True
+
+
+def start_browser(url):
+    '''
+    Start the web browser with the given URL
+    '''
+    browser = webbrowser.get()
+
+    def function():
+        time.sleep(1)
+        browser.open(url)
+
+    thread = threading.Thread(target=function)
+    thread.start()

@@ -14,15 +14,11 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import os
-import time
 import base64
 import inspect
-import threading
-import webbrowser
 
-from invoke import run, task
-
+import os
+from invoke import task
 from django.core.management import (
     call_command,
     execute_from_command_line
@@ -33,7 +29,8 @@ from wger.utils.main import (
     get_user_config_path,
     detect_listen_opts,
     setup_django_environment,
-    database_exists
+    database_exists,
+    start_browser
 )
 
 
@@ -183,21 +180,6 @@ def create_or_reset_admin():
     current_dir = os.path.join(os.getcwd(), 'wger')
     path = os.path.join(current_dir, 'core', 'fixtures/')
     call_command("loaddata", path + "users.json")
-
-
-@task
-def start_browser(url):
-    '''
-    Start the web browser with the given URL
-    '''
-    browser = webbrowser.get()
-
-    def function():
-        time.sleep(1)
-        browser.open(url)
-
-    thread = threading.Thread(target=function)
-    thread.start()
 
 
 @task
