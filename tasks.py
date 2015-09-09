@@ -50,8 +50,9 @@ def start_wger(address='localhost', port=8000, browser=False, settings_path=None
     setup_django_environment(settings_path)
 
     argv = ["", "runserver", '--noreload']
-    for argument in extra_args.split(' '):
-        argv.append(argument)
+    if extra_args != '':
+        for argument in extra_args.split(' '):
+            argv.append(argument)
     argv.append("{0}:{1}".format(address, port))
     execute_from_command_line(argv)
 
