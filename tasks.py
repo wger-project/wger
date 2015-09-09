@@ -49,8 +49,8 @@ def start_wger(address='localhost', port=8000, browser=False, settings_path=None
     # Find the path to the settings and setup the django environment
     if settings_path is None:
         settings_path = get_user_config_path('wger', 'settings.py')
-        setup_django_environment(settings_path)
         print('*** No settings given, using {0}'.format(settings_path))
+    setup_django_environment(settings_path)
 
     argv = ["", "runserver", '--noreload']
     for argument in extra_args.split(' '):
