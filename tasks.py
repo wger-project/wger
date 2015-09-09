@@ -107,6 +107,9 @@ def bootstrap_app(settings=None, address='localhost', port=8000, browser=False, 
 
 @task
 def create_settings(settings_path=None, database_path=None, url=None, database_type='sqlite3', key_length=30):
+    '''
+    Creates a local settings file
+    '''
     if settings_path is None:
         settings_path = get_user_config_path('wger', 'settings.py')
     settings_module = os.path.dirname(settings_path)
@@ -165,6 +168,10 @@ def create_settings(settings_path=None, database_path=None, url=None, database_t
 
 @task
 def create_or_reset_admin():
+    '''
+    Creates an admin user or resets the password for an existing one
+    '''
+
     # can't be imported in global scope as it already requires
     # the settings module during import
     from wger.manager.models import User
