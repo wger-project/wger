@@ -35,23 +35,20 @@ from wger.utils.main import (
 
 
 @task
-def start_app(settings=None, address='localhost', port=8000, browser=False):
+def start_wger(address='localhost', port=8000, browser=False, settings_path=None, extra_args=[]):
     '''
-    Starts the application and open it in a browser
+    Start the application using django's built in webserver and open it in a browser
     '''
     if browser:
         start_browser("http://{0}:{1}".format(address, port))
 
-    start_wger(address, port)
+    # Find the path to the settings and setup the django environment
+    if settings_path is None:
+        settings_path = get_user_config_path('wger', 'settings.py')
+        setup_django_environment(settings_path)
+        print('*** No settings given, using {0}'.format(settings_path))
 
-
-@task
-def start_wger(address='localhost', port=8000, extra_args=[]):
-    '''
-    Start the application using django's built in webserver
-    '''
     argv = ["", "runserver", '--noreload'] + extra_args
-
     argv.append("{0}:{1}".format(address, port))
     execute_from_command_line(argv)
 
@@ -64,8 +61,8 @@ def bootstrap_wger(settings_path=None, address='localhost', port=8000, browser=F
 
     # Find the path to the settings
     if settings_path is None:
-        print('*** No settings given, using {0}'.format(settings_path))
         settings_path = get_user_config_path('wger', 'settings.py')
+        print('*** No settings given, using {0}'.format(settings_path))
 
     # Find url to wger
     address, port = detect_listen_opts(address, port)
@@ -96,7 +93,7 @@ def bootstrap_wger(settings_path=None, address='localhost', port=8000, browser=F
     elif reset_admin:
         create_or_reset_admin()
 
-    start_app(address=address, port=port, browser=browser)
+    start_wger(address=address, port=port, browser=browser)
 
 
 @task
