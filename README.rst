@@ -18,7 +18,8 @@ Installation
 ============
 
 These are the basic steps to install and run the application locally on a linux
-system.
+system. Please consult the documentation for further information and parameters
+on the invoke command.
 
 
 Development version (from git)
@@ -44,12 +45,13 @@ state.
  $ git clone https://github.com/rolandgeider/wger.git
  $ cd wger
  $ pip install -r requirements.txt  # or requirements_devel.txt to develop
- $ python start.py
+ $ invoke bootstrap_wger
 
  # After the first run you can just use django's development server
  $ python manage.py runserver
 
 3) Log in as: **admin**, password **admin**
+
 
 Stable version (from PyPI)
 --------------------------
@@ -69,7 +71,7 @@ Stable version (from PyPI)
 
 ::
 
- $ wger
+ $ TODO TODO TODO TODO TODO
 
 
 3) Log in as: **admin**, password **admin**
@@ -78,27 +80,17 @@ Stable version (from PyPI)
 Command line options
 --------------------
 
-The available options for the ``wger`` command (if installed from PyPI) or
-``start.py`` (if installed from source) are the following ::
+The available options for the ``TODO`` command (if installed from PyPI) or
+``invoke <command>`` (if installed from source) are the following ::
 
- Usage: main.py [options]
 
- Run wger Workout Manager using django's builtin server
-
- Options:
-  -h, --help            show this help message and exit
-  -a ADDRESS, --address=ADDRESS
-                        IP Address to listen on.
-  -p PORT, --port=PORT  Port to listen on.
-  --syncdb              Update/create database before starting the server.
-  --reset-admin         Make sure the user 'admin' exists and uses 'admin' as
-                        password.
-  -s SETTINGS, --settings=SETTINGS
-                        Path to the wger configuration file.
-  --no-reload           Do not reload the development server.
-  --no-browser          Do not open the application in a browser.
-  --version             Show version and exit.
-  --show-config         Show configuration paths and exit.
+  bootstrap_wger          Performs all steps necessary to bootstrap the application
+  config_location         Returns the default location for the settings file and the data folder
+  create_or_reset_admin   Creates an admin user or resets the password for an existing one
+  create_settings         Creates a local settings file
+  load_fixtures           Loads all fixtures
+  migrate_db              Run all database migrations
+  start_wger              Start the application using django's built in webserver
 
 Contact
 =======
