@@ -37,7 +37,7 @@ from wger.utils.main import (
 @task(help={'address': 'Address to bind to. Default: localhost',
             'port': 'Port to use. Default: 8000',
             'browser': 'Whether to open the application in a browser window. Default: false',
-            'settings-path': 'Path to settings file. Leave empty for default',
+            'settings-path': 'Path to settings file (absolute path recommended). Leave empty for default',
             'extra-args': 'Additional arguments to pass to the builtin server. Pass as string: "--arg1 --arg2=value". Default: none'})
 def start_wger(address='localhost', port=8000, browser=False, settings_path=None, extra_args=''):
     '''
@@ -57,8 +57,12 @@ def start_wger(address='localhost', port=8000, browser=False, settings_path=None
     execute_from_command_line(argv)
 
 
-@task
-def bootstrap_wger(settings_path=None, database_path=None, address='localhost', port=8000, browser=False, upgrade_db=False, reset_admin=False):
+@task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for default',
+            'database-path': 'Path to sqlite database (absolute path recommended). Leave empty for default',
+            'address': 'Address to use. Default: localhost',
+            'port': 'Port to use. Default: 8000',
+            'browser': 'Whether to open the application in a browser window. Default: false'})
+def bootstrap_wger(settings_path=None, database_path=None, address='localhost', port=8000, browser=False):
     '''
     Performs all steps necessary to bootstrap the application
     '''
@@ -78,24 +82,21 @@ def bootstrap_wger(settings_path=None, database_path=None, address='localhost', 
     setup_django_environment(settings_path)
 
     # Create Database if necessary
-    if not database_exists() or upgrade_db:
+    if not database_exists():
         print('*** Database does not exist, creating one now')
         migrate_db(settings_path=settings_path)
         load_fixtures(settings_path=settings_path)
         create_or_reset_admin(settings_path=settings_path)
 
-    # Only run the south migrations
-    elif upgrade_db:
-        migrate_db()
-
-    # Reset Admin
-    elif reset_admin:
-        create_or_reset_admin()
-
+    # Start the webserver
+    print('*** Bootstraping complete, starting application')
     start_wger(address=address, port=port, browser=browser, settings_path=settings_path)
 
 
-@task
+@task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for default',
+            'database-path': 'Path to sqlite database (absolute path recommended). Leave empty for default',
+            'database-type': 'Database type to use. Supported: sqlite3, postgresql. Default: sqlite3',
+            'key-length': 'Lenght of the generated secret key. Default: 30'})
 def create_settings(settings_path=None, database_path=None, url=None, database_type='sqlite3', key_length=30):
     '''
     Creates a local settings file
@@ -155,7 +156,7 @@ def create_settings(settings_path=None, database_path=None, url=None, database_t
         settings_file.write(settings_content)
 
 
-@task
+@task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for default'})
 def create_or_reset_admin(settings_path=None):
     '''
     Creates an admin user or resets the password for an existing one
@@ -179,7 +180,7 @@ def create_or_reset_admin(settings_path=None):
     call_command("loaddata", path + "users.json")
 
 
-@task
+@task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for default'})
 def migrate_db(settings_path=None):
     '''
     Run all database migrations
@@ -191,7 +192,7 @@ def migrate_db(settings_path=None):
     call_command("migrate")
 
 
-@task
+@task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for default'})
 def load_fixtures(settings_path=None):
     '''
     Loads all fixtures
