@@ -14,11 +14,12 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import base64
 import inspect
-
 import os
+
 from invoke import task
+
+from django.utils.crypto import get_random_string
 from django.core.management import (
     call_command,
     execute_from_command_line
@@ -135,6 +136,10 @@ def create_settings(settings_path=None, database_path=None, url=None, database_t
         dbhost = ''
         dbport = ''
 
+    # Create a random SECRET_KEY to put it in the settings.
+    # from django.core.management.commands.startproject
+    secret_key = get_random_string(50, 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)')
+
     settings_content = settings_content.format(dbname=dbname,
                                                dbpath=dbpath_value,
                                                dbengine=dbengine,
@@ -142,7 +147,7 @@ def create_settings(settings_path=None, database_path=None, url=None, database_t
                                                dbpassword=dbpassword,
                                                dbhost=dbhost,
                                                dbport=dbport,
-                                               default_key=base64.b64encode(os.urandom(key_length)),
+                                               default_key=secret_key,
                                                siteurl=url,
                                                media_folder_path=media_folder_path)
 
