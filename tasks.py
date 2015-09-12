@@ -97,8 +97,8 @@ def bootstrap_wger(settings_path=None, database_path=None, address='localhost', 
 @task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for default',
             'database-path': 'Path to sqlite database (absolute path recommended). Leave empty for default',
             'database-type': 'Database type to use. Supported: sqlite3, postgresql. Default: sqlite3',
-            'key-length': 'Lenght of the generated secret key. Default: 30'})
-def create_settings(settings_path=None, database_path=None, url=None, database_type='sqlite3', key_length=30):
+            'key-length': 'Lenght of the generated secret key. Default: 50'})
+def create_settings(settings_path=None, database_path=None, url=None, database_type='sqlite3', key_length=50):
     '''
     Creates a local settings file
     '''
@@ -138,7 +138,7 @@ def create_settings(settings_path=None, database_path=None, url=None, database_t
 
     # Create a random SECRET_KEY to put it in the settings.
     # from django.core.management.commands.startproject
-    secret_key = get_random_string(50, 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)')
+    secret_key = get_random_string(key_length, 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)')
 
     settings_content = settings_content.format(dbname=dbname,
                                                dbpath=dbpath_value,

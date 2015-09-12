@@ -130,7 +130,7 @@ Usage::
     Options:
       -a STRING, --database-type=STRING   Database type to use. Supported: sqlite3, postgresql. Default: sqlite3
       -d STRING, --database-path=STRING   Path to sqlite database (absolute path recommended). Leave empty for default
-      -k, --key-length                    Lenght of the generated secret key. Default: 30
+      -k, --key-length                    Lenght of the generated secret key. Default: 50
       -s STRING, --settings-path=STRING   Path to settings file (absolute path recommended). Leave empty for default
       -u STRING, --url=STRING
 
