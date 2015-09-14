@@ -27,7 +27,6 @@ Installation and development
    development
    install
    commands
-   invoke
    i18n
 
 

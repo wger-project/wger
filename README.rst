@@ -71,7 +71,7 @@ Stable version (from PyPI)
 
 ::
 
- $ TODO TODO TODO TODO TODO
+ $ wger bootstrap_wger
 
 
 3) Log in as: **admin**, password **admin**
@@ -80,8 +80,9 @@ Stable version (from PyPI)
 Command line options
 --------------------
 
-The available options for the ``TODO`` command (if installed from PyPI) or
-``invoke <command>`` (if installed from source) are the following ::
+The available options for the ``wger`` command (if installed from PyPI) or
+``invoke`` (if installed from source) are the following (use e.g. ``wger
+<command>``::
 
 
   bootstrap_wger          Performs all steps necessary to bootstrap the application
