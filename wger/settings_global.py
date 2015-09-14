@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import re
-from wger.main import fs2unicode
 
 '''
 This file contains the global settings that don't usually need to be changed.
@@ -196,7 +195,7 @@ LANGUAGE_CODE = 'en'
 
 # All translation files are in one place
 LOCALE_PATHS = (
-    fs2unicode(os.path.join(SITE_ROOT, 'locale')),
+    os.path.join(SITE_ROOT, 'locale'),
 )
 
 FLAVOURS_STORAGE_BACKEND = 'session'
