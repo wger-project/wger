@@ -46,7 +46,7 @@ setup(
     install_requires=install_requires,
     entry_points={
         'console_scripts': [
-            'wger = wger.main:main',
+            'wger = wger.__main__:main',
         ],
     },
 )

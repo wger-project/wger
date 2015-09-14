@@ -21,7 +21,7 @@ and populate it with data on the first run::
   $ git clone https://github.com/rolandgeider/wger.git
   $ cd wger
   $ python manage.py bower install
-  $ python start.py
+  $ invoke bootstrap_wger
 
 That's it. You can log in with the default administator user:
 
@@ -43,7 +43,7 @@ obvious place. For development I suggest moving them to the folder with the
 code::
 
     $ cd wger
-    $ python start.py --show-config
+    $ invoke config_location
     Settings file: /home/user/.config/wger/settings.py
     Database file: /home/user/.local/share/wger/database.sqlite
     
