@@ -2,11 +2,12 @@
 # Requirements for wger for production
 #
 
-Django>=1.7,<1.8
+Django>=1.8,<1.9
 django-browserid==0.11
 django-recaptcha
 reportlab
 django_mobile
+django-formtools
 bleach
 python-mimeparse
 pillow
