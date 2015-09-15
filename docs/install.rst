@@ -11,7 +11,7 @@ developemt setup refer to :doc:`development`
 The application is compatible and regularly tested with
 
 * sqlite, postgres
-* python 2.7, 3.3 and 3.4
+* python 2.7, 3.3, 3.4 and 3.5
 
 See the :ref:`other-changes` section for content related changes to your
 installation.

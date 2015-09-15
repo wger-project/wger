@@ -46,7 +46,6 @@ class ExerciseCommentEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
 
     model = ExerciseComment
-    fields = ['comment']
     form_class = CommentForm
     title = ugettext_lazy('Edit')
     permission_required = 'exercises.change_exercisecomment'
@@ -69,7 +68,7 @@ class ExerciseCommentAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
 
     model = ExerciseComment
-    fields = ['comment']
+    form_class = CommentForm
     title = ugettext_lazy('Add exercise comment')
     permission_required = 'exercises.add_exercisecomment'
 
