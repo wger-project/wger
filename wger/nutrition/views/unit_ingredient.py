@@ -77,6 +77,7 @@ class WeightUnitIngredientCreateView(WgerFormMixin, CreateView, WgerPermissionMi
 
             class Meta:
                 model = IngredientWeightUnit
+                fields = ['unit', 'gram', 'amount']
 
         return IngredientWeightUnitForm
 
@@ -104,6 +105,7 @@ class WeightUnitIngredientUpdateView(WgerFormMixin, UpdateView, WgerPermissionMi
 
             class Meta:
                 model = IngredientWeightUnit
+                fields = ['unit', 'gram', 'amount']
 
         return IngredientWeightUnitForm
 

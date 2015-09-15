@@ -61,7 +61,7 @@ class EquipmentEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
 
     model = Equipment
-    fields = '__all__'
+    fields = ['name']
     permission_required = 'exercises.change_equipment'
     success_url = reverse_lazy('exercise:equipment:list')
 
@@ -81,6 +81,7 @@ class EquipmentAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
 
     model = Equipment
+    fields = ['name']
     title = ugettext_lazy('Add new equipment')
     permission_required = 'exercises.add_equipment'
     success_url = reverse_lazy('exercise:equipment:list')

@@ -63,6 +63,7 @@ class WeightUnitCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
 
     model = WeightUnit
+    fields = ['name']
     title = ugettext_lazy('Add new weight unit')
     form_action = reverse_lazy('nutrition:weight_unit:add')
     permission_required = 'nutrition.add_ingredientweightunit'
@@ -101,6 +102,7 @@ class WeightUnitUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
 
     model = WeightUnit
+    fields = ['name']
     form_action_urlname = 'nutrition:weight_unit:edit'
     permission_required = 'nutrition.change_ingredientweightunit'
 
