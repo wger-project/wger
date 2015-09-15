@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import re
-from wger.main import fs2unicode
 
 '''
 This file contains the global settings that don't usually need to be changed.
@@ -88,8 +87,23 @@ INSTALLED_APPS = (
     'corsheaders',
 
     # Django Activity Stream
-    'actstream'
+    'actstream',
+
+    # django-bower for installing bower packages
+    'djangobower',
 )
+
+# added list of external libraries to be installed by bower
+BOWER_INSTALLED_APPS = (
+    'jquery',
+    'bootstrap',
+    'bootstrap-datepicker',
+    'd3',
+    'shariff',
+    'tinymce-dist',
+    'DataTables',
+)
+
 
 MIDDLEWARE_CLASSES = (
     'corsheaders.middleware.CorsMiddleware',
@@ -147,6 +161,8 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # added BowerFinder to list of static file finders
+    'djangobower.finders.BowerFinder',
 
     # Django compressor
     'compressor.finders.CompressorFinder',
@@ -200,7 +216,7 @@ LANGUAGE_CODE = 'en'
 
 # All translation files are in one place
 LOCALE_PATHS = (
-    fs2unicode(os.path.join(SITE_ROOT, 'locale')),
+    os.path.join(SITE_ROOT, 'locale'),
 )
 
 FLAVOURS_STORAGE_BACKEND = 'session'
@@ -285,6 +301,9 @@ STATIC_URL = '/static/'
 # COMPRESS_ENABLED = True
 COMPRESS_ROOT = STATIC_ROOT
 
+# BOWER components route
+BOWER_COMPONENTS_ROUTE = os.path.join(STATIC_ROOT, 'components')
+BOWER_PATH = os.path.join(BASE_DIR, 'node_modules', '.bin', 'bower')
 
 #
 # Django Rest Framework

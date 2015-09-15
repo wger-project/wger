@@ -49,22 +49,22 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-common.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui-custom.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/datepicker3.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/shariff.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bower_components/shariff/build/shariff.min.css' %}">
     {% endcompress %}
 
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
 
     {% compress js %}
-    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'bower_components/jquery/dist/jquery.js' %}"></script>
     <script src="{% static 'js/jquery-ui.js' %}"></script>
-    <script src="{% static 'js/d3.js' %}"></script>
+    <script src="{% static 'bower_components/d3/d3.js' %}"></script>
     <script src="{% static 'js/workout-manager.js' %}"></script>
     <script src="{% static 'js/ubuntu-unity.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap-datepicker/bootstrap-datepicker.min.js' %}"></script>
+    <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' %}"></script>
     <script src="{% static 'js/exercises.js' %}"></script>
     <script src="{% static 'js/weight.js' %}"></script>
     <script src="{% static 'js/nutrition.js' %}"></script>
@@ -219,7 +219,7 @@
     </div>
 </footer>
 
-<script src="{% static 'js/shariff.min.js' %}"></script>
+<script src="{% static 'bower_components/shariff/build/shariff.min.js' %}"></script>
 </body>
 {% endspaceless_config %}
 </html>

@@ -5,12 +5,12 @@ Development
 
 First, install all required packages::
 
-  $ sudo apt-get install python-virtualenv
-  $ sudo apt-get install python-dev
   $ sudo apt-get install libjpeg8-dev libwebp-dev
+  $ sudo apt-get install python-virtualenv python-dev nodejs
   $ virtualenv python-django
   $ source python-django/bin/activate
   $ pip install -r requirements_devel.txt
+  $ npm install bower
 
 .. note::
    For python3 some packages have slightly different names such as ``python3-dev``
@@ -21,7 +21,8 @@ and populate it with data on the first run::
 
   $ git clone https://github.com/rolandgeider/wger.git
   $ cd wger
-  $ python start.py
+  $ python manage.py bower install
+  $ invoke bootstrap_wger
 
 That's it. You can log in with the default administator user:
 
@@ -43,7 +44,7 @@ obvious place. For development I suggest moving them to the folder with the
 code::
 
     $ cd wger
-    $ python start.py --show-config
+    $ invoke config_location
     Settings file: /home/user/.config/wger/settings.py
     Database file: /home/user/.local/share/wger/database.sqlite
     

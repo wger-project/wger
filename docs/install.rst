@@ -43,7 +43,7 @@ Apache
 
 Install apache and the WSGI module::
 
-  sudo apt-get install apache2 libapache2-mod-wsgi
+  sudo apt-get install apache2 libapache2-mod-wsgi nodejs
   sudo vim /etc/apache2/apache2.conf
 
 
@@ -111,6 +111,8 @@ Get the application::
   git clone https://github.com/rolandgeider/wger.git
   cd wger
   pip install -r requirements.txt
+  npm install bower
+  python manage.py bower install
   python extras/scripts/create_local_settings.py
 
 Edit your ``settings.py`` file and set the database, ``SITE_URL``,
@@ -132,9 +134,9 @@ Edit your ``settings.py`` file and set the database, ``SITE_URL``,
   >>> MEDIA_ROOT = '/home/myuser/wger/media'
 
 Run the installation scritpt, this will load all initial data (exit after it
-is done and tries to start a web browser)::
+is done)::
 
-  python start.py
+  python start.py --no-browser
 
 
 Start.py will create a default administator user (you probably want to change
