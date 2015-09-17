@@ -221,7 +221,7 @@
             {% endif %}
         </li>
         <li>
-            <a href="{% url 'gym:gym:reset-user-password' current_user.pk %}">{% trans "Reset user password" %></a>
+            <a href="{% url 'gym:gym:reset-user-password' current_user.pk %}">{% trans "Reset user password" %}</a>
         </li>
         {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
         <li>
