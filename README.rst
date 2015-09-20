@@ -46,7 +46,6 @@ state.
  $ git clone https://github.com/rolandgeider/wger.git
  $ cd wger
  $ pip install -r requirements.txt  # or requirements_devel.txt to develop
- $ python manage.py bower install
  $ invoke bootstrap_wger
 
  # After the first run you can just use django's development server

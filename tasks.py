@@ -91,6 +91,9 @@ def bootstrap_wger(settings_path=None, database_path=None, address='localhost', 
         load_fixtures(settings_path=settings_path)
         create_or_reset_admin(settings_path=settings_path)
 
+    # Download JS libraries with bower
+    call_command('bower', 'install')
+
     # Start the webserver
     print('*** Bootstraping complete, starting application')
     start_wger(address=address, port=port, browser=browser, settings_path=settings_path)

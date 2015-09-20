@@ -111,8 +111,8 @@ Get the application::
   cd wger
   pip install -r requirements.txt
   npm install bower
+  invoke create_settings --settings-path .
   python manage.py bower install
-  python extras/scripts/create_local_settings.py
 
 Edit your ``settings.py`` file and set the database, ``SITE_URL``,
 ``STATIC_ROOT`` and ``MEDIA_ROOT``::
