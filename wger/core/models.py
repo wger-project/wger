@@ -310,7 +310,6 @@ by the US Department of Agriculture. It is extremely complete, with around
                                                                'deactivate)'),
                                                    validators=[MinValueValidator(0),
                                                                MaxValueValidator(30)],
-                                                   max_length=30,
                                                    default=0)
     '''Number of Days for email weight reminder'''
 

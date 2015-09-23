@@ -76,7 +76,9 @@ def bootstrap_wger(settings_path=None, database_path=None, address='localhost', 
         url = "http://{0}:{1}".format(address, port)
 
     # Create settings if necessary
-    if settings_path and not os.path.exists(settings_path):
+    if settings_path is None:
+        settings_path = get_user_config_path('wger', 'settings.py')
+    if not os.path.exists(settings_path):
         create_settings(settings_path=settings_path, database_path=database_path, url=url)
 
     # Find the path to the settings and setup the django environment
@@ -88,6 +90,9 @@ def bootstrap_wger(settings_path=None, database_path=None, address='localhost', 
         migrate_db(settings_path=settings_path)
         load_fixtures(settings_path=settings_path)
         create_or_reset_admin(settings_path=settings_path)
+
+    # Download JS libraries with bower
+    call_command('bower', 'install')
 
     # Start the webserver
     print('*** Bootstraping complete, starting application')
