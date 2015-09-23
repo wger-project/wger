@@ -8,60 +8,32 @@
 
 {% block content %}
 
-<h4>{% trans "Installing the stable version" %}</h4>
 
-
-<p>{% blocktrans %}Click here to download the last stable version. For
-installation instructions see below.{% endblocktrans %}</p>
+<p>Click here to download a pip-installable package of the current stable
+version. For installation instructions consult the documentation.</p>
 
 <div style="text-align:center">
     <a class="btn btn-primary  btn-lg" href="https://github.com/rolandgeider/wger/releases/latest">
         <span class="glyphicon glyphicon-save"></span>
-        {% trans "download stable version:" %}
+        download stable version
         <br>
         <small>tar.gz | 6MB</small>
     </a>
 </div>
 
 
-<p>{% blocktrans %}In short, these are the steps needed for an installation
-on a linux or OS X machine, with python already installed. If you want to develop,
-see the sections below.{% endblocktrans %}</p>
+<p style="margin-top: 3em;">You can also check out the current source code
+repository, which is hosted at github. Do this if you want to develop or just
+install the current (unreleased) version:</p>
+<div style="text-align:center">
+    <a class="btn btn-primary" href="https://github.com/rolandgeider/wger">
+        <span class="glyphicon glyphicon-globe"></span>
+        code repository in github
+    </a>
+</div>
 
-<p>{% blocktrans %}I personally like installing my development
-files on a virtualenv, it helps keep the system more or less clean and are very
-easy to set up, but you can skip this step if you don't mind installing all
-dependencies system-wide (in that case, install django and the other applications
-with a <code>sudo</code>).{% endblocktrans %}</p>
 
-<pre>
-$ sudo apt-get install python-virtualenv
-$ sudo apt-get install python-dev
-$ virtualenv python-django
-$ source python-django/bin/activate
-</pre>
-
-<p>{% blocktrans %}Get the application from PyPI, initialise and start it.{% endblocktrans %}</p>
-
-<pre>
-$ pip install wger
-$ wger
-</pre>
-
-<p>{% blocktrans %}The script will, on first run, create a configuration
-file and a SQLite database with a standard superuser:{% endblocktrans %}</p>
-
-<ul>
-    <li><strong>{% trans "username:" %} admin</strong></li>
-    <li><strong>{% trans "password:" %} admin</strong></li>
-</ul>
-
-<p>{% blocktrans %}You can later simply call <code>wger</code> again to start
-the application.{% endblocktrans %}</p>
-
-<p>{% blocktrans %}Use <code>wger --help</code> to see available options{% endblocktrans %}</p>
 {% endblock %}
-
 
 
 {% block sidebar %}
