@@ -170,6 +170,10 @@ body {
 /**************************************************************
  * Buttons
  **************************************************************/
+.btn {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .btn-default {
   color: #333;
   background-color: #eeeeec;
