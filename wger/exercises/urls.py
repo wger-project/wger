@@ -18,12 +18,14 @@
 from django.conf.urls import patterns, url, include
 from django.contrib.auth.decorators import login_required
 
-from wger.exercises.views import exercises
-from wger.exercises.views import comments
-from wger.exercises.views import categories
-from wger.exercises.views import muscles
-from wger.exercises.views import images
-from wger.exercises.views import equipment
+from wger.exercises.views import (
+    exercises,
+    comments,
+    categories,
+    muscles,
+    images,
+    equipment
+)
 
 
 

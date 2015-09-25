@@ -19,10 +19,12 @@ from tastypie.constants import ALL
 from tastypie.resources import ModelResource
 
 from wger.utils.resources import UserObjectsOnlyAuthorization
-from wger.core.models import UserProfile
-from wger.core.models import Language
-from wger.core.models import DaysOfWeek
-from wger.core.models import License
+from wger.core.models import (
+    UserProfile,
+    Language,
+    DaysOfWeek,
+    License
+)
 
 
 class UserProfileResource(ModelResource):

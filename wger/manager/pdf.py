@@ -29,10 +29,13 @@ from wger.utils.pdf import styleSheet
 from wger.utils.pdf import render_footer
 
 from reportlab.lib.pagesizes import A4, cm
-from reportlab.platypus import Paragraph
-from reportlab.platypus import SimpleDocTemplate
-from reportlab.platypus import Table
-from reportlab.platypus import Spacer
+from reportlab.platypus import (
+    Paragraph,
+    SimpleDocTemplate,
+    Table,
+    Spacer
+)
+
 from reportlab.lib import colors
 
 from wger import get_version

@@ -19,8 +19,7 @@ import logging
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.core import mail
 from django.utils.translation import ugettext as _
 from django.views.generic.edit import FormView
@@ -31,10 +30,8 @@ from django.contrib.auth import login as django_login
 from django.template.loader import render_to_string
 
 
-from wger.core.forms import FeedbackRegisteredForm
-from wger.core.forms import FeedbackAnonymousForm
-from wger.core.demo import create_demo_entries
-from wger.core.demo import create_temporary_user
+from wger.core.forms import FeedbackRegisteredForm, FeedbackAnonymousForm
+from wger.core.demo import create_demo_entries, create_temporary_user
 from wger.core.models import DaysOfWeek
 from wger.manager.models import Schedule
 from wger.nutrition.models import NutritionPlan

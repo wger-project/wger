@@ -15,14 +15,20 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
-from django.conf.urls import patterns, url, include
+from django.conf.urls import (
+    patterns,
+    url,
+    include
+)
 from django.views.generic import TemplateView
 from django.contrib.auth import views
 from django.core.urlresolvers import reverse_lazy
 
-from wger.core.views import user
-from wger.core.views import misc
-from wger.core.views import license
+from wger.core.views import (
+    user,
+    misc,
+    license
+)
 
 # sub patterns for languages
 patterns_user = patterns('',

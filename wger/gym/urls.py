@@ -15,14 +15,20 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
-from django.conf.urls import patterns, url, include
+from django.conf.urls import (
+    patterns,
+    url,
+    include
+)
 
-from wger.gym.views import gym
-from wger.gym.views import config
-from wger.gym.views import admin_config
-from wger.gym.views import user_config
-from wger.gym.views import admin_notes
-from wger.gym.views import document
+from wger.gym.views import (
+    gym,
+    config,
+    admin_config,
+    user_config,
+    admin_notes,
+    document
+)
 
 
 # 'sub patterns' for gyms

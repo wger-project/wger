@@ -17,8 +17,7 @@
 import logging
 
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _, ugettext_lazy
@@ -30,23 +29,30 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User as Django_User, User
 from django.contrib.auth.views import login as django_loginview
 from django.contrib import messages
-from django.views.generic import RedirectView, UpdateView, DetailView
+from django.views.generic import (
+    RedirectView,
+    UpdateView,
+    DetailView
+)
 from django.conf import settings
 from rest_framework.authtoken.models import Token
 
 from wger.utils.constants import USER_TAB
-from wger.utils.generic_views import WgerPermissionMixin
-from wger.utils.generic_views import WgerFormMixin
-from wger.utils.user_agents import check_request_amazon
-from wger.utils.user_agents import check_request_android
-from wger.core.forms import UserPreferencesForm, UserPersonalInformationForm
-from wger.core.forms import PasswordConfirmationForm
-from wger.core.forms import RegistrationForm
-from wger.core.forms import RegistrationFormNoCaptcha
+from wger.utils.generic_views import WgerPermissionMixin, WgerFormMixin
+from wger.utils.user_agents import check_request_amazon, check_request_android
+from wger.core.forms import (
+    UserPreferencesForm,
+    UserPersonalInformationForm,
+    PasswordConfirmationForm,
+    RegistrationForm,
+    RegistrationFormNoCaptcha
+)
 from wger.core.models import Language
-from wger.manager.models import WorkoutLog
-from wger.manager.models import WorkoutSession
-from wger.manager.models import Workout
+from wger.manager.models import (
+    WorkoutLog,
+    WorkoutSession,
+    Workout
+)
 from wger.nutrition.models import NutritionPlan
 from wger.config.models import GymConfig
 from wger.weight.models import WeightEntry

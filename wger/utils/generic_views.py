@@ -19,17 +19,17 @@ import bleach
 
 from django.utils.translation import ugettext_lazy
 from django.contrib import messages
-from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.context_processors import csrf
 from django.views.generic.edit import ModelFormMixin
 from django.views.generic import TemplateView
-from django.http import HttpResponseRedirect
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 
-from wger.utils.constants import HTML_TAG_WHITELIST
-from wger.utils.constants import HTML_ATTRIBUTES_WHITELIST
-from wger.utils.constants import HTML_STYLES_WHITELIST
+from wger.utils.constants import (
+    HTML_TAG_WHITELIST,
+    HTML_ATTRIBUTES_WHITELIST,
+    HTML_STYLES_WHITELIST
+)
 
 
 logger = logging.getLogger(__name__)

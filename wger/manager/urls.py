@@ -18,15 +18,17 @@
 from django.conf.urls import patterns, url, include
 from django.contrib.auth.decorators import login_required
 
-from wger.manager.views import schedule
-from wger.manager.views import schedule_step
-from wger.manager.views import ical
-from wger.manager.views import workout
-from wger.manager.views import log
-from wger.manager.views import set
-from wger.manager.views import day
-from wger.manager.views import workout_session
 from wger.manager import pdf
+from wger.manager.views import (
+    schedule,
+    schedule_step,
+    ical,
+    workout,
+    log,
+    set,
+    day,
+    workout_session
+)
 
 # sub patterns for workout logs
 patterns_log = patterns('',

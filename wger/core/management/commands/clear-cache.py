@@ -22,8 +22,11 @@ from django.core.management.base import BaseCommand, CommandError
 from wger.core.models import Language
 from wger.manager.models import Workout, WorkoutLog
 from wger.exercises.models import Exercise
-from wger.utils.cache import reset_workout_canonical_form, reset_workout_log
-from wger.utils.cache import delete_template_fragment_cache
+from wger.utils.cache import (
+    reset_workout_canonical_form,
+    reset_workout_log,
+    delete_template_fragment_cache
+)
 
 
 class Command(BaseCommand):

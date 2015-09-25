@@ -19,7 +19,13 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django import forms
-from django.forms import EmailField, Form, CharField, widgets, PasswordInput
+from django.forms import (
+    EmailField,
+    Form,
+    CharField,
+    widgets,
+    PasswordInput
+)
 from django.utils.translation import ugettext as _
 from wger.core.models import UserProfile
 

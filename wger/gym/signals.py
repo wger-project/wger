@@ -15,14 +15,14 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
-from django.conf import settings
-from django.db.models.signals import post_save
-from django.db.models.signals import post_delete
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
-from wger.gym.models import Gym
-from wger.gym.models import GymConfig
-from wger.gym.models import UserDocument
+from wger.gym.models import (
+    Gym,
+    GymConfig,
+    UserDocument
+)
 
 
 @receiver(post_save, sender=Gym)

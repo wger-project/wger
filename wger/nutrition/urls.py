@@ -15,17 +15,23 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url, include
 from django.contrib.auth.decorators import login_required
+from django.conf.urls import (
+    patterns,
+    url,
+    include
+)
 
-from wger.nutrition.views import ingredient
-from wger.nutrition.views import bmi
-from wger.nutrition.views import calculator
-from wger.nutrition.views import plan
-from wger.nutrition.views import meal
-from wger.nutrition.views import meal_item
-from wger.nutrition.views import unit
-from wger.nutrition.views import unit_ingredient
+from wger.nutrition.views import (
+    ingredient,
+    bmi,
+    calculator,
+    plan,
+    meal,
+    meal_item,
+    unit,
+    unit_ingredient
+)
 
 # sub patterns for nutritional plans
 patterns_plan = patterns('',

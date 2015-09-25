@@ -19,16 +19,16 @@ from tastypie.authentication import ApiKeyAuthentication
 from tastypie.resources import ModelResource
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
 
-from wger.nutrition.models import Ingredient
-from wger.nutrition.models import WeightUnit
-from wger.nutrition.models import IngredientWeightUnit
-from wger.nutrition.models import NutritionPlan
-from wger.nutrition.models import Meal
-from wger.nutrition.models import MealItem
+from wger.nutrition.models import (
+    Ingredient,
+    WeightUnit,
+    IngredientWeightUnit,
+    NutritionPlan,
+    Meal,
+    MealItem
+)
 from wger.utils.resources import UserObjectsOnlyAuthorization
-
-from wger.core.api.resources import LicenseResource
-from wger.core.api.resources import LanguageResource
+from wger.core.api.resources import LicenseResource, LanguageResource
 
 
 class IngredientResource(ModelResource):
