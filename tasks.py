@@ -117,7 +117,7 @@ def create_settings(settings_path=None, database_path=None, url=None, database_t
         database_path = get_user_data_path('wger', 'database.sqlite')
     dbpath_value = repr(database_path)
 
-    media_folder_path = get_user_data_path('wger', 'media')
+    media_folder_path = repr(get_user_data_path('wger', 'media'))
 
     # Fill in the config file template
 
