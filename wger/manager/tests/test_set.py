@@ -77,7 +77,7 @@ class SetAddTestCase(WorkoutManagerAddTestCase):
         response = self.client.post(reverse('manager:set:add', kwargs={'day_pk': 5}), post_data)
         self.assertEqual(response.status_code, 302)
 
-        set_obj = Set.objects.get(pk=4)
+        set_obj = Set.objects.get(pk=Set.objects.latest('id').id)
         exercise1 = Exercise.objects.get(pk=1)
 
         # Check that everything got where it's supposed to

@@ -21,15 +21,11 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import permission_required
 from django.utils.translation import ugettext_lazy
 
-from django.views.generic import CreateView
-from django.views.generic import UpdateView
+from django.views.generic import CreateView, UpdateView
 
 from wger.exercises.forms import CommentForm
-from wger.exercises.models import Exercise
-from wger.exercises.models import ExerciseComment
-
-from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import WgerPermissionMixin
+from wger.exercises.models import Exercise, ExerciseComment
+from wger.utils.generic_views import WgerFormMixin, WgerPermissionMixin
 
 
 logger = logging.getLogger(__name__)
@@ -68,6 +64,7 @@ class ExerciseCommentAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
 
     model = ExerciseComment
+    form_class = CommentForm
     title = ugettext_lazy('Add exercise comment')
     permission_required = 'exercises.add_exercisecomment'
 

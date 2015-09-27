@@ -6,12 +6,12 @@ Installation (production)
 This file gives a broad description of the necessary steps to install wger on a
 production environment with apache as a webserver. Since this is a regular
 django application, refer to its documentation if your setup differs. For a
-developemt setup refer to :doc:`development`
+development setup refer to :doc:`development`
 
 The application is compatible and regularly tested with
 
 * sqlite, postgres
-* python 2.7, 3.3 and 3.4
+* python 2.7, 3.3, 3.4 and 3.5
 
 See the :ref:`other-changes` section for content related changes to your
 installation.
@@ -112,8 +112,8 @@ Get the application::
   cd wger
   pip install -r requirements.txt
   npm install bower
+  invoke create_settings --settings-path .
   python manage.py bower install
-  python extras/scripts/create_local_settings.py
 
 Edit your ``settings.py`` file and set the database, ``SITE_URL``,
 ``STATIC_ROOT`` and ``MEDIA_ROOT``::

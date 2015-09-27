@@ -20,18 +20,15 @@ import datetime
 
 from actstream import action
 
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.context_processors import csrf
-from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
-from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.utils.translation import ugettext_lazy, ugettext as _
 from django.contrib.auth.decorators import login_required
-from django.views.generic import DeleteView
-from django.views.generic import UpdateView
+from django.views.generic import DeleteView, UpdateView
 
+from wger.utils.helpers import make_token
 from wger.groups.models import (
     Group,
     Membership
@@ -43,13 +40,16 @@ from wger.manager.models import (
     Schedule,
     Day
 )
-from wger.manager.forms import WorkoutForm
-from wger.manager.forms import WorkoutSessionHiddenFieldsForm
-from wger.manager.forms import WorkoutCopyForm
-from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import WgerDeleteMixin
-from wger.utils.generic_views import WgerPermissionMixin
-from wger.utils.helpers import make_token
+from wger.manager.forms import (
+    WorkoutForm,
+    WorkoutSessionHiddenFieldsForm,
+    WorkoutCopyForm
+)
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    WgerDeleteMixin,
+    WgerPermissionMixin
+)
 
 
 logger = logging.getLogger(__name__)

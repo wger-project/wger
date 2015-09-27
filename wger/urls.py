@@ -129,7 +129,7 @@ sitemaps = {'exercises': ExercisesSitemap,
 #
 # The actual URLs
 #
-urlpatterns = i18n_patterns('',
+urlpatterns = i18n_patterns(
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('wger.core.urls', namespace='core', app_name='core')),
     url(r'workout/', include('wger.manager.urls', namespace='manager')),
@@ -150,7 +150,7 @@ urlpatterns = i18n_patterns('',
 #
 # URLs without language prefix
 #
-urlpatterns = urlpatterns + patterns('',
+urlpatterns = urlpatterns + [
     url(r'^robots\.txt$',
         TextTemplateView.as_view(template_name="robots.txt"),
         name='robots'),
@@ -172,4 +172,4 @@ urlpatterns = urlpatterns + patterns('',
         nutrition_api_views.search,
         name='ingredient-search'),
     url(r'^api/v2/', include(router.urls)),
-)
+]

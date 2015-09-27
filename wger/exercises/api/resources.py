@@ -20,15 +20,16 @@ from tastypie.constants import ALL, ALL_WITH_RELATIONS
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
 
-from wger.core.api.resources import LanguageResource
-from wger.core.api.resources import LicenseResource
+from wger.core.api.resources import LanguageResource, LicenseResource
 
-from wger.exercises.models import Exercise
-from wger.exercises.models import ExerciseCategory
-from wger.exercises.models import ExerciseComment
-from wger.exercises.models import ExerciseImage
-from wger.exercises.models import Muscle
-from wger.exercises.models import Equipment
+from wger.exercises.models import (
+    Exercise,
+    ExerciseCategory,
+    ExerciseComment,
+    ExerciseImage,
+    Muscle,
+    Equipment
+)
 
 
 class ExerciseResource(ModelResource):

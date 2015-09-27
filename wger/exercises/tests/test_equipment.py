@@ -17,15 +17,15 @@ from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from wger.core.tests import api_base_test
 
-from wger.exercises.models import Equipment
-from wger.exercises.models import Exercise
+from wger.exercises.models import Equipment, Exercise
 
-from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
-from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.manager.tests.testcase import (
+    WorkoutManagerTestCase,
+    WorkoutManagerDeleteTestCase,
+    WorkoutManagerEditTestCase,
+    WorkoutManagerAddTestCase
+)
 from wger.utils.cache import get_template_cache_name, cache_mapper
-
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 
 

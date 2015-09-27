@@ -35,7 +35,11 @@ from wger.core.models import DaysOfWeek
 from wger.exercises.models import Exercise
 from wger.groups.models import Group
 from wger.manager.helpers import reps_smart_text
-from wger.utils.cache import cache_mapper, reset_workout_canonical_form, reset_workout_log
+from wger.utils.cache import (
+    cache_mapper,
+    reset_workout_canonical_form,
+    reset_workout_log
+)
 from wger.utils.fields import Html5DateField
 
 

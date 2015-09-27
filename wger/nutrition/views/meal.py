@@ -16,18 +16,14 @@
 import logging
 
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext_lazy
 
-from django.views.generic import CreateView
-from django.views.generic import UpdateView
+from django.views.generic import CreateView, UpdateView
 
-from wger.nutrition.models import NutritionPlan
-from wger.nutrition.models import Meal
-
+from wger.nutrition.models import NutritionPlan, Meal
 from wger.utils.generic_views import WgerFormMixin
 
 logger = logging.getLogger(__name__)

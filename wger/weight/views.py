@@ -24,7 +24,6 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.contrib.formtools.preview import FormPreview
 from django.utils import formats
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
@@ -32,13 +31,16 @@ from django.db.models import Min
 from django.db.models import Max
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
+
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from wger.utils.helpers import check_access
+
+from formtools.preview import FormPreview
 
 from wger.weight.forms import WeightForm
 from wger.weight.models import WeightEntry
 from wger.weight import helpers
+from wger.utils.helpers import check_access
 from wger.utils.generic_views import WgerFormMixin
 
 

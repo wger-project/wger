@@ -17,35 +17,38 @@
 import logging
 import datetime
 
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
-from django.http import HttpResponseForbidden
-from django.http import HttpResponse
-from django.core.urlresolvers import reverse_lazy
-from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext_lazy
-from django.utils.translation import ugettext as _
+from django.shortcuts import render, get_object_or_404
+from django.http import (
+    HttpResponseRedirect,
+    HttpResponseForbidden,
+    HttpResponse
+)
+from django.core.urlresolvers import reverse_lazy, reverse
+from django.utils.translation import ugettext_lazy, ugettext as _
 from django.contrib.auth.decorators import login_required
-from django.views.generic import CreateView
-from django.views.generic import DeleteView
-from django.views.generic import UpdateView
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    UpdateView
+)
 
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
-from reportlab.platypus import SimpleDocTemplate
-from reportlab.platypus import Paragraph
-from reportlab.platypus import Spacer
+from reportlab.platypus import (
+    SimpleDocTemplate,
+    Paragraph,
+    Spacer
+)
 
 from wger.manager.models import Schedule
 from wger.manager.helpers import render_workout_day
-from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import WgerDeleteMixin
-from wger.utils.generic_views import WgerPermissionMixin
-from wger.utils.helpers import make_token
-from wger.utils.helpers import check_token
-from wger.utils.pdf import styleSheet
-from wger.utils.pdf import render_footer
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    WgerDeleteMixin,
+    WgerPermissionMixin
+)
+from wger.utils.helpers import make_token, check_token
+from wger.utils.pdf import styleSheet, render_footer
 
 
 logger = logging.getLogger(__name__)

@@ -15,8 +15,14 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from rest_framework import serializers
-from wger.exercises.models import Muscle, Exercise, ExerciseImage, \
-    ExerciseCategory, Equipment, ExerciseComment
+from wger.exercises.models import (
+    Muscle,
+    Exercise,
+    ExerciseImage,
+    ExerciseCategory,
+    Equipment,
+    ExerciseComment
+)
 
 
 class ExerciseSerializer(serializers.ModelSerializer):

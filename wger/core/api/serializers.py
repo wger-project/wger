@@ -17,7 +17,12 @@
 
 from rest_framework import serializers
 
-from wger.core.models import UserProfile, Language, DaysOfWeek, License
+from wger.core.models import (
+    UserProfile,
+    Language,
+    DaysOfWeek,
+    License
+)
 
 
 class UserprofileSerializer(serializers.ModelSerializer):

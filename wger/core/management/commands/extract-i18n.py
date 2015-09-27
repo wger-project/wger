@@ -16,8 +16,11 @@
 
 from django.core.management.base import BaseCommand
 
-from wger.exercises.models import ExerciseCategory, Muscle
-from wger.exercises.models import Equipment
+from wger.exercises.models import (
+    ExerciseCategory,
+    Muscle,
+    Equipment
+)
 
 
 class Command(BaseCommand):

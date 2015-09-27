@@ -17,12 +17,13 @@ from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from wger.core.tests import api_base_test
 
-from wger.exercises.models import Exercise
-from wger.exercises.models import ExerciseComment
+from wger.exercises.models import Exercise, ExerciseComment
 
-from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
-from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.manager.tests.testcase import (
+    WorkoutManagerTestCase,
+    WorkoutManagerEditTestCase,
+    WorkoutManagerAddTestCase
+)
 from wger.utils.cache import cache_mapper
 
 

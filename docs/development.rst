@@ -6,14 +6,18 @@ Development
 First, install all required packages::
 
   $ sudo apt-get install libjpeg8-dev libwebp-dev
-  $ sudo apt-get install python-virtualenv python-dev nodejs
+  $ sudo apt-get install python-virtualenv python3-dev nodejs
   $ virtualenv python-django
   $ source python-django/bin/activate
-  $ pip install -r requirements_devel.txt
-  $ npm install bower
 
 .. note::
-   For python3 some packages have slightly different names such as ``python3-dev``
+   For python2 some packages have slightly different names such as ``python-dev``
+
+.. note::
+   You probably want to install some external libraries for the Pillow imaging
+   library, otherwise the thumbnailer might not be able to resize the images::
+
+       $ sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev libwebp-dev
 
 
 Get the code and start the application. This will create a SQlite database
@@ -21,7 +25,8 @@ and populate it with data on the first run::
 
   $ git clone https://github.com/rolandgeider/wger.git
   $ cd wger
-  $ python manage.py bower install
+  $ pip install -r requirements_devel.txt
+  $ npm install bower
   $ invoke bootstrap_wger
 
 That's it. You can log in with the default administator user:
@@ -51,12 +56,12 @@ code::
     $ mv /home/user/.config/wger/settings.py .
     $ mv /home/user/.local/share/wger/database.sqlite
 
-    $ vim settings.py
     # Update the path for the sqlite files in DATABASES section
+    $ vim settings.py
 
 
-Miscelaneous settings
-~~~~~~~~~~~~~~~~~~~~~
+Miscellaneous settings
+~~~~~~~~~~~~~~~~~~~~~~
 
 The following settings can be very useful during development (add to your
 settings.py):

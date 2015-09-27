@@ -1,5 +1,4 @@
-{% load i18n %}
-{% load wger_extras %}
+{% load i18n wger_extras %}
 {% if not field.is_hidden %}
 <div class="form-group {% if field.errors %}has-error{% endif %}" id="form-{{field.name}}">
     <div {% if field.errors %}class="has-error has-feedback"{% endif %}>

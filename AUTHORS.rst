@@ -12,6 +12,7 @@ Developers
 * Laszlo Ratsko - https://github.com/rlaszlo
 * James Simas - https://github.com/jamessimas
 * Benny Tran - https://github.com/tranbenny
+* Roman Pavlov - https://github.com/romansp
 
 Translators
 -----------

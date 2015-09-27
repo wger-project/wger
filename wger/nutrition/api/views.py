@@ -20,20 +20,24 @@ from rest_framework.decorators import detail_route
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from wger.nutrition.api.serializers import NutritionPlanSerializer, \
-    IngredientWeightUnitSerializer, WeightUnitSerializer, MealItemSerializer, \
-    MealSerializer, IngredientSerializer
+from wger.nutrition.api.serializers import (
+    NutritionPlanSerializer,
+    IngredientWeightUnitSerializer,
+    WeightUnitSerializer,
+    MealItemSerializer,
+    MealSerializer,
+    IngredientSerializer
+)
 from wger.nutrition.forms import UnitChooserForm
-
-from wger.nutrition.models import Ingredient
-from wger.nutrition.models import Meal
-from wger.nutrition.models import MealItem
-from wger.nutrition.models import WeightUnit
-from wger.nutrition.models import IngredientWeightUnit
-from wger.nutrition.models import NutritionPlan
-
-from wger.utils.language import load_ingredient_languages
-from wger.utils.language import load_language
+from wger.nutrition.models import (
+    Ingredient,
+    Meal,
+    MealItem,
+    WeightUnit,
+    IngredientWeightUnit,
+    NutritionPlan
+)
+from wger.utils.language import load_ingredient_languages, load_language
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 

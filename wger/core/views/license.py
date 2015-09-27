@@ -16,18 +16,21 @@
 
 import logging
 
-from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
-from django.views.generic import ListView
-from django.views.generic import DeleteView
-from django.views.generic import CreateView
-from django.views.generic import UpdateView
+from django.views.generic import (
+    ListView,
+    DeleteView,
+    CreateView,
+    UpdateView
+)
 
-from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import WgerDeleteMixin
-from wger.utils.generic_views import WgerPermissionMixin
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    WgerDeleteMixin,
+    WgerPermissionMixin
+)
 
 from wger.core.models import License
 
@@ -50,6 +53,7 @@ class LicenseAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
 
     model = License
+    fields = ['full_name', 'short_name', 'url']
     success_url = reverse_lazy('core:license:list')
     title = ugettext_lazy('Add')
     form_action = reverse_lazy('core:license:add')
@@ -62,6 +66,7 @@ class LicenseUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
 
     model = License
+    fields = ['full_name', 'short_name', 'url']
     success_url = reverse_lazy('core:license:list')
     permission_required = 'core.change_license'
 

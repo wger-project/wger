@@ -34,12 +34,13 @@ from django.core.validators import MinLengthValidator
 
 from wger.core.models import Language
 from wger.utils.managers import SubmissionManager
-from wger.utils.models import AbstractLicenseModel
-from wger.utils.models import AbstractSubmissionModel
+from wger.utils.models import AbstractLicenseModel, AbstractSubmissionModel
 from wger.utils.constants import EMAIL_FROM
-from wger.utils.cache import delete_template_fragment_cache
-from wger.utils.cache import reset_workout_canonical_form
-from wger.utils.cache import cache_mapper
+from wger.utils.cache import (
+    delete_template_fragment_cache,
+    reset_workout_canonical_form,
+    cache_mapper
+)
 
 
 logger = logging.getLogger(__name__)
@@ -171,7 +172,6 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                             verbose_name=_('Name'))
 
     muscles = models.ManyToManyField(Muscle,
-                                     null=True,
                                      blank=True,
                                      verbose_name=_('Primary muscles'))
     '''Main muscles trained by the exercise'''
@@ -179,13 +179,11 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     muscles_secondary = models.ManyToManyField(Muscle,
                                                verbose_name=_('Secondary muscles'),
                                                related_name='secondary_muscles',
-                                               null=True,
                                                blank=True)
     '''Secondary muscles trained by the exercise'''
 
     equipment = models.ManyToManyField(Equipment,
                                        verbose_name=_('Equipment'),
-                                       null=True,
                                        blank=True)
     '''Equipment needed by this exercise'''
 

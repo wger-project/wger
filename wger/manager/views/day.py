@@ -27,8 +27,7 @@ from django.views.generic import CreateView
 from django.views.generic import UpdateView
 
 from wger.core.models import DaysOfWeek
-from wger.manager.models import Workout
-from wger.manager.models import Day
+from wger.manager.models import Workout, Day
 from wger.manager.forms import DayForm
 from wger.utils.generic_views import WgerFormMixin
 

@@ -15,31 +15,30 @@
 # You should have received a copy of the GNU Affero General Public License
 import logging
 
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
-from django.http import HttpResponseForbidden
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core import mail
-from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.cache import cache
 from django.contrib.auth.decorators import permission_required
 from django.contrib import messages
-from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
-from django.views.generic import DeleteView
-from django.views.generic import CreateView
-from django.views.generic import UpdateView
-from django.views.generic import ListView
+from django.utils.translation import ugettext_lazy, ugettext as _
+from django.views.generic import (
+    DeleteView,
+    CreateView,
+    UpdateView,
+    ListView
+)
 
 from wger.nutrition.forms import UnitChooserForm
 from wger.nutrition.models import Ingredient
-from wger.utils.generic_views import WgerPermissionMixin
-from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import WgerDeleteMixin
+from wger.utils.generic_views import (
+    WgerPermissionMixin,
+    WgerFormMixin,
+    WgerDeleteMixin
+)
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
-from wger.utils.language import load_language
-from wger.utils.language import load_ingredient_languages
+from wger.utils.language import load_language, load_ingredient_languages
 from wger.utils.cache import cache_mapper
 
 

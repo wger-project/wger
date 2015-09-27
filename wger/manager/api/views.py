@@ -21,23 +21,27 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import detail_route
 
-from wger.manager.api.serializers import WorkoutSerializer, ScheduleStepSerializer
-from wger.manager.api.serializers import WorkoutCanonicalFormSerializer
-from wger.manager.api.serializers import DaySerializer
-from wger.manager.api.serializers import SettingSerializer
-from wger.manager.api.serializers import SetSerializer
-from wger.manager.api.serializers import ScheduleSerializer
-from wger.manager.api.serializers import WorkoutLogSerializer
-from wger.manager.api.serializers import WorkoutSessionSerializer
-
-from wger.manager.models import Workout
-from wger.manager.models import Set
-from wger.manager.models import ScheduleStep
-from wger.manager.models import Schedule
-from wger.manager.models import Day
-from wger.manager.models import Setting
-from wger.manager.models import WorkoutLog
-from wger.manager.models import WorkoutSession
+from wger.manager.api.serializers import (
+    WorkoutSerializer,
+    ScheduleStepSerializer,
+    WorkoutCanonicalFormSerializer,
+    DaySerializer,
+    SettingSerializer,
+    SetSerializer,
+    ScheduleSerializer,
+    WorkoutLogSerializer,
+    WorkoutSessionSerializer
+)
+from wger.manager.models import (
+    Workout,
+    Set,
+    ScheduleStep,
+    Schedule,
+    Day,
+    Setting,
+    WorkoutLog,
+    WorkoutSession
+)
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 

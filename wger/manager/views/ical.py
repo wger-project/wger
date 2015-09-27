@@ -23,15 +23,13 @@ from icalendar import Event
 from icalendar.tools import UIDGenerator
 
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
-from django.http import HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseForbidden
 from django.conf import settings
 from django.contrib.sites.models import Site
 
 from wger import get_version
 from wger.manager.models import Workout, Schedule
-from wger.utils.helpers import next_weekday
-from wger.utils.helpers import check_token
+from wger.utils.helpers import next_weekday, check_token
 
 
 logger = logging.getLogger(__name__)

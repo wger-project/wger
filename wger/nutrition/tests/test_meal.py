@@ -21,9 +21,11 @@ from wger.core.tests import api_base_test
 from wger.nutrition.models import Meal
 from wger.nutrition.models import NutritionPlan
 
-from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
-from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.manager.tests.testcase import (
+    WorkoutManagerTestCase,
+    WorkoutManagerEditTestCase,
+    WorkoutManagerAddTestCase
+)
 
 
 class MealRepresentationTestCase(WorkoutManagerTestCase):
