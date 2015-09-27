@@ -25,12 +25,10 @@
 {#         #}
 {% block content %}
 
-<ul class="list-group">
-
-    {# Render the activity stream #}
-    {% for event in last_activity %}
-    <li class="list-group-item ">
-
+{# Render the activity stream #}
+{% for event in last_activity %}
+<div class="panel panel-default">
+    <div class="panel-body">
         <p class="list-group-item-text pull-right">
         {# Verb #}
         <span class="glyphicon
@@ -58,20 +56,18 @@
             {% endif %}
         {% endif %}
 
-        {# Target #}
-{#        {{ event.target }}#}
-
-        {#  Time #}
+        {# Time #}
         {{ event.timestamp|timesince }} {% trans "ago" %}
         </p>
 
         {# Actor #}
         <h4 class="list-group-item-heading">
-            {{ event.actor }}
+            {{ event.actor|format_username }}
         </h4>
-    </li>
-    {% endfor %}
-    </ul>
+    </div>
+
+</div>
+{% endfor %}
 {% endblock %}
 
 
@@ -124,7 +120,7 @@
     {% for membership in object.membership_set.all %}
     <li class="list-group-item ">
 
-        {{ membership.user.username }}
+        {{ membership.user|format_username }}
         {% if membership.admin %}
             <span class="label label-primary">{% trans "Admin" %}</span>
         {% endif %}
