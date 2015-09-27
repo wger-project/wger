@@ -76,6 +76,9 @@ or (at your option) any later version.
 Some images where taken from Wikipedia, see the SOURCES file in their respective
 folders for more details.
 
+.. include the authors file from the root folder
+.. include:: ../AUTHORS.rst
+
 
 Indices and tables
 ==================
