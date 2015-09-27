@@ -23,7 +23,7 @@ from wger.groups.views import membership
 
 
 # sub patterns for groups
-patterns_group = patterns('',
+patterns_group = [
     url(r'^list$',
         group.ListView.as_view(),
         name='list'),
@@ -36,10 +36,10 @@ patterns_group = patterns('',
     url(r'^(?P<pk>\d+)/edit$',
         group.UpdateView.as_view(),
         name='edit'),
-)
+]
 
 # sub patterns for group memberships
-patterns_membership = patterns('',
+patterns_membership = [
     url(r'^(?P<group_pk>\d+)/join$',
         membership.join_public_group,
         name='join-public'),
@@ -55,9 +55,9 @@ patterns_membership = patterns('',
     url(r'^(?P<group_pk>\d+)/(?P<user_pk>\d+)/demote$',
         membership.demote,
         name='demote'),
-)
+]
 
-urlpatterns = patterns('',
+urlpatterns = [
    url(r'^', include(patterns_group, namespace="group")),
    url(r'^', include(patterns_membership, namespace="member")),
-)
+]
