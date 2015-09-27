@@ -205,7 +205,7 @@ class DeleteView(WgerDeleteMixin, DeleteView):
         Send some additional data to the template
         '''
         context = super(DeleteView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Delete {0}?'.format(self.object))
+        context['title'] = _(u'Delete {0}?').format(self.object)
         context['form_action'] = reverse('groups:group:delete', kwargs={'pk': self.kwargs['pk']})
         return context
 
