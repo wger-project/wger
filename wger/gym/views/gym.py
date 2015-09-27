@@ -389,6 +389,6 @@ class GymDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
         Send some additional data to the template
         '''
         context = super(GymDeleteView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Delete {0}?'.format(self.object))
+        context['title'] = _(u'Delete {0}?').format(self.object)
         context['form_action'] = reverse('gym:gym:delete', kwargs={'pk': self.kwargs['pk']})
         return context
