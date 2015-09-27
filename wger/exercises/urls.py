@@ -30,7 +30,7 @@ from wger.exercises.views import (
 
 
 # sub patterns for muscles
-patterns_muscle = patterns('',
+patterns_muscle = [
     url(r'^overview/$',
         muscles.MuscleListView.as_view(),
         name='overview'),
@@ -43,10 +43,10 @@ patterns_muscle = patterns('',
     url(r'^(?P<pk>\d+)/delete/$',
         muscles.MuscleDeleteView.as_view(),
         name='delete'),
-)
+]
 
 # sub patterns for exercise images
-patterns_images = patterns('',
+patterns_images = [
     url(r'^(?P<exercise_pk>\d+)/image/add$',
         images.ExerciseImageAddView.as_view(),
         name='add'),
@@ -62,10 +62,10 @@ patterns_images = patterns('',
     url(r'^(?P<pk>\d+)/decline/$',
         images.decline,
         name='decline'),
-)
+]
 
 # sub patterns for exercise comments
-patterns_comment = patterns('',
+patterns_comment = [
     url(r'^(?P<exercise_pk>\d+)/comment/add/$',
         comments.ExerciseCommentAddView.as_view(),
         name='add'),
@@ -75,10 +75,10 @@ patterns_comment = patterns('',
     url(r'^(?P<id>\d+)/delete/$',
         comments.delete,
         name='delete'),
-)
+]
 
 # sub patterns for categories
-patterns_category = patterns('',
+patterns_category = [
     url(r'^(?P<pk>\d+)/edit/$',
         categories.ExerciseCategoryUpdateView.as_view(),
         name='edit'),
@@ -88,10 +88,10 @@ patterns_category = patterns('',
     url(r'^(?P<pk>\d+)/delete/$',
         categories.ExerciseCategoryDeleteView.as_view(),
         name='delete'),
-)
+]
 
 # sub patterns for equipment
-patterns_equipment = patterns('',
+patterns_equipment = [
     url(r'^list$',
         equipment.EquipmentListView.as_view(),
         name='list'),
@@ -107,11 +107,11 @@ patterns_equipment = patterns('',
     url(r'^overview$',
         equipment.EquipmentOverviewView.as_view(),
         name='overview'),
-)
+]
 
 
 # sub patterns for exercises
-patterns_exercise = patterns('',
+patterns_exercise = [
     url(r'^overview/$',
         exercises.ExerciseListView.as_view(),
         name='overview'),
@@ -142,14 +142,14 @@ patterns_exercise = patterns('',
     url(r'^(?P<pk>\d+)/decline/$',
         exercises.decline,
         name='decline'),
-)
+]
 
 
-urlpatterns = patterns('',
+urlpatterns = [
    url(r'^muscle/', include(patterns_muscle, namespace="muscle")),
    url(r'^image/', include(patterns_images, namespace="image")),
    url(r'^comment/', include(patterns_comment, namespace="comment")),
    url(r'^category/', include(patterns_category, namespace="category")),
    url(r'^equipment/', include(patterns_equipment, namespace="equipment")),
    url(r'^', include(patterns_exercise, namespace="exercise")),
-)
+]

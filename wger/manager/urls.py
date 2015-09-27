@@ -31,7 +31,7 @@ from wger.manager.views import (
 )
 
 # sub patterns for workout logs
-patterns_log = patterns('',
+patterns_log = [
     url(r'^(?P<pk>\d+)/view$',
         log.WorkoutLogDetailView.as_view(),
         name='log'),
@@ -44,11 +44,11 @@ patterns_log = patterns('',
     url(r'^(?P<workout_pk>\d+)/add$',  # not used?
         log.WorkoutLogAddView.as_view(),
         name='add'),
-)
+]
 
 
 # sub patterns for workouts
-patterns_workout = patterns('',
+patterns_workout = [
     url(r'^overview$',
         workout.overview,
         name='overview'),
@@ -103,11 +103,11 @@ patterns_workout = patterns('',
     url(r'^(?P<day_pk>\d+)/timer$',
         workout.timer,
         name='timer'),
-)
+]
 
 
 # sub patterns for workout sessions
-patterns_session = patterns('',
+patterns_session = [
     url(r'^(?P<workout_pk>\d+)/add/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})$',
         workout_session.WorkoutSessionAddView.as_view(),
         name='add'),
@@ -117,11 +117,11 @@ patterns_session = patterns('',
     url(r'^(?P<pk>\d+)/delete/(?P<logs>(session|logs))?$',
         workout_session.WorkoutSessionDeleteView.as_view(),
         name='delete'),
-)
+]
 
 
 # sub patterns for workout days
-patterns_day = patterns('',
+patterns_day = [
     url(r'^(?P<pk>\d+)/edit/$',
         login_required(day.DayEditView.as_view()),
         name='edit'),
@@ -137,11 +137,10 @@ patterns_day = patterns('',
     url(r'^(?P<pk>\d+)/log/add/$',
         log.add,
         name='log'),
-)
+]
 
 # sub patterns for workout sets
-patterns_set = patterns('',
-                        # Sets and Settings
+patterns_set = [
     url(r'^day/(?P<day_pk>\d+)/set/add/$',
         set.create,
         name='add'),
@@ -154,11 +153,11 @@ patterns_set = patterns('',
     url(r'^(?P<pk>\d+)/edit/$',
         set.edit,
         name='edit'),
-)
+]
 
 
 # sub patterns for schedules
-patterns_schedule = patterns('',
+patterns_schedule = [
     url(r'^overview$',
         schedule.overview,
         name='overview'),
@@ -189,12 +188,12 @@ patterns_schedule = patterns('',
     url(r'^(?P<pk>\d+)/pdf$',
         schedule.export_pdf,
         name='pdf'),
-)
+]
 
 
 
 # sub patterns for schedule steps
-patterns_step = patterns('',
+patterns_step = [
     url(r'^(?P<schedule_pk>\d+)/step/add$',
         schedule_step.StepCreateView.as_view(),
         name='add'),
@@ -204,11 +203,11 @@ patterns_step = patterns('',
     url(r'^(?P<pk>\d+)/delete$',
         schedule_step.StepDeleteView.as_view(),
         name='delete'),
-)
+]
 
 
 
-urlpatterns = patterns('',
+urlpatterns = [
    url(r'^', include(patterns_workout, namespace="workout")),
    url(r'^log/', include(patterns_log, namespace="log")),
    url(r'^day/', include(patterns_day, namespace="day")),
@@ -216,4 +215,4 @@ urlpatterns = patterns('',
    url(r'^session/', include(patterns_session, namespace="session")),
    url(r'^schedule/', include(patterns_schedule, namespace="schedule")),
    url(r'^schedule/step/', include(patterns_step, namespace="step")),
-)
+]
