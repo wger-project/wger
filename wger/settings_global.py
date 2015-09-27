@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import re
+import sys
 
 '''
 This file contains the global settings that don't usually need to be changed.
@@ -299,7 +300,10 @@ COMPRESS_ROOT = STATIC_ROOT
 
 # BOWER components route
 BOWER_COMPONENTS_ROUTE = os.path.join(STATIC_ROOT, 'components')
-BOWER_PATH = os.path.join(BASE_DIR, 'node_modules', '.bin', 'bower')
+if sys.platform.startswith('win32'):
+    BOWER_PATH = os.path.join(BASE_DIR, 'node_modules', '.bin', 'bower.cmd')
+else:
+    BOWER_PATH = os.path.join(BASE_DIR, 'node_modules', '.bin', 'bower')
 
 #
 # Django Rest Framework
