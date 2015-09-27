@@ -134,6 +134,7 @@ class UpdateView(WgerFormMixin, UpdateView):
 
     model = Group
     fields = ('name', 'description', 'image', 'public')
+    form_action_urlname = 'groups:group:edit'
     login_required = True
 
     def form_valid(self, form):
@@ -162,7 +163,6 @@ class UpdateView(WgerFormMixin, UpdateView):
         Send some additional data to the template
         '''
         context = super(UpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('groups:group:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit {0}').format(self.object)
         context['enctype'] = 'multipart/form-data'
         return context
@@ -175,6 +175,7 @@ class DeleteView(WgerDeleteMixin, DeleteView):
 
     model = Group
     login_required = True
+    form_action_urlname = 'groups:group:delete'
 
     def dispatch(self, request, *args, **kwargs):
         '''
@@ -196,7 +197,6 @@ class DeleteView(WgerDeleteMixin, DeleteView):
         '''
         context = super(DeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object)
-        context['form_action'] = reverse('groups:group:delete', kwargs={'pk': self.kwargs['pk']})
         return context
 
     def get_success_url(self):
