@@ -24,19 +24,23 @@
             {% endif %}
             </div>
             <div class="media-body">
-                <h4 class="media-heading">{{ group }}</h4>
-
                 {% if not group.public %}
-                    <span class="label label-warning">
+                    <span class="label label-warning pull-right" style="margin-left: 1em;">
                         <span class="glyphicon glyphicon-lock"></span>
                         {% trans "Private group" %}
                     </span>
-                    &nbsp;
                 {% endif %}
 
                 {% if user in group.get_member_list %}
-                    <span class="label label-primary">{% trans "Member" %}</span>
+                    <span class="label label-primary pull-right">
+                        <span class="glyphicon glyphicon-user"></span>
+                        {% trans "Member" %}
+                    </span>
                 {% endif %}
+
+                <h4 class="media-heading">{{ group }}</h4>
+
+                <p class="list-group-item-text">{{ group.description|truncatewords:20 }}</p>
 
             </div>
         </div>
