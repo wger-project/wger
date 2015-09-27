@@ -99,7 +99,6 @@ class AddView(WgerFormMixin, CreateView):
     model = Group
     fields = ('name',
               'description',
-              'image',
               'public')
     title = ugettext_lazy('Create new group')
     form_action = reverse_lazy('groups:group:add')
@@ -126,15 +125,6 @@ class AddView(WgerFormMixin, CreateView):
         # Add event to django activity stream
         action.send(self.request.user, verb='created', target=form.instance)
         return out
-
-    def get_context_data(self, **kwargs):
-        '''
-        Send some additional data to the template
-        '''
-        context = super(AddView, self).get_context_data(**kwargs)
-        context['enctype'] = 'multipart/form-data'
-
-        return context
 
 
 class UpdateView(WgerFormMixin, UpdateView):
