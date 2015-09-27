@@ -87,6 +87,12 @@ class Group(models.Model):
         '''
         return reverse('groups:group:view', kwargs={'pk': self.pk})
 
+    def get_owner_object(self):
+        '''
+        The group object has no owner, per se, only administrators
+        '''
+        return None
+
     def get_member_list(self):
         '''
         Returns a list with members, without admin information

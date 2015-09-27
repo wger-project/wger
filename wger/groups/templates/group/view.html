@@ -113,6 +113,9 @@
                 <li>
                     <a href="{% url 'groups:group:edit' object.pk %}">{% trans "Edit" %}</a>
                 </li>
+                <li>
+                    <a href="{% url 'groups:group:delete' object.pk %}" class="wger-modal-dialog">{% trans "Delete" %}</a>
+                </li>
             {% endif %}
         </ul>
     </div>

@@ -11,14 +11,18 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-from django.core.urlresolvers import reverse_lazy, reverse
+
+from django.core.urlresolvers import reverse_lazy
 
 from wger.groups.models import Group
 from wger.manager.tests.testcase import (
     WorkoutManagerTestCase,
     WorkoutManagerAccessTestCase,
     WorkoutManagerAddTestCase,
-    WorkoutManagerEditTestCase)
+    WorkoutManagerEditTestCase,
+    WorkoutManagerDeleteTestCase,
+    delete_testcase_add_methods
+)
 
 
 class GroupRepresentationTestCase(WorkoutManagerTestCase):
@@ -120,3 +124,26 @@ class EditGroupTestCase(WorkoutManagerEditTestCase):
                  'trainer3',
                  'trainer4',
                  'manager3')
+
+
+class DeleteDocumentTestCase(WorkoutManagerDeleteTestCase):
+    '''
+    Tests deleting a user document
+    '''
+
+    pk = 2
+    object_class = Group
+    url = 'groups:group:delete'
+    user_success = ('test',
+                    'trainer1')
+    user_fail = ('admin',
+                 'demo',
+                 'member1',
+                 'member2',
+                 'trainer2',
+                 'trainer3',
+                 'trainer4',
+                 'manager1',
+                 'manager3')
+
+delete_testcase_add_methods(DeleteDocumentTestCase)

@@ -31,7 +31,8 @@ from django.views.generic import (
     ListView,
     CreateView,
     DetailView,
-    UpdateView
+    UpdateView,
+    DeleteView
 )
 
 from wger.groups.models import (
@@ -40,7 +41,8 @@ from wger.groups.models import (
 )
 from wger.utils.generic_views import (
     WgerPermissionMixin,
-    WgerFormMixin
+    WgerFormMixin,
+    WgerDeleteMixin
 )
 
 
@@ -174,3 +176,41 @@ class UpdateView(WgerFormMixin, UpdateView):
         context['title'] = _(u'Edit {0}').format(self.object)
         context['enctype'] = 'multipart/form-data'
         return context
+
+
+class DeleteView(WgerDeleteMixin, DeleteView):
+    '''
+    View to delete an existing Group
+    '''
+
+    model = Group
+    login_required = True
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Only administrators for the group can delete it
+        '''
+        if not request.user.is_authenticated():
+            return HttpResponseForbidden()
+
+        group = self.get_object()
+        if group.membership_set.filter(user=request.user).exists() \
+                and group.membership_set.get(user=request.user).admin:
+            return super(DeleteView, self).dispatch(request, *args, **kwargs)
+
+        return HttpResponseForbidden()
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(DeleteView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Delete {0}?'.format(self.object))
+        context['form_action'] = reverse('groups:group:delete', kwargs={'pk': self.kwargs['pk']})
+        return context
+
+    def get_success_url(self):
+        '''
+        Redirect back to user page
+        '''
+        return reverse('groups:group:list')
