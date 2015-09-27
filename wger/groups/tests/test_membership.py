@@ -37,7 +37,7 @@ class GroupUserJoinTestCase(WorkoutManagerTestCase):
 
         self.client.post(reverse('groups:group:add'),
                          {'name': 'Test group', 'description': 'Something clever'})
-        group = Group.objects.get(pk=5)
+        group = Group.objects.get(pk=Group.objects.latest('id').id)
         self.assertEqual(group.name, 'Test group')
         self.assertTrue(group.membership_set.filter(user__username='test', admin=True).exists())
         self.assertEqual(group.gym_id, 1)
@@ -55,7 +55,7 @@ class GroupUserJoinTestCase(WorkoutManagerTestCase):
         self.user_login('test')
         self.client.post(reverse('groups:group:add'),
                          {'name': 'Test group', 'description': 'Something clever'})
-        group = Group.objects.get(pk=5)
+        group = Group.objects.get(pk=Group.objects.latest('id').id)
         self.assertEqual(group.name, 'Test group')
         self.assertFalse(group.gym)
 
