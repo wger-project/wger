@@ -33,7 +33,8 @@ RECAPTCHA_PRIVATE_KEY = ''
 NOCAPTCHA = True
 
 # The site's URL (e.g. http://www.my-local-gym.com or http://localhost:8000)
-# This is needed for Mozilla's BrowserID to work
+# This is needed for uploaded files and images (exercise images, etc.) to be
+# properly served.
 SITE_URL = '{siteurl}'
 BROWSERID_AUDIENCES = [SITE_URL]
 
