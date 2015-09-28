@@ -51,7 +51,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui-custom.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/shariff/build/shariff.min.css' %}">
     {% endcompress %}
 
@@ -64,15 +63,10 @@
     <script src="{% static 'js/workout-manager.js' %}"></script>
     <script src="{% static 'js/ubuntu-unity.js' %}"></script>
     <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' %}"></script>
     <script src="{% static 'js/exercises.js' %}"></script>
     <script src="{% static 'js/weight.js' %}"></script>
     <script src="{% static 'js/nutrition.js' %}"></script>
     {% endcompress %}
-
-    {% if language.short_name != 'en' %}
-    <script src="{% static datepicker_i18n_path %}"       type="text/javascript"></script>
-    {% endif %}
 
     {% block header %}{% endblock %}
 
@@ -92,11 +86,6 @@
 
         // Check for RO-access before allowing sharing
         toggle_ro_access();
-
-        $('input[type="date"]').datepicker({
-                                            autoclose: true,
-                                            language: $('html').attr('lang')
-                                        });
      });
     </script>
 

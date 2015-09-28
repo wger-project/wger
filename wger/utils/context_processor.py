@@ -52,10 +52,6 @@ def processor(request):
         # Translation links
         'i18n_path': i18n_path,
 
-        # Translation links
-        'datepicker_i18n_path': 'bower_components/bootstrap-datepicker/dist/locales'
-                                '/bootstrap-datepicker.{0}.min.js'.format(language.short_name),
-
         # Flag for guest users
         'has_demo_data': request.session.get('has_demo_data', False),
 
