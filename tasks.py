@@ -119,6 +119,10 @@ def create_settings(settings_path=None, database_path=None, url=None, database_t
 
     media_folder_path = repr(get_user_data_path('wger', 'media'))
 
+    # Use localhost with default django port if no URL given
+    if url is None:
+        url = 'http://localhost:8000'
+
     # Fill in the config file template
 
     # os.chdir(os.path.dirname(inspect.stack()[0][1]))
