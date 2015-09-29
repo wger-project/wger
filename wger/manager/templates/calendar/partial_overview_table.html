@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<div class="btn-group" role="group">
+<div class="btn-group btn-group-justified" role="group">
     <a href="{{value.workout.get_absolute_url}}" class="btn btn-default">{{ value.workout }}</a>
     <a href="{% url 'manager:log:log' value.workout.id %}" class="btn btn-default">{% trans "Log overview" %}</a>
 
