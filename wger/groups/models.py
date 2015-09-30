@@ -45,7 +45,10 @@ class Group(models.Model):
         '''
         ordering = ["name", ]
 
-    name = models.CharField(_('Name'), max_length=30)
+
+    name = models.CharField(_('Name'),
+                            max_length=30,
+                            unique=True)
     '''The groups name'''
 
     description = models.TextField(_('Description'), default='', blank=True)
