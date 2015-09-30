@@ -51,17 +51,13 @@
         </a>
     {% endfor %}
 </div>
-
-<div class="pull-right">
-    <a href="{% url 'groups:group:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% trans "Create new group" %}
-   </a>
-</div>
-<div class="clearfix" style="padding-bottom: 2em;"></div>
 {% endblock %}
 
 
 
 
 {% block sidebar %}
+<a href="{% url 'groups:group:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+    {% trans "Create new group" %}
+</a>
 {% endblock %}
