@@ -53,7 +53,8 @@
             "group": 1,
             "user": [
                 "admin"
-            ]
+            ],
+            "date": "2015-07-19"
         },
         "model": "groups.membership",
         "pk": 1
@@ -64,7 +65,8 @@
             "group": 1,
             "user": [
                 "test"
-            ]
+            ],
+            "date": "2015-07-19"
         },
         "model": "groups.membership",
         "pk": 2
@@ -75,7 +77,8 @@
             "group": 1,
             "user": [
                 "demo"
-            ]
+            ],
+            "date": "2015-07-19"
         },
         "model": "groups.membership",
         "pk": 3
@@ -86,7 +89,8 @@
             "group": 2,
             "user": [
                 "test"
-            ]
+            ],
+            "date": "2015-07-19"
         },
         "model": "groups.membership",
         "pk": 4
@@ -97,7 +101,8 @@
             "group": 2,
             "user": [
                 "trainer1"
-            ]
+            ],
+            "date": "2015-07-19"
         },
         "model": "groups.membership",
         "pk": 5
@@ -108,7 +113,8 @@
             "group": 3,
             "user": [
                 "member1"
-            ]
+            ],
+            "date": "2015-07-19"
         },
         "model": "groups.membership",
         "pk": 6
@@ -119,7 +125,8 @@
             "group": 3,
             "user": [
                 "member2"
-            ]
+            ],
+            "date": "2015-07-19"
         },
         "model": "groups.membership",
         "pk": 7
@@ -130,7 +137,8 @@
             "group": 3,
             "user": [
                 "member3"
-            ]
+            ],
+            "date": "2015-07-19"
         },
         "model": "groups.membership",
         "pk": 8
@@ -141,7 +149,8 @@
             "group": 3,
             "user": [
                 "member4"
-            ]
+            ],
+            "date": "2015-07-19"
         },
         "model": "groups.membership",
         "pk": 9

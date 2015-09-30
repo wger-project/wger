@@ -128,6 +128,9 @@ class Membership(models.Model):
                                 default=False)
     '''Flag indicating whether the user is an administrator for the group'''
 
+    date = models.DateField(_('Date'), auto_now_add=True)
+    '''Membership creation date'''
+
     class Meta:
         unique_together = ('group', 'user')
         '''
