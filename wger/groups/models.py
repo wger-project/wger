@@ -45,7 +45,6 @@ class Group(models.Model):
         '''
         ordering = ["name", ]
 
-
     name = models.CharField(_('Name'),
                             max_length=30,
                             unique=True)
@@ -141,3 +140,23 @@ class Membership(models.Model):
         '''
         Admins first, then sort by username
         '''
+
+
+class Application(models.Model):
+    '''
+    Application table for member candidates for groups
+    '''
+    class Meta:
+        unique_together = ('group', 'user')
+        '''
+        Only one entry per user and group
+        '''
+
+    group = models.ForeignKey(Group)
+    '''The group'''
+
+    user = models.ForeignKey(User)
+    '''The user'''
+
+    date = models.DateField(_('Date'), auto_now_add=True)
+    '''Application date'''

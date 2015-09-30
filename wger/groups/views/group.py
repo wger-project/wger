@@ -68,26 +68,28 @@ class DetailView(WgerPermissionMixin, DetailView):
 
     model = Group
     login_required = True
-    template_name = 'group/view.html'
 
-    def dispatch(self, request, *args, **kwargs):
+    def get_template_names(self):
         '''
-        Check for membership
+        Return the correct template based on membership status:
+
+        * members see the regular group detail page
+        * non-members reach a different page where they can apply for membership
         '''
         group = self.get_object()
         if not group.public\
-                and request.user.is_authenticated()\
-                and not group.membership_set.filter(user=request.user):
-            return HttpResponseForbidden()
-
-        return super(DetailView, self).dispatch(request, *args, **kwargs)
+                and not group.membership_set.filter(user=self.request.user).exists():
+            return 'group/application.html'
+        return 'group/view.html'
 
     def get_context_data(self, **kwargs):
         '''
         Send some additional data to the template
         '''
         context = super(DetailView, self).get_context_data(**kwargs)
-        context['last_activity'] = target_stream(self.get_object())[:20]
+        application = self.object.application_set.filter(user=self.request.user).exists()
+        context['last_activity'] = target_stream(self.object)[:20]
+        context['application'] = application
         return context
 
 

@@ -18,8 +18,11 @@
 from django.conf.urls import patterns, url, include
 from django.contrib.auth.decorators import login_required
 
-from wger.groups.views import group
-from wger.groups.views import membership
+from wger.groups.views import (
+    group,
+    membership,
+    application
+)
 
 
 # sub patterns for groups
@@ -60,7 +63,18 @@ patterns_membership = [
         name='demote'),
 ]
 
+# sub patterns for membership applications
+patterns_applications = [
+    url(r'^(?P<group_pk>\d+)/(?P<user_pk>\d+)/accept$',
+        application.accept,
+        name='accept'),
+    url(r'^(?P<group_pk>\d+)/apply',
+        application.apply,
+        name='apply'),
+]
+
 urlpatterns = [
    url(r'^', include(patterns_group, namespace="group")),
    url(r'^', include(patterns_membership, namespace="member")),
+   url(r'^', include(patterns_applications, namespace="application")),
 ]

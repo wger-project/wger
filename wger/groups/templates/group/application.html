@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load i18n staticfiles wger_extras thumbnail django_bootstrap_breadcrumbs %}
+{% load activity_tags %}
+
+{#             #}
+{# Breadcrumbs #}
+{#             #}
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% breadcrumb "Groups" "groups:group:list" %}
+    {% breadcrumb object object.get_absolute_url %}
+{% endblock %}
+
+
+{#       #}
+{# Title #}
+{#       #}
+{% block title %}{{ object }}{% endblock %}
+
+
+
+{#         #}
+{# Content #}
+{#         #}
+{% block content %}
+{% if application %}
+    <p>{% blocktrans %}Your application was correctly submitted.{% endblocktrans %}</p>
+{% else %}
+    <p>{% blocktrans %}This is a private group. If you want to become a
+        member, you need to apply first. One of the group's administrators
+        will decide about your application.{% endblocktrans %}</p>
+
+    <a href="{% url 'groups:application:apply' object.pk %}" class="btn btn-success">{% trans "Apply" context "As in 'apply for membership'" %}</a>
+{% endif %}
+
+{% endblock %}
+
+
+
+{#         #}
+{# Sidebar #}
+{#         #}
+{% block sidebar %}
+    {% if object.image %}
+        <img src="{{ object.image|thumbnail_url:'large' }}" class="img-responsive img-rounded">
+        <br>
+    {% endif %}
+
+    {% if object.description %}
+        <h4>{% trans "Description" %}</h4>
+        <p style="white-space: pre-line;">{{ object.description }}</p>
+    {% endif %}
+
+{% endblock %}

@@ -62,10 +62,11 @@ class PrivateGroupDetailAccessTest(WorkoutManagerAccessTestCase):
     url = reverse_lazy('groups:group:view', kwargs={'pk': 2})
     anonymous_fail = True
     user_success = ('test',
-                    'trainer1')
-    user_fail = ('admin',
-                 'demo',
-                 'trainer2')
+                    'trainer1',
+                    'admin',
+                    'demo',
+                    'trainer2')
+    user_fail = None
 
 
 class GroupOverviewTest(WorkoutManagerAccessTestCase):
@@ -94,7 +95,7 @@ class CreateGroupTestCase(WorkoutManagerAddTestCase):
     url = 'groups:group:add'
     data = {'name': 'The name here',
             'description': 'Description here'}
-    user_fail = ()
+    user_fail = None
     user_success = ('admin',
                     'test',
                     'demo',
