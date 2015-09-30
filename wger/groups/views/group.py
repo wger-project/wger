@@ -17,7 +17,6 @@
 from actstream import action
 from actstream.models import target_stream
 
-from django.db.models import Q
 from django.http import HttpResponseForbidden
 from django.core.urlresolvers import (
     reverse_lazy,
@@ -53,12 +52,6 @@ class ListView(WgerPermissionMixin, ListView):
     model = Group
     login_required = True
     template_name = 'group/list.html'
-
-    def get_queryset(self):
-        '''
-        List only public groups and groups the user is already a member of
-        '''
-        return Group.objects.filter(Q(public=True) | Q(members=self.request.user)).distinct()
 
 
 class DetailView(WgerPermissionMixin, DetailView):
