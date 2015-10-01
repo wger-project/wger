@@ -93,8 +93,7 @@ class CreateGroupTestCase(WorkoutManagerAddTestCase):
     '''
     object_class = Group
     url = 'groups:group:add'
-    data = {'name': 'The name here',
-            'description': 'Description here'}
+
     user_fail = None
     user_success = ('admin',
                     'test',
@@ -106,6 +105,14 @@ class CreateGroupTestCase(WorkoutManagerAddTestCase):
                     'trainer4',
                     'manager1',
                     'manager3')
+
+    def get_data(self, username):
+        '''
+        Custom data generator to get around the group's name uniqueness
+        constraints.
+        '''
+        return {'name': 'The group for {0}'.format(username),
+                'description': 'Description here'}
 
 
 class EditGroupTestCase(WorkoutManagerEditTestCase):
