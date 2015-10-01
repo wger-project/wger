@@ -72,7 +72,7 @@ class DetailView(WgerPermissionMixin, DetailView):
         group = self.get_object()
         if not group.public\
                 and not group.membership_set.filter(user=self.request.user).exists():
-            return 'group/application.html'
+            return 'group/view_application.html'
         return 'group/view.html'
 
     def get_context_data(self, **kwargs):
