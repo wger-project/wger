@@ -76,3 +76,22 @@ def accept(request, group_pk, user_pk):
     group.application_set.filter(user=user).delete()
 
     return HttpResponseRedirect(group.get_absolute_url())
+
+
+@login_required
+def deny(request, group_pk, user_pk):
+    '''
+    Denies a user's application to join a private group
+    '''
+    group = get_object_or_404(Group, pk=group_pk)
+    user = get_object_or_404(User, pk=user_pk)
+
+    # Sanity checks
+    if not group.membership_set.filter(user=request.user, admin=True).exists()\
+            or not group.application_set.filter(user=user).exists():
+        return HttpResponseForbidden()
+
+    # Delete the application
+    group.application_set.filter(user=user).delete()
+
+    return HttpResponseRedirect(group.get_absolute_url())

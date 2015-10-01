@@ -152,10 +152,27 @@
             <li class="list-group-item ">
                 {{ application.user|format_username }}
 
-                <a href="{% url 'groups:application:accept' object.pk application.user.pk %}" class="btn btn-default btn-xs pull-right">
-                    <span class="glyphicon glyphicon-ok"></span>
-                    {% trans "Accept" %}
-                </a>
+
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="{% url 'groups:application:accept' object.pk application.user.pk %}">
+                                <span class="glyphicon glyphicon-ok"></span>
+                                {% trans "Accept" %}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'groups:application:deny' object.pk application.user.pk %}">
+                                <span class="glyphicon glyphicon-remove"></span>
+                                {% trans "Deny" %}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
             </li>
             {% endfor %}
         </ul>
