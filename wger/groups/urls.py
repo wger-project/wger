@@ -76,5 +76,5 @@ patterns_applications = [
 urlpatterns = [
    url(r'^', include(patterns_group, namespace="group")),
    url(r'^', include(patterns_membership, namespace="member")),
-   url(r'^', include(patterns_applications, namespace="application")),
+   url(r'^application/', include(patterns_applications, namespace="application")),
 ]

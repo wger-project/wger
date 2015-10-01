@@ -145,6 +145,22 @@
     {% endfor %}
     </ul>
 
+    {% if user in object.get_admins_list and object.application_set.count %}
+        <h4>{% trans "Applicants" %}</h4>
+        <ul class="list-group">
+            {% for application in object.application_set.all %}
+            <li class="list-group-item ">
+                {{ application.user|format_username }}
+
+                <a href="{% url 'groups:application:accept' object.pk application.user.pk %}" class="btn btn-default btn-xs pull-right">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    {% trans "Accept" %}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
 
     <div class="btn-group pull-right">
         <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
