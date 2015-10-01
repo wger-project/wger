@@ -309,6 +309,16 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
     ['fielname', 'path']
     '''
 
+    def get_data(self, username=None):
+        '''
+        Returns the data to test as a dictionary
+
+        The default behaviour is just to return self.data, but more advanced
+        logic can be implemented here (e.g. if there are some uniqueness
+        constraints).
+        '''
+        return self.data
+
     def edit_object(self, fail=False):
         '''
         Helper function to test editing an object
@@ -317,6 +327,8 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
         # Only perform the checks on derived classes
         if self.__class__.__name__ == 'WorkoutManagerEditTestCase':
             return
+
+        data = self.get_data(self.current_user)
 
         # Fetch the edit page
         response = self.client.get(get_reverse(self.url, kwargs={'pk': self.pk}))
@@ -335,11 +347,11 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
             field_name = self.fileupload[0]
             filepath = self.fileupload[1]
             with open(filepath, 'rb') as testfile:
-                self.data[field_name] = testfile
+                data[field_name] = testfile
                 url = get_reverse(self.url, kwargs={'pk': self.pk})
-                response = self.client.post(url, self.data)
+                response = self.client.post(url, data)
         else:
-            response = self.client.post(get_reverse(self.url, kwargs={'pk': self.pk}), self.data)
+            response = self.client.post(get_reverse(self.url, kwargs={'pk': self.pk}), data)
 
         entry_after = self.object_class.objects.get(pk=self.pk)
 
@@ -353,9 +365,9 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 302)
 
             # Check that the data is correct
-            for i in [j for j in self.data if j not in self.data_ignore]:
+            for i in [j for j in data if j not in self.data_ignore]:
                 current_field = getattr(entry_after, i)
-                self.compare_fields(current_field, self.data[i])
+                self.compare_fields(current_field, data[i])
 
             # The page we are redirected to doesn't trigger an error
             response = self.client.get(response['Location'])
@@ -407,6 +419,16 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
     ['fielname', 'path']
     '''
 
+    def get_data(self, username=None):
+        '''
+        Returns the data to test as a dictionary
+
+        The default behaviour is just to return self.data, but more advanced
+        logic can be implemented here (e.g. if there are some uniqueness
+        constraints).
+        '''
+        return self.data
+
     def add_object(self, fail=False):
         '''
         Helper function to test adding an object
@@ -415,6 +437,8 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
         # Only perform the checks on derived classes
         if self.__class__.__name__ == 'WorkoutManagerAddTestCase':
             return
+
+        data = self.get_data(self.current_user)
 
         # Fetch the add page
         response = self.client.get(get_reverse(self.url))
@@ -434,10 +458,10 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
             field_name = self.fileupload[0]
             filepath = self.fileupload[1]
             with open(filepath, 'rb') as testfile:
-                self.data[field_name] = testfile
-                response = self.client.post(get_reverse(self.url), self.data)
+                data[field_name] = testfile
+                response = self.client.post(get_reverse(self.url), data)
         else:
-            response = self.client.post(get_reverse(self.url), self.data)
+            response = self.client.post(get_reverse(self.url), data)
         count_after = self.object_class.objects.count()
         self.pk_after = self.object_class.objects.all().order_by('id').last().pk
 
@@ -452,9 +476,9 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
             entry = self.object_class.objects.get(pk=self.pk_after)
 
             # Check that the data is correct
-            for i in [j for j in self.data if j not in self.data_ignore]:
+            for i in [j for j in data if j not in self.data_ignore]:
                 current_field = getattr(entry, i)
-                self.compare_fields(current_field, self.data[i])
+                self.compare_fields(current_field, data[i])
 
             self.assertEqual(count_before + 1, count_after)
 
