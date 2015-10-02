@@ -134,17 +134,17 @@ class EditGroupTestCase(WorkoutManagerEditTestCase):
                  'manager3')
 
 
-class DeleteDocumentTestCase(WorkoutManagerDeleteTestCase):
+class DeleteGroupTestCase(WorkoutManagerDeleteTestCase):
     '''
-    Tests deleting a user document
+    Tests deleting a group
     '''
 
     pk = 2
     object_class = Group
     url = 'groups:group:delete'
-    user_success = ('test',
-                    'trainer1')
-    user_fail = ('admin',
+    user_success = ('test',)
+    user_fail = ('trainer1',
+                 'admin',
                  'demo',
                  'member1',
                  'member2',
@@ -154,4 +154,4 @@ class DeleteDocumentTestCase(WorkoutManagerDeleteTestCase):
                  'manager1',
                  'manager3')
 
-delete_testcase_add_methods(DeleteDocumentTestCase)
+delete_testcase_add_methods(DeleteGroupTestCase)

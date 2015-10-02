@@ -97,7 +97,7 @@
     },
     {
         "fields": {
-            "admin": true,
+            "admin": false,
             "group": 2,
             "user": [
                 "trainer1"
@@ -153,6 +153,17 @@
             "date": "2015-07-19"
         },
         "model": "groups.membership",
+        "pk": 9
+    },
+    {
+        "fields": {
+            "group": 2,
+            "user": [
+                "member4"
+            ],
+            "date": "2015-10-01"
+        },
+        "model": "groups.application",
         "pk": 9
     }
 ]
