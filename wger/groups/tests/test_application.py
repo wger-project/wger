@@ -149,3 +149,82 @@ class AcceptApplicationTestCase(WorkoutManagerTestCase):
         '''
         self.user_login('member2')
         self.accept_application(fail=True)
+
+    def test_accept_application_anonymous(self):
+        '''
+        Accept application to join private group as an anonymous user
+        '''
+        self.accept_application(fail=True)
+
+
+class DenyApplicationTestCase(WorkoutManagerTestCase):
+    '''
+    Tests the workflow to deny an application to join a private group
+    '''
+
+    def deny_application(self, fail=False):
+        '''
+        Helper method to deny applications
+        '''
+        group_pk = 2
+
+        group = Group.objects.get(pk=group_pk)
+        count_applications_before = group.application_set.count()
+        count_members_before = group.membership_set.count()
+        count_admins_before = group.membership_set.filter(admin=True).count()
+        response = self.client.get(reverse('groups:application:deny',
+                                           kwargs={'group_pk': group_pk,
+                                                   'user_pk': 17}))
+        count_applications_after = group.application_set.count()
+        count_members_after = group.membership_set.count()
+        count_admins_after = group.membership_set.filter(admin=True).count()
+        self.assertEqual(count_members_before, count_members_after)
+        self.assertEqual(count_admins_before, count_admins_after)
+        if fail:
+            self.assertIn(response.status_code, (302, 403))
+            self.assertEqual(count_applications_before, count_applications_after)
+        else:
+            self.assertEqual(response.status_code, 302)
+            self.assertEqual(count_applications_before - 1, count_applications_after)
+
+    def test_deny_application_admin_own_group(self):
+        '''
+        Deny application to join own private group, being admin
+        '''
+        self.user_login('test')
+        self.deny_application(fail=False)
+
+    def test_deny_application_twice(self):
+        '''
+        Deny application to join own private group twice
+        '''
+        self.user_login('test')
+        self.deny_application(fail=False)
+        self.deny_application(fail=True)
+
+    def test_deny_application_not_admin_own_group(self):
+        '''
+        Deny application to join own private group, being admin
+        '''
+        self.user_login('trainer1')
+        self.deny_application(fail=True)
+
+    def test_deny_application_admin_other_group(self):
+        '''
+        Deny application to join private group, being admin in other group
+        '''
+        self.user_login('admin')
+        self.deny_application(fail=True)
+
+    def test_deny_application_not_admin_other_group(self):
+        '''
+        Deny application to join private group, being regular user in other group
+        '''
+        self.user_login('member2')
+        self.deny_application(fail=True)
+
+    def test_deny_application_anonymous(self):
+        '''
+        Deny application to join private group as an anonymous user
+        '''
+        self.deny_application(fail=True)
