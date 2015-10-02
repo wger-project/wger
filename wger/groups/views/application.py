@@ -38,10 +38,9 @@ def apply(request, group_pk):
     '''
     group = get_object_or_404(Group, pk=group_pk)
 
-    if group.membership_set.filter(user=request.user).exists():
-        return HttpResponseForbidden()
-
-    if group.public:
+    if group.public or \
+            group.membership_set.filter(user=request.user).exists() or \
+            group.application_set.filter(user=request.user).exists():
         return HttpResponseRedirect(group.get_absolute_url())
 
     application = Application()
