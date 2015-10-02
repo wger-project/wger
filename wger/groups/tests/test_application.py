@@ -31,16 +31,22 @@ class ApplyGroupTestCase(WorkoutManagerTestCase):
         self.user_login(username)
 
         group = Group.objects.get(pk=group_pk)
-        count_before = group.application_set.count()
+        count_applications_before = group.application_set.count()
+        count_members_before = group.membership_set.count()
+        count_admins_before = group.membership_set.filter(admin=True).count()
 
         response = self.client.get(reverse('groups:application:apply',
                                            kwargs={'group_pk': group_pk}))
-        count_after = group.application_set.count()
+        count_applications_after = group.application_set.count()
+        count_members_after = group.membership_set.count()
+        count_admins_after = group.membership_set.filter(admin=True).count()
+        self.assertEqual(count_admins_before, count_admins_after)
+        self.assertEqual(count_members_before, count_members_after)
         self.assertEqual(response.status_code, 302)
         if fail:
-            self.assertEqual(count_before, count_after)
+            self.assertEqual(count_applications_before, count_applications_after)
         else:
-            self.assertEqual(count_before + 1, count_after)
+            self.assertEqual(count_applications_before + 1, count_applications_after)
 
     def test_apply_private_group_no_member(self):
         '''
