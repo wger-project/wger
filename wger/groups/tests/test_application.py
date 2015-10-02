@@ -75,3 +75,71 @@ class ApplyGroupTestCase(WorkoutManagerTestCase):
         Apply to join a public group, while being already a member
         '''
         self.apply_group(fail=True, username='test', group_pk=1)
+
+
+class AcceptApplicationTestCase(WorkoutManagerTestCase):
+    '''
+    Tests the workflow to accept an application to join a private group
+    '''
+
+    def accept_application(self, fail=False):
+        '''
+        Helper method to accept applications
+        '''
+        group_pk = 2
+
+        group = Group.objects.get(pk=group_pk)
+        count_applications_before = group.application_set.count()
+        count_members_before = group.membership_set.count()
+        count_admins_before = group.membership_set.filter(admin=True).count()
+        response = self.client.get(reverse('groups:application:accept',
+                                           kwargs={'group_pk': group_pk,
+                                                   'user_pk': 17}))
+        count_applications_after = group.application_set.count()
+        count_members_after = group.membership_set.count()
+        count_admins_after = group.membership_set.filter(admin=True).count()
+        self.assertEqual(count_admins_before, count_admins_after)
+        if fail:
+            self.assertIn(response.status_code, (302, 403))
+            self.assertEqual(count_members_before, count_members_after)
+            self.assertEqual(count_applications_before, count_applications_after)
+        else:
+            self.assertEqual(response.status_code, 302)
+            self.assertEqual(count_members_before + 1, count_members_after)
+            self.assertEqual(count_applications_before - 1, count_applications_after)
+
+    def test_accept_application_admin_own_group(self):
+        '''
+        Accept application to join own private group, being admin
+        '''
+        self.user_login('test')
+        self.accept_application(fail=False)
+
+    def test_accept_application_twice(self):
+        '''
+        Accept application to join own private group twice
+        '''
+        self.user_login('test')
+        self.accept_application(fail=False)
+        self.accept_application(fail=True)
+
+    def test_accept_application_not_admin_own_group(self):
+        '''
+        Accept application to join own private group, being admin
+        '''
+        self.user_login('trainer1')
+        self.accept_application(fail=True)
+
+    def test_accept_application_admin_other_group(self):
+        '''
+        Accept application to join private group, being admin in other group
+        '''
+        self.user_login('admin')
+        self.accept_application(fail=True)
+
+    def test_accept_application_not_admin_other_group(self):
+        '''
+        Accept application to join private group, being regular user in other group
+        '''
+        self.user_login('member2')
+        self.accept_application(fail=True)
