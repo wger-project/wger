@@ -14,8 +14,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from actstream import action
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404

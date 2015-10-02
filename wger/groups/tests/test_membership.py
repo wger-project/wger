@@ -12,14 +12,10 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse_lazy, reverse
+from django.core.urlresolvers import reverse
 
 from wger.groups.models import Group
-from wger.manager.tests.testcase import (
-    WorkoutManagerTestCase,
-    WorkoutManagerAccessTestCase,
-    WorkoutManagerAddTestCase
-)
+from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 
 class GroupUserJoinTestCase(WorkoutManagerTestCase):
