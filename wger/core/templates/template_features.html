@@ -46,7 +46,6 @@
     {% compress css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-common.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui-custom.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/shariff/build/shariff.min.css' %}">
@@ -56,13 +55,7 @@
 
     {% compress js %}
     <script src="{% static 'bower_components/jquery/dist/jquery.js' %}"></script>
-    <script src="{% static 'bower_components/d3/d3.js' %}"></script>
-    <script src="{% static 'js/workout-manager.js' %}"></script>
-    <script src="{% static 'js/ubuntu-unity.js' %}"></script>
     <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/exercises.js' %}"></script>
-    <script src="{% static 'js/weight.js' %}"></script>
-    <script src="{% static 'js/nutrition.js' %}"></script>
     {% endcompress %}
 
     <title>wger Workout Manager - {% trans "Features" %}</title>
