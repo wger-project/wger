@@ -98,6 +98,7 @@ BOWER_INSTALLED_APPS = (
     'shariff',
     'tinymce-dist',
     'DataTables',
+    'components-font-awesome',
 )
 
 
