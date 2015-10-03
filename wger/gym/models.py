@@ -447,8 +447,10 @@ class Contract(m.Model):
     Optional type of contract
     '''
 
-    amount = m.PositiveIntegerField(verbose_name=_('Amount'),
-                                    default=0)
+    amount = m.DecimalField(verbose_name=_('Amount'),
+                            decimal_places=2,
+                            max_digits=12,
+                            default=0)
     '''
     The amount to pay
     '''
