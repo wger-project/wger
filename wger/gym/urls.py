@@ -122,6 +122,9 @@ patterns_contracts = [
     url(r'^add/(?P<user_pk>\d+)$',
         contract.AddView.as_view(),
         name='add'),
+    url(r'^view/(?P<pk>\d+)$',
+        contract.DetailView.as_view(),
+        name='view'),
 ]
 
 #

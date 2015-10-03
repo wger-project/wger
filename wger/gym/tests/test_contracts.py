@@ -21,9 +21,9 @@ from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
 
 
-class AddDocumentTestCase(WorkoutManagerAddTestCase):
+class AddContractTestCase(WorkoutManagerAddTestCase):
     '''
-    Tests uploading a new user document
+    Tests creating a new contract
     '''
 
     object_class = Contract
@@ -34,6 +34,28 @@ class AddDocumentTestCase(WorkoutManagerAddTestCase):
                     'manager2')
     user_fail = ('admin',
                  'general_manager1',
+                 'manager3',
+                 'manager4',
+                 'test',
+                 'member1',
+                 'member2',
+                 'member3',
+                 'member4',
+                 'member5')
+
+
+class AccessContractTestCase(WorkoutManagerAccessTestCase):
+    '''
+    Test accessing the detail page of a contract
+    '''
+    object_class = Contract
+    url = reverse('gym:contract:view', kwargs={'pk': 1})
+    user_success = ('manager1',
+                    'manager2')
+    user_fail = ('admin',
+                 'general_manager1',
+                 'manager3',
+                 'manager4',
                  'test',
                  'member1',
                  'member2',

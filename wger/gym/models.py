@@ -535,6 +535,12 @@ class Contract(m.Model):
         '''
         return "#{}".format(self.id)
 
+    def get_absolute_url(self):
+        '''
+        Return the URL for this object
+        '''
+        return reverse('gym:contract:view', kwargs={'pk': self.pk})
+
     def get_owner_object(self):
         '''
         While the model has a user foreign key, this is editable by all

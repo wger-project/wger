@@ -318,7 +318,7 @@
             {{ contract }}
         </td>
         <td>
-            {{ contract.date_start }}
+            <a href="{{ contract.get_absolute_url }}">{{ contract.date_start }}</a>
         </td>
         <td>
             {{ contract.get_contract_type_display }}

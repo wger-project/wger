@@ -22,6 +22,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 from django.views.generic import (
+    DetailView,
     ListView,
     DeleteView,
     CreateView,
@@ -85,3 +86,25 @@ class AddView(WgerFormMixin, CreateView):
         context['form_action'] = reverse('gym:contract:add',
                                          kwargs={'user_pk': self.kwargs['user_pk']})
         return context
+
+
+class DetailView(WgerPermissionMixin, DetailView):
+    '''
+    Detail view of a member's contract
+    '''
+
+    model = Contract
+    template_name = 'contract/view.html'
+    permission_required = 'gym.add_contract'
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Can only see contracts for own gym
+        '''
+        if not request.user.is_authenticated():
+            return HttpResponseForbidden()
+
+        contract = self.get_object()
+        if contract.member.userprofile.gym_id != request.user.userprofile.gym_id:
+            return HttpResponseForbidden()
+        return super(DetailView, self).dispatch(request, *args, **kwargs)

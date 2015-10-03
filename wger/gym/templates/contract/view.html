@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
+
+{% block title %}{% trans 'Contract' %} {{ object }}{% endblock %}
+
+
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% if perms.gym.manage_gyms %}
+        {% breadcrumb "Gyms" "gym:gym:list" %}
+    {% endif %}
+    {% breadcrumb_raw object.member.userprofile.gym "gym:gym:user-list" object.member.userprofile.gym.pk %}
+    {% breadcrumb_raw object.member|format_username "core:user:overview" object.member.pk %}
+    {% breadcrumb "Contract" "gym:contract:view" object.pk %}
+{% endblock %}
+
+
+{% block content %}
+<table class="table">
+    <tr>
+        <th>{% trans 'Name' %}</th>
+        <td>
+            {{ object.member.last_name }},
+            {{ object.member.first_name }}
+        </td>
+        <th>{% trans 'Username' %}</th>
+        <td>{{ object.member }}</td>
+    </tr>
+    {% if object.contract_type %}
+    <tr>
+        <th>{% trans 'Contract type' %}</th>
+        <td colspan="3">{{ object.contract_type.name|default:'-/-' }}</td>
+    </tr>
+    {% endif %}
+    <tr>
+        <th>{% trans 'Amount' %}</th>
+        <td>
+            {{ object.amount|default:'-/-' }}</td>
+        <th>{% trans 'Payment type' %}</th>
+        <td></td>
+    </tr>
+    <tr>
+        <th>{% trans 'Start date' %}</th>
+        <td>{{ object.date_start|default:'-/-' }}</td>
+        <th>{% trans 'End date' %}</th>
+        <td>{{ object.date_end|default:'-/-' }}</td>
+    </tr>
+    <tr>
+        <th>{% trans 'Email' %}</th>
+        <td colspan="3">
+            {% if object.email %}
+                <a href="mailto:{{ object.email }}">{{ object.email }}</a>
+            {% else %}
+                -/-
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>{% trans 'Address' %}</th>
+        <td>
+            {{object.zip_code}} {{object.city}}<br>
+            {{object.street}}
+        </td>
+        <th>{% trans 'Phone' %}</th>
+        <td>{{ object.phone }}</td>
+    </tr>
+    <tr>
+        <th>{% trans 'Profession' %}</th>
+        <td colspan="3">{{ object.profession }}</td>
+    </tr>
+    <tr>
+        <th colspan="3">{% trans 'Contract is active' %}</th>
+        <td>
+            {% if object.is_active %}
+                <span class="glyphicon glyphicon-ok"></span>
+            {% else %}
+                <span class="glyphicon glyphicon-remove"></span>
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>{% trans 'Note' %}</th>
+        <td colspan="3">{{ object.note }}</td>
+    </tr>
+</table>
+{% endblock %}
+
+
+
+
+{% block sidebar %}
+{% endblock %}
