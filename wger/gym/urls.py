@@ -27,7 +27,8 @@ from wger.gym.views import (
     admin_config,
     user_config,
     admin_notes,
-    document
+    document,
+    contract
 )
 
 
@@ -116,6 +117,13 @@ patterns_documents = [
         name='delete'),
 ]
 
+# sub patterns for contracts
+patterns_contracts = [
+    url(r'^add/(?P<user_pk>\d+)$',
+        contract.AddView.as_view(),
+        name='add'),
+]
+
 #
 # All patterns for this app
 #
@@ -126,4 +134,5 @@ urlpatterns = [
     url(r'^user-config/', include(patterns_userconfig, namespace="user_config")),
     url(r'^notes/', include(patterns_admin_notes, namespace="admin_note")),
     url(r'^document/', include(patterns_documents, namespace="document")),
+    url(r'^contract/', include(patterns_contracts, namespace="contract")),
 ]
