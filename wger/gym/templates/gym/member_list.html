@@ -41,8 +41,7 @@ $(document).ready( function () {
 </tr>
 </thead>
 <tbody>
-{% for current_user in object_list %}
-{% if not current_user.perms.any_admin %}
+{% for current_user in object_list.members %}
 <tr>
     <td>
         {{current_user.obj.pk}}
@@ -57,7 +56,6 @@ $(document).ready( function () {
         {{current_user.last_log|default:'-/-'}}
     </td>
 </tr>
-{% endif %}
 {% empty %}
 <tr>
     <td colspan="4">{% trans "Nothing found" %}</td>
@@ -81,8 +79,7 @@ $(document).ready( function () {
 </tr>
 </thead>
 <tbody>
-{% for current_user in object_list %}
-{% if current_user.perms.any_admin %}
+{% for current_user in object_list.admins %}
 <tr>
     <td>
         {{current_user.obj.pk}}
@@ -114,7 +111,6 @@ $(document).ready( function () {
     </td>
     {% endif %}
 </tr>
-{% endif %}
 {% empty %}
 <tr>
     <td colspan="3">{% trans "No users for this gym found" %}</td>

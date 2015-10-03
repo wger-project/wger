@@ -17,8 +17,13 @@ import csv
 import datetime
 import logging
 
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group, User
+from django.contrib.auth.models import (
+    Group,
+    Permission,
+    User
+)
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http.response import (
     HttpResponseForbidden,
@@ -94,14 +99,32 @@ class GymUserListView(WgerPermissionMixin, ListView):
         '''
         Return a list with the users, not really a queryset.
         '''
-        out = []
-        for u in User.objects.filter(userprofile__gym_id=self.kwargs['pk']):
-            out.append({'obj': u,
-                        'last_log': get_user_last_activity(u),
-                        'perms': {'manage_gym': u.has_perm('gym.manage_gym'),
-                                  'manage_gyms': u.has_perm('gym.manage_gyms'),
-                                  'gym_trainer': u.has_perm('gym.gym_trainer'),
-                                  'any_admin': is_any_gym_admin(u)}})
+        out = {'admins': [],
+               'members': []}
+
+        perm_gym = Permission.objects.get(codename='manage_gym')
+        perm_gyms = Permission.objects.get(codename='manage_gym')
+        perm_trainer = Permission.objects.get(codename='manage_gym')
+        users = User.objects.filter(userprofile__gym_id=self.kwargs['pk'])
+
+        # members list
+        for u in users.exclude(Q(groups__permissions=perm_gym) |
+                               Q(groups__permissions=perm_gyms) |
+                               Q(groups__permissions=perm_trainer)):
+            out['members'].append({'obj': u,
+                                   'last_log': get_user_last_activity(u)})
+
+        # admins list
+        for u in users.filter(Q(groups__permissions=perm_gym) |
+                              Q(groups__permissions=perm_gyms) |
+                              Q(groups__permissions=perm_trainer)):
+            out['admins'].append({'obj': u,
+                                  'last_log': get_user_last_activity(u),
+                                  'perms': {'manage_gym': u.has_perm('gym.manage_gym'),
+                                            'manage_gyms': u.has_perm('gym.manage_gyms'),
+                                            'gym_trainer': u.has_perm('gym.gym_trainer'),
+                                            'any_admin': is_any_gym_admin(u)}
+                                  })
         return out
 
     def get_context_data(self, **kwargs):
@@ -110,10 +133,8 @@ class GymUserListView(WgerPermissionMixin, ListView):
         '''
         context = super(GymUserListView, self).get_context_data(**kwargs)
         context['gym'] = Gym.objects.get(pk=self.kwargs['pk'])
-        context['admin_count'] = len([i for i in context['object_list']
-                                      if i['perms']['any_admin']])
-        context['user_count'] = len([i for i in context['object_list']
-                                     if not i['perms']['any_admin']])
+        context['admin_count'] = len(context['object_list']['admins'])
+        context['user_count'] = len(context['object_list']['members'])
         return context
 
 
