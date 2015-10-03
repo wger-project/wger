@@ -1,380 +1,410 @@
 [
     {
-        "pk": 1, 
-        "model": "auth.group", 
+        "model": "auth.group",
+        "pk": 1,
         "fields": {
-            "name": "admin", 
+            "name": "admin",
             "permissions": [
                 [
-                    "add_gymconfig", 
-                    "config", 
+                    "add_gymconfig",
+                    "config",
                     "gymconfig"
-                ], 
+                ],
                 [
-                    "change_gymconfig", 
-                    "config", 
+                    "change_gymconfig",
+                    "config",
                     "gymconfig"
-                ], 
+                ],
                 [
-                    "delete_gymconfig", 
-                    "config", 
+                    "delete_gymconfig",
+                    "config",
                     "gymconfig"
-                ], 
+                ],
                 [
-                    "add_languageconfig", 
-                    "config", 
+                    "add_languageconfig",
+                    "config",
                     "languageconfig"
-                ], 
+                ],
                 [
-                    "change_languageconfig", 
-                    "config", 
+                    "change_languageconfig",
+                    "config",
                     "languageconfig"
-                ], 
+                ],
                 [
-                    "delete_languageconfig", 
-                    "config", 
+                    "delete_languageconfig",
+                    "config",
                     "languageconfig"
-                ], 
+                ],
                 [
-                    "add_language", 
-                    "core", 
+                    "add_language",
+                    "core",
                     "language"
-                ], 
+                ],
                 [
-                    "change_language", 
-                    "core", 
+                    "change_language",
+                    "core",
                     "language"
-                ], 
+                ],
                 [
-                    "delete_language", 
-                    "core", 
+                    "delete_language",
+                    "core",
                     "language"
-                ], 
+                ],
                 [
-                    "add_license", 
-                    "core", 
+                    "add_license",
+                    "core",
                     "license"
-                ], 
+                ],
                 [
-                    "change_license", 
-                    "core", 
+                    "change_license",
+                    "core",
                     "license"
-                ], 
+                ],
                 [
-                    "delete_license", 
-                    "core", 
+                    "delete_license",
+                    "core",
                     "license"
-                ], 
+                ],
                 [
-                    "add_equipment", 
-                    "exercises", 
+                    "add_equipment",
+                    "exercises",
                     "equipment"
-                ], 
+                ],
                 [
-                    "change_equipment", 
-                    "exercises", 
+                    "change_equipment",
+                    "exercises",
                     "equipment"
-                ], 
+                ],
                 [
-                    "delete_equipment", 
-                    "exercises", 
+                    "delete_equipment",
+                    "exercises",
                     "equipment"
-                ], 
+                ],
                 [
-                    "add_exercise", 
-                    "exercises", 
+                    "add_exercise",
+                    "exercises",
                     "exercise"
-                ], 
+                ],
                 [
-                    "change_exercise", 
-                    "exercises", 
+                    "change_exercise",
+                    "exercises",
                     "exercise"
-                ], 
+                ],
                 [
-                    "delete_exercise", 
-                    "exercises", 
+                    "delete_exercise",
+                    "exercises",
                     "exercise"
-                ], 
+                ],
                 [
-                    "add_exercisecategory", 
-                    "exercises", 
+                    "add_exercisecategory",
+                    "exercises",
                     "exercisecategory"
-                ], 
+                ],
                 [
-                    "change_exercisecategory", 
-                    "exercises", 
+                    "change_exercisecategory",
+                    "exercises",
                     "exercisecategory"
-                ], 
+                ],
                 [
-                    "delete_exercisecategory", 
-                    "exercises", 
+                    "delete_exercisecategory",
+                    "exercises",
                     "exercisecategory"
-                ], 
+                ],
                 [
-                    "add_exercisecomment", 
-                    "exercises", 
+                    "add_exercisecomment",
+                    "exercises",
                     "exercisecomment"
-                ], 
+                ],
                 [
-                    "change_exercisecomment", 
-                    "exercises", 
+                    "change_exercisecomment",
+                    "exercises",
                     "exercisecomment"
-                ], 
+                ],
                 [
-                    "delete_exercisecomment", 
-                    "exercises", 
+                    "delete_exercisecomment",
+                    "exercises",
                     "exercisecomment"
-                ], 
+                ],
                 [
-                    "add_exerciseimage", 
-                    "exercises", 
+                    "add_exerciseimage",
+                    "exercises",
                     "exerciseimage"
-                ], 
+                ],
                 [
-                    "change_exerciseimage", 
-                    "exercises", 
+                    "change_exerciseimage",
+                    "exercises",
                     "exerciseimage"
-                ], 
+                ],
                 [
-                    "delete_exerciseimage", 
-                    "exercises", 
+                    "delete_exerciseimage",
+                    "exercises",
                     "exerciseimage"
-                ], 
+                ],
                 [
-                    "add_muscle", 
-                    "exercises", 
+                    "add_muscle",
+                    "exercises",
                     "muscle"
-                ], 
+                ],
                 [
-                    "change_muscle", 
-                    "exercises", 
+                    "change_muscle",
+                    "exercises",
                     "muscle"
-                ], 
+                ],
                 [
-                    "delete_muscle", 
-                    "exercises", 
+                    "delete_muscle",
+                    "exercises",
                     "muscle"
-                ], 
+                ],
                 [
-                    "add_gym", 
-                    "gym", 
+                    "add_gym",
+                    "gym",
                     "gym"
-                ], 
+                ],
                 [
-                    "change_gym", 
-                    "gym", 
+                    "change_gym",
+                    "gym",
                     "gym"
-                ], 
+                ],
                 [
-                    "delete_gym", 
-                    "gym", 
+                    "delete_gym",
+                    "gym",
                     "gym"
-                ], 
+                ],
                 [
-                    "gym_trainer", 
-                    "gym", 
+                    "gym_trainer",
+                    "gym",
                     "gym"
-                ], 
+                ],
                 [
-                    "manage_gym", 
-                    "gym", 
+                    "manage_gym",
+                    "gym",
                     "gym"
-                ], 
+                ],
                 [
-                    "manage_gyms", 
-                    "gym", 
+                    "manage_gyms",
+                    "gym",
                     "gym"
-                ], 
+                ],
                 [
-                    "change_gymadminconfig", 
-                    "gym", 
+                    "change_gymadminconfig",
+                    "gym",
                     "gymadminconfig"
-                ], 
+                ],
                 [
-                    "change_gymconfig", 
-                    "gym", 
+                    "change_gymconfig",
+                    "gym",
                     "gymconfig"
-                ], 
+                ],
                 [
-                    "change_gymuserconfig", 
-                    "gym", 
+                    "change_gymuserconfig",
+                    "gym",
                     "gymuserconfig"
-                ], 
+                ],
                 [
-                    "add_ingredient", 
-                    "nutrition", 
+                    "add_ingredient",
+                    "nutrition",
                     "ingredient"
-                ], 
+                ],
                 [
-                    "change_ingredient", 
-                    "nutrition", 
+                    "change_ingredient",
+                    "nutrition",
                     "ingredient"
-                ], 
+                ],
                 [
-                    "delete_ingredient", 
-                    "nutrition", 
+                    "delete_ingredient",
+                    "nutrition",
                     "ingredient"
-                ], 
+                ],
                 [
-                    "add_ingredientweightunit", 
-                    "nutrition", 
+                    "add_ingredientweightunit",
+                    "nutrition",
                     "ingredientweightunit"
-                ], 
+                ],
                 [
-                    "change_ingredientweightunit", 
-                    "nutrition", 
+                    "change_ingredientweightunit",
+                    "nutrition",
                     "ingredientweightunit"
-                ], 
+                ],
                 [
-                    "delete_ingredientweightunit", 
-                    "nutrition", 
+                    "delete_ingredientweightunit",
+                    "nutrition",
                     "ingredientweightunit"
-                ], 
+                ],
                 [
-                    "add_weightunit", 
-                    "nutrition", 
+                    "add_weightunit",
+                    "nutrition",
                     "weightunit"
-                ], 
+                ],
                 [
-                    "change_weightunit", 
-                    "nutrition", 
+                    "change_weightunit",
+                    "nutrition",
                     "weightunit"
-                ], 
+                ],
                 [
-                    "delete_weightunit", 
-                    "nutrition", 
+                    "delete_weightunit",
+                    "nutrition",
                     "weightunit"
                 ]
             ]
         }
-    }, 
+    },
     {
-        "pk": 2, 
-        "model": "auth.group", 
+        "model": "auth.group",
+        "pk": 2,
         "fields": {
-            "name": "general_gym_manager", 
+            "name": "general_gym_manager",
             "permissions": [
                 [
-                    "change_gymconfig", 
-                    "config", 
+                    "change_gymconfig",
+                    "config",
                     "gymconfig"
-                ], 
+                ],
                 [
-                    "add_gym", 
-                    "gym", 
+                    "add_gym",
+                    "gym",
                     "gym"
-                ], 
+                ],
                 [
-                    "change_gym", 
-                    "gym", 
+                    "change_gym",
+                    "gym",
                     "gym"
-                ], 
+                ],
                 [
-                    "delete_gym", 
-                    "gym", 
+                    "delete_gym",
+                    "gym",
                     "gym"
-                ], 
+                ],
                 [
-                    "manage_gyms", 
-                    "gym", 
+                    "manage_gyms",
+                    "gym",
                     "gym"
-                ], 
+                ],
                 [
-                    "change_gymadminconfig", 
-                    "gym", 
+                    "change_gymadminconfig",
+                    "gym",
                     "gymadminconfig"
                 ]
             ]
         }
-    }, 
+    },
     {
-        "pk": 3, 
-        "model": "auth.group", 
+        "model": "auth.group",
+        "pk": 3,
         "fields": {
-            "name": "gym_manager", 
+            "name": "gym_manager",
             "permissions": [
                 [
-                    "change_gym", 
-                    "gym", 
-                    "gym"
-                ], 
+                    "add_contract",
+                    "gym",
+                    "contract"
+                ],
                 [
-                    "manage_gym", 
-                    "gym", 
-                    "gym"
-                ], 
+                    "change_contract",
+                    "gym",
+                    "contract"
+                ],
                 [
-                    "change_gymadminconfig", 
-                    "gym", 
+                    "delete_contract",
+                    "gym",
+                    "contract"
+                ],
+                [
+                    "add_contracttype",
+                    "gym",
+                    "contracttype"
+                ],
+                [
+                    "change_contracttype",
+                    "gym",
+                    "contracttype"
+                ],
+                [
+                    "delete_contracttype",
+                    "gym",
+                    "contracttype"
+                ],
+                [
+                    "change_gym",
+                    "gym",
+                    "gym"
+                ],
+                [
+                    "manage_gym",
+                    "gym",
+                    "gym"
+                ],
+                [
+                    "change_gymadminconfig",
+                    "gym",
                     "gymadminconfig"
-                ], 
+                ],
                 [
-                    "change_gymconfig", 
-                    "gym", 
+                    "change_gymconfig",
+                    "gym",
                     "gymconfig"
                 ]
             ]
         }
-    }, 
+    },
     {
-        "pk": 4, 
-        "model": "auth.group", 
+        "model": "auth.group",
+        "pk": 4,
         "fields": {
-            "name": "gym_trainer", 
+            "name": "gym_trainer",
             "permissions": [
                 [
-                    "add_adminusernote", 
-                    "gym", 
+                    "add_adminusernote",
+                    "gym",
                     "adminusernote"
-                ], 
+                ],
                 [
-                    "change_adminusernote", 
-                    "gym", 
+                    "change_adminusernote",
+                    "gym",
                     "adminusernote"
-                ], 
+                ],
                 [
-                    "delete_adminusernote", 
-                    "gym", 
+                    "delete_adminusernote",
+                    "gym",
                     "adminusernote"
-                ], 
+                ],
                 [
-                    "gym_trainer", 
-                    "gym", 
+                    "gym_trainer",
+                    "gym",
                     "gym"
-                ], 
+                ],
                 [
-                    "change_gymadminconfig", 
-                    "gym", 
+                    "change_gymadminconfig",
+                    "gym",
                     "gymadminconfig"
-                ], 
+                ],
                 [
-                    "change_gymuserconfig", 
-                    "gym", 
+                    "change_gymuserconfig",
+                    "gym",
                     "gymuserconfig"
-                ], 
+                ],
                 [
-                    "add_userdocument", 
-                    "gym", 
+                    "add_userdocument",
+                    "gym",
                     "userdocument"
-                ], 
+                ],
                 [
-                    "change_userdocument", 
-                    "gym", 
+                    "change_userdocument",
+                    "gym",
                     "userdocument"
-                ], 
+                ],
                 [
-                    "delete_userdocument", 
-                    "gym", 
+                    "delete_userdocument",
+                    "gym",
                     "userdocument"
                 ]
             ]
         }
-    }, 
+    },
     {
-        "pk": 5, 
-        "model": "auth.group", 
+        "model": "auth.group",
+        "pk": 5,
         "fields": {
-            "name": "gym_member", 
+            "name": "gym_member",
             "permissions": []
         }
     }
