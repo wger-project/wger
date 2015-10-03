@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import uuid
+import datetime
 
 from django.db import models as m
 from django.contrib.auth.models import User
@@ -347,5 +348,194 @@ class UserDocument(m.Model):
         '''
         While the model has a user foreign key, this is editable by all
         trainers in the gym.
+        '''
+        return None
+
+
+@python_2_unicode_compatible
+class ContractType(m.Model):
+    '''
+    Model for a contract's type
+
+    A contract type is a user-editable way of enhancing the contract to
+    specify types, such as e.g. 'with personal trainer', 'regular', etc.
+    '''
+
+    gym = m.ForeignKey(Gym,
+                       editable=False)
+    '''
+    The gym this contract type belongs to
+    '''
+
+    name = m.CharField(verbose_name=_('Name'),
+                       max_length=25)
+    '''
+    The contract type's short name
+    '''
+
+    description = m.TextField(verbose_name=_('Description'),
+                              blank=True,
+                              null=True)
+    '''
+    Free text field for additional information
+    '''
+
+    def __str__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return "{}".format(self.name)
+
+
+@python_2_unicode_compatible
+class Contract(m.Model):
+    '''
+    Model for a member's contract in a gym
+    '''
+
+    AMOUNT_TYPE_YEARLY = '1'
+    AMOUNT_TYPE_HALFYEARLY = '2'
+    AMOUNT_TYPE_MONTHLY = '3'
+    AMOUNT_TYPE_BIWEEKLY = '4'
+    AMOUNT_TYPE_WEEKLY = '5'
+    AMOUNT_TYPE_DAILY = '6'
+
+    AMOUNT_TYPE = (
+        (AMOUNT_TYPE_YEARLY, _("Yearly")),
+        (AMOUNT_TYPE_HALFYEARLY, _('Half yearly')),
+        (AMOUNT_TYPE_MONTHLY, _('Monthly')),
+        (AMOUNT_TYPE_BIWEEKLY, _('Biweekly')),
+        (AMOUNT_TYPE_WEEKLY, _('Weekly')),
+        (AMOUNT_TYPE_DAILY, _('Daily')),
+    )
+
+    class Meta:
+        '''
+        Order by time
+        '''
+        ordering = ["-date_start", ]
+
+    user = m.ForeignKey(User,
+                        editable=False,
+                        related_name='contract_user')
+    '''
+    User that originally created the contract
+    '''
+
+    member = m.ForeignKey(User,
+                          editable=False,
+                          related_name='contract_member')
+    '''
+    Gym member this contract refers to
+    '''
+
+    timestamp_created = m.DateTimeField(auto_now_add=True)
+    '''
+    Time when the contract was created
+    '''
+
+    timestamp_edited = m.DateTimeField(auto_now=True)
+    '''
+    Last time when the contract was edited
+    '''
+
+    contract_type = m.ForeignKey(ContractType,
+                                 blank=True,
+                                 null=True,
+                                 verbose_name=_('Contract type'))
+    '''
+    Optional type of contract
+    '''
+
+    amount = m.PositiveIntegerField(verbose_name=_('Amount'),
+                                    default=0)
+    '''
+    The amount to pay
+    '''
+
+    payment = m.CharField(verbose_name=_('Payment type'),
+                          max_length=2,
+                          choices=AMOUNT_TYPE,
+                          default=AMOUNT_TYPE_MONTHLY,
+                          help_text=_('How often the amount will be charged to the member'))
+    '''
+    How often the amount will be charged to the member
+    '''
+
+    is_active = m.BooleanField(verbose_name=_('Contract is active'),
+                               default=True)
+    '''
+    Flag showing whether the contract is currently active
+    '''
+
+    date_start = m.DateField(verbose_name=_('Start date'),
+                             default=datetime.date.today,
+                             blank=True,
+                             null=True)
+    '''
+    The date when the contract starts
+    '''
+
+    date_end = m.DateField(verbose_name=_('End date'),
+                           blank=True,
+                           null=True)
+    '''
+    The date when the contract ends
+    '''
+
+    email = m.EmailField(verbose_name=_('Email'),
+                         blank=True,
+                         null=True)
+    '''The member's email'''
+
+    zip_code = m.CharField(_(u'ZIP code'),
+                           max_length=10,
+                           blank=True,
+                           null=True)
+    '''ZIP code'''
+
+    city = m.CharField(_(u'City'),
+                       max_length=30,
+                       blank=True,
+                       null=True)
+    '''City'''
+
+    street = m.CharField(_(u'Street'),
+                         max_length=30,
+                         blank=True,
+                         null=True)
+    '''Street'''
+
+    phone = m.CharField(verbose_name=_('Phone'),
+                        max_length=20,
+                        blank=True,
+                        null=True)
+    '''Phone number'''
+
+    profession = m.CharField(verbose_name=_('Profession'),
+                             max_length=50,
+                             blank=True,
+                             null=True)
+    '''
+    The member's profession
+    '''
+
+    note = m.TextField(verbose_name=_('Note'),
+                       blank=True,
+                       null=True)
+    '''
+    Free text note with additional information
+    '''
+
+    def __str__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return "#{}".format(self.id)
+
+    def get_owner_object(self):
+        '''
+        While the model has a user foreign key, this is editable by all
+        managers in the gym.
         '''
         return None
