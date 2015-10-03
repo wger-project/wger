@@ -46,9 +46,6 @@ def join_public_group(request, group_pk):
     membership.admin = False
     membership.save()
 
-    # Add event to django activity stream
-    action.send(request.user, verb='joined', target=group)
-
     return HttpResponseRedirect(group.get_absolute_url())
 
 
@@ -71,9 +68,6 @@ def leave_group(request, group_pk, user_pk=None):
 
     membership = group.membership_set.get(user=user)
     membership.delete()
-
-    # Add event to django activity stream
-    action.send(user, verb='left', target=group)
 
     # Only return to the group overview if the user itself left the group
     if user.pk == request.user.pk:

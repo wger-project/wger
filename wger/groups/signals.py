@@ -22,7 +22,7 @@ from django.dispatch import receiver
 
 from easy_thumbnails.files import get_thumbnailer
 
-from wger.groups.models import Group
+from wger.groups.models import Group, Membership
 
 
 @receiver(post_delete, sender=Group)
@@ -55,18 +55,19 @@ def delete_group_image_on_update(sender, instance, **kwargs):
         thumbnailer.delete_thumbnails()
         old_file.delete(save=False)
 
-#
-# @receiver(post_save, sender=Group)
-# def activity_add_group(sender, instance, created, **kwargs):
-#     '''
-#     Signal listener for groups
-#     '''
-#     if created:
-#         # get the user that created the group: since the group was just created
-#         # it's the only member
-#         user = instance.membership_set.first()
-#
-#         # group = Group.objects.get(name='MyGroup')
-#         action.send(user, verb='created', target=instance)
-#
-#         # action.send(instance, verb='was created')
+
+@receiver(post_save, sender=Membership)
+def activity_add_membership(sender, instance, created, **kwargs):
+    '''
+    Add event to django activity stream when joining group
+    '''
+    if created:
+        action.send(instance.user, verb='joined', target=instance.group)
+
+
+@receiver(post_delete, sender=Membership)
+def activity_delete_membership(sender, instance, **kwargs):
+    '''
+    Add event to django activity stream when leaving group
+    '''
+    action.send(instance.user, verb='left', target=instance.group)
