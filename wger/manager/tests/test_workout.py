@@ -86,6 +86,34 @@ class WorkoutAccessTestCase(WorkoutManagerTestCase):
         response = self.client.get(workout.get_absolute_url())
         self.assertEqual(response.status_code, 403)
 
+    def test_access_group(self):
+        '''
+        Test accessing the URL of a group's workout
+        '''
+        workout = Workout.objects.get(pk=3)
+
+        # workout owner
+        self.user_login('test')
+        response = self.client.get(workout.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+
+        # group member
+        self.user_login('trainer1')
+        response = self.client.get(workout.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+
+        self.user_login('admin')
+        response = self.client.get(workout.get_absolute_url())
+        self.assertEqual(response.status_code, 403)
+
+        self.user_login('trainer2')
+        response = self.client.get(workout.get_absolute_url())
+        self.assertEqual(response.status_code, 403)
+
+        self.user_logout()
+        response = self.client.get(workout.get_absolute_url())
+        self.assertEqual(response.status_code, 403)
+
 
 class AddWorkoutTestCase(WorkoutManagerTestCase):
     '''

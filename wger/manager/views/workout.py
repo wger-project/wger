@@ -83,8 +83,15 @@ def view(request, pk):
     user = workout.user
     is_owner = request.user == user
 
-    if not is_owner and not user.userprofile.ro_access:
-        return HttpResponseForbidden()
+    # if the workout belongs to a group, their members can access it
+    if workout.group:
+        if not workout.group.membership_set.filter(user_id=request.user.pk).exists():
+            return HttpResponseForbidden()
+
+    # regular workout, check usual permissions
+    else:
+        if not is_owner and not user.userprofile.ro_access:
+            return HttpResponseForbidden()
 
     canonical = workout.canonical_representation
     uid, token = make_token(user)

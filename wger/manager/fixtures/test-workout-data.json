@@ -5,7 +5,8 @@
         "fields": {
             "comment": "A test workout", 
             "user": 1, 
-            "creation_date": "2012-11-01"
+            "creation_date": "2012-11-01",
+            "group": null
         }
     }, 
     {
@@ -14,7 +15,8 @@
         "fields": {
             "comment": "Another test workout", 
             "user": 1, 
-            "creation_date": "2012-11-10"
+            "creation_date": "2012-11-10",
+            "group": null
         }
     },
     {
@@ -23,7 +25,8 @@
         "fields": {
             "comment": "My test workout", 
             "user": 2, 
-            "creation_date": "2012-11-20"
+            "creation_date": "2012-11-20",
+            "group": 2
         }
     },
     
