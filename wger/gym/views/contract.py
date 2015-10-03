@@ -57,6 +57,31 @@ class AddView(WgerFormMixin, CreateView):
         '''
         return reverse('core:user:overview', kwargs={'pk': self.member.pk})
 
+    def get_initial(self):
+        '''
+        Get the initial data for new contracts
+
+        Since the user's data probably didn't change between one contract and the
+        next, try to fill in as much data as possible from previous ones or the
+        user's profile
+        '''
+        out = {}
+        if Contract.objects.filter(member=self.member).exists():
+            last_contract = Contract.objects.filter(member=self.member).first()
+            for key in ('amount',
+                        'payment',
+                        'email',
+                        'zip_code',
+                        'city',
+                        'street',
+                        'phone',
+                        'profession'):
+                out[key] = getattr(last_contract, key)
+        elif self.member.email:
+            out['email'] = self.member.email
+
+        return out
+
     def dispatch(self, request, *args, **kwargs):
         '''
         Can only add documents to users in own gym
