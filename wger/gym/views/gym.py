@@ -119,7 +119,6 @@ class GymUserListView(WgerPermissionMixin, ListView):
                               Q(groups__permissions=perm_gyms) |
                               Q(groups__permissions=perm_trainer)):
             out['admins'].append({'obj': u,
-                                  'last_log': get_user_last_activity(u),
                                   'perms': {'manage_gym': u.has_perm('gym.manage_gym'),
                                             'manage_gyms': u.has_perm('gym.manage_gyms'),
                                             'gym_trainer': u.has_perm('gym.gym_trainer'),
