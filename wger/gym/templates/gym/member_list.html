@@ -14,8 +14,9 @@
 
 
 {% block header %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/jquery.dataTables.css' %}">
-<script src="{% static 'js/jquery.dataTables.min.js' %}" ></script>
+<link rel="stylesheet" type="text/css" href="{% static 'bower_components/datatables/media/css/dataTables.bootstrap.min.css' %}">
+<script src="{% static 'bower_components/datatables/media/js/jquery.dataTables.min.js' %}" ></script>
+<script src="{% static 'bower_components/datatables/media/js/dataTables.bootstrap.min.js' %}" ></script>
 <script>
 $(document).ready( function () {
     /* Make table sortable */
