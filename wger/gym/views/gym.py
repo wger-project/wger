@@ -103,21 +103,21 @@ class GymUserListView(WgerPermissionMixin, ListView):
                'members': []}
 
         perm_gym = Permission.objects.get(codename='manage_gym')
-        perm_gyms = Permission.objects.get(codename='manage_gym')
-        perm_trainer = Permission.objects.get(codename='manage_gym')
+        perm_gyms = Permission.objects.get(codename='manage_gyms')
+        perm_trainer = Permission.objects.get(codename='gym_trainer')
         users = User.objects.filter(userprofile__gym_id=self.kwargs['pk'])
 
         # members list
         for u in users.exclude(Q(groups__permissions=perm_gym) |
                                Q(groups__permissions=perm_gyms) |
-                               Q(groups__permissions=perm_trainer)):
+                               Q(groups__permissions=perm_trainer)).distinct():
             out['members'].append({'obj': u,
                                    'last_log': get_user_last_activity(u)})
 
         # admins list
         for u in users.filter(Q(groups__permissions=perm_gym) |
                               Q(groups__permissions=perm_gyms) |
-                              Q(groups__permissions=perm_trainer)):
+                              Q(groups__permissions=perm_trainer)).distinct():
             out['admins'].append({'obj': u,
                                   'perms': {'manage_gym': u.has_perm('gym.manage_gym'),
                                             'manage_gyms': u.has_perm('gym.manage_gyms'),
