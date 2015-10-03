@@ -59,9 +59,10 @@ class Gym(m.Model):
                         null=True)
     '''Gym owner'''
 
-    zip_code = m.IntegerField(_(u'ZIP code'),
-                              blank=True,
-                              null=True)
+    zip_code = m.CharField(_(u'ZIP code'),
+                           max_length=10,
+                           blank=True,
+                           null=True)
     '''ZIP code'''
 
     city = m.CharField(_(u'City'),
