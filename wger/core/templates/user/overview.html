@@ -252,6 +252,44 @@
 {% endif %}
 </table>
 
+{#          #}
+{# Contract #}
+{#          #}
+{% if perms.gym.add_contract %}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="{% url 'gym:contract:add' current_user.pk %}">{% trans "Add"%}</a>
+        </li>
+    </ul>
+</div>
+
+<h4>{% trans "Contracts" %}</h4>
+<table class="table">
+    {% for contract in current_user.contract_member.all %}
+    <tr>
+        <td>
+            {{ contract }}
+        </td>
+        <td>
+            <a href="{{ contract.get_absolute_url }}">{{ contract.date_start }}</a>
+        </td>
+        <td>
+            {{ contract.amount }}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td>
+            {% trans "Nothing found" %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
 
 
 {#             #}
@@ -281,47 +319,6 @@
         </td>
         <td>
             {{ note.note|truncatewords:10 }}
-        </td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td>
-            {% trans "Nothing found" %}
-        </td>
-    </tr>
-    {% endfor %}
-</table>
-{% endif %}
-
-
-
-{#          #}
-{# Contract #}
-{#          #}
-{% if perms.gym.add_contract %}
-<div class="btn-group pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
-        {% trans "Actions" %} <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-        <li>
-            <a href="{% url 'gym:contract:add' current_user.pk %}">{% trans "Add"%}</a>
-        </li>
-    </ul>
-</div>
-
-<h4>{% trans "Contracts" %}</h4>
-<table class="table">
-    {% for contract in current_user.contract_member.all %}
-    <tr>
-        <td>
-            {{ contract }}
-        </td>
-        <td>
-            <a href="{{ contract.get_absolute_url }}">{{ contract.date_start }}</a>
-        </td>
-        <td>
-            {{ contract.amount }}
         </td>
     </tr>
     {% empty %}

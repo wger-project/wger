@@ -21,26 +21,34 @@
 <ul class="list-group">
     {% for document in userdocument_list %}
     <li class="list-group-item ">
-        <div class="pull-right">
-            <a href="{{ document.document.url }}"
-               class="btn btn-default btn-xs"
-               download="{{ document.original_name }}">
-                <span class="glyphicon glyphicon-download"></span>
-                {% trans 'Download' %}
-            </a>
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-cog"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="{{ document.document.url }}" download="{{ document.original_name }}">
+                        <span class="glyphicon glyphicon-download"></span>
+                        {% trans 'Download' %}
+                    </a>
+                </li>
+                {% if perms.gym.change_userdocument %}
+                <li>
+                    <a href="{% url 'gym:document:edit' document.pk %}">
+                        {% trans 'Edit' %}
+                    </a>
+                </li>
+                {% endif %}
 
-            {% if perms.gym.delete_userdocument %}
-            <a href="{% url 'gym:document:delete' document.pk %}"
-               class="btn btn-danger btn-xs wger-modal-dialog">
-                {% trans 'Delete' %}
-            </a>
-            {% endif %}
-            {% if perms.gym.change_userdocument %}
-            <a href="{% url 'gym:document:edit' document.pk %}"
-               class="btn btn-default btn-xs">
-                {% trans 'Edit' %}
-            </a>
-            {% endif %}
+                {% if perms.gym.delete_userdocument %}
+                <li>
+                    <a href="{% url 'gym:document:delete' document.pk %}"  class="wger-modal-dialog">
+                        {% trans 'Delete' %}
+                    </a>
+                </li>
+                {% endif %}
+
+            </ul>
         </div>
 
         <h4 class="list-group-item-heading">{{ document.name }}</h4>
@@ -63,16 +71,8 @@
 
 {% block sidebar %}
 {% if perms.gym.add_userdocument %}
-<h4>{% trans "Options" %}</h4>
-<p>
-       <a href="{% url 'gym:document:add' member.pk %}" {% auto_link_css flavour %}>
-       <img src="{% static 'images/icons/new.svg' %}"
-            width="32"
-            height="32"
-            alt="{% trans 'Add' %}"
-            title="{% trans 'Add' %}">
+   <a href="{% url 'gym:document:add' member.pk %}" class="btn btn-success" %}>
        {% trans "Add" %}
-       </a>
-</p>
+   </a>
 {% endif %}
 {% endblock %}
