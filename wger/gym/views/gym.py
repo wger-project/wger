@@ -269,6 +269,7 @@ def gym_permissions_user_edit(request, user_pk):
     context['form'] = form
     context['form_action'] = reverse('gym:gym:edit-user-permission', kwargs={'user_pk': user.pk})
     context['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
+    context['submit_text'] = 'Save'
 
     return render(request, 'form.html', context)
 
