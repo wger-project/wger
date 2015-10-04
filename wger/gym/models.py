@@ -361,6 +361,12 @@ class ContractType(m.Model):
     specify types, such as e.g. 'with personal trainer', 'regular', etc.
     '''
 
+    class Meta:
+        '''
+        Order by name
+        '''
+        ordering = ["name", ]
+
     gym = m.ForeignKey(Gym,
                        editable=False)
     '''
