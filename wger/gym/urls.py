@@ -16,7 +16,6 @@
 
 
 from django.conf.urls import (
-    patterns,
     url,
     include
 )
@@ -28,7 +27,8 @@ from wger.gym.views import (
     user_config,
     admin_notes,
     document,
-    contract
+    contract,
+    contract_type
 )
 
 
@@ -130,6 +130,19 @@ patterns_contracts = [
         name='edit'),
 ]
 
+# sub patterns for contract types
+patterns_contract_types = [
+    url(r'^add/(?P<gym_pk>\d+)$',
+        contract_type.AddView.as_view(),
+        name='add'),
+    url(r'^edit/(?P<pk>\d+)$',
+        contract_type.UpdateView.as_view(),
+        name='edit'),
+    url(r'^delete/(?P<pk>\d+)$',
+        contract_type.DeleteView.as_view(),
+        name='delete'),
+]
+
 #
 # All patterns for this app
 #
@@ -141,4 +154,5 @@ urlpatterns = [
     url(r'^notes/', include(patterns_admin_notes, namespace="admin_note")),
     url(r'^document/', include(patterns_documents, namespace="document")),
     url(r'^contract/', include(patterns_contracts, namespace="contract")),
+    url(r'^contract-type/', include(patterns_contract_types, namespace="contract_type")),
 ]

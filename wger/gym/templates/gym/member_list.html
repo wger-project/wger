@@ -242,4 +242,59 @@ $(document).ready( function () {
         </td>
     </tr>
 </table>
+
+
+
+
+{#                        #}
+{# Contract configuration #}
+{#                        #}
+{% if perms.gym.change_contracttype %}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="{% url 'gym:contract_type:add' gym.id %}" class="wger-modal-dialog">{% trans "Add"%}</a>
+        </li>
+    </ul>
+</div>
+
+<h4>{% trans "Contract types" %}</h4>
+<table class="table">
+    {% for contract_type in gym.contracttype_set.all %}
+    <tr>
+        <td>
+            {{ contract_type }}
+        </td>
+        <td>
+            {{ contract_type.description|truncatewords:15 }}
+        </td>
+        <td>
+
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                   <span class="glyphicon glyphicon-cog"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="{% url 'gym:contract_type:edit' contract_type.id %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'gym:contract_type:delete' contract_type.id %}" class="wger-modal-dialog">{% trans "Delete"%}</a>
+                    </li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td>
+            {% trans "Nothing found" %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
 {% endblock %}

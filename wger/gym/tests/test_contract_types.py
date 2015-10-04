@@ -14,23 +14,22 @@
 
 from django.core.urlresolvers import reverse
 
-from wger.gym.models import Contract
+
+from wger.gym.models import ContractType
 from wger.manager.tests.testcase import (
-    WorkoutManagerAccessTestCase,
     WorkoutManagerEditTestCase,
     WorkoutManagerAddTestCase,
-)
+    WorkoutManagerDeleteTestCase)
 
 
-class AddContractTestCase(WorkoutManagerAddTestCase):
+class AddContractTypeTestCase(WorkoutManagerAddTestCase):
     '''
     Tests creating a new contract
     '''
 
-    object_class = Contract
-    url = reverse('gym:contract:add', kwargs={'user_pk': 14})
-    data = {'amount': 30,
-            'payment': '2'}
+    object_class = ContractType
+    url = reverse('gym:contract_type:add', kwargs={'gym_pk': 1})
+    data = {'name': 'Some name'}
     user_success = ('manager1',
                     'manager2')
     user_fail = ('admin',
@@ -45,34 +44,14 @@ class AddContractTestCase(WorkoutManagerAddTestCase):
                  'member5')
 
 
-class AccessContractTestCase(WorkoutManagerAccessTestCase):
+class EditContractTypeTestCase(WorkoutManagerEditTestCase):
     '''
-    Test accessing the detail page of a contract
-    '''
-    object_class = Contract
-    url = reverse('gym:contract:view', kwargs={'pk': 1})
-    user_success = ('manager1',
-                    'manager2')
-    user_fail = ('admin',
-                 'general_manager1',
-                 'manager3',
-                 'manager4',
-                 'test',
-                 'member1',
-                 'member2',
-                 'member3',
-                 'member4',
-                 'member5')
-
-
-class EditContractTestCase(WorkoutManagerEditTestCase):
-    '''
-    Tests editing a contract
+    Tests editing a contract type
     '''
 
     pk = 1
-    object_class = Contract
-    url = 'gym:contract:edit'
+    object_class = ContractType
+    url = 'gym:contract_type:edit'
     user_success = ('manager1',
                     'manager2')
     user_fail = ('admin',
@@ -85,6 +64,26 @@ class EditContractTestCase(WorkoutManagerEditTestCase):
                  'member3',
                  'member4',
                  'member5')
-    data = {'note': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr',
-            'amount': 35,
-            'payment': '5'}
+    data = {'name': 'Standard contract 16-Gj'}
+
+
+class DeleteContractTypeTestCase(WorkoutManagerDeleteTestCase):
+    '''
+    Tests deleting a contract type
+    '''
+
+    pk = 1
+    object_class = ContractType
+    url = 'gym:contract_type:delete'
+    user_success = ('manager1',
+                    'manager2')
+    user_fail = ('admin',
+                 'general_manager1',
+                 'manager3',
+                 'manager4',
+                 'test',
+                 'member1',
+                 'member2',
+                 'member3',
+                 'member4',
+                 'member5')

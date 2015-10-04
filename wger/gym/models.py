@@ -386,6 +386,12 @@ class ContractType(m.Model):
         '''
         return "{}".format(self.name)
 
+    def get_owner_object(self):
+        '''
+        Contract type has no owner iformation
+        '''
+        return None
+
 
 @python_2_unicode_compatible
 class Contract(m.Model):

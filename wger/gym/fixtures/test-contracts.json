@@ -79,5 +79,14 @@
         },
         "pk": 3,
         "model": "gym.contract"
+    },
+    {
+        "fields": {
+            "name": "Standard contract 12/b",
+            "description": "A variation of the loved standard 12/a",
+            "gym_id": 1
+        },
+        "pk": 1,
+        "model": "gym.contracttype"
     }
 ]
