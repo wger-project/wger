@@ -133,3 +133,35 @@ class DetailView(WgerPermissionMixin, DetailView):
         if contract.member.userprofile.gym_id != request.user.userprofile.gym_id:
             return HttpResponseForbidden()
         return super(DetailView, self).dispatch(request, *args, **kwargs)
+
+
+class UpdateView(WgerFormMixin, UpdateView):
+    '''
+    View to update an existing contract
+    '''
+
+    model = Contract
+    fields = '__all__'
+    permission_required = 'gym.change_contract'
+    form_action_urlname = 'gym:contract:edit'
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Only trainers for this gym can edit user notes
+        '''
+
+        if not request.user.is_authenticated():
+            return HttpResponseForbidden()
+
+        contract = self.get_object()
+        if contract.member.userprofile.gym_id != request.user.userprofile.gym_id:
+            return HttpResponseForbidden()
+        return super(UpdateView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(UpdateView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Edit {0}').format(self.object)
+        return context

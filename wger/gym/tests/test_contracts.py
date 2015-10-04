@@ -62,3 +62,28 @@ class AccessContractTestCase(WorkoutManagerAccessTestCase):
                  'member3',
                  'member4',
                  'member5')
+
+
+class EditContractTestCase(WorkoutManagerEditTestCase):
+    '''
+    Tests editing a contract
+    '''
+
+    pk = 1
+    object_class = Contract
+    url = 'gym:contract:edit'
+    user_success = ('manager1',
+                    'manager2')
+    user_fail = ('admin',
+                 'general_manager1',
+                 'manager3',
+                 'manager4',
+                 'test',
+                 'member1',
+                 'member2',
+                 'member3',
+                 'member4',
+                 'member5')
+    data = {'note': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr',
+            'amount': 35,
+            'payment': '5'}

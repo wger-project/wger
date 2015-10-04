@@ -125,6 +125,9 @@ patterns_contracts = [
     url(r'^view/(?P<pk>\d+)$',
         contract.DetailView.as_view(),
         name='view'),
+    url(r'^edit/(?P<pk>\d+)$',
+        contract.UpdateView.as_view(),
+        name='edit'),
 ]
 
 #

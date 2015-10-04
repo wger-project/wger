@@ -90,4 +90,6 @@
 
 
 {% block sidebar %}
+    <h4>{% trans 'Options' %}</h4>
+    <a href="{% url 'gym:contract:edit' object.pk %}" class="wger-modal-dialog">{% trans 'Edit' %}</a>
 {% endblock %}
