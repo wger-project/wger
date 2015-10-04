@@ -36,9 +36,12 @@
     <tr>
         <th>{% trans 'Amount' %}</th>
         <td>
-            {{ object.amount|default:'-/-' }}</td>
+            {{ object.amount|default:'-/-' }}
+        </td>
         <th>{% trans 'Payment type' %}</th>
-        <td></td>
+        <td>
+            {{ object.get_payment_display }}
+        </td>
     </tr>
     <tr>
         <th>{% trans 'Start date' %}</th>
@@ -47,8 +50,10 @@
         <td>{{ object.date_end|default:'-/-' }}</td>
     </tr>
     <tr>
+        <th>{% trans 'Phone' %}</th>
+        <td>{{ object.phone }}</td>
         <th>{% trans 'Email' %}</th>
-        <td colspan="3">
+        <td>
             {% if object.email %}
                 <a href="mailto:{{ object.email }}">{{ object.email }}</a>
             {% else %}
@@ -58,20 +63,17 @@
     </tr>
     <tr>
         <th>{% trans 'Address' %}</th>
-        <td>
-            {{object.zip_code}} {{object.city}}<br>
-            {{object.street}}
+        <td colspan="3">
+            {{object.zip_code}} {{object.city}} {{object.street}}
         </td>
-        <th>{% trans 'Phone' %}</th>
-        <td>{{ object.phone }}</td>
     </tr>
     <tr>
         <th>{% trans 'Profession' %}</th>
         <td colspan="3">{{ object.profession }}</td>
     </tr>
     <tr>
-        <th colspan="3">{% trans 'Contract is active' %}</th>
-        <td>
+        <th>{% trans 'Contract is active' %}</th>
+        <td colspan="3">
             {% if object.is_active %}
                 <span class="glyphicon glyphicon-ok"></span>
             {% else %}
@@ -81,7 +83,7 @@
     </tr>
     <tr>
         <th>{% trans 'Note' %}</th>
-        <td colspan="3">{{ object.note }}</td>
+        <td colspan="3" style="white-space: pre-line;">{{ object.note }}</td>
     </tr>
 </table>
 {% endblock %}
