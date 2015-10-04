@@ -31,7 +31,7 @@ $(document).ready( function () {
 
 {% block content %}
 {% if perms.gym.manage_gym or perms.gym.gym_trainer %}
-<table class="table" id="main_member_list">
+<table class="table table-hover" id="main_member_list">
 <thead>
 <tr>
     <th style="width: 10%;">{% trans "ID" %}</th>
@@ -67,7 +67,7 @@ $(document).ready( function () {
 
 
 <h4>{% trans "Administrators and trainers" %}</h4>
-<table class="table">
+<table class="table table-hover">
 <thead>
 <tr>
     <th style="width: 10%;">{% trans "ID" %}</th>
@@ -272,7 +272,6 @@ $(document).ready( function () {
             {{ contract_type.description|truncatewords:15 }}
         </td>
         <td>
-
             <div class="btn-group pull-right">
                 <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
                    <span class="glyphicon glyphicon-cog"></span>
