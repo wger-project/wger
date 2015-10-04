@@ -45,8 +45,8 @@ from wger.core.forms import (
     UserPersonalInformationForm,
     PasswordConfirmationForm,
     RegistrationForm,
-    RegistrationFormNoCaptcha
-)
+    RegistrationFormNoCaptcha,
+    UserLoginForm)
 from wger.core.models import Language
 from wger.manager.models import (
     WorkoutLog,
@@ -73,6 +73,7 @@ def login(request):
 
     return django_loginview(request,
                             template_name='user/login.html',
+                            authentication_form=UserLoginForm,
                             extra_context=context)
 
 

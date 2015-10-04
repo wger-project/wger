@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from captcha.fields import ReCaptchaField
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django import forms
@@ -28,6 +28,15 @@ from django.forms import (
 )
 from django.utils.translation import ugettext as _
 from wger.core.models import UserProfile
+
+
+class UserLoginForm(AuthenticationForm):
+    '''
+    Form for logins
+
+    Overwritten here just to change the label on the 'username' field
+    '''
+    username = forms.CharField(label=_("Username or email"), max_length=254)
 
 
 class UserPreferencesForm(forms.ModelForm):
