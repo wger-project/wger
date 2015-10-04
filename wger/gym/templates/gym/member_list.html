@@ -122,6 +122,18 @@ $(document).ready( function () {
 
 
 {% block sidebar %}
+{#               #}
+{# Other options #}
+{#               #}
+{% if perms.gym.manage_gym or perms.gym.manage_gyms %}
+<a href="{% url 'gym:gym:add-user' gym.pk %}" class="btn btn-success wger-modal-dialog">
+    {% trans "Add member" %}
+</a>
+<div class="clear-fix" style="margin-bottom: 1em;"></div>
+{% endif %}
+
+
+
 {#             #}
 {# Gym details #}
 {#             #}
@@ -230,26 +242,4 @@ $(document).ready( function () {
         </td>
     </tr>
 </table>
-
-
-
-
-
-{#               #}
-{# Other options #}
-{#               #}
-{% if perms.gym.manage_gym or perms.gym.manage_gyms %}
-<h4>{% trans "Options" %}</h4>
-<p>
-   <a href="{% url 'gym:gym:add-user' gym.pk %}"
-      {% auto_link_css flavour "wger-modal-dialog" %}>
-   <img src="{% static 'images/icons/new.svg' %}"
-        width="32"
-        height="32"
-        alt="{% trans 'Add member' %}"
-        title="{% trans 'Add member' %}">
-   {% trans "Add member" %}
-   </a>
-</p>
-{% endif %}
 {% endblock %}
