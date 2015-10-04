@@ -53,8 +53,7 @@
 </tbody>
 </table>
 {% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}" class="btn btn-success btn-sm">{% trans "Log in as this user" %}</a>
-<a href="{{trainer_login}}?next={% url 'manager:workout:calendar' %}" class="btn btn-default btn-sm">{% trans "Calendar" %}</a>
+<a href="{{trainer_login}}?next={% url 'manager:workout:overview' %}" class="btn btn-default btn-sm">{% trans "Workouts" %}</a>
 <a href="{{trainer_login}}?next={% url 'manager:workout:add' %}" class="btn btn-default btn-sm">{% trans "Add workout" %}</a>
 {% endif %}
 
@@ -98,6 +97,10 @@
 {% endfor %}
 </tbody>
 </table>
+{% if perms.gym.gym_trainer %}
+<a href="{{trainer_login}}?next={% url 'manager:workout:calendar' %}" class="btn btn-default btn-sm">{% trans "Calendar" %}</a>
+{% endif %}
+
 
 
 <h4>{% trans "Weight" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h4>
@@ -173,10 +176,22 @@
 {% endfor %}
 </tbody>
 </table>
+{% if perms.gym.gym_trainer %}
+    <a href="{{trainer_login}}?next={% url 'nutrition:plan:overview' %}" class="btn btn-default btn-sm">
+        {% trans "Nutrition plans" %}
+    </a>
+{% endif %}
 {% endblock %}
 
 
 {% block sidebar %}
+{% if perms.gym.gym_trainer %}
+<a href="{% url 'core:user:trainer-login' current_user.pk %}" class="btn btn-success btn-sm">{% trans "Log in as this user" %}</a>
+<div class="clear-fix" style="margin-bottom: 1em;"></div>
+{% endif %}
+
+
+
 {% if perms.gym.manage_gym %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
@@ -274,7 +289,7 @@
         <td>
             {{ contract }}
         </td>
-        <td>
+        <td {% if not contract.is_active %}style="text-decoration: line-through;" {% endif %}>
             <a href="{{ contract.get_absolute_url }}">{{ contract.date_start }}</a>
         </td>
         <td>
