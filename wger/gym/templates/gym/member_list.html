@@ -296,4 +296,42 @@ $(document).ready( function () {
     {% endfor %}
 </table>
 {% endif %}
+
+
+
+{#             #}
+{# Email lists #}
+{#             #}
+{% if perms.email.change_log %}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="{% url 'email:email:add' gym.id %}">{% trans "Add"%}</a>
+        </li>
+    </ul>
+</div>
+
+<h4>{% trans "Emails" %}</h4>
+<table class="table">
+    {% for email in gym.email_log.all %}
+    <tr>
+        <td>
+            {{ email.date }}
+        </td>
+        <td>
+            {{ email.subject|truncatewords:15 }}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td>
+            {% trans "Nothing found" %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
 {% endblock %}

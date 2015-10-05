@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load wger_extras %}
+{% load i18n %}
+
+{% block title %}
+    Emailverteiler -
+    {% if email_type == 'starter' %}
+        Starter
+    {% else %}
+        Studio
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<form action="{{ form_action }}"
+      method="post"
+      class="form-horizontal">
+    {% render_form_fields form "Vorschau erzeugen" %}
+</form>
+{% endblock %}
+
+{% block sidebar %}
+    <div class="well">
+        <h4>Benutzung</h4>
+        <ol>
+            <li>Geben Sie die nötigen Daten in das Formular ein.</li>
+            <li>Die Manager bekommen eine Vorschau-Email, zur Kontrolle.</li>
+            <li>
+                Sie können beliebig oft den Inhalt korrigieren und über die
+                Vorschau-Emails kontrollieren.
+            </li>
+            <li>
+                Wenn Sie mit dem Inhalt zufrieden sind, können Sie die Emails
+                freigeben, sie weden in den nächsten Studen automatisch
+                verschickt
+            </li>
+        </ol>
+    </div>
+{% endblock %}
