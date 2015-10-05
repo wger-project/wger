@@ -15,10 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
-from django.utils.translation import (
-    pgettext,
-    ugettext_lazy as _
-)
+from django.utils.translation import pgettext
 from django.forms import (
     Form,
     CharField,
