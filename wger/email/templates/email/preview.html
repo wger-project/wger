@@ -1,68 +1,60 @@
 {% extends "base.html" %}
 {% load wger_extras i18n %}
 
-{% block title %}
-    Emailverteiler (Vorschau) -
-    {% if email_type == 'starter' %}
-        Starter
-    {% else %}
-        Studio
-    {% endif %}
-{% endblock %}
+{% block title %}{% trans 'Email' %} - {{ gym }}{% endblock %}
 
 {% block content %}
 
-<h3>Aktueller Entwurf</h3>
-<form action="{{ form_action }}"
-  method="post"
-  class="form-horizontal">
+<h3>{% trans 'Current version' %}</h3>
+<form action="{{ form_action }}" method="post">
     {% csrf_token %}
     <input type="hidden" name="{{ stage_field }}" value="2" />
     <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}" />
     <input type="hidden" name="body" value="{{ form.cleaned_data.body }}" />
     <input type="hidden" name="subject" value="{{ form.cleaned_data.subject }}" />
 
-    <table class="table">
-    <tr>
-        <th>Betreff</th>
-        <td><pre>{{ form.cleaned_data.subject }}</pre></td>
-    </tr>
-    <tr>
-        <th>Inhalt</th>
-        <td><pre>{{ form.cleaned_data.body }}</pre></td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            {% render_form_submit 'Emails verschicken' %}
-        </td>
-    </tr>
-</table>
+    <div class="row">
+        <div class="col-md-3 text-right">
+            {% trans 'Subject' context 'As in "email subject"' %}
+        </div>
+        <div class="col-md-9">
+            {{ form.cleaned_data.subject }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 text-right" style="white-space: pre-line;">
+            {% trans 'Content' context 'As in "content of an email"' %}
+        </div>
+        <div class="col-md-9" style="white-space: pre-line;">
+            {{ form.cleaned_data.body }}
+        </div>
+    </div>
+    <div class="row">
+        {% render_form_submit 'Emails verschicken' %}
+    </div>
 </form>
 
-<h3>Korrigieren</h3>
+<h3>{% trans 'Correction' %}</h3>
 <form action="{{ form_action }}"
       method="post"
       class="form-horizontal">
-    {% render_form_fields form 'Korrigieren' %}
+    {% render_form_fields form 'Correction' %}
 </form>
 {% endblock %}
 
 {% block sidebar %}
-
-    <div class="well">
-        <h4>Benutzung</h4>
-        <ol>
-            <li>Geben Sie die nötigen Daten in das Formular ein.</li>
-            <li>Die Manager bekommen eine Vorschau-Email, zur Kontrolle.</li>
-            <li>
-                Sie können beliebig oft den Inhalt korrigieren und über die
-                Vorschau-Emails kontrollieren.
-            </li>
-            <li>
-                Wenn Sie mit dem Inhalt zufrieden sind, können Sie die Emails
-                freigeben, sie weden in den nächsten Studen automatisch
-                verschickt
-            </li>
-        </ol>
-    </div>
+<h4>Benutzung</h4>
+<ol>
+    <li>Geben Sie die nötigen Daten in das Formular ein.</li>
+    <li>Die Manager bekommen eine Vorschau-Email, zur Kontrolle.</li>
+    <li>
+        Sie können beliebig oft den Inhalt korrigieren und über die
+        Vorschau-Emails kontrollieren.
+    </li>
+    <li>
+        Wenn Sie mit dem Inhalt zufrieden sind, können Sie die Emails
+        freigeben, sie weden in den nächsten Studen automatisch
+        verschickt
+    </li>
+</ol>
 {% endblock %}

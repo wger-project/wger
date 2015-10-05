@@ -85,6 +85,7 @@ class EmailListFormPreview(FormPreview):
             return HttpResponseForbidden()
 
         context = super(EmailListFormPreview, self).get_context(request, form)
+        context['gym'] = self.gym
         context['form_action'] = reverse('email:email:add',
                                          kwargs={'gym_pk': self.gym.pk})
 
