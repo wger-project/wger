@@ -9,9 +9,12 @@ from wger.utils.main import (
 )
 
 if __name__ == "__main__":
-    setup_django_environment(
-        get_user_config_path('wger', 'settings.py'))
-        
-    #os.environ.setdefault("DJANGO_SETTINGS_MODULE", "wger.workout_manager.settings")
+
+    # If user passed the settings flag ignore the default wger settings
+    if not any('--settings' in s for s in sys.argv):
+        setup_django_environment(get_user_config_path('wger', 'settings.py'))
+
+    # Alternative to above
+    # os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 
     execute_from_command_line(sys.argv)
