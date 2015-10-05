@@ -59,6 +59,7 @@ INSTALLED_APPS = (
     'wger.utils',
     'wger.config',
     'wger.gym',
+    'wger.email',
 
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
     'captcha',

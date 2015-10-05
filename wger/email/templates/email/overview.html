@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load wger_extras i18n %}
+
+{% block title %}{% Email %}{% endblock %}
+
+{% block content %}
+
+    <p>Bitte wählen Sie die Empfänger</p>
+
+    <h4>Log</h4>
+    <table class="table">
+        <tr>
+            <th>{% trans "Date" %}</th>
+            <th>Typ</th>
+            <th>Betreff</th>
+        </tr>
+        {% for email in email_list %}
+        <tr>
+            <td>{{ email.date }}</td>
+            <td>{{ email.get_type_display }}</td>
+            <td>{{ email.subject }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

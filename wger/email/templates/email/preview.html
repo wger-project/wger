@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load wger_extras i18n %}
+
+{% block title %}
+    Emailverteiler (Vorschau) -
+    {% if email_type == 'starter' %}
+        Starter
+    {% else %}
+        Studio
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+<h3>Aktueller Entwurf</h3>
+<form action="{{ form_action }}"
+  method="post"
+  class="form-horizontal">
+    {% csrf_token %}
+    <input type="hidden" name="{{ stage_field }}" value="2" />
+    <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}" />
+    <input type="hidden" name="body" value="{{ form.cleaned_data.body }}" />
+    <input type="hidden" name="subject" value="{{ form.cleaned_data.subject }}" />
+
+    <table class="table">
+    <tr>
+        <th>Betreff</th>
+        <td><pre>{{ form.cleaned_data.subject }}</pre></td>
+    </tr>
+    <tr>
+        <th>Inhalt</th>
+        <td><pre>{{ form.cleaned_data.body }}</pre></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            {% render_form_submit 'Emails verschicken' %}
+        </td>
+    </tr>
+</table>
+</form>
+
+<h3>Korrigieren</h3>
+<form action="{{ form_action }}"
+      method="post"
+      class="form-horizontal">
+    {% render_form_fields form 'Korrigieren' %}
+</form>
+{% endblock %}
+
+{% block sidebar %}
+
+    <div class="well">
+        <h4>Benutzung</h4>
+        <ol>
+            <li>Geben Sie die nötigen Daten in das Formular ein.</li>
+            <li>Die Manager bekommen eine Vorschau-Email, zur Kontrolle.</li>
+            <li>
+                Sie können beliebig oft den Inhalt korrigieren und über die
+                Vorschau-Emails kontrollieren.
+            </li>
+            <li>
+                Wenn Sie mit dem Inhalt zufrieden sind, können Sie die Emails
+                freigeben, sie weden in den nächsten Studen automatisch
+                verschickt
+            </li>
+        </ol>
+    </div>
+{% endblock %}
