@@ -2,14 +2,7 @@
 {% load wger_extras %}
 {% load i18n %}
 
-{% block title %}
-    Emailverteiler -
-    {% if email_type == 'starter' %}
-        Starter
-    {% else %}
-        Studio
-    {% endif %}
-{% endblock %}
+{% block title %}{% trans 'Email' %} - {{ gym }}{% endblock %}
 
 {% block content %}
 <form action="{{ form_action }}"
