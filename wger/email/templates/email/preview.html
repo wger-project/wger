@@ -1,7 +1,20 @@
 {% extends "base.html" %}
-{% load wger_extras i18n %}
+{% load wger_extras i18n django_bootstrap_breadcrumbs %}
 
 {% block title %}{% trans 'Email' %} - {{ gym }}{% endblock %}
+
+
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% if perms.gym.manage_gyms %}
+        {% breadcrumb "Gyms" "gym:gym:list" %}
+    {% endif %}
+
+    {% breadcrumb_raw gym "gym:gym:user-list" gym.pk %}
+    {% breadcrumb "Emails" "email:email:add" gym.pk %}
+{% endblock %}
+
 
 {% block content %}
 
