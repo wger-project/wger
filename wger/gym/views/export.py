@@ -93,7 +93,7 @@ def users(request, gym_pk):
     # Send the data to the browser
     today = datetime.date.today()
     filename = 'User-data-gym-{gym}-{t.year}-{t.month:02d}-{t.day:02d}.csv'.format(t=today,
-                                                                                  gym=gym.id)
+                                                                                   gym=gym.id)
     response['Content-Disposition'] = 'attachment; filename={0}'.format(filename)
     response['Content-Length'] = len(response.content)
     return response
