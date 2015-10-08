@@ -146,6 +146,9 @@ $(document).ready( function () {
         <li>
             <a href="{% url 'gym:gym:edit' gym.id %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
         </li>
+        <li>
+            <a href="{% url 'gym:export:users' gym.id %}">{% trans "Export"%}</a>
+        </li>
     </ul>
 </div>
 {% endif %}

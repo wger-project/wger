@@ -28,7 +28,8 @@ from wger.gym.views import (
     admin_notes,
     document,
     contract,
-    contract_type
+    contract_type,
+    export
 )
 
 
@@ -143,6 +144,13 @@ patterns_contract_types = [
         name='delete'),
 ]
 
+# sub patterns for exports
+patterns_export = [
+    url(r'^users/(?P<gym_pk>\d+)$',
+        export.users,
+        name='users'),
+]
+
 #
 # All patterns for this app
 #
@@ -155,4 +163,5 @@ urlpatterns = [
     url(r'^document/', include(patterns_documents, namespace="document")),
     url(r'^contract/', include(patterns_contracts, namespace="contract")),
     url(r'^contract-type/', include(patterns_contract_types, namespace="contract_type")),
+    url(r'^export/', include(patterns_export, namespace="export")),
 ]
