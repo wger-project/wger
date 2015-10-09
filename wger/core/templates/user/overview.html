@@ -20,6 +20,11 @@
 
 
 <h4>{% trans "Workouts" %} <small>({% blocktrans with number=10 %}last {{ number }}{% endblocktrans %})</small></h4>
+{% if perms.gym.gym_trainer %}
+<a href="{{trainer_login}}?next={% url 'manager:workout:overview' %}" class="btn btn-default btn-sm">{% trans "Overview" %}</a>
+<a href="{{trainer_login}}?next={% url 'manager:workout:add' %}" class="btn btn-default btn-sm">{% trans "Add workout" %}</a>
+{% endif %}
+
 <table class="table">
 <thead>
 <tr>
@@ -52,15 +57,16 @@
 {% endfor %}
 </tbody>
 </table>
-{% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}?next={% url 'manager:workout:overview' %}" class="btn btn-default btn-sm">{% trans "Workouts" %}</a>
-<a href="{{trainer_login}}?next={% url 'manager:workout:add' %}" class="btn btn-default btn-sm">{% trans "Add workout" %}</a>
-{% endif %}
+
 
 
 
 
 <h4>{% trans "Log" %} <small>({% blocktrans with number=10 %}last {{ number }}{% endblocktrans %})</small></h4>
+{% if perms.gym.gym_trainer %}
+<a href="{{trainer_login}}?next={% url 'manager:workout:calendar' %}" class="btn btn-default btn-sm">{% trans "Calendar" %}</a>
+{% endif %}
+
 <table class="table">
 <thead>
 <tr>
@@ -97,13 +103,14 @@
 {% endfor %}
 </tbody>
 </table>
-{% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}?next={% url 'manager:workout:calendar' %}" class="btn btn-default btn-sm">{% trans "Calendar" %}</a>
-{% endif %}
 
 
 
 <h4>{% trans "Weight" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h4>
+{% if perms.gym.gym_trainer %}
+<a href="{{trainer_login}}?next={% url 'weight:overview' current_user.username %}" class="btn btn-default btn-sm">{% trans "Weight overview" %}</a>
+{% endif %}
+
 <table class="table">
 <thead>
 <tr>
@@ -128,12 +135,15 @@
 {% endfor %}
 </tbody>
 </table>
-{% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}?next={% url 'weight:overview' current_user.username %}" class="btn btn-default btn-sm">{% trans "Weight overview" %}</a>
-{% endif %}
+
 
 
 <h4>{% trans "Nutrition plans" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h4>
+{% if perms.gym.gym_trainer %}
+    <a href="{{trainer_login}}?next={% url 'nutrition:plan:overview' %}" class="btn btn-default btn-sm">{% trans "Overview" %}</a>
+    <a href="{{trainer_login}}?next={% url 'nutrition:plan:add' %}" class="btn btn-default btn-sm">{% trans "Add nutrition plan" %}</a>
+{% endif %}
+
 <table class="table">
 <thead>
 <tr>
@@ -176,11 +186,7 @@
 {% endfor %}
 </tbody>
 </table>
-{% if perms.gym.gym_trainer %}
-    <a href="{{trainer_login}}?next={% url 'nutrition:plan:overview' %}" class="btn btn-default btn-sm">
-        {% trans "Nutrition plans" %}
-    </a>
-{% endif %}
+
 {% endblock %}
 
 
