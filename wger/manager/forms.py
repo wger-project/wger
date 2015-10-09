@@ -18,27 +18,33 @@
 This file contains forms used in the application
 '''
 
-from django.forms import Form, MultipleHiddenInput
-from django.forms import ModelForm
-from django.forms import DateField
-from django.forms import CharField
-from django.forms import widgets
-from django.forms import ModelChoiceField
+from django.forms import (
+    Form,
+    MultipleHiddenInput,
+    ModelForm,
+    DateField,
+    CharField,
+    widgets,
+    ModelChoiceField
+)
 from django.utils.translation import ugettext as _
 
 from captcha.fields import ReCaptchaField
 
-from wger.exercises.models import Exercise
-from wger.exercises.models import ExerciseCategory
-from wger.manager.models import WorkoutSession
-from wger.manager.models import Workout
-from wger.manager.models import Day
-from wger.manager.models import Set
-from wger.manager.models import Setting
-from wger.manager.models import WorkoutLog
-from wger.utils.widgets import TranslatedSelectMultiple
-from wger.utils.widgets import TranslatedSelect
-from wger.utils.widgets import ExerciseAjaxSelect
+from wger.exercises.models import Exercise, ExerciseCategory
+from wger.manager.models import (
+    WorkoutSession,
+    Workout,
+    Day,
+    Set,
+    Setting,
+    WorkoutLog
+)
+from wger.utils.widgets import (
+    TranslatedSelectMultiple,
+    TranslatedSelect,
+    ExerciseAjaxSelect
+)
 from wger.utils.constants import DATE_FORMATS
 from wger.utils.widgets import Html5DateInput
 

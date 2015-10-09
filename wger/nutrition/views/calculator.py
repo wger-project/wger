@@ -22,9 +22,11 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from wger.nutrition.forms import BmrForm
-from wger.nutrition.forms import PhysicalActivitiesForm
-from wger.nutrition.forms import DailyCaloriesForm
+from wger.nutrition.forms import (
+    BmrForm,
+    PhysicalActivitiesForm,
+    DailyCaloriesForm
+)
 
 
 logger = logging.getLogger(__name__)

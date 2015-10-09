@@ -17,7 +17,7 @@
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
 
-urlpatterns = patterns('',
+urlpatterns = [
 
     url(r'^issues$',
         TemplateView.as_view(template_name="issues.html"),
@@ -49,4 +49,4 @@ urlpatterns = patterns('',
     url(r'^api$',
         TemplateView.as_view(template_name="api.html"),
         name='api'),
-)
+]

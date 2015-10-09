@@ -18,8 +18,7 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
-from rest_framework.decorators import detail_route
-from rest_framework.decorators import api_view
+from rest_framework.decorators import detail_route, api_view
 
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
@@ -27,17 +26,23 @@ from easy_thumbnails.files import get_thumbnailer
 from django.utils.translation import ugettext as _
 
 from wger.config.models import LanguageConfig
-from wger.exercises.api.serializers import MuscleSerializer, ExerciseSerializer, \
-    ExerciseImageSerializer, ExerciseCategorySerializer, EquipmentSerializer, \
+from wger.exercises.api.serializers import (
+    MuscleSerializer,
+    ExerciseSerializer,
+    ExerciseImageSerializer,
+    ExerciseCategorySerializer,
+    EquipmentSerializer,
     ExerciseCommentSerializer
-from wger.exercises.models import Exercise
-from wger.exercises.models import Equipment
-from wger.exercises.models import ExerciseCategory
-from wger.exercises.models import ExerciseImage
-from wger.exercises.models import ExerciseComment
-from wger.exercises.models import Muscle
-from wger.utils.language import load_item_languages
-from wger.utils.language import load_language
+)
+from wger.exercises.models import (
+    Exercise,
+    Equipment,
+    ExerciseCategory,
+    ExerciseImage,
+    ExerciseComment,
+    Muscle
+)
+from wger.utils.language import load_item_languages, load_language
 from wger.utils.permissions import CreateOnlyPermission
 
 

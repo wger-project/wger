@@ -20,15 +20,13 @@ import os
 from optparse import make_option
 
 from django.core.exceptions import ImproperlyConfigured
-from django.core.management.base import BaseCommand
-from django.core.management.base import CommandError
+from django.core.management.base import BaseCommand, CommandError
 from django.core.files import File
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 from django.conf import settings
 
-from wger.exercises.models import Exercise
-from wger.exercises.models import ExerciseImage
+from wger.exercises.models import Exercise, ExerciseImage
 
 
 class Command(BaseCommand):

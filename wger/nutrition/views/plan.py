@@ -18,33 +18,34 @@ import six
 import logging
 import datetime
 
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
-from django.http import HttpResponseForbidden
-from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.http import (
+    HttpResponse,
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
 from django.core.context_processors import csrf
-from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
-from django.views.generic import DeleteView
-from django.views.generic import UpdateView
+from django.utils.translation import ugettext_lazy, ugettext as _
+from django.views.generic import DeleteView, UpdateView
 
-from reportlab.lib.pagesizes import A4, cm
-from reportlab.platypus import Paragraph
-from reportlab.platypus import SimpleDocTemplate
-from reportlab.platypus import Table
-from reportlab.platypus import Spacer
 from reportlab.lib import colors
+from reportlab.lib.pagesizes import A4, cm
+from reportlab.platypus import (
+    Paragraph,
+    SimpleDocTemplate,
+    Table,
+    Spacer
+)
 
-from wger.nutrition.models import NutritionPlan
-from wger.nutrition.models import MEALITEM_WEIGHT_GRAM
-from wger.nutrition.models import MEALITEM_WEIGHT_UNIT
+from wger.nutrition.models import (
+    NutritionPlan,
+    MEALITEM_WEIGHT_GRAM,
+    MEALITEM_WEIGHT_UNIT
+)
 from wger import get_version
-from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import WgerDeleteMixin
+from wger.utils.generic_views import WgerFormMixin, WgerDeleteMixin
 from wger.utils.helpers import check_token, make_token
 from wger.utils.pdf import styleSheet
 from wger.utils.language import load_language

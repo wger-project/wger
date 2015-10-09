@@ -20,7 +20,11 @@ from django import forms
 from django.utils.translation import ugettext as _
 from wger.core.models import UserProfile
 
-from wger.nutrition.models import IngredientWeightUnit, Ingredient, MealItem
+from wger.nutrition.models import (
+    IngredientWeightUnit,
+    Ingredient,
+    MealItem
+)
 from wger.utils.widgets import Html5NumberInput
 
 

@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import re
+import sys
 
 '''
 This file contains the global settings that don't usually need to be changed.
@@ -93,11 +94,11 @@ INSTALLED_APPS = (
 BOWER_INSTALLED_APPS = (
     'jquery',
     'bootstrap',
-    'bootstrap-datepicker',
     'd3',
     'shariff',
     'tinymce-dist',
     'DataTables',
+    'components-font-awesome',
 )
 
 
@@ -128,6 +129,7 @@ MIDDLEWARE_CLASSES = (
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'django_browserid.auth.BrowserIDBackend',
+    'wger.utils.helpers.EmailAuthBackend'
 )
 
 # Set the context processors
@@ -299,7 +301,10 @@ COMPRESS_ROOT = STATIC_ROOT
 
 # BOWER components route
 BOWER_COMPONENTS_ROUTE = os.path.join(STATIC_ROOT, 'components')
-BOWER_PATH = os.path.join(BASE_DIR, 'node_modules', '.bin', 'bower')
+if sys.platform.startswith('win32'):
+    BOWER_PATH = os.path.join(BASE_DIR, 'node_modules', '.bin', 'bower.cmd')
+else:
+    BOWER_PATH = os.path.join(BASE_DIR, 'node_modules', '.bin', 'bower')
 
 #
 # Django Rest Framework

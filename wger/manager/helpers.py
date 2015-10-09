@@ -20,9 +20,11 @@ from calendar import HTMLCalendar
 
 from reportlab.lib import colors
 from reportlab.lib.units import cm
-from reportlab.platypus import Paragraph
-from reportlab.platypus import Table
-from reportlab.platypus import KeepTogether
+from reportlab.platypus import (
+    Paragraph,
+    Table,
+    KeepTogether
+)
 
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _

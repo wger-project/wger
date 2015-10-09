@@ -20,15 +20,20 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import detail_route
 
-from wger.core.models import UserProfile
-from wger.core.models import Language
-from wger.core.models import DaysOfWeek
-from wger.core.models import License
-from wger.core.api.serializers import UsernameSerializer, LanguageSerializer, \
-    DaysOfWeekSerializer, LicenseSerializer
+from wger.core.models import (
+    UserProfile,
+    Language,
+    DaysOfWeek,
+    License
+)
+from wger.core.api.serializers import (
+    UsernameSerializer,
+    LanguageSerializer,
+    DaysOfWeekSerializer,
+    LicenseSerializer
+)
 from wger.core.api.serializers import UserprofileSerializer
-from wger.utils.permissions import UpdateOnlyPermission
-from wger.utils.permissions import WgerPermission
+from wger.utils.permissions import UpdateOnlyPermission, WgerPermission
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):

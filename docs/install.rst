@@ -6,7 +6,7 @@ Installation (production)
 This file gives a broad description of the necessary steps to install wger on a
 production environment with apache as a webserver. Since this is a regular
 django application, refer to its documentation if your setup differs. For a
-developemt setup refer to :doc:`development`
+development setup refer to :doc:`development`
 
 The application is compatible and regularly tested with
 

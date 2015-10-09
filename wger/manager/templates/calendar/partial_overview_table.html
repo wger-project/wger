@@ -1,16 +1,10 @@
 {% load i18n %}
 
-<div class="row">
-    <div class="col-sm-4">
-        <a href="{{value.workout.get_absolute_url}}" class="btn btn-default btn-block">{{ value.workout }}</a>
-    </div>
-
-    <div class="col-sm-4">
-    <a href="{% url 'manager:log:log' value.workout.id %}" class="btn btn-default btn-block">{% trans "Log overview" %}</a>
-    </div>
+<div class="btn-group btn-group-justified" role="group">
+    <a href="{{value.workout.get_absolute_url}}" class="btn btn-default">{{ value.workout }}</a>
+    <a href="{% url 'manager:log:log' value.workout.id %}" class="btn btn-default">{% trans "Log overview" %}</a>
 
     {% if is_owner %}
-    <div class="col-sm-4">
         {% if value.session %}
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -41,9 +35,10 @@
         {% else %}
             <a href="{% url 'manager:session:add' value.workout.id date|date:'Y' date|date:'m' date|date:'d' %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Add workout impression" %}</a>
         {% endif %}
-    </div>
     {% endif %}
- </div>
+</div>
+
+
 {% if value.session %}
 <table class="table" style="margin-top: 2em;">
     <tr>

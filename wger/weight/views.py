@@ -64,7 +64,7 @@ class WeightAddView(WgerFormMixin, CreateView):
         to pass the user here.
         '''
         return {'user': self.request.user,
-                'date': formats.date_format(datetime.date.today(), "SHORT_DATE_FORMAT")}
+                'date': datetime.date.today()}
 
     def form_valid(self, form):
         '''

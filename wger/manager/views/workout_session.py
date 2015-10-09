@@ -17,19 +17,26 @@
 import logging
 import datetime
 
-from django.http import HttpResponseForbidden
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseForbidden, HttpResponseBadRequest
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.utils.translation import ugettext as _, ugettext_lazy
+from django.utils.translation import ugettext_lazy, ugettext as _
+from django.views.generic import (
+    UpdateView,
+    DeleteView,
+    CreateView
+)
 
-from django.views.generic import UpdateView, DeleteView
-from django.views.generic import CreateView
 from wger.manager.forms import WorkoutSessionForm
-
-from wger.manager.models import Workout, WorkoutSession, WorkoutLog
-
-from wger.utils.generic_views import WgerFormMixin, WgerDeleteMixin
-from wger.utils.generic_views import WgerPermissionMixin
+from wger.manager.models import (
+    Workout,
+    WorkoutSession,
+    WorkoutLog
+)
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    WgerDeleteMixin,
+    WgerPermissionMixin
+)
 
 
 logger = logging.getLogger(__name__)

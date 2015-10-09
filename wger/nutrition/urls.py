@@ -15,20 +15,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url, include
 from django.contrib.auth.decorators import login_required
+from django.conf.urls import (
+    patterns,
+    url,
+    include
+)
 
-from wger.nutrition.views import ingredient
-from wger.nutrition.views import bmi
-from wger.nutrition.views import calculator
-from wger.nutrition.views import plan
-from wger.nutrition.views import meal
-from wger.nutrition.views import meal_item
-from wger.nutrition.views import unit
-from wger.nutrition.views import unit_ingredient
+from wger.nutrition.views import (
+    ingredient,
+    bmi,
+    calculator,
+    plan,
+    meal,
+    meal_item,
+    unit,
+    unit_ingredient
+)
 
 # sub patterns for nutritional plans
-patterns_plan = patterns('',
+patterns_plan = [
     url(r'^overview/$',
         plan.overview,
         name='overview'),
@@ -53,11 +59,11 @@ patterns_plan = patterns('',
     url(r'^(?P<id>\d+)/pdf/$',
         plan.export_pdf,
         name='export-pdf'),
-)
+]
 
 
 # sub patterns for meals
-patterns_meal = patterns('',
+patterns_meal = [
     url(r'^(?P<plan_pk>\d+)/meal/add/$',
         login_required(meal.MealCreateView.as_view()),
         name='add'),
@@ -67,11 +73,11 @@ patterns_meal = patterns('',
     url(r'^(?P<id>\d+)/delete/$',
         meal.delete_meal,
         name='delete'),
-)
+]
 
 
 # sub patterns for meal items
-patterns_meal_item = patterns('',
+patterns_meal_item = [
     url(r'^(?P<meal_id>\d+)/item/add/$',
         login_required(meal_item.MealItemCreateView.as_view()),
         name='add'),
@@ -81,11 +87,11 @@ patterns_meal_item = patterns('',
     url(r'^(?P<item_id>\d+)/delete/$',
         meal_item.delete_meal_item,
         name='delete'),
-)
+]
 
 
 # sub patterns for ingredient
-patterns_ingredient = patterns('',
+patterns_ingredient = [
     url(r'^(?P<pk>\d+)/delete/$',
         ingredient.IngredientDeleteView.as_view(),
         name='delete'),
@@ -113,11 +119,11 @@ patterns_ingredient = patterns('',
     url(r'^(?P<id>\d+)/view/(?P<slug>[-\w]+)/$',
         ingredient.view,
         name='view'),
-)
+]
 
 
 # sub patterns for weight units
-patterns_weight_unit = patterns('',
+patterns_weight_unit = [
     url(r'^list/$',
         unit.WeightUnitListView.as_view(),
         name='list'),
@@ -130,11 +136,11 @@ patterns_weight_unit = patterns('',
     url(r'^(?P<pk>\d+)/edit/$',
         unit.WeightUnitUpdateView.as_view(),
         name='edit'),
-)
+]
 
 
 # sub patterns for weight units / ingredient cross table
-patterns_unit_ingredient = patterns('',
+patterns_unit_ingredient = [
     url(r'^add/(?P<ingredient_pk>\d+)/$',
         unit_ingredient.WeightUnitIngredientCreateView.as_view(),
         name='add'),
@@ -144,11 +150,11 @@ patterns_unit_ingredient = patterns('',
     url(r'^(?P<pk>\d+)/delete/$',
         unit_ingredient.WeightUnitIngredientDeleteView.as_view(),
         name='delete'),
-)
+]
 
 
 # sub patterns for BMI calculator
-patterns_bmi = patterns('',
+patterns_bmi = [
     url(r'^$',
         bmi.view,
         name='view'),
@@ -158,11 +164,11 @@ patterns_bmi = patterns('',
     url(r'^chart-data$',
         bmi.chart_data,
         name='chart-data'),  # JS
-)
+]
 
 
 # sub patterns for calories calculator
-patterns_calories = patterns('',
+patterns_calories = [
     url(r'^$',
         calculator.view,
         name='view'),
@@ -172,10 +178,10 @@ patterns_calories = patterns('',
     url(r'^activities$',
         calculator.calculate_activities,
         name='activities'),  # JS
-)
+]
 
 
-urlpatterns = patterns('',
+urlpatterns = [
    url(r'^', include(patterns_plan, namespace="plan")),
    url(r'^meal/', include(patterns_meal, namespace="meal")),
    url(r'^meal/item/', include(patterns_meal_item, namespace="meal_item")),
@@ -184,4 +190,4 @@ urlpatterns = patterns('',
    url(r'^unit-to-ingredient/', include(patterns_unit_ingredient, namespace="unit_ingredient")),
    url(r'^calculator/bmi/', include(patterns_bmi, namespace="bmi")),
    url(r'^calculator/calories/', include(patterns_calories, namespace="calories")),
-)
+]

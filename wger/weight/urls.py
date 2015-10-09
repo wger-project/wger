@@ -22,7 +22,7 @@ from wger.weight.forms import WeightCsvImportForm
 from wger.weight import views
 
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^add/$',
         login_required(views.WeightAddView.as_view()),
         name='add'),
@@ -50,4 +50,4 @@ urlpatterns = patterns('',
     url(r'^api/get_weight_data/$', # JS
         views.get_weight_data,
         name='weight-data'),
-)
+]

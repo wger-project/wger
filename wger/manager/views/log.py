@@ -20,32 +20,37 @@ import datetime
 
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.context_processors import csrf
-from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils import formats
-from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import ugettext_lazy, ugettext as _
 from django.forms.models import modelformset_factory
-from django.views.generic import UpdateView
-from django.views.generic import CreateView
-from django.views.generic import DetailView
-from django.views.generic import DeleteView
+from django.views.generic import (
+    UpdateView,
+    CreateView,
+    DetailView,
+    DeleteView
+)
 
 from wger.manager.helpers import WorkoutCalendar
-from wger.manager.models import Workout
-from wger.manager.models import WorkoutSession
-from wger.manager.models import Day
-from wger.manager.models import WorkoutLog
-from wger.manager.models import Schedule
-from wger.manager.forms import HelperDateForm
-from wger.manager.forms import HelperWorkoutSessionForm
-from wger.manager.forms import WorkoutLogForm
-from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import WgerDeleteMixin
-from wger.utils.generic_views import WgerPermissionMixin
+from wger.manager.models import (
+    Workout,
+    WorkoutSession,
+    Day,
+    WorkoutLog,
+    Schedule
+)
+from wger.manager.forms import (
+    HelperDateForm,
+    HelperWorkoutSessionForm,
+    WorkoutLogForm
+)
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    WgerDeleteMixin,
+    WgerPermissionMixin
+)
 from wger.utils.helpers import check_access
 from wger.weight.helpers import process_log_entries, group_log_entries
 
@@ -221,8 +226,7 @@ def add(request, pk):
         # (we only add new logs here and that seems to be the fastest way)
         formset = WorkoutLogFormSet(queryset=WorkoutLog.objects.none())
 
-        dateform = HelperDateForm(initial={'date': formats.date_format(datetime.date.today(),
-                                                                       "SHORT_DATE_FORMAT")})
+        dateform = HelperDateForm(initial={'date': datetime.date.today()})
 
         # Depending on whether there is already a workout session for today, update
         # the current one or create a new one (this will be the most usual case)

@@ -20,8 +20,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext
 from django.conf import settings
 
-from wger.utils.constants import PAGINATION_MAX_TOTAL_PAGES
-from wger.utils.constants import PAGINATION_PAGES_AROUND_CURRENT
+from wger.utils.constants import PAGINATION_MAX_TOTAL_PAGES, PAGINATION_PAGES_AROUND_CURRENT
 
 register = template.Library()
 
