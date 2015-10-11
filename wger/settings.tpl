@@ -38,10 +38,6 @@ NOCAPTCHA = True
 SITE_URL = '{siteurl}'
 BROWSERID_AUDIENCES = [SITE_URL]
 
-# This might be a good idea if you setup memcached
-#SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-
-
 # Path to uploaded files
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 MEDIA_ROOT = {media_folder_path}
@@ -53,3 +49,10 @@ if DEBUG:
 
 # Allow all hosts to access the application. Change if used in production.
 ALLOWED_HOSTS = '*'
+
+# This might be a good idea if you setup memcached
+#SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+
+# Configure a real backend in production
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
