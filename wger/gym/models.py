@@ -24,6 +24,8 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
 
+from wger.gym.managers import GymManager
+
 
 @python_2_unicode_compatible
 class Gym(m.Model):
@@ -38,6 +40,11 @@ class Gym(m.Model):
             ("manage_gyms", _("Admin, can administrate the different gyms")),
         )
         ordering = ["name", ]
+
+    objects = GymManager()
+    '''
+    Custom Gym Query Manager
+    '''
 
     name = m.CharField(max_length=60,
                        verbose_name=_('Name'))
