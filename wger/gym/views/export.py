@@ -38,7 +38,7 @@ def users(request, gym_pk):
     gym = get_object_or_404(Gym, pk=gym_pk)
 
     if not request.user.has_perm('gym.manage_gyms') \
-            and not request.user.has_perm('gym.manage_gym'):
+            or not request.user.has_perm('gym.manage_gym'):
         return HttpResponseForbidden()
 
     if request.user.has_perm('gym.manage_gym') \
