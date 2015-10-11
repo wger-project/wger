@@ -95,12 +95,13 @@ class EmailListFormPreview(FormPreview):
         '''
         Send an email to the managers with the current content
         '''
-        # for email in User.objects.filter(**managers of gym**):
-        #     mail.send_mail(form.cleaned_data['subject'],
-        #                    form.cleaned_data['body'],
-        #                    settings.DEFAULT_FROM_EMAIL,
-        #                    [email.email],
-        #                    fail_silently=False)
+        for admin in Gym.objects.get_admins(self.gym.pk):
+            if admin.email:
+                mail.send_mail(form.cleaned_data['subject'],
+                               form.cleaned_data['body'],
+                               settings.DEFAULT_FROM_EMAIL,
+                               [admin.email],
+                               fail_silently=False)
         return context
 
     def done(self, request, cleaned_data):
@@ -110,10 +111,9 @@ class EmailListFormPreview(FormPreview):
         emails = []
 
         # Select all users in the gym
-        # TODO: select only members
-        for member in self.gym.userprofile_set.all():
-            if member.user.email:
-                emails.append(member.user.email)
+        for member in Gym.objects.get_members(self.gym.pk):
+            if member.email:
+                emails.append(member.email)
 
         # Make list unique, so people don't get duplicate emails
         emails = list(set(emails))
