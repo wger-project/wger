@@ -17,44 +17,15 @@ import csv
 import datetime
 import logging
 
-from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import (
-    Group,
-    Permission,
-    User
-)
-from django.core.urlresolvers import reverse, reverse_lazy
 from django.http.response import (
     HttpResponseForbidden,
-    HttpResponse,
-    HttpResponseRedirect
+    HttpResponse
 )
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
-from django.views.generic import (
-    ListView,
-    DeleteView,
-    CreateView,
-    UpdateView
-)
 
-from wger.gym.forms import GymUserAddForm, GymUserPermisssionForm
-from wger.gym.helpers import get_user_last_activity, is_any_gym_admin
-from wger.gym.models import (
-    Gym,
-    GymAdminConfig,
-    GymUserConfig
-)
-from wger.config.models import GymConfig as GlobalGymConfig
-from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin,
-    WgerPermissionMixin
-)
-from wger.utils.helpers import password_generator
-
+from wger.gym.models import Gym
 
 logger = logging.getLogger(__name__)
 
@@ -62,7 +33,7 @@ logger = logging.getLogger(__name__)
 @login_required
 def users(request, gym_pk):
     '''
-    Exports all users in selected gym
+    Exports all members in selected gym
     '''
     gym = get_object_or_404(Gym, pk=gym_pk)
 
@@ -82,8 +53,7 @@ def users(request, gym_pk):
                      _('First name'),
                      _('Last name'),
                      _('Gym')])
-    for userprofile in gym.userprofile_set.all():
-        user = userprofile.user
+    for user in Gym.objects.get_members(gym_pk):
         writer.writerow([user.id,
                          user.username,
                          user.first_name,
