@@ -49,7 +49,6 @@ class AccessContractTestCase(WorkoutManagerAccessTestCase):
     '''
     Test accessing the detail page of a contract
     '''
-    object_class = Contract
     url = reverse('gym:contract:view', kwargs={'pk': 1})
     user_success = ('manager1',
                     'manager2')
