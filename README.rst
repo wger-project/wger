@@ -33,7 +33,7 @@ state.
 
 ::
 
- $ sudo apt-get install python-dev python-virtualenv nodejs
+ $ sudo apt-get install python-dev python-virtualenv nodejs npm
  $ virtualenv venv-django
  $ source venv-django/bin/activate
  $ npm install bower

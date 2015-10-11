@@ -5,7 +5,7 @@ Development
 
 First, install all required packages::
 
-  $ sudo apt-get install python-virtualenv python3-dev nodejs
+  $ sudo apt-get install python-virtualenv python3-dev nodejs npm
   $ virtualenv python-django
   $ source python-django/bin/activate
 
