@@ -28,6 +28,7 @@ Installation and development
    install
    commands
    i18n
+   docker
 
 
 
