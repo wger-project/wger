@@ -39,3 +39,20 @@ It will mount the local path *on top* of the folder in the container, basically
 exchanging one for the other. Please note that for this to work you need to
 manually checkout the code to ``/path/to/local/wger/`` and create a settings file
 as well.
+
+
+Apache
+------
+
+This image runs the application using WSGI and apache.
+
+First build the image::
+
+    docker build -t wger/apache .
+
+Run a container and start the application::
+
+    docker run -ti --name wger.apache --publish 80:8000 wger/apache
+
+Now you can access the application on port 8000 of your host (probably just
+http://localhost:8000).
