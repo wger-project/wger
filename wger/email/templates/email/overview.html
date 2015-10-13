@@ -1,24 +1,33 @@
 {% extends "base.html" %}
-{% load wger_extras i18n %}
+{% load wger_extras i18n django_bootstrap_breadcrumbs %}
 
-{% block title %}{% Email %}{% endblock %}
+{% block title %}{% trans "Email" %}{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% if perms.gym.manage_gyms %}
+        {% breadcrumb "Gyms" "gym:gym:list" %}
+    {% endif %}
+    {% breadcrumb_raw gym "gym:gym:user-list" gym.pk %}
+    {% breadcrumb "Emails" "email:email:overview" gym.pk %}
+{% endblock %}
+
 
 {% block content %}
 
-    <p>Bitte wählen Sie die Empfänger</p>
-
-    <h4>Log</h4>
     <table class="table">
         <tr>
             <th>{% trans "Date" %}</th>
-            <th>Typ</th>
-            <th>Betreff</th>
+            <th>{% trans "Subject" context 'As in "email subject"' %}</th>
         </tr>
         {% for email in email_list %}
         <tr>
             <td>{{ email.date }}</td>
-            <td>{{ email.get_type_display }}</td>
             <td>{{ email.subject }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="white-space: pre-line;">{{ email.body }}</td>
         </tr>
         {% endfor %}
     </table>
@@ -26,4 +35,7 @@
 {% endblock %}
 
 {% block sidebar %}
+    <a href="{% url 'email:email:add' gym.pk %}" class="btn btn-success">
+        {% trans "Add" %}
+    </a>
 {% endblock %}

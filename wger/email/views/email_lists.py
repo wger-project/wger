@@ -14,8 +14,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import datetime
-
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core import mail
@@ -27,10 +25,10 @@ from formtools.preview import FormPreview
 
 from wger.gym.models import Gym
 from wger.email.models import CronEntry, Log
-from wger.utils.generic_views import WgerFormMixin
+from wger.utils.generic_views import WgerPermissionMixin
 
 
-class EmailLogListView(WgerFormMixin, generic.ListView):
+class EmailLogListView(WgerPermissionMixin, generic.ListView):
     '''
     Shows a list with all sent emails
     '''
@@ -38,18 +36,20 @@ class EmailLogListView(WgerFormMixin, generic.ListView):
     model = Log
     context_object_name = "email_list"
     template_name = 'email/overview.html'
-    permission_required = 'email.add_emaillog'
+    permission_required = 'email.add_log'
     login_required = True
+    gym = None
 
     def get_queryset(self):
         '''
         Can only view emails for own gym
         '''
-        return Log.objects.filter(gym_id=self.kwargs['gym_pk'])
+        self.gym = get_object_or_404(Gym, pk=self.kwargs['gym_pk'])
+        return Log.objects.filter(gym=self.gym)
 
     def dispatch(self, request, *args, **kwargs):
         '''
-        Can only add contract types in own gym
+        Can only view email list for own gym
         '''
         if not request.user.is_authenticated():
             return HttpResponseForbidden()
@@ -58,6 +58,14 @@ class EmailLogListView(WgerFormMixin, generic.ListView):
             return HttpResponseForbidden()
 
         return super(EmailLogListView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        '''
+        Pass additional data to the template
+        '''
+        context = super(EmailLogListView, self).get_context_data(**kwargs)
+        context['gym'] = self.gym
+        return context
 
 
 class EmailListFormPreview(FormPreview):
