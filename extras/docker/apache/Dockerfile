@@ -44,6 +44,7 @@ RUN npm install bower \
 	    --database-path /home/wger/db/database.sqlite \
     && invoke bootstrap_wger --settings-path /home/wger/src/settings.py --no-start-server
 
+
 # Change permissions of some files and folders so the apache process
 # can access them.
 RUN chmod o+w -R ~/db/ \

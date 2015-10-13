@@ -18,9 +18,9 @@ First build the image::
 
 Run a container and start the application::
 
-    docker run -ti --name wger.test1 --publish 8000:8000 wger/devel
-    source ~/venv/bin/activate
-    python manage.py runserver 0.0.0.0:8000
+    docker run -ti --name wger.devel --publish 8000:8000 wger/devel
+    (in docker) source ~/venv/bin/activate
+    (in docker) python manage.py runserver 0.0.0.0:8000
 
 Now you can access the application on port 8000 of your host (probably just
 http://localhost:8000).
