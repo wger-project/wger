@@ -3,7 +3,6 @@
         "model": "auth.group",
         "pk": 1,
         "fields": {
-            "name": "admin",
             "permissions": [
                 [
                     "add_gymconfig",
@@ -245,14 +244,14 @@
                     "nutrition",
                     "weightunit"
                 ]
-            ]
+            ],
+            "name": "admin"
         }
     },
     {
         "model": "auth.group",
         "pk": 2,
         "fields": {
-            "name": "general_gym_manager",
             "permissions": [
                 [
                     "change_gymconfig",
@@ -284,15 +283,25 @@
                     "gym",
                     "gymadminconfig"
                 ]
-            ]
+            ],
+            "name": "general_gym_manager"
         }
     },
     {
         "model": "auth.group",
         "pk": 3,
         "fields": {
-            "name": "gym_manager",
             "permissions": [
+                [
+                    "add_log",
+                    "email",
+                    "log"
+                ],
+                [
+                    "change_log",
+                    "email",
+                    "log"
+                ],
                 [
                     "add_contract",
                     "gym",
@@ -343,14 +352,14 @@
                     "gym",
                     "gymconfig"
                 ]
-            ]
+            ],
+            "name": "gym_manager"
         }
     },
     {
         "model": "auth.group",
         "pk": 4,
         "fields": {
-            "name": "gym_trainer",
             "permissions": [
                 [
                     "add_adminusernote",
@@ -397,15 +406,16 @@
                     "gym",
                     "userdocument"
                 ]
-            ]
+            ],
+            "name": "gym_trainer"
         }
     },
     {
         "model": "auth.group",
         "pk": 5,
         "fields": {
-            "name": "gym_member",
-            "permissions": []
+            "permissions": [],
+            "name": "gym_member"
         }
     }
 ]
