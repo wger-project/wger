@@ -22,10 +22,10 @@ from wger.email.views import email_lists
 
 # sub patterns for email lists
 patterns_email = [
-    url(r'^overview/(?P<gym_pk>\d+)$',
+    url(r'^overview/gym/(?P<gym_pk>\d+)$',
         email_lists.EmailLogListView.as_view(),
         name='overview'),
-    url(r'^add/(?P<gym_pk>\d+)$',
+    url(r'^add/gym/(?P<gym_pk>\d+)$',
         email_lists.EmailListFormPreview(EmailListForm),
         name='add'),
 ]
