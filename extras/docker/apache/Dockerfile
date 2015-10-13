@@ -49,7 +49,6 @@ RUN chmod o+w -R ~/db/ \
     && python manage.py collectstatic --noinput
 
 USER root
-RUN chmod 755 /usr/sbin/apache2ctl
 
 ENTRYPOINT ["/usr/sbin/apache2ctl"]
 CMD ["-D", "FOREGROUND"]
