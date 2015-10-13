@@ -25,6 +25,9 @@ class Log(models.Model):
     A log of a sent email
     '''
 
+    class Meta:
+        ordering = ["-date", ]
+
     date = models.DateField(auto_now=True)
     '''
     Date when the log was created
