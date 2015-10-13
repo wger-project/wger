@@ -48,11 +48,11 @@ This image runs the application using WSGI and apache.
 
 First build the image::
 
-    docker build -t wger/apache .
+    docker build --tag wger/apache .
 
 Run a container and start the application::
 
-    docker run -ti --name wger.apache --publish 80:8000 wger/apache
+    docker run -ti --name wger.apache --publish 8000:80 wger/apache
 
 Now you can access the application on port 8000 of your host (probably just
 http://localhost:8000).

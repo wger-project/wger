@@ -2,6 +2,8 @@
 # Dockerimage for wger development
 #
 # Please consult the documentation for usage
+# docker build --tag wger/apache .
+# docker run -ti --name wger.apache --publish 8000:80 wger/apache
 #
 #
 
@@ -12,7 +14,7 @@ EXPOSE 80
 
 # Install dependencies
 RUN apt-get update;\
-    apt-get install -y apache2 libapache2-mod-wsgi \
+    apt-get install -y apache2 libapache2-mod-wsgi-py3 \
         nodejs nodejs-legacy npm git \
         python-virtualenv python3-dev \
         libjpeg8-dev zlib1g-dev libwebp-dev \
@@ -44,21 +46,18 @@ RUN npm install bower \
 
 # Change permissions of some files and folders so the apache process
 # can access them.
-WORKDIR /home/wger
-RUN chmod o+w ~/db/database.sqlite \
-    && mkdir static \
-    && mkdir media \
-    && chmod o+w media \
-    && sed -i "/^MEDIA_ROOT/c\MEDIA_ROOT='\/home\/wger\/media'" src/settings.py \
-    && echo STATIC_ROOT=\'/home/wger/static\' >> src/settings.py \
-    && mkdir /home/wger/src/components  #WTF? \
-    && python manage.py collectstatic
+RUN chmod o+w -R ~/db/ \
+    && . /home/wger/venv/bin/activate \
+    && mkdir ~/static \
+    && mkdir ~/media \
+    && chmod o+w ~/media \
+    && sed -i "/^MEDIA_ROOT/c\MEDIA_ROOT='\/home\/wger\/media'" settings.py \
+    && echo STATIC_ROOT=\'/home/wger/static\' >> settings.py \
+    && mkdir /home/wger/src/components \
+    && python manage.py collectstatic --noinput
 
 USER root
 RUN chmod 755 /usr/sbin/apache2ctl
 
 ENTRYPOINT ["/usr/sbin/apache2ctl"]
 CMD ["-D", "FOREGROUND"]
-
-#CMD ["/usr/sbin/apache2ctl -D FOREGROUND"]
-# CMD ["/bin/bash"]

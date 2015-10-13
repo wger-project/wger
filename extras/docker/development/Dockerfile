@@ -28,8 +28,8 @@ RUN npm install bower \
     && pip install --upgrade pip \
     && pip install -r requirements_devel.txt \
     && invoke create_settings \
-         --settings-path /home/wger/src/settings.py \
-	 --database-path /home/wger/db/database.sqlite \
+        --settings-path /home/wger/src/settings.py \
+	    --database-path /home/wger/db/database.sqlite \
     && invoke bootstrap_wger --settings-path /home/wger/src/settings.py --no-start-server
 
 
