@@ -1,5 +1,5 @@
 #
-# Dockerimage for wger development
+# A wger installation under apache with WSGI
 #
 # Please consult the documentation for usage
 # docker build --tag wger/apache .
@@ -7,22 +7,13 @@
 #
 #
 
-FROM ubuntu:15.04
+FROM wger/base
 
 MAINTAINER Roland Geider <roland@geider.net>
 EXPOSE 80
 
 # Install dependencies
-RUN apt-get update;\
-    apt-get install -y apache2 libapache2-mod-wsgi-py3 \
-        nodejs nodejs-legacy npm git \
-        python-virtualenv python3-dev \
-        libjpeg8-dev zlib1g-dev libwebp-dev \
-	    sudo vim
-
-# Add wger user
-RUN adduser wger --disabled-password --gecos ""
-RUN echo "wger ALL=(ALL) NOPASSWD:ALL" > etc/sudoers.d/wger
+RUN apt-get install -y apache2 libapache2-mod-wsgi-py3
 
 # Configure apache
 RUN a2dissite 000-default.conf
@@ -38,7 +29,7 @@ WORKDIR /home/wger/src
 RUN npm install bower \
     && . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
-    && pip install -r requirements_devel.txt \
+    && pip install -r requirements.txt \
     && invoke create_settings \
         --settings-path /home/wger/src/settings.py \
 	    --database-path /home/wger/db/database.sqlite \

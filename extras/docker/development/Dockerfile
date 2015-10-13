@@ -10,23 +10,16 @@
 #
 
 
-FROM ubuntu:15.04
+FROM wger/base
 
 MAINTAINER Roland Geider <roland@geider.net>
 EXPOSE 8000
 
 # Install dependencies
-RUN apt-get update;\
-    apt-get install -y nodejs nodejs-legacy npm git \
-        python-virtualenv python3-dev \
-        libjpeg8-dev zlib1g-dev libwebp-dev \
-	vim
-
-# Add wger user
-RUN adduser wger --disabled-password --gecos ""
-USER wger
+RUN apt-get install -y vim
 
 # Set up the application
+USER wger
 RUN git clone https://github.com/rolandgeider/wger.git /home/wger/src
 WORKDIR /home/wger/src
 RUN virtualenv --python python3 /home/wger/venv
