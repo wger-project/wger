@@ -43,7 +43,7 @@ Apache
 
 Install apache and the WSGI module::
 
-  sudo apt-get install apache2 libapache2-mod-wsgi nodejs npm
+  sudo apt-get install apache2 libapache2-mod-wsgi-py3 nodejs npm
   sudo vim /etc/apache2/apache2.conf
 
 
@@ -51,7 +51,7 @@ Configure apache to serve the application::
 
   >>>
   WSGIScriptAlias / /home/myuser/wger/wger/wsgi.py
-  WSGIPythonPath /home/myuser/wger:/home/myuser/venv-wger/lib/python2.7/site-packages
+  WSGIPythonPath /home/myuser/wger:/home/myuser/venv-wger/lib/python3.4/site-packages
 
   <Directory /home/myuser/wger>
       <Files wsgi.py>
@@ -67,10 +67,12 @@ Configure apache to serve the application::
       </Directory>
 
       Alias /media/ /home/myuser/media/
-      <Directory /path/to/mysite.com/media>
+      <Directory /home/myuser/media/>
           Require all granted
       </Directory>
-      ... # Log files, etc.
+
+      ErrorLog ${APACHE_LOG_DIR}/error.log
+      CustomLog ${APACHE_LOG_DIR}/access.log combined
   </VirtualHost>
 
 
@@ -82,8 +84,8 @@ Install the necessary packages to create a virtualenv for python (note that you
 might need to install more if you want the thumbnailer to be able to support
 more image formats, consult the documentation for pillow for more details)::
 
-  sudo apt-get install git python-dev python-virtualenv
-  virtualenv venv-wger
+  sudo apt-get install git python3-dev python-virtualenv
+  virtualenv --python python3 venv-wger
   source venv-wger/bin/activate
 
 If using sqlite, create a folder for it (must be writable by the apache user
@@ -111,8 +113,7 @@ Get the application::
   cd wger
   pip install -r requirements.txt
   npm install bower
-  invoke create_settings --settings-path .
-  python manage.py bower install
+  invoke create_settings --settings-path ./settings.py
 
 Edit your ``settings.py`` file and set the database, ``SITE_URL``,
 ``STATIC_ROOT`` and ``MEDIA_ROOT``::
@@ -132,10 +133,9 @@ Edit your ``settings.py`` file and set the database, ``SITE_URL``,
   >>> STATIC_ROOT = '/home/myuser/static'
   >>> MEDIA_ROOT = '/home/myuser/wger/media'
 
-Run the installation scritpt, this will load all initial data (exit after it
-is done)::
+Run the installation scritpt, this will load all initial data::
 
-  python start.py --no-browser
+  invoke bootstrap_wger --settings-path /path/to/settings.py --no-start-server
 
 
 Start.py will create a default administator user (you probably want to change
