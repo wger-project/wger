@@ -24,11 +24,9 @@ Installation and development
 .. toctree::
    :maxdepth: 2
 
-   development
    install
    commands
    i18n
-   docker
 
 
 
