@@ -3,21 +3,10 @@
 Development
 ===========
 
-First, install all required packages::
+First, create a virtual environment::
 
-  $ sudo apt-get install python-virtualenv python3-dev nodejs npm
-  $ virtualenv python-django
-  $ source python-django/bin/activate
-
-.. note::
-   For python2 some packages have slightly different names such as ``python-dev``
-
-.. note::
-   You probably want to install some external libraries for the Pillow imaging
-   library, otherwise the thumbnailer might not be able to resize the images::
-
-       $ sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev libwebp-dev
-
+  $ virtualenv --python python3 venv-wger
+  $ source venv-wger/bin/activate
 
 Get the code and start the application. This will create a SQlite database
 and populate it with data on the first run::

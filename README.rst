@@ -21,6 +21,15 @@ These are the basic steps to install and run the application locally on a linux
 system. Please consult the documentation for further information and parameters
 on the invoke command.
 
+Docker
+------
+
+Useful to just try it out::
+
+    docker run -ti --name wger.apache --publish 8000:80 wger/apache
+
+Then just open http://localhost:8000 and log in as: **admin**, password **admin**
+
 
 Development version (from git)
 ------------------------------

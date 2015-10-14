@@ -1,12 +1,13 @@
 .. _install:
 
-Installation (production)
-=========================
+Installation
+============
 
-This file gives a broad description of the necessary steps to install wger on a
-production environment with apache as a webserver. Since this is a regular
-django application, refer to its documentation if your setup differs. For a
-development setup refer to :doc:`development`
+This file gives a broad description of the necessary steps to install wger
+on a debian based linux distribution. If your setup differs (e.g. in Red Hat
+based distros the package names are slightly different) you will need to
+change the steps but in the end, this is a regular django application so it
+should run wherever django runs.
 
 The application is compatible and regularly tested with
 
@@ -18,144 +19,36 @@ installation.
 
 
 
-Databasse
----------
+Base
+----
 
-postgreSQL
-~~~~~~~~~~
+These are the necessary packages for both development and production
+(node and npm are only used to download JS and CSS libraries)::
 
-Install the postgres server and create a database and a user::
+    sudo apt-get install nodejs nodejs-legacy npm git \
+                         python-virtualenv python3-dev \
+                         libjpeg8-dev zlib1g-dev libwebp-dev
 
-    createdb wger
-    psql wger
-    CREATE USER wger;
-    GRANT ALL PRIVILEGES ON DATABASE wger to wger;
-
-
-sqlite
-~~~~~~
-
-No further steps necessary.
+.. note::
+    The application is developed with python 3, which these installation
+    instructions also use. If you want to use python 2.7, make sure you install
+    the appropriate packages (e.g. python-dev instead of python3-dev, etc.)!
 
 
-Apache
-------
-
-Install apache and the WSGI module::
-
-  sudo apt-get install apache2 libapache2-mod-wsgi nodejs npm
-  sudo vim /etc/apache2/apache2.conf
-
-
-Configure apache to serve the application::
-
-  >>>
-  WSGIScriptAlias / /home/myuser/wger/wger/wsgi.py
-  WSGIPythonPath /home/myuser/wger:/home/myuser/venv-wger/lib/python2.7/site-packages
-
-  <Directory /home/myuser/wger>
-      <Files wsgi.py>
-          Require all granted
-      </Files>
-  </Directory>
-
-
-  <VirtualHost *:80>
-      Alias /static/ /home/myuser/static/
-      <Directory /home/myuser/static>
-          Require all granted
-      </Directory>
-
-      Alias /media/ /home/myuser/media/
-      <Directory /path/to/mysite.com/media>
-          Require all granted
-      </Directory>
-      ... # Log files, etc.
-  </VirtualHost>
-
-
-
-Application
+Development
 -----------
 
-Install the necessary packages to create a virtualenv for python (note that you
-might need to install more if you want the thumbnailer to be able to support
-more image formats, consult the documentation for pillow for more details)::
-
-  sudo apt-get install git python-dev python-virtualenv
-  virtualenv venv-wger
-  source venv-wger/bin/activate
-
-If using sqlite, create a folder for it (must be writable by the apache user
-so you can just give it the folder with chown):: 
-
-  mkdir db
-  chmod o+w db
-  
-  touch db/database.sqlite
-  chmod o+w database.sqlite
+For development consult the :doc:`development` section.
 
 
+Production
+----------
 
-Create folders to collect all static resources and save uploaded files (must
-be readable by the apache process)::
-
-  mkdir static
-
-  mkdir media
-  chmod o+w media
-
-Get the application::
-
-  git clone https://github.com/rolandgeider/wger.git
-  cd wger
-  pip install -r requirements.txt
-  npm install bower
-  invoke create_settings --settings-path .
-  python manage.py bower install
-
-Edit your ``settings.py`` file and set the database, ``SITE_URL``,
-``STATIC_ROOT`` and ``MEDIA_ROOT``::
+For a more production-like setting with apache and mod-wsgi consult the
+:doc:`production` chapter.
 
 
-      'default': {
-          'ENGINE': 'django.db.backends.sqlite3',
-          'NAME': u'/home/myuser/db/database.sqlite',
-          'USER': '',
-          'PASSWORD': '',
-          'HOST': '',
-          'PORT': '',
-      }
-  }
+Docker
+------
 
-  >>> SITE_URL anpassen
-  >>> STATIC_ROOT = '/home/myuser/static'
-  >>> MEDIA_ROOT = '/home/myuser/wger/media'
-
-Run the installation scritpt, this will load all initial data (exit after it
-is done)::
-
-  python start.py --no-browser
-
-
-Start.py will create a default administator user (you probably want to change
-the password as soon as you log in):
-
-* **username**: admin
-* **password**: admin
-
-Collect all static resources:: 
-
-  python manage.py collectstatic
-
-
-.. _other-changes:
-
-Other changes
--------------
-
-If you want to use the application as a public instance, you will probably want to
-change the following templates:
-
-* **tos.html**, for your own Terms Of Service here
-* **about.html**, for your contact address or other such legal requirements
+There are docker images available, see the :doc:`docker` chapter.
