@@ -325,6 +325,24 @@ by the US Department of Agriculture. It is extremely complete, with around
             weight = 0
         return weight
 
+    @property
+    def address(self):
+        '''
+        Return the address as saved in the current contract (user's gym)
+        '''
+        out = {'zip_code': '',
+               'city': '',
+               'street': '',
+               'phone': ''}
+        if self.user.contract_member.exists():
+            last_contract = self.user.contract_member.last()
+            out['zip_code'] = last_contract.zip_code
+            out['city'] = last_contract.city
+            out['street'] = last_contract.street
+            out['phone'] = last_contract.phone
+
+        return out
+
     def clean(self):
         '''
         Make sure the total amount of hours is 24

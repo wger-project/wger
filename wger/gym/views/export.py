@@ -49,16 +49,32 @@ def users(request, gym_pk):
     response = HttpResponse(content_type='text/csv')
     writer = csv.writer(response, delimiter='\t', quoting=csv.QUOTE_ALL)
     writer.writerow([_('Nr.'),
+                     _('Gym'),
                      _('Username'),
+                     _('Email'),
                      _('First name'),
                      _('Last name'),
-                     _('Gym')])
+                     _('Gender'),
+                     _('Age'),
+                     _('ZIP code'),
+                     _('City'),
+                     _('Street'),
+                     _('Phone')])
     for user in Gym.objects.get_members(gym_pk):
+        address = user.userprofile.address
         writer.writerow([user.id,
+                         gym.name,
                          user.username,
+                         user.email,
                          user.first_name,
                          user.last_name,
-                         gym.name])
+                         user.userprofile.get_gender_display(),
+                         user.userprofile.age,
+                         address['zip_code'],
+                         address['city'],
+                         address['street'],
+                         address['phone']
+                         ])
 
     # Send the data to the browser
     today = datetime.date.today()
