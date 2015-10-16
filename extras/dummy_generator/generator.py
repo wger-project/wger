@@ -171,6 +171,7 @@ if hasattr(args, 'number_users'):
             gym_id = random.choice(gym_list)
             user.userprofile.gym_id = gym_id
             user.userprofile.gender = '1' if gender == 'm' else 2
+            user.userprofile.age = random.randint(18, 45)
             user.userprofile.save()
 
             config = GymUserConfig()
