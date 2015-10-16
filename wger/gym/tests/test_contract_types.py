@@ -19,7 +19,9 @@ from wger.gym.models import ContractType
 from wger.manager.tests.testcase import (
     WorkoutManagerEditTestCase,
     WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase)
+    WorkoutManagerDeleteTestCase,
+    WorkoutManagerAccessTestCase,
+    delete_testcase_add_methods)
 
 
 class AddContractTypeTestCase(WorkoutManagerAddTestCase):
@@ -75,6 +77,27 @@ class DeleteContractTypeTestCase(WorkoutManagerDeleteTestCase):
     pk = 1
     object_class = ContractType
     url = 'gym:contract_type:delete'
+    user_success = ('manager1',
+                    'manager2')
+    user_fail = ('admin',
+                 'general_manager1',
+                 'manager3',
+                 'manager4',
+                 'test',
+                 'member1',
+                 'member2',
+                 'member3',
+                 'member4',
+                 'member5')
+
+delete_testcase_add_methods(DeleteContractTypeTestCase)
+
+
+class AccessContractTypeOverviewTestCase(WorkoutManagerAccessTestCase):
+    '''
+    Test accessing the contract list page
+    '''
+    url = reverse('gym:contract_type:list', kwargs={'gym_pk': 1})
     user_success = ('manager1',
                     'manager2')
     user_fail = ('admin',

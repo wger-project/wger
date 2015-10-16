@@ -13,21 +13,25 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
 import logging
 
 from django.core.urlresolvers import reverse
-from django.contrib.auth.models import User
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy, ugettext as _
 from django.views.generic import (
     CreateView,
     UpdateView,
-    DeleteView
-)
+    DeleteView,
+    ListView)
 
-from wger.utils.generic_views import WgerFormMixin, WgerDeleteMixin, WgerPermissionMixin
-from wger.gym.models import ContractType
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    WgerDeleteMixin,
+    WgerPermissionMixin
+)
+from wger.gym.models import ContractType, Gym
 
 logger = logging.getLogger(__name__)
 
@@ -45,9 +49,9 @@ class AddView(WgerFormMixin, CreateView):
 
     def get_success_url(self):
         '''
-        Redirect back to user page
+        Redirect back to overview page
         '''
-        return reverse('gym:gym:user-list', kwargs={'pk': self.kwargs['gym_pk']})
+        return reverse('gym:contract_type:list', kwargs={'gym_pk': self.object.gym_id})
 
     def dispatch(self, request, *args, **kwargs):
         '''
@@ -103,9 +107,9 @@ class UpdateView(WgerFormMixin, UpdateView):
 
     def get_success_url(self):
         '''
-        Redirect back to gym page
+        Redirect back to overview page
         '''
-        return reverse('gym:gym:user-list', kwargs={'pk': self.object.gym_id})
+        return reverse('gym:contract_type:list', kwargs={'gym_pk': self.object.gym_id})
 
     def get_context_data(self, **kwargs):
         '''
@@ -140,9 +144,9 @@ class DeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
 
     def get_success_url(self):
         '''
-        Redirect back to gym page
+        Redirect back to overview page
         '''
-        return reverse('gym:gym:user-list', kwargs={'pk': self.object.gym_id})
+        return reverse('gym:contract_type:list', kwargs={'gym_pk': self.object.gym_id})
 
     def get_context_data(self, **kwargs):
         '''
@@ -150,4 +154,41 @@ class DeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
         '''
         context = super(DeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}').format(self.object)
+        return context
+
+
+class ListView(WgerPermissionMixin, ListView):
+    '''
+    Overview of all available admin notes
+    '''
+    model = ContractType
+    permission_required = 'gym.add_contracttype'
+    template_name = 'contract_type/list.html'
+    gym = None
+
+    def get_queryset(self):
+        '''
+        Only documents for current user
+        '''
+        return ContractType.objects.filter(gym=self.gym)
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Can only list contract types in own gym
+        '''
+        if not request.user.is_authenticated():
+            return HttpResponseForbidden()
+
+        self.gym = get_object_or_404(Gym, id=self.kwargs['gym_pk'])
+        if request.user.userprofile.gym_id != self.gym.id:
+            return HttpResponseForbidden()
+
+        return super(ListView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(ListView, self).get_context_data(**kwargs)
+        context['gym'] = self.gym
         return context

@@ -142,6 +142,9 @@ patterns_contract_types = [
     url(r'^delete/(?P<pk>\d+)$',
         contract_type.DeleteView.as_view(),
         name='delete'),
+    url(r'^list/(?P<gym_pk>\d+)$',
+        contract_type.ListView.as_view(),
+        name='list'),
 ]
 
 # sub patterns for exports

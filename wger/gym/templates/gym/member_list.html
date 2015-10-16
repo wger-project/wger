@@ -259,7 +259,10 @@ $(document).ready( function () {
     </button>
     <ul class="dropdown-menu" role="menu">
         <li>
-            <a href="{% url 'gym:contract_type:add' gym.id %}" class="wger-modal-dialog">{% trans "Add"%}</a>
+            <a href="{% url 'gym:contract_type:list' gym.id %}">{% trans "Overview" %}</a>
+        </li>
+        <li>
+            <a href="{% url 'gym:contract_type:add' gym.id %}" class="wger-modal-dialog">{% trans "Add" %}</a>
         </li>
     </ul>
 </div>
@@ -273,21 +276,6 @@ $(document).ready( function () {
         </td>
         <td>
             {{ contract_type.description|truncatewords:15 }}
-        </td>
-        <td>
-            <div class="btn-group pull-right">
-                <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
-                   <span class="glyphicon glyphicon-cog"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li>
-                        <a href="{% url 'gym:contract_type:edit' contract_type.id %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'gym:contract_type:delete' contract_type.id %}" class="wger-modal-dialog">{% trans "Delete"%}</a>
-                    </li>
-                </ul>
-            </div>
         </td>
     </tr>
     {% empty %}
