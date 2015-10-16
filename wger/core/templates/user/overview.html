@@ -252,6 +252,21 @@
         </td>
     </tr>
     <tr>
+        <td>{% trans "Phone" %}</td>
+        <td> {{ current_user.userprofile.address.phone|default:'-/-' }}</td>
+    </tr>
+    <tr>
+        <td>{% trans "Address" %}</td>
+        <td>
+            {% if not current_user.userprofile.address.zip_code and not current_user.userprofile.address.city and not current_user.userprofile.address.street%}
+                -/-
+            {% else %}
+                {{current_user.userprofile.address.zip_code}} {{current_user.userprofile.address.city}}<br>
+                {{current_user.userprofile.address.street}}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
         <td>{% trans "Registered" %}</td>
         <td>{{current_user.date_joined}}</td>
     </tr>
