@@ -15,22 +15,23 @@
 
 
 {% block content %}
+<ul class="list-group">
+    {% for email in email_list %}
+        <li class="list-group-item ">
+            <h4 class="list-group-item-heading">
+                {{ email.subject }}
+                <small>{{ email.date }}</small>
+            </h4>
 
-    <table class="table">
-        <tr>
-            <th>{% trans "Date" %}</th>
-            <th>{% trans "Subject" context 'As in "email subject"' %}</th>
-        </tr>
-        {% for email in email_list %}
-        <tr>
-            <td>{{ email.date }}</td>
-            <td>{{ email.subject }}</td>
-        </tr>
-        <tr>
-            <td colspan="2" style="white-space: pre-line;">{{ email.body }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+            <p class="list-group-item-text" style="white-space: pre-line;">{{ email.body }}</p>
+        </li>
+    {% empty %}
+        <li class="list-group-item">
+            {% trans "Nothing found" %}
+        </li>
+    {% endfor %}
+</ul>
+
 
 {% endblock %}
 
