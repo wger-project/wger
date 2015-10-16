@@ -45,7 +45,7 @@ def users(request, gym_pk):
             and request.user.userprofile.gym != gym:
         return HttpResponseForbidden()
 
-    # Crease CSV 'file'
+    # Create CSV 'file'
     response = HttpResponse(content_type='text/csv')
     writer = csv.writer(response, delimiter='\t', quoting=csv.QUOTE_ALL)
     writer.writerow([_('Nr.'),
