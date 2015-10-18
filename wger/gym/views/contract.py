@@ -41,7 +41,7 @@ logger = logging.getLogger(__name__)
 
 class AddView(WgerFormMixin, CreateView):
     '''
-    View to add a new document
+    View to add a new contract
     '''
 
     model = Contract
