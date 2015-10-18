@@ -50,12 +50,6 @@ class AddView(WgerFormMixin, CreateView):
     permission_required = 'gym.add_contract'
     member = None
 
-    def get_success_url(self):
-        '''
-        Redirect back to user page
-        '''
-        return reverse('core:user:overview', kwargs={'pk': self.member.pk})
-
     def get_initial(self):
         '''
         Get the initial data for new contracts
