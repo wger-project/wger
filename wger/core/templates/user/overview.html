@@ -298,6 +298,9 @@
     </button>
     <ul class="dropdown-menu" role="menu">
         <li>
+            <a href="{% url 'gym:contract:list' current_user.id %}">{% trans "Overview"%}</a>
+        </li>
+        <li>
             <a href="{% url 'gym:contract:add' current_user.pk %}">{% trans "Add"%}</a>
         </li>
     </ul>

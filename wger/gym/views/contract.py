@@ -34,8 +34,7 @@ from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerPermissionMixin
 )
-from wger.gym.models import Contract
-
+from wger.gym.models import Contract, Gym
 
 logger = logging.getLogger(__name__)
 
@@ -164,4 +163,41 @@ class UpdateView(WgerFormMixin, UpdateView):
         '''
         context = super(UpdateView, self).get_context_data(**kwargs)
         context['title'] = _(u'Edit {0}').format(self.object)
+        return context
+
+
+class ListView(WgerPermissionMixin, ListView):
+    '''
+    Overview of all available admin notes
+    '''
+    model = Contract
+    permission_required = 'gym.add_contract'
+    template_name = 'contract/list.html'
+    member = None
+
+    def get_queryset(self):
+        '''
+        Only documents for current user
+        '''
+        return Contract.objects.filter(member=self.member)
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Can only list contract types in own gym
+        '''
+        if not request.user.is_authenticated():
+            return HttpResponseForbidden()
+
+        self.member = get_object_or_404(User, id=self.kwargs['user_pk'])
+        if request.user.userprofile.gym_id != self.member.userprofile.gym_id:
+            return HttpResponseForbidden()
+
+        return super(ListView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        '''
+        Send some additional data to the template
+        '''
+        context = super(ListView, self).get_context_data(**kwargs)
+        context['member'] = self.member
         return context

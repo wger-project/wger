@@ -64,6 +64,25 @@ class AccessContractTestCase(WorkoutManagerAccessTestCase):
                  'member5')
 
 
+class AccessContractOverviewTestCase(WorkoutManagerAccessTestCase):
+    '''
+    Test accessing the contract list page
+    '''
+    url = reverse('gym:contract:list', kwargs={'user_pk': 4})
+    user_success = ('manager1',
+                    'manager2')
+    user_fail = ('admin',
+                 'general_manager1',
+                 'manager3',
+                 'manager4',
+                 'test',
+                 'member1',
+                 'member2',
+                 'member3',
+                 'member4',
+                 'member5')
+
+
 class EditContractTestCase(WorkoutManagerEditTestCase):
     '''
     Tests editing a contract

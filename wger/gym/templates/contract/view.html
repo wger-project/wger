@@ -12,6 +12,7 @@
     {% endif %}
     {% breadcrumb_raw object.member.userprofile.gym "gym:gym:user-list" object.member.userprofile.gym.pk %}
     {% breadcrumb_raw object.member|format_username "core:user:overview" object.member.pk %}
+    {% breadcrumb "Contracts" "gym:contract:list" object.member.pk %}
     {% breadcrumb "Contract" "gym:contract:view" object.pk %}
 {% endblock %}
 
