@@ -306,9 +306,9 @@
     </ul>
 </div>
 
-<h4>{% trans "Contracts" %}</h4>
+<h4>{% trans "Contracts" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h4>
 <table class="table">
-    {% for contract in current_user.contract_member.all %}
+    {% for contract in contracts %}
     <tr>
         <td>
             {{ contract }}

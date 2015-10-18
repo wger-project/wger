@@ -56,7 +56,11 @@ from wger.manager.models import (
 from wger.nutrition.models import NutritionPlan
 from wger.config.models import GymConfig
 from wger.weight.models import WeightEntry
-from wger.gym.models import AdminUserNote, GymUserConfig
+from wger.gym.models import (
+    AdminUserNote,
+    GymUserConfig,
+    Contract
+)
 
 logger = logging.getLogger(__name__)
 
@@ -445,4 +449,5 @@ class UserDetailView(WgerPermissionMixin, DetailView):
             .order_by('-creation_date')[:5]
         context['session'] = WorkoutSession.objects.filter(user=self.object).order_by('-date')[:10]
         context['admin_notes'] = AdminUserNote.objects.filter(member=self.object)[:5]
+        context['contracts'] = Contract.objects.filter(member=self.object)[:5]
         return context
