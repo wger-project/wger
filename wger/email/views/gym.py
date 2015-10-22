@@ -94,7 +94,7 @@ class EmailListFormPreview(FormPreview):
 
         context = super(EmailListFormPreview, self).get_context(request, form)
         context['gym'] = self.gym
-        context['form_action'] = reverse('email:email:add',
+        context['form_action'] = reverse('email:email:add-gym',
                                          kwargs={'gym_pk': self.gym.pk})
 
         return context

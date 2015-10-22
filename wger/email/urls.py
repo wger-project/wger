@@ -17,17 +17,17 @@
 from django.conf.urls import url, include
 
 from wger.email.forms import EmailListForm
-from wger.email.views import email_lists
+from wger.email.views import gym
 
 
 # sub patterns for email lists
 patterns_email = [
     url(r'^overview/gym/(?P<gym_pk>\d+)$',
-        email_lists.EmailLogListView.as_view(),
+        gym.EmailLogListView.as_view(),
         name='overview'),
     url(r'^add/gym/(?P<gym_pk>\d+)$',
-        email_lists.EmailListFormPreview(EmailListForm),
-        name='add'),
+        gym.EmailListFormPreview(EmailListForm),
+        name='add-gym'),
 ]
 
 
