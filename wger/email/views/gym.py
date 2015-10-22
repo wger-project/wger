@@ -35,7 +35,7 @@ class EmailLogListView(WgerPermissionMixin, generic.ListView):
 
     model = Log
     context_object_name = "email_list"
-    template_name = 'email/overview.html'
+    template_name = 'email/gym/overview.html'
     permission_required = 'email.add_log'
     login_required = True
     gym = None
@@ -69,8 +69,8 @@ class EmailLogListView(WgerPermissionMixin, generic.ListView):
 
 
 class EmailListFormPreview(FormPreview):
-    preview_template = 'email/preview.html'
-    form_template = 'email/form.html'
+    preview_template = 'email/gym/preview.html'
+    form_template = 'email/gym/form.html'
     list_type = None
     gym = None
 

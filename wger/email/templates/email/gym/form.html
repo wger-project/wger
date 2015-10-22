@@ -24,18 +24,10 @@
 {% endblock %}
 
 {% block sidebar %}
-    <h4>Benutzung</h4>
+    <h4>{% trans "Steps" %}</h4>
     <ol>
-        <li>Geben Sie die nötigen Daten in das Formular ein.</li>
-        <li>Die Manager bekommen eine Vorschau-Email, zur Kontrolle.</li>
-        <li>
-            Sie können beliebig oft den Inhalt korrigieren und über die
-            Vorschau-Emails kontrollieren.
-        </li>
-        <li>
-            Wenn Sie mit dem Inhalt zufrieden sind, können Sie die Emails
-            freigeben, sie weden in den nächsten Studen automatisch
-            verschickt
-        </li>
+        <li>{% trans "Fill in the form" %}</li>
+        <li>{% trans "You will receive a preview email for checking" %}</li>
+        <li>{% trans "You can update and correct the content as often as you need before sending the emails" %}
     </ol>
 {% endblock %}
