@@ -36,7 +36,7 @@
     </tr>
     {% endif %}
 
-    {% if object.options %}
+    {% if object.options.exists %}
     <tr>
         <th>{% trans "Options" %}</th>
         <td colspan="3">
