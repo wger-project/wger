@@ -156,15 +156,15 @@ $(document).ready( function () {
 <h4>{% trans "Details" %}</h4>
 <table class="table">
     <tr>
-        <th>{% trans "Name" %}</th>
+        <td>{% trans "Name" %}</td>
         <td>{{gym.name}}</td>
     </tr>
     <tr>
-        <th>{% trans "Phone" %}</th>
+        <td>{% trans "Phone" %}</td>
         <td>{{gym.phone}}</td>
     </tr>
     <tr>
-        <th>{% trans "Email" %}</th>
+        <td>{% trans "Email" %}</td>
         <td>
             {% if gym.email %}
                 <a href="mailto:{{gym.email}}">{{gym.email}}</a>
@@ -174,18 +174,18 @@ $(document).ready( function () {
         </td>
     </tr>
     <tr>
-        <th>{% trans "Owner" %}</th>
+        <td>{% trans "Owner" %}</td>
         <td>{{gym.owner}}</td>
     </tr>
     <tr>
-        <th>{% trans "Address" %}</th>
+        <td>{% trans "Address" %}</td>
         <td>
             {{gym.zip_code}} {{gym.city}}<br>
             {{gym.street}}
         </td>
     </tr>
     <tr>
-        <th>{% trans "Members" %}</th>
+        <td>{% trans "Members" %}</td>
         <td>{{user_count}}</td>
     </tr>
 </table>
@@ -210,7 +210,7 @@ $(document).ready( function () {
 <h4>{% trans "Gym configuration" %}</h4>
 <table class="table">
     <tr>
-        <th>{% trans "Inactive members" %}</th>
+        <td>{% trans "Inactive members" %}</td>
         <td style="text-align: right;">{{gym.config.weeks_inactive}} {% trans 'weeks' %}</td>
     </tr>
 </table>
@@ -235,7 +235,7 @@ $(document).ready( function () {
 <h4>{% trans "My configuration" %}</h4>
 <table class="table">
     <tr>
-        <th>{% trans "Overview inactive members" %}</th>
+        <td>{% trans "Overview inactive members" %}</td>
         <td style="text-align: right;">
             {% if user.gymadminconfig.overview_inactive %}
                 <span class="glyphicon glyphicon-ok"></span>
