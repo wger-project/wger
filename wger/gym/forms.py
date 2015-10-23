@@ -28,12 +28,9 @@ class GymUserPermisssionForm(forms.ModelForm):
     GYM_ADMIN = 'admin'
     TRAINER = 'trainer'
     MANAGER = 'manager'
-    ROLES = (
-        (USER, _('User')),
-        (TRAINER, _('Trainer')),
-        (GYM_ADMIN, _('Gym administrator')),
-        (MANAGER, _('General manager')),
-    )
+
+    # Empty default roles, they are always set at run time
+    ROLES = ()
 
     class Meta:
         model = User
@@ -41,6 +38,23 @@ class GymUserPermisssionForm(forms.ModelForm):
 
     role = forms.MultipleChoiceField(choices=ROLES,
                                      initial=USER)
+
+    def __init__(self, available_roles=[], *args, **kwargs):
+        '''
+        Custom logic to reduce the available permissions
+        '''
+        super(GymUserPermisssionForm, self).__init__(*args, **kwargs)
+
+        field_choices = [(self.USER, _('User'))]
+        if 'trainer' in available_roles:
+            field_choices.append((self.TRAINER, _('Trainer')))
+        if 'admin' in available_roles:
+            field_choices.append((self.GYM_ADMIN, _('Gym administrator')))
+        if 'manager' in available_roles:
+            field_choices.append((self.MANAGER, _('General manager')))
+
+        self.fields['role'] = forms.MultipleChoiceField(choices=field_choices,
+                                                        initial=User)
 
 
 class GymUserAddForm(GymUserPermisssionForm, UserPersonalInformationForm):

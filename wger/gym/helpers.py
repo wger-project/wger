@@ -53,3 +53,26 @@ def is_any_gym_admin(user):
     return user.has_perm('gym.manage_gym')\
         or user.has_perm('gym.manage_gyms')\
         or user.has_perm('gym.gym_trainer')
+
+
+def get_permission_list(user):
+    '''
+    Calculate available user permissions
+
+    This is needed because a user shouldn't be able to create or give another
+    account with more permissions than himself.
+
+    :param user: the user creating the account
+    :return: a list of permissions
+    '''
+
+    form_group_permission = ['user', 'trainer']
+
+    if user.has_perm('gym.manage_gym'):
+        form_group_permission.append('admin')
+
+    if user.has_perm('gym.manage_gyms'):
+        form_group_permission.append('admin')
+        form_group_permission.append('manager')
+
+    return form_group_permission
