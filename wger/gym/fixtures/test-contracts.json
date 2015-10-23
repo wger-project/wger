@@ -88,5 +88,32 @@
         },
         "pk": 1,
         "model": "gym.contracttype"
+    },
+    {
+        "fields": {
+            "name": "Personally known to the owner",
+            "description": "A friend of the owner, special privileges",
+            "gym_id": 1
+        },
+        "pk": 1,
+        "model": "gym.contractoption"
+    },
+    {
+        "fields": {
+            "name": "Pays cash",
+            "description": "Member pays in cash",
+            "gym_id": 1
+        },
+        "pk": 2,
+        "model": "gym.contractoption"
+    },
+    {
+        "fields": {
+            "name": "Protein flatrate",
+            "description": "Member has a flatrate for protein shakes",
+            "gym_id": 1
+        },
+        "pk": 3,
+        "model": "gym.contractoption"
     }
 ]

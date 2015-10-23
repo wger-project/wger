@@ -397,11 +397,60 @@ class ContractType(m.Model):
         '''
         Return a more human-readable representation
         '''
-        return "{}".format(self.name)
+        return u"{}".format(self.name)
 
     def get_owner_object(self):
         '''
-        Contract type has no owner iformation
+        Contract type has no owner information
+        '''
+        return None
+
+
+@python_2_unicode_compatible
+class ContractOption(m.Model):
+    '''
+    Model for a contract Option
+
+    A contract option is a user-editable way of enhancing the contract to
+    specify options, such as e.g. 'cash', 'bank withdrawal', etc. The
+    difference with a contract type is that a contract can only be of one
+    type but can have different options.
+    '''
+
+    class Meta:
+        '''
+        Order by name
+        '''
+        ordering = ["name", ]
+
+    gym = m.ForeignKey(Gym,
+                       editable=False)
+    '''
+    The gym this contract option belongs to
+    '''
+
+    name = m.CharField(verbose_name=_('Name'),
+                       max_length=25)
+    '''
+    The contract options short name
+    '''
+
+    description = m.TextField(verbose_name=_('Description'),
+                              blank=True,
+                              null=True)
+    '''
+    Free text field for additional information
+    '''
+
+    def __str__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return u"{}".format(self.name)
+
+    def get_owner_object(self):
+        '''
+        Contract type has no owner information
         '''
         return None
 
@@ -464,6 +513,12 @@ class Contract(m.Model):
                                  verbose_name=_('Contract type'))
     '''
     Optional type of contract
+    '''
+
+    options = m.ManyToManyField(ContractOption,
+                                verbose_name=_('Options'))
+    '''
+    Options for the contract
     '''
 
     amount = m.DecimalField(verbose_name=_('Amount'),

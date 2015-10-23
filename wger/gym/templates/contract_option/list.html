@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
+
+{% block title %}{% trans "Options" %}{% endblock %}
+
+
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% if perms.gym.manage_gyms %}
+        {% breadcrumb "Gyms" "gym:gym:list" %}
+    {% endif %}
+    {% breadcrumb_raw gym "gym:gym:user-list" gym.pk %}
+    {% breadcrumb "Options" "gym:contract-option:list" gym.pk %}
+{% endblock %}
+
+
+{% block content %}
+
+<ul class="list-group">
+    {% for option in contractoption_list %}
+        <li class="list-group-item ">
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    {% if perms.gym.change_contracttype %}
+                    <li>
+                        <a href="{% url 'gym:contract-option:edit' option.pk %}" class="wger-modal-dialog">
+                            {% trans 'Edit' %}
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% if perms.gym.delete_contracttype %}
+                    <li>
+                        <a href="{% url 'gym:contract-option:delete' option.pk %}"  class="wger-modal-dialog">
+                            {% trans 'Delete' %}
+                        </a>
+                    </li>
+                    {% endif %}
+
+                </ul>
+            </div>
+
+
+            <h4 class="list-group-item-heading">
+                {{ option.name }}
+            </h4>
+
+            <p class="list-group-item-text" style="white-space: pre-line;">{{ option.description }}</p>
+        </li>
+    {% empty %}
+        <li class="list-group-item">
+            {% trans "Nothing found" %}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+
+
+
+{% block sidebar %}
+    <a href="{% url 'gym:contract-option:add' gym.id %}" class="wger-modal-dialog btn btn-success">{% trans "Add" %}</a>
+{% endblock %}

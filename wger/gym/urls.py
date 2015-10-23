@@ -29,6 +29,7 @@ from wger.gym.views import (
     document,
     contract,
     contract_type,
+    contract_option,
     export
 )
 
@@ -150,6 +151,22 @@ patterns_contract_types = [
         name='list'),
 ]
 
+# sub patterns for contract options
+patterns_contract_options = [
+    url(r'^add/(?P<gym_pk>\d+)$',
+        contract_option.AddView.as_view(),
+        name='add'),
+    url(r'^edit/(?P<pk>\d+)$',
+        contract_option.UpdateView.as_view(),
+        name='edit'),
+    url(r'^delete/(?P<pk>\d+)$',
+        contract_option.DeleteView.as_view(),
+        name='delete'),
+    url(r'^list/(?P<gym_pk>\d+)$',
+        contract_option.ListView.as_view(),
+        name='list'),
+]
+
 # sub patterns for exports
 patterns_export = [
     url(r'^users/(?P<gym_pk>\d+)$',
@@ -169,5 +186,6 @@ urlpatterns = [
     url(r'^document/', include(patterns_documents, namespace="document")),
     url(r'^contract/', include(patterns_contracts, namespace="contract")),
     url(r'^contract-type/', include(patterns_contract_types, namespace="contract_type")),
+    url(r'^contract-option/', include(patterns_contract_options, namespace="contract-option")),
     url(r'^export/', include(patterns_export, namespace="export")),
 ]

@@ -289,6 +289,43 @@ $(document).ready( function () {
 {% endif %}
 
 
+{% if perms.gym.change_contractoption %}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="{% url 'gym:contract-option:list' gym.id %}">{% trans "Overview" %}</a>
+        </li>
+        <li>
+            <a href="{% url 'gym:contract-option:add' gym.id %}" class="wger-modal-dialog">{% trans "Add" %}</a>
+        </li>
+    </ul>
+</div>
+
+<h4>{% trans "Options" %}</h4>
+<table class="table">
+    {% for option in gym.contractoption_set.all %}
+    <tr>
+        <td>
+            {{ option }}
+        </td>
+        <td>
+            {{ option.description|truncatewords:15 }}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td>
+            {% trans "Nothing found" %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+
 
 {#             #}
 {# Email lists #}

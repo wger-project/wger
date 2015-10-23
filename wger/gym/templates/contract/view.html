@@ -35,6 +35,17 @@
         <td colspan="3">{{ object.contract_type.name|default:'-/-' }}</td>
     </tr>
     {% endif %}
+
+    {% if object.options %}
+    <tr>
+        <th>{% trans "Options" %}</th>
+        <td colspan="3">
+            {% for option in object.options.all %}
+            {{ option }}<br>
+            {% endfor %}
+        </td>
+    </tr>
+    {% endif %}
     <tr>
         <th>{% trans 'Name' %}</th>
         <td>

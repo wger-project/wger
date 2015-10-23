@@ -333,6 +333,21 @@
                     "contracttype"
                 ],
                 [
+                    "add_contractoption",
+                    "gym",
+                    "contractoption"
+                ],
+                [
+                    "change_contractoption",
+                    "gym",
+                    "contractoption"
+                ],
+                [
+                    "delete_contractoption",
+                    "gym",
+                    "contractoption"
+                ],
+                [
                     "change_gym",
                     "gym",
                     "gym"
