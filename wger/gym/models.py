@@ -516,7 +516,8 @@ class Contract(m.Model):
     '''
 
     options = m.ManyToManyField(ContractOption,
-                                verbose_name=_('Options'))
+                                verbose_name=_('Options'),
+                                blank=True)
     '''
     Options for the contract
     '''
