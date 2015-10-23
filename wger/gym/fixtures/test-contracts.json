@@ -91,7 +91,7 @@
     },
     {
         "fields": {
-            "name": "Personally known to the owner",
+            "name": "Personally known to owner",
             "description": "A friend of the owner, special privileges",
             "gym_id": 1
         },
