@@ -27,7 +27,7 @@
                 <ul class="dropdown-menu" role="menu">
                     {% if perms.gym.change_contracttype %}
                     <li>
-                        <a href="{% url 'gym:contract_type:edit' contract_type.pk %}">
+                        <a href="{% url 'gym:contract_type:edit' contract_type.pk %}" class="wger-modal-dialog">
                             {% trans 'Edit' %}
                         </a>
                     </li>
