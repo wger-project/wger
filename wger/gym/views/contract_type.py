@@ -84,7 +84,7 @@ class AddView(WgerFormMixin, CreateView):
 
 class UpdateView(WgerFormMixin, UpdateView):
     '''
-    View to update an existing contract
+    View to update an existing contract option
     '''
 
     model = ContractType
@@ -159,7 +159,7 @@ class DeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
 
 class ListView(WgerPermissionMixin, ListView):
     '''
-    Overview of all available admin notes
+    Overview of all available contract options
     '''
     model = ContractType
     permission_required = 'gym.add_contracttype'
@@ -168,7 +168,7 @@ class ListView(WgerPermissionMixin, ListView):
 
     def get_queryset(self):
         '''
-        Only documents for current user
+        Only contract types for current gym
         '''
         return ContractType.objects.filter(gym=self.gym)
 
