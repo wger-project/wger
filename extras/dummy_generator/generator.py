@@ -350,10 +350,16 @@ if hasattr(args, 'impression_sessions'):
             if not WorkoutSession.objects.filter(user=user, date=date).exists():
 
                 workout = WorkoutLog.objects.filter(user=user, date=date).first().workout
+                start = datetime.time(hour=random.randint(8, 20), minute=random.randint(0, 59))
+                end = datetime.datetime.combine(datetime.date.today(), start)  \
+                    + datetime.timedelta(minutes=random.randint(40, 120))
+                end = datetime.time(hour=end.hour, minute=end.minute)
 
                 session = WorkoutSession()
                 session.date = date
                 session.user = user
+                session.time_start = start
+                session.time_end = end
                 session.workout = workout
 
                 if args.impression_sessions == 'good':
