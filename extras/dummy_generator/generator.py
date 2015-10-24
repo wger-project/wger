@@ -311,9 +311,8 @@ if hasattr(args, 'number_workouts'):
 if hasattr(args, 'number_logs'):
     print("** Generating {0} logs".format(args.number_logs))
 
-    weight_log = []
-
     for user in User.objects.all():
+        weight_log = []
         print('   - generating for {0}'.format(user.username))
 
         for workout in Workout.objects.filter(user=user):
@@ -331,8 +330,8 @@ if hasattr(args, 'number_logs'):
                                                  date=date)
                                 weight_log.append(log)
 
-    # Bulk-create all the logs
-    WorkoutLog.objects.bulk_create(weight_log)
+        # Bulk-create the logs
+        WorkoutLog.objects.bulk_create(weight_log)
 
 
 #
@@ -341,9 +340,8 @@ if hasattr(args, 'number_logs'):
 if hasattr(args, 'impression_sessions'):
     print("** Generating workout sessions")
 
-    session_list = []
-
     for user in User.objects.all():
+        session_list = []
         print('   - generating for {0}'.format(user.username))
 
         for date in WorkoutLog.objects.filter(user=user).dates('date', 'day'):
@@ -371,8 +369,8 @@ if hasattr(args, 'impression_sessions'):
 
                 session_list.append(session)
 
-    # Bulk-create all the sessions
-    WorkoutSession.objects.bulk_create(session_list)
+        # Bulk-create the sessions
+        WorkoutSession.objects.bulk_create(session_list)
 
 #
 # Weight entry generator
@@ -385,9 +383,8 @@ if hasattr(args, 'number_weight'):
     else:
         userlist = [i for i in User.objects.all()]
 
-    new_entries = []
-
     for user in userlist:
+        new_entries = []
         print('   - generating for {0}'.format(user.username))
 
         existing_entries = [i.date for i in WeightEntry.objects.filter(user=user)]
@@ -402,5 +399,5 @@ if hasattr(args, 'number_weight'):
                                     date=creation_date)
                 new_entries.append(entry)
 
-    # Bulk-create all the weight entries
-    WeightEntry.objects.bulk_create(new_entries)
+        # Bulk-create the weight entries
+        WeightEntry.objects.bulk_create(new_entries)
