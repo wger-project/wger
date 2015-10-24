@@ -57,7 +57,7 @@ user_parser.add_argument('number_users',
 user_parser.add_argument('--add-to-gym',
                          action='store',
                          default='auto',
-                         help='Gym to assign the users to. Allowed values: auto, none, gym_id. '
+                         help='Gym to assign the users to. Allowed values: auto, none, <gym_id>. '
                               'Default: auto')
 user_parser.add_argument('--country',
                          action='store',
