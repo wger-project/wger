@@ -32,17 +32,22 @@ django.setup()
 
 # Must happen after calling django.setup()
 from django.contrib.auth.models import User
-from wger.gym.models import GymUserConfig, Gym
 from wger.core.models import DaysOfWeek
 from wger.exercises.models import Exercise
-from wger.manager.models import Workout
-from wger.manager.models import Day
-from wger.manager.models import Set
-from wger.manager.models import Setting
-from wger.manager.models import Schedule
-from wger.manager.models import ScheduleStep
-from wger.manager.models import WorkoutLog
-from wger.manager.models import WorkoutSession
+from wger.gym.models import (
+    GymUserConfig,
+    Gym
+)
+from wger.manager.models import (
+    Workout,
+    Day,
+    Set,
+    Setting,
+    Schedule,
+    ScheduleStep,
+    WorkoutLog,
+    WorkoutSession
+)
 from wger.weight.models import WeightEntry
 
 parser = argparse.ArgumentParser(description='Data generator. Please consult the documentation')
