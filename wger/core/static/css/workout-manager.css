@@ -175,7 +175,9 @@ header h1{
     font-weight: 300;
 }
 
-header a{
+header a,
+header a:hover, 
+header a:focus{
     color:white;
     font-size:90%;
 }
