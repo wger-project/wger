@@ -86,7 +86,7 @@
         {{log.get_impression_display}}
     </td>
     <td>
-        {{log.notes|truncatewords:6|default:'-/-'}}
+        {{log.notes|default:'-/-'|truncatewords:6}}
     </td>
     <td>
         {% if log.time_start and log.time_end %}
