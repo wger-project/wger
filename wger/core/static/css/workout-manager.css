@@ -289,3 +289,10 @@ div.info a, div.info a:hover, div.info a:active{
     right: auto;
     bottom: auto;
 }
+
+/**************************************************************
+ * 'Your ...' shoutouts on the feature page
+ **************************************************************/
+#shoutout h2:first-child {
+    margin-top: 0;
+}
