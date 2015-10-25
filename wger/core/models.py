@@ -474,6 +474,26 @@ by the US Department of Agriculture. It is extremely complete, with around
 
 
 @python_2_unicode_compatible
+class UserCache(models.Model):
+    '''
+    A table used to cache expensive queries or similar
+    '''
+
+    user = models.OneToOneField(User, editable=False)
+    '''
+    The user
+    '''
+
+    last_activity = models.DateField(null=True)
+    '''
+    The user's last activity.
+
+    Values for this entry are saved by signals as calculated by the
+    get_user_last_activity helper function.
+    '''
+
+
+@python_2_unicode_compatible
 class DaysOfWeek(models.Model):
     '''
     Model for the days of the week
