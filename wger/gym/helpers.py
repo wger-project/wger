@@ -26,16 +26,20 @@ def get_user_last_activity(user):
     :return: a date or None if nothing was found
     '''
 
-    # Check workout logs
-    log_list = WorkoutLog.objects.filter(user=user).order_by('date')
     last_activity = None
-    if log_list.exists():
-        last_activity = log_list.last().date
+
+    # Check workout logs
+    last_log = WorkoutLog.objects.filter(user=user).order_by('date').last()
+    if last_log:
+        last_activity = last_log.date
 
     # Check workout sessions
-    log_session = WorkoutSession.objects.filter(user=user).order_by('date')
-    if log_session.exists():
-        last_session = log_session.last().date
+    last_session = WorkoutSession.objects.filter(user=user).order_by('date').last()
+    if last_session:
+        last_session = last_session.date
+
+    # Return the last one
+    if last_session:
         if not last_activity:
             last_activity = last_session
 
