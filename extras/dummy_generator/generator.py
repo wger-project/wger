@@ -244,7 +244,10 @@ if hasattr(args, 'number_workouts'):
         for i in range(1, args.number_workouts):
 
             uid = str(uuid.uuid4()).split('-')
-            workout = Workout(user=user, comment='Dummy workout - {0}'.format(uid[1]))
+            start_date = datetime.date.today() - datetime.timedelta(days=random.randint(0, 100))
+            workout = Workout(user=user,
+                              comment='Dummy workout - {0}'.format(uid[1]),
+                              creation_date=start_date)
             workout.save()
 
             # Select a random number of workout days
