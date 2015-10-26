@@ -31,38 +31,7 @@ $(document).ready( function () {
 
 {% block content %}
 {% if perms.gym.manage_gym or perms.gym.gym_trainer %}
-<table class="table table-hover" id="main_member_list">
-<thead>
-<tr>
-    <th style="width: 10%;">{% trans "ID" %}</th>
-    <th style="width: 40%;">{% trans "Username" %}</th>
-    <th>{% trans "Name" %}</th>
-    <th>{% trans "Last activity" %}</th>
-</tr>
-</thead>
-<tbody>
-{% for current_user in object_list.members %}
-<tr>
-    <td>
-        {{current_user.obj.pk}}
-    </td>
-    <td>
-        <a href="{% url 'core:user:overview' current_user.obj.pk %}">{{current_user.obj}}</a>
-    </td>
-    <td>
-        {{current_user.obj.get_full_name}}
-    </td>
-    <td data-order="{{current_user.last_log|date:'U'}}">
-        {{current_user.last_log|default:'-/-'}}
-    </td>
-</tr>
-{% empty %}
-<tr>
-    <td colspan="4">{% trans "Nothing found" %}</td>
-</tr>
-{% endfor %}
-</tbody>
-</table>
+    {% include 'gym/partial_user_list.html' %}
 {% endif %}
 
 

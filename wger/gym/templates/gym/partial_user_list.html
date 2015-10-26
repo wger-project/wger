@@ -1,0 +1,32 @@
+{% load i18n %}
+<table class="table table-hover" id="main_member_list">
+<thead>
+<tr>
+    {% for key in user_table.keys %}
+        <th>{{ key }}</th>
+    {% endfor %}
+</tr>
+</thead>
+<tbody>
+{% for current_user in user_table.users %}
+<tr>
+    <td>
+        {{current_user.obj.pk}}
+    </td>
+    <td>
+        <a href="{% url 'core:user:overview' current_user.obj.pk %}">{{current_user.obj}}</a>
+    </td>
+    <td>
+        {{current_user.obj.get_full_name}}
+    </td>
+    <td data-order="{{current_user.last_log|date:'U'}}">
+        {{current_user.last_log|default:'-/-'}}
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="4">{% trans "Nothing found" %}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
