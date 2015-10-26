@@ -32,7 +32,8 @@ from django.contrib import messages
 from django.views.generic import (
     RedirectView,
     UpdateView,
-    DetailView
+    DetailView,
+    ListView
 )
 from django.conf import settings
 from rest_framework.authtoken.models import Token
@@ -450,4 +451,35 @@ class UserDetailView(WgerPermissionMixin, DetailView):
         context['session'] = WorkoutSession.objects.filter(user=self.object).order_by('-date')[:10]
         context['admin_notes'] = AdminUserNote.objects.filter(member=self.object)[:5]
         context['contracts'] = Contract.objects.filter(member=self.object)[:5]
+        return context
+
+
+class UserListView(WgerPermissionMixin, ListView):
+    '''
+    Overview of all users in the instance
+    '''
+    model = User
+    permission_required = ('gym.manage_gyms')
+    template_name = 'user/list.html'
+
+    def get_queryset(self):
+        '''
+        Return a list with the users, not really a queryset.
+        '''
+        out = {'admins': [],
+               'members': []}
+
+        for u in User.objects.select_related('usercache').all():
+            out['members'].append({'obj': u,
+                                   'last_log': u.usercache.last_activity})
+
+        return out
+
+    def get_context_data(self, **kwargs):
+        '''
+        Pass other info to the template
+        '''
+        context = super(UserListView, self).get_context_data(**kwargs)
+        context['user_table'] = {'keys': [_('ID'), _('Username'), _('Name'), _('Last activity')],
+                                 'users': context['object_list']['members']}
         return context

@@ -1,4 +1,19 @@
-{% load i18n %}
+{% load i18n staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'bower_components/datatables/media/css/dataTables.bootstrap.min.css' %}">
+<script src="{% static 'bower_components/datatables/media/js/jquery.dataTables.min.js' %}" ></script>
+<script src="{% static 'bower_components/datatables/media/js/dataTables.bootstrap.min.js' %}" ></script>
+<script>
+$(document).ready( function () {
+    /* Make table sortable */
+    $('#main_member_list').DataTable({
+        paging: false,
+        bFilter: true,
+        bInfo : false
+    });
+});
+</script>
+
 <table class="table table-hover" id="main_member_list">
 <thead>
 <tr>

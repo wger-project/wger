@@ -13,22 +13,6 @@
 {% endblock %}
 
 
-{% block header %}
-<link rel="stylesheet" type="text/css" href="{% static 'bower_components/datatables/media/css/dataTables.bootstrap.min.css' %}">
-<script src="{% static 'bower_components/datatables/media/js/jquery.dataTables.min.js' %}" ></script>
-<script src="{% static 'bower_components/datatables/media/js/dataTables.bootstrap.min.js' %}" ></script>
-<script>
-$(document).ready( function () {
-    /* Make table sortable */
-    $('#main_member_list').DataTable({
-        paging: false,
-        bFilter: true,
-        bInfo : false
-    });
-});
-</script>
-{% endblock %}
-
 {% block content %}
 {% if perms.gym.manage_gym or perms.gym.gym_trainer %}
     {% include 'gym/partial_user_list.html' %}
