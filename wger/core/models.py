@@ -492,6 +492,12 @@ class UserCache(models.Model):
     get_user_last_activity helper function.
     '''
 
+    def __str__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return u"Cache for user {0}".format(self.user)
+
 
 @python_2_unicode_compatible
 class DaysOfWeek(models.Model):
