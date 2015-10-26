@@ -252,6 +252,7 @@ $(document).ready( function () {
 {#                        #}
 {# Contract configuration #}
 {#                        #}
+<h4>{% trans "Contracts" %}</h4>
 {% if perms.gym.change_contracttype %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
@@ -267,7 +268,7 @@ $(document).ready( function () {
     </ul>
 </div>
 
-<h4>{% trans "Contract types" %}</h4>
+<h5>{% trans "Types" %}</h5>
 <table class="table">
     {% for contract_type in gym.contracttype_set.all %}
     <tr>
@@ -304,7 +305,7 @@ $(document).ready( function () {
     </ul>
 </div>
 
-<h4>{% trans "Options" %}</h4>
+<h5>{% trans "Options" %}</h5>
 <table class="table">
     {% for option in gym.contractoption_set.all %}
     <tr>
