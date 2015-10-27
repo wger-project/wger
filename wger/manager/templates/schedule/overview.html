@@ -23,7 +23,7 @@
             <a href="{% url 'manager:schedule:view' schedule.id %}">{{ schedule.name }}</a>
 
             {% if schedule.is_active %}
-            <span class="label label-primary">{% trans "active" %}</span>
+                &nbsp;<span class="label label-primary">{% trans "active" %}</span>
             {% endif  %}
         </td>
         <td>
