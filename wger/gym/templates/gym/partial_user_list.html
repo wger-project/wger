@@ -37,6 +37,17 @@ $(document).ready( function () {
     <td data-order="{{current_user.last_log|date:'U'}}">
         {{current_user.last_log|default:'-/-'}}
     </td>
+    {% if show_gym %}
+    <td>
+        {% if current_user.obj.userprofile.gym_id %}
+            <a href="{{ current_user.obj.userprofile.gym.get_absolute_url }}">
+            {{ current_user.obj.userprofile.gym }}
+            </a>
+        {% else %}
+            -/-
+        {% endif %}
+    </td>
+    {% endif %}
 </tr>
 {% empty %}
 <tr>

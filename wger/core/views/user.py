@@ -459,7 +459,7 @@ class UserListView(WgerPermissionMixin, ListView):
     Overview of all users in the instance
     '''
     model = User
-    permission_required = ('gym.manage_gyms')
+    permission_required = ('gym.manage_gyms',)
     template_name = 'user/list.html'
 
     def get_queryset(self):
@@ -469,7 +469,7 @@ class UserListView(WgerPermissionMixin, ListView):
         out = {'admins': [],
                'members': []}
 
-        for u in User.objects.select_related('usercache').all():
+        for u in User.objects.select_related('usercache', 'userprofile__gym').all():
             out['members'].append({'obj': u,
                                    'last_log': u.usercache.last_activity})
 
@@ -480,6 +480,11 @@ class UserListView(WgerPermissionMixin, ListView):
         Pass other info to the template
         '''
         context = super(UserListView, self).get_context_data(**kwargs)
-        context['user_table'] = {'keys': [_('ID'), _('Username'), _('Name'), _('Last activity')],
+        context['show_gym'] = True
+        context['user_table'] = {'keys': [_('ID'),
+                                          _('Username'),
+                                          _('Name'),
+                                          _('Last activity'),
+                                          _('Gym')],
                                  'users': context['object_list']['members']}
         return context
