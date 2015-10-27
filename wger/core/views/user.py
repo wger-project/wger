@@ -417,7 +417,7 @@ class UserDetailView(WgerPermissionMixin, DetailView):
     User overview for gyms
     '''
     model = User
-    permission_required = ('gym.manage_gym', 'gym.gym_trainer')
+    permission_required = ('gym.manage_gym', 'gym.manage_gyms', 'gym.gym_trainer')
     template_name = 'user/overview.html'
     context_object_name = 'current_user'
 
@@ -426,10 +426,15 @@ class UserDetailView(WgerPermissionMixin, DetailView):
         Only managers for this gym can access the members
         '''
         user = request.user
-        if user.is_authenticated() and user.userprofile.gym == self.get_object().userprofile.gym:
-            return super(UserDetailView, self).dispatch(request, *args, **kwargs)
-        else:
+
+        if not user.is_authenticated():
             return HttpResponseForbidden()
+
+        if (user.has_perm('gym.manage_gym') or user.has_perm('gym.gym_trainer')) \
+                and user.userprofile.gym != self.get_object().userprofile.gym:
+            return HttpResponseForbidden()
+
+        return super(UserDetailView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         '''
