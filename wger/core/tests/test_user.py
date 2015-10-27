@@ -13,10 +13,13 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 
-from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
+from wger.manager.tests.testcase import (
+    WorkoutManagerTestCase,
+    WorkoutManagerAccessTestCase,
+    WorkoutManagerEditTestCase
+)
 
 
 class StatusUserTestCase(WorkoutManagerTestCase):
@@ -112,3 +115,21 @@ class EditUserTestCase(WorkoutManagerEditTestCase):
     data = {'email': 'another.email@example.com',
             'first_name': 'Name',
             'last_name': 'Lastname'}
+
+
+class UserDetailPageTestCase(WorkoutManagerAccessTestCase):
+    '''
+    Test accessing the user detail page
+    '''
+
+    url = reverse_lazy('core:user:overview', kwargs={'pk': 2})
+    user_success = ('trainer1',
+                    'trainer2',
+                    'manager1',
+                    'general_manager1',
+                    'general_manager2')
+    user_fail = ('trainer4',
+                 'trainer5',
+                 'manager3',
+                 'member1',
+                 'member2')
