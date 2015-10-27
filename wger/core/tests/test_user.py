@@ -15,8 +15,11 @@
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
-from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
+from wger.manager.tests.testcase import (
+    WorkoutManagerTestCase,
+    WorkoutManagerEditTestCase,
+    WorkoutManagerAccessTestCase
+)
 
 
 class StatusUserTestCase(WorkoutManagerTestCase):
@@ -112,3 +115,22 @@ class EditUserTestCase(WorkoutManagerEditTestCase):
     data = {'email': 'another.email@example.com',
             'first_name': 'Name',
             'last_name': 'Lastname'}
+
+
+class UserListTestCase(WorkoutManagerAccessTestCase):
+    '''
+    Test accessing the general user overview
+    '''
+
+    url = 'core:user:list'
+    user_success = ('admin',
+                    'general_manager1',
+                    'general_manager2')
+    user_fail = ('member1',
+                 'member2',
+                 'manager1',
+                 'manager2',
+                 'manager3',
+                 'trainer2',
+                 'trainer3',
+                 'trainer4')
