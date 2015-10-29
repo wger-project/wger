@@ -17,22 +17,25 @@ import logging
 
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
-from django.forms import ModelForm
-from django.forms import ModelChoiceField
+from django.forms import ModelForm, ModelChoiceField
 from django.utils.translation import ugettext_lazy
 
-from django.views.generic import DeleteView
-from django.views.generic import CreateView
-from django.views.generic import UpdateView
-
-from wger.nutrition.models import Ingredient
-from wger.nutrition.models import IngredientWeightUnit
-from wger.nutrition.models import WeightUnit
-
 from wger.utils.language import load_language
-from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import WgerDeleteMixin
-from wger.utils.generic_views import WgerPermissionMixin
+from django.views.generic import (
+    DeleteView,
+    CreateView,
+    UpdateView
+)
+from wger.nutrition.models import (
+    Ingredient,
+    IngredientWeightUnit,
+    WeightUnit
+)
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    WgerDeleteMixin,
+    WgerPermissionMixin
+)
 
 
 logger = logging.getLogger(__name__)
@@ -77,6 +80,7 @@ class WeightUnitIngredientCreateView(WgerFormMixin, CreateView, WgerPermissionMi
 
             class Meta:
                 model = IngredientWeightUnit
+                fields = ['unit', 'gram', 'amount']
 
         return IngredientWeightUnitForm
 
@@ -104,6 +108,7 @@ class WeightUnitIngredientUpdateView(WgerFormMixin, UpdateView, WgerPermissionMi
 
             class Meta:
                 model = IngredientWeightUnit
+                fields = ['unit', 'gram', 'amount']
 
         return IngredientWeightUnitForm
 

@@ -88,7 +88,7 @@ class AddWeightEntryTestCase(WorkoutManagerAddTestCase):
     url = 'weight:add'
     user_fail = False
     data = {'weight': decimal.Decimal(81.1).quantize(TWOPLACES),
-            'creation_date': datetime.date(2013, 2, 1),
+            'date': datetime.date(2013, 2, 1),
             'user': 1}
 
 
@@ -101,7 +101,7 @@ class EditWeightEntryTestCase(WorkoutManagerEditTestCase):
     url = 'weight:edit'
     pk = 1
     data = {'weight': 100,
-            'creation_date': datetime.date(2013, 2, 1),
+            'date': datetime.date(2013, 2, 1),
             'user': 1}
     user_success = 'test'
     user_fail = 'admin'
@@ -115,4 +115,4 @@ class WeightEntryTestCase(api_base_test.ApiBaseResourceTestCase):
     resource = WeightEntry
     private_resource = True
     data = {'weight': 100,
-            'creation_date': datetime.date(2013, 2, 1)}
+            'date': datetime.date(2013, 2, 1)}

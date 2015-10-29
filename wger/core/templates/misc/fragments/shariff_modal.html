@@ -7,7 +7,7 @@
                 <h4 class="modal-title">{% trans "Share this page" %}</h4>
             </div>
             <div class="modal-body">
-                <div class="shariff {% if is_owner and not owner_user.userprofile.ro_access %}hidden{% endif %}"></div>
+                <div class="shariff {% if is_owner and not owner_user.userprofile.ro_access %}hidden{% endif %}" data-lang="{{language.short_name}}"></div>
 
                 {% if owner_user %}
                 <div class="noRoAccess {% if user.is_authenticated and is_owner and owner_user.userprofile.ro_access %}hidden{% endif %}">

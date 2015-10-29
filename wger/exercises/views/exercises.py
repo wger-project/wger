@@ -13,40 +13,47 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+import six
 import logging
 import uuid
+from django.core import mail
 
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
-from django.http import HttpResponseForbidden
-from django.forms import ModelForm
-from django.forms import ModelChoiceField
-from django.forms import ModelMultipleChoiceField
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.forms import (
+    ModelForm,
+    ModelChoiceField,
+    ModelMultipleChoiceField
+)
 from django.core.cache import cache
-from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.decorators import permission_required
 from django.contrib import messages
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
-from django.views.generic import ListView
-from django.views.generic import DeleteView
-from django.views.generic import CreateView
-from django.views.generic import UpdateView
+from django.views.generic import (
+    ListView,
+    DeleteView,
+    CreateView,
+    UpdateView
+)
 
 from wger.manager.models import WorkoutLog
-from wger.exercises.models import Exercise, Muscle
-from wger.exercises.models import ExerciseCategory
+from wger.exercises.models import (
+    Exercise,
+    Muscle,
+    ExerciseCategory
+)
 from wger.exercises.widgets import MuscleTranslatedSelectMultiple
-from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import WgerDeleteMixin
-from wger.utils.generic_views import WgerPermissionMixin
-from wger.utils.language import load_language
-from wger.utils.language import load_item_languages
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    WgerDeleteMixin,
+    WgerPermissionMixin
+)
+from wger.utils.language import load_language, load_item_languages
 from wger.utils.cache import cache_mapper
-from wger.utils.widgets import TranslatedSelect
-from wger.utils.widgets import TranslatedSelectMultiple
+from wger.utils.widgets import TranslatedSelect, TranslatedSelectMultiple
 from wger.config.models import LanguageConfig
 from wger.weight.helpers import process_log_entries
 
@@ -228,6 +235,52 @@ class ExerciseAddView(ExercisesEditAddView, CreateView, WgerPermissionMixin):
             return HttpResponseForbidden()
 
         return super(ExerciseAddView, self).dispatch(request, *args, **kwargs)
+
+
+class ExerciseCorrectView(ExercisesEditAddView, UpdateView, WgerPermissionMixin):
+    '''
+    Generic view to update an existing exercise
+    '''
+    login_required = True
+    sidebar = 'exercise/form_correct.html'
+    messages = _('Thank you. Once the changes are reviewed the exercise will be updated.')
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Only registered users can correct exercises
+        '''
+        if not request.user.is_authenticated() or request.user.userprofile.is_temporary:
+            return HttpResponseForbidden()
+
+        return super(ExerciseCorrectView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(ExerciseCorrectView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('exercise:exercise:correct', kwargs={'pk': self.object.id})
+        context['title'] = _(u'Correct {0}').format(self.object.name)
+        return context
+
+    def form_valid(self, form):
+        '''
+        If the form is valid send email notifications to the site administrators.
+
+        We don't return the super().form_valid because we don't want the data
+        to be saved.
+        '''
+        subject = 'Correction submitted for exercise #{0}'.format(self.get_object().pk)
+        context = {
+            'exercise': self.get_object(),
+            'form_data': form.cleaned_data,
+            'user': self.request.user
+        }
+        message = render_to_string('exercise/email_correction.tpl', context)
+        mail.mail_admins(six.text_type(subject),
+                         six.text_type(message),
+                         fail_silently=True)
+
+        messages.success(self.request, self.messages)
+        return HttpResponseRedirect(reverse('exercise:exercise:view',
+                                            kwargs={'id': self.object.id}))
 
 
 class ExerciseDeleteView(WgerDeleteMixin, DeleteView):

@@ -329,10 +329,3 @@ table.month td.session-good {
 table.month td.session-good:hover {
     background-color: #449D44;
 }
-
-
-/* Timeline with years and months with logs */
-
-.timeline-log span{
-    margin-left: 1em;
-}

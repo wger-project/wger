@@ -20,15 +20,13 @@ import os
 from optparse import make_option
 
 from django.core.exceptions import ImproperlyConfigured
-from django.core.management.base import BaseCommand
-from django.core.management.base import CommandError
+from django.core.management.base import BaseCommand, CommandError
 from django.core.files import File
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 from django.conf import settings
 
-from wger.exercises.models import Exercise
-from wger.exercises.models import ExerciseImage
+from wger.exercises.models import Exercise, ExerciseImage
 
 
 class Command(BaseCommand):
@@ -51,9 +49,9 @@ class Command(BaseCommand):
     help = ('Download exercise images from wger.de and update the local database\n'
             '\n'
             'ATTENTION: The script will download the images from the server and add them\n'
-            '           to local exercises. If you happen to have edited them, the script\n'
-            '           *might* add the wrong images to the wrong exercises if they match\n'
-            '           the remote ID.')
+            '           to your local exercises. The exercises are identified by\n'
+            '           their UUID field, if you manually edited or changed it\n'
+            '           the script will not be able to match them.')
 
     def handle(self, *args, **options):
 
@@ -61,8 +59,8 @@ class Command(BaseCommand):
             raise ImproperlyConfigured('Please set MEDIA_ROOT in your settings file')
 
         remote_url = options['remote_url']
-        val = URLValidator()
         try:
+            val = URLValidator()
             val(remote_url)
         except ValidationError:
             raise CommandError('Please enter a valid URL')
@@ -75,13 +73,14 @@ class Command(BaseCommand):
         result = json.load(urllib.urlopen(exercise_api.format(remote_url)))
         for exercise_json in result['results']:
             exercise_name = exercise_json['name']
+            exercise_uuid = exercise_json['uuid']
             exercise_id = exercise_json['id']
 
             self.stdout.write('')
             self.stdout.write(u"*** Processing {0} (ID: {1})".format(exercise_name, exercise_id))
 
             try:
-                exercise = Exercise.objects.get(pk=exercise_id)
+                exercise = Exercise.objects.get(uuid=exercise_uuid)
             except Exercise.DoesNotExist:
                 self.stdout.write('    Remote exercise not found in local DB, skipping...')
                 continue

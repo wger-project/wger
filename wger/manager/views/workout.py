@@ -18,29 +18,31 @@ import logging
 import uuid
 import datetime
 
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.context_processors import csrf
-from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
-from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.utils.translation import ugettext_lazy, ugettext as _
 from django.contrib.auth.decorators import login_required
-from django.views.generic import DeleteView
-from django.views.generic import UpdateView
+from django.views.generic import DeleteView, UpdateView
 
-from wger.manager.models import Workout
-from wger.manager.models import WorkoutSession
-from wger.manager.models import WorkoutLog
-from wger.manager.models import Schedule
-from wger.manager.models import Day
-from wger.manager.forms import WorkoutForm
-from wger.manager.forms import WorkoutSessionHiddenFieldsForm
-from wger.manager.forms import WorkoutCopyForm
-from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import WgerDeleteMixin
-from wger.utils.generic_views import WgerPermissionMixin
+from wger.manager.models import (
+    Workout,
+    WorkoutSession,
+    WorkoutLog,
+    Schedule,
+    Day
+)
+from wger.manager.forms import (
+    WorkoutForm,
+    WorkoutSessionHiddenFieldsForm,
+    WorkoutCopyForm
+)
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    WgerDeleteMixin,
+    WgerPermissionMixin
+)
 from wger.utils.helpers import make_token
 
 
@@ -114,7 +116,12 @@ def copy_workout(request, pk):
     Makes a copy of a workout
     '''
 
-    workout = get_object_or_404(Workout, pk=pk, user=request.user)
+    workout = get_object_or_404(Workout, pk=pk)
+    user = workout.user
+    is_owner = request.user == user
+
+    if not is_owner and not user.userprofile.ro_access:
+        return HttpResponseForbidden()
 
     # Process request
     if request.method == 'POST':
@@ -128,6 +135,7 @@ def copy_workout(request, pk):
             workout_copy = workout
             workout_copy.pk = None
             workout_copy.comment = workout_form.cleaned_data['comment']
+            workout_copy.user = request.user
             workout_copy.save()
 
             # Copy the days
@@ -242,21 +250,22 @@ class LastWeightHelper():
     def __init__(self, user):
         self.user = user
 
-    def get_last_weight(self, exercise, reps):
+    def get_last_weight(self, exercise, reps, default_weight):
         '''
         Returns an emtpy string if no entry is found
 
         :param exercise:
         :param reps:
+        :param default_weight:
         :return: WorkoutLog or '' if none is found
         '''
-        key = u'{0}-{1}-{2}'.format(self.user.pk, exercise.pk, reps)
-
+        key = (self.user.pk, exercise.pk, reps, default_weight)
         if self.last_weight_list.get(key) is None:
             last_log = WorkoutLog.objects.filter(user=self.user,
                                                  exercise=exercise,
                                                  reps=reps).order_by('-date')
-            weight = last_log[0].weight if last_log.exists() else ''
+            default_weight = '' if default_weight is None else default_weight
+            weight = last_log[0].weight if last_log.exists() else default_weight
             self.last_weight_list[key] = weight
 
         return self.last_weight_list.get(key)
@@ -280,14 +289,19 @@ def timer(request, day_pk):
         if not set_dict['is_superset']:
             for exercise_dict in set_dict['exercise_list']:
                 exercise = exercise_dict['obj']
-                for reps in exercise_dict['setting_list']:
+                for key, element in enumerate(exercise_dict['reps_list']):
+                    reps = exercise_dict['reps_list'][key]
+                    default_weight = last_log.get_last_weight(exercise,
+                                                              reps,
+                                                              exercise_dict['weight_list'][key])
+
                     step_list.append({'current_step': uuid.uuid4().hex,
                                       'step_percent': 0,
                                       'step_nr': len(step_list) + 1,
                                       'exercise': exercise,
                                       'type': 'exercise',
                                       'reps': reps,
-                                      'weight': last_log.get_last_weight(exercise, reps)})
+                                      'weight': default_weight})
                     if request.user.userprofile.timer_active:
                         step_list.append({'current_step': uuid.uuid4().hex,
                                           'step_percent': 0,
@@ -297,10 +311,11 @@ def timer(request, day_pk):
 
         # Supersets need extra work to group the exercises and reps together
         else:
-            total_reps = len(set_dict['exercise_list'][0]['setting_list'])
+            total_reps = len(set_dict['exercise_list'][0]['reps_list'])
             for i in range(0, total_reps):
                 for exercise_dict in set_dict['exercise_list']:
-                    reps = exercise_dict['setting_list'][i]
+                    reps = exercise_dict['reps_list'][i]
+                    default_weight = exercise_dict['weight_list'][i]
                     exercise = exercise_dict['obj']
 
                     step_list.append({'current_step': uuid.uuid4().hex,
@@ -309,7 +324,9 @@ def timer(request, day_pk):
                                       'exercise': exercise,
                                       'type': 'exercise',
                                       'reps': reps,
-                                      'weight': last_log.get_last_weight(exercise, reps)})
+                                      'weight': last_log.get_last_weight(exercise,
+                                                                         reps,
+                                                                         default_weight)})
 
                 if request.user.userprofile.timer_active:
                     step_list.append({'current_step': uuid.uuid4().hex,

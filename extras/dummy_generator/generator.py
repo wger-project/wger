@@ -43,6 +43,7 @@ from wger.manager.models import Schedule
 from wger.manager.models import ScheduleStep
 from wger.manager.models import WorkoutLog
 from wger.manager.models import WorkoutSession
+from wger.weight.models import WeightEntry
 
 parser = argparse.ArgumentParser(description='Data generator. Please consult the documentation')
 subparsers = parser.add_subparsers(help='The kind of entries you want to generate')
@@ -95,6 +96,20 @@ session_parser.add_argument('impression_sessions',
                             default='random',
                             choices=['random', 'good', 'neutral', 'bad'])
 
+# Weight options
+weight_parser = subparsers.add_parser('weight', help='Create weight entries')
+weight_parser.add_argument('number_weight',
+                           action='store',
+                           help='Number of weight entries to create per user',
+                           type=int)
+weight_parser.add_argument('--add-to-user',
+                           action='store',
+                           help='Add to the specified user-ID, not all existing users')
+weight_parser.add_argument('--base-weight',
+                           action='store',
+                           help='Default weight for the entry generation, default = 80',
+                           type=int,
+                           default=80)
 
 args = parser.parse_args()
 # print(args)
@@ -357,3 +372,34 @@ if hasattr(args, 'impression_sessions'):
 
     # Bulk-create all the sessions
     WorkoutSession.objects.bulk_create(session_list)
+
+#
+# Weight entry generator
+#
+if hasattr(args, 'number_weight'):
+    print("** Generating {0} weight entries per user".format(args.number_weight))
+
+    if args.add_to_user:
+        userlist = [User.objects.get(pk=args.add_to_user)]
+    else:
+        userlist = [i for i in User.objects.all()]
+
+    new_entries = []
+
+    for user in userlist:
+        print('   - generating for {0}'.format(user.username))
+
+        existing_entries = [i.date for i in WeightEntry.objects.filter(user=user)]
+
+        # Weight entries
+        for i in range(1, args.number_weight):
+
+            creation_date = datetime.date.today() - datetime.timedelta(days=i)
+            if creation_date not in existing_entries:
+                entry = WeightEntry(user=user,
+                                    weight=args.base_weight + 0.5 * i + random.randint(1, 3),
+                                    date=creation_date)
+                new_entries.append(entry)
+
+    # Bulk-create all the weight entries
+    WeightEntry.objects.bulk_create(new_entries)

@@ -9,23 +9,23 @@ python:
   - "2.7"
   - "3.3"
   - "3.4"
+  - "3.5"
 
 # Manually define here the combinations environment variables to test
 # https://github.com/travis-ci/travis-ci/issues/1519
 env:
-  - DJANGO_VERSION=1.7.5 TEST_MOBILE=True  DB=postgresql
-  - DJANGO_VERSION=1.7.5 TEST_MOBILE=True  DB=sqlite
-  - DJANGO_VERSION=1.7.5 TEST_MOBILE=False DB=postgresql
-  - DJANGO_VERSION=1.7.5 TEST_MOBILE=False DB=sqlite
+  - TEST_MOBILE=True  DB=postgresql
+  - TEST_MOBILE=True  DB=sqlite
+  - TEST_MOBILE=False DB=postgresql
+  - TEST_MOBILE=False DB=sqlite
 
 # Install the application
 install:
   - sh -c "if [ '$DB' = 'postgresql' ]; then pip install psycopg2; fi"
-  
+
   - pip install -r requirements_devel.txt
-  - pip install -q Django==$DJANGO_VERSION
-  - pip install --upgrade django-tastypie
-  - python extras/scripts/create_local_settings.py
+  - sh -c "if [ '$DB' = 'sqlite' ]; then invoke create_settings; fi"
+  - sh -c "if [ '$DB' = 'postgresql' ]; then invoke create_settings --database-type postgresql; fi"
 
 # Create test databases
 before_script:

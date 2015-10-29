@@ -51,7 +51,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         '''
         self.client.get(reverse('core:dashboard'))
         self.assertEqual(self.count_temp_users(), 2)
-        user = User.objects.get(pk=25)
+        user = User.objects.get(pk=User.objects.latest('id').id)
         self.assertEqual(user.userprofile.is_temporary, True)
         self.assertEqual(Workout.objects.filter(user=user).count(), 0)
 
@@ -86,7 +86,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
             creation_date = datetime.date.today() - datetime.timedelta(days=i)
             entry = WeightEntry(user=user,
                                 weight=80 + 0.5 * i + random.randint(1, 3),
-                                creation_date=creation_date)
+                                date=creation_date)
             temp.append(entry)
         WeightEntry.objects.bulk_create(temp)
         create_demo_entries(user)
@@ -120,7 +120,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         self.assertEqual(self.count_temp_users(), 1)
 
         self.user_logout()
-        self.client.get(reverse('weight:overview'))
+        reverse('weight:overview', kwargs={'username': 'test'})
         self.assertEqual(self.count_temp_users(), 1)
 
         self.user_logout()

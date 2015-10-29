@@ -21,18 +21,19 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy
 from django.utils.translation import ugettext as _
+from django.views.generic import (
+    CreateView,
+    UpdateView,
+    DeleteView
+)
 
-from django.views.generic import CreateView
-from django.views.generic import UpdateView
-from django.views.generic import DeleteView
-
-from wger.exercises.models import Exercise
-from wger.exercises.models import ExerciseImage
+from wger.exercises.models import Exercise, ExerciseImage
 from wger.exercises.forms import ExerciseImageForm
-
-from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import WgerDeleteMixin
-from wger.utils.generic_views import WgerPermissionMixin
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    WgerDeleteMixin,
+    WgerPermissionMixin
+)
 
 
 logger = logging.getLogger(__name__)

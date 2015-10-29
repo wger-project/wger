@@ -185,7 +185,7 @@ function custom_modal_init()
 {% endif %}
 
 
-<h3>{% trans "Nutritional data" %}</h3>
+<h4>{% trans "Nutritional data" %}</h4>
 <table class="table table-condensed">
     <thead>
         <tr>
@@ -264,7 +264,7 @@ function custom_modal_init()
 {# Side bar #}
 {#          #}
 {% block sidebar %}
-<h3>{% trans "Energy" %}</h3>
+<h4>{% trans "Energy" %}</h4>
 <table class="table table-condensed" id="nutritional-data-energy">
     <thead>
         <tr>
@@ -296,7 +296,7 @@ function custom_modal_init()
 
 
 
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 <p>
 <a href="{% url 'nutrition:plan:export-pdf' plan.id uid token %}"
    target="_blank">

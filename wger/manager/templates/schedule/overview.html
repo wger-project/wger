@@ -20,9 +20,8 @@
     {% for schedule in schedules %}
     <tr>
         <td>
-            <a href="{% url 'manager:schedule:view' schedule.id %}">
-                {{ schedule.name }}
-            </a>
+            <a href="{% url 'manager:schedule:view' schedule.id %}">{{ schedule.name }}</a>
+
             {% if schedule.is_active %}
             <span class="label label-primary">{% trans "active" %}</span>
             {% endif  %}
@@ -47,7 +46,7 @@
 
 
 {% block sidebar %}
-<h3>{% trans "Your schedules" %}</h3>
+<h4>{% trans "Your schedules" %}</h4>
 <p>{% blocktrans %}Schedules are collections of workouts that you do in
 succession.{% endblocktrans %}</p>
 
@@ -59,7 +58,7 @@ always do the same workouts in succession, e.g. A > B > C > A > B > C and so on.
 shown e.g. in your dashboard) till it reaches the last workout or till you
 deactivate it, if it is a loop.{% endblocktrans %}</p>
 
-<h3>{% trans "Add schedule" %}</h3>
+<h4>{% trans "Add schedule" %}</h4>
 <p>
 <a href="{% url 'manager:schedule:add' %}"
    class="wger-modal-dialog">

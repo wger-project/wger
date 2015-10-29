@@ -34,6 +34,68 @@ from wger.utils.helpers import make_token
 logger = logging.getLogger(__name__)
 
 
+class ScheduleShareButtonTestCase(WorkoutManagerTestCase):
+    '''
+    Test that the share button is correctly displayed and hidden
+    '''
+
+    def test_share_button(self):
+        workout = Workout.objects.get(pk=2)
+
+        response = self.client.get(workout.get_absolute_url())
+        self.assertFalse(response.context['show_shariff'])
+
+        self.user_login('admin')
+        response = self.client.get(workout.get_absolute_url())
+        self.assertTrue(response.context['show_shariff'])
+
+        self.user_login('test')
+        response = self.client.get(workout.get_absolute_url())
+        self.assertFalse(response.context['show_shariff'])
+
+
+class ScheduleAccessTestCase(WorkoutManagerTestCase):
+    '''
+    Test accessing the workout page
+    '''
+
+    def test_access_shared(self):
+        '''
+        Test accessing the URL of a shared workout
+        '''
+        workout = Schedule.objects.get(pk=2)
+
+        self.user_login('admin')
+        response = self.client.get(workout.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+
+        self.user_login('test')
+        response = self.client.get(workout.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+
+        self.user_logout()
+        response = self.client.get(workout.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+
+    def test_access_not_shared(self):
+        '''
+        Test accessing the URL of a private workout
+        '''
+        workout = Schedule.objects.get(pk=1)
+
+        self.user_login('admin')
+        response = self.client.get(workout.get_absolute_url())
+        self.assertEqual(response.status_code, 403)
+
+        self.user_login('test')
+        response = self.client.get(workout.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+
+        self.user_logout()
+        response = self.client.get(workout.get_absolute_url())
+        self.assertEqual(response.status_code, 403)
+
+
 class ScheduleRepresentationTestCase(WorkoutManagerTestCase):
     '''
     Test the representation of a model
@@ -93,25 +155,22 @@ class ScheduleTestCase(WorkoutManagerTestCase):
     Other tests
     '''
 
-    def schedule_detail_page(self, fail=False):
+    def schedule_detail_page(self):
         '''
         Helper function
         '''
 
         response = self.client.get(reverse('manager:schedule:view', kwargs={'pk': 2}))
-        if fail:
-            self.assertIn(response.status_code, STATUS_CODES_FAIL)
-        else:
-            self.assertEqual(response.status_code, 200)
-            self.assertContains(response, 'This schedule is a loop')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'This schedule is a loop')
 
-            schedule = Schedule.objects.get(pk=2)
-            schedule.is_loop = False
-            schedule.save()
+        schedule = Schedule.objects.get(pk=2)
+        schedule.is_loop = False
+        schedule.save()
 
-            response = self.client.get(reverse('manager:schedule:view', kwargs={'pk': 2}))
-            self.assertEqual(response.status_code, 200)
-            self.assertNotContains(response, 'This schedule is a loop')
+        response = self.client.get(reverse('manager:schedule:view', kwargs={'pk': 2}))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'This schedule is a loop')
 
     def test_schedule_detail_page_owner(self):
         '''
@@ -120,14 +179,6 @@ class ScheduleTestCase(WorkoutManagerTestCase):
 
         self.user_login()
         self.schedule_detail_page()
-
-    def test_schedule_detail_page_other(self):
-        '''
-        Tests the schedule detail page as a different user
-        '''
-
-        self.user_login('test')
-        self.schedule_detail_page(fail=True)
 
     def test_schedule_overview(self):
         '''

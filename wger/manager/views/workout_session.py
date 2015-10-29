@@ -17,19 +17,26 @@
 import logging
 import datetime
 
-from django.http import HttpResponseForbidden
-from django.http import HttpResponseBadRequest
-from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext as _
+from django.http import HttpResponseForbidden, HttpResponseBadRequest
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.utils.translation import ugettext_lazy, ugettext as _
+from django.views.generic import (
+    UpdateView,
+    DeleteView,
+    CreateView
+)
 
-from django.views.generic import UpdateView
-from django.views.generic import CreateView
 from wger.manager.forms import WorkoutSessionForm
-
-from wger.manager.models import Workout, WorkoutSession
-
-from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import WgerPermissionMixin
+from wger.manager.models import (
+    Workout,
+    WorkoutSession,
+    WorkoutLog
+)
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    WgerDeleteMixin,
+    WgerPermissionMixin
+)
 
 
 logger = logging.getLogger(__name__)
@@ -116,3 +123,34 @@ class WorkoutSessionAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
         form.instance.user = self.request.user
         form.instance.date = self.get_date()
         return super(WorkoutSessionAddView, self).form_valid(form)
+
+
+class WorkoutSessionDeleteView(WgerDeleteMixin, DeleteView):
+    '''
+    Generic view to delete a workout routine
+    '''
+
+    model = WorkoutSession
+    success_url = reverse_lazy('manager:workout:overview')
+    messages = ugettext_lazy('Successfully deleted')
+    login_required = True
+
+    def delete(self, request, *args, **kwargs):
+        '''
+        Delete the workout session and, if wished, all associated weight logs as well
+        '''
+        if self.kwargs['logs'] == 'logs':
+            WorkoutLog.objects.filter(user=self.request.user, date=self.get_object().date).delete()
+
+        return super(WorkoutSessionDeleteView, self).delete(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+
+        logs = '' if not self.kwargs['logs'] else self.kwargs['logs']
+        context = super(WorkoutSessionDeleteView, self).get_context_data(**kwargs)
+        context['form_action'] = reverse('manager:session:delete', kwargs={'pk': self.object.id,
+                                                                           'logs': logs})
+        context['title'] = _(u'Delete {0}?').format(self.object)
+        if self.kwargs['logs'] == 'logs':
+            context['delete_message'] = _('This will delete all weight logs for this day as well.')
+        return context

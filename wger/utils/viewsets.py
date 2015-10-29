@@ -15,8 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from rest_framework import exceptions
-from rest_framework import viewsets
+from rest_framework import exceptions, viewsets
 
 
 class WgerOwnerObjectModelViewSet(viewsets.ModelViewSet):
@@ -28,8 +27,8 @@ class WgerOwnerObjectModelViewSet(viewsets.ModelViewSet):
         Check for creation (PUT, POST)
         '''
         for entry in self.get_owner_objects():
-            if request.DATA.get(entry[1]):
-                pk = request.DATA.get(entry[1])
+            if request.data.get(entry[1]):
+                pk = request.data.get(entry[1])
                 obj = entry[0].objects.get(pk=pk)
                 if obj.get_owner_object().user != request.user:
                     raise exceptions.PermissionDenied('You are not allowed to do this')
@@ -41,8 +40,8 @@ class WgerOwnerObjectModelViewSet(viewsets.ModelViewSet):
         Check for updates (PUT, PATCH)
         '''
         for entry in self.get_owner_objects():
-            if request.DATA.get(entry[1]):
-                pk = request.DATA.get(entry[1])
+            if request.data.get(entry[1]):
+                pk = request.data.get(entry[1])
                 obj = entry[0].objects.get(pk=pk)
                 if obj.get_owner_object().user != request.user:
                     raise exceptions.PermissionDenied('You are not allowed to do this')

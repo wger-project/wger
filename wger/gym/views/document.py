@@ -20,14 +20,18 @@ from django.contrib.auth.models import User
 from django.http.response import HttpResponseForbidden
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
-from django.views.generic import ListView
-from django.views.generic import DeleteView
-from django.views.generic import CreateView
-from django.views.generic import UpdateView
+from django.views.generic import (
+    ListView,
+    DeleteView,
+    CreateView,
+    UpdateView
+)
 
-from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import WgerDeleteMixin
-from wger.utils.generic_views import WgerPermissionMixin
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    WgerDeleteMixin,
+    WgerPermissionMixin
+)
 from wger.gym.models import UserDocument
 
 
@@ -195,6 +199,6 @@ class DeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
         Send some additional data to the template
         '''
         context = super(DeleteView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Delete {0}?'.format(self.object))
+        context['title'] = _(u'Delete {0}?').format(self.object)
         context['form_action'] = reverse('gym:document:delete', kwargs={'pk': self.kwargs['pk']})
         return context

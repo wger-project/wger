@@ -1,8 +1,5 @@
 {% extends "base.html" %}
-{% load browserid %}
-{% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
+{% load browserid i18n staticfiles wger_extras %}
 
 {% block title %}{% trans "Delete account" %}{% endblock %}
 
@@ -19,7 +16,7 @@
       role="form">
     <div class="panel panel-danger">
         <div class="panel-heading">
-            <h3 class="panel-title">{% trans "Are you sure?" %}</h3>
+            <h3 class="panel-title">{% trans "Are you sure?" %}</h4>
         </div>
         <div class="panel-body">
             {% with username=user_delete|format_username %}

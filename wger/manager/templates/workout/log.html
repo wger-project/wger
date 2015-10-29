@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
 
 
 {#           #}
@@ -11,6 +9,17 @@
     {{ block.super }}
     <meta property="og:title" content="{% trans 'Weight log' %}">
     <meta property="og:description" content="{% trans 'Weight log' %} / {{ workout }} / {{ owner_user.username }}">
+{% endblock %}
+
+
+{#             #}
+{# Breadcrumbs #}
+{#             #}
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% breadcrumb workout "manager:workout:view" workout.pk %}
+    {% breadcrumb "Weight log" "manager:log:log" workout.pk %}
 {% endblock %}
 
 
@@ -43,7 +52,7 @@ $(document).ready(function() {
 {% endif %}
 
 {% for day in workout.canonical_representation.day_list %}
-    <h3>{{ day.obj.description }}</h3>
+    <h4>{{ day.obj.description }}</h4>
 
     {% if is_owner %}
     <p>
@@ -103,18 +112,7 @@ $(document).ready(function() {
 {# Side bar #}
 {#          #}
 {% block sidebar %}
-<h3>{% trans "Options" %}</h3>
-<p>
-<a href="{{ workout.get_absolute_url }}" {% auto_link_css flavour %}>
-    <img src="{% static 'images/icons/list.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Back to workout' %}">
-    {% trans "Back to workout" %}
-</a>
-</p>
-
-<h3>{% trans "Notes" %}</h3>
+<h4>{% trans "Notes" %}</h4>
 <p>{% blocktrans %}This page shows the weight logs belonging to this workout
 only. Click on an exercise to see all the historical data for
 it.{% endblocktrans %}</p>

@@ -308,7 +308,8 @@ by the US Department of Agriculture. It is extremely complete, with around
                                                    help_text=_('Number of days after the last '
                                                                'weight entry (enter 0 to '
                                                                'deactivate)'),
-                                                   max_length=30,
+                                                   validators=[MinValueValidator(0),
+                                                               MaxValueValidator(30)],
                                                    default=0)
     '''Number of Days for email weight reminder'''
 
@@ -432,12 +433,12 @@ by the US Department of Agriculture. It is extremely complete, with around
         '''
         if (not WeightEntry.objects.filter(user=self.user).exists()
             or (datetime.date.today()
-                - WeightEntry.objects.filter(user=self.user).latest().creation_date
+                - WeightEntry.objects.filter(user=self.user).latest().date
                 > datetime.timedelta(days=3))):
             entry = WeightEntry()
             entry.weight = weight
             entry.user = self.user
-            entry.creation_date = datetime.date.today()
+            entry.date = datetime.date.today()
             entry.save()
 
         # Update the last entry

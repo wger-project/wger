@@ -44,7 +44,7 @@ $(document).ready(function() {
 
 <div class="row">
     <div class="col-sm-4 col-xs-6">
-        <h3 style="padding-bottom:0.5em;">{% trans "Muscles" %}</h3>
+        <h4 style="padding-bottom:0.5em;">{% trans "Muscles" %}</h4>
         <div id="muscle-system"
              class="muscle-background"
              style="background-image: url('/static/images/muscles/muscular_system_front.svg');">
@@ -55,9 +55,9 @@ $(document).ready(function() {
         {% regroup muscle_list|first by is_front as muscle_group %}
         {% for group in muscle_group %}
             {% if group.grouper %}
-                <h3>{% trans "Front side" %}</h3>
+                <h4>{% trans "Front side" %}</h4>
             {% else %}
-                <h3>{% trans "Back side" %}</h3>
+                <h4>{% trans "Back side" %}</h4>
             {% endif %}
 
             <ul class="muscle-list">
@@ -76,7 +76,7 @@ $(document).ready(function() {
     <div class="col-sm-4 col-xs-12">
         {% for muscle in muscle_list|first %}
             <div id="muscle-{{muscle.id}}" style="display:none;" class="exercise-list">
-                <h3>{% trans "Exercises" %}</h3>
+                <h4>{% trans "Exercises" %}</h4>
                 <ul class="exercise-overview">
                     {% for exercise in muscle.exercise_set.select_related %}
                     {% if exercise.language in active_languages %}
@@ -97,7 +97,7 @@ $(document).ready(function() {
 {% endcache %}
 
 {% if perms.exercises %}
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 
 <p>
 <a href="{% url 'exercise:muscle:add' %}"

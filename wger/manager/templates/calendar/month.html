@@ -58,8 +58,8 @@ $(document).ready(function() {
             {% for exercise, logs in value.logs.items %}
                 <div class="col-sm-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{ exercise }}</div>
-                    <div class="panel-body" style="min-height: 8em;">
+                    <div class="panel-heading" style="min-height: 4em;">{{ exercise }}</div>
+                    <div class="panel-body" style="min-height: 9em;">
                     <ul>
                     {% for log in logs %}
                         <li>
@@ -132,7 +132,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
     </div>
 </div>
 
-<h3>{% trans 'Info' %}</h3>
+<h4>{% trans 'Info' %}</h4>
 <p>{% blocktrans %}The coloured days in the calendar have weight logs,
 you can click on them to see the details.{% endblocktrans %}</p>
 
@@ -142,7 +142,7 @@ you can click on them to see the details.{% endblocktrans %}</p>
     <span style="background-color: #449D44; display: inline;">&nbsp;</span> {{ impressions.2.1 }}
 </p>
 
-<h3>{% trans 'Log' %}</h3>
+<h4>{% trans 'Log' %}</h4>
 <p>
     <a href="{% url 'manager:workout:calendar' owner_user %}">
         <img src="{% static 'images/icons/calendar.svg' %}"
@@ -163,17 +163,18 @@ you can click on them to see the details.{% endblocktrans %}</p>
 </p>
 {% endif %}
 
-<div class="timeline-log">
-{% for date in month_list %}
-    {% ifchanged date.year %}
-        <p><strong>{{ date|date:"Y" }}</strong></p>
-    {% endifchanged %}
-    {% if current_month = date.month and current_year = date.year %}
-        <span>{{date|date:"F"}}</span><br>
-    {% else %}
-        <span><a href="{% url 'manager:workout:calendar' owner_user date.year date.month %}">{{date|date:"F"}}</a></span><br>
-    {% endif %}
-{% endfor %}
-</div>
+{% regroup month_list by year as year_list %}
+{% for year in year_list reversed %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ year.grouper }}</h3>
+        </div>
 
+        <ul class="list-group">
+        {% for month in year.list %}
+            <a href="{% url 'manager:workout:calendar' owner_user year.grouper month.month %}" class="list-group-item">{{month|date:"F"}}</a>
+        {% endfor %}
+        </ul>
+    </div>
+{% endfor %}
 {% endblock %}

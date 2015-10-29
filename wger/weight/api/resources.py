@@ -38,5 +38,5 @@ class WeightEntryResource(ModelResource):
         authentication = ApiKeyAuthentication()
         authorization = UserObjectsOnlyAuthorization()
         filtering = {'id': ALL,
-                     'creation_date': ALL,
+                     'date': ALL,
                      'weight': ALL}

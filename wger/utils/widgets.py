@@ -17,17 +17,18 @@ import uuid
 import logging
 from itertools import chain
 
-from django.forms.widgets import SelectMultiple
-from django.forms.widgets import Select
-from django.forms.widgets import DateInput
-from django.forms.widgets import TextInput
+from django.forms.widgets import (
+    SelectMultiple,
+    Select,
+    DateInput,
+    TextInput
+)
 
 from django.forms import fields
 
 from django.utils.translation import ugettext as _
 from django.utils.encoding import force_text
-from django.utils.html import escape
-from django.utils.html import conditional_escape
+from django.utils.html import escape, conditional_escape
 from django.utils.safestring import mark_safe
 
 

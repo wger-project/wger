@@ -9,7 +9,7 @@
 {% block content %}
 <div class="list-group">
     {% for workout in workouts %}
-        <a href="{{ workout.get_abolute_url }}" class="list-group-item wger-list-group-item">
+        <a href="{{ workout.get_absolute_url }}" class="list-group-item wger-list-group-item">
             <span class="glyphicon glyphicon-chevron-right pull-right"></span>
 
             {% if workout == current_workout %}
@@ -29,7 +29,7 @@
 
 
 {% block sidebar %}
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 <p>
     <a href="{% url 'manager:workout:add' %}" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/new.svg' %}"

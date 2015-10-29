@@ -26,18 +26,22 @@ from django.utils.translation import ugettext as _
 from wger.weight.models import WeightEntry
 from wger.exercises.models import Exercise
 from wger.core.models import DaysOfWeek
-from wger.manager.models import Workout
-from wger.manager.models import Day
-from wger.manager.models import Set
-from wger.manager.models import Setting
-from wger.manager.models import WorkoutLog
-from wger.manager.models import Schedule
-from wger.manager.models import ScheduleStep
-from wger.nutrition.models import NutritionPlan
-from wger.nutrition.models import Meal
-from wger.nutrition.models import MealItem
-from wger.nutrition.models import Ingredient
-from wger.nutrition.models import IngredientWeightUnit
+from wger.manager.models import (
+    Workout,
+    Day,
+    Set,
+    Setting,
+    WorkoutLog,
+    Schedule,
+    ScheduleStep
+)
+from wger.nutrition.models import (
+    NutritionPlan,
+    Meal,
+    MealItem,
+    Ingredient,
+    IngredientWeightUnit
+)
 
 from wger.utils.language import load_language
 
@@ -188,13 +192,13 @@ def create_demo_entries(user):
     # (Body) weight entries
     #
     temp = []
-    existing_entries = [i.creation_date for i in WeightEntry.objects.filter(user=user)]
+    existing_entries = [i.date for i in WeightEntry.objects.filter(user=user)]
     for i in range(1, 20):
         creation_date = datetime.date.today() - datetime.timedelta(days=i)
         if creation_date not in existing_entries:
             entry = WeightEntry(user=user,
                                 weight=80 + 0.5 * i + random.randint(1, 3),
-                                creation_date=creation_date)
+                                date=creation_date)
             temp.append(entry)
     WeightEntry.objects.bulk_create(temp)
 

@@ -20,7 +20,11 @@ from django import forms
 from django.utils.translation import ugettext as _
 from wger.core.models import UserProfile
 
-from wger.nutrition.models import IngredientWeightUnit, Ingredient, MealItem
+from wger.nutrition.models import (
+    IngredientWeightUnit,
+    Ingredient,
+    MealItem
+)
 from wger.utils.widgets import Html5NumberInput
 
 
@@ -55,6 +59,9 @@ class UnitChooserForm(forms.Form):
 
 
 class BmiForm(forms.ModelForm):
+    height = forms.DecimalField(widget=Html5NumberInput(),
+                                max_value=999,
+                                label=_('Height (cm)'))
     weight = forms.DecimalField(widget=Html5NumberInput(),
                                 max_value=999)
 

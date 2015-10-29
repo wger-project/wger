@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
+{% load i18n staticfiles wger_extras %}
 
 {% block title %}{% trans "License list" %}{% endblock %}
 
@@ -54,7 +52,7 @@
 
 {% block sidebar %}
 {% if perms.core.add_license %}
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 <p>
        <a href="{% url 'core:license:add' %}"
           {% auto_link_css flavour "wger-modal-dialog" %}>

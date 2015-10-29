@@ -3,24 +3,19 @@
 Development
 ===========
 
-First, install all required packages::
+First, create a virtual environment::
 
-  $ sudo apt-get install python-virtualenv
-  $ sudo apt-get install python-dev
-  $ virtualenv python-django
-  $ source python-django/bin/activate
-  $ pip install -r requirements_devel.txt
-
-.. note::
-   For python3 some packages have slightly different names such as ``python3-dev``
-
+  $ virtualenv --python python3 venv-wger
+  $ source venv-wger/bin/activate
 
 Get the code and start the application. This will create a SQlite database
 and populate it with data on the first run::
 
   $ git clone https://github.com/rolandgeider/wger.git
   $ cd wger
-  $ python start.py
+  $ pip install -r requirements_devel.txt
+  $ npm install bower
+  $ invoke bootstrap_wger
 
 That's it. You can log in with the default administator user:
 
@@ -41,16 +36,20 @@ The start script places the settings file and the sqlite database in a non
 obvious place. For development I suggest moving them to the folder with the
 code::
 
-    $ python start.py --show-config
+    $ cd wger
+    $ invoke config_location
     Settings file: /home/user/.config/wger/settings.py
     Database file: /home/user/.local/share/wger/database.sqlite
     
-    mv /home/user/.config/wger/settings.py .
-    mv /home/user/.local/share/wger/database.sqlite
+    $ mv /home/user/.config/wger/settings.py .
+    $ mv /home/user/.local/share/wger/database.sqlite
+
+    # Update the path for the sqlite files in DATABASES section
+    $ vim settings.py
 
 
-Miscelaneous settings
-~~~~~~~~~~~~~~~~~~~~~
+Miscellaneous settings
+~~~~~~~~~~~~~~~~~~~~~~
 
 The following settings can be very useful during development (add to your
 settings.py):
@@ -60,6 +59,26 @@ settings.py):
    Use the console backend, all sent emails will be printed to it::
 
        EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+Selectively running tests
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you do a ``python manage.py test`` you will run the complete testsuite, and
+this can take a while. You can control which tests will be executed like this.
+
+Test only the tests in the 'core' app::
+
+  python manage.py test wger.core
+
+Test only the tests in the 'test_user.py` file in the core app::
+
+  python manage.py test wger.core.tests.test_user
+
+Test only the tests in 'StatusUserTestCase' in the file 'test_user.py` file in
+the core app::
+
+  python manage.py test wger.core.tests.test_user.StatusUserTestCase
 
 
 Using runserver_plus
@@ -98,6 +117,7 @@ user will have 20 workouts and each exercise in each workout 30 log entries::
   python generator.py workouts 20
   python generator.py logs 30
   python generator.py sessions random
+  python generator.py weight 100
 
 .. note::
    All generated users have their username as password.

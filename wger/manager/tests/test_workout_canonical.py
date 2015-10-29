@@ -12,6 +12,8 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+from decimal import Decimal
+
 from django.core.cache import cache
 
 from wger.core.models import DaysOfWeek
@@ -48,7 +50,10 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
                           'obj': Day.objects.get(pk=1),
                           'set_list': [{'exercise_list': [{'obj': Exercise.objects.get(pk=1),
                                                            'comment_list': [u'test 123'],
-                                                           'setting_list': [8, 8],
+                                                           'has_weight': False,
+                                                           'setting_list': [u'8', u'8'],
+                                                           'reps_list': [8, 8],
+                                                           'weight_list': [None, None],
                                                            'setting_obj_list': [setting_1],
                                                            'setting_text': u'2 \xd7 8'}],
                                         'is_superset': False,
@@ -63,9 +68,15 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
                           'muscles': {'back': [2], 'front': []},
                           'set_list': [{'exercise_list': [{'obj': Exercise.objects.get(pk=2),
                                                            'comment_list': [u'Foobar'],
-                                                           'setting_list': [10, 10, 10, 10],
+                                                           'has_weight': True,
+                                                           'reps_list': [10, 10, 10, 10],
+                                                           'setting_list': [u'10 (15kg)',
+                                                                            u'10 (15kg)',
+                                                                            u'10 (15kg)',
+                                                                            u'10 (15kg)'],
+                                                           'weight_list': [Decimal(15)] * 4,
                                                            'setting_obj_list': [setting_2],
-                                                           'setting_text': u'4 \xd7 10'}],
+                                                           'setting_text': u'4 \xd7 10 (15kg)'}],
                                         'is_superset': False,
                                         'has_settings': True,
                                         'muscles': {'back': [2], 'front': []},
@@ -94,7 +105,10 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
 
         canonical_form = [{'exercise_list': [{'obj': Exercise.objects.get(pk=2),
                                               'comment_list': [u'Foobar'],
-                                              'setting_list': [10, 10, 10, 10],
+                                              'reps_list': [10, 10, 10, 10],
+                                              'has_weight': False,
+                                              'setting_list': [u'10', u'10', u'10', u'10'],
+                                              'weight_list': [None, None, None, None],
                                               'setting_obj_list': [Setting.objects.get(pk=3)],
                                               'setting_text': u'4 \xd7 10'}],
                            'is_superset': False,

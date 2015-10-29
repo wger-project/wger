@@ -18,7 +18,17 @@ Installation
 ============
 
 These are the basic steps to install and run the application locally on a linux
-system.
+system. Please consult the documentation for further information and parameters
+on the invoke command.
+
+Docker
+------
+
+Useful to just try it out::
+
+    docker run -ti --name wger.apache --publish 8000:80 wger/apache
+
+Then just open http://localhost:8000 and log in as: **admin**, password **admin**
 
 
 Development version (from git)
@@ -32,9 +42,10 @@ state.
 
 ::
 
- $ sudo apt-get install python-dev python-virtualenv
+ $ sudo apt-get install python-dev python-virtualenv nodejs npm
  $ virtualenv venv-django
  $ source venv-django/bin/activate
+ $ npm install bower
 
 2) Start the application. This will create a SQlite database and populate it
    with data on the first run.
@@ -44,12 +55,13 @@ state.
  $ git clone https://github.com/rolandgeider/wger.git
  $ cd wger
  $ pip install -r requirements.txt  # or requirements_devel.txt to develop
- $ python start.py
+ $ invoke bootstrap_wger
 
  # After the first run you can just use django's development server
  $ python manage.py runserver
 
 3) Log in as: **admin**, password **admin**
+
 
 Stable version (from PyPI)
 --------------------------
@@ -69,7 +81,7 @@ Stable version (from PyPI)
 
 ::
 
- $ wger
+ $ wger bootstrap_wger
 
 
 3) Log in as: **admin**, password **admin**
@@ -79,25 +91,17 @@ Command line options
 --------------------
 
 The available options for the ``wger`` command (if installed from PyPI) or
-``start.py`` (if installed from source) are the following ::
+``invoke`` (if installed from source) are the following (use e.g. ``wger
+<command>``::
 
- Usage: main.py [options]
 
- Run wger Workout Manager using django's builtin server
-
- Options:
-  -h, --help            show this help message and exit
-  -a ADDRESS, --address=ADDRESS
-                        IP Address to listen on.
-  -p PORT, --port=PORT  Port to listen on.
-  --syncdb              Update/create database before starting the server.
-  --reset-admin         Make sure the user 'admin' exists and uses 'admin' as
-                        password.
-  -s SETTINGS, --settings=SETTINGS
-                        Path to the wger configuration file.
-  --no-reload           Do not reload the development server.
-  --version             Show version and exit.
-  --show-config         Show configuration paths and exit.
+  bootstrap_wger          Performs all steps necessary to bootstrap the application
+  config_location         Returns the default location for the settings file and the data folder
+  create_or_reset_admin   Creates an admin user or resets the password for an existing one
+  create_settings         Creates a local settings file
+  load_fixtures           Loads all fixtures
+  migrate_db              Run all database migrations
+  start_wger              Start the application using django's built in webserver
 
 Contact
 =======
@@ -118,8 +122,8 @@ Sources
 
 All the code and the content is freely available:
 
-* **Main repository:** GIT, https://github.com/rolandgeider/wger
-* **Mirror:** HG, https://bitbucket.org/rolandgeider/wger
+* **Main repository:** https://github.com/rolandgeider/wger
+* **Mirror:** https://bitbucket.org/rolandgeider/wger
 
 
 Licence

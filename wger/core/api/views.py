@@ -18,23 +18,28 @@
 from django.contrib.auth.models import User
 from rest_framework import viewsets
 from rest_framework.response import Response
-from rest_framework.decorators import link
+from rest_framework.decorators import detail_route
 
-from wger.core.models import UserProfile
-from wger.core.models import Language
-from wger.core.models import DaysOfWeek
-from wger.core.models import License
-from wger.core.api.serializers import UsernameSerializer
+from wger.core.models import (
+    UserProfile,
+    Language,
+    DaysOfWeek,
+    License
+)
+from wger.core.api.serializers import (
+    UsernameSerializer,
+    LanguageSerializer,
+    DaysOfWeekSerializer,
+    LicenseSerializer
+)
 from wger.core.api.serializers import UserprofileSerializer
-from wger.utils.permissions import UpdateOnlyPermission
-from wger.utils.permissions import WgerPermission
+from wger.utils.permissions import UpdateOnlyPermission, WgerPermission
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):
     '''
     API endpoint for workout objects
     '''
-    model = UserProfile
     is_private = True
     serializer_class = UserprofileSerializer
     permission_classes = (WgerPermission, UpdateOnlyPermission)
@@ -52,7 +57,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         '''
         return [(User, 'user')]
 
-    @link()
+    @detail_route()
     def username(self, request, pk):
         '''
         Return the username
@@ -66,7 +71,8 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     API endpoint for workout objects
     '''
-    model = Language
+    queryset = Language.objects.all()
+    serializer_class = LanguageSerializer
     ordering_fields = '__all__'
     filter_fields = ('full_name',
                      'short_name')
@@ -76,7 +82,8 @@ class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     API endpoint for workout objects
     '''
-    model = DaysOfWeek
+    queryset = DaysOfWeek.objects.all()
+    serializer_class = DaysOfWeekSerializer
     ordering_fields = '__all__'
     filter_fields = ('day_of_week', )
 
@@ -85,7 +92,8 @@ class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     API endpoint for workout objects
     '''
-    model = License
+    queryset = License.objects.all()
+    serializer_class = LicenseSerializer
     ordering_fields = '__all__'
     filter_fields = ('full_name',
                      'short_name',

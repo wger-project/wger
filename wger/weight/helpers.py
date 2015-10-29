@@ -43,20 +43,35 @@ def parse_weight_csv(request, cleaned_data):
     # csv.reader expects a file-like object, so use StringIO
     parsed_csv = csv.reader(six.StringIO(cleaned_data['csv_input']),
                             dialect)
-
+    distinct_weight_entries = []
     weight_list = []
     error_list = []
+
+    # Process the CSV items first
     for row in parsed_csv:
         try:
             parsed_date = datetime.datetime.strptime(row[0], cleaned_data['date_format'])
             parsed_weight = decimal.Decimal(row[1].replace(',', '.'))
+            duplicate_date_in_db = WeightEntry.objects.filter(date=parsed_date,
+                                                              user=request.user).exists()
+            # within the list there are no duplicates
+            unique_among_csv = (parsed_date, parsed_weight) not in distinct_weight_entries
+            # there is no existing weight entry in the database for that date
+            unique_in_db = not duplicate_date_in_db
 
-            weight_list.append(WeightEntry(creation_date=parsed_date,
-                                           weight=parsed_weight,
-                                           user=request.user))
+            if unique_among_csv and unique_in_db:
+                distinct_weight_entries.append((parsed_date, parsed_weight))
+            else:
+                error_list.append(row)
 
         except (ValueError, IndexError, decimal.InvalidOperation):
             error_list.append(row)
+
+    # Create the valid weight entries
+    for date, weight in distinct_weight_entries:
+        weight_list.append(WeightEntry(date=date,
+                                       weight=weight,
+                                       user=request.user))
 
     return (weight_list, error_list)
 
@@ -94,10 +109,12 @@ def group_log_entries(user, year, month, day=None):
                                                  date__year=year,
                                                  date__month=month)
 
+    logs = logs.order_by('date', 'id')
     out = cache.get(cache_mapper.get_workout_log_list(log_hash))
+    # out = OrderedDict()
 
     if not out:
-        out = {}
+        out = OrderedDict()
 
         # Logs
         for entry in logs:
@@ -105,7 +122,7 @@ def group_log_entries(user, year, month, day=None):
                 out[entry.date] = {'date': entry.date,
                                    'workout': entry.workout,
                                    'session': entry.get_workout_session(),
-                                   'logs': {}}
+                                   'logs': OrderedDict()}
 
             if not out[entry.date]['logs'].get(entry.exercise):
                 out[entry.date]['logs'][entry.exercise] = []

@@ -7,7 +7,7 @@
 
 
 {% block content %}
-<h3>{% trans "Successfully converted values" %}</h3>
+<h4>{% trans "Successfully converted values" %}</h4>
 <div class="alert alert-success">{% trans "The following values could be converted." %}</div>
 <table class="table">
 <tr>
@@ -16,7 +16,7 @@
 </tr>
 {% for entry in weight_list %}
     <tr>
-        <td>{{ entry.creation_date|date:"SHORT_DATE_FORMAT" }}</td>
+        <td>{{ entry.date|date:"SHORT_DATE_FORMAT" }}</td>
         <td>{{ entry.weight }}</td>
     </tr>
 {% endfor %}
@@ -24,7 +24,7 @@
 
 
 
-<h3>{% trans "Errors" %}</h3>
+<h4>{% trans "Errors" %}</h4>
 
 {% if error_list %}
     <div class="alert alert-danger">{% trans "The following values could not be converted." %}</div>

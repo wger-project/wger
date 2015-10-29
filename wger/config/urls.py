@@ -23,7 +23,7 @@ from wger.config.views import gym_config
 
 
 # sub patterns for languages
-patterns_language = patterns('',
+patterns_language = [
    url(r'^list$',
         languages.LanguageListView.as_view(),
         name='overview'),
@@ -39,30 +39,30 @@ patterns_language = patterns('',
    url(r'^add$',
         languages.LanguageCreateView.as_view(),
         name='add'),
-)
+]
 
 
 # sub patterns for language configs
-patterns_language_config = patterns('',
+patterns_language_config = [
    url(r'^(?P<pk>\d+)/edit',
        language_config.LanguageConfigUpdateView.as_view(),
        name='edit'),
-)
+]
 
 
 # sub patterns for default gym
-patterns_gym_config = patterns('',
+patterns_gym_config = [
    url(r'^edit$',
        gym_config.GymConfigUpdateView.as_view(),
        name='edit'),
-)
+]
 
 
 #
 # Actual patterns
 #
-urlpatterns = patterns('',
+urlpatterns = [
    url(r'^language/', include(patterns_language, namespace="language")),
    url(r'^language-config/', include(patterns_language_config, namespace="language_config")),
    url(r'^gym-config/', include(patterns_gym_config, namespace="gym_config")),
-)
+]

@@ -34,6 +34,24 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 logger = logging.getLogger(__name__)
 
 
+class EmailAuthBackend(object):
+
+    def authenticate(self, username=None, password=None):
+        try:
+            user = User.objects.get(email=username)
+            if user.check_password(password):
+                return user
+            return None
+        except User.DoesNotExist:
+            return None
+
+    def get_user(self, user_id):
+        try:
+            return User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return None
+
+
 class DecimalJsonEncoder(json.JSONEncoder):
     '''
     Custom JSON encoder.
@@ -169,3 +187,22 @@ def check_access(request_user, username=None):
 
     is_owner = request_user == user
     return is_owner, user
+
+
+def normalize_decimal(d):
+    '''
+    Normalizes a decimal input
+
+    This simply performs a more "human" normalization, since python's decimal
+    normalize() converts "100" into "1e2", which is not a format usually used
+    when writing workout plans.
+
+    :param d: decimal to convert
+    :return: normalized decimal
+    '''
+    normalized = d.normalize()
+    sign, digits, exponent = normalized.as_tuple()
+    if exponent > 0:
+        return decimal.Decimal((sign, digits + (0,) * exponent, 0))
+    else:
+        return normalized

@@ -23,7 +23,7 @@
         {{exercise.creation_date}}
     </td>
     <td><a href="{{ exercise.get_absolute_url }}">{{exercise.name}}</a></td>
-    <td>{{exercise.user.username}}</td>
+    <td>{{exercise.license_author}}</td>
 </tr>
 {% empty %}
 <tr>

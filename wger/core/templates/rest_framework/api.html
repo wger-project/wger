@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-{% load rest_framework %}
-{% load wger_extras %}
-{% load wger_extras %}
+{% load rest_framework wger_extras django_bootstrap_breadcrumbs static %}
 
 {% block header %}
 <link rel="stylesheet" type="text/css" href="{% static 'rest_framework/css/prettify.css' %}"/>
@@ -16,32 +14,21 @@
 
 {% block title %}REST API - {{ name }}{% endblock %}
 
+{#             #}
+{# Breadcrumbs #}
+{#             #}
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% breadcrumb "Api Documentation" "software:api" %}
+    {% for breadcrumb_name, breadcrumb_url in breadcrumblist %}
+        {% breadcrumb_raw breadcrumb_name breadcrumb_url %}
+    {% endfor  %}
+{% endblock %}
+
+
+
 {% block content %}
-
-    {#             #}
-    {# Breadcrumbs #}
-    {#             #}
-    {% block breadcrumbs %}
-    <ol class="breadcrumb">
-        <li>
-            <a href="{% url 'software:api' %}">Api Documentation</a>
-        </li>
-        {% for breadcrumb_name, breadcrumb_url in breadcrumblist %}
-            {% if not forloop.last %}
-                <li>
-                    <a href="{{ breadcrumb_url }}">{{ breadcrumb_name }}</a>
-                </li>
-            {% else %}
-                <li class="active">
-                    {{ breadcrumb_name }}
-                </li>
-            {% endif %}
-        {% endfor %}
-    </ol>
-    {% endblock %}
-
-
-
     {#            #}
     {# GET button #}
     {#            #}
@@ -96,7 +83,7 @@
     {# Object/endpoint description #}
     {#                             #}
     <div>
-        <!--<h3>{{ name }}</h3>-->
+        <!--<h4>{{ name }}</h4>-->
 
 
         {% block description %}
@@ -123,7 +110,7 @@
     {% if display_edit_forms %}
 
         {% if post_form or raw_data_post_form %}
-            <h3>Edit form</h3>
+            <h4>Edit form</h4>
             {% with form=raw_data_post_form %}
             <form action="{{ request.get_full_path }}" method="POST" class="form-horizontal" role="form">
                 <fieldset>
@@ -134,7 +121,7 @@
         {% endif %}
 
         {% if put_form or raw_data_put_form or raw_data_patch_form %}
-            <h3>Edit form</h3>
+            <h4>Edit form</h4>
             {% with form=raw_data_put_or_patch_form %}
             <form action="{{ request.get_full_path }}" method="POST" class="form-horizontal" role="form">
                 <fieldset>

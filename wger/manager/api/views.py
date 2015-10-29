@@ -19,25 +19,29 @@ import datetime
 
 from rest_framework import viewsets
 from rest_framework.response import Response
-from rest_framework.decorators import link
+from rest_framework.decorators import detail_route
 
-from wger.manager.api.serializers import WorkoutSerializer
-from wger.manager.api.serializers import WorkoutCanonicalFormSerializer
-from wger.manager.api.serializers import DaySerializer
-from wger.manager.api.serializers import SettingSerializer
-from wger.manager.api.serializers import SetSerializer
-from wger.manager.api.serializers import ScheduleSerializer
-from wger.manager.api.serializers import WorkoutLogSerializer
-from wger.manager.api.serializers import WorkoutSessionSerializer
-
-from wger.manager.models import Workout
-from wger.manager.models import Set
-from wger.manager.models import ScheduleStep
-from wger.manager.models import Schedule
-from wger.manager.models import Day
-from wger.manager.models import Setting
-from wger.manager.models import WorkoutLog
-from wger.manager.models import WorkoutSession
+from wger.manager.api.serializers import (
+    WorkoutSerializer,
+    ScheduleStepSerializer,
+    WorkoutCanonicalFormSerializer,
+    DaySerializer,
+    SettingSerializer,
+    SetSerializer,
+    ScheduleSerializer,
+    WorkoutLogSerializer,
+    WorkoutSessionSerializer
+)
+from wger.manager.models import (
+    Workout,
+    Set,
+    ScheduleStep,
+    Schedule,
+    Day,
+    Setting,
+    WorkoutLog,
+    WorkoutSession
+)
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
@@ -45,7 +49,6 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     '''
     API endpoint for workout objects
     '''
-    model = Workout
     serializer_class = WorkoutSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -58,13 +61,13 @@ class WorkoutViewSet(viewsets.ModelViewSet):
         '''
         return Workout.objects.filter(user=self.request.user)
 
-    def pre_save(self, obj):
+    def perform_create(self, serializer):
         '''
         Set the owner
         '''
-        obj.user = self.request.user
+        serializer.save(user=self.request.user)
 
-    @link()
+    @detail_route()
     def canonical_representation(self, request, pk):
         '''
         Output the canonical representation of a workout
@@ -80,7 +83,6 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
     '''
     API endpoint for workout sessions objects
     '''
-    model = WorkoutSession
     serializer_class = WorkoutSessionSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -97,12 +99,12 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
         '''
         return WorkoutSession.objects.filter(user=self.request.user)
 
-    def pre_save(self, obj):
+    def perform_create(self, serializer):
         '''
         Set the owner
         '''
-        obj.date = datetime.date.today()  # TODO: actually, this should be editable
-        obj.user = self.request.user
+        today = datetime.date.today()
+        serializer.save(date=today, user=self.request.user)
 
     def get_owner_objects(self):
         '''
@@ -115,8 +117,7 @@ class ScheduleStepViewSet(WgerOwnerObjectModelViewSet):
     '''
     API endpoint for schedule step objects
     '''
-
-    model = ScheduleStep
+    serializer_class = ScheduleStepSerializer
     is_private = True
     ordering_fields = '__all__'
     filter_fields = ('schedule',
@@ -142,7 +143,6 @@ class ScheduleViewSet(viewsets.ModelViewSet):
     '''
     API endpoint for schedule objects
     '''
-    model = Schedule
     serializer_class = ScheduleSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -157,18 +157,17 @@ class ScheduleViewSet(viewsets.ModelViewSet):
         '''
         return Schedule.objects.filter(user=self.request.user)
 
-    def pre_save(self, obj):
+    def perform_create(self, serializer):
         '''
-        Set the order
+        Set the owner
         '''
-        obj.user = self.request.user
+        serializer.save(user=self.request.user)
 
 
 class DayViewSet(WgerOwnerObjectModelViewSet):
     '''
     API endpoint for training day objects
     '''
-    model = Day
     serializer_class = DaySerializer
     is_private = True
     ordering_fields = '__all__'
@@ -193,7 +192,6 @@ class SetViewSet(WgerOwnerObjectModelViewSet):
     '''
     API endpoint for workout set objects
     '''
-    model = Set
     serializer_class = SetSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -219,13 +217,13 @@ class SettingViewSet(WgerOwnerObjectModelViewSet):
     '''
     API endpoint for repetition setting objects
     '''
-    model = Setting
     serializer_class = SettingSerializer
     is_private = True
     ordering_fields = '__all__'
     filter_fields = ('exercise',
                      'order',
                      'reps',
+                     'weight',
                      'set',
                      'order')
 
@@ -235,11 +233,11 @@ class SettingViewSet(WgerOwnerObjectModelViewSet):
         '''
         return Setting.objects.filter(set__exerciseday__training__user=self.request.user)
 
-    def pre_save(self, obj):
+    def perform_create(self, serializer):
         '''
         Set the order
         '''
-        obj.order = 1
+        serializer.save(order=1)
 
     def get_owner_objects(self):
         '''
@@ -252,7 +250,6 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
     '''
     API endpoint for workout log objects
     '''
-    model = WorkoutLog
     serializer_class = WorkoutLogSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -269,11 +266,11 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
 
         return WorkoutLog.objects.filter(user=self.request.user)
 
-    def pre_save(self, obj):
+    def perform_create(self, serializer):
         '''
-        Set the order
+        Set the owner
         '''
-        obj.user = self.request.user
+        serializer.save(user=self.request.user)
 
     def get_owner_objects(self):
         '''

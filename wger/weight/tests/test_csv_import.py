@@ -45,6 +45,7 @@ class WeightCsvImportTestCase(WorkoutManagerTestCase):
 11.02.10	70,4	222
 19.02.10	71	222
 26.02.10	71,9	222
+26.02.10	71,9	222
 19.03.10	72	 222'''
         response = self.client.post(reverse('weight:import-csv'),
                                     {'stage': 1,
@@ -53,7 +54,7 @@ class WeightCsvImportTestCase(WorkoutManagerTestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['weight_list']), 6)
-        self.assertEqual(len(response.context['error_list']), 3)
+        self.assertEqual(len(response.context['error_list']), 4)
         hash_value = response.context['hash_value']
 
         # 2nd. step

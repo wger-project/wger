@@ -11,15 +11,18 @@
 <ul class="list-group">
     {% for gym in gym_list %}
     <li class="list-group-item ">
-        <div class="pull-right">
-            <a href="{% url 'gym:gym:delete' gym.id %}"
-               class="btn btn-danger btn-xs wger-modal-dialog">
-                {% trans 'Delete' %}
-            </a>
-            <a href="{% url 'gym:gym:edit' gym.id %}"
-               class="btn btn-default btn-xs wger-modal-dialog">
-                {% trans 'Edit' %}
-            </a>
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-wrench"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="{% url 'gym:gym:edit' gym.id %}" class="wger-modal-dialog">{% trans 'Edit' %}</a>
+                </li>
+                <li>
+                    <a href="{% url 'gym:gym:delete' gym.id %}" class="wger-modal-dialog">{% trans 'Delete' %}</a>
+                </li>
+            </ul>
         </div>
         <a href="{% url 'gym:gym:user-list' gym.pk %}">{{gym}}</a>
     </li>
@@ -29,21 +32,19 @@
         </li>
     {% endfor %}
 </ul>
-
-{% if perms.gym.add_gym %}
-    <div class="pull-right">
-        <a href="{% url 'gym:gym:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-            {% trans "Add new gym" %}
-       </a>
-   </div>
-    <div class="clearfix" style="padding-bottom: 2em;"></div>
-{% endif %}
 {% endblock %}
 
 
 
 
 {% block sidebar %}
+{% if perms.gym.add_gym %}
+    <a href="{% url 'gym:gym:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+        {% trans "Add new gym" %}
+   </a>
+    <div class="clearfix" style="padding-bottom: 2em;"></div>
+{% endif %}
+
 {% if perms.config.change_gymconfig %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">

@@ -50,7 +50,7 @@ class FeedbackTestCase(WorkoutManagerTestCase):
             # Correctly filled in reCaptcha
             response = self.client.post(reverse('core:feedback'),
                                         {'comment': 'A very long and interesting comment',
-                                         'recaptcha_response_field': 'PASSED'})
+                                         'g-recaptcha-response': 'PASSED'})
             self.assertEqual(response.status_code, 302)
             self.assertEqual(len(mail.outbox), 1)
             response = self.client.get(response['Location'])

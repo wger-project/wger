@@ -16,8 +16,7 @@
 
 import logging
 
-from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.translation import ugettext as _
 from django.views.generic import UpdateView
 
@@ -33,6 +32,7 @@ class LanguageConfigUpdateView(WgerFormMixin, UpdateView):
     Generic view to edit a language config
     '''
     model = LanguageConfig
+    fields = ['show']
     permission_required = 'config.change_languageconfig'
 
     def get_success_url(self):

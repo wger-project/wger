@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
 
 {% block title %}{{ingredient.name}}{% endblock %}
 
@@ -15,11 +13,18 @@ $(document).ready(function() {
 
 
 
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% breadcrumb "Ingredients" "nutrition:ingredient:list" %}
+    {% breadcrumb ingredient ingredient.get_absolute_url %}
+{% endblock %}
+
 {% block content %}
 
 {% if ingredient.status == ingredient.INGREDIENT_STATUS_PENDING %}
 <div class="alert">
-<h3>{% trans "Ingredient is pending review" %}</h3>
+<h4>{% trans "Ingredient is pending review" %}</h4>
 <p>{% blocktrans %}This user submitted ingredient is pending a decision to be
 included in the database. Till then, it will not be shown in the overview or
 the search.{% endblocktrans %}
@@ -178,7 +183,7 @@ the search.{% endblocktrans %}
 
 {% if ingredient.status == ingredient.INGREDIENT_STATUS_ACCEPTED %}
 <div class="alert" style="margin-top:1em;">
-<h3>{% trans "User submitted ingredient" %}</h3>
+<h4>{% trans "User submitted ingredient" %}</h4>
 {% with username=ingredient.user.username %}
 <p>{% blocktrans %}This exercise was submitted by <strong>{{username}}</strong>.{% endblocktrans %}
 {% endwith %}
@@ -187,7 +192,7 @@ the search.{% endblocktrans %}
 
 
 {% if perms.exercises %}
-<h3>{% trans "Options" %}</h3>
+<h4>{% trans "Options" %}</h4>
 
 <p>
 <a href="{% url 'nutrition:ingredient:delete' ingredient.id %}"
@@ -215,7 +220,7 @@ the search.{% endblocktrans %}
 </a>
 </p>
 
-<h3>{% trans "Weight units" %}</h3>
+<h4>{% trans "Weight units" %}</h4>
 <p>
 <a href="{% url 'nutrition:unit_ingredient:add' ingredient.id %}"
    {% auto_link_css flavour "wger-modal-dialog" %}>

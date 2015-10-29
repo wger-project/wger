@@ -16,6 +16,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 import six
+import uuid
 import logging
 import bleach
 
@@ -33,12 +34,13 @@ from django.core.validators import MinLengthValidator
 
 from wger.core.models import Language
 from wger.utils.managers import SubmissionManager
-from wger.utils.models import AbstractLicenseModel
-from wger.utils.models import AbstractSubmissionModel
+from wger.utils.models import AbstractLicenseModel, AbstractSubmissionModel
 from wger.utils.constants import EMAIL_FROM
-from wger.utils.cache import delete_template_fragment_cache
-from wger.utils.cache import reset_workout_canonical_form
-from wger.utils.cache import cache_mapper
+from wger.utils.cache import (
+    delete_template_fragment_cache,
+    reset_workout_canonical_form,
+    cache_mapper
+)
 
 
 logger = logging.getLogger(__name__)
@@ -170,7 +172,6 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                             verbose_name=_('Name'))
 
     muscles = models.ManyToManyField(Muscle,
-                                     null=True,
                                      blank=True,
                                      verbose_name=_('Primary muscles'))
     '''Main muscles trained by the exercise'''
@@ -178,13 +179,11 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     muscles_secondary = models.ManyToManyField(Muscle,
                                                verbose_name=_('Secondary muscles'),
                                                related_name='secondary_muscles',
-                                               null=True,
                                                blank=True)
     '''Secondary muscles trained by the exercise'''
 
     equipment = models.ManyToManyField(Equipment,
                                        verbose_name=_('Equipment'),
-                                       null=True,
                                        blank=True)
     '''Equipment needed by this exercise'''
 
@@ -197,6 +196,14 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     language = models.ForeignKey(Language,
                                  verbose_name=_('Language'))
     '''The exercise's language'''
+
+    uuid = models.CharField(verbose_name='UUID',
+                            max_length=36,
+                            editable=False,
+                            default=uuid.uuid4)
+    '''
+    Globally unique ID, to identify the exercise across installations
+    '''
 
     #
     # Django methods
@@ -321,8 +328,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         if request.user.has_perm('exercises.add_exercise'):
             self.status = self.STATUS_ACCEPTED
             if not self.license_author:
-                self.license_author = 'wger.de'
-
+                self.license_author = request.get_host().split(':')[0]
         else:
             if not self.license_author:
                 self.license_author = request.user.username

@@ -1,24 +1,44 @@
 {% load i18n %}
 
-<div class="row">
-    <div class="col-sm-4">
-        <a href="{{value.workout.get_absolute_url}}" class="btn btn-default btn-block">{{ value.workout }}</a>
-    </div>
-
-    <div class="col-sm-4">
-    <a href="{% url 'manager:log:log' value.workout.id %}" class="btn btn-default btn-block">{% trans "Log overview" %}</a>
-    </div>
+<div class="btn-group btn-group-justified" role="group">
+    <a href="{{value.workout.get_absolute_url}}" class="btn btn-default">{{ value.workout }}</a>
+    <a href="{% url 'manager:log:log' value.workout.id %}" class="btn btn-default">{% trans "Log overview" %}</a>
 
     {% if is_owner %}
-    <div class="col-sm-4">
         {% if value.session %}
-            <a href="{% url 'manager:session:edit' value.session.pk %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Edit workout session" %}</a>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {% trans "Workout session" %}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="{% url 'manager:session:edit' value.session.pk %}" class="wger-modal-dialog">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            {% trans "Edit" %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'manager:session:delete' value.session.pk %}" class="wger-modal-dialog">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            {% trans "Delete" %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'manager:session:delete' value.session.pk 'logs' %}" class="wger-modal-dialog">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            {% trans "Delete with logs" %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
         {% else %}
             <a href="{% url 'manager:session:add' value.workout.id date|date:'Y' date|date:'m' date|date:'d' %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Add workout impression" %}</a>
         {% endif %}
-    </div>
     {% endif %}
- </div>
+</div>
+
+
 {% if value.session %}
 <table class="table" style="margin-top: 2em;">
     <tr>

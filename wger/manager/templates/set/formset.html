@@ -3,12 +3,53 @@
 <div id="formset-exercise-{{exercise.id}}" style="margin-top: 1em;">
 <h4>{{exercise}}</h4>
 {{ formset.management_form }}
-{% for field in formset %}
 
-    <div style="display:table-cell;width: 5em;padding-right:0px;">
+{% for field in formset %}
+<div class="container-fluid" style="padding-top: 0.5em;">
+
+    {# Header row with field labels, only for first loop #}
+    <div class="row">
         {% for i in field %}
-            {{i|form_field_add_css:'form-control'}}
+        {% if not i.is_hidden %}
+            {% if forloop.first %}
+            <div class="col-xs-1">
+            </div>
+            {% endif %}
+
+            {% if forloop.parentloop.first %}
+                <div class="col-xs-4">
+                    {{ i.label }}
+                </div>
+            {% endif %}
+        {% endif %}
         {% endfor %}
     </div>
+
+    {# Form field rows #}
+    <div class="row">
+        {% for i in field %}
+            {% if forloop.first %}
+            <div class="col-xs-1" style="text-align: right;">
+                {{ forloop.parentloop.counter }})
+            </div>
+            {% endif %}
+
+            {% if not i.is_hidden %}
+            <div class="col-xs-4">
+            {% endif %}
+
+            {#  Field elements #}
+            {% if i|is_checkbox %}
+                {{ i|form_field_add_css:'checkbox' }}
+            {% else %}
+                {{i|form_field_add_css:'form-control'}}
+            {% endif %}
+
+            {% if not i.is_hidden %}
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
 {% endfor %}
 </div>

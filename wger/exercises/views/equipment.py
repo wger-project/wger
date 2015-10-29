@@ -15,22 +15,23 @@
 # You should have received a copy of the GNU Affero General Public License
 import logging
 
-from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy
 from django.utils.translation import ugettext as _
 
-from django.views.generic import CreateView
-from django.views.generic import UpdateView
-from django.views.generic import DeleteView
-from django.views.generic import ListView
+from django.views.generic import (
+    CreateView,
+    UpdateView,
+    DeleteView,
+    ListView
+)
 from wger.config.models import LanguageConfig
-
 from wger.exercises.models import Equipment
-
-from wger.utils.generic_views import WgerFormMixin
-from wger.utils.generic_views import WgerDeleteMixin
-from wger.utils.generic_views import WgerPermissionMixin
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    WgerDeleteMixin,
+    WgerPermissionMixin
+)
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.language import load_item_languages
 
@@ -61,7 +62,7 @@ class EquipmentEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     '''
 
     model = Equipment
-    fields = '__all__'
+    fields = ['name']
     permission_required = 'exercises.change_equipment'
     success_url = reverse_lazy('exercise:equipment:list')
 
@@ -81,6 +82,7 @@ class EquipmentAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
 
     model = Equipment
+    fields = ['name']
     title = ugettext_lazy('Add new equipment')
     permission_required = 'exercises.add_equipment'
     success_url = reverse_lazy('exercise:equipment:list')

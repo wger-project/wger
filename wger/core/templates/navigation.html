@@ -76,7 +76,7 @@
                         {% if user.is_authenticated %}
                         <li class="dropdown{% if active_tab == 'weight' %} active{% endif %}">
 
-                            <a href="{% url 'weight:overview' %}"
+                            <a href="{% url 'weight:overview' user.username %}"
                                class="dropdown-toggle"
                                data-toggle="dropdown"
                                rel="nofollow">{% trans "Weight" %} <b class="caret"></b></a>
@@ -124,6 +124,7 @@
                                 <li><a href="{% url 'software:features' %}">{% trans "Features" %}</a></li>
                                 <li><a href="{% url 'software:contribute' %}">{% trans "Contribute!" %} </a></li>
                                 <li><a href="{% url 'software:issues' %}">{% trans "Problems and wishes" %} </a></li>
+                                <li><a href="{% url 'software:tos' %}">{% trans "Terms of service" %} </a></li>
                                 <li class="divider"></li>
                                 <li><a href="{% url 'software:code' %}">{% trans "Get the code" %} </a></li>
                                 <li><a href="{% url 'software:api' %}">{% trans "REST API" %} </a></li>
@@ -198,7 +199,7 @@
                                     {#               #}
                                     {% if perms.exercises or perms.gym.manage_gyms or perms.gym.manage_gym or perms.gym.gym_trainer %}
                                         <li class="divider"></li>
-                                        <li class="nav-header">{% trans "Administration" %}</li>
+                                        <li class="dropdown-header">{% trans "Administration" %}</li>
                                         {% if perms.core.change_language %}
                                             <li><a href="{% url 'config:language:overview' %}">{% trans "Languages" %} </a></li>
                                         {% endif %}

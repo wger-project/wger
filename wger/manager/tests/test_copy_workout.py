@@ -17,6 +17,7 @@ import logging
 from django.core.urlresolvers import reverse
 
 from wger.manager.models import Workout
+from wger.core.models import UserProfile
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 logger = logging.getLogger(__name__)
@@ -88,18 +89,34 @@ class CopyWorkoutTestCase(WorkoutManagerTestCase):
                     for k in range(sets_original[j].exercises.count()):
                         self.assertEqual(exercises_original[k], exercises_copy[k])
 
-    def test_copy_workout_other(self):
-        '''
-        Test copying a workout as different user
-        '''
-
-        self.user_login('admin')
-        self.copy_workout(owner=False)
-
     def test_copy_workout_owner(self):
         '''
-        Test copying a workout as the owener user
+        Test copying a workout as the owner user
         '''
 
         self.user_login('test')
         self.copy_workout(owner=True)
+
+    def test_copy_shared_not_allowed(self):
+        '''
+        Test copying a workout from another shared user where user does not share workouts
+        '''
+        profile = UserProfile.objects.get(user__username='test')
+        profile.ro_access = False
+        profile.save()
+
+        self.user_login('admin')
+        response = self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))
+        self.assertEqual(response.status_code, 403)
+
+    def test_copy_shared_allowed(self):
+        '''
+        Test copying a workout from another shared user where user does share workouts
+        '''
+        profile = UserProfile.objects.get(user__username='test')
+        profile.ro_access = True
+        profile.save()
+
+        self.user_login('admin')
+        response = self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))
+        self.assertEqual(response.status_code, 200)

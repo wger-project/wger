@@ -17,11 +17,14 @@
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
 
-urlpatterns = patterns('',
+urlpatterns = [
 
     url(r'^issues$',
         TemplateView.as_view(template_name="issues.html"),
         name='issues'),
+    url(r'^terms-of-service$',
+        TemplateView.as_view(template_name="tos.html"),
+        name='tos'),
 
     url(r'^features$',
         TemplateView.as_view(template_name="functions.html"),
@@ -46,4 +49,4 @@ urlpatterns = patterns('',
     url(r'^api$',
         TemplateView.as_view(template_name="api.html"),
         name='api'),
-)
+]

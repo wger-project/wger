@@ -19,14 +19,17 @@ from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from wger.core.tests import api_base_test
 
-from wger.exercises.models import Exercise
-from wger.exercises.models import Muscle
-from wger.exercises.models import ExerciseCategory
-from wger.manager.tests.testcase import STATUS_CODES_FAIL
-from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
-from wger.utils.cache import get_template_cache_name
-from wger.utils.cache import cache_mapper
+from wger.exercises.models import (
+    Exercise,
+    Muscle,
+    ExerciseCategory,
+)
+from wger.manager.tests.testcase import (
+    STATUS_CODES_FAIL,
+    WorkoutManagerTestCase,
+    WorkoutManagerDeleteTestCase
+)
+from wger.utils.cache import get_template_cache_name, cache_mapper
 
 
 class ExerciseRepresentationTestCase(WorkoutManagerTestCase):
@@ -290,7 +293,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         # Exercise was saved
         exercise = Exercise.objects.get(pk=exercise_id)
         if admin:
-            self.assertEqual(exercise.license_author, 'wger.de')
+            self.assertEqual(exercise.license_author, 'testserver')
             self.assertEqual(exercise.status, Exercise.STATUS_ACCEPTED)
         else:
             self.assertEqual(exercise.license_author, 'test')

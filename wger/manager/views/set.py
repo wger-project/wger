@@ -16,24 +16,25 @@
 
 import logging
 
-from django.forms.models import modelformset_factory
-from django.forms.models import inlineformset_factory
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
-from django.http import HttpResponseForbidden
+from django.forms.models import modelformset_factory, inlineformset_factory
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.contrib.auth.decorators import login_required
 
-from wger.manager.models import Day
-from wger.manager.models import Set
-from wger.manager.models import Setting
+from wger.manager.models import (
+    Day,
+    Set,
+    Setting
+)
 from wger.exercises.models import Exercise
-from wger.manager.forms import SetForm
-from wger.manager.forms import SetFormMobile
-from wger.manager.forms import SettingForm
+from wger.manager.forms import (
+    SetForm,
+    SetFormMobile,
+    SettingForm
+)
 from wger.utils.language import load_item_languages
 from wger.config.models import LanguageConfig
 
@@ -43,12 +44,12 @@ logger = logging.getLogger(__name__)
 # ************************
 # Set functions
 # ************************
-SETTING_FORMSET_EXCLUDE = ('comment', 'exercise', 'set', 'order')
+SETTING_FORMSET_FIELDS = ('reps', 'weight')
 
 SettingFormset = modelformset_factory(Setting,
                                       form=SettingForm,
-                                      exclude=SETTING_FORMSET_EXCLUDE,
-                                      can_delete=True,
+                                      fields=SETTING_FORMSET_FIELDS,
+                                      can_delete=False,
                                       can_order=False,
                                       extra=1)
 
@@ -135,7 +136,7 @@ def get_formset(request, exercise_pk, reps=Set.DEFAULT_SETS):
                                            Setting,
                                            can_delete=False,
                                            extra=int(reps),
-                                           exclude=SETTING_FORMSET_EXCLUDE)
+                                           fields=SETTING_FORMSET_FIELDS)
     formset = SettingFormSet(queryset=Setting.objects.none(),
                              prefix='exercise{0}'.format(exercise_pk))
 

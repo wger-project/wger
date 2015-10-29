@@ -24,7 +24,6 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.contrib.formtools.preview import FormPreview
 from django.utils import formats
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
@@ -32,13 +31,16 @@ from django.db.models import Min
 from django.db.models import Max
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
+
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from wger.utils.helpers import check_access
+
+from formtools.preview import FormPreview
 
 from wger.weight.forms import WeightForm
 from wger.weight.models import WeightEntry
 from wger.weight import helpers
+from wger.utils.helpers import check_access
 from wger.utils.generic_views import WgerFormMixin
 
 
@@ -53,7 +55,6 @@ class WeightAddView(WgerFormMixin, CreateView):
     form_class = WeightForm
     title = ugettext_lazy('Add weight entry')
     form_action = reverse_lazy('weight:add')
-    success_url = reverse_lazy('weight:overview')
 
     def get_initial(self):
         '''
@@ -63,7 +64,7 @@ class WeightAddView(WgerFormMixin, CreateView):
         to pass the user here.
         '''
         return {'user': self.request.user,
-                'creation_date': formats.date_format(datetime.date.today(), "SHORT_DATE_FORMAT")}
+                'date': datetime.date.today()}
 
     def form_valid(self, form):
         '''
@@ -72,6 +73,12 @@ class WeightAddView(WgerFormMixin, CreateView):
         form.instance.user = self.request.user
         return super(WeightAddView, self).form_valid(form)
 
+    def get_success_url(self):
+        '''
+        Return to overview with username
+        '''
+        return reverse('weight:overview', kwargs={'username': self.object.user.username})
+
 
 class WeightUpdateView(WgerFormMixin, UpdateView):
     '''
@@ -79,14 +86,19 @@ class WeightUpdateView(WgerFormMixin, UpdateView):
     '''
     model = WeightEntry
     form_class = WeightForm
-    success_url = reverse_lazy('weight:overview')
 
     def get_context_data(self, **kwargs):
         context = super(WeightUpdateView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('weight:edit', kwargs={'pk': self.object.id})
-        context['title'] = _('Edit weight entry for the %s') % self.object.creation_date
+        context['title'] = _('Edit weight entry for the %s') % self.object.date
 
         return context
+
+    def get_success_url(self):
+        '''
+        Return to overview with username
+        '''
+        return reverse('weight:overview', kwargs={'username': self.object.user.username})
 
 
 @login_required
@@ -105,7 +117,7 @@ def export_csv(request):
     writer.writerow([_('Weight').encode('utf8'), _('Date').encode('utf8')])
 
     for entry in weights:
-        writer.writerow([entry.weight, entry.creation_date])
+        writer.writerow([entry.weight, entry.date])
 
     # Send the data to the browser
     response['Content-Disposition'] = 'attachment; filename=Weightdata.csv'
@@ -126,9 +138,9 @@ def overview(request, username=None):
     template_data = {}
 
     min_date = WeightEntry.objects.filter(user=user).\
-        aggregate(Min('creation_date'))['creation_date__min']
+        aggregate(Min('date'))['date__min']
     max_date = WeightEntry.objects.filter(user=user).\
-        aggregate(Max('creation_date'))['creation_date__max']
+        aggregate(Max('date'))['date__max']
     if min_date:
         template_data['min_date'] = 'new Date(%(year)s, %(month)s, %(day)s)' % \
                                     {'year': min_date.year,
@@ -140,9 +152,29 @@ def overview(request, username=None):
                                      'month': max_date.month,
                                      'day': max_date.day}
 
+    last_five_weight_entries = WeightEntry.objects.filter(user=user).order_by('-date')[:5]
+    last_five_weight_entries_details = []
+
+    for index, entry in enumerate(last_five_weight_entries):
+        curr_entry = entry
+        prev_entry_index = index + 1
+
+        if prev_entry_index < len(last_five_weight_entries):
+            prev_entry = last_five_weight_entries[prev_entry_index]
+        else:
+            prev_entry = None
+
+        if prev_entry and curr_entry:
+            weight_diff = curr_entry.weight - prev_entry.weight
+            day_diff = (curr_entry.date - prev_entry.date).days
+        else:
+            weight_diff = day_diff = None
+        last_five_weight_entries_details.append((curr_entry, weight_diff, day_diff))
+
     template_data['is_owner'] = is_owner
     template_data['owner_user'] = user
     template_data['show_shariff'] = is_owner
+    template_data['last_five_weight_entries_details'] = last_five_weight_entries_details
     return render(request, 'overview.html', template_data)
 
 
@@ -159,16 +191,15 @@ def get_weight_data(request, username=None):
 
     if date_min and date_max:
         weights = WeightEntry.objects.filter(user=user,
-                                             creation_date__range=(date_min, date_max))
+                                             date__range=(date_min, date_max))
     else:
         weights = WeightEntry.objects.filter(user=user)
 
     chart_data = []
 
     for i in weights:
-        chart_data.append({'date': i.creation_date,
-                           'weight': i.weight,
-                           'id': i.id})
+        chart_data.append({'date': i.date,
+                           'weight': i.weight})
 
     # Return the results to the client
     return Response(chart_data)
@@ -196,4 +227,5 @@ class WeightCsvImportFormPreview(FormPreview):
     def done(self, request, cleaned_data):
         weight_list, error_list = helpers.parse_weight_csv(request, cleaned_data)
         WeightEntry.objects.bulk_create(weight_list)
-        return HttpResponseRedirect(reverse('weight:overview'))
+        return HttpResponseRedirect(reverse('weight:overview',
+                                            kwargs={'username': request.user.username}))

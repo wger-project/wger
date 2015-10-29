@@ -7,8 +7,10 @@
     :license: GNU GPL, see LICENSE for more details.
 """
 
-from setuptools import setup
-from setuptools import find_packages
+from setuptools import (
+    setup,
+    find_packages
+)
 from wger import get_version
 
 
@@ -42,11 +44,12 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
     ],
     install_requires=install_requires,
     entry_points={
         'console_scripts': [
-            'wger = wger.main:main',
+            'wger = wger.__main__:main',
         ],
     },
 )
