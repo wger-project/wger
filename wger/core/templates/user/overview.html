@@ -18,6 +18,7 @@
 {% block content %}
 {% url 'core:user:trainer-login' current_user.pk as trainer_login %}
 
+{% if not perms.gym.manage_gyms %}
 
 <h4>{% trans "Workouts" %} <small>({% blocktrans with number=10 %}last {{ number }}{% endblocktrans %})</small></h4>
 {% if perms.gym.gym_trainer %}
@@ -187,6 +188,8 @@
 </tbody>
 </table>
 
+
+{% endif %}
 {% endblock %}
 
 
@@ -198,7 +201,7 @@
 
 
 
-{% if perms.gym.manage_gym %}
+{% if perms.gym.manage_gyms %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
@@ -274,7 +277,7 @@
         <td>{% trans "Last login" %}</td>
         <td>{{current_user.last_login}}</td>
     </tr>
-{% if perms.gym.manage_gym %}
+{% if perms.gym.manage_gym or perms.gym.manage_gyms %}
     <tr {% if not current_user.is_active %}class="danger"{% endif%}>
         <td>{% trans "Status" %}</td>
         <td>

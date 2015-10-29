@@ -95,12 +95,13 @@ def delete(request, user_pk=None):
         form_action = reverse('core:user:delete', kwargs={'user_pk': user_pk})
 
         # Forbidden if the user has not enough rights, doesn't belong to the
-        # gym or is an admin as well
-        if (not request.user.has_perm('gym.manage_gym')
-                or request.user.userprofile.gym_id != user.userprofile.gym_id
-                or user.has_perm('gym.manage_gym')
-                or user.has_perm('gym.gym_trainer')
-                or user.has_perm('gym.manage_gyms')):
+        # gym or is an admin as well. General admins can delete all users.
+        if not request.user.has_perm('gym.manage_gyms') \
+                and (not request.user.has_perm('gym.manage_gym')
+                     or request.user.userprofile.gym_id != user.userprofile.gym_id
+                     or user.has_perm('gym.manage_gym')
+                     or user.has_perm('gym.gym_trainer')
+                     or user.has_perm('gym.manage_gyms')):
             return HttpResponseForbidden()
     else:
         user = request.user
@@ -306,17 +307,22 @@ class UserDeactivateView(WgerPermissionMixin, RedirectView):
     '''
     permanent = False
     model = User
-    permission_required = ('gym.manage_gym', 'gym.gym_trainer')
+    permission_required = ('gym.manage_gym', 'gym.manage_gyms', 'gym.gym_trainer')
 
     def dispatch(self, request, *args, **kwargs):
         '''
         Only managers and trainers for this gym can access the members
         '''
         edit_user = get_object_or_404(User, pk=self.kwargs['pk'])
-        if (request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')
-                and request.user.userprofile.gym_id == edit_user.userprofile.gym_id):
-            return super(UserDeactivateView, self).dispatch(request, *args, **kwargs)
-        return HttpResponseForbidden()
+
+        if not request.user.is_authenticated():
+            return HttpResponseForbidden()
+
+        if (request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')) \
+                and edit_user.userprofile.gym_id != request.user.userprofile.gym_id:
+            return HttpResponseForbidden()
+
+        return super(UserDeactivateView, self).dispatch(request, *args, **kwargs)
 
     def get_redirect_url(self, pk):
         edit_user = get_object_or_404(User, pk=pk)
@@ -332,17 +338,22 @@ class UserActivateView(WgerPermissionMixin, RedirectView):
     '''
     permanent = False
     model = User
-    permission_required = ('gym.manage_gym', 'gym.gym_trainer')
+    permission_required = ('gym.manage_gym', 'gym.manage_gyms', 'gym.gym_trainer')
 
     def dispatch(self, request, *args, **kwargs):
         '''
         Only managers and trainers for this gym can access the members
         '''
         edit_user = get_object_or_404(User, pk=self.kwargs['pk'])
-        if (request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')
-                and request.user.userprofile.gym_id == edit_user.userprofile.gym_id):
-            return super(UserActivateView, self).dispatch(request, *args, **kwargs)
-        return HttpResponseForbidden()
+
+        if not request.user.is_authenticated():
+            return HttpResponseForbidden()
+
+        if (request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')) \
+                and edit_user.userprofile.gym_id != request.user.userprofile.gym_id:
+            return HttpResponseForbidden()
+
+        return super(UserActivateView, self).dispatch(request, *args, **kwargs)
 
     def get_redirect_url(self, pk):
         edit_user = get_object_or_404(User, pk=pk)
@@ -359,18 +370,22 @@ class UserEditView(WgerFormMixin, UpdateView):
 
     model = User
     title = ugettext_lazy('Edit user')
-    permission_required = 'gym.manage_gym'
+    permission_required = ('gym.manage_gym', 'gym.manage_gyms')
     form_class = UserPersonalInformationForm
 
     def dispatch(self, request, *args, **kwargs):
         '''
         Only managers and trainers for this gym can access the members
         '''
-        if request.user.is_authenticated() \
-                and request.user.userprofile.gym == self.get_object().userprofile.gym:
-            return super(UserEditView, self).dispatch(request, *args, **kwargs)
-        else:
+        user = request.user
+        if not user.is_authenticated():
             return HttpResponseForbidden()
+
+        if (user.has_perm('gym.manage_gym') or user.has_perm('gym.gym_trainer')) \
+                and user.userprofile.gym != self.get_object().userprofile.gym:
+            return HttpResponseForbidden()
+
+        return super(UserEditView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse('core:user:overview', kwargs={'pk': self.kwargs['pk']})
