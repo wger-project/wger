@@ -23,7 +23,7 @@ USER wger
 RUN git clone https://github.com/rolandgeider/wger.git /home/wger/src
 WORKDIR /home/wger/src
 RUN virtualenv --python python3 /home/wger/venv
-RUN npm install bower \
+RUN npm install \
     && . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
     && pip install -r requirements_devel.txt \

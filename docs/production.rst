@@ -99,7 +99,7 @@ Get the application::
 
   git clone https://github.com/rolandgeider/wger.git /home/wger/src
   cd /home/wger/src
-  npm install bower
+  npm install
   pip install -r requirements.txt
   pip install psycopg2 # Only if using postgres
   invoke create_settings \

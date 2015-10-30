@@ -86,21 +86,9 @@ INSTALLED_APPS = (
     # CORS
     'corsheaders',
 
-    # django-bower for installing bower packages
-    'djangobower',
+    # Builds frontend
+    'frontserver',
 )
-
-# added list of external libraries to be installed by bower
-BOWER_INSTALLED_APPS = (
-    'jquery',
-    'bootstrap',
-    'd3',
-    'shariff',
-    'tinymce-dist',
-    'DataTables',
-    'components-font-awesome',
-)
-
 
 MIDDLEWARE_CLASSES = (
     'corsheaders.middleware.CorsMiddleware',
@@ -159,8 +147,6 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # added BowerFinder to list of static file finders
-    'djangobower.finders.BowerFinder',
 
     # Django compressor
     'compressor.finders.CompressorFinder',

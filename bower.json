@@ -1,0 +1,13 @@
+{
+  "name": "wger",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "3.3.5",
+    "d3": "3.5.6",
+    "jquery": "2.1.4",
+    "shariff": "1.20.0",
+    "tinymce-dist": "4.2.7",
+    "DataTables": "1.10.9",
+    "components-font-awesome": "4.4.0"
+  }
+}

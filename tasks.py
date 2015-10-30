@@ -96,10 +96,7 @@ def bootstrap_wger(settings_path=None,
         migrate_db(settings_path=settings_path)
         load_fixtures(settings_path=settings_path)
         create_or_reset_admin(settings_path=settings_path)
-
-    # Download JS libraries with bower
-    call_command('bower', 'install')
-
+      
     # Start the webserver
     if start_server:
         print('*** Bootstraping complete, starting application')

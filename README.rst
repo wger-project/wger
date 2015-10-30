@@ -45,7 +45,7 @@ state.
  $ sudo apt-get install python-dev python-virtualenv nodejs npm
  $ virtualenv venv-django
  $ source venv-django/bin/activate
- $ npm install bower
+ $ npm install
 
 2) Start the application. This will create a SQlite database and populate it
    with data on the first run.
@@ -58,7 +58,7 @@ state.
  $ invoke bootstrap_wger
 
  # After the first run you can just use django's development server
- $ python manage.py runserver
+ $ python manage.py frontserver
 
 3) Log in as: **admin**, password **admin**
 
