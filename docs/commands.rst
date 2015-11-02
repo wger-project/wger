@@ -105,6 +105,7 @@ Usage::
       -e STRING, --extra-args=STRING      Additional arguments to pass to the builtin server. Pass as string: "--arg1 --arg2=value". Default: none
       -p, --port                          Port to use. Default: 8000
       -s STRING, --settings-path=STRING   Path to settings file. Leave empty for default
+      -t, --[no-]start-server             Whether to start the development server. Default: true
 
 
 Default locations
