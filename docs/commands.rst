@@ -251,6 +251,12 @@ management functions that are sometimes needed. Call them with
 **submitted-exercises**
   simply prints a list of user submitted exercises
 
+**update-user-cache**
+  update the user cache-table. This command is only needed when the python code
+  used to calculate any of the cached entries is changed and the ones in the
+  database need to be updated to reflect the new logic.
+
+
 
 Cron
 ~~~~
