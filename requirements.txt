@@ -17,7 +17,7 @@ icalendar
 django-bootstrap-breadcrumbs
 sphinx
 django-sortedm2m 
-django-bower
+django-frontserver
 invoke
 
 # REST API
