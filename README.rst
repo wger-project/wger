@@ -42,8 +42,8 @@ state.
 
 ::
 
- $ sudo apt-get install python-dev python-virtualenv nodejs npm
- $ virtualenv venv-django
+ $ sudo apt-get install python3-dev python-virtualenv nodejs nodejs-legacy npm libjpeg8-dev zlib1g-dev
+ $ virtualenv --python python3 venv-django
  $ source venv-django/bin/activate
  $ npm install bower
 
@@ -57,10 +57,13 @@ state.
  $ pip install -r requirements.txt  # or requirements_devel.txt to develop
  $ invoke bootstrap_wger
 
- # After the first run you can just use django's development server
- $ python manage.py runserver
-
 3) Log in as: **admin**, password **admin**
+
+After the first run you can just use django's development server. You will
+probably want to move the settings and sqlite files to your git folder, see
+the comments in the documentation (development chapter) about this::
+
+ $ python manage.py runserver
 
 
 Stable version (from PyPI)
@@ -70,7 +73,7 @@ Stable version (from PyPI)
 
 ::
 
- $ sudo apt-get install python-dev python-virtualenv
+ $ sudo apt-get install python3-dev python-virtualenv nodejs nodejs-legacy npm libjpeg8-dev zlib1g-dev
  $ virtualenv venv-django
  $ source venv-django/bin/activate
  $ pip install wger
