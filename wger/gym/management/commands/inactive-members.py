@@ -58,6 +58,11 @@ class Command(BaseCommand):
             for profile in gym.userprofile_set.all():
                 user = profile.user
 
+                # check if the account was deactivated (user can't login)
+                if not user.is_active:
+                    continue
+
+                # add to trainer list that will be notified
                 if user.has_perm('gym.gym_trainer'):
                     trainer_list.append(user)
 
