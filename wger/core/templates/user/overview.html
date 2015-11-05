@@ -5,20 +5,22 @@
 
 
 {% block breadcrumbs %}
-    {{ block.super }}
+    {% if current_user.userprofile.gym %}
+        {{ block.super }}
 
-    {% if perms.gym.manage_gyms %}
-        {% breadcrumb "Gyms" "gym:gym:list" %}
+        {% if perms.gym.manage_gyms %}
+            {% breadcrumb "Gyms" "gym:gym:list" %}
+        {% endif %}
+        {% breadcrumb_raw current_user.userprofile.gym "gym:gym:user-list" current_user.userprofile.gym.pk %}
+        {% breadcrumb_raw current_user|format_username "core:user:overview" current_user.pk %}
     {% endif %}
-    {% breadcrumb_raw current_user.userprofile.gym "gym:gym:user-list" current_user.userprofile.gym.pk %}
-    {% breadcrumb_raw current_user|format_username "core:user:overview" current_user.pk %}
 {% endblock %}
 
 
 {% block content %}
 {% url 'core:user:trainer-login' current_user.pk as trainer_login %}
 
-{% if not perms.gym.manage_gyms %}
+{% if perms.gym.gym_trainer %}
 
 <h4>{% trans "Workouts" %} <small>({% blocktrans with number=10 %}last {{ number }}{% endblocktrans %})</small></h4>
 {% if perms.gym.gym_trainer %}
@@ -426,7 +428,7 @@
 {#                   #}
 {# Gym configuration #}
 {#                   #}
-{% if perms.gym.change_gymuserconfig %}
+{% if perms.gym.change_gymuserconfig and current_user.gymuserconfig %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>

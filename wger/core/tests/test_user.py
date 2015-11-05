@@ -190,3 +190,21 @@ class UserDetailPageTestCase(WorkoutManagerAccessTestCase):
                  'manager3',
                  'member1',
                  'member2')
+
+
+class UserDetailPageTestCase2(WorkoutManagerAccessTestCase):
+    '''
+    Test accessing the user detail page
+    '''
+
+    url = reverse_lazy('core:user:overview', kwargs={'pk': 19})
+    user_success = ('trainer4',
+                    'trainer5',
+                    'manager3',
+                    'general_manager1',
+                    'general_manager2')
+    user_fail = ('trainer1',
+                 'trainer2',
+                 'manager1',
+                 'member1',
+                 'member2')

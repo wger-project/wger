@@ -439,7 +439,10 @@ class UserDetailView(WgerPermissionMixin, DetailView):
 
     def dispatch(self, request, *args, **kwargs):
         '''
-        Only managers for this gym can access the members
+        Check permissions
+
+        - Only managers for this gym can access the members
+        - General managers can access the detail page of all users
         '''
         user = request.user
 
@@ -447,6 +450,7 @@ class UserDetailView(WgerPermissionMixin, DetailView):
             return HttpResponseForbidden()
 
         if (user.has_perm('gym.manage_gym') or user.has_perm('gym.gym_trainer')) \
+                and not user.has_perm('gym.manage_gyms') \
                 and user.userprofile.gym != self.get_object().userprofile.gym:
             return HttpResponseForbidden()
 
