@@ -45,7 +45,6 @@ state.
  $ sudo apt-get install python3-dev python-virtualenv nodejs nodejs-legacy npm libjpeg8-dev zlib1g-dev
  $ virtualenv --python python3 venv-django
  $ source venv-django/bin/activate
- $ npm install bower
 
 2) Start the application. This will create a SQlite database and populate it
    with data on the first run.
@@ -54,6 +53,7 @@ state.
 
  $ git clone https://github.com/rolandgeider/wger.git
  $ cd wger
+ $ npm install bower
  $ pip install -r requirements.txt  # or requirements_devel.txt to develop
  $ invoke bootstrap_wger
 
