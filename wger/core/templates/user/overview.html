@@ -203,7 +203,7 @@
 
 
 
-{% if perms.gym.manage_gyms %}
+{% if perms.gym.manage_gyms or perms.gym.manage_gym %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>

@@ -376,13 +376,17 @@ class UserEditView(WgerFormMixin, UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         '''
-        Only managers and trainers for this gym can access the members
+        Check permissions
+
+        - Managers can edit members of their own gym
+        - General managers can edit every member
         '''
         user = request.user
         if not user.is_authenticated():
             return HttpResponseForbidden()
 
-        if (user.has_perm('gym.manage_gym') or user.has_perm('gym.gym_trainer')) \
+        if user.has_perm('gym.manage_gym') \
+                and not user.has_perm('gym.manage_gyms') \
                 and user.userprofile.gym != self.get_object().userprofile.gym:
             return HttpResponseForbidden()
 

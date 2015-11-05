@@ -133,7 +133,7 @@ class StatusUserTestCase(WorkoutManagerTestCase):
 
 class EditUserTestCase(WorkoutManagerEditTestCase):
     '''
-    Tests editing a user by an admin
+    Test editing a user
     '''
 
     object_class = User
@@ -141,7 +141,7 @@ class EditUserTestCase(WorkoutManagerEditTestCase):
     pk = 2
     data = {'email': 'another.email@example.com',
             'first_name': 'Name',
-            'last_name': 'Lastname'}
+            'last_name': 'Last name'}
     user_success = ('admin',
                     'general_manager1',
                     'general_manager2',
@@ -150,6 +150,28 @@ class EditUserTestCase(WorkoutManagerEditTestCase):
     user_fail = ('member1',
                  'member2',
                  'manager3',
+                 'trainer2',
+                 'trainer3',
+                 'trainer4')
+
+
+class EditUserTestCase2(WorkoutManagerEditTestCase):
+    '''
+    Test editing a user
+    '''
+
+    object_class = User
+    url = 'core:user:edit'
+    pk = 19
+    data = {'email': 'another.email@example.com',
+            'first_name': 'Name',
+            'last_name': 'Last name'}
+    user_success = ('admin',
+                    'general_manager1',
+                    'general_manager2',
+                    'manager3')
+    user_fail = ('member1',
+                 'member2',
                  'trainer2',
                  'trainer3',
                  'trainer4')
