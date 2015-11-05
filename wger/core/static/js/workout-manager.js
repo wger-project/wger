@@ -172,7 +172,7 @@ function get_username() {
      *
      * Do not use with anonymous users!
      *
-     * Syncronous request, use sparingly!
+     * Synchronous request, use sparingly!
      */
 
     var user_id = get_profile_field('user');
@@ -193,7 +193,7 @@ function get_profile_field(field) {
     /*
      * Get a single field from the user's profile
      *
-     * Syncronous request, use sparingly!
+     * Synchronous request, use sparingly!
      */
 
     var result;
