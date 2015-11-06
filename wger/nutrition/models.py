@@ -37,6 +37,7 @@ from wger.utils.cache import cache_mapper
 from wger.utils.fields import Html5TimeField
 from wger.utils.models import AbstractLicenseModel
 from wger.utils.units import AbstractWeight
+from wger.weight.models import WeightEntry
 
 MEALITEM_WEIGHT_GRAM = '1'
 MEALITEM_WEIGHT_UNIT = '2'
@@ -137,10 +138,17 @@ class NutritionPlan(models.Model):
             for key in result['percent'].keys():
                 result['percent'][key] = \
                     result['total'][key] * ENERGY_FACTOR[key][unit] / energy * 100
-
+        
         # Per body weight
         if self.user.userprofile.weight:
-            weight = Decimal(self.user.userprofile.weight)
+            # Determine closest entry by date
+            target = self.creation_date
+            closest_entry = None
+            for entry in WeightEntry.objects.filter(user = self.user).order_by('date').iterator():
+                if not closest_entry or \
+                (abs(entry.date - self.creation_date) <= abs(closest_entry.date - self.creation_date)):
+                    closest_entry = entry
+            weight = Decimal(closest_entry.weight)
             for key in result['per_kg'].keys():
                 result['per_kg'][key] = result['total'][key] / weight
 
