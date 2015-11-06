@@ -26,16 +26,20 @@ def get_user_last_activity(user):
     :return: a date or None if nothing was found
     '''
 
-    # Check workout logs
-    log_list = WorkoutLog.objects.filter(user=user).order_by('date')
     last_activity = None
-    if log_list.exists():
-        last_activity = log_list.last().date
+
+    # Check workout logs
+    last_log = WorkoutLog.objects.filter(user=user).order_by('date').last()
+    if last_log:
+        last_activity = last_log.date
 
     # Check workout sessions
-    log_session = WorkoutSession.objects.filter(user=user).order_by('date')
-    if log_session.exists():
-        last_session = log_session.last().date
+    last_session = WorkoutSession.objects.filter(user=user).order_by('date').last()
+    if last_session:
+        last_session = last_session.date
+
+    # Return the last one
+    if last_session:
         if not last_activity:
             last_activity = last_session
 
@@ -53,3 +57,26 @@ def is_any_gym_admin(user):
     return user.has_perm('gym.manage_gym')\
         or user.has_perm('gym.manage_gyms')\
         or user.has_perm('gym.gym_trainer')
+
+
+def get_permission_list(user):
+    '''
+    Calculate available user permissions
+
+    This is needed because a user shouldn't be able to create or give another
+    account with more permissions than himself.
+
+    :param user: the user creating the account
+    :return: a list of permissions
+    '''
+
+    form_group_permission = ['user', 'trainer']
+
+    if user.has_perm('gym.manage_gym'):
+        form_group_permission.append('admin')
+
+    if user.has_perm('gym.manage_gyms'):
+        form_group_permission.append('admin')
+        form_group_permission.append('manager')
+
+    return form_group_permission

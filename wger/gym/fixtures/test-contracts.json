@@ -1,0 +1,119 @@
+[
+    {
+        "fields": {
+            "date_end": null,
+            "note": "",
+            "profession": "",
+            "amount": "30.00",
+            "contract_type": null,
+            "payment": "5",
+            "timestamp_edited": "2015-10-03T18:48:00.190Z",
+            "zip_code": "00000",
+            "phone": "01234-567890",
+            "city": "The City",
+            "member": [
+                "member2"
+            ],
+            "timestamp_created": "2015-10-03T18:48:00.190Z",
+            "date_start": "2014-09-01",
+            "street": "Gassenstr. 14",
+            "email": "erna@example.com",
+            "user": [
+                "trainer1"
+            ],
+            "is_active": true
+        },
+        "pk": 1,
+        "model": "gym.contract"
+    },
+    {
+        "fields": {
+            "date_end": null,
+            "note": "",
+            "profession": "",
+            "amount": "0.00",
+            "contract_type": null,
+            "payment": "3",
+            "timestamp_edited": "2015-10-03T18:48:33.719Z",
+            "zip_code": "1234567890",
+            "phone": "01234-567890",
+            "city": "M\u00fcnster",
+            "member": [
+                "member3"
+            ],
+            "timestamp_created": "2015-10-03T18:48:33.719Z",
+            "date_start": "2015-09-01",
+            "street": "lange str. 1",
+            "email": "erna@example.com",
+            "user": [
+                "trainer1"
+            ],
+            "is_active": true
+        },
+        "pk": 2,
+        "model": "gym.contract"
+    },
+    {
+        "fields": {
+            "date_end": "2015-12-31",
+            "note": "",
+            "profession": "",
+            "amount": "0.00",
+            "contract_type": null,
+            "payment": "2",
+            "timestamp_edited": "2015-10-03T21:50:00.706Z",
+            "zip_code": "1234-B",
+            "phone": "+1234 234-56 77/88",
+            "city": "Secret Lair",
+            "member": [
+                "member4"
+            ],
+            "timestamp_created": "2015-10-03T21:50:00.706Z",
+            "date_start": "2015-01-01",
+            "street": "",
+            "email": "",
+            "user": [
+                "trainer2"
+            ],
+            "is_active": true
+        },
+        "pk": 3,
+        "model": "gym.contract"
+    },
+    {
+        "fields": {
+            "name": "Standard contract 12/b",
+            "description": "A variation of the loved standard 12/a",
+            "gym_id": 1
+        },
+        "pk": 1,
+        "model": "gym.contracttype"
+    },
+    {
+        "fields": {
+            "name": "Personally known to owner",
+            "description": "A friend of the owner, special privileges",
+            "gym_id": 1
+        },
+        "pk": 1,
+        "model": "gym.contractoption"
+    },
+    {
+        "fields": {
+            "name": "Pays cash",
+            "description": "Member pays in cash",
+            "gym_id": 1
+        },
+        "pk": 2,
+        "model": "gym.contractoption"
+    },
+    {
+        "fields": {
+            "name": "Protein flatrate",
+            "description": "Member has a flatrate for protein shakes",
+            "gym_id": 1
+        },
+        "pk": 3,
+        "model": "gym.contractoption"
+    }
+]

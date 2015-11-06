@@ -139,6 +139,7 @@ urlpatterns = i18n_patterns(
     url(r'software/', include('wger.software.urls', namespace='software', app_name='software')),
     url(r'config/', include('wger.config.urls', namespace='config', app_name='config')),
     url(r'gym/', include('wger.gym.urls', namespace='gym', app_name='gym')),
+    url(r'email/', include('wger.email.urls', namespace='email')),
     url(r'^browserid/', include('django_browserid.urls')),
     url(r'^sitemap\.xml$',
         'django.contrib.sitemaps.views.sitemap',

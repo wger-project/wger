@@ -32,7 +32,8 @@ from django.contrib import messages
 from django.views.generic import (
     RedirectView,
     UpdateView,
-    DetailView
+    DetailView,
+    ListView
 )
 from django.conf import settings
 from rest_framework.authtoken.models import Token
@@ -56,7 +57,11 @@ from wger.manager.models import (
 from wger.nutrition.models import NutritionPlan
 from wger.config.models import GymConfig
 from wger.weight.models import WeightEntry
-from wger.gym.models import AdminUserNote, GymUserConfig
+from wger.gym.models import (
+    AdminUserNote,
+    GymUserConfig,
+    Contract
+)
 
 logger = logging.getLogger(__name__)
 
@@ -91,12 +96,13 @@ def delete(request, user_pk=None):
         form_action = reverse('core:user:delete', kwargs={'user_pk': user_pk})
 
         # Forbidden if the user has not enough rights, doesn't belong to the
-        # gym or is an admin as well
-        if (not request.user.has_perm('gym.manage_gym')
-                or request.user.userprofile.gym_id != user.userprofile.gym_id
-                or user.has_perm('gym.manage_gym')
-                or user.has_perm('gym.gym_trainer')
-                or user.has_perm('gym.manage_gyms')):
+        # gym or is an admin as well. General admins can delete all users.
+        if not request.user.has_perm('gym.manage_gyms') \
+                and (not request.user.has_perm('gym.manage_gym')
+                     or request.user.userprofile.gym_id != user.userprofile.gym_id
+                     or user.has_perm('gym.manage_gym')
+                     or user.has_perm('gym.gym_trainer')
+                     or user.has_perm('gym.manage_gyms')):
             return HttpResponseForbidden()
     else:
         user = request.user
@@ -302,17 +308,22 @@ class UserDeactivateView(WgerPermissionMixin, RedirectView):
     '''
     permanent = False
     model = User
-    permission_required = ('gym.manage_gym', 'gym.gym_trainer')
+    permission_required = ('gym.manage_gym', 'gym.manage_gyms', 'gym.gym_trainer')
 
     def dispatch(self, request, *args, **kwargs):
         '''
         Only managers and trainers for this gym can access the members
         '''
         edit_user = get_object_or_404(User, pk=self.kwargs['pk'])
-        if (request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')
-                and request.user.userprofile.gym_id == edit_user.userprofile.gym_id):
-            return super(UserDeactivateView, self).dispatch(request, *args, **kwargs)
-        return HttpResponseForbidden()
+
+        if not request.user.is_authenticated():
+            return HttpResponseForbidden()
+
+        if (request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')) \
+                and edit_user.userprofile.gym_id != request.user.userprofile.gym_id:
+            return HttpResponseForbidden()
+
+        return super(UserDeactivateView, self).dispatch(request, *args, **kwargs)
 
     def get_redirect_url(self, pk):
         edit_user = get_object_or_404(User, pk=pk)
@@ -328,17 +339,22 @@ class UserActivateView(WgerPermissionMixin, RedirectView):
     '''
     permanent = False
     model = User
-    permission_required = ('gym.manage_gym', 'gym.gym_trainer')
+    permission_required = ('gym.manage_gym', 'gym.manage_gyms', 'gym.gym_trainer')
 
     def dispatch(self, request, *args, **kwargs):
         '''
         Only managers and trainers for this gym can access the members
         '''
         edit_user = get_object_or_404(User, pk=self.kwargs['pk'])
-        if (request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')
-                and request.user.userprofile.gym_id == edit_user.userprofile.gym_id):
-            return super(UserActivateView, self).dispatch(request, *args, **kwargs)
-        return HttpResponseForbidden()
+
+        if not request.user.is_authenticated():
+            return HttpResponseForbidden()
+
+        if (request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')) \
+                and edit_user.userprofile.gym_id != request.user.userprofile.gym_id:
+            return HttpResponseForbidden()
+
+        return super(UserActivateView, self).dispatch(request, *args, **kwargs)
 
     def get_redirect_url(self, pk):
         edit_user = get_object_or_404(User, pk=pk)
@@ -355,18 +371,26 @@ class UserEditView(WgerFormMixin, UpdateView):
 
     model = User
     title = ugettext_lazy('Edit user')
-    permission_required = 'gym.manage_gym'
+    permission_required = ('gym.manage_gym', 'gym.manage_gyms')
     form_class = UserPersonalInformationForm
 
     def dispatch(self, request, *args, **kwargs):
         '''
-        Only managers and trainers for this gym can access the members
+        Check permissions
+
+        - Managers can edit members of their own gym
+        - General managers can edit every member
         '''
-        if request.user.is_authenticated() \
-                and request.user.userprofile.gym == self.get_object().userprofile.gym:
-            return super(UserEditView, self).dispatch(request, *args, **kwargs)
-        else:
+        user = request.user
+        if not user.is_authenticated():
             return HttpResponseForbidden()
+
+        if user.has_perm('gym.manage_gym') \
+                and not user.has_perm('gym.manage_gyms') \
+                and user.userprofile.gym != self.get_object().userprofile.gym:
+            return HttpResponseForbidden()
+
+        return super(UserEditView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse('core:user:overview', kwargs={'pk': self.kwargs['pk']})
@@ -413,19 +437,28 @@ class UserDetailView(WgerPermissionMixin, DetailView):
     User overview for gyms
     '''
     model = User
-    permission_required = ('gym.manage_gym', 'gym.gym_trainer')
+    permission_required = ('gym.manage_gym', 'gym.manage_gyms', 'gym.gym_trainer')
     template_name = 'user/overview.html'
     context_object_name = 'current_user'
 
     def dispatch(self, request, *args, **kwargs):
         '''
-        Only managers for this gym can access the members
+        Check permissions
+
+        - Only managers for this gym can access the members
+        - General managers can access the detail page of all users
         '''
         user = request.user
-        if user.is_authenticated() and user.userprofile.gym == self.get_object().userprofile.gym:
-            return super(UserDetailView, self).dispatch(request, *args, **kwargs)
-        else:
+
+        if not user.is_authenticated():
             return HttpResponseForbidden()
+
+        if (user.has_perm('gym.manage_gym') or user.has_perm('gym.gym_trainer')) \
+                and not user.has_perm('gym.manage_gyms') \
+                and user.userprofile.gym != self.get_object().userprofile.gym:
+            return HttpResponseForbidden()
+
+        return super(UserDetailView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         '''
@@ -446,4 +479,41 @@ class UserDetailView(WgerPermissionMixin, DetailView):
             .order_by('-creation_date')[:5]
         context['session'] = WorkoutSession.objects.filter(user=self.object).order_by('-date')[:10]
         context['admin_notes'] = AdminUserNote.objects.filter(member=self.object)[:5]
+        context['contracts'] = Contract.objects.filter(member=self.object)[:5]
+        return context
+
+
+class UserListView(WgerPermissionMixin, ListView):
+    '''
+    Overview of all users in the instance
+    '''
+    model = User
+    permission_required = ('gym.manage_gyms',)
+    template_name = 'user/list.html'
+
+    def get_queryset(self):
+        '''
+        Return a list with the users, not really a queryset.
+        '''
+        out = {'admins': [],
+               'members': []}
+
+        for u in User.objects.select_related('usercache', 'userprofile__gym').all():
+            out['members'].append({'obj': u,
+                                   'last_log': u.usercache.last_activity})
+
+        return out
+
+    def get_context_data(self, **kwargs):
+        '''
+        Pass other info to the template
+        '''
+        context = super(UserListView, self).get_context_data(**kwargs)
+        context['show_gym'] = True
+        context['user_table'] = {'keys': [_('ID'),
+                                          _('Username'),
+                                          _('Name'),
+                                          _('Last activity'),
+                                          _('Gym')],
+                                 'users': context['object_list']['members']}
         return context
