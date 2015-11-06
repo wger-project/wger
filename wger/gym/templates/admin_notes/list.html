@@ -21,19 +21,27 @@
 <ul class="list-group">
     {% for note in adminusernote_list %}
     <li class="list-group-item ">
-        <div class="pull-right">
-            {% if perms.gym.delete_adminusernote %}
-            <a href="{% url 'gym:admin_note:delete' note.pk %}"
-               class="btn btn-danger btn-xs wger-modal-dialog">
-                {% trans 'Delete' %}
-            </a>
-            {% endif %}
-            {% if perms.gym.change_adminusernote %}
-            <a href="{% url 'gym:admin_note:edit' note.pk %}"
-               class="btn btn-default btn-xs wger-modal-dialog">
-                {% trans 'Edit' %}
-            </a>
-            {% endif %}
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-cog"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                {% if perms.gym.change_adminusernote %}
+                <li>
+                    <a href="{% url 'gym:admin_note:edit' note.pk %}" class="wger-modal-dialog">
+                        {% trans 'Edit' %}
+                    </a>
+                </li>
+                {% endif %}
+
+                {% if perms.gym.delete_adminusernote %}
+                <li>
+                    <a href="{% url 'gym:admin_note:delete' note.pk %}" class="wger-modal-dialog">
+                        {% trans 'Delete' %}
+                    </a>
+                <li>
+                {% endif %}
+            </ul>
         </div>
 
         <h4 class="list-group-item-heading">{{ note.timestamp_created }} - {{ note.user|format_username }}</h4>
@@ -52,17 +60,8 @@
 
 {% block sidebar %}
 {% if perms.gym.add_adminusernote %}
-<h4>{% trans "Options" %}</h4>
-<p>
-       <a href="{% url 'gym:admin_note:add' member.pk %}"
-          {% auto_link_css flavour "wger-modal-dialog" %}>
-       <img src="{% static 'images/icons/new.svg' %}"
-            width="32"
-            height="32"
-            alt="{% trans 'Add' %}"
-            title="{% trans 'Add' %}">
-       {% trans "Add" %}
-       </a>
-</p>
+   <a href="{% url 'gym:admin_note:add' member.pk %}" class="wger-modal-dialog btn btn-success">
+   {% trans "Add" %}
+    </a>
 {% endif %}
 {% endblock %}

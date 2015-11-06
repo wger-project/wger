@@ -18,7 +18,7 @@
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
-from wger.core.models import UserProfile
+from wger.core.models import UserProfile, UserCache
 from wger.utils.helpers import disable_for_loaddata
 
 
@@ -31,4 +31,14 @@ def create_user_profile(sender, instance, created, **kwargs):
         UserProfile.objects.create(user=instance)
 
 
+@disable_for_loaddata
+def create_user_cache(sender, instance, created, **kwargs):
+    '''
+    Every new user gets a cache table
+    '''
+    if created:
+        UserCache.objects.create(user=instance)
+
+
 post_save.connect(create_user_profile, sender=User)
+post_save.connect(create_user_cache, sender=User)

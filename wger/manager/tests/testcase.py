@@ -98,6 +98,7 @@ class BaseTestCase(object):
                 'test-gym-userconfig.json',
                 'test-admin-user-notes',
                 'test-gym-user-documents',
+                'test-contracts',
                 'test-apikeys',
                 'test-weight-data',
                 'test-equipment',

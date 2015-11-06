@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
+
+{% block title %}{% trans "Contracts" %}{% endblock %}
+
+
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% if perms.gym.manage_gyms %}
+        {% breadcrumb "Gyms" "gym:gym:list" %}
+    {% endif %}
+    {% breadcrumb_raw member.userprofile.gym "gym:gym:user-list" member.userprofile.gym_id %}
+    {% breadcrumb_raw member|format_username "core:user:overview" member.pk %}
+    {% breadcrumb "Contracts" "gym:contract:list" member.pk %}
+{% endblock %}
+
+
+{% block content %}
+<div class="list-group">
+    {% for contract in contract_list %}
+        <li class="list-group-item ">
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    {% if perms.gym.change_contract %}
+                    <li>
+                        <a href="{% url 'gym:contract:edit' contract.pk %}">
+                            {% trans 'Edit' %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'gym:contract:view' contract.pk %}">
+                            {% trans 'Show' %}
+                        </a>
+                    </li>
+                    {% endif %}
+
+                </ul>
+            </div>
+
+
+            <h4 class="list-group-item-heading">
+                {{ contract.contract_type.name }}
+
+                <small>
+                    {{ contract.date_start }}
+                    {% if contract.date_end %}
+                        - {{ contract.date_end }}
+                    {% endif %}
+                </small>
+            </h4>
+
+            <p class="list-group-item-text">{{ contract.note }}</p>
+        </li>
+    {% empty %}
+        <li class="list-group-item">
+            {% trans "Nothing found" %}
+        </li>
+    {% endfor %}
+</div>
+{% endblock %}
+
+
+
+
+{% block sidebar %}
+    <a href="{% url 'gym:contract:add' member.pk %}" class="wger-modal-dialog btn btn-success">{% trans "Add" %}</a>
+{% endblock %}
