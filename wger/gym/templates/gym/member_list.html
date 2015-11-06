@@ -205,7 +205,9 @@
 {#                        #}
 {# Contract configuration #}
 {#                        #}
-<h4>{% trans "Contracts" %}</h4>
+{% if perms.gym.change_contracttype or perms.gym.change_contractoption %}
+    <h4>{% trans "Contracts" %}</h4>
+{% endif %}
 {% if perms.gym.change_contracttype %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
