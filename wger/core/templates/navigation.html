@@ -207,6 +207,7 @@
                                             <li><a href="{% url 'core:license:list' %}">{% trans "Licenses" %} </a></li>
                                         {% endif %}
                                         {% if perms.gym.manage_gyms %}
+                                            <li><a href="{% url 'core:user:list' %}">{% trans "User list" %} </a></li>
                                             <li><a href="{% url 'gym:gym:list' %}">{% trans "Gyms" %} </a></li>
                                         {% endif  %}
 

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
+
+{% block title %}{% trans "User list" %}{% endblock %}
+
+
+{% block content %}
+    {% include 'gym/partial_user_list.html' %}
+{% endblock %}
+
+
+{% block sidebar %}
+
+{% endblock %}

@@ -58,6 +58,11 @@ class Command(BaseCommand):
             for profile in gym.userprofile_set.all():
                 user = profile.user
 
+                # check if the account was deactivated (user can't login)
+                if not user.is_active:
+                    continue
+
+                # add to trainer list that will be notified
                 if user.has_perm('gym.gym_trainer'):
                     trainer_list.append(user)
 
@@ -69,10 +74,10 @@ class Command(BaseCommand):
                 if not user.gymuserconfig.include_inactive:
                     continue
 
-                last_activity = get_user_last_activity(user)
+                last_activity = user.usercache.last_activity
                 if not last_activity:
                     user_list_no_activity.append({'user': user, 'last_activity': last_activity})
-                elif last_activity - today > datetime.timedelta(weeks=weeks):
+                elif today - last_activity > datetime.timedelta(weeks=weeks):
                     user_list.append({'user': user, 'last_activity': last_activity})
 
             if user_list or user_list_no_activity:

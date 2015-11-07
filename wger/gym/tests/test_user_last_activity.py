@@ -35,6 +35,7 @@ class UserLastActivityTestCase(WorkoutManagerTestCase):
         log = WorkoutLog.objects.get(pk=1)
         session = WorkoutSession.objects.get(pk=1)
 
+        self.assertEqual(user.usercache.last_activity, datetime.date(2014, 1, 30))
         self.assertEqual(get_user_last_activity(user), datetime.date(2014, 1, 30))
 
         # Log more recent than session
@@ -42,15 +43,21 @@ class UserLastActivityTestCase(WorkoutManagerTestCase):
         log.save()
         session.date = datetime.date(2014, 10, 1)
         session.save()
+        user = User.objects.get(username='admin')
         self.assertEqual(get_user_last_activity(user), datetime.date(2014, 10, 2))
+        self.assertEqual(user.usercache.last_activity, datetime.date(2014, 10, 2))
 
         # Session more recent than log
         log.date = datetime.date(2014, 9, 1)
         log.save()
         session.date = datetime.date(2014, 10, 5)
         session.save()
+        user = User.objects.get(username='admin')
         self.assertEqual(get_user_last_activity(user), datetime.date(2014, 10, 5))
+        self.assertEqual(user.usercache.last_activity, datetime.date(2014, 10, 5))
 
         # No logs, but session
         WorkoutLog.objects.filter(user=user).delete()
+        user = User.objects.get(username='admin')
         self.assertEqual(get_user_last_activity(user), datetime.date(2014, 10, 5))
+        self.assertEqual(user.usercache.last_activity, datetime.date(2014, 10, 5))

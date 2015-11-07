@@ -79,9 +79,11 @@ class DeleteUserByAdminTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('core:user:delete', kwargs={'user_pk': 2}))
         self.assertEqual(User.objects.filter(username='test').count(), 1)
         if fail:
-            self.assertIn(response.status_code, (302, 403))
+            self.assertIn(response.status_code, (302, 403),
+                          'Unexpected status code for user {0}'.format(self.current_user))
         else:
-            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.status_code, 200,
+                             'Unexpected status code for user {0}'.format(self.current_user))
 
         # Wrong admin password
         if not fail:
@@ -100,6 +102,34 @@ class DeleteUserByAdminTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 302)
             self.assertEqual(User.objects.filter(username='test').count(), 0)
 
+    def test_delete_user_manager(self):
+        '''
+        Tests deleting the user account as a gym manager
+        '''
+        self.user_login('manager1')
+        self.delete_user(fail=False)
+
+    def test_delete_user_manager2(self):
+        '''
+        Tests deleting the user account as a gym manager
+        '''
+        self.user_login('manager2')
+        self.delete_user(fail=False)
+
+    def test_delete_user_general_manager(self):
+        '''
+        Tests deleting the user account as a general manager
+        '''
+        self.user_login('general_manager1')
+        self.delete_user(fail=False)
+
+    def test_delete_user_general_manager2(self):
+        '''
+        Tests deleting the user account as a general manager
+        '''
+        self.user_login('general_manager2')
+        self.delete_user(fail=False)
+
     def test_delete_user(self):
         '''
         Tests deleting the user account as a regular user
@@ -114,18 +144,11 @@ class DeleteUserByAdminTestCase(WorkoutManagerTestCase):
         self.user_login('trainer1')
         self.delete_user(fail=True)
 
-    def test_delete_user_manager(self):
+    def test_delete_user_trainer2(self):
         '''
-        Tests deleting the user account as a gym manager
+        Tests deleting the user account as a gym trainer
         '''
-        self.user_login('manager1')
-        self.delete_user(fail=False)
-
-    def test_delete_user_general_manager(self):
-        '''
-        Tests deleting the user account as a gym general manager
-        '''
-        self.user_login('general_manager1')
+        self.user_login('trainer4')
         self.delete_user(fail=True)
 
     def test_delete_user_trainer_other(self):
@@ -142,11 +165,18 @@ class DeleteUserByAdminTestCase(WorkoutManagerTestCase):
         self.user_login('manager3')
         self.delete_user(fail=True)
 
-    def test_delete_user_general_manager_other(self):
+    def test_delete_user_member(self):
         '''
-        Tests deleting the user account as a gym general manager of another gym
+        Tests deleting the user account as a gym member
         '''
-        self.user_login('general_manager2')
+        self.user_login('member1')
+        self.delete_user(fail=True)
+
+    def test_delete_user_member(self):
+        '''
+        Tests deleting the user account as a gym member
+        '''
+        self.user_login('member4')
         self.delete_user(fail=True)
 
     def test_delete_user_anonymous(self):
