@@ -143,12 +143,14 @@ class NutritionPlan(models.Model):
         if self.user.userprofile.weight:
             # Determine closest entry by date
             target = self.creation_date
-            closest_entry = None
-            for entry in WeightEntry.objects.filter(user = self.user).order_by('date').iterator():
-                if not closest_entry or \
-                (abs(entry.date - self.creation_date) <= abs(closest_entry.date - self.creation_date)):
-                    closest_entry = entry
-            weight = Decimal(closest_entry.weight)
+            closest_entry_gte = WeightEntry.objects.filter(user = self.user) \
+                .filter(date__gte = target).order_by('date')[0]
+            closest_entry_lte = WeightEntry.objects.filter(user = self.user) \
+                .filter(date__lte = target).order_by('-date')[0]
+            if abs(closest_entry_gte.date - target) < abs(closest_entry_lte.date - target):
+                weight = Decimal(closest_entry_gte.weight)
+            else:
+                weight = Decimal(closest_entry_lte.weight)
             for key in result['per_kg'].keys():
                 result['per_kg'][key] = result['total'][key] / weight
 
