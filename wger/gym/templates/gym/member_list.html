@@ -8,68 +8,19 @@
 
     {% if perms.gym.manage_gyms %}
         {% breadcrumb "Gyms" "gym:gym:list" %}
-        {% breadcrumb_raw gym "gym:gym:user_list" gym.pk %}
+        {% breadcrumb_raw gym "gym:gym:user-list" gym.pk %}
     {% endif %}
 {% endblock %}
 
 
-{% block header %}
-<link rel="stylesheet" type="text/css" href="{% static 'bower_components/datatables/media/css/dataTables.bootstrap.min.css' %}">
-<script src="{% static 'bower_components/datatables/media/js/jquery.dataTables.min.js' %}" ></script>
-<script src="{% static 'bower_components/datatables/media/js/dataTables.bootstrap.min.js' %}" ></script>
-<script>
-$(document).ready( function () {
-    /* Make table sortable */
-    $('#main_member_list').DataTable({
-        paging: false,
-        bFilter: false,
-        bInfo : false
-    });
-});
-</script>
-{% endblock %}
-
 {% block content %}
 {% if perms.gym.manage_gym or perms.gym.gym_trainer %}
-<table class="table" id="main_member_list">
-<thead>
-<tr>
-    <th style="width: 10%;">{% trans "ID" %}</th>
-    <th style="width: 40%;">{% trans "Username" %}</th>
-    <th>{% trans "Name" %}</th>
-    <th>{% trans "Last activity" %}</th>
-</tr>
-</thead>
-<tbody>
-{% for current_user in object_list %}
-{% if not current_user.perms.any_admin %}
-<tr>
-    <td>
-        {{current_user.obj.pk}}
-    </td>
-    <td>
-        <a href="{% url 'core:user:overview' current_user.obj.pk %}">{{current_user.obj}}</a>
-    </td>
-    <td>
-        {{current_user.obj.get_full_name}}
-    </td>
-    <td data-order="{{current_user.last_log|date:'U'}}">
-        {{current_user.last_log|default:'-/-'}}
-    </td>
-</tr>
-{% endif %}
-{% empty %}
-<tr>
-    <td colspan="4">{% trans "Nothing found" %}</td>
-</tr>
-{% endfor %}
-</tbody>
-</table>
+    {% include 'gym/partial_user_list.html' %}
 {% endif %}
 
 
 <h4>{% trans "Administrators and trainers" %}</h4>
-<table class="table">
+<table class="table table-hover">
 <thead>
 <tr>
     <th style="width: 10%;">{% trans "ID" %}</th>
@@ -81,8 +32,7 @@ $(document).ready( function () {
 </tr>
 </thead>
 <tbody>
-{% for current_user in object_list %}
-{% if current_user.perms.any_admin %}
+{% for current_user in object_list.admins %}
 <tr>
     <td>
         {{current_user.obj.pk}}
@@ -114,7 +64,6 @@ $(document).ready( function () {
     </td>
     {% endif %}
 </tr>
-{% endif %}
 {% empty %}
 <tr>
     <td colspan="3">{% trans "No users for this gym found" %}</td>
@@ -126,6 +75,18 @@ $(document).ready( function () {
 
 
 {% block sidebar %}
+{#               #}
+{# Other options #}
+{#               #}
+{% if perms.gym.manage_gym or perms.gym.manage_gyms %}
+<a href="{% url 'gym:gym:add-user' gym.pk %}" class="btn btn-success wger-modal-dialog">
+    {% trans "Add member" %}
+</a>
+<div class="clear-fix" style="margin-bottom: 1em;"></div>
+{% endif %}
+
+
+
 {#             #}
 {# Gym details #}
 {#             #}
@@ -138,6 +99,9 @@ $(document).ready( function () {
         <li>
             <a href="{% url 'gym:gym:edit' gym.id %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
         </li>
+        <li>
+            <a href="{% url 'gym:export:users' gym.id %}">{% trans "Export"%}</a>
+        </li>
     </ul>
 </div>
 {% endif %}
@@ -145,15 +109,15 @@ $(document).ready( function () {
 <h4>{% trans "Details" %}</h4>
 <table class="table">
     <tr>
-        <th>{% trans "Name" %}</th>
+        <td>{% trans "Name" %}</td>
         <td>{{gym.name}}</td>
     </tr>
     <tr>
-        <th>{% trans "Phone" %}</th>
+        <td>{% trans "Phone" %}</td>
         <td>{{gym.phone}}</td>
     </tr>
     <tr>
-        <th>{% trans "Email" %}</th>
+        <td>{% trans "Email" %}</td>
         <td>
             {% if gym.email %}
                 <a href="mailto:{{gym.email}}">{{gym.email}}</a>
@@ -163,18 +127,18 @@ $(document).ready( function () {
         </td>
     </tr>
     <tr>
-        <th>{% trans "Owner" %}</th>
+        <td>{% trans "Owner" %}</td>
         <td>{{gym.owner}}</td>
     </tr>
     <tr>
-        <th>{% trans "Address" %}</th>
+        <td>{% trans "Address" %}</td>
         <td>
             {{gym.zip_code}} {{gym.city}}<br>
             {{gym.street}}
         </td>
     </tr>
     <tr>
-        <th>{% trans "Members" %}</th>
+        <td>{% trans "Members" %}</td>
         <td>{{user_count}}</td>
     </tr>
 </table>
@@ -199,7 +163,7 @@ $(document).ready( function () {
 <h4>{% trans "Gym configuration" %}</h4>
 <table class="table">
     <tr>
-        <th>{% trans "Inactive members" %}</th>
+        <td>{% trans "Inactive members" %}</td>
         <td style="text-align: right;">{{gym.config.weeks_inactive}} {% trans 'weeks' %}</td>
     </tr>
 </table>
@@ -224,7 +188,7 @@ $(document).ready( function () {
 <h4>{% trans "My configuration" %}</h4>
 <table class="table">
     <tr>
-        <th>{% trans "Overview inactive members" %}</th>
+        <td>{% trans "Overview inactive members" %}</td>
         <td style="text-align: right;">
             {% if user.gymadminconfig.overview_inactive %}
                 <span class="glyphicon glyphicon-ok"></span>
@@ -238,22 +202,123 @@ $(document).ready( function () {
 
 
 
+{#                        #}
+{# Contract configuration #}
+{#                        #}
+{% if perms.gym.change_contracttype or perms.gym.change_contractoption %}
+    <h4>{% trans "Contracts" %}</h4>
+{% endif %}
+{% if perms.gym.change_contracttype %}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="{% url 'gym:contract_type:list' gym.id %}">{% trans "Overview" %}</a>
+        </li>
+        <li>
+            <a href="{% url 'gym:contract_type:add' gym.id %}" class="wger-modal-dialog">{% trans "Add" %}</a>
+        </li>
+    </ul>
+</div>
 
-{#               #}
-{# Other options #}
-{#               #}
-{% if perms.gym.manage_gym or perms.gym.manage_gyms %}
-<h4>{% trans "Options" %}</h4>
-<p>
-   <a href="{% url 'gym:gym:add-user' gym.pk %}"
-      {% auto_link_css flavour "wger-modal-dialog" %}>
-   <img src="{% static 'images/icons/new.svg' %}"
-        width="32"
-        height="32"
-        alt="{% trans 'Add member' %}"
-        title="{% trans 'Add member' %}">
-   {% trans "Add member" %}
-   </a>
-</p>
+<h5>{% trans "Types" %}</h5>
+<table class="table">
+    {% for contract_type in gym.contracttype_set.all %}
+    <tr>
+        <td>
+            {{ contract_type }}
+        </td>
+        <td>
+            {{ contract_type.description|truncatewords:15 }}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td>
+            {% trans "Nothing found" %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+
+{% if perms.gym.change_contractoption %}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="{% url 'gym:contract-option:list' gym.id %}">{% trans "Overview" %}</a>
+        </li>
+        <li>
+            <a href="{% url 'gym:contract-option:add' gym.id %}" class="wger-modal-dialog">{% trans "Add" %}</a>
+        </li>
+    </ul>
+</div>
+
+<h5>{% trans "Options" %}</h5>
+<table class="table">
+    {% for option in gym.contractoption_set.all %}
+    <tr>
+        <td>
+            {{ option }}
+        </td>
+        <td>
+            {{ option.description|truncatewords:15 }}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td>
+            {% trans "Nothing found" %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+
+
+{#             #}
+{# Email lists #}
+{#             #}
+{% if perms.email.change_log %}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="{% url 'email:email:overview' gym.id %}">{% trans "Overview"%}</a>
+        </li>
+        <li>
+            <a href="{% url 'email:email:add-gym' gym.id %}">{% trans "Add"%}</a>
+        </li>
+    </ul>
+</div>
+
+<h4>{% trans "Emails" %}</h4>
+<table class="table">
+    {% for email in gym.email_log.all %}
+    <tr>
+        <td>
+            {{ email.date }}
+        </td>
+        <td>
+            {{ email.subject|truncatewords:15 }}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td>
+            {% trans "Nothing found" %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
 {% endif %}
 {% endblock %}

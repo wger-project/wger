@@ -172,7 +172,7 @@ function get_username() {
      *
      * Do not use with anonymous users!
      *
-     * Syncronous request, use sparingly!
+     * Synchronous request, use sparingly!
      */
 
     var user_id = get_profile_field('user');
@@ -193,7 +193,7 @@ function get_profile_field(field) {
     /*
      * Get a single field from the user's profile
      *
-     * Syncronous request, use sparingly!
+     * Synchronous request, use sparingly!
      */
 
     var result;
@@ -450,7 +450,7 @@ EXERCISE \
     result_div = result_div.replace('EXERCISE', exercise.value);
     result_div = result_div.replace('EXCERCISE-ID', exercise.id);
 
-    $(result_div).prependTo("#exercise-search-log");
+    $(result_div).appendTo("#exercise-search-log");
     $("#exercise-search-log").scrollTop(0);
     $('#exercise-search-log').trigger('create');
 }
@@ -463,7 +463,7 @@ function get_exercise_formset(exercise_id) {
                           '/' + set_value + '/';
 
         $.get(formset_url, function (data) {
-            $('#formsets').prepend(data);
+            $('#formsets').append(data);
             $("#exercise-search-log").scrollTop(0);
             $('#formsets').trigger("create");
         });
@@ -483,7 +483,7 @@ function update_all_exercise_formset() {
                             '/' + set_value + '/';
                 $.get(formset_url, function (data) {
                     $('#formset-exercise-' + exercise_id).remove();
-                    $('#formsets').prepend(data);
+                    $('#formsets').append(data);
                     $('#exercise-search-log').scrollTop(0);
                     $('#formsets').trigger("create");
                 });

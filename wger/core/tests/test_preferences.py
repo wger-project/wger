@@ -89,6 +89,27 @@ class PreferencesTestCase(WorkoutManagerTestCase):
         self.assertTrue(profile.show_english_ingredients)
         self.assertEqual(response.context['user'].email, '')
 
+    def test_address(self):
+        '''
+        Test that the address property works correctly
+        '''
+
+        # Member2 has a contract
+        user = User.objects.get(username='member2')
+        self.assertEqual(user.userprofile.address,
+                         {'phone': '01234-567890',
+                          'zip_code': '00000',
+                          'street': 'Gassenstr. 14',
+                          'city': 'The City'})
+
+        # Test has no contracts
+        user = User.objects.get(username='test')
+        self.assertEqual(user.userprofile.address,
+                         {'phone': '',
+                          'zip_code': '',
+                          'street': '',
+                          'city': ''})
+
 
 class UserBodyweightTestCase(WorkoutManagerTestCase):
     '''

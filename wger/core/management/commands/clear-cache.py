@@ -18,6 +18,7 @@ from optparse import make_option
 
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand, CommandError
+from django.core.cache import cache
 
 from wger.core.models import Language
 from wger.manager.models import Workout, WorkoutLog
@@ -46,6 +47,12 @@ class Command(BaseCommand):
                     dest='clear_workout',
                     default=False,
                     help='Clear only the workout canonical view'),
+
+        make_option('--clear-all',
+                    action='store_true',
+                    dest='clear_all',
+                    default=False,
+                    help='Clear ALL cached entries'),
     )
 
     help = 'Clears the application cache. You *must* pass an option selecting ' \
@@ -56,7 +63,9 @@ class Command(BaseCommand):
         Process the options
         '''
 
-        if not options['clear_template'] and not options['clear_workout']:
+        if (not options['clear_template']
+                and not options['clear_workout']
+                and not options['clear_all']):
             raise CommandError('Please select what cache you need to delete, see help')
 
         # Exercises, cached template fragments
@@ -104,3 +113,7 @@ class Command(BaseCommand):
         if options['clear_workout']:
             for w in Workout.objects.all():
                 reset_workout_canonical_form(w.pk)
+
+        # Nuclear option, clear all
+        if options['clear_all']:
+            cache.clear()

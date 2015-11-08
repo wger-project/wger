@@ -16,7 +16,6 @@
 
 
 from django.conf.urls import (
-    patterns,
     url,
     include
 )
@@ -27,7 +26,11 @@ from wger.gym.views import (
     admin_config,
     user_config,
     admin_notes,
-    document
+    document,
+    contract,
+    contract_type,
+    contract_option,
+    export
 )
 
 
@@ -116,6 +119,61 @@ patterns_documents = [
         name='delete'),
 ]
 
+# sub patterns for contracts
+patterns_contracts = [
+    url(r'^add/(?P<user_pk>\d+)$',
+        contract.AddView.as_view(),
+        name='add'),
+    url(r'^view/(?P<pk>\d+)$',
+        contract.DetailView.as_view(),
+        name='view'),
+    url(r'^edit/(?P<pk>\d+)$',
+        contract.UpdateView.as_view(),
+        name='edit'),
+    url(r'^list/(?P<user_pk>\d+)$',
+        contract.ListView.as_view(),
+        name='list'),
+]
+
+# sub patterns for contract types
+patterns_contract_types = [
+    url(r'^add/(?P<gym_pk>\d+)$',
+        contract_type.AddView.as_view(),
+        name='add'),
+    url(r'^edit/(?P<pk>\d+)$',
+        contract_type.UpdateView.as_view(),
+        name='edit'),
+    url(r'^delete/(?P<pk>\d+)$',
+        contract_type.DeleteView.as_view(),
+        name='delete'),
+    url(r'^list/(?P<gym_pk>\d+)$',
+        contract_type.ListView.as_view(),
+        name='list'),
+]
+
+# sub patterns for contract options
+patterns_contract_options = [
+    url(r'^add/(?P<gym_pk>\d+)$',
+        contract_option.AddView.as_view(),
+        name='add'),
+    url(r'^edit/(?P<pk>\d+)$',
+        contract_option.UpdateView.as_view(),
+        name='edit'),
+    url(r'^delete/(?P<pk>\d+)$',
+        contract_option.DeleteView.as_view(),
+        name='delete'),
+    url(r'^list/(?P<gym_pk>\d+)$',
+        contract_option.ListView.as_view(),
+        name='list'),
+]
+
+# sub patterns for exports
+patterns_export = [
+    url(r'^users/(?P<gym_pk>\d+)$',
+        export.users,
+        name='users'),
+]
+
 #
 # All patterns for this app
 #
@@ -126,4 +184,8 @@ urlpatterns = [
     url(r'^user-config/', include(patterns_userconfig, namespace="user_config")),
     url(r'^notes/', include(patterns_admin_notes, namespace="admin_note")),
     url(r'^document/', include(patterns_documents, namespace="document")),
+    url(r'^contract/', include(patterns_contracts, namespace="contract")),
+    url(r'^contract-type/', include(patterns_contract_types, namespace="contract_type")),
+    url(r'^contract-option/', include(patterns_contract_options, namespace="contract-option")),
+    url(r'^export/', include(patterns_export, namespace="export")),
 ]

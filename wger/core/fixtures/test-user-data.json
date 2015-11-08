@@ -1216,5 +1216,197 @@
             "ro_access": false,
             "num_days_weight_reminder":0
         }
+    },
+        {
+        "pk": 1,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": "2014-01-20",
+            "user_id": 1
+        }
+    },
+    {
+        "pk": 2,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": "2014-01-30",
+            "user_id": 2
+        }
+    },
+    {
+        "pk": 3,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 3
+        }
+    },
+    {
+        "pk": 4,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 4
+        }
+    },
+    {
+        "pk": 5,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 5
+        }
+    },
+    {
+        "pk": 6,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 6
+        }
+    },
+    {
+        "pk": 7,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 7
+        }
+    },
+    {
+        "pk": 8,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 8
+        }
+    },
+    {
+        "pk": 9,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 9
+        }
+    },
+    {
+        "pk": 10,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 10
+        }
+    },
+    {
+        "pk": 11,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 11
+        }
+    },
+    {
+        "pk": 12,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 12
+        }
+    },
+    {
+        "pk": 13,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 13
+        }
+    },
+    {
+        "pk": 14,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 14
+        }
+    },
+    {
+        "pk": 15,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 15
+        }
+    },
+    {
+        "pk": 16,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 16
+        }
+    },
+    {
+        "pk": 17,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 17
+        }
+    },
+    {
+        "pk": 18,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 18
+        }
+    },
+    {
+        "pk": 19,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 19
+        }
+    },
+    {
+        "pk": 20,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 20
+        }
+    },
+    {
+        "pk": 21,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 21
+        }
+    },
+    {
+        "pk": 22,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 22
+        }
+    },
+    {
+        "pk": 23,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 23
+        }
+    },
+    {
+        "pk": 24,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 24
+        }
     }
 ]

@@ -175,7 +175,9 @@ header h1{
     font-weight: 300;
 }
 
-header a{
+header a,
+header a:hover, 
+header a:focus{
     color:white;
     font-size:90%;
 }
@@ -286,4 +288,11 @@ div.info a, div.info a:hover, div.info a:active{
     left: auto;
     right: auto;
     bottom: auto;
+}
+
+/**************************************************************
+ * 'Your ...' shoutouts on the feature page
+ **************************************************************/
+#shoutout h2:first-child {
+    margin-top: 0;
 }

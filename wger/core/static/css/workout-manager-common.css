@@ -306,6 +306,7 @@ table.month th.month{
 
 table.month a.calendar-link{
     height:100%;
+    line-height: 1;
 }
 
 table.month td.session-bad {

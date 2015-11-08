@@ -30,7 +30,7 @@ from wger.core.views import (
     license
 )
 
-# sub patterns for languages
+# sub patterns for user
 patterns_user = [
     url(r'^login$',
         user.login,
@@ -71,6 +71,9 @@ patterns_user = [
     url(r'^(?P<pk>\d+)/overview',
         user.UserDetailView.as_view(),
         name='overview'),
+    url(r'^list',
+        user.UserListView.as_view(),
+        name='list'),
 
     # Password reset is implemented by Django, no need to cook our own soup here
     # (besides the templates)
