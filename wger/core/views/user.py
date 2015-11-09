@@ -73,8 +73,8 @@ def login(request):
 
     context = {'hide_persona': check_request_amazon(request) or check_request_android(request),
                'active_tab': USER_TAB}
-    if request.REQUEST.get('next'):
-        context['next'] = request.REQUEST.get('next')
+    if request.GET.get('next'):
+        context['next'] = request.GET.get('next')
 
     return django_loginview(request,
                             template_name='user/login.html',
