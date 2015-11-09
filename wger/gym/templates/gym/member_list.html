@@ -59,7 +59,7 @@
     {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
     <td style="text-align: right;">
         <a href="{% url 'gym:gym:edit-user-permission' current_user.obj.pk %}" class="btn btn-default btn-xs wger-modal-dialog">
-            <span class="glyphicon glyphicon-wrench"></span>
+            <span class="glyphicon glyphicon-cog"></span>
         </a>
     </td>
     {% endif %}
