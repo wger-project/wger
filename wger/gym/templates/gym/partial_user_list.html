@@ -17,11 +17,9 @@ $(document).ready( function () {
 <table class="table table-hover" id="main_member_list">
 <thead>
 <tr>
-    {% if user_count > 0 %}
-        {% for key in user_table.keys %}
-            <th>{{ key }}</th>
-        {% endfor %}
-    {% endif %}
+    {% for key in user_table.keys %}
+        <th>{{ key }}</th>
+    {% endfor %}
 </tr>
 </thead>
 <tbody>
