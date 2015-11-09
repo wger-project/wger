@@ -165,17 +165,24 @@ you can click on them to see the details.{% endblocktrans %}</p>
 {% endif %}
 
 {% regroup month_list by year as year_list %}
-{% for year in year_list reversed %}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">{{ year.grouper }}</h3>
+    <div class="panel-group" id="accordion">
+    {% for year in year_list reversed %}
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="heading{{ year.grouper }}">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ year.grouper }}" aria-expanded="true" aria-controls="collapse{{ year.grouper }}">
+                        {{ year.grouper }}
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse{{ year.grouper }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ year.grouper }}">
+                <div class="list-group">
+                    {% for month in year.list %}
+                        <a href="{% url 'manager:workout:calendar' owner_user year.grouper month.month %}" class="list-group-item">{{month|date:"F"}}</a>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
-
-        <ul class="list-group">
-        {% for month in year.list %}
-            <a href="{% url 'manager:workout:calendar' owner_user year.grouper month.month %}" class="list-group-item">{{month|date:"F"}}</a>
-        {% endfor %}
-        </ul>
+    {% endfor %}
     </div>
-{% endfor %}
 {% endblock %}
