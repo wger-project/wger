@@ -59,34 +59,35 @@ $(document).ready(function() {
                 <div class="col-sm-4">
                 <div class="panel panel-default">
                     <div class="panel-heading" style="min-height: 4em;">{{ exercise }}</div>
-                    <div class="panel-body" style="min-height: 9em;">
-                    <ul>
+                    <ul class="list-group" style="min-height: 10em;">
                     {% for log in logs %}
-                        <li>
+                        <li class="list-group-item">
                             {{log.reps}} × {{log.weight}}
                             {% if is_owner %}
                             <span class="editoptions">
-                                <a href="{% url 'manager:log:delete' log.pk %}"
-                                   title="{% trans 'Delete' %}"
-                                   class="wger-modal-dialog">
-                                       <img src="{% static 'images/icons/trash.svg' %}"
-                                            width="16"
-                                            height="16"
-                                            alt="{% trans 'Delete' %}"></a>
-                                <a href="{% url 'manager:log:edit' log.pk %}"
-                                   title="{% trans 'Edit' %}"
-                                   class="wger-modal-dialog">
-                                       <img src="{% static 'images/icons/edit.svg' %}"
-                                            width="16"
-                                            height="16"
-                                            alt="{% trans 'Edit' %}"></a>
+                                <div class="btn-group pull-right">
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                                        <span class="glyphicon glyphicon-cog"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a href="{% url 'manager:log:edit' log.pk %}"
+                                               title="{% trans 'Edit' %}"
+                                               class="wger-modal-dialog">{% trans 'Edit' %}</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'manager:log:delete' log.pk %}"
+                                               title="{% trans 'Delete' %}"
+                                               class="wger-modal-dialog">{% trans 'Delete' %}</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </span>
                             {% endif %}
                         </li>
                     {% endfor %}
                     </ul>
                     </div>
-                </div>
                 </div>
             {% endfor %}
         </div>
