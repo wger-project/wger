@@ -33,13 +33,10 @@ RECAPTCHA_PRIVATE_KEY = ''
 NOCAPTCHA = True
 
 # The site's URL (e.g. http://www.my-local-gym.com or http://localhost:8000)
-# This is needed for Mozilla's BrowserID to work
+# This is needed for uploaded files and images (exercise images, etc.) to be
+# properly served.
 SITE_URL = '{siteurl}'
 BROWSERID_AUDIENCES = [SITE_URL]
-
-# This might be a good idea if you setup memcached
-#SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-
 
 # Path to uploaded files
 # Absolute filesystem path to the directory that will hold user-uploaded files.
@@ -52,3 +49,10 @@ if DEBUG:
 
 # Allow all hosts to access the application. Change if used in production.
 ALLOWED_HOSTS = '*'
+
+# This might be a good idea if you setup memcached
+#SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+
+# Configure a real backend in production
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

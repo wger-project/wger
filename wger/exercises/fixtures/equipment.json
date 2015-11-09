@@ -1,51 +1,72 @@
 [
-    {
-        "pk": 1, 
-        "model": "exercises.equipment", 
-        "fields": {
-            "name": "Barbell"
-        }
-    }, 
-    {
-        "pk": 2, 
-        "model": "exercises.equipment", 
-        "fields": {
-            "name": "SZ-Bar"
-        }
-    }, 
-    {
-        "pk": 3, 
-        "model": "exercises.equipment", 
-        "fields": {
-            "name": "Dumbbell"
-        }
-    }, 
-    {
-        "pk": 4, 
-        "model": "exercises.equipment", 
-        "fields": {
-            "name": "Gym mat"
-        }
-    }, 
-    {
-        "pk": 5, 
-        "model": "exercises.equipment", 
-        "fields": {
-            "name": "Swiss Ball"
-        }
-    }, 
-    {
-        "pk": 6, 
-        "model": "exercises.equipment", 
-        "fields": {
-            "name": "Pull-up bar"
-        }
-    }, 
-    {
-        "pk": 7, 
-        "model": "exercises.equipment", 
-        "fields": {
-            "name": "none (bodyweight exercise)"
-        }
-    }
+{
+    "model": "exercises.equipment",
+    "fields": {
+        "name": "Barbell"
+    },
+    "pk": 1
+},
+{
+    "model": "exercises.equipment",
+    "fields": {
+        "name": "SZ-Bar"
+    },
+    "pk": 2
+},
+{
+    "model": "exercises.equipment",
+    "fields": {
+        "name": "Dumbbell"
+    },
+    "pk": 3
+},
+{
+    "model": "exercises.equipment",
+    "fields": {
+        "name": "Gym mat"
+    },
+    "pk": 4
+},
+{
+    "model": "exercises.equipment",
+    "fields": {
+        "name": "Swiss Ball"
+    },
+    "pk": 5
+},
+{
+    "model": "exercises.equipment",
+    "fields": {
+        "name": "Pull-up bar"
+    },
+    "pk": 6
+},
+{
+    "model": "exercises.equipment",
+    "fields": {
+        "name": "none (bodyweight exercise)"
+    },
+    "pk": 7
+},
+{
+    "model": "exercises.equipment",
+    "fields": {
+        "name": "Bench"
+    },
+    "pk": 8
+},
+{
+    "model": "exercises.equipment",
+    "fields": {
+        "name": "Incline bench"
+    },
+    "pk": 9
+},
+{
+    "model": "exercises.equipment",
+    "fields": {
+        "name": "Kettlebell"
+    },
+    "pk": 10
+}
 ]

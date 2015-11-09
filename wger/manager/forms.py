@@ -98,7 +98,7 @@ class SetFormMobile(ModelForm):
         exclude = ('order', 'exerciseday')
         widgets = {'exercises': MultipleHiddenInput(), }
 
-    categories_list = ModelChoiceField(ExerciseCategory.objects,
+    categories_list = ModelChoiceField(ExerciseCategory.objects.all(),
                                        empty_label=_('All categories'),
                                        label=_('Categories'),
                                        widget=TranslatedSelect(),

@@ -62,8 +62,14 @@ def start_wger(address='localhost', port=8000, browser=False, settings_path=None
             'database-path': 'Path to sqlite database (absolute path recommended). Leave empty for default',
             'address': 'Address to use. Default: localhost',
             'port': 'Port to use. Default: 8000',
-            'browser': 'Whether to open the application in a browser window. Default: false'})
-def bootstrap_wger(settings_path=None, database_path=None, address='localhost', port=8000, browser=False):
+            'browser': 'Whether to open the application in a browser window. Default: false',
+            'start-server': 'Whether to start the development server. Default: true'})
+def bootstrap_wger(settings_path=None,
+                   database_path=None,
+                   address='localhost',
+                   port=8000,
+                   browser=False,
+                   start_server=True):
     '''
     Performs all steps necessary to bootstrap the application
     '''
@@ -95,8 +101,9 @@ def bootstrap_wger(settings_path=None, database_path=None, address='localhost', 
     call_command('bower', 'install')
 
     # Start the webserver
-    print('*** Bootstraping complete, starting application')
-    start_wger(address=address, port=port, browser=browser, settings_path=settings_path)
+    if start_server:
+        print('*** Bootstraping complete, starting application')
+        start_wger(address=address, port=port, browser=browser, settings_path=settings_path)
 
 
 @task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for default',
@@ -118,6 +125,10 @@ def create_settings(settings_path=None, database_path=None, url=None, database_t
     dbpath_value = repr(database_path)
 
     media_folder_path = repr(get_user_data_path('wger', 'media'))
+
+    # Use localhost with default django port if no URL given
+    if url is None:
+        url = 'http://localhost:8000'
 
     # Fill in the config file template
 

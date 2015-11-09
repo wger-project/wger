@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
+
+{% block title %}{% trans 'Contract' %} {{ object }}{% endblock %}
+
+
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% if perms.gym.manage_gyms %}
+        {% breadcrumb "Gyms" "gym:gym:list" %}
+    {% endif %}
+    {% breadcrumb_raw object.member.userprofile.gym "gym:gym:user-list" object.member.userprofile.gym.pk %}
+    {% breadcrumb_raw object.member|format_username "core:user:overview" object.member.pk %}
+    {% breadcrumb "Contracts" "gym:contract:list" object.member.pk %}
+    {% breadcrumb "Contract" "gym:contract:view" object.pk %}
+{% endblock %}
+
+
+{% block content %}
+<table class="table">
+    {% if object.contract_type %}
+    <tr>
+        <th style="width: 20%;">{% trans 'Contract is active' %}</th>
+        <td colspan="3">
+            {% if object.is_active %}
+                <span class="glyphicon glyphicon-ok"></span>
+            {% else %}
+                <span class="glyphicon glyphicon-remove"></span>
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>{% trans 'Contract type' %}</th>
+        <td colspan="3">{{ object.contract_type.name|default:'-/-' }}</td>
+    </tr>
+    {% endif %}
+
+    {% if object.options.exists %}
+    <tr>
+        <th>{% trans "Options" %}</th>
+        <td colspan="3">
+            {% for option in object.options.all %}
+            {{ option }}<br>
+            {% endfor %}
+        </td>
+    </tr>
+    {% endif %}
+    <tr>
+        <th>{% trans 'Name' %}</th>
+        <td>
+            {{ object.member.last_name }},
+            {{ object.member.first_name }}
+        </td>
+        <th>{% trans 'Username' %}</th>
+        <td>{{ object.member }}</td>
+    </tr>
+    <tr>
+        <th>{% trans 'Amount' %}</th>
+        <td>
+            {{ object.amount|default:'-/-' }}
+        </td>
+        <th>{% trans 'Payment type' %}</th>
+        <td>
+            {{ object.get_payment_display }}
+        </td>
+    </tr>
+    <tr>
+        <th>{% trans 'Start date' %}</th>
+        <td>{{ object.date_start|default:'-/-' }}</td>
+        <th>{% trans 'End date' %}</th>
+        <td>{{ object.date_end|default:'-/-' }}</td>
+    </tr>
+    <tr>
+        <th>{% trans 'Phone' %}</th>
+        <td>{{ object.phone }}</td>
+        <th>{% trans 'Email' %}</th>
+        <td>
+            {% if object.email %}
+                <a href="mailto:{{ object.email }}">{{ object.email }}</a>
+            {% else %}
+                -/-
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>{% trans 'Address' %}</th>
+        <td>
+            {{object.zip_code}} {{object.city}}<br>
+            {{object.street}}
+        </td>
+        <th>{% trans 'Profession' %}</th>
+        <td>{{ object.profession }}</td>
+    </tr>
+    <tr>
+        <th>{% trans 'Note' %}</th>
+        <td colspan="3" style="white-space: pre-line;">{{ object.note }}</td>
+    </tr>
+</table>
+{% endblock %}
+
+
+
+
+{% block sidebar %}
+    <h4>{% trans 'Options' %}</h4>
+    <a href="{% url 'gym:contract:edit' object.pk %}" class="wger-modal-dialog">{% trans 'Edit' %}</a>
+{% endblock %}

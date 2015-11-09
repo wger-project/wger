@@ -18,8 +18,8 @@
 from django.conf.urls import patterns, url, include
 from django.contrib.auth.decorators import login_required
 
-from wger.manager import pdf
 from wger.manager.views import (
+    pdf,
     schedule,
     schedule_step,
     ical,

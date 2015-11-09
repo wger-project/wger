@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load wger_extras i18n django_bootstrap_breadcrumbs %}
+
+{% block title %}{% trans "Email" %}{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% if perms.gym.manage_gyms %}
+        {% breadcrumb "Gyms" "gym:gym:list" %}
+    {% endif %}
+    {% breadcrumb_raw gym "gym:gym:user-list" gym.pk %}
+    {% breadcrumb "Emails" "email:email:overview" gym.pk %}
+{% endblock %}
+
+
+{% block content %}
+<ul class="list-group">
+    {% for email in email_list %}
+        <li class="list-group-item ">
+            <h4 class="list-group-item-heading">
+                {{ email.subject }}
+                <small>{{ email.date }}</small>
+            </h4>
+
+            <p class="list-group-item-text" style="white-space: pre-line;">{{ email.body }}</p>
+        </li>
+    {% empty %}
+        <li class="list-group-item">
+            {% trans "Nothing found" %}
+        </li>
+    {% endfor %}
+</ul>
+
+
+{% endblock %}
+
+{% block sidebar %}
+    <a href="{% url 'email:email:add-gym' gym.pk %}" class="btn btn-success">
+        {% trans "Add" %}
+    </a>
+{% endblock %}

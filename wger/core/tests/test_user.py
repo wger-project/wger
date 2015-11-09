@@ -13,16 +13,34 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 
-from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
+from wger.manager.tests.testcase import (
+    WorkoutManagerTestCase,
+    WorkoutManagerEditTestCase,
+    WorkoutManagerAccessTestCase
+)
 
 
 class StatusUserTestCase(WorkoutManagerTestCase):
     '''
-    Tests activating and deactivating users
+    Test activating and deactivating users
     '''
+
+    user_success = ('general_manager1',
+                    'general_manager2',
+                    'manager1',
+                    'manager2',
+                    'trainer1',
+                    'trainer2',
+                    'trainer3')
+
+    user_fail = ('member1',
+                 'member2',
+                 'member3',
+                 'member4',
+                 'manager3',
+                 'trainer4')
 
     def activate(self, fail=False):
         '''
@@ -37,25 +55,31 @@ class StatusUserTestCase(WorkoutManagerTestCase):
         user = User.objects.get(pk=2)
 
         if fail:
-            self.assertEqual(response.status_code, 403)
+            self.assertEqual(response.status_code, 403,
+                             'Unexpected status code for user {0}'.format(self.current_user))
             self.assertFalse(user.is_active)
         else:
-            self.assertEqual(response.status_code, 302)
+            self.assertEqual(response.status_code, 302,
+                             'Unexpected status code for user {0}'.format(self.current_user))
             self.assertTrue(user.is_active)
 
     def test_activate_authorized(self):
         '''
         Tests activating a user as an administrator
         '''
-        self.user_login('admin')
-        self.activate()
+        for username in self.user_success:
+            self.user_login(username)
+            self.activate()
+            self.user_logout()
 
     def test_activate_unauthorized(self):
         '''
         Tests activating a user as another logged in user
         '''
-        self.user_login('demo')
-        self.activate(fail=True)
+        for username in self.user_fail:
+            self.user_login(username)
+            self.activate(fail=True)
+            self.user_logout()
 
     def test_activate_logged_out(self):
         '''
@@ -68,6 +92,8 @@ class StatusUserTestCase(WorkoutManagerTestCase):
         Helper function to test deactivating users
         '''
         user = User.objects.get(pk=2)
+        user.is_active = True
+        user.save()
         self.assertTrue(user.is_active)
 
         response = self.client.get(reverse('core:user:deactivate', kwargs={'pk': user.pk}))
@@ -84,15 +110,19 @@ class StatusUserTestCase(WorkoutManagerTestCase):
         '''
         Tests deactivating a user as an administrator
         '''
-        self.user_login('admin')
-        self.deactivate()
+        for username in self.user_success:
+            self.user_login(username)
+            self.deactivate()
+            self.user_logout()
 
     def test_deactivate_unauthorized(self):
         '''
         Tests deactivating a user as another logged in user
         '''
-        self.user_login('demo')
-        self.deactivate(fail=True)
+        for username in self.user_fail:
+            self.user_login(username)
+            self.deactivate(fail=True)
+            self.user_logout()
 
     def test_deactivate_logged_out(self):
         '''
@@ -103,7 +133,7 @@ class StatusUserTestCase(WorkoutManagerTestCase):
 
 class EditUserTestCase(WorkoutManagerEditTestCase):
     '''
-    Tests editing a user by an admin
+    Test editing a user
     '''
 
     object_class = User
@@ -111,4 +141,92 @@ class EditUserTestCase(WorkoutManagerEditTestCase):
     pk = 2
     data = {'email': 'another.email@example.com',
             'first_name': 'Name',
-            'last_name': 'Lastname'}
+            'last_name': 'Last name'}
+    user_success = ('admin',
+                    'general_manager1',
+                    'general_manager2',
+                    'manager1',
+                    'manager2')
+    user_fail = ('member1',
+                 'member2',
+                 'manager3',
+                 'trainer2',
+                 'trainer3',
+                 'trainer4')
+
+
+class EditUserTestCase2(WorkoutManagerEditTestCase):
+    '''
+    Test editing a user
+    '''
+
+    object_class = User
+    url = 'core:user:edit'
+    pk = 19
+    data = {'email': 'another.email@example.com',
+            'first_name': 'Name',
+            'last_name': 'Last name'}
+    user_success = ('admin',
+                    'general_manager1',
+                    'general_manager2',
+                    'manager3')
+    user_fail = ('member1',
+                 'member2',
+                 'trainer2',
+                 'trainer3',
+                 'trainer4')
+
+
+class UserListTestCase(WorkoutManagerAccessTestCase):
+    '''
+    Test accessing the general user overview
+    '''
+
+    url = 'core:user:list'
+    user_success = ('admin',
+                    'general_manager1',
+                    'general_manager2')
+    user_fail = ('member1',
+                 'member2',
+                 'manager1',
+                 'manager2',
+                 'manager3',
+                 'trainer2',
+                 'trainer3',
+                 'trainer4')
+
+
+class UserDetailPageTestCase(WorkoutManagerAccessTestCase):
+    '''
+    Test accessing the user detail page
+    '''
+
+    url = reverse_lazy('core:user:overview', kwargs={'pk': 2})
+    user_success = ('trainer1',
+                    'trainer2',
+                    'manager1',
+                    'general_manager1',
+                    'general_manager2')
+    user_fail = ('trainer4',
+                 'trainer5',
+                 'manager3',
+                 'member1',
+                 'member2')
+
+
+class UserDetailPageTestCase2(WorkoutManagerAccessTestCase):
+    '''
+    Test accessing the user detail page
+    '''
+
+    url = reverse_lazy('core:user:overview', kwargs={'pk': 19})
+    user_success = ('trainer4',
+                    'trainer5',
+                    'manager3',
+                    'general_manager1',
+                    'general_manager2')
+    user_fail = ('trainer1',
+                 'trainer2',
+                 'manager1',
+                 'member1',
+                 'member2')

@@ -60,6 +60,7 @@ INSTALLED_APPS = (
     'wger.config',
     'wger.gym',
     'wger.groups',
+    'wger.email',
 
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
     'captcha',
@@ -98,11 +99,11 @@ INSTALLED_APPS = (
 BOWER_INSTALLED_APPS = (
     'jquery',
     'bootstrap',
-    'bootstrap-datepicker',
     'd3',
     'shariff',
     'tinymce-dist',
     'DataTables',
+    'components-font-awesome',
 )
 
 
@@ -133,6 +134,7 @@ MIDDLEWARE_CLASSES = (
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'django_browserid.auth.BrowserIDBackend',
+    'wger.utils.helpers.EmailAuthBackend'
 )
 
 # Set the context processors
@@ -300,6 +302,10 @@ STATIC_URL = '/static/'
 
 # The default is not DEBUG, override if needed
 # COMPRESS_ENABLED = True
+COMPRESS_CSS_FILTERS = (
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.rCSSMinFilter'
+)
 COMPRESS_ROOT = STATIC_ROOT
 
 # BOWER components route

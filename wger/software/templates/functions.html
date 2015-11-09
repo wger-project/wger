@@ -27,10 +27,12 @@
              style="width: 70%;">
     </div>
     <div class="col-sm-5 col-xs-6">
-        <h2>{% trans "Your body." %}</h2>
-        <h2>{% trans "Your workouts." %}</h2>
-        <h2>{% trans "Your data." %}</h2>
-        <h2>{% trans "Your progress." %}</h2>
+        <div id="shoutout">
+            <h2>{% trans "Your body." %}</h2>
+            <h2>{% trans "Your workouts." %}</h2>
+            <h2>{% trans "Your data." %}</h2>
+            <h2>{% trans "Your progress." %}</h2>
+        </div>
     </div>
     <div class="col-sm-3 col-xs-12">
         {% if not user.is_authenticated %}

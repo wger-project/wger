@@ -7,7 +7,7 @@ django-browserid==1.0
 django-recaptcha
 reportlab
 django_mobile
-django-formtools
+django-formtools==1.0
 bleach
 python-mimeparse
 pillow

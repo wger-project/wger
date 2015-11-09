@@ -105,6 +105,7 @@ Usage::
       -e STRING, --extra-args=STRING      Additional arguments to pass to the builtin server. Pass as string: "--arg1 --arg2=value". Default: none
       -p, --port                          Port to use. Default: 8000
       -s STRING, --settings-path=STRING   Path to settings file. Leave empty for default
+      -t, --[no-]start-server             Whether to start the development server. Default: true
 
 
 Default locations
@@ -249,6 +250,12 @@ management functions that are sometimes needed. Call them with
 
 **submitted-exercises**
   simply prints a list of user submitted exercises
+
+**update-user-cache**
+  update the user cache-table. This command is only needed when the python code
+  used to calculate any of the cached entries is changed and the ones in the
+  database need to be updated to reflect the new logic.
+
 
 
 Cron

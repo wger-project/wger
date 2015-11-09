@@ -226,8 +226,7 @@ def add(request, pk):
         # (we only add new logs here and that seems to be the fastest way)
         formset = WorkoutLogFormSet(queryset=WorkoutLog.objects.none())
 
-        dateform = HelperDateForm(initial={'date': formats.date_format(datetime.date.today(),
-                                                                       "SHORT_DATE_FORMAT")})
+        dateform = HelperDateForm(initial={'date': datetime.date.today()})
 
         # Depending on whether there is already a workout session for today, update
         # the current one or create a new one (this will be the most usual case)
