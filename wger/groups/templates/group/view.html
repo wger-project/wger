@@ -192,9 +192,11 @@
     <h4>{% trans "Workouts" %}</h4>
     <div class="list-group">
         {% for workout in object.workout_set.all %}
-        <a class="list-group-item" href="{{ workout.get_absolute_url }}">
-            {{ workout }}
-        </a>
+            <a class="list-group-item" href="{{ workout.get_absolute_url }}">
+                {{ workout }}
+            </a>
+        {% empty %}
+            <div class="list-group-item">{% trans "Nothing found" %}</div>
         {% endfor %}
     </div>
 
