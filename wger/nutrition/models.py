@@ -156,18 +156,17 @@ class NutritionPlan(models.Model):
         Returns the closest weight entry for the nutrition plan.
         Returns None if there are no entries.
         '''
-        entry = None
-        if self.user.userprofile.weight:
-            target = self.creation_date
-            closest_entry_gte = WeightEntry.objects.filter(user=self.user) \
-                .filter(date__gte=target).order_by('date').first()
-            closest_entry_lte = WeightEntry.objects.filter(user=self.user) \
-                .filter(date__lte=target).order_by('-date').first()
-            if abs(closest_entry_gte.date - target) < abs(closest_entry_lte.date - target):
-                entry = closest_entry_gte
-            else:
-                entry = closest_entry_lte
-        return entry
+        target = self.creation_date
+        closest_entry_gte = WeightEntry.objects.filter(user=self.user) \
+            .filter(date__gte=target).order_by('date').first()
+        closest_entry_lte = WeightEntry.objects.filter(user=self.user) \
+            .filter(date__lte=target).order_by('-date').first()
+        if closest_entry_gte is None or closest_entry_lte is None:
+            return closest_entry_gte or closest_entry_lte
+        if abs(closest_entry_gte.date - target) < abs(closest_entry_lte.date - target):
+            return closest_entry_gte
+        else:
+            return closest_entry_lte
 
     def get_owner_object(self):
         '''
