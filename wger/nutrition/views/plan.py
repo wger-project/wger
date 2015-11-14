@@ -152,7 +152,6 @@ def view(request, id):
     else:
         template_data['nutritional_data'] = plan.get_nutritional_values()
 
-
     # Tokens for the links
     template_data['uid'] = uid
     template_data['token'] = token
