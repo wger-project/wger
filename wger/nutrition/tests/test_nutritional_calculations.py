@@ -133,7 +133,7 @@ class NutritionalValuesCalculationsTestCase(WorkoutManagerTestCase):
         '''
         self.user_login('test')
         plan = models.NutritionPlan.objects.get(pk=4)
-        values = plan.get_nutritional_values()
+        values = plan.get_nutritional_values(plan.user.userprofile.weight)
 
         self.assertEqual(values['percent']['carbohydrates'], Decimal(29.79).quantize(TWOPLACES))
         self.assertEqual(values['percent']['fat'], Decimal(20.36).quantize(TWOPLACES))
