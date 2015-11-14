@@ -186,8 +186,10 @@ function custom_modal_init()
 
 
 <h4>{% trans "Nutritional data" %}</h4>
-{% if closest_weight_entry != None %}
-    <h5>{% trans "Based on the weight entry dated" %} {{closest_weight_entry.date}} ({{closest_weight_entry.weight}})</h5>
+{% if closest_weight_entry %}
+    {% blocktrans with date=closest_weight_entry.date weight=closest_weight_entry.weight %}
+    <h5> Based on the weight entry dated {{date}} ({{weight}})</h5>
+    {% endblocktrans %}
 {% endif %}
 <table class="table table-condensed">
     <thead>
