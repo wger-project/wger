@@ -147,10 +147,11 @@ def view(request, id):
     closest_weight_entry = plan.get_closest_weight_entry()
     template_data['closest_weight_entry'] = closest_weight_entry
     if closest_weight_entry is not None:
-        weight = closest_weight_entry.weight
+        template_data['nutritional_data'] = \
+            plan.get_nutritional_values(closest_weight_entry.weight)
     else:
-        weight = 0
-    template_data['nutritional_data'] = plan.get_nutritional_values(weight)
+        template_data['nutritional_data'] = plan.get_nutritional_values()
+
 
     # Tokens for the links
     template_data['uid'] = uid

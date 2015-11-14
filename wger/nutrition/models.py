@@ -103,12 +103,14 @@ class NutritionPlan(models.Model):
         '''
         return reverse('nutrition:plan:view', kwargs={'id': self.id})
 
-    def get_nutritional_values(self, weight=0):
+    def get_nutritional_values(self, weight=None):
         '''
         Sums the nutritional info of all items in the plan
         '''
         use_metric = self.user.userprofile.use_metric
         unit = 'kg' if use_metric else 'lb'
+        if weight is None:
+            weight = self.user.userprofile.weight
         result = {'total': {'energy': 0,
                             'protein': 0,
                             'carbohydrates': 0,
