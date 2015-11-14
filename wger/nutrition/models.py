@@ -103,7 +103,7 @@ class NutritionPlan(models.Model):
         '''
         return reverse('nutrition:plan:view', kwargs={'id': self.id})
 
-    def get_nutritional_values(self):
+    def get_nutritional_values(self, closest_weight_entry = None):
         '''
         Sums the nutritional info of all items in the plan
         '''
@@ -122,7 +122,7 @@ class NutritionPlan(models.Model):
                               'fat': 0},
                   'per_kg': {'protein': 0,
                              'carbohydrates': 0,
-                             'fat': 0}
+                             'fat': 0},
                   }
 
         # Energy
@@ -140,19 +140,9 @@ class NutritionPlan(models.Model):
                     result['total'][key] * ENERGY_FACTOR[key][unit] / energy * 100
         
         # Per body weight
-        if self.user.userprofile.weight:
-            # Determine closest entry by date
-            target = self.creation_date
-            closest_entry_gte = WeightEntry.objects.filter(user = self.user) \
-                .filter(date__gte = target).order_by('date')[0]
-            closest_entry_lte = WeightEntry.objects.filter(user = self.user) \
-                .filter(date__lte = target).order_by('-date')[0]
-            if abs(closest_entry_gte.date - target) < abs(closest_entry_lte.date - target):
-                weight = Decimal(closest_entry_gte.weight)
-            else:
-                weight = Decimal(closest_entry_lte.weight)
+        if closest_weight_entry != None:
             for key in result['per_kg'].keys():
-                result['per_kg'][key] = result['total'][key] / weight
+                result['per_kg'][key] = result['total'][key] / Decimal(closest_weight_entry.weight)
 
         # Only 2 decimal places, anything else doesn't make sense
         for key in result.keys():
@@ -160,6 +150,25 @@ class NutritionPlan(models.Model):
                 result[key][i] = Decimal(result[key][i]).quantize(TWOPLACES)
 
         return result
+        
+    def get_closest_weight_entry(self):
+        '''
+        Returns the closest weight entry for the nutrition plan.
+        Returns None if there are no entries.
+        '''
+        entry = None
+        if self.user.userprofile.weight:
+            target = self.creation_date
+            closest_entry_gte = WeightEntry.objects.filter(user = self.user) \
+                .filter(date__gte = target).order_by('date').first()
+            closest_entry_lte = WeightEntry.objects.filter(user = self.user) \
+                .filter(date__lte = target).order_by('-date').first()
+            if abs(closest_entry_gte.date - target) < abs(closest_entry_lte.date - target):
+                entry = closest_entry_gte
+            else:
+                entry = closest_entry_lte
+        return entry
+        
 
     def get_owner_object(self):
         '''
