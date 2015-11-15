@@ -638,7 +638,7 @@ class MealItem(models.Model):
 
         # If necessary, convert weight units
         if not use_metric:
-            for key, value in nutritional_info.iteritems():
+            for key, value in nutritional_info.items():
 
                 # Energy is not a weight!
                 if key == 'energy':
