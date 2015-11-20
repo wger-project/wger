@@ -100,6 +100,7 @@ BOWER_INSTALLED_APPS = (
     'tinymce-dist',
     'DataTables',
     'components-font-awesome',
+    'tinymce',
 )
 
 
