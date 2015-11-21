@@ -196,6 +196,11 @@ def registration(request):
     '''
     A form to allow for registration of new users
     '''
+
+    # If global user registration is deactivated, redirect
+    if not settings.WGER_SETTINGS['ALLOW_REGISTRATION']:
+        return HttpResponseRedirect(reverse('software:features'))
+
     template_data = {}
     template_data.update(csrf(request))
 

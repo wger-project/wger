@@ -42,9 +42,11 @@
         {% endif %}
 
         {% if not user.is_authenticated or user.userprofile.is_temporary %}
+        {% if allow_registration %}
         <p>
             <a href="{% url 'core:user:registration' %}" class="btn btn-default btn-lg btn-block">{% trans "Register" %}</a>
         </p>
+        {% endif %}
 
         <p>
             <a href="{% url 'core:user:login' %}" class="btn btn-default btn-lg btn-block">{% trans "Login" %}</a>

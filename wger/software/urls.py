@@ -14,8 +14,10 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.views.generic import TemplateView
+
+from wger.software import views
 
 urlpatterns = [
 
@@ -27,7 +29,7 @@ urlpatterns = [
         name='tos'),
 
     url(r'^features$',
-        TemplateView.as_view(template_name="functions.html"),
+        views.features,
         name='features'),
 
     url(r'^changelog$',

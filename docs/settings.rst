@@ -6,6 +6,10 @@ Settings
 You can configure some of the application behaviour with the ``WGER_SETTINGS``
 dictionary in your settings file. Currently the following options are supported:
 
+**ALLOW_REGISTRATION**: Default ``True``.
+  Controls whether users can register on their own or if a gym adminstrator has
+  to create the user accounts.
+
 **USE_RECAPTCHA**: Default ``False``.
   Controls whether a captcha challenge will be presented when new users register.
 
