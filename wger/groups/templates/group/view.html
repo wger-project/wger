@@ -86,56 +86,45 @@
         <p style="white-space: pre-line;">{{ object.description }}</p>
     {% endif %}
 
+    {% if group_dropdown %}
     <div class="btn-group pull-right">
         <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
             {% trans "Actions" %} <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu">
-            <li>
-            {% if user in group.get_member_list %}
-                <a href="{% url 'groups:member:leave' object.pk %}">
-                    {% trans "Leave group" %}
-                </a>
-            {% else %}
-                <a href="{% url 'groups:member:join-public' object.pk %}">
-                    {% trans "Join group" %}
-                </a>
-            {% endif %}
-            </li>
-
-            {% if user in object.get_admins_list %}
-                <li class="divider"></li>
+            {% for entry in group_dropdown %}
                 <li>
-                    <a href="{% url 'groups:group:edit' object.pk %}">{% trans "Edit" %}</a>
+                    <a href="{{ entry.1 }}">{{ entry.0 }}</a>
                 </li>
-                <li>
-                    <a href="{% url 'groups:group:delete' object.pk %}" class="wger-modal-dialog">{% trans "Delete" %}</a>
-                </li>
-            {% endif %}
+            {% endfor %}
         </ul>
     </div>
+    {% endif %}
+
     <h4>{% trans "Members" %}</h4>
     <ul class="list-group">
-    {% for membership in object.membership_set.all %}
+    {% for membership in memberships_list %}
     <li class="list-group-item ">
 
         {{ membership.user|format_username }}
-        {% if membership.admin %}
+        {% if membership.is_admin %}
             <span class="label label-primary">{% trans "Admin" %}</span>
         {% endif %}
 
-        {% if user in object.get_admins_list %}
-            <a href="{% url 'groups:member:leave' object.pk membership.user.pk %}">{% trans "Kick out" %}</a>
+        {% if membership.dropdowns %}
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default btn-xs dropdown-toggle btn-xs" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-cog"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                {% for option in membership.dropdowns %}
+                    <li>
+                        <a href="{{ option.1 }}">{{ option.0 }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
         {% endif %}
-
-        {% if user in object.get_admins_list and membership.user not in object.get_admins_list %}
-            <a href="{% url 'groups:member:promote' object.pk membership.user.pk %}">{% trans "Promote to administrator" %}</a>
-        {% endif %}
-
-        {% if user in object.get_admins_list and membership.user in object.get_admins_list %}
-            <a href="{% url 'groups:member:demote' object.pk membership.user.pk %}">{% trans "Demote administrator" %}</a>
-        {% endif %}
-
     </li>
     {% empty %}
         <li class="list-group-item">

@@ -81,8 +81,61 @@ class DetailView(WgerPermissionMixin, DetailView):
         '''
         context = super(DetailView, self).get_context_data(**kwargs)
         application = self.object.application_set.filter(user=self.request.user).exists()
+        group = self.get_object()
+        member_list = group.get_member_list()
+        admin_list = group.get_admins_list()
+
         context['last_activity'] = target_stream(self.object)[:20]
         context['application'] = application
+
+        # Get the structure for the different option menus here
+        #
+        # This makes it easier to perform some of the comparisons and permission checks
+        # and keeps the template clearer, since then we can just iterate over the resulting
+        # option lists
+        context['group_dropdown'] = []
+        if self.request.user in member_list:
+            context['group_dropdown'].append([_("Leave group"),
+                                              reverse('groups:member:leave',
+                                                      kwargs={'group_pk': group.pk})])
+        else:
+            context['group_dropdown'].append([_("Join group"),
+                                              reverse('groups:member:join-public',
+                                                      kwargs={'group_pk': group.pk})])
+        if self.request.user in admin_list:
+            context['group_dropdown'].append([_("Edit"),
+                                              reverse('groups:group:edit',
+                                                      kwargs={'pk': group.pk})])
+            context['group_dropdown'].append([_("Delete"),
+                                              reverse('groups:group:delete',
+                                                      kwargs={'pk': group.pk})])
+
+        context['memberships_list'] = []
+        for membership in group.membership_set.all():
+            out = {'user': membership.user,
+                   'is_admin': membership.admin,
+                   'dropdowns': []}
+
+            if self.request.user in admin_list:
+                out['dropdowns'].append([_('Kick out'),
+                                         reverse('groups:member:leave',
+                                                 kwargs={'group_pk': group.pk,
+                                                         'user_pk': membership.user_id})])
+
+            if self.request.user in admin_list and membership.user not in admin_list:
+                out['dropdowns'].append([_('Promote to administrator'),
+                                        reverse('groups:member:promote',
+                                                kwargs={'group_pk': group.pk,
+                                                        'user_pk': membership.user_id})])
+
+            if self.request.user in admin_list and membership.user in admin_list:
+                out['dropdowns'].append([_('Demote administrator'),
+                                        reverse('groups:member:demote',
+                                                kwargs={'group_pk': group.pk,
+                                                        'user_pk': membership.user_id})])
+
+            context['memberships_list'].append(out)
+
         return context
 
 
