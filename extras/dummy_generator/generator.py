@@ -50,6 +50,18 @@ from wger.manager.models import (
 )
 from wger.weight.models import WeightEntry
 
+from wger.core.models import Language
+
+# Nutrition import //_c
+from wger.nutrition.models import (
+    Ingredient,
+    IngredientWeightUnit,
+    WeightUnit,
+    NutritionPlan,
+    Meal,
+    MealItem
+)
+
 parser = argparse.ArgumentParser(description='Data generator. Please consult the documentation')
 subparsers = parser.add_subparsers(help='The kind of entries you want to generate')
 
@@ -115,6 +127,16 @@ weight_parser.add_argument('--base-weight',
                            help='Default weight for the entry generation, default = 80',
                            type=int,
                            default=80)
+
+# Nutrition options
+nutrition_parser = subparsers.add_parser('nutrition', help='Creates a meal plan')
+nutrition_parser.add_argument('number_nutrition_plans',
+                         action='store',
+                         help='Number of meal plans to create',
+                         type=int)
+nutrition_parser.add_argument('--add-to-user',
+                           action='store',
+                           help='Add to the specified user-ID, not all existing users')
 
 args = parser.parse_args()
 # print(args)
@@ -415,3 +437,43 @@ if hasattr(args, 'number_weight'):
 
         # Bulk-create the weight entries
         WeightEntry.objects.bulk_create(new_entries)
+
+# Nutrition Generator
+if hasattr(args, 'number_nutrition_plans'):
+    print("** Generating {0} nutrition plan(s) per user".format(args.number_nutrition_plans))
+
+    if args.add_to_user:
+        userlist = [User.objects.get(pk=args.add_to_user)]
+    else:
+        userlist = [i for i in User.objects.all()]
+
+    # Load all ingredients to a list
+    ingredientList = [i for i in Ingredient.objects.all()]
+
+    # Total meals per plan
+    total_meals = 4
+    
+    for user in userlist:
+        print('   - generating for {0}'.format(user.username))
+
+        # Add nutrition plan
+        for i in range(0, args.number_nutrition_plans):
+            uid = str(uuid.uuid4()).split('-')
+            start_date = datetime.date.today() - datetime.timedelta(days=random.randint(0, 100))
+            nutrition_plan = NutritionPlan(language=Language.objects.all()[1], description='Dummy nutrition plan - {0}'.format(uid[1]),
+                              creation_date=start_date)
+            nutrition_plan.user = user
+
+            nutrition_plan.save()
+
+            # Add meals to plan
+            order = 1
+            for j in range(0, total_meals):
+               meal = Meal(plan=nutrition_plan, order=order)
+               meal.save()
+               ingredient = ingredientList[random.randint(0, len(ingredientList))]
+               i_weight = IngredientWeightUnit(ingredient=ingredient, unit=WeightUnit.objects.all()[0], gram=random.randint(10, 250))
+               i_weight.save()
+               meal_item = MealItem(meal=meal, ingredient=ingredient, weight_unit=i_weight, order=order, amount=1)
+               meal_item.save()
+               order = order + 1
