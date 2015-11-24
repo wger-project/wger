@@ -448,7 +448,7 @@ if hasattr(args, 'number_nutrition_plans'):
         userlist = [i for i in User.objects.all()]
 
     # Load all ingredients to a list
-    ingredientList = [i for i in Ingredient.objects.all()]
+    ingredientList = [i for i in Ingredient.objects.order_by('?').all()[:100]]
 
     # Total meals per plan
     total_meals = 4
@@ -469,11 +469,12 @@ if hasattr(args, 'number_nutrition_plans'):
             # Add meals to plan
             order = 1
             for j in range(0, total_meals):
-               meal = Meal(plan=nutrition_plan, order=order)
-               meal.save()
-               ingredient = ingredientList[random.randint(0, len(ingredientList))]
-               i_weight = IngredientWeightUnit(ingredient=ingredient, unit=WeightUnit.objects.all()[0], gram=random.randint(10, 250))
-               i_weight.save()
-               meal_item = MealItem(meal=meal, ingredient=ingredient, weight_unit=i_weight, order=order, amount=1)
-               meal_item.save()
-               order = order + 1
+                meal = Meal(plan=nutrition_plan, order=order)
+                meal.save()
+                for k in range(0, random.randint(1,5)):
+                    ingredient = ingredientList[random.randint(0, len(ingredientList)-1)]
+                    i_weight = IngredientWeightUnit(ingredient=ingredient, unit=WeightUnit.objects.all()[0], gram=random.randint(10, 250))
+                    i_weight.save()
+                    meal_item = MealItem(meal=meal, ingredient=ingredient, weight_unit=i_weight, order=order, amount=1)
+                    meal_item.save()
+                order = order + 1
