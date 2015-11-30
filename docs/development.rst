@@ -118,6 +118,7 @@ user will have 20 workouts and each exercise in each workout 30 log entries::
   python generator.py logs 30
   python generator.py sessions random
   python generator.py weight 100
+  python generator.py nutrition 20
 
 .. note::
    All generated users have their username as password.

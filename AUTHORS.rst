@@ -14,6 +14,7 @@ Developers
 * Benny Tran - https://github.com/tranbenny
 * Roman Pavlov - https://github.com/romansp
 * Mihail Burduja - https://github.com/warchildmd
+* Colin Hare - https://github.com/cthare
 
 Translators
 -----------
