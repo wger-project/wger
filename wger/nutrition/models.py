@@ -103,14 +103,12 @@ class NutritionPlan(models.Model):
         '''
         return reverse('nutrition:plan:view', kwargs={'id': self.id})
 
-    def get_nutritional_values(self, weight=None):
+    def get_nutritional_values(self):
         '''
         Sums the nutritional info of all items in the plan
         '''
         use_metric = self.user.userprofile.use_metric
         unit = 'kg' if use_metric else 'lb'
-        if weight is None:
-            weight = self.user.userprofile.weight
         result = {'total': {'energy': 0,
                             'protein': 0,
                             'carbohydrates': 0,
@@ -142,9 +140,10 @@ class NutritionPlan(models.Model):
                     result['total'][key] * ENERGY_FACTOR[key][unit] / energy * 100
 
         # Per body weight
-        if weight > 0:
+        weight_entry = self.get_closest_weight_entry()
+        if weight_entry:
             for key in result['per_kg'].keys():
-                result['per_kg'][key] = result['total'][key] / weight
+                result['per_kg'][key] = result['total'][key] / weight_entry.weight
 
         # Only 2 decimal places, anything else doesn't make sense
         for key in result.keys():
