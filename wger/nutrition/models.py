@@ -37,6 +37,7 @@ from wger.utils.cache import cache_mapper
 from wger.utils.fields import Html5TimeField
 from wger.utils.models import AbstractLicenseModel
 from wger.utils.units import AbstractWeight
+from wger.weight.models import WeightEntry
 
 MEALITEM_WEIGHT_GRAM = '1'
 MEALITEM_WEIGHT_UNIT = '2'
@@ -121,7 +122,7 @@ class NutritionPlan(models.Model):
                               'fat': 0},
                   'per_kg': {'protein': 0,
                              'carbohydrates': 0,
-                             'fat': 0}
+                             'fat': 0},
                   }
 
         # Energy
@@ -139,10 +140,10 @@ class NutritionPlan(models.Model):
                     result['total'][key] * ENERGY_FACTOR[key][unit] / energy * 100
 
         # Per body weight
-        if self.user.userprofile.weight:
-            weight = Decimal(self.user.userprofile.weight)
+        weight_entry = self.get_closest_weight_entry()
+        if weight_entry:
             for key in result['per_kg'].keys():
-                result['per_kg'][key] = result['total'][key] / weight
+                result['per_kg'][key] = result['total'][key] / weight_entry.weight
 
         # Only 2 decimal places, anything else doesn't make sense
         for key in result.keys():
@@ -150,6 +151,23 @@ class NutritionPlan(models.Model):
                 result[key][i] = Decimal(result[key][i]).quantize(TWOPLACES)
 
         return result
+
+    def get_closest_weight_entry(self):
+        '''
+        Returns the closest weight entry for the nutrition plan.
+        Returns None if there are no entries.
+        '''
+        target = self.creation_date
+        closest_entry_gte = WeightEntry.objects.filter(user=self.user) \
+            .filter(date__gte=target).order_by('date').first()
+        closest_entry_lte = WeightEntry.objects.filter(user=self.user) \
+            .filter(date__lte=target).order_by('-date').first()
+        if closest_entry_gte is None or closest_entry_lte is None:
+            return closest_entry_gte or closest_entry_lte
+        if abs(closest_entry_gte.date - target) < abs(closest_entry_lte.date - target):
+            return closest_entry_gte
+        else:
+            return closest_entry_lte
 
     def get_owner_object(self):
         '''

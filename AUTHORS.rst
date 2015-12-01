@@ -15,6 +15,7 @@ Developers
 * Roman Pavlov - https://github.com/romansp
 * Mihail Burduja - https://github.com/warchildmd
 * Colin Hare - https://github.com/cthare
+* Ryan Hughes - https://github.com/purplebird
 
 Translators
 -----------
