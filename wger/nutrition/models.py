@@ -30,9 +30,10 @@ from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.utils import translation
+from django.conf import settings
 
 from wger.core.models import Language
-from wger.utils.constants import EMAIL_FROM, TWOPLACES
+from wger.utils.constants import TWOPLACES
 from wger.utils.cache import cache_mapper
 from wger.utils.fields import Html5TimeField
 from wger.utils.models import AbstractLicenseModel
@@ -429,7 +430,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
             message = render_to_string('ingredient/email_new.html', context)
             mail.send_mail(subject,
                            message,
-                           EMAIL_FROM,
+                           settings.EMAIL_FROM,
                            [self.user.email],
                            fail_silently=True)
 

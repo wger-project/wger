@@ -31,11 +31,11 @@ from django.core.urlresolvers import reverse
 from django.core import mail
 from django.core.cache import cache
 from django.core.validators import MinLengthValidator
+from django.conf import settings
 
 from wger.core.models import Language
 from wger.utils.managers import SubmissionManager
 from wger.utils.models import AbstractLicenseModel, AbstractSubmissionModel
-from wger.utils.constants import EMAIL_FROM
 from wger.utils.cache import (
     delete_template_fragment_cache,
     reset_workout_canonical_form,
@@ -315,7 +315,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             message = render_to_string('exercise/email_new.html', context)
             mail.send_mail(subject,
                            message,
-                           EMAIL_FROM,
+                           settings.EMAIL_FROM,
                            [user.email],
                            fail_silently=True)
 

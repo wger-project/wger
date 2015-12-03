@@ -21,11 +21,11 @@ from django.core.management.base import BaseCommand
 from django.core import mail
 from django.utils.translation import ugettext_lazy as _
 from django.utils import translation
+from django.conf import settings
 
 from django.contrib.sites.models import Site
 from wger.core.models import UserProfile
 from wger.manager.models import Schedule
-from wger.utils.constants import EMAIL_FROM
 
 
 class Command(BaseCommand):
@@ -122,6 +122,6 @@ class Command(BaseCommand):
         message = loader.render_to_string('workout/email_reminder.tpl', context)
         mail.send_mail(subject,
                        message,
-                       EMAIL_FROM,
+                       settings.EMAIL_FROM,
                        [user.email],
                        fail_silently=True)
