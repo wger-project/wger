@@ -58,4 +58,4 @@ if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Sender address used for sent emails
-EMAIL_FROM = 'wger Workout Manager <your.email@example.com>'
+WGER_SETTINGS['EMAIL_FROM'] = 'wger Workout Manager <wger@example.com>'

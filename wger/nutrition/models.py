@@ -430,7 +430,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
             message = render_to_string('ingredient/email_new.html', context)
             mail.send_mail(subject,
                            message,
-                           settings.EMAIL_FROM,
+                           settings.WGER_SETTINGS['EMAIL_FROM'],
                            [self.user.email],
                            fail_silently=True)
 

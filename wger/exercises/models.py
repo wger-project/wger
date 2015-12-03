@@ -315,7 +315,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             message = render_to_string('exercise/email_new.html', context)
             mail.send_mail(subject,
                            message,
-                           settings.EMAIL_FROM,
+                           settings.WGER_SETTINGS['EMAIL_FROM'],
                            [user.email],
                            fail_silently=True)
 

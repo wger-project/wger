@@ -348,5 +348,6 @@ IGNORABLE_404_URLS = (
 WGER_SETTINGS = {
     'USE_RECAPTCHA': False,
     'REMOVE_WHITESPACE': False,
-    'ALLOW_REGISTRATION': True
+    'ALLOW_REGISTRATION': True,
+    'EMAIL_FROM': 'wger Workout Manager <wger@example.com>'
 }

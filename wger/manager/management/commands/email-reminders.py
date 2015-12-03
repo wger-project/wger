@@ -122,6 +122,6 @@ class Command(BaseCommand):
         message = loader.render_to_string('workout/email_reminder.tpl', context)
         mail.send_mail(subject,
                        message,
-                       settings.EMAIL_FROM,
+                       settings.WGER_SETTINGS['EMAIL_FROM'],
                        [user.email],
                        fail_silently=True)
