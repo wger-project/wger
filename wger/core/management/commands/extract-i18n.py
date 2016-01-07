@@ -16,6 +16,7 @@
 
 from django.core.management.base import BaseCommand
 
+from wger.core.models import SettingUnit
 from wger.exercises.models import (
     ExerciseCategory,
     Muscle,
@@ -46,3 +47,8 @@ class Command(BaseCommand):
         for muscle in Muscle.objects.all():
             self.stdout.write('msgid "{0}"\n'
                               'msgstr ""\n\n'.format(muscle))
+
+        # Setting units
+        for unit in SettingUnit.objects.all():
+            self.stdout.write('msgid "{0}"\n'
+                              'msgstr ""\n\n'.format(unit))
