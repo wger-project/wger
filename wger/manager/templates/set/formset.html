@@ -19,6 +19,10 @@
             {% if forloop.parentloop.first %}
                 <div class="col-xs-4">
                     {{ i.label }}
+                    {% if not i.field.required %}
+                        <br>
+                        <span style="font-size:90%;">— <em>{% trans "Optional" %}</em></span>
+                    {% endif %}
                 </div>
             {% endif %}
         {% endif %}
