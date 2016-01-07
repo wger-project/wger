@@ -1,7 +1,8 @@
 [
     {
+        "model": "auth.group",
+        "pk": 1,
         "fields": {
-            "name": "admin",
             "permissions": [
                 [
                     "add_gymconfig",
@@ -258,14 +259,14 @@
                     "nutrition",
                     "weightunit"
                 ]
-            ]
-        },
-        "model": "auth.group",
-        "pk": 1
+            ],
+            "name": "admin"
+        }
     },
     {
+        "model": "auth.group",
+        "pk": 2,
         "fields": {
-            "name": "general_gym_manager",
             "permissions": [
                 [
                     "change_gymconfig",
@@ -297,14 +298,14 @@
                     "gym",
                     "gymadminconfig"
                 ]
-            ]
-        },
-        "model": "auth.group",
-        "pk": 2
+            ],
+            "name": "general_gym_manager"
+        }
     },
     {
+        "model": "auth.group",
+        "pk": 3,
         "fields": {
-            "name": "gym_manager",
             "permissions": [
                 [
                     "add_log",
@@ -330,6 +331,21 @@
                     "delete_contract",
                     "gym",
                     "contract"
+                ],
+                [
+                    "add_contractoption",
+                    "gym",
+                    "contractoption"
+                ],
+                [
+                    "change_contractoption",
+                    "gym",
+                    "contractoption"
+                ],
+                [
+                    "delete_contractoption",
+                    "gym",
+                    "contractoption"
                 ],
                 [
                     "add_contracttype",
@@ -366,14 +382,14 @@
                     "gym",
                     "gymconfig"
                 ]
-            ]
-        },
-        "model": "auth.group",
-        "pk": 3
+            ],
+            "name": "gym_manager"
+        }
     },
     {
+        "model": "auth.group",
+        "pk": 4,
         "fields": {
-            "name": "gym_trainer",
             "permissions": [
                 [
                     "add_adminusernote",
@@ -420,17 +436,16 @@
                     "gym",
                     "userdocument"
                 ]
-            ]
-        },
-        "model": "auth.group",
-        "pk": 4
+            ],
+            "name": "gym_trainer"
+        }
     },
     {
-        "fields": {
-            "name": "gym_member",
-            "permissions": []
-        },
         "model": "auth.group",
-        "pk": 5
+        "pk": 5,
+        "fields": {
+            "permissions": [],
+            "name": "gym_member"
+        }
     }
 ]
