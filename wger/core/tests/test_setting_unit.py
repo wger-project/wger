@@ -51,6 +51,15 @@ class AddTestCase(WorkoutManagerAddTestCase):
     object_class = SettingUnit
     url = 'core:setting_unit:add'
     data = {'name': 'Furlongs'}
+    user_success = 'admin',
+    user_fail = ('general_manager1',
+                 'general_manager2',
+                 'member1',
+                 'member2',
+                 'trainer2',
+                 'trainer3',
+                 'trainer4',
+                 'manager3')
 
 
 class DeleteTestCase(WorkoutManagerDeleteTestCase):
@@ -58,9 +67,18 @@ class DeleteTestCase(WorkoutManagerDeleteTestCase):
     Tests deleting a unit
     '''
 
+    pk = 1
     object_class = SettingUnit
     url = 'core:setting_unit:delete'
-    pk = 1
+    user_success = 'admin',
+    user_fail = ('general_manager1',
+                 'general_manager2',
+                 'member1',
+                 'member2',
+                 'trainer2',
+                 'trainer3',
+                 'trainer4',
+                 'manager3')
 
 
 class EditTestCase(WorkoutManagerEditTestCase):
@@ -72,6 +90,15 @@ class EditTestCase(WorkoutManagerEditTestCase):
     object_class = SettingUnit
     url = 'core:setting_unit:edit'
     data = {'name': 'Furlongs'}
+    user_success = 'admin',
+    user_fail = ('general_manager1',
+                 'general_manager2',
+                 'member1',
+                 'member2',
+                 'trainer2',
+                 'trainer3',
+                 'trainer4',
+                 'manager3')
 
 
 class ApiTestCase(api_base_test.ApiBaseResourceTestCase):
