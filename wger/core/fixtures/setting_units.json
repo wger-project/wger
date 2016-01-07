@@ -1,0 +1,51 @@
+[
+    {
+        "pk": 1,
+        "fields": {
+            "name": "Repetitions"
+        },
+        "model": "core.settingunit"
+    },
+    {
+        "pk": 2,
+        "fields": {
+            "name": "Seconds"
+        },
+        "model": "core.settingunit"
+    },
+    {
+        "pk": 3,
+        "fields": {
+            "name": "Minutes"
+        },
+        "model": "core.settingunit"
+    },
+    {
+        "pk": 4,
+        "fields": {
+            "name": "Miles"
+        },
+        "model": "core.settingunit"
+    },
+    {
+        "pk": 5,
+        "fields": {
+            "name": "Kilometers"
+        },
+        "model": "core.settingunit"
+    },
+    {
+        "pk": 6,
+        "fields": {
+            "name": "Plates"
+        },
+        "model": "core.settingunit"
+    },
+    {
+        "pk": 7,
+        "fields": {
+            "name": "Rounds"
+        },
+        "model": "core.settingunit"
+    }
+]

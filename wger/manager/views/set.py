@@ -44,7 +44,7 @@ logger = logging.getLogger(__name__)
 # ************************
 # Set functions
 # ************************
-SETTING_FORMSET_FIELDS = ('reps', 'weight')
+SETTING_FORMSET_FIELDS = ('reps', 'weight', 'unit')
 
 SettingFormset = modelformset_factory(Setting,
                                       form=SettingForm,

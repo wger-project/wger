@@ -96,6 +96,7 @@ router.register(r'userprofile', core_api_views.UserProfileViewSet, base_name='us
 router.register(r'language', core_api_views.LanguageViewSet, base_name='language')
 router.register(r'daysofweek', core_api_views.DaysOfWeekViewSet, base_name='daysofweek')
 router.register(r'license', core_api_views.LicenseViewSet, base_name='license')
+router.register(r'settingunit', core_api_views.SettingUnitViewSet, base_name='setting-unit')
 
 # Exercises app
 router.register(r'exercise', exercises_api_views.ExerciseViewSet, base_name='exercise')

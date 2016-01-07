@@ -31,7 +31,7 @@ from django.core.cache import cache
 from django.core.validators import MinValueValidator
 from sortedm2m.fields import SortedManyToManyField
 
-from wger.core.models import DaysOfWeek
+from wger.core.models import DaysOfWeek, SettingUnit
 from wger.exercises.models import Exercise
 from wger.manager.helpers import reps_smart_text
 from wger.utils.cache import (
@@ -575,6 +575,9 @@ class Setting(models.Model):
     set = models.ForeignKey(Set, verbose_name=_('Sets'))
     exercise = models.ForeignKey(Exercise,
                                  verbose_name=_('Exercises'))
+    unit = models.ForeignKey(SettingUnit,
+                             verbose_name=_('Unit'),
+                             default=1)
     reps = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)],
                                verbose_name=_('Repetitions'))
     weight = models.DecimalField(verbose_name=_('Weight'),

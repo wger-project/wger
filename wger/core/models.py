@@ -566,3 +566,33 @@ class License(models.Model):
         License has no owner information
         '''
         return None
+
+
+@python_2_unicode_compatible
+class SettingUnit(models.Model):
+    '''
+    Setting unit, used in combination with an amount such as '10 reps', '5 km'
+    '''
+    class Meta:
+        '''
+        Set Meta options
+        '''
+        ordering = ["name", ]
+
+    name = models.CharField(max_length=100,
+                            verbose_name=_('Name'))
+
+    def __str__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return self.name
+
+    #
+    # Own methods
+    #
+    def get_owner_object(self):
+        '''
+        Unit has no owner information
+        '''
+        return None

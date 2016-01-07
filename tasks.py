@@ -236,6 +236,7 @@ def load_fixtures(settings_path=None):
     call_command("loaddata", path + "users.json")
     call_command("loaddata", path + "licenses.json")
     call_command("loaddata", path + "days_of_week.json")
+    call_command("loaddata", path + "setting_units.json")
 
     # Config
     path = os.path.join(current_dir, 'config', 'fixtures/')

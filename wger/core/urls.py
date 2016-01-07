@@ -27,7 +27,8 @@ from django.core.urlresolvers import reverse_lazy
 from wger.core.views import (
     user,
     misc,
-    license
+    license,
+    setting_units
 )
 
 # sub patterns for user
@@ -120,6 +121,22 @@ patterns_license = [
         name='delete'),
 ]
 
+# sub patterns for setting units
+setting_units_license = [
+    url(r'^list$',
+        setting_units.ListView.as_view(),
+        name='list'),
+    url(r'^add$',
+        setting_units.AddView.as_view(),
+        name='add'),
+    url(r'^(?P<pk>\d+)/edit',
+        setting_units.UpdateView.as_view(),
+        name='edit'),
+    url(r'^(?P<pk>\d+)/delete',
+        setting_units.DeleteView.as_view(),
+        name='delete'),
+]
+
 
 #
 # Actual patterns
@@ -149,4 +166,5 @@ urlpatterns = [
 
     url(r'^user/', include(patterns_user, namespace="user")),
     url(r'^license/', include(patterns_license, namespace="license")),
+    url(r'^setting-unit/', include(setting_units_license, namespace="setting_unit")),
 ]

@@ -21,7 +21,8 @@ from wger.core.models import (
     UserProfile,
     Language,
     DaysOfWeek,
-    License
+    License,
+    SettingUnit
 )
 
 
@@ -62,3 +63,11 @@ class LicenseSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = License
+
+
+class SettingUnitSerializer(serializers.ModelSerializer):
+    '''
+    License serializer
+    '''
+    class Meta:
+        model = SettingUnit
