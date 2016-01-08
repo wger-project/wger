@@ -16,6 +16,7 @@ Developers
 * Mihail Burduja - https://github.com/warchildmd
 * Colin Hare - https://github.com/cthare
 * Ryan Hughes - https://github.com/purplebird
+* Alexandre Murphy-Gonthier - https://github.com/murphyalexandre
 
 Translators
 -----------
