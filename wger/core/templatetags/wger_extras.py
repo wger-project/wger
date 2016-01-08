@@ -21,6 +21,7 @@ from django.utils.translation import pgettext
 from django.conf import settings
 
 from wger.utils.constants import PAGINATION_MAX_TOTAL_PAGES, PAGINATION_PAGES_AROUND_CURRENT
+from wger.exercises.widgets import CheckboxBootstrapSelectMultiple
 
 register = template.Library()
 
@@ -211,6 +212,17 @@ def is_checkbox(field):
     :return: boolen
     '''
     return field.field.widget.__class__.__name__ == CheckboxInput().__class__.__name__
+
+
+@register.filter(name='is_multiple')
+def is_multiple(field):
+    '''
+    Tests if a field element is a checkbox, as it needs to be handled slightly different
+
+    :param field: a form field
+    :return: boolen
+    '''
+    return isinstance(field.field.widget, CheckboxBootstrapSelectMultiple)
 
 
 @register.filter(name='is_fileupload')
