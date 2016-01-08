@@ -18,10 +18,12 @@ import logging
 from itertools import chain
 
 from django.forms.widgets import (
-    SelectMultiple,
-    Select,
+    CheckboxFieldRenderer,
+    CheckboxSelectMultiple,
     DateInput,
-    TextInput
+    Select,
+    SelectMultiple,
+    TextInput,
 )
 
 from django.forms import fields
@@ -142,7 +144,16 @@ class ExerciseAjaxSelect(SelectMultiple):
             return ''
 
 
-class TranslatedSelectMultiple(SelectMultiple):
+class CheckboxBootstrapSelectMultipleRenderer(CheckboxFieldRenderer):
+    outer_html = '<div{id_attr}>{content}</div>'
+    inner_html = '<div class="checkbox">{choice_value}{sub_widgets}</div>'
+
+
+class CheckboxBootstrapSelectMultiple(CheckboxSelectMultiple):
+    renderer = CheckboxBootstrapSelectMultipleRenderer
+
+
+class TranslatedSelectMultiple(CheckboxBootstrapSelectMultiple):
     '''
     A SelectMultiple widget that translates the options
     '''

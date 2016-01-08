@@ -17,7 +17,9 @@
 from django.contrib.auth.models import User
 from django import forms
 from django.utils.translation import ugettext as _
+
 from wger.core.forms import UserPersonalInformationForm
+from wger.utils.widgets import CheckboxBootstrapSelectMultiple
 
 
 class GymUserPermisssionForm(forms.ModelForm):
@@ -54,7 +56,8 @@ class GymUserPermisssionForm(forms.ModelForm):
             field_choices.append((self.MANAGER, _('General manager')))
 
         self.fields['role'] = forms.MultipleChoiceField(choices=field_choices,
-                                                        initial=User)
+                                                        initial=User,
+                                                        widget=CheckboxBootstrapSelectMultiple())
 
 
 class GymUserAddForm(GymUserPermisssionForm, UserPersonalInformationForm):
@@ -64,6 +67,7 @@ class GymUserAddForm(GymUserPermisssionForm, UserPersonalInformationForm):
 
     class Meta:
         model = User
+        widgets = {'role': CheckboxBootstrapSelectMultiple()}
         fields = ('first_name', 'last_name', 'username', 'email', 'role',)
 
     username = forms.RegexField(label=_("Username"),

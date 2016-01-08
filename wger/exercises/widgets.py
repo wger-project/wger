@@ -14,12 +14,12 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from django.forms.widgets import SelectMultiple
-
 from django.utils.translation import ugettext as _
 
+from wger.utils.widgets import CheckboxBootstrapSelectMultiple
 
-class MuscleTranslatedSelectMultiple(SelectMultiple):
+
+class MuscleTranslatedSelectMultiple(CheckboxBootstrapSelectMultiple):
     '''
     A SelectMultiple widget that translates the options
     '''
