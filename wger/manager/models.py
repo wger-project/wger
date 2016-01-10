@@ -444,7 +444,7 @@ class Day(models.Model):
                     setting_tmp.append(setting)
 
                 # "Smart" textual representation
-                setting_text, setting_list, weight_list, reps_list \
+                setting_text, setting_list, weight_list, reps_list, setting_units \
                     = reps_smart_text(setting_tmp, set_obj)
 
                 # Flag indicating whether all exercises have settings
@@ -465,6 +465,7 @@ class Day(models.Model):
                 exercise_tmp.append({'obj': exercise,
                                      'setting_obj_list': setting_tmp,
                                      'setting_list': setting_list,
+                                     'setting_units': setting_units,
                                      'weight_list': weight_list,
                                      'has_weight': has_weight,
                                      'reps_list': reps_list,
@@ -484,9 +485,10 @@ class Day(models.Model):
                     if len(exercise['setting_list']) > common_reps:
                         exercise['setting_list'].pop(-1)
                         exercise['setting_obj_list'].pop(-1)
-                        setting_text, setting_list, weight_list, reps_list = \
+                        setting_text, setting_list, weight_list, reps_list, setting_units = \
                             reps_smart_text(exercise['setting_obj_list'], set_obj)
                         exercise['setting_text'] = setting_text
+                        exercise['setting_units'] = setting_units
 
             canonical_repr.append({'obj': set_obj,
                                    'exercise_list': exercise_tmp,

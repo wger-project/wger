@@ -152,6 +152,7 @@ def reps_smart_text(settings, set_obj):
         setting_list = []
         weight_list = []
         reps_list = []
+        setting_units = []
     elif len(settings) == 1:
         reps = settings[0].reps if settings[0].reps != 99 else u'∞'
         setting_text = u'{0} × {1}'.format(set_obj.sets, reps)
@@ -171,11 +172,13 @@ def reps_smart_text(settings, set_obj):
         setting_list = [setting_list_text] * set_obj.sets
         reps_list = [settings[0].reps] * set_obj.sets
         weight_list = [weight] * set_obj.sets
+        setting_units = [settings[0].unit] * set_obj.sets
 
     elif len(settings) > 1:
         tmp_reps_text = []
         tmp_reps = []
         tmp_weight = []
+        tmp_unit = []
         for i in settings:
             reps = str(i.reps) if i.reps != 99 else u'∞'
             weight = i.weight
@@ -186,13 +189,15 @@ def reps_smart_text(settings, set_obj):
             tmp_reps_text.append(reps)
             tmp_reps.append(i.reps)
             tmp_weight.append(weight)
+            tmp_unit.append(unit)
 
         setting_text = u' – '.join(tmp_reps_text)
         setting_list = tmp_reps_text
+        setting_units = tmp_unit
         reps_list = tmp_reps
         weight_list = tmp_weight
 
-    return setting_text, setting_list, weight_list, reps_list
+    return setting_text, setting_list, weight_list, reps_list, setting_units
 
 
 class WorkoutCalendar(HTMLCalendar):
