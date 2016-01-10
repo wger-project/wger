@@ -209,6 +209,7 @@ LANGUAGES = (
             ('nl', 'Dutch'),
             ('pt', 'Portuguese'),
             ('el', 'Greek'),
+            ('cs', 'Czech'),
 )
 
 # Default language code for this installation.
