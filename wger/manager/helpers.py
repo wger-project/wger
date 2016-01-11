@@ -129,7 +129,7 @@ def render_workout_day(day, nr_of_weeks):
     if len(t._argW) > 1:
         t._argW[0] = 0.6 * cm  # Numbering
         t._argW[1] = 4 * cm  # Exercise
-        t._argW[2] = 2.5 * cm  # Repetitions
+        t._argW[2] = 3 * cm  # Repetitions
 
     return KeepTogether(t)
 

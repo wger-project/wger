@@ -269,8 +269,8 @@ def workout_view(request, id, uidb64=None, token=None):
         # Manually set the width of the columns
         if len(t._argW) > 1:
             t._argW[0] = 0.6 * cm  # Numbering
-            t._argW[1] = 10 * cm  # Exercise
-            t._argW[2] = 2.5 * cm  # Repetitions
+            t._argW[1] = 9.5 * cm  # Exercise
+            t._argW[2] = 3 * cm  # Repetitions
 
     # There is nothing to output
     else:
