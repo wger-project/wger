@@ -145,7 +145,7 @@ def reps_smart_text(settings, set_obj):
     :param set_obj:
     :return setting_text, setting_list:
     '''
-    unit = _('kg') if set_obj.exerciseday.training.user.userprofile.use_metric else _('lb')
+    weight_unit = _('kg') if set_obj.exerciseday.training.user.userprofile.use_metric else _('lb')
 
     if len(settings) == 0:
         setting_text = ''
@@ -153,10 +153,14 @@ def reps_smart_text(settings, set_obj):
         weight_list = []
         reps_list = []
         setting_units = []
+
+    # Only one setting entry, this is a "compact" representation such as e.g.
+    # 4x10 or similar
     elif len(settings) == 1:
         reps = settings[0].reps if settings[0].reps != 99 else u'∞'
-        setting_text = u'{0} × {1}'.format(set_obj.sets, reps)
-        setting_list_text = u'{0}'.format(reps)
+        rep_unit = settings[0].unit.name if settings[0].unit.id != 1 else ''
+        setting_text = u'{0} × {1} {2}'.format(set_obj.sets, reps, rep_unit)
+        setting_list_text = u'{0} {1}'.format(reps, rep_unit)
 
         # The weight can be None, or a decimal. In that case, normalize so
         # that we don't return e.g. '15.00', but always '15', independently of
@@ -167,29 +171,33 @@ def reps_smart_text(settings, set_obj):
             weight = settings[0].weight
 
         if weight:
-            setting_text += ' ({0}{1})'.format(weight, unit)
-            setting_list_text += ' ({0}{1})'.format(weight, unit)
+            setting_text += ' ({0}{1})'.format(weight, weight_unit)
+            setting_list_text += ' ({0}{1})'.format(weight, weight_unit)
         setting_list = [setting_list_text] * set_obj.sets
         reps_list = [settings[0].reps] * set_obj.sets
         weight_list = [weight] * set_obj.sets
         setting_units = [settings[0].unit] * set_obj.sets
 
+    # There's more than one setting, each set can have a different combination
+    # of repetitions, weight, etc. e.g. 10, 8, 8, 12
     elif len(settings) > 1:
         tmp_reps_text = []
         tmp_reps = []
         tmp_weight = []
         tmp_unit = []
         for i in settings:
-            reps = str(i.reps) if i.reps != 99 else u'∞'
+            rep_unit = i.unit.name if i.unit.id != 1 else ''
+            reps = "{0} {1}".format(i.reps, rep_unit) if i.reps != 99 else u'∞'
+
             weight = i.weight
             if i.weight:
                 # Normalize, see comment above
                 weight = normalize_decimal(i.weight)
-                reps += ' ({0}{1})'.format(weight, unit)
+                reps += ' ({0}{1})'.format(weight, weight_unit)
             tmp_reps_text.append(reps)
             tmp_reps.append(i.reps)
             tmp_weight.append(weight)
-            tmp_unit.append(unit)
+            tmp_unit.append(i.unit)
 
         setting_text = u' – '.join(tmp_reps_text)
         setting_list = tmp_reps_text
