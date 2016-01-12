@@ -159,8 +159,8 @@ def reps_smart_text(settings, set_obj):
     elif len(settings) == 1:
         reps = settings[0].reps if settings[0].reps != 99 else u'∞'
         rep_unit = settings[0].unit.name if settings[0].unit.id != 1 else ''
-        setting_text = u'{0} × {1} {2}'.format(set_obj.sets, reps, rep_unit)
-        setting_list_text = u'{0} {1}'.format(reps, rep_unit)
+        setting_text = u'{0} × {1} {2}'.format(set_obj.sets, reps, rep_unit).strip()
+        setting_list_text = u'{0} {1}'.format(reps, rep_unit).strip()
 
         # The weight can be None, or a decimal. In that case, normalize so
         # that we don't return e.g. '15.00', but always '15', independently of
@@ -187,7 +187,7 @@ def reps_smart_text(settings, set_obj):
         tmp_unit = []
         for i in settings:
             rep_unit = i.unit.name if i.unit.id != 1 else ''
-            reps = "{0} {1}".format(i.reps, rep_unit) if i.reps != 99 else u'∞'
+            reps = "{0} {1}".format(i.reps, rep_unit).strip() if i.reps != 99 else u'∞'
 
             weight = i.weight
             if i.weight:
