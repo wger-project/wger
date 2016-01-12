@@ -323,9 +323,18 @@ $(document).ready(function() {
             <div class="sub_header">
                 <h2>
                 {% if step.weight %}
-                    {{step.reps}} × {{step.weight}} {% trans_weight_unit 'kg' user %}
+                    {{step.reps}}
+                    {% if step.unit.id != 1 %}
+                        {{ step.unit }}
+                    {% endif %}
+                    × {{step.weight}} {% trans_weight_unit 'kg' user %}
                 {% else %}
-                    {% if step.reps == 99 %}∞{% else %}{{step.reps}}{% endif %} {% trans "reps" %}
+                    {% if step.reps == 99 %}∞{% else %}{{step.reps}}{% endif %}
+                    {% if step.unit.id != 1 %}
+                        {{ step.unit }}
+                    {% else %}
+                        {% trans "reps" %}
+                    {% endif %}
                 {% endif %}
                 </h2>
             </div>
