@@ -15,27 +15,17 @@
  */
 
 angular.module("workoutTimer")
-    .constant('workoutLogUrl', "/api/v2/workoutlog/")
-    .constant('workoutSessionUrl', "/api/v2/workoutsession/")
-    .constant('userprofileUrl', "/api/v2/userprofile/")
-    .service('Step', function ($rootScope, $resource, dataUrl, userprofileUrl) {
+    .constant('WORKOUT_LOG_URL', "/api/v2/workoutlog/")
+    .constant('WORKOUT_SESSION_URL', "/api/v2/workoutsession/")
+    .constant('USER_PROFILE_URL', "/api/v2/userprofile/")
+    .service('Step', function ($rootScope, $resource, $q, dataUrl, USER_PROFILE_URL) {
         "use strict";
 
         var dayCanonicalRepr;
         var userProfile;
         var stepList = [];
         var yourWorkout = [];
-
-        var getDayCanonical = function () {
-            /*
-             * Loads the full canonical representation of the current day
-             */
-            var promise = $resource(dataUrl, {}, {'query': {isArray: false}}).query();
-            promise.$promise.then(function (data) {
-                dayCanonicalRepr = data;
-            });
-        };
-        getDayCanonical();
+        var deferred = $q.defer();
 
         var processSteps = function () {
             /*
@@ -77,14 +67,14 @@ angular.module("workoutTimer")
 
                 } else {
                     angular.forEach(set_list.exercise_list, function (exercise_list) {
-                        var exercise = exercise_list.setting_obj_list[0].exercise;
+                        var exercise = exercise_list.obj;
                         var reps = exercise_list.setting_list[i];
-                        angular.forEach(exercise_list.setting_list, function (reps) {
+                        angular.forEach(exercise_list.setting_obj_list, function (set) {
                             stepList.push({step_percent: 0,
                                            exercise: exercise,
                                            type: 'exercise',
-                                           reps: reps,
-                                           weight: 50});
+                                           reps: set.reps,
+                                           weight: set.weight ? set.weight : 0});
 
                             if (userProfile.timer_active) {
                                 stepList.push({step_percent: 0,
@@ -95,29 +85,27 @@ angular.module("workoutTimer")
                     });
                 }
             });
+
+            deferred.resolve(stepList);
         };
 
-        var getProfile = function () {
-            /*
-             * Load the user's profile data, needed for pauses
-             */
-            var promise = $resource(userprofileUrl, {}, {'query': {isArray: false}}).query();
-            promise.$promise.then(function (data) {
-                userProfile = data.results[0];
-                processSteps();
-            });
-        };
-        getProfile();
+        var getDayCanonical = $resource(dataUrl, {}, {'query': {isArray: false}}).query().$promise;
+        getDayCanonical.then(function (data) {
+            dayCanonicalRepr = data;
+        });
 
+        var getProfile = $resource(USER_PROFILE_URL, {}, {'query': {isArray: false}}).query().$promise;
+        getProfile.then(function (data) {
+            userProfile = data.results[0];
+        });
+
+        $q.all([getDayCanonical, getProfile]).then(function () {
+            processSteps();
+        });
 
         return {
-            getStep: function (stepId) {
-                console.log(stepId);
-                console.log(stepList[stepId]);
-                return stepList[stepId];
-            },
             getSteps: function () {
-                return stepList;
+                return deferred.promise;
             }
         };
     })
@@ -132,18 +120,38 @@ angular.module("workoutTimer")
     .controller("timerCtrl", function ($scope, $routeParams, Step) {
         'use strict';
 
+        var allSteps = [];
+
         $scope.data = {};
-        //$scope.totalPages = Step.getSteps().length;
-        $scope.page =  parseInt($routeParams.step);
+        $scope.page = parseInt($routeParams.step);
+        $scope.stepData = null;
+
+        function loadPage(page) {
+            $scope.stepData = allSteps[page];
+            console.log($scope.stepData);
+        }
 
         /*
-         * Load the current step
+         * Load the steps
          */
-        $scope.getStep = function () {
+        $scope.getSteps = function () {
             if($scope.page) {
-                $scope.stepData = Step.getStep($scope.page);
+                Step.getSteps().then(function (steps) {
+                    allSteps = steps;
+                    loadPage($scope.page-1)
+                });
             }
         };
-        $scope.getStep();
+        $scope.getSteps();
+
+        $scope.skip = function () {
+            $scope.page++;
+            loadPage($scope.page-1);
+        };
+
+        $scope.save = function () {
+            $scope.page++;
+            loadPage($scope.page-1);
+        };
 
     });

@@ -1,61 +1,64 @@
 {% load i18n %}
 <div data-ng-controller="timerCtrl">
-{% verbatim %}
+    <div ng-if="stepData.type === 'exercise'">
+        {% verbatim %}
+        <h2>{{ stepData.exercise.name }}</h2>
+        {% endverbatim %}
 
-    <h2>{{ stepData.exercise.name }}</h2>
+        <form action="" method="POST">
+            <input name="exercise"
+                   id="{% verbatim %}id-exercise-{{ page }}{% endverbatim %}"
+                   value="{% verbatim %}{{ stepData.exercise.id }}{% endverbatim %}"
+                   type="hidden">
 
+            <div class="row filler_div">
+                <div class="col-xs-6">
+                    <label for="id-reps">{% trans "Repetitions" %}:</label>
 
-    <form action="" method="POST">
-        <input name="exercise"
-               id="id-exercise-{{ page }}"
-               value="{{ stepData.exercise.id }}"
-               type="hidden">
-{% endverbatim %}
+                    <input name="reps"
+                           id="id-reps"
+                           placeholder="{% trans 'Repetitions' %}"
+                           value="{% verbatim %}{{ stepData.reps }}{% endverbatim %}"
+                           type="number"
+                           autocomplete="off"
+                           class="form-control">
 
-    <div class="row filler_div">
-        <div class="col-xs-6">
-            <label for="id-reps">{% trans "Repetitions" %}:</label>
+                </div>
+                <div class="col-xs-6">
+                    <label for="id-weight">{% trans "Weight" %}:</label>
 
-            <input name="reps"
-                   id="id-reps"
-                   placeholder="{% trans 'Repetitions' %}"
-                   value="{% verbatim %}{{stepData.reps}}{% endverbatim %}"
-                   type="number"
-                   autocomplete="off"
-                   class="form-control">
+                    <input name="weight"
+                           id="id-weight"
+                           placeholder="{% trans 'Weight' %}"
+                           value="{% verbatim %}{{ stepData.weight }}{% endverbatim %}"
+                           type="number"
+                           autocomplete="off"
+                           class="form-control">
+                </div>
+            </div>
+        </form>
 
-        </div>
-        <div class="col-xs-6">
-            <label for="id-weight">{% trans "Weight" %}:</label>
-
-            <input name="weight"
-                   id="id-weight"
-                   placeholder="{% trans 'Weight' %}"
-                   value="{% verbatim %}{{stepData.weight}}{% endverbatim %}"
-                   type="number"
-                   autocomplete="off"
-                   class="form-control">
+        <div class="sub_header">
+            <h2>
+                {% verbatim %}
+                    {{ stepData.reps }} × {{ stepData.weight }}
+                {% endverbatim %}
+            </h2>
         </div>
     </div>
-    </form>
 
-    <div class="sub_header">
-    <h2>
-
-    {% verbatim %}
-        {{stepData.reps}} × {{stepData.weight}}
-    {% endverbatim %}
-    </h2>
+    <div ng-if="stepData.type === 'pause'">
+        <h2>{% trans 'Pause' %}</h2>
     </div>
 
     <div class="row bottom_buttons">
         <div class="col-xs-6">
-            <a class="btn btn-default btn-block" href="#step/{% verbatim %}{{ page + 1 }}{% endverbatim %}">
+            <a class="btn btn-default btn-block" ng-click="skip()">
                 {% trans "Skip" %} <span class="glyphicon glyphicon-forward"></span>
             </a>
         </div>
         <div class="col-xs-6">
-            <a class="btn btn-success btn-block" href="#">
+            <a class="btn btn-success btn-block" ng-click="save()">
                 {% trans "Save" %} <span class="glyphicon glyphicon-save"></span>
             </a>
         </div>
