@@ -158,7 +158,7 @@ def reps_smart_text(settings, set_obj):
     # 4x10 or similar
     elif len(settings) == 1:
         reps = settings[0].reps if settings[0].reps != 99 else u'∞'
-        rep_unit = settings[0].unit.name if settings[0].unit.id != 1 else ''
+        rep_unit = _(settings[0].unit.name) if settings[0].unit.id != 1 else ''
         setting_text = u'{0} × {1} {2}'.format(set_obj.sets, reps, rep_unit).strip()
         setting_list_text = u'{0} {1}'.format(reps, rep_unit).strip()
 
@@ -186,7 +186,7 @@ def reps_smart_text(settings, set_obj):
         tmp_weight = []
         tmp_unit = []
         for i in settings:
-            rep_unit = i.unit.name if i.unit.id != 1 else ''
+            rep_unit = _(i.unit.name) if i.unit.id != 1 else ''
             reps = "{0} {1}".format(i.reps, rep_unit).strip() if i.reps != 99 else u'∞'
 
             weight = i.weight
