@@ -654,8 +654,21 @@ class WorkoutLog(models.Model):
     workout = models.ForeignKey(Workout,
                                 verbose_name=_('Workout'))
 
+    unit = models.ForeignKey(SettingUnit,
+                             verbose_name=_('Unit'),
+                             default=1)
+    '''
+    The unit of the log. This can be e.g. a repetition, a minute, etc.
+    '''
+
     reps = models.IntegerField(verbose_name=_('Repetitions'),
                                validators=[MinValueValidator(0)])
+    '''
+    Amount of repetitions, minutes, etc.
+
+    Note that since adding the unit field, the name is no longer correct, but is
+    kept for compatibility reasons (specially for the REST API).
+    '''
 
     weight = models.DecimalField(decimal_places=2,
                                  max_digits=5,
