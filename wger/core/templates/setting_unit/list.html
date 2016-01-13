@@ -8,6 +8,7 @@
 <ul class="list-group">
     {% for unit in object_list %}
     <li class="list-group-item ">
+        {% if unit.id != 1 %}
         <div class="btn-group pull-right">
             <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
                 <span class="glyphicon glyphicon-cog"></span>
@@ -21,6 +22,7 @@
                 </li>
             </ul>
         </div>
+        {% endif %}
         {{unit}}
     </li>
     {% empty %}

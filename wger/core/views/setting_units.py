@@ -19,6 +19,7 @@ import logging
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
+from django.http import HttpResponseForbidden
 from django.views.generic import (
     ListView,
     DeleteView,
@@ -88,6 +89,17 @@ class DeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     success_url = reverse_lazy('core:setting_unit:list')
     permission_required = 'core.delete_settingunit'
     form_action_urlname = 'core:setting_unit:delete'
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Deleting the unit with ID 1 (repetitions) is not allowed
+
+        This is the default and is hard coded in a couple of places
+        '''
+        if self.kwargs['pk'] == '1':
+            return HttpResponseForbidden()
+
+        return super(DeleteView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         '''
