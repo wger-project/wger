@@ -26,7 +26,7 @@ $(document).ready(function () {
     {% endfor %}
 
 
-    <div style="overflow-x: auto;margin-bottom: 1em;">
+    <div style="margin-bottom: 1em;">
     {% for set in day.set_set.select_related %}
     {% for exercise in set.exercises.select_related %}
         {% with value=exercises|get_item:exercise.id %}
@@ -39,23 +39,47 @@ $(document).ready(function () {
                 <div class="col-md-9">
                     <table class="table">
                     <tr>
-                    {% for form in value.forms %}
+                        <td>{% trans "Amount" %}</td>
+                        <td>{% trans "Unit" %}</td>
                         <td>
-                            {{ form.reps|form_field_add_css:'form-control narrow-input' }}
+                            {% trans "Weight" %}
                         </td>
-                        <td>
-                            {{ form.weight|form_field_add_css:'form-control narrow-input' }}
-                        </td>
-                    {% endfor %}
                     </tr>
+                    {% for form in value.forms %}
                     <tr>
-                    {% for form in value.forms %}
-                        <td>{% trans "Reps" %}</td>
                         <td>
-                            {% trans_weight_unit 'kg' user %}
+                            <div {% if form.reps.errors %}class="has-error"{% endif %}>
+                                {{ form.reps|form_field_add_css:'form-control narrow-input' }}
+                                <span class="help-block">
+                                    {% for error in form.reps.errors %}
+                                        <p>{% trans error %}</p>
+                                    {% endfor %}
+                                </span>
+                            </div>
                         </td>
-                    {% endfor %}
+                        <td>
+                            <div {% if form.unit.errors %}class="has-error"{% endif %}>
+                                {{ form.unit|form_field_add_css:'form-control narrow-input' }}
+                                <span class="help-block">
+                                    {% for error in form.unit.errors %}
+                                        <p>{% trans error %}</p>
+                                    {% endfor %}
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <div {% if form.weight.errors %}class="has-error"{% endif %}>
+                            {{ form.weight|form_field_add_css:'form-control narrow-input' }}
+                            <span class="help-block">
+                                {% for error in form.weight.errors %}
+                                    <p>{% trans error %}</p>
+                                {% endfor %}
+                            </span>
+                            </div>
+                        </td>
                     </tr>
+                    {% endfor %}
+
                     </table>
                 </div>
             </div>

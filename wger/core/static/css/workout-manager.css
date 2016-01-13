@@ -154,11 +154,7 @@ div.muscle-background
  * Workout log entry page needs the horizontal space
  */
 .workout-log-table .narrow-input {
-    width: 4em;
-}
-
-.workout-log-table .form-control {
-    display: inline;
+    width: 9em;
 }
 
 
