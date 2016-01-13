@@ -192,6 +192,7 @@ class WeightLogOverviewAddTestCase(WorkoutManagerTestCase):
                                      'time_end': datetime.time(12, 0),
                                      'form-0-reps': 10,
                                      'form-0-weight': 10,
+                                     'form-1-unit': 1,
                                      'form-TOTAL_FORMS': 3,
                                      'form-INITIAL_FORMS': 0,
                                      'form-MAX-NUM_FORMS': 3
@@ -293,6 +294,7 @@ class WeightLogAddTestCase(WorkoutManagerAddTestCase):
     url = reverse_lazy('manager:log:add', kwargs={'workout_pk': 1})
     data = {'reps': 10,
             'weight': 120.5,
+            'unit': 2,
             'date': datetime.date.today(),
             'exercise': 1}
 
@@ -328,6 +330,7 @@ class WeightLogEntryEditTestCase(WorkoutManagerTestCase):
         response = self.client.post(reverse('manager:log:edit', kwargs={'pk': 1}),
                                     {'date': '2012-01-01',
                                      'reps': 10,
+                                     'unit': 2,
                                      'weight': 10,
                                      'exercise': 1
                                      })
@@ -514,5 +517,6 @@ class WorkoutLogApiTestCase(api_base_test.ApiBaseResourceTestCase):
     data = {"exercise": 1,
             "workout": 3,
             "reps": 3,
+            "unit": 1,
             "weight": 2,
             "date": datetime.date.today()}
