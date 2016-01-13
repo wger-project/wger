@@ -580,8 +580,19 @@ class Setting(models.Model):
     unit = models.ForeignKey(SettingUnit,
                              verbose_name=_('Unit'),
                              default=1)
+    '''
+    The unit of a set. This can be e.g. a repetition, a minute, etc.
+    '''
+
     reps = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)],
-                               verbose_name=_('Repetitions'))
+                               verbose_name=_('Amount'))
+    '''
+    Amount of repetitions, minutes, etc. for a set.
+
+    Note that since adding the unit field, the name is no longer correct, but is
+    kept for compatibility reasons (specially for the REST API).
+    '''
+
     weight = models.DecimalField(verbose_name=_('Weight'),
                                  max_digits=6,
                                  decimal_places=2,
