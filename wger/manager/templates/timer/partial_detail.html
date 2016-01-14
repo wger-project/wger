@@ -45,6 +45,19 @@
                 {% endverbatim %}
             </h2>
         </div>
+
+        <div class="row bottom_buttons">
+          <div class="col-xs-6">
+              <a class="btn btn-default btn-block" ng-click="skip()">
+                  {% trans "Skip" %} <span class="glyphicon glyphicon-forward"></span>
+              </a>
+          </div>
+          <div class="col-xs-6">
+              <a class="btn btn-success btn-block" ng-click="save()">
+                  {% trans "Save" %} <span class="glyphicon glyphicon-save"></span>
+              </a>
+          </div>
+      </div>
     </div>
 
     <div class="row pause" ng-if="stepData.type === 'pause'">
@@ -66,19 +79,18 @@
               </a>
           </div>
         </div>
+
+        <div class="row bottom_buttons">
+          <div class="col-xs-12">
+              <a class="btn btn-default btn-block" ng-click="skip()">
+                  {% trans "Skip" %} <span class="glyphicon glyphicon-forward"></span>
+              </a>
+          </div>
+      </div>
     </div>
 
-    <div class="row bottom_buttons">
-        <div class="col-xs-6">
-            <a class="btn btn-default btn-block" ng-click="skip()">
-                {% trans "Skip" %} <span class="glyphicon glyphicon-forward"></span>
-            </a>
-        </div>
-        <div class="col-xs-6">
-            <a class="btn btn-success btn-block" ng-click="save()">
-                {% trans "Save" %} <span class="glyphicon glyphicon-save"></span>
-            </a>
-        </div>
-    </div>
+    {% verbatim %}
+    <div progress-bar="" id="hoursChart" class="" data-total="nbOfSteps" data-complete-label="{{ ' / ' + nbOfSteps }}" data-complete="page" data-label="" title="Workout Progress" data-toggle="tooltip"></div>
+    {% endverbatim %}
 
 </div>

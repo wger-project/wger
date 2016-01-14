@@ -18,6 +18,42 @@ angular.module("workoutTimer")
     .constant('WORKOUT_LOG_URL', "/api/v2/workoutlog/")
     .constant('WORKOUT_SESSION_URL', "/api/v2/workoutsession/")
     .constant('USER_PROFILE_URL', "/api/v2/userprofile/")
+    .directive("progressBar", function ($timeout) {
+        return {
+            restrict: "EA",
+            scope: {
+                total: '=total',
+                complete: '=complete',
+                barClass: '@barClass',
+                completedClass: '=?'
+            },
+            transclude: true,
+            link: function (scope, elem, attrs) {
+
+                scope.label = attrs.label;
+                scope.completedClass = (scope.completedClass) || 'progress-bar-danger';
+
+                scope.$watch('complete', function () {
+
+                  //change style at 100%
+                  var progress = scope.complete / scope.total;
+                  if (progress >= 1) {
+                    $(elem).find('.progress-bar').addClass(scope.completedClass);
+                  }
+                  else if (progress < 1) {
+                    $(elem).find('.progress-bar').removeClass(scope.completedClass);
+                  }
+
+                });
+
+            },
+            template:
+                "<span class='small'>{{ label }}</span>" +
+                "<div class='progress'>"+
+          "   <div class='progress-bar {{ barClass }}' title='{{ complete / total * 100 | number:0 }}%' style='width:{{ complete / total * 100 }}%;'>{{ complete | number:0 }} / {{ total }}</div>" +
+                "</div>"
+        };
+    })
     .service('Step', function ($rootScope, $resource, $q, dataUrl, USER_PROFILE_URL) {
         "use strict";
 
@@ -119,13 +155,14 @@ angular.module("workoutTimer")
     .controller("timerCtrl", function ($scope, $routeParams, $interval, Step) {
         'use strict';
 
-        var allSteps = [],
-            intervalTimer;
+        var allSteps = [];
+        var intervalTimer;
 
         $scope.data = {};
         $scope.page = parseInt($routeParams.step);
         $scope.stepData = null;
         $scope.currentTimer = 0;
+        $scope.nbOfSteps = 0;
 
         function startTimer(time) {
             $scope.currentTimer = parseInt(time);
@@ -162,6 +199,7 @@ angular.module("workoutTimer")
             if($scope.page) {
                 Step.getSteps().then(function (steps) {
                     allSteps = steps;
+                    $scope.nbOfSteps = allSteps.length;
                     loadPage($scope.page-1)
                 });
             }
