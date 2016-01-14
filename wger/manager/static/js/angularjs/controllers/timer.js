@@ -116,19 +116,43 @@ angular.module("workoutTimer")
             $scope.yourWorkout = args.yourWorkout;
         });
     })
-    //.controller("timerCtrl", function ($scope, /*$resource,*/ /*$rootScope,*/ /*$http,*/ $routeParams, /*dataUrl,*/ Step) {
-    .controller("timerCtrl", function ($scope, $routeParams, Step) {
+    .controller("timerCtrl", function ($scope, $routeParams, $interval, Step) {
         'use strict';
 
-        var allSteps = [];
+        var allSteps = [],
+            intervalTimer;
 
         $scope.data = {};
         $scope.page = parseInt($routeParams.step);
         $scope.stepData = null;
+        $scope.currentTimer = 0;
+
+        function startTimer(time) {
+            $scope.currentTimer = parseInt(time);
+
+            intervalTimer = $interval(function () {
+                $scope.currentTimer--;
+
+                if ($scope.currentTimer <= 0) {
+                    $scope.skip();
+                }
+            }, 1000);
+        }
+
+        function clearTimer() {
+            if (intervalTimer) {
+                $interval.cancel(intervalTimer);
+            }
+        }
 
         function loadPage(page) {
+            clearTimer();
+
             $scope.stepData = allSteps[page];
-            console.log($scope.stepData);
+
+            if ($scope.stepData.type === 'pause') {
+                startTimer($scope.stepData.time);
+            }
         }
 
         /*
@@ -152,6 +176,14 @@ angular.module("workoutTimer")
         $scope.save = function () {
             $scope.page++;
             loadPage($scope.page-1);
+        };
+
+        $scope.reduceTimer = function () {
+            $scope.currentTimer -= 10;
+        };
+
+        $scope.increaseTimer = function () {
+            $scope.currentTimer += 10;
         };
 
     });

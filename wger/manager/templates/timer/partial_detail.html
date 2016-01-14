@@ -1,6 +1,6 @@
 {% load i18n %}
-<div data-ng-controller="timerCtrl">
-    <div ng-if="stepData.type === 'exercise'">
+<div class="container" data-ng-controller="timerCtrl">
+    <div class="row exercise" ng-if="stepData.type === 'exercise'">
         {% verbatim %}
         <h2>{{ stepData.exercise.name }}</h2>
         {% endverbatim %}
@@ -47,8 +47,25 @@
         </div>
     </div>
 
-    <div ng-if="stepData.type === 'pause'">
+    <div class="row pause" ng-if="stepData.type === 'pause'">
         <h2>{% trans 'Pause' %}</h2>
+
+        {% verbatim %}
+        <h3>{{ currentTimer }}</h3>
+        {% endverbatim %}
+
+        <div class="row">
+          <div class="col-xs-6">
+              <a class="btn btn-primary btn-block" ng-click="reduceTimer()">
+                  {% trans "-10" %} <span class="glyphicon glyphicon-backward"></span>
+              </a>
+          </div>
+          <div class="col-xs-6">
+              <a class="btn btn-primary btn-block" ng-click="increaseTimer()">
+                  {% trans "+10" %} <span class="glyphicon glyphicon-forward"></span>
+              </a>
+          </div>
+        </div>
     </div>
 
     <div class="row bottom_buttons">
