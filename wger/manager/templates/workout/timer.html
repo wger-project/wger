@@ -10,7 +10,14 @@
 
 angular.module("workoutTimer", ["ngRoute", "ngResource", "ngAnimate"])
     .constant('dataUrl', "/api/v2/day/{{ day.pk }}/canonical_representation/")
-    .config(function ($routeProvider) {
+    .constant('WORKOUT', "{{ workout.id }}")
+    .constant('DASHBOARD', "{% url 'core:dashboard' %}")
+    .constant('CRSF', "{% csrf_token %}")
+    .config(function ($routeProvider, $resourceProvider, $httpProvider) {
+        $resourceProvider.defaults.stripTrailingSlashes = false;
+        $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+        $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+
         $routeProvider.when("/timer/:step", {
             templateUrl: "/workout/timer/partials/timer"
         });
