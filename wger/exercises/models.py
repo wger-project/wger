@@ -365,7 +365,7 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
                               upload_to=exercise_image_upload_dir)
     '''Uploaded image'''
 
-    is_main = models.BooleanField(verbose_name=_('Is main picture'),
+    is_main = models.BooleanField(verbose_name=_('Main picture'),
                                   default=False,
                                   help_text=_("Tick the box if you want to set this image as the "
                                               "main one for the exercise (will be shown e.g. in "
