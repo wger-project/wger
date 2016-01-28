@@ -365,7 +365,7 @@ class Day(models.Model):
                                  verbose_name=_('Workout'))
     description = models.CharField(max_length=100,
                                    verbose_name=_('Description'),
-                                   help_text=_('Ususally a description about what parts are '
+                                   help_text=_('Usually a description about what parts are '
                                                'trained, like "Arms" or "Pull Day"'))
     day = models.ManyToManyField(DaysOfWeek,
                                  verbose_name=_('Day'))
