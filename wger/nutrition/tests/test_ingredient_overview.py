@@ -86,10 +86,10 @@ class OverviewPlanTestCase(WorkoutManagerTestCase):
 
         # Only authorized users see the edit links
         if logged_in and not demo:
-            self.assertContains(response, 'Add ingredient')
+            self.assertNotContains(response, 'Only registered users can do this')
 
         if logged_in and demo:
-            self.assertNotContains(response, 'Add ingredient')
+            self.assertContains(response, 'Only registered users can do this')
 
     def test_ingredient_index_editor(self):
         '''
