@@ -120,6 +120,12 @@ styleSheet.add(ParagraphStyle(
                ))
 styleSheet.add(ParagraphStyle(
                parent=styleSheet['Normal'],
+               fontSize=8,
+               textColor='gray',
+               name='ExerciseComments',
+               ))
+styleSheet.add(ParagraphStyle(
+               parent=styleSheet['Normal'],
                name='HeaderBold',
                fontSize=14,
                fontName='OpenSans-Bold',

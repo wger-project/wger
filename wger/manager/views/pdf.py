@@ -43,7 +43,7 @@ from wger import get_version
 logger = logging.getLogger(__name__)
 
 
-def workout_log(request, id, uidb64=None, token=None):
+def workout_log(request, id, images=False, comments=False, uidb64=None, token=None):
     '''
     Generates a PDF with the contents of the given workout
 
@@ -51,6 +51,8 @@ def workout_log(request, id, uidb64=None, token=None):
     * http://www.blog.pythonlibrary.org/2010/09/21/reportlab
     * http://www.reportlab.com/apis/reportlab/dev/platypus.html
     '''
+    comments = bool(int(comments))
+    images = bool(int(images))
 
     # Load the workout
     if uidb64 is not None and token is not None:
@@ -90,7 +92,7 @@ def workout_log(request, id, uidb64=None, token=None):
 
     # Iterate through the Workout and render the training days
     for day in workout.canonical_representation['day_list']:
-        elements.append(render_workout_day(day, nr_of_weeks=7))
+        elements.append(render_workout_day(day, nr_of_weeks=7, comments=comments))
         elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Footer, date and info
@@ -101,7 +103,7 @@ def workout_log(request, id, uidb64=None, token=None):
     doc.build(elements)
 
     # Create the HttpResponse object with the appropriate PDF headers.
-    response['Content-Disposition'] = 'attachment; filename=Workout-{0}-log.pdf'.format(id)
+    # response['Content-Disposition'] = 'attachment; filename=Workout-{0}-log.pdf'.format(id)
     response['Content-Length'] = len(response.content)
     return response
 

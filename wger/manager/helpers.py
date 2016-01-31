@@ -23,7 +23,9 @@ from reportlab.lib.units import cm
 from reportlab.platypus import (
     Paragraph,
     Table,
-    KeepTogether
+    KeepTogether,
+    ListFlowable,
+    ListItem
 )
 
 from django.core.urlresolvers import reverse
@@ -33,7 +35,7 @@ from wger.utils.helpers import normalize_decimal
 from wger.utils.pdf import styleSheet
 
 
-def render_workout_day(day, nr_of_weeks):
+def render_workout_day(day, nr_of_weeks, comments=False):
     '''
     Render a table with reportlab with the contents of the training day
     '''
@@ -84,8 +86,21 @@ def render_workout_day(day, nr_of_weeks):
             else:
                 setting_out = Paragraph(exercise['setting_text'], styleSheet["Small"])
 
+            # Append a list of the exercise comments
+            if comments:
+                item_list = [ListItem(Paragraph(i, style=styleSheet["ExerciseComments"]))
+                             for i in exercise['comment_list']]
+                exercise_content = [Paragraph(exercise['obj'].name, styleSheet["Small"]),
+                                    ListFlowable(item_list,
+                                                 bulletType='bullet',
+                                                 bulletFontSize=5,
+                                                 start='square')]
+            # Only show the exercise name
+            else:
+                exercise_content = Paragraph(exercise['obj'].name, styleSheet["Small"])
+
             data.append([set_count,
-                         Paragraph(exercise['obj'].name, styleSheet["Small"]),
+                         exercise_content,
                          setting_out]
                         + [''] * nr_of_weeks)
         set_count += 1
