@@ -25,7 +25,8 @@ from reportlab.platypus import (
     Table,
     KeepTogether,
     ListFlowable,
-    ListItem
+    ListItem,
+    Image
 )
 
 from django.core.urlresolvers import reverse
@@ -87,10 +88,18 @@ def render_workout_day(day, nr_of_weeks, comments=False):
                 setting_out = Paragraph(exercise['setting_text'], styleSheet["Small"])
 
             # Append a list of the exercise comments
-            if comments:
+            # if comments:
+            if True:
                 item_list = [ListItem(Paragraph(i, style=styleSheet["ExerciseComments"]))
                              for i in exercise['comment_list']]
+
+                image = Paragraph('', styleSheet["Small"])
+                if exercise['obj'].main_image:
+                    image = Image(exercise['obj'].main_image.image)
+                    image.drawHeight = 1.5 * cm * image.drawHeight / image.drawWidth
+                    image.drawWidth = 1.5 * cm
                 exercise_content = [Paragraph(exercise['obj'].name, styleSheet["Small"]),
+                                    image,
                                     ListFlowable(item_list,
                                                  bulletType='bullet',
                                                  bulletFontSize=5,
