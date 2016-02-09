@@ -192,7 +192,7 @@ class ExercisesEditAddView(WgerFormMixin):
                           'license_author']
 
             class Media:
-                js = ('wger/core/static/bower_components/tinymce/tinymce.min.js',)
+                js = ('/static/bower_components/tinymce/tinymce.min.js',)
 
         return ExerciseForm
 
