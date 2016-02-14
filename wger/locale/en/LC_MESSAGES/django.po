@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-09 11:45+0100\n"
+"POT-Creation-Date: 2016-02-14 10:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,8 +21,8 @@ msgstr ""
 #: core/templates/navigation.html.py:55
 #: exercises/templates/exercise/overview.html:11
 #: exercises/templates/mobile/exercise/overview.html:11
-#: exercises/templates/muscles/overview.html:79 manager/models.py:528
-#: manager/models.py:577 manager/templates/mobile/tags/render_day.html:72
+#: exercises/templates/muscles/overview.html:79 manager/models.py:529
+#: manager/models.py:578 manager/templates/mobile/tags/render_day.html:72
 msgid "Exercises"
 msgstr ""
 
@@ -350,7 +350,7 @@ msgstr ""
 msgid "Some way of answering you (email, etc.)"
 msgstr ""
 
-#: core/forms.py:159 exercises/models.py:481 manager/models.py:592
+#: core/forms.py:159 exercises/models.py:481 manager/models.py:593
 msgid "Comment"
 msgstr ""
 
@@ -662,7 +662,7 @@ msgstr ""
 #: core/templates/index.html:49 core/templates/index.html.py:57
 #: core/templates/mobile/index.html:173 core/templates/mobile/index.html:174
 #: core/templates/mobile/index.html:176 manager/models.py:84
-#: manager/models.py:365 manager/models.py:639 manager/models.py:723
+#: manager/models.py:365 manager/models.py:640 manager/models.py:724
 #: manager/templates/mobile/schedule/view.html:20
 #: manager/templates/mobile/schedule/view.html:22
 #: manager/templates/mobile/workout/view.html:11
@@ -970,7 +970,7 @@ msgstr ""
 
 #: core/templates/misc/fragments/shariff_modal.html:14
 msgid ""
-"Before you share links and on social media you need to allow external access."
+"Before you share links on social media you need to allow external access."
 msgstr ""
 
 #: core/templates/misc/fragments/shariff_modal.html:18
@@ -1147,6 +1147,7 @@ msgid "Administration"
 msgstr ""
 
 #: core/templates/navigation.html:66
+#: exercises/templates/exercise/pending.html:6
 msgid "Exercises pending review"
 msgstr ""
 
@@ -1157,7 +1158,7 @@ msgstr ""
 
 #: core/templates/navigation.html:82 core/templates/user/overview.html:112
 #: core/templates/user/overview.html:121 manager/helpers.py:68
-#: manager/models.py:580 manager/models.py:646
+#: manager/models.py:581 manager/models.py:647
 #: manager/templates/workout/timer.html:311
 #: manager/templates/workout/timer.html:314 weight/models.py:32
 #: weight/templates/import_csv_preview.html:15
@@ -1200,6 +1201,7 @@ msgid "Ingredient weight units"
 msgstr ""
 
 #: core/templates/navigation.html:109
+#: nutrition/templates/ingredient/pending.html:6
 msgid "Ingredients pending review"
 msgstr ""
 
@@ -1490,8 +1492,8 @@ msgstr ""
 
 #: core/templates/user/overview.html:34 core/templates/user/overview.html:76
 #: core/templates/user/overview.html:120 core/templates/user/overview.html:153
-#: exercises/models.py:190 manager/helpers.py:67 manager/models.py:648
-#: manager/models.py:728 manager/templates/schedule/overview.html:16
+#: exercises/models.py:190 manager/helpers.py:67 manager/models.py:649
+#: manager/models.py:729 manager/templates/schedule/overview.html:16
 #: manager/templates/workout/overview.html:14 nutrition/models.py:253
 #: nutrition/models.py:254 nutrition/templates/plan/overview.html:14
 #: weight/models.py:31 weight/templates/import_csv_preview.html:14
@@ -1525,13 +1527,13 @@ msgstr ""
 msgid "Log"
 msgstr ""
 
-#: core/templates/user/overview.html:77 manager/models.py:742
+#: core/templates/user/overview.html:77 manager/models.py:743
 #: manager/templates/calendar/partial_overview_table.html:55
 msgid "General impression"
 msgstr ""
 
 #: core/templates/user/overview.html:78 core/templates/user/overview.html:393
-#: manager/models.py:733
+#: manager/models.py:734
 #: manager/templates/calendar/partial_overview_table.html:59
 #: manager/templates/workout/log.html:115
 msgid "Notes"
@@ -1853,7 +1855,7 @@ msgstr ""
 
 #: email/templates/email/gym/form.html:30
 #: email/templates/email/gym/preview.html:63
-msgid "You will receive a preview email for checking"
+msgid "You will receive a preview email for you to review"
 msgstr ""
 
 #: email/templates/email/gym/form.html:31
@@ -1906,7 +1908,7 @@ msgid "The user {0} submitted a new exercise \"{1}\"."
 msgstr ""
 
 #: exercises/models.py:360 exercises/models.py:478 manager/helpers.py:68
-#: manager/models.py:637
+#: manager/models.py:638
 msgid "Exercise"
 msgstr ""
 
@@ -1919,7 +1921,7 @@ msgid "Only PNG and JPEG formats are supported"
 msgstr ""
 
 #: exercises/models.py:368
-msgid "Is main picture"
+msgid "Main picture"
 msgstr ""
 
 #: exercises/models.py:370
@@ -1966,6 +1968,7 @@ msgstr ""
 #: exercises/templates/equipment/overview.html:118
 #: exercises/templates/exercise/overview.html:139
 #: exercises/templates/mobile/exercise/overview.html:133
+#: nutrition/templates/ingredient/overview.html:74
 #: software/templates/contribute.html:64
 msgid "Only registered users can do this"
 msgstr ""
@@ -1973,7 +1976,7 @@ msgstr ""
 #: exercises/templates/equipment/overview.html:125
 #: exercises/templates/exercise/overview.html:192
 #: exercises/templates/mobile/exercise/overview.html:101
-#: nutrition/templates/ingredient/overview.html:71
+#: nutrition/templates/ingredient/overview.html:78
 msgid "Search"
 msgstr ""
 
@@ -2078,10 +2081,6 @@ msgstr ""
 msgid "Add category"
 msgstr ""
 
-#: exercises/templates/exercise/pending.html:6
-msgid "Pending exercises"
-msgstr ""
-
 #: exercises/templates/exercise/pending.html:14
 #: nutrition/templates/ingredient/pending.html:14
 msgid "Submission date"
@@ -2091,7 +2090,7 @@ msgstr ""
 #: gym/templates/gym/email_inactive_members.html:4
 #: gym/templates/gym/new_user.html:22
 #: gym/templates/gym/reset_user_password.html:20 manager/models.py:69
-#: manager/models.py:202 manager/models.py:634 manager/models.py:715
+#: manager/models.py:202 manager/models.py:635 manager/models.py:716
 #: nutrition/models.py:73 nutrition/models.py:241
 #: nutrition/templates/ingredient/pending.html:16 weight/models.py:37
 msgid "User"
@@ -2146,7 +2145,7 @@ msgid "Images"
 msgstr ""
 
 #: exercises/templates/exercise/view.html:198
-msgid "Pending images"
+msgid "Images pending review"
 msgstr ""
 
 #: exercises/templates/exercise/view.html:233
@@ -2279,20 +2278,20 @@ msgstr ""
 msgid "A user with that username already exists."
 msgstr ""
 
-#: gym/management/commands/inactive-members.py:95
+#: gym/management/commands/inactive-members.py:95 gym/models.py:131
 msgid "Reminder of inactive members"
 msgstr ""
 
 #: gym/models.py:38
-msgid "Trainer, can see the users for a gym"
+msgid "Trainer: can see the users for a gym"
 msgstr ""
 
 #: gym/models.py:39
-msgid "Admin, can manage users for a gym"
+msgid "Admin: can manage users for a gym"
 msgstr ""
 
 #: gym/models.py:40
-msgid "Admin, can administrate the different gyms"
+msgid "Admin: can administrate the different gyms"
 msgstr ""
 
 #: gym/models.py:64 gym/templates/gym/member_list.html:130
@@ -2311,10 +2310,6 @@ msgstr ""
 msgid "Street"
 msgstr ""
 
-#: gym/models.py:131
-msgid "Reminder inactive members"
-msgstr ""
-
 #: gym/models.py:132
 msgid ""
 "Number of weeks since the last time a user logged his presence to be "
@@ -2326,7 +2321,7 @@ msgid "Configuration for {}"
 msgstr ""
 
 #: gym/models.py:184 gym/templates/gym/member_list.html:192
-msgid "Overview inactive members"
+msgid "Overview of inactive members"
 msgstr ""
 
 #: gym/models.py:185
@@ -2592,7 +2587,7 @@ msgstr ""
 
 #: manager/models.py:228 manager/templates/mobile/schedule/view.html:62
 #: manager/templates/schedule/view.html:80
-msgid "Is loop"
+msgid "Is a loop"
 msgstr ""
 
 #: manager/models.py:230
@@ -2613,74 +2608,74 @@ msgstr ""
 msgid "The duration in weeks"
 msgstr ""
 
-#: manager/models.py:322 manager/models.py:531 manager/models.py:589
+#: manager/models.py:322 manager/models.py:532 manager/models.py:590
 #: nutrition/models.py:520 nutrition/models.py:584
 msgid "Order"
 msgstr ""
 
 #: manager/models.py:368
 msgid ""
-"Ususally a description about what parts are trained, like \"Arms\" or \"Pull "
-"Day\""
+"A description of what is done on this day (e.g. \"Pull day\") or what body "
+"parts are trained (e.g. \"Arms and abs\")"
 msgstr ""
 
-#: manager/models.py:371
+#: manager/models.py:372
 msgid "Day"
 msgstr ""
 
-#: manager/models.py:526
+#: manager/models.py:527
 msgid "Exercise day"
 msgstr ""
 
-#: manager/models.py:533
+#: manager/models.py:534
 msgid "Number of sets"
 msgstr ""
 
-#: manager/models.py:575
+#: manager/models.py:576
 msgid "Sets"
 msgstr ""
 
-#: manager/models.py:579 manager/models.py:641
+#: manager/models.py:580 manager/models.py:642
 #: manager/templates/workout/timer.html:301
 #: manager/templates/workout/timer.html:304
 msgid "Repetitions"
 msgstr ""
 
-#: manager/models.py:709
+#: manager/models.py:710
 msgid "Bad"
 msgstr ""
 
-#: manager/models.py:710
+#: manager/models.py:711
 msgid "Neutral"
 msgstr ""
 
-#: manager/models.py:711
+#: manager/models.py:712
 msgid "Good"
 msgstr ""
 
-#: manager/models.py:736
+#: manager/models.py:737
 msgid "Any notes you might want to save about this workout session."
 msgstr ""
 
-#: manager/models.py:746
+#: manager/models.py:747
 msgid ""
 "Your impression about this workout session. Did you exercise as well as you "
 "could?"
 msgstr ""
 
-#: manager/models.py:752
+#: manager/models.py:753
 msgid "Start time"
 msgstr ""
 
-#: manager/models.py:759
+#: manager/models.py:760
 msgid "Finish time"
 msgstr ""
 
-#: manager/models.py:785
+#: manager/models.py:786
 msgid "If you enter a time, you must enter both start and end time."
 msgstr ""
 
-#: manager/models.py:788
+#: manager/models.py:789
 msgid "The start time cannot be after the end time."
 msgstr ""
 
@@ -2848,8 +2843,8 @@ msgstr ""
 #: manager/templates/schedule/view.html:228
 msgid ""
 "Add as many workouts to the schedule as you want. You can\n"
-"edit the order per drag-and-drop. It's also possible to add one workout "
-"more\n"
+"edit the order by dragging and dropping them. It's also possible to add one "
+"workout more\n"
 "than once."
 msgstr ""
 
@@ -3426,22 +3421,20 @@ msgstr ""
 msgid "No ingredients."
 msgstr ""
 
-#: nutrition/templates/ingredient/overview.html:58
+#: nutrition/templates/ingredient/overview.html:57
 #: nutrition/templates/ingredient/overview.html:64
 #: nutrition/templates/ingredient/overview.html:65
 #: nutrition/templates/ingredient/overview.html:66
+#: nutrition/templates/ingredient/overview.html:72
+#: nutrition/templates/ingredient/overview.html:73
 #: nutrition/templates/mobile/ingredient_overview.html:40
 #: nutrition/templates/mobile/ingredient_overview.html:41
 #: nutrition/templates/mobile/ingredient_overview.html:42
 msgid "Add ingredient"
 msgstr ""
 
-#: nutrition/templates/ingredient/overview.html:80
+#: nutrition/templates/ingredient/overview.html:87
 msgid "ingredient name"
-msgstr ""
-
-#: nutrition/templates/ingredient/pending.html:6
-msgid "Pending ingredients"
 msgstr ""
 
 #: nutrition/templates/ingredient/view.html:27
@@ -3867,8 +3860,8 @@ msgstr ""
 #: software/templates/functions.html:65
 msgid ""
 "wger Workout Manager is a free, open source web application that manages\n"
-"your exercises and workouts. It started as a pet project of mine to replace "
-"my\n"
+"your exercises, workouts and nutrition. It started as a pet project of mine "
+"to replace my\n"
 "growing collection of different spreadsheets, but it has become something "
 "other\n"
 "people could also find useful."
@@ -3887,8 +3880,8 @@ msgid ""
 "You can enter\n"
 "the weights and repetitions you did for each exercise. As with the (body) "
 "weight,\n"
-"it will generate some diagrams so so you can see at a glance how well you "
-"are doing.\n"
+"it will generate some diagrams so you can see at a glance how well you are "
+"doing.\n"
 "The raw numbers are still accessible as a table."
 msgstr ""
 
@@ -4111,7 +4104,7 @@ msgid ""
 "The data fixtures with the exercise and ingredient lists are\n"
 "released additionally under a <strong>Creative Commons Attribution Share "
 "Alike 3\n"
-"(CC-BY-SA)</strong> license.</a>"
+"(CC-BY-SA)</strong> license."
 msgstr ""
 
 #: software/templates/license.html:46
