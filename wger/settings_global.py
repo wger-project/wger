@@ -210,6 +210,7 @@ LANGUAGES = (
             ('pt', 'Portuguese'),
             ('el', 'Greek'),
             ('cs', 'Czech'),
+            ('sv', 'Swedish'),
 )
 
 # Default language code for this installation.
