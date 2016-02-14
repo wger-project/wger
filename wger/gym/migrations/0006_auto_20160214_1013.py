@@ -15,9 +15,10 @@ def update_permission_names(apps, schema_editor):
                  'Admin, can manage users for a gym',
                  'Admin, can administrate the different gyms']:
 
-        permission = Permission.objects.get(name=name)
-        permission.name = name.replace(',', ':')
-        permission.save()
+        permissions = Permission.objects.filter(name=name)
+        if permissions.exists():
+            permissions[0].name = name.replace(',', ':')
+            permissions[0].save()
 
 
 class Migration(migrations.Migration):
