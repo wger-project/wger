@@ -128,12 +128,12 @@ class GymConfig(m.Model):
     Gym this configuration belongs to
     '''
 
-    weeks_inactive = m.PositiveIntegerField(verbose_name=_('Reminder inactive members'),
+    weeks_inactive = m.PositiveIntegerField(verbose_name=_('Reminder of inactive members'),
                                             help_text=_('Number of weeks since the last time a '
                                             'user logged his presence to be considered inactive'),
                                             default=4)
     '''
-    Reminder inactive members
+    Reminder of inactive members
     '''
 
     def __str__(self):
@@ -181,11 +181,11 @@ class GymAdminConfig(AbstractGymUserConfigModel, m.Model):
         Only one entry per user and gym
         '''
 
-    overview_inactive = m.BooleanField(verbose_name=_('Overview inactive members'),
+    overview_inactive = m.BooleanField(verbose_name=_('Overview of inactive members'),
                                        help_text=_('Receive email overviews of inactive members'),
                                        default=True)
     '''
-    Reminder inactive members
+    Reminder of inactive members
     '''
 
     def get_owner_object(self):
