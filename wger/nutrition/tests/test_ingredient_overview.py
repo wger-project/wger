@@ -82,7 +82,10 @@ class OverviewPlanTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
 
         # No ingredients pending review
-        self.assertNotContains(response, 'Pending ingredient')
+        if admin:
+            self.assertContains(response, 'Ingredients pending review')
+        else:
+            self.assertNotContains(response, 'Ingredients pending review')
 
         # Only authorized users see the edit links
         if logged_in and not demo:

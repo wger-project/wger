@@ -195,7 +195,7 @@ included in the database.{% endblocktrans %}
 {% if perms.exercises.change_exerciseimage %}
 {% with images=exercise.exerciseimage_set.pending %}
 {% if images %}
-<h4>{% trans "Pending images" %}</h4>
+<h4>{% trans "Images pending review" %}</h4>
 <div class="list-group">
     {% for image in images %}
         <div class="list-group-item">
