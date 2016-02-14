@@ -225,7 +225,7 @@ class Schedule(models.Model):
                                                 "marked as inactive"))
     '''A flag indicating whether the schedule is active (needed for dashboard)'''
 
-    is_loop = models.BooleanField(verbose_name=_('Is loop'),
+    is_loop = models.BooleanField(verbose_name=_('Is a loop'),
                                   default=False,
                                   help_text=_("Tick the box if you want to repeat the schedules "
                                               "in a loop (i.e. A, B, C, A, B, C, and so on)"))
