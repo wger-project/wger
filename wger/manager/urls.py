@@ -90,7 +90,7 @@ patterns_workout = [
         name='ical'),
     url(r'^(?P<id>\d+)/pdf/log/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
         pdf.workout_log,
-        name='pdf-log'),
+        name='pdf-log'), #JS!
     url(r'^(?P<id>\d+)/pdf/log/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
         pdf.workout_log,
         name='pdf-log'),
@@ -102,7 +102,7 @@ patterns_workout = [
         name='pdf-log'),
     url(r'^(?P<id>\d+)/pdf/table/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
         pdf.workout_view,
-        name='pdf-table'),
+        name='pdf-table'), #JS!
     url(r'^(?P<id>\d+)/pdf/table/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
         pdf.workout_view,
         name='pdf-table'),
