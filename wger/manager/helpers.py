@@ -111,16 +111,27 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
             image = Paragraph('', styleSheet["Small"])
             if images:
                 if exercise['obj'].main_image:
+
+                    # Make the images somewhat larger when printing only the workout and not
+                    # also the columns for weight logs
+                    if only_table:
+                        image_size = 2
+                    else:
+                        image_size = 1.5
+
                     image = Image(exercise['obj'].main_image.image)
-                    image.drawHeight = 1.5 * cm * image.drawHeight / image.drawWidth
-                    image.drawWidth = 1.5 * cm
+                    image.drawHeight = image_size * cm * image.drawHeight / image.drawWidth
+                    image.drawWidth = image_size * cm
 
             # Put the name and images and comments together
             exercise_content = [Paragraph(exercise['obj'].name, styleSheet["Small"]),
                                 image,
                                 ListFlowable(item_list,
                                              bulletType='bullet',
-                                             bulletFontSize=5,
+                                             leftIndent=5,
+                                             spaceBefore=7,
+                                             bulletOffsetY=-3,
+                                             bulletFontSize=3,
                                              start='square')]
 
             data.append([set_count,
