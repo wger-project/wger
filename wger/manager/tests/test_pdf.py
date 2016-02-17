@@ -76,6 +76,67 @@ class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
             self.assertGreater(int(response['Content-Length']), 29000)
             self.assertLess(int(response['Content-Length']), 35000)
 
+    def export_pdf_with_comments(self, fail=False):
+        '''
+        Helper function to test exporting a workout as a pdf, with exercise coments
+        '''
+
+        response = self.client.get(reverse('manager:workout:pdf-log', kwargs={'id': 3,
+                                                                              'comments': 0}))
+
+        if fail:
+            self.assertIn(response.status_code, (403, 404, 302))
+        else:
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response['Content-Type'], 'application/pdf')
+            self.assertEqual(response['Content-Disposition'],
+                             'attachment; filename=Workout-3-log.pdf')
+
+            # Approximate size only
+            self.assertGreater(int(response['Content-Length']), 29000)
+            self.assertLess(int(response['Content-Length']), 35000)
+
+    def export_pdf_with_images(self, fail=False):
+        '''
+        Helper function to test exporting a workout as a pdf, with exercise images
+        '''
+
+        response = self.client.get(reverse('manager:workout:pdf-log', kwargs={'id': 3,
+                                                                              'images': 1}))
+
+        if fail:
+            self.assertIn(response.status_code, (403, 404, 302))
+        else:
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response['Content-Type'], 'application/pdf')
+            self.assertEqual(response['Content-Disposition'],
+                             'attachment; filename=Workout-3-log.pdf')
+
+            # Approximate size only
+            self.assertGreater(int(response['Content-Length']), 29000)
+            self.assertLess(int(response['Content-Length']), 35000)
+
+    def export_pdf_with_images_and_comments(self, fail=False):
+        '''
+        Helper function to test exporting a workout as a pdf, with images and comments
+        '''
+
+        response = self.client.get(reverse('manager:workout:pdf-log', kwargs={'id': 3,
+                                                                              'images': 1,
+                                                                              'comments': 1}))
+
+        if fail:
+            self.assertIn(response.status_code, (403, 404, 302))
+        else:
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response['Content-Type'], 'application/pdf')
+            self.assertEqual(response['Content-Disposition'],
+                             'attachment; filename=Workout-3-log.pdf')
+
+            # Approximate size only
+            self.assertGreater(int(response['Content-Length']), 29000)
+            self.assertLess(int(response['Content-Length']), 35000)
+
     def test_export_pdf_anonymous(self):
         '''
         Tests exporting a workout as a pdf as an anonymous user

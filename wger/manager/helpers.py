@@ -36,10 +36,24 @@ from wger.utils.helpers import normalize_decimal
 from wger.utils.pdf import styleSheet
 
 
-def render_workout_day(day, nr_of_weeks, images=False, comments=False):
+def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_table=False):
     '''
     Render a table with reportlab with the contents of the training day
+
+    :param day: a workout day object
+    :param nr_of_weeks: the numbrer of weeks to render, default is 7
+    :param images: boolean indicating whether to also draw exercise images
+           in the PDF (actually only the main image)
+    :param comments: boolean indicathing whether the exercise comments will
+           be rendered as well
+    :param only_table: boolean indicating whether to draw a table with space
+           for weight logs or just a list of the exercises
     '''
+
+    # If rendering only the table, reset the nr of weeks, since these columns
+    # will not be rendered anyway.
+    if only_table:
+        nr_of_weeks = 0
 
     data = []
 
@@ -152,9 +166,14 @@ def render_workout_day(day, nr_of_weeks, images=False, comments=False):
     # Put everything together and manually set some of the widths
     t = Table(data, style=table_style)
     if len(t._argW) > 1:
-        t._argW[0] = 0.6 * cm  # Numbering
-        t._argW[1] = 4 * cm  # Exercise
-        t._argW[2] = 2.5 * cm  # Repetitions
+        if only_table:
+            t._argW[0] = 0.6 * cm  # Numbering
+            t._argW[1] = 8 * cm  # Exercise
+            t._argW[2] = 3.5 * cm  # Repetitions
+        else:
+            t._argW[0] = 0.6 * cm  # Numbering
+            t._argW[1] = 4 * cm  # Exercise
+            t._argW[2] = 2.5 * cm  # Repetitions
 
     return KeepTogether(t)
 
