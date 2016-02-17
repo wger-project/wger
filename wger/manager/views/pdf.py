@@ -92,7 +92,7 @@ def workout_log(request, id, images=False, comments=False, uidb64=None, token=No
 
     # Iterate through the Workout and render the training days
     for day in workout.canonical_representation['day_list']:
-        elements.append(render_workout_day(day, nr_of_weeks=7, comments=comments))
+        elements.append(render_workout_day(day, nr_of_weeks=7, images=images, comments=comments))
         elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Footer, date and info

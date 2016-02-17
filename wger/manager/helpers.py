@@ -36,7 +36,7 @@ from wger.utils.helpers import normalize_decimal
 from wger.utils.pdf import styleSheet
 
 
-def render_workout_day(day, nr_of_weeks, comments=False):
+def render_workout_day(day, nr_of_weeks, images=False, comments=False):
     '''
     Render a table with reportlab with the contents of the training day
     '''
@@ -87,26 +87,27 @@ def render_workout_day(day, nr_of_weeks, comments=False):
             else:
                 setting_out = Paragraph(exercise['setting_text'], styleSheet["Small"])
 
-            # Append a list of the exercise comments
-            # if comments:
-            if True:
+            # Collect a list of the exercise comments
+            item_list = [Paragraph('', styleSheet["Small"])]
+            if comments:
                 item_list = [ListItem(Paragraph(i, style=styleSheet["ExerciseComments"]))
                              for i in exercise['comment_list']]
 
-                image = Paragraph('', styleSheet["Small"])
+            # Add the exercise's main image
+            image = Paragraph('', styleSheet["Small"])
+            if images:
                 if exercise['obj'].main_image:
                     image = Image(exercise['obj'].main_image.image)
                     image.drawHeight = 1.5 * cm * image.drawHeight / image.drawWidth
                     image.drawWidth = 1.5 * cm
-                exercise_content = [Paragraph(exercise['obj'].name, styleSheet["Small"]),
-                                    image,
-                                    ListFlowable(item_list,
-                                                 bulletType='bullet',
-                                                 bulletFontSize=5,
-                                                 start='square')]
-            # Only show the exercise name
-            else:
-                exercise_content = Paragraph(exercise['obj'].name, styleSheet["Small"])
+
+            # Put the name and images and comments together
+            exercise_content = [Paragraph(exercise['obj'].name, styleSheet["Small"]),
+                                image,
+                                ListFlowable(item_list,
+                                             bulletType='bullet',
+                                             bulletFontSize=5,
+                                             start='square')]
 
             data.append([set_count,
                          exercise_content,
