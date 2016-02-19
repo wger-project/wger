@@ -22,11 +22,13 @@ Translators
 -----------
 
 * Bulgarian: Lyuboslav Petrov
+* Czech: Tomáš Z.
 * Dutch: David Machiels
 * Greek: Mark Nicolaou
 * Portuguese: Jefferson Campos – http://jeffersoncampos.eti.br
 * Russian: Inna
 * Spanish: acv2facundo
+* Swedish: ywecur
 
 
 Exercises
