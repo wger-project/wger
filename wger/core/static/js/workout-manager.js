@@ -664,3 +664,31 @@ function prefetch_images(imageArray) {
         }
     });
 }
+
+/*
+ * Handle the workout PDF download options
+ */
+$(document).ready(function() {
+    $('#download-pdf-button').click(function (e) {
+        e.preventDefault();
+
+        var downloadInfo = $('#pdf-download-info');
+        var downloadType = $('input[name="pdf_type"]:checked').val();
+        var downloadImages = $('#id_images').is(':checked') ? 1 : 0;
+        var downloadComments = $('#id_comments').is(':checked') ? 1 : 0;
+
+        var workoutId = downloadInfo.data('workoutId');
+        var uid = downloadInfo.data('uid');
+        var token = downloadInfo.data('token');
+
+        // Put together and redirect
+        var targetUrl = '/' + get_current_language() +
+            '/workout/' + workoutId + '/pdf' +
+            '/' + downloadType +
+            '/' + downloadImages +
+            '/' + downloadComments +
+            '/' + uid +
+            '/' + token;
+        window.location.href = targetUrl;
+    });
+});
