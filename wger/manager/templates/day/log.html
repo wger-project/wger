@@ -40,7 +40,6 @@ $(document).ready(function () {
                     <table class="table">
                     <tr>
                         <td>{% trans "Amount" %}</td>
-                        <td>{% trans "Unit" %}</td>
                         <td>
                             {% trans "Weight" %}
                         </td>
@@ -52,16 +51,6 @@ $(document).ready(function () {
                                 {{ form.reps|form_field_add_css:'form-control narrow-input' }}
                                 <span class="help-block">
                                     {% for error in form.reps.errors %}
-                                        <p>{% trans error %}</p>
-                                    {% endfor %}
-                                </span>
-                            </div>
-                        </td>
-                        <td>
-                            <div {% if form.unit.errors %}class="has-error"{% endif %}>
-                                {{ form.unit|form_field_add_css:'form-control narrow-input' }}
-                                <span class="help-block">
-                                    {% for error in form.unit.errors %}
                                         <p>{% trans error %}</p>
                                     {% endfor %}
                                 </span>
