@@ -1,4 +1,4 @@
 {
-    "directory" : "/wger/core/static/bower_components",
-    "interactive": true
+    "directory" : "wger/core/static/bower_components",
+    "interactive": false
 }

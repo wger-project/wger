@@ -93,7 +93,7 @@ INSTALLED_APPS = (
 
 # added list of external libraries to be installed by bower
 BOWER_INSTALLED_APPS = (
-    'jquery',
+    'jquery#2.1.x',
     'bootstrap',
     'd3',
     'shariff',
