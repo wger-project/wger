@@ -57,25 +57,22 @@ included in the database.{% endblocktrans %}
 </p>
 
 {% if perms.exercises %}
-<div class="row">
-    <div class="col-sm-6">
-        <a href="{% url 'exercise:exercise:accept' exercise.id %}" class="btn btn-default btn-block">
-            <img src="{% static 'images/icons/status-on.svg' %}"
-                width="32"
-                height="32"
-                alt="{% trans 'Accept' %}">
-            {% trans "Accept" %}
-        </a>
-    </div>
-    <div class="col-sm-6">
-        <a href="{% url 'exercise:exercise:decline' exercise.id %}" class="btn btn-default btn-block">
-            <img src="{% static 'images/icons/status-off.svg' %}"
-                width="32"
-                height="32"
-                alt="{% trans 'Decline' %}">
-            {% trans "Decline" %}
-        </a>
-    </div>
+<div class="btn-group btn-group-justified" role="group">
+
+    <a href="{% url 'exercise:exercise:accept' exercise.id %}" class="btn btn-default">
+        <img src="{% static 'images/icons/status-on.svg' %}"
+            width="32"
+            height="32"
+            alt="{% trans 'Accept' %}">
+        {% trans "Accept" %}
+    </a>
+    <a href="{% url 'exercise:exercise:decline' exercise.id %}" class="btn btn-default">
+        <img src="{% static 'images/icons/status-off.svg' %}"
+            width="32"
+            height="32"
+            alt="{% trans 'Decline' %}">
+        {% trans "Decline" %}
+    </a>
 </div>
 {% endif %} {# end check permissions #}
 
@@ -136,14 +133,9 @@ included in the database.{% endblocktrans %}
 
 {% if perms.exercises %}
 <p>
-    <a href="{% url 'exercise:comment:add' exercise.id %}"
-       title="{% trans 'Add' %}"
-       class="wger-modal-dialog">
-        <img src="{% static 'images/icons/add.svg' %}"
-            width="16"
-            height="16"
-            alt="{% trans 'Add new comment' %}">
-        {% trans "Add new comment" %}</a>
+    <a href="{% url 'exercise:comment:add' exercise.id %}" class="btn btn-success btn-xs wger-modal-dialog">
+        {% trans "Add new comment" %}
+    </a>
 </p>
 {% endif %}
 
@@ -225,13 +217,9 @@ included in the database.{% endblocktrans %}
 
 {% if perms.exercises %}
 <p>
-    <a href="{% url 'exercise:image:add' exercise.id %}"
-       title="{% trans 'Add' %}">
-        <img src="{% static 'images/icons/add.svg' %}"
-            width="16"
-            height="16"
-            alt="{% trans 'Add new image' %}">
-        {% trans "Add new image" %}</a>
+    <a href="{% url 'exercise:image:add' exercise.id %}" class="btn btn-success btn-xs">
+        {% trans "Add new image" %}
+    </a>
 </p>
 {% endif %}
 
