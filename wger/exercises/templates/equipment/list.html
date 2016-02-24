@@ -53,17 +53,10 @@
 
 {% block sidebar %}
 {% if perms.exercises.add_equipment %}
-<h4>{% trans "Options" %}</h4>
 <p>
-       <a href="{% url 'exercise:equipment:add' %}"
-          {% auto_link_css flavour "wger-modal-dialog" %}>
-       <img src="{% static 'images/icons/new.svg' %}"
-            width="32"
-            height="32"
-            alt="{% trans 'Add new equipment' %}"
-            title="{% trans 'Add new equipment' %}">
-       {% trans "Add new equipment" %}
-       </a>
+    <a href="{% url 'exercise:equipment:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+        {% trans "Add new equipment" %}
+    </a>
 </p>
 {% endif %}
 {% endblock %}

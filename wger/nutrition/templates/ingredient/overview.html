@@ -54,24 +54,18 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block sidebar %}
-<h4>{% trans "Add ingredient" %}</h4>
 <p>
     {% if user.is_authenticated and not user.userprofile.is_temporary %}
-       <a href="{% url 'nutrition:ingredient:add' %}" {% auto_link_css flavour %}>
-       <img src="{% static 'images/icons/new.svg' %}"
-            width="32"
-            height="32"
-            alt="{% trans 'Add ingredient' %}"
-            title="{% trans 'Add ingredient' %}">
-       {% trans "Add ingredient" %}
-       </a>
+    <a href="{% url 'nutrition:ingredient:add' %}" class="btn btn-success btn-sm">
+        {% trans "Add ingredient" %}
+    </a>
     {% else %}
-        <img src="{% static 'images/icons/new.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Add ingredient' %}"
-             title="{% trans 'Add ingredient' %}">
-    {% trans "Only registered users can do this" %}
+    <a href="#" class="btn btn-success btn-sm disabled">
+        {% trans "Add ingredient" %}<br>
+        <small>
+        {% trans "Only registered users can do this" %}
+        </small>
+    </a>
     {% endif %}
 </p>
 

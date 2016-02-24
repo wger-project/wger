@@ -97,19 +97,11 @@ $(document).ready(function() {
 {% endcache %}
 
 {% if perms.exercises %}
-<h4>{% trans "Options" %}</h4>
 
 <p>
-<a href="{% url 'exercise:muscle:add' %}"
-   title="{% trans 'Add muscle' %}"
-   {% auto_link_css flavour "wger-modal-dialog" %}>
-   <img src="{% static 'images/icons/new.svg' %}"
-        width="32"
-        height="32"
-        alt="{% trans 'Add muscle' %}"
-        title="{% trans 'Add muscle' %}">
-    {% trans 'Add muscle' %}
-</a>
+    <a href="{% url 'exercise:muscle:add' %}" class="btn btn-success btn-sm">
+        {% trans "Add muscle" %}
+    </a>
 </p>
 
 <p>{% blocktrans %}<strong>Important:</strong> After adding a muscle, you need
@@ -117,6 +109,7 @@ to create a new SVG image with the contours of the muscle and place it in the
 folder <em>images/muscles</em>.{% endblocktrans %}</p>
 
 
+<h4>{% trans "Options" %}</h4>
 <div id="muscle-edit-box" style="display:none;">
 <p>
     <a href="{% url 'exercise:muscle:edit' 1 %}"
