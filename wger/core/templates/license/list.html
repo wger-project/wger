@@ -5,46 +5,30 @@
 
 
 {% block content %}
-
-<table class="table">
-<thead>
-<tr>
-    <th>{% trans "Actions" %}</th>
-    <th>{% trans "Name" %}</th>
-</tr>
-</thead>
-<tbody>
-{% for license in license_list %}
-<tr>
-    <td class="no-hover">
-        <a href="{% url 'core:license:delete' license.id %}"
-           class="wger-modal-dialog">
-            <img src="{% static 'images/icons/trash.svg' %}"
-                 width="22"
-                 height="22"
-                 alt="{% trans 'Delete' %}"
-                 title="{% trans 'Delete' %}">
-        </a>
-        <a href="{% url 'core:license:edit' license.id %}"
-           class="wger-modal-dialog">
-            <img src="{% static 'images/icons/edit.svg' %}"
-                 width="22"
-                 height="22"
-                 alt="{% trans 'Edit' %}"
-                 title="{% trans 'Edit' %}">
-        </a>
-    </td>
-    <td>{{license}}</td>
-</tr>
-{% empty %}
-<tr>
-    <td colspan="2">{% trans "Nothing found" %}</td>
-</tr>
-{% endfor %}
-</tbody>
-
-</table>
-<div style="padding-top:3em;"></div>
+<ul class="list-group">
+    {% for license in license_list %}
+    <li class="list-group-item ">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-cog"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="{% url 'core:license:edit' license.id %}" class="wger-modal-dialog">{% trans 'Edit' %}</a>
+                </li>
+                <li>
+                    <a href="{% url 'core:license:delete' license.id %}" class="wger-modal-dialog">{% trans 'Delete' %}</a>
+                </li>
+            </ul>
+        </div>
+        {{license}}
+    </li>
+    {% empty %}
+        <li class="list-group-item">
+            {% trans "Nothing found" %}
+        </li>
+    {% endfor %}
+</ul>
 {% endblock %}
 
 
