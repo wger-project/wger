@@ -190,12 +190,8 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['schedules']), 3)
         self.assertTrue(response.context['schedules'][0].is_active)
-        if self.is_mobile:
-            self.assertInHTML('<span class="label label-primary pull-right"><em>active</em></span>',
-                              six.text_type(response.content))
-        else:
-            self.assertInHTML('<span class="label label-primary">active</span>',
-                              six.text_type(response.content))
+        self.assertInHTML('<span class="badge"><em>active</em></span>',
+                          six.text_type(response.content))
         schedule = Schedule.objects.get(pk=4)
         schedule.is_active = False
         schedule.save()
@@ -205,10 +201,7 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(response.context['schedules']), 3)
         for i in range(0, 3):
             self.assertFalse(response.context['schedules'][i].is_active)
-        if self.is_mobile:
-            self.assertNotContains(response, '<p class="ui-li-aside"><em>active</em></p>')
-        else:
-            self.assertNotContains(response, '<span class="label label-primary">active</span>')
+        self.assertNotContains(response, '<span class="badge"><em>active</em></span>')
 
     def test_schedule_active(self):
         '''
