@@ -104,14 +104,6 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
         # Only authorized users see the edit links
         if admin:
             self.assertNotContains(response, 'Only registered users can do this')
-            if not self.is_mobile:
-                self.assertContains(response, 'Edit category')
-                self.assertContains(response, 'Delete category')
-                self.assertContains(response, 'Add category')
-        else:
-            self.assertNotContains(response, 'Edit category')
-            self.assertNotContains(response, 'Delete category')
-            self.assertNotContains(response, 'Add category')
 
         if logged_in and not demo:
             self.assertNotContains(response, 'Only registered users can do this')
