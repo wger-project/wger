@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load i18n staticfiles wger_extras %}
+
+{% block title %}{% trans "Categories" %}{% endblock %}
+
+
+{% block content %}
+<ul class="list-group">
+    {% for category in exercisecategory_list %}
+    <li class="list-group-item ">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-cog"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="{% url 'exercise:category:edit' category.id %}" class="wger-modal-dialog">{% trans 'Edit' %}</a>
+                </li>
+                <li>
+                    <a href="{% url 'exercise:category:delete' category.id %}" class="wger-modal-dialog">{% trans 'Delete' %}</a>
+                </li>
+            </ul>
+        </div>
+        {{ category }}
+    </li>
+    {% empty %}
+        <li class="list-group-item">
+            {% trans "Nothing found" %}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+
+
+
+{% block sidebar %}
+{% if perms.exercises.add_exercisecategory %}
+<p>
+    <a href="{% url 'exercise:category:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+        {% trans "Add" %}
+    </a>
+</p>
+{% endif %}
+{% endblock %}

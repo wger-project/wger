@@ -82,6 +82,9 @@ patterns_comment = [
 
 # sub patterns for categories
 patterns_category = [
+    url(r'^list$',
+        categories.ExerciseCategoryListView.as_view(),
+        name='list'),
     url(r'^(?P<pk>\d+)/edit/$',
         categories.ExerciseCategoryUpdateView.as_view(),
         name='edit'),
