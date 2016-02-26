@@ -28,10 +28,6 @@ import os
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
-print(BASE_DIR)
-print(SITE_ROOT)
-print('===========================')
-
 #
 # Application definition
 #
@@ -316,8 +312,6 @@ if sys.platform.startswith('win32'):
     BOWER_PATH = os.path.join(BASE_DIR, 'node_modules', '.bin', 'bower.cmd')
 else:
     BOWER_PATH = os.path.join(BASE_DIR, 'node_modules', '.bin', 'bower')
-
-print(BOWER_PATH)
 
 #
 # Django Rest Framework
