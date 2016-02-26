@@ -21,16 +21,18 @@ RUN apt-get install -y vim
 # Set up the application
 USER wger
 RUN git clone https://github.com/rolandgeider/wger.git /home/wger/src
+
 WORKDIR /home/wger/src
 RUN virtualenv --python python3 /home/wger/venv
-RUN npm install bower \
-    && . /home/wger/venv/bin/activate \
+RUN . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
     && pip install -r requirements_devel.txt \
-    && invoke create_settings \
+    && invoke --root wgercreate_settings \
         --settings-path /home/wger/src/settings.py \
 	    --database-path /home/wger/db/database.sqlite \
-    && invoke bootstrap_wger --settings-path /home/wger/src/settings.py --no-start-server
+    && invoke --root wger bootstrap_wger \
+        --settings-path /home/wger/src/settings.py \
+        --no-start-server
 
 
 CMD ["/bin/bash"]

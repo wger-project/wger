@@ -30,10 +30,12 @@ RUN npm install bower \
     && . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
     && pip install -r requirements.txt \
-    && invoke create_settings \
+    && invoke --root wger create_settings \
         --settings-path /home/wger/src/settings.py \
         --database-path /home/wger/db/database.sqlite \
-    && invoke bootstrap_wger --settings-path /home/wger/src/settings.py --no-start-server
+    && invoke --root wger bootstrap_wger \
+        --settings-path /home/wger/src/settings.py \
+        --no-start-server
 
 
 # Change permissions of some files and folders so the apache process

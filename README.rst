@@ -53,9 +53,8 @@ state.
 
  $ git clone https://github.com/rolandgeider/wger.git
  $ cd wger
- $ npm install bower
  $ pip install -r requirements.txt  # or requirements_devel.txt to develop
- $ invoke bootstrap_wger
+ $ invoke --root wger bootstrap_wger
 
 3) Log in as: **admin**, password **admin**
 
