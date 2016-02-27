@@ -32,7 +32,7 @@ $(document).ready(function() {
 {% if ingredients_list %}
 <div class="list-group">
     {% for ingredient in ingredients_list %}
-        <a  class="list-group-item {% if flavour == 'mobile' %}wger-list-group-item{% endif %}" href="{{ ingredient.get_absolute_url }}">
+        <a  class="list-group-item" href="{{ ingredient.get_absolute_url }}">
             {% if flavour == 'mobile' %}
                 <span class="glyphicon glyphicon-chevron-right pull-right"></span>
             {% endif %}
