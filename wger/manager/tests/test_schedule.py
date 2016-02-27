@@ -190,8 +190,6 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['schedules']), 3)
         self.assertTrue(response.context['schedules'][0].is_active)
-        self.assertInHTML('<span class="badge"><em>active</em></span>',
-                          six.text_type(response.content))
         schedule = Schedule.objects.get(pk=4)
         schedule.is_active = False
         schedule.save()
@@ -201,7 +199,6 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(response.context['schedules']), 3)
         for i in range(0, 3):
             self.assertFalse(response.context['schedules'][i].is_active)
-        self.assertNotContains(response, '<span class="badge"><em>active</em></span>')
 
     def test_schedule_active(self):
         '''
