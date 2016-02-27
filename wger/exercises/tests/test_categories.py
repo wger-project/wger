@@ -24,7 +24,7 @@ from wger.manager.tests.testcase import (
     WorkoutManagerTestCase,
     WorkoutManagerEditTestCase,
     WorkoutManagerAddTestCase,
-)
+    WorkoutManagerAccessTestCase)
 
 
 class ExerciseCategoryRepresentationTestCase(WorkoutManagerTestCase):
@@ -37,6 +37,26 @@ class ExerciseCategoryRepresentationTestCase(WorkoutManagerTestCase):
         Test that the representation of an object is correct
         '''
         self.assertEqual("{0}".format(ExerciseCategory.objects.get(pk=1)), 'Category')
+
+
+class CategoryOverviewTestCase(WorkoutManagerAccessTestCase):
+    '''
+    Test that only admins see the edit links
+    '''
+    url = 'exercise:category:list'
+    anonymous_fail = True
+    user_success = 'admin'
+    user_fail = ('manager1',
+                 'manager2'
+                 'general_manager1',
+                 'manager3',
+                 'manager4',
+                 'test',
+                 'member1',
+                 'member2',
+                 'member3',
+                 'member4',
+                 'member5')
 
 
 class DeleteExerciseCategoryTestCase(WorkoutManagerDeleteTestCase):

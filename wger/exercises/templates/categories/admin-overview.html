@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% load i18n staticfiles wger_extras %}
 
-{% block title %}{% trans "Equipment list" %}{% endblock %}
+{% block title %}{% trans "Categories" %}{% endblock %}
 
 
 {% block content %}
 <ul class="list-group">
-    {% for equipment in equipment_list %}
+    {% for category in exercisecategory_list %}
     <li class="list-group-item ">
         <div class="btn-group pull-right">
             <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
@@ -14,14 +14,14 @@
             </button>
             <ul class="dropdown-menu" role="menu">
                 <li>
-                    <a href="{% url 'exercise:equipment:edit' equipment.id %}" class="wger-modal-dialog">{% trans 'Edit' %}</a>
+                    <a href="{% url 'exercise:category:edit' category.id %}" class="wger-modal-dialog">{% trans 'Edit' %}</a>
                 </li>
                 <li>
-                    <a href="{% url 'exercise:equipment:delete' equipment.id %}" class="wger-modal-dialog">{% trans 'Delete' %}</a>
+                    <a href="{% url 'exercise:category:delete' category.id %}" class="wger-modal-dialog">{% trans 'Delete' %}</a>
                 </li>
             </ul>
         </div>
-        {{equipment.name}}
+        {{ category }}
     </li>
     {% empty %}
         <li class="list-group-item">
@@ -29,17 +29,16 @@
         </li>
     {% endfor %}
 </ul>
-{% pagination paginator page_obj %}
 {% endblock %}
 
 
 
 
 {% block sidebar %}
-{% if perms.exercises.add_equipment %}
+{% if perms.exercises.add_exercisecategory %}
 <p>
-    <a href="{% url 'exercise:equipment:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% trans "Add new equipment" %}
+    <a href="{% url 'exercise:category:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+        {% trans "Add" %}
     </a>
 </p>
 {% endif %}

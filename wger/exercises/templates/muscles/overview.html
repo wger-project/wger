@@ -25,7 +25,7 @@ $(document).ready(function() {
     // Highlight on hover
     $('.muscle').hover(function(e) {
         e.preventDefault();
-        highlight_muscle(this, {% if perms.exercises %}true{% else %}false{% endif %});
+        highlight_muscle(this);
     });
 
     // Highlight on click
@@ -95,52 +95,6 @@ $(document).ready(function() {
     </div>
 </div>
 {% endcache %}
-
-{% if perms.exercises %}
-<h4>{% trans "Options" %}</h4>
-
-<p>
-<a href="{% url 'exercise:muscle:add' %}"
-   title="{% trans 'Add muscle' %}"
-   {% auto_link_css flavour "wger-modal-dialog" %}>
-   <img src="{% static 'images/icons/new.svg' %}"
-        width="32"
-        height="32"
-        alt="{% trans 'Add muscle' %}"
-        title="{% trans 'Add muscle' %}">
-    {% trans 'Add muscle' %}
-</a>
-</p>
-
-<p>{% blocktrans %}<strong>Important:</strong> After adding a muscle, you need
-to create a new SVG image with the contours of the muscle and place it in the
-folder <em>images/muscles</em>.{% endblocktrans %}</p>
-
-
-<div id="muscle-edit-box" style="display:none;">
-<p>
-    <a href="{% url 'exercise:muscle:edit' 1 %}"
-       {% auto_link_css flavour "wger-modal-dialog" %}
-       id="muscle-edit-edit-link">
-       <img src="{% static 'images/icons/edit.svg' %}"
-            width="32"
-            height="32"
-            alt="{% trans 'Edit muscle' %}"
-            title="{% trans 'Edit muscle' %}">{% trans 'Edit muscle' %}: <span class="muscle-edit-name"></span></a>
-</p>
-<p>
-    <a href="{% url 'exercise:muscle:delete' 1 %}"
-       {% auto_link_css flavour "wger-modal-dialog" %}
-       id="muscle-edit-delete-link">
-      <img src="{% static 'images/icons/trash.svg' %}"
-            width="32"
-            height="32"
-            alt="{% trans 'Delete muscle' %}"
-            title="{% trans 'Delete muscle' %}">{% trans 'Delete muscle' %}: <span class="muscle-edit-name"></span></a>
-</p>
-</div>
-{% endif %}
-
 {% endblock %}
 
 

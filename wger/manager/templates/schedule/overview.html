@@ -9,44 +9,36 @@
 {% endblock %}
 
 {% block content %}
-<table class="table">
-    <thead>
-    <tr>
-        <th>{% trans "Description" %}</th>
-        <th>{% trans "Date" %}</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for schedule in schedules %}
-    <tr>
-        <td>
-            <a href="{% url 'manager:schedule:view' schedule.id %}">{{ schedule.name }}</a>
+    <div class="list-group">
+        {% for schedule in schedules %}
+            <a href="{% url 'manager:schedule:view' schedule.id %}" class="list-group-item">
+                <span class="glyphicon glyphicon-chevron-right pull-right"></span>
 
-            {% if schedule.is_active %}
-                &nbsp;<span class="label label-primary">{% trans "active" %}</span>
-            {% endif  %}
-        </td>
-        <td>
-            {{ schedule.start_date }}
-        </td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="3">
-            <a href="{% url 'manager:schedule:add' %}" class="wger-modal-dialog btn btn-block btn-default">
-            {% trans "No schedules found." %} {% trans "Add one now." %}
+                {% if schedule.is_active %}
+                <span class="badge">
+                    <em>{% trans "active" %}</em>
+                </span>
+                {% endif %}
+
+                <h4 class="list-group-item-heading">{{ schedule }}</h4>
+                <p class="list-group-item-text">{{ schedule.start_date }}</p>
             </a>
-        </td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
-
+        {% empty %}
+            <a href="{% url 'manager:schedule:add' %}" class="list-group-item wger-modal-dialog">
+            {% trans "No schedules found." %}<br>{% trans "Add one now." %}
+            </a>
+        {% endfor %}
+    </div>
 {% endblock %}
 
 
 {% block sidebar %}
-<h4>{% trans "Your schedules" %}</h4>
+<p>
+    <a href="{% url 'manager:schedule:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+        {% trans "Add schedule" %}
+    </a>
+</p>
+
 <p>{% blocktrans %}Schedules are collections of workouts that you do in
 succession.{% endblocktrans %}</p>
 
@@ -57,16 +49,4 @@ always do the same workouts in succession, e.g. A > B > C > A > B > C and so on.
 <p>{% blocktrans %}The currently active schedule will remain active (and be
 shown e.g. in your dashboard) till it reaches the last workout or till you
 deactivate it, if it is a loop.{% endblocktrans %}</p>
-
-<h4>{% trans "Add schedule" %}</h4>
-<p>
-<a href="{% url 'manager:schedule:add' %}"
-   class="wger-modal-dialog">
-<img src="{% static 'images/icons/new.svg' %}"
-    width="32"
-    height="32"
-    alt="{% trans 'Add schedule' %}"
-    title="{% trans 'Add schedule' %}">
-{% trans "Add schedule" %}</a>
-</p>
 {% endblock %}

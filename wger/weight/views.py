@@ -175,7 +175,7 @@ def overview(request, username=None):
     template_data['owner_user'] = user
     template_data['show_shariff'] = is_owner
     template_data['last_five_weight_entries_details'] = last_five_weight_entries_details
-    return render(request, 'weight_overview.html', template_data)
+    return render(request, 'overview.html', template_data)
 
 
 @api_view(['GET'])

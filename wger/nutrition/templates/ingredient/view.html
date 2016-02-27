@@ -32,25 +32,21 @@ the search.{% endblocktrans %}
 </p>
 
 {% if perms.exercises %}
-<div class="row">
-    <div class="col-sm-6">
-        <a href="{% url 'nutrition:ingredient:accept' ingredient.id %}" class="btn btn-default btn-block">
-            <img src="{% static 'images/icons/status-on.svg' %}"
-                width="32"
-                height="32"
-                alt="{% trans 'Accept' %}">
-            {% trans "Accept" %}
-        </a>
-    </div>
-    <div class="col-sm-6">
-        <a href="{% url 'nutrition:ingredient:decline' ingredient.id %}" class="btn btn-default btn-block">
-            <img src="{% static 'images/icons/status-off.svg' %}"
-                width="32"
-                height="32"
-                alt="{% trans 'Decline' %}">
-            {% trans "Decline" %}
-        </a>
-    </div>
+<div class="btn-group btn-group-justified" role="group">
+    <a href="{% url 'nutrition:ingredient:accept' ingredient.id %}" class="btn btn-default">
+        <img src="{% static 'images/icons/status-on.svg' %}"
+            width="32"
+            height="32"
+            alt="{% trans 'Accept' %}">
+        {% trans "Accept" %}
+    </a>
+    <a href="{% url 'nutrition:ingredient:decline' ingredient.id %}" class="btn btn-default">
+        <img src="{% static 'images/icons/status-off.svg' %}"
+            width="32"
+            height="32"
+            alt="{% trans 'Decline' %}">
+        {% trans "Decline" %}
+    </a>
 </div>
 {% endif %} {# end check permissions #}
 
@@ -222,16 +218,11 @@ the search.{% endblocktrans %}
 
 <h4>{% trans "Weight units" %}</h4>
 <p>
-<a href="{% url 'nutrition:unit_ingredient:add' ingredient.id %}"
-   {% auto_link_css flavour "wger-modal-dialog" %}>
-       <img src="{% static 'images/icons/new.svg' %}"
-            width="32"
-            height="32"
-            alt="{% trans 'Add new weight unit' %}"
-            title="{% trans 'Add new weight unit' %}">
-{% trans "Add new weight unit" %}
-</a>
+    <a href="{% url 'nutrition:unit_ingredient:add' ingredient.id %}" class="btn btn-success btn-xs wger-modal-dialog">
+        {% trans "Add new weight unit" %}
+    </a>
 </p>
+
 {% if ingredient.ingredientweightunit_set.exists %}
     <table class="table">
     <thead>
@@ -244,24 +235,19 @@ the search.{% endblocktrans %}
         <tr>
             <td>
                 {{unit.amount}} {{unit.unit.name}} = {{unit.gram}}g
-                <span class="editoptions float-right">
-                    <a href="{% url 'nutrition:unit_ingredient:edit' unit.id %}"
-                       title="{% trans 'Edit' %}"
-                       {% auto_link_css flavour "wger-modal-dialog" %}>
-                           <img src="{% static 'images/icons/edit.svg' %}"
-                                width="16"
-                                height="16"
-                                alt="{% trans 'Edit' %}"
-                                title="{% trans 'Edit' %}"></a>
-                    <a href="{% url 'nutrition:unit_ingredient:delete' unit.id %}"
-                       title="{% trans 'Delete' %}"
-                       {% auto_link_css flavour "wger-modal-dialog" %}>
-                           <img src="{% static 'images/icons/trash.svg' %}"
-                                width="16"
-                                height="16"
-                                alt="{% trans 'Delete' %}"
-                                title="{% trans 'Delete' %}"></a>
-                </span>
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="{% url 'nutrition:unit_ingredient:edit' unit.id %}" class="wger-modal-dialog">{% trans 'Edit' %}</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'nutrition:unit_ingredient:delete' unit.id %}" class="wger-modal-dialog">{% trans 'Delete' %}</a>
+                        </li>
+                    </ul>
+                </div>
             </td>
         </tr>
     {% endfor %}

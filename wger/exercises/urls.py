@@ -34,6 +34,9 @@ patterns_muscle = [
     url(r'^overview/$',
         muscles.MuscleListView.as_view(),
         name='overview'),
+    url(r'^admin-overview/$',
+        muscles.MuscleAdminListView.as_view(),
+        name='admin-list'),
     url(r'^add/$',
         muscles.MuscleAddView.as_view(),
         name='add'),
@@ -79,6 +82,9 @@ patterns_comment = [
 
 # sub patterns for categories
 patterns_category = [
+    url(r'^list$',
+        categories.ExerciseCategoryListView.as_view(),
+        name='list'),
     url(r'^(?P<pk>\d+)/edit/$',
         categories.ExerciseCategoryUpdateView.as_view(),
         name='edit'),

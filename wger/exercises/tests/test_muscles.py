@@ -24,7 +24,7 @@ from wger.manager.tests.testcase import (
     WorkoutManagerDeleteTestCase,
     WorkoutManagerEditTestCase,
     WorkoutManagerAddTestCase,
-)
+    WorkoutManagerAccessTestCase)
 from wger.utils.cache import get_template_cache_name
 
 
@@ -38,6 +38,26 @@ class MuscleRepresentationTestCase(WorkoutManagerTestCase):
         Test that the representation of an object is correct
         '''
         self.assertEqual("{0}".format(Muscle.objects.get(pk=1)), 'Anterior testoid')
+
+
+class MuscleAdminOverviewTest(WorkoutManagerAccessTestCase):
+    '''
+    Tests the admin muscle overview page
+    '''
+    url = 'exercise:muscle:admin-list'
+    anonymous_fail = True
+    user_success = 'admin'
+    user_fail = ('manager1',
+                 'manager2'
+                 'general_manager1',
+                 'manager3',
+                 'manager4',
+                 'test',
+                 'member1',
+                 'member2',
+                 'member3',
+                 'member4',
+                 'member5')
 
 
 class MusclesShareButtonTestCase(WorkoutManagerTestCase):
@@ -109,29 +129,13 @@ class MuscleCacheTestCase(WorkoutManagerTestCase):
             self.assertTrue(cache.get(get_template_cache_name('muscle-overview', 2)))
 
 
-class MuscleOverviewTestCase(WorkoutManagerTestCase):
+class MuscleOverviewTestCase(WorkoutManagerAccessTestCase):
     '''
     Test that only admins see the edit links
     '''
-
-    def test_overview(self):
-        '''
-        Test that only admins see the edit links
-        '''
-
-        self.user_login('admin')
-        response = self.client.get(reverse('exercise:muscle:overview'))
-        self.assertContains(response, 'Edit muscle')
-        self.assertContains(response, 'Delete muscle')
-        self.assertContains(response, 'Add muscle')
-        self.assertContains(response, 'After adding a muscle')
-
-        self.user_logout()
-        response = self.client.get(reverse('exercise:muscle:overview'))
-        self.assertNotContains(response, 'Edit muscle')
-        self.assertNotContains(response, 'Delete muscle')
-        self.assertNotContains(response, 'Add muscle')
-        self.assertNotContains(response, 'After adding a muscle')
+    url = 'exercise:muscle:overview'
+    anonymous_fail = False
+    user_fail = []
 
 
 class MuscleApiTestCase(api_base_test.ApiBaseResourceTestCase):
