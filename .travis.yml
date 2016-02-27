@@ -24,8 +24,8 @@ install:
   - sh -c "if [ '$DB' = 'postgresql' ]; then pip install psycopg2; fi"
 
   - pip install -r requirements_devel.txt
-  - sh -c "if [ '$DB' = 'sqlite' ]; then invoke create_settings; fi"
-  - sh -c "if [ '$DB' = 'postgresql' ]; then invoke create_settings --database-type postgresql; fi"
+  - sh -c "if [ '$DB' = 'sqlite' ]; then invoke --root wger create_settings; fi"
+  - sh -c "if [ '$DB' = 'postgresql' ]; then invoke --root wger create_settings --database-type postgresql; fi"
 
 # Create test databases
 before_script:
