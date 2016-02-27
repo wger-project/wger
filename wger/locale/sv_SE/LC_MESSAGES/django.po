@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-14 10:32+0100\n"
-"PO-Revision-Date: 2016-02-14 09:34+0000\n"
-"Last-Translator: rge <roland@geider.net>\n"
+"PO-Revision-Date: 2016-02-18 23:08+0000\n"
+"Last-Translator: ywecur <emilio.alvarez96@gmail.com>\n"
 "Language-Team: Swedish (Sweden) (http://www.transifex.com/rge/wger-workout-manager/language/sv_SE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -970,7 +970,7 @@ msgstr "Dela denna sida"
 #: core/templates/misc/fragments/shariff_modal.html:14
 msgid ""
 "Before you share links on social media you need to allow external access."
-msgstr ""
+msgstr "Innan du delar länkar till sociala medier måste du tillåta extern åtkoms."
 
 #: core/templates/misc/fragments/shariff_modal.html:18
 #: nutrition/templates/mobile/plan/view.html:240
@@ -1848,7 +1848,7 @@ msgstr "Fyll i formuläret"
 #: email/templates/email/gym/form.html:30
 #: email/templates/email/gym/preview.html:63
 msgid "You will receive a preview email for you to review"
-msgstr ""
+msgstr "Du kommer få ett förhandsvisningsmail du kan granska"
 
 #: email/templates/email/gym/form.html:31
 #: email/templates/email/gym/preview.html:64
@@ -1914,7 +1914,7 @@ msgstr "PNG- och JPEG-format som stöds"
 
 #: exercises/models.py:368
 msgid "Main picture"
-msgstr ""
+msgstr "Huvudbild"
 
 #: exercises/models.py:370
 msgid ""
@@ -2136,7 +2136,7 @@ msgstr "Bilder"
 
 #: exercises/templates/exercise/view.html:198
 msgid "Images pending review"
-msgstr ""
+msgstr "Bilder i avvaktan på översyn"
 
 #: exercises/templates/exercise/view.html:233
 #: exercises/templates/exercise/view.html:234 exercises/views/images.py:75
@@ -2273,15 +2273,15 @@ msgstr "Påminnelse om inaktiva medlemmar"
 
 #: gym/models.py:38
 msgid "Trainer: can see the users for a gym"
-msgstr ""
+msgstr "Tränare: Kan se gymanvändare"
 
 #: gym/models.py:39
 msgid "Admin: can manage users for a gym"
-msgstr ""
+msgstr "Admin: Kan administrera gymanvändare"
 
 #: gym/models.py:40
 msgid "Admin: can administrate the different gyms"
-msgstr ""
+msgstr "Admin: Kan administrera olika gym"
 
 #: gym/models.py:64 gym/templates/gym/member_list.html:130
 msgid "Owner"
@@ -2311,7 +2311,7 @@ msgstr "Konfiguration för {}"
 
 #: gym/models.py:184 gym/templates/gym/member_list.html:192
 msgid "Overview of inactive members"
-msgstr ""
+msgstr "Överblick över inaktiva användare"
 
 #: gym/models.py:185
 msgid "Receive email overviews of inactive members"
@@ -2324,7 +2324,7 @@ msgstr "Inkludera den här användaren i e-postlistan med inaktiva medlemmar"
 #: gym/models.py:260 gym/models.py:338 gym/models.py:600
 #: gym/templates/contract/view.html:96
 msgid "Note"
-msgstr ""
+msgstr "Anteckning"
 
 #: gym/models.py:318
 msgid "Document"
@@ -2576,7 +2576,7 @@ msgstr "Markera rutan om du vill markera detta schema som ditt aktiva (visas til
 #: manager/models.py:228 manager/templates/mobile/schedule/view.html:62
 #: manager/templates/schedule/view.html:80
 msgid "Is a loop"
-msgstr ""
+msgstr "Är en loop"
 
 #: manager/models.py:230
 msgid ""
@@ -2605,7 +2605,7 @@ msgstr "Ordning"
 msgid ""
 "A description of what is done on this day (e.g. \"Pull day\") or what body "
 "parts are trained (e.g. \"Arms and abs\")"
-msgstr ""
+msgstr "En beskrivning av vad som görs denna dag (t. ex. \"Drag dag\") eller vilka kroppsdelar som tränas (t. ex. \"Armar och mage\")"
 
 #: manager/models.py:372
 msgid "Day"
@@ -2831,7 +2831,7 @@ msgid ""
 "Add as many workouts to the schedule as you want. You can\n"
 "edit the order by dragging and dropping them. It's also possible to add one workout more\n"
 "than once."
-msgstr ""
+msgstr "Lägg till så många pass i schemat som du vill. Du kan redigera ordningen genom att dra och släppa dem. Det är också möjligt att lägga till en övning mer än en gång."
 
 #: manager/templates/mobile/schedule/view.html:171
 #: manager/templates/mobile/schedule/view.html:172
@@ -3838,7 +3838,7 @@ msgid ""
 "your exercises, workouts and nutrition. It started as a pet project of mine to replace my\n"
 "growing collection of different spreadsheets, but it has become something other\n"
 "people could also find useful."
-msgstr ""
+msgstr "wger Workout Manager är ett fritt webbprogram med öppen källkod som hanterar dina övningar, träning och kost. Det började som ett hobbyprojekt jag skapade för att ersätta min växande samling av olika kalkylblad, men det har nu blivit något andra människor också kan ha nytta av."
 
 #: software/templates/functions.html:83
 msgid ""
@@ -3853,7 +3853,7 @@ msgid ""
 "the weights and repetitions you did for each exercise. As with the (body) weight,\n"
 "it will generate some diagrams so you can see at a glance how well you are doing.\n"
 "The raw numbers are still accessible as a table."
-msgstr ""
+msgstr "Du kan ange vikterna och repetitionerna du gjorde för varje övning. Som med (kroppsvikt), kommer att detat generera några diagram så att du kan få en överblick över hur bra det går.\nDen datan är fortfarande tillgängliga som en tabell."
 
 #: software/templates/functions.html:102
 msgid ""
@@ -4063,7 +4063,7 @@ msgid ""
 "The data fixtures with the exercise and ingredient lists are\n"
 "released additionally under a <strong>Creative Commons Attribution Share Alike 3\n"
 "(CC-BY-SA)</strong> license."
-msgstr ""
+msgstr "Data fixturer med övningar och ingredienslistorna publiceras dessutom under en <strong>Creative Commons Attribution Share Alike 3 (CC-BY-SA)</strong> licens."
 
 #: software/templates/license.html:46
 msgid ""
@@ -4072,7 +4072,7 @@ msgid ""
 "<a href='https://github.com/rolandgeider/wger/blob/master/AGPL.txt'>AGPL.txt</a>\n"
 "or <a href='https://github.com/rolandgeider/wger/blob/master/CC-BY-SA.txt'>CC-BY-SA.txt</a>\n"
 "files in the source code repository."
-msgstr ""
+msgstr "En kopia av båda licenserna finns i varje wger Workout Manager release och kan läsas i filerna <a href='https://github.com/rolandgeider/wger/blob/master/AGPL.txt'> AGPL.txt</a> eller <a href='https://github.com/rolandgeider/wger/blob/master/CC-BY-SA.txt'> CC-av-SA.txt</a> i källkodsdatabasen."
 
 #: utils/models.py:41
 msgid "Author"
@@ -4177,7 +4177,7 @@ msgid ""
 "entries that were successfully converted. All entries that produced an error\n"
 "will simply be ignored. It's up to you to decide whether they are useful\n"
 "(unrecognised entries) or not (e.g. headers, comments, etc.)."
-msgstr ""
+msgstr "Fortsätt här om du vill importera alla viktlogsinträden som lyckades importeras. Alla inträden som producerade ett fel ignoreras. Det är upp till dig att avgöra om de är användbara (oredovisade poster) eller inte (t.ex. huvuden, kommentarer, etc.)."
 
 #: weight/templates/import_csv_preview.html:71
 msgid "Import"
