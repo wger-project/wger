@@ -118,6 +118,93 @@
 {% endcache %}
 
 
+{# Images #}
+{% with images=exercise.exerciseimage_set.accepted %}
+{% if images or perms.exercises.change_exerciseimage  %}
+<div class="row" style="margin-top:1em;">
+    <div class="col-xs-3">
+        {% if perms.exercises %}
+        <p>
+            <a href="{% url 'exercise:image:add' exercise.id %}" class="btn btn-success btn-xs">
+                {% trans "Add new image" %}
+            </a>
+        </p>
+        {% endif %}
+{#        <strong>{% trans "Images" %}:</strong>#}
+    </div>
+    <div class="col-xs-9">
+        <div class="image-gallery">
+        {% with other_images=images %}
+        {% for image in other_images %}
+            <div class="image-box">
+                <div class="boxInner">
+                    <img src="{{ image.image|thumbnail_url:'small' }}"
+                         alt=""
+                         class="gallery-image">
+
+                    <div class="titleBox">
+                        <a href="{{ image.image.url }}"
+                           target="_blank"
+                           class=" no-hover">
+                             {% trans "Download" %}</a>
+                        {% if perms.exercises.change_exerciseimage %}
+                        |
+                        <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}"
+                           class="wger-modal-dialog no-hover">
+                             {% trans 'Delete' %}</a> |
+                        <a href="{% url 'exercise:image:edit' image.pk %}"
+                           class="no-hover">
+                             {% trans 'Edit' %}</a>
+                        {% endif %}
+
+                        <br>
+                        {{image.get_license_display}}
+                        {% if image.license_author %}
+                             – {{image.license_author}}
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% endwith %}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endwith %}
+
+{% if perms.exercises.change_exerciseimage %}
+{% with images=exercise.exerciseimage_set.pending %}
+{% if images %}
+<h4>{% trans "Images pending review" %}</h4>
+<div class="list-group">
+    {% for image in images %}
+        <div class="list-group-item">
+            <div class="media">
+                <div style="width:60px;height:60px;" class="pull-left">
+                    <a href="{{image.image.url}}">
+                        <img alt="{{ image.exercise.name }}"
+                             class="media-object "
+                             style="max-width:100%; max-height:100%;"
+                             src="{{ image.image|thumbnail_url:'thumbnail' }}">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">{{ image.image }}</h4>
+                    <a href="{% url 'exercise:image:accept' image.pk %}" class="btn btn-default btn-sm">{% trans "Accept" %}</a>
+                    <a href="{% url 'exercise:image:decline' image.pk %}" class="btn btn-default btn-sm">{% trans "Decline" %}</a>
+                    <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a>
+                 </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+{% endif %}  {# end check permission #}
+
+
 {# Comments #}
 {% with comments=exercise.exercisecomment_set.all %}
 {% if comments or perms.exercises.change_exercisecomment %}
@@ -161,99 +248,6 @@
 <p>
     <a href="{% url 'exercise:comment:add' exercise.id %}" class="btn btn-success btn-xs wger-modal-dialog">
         {% trans "Add new comment" %}
-    </a>
-</p>
-{% endif %}
-
-
-{# Images #}
-{% with images=exercise.exerciseimage_set.accepted %}
-{% if images or perms.exercises.change_exerciseimage  %}
-<div class="row" style="margin-top:1em;">
-    <div class="col-xs-3">
-        <strong>{% trans "Images" %}:</strong>
-    </div>
-    <div class="col-xs-9">
-        <div class="image-gallery">
-        {% with other_images=images %}
-        {% for image in other_images %}
-            <div class="image-box">
-                <div class="boxInner">
-                    <img src="{{ image.image|thumbnail_url:'small' }}"
-                         alt=""
-                         class="gallery-image">
-
-                    <div class="titleBox">
-                        <a href="{{ image.image.url }}"
-                           target="_blank"
-                           class=" no-hover">
-                             {% trans "Download" %}</a>
-                        {% if perms.exercises.change_exerciseimage %}
-                        |
-                        <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}"
-                           class="wger-modal-dialog no-hover">
-                             {% trans 'Delete' %}</a> |
-                        <a href="{% url 'exercise:image:edit' image.pk %}"
-                           class="no-hover">
-                             {% trans 'Edit' %}</a>
-                        {% endif %}
-
-                        <br>
-                        {{image.get_license_display}}
-                        {% if image.license_author %}
-                             – {{image.license_author}}
-                        {% endif %}
-
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-        {% endwith %}
-        </div>
-    </div>
-</div>
-
-
-
-
-{% endif %}
-{% endwith %}
-
-{% if perms.exercises.change_exerciseimage %}
-{% with images=exercise.exerciseimage_set.pending %}
-{% if images %}
-<h4>{% trans "Images pending review" %}</h4>
-<div class="list-group">
-    {% for image in images %}
-        <div class="list-group-item">
-            <div class="media">
-                <div style="width:60px;height:60px;" class="pull-left">
-                    <a href="{{image.image.url}}">
-                        <img alt="{{ image.exercise.name }}"
-                             class="media-object "
-                             style="max-width:100%; max-height:100%;"
-                             src="{{ image.image|thumbnail_url:'thumbnail' }}">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading">{{ image.image }}</h4>
-                    <a href="{% url 'exercise:image:accept' image.pk %}" class="btn btn-default btn-sm">{% trans "Accept" %}</a>
-                    <a href="{% url 'exercise:image:decline' image.pk %}" class="btn btn-default btn-sm">{% trans "Decline" %}</a>
-                    <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a>
-                 </div>
-            </div>
-        </div>
-    {% endfor %}
-</div>
-{% endif %}
-{% endwith %}
-{% endif %}  {# end check permission #}
-
-
-{% if perms.exercises %}
-<p>
-    <a href="{% url 'exercise:image:add' exercise.id %}" class="btn btn-success btn-xs">
-        {% trans "Add new image" %}
     </a>
 </p>
 {% endif %}
@@ -320,11 +314,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
 {% endif %}
 {% endwith %}
 {% endwith %} {# end musclelist #}
