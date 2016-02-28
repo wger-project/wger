@@ -14,25 +14,35 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import inspect
+
+import sys
+#
+# This is an ugly and terrible hack, please don't do this!
+#
+# The reason we do this is that during django's setup later in this script, it
+# tries to load the standard library's "mail" module which collides with our
+# (perhaps unluckily named) app with the same name. Since this script is only
+# used for installation and does not depend on anything from wger proper, it
+# is kind of OK to change the system path.
+sys.path = sys.path[1:]
+
+import time
+import logging
+import threading
+import webbrowser
 import os
+import ctypes
+import socket
+from invoke import task, run
 
-from invoke import task
-
+import django
 from django.utils.crypto import get_random_string
 from django.core.management import (
     call_command,
     execute_from_command_line
 )
 
-from wger.utils.main import (
-    get_user_data_path,
-    get_user_config_path,
-    detect_listen_opts,
-    setup_django_environment,
-    database_exists,
-    start_browser
-)
+logger = logging.getLogger(__name__)
 
 
 @task(help={'address': 'Address to bind to. Default: localhost',
@@ -98,6 +108,8 @@ def bootstrap_wger(settings_path=None,
         create_or_reset_admin(settings_path=settings_path)
 
     # Download JS libraries with bower
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    run('npm install bower')
     call_command('bower', 'install')
 
     # Start the webserver
@@ -131,11 +143,10 @@ def create_settings(settings_path=None, database_path=None, url=None, database_t
         url = 'http://localhost:8000'
 
     # Fill in the config file template
-
-    # os.chdir(os.path.dirname(inspect.stack()[0][1]))
-    settings_template = os.path.join(os.getcwd(), 'wger', 'settings.tpl')
+    settings_template = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'settings.tpl')
     with open(settings_template, 'r') as settings_file:
         settings_content = settings_file.read()
+
     # The environment variable is set by travis during testing
     if database_type == 'postgresql':
         dbengine = 'postgresql_psycopg2'
@@ -195,8 +206,10 @@ def create_or_reset_admin(settings_path=None):
     except User.DoesNotExist:
         print("*** Created default admin user")
 
-    os.chdir(os.path.dirname(inspect.stack()[0][1]))
-    current_dir = os.path.join(os.getcwd(), 'wger')
+    # os.chdir(os.path.dirname(inspect.stack()[0][1]))
+    # current_dir = os.path.join(os.getcwd(), 'wger')
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+
     path = os.path.join(current_dir, 'core', 'fixtures/')
     call_command("loaddata", path + "users.json")
 
@@ -222,8 +235,10 @@ def load_fixtures(settings_path=None):
     # Find the path to the settings and setup the django environment
     setup_django_environment(settings_path)
 
-    os.chdir(os.path.dirname(inspect.stack()[0][1]))
-    current_dir = os.path.join(os.getcwd(), 'wger')
+
+    # os.chdir(os.path.dirname(inspect.stack()[0][1]))
+    # current_dir = os.path.join(os.getcwd(), 'wger')
+    current_dir = os.path.dirname(os.path.abspath(__file__))
 
     # Gym
     path = os.path.join(current_dir, 'gym', 'fixtures/')
@@ -275,3 +290,132 @@ def config_location():
     print('* settings:      {0}'.format(get_user_config_path('wger', 'settings.py')))
     print('* media folder:  {0}'.format(get_user_data_path('wger', 'media')))
     print('* database path: {0}'.format(get_user_data_path('wger', 'database.sqlite')))
+
+
+#
+#
+# Helper functions
+#
+# Note: these functions were originally in wger/utils/main.py but were moved
+#       here because of different import problems (the packaged pip-installed
+#       packaged has a different sys path than the local one)
+#
+
+
+def get_user_data_path(*args):
+    if sys.platform == "win32":
+        return win32_get_app_data_path(*args)
+
+    data_home = os.environ.get(
+        'XDG_DATA_HOME', os.path.join(
+            os.path.expanduser('~'), '.local', 'share'))
+
+    return os.path.join(data_home, *args)
+
+
+def get_user_config_path(*args):
+    if sys.platform == "win32":
+        return win32_get_app_data_path(*args)
+
+    config_home = os.environ.get(
+        'XDG_CONFIG_HOME', os.path.join(os.path.expanduser('~'), '.config'))
+
+    return os.path.join(config_home, *args)
+
+
+def win32_get_app_data_path(*args):
+    shell32 = ctypes.WinDLL("shell32.dll")
+    SHGetFolderPath = shell32.SHGetFolderPathW
+    SHGetFolderPath.argtypes = (
+        ctypes.c_void_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_uint32,
+        ctypes.c_wchar_p)
+    SHGetFolderPath.restype = ctypes.c_uint32
+
+    CSIDL_LOCAL_APPDATA = 0x001c
+    MAX_PATH = 260
+
+    buf = ctypes.create_unicode_buffer(MAX_PATH)
+    res = SHGetFolderPath(0, CSIDL_LOCAL_APPDATA, 0, 0, buf)
+    if res != 0:
+        raise Exception("Could not deterime APPDATA path")
+
+    return os.path.join(buf.value, *args)
+
+
+def detect_listen_opts(address, port):
+    if address is None:
+        try:
+            address = socket.gethostbyname(socket.gethostname())
+        except socket.error:
+            address = "127.0.0.1"
+
+    if port is None:
+        # test if we can use port 80
+        s = socket.socket()
+        port = 80
+        try:
+            s.bind((address, port))
+            s.listen(-1)
+        except socket.error:
+            port = 8000
+        finally:
+            s.close()
+
+    return address, port
+
+
+def setup_django_environment(settings_path):
+    '''
+    Setup the django environment
+    '''
+
+    # Use default settings if the user didn't specify something else
+    if settings_path is None:
+        settings_path = get_user_config_path('wger', 'settings.py')
+        print('*** No settings given, using {0}'.format(settings_path))
+
+    # Find out file path and fine name of settings and setup django
+    settings_file = os.path.basename(settings_path)
+    settings_module_name = "".join(settings_file.split('.')[:-1])
+    if '.' in settings_module_name:
+        print("'.' is not an allowed character in the settings-file")
+        sys.exit(1)
+    settings_module_dir = os.path.dirname(settings_path)
+    sys.path.append(settings_module_dir)
+    os.environ[django.conf.ENVIRONMENT_VARIABLE] = '%s' % settings_module_name
+    django.setup()
+
+
+def database_exists():
+    """Detect if the database exists"""
+
+    # can't be imported in global scope as they already require
+    # the settings module during import
+    from django.db import DatabaseError
+    from django.core.exceptions import ImproperlyConfigured
+    from wger.manager.models import User
+
+    try:
+        # TODO: Use another model, the User could be deactivated
+        User.objects.count()
+    except DatabaseError:
+        return False
+    except ImproperlyConfigured:
+        print("Your settings file seems broken")
+        sys.exit(0)
+    else:
+        return True
+
+
+def start_browser(url):
+    '''
+    Start the web browser with the given URL
+    '''
+    browser = webbrowser.get()
+
+    def function():
+        time.sleep(1)
+        browser.open(url)
+
+    thread = threading.Thread(target=function)
+    thread.start()

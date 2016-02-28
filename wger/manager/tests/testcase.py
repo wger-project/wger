@@ -540,7 +540,8 @@ class WorkoutManagerAccessTestCase(WorkoutManagerTestCase):
         Tests accessing the URL as the unauthorized, logged in users
         '''
 
-        for user in get_user_list(self.user_fail):
-            self.user_login(user)
-            self.access(fail=True)
-            self.user_logout()
+        if self.user_fail:
+            for user in get_user_list(self.user_fail):
+                self.user_login(user)
+                self.access(fail=True)
+                self.user_logout()

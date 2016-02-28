@@ -225,7 +225,7 @@ class Schedule(models.Model):
                                                 "marked as inactive"))
     '''A flag indicating whether the schedule is active (needed for dashboard)'''
 
-    is_loop = models.BooleanField(verbose_name=_('Is loop'),
+    is_loop = models.BooleanField(verbose_name=_('Is a loop'),
                                   default=False,
                                   help_text=_("Tick the box if you want to repeat the schedules "
                                               "in a loop (i.e. A, B, C, A, B, C, and so on)"))
@@ -365,8 +365,9 @@ class Day(models.Model):
                                  verbose_name=_('Workout'))
     description = models.CharField(max_length=100,
                                    verbose_name=_('Description'),
-                                   help_text=_('Ususally a description about what parts are '
-                                               'trained, like "Arms" or "Pull Day"'))
+                                   help_text=_('A description of what is done on this day (e.g. '
+                                               '"Pull day") or what body parts are trained (e.g. '
+                                               '"Arms and abs")'))
     day = models.ManyToManyField(DaysOfWeek,
                                  verbose_name=_('Day'))
 

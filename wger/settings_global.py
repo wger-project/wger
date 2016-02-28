@@ -25,9 +25,8 @@ For a full list of options, visit:
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
-
 
 #
 # Application definition
@@ -93,7 +92,7 @@ INSTALLED_APPS = (
 
 # added list of external libraries to be installed by bower
 BOWER_INSTALLED_APPS = (
-    'jquery',
+    'jquery#2.1.x',
     'bootstrap',
     'd3',
     'shariff',
@@ -209,6 +208,8 @@ LANGUAGES = (
             ('nl', 'Dutch'),
             ('pt', 'Portuguese'),
             ('el', 'Greek'),
+            ('cs', 'Czech'),
+            ('sv', 'Swedish'),
 )
 
 # Default language code for this installation.

@@ -201,6 +201,33 @@ def gym_new_user_info_export(request):
     return response
 
 
+def reset_user_password(request, user_pk):
+    '''
+    Resets the password of the selected user to random password
+    '''
+
+    user = get_object_or_404(User, pk=user_pk)
+
+    if not request.user.is_authenticated():
+        return HttpResponseForbidden()
+
+    if not request.user.has_perm('gym.manage_gyms') \
+            and not request.user.has_perm('gym.manage_gym'):
+        return HttpResponseForbidden()
+
+    if request.user.has_perm('gym.manage_gym') \
+            and request.user.userprofile.gym != user.userprofile.gym:
+        return HttpResponseForbidden()
+
+    password = password_generator()
+    user.set_password(password)
+    user.save()
+
+    context = {'mod_user': user,
+               'password': password}
+    return render(request, 'gym/reset_user_password.html', context)
+
+
 def gym_permissions_user_edit(request, user_pk):
     '''
     Edits the permissions of a gym member

@@ -1,51 +1,51 @@
 [
     {
-        "pk": 8, 
-        "model": "exercises.exercisecategory", 
+        "pk": 8,
         "fields": {
             "name": "Arms"
-        }
-    }, 
+        },
+        "model": "exercises.exercisecategory"
+    },
     {
-        "pk": 9, 
-        "model": "exercises.exercisecategory", 
+        "pk": 9,
         "fields": {
             "name": "Legs"
-        }
-    }, 
+        },
+        "model": "exercises.exercisecategory"
+    },
     {
-        "pk": 10, 
-        "model": "exercises.exercisecategory", 
+        "pk": 10,
         "fields": {
             "name": "Abs"
-        }
-    }, 
+        },
+        "model": "exercises.exercisecategory"
+    },
     {
-        "pk": 11, 
-        "model": "exercises.exercisecategory", 
+        "pk": 11,
         "fields": {
             "name": "Chest"
-        }
-    }, 
+        },
+        "model": "exercises.exercisecategory"
+    },
     {
-        "pk": 12, 
-        "model": "exercises.exercisecategory", 
+        "pk": 12,
         "fields": {
             "name": "Back"
-        }
-    }, 
+        },
+        "model": "exercises.exercisecategory"
+    },
     {
-        "pk": 13, 
-        "model": "exercises.exercisecategory", 
+        "pk": 13,
         "fields": {
             "name": "Shoulders"
-        }
-    }, 
+        },
+        "model": "exercises.exercisecategory"
+    },
     {
-        "pk": 14, 
-        "model": "exercises.exercisecategory", 
+        "pk": 14,
         "fields": {
             "name": "Calves"
-        }
+        },
+        "model": "exercises.exercisecategory"
     }
 ]

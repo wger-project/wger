@@ -47,6 +47,14 @@ Configure apache to serve the application::
         CustomLog ${APACHE_LOG_DIR}/access.log combined
     </VirtualHost>
 
+Apache has a problem when uploading files that have non-ASCII characters, e.g.
+for exercise images. To avoid this, add to /etc/apache2/envvars (if there is
+already an ``export LANG``, replace it)::
+
+    export LANG='en_US.UTF-8'
+    export LC_ALL='en_US.UTF-8'
+
+
 Activate the settings and disable apache's default::
 
     sudo a2dissite 000-default.conf

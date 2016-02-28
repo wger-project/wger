@@ -14,6 +14,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+import os
 import sys
 from invoke import run
 
@@ -23,13 +24,18 @@ version of the application. It simply redirects all arguments to the invoke
 command, which does all the work.
 '''
 
+# Get the absolute path so we can pass it to invoke. This is only needed
+# for the packaged version.
+tasks_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'wger')
+invoke_cmd = 'invoke --root {} '.format(tasks_path)
+
 
 def main():
     args = sys.argv[1:]
     if len(args):
-        run('invoke ' + ' '.join(args), pty=True)
+        run(invoke_cmd + ' '.join(args), pty=True)
     else:
-        run('invoke --list')
+        run(invoke_cmd + '--list')
 
 
 if __name__ == '__main__':

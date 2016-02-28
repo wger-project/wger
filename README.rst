@@ -46,16 +46,15 @@ state.
  $ virtualenv --python python3 venv-django
  $ source venv-django/bin/activate
 
-2) Start the application. This will create a SQlite database and populate it
-   with data on the first run.
+2) Start the application. This will download the required JS and CSS libraries
+   and create a SQlite database and populate it with data on the first run.
 
 ::
 
  $ git clone https://github.com/rolandgeider/wger.git
  $ cd wger
- $ npm install bower
  $ pip install -r requirements.txt  # or requirements_devel.txt to develop
- $ invoke bootstrap_wger
+ $ invoke --root wger bootstrap_wger
 
 3) Log in as: **admin**, password **admin**
 
@@ -79,8 +78,8 @@ Stable version (from PyPI)
  $ pip install wger
 
 
-2) Start the application. This will create a SQlite database and populate it
-   with data on the first run
+2) Start the application. This will download the required JS and CSS libraries
+   and create a SQlite database and populate it with data on the first run.
 
 ::
 
@@ -110,8 +109,9 @@ Contact
 =======
 
 Feel free to contact us if you found this useful or if there was something that
-didn't behave as you expected (in this case you can also open a ticket on the
-issue tracker).
+didn't behave as you expected. We can't fix what we don't know about, so please
+report liberally. If you're not sure if something is a bug or not, feel free to
+file a bug anyway.
 
 * **twitter:** https://twitter.com/wger_de
 * **mailing list:** https://groups.google.com/group/wger / wger@googlegroups.com,

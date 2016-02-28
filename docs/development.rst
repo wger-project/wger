@@ -14,8 +14,7 @@ and populate it with data on the first run::
   $ git clone https://github.com/rolandgeider/wger.git
   $ cd wger
   $ pip install -r requirements_devel.txt
-  $ npm install bower
-  $ invoke bootstrap_wger
+  $ invoke --root wger bootstrap_wger
 
 That's it. You can log in with the default administator user:
 

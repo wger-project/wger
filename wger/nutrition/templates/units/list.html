@@ -7,46 +7,32 @@
 
 
 {% block content %}
+<ul class="list-group">
+    {% for unit in unit_list %}
+    <li class="list-group-item ">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-cog"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="{% url 'nutrition:weight_unit:edit' unit.id %}" class="wger-modal-dialog">{% trans 'Edit' %}</a>
+                </li>
+                <li>
+                    <a href="{% url 'nutrition:weight_unit:delete' unit.id %}" class="wger-modal-dialog">{% trans 'Delete' %}</a>
+                </li>
+            </ul>
+        </div>
+        {{unit.name}}
+    </li>
+    {% empty %}
+        <li class="list-group-item">
+            {% trans "Nothing found" %}
+        </li>
+    {% endfor %}
+</ul>
 
-<table class="table">
-<thead>
-<tr>
-    <th>{% trans "Actions" %}</th>
-    <th>{% trans "Name" %}</th>
-</tr>
-</thead>
-<tbody>
-{% for unit in unit_list %}
-<tr>
-    <td class="no-hover">
-        <a href="{% url 'nutrition:weight_unit:delete' unit.id %}"
-           class="wger-modal-dialog">
-            <img src="{% static 'images/icons/trash.svg' %}"
-                 width="22"
-                 height="22"
-                 alt="{% trans 'Delete' %}"
-                 title="{% trans 'Delete' %}">
-        </a>
-        <a href="{% url 'nutrition:weight_unit:edit' unit.id %}"
-           class="wger-modal-dialog">
-            <img src="{% static 'images/icons/edit.svg' %}"
-                 width="22"
-                 height="22"
-                 alt="{% trans 'Edit' %}"
-                 title="{% trans 'Edit' %}">
-        </a>
-    </td>
-    <td>{{unit.name}}</td>
-</tr>
-{% empty %}
-<tr>
-    <td colspan="2">{% trans "Nothing found" %}</td>
-</tr>
-{% endfor %}
-</tbody>
 
-</table>
-<div style="padding-top:3em;"></div>
 {% pagination paginator page_obj %}
 {% endblock %}
 
@@ -54,18 +40,9 @@
 
 
 {% block sidebar %}
-{% if perms.exercises %}
-<h4>{% trans "Options" %}</h4>
 <p>
-       <a href="{% url 'nutrition:weight_unit:add' %}"
-          {% auto_link_css flavour "wger-modal-dialog" %}>
-       <img src="{% static 'images/icons/new.svg' %}"
-            width="32"
-            height="32"
-            alt="{% trans 'Add new weight unit' %}"
-            title="{% trans 'Add new weight unit' %}">
-       {% trans "Add new weight unit" %}
-       </a>
+    <a href="{% url 'nutrition:weight_unit:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+        {% trans "Add new weight unit" %}
+    </a>
 </p>
-{% endif %}
 {% endblock %}

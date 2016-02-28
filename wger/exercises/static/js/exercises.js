@@ -26,7 +26,7 @@
 /*
  * Highlight a muscle in the overview
  */
-function highlight_muscle(element, perms_exercises) {
+function highlight_muscle(element) {
     var div_id = $(element).data('target');
     var is_front = ($(element).data('isFront') == 'True') ? 'front' : 'back';
     var muscle_id = div_id.match(/\d+/);
@@ -39,13 +39,6 @@ function highlight_muscle(element, perms_exercises) {
     // Hightligh the current one
     $(element).removeClass('muscle-inactive');
     $(element).addClass('muscle-active');
-
-    if (perms_exercises) {
-        $('#muscle-edit-box').show();
-        $('.muscle-edit-name').html(muscle_name);
-        $('#muscle-edit-edit-link').attr("href", "/exercise/muscle/" + muscle_id + "/edit/");
-        $('#muscle-delete-edit-link').attr("href", "/exercise/muscle/" + muscle_id + "/delete/");
-    }
 
     // Set the corresponding background
     $('#muscle-system').css('background-image',

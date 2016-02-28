@@ -48,154 +48,136 @@
 {% block content %}
 
 {% if exercise.status == exercise.STATUS_PENDING %}
-<div class="alert">
-<h4>{% trans "Exercise is pending review" %}</h4>
-<p>{% blocktrans %}This user submitted exercise is pending a decision to be
-included in the database.{% endblocktrans %}
-{% trans "Till then, it will not be shown in the overview or the search."  %}
-{% if perms.exercises %}{% trans "Please select one of the options below." %}{% endif %}
-</p>
+<div class="panel panel-default">
+    <div class="panel-heading">{% trans "Exercise is pending review" %}</div>
+    <div class="panel-body">
+        <p>{% blocktrans %}This user submitted exercise is pending a decision to be
+        included in the database.{% endblocktrans %}
+        {% trans "Till then, it will not be shown in the overview or the search."  %}
+        {% if perms.exercises %}{% trans "Please select one of the options below." %}{% endif %}
+        </p>
 
-{% if perms.exercises %}
-<div class="row">
-    <div class="col-sm-6">
-        <a href="{% url 'exercise:exercise:accept' exercise.id %}" class="btn btn-default btn-block">
-            <img src="{% static 'images/icons/status-on.svg' %}"
-                width="32"
-                height="32"
-                alt="{% trans 'Accept' %}">
-            {% trans "Accept" %}
-        </a>
-    </div>
-    <div class="col-sm-6">
-        <a href="{% url 'exercise:exercise:decline' exercise.id %}" class="btn btn-default btn-block">
-            <img src="{% static 'images/icons/status-off.svg' %}"
-                width="32"
-                height="32"
-                alt="{% trans 'Decline' %}">
-            {% trans "Decline" %}
-        </a>
-    </div>
-</div>
-{% endif %} {# end check permissions #}
+        {% if perms.exercises %}
+        <div class="btn-group btn-group-justified" role="group">
 
+            <a href="{% url 'exercise:exercise:accept' exercise.id %}" class="btn btn-default">
+                <img src="{% static 'images/icons/status-on.svg' %}"
+                    width="32"
+                    height="32"
+                    alt="{% trans 'Accept' %}">
+                {% trans "Accept" %}
+            </a>
+            <a href="{% url 'exercise:exercise:decline' exercise.id %}" class="btn btn-default">
+                <img src="{% static 'images/icons/status-off.svg' %}"
+                    width="32"
+                    height="32"
+                    alt="{% trans 'Decline' %}">
+                {% trans "Decline" %}
+            </a>
+        </div>
+        {% endif %} {# end check permissions #}
+    </div>
 </div>
 {% endif %} {# end exercise is pending review #}
 
 
 
 {% cache cache_timeout exercise-detail-header exercise.id language.id %}
-<p><strong>{% trans "Category" %}:</strong> {% trans exercise.category.name %}</p>
+<div class="row" style="margin-top:1em;">
+    <div class="col-xs-3">
+        <strong>{% trans "Category" %}:</strong>
+    </div>
+    <div class="col-xs-9">
+        {% trans exercise.category.name %}
+    </div>
+</div>
 
 {% if exercise.equipment.all %}
-    <p><strong>{% trans "Equipment" %}:</strong>
+<div class="row" style="margin-top:1em;">
+    <div class="col-xs-3">
+        <strong>{% trans "Equipment" %}:</strong>
+    </div>
+    <div class="col-xs-9">
         {% for equipment in exercise.equipment.all %}
             {% trans equipment.name %}
             {% if not forloop.last %}, {% endif %}
         {% endfor %}
-    </p>
+    </div>
+</div>
 {% endif %}
 
-<div>{{ exercise.description|safe }}</div>
+
+<div class="row" style="margin-top:1em;">
+    <div class="col-xs-3">
+        <strong>{% trans "Description" %}:</strong>
+    </div>
+    <div class="col-xs-9">
+        {{ exercise.description|safe }}
+    </div>
+</div>
 {% endcache %}
-
-
-{# Comments #}
-{% with comments=exercise.exercisecomment_set.all %}
-{% if comments %}
-<h4>{% trans "Comments for this exercise" %}</h4>
-
-<ul>
-{% for comment in comments %}
-    <li>
-        {{ comment }}
-        {% if perms.exercises %}
-        <span class="editoptions">
-            <a href="{% url 'exercise:comment:delete' comment.id %}"
-               title="{% trans 'Delete' %}">
-               <img src="{% static 'images/icons/trash.svg' %}"
-                    width="16"
-                    height="16"
-                    alt="{% trans 'Delete' %}">
-            </a>
-            <a href="{% url 'exercise:comment:edit' comment.id %}"
-               title="{% trans 'Edit' %}"
-               class="wger-modal-dialog">
-               <img src="{% static 'images/icons/edit.svg' %}"
-                    width="16"
-                    height="16"
-                    alt="{% trans 'Edit' %}">
-            </a>
-        </span>
-        {% endif %}
-    </li>
-{% endfor %}
-</ul>
-{% endif %}
-{% endwith %}
-
-{% if perms.exercises %}
-<p>
-    <a href="{% url 'exercise:comment:add' exercise.id %}"
-       title="{% trans 'Add' %}"
-       class="wger-modal-dialog">
-        <img src="{% static 'images/icons/add.svg' %}"
-            width="16"
-            height="16"
-            alt="{% trans 'Add new comment' %}">
-        {% trans "Add new comment" %}</a>
-</p>
-{% endif %}
 
 
 {# Images #}
 {% with images=exercise.exerciseimage_set.accepted %}
-{% if images %}
-    <h4>{% trans "Images" %}</h4>
+{% if images or perms.exercises.change_exerciseimage  %}
+<div class="row" style="margin-top:1em;">
+    <div class="col-xs-3">
+        {% if perms.exercises %}
+        <p>
+            <a href="{% url 'exercise:image:add' exercise.id %}" class="btn btn-success btn-xs">
+                {% trans "Add new image" %}
+            </a>
+        </p>
+        {% endif %}
+{#        <strong>{% trans "Images" %}:</strong>#}
+    </div>
+    <div class="col-xs-9">
+        <div class="image-gallery">
+        {% with other_images=images %}
+        {% for image in other_images %}
+            <div class="image-box">
+                <div class="boxInner">
+                    <img src="{{ image.image|thumbnail_url:'small' }}"
+                         alt=""
+                         class="gallery-image">
 
-    <div class="image-gallery">
-    {% with other_images=images %}
-    {% for image in other_images %}
-        <div class="image-box">
-            <div class="boxInner">
-                <img src="{{ image.image|thumbnail_url:'small' }}"
-                     alt=""
-                     class="gallery-image">
+                    <div class="titleBox">
+                        <a href="{{ image.image.url }}"
+                           target="_blank"
+                           class=" no-hover">
+                             {% trans "Download" %}</a>
+                        {% if perms.exercises.change_exerciseimage %}
+                        |
+                        <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}"
+                           class="wger-modal-dialog no-hover">
+                             {% trans 'Delete' %}</a> |
+                        <a href="{% url 'exercise:image:edit' image.pk %}"
+                           class="no-hover">
+                             {% trans 'Edit' %}</a>
+                        {% endif %}
 
-                <div class="titleBox">
-                    <a href="{{ image.image.url }}"
-                       target="_blank"
-                       class=" no-hover">
-                         {% trans "Download" %}</a>
-                    {% if perms.exercises.change_exerciseimage %}
-                    |
-                    <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}"
-                       class="wger-modal-dialog no-hover">
-                         {% trans 'Delete' %}</a> |
-                    <a href="{% url 'exercise:image:edit' image.pk %}"
-                       class="no-hover">
-                         {% trans 'Edit' %}</a>
-                    {% endif %}
+                        <br>
+                        {{image.get_license_display}}
+                        {% if image.license_author %}
+                             – {{image.license_author}}
+                        {% endif %}
 
-                    <br>
-                    {{image.get_license_display}}
-                    {% if image.license_author %}
-                         – {{image.license_author}}
-                    {% endif %}
-
+                    </div>
                 </div>
             </div>
+        {% endfor %}
+        {% endwith %}
         </div>
-    {% endfor %}
-    {% endwith %}
     </div>
+</div>
 {% endif %}
 {% endwith %}
 
 {% if perms.exercises.change_exerciseimage %}
 {% with images=exercise.exerciseimage_set.pending %}
 {% if images %}
-<h4>{% trans "Pending images" %}</h4>
+<h4>{% trans "Images pending review" %}</h4>
 <div class="list-group">
     {% for image in images %}
         <div class="list-group-item">
@@ -223,18 +205,52 @@ included in the database.{% endblocktrans %}
 {% endif %}  {# end check permission #}
 
 
-{% if perms.exercises %}
+{# Comments #}
+{% with comments=exercise.exercisecomment_set.all %}
+{% if comments or perms.exercises.change_exercisecomment %}
+<div class="row" style="margin-top:1em;">
+    <div class="col-xs-3">
+        <strong>{% trans "Comments for this exercise" %}:</strong>
+    </div>
+    <div class="col-xs-9">
+        <ul>
+        {% for comment in comments %}
+            <li>
+                {{ comment }}
+                {% if perms.exercises.change_exercisecomment %}
+                <span class="editoptions">
+                    <a href="{% url 'exercise:comment:delete' comment.id %}"
+                       title="{% trans 'Delete' %}">
+                       <img src="{% static 'images/icons/trash.svg' %}"
+                            width="16"
+                            height="16"
+                            alt="{% trans 'Delete' %}">
+                    </a>
+                    <a href="{% url 'exercise:comment:edit' comment.id %}"
+                       title="{% trans 'Edit' %}"
+                       class="wger-modal-dialog">
+                       <img src="{% static 'images/icons/edit.svg' %}"
+                            width="16"
+                            height="16"
+                            alt="{% trans 'Edit' %}">
+                    </a>
+                </span>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+{% endwith %}
+
+{% if perms.exercises.change_exercisecomment %}
 <p>
-    <a href="{% url 'exercise:image:add' exercise.id %}"
-       title="{% trans 'Add' %}">
-        <img src="{% static 'images/icons/add.svg' %}"
-            width="16"
-            height="16"
-            alt="{% trans 'Add new image' %}">
-        {% trans "Add new image" %}</a>
+    <a href="{% url 'exercise:comment:add' exercise.id %}" class="btn btn-success btn-xs wger-modal-dialog">
+        {% trans "Add new comment" %}
+    </a>
 </p>
 {% endif %}
-
 
 
 
@@ -243,72 +259,76 @@ included in the database.{% endblocktrans %}
 {% with muscles_secondary=exercise.muscles_secondary.all %}
 
 {% if muscles %}
-<h4>{% trans "Muscles" %}</h4>
-<p>
-    {% trans "The diagram shows the most used muscles on this exercise" %}
-</p>
-
-
-<div>
-    <div style="width:1em;height:1em;background-color:#cc0000;float:left;margin-right:0.5em;"></div>
-    {% trans "Main muscles" %}
-</div>
-
-<div>
-    <div style="width:1em;height:1em;background-color:#f57900;float:left;margin-right:0.5em;"></div>
-    {% trans "Secondary muscles" %}
-</div>
-
-
-
 <div class="row" style="margin-top:1em;">
-    <div class="col-md-6 col-xs-6">
-        <div id="muscle-front" class="muscle-background center-block" style="background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-        </div>
-        <ul>
-            {% for muscle in muscles %}
-            {% if muscle.is_front %}
-            <li>{{muscle.name}}</li>
-            {% endif %}
-            {% endfor %}
-
-            {% for muscle in muscles_secondary %}
-            {% if muscle.is_front %}
-            <li>{{muscle.name}}</li>
-            {% endif %}
-            {% endfor %}
-        </ul>
+    <div class="col-xs-3">
+        <strong>{% trans "Muscles" %}:</strong>
     </div>
-    <div class="col-md-6 col-xs-6">
-        <div id="muscle-back" class="muscle-background center-block" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+    <div class="col-xs-9">
+        <p>
+            {% trans "The diagram shows the most used muscles on this exercise" %}
+        </p>
+        <div>
+            <div style="width:1em;height:1em;background-color:#cc0000;float:left;margin-right:0.5em;"></div>
+            {% trans "Main muscles" %}
         </div>
-        <ul>
-            {% for muscle in muscles %}
-            {% if not muscle.is_front %}
-            <li>{{muscle.name}}</li>
-            {% endif %}
-            {% endfor %}
 
-            {% for muscle in muscles_secondary %}
-            {% if not muscle.is_front %}
-            <li>{{muscle.name}}</li>
-            {% endif %}
-            {% endfor %}
-        </ul>
+        <div>
+            <div style="width:1em;height:1em;background-color:#f57900;float:left;margin-right:0.5em;"></div>
+            {% trans "Secondary muscles" %}
+        </div>
+        <div class="row" style="margin-top:1em;">
+            <div class="col-md-6 col-xs-6">
+                <div id="muscle-front" class="muscle-background center-block" style="background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+                </div>
+                <ul>
+                    {% for muscle in muscles %}
+                        {% if muscle.is_front %}
+                            <li>{{muscle.name}}</li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% for muscle in muscles_secondary %}
+                        {% if muscle.is_front %}
+                            <li>{{muscle.name}}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-6 col-xs-6">
+                <div id="muscle-back" class="muscle-background center-block" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+                </div>
+                <ul>
+                    {% for muscle in muscles %}
+                        {% if not muscle.is_front %}
+                            <li>{{muscle.name}}</li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% for muscle in muscles_secondary %}
+                        {% if not muscle.is_front %}
+                            <li>{{muscle.name}}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
-
-
 {% endif %}
 {% endwith %}
 {% endwith %} {# end musclelist #}
 {% endcache %}
 
 {% if logs %}
-<h4>{% trans "Weight log" %}</h4>
+<div class="row" style="margin-top:1em;">
+    <div class="col-xs-3">
+        <strong>{% trans "Weight log" %}:</strong>
+    </div>
+    <div class="col-xs-9">
+        {% render_weight_log logs svg_uuid user %}
+    </div>
+</div>
 
-{% render_weight_log logs svg_uuid user %}
-<script src="{% static 'js/d3.js' %}"></script>
 
 <script>
 $(document).ready(function() {

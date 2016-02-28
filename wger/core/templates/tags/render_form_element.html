@@ -12,9 +12,9 @@
         </label>
 
         <div class="col-md-9">
-            {% if not field|is_checkbox and not field|is_fileupload %}
+            {% if not field|is_checkbox and not field|is_fileupload and not field|is_multiple %}
                 {{ field|form_field_add_css:'form-control' }}
-            {% elif field|is_checkbox %}
+            {% elif field|is_checkbox and not field|is_multiple %}
                 {{ field|form_field_add_css:'checkbox' }}
             {% else %}
                 {{ field }}
