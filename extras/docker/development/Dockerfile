@@ -27,7 +27,7 @@ RUN virtualenv --python python3 /home/wger/venv
 RUN . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
     && pip install -r requirements_devel.txt \
-    && invoke --root wgercreate_settings \
+    && invoke --root wger create_settings \
         --settings-path /home/wger/src/settings.py \
 	    --database-path /home/wger/db/database.sqlite \
     && invoke --root wger bootstrap_wger \
