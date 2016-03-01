@@ -25,5 +25,14 @@
             "full_name": "Creative Commons Public Domain 1.0", 
             "short_name": "CC0"
         }
+    },
+    {
+        "pk": 4, 
+        "model": "core.license", 
+        "fields": {
+            "url": "http://creativecommons.org/licenses/by/4.0/", 
+            "full_name": "Creative Commons Attribution 4", 
+            "short_name": "CC-BY 4"
+        }
     }
 ]
