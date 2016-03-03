@@ -228,7 +228,8 @@ def is_checkbox(field):
 @register.filter(name='is_multiple')
 def is_multiple(field):
     '''
-    Tests if a field element is a checkbox, as it needs to be handled slightly different
+    Tests if a field element is a multiple select rendered as a checkbox, as it
+    needs to be handled slightly different
 
     :param field: a form field
     :return: boolen
