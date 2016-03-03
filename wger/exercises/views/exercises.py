@@ -53,7 +53,11 @@ from wger.utils.generic_views import (
 )
 from wger.utils.language import load_language, load_item_languages
 from wger.utils.cache import cache_mapper
-from wger.utils.widgets import TranslatedSelect, TranslatedSelectMultiple
+from wger.utils.widgets import (
+    TranslatedSelect,
+    TranslatedSelectMultiple,
+    TranslatedOriginalSelectMultiple
+)
 from wger.config.models import LanguageConfig
 from wger.weight.helpers import process_log_entries
 
@@ -172,11 +176,11 @@ class ExercisesEditAddView(WgerFormMixin):
             category = ModelChoiceField(queryset=ExerciseCategory.objects.all(),
                                         widget=TranslatedSelect())
             muscles = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
-                                               widget=MuscleTranslatedSelectMultiple(),
+                                               widget=TranslatedOriginalSelectMultiple(),
                                                required=False)
 
             muscles_secondary = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
-                                                         widget=MuscleTranslatedSelectMultiple(),
+                                                         widget=TranslatedOriginalSelectMultiple(),
                                                          required=False)
 
             class Meta:

@@ -16,10 +16,10 @@
 
 from django.utils.translation import ugettext as _
 
-from wger.utils.widgets import CheckboxBootstrapSelectMultiple
+from wger.utils.widgets import BootstrapSelectMultiple
 
 
-class MuscleTranslatedSelectMultiple(CheckboxBootstrapSelectMultiple):
+class MuscleTranslatedSelectMultiple(BootstrapSelectMultiple):
     '''
     A SelectMultiple widget that translates the options
     '''
