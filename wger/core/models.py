@@ -596,3 +596,33 @@ class RepetitionUnit(models.Model):
         Unit has no owner information
         '''
         return None
+
+
+@python_2_unicode_compatible
+class WeightUnit(models.Model):
+    '''
+    Weight unit, used in combination with an amount such as '10 kg', '5 plates'
+    '''
+    class Meta:
+        '''
+        Set Meta options
+        '''
+        ordering = ["name", ]
+
+    name = models.CharField(max_length=100,
+                            verbose_name=_('Name'))
+
+    def __str__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return self.name
+
+    #
+    # Own methods
+    #
+    def get_owner_object(self):
+        '''
+        Unit has no owner information
+        '''
+        return None

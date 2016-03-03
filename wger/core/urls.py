@@ -28,7 +28,8 @@ from wger.core.views import (
     user,
     misc,
     license,
-    repetition_units
+    repetition_units,
+    weight_units
 )
 
 # sub patterns for user
@@ -137,6 +138,22 @@ patterns_repetition_units = [
         name='delete'),
 ]
 
+# sub patterns for setting units
+patterns_weight_units = [
+    url(r'^list$',
+        weight_units.ListView.as_view(),
+        name='list'),
+    url(r'^add$',
+        weight_units.AddView.as_view(),
+        name='add'),
+    url(r'^(?P<pk>\d+)/edit',
+        weight_units.UpdateView.as_view(),
+        name='edit'),
+    url(r'^(?P<pk>\d+)/delete',
+        weight_units.DeleteView.as_view(),
+        name='delete'),
+]
+
 
 #
 # Actual patterns
@@ -166,5 +183,6 @@ urlpatterns = [
 
     url(r'^user/', include(patterns_user, namespace="user")),
     url(r'^license/', include(patterns_license, namespace="license")),
-    url(r'^setting-unit/', include(patterns_repetition_units, namespace="repetition-unit")),
+    url(r'^repetition-unit/', include(patterns_repetition_units, namespace="repetition-unit")),
+    url(r'^weight-unit/', include(patterns_weight_units, namespace="weight-unit")),
 ]

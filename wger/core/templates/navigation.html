@@ -209,7 +209,10 @@
                                             <li><a href="{% url 'core:license:list' %}">{% trans "Licenses" %} </a></li>
                                         {% endif %}
                                         {% if perms.core.change_repetitionunit %}
-                                            <li><a href="{% url 'core:repetition-unit:list' %}">{% trans "Setting units" %} </a></li>
+                                            <li><a href="{% url 'core:repetition-unit:list' %}">{% trans "Repetition units" %} </a></li>
+                                        {% endif %}
+                                        {% if perms.core.change_weightunit %}
+                                            <li><a href="{% url 'core:weight-unit:list' %}">{% trans "Weight units" %} </a></li>
                                         {% endif %}
                                         {% if perms.gym.manage_gyms %}
                                             <li><a href="{% url 'core:user:list' %}">{% trans "User list" %} </a></li>

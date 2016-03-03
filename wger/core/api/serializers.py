@@ -22,8 +22,8 @@ from wger.core.models import (
     Language,
     DaysOfWeek,
     License,
-    RepetitionUnit
-)
+    RepetitionUnit,
+    WeightUnit)
 
 
 class UserprofileSerializer(serializers.ModelSerializer):
@@ -67,7 +67,15 @@ class LicenseSerializer(serializers.ModelSerializer):
 
 class RepetitionUnitSerializer(serializers.ModelSerializer):
     '''
-    License serializer
+    Repetition unit serializer
     '''
     class Meta:
         model = RepetitionUnit
+
+
+class WeightUnitSerializer(serializers.ModelSerializer):
+    '''
+    Weight unit serializer
+    '''
+    class Meta:
+        model = WeightUnit
