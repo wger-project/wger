@@ -569,7 +569,7 @@ class License(models.Model):
 
 
 @python_2_unicode_compatible
-class SettingUnit(models.Model):
+class RepetitionUnit(models.Model):
     '''
     Setting unit, used in combination with an amount such as '10 reps', '5 km'
     '''

@@ -17,7 +17,7 @@
 
 from rest_framework import serializers
 
-from wger.core.api.serializers import DaysOfWeekSerializer, SettingUnitSerializer
+from wger.core.api.serializers import DaysOfWeekSerializer, RepetitionUnitSerializer
 from wger.exercises.api.serializers import ExerciseSerializer
 
 from wger.manager.models import (
@@ -116,7 +116,7 @@ class WorkoutCanonicalFormExerciseListSerializer(serializers.Serializer):
     has_weight = serializers.ReadOnlyField()
     weight_list = serializers.ReadOnlyField()
     setting_text = serializers.ReadOnlyField()
-    setting_units = SettingUnitSerializer(many=True)
+    repetition_units = RepetitionUnitSerializer(many=True)
     comment_list = serializers.ReadOnlyField()
     obj = ExerciseSerializer()
 

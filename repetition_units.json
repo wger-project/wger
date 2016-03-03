@@ -4,48 +4,48 @@
         "fields": {
             "name": "Repetitions"
         },
-        "model": "core.settingunit"
+        "model": "core.repetitionunit"
     },
     {
         "pk": 2,
         "fields": {
             "name": "Seconds"
         },
-        "model": "core.settingunit"
+        "model": "core.repetitionunit"
     },
     {
         "pk": 3,
         "fields": {
             "name": "Minutes"
         },
-        "model": "core.settingunit"
+        "model": "core.repetitionunit"
     },
     {
         "pk": 4,
         "fields": {
             "name": "Miles"
         },
-        "model": "core.settingunit"
+        "model": "core.repetitionunit"
     },
     {
         "pk": 5,
         "fields": {
             "name": "Kilometers"
         },
-        "model": "core.settingunit"
+        "model": "core.repetitionunit"
     },
     {
         "pk": 6,
         "fields": {
             "name": "Plates"
         },
-        "model": "core.settingunit"
+        "model": "core.repetitionunit"
     },
     {
         "pk": 7,
         "fields": {
             "name": "Rounds"
         },
-        "model": "core.settingunit"
+        "model": "core.repetitionunit"
     }
 ]

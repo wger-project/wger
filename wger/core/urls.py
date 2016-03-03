@@ -28,7 +28,7 @@ from wger.core.views import (
     user,
     misc,
     license,
-    setting_units
+    repetition_units
 )
 
 # sub patterns for user
@@ -122,18 +122,18 @@ patterns_license = [
 ]
 
 # sub patterns for setting units
-setting_units_license = [
+patterns_repetition_units = [
     url(r'^list$',
-        setting_units.ListView.as_view(),
+        repetition_units.ListView.as_view(),
         name='list'),
     url(r'^add$',
-        setting_units.AddView.as_view(),
+        repetition_units.AddView.as_view(),
         name='add'),
     url(r'^(?P<pk>\d+)/edit',
-        setting_units.UpdateView.as_view(),
+        repetition_units.UpdateView.as_view(),
         name='edit'),
     url(r'^(?P<pk>\d+)/delete',
-        setting_units.DeleteView.as_view(),
+        repetition_units.DeleteView.as_view(),
         name='delete'),
 ]
 
@@ -166,5 +166,5 @@ urlpatterns = [
 
     url(r'^user/', include(patterns_user, namespace="user")),
     url(r'^license/', include(patterns_license, namespace="license")),
-    url(r'^setting-unit/', include(setting_units_license, namespace="setting_unit")),
+    url(r'^setting-unit/', include(patterns_repetition_units, namespace="repetition-unit")),
 ]

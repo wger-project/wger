@@ -25,14 +25,14 @@ from wger.core.models import (
     Language,
     DaysOfWeek,
     License,
-    SettingUnit
+    RepetitionUnit
 )
 from wger.core.api.serializers import (
     UsernameSerializer,
     LanguageSerializer,
     DaysOfWeekSerializer,
     LicenseSerializer,
-    SettingUnitSerializer
+    RepetitionUnitSerializer
 )
 from wger.core.api.serializers import UserprofileSerializer
 from wger.utils.permissions import UpdateOnlyPermission, WgerPermission
@@ -102,11 +102,11 @@ class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
                      'url')
 
 
-class SettingUnitViewSet(viewsets.ReadOnlyModelViewSet):
+class RepetitionUnitViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     API endpoint for setting units objects
     '''
-    queryset = SettingUnit.objects.all()
-    serializer_class = SettingUnitSerializer
+    queryset = RepetitionUnit.objects.all()
+    serializer_class = RepetitionUnitSerializer
     ordering_fields = '__all__'
     filter_fields = ('name', )

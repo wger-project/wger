@@ -16,7 +16,7 @@
 
 from django.core.management.base import BaseCommand
 
-from wger.core.models import SettingUnit
+from wger.core.models import RepetitionUnit
 from wger.exercises.models import (
     ExerciseCategory,
     Muscle,
@@ -38,7 +38,7 @@ class Command(BaseCommand):
         out += [i for i in ExerciseCategory.objects.all()]
         out += [i for i in Equipment.objects.all()]
         out += [i for i in Muscle.objects.all()]
-        out += [i for i in SettingUnit.objects.all()]
+        out += [i for i in RepetitionUnit.objects.all()]
 
         # Print the result
         for i in out:

@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from wger.core.models import SettingUnit
+from wger.core.models import RepetitionUnit
 from wger.core.tests import api_base_test
 
 from wger.manager.tests.testcase import WorkoutManagerAccessTestCase, WorkoutManagerTestCase
@@ -31,7 +31,7 @@ class RepresentationTestCase(WorkoutManagerTestCase):
         '''
         Test that the representation of an object is correct
         '''
-        self.assertEqual("{0}".format(SettingUnit.objects.get(pk=1)), 'Repetitions')
+        self.assertEqual("{0}".format(RepetitionUnit.objects.get(pk=1)), 'Repetitions')
 
 
 class OverviewTest(WorkoutManagerAccessTestCase):
@@ -39,7 +39,7 @@ class OverviewTest(WorkoutManagerAccessTestCase):
     Tests the settings unit overview page
     '''
 
-    url = 'core:setting_unit:list'
+    url = 'core:repetition-unit:list'
     anonymous_fail = True
 
 
@@ -48,8 +48,8 @@ class AddTestCase(WorkoutManagerAddTestCase):
     Tests adding a new unit
     '''
 
-    object_class = SettingUnit
-    url = 'core:setting_unit:add'
+    object_class = RepetitionUnit
+    url = 'core:repetition-unit:add'
     data = {'name': 'Furlongs'}
     user_success = 'admin',
     user_fail = ('general_manager1',
@@ -68,8 +68,8 @@ class DeleteTestCase(WorkoutManagerDeleteTestCase):
     '''
 
     pk = 1
-    object_class = SettingUnit
-    url = 'core:setting_unit:delete'
+    object_class = RepetitionUnit
+    url = 'core:repetition-unit:delete'
     user_success = 'admin',
     user_fail = ('general_manager1',
                  'general_manager2',
@@ -87,8 +87,8 @@ class EditTestCase(WorkoutManagerEditTestCase):
     '''
 
     pk = 1
-    object_class = SettingUnit
-    url = 'core:setting_unit:edit'
+    object_class = RepetitionUnit
+    url = 'core:repetition-unit:edit'
     data = {'name': 'Furlongs'}
     user_success = 'admin',
     user_fail = ('general_manager1',
@@ -106,5 +106,5 @@ class ApiTestCase(api_base_test.ApiBaseResourceTestCase):
     Tests the unit resource
     '''
     pk = 1
-    resource = SettingUnit
+    resource = RepetitionUnit
     private_resource = False

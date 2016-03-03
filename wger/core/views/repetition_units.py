@@ -33,7 +33,7 @@ from wger.utils.generic_views import (
     WgerPermissionMixin
 )
 
-from wger.core.models import License, SettingUnit
+from wger.core.models import License, RepetitionUnit
 
 logger = logging.getLogger(__name__)
 
@@ -42,9 +42,9 @@ class ListView(WgerPermissionMixin, ListView):
     '''
     Overview of all available setting units
     '''
-    model = SettingUnit
-    permission_required = 'core.add_settingunit'
-    template_name = 'setting_unit/list.html'
+    model = RepetitionUnit
+    permission_required = 'core.add_repetitionunit'
+    template_name = 'repetition_unit/list.html'
 
 
 class AddView(WgerFormMixin, CreateView, WgerPermissionMixin):
@@ -52,12 +52,12 @@ class AddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     View to add a new setting unit
     '''
 
-    model = SettingUnit
+    model = RepetitionUnit
     fields = ['name']
     title = ugettext_lazy('Add')
-    success_url = reverse_lazy('core:setting_unit:list')
-    form_action = reverse_lazy('core:setting_unit:add')
-    permission_required = 'core.add_settingunit'
+    success_url = reverse_lazy('core:repetition-unit:list')
+    form_action = reverse_lazy('core:repetition-unit:add')
+    permission_required = 'core.add_repetitionunit'
 
 
 class UpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
@@ -65,11 +65,11 @@ class UpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     View to update an existing setting unit
     '''
 
-    model = SettingUnit
+    model = RepetitionUnit
     fields = ['name']
-    success_url = reverse_lazy('core:setting_unit:list')
-    form_action_urlname = 'core:setting_unit:edit'
-    permission_required = 'core.change_settingunit'
+    success_url = reverse_lazy('core:repetition-unit:list')
+    form_action_urlname = 'core:repetition-unit:edit'
+    permission_required = 'core.change_repetitionunit'
 
     def get_context_data(self, **kwargs):
         '''
@@ -85,10 +85,10 @@ class DeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     View to delete an existing license
     '''
 
-    model = SettingUnit
-    success_url = reverse_lazy('core:setting_unit:list')
-    permission_required = 'core.delete_settingunit'
-    form_action_urlname = 'core:setting_unit:delete'
+    model = RepetitionUnit
+    success_url = reverse_lazy('core:repetition-unit:list')
+    permission_required = 'core.delete_repetitionunit'
+    form_action_urlname = 'core:repetition-unit:delete'
 
     def dispatch(self, request, *args, **kwargs):
         '''

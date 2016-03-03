@@ -71,7 +71,7 @@ filter_dump(data, ('gym.contract',), 'gym_contracts.json')
 filter_dump(data, ('core.gym',), 'gyms.json')
 filter_dump(data, ('core.language',), 'languages.json')
 filter_dump(data, ('core.license',), 'licenses.json')
-filter_dump(data, ('core.settingunit',), 'setting_units.json')
+filter_dump(data, ('core.repetitionunit',), 'repetition_units.json')
 
 #
 # Configurations

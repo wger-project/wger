@@ -22,7 +22,7 @@ from wger.core.models import (
     Language,
     DaysOfWeek,
     License,
-    SettingUnit
+    RepetitionUnit
 )
 
 
@@ -65,9 +65,9 @@ class LicenseSerializer(serializers.ModelSerializer):
         model = License
 
 
-class SettingUnitSerializer(serializers.ModelSerializer):
+class RepetitionUnitSerializer(serializers.ModelSerializer):
     '''
     License serializer
     '''
     class Meta:
-        model = SettingUnit
+        model = RepetitionUnit

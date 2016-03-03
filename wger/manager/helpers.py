@@ -207,7 +207,7 @@ def reps_smart_text(settings, set_obj):
         setting_list = []
         weight_list = []
         reps_list = []
-        setting_units = []
+        repetition_units = []
 
     # Only one setting entry, this is a "compact" representation such as e.g.
     # 4x10 or similar
@@ -231,7 +231,7 @@ def reps_smart_text(settings, set_obj):
         setting_list = [setting_list_text] * set_obj.sets
         reps_list = [settings[0].reps] * set_obj.sets
         weight_list = [weight] * set_obj.sets
-        setting_units = [settings[0].unit] * set_obj.sets
+        repetition_units = [settings[0].unit] * set_obj.sets
 
     # There's more than one setting, each set can have a different combination
     # of repetitions, weight, etc. e.g. 10, 8, 8, 12
@@ -256,11 +256,11 @@ def reps_smart_text(settings, set_obj):
 
         setting_text = u' – '.join(tmp_reps_text)
         setting_list = tmp_reps_text
-        setting_units = tmp_unit
+        repetition_units = tmp_unit
         reps_list = tmp_reps
         weight_list = tmp_weight
 
-    return setting_text, setting_list, weight_list, reps_list, setting_units
+    return setting_text, setting_list, weight_list, reps_list, repetition_units
 
 
 class WorkoutCalendar(HTMLCalendar):

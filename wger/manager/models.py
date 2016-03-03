@@ -31,7 +31,7 @@ from django.core.cache import cache
 from django.core.validators import MinValueValidator
 from sortedm2m.fields import SortedManyToManyField
 
-from wger.core.models import DaysOfWeek, SettingUnit
+from wger.core.models import DaysOfWeek, RepetitionUnit
 from wger.exercises.models import Exercise
 from wger.manager.helpers import reps_smart_text
 from wger.utils.cache import (
@@ -445,7 +445,7 @@ class Day(models.Model):
                     setting_tmp.append(setting)
 
                 # "Smart" textual representation
-                setting_text, setting_list, weight_list, reps_list, setting_units \
+                setting_text, setting_list, weight_list, reps_list, repetition_units \
                     = reps_smart_text(setting_tmp, set_obj)
 
                 # Flag indicating whether all exercises have settings
@@ -466,7 +466,7 @@ class Day(models.Model):
                 exercise_tmp.append({'obj': exercise,
                                      'setting_obj_list': setting_tmp,
                                      'setting_list': setting_list,
-                                     'setting_units': setting_units,
+                                     'repetition_units': repetition_units,
                                      'weight_list': weight_list,
                                      'has_weight': has_weight,
                                      'reps_list': reps_list,
@@ -486,10 +486,10 @@ class Day(models.Model):
                     if len(exercise['setting_list']) > common_reps:
                         exercise['setting_list'].pop(-1)
                         exercise['setting_obj_list'].pop(-1)
-                        setting_text, setting_list, weight_list, reps_list, setting_units = \
+                        setting_text, setting_list, weight_list, reps_list, repetition_units = \
                             reps_smart_text(exercise['setting_obj_list'], set_obj)
                         exercise['setting_text'] = setting_text
-                        exercise['setting_units'] = setting_units
+                        exercise['repetition_units'] = repetition_units
 
             canonical_repr.append({'obj': set_obj,
                                    'exercise_list': exercise_tmp,
@@ -578,7 +578,7 @@ class Setting(models.Model):
     set = models.ForeignKey(Set, verbose_name=_('Sets'))
     exercise = models.ForeignKey(Exercise,
                                  verbose_name=_('Exercises'))
-    unit = models.ForeignKey(SettingUnit,
+    unit = models.ForeignKey(RepetitionUnit,
                              verbose_name=_('Unit'),
                              default=1)
     '''
@@ -655,7 +655,7 @@ class WorkoutLog(models.Model):
     workout = models.ForeignKey(Workout,
                                 verbose_name=_('Workout'))
 
-    unit = models.ForeignKey(SettingUnit,
+    unit = models.ForeignKey(RepetitionUnit,
                              verbose_name=_('Unit'),
                              default=1)
     '''

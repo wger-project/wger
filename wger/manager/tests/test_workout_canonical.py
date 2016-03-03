@@ -16,7 +16,7 @@ from decimal import Decimal
 
 from django.core.cache import cache
 
-from wger.core.models import DaysOfWeek, SettingUnit
+from wger.core.models import DaysOfWeek, RepetitionUnit
 from wger.exercises.models import Exercise
 from wger.manager.models import Workout
 from wger.manager.models import Day
@@ -41,7 +41,7 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
         workout = Workout.objects.get(pk=1)
         setting_1 = Setting.objects.get(pk=1)
         setting_2 = Setting.objects.get(pk=2)
-        setting_unit = SettingUnit.objects.get(pk=1)
+        repetition_unit = RepetitionUnit.objects.get(pk=1)
         self.assertEqual(workout.canonical_representation['muscles'], {'back': [2], 'front': [1]})
         self.assertEqual(workout.canonical_representation['obj'], workout)
 
@@ -57,8 +57,8 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
                                                            'weight_list': [None, None],
                                                            'setting_obj_list': [setting_1],
                                                            'setting_text': u'2 \xd7 8',
-                                                           'setting_units': [setting_unit,
-                                                                             setting_unit]}],
+                                                           'repetition_units': [repetition_unit,
+                                                                                repetition_unit]}],
                                         'is_superset': False,
                                         'has_settings': True,
                                         'muscles': {'back': [2], 'front': [1]},
@@ -80,10 +80,10 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
                                                            'weight_list': [Decimal(15)] * 4,
                                                            'setting_obj_list': [setting_2],
                                                            'setting_text': u'4 \xd7 10 (15kg)',
-                                                           'setting_units': [setting_unit,
-                                                                             setting_unit,
-                                                                             setting_unit,
-                                                                             setting_unit]}],
+                                                           'repetition_units': [repetition_unit,
+                                                                                repetition_unit,
+                                                                                repetition_unit,
+                                                                                repetition_unit]}],
                                         'is_superset': False,
                                         'has_settings': True,
                                         'muscles': {'back': [2], 'front': []},
@@ -105,7 +105,7 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
         day = Day.objects.get(pk=5)
         weekday1 = DaysOfWeek.objects.get(pk=3)
         weekday2 = DaysOfWeek.objects.get(pk=5)
-        setting_unit = SettingUnit.objects.get(pk=1)
+        repetition_unit = RepetitionUnit.objects.get(pk=1)
         self.assertEqual(day.canonical_representation['days_of_week'],
                          {'day_list': [weekday1, weekday2], 'text': u'Wednesday, Friday'})
         self.assertEqual(day.canonical_representation['muscles'], {'back': [2], 'front': []})
@@ -119,10 +119,10 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
                                               'weight_list': [None, None, None, None],
                                               'setting_obj_list': [Setting.objects.get(pk=3)],
                                               'setting_text': u'4 \xd7 10',
-                                              'setting_units': [setting_unit,
-                                                                setting_unit,
-                                                                setting_unit,
-                                                                setting_unit]}],
+                                              'repetition_units': [repetition_unit,
+                                                                   repetition_unit,
+                                                                   repetition_unit,
+                                                                   repetition_unit]}],
                            'is_superset': False,
                            'has_settings': True,
                            'muscles': {'back': [2], 'front': []},

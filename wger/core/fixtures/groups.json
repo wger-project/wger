@@ -65,19 +65,19 @@
                     "license"
                 ],
                 [
-                    "add_settingunit",
+                    "add_repetitionunit",
                     "core",
-                    "settingunit"
+                    "repetitionunit"
                 ],
                 [
-                    "change_settingunit",
+                    "change_repetitionunit",
                     "core",
-                    "settingunit"
+                    "repetitionunit"
                 ],
                 [
-                    "delete_settingunit",
+                    "delete_repetitionunit",
                     "core",
-                    "settingunit"
+                    "repetitionunit"
                 ],
                 [
                     "add_equipment",

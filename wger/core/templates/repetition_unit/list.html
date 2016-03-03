@@ -15,10 +15,10 @@
             </button>
             <ul class="dropdown-menu" role="menu">
                 <li>
-                    <a href="{% url 'core:setting_unit:edit' unit.id %}" class="wger-modal-dialog">{% trans 'Edit' %}</a>
+                    <a href="{% url 'core:repetition-unit:edit' unit.id %}" class="wger-modal-dialog">{% trans 'Edit' %}</a>
                 </li>
                 <li>
-                    <a href="{% url 'core:setting_unit:delete' unit.id %}" class="wger-modal-dialog">{% trans 'Delete' %}</a>
+                    <a href="{% url 'core:repetition-unit:delete' unit.id %}" class="wger-modal-dialog">{% trans 'Delete' %}</a>
                 </li>
             </ul>
         </div>
@@ -38,7 +38,7 @@
 
 {% block sidebar %}
 {% if perms.core.add_license %}
-   <a href="{% url 'core:setting_unit:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+   <a href="{% url 'core:repetition-unit:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
    {% trans "Add" %}
    </a>
 {% endif %}
