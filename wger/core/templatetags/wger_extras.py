@@ -222,7 +222,7 @@ def is_checkbox(field):
     :param field: a form field
     :return: boolen
     '''
-    return field.field.widget.__class__.__name__ == CheckboxInput().__class__.__name__
+    return isinstance(field.field.widget, CheckboxInput)
 
 
 @register.filter(name='is_multiple')
@@ -245,7 +245,7 @@ def is_fileupload(field):
     :param field: a form field
     :return: boolen
     '''
-    return field.field.widget.__class__.__name__ == ClearableFileInput().__class__.__name__
+    return isinstance(field.field.widget, ClearableFileInput)
 
 
 @register.inclusion_tag('tags/render_form_element.html')
