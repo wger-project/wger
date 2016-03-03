@@ -45,7 +45,6 @@ from wger.exercises.models import (
     Muscle,
     ExerciseCategory
 )
-from wger.exercises.widgets import MuscleTranslatedSelectMultiple
 from wger.utils.generic_views import (
     WgerFormMixin,
     WgerDeleteMixin,
