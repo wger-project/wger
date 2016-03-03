@@ -41,9 +41,8 @@ $(document).ready(function () {
                     <tr>
                         <td>{% trans "Amount" %}</td>
                         <td>{% trans "Unit" %}</td>
-                        <td>
-                            {% trans "Weight" %}
-                        </td>
+                        <td>{% trans "Weight" %}</td>
+                        <td>{% trans "Unit" %}</td>
                     </tr>
                     {% for form in value.forms %}
                     <tr>
@@ -58,10 +57,10 @@ $(document).ready(function () {
                             </div>
                         </td>
                         <td>
-                            <div {% if form.unit.errors %}class="has-error"{% endif %}>
-                                {{ form.unit|form_field_add_css:'form-control narrow-input' }}
+                            <div {% if form.repetition_unit.errors %}class="has-error"{% endif %}>
+                                {{ form.repetition_unit|form_field_add_css:'form-control narrow-input' }}
                                 <span class="help-block">
-                                    {% for error in form.unit.errors %}
+                                    {% for error in form.repetition_unit.errors %}
                                         <p>{% trans error %}</p>
                                     {% endfor %}
                                 </span>
@@ -75,6 +74,16 @@ $(document).ready(function () {
                                     <p>{% trans error %}</p>
                                 {% endfor %}
                             </span>
+                            </div>
+                        </td>
+                        <td>
+                            <div {% if form.weight_unit.errors %}class="has-error"{% endif %}>
+                                {{ form.weight_unit|form_field_add_css:'form-control narrow-input' }}
+                                <span class="help-block">
+                                    {% for error in form.weight_unit.errors %}
+                                        <p>{% trans error %}</p>
+                                    {% endfor %}
+                                </span>
                             </div>
                         </td>
                     </tr>

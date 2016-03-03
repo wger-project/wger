@@ -31,7 +31,7 @@ from django.core.cache import cache
 from django.core.validators import MinValueValidator
 from sortedm2m.fields import SortedManyToManyField
 
-from wger.core.models import DaysOfWeek, RepetitionUnit
+from wger.core.models import DaysOfWeek, RepetitionUnit, WeightUnit
 from wger.exercises.models import Exercise
 from wger.manager.helpers import reps_smart_text
 from wger.utils.cache import (
@@ -578,11 +578,11 @@ class Setting(models.Model):
     set = models.ForeignKey(Set, verbose_name=_('Sets'))
     exercise = models.ForeignKey(Exercise,
                                  verbose_name=_('Exercises'))
-    unit = models.ForeignKey(RepetitionUnit,
-                             verbose_name=_('Unit'),
-                             default=1)
+    repetition_unit = models.ForeignKey(RepetitionUnit,
+                                        verbose_name=_('Unit'),
+                                        default=1)
     '''
-    The unit of a set. This can be e.g. a repetition, a minute, etc.
+    The repetition unit of a set. This can be e.g. a repetition, a minute, etc.
     '''
 
     reps = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)],
@@ -601,6 +601,13 @@ class Setting(models.Model):
                                  null=True,
                                  validators=[MinValueValidator(0), MaxValueValidator(1500)])
     '''Planed weight for the repetitions'''
+
+    weight_unit = models.ForeignKey(WeightUnit,
+                                    verbose_name=_('Unit'),
+                                    default=1)
+    '''
+    The weight unit of a set. This can be e.g. kg, lb, km/h, etc.
+    '''
 
     order = models.IntegerField(blank=True,
                                 verbose_name=_('Order'))
@@ -655,9 +662,9 @@ class WorkoutLog(models.Model):
     workout = models.ForeignKey(Workout,
                                 verbose_name=_('Workout'))
 
-    unit = models.ForeignKey(RepetitionUnit,
-                             verbose_name=_('Unit'),
-                             default=1)
+    repetition_unit = models.ForeignKey(RepetitionUnit,
+                                        verbose_name=_('Unit'),
+                                        default=1)
     '''
     The unit of the log. This can be e.g. a repetition, a minute, etc.
     '''
@@ -675,6 +682,14 @@ class WorkoutLog(models.Model):
                                  max_digits=5,
                                  verbose_name=_('Weight'),
                                  validators=[MinValueValidator(0)])
+
+    weight_unit = models.ForeignKey(WeightUnit,
+                                    verbose_name=_('Unit'),
+                                    default=1)
+    '''
+    The weight unit of the log. This can be e.g. kg, lb, km/h, etc.
+    '''
+
     date = Html5DateField(verbose_name=_('Date'))
 
     # Metaclass to set some other properties

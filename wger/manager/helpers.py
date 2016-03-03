@@ -213,7 +213,10 @@ def reps_smart_text(settings, set_obj):
     # 4x10 or similar
     elif len(settings) == 1:
         reps = settings[0].reps if settings[0].reps != 99 else u'∞'
-        rep_unit = _(settings[0].unit.name) if settings[0].unit.id != 1 else ''
+        if settings[0].repetition_unit.id != 1:
+            rep_unit = _(settings[0].repetition_unit.name)
+        else:
+            rep_unit = ''
         setting_text = u'{0} × {1} {2}'.format(set_obj.sets, reps, rep_unit).strip()
         setting_list_text = u'{0} {1}'.format(reps, rep_unit).strip()
 
@@ -231,7 +234,7 @@ def reps_smart_text(settings, set_obj):
         setting_list = [setting_list_text] * set_obj.sets
         reps_list = [settings[0].reps] * set_obj.sets
         weight_list = [weight] * set_obj.sets
-        repetition_units = [settings[0].unit] * set_obj.sets
+        repetition_units = [settings[0].repetition_unit] * set_obj.sets
 
     # There's more than one setting, each set can have a different combination
     # of repetitions, weight, etc. e.g. 10, 8, 8, 12
@@ -241,7 +244,7 @@ def reps_smart_text(settings, set_obj):
         tmp_weight = []
         tmp_unit = []
         for i in settings:
-            rep_unit = _(i.unit.name) if i.unit.id != 1 else ''
+            rep_unit = _(i.repetition_unit.name) if i.repetition_unit.id != 1 else ''
             reps = "{0} {1}".format(i.reps, rep_unit).strip() if i.reps != 99 else u'∞'
 
             weight = i.weight
@@ -252,7 +255,7 @@ def reps_smart_text(settings, set_obj):
             tmp_reps_text.append(reps)
             tmp_reps.append(i.reps)
             tmp_weight.append(weight)
-            tmp_unit.append(i.unit)
+            tmp_unit.append(i.repetition_unit)
 
         setting_text = u' – '.join(tmp_reps_text)
         setting_list = tmp_reps_text
