@@ -33,19 +33,5 @@
             "name": "Kilometers"
         },
         "model": "core.repetitionunit"
-    },
-    {
-        "pk": 6,
-        "fields": {
-            "name": "Plates"
-        },
-        "model": "core.repetitionunit"
-    },
-    {
-        "pk": 7,
-        "fields": {
-            "name": "Rounds"
-        },
-        "model": "core.repetitionunit"
     }
 ]
