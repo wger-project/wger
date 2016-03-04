@@ -577,6 +577,7 @@ class Setting(models.Model):
     exercise = models.ForeignKey(Exercise,
                                  verbose_name=_('Exercises'))
     reps = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)],
+                               blank=False,
                                verbose_name=_('Repetitions'))
     weight = models.DecimalField(verbose_name=_('Weight'),
                                  max_digits=6,
