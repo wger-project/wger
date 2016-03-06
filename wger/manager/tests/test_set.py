@@ -48,26 +48,34 @@ class SetAddTestCase(WorkoutManagerAddTestCase):
             'exercise1-INITIAL_FORMS': 0,
             'exercise1-MAX_NUM_FORMS': 1000,
             'exercise1-0-reps': 10,
-            'exercise1-0-unit': 1,
+            'exercise1-0-repetition_unit': 1,
+            'exercise1-0-weight_unit': 1,
             'exercise1-1-reps': 12,
-            'exercise1-1-unit': 1,
+            'exercise1-1-repetition_unit': 1,
+            'exercise1-1-weight_unit': 1,
             'exercise1-2-reps': 10,
-            'exercise1-2-unit': 1,
+            'exercise1-2-repetition_unit': 1,
+            'exercise1-2-weight_unit': 1,
             'exercise1-3-reps': 12,
-            'exercise1-3-unit': 1,
+            'exercise1-3-repetition_unit': 1,
+            'exercise1-3-weight_unit': 1,
             }
     data_ignore = ('exercise1-TOTAL_FORMS',
                    'exercise1-INITIAL_FORMS',
                    'exercise1-MAX_NUM_FORMS',
                    'exercise_list',
                    'exercise1-0-reps',
-                   'exercise1-0-unit',
+                   'exercise1-0-repetition_unit',
+                   'exercise1-0-weight_unit',
                    'exercise1-1-reps',
-                   'exercise1-1-unit',
+                   'exercise1-1-repetition_unit',
+                   'exercise1-1-weight_unit',
                    'exercise1-2-reps',
-                   'exercise1-2-unit',
+                   'exercise1-2-repetition_unit',
+                   'exercise1-2-weight_unit',
                    'exercise1-3-reps',
-                   'exercise1-3-unit')
+                   'exercise1-3-repetition_unit',
+                   'exercise1-3-weight_unit')
 
     def test_add_set(self, fail=False):
         '''
@@ -85,25 +93,33 @@ class SetAddTestCase(WorkoutManagerAddTestCase):
                      'exercise1-INITIAL_FORMS': 0,
                      'exercise1-MAX_NUM_FORMS': 1000,
                      'exercise1-0-reps': 10,
-                     'exercise1-0-unit': 1,
+                     'exercise1-0-repetition_unit': 1,
+                     'exercise1-0-weight_unit': 1,
                      'exercise1-1-reps': 12,
-                     'exercise1-1-unit': 1,
+                     'exercise1-1-repetition_unit': 1,
+                     'exercise1-1-weight_unit': 1,
                      'exercise1-2-reps': 10,
-                     'exercise1-2-unit': 1,
+                     'exercise1-2-repetition_unit': 1,
+                     'exercise1-2-weight_unit': 1,
                      'exercise1-3-reps': 12,
-                     'exercise1-3-unit': 1,
+                     'exercise1-3-repetition_unit': 1,
+                     'exercise1-3-weight_unit': 1,
 
                      'exercise2-TOTAL_FORMS': 4,
                      'exercise2-INITIAL_FORMS': 0,
                      'exercise2-MAX_NUM_FORMS': 1000,
                      'exercise2-0-reps': 8,
-                     'exercise2-0-unit': 1,
+                     'exercise2-0-repetition_unit': 1,
+                     'exercise2-0-weight_unit': 1,
                      'exercise2-1-reps': 10,
-                     'exercise2-1-unit': 2,
+                     'exercise2-1-repetition_unit': 2,
+                     'exercise2-1-weight_unit': 2,
                      'exercise2-2-reps': 8,
-                     'exercise2-2-unit': 1,
+                     'exercise2-2-repetition_unit': 1,
+                     'exercise2-2-weight_unit': 1,
                      'exercise2-3-reps': 10,
-                     'exercise2-3-unit': 2}
+                     'exercise2-3-repetition_unit': 2,
+                     'exercise2-3-weight_unit': 2}
         response = self.client.post(reverse('manager:set:add', kwargs={'day_pk': 5}), post_data)
         self.assertEqual(response.status_code, 302)
 
@@ -188,7 +204,8 @@ class TestSetOrderTestCase(WorkoutManagerTestCase):
             post_data['exercise{0}-INITIAL_FORMS'.format(exercise_id)] = 0
             post_data['exercise{0}-MAX_NUM_FORMS'.format(exercise_id)] = 1000
             for set_nr in range(0, nr_sets):
-                post_data['exercise{0}-{1}-unit'.format(exercise_id, set_nr)] = 1
+                post_data['exercise{0}-{1}-repetition_unit'.format(exercise_id, set_nr)] = 1
+                post_data['exercise{0}-{1}-weight_unit'.format(exercise_id, set_nr)] = 1
                 post_data['exercise{0}-{1}-reps'.format(exercise_id, set_nr)] = 8
 
         response = self.client.post(reverse('manager:set:add', kwargs={'day_pk': 5}),
@@ -278,19 +295,23 @@ class SetEditEditTestCase(WorkoutManagerTestCase):
                                      'exercise2-MAX_NUM_FORMS': 1000,
                                      'exercise2-0-reps': 5,
                                      'exercise2-0-id': 3,
-                                     'exercise2-0-unit': 1,
+                                     'exercise2-0-repetition_unit': 1,
+                                     'exercise2-0-weight_unit': 1,
                                      'exercise2-0-DELETE': False,
                                      'exercise2-1-reps': 13,
                                      'exercise2-1-id': '',
-                                     'exercise2-1-unit': 1,
+                                     'exercise2-1-repetition_unit': 1,
+                                     'exercise2-1-weight_unit': 1,
                                      'exercise2-2-DELETE': False,
                                      'exercise2-2-reps': 13,
                                      'exercise2-2-id': '',
-                                     'exercise2-2-unit': 1,
+                                     'exercise2-2-repetition_unit': 1,
+                                     'exercise2-2-weight_unit': 1,
                                      'exercise2-2-DELETE': False,
                                      'exercise2-3-reps': 13,
                                      'exercise2-3-id': '',
-                                     'exercise2-3-unit': 1,
+                                     'exercise2-3-repetition_unit': 1,
+                                     'exercise2-3-weight_unit': 1,
                                      'exercise2-3-DELETE': False})
 
         entry_after = Set.objects.get(pk=3)
