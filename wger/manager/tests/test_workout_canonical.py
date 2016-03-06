@@ -16,12 +16,18 @@ from decimal import Decimal
 
 from django.core.cache import cache
 
-from wger.core.models import DaysOfWeek, RepetitionUnit
 from wger.exercises.models import Exercise
-from wger.manager.models import Workout
-from wger.manager.models import Day
-from wger.manager.models import Set
-from wger.manager.models import Setting
+from wger.core.models import (
+    DaysOfWeek,
+    RepetitionUnit,
+    WeightUnit
+)
+from wger.manager.models import (
+    Workout,
+    Day,
+    Set,
+    Setting
+)
 
 from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.utils.cache import cache_mapper
@@ -42,6 +48,7 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
         setting_1 = Setting.objects.get(pk=1)
         setting_2 = Setting.objects.get(pk=2)
         repetition_unit = RepetitionUnit.objects.get(pk=1)
+        weight_unit = WeightUnit.objects.get(pk=1)
         self.assertEqual(workout.canonical_representation['muscles'], {'back': [2], 'front': [1]})
         self.assertEqual(workout.canonical_representation['obj'], workout)
 
@@ -58,7 +65,9 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
                                                            'setting_obj_list': [setting_1],
                                                            'setting_text': u'2 \xd7 8',
                                                            'repetition_units': [repetition_unit,
-                                                                                repetition_unit]}],
+                                                                                repetition_unit],
+                                                           'weight_units': [weight_unit,
+                                                                            weight_unit]}],
                                         'is_superset': False,
                                         'has_settings': True,
                                         'muscles': {'back': [2], 'front': [1]},
@@ -73,17 +82,21 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
                                                            'comment_list': [u'Foobar'],
                                                            'has_weight': True,
                                                            'reps_list': [10, 10, 10, 10],
-                                                           'setting_list': [u'10 (15kg)',
-                                                                            u'10 (15kg)',
-                                                                            u'10 (15kg)',
-                                                                            u'10 (15kg)'],
+                                                           'setting_list': [u'10 (15 kg)',
+                                                                            u'10 (15 kg)',
+                                                                            u'10 (15 kg)',
+                                                                            u'10 (15 kg)'],
                                                            'weight_list': [Decimal(15)] * 4,
                                                            'setting_obj_list': [setting_2],
-                                                           'setting_text': u'4 \xd7 10 (15kg)',
+                                                           'setting_text': u'4 \xd7 10 (15 kg)',
                                                            'repetition_units': [repetition_unit,
                                                                                 repetition_unit,
                                                                                 repetition_unit,
-                                                                                repetition_unit]}],
+                                                                                repetition_unit],
+                                                           'weight_units': [weight_unit,
+                                                                            weight_unit,
+                                                                            weight_unit,
+                                                                            weight_unit]}],
                                         'is_superset': False,
                                         'has_settings': True,
                                         'muscles': {'back': [2], 'front': []},
@@ -106,6 +119,7 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
         weekday1 = DaysOfWeek.objects.get(pk=3)
         weekday2 = DaysOfWeek.objects.get(pk=5)
         repetition_unit = RepetitionUnit.objects.get(pk=1)
+        weight_unit = WeightUnit.objects.get(pk=1)
         self.assertEqual(day.canonical_representation['days_of_week'],
                          {'day_list': [weekday1, weekday2], 'text': u'Wednesday, Friday'})
         self.assertEqual(day.canonical_representation['muscles'], {'back': [2], 'front': []})
@@ -122,7 +136,11 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
                                               'repetition_units': [repetition_unit,
                                                                    repetition_unit,
                                                                    repetition_unit,
-                                                                   repetition_unit]}],
+                                                                   repetition_unit],
+                                              'weight_units': [weight_unit,
+                                                               weight_unit,
+                                                               weight_unit,
+                                                               weight_unit]}],
                            'is_superset': False,
                            'has_settings': True,
                            'muscles': {'back': [2], 'front': []},

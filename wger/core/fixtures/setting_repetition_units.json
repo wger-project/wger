@@ -33,5 +33,12 @@
             "name": "Kilometers"
         },
         "model": "core.repetitionunit"
+    },
+    {
+        "pk": 6,
+        "fields": {
+            "name": "Until Failure"
+        },
+        "model": "core.repetitionunit"
     }
 ]

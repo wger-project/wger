@@ -2,14 +2,14 @@
     {
         "pk": 1,
         "fields": {
-            "name": "Kg"
+            "name": "kg"
         },
         "model": "core.weightunit"
     },
     {
         "pk": 2,
         "fields": {
-            "name": "Lb"
+            "name": "lb"
         },
         "model": "core.weightunit"
     },

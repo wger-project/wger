@@ -208,6 +208,7 @@ def reps_smart_text(settings, set_obj):
         weight_list = []
         reps_list = []
         repetition_units = []
+        weight_units = []
 
     # Only one setting entry, this is a "compact" representation such as e.g.
     # 4x10 or similar
@@ -219,6 +220,7 @@ def reps_smart_text(settings, set_obj):
             rep_unit = ''
         setting_text = u'{0} × {1} {2}'.format(set_obj.sets, reps, rep_unit).strip()
         setting_list_text = u'{0} {1}'.format(reps, rep_unit).strip()
+        weight_unit = settings[0].weight_unit
 
         # The weight can be None, or a decimal. In that case, normalize so
         # that we don't return e.g. '15.00', but always '15', independently of
@@ -229,12 +231,13 @@ def reps_smart_text(settings, set_obj):
             weight = settings[0].weight
 
         if weight:
-            setting_text += ' ({0}{1})'.format(weight, weight_unit)
-            setting_list_text += ' ({0}{1})'.format(weight, weight_unit)
+            setting_text += ' ({0} {1})'.format(weight, weight_unit)
+            setting_list_text += ' ({0} {1})'.format(weight, weight_unit)
         setting_list = [setting_list_text] * set_obj.sets
         reps_list = [settings[0].reps] * set_obj.sets
         weight_list = [weight] * set_obj.sets
         repetition_units = [settings[0].repetition_unit] * set_obj.sets
+        weight_units = [settings[0].weight_unit] * set_obj.sets
 
     # There's more than one setting, each set can have a different combination
     # of repetitions, weight, etc. e.g. 10, 8, 8, 12
@@ -242,28 +245,31 @@ def reps_smart_text(settings, set_obj):
         tmp_reps_text = []
         tmp_reps = []
         tmp_weight = []
-        tmp_unit = []
-        for i in settings:
-            rep_unit = _(i.repetition_unit.name) if i.repetition_unit.id != 1 else ''
-            reps = "{0} {1}".format(i.reps, rep_unit).strip() if i.reps != 99 else u'∞'
+        tmp_repetition_unit = []
+        tmp_weight_unit = []
+        for setting in settings:
+            rep_unit = _(setting.repetition_unit.name) if setting.repetition_unit.id != 1 else ''
+            reps = "{0} {1}".format(setting.reps, rep_unit).strip() if setting.reps != 99 else u'∞'
 
-            weight = i.weight
-            if i.weight:
+            weight = setting.weight
+            if setting.weight:
                 # Normalize, see comment above
-                weight = normalize_decimal(i.weight)
-                reps += ' ({0}{1})'.format(weight, weight_unit)
+                weight = normalize_decimal(setting.weight)
+                reps += ' ({0} {1})'.format(weight, setting.weight_unit)
             tmp_reps_text.append(reps)
-            tmp_reps.append(i.reps)
+            tmp_reps.append(setting.reps)
             tmp_weight.append(weight)
-            tmp_unit.append(i.repetition_unit)
+            tmp_repetition_unit.append(setting.repetition_unit)
+            tmp_weight_unit.append(setting.weight_unit)
 
         setting_text = u' – '.join(tmp_reps_text)
         setting_list = tmp_reps_text
-        repetition_units = tmp_unit
+        repetition_units = tmp_repetition_unit
+        weight_units = tmp_weight_unit
         reps_list = tmp_reps
         weight_list = tmp_weight
 
-    return setting_text, setting_list, weight_list, reps_list, repetition_units
+    return setting_text, setting_list, weight_list, reps_list, repetition_units, weight_units
 
 
 class WorkoutCalendar(HTMLCalendar):
