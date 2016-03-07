@@ -113,4 +113,4 @@ class ApiTestCase(api_base_test.ApiBaseResourceTestCase):
     private_resource = False
 
     def get_resource_name(self):
-        return 'setting-weight-unit'
+        return 'setting-weightunit'
