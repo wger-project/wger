@@ -34,7 +34,7 @@ class RepresentationTestCase(WorkoutManagerTestCase):
         '''
         Test that the representation of an object is correct
         '''
-        self.assertEqual("{0}".format(WeightUnit.objects.get(pk=1)), 'Repetitions')
+        self.assertEqual("{0}".format(WeightUnit.objects.get(pk=1)), 'kg')
 
 
 class OverviewTest(WorkoutManagerAccessTestCase):
