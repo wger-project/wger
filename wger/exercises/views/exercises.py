@@ -101,11 +101,7 @@ def view(request, id, slug=None):
     template_data['comment_edit'] = False
     template_data['show_shariff'] = True
 
-    # Load the exercise itself
-    exercise = cache.get(cache_mapper.get_exercise_key(int(id)))
-    if not exercise:
-        exercise = get_object_or_404(Exercise, pk=id)
-        cache.set(cache_mapper.get_exercise_key(exercise), exercise)
+    exercise = get_object_or_404(Exercise, pk=id)
 
     template_data['exercise'] = exercise
 

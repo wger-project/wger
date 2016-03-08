@@ -82,7 +82,6 @@
 
 
 
-{% cache cache_timeout exercise-detail-header exercise.id language.id %}
 <div class="row" style="margin-top:1em;">
     <div class="col-xs-3">
         <strong>{% trans "Category" %}:</strong>
@@ -115,7 +114,7 @@
         {{ exercise.description|safe }}
     </div>
 </div>
-{% endcache %}
+
 
 
 {# Images #}
