@@ -9,35 +9,35 @@
     {
         "pk": 2,
         "fields": {
-            "name": "Seconds"
+            "name": "Until Failure"
         },
         "model": "core.repetitionunit"
     },
     {
         "pk": 3,
         "fields": {
-            "name": "Minutes"
+            "name": "Seconds"
         },
         "model": "core.repetitionunit"
     },
     {
         "pk": 4,
         "fields": {
-            "name": "Miles"
+            "name": "Minutes"
         },
         "model": "core.repetitionunit"
     },
     {
         "pk": 5,
         "fields": {
-            "name": "Kilometers"
+            "name": "Miles"
         },
         "model": "core.repetitionunit"
     },
     {
         "pk": 6,
         "fields": {
-            "name": "Until Failure"
+            "name": "Kilometers"
         },
         "model": "core.repetitionunit"
     }
