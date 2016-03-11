@@ -104,7 +104,7 @@
                             <li><a href="{% url 'nutrition:ingredient:list' %}">{% trans "Ingredient overview" %}</a></li>
                             <li><a href="{% url 'nutrition:bmi:view' %}" rel="nofollow">{% trans "BMI calculator" %}</a></li>
                             <li><a href="{% url 'nutrition:calories:view' %}" rel="nofollow">{% trans "Daily calories calculator" %}</a></li>
-                            {% if perms.exercises %}
+                            {% if perms.nutrition %}
                                 <li class="divider"></li>
                                 <li class="dropdown-header">{% trans "Administration" %}</li>
                                 <li><a href="{% url 'nutrition:weight_unit:list' %}">{% trans "Ingredient weight units" %}</a></li>

@@ -28,10 +28,10 @@ $(document).ready(function() {
 <p>{% blocktrans %}This user submitted ingredient is pending a decision to be
 included in the database. Till then, it will not be shown in the overview or
 the search.{% endblocktrans %}
-{% if perms.exercises %}{% trans "Please select one of the options below." %}{% endif %}
+{% if perms.nutrition.add_ingredient %}{% trans "Please select one of the options below." %}{% endif %}
 </p>
 
-{% if perms.exercises %}
+{% if perms.nutrition.add_ingredient %}
 <div class="btn-group btn-group-justified" role="group">
     <a href="{% url 'nutrition:ingredient:accept' ingredient.id %}" class="btn btn-default">
         <img src="{% static 'images/icons/status-on.svg' %}"
@@ -187,7 +187,7 @@ the search.{% endblocktrans %}
 {% endif %}
 
 
-{% if perms.exercises %}
+{% if perms.nutrition.delete_ingredient %}
 <h4>{% trans "Options" %}</h4>
 
 <p>
