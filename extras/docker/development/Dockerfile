@@ -29,7 +29,7 @@ RUN . /home/wger/venv/bin/activate \
     && pip install -r requirements_devel.txt \
     && invoke --root wger create_settings \
         --settings-path /home/wger/src/settings.py \
-	    --database-path /home/wger/db/database.sqlite \
+        --database-path /home/wger/db/database.sqlite \
     && invoke --root wger bootstrap_wger \
         --settings-path /home/wger/src/settings.py \
         --no-start-server
