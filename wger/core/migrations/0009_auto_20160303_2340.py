@@ -12,20 +12,20 @@ def insert_data(apps, schema_editor):
     fixtures or perform any intermediate steps.
     '''
     WeightUnit = apps.get_model('core', 'WeightUnit')
-    WeightUnit(name='kg').save()
-    WeightUnit(name='lb').save()
-    WeightUnit(name='Body Weight').save()
-    WeightUnit(name='Plates').save()
-    WeightUnit(name='Kilometers Per Hour').save()
-    WeightUnit(name='Miles Per Hour').save()
+    WeightUnit(name='kg', pk=1).save()
+    WeightUnit(name='lb', pk=2).save()
+    WeightUnit(name='Body Weight', pk=3).save()
+    WeightUnit(name='Plates', pk=4).save()
+    WeightUnit(name='Kilometers Per Hour', pk=5).save()
+    WeightUnit(name='Miles Per Hour', pk=6).save()
 
     RepetitionUnit = apps.get_model('core', 'RepetitionUnit')
-    RepetitionUnit(name='Repetitions').save()
-    RepetitionUnit(name='Until Failure').save()
-    RepetitionUnit(name='Seconds').save()
-    RepetitionUnit(name='Minutes').save()
-    RepetitionUnit(name='Miles').save()
-    RepetitionUnit(name='Kilometers').save()
+    RepetitionUnit(name='Repetitions', pk=1).save()
+    RepetitionUnit(name='Until Failure', pk=2).save()
+    RepetitionUnit(name='Seconds', pk=3).save()
+    RepetitionUnit(name='Minutes', pk=4).save()
+    RepetitionUnit(name='Miles', pk=5).save()
+    RepetitionUnit(name='Kilometers', pk=6).save()
 
 
 class Migration(migrations.Migration):
