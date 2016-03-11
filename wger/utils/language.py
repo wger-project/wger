@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 # ************************
 
 
-def load_language():
+def load_language(language_code=None):
     '''
     Returns the currently used language, e.g. to load appropriate exercises
     '''
@@ -39,7 +39,10 @@ def load_language():
     # TODO: perhaps store a language preference in the user's profile?
 
     # Read the first part of a composite language, e.g. 'de-at'
-    used_language = translation.get_language().split('-')[0]
+    if language_code is None:
+        used_language = translation.get_language().split('-')[0]
+    else:
+        used_language = language_code
 
     language = cache.get(cache_mapper.get_language_key(used_language))
     if language:
@@ -55,12 +58,12 @@ def load_language():
     return language
 
 
-def load_item_languages(item):
+def load_item_languages(item, language_code=None):
     '''
     Returns the languages for a data type (exercises, ingredients)
     '''
 
-    language = load_language()
+    language = load_language(language_code)
     languages = cache.get(cache_mapper.get_language_config_key(language, item))
 
     # Load the configurations we are interested in and return the languages
