@@ -191,18 +191,17 @@ class WeightLogOverviewAddTestCase(WorkoutManagerTestCase):
                                      'time_start': datetime.time(10, 0),
                                      'time_end': datetime.time(12, 0),
                                      'form-0-reps': 10,
-                                     'form-0-weight': 10,
                                      'form-0-repetition_unit': 1,
+                                     'form-0-weight': 10,
                                      'form-0-weight_unit': 1,
                                      'form-1-reps': 10,
-                                     'form-1-weight': 10,
                                      'form-1-repetition_unit': 1,
+                                     'form-1-weight': 10,
                                      'form-1-weight_unit': 1,
                                      'form-TOTAL_FORMS': 3,
                                      'form-INITIAL_FORMS': 0,
                                      'form-MAX-NUM_FORMS': 3
                                      })
-
         count_after = WorkoutLog.objects.count()
 
         # Logged out users get a 302 redirect to login page
