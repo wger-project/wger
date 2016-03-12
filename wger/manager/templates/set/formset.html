@@ -40,7 +40,7 @@
         {% for i in field %}
             {% if forloop.first %}
             <div class="col-xs-2" style="text-align: right;">
-                {{ forloop.parentloop.counter }})
+                {% trans "Nr." %} {{ forloop.parentloop.counter }}
             </div>
             {% endif %}
 
