@@ -9,7 +9,8 @@
     {{ block.super }}
 
     {% breadcrumb day.training day.training %}
-    {% breadcrumb "Weight log" "manager:log:log" day.training.pk %}
+    {% breadcrumb "Weight log" "manager:log:log" day.training_id %}
+    {% breadcrumb "New weight log" "manager:log:log" day.training_id %}
 {% endblock %}
 
 
