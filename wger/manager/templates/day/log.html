@@ -1,10 +1,27 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
 
+
+{#             #}
+{# Breadcrumbs #}
+{#             #}
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% breadcrumb day.training day.training %}
+    {% breadcrumb "Weight log" "manager:log:log" day.training.pk %}
+{% endblock %}
+
+
+{#       #}
+{# Title #}
+{#       #}
 {% block title %}{% trans "New weight log" %} – {{day.description}}{% endblock %}
 
+
+{#        #}
+{# Header #}
+{#        #}
 {% block header %}
 <script type="text/javascript">
 $(document).ready(function () {
@@ -13,6 +30,10 @@ $(document).ready(function () {
 </script>
 {% endblock %}
 
+
+{#         #}
+{# Content #}
+{#         #}
 {% block content %}
 <form action="{{form_action}}" method="POST" class="form-horizontal">
     {% csrf_token %}
@@ -109,20 +130,12 @@ $(document).ready(function () {
 {% endblock %}
 
 
+{#          #}
+{# Side bar #}
+{#          #}
 {% block sidebar %}
 <h4>{% trans "Info" %}</h4>
 <p>{% blocktrans %}A new workout session (impression, notes, time) will
 be created if there isn't already one for the selected date. If there is, it
 will simply be edited. Weight entries are always added.{% endblocktrans %}</p>
-
-<h4>{% trans "Options" %}</h4>
-<p>
-<a href="{{ day.training.get_absolute_url }}" {% auto_link_css flavour %}>
-    <img src="{% static 'images/icons/list.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Back to workout' %}">
-    {% trans "Back to workout" %}
-</a>
-</p>
 {% endblock %}
