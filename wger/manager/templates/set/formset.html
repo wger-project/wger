@@ -1,13 +1,17 @@
 {% load wger_extras %}
 {% load i18n %}
 <div id="formset-exercise-{{exercise.id}}" style="margin-top: 1em;">
-<label class="control-label">
-    {{exercise}}
-</label>
+<div class="row">
+    <div class="col-md-offset-2 col-md-10">
+        <label class="control-label">
+            {{exercise}}
+        </label>
+    </div>
+</div>
 {{ formset.management_form }}
 
 {% for field in formset %}
-<div class="container-fluid" style="padding-top: 0.5em;">
+<div style="padding-top: 0.5em;">
 
     {# Header row with field labels, only for first loop #}
     <div class="row">
