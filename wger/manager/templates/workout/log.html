@@ -18,7 +18,7 @@
 {% block breadcrumbs %}
     {{ block.super }}
 
-    {% breadcrumb workout "manager:workout:view" workout.pk %}
+    {% breadcrumb workout workout %}
     {% breadcrumb "Weight log" "manager:log:log" workout.pk %}
 {% endblock %}
 
