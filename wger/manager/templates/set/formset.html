@@ -1,7 +1,9 @@
 {% load wger_extras %}
 {% load i18n %}
 <div id="formset-exercise-{{exercise.id}}" style="margin-top: 1em;">
-<h4>{{exercise}}</h4>
+<label class="control-label">
+    {{exercise}}
+</label>
 {{ formset.management_form }}
 
 {% for field in formset %}
@@ -12,12 +14,12 @@
         {% for i in field %}
         {% if not i.is_hidden %}
             {% if forloop.first %}
-            <div class="col-xs-1">
+            <div class="col-xs-2">
             </div>
             {% endif %}
 
             {% if forloop.parentloop.first %}
-                <div class="col-xs-2">
+                <div class="{% cycle 'col-xs-3' 'col-xs-2' %}">
                     {{ i.label }}
                     {% if not i.field.required %}
                         <br>
@@ -33,13 +35,13 @@
     <div class="row">
         {% for i in field %}
             {% if forloop.first %}
-            <div class="col-xs-1" style="text-align: right;">
+            <div class="col-xs-2" style="text-align: right;">
                 {{ forloop.parentloop.counter }})
             </div>
             {% endif %}
 
             {% if not i.is_hidden %}
-            <div class="col-xs-2 {% if i.errors %}has-error{% endif %}">
+            <div class="{% cycle 'col-xs-3' 'col-xs-2' %} {% if i.errors %}has-error{% endif %}">
             {% endif %}
 
             {#  Field elements #}
