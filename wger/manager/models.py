@@ -629,15 +629,19 @@ class Setting(models.Model):
 
     def save(self, *args, **kwargs):
         '''
-        Reset all cached infos
+        Reset cache
         '''
-
         reset_workout_canonical_form(self.set.exerciseday.training_id)
+
+        # If the user selected "Until Failure", do only 1 "repetition",
+        # everythin else doesn't make sense.
+        if self.repetition_unit == 2:
+            self.reps = 1
         super(Setting, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         '''
-        Reset all cached infos
+        Reset cache
         '''
 
         reset_workout_canonical_form(self.set.exerciseday.training_id)
@@ -731,6 +735,11 @@ class WorkoutLog(models.Model):
         Reset cache
         '''
         reset_workout_log(self.user_id, self.date.year, self.date.month, self.date.day)
+
+        # If the user selected "Until Failure", do only 1 "repetition",
+        # everythin else doesn't make sense.
+        if self.repetition_unit == 2:
+            self.reps = 1
         super(WorkoutLog, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
