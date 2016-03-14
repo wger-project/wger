@@ -224,7 +224,10 @@ def add(request, pk):
     else:
         # Initialise the formset with a queryset that won't return any objects
         # (we only add new logs here and that seems to be the fastest way)
-        formset = WorkoutLogFormSet(queryset=WorkoutLog.objects.none())
+        user_weight_unit = 1 if request.user.userprofile.use_metric else 2
+        formset = WorkoutLogFormSet(queryset=WorkoutLog.objects.none(),
+                                    initial=[{'weight_unit': user_weight_unit,
+                                              'repetition_unit': 1} for x in range(0, total_sets)])
 
         dateform = HelperDateForm(initial={'date': datetime.date.today()})
 
