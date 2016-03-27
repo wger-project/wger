@@ -55,7 +55,13 @@ and stable state.
  $ git clone https://github.com/rolandgeider/wger.git
  $ cd wger
  $ pip install -r requirements.txt  # or requirements_devel.txt to develop
+ $ invoke --root wger create_settings \
+          --settings-path /home/wger/wger/settings.py \
+          --database-path /home/wger/wger/database.sqlite
  $ invoke --root wger bootstrap_wger
+          --settings-path /home/wger/wger/settings.py \
+          --no-start-server
+ $ python manage.py runserver
 
 3) Log in as: **admin**, password **admin**
 
