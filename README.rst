@@ -43,7 +43,7 @@ and stable state.
 
 ::
 
- $ sudo apt-get install python3-dev python-virtualenv nodejs nodejs-legacy npm libjpeg8-dev zlib1g-dev
+ $ sudo apt-get install python3-dev python-virtualenv nodejs nodejs-legacy npm libjpeg8-dev zlib1g-dev git
  $ virtualenv --python python3 venv-django
  $ source venv-django/bin/activate
 
