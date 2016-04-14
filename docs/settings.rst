@@ -19,6 +19,9 @@ dictionary in your settings file. Currently the following options are supported:
   middleware instead. Read the django documentation on the security implications
   (BREACH attack).
 
+**EMAIL_FROM**: Default `wger Workout Manager <wger@example.com>`
+  The sender address used for sent emails by the system such as weight reminders
+
 
 .. note::
   If you want to override a default setting, don't overwrite all the dictionary

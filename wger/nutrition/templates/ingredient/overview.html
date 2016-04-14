@@ -32,7 +32,7 @@ $(document).ready(function() {
 {% if ingredients_list %}
 <div class="list-group">
     {% for ingredient in ingredients_list %}
-        <a  class="list-group-item {% if flavour == 'mobile' %}wger-list-group-item{% endif %}" href="{{ ingredient.get_absolute_url }}">
+        <a  class="list-group-item" href="{{ ingredient.get_absolute_url }}">
             {% if flavour == 'mobile' %}
                 <span class="glyphicon glyphicon-chevron-right pull-right"></span>
             {% endif %}
@@ -54,19 +54,20 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block sidebar %}
-{% if user.is_authenticated and not user.userprofile.is_temporary %}
-<h4>{% trans "Add ingredient" %}</h4>
 <p>
-       <a href="{% url 'nutrition:ingredient:add' %}" {% auto_link_css flavour %}>
-       <img src="{% static 'images/icons/new.svg' %}"
-            width="32"
-            height="32"
-            alt="{% trans 'Add ingredient' %}"
-            title="{% trans 'Add ingredient' %}">
-       {% trans "Add ingredient" %}
-       </a>
+    {% if user.is_authenticated and not user.userprofile.is_temporary %}
+    <a href="{% url 'nutrition:ingredient:add' %}" class="btn btn-success btn-sm">
+        {% trans "Add ingredient" %}
+    </a>
+    {% else %}
+    <a href="#" class="btn btn-success btn-sm disabled">
+        {% trans "Add ingredient" %}<br>
+        <small>
+        {% trans "Only registered users can do this" %}
+        </small>
+    </a>
+    {% endif %}
 </p>
-{% endif %}
 
 <h4>{% trans "Search" %}</h4>
 <form action="{% url 'ingredient-search' %}"

@@ -63,6 +63,9 @@ patterns_gym = [
     url(r'^user/(?P<user_pk>\d+)/permission-edit$',
         gym.gym_permissions_user_edit,
         name='edit-user-permission'),
+    url(r'^user/(?P<user_pk>\d+)/reset-user-password$',
+        gym.reset_user_password,
+        name='reset-user-password'),
 ]
 
 # 'sub patterns' for gym config

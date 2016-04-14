@@ -130,7 +130,7 @@ $(document).ready(function() {
 
 <h4>{% trans "Options" %}</h4>
 
-<a href="#export-pdf-link" data-toggle="modal" {% auto_link_css flavour %}>
+<a href="#download-pdf-popup" data-toggle="modal" {% auto_link_css flavour %}>
     <img src="{% static 'images/icons/save.svg' %}"
          width="32"
          height="32"
@@ -216,8 +216,7 @@ an appointment for each training day with the appropriate exercises.{% endblockt
 </div>
 
 
-
-<div class="modal fade" id="export-pdf-link">
+<div class="modal fade" id="download-pdf-popup">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -225,13 +224,57 @@ an appointment for each training day with the appropriate exercises.{% endblockt
                 <h4 class="modal-title">{% trans "Download as PDF" %}</h4>
             </div>
             <div class="modal-body">
-                <a href="{% url 'manager:workout:pdf-log' workout.id uid token %}" {% auto_link_css flavour %}>
-                {% trans "Log" %}
-                </a>
+                <form class="form-horizontal">
+                    <div id="pdf-download-info" data-workout-id="{{ workout.id }}" data-uid="{{ uid }}" data-token="{{ token }}"></div>
+                    <div class="form-group">
+                        <div>
+                            <label for="id_images" class="col-md-3 control-label">
+                                {% trans "Type" %}
+                            </label>
+                        </div>
+                        <div class="col-md-9" style="padding-left: 35px;">
+                            <div class="radio">
+                                <input type="radio" name="pdf_type" id="id_type_log" value="log" checked>
+                                {% trans "Log" %}
+                            </div>
+                            <div class="radio">
+                                <input type="radio" name="pdf_type" id="id_type_table" value="table">
+                                {% trans "Table" %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label for="id_images" class="col-md-3 control-label">
+                                {% trans "with images" %}
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="checkbox" class="checkbox" name="images" id="id_images" checked>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label for="id_comments" class="col-md-3 control-label">
+                                {% trans "with comments" %}
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="checkbox" class="checkbox" name="comments" id="id_comments" checked>
+                        </div>
+                    </div>
+                </form>
 
-                <a href="{% url 'manager:workout:pdf-table' workout.id uid token %}" {% auto_link_css flavour %}>
-                {% trans "Table" %}
+                <p>
+                <a href="" class="btn btn-block btn-default" id="download-pdf-button">
+                   <img src="{% static 'images/icons/save.svg' %}"
+                         width="32"
+                         height="32"
+                         alt="{% trans 'Download' %}"
+                         title="{% trans 'Download' %}">
+                   {% trans "Download" %}
                 </a>
+                </p>
             </div>
         </div>
     </div>

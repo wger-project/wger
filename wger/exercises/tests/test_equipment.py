@@ -158,7 +158,6 @@ class EquipmentCacheTestCase(WorkoutManagerTestCase):
         self.client.get(reverse('exercise:equipment:overview'))
         self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
-        old_exercise = cache.get(cache_mapper.get_exercise_key(2))
         old_overview = cache.get(get_template_cache_name('equipment-overview', 2))
 
         exercise = Exercise.objects.get(pk=2)
@@ -172,10 +171,8 @@ class EquipmentCacheTestCase(WorkoutManagerTestCase):
         self.client.get(reverse('exercise:equipment:overview'))
         self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
-        new_exercise = cache.get(cache_mapper.get_exercise_key(2))
         new_overview = cache.get(get_template_cache_name('equipment-overview', 2))
 
-        self.assertNotEqual(old_exercise.name, new_exercise.name)
         self.assertNotEqual(old_overview, new_overview)
 
 

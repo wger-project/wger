@@ -54,7 +54,7 @@ class AbstractWeight(object):
             weight /= Decimal(16.0)
 
         self.weight = weight
-        self.is_kg = True if mode in ('kg', 'g') else False
+        self.is_kg = mode in ('kg', 'g')
 
     def __add__(self, other):
         '''

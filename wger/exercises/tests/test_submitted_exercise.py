@@ -70,7 +70,7 @@ class ExercisesPendingDetailTestCase(WorkoutManagerTestCase):
         Helper function
         '''
         response = self.client.get(reverse('exercise:exercise:view', kwargs={'id': 4}))
-        self.assertContains(response, 'Exercise is pending')
+        self.assertContains(response, 'Exercise is pending review')
 
         if not fail:
             self.assertEqual(response.status_code, 200)

@@ -39,12 +39,10 @@ $(document).ready(function() {
     </div>
 
     <div div class="form-group">
-        <div class="col-md-3">
-            <label for="id_sets" class="control-label">
-                {{form.sets.label}}
-                - <span id="id_sets_value">{{ form.sets.value }}</span>
-            </label>
-        </div>
+        <label for="id_sets" class="control-label col-md-3">
+            {{form.sets.label}}
+            - <span id="id_sets_value">{{ form.sets.value }}</span>
+        </label>
         <div class="col-md-9">
             <input name="sets"
                    id="id_sets"

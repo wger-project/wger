@@ -16,14 +16,6 @@
 <script>
 $(document).ready(function() {
 
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        var category_id = $(e.target).attr('id').match(/\d+/);
-        $(".current-category-name").html($("#category-" + category_id).text());
-        $("#current-category-edit").attr("href", "/exercise/category/" + category_id + "/edit/");
-        $("#current-category-delete").attr("href", "/exercise/category/" + category_id + "/delete/");
-    })
-
-
     // Prevent the form from being submited if JavaScript is enabled
     $("#exercise_search_form").submit(function() {return false;});
 
@@ -106,8 +98,6 @@ $(document).ready(function() {
     </div>
     {% endfor %}
 </div>
-
-
 {% endcache %}
 
 
@@ -118,88 +108,32 @@ $(document).ready(function() {
         Side bar
 -->
 {% block sidebar %}
-<h4>{% trans "Add new exercise" %}</h4>
 <p>
     {% if user.is_authenticated and not user.userprofile.is_temporary %}
-    <a href="{% url 'exercise:exercise:add' %}" {% auto_link_css flavour %}>
-    <img src="{% static 'images/icons/new.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Add new exercise' %}"
-         title="{% trans 'Add new exercise' %}">
-    {% trans "Add new exercise" %}
+    <a href="{% url 'exercise:exercise:add' %}" class="btn btn-success btn-sm">
+        {% trans "Add new exercise" %}
     </a>
     {% else %}
-    <img src="{% static 'images/icons/new.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Add new exercise' %}"
-         title="{% trans 'Add new exercise' %}">
-    <span>
-    {% trans "Only registered users can do this" %}
-    </span>
+    <a href="#" class="btn btn-success btn-sm disabled">
+        {% trans "Add new exercise" %}<br>
+        <small>
+        {% trans "Only registered users can do this" %}
+        </small>
+    </a>
     {% endif %}
 </p>
 
+<h4>{% trans "Search" %}</h4>
 
-{% if perms.exercises %}
-    <h4>{% trans "Options" %}</h4>
-        {% if exercises %}
-        {% with exercise=exercises|first %}
-        <p>
-        <a href="{% url 'exercise:category:edit' exercise.category.id %}"
-           {% auto_link_css flavour "wger-modal-dialog" %}
-           id="current-category-edit">
-            <img src="{% static 'images/icons/edit.svg' %}"
-                 width="32"
-                 height="32"
-                 alt="{% trans 'Edit category' %}"
-                 title="{% trans 'Edit category' %}">
-                {% trans "Edit category" %}:
-                <span class="current-category-name">{% trans exercise.category.name %}</span>
-        </a>
-        </p>
-
-        <p>
-        <a href="{% url 'exercise:category:delete' exercise.category.id %}"
-           {% auto_link_css flavour "wger-modal-dialog" %}
-           id="current-category-delete">
-            <img src="{% static 'images/icons/trash.svg' %}"
-                 width="32"
-                 height="32"
-                 alt="{% trans 'Delete category' %}"
-                 title="{% trans 'Delete category' %}">
-                {% trans "Delete category" %}:
-                <span class="current-category-name">{% trans exercise.category.name %}</span>
-        </a>
-        </p>
-        {% endwith %}
-        {% endif %}
-
-        <p>
-        <a href="{% url 'exercise:category:add' %}"
-           {% auto_link_css flavour "wger-modal-dialog" %}>
-            <img src="{% static 'images/icons/folder-new.svg' %}"
-                 width="32"
-                 height="32"
-                 alt="{% trans 'Add category' %}"
-                 title="{% trans 'Add category' %}">
-         {% trans "Add category" %}
-        </a>
-    </p>
-{% endif %}
-
-    <h4>{% trans "Search" %}</h4>
-
-    <form action="{% url 'exercise-search' %}"
-          method="get"
-          id="exercise_search_form">
-        {% csrf_token %}
-        <input name="term"
-               type="search"
-               id="exercise-search"
-               class="ajax-form-element form-control"
-               placeholder="{% trans 'exercise name' %}"
-               >
-   </form>
+<form action="{% url 'exercise-search' %}"
+      method="get"
+      id="exercise_search_form">
+    {% csrf_token %}
+    <input name="term"
+           type="search"
+           id="exercise-search"
+           class="ajax-form-element form-control"
+           placeholder="{% trans 'exercise name' %}"
+           >
+</form>
 {% endblock %}

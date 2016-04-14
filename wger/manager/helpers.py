@@ -23,7 +23,10 @@ from reportlab.lib.units import cm
 from reportlab.platypus import (
     Paragraph,
     Table,
-    KeepTogether
+    KeepTogether,
+    ListFlowable,
+    ListItem,
+    Image
 )
 
 from django.core.urlresolvers import reverse
@@ -33,10 +36,24 @@ from wger.utils.helpers import normalize_decimal
 from wger.utils.pdf import styleSheet
 
 
-def render_workout_day(day, nr_of_weeks):
+def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_table=False):
     '''
     Render a table with reportlab with the contents of the training day
+
+    :param day: a workout day object
+    :param nr_of_weeks: the numbrer of weeks to render, default is 7
+    :param images: boolean indicating whether to also draw exercise images
+           in the PDF (actually only the main image)
+    :param comments: boolean indicathing whether the exercise comments will
+           be rendered as well
+    :param only_table: boolean indicating whether to draw a table with space
+           for weight logs or just a list of the exercises
     '''
+
+    # If rendering only the table, reset the nr of weeks, since these columns
+    # will not be rendered anyway.
+    if only_table:
+        nr_of_weeks = 0
 
     data = []
 
@@ -84,8 +101,41 @@ def render_workout_day(day, nr_of_weeks):
             else:
                 setting_out = Paragraph(exercise['setting_text'], styleSheet["Small"])
 
+            # Collect a list of the exercise comments
+            item_list = [Paragraph('', styleSheet["Small"])]
+            if comments:
+                item_list = [ListItem(Paragraph(i, style=styleSheet["ExerciseComments"]))
+                             for i in exercise['comment_list']]
+
+            # Add the exercise's main image
+            image = Paragraph('', styleSheet["Small"])
+            if images:
+                if exercise['obj'].main_image:
+
+                    # Make the images somewhat larger when printing only the workout and not
+                    # also the columns for weight logs
+                    if only_table:
+                        image_size = 2
+                    else:
+                        image_size = 1.5
+
+                    image = Image(exercise['obj'].main_image.image)
+                    image.drawHeight = image_size * cm * image.drawHeight / image.drawWidth
+                    image.drawWidth = image_size * cm
+
+            # Put the name and images and comments together
+            exercise_content = [Paragraph(exercise['obj'].name, styleSheet["Small"]),
+                                image,
+                                ListFlowable(item_list,
+                                             bulletType='bullet',
+                                             leftIndent=5,
+                                             spaceBefore=7,
+                                             bulletOffsetY=-3,
+                                             bulletFontSize=3,
+                                             start='square')]
+
             data.append([set_count,
-                         Paragraph(exercise['obj'].name, styleSheet["Small"]),
+                         exercise_content,
                          setting_out]
                         + [''] * nr_of_weeks)
         set_count += 1
@@ -127,9 +177,14 @@ def render_workout_day(day, nr_of_weeks):
     # Put everything together and manually set some of the widths
     t = Table(data, style=table_style)
     if len(t._argW) > 1:
-        t._argW[0] = 0.6 * cm  # Numbering
-        t._argW[1] = 4 * cm  # Exercise
-        t._argW[2] = 2.5 * cm  # Repetitions
+        if only_table:
+            t._argW[0] = 0.6 * cm  # Numbering
+            t._argW[1] = 8 * cm  # Exercise
+            t._argW[2] = 3.5 * cm  # Repetitions
+        else:
+            t._argW[0] = 0.6 * cm  # Numbering
+            t._argW[1] = 4 * cm  # Exercise
+            t._argW[2] = 2.5 * cm  # Repetitions
 
     return KeepTogether(t)
 

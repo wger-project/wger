@@ -144,7 +144,11 @@ def view(request, id):
 
     # Get the nutritional info
     template_data['plan'] = plan
-    template_data['nutritional_data'] = plan.get_nutritional_values()
+    template_data['nutritional_data'] = \
+        plan.get_nutritional_values()
+
+    # Get the weight entry used
+    template_data['weight_entry'] = plan.get_closest_weight_entry()
 
     # Tokens for the links
     template_data['uid'] = uid

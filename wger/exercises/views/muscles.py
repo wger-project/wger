@@ -57,6 +57,16 @@ class MuscleListView(ListView):
         return context
 
 
+class MuscleAdminListView(WgerPermissionMixin, MuscleListView):
+    '''
+    Overview of all muscles, for administration purposes
+    '''
+    permission_required = 'exercises.change_muscle'
+    login_required = True
+    queryset = Muscle.objects.order_by('name')
+    template_name = 'muscles/admin-overview.html'
+
+
 class MuscleAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     '''
     Generic view to add a new muscle
@@ -64,7 +74,7 @@ class MuscleAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
 
     model = Muscle
     fields = '__all__'
-    success_url = reverse_lazy('exercise:muscle:overview')
+    success_url = reverse_lazy('exercise:muscle:admin-list')
     title = ugettext_lazy('Add muscle')
     form_action = reverse_lazy('exercise:muscle:add')
     permission_required = 'exercises.add_muscle'
@@ -77,7 +87,7 @@ class MuscleUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
 
     model = Muscle
     fields = '__all__'
-    success_url = reverse_lazy('exercise:muscle:overview')
+    success_url = reverse_lazy('exercise:muscle:admin-list')
     permission_required = 'exercises.change_muscle'
 
     def get_context_data(self, **kwargs):
@@ -96,7 +106,7 @@ class MuscleDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
 
     model = Muscle
-    success_url = reverse_lazy('exercise:muscle:overview')
+    success_url = reverse_lazy('exercise:muscle:admin-list')
     permission_required = 'exercises.delete_muscle'
     messages = ugettext_lazy('Successfully deleted')
 
