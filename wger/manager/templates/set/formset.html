@@ -39,13 +39,13 @@
     <div class="row">
         {% for i in field %}
             {% if forloop.first %}
-            <div class="col-xs-2" style="text-align: right;">
+            <div class="col-xs-2" style="text-align: right; padding-left: 0px;">
                 {% trans "Nr." %} {{ forloop.parentloop.counter }}
             </div>
             {% endif %}
 
             {% if not i.is_hidden %}
-            <div class="{% cycle 'col-xs-3' 'col-xs-2' %} {% if i.errors %}has-error{% endif %}">
+            <div class="{% cycle 'col-xs-3' 'col-xs-2' %} {% if i.errors %}has-error{% endif %}" style="padding-left: 0px;">
             {% endif %}
 
             {#  Field elements #}
