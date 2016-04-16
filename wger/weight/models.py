@@ -32,7 +32,7 @@ class WeightEntry(models.Model):
     weight = models.DecimalField(verbose_name=_('Weight'),
                                  max_digits=5,
                                  decimal_places=2,
-                                 validators=[MinValueValidator(30), MaxValueValidator(300)])
+                                 validators=[MinValueValidator(30), MaxValueValidator(600)])
     user = models.ForeignKey(User,
                              verbose_name=_('User'))
     '''
