@@ -144,7 +144,10 @@ class Workout(models.Model):
                 day_canonical_repr.append(canonical_repr_day)
 
             workout_canonical_form = {'obj': self,
-                                      'muscles': {'front': muscles_front, 'back': muscles_back, 'frontsecondary':muscles_front_secondary, 'backsecondary': muscles_back_secondary },
+                                      'muscles': {'front': muscles_front,
+                                                  'back': muscles_back,
+                                                  'frontsecondary': muscles_front_secondary,
+                                                  'backsecondary': muscles_back_secondary},
                                       'day_list': day_canonical_repr}
             print(workout_canonical_form)
             # Save to cache
@@ -436,7 +439,6 @@ class Day(models.Model):
         muscles_back = []
         muscles_front_secondary = []
         muscles_back_secondary = []
-
 
         for set_obj in self.set_set.select_related():
             exercise_tmp = []

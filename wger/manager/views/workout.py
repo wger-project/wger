@@ -100,7 +100,6 @@ def view(request, pk):
         if i not in muscles_back:
             muscles_back.append('images/muscles/secondary/muscle-{0}.svg'.format(i))
 
-
     # Append the silhouette of the human body as the last entry so the browser
     # renders it in the background
     muscles_front.append('images/muscles/muscular_system_front.svg')
