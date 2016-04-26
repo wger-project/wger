@@ -78,46 +78,6 @@ class WorkoutLogUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
         return context
 
 
-class WorkoutLogAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
-    '''
-    Generic view to add a new workout log weight entry
-    '''
-    model = WorkoutLog
-    login_required = True
-    form_class = WorkoutLogForm
-
-    def dispatch(self, request, *args, **kwargs):
-        '''
-        Check for ownership
-        '''
-        workout = Workout.objects.get(pk=kwargs['workout_pk'])
-        if workout.user != request.user:
-            return HttpResponseForbidden()
-
-        return super(WorkoutLogAddView, self).dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super(WorkoutLogAddView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('manager:log:add',
-                                         kwargs={'workout_pk': self.kwargs['workout_pk']})
-        context['title'] = _('New log entry')
-
-        return context
-
-    def get_success_url(self):
-        return reverse('manager:log:log', kwargs={'pk': self.kwargs['workout_pk']})
-
-    def form_valid(self, form):
-        '''
-        Set the workout and the user
-        '''
-
-        workout = Workout.objects.get(pk=self.kwargs['workout_pk'])
-        form.instance.workout = workout
-        form.instance.user = self.request.user
-        return super(WorkoutLogAddView, self).form_valid(form)
-
-
 class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
     Delete a workout log

@@ -281,10 +281,14 @@ $(document).ready(function() {
             data-step="{{step.current_step}}"
             data-number="{{step.step_nr}}">
             <h2>{{step.exercise}}</h2>
-            <form action="{% url 'manager:log:add' workout.pk %}"
+            <form action="/api/v2/workoutlog/"
                   method="POST"
                   id="form-{{step.current_step}}">
                 {% csrf_token %}
+                <input name="workout"
+                       id="id-workout"
+                       value="{{workout.pk}}"
+                       type="hidden">
                 <input name="exercise"
                        id="id-exercise-{{step.current_step}}"
                        value="{{step.exercise.pk}}"

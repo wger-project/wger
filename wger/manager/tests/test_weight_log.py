@@ -289,21 +289,6 @@ class WeightlogTestCase(WorkoutManagerTestCase):
         self.assertEqual(l.get_workout_session(), session1)
 
 
-class WeightLogAddTestCase(WorkoutManagerAddTestCase):
-    '''
-    Tests adding a WorkoutLog
-    '''
-
-    object_class = WorkoutLog
-    url = reverse_lazy('manager:log:add', kwargs={'workout_pk': 1})
-    data = {'reps': 10,
-            'weight': 120.5,
-            'repetition_unit': 2,
-            'weight_unit': 1,
-            'date': datetime.date.today(),
-            'exercise': 1}
-
-
 class WeightLogDeleteTestCase(WorkoutManagerDeleteTestCase):
     '''
     Tests deleting a WorkoutLog
