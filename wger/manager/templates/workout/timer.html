@@ -8,9 +8,6 @@
 {% block title %}{% endblock %}
 
 {% block header %}
-<style>
-
-</style>
 <script>
 "use strict";
 /*
@@ -296,7 +293,7 @@ $(document).ready(function() {
                        id="id-date-{{step.current_step}}"
                        value="{% now 'Y-m-j' %}"
                        type="hidden">
-            <div class="row filler_div">
+            <div class="row">
                 <div class="col-xs-6">
                     <label for="id-reps-{{step.current_step}}">{% trans "Repetitions" %}:</label>
                     <input name="reps"
@@ -316,6 +313,26 @@ $(document).ready(function() {
                            type="number"
                            autocomplete="off"
                            class="form-control">
+                </div>
+            </div>
+            <div class="row filler_div">
+                <div class="col-xs-6">
+                     <select name="repetition_unit" id="id-repetition-unit-{{step.current_step}}" class="form-control">
+                         {% for unit in repetition_units %}
+                             <option value="{{ unit.pk }}" {% if unit.pk = step.rep_unit.pk %}selected="selected"{% endif %}>
+                                {% trans unit.name %}
+                             </option>
+                         {% endfor %}
+                    </select>
+                </div>
+                <div class="col-xs-6">
+                    <select name="weight_unit" id="id-weight-unit-{{step.current_step}}" class="form-control">
+                         {% for unit in weight_units %}
+                             <option value="{{ unit.pk }}" {% if unit.pk = step.weight_unit.pk %}selected="selected"{% endif %}>
+                                {% trans unit.name %}
+                             </option>
+                         {% endfor %}
+                    </select>
                 </div>
             </div>
             </form>
