@@ -16,16 +16,6 @@
 
 
 import sys
-#
-# This is an ugly and terrible hack, please don't do this!
-#
-# The reason we do this is that during django's setup later in this script, it
-# tries to load the standard library's "mail" module which collides with our
-# (perhaps unluckily named) app with the same name. Since this script is only
-# used for installation and does not depend on anything from wger proper, it
-# is kind of OK to change the system path.
-sys.path = sys.path[1:]
-
 import time
 import logging
 import threading
@@ -108,8 +98,9 @@ def bootstrap_wger(settings_path=None,
         create_or_reset_admin(settings_path=settings_path)
 
     # Download JS libraries with bower
-    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'wger'))
     run('npm install bower')
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
     call_command('bower', 'install')
 
     # Start the webserver
@@ -143,7 +134,7 @@ def create_settings(settings_path=None, database_path=None, url=None, database_t
         url = 'http://localhost:8000'
 
     # Fill in the config file template
-    settings_template = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'settings.tpl')
+    settings_template = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'wger', 'settings.tpl')
     with open(settings_template, 'r') as settings_file:
         settings_content = settings_file.read()
 
@@ -210,7 +201,7 @@ def create_or_reset_admin(settings_path=None):
     # current_dir = os.path.join(os.getcwd(), 'wger')
     current_dir = os.path.dirname(os.path.abspath(__file__))
 
-    path = os.path.join(current_dir, 'core', 'fixtures/')
+    path = os.path.join(current_dir, 'wger', 'core', 'fixtures/')
     call_command("loaddata", path + "users.json")
 
 
@@ -241,11 +232,11 @@ def load_fixtures(settings_path=None):
     current_dir = os.path.dirname(os.path.abspath(__file__))
 
     # Gym
-    path = os.path.join(current_dir, 'gym', 'fixtures/')
+    path = os.path.join(current_dir, 'wger', 'gym', 'fixtures/')
     call_command("loaddata", path + "gym.json")
 
     # Core
-    path = os.path.join(current_dir, 'core', 'fixtures/')
+    path = os.path.join(current_dir, 'wger', 'core', 'fixtures/')
     call_command("loaddata", path + "languages.json")
     call_command("loaddata", path + "groups.json")
     call_command("loaddata", path + "users.json")
@@ -255,7 +246,7 @@ def load_fixtures(settings_path=None):
     call_command("loaddata", path + "setting_weight_units.json")
 
     # Config
-    path = os.path.join(current_dir, 'config', 'fixtures/')
+    path = os.path.join(current_dir, 'wger', 'config', 'fixtures/')
     call_command("loaddata", path + "language_config.json")
     call_command("loaddata", path + "gym_config.json")
 
@@ -263,20 +254,20 @@ def load_fixtures(settings_path=None):
     # path = os.path.join(current_dir, 'manager', 'fixtures/')
 
     # Exercises
-    path = os.path.join(current_dir, 'exercises', 'fixtures/')
+    path = os.path.join(current_dir, 'wger', 'exercises', 'fixtures/')
     call_command("loaddata", path + "equipment.json")
     call_command("loaddata", path + "muscles.json")
     call_command("loaddata", path + "categories.json")
     call_command("loaddata", path + "exercises.json")
 
     # Nutrition
-    path = os.path.join(current_dir, 'nutrition', 'fixtures/')
+    path = os.path.join(current_dir, 'wger', 'nutrition', 'fixtures/')
     call_command("loaddata", path + "ingredients.json")
     call_command("loaddata", path + "weight_units.json")
     call_command("loaddata", path + "ingredient_units.json")
 
     # Gym
-    path = os.path.join(current_dir, 'gym', 'fixtures/')
+    path = os.path.join(current_dir, 'wger', 'gym', 'fixtures/')
     call_command("loaddata", path + "gym.json")
     call_command("loaddata", path + "gym-config.json")
     call_command("loaddata", path + "gym-adminconfig.json")

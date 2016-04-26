@@ -15,13 +15,24 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from django import template
-from django.forms.widgets import CheckboxInput, ClearableFileInput
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import pgettext
 from django.conf import settings
+from django.forms.widgets import (
+    CheckboxInput,
+    ClearableFileInput
+)
+from django.utils.translation import (
+    ugettext_lazy as _,
+    pgettext
+)
 
-from wger.utils.constants import PAGINATION_MAX_TOTAL_PAGES, PAGINATION_PAGES_AROUND_CURRENT
-from wger.exercises.widgets import CheckboxBootstrapSelectMultiple
+from wger.utils.constants import (
+    PAGINATION_MAX_TOTAL_PAGES,
+    PAGINATION_PAGES_AROUND_CURRENT
+)
+from wger.utils.widgets import (
+    BootstrapSelectMultipleTranslatedOriginal,
+    BootstrapSelectMultiple
+)
 
 register = template.Library()
 
@@ -211,18 +222,20 @@ def is_checkbox(field):
     :param field: a form field
     :return: boolen
     '''
-    return field.field.widget.__class__.__name__ == CheckboxInput().__class__.__name__
+    return isinstance(field.field.widget, CheckboxInput)
 
 
 @register.filter(name='is_multiple')
 def is_multiple(field):
     '''
-    Tests if a field element is a checkbox, as it needs to be handled slightly different
+    Tests if a field element is a multiple select rendered as a checkbox, as it
+    needs to be handled slightly different
 
     :param field: a form field
     :return: boolen
     '''
-    return isinstance(field.field.widget, CheckboxBootstrapSelectMultiple)
+    return isinstance(field.field.widget, BootstrapSelectMultiple) \
+        or isinstance(field.field.widget, BootstrapSelectMultipleTranslatedOriginal)
 
 
 @register.filter(name='is_fileupload')
@@ -233,7 +246,7 @@ def is_fileupload(field):
     :param field: a form field
     :return: boolen
     '''
-    return field.field.widget.__class__.__name__ == ClearableFileInput().__class__.__name__
+    return isinstance(field.field.widget, ClearableFileInput)
 
 
 @register.inclusion_tag('tags/render_form_element.html')

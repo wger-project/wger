@@ -225,7 +225,6 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         super(Exercise, self).save(*args, **kwargs)
 
         # Cached objects
-        cache.delete(cache_mapper.get_exercise_key(self))
         cache.delete(cache_mapper.get_exercise_muscle_bg_key(self))
 
         # Cached template fragments
@@ -233,8 +232,6 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             delete_template_fragment_cache('muscle-overview', language.id)
             delete_template_fragment_cache('exercise-overview', language.id)
             delete_template_fragment_cache('exercise-overview-mobile', language.id)
-            delete_template_fragment_cache('exercise-detail-header', self.id, language.id)
-            delete_template_fragment_cache('exercise-detail-muscles', self.id, language.id)
             delete_template_fragment_cache('equipment-overview', language.id)
 
         # Cached workouts
@@ -247,7 +244,6 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         '''
 
         # Cached objects
-        cache.delete(cache_mapper.get_exercise_key(self))
         cache.delete(cache_mapper.get_exercise_muscle_bg_key(self))
 
         # Cached template fragments
@@ -255,8 +251,6 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             delete_template_fragment_cache('muscle-overview', language.id)
             delete_template_fragment_cache('exercise-overview', language.id)
             delete_template_fragment_cache('exercise-overview-mobile', language.id)
-            delete_template_fragment_cache('exercise-detail-header', self.id, language.id)
-            delete_template_fragment_cache('exercise-detail-muscles', self.id, language.id)
             delete_template_fragment_cache('equipment-overview', language.id)
 
         # Cached workouts
@@ -401,12 +395,6 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
             delete_template_fragment_cache('exercise-overview', language.id)
             delete_template_fragment_cache('exercise-overview-mobile', language.id)
             delete_template_fragment_cache('equipment-overview', language.id)
-            delete_template_fragment_cache('exercise-detail-header',
-                                           self.exercise.id,
-                                           language.id)
-            delete_template_fragment_cache('exercise-detail-muscles',
-                                           self.exercise.id,
-                                           language.id)
 
         # And go on
         super(ExerciseImage, self).save(*args, **kwargs)
@@ -421,8 +409,6 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
             delete_template_fragment_cache('muscle-overview', language.id)
             delete_template_fragment_cache('exercise-overview', language.id)
             delete_template_fragment_cache('exercise-overview-mobile', language.id)
-            delete_template_fragment_cache('exercise-detail-header', self.exercise.id, language.id)
-            delete_template_fragment_cache('exercise-detail-muscles', self.exercise.id, language.id)
             delete_template_fragment_cache('equipment-overview', language.id)
 
         # Make sure there is always a main image

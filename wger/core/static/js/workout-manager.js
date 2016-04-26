@@ -509,7 +509,7 @@ function init_edit_set() {
     // Initialise the autocompleter (our widget, defined above)
     if (jQuery.ui) {
         $("#exercise-search").catcomplete({
-            source: '/api/v2/exercise/search/',
+            source: '/api/v2/exercise/search/?language=' + get_current_language(),
             minLength: 2,
             select: function (event, ui) {
 

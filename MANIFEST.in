@@ -3,6 +3,7 @@ include AUTHORS.txt
 include AGPL.txt
 include CC-BY-SA.txt
 include requirements.txt
+include tasks.py
 
 recursive-include wger *.*
 recursive-exclude wger *.pyc

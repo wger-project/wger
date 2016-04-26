@@ -20,7 +20,7 @@ $(document).ready(function() {
 
 
     // Hightlight the first element
-    highlight_muscle($('.muscle').first(), {% if perms.exercises %}true{% else %}false{% endif %});
+    highlight_muscle($('.muscle').first());
 
     // Highlight on hover
     $('.muscle').hover(function(e) {

@@ -18,13 +18,13 @@ import logging
 from itertools import chain
 
 from django.forms.widgets import (
-    CheckboxFieldRenderer,
     CheckboxSelectMultiple,
     DateInput,
     Select,
     SelectMultiple,
     TextInput,
-)
+    ChoiceFieldRenderer,
+    ChoiceInput)
 
 from django.forms import fields
 
@@ -144,24 +144,82 @@ class ExerciseAjaxSelect(SelectMultiple):
             return ''
 
 
-class CheckboxBootstrapSelectMultipleRenderer(CheckboxFieldRenderer):
-    outer_html = '<div{id_attr}>{content}</div>'
-    inner_html = '<div class="checkbox">{choice_value}{sub_widgets}</div>'
+class CheckboxChoiceInputTranslated(ChoiceInput):
+    '''
+    Overwritten ChoiceInput
+
+    This only translated the text for the select widgets
+    '''
+    input_type = 'checkbox'
+
+    def __init__(self, name, value, attrs, choice, index):
+        choice = (choice[0], _(choice[1]))
+
+        super(CheckboxChoiceInputTranslated, self).__init__(name, value, attrs, choice, index)
 
 
-class CheckboxBootstrapSelectMultiple(CheckboxSelectMultiple):
-    renderer = CheckboxBootstrapSelectMultipleRenderer
+class CheckboxChoiceInputTranslatedOriginal(ChoiceInput):
+    '''
+    Overwritten ChoiceInput
+
+    This only translated the text for the select widgets, showing the original
+    string as well.
+    '''
+    input_type = 'checkbox'
+
+    def __init__(self, name, value, attrs, choice, index):
+        if _(choice[1]) != choice[1]:
+            choice = (choice[0], u"{0} ({1})".format(choice[1], _(choice[1])))
+        else:
+            choice = (choice[0], _(choice[1]))
+
+        super(CheckboxChoiceInputTranslatedOriginal, self).__init__(name,
+                                                                    value,
+                                                                    attrs,
+                                                                    choice,
+                                                                    index)
 
 
-class TranslatedSelectMultiple(CheckboxBootstrapSelectMultiple):
+class CheckboxFieldRendererTranslated(ChoiceFieldRenderer):
+    choice_input_class = CheckboxChoiceInputTranslated
+
+
+class CheckboxFieldRendererTranslatedOriginal(ChoiceFieldRenderer):
+    choice_input_class = CheckboxChoiceInputTranslatedOriginal
+
+
+class CheckboxBootstrapRenderer(CheckboxFieldRendererTranslated):
+    outer_html = u'<div{id_attr}>{content}</div>'
+    inner_html = u'<div class="checkbox">{choice_value}{sub_widgets}</div>'
+
+
+class CheckboxBootstrapRendererTranslatedOriginal(CheckboxFieldRendererTranslatedOriginal):
+    outer_html = u'<div{id_attr}>{content}</div>'
+    inner_html = u'<div class="checkbox">{choice_value}{sub_widgets}</div>'
+
+
+class BootstrapSelectMultiple(CheckboxSelectMultiple):
+    renderer = CheckboxBootstrapRenderer
+
+
+class BootstrapSelectMultipleTranslatedOriginal(CheckboxSelectMultiple):
+    renderer = CheckboxBootstrapRendererTranslatedOriginal
+
+
+class TranslatedSelectMultiple(BootstrapSelectMultiple):
     '''
     A SelectMultiple widget that translates the options
     '''
+    pass
 
-    def render_option(self, selected_choices, option_value, option_label):
-        return super(TranslatedSelectMultiple, self).render_option(selected_choices,
-                                                                   option_value,
-                                                                   _(option_label))
+
+class TranslatedOriginalSelectMultiple(BootstrapSelectMultipleTranslatedOriginal):
+    '''
+    A SelectMultiple widget that translates the options, showing the original
+    string as well. This is currently only used in the muscle list, where the
+    translated muscles as well as the latin names are shown.
+    '''
+    pass
 
 
 class TranslatedSelect(Select):

@@ -16,7 +16,7 @@ MAINTAINER Roland Geider <roland@geider.net>
 EXPOSE 8000
 
 # Install dependencies
-RUN apt-get install -y vim
+RUN apt-get install -y vim tmux
 
 # Set up the application
 USER wger
@@ -27,10 +27,10 @@ RUN virtualenv --python python3 /home/wger/venv
 RUN . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
     && pip install -r requirements_devel.txt \
-    && invoke --root wger create_settings \
+    && invoke create_settings \
         --settings-path /home/wger/src/settings.py \
-	    --database-path /home/wger/db/database.sqlite \
-    && invoke --root wger bootstrap_wger \
+        --database-path /home/wger/db/database.sqlite \
+    && invoke bootstrap_wger \
         --settings-path /home/wger/src/settings.py \
         --no-start-server
 
