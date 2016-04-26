@@ -100,6 +100,7 @@ def bootstrap_wger(settings_path=None,
     # Download JS libraries with bower
     os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'wger'))
     run('npm install bower')
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
     call_command('bower', 'install')
 
     # Start the webserver
