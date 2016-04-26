@@ -16,7 +16,7 @@ MAINTAINER Roland Geider <roland@geider.net>
 EXPOSE 8000
 
 # Install dependencies
-RUN apt-get install -y vim
+RUN apt-get install -y vim tmux
 
 # Set up the application
 USER wger
