@@ -23,11 +23,10 @@ RUN a2ensite wger
 # Set up the application
 USER wger
 RUN git clone https://github.com/rolandgeider/wger.git /home/wger/src
-RUN virtualenv --python python3 /home/wger/venv
 
 WORKDIR /home/wger/src
-RUN npm install bower \
-    && . /home/wger/venv/bin/activate \
+RUN virtualenv --python python3 /home/wger/venv
+RUN . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
     && pip install -r requirements.txt \
     && invoke create_settings \
