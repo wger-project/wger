@@ -24,10 +24,7 @@ version of the application. It simply redirects all arguments to the invoke
 command, which does all the work.
 '''
 
-# Get the absolute path so we can pass it to invoke. This is only needed
-# for the packaged version.
-tasks_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'wger')
-invoke_cmd = 'invoke --root {} '.format(tasks_path)
+invoke_cmd = 'invoke '
 
 
 def main():
