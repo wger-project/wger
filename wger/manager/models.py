@@ -587,7 +587,7 @@ class Setting(models.Model):
     The repetition unit of a set. This can be e.g. a repetition, a minute, etc.
     '''
 
-    reps = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)],
+    reps = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(600)],
                                verbose_name=_('Amount'))
     '''
     Amount of repetitions, minutes, etc. for a set.
