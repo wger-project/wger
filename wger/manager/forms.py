@@ -18,6 +18,9 @@
 This file contains forms used in the application
 '''
 
+from captcha.fields import ReCaptchaField
+
+from django.utils.translation import ugettext as _
 from django.forms import (
     Form,
     MultipleHiddenInput,
@@ -27,11 +30,15 @@ from django.forms import (
     widgets,
     ModelChoiceField
 )
-from django.utils.translation import ugettext as _
 
-from captcha.fields import ReCaptchaField
-
-from wger.exercises.models import Exercise, ExerciseCategory
+from wger.core.models import (
+    RepetitionUnit,
+    WeightUnit
+)
+from wger.exercises.models import (
+    Exercise,
+    ExerciseCategory
+)
 from wger.manager.models import (
     WorkoutSession,
     Workout,
@@ -130,7 +137,15 @@ class HelperDateForm(Form):
 class WorkoutLogForm(ModelForm):
     '''
     Helper form for a WorkoutLog.
+
+    The repetition and weight units are defined here only to make them optional
     '''
+    repetition_unit = ModelChoiceField(queryset=RepetitionUnit.objects.all(),
+                                       label=_('Unit'),
+                                       required=False)
+    weight_unit = ModelChoiceField(queryset=WeightUnit.objects.all(),
+                                   label=_('Unit'),
+                                   required=False)
 
     class Meta:
         model = WorkoutLog

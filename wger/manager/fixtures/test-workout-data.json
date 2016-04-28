@@ -130,6 +130,8 @@
             "comment": "", 
             "set": 1,
             "reps": 8,
+            "repetition_unit_id": 1,
+            "weight_unit_id": 1,
             "weight": null,
             "order": 1, 
             "exercise": 1
@@ -142,6 +144,8 @@
             "comment": "", 
             "set": 2, 
             "reps": 10,
+            "repetition_unit_id": 1,
+            "weight_unit_id": 1,
             "weight": 15,
             "order": 1, 
             "exercise": 2
@@ -154,6 +158,8 @@
             "comment": "", 
             "set": 3, 
             "reps": 10,
+            "repetition_unit_id": 1,
+            "weight_unit_id": 1,
             "weight": null,
             "order": 1, 
             "exercise": 2

@@ -1,7 +1,5 @@
 [
     {
-        "model": "auth.group",
-        "pk": 1,
         "fields": {
             "permissions": [
                 [
@@ -63,6 +61,36 @@
                     "delete_license",
                     "core",
                     "license"
+                ],
+                [
+                    "add_repetitionunit",
+                    "core",
+                    "repetitionunit"
+                ],
+                [
+                    "change_repetitionunit",
+                    "core",
+                    "repetitionunit"
+                ],
+                [
+                    "delete_repetitionunit",
+                    "core",
+                    "repetitionunit"
+                ],
+                [
+                    "add_weightunit",
+                    "core",
+                    "weightunit"
+                ],
+                [
+                    "change_weightunit",
+                    "core",
+                    "weightunit"
+                ],
+                [
+                    "delete_weightunit",
+                    "core",
+                    "weightunit"
                 ],
                 [
                     "add_equipment",
@@ -246,11 +274,11 @@
                 ]
             ],
             "name": "admin"
-        }
+        },
+        "model": "auth.group",
+        "pk": 1
     },
     {
-        "model": "auth.group",
-        "pk": 2,
         "fields": {
             "permissions": [
                 [
@@ -285,11 +313,11 @@
                 ]
             ],
             "name": "general_gym_manager"
-        }
+        },
+        "model": "auth.group",
+        "pk": 2
     },
     {
-        "model": "auth.group",
-        "pk": 3,
         "fields": {
             "permissions": [
                 [
@@ -318,21 +346,6 @@
                     "contract"
                 ],
                 [
-                    "add_contracttype",
-                    "gym",
-                    "contracttype"
-                ],
-                [
-                    "change_contracttype",
-                    "gym",
-                    "contracttype"
-                ],
-                [
-                    "delete_contracttype",
-                    "gym",
-                    "contracttype"
-                ],
-                [
                     "add_contractoption",
                     "gym",
                     "contractoption"
@@ -346,6 +359,21 @@
                     "delete_contractoption",
                     "gym",
                     "contractoption"
+                ],
+                [
+                    "add_contracttype",
+                    "gym",
+                    "contracttype"
+                ],
+                [
+                    "change_contracttype",
+                    "gym",
+                    "contracttype"
+                ],
+                [
+                    "delete_contracttype",
+                    "gym",
+                    "contracttype"
                 ],
                 [
                     "change_gym",
@@ -369,11 +397,11 @@
                 ]
             ],
             "name": "gym_manager"
-        }
+        },
+        "model": "auth.group",
+        "pk": 3
     },
     {
-        "model": "auth.group",
-        "pk": 4,
         "fields": {
             "permissions": [
                 [
@@ -423,14 +451,16 @@
                 ]
             ],
             "name": "gym_trainer"
-        }
+        },
+        "model": "auth.group",
+        "pk": 4
     },
     {
-        "model": "auth.group",
-        "pk": 5,
         "fields": {
             "permissions": [],
             "name": "gym_member"
-        }
+        },
+        "model": "auth.group",
+        "pk": 5
     }
 ]

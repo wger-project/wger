@@ -26,6 +26,10 @@ from django.utils.translation import ugettext_lazy, ugettext as _
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DeleteView, UpdateView
 
+from wger.core.models import (
+    RepetitionUnit,
+    WeightUnit
+)
 from wger.manager.models import (
     Workout,
     WorkoutSession,
@@ -291,6 +295,8 @@ def timer(request, day_pk):
                 exercise = exercise_dict['obj']
                 for key, element in enumerate(exercise_dict['reps_list']):
                     reps = exercise_dict['reps_list'][key]
+                    rep_unit = exercise_dict['repetition_units'][key]
+                    weight_unit = exercise_dict['weight_units'][key]
                     default_weight = last_log.get_last_weight(exercise,
                                                               reps,
                                                               exercise_dict['weight_list'][key])
@@ -301,7 +307,9 @@ def timer(request, day_pk):
                                       'exercise': exercise,
                                       'type': 'exercise',
                                       'reps': reps,
-                                      'weight': default_weight})
+                                      'rep_unit': rep_unit,
+                                      'weight': default_weight,
+                                      'weight_unit': weight_unit})
                     if request.user.userprofile.timer_active:
                         step_list.append({'current_step': uuid.uuid4().hex,
                                           'step_percent': 0,
@@ -315,6 +323,8 @@ def timer(request, day_pk):
             for i in range(0, total_reps):
                 for exercise_dict in set_dict['exercise_list']:
                     reps = exercise_dict['reps_list'][i]
+                    rep_unit = exercise_dict['repetition_units'][i]
+                    weight_unit = exercise_dict['weight_units'][i]
                     default_weight = exercise_dict['weight_list'][i]
                     exercise = exercise_dict['obj']
 
@@ -324,6 +334,8 @@ def timer(request, day_pk):
                                       'exercise': exercise,
                                       'type': 'exercise',
                                       'reps': reps,
+                                      'rep_unit': rep_unit,
+                                      'weight_unit': weight_unit,
                                       'weight': last_log.get_last_weight(exercise,
                                                                          reps,
                                                                          default_weight)})
@@ -367,4 +379,6 @@ def timer(request, day_pk):
     context['workout'] = day.training
     context['session_form'] = session_form
     context['form_action'] = url
+    context['weight_units'] = WeightUnit.objects.all()
+    context['repetition_units'] = RepetitionUnit.objects.all()
     return render(request, 'workout/timer.html', context)

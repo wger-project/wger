@@ -62,7 +62,13 @@ $(document).ready(function() {
                     <ul class="list-group" style="min-height: 10em;">
                     {% for log in logs %}
                         <li class="list-group-item">
-                            {{log.reps}} × {{log.weight}}
+                            {{log.reps}}
+                            {% if not log.repetition_unit.is_repetition %}
+                                {% trans log.repetition_unit.name %}
+                            {% endif %}
+                            ×
+                            {{log.weight}} {% trans log.weight_unit.name %}
+
                             {% if is_owner %}
                             <span class="editoptions">
                                 <div class="btn-group pull-right">

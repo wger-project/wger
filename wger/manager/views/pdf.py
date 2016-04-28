@@ -115,7 +115,6 @@ def workout_view(request, id, images=False, comments=False, uidb64=None, token=N
 
     '''
     Generates a PDF with the contents of the given workout
-
     See also
     * http://www.blog.pythonlibrary.org/2010/09/21/reportlab
     * http://www.reportlab.com/apis/reportlab/dev/platypus.html

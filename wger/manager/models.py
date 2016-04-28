@@ -31,7 +31,7 @@ from django.core.cache import cache
 from django.core.validators import MinValueValidator
 from sortedm2m.fields import SortedManyToManyField
 
-from wger.core.models import DaysOfWeek
+from wger.core.models import DaysOfWeek, RepetitionUnit, WeightUnit
 from wger.exercises.models import Exercise
 from wger.manager.helpers import reps_smart_text
 from wger.utils.cache import (
@@ -445,7 +445,7 @@ class Day(models.Model):
                     setting_tmp.append(setting)
 
                 # "Smart" textual representation
-                setting_text, setting_list, weight_list, reps_list \
+                setting_text, setting_list, weight_list, reps_list, repetition_units, weight_units \
                     = reps_smart_text(setting_tmp, set_obj)
 
                 # Flag indicating whether all exercises have settings
@@ -466,6 +466,8 @@ class Day(models.Model):
                 exercise_tmp.append({'obj': exercise,
                                      'setting_obj_list': setting_tmp,
                                      'setting_list': setting_list,
+                                     'repetition_units': repetition_units,
+                                     'weight_units': weight_units,
                                      'weight_list': weight_list,
                                      'has_weight': has_weight,
                                      'reps_list': reps_list,
@@ -485,9 +487,11 @@ class Day(models.Model):
                     if len(exercise['setting_list']) > common_reps:
                         exercise['setting_list'].pop(-1)
                         exercise['setting_obj_list'].pop(-1)
-                        setting_text, setting_list, weight_list, reps_list = \
+                        setting_text, setting_list, weight_list,\
+                            reps_list, repetition_units, weight_units = \
                             reps_smart_text(exercise['setting_obj_list'], set_obj)
                         exercise['setting_text'] = setting_text
+                        exercise['repetition_units'] = repetition_units
 
             canonical_repr.append({'obj': set_obj,
                                    'exercise_list': exercise_tmp,
@@ -576,8 +580,22 @@ class Setting(models.Model):
     set = models.ForeignKey(Set, verbose_name=_('Sets'))
     exercise = models.ForeignKey(Exercise,
                                  verbose_name=_('Exercises'))
-    reps = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)],
-                               verbose_name=_('Repetitions'))
+    repetition_unit = models.ForeignKey(RepetitionUnit,
+                                        verbose_name=_('Unit'),
+                                        default=1)
+    '''
+    The repetition unit of a set. This can be e.g. a repetition, a minute, etc.
+    '''
+
+    reps = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(600)],
+                               verbose_name=_('Amount'))
+    '''
+    Amount of repetitions, minutes, etc. for a set.
+
+    Note that since adding the unit field, the name is no longer correct, but is
+    kept for compatibility reasons (specially for the REST API).
+    '''
+
     weight = models.DecimalField(verbose_name=_('Weight'),
                                  max_digits=6,
                                  decimal_places=2,
@@ -585,6 +603,13 @@ class Setting(models.Model):
                                  null=True,
                                  validators=[MinValueValidator(0), MaxValueValidator(1500)])
     '''Planed weight for the repetitions'''
+
+    weight_unit = models.ForeignKey(WeightUnit,
+                                    verbose_name=_('Unit'),
+                                    default=1)
+    '''
+    The weight unit of a set. This can be e.g. kg, lb, km/h, etc.
+    '''
 
     order = models.IntegerField(blank=True,
                                 verbose_name=_('Order'))
@@ -604,15 +629,19 @@ class Setting(models.Model):
 
     def save(self, *args, **kwargs):
         '''
-        Reset all cached infos
+        Reset cache
         '''
-
         reset_workout_canonical_form(self.set.exerciseday.training_id)
+
+        # If the user selected "Until Failure", do only 1 "repetition",
+        # everythin else doesn't make sense.
+        if self.repetition_unit == 2:
+            self.reps = 1
         super(Setting, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         '''
-        Reset all cached infos
+        Reset cache
         '''
 
         reset_workout_canonical_form(self.set.exerciseday.training_id)
@@ -639,13 +668,34 @@ class WorkoutLog(models.Model):
     workout = models.ForeignKey(Workout,
                                 verbose_name=_('Workout'))
 
+    repetition_unit = models.ForeignKey(RepetitionUnit,
+                                        verbose_name=_('Unit'),
+                                        default=1)
+    '''
+    The unit of the log. This can be e.g. a repetition, a minute, etc.
+    '''
+
     reps = models.IntegerField(verbose_name=_('Repetitions'),
                                validators=[MinValueValidator(0)])
+    '''
+    Amount of repetitions, minutes, etc.
+
+    Note that since adding the unit field, the name is no longer correct, but is
+    kept for compatibility reasons (specially for the REST API).
+    '''
 
     weight = models.DecimalField(decimal_places=2,
                                  max_digits=5,
                                  verbose_name=_('Weight'),
                                  validators=[MinValueValidator(0)])
+
+    weight_unit = models.ForeignKey(WeightUnit,
+                                    verbose_name=_('Unit'),
+                                    default=1)
+    '''
+    The weight unit of the log. This can be e.g. kg, lb, km/h, etc.
+    '''
+
     date = Html5DateField(verbose_name=_('Date'))
 
     # Metaclass to set some other properties
@@ -685,6 +735,11 @@ class WorkoutLog(models.Model):
         Reset cache
         '''
         reset_workout_log(self.user_id, self.date.year, self.date.month, self.date.day)
+
+        # If the user selected "Until Failure", do only 1 "repetition",
+        # everythin else doesn't make sense.
+        if self.repetition_unit == 2:
+            self.reps = 1
         super(WorkoutLog, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):

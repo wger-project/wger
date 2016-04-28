@@ -40,10 +40,7 @@ patterns_log = [
         name='edit'),
     url(r'^(?P<pk>\d+)/delete$',
         log.WorkoutLogDeleteView.as_view(),
-        name='delete'),
-    url(r'^(?P<workout_pk>\d+)/add$',  # not used?
-        log.WorkoutLogAddView.as_view(),
-        name='add'),
+        name='delete')
 ]
 
 

@@ -1,0 +1,44 @@
+[
+    {
+        "pk": 1,
+        "fields": {
+            "name": "kg"
+        },
+        "model": "core.weightunit"
+    },
+    {
+        "pk": 2,
+        "fields": {
+            "name": "lb"
+        },
+        "model": "core.weightunit"
+    },
+    {
+        "pk": 3,
+        "fields": {
+            "name": "Body Weight"
+        },
+        "model": "core.weightunit"
+    },
+    {
+        "pk": 4,
+        "fields": {
+            "name": "Plates"
+        },
+        "model": "core.weightunit"
+    },
+    {
+        "pk": 5,
+        "fields": {
+            "name": "Kilometers Per Hour"
+        },
+        "model": "core.weightunit"
+    },
+    {
+        "pk": 6,
+        "fields": {
+            "name": "Miles Per Hour"
+        },
+        "model": "core.weightunit"
+    }
+]
