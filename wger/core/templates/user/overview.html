@@ -224,9 +224,11 @@
             <a data-url="{% url 'gym:gym:reset-user-password' current_user.pk %}" data-toggle="modal" data-target="#confirmation-modal">{% trans "Reset user password" %}</a>
         </li>
         {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
+        {% if current_user.userprofile.gym %}
         <li>
             <a href="{% url 'gym:gym:edit-user-permission' current_user.pk %}" class="wger-modal-dialog">{% trans "Roles"%}</a>
         </li>
+        {% endif %}
         {% endif %}
         <li>
             <a href="{% url 'core:user:delete' current_user.pk %}" class="wger-modal-dialog">{% trans "Delete"%}</a>
