@@ -597,6 +597,15 @@ class RepetitionUnit(models.Model):
         '''
         return None
 
+    @property
+    def is_repetition(self):
+        '''
+        Checks that the repetition unit is a repetition proper
+
+        This is done basically to not litter the code with magic IDs
+        '''
+        return self.id == 1
+
 
 @python_2_unicode_compatible
 class WeightUnit(models.Model):
@@ -626,3 +635,12 @@ class WeightUnit(models.Model):
         Unit has no owner information
         '''
         return None
+
+    @property
+    def is_weight(self):
+        '''
+        Checks that the unit is a weight proper
+
+        This is done basically to not litter the code with magic IDs
+        '''
+        return self.id in (1, 2)

@@ -49,7 +49,12 @@
             {% for log in logs %}
             <tr>
                 <td>
-                    {{log.reps}} × {{log.weight}} {% trans_weight_unit 'kg' owner_user %}
+                    {{log.reps}}
+                    {% if not log.repetition_unit.is_repetition %}
+                        {% trans log.repetition_unit.name %}
+                    {% endif %}
+                    ×
+                    {{log.weight}} {% trans log.weight_unit.name %}
 
                     {% if is_owner %}
                     <span class="editoptions">
