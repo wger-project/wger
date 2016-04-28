@@ -258,7 +258,7 @@ def reps_smart_text(settings, set_obj):
         weight_unit = settings[0].weight_unit
         weight = normalize_weight(settings[0])
 
-        setting_text = u'{0} × {1} {2}'.format(set_obj.sets, reps, rep_unit).strip()
+        setting_text = u'{0} × {1}'.format(set_obj.sets, reps).strip()
         setting_list_text = u'{0} {1}'.format(reps, rep_unit).strip()
         if weight:
             setting_text += ' ({0} {1})'.format(weight, weight_unit)
