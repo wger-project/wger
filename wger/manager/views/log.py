@@ -23,12 +23,10 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.utils import formats
 from django.utils.translation import ugettext_lazy, ugettext as _
 from django.forms.models import modelformset_factory
 from django.views.generic import (
     UpdateView,
-    CreateView,
     DetailView,
     DeleteView
 )
@@ -246,8 +244,18 @@ class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
                     exercise_id = exercise_list['obj'].id
                     exercise_log[exercise_id] = []
 
+                    # Filter the logs for user and exclude all units that are not weight
+                    #
+                    # TODO: add the repetition_unit to the filter. For some reason (bug
+                    #       in django? DB problems?) when adding the filter there, the
+                    #       execution time explodes. The weight unit filter works as
+                    #       expected. Also, adding the unit IDs to the exclude list
+                    #       also has the disadvantage that if new ones are added in a
+                    #       local instance, they could "slip" through.
                     logs = exercise_list['obj'].workoutlog_set.filter(user=self.owner_user,
-                                                                      workout=self.object)
+                                                                      weight_unit__in=(1, 2),
+                                                                      workout=self.object) \
+                        .exclude(repetition_unit_id__in=(2, 3, 4, 5, 6, 7, 8))
                     entry_log, chart_data = process_log_entries(logs)
                     if entry_log:
                         exercise_log[exercise_list['obj'].id].append(entry_log)
