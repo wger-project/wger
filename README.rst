@@ -14,7 +14,7 @@ Installation
 
 These are the basic steps to install and run the application locally on a linux
 system. There are more detailed instructions, other deployment options as well
-as an administration guide available at https://wger.readthedocs.org or locally
+as an administration guide available at https://wger.readthedocs.io or locally
 in your code repository in the docs folder (``make html`` to compile, then open
 _build/index.html).
 
