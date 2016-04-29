@@ -18,7 +18,7 @@
 {% block breadcrumbs %}
     {{ block.super }}
 
-    {% breadcrumb workout "manager:workout:view" workout.pk %}
+    {% breadcrumb workout workout %}
     {% breadcrumb "Weight log" "manager:log:log" workout.pk %}
 {% endblock %}
 
@@ -124,4 +124,7 @@ entry.{% endblocktrans %}</p>
 same number of repetitions, but different weights, only the entry with the
 higher weight is shown in the diagram.{% endblocktrans %}</p>
 
+<p>{% blocktrans %}Note that only entries with a weight unit (kg or lb) and
+repetitions are charted, other combinations such as time or until failure
+are ignored here.{% endblocktrans %}</p>
 {% endblock %}

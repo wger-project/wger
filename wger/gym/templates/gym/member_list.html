@@ -66,9 +66,9 @@
 </tr>
 {% empty %}
 <tr>
-    <td colspan="3">{% trans "No users for this gym found" %}</td>
+    <td colspan="4">{% trans "This gym has no administrators or trainers" %}</td>
 </tr>
-{% endfor %}
+{% endfor %}   
 </tbody>
 </table>
 
@@ -211,6 +211,7 @@
 {#                     #}
 {# Admin configuration #}
 {#                     #}
+{% if user.gymadminconfig and user.userprofile.gym_id == gym.id %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
@@ -225,7 +226,7 @@
 <h4>{% trans "My configuration" %}</h4>
 <table class="table">
     <tr>
-        <td>{% trans "Overview inactive members" %}</td>
+        <td>{% trans "Overview of inactive members" %}</td>
         <td style="text-align: right;">
             {% if user.gymadminconfig.overview_inactive %}
                 <span class="glyphicon glyphicon-ok"></span>
@@ -235,7 +236,7 @@
         </td>
     </tr>
 </table>
-
+{% endif %}
 
 
 

@@ -47,6 +47,8 @@ def parse_weight_csv(request, cleaned_data):
     entry_dates = set()
     weight_list = []
     error_list = []
+    MAX_ROW_COUNT = 1000
+    row_count = 0
 
     # Process the CSV items first
     for row in parsed_csv:
@@ -69,6 +71,9 @@ def parse_weight_csv(request, cleaned_data):
 
         except (ValueError, IndexError, decimal.InvalidOperation):
             error_list.append(row)
+        row_count += 1
+        if row_count > MAX_ROW_COUNT:
+            break
 
     # Create the valid weight entries
     for date, weight in distinct_weight_entries:

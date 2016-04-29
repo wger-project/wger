@@ -220,16 +220,54 @@
                 <a href="{% url 'core:user:activate' current_user.pk %}">{% trans "Activate user"%}</a>
             {% endif %}
         </li>
+        <li>
+            <a data-url="{% url 'gym:gym:reset-user-password' current_user.pk %}" data-toggle="modal" data-target="#confirmation-modal">{% trans "Reset user password" %}</a>
+        </li>
         {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
+        {% if current_user.userprofile.gym %}
         <li>
             <a href="{% url 'gym:gym:edit-user-permission' current_user.pk %}" class="wger-modal-dialog">{% trans "Roles"%}</a>
         </li>
+        {% endif %}
         {% endif %}
         <li>
             <a href="{% url 'core:user:delete' current_user.pk %}" class="wger-modal-dialog">{% trans "Delete"%}</a>
         </li>
     </ul>
 </div>
+
+<div id="confirmation-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">{% trans 'Password reset confirmation' %}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{% trans 'Do you really want to change this user&#39;s password?' %}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">{% trans 'No' %}</button>
+                <button type="button" class="btn btn-success">{% trans 'Yes' %}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#confirmation-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var url = button.data('url')
+            var modal = $(this);
+
+            modal.find('button.btn-success').click(function() {
+                window.location.href = url;
+            });
+        });
+    });
+</script>
+
 {% endif %}
 <h4>{% trans "Details" %}</h4>
 

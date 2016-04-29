@@ -23,7 +23,10 @@ from reportlab.lib.units import cm
 from reportlab.platypus import (
     Paragraph,
     Table,
-    KeepTogether
+    KeepTogether,
+    ListFlowable,
+    ListItem,
+    Image
 )
 
 from django.core.urlresolvers import reverse
@@ -33,10 +36,24 @@ from wger.utils.helpers import normalize_decimal
 from wger.utils.pdf import styleSheet
 
 
-def render_workout_day(day, nr_of_weeks):
+def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_table=False):
     '''
     Render a table with reportlab with the contents of the training day
+
+    :param day: a workout day object
+    :param nr_of_weeks: the numbrer of weeks to render, default is 7
+    :param images: boolean indicating whether to also draw exercise images
+           in the PDF (actually only the main image)
+    :param comments: boolean indicathing whether the exercise comments will
+           be rendered as well
+    :param only_table: boolean indicating whether to draw a table with space
+           for weight logs or just a list of the exercises
     '''
+
+    # If rendering only the table, reset the nr of weeks, since these columns
+    # will not be rendered anyway.
+    if only_table:
+        nr_of_weeks = 0
 
     data = []
 
@@ -84,8 +101,41 @@ def render_workout_day(day, nr_of_weeks):
             else:
                 setting_out = Paragraph(exercise['setting_text'], styleSheet["Small"])
 
+            # Collect a list of the exercise comments
+            item_list = [Paragraph('', styleSheet["Small"])]
+            if comments:
+                item_list = [ListItem(Paragraph(i, style=styleSheet["ExerciseComments"]))
+                             for i in exercise['comment_list']]
+
+            # Add the exercise's main image
+            image = Paragraph('', styleSheet["Small"])
+            if images:
+                if exercise['obj'].main_image:
+
+                    # Make the images somewhat larger when printing only the workout and not
+                    # also the columns for weight logs
+                    if only_table:
+                        image_size = 2
+                    else:
+                        image_size = 1.5
+
+                    image = Image(exercise['obj'].main_image.image)
+                    image.drawHeight = image_size * cm * image.drawHeight / image.drawWidth
+                    image.drawWidth = image_size * cm
+
+            # Put the name and images and comments together
+            exercise_content = [Paragraph(exercise['obj'].name, styleSheet["Small"]),
+                                image,
+                                ListFlowable(item_list,
+                                             bulletType='bullet',
+                                             leftIndent=5,
+                                             spaceBefore=7,
+                                             bulletOffsetY=-3,
+                                             bulletFontSize=3,
+                                             start='square')]
+
             data.append([set_count,
-                         Paragraph(exercise['obj'].name, styleSheet["Small"]),
+                         exercise_content,
                          setting_out]
                         + [''] * nr_of_weeks)
         set_count += 1
@@ -127,9 +177,14 @@ def render_workout_day(day, nr_of_weeks):
     # Put everything together and manually set some of the widths
     t = Table(data, style=table_style)
     if len(t._argW) > 1:
-        t._argW[0] = 0.6 * cm  # Numbering
-        t._argW[1] = 4 * cm  # Exercise
-        t._argW[2] = 2.5 * cm  # Repetitions
+        if only_table:
+            t._argW[0] = 0.6 * cm  # Numbering
+            t._argW[1] = 8 * cm  # Exercise
+            t._argW[2] = 3.5 * cm  # Repetitions
+        else:
+            t._argW[0] = 0.6 * cm  # Numbering
+            t._argW[1] = 4 * cm  # Exercise
+            t._argW[2] = 3 * cm  # Repetitions
 
     return KeepTogether(t)
 
@@ -139,60 +194,112 @@ def reps_smart_text(settings, set_obj):
     "Smart" textual representation
 
     This is a human representation of the settings, in a way that humans
-    would also write: e.g. "8 8 10 10" but "4 x 10" and not "10 10 10 10"
+    would also write: e.g. "8 8 10 10" but "4 x 10" and not "10 10 10 10".
+    This helper also takes care to process, hide or show the different repetition
+    and weight units as appropriate, e.g. "8 x 2 Plates", "10, 20, 30, ∞"
 
     :param settings:
     :param set_obj:
     :return setting_text, setting_list:
     '''
-    unit = _('kg') if set_obj.exerciseday.training.user.userprofile.use_metric else _('lb')
+
+    def get_reps_reprentation(setting, rep_unit):
+        '''
+        Returns the representation for the repetitions for a setting
+
+        This is basically just to allow for a special representation for the
+        "Until Failure" unit
+        '''
+        if setting.repetition_unit_id != 2:
+            reps = "{0} {1}".format(setting.reps, rep_unit).strip()
+        else:
+            reps = u'∞'
+        return reps
+
+    def get_weight_unit_reprentation(setting):
+        '''
+        Returns the representation for the weight unit for a setting
+
+        This is basically just to allow for a special representation for the
+        "Repetition" and "Until Failure" unit
+        '''
+        if setting.repetition_unit.id not in (1, 2):
+            rep_unit = _(setting.repetition_unit.name)
+        else:
+            rep_unit = ''
+        return rep_unit
+
+    def normalize_weight(setting):
+        '''
+        The weight can be None, or a decimal. In that case, normalize so
+        that we don't return e.g. '15.00', but always '15', independently of
+        the database used.
+        '''
+        if setting.weight:
+            weight = normalize_decimal(setting.weight)
+        else:
+            weight = setting.weight
+        return weight
 
     if len(settings) == 0:
         setting_text = ''
         setting_list = []
         weight_list = []
         reps_list = []
+        repetition_units = []
+        weight_units = []
+
+    # Only one setting entry, this is a "compact" representation such as e.g.
+    # 4x10 or similar
     elif len(settings) == 1:
-        reps = settings[0].reps if settings[0].reps != 99 else u'∞'
-        setting_text = u'{0} × {1}'.format(set_obj.sets, reps)
-        setting_list_text = u'{0}'.format(reps)
 
-        # The weight can be None, or a decimal. In that case, normalize so
-        # that we don't return e.g. '15.00', but always '15', independently of
-        # the database used.
-        if settings[0].weight:
-            weight = normalize_decimal(settings[0].weight)
-        else:
-            weight = settings[0].weight
+        rep_unit = get_weight_unit_reprentation(settings[0])
+        reps = get_reps_reprentation(settings[0], rep_unit)
+        weight_unit = settings[0].weight_unit
+        weight = normalize_weight(settings[0])
 
+        setting_text = u'{0} × {1}'.format(set_obj.sets, reps).strip()
+        setting_list_text = u'{0} {1}'.format(reps, rep_unit).strip()
         if weight:
-            setting_text += ' ({0}{1})'.format(weight, unit)
-            setting_list_text += ' ({0}{1})'.format(weight, unit)
+            setting_text += ' ({0} {1})'.format(weight, weight_unit)
+            setting_list_text += ' ({0} {1})'.format(weight, weight_unit)
+
         setting_list = [setting_list_text] * set_obj.sets
         reps_list = [settings[0].reps] * set_obj.sets
         weight_list = [weight] * set_obj.sets
+        repetition_units = [settings[0].repetition_unit] * set_obj.sets
+        weight_units = [settings[0].weight_unit] * set_obj.sets
 
+    # There's more than one setting, each set can have a different combination
+    # of repetitions, weight, etc. e.g. 10, 8, 8, 12
     elif len(settings) > 1:
         tmp_reps_text = []
         tmp_reps = []
         tmp_weight = []
-        for i in settings:
-            reps = str(i.reps) if i.reps != 99 else u'∞'
-            weight = i.weight
-            if i.weight:
-                # Normalize, see comment above
-                weight = normalize_decimal(i.weight)
-                reps += ' ({0}{1})'.format(weight, unit)
+        tmp_repetition_unit = []
+        tmp_weight_unit = []
+        for setting in settings:
+
+            rep_unit = get_weight_unit_reprentation(setting)
+            reps = get_reps_reprentation(setting, rep_unit)
+            weight = normalize_weight(setting)
+            if weight:
+                reps += ' ({0} {1})'.format(weight, setting.weight_unit)
+
             tmp_reps_text.append(reps)
-            tmp_reps.append(i.reps)
+            tmp_reps.append(setting.reps)
             tmp_weight.append(weight)
+            tmp_repetition_unit.append(setting.repetition_unit)
+            tmp_weight_unit.append(setting.weight_unit)
 
         setting_text = u' – '.join(tmp_reps_text)
         setting_list = tmp_reps_text
+        repetition_units = tmp_repetition_unit
+        weight_units = tmp_weight_unit
         reps_list = tmp_reps
         weight_list = tmp_weight
 
-    return setting_text, setting_list, weight_list, reps_list
+    return setting_text, setting_list, weight_list, reps_list, repetition_units, weight_units
 
 
 class WorkoutCalendar(HTMLCalendar):

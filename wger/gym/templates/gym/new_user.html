@@ -1,9 +1,19 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
 
 {% block title %}{{new_user|format_username}}{% endblock %}
+
+
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% if perms.gym.manage_gyms %}
+        {% breadcrumb "Gyms" "gym:gym:list" %}
+    {% endif %}
+    {% breadcrumb_raw new_user.userprofile.gym "gym:gym:user-list" new_user.userprofile.gym.pk %}
+    {% breadcrumb_raw new_user|format_username "core:user:overview" new_user.pk %}
+    {% breadcrumb "User" "gym:document:list" new_user.pk %}
+{% endblock %}
 
 
 {% block content %}
@@ -46,16 +56,6 @@ cannot be recovered later.{% endblocktrans %}
          height="32"
          alt="{% trans 'Export user data' %}">
     {% trans "Export user data" %}
-</a>
-</p>
-
-<p>
-<a href="{% url 'gym:gym:user-list' new_user.userprofile.gym.pk %}" {% auto_link_css flavour %}>
-    <img src="{% static 'images/icons/list.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Back to overview' %}">
-    {% trans "Back to gym" %}
 </a>
 </p>
 {% endblock %}

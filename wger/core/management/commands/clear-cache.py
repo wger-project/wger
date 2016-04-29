@@ -101,14 +101,6 @@ class Command(BaseCommand):
                 delete_template_fragment_cache('exercise-overview-mobile', language.id)
                 delete_template_fragment_cache('equipment-overview', language.id)
 
-            for language in Language.objects.all():
-                for exercise in Exercise.objects.all():
-                    delete_template_fragment_cache('exercise-detail-header',
-                                                   exercise.id,
-                                                   language.id)
-                    delete_template_fragment_cache('exercise-detail-muscles',
-                                                   exercise.id,
-                                                   language.id)
         # Workout canonical form
         if options['clear_workout']:
             for w in Workout.objects.all():

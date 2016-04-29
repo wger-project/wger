@@ -5,46 +5,30 @@
 
 
 {% block content %}
-
-<table class="table">
-<thead>
-<tr>
-    <th>{% trans "Actions" %}</th>
-    <th>{% trans "Name" %}</th>
-</tr>
-</thead>
-<tbody>
-{% for equipment in equipment_list %}
-<tr>
-    <td class="no-hover">
-        <a href="{% url 'exercise:equipment:delete' equipment.id %}"
-           class="wger-modal-dialog">
-            <img src="{% static 'images/icons/trash.svg' %}"
-                 width="22"
-                 height="22"
-                 alt="{% trans 'Delete' %}"
-                 title="{% trans 'Delete' %}">
-        </a>
-        <a href="{% url 'exercise:equipment:edit' equipment.id %}"
-           class="wger-modal-dialog">
-            <img src="{% static 'images/icons/edit.svg' %}"
-                 width="22"
-                 height="22"
-                 alt="{% trans 'Edit' %}"
-                 title="{% trans 'Edit' %}">
-        </a>
-    </td>
-    <td>{{equipment.name}}</td>
-</tr>
-{% empty %}
-<tr>
-    <td colspan="2">{% trans "Nothing found" %}</td>
-</tr>
-{% endfor %}
-</tbody>
-
-</table>
-<div style="padding-top:3em;"></div>
+<ul class="list-group">
+    {% for equipment in equipment_list %}
+    <li class="list-group-item ">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-cog"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="{% url 'exercise:equipment:edit' equipment.id %}" class="wger-modal-dialog">{% trans 'Edit' %}</a>
+                </li>
+                <li>
+                    <a href="{% url 'exercise:equipment:delete' equipment.id %}" class="wger-modal-dialog">{% trans 'Delete' %}</a>
+                </li>
+            </ul>
+        </div>
+        {{equipment.name}}
+    </li>
+    {% empty %}
+        <li class="list-group-item">
+            {% trans "Nothing found" %}
+        </li>
+    {% endfor %}
+</ul>
 {% pagination paginator page_obj %}
 {% endblock %}
 
@@ -53,17 +37,10 @@
 
 {% block sidebar %}
 {% if perms.exercises.add_equipment %}
-<h4>{% trans "Options" %}</h4>
 <p>
-       <a href="{% url 'exercise:equipment:add' %}"
-          {% auto_link_css flavour "wger-modal-dialog" %}>
-       <img src="{% static 'images/icons/new.svg' %}"
-            width="32"
-            height="32"
-            alt="{% trans 'Add new equipment' %}"
-            title="{% trans 'Add new equipment' %}">
-       {% trans "Add new equipment" %}
-       </a>
+    <a href="{% url 'exercise:equipment:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+        {% trans "Add new equipment" %}
+    </a>
 </p>
 {% endif %}
 {% endblock %}

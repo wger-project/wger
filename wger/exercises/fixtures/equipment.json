@@ -1,72 +1,72 @@
 [
-{
-    "model": "exercises.equipment",
-    "fields": {
-        "name": "Barbell"
+    {
+        "pk": 1,
+        "fields": {
+            "name": "Barbell"
+        },
+        "model": "exercises.equipment"
     },
-    "pk": 1
-},
-{
-    "model": "exercises.equipment",
-    "fields": {
-        "name": "SZ-Bar"
+    {
+        "pk": 2,
+        "fields": {
+            "name": "SZ-Bar"
+        },
+        "model": "exercises.equipment"
     },
-    "pk": 2
-},
-{
-    "model": "exercises.equipment",
-    "fields": {
-        "name": "Dumbbell"
+    {
+        "pk": 3,
+        "fields": {
+            "name": "Dumbbell"
+        },
+        "model": "exercises.equipment"
     },
-    "pk": 3
-},
-{
-    "model": "exercises.equipment",
-    "fields": {
-        "name": "Gym mat"
+    {
+        "pk": 4,
+        "fields": {
+            "name": "Gym mat"
+        },
+        "model": "exercises.equipment"
     },
-    "pk": 4
-},
-{
-    "model": "exercises.equipment",
-    "fields": {
-        "name": "Swiss Ball"
+    {
+        "pk": 5,
+        "fields": {
+            "name": "Swiss Ball"
+        },
+        "model": "exercises.equipment"
     },
-    "pk": 5
-},
-{
-    "model": "exercises.equipment",
-    "fields": {
-        "name": "Pull-up bar"
+    {
+        "pk": 6,
+        "fields": {
+            "name": "Pull-up bar"
+        },
+        "model": "exercises.equipment"
     },
-    "pk": 6
-},
-{
-    "model": "exercises.equipment",
-    "fields": {
-        "name": "none (bodyweight exercise)"
+    {
+        "pk": 7,
+        "fields": {
+            "name": "none (bodyweight exercise)"
+        },
+        "model": "exercises.equipment"
     },
-    "pk": 7
-},
-{
-    "model": "exercises.equipment",
-    "fields": {
-        "name": "Bench"
+    {
+        "pk": 8,
+        "fields": {
+            "name": "Bench"
+        },
+        "model": "exercises.equipment"
     },
-    "pk": 8
-},
-{
-    "model": "exercises.equipment",
-    "fields": {
-        "name": "Incline bench"
+    {
+        "pk": 9,
+        "fields": {
+            "name": "Incline bench"
+        },
+        "model": "exercises.equipment"
     },
-    "pk": 9
-},
-{
-    "model": "exercises.equipment",
-    "fields": {
-        "name": "Kettlebell"
-    },
-    "pk": 10
-}
+    {
+        "pk": 10,
+        "fields": {
+            "name": "Kettlebell"
+        },
+        "model": "exercises.equipment"
+    }
 ]

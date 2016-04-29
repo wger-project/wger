@@ -105,6 +105,8 @@ pdfmetrics.registerFont(TTFont(
     'OpenSans-Bold', path_join(settings.SITE_ROOT, 'core/static/fonts/OpenSans-Bold.ttf')))
 pdfmetrics.registerFont(TTFont(
     'OpenSans-Regular', path_join(settings.SITE_ROOT, 'core/static/fonts/OpenSans-Regular.ttf')))
+pdfmetrics.registerFont(TTFont(
+    'OpenSans-Italic', path_join(settings.SITE_ROOT, 'core/static/fonts/OpenSans-LightItalic.ttf')))
 
 styleSheet = StyleSheet1()
 styleSheet.add(ParagraphStyle(
@@ -117,6 +119,12 @@ styleSheet.add(ParagraphStyle(
                parent=styleSheet['Normal'],
                fontSize=8,
                name='Small',
+               ))
+styleSheet.add(ParagraphStyle(
+               parent=styleSheet['Normal'],
+               fontSize=7,
+               name='ExerciseComments',
+               fontName='OpenSans-Italic',
                ))
 styleSheet.add(ParagraphStyle(
                parent=styleSheet['Normal'],
