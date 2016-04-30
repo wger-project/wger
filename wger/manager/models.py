@@ -149,7 +149,6 @@ class Workout(models.Model):
                                                   'frontsecondary': muscles_front_secondary,
                                                   'backsecondary': muscles_back_secondary},
                                       'day_list': day_canonical_repr}
-            print(workout_canonical_form)
             # Save to cache
             cache.set(cache_mapper.get_workout_canonical(self.pk), workout_canonical_form)
 
