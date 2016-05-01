@@ -47,6 +47,13 @@ and stable state.
  $ virtualenv --python python3 venv-django
  $ source venv-django/bin/activate
 
+On fedora 23 ::
+
+ $ sudo dnf install python3-devel python-virtualenv nodejs npm libjpeg-turbo-devel zlib-devel git
+ $ virtualenv --python python3 venv-django
+ $ source venv-django/bin/activate
+
+
 2) Start the application. This will download the required JS and CSS libraries
    and create a SQlite database and populate it with data on the first run.
 

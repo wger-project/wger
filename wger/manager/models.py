@@ -117,6 +117,8 @@ class Workout(models.Model):
             day_canonical_repr = []
             muscles_front = []
             muscles_back = []
+            muscles_front_secondary = []
+            muscles_back_secondary = []
 
             # Sort list by weekday
             day_list = [i for i in self.day_set.select_related()]
@@ -132,13 +134,21 @@ class Workout(models.Model):
                 for i in canonical_repr_day['muscles']['back']:
                     if i not in muscles_back:
                         muscles_back.append(i)
+                for i in canonical_repr_day['muscles']['frontsecondary']:
+                    if i not in muscles_front_secondary:
+                        muscles_front_secondary.append(i)
+                for i in canonical_repr_day['muscles']['backsecondary']:
+                    if i not in muscles_back_secondary:
+                        muscles_back_secondary.append(i)
 
                 day_canonical_repr.append(canonical_repr_day)
 
             workout_canonical_form = {'obj': self,
-                                      'muscles': {'front': muscles_front, 'back': muscles_back},
+                                      'muscles': {'front': muscles_front,
+                                                  'back': muscles_back,
+                                                  'frontsecondary': muscles_front_secondary,
+                                                  'backsecondary': muscles_back_secondary},
                                       'day_list': day_canonical_repr}
-
             # Save to cache
             cache.set(cache_mapper.get_workout_canonical(self.pk), workout_canonical_form)
 
@@ -426,6 +436,8 @@ class Day(models.Model):
         canonical_repr = []
         muscles_front = []
         muscles_back = []
+        muscles_front_secondary = []
+        muscles_back_secondary = []
 
         for set_obj in self.set_set.select_related():
             exercise_tmp = []
@@ -439,6 +451,12 @@ class Day(models.Model):
                         muscles_front.append(muscle.id)
                     elif not muscle.is_front and muscle.id not in muscles_back:
                         muscles_back.append(muscle.id)
+
+                for muscle in exercise.muscles_secondary.all():
+                    if muscle.is_front and muscle.id not in muscles_front:
+                        muscles_front_secondary.append(muscle.id)
+                    elif not muscle.is_front and muscle.id not in muscles_back:
+                        muscles_back_secondary.append(muscle.id)
 
                 for setting in Setting.objects.filter(set=set_obj,
                                                       exercise=exercise).order_by('order', 'id'):
@@ -499,7 +517,9 @@ class Day(models.Model):
                                    'has_settings': has_setting_tmp,
                                    'muscles': {
                                        'back': muscles_back,
-                                       'front': muscles_front
+                                       'front': muscles_front,
+                                       'frontsecondary': muscles_front_secondary,
+                                       'backsecondary': muscles_front_secondary
                                    }})
 
         # Days of the week
@@ -514,7 +534,9 @@ class Day(models.Model):
                     'day_list': tmp_days_of_week},
                 'muscles': {
                     'back': muscles_back,
-                    'front': muscles_front
+                    'front': muscles_front,
+                    'frontsecondary': muscles_front_secondary,
+                    'backsecondary': muscles_front_secondary
                 },
                 'set_list': canonical_repr}
 
