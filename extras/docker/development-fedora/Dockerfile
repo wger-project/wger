@@ -1,22 +1,27 @@
 #
-# Docker image for wger development
+# Docker image for wger development on a fedora base image
 #
 # Please consult the documentation for usage
-# docker build -t wger/devel .
-# docker run -ti --name wger.devel --publish 8000:8000 wger/devel
+# docker build -t wger/devel-fedora .
+# docker run -ti --name wger.devel-fedora --publish 8000:8000 wger/devel-fedora
 # (in docker) source ~/venv/bin/activate
 # (in docker) python manage.py runserver 0.0.0.0:8000
 #
 #
-
-
-FROM wger/base
-
+FROM fedora:23
 MAINTAINER Roland Geider <roland@geider.net>
-EXPOSE 8000
 
 # Install dependencies
-RUN apt-get install -y vim tmux
+RUN dnf update;\
+    dnf install -y python3-devel python-virtualenv \
+    nodejs npm libjpeg-turbo-devel zlib-devel git \
+    tmux sudo
+
+# Add wger user
+RUN adduser wger
+RUN echo "wger ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/wger
+EXPOSE 8000
+
 
 # Set up the application
 USER wger

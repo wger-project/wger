@@ -1,5 +1,5 @@
-Demo image for wger
-===================
+Development image for wger - Fedora based
+=========================================
 Thank you for downloading wger Workout Manager. wger (ˈvɛɡɐ) is a free, open
 source web application that manages your exercises and personal workouts, weight
 and diet plans. It can also be used as a simple gym management utility, providing
@@ -11,14 +11,22 @@ It is written with python/django and uses jQuery and some D3js for charts.
 Installation
 ------------
 
-This docker image contains an instance of the application running as a WSGI
-process under apache with a sqlite database. It is useful to just try it out and
-play around. To start it:
+This docker image contains an instance of the application running with django's
+development server using a sqlite database. It can be used to quickly setup a
+development instance (vim and tmux are already installed):
 
+```docker run -ti --name wger.devel-fedora --publish 8000:8000 wger/devel-fedora```
 
-```docker run -ti --name wger.apache --publish 8000:80 wger/apache```
+Then, *within the docker image*, activate the virtualenv
+
+```source ~/venv/bin/activate```
+
+and start the development server
+
+```python manage.py runserver 0.0.0.0:8000```
 
 Then just open http://localhost:8000 and log in as: **admin**, password **admin**
+
 
 Contact
 -------
@@ -40,7 +48,6 @@ All the code and the content is freely available:
 
 * Main repository: https://github.com/rolandgeider/wger
 * Mirror: https://bitbucket.org/rolandgeider/wger
-
 
 Licence
 -------

@@ -39,17 +39,21 @@ Development version (from git)
 and stable state.
 
 
-1) Install the necessary packages and their dependencies in a virtualenv
+1) Install the necessary packages
 
 ::
 
  $ sudo apt-get install python3-dev python-virtualenv nodejs nodejs-legacy npm libjpeg8-dev zlib1g-dev git
- $ virtualenv --python python3 venv-django
- $ source venv-django/bin/activate
 
-On fedora 23 ::
+
+On fedora 23
+
+::
 
  $ sudo dnf install python3-devel python-virtualenv nodejs npm libjpeg-turbo-devel zlib-devel git
+
+Then install the python packages from pypi in the virtualenv::
+
  $ virtualenv --python python3 venv-django
  $ source venv-django/bin/activate
 
@@ -77,6 +81,35 @@ probably want to move the settings and sqlite files to your git folder, see
 the comments in the documentation (development chapter) about this::
 
  $ python manage.py runserver
+
+Docker images
+~~~~~~~~~~~~~
+
+Alternatively, there are docker images for development as well, ``wger/devel``
+and ``wger/devel-fedora``. Both images contain an instance of the application
+running with django's development server using a sqlite database and  can be
+used to quickly setup a development instance (vim and tmux are already
+installed). The only difference is that devel has an ubuntu base image while
+devel-fedora uses fedora.
+
+::
+
+ $ docker run -ti --name wger.devel --publish 8000:8000 wger/devel
+
+Then, *within the docker image*, activate the virtualenv
+
+::
+
+  $ source ~/venv/bin/activate
+
+and start the development server
+
+::
+
+ $ python manage.py runserver 0.0.0.0:8000
+
+Then just open http://localhost:8000 and log in as: **admin**, password **admin**
+
 
 
 Stable version (from PyPI)
