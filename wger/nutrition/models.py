@@ -565,42 +565,12 @@ class Meal(models.Model):
         return nutritional_info
 
 
-@python_2_unicode_compatible
-class MealItem(models.Model):
+class BaseMealItem(object):
     '''
-    An item (component) of a meal
+    Base class for an item (component) of a meal or log
+
+    This just provides some common helper functions
     '''
-
-    meal = models.ForeignKey(Meal,
-                             verbose_name=_('Nutrition plan'),
-                             editable=False)
-    ingredient = models.ForeignKey(Ingredient, verbose_name=_('Ingredient'))
-    weight_unit = models.ForeignKey(IngredientWeightUnit,
-                                    verbose_name=_('Weight unit'),
-                                    null=True,
-                                    blank=True,
-                                    )
-
-    order = models.IntegerField(verbose_name=_('Order'),
-                                blank=True,
-                                editable=False)
-    amount = models.DecimalField(decimal_places=2,
-                                 max_digits=6,
-                                 verbose_name=_('Amount'),
-                                 validators=[MinValueValidator(1),
-                                             MaxValueValidator(1000)])
-
-    def __str__(self):
-        '''
-        Return a more human-readable representation
-        '''
-        return u"{0}g ingredient {1}".format(self.amount, self.ingredient_id)
-
-    def get_owner_object(self):
-        '''
-        Returns the object that has owner information
-        '''
-        return self.meal.plan
 
     def get_unit_type(self):
         '''
@@ -671,3 +641,113 @@ class MealItem(models.Model):
             nutritional_info[i] = Decimal(nutritional_info[i]).quantize(TWOPLACES)
 
         return nutritional_info
+
+
+@python_2_unicode_compatible
+class MealItem(BaseMealItem, models.Model):
+    '''
+    An item (component) of a meal
+    '''
+    meal = models.ForeignKey(Meal,
+                             verbose_name=_('Nutrition plan'),
+                             editable=False)
+    ingredient = models.ForeignKey(Ingredient, verbose_name=_('Ingredient'))
+    '''
+    Ingredient
+    '''
+
+    weight_unit = models.ForeignKey(IngredientWeightUnit,
+                                    verbose_name=_('Weight unit'),
+                                    null=True,
+                                    blank=True,
+                                    )
+    '''
+    Weight unit used (grams, slices, etc.)
+    '''
+
+    amount = models.DecimalField(decimal_places=2,
+                                 max_digits=6,
+                                 verbose_name=_('Amount'),
+                                 validators=[MinValueValidator(1),
+                                             MaxValueValidator(1000)])
+    '''
+    The amount of units
+    '''
+
+    order = models.IntegerField(verbose_name=_('Order'),
+                                blank=True,
+                                editable=False)
+    '''
+    The order of the ingredient within the meal
+    '''
+
+    def __str__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return u"{0}g ingredient {1}".format(self.amount, self.ingredient_id)
+
+    def get_owner_object(self):
+        '''
+        Returns the object that has owner information
+        '''
+        return self.meal.plan
+
+
+@python_2_unicode_compatible
+class LogItem(BaseMealItem, models.Model):
+    '''
+    An item (component) of a log
+    '''
+    plan = models.ForeignKey(NutritionPlan,
+                             verbose_name=_('Nutrition plan'),
+                             editable=False)
+    '''
+    The plan this log belongs to
+    '''
+
+    datetime = models.DateTimeField(auto_now=True)
+    '''
+    Time and date when the log was added
+    '''
+
+    comment = models.TextField(verbose_name=_('Comment'),
+                               blank=True)
+    '''
+    Comment field, for additional information
+    '''
+
+    ingredient = models.ForeignKey(Ingredient, verbose_name=_('Ingredient'))
+    '''
+    Ingredient
+    '''
+
+    weight_unit = models.ForeignKey(IngredientWeightUnit,
+                                    verbose_name=_('Weight unit'),
+                                    null=True,
+                                    blank=True,
+                                    )
+    '''
+    Weight unit used (grams, slices, etc.)
+    '''
+
+    amount = models.DecimalField(decimal_places=2,
+                                 max_digits=6,
+                                 verbose_name=_('Amount'),
+                                 validators=[MinValueValidator(1),
+                                             MaxValueValidator(1000)])
+    '''
+    The amount of units
+    '''
+
+    def __str__(self):
+        '''
+        Return a more human-readable representation
+        '''
+        return u"Diary entry {0}g ingredient {1}".format(self.amount, self.ingredient_id)
+
+    def get_owner_object(self):
+        '''
+        Returns the object that has owner information
+        '''
+        return self.plan
