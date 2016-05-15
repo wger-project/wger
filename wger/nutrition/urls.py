@@ -30,7 +30,8 @@ from wger.nutrition.views import (
     meal,
     meal_item,
     unit,
-    unit_ingredient
+    unit_ingredient,
+    log
 )
 
 # sub patterns for nutritional plans
@@ -180,6 +181,16 @@ patterns_calories = [
         name='activities'),  # JS
 ]
 
+# sub patterns for calories dairy
+patterns_diary = [
+    url(r'^overview/(?P<pk>\d+)/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})$',
+        log.overview,
+        name='overview'),
+    url(r'^overview/(?P<pk>\d+)$',
+        log.overview,
+        name='overview'),
+]
+
 
 urlpatterns = [
    url(r'^', include(patterns_plan, namespace="plan")),
@@ -190,4 +201,5 @@ urlpatterns = [
    url(r'^unit-to-ingredient/', include(patterns_unit_ingredient, namespace="unit_ingredient")),
    url(r'^calculator/bmi/', include(patterns_bmi, namespace="bmi")),
    url(r'^calculator/calories/', include(patterns_calories, namespace="calories")),
+   url(r'^diary/', include(patterns_diary, namespace="log")),
 ]

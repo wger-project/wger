@@ -14,7 +14,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
+
 import logging
+import datetime
 from decimal import Decimal
 
 from django.db import models
@@ -197,6 +199,28 @@ class NutritionPlan(models.Model):
         # even more
         else:
             return 4
+
+    def get_logged_values(self, date=datetime.date.today):
+        '''
+        Sums the nutritional info of the items logged for the given date
+        '''
+        use_metric = self.user.userprofile.use_metric
+        unit = 'kg' if use_metric else 'lb'
+        result = {'energy': 0,
+                  'protein': 0,
+                  'carbohydrates': 0,
+                  'carbohydrates_sugar': 0,
+                  'fat': 0,
+                  'fat_saturated': 0,
+                  'fibres': 0,
+                  'sodium': 0}
+
+        # Perform the sums
+        for item in self.logitem_set.select_related():
+            values = item.get_nutritional_values(use_metric=use_metric)
+            for key in result.keys():
+                result[key] += values[key]
+        return result
 
 
 @python_2_unicode_compatible
@@ -712,7 +736,8 @@ class LogItem(BaseMealItem, models.Model):
     '''
 
     comment = models.TextField(verbose_name=_('Comment'),
-                               blank=True)
+                               blank=True,
+                               null=True)
     '''
     Comment field, for additional information
     '''
@@ -744,7 +769,7 @@ class LogItem(BaseMealItem, models.Model):
         '''
         Return a more human-readable representation
         '''
-        return u"Diary entry {0}g ingredient {1}".format(self.amount, self.ingredient_id)
+        return u"Diary entry for {}, plan {}".format(self.datetime, self.plan.pk)
 
     def get_owner_object(self):
         '''

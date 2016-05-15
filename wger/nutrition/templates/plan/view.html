@@ -268,6 +268,8 @@ function custom_modal_init()
 {# Side bar #}
 {#          #}
 {% block sidebar %}
+<a href="{% url 'nutrition:log:overview' plan.pk %}">{% trans "Nutrition diary" %}</a>
+
 <h4>{% trans "Energy" %}</h4>
 <table class="table table-condensed" id="nutritional-data-energy">
     <thead>
@@ -283,7 +285,8 @@ function custom_modal_init()
         <tr style="background-color:{% if total == 1 %}#8ae234;{% elif total == 2 %}#fce94f;{% elif total == 3 %}#fcaf3e;{% elif total > 3 %}#ef2929;{% endif %}">
             <td>{% trans "Goal" %}</td>
             <td class="align-right">
-                <strong>{{owner_user.userprofile.calories}} {% trans "kcal" %}</strong></td>
+                <strong>{{owner_user.userprofile.calories}} {% trans "kcal" %}</strong>
+            </td>
         </tr>
         {% endwith %}
         {% endif %}
