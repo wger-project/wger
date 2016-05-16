@@ -200,12 +200,14 @@ class NutritionPlan(models.Model):
         else:
             return 4
 
-    def get_logged_values(self, date=datetime.date.today):
+    def get_logged_values(self, date=None):
         '''
         Sums the nutritional info of the items logged for the given date
         '''
+        if not date:
+            date = datetime.date.today()
+
         use_metric = self.user.userprofile.use_metric
-        unit = 'kg' if use_metric else 'lb'
         result = {'energy': 0,
                   'protein': 0,
                   'carbohydrates': 0,
@@ -216,7 +218,10 @@ class NutritionPlan(models.Model):
                   'sodium': 0}
 
         # Perform the sums
-        for item in self.logitem_set.select_related():
+        # TODO: in django 1.9 use __date=date here
+        for item in self.logitem_set.filter(datetime__year=date.year,
+                                            datetime__month=date.month,
+                                            datetime__day=date.day).select_related():
             values = item.get_nutritional_values(use_metric=use_metric)
             for key in result.keys():
                 result[key] += values[key]
