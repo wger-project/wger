@@ -183,12 +183,12 @@ patterns_calories = [
 
 # sub patterns for calories dairy
 patterns_diary = [
-    url(r'^overview/(?P<pk>\d+)/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})$',
-        log.overview,
-        name='overview'),
     url(r'^overview/(?P<pk>\d+)$',
         log.overview,
         name='overview'),
+    url(r'^detail/(?P<pk>\d+)/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})$',
+        log.detail,
+        name='detail'),
 ]
 
 

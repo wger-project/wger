@@ -200,6 +200,15 @@ class NutritionPlan(models.Model):
         else:
             return 4
 
+    def get_log_overview(self):
+        '''
+        Returns an overview for all logs available for this plan
+        '''
+        result = {}
+        for date in self.logitem_set.datetimes('datetime', 'day', order='DESC'):
+            result[date] = self.get_logged_values(date=date)
+        return result
+
     def get_logged_values(self, date=None):
         '''
         Sums the nutritional info of the items logged for the given date

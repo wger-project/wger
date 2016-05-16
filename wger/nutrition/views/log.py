@@ -17,22 +17,45 @@
 import datetime
 import logging
 
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from wger.nutrition.models import LogItem, NutritionPlan
+from wger.nutrition.models import NutritionPlan
 
 logger = logging.getLogger(__name__)
 
 
 @login_required
-def overview(request, pk, date=None):
+def overview(request, pk):
+    '''
+    Shows an overview of diary entries for the given plan
+    '''
+    context = {}
+    plan = get_object_or_404(NutritionPlan, pk=pk)
+    context['plan'] = plan
+    context['logs'] = plan.get_log_overview()
+    context['nutritional_data'] = plan.get_nutritional_values()
+
+    return render(request, 'log/overview.html', context)
+
+
+@login_required
+def detail(request, pk, year, month, day):
     '''
     Shows an overview of the log for the given date
     '''
     context = {}
-    if not date:
+    try:
+        date = datetime.date(year=int(year), month=int(month), day=int(day))
+    except ValueError:
         date = datetime.date.today()
+        return HttpResponseRedirect(reverse('nutrition:log:detail',
+                                            kwargs={'pk': pk,
+                                                    'year': date.year,
+                                                    'month': date.month,
+                                                    'day': date.day}))
 
     plan = get_object_or_404(NutritionPlan, pk=pk)
     context['plan'] = plan
@@ -40,4 +63,4 @@ def overview(request, pk, date=None):
     context['log_values'] = plan.get_logged_values(date)
     context['nutritional_data'] = plan.get_nutritional_values()
 
-    return render(request, 'log/overview.html', context)
+    return render(request, 'log/detail.html', context)
