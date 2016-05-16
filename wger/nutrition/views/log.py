@@ -31,19 +31,10 @@ def overview(request, pk, date=None):
     Shows an overview of the log for the given date
     '''
     context = {}
-
     if not date:
         date = datetime.date.today()
 
     plan = get_object_or_404(NutritionPlan, pk=pk)
-    print(plan.get_logged_values(date))
-
-    # TODO: in django 1.9 use __date=date here
-    # logs = LogItem.objects.filter(datetime__year=date.year,
-    #                               datetime__month=date.month,
-    #                               datetime__day=date.day,
-    #                               plan=pk)
-    # context['logs'] = logs
     context['plan'] = plan
     context['date'] = date
     context['log_values'] = plan.get_logged_values(date)
