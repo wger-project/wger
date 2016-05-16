@@ -30,8 +30,9 @@ def filter_dump(data, model_list, filename):
     Helper function
     '''
     filter_data = [i for i in data if i['model'] in model_list]
-    with open(filename, 'w') as outfile:
-        json.dump(filter_data, outfile, indent=4)
+    if filter_data:
+        with open(filename, 'w') as outfile:
+            json.dump(filter_data, outfile, indent=4)
 
 # This is a full dump of the DB
 fixture = open('data.json')
@@ -84,3 +85,5 @@ filter_dump(data, ('config.gymconfig',), 'gym_config.json')
 #
 filter_dump(data, ('auth.group',), 'groups.json')
 filter_dump(data, ('auth.user',), 'users.json')
+
+filter_dump(data, ('nutrition.logitem',), 'nutrition_diary.json')
