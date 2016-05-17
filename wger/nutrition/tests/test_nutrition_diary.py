@@ -17,10 +17,93 @@ import logging
 import datetime
 from decimal import Decimal
 
+from django.core.urlresolvers import reverse
+
 from wger.nutrition.models import NutritionPlan
-from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.manager.tests.testcase import (
+    WorkoutManagerTestCase,
+    WorkoutManagerAccessTestCase
+)
 
 logger = logging.getLogger(__name__)
+
+
+class DiaryOverviewAccessTest(WorkoutManagerAccessTestCase):
+    '''
+    Tests accessing a nutrition overview page
+    '''
+    url = reverse('nutrition:log:overview', kwargs={'pk': 1})
+    user_success = 'test'
+    user_fail = ('admin',
+                 'member1',
+                 'member2',
+                 'trainer2',
+                 'trainer3',
+                 'trainer4',
+                 'manager3',
+                 'general_manager1',
+                 'general_manager2')
+
+
+class DiaryOverview2AccessTest(WorkoutManagerAccessTestCase):
+    '''
+    Tests accessing a nutrition overview page (read access activated)
+    '''
+    url = reverse('nutrition:log:overview', kwargs={'pk': 2})
+    user_fail = None
+    anonymous_fail = False
+    user_success = ('admin',
+                    'test',
+                    'member1',
+                    'member2',
+                    'trainer2',
+                    'trainer3',
+                    'trainer4',
+                    'manager3',
+                    'general_manager1',
+                    'general_manager2')
+
+
+class DiaryDetailAccessTest(WorkoutManagerAccessTestCase):
+    '''
+    Tests accessing a nutrition overview page
+    '''
+    url = reverse('nutrition:log:detail', kwargs={'pk': 1,
+                                                  'year': 2016,
+                                                  'month': 5,
+                                                  'day': 15})
+    user_success = 'test'
+    user_fail = ('admin',
+                 'member1',
+                 'member2',
+                 'trainer2',
+                 'trainer3',
+                 'trainer4',
+                 'manager3',
+                 'general_manager1',
+                 'general_manager2')
+
+
+class DiaryDetail2AccessTest(WorkoutManagerAccessTestCase):
+    '''
+    Tests accessing a nutrition overview page (read access activated)
+    '''
+    url = reverse('nutrition:log:detail', kwargs={'pk': 2,
+                                                  'year': 2016,
+                                                  'month': 5,
+                                                  'day': 15})
+    user_fail = None
+    anonymous_fail = False
+    user_success = ('admin',
+                    'test',
+                    'member1',
+                    'member2',
+                    'trainer2',
+                    'trainer3',
+                    'trainer4',
+                    'manager3',
+                    'general_manager1',
+                    'general_manager2')
 
 
 class NutritionDiaryTestCase(WorkoutManagerTestCase):

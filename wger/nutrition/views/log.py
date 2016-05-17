@@ -17,23 +17,36 @@
 import datetime
 import logging
 
-from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
+from django.http import (
+    HttpResponseRedirect,
+    HttpResponseForbidden
+)
+from django.shortcuts import (
+    render,
+    get_object_or_404
+)
 
 from wger.nutrition.models import NutritionPlan
 
 logger = logging.getLogger(__name__)
 
 
-@login_required
 def overview(request, pk):
     '''
     Shows an overview of diary entries for the given plan
     '''
-    context = {}
+
+    # Check read permission
     plan = get_object_or_404(NutritionPlan, pk=pk)
+    user = plan.user
+    is_owner = request.user == user
+
+    if not is_owner and not user.userprofile.ro_access:
+        return HttpResponseForbidden()
+
+    context = {}
     context['plan'] = plan
     context['logs'] = plan.get_log_overview()
     context['nutritional_data'] = plan.get_nutritional_values()
@@ -41,12 +54,19 @@ def overview(request, pk):
     return render(request, 'log/overview.html', context)
 
 
-@login_required
 def detail(request, pk, year, month, day):
     '''
     Shows an overview of the log for the given date
     '''
-    context = {}
+
+    # Check read permission
+    plan = get_object_or_404(NutritionPlan, pk=pk)
+    user = plan.user
+    is_owner = request.user == user
+
+    if not is_owner and not user.userprofile.ro_access:
+        return HttpResponseForbidden()
+
     try:
         date = datetime.date(year=int(year), month=int(month), day=int(day))
     except ValueError:
@@ -57,7 +77,7 @@ def detail(request, pk, year, month, day):
                                                     'month': date.month,
                                                     'day': date.day}))
 
-    plan = get_object_or_404(NutritionPlan, pk=pk)
+    context = {}
     context['plan'] = plan
     context['date'] = date
     context['log_values'] = plan.get_logged_values(date)
