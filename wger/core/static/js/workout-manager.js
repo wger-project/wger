@@ -706,13 +706,13 @@ $(document).ready(function() {
         var downloadImages = $('#id_images').is(':checked') ? 1 : 0;
         var downloadComments = $('#id_comments').is(':checked') ? 1 : 0;
 
-        var workoutId = downloadInfo.data('scheduleId');
+        var scheduleId = downloadInfo.data('scheduleId');
         var uid = downloadInfo.data('uid');
         var token = downloadInfo.data('token');
 
         // Put together and redirect
         var targetUrl = '/' + get_current_language() +
-            '/workout/schedule/' +workoutId + '/pdf' +
+            '/workout/schedule/' +scheduleId + '/pdf' +
             '/' + downloadType +
             '/' + downloadImages +
             '/' + downloadComments +

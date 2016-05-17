@@ -251,17 +251,7 @@
         {% trans "Download as PDF" %}
     </a>
 </p>
-<!--
-<p>
-    <a href="{% url 'manager:schedule:pdf' schedule.id uid token %}">
-        <img src="{% static 'images/icons/save.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Download as PDF' %}"
-             title="{% trans 'Download as PDF' %}">
-        {% trans "Download as PDF" %}</a>
-</p>
--->
+
 {% if is_owner %}
 <p>
     <a href="{% url 'manager:schedule:edit' schedule.id %}"
