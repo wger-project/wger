@@ -6,57 +6,57 @@
 {# Opengraph #}
 {#           #}
 {% block opengraph %}
-    {{ block.super }}
-    <meta property="og:title" content="{% trans 'Schedule' %}">
-    <meta property="og:description" content="{{ schedule }} / {{owner_user.username}}">
+{{ block.super }}
+<meta property="og:title" content="{% trans 'Schedule' %}">
+<meta property="og:description" content="{{ schedule }} / {{owner_user.username}}">
 {% endblock %}
 
 {% block title %}{{schedule.name}}{% endblock %}
 
 {% block header %}
 <script type="text/javascript">
-function init_sortable()
-{
-    $("#schedule-table tbody").off();
-    $("#schedule-table tbody").sortable({
-        handle: '.dragndrop-handle',
-        revert: true,
-        update : function (event, ui) {
-            var schedule_id = ui.item.data('scheduleId');
+    function init_sortable()
+    {
+        $("#schedule-table tbody").off();
+        $("#schedule-table tbody").sortable({
+            handle: '.dragndrop-handle',
+            revert: true,
+            update : function (event, ui) {
+                var schedule_id = ui.item.data('scheduleId');
 
-            // returns something in the form "step-1,step-2,step-3,"
-            var order = $( this ).sortable('toArray');
+                // returns something in the form "step-1,step-2,step-3,"
+                var order = $( this ).sortable('toArray');
 
-            $.each(order, function (index, value) {
-                if (value) {
-                    var step_pk = value.match(/\d+/)[0];
-                    $.ajax({
-                       url:'/api/v2/schedulestep/' + step_pk + '/',
-                       type: 'PATCH',
-                       data: {'order': index + 1}
-                    }).done(function(data) {
-                        //console.log(data);
-                    });
-                }
-            });
+                $.each(order, function (index, value) {
+                    if (value) {
+                        var step_pk = value.match(/\d+/)[0];
+                        $.ajax({
+                            url:'/api/v2/schedulestep/' + step_pk + '/',
+                            type: 'PATCH',
+                            data: {'order': index + 1}
+                        }).done(function(data) {
+                            //console.log(data);
+                        });
+                    }
+                });
 
-            current_url = $("#current-url").data('currentUrl');
+                current_url = $("#current-url").data('currentUrl');
 
-            // TODO: again, why do we need to do this twice. Otherwise, sometimes
-            //       it doesn't get current data
-            $.get(current_url);
-            $.get(current_url, function(data) {
-                $('#schedule-table').html($(data).find('#schedule-table').html());
-                init_sortable();
-                form_modal_dialog();
-            });
-        }
-    })
-}
+                // TODO: again, why do we need to do this twice. Otherwise, sometimes
+                //       it doesn't get current data
+                $.get(current_url);
+                $.get(current_url, function(data) {
+                    $('#schedule-table').html($(data).find('#schedule-table').html());
+                    init_sortable();
+                    form_modal_dialog();
+                });
+            }
+        })
+    }
 
-$(function() {
-    init_sortable();
-});
+    $(function() {
+        init_sortable();
+    });
 </script>
 {% endblock %}
 
@@ -70,9 +70,9 @@ $(function() {
         <th>{% trans "Schedule active" %}</th>
         <td>
             {% if schedule.is_active %}
-                <span class="glyphicon glyphicon-ok"></span>
+            <span class="glyphicon glyphicon-ok"></span>
             {% else %}
-                <span class="glyphicon glyphicon-remove"></span>
+            <span class="glyphicon glyphicon-remove"></span>
             {% endif %}
         </td>
     </tr>
@@ -80,10 +80,10 @@ $(function() {
         <th>{% trans "Is a loop" %}</th>
         <td>
             {% if schedule.is_loop %}
-                <span class="glyphicon glyphicon-ok"></span>
-                <em>{% trans "This schedule is a loop and will go through the workouts above till you deactivate it" %}</em>
+            <span class="glyphicon glyphicon-ok"></span>
+            <em>{% trans "This schedule is a loop and will go through the workouts above till you deactivate it" %}</em>
             {% else %}
-                <span class="glyphicon glyphicon-remove"></span>
+            <span class="glyphicon glyphicon-remove"></span>
             {% endif %}
         </td>
     </tr>
@@ -91,25 +91,25 @@ $(function() {
 
 
 <div id="schedule-table-container">
-<table id="schedule-table" class="table">
-    <thead>
-    <tr>
-        <th>{% trans "Nr." %}</th>
-        {% if is_owner %}
-        <th>{% trans "Actions" %}</th>
-        {% endif %}
-        <th>{% trans "Workout" %}</th>
-        <th>{% trans "Weeks" %}</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for step in schedule.schedulestep_set.select_related %}
-    <tr data-schedule-id="{{schedule.id}}" id="step-{{step.id}}">
-        <td>
-            {{ forloop.counter }}
-        </td>
-        {% if is_owner %}
-        <td style="min-width: 6em;">
+    <table id="schedule-table" class="table">
+        <thead>
+        <tr>
+            <th>{% trans "Nr." %}</th>
+            {% if is_owner %}
+            <th>{% trans "Actions" %}</th>
+            {% endif %}
+            <th>{% trans "Workout" %}</th>
+            <th>{% trans "Weeks" %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for step in schedule.schedulestep_set.select_related %}
+        <tr data-schedule-id="{{schedule.id}}" id="step-{{step.id}}">
+            <td>
+                {{ forloop.counter }}
+            </td>
+            {% if is_owner %}
+            <td style="min-width: 6em;">
             <span class="editoptions">
                 <img src="{% static 'images/icons/move.svg' %}"
                      width="22"
@@ -118,12 +118,12 @@ $(function() {
                      title="{% trans 'Move me' %}"
                      class="dragndrop-handle">
                  <a href="{% url 'manager:step:edit' step.id %}"
-                   title="{% trans 'Edit' %}"
-                   class="wger-modal-dialog">
+                    title="{% trans 'Edit' %}"
+                    class="wger-modal-dialog">
                     <img src="{% static 'images/icons/edit.svg' %}"
-                            width="22"
-                            height="22"
-                            alt="{% trans 'Edit' %}"></a>
+                         width="22"
+                         height="22"
+                         alt="{% trans 'Edit' %}"></a>
                 <a href="{% url 'manager:step:delete' step.id %}"
                    title="{% trans 'Delete' %}"
                    class="wger-modal-dialog">
@@ -132,90 +132,90 @@ $(function() {
                              height="22"
                              alt="{% trans 'Delete' %}"></a>
             </span>
-        </td>
-        {% endif %}
-        <td>
-            <a href="{{ step.workout.get_absolute_url }}">{{ step.workout }}</a>
-            {% if active_workout == step %}
-                &nbsp;<span class="label label-info">{% trans "active" %}</span>
-            {% endif  %}
-        </td>
-        <td>
-            {{ step.duration }}
-        </td>
-    </tr>
-    {% empty %}
-    {% if is_owner %}
-    <tr>
-        <td colspan="4">
-            <a href="{% url 'manager:step:add' schedule.id %}" class="wger-modal-dialog btn btn-block btn-default">
-            {% trans "No workouts found." %} {% trans "Add one now." %}
-            </a>
-        </td>
-    </tr>
-    {% endif %}
-    {% endfor %}
-    {% if is_owner %}
-    <tr>
-        <td colspan="4">
-            {% if not schedule.is_active %}
-            <a href="{% url 'manager:schedule:start' schedule.pk %}" class="btn btn-success btn-sm">
-                <span class="glyphicon glyphicon-play"></span>
-                {% trans "Start schedule" %}
-            </a>
+            </td>
             {% endif %}
+            <td>
+                <a href="{{ step.workout.get_absolute_url }}">{{ step.workout }}</a>
+                {% if active_workout == step %}
+                &nbsp;<span class="label label-info">{% trans "active" %}</span>
+                {% endif  %}
+            </td>
+            <td>
+                {{ step.duration }}
+            </td>
+        </tr>
+        {% empty %}
+        {% if is_owner %}
+        <tr>
+            <td colspan="4">
+                <a href="{% url 'manager:step:add' schedule.id %}" class="wger-modal-dialog btn btn-block btn-default">
+                    {% trans "No workouts found." %} {% trans "Add one now." %}
+                </a>
+            </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        {% if is_owner %}
+        <tr>
+            <td colspan="4">
+                {% if not schedule.is_active %}
+                <a href="{% url 'manager:schedule:start' schedule.pk %}" class="btn btn-success btn-sm">
+                    <span class="glyphicon glyphicon-play"></span>
+                    {% trans "Start schedule" %}
+                </a>
+                {% endif %}
 
-            <a href="{% url 'manager:step:add' schedule.id %}" class="wger-modal-dialog btn btn-default btn-sm">
-                <span class="glyphicon glyphicon-plus"></span>
-                {% trans "Add workout" %}
-            </a>
-        </td>
-        <td colspan="2">
-        </td>
-    </tr>
-    {% endif %}
-    </tbody>
-</table>
+                <a href="{% url 'manager:step:add' schedule.id %}" class="wger-modal-dialog btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    {% trans "Add workout" %}
+                </a>
+            </td>
+            <td colspan="2">
+            </td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
 </div>
 
 
 {% for step in schedule.schedulestep_set.select_related %}
 {% with step_dates=step.get_dates %}
-    <div class="row">
-        <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        {% blocktrans count weeks=step.duration %}{{ weeks }} Week
-                            {% plural %}{{ weeks }} Weeks
-                        {% endblocktrans %}
+<div class="row">
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    {% blocktrans count weeks=step.duration %}{{ weeks }} Week
+                    {% plural %}{{ weeks }} Weeks
+                    {% endblocktrans %}
                     </h4>
 
-                        {% if active_workout == step %}
-                            <span class="label label-info">{% trans "active" %}</span>
-                        {% endif  %}
-                </div>
-                <div class="panel-body">
-                    <span>{{step_dates.0}} <br> {{step_dates.1}}</span>
-                </div>
-                <div class="panel-footer">
-                    <a href="{{ step.workout.get_absolute_url }}"
-                       class="btn btn-default btn-block btn-sm"
-                       style="white-space: normal;">
-                        <span class="glyphicon glyphicon-chevron-right pull-right"></span>
-                        {{ step.workout }}
-                    </a>
-                </div>
+                    {% if active_workout == step %}
+                    <span class="label label-info">{% trans "active" %}</span>
+                    {% endif  %}
             </div>
-        </div>
-        <div class="col-md-9">
-        {% for day in step.workout.canonical_representation.day_list %}
-            <div id="div-day-{{ day.obj.id }}">
-                {% render_day day.obj False %}
+            <div class="panel-body">
+                <span>{{step_dates.0}} <br> {{step_dates.1}}</span>
             </div>
-        {% endfor %}
+            <div class="panel-footer">
+                <a href="{{ step.workout.get_absolute_url }}"
+                   class="btn btn-default btn-block btn-sm"
+                   style="white-space: normal;">
+                    <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                    {{ step.workout }}
+                </a>
+            </div>
         </div>
     </div>
+    <div class="col-md-9">
+        {% for day in step.workout.canonical_representation.day_list %}
+        <div id="div-day-{{ day.obj.id }}">
+            {% render_day day.obj False %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endwith %}
 {% endfor %}
 {% endblock %}
@@ -226,51 +226,63 @@ $(function() {
 <h4>{% trans "Adding workouts" %}</h4>
 
 <p>{% blocktrans %}Add as many workouts to the schedule as you want. You can
-edit the order by dragging and dropping them. It's also possible to add one workout more
-than once.{% endblocktrans %}</p>
+    edit the order by dragging and dropping them. It's also possible to add one workout more
+    than once.{% endblocktrans %}</p>
 {% endif %}
 
 <h4>{% trans "Options" %}</h4>
 <p>
-<a href="#" data-toggle="modal" data-target="#export-ical-popup">
-<img src="{% static 'images/icons/calendar.svg' %}"
-    width="32"
-    height="32"
-    alt="{% trans 'Export calendar file' %}"
-    title="{% trans 'Export calendar file' %}">
-{% trans "Export calendar file" %}</a>
+    <a href="#" data-toggle="modal" data-target="#export-ical-popup">
+        <img src="{% static 'images/icons/calendar.svg' %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Export calendar file' %}"
+             title="{% trans 'Export calendar file' %}">
+        {% trans "Export calendar file" %}</a>
 </p>
 
 <p>
-<a href="{% url 'manager:schedule:pdf' schedule.id uid token %}">
-<img src="{% static 'images/icons/save.svg' %}"
-    width="32"
-    height="32"
-    alt="{% trans 'Download as PDF' %}"
-    title="{% trans 'Download as PDF' %}">
-{% trans "Download as PDF" %}</a>
+    <a data-toggle="modal" data-target="#download-pdf-popup">
+        <img src="{% static 'images/icons/save.svg' %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Download as PDF' %}"
+             title="{% trans 'Download as PDF' %}">
+        {% trans "Download as PDF" %}
+    </a>
 </p>
+<!--
+<p>
+    <a href="{% url 'manager:schedule:pdf' schedule.id uid token %}">
+        <img src="{% static 'images/icons/save.svg' %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Download as PDF' %}"
+             title="{% trans 'Download as PDF' %}">
+        {% trans "Download as PDF" %}</a>
+</p>
+-->
 {% if is_owner %}
 <p>
-<a href="{% url 'manager:schedule:edit' schedule.id %}"
-   class="wger-modal-dialog">
-<img src="{% static 'images/icons/edit.svg' %}"
-    width="32"
-    height="32"
-    alt="{% trans 'Edit schedule' %}"
-    title="{% trans 'Edit schedule' %}">
-{% trans "Edit schedule" %}</a>
+    <a href="{% url 'manager:schedule:edit' schedule.id %}"
+       class="wger-modal-dialog">
+        <img src="{% static 'images/icons/edit.svg' %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Edit schedule' %}"
+             title="{% trans 'Edit schedule' %}">
+        {% trans "Edit schedule" %}</a>
 </p>
 
 <p>
-<a href="{% url 'manager:schedule:delete' schedule.id %}"
-   class="wger-modal-dialog">
-<img src="{% static 'images/icons/trash.svg' %}"
-    width="32"
-    height="32"
-    alt="{% trans 'Delete schedule' %}"
-    title="{% trans 'Delete schedule' %}">
-{% trans "Delete schedule" %}</a>
+    <a href="{% url 'manager:schedule:delete' schedule.id %}"
+       class="wger-modal-dialog">
+        <img src="{% static 'images/icons/trash.svg' %}"
+             width="32"
+             height="32"
+             alt="{% trans 'Delete schedule' %}"
+             title="{% trans 'Delete schedule' %}">
+        {% trans "Delete schedule" %}</a>
 </p>
 {% endif %}
 
@@ -284,17 +296,81 @@ than once.{% endblocktrans %}</p>
             <div class="modal-body">
                 <p>{% trans "Export this schedule as a calendar file." %}</p>
                 <p>{% blocktrans %}You can then import the file it into your calendar
-application for example google calendar, outlook or iCal. This will create
-an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
+                    application for example google calendar, outlook or iCal. This will create
+                    an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
                 <p>
-                <a href="{% url 'manager:schedule:ical' schedule.id uid token %}" class="btn btn-block btn-default">
-                   <img src="{% static 'images/icons/calendar.svg' %}"
-                         width="32"
-                         height="32"
-                         alt="{% trans 'Export calendar file' %}"
-                         title="{% trans 'Export calendar file' %}">
-                   {% trans "Export calendar file" %}
-                </a>
+                    <a href="{% url 'manager:schedule:ical' schedule.id uid token %}" class="btn btn-block btn-default">
+                        <img src="{% static 'images/icons/calendar.svg' %}"
+                             width="32"
+                             height="32"
+                             alt="{% trans 'Export calendar file' %}"
+                             title="{% trans 'Export calendar file' %}">
+                        {% trans "Export calendar file" %}
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="download-pdf-popup">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{% trans "Download as PDF" %}</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div id="pdf-download-info" data-schedule-id="{{ schedule.id }}" data-uid="{{ uid }}" data-token="{{ token }}"></div>
+                    <div class="form-group">
+                        <div>
+                            <label for="id_images" class="col-md-3 control-label">
+                                {% trans "Type" %}
+                            </label>
+                        </div>
+                        <div class="col-md-9" style="padding-left: 35px;">
+                            <div class="radio">
+                                <input type="radio" name="pdf_type" id="id_type_log" value="log" checked>
+                                {% trans "Log" %}
+                            </div>
+                            <div class="radio">
+                                <input type="radio" name="pdf_type" id="id_type_table" value="table">
+                                {% trans "Table" %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label for="id_images" class="col-md-3 control-label">
+                                {% trans "with images" %}
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="checkbox" class="checkbox" name="images" id="id_images" checked>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label for="id_comments" class="col-md-3 control-label">
+                                {% trans "with comments" %}
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="checkbox" class="checkbox" name="comments" id="id_comments" checked>
+                        </div>
+                    </div>
+                </form>
+
+                <p>
+                    <a href="" class="btn btn-block btn-default" id="download-pdf-button-schedule">
+                        <img src="{% static 'images/icons/save.svg' %}"
+                             width="32"
+                             height="32"
+                             alt="{% trans 'Download' %}"
+                             title="{% trans 'Download' %}">
+                        {% trans "Download" %}
+                    </a>
                 </p>
             </div>
         </div>
