@@ -488,7 +488,7 @@ class SchedulePdfLogExportTestCase(WorkoutManagerTestCase):
 
         user = User.objects.get(username='test')
         uid, token = make_token(user)
-        response = self.client.get(reverse('manager:schedule:pdf', kwargs={'pk': 1,
+        response = self.client.get(reverse('manager:schedule:pdf-log', kwargs={'pk': 1,
                                                                            'uidb64': uid,
                                                                            'token': token}))
 
@@ -504,7 +504,7 @@ class SchedulePdfLogExportTestCase(WorkoutManagerTestCase):
         # Wrong or expired token
         uid = 'MQ'
         token = '3xv-57ef74923091fe7f186e'
-        response = self.client.get(reverse('manager:schedule:pdf', kwargs={'pk': 1,
+        response = self.client.get(reverse('manager:schedule:pdf-log', kwargs={'pk': 1,
                                                                            'uidb64': uid,
                                                                            'token': token}))
         self.assertEqual(response.status_code, 403)
@@ -514,7 +514,7 @@ class SchedulePdfLogExportTestCase(WorkoutManagerTestCase):
         Helper function to test exporting a workout as a pdf
         '''
 
-        response = self.client.get(reverse('manager:schedule:pdf', kwargs={'pk': 1}))
+        response = self.client.get(reverse('manager:schedule:pdf-log', kwargs={'pk': 1}))
 
         if fail:
             self.assertIn(response.status_code, (403, 404, 302))
