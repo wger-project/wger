@@ -37,32 +37,32 @@
         <tr>
             <td>{% trans "Energy" %}</td>
             <td class="align-right">{{ nutritional_data.total.energy|floatformat }} {% trans "kcal" %}</td>
-            <td class="align-right">{{ log_values.energy|floatformat }} {% trans "kcal" %}</td>
+            <td class="align-right">{{ log_summary.energy|floatformat }} {% trans "kcal" %}</td>
         </tr>
         <tr>
             <td>{% trans "Protein" %}</td>
             <td class="align-right">{{ nutritional_data.total.protein|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
-            <td class="align-right">{{ log_values.protein|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ log_summary.protein|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
         </tr>
         <tr>
             <td>{% trans "Carbohydrates" %}</td>
             <td class="align-right">{{ nutritional_data.total.carbohydrates|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
-            <td class="align-right">{{ log_values.carbohydrates|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ log_summary.carbohydrates|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
         </tr>
         <tr>
             <td style="padding-left: 2em;">{% trans "Sugar content in carbohydrates" %}</td>
             <td class="align-right">{{ nutritional_data.total.carbohydrates_sugar|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
-            <td class="align-right">{{ log_values.carbohydrates_sugar|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ log_summary.carbohydrates_sugar|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
         </tr>
         <tr>
             <td>{% trans "Fat" %}</td>
             <td class="align-right">{{ nutritional_data.total.fat|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
-            <td class="align-right">{{ log_values.fat|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ log_summary.fat|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
         </tr>
         <tr>
             <td style="padding-left: 2em;">{% trans "Saturated fat content in fats" %}</td>
             <td class="align-right">{{ nutritional_data.total.fat_saturated|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
-            <td class="align-right">{{ log_values.fat_saturated|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ log_summary.fat_saturated|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
         </tr>
 
 
@@ -72,13 +72,42 @@
         <tr>
             <td>{% trans "Fibres" %}</td>
             <td class="align-right">{{ nutritional_data.total.fibres|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
-            <td class="align-right">{{ log_values.fibres|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ log_summary.fibres|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
         </tr>
         <tr>
             <td>{% trans "Sodium" %}</td>
             <td class="align-right">{{ nutritional_data.total.sodium|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
-            <td class="align-right">{{ log_values.sodium|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ log_summary.sodium|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
         </tr>
+    </tbody>
+</table>
+
+<h3>{% trans "Entries" %}</h3>
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>{% trans "Ingredient" %}</th>
+            <th class="align-right">{% trans "Amount" %}</th>
+            <th class="align-right">{% trans "Energy" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for entry in log_entries %}
+    <tr>
+        <td>{{ entry.ingredient }}</td>
+        <td class="align-right">
+            {{ entry.amount }}
+            {% if entry.weight_unit %}
+                {{ entry.weight_unit }}
+            {% else %}
+                {% trans "g" %}
+            {% endif %}
+        </td>
+        <td class="align-right">
+            {{ entry.get_nutritional_values.energy }} {% trans "kcal" %}
+        </td>
+    </tr>
+{% endfor %}
     </tbody>
 </table>
 {% endblock %}

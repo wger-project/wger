@@ -206,16 +206,25 @@ class NutritionPlan(models.Model):
         '''
         result = {}
         for date in self.logitem_set.datetimes('datetime', 'day', order='DESC'):
-            result[date] = self.get_logged_values(date=date)
+            result[date] = self.get_log_summary(date=date)
         return result
 
-    def get_logged_values(self, date=None):
+    def get_log_entries(self, date=None):
         '''
-        Sums the nutritional info of the items logged for the given date
+        Convenience function that returns the log entries for a given date
         '''
         if not date:
             date = datetime.date.today()
 
+        # TODO: in django 1.9 use __date=date here
+        return self.logitem_set.filter(datetime__year=date.year,
+                                       datetime__month=date.month,
+                                       datetime__day=date.day).select_related()
+
+    def get_log_summary(self, date=None):
+        '''
+        Sums the nutritional info of the items logged for the given date
+        '''
         use_metric = self.user.userprofile.use_metric
         result = {'energy': 0,
                   'protein': 0,
@@ -227,10 +236,7 @@ class NutritionPlan(models.Model):
                   'sodium': 0}
 
         # Perform the sums
-        # TODO: in django 1.9 use __date=date here
-        for item in self.logitem_set.filter(datetime__year=date.year,
-                                            datetime__month=date.month,
-                                            datetime__day=date.day).select_related():
+        for item in self.get_log_entries(date):
             values = item.get_nutritional_values(use_metric=use_metric)
             for key in result.keys():
                 result[key] += values[key]

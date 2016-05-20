@@ -115,7 +115,7 @@ class NutritionDiaryTestCase(WorkoutManagerTestCase):
         plan = NutritionPlan.objects.get(pk=1)
 
         # No entries for date
-        self.assertEqual(plan.get_logged_values(datetime.date(2016, 1, 12)),
+        self.assertEqual(plan.get_log_summary(datetime.date(2016, 1, 12)),
                          {'energy': 0,
                           'protein': 0,
                           'carbohydrates': 0,
@@ -126,7 +126,7 @@ class NutritionDiaryTestCase(WorkoutManagerTestCase):
                           'sodium': 0})
 
         # Entries found
-        self.assertEqual(plan.get_logged_values(datetime.date(2016, 5, 15)),
+        self.assertEqual(plan.get_log_summary(datetime.date(2016, 5, 15)),
                          {'energy': Decimal('653.80'),
                           'protein': Decimal('19.22'),
                           'carbohydrates': Decimal('109.99'),

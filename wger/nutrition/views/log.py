@@ -46,10 +46,9 @@ def overview(request, pk):
     if not is_owner and not user.userprofile.ro_access:
         return HttpResponseForbidden()
 
-    context = {}
-    context['plan'] = plan
-    context['logs'] = plan.get_log_overview()
-    context['nutritional_data'] = plan.get_nutritional_values()
+    context = {'plan': plan,
+               'logs': plan.get_log_overview(),
+               'nutritional_data': plan.get_nutritional_values()}
 
     return render(request, 'log/overview.html', context)
 
@@ -77,10 +76,10 @@ def detail(request, pk, year, month, day):
                                                     'month': date.month,
                                                     'day': date.day}))
 
-    context = {}
-    context['plan'] = plan
-    context['date'] = date
-    context['log_values'] = plan.get_logged_values(date)
-    context['nutritional_data'] = plan.get_nutritional_values()
+    context = {'plan': plan,
+               'date': date,
+               'log_summary': plan.get_log_summary(date),
+               'log_entries': plan.get_log_entries(date),
+               'nutritional_data': plan.get_nutritional_values()}
 
     return render(request, 'log/detail.html', context)
