@@ -18,6 +18,7 @@
 import logging
 import datetime
 from decimal import Decimal
+from collections import OrderedDict
 
 from django.db import models
 
@@ -204,7 +205,7 @@ class NutritionPlan(models.Model):
         '''
         Returns an overview for all logs available for this plan
         '''
-        result = {}
+        result = OrderedDict()
         for date in self.logitem_set.datetimes('datetime', 'day', order='DESC'):
             result[date] = self.get_log_summary(date=date)
         return result
