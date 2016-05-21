@@ -744,6 +744,10 @@ class LogItem(BaseMealItem, models.Model):
     '''
     An item (component) of a log
     '''
+    # Metaclass to set some other properties
+    class Meta:
+        ordering = ["datetime", ]
+
     plan = models.ForeignKey(NutritionPlan,
                              verbose_name=_('Nutrition plan'),
                              editable=False)
