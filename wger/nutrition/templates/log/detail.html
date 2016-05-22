@@ -90,6 +90,9 @@
             <th>{% trans "Ingredient" %}</th>
             <th class="align-right">{% trans "Amount" %}</th>
             <th class="align-right">{% trans "Energy" %}</th>
+            {% if is_owner %}
+            <th class="align-right"></th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -108,6 +111,22 @@
         <td class="align-right">
             {{ entry.get_nutritional_values.energy }} {% trans "kcal" %}
         </td>
+        {% if is_owner %}
+        <td>
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="{% url 'nutrition:log:delete' entry.pk %}" class="wger-modal-dialog">
+                            {% trans 'Delete' %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </td>
+        {% endif %}
     </tr>
 {% endfor %}
     </tbody>

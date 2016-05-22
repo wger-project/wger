@@ -189,6 +189,9 @@ patterns_diary = [
     url(r'^(?P<pk>\d+)/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})$',
         log.detail,
         name='detail'),
+    url(r'^entry/(?P<pk>\d+)/delete$',
+        log.LogDeleteView.as_view(),
+        name='delete'),
 ]
 
 

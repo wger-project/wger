@@ -17,7 +17,6 @@
 import datetime
 import logging
 
-from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import (
     HttpResponseRedirect,
@@ -27,8 +26,17 @@ from django.shortcuts import (
     render,
     get_object_or_404
 )
+from django.utils.translation import ugettext_lazy
+from django.views.generic import DeleteView
 
-from wger.nutrition.models import NutritionPlan
+from wger.nutrition.models import (
+    NutritionPlan,
+    LogItem
+)
+from wger.utils.generic_views import (
+    WgerDeleteMixin,
+    WgerPermissionMixin
+)
 
 logger = logging.getLogger(__name__)
 
@@ -78,8 +86,29 @@ def detail(request, pk, year, month, day):
 
     context = {'plan': plan,
                'date': date,
+               'show_shariff': is_owner,
+               'is_owner': is_owner,
                'log_summary': plan.get_log_summary(date),
                'log_entries': plan.get_log_entries(date),
                'nutritional_data': plan.get_nutritional_values()}
 
     return render(request, 'log/detail.html', context)
+
+
+class LogDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
+    '''
+    Delete a nutrition diary entry
+    '''
+    model = LogItem
+    title = ugettext_lazy('Delete?')
+    form_action_urlname = 'nutrition:log:delete'
+    login_required = True
+
+    def get_success_url(self):
+        '''
+        Return to the nutrition diary detail page
+        '''
+        return reverse('nutrition:log:detail', kwargs={'pk': self.object.plan.pk,
+                                                       'year': self.object.datetime.year,
+                                                       'month': self.object.datetime.month,
+                                                       'day': self.object.datetime.day})

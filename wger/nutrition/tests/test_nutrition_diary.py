@@ -19,10 +19,11 @@ from decimal import Decimal
 
 from django.core.urlresolvers import reverse
 
-from wger.nutrition.models import NutritionPlan
+from wger.nutrition.models import NutritionPlan, LogItem
 from wger.manager.tests.testcase import (
     WorkoutManagerTestCase,
-    WorkoutManagerAccessTestCase
+    WorkoutManagerAccessTestCase,
+    WorkoutManagerDeleteTestCase
 )
 
 logger = logging.getLogger(__name__)
@@ -135,3 +136,24 @@ class NutritionDiaryTestCase(WorkoutManagerTestCase):
                           'fat_saturated': Decimal('2.43'),
                           'fibres': Decimal('0.00'),
                           'sodium': Decimal('5.09')})
+
+
+class DeleteLogEntryTestCase(WorkoutManagerDeleteTestCase):
+    '''
+    Tests deleting an entry from a nutritional diary
+    '''
+
+    object_class = LogItem
+    url = 'nutrition:log:delete'
+    pk = 2
+    user_success = 'test'
+    user_success = ('admin',
+                    'test',
+                    'member1',
+                    'member2',
+                    'trainer2',
+                    'trainer3',
+                    'trainer4',
+                    'manager3',
+                    'general_manager1',
+                    'general_manager2')
