@@ -54,11 +54,18 @@ def overview(request, pk):
     if not is_owner and not user.userprofile.ro_access:
         return HttpResponseForbidden()
 
+    log_data = []
+    planned_calories = plan.get_nutritional_values()['total']['energy']
+    for date, items in plan.get_log_overview().items():
+        log_data.append({'date': date,
+                         'planned_calories': planned_calories,
+                         'logged_calories': items['energy'],
+                         'difference': items['energy'] - planned_calories})
+
     context = {'plan': plan,
                'show_shariff': is_owner,
                'is_owner': is_owner,
-               'logs': plan.get_log_overview(),
-               'nutritional_data': plan.get_nutritional_values()}
+               'log_data': log_data}
 
     return render(request, 'log/overview.html', context)
 

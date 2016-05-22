@@ -30,21 +30,25 @@
             <th>{% trans "Date" %}</th>
             <th class="align-right">{% trans "Planned" %}</th>
             <th class="align-right">{% trans "Logged" %}</th>
+            <th class="align-right">{% trans "Difference" %}</th>
         </tr>
     </thead>
     <tbody>
-        {% for date, items in logs.items %}
+        {% for entry in log_data %}
             <tr>
                 <td>
-                    <a href="{% url 'nutrition:log:detail' plan.pk date.year date.month date.day %}">
-                        {{ date|date }}
+                    <a href="{% url 'nutrition:log:detail' plan.pk entry.date.year entry.date.month entry.date.day %}">
+                        {{ entry.date|date }}
                     </a>
                 </td>
                 <td class="align-right">
-                    {{ nutritional_data.total.energy|floatformat }} {% trans "kcal" %}
+                    {{ entry.planned_calories|floatformat }} {% trans "kcal" %}
                 </td>
                 <td class="align-right">
-                    {{ items.energy }} {% trans "kcal" %}
+                    {{ entry.logged_calories }} {% trans "kcal" %}
+                </td>
+                <td class="align-right">
+                    {{ entry.difference }}
                 </td>
             </tr>
         {% empty %}
