@@ -30,7 +30,6 @@ from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.utils.helpers import make_token
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -204,6 +203,7 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         '''
         Tests that only one schedule can be active at a time (per user)
         '''
+
         def get_schedules():
             schedule1 = Schedule.objects.get(pk=2)
             schedule2 = Schedule.objects.get(pk=3)
@@ -488,9 +488,10 @@ class SchedulePdfExportTestCase(WorkoutManagerTestCase):
 
         user = User.objects.get(username='test')
         uid, token = make_token(user)
-        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type), kwargs={'pk': 1,
-                                                                           'uidb64': uid,
-                                                                           'token': token}))
+        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type),
+                                           kwargs={'pk': 1,
+                                                   'uidb64': uid,
+                                                   'token': token}))
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/pdf')
@@ -504,9 +505,10 @@ class SchedulePdfExportTestCase(WorkoutManagerTestCase):
         # Wrong or expired token
         uid = 'MQ'
         token = '3xv-57ef74923091fe7f186e'
-        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type), kwargs={'pk': 1,
-                                                                           'uidb64': uid,
-                                                                           'token': token}))
+        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type),
+                                           kwargs={'pk': 1,
+                                                   'uidb64': uid,
+                                                   'token': token}))
         self.assertEqual(response.status_code, 403)
 
     def export_pdf(self, fail=False, pdf_type="log"):
@@ -514,7 +516,8 @@ class SchedulePdfExportTestCase(WorkoutManagerTestCase):
         Helper function to test exporting a workout as a pdf
         '''
 
-        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type), kwargs={'pk': 1}))
+        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type),
+                                           kwargs={'pk': 1}))
 
         if fail:
             self.assertIn(response.status_code, (403, 404, 302))
@@ -535,11 +538,12 @@ class SchedulePdfExportTestCase(WorkoutManagerTestCase):
 
         user = User.objects.get(username='test')
         uid, token = make_token(user)
-        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type), kwargs={'pk': 3,
-                                                                               'images': 0,
-                                                                              'comments': 1,
-                                                                               'uidb64': uid,
-                                                                               'token': token}))
+        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type),
+                                           kwargs={'pk': 3,
+                                                   'images': 0,
+                                                   'comments': 1,
+                                                   'uidb64': uid,
+                                                   'token': token}))
 
         if fail:
             self.assertIn(response.status_code, (403, 404, 302))
@@ -559,11 +563,12 @@ class SchedulePdfExportTestCase(WorkoutManagerTestCase):
         '''
         user = User.objects.get(username='test')
         uid, token = make_token(user)
-        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type), kwargs={'pk': 3,
-                                                                               'images': 1,
-                                                                              'comments': 0,
-                                                                               'uidb64': uid,
-                                                                               'token': token}))
+        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type),
+                                           kwargs={'pk': 3,
+                                                   'images': 1,
+                                                   'comments': 0,
+                                                   'uidb64': uid,
+                                                   'token': token}))
 
         if fail:
             self.assertIn(response.status_code, (403, 404, 302))
@@ -584,11 +589,12 @@ class SchedulePdfExportTestCase(WorkoutManagerTestCase):
 
         user = User.objects.get(username='test')
         uid, token = make_token(user)
-        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type), kwargs={'pk': 3,
-                                                                              'images': 1,
-                                                                              'comments': 1,
-                                                                               'uidb64': uid,
-                                                                               'token': token}))
+        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type),
+                                           kwargs={'pk': 3,
+                                                   'images': 1,
+                                                   'comments': 1,
+                                                   'uidb64': uid,
+                                                   'token': token}))
 
         if fail:
             self.assertIn(response.status_code, (403, 404, 302))
@@ -652,7 +658,6 @@ class SchedulePdfExportTestCase(WorkoutManagerTestCase):
         self.export_pdf_with_images_and_comments(fail=False)
         self.export_pdf_token()
 
-
     #####TABLE#####
 
     def test_export_pdf_table_anonymous(self):
@@ -704,6 +709,7 @@ class SchedulePdfExportTestCase(WorkoutManagerTestCase):
         self.user_login('test')
         self.export_pdf_with_images_and_comments(fail=False, pdf_type="table")
         self.export_pdf_token(pdf_type="table")
+
 
 class ScheduleApiTestCase(api_base_test.ApiBaseResourceTestCase):
     '''
