@@ -55,6 +55,8 @@ def overview(request, pk):
         return HttpResponseForbidden()
 
     context = {'plan': plan,
+               'show_shariff': is_owner,
+               'is_owner': is_owner,
                'logs': plan.get_log_overview(),
                'nutritional_data': plan.get_nutritional_values()}
 
