@@ -184,6 +184,8 @@ function custom_modal_init()
     </p>
 {% endif %}
 
+
+
 <h4>{% trans "Nutritional data" %}</h4>
 {% if weight_entry %}
     {% blocktrans with date=weight_entry.date weight=weight_entry.weight %}
@@ -261,6 +263,46 @@ function custom_modal_init()
         </tr>
     </tbody>
 </table>
+
+
+<h4>{% trans "Nutrition diary" %}</h4>
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>{% trans "Date" %}</th>
+            <th class="align-right">{% trans "Planned" %}</th>
+            <th class="align-right">{% trans "Logged" %}</th>
+            <th class="align-right">{% trans "Difference" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in log_data %}
+            <tr>
+                <td>
+                    <a href="{% url 'nutrition:log:detail' plan.pk entry.date.year entry.date.month entry.date.day %}">
+                        {{ entry.date|date }}
+                    </a>
+                </td>
+                <td class="align-right">
+                    {{ entry.planned_calories|floatformat }} {% trans "kcal" %}
+                </td>
+                <td class="align-right">
+                    {{ entry.logged_calories }} {% trans "kcal" %}
+                </td>
+                <td class="align-right">
+                    {{ entry.difference }}
+                </td>
+            </tr>
+        {% empty %}
+             <tr>
+                <td colspan="4">
+                    <em>{% trans "nothing found" %}</em>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'nutrition:log:overview' plan.pk %}">{% trans "View details" %}</a>
 {% endblock %}
 
 
@@ -268,7 +310,6 @@ function custom_modal_init()
 {# Side bar #}
 {#          #}
 {% block sidebar %}
-<a href="{% url 'nutrition:log:overview' plan.pk %}">{% trans "Nutrition diary" %}</a>
 
 <h4>{% trans "Energy" %}</h4>
 <table class="table table-condensed" id="nutritional-data-energy">
