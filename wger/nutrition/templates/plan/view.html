@@ -300,9 +300,18 @@ function custom_modal_init()
                 </td>
             </tr>
         {% endfor %}
+        {% if log_data %}
+            <tr>
+                <td colspan="4">
+                    <a href="{% url 'nutrition:log:overview' plan.pk %}">{% trans "View details" %}</a>
+                </td>
+            </tr>
+        {% endif %}
     </tbody>
 </table>
-<a href="{% url 'nutrition:log:overview' plan.pk %}">{% trans "View details" %}</a>
+<p>
+    <a href="{% url 'nutrition:log:overview' plan.pk %}" class="btn btn-success btn-sm">{% trans "Add diary entry" %}</a>
+</p>
 {% endblock %}
 
 
