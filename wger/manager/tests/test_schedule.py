@@ -658,7 +658,7 @@ class SchedulePdfExportTestCase(WorkoutManagerTestCase):
         self.export_pdf_with_images_and_comments(fail=False)
         self.export_pdf_token()
 
-    #####TABLE#####
+#   #####TABLE#####
 
     def test_export_pdf_table_anonymous(self):
         '''
