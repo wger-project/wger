@@ -17,14 +17,14 @@ file a bug anyway.
 * twitter: https://twitter.com/wger_de
 * mailing list: https://groups.google.com/group/wger / wger@googlegroups.com, no registration needed
 * IRC: channel #wger on freenode.net, webchat: http://webchat.freenode.net/?channels=wger
-* issue tracker: https://github.com/rolandgeider/wger/issues
+* issue tracker: https://github.com/wger-project/wger/issues
 
 Sources
 -------
 
 All the code and the content is freely available:
 
-* Main repository: https://github.com/rolandgeider/wger
+* Main repository: https://github.com/wger-project/wger
 * Mirror: https://bitbucket.org/rolandgeider/wger
 
 Licence

@@ -4069,10 +4069,10 @@ msgstr "Data fixturer med övningar och ingredienslistorna publiceras dessutom u
 msgid ""
 "A copy of both licenses is contained in every wger Workout\n"
 "Manager release and can be read in the\n"
-"<a href='https://github.com/rolandgeider/wger/blob/master/AGPL.txt'>AGPL.txt</a>\n"
-"or <a href='https://github.com/rolandgeider/wger/blob/master/CC-BY-SA.txt'>CC-BY-SA.txt</a>\n"
+"<a href='https://github.com/wger-project/wger/blob/master/AGPL.txt'>AGPL.txt</a>\n"
+"or <a href='https://github.com/wger-project/wger/blob/master/CC-BY-SA.txt'>CC-BY-SA.txt</a>\n"
 "files in the source code repository."
-msgstr "En kopia av båda licenserna finns i varje wger Workout Manager release och kan läsas i filerna <a href='https://github.com/rolandgeider/wger/blob/master/AGPL.txt'> AGPL.txt</a> eller <a href='https://github.com/rolandgeider/wger/blob/master/CC-BY-SA.txt'> CC-av-SA.txt</a> i källkodsdatabasen."
+msgstr "En kopia av båda licenserna finns i varje wger Workout Manager release och kan läsas i filerna <a href='https://github.com/wger-project/wger/blob/master/AGPL.txt'> AGPL.txt</a> eller <a href='https://github.com/wger-project/wger/blob/master/CC-BY-SA.txt'> CC-av-SA.txt</a> i källkodsdatabasen."
 
 #: utils/models.py:41
 msgid "Author"

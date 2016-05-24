@@ -63,7 +63,7 @@ Then install the python packages from pypi in the virtualenv::
 
 ::
 
- $ git clone https://github.com/rolandgeider/wger.git
+ $ git clone https://github.com/wger-project/wger.git
  $ cd wger
  $ pip install -r requirements.txt  # or requirements_devel.txt to develop
  $ invoke create_settings \
@@ -164,7 +164,7 @@ file a bug anyway.
 * **mailing list:** https://groups.google.com/group/wger / wger@googlegroups.com,
   no registration needed
 * **IRC:** channel #wger on freenode.net, webchat: http://webchat.freenode.net/?channels=wger
-* **issue tracker:** https://github.com/rolandgeider/wger/issues
+* **issue tracker:** https://github.com/wger-project/wger/issues
 
 
 Sources
@@ -172,7 +172,7 @@ Sources
 
 All the code and the content is freely available:
 
-* **Main repository:** https://github.com/rolandgeider/wger
+* **Main repository:** https://github.com/wger-project/wger
 * **Mirror:** https://bitbucket.org/rolandgeider/wger
 
 

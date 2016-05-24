@@ -108,7 +108,7 @@ be writeable as well::
 
 Get the application::
 
-  git clone https://github.com/rolandgeider/wger.git /home/wger/src
+  git clone https://github.com/wger-project/wger.git /home/wger/src
   cd /home/wger/src
   npm install bower
   pip install -r requirements.txt

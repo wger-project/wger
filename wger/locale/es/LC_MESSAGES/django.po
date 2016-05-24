@@ -4070,10 +4070,10 @@ msgstr "Los datos iniciales para ejercicios e ingredientes estan distribuidos ad
 msgid ""
 "A copy of both licenses is contained in every wger Workout\n"
 "Manager release and can be read in the\n"
-"<a href='https://github.com/rolandgeider/wger/blob/master/AGPL.txt'>AGPL.txt</a>\n"
-"or <a href='https://github.com/rolandgeider/wger/blob/master/CC-BY-SA.txt'>CC-BY-SA.txt</a>\n"
+"<a href='https://github.com/wger-project/wger/blob/master/AGPL.txt'>AGPL.txt</a>\n"
+"or <a href='https://github.com/wger-project/wger/blob/master/CC-BY-SA.txt'>CC-BY-SA.txt</a>\n"
 "files in the source code repository."
-msgstr "Una copia de ambas licencias están distribuidas con cada copia de wger Workout\nManager y pueden ser accedidas además en el repositorio del código fuente: \n<a href='https://github.com/rolandgeider/wger/blob/master/AGPL.txt'>AGPL.txt</a>\ny <a href='https://github.com/rolandgeider/wger/blob/master/CC-BY-SA.txt'>CC-BY-SA.txt</a>"
+msgstr "Una copia de ambas licencias están distribuidas con cada copia de wger Workout\nManager y pueden ser accedidas además en el repositorio del código fuente: \n<a href='https://github.com/wger-project/wger/blob/master/AGPL.txt'>AGPL.txt</a>\ny <a href='https://github.com/wger-project/wger/blob/master/CC-BY-SA.txt'>CC-BY-SA.txt</a>"
 
 #: utils/models.py:41
 msgid "Author"

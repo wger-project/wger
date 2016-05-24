@@ -25,7 +25,7 @@ EXPOSE 8000
 
 # Set up the application
 USER wger
-RUN git clone https://github.com/rolandgeider/wger.git /home/wger/src
+RUN git clone https://github.com/wger-project/wger.git /home/wger/src
 
 WORKDIR /home/wger/src
 RUN virtualenv --python python3 /home/wger/venv

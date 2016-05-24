@@ -11,7 +11,7 @@ First, create a virtual environment::
 Get the code and start the application. This will create a SQlite database
 and populate it with data on the first run::
 
-  $ git clone https://github.com/rolandgeider/wger.git
+  $ git clone https://github.com/wger-project/wger.git
   $ cd wger
   $ pip install -r requirements_devel.txt
   $ invoke create_settings \
