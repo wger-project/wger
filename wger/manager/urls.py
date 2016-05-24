@@ -191,14 +191,34 @@ patterns_schedule = [
     url(r'^(?P<pk>\d+)/ical$',
         ical.export_schedule,
         name='ical'),
-    url(r'^(?P<pk>\d+)/pdf/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
-        schedule.export_pdf,
-        name='pdf'),
-    url(r'^(?P<pk>\d+)/pdf$',
-        schedule.export_pdf,
-        name='pdf'),
-]
 
+    url(
+        r'^(?P<pk>\d+)/pdf/log/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
+        schedule.export_pdf_log,
+        name='pdf-log'),  # JS!
+    url(r'^(?P<pk>\d+)/pdf/log/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
+        schedule.export_pdf_log,
+        name='pdf-log'),
+    url(r'^(?P<pk>\d+)/pdf/log/(?P<images>[01]+)/(?P<comments>[01]+)$',
+        schedule.export_pdf_log,
+        name='pdf-log'),
+    url(r'^(?P<pk>\d+)/pdf/log$',
+        schedule.export_pdf_log,
+        name='pdf-log'),
+    url(
+        r'^(?P<pk>\d+)/pdf/table/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
+        schedule.export_pdf_table,
+        name='pdf-table'),  # JS!
+    url(r'^(?P<pk>\d+)/pdf/table/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
+        schedule.export_pdf_table,
+        name='pdf-table'),
+    url(r'^(?P<pk>\d+)/pdf/table/(?P<images>[01]+)/(?P<comments>[01]+)$',
+        schedule.export_pdf_table,
+        name='pdf-table'),
+    url(r'^(?P<pk>\d+)/pdf/table$',
+        schedule.export_pdf_table,
+        name='pdf-table'),
+]
 
 
 # sub patterns for schedule steps
