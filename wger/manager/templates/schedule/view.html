@@ -226,8 +226,8 @@
 <h4>{% trans "Adding workouts" %}</h4>
 
 <p>{% blocktrans %}Add as many workouts to the schedule as you want. You can
-    edit the order by dragging and dropping them. It's also possible to add one workout more
-    than once.{% endblocktrans %}</p>
+edit the order by dragging and dropping them. It's also possible to add one workout more
+than once.{% endblocktrans %}</p>
 {% endif %}
 
 <h4>{% trans "Options" %}</h4>
@@ -286,8 +286,8 @@
             <div class="modal-body">
                 <p>{% trans "Export this schedule as a calendar file." %}</p>
                 <p>{% blocktrans %}You can then import the file it into your calendar
-                    application for example google calendar, outlook or iCal. This will create
-                    an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
+application for example google calendar, outlook or iCal. This will create
+an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
                 <p>
                     <a href="{% url 'manager:schedule:ical' schedule.id uid token %}" class="btn btn-block btn-default">
                         <img src="{% static 'images/icons/calendar.svg' %}"
