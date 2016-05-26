@@ -20,34 +20,27 @@
 <script type="text/javascript">
 $(document).ready(function () {
 
-    $.getJSON("/weight/api/get_weight_data/{{ owner_user.username }}", function(json) {
-
-        // Get the maximum and minimum weights
-        function y_value(d) { return parseFloat(d.weight); }
-        var max_y = d3.max(json, y_value);
-        var min_y = d3.min(json, y_value);
+    d3.json("/weight/api/get_weight_data/{{ owner_user.username }}", function(json) {
 
         // Plot the data
         MG.data_graphic({
-        data: MG.convert.date(json, 'date'),
-        target: '#weight_diagram',
-        animate_on_load: true,
-        point_size: 3,
+            data: MG.convert.date(json, 'date'),
+            target: '#weight_diagram',
+            animate_on_load: true,
+            point_size: 3,
 
-        x_accessor: 'date',
-        xax_count: 10,
-        xax_start_at_min: true,
+            x_accessor: 'date',
+            xax_count: 10,
+            axes_not_compact: true,
 
-        y_accessor: 'weight',
-        y_extended_ticks: true,
-        min_y: min_y - 1,
-        max_y: max_y + 1,
+            y_accessor: 'weight',
+            y_extended_ticks: true,
+            min_y_from_data: true,
 
-        height: 250,
-        width: $('#content').width(),
-        full_width: true,
-        show_secondary_x_label: true,
-        small_text: false
+            height: 250,
+            full_width: true,
+            show_secondary_x_label: true,
+            small_text: false
         });
     });
 });
