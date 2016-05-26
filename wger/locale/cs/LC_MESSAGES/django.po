@@ -1,0 +1,4343 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# rge <roland@geider.net>, 2016
+# rge <roland@geider.net>, 2016
+# Tomas Zmek <perteus@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: wger Workout Manager\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-02-14 10:32+0100\n"
+"PO-Revision-Date: 2016-02-14 09:34+0000\n"
+"Last-Translator: rge <roland@geider.net>\n"
+"Language-Team: Czech (http://www.transifex.com/rge/wger-workout-manager/language/cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: config/models.py:45 core/templates/navigation.html:53
+#: core/templates/navigation.html.py:55
+#: exercises/templates/exercise/overview.html:11
+#: exercises/templates/mobile/exercise/overview.html:11
+#: exercises/templates/muscles/overview.html:79 manager/models.py:529
+#: manager/models.py:578 manager/templates/mobile/tags/render_day.html:72
+msgid "Exercises"
+msgstr "Cviky"
+
+#: config/models.py:46
+msgid "Ingredients"
+msgstr "Potraviny"
+
+#: config/models.py:111 gym/templates/gym/list.html:63
+msgid "Default gym"
+msgstr "Základní posilovna"
+
+#: config/models.py:112
+msgid ""
+"Select the default gym for this installation. This will assign all new "
+"registered users to this gym and update all existing users without a gym."
+msgstr "Vyberte základní posilovnu pro tuto instalaci. Tato posilovna bude přiřazena všem nově registrovaným uživatelům a uživatelům, kteří nemají posilovnu zvolenou."
+
+#: config/templates/language/overview.html:4
+#: core/templates/navigation.html:204
+msgid "Languages"
+msgstr "Jazyky"
+
+#: config/templates/language/overview.html:11
+#: config/templates/language/view.html:21 core/models.py:44
+msgid "Language short name"
+msgstr "Krátký název jazyka"
+
+#: config/templates/language/overview.html:12
+#: config/templates/language/view.html:22
+#: config/templates/language/view.html:43 core/models.py:48
+msgid "Language full name"
+msgstr "Plný název jazyka"
+
+#: config/templates/language/overview.html:30
+#: config/templates/language/view.html:76 core/templates/license/list.html:55
+#: core/templates/navigation.html:144 core/templates/user/api_key.html:42
+#: core/templates/user/preferences.html:111
+#: exercises/templates/equipment/list.html:56
+#: exercises/templates/exercise/overview.html:146
+#: exercises/templates/exercise/view.html:329
+#: exercises/templates/exercise/view.html:343
+#: exercises/templates/muscles/overview.html:100 gym/models.py:519
+#: gym/templates/contract/view.html:41 gym/templates/contract/view.html:106
+#: gym/templates/gym/member_list.html:264 gym/templates/gym/new_user.html:51
+#: manager/templates/day/log.html:85
+#: manager/templates/mobile/schedule/view.html:16
+#: manager/templates/mobile/schedule/view.html:164
+#: manager/templates/mobile/tags/render_day.html:54
+#: manager/templates/mobile/workout/overview.html:32
+#: manager/templates/mobile/workout/view.html:131
+#: manager/templates/schedule/view.html:233
+#: manager/templates/workout/overview.html:47
+#: manager/templates/workout/view.html:125
+#: nutrition/templates/ingredient/view.html:195
+#: nutrition/templates/mobile/ingredient_overview.html:34
+#: nutrition/templates/mobile/plan/overview.html:31
+#: nutrition/templates/mobile/plan/view.html:60
+#: nutrition/templates/mobile/plan/view.html:110
+#: nutrition/templates/mobile/plan/view.html:371
+#: nutrition/templates/plan/overview.html:47
+#: nutrition/templates/plan/view.html:303
+#: nutrition/templates/units/list.html:58
+#: weight/templates/weight_overview.html:99
+msgid "Options"
+msgstr "Nastavení"
+
+#: config/templates/language/overview.html:36
+#: config/templates/language/overview.html:38 config/views/languages.py:66
+#: core/templates/license/list.html:62 core/templates/license/list.html:63
+#: core/templates/license/list.html:64 core/templates/user/overview.html:345
+#: core/templates/user/overview.html:388 core/templates/user/overview.html:428
+#: core/views/license.py:58 email/templates/email/gym/overview.html:40
+#: exercises/templates/exercise/view.html:140
+#: exercises/templates/exercise/view.html:229
+#: gym/templates/admin_notes/list.html:64 gym/templates/contract/list.html:70
+#: gym/templates/contract_option/list.html:66
+#: gym/templates/contract_type/list.html:66
+#: gym/templates/document/list.html:75 gym/templates/gym/member_list.html:222
+#: gym/templates/gym/member_list.html:259
+#: gym/templates/gym/member_list.html:300
+#: nutrition/templates/mobile/plan/view.html:85
+#: nutrition/templates/plan/view.html:94
+msgid "Add"
+msgstr "Přidat"
+
+#: config/templates/language/view.html:34
+#: core/templates/user/overview.html:481 gym/views/admin_config.py:51
+#: gym/views/user_config.py:65
+msgid "Configuration"
+msgstr "Konfigurace"
+
+#: config/templates/language/view.html:35
+msgid ""
+"Use the configuration to select in what languages the\n"
+"exercises and ingredients will be shown for the current language (for example\n"
+"the exercises should be shown in languages A, B and C; the ingredients only\n"
+"in A)."
+msgstr "Uveďte v nastavení, jaké jazyky budou použity pro\ncviky a složky pro aktuální jazyk  (například\nCviky mají být uvedeny v jazycích A, B a C; pouze složky\nv A)."
+
+#: config/templates/language/view.html:44 gym/templates/contract/list.html:36
+msgid "Show"
+msgstr "Zobrazit"
+
+#: config/templates/language/view.html:84
+#: config/templates/language/view.html:86 config/views/gym_config.py:48
+#: config/views/language_config.py:48 core/templates/license/list.html:33
+#: core/templates/license/list.html:34 core/templates/tags/render_day.html:31
+#: core/templates/tags/render_day.html:36
+#: core/templates/tags/render_day.html:66
+#: core/templates/tags/render_day.html:71
+#: core/templates/user/overview.html:213 core/templates/user/overview.html:475
+#: exercises/templates/equipment/list.html:33
+#: exercises/templates/equipment/list.html:34
+#: exercises/templates/exercise/view.html:122
+#: exercises/templates/exercise/view.html:127
+#: exercises/templates/exercise/view.html:177
+#: exercises/templates/exercise/view.html:349
+#: exercises/templates/exercise/view.html:350 exercises/views/comments.py:46
+#: gym/templates/admin_notes/list.html:32 gym/templates/contract/list.html:31
+#: gym/templates/contract/view.html:107
+#: gym/templates/contract_option/list.html:31
+#: gym/templates/contract_type/list.html:31
+#: gym/templates/document/list.html:38 gym/templates/gym/list.html:20
+#: gym/templates/gym/list.html.py:55 gym/templates/gym/member_list.html:100
+#: gym/templates/gym/member_list.html:157
+#: gym/templates/gym/member_list.html:184
+#: manager/templates/calendar/day.html:63
+#: manager/templates/calendar/day.html:64
+#: manager/templates/calendar/month.html:75
+#: manager/templates/calendar/month.html:76
+#: manager/templates/calendar/partial_overview_table.html:18
+#: manager/templates/mobile/schedule/view.html:25
+#: manager/templates/mobile/schedule/view.html:30
+#: manager/templates/mobile/tags/render_day.html:28
+#: manager/templates/mobile/tags/render_day.html:31
+#: manager/templates/mobile/tags/render_day.html:60
+#: manager/templates/mobile/tags/render_day.html:63
+#: manager/templates/schedule/view.html:121
+#: manager/templates/schedule/view.html:126
+#: nutrition/templates/ingredient/view.html:249
+#: nutrition/templates/ingredient/view.html:254
+#: nutrition/templates/ingredient/view.html:255
+#: nutrition/templates/mobile/plan/view.html:75
+#: nutrition/templates/mobile/plan/view.html:158
+#: nutrition/templates/mobile/plan/view.html:163
+#: nutrition/templates/mobile/plan/view.html:164
+#: nutrition/templates/plan/view.html:86
+#: nutrition/templates/plan/view.html:122
+#: nutrition/templates/plan/view.html:127
+#: nutrition/templates/units/list.html:35
+#: nutrition/templates/units/list.html:36
+msgid "Edit"
+msgstr "Upravit"
+
+#: config/templates/language/view.html:96
+#: config/templates/language/view.html:98 core/templates/license/list.html:25
+#: core/templates/license/list.html:26 core/templates/tags/render_day.html:25
+#: core/templates/tags/render_day.html:29
+#: core/templates/tags/render_day.html:75
+#: core/templates/tags/render_day.html:79
+#: core/templates/user/overview.html:232
+#: exercises/templates/equipment/list.html:25
+#: exercises/templates/equipment/list.html:26
+#: exercises/templates/exercise/view.html:115
+#: exercises/templates/exercise/view.html:119
+#: exercises/templates/exercise/view.html:174
+#: exercises/templates/exercise/view.html:215
+#: exercises/templates/exercise/view.html:359
+#: exercises/templates/exercise/view.html:360
+#: gym/templates/admin_notes/list.html:40
+#: gym/templates/contract_option/list.html:39
+#: gym/templates/contract_type/list.html:39
+#: gym/templates/document/list.html:46 gym/templates/gym/list.html:23
+#: manager/templates/calendar/day.html:68
+#: manager/templates/calendar/day.html:69
+#: manager/templates/calendar/month.html:80
+#: manager/templates/calendar/month.html:81
+#: manager/templates/calendar/partial_overview_table.html:24
+#: manager/templates/mobile/schedule/view.html:32
+#: manager/templates/mobile/schedule/view.html:37
+#: manager/templates/mobile/tags/render_day.html:34
+#: manager/templates/mobile/tags/render_day.html:37
+#: manager/templates/mobile/tags/render_day.html:66
+#: manager/templates/mobile/tags/render_day.html:69
+#: manager/templates/schedule/view.html:128
+#: manager/templates/schedule/view.html:133
+#: nutrition/templates/ingredient/view.html:257
+#: nutrition/templates/ingredient/view.html:262
+#: nutrition/templates/ingredient/view.html:263
+#: nutrition/templates/mobile/plan/view.html:65
+#: nutrition/templates/mobile/plan/view.html:149
+#: nutrition/templates/mobile/plan/view.html:154
+#: nutrition/templates/mobile/plan/view.html:155
+#: nutrition/templates/plan/view.html:79
+#: nutrition/templates/plan/view.html:115
+#: nutrition/templates/plan/view.html:120
+#: nutrition/templates/units/list.html:27
+#: nutrition/templates/units/list.html:28
+msgid "Delete"
+msgstr "Smazat"
+
+#: config/views/languages.py:78 exercises/views/categories.py:95
+#: exercises/views/equipment.py:106 exercises/views/exercises.py:294
+#: exercises/views/images.py:105 exercises/views/muscles.py:101
+#: manager/views/schedule.py:207 manager/views/schedule_step.py:129
+#: manager/views/workout.py:214 manager/views/workout_session.py:135
+#: nutrition/views/ingredient.py:105 nutrition/views/plan.py:95
+#: nutrition/views/unit.py:89
+msgid "Successfully deleted"
+msgstr "Úspěšně smazáno"
+
+#: config/views/languages.py:87 core/views/license.py:97
+#: exercises/views/categories.py:102 exercises/views/exercises.py:302
+#: exercises/views/muscles.py:108 gym/views/admin_notes.py:199
+#: gym/views/document.py:202 gym/views/gym.py:444
+#: manager/views/schedule.py:215 manager/views/schedule_step.py:140
+#: manager/views/workout.py:220 manager/views/workout_session.py:153
+#: nutrition/views/ingredient.py:112 nutrition/views/plan.py:102
+#: nutrition/views/unit.py:96
+#, python-brace-format
+msgid "Delete {0}?"
+msgstr "Smazat {0}?"
+
+#: config/views/languages.py:108 core/views/license.py:79
+#: core/views/user.py:409 exercises/views/categories.py:77
+#: exercises/views/equipment.py:72 exercises/views/exercises.py:209
+#: exercises/views/muscles.py:89 gym/views/admin_notes.py:164
+#: gym/views/config.py:61 gym/views/contract.py:159
+#: gym/views/contract_option.py:119 gym/views/contract_type.py:119
+#: gym/views/document.py:167 gym/views/gym.py:426 manager/views/day.py:89
+#: manager/views/schedule.py:234 manager/views/workout.py:237
+#: nutrition/views/ingredient.py:151 nutrition/views/plan.py:120
+#: nutrition/views/unit.py:118
+#, python-brace-format
+msgid "Edit {0}"
+msgstr "Upravit {0}"
+
+#: core/demo.py:83
+msgid "Sample workout"
+msgstr "Ukázkový trénink"
+
+#: core/demo.py:87
+msgid "Sample day"
+msgstr "Ukázkový den"
+
+#: core/demo.py:91
+msgid "Another sample day"
+msgstr "Další ukázkový den"
+
+#: core/demo.py:211
+msgid "Sample nutrional plan"
+msgstr "Ukázkový nutriční  plán."
+
+#: core/demo.py:343 core/demo.py:345 core/demo.py:347
+#, python-brace-format
+msgid "Placeholder workout nr {0} for schedule"
+msgstr "Ukázkový trénink č.{0} pro rozvrh"
+
+#: core/demo.py:352
+msgid "My cool workout schedule"
+msgstr "Můj suprový tréninkový rozvrh"
+
+#: core/demo.py:391 core/demo.py:406
+msgid "Empty placeholder schedule"
+msgstr "Prázdný ukázkový rozvrh"
+
+#: core/forms.py:39
+msgid "Username or email"
+msgstr "Uživatel"
+
+#: core/forms.py:59 core/templates/user/overview.html:286
+#: core/templates/user/preferences.html:31
+#: email/templates/email/gym/form.html:4
+#: email/templates/email/gym/overview.html:4
+#: email/templates/email/gym/preview.html:4 gym/models.py:59 gym/models.py:563
+#: gym/templates/contract/view.html:77 gym/templates/gym/member_list.html:120
+#: gym/templates/gym/new_user.html:30 gym/views/export.py:59
+msgid "Email"
+msgstr "Email"
+
+#: core/forms.py:60
+msgid "Used for password resets and, optionally, email reminders."
+msgstr "Je využíván k obnově hesla a případně k připomínkám pomocí emailu."
+
+#: core/forms.py:87
+msgid "This email is already used."
+msgstr "Tento email je již registrován."
+
+#: core/forms.py:91 gym/views/export.py:60 gym/views/gym.py:188
+msgid "First name"
+msgstr "Jméno"
+
+#: core/forms.py:93 core/templates/user/overview.html:282
+#: gym/views/export.py:61 gym/views/gym.py:188
+msgid "Last name"
+msgstr "Příjmení"
+
+#: core/forms.py:108 gym/templates/gym/new_user.html:26
+#: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:188
+msgid "Password"
+msgstr "Heslo"
+
+#: core/forms.py:110
+msgid "Please enter your current password."
+msgstr "Zadejte prosím vaše současné heslo."
+
+#: core/forms.py:122
+msgid "Invalid password"
+msgstr "Chybné heslo"
+
+#: core/forms.py:131 core/forms.py:169 manager/forms.py:54
+msgid "Confirmation text"
+msgstr "Text potvrzení"
+
+#: core/forms.py:132 core/forms.py:170 manager/forms.py:55
+msgid "As a security measure, please enter the previous words"
+msgstr "Jako bezpečnostní opatření, zadejte prosím předchozí slova."
+
+#: core/forms.py:152
+msgid "Contact"
+msgstr "Kontakt"
+
+#: core/forms.py:153
+msgid "Some way of answering you (email, etc.)"
+msgstr "Nějaký kontakt na váš (email, apod.)"
+
+#: core/forms.py:159 exercises/models.py:481 manager/models.py:593
+msgid "Comment"
+msgstr "Komentář"
+
+#: core/forms.py:160
+msgid "What do you want to say?"
+msgstr "Co cheš říci?"
+
+#: core/models.py:86
+msgid "Male"
+msgstr "Muž"
+
+#: core/models.py:87
+msgid "Female"
+msgstr "Žena"
+
+#: core/models.py:94
+msgid "Low"
+msgstr "Lehký"
+
+#: core/models.py:95
+msgid "Medium"
+msgstr "Střední"
+
+#: core/models.py:96
+msgid "High"
+msgstr "Těžký"
+
+#: core/models.py:102
+msgid "Metric (kilogram)"
+msgstr "Metrické (kilogramy)"
+
+#: core/models.py:103
+msgid "Imperial (pound)"
+msgstr "Imperiální (libra)"
+
+#: core/models.py:130
+msgid "Show exercise comments"
+msgstr "Zobrazit komentáře ke cviku."
+
+#: core/models.py:131
+msgid "Check to show exercise comments on the workout view"
+msgstr "Podívejte se na komentáře ke cviku v zobrazení tréninku."
+
+#: core/models.py:141
+msgid "Also use ingredients in English"
+msgstr "Použít také složky v Angličtině"
+
+#: core/models.py:142
+msgid ""
+"Check to also show ingredients in English while creating\n"
+"a nutritional plan. These ingredients are extracted from a list provided\n"
+"by the US Department of Agriculture. It is extremely complete, with around\n"
+"7000 entries, but can be somewhat overwhelming and make the search difficult."
+msgstr "Budou použity také složky jídel v Angličtině během vytváření\nnutričního plánu. Tyto složky jsou přezvaty z oficiálního seznamu \nMinisterstva zemědělství USA. Tento seznam je velmi komplexní a \nobsahuje přes 7000 položek, ale může to vést k těžšímu vyhledávání."
+
+#: core/models.py:148
+msgid "Activate workout reminders"
+msgstr "Zapnout připomenutí tréninku."
+
+#: core/models.py:149
+msgid ""
+"Check to activate automatic reminders for workouts. You need to provide a "
+"valid email for this to work."
+msgstr "Zkontrolujte si, jestli máte zapnuté automatické připomenutí tréninku. Je nutné mít zadaný platný email."
+
+#: core/models.py:155
+msgid "Remind before expiration"
+msgstr "Připomenout před expirací"
+
+#: core/models.py:156
+msgid "The number of days you want to be reminded before a workout expires."
+msgstr "Počet dní před expirací, kdy bude trénink připomenut."
+
+#: core/models.py:160
+msgid "Default duration of workouts"
+msgstr "Základní délka tréninku"
+
+#: core/models.py:161
+msgid ""
+"Default duration in weeks of workouts not in a schedule. Used for email "
+"workout reminders."
+msgstr "Neníli nastavena běžná délka týdenního tréninku v rozvrhu. Bude použito emailové připomenutí tréninku."
+
+#: core/models.py:177
+msgid "Notification language"
+msgstr "Jazyk notifikací"
+
+#: core/models.py:178
+msgid ""
+"Language to use when sending you email notifications, e.g. email reminders "
+"for workouts. This does not affect the language used on the website."
+msgstr "Jazyk, použitý v zasílaném notifikačním emailu. například emailové připomenutí tréninku. Tohle nebude mít vliv na použitý jazyk na webové stránce."
+
+#: core/models.py:184
+msgid "Use pauses in workout timer"
+msgstr "Použít pauzy v čase tréninku"
+
+#: core/models.py:185
+msgid "Check to activate timer pauses between exercises."
+msgstr "Zkontrolujte, jestli máte aktivovaný časovač pauzy mezi cviky."
+
+#: core/models.py:192
+msgid "Default duration of workout pauses"
+msgstr "Standardní délka pauzy tréninku"
+
+#: core/models.py:193
+msgid ""
+"Default duration in seconds of pauses used by the timer in the gym mode."
+msgstr "Výchozí hodnota v sekundách přestávky použité časovačem v módu Posilvona."
+
+#: core/models.py:204 gym/views/export.py:63
+msgid "Age"
+msgstr "Věk"
+
+#: core/models.py:210 nutrition/forms.py:64
+msgid "Height (cm)"
+msgstr "Výška (cm)"
+
+#: core/models.py:223
+msgid "Hours of sleep"
+msgstr "Spánek"
+
+#: core/models.py:224
+msgid "The average hours of sleep per day"
+msgstr "Průměrné hodiny spánku za den."
+
+#: core/models.py:231
+msgid "Work"
+msgstr "Práce"
+
+#: core/models.py:232 core/models.py:266
+msgid "Average hours per day"
+msgstr "Průměrně hodin denně."
+
+#: core/models.py:239 core/models.py:256 core/models.py:273
+msgid "Physical intensity"
+msgstr "Fyzická náročnost"
+
+#: core/models.py:240 core/models.py:257 core/models.py:274
+msgid "Approximately"
+msgstr "Přibližně"
+
+#: core/models.py:248
+msgid "Sport"
+msgstr "Sport"
+
+#: core/models.py:249
+msgid "Average hours per week"
+msgstr "Průměrně hodin za týden."
+
+#: core/models.py:265
+msgid "Free time"
+msgstr "Volný čas"
+
+#: core/models.py:282 nutrition/templates/rate/form.html:86
+msgid "Total daily calories"
+msgstr "Celkové denní kalorie"
+
+#: core/models.py:283
+msgid "Total caloric intake, including e.g. any surplus"
+msgstr "Celkový energetický příjem, který zahrnuje třeba jakýkoliv přebytek. "
+
+#: core/models.py:293 nutrition/models.py:482 nutrition/models.py:579
+msgid "Weight unit"
+msgstr "Jednotka váhy"
+
+#: core/models.py:299
+msgid "Allow external access"
+msgstr "Povolit externí přístup"
+
+#: core/models.py:300
+msgid ""
+"Allow external users to access your workouts and logs in a read-only mode. "
+"You need to set this before you can share links e.g. to social media."
+msgstr "Povolit externím uživatelům přístup k tréninkům a záznamům v režimu pouze čtení. Je tžřeba nastavit, než budete moci sdílet odkazy, například na sociální sítě."
+
+#: core/models.py:306
+msgid "Automatic reminders for weight entries"
+msgstr "Automaticky připomenout zadání váhy"
+
+#: core/models.py:308
+msgid "Number of days after the last weight entry (enter 0 to deactivate)"
+msgstr "Počet dní, kdy má být připomenuto provedení vážení a zápisu hodnoty (pro vypnutí napište 0 )"
+
+#: core/models.py:352
+msgid "The sum of all hours has to be 24"
+msgstr "Součet všech hodin musí být 24"
+
+#: core/models.py:511
+msgid "Day of the week"
+msgstr "Den v týdnu"
+
+#: core/models.py:533
+msgid "Full name"
+msgstr "Plné jméno"
+
+#: core/models.py:537
+msgid "Short name, e.g. CC-BY-SA 3"
+msgstr "Krátké jméno, například CC-BY-SA-3"
+
+#: core/models.py:540
+msgid "Link"
+msgstr "Odkaz"
+
+#: core/models.py:541
+msgid "Link to license text or other information"
+msgstr "Odkaz na text licence nebo další informace"
+
+#: core/templates/403.html:4
+msgid "Forbidden!"
+msgstr "Zakázané!"
+
+#: core/templates/403.html:7
+msgid "Something happened that is not allowed."
+msgstr "Něco se stalo, když to není povoleno."
+
+#: core/templates/404.html:4
+msgid "Page not found"
+msgstr "Stránka nenalezena"
+
+#: core/templates/404.html:7
+msgid "The page you requested does not exist."
+msgstr "Požadovaná stránka neexistuje"
+
+#: core/templates/500.html:4
+msgid "An error occured"
+msgstr "Vyskytla se chyba"
+
+#: core/templates/500.html:7
+msgid "Something happened that caused an error."
+msgstr "Nastalo něco, co způsobilo chybu."
+
+#: core/templates/base.html:10
+#, python-format
+msgid ""
+"You are\n"
+"browsing the site as the user \"%(current_user)s\", all actions are performed on his data.\n"
+"    "
+msgstr "Procházíte\nweb, jako uživatel \"%(current_user)s\", všechny akce budou zapsány do jeho údajů.\n    "
+
+#: core/templates/base.html:14
+#, python-format
+msgid "Back to \"%(target)s\""
+msgstr "Zpět na \"%(target)s\""
+
+#: core/templates/base.html:26 core/templates/base_features.html:17
+#: core/templates/base_wide.html:14
+msgid "Share"
+msgstr "Sdílet"
+
+#: core/templates/delete.html:24 core/templates/delete.html.py:28
+msgid "Are you sure you want to delete this? This action cannot be undone."
+msgstr "Jsi si jistý, že to chceš smazat? Tuhle akci už nejde pak odvolat."
+
+#: core/templates/delete.html:33
+msgid "Yes, delete"
+msgstr "Ano, smazat"
+
+#: core/templates/index.html:4 core/templates/mobile/index.html:4
+#: core/templates/mobile/template.html:183 core/templates/navigation.html:23
+#: manager/templates/workout/timer.html:470
+msgid "Dashboard"
+msgstr "Nástěnka"
+
+#: core/templates/index.html:18 manager/templates/calendar/month.html:108
+msgid "Add log to day"
+msgstr "Přidat záznam ke dni"
+
+#: core/templates/index.html:22 manager/templates/calendar/month.html:112
+msgid ""
+"Click to add weight logs to a training\n"
+"day in your current workout:"
+msgstr "Klikněte na přidat záznam váhy do\ntréninkového dne v aktuálním tréninku."
+
+#: core/templates/index.html:30 core/templates/index.html.py:89
+#: core/templates/mobile/index.html:126 core/templates/user/overview.html:58
+#: manager/templates/calendar/month.html:120
+#: manager/templates/mobile/schedule/view.html:101
+#: manager/templates/mobile/workout/overview.html:24
+#: manager/templates/schedule/view.html:152
+#: manager/templates/workout/overview.html:37
+msgid "No workouts found."
+msgstr "Žádný trénink"
+
+#: core/templates/index.html:37 core/templates/index.html.py:89
+#: core/templates/index.html:120 core/templates/mobile/index.html:127
+#: core/templates/tags/render_day.html:149
+#: manager/templates/calendar/month.html:127
+#: manager/templates/mobile/schedule/overview.html:27
+#: manager/templates/mobile/schedule/view.html:101
+#: manager/templates/mobile/tags/render_day.html:178
+#: manager/templates/mobile/workout/overview.html:24
+#: manager/templates/schedule/overview.html:37
+#: manager/templates/schedule/view.html:152
+#: manager/templates/workout/overview.html:37
+#: nutrition/templates/ingredient/overview.html:46
+#: nutrition/templates/mobile/plan/overview.html:22
+#: nutrition/templates/mobile/plan/view.html:211
+#: nutrition/templates/mobile/plan/view.html:214
+#: nutrition/templates/mobile/plan/view.html:224
+#: nutrition/templates/plan/overview.html:37
+#: nutrition/templates/plan/view.html:141
+#: nutrition/templates/plan/view.html:144
+#: nutrition/templates/plan/view.html:157
+msgid "Add one now."
+msgstr "Přidat nyní"
+
+#: core/templates/index.html:49 core/templates/index.html.py:57
+#: core/templates/mobile/index.html:173 core/templates/mobile/index.html:174
+#: core/templates/mobile/index.html:176 manager/models.py:84
+#: manager/models.py:365 manager/models.py:640 manager/models.py:724
+#: manager/templates/mobile/schedule/view.html:20
+#: manager/templates/mobile/schedule/view.html:22
+#: manager/templates/mobile/workout/view.html:11
+#: manager/templates/mobile/workout/view.html:19
+#: manager/templates/schedule/view.html:101
+#: manager/templates/workout/view.html:11
+#: manager/templates/workout/view.html:19 manager/views/pdf.py:77
+#: manager/views/pdf.py:136 manager/views/schedule.py:127
+msgid "Workout"
+msgstr "Trénink"
+
+#: core/templates/index.html:77 manager/templates/calendar/month.html:162
+#: manager/templates/calendar/month.html:163
+msgid "Add new log"
+msgstr "Přidat nový záznam"
+
+#: core/templates/index.html:82 core/templates/mobile/index.html:32
+msgid "This workout is part of a schedule:"
+msgstr "Tenhle trénink je součásti rozvrhu:"
+
+#: core/templates/index.html:95 core/templates/mobile/index.html:219
+#: nutrition/models.py:99 nutrition/models.py:518 nutrition/models.py:575
+#: nutrition/templates/mobile/plan/view.html:10
+#: nutrition/templates/mobile/plan/view.html:18
+#: nutrition/templates/plan/view.html:11 nutrition/templates/plan/view.html:19
+#: nutrition/views/plan.py:226
+msgid "Nutrition plan"
+msgstr "Nutriční plán"
+
+#: core/templates/index.html:104 core/templates/mobile/index.html:58
+#: core/templates/user/overview.html:155 nutrition/models.py:262
+#: nutrition/templates/ingredient/view.html:99
+#: nutrition/templates/mobile/plan/view.html:130
+#: nutrition/templates/mobile/plan/view.html:266
+#: nutrition/templates/mobile/plan/view.html:270
+#: nutrition/templates/mobile/plan/view.html:314
+#: nutrition/templates/plan/overview.html:15
+#: nutrition/templates/plan/view.html:52
+#: nutrition/templates/plan/view.html:210
+#: nutrition/templates/plan/view.html:271
+#: nutrition/templates/plan/view.html:275 nutrition/views/plan.py:323
+msgid "Energy"
+msgstr "Energie"
+
+#: core/templates/index.html:104 core/templates/mobile/index.html:58
+#: core/templates/user/overview.html:171
+#: nutrition/templates/ingredient/view.html:101
+#: nutrition/templates/mobile/plan/overview.html:16
+#: nutrition/templates/mobile/plan/view.html:131
+#: nutrition/templates/mobile/plan/view.html:271
+#: nutrition/templates/mobile/plan/view.html:280
+#: nutrition/templates/mobile/plan/view.html:315
+#: nutrition/templates/plan/overview.html:28
+#: nutrition/templates/plan/view.html:61
+#: nutrition/templates/plan/view.html:211
+#: nutrition/templates/plan/view.html:276
+#: nutrition/templates/plan/view.html:286
+msgid "kcal"
+msgstr "kcal"
+
+#: core/templates/index.html:107 core/templates/mobile/index.html:61
+#: core/templates/user/overview.html:156 nutrition/models.py:267
+#: nutrition/templates/ingredient/view.html:105
+#: nutrition/templates/mobile/plan/view.html:134
+#: nutrition/templates/mobile/plan/view.html:320
+#: nutrition/templates/plan/view.html:53
+#: nutrition/templates/plan/view.html:216 nutrition/views/plan.py:325
+msgid "Protein"
+msgstr "Bílkoviny"
+
+#: core/templates/index.html:110 core/templates/mobile/index.html:64
+#: core/templates/user/overview.html:157 nutrition/models.py:274
+#: nutrition/templates/ingredient/view.html:111
+#: nutrition/templates/mobile/plan/view.html:138
+#: nutrition/templates/mobile/plan/view.html:326
+#: nutrition/templates/plan/view.html:54
+#: nutrition/templates/plan/view.html:222 nutrition/views/plan.py:329
+msgid "Carbohydrates"
+msgstr "Sacharidy"
+
+#: core/templates/index.html:113 core/templates/mobile/index.html:67
+#: core/templates/user/overview.html:158 nutrition/models.py:290
+#: nutrition/templates/ingredient/view.html:127
+#: nutrition/templates/mobile/plan/view.html:142
+#: nutrition/templates/mobile/plan/view.html:338
+#: nutrition/templates/plan/view.html:55
+#: nutrition/templates/plan/view.html:234 nutrition/views/plan.py:339
+msgid "Fat"
+msgstr "Tuky"
+
+#: core/templates/index.html:120
+#: nutrition/templates/mobile/plan/overview.html:21
+#: nutrition/templates/plan/overview.html:37
+msgid "No nutrition plans."
+msgstr "Žádný nutriční plán."
+
+#: core/templates/index.html:126 core/templates/mobile/index.html:73
+msgid "Your current weight is: "
+msgstr "Nyní vážíte:"
+
+#: core/templates/index.html:142 core/templates/index.html.py:143
+#: core/templates/index.html:144 core/templates/user/overview.html:28
+#: manager/templates/mobile/schedule/view.html:106
+#: manager/templates/mobile/workout/overview.html:38
+#: manager/templates/mobile/workout/overview.html:39
+#: manager/templates/mobile/workout/overview.html:40
+#: manager/templates/schedule/view.html:170
+#: manager/templates/workout/overview.html:53
+#: manager/templates/workout/overview.html:54
+#: manager/templates/workout/overview.html:55
+#: manager/views/schedule_step.py:51
+msgid "Add workout"
+msgstr "Přidat trénink"
+
+#: core/templates/index.html:153 core/templates/index.html.py:154
+#: core/templates/index.html:155 core/templates/user/overview.html:147
+#: nutrition/templates/mobile/plan/overview.html:37
+#: nutrition/templates/mobile/plan/overview.html:38
+#: nutrition/templates/mobile/plan/overview.html:39
+#: nutrition/templates/plan/overview.html:53
+#: nutrition/templates/plan/overview.html:54
+#: nutrition/templates/plan/overview.html:55
+msgid "Add nutrition plan"
+msgstr "Přidat nutriční plán"
+
+#: core/templates/index.html:164 gym/templates/gym/new_user.html:44
+#: manager/templates/calendar/month.html:136 manager/templates/day/log.html:80
+#: manager/templates/workout/timer.html:413
+#: manager/templates/workout/timer.html:437
+#: nutrition/templates/rate/form.html:141
+msgid "Info"
+msgstr "Info"
+
+#: core/templates/index.html:165
+msgid ""
+"The current workout is selected from your active schedule\n"
+"or, if you don't have one, simply by date."
+msgstr "Aktivní cvičení je vybráno z aktivního rozvrhu\nnebo, pokud nemáte, bude vybráno podle data."
+
+#: core/templates/index.html:168
+msgid ""
+"After adding a workout or a nutritional plan, you can edit them to set a "
+"goal."
+msgstr "Po přidání tréninku, nebo nutričního plánu, můžete provést jejich úpravu a stanovit cíle."
+
+#: core/templates/license/list.html:4
+msgid "License list"
+msgstr "Seznam licencí"
+
+#: core/templates/license/list.html:12 core/templates/user/overview.html:209
+#: core/templates/user/overview.html:338 core/templates/user/overview.html:381
+#: core/templates/user/overview.html:421 core/templates/user/overview.html:470
+#: exercises/templates/equipment/list.html:12 gym/templates/gym/list.html:51
+#: gym/templates/gym/member_list.html:96
+#: gym/templates/gym/member_list.html:153
+#: gym/templates/gym/member_list.html:180
+#: gym/templates/gym/member_list.html:215
+#: gym/templates/gym/member_list.html:252
+#: gym/templates/gym/member_list.html:293
+#: manager/templates/schedule/view.html:99
+#: nutrition/templates/units/list.html:14
+msgid "Actions"
+msgstr "Akce"
+
+#: core/templates/license/list.html:13 core/templates/user/overview.html:278
+#: core/views/user.py:520 exercises/models.py:56 exercises/models.py:86
+#: exercises/models.py:113 exercises/models.py:172
+#: exercises/templates/equipment/list.html:13
+#: exercises/templates/exercise/pending.html:15 gym/models.py:50
+#: gym/models.py:331 gym/models.py:383 gym/models.py:432
+#: gym/templates/contract/view.html:50 gym/templates/gym/member_list.html:28
+#: gym/templates/gym/member_list.html:112 gym/views/gym.py:129
+#: manager/models.py:210 nutrition/models.py:260 nutrition/models.py:454
+#: nutrition/templates/ingredient/pending.html:15
+#: nutrition/templates/ingredient/view.html:239
+#: nutrition/templates/units/list.html:15
+msgid "Name"
+msgstr "Název"
+
+#: core/templates/license/list.html:41 core/templates/user/overview.html:104
+#: core/templates/user/overview.html:136 core/templates/user/overview.html:186
+#: core/templates/user/overview.html:367 core/templates/user/overview.html:407
+#: core/templates/user/overview.html:455
+#: email/templates/email/gym/overview.html:30
+#: exercises/templates/equipment/list.html:41
+#: exercises/templates/exercise/pending.html:30
+#: gym/templates/admin_notes/list.html:52 gym/templates/contract/list.html:60
+#: gym/templates/contract_option/list.html:56
+#: gym/templates/contract_type/list.html:56
+#: gym/templates/document/list.html:63 gym/templates/gym/list.html:31
+#: gym/templates/gym/member_list.html:241
+#: gym/templates/gym/member_list.html:278
+#: gym/templates/gym/member_list.html:319
+#: manager/templates/calendar/day.html:83
+#: nutrition/templates/ingredient/pending.html:30
+#: nutrition/templates/units/list.html:43
+msgid "Nothing found"
+msgstr "Nic nenalezeno"
+
+#: core/templates/license/list.html:68
+msgid ""
+"If a license has been localized, e.g. the Creative Commons\n"
+"licenses for the different countries, add them as separate entries here."
+msgstr "Pokud je licence, například Creative Commons \npřeložena do různých jazyků, přidejte text sem."
+
+#: core/templates/misc/about.html:4
+msgid "About us"
+msgstr "O nás"
+
+#: core/templates/misc/about.html:8
+msgid "Responsible for the content of this site as per German law §5 TMG:"
+msgstr "Zodpovědnou osobou za obsah na stránce je dle Německého práva §5 TMG:"
+
+#: core/templates/misc/about.html:16
+msgid "GNUPG-Key:"
+msgstr "Klíč GNUPG:"
+
+#: core/templates/misc/contact.html:4 core/templates/mobile/index.html:255
+#: core/templates/mobile/index.html:256 core/templates/mobile/index.html:258
+#: core/templates/mobile/misc/contact.html:4
+#: core/templates/navigation.html:148 core/templates/template.html:101
+#: core/templates/template.html.py:203
+#: core/templates/template_features.html:93
+#: software/templates/contribute.html:48
+msgid "Get in touch"
+msgstr "Zkontaktujte nás"
+
+#: core/templates/misc/contact.html:10
+#: core/templates/mobile/misc/contact.html:8
+#, python-format
+msgid ""
+"Thank you for your interest. Feel free to use any of the\n"
+"ways below to send feedback you have about any aspect of the site. For\n"
+"support, it's better to use the mailing list\n"
+"(<a href=\"mailto:wger@googlegroups.com\">wger@googlegroups.com</a>), to report\n"
+"a bug, consider doing it through the <a href=\"%(issues)s\">issue tracker</a>\n"
+"."
+msgstr "Děkujeme za váš zájem. Neváhejte použít některý ze\nzpůsoby níže, k zaslání svého  názoru na jakoukoliv část na těchto stránkách. Pro\npodporu,  je lepší používat mailovou konferenci\n(<a href=\"mailto:wger@googlegroups.com\"> wger@googlegroups.com </a>),  pro\nnahlášení chyb a sledování problémů je lepší <a href=\"%(issues)s\"> </a>"
+
+#: core/templates/misc/contact.html:20
+#: core/templates/mobile/misc/contact.html:16
+#, python-format
+msgid ""
+"If you want to further help and improve this project,\n"
+"you might also be interested <a href=\"%(contribute)s\">in contributing</a>."
+msgstr "Chceteli pomoct ve zlepšování tohoto projektu,\nmožná by jste mohli mít zájem <a href=\"%(contribute)s\">přispět</a>."
+
+#: core/templates/misc/contact.html:29
+#: core/templates/mobile/misc/contact.html:21
+msgid "Feedback form"
+msgstr "Zpětná vazba"
+
+#: core/templates/misc/contact.html:30
+#: core/templates/mobile/misc/contact.html:22
+msgid ""
+"A simple contact form. Remember that\n"
+"if you want an answer, you need to include some way to contact you."
+msgstr "Kontaktní formulář. Nezapomeňte\npokud chcete, abychom vám zaslai odpověď, musíte na sebe uvést kontakt."
+
+#: core/templates/misc/contact.html:35
+#: core/templates/mobile/misc/contact.html:26
+msgid "Twitter"
+msgstr "Twitter"
+
+#: core/templates/misc/contact.html:36
+#: core/templates/mobile/misc/contact.html:27
+msgid ""
+"We are also on twitter. Write us and tell us what\n"
+"you think! Except patches, don't send patches via twitter."
+msgstr "Jsme také na twitteru. Napište nám, svůj názor\nna tento produk! Kromě opravy. Opravu neposílejte přes twitter."
+
+#: core/templates/misc/contact.html:42
+#: core/templates/mobile/misc/contact.html:33
+msgid "Forum / Mailing list"
+msgstr "Fórum / Email konverzace"
+
+#: core/templates/misc/contact.html:43
+#: core/templates/mobile/misc/contact.html:34
+msgid ""
+"Use the public group to get support for your\n"
+"local wger installation, discuss issues or your new idea, etc.\n"
+"(no registration needed)"
+msgstr "Pomocí veřejné skupiny získáte podporu pro vaši\nlokální intalaci wger. Můžete diskutovat o nápadech, \nproblémech a podobně. (Registrace není nutná)"
+
+#: core/templates/misc/contact.html:49
+#: core/templates/mobile/misc/contact.html:24
+msgid "Open feedback form"
+msgstr "Otevřít formulář zpětné vazby"
+
+#: core/templates/misc/contact.html:53
+#: core/templates/mobile/misc/contact.html:31
+msgid "tweet to @wger_de"
+msgstr "tweet @wger_de"
+
+#: core/templates/misc/contact.html:56
+#: core/templates/mobile/misc/contact.html:37
+msgid "Go to mailing list"
+msgstr "Přejděte na mailovou konverzaci"
+
+#: core/templates/misc/fragments/shariff_modal.html:7
+msgid "Share this page"
+msgstr "Sdílet stránku"
+
+#: core/templates/misc/fragments/shariff_modal.html:14
+msgid ""
+"Before you share links on social media you need to allow external access."
+msgstr ""
+
+#: core/templates/misc/fragments/shariff_modal.html:18
+#: nutrition/templates/mobile/plan/view.html:240
+#: nutrition/templates/mobile/plan/view.html:292
+#: nutrition/templates/plan/view.html:183
+#: nutrition/templates/plan/view.html:296
+msgid "That's done here"
+msgstr "A je to provedo"
+
+#: core/templates/misc/fragments/shariff_modal.html:25
+#: core/templates/mobile/template.html:144 core/templates/template.html:156
+msgid "Close"
+msgstr "Zavřít"
+
+#: core/templates/mobile/index.html:13
+msgid "Current workout"
+msgstr "Aktuální trénink"
+
+#: core/templates/mobile/index.html:49
+msgid "Current nutrition plan"
+msgstr "Aktuální nutriční plán"
+
+#: core/templates/mobile/index.html:91
+#: manager/templates/mobile/tags/render_day.html:21
+#: manager/templates/mobile/tags/render_day.html:24
+msgid "Start gym mode"
+msgstr "Spustit gym mode"
+
+#: core/templates/mobile/index.html:95
+msgid ""
+"Use the gym mode to\n"
+"start an interactive training session. If you enter lifted weights, they will\n"
+"be added to your workout log. A timer between sets helps you keep track of the\n"
+"pauses you do."
+msgstr "Použitím režimu posilovny\nspustíte interaktivní trénink. Pokud zadáte ručně váhy, budou přidány\ndo záznamu tréninku. Časovač mezi sériemi vám umožní sledovat\npauzy, které provádíte."
+
+#: core/templates/mobile/index.html:100
+msgid "Tip:"
+msgstr "Tip:"
+
+#: core/templates/mobile/index.html:101
+msgid ""
+"You can deactivate the timer or set\n"
+"its default duration in your settings."
+msgstr "Můžete časovač deaktivovat nebo\njeho základní trvání nastavit v nastavení."
+
+#: core/templates/mobile/index.html:119
+#: manager/templates/mobile/workout/view.html:68
+#: manager/templates/workout/view.html:69
+msgid "No days for this workout."
+msgstr "Pro tento trénink nejsou dostupné žádné dny."
+
+#: core/templates/mobile/index.html:120
+#: manager/templates/mobile/workout/view.html:69
+msgid "Add training day."
+msgstr "Přidat tréninkový den"
+
+#: core/templates/mobile/index.html:147 core/templates/mobile/index.html:148
+#: core/templates/mobile/index.html:150
+msgid "Start current workout"
+msgstr "Začít aktuální trénink"
+
+#: core/templates/mobile/index.html:187 core/templates/mobile/index.html:188
+#: core/templates/mobile/index.html:190 core/templates/navigation.html:40
+#: core/templates/user/overview.html:70
+#: manager/templates/calendar/month.html:10
+#: manager/templates/calendar/month.html:21
+msgid "Calendar"
+msgstr "Kalendář"
+
+#: core/templates/mobile/index.html:206 core/templates/mobile/index.html:207
+#: core/templates/mobile/template.html:189 core/templates/navigation.html:99
+#: software/templates/functions.html:111 software/templates/functions.html:119
+msgid "Nutrition"
+msgstr "Výživa"
+
+#: core/templates/mobile/index.html:216 core/templates/mobile/index.html:217
+#: core/templates/mobile/template.html:186 core/templates/navigation.html:37
+#: core/templates/navigation.html.py:39 core/templates/user/overview.html:25
+#: software/templates/functions.html:80 software/templates/functions.html:89
+msgid "Workouts"
+msgstr "Tréninky"
+
+#: core/templates/mobile/index.html:228 core/templates/mobile/index.html:229
+#: core/templates/mobile/index.html:231 core/templates/navigation.html:84
+#: core/templates/user/overview.html:114
+#: weight/templates/weight_overview.html:7
+msgid "Weight overview"
+msgstr "Přehled váhy"
+
+#: core/templates/mobile/index.html:243 core/templates/mobile/index.html:244
+#: core/templates/mobile/index.html:246 core/templates/user/preferences.html:4
+msgid "Preferences"
+msgstr "Nastavení"
+
+#: core/templates/mobile/template.html:120 core/templates/navigation.html:152
+#: exercises/models.py:197 nutrition/models.py:76 nutrition/models.py:237
+#: nutrition/models.py:451
+msgid "Language"
+msgstr "Jazyk"
+
+#: core/templates/mobile/template.html:154 core/templates/template.html:171
+msgid ""
+"You are using a guest account, data entered will be deleted after a week."
+msgstr "Využíváte testovací účet. Data zde vložená budou po týdnu smazána."
+
+#: core/templates/mobile/template.html:157 core/templates/template.html:174
+msgid "Create some demo entries"
+msgstr "Vytvořit nějaké testovací potraviny"
+
+#: core/templates/mobile/template.html:162 core/templates/navigation.html:166
+#: core/templates/navigation.html.py:171 core/templates/template.html:179
+#: core/templates/user/login.html:32 core/templates/user/login.html.py:33
+#: core/views/user.py:257 core/views/user.py:260
+#: software/templates/functions.html:47
+msgid "Register"
+msgstr "Registrace"
+
+#: core/templates/mobile/template.html:193 core/templates/navigation.html:166
+#: core/templates/navigation.html.py:170 core/templates/user/login.html:4
+#: core/templates/user/login.html.py:19 software/templates/functions.html:52
+msgid "Login"
+msgstr "Přihlášení"
+
+#: core/templates/mobile/template.html:196 core/templates/navigation.html:21
+#: core/templates/navigation.html.py:124
+#: core/templates/template_features.html:63
+#: software/templates/functions.html:9
+msgid "Features"
+msgstr "Funkce"
+
+#: core/templates/navigation.html:41
+msgid "Workouts schedules"
+msgstr "Rozvrhy tréninků"
+
+#: core/templates/navigation.html:56
+#: exercises/templates/muscles/overview.html:7
+msgid "Muscle overview"
+msgstr "Přehled svalů"
+
+#: core/templates/navigation.html:57
+#: exercises/templates/equipment/overview.html:11
+msgid "Equipment overview"
+msgstr "Přehled přístrojů"
+
+#: core/templates/navigation.html:60
+#: exercises/templates/equipment/overview.html:100
+#: exercises/templates/equipment/overview.html:107
+#: exercises/templates/equipment/overview.html:108
+#: exercises/templates/equipment/overview.html:109
+#: exercises/templates/equipment/overview.html:115
+#: exercises/templates/equipment/overview.html:116
+#: exercises/templates/exercise/overview.html:121
+#: exercises/templates/exercise/overview.html:128
+#: exercises/templates/exercise/overview.html:129
+#: exercises/templates/exercise/overview.html:130
+#: exercises/templates/exercise/overview.html:136
+#: exercises/templates/exercise/overview.html:137
+#: exercises/templates/mobile/exercise/overview.html:115
+#: exercises/templates/mobile/exercise/overview.html:122
+#: exercises/templates/mobile/exercise/overview.html:123
+#: exercises/templates/mobile/exercise/overview.html:124
+#: exercises/templates/mobile/exercise/overview.html:131
+#: exercises/templates/mobile/exercise/overview.html:132
+msgid "Add new exercise"
+msgstr "Přidat nový cvik"
+
+#: core/templates/navigation.html:65 core/templates/navigation.html.py:107
+#: core/templates/navigation.html:202
+msgid "Administration"
+msgstr "Administrace"
+
+#: core/templates/navigation.html:66
+#: exercises/templates/exercise/pending.html:6
+msgid "Exercises pending review"
+msgstr "Cvik čeká na zkontrolování"
+
+#: core/templates/navigation.html:67 exercises/models.py:186
+#: exercises/templates/exercise/view.html:91
+msgid "Equipment"
+msgstr "Nářadí"
+
+#: core/templates/navigation.html:82 core/templates/user/overview.html:112
+#: core/templates/user/overview.html:121 manager/helpers.py:68
+#: manager/models.py:581 manager/models.py:647
+#: manager/templates/workout/timer.html:311
+#: manager/templates/workout/timer.html:314 weight/models.py:32
+#: weight/templates/import_csv_preview.html:15
+#: weight/templates/import_csv_preview.html:44
+#: weight/templates/weight_overview.html:42 weight/views.py:117
+msgid "Weight"
+msgstr "Váha"
+
+#: core/templates/navigation.html:85 weight/templates/weight_overview.html:76
+#: weight/views.py:56
+msgid "Add weight entry"
+msgstr "Zaznamenat váhu"
+
+#: core/templates/navigation.html:101 core/templates/user/overview.html:144
+msgid "Nutrition plans"
+msgstr "Nutriční plány"
+
+#: core/templates/navigation.html:102
+#: nutrition/templates/ingredient/overview.html:28
+#: nutrition/templates/mobile/ingredient_overview.html:7
+#: nutrition/templates/mobile/plan/overview.html:47
+#: nutrition/templates/mobile/plan/overview.html:48
+#: nutrition/templates/mobile/plan/overview.html:49
+#: nutrition/templates/plan/overview.html:63
+#: nutrition/templates/plan/overview.html:64
+#: nutrition/templates/plan/overview.html:65
+msgid "Ingredient overview"
+msgstr "Přehled jídel"
+
+#: core/templates/navigation.html:103 nutrition/templates/bmi/form.html:50
+msgid "BMI calculator"
+msgstr "Kalkulačka BMI"
+
+#: core/templates/navigation.html:104 nutrition/templates/rate/form.html:17
+msgid "Daily calories calculator"
+msgstr "Kalkulačka denních kalorii"
+
+#: core/templates/navigation.html:108 nutrition/templates/units/list.html:6
+msgid "Ingredient weight units"
+msgstr "Jednotka váhy položek"
+
+#: core/templates/navigation.html:109
+#: nutrition/templates/ingredient/pending.html:6
+msgid "Ingredients pending review"
+msgstr "Potraviny čekající na kontrolu"
+
+#: core/templates/navigation.html:122
+msgid "About this software"
+msgstr "O programu"
+
+#: core/templates/navigation.html:125 core/templates/template.html:202
+#: core/templates/template_features.html:92
+#: software/templates/contribute.html:6
+msgid "Contribute!"
+msgstr "Přispějte!"
+
+#: core/templates/navigation.html:126 software/templates/functions.html:198
+msgid "Problems and wishes"
+msgstr "Přání a stížnosti"
+
+#: core/templates/navigation.html:127 core/templates/template.html:204
+#: core/templates/template_features.html:94 software/templates/tos.html:7
+msgid "Terms of service"
+msgstr "Obecná pravidla."
+
+#: core/templates/navigation.html:129 software/templates/code.html:7
+#: software/templates/contribute.html:96
+msgid "Get the code"
+msgstr "Získat kód."
+
+#: core/templates/navigation.html:130 software/templates/functions.html:210
+msgid "REST API"
+msgstr "REST API"
+
+#: core/templates/navigation.html:131 software/templates/license.html:7
+#: utils/models.py:37
+msgid "License"
+msgstr "Licence"
+
+#: core/templates/navigation.html:132 software/templates/changelog.html:7
+msgid "Changelog"
+msgstr "Changelog"
+
+#: core/templates/navigation.html:133
+msgid "Github"
+msgstr "Github"
+
+#: core/templates/navigation.html:134 software/templates/contribute.html:82
+msgid "Translate with Transifex"
+msgstr "Přeložit s Transifex"
+
+#: core/templates/navigation.html:149 core/templates/template.html:201
+#: core/templates/template_features.html:91
+msgid "About"
+msgstr "O nás"
+
+#: core/templates/navigation.html:172 core/templates/user/login.html:42
+#: core/templates/user/login.html.py:43
+msgid "Reset password"
+msgstr "Reset hesla"
+
+#: core/templates/navigation.html:185
+msgid "My preferences"
+msgstr "Má nastavení"
+
+#: core/templates/navigation.html:192 core/templates/user/preferences.html:117
+#: core/templates/user/preferences.html:118
+#: core/templates/user/preferences.html:119
+msgid "Logout"
+msgstr "Odhlásit"
+
+#: core/templates/navigation.html:207
+msgid "Licenses"
+msgstr "Licence"
+
+#: core/templates/navigation.html:210 core/templates/user/list.html:4
+msgid "User list"
+msgstr "Uživatelský seznam"
+
+#: core/templates/navigation.html:211
+msgid "Gyms"
+msgstr "Posilovny"
+
+#: core/templates/tags/license-sidebar.html:3
+msgid "Free license"
+msgstr "Free licence"
+
+#: core/templates/tags/license-sidebar.html:5
+msgid "This content is available under the following license:"
+msgstr "Obsah je dostupný pod následující licencí:"
+
+#: core/templates/tags/license-sidebar.html:13
+msgid "Click here for more information"
+msgstr "Klikněte zde pro více informací"
+
+#: core/templates/tags/pagination.html:7
+#: core/templates/tags/pagination.html:11
+msgid "previous"
+msgstr "předchozí"
+
+#: core/templates/tags/pagination.html:31
+#: core/templates/tags/pagination.html:35
+msgid "next"
+msgstr "další"
+
+#: core/templates/tags/render_day.html:38
+#: core/templates/tags/render_day.html:42
+#: manager/templates/mobile/tags/render_day.html:14
+#: manager/templates/mobile/tags/render_day.html:17
+#: manager/templates/workout/log.html:60 manager/templates/workout/log.html:65
+#: manager/templates/workout/log.html:66
+msgid "Add weight log to this day"
+msgstr "Přidejte záznam váhy pro tento den"
+
+#: core/templates/tags/render_day.html:60
+#: core/templates/tags/render_day.html:61
+#: manager/templates/schedule/view.html:117
+#: manager/templates/schedule/view.html:118
+msgid "Move me"
+msgstr "Přesuň mě"
+
+#: core/templates/tags/render_day.html:102
+#: exercises/templates/equipment/overview.html:63
+#: exercises/templates/exercise/overview.html:81
+#: exercises/templates/mobile/exercise/overview.html:67
+#: manager/templates/mobile/tags/render_day.html:140
+msgid "Placeholder image for exercise"
+msgstr "Ukázkový obrázek pro cvik"
+
+#: core/templates/tags/render_day.html:120
+#: manager/templates/mobile/tags/render_day.html:154
+msgid "This exercise has no repetitions."
+msgstr "Tento cvik je bez opakování"
+
+#: core/templates/tags/render_day.html:122
+#: manager/templates/mobile/tags/render_day.html:155
+msgid "Edit them now."
+msgstr "Upravit je teď"
+
+#: core/templates/tags/render_day.html:148
+#: manager/templates/mobile/tags/render_day.html:177
+msgid "No exercises selected for this day."
+msgstr "Pro tento den nejsou vybrány cviky"
+
+#: core/templates/tags/render_day.html:159
+#: manager/templates/mobile/tags/render_day.html:187
+msgid "Add exercises to this workout day"
+msgstr "Přidat k tomuto dni cviky"
+
+#: core/templates/tags/render_form_element.html:10
+#: manager/templates/set/formset.html:24
+msgid "Optional"
+msgstr "Volitelný"
+
+#: core/templates/tags/render_form_errors.html:5
+msgid ""
+"The form contains errors. Please verify and correct the\n"
+"data in the fields in red and submit the form again."
+msgstr "Formulář obsahuje chyby. Prosím zkontrolujte správnost\núdajů v polích, které jsou označené červeně a zašlete jej znovu."
+
+#: core/templates/tags/render_weight_log.html:8
+#: core/templates/tags/render_weight_log.html:9
+msgid "Toggle data table"
+msgstr "Přepnout data tabulky"
+
+#: core/templates/tags/render_weight_log.html:23
+#: exercises/views/exercises.py:150 manager/helpers.py:68
+#: manager/templates/day/log.html:53 manager/views/log.py:299
+msgid "Reps"
+msgstr "Opakování"
+
+#: core/templates/template.html:125 software/templates/contribute.html:72
+#: software/templates/functions.html:202
+msgid "Translate"
+msgstr "Překlad"
+
+#: core/templates/template.html:197 core/templates/template.html.py:198
+#: core/templates/template_features.html:87
+#: core/templates/template_features.html:88 software/templates/license.html:18
+#: software/templates/license.html.py:19
+msgid "Released under the Affero GPL"
+msgstr "Uvolněno pod licencí Affero GPL"
+
+#: core/templates/user/api_key.html:4 core/templates/user/preferences.html:135
+#: core/templates/user/preferences.html:136
+#: core/templates/user/preferences.html:137
+msgid "API key"
+msgstr "API key"
+
+#: core/templates/user/api_key.html:9
+#, python-format
+msgid ""
+"Generate an API key if you want to interact with wger via\n"
+"the <a href=\"%(url)s\" rel=\"nofollow\">REST API</a> it provides (for\n"
+"public resources such as the exercises or ingredients, you don't need to provide\n"
+"anything). You must pass this information in the header in the format shown below."
+msgstr "Vygenerujte API klíč, pokud chcete komunikovat s wget přes\n<a href=\"%(url)s\" rel=\"nofollow\"> REST API </a>  (pro\nveřejné zdroje, jako jsou cviky nebo složky, nemusíte poskytovat\nnic). Musíte tuto informaci vložit do záhlaví ve formátu níže."
+
+#: core/templates/user/api_key.html:15
+msgid "For security reasons, you should only access the API via HTTPS."
+msgstr "Z bezpečnostních důvodů, by jste měli k rozhraní API přistupovat přes HTTPS."
+
+#: core/templates/user/api_key.html:18
+msgid "Your API key"
+msgstr "Váš API klíč"
+
+#: core/templates/user/api_key.html:24
+msgid "You have no API key yet"
+msgstr "Zatím nemáte API klíč."
+
+#: core/templates/user/api_key.html:46
+msgid "Delete current API key and generate new one"
+msgstr "Smazat aktuální API klíč a vytvořit jeden nový"
+
+#: core/templates/user/api_key.html:48
+msgid "Generate new API key"
+msgstr "Vytvořit nový API klíč"
+
+#: core/templates/user/api_key.html:53
+msgid "Documentation"
+msgstr "Dokumentace"
+
+#: core/templates/user/change_password.html:4
+#: core/templates/user/change_password.html:13
+#: core/templates/user/preferences.html:126
+#: core/templates/user/preferences.html:127
+#: core/templates/user/preferences.html:128
+msgid "Change password"
+msgstr "Změna hesla"
+
+#: core/templates/user/delete_account.html:4
+#: core/templates/user/preferences.html:145
+#: core/templates/user/preferences.html:146
+#: core/templates/user/preferences.html:147
+msgid "Delete account"
+msgstr "Smazání účtu"
+
+#: core/templates/user/delete_account.html:19
+msgid "Are you sure?"
+msgstr "Jste si jistý?"
+
+#: core/templates/user/delete_account.html:23
+#, python-format
+msgid ""
+"This action will delete the user account \"%(username)s\".\n"
+"It will also  irrevocably remove all the data associated with it (workouts, logs, etc.)\n"
+"and can't be undone. "
+msgstr "Tato akce odstraní účet uživatele \"%(username)s\".\nDojde také k ostranění všech přidružených záznamů (tréninky, záznamy a podob.)\na je to nevratný proces."
+
+#: core/templates/user/login.html:26
+msgid "No account?"
+msgstr "Nemáte účet?"
+
+#: core/templates/user/login.html:36
+msgid "Forgot password?"
+msgstr "Zapomenuté heslo?"
+
+#: core/templates/user/login.html:53
+msgid "Sign in with your Email"
+msgstr "Přihlásit se s Emailem."
+
+#: core/templates/user/login.html:57
+msgid ""
+"Persona (BrowserID) replaces multiple passwords, you don't\n"
+"    need to remember a new password for this site. For more information, please\n"
+"    take a look at the <a href=\"https://login.persona.org/\" target=\"_blank\">the\n"
+"    Persona website</a>."
+msgstr "Persona (BrowserID) odbourává nutnost více hesel. Už si nemusíte\n    pamatovat nové heslo pro tuto stránku. Pro více informací navštivte\n    prosím  <a href=\"https://login.persona.org/\" target=\"_blank\">the\n    Persona website</a>."
+
+#: core/templates/user/overview.html:25 core/templates/user/overview.html:68
+#: core/templates/user/overview.html:112 core/templates/user/overview.html:144
+#: core/templates/user/overview.html:350 core/templates/user/overview.html:393
+#: core/templates/user/overview.html:433
+#, python-format
+msgid "last %(number)s"
+msgstr "poslední %(number)s"
+
+#: core/templates/user/overview.html:27 core/templates/user/overview.html:146
+#: core/templates/user/overview.html:342 core/templates/user/overview.html:385
+#: core/templates/user/overview.html:425
+#: gym/templates/gym/member_list.html:219
+#: gym/templates/gym/member_list.html:256
+#: gym/templates/gym/member_list.html:297
+msgid "Overview"
+msgstr "Přehled"
+
+#: core/templates/user/overview.html:34 core/templates/user/overview.html:76
+#: core/templates/user/overview.html:120 core/templates/user/overview.html:153
+#: exercises/models.py:190 manager/helpers.py:67 manager/models.py:649
+#: manager/models.py:729 manager/templates/schedule/overview.html:16
+#: manager/templates/workout/overview.html:14 nutrition/models.py:253
+#: nutrition/models.py:254 nutrition/templates/plan/overview.html:14
+#: weight/models.py:31 weight/templates/import_csv_preview.html:14
+#: weight/templates/import_csv_preview.html:43
+#: weight/templates/weight_overview.html:41 weight/views.py:117
+msgid "Date"
+msgstr "Datum"
+
+#: core/templates/user/overview.html:35 core/templates/user/overview.html:154
+#: exercises/models.py:167 gym/models.py:389 gym/models.py:438
+#: manager/models.py:64 manager/models.py:367
+#: manager/templates/schedule/overview.html:15
+#: manager/templates/workout/overview.html:13 nutrition/models.py:81
+#: nutrition/templates/plan/overview.html:13
+msgid "Description"
+msgstr "Popis"
+
+#: core/templates/user/overview.html:36
+msgid "Number of logs (days)"
+msgstr "Počet záznamů (za den)"
+
+#: core/templates/user/overview.html:37 core/views/user.py:521
+#: gym/templates/gym/email_inactive_members.html:4 gym/views/gym.py:129
+msgid "Last activity"
+msgstr "Poslední aktivita"
+
+#: core/templates/user/overview.html:68
+#: manager/templates/calendar/month.html:146
+#: manager/templates/mobile/workout/view.html:229
+#: manager/templates/workout/view.html:133
+msgid "Log"
+msgstr "Záznam"
+
+#: core/templates/user/overview.html:77 manager/models.py:743
+#: manager/templates/calendar/partial_overview_table.html:55
+msgid "General impression"
+msgstr "Celkový dojem"
+
+#: core/templates/user/overview.html:78 core/templates/user/overview.html:393
+#: manager/models.py:734
+#: manager/templates/calendar/partial_overview_table.html:59
+#: manager/templates/workout/log.html:115
+msgid "Notes"
+msgstr "Poznámky"
+
+#: core/templates/user/overview.html:79
+#: manager/templates/calendar/partial_overview_table.html:45
+#: manager/templates/workout/timer.html:464
+msgid "Time"
+msgstr "Čas"
+
+#: core/templates/user/overview.html:200
+msgid "Log in as this user"
+msgstr "Přihlásit se jako tento uživatel"
+
+#: core/templates/user/overview.html:218
+msgid "Deactivate user"
+msgstr "Deaktivovat uživatele"
+
+#: core/templates/user/overview.html:220
+msgid "Activate user"
+msgstr "Aktivovat uživatele"
+
+#: core/templates/user/overview.html:224
+msgid "Reset user password"
+msgstr "Reset hesla"
+
+#: core/templates/user/overview.html:228 gym/templates/gym/member_list.html:30
+msgid "Roles"
+msgstr "Role"
+
+#: core/templates/user/overview.html:242
+#: core/templates/user/password_reset_confirm.html:4
+msgid "Password reset confirmation"
+msgstr "Potvrzení obnovy hesla"
+
+#: core/templates/user/overview.html:245
+msgid "Do you really want to change this user&#39;s password?"
+msgstr "Opravdu chcete změnit těmto uživatelům&#39;s hesla?"
+
+#: core/templates/user/overview.html:248
+msgid "No"
+msgstr "Ne"
+
+#: core/templates/user/overview.html:249
+msgid "Yes"
+msgstr "Ano"
+
+#: core/templates/user/overview.html:270
+#: gym/templates/gym/member_list.html:109
+msgid "Details"
+msgstr "Podrobnosti"
+
+#: core/templates/user/overview.html:274 gym/views/export.py:56
+#: manager/helpers.py:68 manager/templates/schedule/view.html:97
+#: nutrition/templates/mobile/plan/view.html:184
+#: nutrition/templates/plan/view.html:72 nutrition/views/plan.py:254
+#: nutrition/views/plan.py:260
+msgid "Nr."
+msgstr "Č."
+
+#: core/templates/user/overview.html:296 gym/models.py:53 gym/models.py:586
+#: gym/templates/contract/view.html:75 gym/templates/gym/member_list.html:116
+#: gym/views/export.py:67
+msgid "Phone"
+msgstr "Telefon"
+
+#: core/templates/user/overview.html:300 gym/templates/contract/view.html:87
+#: gym/templates/gym/member_list.html:134
+msgid "Address"
+msgstr "Adresa"
+
+#: core/templates/user/overview.html:311
+msgid "Registered"
+msgstr "Registrován"
+
+#: core/templates/user/overview.html:315
+msgid "Last login"
+msgstr "Poslední příhlášení"
+
+#: core/templates/user/overview.html:320
+msgid "Status"
+msgstr "Stavy"
+
+#: core/templates/user/overview.html:323
+msgid "Active"
+msgstr "Aktivní"
+
+#: core/templates/user/overview.html:325
+msgid "Inactive"
+msgstr "Neaktivní"
+
+#: core/templates/user/overview.html:350 gym/templates/contract/list.html:4
+#: gym/templates/gym/member_list.html:210
+msgid "Contracts"
+msgstr "Zakázky"
+
+#: core/templates/user/overview.html:433 gym/templates/document/list.html:4
+msgid "Documents"
+msgstr "Dokumenty"
+
+#: core/templates/user/overview.html:440
+#: exercises/templates/exercise/view.html:169
+#: gym/templates/document/list.html:32
+msgid "Download"
+msgstr "Stáhnout"
+
+#: core/templates/user/overview.html:484 gym/models.py:209
+msgid "Include in inactive overview"
+msgstr "Zahrnout v přehledu neaktivních"
+
+#: core/templates/user/password_reset_complete.html:4
+msgid "Password reset complete"
+msgstr "Obnova hesla je kompletní"
+
+#: core/templates/user/password_reset_complete.html:8
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr "Heslob ylo nastaveno. Nyní můžete pokračovat a přihlásit se."
+
+#: core/templates/user/password_reset_complete.html:10
+msgid "Log in"
+msgstr "Přihlásit"
+
+#: core/templates/user/password_reset_confirm.html:10
+msgid "Enter new password"
+msgstr "Vložte nové heslo"
+
+#: core/templates/user/password_reset_confirm.html:12
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr "Prosím, vložte své nové heslo dvakrát. Tak můžeme ověřit, že jej zadáváte správně."
+
+#: core/templates/user/password_reset_confirm.html:17
+#: core/templates/user/password_reset_form.html:11
+msgid "Change my password"
+msgstr "Změna hesla"
+
+#: core/templates/user/password_reset_confirm.html:23
+msgid "Password reset unsuccessful"
+msgstr "Obnova hesla nebyla dokončena"
+
+#: core/templates/user/password_reset_confirm.html:25
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr "Odkaz pro obnovu hesla byl chybný. Možná už byl použit. Prosím požádejte si o novou obnovu hesla."
+
+#: core/templates/user/password_reset_done.html:4
+msgid "Password reset successful"
+msgstr "Obnova hesla bla dokončena"
+
+#: core/templates/user/password_reset_done.html:8
+msgid ""
+"We've e-mailed you instructions for setting your password to the e-mail "
+"address you submitted. You should be receiving it shortly."
+msgstr "Instrukce, jak obnovit heslo, zašleme na emailovou adresu, kterou jste zadali. Email obdržíte brzy."
+
+#: core/templates/user/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this e-mail because you requested a password reset for your"
+" user account at %(site_name)s."
+msgstr "Tento email jste obdržel, protože jste na stránce %(site_name)s požádali o obnovu hesla k uživatelskému účtu."
+
+#: core/templates/user/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr "Prosím, přejděte na následující stránku, kde si můžete zvolit nové heslo:"
+
+#: core/templates/user/password_reset_email.html:9
+msgid "Your username, in case you've forgotten:"
+msgstr "Vaše uživatelské jméno, pokud jste jej zapoměl:"
+
+#: core/templates/user/password_reset_email.html:11
+msgid "Thanks for using our site!"
+msgstr "Děkujeme, že využíváte naši stránku!"
+
+#: core/templates/user/password_reset_email.html:13
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "Tým %(site_name)s"
+
+#: core/templates/user/password_reset_form.html:4
+msgid "Password reset"
+msgstr "Obnova hesla"
+
+#: core/templates/user/preferences.html:49
+msgid "Workout reminders"
+msgstr "Připomenutí tréninku"
+
+#: core/templates/user/preferences.html:66
+msgid "Gym mode"
+msgstr "Mód posilovny"
+
+#: core/templates/user/preferences.html:66
+msgid "mobile version only"
+msgstr "pouze mobilní verze"
+
+#: core/templates/user/preferences.html:83
+msgid "Other settings"
+msgstr "Další nastavení"
+
+#: core/templates/user/preferences.html:103
+#: manager/templates/workout/timer.html:341
+#: manager/templates/workout/timer.html:476 utils/generic_views.py:111
+msgid "Save"
+msgstr "Uložit"
+
+#: core/templatetags/wger_extras.py:148 manager/helpers.py:148
+msgid "kg"
+msgstr "kg"
+
+#: core/templatetags/wger_extras.py:150
+#: nutrition/templates/ingredient/view.html:107
+#: nutrition/templates/ingredient/view.html:113
+#: nutrition/templates/ingredient/view.html:120
+#: nutrition/templates/ingredient/view.html:129
+#: nutrition/templates/ingredient/view.html:136
+#: nutrition/templates/ingredient/view.html:158
+#: nutrition/templates/ingredient/view.html:168
+msgctxt "weight unit, i.e. grams"
+msgid "g"
+msgstr "g"
+
+#: core/templatetags/wger_extras.py:153 manager/helpers.py:148
+msgid "lb"
+msgstr "lb"
+
+#: core/templatetags/wger_extras.py:155
+msgctxt "weight unit, i.e. ounces"
+msgid "oz"
+msgstr "oz"
+
+#: core/views/misc.py:72
+msgid ""
+"We have created sample workout, workout schedules, weight logs, (body) "
+"weight and nutrition plan entries so you can better see what  this site can "
+"do. Feel free to edit or delete them!"
+msgstr "Vytvořili jsme ukázkový trénink, rozvrh tréninku, záznamy váhy, tělesné hmotnosti a nutriční plán s potravinami, aby jste mohli lépe poznat, jak tento web může fungovat. Neváhejte je upravit, nebo je smazat!"
+
+#: core/views/misc.py:124
+msgid "Rest day"
+msgstr "Odpočinkový den"
+
+#: core/views/misc.py:162
+msgid "Feedback"
+msgstr "Zpětná vazba"
+
+#: core/views/misc.py:165
+msgid "Send"
+msgstr "Zaslat"
+
+#: core/views/misc.py:184
+msgid "Your feedback was successfully sent. Thank you!"
+msgstr "Vaše zpětná vazba byla zaslána. Děkujeme."
+
+#: core/views/user.py:119
+#, python-brace-format
+msgid "Account \"{0}\" was successfully deleted"
+msgstr "Účet \"{0}\" byl smazán"
+
+#: core/views/user.py:251
+msgid "You were successfully registered"
+msgstr "Byl jste úspěšně zaregistrován"
+
+#: core/views/user.py:304
+msgid "Settings successfully updated"
+msgstr "Nastavení bylo aktualizováno"
+
+#: core/views/user.py:337
+msgid "The user was successfully deactivated"
+msgstr "Uživatel byl deaktivován"
+
+#: core/views/user.py:368
+msgid "The user was successfully activated"
+msgstr "Uživatel byl aktivován"
+
+#: core/views/user.py:378
+msgid "Edit user"
+msgstr "Upravit uživatele"
+
+#: core/views/user.py:518 gym/templates/gym/member_list.html:26
+#: gym/views/gym.py:129
+msgid "ID"
+msgstr "ID"
+
+#: core/views/user.py:519 gym/forms.py:73 gym/templates/contract/view.html:55
+#: gym/templates/gym/member_list.html:27 gym/views/export.py:58
+#: gym/views/gym.py:129 gym/views/gym.py:188
+msgid "Username"
+msgstr "Uživatel"
+
+#: core/views/user.py:522 gym/templates/gym/new_user.html:34
+#: gym/views/export.py:57 gym/views/gym.py:188
+msgid "Gym"
+msgstr "Posilovna"
+
+#: email/forms.py:31 email/templates/email/gym/preview.html:32
+msgctxt "As in \"email subject\""
+msgid "Subject"
+msgstr "Předmět"
+
+#: email/forms.py:32 email/templates/email/gym/preview.html:40
+msgctxt "As in \"content of an email\""
+msgid "Content"
+msgstr "Obsah"
+
+#: email/templates/email/gym/form.html:27
+#: email/templates/email/gym/preview.html:60
+#: manager/templates/mobile/workout/view.html:96
+#: manager/templates/workout/view.html:91
+msgid "Steps"
+msgstr "Kroky"
+
+#: email/templates/email/gym/form.html:29
+#: email/templates/email/gym/preview.html:62
+msgid "Fill in the form"
+msgstr "Vyplnit formulář"
+
+#: email/templates/email/gym/form.html:30
+#: email/templates/email/gym/preview.html:63
+msgid "You will receive a preview email for you to review"
+msgstr ""
+
+#: email/templates/email/gym/form.html:31
+#: email/templates/email/gym/preview.html:64
+msgid ""
+"You can update and correct the content as often as you need before sending "
+"the emails"
+msgstr "Před odesláním emailů můžete obsah upravit a aktualizovat, tak často, jak potřebujete"
+
+#: email/templates/email/gym/preview.html:22
+msgid "Current version"
+msgstr "Aktuální verze"
+
+#: email/templates/email/gym/preview.html:51
+msgid "Correction"
+msgstr "Oprava"
+
+#: exercises/models.py:57
+msgid "In latin, e.g. \"Pectoralis major\""
+msgstr "v latině, např. \"Pectoralis major\""
+
+#: exercises/models.py:117
+msgid "Exercise Categories"
+msgstr "Kategorie cviků"
+
+#: exercises/models.py:165 exercises/templates/exercise/view.html:88
+msgid "Category"
+msgstr "Kategorie"
+
+#: exercises/models.py:176
+msgid "Primary muscles"
+msgstr "Hlavní svaly"
+
+#: exercises/models.py:180 exercises/templates/equipment/overview.html:76
+#: exercises/templates/exercise/view.html:259
+msgid "Secondary muscles"
+msgstr "Vedlejší svaly"
+
+#: exercises/models.py:310 exercises/views/exercises.py:335
+msgid "Exercise was successfully added to the general database"
+msgstr "Cvičení bylo přidáno do základní databáze"
+
+#: exercises/models.py:336
+msgid "New user submitted exercise"
+msgstr "Uživatel zaslal nový cvik"
+
+#: exercises/models.py:337
+#, python-brace-format
+msgid "The user {0} submitted a new exercise \"{1}\"."
+msgstr "Uživatel {0} zaslal nový cvik \"{1}\"."
+
+#: exercises/models.py:360 exercises/models.py:478 manager/helpers.py:68
+#: manager/models.py:638
+msgid "Exercise"
+msgstr "Cvik"
+
+#: exercises/models.py:363
+msgid "Image"
+msgstr "Obrázek"
+
+#: exercises/models.py:364
+msgid "Only PNG and JPEG formats are supported"
+msgstr "Podporovány jsou pouze formáty PNG a JPEG"
+
+#: exercises/models.py:368
+msgid "Main picture"
+msgstr ""
+
+#: exercises/models.py:370
+msgid ""
+"Tick the box if you want to set this image as the main one for the exercise "
+"(will be shown e.g. in the search). The first image is automatically marked "
+"by the system."
+msgstr "Zaškrtněte políčko, pokud chcete tento obrázek nastavit jako hlavní pro cvik (například se zobrazí při hledání). Hlavní obrázek bude automaticky zvýrazněn systémem."
+
+#: exercises/models.py:462
+msgid "New user submitted image"
+msgstr "Uživatel zaslal nový obrázek"
+
+#: exercises/models.py:463
+#, python-brace-format
+msgid "The user {0} submitted a new image \"{1}\" for exercise {2}."
+msgstr "Uživatel {0} zaslal nový obrázek \"{1}\" ke cviku {2}."
+
+#: exercises/models.py:482
+msgid "A comment about how to correctly do this exercise."
+msgstr "Komentář o tom, jak správně provést tento cvik"
+
+#: exercises/templates/equipment/list.html:4
+msgid "Equipment list"
+msgstr "Seznam nářadí"
+
+#: exercises/templates/equipment/list.html:63
+#: exercises/templates/equipment/list.html:64
+#: exercises/templates/equipment/list.html:65 exercises/views/equipment.py:86
+msgid "Add new equipment"
+msgstr "Přidat nové nářadí"
+
+#: exercises/templates/equipment/overview.html:74
+#: exercises/templates/exercise/view.html:254
+msgid "Main muscles"
+msgstr "Hlavní svaly"
+
+#: exercises/templates/equipment/overview.html:84
+msgid ""
+"No exercises for this equipment. Add or edit an exercise and set the "
+"equipment."
+msgstr "Pro nářadí nejsou dostupné cviky. Přidejte, nebo upravte cvik a zvolte nářadí, které se má použít."
+
+#: exercises/templates/equipment/overview.html:118
+#: exercises/templates/exercise/overview.html:139
+#: exercises/templates/mobile/exercise/overview.html:133
+#: nutrition/templates/ingredient/overview.html:74
+#: software/templates/contribute.html:64
+msgid "Only registered users can do this"
+msgstr "Tohle je jen pro registrované uživatele"
+
+#: exercises/templates/equipment/overview.html:125
+#: exercises/templates/exercise/overview.html:192
+#: exercises/templates/mobile/exercise/overview.html:101
+#: nutrition/templates/ingredient/overview.html:78
+msgid "Search"
+msgstr "Vyhledat"
+
+#: exercises/templates/equipment/overview.html:134
+#: exercises/templates/exercise/overview.html:202
+#: exercises/templates/mobile/exercise/overview.html:111
+msgid "exercise name"
+msgstr "jméno cviku"
+
+#: exercises/templates/exercise/email_new.html:1
+#, python-format
+msgid ""
+"Your exercise '%(exercise)s' was successfully added to the general\n"
+"database."
+msgstr "Váš cvik '%(exercise)s' byl přidán do základní\ndatabáze."
+
+#: exercises/templates/exercise/email_new.html:4
+msgid ""
+"It is now available on the exercise and muscle overview and can be\n"
+"added to workouts. You can access it on this address:"
+msgstr "Nyní je dostupný v seznamu cviků a svalů a může být\npřidán do tréninku. Můžete si jej probéhldnout na adrese:"
+
+#: exercises/templates/exercise/email_new.html:8
+#: nutrition/templates/ingredient/email_new.html:8
+msgid "Thank you for contributing and making this site better!"
+msgstr "Děkujeme vám za příspěvek, který umožní vylepšit tuto stránku!"
+
+#: exercises/templates/exercise/email_new.html:9
+#: manager/templates/workout/email_reminder.tpl:15
+#: manager/templates/workout/email_weight_reminder.tpl:12
+#: nutrition/templates/ingredient/email_new.html:9
+msgid "the wger.de team"
+msgstr "tým wger.de"
+
+#: exercises/templates/exercise/form.html:4
+msgid "Submitting an exercise"
+msgstr "Vložit cvik"
+
+#: exercises/templates/exercise/form.html:5
+msgid ""
+"Thank you for submitting an exercise. This is much\n"
+"appreciated!"
+msgstr "Děkujeme že jste vložili cvik. Vážíme si toho!"
+
+#: exercises/templates/exercise/form.html:8
+msgid ""
+"After you submit the form, the administrators will be notified.\n"
+"Once it is reviewed, it will be added to the database. Till this happens,\n"
+"it will not be visible in the overview or the search. In case you added your email\n"
+"when you registered, you will get notified when the process is completed successfully."
+msgstr "Po odeslání formuláře budou administrátoři upozorněni.\nNásledně dojde ke kontrole údajů a případně k přidání do databáze. Než se tak stane\nnebude viditelný v přehledu a ve vyhledávání. V případě, že jste přidali při registraci\nemail, budete o dokončení informováni."
+
+#: exercises/templates/exercise/form_correct.html:4
+msgid "Correcting an exercise"
+msgstr "Oprava cviku"
+
+#: exercises/templates/exercise/form_correct.html:5
+msgid ""
+"Thank you for correcting and improving this exercise.\n"
+"This is much appreciated!"
+msgstr "Děkujeme za kontrolu a opravu tohoto cviku. Vážíme si toho!"
+
+#: exercises/templates/exercise/form_correct.html:8
+msgid ""
+"After you submit the form, the administrators will be notified.\n"
+"Once the changes are reviewed the exercise will be updated."
+msgstr "Po odeslání formuláře, budou administrátoři upozorněni.\nJakmile dojde ke kontrole změny, dojde k aktualizaci."
+
+#: exercises/templates/exercise/overview.html:59
+#: exercises/templates/mobile/exercise/overview.html:90
+msgid "No categories."
+msgstr "Bez kategorie"
+
+#: exercises/templates/exercise/overview.html:59
+#: exercises/templates/mobile/exercise/overview.html:90
+msgid "Use link to create one"
+msgstr "Pro vytvoření použijte odkaz."
+
+#: exercises/templates/exercise/overview.html:101
+msgid ""
+"No exercises in this category. Add or edit an exercise and set its category"
+msgstr "V kategorii není žádný cvik. Přidejte, nebo upravte cvik a nastavte mu tuto kategorii."
+
+#: exercises/templates/exercise/overview.html:156
+#: exercises/templates/exercise/overview.html:157
+#: exercises/templates/exercise/overview.html:158
+msgid "Edit category"
+msgstr "Upravit kategorie"
+
+#: exercises/templates/exercise/overview.html:170
+#: exercises/templates/exercise/overview.html:171
+#: exercises/templates/exercise/overview.html:172
+msgid "Delete category"
+msgstr "Smazat kategorie"
+
+#: exercises/templates/exercise/overview.html:185
+#: exercises/templates/exercise/overview.html:186
+#: exercises/templates/exercise/overview.html:187
+#: exercises/views/categories.py:54
+msgid "Add category"
+msgstr "Přidat kategorie"
+
+#: exercises/templates/exercise/pending.html:14
+#: nutrition/templates/ingredient/pending.html:14
+msgid "Submission date"
+msgstr "Datum zaslání"
+
+#: exercises/templates/exercise/pending.html:16 gym/forms.py:50
+#: gym/templates/gym/email_inactive_members.html:4
+#: gym/templates/gym/new_user.html:22
+#: gym/templates/gym/reset_user_password.html:20 manager/models.py:69
+#: manager/models.py:202 manager/models.py:635 manager/models.py:716
+#: nutrition/models.py:73 nutrition/models.py:241
+#: nutrition/templates/ingredient/pending.html:16 weight/models.py:37
+msgid "User"
+msgstr "Uživatel"
+
+#: exercises/templates/exercise/view.html:52
+msgid "Exercise is pending review"
+msgstr "Cvik čeká na zkontrolování"
+
+#: exercises/templates/exercise/view.html:53
+msgid ""
+"This user submitted exercise is pending a decision to be\n"
+"included in the database."
+msgstr "Tento uživatel předložil cvik a čeká se na rozhodnutí \njestli má být zahrnut v databázi."
+
+#: exercises/templates/exercise/view.html:55
+msgid "Till then, it will not be shown in the overview or the search."
+msgstr "Do té doby nebude uveden v přehledu, nebo ve vyhledávání."
+
+#: exercises/templates/exercise/view.html:56
+#: nutrition/templates/ingredient/view.html:31
+msgid "Please select one of the options below."
+msgstr "Prosím vyberte jednu z níže uvedených možností"
+
+#: exercises/templates/exercise/view.html:66
+#: exercises/templates/exercise/view.html:67
+#: exercises/templates/exercise/view.html:213
+#: nutrition/templates/ingredient/view.html:41
+#: nutrition/templates/ingredient/view.html:42
+msgid "Accept"
+msgstr "Povolit"
+
+#: exercises/templates/exercise/view.html:75
+#: exercises/templates/exercise/view.html:76
+#: exercises/templates/exercise/view.html:214
+#: nutrition/templates/ingredient/view.html:50
+#: nutrition/templates/ingredient/view.html:51
+msgid "Decline"
+msgstr "Zamítnout"
+
+#: exercises/templates/exercise/view.html:106
+msgid "Comments for this exercise"
+msgstr "Komentáře pro tento cvik"
+
+#: exercises/templates/exercise/view.html:145
+#: exercises/templates/exercise/view.html:146
+msgid "Add new comment"
+msgstr "Přidat nový komentář"
+
+#: exercises/templates/exercise/view.html:154
+msgid "Images"
+msgstr "Obrázky"
+
+#: exercises/templates/exercise/view.html:198
+msgid "Images pending review"
+msgstr ""
+
+#: exercises/templates/exercise/view.html:233
+#: exercises/templates/exercise/view.html:234 exercises/views/images.py:75
+msgid "Add new image"
+msgstr "Přidat nový obrázek"
+
+#: exercises/templates/exercise/view.html:246
+#: exercises/templates/muscles/overview.html:47
+msgid "Muscles"
+msgstr "Svaly"
+
+#: exercises/templates/exercise/view.html:248
+msgid "The diagram shows the most used muscles on this exercise"
+msgstr "Obrázek zobrazuje, jaké svaly budou při tomto cviku nejvíc zapojeny"
+
+#: exercises/templates/exercise/view.html:308
+#: manager/templates/workout/log.html:10 manager/templates/workout/log.html:11
+msgid "Weight log"
+msgstr "Záznam váhy"
+
+#: exercises/templates/exercise/view.html:335
+#: exercises/templates/exercise/view.html:336
+msgid "Submit a correction"
+msgstr "Zaslat opravu"
+
+#: exercises/templates/muscles/overview.html:43
+msgid "Hover with the mouse over the muscles to show corresponding exercises."
+msgstr "Najetím myší na svaly se ukáže odpovídající cviky"
+
+#: exercises/templates/muscles/overview.html:58
+msgid "Front side"
+msgstr "Přední strana"
+
+#: exercises/templates/muscles/overview.html:60
+msgid "Back side"
+msgstr "Zadní strana"
+
+#: exercises/templates/muscles/overview.html:89
+msgid "No exercises that mainly train this muscle"
+msgstr "Pro tento sval není žádný cvik"
+
+#: exercises/templates/muscles/overview.html:104
+#: exercises/templates/muscles/overview.html:109
+#: exercises/templates/muscles/overview.html:110
+#: exercises/templates/muscles/overview.html:111 exercises/views/muscles.py:68
+msgid "Add muscle"
+msgstr "Přidat sval"
+
+#: exercises/templates/muscles/overview.html:115
+msgid ""
+"<strong>Important:</strong> After adding a muscle, you need\n"
+"to create a new SVG image with the contours of the muscle and place it in the\n"
+"folder <em>images/muscles</em>."
+msgstr "<strong> Upozornění:</strong>  Po přidání svalu, je potřeba\nabyste vytvořili nový SVG obrázek s vyznačením svalu a umístili jej\nve složce <em>images/muscles</em>"
+
+#: exercises/templates/muscles/overview.html:128
+#: exercises/templates/muscles/overview.html:129
+msgid "Edit muscle"
+msgstr "Upravit sval"
+
+#: exercises/templates/muscles/overview.html:138
+#: exercises/templates/muscles/overview.html:139
+msgid "Delete muscle"
+msgstr "Smazat sval"
+
+#: exercises/views/categories.py:94
+msgid "This will also delete all exercises in this category."
+msgstr "Budou také smazány všechny cviky v této kategorii."
+
+#: exercises/views/comments.py:68
+msgid "Add exercise comment"
+msgstr "Přidat komentář ke cviku"
+
+#: exercises/views/equipment.py:117
+msgid "Delete equipment?"
+msgstr "Smazat nářadí?"
+
+#: exercises/views/exercises.py:162 software/templates/contribute.html:62
+msgid "Add exercise"
+msgstr "Přidat cvik"
+
+#: exercises/views/exercises.py:246
+msgid "Thank you. Once the changes are reviewed the exercise will be updated."
+msgstr "Děkujeme. Jakmile budou změny zkontrolovány, dojde k aktualizaci."
+
+#: exercises/views/exercises.py:260
+#, python-brace-format
+msgid "Correct {0}"
+msgstr "Správné {0}"
+
+#: exercises/views/exercises.py:293
+msgid "This will delete the exercise from all workouts."
+msgstr "To smaže všechny cviky ze všech tréninků."
+
+#: exercises/views/exercises.py:348
+msgid "Exercise was successfully marked as rejected"
+msgstr "Cvik byl označen jako zamítnutý"
+
+#: exercises/views/images.py:52
+msgid "Edit exercise image"
+msgstr "Upravit obrázek cviku"
+
+#: exercises/views/images.py:122
+msgid "Delete exercise image?"
+msgstr "Smazat obrázek cviku?"
+
+#: gym/forms.py:52 gym/templates/gym/member_list.html:44
+msgid "Trainer"
+msgstr "Trenér"
+
+#: gym/forms.py:54
+msgid "Gym administrator"
+msgstr "Administrace posilovny"
+
+#: gym/forms.py:56 gym/templates/gym/member_list.html:52
+msgid "General manager"
+msgstr "Hlavní vedoucí"
+
+#: gym/forms.py:76
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "Je požadováno 30 znaků nebo méně. Písmena, číslice a pouze @/./+/-/_  ."
+
+#: gym/forms.py:79
+msgid "This value may contain only letters, numbers and @/.//-/_ characters."
+msgstr "Tato hondota může obsahovat pouze písmena, číslice a znaky @/.//-/_ ."
+
+#: gym/forms.py:92
+msgid "A user with that username already exists."
+msgstr "Uživatel s tímto uživatelským jménem již existuje."
+
+#: gym/management/commands/inactive-members.py:95 gym/models.py:131
+msgid "Reminder of inactive members"
+msgstr "Piřpomenout neaktivní členy."
+
+#: gym/models.py:38
+msgid "Trainer: can see the users for a gym"
+msgstr ""
+
+#: gym/models.py:39
+msgid "Admin: can manage users for a gym"
+msgstr ""
+
+#: gym/models.py:40
+msgid "Admin: can administrate the different gyms"
+msgstr ""
+
+#: gym/models.py:64 gym/templates/gym/member_list.html:130
+msgid "Owner"
+msgstr "Zákazník"
+
+#: gym/models.py:70 gym/models.py:568 gym/views/export.py:64
+msgid "ZIP code"
+msgstr "PSČ"
+
+#: gym/models.py:76 gym/models.py:574 gym/views/export.py:65
+msgid "City"
+msgstr "Město"
+
+#: gym/models.py:82 gym/models.py:580 gym/views/export.py:66
+msgid "Street"
+msgstr "Ulice"
+
+#: gym/models.py:132
+msgid ""
+"Number of weeks since the last time a user logged his presence to be "
+"considered inactive"
+msgstr "Počet týdnů od posledního přihlášení uživatele, kdy bude považován za neaktivního"
+
+#: gym/models.py:143
+msgid "Configuration for {}"
+msgstr "Nastavení pro {}"
+
+#: gym/models.py:184 gym/templates/gym/member_list.html:192
+msgid "Overview of inactive members"
+msgstr ""
+
+#: gym/models.py:185
+msgid "Receive email overviews of inactive members"
+msgstr "Zasílat emailem přehledy o neaktivních členech"
+
+#: gym/models.py:210
+msgid "Include this user in the email list with inactive members"
+msgstr "Zahrnout tyto uživatele v seznamu emailů s neaktivními členy"
+
+#: gym/models.py:260 gym/models.py:338 gym/models.py:600
+#: gym/templates/contract/view.html:96
+msgid "Note"
+msgstr "Poznámka"
+
+#: gym/models.py:318
+msgid "Document"
+msgstr "Dokument"
+
+#: gym/models.py:332
+msgid "Will use file name if nothing provided"
+msgstr "Bude použit název souboru, pokud neuvedete jinak"
+
+#: gym/models.py:472
+msgid "Yearly"
+msgstr "Roční"
+
+#: gym/models.py:473
+msgid "Half yearly"
+msgstr "Půlroční"
+
+#: gym/models.py:474
+msgid "Monthly"
+msgstr "Měsíční"
+
+#: gym/models.py:475
+msgid "Biweekly"
+msgstr "Dvoutýdenní"
+
+#: gym/models.py:476
+msgid "Weekly"
+msgstr "Týdení"
+
+#: gym/models.py:477
+msgid "Daily"
+msgstr "Denní"
+
+#: gym/models.py:513 gym/templates/contract/view.html:34
+msgid "Contract type"
+msgstr "Typ zakázky"
+
+#: gym/models.py:525 gym/templates/contract/view.html:59
+#: nutrition/models.py:488 nutrition/models.py:589
+msgid "Amount"
+msgstr "Množství"
+
+#: gym/models.py:533 gym/templates/contract/view.html:63
+msgid "Payment type"
+msgstr "Typ platby"
+
+#: gym/models.py:537
+msgid "How often the amount will be charged to the member"
+msgstr "o jaký typ placeného členství se jedná"
+
+#: gym/models.py:542 gym/templates/contract/view.html:24
+msgid "Contract is active"
+msgstr "Zakázka je aktivní"
+
+#: gym/models.py:548 gym/templates/contract/view.html:69 manager/models.py:216
+#: manager/templates/mobile/schedule/view.html:48
+#: manager/templates/schedule/view.html:66
+msgid "Start date"
+msgstr "Datum začátku"
+
+#: gym/models.py:556 gym/templates/contract/view.html:71
+msgid "End date"
+msgstr "Upravit datum"
+
+#: gym/models.py:592 gym/templates/contract/view.html:92
+msgid "Profession"
+msgstr "Profese"
+
+#: gym/templates/admin_notes/list.html:4
+msgid "User notes"
+msgstr "Uživatelské poznámky"
+
+#: gym/templates/contract/view.html:4
+msgid "Contract"
+msgstr "Zakázka"
+
+#: gym/templates/contract_option/list.html:4
+msgid "Contract options"
+msgstr "Nastavení zakázky"
+
+#: gym/templates/contract_type/list.html:4
+msgid "Contract types"
+msgstr "Typy zakázek"
+
+#: gym/templates/gym/email_inactive_members.html:2
+#, python-format
+msgid ""
+"The following users have not visited the gym in the last %(weeks)s weeks"
+msgstr "Následující uživatele nenavštívili posilovnu v posledních %(weeks)s týdnu(nech)"
+
+#: gym/templates/gym/list.html:6
+msgid "Gym list"
+msgstr "Seznam posiloven"
+
+#: gym/templates/gym/list.html:43 gym/views/gym.py:141
+msgid "Add new gym"
+msgstr "Přidat novou posilovnu"
+
+#: gym/templates/gym/list.html:60
+msgid "Global gym configuration"
+msgstr "Základní nastavení posilovny"
+
+#: gym/templates/gym/member_list.html:22
+msgid "Administrators and trainers"
+msgstr "Administrátoři a trenéři"
+
+#: gym/templates/gym/member_list.html:48
+msgid "Gym manager"
+msgstr "Vedoucí posilovny"
+
+#: gym/templates/gym/member_list.html:69
+msgid "This gym has no administrators or trainers"
+msgstr "Posilovna nemá administrátory nebo trénéry"
+
+#: gym/templates/gym/member_list.html:83
+msgid "Add member"
+msgstr "Přidat uživatele"
+
+#: gym/templates/gym/member_list.html:103
+msgid "Export"
+msgstr "Export"
+
+#: gym/templates/gym/member_list.html:141
+msgid "Members"
+msgstr "Členové"
+
+#: gym/templates/gym/member_list.html:163
+msgid "Gym configuration"
+msgstr "Nastavení posilovny"
+
+#: gym/templates/gym/member_list.html:166
+msgid "Inactive members"
+msgstr "Neaktivní čleonové"
+
+#: gym/templates/gym/member_list.html:167
+msgid "weeks"
+msgstr "výkendů"
+
+#: gym/templates/gym/member_list.html:189
+msgid "My configuration"
+msgstr "Má nastavení"
+
+#: gym/templates/gym/member_list.html:227
+msgid "Types"
+msgstr "Typy"
+
+#: gym/templates/gym/member_list.html:305
+msgid "Emails"
+msgstr "Emaily"
+
+#: gym/templates/gym/new_user.html:46
+msgid ""
+"Please write down the user password or save the exported\n"
+"file, which contains all the user data, and keep it in a safe place. The password\n"
+"cannot be recovered later."
+msgstr "Zapište si uživatelské heslo, nebo si uložte exportovaný\nsoubor, který obsahuje všechna uživatelská data a udržte je v bezpečí. Heslo\nnení možné později obnovit."
+
+#: gym/templates/gym/new_user.html:57 gym/templates/gym/new_user.html.py:58
+msgid "Export user data"
+msgstr "Exportovat data uživatele"
+
+#: gym/templates/gym/reset_user_password.html:32
+msgid ""
+"This user's password has been reset. Please notify the user of their new "
+"password."
+msgstr "Hesla uživatelů byla obnovena. Prosím, informujte uživatele o nutnosti použití nových hesel."
+
+#: gym/views/admin_notes.py:87 gym/views/document.py:87
+msgid "Add note"
+msgstr "Přidat poznámku"
+
+#: gym/views/contract.py:49
+msgid "Add contract"
+msgstr "Přidat zakázka"
+
+#: gym/views/contract_option.py:46
+msgid "Add option"
+msgstr "Přidat poznámku"
+
+#: gym/views/contract_option.py:156 gym/views/contract_type.py:156
+#, python-brace-format
+msgid "Delete {0}"
+msgstr "Smazat {0}?"
+
+#: gym/views/contract_type.py:46
+msgid "Add contract type"
+msgstr "Přidejte typ zakázky"
+
+#: gym/views/export.py:62
+msgid "Gender"
+msgstr "Pohlaví"
+
+#: gym/views/gym.py:307
+msgid "Add user to gym"
+msgstr "Přidat uživatele do posilovny"
+
+#: gym/views/gym.py:404
+msgid "Edit gym"
+msgstr "Upravit posilovnu"
+
+#: manager/forms.py:66
+msgid "The goal or description of the new workout."
+msgstr "Cíl nebo popis nového tréninku"
+
+#: manager/forms.py:88 manager/forms.py:113
+msgid ""
+"You can search for more than one exercise, they will be grouped together for"
+" a superset."
+msgstr "Můžete vyhledat více jak jeden cvik. Cviky pak budou zařazeny do supersérie."
+
+#: manager/forms.py:102
+msgid "All categories"
+msgstr "Všechny kategorie"
+
+#: manager/forms.py:103
+msgid "Categories"
+msgstr "Kategorie"
+
+#: manager/management/commands/email-reminders.py:121
+msgid "Workout will expire soon"
+msgstr "Trénink bude brzy expirovat"
+
+#: manager/models.py:63 nutrition/models.py:78
+msgid "Creation date"
+msgstr "Datum vytvoření"
+
+#: manager/models.py:67
+msgid ""
+"A short description or goal of the workout. For example 'Focus on back' or "
+"'Week 1 of program xy'."
+msgstr "Krátký popis cíle tréninku. Například 'Zaměřit se na zadní stranu' nebo '1 týden programu xy."
+
+#: manager/models.py:212
+msgid "Name or short description of the schedule. For example 'Program XYZ'."
+msgstr "Jméno, nebo krátký popis plánu. Například 'Program XYZ'."
+
+#: manager/models.py:220 manager/templates/mobile/schedule/view.html:52
+#: manager/templates/schedule/view.html:70
+msgid "Schedule active"
+msgstr "Rozvrh je aktivní"
+
+#: manager/models.py:222
+msgid ""
+"Tick the box if you want to mark this schedule as your active one (will be "
+"shown e.g. on your dashboard). All other schedules will then be marked as "
+"inactive"
+msgstr "Zaškrtněte toto políčko, pokud chcete tento rozvrh označit jako jediný aktivní (bude zobrazen například na nástěnce). Všechny ostatní rozvrhy budou označeny jako neaktivní."
+
+#: manager/models.py:228 manager/templates/mobile/schedule/view.html:62
+#: manager/templates/schedule/view.html:80
+msgid "Is a loop"
+msgstr ""
+
+#: manager/models.py:230
+msgid ""
+"Tick the box if you want to repeat the schedules in a loop (i.e. A, B, C, A,"
+" B, C, and so on)"
+msgstr "Zaškrtněnte políčko, pokud chcete aby se rozvrh opakoval (např. A,B,C,A,B,C atak dále)"
+
+#: manager/models.py:310
+msgid "schedule"
+msgstr "rozvrh"
+
+#: manager/models.py:316
+msgid "Duration"
+msgstr "Trvání"
+
+#: manager/models.py:317
+msgid "The duration in weeks"
+msgstr "Trvání v týdnech"
+
+#: manager/models.py:322 manager/models.py:532 manager/models.py:590
+#: nutrition/models.py:520 nutrition/models.py:584
+msgid "Order"
+msgstr "Řazení"
+
+#: manager/models.py:368
+msgid ""
+"A description of what is done on this day (e.g. \"Pull day\") or what body "
+"parts are trained (e.g. \"Arms and abs\")"
+msgstr ""
+
+#: manager/models.py:372
+msgid "Day"
+msgstr "Dny"
+
+#: manager/models.py:527
+msgid "Exercise day"
+msgstr "Cvičební den"
+
+#: manager/models.py:534
+msgid "Number of sets"
+msgstr "Počet sad"
+
+#: manager/models.py:576
+msgid "Sets"
+msgstr "Sady"
+
+#: manager/models.py:580 manager/models.py:642
+#: manager/templates/workout/timer.html:301
+#: manager/templates/workout/timer.html:304
+msgid "Repetitions"
+msgstr "Opakování"
+
+#: manager/models.py:710
+msgid "Bad"
+msgstr "Špatné"
+
+#: manager/models.py:711
+msgid "Neutral"
+msgstr "Neutrální"
+
+#: manager/models.py:712
+msgid "Good"
+msgstr "Dobré"
+
+#: manager/models.py:737
+msgid "Any notes you might want to save about this workout session."
+msgstr "Jakékoliv poznámky, které chcete mít uloženy k tomuto průběhu tréninku."
+
+#: manager/models.py:747
+msgid ""
+"Your impression about this workout session. Did you exercise as well as you "
+"could?"
+msgstr "Váš názor na průběh tohoto tréninku. Provedli jste cviky tak dobře, jak jste měli?"
+
+#: manager/models.py:753
+msgid "Start time"
+msgstr "Čas začátku"
+
+#: manager/models.py:760
+msgid "Finish time"
+msgstr "Čas konce"
+
+#: manager/models.py:786
+msgid "If you enter a time, you must enter both start and end time."
+msgstr "Pokud zadáváte čas, musíte zadat jak čas začátku, tak i čas konce."
+
+#: manager/models.py:789
+msgid "The start time cannot be after the end time."
+msgstr "Čas začátku nemůže být po čase ukončení."
+
+#: manager/templates/calendar/day.html:9
+#: manager/templates/calendar/day.html:31 software/templates/functions.html:95
+#: software/templates/functions.html:105
+msgid "Workout log"
+msgstr "Záznam tréninku"
+
+#: manager/templates/calendar/day.html:12
+#, python-format
+msgid "Workout log for %(username)s for %(date)s"
+msgstr "Záznam tréninku pro %(username)s z %(date)s"
+
+#: manager/templates/calendar/month.html:13
+#, python-format
+msgid "Calendar for %(username)s"
+msgstr "Kalendář uživatele %(username)s"
+
+#: manager/templates/calendar/month.html:52
+msgid "Detail page"
+msgstr "Detaílní strana"
+
+#: manager/templates/calendar/month.html:137
+msgid ""
+"The coloured days in the calendar have weight logs,\n"
+"you can click on them to see the details."
+msgstr "Barevné dny v kalendáři obsahují záznamy hmostnosti,\nmůžete na ně kliknout a zobrazit prodrobnosti."
+
+#: manager/templates/calendar/month.html:152
+#: manager/templates/calendar/month.html:153
+msgid "Go to current month"
+msgstr "Na současný měsíc"
+
+#: manager/templates/calendar/partial_overview_table.html:5
+msgid "Log overview"
+msgstr "Záznam přehledu"
+
+#: manager/templates/calendar/partial_overview_table.html:11
+msgid "Workout session"
+msgstr "Tréninková relace"
+
+#: manager/templates/calendar/partial_overview_table.html:30
+msgid "Delete with logs"
+msgstr "Smazat se záznamy"
+
+#: manager/templates/calendar/partial_overview_table.html:36
+msgid "Add workout impression"
+msgstr "Přidat dojem z tréninku"
+
+#: manager/templates/day/log.html:6
+msgid "New weight log"
+msgstr "Nový záznam váhy"
+
+#: manager/templates/day/log.html:66
+msgid "Add exercises to this training day before adding a log."
+msgstr "Přidat cvičení do tréninkového dne před přidáním záznamu."
+
+#: manager/templates/day/log.html:68 manager/templates/day/log.html.py:91
+#: manager/templates/day/log.html:92
+msgid "Back to workout"
+msgstr "Zpět na trénink"
+
+#: manager/templates/day/log.html:81
+msgid ""
+"A new workout session (impression, notes, time) will\n"
+"be created if there isn't already one for the selected date. If there is, it\n"
+"will simply be edited. Weight entries are always added."
+msgstr "Nové tréninkové záznamy (dojem, poznámky, čas) budou \nvytvořeny pokud již jeden z nich není dostupný pro dané datum. Pokud\nano, můžete je jednoduše upravovat. Hmotnosti závaží jsou vždy přidány."
+
+#: manager/templates/mobile/schedule/overview.html:5
+#: manager/templates/mobile/schedule/overview.html:35
+#: manager/templates/schedule/overview.html:5
+#: manager/templates/schedule/overview.html:49
+msgid "Your schedules"
+msgstr "Tvé rozvrhy"
+
+#: manager/templates/mobile/schedule/overview.html:19
+#: manager/templates/mobile/schedule/view.html:90
+#: manager/templates/mobile/schedule/view.html:123
+#: manager/templates/mobile/workout/overview.html:16
+#: manager/templates/schedule/overview.html:26
+#: manager/templates/schedule/view.html:140
+#: manager/templates/schedule/view.html:195
+#: manager/templates/workout/overview.html:24
+msgid "active"
+msgstr "aktivní"
+
+#: manager/templates/mobile/schedule/overview.html:26
+#: manager/templates/schedule/overview.html:37
+msgid "No schedules found."
+msgstr "Žádný rozvrh nebyl nalezen"
+
+#: manager/templates/mobile/schedule/overview.html:36
+#: manager/templates/schedule/overview.html:50
+msgid ""
+"Schedules are collections of workouts that you do in\n"
+"succession."
+msgstr "Rozvrhy jsou kolekce tréninků, které provádíte \nv posloupnosti."
+
+#: manager/templates/mobile/schedule/overview.html:39
+#: manager/templates/schedule/overview.html:53
+msgid ""
+"You can indicate how long you want to do each workout\n"
+"before jumping to the next. It is also possible to create a loop, so you\n"
+"always do the same workouts in succession, e.g. A > B > C > A > B > C and so on."
+msgstr "Můžete uvést, jak dlouho chcete aby trval váš trénink\npřed přechodem na další. Můžete také vytvořit opakování, takže\nvždy budete provádět stejné tréninky za sebou, např. A > B > C > A > B > C a tak dále."
+
+#: manager/templates/mobile/schedule/overview.html:43
+#: manager/templates/schedule/overview.html:57
+msgid ""
+"The currently active schedule will remain active (and be\n"
+"shown e.g. in your dashboard) till it reaches the last workout or till you\n"
+"deactivate it, if it is a loop."
+msgstr "Aktuální plán zůstane aktivní (a bude se zobrazovat\nnapř. na nástěnce) dokud nedokončíte poslední trénink, nebo\njej nezrušíte, pokud je nastaven, jako opakující se."
+
+#: manager/templates/mobile/schedule/overview.html:47
+#: manager/templates/mobile/schedule/overview.html:54
+#: manager/templates/mobile/schedule/overview.html:55
+#: manager/templates/mobile/schedule/overview.html:56
+#: manager/templates/schedule/overview.html:61
+#: manager/templates/schedule/overview.html:68
+#: manager/templates/schedule/overview.html:69
+#: manager/templates/schedule/overview.html:70
+msgid "Add schedule"
+msgstr "Přidat rozvrh"
+
+#: manager/templates/mobile/schedule/view.html:66
+#: manager/templates/schedule/view.html:84
+msgid ""
+"This schedule is a loop and will go through the workouts above till you "
+"deactivate it"
+msgstr "Tento rozvrh je opakujicí se a bude procházet výše uvedené tréninky, pokud jej nevypnete"
+
+#: manager/templates/mobile/schedule/view.html:77
+#: manager/templates/schedule/view.html:164
+msgid "Start schedule"
+msgstr "Začít rozvrh"
+
+#: manager/templates/mobile/schedule/view.html:96
+#: manager/templates/schedule/view.html:102 manager/views/schedule.py:141
+msgid "Weeks"
+msgstr "Týdny"
+
+#: manager/templates/mobile/schedule/view.html:117
+#: manager/templates/schedule/view.html:189
+#, python-format
+msgid ""
+"%(weeks)s Week\n"
+"                            "
+msgid_plural ""
+"%(weeks)s Weeks\n"
+"                        "
+msgstr[0] "%(weeks)s Víkend"
+msgstr[1] "%(weeks)s Víkendy"
+msgstr[2] "%(weeks)s Víkendů"
+
+#: manager/templates/mobile/schedule/view.html:158
+#: manager/templates/schedule/view.html:226
+msgid "Adding workouts"
+msgstr "Přidat tréninky"
+
+#: manager/templates/mobile/schedule/view.html:160
+#: manager/templates/schedule/view.html:228
+msgid ""
+"Add as many workouts to the schedule as you want. You can\n"
+"edit the order by dragging and dropping them. It's also possible to add one workout more\n"
+"than once."
+msgstr ""
+
+#: manager/templates/mobile/schedule/view.html:171
+#: manager/templates/mobile/schedule/view.html:172
+#: manager/templates/mobile/schedule/view.html:173
+#: manager/templates/mobile/workout/view.html:137
+#: manager/templates/mobile/workout/view.html:138
+#: manager/templates/mobile/workout/view.html:139
+#: manager/templates/mobile/workout/view.html:225
+#: manager/templates/schedule/view.html:249
+#: manager/templates/schedule/view.html:250
+#: manager/templates/schedule/view.html:251
+#: manager/templates/workout/view.html:130
+#: manager/templates/workout/view.html:131
+#: manager/templates/workout/view.html:132
+#: nutrition/templates/mobile/plan/view.html:377
+#: nutrition/templates/mobile/plan/view.html:378
+#: nutrition/templates/mobile/plan/view.html:379
+#: nutrition/templates/plan/view.html:310
+#: nutrition/templates/plan/view.html:311
+#: nutrition/templates/plan/view.html:312
+msgid "Download as PDF"
+msgstr "Stáhnout jako PDF"
+
+#: manager/templates/mobile/schedule/view.html:183
+#: manager/templates/mobile/schedule/view.html:184
+#: manager/templates/mobile/schedule/view.html:185
+#: manager/templates/mobile/schedule/view.html:215
+#: manager/templates/mobile/schedule/view.html:227
+#: manager/templates/mobile/schedule/view.html:228
+#: manager/templates/mobile/schedule/view.html:229
+#: manager/templates/mobile/workout/view.html:166
+#: manager/templates/mobile/workout/view.html:167
+#: manager/templates/mobile/workout/view.html:168
+#: manager/templates/mobile/workout/view.html:196
+#: manager/templates/mobile/workout/view.html:208
+#: manager/templates/mobile/workout/view.html:209
+#: manager/templates/mobile/workout/view.html:210
+#: manager/templates/schedule/view.html:239
+#: manager/templates/schedule/view.html:240
+#: manager/templates/schedule/view.html:241
+#: manager/templates/schedule/view.html:282
+#: manager/templates/schedule/view.html:294
+#: manager/templates/schedule/view.html:295
+#: manager/templates/schedule/view.html:296
+#: manager/templates/workout/view.html:168
+#: manager/templates/workout/view.html:169
+#: manager/templates/workout/view.html:170
+#: manager/templates/workout/view.html:204
+#: manager/templates/workout/view.html:216
+#: manager/templates/workout/view.html:217
+#: manager/templates/workout/view.html:218
+msgid "Export calendar file"
+msgstr "Exportovat kalendářový soubor."
+
+#: manager/templates/mobile/schedule/view.html:194
+#: manager/templates/mobile/schedule/view.html:195
+#: manager/templates/mobile/schedule/view.html:196
+#: manager/templates/schedule/view.html:260
+#: manager/templates/schedule/view.html:261
+#: manager/templates/schedule/view.html:262
+msgid "Edit schedule"
+msgstr "Upravit rozvrh"
+
+#: manager/templates/mobile/schedule/view.html:205
+#: manager/templates/mobile/schedule/view.html:206
+#: manager/templates/mobile/schedule/view.html:207
+#: manager/templates/schedule/view.html:271
+#: manager/templates/schedule/view.html:272
+#: manager/templates/schedule/view.html:273
+msgid "Delete schedule"
+msgstr "Smazat rozvrh"
+
+#: manager/templates/mobile/schedule/view.html:218
+#: manager/templates/schedule/view.html:285
+msgid "Export this schedule as a calendar file."
+msgstr "Exportovat rozvrh jako kalendářový soubor."
+
+#: manager/templates/mobile/schedule/view.html:219
+#: manager/templates/mobile/workout/view.html:200
+#: manager/templates/schedule/view.html:286
+#: manager/templates/workout/view.html:208
+msgid ""
+"You can then import the file it into your calendar\n"
+"application for example google calendar, outlook or iCal. This will create\n"
+"an appointment for each training day with the appropriate exercises."
+msgstr "Můžete importovat do vaší aplikace kalendáře\ntřeba google kalendář, outloo, nebo iCal.Vytvoří \nTím se vytvoří názvy s příslušnými civky pro jednotlivé \ntréninkové dny."
+
+#: manager/templates/mobile/set/add.html:9 manager/templates/set/add.html:11
+#, python-format
+msgid "Add exercises to day \"%(day_name)s\""
+msgstr "Přidat cviky do dne \"%(day_name)s\""
+
+#: manager/templates/mobile/set/add.html:60 manager/templates/set/add.html:62
+msgid ""
+"If you do the same repetitions for all sets,\n"
+"you can just enter one value: e.g. for 4 sets just enter one \"10\" for the repetitions, this\n"
+"automatically becomes \"4 x 10\"."
+msgstr "Pokud chcete nastavit pro všechny série stejný počet opakování,\nmůžete zadat jen jednu hodnotu: například pro 4 série vložte \"10\" pro opakování,\ntím dojde k nastavení automaticky na \"4 x 10\"."
+
+#: manager/templates/mobile/tags/render_day.html:55
+#, python-format
+msgid "Set Nr. %(set_nr)s"
+msgstr "Nastavit č. %(set_nr)s"
+
+#: manager/templates/mobile/workout/overview.html:6
+#: manager/templates/workout/overview.html:5
+msgid "Your workouts"
+msgstr "Tvé tréninky"
+
+#: manager/templates/mobile/workout/view.html:78
+#: manager/templates/workout/view.html:70
+#: manager/templates/workout/view.html:78
+msgid "Add training day"
+msgstr "Přidat tréninkový den"
+
+#: manager/templates/mobile/workout/view.html:84
+#: manager/templates/workout/view.html:80
+msgid "Show/Hide exercise comments"
+msgstr "Zobrazit/Skrýt komentáře cviku"
+
+#: manager/templates/mobile/workout/view.html:99
+#: manager/templates/workout/view.html:94
+msgid "Add training days"
+msgstr "Přidat trénikové dny"
+
+#: manager/templates/mobile/workout/view.html:100
+#: manager/templates/workout/view.html:95
+msgid "Add workout sets to days"
+msgstr "Přidat tréninkové serie pro dny."
+
+#: manager/templates/mobile/workout/view.html:102
+#: manager/templates/workout/view.html:97
+msgid "Set the repetitions for each set"
+msgstr "Nastavte opakování pro každou sérii"
+
+#: manager/templates/mobile/workout/view.html:103
+#: manager/templates/workout/view.html:98
+msgid "use '99' for 'all repetitions you can do'"
+msgstr "Použijte '99' pro 'maximum opakování, které zvládnete'"
+
+#: manager/templates/mobile/workout/view.html:108
+#: manager/templates/workout/view.html:103
+msgid "Muscles trained"
+msgstr "Trénink svalů"
+
+#: manager/templates/mobile/workout/view.html:111
+#: manager/templates/workout/view.html:106
+msgid ""
+"Images show combined muscles as trained by the exercises on the workout."
+msgstr "Obrázky ukázují kombinace svalů, které budou procvičovány v cvicích během tréninku."
+
+#: manager/templates/mobile/workout/view.html:146
+#: manager/templates/mobile/workout/view.html:147
+#: manager/templates/mobile/workout/view.html:148
+#: manager/templates/workout/view.html:143
+#: manager/templates/workout/view.html:144
+#: manager/templates/workout/view.html:145
+msgid "View weight log"
+msgstr "Zobrazit záznam váhy"
+
+#: manager/templates/mobile/workout/view.html:156
+#: manager/templates/mobile/workout/view.html:157
+#: manager/templates/mobile/workout/view.html:158
+#: manager/templates/workout/view.html:156
+#: manager/templates/workout/view.html:157
+#: manager/templates/workout/view.html:158 manager/views/schedule_step.py:97
+msgid "Edit workout"
+msgstr "Upravit trénink"
+
+#: manager/templates/mobile/workout/view.html:176
+#: manager/templates/mobile/workout/view.html:177
+#: manager/templates/mobile/workout/view.html:178
+#: manager/templates/workout/view.html:180
+#: manager/templates/workout/view.html:181
+#: manager/templates/workout/view.html:182
+msgid "Make a copy of this workout"
+msgstr "Vytvořit kopii tohoto tréninku"
+
+#: manager/templates/mobile/workout/view.html:185
+#: manager/templates/mobile/workout/view.html:186
+#: manager/templates/workout/view.html:193
+#: manager/templates/workout/view.html:194
+msgid "Delete this workout"
+msgstr "Smazat trénink"
+
+#: manager/templates/mobile/workout/view.html:199
+#: manager/templates/workout/view.html:207
+msgid "Export this workout as a calendar file."
+msgstr "Exportovat trénink jako calendářový soubor."
+
+#: manager/templates/mobile/workout/view.html:233
+#: manager/templates/workout/view.html:135
+msgid "Table"
+msgstr "Tabulka"
+
+#: manager/templates/schedule/view.html:10
+msgid "Schedule"
+msgstr "Rozvrh"
+
+#: manager/templates/set/add.html:59 manager/templates/set/edit.html:24
+msgid "Repetitions "
+msgstr "Opakování"
+
+#: manager/templates/set/edit.html:11
+msgid "Edit set"
+msgstr "Upravit sérii"
+
+#: manager/templates/workout/email_reminder.tpl:3
+#, python-format
+msgid "Your current workout '%(workout)s' expired %(days)s days ago."
+msgstr "Váš aktuální trénink '%(workout)s' expiruje za %(days)s dny"
+
+#: manager/templates/workout/email_reminder.tpl:5
+#, python-format
+msgid ""
+"Your current workout '%(workout)s' is about to expire in %(days)s days."
+msgstr "Váš aktuální trénink '%(workout)s' bude expirovat za %(days)s  dny"
+
+#: manager/templates/workout/email_reminder.tpl:9
+msgid ""
+"You will regularly receive such reminders till you add a new workout.\n"
+"Alternatively you can add workouts to a loop schedule, such schedules\n"
+"never produce reminders."
+msgstr "Připomenutí obdržíte pokud přidáte nový trénink.\nTaké můžete přidat tréninky do opakujícího se rozvrhu, neboť zde se\npřipomenutí nezasílá."
+
+#: manager/templates/workout/email_reminder.tpl:12
+#: manager/templates/workout/email_weight_reminder.tpl:9
+msgid ""
+"If you don't want to ever receive email reminders, deactivate the\n"
+"option in your settings."
+msgstr "Pokud už nechcete dostávat emailem upozornění, vypněte si tuto\nmožnost v nastavení."
+
+#: manager/templates/workout/email_weight_reminder.tpl:3
+#, python-format
+msgid ""
+"Your last weight entry is from %(date)s (%(days)s days ago).\n"
+"Please click the link to access the application and enter a new one."
+msgstr "Naposledy jste vložili svou hmotnost dne %(date)s ( to je před %(days)s dny).\nPokud chcete vložit nový údaj hmotnosti, klikněte na odkaz a zadejte nový záznam.."
+
+#: manager/templates/workout/email_weight_reminder.tpl:8
+msgid ""
+"You will regularly receive such reminders till you enter your current "
+"weight."
+msgstr "Pravidelná upozornění vám budou zasílána, dokud nezadáte aktuální hmotnost."
+
+#: manager/templates/workout/log.html:29
+msgid "Weight log for workout"
+msgstr "Záznam váhy pro trénink"
+
+#: manager/templates/workout/log.html:50
+#: manager/templates/workout/view.html:57
+#: nutrition/templates/mobile/plan/view.html:278
+#: nutrition/templates/plan/view.html:43
+#: nutrition/templates/plan/view.html:284
+msgid "Goal"
+msgstr "Cíl"
+
+#: manager/templates/workout/log.html:95
+msgid "No weight entries here."
+msgstr "Nebyla zde vložena váha."
+
+#: manager/templates/workout/log.html:103
+msgid "No exercises for this day."
+msgstr "Pro tento den nejsou žádné cviky."
+
+#: manager/templates/workout/log.html:116
+msgid ""
+"This page shows the weight logs belonging to this workout\n"
+"only. Click on an exercise to see all the historical data for\n"
+"it."
+msgstr "Stránka zobrazuje pouze záznamy váhy, které patří k tomuto tréninku.\nPokud chcete vidět všechny záznamy, musíte kliknout na konkrétní cvik."
+
+#: manager/templates/workout/log.html:120
+msgid ""
+"Click on a value on a chart to edit the log\n"
+"entry."
+msgstr "Můžete kliknout v grafu na hodnotu, \nkterou chcete upravit."
+
+#: manager/templates/workout/log.html:123
+msgid ""
+"If on a single day there is more than one entry with the\n"
+"same number of repetitions, but different weights, only the entry with the\n"
+"higher weight is shown in the diagram."
+msgstr "Pokud v jednom dni jsou stejné počty opakování,\nale různé váhy, bude v diagramu zobrazena pouze nejvyšší váha."
+
+#: manager/templates/workout/timer.html:263
+msgid "Your workout today"
+msgstr "Tvůj dnešní trénink"
+
+#: manager/templates/workout/timer.html:274
+msgid "Start!"
+msgstr "Start!"
+
+#: manager/templates/workout/timer.html:328
+msgid "reps"
+msgstr "opakování"
+
+#: manager/templates/workout/timer.html:336
+#: manager/templates/workout/timer.html:385
+msgid "Skip"
+msgstr "Přeskočit"
+
+#: manager/templates/workout/timer.html:360
+msgid "Pause!"
+msgstr "Pauza!"
+
+#: manager/templates/workout/timer.html:398
+msgid "Workout complete!"
+msgstr "Trénink je kompletní!"
+
+#: manager/views/day.py:98
+msgid "Add workout day"
+msgstr "Přidat tréninkový den"
+
+#: manager/views/log.py:76
+#, python-format
+msgid "Edit log entry for %s"
+msgstr "Upraivit záznam pro %s"
+
+#: manager/views/log.py:103
+msgid "New log entry"
+msgstr "Vložit nový záznam"
+
+#: manager/views/log.py:128
+msgid "Delete workout log"
+msgstr "Smazat záznam tréninku"
+
+#: manager/views/pdf.py:79 manager/views/pdf.py:138
+#, python-format
+msgid "Workout for %s"
+msgstr "Trénink pro %s"
+
+#: manager/views/pdf.py:277
+msgid "<i>This is an empty workout, what did you expect on the PDF?</i>"
+msgstr "<i>Tohle je prázdný trenink. Co byste očekávali v PDF?</i>"
+
+#: manager/views/pdf.py:306 nutrition/views/plan.py:374
+#, python-format
+msgid "Created on the <b>%s</b>"
+msgstr "Vytvořeno dne <b>%s</b>"
+
+#: manager/views/schedule.py:186
+msgid "Create schedule"
+msgstr "Vytvořit rozvrh"
+
+#: manager/views/workout.py:185
+msgid "Copy workout"
+msgstr "Kopírovat trénink"
+
+#: manager/views/workout.py:189
+msgid "Copy"
+msgstr "Kopírovat"
+
+#: manager/views/workout_session.py:60
+#, python-brace-format
+msgid "Edit workout impression for {0}"
+msgstr "Upravit dojem z tréninku pro {0}"
+
+#: manager/views/workout_session.py:110
+#, python-brace-format
+msgid "New workout impression for the {0}"
+msgstr "Nový dojem z tréninku pro {0}"
+
+#: manager/views/workout_session.py:155
+msgid "This will delete all weight logs for this day as well."
+msgstr "Toto smaže všechny záznamy váhy pro tento den"
+
+#: nutrition/forms.py:104 nutrition/templates/rate/form.html:96
+msgid "Basic caloric intake"
+msgstr "Základní energetický příjem"
+
+#: nutrition/forms.py:105
+msgid "Your basic caloric intake as calculated for your data"
+msgstr "Váš základní energetický příjem byl vypočítan ze zadaných dat"
+
+#: nutrition/forms.py:109
+msgid "Additional calories"
+msgstr "Přidat kalorie"
+
+#: nutrition/forms.py:110
+msgid ""
+"Additional calories to add to the base rate (to substract, enter a negative "
+"number)"
+msgstr "Další kalorie můžete přidat k základní hodnotě (pokud chcete odečíst, zadejte záporné číslo)"
+
+#: nutrition/models.py:82
+msgid ""
+"A description of the goal of the plan, e.g. \"Gain mass\" or \"Prepare for "
+"summer\""
+msgstr "Popis cíle plánu, například \"Získat svalovou hmotu\", nebo \"Shodit do plavek\""
+
+#: nutrition/models.py:84
+msgid "Use daily calories"
+msgstr "Použít denní kalorie"
+
+#: nutrition/models.py:86
+msgid ""
+"Tick the box if you want to mark this plan as having a goal amount of "
+"calories. You can use the calculator or enter the value yourself."
+msgstr "Zaškrtněnte toto políčko, pokud chcete tento plán označit jako cílovou hodnotu kalorii. Můžete použít kalkulacku, nebo zadat hodnotu ručně."
+
+#: nutrition/models.py:225 utils/models.py:68
+msgid "Pending"
+msgstr "Čekájící"
+
+#: nutrition/models.py:226 utils/models.py:69
+msgid "Accepted"
+msgstr "Schváleno"
+
+#: nutrition/models.py:227 utils/models.py:70
+msgid "Declined"
+msgstr "Zamítnuto"
+
+#: nutrition/models.py:228
+msgid "Submitted by administrator"
+msgstr "Vloženo administrátorem"
+
+#: nutrition/models.py:229
+msgid "System ingredient"
+msgstr "Systémové složky"
+
+#: nutrition/models.py:263
+msgid "In kcal per 100g"
+msgstr "V kcal na 100g"
+
+#: nutrition/models.py:268 nutrition/models.py:275 nutrition/models.py:284
+#: nutrition/models.py:291 nutrition/models.py:300 nutrition/models.py:309
+#: nutrition/models.py:318
+msgid "In g per 100g of product"
+msgstr "V g na 100g produktu"
+
+#: nutrition/models.py:283 nutrition/templates/ingredient/view.html:117
+#: nutrition/templates/mobile/plan/view.html:332
+#: nutrition/templates/plan/view.html:228 nutrition/views/plan.py:336
+msgid "Sugar content in carbohydrates"
+msgstr "Cukr v sacharidech"
+
+#: nutrition/models.py:299 nutrition/templates/ingredient/view.html:133
+#: nutrition/templates/mobile/plan/view.html:344
+#: nutrition/templates/plan/view.html:240 nutrition/views/plan.py:343
+msgid "Saturated fat content in fats"
+msgstr "Nasycené mastné kyseliny"
+
+#: nutrition/models.py:308 nutrition/templates/ingredient/view.html:155
+#: nutrition/templates/mobile/plan/view.html:355
+#: nutrition/templates/plan/view.html:251 nutrition/views/plan.py:346
+msgid "Fibres"
+msgstr "Vláknina"
+
+#: nutrition/models.py:317 nutrition/templates/ingredient/view.html:165
+#: nutrition/templates/mobile/plan/view.html:361
+#: nutrition/templates/plan/view.html:257 nutrition/views/plan.py:348
+msgid "Sodium"
+msgstr "Sodík"
+
+#: nutrition/models.py:366
+msgid ""
+"Total energy is not the approximate sum of the energy provided by protein, "
+"carbohydrates and fat."
+msgstr "Celková energie není přibližně energií poskytovanou z bílkovin, sacharidů a tuků."
+
+#: nutrition/models.py:425 nutrition/views/ingredient.py:218
+msgid "Ingredient was successfully added to the general database"
+msgstr "Potravina byla přidána do základní databáze"
+
+#: nutrition/models.py:480 nutrition/models.py:577
+msgid "Ingredient"
+msgstr "Potravina"
+
+#: nutrition/models.py:484
+msgid "Amount in grams"
+msgstr "Množství v gramech"
+
+#: nutrition/models.py:489
+msgid "Unit amount, e.g. \"1 Cup\" or \"1/2 spoon\""
+msgstr "Jednotka množství, např. \"1 pohár\" nebo \"1/2 lžíce\""
+
+#: nutrition/models.py:525
+msgid "Time (approx)"
+msgstr "Čas (cca)"
+
+#: nutrition/templates/bmi/form.html:62
+msgid "Calculate"
+msgstr "Výpočet"
+
+#: nutrition/templates/bmi/form.html:67
+msgid "Results"
+msgstr "Výsledek"
+
+#: nutrition/templates/bmi/form.html:68
+msgid "Your BMI is: "
+msgstr "Vaše BMI je:"
+
+#: nutrition/templates/bmi/form.html:76
+msgid "Legend"
+msgstr "Legenda"
+
+#: nutrition/templates/bmi/form.html:80
+msgid "Adipositas III"
+msgstr "Obézita III"
+
+#: nutrition/templates/bmi/form.html:84
+msgid "Adipositas II"
+msgstr "Obézita II"
+
+#: nutrition/templates/bmi/form.html:88
+msgid "Adipositas I"
+msgstr "Obézita I"
+
+#: nutrition/templates/bmi/form.html:92
+msgid "Overweight"
+msgstr "Nadváha"
+
+#: nutrition/templates/bmi/form.html:96
+msgid "Normal weight"
+msgstr "Optimální váha"
+
+#: nutrition/templates/bmi/form.html:100
+msgid "Slight underweight"
+msgstr "Lehká podváha"
+
+#: nutrition/templates/bmi/form.html:104
+msgid "Moderate underweight"
+msgstr "Střední podváha"
+
+#: nutrition/templates/bmi/form.html:108
+msgid "Strong underweight"
+msgstr "Silná podváha"
+
+#: nutrition/templates/bmi/form.html:122
+msgid ""
+"Use the form to calculate your BMI (Body Mass Index).\n"
+"If you have entered data in the weight section, the last entry will\n"
+"be used automatically. Otherwise the weight you enter here will be saved\n"
+"in a new entry."
+msgstr "Použijte kalkulačku pro výpočet BMI (Body Mass Index).\nPokud jste už zadali svou hmotnost, bude doplněna automaticky.\nV opačném případě bude zadaná hodnota uložena jako\nnový záznam."
+
+#: nutrition/templates/ingredient/email_new.html:1
+#, python-format
+msgid ""
+"Your ingredient '%(ingredient)s' was successfully added to the general\n"
+"database."
+msgstr "Vaše potravina '%(ingredient)s'  byla přidána do základní\ndatabáze."
+
+#: nutrition/templates/ingredient/email_new.html:4
+msgid ""
+"It is now available on the ingredient overview and can be\n"
+"added to nutrition plans. You can access it on this address:"
+msgstr "Nyní je v přehledu složek jídla a může být \npřidána do nutrničních plánů. Můžete jí najít na adrese:"
+
+#: nutrition/templates/ingredient/form.html:4
+msgid "Submitting an ingredient"
+msgstr "Zaslání složky"
+
+#: nutrition/templates/ingredient/form.html:5
+msgid ""
+"Thank you for submitting an ingredient. This is much\n"
+"appreciated!"
+msgstr "Děkujeme za zaslání potraviny. Vážíme si toho!"
+
+#: nutrition/templates/ingredient/form.html:8
+msgid ""
+"After you submit the form, the administrators will be notified.\n"
+"Once it is reviewed, it will be added to the database. Till this happens,\n"
+"it will not be visible in the overview or the search. In case you added your email\n"
+"when you registered, you will get notified when the process is completed sucessfully."
+msgstr "Po odeslání formuláře budou administrátoři upozorněni.\nNásledně dojde ke kontrole údajů a případně k přidání do databáze. Než se tak stane\nnebude viditelný v přehledu a ve vyhledávání. V případě, že jste přidali při registraci\nemail, budete o dokončení informováni."
+
+#: nutrition/templates/ingredient/overview.html:46
+#: nutrition/templates/mobile/ingredient_overview.html:21
+msgid "No ingredients."
+msgstr "Bez položek."
+
+#: nutrition/templates/ingredient/overview.html:57
+#: nutrition/templates/ingredient/overview.html:64
+#: nutrition/templates/ingredient/overview.html:65
+#: nutrition/templates/ingredient/overview.html:66
+#: nutrition/templates/ingredient/overview.html:72
+#: nutrition/templates/ingredient/overview.html:73
+#: nutrition/templates/mobile/ingredient_overview.html:40
+#: nutrition/templates/mobile/ingredient_overview.html:41
+#: nutrition/templates/mobile/ingredient_overview.html:42
+msgid "Add ingredient"
+msgstr "Přidat položku"
+
+#: nutrition/templates/ingredient/overview.html:87
+msgid "ingredient name"
+msgstr "název potraviny"
+
+#: nutrition/templates/ingredient/view.html:27
+msgid "Ingredient is pending review"
+msgstr "Potravina čeká na schválení"
+
+#: nutrition/templates/ingredient/view.html:28
+msgid ""
+"This user submitted ingredient is pending a decision to be\n"
+"included in the database. Till then, it will not be shown in the overview or\n"
+"the search."
+msgstr "Uživatel zaslal k nutriční položku k překontrolování a rozhodnutí, \njestli bude zahrnuta v databázi. Do doby, než bude zkontrolována,\nnebude se zobrazovat v přehledu, nebo ve vyhledávání."
+
+#: nutrition/templates/ingredient/view.html:76
+msgid "Nutritional values in"
+msgstr "Nutriční hodnoty"
+
+#: nutrition/templates/ingredient/view.html:93
+#: nutrition/templates/mobile/plan/view.html:300
+#: nutrition/templates/plan/view.html:196 nutrition/views/plan.py:319
+msgid "Macronutrients"
+msgstr "Makroživiny"
+
+#: nutrition/templates/ingredient/view.html:122
+#: nutrition/templates/ingredient/view.html:138
+#: nutrition/templates/ingredient/view.html:160
+#: nutrition/templates/ingredient/view.html:170
+msgid "n.A."
+msgstr "neuvedeno"
+
+#: nutrition/templates/ingredient/view.html:149
+#: nutrition/templates/mobile/plan/view.html:352
+#: nutrition/templates/plan/view.html:248
+msgid "Others"
+msgstr "Další"
+
+#: nutrition/templates/ingredient/view.html:186
+msgid "User submitted ingredient"
+msgstr "Ingredience vložené uživatelem"
+
+#: nutrition/templates/ingredient/view.html:188
+#, python-format
+msgid "This exercise was submitted by <strong>%(username)s</strong>."
+msgstr "Tento cvik byl vložen uživatelem <strong>%(username)s</strong>."
+
+#: nutrition/templates/ingredient/view.html:199
+#: nutrition/templates/ingredient/view.html:204
+#: nutrition/templates/ingredient/view.html:205
+#: nutrition/templates/ingredient/view.html:206
+msgid "Delete ingredient"
+msgstr "Smazat ingredience"
+
+#: nutrition/templates/ingredient/view.html:212
+#: nutrition/templates/ingredient/view.html:217
+#: nutrition/templates/ingredient/view.html:218
+#: nutrition/templates/ingredient/view.html:219
+msgid "Edit ingredient"
+msgstr "Upravit ingredience"
+
+#: nutrition/templates/ingredient/view.html:223
+msgid "Weight units"
+msgstr "Jednotka hmostnosti"
+
+#: nutrition/templates/ingredient/view.html:230
+#: nutrition/templates/ingredient/view.html:231
+#: nutrition/templates/ingredient/view.html:232
+#: nutrition/templates/units/list.html:65
+#: nutrition/templates/units/list.html:66
+#: nutrition/templates/units/list.html:67 nutrition/views/unit.py:68
+msgid "Add new weight unit"
+msgstr "Přidejte novou jednotku hmostnosti"
+
+#: nutrition/templates/meal_item/edit.html:7 nutrition/views/meal_item.py:100
+msgid "Edit meal item"
+msgstr "Upravit položku jídla"
+
+#: nutrition/templates/meal_item/edit.html:32
+msgid "Ingredient name"
+msgstr "Název potraviny"
+
+#: nutrition/templates/mobile/ingredient_overview.html:21
+#: weight/templates/weight_overview.html:31
+msgid "Use link to add one."
+msgstr "Pro přidání použijte odkaz."
+
+#: nutrition/templates/mobile/plan/overview.html:4
+#: nutrition/templates/plan/overview.html:5
+msgid "Your nutrition plans"
+msgstr "Vaše nutriční plány"
+
+#: nutrition/templates/mobile/plan/view.html:70
+#: nutrition/templates/mobile/plan/view.html:71
+#: nutrition/templates/mobile/plan/view.html:72
+#: nutrition/templates/plan/view.html:83 nutrition/templates/plan/view.html:84
+msgid "Delete meal"
+msgstr "Smazat jídlo"
+
+#: nutrition/templates/mobile/plan/view.html:80
+#: nutrition/templates/mobile/plan/view.html:81
+#: nutrition/templates/mobile/plan/view.html:82
+#: nutrition/templates/plan/view.html:91 nutrition/templates/plan/view.html:92
+#: nutrition/views/meal.py:71
+msgid "Edit meal"
+msgstr "Upravit jídlo"
+
+#: nutrition/templates/mobile/plan/view.html:90
+#: nutrition/templates/mobile/plan/view.html:91
+#: nutrition/templates/mobile/plan/view.html:92
+#: nutrition/templates/mobile/plan/view.html:205
+#: nutrition/templates/plan/view.html:99
+#: nutrition/templates/plan/view.html:100
+msgid "Add item to meal"
+msgstr "Přidat potravinu do jídla"
+
+#: nutrition/templates/mobile/plan/view.html:125
+#: nutrition/templates/mobile/plan/view.html:296
+#: nutrition/templates/plan/view.html:187 nutrition/views/plan.py:317
+msgid "Nutritional data"
+msgstr "Nutriční data"
+
+#: nutrition/templates/mobile/plan/view.html:213
+#: nutrition/templates/plan/view.html:143
+msgid "No items for this meal."
+msgstr "Žádné potraviny pro toto jídlo."
+
+#: nutrition/templates/mobile/plan/view.html:223
+#: nutrition/templates/plan/view.html:156
+msgid "No meals for this plan."
+msgstr "Tento plán je bez stravy"
+
+#: nutrition/templates/mobile/plan/view.html:232
+#: nutrition/templates/plan/view.html:170
+#: nutrition/templates/plan/view.html:171
+#: nutrition/templates/plan/view.html:172
+msgid "Add a new meal"
+msgstr "Přidat nové jídlo"
+
+#: nutrition/templates/mobile/plan/view.html:239
+#: nutrition/templates/plan/view.html:182
+msgid ""
+"If you find the ingredient list too short, you might want to activate the "
+"preference to also show English ingredients."
+msgstr "Pokud seznam jídel je malý, můžete si aktivovat v nastevení, aby se také zobrazovali jídla v Angličtině."
+
+#: nutrition/templates/mobile/plan/view.html:290
+#: nutrition/templates/plan/view.html:294
+msgid ""
+"You have selected that this nutritional plan has a\n"
+"    goal amount of calories. Use the calculator or enter the value yourself."
+msgstr "Zvolili jste, že tento nutriční plán má jako cíl\nmnožství kalorií. Použijte kalkulačku, nebo zadejte hodnotu sami."
+
+#: nutrition/templates/mobile/plan/view.html:301
+#: nutrition/templates/plan/view.html:197 nutrition/views/plan.py:320
+msgid "Total"
+msgstr "Celkem"
+
+#: nutrition/templates/mobile/plan/view.html:302
+#: nutrition/templates/plan/view.html:198 nutrition/views/plan.py:321
+msgid "Percent of energy"
+msgstr "Procent z energie"
+
+#: nutrition/templates/mobile/plan/view.html:305
+#: nutrition/templates/plan/view.html:201 nutrition/views/plan.py:322
+msgid "g per body kg"
+msgstr "g na kg tělesné váhy"
+
+#: nutrition/templates/mobile/plan/view.html:307
+#: nutrition/templates/plan/view.html:203
+msgid "oz per body lb"
+msgstr "oz na lb tělesné váhy"
+
+#: nutrition/templates/mobile/plan/view.html:388
+#: nutrition/templates/mobile/plan/view.html:389
+#: nutrition/templates/plan/view.html:323
+#: nutrition/templates/plan/view.html:324
+msgid "Edit nutrition plan"
+msgstr "Upravit nutriční plán"
+
+#: nutrition/templates/mobile/plan/view.html:397
+#: nutrition/templates/mobile/plan/view.html:398
+#: nutrition/templates/plan/view.html:334
+#: nutrition/templates/plan/view.html:335
+msgid "Make a copy of this nutrition plan"
+msgstr "Vytvořit kopii tohoto nutričního plánu"
+
+#: nutrition/templates/mobile/plan/view.html:406
+#: nutrition/templates/mobile/plan/view.html:407
+#: nutrition/templates/plan/view.html:345
+#: nutrition/templates/plan/view.html:346
+msgid "Delete nutrition plan"
+msgstr "Smazat nutriční plán"
+
+#: nutrition/templates/plan/view.html:50
+msgid "Meal"
+msgstr "Jídlo"
+
+#: nutrition/templates/plan/view.html:51
+msgid "Contents"
+msgstr "Obsah"
+
+#: nutrition/templates/plan/view.html:189
+#, python-format
+msgid ""
+"\n"
+"    <h5> Based on the weight entry dated %(date)s (%(weight)s)</h5>\n"
+"    "
+msgstr "\n<h5>Záznam váhy na základě %(date)s (%(weight)s)</h5>"
+
+#: nutrition/templates/rate/form.html:25
+msgid "Basal metabolic rate"
+msgstr "Hodnota Bazálního metabolismu"
+
+#: nutrition/templates/rate/form.html:26
+msgid ""
+"The basal metabolic rate is the amount of energy expended daily\n"
+"at rest. This is the minimum energy needed for the body to function, without any\n"
+"additional physical activity."
+msgstr "Bazální metabolismus je množství nyaložené energie za den v naprostém klidu. Tato energie je potřebná pro základná tlěsné funkce, aniž byste vynaložili fyzickou aktivitu."
+
+#: nutrition/templates/rate/form.html:42
+msgid "Your basic metabolic rate is: "
+msgstr "Hodnota základního metabolismu je:"
+
+#: nutrition/templates/rate/form.html:52
+msgid "Physical activities"
+msgstr "Fyzická aktivita"
+
+#: nutrition/templates/rate/form.html:53
+msgid ""
+"The physical activity level (PAL) is a factor used to to express\n"
+"the additional physical activity and is used to calculate the total energy\n"
+"required per day."
+msgstr "Úroveň fyzické aktivity (PAL) je faktor používaný k vyjádření\ndodatečné fyzické aktivity a používá se k výpočtu celkové energie\npotřebné na den."
+
+#: nutrition/templates/rate/form.html:79
+msgid "Factor for daily activities: "
+msgstr "Faktor pro kažodenní činnost."
+
+#: nutrition/templates/rate/form.html:87
+msgid ""
+"The base caloric intake is the amount of calories your metabolism\n"
+"needs based on your level of physical activity."
+msgstr "Základní kalorický příjem je hodnota, kterou váš metabolismus\npotřebuje pro fungování těla při vaší úrovni fyzické aktivity."
+
+#: nutrition/templates/rate/form.html:101
+msgid "Calculate basic caloric intake"
+msgstr "Spočítat základní kalorický příjem"
+
+#: nutrition/templates/rate/form.html:108
+msgid ""
+"The total calories are the actual total calories per day. This\n"
+"might include e.g. a surplus or deficit if you are bulking or cutting. Alternatively\n"
+"you might just enter yourself the amount of calories if you know the value."
+msgstr "Celkové kalorie, jsou skutečné kalorie za den. To\nmůže zahrnovat napří. přebytek, nebo deficit. Alternativně\nmůžete jen zadat množstv kalorií sami, pokud znáte hodnotu."
+
+#: nutrition/templates/rate/form.html:123
+msgid "Transfer basic intake to total daily calories"
+msgstr "Přenést základní příjem do celkových denních kalorii"
+
+#: nutrition/templates/rate/form.html:127
+msgid "Add additional calories to total daily calories"
+msgstr "Do celkových denních kalorii přidat další"
+
+#: nutrition/templates/rate/form.html:131
+msgid "Save total calories to profile"
+msgstr "Uložit do profilu celkové kalorie"
+
+#: nutrition/templates/rate/form.html:142
+msgid ""
+"Please note that these calculations can only be an\n"
+"approximation. If you base your nutrition plan on these values, observe\n"
+"yourself for some weeks and change the total amount if needed."
+msgstr "Prosím, ber te na vědomí, že tyto výpočty mohou \nbýt pouze přibližné. Pokud založíte nutriční plán na těchto hontocáh, \ndodržujte jej několik týdnů a v případě potřeby změňte celkovou výši."
+
+#: nutrition/views/ingredient.py:161
+msgid "Add a new ingredient"
+msgstr "Přidat novou složku"
+
+#: nutrition/views/ingredient.py:172
+msgid "New user submitted ingredient"
+msgstr "Uživatelem zaslané nové složky"
+
+#: nutrition/views/ingredient.py:173
+#, python-brace-format
+msgid "The user {0} submitted a new ingredient \"{1}\"."
+msgstr "Uživatel {0} zaslan novou složku \"{1}\" ."
+
+#: nutrition/views/ingredient.py:231
+msgid "Ingredient was successfully marked as rejected"
+msgstr "Složka byla označena jako zamítnuta"
+
+#: nutrition/views/meal.py:43
+msgid "Add new meal"
+msgstr "Přidat nové jídlo"
+
+#: nutrition/views/plan.py:228
+#, python-format
+msgid "Nutritional plan %s"
+msgstr "Nutriční plán %s"
+
+#: nutrition/views/plan.py:298
+msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
+msgstr "<i>Tento plán je prázdný. Co jste očekávali v PDF?</i>"
+
+#: nutrition/views/unit_ingredient.py:55
+msgid "Add a new weight unit"
+msgstr "Přidat novou jednotku váhy"
+
+#: nutrition/views/unit_ingredient.py:94
+msgid "Edit a weight unit to ingredient connection"
+msgstr "Upravit jednotku hmotnosti spojenou se složkou"
+
+#: nutrition/views/unit_ingredient.py:122
+msgid "Delete?"
+msgstr "Smazat?"
+
+#: software/templates/contribute.html:11
+msgid ""
+"wger Workout Manager is build by volunteers,\n"
+"the development process is open and freely accessible to anybody interested.\n"
+"If you are new to the free software world, we recommend to take a\n"
+"look <a href=\"http://schlitt.info/opensource/blog/0541_10_golden_rules_for_starting_with_open_source.html\">this\n"
+"article</a> which summarizes they way open source projects work very well. "
+msgstr "wger Správce tréninku je postaven na dobrovolnících, kdy\nvývojový proces je otevřený a volně přístupný komukoliv, kdo má zájem.\nPokud jste ve světě svobodného software nový, doporučujeme si nejprve přečíst <ahref=\"http://schlitt.info/opensource/blog/0541_10_golden_rules_for_starting_with_open_source.html\">tento\nčlánek </a>  , který shrnuje, že principy open source projektů fungují velmi dobře."
+
+#: software/templates/contribute.html:18
+msgid ""
+"Any kind of contribution is appreciated and welcome.\n"
+"Use this opportunity and influence the direction of the\n"
+"project. "
+msgstr "Jakýkoliv druh příspěvku uvítáme a jsme za něj rádi.\nVyužijte možnost ovlivnit další směr tohoto projektu."
+
+#: software/templates/contribute.html:26
+msgid "Our goal"
+msgstr "Váš cíl"
+
+#: software/templates/contribute.html:29
+msgid ""
+"The goal is to build an awesome\n"
+"and flexible fitness manager, along with a comprehensive and complete list of exercises and\n"
+"ingredients, all released under a free license."
+msgstr "Cílem je vytvořit úžasného a flexibilním fitness\nsprávce, spolu s komplexním a kompletním seznamem cvičení a položek stravy, vše dostupné pod svobodnou licencí."
+
+#: software/templates/contribute.html:41
+msgid "Use the site"
+msgstr "Použít stránku"
+
+#: software/templates/contribute.html:44
+msgid ""
+"Simply use the site and tell your friends\n"
+"how useful it is! ;) . When you find something that you specially liked,\n"
+"could need some improvements or just doesn't work, tell us! This might not sound\n"
+"like much, but is incredibly important!"
+msgstr "Jednoduše používejte tuto stránku a řekněte svým přátelům,\njak užitečné jsou! ;-) Když zjistíte, že byste tu něco rád uvítal, nebo \nvás napadne nějaké vylepšení, řekněte nám to! Nezní to jako moc, ale pro nás je to důležité!"
+
+#: software/templates/contribute.html:55
+msgid "Submit exercises"
+msgstr "Odeslat cvikya"
+
+#: software/templates/contribute.html:58
+msgid ""
+"Submit those cool exercises that you absolutely\n"
+"love and do every week but are not in the list yet. If you think some description\n"
+"is too short or some other detail is missing or could be improved, tell!"
+msgstr "Vložte do databáze své úžasné cviky, které milujete \na provádíte je každý týden ale nejsou doposud v našem seznamu. \nPokud si myslíte, že nějaký popis je příliš stručný, nebo chybí jiný detail a šlo by jej i zlepšit, řekněte nám to."
+
+#: software/templates/contribute.html:75
+msgid ""
+"Do you want to use wger in your own language?\n"
+"Do you think the current translation could be improved?\n"
+"The translations are easily managed and edited online, if you are interested,\n"
+"go to the transifex site, request access and we will set everything\n"
+"up. "
+msgstr "Chcete používat wger v rodném jazyce?\nMyslíte si, že aktuální překlad by se měl zlepšit?\nPřeklady jdou snadno spravovat a upravovat online, pokud máte zájem,\njděte na stránku transifex a požádejte o přístup a my vám jej nastavíme."
+
+#: software/templates/contribute.html:88
+msgid "Code"
+msgstr "Kód"
+
+#: software/templates/contribute.html:91
+msgid ""
+"Obviously, you are highly encouraged to clone the\n"
+"repo and start hacking! Once you are ready, send a pull request and we\n"
+"will show the world. Take a look at the developer guide for more details\n"
+"on this."
+msgstr "Je žádoucí si vytvořit klon repositáře a začít zkoumat kód! \nJakmile budete připraveni odeslat pull, udělejte to a ukažte jej světu.\nPodívejte se do příručky pro vývojáře, pokud chcete o tom vědět\nvíce informací."
+
+#: software/templates/functions.html:12
+msgid ""
+"wger Workout Manager is a free, open source web application that manages "
+"your exercises and workouts. "
+msgstr "wger Správce tréninku je free, open source webová aplikace, která spravuje vaše cviky a tréninky."
+
+#: software/templates/functions.html:31
+msgid "Your body."
+msgstr "Vaše tělo."
+
+#: software/templates/functions.html:32
+msgid "Your workouts."
+msgstr "Vaše tréninky."
+
+#: software/templates/functions.html:33
+msgid "Your data."
+msgstr "Vaše data."
+
+#: software/templates/functions.html:34
+msgid "Your progress."
+msgstr "Vaše pokroky"
+
+#: software/templates/functions.html:40
+msgid "Try it now"
+msgstr "Vyzkoušejte si to"
+
+#: software/templates/functions.html:65
+msgid ""
+"wger Workout Manager is a free, open source web application that manages\n"
+"your exercises, workouts and nutrition. It started as a pet project of mine to replace my\n"
+"growing collection of different spreadsheets, but it has become something other\n"
+"people could also find useful."
+msgstr ""
+
+#: software/templates/functions.html:83
+msgid ""
+"Create and manage your workout routines by selecting how\n"
+"many days your workout consists of, and adding different exercises to each. You can\n"
+"also combine different workouts into a schedule."
+msgstr "Vytvořte a spravujte své tréninkové postupy výběrem\nz mnoha dní, z kterých se skládá váš trénink a přidávejte různé cviky ke každému z nich. Do rozvrhu\nmůžete také kombinovat různé tréninky."
+
+#: software/templates/functions.html:98
+msgid ""
+"You can enter\n"
+"the weights and repetitions you did for each exercise. As with the (body) weight,\n"
+"it will generate some diagrams so you can see at a glance how well you are doing.\n"
+"The raw numbers are still accessible as a table."
+msgstr ""
+
+#: software/templates/functions.html:102
+msgid ""
+"You can also enter notes and a general impression (great, neutral, etc.)"
+msgstr "Můžete také zadat poznámky a celkový dojem (výborný, neutrální, atd.)"
+
+#: software/templates/functions.html:114
+msgid ""
+"Create a diet plan and see its nutritional\n"
+"values (total energy, protein, carbohydrates, and so on) about\n"
+"it. Select from more than 8000 ingredients for this."
+msgstr "Vytvořte si vlastní dietní plán a prohlédněte \nsi jeho nutriční hodnoty (celková energie, bílkoviny, sacharidy, a tak dále).\nVybírejte z více jak 8000 položek stravy."
+
+#: software/templates/functions.html:128 software/templates/functions.html:136
+msgid "Weight tracker"
+msgstr "Sledování hmostnosti"
+
+#: software/templates/functions.html:131
+msgid ""
+"keep track of your progress with the weight log chart\n"
+"for each exercise and your own body weight. This makes it easy to see if you\n"
+"are reaching your goals or need to adjust something."
+msgstr "Sledujte svůj pokrok pomocí grafu zaznamenané váhy\npro každé cvičení a své tělesné hmotnosti. Usnadní vám to zjistit, zda \njste dosáhli svých cílů, nebo potřebujete něco pozměnit."
+
+#: software/templates/functions.html:143 software/templates/functions.html:153
+msgid "Exercise database"
+msgstr "Databáze cviků"
+
+#: software/templates/functions.html:147
+msgid ""
+"The exercise database contains around hundred exercises\n"
+"from which you can choose when creating a workout. Some have important notes\n"
+"about the form to perform them. This is displayed in the workout overview\n"
+"page, so you keep them in mind."
+msgstr "Databáze cviků obsahuje okolo sta položek,\nze kterých si můžete vybírat při vytváření tréninku. Některé mají i zajímavé poznámky\nk formě jejich provedení. Ty se zobrazují na stránce přehledu cviku,\ntakže je budete mít neustále na očích."
+
+#: software/templates/functions.html:160 software/templates/functions.html:170
+msgid "Gym management"
+msgstr "Správa posilovny"
+
+#: software/templates/functions.html:163
+msgid ""
+"Use the application for your gym to manage its\n"
+"members, their workouts and attendance. Keep an eye on inactive members with\n"
+"optional notifications. You can create users with different roles to\n"
+"distribute the administrative tasks such as trainer or gym manager."
+msgstr "Pomocí aplikace pro posilovnu, můžete spravovat členy,\njejich tréninky a docházku. Můžete kontrolovat neaktivní členy, kteří\nnemají aktivované notifikace. Můžete vytvořit uživatele s různými rolemi\nk přenesení některých administrativních úkonů, jako je trenér, nebo správce posilovny."
+
+#: software/templates/functions.html:179
+#, python-format
+msgid "100%% Open Source"
+msgstr "100 %% Open Source"
+
+#: software/templates/functions.html:182
+msgid ""
+"All of the code running wger is open source, allowing\n"
+"the public to openly review its code and security. Anyone can contribute towards\n"
+"the development of wger or deploy private installations."
+msgstr "Celý kód běžícího wger je open source, což umožňuje\nveřejnosti kontrolu kódu a jeho bezpečnosti. Každý může přispět k rozvoji wger, \nnebo nasadit vlastní instalaci."
+
+#: software/templates/functions.html:190
+msgid "Join and help"
+msgstr "Připojit a pomoci"
+
+#: software/templates/functions.html:194
+msgid "Join development"
+msgstr "Připojit se k vývoji"
+
+#: software/templates/functions.html:213
+msgid ""
+"wger provides a REST API with full read write access\n"
+"to all data. To access publicly accessible data such as exercises you don't need\n"
+"any form of authentication, for other objects such as workouts you need to get\n"
+"an API key."
+msgstr "wger poskytuje REST API s plnou podporou čtení i zápisu\nke všem údajům. Pro přístup k veřejně přístupným údajům, jako jsou cviky není potřeba\njakákoli forma ověřování, pro jiné, jako jsou tréninky, musíte mít\nvygenerovaný klíč k API."
+
+#: software/templates/functions.html:223
+msgid "Other features"
+msgstr "Další vlastnosti"
+
+#: software/templates/functions.html:227
+msgid "Smooth performance and easy user interface."
+msgstr "Plynulé a jednoduché uživatelské rozhraní."
+
+#: software/templates/functions.html:228
+msgid "Export workouts, nutrition plans and routines as PDF"
+msgstr "Exprotovat tréninky, nutriční plány a postupy jako PDF"
+
+#: software/templates/functions.html:229
+msgid ""
+"Create complex routines, specify how much the exercise weights increase each"
+" week"
+msgstr "Vytvořit komplexní postup, kdy se určí, jak se váha u cviků bude zvyšovat každý týden"
+
+#: software/templates/functions.html:230
+msgid ""
+"Gym-optimised view with countdown to easily log weights during the workout"
+msgstr "Posilovna - optimalizovaný pohled s odpočítáváním pro snadný záznam váhy během tréninku."
+
+#: software/templates/functions.html:231
+msgid ""
+"Export your routines and workouts to an application such as iCal or google "
+"calendar."
+msgstr "Export vašeho postupu a tréninků do aplikacích jako je iCal nebo Google kalendář."
+
+#: software/templates/functions.html:232
+msgid ""
+"Receive email notifications to remind you to change your routine (optional)"
+msgstr "Zasíllat upozornění emailem, aby došlo k připomenutí změny vyšeho postupu (optimální)"
+
+#: software/templates/functions.html:233
+msgid ""
+"Calendar view with last workouts and weight logs for easy overview and "
+"control"
+msgstr "V kalendáři jsou zobrazeny poslední tréninky a záznamy váhy pro snadný přehled a kontrolu"
+
+#: software/templates/functions.html:234
+msgid "Support for both metric (kg) and imperial (lb) weight units"
+msgstr "Podpora obou jednotek váhy metrické (kg) a imperiální (lb) "
+
+#: software/templates/functions.html:235
+msgid "Available in many languages"
+msgstr "Dostupný v mnoha jazycích"
+
+#: software/templates/functions.html:236
+msgid "BMI and daily calories calculator"
+msgstr "Výpočet BMI a denních kalorií. "
+
+#: software/templates/functions.html:237
+msgid "Automatically calculated grams of macronutrients per body weight"
+msgstr "Automaticky počítá gramy z makroživin na tělesnou hmostnost."
+
+#: software/templates/functions.html:238
+msgid "Mobile friendly version"
+msgstr "Přívětivá verze pro mobily."
+
+#: software/templates/functions.html:239
+msgid "Import and export your weight data to and from CSV"
+msgstr "Importování a exportování záznamů hmotnosti do a z CSV"
+
+#: software/templates/issues.html:6
+msgid "Reporting a problem"
+msgstr "Ohlásit problém"
+
+#: software/templates/issues.html:15
+msgid ""
+"\n"
+"No software is perfect. For some severe errors, an email will be automatically sent, but\n"
+"not always, so I depend on you reporting everything that didn't behave as expected.\n"
+"Please describe in as much detail as you can what you were doing when the error\n"
+"happened.\n"
+msgstr "\nŽádný program není perfektní. O některých závažných chybách jsme automaticky informováni\nale ne vždy. Proto jsme závislý na vašich oznámení, že ne vše se chová tak, jak by se očekávalo.\nPopiště prosím vždy podrobně, co jste dělali, když se chyba objevila.\n"
+
+#: software/templates/issues.html:26
+msgid "report problem to the issue tracker"
+msgstr "nahlaste problém do sledovače incidentů"
+
+#: software/templates/issues.html:30
+msgid "Enhancements"
+msgstr "Vylepšení"
+
+#: software/templates/issues.html:32
+msgid ""
+"\n"
+"The issue tracker can also be used to document enhancements to the software.\n"
+"If you have some suggestions or think a feature is missing, feel\n"
+"free to open a ticket. This can be anything from a slight change to a whole\n"
+"new section of the site. Please keep in mind that not all wishes can be\n"
+"implemented."
+msgstr "\nSledovač incidentů může být použit také k zaslání návrhů na vylepšení programu. \nPokud máte nějaké návrh na novou funkci a myslíte si, že zde chybí, můžete otevřít \nnový Ticket. Může to být cokoliv, od jednoduché změny až po komplexní změnu \nčásti webu. Pamatujte prosím, že ne všechny přání mohou být realizována."
+
+#: software/templates/issues.html:41
+msgid "report wish to the issue tracker"
+msgstr "zašlete poznatek do Sledovače incidentů"
+
+#: software/templates/issues.html:46
+msgid "No Github account?"
+msgstr "Nemáte Github účet?"
+
+#: software/templates/issues.html:47
+msgid ""
+"Filing an issue requires a github account, if you don't\n"
+"have one and don't want to register, you can also send it to\n"
+"<a href=\"https://groups.google.com/group/wger\">the mailing list</a>."
+msgstr "Uzpornění na problém vyžaduje mít GitHub účet. Pokud jej nemáte\nmůžete se registrovat, nebo můžete také  zaslat problém na\n<a href=\"https://groups.google.com/group/wger\">mailovou konverzaci</a>."
+
+#: software/templates/license.html:10
+msgid ""
+"wger Workout Manager is Free/Libre Open Source\n"
+"Software (FLOSS)."
+msgstr "wger Správce tréninku je Free/Libre Open Source\nSoftware (FLOSS)"
+
+#: software/templates/license.html:23
+msgid ""
+"wger Workout Manager is released under the <strong>Affero GNU\n"
+"General Public License (AGPL)  Version 3+</strong> and can (under the conditions\n"
+"of the license) be used, modified and distributed (also with modifications)\n"
+"without restrictions."
+msgstr "wger Správce tréninku je uvolněn pod licencí <strong>Affero GNU\nGeneral Public License (AGPL) Verze 3+</strong> a může být (za podmínek \nurčené licencí) být používán, modifikován a distribuován (také s úpravami)\nbez omezení."
+
+#: software/templates/license.html:35 software/templates/license.html.py:36
+msgid "CC-BY-SA"
+msgstr "CC-BY-SA"
+
+#: software/templates/license.html:40
+msgid ""
+"The data fixtures with the exercise and ingredient lists are\n"
+"released additionally under a <strong>Creative Commons Attribution Share Alike 3\n"
+"(CC-BY-SA)</strong> license."
+msgstr ""
+
+#: software/templates/license.html:46
+msgid ""
+"A copy of both licenses is contained in every wger Workout\n"
+"Manager release and can be read in the\n"
+"<a href='https://github.com/wger-project/wger/blob/master/AGPL.txt'>AGPL.txt</a>\n"
+"or <a href='https://github.com/wger-project/wger/blob/master/CC-BY-SA.txt'>CC-BY-SA.txt</a>\n"
+"files in the source code repository."
+msgstr "Kopie obou licencí je obsažena v každém wger Správci tréninku\na je možné si je přečíst\n<a href='https://github.com/wger-project/wger/blob/master/AGPL.txt'>AGPL.txt</a>\nnebo <a href='https://github.com/wger-project/wger/blob/master/CC-BY-SA.txt'>CC-BY-SA.txt</a>"
+
+#: utils/models.py:41
+msgid "Author"
+msgstr "Autor"
+
+#: utils/models.py:45
+msgid ""
+"If you are not the author, enter the name or source here. This is needed for"
+" some licenses e.g. the CC-BY-SA."
+msgstr "Pokud nejste autorem, zadejte zde název nebo zdroj. To je nutné pro některé licence, např. CC-BY-SA."
+
+#: weight/forms.py:38
+msgid "Input"
+msgstr "Vstup"
+
+#: weight/forms.py:39
+msgid "Date format"
+msgstr "Formát data"
+
+#: weight/management/commands/email-weight-reminder.py:78
+msgid "You have to enter your weight"
+msgstr "Zadejte nový údaj své hmotnosti"
+
+#: weight/models.py:52
+msgid "Weight entry"
+msgstr "Vložit hmotnost"
+
+#: weight/templates/import_csv_form.html:5
+msgid "Import weight logs"
+msgstr "Iportovat záznamy váhy"
+
+#: weight/templates/import_csv_form.html:12
+msgid "Submit"
+msgstr "Zaslat"
+
+#: weight/templates/import_csv_form.html:19
+msgid ""
+"Use this import field to import your weight logs into Workout\n"
+"Manager."
+msgstr "Pomocí tohoto pole můžete improtovat záznamy váhy do \nSprávce tréninku."
+
+#: weight/templates/import_csv_form.html:22
+msgid ""
+"You can copy and paste from your spreadsheet into the text input,\n"
+"the system will try to guess the format to import. The only things to consider is\n"
+"that the first column is the <strong>date</strong>, the second the <strong>weight</strong>.\n"
+"All further columns are ignored. There is a 1000 row limit.\n"
+msgstr "Můžete záznamy zkopírovat a vložit z tabulky do textového pole.\nSystém se pokusí odhadnout formá, který chcete improtovat. Jediné, \nco musíte mít na paměti je, že první sloupec musí být <strong>datum</strong>\ndruhý sloupec <strong>hmostnost</stong>. Ostatní sloupce budou ignorovány. Je zde omezení na 1000 řádků.\n"
+
+#: weight/templates/import_csv_form.html:28
+msgid ""
+"If there are errors, you can correct or discard them in a\n"
+"second step."
+msgstr "Pokud se objeví chyby, můžete je v druhém kroku\nopravit, nebo zahodit."
+
+#: weight/templates/import_csv_preview.html:5
+msgid "Preview imported CSV entries"
+msgstr "Náhled importovaných položek z CSV"
+
+#: weight/templates/import_csv_preview.html:10
+msgid "Successfully converted values"
+msgstr "Převod hodnot byl dokončen."
+
+#: weight/templates/import_csv_preview.html:11
+msgid "The following values could be converted."
+msgstr "Následující hodnoty mohou být převedeny."
+
+#: weight/templates/import_csv_preview.html:27
+msgid "Errors"
+msgstr "Chyby"
+
+#: weight/templates/import_csv_preview.html:30
+msgid "The following values could not be converted."
+msgstr "Následující hodnoty nelze převést."
+
+#: weight/templates/import_csv_preview.html:32
+msgid ""
+"These values could not be converted to a weight log entry.\n"
+"    The reasons for this could be anything from an unrecognised date or number\n"
+"    format, a problem with the encoding or something else. Please check that\n"
+"    there are no obvious errors in the list (and correct them if there are!)\n"
+"    and try to import the list again."
+msgstr "Tyto hodnoty nemůžeme převést do záznamu hmotnosti.\n Důvody pro to mohou být různé, od neznámého data, nebo formátu\nčísla, problému s kódováním, nebo něco jiného. Prosíme, zkontrolujte, zda\nneobjevíte zjevné chyby v seznam (a pokud existují, opravte je!!)\na pokuste se seznam znovu importovat.."
+
+#: weight/templates/import_csv_preview.html:38
+msgid ""
+"Remember that the expected structure is <strong>date</strong>\n"
+"    on the first columns and <strong>weight</strong> on the second."
+msgstr "Pamatujte si, že očekáváná strukůra je <strong>datum</strong> v prvním sloupci\na <strong>váha</strong> ve druhém sloupci."
+
+#: weight/templates/import_csv_preview.html:55
+msgid "There were no errors, all entries could be converted!"
+msgstr "Nebyly zjištěny žádné chyby. Všechny položky mohou být převedeny!"
+
+#: weight/templates/import_csv_preview.html:59
+msgid "Import all successfully converted entries"
+msgstr "Import všech převedených záznamů byl úspěšný."
+
+#: weight/templates/import_csv_preview.html:60
+msgid ""
+"Continue here if you want to import into your weight log all\n"
+"entries that were successfully converted. All entries that produced an error\n"
+"will simply be ignored. It's up to you to decide whether they are useful\n"
+"(unrecognised entries) or not (e.g. headers, comments, etc.)."
+msgstr "Pokuračujte, pokud chcete importovat do záznamu váhy všechny\npoložky, které byly úspěšně převedeny. Položky, u kterých se objevila chyba\nbudou ingnorovány. Zaleží tak na vašem rozhodnutí, zda jsou ty to položky užitečné,\n(neuznané záznamy), či nikoliv (například hlavičky, komentáře, atd)."
+
+#: weight/templates/import_csv_preview.html:71
+msgid "Import"
+msgstr "Import"
+
+#: weight/templates/import_csv_preview.html:77
+msgid "Or try it again"
+msgstr "Nebo to zkuste znovu"
+
+#: weight/templates/import_csv_preview.html:79
+msgid ""
+"You can correct the list here and re-submit it as often as\n"
+"you want."
+msgstr "Tady můžete opravit seznam a znovu jej zaslat tak často, \njak budete chtít."
+
+#: weight/templates/import_csv_preview.html:87
+msgid "Re-Submit"
+msgstr "Znovu poslat"
+
+#: weight/templates/weight_overview.html:30
+msgid "There is no chart here because there are no weight entries."
+msgstr "V tuto chvíli zde žádná tabulka není, protože nejsou vloženy záznamy o hmostnosti."
+
+#: weight/templates/weight_overview.html:43
+msgctxt "Noun, not verb"
+msgid "Change"
+msgstr "Změna"
+
+#: weight/templates/weight_overview.html:44
+msgid "Days"
+msgstr "Dny"
+
+#: weight/templates/weight_overview.html:80
+msgid "You can click on a value on the chart to edit it. "
+msgstr "Můžete kliknout v grafu na hodnotu, kterou chcete upravit."
+
+#: weight/templates/weight_overview.html:91
+msgid "Filter options"
+msgstr "Možnosti třídění"
+
+#: weight/templates/weight_overview.html:92
+msgid ""
+"\n"
+"Use the second chart to pan or zoom by clicking and dragging the selection. Clicking\n"
+"on the background resets it.\n"
+msgstr "\nPoužijte druhý graf k posunování, nebo přibližování a přetahování výběru. Kliknutím na pozadí jej resetujete.\n"
+
+#: weight/templates/weight_overview.html:107
+#: weight/templates/weight_overview.html:108
+#: weight/templates/weight_overview.html:109
+msgid "Export as CSV"
+msgstr "Exportovat do CSV"
+
+#: weight/templates/weight_overview.html:118
+#: weight/templates/weight_overview.html:119
+#: weight/templates/weight_overview.html:120
+msgid "Import from spreadsheet"
+msgstr "Importovat z tabulky"
+
+#: weight/views.py:93
+#, python-format
+msgid "Edit weight entry for the %s"
+msgstr "Upravit záznam váhy pro %s"
+
+msgid "Abs"
+msgstr "Břicho"
+
+msgid "Arms"
+msgstr "Paže"
+
+msgid "Back"
+msgstr "Záda"
+
+msgid "Calves"
+msgstr "Lýtko"
+
+msgid "Chest"
+msgstr "Prsa"
+
+msgid "Legs"
+msgstr "Nohy"
+
+msgid "Shoulders"
+msgstr "Ramena"
+
+msgid "Barbell"
+msgstr "Vzpěračská činka"
+
+msgid "Bench"
+msgstr "Lavice"
+
+msgid "Dumbbell"
+msgstr "Jednoruční činka"
+
+msgid "Gym mat"
+msgstr "Gymnastická podložka"
+
+msgid "Incline bench"
+msgstr "Šikmá lavice"
+
+msgid "Kettlebell"
+msgstr "Kettlebell"
+
+msgid "none (bodyweight exercise)"
+msgstr "nic (cvičení s tělesnou váhou)"
+
+msgid "Pull-up bar"
+msgstr "Hrazda"
+
+msgid "Swiss Ball"
+msgstr "Gymnastický míč"
+
+msgid "SZ-Bar"
+msgstr "SZ-Bar"
+
+msgid "Anterior deltoid"
+msgstr "Přední deltový sval"
+
+msgid "Biceps brachii"
+msgstr "Dvouhlasý sval pažní"
+
+msgid "Biceps femoris"
+msgstr "Dvouhlavý sval stehenní"
+
+msgid "Brachialis"
+msgstr "Hluboký sval paže"
+
+msgid "Erector spinae"
+msgstr "Napřímovač páteře"
+
+msgid "Gastrocnemius"
+msgstr "Lýtkový"
+
+msgid "Gluteus maximus"
+msgstr "Velký hýžďový sval"
+
+msgid "Latissimus dorsi"
+msgstr "Široký sval zádový"
+
+msgid "Obliquus externus abdominis"
+msgstr "Vnější šikmý sval"
+
+msgid "Pectoralis major"
+msgstr "Hlavní prsní"
+
+msgid "Quadriceps femoris"
+msgstr "Čtyřhlavý sval stehenní"
+
+msgid "Rectus abdominis"
+msgstr "Přímý sval břišní"
+
+msgid "Serratus anterior"
+msgstr "Pilovitý sval přední"
+
+msgid "Soleus"
+msgstr "Hluboký sval lýtka"
+
+msgid "Trapezius"
+msgstr "Zádový sval"
+
+msgid "Triceps brachii"
+msgstr "Trojhlavý sval pažní"

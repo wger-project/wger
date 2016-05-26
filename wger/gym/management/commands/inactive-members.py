@@ -21,8 +21,8 @@ from django.utils import translation
 from django.utils.translation import ugettext as _
 from django.core.management.base import BaseCommand
 from django.template.loader import render_to_string
+from django.conf import settings
 
-from wger.utils.constants import EMAIL_FROM
 from wger.gym.helpers import is_any_gym_admin
 from wger.gym.helpers import get_user_last_activity
 from wger.gym.models import Gym
@@ -101,6 +101,6 @@ class Command(BaseCommand):
                     message = render_to_string('gym/email_inactive_members.html', context)
                     mail.send_mail(subject,
                                    message,
-                                   EMAIL_FROM,
+                                   settings.WGER_SETTINGS['EMAIL_FROM'],
                                    [trainer.email],
                                    fail_silently=True)

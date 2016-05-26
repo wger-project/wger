@@ -6,6 +6,10 @@ Settings
 You can configure some of the application behaviour with the ``WGER_SETTINGS``
 dictionary in your settings file. Currently the following options are supported:
 
+**ALLOW_REGISTRATION**: Default ``True``.
+  Controls whether users can register on their own or if a gym adminstrator has
+  to create the user accounts.
+
 **USE_RECAPTCHA**: Default ``False``.
   Controls whether a captcha challenge will be presented when new users register.
 
@@ -14,6 +18,9 @@ dictionary in your settings file. Currently the following options are supported:
   If you are not serving the site using TLS you probably want to use the GZip
   middleware instead. Read the django documentation on the security implications
   (BREACH attack).
+
+**EMAIL_FROM**: Default `wger Workout Manager <wger@example.com>`
+  The sender address used for sent emails by the system such as weight reminders
 
 
 .. note::

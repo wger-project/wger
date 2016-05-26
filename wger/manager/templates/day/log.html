@@ -1,10 +1,28 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
 
+
+{#             #}
+{# Breadcrumbs #}
+{#             #}
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% breadcrumb day.training day.training %}
+    {% breadcrumb "Weight log" "manager:log:log" day.training_id %}
+    {% breadcrumb "New weight log" "manager:log:log" day.training_id %}
+{% endblock %}
+
+
+{#       #}
+{# Title #}
+{#       #}
 {% block title %}{% trans "New weight log" %} – {{day.description}}{% endblock %}
 
+
+{#        #}
+{# Header #}
+{#        #}
 {% block header %}
 <script type="text/javascript">
 $(document).ready(function () {
@@ -13,6 +31,10 @@ $(document).ready(function () {
 </script>
 {% endblock %}
 
+
+{#         #}
+{# Content #}
+{#         #}
 {% block content %}
 <form action="{{form_action}}" method="POST" class="form-horizontal">
     {% csrf_token %}
@@ -26,7 +48,7 @@ $(document).ready(function () {
     {% endfor %}
 
 
-    <div style="overflow-x: auto;margin-bottom: 1em;">
+    <div style="margin-bottom: 1em;">
     {% for set in day.set_set.select_related %}
     {% for exercise in set.exercises.select_related %}
         {% with value=exercises|get_item:exercise.id %}
@@ -39,23 +61,56 @@ $(document).ready(function () {
                 <div class="col-md-9">
                     <table class="table">
                     <tr>
-                    {% for form in value.forms %}
-                        <td>
-                            {{ form.reps|form_field_add_css:'form-control narrow-input' }}
-                        </td>
-                        <td>
-                            {{ form.weight|form_field_add_css:'form-control narrow-input' }}
-                        </td>
-                    {% endfor %}
+                        <td>{% trans "Amount" %}</td>
+                        <td>{% trans "Unit" %}</td>
+                        <td>{% trans "Weight" %}</td>
+                        <td>{% trans "Unit" %}</td>
                     </tr>
+                    {% for form in value.forms %}
                     <tr>
-                    {% for form in value.forms %}
-                        <td>{% trans "Reps" %}</td>
                         <td>
-                            {% trans_weight_unit 'kg' user %}
+                            <div {% if form.reps.errors %}class="has-error"{% endif %}>
+                                {{ form.reps|form_field_add_css:'form-control narrow-input' }}
+                                <span class="help-block">
+                                    {% for error in form.reps.errors %}
+                                        <p>{% trans error %}</p>
+                                    {% endfor %}
+                                </span>
+                            </div>
                         </td>
-                    {% endfor %}
+                        <td>
+                            <div {% if form.repetition_unit.errors %}class="has-error"{% endif %}>
+                                {{ form.repetition_unit|form_field_add_css:'form-control narrow-input' }}
+                                <span class="help-block">
+                                    {% for error in form.repetition_unit.errors %}
+                                        <p>{% trans error %}</p>
+                                    {% endfor %}
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <div {% if form.weight.errors %}class="has-error"{% endif %}>
+                            {{ form.weight|form_field_add_css:'form-control narrow-input' }}
+                            <span class="help-block">
+                                {% for error in form.weight.errors %}
+                                    <p>{% trans error %}</p>
+                                {% endfor %}
+                            </span>
+                            </div>
+                        </td>
+                        <td>
+                            <div {% if form.weight_unit.errors %}class="has-error"{% endif %}>
+                                {{ form.weight_unit|form_field_add_css:'form-control narrow-input' }}
+                                <span class="help-block">
+                                    {% for error in form.weight_unit.errors %}
+                                        <p>{% trans error %}</p>
+                                    {% endfor %}
+                                </span>
+                            </div>
+                        </td>
                     </tr>
+                    {% endfor %}
+
                     </table>
                 </div>
             </div>
@@ -76,20 +131,12 @@ $(document).ready(function () {
 {% endblock %}
 
 
+{#          #}
+{# Side bar #}
+{#          #}
 {% block sidebar %}
 <h4>{% trans "Info" %}</h4>
 <p>{% blocktrans %}A new workout session (impression, notes, time) will
 be created if there isn't already one for the selected date. If there is, it
 will simply be edited. Weight entries are always added.{% endblocktrans %}</p>
-
-<h4>{% trans "Options" %}</h4>
-<p>
-<a href="{{ day.training.get_absolute_url }}" {% auto_link_css flavour %}>
-    <img src="{% static 'images/icons/list.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Back to workout' %}">
-    {% trans "Back to workout" %}
-</a>
-</p>
 {% endblock %}

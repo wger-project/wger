@@ -45,7 +45,6 @@ from wger.exercises.models import (
     Muscle,
     ExerciseCategory
 )
-from wger.exercises.widgets import MuscleTranslatedSelectMultiple
 from wger.utils.generic_views import (
     WgerFormMixin,
     WgerDeleteMixin,
@@ -53,7 +52,11 @@ from wger.utils.generic_views import (
 )
 from wger.utils.language import load_language, load_item_languages
 from wger.utils.cache import cache_mapper
-from wger.utils.widgets import TranslatedSelect, TranslatedSelectMultiple
+from wger.utils.widgets import (
+    TranslatedSelect,
+    TranslatedSelectMultiple,
+    TranslatedOriginalSelectMultiple
+)
 from wger.config.models import LanguageConfig
 from wger.weight.helpers import process_log_entries
 
@@ -98,11 +101,7 @@ def view(request, id, slug=None):
     template_data['comment_edit'] = False
     template_data['show_shariff'] = True
 
-    # Load the exercise itself
-    exercise = cache.get(cache_mapper.get_exercise_key(int(id)))
-    if not exercise:
-        exercise = get_object_or_404(Exercise, pk=id)
-        cache.set(cache_mapper.get_exercise_key(exercise), exercise)
+    exercise = get_object_or_404(Exercise, pk=id)
 
     template_data['exercise'] = exercise
 
@@ -172,11 +171,11 @@ class ExercisesEditAddView(WgerFormMixin):
             category = ModelChoiceField(queryset=ExerciseCategory.objects.all(),
                                         widget=TranslatedSelect())
             muscles = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
-                                               widget=MuscleTranslatedSelectMultiple(),
+                                               widget=TranslatedOriginalSelectMultiple(),
                                                required=False)
 
             muscles_secondary = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
-                                                         widget=MuscleTranslatedSelectMultiple(),
+                                                         widget=TranslatedOriginalSelectMultiple(),
                                                          required=False)
 
             class Meta:
@@ -192,7 +191,7 @@ class ExercisesEditAddView(WgerFormMixin):
                           'license_author']
 
             class Media:
-                js = ('js/tinymce/tinymce.min.js',)
+                js = ('/static/bower_components/tinymce/tinymce.min.js',)
 
         return ExerciseForm
 

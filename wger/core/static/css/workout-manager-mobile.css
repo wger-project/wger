@@ -519,8 +519,8 @@ div#timer-container{
 }
 
 div#timer-container canvas, div#timer-container div.filler_div{
-    width: 100%;
     height: 150px;
+    margin-top: 1em;
     margin-bottom: 30px;
 }
 

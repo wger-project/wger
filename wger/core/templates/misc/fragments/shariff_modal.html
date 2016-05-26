@@ -11,7 +11,7 @@
 
                 {% if owner_user %}
                 <div class="noRoAccess {% if user.is_authenticated and is_owner and owner_user.userprofile.ro_access %}hidden{% endif %}">
-                    <p>{% blocktrans %}Before you share links and on social media you need to allow external access.{% endblocktrans %}</p>
+                    <p>{% blocktrans %}Before you share links on social media you need to allow external access.{% endblocktrans %}</p>
                     <p>
                         <a href="{% url 'core:user:preferences' %}" id="toggle-ro-access" class="btn btn-success btn-sm">
                             <span class="glyphicon glyphicon-ok"></span>

@@ -5,7 +5,6 @@
 
 
 {% block header %}
-<link rel="stylesheet" href="{% static 'browserid/persona-buttons.css' %}">
 <script src="https://login.persona.org/include.js"></script>
 <script src="{% static 'browserid/api.js' %}"></script>
 <script src="{% static 'browserid/browserid.js' %}"></script>
@@ -20,30 +19,6 @@
     {% trans 'Login' as submit_text %}
     {% render_form_fields form submit_text %}
 </form>
-
-{% if not hide_persona %}
-<div class="col-md-offset-3 col-md-9">
-
-<div style="text-align:center;">
-<h3>— {% trans "or" %} —</h3>
-    <div style="padding-top:1em;"></div>
-    <a id="browserid-login"
-       href="#"
-       class="browserid-login persona-button dark browserid-login"
-       data-site-name="Workout Manager"
-       data-next="/">
-        <span>{% trans "Sign in with your Email" %}</span>
-    </a>
-</div>
-
-<p>
-    {% blocktrans %}Persona (BrowserID) replaces multiple passwords, you don't
-    need to remember a new password for this site. For more information, please
-    take a look at the <a href="https://login.persona.org/" target="_blank">the
-    Persona website</a>.{% endblocktrans %}
-</p>
-</div>
-{% endif %}
 {% endblock %}
 
 
@@ -67,4 +42,22 @@
              alt="{% trans 'Reset password' %}">
         {% trans "Reset password" %}</a>
 </p>
+
+{% if not hide_persona %}
+<h4>Persona</h4>
+    <a id="browserid-login"
+       href="#"
+       class="browserid-login browserid-login"
+       data-site-name="Workout Manager"
+       data-next="/">
+        <span>{% trans "Sign in with your Email" %}</span>
+    </a>
+
+<p>
+    {% blocktrans %}Persona (BrowserID) replaces multiple passwords, you don't
+    need to remember a new password for this site. For more information, please
+    take a look at the <a href="https://login.persona.org/" target="_blank">the
+    Persona website</a>.{% endblocktrans %}
+</p>
+{% endif %}
 {% endblock %}

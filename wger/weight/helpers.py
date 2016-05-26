@@ -47,6 +47,8 @@ def parse_weight_csv(request, cleaned_data):
     entry_dates = set()
     weight_list = []
     error_list = []
+    MAX_ROW_COUNT = 1000
+    row_count = 0
 
     # Process the CSV items first
     for row in parsed_csv:
@@ -61,7 +63,7 @@ def parse_weight_csv(request, cleaned_data):
             # there is no existing weight entry in the database for that date
             unique_in_db = not duplicate_date_in_db
 
-            if unique_among_csv and unique_in_db:
+            if unique_among_csv and unique_in_db and parsed_weight:
                 distinct_weight_entries.append((parsed_date, parsed_weight))
                 entry_dates.add(parsed_date)
             else:
@@ -69,6 +71,9 @@ def parse_weight_csv(request, cleaned_data):
 
         except (ValueError, IndexError, decimal.InvalidOperation):
             error_list.append(row)
+        row_count += 1
+        if row_count > MAX_ROW_COUNT:
+            break
 
     # Create the valid weight entries
     for date, weight in distinct_weight_entries:

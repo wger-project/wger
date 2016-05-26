@@ -104,11 +104,6 @@ $(document).ready(function () {
 </table>
 {% endif %}
 <br/>
-<p>
-<a href="{% url 'weight:add' %}"
-   {% auto_link_css flavour "wger-modal-dialog" %}
-   id="add-weight-entry">{% trans "Add weight entry" %}</a>
-</p>
 
 <p>
     <em>{% trans "You can click on a value on the chart to edit it. "%}</em>
@@ -125,7 +120,11 @@ $(document).ready(function () {
 <h3>{% trans "Filter options" %}</h3>
 <p>{% blocktrans %}You can zoom in by clicking and dragging the selection.
 Clicking on the background resets it.{% endblocktrans %}</p>
-
+<p>
+    <a href="{% url 'weight:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+        {% trans "Add weight entry" %}
+    </a>
+</p>
 
 {% if is_owner %}
 <h4>{% trans "Options" %}</h4>

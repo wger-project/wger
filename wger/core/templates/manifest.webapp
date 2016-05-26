@@ -2,7 +2,7 @@
 {
     "name": "wger Workout Manager",
     "version": "{{version}}",
-    "description": "wger Workout Manager is a free, open source application that manages your exercises, workouts, weight and diet plans.",
+    "description": "wger Workout Manager is a free, open source application that manages your exercises, workouts and nutrition.",
     "launch_path": "/dashboard",
     "icons": {
         "16": "{% static 'images/logos/logo-marketplace-16.png' %}",
@@ -16,7 +16,7 @@
     },
     "developer": {
         "name": "Roland Geider",
-        "url": "https://github.com/rolandgeider/wger"
+        "url": "https://github.com/wger-project/wger"
     },
     "default_locale": "en",
     "locales": {

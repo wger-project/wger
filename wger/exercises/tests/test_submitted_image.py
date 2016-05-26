@@ -33,11 +33,11 @@ class ImagePendingDetailTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
 
         if not fail:
-            self.assertContains(response, 'Pending images')
+            self.assertContains(response, 'Images pending review')
             self.assertContains(response, 'Accept')
             self.assertContains(response, 'Decline')
         else:
-            self.assertNotContains(response, 'Pending images')
+            self.assertNotContains(response, 'Images pending review')
             self.assertNotContains(response, 'Accept')
             self.assertNotContains(response, 'Decline')
 

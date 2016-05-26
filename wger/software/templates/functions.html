@@ -42,9 +42,11 @@
         {% endif %}
 
         {% if not user.is_authenticated or user.userprofile.is_temporary %}
+        {% if allow_registration %}
         <p>
             <a href="{% url 'core:user:registration' %}" class="btn btn-default btn-lg btn-block">{% trans "Register" %}</a>
         </p>
+        {% endif %}
 
         <p>
             <a href="{% url 'core:user:login' %}" class="btn btn-default btn-lg btn-block">{% trans "Login" %}</a>
@@ -61,7 +63,7 @@
 <div class="row">
     <div class="col-sm-8 col-sm-offset-2 col-xs-12">
         {% blocktrans %}wger Workout Manager is a free, open source web application that manages
-your exercises and workouts. It started as a pet project of mine to replace my
+your exercises, workouts and nutrition. It started as a pet project of mine to replace my
 growing collection of different spreadsheets, but it has become something other
 people could also find useful.{% endblocktrans %}
     </div>
@@ -95,7 +97,7 @@ also combine different workouts into a schedule.{% endblocktrans %}
         </h4>
         <p>{% blocktrans %}You can enter
 the weights and repetitions you did for each exercise. As with the (body) weight,
-it will generate some diagrams so so you can see at a glance how well you are doing.
+it will generate some diagrams so you can see at a glance how well you are doing.
 The raw numbers are still accessible as a table.{% endblocktrans %}
             {% trans "You can also enter notes and a general impression (great, neutral, etc.)" %}</p>
             <img src="{% static 'images/workout-log.png' %}"
@@ -188,7 +190,7 @@ the development of wger or deploy private installations.{% endblocktrans %}</p>
             {% trans "Join and help" %}
             </strong>
         </h4>
-        <a href="https://github.com/rolandgeider/wger" class="btn btn-primary btn-block">
+        <a href="https://github.com/wger-project/wger" class="btn btn-primary btn-block">
             {% trans "Join development" %}
             <span class="glyphicon glyphicon-chevron-right"></span>
         </a>
@@ -196,7 +198,7 @@ the development of wger or deploy private installations.{% endblocktrans %}</p>
             {% trans "Problems and wishes" %}
             <span class="glyphicon glyphicon-chevron-right"></span>
         </a>
-        <a href="https://www.transifex.com/projects/p/wger-workout-manager/" class="btn btn-primary btn-block">
+        <a href="https://www.transifex.com/rge/wger-workout-manager/" class="btn btn-primary btn-block">
             {% trans "Translate" %}
             <span class="glyphicon glyphicon-chevron-right"></span>
         </a>

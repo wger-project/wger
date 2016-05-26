@@ -138,7 +138,6 @@ class GymAddView(WgerFormMixin, CreateView):
 
     model = Gym
     fields = '__all__'
-    success_url = reverse_lazy('gym:gym:list')
     title = ugettext_lazy('Add new gym')
     form_action = reverse_lazy('gym:gym:add')
     permission_required = 'gym.add_gym'
@@ -200,6 +199,33 @@ def gym_new_user_info_export(request):
     response['Content-Disposition'] = 'attachment; filename={0}'.format(filename)
     response['Content-Length'] = len(response.content)
     return response
+
+
+def reset_user_password(request, user_pk):
+    '''
+    Resets the password of the selected user to random password
+    '''
+
+    user = get_object_or_404(User, pk=user_pk)
+
+    if not request.user.is_authenticated():
+        return HttpResponseForbidden()
+
+    if not request.user.has_perm('gym.manage_gyms') \
+            and not request.user.has_perm('gym.manage_gym'):
+        return HttpResponseForbidden()
+
+    if request.user.has_perm('gym.manage_gym') \
+            and request.user.userprofile.gym != user.userprofile.gym:
+        return HttpResponseForbidden()
+
+    password = password_generator()
+    user.set_password(password)
+    user.save()
+
+    context = {'mod_user': user,
+               'password': password}
+    return render(request, 'gym/reset_user_password.html', context)
 
 
 def gym_permissions_user_edit(request, user_pk):

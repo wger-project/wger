@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load i18n staticfiles wger_extras %}
+
+{% block title %}{% trans "Muscle overview" %}{% endblock %}
+
+
+{% block content %}
+<ul class="list-group">
+    {% for muscle in muscle_list %}
+    <li class="list-group-item ">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-cog"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="{% url 'exercise:muscle:edit' muscle.id %}" class="wger-modal-dialog">{% trans 'Edit' %}</a>
+                </li>
+                <li>
+                    <a href="{% url 'exercise:muscle:delete' muscle.id %}" class="wger-modal-dialog">{% trans 'Delete' %}</a>
+                </li>
+            </ul>
+        </div>
+        {{ muscle }}
+    </li>
+    {% empty %}
+        <li class="list-group-item">
+            {% trans "Nothing found" %}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+
+
+
+{% block sidebar %}
+{% if perms.exercises.add_equipment %}
+<p>
+    <a href="{% url 'exercise:muscle:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+        {% trans "Add muscle" %}
+    </a>
+</p>
+
+<p>{% blocktrans %}<strong>Important:</strong> After adding a muscle, you need
+to create a new SVG image with the contours of the muscle and place it in the
+folder <em>images/muscles</em>.{% endblocktrans %}</p>
+{% endif %}
+{% endblock %}

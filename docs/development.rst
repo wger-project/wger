@@ -11,11 +11,16 @@ First, create a virtual environment::
 Get the code and start the application. This will create a SQlite database
 and populate it with data on the first run::
 
-  $ git clone https://github.com/rolandgeider/wger.git
+  $ git clone https://github.com/wger-project/wger.git
   $ cd wger
   $ pip install -r requirements_devel.txt
-  $ npm install bower
+  $ invoke create_settings \
+           --settings-path /home/wger/wger/settings.py \
+           --database-path /home/wger/wger/database.sqlite
   $ invoke bootstrap_wger
+           --settings-path /home/wger/wger/settings.py \
+           --no-start-server
+  $ python manage.py runserver
 
 That's it. You can log in with the default administator user:
 
@@ -118,6 +123,7 @@ user will have 20 workouts and each exercise in each workout 30 log entries::
   python generator.py logs 30
   python generator.py sessions random
   python generator.py weight 100
+  python generator.py nutrition 20
 
 .. note::
    All generated users have their username as password.

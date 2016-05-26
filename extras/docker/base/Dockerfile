@@ -1,5 +1,5 @@
 #
-# Base Dockerimage for wger images
+# Base Docker image for wger images
 #
 #
 # This dockerfile simply installs all common dependencies for the
@@ -21,4 +21,4 @@ RUN apt-get update;\
 
 # Add wger user
 RUN adduser wger --disabled-password --gecos ""
-RUN echo "wger ALL=(ALL) NOPASSWD:ALL" > etc/sudoers.d/wger
+RUN echo "wger ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/wger

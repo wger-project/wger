@@ -23,12 +23,10 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.utils import formats
 from django.utils.translation import ugettext_lazy, ugettext as _
 from django.forms.models import modelformset_factory
 from django.views.generic import (
     UpdateView,
-    CreateView,
     DetailView,
     DeleteView
 )
@@ -76,46 +74,6 @@ class WorkoutLogUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
         context['title'] = _(u'Edit log entry for %s') % self.object.exercise.name
 
         return context
-
-
-class WorkoutLogAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
-    '''
-    Generic view to add a new workout log weight entry
-    '''
-    model = WorkoutLog
-    login_required = True
-    form_class = WorkoutLogForm
-
-    def dispatch(self, request, *args, **kwargs):
-        '''
-        Check for ownership
-        '''
-        workout = Workout.objects.get(pk=kwargs['workout_pk'])
-        if workout.user != request.user:
-            return HttpResponseForbidden()
-
-        return super(WorkoutLogAddView, self).dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super(WorkoutLogAddView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('manager:log:add',
-                                         kwargs={'workout_pk': self.kwargs['workout_pk']})
-        context['title'] = _('New log entry')
-
-        return context
-
-    def get_success_url(self):
-        return reverse('manager:log:log', kwargs={'pk': self.kwargs['workout_pk']})
-
-    def form_valid(self, form):
-        '''
-        Set the workout and the user
-        '''
-
-        workout = Workout.objects.get(pk=self.kwargs['workout_pk'])
-        form.instance.workout = workout
-        form.instance.user = self.request.user
-        return super(WorkoutLogAddView, self).form_valid(form)
 
 
 class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
@@ -224,7 +182,10 @@ def add(request, pk):
     else:
         # Initialise the formset with a queryset that won't return any objects
         # (we only add new logs here and that seems to be the fastest way)
-        formset = WorkoutLogFormSet(queryset=WorkoutLog.objects.none())
+        user_weight_unit = 1 if request.user.userprofile.use_metric else 2
+        formset = WorkoutLogFormSet(queryset=WorkoutLog.objects.none(),
+                                    initial=[{'weight_unit': user_weight_unit,
+                                              'repetition_unit': 1} for x in range(0, total_sets)])
 
         dateform = HelperDateForm(initial={'date': datetime.date.today()})
 
@@ -283,8 +244,18 @@ class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
                     exercise_id = exercise_list['obj'].id
                     exercise_log[exercise_id] = []
 
+                    # Filter the logs for user and exclude all units that are not weight
+                    #
+                    # TODO: add the repetition_unit to the filter. For some reason (bug
+                    #       in django? DB problems?) when adding the filter there, the
+                    #       execution time explodes. The weight unit filter works as
+                    #       expected. Also, adding the unit IDs to the exclude list
+                    #       also has the disadvantage that if new ones are added in a
+                    #       local instance, they could "slip" through.
                     logs = exercise_list['obj'].workoutlog_set.filter(user=self.owner_user,
-                                                                      workout=self.object)
+                                                                      weight_unit__in=(1, 2),
+                                                                      workout=self.object) \
+                        .exclude(repetition_unit_id__in=(2, 3, 4, 5, 6, 7, 8))
                     entry_log, chart_data = process_log_entries(logs)
                     if entry_log:
                         exercise_log[exercise_list['obj'].id].append(entry_log)

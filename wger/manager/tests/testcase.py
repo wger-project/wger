@@ -89,6 +89,8 @@ class BaseTestCase(object):
     fixtures = ('days_of_week',
                 'gym_config',
                 'groups',
+                'setting_repetition_units',
+                'setting_weight_units',
                 'test-languages',
                 'test-licenses',
                 'test-gyms',
@@ -539,7 +541,8 @@ class WorkoutManagerAccessTestCase(WorkoutManagerTestCase):
         Tests accessing the URL as the unauthorized, logged in users
         '''
 
-        for user in get_user_list(self.user_fail):
-            self.user_login(user)
-            self.access(fail=True)
-            self.user_logout()
+        if self.user_fail:
+            for user in get_user_list(self.user_fail):
+                self.user_login(user)
+                self.access(fail=True)
+                self.user_logout()

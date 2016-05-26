@@ -59,7 +59,7 @@
         </td>
     </tr>
     <tr>
-        <th>{% trans "Is loop" %}</th>
+        <th>{% trans "Is a loop" %}</th>
         <td>
             {% if schedule.is_loop %}
                 <span class="glyphicon glyphicon-ok"></span>
@@ -158,20 +158,20 @@
 <h4>{% trans "Adding workouts" %}</h4>
 
 <p>{% blocktrans %}Add as many workouts to the schedule as you want. You can
-edit the order per drag-and-drop. It's also possible to add one workout more
+edit the order by dragging and dropping them. It's also possible to add one workout more
 than once.{% endblocktrans %}</p>
 
 <h4>{% trans "Options" %}</h4>
 
-<p>
-<a href="{% url 'manager:schedule:pdf' schedule.id uid token %}" class="btn btn-default btn-block">
-<img src="{% static 'images/icons/save.svg' %}"
-    width="32"
-    height="32"
-    alt="{% trans 'Download as PDF' %}"
-    title="{% trans 'Download as PDF' %}">
-{% trans "Download as PDF" %}</a>
-</p>
+
+<a href="#download-pdf-popup" data-toggle="modal" {% auto_link_css flavour %}>
+    <img src="{% static 'images/icons/save.svg' %}"
+         width="32"
+         height="32"
+         alt="{% trans 'Download as PDF' %}"
+         title="{% trans 'Download as PDF' %}">
+    {% trans "Download as PDF" %}
+</a>
 
 <p>
 <a href="#export-ical-link"
@@ -227,6 +227,70 @@ an appointment for each training day with the appropriate exercises.{% endblockt
                          alt="{% trans 'Export calendar file' %}"
                          title="{% trans 'Export calendar file' %}">
                    {% trans "Export calendar file" %}
+                </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="download-pdf-popup">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{% trans "Download as PDF" %}</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div id="pdf-download-info" data-schedule-id="{{ schedule.id }}" data-uid="{{ uid }}" data-token="{{ token }}"></div>
+                    <div class="form-group">
+                        <div>
+                            <label for="id_images" class="col-md-3 control-label">
+                                {% trans "Type" %}
+                            </label>
+                        </div>
+                        <div class="col-md-9" style="padding-left: 35px;">
+                            <div class="radio">
+                                <input type="radio" name="pdf_type" id="id_type_log" value="log" checked>
+                                {% trans "Log" %}
+                            </div>
+                            <div class="radio">
+                                <input type="radio" name="pdf_type" id="id_type_table" value="table">
+                                {% trans "Table" %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label for="id_images" class="col-md-3 control-label">
+                                {% trans "with images" %}
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="checkbox" class="checkbox" name="images" id="id_images" checked>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label for="id_comments" class="col-md-3 control-label">
+                                {% trans "with comments" %}
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="checkbox" class="checkbox" name="comments" id="id_comments" checked>
+                        </div>
+                    </div>
+                </form>
+
+                <p>
+                <a href="" class="btn btn-block btn-default" id="download-pdf-button">
+                   <img src="{% static 'images/icons/save.svg' %}"
+                         width="32"
+                         height="32"
+                         alt="{% trans 'Download' %}"
+                         title="{% trans 'Download' %}">
+                   {% trans "Download" %}
                 </a>
                 </p>
             </div>

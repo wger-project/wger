@@ -5,36 +5,25 @@
 
 
 {% block content %}
-<table class="table">
-<thead>
-    <tr>
-        <th>{% trans "Language short name" %}</th>
-        <th>{% trans "Language full name" %}</th>
-    </tr>
-</thead>
-<tbody>
-{% for language in language_list %}
-    <tr>
-        <td>{{language.short_name}}</td>
-        <td><a href="{% url 'config:language:view' language.id %}">{{language.full_name}}</a></td>
-    </tr>
-{% endfor %}
-</tbody>
-
-</table>
+    <div class="list-group">
+        {% for language in language_list %}
+            <a href="{% url 'config:language:view' language.id %}" class="list-group-item">
+                <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                {{ language.full_name }}
+            </a>
+        {% empty %}
+            <a href="{% url 'config:language:add' %}" class="list-group-item">
+            {% trans "Nothing found." %}<br>{% trans "Add one now." %}
+            </a>
+        {% endfor %}
+    </div>
 {% endblock %}
 
 
 
 {% block sidebar %}
-<h4>{% trans "Options" %}</h4>
 <p>
-    <a href="{% url 'config:language:add' %}" {% auto_link_css flavour "wger-modal-dialog" %}>
-        <img src="{% static 'images/icons/folder-new.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Add' %}"
-             >
+    <a href="{% url 'config:language:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
         {% trans "Add" %}
     </a>
 </p>

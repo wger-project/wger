@@ -22,8 +22,8 @@ from django.utils.translation import ugettext_lazy
 from django.views.generic import (
     DeleteView,
     CreateView,
-    UpdateView
-)
+    UpdateView,
+    ListView)
 
 from wger.exercises.models import ExerciseCategory
 
@@ -38,9 +38,14 @@ from wger.utils.language import load_language
 logger = logging.getLogger(__name__)
 
 
-# ************************
-#   Exercise categories
-# ************************
+class ExerciseCategoryListView(WgerPermissionMixin, ListView):
+    '''
+    Overview of all categories, for administration purposes
+    '''
+    model = ExerciseCategory
+    login_required = True
+    permission_required = 'exercises.change_exercisecategory'
+    template_name = 'categories/admin-overview.html'
 
 
 class ExerciseCategoryAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
@@ -50,7 +55,7 @@ class ExerciseCategoryAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
 
     model = ExerciseCategory
     fields = '__all__'
-    success_url = reverse_lazy('exercise:exercise:overview')
+    success_url = reverse_lazy('exercise:category:list')
     title = ugettext_lazy('Add category')
     form_action = reverse_lazy('exercise:category:add')
     permission_required = 'exercises.add_exercisecategory'
@@ -67,7 +72,7 @@ class ExerciseCategoryUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin)
 
     model = ExerciseCategory
     fields = '__all__'
-    success_url = reverse_lazy('exercise:exercise:overview')
+    success_url = reverse_lazy('exercise:category:list')
     permission_required = 'exercises.change_exercisecategory'
 
     # Send some additional data to the template
@@ -90,7 +95,7 @@ class ExerciseCategoryDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixi
     '''
 
     model = ExerciseCategory
-    success_url = reverse_lazy('exercise:exercise:overview')
+    success_url = reverse_lazy('exercise:category:list')
     delete_message = ugettext_lazy('This will also delete all exercises in this category.')
     messages = ugettext_lazy('Successfully deleted')
     permission_required = 'exercises.delete_exercisecategory'

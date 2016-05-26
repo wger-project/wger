@@ -139,6 +139,6 @@ class NutritionalValuesCalculationsTestCase(WorkoutManagerTestCase):
         self.assertEqual(values['percent']['fat'], Decimal(20.36).quantize(TWOPLACES))
         self.assertEqual(values['percent']['protein'], Decimal(26.06).quantize(TWOPLACES))
 
-        self.assertEqual(values['per_kg']['carbohydrates'], Decimal(4.81).quantize(TWOPLACES))
-        self.assertEqual(values['per_kg']['fat'], Decimal(1.46).quantize(TWOPLACES))
-        self.assertEqual(values['per_kg']['protein'], Decimal(4.21).quantize(TWOPLACES))
+        self.assertEqual(values['per_kg']['carbohydrates'], Decimal(4.96).quantize(TWOPLACES))
+        self.assertEqual(values['per_kg']['fat'], Decimal(1.51).quantize(TWOPLACES))
+        self.assertEqual(values['per_kg']['protein'], Decimal(4.33).quantize(TWOPLACES))

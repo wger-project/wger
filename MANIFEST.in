@@ -3,8 +3,22 @@ include AUTHORS.txt
 include AGPL.txt
 include CC-BY-SA.txt
 include requirements.txt
+include tasks.py
 
 recursive-include wger *.*
 recursive-exclude wger *.pyc
 recursive-exclude wger *.swp
 recursive-exclude wger *~
+
+# added by check_manifest.py
+include *.rst
+include *.txt
+recursive-include docs *.bat
+recursive-include docs *.py
+recursive-include docs *.rst
+recursive-include docs Makefile
+recursive-include extras *.README
+recursive-include extras *.conf
+recursive-include extras *.csv
+recursive-include extras *.py
+recursive-include extras *.txt

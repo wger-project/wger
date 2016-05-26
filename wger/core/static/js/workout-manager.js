@@ -509,7 +509,7 @@ function init_edit_set() {
     // Initialise the autocompleter (our widget, defined above)
     if (jQuery.ui) {
         $("#exercise-search").catcomplete({
-            source: '/api/v2/exercise/search/',
+            source: '/api/v2/exercise/search/?language=' + get_current_language(),
             minLength: 2,
             select: function (event, ui) {
 
@@ -664,3 +664,60 @@ function prefetch_images(imageArray) {
         }
     });
 }
+
+/*
+ * Handle the workout PDF download options for workouts
+ */
+$(document).ready(function() {
+    $('#download-pdf-button').click(function (e) {
+        e.preventDefault();
+
+        var downloadInfo = $('#pdf-download-info');
+        var downloadType = $('input[name="pdf_type"]:checked').val();
+        var downloadImages = $('#id_images').is(':checked') ? 1 : 0;
+        var downloadComments = $('#id_comments').is(':checked') ? 1 : 0;
+
+        var workoutId = downloadInfo.data('workoutId');
+        var uid = downloadInfo.data('uid');
+        var token = downloadInfo.data('token');
+
+        // Put together and redirect
+        var targetUrl = '/' + get_current_language() +
+            '/workout/' + workoutId + '/pdf' +
+            '/' + downloadType +
+            '/' + downloadImages +
+            '/' + downloadComments +
+            '/' + uid +
+            '/' + token;
+        window.location.href = targetUrl;
+    });
+});
+
+
+/*
+ * Handle the workout PDF download options for schedules
+ */
+$(document).ready(function() {
+    $('#download-pdf-button-schedule').click(function (e) {
+        e.preventDefault();
+
+        var downloadInfo = $('#pdf-download-info');
+        var downloadType = $('input[name="pdf_type"]:checked').val();
+        var downloadImages = $('#id_images').is(':checked') ? 1 : 0;
+        var downloadComments = $('#id_comments').is(':checked') ? 1 : 0;
+
+        var scheduleId = downloadInfo.data('scheduleId');
+        var uid = downloadInfo.data('uid');
+        var token = downloadInfo.data('token');
+
+        // Put together and redirect
+        var targetUrl = '/' + get_current_language() +
+            '/workout/schedule/' +scheduleId + '/pdf' +
+            '/' + downloadType +
+            '/' + downloadImages +
+            '/' + downloadComments +
+            '/' + uid +
+            '/' + token;
+        window.location.href = targetUrl;
+    });
+});

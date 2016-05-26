@@ -14,16 +14,24 @@ Developers
 * Benny Tran - https://github.com/tranbenny
 * Roman Pavlov - https://github.com/romansp
 * Mihail Burduja - https://github.com/warchildmd
+* Colin Hare - https://github.com/cthare
+* Ryan Hughes - https://github.com/purplebird
+* Alexandre Murphy-Gonthier - https://github.com/murphyalexandre
+* Verdi R-D: https://github.com/azend
+* Alois: https://github.com/alokhan
+* Alelevinas: https://github.com/alelevinas
 
 Translators
 -----------
 
 * Bulgarian: Lyuboslav Petrov
+* Czech: Tomáš Z.
 * Dutch: David Machiels
 * Greek: Mark Nicolaou
 * Portuguese: Jefferson Campos – http://jeffersoncampos.eti.br
 * Russian: Inna
 * Spanish: acv2facundo
+* Swedish: ywecur
 
 
 Exercises

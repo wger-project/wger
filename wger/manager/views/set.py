@@ -44,7 +44,7 @@ logger = logging.getLogger(__name__)
 # ************************
 # Set functions
 # ************************
-SETTING_FORMSET_FIELDS = ('reps', 'weight')
+SETTING_FORMSET_FIELDS = ('reps', 'repetition_unit', 'weight', 'weight_unit')
 
 SettingFormset = modelformset_factory(Setting,
                                       form=SettingForm,
@@ -64,7 +64,10 @@ def create(request, day_pk):
     if day.get_owner_object().user != request.user:
         return HttpResponseForbidden()
 
-    # Select the correct form depending on the flavour of the request
+    # Select the correct form depending on the flavour of the request.
+    # The difference is that the mobile form doesn't use the autocompleter for
+    # exercises, but 2 dropdowns, one to filter by category and one to select
+    # the exercises themselves.
     if request.flavour == 'mobile':
         form_class = SetFormMobile
     else:

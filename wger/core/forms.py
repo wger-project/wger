@@ -127,9 +127,14 @@ class RegistrationForm(UserCreationForm, UserEmailForm):
     '''
     Registration form
     '''
-    captcha = ReCaptchaField(attrs={'theme': 'clean'},
+
+    # Manually set the language to 'en', otherwise the language used seems to
+    # randomly one of the application languages. This also appears to happen
+    # only on wger.de, perhaps because there the application is behind a reverse
+    # proxy. See  #281.
+    captcha = ReCaptchaField(attrs={'theme': 'clean', 'lang': 'en'},
                              label=_('Confirmation text'),
-                             help_text=_('As a security measure, please enter the previous words'),)
+                             help_text=_('As a security measure, please enter the previous words'))
 
 
 class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):

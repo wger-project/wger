@@ -65,6 +65,8 @@
                                 <li class="dropdown-header">{% trans "Administration" %}</li>
                                 <li><a href="{% url 'exercise:exercise:pending' %}">{% trans "Exercises pending review" %}</a></li>
                                 <li><a href="{% url 'exercise:equipment:list' %}">{% trans "Equipment" %}</a></li>
+                                <li><a href="{% url 'exercise:muscle:admin-list' %}">{% trans "Muscles" %}</a></li>
+                                <li><a href="{% url 'exercise:category:list' %}">{% trans "Categories" %}</a></li>
                                 {% endif %}
                             </ul>
                         </li>
@@ -102,7 +104,7 @@
                             <li><a href="{% url 'nutrition:ingredient:list' %}">{% trans "Ingredient overview" %}</a></li>
                             <li><a href="{% url 'nutrition:bmi:view' %}" rel="nofollow">{% trans "BMI calculator" %}</a></li>
                             <li><a href="{% url 'nutrition:calories:view' %}" rel="nofollow">{% trans "Daily calories calculator" %}</a></li>
-                            {% if perms.exercises %}
+                            {% if perms.nutrition %}
                                 <li class="divider"></li>
                                 <li class="dropdown-header">{% trans "Administration" %}</li>
                                 <li><a href="{% url 'nutrition:weight_unit:list' %}">{% trans "Ingredient weight units" %}</a></li>
@@ -126,12 +128,21 @@
                                 <li><a href="{% url 'software:issues' %}">{% trans "Problems and wishes" %} </a></li>
                                 <li><a href="{% url 'software:tos' %}">{% trans "Terms of service" %} </a></li>
                                 <li class="divider"></li>
-                                <li><a href="{% url 'software:code' %}">{% trans "Get the code" %} </a></li>
                                 <li><a href="{% url 'software:api' %}">{% trans "REST API" %} </a></li>
                                 <li><a href="{% url 'software:license' %}">{% trans "License" %} </a></li>
                                 <li><a href="{% url 'software:changelog' %}">{% trans "Changelog" %} </a></li>
-                                <li><a href="https://github.com/rolandgeider/wger">{% trans "Github" %} </a></li>
-                                <li><a href="https://www.transifex.com/projects/p/wger-workout-manager/">{% trans "Translate with Transifex" %} </a></li>
+                                <li>
+                                    <a href="https://github.com/wger-project/wger">
+                                        <span class="fa fa-external-link" aria-hidden="true"></span>
+                                        {% trans "Get the code" %} (Github)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.transifex.com/rge/wger-workout-manager/">
+                                        <span class="fa fa-external-link" aria-hidden="true"></span>
+                                        {% trans "Translate with Transifex" %}
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 
@@ -205,6 +216,12 @@
                                         {% endif %}
                                         {% if perms.core.change_license %}
                                             <li><a href="{% url 'core:license:list' %}">{% trans "Licenses" %} </a></li>
+                                        {% endif %}
+                                        {% if perms.core.change_repetitionunit %}
+                                            <li><a href="{% url 'core:repetition-unit:list' %}">{% trans "Repetition units" %} </a></li>
+                                        {% endif %}
+                                        {% if perms.core.change_weightunit %}
+                                            <li><a href="{% url 'core:weight-unit:list' %}">{% trans "Weight units" %} </a></li>
                                         {% endif %}
                                         {% if perms.gym.manage_gyms %}
                                             <li><a href="{% url 'core:user:list' %}">{% trans "User list" %} </a></li>

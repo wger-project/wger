@@ -47,11 +47,19 @@ Configure apache to serve the application::
         CustomLog ${APACHE_LOG_DIR}/access.log combined
     </VirtualHost>
 
+Apache has a problem when uploading files that have non-ASCII characters, e.g.
+for exercise images. To avoid this, add to /etc/apache2/envvars (if there is
+already an ``export LANG``, replace it)::
+
+    export LANG='en_US.UTF-8'
+    export LC_ALL='en_US.UTF-8'
+
+
 Activate the settings and disable apache's default::
 
-    RUN a2dissite 000-default.conf
-    RUN a2ensite wger
-    service apache2 reload
+    sudo a2dissite 000-default.conf
+    sudo a2ensite wger
+    sudo service apache2 reload
 
 Database
 ---------
@@ -61,11 +69,14 @@ postgreSQL
 
 Install the postgres server and create a database and a user::
 
-    sudo apt-get install postgresql
+    sudo apt-get install postgresql postgresql-server-dev-9.3 # or appropriate version
     su - postgres
     createdb wger
     psql wger -c "CREATE USER wger WITH PASSWORD 'wger'";
     psql wger -c "GRANT ALL PRIVILEGES ON DATABASE wger to wger";
+
+You might want or need to edit your ``pg_hba.conf`` file to allow local socket
+connections or similar.
 
 
 sqlite
@@ -97,7 +108,7 @@ be writeable as well::
 
 Get the application::
 
-  git clone https://github.com/rolandgeider/wger.git /home/wger/src
+  git clone https://github.com/wger-project/wger.git /home/wger/src
   cd /home/wger/src
   npm install bower
   pip install -r requirements.txt
@@ -111,14 +122,15 @@ correct values for the database (use ``django.db.backends.postgresql_psycopg2``
 for the engine). Also set ``MEDIA_ROOT`` to ``/home/wger/media`` and
 ``STATIC_ROOT`` to ``/home/wger/static``.
 
+Run the installation script, this will download some CSS and JS libraries and
+load all initial data::
+
+  invoke bootstrap_wger --settings-path /path/to/settings.py --no-start-server
+
+
 Collect all static resources::
 
     python manage.py collectstatic
-
-
-Run the installation script, this will load all initial data::
-
-  invoke bootstrap_wger --settings-path /path/to/settings.py --no-start-server
 
 
 The bootstrap command will also create a default administrator user (you probably

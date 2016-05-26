@@ -59,34 +59,41 @@ $(document).ready(function() {
                 <div class="col-sm-4">
                 <div class="panel panel-default">
                     <div class="panel-heading" style="min-height: 4em;">{{ exercise }}</div>
-                    <div class="panel-body" style="min-height: 9em;">
-                    <ul>
+                    <ul class="list-group" style="min-height: 10em;">
                     {% for log in logs %}
-                        <li>
-                            {{log.reps}} × {{log.weight}}
+                        <li class="list-group-item">
+                            {{log.reps}}
+                            {% if not log.repetition_unit.is_repetition %}
+                                {% trans log.repetition_unit.name %}
+                            {% endif %}
+                            ×
+                            {{log.weight}} {% trans log.weight_unit.name %}
+
                             {% if is_owner %}
                             <span class="editoptions">
-                                <a href="{% url 'manager:log:delete' log.pk %}"
-                                   title="{% trans 'Delete' %}"
-                                   class="wger-modal-dialog">
-                                       <img src="{% static 'images/icons/trash.svg' %}"
-                                            width="16"
-                                            height="16"
-                                            alt="{% trans 'Delete' %}"></a>
-                                <a href="{% url 'manager:log:edit' log.pk %}"
-                                   title="{% trans 'Edit' %}"
-                                   class="wger-modal-dialog">
-                                       <img src="{% static 'images/icons/edit.svg' %}"
-                                            width="16"
-                                            height="16"
-                                            alt="{% trans 'Edit' %}"></a>
+                                <div class="btn-group pull-right">
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                                        <span class="glyphicon glyphicon-cog"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a href="{% url 'manager:log:edit' log.pk %}"
+                                               title="{% trans 'Edit' %}"
+                                               class="wger-modal-dialog">{% trans 'Edit' %}</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'manager:log:delete' log.pk %}"
+                                               title="{% trans 'Delete' %}"
+                                               class="wger-modal-dialog">{% trans 'Delete' %}</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </span>
                             {% endif %}
                         </li>
                     {% endfor %}
                     </ul>
                     </div>
-                </div>
                 </div>
             {% endfor %}
         </div>
@@ -99,6 +106,15 @@ $(document).ready(function() {
 {# Side bar #}
 {#          #}
 {% block sidebar %}
+{% if is_owner %}
+<p>
+    <a href="#" id="calendar-day-select-link" data-toggle="modal" data-target="#ecalendar-day-select-popup" class="btn btn-success btn-sm">
+        {% trans "Add new log" %}
+    </a>
+</p>
+{% endif %}
+
+
 <div class="modal fade" id="ecalendar-day-select-popup">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -142,7 +158,6 @@ you can click on them to see the details.{% endblocktrans %}</p>
     <span style="background-color: #449D44; display: inline;">&nbsp;</span> {{ impressions.2.1 }}
 </p>
 
-<h4>{% trans 'Log' %}</h4>
 <p>
     <a href="{% url 'manager:workout:calendar' owner_user %}">
         <img src="{% static 'images/icons/calendar.svg' %}"
@@ -152,29 +167,26 @@ you can click on them to see the details.{% endblocktrans %}</p>
     {% trans "Go to current month" %}</a>
 </p>
 
-{% if is_owner %}
-<p>
-    <a href="#" id="calendar-day-select-link" data-toggle="modal" data-target="#ecalendar-day-select-popup">
-        <img src="{% static 'images/icons/add.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Add new log' %}">
-    {% trans "Add new log" %}</a>
-</p>
-{% endif %}
 
 {% regroup month_list by year as year_list %}
-{% for year in year_list reversed %}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">{{ year.grouper }}</h3>
+    <div class="panel-group" id="accordion">
+    {% for year in year_list reversed %}
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="heading{{ year.grouper }}">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ year.grouper }}" aria-expanded="true" aria-controls="collapse{{ year.grouper }}">
+                        {{ year.grouper }}
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse{{ year.grouper }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ year.grouper }}">
+                <div class="list-group">
+                    {% for month in year.list %}
+                        <a href="{% url 'manager:workout:calendar' owner_user year.grouper month.month %}" class="list-group-item">{{month|date:"F"}}</a>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
-
-        <ul class="list-group">
-        {% for month in year.list %}
-            <a href="{% url 'manager:workout:calendar' owner_user year.grouper month.month %}" class="list-group-item">{{month|date:"F"}}</a>
-        {% endfor %}
-        </ul>
+    {% endfor %}
     </div>
-{% endfor %}
 {% endblock %}

@@ -8,9 +8,6 @@
 {% block title %}{% endblock %}
 
 {% block header %}
-<style>
-
-</style>
 <script>
 "use strict";
 /*
@@ -284,10 +281,14 @@ $(document).ready(function() {
             data-step="{{step.current_step}}"
             data-number="{{step.step_nr}}">
             <h2>{{step.exercise}}</h2>
-            <form action="{% url 'manager:log:add' workout.pk %}"
+            <form action="/api/v2/workoutlog/"
                   method="POST"
                   id="form-{{step.current_step}}">
                 {% csrf_token %}
+                <input name="workout"
+                       id="id-workout"
+                       value="{{workout.pk}}"
+                       type="hidden">
                 <input name="exercise"
                        id="id-exercise-{{step.current_step}}"
                        value="{{step.exercise.pk}}"
@@ -296,7 +297,7 @@ $(document).ready(function() {
                        id="id-date-{{step.current_step}}"
                        value="{% now 'Y-m-j' %}"
                        type="hidden">
-            <div class="row filler_div">
+            <div class="row">
                 <div class="col-xs-6">
                     <label for="id-reps-{{step.current_step}}">{% trans "Repetitions" %}:</label>
                     <input name="reps"
@@ -318,14 +319,43 @@ $(document).ready(function() {
                            class="form-control">
                 </div>
             </div>
+            <div class="row filler_div">
+                <div class="col-xs-6">
+                     <select name="repetition_unit" id="id-repetition-unit-{{step.current_step}}" class="form-control">
+                         {% for unit in repetition_units %}
+                             <option value="{{ unit.pk }}" {% if unit.pk = step.rep_unit.pk %}selected="selected"{% endif %}>
+                                {% trans unit.name %}
+                             </option>
+                         {% endfor %}
+                    </select>
+                </div>
+                <div class="col-xs-6">
+                    <select name="weight_unit" id="id-weight-unit-{{step.current_step}}" class="form-control">
+                         {% for unit in weight_units %}
+                             <option value="{{ unit.pk }}" {% if unit.pk = step.weight_unit.pk %}selected="selected"{% endif %}>
+                                {% trans unit.name %}
+                             </option>
+                         {% endfor %}
+                    </select>
+                </div>
+            </div>
             </form>
 
             <div class="sub_header">
                 <h2>
                 {% if step.weight %}
-                    {{step.reps}} × {{step.weight}} {% trans_weight_unit 'kg' user %}
+                    {{step.reps}}
+                    {% if step.unit.id != 1 %}
+                        {{ step.unit }}
+                    {% endif %}
+                    × {{step.weight}} {% trans_weight_unit 'kg' user %}
                 {% else %}
-                    {% if step.reps == 99 %}∞{% else %}{{step.reps}}{% endif %} {% trans "reps" %}
+                    {% if step.reps == 99 %}∞{% else %}{{step.reps}}{% endif %}
+                    {% if step.unit.id != 1 %}
+                        {{ step.unit }}
+                    {% else %}
+                        {% trans "reps" %}
+                    {% endif %}
                 {% endif %}
                 </h2>
             </div>
