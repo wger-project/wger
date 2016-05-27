@@ -39,6 +39,13 @@ Administration guide
    gym
 
 
+Changelog
+---------
+.. toctree::
+   :maxdepth: 2
+
+   changelog
+
 Contact
 -------
 

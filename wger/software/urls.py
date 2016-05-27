@@ -32,10 +32,6 @@ urlpatterns = [
         views.features,
         name='features'),
 
-    url(r'^changelog$',
-        TemplateView.as_view(template_name="changelog.html"),
-        name='changelog'),
-
     url(r'^license$',
         TemplateView.as_view(template_name="license.html"),
         name='license'),
