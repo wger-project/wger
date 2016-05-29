@@ -1,73 +1,30 @@
 {% extends "base.html" %}
 {% load i18n staticfiles wger_extras %}
 
-<!--
-        Title
--->
+{#       #}
+{# Title #}
+{#       #}
 {% block title %}{% trans "Weight overview" %}{% endblock %}
 
-<!--
-        Header data
--->
+{#        #}
+{# HEader #}
+{#        #}
 {% block header %}
 <link rel="stylesheet" type="text/css" href="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/metricsgraphics-custom.css' %}">
+<script src="{% static 'js/weight.js' %}"></script>
 <script src="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.min.js' %}"></script>
-
-
-<script type="text/javascript">
-var globals = {};
-var modify_time_period_params = {
-    animate_on_load: true,
-    full_width: true,
-    height: 300,
-    show_secondary_x_label: true,
-    xax_count: 10,
-    target: '#weight_diagram',
-    x_accessor: 'date',
-    y_accessor: 'weight',
-}
-
-$(document).ready(function () {
-
-    d3.json("/weight/api/get_weight_data/{{ owner_user.username }}", function(json) {
-
-        data =  MG.convert.date(json, 'date');
-        globals.data = data;
-
-        // Plot the data
-        modify_time_period_params.data = data;
-        MG.data_graphic(modify_time_period_params);
-    });
-
-    $('.modify-time-period-controls button').click(function() {
-        var past_n_days = $(this).data('time_period');
-        var data = modify_time_period(globals.data, past_n_days);
-
-        // change button state
-        $(this).addClass('active').siblings().removeClass('active');
-
-        modify_time_period_params.data = data;
-        MG.data_graphic(modify_time_period_params);
-    });
-});
-
-
-function modify_time_period(data, past_n_days) {
-    if (past_n_days !== 'all' || past_n_days !== '') {
-        return MG.clone(data).slice(past_n_days * -1);
-    }
-
-    return data;
-}
-</script>
 {% endblock %}
 
 
-<!--
-        Main Content
--->
+
+{#         #}
+{# Content #}
+{#         #}
 {% block content %}
+<div id="current-username" data-current-username="{{ owner_user.username }}"></div>
+
+
 {% if not min_date %}
 <p>
     {% trans "There is no chart here because there are no weight entries." %}
@@ -125,9 +82,9 @@ function modify_time_period(data, past_n_days) {
 {% endblock %}
 
 
-<!--
-        Side bar
--->
+{#          #}
+{# Side bar #}
+{#          #}
 {% block sidebar %}
 <p>
     <a href="{% url 'weight:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
