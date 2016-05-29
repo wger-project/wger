@@ -2,6 +2,13 @@
  * Custom Metrics Graphics styles
  */
 
+.mg-x-axis text,
+.mg-y-axis text,
+.mg-histogram .axis text {
+    font-size: 1.3rem;
+}
+
+
 .mg-active-datapoint {
     fill: black;
     font-size: 0.9rem;
@@ -11,33 +18,26 @@
 
 .mg-area1-color {
     fill: #729fcf;
-    /*fill: #3465a4;*/
 }
 
 .mg-area2-color {
     fill: #8ae234;
-    /*fill: #73d216;*/
 }
 
 .mg-area3-color {
     fill: #ef2929;
-    /*fill: #cc0000;*/
 }
 
 .mg-area4-color {
     fill: #fcaf3e;
-    /*fill: #f57900;*/
 }
 
 .mg-area5-color {
     fill: #888a85;
-    /*fill: #555753;*/
 }
 
 path.mg-main-area {
-    /*opacity: 1;*/
     opacity: 0.9;
-    /*opacity: 0.5;*/
     stroke: none;
 }
 
