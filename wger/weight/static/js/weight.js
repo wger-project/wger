@@ -27,7 +27,8 @@ $(document).ready(function () {
         xax_count: 10,
         target: '#weight_diagram',
         x_accessor: 'date',
-        y_accessor: 'weight'
+        y_accessor: 'weight',
+        min_y_from_data: true
     }
 
 
