@@ -33,6 +33,9 @@
 {# Header #}
 {#        #}
 {% block header %}
+<link rel="stylesheet" type="text/css" href="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/metricsgraphics-custom.css' %}">
+<script src="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.min.js' %}"></script>
 <script>
 $(document).ready(function() {
     toggle_weight_log_table();
@@ -84,10 +87,9 @@ $(document).ready(function() {
 
                     <script>
                     $(document).ready(function() {
-                    weight_log_chart({{exercise_list.chart_data|safe}},
-                                    "{{exercise_list.div_uuid}}",
-                                    "{{reps}}",
-                                    $('#content').width());
+                    draw_weight_log_chart({{exercise_list.chart_data|safe}},
+                                          "{{exercise_list.div_uuid}}",
+                                          "{{reps}}");
                     });
                     </script>
                 {% endwith %}

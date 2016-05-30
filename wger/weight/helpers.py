@@ -182,30 +182,19 @@ def process_log_entries(logs):
         if entry.weight > max_weight[entry.date][entry.reps]:
             max_weight[entry.date][entry.reps] = entry.weight
 
-    # Group by repetitions
-    reps_list = {}
+    tmp = {}
     for entry in logs:
-        temp = {'date': '%s' % entry.date,
-                'id': 'manager:workout:log-%s' % entry.id}
-
-        # Only unique date, rep and weight combinations
-        if reps_list.get((entry.date, entry.reps, entry.weight)):
-            continue
-        else:
-            reps_list[(entry.date, entry.reps, entry.weight)] = True
+        if not tmp.get(entry.reps):
+            tmp[entry.reps] = []
 
         # Only add if weight is the maximum for the day
         if entry.weight != max_weight[entry.date][entry.reps]:
             continue
 
-        for rep in reps:
-            if entry.reps == rep:
-                temp[rep] = entry.weight
-            else:
-                # Mark entries without data, this is later filtered out by D3.
-                # We use the string 'n.a' instead of 0 to differentiate actual exercises
-                # where no weight was used.
-                temp[rep] = 'n.a'
-        chart_data.append(temp)
+        tmp[entry.reps].append({'date': entry.date,
+                                'weight': entry.weight,
+                                'reps': entry.reps})
+    for rep in tmp:
+        chart_data.append(tmp[rep])
 
     return entry_log, json.dumps(chart_data, cls=DecimalJsonEncoder)
