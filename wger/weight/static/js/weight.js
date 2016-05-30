@@ -28,7 +28,8 @@ $(document).ready(function () {
         target: '#weight_diagram',
         x_accessor: 'date',
         y_accessor: 'weight',
-        min_y_from_data: true
+        min_y_from_data: true,
+        colors: ['#3465a4']
     }
 
 
