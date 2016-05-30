@@ -84,7 +84,8 @@ function draw_weight_log_chart(data, div_id, rep_i18n) {
         right: 10,
         height: 200,
         legend: legend,
-        target: '#svg-' + div_id
+        target: '#svg-' + div_id,
+        colors: ['#204a87', '#a40000', '#4e9a06', '#ce5c00', '#5c3566', '#2e3436', '8f5902']
     });
 }
 
