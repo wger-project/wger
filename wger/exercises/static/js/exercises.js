@@ -59,22 +59,30 @@ function highlight_muscle(element) {
 function draw_weight_log_chart(data, div_id, rep_i18n) {
 
     var legend = [];
+    var min_values = [];
     var chart_data = [];
     for (var i = 0; i < data.length; i++) {
         chart_data[i] = MG.convert.date(data[i], 'date');
 
         // Read the possible repetitions for the chart legend
-        legend[i] = data[i][0].reps
+        legend[i] = data[i][0].reps;
+
+        // Read the minimum values for each repetition
+        min_values[i] = d3.min(data[i], function accessor (data) {
+            return data.weight;
+        });
     }
 
     MG.data_graphic({
         data: chart_data,
         y_accessor: 'weight',
-        // min_y_from_data: true,
+        min_y: d3.min(min_values),
         aggregate_rollover: true,
         full_width: true,
+        top: 10,
+        left: 10,
+        right: 10,
         height: 200,
-        right: 40,
         legend: legend,
         target: '#svg-' + div_id
     });
