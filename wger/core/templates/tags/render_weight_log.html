@@ -1,19 +1,8 @@
 {% load i18n staticfiles wger_extras %}
 <div id="svg-{{div_uuid}}" style="text-align:center;"></div>
 
-<div class="weight-chart-table-toggle" data-toggle-target="table-{{div_uuid}}">
-<p>
-    <a href="#">
-    <img src="{% static 'images/icons/toggle.svg' %}"
-            width="16"
-            height="16"
-            alt="{% trans 'Toggle data table' %}">
-    {% trans "Toggle data table" %}</a>
-</p>
-</div>
-
 <div style="overflow-x: auto;" class="weight-chart-table">
-<table class="noborder" style="border: 0 none; width: 7em; display:none;" id="table-{{div_uuid}}">
+<table class="noborder" style="border: 0 none; width: 7em;">
     <tr>
     {% for date, entry_list in log.items %}
     <td style="padding: 0em; border-top-width: 0px; vertical-align: top;">

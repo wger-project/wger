@@ -36,11 +36,6 @@
 <link rel="stylesheet" type="text/css" href="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/metricsgraphics-custom.css' %}">
 <script src="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.min.js' %}"></script>
-<script>
-$(document).ready(function() {
-    toggle_weight_log_table();
-});
-</script>
 {% endblock %}
 
 
@@ -59,15 +54,9 @@ $(document).ready(function() {
 
     {% if is_owner %}
     <p>
-    <a href="{% url 'manager:day:log' day.obj.id %}"
-       title="{% trans 'Add weight log to this day' %}"
-       {% auto_link_css flavour %}>
-           <img src="{% static 'images/icons/statistics.svg' %}"
-                width="32"
-                height="32"
-                alt="{% trans 'Add weight log to this day' %}">
-        {% trans 'Add weight log to this day' %}
-    </a>
+        <a href="{% url 'manager:day:log' day.obj.id %}" class="btn btn-success btn-sm">
+            {% trans 'Add weight log to this day' %}
+        </a>
     </p>
     {% endif %}
 

@@ -596,14 +596,6 @@ function init_edit_set() {
 }
 
 
-function toggle_weight_log_table() {
-    $(".weight-chart-table-toggle").click(function (e) {
-        e.preventDefault();
-        var target = $(this).data('toggleTarget');
-        $('#' + target).toggle({effect: 'blind', duration: 600});
-    });
-}
-
 /*
  *
  * Helper function to load the target of a link into the main-content DIV (the

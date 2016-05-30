@@ -45,7 +45,6 @@
 <script src="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.min.js' %}"></script>
 <script>
 $(document).ready(function() {
-    toggle_weight_log_table();
     draw_weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}");
 });
 </script>
