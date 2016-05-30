@@ -155,15 +155,13 @@ def process_log_entries(logs):
     and passed to the D3 library to render a chart
     '''
 
-    reps = []
     entry_log = OrderedDict()
+    entry_list = {}
     chart_data = []
     max_weight = {}
 
     # Group by date
     for entry in logs:
-        if entry.reps not in reps:
-            reps.append(entry.reps)
 
         if not entry_log.get(entry.date):
             entry_log[entry.date] = []
@@ -182,19 +180,24 @@ def process_log_entries(logs):
         if entry.weight > max_weight[entry.date][entry.reps]:
             max_weight[entry.date][entry.reps] = entry.weight
 
-    tmp = {}
     for entry in logs:
-        if not tmp.get(entry.reps):
-            tmp[entry.reps] = []
+        if not entry_list.get(entry.reps):
+            entry_list[entry.reps] = {'list': [], 'seen': []}
 
         # Only add if weight is the maximum for the day
         if entry.weight != max_weight[entry.date][entry.reps]:
             continue
+        if (entry.date, entry.reps, entry.weight) in entry_list[entry.reps]['seen']:
+            continue
 
-        tmp[entry.reps].append({'date': entry.date,
-                                'weight': entry.weight,
-                                'reps': entry.reps})
-    for rep in tmp:
-        chart_data.append(tmp[rep])
+        entry_list[entry.reps]['seen'].append((entry.date, entry.reps, entry.weight))
+        entry_list[entry.reps]['list'].append({'date': entry.date,
+                                               'weight': entry.weight,
+                                               'reps': entry.reps})
+    for rep in entry_list:
+        chart_data.append(entry_list[rep]['list'])
+
+    from pprint import pprint
+    pprint(chart_data)
 
     return entry_log, json.dumps(chart_data, cls=DecimalJsonEncoder)
