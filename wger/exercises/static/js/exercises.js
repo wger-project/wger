@@ -68,7 +68,7 @@ function draw_weight_log_chart(data, div_id, rep_i18n) {
         legend[i] = data[i][0].reps;
 
         // Read the minimum values for each repetition
-        min_values[i] = d3.min(data[i], function accessor (data) {
+        min_values[i] = d3.min(data[i], function (data) {
             return data.weight;
         });
     }
@@ -80,12 +80,12 @@ function draw_weight_log_chart(data, div_id, rep_i18n) {
         aggregate_rollover: true,
         full_width: true,
         top: 10,
-        left: 25,
+        left: 30,
         right: 10,
         height: 200,
         legend: legend,
         target: '#svg-' + div_id,
-        colors: ['#204a87', '#a40000', '#4e9a06', '#ce5c00', '#5c3566', '#2e3436', '8f5902']
+        colors: ['#204a87',  '#4e9a06', '#ce5c00', '#5c3566', '#2e3436', '8f5902', '#a40000']
     });
 }
 

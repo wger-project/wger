@@ -23,7 +23,7 @@ $(document).ready(function () {
         animate_on_load: true,
         full_width: true,
         top: 10,
-        left: 25,
+        left: 30,
         right: 10,
         height: 300,
         show_secondary_x_label: true,
