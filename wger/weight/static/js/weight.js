@@ -22,6 +22,9 @@ $(document).ready(function () {
     var chart_params = {
         animate_on_load: true,
         full_width: true,
+        top: 10,
+        left: 25,
+        right: 10,
         height: 300,
         show_secondary_x_label: true,
         xax_count: 10,

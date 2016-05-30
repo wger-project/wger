@@ -80,7 +80,7 @@ function draw_weight_log_chart(data, div_id, rep_i18n) {
         aggregate_rollover: true,
         full_width: true,
         top: 10,
-        left: 10,
+        left: 25,
         right: 10,
         height: 200,
         legend: legend,
