@@ -56,7 +56,7 @@ function highlight_muscle(element) {
  *
  */
 
-function draw_weight_log_chart(data, div_id, rep_i18n) {
+function draw_weight_log_chart(data, div_id) {
 
     var legend = [];
     var min_values = [];

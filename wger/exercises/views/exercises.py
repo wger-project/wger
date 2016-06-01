@@ -146,7 +146,6 @@ def view(request, id, slug=None):
     template_data['logs'] = entry_log
     template_data['json'] = chart_data
     template_data['svg_uuid'] = str(uuid.uuid4())
-    template_data['reps'] = _("Reps")
 
     return render(request, 'exercise/view.html', template_data)
 

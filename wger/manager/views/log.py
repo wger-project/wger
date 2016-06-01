@@ -267,7 +267,6 @@ class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
                         workout_log[day_id][exercise_id]['chart_data'] = chart_data
 
         context['workout_log'] = workout_log
-        context['reps'] = _("Reps")
         context['owner_user'] = self.owner_user
         context['is_owner'] = is_owner
         context['show_shariff'] = is_owner
