@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html ng-app="plunker">
+
+  <head>
+    <meta charset="utf-8" />
+    <title>AngularJS Plunker</title>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <link rel="stylesheet" href="style.css" />
+    <script data-require="angular.js@1.2.x" src="https://code.angularjs.org/1.2.28/angular.js" data-semver="1.2.28"></script> 
+    <script src="app.js"></script>
+  </head>
+	<style>
+	table, th , td  {
+	border: 1px solid grey;
+	border-collapse: collapse;
+	padding: 5px;
+		}
+		table tr:nth-child(odd) {
+			background-color: #f1f1f1;
+		}
+		table tr:nth-child(even) {
+	background-color: #ffffff;
+	}
+	</style>	
+  <body ng-controller="MainCtrl">
+
+    <table class="table table-bordered">
+    <thead>
+        <tr style="background: #E0E0E0;">
+            <th>{% trans "Meal" %}</th>
+            <th>{% trans "Contents" %}</th>
+            <th class="align-right">{% trans "Energy" %}</th>
+            <th class="align-right">{% trans "Protein" %}</th>
+            <th class="align-right">{% trans "Carbohydrates" %}</th>
+            <th class="align-right">{% trans "Fat" %}</th>
+        </tr>
+    </thead>
+		<tbody>
+        <tr ng-repeat-start = "receiver in receivers">
+            <td rowspan="receiver.mealItems.length"> N° {{ $index + 1 }} - <span ng-model="receiver.hour" ng-hide="editorEnabled" ng-click="editorEnabled=true">
+                                <div ng-show="receiver.hour == ''">Click to edit Hour</div>
+                                <div ng-show="receiver.hour != ''">{{receiver.hour}}</div>
+                            </span> 
+             <div ng-show="editorEnabled">
+                      <input type="time" ng-model="receiver.hour" placeholder="HH:mm"   
+										ng-show="editorEnabled" required>
+                      <button href="#" ng-click="editorEnabled=false">Done editing</button>
+             </div>
+			
+             </td>
+             <td>
+            		<span ng-model="receiver.mealItems[0].content" ng-hide="editorEnabled2" ng-click="editorEnabled2=true">									
+						<div ng-show="receiver.mealItems[0].content == ''">Click to edit Content</div>
+						<div ng-show="receiver.mealItems[0].content != ''">{{receiver.mealItems[0].content}}</div>
+					</span>
+					<div ng-show="editorEnabled2">
+							Content: <input ng-model="receiver.mealItems[0].content" ng-show="editorEnabled2"> <p></p>
+							Quantity: <input ng-model="receiver.mealItems[0].quantity" ng-show="editorEnabled2"> <p></p>
+							Weight Unity (Opcional): <input ng-model="receiver.mealItems[0].weightUnit" ng-show="editorEnabled2">
+							<button href="#" ng-click="editorEnabled2=false">Done editing</button>
+					</div>
+					 <button ng-click="addIngredient(receiver.mealItems)">Add New Ingredient</button>
+						<button ng-click="deleteIngredient(receiver, receiver.mealItems[0])">Delete Ingredient</button>
+			</td>
+             <td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+             <td> <button ng-click="addRecipient(receiver)">Add New Meal</button>
+              <button ng-click="deleteRecipient(receiver)">Delete Meal</button></td>
+		</tr>		
+					<tr ng-repeat-end ng-repeat = "Items in receiver.mealItems.slice(1)" >
+							<td></td>
+							<td>
+							<span ng-model="Items.content" ng-hide="editorEnabled2" ng-click="editorEnabled2=true">
+												<div ng-show="Items.content == ''">Click to edit Content</div>
+												<div ng-show="Items.content != ''">{{Items.content}}</div>
+											</span>
+							<div ng-show="editorEnabled2">
+									Content: <input ng-model="Items.content" ng-show="editorEnabled2"> <p></p>
+									Quantity: <input ng-model="Items.quantity" ng-show="editorEnabled2"> <p></p>
+									Weight Unity (Opcional): <input ng-model="Items.weightUnit" ng-show="editorEnabled2">
+									<button href="#" ng-click="editorEnabled2=false">Done editing</button>
+							</div>
+							<button ng-click="addIngredient(receiver.mealItems)">Add New Ingredient</button>
+						<button ng-click="deleteIngredient(receiver, Items)">Delete Ingredient</button>
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+					</tr>
+				
+			
+             
+                        
+			
+            </tbody>
+        
+    </table>    
+
+    <button ng-click="showme()">Show Me Contents</button>
+
+  </body>
+
+</html>
+
+
