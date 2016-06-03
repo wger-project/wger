@@ -1,5 +1,5 @@
 #
-# Base Dockerimage for wger images
+# Base Docker image for wger images
 #
 #
 # This dockerfile simply installs all common dependencies for the

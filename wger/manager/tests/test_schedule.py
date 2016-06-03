@@ -30,7 +30,6 @@ from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.utils.helpers import make_token
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -204,6 +203,7 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         '''
         Tests that only one schedule can be active at a time (per user)
         '''
+
         def get_schedules():
             schedule1 = Schedule.objects.get(pk=2)
             schedule2 = Schedule.objects.get(pk=3)
@@ -476,26 +476,27 @@ class ScheduleModelTestCase(WorkoutManagerTestCase):
         self.assertTrue(schedule.get_current_scheduled_workout().workout, workout)
 
 
-class SchedulePdfLogExportTestCase(WorkoutManagerTestCase):
+class SchedulePdfExportTestCase(WorkoutManagerTestCase):
     '''
     Test exporting a schedule as a pdf
     '''
 
-    def export_pdf_token(self):
+    def export_pdf_token(self, pdf_type="log"):
         '''
         Helper function to test exporting a workout as a pdf using tokens
         '''
 
         user = User.objects.get(username='test')
         uid, token = make_token(user)
-        response = self.client.get(reverse('manager:schedule:pdf', kwargs={'pk': 1,
-                                                                           'uidb64': uid,
-                                                                           'token': token}))
+        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type),
+                                           kwargs={'pk': 1,
+                                                   'uidb64': uid,
+                                                   'token': token}))
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/pdf')
         self.assertEqual(response['Content-Disposition'],
-                         'attachment; filename=Schedule-1-log.pdf')
+                         'attachment; filename=Schedule-1-{0}.pdf'.format(pdf_type))
 
         # Approximate size only
         self.assertGreater(int(response['Content-Length']), 29000)
@@ -504,17 +505,19 @@ class SchedulePdfLogExportTestCase(WorkoutManagerTestCase):
         # Wrong or expired token
         uid = 'MQ'
         token = '3xv-57ef74923091fe7f186e'
-        response = self.client.get(reverse('manager:schedule:pdf', kwargs={'pk': 1,
-                                                                           'uidb64': uid,
-                                                                           'token': token}))
+        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type),
+                                           kwargs={'pk': 1,
+                                                   'uidb64': uid,
+                                                   'token': token}))
         self.assertEqual(response.status_code, 403)
 
-    def export_pdf(self, fail=False):
+    def export_pdf(self, fail=False, pdf_type="log"):
         '''
         Helper function to test exporting a workout as a pdf
         '''
 
-        response = self.client.get(reverse('manager:schedule:pdf', kwargs={'pk': 1}))
+        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type),
+                                           kwargs={'pk': 1}))
 
         if fail:
             self.assertIn(response.status_code, (403, 404, 302))
@@ -522,13 +525,90 @@ class SchedulePdfLogExportTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response['Content-Type'], 'application/pdf')
             self.assertEqual(response['Content-Disposition'],
-                             'attachment; filename=Schedule-1-log.pdf')
+                             'attachment; filename=Schedule-1-{0}.pdf'.format(pdf_type))
 
             # Approximate size only
             self.assertGreater(int(response['Content-Length']), 29000)
             self.assertLess(int(response['Content-Length']), 35000)
 
-    def test_export_pdf_anonymous(self):
+    def export_pdf_with_comments(self, fail=False, pdf_type="log"):
+        '''
+        Helper function to test exporting a workout as a pdf, with exercise coments
+        '''
+
+        user = User.objects.get(username='test')
+        uid, token = make_token(user)
+        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type),
+                                           kwargs={'pk': 3,
+                                                   'images': 0,
+                                                   'comments': 1,
+                                                   'uidb64': uid,
+                                                   'token': token}))
+
+        if fail:
+            self.assertIn(response.status_code, (403, 404, 302))
+        else:
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response['Content-Type'], 'application/pdf')
+            self.assertEqual(response['Content-Disposition'],
+                             'attachment; filename=Schedule-3-{0}.pdf'.format(pdf_type))
+
+            # Approximate size only
+            self.assertGreater(int(response['Content-Length']), 29000)
+            self.assertLess(int(response['Content-Length']), 35000)
+
+    def export_pdf_with_images(self, fail=False, pdf_type="log"):
+        '''
+        Helper function to test exporting a workout as a pdf, with exercise images
+        '''
+        user = User.objects.get(username='test')
+        uid, token = make_token(user)
+        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type),
+                                           kwargs={'pk': 3,
+                                                   'images': 1,
+                                                   'comments': 0,
+                                                   'uidb64': uid,
+                                                   'token': token}))
+
+        if fail:
+            self.assertIn(response.status_code, (403, 404, 302))
+        else:
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response['Content-Type'], 'application/pdf')
+            self.assertEqual(response['Content-Disposition'],
+                             'attachment; filename=Schedule-3-{0}.pdf'.format(pdf_type))
+
+            # Approximate size only
+            self.assertGreater(int(response['Content-Length']), 29000)
+            self.assertLess(int(response['Content-Length']), 35000)
+
+    def export_pdf_with_images_and_comments(self, fail=False, pdf_type="log"):
+        '''
+        Helper function to test exporting a workout as a pdf, with images and comments
+        '''
+
+        user = User.objects.get(username='test')
+        uid, token = make_token(user)
+        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type),
+                                           kwargs={'pk': 3,
+                                                   'images': 1,
+                                                   'comments': 1,
+                                                   'uidb64': uid,
+                                                   'token': token}))
+
+        if fail:
+            self.assertIn(response.status_code, (403, 404, 302))
+        else:
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response['Content-Type'], 'application/pdf')
+            self.assertEqual(response['Content-Disposition'],
+                             'attachment; filename=Schedule-3-{0}.pdf'.format(pdf_type))
+
+            # Approximate size only
+            self.assertGreater(int(response['Content-Length']), 29000)
+            self.assertLess(int(response['Content-Length']), 35000)
+
+    def test_export_pdf_log_anonymous(self):
         '''
         Tests exporting a workout as a pdf as an anonymous user
         '''
@@ -536,7 +616,7 @@ class SchedulePdfLogExportTestCase(WorkoutManagerTestCase):
         self.export_pdf(fail=True)
         self.export_pdf_token()
 
-    def test_export_pdf_owner(self):
+    def test_export_pdf_log_owner(self):
         '''
         Tests exporting a workout as a pdf as the owner user
         '''
@@ -545,7 +625,7 @@ class SchedulePdfLogExportTestCase(WorkoutManagerTestCase):
         self.export_pdf(fail=False)
         self.export_pdf_token()
 
-    def test_export_pdf_other(self):
+    def test_export_pdf_log_other(self):
         '''
         Tests exporting a workout as a pdf as a logged user not owning the data
         '''
@@ -553,6 +633,82 @@ class SchedulePdfLogExportTestCase(WorkoutManagerTestCase):
         self.user_login('admin')
         self.export_pdf(fail=True)
         self.export_pdf_token()
+
+    def test_export_pdf_log_with_comments(self, fail=False):
+        '''
+        Tests exporting a workout as a pdf as the owner user with comments
+        '''
+        self.user_login('test')
+        self.export_pdf_with_comments(fail=False)
+        self.export_pdf_token()
+
+    def test_export_pdf_log_with_images(self, fail=False):
+        '''
+        Tests exporting a workout as a pdf as the owner user with images
+        '''
+        self.user_login('test')
+        self.export_pdf_with_images(fail=False)
+        self.export_pdf_token()
+
+    def test_export_pdf_log_with_images_and_comments(self, fail=False):
+        '''
+        Tests exporting a workout as a pdf as the owner user with images andcomments
+        '''
+        self.user_login('test')
+        self.export_pdf_with_images_and_comments(fail=False)
+        self.export_pdf_token()
+
+#   #####TABLE#####
+
+    def test_export_pdf_table_anonymous(self):
+        '''
+        Tests exporting a workout as a pdf as an anonymous user
+        '''
+
+        self.export_pdf(fail=True, pdf_type="table")
+        self.export_pdf_token(pdf_type="table")
+
+    def test_export_pdf_table_owner(self):
+        '''
+        Tests exporting a workout as a pdf as the owner user
+        '''
+
+        self.user_login('test')
+        self.export_pdf(fail=False, pdf_type="table")
+        self.export_pdf_token(pdf_type="table")
+
+    def test_export_pdf_table_other(self):
+        '''
+        Tests exporting a workout as a pdf as a logged user not owning the data
+        '''
+
+        self.user_login('admin')
+        self.export_pdf(fail=True, pdf_type="table")
+        self.export_pdf_token(pdf_type="table")
+
+    def test_export_pdf_table_with_comments(self, fail=False):
+        '''
+        Tests exporting a workout as a pdf as the owner user with comments
+        '''
+        self.user_login('test')
+        self.export_pdf_with_comments(fail=False, pdf_type="table")
+        self.export_pdf_token(pdf_type="table")
+
+    def test_export_pdf_table_with_images(self, fail=False):
+        '''
+        Tests exporting a workout as a pdf as the owner user with images
+        '''
+        self.user_login('test')
+        self.export_pdf_with_images(fail=False, pdf_type="table")
+        self.export_pdf_token(pdf_type="table")
+
+    def test_export_pdf_table_with_images_and_comments(self, fail=False):
+        '''
+        Tests exporting a workout as a pdf as the owner user with images andcomments
+        '''
+        self.user_login('test')
+        self.export_pdf_with_images_and_comments(fail=False, pdf_type="table")
+        self.export_pdf_token(pdf_type="table")
 
 
 class ScheduleApiTestCase(api_base_test.ApiBaseResourceTestCase):
