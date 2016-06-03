@@ -44,6 +44,216 @@ function custom_modal_init()
 </p>
 {% endif %}
 
+
+<script data-require="angular.js@1.2.x" src="https://code.angularjs.org/1.2.28/angular.js" data-semver="1.2.28"></script>
+
+<div ng-app="plunker" ng-controller="MainCtrl">
+
+    <table class="table table-bordered">
+    <thead>
+        <tr style="background: #E0E0E0;">
+            <th>{% trans "Meal" %}</th>
+            <th>{% trans "Contents" %}</th>
+            <th class="align-right">{% trans "Energy" %}</th>
+            <th class="align-right">{% trans "Protein" %}</th>
+            <th class="align-right">{% trans "Carbohydrates" %}</th>
+            <th class="align-right">{% trans "Fat" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td colspan="2"></td>
+        <td class="align-right">{% trans 'kcal' %}</td>
+        <td class="align-right">{% trans_weight_unit 'g' owner_user %}</td>
+        <td class="align-right">{% trans_weight_unit 'g' owner_user %}</td>
+        <td class="align-right">{% trans_weight_unit 'g' owner_user %}</td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+	<tbody>
+        <tr ng-repeat-start = "receiver in receivers">
+            <td rowspan="receiver.mealItems.length"><strong> N. <span ng-bind="$index + 1"></span> - </strong><span ng-model="receiver.hour" ng-hide="editorEnabled" ng-click="editorEnabled=true">
+                                <div ng-show="receiver.hour == ''">Click to edit Hour</div>
+                                <strong><div ng-bind="receiver.hour" ng-show="receiver.hour != ''"></div></strong>
+                            </span> 
+             <div ng-show="editorEnabled">
+                      <input type="time" ng-model="receiver.hour" placeholder="HH:mm"   
+										ng-show="editorEnabled" required>
+                      <button href="#" ng-click="editorEnabled=false">Done editing</button>
+             </div>
+			            <div class="editoptions">
+                <a href="" ng-click="deleteRecipient(receiver)"
+                   title="{% trans 'Delete' %}">
+                   <img src="{% static 'images/icons/trash.svg' %}"
+                        width="16"
+                        height="16"
+                        alt="{% trans 'Delete meal' %}"
+                        title="{% trans 'Delete meal' %}"></a>
+                <a href="" ng-click="editorEnabled=true"
+                   title="{% trans 'Edit' %}"
+                   class="wger-modal-dialog">
+                    <img src="{% static 'images/icons/edit.svg' %}"
+                         width="16"
+                         height="16"
+                         alt="{% trans 'Edit meal' %}"
+                         title="{% trans 'Edit meal' %}"></a>
+                <a href="" ng-click="addIngredient(receiver.mealItems)"
+                   title="{% trans 'Add' %}"
+                   class="wger-modal-dialog edit-meal">
+                    <img src="{% static 'images/icons/add.svg' %}"
+                         width="16"
+                         height="16"
+                         alt="{% trans 'Add item to meal' %}"
+                         title="{% trans 'Add item to meal' %}"></a>
+            </div>
+             </td>
+             <td>
+            		<span ng-model="receiver.mealItems[0].content" ng-hide="editorEnabled2" ng-click="editorEnabled2=true">									
+						<div ng-show="receiver.mealItems[0].content == ''">Click to edit Content</div>
+						<div ng-show="receiver.mealItems[0].content != ''"><span ng-bind="receiver.mealItems[0].quantity"></span><span ng-bind="receiver.mealItems[0].weightUnit"></span> <span ng-bind="receiver.mealItems[0].content"></span></div>
+					</span>
+					<div ng-show="editorEnabled2">
+							Content: <input ng-model="receiver.mealItems[0].content" ng-show="editorEnabled2"> <p></p>
+							Quantity: <input ng-model="receiver.mealItems[0].quantity" ng-show="editorEnabled2"> <p></p>
+							Weight Unity (Opcional): <input ng-model="receiver.mealItems[0].weightUnit" ng-show="editorEnabled2">
+							<button href="#" ng-click="editorEnabled2=false">Done editing</button>
+					</div>
+			<span class="editoptions">
+                <a href="" ng-click="deleteIngredient(receiver, receiver.mealItems[0])"
+                   title="{% trans 'Delete' %}">
+                   <img src="{% static 'images/icons/trash.svg' %}"
+                        width="16"
+                        height="16"
+                        alt="{% trans 'Delete' %}"></a>
+                <a href="" ng-click="editorEnabled2=true"
+                   title="{% trans 'Edit' %}">
+                    <img src="{% static 'images/icons/edit.svg' %}"
+                         width="16"
+                         height="16"
+                         alt="{% trans 'Edit' %}"></a>
+            </span>
+			</td>
+             <td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			
+		</tr>		
+					<tr ng-repeat-end ng-repeat = "Items in receiver.mealItems.slice(1)" >
+							<td></td>
+							<td>
+							<span ng-model="Items.content" ng-hide="editorEnabled2" ng-click="editorEnabled2=true">
+												<div ng-show="Items.content == ''">Click to edit Content</div>
+												<div ng-show="Items.content != ''"><span ng-bind="Items.quantity"></span><span ng-bind="Items.weightUnit"></span> <span ng-bind="Items.content"></span></div>
+											</span>
+							<div ng-show="editorEnabled2">
+									Content: <input ng-model="Items.content" ng-show="editorEnabled2"> <p></p>
+									Quantity: <input ng-model="Items.quantity" ng-show="editorEnabled2"> <p></p>
+									Weight Unity (Opcional): <input ng-model="Items.weightUnit" ng-show="editorEnabled2">
+									<button href="#" ng-click="editorEnabled2=false">Done editing</button>
+							</div>
+							
+            <span class="editoptions">
+                <a href="" ng-click="deleteIngredient(receiver, Items)"
+                   title="{% trans 'Delete' %}">
+                   <img src="{% static 'images/icons/trash.svg' %}"
+                        width="16"
+                        height="16"
+                        alt="{% trans 'Delete' %}"></a>
+                <a href="" ng-click="editorEnabled2=true"
+                   title="{% trans 'Edit' %}">
+                    <img src="{% static 'images/icons/edit.svg' %}"
+                         width="16"
+                         height="16"
+                         alt="{% trans 'Edit' %}"></a>
+            </span>
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+					</tr>
+    </tbody>
+
+        {% if is_owner %}
+        <tr>
+            <td colspan="6">        
+               <a href="" ng-click="addRecipient(receiver)">
+                <img src="{% static 'images/icons/edit.svg' %}"
+                     width="16"
+                     height="16"
+                     alt="{% trans 'Add a new meal' %}"
+                     title="{% trans 'Add a new meal' %}">
+                {% trans "Add a new meal" %}
+            </a>
+            </td>
+        <tr>
+        {% endif %}
+    </table>    
+
+
+  </body>
+  </div>
+
+
+<script>
+var app = angular.module('plunker', []);
+
+app.controller('MainCtrl', function($scope) {
+
+  $scope.addRecipient = function(receiver) {
+	  if (!$scope.receivers)
+	  {
+		  $scope.receivers=[{hour:"", mealItems:[{content:"" , quantity:"", weightUnit:"g"}]}];
+	  } else {
+		  $scope.receivers.push({hour:"", mealItems:[{content:"" , quantity:"", weightUnit:"g"}]});
+		  }
+  }
+
+  $scope.deleteRecipient = function(receiver) {
+    for(var i=0; i<$scope.receivers.length; i++) {
+      if($scope.receivers[i] === receiver) {
+        $scope.receivers.splice(i, 1);
+        break;
+      }
+    }
+  }
+  
+    $scope.addIngredient = function(Items) {
+		Items.push({content:"" , quantity:"", weightUnit:"g"});
+  }
+
+  $scope.deleteIngredient = function(receiver, Ingredient) {
+     for(var j=0; j<receiver.mealItems.length; j++){
+		if(receiver.mealItems[j] === Ingredient){
+			receiver.mealItems.splice(j, 1);
+			break;
+		}
+      }
+    if (receiver.mealItems.length == 0){
+		addIngredient(receiver.mealItems);
+	}
+  }
+
+  $scope.showme = function() {
+    var s = "";
+    for(var i=0; i<$scope.receivers.length; i++) {
+      s = s + i + ": " + $scope.receivers[i].hour + " " + $scope.receivers[i].content + "\n";
+    }
+    alert(s);
+  };
+  
+
+});
+</script>
+
+
+
 <table class="table table-bordered">
     <thead>
         <tr style="background: #E0E0E0;">
