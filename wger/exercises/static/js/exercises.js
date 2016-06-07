@@ -56,141 +56,36 @@ function highlight_muscle(element) {
  *
  */
 
-function weight_log_chart(data, div_id, reps_i18n, width_factor) {
+function draw_weight_log_chart(data, div_id) {
 
-    // Calculate the size
-    var width_factor = typeof width_factor !== 'undefined' ? width_factor: 600;
-    var height_factor = width_factor / 600 * 200;
+    var legend = [];
+    var min_values = [];
+    var chart_data = [];
+    for (var i = 0; i < data.length; i++) {
+        chart_data[i] = MG.convert.date(data[i], 'date');
 
-    var margin = {top: 20, right: 80, bottom: 30, left: 50},
-        width = width_factor - margin.left - margin.right,
-        height = height_factor - margin.top - margin.bottom;
+        // Read the possible repetitions for the chart legend
+        legend[i] = data[i][0].reps;
 
-    var parseDate = d3.time.format("%Y-%m-%d").parse;
-
-    var x = d3.time.scale()
-        .range([0, width]);
-
-    var y = d3.scale.linear()
-        .range([height, 0]);
-
-    var color = d3.scale.category10();
-
-    var xAxis = d3.svg.axis()
-        .scale(x)
-        .ticks(6)
-        .orient("bottom");
-
-    var yAxis = d3.svg.axis()
-        .scale(y)
-        .ticks(6)
-        .orient("left");
-
-    var line = d3.svg.line()
-        .interpolate("cardinal")
-        .tension(0.6)
-        .x(function (d) { return x(d.date); })
-        .y(function (d) { return y(d.weight); });
-
-    var svg = d3.select("#svg-" + div_id).append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
-      color.domain(d3.keys(data[0]).filter(function (key) {
-            return ($.inArray(key, ['date', 'id']) == -1);
-    })
-        );
-
-      data.forEach(function(d) {
-        d.date = parseDate(d.date);
-      });
-
-
-      var reps = color.domain().map(function (name) {
-
-          var temp_values = data.filter(function(d) {
-              return (d[name] != 'n.a');
-              });
-
-          var filtered_values = temp_values.map(function (d) {
-            return {date: d.date,
-                    weight: +d[name],
-                    log_id: d.id};
-            });
-
-        return {
-          name: name,
-          values: filtered_values
-        };
-      });
-
-      //console.log(reps);
-
-      x.domain(d3.extent(data, function (d) { return d.date; }));
-
-      // Add 1 kg of "breathing room" on the min value, so the diagrams don't look
-      // too flat
-      y.domain([
-        d3.min(reps, function(c) { return d3.min(c.values, function(v) { return v.weight - 1; }); }),
-        d3.max(reps, function(c) { return d3.max(c.values, function(v) { return v.weight; }); })
-      ]);
-
-      svg.append("g")
-          .attr("class", "x axis")
-          .attr("transform", "translate(0," + height + ")")
-          .call(xAxis);
-
-      svg.append("g")
-          .attr("class", "y axis")
-          .call(yAxis)
-        .append("text")
-          .attr("transform", "rotate(-90)")
-          .attr("y", 6)
-          .attr("dy", ".71em");
-          //.style("text-anchor", "end")
-          //.text("Weight");
-
-      var log_series = svg.selectAll(".log_series")
-          .data(reps)
-        .enter().append("g")
-          .attr("class", "log_series");
-
-      log_series.append("path")
-          .attr("class", "line")
-          .attr("d", function(d) { return line(d.values); })
-          .style("stroke", function(d) { return color(d.name); });
-
-        reps.forEach(function(d){
-            var color_name = d.name
-            var temp_name = hex_random();
-            var color_class = 'color-' + color(color_name).replace('#', '');
-
-            svg.selectAll(".dot" + temp_name)
-              .data(d.values)
-            .enter().append("circle")
-              .attr("class", "dot wger-modal-dialog " + color_class)
-              .attr("cx", line.x())
-              .attr("cy", line.y())
-              .attr("id", function(d) { return d.log_id; })
-              .attr("href", function(d) { return '/' + get_current_language() + '/workout/log/' +  d.log_id.match(/\d+/) + '/edit'; })
-              .attr("r", 5)
-              .style("stroke", function(d) {
-                return color(color_name);
-              });
+        // Read the minimum values for each repetition
+        min_values[i] = d3.min(data[i], function (data) {
+            return data.weight;
         });
+    }
 
-
-      log_series.append("text")
-          .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
-          .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.weight) + ")"; })
-          .attr("x", 6)
-          .attr("dy", ".35em")
-          .text(function(d) { return d.name + " " + reps_i18n; });
-
-    // Make the circles clickable: open their edit dialog
-    form_modal_dialog();
+    MG.data_graphic({
+        data: chart_data,
+        y_accessor: 'weight',
+        min_y: d3.min(min_values),
+        aggregate_rollover: true,
+        full_width: true,
+        top: 10,
+        left: 30,
+        right: 10,
+        height: 200,
+        legend: legend,
+        target: '#svg-' + div_id,
+        colors: ['#204a87',  '#4e9a06', '#ce5c00', '#5c3566', '#2e3436', '8f5902', '#a40000']
+    });
 }
 

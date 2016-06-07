@@ -198,12 +198,8 @@ def get_weight_data(request, username=None):
     chart_data = []
 
     for i in weights:
-        chart_data.append({'x': "%(month)s/%(day)s/%(year)s" % {
-                           'year': i.date.year,
-                           'month': i.date.month,
-                           'day': i.date.day},
-                           'y': i.weight,
-                           'id': i.id})
+        chart_data.append({'date': i.date,
+                           'weight': i.weight})
 
     # Return the results to the client
     return Response(chart_data)

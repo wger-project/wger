@@ -1,30 +1,30 @@
 {% extends "base.html" %}
 {% load i18n staticfiles wger_extras %}
 
-<!--
-        Title
--->
+{#       #}
+{# Title #}
+{#       #}
 {% block title %}{% trans "Weight overview" %}{% endblock %}
 
-<!--
-        Header data
--->
+{#        #}
+{# Header #}
+{#        #}
 {% block header %}
-<script type="text/javascript">
-$(document).ready(function () {
-
-    $.getJSON("/weight/api/get_weight_data/{{ owner_user.username }}", function(json) {
-        weight_chart(json, $('#content').width());
-    });
-});
-</script>
+<link rel="stylesheet" type="text/css" href="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/metricsgraphics-custom.css' %}">
+<script src="{% static 'js/weight.js' %}"></script>
+<script src="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.min.js' %}"></script>
 {% endblock %}
 
 
-<!--
-        Main Content
--->
+
+{#         #}
+{# Content #}
+{#         #}
 {% block content %}
+<div id="current-username" data-current-username="{{ owner_user.username }}"></div>
+
+
 {% if not min_date %}
 <p>
     {% trans "There is no chart here because there are no weight entries." %}
@@ -33,6 +33,14 @@ $(document).ready(function () {
 {% endif %}
 
 <div id="weight_diagram"></div>
+
+
+<div class="btn-group modify-time-period-controls pull-right" role="group" aria-label="..." style="padding-bottom: 1em;">
+    <button type="button" class="btn btn-default" data-time_period="90">{% trans "Last 3 months" %}</button>
+    <button type="button" class="btn btn-default" data-time_period="365">{% trans "Last 12 months" %}</button>
+    <button type="button" class="btn btn-default active" data-time_period="all">{% trans "No filter" %}</button>
+</div>
+
 
 {% if is_owner %}
 {% if last_five_weight_entries_details %} 
@@ -69,33 +77,20 @@ $(document).ready(function () {
     {% endfor %}
 </table>
 {% endif %}
-<br/>
-
-<p>
-    <em>{% trans "You can click on a value on the chart to edit it. "%}</em>
-</p>
 {% endif %}
 
 {% endblock %}
 
 
-<!--
-        Side bar
--->
+{#          #}
+{# Side bar #}
+{#          #}
 {% block sidebar %}
 <p>
     <a href="{% url 'weight:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
         {% trans "Add weight entry" %}
     </a>
 </p>
-
-
-<h4>{% trans "Filter options" %}</h4>
-<p>{% blocktrans %}
-Use the second chart to pan or zoom by clicking and dragging the selection. Clicking
-on the background resets it.
-{% endblocktrans %}</p>
-
 
 {% if is_owner %}
 <h4>{% trans "Options" %}</h4>

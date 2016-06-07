@@ -63,6 +63,8 @@ class DecimalJsonEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, decimal.Decimal):
             return str(obj)
+        if isinstance(obj, datetime.date):
+            return str(obj)
         return json.JSONEncoder.default(self, obj)
 
 
