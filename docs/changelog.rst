@@ -14,6 +14,7 @@ Upgrade steps:
 New features:
 
 * Add repetition (minutes, kilometer, etc.) and weight options (kg, lb, plates, until failure) to sets `#216`_ and `#217`_
+* Use the metricsgraphics library to more easily draw charts `#188`_
 * Add extended PDF options to schedules as well (thanks `@alelevinas`_ ) `#272`_
 * Show trained secondary muscles in workout view (thanks `@alokhan`_ ) `#282`_
 * Remove hard-coded CC licence from documentation and website `#247`_
@@ -22,6 +23,7 @@ New features:
 Other improvements and bugfixes: `#279`_, `#275`_, `#270`_, `#258`_, `#257`_, `#269`_
 
 
+.. _#188: https://github.com/wger-project/wger/issues/188
 .. _#216: https://github.com/wger-project/wger/issues/216
 .. _#217: https://github.com/wger-project/wger/issues/217
 .. _#247: https://github.com/wger-project/wger/issues/247
