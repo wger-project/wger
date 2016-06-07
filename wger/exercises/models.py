@@ -24,6 +24,7 @@ from django.db import models
 from django.template.loader import render_to_string
 from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils import translation
@@ -304,7 +305,8 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             subject = _('Exercise was successfully added to the general database')
             context = {
                 'exercise': self.name,
-                'url': url
+                'url': url,
+                'site': Site.objects.get_current().domain
             }
             message = render_to_string('exercise/email_new.html', context)
             mail.send_mail(subject,
