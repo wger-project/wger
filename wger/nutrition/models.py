@@ -206,9 +206,13 @@ class NutritionPlan(models.Model):
         '''
         Returns an overview for all logs available for this plan
         '''
-        result = OrderedDict()
+        result = []
         for date in self.logitem_set.datetimes('datetime', 'day', order='DESC'):
-            result[date] = self.get_log_summary(date=date)
+            # TODO: in python 3.5 this can be simplified as z = {**x, **y}
+            tmp = self.get_log_summary(date=date).copy()
+            tmp.update({'date': date})
+            result.append(tmp)
+
         return result
 
     def get_log_entries(self, date=None):

@@ -139,13 +139,13 @@ def view(request, id):
     # Process and show the last 5 diary entries
     log_data = []
     planned_calories = plan.get_nutritional_values()['total']['energy']
-    for date, items in plan.get_log_overview().items():
+    for item in plan.get_log_overview():
         if len(log_data) == 5:
             break
-        log_data.append({'date': date,
+        log_data.append({'date': item['date'],
                          'planned_calories': planned_calories,
-                         'logged_calories': items['energy'],
-                         'difference': items['energy'] - planned_calories})
+                         'logged_calories': item['energy'],
+                         'difference': item['energy'] - planned_calories})
 
     # Load the language and pass it to the template
     language = load_language()

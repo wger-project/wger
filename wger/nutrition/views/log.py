@@ -56,11 +56,11 @@ def overview(request, pk):
 
     log_data = []
     planned_calories = plan.get_nutritional_values()['total']['energy']
-    for date, items in plan.get_log_overview().items():
-        log_data.append({'date': date,
+    for item in plan.get_log_overview():
+        log_data.append({'date': item['date'],
                          'planned_calories': planned_calories,
-                         'logged_calories': items['energy'],
-                         'difference': items['energy'] - planned_calories})
+                         'logged_calories': item['energy'],
+                         'difference': item['energy'] - planned_calories})
 
     context = {'plan': plan,
                'show_shariff': is_owner,
