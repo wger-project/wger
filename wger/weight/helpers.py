@@ -197,7 +197,4 @@ def process_log_entries(logs):
     for rep in entry_list:
         chart_data.append(entry_list[rep]['list'])
 
-    from pprint import pprint
-    pprint(chart_data)
-
     return entry_log, json.dumps(chart_data, cls=DecimalJsonEncoder)
