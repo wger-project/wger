@@ -211,7 +211,7 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         year = request.GET.get('year', today.year)
         month = request.GET.get('month', today.month)
         day = request.GET.get('day', today.day)
-        plan = get_object_or_404(NutritionPlan, pk=pk)
+        plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
 
         try:
             date = datetime.date(year=int(year), month=int(month), day=int(day))
