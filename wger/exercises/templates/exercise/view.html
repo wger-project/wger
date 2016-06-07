@@ -40,9 +40,6 @@
 {# Header #}
 {#        #}
 {% block header %}
-<link rel="stylesheet" type="text/css" href="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/metricsgraphics-custom.css' %}">
-<script src="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.min.js' %}"></script>
 <script>
 $(document).ready(function() {
     draw_weight_log_chart({{json|safe}}, "{{svg_uuid}}");
