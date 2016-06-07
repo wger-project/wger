@@ -105,6 +105,32 @@ function init_ingredient_autocompleter()
 }
 
 
+
+function draw_nutrition_diary_chart(plan_pk) {
+
+    d3.json('/api/v2/nutritionplan/' + plan_pk + '/get_log_overview/', function(data) {
+        if(data.length > 0) {
+
+            data = MG.convert.date(data, 'date');
+            $.getJSON('/api/v2/nutritionplan/' + plan_pk + '/nutritional_values/', function (nutritional_values) {
+                MG.data_graphic({
+                    data: data,
+                    y_accessor: 'energy',
+                    x_accessor: 'date',
+                    full_width: true,
+                    top: 10,
+                    left: 30,
+                    right: 10,
+                    height: 200,
+                    baselines: [{value: nutritional_values.total.energy, label: 'Planned calories'}],
+                    target: '#nutrition_diary_chart',
+                    colors: '#4e9a06'
+                });
+            });
+        }
+    });
+}
+
 /*
  * Draw the BMI chart
  */

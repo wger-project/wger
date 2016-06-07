@@ -203,6 +203,14 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         return Response(NutritionPlan.objects.get(pk=pk).get_nutritional_values())
 
     @detail_route()
+    def get_log_overview(self, request, pk):
+        '''
+        Return a list of log diary entries for the nutrition plan
+        '''
+        plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
+        return Response(plan.get_log_overview())
+
+    @detail_route()
     def log_summary(self, request, pk):
         '''
         Return a summary of the nutrition diary for a given date

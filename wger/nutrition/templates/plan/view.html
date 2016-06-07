@@ -23,7 +23,15 @@
 {# Header #}
 {#        #}
 {% block header %}
+<link rel="stylesheet" type="text/css" href="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/metricsgraphics-custom.css' %}">
+<script src="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.min.js' %}"></script>
+
 <script>
+$(document).ready(function () {
+    draw_nutrition_diary_chart({{ plan.pk }});
+});
+
 function custom_modal_init()
 {
     // Init the autocompleter after loading the modal dialog
@@ -266,6 +274,9 @@ function custom_modal_init()
 
 
 <h4>{% trans "Nutrition diary" %}</h4>
+
+<div id="nutrition_diary_chart"></div>
+
 <table class="table table-condensed">
     <thead>
         <tr>
