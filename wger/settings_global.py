@@ -99,6 +99,7 @@ BOWER_INSTALLED_APPS = (
     'DataTables',
     'components-font-awesome',
     'tinymce',
+    'metrics-graphics'
 )
 
 

@@ -33,11 +33,9 @@
 {# Header #}
 {#        #}
 {% block header %}
-<script>
-$(document).ready(function() {
-    toggle_weight_log_table();
-});
-</script>
+<link rel="stylesheet" type="text/css" href="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/metricsgraphics-custom.css' %}">
+<script src="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.min.js' %}"></script>
 {% endblock %}
 
 
@@ -56,15 +54,9 @@ $(document).ready(function() {
 
     {% if is_owner %}
     <p>
-    <a href="{% url 'manager:day:log' day.obj.id %}"
-       title="{% trans 'Add weight log to this day' %}"
-       {% auto_link_css flavour %}>
-           <img src="{% static 'images/icons/statistics.svg' %}"
-                width="32"
-                height="32"
-                alt="{% trans 'Add weight log to this day' %}">
-        {% trans 'Add weight log to this day' %}
-    </a>
+        <a href="{% url 'manager:day:log' day.obj.id %}" class="btn btn-success btn-sm">
+            {% trans 'Add weight log to this day' %}
+        </a>
     </p>
     {% endif %}
 
@@ -74,26 +66,30 @@ $(document).ready(function() {
         {% with day_list=workout_log|get_item:day.obj.id %}
         {% with exercise_list=day_list|get_item:exercise.obj.id %}
 
-            <div class="alert alert-info" style="text-align: center;margin-top:1em;">
-                <a href="{{ exercise.obj.get_absolute_url }}">{{ exercise.obj.name }}</a>
+
+            <div class="row" style="padding-top: 1em;">
+                <div class="col-xs-3">
+                    <strong><a href="{{ exercise.obj.get_absolute_url }}">{{ exercise.obj.name }}</a></strong>
+                </div>
+                <div class="col-xs-9">
+                    {% if exercise_list.log_by_date %}
+                        {#  TODO: perhaps move the draw_weight_chart function to render_weight_log #}
+                        {% with list=exercise_list.log_by_date %}
+                            {% render_weight_log list exercise_list.div_uuid owner_user %}
+                            <script>
+                            $(document).ready(function() {
+                            draw_weight_log_chart({{exercise_list.chart_data|safe}},
+                                                  "{{exercise_list.div_uuid}}");
+                            });
+                            </script>
+                        {% endwith %}
+
+
+                    {% else %}
+                        <p><em>{% trans "No weight entries here." %}</em></p>
+                    {% endif %}
+                </div>
             </div>
-
-            {% if exercise_list.log_by_date %}
-                {% with list=exercise_list.log_by_date %}
-                    {% render_weight_log list exercise_list.div_uuid owner_user %}
-
-                    <script>
-                    $(document).ready(function() {
-                    weight_log_chart({{exercise_list.chart_data|safe}},
-                                    "{{exercise_list.div_uuid}}",
-                                    "{{reps}}",
-                                    $('#content').width());
-                    });
-                    </script>
-                {% endwith %}
-            {% else %}
-                <p><em>{% trans "No weight entries here." %}</em></p>
-            {% endif %}
 
         {% endwith %}
         {% endwith %}
@@ -116,9 +112,6 @@ $(document).ready(function() {
 <p>{% blocktrans %}This page shows the weight logs belonging to this workout
 only. Click on an exercise to see all the historical data for
 it.{% endblocktrans %}</p>
-
-<p>{% blocktrans %}Click on a value on a chart to edit the log
-entry.{% endblocktrans %}</p>
 
 <p>{% blocktrans %}If on a single day there is more than one entry with the
 same number of repetitions, but different weights, only the entry with the
