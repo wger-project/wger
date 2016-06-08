@@ -14,14 +14,14 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import json
-import urllib
+import requests
 import os
 from optparse import make_option
 
 from django.core.exceptions import ImproperlyConfigured
 from django.core.management.base import BaseCommand, CommandError
 from django.core.files import File
+from django.core.files.temp import NamedTemporaryFile
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 from django.conf import settings
@@ -70,14 +70,16 @@ class Command(BaseCommand):
         thumbnail_api = "{0}/api/v2/exerciseimage/{1}/thumbnails/"
 
         # Get all exercises
-        result = json.load(urllib.urlopen(exercise_api.format(remote_url)))
+        result = requests.get(exercise_api.format(remote_url)).json()
         for exercise_json in result['results']:
-            exercise_name = exercise_json['name']
+            exercise_name = exercise_json['name'].encode('utf-8')
             exercise_uuid = exercise_json['uuid']
             exercise_id = exercise_json['id']
 
             self.stdout.write('')
-            self.stdout.write(u"*** Processing {0} (ID: {1})".format(exercise_name, exercise_id))
+            self.stdout.write(u"*** Processing {0} (ID: {1}, UUID: {2})".format(exercise_name,
+                                                                                exercise_id,
+                                                                                exercise_uuid))
 
             try:
                 exercise = Exercise.objects.get(uuid=exercise_uuid)
@@ -86,14 +88,13 @@ class Command(BaseCommand):
                 continue
 
             # Get all images
-            images = json.load(urllib.urlopen(image_api.format(remote_url, exercise_id)))
+            images = requests.get(image_api.format(remote_url, exercise_id)).json()
 
             if images['count']:
 
                 for image_json in images['results']:
                     image_id = image_json['id']
-                    result = json.load(urllib.urlopen(thumbnail_api.format(remote_url,
-                                                                           image_id)))
+                    result = requests.get(thumbnail_api.format(remote_url, image_id)).json()
 
                     image_name = os.path.basename(result['original'])
                     self.stdout.write('    Fetching image {0} - {1}'.format(image_id, image_name))
@@ -109,13 +110,17 @@ class Command(BaseCommand):
 
                     # Save the downloaded image, see link for details
                     # http://stackoverflow.com/questions/1308386/programmatically-saving-image-to-
-                    retrieved_image = urllib.urlretrieve(result['original'])
+                    retrieved_image = requests.get(result['original'])
+                    img_temp = NamedTemporaryFile(delete=True)
+                    img_temp.write(retrieved_image.content)
+                    img_temp.flush()
+
                     image.exercise = exercise
                     image.is_main = image_json['is_main']
                     image.status = image_json['status']
                     image.image.save(
                         os.path.basename(image_name),
-                        File(open(retrieved_image[0]), 'rb')
+                        File(img_temp),
                     )
                     image.save()
 
