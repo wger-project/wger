@@ -121,7 +121,6 @@ function draw_nutrition_diary_chart(plan_pk) {
                     top: 10,
                     left: 30,
                     right: 10,
-                    height: 200,
                     baselines: [{value: nutritional_values.total.energy,
                                  label: 'Planned calories (' + nutritional_values.total.energy + 'kcal)'}],
                     target: '#nutrition_diary_chart',
