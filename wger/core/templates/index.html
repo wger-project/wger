@@ -63,7 +63,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
                  – {{ current_workout.creation_date }}
             <p>
 
-            <table class="table table-hover">
+            <table class="table table-hover table-condensed">
                 {% for day, exercise, is_workout in weekdays %}
                 <tr>
                     <td>
@@ -106,7 +106,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
             <p>
                  – {{ plan.creation_date }}
             </p>
-            <table class="table table-hover">
+            <table class="table table-hover table-condensed">
                 <tr>
                     <td>{% trans "Energy" %}</td>
                     <td>
@@ -152,7 +152,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
             {% trans "Your current weight is: "%}
             {{weight.weight|floatformat}} {% trans_weight_unit 'kg' user %}
         </p>
-        <table class="table table-hover">
+        <table class="table table-hover table-condensed">
             {% for entry_detail in last_weight_entries %}
             <tr>
                 <td>
