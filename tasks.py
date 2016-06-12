@@ -23,7 +23,7 @@ import webbrowser
 import os
 import ctypes
 import socket
-from invoke import task, run
+from invoke import task
 
 import django
 from django.utils.crypto import get_random_string
@@ -86,7 +86,7 @@ def bootstrap_wger(context,
     if settings_path is None:
         settings_path = get_user_config_path('wger', 'settings.py')
     if not os.path.exists(settings_path):
-        create_settings(settings_path=settings_path, database_path=database_path, url=url)
+        create_settings(context, settings_path=settings_path, database_path=database_path, url=url)
 
     # Find the path to the settings and setup the django environment
     setup_django_environment(settings_path)
@@ -94,13 +94,13 @@ def bootstrap_wger(context,
     # Create Database if necessary
     if not database_exists():
         print('*** Database does not exist, creating one now')
-        migrate_db(settings_path=settings_path)
-        load_fixtures(settings_path=settings_path)
-        create_or_reset_admin(settings_path=settings_path)
+        migrate_db(context, settings_path=settings_path)
+        load_fixtures(context, settings_path=settings_path)
+        create_or_reset_admin(context, settings_path=settings_path)
 
     # Download JS libraries with bower
     os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'wger'))
-    run('npm install bower')
+    context.run('npm install bower')
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
     call_command('bower', 'install')
 
