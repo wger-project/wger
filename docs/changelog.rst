@@ -9,6 +9,8 @@ Upgrade steps:
 
 * Database upgrade: ``python manage.py migrate``
 * Reset workout cache: ``python manage.py clear-cache --clear-workout-cache``
+* New config option in settings.py: ``WGER_SETTINGS['TWITTER']``. Set this if
+  your instance has its own twitter account.
 * Update static files (only production): ``python manage.py collectstatic``
 
 New features:
