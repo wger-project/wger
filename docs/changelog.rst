@@ -19,7 +19,7 @@ New features:
 * Remove hard-coded CC licence from documentation and website `#247`_
 
 
-Other improvements and bugfixes: `#279`_, `#275`_, `#270`_, `#258`_, `#257`_, `#269`_
+Other improvements and bugfixes: `#279`_, `#275`_, `#270`_, `#258`_, `#257`_, `#269`_, `#296_`
 
 
 .. _#216: https://github.com/wger-project/wger/issues/216
@@ -33,6 +33,7 @@ Other improvements and bugfixes: `#279`_, `#275`_, `#270`_, `#258`_, `#257`_, `#
 .. _#275: https://github.com/wger-project/wger/issues/275
 .. _#279: https://github.com/wger-project/wger/issues/279
 .. _#282: https://github.com/wger-project/wger/issues/282
+.. _#296: https://github.com/wger-project/wger/issues/296
 .. _@alelevinas: https://github.com/alelevinas
 .. _@alokhan: https://github.com/alokhan
 
