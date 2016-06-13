@@ -441,7 +441,7 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
         if request.user.has_perm('exercises.add_exerciseimage'):
             self.status = self.STATUS_ACCEPTED
             if not self.license_author:
-                self.license_author = 'wger.de'
+                self.license_author = request.get_host().split(':')[0]
 
         else:
             if not self.license_author:
