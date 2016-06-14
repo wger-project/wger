@@ -24,12 +24,6 @@
  **************************************************************/
 
 
-/* Add a max-height for the autocompleter */
-.ui-autocomplete {
-    max-height: 300px;
-    overflow-y: auto;
-    overflow-x: hidden; /* prevent horizontal scrollbar */
-}
 
 /* Increase the z-index so bootstrap's modals, etc. don't interfere */
 .ui-front {

@@ -99,7 +99,8 @@ BOWER_INSTALLED_APPS = (
     'DataTables',
     'components-font-awesome',
     'tinymce',
-    'metrics-graphics'
+    'metrics-graphics',
+    'devbridge-autocomplete#1.2.x'
 )
 
 

@@ -72,34 +72,6 @@ function get_current_language() {
     return $('#current-language').data('currentLanguage');
 }
 
-/*
- * Define an own widget, which is basically an autocompleter that groups
- * results by category
- */
-$.widget("custom.catcomplete", $.ui.autocomplete, {
-    _renderMenu: function (ul, items) {
-        var that = this,
-            currentCategory = "";
-        $.each(items, function (index, item) {
-            if (item.category !== currentCategory) {
-
-                ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
-                currentCategory = item.category;
-            }
-            that._renderItemData(ul, item);
-        });
-    },
-    _renderItem: function (ul, item) {
-        var li_style = '';
-        if (item.image) {
-            li_style = "style='background-image:url(" + item.image_thumbnail + ");background-size:30px 30px;background-repeat:no-repeat;'";
-        }
-
-        return $("<li " + li_style + ">")
-            .append("<a style='margin-left:30px;'>" + item.name + "</a>")
-            .appendTo(ul);
-    }
-});
 
 
 /*
@@ -508,23 +480,36 @@ function init_remove_exercise_formset() {
 function init_edit_set() {
     // Initialise the autocompleter (our widget, defined above)
     if (jQuery.ui) {
-        $("#exercise-search").catcomplete({
-            source: '/api/v2/exercise/search/?language=' + get_current_language(),
-            minLength: 2,
-            select: function (event, ui) {
+        $('#exercise-search').devbridgeAutocomplete({
+            serviceUrl: '/api/v2/exercise/search/?language=' + get_current_language(),
+            onSelect: function (suggestion) {
+               // Add the exercise to the list
+               add_exercise({id: suggestion.data.id,
+                             value: suggestion.value});
 
-                // Add the exercise to the list
-                add_exercise(ui.item);
+               // Load formsets
+               get_exercise_formset(suggestion.data.id);
 
-                // Load formsets
-                get_exercise_formset(ui.item.id);
+               // Init the remove buttons
+               init_remove_exercise_formset();
 
-                // Init the remove buttons
-                init_remove_exercise_formset();
-
-                // Reset the autocompleter
-                $(this).val("");
-                return false;
+               // Reset the autocompleter
+               $(this).val("");
+               return false;
+            },
+            groupBy: 'category',
+            paramName: 'term',
+            transformResult: function(response) {
+                // why is response not already a JSON object??
+                var jsonResponse = $.parseJSON(response);
+                return {
+                    suggestions: $.map(jsonResponse, function(item) {
+                        return {value: item.value, data: {id: item.id,
+                                                          category: item.category,
+                                                          image: item.image,
+                                                          thumbnail: item.image_thumbnail}};
+                    })
+                };
             }
         });
     }

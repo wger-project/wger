@@ -330,3 +330,61 @@ table.month td.session-good {
 table.month td.session-good:hover {
     background-color: #449D44;
 }
+
+
+/*
+ * Autocompleter
+ */
+.autocomplete-wrapper {
+    margin: 44px auto 44px;
+    max-width: 600px;
+}
+
+.autocomplete-wrapper label {
+    display: block;
+    margin-bottom: .75em;
+    color: #3f4e5e;
+    font-size: 1.25em;
+}
+.autocomplete-wrapper .text-field {
+    padding: 0 15px;
+    width: 100%;
+    height: 40px;
+    border: 1px solid #CBD3DD;
+    font-size: 1.125em;
+}
+.autocomplete-wrapper ::-webkit-input-placeholder,
+.autocomplete-wrapper :-moz-placeholder,
+.autocomplete-wrapper ::-moz-placeholder,
+.autocomplete-wrapper :-ms-input-placeholder {
+    color: #CBD3DD;
+    font-style: italic;
+    font-size: 18px;
+}
+.autocomplete-suggestions {
+    overflow: auto;
+    border: 1px solid #CBD3DD;
+    background: #FFF; }
+
+.autocomplete-suggestion {
+    overflow: hidden;
+    padding: 5px 15px;
+    white-space: nowrap;
+}
+
+.autocomplete-selected {
+    background: #F0F0F0;
+}
+
+.autocomplete-suggestions strong {
+    color: #3465a4;
+    font-weight: bold;
+}
+
+.autocomplete-group {
+    background-color: #d3d7cf;
+}
+.autocomplete-group strong {
+    color: black;
+    font-weight: bold;
+}
