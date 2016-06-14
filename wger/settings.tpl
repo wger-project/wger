@@ -5,7 +5,6 @@ from wger.settings_global import *
 
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     ('Your name', 'your_email@example.com'),
