@@ -100,7 +100,8 @@ BOWER_INSTALLED_APPS = (
     'components-font-awesome',
     'tinymce',
     'metrics-graphics',
-    'devbridge-autocomplete#1.2.x'
+    'devbridge-autocomplete#1.2.x',
+#    'sortablejs#1.4.x',
 )
 
 

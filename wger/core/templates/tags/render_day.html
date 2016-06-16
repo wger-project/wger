@@ -13,7 +13,7 @@ $(document).ready(function() {
 })
 </script>
 
-<table class="table table-bordered workout-table" id="table-day-{{ day.obj.id }}">
+<table class="table table-bordered workout-table" id="table-day-{{ day.obj.id }}" data-id="{{ day.obj.id }}">
 <thead>
     <tr id="day-{{ day.obj.id }}">
         <th colspan="2" style="background: none repeat scroll 0% 0% #F5F5F5;">
@@ -47,7 +47,7 @@ $(document).ready(function() {
     </thead>
     <tbody>
         {% for set in day.set_list %}
-        <tr id="set-{{ set.obj.id }}">
+        <tr data-id="{{ set.obj.id }}" id="set-{{ set.obj.id }}">
             <td style="width: 15%;border-right-width: 0px;">
                 <h5><strong>{{ forloop.counter }}</strong></h5>
 

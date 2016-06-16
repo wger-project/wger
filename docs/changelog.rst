@@ -22,7 +22,7 @@ New features:
 
 Improvements:
 
-* Replace jquery UI's autocompleter, this reduces size of JS (part of) `#78`_
+* Replace jquery UI's autocompleter and sortable this reduces size of JS and CSS `#78`_
 * Remove hard-coded CC licence from documentation and website `#247`_
 
 Other improvements and bugfixes: `#279`_, `#275`_, `#270`_, `#258`_, `#257`_, `#269`_, `#296_`
