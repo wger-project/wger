@@ -39,16 +39,16 @@
 
     <!-- twitter cards -->
     {% block twittercard %}
+    {% if twitter %}
         <meta content="summary" name="twitter:card">
-        <meta content="@wger_de" name="twitter:site">
+        <meta content="@{{ twitter }}" name="twitter:site">
+    {% endif %}
     {% endblock %}
 
 
     {% compress css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-common.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui-custom.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/components-font-awesome/css/font-awesome.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">
@@ -61,13 +61,14 @@
 
     {% compress js %}
     <script src="{% static 'bower_components/jquery/dist/jquery.js' %}"></script>
-    <script src="{% static 'js/jquery-ui.js' %}"></script>
-    <script src="{% static 'bower_components/d3/d3.js' %}"></script>
-    <script src="{% static 'js/wger-core.js' %}"></script>
     <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/Sortable.min.js' %}"></script>
+    <script src="{% static 'bower_components/d3/d3.js' %}"></script>
+    <script src="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.min.js' %}"></script>
+    <script src="{% static 'bower_components/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
+    <script src="{% static 'js/wger-core.js' %}"></script>
     <script src="{% static 'js/exercises.js' %}"></script>
     <script src="{% static 'js/nutrition.js' %}"></script>
-    <script src="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.min.js' %}"></script>
     {% endcompress %}
 
     {% block header %}{% endblock %}
