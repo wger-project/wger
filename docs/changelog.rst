@@ -5,12 +5,14 @@ Changelog
 --------------------
 **2016-XX-XX**
 
-Upgrade steps:
+Upgrade steps from 1.7:
 
 * Database upgrade: ``python manage.py migrate``
 * Reset workout cache: ``python manage.py clear-cache --clear-workout-cache``
 * New config option in settings.py: ``WGER_SETTINGS['TWITTER']``. Set this if
   your instance has its own twitter account.
+* Download new JS packages: ``python manage.py bower install`` (note that you
+  might have to delete first wger/core/static/bower_components)
 * Update static files (only production): ``python manage.py collectstatic``
 
 New features:
