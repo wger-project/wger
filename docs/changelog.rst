@@ -25,7 +25,7 @@ Improvements:
 * Replace jquery UI's autocompleter and sortable this reduces size of JS and CSS `#78`_
 * Remove hard-coded CC licence from documentation and website `#247`_
 
-Other improvements and bugfixes: `#279`_, `#275`_, `#270`_, `#258`_, `#257`_, `#269`_, `#296_`
+Other improvements and bugfixes: `#279`_, `#275`_, `#270`_, `#258`_, `#257`_, `#269`_, `#296`_
 
 
 .. _#78: https://github.com/wger-project/wger/issues/78
