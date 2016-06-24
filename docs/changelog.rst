@@ -9,19 +9,27 @@ Upgrade steps:
 
 * Database upgrade: ``python manage.py migrate``
 * Reset workout cache: ``python manage.py clear-cache --clear-workout-cache``
+* New config option in settings.py: ``WGER_SETTINGS['TWITTER']``. Set this if
+  your instance has its own twitter account.
 * Update static files (only production): ``python manage.py collectstatic``
 
 New features:
 
 * Add repetition (minutes, kilometer, etc.) and weight options (kg, lb, plates, until failure) to sets `#216`_ and `#217`_
+* Use the metricsgraphics library to more easily draw charts `#188`_
 * Add extended PDF options to schedules as well (thanks `@alelevinas`_ ) `#272`_
 * Show trained secondary muscles in workout view (thanks `@alokhan`_ ) `#282`_
+
+Improvements:
+
+* Replace jquery UI's autocompleter and sortable this reduces size of JS and CSS `#78`_
 * Remove hard-coded CC licence from documentation and website `#247`_
 
+Other improvements and bugfixes: `#279`_, `#275`_, `#270`_, `#258`_, `#257`_, `#269`_, `#296_`
 
-Other improvements and bugfixes: `#279`_, `#275`_, `#270`_, `#258`_, `#257`_, `#269`_
 
-
+.. _#78: https://github.com/wger-project/wger/issues/78
+.. _#188: https://github.com/wger-project/wger/issues/188
 .. _#216: https://github.com/wger-project/wger/issues/216
 .. _#217: https://github.com/wger-project/wger/issues/217
 .. _#247: https://github.com/wger-project/wger/issues/247
@@ -33,6 +41,7 @@ Other improvements and bugfixes: `#279`_, `#275`_, `#270`_, `#258`_, `#257`_, `#
 .. _#275: https://github.com/wger-project/wger/issues/275
 .. _#279: https://github.com/wger-project/wger/issues/279
 .. _#282: https://github.com/wger-project/wger/issues/282
+.. _#296: https://github.com/wger-project/wger/issues/296
 .. _@alelevinas: https://github.com/alelevinas
 .. _@alokhan: https://github.com/alokhan
 

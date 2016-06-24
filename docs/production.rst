@@ -22,9 +22,6 @@ Install apache and the WSGI module::
 
 Configure apache to serve the application::
 
-    WSGIScriptAlias / /home/wger/src/wger/wsgi.py
-    WSGIPythonPath /home/wger/src:/home/wger/venv/lib/python3.4/site-packages
-
     <Directory /home/wger/src>
         <Files wsgi.py>
             Require all granted
@@ -33,6 +30,10 @@ Configure apache to serve the application::
 
 
     <VirtualHost *:80>
+        WSGIDaemonProcess wger python-path=/home/wger/src:/home/wger/venv/lib/python3.4/site-packages
+        WSGIProcessGroup wger
+        WSGIScriptAlias / /home/wger/src/wger/wsgi.py
+
         Alias /static/ /home/wger/static/
         <Directory /home/wger/static>
             Require all granted

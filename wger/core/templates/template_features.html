@@ -38,8 +38,10 @@
 
     <!-- twitter cards -->
     {% block twittercard %}
+    {% if twitter %}
         <meta content="summary" name="twitter:card">
-        <meta content="@wger_de" name="twitter:site">
+        <meta content="@{{ twitter }}" name="twitter:site">
+    {% endif %}
     {% endblock %}
 
 

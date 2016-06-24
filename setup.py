@@ -25,7 +25,7 @@ setup(
     description='FLOSS workout, fitness and weight manager/tracker written with Django',
     long_description=long_description,
     version=get_version(),
-    url='https://wger.de',
+    url='https://github.com/wger-project',
     author='Roland Geider',
     author_email='roland@geider.net',
     license='AGPL3+',

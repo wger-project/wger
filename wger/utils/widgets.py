@@ -24,7 +24,7 @@ from django.forms.widgets import (
     SelectMultiple,
     TextInput,
     ChoiceFieldRenderer,
-    ChoiceInput)
+    CheckboxChoiceInput)
 
 from django.forms import fields
 
@@ -144,9 +144,9 @@ class ExerciseAjaxSelect(SelectMultiple):
             return ''
 
 
-class CheckboxChoiceInputTranslated(ChoiceInput):
+class CheckboxChoiceInputTranslated(CheckboxChoiceInput):
     '''
-    Overwritten ChoiceInput
+    Overwritten CheckboxChoiceInput
 
     This only translated the text for the select widgets
     '''
@@ -158,9 +158,9 @@ class CheckboxChoiceInputTranslated(ChoiceInput):
         super(CheckboxChoiceInputTranslated, self).__init__(name, value, attrs, choice, index)
 
 
-class CheckboxChoiceInputTranslatedOriginal(ChoiceInput):
+class CheckboxChoiceInputTranslatedOriginal(CheckboxChoiceInput):
     '''
-    Overwritten ChoiceInput
+    Overwritten CheckboxChoiceInput
 
     This only translated the text for the select widgets, showing the original
     string as well.
