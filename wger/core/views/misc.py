@@ -36,6 +36,7 @@ from wger.core.models import DaysOfWeek
 from wger.manager.models import Schedule
 from wger.nutrition.models import NutritionPlan
 from wger.weight.models import WeightEntry
+from wger.weight.helpers import get_last_entries
 
 
 logger = logging.getLogger(__name__)
@@ -104,6 +105,7 @@ def dashboard(request):
     except ObjectDoesNotExist:
         weight = False
     template_data['weight'] = weight
+    template_data['last_weight_entries'] = get_last_entries(request.user)
 
     if current_workout:
         # Format a bit the days so it doesn't have to be done in the template
