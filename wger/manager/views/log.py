@@ -82,6 +82,12 @@ class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
 
     model = WorkoutLog
+    fields = ('exercise',
+              'workout',
+              'repetition_unit',
+              'reps',
+              'weight',
+              'weight_unit')
     success_url = reverse_lazy('manager:workout:calendar')
     title = ugettext_lazy('Delete workout log')
     form_action_urlname = 'manager:log:delete'

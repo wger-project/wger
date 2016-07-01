@@ -126,6 +126,7 @@ class DeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
 
     model = ContractType
+    fields = ('name', 'description')
     permission_required = 'gym.delete_contracttype'
     form_action_urlname = 'gym:contract_type:delete'
 

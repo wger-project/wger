@@ -287,6 +287,12 @@ class ExerciseDeleteView(WgerDeleteMixin, DeleteView):
     '''
 
     model = Exercise
+    fields = ('category',
+              'description',
+              'name',
+              'muscles',
+              'muscles_secondary',
+              'equipment')
     success_url = reverse_lazy('exercise:exercise:overview')
     delete_message = ugettext_lazy('This will delete the exercise from all workouts.')
     messages = ugettext_lazy('Successfully deleted')

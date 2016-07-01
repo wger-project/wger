@@ -95,6 +95,7 @@ class ExerciseCategoryDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixi
     '''
 
     model = ExerciseCategory
+    fields = ('name',)
     success_url = reverse_lazy('exercise:category:list')
     delete_message = ugettext_lazy('This will also delete all exercises in this category.')
     messages = ugettext_lazy('Successfully deleted')

@@ -125,6 +125,7 @@ class StepDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
 
     model = ScheduleStep
+    fields = ('workout', 'duration', 'order')
     form_action_urlname = 'manager:step:delete'
     messages = ugettext_lazy('Successfully deleted')
     login_required = True

@@ -83,6 +83,7 @@ class WeightUnitDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     '''
 
     model = WeightUnit
+    fields = ['name']
     success_url = reverse_lazy('nutrition:weight_unit:list')
     form_action_urlname = 'nutrition:weight_unit:delete'
     permission_required = 'nutrition.delete_ingredientweightunit'
