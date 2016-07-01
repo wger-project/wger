@@ -250,7 +250,7 @@ class WorkoutEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
         return context
 
 
-class LastWeightHelper():
+class LastWeightHelper:
     '''
     Small helper class to retrieve the last workout log for a certain
     user, exercise and repetition combination.
