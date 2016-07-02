@@ -354,7 +354,9 @@ class Ingredient(AbstractLicenseModel, models.Model):
 
         energy_fat = 0
         if self.fat:
-            energy_fat = self.fat * ENERGY_FACTOR['fat']['kg']
+            # TODO: for some reason, during the tests the fat value is not
+            #       converted to decimal (django 1.9)
+            energy_fat = Decimal(self.fat * ENERGY_FACTOR['fat']['kg'])
 
         energy_calculated = energy_protein + energy_carbohydrates + energy_fat
 

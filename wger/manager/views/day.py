@@ -44,12 +44,12 @@ class DayView(WgerFormMixin):
     '''
 
     model = Day
-    form_class = DayForm
+    fields = ('description', 'day')
 
     def get_success_url(self):
         return reverse('manager:workout:view', kwargs={'pk': self.object.training_id})
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=DayForm):
         '''
         Filter the days of the week that are alreeady used by other days
         '''
