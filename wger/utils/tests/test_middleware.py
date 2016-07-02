@@ -50,7 +50,7 @@ class RobotsExclusionMiddlewareTestCase(WorkoutManagerTestCase):
         Test the middleware on URLs from software app
         '''
 
-        for i in ('features', 'issues', 'changelog', 'license', 'code', 'contribute'):
+        for i in ('features', 'issues', 'license', 'code', 'contribute'):
             response = self.client.get(reverse('software:{0}'.format(i)))
             self.assertFalse(response.get('X-Robots-Tag'))
 
