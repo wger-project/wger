@@ -74,6 +74,7 @@ class LanguageDeleteView(WgerDeleteMixin, DeleteView):
     '''
 
     model = Language
+    fields = '__all__'
     success_url = reverse_lazy('config:language:overview')
     messages = ugettext_lazy('Successfully deleted')
     permission_required = 'core.delete_language'

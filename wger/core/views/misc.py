@@ -162,7 +162,8 @@ class FeedbackClass(FormView):
         '''
         context = super(FeedbackClass, self).get_context_data(**kwargs)
         context['title'] = _('Feedback')
-        context['form_fields'] = kwargs['form']
+        # TODO: change template so it iterates through form and not formfields
+        context['form_fields'] = context['form']
         context['form_action'] = reverse('core:feedback')
         context['submit_text'] = _('Send')
         context['contribute_url'] = reverse('software:contribute')

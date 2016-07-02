@@ -101,7 +101,8 @@ BOWER_INSTALLED_APPS = (
     'tinymce',
     'metrics-graphics',
     'devbridge-autocomplete#1.2.x',
-#    'sortablejs#1.4.x',
+
+    #  'sortablejs#1.4.x',
 )
 
 
@@ -156,7 +157,7 @@ TEMPLATES = [
                 'django_mobile.context_processors.flavour',
 
                 # Breadcrumbs
-                'django.core.context_processors.request'
+                'django.template.context_processors.request'
             ],
             'loaders': [
                 # Django mobile

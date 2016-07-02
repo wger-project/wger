@@ -119,6 +119,7 @@ class WeightUnitIngredientDeleteView(WgerDeleteMixin, DeleteView, WgerPermission
     '''
 
     model = IngredientWeightUnit
+    fields = ('unit', 'gram', 'amount')
     title = ugettext_lazy('Delete?')
     form_action_urlname = 'nutrition:unit_ingredient:delete'
     permission_required = 'nutrition.add_ingredientweightunit'

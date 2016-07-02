@@ -15,6 +15,7 @@
 
 import json
 import datetime
+from decimal import Decimal
 
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
@@ -326,7 +327,7 @@ class IngredientTestCase(WorkoutManagerTestCase):
         ingredient.energy = 50
         ingredient.protein = 0.5
         ingredient.carbohydrates = 12
-        ingredient.fat = 0.1
+        ingredient.fat = Decimal('0.1')
         ingredient.language_id = 1
         self.assertFalse(ingredient.full_clean())
 

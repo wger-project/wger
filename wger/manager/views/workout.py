@@ -221,6 +221,7 @@ class WorkoutDeleteView(WgerDeleteMixin, DeleteView):
     '''
 
     model = Workout
+    fields = ('comment',)
     success_url = reverse_lazy('manager:workout:overview')
     messages = ugettext_lazy('Successfully deleted')
     login_required = True
@@ -250,7 +251,7 @@ class WorkoutEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
         return context
 
 
-class LastWeightHelper():
+class LastWeightHelper:
     '''
     Small helper class to retrieve the last workout log for a certain
     user, exercise and repetition combination.

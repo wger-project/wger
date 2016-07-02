@@ -131,6 +131,7 @@ class WorkoutSessionDeleteView(WgerDeleteMixin, DeleteView):
     '''
 
     model = WorkoutSession
+    fields = ('date', 'notes', 'impression', 'time_start', 'time_end')
     success_url = reverse_lazy('manager:workout:overview')
     messages = ugettext_lazy('Successfully deleted')
     login_required = True
