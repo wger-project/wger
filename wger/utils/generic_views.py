@@ -135,7 +135,8 @@ class WgerFormMixin(ModelFormMixin, WgerPermissionMixin):
         context.update(csrf(self.request))
 
         context['sidebar'] = self.sidebar
-        context['form_fields'] = kwargs['form']
+        # TODO: change template so it iterates through form and not formfields
+        context['form_fields'] = context['form']
 
         # Custom JS code on form (autocompleter, editor, etc.)
         context['custom_js'] = self.custom_js
