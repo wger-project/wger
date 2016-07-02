@@ -64,9 +64,9 @@ def overview(request):
 
     template_data = {}
 
-    latest_workouts = Workout.objects.filter(user=request.user)
+    workouts = Workout.objects.filter(user=request.user)
     (current_workout, schedule) = Schedule.objects.get_current_workout(request.user)
-    template_data['workouts'] = latest_workouts
+    template_data['workouts'] = workouts
     template_data['current_workout'] = current_workout
 
     return render(request, 'workout/overview.html', template_data)
