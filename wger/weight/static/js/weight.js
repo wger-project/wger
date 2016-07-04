@@ -57,20 +57,25 @@ $(document).ready(function () {
 
         // change button state
         $(this).addClass('active').siblings().removeClass('active');
-
-        chart_params.data = data;
-        MG.data_graphic(chart_params);
+        if (data.length) {
+            chart_params.data = data;
+            MG.data_graphic(chart_params);
+        }
     });
 });
 
 
 function modify_time_period(data, past_n_days) {
     if (data.length) {
-        if (past_n_days !== 'all' || past_n_days !== '') {
-            return MG.clone(data).slice(past_n_days * -1);
+        if (past_n_days !== 'all') {
+            var date = new Date();
+            date.setDate(date.getDate() - past_n_days);
+            var filtered = MG.clone(data).filter(function (value) {
+                return value.date >= date;
+            })
+            return filtered;
         }
     }
-
     return data;
 }
 
