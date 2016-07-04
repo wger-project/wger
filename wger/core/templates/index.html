@@ -22,24 +22,12 @@
                 <h4 class="modal-title">{% trans 'Add log to day' %}</h4>
             </div>
             <div class="modal-body">
-                {% if current_workout %}
                 <p>{% blocktrans %}Click to add weight logs to a training
 day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</strong></p>
 
                 {% for day in current_workout.day_set.all %}
                     <a href="{% url 'manager:day:log' day.pk %}" class="btn btn-block btn-default">{{day.description}}</a>
                 {% endfor %}
-
-                {% else %}
-                <p>
-                    <em>{% trans "No workouts found." %}</em>
-                </p>
-                <p>
-                    <a href="{% url 'manager:workout:add' %}" class="btn btn-success btn-sm">
-                        {% trans "Add workout" %}
-                    </a>
-                </p>
-                {% endif %}
             </div>
         </div>
     </div>
