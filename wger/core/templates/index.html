@@ -37,7 +37,6 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
 <div class="row">
     <div class="col-sm-4">
         <h4>{% trans "Workout"%}</h4>
-
         {% if current_workout %}
             <p>
                 <a href="{{ current_workout.get_absolute_url }}">
@@ -66,13 +65,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
                 </tr>
                 {% endfor %}
             </table>
-
-        {% else %} {# no workout #}
-            <a href="{% url 'manager:workout:add' %}" class="btn btn-block btn-default">
-                {% trans "No workouts found." %} {% trans "Add one now." %}
-            </a>
         {% endif %}
-
     </div>
     <div class="col-sm-4">
         <h4>{% trans "Nutrition plan"%}</h4>
@@ -110,13 +103,6 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
                     </td>
                 </tr>
             </table>
-
-        {% else %}
-            <p>
-                <a href="{% url 'nutrition:plan:add' %}" class="btn btn-block btn-default">
-                    {% trans "No nutrition plans." %} {% trans "Add one now." %}
-                </a>
-            </p>
         {% endif %}
     </div>
     <div class="col-sm-4">
@@ -179,15 +165,24 @@ or, if you don't have one, simply by date.{% endblocktrans %}</em></p>
 
 <div class="row">
     <div class="col-sm-4">
-        {% if current_workout.day_set.all %}
-            <p>
+        {% if current_workout %}
+            {% if current_workout.day_set.all %}
                 <a href="#" id="logging-popup-link" data-toggle="modal" data-target="#calendar-day-select-popup" class="btn btn-success btn-sm">
                     {% trans "Add new log" %}
                 </a>
-            </p>
+            {% endif %}
+        {% else %}
+            <a href="{% url 'manager:workout:add' %}" class="btn btn-sm btn-success">
+                {% trans "No workouts found." %} {% trans "Add one now." %}
+            </a>
         {% endif %}
     </div>
     <div class="col-sm-4">
+        {% if not plan %}
+                <a href="{% url 'nutrition:plan:add' %}" class="btn btn-sm  btn-success">
+                    {% trans "No nutrition plans." %} {% trans "Add one now." %}
+                </a>
+        {% endif %}
         <p>
             <!--
             <a href="{% url 'nutrition:plan:add' %}" class="btn btn-success btn-sm">
@@ -197,11 +192,9 @@ or, if you don't have one, simply by date.{% endblocktrans %}</em></p>
         </p>
     </div>
     <div class="col-sm-4">
-        <p>
-            <a href="{% url 'weight:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-                {% trans "Add weight entry" %}
-            </a>
-        </p>
+        <a href="{% url 'weight:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+            {% trans "Add weight entry" %}
+        </a>
     </div>
 </div>
 {% endblock %}
