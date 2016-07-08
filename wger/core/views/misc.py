@@ -107,25 +107,25 @@ def dashboard(request):
     template_data['weight'] = weight
     template_data['last_weight_entries'] = get_last_entries(request.user)
 
+    # Format a bit the days so it doesn't have to be done in the template
+    used_days = {}
     if current_workout:
-        # Format a bit the days so it doesn't have to be done in the template
-        used_days = {}
         for day in current_workout.day_set.select_related():
             for day_of_week in day.day.select_related():
                 used_days[day_of_week.id] = day.description
 
-        week_day_result = []
-        for week in DaysOfWeek.objects.all():
-            day_has_workout = False
+    week_day_result = []
+    for week in DaysOfWeek.objects.all():
+        day_has_workout = False
 
-            if week.id in used_days:
-                day_has_workout = True
-                week_day_result.append((_(week.day_of_week), used_days[week.id], True))
+        if week.id in used_days:
+            day_has_workout = True
+            week_day_result.append((_(week.day_of_week), used_days[week.id], True))
 
-            if not day_has_workout:
-                week_day_result.append((_(week.day_of_week), _('Rest day'), False))
+        if not day_has_workout:
+            week_day_result.append((_(week.day_of_week), _('Rest day'), False))
 
-        template_data['weekdays'] = week_day_result
+    template_data['weekdays'] = week_day_result
 
     if plan:
 

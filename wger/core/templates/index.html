@@ -37,19 +37,20 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
 <div class="row">
     <div class="col-sm-4">
         <h4>{% trans "Workout"%}</h4>
-        {% if current_workout %}
-            <p>
-                <a href="{{ current_workout.get_absolute_url }}">
-                    {% if current_workout.comment %}
-                        {{ current_workout.comment }}
-                    {% else %}
-                        {% trans "Workout" %}
-                    {% endif %}
-                </a>
-            </p>
-            <p>
-                 – {{ current_workout.creation_date }}
-            <p>
+            {% if current_workout %}
+                <p>
+                    <a href="{{ current_workout.get_absolute_url }}">
+                        {% if current_workout.comment %}
+                            {{ current_workout.comment }}
+                        {% else %}
+                            {% trans "Workout" %}
+                        {% endif %}
+                    </a>
+                </p>
+                <p>
+                     – {{ current_workout.creation_date }}
+                <p>
+            {% endif %}
 
             <table class="table table-hover table-condensed">
                 {% for day, exercise, is_workout in weekdays %}
@@ -65,7 +66,6 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
                 </tr>
                 {% endfor %}
             </table>
-        {% endif %}
     </div>
     <div class="col-sm-4">
         <h4>{% trans "Nutrition plan"%}</h4>
@@ -77,33 +77,33 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
             <p>
                  – {{ plan.creation_date }}
             </p>
-            <table class="table table-hover table-condensed">
-                <tr>
-                    <td>{% trans "Energy" %}</td>
-                    <td>
-                        {{nutritional_info.total.energy|floatformat}} {% trans "kcal" %}
-                    </td>
-                </tr>
-                <tr>
-                    <td>{% trans "Protein" %}</td>
-                    <td>
-                        {{nutritional_info.total.protein|floatformat}} {% trans_weight_unit 'g' user %}
-                    </td>
-                </tr>
-                <tr>
-                    <td>{% trans "Carbohydrates" %}</td>
-                    <td>
-                        {{nutritional_info.total.carbohydrates|floatformat}} {% trans_weight_unit 'g' user %}
-                    </td>
-                </tr>
-                <tr>
-                    <td>{% trans "Fat" %}</td>
-                    <td>
-                        {{nutritional_info.total.fat|floatformat}} {% trans_weight_unit 'g' user %}
-                    </td>
-                </tr>
-            </table>
         {% endif %}
+        <table class="table table-hover table-condensed">
+            <tr>
+                <td>{% trans "Energy" %}</td>
+                <td>
+                    {{nutritional_info.total.energy|floatformat|default:"-/-"}} {% trans "kcal" %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Protein" %}</td>
+                <td>
+                    {{nutritional_info.total.protein|floatformat|default:"-/-"}} {% trans_weight_unit 'g' user %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Carbohydrates" %}</td>
+                <td>
+                    {{nutritional_info.total.carbohydrates|floatformat|default:"-/-"}} {% trans_weight_unit 'g' user %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Fat" %}</td>
+                <td>
+                    {{nutritional_info.total.fat|floatformat|default:"-/-"}} {% trans_weight_unit 'g' user %}
+                </td>
+            </tr>
+        </table>
     </div>
     <div class="col-sm-4">
         <h4>{% trans "Weight"%}</h4>
