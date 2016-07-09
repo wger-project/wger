@@ -25,6 +25,7 @@ from django.http import (
 )
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.utils.translation import ugettext_lazy, ugettext as _
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import (
     CreateView,
@@ -44,8 +45,7 @@ from wger.manager.models import Schedule
 from wger.manager.helpers import render_workout_day
 from wger.utils.generic_views import (
     WgerFormMixin,
-    WgerDeleteMixin,
-    WgerPermissionMixin
+    WgerDeleteMixin
 )
 from wger.utils.helpers import make_token, check_token
 from wger.utils.pdf import styleSheet, render_footer
@@ -245,7 +245,7 @@ def start(request, pk):
     return HttpResponseRedirect(reverse('manager:schedule:view', kwargs={'pk': schedule.id}))
 
 
-class ScheduleCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
+class ScheduleCreateView(WgerFormMixin, CreateView, PermissionRequiredMixin):
     '''
     Creates a new workout schedule
     '''
@@ -255,7 +255,6 @@ class ScheduleCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
     success_url = reverse_lazy('manager:schedule:overview')
     title = ugettext_lazy('Create schedule')
     form_action = reverse_lazy('manager:schedule:add')
-    login_required = True
 
     def form_valid(self, form):
         '''set the submitter'''
@@ -266,7 +265,7 @@ class ScheduleCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
         return reverse_lazy('manager:schedule:view', kwargs={'pk': self.object.id})
 
 
-class ScheduleDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
+class ScheduleDeleteView(WgerDeleteMixin, DeleteView, PermissionRequiredMixin):
     '''
     Generic view to delete a schedule
     '''
@@ -276,7 +275,6 @@ class ScheduleDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     success_url = reverse_lazy('manager:schedule:overview')
     form_action_urlname = 'manager:schedule:delete'
     messages = ugettext_lazy('Successfully deleted')
-    login_required = True
 
     def get_context_data(self, **kwargs):
         '''
@@ -287,7 +285,7 @@ class ScheduleDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
         return context
 
 
-class ScheduleEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
+class ScheduleEditView(WgerFormMixin, UpdateView, PermissionRequiredMixin):
     '''
     Generic view to update an existing workout routine
     '''
@@ -295,7 +293,6 @@ class ScheduleEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     model = Schedule
     fields = '__all__'
     form_action_urlname = 'manager:schedule:edit'
-    login_required = True
 
     def get_context_data(self, **kwargs):
         '''

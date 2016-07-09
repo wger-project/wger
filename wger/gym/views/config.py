@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 import logging
 
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseForbidden
 from django.utils.translation import ugettext as _
@@ -27,7 +28,7 @@ from wger.utils.generic_views import WgerFormMixin
 logger = logging.getLogger(__name__)
 
 
-class GymConfigUpdateView(WgerFormMixin, UpdateView):
+class GymConfigUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     '''
     View to update an existing gym configuration
     '''

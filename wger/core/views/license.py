@@ -16,6 +16,7 @@
 
 import logging
 
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
@@ -28,8 +29,7 @@ from django.views.generic import (
 
 from wger.utils.generic_views import (
     WgerFormMixin,
-    WgerDeleteMixin,
-    WgerPermissionMixin
+    WgerDeleteMixin
 )
 
 from wger.core.models import License
@@ -38,7 +38,7 @@ from wger.core.models import License
 logger = logging.getLogger(__name__)
 
 
-class LicenseListView(WgerPermissionMixin, ListView):
+class LicenseListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     '''
     Overview of all available licenses
     '''
@@ -47,7 +47,7 @@ class LicenseListView(WgerPermissionMixin, ListView):
     template_name = 'license/list.html'
 
 
-class LicenseAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
+class LicenseAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     '''
     View to add a new license
     '''
@@ -60,7 +60,7 @@ class LicenseAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     permission_required = 'core.add_license'
 
 
-class LicenseUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
+class LicenseUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     '''
     View to update an existing license
     '''
@@ -80,7 +80,7 @@ class LicenseUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
         return context
 
 
-class LicenseDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
+class LicenseDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     '''
     View to delete an existing license
     '''

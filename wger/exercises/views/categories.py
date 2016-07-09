@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 import logging
 
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
@@ -29,8 +30,7 @@ from wger.exercises.models import ExerciseCategory
 
 from wger.utils.generic_views import (
     WgerFormMixin,
-    WgerDeleteMixin,
-    WgerPermissionMixin
+    WgerDeleteMixin
 )
 from wger.utils.language import load_language
 
@@ -38,17 +38,19 @@ from wger.utils.language import load_language
 logger = logging.getLogger(__name__)
 
 
-class ExerciseCategoryListView(WgerPermissionMixin, ListView):
+class ExerciseCategoryListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     '''
     Overview of all categories, for administration purposes
     '''
     model = ExerciseCategory
-    login_required = True
     permission_required = 'exercises.change_exercisecategory'
     template_name = 'categories/admin-overview.html'
 
 
-class ExerciseCategoryAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
+class ExerciseCategoryAddView(WgerFormMixin,
+                              LoginRequiredMixin,
+                              PermissionRequiredMixin,
+                              CreateView):
     '''
     Generic view to add a new exercise category
     '''
@@ -65,7 +67,10 @@ class ExerciseCategoryAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
         return super(ExerciseCategoryAddView, self).form_valid(form)
 
 
-class ExerciseCategoryUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
+class ExerciseCategoryUpdateView(WgerFormMixin,
+                                 LoginRequiredMixin,
+                                 PermissionRequiredMixin,
+                                 UpdateView):
     '''
     Generic view to update an existing exercise category
     '''
@@ -89,7 +94,10 @@ class ExerciseCategoryUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin)
         return super(ExerciseCategoryUpdateView, self).form_valid(form)
 
 
-class ExerciseCategoryDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
+class ExerciseCategoryDeleteView(WgerDeleteMixin,
+                                 LoginRequiredMixin,
+                                 PermissionRequiredMixin,
+                                 DeleteView):
     '''
     Generic view to delete an existing exercise category
     '''

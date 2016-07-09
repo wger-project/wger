@@ -16,6 +16,7 @@
 
 import logging
 
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
@@ -31,15 +32,14 @@ from django.views.generic import (
 from wger.core.models import Language
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin,
-    WgerPermissionMixin
+    WgerFormMixin
 )
 
 
 logger = logging.getLogger(__name__)
 
 
-class LanguageListView(WgerPermissionMixin, ListView):
+class LanguageListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     '''
     Show an overview of all languages
     '''
@@ -49,14 +49,14 @@ class LanguageListView(WgerPermissionMixin, ListView):
     permission_required = 'core.change_language'
 
 
-class LanguageDetailView(WgerPermissionMixin, DetailView):
+class LanguageDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Language
     template_name = 'language/view.html'
     context_object_name = 'view_language'
     permission_required = 'core.change_language'
 
 
-class LanguageCreateView(WgerFormMixin, CreateView):
+class LanguageCreateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     '''
     Generic view to add a new language
     '''
@@ -68,7 +68,7 @@ class LanguageCreateView(WgerFormMixin, CreateView):
     permission_required = 'core.add_language'
 
 
-class LanguageDeleteView(WgerDeleteMixin, DeleteView):
+class LanguageDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     '''
     Generic view to delete an existing language
     '''
@@ -91,7 +91,7 @@ class LanguageDeleteView(WgerDeleteMixin, DeleteView):
         return context
 
 
-class LanguageEditView(WgerFormMixin, UpdateView):
+class LanguageEditView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     '''
     Generic view to update an existing language
     '''

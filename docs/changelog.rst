@@ -10,11 +10,11 @@ Upgrade steps from 1.7:
 * Django update to 1.9: ``pip install -r requirements.txt``
 * Database upgrade: ``python manage.py migrate``
 * Reset workout cache: ``python manage.py clear-cache --clear-workout-cache``
-* New config option in settings.py: ``WGER_SETTINGS['TWITTER']``. Set this if
-  your instance has its own twitter account.
 * Download new JS packages: ``python manage.py bower install`` (note that you
   might have to delete first wger/core/static/bower_components)
 * Update static files (only production): ``python manage.py collectstatic``
+* New config option in settings.py: ``WGER_SETTINGS['TWITTER']``. Set this if
+  your instance has its own twitter account.
 
 New features:
 
@@ -28,7 +28,7 @@ Improvements:
 * Replace jquery UI's autocompleter and sortable this reduces size of JS and CSS `#78`_
 * Remove hard-coded CC licence from documentation and website `#247`_
 
-Other improvements and bugfixes: `#279`_, `#275`_, `#270`_, `#258`_, `#257`_,
+Other improvements and bugfixes: `#243`_, `#279`_, `#275`_, `#270`_, `#258`_, `#257`_,
 `#269`_, `#296`_, `#297`_
 
 
@@ -36,6 +36,7 @@ Other improvements and bugfixes: `#279`_, `#275`_, `#270`_, `#258`_, `#257`_,
 .. _#188: https://github.com/wger-project/wger/issues/188
 .. _#216: https://github.com/wger-project/wger/issues/216
 .. _#217: https://github.com/wger-project/wger/issues/217
+.. _#243: https://github.com/wger-project/wger/issues/243
 .. _#247: https://github.com/wger-project/wger/issues/247
 .. _#257: https://github.com/wger-project/wger/issues/257
 .. _#258: https://github.com/wger-project/wger/issues/258

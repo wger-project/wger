@@ -18,6 +18,7 @@ import logging
 import uuid
 import datetime
 
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseForbidden
@@ -46,8 +47,7 @@ from wger.manager.forms import (
 )
 from wger.utils.generic_views import (
     WgerFormMixin,
-    WgerDeleteMixin,
-    WgerPermissionMixin
+    WgerDeleteMixin
 )
 from wger.utils.helpers import check_access
 from wger.weight.helpers import process_log_entries, group_log_entries
@@ -59,14 +59,13 @@ logger = logging.getLogger(__name__)
 # ************************
 # Log functions
 # ************************
-class WorkoutLogUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
+class WorkoutLogUpdateView(WgerFormMixin, UpdateView, LoginRequiredMixin):
     '''
     Generic view to edit an existing workout log weight entry
     '''
     model = WorkoutLog
     form_class = WorkoutLogForm
     success_url = reverse_lazy('manager:workout:calendar')
-    login_required = True
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutLogUpdateView, self).get_context_data(**kwargs)
@@ -76,7 +75,7 @@ class WorkoutLogUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
         return context
 
 
-class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
+class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, LoginRequiredMixin):
     '''
     Delete a workout log
     '''
@@ -91,7 +90,6 @@ class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     success_url = reverse_lazy('manager:workout:calendar')
     title = ugettext_lazy('Delete workout log')
     form_action_urlname = 'manager:log:delete'
-    login_required = True
 
 
 def add(request, pk):
@@ -221,14 +219,13 @@ def add(request, pk):
     return render(request, 'day/log.html', template_data)
 
 
-class WorkoutLogDetailView(DetailView, WgerPermissionMixin):
+class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
     '''
     An overview of the workout's log
     '''
 
     model = Workout
     template_name = 'workout/log.html'
-    login_required = True
     context_object_name = 'workout'
     owner_user = None
 

@@ -16,6 +16,7 @@
 
 import logging
 
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
@@ -28,15 +29,14 @@ from django.views.generic import (
 
 from wger.utils.generic_views import (
     WgerFormMixin,
-    WgerDeleteMixin,
-    WgerPermissionMixin
+    WgerDeleteMixin
 )
 from wger.gym.models import ContractOption, Gym
 
 logger = logging.getLogger(__name__)
 
 
-class AddView(WgerFormMixin, CreateView):
+class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     '''
     View to add a new contract option
     '''
@@ -82,7 +82,7 @@ class AddView(WgerFormMixin, CreateView):
         return context
 
 
-class UpdateView(WgerFormMixin, UpdateView):
+class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     '''
     View to update an existing contract option
     '''
@@ -120,7 +120,7 @@ class UpdateView(WgerFormMixin, UpdateView):
         return context
 
 
-class DeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
+class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     '''
     View to delete an existing contract option
     '''
@@ -158,7 +158,7 @@ class DeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
         return context
 
 
-class ListView(WgerPermissionMixin, ListView):
+class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     '''
     Overview of all available contract options
     '''

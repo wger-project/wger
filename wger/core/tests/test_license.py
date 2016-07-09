@@ -41,7 +41,6 @@ class LicenseOverviewTest(WorkoutManagerAccessTestCase):
     '''
 
     url = 'core:license:list'
-    anonymous_fail = True
 
 
 class AddLicenseTestCase(WorkoutManagerAddTestCase):

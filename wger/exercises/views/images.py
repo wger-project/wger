@@ -14,8 +14,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 import logging
-from django.contrib.auth.decorators import permission_required
 
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -31,8 +32,7 @@ from wger.exercises.models import Exercise, ExerciseImage
 from wger.exercises.forms import ExerciseImageForm
 from wger.utils.generic_views import (
     WgerFormMixin,
-    WgerDeleteMixin,
-    WgerPermissionMixin
+    WgerDeleteMixin
 )
 
 
@@ -43,7 +43,10 @@ Exercise images
 '''
 
 
-class ExerciseImageEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
+class ExerciseImageEditView(WgerFormMixin,
+                            LoginRequiredMixin,
+                            PermissionRequiredMixin,
+                            UpdateView):
     '''
     Generic view to update an existing exercise image
     '''
@@ -66,7 +69,10 @@ class ExerciseImageEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
         return context
 
 
-class ExerciseImageAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
+class ExerciseImageAddView(WgerFormMixin,
+                           LoginRequiredMixin,
+                           PermissionRequiredMixin,
+                           CreateView):
     '''
     Generic view to add a new exercise image
     '''
@@ -96,7 +102,10 @@ class ExerciseImageAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
         return context
 
 
-class ExerciseImageDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
+class ExerciseImageDeleteView(WgerDeleteMixin,
+                              LoginRequiredMixin,
+                              PermissionRequiredMixin,
+                              DeleteView):
     '''
     Generic view to delete an existing exercise image
     '''

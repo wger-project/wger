@@ -17,6 +17,7 @@
 import logging
 import datetime
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseForbidden, HttpResponseBadRequest
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy, ugettext as _
@@ -34,8 +35,7 @@ from wger.manager.models import (
 )
 from wger.utils.generic_views import (
     WgerFormMixin,
-    WgerDeleteMixin,
-    WgerPermissionMixin
+    WgerDeleteMixin
 )
 
 
@@ -46,13 +46,12 @@ Workout session
 '''
 
 
-class WorkoutSessionUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
+class WorkoutSessionUpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
     '''
     Generic view to edit an existing workout session entry
     '''
     model = WorkoutSession
     form_class = WorkoutSessionForm
-    login_required = True
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutSessionUpdateView, self).get_context_data(**kwargs)
@@ -65,13 +64,12 @@ class WorkoutSessionUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
         return reverse('manager:workout:calendar')
 
 
-class WorkoutSessionAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
+class WorkoutSessionAddView(WgerFormMixin, LoginRequiredMixin, CreateView):
     '''
     Generic view to add a new workout session entry
     '''
     model = WorkoutSession
     form_class = WorkoutSessionForm
-    login_required = True
 
     def get_date(self):
         '''
@@ -125,7 +123,7 @@ class WorkoutSessionAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
         return super(WorkoutSessionAddView, self).form_valid(form)
 
 
-class WorkoutSessionDeleteView(WgerDeleteMixin, DeleteView):
+class WorkoutSessionDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     '''
     Generic view to delete a workout routine
     '''
@@ -134,7 +132,6 @@ class WorkoutSessionDeleteView(WgerDeleteMixin, DeleteView):
     fields = ('date', 'notes', 'impression', 'time_start', 'time_end')
     success_url = reverse_lazy('manager:workout:overview')
     messages = ugettext_lazy('Successfully deleted')
-    login_required = True
 
     def delete(self, request, *args, **kwargs):
         '''

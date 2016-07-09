@@ -16,6 +16,7 @@
 
 import logging
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
@@ -38,7 +39,7 @@ logger = logging.getLogger(__name__)
 # ************************
 # Day functions
 # ************************
-class DayView(WgerFormMixin):
+class DayView(WgerFormMixin, LoginRequiredMixin):
     '''
     Base generic view for exercise day
     '''

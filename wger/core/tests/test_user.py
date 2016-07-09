@@ -54,13 +54,10 @@ class StatusUserTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('core:user:activate', kwargs={'pk': user.pk}))
         user = User.objects.get(pk=2)
 
+        self.assertIn(response.status_code, (302, 403))
         if fail:
-            self.assertEqual(response.status_code, 403,
-                             'Unexpected status code for user {0}'.format(self.current_user))
             self.assertFalse(user.is_active)
         else:
-            self.assertEqual(response.status_code, 302,
-                             'Unexpected status code for user {0}'.format(self.current_user))
             self.assertTrue(user.is_active)
 
     def test_activate_authorized(self):
@@ -99,11 +96,10 @@ class StatusUserTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('core:user:deactivate', kwargs={'pk': user.pk}))
         user = User.objects.get(pk=2)
 
+        self.assertIn(response.status_code, (302, 403))
         if fail:
-            self.assertEqual(response.status_code, 403)
             self.assertTrue(user.is_active)
         else:
-            self.assertEqual(response.status_code, 302)
             self.assertFalse(user.is_active)
 
     def test_deactivate_authorized(self):

@@ -23,6 +23,7 @@ from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy, ugettext as _
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DeleteView, UpdateView
 
@@ -44,8 +45,7 @@ from wger.manager.forms import (
 )
 from wger.utils.generic_views import (
     WgerFormMixin,
-    WgerDeleteMixin,
-    WgerPermissionMixin
+    WgerDeleteMixin
 )
 from wger.utils.helpers import make_token
 
@@ -215,7 +215,7 @@ def add(request):
     return HttpResponseRedirect(workout.get_absolute_url())
 
 
-class WorkoutDeleteView(WgerDeleteMixin, DeleteView):
+class WorkoutDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     '''
     Generic view to delete a workout routine
     '''
@@ -224,7 +224,6 @@ class WorkoutDeleteView(WgerDeleteMixin, DeleteView):
     fields = ('comment',)
     success_url = reverse_lazy('manager:workout:overview')
     messages = ugettext_lazy('Successfully deleted')
-    login_required = True
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutDeleteView, self).get_context_data(**kwargs)
@@ -234,7 +233,7 @@ class WorkoutDeleteView(WgerDeleteMixin, DeleteView):
         return context
 
 
-class WorkoutEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
+class WorkoutEditView(WgerFormMixin, LoginRequiredMixin, UpdateView):
     '''
     Generic view to update an existing workout routine
     '''
@@ -242,7 +241,6 @@ class WorkoutEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     model = Workout
     form_class = WorkoutForm
     form_action_urlname = 'manager:workout:edit'
-    login_required = True
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutEditView, self).get_context_data(**kwargs)
