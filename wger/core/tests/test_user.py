@@ -15,7 +15,7 @@
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse, reverse_lazy
 
-from wger.manager.tests.testcase import (
+from wger.core.tests.base_testcase import (
     WorkoutManagerTestCase,
     WorkoutManagerEditTestCase,
     WorkoutManagerAccessTestCase

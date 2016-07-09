@@ -16,7 +16,7 @@
 from wger.core.models import WeightUnit
 from wger.core.tests import api_base_test
 
-from wger.manager.tests.testcase import (
+from wger.core.tests.base_testcase import (
     WorkoutManagerAccessTestCase,
     WorkoutManagerTestCase,
     WorkoutManagerDeleteTestCase,

@@ -12,12 +12,12 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from wger.core.models import Language
+from django.core.urlresolvers import reverse
 
+from wger.core.models import Language
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.nutrition.models import NutritionPlan
-from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.utils.helpers import make_token
 
 

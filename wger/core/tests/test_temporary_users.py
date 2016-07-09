@@ -15,21 +15,21 @@
 import datetime
 import random
 
-from django.core.urlresolvers import reverse
-from django.core.management import call_command
 from django.contrib.auth.models import User
+from django.core.management import call_command
+from django.core.urlresolvers import reverse
 
-from wger.manager.models import ScheduleStep
-from wger.manager.models import Schedule
-from wger.manager.models import Workout
-from wger.manager.models import Day
-from wger.manager.models import WorkoutLog
-from wger.nutrition.models import NutritionPlan
-from wger.nutrition.models import Meal
-from wger.weight.models import WeightEntry
-from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.core.demo import create_temporary_user
 from wger.core.demo import create_demo_entries
+from wger.core.demo import create_temporary_user
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.manager.models import Day
+from wger.manager.models import Schedule
+from wger.manager.models import ScheduleStep
+from wger.manager.models import Workout
+from wger.manager.models import WorkoutLog
+from wger.nutrition.models import Meal
+from wger.nutrition.models import NutritionPlan
+from wger.weight.models import WeightEntry
 
 
 class DemoUserTestCase(WorkoutManagerTestCase):

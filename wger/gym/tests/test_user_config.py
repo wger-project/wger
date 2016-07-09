@@ -12,7 +12,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
+from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
 
 from wger.gym.models import GymUserConfig
 

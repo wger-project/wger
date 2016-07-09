@@ -12,17 +12,17 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import json
 import datetime
+import json
 from decimal import Decimal
 
-from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from wger.core.models import UserProfile
-from wger.utils.constants import TWOPLACES
+from django.core.urlresolvers import reverse
 
+from wger.core.models import UserProfile
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
-from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 
 class BmiTestCase(WorkoutManagerTestCase):

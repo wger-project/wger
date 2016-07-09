@@ -14,10 +14,11 @@
 
 from datetime import timedelta, datetime
 
-from django.core.management import call_command
-from django.core import mail
 from django.contrib.auth.models import User
-from wger.manager.tests.testcase import WorkoutManagerTestCase
+from django.core import mail
+from django.core.management import call_command
+
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.weight.models import WeightEntry
 
 

@@ -15,19 +15,18 @@
 import json
 
 from django.core import mail
-from django.core.urlresolvers import reverse
 from django.core.cache import cache
-from wger.core.tests import api_base_test
+from django.core.urlresolvers import reverse
 
+from wger.core.tests.base_testcase import (
+    STATUS_CODES_FAIL,
+    WorkoutManagerTestCase,
+    WorkoutManagerDeleteTestCase
+)
 from wger.exercises.models import (
     Exercise,
     Muscle,
     ExerciseCategory,
-)
-from wger.manager.tests.testcase import (
-    STATUS_CODES_FAIL,
-    WorkoutManagerTestCase,
-    WorkoutManagerDeleteTestCase
 )
 from wger.utils.cache import get_template_cache_name, cache_mapper
 

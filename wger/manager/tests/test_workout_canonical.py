@@ -16,20 +16,19 @@ from decimal import Decimal
 
 from django.core.cache import cache
 
-from wger.exercises.models import Exercise
 from wger.core.models import (
     DaysOfWeek,
     RepetitionUnit,
     WeightUnit
 )
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.exercises.models import Exercise
 from wger.manager.models import (
     Workout,
     Day,
     Set,
     Setting
 )
-
-from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.utils.cache import cache_mapper
 
 

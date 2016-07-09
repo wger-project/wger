@@ -14,9 +14,9 @@
 
 import six
 from django.core.urlresolvers import reverse
-from wger.core.models import Language
 
-from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.core.models import Language
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
 
 
 class RobotsTxtTestCase(WorkoutManagerTestCase):
