@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 import logging
 
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from django.forms import ModelForm, ModelChoiceField
@@ -33,8 +34,7 @@ from wger.nutrition.models import (
 )
 from wger.utils.generic_views import (
     WgerFormMixin,
-    WgerDeleteMixin,
-    WgerPermissionMixin
+    WgerDeleteMixin
 )
 
 
@@ -46,7 +46,10 @@ logger = logging.getLogger(__name__)
 # ************************
 
 
-class WeightUnitIngredientCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
+class WeightUnitIngredientCreateView(WgerFormMixin,
+                                     LoginRequiredMixin,
+                                     PermissionRequiredMixin,
+                                     CreateView):
     '''
     Generic view to add a new weight unit to ingredient entry
     '''
@@ -85,7 +88,10 @@ class WeightUnitIngredientCreateView(WgerFormMixin, CreateView, WgerPermissionMi
         return IngredientWeightUnitForm
 
 
-class WeightUnitIngredientUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
+class WeightUnitIngredientUpdateView(WgerFormMixin,
+                                     LoginRequiredMixin,
+                                     PermissionRequiredMixin,
+                                     UpdateView):
     '''
     Generic view to update an weight unit to ingredient entry
     '''
@@ -113,12 +119,16 @@ class WeightUnitIngredientUpdateView(WgerFormMixin, UpdateView, WgerPermissionMi
         return IngredientWeightUnitForm
 
 
-class WeightUnitIngredientDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
+class WeightUnitIngredientDeleteView(WgerDeleteMixin,
+                                     LoginRequiredMixin,
+                                     PermissionRequiredMixin,
+                                     DeleteView):
     '''
     Generic view to delete a weight unit to ingredient entry
     '''
 
     model = IngredientWeightUnit
+    fields = ('unit', 'gram', 'amount')
     title = ugettext_lazy('Delete?')
     form_action_urlname = 'nutrition:unit_ingredient:delete'
     permission_required = 'nutrition.add_ingredientweightunit'

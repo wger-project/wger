@@ -17,7 +17,7 @@ from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from wger.manager.tests.testcase import BaseTestCase
+from wger.core.tests.base_testcase import BaseTestCase
 
 
 class ApiBaseTestCase(APITestCase):

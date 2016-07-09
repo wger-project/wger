@@ -16,6 +16,7 @@
 
 import logging
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
@@ -38,18 +39,18 @@ logger = logging.getLogger(__name__)
 # ************************
 # Day functions
 # ************************
-class DayView(WgerFormMixin):
+class DayView(WgerFormMixin, LoginRequiredMixin):
     '''
     Base generic view for exercise day
     '''
 
     model = Day
-    form_class = DayForm
+    fields = ('description', 'day')
 
     def get_success_url(self):
         return reverse('manager:workout:view', kwargs={'pk': self.object.training_id})
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=DayForm):
         '''
         Filter the days of the week that are alreeady used by other days
         '''

@@ -16,6 +16,7 @@
 import logging
 
 from django.core.urlresolvers import reverse
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
@@ -24,22 +25,17 @@ from django.utils.translation import ugettext_lazy
 from django.views.generic import (
     DetailView,
     ListView,
-    DeleteView,
     CreateView,
     UpdateView
 )
 
-from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin,
-    WgerPermissionMixin
-)
+from wger.utils.generic_views import WgerFormMixin
 from wger.gym.models import Contract, Gym
 
 logger = logging.getLogger(__name__)
 
 
-class AddView(WgerFormMixin, CreateView):
+class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     '''
     View to add a new contract
     '''
@@ -106,7 +102,7 @@ class AddView(WgerFormMixin, CreateView):
         return context
 
 
-class DetailView(WgerPermissionMixin, DetailView):
+class DetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     '''
     Detail view of a member's contract
     '''
@@ -128,7 +124,7 @@ class DetailView(WgerPermissionMixin, DetailView):
         return super(DetailView, self).dispatch(request, *args, **kwargs)
 
 
-class UpdateView(WgerFormMixin, UpdateView):
+class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     '''
     View to update an existing contract
     '''
@@ -160,7 +156,7 @@ class UpdateView(WgerFormMixin, UpdateView):
         return context
 
 
-class ListView(WgerPermissionMixin, ListView):
+class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     '''
     Overview of all available admin notes
     '''

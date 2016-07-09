@@ -69,7 +69,7 @@ Then install the python packages from pypi in the virtualenv::
  $ invoke create_settings \
           --settings-path /home/wger/wger/settings.py \
           --database-path /home/wger/wger/database.sqlite
- $ invoke bootstrap_wger
+ $ invoke bootstrap_wger \
           --settings-path /home/wger/wger/settings.py \
           --no-start-server
  $ python manage.py runserver

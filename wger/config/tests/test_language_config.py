@@ -17,7 +17,7 @@
 
 from wger.config.models import LanguageConfig
 
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
+from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
 
 
 class EditLanguageConfigTestCase(WorkoutManagerEditTestCase):

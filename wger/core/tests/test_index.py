@@ -15,11 +15,10 @@
 
 from django.core.urlresolvers import reverse
 
-from wger.nutrition.models import NutritionPlan
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.manager.models import Workout
+from wger.nutrition.models import NutritionPlan
 from wger.weight.models import WeightEntry
-
-from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 
 class DashboardTestCase(WorkoutManagerTestCase):
@@ -48,7 +47,6 @@ class DashboardTestCase(WorkoutManagerTestCase):
         self.assertFalse(response.context['weight'])
         self.assertFalse(response.context['current_workout'])
         self.assertFalse(response.context['plan'])
-        self.assertRaises(KeyError, lambda: response.context['weekdays'])
 
         #
         # 1. Add a workout

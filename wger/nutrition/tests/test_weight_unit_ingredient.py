@@ -13,17 +13,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.core.urlresolvers import reverse_lazy
 from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
+
 from wger.core.tests import api_base_test
-
-from wger.nutrition.models import WeightUnit
+from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
+from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase
+from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.nutrition.models import IngredientWeightUnit
-
-from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
-from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.nutrition.models import WeightUnit
 
 
 class WeightUnitIngredientRepresentationTestCase(WorkoutManagerTestCase):
