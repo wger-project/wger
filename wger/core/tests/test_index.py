@@ -48,7 +48,6 @@ class DashboardTestCase(WorkoutManagerTestCase):
         self.assertFalse(response.context['weight'])
         self.assertFalse(response.context['current_workout'])
         self.assertFalse(response.context['plan'])
-        self.assertRaises(KeyError, lambda: response.context['weekdays'])
 
         #
         # 1. Add a workout
