@@ -16,20 +16,27 @@
 <script>
 $(document).ready(function() {
 
-    // Prevent the form from being submited if JavaScript is enabled
-    $("#exercise_search_form").submit(function() {return false;});
-
     // Init the autocompleter
-    $("#exercise-search").catcomplete({
-            source: "{% url 'exercise-search' %}",
-            minLength: 2,
-            select: function(event, ui) {
-
-                // Redirect to exercise after clicking on a result
-                // Path is hard coded here, because we can't use the url-tag
-                window.location.href = '/exercise/' + ui.item.id + '/view/'
-            }
-        });
+    $('#exercise-search').devbridgeAutocomplete({
+        serviceUrl: '{% url 'exercise-search' %}',
+        onSelect: function (suggestion) {
+            window.location.href = '/exercise/' + suggestion.data.id + '/view/'
+        },
+        groupBy: 'category',
+        paramName: 'term',
+        transformResult: function(response) {
+            // why is response not already a JSON object??
+            var jsonResponse = $.parseJSON(response);
+            return {
+                suggestions: $.map(jsonResponse, function(item) {
+                    return {value: item.value, data: {id: item.id,
+                                                      category: item.category,
+                                                      image: item.image,
+                                                      thumbnail: item.image_thumbnail}};
+                })
+            };
+        }
+    });
 });
 </script>
 {% endblock %}
@@ -124,16 +131,9 @@ $(document).ready(function() {
 </p>
 
 <h4>{% trans "Search" %}</h4>
-
-<form action="{% url 'exercise-search' %}"
-      method="get"
-      id="exercise_search_form">
-    {% csrf_token %}
     <input name="term"
            type="search"
            id="exercise-search"
            class="ajax-form-element form-control"
-           placeholder="{% trans 'exercise name' %}"
-           >
-</form>
+           placeholder="{% trans 'exercise name' %}">
 {% endblock %}

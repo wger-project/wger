@@ -20,6 +20,7 @@ from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core import mail
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.cache import cache
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.contrib.auth.decorators import permission_required
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy, ugettext as _
@@ -33,7 +34,6 @@ from django.views.generic import (
 from wger.nutrition.forms import UnitChooserForm
 from wger.nutrition.models import Ingredient
 from wger.utils.generic_views import (
-    WgerPermissionMixin,
     WgerFormMixin,
     WgerDeleteMixin
 )
@@ -94,12 +94,24 @@ def view(request, id, slug=None):
     return render(request, 'ingredient/view.html', template_data)
 
 
-class IngredientDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
+class IngredientDeleteView(WgerDeleteMixin,
+                           LoginRequiredMixin,
+                           PermissionRequiredMixin,
+                           DeleteView):
     '''
     Generic view to delete an existing ingredient
     '''
 
     model = Ingredient
+    fields = ('name',
+              'energy',
+              'protein',
+              'carbohydrates',
+              'carbohydrates_sugar',
+              'fat',
+              'fat_saturated',
+              'fibres',
+              'sodium')
     template_name = 'delete.html'
     success_url = reverse_lazy('nutrition:ingredient:list')
     messages = ugettext_lazy('Successfully deleted')
@@ -134,7 +146,7 @@ class IngredientMixin(WgerFormMixin):
               'license_author']
 
 
-class IngredientEditView(IngredientMixin, UpdateView, WgerPermissionMixin):
+class IngredientEditView(IngredientMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     '''
     Generic view to update an existing ingredient
     '''
@@ -188,7 +200,7 @@ class IngredientCreateView(IngredientMixin, CreateView):
         return super(IngredientCreateView, self).dispatch(request, *args, **kwargs)
 
 
-class PendingIngredientListView(WgerPermissionMixin, ListView):
+class PendingIngredientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     '''
     List all ingredients pending review
     '''

@@ -16,13 +16,13 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.core.urlresolvers import reverse_lazy
+
 from wger.core.models import Language
 from wger.core.tests import api_base_test
-
-from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase, WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
-from wger.manager.tests.testcase import WorkoutManagerAddTestCase
-from wger.manager.tests.testcase import WorkoutManagerAccessTestCase
+from wger.core.tests.base_testcase import WorkoutManagerAccessTestCase
+from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
+from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase, WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
 
 
 class LanguageRepresentationTestCase(WorkoutManagerTestCase):

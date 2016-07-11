@@ -20,10 +20,10 @@ from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse, reverse_lazy
 
 from wger.core.tests import api_base_test
+from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
+from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
+from wger.core.tests.base_testcase import WorkoutManagerTestCase, WorkoutManagerDeleteTestCase
 from wger.manager.models import Workout, WorkoutSession, WorkoutLog
-from wger.manager.tests.testcase import WorkoutManagerTestCase, WorkoutManagerDeleteTestCase
-from wger.manager.tests.testcase import WorkoutManagerAddTestCase
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 from wger.utils.cache import cache_mapper
 
 

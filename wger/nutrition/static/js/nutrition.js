@@ -70,17 +70,17 @@ function init_ingredient_detail(url)
 function init_ingredient_autocompleter()
 {
     // Init the autocompleter
-    $("#id_ingredient_searchfield").autocomplete({
-        source: '/api/v2/ingredient/search/',
-        minLength: 2,
-        select: function(event, ui) {
+    $('#id_ingredient_searchfield').devbridgeAutocomplete({
+        serviceUrl: '/api/v2/ingredient/search/',
+        onSelect: function (suggestion) {
+            var ingredient_id = suggestion.data.id;
 
             // After clicking on a result set the value of the hidden field
-            $('#id_ingredient').val(ui.item.id);
-            $('#exercise_name').html(ui.item.label);
+            $('#id_ingredient').val(ingredient_id);
+            $('#exercise_name').html(suggestion.value);
 
             // See if the ingredient has any units and set the values for the forms
-            $.get('/api/v2/ingredientweightunit/?ingredient=' + ui.item.id, function(unit_data) {
+            $.get('/api/v2/ingredientweightunit/?ingredient=' + ingredient_id, function(unit_data) {
 
                 // Remove any old units, if any
                 var options = $('#id_weight_unit').find('option');
@@ -100,6 +100,16 @@ function init_ingredient_autocompleter()
                     });
                 });
             });
+        },
+        paramName: 'term',
+        transformResult: function(response) {
+            // why is response not already a JSON object??
+            var jsonResponse = $.parseJSON(response);
+            return {
+                suggestions: $.map(jsonResponse, function(item) {
+                    return {value: item.value, data: {id: item.id}};
+                })
+            };
         }
     });
 }

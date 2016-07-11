@@ -132,6 +132,14 @@ user will have 20 workouts and each exercise in each workout 30 log entries::
    While it is possible to generate hundreds of users, gyms are more restricted and
    you will probably get duplicate names if you generate more than a dozen.
 
+Installing Bower
+~~~~~~~~~~~~~~~~
+
+Bower should be installed in wger/wger not in the project's root directory::
+
+   $ cd ~/home/wger/wger
+   $ npm install bower
+
 Contributing
 ------------
 

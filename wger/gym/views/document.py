@@ -16,6 +16,7 @@
 import logging
 
 from django.core.urlresolvers import reverse
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.http.response import HttpResponseForbidden
 from django.utils.translation import ugettext as _
@@ -29,8 +30,7 @@ from django.views.generic import (
 
 from wger.utils.generic_views import (
     WgerFormMixin,
-    WgerDeleteMixin,
-    WgerPermissionMixin
+    WgerDeleteMixin
 )
 from wger.gym.models import UserDocument
 
@@ -38,7 +38,7 @@ from wger.gym.models import UserDocument
 logger = logging.getLogger(__name__)
 
 
-class ListView(WgerPermissionMixin, ListView):
+class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     '''
     Overview of all available admin notes
     '''
@@ -77,7 +77,7 @@ class ListView(WgerPermissionMixin, ListView):
         return context
 
 
-class AddView(WgerFormMixin, CreateView):
+class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     '''
     View to add a new document
     '''
@@ -129,7 +129,7 @@ class AddView(WgerFormMixin, CreateView):
         return context
 
 
-class UpdateView(WgerFormMixin, UpdateView):
+class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     '''
     View to update an existing document
     '''
@@ -168,12 +168,13 @@ class UpdateView(WgerFormMixin, UpdateView):
         return context
 
 
-class DeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
+class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     '''
     View to delete an existing document
     '''
 
     model = UserDocument
+    fields = ('document', 'name', 'note')
     permission_required = 'gym.delete_userdocument'
 
     def get_success_url(self):

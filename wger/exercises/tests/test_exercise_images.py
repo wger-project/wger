@@ -12,20 +12,16 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import six
-
-from django.core.urlresolvers import reverse
 from django.core.files import File
-from wger.core.tests import api_base_test
+from django.core.urlresolvers import reverse
 
-from wger.exercises.models import Exercise, ExerciseImage
-
-from wger.manager.tests.testcase import (
+from wger.core.tests.base_testcase import (
     WorkoutManagerTestCase,
     WorkoutManagerEditTestCase,
     WorkoutManagerAddTestCase,
     WorkoutManagerDeleteTestCase
 )
+from wger.exercises.models import Exercise, ExerciseImage
 
 
 class MainImageTestCase(WorkoutManagerTestCase):
@@ -42,16 +38,10 @@ class MainImageTestCase(WorkoutManagerTestCase):
         image = ExerciseImage()
         image.exercise = exercise
         image.status = ExerciseImage.STATUS_ACCEPTED
-        if six.PY2:
-            image.image.save(
-                filename,
-                File(open('wger/exercises/tests/{0}'.format(filename)), 'rb')
-            )
-        else:
-            image.image.save(
-                filename,
-                File(open('wger/exercises/tests/{0}'.format(filename), encoding='latin1'), 'rb')
-            )
+        image.image.save(
+            filename,
+            File(open('wger/exercises/tests/{0}'.format(filename), 'rb'))
+        )
         image.save()
         return(image.pk)
 

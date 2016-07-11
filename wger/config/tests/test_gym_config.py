@@ -20,8 +20,8 @@ from django.core.urlresolvers import reverse
 
 from wger.config.models import GymConfig
 from wger.core.models import UserProfile
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.gym.models import Gym, GymUserConfig
-from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 
 class GymConfigTestCase(WorkoutManagerTestCase):

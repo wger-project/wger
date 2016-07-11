@@ -12,23 +12,21 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import logging
 import datetime
+import logging
 
 from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.core.urlresolvers import reverse, reverse_lazy
 
 from wger.core.tests import api_base_test
+from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.exercises.models import Exercise
-from wger.manager.models import WorkoutLog
 from wger.manager.models import Workout
+from wger.manager.models import WorkoutLog
 from wger.manager.models import WorkoutSession
-from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerAddTestCase
-from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
-from wger.utils.cache import get_template_cache_name, cache_mapper
-
+from wger.utils.cache import cache_mapper
 
 logger = logging.getLogger(__name__)
 

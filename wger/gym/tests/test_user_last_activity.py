@@ -16,9 +16,9 @@ import datetime
 
 from django.contrib.auth.models import User
 
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.gym.helpers import get_user_last_activity
 from wger.manager.models import WorkoutSession, WorkoutLog
-from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 
 class UserLastActivityTestCase(WorkoutManagerTestCase):
