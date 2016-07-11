@@ -29,6 +29,7 @@ Translators
 * Czech: Tomáš Z.
 * Dutch: David Machiels
 * Greek: Mark Nicolaou
+* Norwegian: Kjetil Elde
 * Portuguese: Jefferson Campos – http://jeffersoncampos.eti.br
 * Russian: Inna
 * Spanish: acv2facundo

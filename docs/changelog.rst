@@ -13,8 +13,15 @@ Upgrade steps from 1.7:
 * Download new JS packages: ``python manage.py bower install`` (note that you
   might have to delete first wger/core/static/bower_components)
 * Update static files (only production): ``python manage.py collectstatic``
+* Load new the languages fixtures as well as their configuration
+  ``python manage.py loaddata languages`` and
+  ``python manage.py loaddata language_config``
 * New config option in settings.py: ``WGER_SETTINGS['TWITTER']``. Set this if
   your instance has its own twitter account.
+
+New languages:
+
+* Norwegian (many thanks to Kjetil Elde `@w00p`_ `#304`_)
 
 New features:
 
@@ -48,8 +55,10 @@ Other improvements and bugfixes: `#243`_, `#279`_, `#275`_, `#270`_, `#258`_, `#
 .. _#282: https://github.com/wger-project/wger/issues/282
 .. _#296: https://github.com/wger-project/wger/issues/296
 .. _#297: https://github.com/wger-project/wger/issues/297
+.. _#304: https://github.com/wger-project/wger/issues/304
 .. _@alelevinas: https://github.com/alelevinas
 .. _@alokhan: https://github.com/alokhan
+.. _@w00p: https://github.com/w00p
 
 
 
