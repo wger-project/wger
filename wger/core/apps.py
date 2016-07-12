@@ -14,7 +14,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from actstream import registry
 from django.apps import AppConfig, apps
 
 
@@ -24,6 +23,7 @@ class CoreConfig(AppConfig):
 
     def ready(self):
         import wger.core.signals
+        from actstream import registry
 
         # Register different models with django activity stream
         registry.register(apps.get_model('auth.user'))

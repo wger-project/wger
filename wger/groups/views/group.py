@@ -18,6 +18,10 @@ from actstream import action
 from actstream.models import target_stream
 
 from django.http import HttpResponseForbidden
+from django.contrib.auth.mixins import (
+    PermissionRequiredMixin,
+    LoginRequiredMixin
+)
 from django.core.urlresolvers import (
     reverse_lazy,
     reverse
@@ -45,22 +49,20 @@ from wger.utils.generic_views import (
 )
 
 
-class ListView(WgerPermissionMixin, ListView):
+class ListView(LoginRequiredMixin, ListView):
     '''
     Overview of all available groups
     '''
     model = Group
-    login_required = True
     template_name = 'group/list.html'
 
 
-class DetailView(WgerPermissionMixin, DetailView):
+class DetailView(LoginRequiredMixin, DetailView):
     '''
     Detail view for a group
     '''
 
     model = Group
-    login_required = True
 
     def get_template_names(self):
         '''
@@ -139,7 +141,7 @@ class DetailView(WgerPermissionMixin, DetailView):
         return context
 
 
-class AddView(WgerFormMixin, CreateView):
+class AddView(WgerFormMixin, LoginRequiredMixin, CreateView):
     '''
     View to add a new group
     '''
@@ -175,7 +177,7 @@ class AddView(WgerFormMixin, CreateView):
         return out
 
 
-class UpdateView(WgerFormMixin, UpdateView):
+class UpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
     '''
     View to update an existing Group
     '''
@@ -183,7 +185,6 @@ class UpdateView(WgerFormMixin, UpdateView):
     model = Group
     fields = ('name', 'description', 'image', 'public')
     form_action_urlname = 'groups:group:edit'
-    login_required = True
 
     def form_valid(self, form):
         '''
@@ -216,13 +217,15 @@ class UpdateView(WgerFormMixin, UpdateView):
         return context
 
 
-class DeleteView(WgerDeleteMixin, DeleteView):
+class DeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     '''
     View to delete an existing Group
     '''
 
     model = Group
-    login_required = True
+    fields = ('name',
+              'description',
+              'public')
     form_action_urlname = 'groups:group:delete'
 
     def dispatch(self, request, *args, **kwargs):

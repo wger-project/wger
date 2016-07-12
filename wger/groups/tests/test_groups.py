@@ -15,7 +15,7 @@
 from django.core.urlresolvers import reverse_lazy
 
 from wger.groups.models import Group
-from wger.manager.tests.testcase import (
+from wger.core.tests.base_testcase import (
     WorkoutManagerTestCase,
     WorkoutManagerAccessTestCase,
     WorkoutManagerAddTestCase,

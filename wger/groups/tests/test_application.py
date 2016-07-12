@@ -16,7 +16,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
 from wger.groups.models import Group, Application
-from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
 
 
 class ApplyGroupTestCase(WorkoutManagerTestCase):

@@ -14,7 +14,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from actstream import registry
 
 from django.apps import AppConfig
 
@@ -25,6 +24,7 @@ class ManagerConfig(AppConfig):
 
     def ready(self):
         import wger.manager.signals
+        from actstream import registry
 
         # Register different models with django activity stream
         registry.register(self.get_model('Workout'))
