@@ -20,7 +20,7 @@ from decimal import Decimal
 from django.core.urlresolvers import reverse
 
 from wger.nutrition.models import NutritionPlan, LogItem
-from wger.manager.tests.testcase import (
+from wger.core.tests.base_testcase import (
     WorkoutManagerTestCase,
     WorkoutManagerAccessTestCase,
     WorkoutManagerDeleteTestCase
