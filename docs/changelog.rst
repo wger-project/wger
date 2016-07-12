@@ -25,6 +25,7 @@ New features:
 
 Improvements:
 
+* The dashboard page was improved and made more user friendly `#201`_ (partly)
 * Replace jquery UI's autocompleter and sortable this reduces size of JS and CSS `#78`_ and `#79`_
 * Remove hard-coded CC licence from documentation and website `#247`_
 
