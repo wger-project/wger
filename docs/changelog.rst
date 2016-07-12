@@ -32,14 +32,16 @@ New features:
 
 Improvements:
 
-* Replace jquery UI's autocompleter and sortable this reduces size of JS and CSS `#78`_
+* The dashboard page was improved and made more user friendly `#201`_ (partly)
+* Replace jquery UI's autocompleter and sortable this reduces size of JS and CSS `#78`_ and `#79`_
 * Remove hard-coded CC licence from documentation and website `#247`_
 
 Other improvements and bugfixes: `#243`_, `#279`_, `#275`_, `#270`_, `#258`_, `#257`_,
-`#269`_, `#296`_, `#297`_
+`#269`_, `#296`_, `#297`_, `#303`_
 
 
 .. _#78: https://github.com/wger-project/wger/issues/78
+.. _#79: https://github.com/wger-project/wger/issues/79
 .. _#188: https://github.com/wger-project/wger/issues/188
 .. _#216: https://github.com/wger-project/wger/issues/216
 .. _#217: https://github.com/wger-project/wger/issues/217
@@ -55,6 +57,7 @@ Other improvements and bugfixes: `#243`_, `#279`_, `#275`_, `#270`_, `#258`_, `#
 .. _#282: https://github.com/wger-project/wger/issues/282
 .. _#296: https://github.com/wger-project/wger/issues/296
 .. _#297: https://github.com/wger-project/wger/issues/297
+.. _#303: https://github.com/wger-project/wger/issues/303
 .. _#304: https://github.com/wger-project/wger/issues/304
 .. _@alelevinas: https://github.com/alelevinas
 .. _@alokhan: https://github.com/alokhan
