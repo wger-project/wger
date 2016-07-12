@@ -20,6 +20,7 @@ from django.forms.widgets import (
     CheckboxInput,
     ClearableFileInput
 )
+from django.utils.safestring import mark_safe
 from django.utils.translation import (
     ugettext_lazy as _,
     pgettext
@@ -141,7 +142,7 @@ def auto_link_css(flavour='full', css=''):
     :return: the complete CSS classes, wrapped in class="foo"
     '''
     css = css + ' btn btn-default btn-block' if flavour == 'mobile' else css
-    return 'class="{0}"'.format(css)
+    return mark_safe('class="{0}"'.format(css))
 
 
 @register.simple_tag
