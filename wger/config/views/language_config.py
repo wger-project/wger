@@ -43,7 +43,7 @@ class LanguageConfigUpdateView(WgerFormMixin,
         '''
         Return to the language page
         '''
-        return reverse_lazy('config:language:view', kwargs={'pk': self.object.language_id})
+        return reverse_lazy('core:language:view', kwargs={'pk': self.object.language_id})
 
     def get_context_data(self, **kwargs):
         context = super(LanguageConfigUpdateView, self).get_context_data(**kwargs)
