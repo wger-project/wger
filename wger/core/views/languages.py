@@ -64,7 +64,7 @@ class LanguageCreateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMi
     model = Language
     fields = '__all__'
     title = ugettext_lazy('Add')
-    form_action = reverse_lazy('config:language:add')
+    form_action = reverse_lazy('core:language:add')
     permission_required = 'core.add_language'
 
 
@@ -75,7 +75,7 @@ class LanguageDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequired
 
     model = Language
     fields = '__all__'
-    success_url = reverse_lazy('config:language:overview')
+    success_url = reverse_lazy('core:language:overview')
     messages = ugettext_lazy('Successfully deleted')
     permission_required = 'core.delete_language'
 
@@ -86,7 +86,7 @@ class LanguageDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequired
         context = super(LanguageDeleteView, self).get_context_data(**kwargs)
 
         context['title'] = _(u'Delete {0}?').format(self.object.full_name)
-        context['form_action'] = reverse('config:language:delete', kwargs={'pk': self.object.id})
+        context['form_action'] = reverse('core:language:delete', kwargs={'pk': self.object.id})
 
         return context
 
@@ -98,7 +98,7 @@ class LanguageEditView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
 
     model = Language
     fields = '__all__'
-    form_action_urlname = 'config:language:edit'
+    form_action_urlname = 'core:language:edit'
     permission_required = 'core.change_language'
 
     def get_context_data(self, **kwargs):

@@ -66,7 +66,7 @@ class Language(models.Model):
         '''
         Returns the canonical URL to view a language
         '''
-        return reverse('config:language:view', kwargs={'pk': self.id})
+        return reverse('core:language:view', kwargs={'pk': self.id})
 
     #
     # Own methods
