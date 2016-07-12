@@ -11,7 +11,7 @@ First, create a virtual environment::
 Get the code and start the application. This will create a SQlite database
 and populate it with data on the first run::
 
-  $ git clone https://github.com/rolandgeider/wger.git
+  $ git clone https://github.com/wger-project/wger.git
   $ cd wger
   $ pip install -r requirements_devel.txt
   $ invoke create_settings \
@@ -131,6 +131,14 @@ user will have 20 workouts and each exercise in each workout 30 log entries::
 .. note::
    While it is possible to generate hundreds of users, gyms are more restricted and
    you will probably get duplicate names if you generate more than a dozen.
+
+Installing Bower
+~~~~~~~~~~~~~~~~
+
+Bower should be installed in wger/wger not in the project's root directory::
+
+   $ cd ~/home/wger/wger
+   $ npm install bower
 
 Contributing
 ------------

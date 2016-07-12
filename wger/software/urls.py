@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from django.conf.urls import url
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 
 from wger.software import views
 
@@ -32,16 +32,12 @@ urlpatterns = [
         views.features,
         name='features'),
 
-    url(r'^changelog$',
-        TemplateView.as_view(template_name="changelog.html"),
-        name='changelog'),
-
     url(r'^license$',
         TemplateView.as_view(template_name="license.html"),
         name='license'),
 
     url(r'^code$',
-        TemplateView.as_view(template_name="code.html"),
+        RedirectView.as_view(permanent=True, url='https://github.com/wger-project/wger'),
         name='code'),
 
     url(r'^contribute$',

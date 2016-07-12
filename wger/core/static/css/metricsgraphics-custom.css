@@ -1,0 +1,9 @@
+/*
+ * Custom Metrics Graphics styles
+ */
+
+.mg-x-axis text,
+.mg-y-axis text,
+.mg-histogram .axis text {
+    font-size: 1.3rem;
+}

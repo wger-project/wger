@@ -12,10 +12,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 from django.contrib.auth.models import User
-
 from django.core.urlresolvers import reverse
 
-from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.utils.helpers import make_token
 
 

@@ -14,7 +14,7 @@
 
 from django.core.urlresolvers import reverse
 
-from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
 
 
 class RobotsExclusionMiddlewareTestCase(WorkoutManagerTestCase):
@@ -50,7 +50,7 @@ class RobotsExclusionMiddlewareTestCase(WorkoutManagerTestCase):
         Test the middleware on URLs from software app
         '''
 
-        for i in ('features', 'issues', 'changelog', 'license', 'code', 'contribute'):
+        for i in ('features', 'issues', 'license', 'code', 'contribute'):
             response = self.client.get(reverse('software:{0}'.format(i)))
             self.assertFalse(response.get('X-Robots-Tag'))
 

@@ -39,6 +39,9 @@ def processor(request):
         # Application version
         'version': get_version(),
 
+        # Twitter handle for this instance
+        'twitter': settings.WGER_SETTINGS['TWITTER'],
+
         # User language
         'language': language,
 

@@ -63,7 +63,7 @@ def parse_weight_csv(request, cleaned_data):
             # there is no existing weight entry in the database for that date
             unique_in_db = not duplicate_date_in_db
 
-            if unique_among_csv and unique_in_db:
+            if unique_among_csv and unique_in_db and parsed_weight:
                 distinct_weight_entries.append((parsed_date, parsed_weight))
                 entry_dates.add(parsed_date)
             else:
@@ -155,15 +155,13 @@ def process_log_entries(logs):
     and passed to the D3 library to render a chart
     '''
 
-    reps = []
     entry_log = OrderedDict()
+    entry_list = {}
     chart_data = []
     max_weight = {}
 
     # Group by date
     for entry in logs:
-        if entry.reps not in reps:
-            reps.append(entry.reps)
 
         if not entry_log.get(entry.date):
             entry_log[entry.date] = []
@@ -182,30 +180,51 @@ def process_log_entries(logs):
         if entry.weight > max_weight[entry.date][entry.reps]:
             max_weight[entry.date][entry.reps] = entry.weight
 
-    # Group by repetitions
-    reps_list = {}
     for entry in logs:
-        temp = {'date': '%s' % entry.date,
-                'id': 'manager:workout:log-%s' % entry.id}
-
-        # Only unique date, rep and weight combinations
-        if reps_list.get((entry.date, entry.reps, entry.weight)):
-            continue
-        else:
-            reps_list[(entry.date, entry.reps, entry.weight)] = True
+        if not entry_list.get(entry.reps):
+            entry_list[entry.reps] = {'list': [], 'seen': []}
 
         # Only add if weight is the maximum for the day
         if entry.weight != max_weight[entry.date][entry.reps]:
             continue
+        if (entry.date, entry.reps, entry.weight) in entry_list[entry.reps]['seen']:
+            continue
 
-        for rep in reps:
-            if entry.reps == rep:
-                temp[rep] = entry.weight
-            else:
-                # Mark entries without data, this is later filtered out by D3.
-                # We use the string 'n.a' instead of 0 to differentiate actual exercises
-                # where no weight was used.
-                temp[rep] = 'n.a'
-        chart_data.append(temp)
+        entry_list[entry.reps]['seen'].append((entry.date, entry.reps, entry.weight))
+        entry_list[entry.reps]['list'].append({'date': entry.date,
+                                               'weight': entry.weight,
+                                               'reps': entry.reps})
+    for rep in entry_list:
+        chart_data.append(entry_list[rep]['list'])
 
     return entry_log, json.dumps(chart_data, cls=DecimalJsonEncoder)
+
+
+def get_last_entries(user, amount=5):
+        '''
+        Get the last weight entries as well as the difference to the last
+
+        This can be used e.g. to present a list where the last entries and
+        their changes are presented.
+         '''
+
+        last_entries = WeightEntry.objects.filter(user=user).order_by('-date')[:5]
+        last_entries_details = []
+
+        for index, entry in enumerate(last_entries):
+            curr_entry = entry
+            prev_entry_index = index + 1
+
+            if prev_entry_index < len(last_entries):
+                prev_entry = last_entries[prev_entry_index]
+            else:
+                prev_entry = None
+
+            if prev_entry and curr_entry:
+                weight_diff = curr_entry.weight - prev_entry.weight
+                day_diff = (curr_entry.date - prev_entry.date).days
+            else:
+                weight_diff = day_diff = None
+            last_entries_details.append((curr_entry, weight_diff, day_diff))
+
+        return last_entries_details

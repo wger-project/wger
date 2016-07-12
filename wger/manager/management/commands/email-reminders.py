@@ -78,9 +78,7 @@ class Command(BaseCommand):
                 schedule_step = schedule.get_current_scheduled_workout()
 
                 # Only notify if the step is the last one in the schedule
-                # TODO: this could be simplified using last(), introduced in django 1.6
-                step_list = [step for step in schedule.schedulestep_set.all()]
-                if schedule_step == step_list[-1]:
+                if schedule_step == schedule.schedulestep_set.last():
 
                     delta = schedule.get_end_date() - datetime.date.today()
                     if datetime.timedelta(days=profile.workout_reminder) > delta:

@@ -39,33 +39,35 @@
 
     <!-- twitter cards -->
     {% block twittercard %}
+    {% if twitter %}
         <meta content="summary" name="twitter:card">
-        <meta content="@wger_de" name="twitter:site">
+        <meta content="@{{ twitter }}" name="twitter:site">
+    {% endif %}
     {% endblock %}
 
 
     {% compress css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-common.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui-custom.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/components-font-awesome/css/font-awesome.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/shariff/build/shariff.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/metricsgraphics-custom.css' %}">
     {% endcompress %}
 
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
 
     {% compress js %}
     <script src="{% static 'bower_components/jquery/dist/jquery.js' %}"></script>
-    <script src="{% static 'js/jquery-ui.js' %}"></script>
-    <script src="{% static 'bower_components/d3/d3.js' %}"></script>
-    <script src="{% static 'js/workout-manager.js' %}"></script>
-    <script src="{% static 'js/ubuntu-unity.js' %}"></script>
     <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/Sortable.min.js' %}"></script>
+    <script src="{% static 'bower_components/d3/d3.js' %}"></script>
+    <script src="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.min.js' %}"></script>
+    <script src="{% static 'bower_components/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
+    <script src="{% static 'js/wger-core.js' %}"></script>
     <script src="{% static 'js/exercises.js' %}"></script>
-    <script src="{% static 'js/weight.js' %}"></script>
     <script src="{% static 'js/nutrition.js' %}"></script>
     {% endcompress %}
 
@@ -190,7 +192,7 @@
 
 <footer id="main-footer">
     <div class="container">
-        <a href="https://github.com/rolandgeider/wger" class="no-hover">
+        <a href="https://github.com/wger-project/wger" class="no-hover">
             <img src="{% static 'images/agpl-v3.svg' %}"
                  width="88"
                  height="31"

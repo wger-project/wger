@@ -25,6 +25,7 @@ from django.http import (
 )
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.utils.translation import ugettext_lazy, ugettext as _
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import (
     CreateView,
@@ -44,8 +45,7 @@ from wger.manager.models import Schedule
 from wger.manager.helpers import render_workout_day
 from wger.utils.generic_views import (
     WgerFormMixin,
-    WgerDeleteMixin,
-    WgerPermissionMixin
+    WgerDeleteMixin
 )
 from wger.utils.helpers import make_token, check_token
 from wger.utils.pdf import styleSheet, render_footer
@@ -98,11 +98,14 @@ def view(request, pk):
     return render(request, 'schedule/view.html', template_data)
 
 
-def export_pdf(request, pk, uidb64=None, token=None):
+def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token=None):
     '''
     Show the workout schedule
     '''
     user = request.user
+
+    comments = bool(int(comments))
+    images = bool(int(images))
 
     # Load the workout
     if uidb64 is not None and token is not None:
@@ -144,7 +147,8 @@ def export_pdf(request, pk, uidb64=None, token=None):
         elements.append(Spacer(10 * cm, 0.5 * cm))
 
         for day in step.workout.canonical_representation['day_list']:
-            elements.append(render_workout_day(day, nr_of_weeks=7))
+            elements.append(
+                render_workout_day(day, images=images, comments=comments, nr_of_weeks=7))
             elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Footer, date and info
@@ -155,6 +159,72 @@ def export_pdf(request, pk, uidb64=None, token=None):
     # write the document and send the response to the browser
     doc.build(elements)
     response['Content-Disposition'] = 'attachment; filename=Schedule-{0}-log.pdf'.format(pk)
+    response['Content-Length'] = len(response.content)
+    return response
+
+
+def export_pdf_table(request, pk, images=False, comments=False, uidb64=None, token=None):
+    '''
+    Show the workout schedule
+    '''
+    user = request.user
+
+    comments = bool(int(comments))
+    images = bool(int(images))
+
+    # Load the workout
+    if uidb64 is not None and token is not None:
+        if check_token(uidb64, token):
+            schedule = get_object_or_404(Schedule, pk=pk)
+        else:
+            return HttpResponseForbidden()
+    else:
+        if request.user.is_anonymous():
+            return HttpResponseForbidden()
+        schedule = get_object_or_404(Schedule, pk=pk, user=user)
+
+    # Create the HttpResponse object with the appropriate PDF headers.
+    # and use it to the create the PDF using it as a file like object
+    response = HttpResponse(content_type='application/pdf')
+    doc = SimpleDocTemplate(response,
+                            pagesize=A4,
+                            leftMargin=cm,
+                            rightMargin=cm,
+                            topMargin=0.5 * cm,
+                            bottomMargin=0.5 * cm,
+                            title=_('Workout'),
+                            author='wger Workout Manager',
+                            subject='Schedule for {0}'.format(request.user.username))
+
+    # container for the 'Flowable' objects
+    elements = []
+
+    # Set the title
+    p = Paragraph(u'<para align="center">{0}</para>'.format(schedule), styleSheet["HeaderBold"])
+    elements.append(p)
+    elements.append(Spacer(10 * cm, 0.5 * cm))
+
+    # Iterate through the Workout and render the training days
+    for step in schedule.schedulestep_set.all():
+        p = Paragraph(u'<para>{0} {1}</para>'.format(step.duration, _('Weeks')),
+                      styleSheet["HeaderBold"])
+        elements.append(p)
+        elements.append(Spacer(10 * cm, 0.5 * cm))
+
+        for day in step.workout.canonical_representation['day_list']:
+            elements.append(
+                render_workout_day(day, images=images, comments=comments, nr_of_weeks=7,
+                                   only_table=True))
+            elements.append(Spacer(10 * cm, 0.5 * cm))
+
+    # Footer, date and info
+    elements.append(Spacer(10 * cm, 0.5 * cm))
+    url = reverse('manager:schedule:view', kwargs={'pk': schedule.id})
+    elements.append(render_footer(request.build_absolute_uri(url)))
+
+    # write the document and send the response to the browser
+    doc.build(elements)
+    response['Content-Disposition'] = 'attachment; filename=Schedule-{0}-table.pdf'.format(pk)
     response['Content-Length'] = len(response.content)
     return response
 
@@ -175,7 +245,7 @@ def start(request, pk):
     return HttpResponseRedirect(reverse('manager:schedule:view', kwargs={'pk': schedule.id}))
 
 
-class ScheduleCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
+class ScheduleCreateView(WgerFormMixin, CreateView, PermissionRequiredMixin):
     '''
     Creates a new workout schedule
     '''
@@ -185,7 +255,6 @@ class ScheduleCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
     success_url = reverse_lazy('manager:schedule:overview')
     title = ugettext_lazy('Create schedule')
     form_action = reverse_lazy('manager:schedule:add')
-    login_required = True
 
     def form_valid(self, form):
         '''set the submitter'''
@@ -196,16 +265,16 @@ class ScheduleCreateView(WgerFormMixin, CreateView, WgerPermissionMixin):
         return reverse_lazy('manager:schedule:view', kwargs={'pk': self.object.id})
 
 
-class ScheduleDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
+class ScheduleDeleteView(WgerDeleteMixin, DeleteView, PermissionRequiredMixin):
     '''
     Generic view to delete a schedule
     '''
 
     model = Schedule
+    fields = ('name', 'start_date', 'is_active', 'is_loop')
     success_url = reverse_lazy('manager:schedule:overview')
     form_action_urlname = 'manager:schedule:delete'
     messages = ugettext_lazy('Successfully deleted')
-    login_required = True
 
     def get_context_data(self, **kwargs):
         '''
@@ -216,7 +285,7 @@ class ScheduleDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
         return context
 
 
-class ScheduleEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
+class ScheduleEditView(WgerFormMixin, UpdateView, PermissionRequiredMixin):
     '''
     Generic view to update an existing workout routine
     '''
@@ -224,7 +293,6 @@ class ScheduleEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     model = Schedule
     fields = '__all__'
     form_action_urlname = 'manager:schedule:edit'
-    login_required = True
 
     def get_context_data(self, **kwargs):
         '''

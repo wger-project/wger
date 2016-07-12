@@ -15,9 +15,8 @@
 from django.core import mail
 from django.core.urlresolvers import reverse
 
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.nutrition.models import Ingredient
-
-from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 
 class IngredientsPendingTestCase(WorkoutManagerTestCase):

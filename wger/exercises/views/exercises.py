@@ -27,6 +27,7 @@ from django.forms import (
 )
 from django.core.cache import cache
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.contrib.auth.decorators import permission_required
 from django.contrib import messages
 from django.template.loader import render_to_string
@@ -47,8 +48,7 @@ from wger.exercises.models import (
 )
 from wger.utils.generic_views import (
     WgerFormMixin,
-    WgerDeleteMixin,
-    WgerPermissionMixin
+    WgerDeleteMixin
 )
 from wger.utils.language import load_language, load_item_languages
 from wger.utils.cache import cache_mapper
@@ -64,7 +64,7 @@ from wger.weight.helpers import process_log_entries
 logger = logging.getLogger(__name__)
 
 
-class ExerciseListView(WgerPermissionMixin, ListView):
+class ExerciseListView(ListView):
     '''
     Generic view to list all exercises
     '''
@@ -146,7 +146,6 @@ def view(request, id, slug=None):
     template_data['logs'] = entry_log
     template_data['json'] = chart_data
     template_data['svg_uuid'] = str(uuid.uuid4())
-    template_data['reps'] = _("Reps")
 
     return render(request, 'exercise/view.html', template_data)
 
@@ -196,7 +195,10 @@ class ExercisesEditAddView(WgerFormMixin):
         return ExerciseForm
 
 
-class ExerciseUpdateView(ExercisesEditAddView, UpdateView, WgerPermissionMixin):
+class ExerciseUpdateView(ExercisesEditAddView,
+                         LoginRequiredMixin,
+                         PermissionRequiredMixin,
+                         UpdateView):
     '''
     Generic view to update an existing exercise
     '''
@@ -210,12 +212,11 @@ class ExerciseUpdateView(ExercisesEditAddView, UpdateView, WgerPermissionMixin):
         return context
 
 
-class ExerciseAddView(ExercisesEditAddView, CreateView, WgerPermissionMixin):
+class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
     '''
     Generic view to add a new exercise
     '''
 
-    login_required = True
     form_action = reverse_lazy('exercise:exercise:add')
 
     def form_valid(self, form):
@@ -236,11 +237,10 @@ class ExerciseAddView(ExercisesEditAddView, CreateView, WgerPermissionMixin):
         return super(ExerciseAddView, self).dispatch(request, *args, **kwargs)
 
 
-class ExerciseCorrectView(ExercisesEditAddView, UpdateView, WgerPermissionMixin):
+class ExerciseCorrectView(ExercisesEditAddView, LoginRequiredMixin, UpdateView):
     '''
     Generic view to update an existing exercise
     '''
-    login_required = True
     sidebar = 'exercise/form_correct.html'
     messages = _('Thank you. Once the changes are reviewed the exercise will be updated.')
 
@@ -282,12 +282,21 @@ class ExerciseCorrectView(ExercisesEditAddView, UpdateView, WgerPermissionMixin)
                                             kwargs={'id': self.object.id}))
 
 
-class ExerciseDeleteView(WgerDeleteMixin, DeleteView):
+class ExerciseDeleteView(WgerDeleteMixin,
+                         LoginRequiredMixin,
+                         PermissionRequiredMixin,
+                         DeleteView):
     '''
     Generic view to delete an existing exercise
     '''
 
     model = Exercise
+    fields = ('category',
+              'description',
+              'name',
+              'muscles',
+              'muscles_secondary',
+              'equipment')
     success_url = reverse_lazy('exercise:exercise:overview')
     delete_message = ugettext_lazy('This will delete the exercise from all workouts.')
     messages = ugettext_lazy('Successfully deleted')
@@ -305,7 +314,7 @@ class ExerciseDeleteView(WgerDeleteMixin, DeleteView):
         return context
 
 
-class PendingExerciseListView(WgerPermissionMixin, ListView):
+class PendingExerciseListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     '''
     Generic view to list all weight units
     '''

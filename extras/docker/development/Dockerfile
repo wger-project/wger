@@ -1,5 +1,5 @@
 #
-# Dockerimage for wger development
+# Docker image for wger development
 #
 # Please consult the documentation for usage
 # docker build -t wger/devel .

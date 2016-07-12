@@ -4072,10 +4072,10 @@ msgstr ""
 msgid ""
 "A copy of both licenses is contained in every wger Workout\n"
 "Manager release and can be read in the\n"
-"<a href='https://github.com/rolandgeider/wger/blob/master/AGPL.txt'>AGPL.txt</a>\n"
-"or <a href='https://github.com/rolandgeider/wger/blob/master/CC-BY-SA.txt'>CC-BY-SA.txt</a>\n"
+"<a href='https://github.com/wger-project/wger/blob/master/AGPL.txt'>AGPL.txt</a>\n"
+"or <a href='https://github.com/wger-project/wger/blob/master/CC-BY-SA.txt'>CC-BY-SA.txt</a>\n"
 "files in the source code repository."
-msgstr "A cópia de ambas as licenças estão em cada release do wger Gestor \nde Treinos e podem ser lidas nos arquivos <a href='https://github.com/rolandgeider/wger/blob/master/AGPL.txt'>AGPL.txt</a>\nou <a href='https://github.com/rolandgeider/wger/blob/master/CC-BY-SA.txt'>CC-BY-SA.txt</a>\nno repositório do código fonte."
+msgstr "A cópia de ambas as licenças estão em cada release do wger Gestor \nde Treinos e podem ser lidas nos arquivos <a href='https://github.com/wger-project/wger/blob/master/AGPL.txt'>AGPL.txt</a>\nou <a href='https://github.com/wger-project/wger/blob/master/CC-BY-SA.txt'>CC-BY-SA.txt</a>\nno repositório do código fonte."
 
 #: utils/models.py:41
 msgid "Author"

@@ -25,6 +25,7 @@ from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy, ugettext as _
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DeleteView, UpdateView
 
@@ -51,8 +52,7 @@ from wger.manager.forms import (
 )
 from wger.utils.generic_views import (
     WgerFormMixin,
-    WgerDeleteMixin,
-    WgerPermissionMixin
+    WgerDeleteMixin
 )
 
 
@@ -70,9 +70,9 @@ def overview(request):
 
     template_data = {}
 
-    latest_workouts = Workout.objects.filter(user=request.user)
+    workouts = Workout.objects.filter(user=request.user)
     (current_workout, schedule) = Schedule.objects.get_current_workout(request.user)
-    template_data['workouts'] = latest_workouts
+    template_data['workouts'] = workouts
     template_data['current_workout'] = current_workout
 
     return render(request, 'workout/overview.html', template_data)
@@ -109,6 +109,13 @@ def view(request, pk):
     for i in canonical['muscles']['back']:
         if i not in muscles_back:
             muscles_back.append('images/muscles/main/muscle-{0}.svg'.format(i))
+
+    for i in canonical['muscles']['frontsecondary']:
+        if i not in muscles_front and i not in canonical['muscles']['front']:
+            muscles_front.append('images/muscles/secondary/muscle-{0}.svg'.format(i))
+    for i in canonical['muscles']['backsecondary']:
+        if i not in muscles_back and i not in canonical['muscles']['back']:
+            muscles_back.append('images/muscles/secondary/muscle-{0}.svg'.format(i))
 
     # Append the silhouette of the human body as the last entry so the browser
     # renders it in the background
@@ -231,15 +238,15 @@ def add(request, group_pk=None):
     return HttpResponseRedirect(workout.get_absolute_url())
 
 
-class WorkoutDeleteView(WgerDeleteMixin, DeleteView):
+class WorkoutDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     '''
     Generic view to delete a workout routine
     '''
 
     model = Workout
+    fields = ('comment',)
     success_url = reverse_lazy('manager:workout:overview')
     messages = ugettext_lazy('Successfully deleted')
-    login_required = True
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutDeleteView, self).get_context_data(**kwargs)
@@ -249,7 +256,7 @@ class WorkoutDeleteView(WgerDeleteMixin, DeleteView):
         return context
 
 
-class WorkoutEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
+class WorkoutEditView(WgerFormMixin, LoginRequiredMixin, UpdateView):
     '''
     Generic view to update an existing workout routine
     '''
@@ -257,7 +264,6 @@ class WorkoutEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
     model = Workout
     form_class = WorkoutForm
     form_action_urlname = 'manager:workout:edit'
-    login_required = True
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutEditView, self).get_context_data(**kwargs)
@@ -266,7 +272,7 @@ class WorkoutEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
         return context
 
 
-class LastWeightHelper():
+class LastWeightHelper:
     '''
     Small helper class to retrieve the last workout log for a certain
     user, exercise and repetition combination.

@@ -39,7 +39,13 @@
 {#        #}
 {# Header #}
 {#        #}
-{% block header %}{% endblock %}
+{% block header %}
+<script>
+$(document).ready(function() {
+    draw_weight_log_chart({{json|safe}}, "{{svg_uuid}}");
+});
+</script>
+{% endblock %}
 
 
 {#         #}
@@ -330,10 +336,7 @@
 
 
 <script>
-$(document).ready(function() {
-    toggle_weight_log_table();
-    weight_log_chart({{json|safe}}, "{{svg_uuid}}", "{{reps}}", $('#content').width());
-});
+
 </script>
 {% endif %}
 

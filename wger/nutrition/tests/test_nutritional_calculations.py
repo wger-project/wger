@@ -16,8 +16,8 @@
 import logging
 from decimal import Decimal
 
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.nutrition import models
-from wger.manager.tests.testcase import WorkoutManagerTestCase
 from wger.utils.constants import TWOPLACES
 
 logger = logging.getLogger(__name__)

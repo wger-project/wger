@@ -16,6 +16,7 @@
 
 import logging
 
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
@@ -29,8 +30,7 @@ from django.views.generic import (
 
 from wger.utils.generic_views import (
     WgerFormMixin,
-    WgerDeleteMixin,
-    WgerPermissionMixin
+    WgerDeleteMixin
 )
 
 from wger.core.models import License, WeightUnit
@@ -38,7 +38,7 @@ from wger.core.models import License, WeightUnit
 logger = logging.getLogger(__name__)
 
 
-class ListView(WgerPermissionMixin, ListView):
+class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     '''
     Overview of all available weight units
     '''
@@ -47,7 +47,7 @@ class ListView(WgerPermissionMixin, ListView):
     template_name = 'weight_unit/list.html'
 
 
-class AddView(WgerFormMixin, CreateView, WgerPermissionMixin):
+class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     '''
     View to add a new weight unit
     '''
@@ -60,7 +60,7 @@ class AddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     permission_required = 'core.add_weightunit'
 
 
-class UpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
+class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     '''
     View to update an existing weight unit
     '''
@@ -80,7 +80,7 @@ class UpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
         return context
 
 
-class DeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
+class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     '''
     View to delete an existing license
     '''

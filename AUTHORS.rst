@@ -18,6 +18,9 @@ Developers
 * Ryan Hughes - https://github.com/purplebird
 * Alexandre Murphy-Gonthier - https://github.com/murphyalexandre
 * Verdi R-D: https://github.com/azend
+* Alois: https://github.com/alokhan
+* Alelevinas: https://github.com/alelevinas
+* Jacob Stoebel: https://github.com/jstoebel
 
 Translators
 -----------

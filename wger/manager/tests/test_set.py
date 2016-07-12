@@ -14,18 +14,18 @@
 
 import logging
 
+from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
-from django.core.cache import cache
 
 from wger.core.tests import api_base_test
+from wger.core.tests.base_testcase import STATUS_CODES_FAIL
+from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.exercises.models import Exercise
+from wger.manager.models import Day
 from wger.manager.models import Set
 from wger.manager.models import Setting
-from wger.manager.models import Day
-from wger.exercises.models import Exercise
-from wger.manager.tests.testcase import STATUS_CODES_FAIL
-from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.utils.cache import cache_mapper
 
 

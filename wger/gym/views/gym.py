@@ -17,6 +17,7 @@ import csv
 import datetime
 import logging
 
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import (
     Group,
@@ -55,14 +56,14 @@ from wger.gym.models import (
 from wger.utils.generic_views import (
     WgerFormMixin,
     WgerDeleteMixin,
-    WgerPermissionMixin
-)
+    WgerMultiplePermissionRequiredMixin)
+from wger.utils.helpers import password_generator
 
 
 logger = logging.getLogger(__name__)
 
 
-class GymListView(WgerPermissionMixin, ListView):
+class GymListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     '''
     Overview of all available gyms
     '''
@@ -79,7 +80,7 @@ class GymListView(WgerPermissionMixin, ListView):
         return context
 
 
-class GymUserListView(WgerPermissionMixin, ListView):
+class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, ListView):
     '''
     Overview of all users for a specific gym
     '''
@@ -133,7 +134,7 @@ class GymUserListView(WgerPermissionMixin, ListView):
         return context
 
 
-class GymAddView(WgerFormMixin, CreateView):
+class GymAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     '''
     View to add a new gym
     '''
@@ -300,7 +301,10 @@ def gym_permissions_user_edit(request, user_pk):
     return render(request, 'form.html', context)
 
 
-class GymAddUserView(WgerFormMixin, CreateView):
+class GymAddUserView(WgerFormMixin,
+                     LoginRequiredMixin,
+                     WgerMultiplePermissionRequiredMixin,
+                     CreateView):
     '''
     View to add a user to a new gym
     '''
@@ -396,7 +400,7 @@ class GymAddUserView(WgerFormMixin, CreateView):
         return context
 
 
-class GymUpdateView(WgerFormMixin, UpdateView):
+class GymUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     '''
     View to update an existing gym
     '''
@@ -429,12 +433,19 @@ class GymUpdateView(WgerFormMixin, UpdateView):
         return context
 
 
-class GymDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
+class GymDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     '''
     View to delete an existing gym
     '''
 
     model = Gym
+    fields = ('name',
+              'phone',
+              'email',
+              'owner',
+              'zip_code',
+              'city',
+              'street')
     success_url = reverse_lazy('gym:gym:list')
     permission_required = 'gym.delete_gym'
 
