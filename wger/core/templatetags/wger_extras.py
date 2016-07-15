@@ -146,6 +146,29 @@ def auto_link_css(flavour='full', css=''):
 
 
 @register.simple_tag
+def fa_class(class_name='', size='lg', fixed_width=True):
+    '''
+    Helper function to help add font awesome classes to elements
+
+    :param class_name: the CSS class name, without the "fa-" prefix
+    :param size: the size of the icon
+    :param fixed_width: toggle for fixed icon width
+    :return: the complete CSS classes
+    '''
+    css = ''
+    if not class_name:
+        return css
+
+    css += 'fa fa-{}'.format(class_name)
+    if size:
+        css += ' fa-{}'.format(size)
+
+    if fixed_width:
+        css += ' fa-fw'
+    return mark_safe(css)
+
+
+@register.simple_tag
 def trans_weight_unit(unit, user=None):
     '''
     Returns the correct (translated) weight unit

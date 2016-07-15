@@ -23,23 +23,14 @@ $(document).ready(function() {
             <span class="editoptions" style="float: right;">
                 <a href="{% url 'manager:day:delete' day.obj.id %}"
                    title="{% trans 'Delete' %}">
-                       <img src="{% static 'images/icons/trash.svg' %}"
-                            width="22"
-                            height="22"
-                            alt="{% trans 'Delete' %}"></a>
+                    <span class="{% fa_class 'trash' %}"></span></a>
                 <a href="{% url 'manager:day:edit' day.obj.id %}"
                    title="{% trans 'Edit' %}"
                    class="wger-modal-dialog">
-                       <img src="{% static 'images/icons/edit.svg' %}"
-                            width="22"
-                            height="22"
-                            alt="{% trans 'Edit' %}"></a>
+                    <span class="{% fa_class 'pencil-square-o' %}"></span></a>
                 <a href="{% url 'manager:day:log' day.obj.id %}"
                    title="{% trans 'Add weight log to this day' %}">
-                       <img src="{% static 'images/icons/statistics.svg' %}"
-                            width="22"
-                            height="22"
-                            alt="{% trans 'Add weight log to this day' %}"></a>
+                    <span class="{% fa_class 'line-chart' %}"></span></a>
             </span>
             {% endif %}
         </th>
@@ -54,30 +45,17 @@ $(document).ready(function() {
                 {% if editable %}
                 <span class="editoptions">
                 {% if day.set_list|length > 1 %}
-                <img src="{% static 'images/icons/move.svg' %}"
-                     width="22"
-                     height="22"
-                     alt="{% trans 'Move me' %}"
-                     title="{% trans 'Move me' %}"
-                     class="dragndrop-handle">
+                    <span class="fa fa-bars fa-lg fa-fw dragndrop-handle"></span>
                 <br>
                 {% endif %}
                 <a href="{% url 'manager:set:edit' set.obj.id %}"
                    title="{% trans 'Edit' %}"
                    class="wger-modal-dialog">
-                       <img src="{% static 'images/icons/edit.svg' %}"
-                            width="22"
-                            height="22"
-                            alt="{% trans 'Edit' %}">
-                </a>
+                       <span class="{% fa_class 'pencil-square-o' %}"></span></a>
                     <br>
                 <a href="{% url 'manager:set:delete' set.obj.id %}"
                    title="{% trans 'Delete' %}">
-                        <img src="{% static 'images/icons/trash.svg' %}"
-                             width="16"
-                             height="16"
-                             alt="{% trans 'Delete' %}">
-                </a>
+                        <span class="{% fa_class 'trash' %}"></span></a>
                 </span>
                 {% endif %}
             </td>
