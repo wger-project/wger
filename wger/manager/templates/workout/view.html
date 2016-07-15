@@ -119,53 +119,6 @@ $(document).ready(function() {
 </div>
 
 
-<h4>{% trans "Options" %}</h4>
-<p>
-    <a data-toggle="modal" data-target="#download-pdf-popup">
-        <span class="{% fa_class 'download' %}"></span>
-        {% trans "Download as PDF" %}
-    </a>
-</p>
-
-<p>
-    <a href="{% url 'manager:log:log' workout.id %}">
-       <span class="{% fa_class 'line-chart' %}"></span>
-       {% trans "View weight log" %}
-    </a>
-</p>
-
-{% if is_owner %}
-<p>
-<a href="{% url 'manager:workout:edit' workout.id %}" class="wger-modal-dialog">
-   <span class="{% fa_class 'pencil-square-o' %}"></span>
-   {% trans "Edit workout" %}
-</a>
-</p>
-{% endif %}
-
-<p>
-<a data-toggle="modal" data-target="#export-ical-popup">
-   <span class="{% fa_class 'calendar' %}"></span>
-   {% trans "Export calendar file" %}
-</a>
-</p>
-
-<p>
-<a href="{% url 'manager:workout:copy' workout.id %}" class="wger-modal-dialog">
-   <span class="{% fa_class 'clone' %}"></span>
-   {% trans "Make a copy of this workout" %}
-</a>
-</p>
-
-{% if is_owner %}
-<p>
-<a href="{% url 'manager:workout:delete' workout.id %}" class="wger-modal-dialog">
-    <span class="{% fa_class 'trash' %}"></span>
-    {% trans "Delete this workout" %}
-</a>
-</p>
-{% endif %}
-
 <div class="modal fade" id="export-ical-popup">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -180,11 +133,6 @@ application for example google calendar, outlook or iCal. This will create
 an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
                 <p>
                 <a href="{% url 'manager:workout:ical' workout.id uid token %}" class="btn btn-block btn-default">
-                   <img src="{% static 'images/icons/calendar.svg' %}"
-                         width="32"
-                         height="32"
-                         alt="{% trans 'Export calendar file' %}"
-                         title="{% trans 'Export calendar file' %}">
                    {% trans "Export calendar file" %}
                 </a>
                 </p>
@@ -244,11 +192,6 @@ an appointment for each training day with the appropriate exercises.{% endblockt
 
                 <p>
                 <a href="" class="btn btn-block btn-default" id="download-pdf-button">
-                   <img src="{% static 'images/icons/save.svg' %}"
-                         width="32"
-                         height="32"
-                         alt="{% trans 'Download' %}"
-                         title="{% trans 'Download' %}">
                    {% trans "Download" %}
                 </a>
                 </p>
@@ -256,4 +199,53 @@ an appointment for each training day with the appropriate exercises.{% endblockt
         </div>
     </div>
 </div>
+{% endblock %}
+
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+<li>
+    <a data-toggle="modal" data-target="#download-pdf-popup">
+        <span class="{% fa_class 'download' %}"></span>
+        {% trans "Download as PDF" %}
+    </a>
+</li>
+<li>
+    <a href="{% url 'manager:log:log' workout.id %}">
+       <span class="{% fa_class 'line-chart' %}"></span>
+       {% trans "View weight log" %}
+    </a>
+</li>
+{% if is_owner %}
+<li>
+    <a href="{% url 'manager:workout:edit' workout.id %}" class="wger-modal-dialog">
+       <span class="{% fa_class 'pencil-square-o' %}"></span>
+       {% trans "Edit workout" %}
+    </a>
+</li>
+{% endif %}
+<li>
+    <a data-toggle="modal" data-target="#export-ical-popup">
+       <span class="{% fa_class 'calendar' %}"></span>
+       {% trans "Export calendar file" %}
+    </a>
+</li>
+<li>
+    <a href="{% url 'manager:workout:copy' workout.id %}" class="wger-modal-dialog">
+       <span class="{% fa_class 'clone' %}"></span>
+       {% trans "Make a copy of this workout" %}
+    </a>
+</li>
+{% if is_owner %}
+<li role="separator" class="divider"></li>
+<li>
+    <a href="{% url 'manager:workout:delete' workout.id %}" class="wger-modal-dialog">
+        <span class="{% fa_class 'trash' %}"></span>
+        {% trans "Delete this workout" %}
+    </a>
+</li>
+{% endif %}
 {% endblock %}

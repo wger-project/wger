@@ -146,7 +146,7 @@ def auto_link_css(flavour='full', css=''):
 
 
 @register.simple_tag
-def fa_class(class_name='', size='lg', fixed_width=True):
+def fa_class(class_name='', size='', fixed_width=True):
     '''
     Helper function to help add font awesome classes to elements
 

@@ -43,20 +43,20 @@ $(document).ready(function() {
                 <h5><strong>{{ forloop.counter }}</strong></h5>
 
                 {% if editable %}
-                <span class="editoptions">
-                {% if day.set_list|length > 1 %}
-                    <span class="fa fa-bars fa-lg fa-fw dragndrop-handle"></span>
-                <br>
-                {% endif %}
-                <a href="{% url 'manager:set:edit' set.obj.id %}"
-                   title="{% trans 'Edit' %}"
-                   class="wger-modal-dialog">
-                       <span class="{% fa_class 'pencil-square-o' %}"></span></a>
-                    <br>
-                <a href="{% url 'manager:set:delete' set.obj.id %}"
-                   title="{% trans 'Delete' %}">
-                        <span class="{% fa_class 'trash' %}"></span></a>
-                </span>
+                    <span class="editoptions">
+                    {% if day.set_list|length > 1 %}
+                        <span class="{% fa_class 'bars' %} dragndrop-handle"></span>
+                        <br>
+                    {% endif %}
+                    <a href="{% url 'manager:set:edit' set.obj.id %}"
+                       title="{% trans 'Edit' %}"
+                       class="wger-modal-dialog">
+                           <span class="{% fa_class 'pencil-square-o' %}"></span></a>
+                        <br>
+                    <a href="{% url 'manager:set:delete' set.obj.id %}"
+                       title="{% trans 'Delete' %}">
+                            <span class="{% fa_class 'trash' %}"></span></a>
+                    </span>
                 {% endif %}
             </td>
             <td style="border-left-width: 0px;">
