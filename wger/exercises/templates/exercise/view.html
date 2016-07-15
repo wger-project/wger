@@ -360,30 +360,27 @@ $(document).ready(function() {
 </p>
 {% endif %}
 
+{% license_sidebar exercise.license exercise.license_author %}
+{% endblock %}
 
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
 {% if perms.exercises.change_exercise %}
-<h4>{% trans "Options" %}</h4>
-<p>
-    <a href="{% url 'exercise:exercise:edit' exercise.id %}" {% auto_link_css flavour %}>
-        <img src="{% static 'images/icons/edit.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Edit' %}">
+<li>
+    <a href="{% url 'exercise:exercise:edit' exercise.id %}">
+        <span class="{% fa_class 'pencil-square-o' %}"></span>
         {% trans "Edit" %}
     </a>
-</p>
-<p>
-    <a href="{% url 'exercise:exercise:delete' exercise.id %}"
-       {% auto_link_css flavour "wger-modal-dialog" %}>
-        <img src="{% static 'images/icons/trash.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Delete' %}">
-            {% trans "Delete" %}
+</li>
+<li>
+    <a href="{% url 'exercise:exercise:delete' exercise.id %}" class="wger-modal-dialog" %}>
+        <span class="{% fa_class 'trash' %}"></span>
+        {% trans "Delete" %}
     </a>
-</p>
+</li>
 {% endif %}
-
-{% license_sidebar exercise.license exercise.license_author %}
-
 {% endblock %}

@@ -20,10 +20,13 @@ browsing the site as the user "{{current_user}}", all actions are performed on h
 
 <h2 id="page-title" class="page-header">
     {% block title %}{% endblock %}
+
+
     <div class="btn-group navbar-right">
         <div class="btn-group">
             <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="glyphicon glyphicon-cog"></span> {% trans "Options" %}
+                <span class="glyphicon glyphicon-cog"></span>
+                {% trans "Options" %}
             </button>
             <ul class="dropdown-menu">
                 {% block options %}
