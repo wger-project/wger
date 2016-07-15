@@ -207,45 +207,53 @@ an appointment for each training day with the appropriate exercises.{% endblockt
 {# Options #}
 {#         #}
 {% block options %}
-<li>
-    <a data-toggle="modal" data-target="#download-pdf-popup">
-        <span class="{% fa_class 'download' %}"></span>
-        {% trans "Download as PDF" %}
-    </a>
-</li>
-<li>
-    <a href="{% url 'manager:log:log' workout.id %}">
-       <span class="{% fa_class 'line-chart' %}"></span>
-       {% trans "View weight log" %}
-    </a>
-</li>
-{% if is_owner %}
-<li>
-    <a href="{% url 'manager:workout:edit' workout.id %}" class="wger-modal-dialog">
-       <span class="{% fa_class 'pencil-square-o' %}"></span>
-       {% trans "Edit workout" %}
-    </a>
-</li>
-{% endif %}
-<li>
-    <a data-toggle="modal" data-target="#export-ical-popup">
-       <span class="{% fa_class 'calendar' %}"></span>
-       {% trans "Export calendar file" %}
-    </a>
-</li>
-<li>
-    <a href="{% url 'manager:workout:copy' workout.id %}" class="wger-modal-dialog">
-       <span class="{% fa_class 'clone' %}"></span>
-       {% trans "Make a copy of this workout" %}
-    </a>
-</li>
-{% if is_owner %}
-<li role="separator" class="divider"></li>
-<li>
-    <a href="{% url 'manager:workout:delete' workout.id %}" class="wger-modal-dialog">
-        <span class="{% fa_class 'trash' %}"></span>
-        {% trans "Delete this workout" %}
-    </a>
-</li>
+<div class="btn-group">
+    <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="glyphicon glyphicon-cog"></span>
+        {% trans "Options" %}
+    </button>
+    <ul class="dropdown-menu">
+        <li>
+            <a data-toggle="modal" data-target="#download-pdf-popup">
+                <span class="{% fa_class 'download' %}"></span>
+                {% trans "Download as PDF" %}
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'manager:log:log' workout.id %}">
+               <span class="{% fa_class 'line-chart' %}"></span>
+               {% trans "View weight log" %}
+            </a>
+        </li>
+        {% if is_owner %}
+        <li>
+            <a href="{% url 'manager:workout:edit' workout.id %}" class="wger-modal-dialog">
+               <span class="{% fa_class 'pencil-square-o' %}"></span>
+               {% trans "Edit workout" %}
+            </a>
+        </li>
+        {% endif %}
+        <li>
+            <a data-toggle="modal" data-target="#export-ical-popup">
+               <span class="{% fa_class 'calendar' %}"></span>
+               {% trans "Export calendar file" %}
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'manager:workout:copy' workout.id %}" class="wger-modal-dialog">
+               <span class="{% fa_class 'clone' %}"></span>
+               {% trans "Make a copy of this workout" %}
+            </a>
+        </li>
+        {% if is_owner %}
+        <li role="separator" class="divider"></li>
+        <li>
+            <a href="{% url 'manager:workout:delete' workout.id %}" class="wger-modal-dialog">
+                <span class="{% fa_class 'trash' %}"></span>
+                {% trans "Delete this workout" %}
+            </a>
+        </li>
+    </ul>
+</div>
 {% endif %}
 {% endblock %}

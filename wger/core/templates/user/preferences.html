@@ -26,7 +26,7 @@ $(function() {
 
         <div class="panel panel-default">
             <div class="panel-heading">
-            <h3 class="panel-title">
+            <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#preferences-accordion" href="#collapseEmail">
                 {% trans "Email" %}
                 </a>
@@ -108,42 +108,45 @@ $(function() {
 
 
 {% block sidebar %}
-<h4>{% trans "Options" %}</h4>
-<p>
-    <a href="{% url 'core:user:logout' %}" {% auto_link_css flavour "browserid-logout" %}>
-    <img src="{% static 'images/icons/logout.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Logout' %}"
-         title="{% trans 'Logout' %}">
-    {% trans "Logout" %}</a>
-</p>
-<p>
-    <a href="{% url 'core:user:change-password' %}" {% auto_link_css flavour "wger-modal-dialog" %}>
-    <img src="{% static 'images/icons/preferences.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Change password' %}"
-         title="{% trans 'Change password' %}">
-    {% trans "Change password" %}</a>
-</p>
-<p>
-    <a href="{% url 'core:user:api-key' %}" {% auto_link_css flavour %}>
-    <img src="{% static 'images/icons/internet.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'API key' %}"
-         title="{% trans 'API key' %}">
-    {% trans "API key" %}</a>
-</p>
+{% endblock %}
 
-<p style="margin-top: 2em;">
-    <a href="{% url 'core:user:delete' %}" {% auto_link_css flavour "wger-modal-dialog" %}>
-    <img src="{% static 'images/icons/trash.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Delete account' %}"
-         title="{% trans 'Delete account' %}">
-    {% trans "Delete account" %}</a>
- </p>
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+<div class="btn-group">
+    <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="glyphicon glyphicon-cog"></span>
+        {% trans "Options" %}
+    </button>
+    <ul class="dropdown-menu">
+        <li>
+            <a href="{% url 'core:user:logout' %}" class="browserid-logout">
+                <span class="{% fa_class 'sign-out' %}"></span>
+                {% trans "Logout" %}
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'core:user:change-password' %}" class="wger-modal-dialog">
+                <span class="{% fa_class 'key' %}"></span>
+                {% trans "Change password" %}
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'core:user:api-key' %}">
+                <span class="{% fa_class 'globe' %}"></span>
+                {% trans "API key" %}
+            </a>
+        </li>
+        <li role="separator" class="divider"></li>
+        <li>
+            <a href="{% url 'core:user:delete' %}" class="wger-modal-dialog">
+                <span class="{% fa_class 'trash' %}"></span>
+                {% trans "Delete account" %}
+            </a>
+        </li>
+    </ul>
+</div>
 {% endblock %}

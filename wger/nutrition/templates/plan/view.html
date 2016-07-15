@@ -77,27 +77,15 @@ function custom_modal_init()
             <div class="editoptions">
                 <a href="{% url 'nutrition:meal:delete' meal.id %}"
                    title="{% trans 'Delete' %}">
-                   <img src="{% static 'images/icons/trash.svg' %}"
-                        width="16"
-                        height="16"
-                        alt="{% trans 'Delete meal' %}"
-                        title="{% trans 'Delete meal' %}"></a>
+                   <span class="{% fa_class 'trash' %}"></span></a>
                 <a href="{% url 'nutrition:meal:edit' meal.id %}"
                    title="{% trans 'Edit' %}"
                    class="wger-modal-dialog">
-                    <img src="{% static 'images/icons/edit.svg' %}"
-                         width="16"
-                         height="16"
-                         alt="{% trans 'Edit meal' %}"
-                         title="{% trans 'Edit meal' %}"></a>
+                    <span class="{% fa_class 'pencil-square-o' %}"></span></a>
                 <a href="{% url 'nutrition:meal_item:add' meal.id %}"
                    title="{% trans 'Add' %}"
                    class="wger-modal-dialog edit-meal">
-                    <img src="{% static 'images/icons/add.svg' %}"
-                         width="16"
-                         height="16"
-                         alt="{% trans 'Add item to meal' %}"
-                         title="{% trans 'Add item to meal' %}"></a>
+                    <span class="{% fa_class 'plus' %}"></span></a>
             </div>
             {% endif %}
         </td>
@@ -114,17 +102,11 @@ function custom_modal_init()
                 <a href="{% url 'nutrition:meal_item:delete' item.id %}"
                    title="{% trans 'Delete' %}"
                    class="delete-mealitem">
-                   <img src="{% static 'images/icons/trash.svg' %}"
-                        width="16"
-                        height="16"
-                        alt="{% trans 'Delete' %}"></a>
+                   <span class="{% fa_class 'trash' %}"></span></a>
                 <a href="{% url 'nutrition:meal_item:edit' item.id %}"
                    title="{% trans 'Edit' %}"
                    class="wger-modal-dialog edit-meal edit-mealitem">
-                    <img src="{% static 'images/icons/edit.svg' %}"
-                         width="16"
-                         height="16"
-                         alt="{% trans 'Edit' %}"></a>
+                    <span class="{% fa_class 'pencil-square-o' %}"></span></a>
             </span>
             {% endif %}
             </td>
@@ -164,11 +146,7 @@ function custom_modal_init()
             <td colspan="6">
             <a href="{% url 'nutrition:meal:add' plan.id %}"
                class="wger-modal-dialog">
-                <img src="{% static 'images/icons/edit.svg' %}"
-                     width="16"
-                     height="16"
-                     alt="{% trans 'Add a new meal' %}"
-                     title="{% trans 'Add a new meal' %}">
+                <span class="{% fa_class 'plus' %}"></span>
                 {% trans "Add a new meal" %}
             </a>
             </td>
@@ -176,13 +154,6 @@ function custom_modal_init()
         {% endif %}
     </tbody>
 </table>
-
-{% if language.short_name != 'en' and is_owner %}
-    <p>
-    {% trans "If you find the ingredient list too short, you might want to activate the preference to also show English ingredients." %}
-    <a href="{% url 'core:user:preferences' %}" id="ajax-english-ingredients">{% trans "That's done here" %}</a>.
-    </p>
-{% endif %}
 
 <h4>{% trans "Nutritional data" %}</h4>
 {% if weight_entry %}
@@ -298,53 +269,53 @@ function custom_modal_init()
 {% endif %}
 
 
-
-
-<h4>{% trans "Options" %}</h4>
-<p>
-<a href="{% url 'nutrition:plan:export-pdf' plan.id uid token %}"
-   target="_blank">
-    <img src="{% static 'images/icons/save.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Download as PDF' %}"
-         title="{% trans 'Download as PDF' %}">
-    {% trans "Download as PDF" %}
-</a>
-</p>
-
-{% if is_owner %}
-<p>
-<a href="{% url 'nutrition:plan:edit' plan.id %}"
-   class="wger-modal-dialog">
-    <img src="{% static 'images/icons/edit.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Edit nutrition plan' %}">
-    {% trans "Edit nutrition plan" %}
-</a>
-</p>
-
-
-<p>
-<a href="{% url 'nutrition:plan:copy' plan.id %}">
-    <img src="{% static 'images/icons/copy.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Make a copy of this nutrition plan' %}">
-    {% trans "Make a copy of this nutrition plan" %}
-</a>
-</p>
-
-<p>
-<a href="{% url 'nutrition:plan:delete' plan.id %}"
-   class="wger-modal-dialog">
-    <img src="{% static 'images/icons/trash.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Delete nutrition plan' %}">
-    {% trans "Delete nutrition plan" %}
-</a>
-</p>
+{% if language.short_name != 'en' and is_owner %}
+    <p>
+    {% trans "If you find the ingredient list too short, you might want to activate the preference to also show English ingredients." %}
+    <a href="{% url 'core:user:preferences' %}" id="ajax-english-ingredients">{% trans "That's done here" %}</a>.
+    </p>
 {% endif %}
+{% endblock %}
+
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+<div class="btn-group">
+    <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="glyphicon glyphicon-cog"></span>
+        {% trans "Options" %}
+    </button>
+    <ul class="dropdown-menu">
+        <li>
+            <a href="{% url 'nutrition:plan:export-pdf' plan.id uid token %}" target="_blank">
+                <span class="{% fa_class 'download' %}"></span>
+                {% trans "Download as PDF" %}
+            </a>
+        </li>
+        {% if is_owner %}
+        <li>
+            <a href="{% url 'nutrition:plan:edit' plan.id %}" class="wger-modal-dialog">
+                <span class="{% fa_class 'pencil-square-o' %}"></span>
+                {% trans "Edit nutrition plan" %}
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'nutrition:plan:copy' plan.id %}">
+                <span class="{% fa_class 'clone' %}"></span>
+                {% trans "Make a copy of this nutrition plan" %}
+            </a>
+        </li>
+        <li role="separator" class="divider"></li>
+        <li>
+            <a href="{% url 'nutrition:plan:delete' plan.id %}" class="wger-modal-dialog">
+                <span class="{% fa_class 'trash' %}"></span>
+                {% trans "Delete nutrition plan" %}
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</div>
 {% endblock %}
