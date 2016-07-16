@@ -57,7 +57,7 @@ activated in the django settings file and in the application itself.
 
   * while in ``extras/scripts``, export the whole database to a json file with::
 
-      python ../../manage.py dumpdata --indent 4 --natural > data.json
+      python ../../manage.py dumpdata --indent 4 --natural-foreign > data.json
 
   * filter the database dump, this will generate a json file for each "important"
     module::

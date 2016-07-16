@@ -25,7 +25,6 @@ $(document).ready(function () {
         top: 10,
         left: 30,
         right: 10,
-        height: 300,
         show_secondary_x_label: true,
         xax_count: 10,
         target: '#weight_diagram',

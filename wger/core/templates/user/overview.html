@@ -486,9 +486,9 @@
         <td>{% trans 'Include in inactive overview' %}</td>
         <td style="text-align: right;">
             {% if current_user.gymuserconfig.include_inactive %}
-                <span class="glyphicon glyphicon-ok"></span>
+                <span class="{% fa_class 'check' %}"></span>
             {% else %}
-                <span class="glyphicon glyphicon-remove"></span>
+                <span class="{% fa_class 'times' %}"></span>
             {% endif %}
         </td>
     </tr>

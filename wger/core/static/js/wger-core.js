@@ -75,7 +75,7 @@ function get_current_language() {
 
 
 /*
- * Setup JQuery sortables to make the sets sortable
+ * Setup sortable to make the sets sortable
  */
 function setup_sortable() {
     var elements = document.getElementsByTagName('tbody');

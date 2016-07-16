@@ -28,9 +28,29 @@ from wger.core.views import (
     user,
     misc,
     license,
+    languages,
     repetition_units,
     weight_units
 )
+
+# sub patterns for languages
+patterns_language = [
+   url(r'^list$',
+        languages.LanguageListView.as_view(),
+        name='overview'),
+   url(r'^(?P<pk>\d+)/view$',
+        languages.LanguageDetailView.as_view(),
+        name='view'),
+   url(r'^(?P<pk>\d+)/delete$',
+        languages.LanguageDeleteView.as_view(),
+        name='delete'),
+   url(r'^(?P<pk>\d+)/edit',
+        languages.LanguageEditView.as_view(),
+        name='edit'),
+   url(r'^add$',
+        languages.LanguageCreateView.as_view(),
+        name='add'),
+]
 
 # sub patterns for user
 patterns_user = [
@@ -181,6 +201,7 @@ urlpatterns = [
         misc.FeedbackClass.as_view(),
         name='feedback'),
 
+    url(r'^language/', include(patterns_language, namespace="language")),
     url(r'^user/', include(patterns_user, namespace="user")),
     url(r'^license/', include(patterns_license, namespace="license")),
     url(r'^repetition-unit/', include(patterns_repetition_units, namespace="repetition-unit")),
