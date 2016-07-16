@@ -98,7 +98,7 @@
         </a>
 {% endfor %}
         <a href="{% url 'manager:step:add' schedule.id %}" class="list-group-item list-group-item-success wger-modal-dialog">
-            <span class="glyphicon glyphicon-plus"></span>
+            <span class="{% fa_class 'plus' %}"></span>
             {% trans "Add workout" %}
         </a>
 </div>
@@ -247,7 +247,7 @@ an appointment for each training day with the appropriate exercises.{% endblockt
 {% block options %}
     <div class="btn-group">
     <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="glyphicon glyphicon-cog"></span>
+        <span class="{% fa_class 'cog' %}"></span>
         {% trans "Options" %}
     </button>
     <ul class="dropdown-menu">

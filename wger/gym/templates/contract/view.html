@@ -24,9 +24,9 @@
         <th style="width: 20%;">{% trans 'Contract is active' %}</th>
         <td colspan="3">
             {% if object.is_active %}
-                <span class="glyphicon glyphicon-ok"></span>
+                <span class="{% fa_class 'check' %}"></span>
             {% else %}
-                <span class="glyphicon glyphicon-remove"></span>
+                <span class="{% fa_class 'times' %}"></span>
             {% endif %}
         </td>
     </tr>

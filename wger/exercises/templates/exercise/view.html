@@ -358,7 +358,7 @@ $(document).ready(function() {
 {% if perms.exercises.change_exercise %}
 <div class="btn-group">
     <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="glyphicon glyphicon-cog"></span>
+        <span class="{% fa_class 'cog' %}"></span>
         {% trans "Options" %}
     </button>
     <ul class="dropdown-menu">

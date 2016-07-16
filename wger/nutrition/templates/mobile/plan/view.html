@@ -178,7 +178,7 @@ $(document).ready(function() {
     {% if forloop.last and is_owner %}
         <a href="{% url 'nutrition:meal_item:add' meal.id %}"
            class="list-group-item list-group-item-success">
-            <span class="glyphicon glyphicon-plus"></span>
+            <span class="{% fa_class 'plus' %}"></span>
             {% trans "Add item to meal" %}
         </a>
     {% endif %}
@@ -342,7 +342,7 @@ $(document).ready(function() {
 {% block options %}
 <div class="btn-group">
     <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="glyphicon glyphicon-cog"></span>
+        <span class="{% fa_class 'cog' %}"></span>
         {% trans "Options" %}
     </button>
     <ul class="dropdown-menu">
