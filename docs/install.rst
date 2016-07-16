@@ -12,10 +12,16 @@ should run wherever django runs.
 The application is compatible and regularly tested with
 
 * sqlite, postgres
-* python 2.7, 3.3, 3.4 and 3.5
+* python 2.7, 3.4 and 3.5
 
-See the :ref:`other-changes` section for content related changes to your
-installation.
+You might also want to take a look at the :ref:`other-changes` section for other
+changes you might want to do to your local instance such as Terms of Service or
+contact page.
+
+.. note::
+    Please note that all the steps related to upgrading the database or
+    downloading external JS dependencies mentioned in the :ref:`tips` section
+    in the development page apply to all the installation options.
 
 
 
@@ -51,4 +57,4 @@ For a more production-like setting with apache and mod-wsgi consult the
 Docker
 ------
 
-There are docker images available, see the :doc:`docker` chapter.
+There are also docker images available, see the :doc:`docker` chapter.

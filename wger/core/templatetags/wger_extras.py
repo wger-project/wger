@@ -20,6 +20,7 @@ from django.forms.widgets import (
     CheckboxInput,
     ClearableFileInput
 )
+from django.utils.safestring import mark_safe
 from django.utils.translation import (
     ugettext_lazy as _,
     pgettext
@@ -141,7 +142,30 @@ def auto_link_css(flavour='full', css=''):
     :return: the complete CSS classes, wrapped in class="foo"
     '''
     css = css + ' btn btn-default btn-block' if flavour == 'mobile' else css
-    return 'class="{0}"'.format(css)
+    return mark_safe('class="{0}"'.format(css))
+
+
+@register.simple_tag
+def fa_class(class_name='', size='', fixed_width=True):
+    '''
+    Helper function to help add font awesome classes to elements
+
+    :param class_name: the CSS class name, without the "fa-" prefix
+    :param size: the size of the icon
+    :param fixed_width: toggle for fixed icon width
+    :return: the complete CSS classes
+    '''
+    css = ''
+    if not class_name:
+        return css
+
+    css += 'fa fa-{}'.format(class_name)
+    if size:
+        css += ' fa-{}'.format(size)
+
+    if fixed_width:
+        css += ' fa-fw'
+    return mark_safe(css)
 
 
 @register.simple_tag
