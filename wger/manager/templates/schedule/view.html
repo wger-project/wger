@@ -70,9 +70,9 @@
         <th>{% trans "Schedule active" %}</th>
         <td>
             {% if schedule.is_active %}
-            <span class="glyphicon glyphicon-ok"></span>
+                <span class="{% fa_class 'check' %}"></span>
             {% else %}
-            <span class="glyphicon glyphicon-remove"></span>
+                <span class="{% fa_class 'times' %}"></span>
             {% endif %}
         </td>
     </tr>
@@ -80,10 +80,10 @@
         <th>{% trans "Is a loop" %}</th>
         <td>
             {% if schedule.is_loop %}
-            <span class="glyphicon glyphicon-ok"></span>
-            <em>{% trans "This schedule is a loop and will go through the workouts above till you deactivate it" %}</em>
+                <span class="{% fa_class 'check' %}"></span>
+                <small>{% trans "This schedule is a loop and will go through the workouts above till you deactivate it" %}</small>
             {% else %}
-            <span class="glyphicon glyphicon-remove"></span>
+                <span class="{% fa_class 'times' %}"></span>
             {% endif %}
         </td>
     </tr>
@@ -150,13 +150,13 @@
             <td colspan="4">
                 {% if not schedule.is_active %}
                 <a href="{% url 'manager:schedule:start' schedule.pk %}" class="btn btn-success btn-sm">
-                    <span class="glyphicon glyphicon-play"></span>
+                    <span class="{% fa_class 'play' %}"></span>
                     {% trans "Start schedule" %}
                 </a>
                 {% endif %}
 
                 <a href="{% url 'manager:step:add' schedule.id %}" class="wger-modal-dialog btn btn-default btn-sm">
-                    <span class="glyphicon glyphicon-plus"></span>
+                    <span class="{% fa_class 'plus' %}"></span>
                     {% trans "Add workout" %}
                 </a>
             </td>
