@@ -14,19 +14,19 @@
                 <ul class="dropdown-menu">
                     <li>
                         <a href="{% url 'manager:session:edit' value.session.pk %}" class="wger-modal-dialog">
-                            <span class="glyphicon glyphicon-pencil"></span>
+                            <span class="{% fa_class 'pencil-square-o' %}"></span>
                             {% trans "Edit" %}
                         </a>
                     </li>
                     <li>
                         <a href="{% url 'manager:session:delete' value.session.pk %}" class="wger-modal-dialog">
-                            <span class="glyphicon glyphicon-trash"></span>
+                            <span class="{% fa_class 'trash' %}"></span>
                             {% trans "Delete" %}
                         </a>
                     </li>
                     <li>
                         <a href="{% url 'manager:session:delete' value.session.pk 'logs' %}" class="wger-modal-dialog">
-                            <span class="glyphicon glyphicon-trash"></span>
+                            <span class="{% fa_class 'trash' %}"></span>
                             {% trans "Delete with logs" %}
                         </a>
                     </li>

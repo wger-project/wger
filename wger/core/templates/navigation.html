@@ -204,8 +204,8 @@
                                     <li class="divider"></li>
                                     <li>
                                         <a href="{% url 'core:user:logout' %}" class="browserid-logout">
-                                        <span class="glyphicon glyphicon-log-out"></span>
-                                        {% trans "Logout" %}
+                                            <span class="{% fa_class 'sign-out' %}"></span>
+                                            {% trans "Logout" %}
                                         </a>
                                     </li>
                                     {% endif %}

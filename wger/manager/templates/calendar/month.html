@@ -73,7 +73,7 @@ $(document).ready(function() {
                             <span class="editoptions">
                                 <div class="btn-group pull-right">
                                     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
-                                        <span class="glyphicon glyphicon-cog"></span>
+                                        <span class="{% fa_class 'cog' %}"></span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
@@ -135,10 +135,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
                 <p><em>{% trans "No workouts found." %}</em></p>
                 <p>
                 <a href="{% url 'manager:workout:add' %}" class="btn btn-block btn-default">
-                   <img src="{% static 'images/icons/add.svg' %}"
-                        width="22"
-                        height="22"
-                        alt="">
+                    <span class="{% fa_class 'plus' %}"></span>
                     {% trans "Add one now." %}
                 </a>
                 </p>
@@ -160,11 +157,8 @@ you can click on them to see the details.{% endblocktrans %}</p>
 
 <p>
     <a href="{% url 'manager:workout:calendar' owner_user %}">
-        <img src="{% static 'images/icons/calendar.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Go to current month' %}">
-    {% trans "Go to current month" %}</a>
+        <span class="{% fa_class 'calendar' %}"></span>
+        {% trans "Go to current month" %}</a>
 </p>
 
 

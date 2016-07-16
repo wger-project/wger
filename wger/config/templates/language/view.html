@@ -58,11 +58,11 @@ in A).{% endblocktrans %}</p>
             </a>
         </td>
         <td>
-
-            <img src="{% if config.show %}{% static 'images/icons/status-on.svg' %}{% else %}{% static 'images/icons/status-off.svg' %}{% endif %}"
-                 width="16"
-                 height="16"
-                 alt="">
+            {% if config.show %}
+                <span class="{% fa_class 'check' %} text-success"></span>
+            {% else %}
+                <span class="{% fa_class 'times' %}"></span>
+            {% endif %}
         </td>
     </tr>
     {% endfor %}
@@ -72,31 +72,36 @@ in A).{% endblocktrans %}</p>
 
 
 
+{#          #}
+{# Side bar #}
+{#          #}
 {% block sidebar %}
-<h4>{% trans "Options" %}</h4>
+{% endblock %}
 
-<p>
-    <a href="{% url 'core:language:edit' view_language.id %}"
-       {% auto_link_css flavour "wger-modal-dialog" %}>
-        <img src="{% static 'images/icons/edit.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Edit' %}"
-             >
-        {% trans "Edit" %}
-    </a>
-</p>
 
-<p>
-    <a href="{% url 'core:language:delete' view_language.id %}"
-       {% auto_link_css flavour "wger-modal-dialog" %}>
-        <img src="{% static 'images/icons/trash.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Delete' %}"
-             >
-        {% trans "Delete" %}
-    </a>
-</p>
 
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+<div class="btn-group">
+    <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="{% fa_class 'cog' %}"></span>
+        {% trans "Options" %}
+    </button>
+    <ul class="dropdown-menu">
+        <li>
+            <a href="{% url 'core:language:edit' view_language.id %}" class="wger-modal-dialog">
+                <span class="{% fa_class 'pencil-square-o' %}"></span>
+                {% trans "Edit" %}
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'core:language:delete' view_language.id %}" class="wger-modal-dialog">
+                <span class="{% fa_class 'trash' %}"></span>
+                {% trans "Delete" %}
+            </a>
+        </li>
+    </ul>
+</div>
 {% endblock %}

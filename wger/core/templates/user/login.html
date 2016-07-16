@@ -25,22 +25,18 @@
 {% block sidebar %}
 <h4>{% trans "No account?" %}</h4>
 <p>
-    <a href="{% url 'core:user:registration' %}" {% auto_link_css flavour %}>
-        <img src="{% static 'images/icons/register.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Register' %}">
-        {% trans "Register" %}</a>
+    <a href="{% url 'core:user:registration' %}" class="btn btn-block btn-default">
+        <span class="{% fa_class 'sign-in' %}"></span>
+        {% trans "Register" %}
+    </a>
 </p>
 
 <h4>{% trans "Forgot password?" %}</h4>
 <p>
-    <a href="{% url 'core:user:password_reset' %}" {% auto_link_css flavour %}>
-        <img src="{% static 'images/icons/reset-password.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Reset password' %}">
-        {% trans "Reset password" %}</a>
+    <a href="{% url 'core:user:password_reset' %}" class="btn btn-block btn-default">
+        <span class="{% fa_class 'key' %}"></span>
+        {% trans "Reset password" %}
+    </a>
 </p>
 
 {% if not hide_persona %}
@@ -54,10 +50,10 @@
     </a>
 
 <p>
-    {% blocktrans %}Persona (BrowserID) replaces multiple passwords, you don't
+    <small>{% blocktrans %}Persona (BrowserID) replaces multiple passwords, you don't
     need to remember a new password for this site. For more information, please
     take a look at the <a href="https://login.persona.org/" target="_blank">the
-    Persona website</a>.{% endblocktrans %}
+    Persona website</a>.{% endblocktrans %}</small>
 </p>
 {% endif %}
 {% endblock %}
