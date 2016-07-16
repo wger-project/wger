@@ -18,39 +18,43 @@
     function init_sortable()
     {
         $("#schedule-table tbody").off();
-        $("#schedule-table tbody").sortable({
-            handle: '.dragndrop-handle',
-            revert: true,
-            update : function (event, ui) {
-                var schedule_id = ui.item.data('scheduleId');
+        var elements = document.getElementsByTagName('tbody');
+        $.each(elements, function(index, element) {
+            Sortable.create(element, {
+                handle: '.dragndrop-handle',
+                animation: 150,
+                onUpdate: function (event) {
+                    var schedule_id = $(event.target).parents('table').data('schedule');
+                    $.each(($(event.from).children('tr')), function(index, tr_element) {
+                        var tr_element = $(tr_element);
+                        console.log(tr_element.data('id'));
 
-                // returns something in the form "step-1,step-2,step-3,"
-                var order = $( this ).sortable('toArray');
+                        // The last table element has no ID attribute (has only the
+                        // 'add exercise' link
+                        if( tr_element.data('id') ) {
+                            var step_pk = tr_element.data('id');
+                            $.ajax({
+                                url: '/api/v2/schedulestep/' + step_pk + '/',
+                                type: 'PATCH',
+                                data: {'order': index + 1}
+                            }).done(function (data) {
+                                // console.log(data);
+                            });
+                        }
+                    });
 
-                $.each(order, function (index, value) {
-                    if (value) {
-                        var step_pk = value.match(/\d+/)[0];
-                        $.ajax({
-                            url:'/api/v2/schedulestep/' + step_pk + '/',
-                            type: 'PATCH',
-                            data: {'order': index + 1}
-                        }).done(function(data) {
-                            //console.log(data);
-                        });
-                    }
-                });
 
-                current_url = $("#current-url").data('currentUrl');
-
-                // TODO: again, why do we need to do this twice. Otherwise, sometimes
-                //       it doesn't get current data
-                $.get(current_url);
-                $.get(current_url, function(data) {
-                    $('#schedule-table').html($(data).find('#schedule-table').html());
-                    init_sortable();
-                    form_modal_dialog();
-                });
-            }
+                    // TODO: again, why do we need to do this twice. Otherwise, sometimes
+                    //       it doesn't get current data
+                    var current_url = $("#current-url").data('currentUrl');
+                    $.get(current_url);
+                    $.get(current_url, function(data) {
+                        $('#schedule-table').html($(data).find('#schedule-table').html());
+                        init_sortable();
+                        form_modal_dialog();
+                    });
+                }
+            });
         })
     }
 
@@ -91,7 +95,7 @@
 
 
 <div id="schedule-table-container">
-    <table id="schedule-table" class="table">
+    <table id="schedule-table" class="table" data-schedule="{{schedule.id}}">
         <thead>
         <tr>
             <th>{% trans "Nr." %}</th>
@@ -104,7 +108,7 @@
         </thead>
         <tbody>
         {% for step in schedule.schedulestep_set.select_related %}
-        <tr data-schedule-id="{{schedule.id}}" id="step-{{step.id}}">
+        <tr data-id="{{step.id}}">
             <td>
                 {{ forloop.counter }}
             </td>
@@ -175,15 +179,15 @@
     <div class="col-md-3">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">
+                <h4 class="panel-title">
                     {% blocktrans count weeks=step.duration %}{{ weeks }} Week
                     {% plural %}{{ weeks }} Weeks
                     {% endblocktrans %}
-                    </h4>
+                </h4>
 
-                    {% if active_workout == step %}
+                {% if active_workout == step %}
                     <span class="label label-info">{% trans "active" %}</span>
-                    {% endif  %}
+                {% endif  %}
             </div>
             <div class="panel-body">
                 <span>{{step_dates.0}} <br> {{step_dates.1}}</span>
