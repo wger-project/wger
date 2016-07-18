@@ -16,6 +16,7 @@
 $(function() {
     // Init the autocompleter
     $('#exercise-search').devbridgeAutocomplete({
+        showNoSuggestionNotice: true,
         serviceUrl: '{% url 'exercise-search' %}',
         onSelect: function (suggestion) {
             window.location.href = '/exercise/' + suggestion.data.id + '/view/'

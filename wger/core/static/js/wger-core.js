@@ -482,6 +482,7 @@ function init_edit_set() {
     // Initialise the autocompleter (our widget, defined above)
     $('#exercise-search').devbridgeAutocomplete({
         serviceUrl: '/api/v2/exercise/search/?language=' + get_current_language(),
+        showNoSuggestionNotice: true,
         onSelect: function (suggestion) {
            // Add the exercise to the list
            add_exercise({id: suggestion.data.id,

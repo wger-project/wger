@@ -32,6 +32,7 @@ New features:
 
 Improvements:
 
+* Give feedback when autocompleter didn't find any results `#293`_
 * The dashboard page was improved and made more user friendly `#201`_ (partly)
 * Replace jquery UI's autocompleter and sortable this reduces size of JS and CSS `#78`_ and `#79`_
 * Remove hard-coded CC licence from documentation and website `#247`_
@@ -55,6 +56,7 @@ Other improvements and bugfixes: `#243`_, `#279`_, `#275`_, `#270`_, `#258`_, `#
 .. _#275: https://github.com/wger-project/wger/issues/275
 .. _#279: https://github.com/wger-project/wger/issues/279
 .. _#282: https://github.com/wger-project/wger/issues/282
+.. _#293: https://github.com/wger-project/wger/issues/293
 .. _#296: https://github.com/wger-project/wger/issues/296
 .. _#297: https://github.com/wger-project/wger/issues/297
 .. _#303: https://github.com/wger-project/wger/issues/303
