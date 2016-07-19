@@ -147,6 +147,12 @@ body {
         top: 0;
         width: 70%;
     }
+
+    /* Increase left padding */
+    .navbar-nav .open .dropdown-menu .dropdown-header,
+    .navbar-nav .open .dropdown-menu > li > a {
+        padding: 5px 15px 5px 35px;
+    }
 }
 
 
