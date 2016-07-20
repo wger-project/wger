@@ -67,17 +67,11 @@ $(document).ready(function() {
         <div class="btn-group btn-group-justified" role="group">
 
             <a href="{% url 'exercise:exercise:accept' exercise.id %}" class="btn btn-default">
-                <img src="{% static 'images/icons/status-on.svg' %}"
-                    width="32"
-                    height="32"
-                    alt="{% trans 'Accept' %}">
+                <span class="{% fa_class 'check' %}"></span>
                 {% trans "Accept" %}
             </a>
             <a href="{% url 'exercise:exercise:decline' exercise.id %}" class="btn btn-default">
-                <img src="{% static 'images/icons/status-off.svg' %}"
-                    width="32"
-                    height="32"
-                    alt="{% trans 'Decline' %}">
+                <span class="{% fa_class 'times' %}"></span>
                 {% trans "Decline" %}
             </a>
         </div>
@@ -150,16 +144,19 @@ $(document).ready(function() {
                     <div class="titleBox">
                         <a href="{{ image.image.url }}"
                            target="_blank"
-                           class=" no-hover">
-                             {% trans "Download" %}</a>
+                           class=" no-hover"
+                           title="{% trans 'Download' %}">
+                             <span class="{% fa_class 'download' %}"></span></a>
                         {% if perms.exercises.change_exerciseimage %}
                         |
                         <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}"
-                           class="wger-modal-dialog no-hover">
-                             {% trans 'Delete' %}</a> |
+                           class="wger-modal-dialog no-hover"
+                           title="{% trans 'Delete' %}">
+                             <span class="{% fa_class 'trash' %}"></span></a> |
                         <a href="{% url 'exercise:image:edit' image.pk %}"
-                           class="no-hover">
-                             {% trans 'Edit' %}</a>
+                           class="no-hover"
+                           title="{% trans 'Edit' %}">
+                             <span class="{% fa_class 'pencil-square-o' %}"></span></a>
                         {% endif %}
 
                         <br>
@@ -226,19 +223,11 @@ $(document).ready(function() {
                 <span class="editoptions">
                     <a href="{% url 'exercise:comment:delete' comment.id %}"
                        title="{% trans 'Delete' %}">
-                       <img src="{% static 'images/icons/trash.svg' %}"
-                            width="16"
-                            height="16"
-                            alt="{% trans 'Delete' %}">
-                    </a>
+                        <span class="{% fa_class 'trash' %}"></span></a>
                     <a href="{% url 'exercise:comment:edit' comment.id %}"
                        title="{% trans 'Edit' %}"
                        class="wger-modal-dialog">
-                       <img src="{% static 'images/icons/edit.svg' %}"
-                            width="16"
-                            height="16"
-                            alt="{% trans 'Edit' %}">
-                    </a>
+                        <span class="{% fa_class 'pencil-square-o' %}"></span></a>
                 </span>
                 {% endif %}
             </li>
@@ -351,39 +340,41 @@ $(document).ready(function() {
 <h4>{% trans "Options" %}</h4>
 <p>
     <a href="{% url 'exercise:exercise:correct' exercise.id %}" {% auto_link_css flavour %}>
-        <img src="{% static 'images/icons/edit.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Submit a correction' %}">
+        <span class="{% fa_class 'pencil-square-o' %}"></span>
         {% trans "Submit a correction" %}
     </a>
 </p>
 {% endif %}
 
-
-{% if perms.exercises.change_exercise %}
-<h4>{% trans "Options" %}</h4>
-<p>
-    <a href="{% url 'exercise:exercise:edit' exercise.id %}" {% auto_link_css flavour %}>
-        <img src="{% static 'images/icons/edit.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Edit' %}">
-        {% trans "Edit" %}
-    </a>
-</p>
-<p>
-    <a href="{% url 'exercise:exercise:delete' exercise.id %}"
-       {% auto_link_css flavour "wger-modal-dialog" %}>
-        <img src="{% static 'images/icons/trash.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Delete' %}">
-            {% trans "Delete" %}
-    </a>
-</p>
-{% endif %}
-
 {% license_sidebar exercise.license exercise.license_author %}
+{% endblock %}
 
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+{% if perms.exercises.change_exercise %}
+<div class="btn-group">
+    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="{% fa_class 'cog' %}"></span>
+        {% trans "Options" %}
+    </button>
+    <ul class="dropdown-menu">
+        <li>
+            <a href="{% url 'exercise:exercise:edit' exercise.id %}">
+                <span class="{% fa_class 'pencil-square-o' %}"></span>
+                {% trans "Edit" %}
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'exercise:exercise:delete' exercise.id %}" class="wger-modal-dialog" %}>
+                <span class="{% fa_class 'trash' %}"></span>
+                {% trans "Delete" %}
+            </a>
+        </li>
+    </ul>
+</div>
+{% endif %}
 {% endblock %}

@@ -75,7 +75,7 @@ function get_current_language() {
 
 
 /*
- * Setup JQuery sortables to make the sets sortable
+ * Setup sortable to make the sets sortable
  */
 function setup_sortable() {
     var elements = document.getElementsByTagName('tbody');
@@ -480,40 +480,39 @@ function init_remove_exercise_formset() {
 
 function init_edit_set() {
     // Initialise the autocompleter (our widget, defined above)
-    if (jQuery.ui) {
-        $('#exercise-search').devbridgeAutocomplete({
-            serviceUrl: '/api/v2/exercise/search/?language=' + get_current_language(),
-            onSelect: function (suggestion) {
-               // Add the exercise to the list
-               add_exercise({id: suggestion.data.id,
-                             value: suggestion.value});
+    $('#exercise-search').devbridgeAutocomplete({
+        serviceUrl: '/api/v2/exercise/search/?language=' + get_current_language(),
+        showNoSuggestionNotice: true,
+        onSelect: function (suggestion) {
+           // Add the exercise to the list
+           add_exercise({id: suggestion.data.id,
+                         value: suggestion.value});
 
-               // Load formsets
-               get_exercise_formset(suggestion.data.id);
+           // Load formsets
+           get_exercise_formset(suggestion.data.id);
 
-               // Init the remove buttons
-               init_remove_exercise_formset();
+           // Init the remove buttons
+           init_remove_exercise_formset();
 
-               // Reset the autocompleter
-               $(this).val("");
-               return false;
-            },
-            groupBy: 'category',
-            paramName: 'term',
-            transformResult: function(response) {
-                // why is response not already a JSON object??
-                var jsonResponse = $.parseJSON(response);
-                return {
-                    suggestions: $.map(jsonResponse, function(item) {
-                        return {value: item.value, data: {id: item.id,
-                                                          category: item.category,
-                                                          image: item.image,
-                                                          thumbnail: item.image_thumbnail}};
-                    })
-                };
-            }
-        });
-    }
+           // Reset the autocompleter
+           $(this).val("");
+           return false;
+        },
+        groupBy: 'category',
+        paramName: 'term',
+        transformResult: function(response) {
+            // why is response not already a JSON object??
+            var jsonResponse = $.parseJSON(response);
+            return {
+                suggestions: $.map(jsonResponse, function(item) {
+                    return {value: item.value, data: {id: item.id,
+                                                      category: item.category,
+                                                      image: item.image,
+                                                      thumbnail: item.image_thumbnail}};
+                })
+            };
+        }
+    });
 
     // Mobile select box
     $('#id_exercise_list').change(function (e) {

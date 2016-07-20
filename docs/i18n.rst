@@ -31,22 +31,33 @@ Besides adding the new translations to the locale folder, they have to be
 activated in the django settings file and in the application itself.
 
 .. note::
-  At the moment composed language codes such as pt-BR are **not** supported.
+  At the moment composed language codes such as pt-BR (Brazilian Portuguese)
+  are **not** supported, the issue for this problem is `#130`_
 
-* **django:** Add an entry to ``LANGUAGES`` in ``wger/settings_global.py``
+.. _#130: https://github.com/wger-project/wger/issues/130
 
-* **wger:** Add the new language in the language admin page and set the
+* **django:** add an entry to ``LANGUAGES`` in ``wger/settings_global.py``
+
+* **wger:** add the new language in the language admin page and set the
   visibility of exercises and ingredients. For the short name, use the
   language code such as 'fr', for the long name the native name, in this example
   'français'.
 
-* **fixtures:** After having added the language in the admin module, the data
+* **compile**: to use the new language files, the translation files have to be
+  compiled. Do this by changing to the wger folder (so you see a ``locale``
+  folder there) and invoking ``django-admin compilemessages``. You will also
+  need to restart the webserver.
+
+* **flag icon:** add an appropriate flag icon in SVG format in ``images/icons/flag-CODE.svg``
+  in the static folder of the core application.
+
+* **fixtures:** after having added the language in the admin module, the data
   has to be exported so the current language configuration can be reproduced.
   This is done with the ``filter-fixtures.py`` script:
 
   * while in ``extras/scripts``, export the whole database to a json file with::
 
-      python ../../manage.py dumpdata --indent 4 --natural > data.json
+      python ../../manage.py dumpdata --indent 4 --natural-foreign > data.json
 
   * filter the database dump, this will generate a json file for each "important"
     module::
@@ -61,8 +72,6 @@ activated in the django settings file and in the application itself.
       cp language_config.json ../../wger/config/fixtures/
       rm *.json
 
-* **flag icon:** Add an appropriate flag icon in SVG format in ``images/icons/flag-CODE.svg``
-  in the static folder of the core application
 
 Getting new languages
 ---------------------

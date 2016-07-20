@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="186.18201"
+   id="svg4472"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="flag-no.svg"
+   sodipodi:version="0.32"
+   version="1.0"
+   width="256">
+  <metadata
+     id="metadata3">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title></dc:title>
+        <dc:description />
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>unsorted</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:publisher>
+          <cc:Agent
+             rdf:about="http://www.openclipart.org/">
+            <dc:title>Open Clip Art Library, Source: Wikimedia Commons, Source: Wikimedia Commons, Source: Wikimedia Commons, Source: Wikimedia Commons</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title />
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title />
+          </cc:Agent>
+        </dc:rights>
+        <dc:date />
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://en.wikipedia.org/wiki/Public_domain" />
+        <dc:language>en</dc:language>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs4485">
+    <inkscape:perspective
+       id="perspective4489"
+       inkscape:persp3d-origin="550 : 266.66667 : 1"
+       inkscape:vp_x="0 : 400 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="1100 : 400 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10.0"
+     guidetolerance="10.0"
+     id="base"
+     inkscape:current-layer="svg4472"
+     inkscape:cx="167.29726"
+     inkscape:cy="-10.443031"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:window-height="710"
+     inkscape:window-width="963"
+     inkscape:window-x="520"
+     inkscape:window-y="87"
+     inkscape:zoom="0.50818182"
+     objecttolerance="10.0"
+     pagecolor="#ffffff"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-maximized="0" />
+  <rect
+     height="186.18201"
+     id="rect4474"
+     style="fill:#ef2b2d"
+     width="256"
+     x="0"
+     y="0" />
+  <rect
+     height="186.18201"
+     id="rect4476"
+     style="fill:#ffffff"
+     width="46.545456"
+     x="69.818184"
+     y="0" />
+  <rect
+     height="46.545502"
+     id="rect4478"
+     style="fill:#ffffff"
+     width="256"
+     x="0"
+     y="69.818253" />
+  <rect
+     height="186.18201"
+     id="rect4480"
+     style="fill:#002868"
+     width="23.272728"
+     x="81.454544"
+     y="0" />
+  <rect
+     height="23.272751"
+     id="rect4482"
+     style="fill:#002868"
+     width="256"
+     x="0"
+     y="81.454613" />
+</svg>

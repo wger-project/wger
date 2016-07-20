@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 import logging
 
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -25,7 +26,7 @@ from django.views.generic import CreateView, UpdateView
 
 from wger.exercises.forms import CommentForm
 from wger.exercises.models import Exercise, ExerciseComment
-from wger.utils.generic_views import WgerFormMixin, WgerPermissionMixin
+from wger.utils.generic_views import WgerFormMixin
 
 
 logger = logging.getLogger(__name__)
@@ -36,7 +37,10 @@ logger = logging.getLogger(__name__)
 # ************************
 
 
-class ExerciseCommentEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
+class ExerciseCommentEditView(WgerFormMixin,
+                              LoginRequiredMixin,
+                              PermissionRequiredMixin,
+                              UpdateView):
     '''
     Generic view to update an existing exercise comment
     '''
@@ -58,7 +62,10 @@ class ExerciseCommentEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
         return context
 
 
-class ExerciseCommentAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
+class ExerciseCommentAddView(WgerFormMixin,
+                             LoginRequiredMixin,
+                             PermissionRequiredMixin,
+                             CreateView):
     '''
     Generic view to add a new exercise comment
     '''

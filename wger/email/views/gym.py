@@ -14,6 +14,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core import mail
@@ -25,10 +26,9 @@ from formtools.preview import FormPreview
 
 from wger.gym.models import Gym
 from wger.email.models import CronEntry, Log
-from wger.utils.generic_views import WgerPermissionMixin
 
 
-class EmailLogListView(WgerPermissionMixin, generic.ListView):
+class EmailLogListView(PermissionRequiredMixin, generic.ListView):
     '''
     Shows a list with all sent emails
     '''
@@ -37,7 +37,6 @@ class EmailLogListView(WgerPermissionMixin, generic.ListView):
     context_object_name = "email_list"
     template_name = 'email/gym/overview.html'
     permission_required = 'email.add_log'
-    login_required = True
     gym = None
 
     def get_queryset(self):

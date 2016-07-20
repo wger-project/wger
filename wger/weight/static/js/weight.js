@@ -25,7 +25,6 @@ $(document).ready(function () {
         top: 10,
         left: 30,
         right: 10,
-        height: 300,
         show_secondary_x_label: true,
         xax_count: 10,
         target: '#weight_diagram',
@@ -41,12 +40,14 @@ $(document).ready(function () {
 
     d3.json(url, function (json) {
 
-        var data =  MG.convert.date(json, 'date');
-        weight_chart.data = data;
+        if (json.length) {
+            var data =  MG.convert.date(json, 'date');
+            weight_chart.data = data;
 
-        // Plot the data
-        chart_params.data = data;
-        MG.data_graphic(chart_params);
+            // Plot the data
+            chart_params.data = data;
+            MG.data_graphic(chart_params);
+        }
     });
 
     $('.modify-time-period-controls button').click(function () {
@@ -55,18 +56,25 @@ $(document).ready(function () {
 
         // change button state
         $(this).addClass('active').siblings().removeClass('active');
-
-        chart_params.data = data;
-        MG.data_graphic(chart_params);
+        if (data.length) {
+            chart_params.data = data;
+            MG.data_graphic(chart_params);
+        }
     });
 });
 
 
 function modify_time_period(data, past_n_days) {
-    if (past_n_days !== 'all' || past_n_days !== '') {
-        return MG.clone(data).slice(past_n_days * -1);
+    if (data.length) {
+        if (past_n_days !== 'all') {
+            var date = new Date();
+            date.setDate(date.getDate() - past_n_days);
+            var filtered = MG.clone(data).filter(function (value) {
+                return value.date >= date;
+            })
+            return filtered;
+        }
     }
-
     return data;
 }
 

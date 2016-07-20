@@ -189,7 +189,7 @@
     {% if day.set_list %}
     {% if editable %}
         <a href="{% url 'manager:set:add' day.obj.id %}" class="list-group-item list-group-item-success wger-modal-dialog">
-            <span class="glyphicon glyphicon-plus"></span>
+            <span class="{% fa_class 'plus' %}"></span>
             {% trans "Add exercises to this workout day" %}
         </a>
     {% endif %}

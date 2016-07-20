@@ -12,10 +12,10 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from django.core.management import call_command
 from django.core import mail
+from django.core.management import call_command
 
-from wger.manager.tests.testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
 
 
 class EmailInactiveUserTestCase(WorkoutManagerTestCase):

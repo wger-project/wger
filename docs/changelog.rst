@@ -5,13 +5,23 @@ Changelog
 --------------------
 **2016-XX-XX**
 
-Upgrade steps:
+Upgrade steps from 1.7:
 
+* Django update to 1.9: ``pip install -r requirements.txt``
 * Database upgrade: ``python manage.py migrate``
 * Reset workout cache: ``python manage.py clear-cache --clear-workout-cache``
+* Download new JS packages: ``python manage.py bower install`` (note that you
+  might have to delete first wger/core/static/bower_components)
+* Update static files (only production): ``python manage.py collectstatic``
+* Load new the languages fixtures as well as their configuration
+  ``python manage.py loaddata languages`` and
+  ``python manage.py loaddata language_config``
 * New config option in settings.py: ``WGER_SETTINGS['TWITTER']``. Set this if
   your instance has its own twitter account.
-* Update static files (only production): ``python manage.py collectstatic``
+
+New languages:
+
+* Norwegian (many thanks to Kjetil Elde `@w00p`_ `#304`_)
 
 New features:
 
@@ -22,28 +32,39 @@ New features:
 
 Improvements:
 
-* Replace jquery UI's autocompleter and sortable this reduces size of JS and CSS `#78`_
+* Give feedback when autocompleter didn't find any results `#293`_
+* The dashboard page was improved and made more user friendly `#201`_ (partly)
+* Replace jquery UI's autocompleter and sortable this reduces size of JS and CSS `#78`_ and `#79`_
 * Remove hard-coded CC licence from documentation and website `#247`_
 
-Other improvements and bugfixes: `#279`_, `#275`_, `#270`_, `#258`_, `#257`_, `#269`_, `#296_`
+Other improvements and bugfixes: `#243`_, `#279`_, `#275`_, `#270`_, `#258`_, `#257`_,
+`#263`_, `#269`_, `#296`_, `#297`_, `#303`_
 
 
 .. _#78: https://github.com/wger-project/wger/issues/78
+.. _#79: https://github.com/wger-project/wger/issues/79
 .. _#188: https://github.com/wger-project/wger/issues/188
 .. _#216: https://github.com/wger-project/wger/issues/216
 .. _#217: https://github.com/wger-project/wger/issues/217
+.. _#243: https://github.com/wger-project/wger/issues/243
 .. _#247: https://github.com/wger-project/wger/issues/247
 .. _#257: https://github.com/wger-project/wger/issues/257
 .. _#258: https://github.com/wger-project/wger/issues/258
+.. _#263: https://github.com/wger-project/wger/issues/263
 .. _#269: https://github.com/wger-project/wger/issues/269
 .. _#270: https://github.com/wger-project/wger/issues/270
 .. _#272: https://github.com/wger-project/wger/issues/272
 .. _#275: https://github.com/wger-project/wger/issues/275
 .. _#279: https://github.com/wger-project/wger/issues/279
 .. _#282: https://github.com/wger-project/wger/issues/282
+.. _#293: https://github.com/wger-project/wger/issues/293
 .. _#296: https://github.com/wger-project/wger/issues/296
+.. _#297: https://github.com/wger-project/wger/issues/297
+.. _#303: https://github.com/wger-project/wger/issues/303
+.. _#304: https://github.com/wger-project/wger/issues/304
 .. _@alelevinas: https://github.com/alelevinas
 .. _@alokhan: https://github.com/alokhan
+.. _@w00p: https://github.com/w00p
 
 
 

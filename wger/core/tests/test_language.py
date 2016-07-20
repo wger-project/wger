@@ -16,13 +16,13 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.core.urlresolvers import reverse_lazy
+
 from wger.core.models import Language
 from wger.core.tests import api_base_test
-
-from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase, WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
-from wger.manager.tests.testcase import WorkoutManagerAddTestCase
-from wger.manager.tests.testcase import WorkoutManagerAccessTestCase
+from wger.core.tests.base_testcase import WorkoutManagerAccessTestCase
+from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
+from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase, WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
 
 
 class LanguageRepresentationTestCase(WorkoutManagerTestCase):
@@ -42,7 +42,7 @@ class LanguageOverviewTest(WorkoutManagerAccessTestCase):
     Tests accessing the system's languages
     '''
 
-    url = 'config:language:overview'
+    url = 'core:language:overview'
     anonymous_fail = True
 
 
@@ -51,7 +51,7 @@ class LanguageDetailViewTest(WorkoutManagerAccessTestCase):
     Tests accessing a detail view of a language
     '''
 
-    url = reverse_lazy('config:language:view', kwargs={'pk': 1})
+    url = reverse_lazy('core:language:view', kwargs={'pk': 1})
     anonymous_fail = True
 
 
@@ -61,7 +61,7 @@ class CreateLanguageTestCase(WorkoutManagerAddTestCase):
     '''
 
     object_class = Language
-    url = 'config:language:add'
+    url = 'core:language:add'
     data = {'short_name': 'dk',
             'full_name': 'Dansk'}
 
@@ -72,7 +72,7 @@ class EditLanguageTestCase(WorkoutManagerEditTestCase):
     '''
 
     object_class = Language
-    url = 'config:language:edit'
+    url = 'core:language:edit'
     pk = 1
     data = {'short_name': 'dk',
             'full_name': 'Dansk'}
@@ -84,7 +84,7 @@ class DeleteLanguageTestCase(WorkoutManagerDeleteTestCase):
     '''
 
     object_class = Language
-    url = 'config:language:delete'
+    url = 'core:language:delete'
     pk = 1
 
 

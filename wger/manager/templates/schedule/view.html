@@ -18,39 +18,43 @@
     function init_sortable()
     {
         $("#schedule-table tbody").off();
-        $("#schedule-table tbody").sortable({
-            handle: '.dragndrop-handle',
-            revert: true,
-            update : function (event, ui) {
-                var schedule_id = ui.item.data('scheduleId');
+        var elements = document.getElementsByTagName('tbody');
+        $.each(elements, function(index, element) {
+            Sortable.create(element, {
+                handle: '.dragndrop-handle',
+                animation: 150,
+                onUpdate: function (event) {
+                    var schedule_id = $(event.target).parents('table').data('schedule');
+                    $.each(($(event.from).children('tr')), function(index, tr_element) {
+                        var tr_element = $(tr_element);
+                        console.log(tr_element.data('id'));
 
-                // returns something in the form "step-1,step-2,step-3,"
-                var order = $( this ).sortable('toArray');
+                        // The last table element has no ID attribute (has only the
+                        // 'add exercise' link
+                        if( tr_element.data('id') ) {
+                            var step_pk = tr_element.data('id');
+                            $.ajax({
+                                url: '/api/v2/schedulestep/' + step_pk + '/',
+                                type: 'PATCH',
+                                data: {'order': index + 1}
+                            }).done(function (data) {
+                                // console.log(data);
+                            });
+                        }
+                    });
 
-                $.each(order, function (index, value) {
-                    if (value) {
-                        var step_pk = value.match(/\d+/)[0];
-                        $.ajax({
-                            url:'/api/v2/schedulestep/' + step_pk + '/',
-                            type: 'PATCH',
-                            data: {'order': index + 1}
-                        }).done(function(data) {
-                            //console.log(data);
-                        });
-                    }
-                });
 
-                current_url = $("#current-url").data('currentUrl');
-
-                // TODO: again, why do we need to do this twice. Otherwise, sometimes
-                //       it doesn't get current data
-                $.get(current_url);
-                $.get(current_url, function(data) {
-                    $('#schedule-table').html($(data).find('#schedule-table').html());
-                    init_sortable();
-                    form_modal_dialog();
-                });
-            }
+                    // TODO: again, why do we need to do this twice. Otherwise, sometimes
+                    //       it doesn't get current data
+                    var current_url = $("#current-url").data('currentUrl');
+                    $.get(current_url);
+                    $.get(current_url, function(data) {
+                        $('#schedule-table').html($(data).find('#schedule-table').html());
+                        init_sortable();
+                        form_modal_dialog();
+                    });
+                }
+            });
         })
     }
 
@@ -70,9 +74,9 @@
         <th>{% trans "Schedule active" %}</th>
         <td>
             {% if schedule.is_active %}
-            <span class="glyphicon glyphicon-ok"></span>
+                <span class="{% fa_class 'check' %}"></span>
             {% else %}
-            <span class="glyphicon glyphicon-remove"></span>
+                <span class="{% fa_class 'times' %}"></span>
             {% endif %}
         </td>
     </tr>
@@ -80,10 +84,10 @@
         <th>{% trans "Is a loop" %}</th>
         <td>
             {% if schedule.is_loop %}
-            <span class="glyphicon glyphicon-ok"></span>
-            <em>{% trans "This schedule is a loop and will go through the workouts above till you deactivate it" %}</em>
+                <span class="{% fa_class 'check' %}"></span>
+                <small>{% trans "This schedule is a loop and will go through the workouts above till you deactivate it" %}</small>
             {% else %}
-            <span class="glyphicon glyphicon-remove"></span>
+                <span class="{% fa_class 'times' %}"></span>
             {% endif %}
         </td>
     </tr>
@@ -91,7 +95,7 @@
 
 
 <div id="schedule-table-container">
-    <table id="schedule-table" class="table">
+    <table id="schedule-table" class="table" data-schedule="{{schedule.id}}">
         <thead>
         <tr>
             <th>{% trans "Nr." %}</th>
@@ -104,33 +108,23 @@
         </thead>
         <tbody>
         {% for step in schedule.schedulestep_set.select_related %}
-        <tr data-schedule-id="{{schedule.id}}" id="step-{{step.id}}">
+        <tr data-id="{{step.id}}">
             <td>
                 {{ forloop.counter }}
             </td>
             {% if is_owner %}
             <td style="min-width: 6em;">
             <span class="editoptions">
-                <img src="{% static 'images/icons/move.svg' %}"
-                     width="22"
-                     height="22"
-                     alt="{% trans 'Move me' %}"
-                     title="{% trans 'Move me' %}"
-                     class="dragndrop-handle">
+                <span title="{% trans 'Move me' %}" class="dragndrop-handle {% fa_class 'bars' %}"></span>
+
                  <a href="{% url 'manager:step:edit' step.id %}"
                     title="{% trans 'Edit' %}"
                     class="wger-modal-dialog">
-                    <img src="{% static 'images/icons/edit.svg' %}"
-                         width="22"
-                         height="22"
-                         alt="{% trans 'Edit' %}"></a>
+                    <span class="{% fa_class 'pencil-square-o' %}"></span></a>
                 <a href="{% url 'manager:step:delete' step.id %}"
                    title="{% trans 'Delete' %}"
                    class="wger-modal-dialog">
-                        <img src="{% static 'images/icons/trash.svg' %}"
-                             width="22"
-                             height="22"
-                             alt="{% trans 'Delete' %}"></a>
+                    <span class="{% fa_class 'trash' %}"></span></a>
             </span>
             </td>
             {% endif %}
@@ -160,13 +154,13 @@
             <td colspan="4">
                 {% if not schedule.is_active %}
                 <a href="{% url 'manager:schedule:start' schedule.pk %}" class="btn btn-success btn-sm">
-                    <span class="glyphicon glyphicon-play"></span>
+                    <span class="{% fa_class 'play' %}"></span>
                     {% trans "Start schedule" %}
                 </a>
                 {% endif %}
 
                 <a href="{% url 'manager:step:add' schedule.id %}" class="wger-modal-dialog btn btn-default btn-sm">
-                    <span class="glyphicon glyphicon-plus"></span>
+                    <span class="{% fa_class 'plus' %}"></span>
                     {% trans "Add workout" %}
                 </a>
             </td>
@@ -185,15 +179,15 @@
     <div class="col-md-3">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">
+                <h4 class="panel-title">
                     {% blocktrans count weeks=step.duration %}{{ weeks }} Week
                     {% plural %}{{ weeks }} Weeks
                     {% endblocktrans %}
-                    </h4>
+                </h4>
 
-                    {% if active_workout == step %}
+                {% if active_workout == step %}
                     <span class="label label-info">{% trans "active" %}</span>
-                    {% endif  %}
+                {% endif  %}
             </div>
             <div class="panel-body">
                 <span>{{step_dates.0}} <br> {{step_dates.1}}</span>
@@ -230,52 +224,6 @@ edit the order by dragging and dropping them. It's also possible to add one work
 than once.{% endblocktrans %}</p>
 {% endif %}
 
-<h4>{% trans "Options" %}</h4>
-<p>
-    <a href="#" data-toggle="modal" data-target="#export-ical-popup">
-        <img src="{% static 'images/icons/calendar.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Export calendar file' %}"
-             title="{% trans 'Export calendar file' %}">
-        {% trans "Export calendar file" %}</a>
-</p>
-
-<p>
-    <a data-toggle="modal" data-target="#download-pdf-popup">
-        <img src="{% static 'images/icons/save.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Download as PDF' %}"
-             title="{% trans 'Download as PDF' %}">
-        {% trans "Download as PDF" %}
-    </a>
-</p>
-
-{% if is_owner %}
-<p>
-    <a href="{% url 'manager:schedule:edit' schedule.id %}"
-       class="wger-modal-dialog">
-        <img src="{% static 'images/icons/edit.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Edit schedule' %}"
-             title="{% trans 'Edit schedule' %}">
-        {% trans "Edit schedule" %}</a>
-</p>
-
-<p>
-    <a href="{% url 'manager:schedule:delete' schedule.id %}"
-       class="wger-modal-dialog">
-        <img src="{% static 'images/icons/trash.svg' %}"
-             width="32"
-             height="32"
-             alt="{% trans 'Delete schedule' %}"
-             title="{% trans 'Delete schedule' %}">
-        {% trans "Delete schedule" %}</a>
-</p>
-{% endif %}
-
 <div class="modal fade" id="export-ical-popup">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -290,11 +238,6 @@ application for example google calendar, outlook or iCal. This will create
 an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
                 <p>
                     <a href="{% url 'manager:schedule:ical' schedule.id uid token %}" class="btn btn-block btn-default">
-                        <img src="{% static 'images/icons/calendar.svg' %}"
-                             width="32"
-                             height="32"
-                             alt="{% trans 'Export calendar file' %}"
-                             title="{% trans 'Export calendar file' %}">
                         {% trans "Export calendar file" %}
                     </a>
                 </p>
@@ -357,11 +300,6 @@ an appointment for each training day with the appropriate exercises.{% endblockt
 
                 <p>
                     <a href="" class="btn btn-block btn-default" id="download-pdf-button-schedule">
-                        <img src="{% static 'images/icons/save.svg' %}"
-                             width="32"
-                             height="32"
-                             alt="{% trans 'Download' %}"
-                             title="{% trans 'Download' %}">
                         {% trans "Download" %}
                     </a>
                 </p>
@@ -372,4 +310,45 @@ an appointment for each training day with the appropriate exercises.{% endblockt
         </div>
     </div>
 </div>
+{% endblock %}
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+    <div class="btn-group">
+    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="{% fa_class 'cog' %}"></span>
+        {% trans "Options" %}
+    </button>
+    <ul class="dropdown-menu">
+        <li>
+            <a href="#" data-toggle="modal" data-target="#export-ical-popup">
+                <span class="{% fa_class 'calendar' %}"></span>
+                {% trans "Export calendar file" %}
+            </a>
+        </li>
+        <li>
+            <a data-toggle="modal" data-target="#download-pdf-popup">
+                <span class="{% fa_class 'download' %}"></span>
+                {% trans "Download as PDF" %}
+            </a>
+        </li>
+        {% if is_owner %}
+        <li>
+            <a href="{% url 'manager:schedule:edit' schedule.id %}" class="wger-modal-dialog">
+                <span class="{% fa_class 'pencil-square-o' %}"></span>
+                {% trans "Edit schedule" %}
+            </a>
+        </li>
+        <li role="separator" class="divider"></li>
+        <li>
+            <a href="{% url 'manager:schedule:delete' schedule.id %}" class="wger-modal-dialog">
+                <span class="{% fa_class 'trash' %}"></span>
+                {% trans "Delete schedule" %}
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+    </div>
 {% endblock %}

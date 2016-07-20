@@ -16,21 +16,34 @@ browsing the site as the user "{{current_user}}", all actions are performed on h
 </div>
 {% endif %}
 
-{% if show_shariff %}
-    <button type="button"
-            class="btn btn-default btn-xs pull-right"
-            data-toggle="modal"
-            data-target="#shariffModal"
-            style="margin-top: 0.5em;">
-        <span class="glyphicon glyphicon-retweet"></span>
-        {%  trans "Share" %}
-    </button>
-{% endif %}
 
 
-<h2 id="page-title" class="page-header">
-    {% block title %}{% endblock %}
-</h2>
+<div class="row">
+    <div class="col-sm-8">
+        <h2 id="page-title" class="page-header">
+            {% block title %}{% endblock %}
+        </h2>
+    </div>
+    <div class="col-sm-4" style="padding-top: 15px;">
+        <div class="btn-group">
+
+            {% block options %}
+            {% endblock %}
+
+            {% if show_shariff %}
+                <button type="button"
+                        class="btn btn-default btn-sm"
+                        data-toggle="modal"
+                        data-target="#shariffModal">
+                    <span class="glyphicon glyphicon-retweet"></span>
+                    {%  trans "Share" %}
+                </button>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
 
 <div class="row">
     <div class="col-sm-8" id="main-content">

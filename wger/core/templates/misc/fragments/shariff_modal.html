@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wger_extras %}
 <div class="modal fade" id="shariffModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -14,7 +14,7 @@
                     <p>{% blocktrans %}Before you share links on social media you need to allow external access.{% endblocktrans %}</p>
                     <p>
                         <a href="{% url 'core:user:preferences' %}" id="toggle-ro-access" class="btn btn-success btn-sm">
-                            <span class="glyphicon glyphicon-ok"></span>
+                            <span class="{% fa_class 'check' %}"></span>
                             {% trans "That's done here" %}
                         </a>
                     </p>

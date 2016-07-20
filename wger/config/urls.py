@@ -17,29 +17,8 @@
 
 from django.conf.urls import patterns, url, include
 
-from wger.config.views import languages
 from wger.config.views import language_config
 from wger.config.views import gym_config
-
-
-# sub patterns for languages
-patterns_language = [
-   url(r'^list$',
-        languages.LanguageListView.as_view(),
-        name='overview'),
-   url(r'^(?P<pk>\d+)/view$',
-        languages.LanguageDetailView.as_view(),
-        name='view'),
-   url(r'^(?P<pk>\d+)/delete$',
-        languages.LanguageDeleteView.as_view(),
-        name='delete'),
-   url(r'^(?P<pk>\d+)/edit',
-        languages.LanguageEditView.as_view(),
-        name='edit'),
-   url(r'^add$',
-        languages.LanguageCreateView.as_view(),
-        name='add'),
-]
 
 
 # sub patterns for language configs
@@ -62,7 +41,6 @@ patterns_gym_config = [
 # Actual patterns
 #
 urlpatterns = [
-   url(r'^language/', include(patterns_language, namespace="language")),
    url(r'^language-config/', include(patterns_language_config, namespace="language_config")),
    url(r'^gym-config/', include(patterns_gym_config, namespace="gym_config")),
 ]

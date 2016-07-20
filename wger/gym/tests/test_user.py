@@ -14,15 +14,15 @@
 
 import datetime
 
-from django.contrib.auth.models import User
 from django.contrib.auth.models import Permission
+from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 
 from wger.core.models import UserProfile
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.gym.models import Gym
 from wger.gym.models import GymAdminConfig
-from wger.manager.tests.testcase import WorkoutManagerTestCase
 
 
 class GymAddUserTestCase(WorkoutManagerTestCase):

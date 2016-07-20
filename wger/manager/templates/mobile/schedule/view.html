@@ -24,17 +24,13 @@
                 <a href="{% url 'manager:step:edit' step.id %}"
                    title="{% trans 'Edit' %}"
                    class="btn btn-default btn-block wger-modal-dialog">
-                       <img src="{% static 'images/icons/edit.svg' %}"
-                            width="22"
-                            height="22"
-                            alt="{% trans 'Edit' %}">{% trans 'Edit' %}</a>
+                       <span class="{% fa_class 'pencil-square-o' %}"></span>
+                       {% trans 'Edit' %}</a>
                 <a href="{% url 'manager:step:delete' step.id %}"
                    title="{% trans 'Delete' %}"
                    class="btn btn-default btn-block">
-                        <img src="{% static 'images/icons/trash.svg' %}"
-                             width="22"
-                             height="22"
-                             alt="{% trans 'Delete' %}">{% trans 'Delete' %}</a>
+                    <span class="{% fa_class 'trash' %}"></span>
+                    {% trans 'Delete' %}</a>
                 </p>
             </div>
             <div class="modal-footer">
@@ -55,9 +51,9 @@
         <th>{% trans "Schedule active" %}</th>
         <td>
             {% if schedule.is_active %}
-                <span class="glyphicon glyphicon-ok"></span>
+                <span class="{% fa_class 'check' %}"></span>
             {% else %}
-                <span class="glyphicon glyphicon-remove"></span>
+                <span class="{% fa_class 'times' %}"></span>
             {% endif %}
         </td>
     </tr>
@@ -65,10 +61,10 @@
         <th>{% trans "Is a loop" %}</th>
         <td>
             {% if schedule.is_loop %}
-                <span class="glyphicon glyphicon-ok"></span>
-                <em>{% trans "This schedule is a loop and will go through the workouts above till you deactivate it" %}</em>
+                <span class="{% fa_class 'check' %}"></span>
+                <small>{% trans "This schedule is a loop and will go through the workouts above till you deactivate it" %}</small>
             {% else %}
-                <span class="glyphicon glyphicon-remove"></span>
+                <span class="{% fa_class 'times' %}"></span>
             {% endif %}
         </td>
     </tr>
@@ -76,7 +72,7 @@
     <tr>
         <td colspan="2">
             <a href="{% url 'manager:schedule:start' schedule.pk %}" class="btn btn-success btn-sm">
-                <span class="glyphicon glyphicon-play"></span>
+                <span class="{% fa_class 'play' %}"></span>
                 {% trans "Start schedule" %}
             </a>
         </td>
@@ -105,10 +101,16 @@
         </a>
 {% endfor %}
         <a href="{% url 'manager:step:add' schedule.id %}" class="list-group-item list-group-item-success wger-modal-dialog">
-            <span class="glyphicon glyphicon-plus"></span>
+            <span class="{% fa_class 'plus' %}"></span>
             {% trans "Add workout" %}
         </a>
 </div>
+<p><small>{% blocktrans %}Add as many workouts to the schedule as you want. You can
+edit the order by dragging and dropping them. It's also possible to add one workout more
+than once.{% endblocktrans %}</small></p>
+
+
+
 
 {% for step in schedule.schedulestep_set.select_related %}
 {% with step_dates=step.get_dates %}
@@ -158,58 +160,6 @@
 
 
 {% block sidebar %}
-<h4>{% trans "Adding workouts" %}</h4>
-
-<p>{% blocktrans %}Add as many workouts to the schedule as you want. You can
-edit the order by dragging and dropping them. It's also possible to add one workout more
-than once.{% endblocktrans %}</p>
-
-<h4>{% trans "Options" %}</h4>
-
-
-<a href="#download-pdf-popup" data-toggle="modal" {% auto_link_css flavour %}>
-    <img src="{% static 'images/icons/save.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Download as PDF' %}"
-         title="{% trans 'Download as PDF' %}">
-    {% trans "Download as PDF" %}
-</a>
-
-<p>
-<a href="#export-ical-link"
-   class="btn btn-default btn-block"
-   data-toggle="modal">
-<img src="{% static 'images/icons/calendar.svg' %}"
-    width="32"
-    height="32"
-    alt="{% trans 'Export calendar file' %}"
-    title="{% trans 'Export calendar file' %}">
-{% trans "Export calendar file" %}</a>
-</p>
-
-<p>
-<a href="{% url 'manager:schedule:edit' schedule.id %}"
-   class="btn btn-default btn-block wger-modal-dialog">
-<img src="{% static 'images/icons/edit.svg' %}"
-    width="32"
-    height="32"
-    alt="{% trans 'Edit schedule' %}"
-    title="{% trans 'Edit schedule' %}">
-{% trans "Edit schedule" %}</a>
-</p>
-
-<p>
-<a href="{% url 'manager:schedule:delete' schedule.id %}"
-   class="btn btn-default btn-block wger-modal-dialog">
-<img src="{% static 'images/icons/trash.svg' %}"
-    width="32"
-    height="32"
-    alt="{% trans 'Delete schedule' %}"
-    title="{% trans 'Delete schedule' %}">
-{% trans "Delete schedule" %}</a>
-</p>
-
 <div class="modal fade" id="export-ical-link">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -224,11 +174,6 @@ application for example google calendar, outlook or iCal. This will create
 an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
                 <p>
                 <a href="{% url 'manager:schedule:ical' schedule.id uid token %}" {% auto_link_css flavour %}>
-                   <img src="{% static 'images/icons/calendar.svg' %}"
-                         width="32"
-                         height="32"
-                         alt="{% trans 'Export calendar file' %}"
-                         title="{% trans 'Export calendar file' %}">
                    {% trans "Export calendar file" %}
                 </a>
                 </p>
@@ -291,11 +236,6 @@ an appointment for each training day with the appropriate exercises.{% endblockt
 
                 <p>
                 <a href="" class="btn btn-block btn-default" id="download-pdf-button">
-                   <img src="{% static 'images/icons/save.svg' %}"
-                         width="32"
-                         height="32"
-                         alt="{% trans 'Download' %}"
-                         title="{% trans 'Download' %}">
                    {% trans "Download" %}
                 </a>
                 </p>
@@ -306,4 +246,47 @@ an appointment for each training day with the appropriate exercises.{% endblockt
         </div>
     </div>
 </div>
+{% endblock %}
+
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+    <div class="btn-group">
+    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="{% fa_class 'cog' %}"></span>
+        {% trans "Options" %}
+    </button>
+    <ul class="dropdown-menu">
+        <li>
+            <a href="#" data-toggle="modal" data-target="#export-ical-popup">
+                <span class="{% fa_class 'calendar' %}"></span>
+                {% trans "Export calendar file" %}
+            </a>
+        </li>
+        <li>
+            <a data-toggle="modal" data-target="#download-pdf-popup">
+                <span class="{% fa_class 'download' %}"></span>
+                {% trans "Download as PDF" %}
+            </a>
+        </li>
+        {% if is_owner %}
+        <li>
+            <a href="{% url 'manager:schedule:edit' schedule.id %}" class="wger-modal-dialog">
+                <span class="{% fa_class 'pencil-square-o' %}"></span>
+                {% trans "Edit schedule" %}
+            </a>
+        </li>
+        <li role="separator" class="divider"></li>
+        <li>
+            <a href="{% url 'manager:schedule:delete' schedule.id %}" class="wger-modal-dialog">
+                <span class="{% fa_class 'trash' %}"></span>
+                {% trans "Delete schedule" %}
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+    </div>
 {% endblock %}

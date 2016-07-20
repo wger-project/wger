@@ -17,10 +17,10 @@ import datetime
 from django.core.urlresolvers import reverse
 
 from wger.core.tests import api_base_test
+from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase
+from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.manager.models import Workout
-from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
 
 
 class WorkoutShareButtonTestCase(WorkoutManagerTestCase):

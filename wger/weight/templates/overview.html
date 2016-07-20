@@ -88,32 +88,34 @@
         {% trans "Add weight entry" %}
     </a>
 </p>
+{% endblock %}
 
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
 {% if is_owner %}
-<h4>{% trans "Options" %}</h4>
-<p>
-    <a href="{% url 'weight:export-csv' %}"
-       target="_blank"
-       {% auto_link_css flavour %}>
-    <img src="{% static 'images/icons/save.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Export as CSV' %}"
-         title="{% trans 'Export as CSV' %}">
-        {% trans "Export as CSV" %}
-    </a>
-</p>
-
-<p>
-    <a href="{% url 'weight:import-csv' %}" {% auto_link_css flavour %}>
-    <img src="{% static 'images/icons/csv-table.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Import from spreadsheet' %}"
-         title="{% trans 'Import from spreadsheet' %}">
-        {% trans "Import from spreadsheet" %}
-    </a>
-</p>
+<div class="btn-group">
+    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="{% fa_class 'cog' %}"></span>
+        {% trans "Options" %}
+    </button>
+    <ul class="dropdown-menu">
+        <li>
+            <a href="{% url 'weight:export-csv' %}" target="_blank">
+                <span class="{% fa_class 'download' %}"></span>
+                {% trans "Export as CSV" %}
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'weight:import-csv' %}" {% auto_link_css flavour %}>
+                <span class="{% fa_class 'upload' %}"></span>
+                {% trans "Import from spreadsheet" %}
+            </a>
+        </li>
+    </ul>
+</div>
 {% endif %}
-
 {% endblock %}

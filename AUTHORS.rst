@@ -20,6 +20,7 @@ Developers
 * Verdi R-D: https://github.com/azend
 * Alois: https://github.com/alokhan
 * Alelevinas: https://github.com/alelevinas
+* Jacob Stoebel: https://github.com/jstoebel
 
 Translators
 -----------
@@ -28,6 +29,7 @@ Translators
 * Czech: Tomáš Z.
 * Dutch: David Machiels
 * Greek: Mark Nicolaou
+* Norwegian: Kjetil Elde
 * Portuguese: Jefferson Campos – http://jeffersoncampos.eti.br
 * Russian: Inna
 * Spanish: acv2facundo
