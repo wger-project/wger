@@ -33,6 +33,7 @@ New features:
 Improvements:
 
 * Give feedback when autocompleter didn't find any results `#293`_
+* Better GUI consistency in modal dialogs (thanks `@jstoebel`_ ) `#274`_
 * The dashboard page was improved and made more user friendly `#201`_ (partly)
 * Replace jquery UI's autocompleter and sortable this reduces size of JS and CSS `#78`_ and `#79`_
 * Remove hard-coded CC licence from documentation and website `#247`_
@@ -54,6 +55,7 @@ Other improvements and bugfixes: `#243`_, `#279`_, `#275`_, `#270`_, `#258`_, `#
 .. _#269: https://github.com/wger-project/wger/issues/269
 .. _#270: https://github.com/wger-project/wger/issues/270
 .. _#272: https://github.com/wger-project/wger/issues/272
+.. _#274: https://github.com/wger-project/wger/issues/274
 .. _#275: https://github.com/wger-project/wger/issues/275
 .. _#279: https://github.com/wger-project/wger/issues/279
 .. _#282: https://github.com/wger-project/wger/issues/282
@@ -63,6 +65,7 @@ Other improvements and bugfixes: `#243`_, `#279`_, `#275`_, `#270`_, `#258`_, `#
 .. _#303: https://github.com/wger-project/wger/issues/303
 .. _#304: https://github.com/wger-project/wger/issues/304
 .. _@alelevinas: https://github.com/alelevinas
+.. _@jstoebel: https://github.com/jstoebel
 .. _@alokhan: https://github.com/alokhan
 .. _@w00p: https://github.com/w00p
 
