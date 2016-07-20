@@ -408,7 +408,7 @@ function hex_random() {
  */
 function add_exercise(exercise) {
     var result_div = '<div id="DIV-ID" class="ajax-exercise-select"> \
-<a href="#" data-role="button" class="btn btn-default btn-xs"> \
+<a href="#" data-role="button" class="btn btn-default btn-xs" style="margin-top: 0.5em;"> \
 <span class="fa fa-times fa-fw"></span> \
 EXERCISE \
 </a> \
