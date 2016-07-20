@@ -409,10 +409,7 @@ function hex_random() {
 function add_exercise(exercise) {
     var result_div = '<div id="DIV-ID" class="ajax-exercise-select"> \
 <a href="#" data-role="button" class="btn btn-default btn-xs"> \
-<img src="/static/images/icons/status-off.svg" \
-     width="14" \
-     height="14" \
-     alt="Delete"> \
+<span class="fa fa-times fa-fw"></span> \
 EXERCISE \
 </a> \
 <input type="hidden" name="exercises" value="EXCERCISE-ID"> \
