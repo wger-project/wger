@@ -445,6 +445,9 @@ $(document).ready(function() {
                         <div class="modal-body">
                             {% trans session_form.notes.help_text %}
                         </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -468,6 +471,9 @@ $(document).ready(function() {
                         </div>
                         <div class="modal-body">
                             {% trans session_form.impression.help_text %}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
                         </div>
                     </div>
                 </div>
