@@ -447,16 +447,19 @@ function update_all_exercise_formset() {
         $.each($('#exercise-search-log input'), function (index, value) {
 
             var exercise_id = value.value;
+            var promise = $().promise();
             if (exercise_id && parseInt(exercise_id, 10)) {
                 var formset_url = '/' + get_current_language() +
                             '/workout/set/get-formset/' +  exercise_id +
                             '/' + set_value + '/';
-                $.get(formset_url, function (data) {
-                    $('#formset-exercise-' + exercise_id).remove();
-                    $('#formsets').append(data);
-                    $('#exercise-search-log').scrollTop(0);
-                    $('#formsets').trigger("create");
-                });
+                promise.done(function(){
+                    promise = $.get(formset_url, function (data) {
+                                  $('#formset-exercise-' + exercise_id).remove();
+                                  $('#formsets').append(data);
+                                  $('#exercise-search-log').scrollTop(0);
+                                  $('#formsets').trigger("create");
+                              }).promise();
+               });
             }
         });
     }
