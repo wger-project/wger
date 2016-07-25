@@ -1,82 +1,90 @@
 [
     {
-        "model": "core.language",
         "fields": {
             "short_name": "de",
             "full_name": "Deutsch"
         },
+        "model": "core.language",
         "pk": 1
     },
     {
-        "model": "core.language",
         "fields": {
             "short_name": "en",
             "full_name": "English"
         },
+        "model": "core.language",
         "pk": 2
     },
     {
-        "model": "core.language",
         "fields": {
             "short_name": "bg",
             "full_name": "\u0431\u044a\u043b\u0433\u0430\u0440\u0441\u043a\u0438 \u0435\u0437\u0438\u043a"
         },
+        "model": "core.language",
         "pk": 3
     },
     {
-        "model": "core.language",
         "fields": {
             "short_name": "es",
             "full_name": "Espa\u00f1ol"
         },
+        "model": "core.language",
         "pk": 4
     },
     {
-        "model": "core.language",
         "fields": {
             "short_name": "ru",
             "full_name": "\u0420\u0443\u0441\u0441\u043a\u0438\u0439"
         },
+        "model": "core.language",
         "pk": 5
     },
     {
-        "model": "core.language",
         "fields": {
             "short_name": "nl",
             "full_name": "Nederlands"
         },
+        "model": "core.language",
         "pk": 6
     },
     {
-        "model": "core.language",
         "fields": {
             "short_name": "pt",
             "full_name": "Portugu\u00eas"
         },
+        "model": "core.language",
         "pk": 7
     },
     {
-        "model": "core.language",
         "fields": {
             "short_name": "el",
             "full_name": "\u03b5\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac"
         },
+        "model": "core.language",
         "pk": 8
     },
     {
-        "model": "core.language",
         "fields": {
             "short_name": "cs",
             "full_name": "\u010de\u0161tina"
         },
+        "model": "core.language",
         "pk": 9
     },
     {
-        "model": "core.language",
         "fields": {
             "short_name": "sv",
             "full_name": "Svenska"
         },
+        "model": "core.language",
         "pk": 10
+    },
+    {
+        "fields": {
+            "short_name": "no",
+            "full_name": "Norsk"
+        },
+        "model": "core.language",
+        "pk": 11
     }
 ]

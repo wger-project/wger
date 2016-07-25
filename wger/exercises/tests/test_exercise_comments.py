@@ -13,17 +13,16 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
-from django.core.urlresolvers import reverse
 from django.core.cache import cache
+from django.core.urlresolvers import reverse
+
 from wger.core.tests import api_base_test
-
-from wger.exercises.models import Exercise, ExerciseComment
-
-from wger.manager.tests.testcase import (
+from wger.core.tests.base_testcase import (
     WorkoutManagerTestCase,
     WorkoutManagerEditTestCase,
     WorkoutManagerAddTestCase
 )
+from wger.exercises.models import Exercise, ExerciseComment
 from wger.utils.cache import cache_mapper
 
 

@@ -5,7 +5,7 @@ from wger.settings_global import *
 
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+TEMPLATES[0]['OPTIONS']['debug'] = True
 
 ADMINS = (
     ('Your name', 'your_email@example.com'),
@@ -59,3 +59,6 @@ if DEBUG:
 
 # Sender address used for sent emails
 WGER_SETTINGS['EMAIL_FROM'] = 'wger Workout Manager <wger@example.com>'
+
+# Your twitter handle, if you have one for this instance.
+#WGER_SETTINGS['TWITTER'] = ''

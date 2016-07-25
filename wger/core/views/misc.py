@@ -36,6 +36,7 @@ from wger.core.models import DaysOfWeek
 from wger.manager.models import Schedule
 from wger.nutrition.models import NutritionPlan
 from wger.weight.models import WeightEntry
+from wger.weight.helpers import get_last_entries
 
 
 logger = logging.getLogger(__name__)
@@ -104,26 +105,27 @@ def dashboard(request):
     except ObjectDoesNotExist:
         weight = False
     template_data['weight'] = weight
+    template_data['last_weight_entries'] = get_last_entries(request.user)
 
+    # Format a bit the days so it doesn't have to be done in the template
+    used_days = {}
     if current_workout:
-        # Format a bit the days so it doesn't have to be done in the template
-        used_days = {}
         for day in current_workout.day_set.select_related():
             for day_of_week in day.day.select_related():
                 used_days[day_of_week.id] = day.description
 
-        week_day_result = []
-        for week in DaysOfWeek.objects.all():
-            day_has_workout = False
+    week_day_result = []
+    for week in DaysOfWeek.objects.all():
+        day_has_workout = False
 
-            if week.id in used_days:
-                day_has_workout = True
-                week_day_result.append((_(week.day_of_week), used_days[week.id], True))
+        if week.id in used_days:
+            day_has_workout = True
+            week_day_result.append((_(week.day_of_week), used_days[week.id], True))
 
-            if not day_has_workout:
-                week_day_result.append((_(week.day_of_week), _('Rest day'), False))
+        if not day_has_workout:
+            week_day_result.append((_(week.day_of_week), _('Rest day'), False))
 
-        template_data['weekdays'] = week_day_result
+    template_data['weekdays'] = week_day_result
 
     if plan:
 
@@ -160,7 +162,8 @@ class FeedbackClass(FormView):
         '''
         context = super(FeedbackClass, self).get_context_data(**kwargs)
         context['title'] = _('Feedback')
-        context['form_fields'] = kwargs['form']
+        # TODO: change template so it iterates through form and not formfields
+        context['form_fields'] = context['form']
         context['form_action'] = reverse('core:feedback')
         context['submit_text'] = _('Send')
         context['contribute_url'] = reverse('software:contribute')

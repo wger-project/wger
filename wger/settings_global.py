@@ -93,13 +93,16 @@ INSTALLED_APPS = (
 BOWER_INSTALLED_APPS = (
     'jquery#2.1.x',
     'bootstrap',
-    'd3',
+    'd3#3.x',
     'shariff',
     'tinymce-dist',
     'DataTables',
     'components-font-awesome',
     'tinymce',
-    'metrics-graphics'
+    'metrics-graphics',
+    'devbridge-autocomplete#1.2.x',
+
+    #  'sortablejs#1.4.x',
 )
 
 
@@ -133,26 +136,40 @@ AUTHENTICATION_BACKENDS = (
     'wger.utils.helpers.EmailAuthBackend'
 )
 
-# Set the context processors
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'wger.utils.context_processor.processor',
-    'django.contrib.auth.context_processors.auth',
-    'django.contrib.messages.context_processors.messages',
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # 'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'wger.utils.context_processor.processor',
 
-    # Django mobile
-    'django_mobile.context_processors.flavour',
+                # Django
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
 
-    # Breadcrumbs
-    'django.core.context_processors.request'
-)
+                # Django mobile
+                'django_mobile.context_processors.flavour',
 
-TEMPLATE_LOADERS = (
-    # Django mobile
-    'django_mobile.loader.Loader',
+                # Breadcrumbs
+                'django.template.context_processors.request'
+            ],
+            'loaders': [
+                # Django mobile
+                'django_mobile.loader.Loader',
 
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+            ],
+            'debug': False
+        },
+    },
+]
 
 # Store the user messages in the session
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
@@ -210,6 +227,7 @@ LANGUAGES = (
             ('el', 'Greek'),
             ('cs', 'Czech'),
             ('sv', 'Swedish'),
+            ('no', 'Norwegian'),
 )
 
 # Default language code for this installation.
@@ -306,8 +324,7 @@ COMPRESS_CSS_FILTERS = (
 )
 COMPRESS_ROOT = STATIC_ROOT
 
-# BOWER components route
-BOWER_COMPONENTS_ROUTE = os.path.join(STATIC_ROOT, 'components')
+# BOWER binary
 if sys.platform.startswith('win32'):
     BOWER_PATH = os.path.join(BASE_DIR, 'node_modules', '.bin', 'bower.cmd')
 else:
@@ -350,5 +367,6 @@ WGER_SETTINGS = {
     'USE_RECAPTCHA': False,
     'REMOVE_WHITESPACE': False,
     'ALLOW_REGISTRATION': True,
-    'EMAIL_FROM': 'wger Workout Manager <wger@example.com>'
+    'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
+    'TWITTER': False
 }

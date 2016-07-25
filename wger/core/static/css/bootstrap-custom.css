@@ -92,14 +92,14 @@ body {
 
 .sidebar-offcanvas #main-navbar-navigation {
     border-color: transparent;
-    margin-left: -30px;
+    margin-left: -27px;
 }
 
 .row-offcanvas #nav {
     overflow-y: scroll;
     overflow-x: hidden;
     position: absolute;
-    background-color: #eeeeec;
+    background-color: #E7E7E7;
     padding-left: 1em;
     margin-left: -15px;
     border-right: 1px solid #888a85;
@@ -146,6 +146,12 @@ body {
         position: absolute;
         top: 0;
         width: 70%;
+    }
+
+    /* Increase left padding */
+    .navbar-nav .open .dropdown-menu .dropdown-header,
+    .navbar-nav .open .dropdown-menu > li > a {
+        padding: 5px 15px 5px 35px;
     }
 }
 

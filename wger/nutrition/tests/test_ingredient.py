@@ -13,25 +13,24 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-import json
 import datetime
+import json
+from decimal import Decimal
 
-from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
-from wger.core.tests import api_base_test
+from django.core.urlresolvers import reverse
+
 from wger.core.models import Language
-
-from wger.nutrition.models import Ingredient
-from wger.nutrition.models import Meal
-
-from wger.utils.constants import NUTRITION_TAB
-
-from wger.manager.tests.testcase import (
+from wger.core.tests import api_base_test
+from wger.core.tests.base_testcase import (
     WorkoutManagerTestCase,
     WorkoutManagerDeleteTestCase,
     WorkoutManagerEditTestCase,
     WorkoutManagerAddTestCase
 )
+from wger.nutrition.models import Ingredient
+from wger.nutrition.models import Meal
+from wger.utils.constants import NUTRITION_TAB
 
 
 class IngredientRepresentationTestCase(WorkoutManagerTestCase):
@@ -326,7 +325,7 @@ class IngredientTestCase(WorkoutManagerTestCase):
         ingredient.energy = 50
         ingredient.protein = 0.5
         ingredient.carbohydrates = 12
-        ingredient.fat = 0.1
+        ingredient.fat = Decimal('0.1')
         ingredient.language_id = 1
         self.assertFalse(ingredient.full_clean())
 

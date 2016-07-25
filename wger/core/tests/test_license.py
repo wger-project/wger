@@ -15,11 +15,10 @@
 
 from wger.core.models import License
 from wger.core.tests import api_base_test
-
-from wger.manager.tests.testcase import WorkoutManagerAccessTestCase, WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
-from wger.manager.tests.testcase import WorkoutManagerAddTestCase
+from wger.core.tests.base_testcase import WorkoutManagerAccessTestCase, WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
+from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase
+from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
 
 
 class LicenseRepresentationTestCase(WorkoutManagerTestCase):
@@ -41,7 +40,6 @@ class LicenseOverviewTest(WorkoutManagerAccessTestCase):
     '''
 
     url = 'core:license:list'
-    anonymous_fail = True
 
 
 class AddLicenseTestCase(WorkoutManagerAddTestCase):

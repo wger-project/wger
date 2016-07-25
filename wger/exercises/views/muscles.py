@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 import logging
 
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
@@ -29,8 +30,7 @@ from django.views.generic import (
 from wger.exercises.models import Muscle
 from wger.utils.generic_views import (
     WgerFormMixin,
-    WgerDeleteMixin,
-    WgerPermissionMixin
+    WgerDeleteMixin
 )
 from wger.utils.language import load_item_languages
 from wger.config.models import LanguageConfig
@@ -57,17 +57,16 @@ class MuscleListView(ListView):
         return context
 
 
-class MuscleAdminListView(WgerPermissionMixin, MuscleListView):
+class MuscleAdminListView(LoginRequiredMixin, PermissionRequiredMixin, MuscleListView):
     '''
     Overview of all muscles, for administration purposes
     '''
     permission_required = 'exercises.change_muscle'
-    login_required = True
     queryset = Muscle.objects.order_by('name')
     template_name = 'muscles/admin-overview.html'
 
 
-class MuscleAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
+class MuscleAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     '''
     Generic view to add a new muscle
     '''
@@ -80,7 +79,7 @@ class MuscleAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
     permission_required = 'exercises.add_muscle'
 
 
-class MuscleUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
+class MuscleUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     '''
     Generic view to update an existing muscle
     '''
@@ -100,12 +99,13 @@ class MuscleUpdateView(WgerFormMixin, UpdateView, WgerPermissionMixin):
         return context
 
 
-class MuscleDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
+class MuscleDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     '''
     Generic view to delete an existing muscle
     '''
 
     model = Muscle
+    fields = ('name', 'is_front')
     success_url = reverse_lazy('exercise:muscle:admin-list')
     permission_required = 'exercises.delete_muscle'
     messages = ugettext_lazy('Successfully deleted')

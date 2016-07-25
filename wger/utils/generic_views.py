@@ -19,6 +19,7 @@ import bleach
 
 from django.utils.translation import ugettext_lazy
 from django.contrib import messages
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.context_processors import csrf
 from django.views.generic.edit import ModelFormMixin
@@ -33,6 +34,19 @@ from wger.utils.constants import (
 
 
 logger = logging.getLogger(__name__)
+
+
+class WgerMultiplePermissionRequiredMixin(PermissionRequiredMixin):
+    '''
+    A PermissionRequiredMixin that checks that the user has at least one permission
+    instead of all of them.
+    '''
+
+    def has_permission(self):
+        for permission in self.get_permission_required():
+            if self.request.user.has_perm(permission):
+                return True
+        return False
 
 
 class WgerPermissionMixin(object):
@@ -82,7 +96,8 @@ class WgerPermissionMixin(object):
         return super(WgerPermissionMixin, self).dispatch(request, *args, **kwargs)
 
 
-class WgerFormMixin(ModelFormMixin, WgerPermissionMixin):
+# , PermissionRequiredMixin
+class WgerFormMixin(ModelFormMixin):
     template_name = 'form.html'
 
     custom_js = ''
@@ -135,7 +150,8 @@ class WgerFormMixin(ModelFormMixin, WgerPermissionMixin):
         context.update(csrf(self.request))
 
         context['sidebar'] = self.sidebar
-        context['form_fields'] = kwargs['form']
+        # TODO: change template so it iterates through form and not formfields
+        context['form_fields'] = context['form']
 
         # Custom JS code on form (autocompleter, editor, etc.)
         context['custom_js'] = self.custom_js
@@ -228,7 +244,7 @@ class WgerFormMixin(ModelFormMixin, WgerPermissionMixin):
         return super(WgerFormMixin, self).form_valid(form)
 
 
-class WgerDeleteMixin(ModelFormMixin, WgerPermissionMixin):
+class WgerDeleteMixin(ModelFormMixin):
     form_action = ''
     form_action_urlname = ''
     title = ''

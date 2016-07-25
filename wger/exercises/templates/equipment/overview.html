@@ -15,15 +15,26 @@
  <script>
 $(function() {
     // Init the autocompleter
-    $("#exercise-search").catcomplete({
-            source: "{% url 'exercise-search' %}",
-            minLength: 2,
-            select: function(event, ui) {
-
-                // Redirect to exercise after clicking on a result
-                // Path is hard coded here, because we can't use the url-tag
-                window.location.href = '/exercise/' + ui.item.id + '/view/'
-            }
+    $('#exercise-search').devbridgeAutocomplete({
+        showNoSuggestionNotice: true,
+        serviceUrl: '{% url 'exercise-search' %}',
+        onSelect: function (suggestion) {
+            window.location.href = '/exercise/' + suggestion.data.id + '/view/'
+        },
+        groupBy: 'category',
+        paramName: 'term',
+        transformResult: function(response) {
+            // why is response not already a JSON object??
+            var jsonResponse = $.parseJSON(response);
+            return {
+                suggestions: $.map(jsonResponse, function(item) {
+                    return {value: item.value, data: {id: item.id,
+                                                      category: item.category,
+                                                      image: item.image,
+                                                      thumbnail: item.image_thumbnail}};
+                })
+            };
+        }
     });
 });
 </script>
@@ -115,15 +126,10 @@ $(function() {
 
 
 <h4>{% trans "Search" %}</h4>
-<form action="{% url 'exercise-search' %}"
-      method="get"
-      id="exercise_search_form">
-    {% csrf_token %}
     <input name="term"
            type="search"
            id="exercise-search"
            class="ajax-form-element form-control"
            placeholder="{% trans 'exercise name' %}"
            style="width:100%;">
-</form>
 {% endblock %}

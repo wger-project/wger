@@ -23,7 +23,7 @@ import webbrowser
 import os
 import ctypes
 import socket
-from invoke import task, run
+from invoke import task
 
 import django
 from django.utils.crypto import get_random_string
@@ -40,7 +40,7 @@ logger = logging.getLogger(__name__)
             'browser': 'Whether to open the application in a browser window. Default: false',
             'settings-path': 'Path to settings file (absolute path recommended). Leave empty for default',
             'extra-args': 'Additional arguments to pass to the builtin server. Pass as string: "--arg1 --arg2=value". Default: none'})
-def start_wger(address='localhost', port=8000, browser=False, settings_path=None, extra_args=''):
+def start_wger(context, address='localhost', port=8000, browser=False, settings_path=None, extra_args=''):
     '''
     Start the application using django's built in webserver
     '''
@@ -64,7 +64,8 @@ def start_wger(address='localhost', port=8000, browser=False, settings_path=None
             'port': 'Port to use. Default: 8000',
             'browser': 'Whether to open the application in a browser window. Default: false',
             'start-server': 'Whether to start the development server. Default: true'})
-def bootstrap_wger(settings_path=None,
+def bootstrap_wger(context,
+                   settings_path=None,
                    database_path=None,
                    address='localhost',
                    port=8000,
@@ -85,7 +86,7 @@ def bootstrap_wger(settings_path=None,
     if settings_path is None:
         settings_path = get_user_config_path('wger', 'settings.py')
     if not os.path.exists(settings_path):
-        create_settings(settings_path=settings_path, database_path=database_path, url=url)
+        create_settings(context, settings_path=settings_path, database_path=database_path, url=url)
 
     # Find the path to the settings and setup the django environment
     setup_django_environment(settings_path)
@@ -93,13 +94,13 @@ def bootstrap_wger(settings_path=None,
     # Create Database if necessary
     if not database_exists():
         print('*** Database does not exist, creating one now')
-        migrate_db(settings_path=settings_path)
-        load_fixtures(settings_path=settings_path)
-        create_or_reset_admin(settings_path=settings_path)
+        migrate_db(context, settings_path=settings_path)
+        load_fixtures(context, settings_path=settings_path)
+        create_or_reset_admin(context, settings_path=settings_path)
 
     # Download JS libraries with bower
     os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'wger'))
-    run('npm install bower')
+    context.run('npm install bower')
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
     call_command('bower', 'install')
 
@@ -113,7 +114,7 @@ def bootstrap_wger(settings_path=None,
             'database-path': 'Path to sqlite database (absolute path recommended). Leave empty for default',
             'database-type': 'Database type to use. Supported: sqlite3, postgresql. Default: sqlite3',
             'key-length': 'Lenght of the generated secret key. Default: 50'})
-def create_settings(settings_path=None, database_path=None, url=None, database_type='sqlite3', key_length=50):
+def create_settings(context, settings_path=None, database_path=None, url=None, database_type='sqlite3', key_length=50):
     '''
     Creates a local settings file
     '''
@@ -180,7 +181,7 @@ def create_settings(settings_path=None, database_path=None, url=None, database_t
 
 
 @task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for default'})
-def create_or_reset_admin(settings_path=None):
+def create_or_reset_admin(context, settings_path=None):
     '''
     Creates an admin user or resets the password for an existing one
     '''
@@ -206,7 +207,7 @@ def create_or_reset_admin(settings_path=None):
 
 
 @task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for default'})
-def migrate_db(settings_path=None):
+def migrate_db(context, settings_path=None):
     '''
     Run all database migrations
     '''
@@ -218,7 +219,7 @@ def migrate_db(settings_path=None):
 
 
 @task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for default'})
-def load_fixtures(settings_path=None):
+def load_fixtures(context, settings_path=None):
     '''
     Loads all fixtures
     '''
@@ -274,7 +275,7 @@ def load_fixtures(settings_path=None):
 
 
 @task
-def config_location():
+def config_location(context):
     '''
     Returns the default location for the settings file and the data folder
     '''

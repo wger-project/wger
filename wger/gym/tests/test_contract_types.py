@@ -14,14 +14,13 @@
 
 from django.core.urlresolvers import reverse
 
-
-from wger.gym.models import ContractType
-from wger.manager.tests.testcase import (
+from wger.core.tests.base_testcase import (
     WorkoutManagerEditTestCase,
     WorkoutManagerAddTestCase,
     WorkoutManagerDeleteTestCase,
     WorkoutManagerAccessTestCase,
     delete_testcase_add_methods)
+from wger.gym.models import ContractType
 
 
 class AddContractTypeTestCase(WorkoutManagerAddTestCase):

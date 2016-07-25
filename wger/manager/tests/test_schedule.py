@@ -12,22 +12,21 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import six
-import logging
 import datetime
+import logging
 
-from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 
 from wger.core.tests import api_base_test
+from wger.core.tests.base_testcase import STATUS_CODES_FAIL
+from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
+from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase
+from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.manager.models import Schedule
 from wger.manager.models import ScheduleStep
 from wger.manager.models import Workout
-from wger.manager.tests.testcase import STATUS_CODES_FAIL
-from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
-from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 from wger.utils.helpers import make_token
 
 logger = logging.getLogger(__name__)

@@ -35,6 +35,9 @@
                 {% endif %}
                 {% endif %}
             </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+            </div>
         </div>
     </div>
 </div>
@@ -78,6 +81,9 @@
                 {% endif %}
 
                 {% endif %}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
             </div>
         </div>
     </div>
@@ -129,6 +135,9 @@ its default duration in your settings.{% endblocktrans %}
                     {% endif %}
                 </div>
             </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+            </div>
         </div>
     </div>
 </div>
@@ -141,11 +150,7 @@ its default duration in your settings.{% endblocktrans %}
 <a href="#timer-current-workout"
    data-toggle="modal"
    class="btn btn-default btn-block">
-    <img src="{% static 'images/icons/play.svg' %}"
-         width="32"
-         height="32"
-         alt="{% trans 'Start current workout' %}"
-         title="{% trans 'Start current workout' %}">
+    <span class="{% fa_class 'play' 'lg' %}"></span>
     <br>
     {% trans "Start current workout" %}
 </a>
@@ -157,21 +162,13 @@ its default duration in your settings.{% endblocktrans %}
                data-toggle="modal"
                class="btn btn-default btn-block"
                style="white-space: normal;">
-                <img src="{% static 'images/icons/list.svg' %}"
-                     width="32"
-                     height="32"
-                     alt="{{current_workout}}"
-                     title="{{current_workout}}">
+                <span class="{% fa_class 'list' 'lg' %}"></span>
                 <br>
                 {{current_workout}}
             </a>
         {% else %}
             <a href="{% url 'manager:workout:add' %}" class="btn btn-default btn-block">
-                <img src="{% static 'images/icons/add.svg' %}"
-                     width="32"
-                     height="32"
-                     alt="{% trans 'Workout' %}"
-                     title="{% trans 'Workout' %}">
+                <span class="{% fa_class 'plus' 'lg' %}"></span>
                 <br>
                 {% trans "Workout" %}
             </a>
@@ -181,11 +178,7 @@ its default duration in your settings.{% endblocktrans %}
         <a href="{% url 'manager:workout:calendar' %}"
            class="btn btn-default btn-block"
            style="white-space: normal;">
-            <img src="{% static 'images/icons/calendar.svg' %}"
-                 width="32"
-                 height="32"
-                 alt="{% trans 'Calendar' %}"
-                 title="{% trans 'Calendar' %}">
+            <span class="{% fa_class 'calendar' 'lg' %}"></span>
             <br>
             {% trans "Calendar" %}
         </a>
@@ -200,21 +193,13 @@ its default duration in your settings.{% endblocktrans %}
            data-toggle="modal"
            class="btn btn-default btn-block"
            style="white-space: normal;">
-            <img src="{% static 'images/icons/list.svg' %}"
-                 width="32"
-                 height="32"
-                 alt="{% trans 'Nutrition' %}"
-                 title="{% trans 'Nutrition' %}">
+            <span class="{% fa_class 'list' 'lg' %}"></span>
             <br>
             {{plan}}
         </a>
         {% else %}
             <a href="{% url 'nutrition:plan:add' %}" class="btn btn-default btn-block">
-                <img src="{% static 'images/icons/add.svg' %}"
-                     width="32"
-                     height="32"
-                     alt="{% trans 'Workouts' %}"
-                     title="{% trans 'Workouts' %}">
+                <span class="{% fa_class 'plus' 'lg' %}"></span>
                 <br>
                 {% trans "Nutrition plan" %}
             </a>
@@ -222,11 +207,7 @@ its default duration in your settings.{% endblocktrans %}
     </div>
     <div class="col-xs-6" style="padding-left: 7px;">
         <a href="{% url 'weight:overview' user.username %}" class="btn btn-default btn-block">
-            <img src="{% static 'images/icons/statistics.svg' %}"
-                 width="32"
-                 height="32"
-                 alt="{% trans 'Weight overview' %}"
-                 title="{% trans 'Weight overview' %}">
+            <span class="{% fa_class 'line-chart' 'lg' %}"></span>
             <br>
             {% trans "Weight overview" %}
         </a>
@@ -237,11 +218,7 @@ its default duration in your settings.{% endblocktrans %}
 <div class="row" style="margin-top: 1em;">
     <div class="col-xs-6" style="padding-right: 7px;">
         <a href="{% url 'core:user:preferences' %}" class="btn btn-default btn-block">
-            <img src="{% static 'images/icons/preferences.svg' %}"
-                 width="32"
-                 height="32"
-                 alt="{% trans 'Preferences' %}"
-                 title="{% trans 'Preferences' %}">
+            <span class="{% fa_class 'cogs' 'lg' %}"></span>
             <br>
             {% trans "Preferences" %}
         </a>
@@ -249,11 +226,7 @@ its default duration in your settings.{% endblocktrans %}
 
     <div class="col-xs-6" style="padding-left: 7px;">
         <a href="{% url 'core:contact' %}" class="btn btn-default btn-block">
-            <img src="{% static 'images/icons/mail.svg' %}"
-                 width="32"
-                 height="32"
-                 alt="{% trans 'Get in touch' %}"
-                 title="{% trans 'Get in touch' %}">
+            <span class="{% fa_class 'envelope-o' 'lg' %}"></span>
             <br>
             {% trans "Get in touch" %}
         </a>

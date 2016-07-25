@@ -14,11 +14,8 @@
 
 from django.core.urlresolvers import reverse
 
-from wger.email.models import Log
-from wger.manager.tests.testcase import (
+from wger.core.tests.base_testcase import (
     WorkoutManagerAccessTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerAddTestCase,
 )
 
 

@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 import logging
 
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy
 from django.utils.translation import ugettext as _
@@ -29,8 +30,7 @@ from wger.config.models import LanguageConfig
 from wger.exercises.models import Equipment
 from wger.utils.generic_views import (
     WgerFormMixin,
-    WgerDeleteMixin,
-    WgerPermissionMixin
+    WgerDeleteMixin
 )
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.language import load_item_languages
@@ -43,7 +43,7 @@ Exercise equipment
 '''
 
 
-class EquipmentListView(WgerPermissionMixin, ListView):
+class EquipmentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     '''
     Generic view to list all equipments
     '''
@@ -56,7 +56,7 @@ class EquipmentListView(WgerPermissionMixin, ListView):
     permission_required = 'exercises.change_equipment'
 
 
-class EquipmentEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
+class EquipmentEditView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     '''
     Generic view to update an existing equipment item
     '''
@@ -76,7 +76,7 @@ class EquipmentEditView(WgerFormMixin, UpdateView, WgerPermissionMixin):
         return context
 
 
-class EquipmentAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
+class EquipmentAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     '''
     Generic view to add a new equipment item
     '''
@@ -97,12 +97,13 @@ class EquipmentAddView(WgerFormMixin, CreateView, WgerPermissionMixin):
         return context
 
 
-class EquipmentDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
+class EquipmentDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     '''
     Generic view to delete an existing exercise image
     '''
 
     model = Equipment
+    fields = ('name',)
     messages = ugettext_lazy('Successfully deleted')
     permission_required = 'exercises.delete_equipment'
     success_url = reverse_lazy('exercise:equipment:list')
@@ -121,7 +122,7 @@ class EquipmentDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
         return context
 
 
-class EquipmentOverviewView(WgerPermissionMixin, ListView):
+class EquipmentOverviewView(ListView):
     '''
     Overview with all exercises, group by equipment
     '''

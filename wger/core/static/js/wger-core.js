@@ -72,70 +72,43 @@ function get_current_language() {
     return $('#current-language').data('currentLanguage');
 }
 
-/*
- * Define an own widget, which is basically an autocompleter that groups
- * results by category
- */
-$.widget("custom.catcomplete", $.ui.autocomplete, {
-    _renderMenu: function (ul, items) {
-        var that = this,
-            currentCategory = "";
-        $.each(items, function (index, item) {
-            if (item.category !== currentCategory) {
-
-                ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
-                currentCategory = item.category;
-            }
-            that._renderItemData(ul, item);
-        });
-    },
-    _renderItem: function (ul, item) {
-        var li_style = '';
-        if (item.image) {
-            li_style = "style='background-image:url(" + item.image_thumbnail + ");background-size:30px 30px;background-repeat:no-repeat;'";
-        }
-
-        return $("<li " + li_style + ">")
-            .append("<a style='margin-left:30px;'>" + item.name + "</a>")
-            .appendTo(ul);
-    }
-});
 
 
 /*
- * Setup JQuery sortables to make the sets sortable
+ * Setup sortable to make the sets sortable
  */
 function setup_sortable() {
-    $(".workout-table tbody").sortable({
-        handle: '.dragndrop-handle',
-        revert: true,
-        axis: 'y',
-        update : function (event, ui) {
-            // Monkey around the HTML, till we find the IDs of the set and the day
-            var day_element = ui.item.parent().parent().find('tr').first().attr('id'); //day-xy
-            var day_id = day_element.match(/\d+/)[0];
+    var elements = document.getElementsByTagName('tbody');
+    $.each(elements, function(index, element) {
+        Sortable.create(element, {
+            handle: '.dragndrop-handle',
+            animation: 150,
+            onUpdate: function (event) {
+               var day_id = $(event.target).parents('table').data('id');
+               $.each(($(event.from).children('tr')), function(index, tr_element) {
+                   var tr_element = $(tr_element);
 
-            // returns something in the form "set-1,set-2,set-3,"
-            var order = $(this).sortable('toArray');
+                   // The last table element has no ID attribute (has only the
+                   // 'add exercise' link
+                   if( tr_element.data('id') )
+                   {
+                       var set_id = tr_element.data('id');
+                       $.ajax({
+                          url:'/api/v2/set/' + set_id + '/',
+                          type: 'PATCH',
+                          data: {'order': index + 1}
+                       }).done(function(data) {
+                           //console.log(data);
+                       });
+                   }
+               });
 
-            $.each(order, function (index, value) {
-                if (value) {
-                var set_pk = value.match(/\d+/)[0];
-                    $.ajax({
-                       url:'/api/v2/set/' + set_pk + '/',
-                       type: 'PATCH',
-                       data: {'order': index + 1}
-                    }).done(function(data) {
-                        //console.log(data);
-                    });
-                }
-            });
-
-            // TODO: it seems to be necessary to call the view two times before it returns
-            //       current data.
-            $.get('/' + get_current_language() + "/workout/day/" + day_id + "/view/");
-            $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/" + day_id + "/view/");
-        }
+               // Replace the content of the table with a fresh version that has
+               // correct indexes.
+               $.get('/' + get_current_language() + "/workout/day/" + day_id + "/view/");
+               $("#div-day-" + day_id).load('/' + get_current_language() + "/workout/day/" + day_id + "/view/");
+            }
+        });
     });
 }
 
@@ -435,11 +408,8 @@ function hex_random() {
  */
 function add_exercise(exercise) {
     var result_div = '<div id="DIV-ID" class="ajax-exercise-select"> \
-<a href="#" data-role="button" class="btn btn-default btn-xs"> \
-<img src="/static/images/icons/status-off.svg" \
-     width="14" \
-     height="14" \
-     alt="Delete"> \
+<a href="#" data-role="button" class="btn btn-default btn-xs" style="margin-top: 0.5em;"> \
+<span class="fa fa-times fa-fw"></span> \
 EXERCISE \
 </a> \
 <input type="hidden" name="exercises" value="EXCERCISE-ID"> \
@@ -477,16 +447,19 @@ function update_all_exercise_formset() {
         $.each($('#exercise-search-log input'), function (index, value) {
 
             var exercise_id = value.value;
+            var promise = $().promise();
             if (exercise_id && parseInt(exercise_id, 10)) {
                 var formset_url = '/' + get_current_language() +
                             '/workout/set/get-formset/' +  exercise_id +
                             '/' + set_value + '/';
-                $.get(formset_url, function (data) {
-                    $('#formset-exercise-' + exercise_id).remove();
-                    $('#formsets').append(data);
-                    $('#exercise-search-log').scrollTop(0);
-                    $('#formsets').trigger("create");
-                });
+                promise.done(function(){
+                    promise = $.get(formset_url, function (data) {
+                                  $('#formset-exercise-' + exercise_id).remove();
+                                  $('#formsets').append(data);
+                                  $('#exercise-search-log').scrollTop(0);
+                                  $('#formsets').trigger("create");
+                              }).promise();
+               });
             }
         });
     }
@@ -507,27 +480,39 @@ function init_remove_exercise_formset() {
 
 function init_edit_set() {
     // Initialise the autocompleter (our widget, defined above)
-    if (jQuery.ui) {
-        $("#exercise-search").catcomplete({
-            source: '/api/v2/exercise/search/?language=' + get_current_language(),
-            minLength: 2,
-            select: function (event, ui) {
+    $('#exercise-search').devbridgeAutocomplete({
+        serviceUrl: '/api/v2/exercise/search/?language=' + get_current_language(),
+        showNoSuggestionNotice: true,
+        onSelect: function (suggestion) {
+           // Add the exercise to the list
+           add_exercise({id: suggestion.data.id,
+                         value: suggestion.value});
 
-                // Add the exercise to the list
-                add_exercise(ui.item);
+           // Load formsets
+           get_exercise_formset(suggestion.data.id);
 
-                // Load formsets
-                get_exercise_formset(ui.item.id);
+           // Init the remove buttons
+           init_remove_exercise_formset();
 
-                // Init the remove buttons
-                init_remove_exercise_formset();
-
-                // Reset the autocompleter
-                $(this).val("");
-                return false;
-            }
-        });
-    }
+           // Reset the autocompleter
+           $(this).val("");
+           return false;
+        },
+        groupBy: 'category',
+        paramName: 'term',
+        transformResult: function(response) {
+            // why is response not already a JSON object??
+            var jsonResponse = $.parseJSON(response);
+            return {
+                suggestions: $.map(jsonResponse, function(item) {
+                    return {value: item.value, data: {id: item.id,
+                                                      category: item.category,
+                                                      image: item.image,
+                                                      thumbnail: item.image_thumbnail}};
+                })
+            };
+        }
+    });
 
     // Mobile select box
     $('#id_exercise_list').change(function (e) {

@@ -15,13 +15,13 @@
 from django.core.urlresolvers import reverse_lazy
 
 from wger.core.models import UserProfile
+from wger.core.tests.base_testcase import WorkoutManagerAccessTestCase
+from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
+from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase
+from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
+from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import delete_testcase_add_methods
 from wger.gym.models import Gym
-from wger.manager.tests.testcase import delete_testcase_add_methods
-from wger.manager.tests.testcase import WorkoutManagerTestCase
-from wger.manager.tests.testcase import WorkoutManagerAccessTestCase
-from wger.manager.tests.testcase import WorkoutManagerDeleteTestCase
-from wger.manager.tests.testcase import WorkoutManagerEditTestCase
-from wger.manager.tests.testcase import WorkoutManagerAddTestCase
 
 
 class GymRepresentationTestCase(WorkoutManagerTestCase):
