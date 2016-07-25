@@ -20,13 +20,13 @@
 {% block content %}
 <div class="jumbotron">
 <div class="row">
-    <div class="col-sm-4 col-xs-6">
+    <div class="col-md-5">
         <img src="{% static 'images/logos/logo-marketplace.svg' %}"
              class="img-responsive"
              alt=""
              style="width: 70%;">
     </div>
-    <div class="col-sm-5 col-xs-6">
+    <div class="col-md-4">
         <div id="shoutout">
             <h2>{% trans "Your body." %}</h2>
             <h2>{% trans "Your workouts." %}</h2>
@@ -34,7 +34,7 @@
             <h2>{% trans "Your progress." %}</h2>
         </div>
     </div>
-    <div class="col-sm-3 col-xs-12">
+    <div class="col-md-3">
         {% if not user.is_authenticated %}
         <p>
             <a href="{% url 'core:user:demo-entries' %}" class="btn btn-success btn-lg btn-block">{% trans "Try it now" %}</a>
@@ -164,7 +164,7 @@ page, so you keep them in mind.{% endblocktrans %}</p>
 members, their workouts and attendance. Keep an eye on inactive members with
 optional notifications. You can create users with different roles to
 distribute the administrative tasks such as trainer or gym manager.{% endblocktrans %}</p>
-        
+
         <img src="{% static 'images/gym-management-1.5.png' %}"
              class="img-responsive img-rounded"
              alt="{% trans 'Gym management' %}">
