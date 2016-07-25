@@ -72,170 +72,249 @@ people could also find useful.{% endblocktrans %}
 
 
 
-<div class="row" style="margin-top: 1em;">
-    <div class="col-sm-4 col-xs-12">
-        <h4>
-            <span class="{% fa_class 'user' %}"></span>
-            <strong>
-            {% trans "Workouts" %}
-            </strong>
-        </h4>
+
+<div class="row" style="margin-top: 4em;">
+    <h4>
+        <span class="{% fa_class 'user' %}"></span>
+        <strong>
+        {% trans "Workouts" %}
+        </strong>
+    </h4>
+
+    <div class="row" style="margin-top: 2em;">
+      <div class="col-md-8">
+          <img src="{% static 'images/workout.png' %}"
+          class="img-rounded"
+          height="400px"
+          style="width:100%;"
+          alt="{% trans 'Workouts' %}">
+      </div>
+
+      <div class="col-md-4">
         <p>{% blocktrans %}Create and manage your workout routines by selecting how
-many days your workout consists of, and adding different exercises to each. You can
-also combine different workouts into a schedule.{% endblocktrans %}
+          many days your workout consists of, and adding different exercises to each. You can
+          also combine different workouts into a schedule.{% endblocktrans %}
         </p>
-        <img src="{% static 'images/workout.png' %}"
-             class="img-responsive img-rounded"
-             alt="{% trans 'Workouts' %}">
+      </div>
     </div>
-    <div class="col-sm-4 col-xs-6">
-        <h4>
-            <span class="{% fa_class 'line-chart' %}"></span>
-            <strong>
-            {% trans "Workout log" %}
-            </strong>
-        </h4>
+</div>
+
+
+<div class="row" style="margin-top: 4em;">
+    <h4>
+        <span class="{% fa_class 'line-chart' %}"></span>
+        <strong>
+        {% trans "Workout log" %}
+        </strong>
+    </h4>
+
+    <div class="row" style="margin-top: 2em;">
+      <div class="col-md-8">
+        <img src="{% static 'images/workout-log.png' %}"
+        class="img-rounded"
+        height="400px"
+        style="width:100%;"
+        alt="{% trans 'Workout log' %}">
+      </div>
+
+
+      <div class="col-md-4">
         <p>{% blocktrans %}You can enter
-the weights and repetitions you did for each exercise. As with the (body) weight,
-it will generate some diagrams so you can see at a glance how well you are doing.
-The raw numbers are still accessible as a table.{% endblocktrans %}
-            {% trans "You can also enter notes and a general impression (great, neutral, etc.)" %}</p>
-            <img src="{% static 'images/workout-log.png' %}"
-                 class="img-responsive img-rounded"
-                 alt="{% trans 'Workout log' %}">
+          the weights and repetitions you did for each exercise. As with the (body) weight,
+          it will generate some diagrams so you can see at a glance how well you are doing.
+          The raw numbers are still accessible as a table.{% endblocktrans %}
+          {% trans "You can also enter notes and a general impression (great, neutral, etc.)" %}</p>
+      </div>
     </div>
-    <div class="col-sm-4 col-xs-6">
-        <h4>
-            <span class="{% fa_class 'user' %}"></span>
-            <strong>
-            {% trans "Nutrition" %}
-            </strong>
-        </h4>
-        <p>{% blocktrans %}Create a diet plan and see its nutritional
-values (total energy, protein, carbohydrates, and so on) about
-it. Select from more than 8000 ingredients for this.{% endblocktrans %}</p>
+</div>
+
+
+<div class="row" style="margin-top: 4em;">
+    <h4>
+        <span class="{% fa_class 'user' %}"></span>
+        <strong>
+        {% trans "Nutrition" %}
+        </strong>
+    </h4>
+
+    <div class="row" style="margin-top: 2em;">
+
+      <div class="col-md-8">
         <img src="{% static 'images/plan.png' %}"
-             class="img-responsive img-rounded"
-             alt="{% trans 'Nutrition' %}">
+        class="img-rounded"
+        height="400px"
+        style="width:100%;"
+        alt="{% trans 'Nutrition' %}">
+      </div>
+
+
+      <div class="col-md-4">
+        <p>{% blocktrans %}Create a diet plan and see its nutritional
+          values (total energy, protein, carbohydrates, and so on) about
+          it. Select from more than 8000 ingredients for this.{% endblocktrans %}</p>
+      </div>
     </div>
 </div>
 
-<div class="row" style="margin-top: 1em;">
-    <div class="col-sm-4 col-xs-12">
-        <h4>
-            <span class="{% fa_class 'bar-chart' %}"></span>
-            <strong>
-            {% trans "Weight tracker" %}
-            </strong>
-        </h4>
-        <p>{% blocktrans %}keep track of your progress with the weight log chart
-for each exercise and your own body weight. This makes it easy to see if you
-are reaching your goals or need to adjust something.{% endblocktrans %}</p>
-        <img src="{% static 'images/weight-chart.png' %}"
-             class="img-responsive img-rounded"
-             alt="{% trans 'Weight tracker' %}">
+
+<div class="row" style="margin-top: 4em;">
+    <h4>
+        <span class="{% fa_class 'bar-chart' %}"></span>
+        <strong>
+        {% trans "Weight tracker" %}
+        </strong>
+    </h4>
+
+    <div class="col-md-8">
+      <img src="{% static 'images/weight-chart.png' %}"
+      class="img-rounded"
+      height="400px";
+      style="width: 100%;"
+      alt="{% trans 'Weight tracker' %}">
     </div>
 
-    <div class="col-sm-4 col-xs-6">
-        <h4>
-            <span class="{% fa_class 'list' %}"></span>
-            <strong>
-            {% trans "Exercise database" %}
-            </strong>
-        </h4>
-
-        <p>{% blocktrans %}The exercise database contains around hundred exercises
-from which you can choose when creating a workout. Some have important notes
-about the form to perform them. This is displayed in the workout overview
-page, so you keep them in mind.{% endblocktrans %}</p>
-        <img src="{% static 'images/muscle-overview-1.1-en.png' %}"
-     class="img-responsive img-rounded"
-     alt="{% trans 'Exercise database' %}">
+    <div class="col-md-4">
+      <p>
+        {% blocktrans %}keep track of your progress with the weight log chart
+        for each exercise and your own body weight. This makes it easy to see if you
+        are reaching your goals or need to adjust something.{% endblocktrans %}
+      </p>
     </div>
 
-    <div class="col-sm-4 col-xs-6">
-        <h4>
-            <span class="{% fa_class 'home' %}"></span>
-            <strong>
-            {% trans "Gym management" %}
-            </strong>
-        </h4>
-        <p>{% blocktrans %}Use the application for your gym to manage its
-members, their workouts and attendance. Keep an eye on inactive members with
-optional notifications. You can create users with different roles to
-distribute the administrative tasks such as trainer or gym manager.{% endblocktrans %}</p>
-
-        <img src="{% static 'images/gym-management-1.5.png' %}"
-             class="img-responsive img-rounded"
-             alt="{% trans 'Gym management' %}">
-    </div>
 </div>
 
-<div class="row" style="margin-top: 1em;">
-    <div class="col-sm-4 col-xs-12">
-        <h4>
-            <span class="{% fa_class 'eye' %}"></span>
-            <strong>
-            {% trans "100% Open Source" %}
-            </strong>
-        </h4>
-        <p>{% blocktrans %}All of the code running wger is open source, allowing
-the public to openly review its code and security. Anyone can contribute towards
-the development of wger or deploy private installations.{% endblocktrans %}</p>
+
+<div class="row" style="margin-top: 4em;">
+    <h4>
+        <span class="{% fa_class 'list' %}"></span>
+        <strong>
+        {% trans "Exercise database" %}
+      </strong>
+    </h4>
+
+    <div class="col-md-8">
+      <img src="{% static 'images/muscle-overview-1.1-en.png' %}"
+      class="img-rounded"
+      height="400px";
+      style="width: 100%;"
+      alt="{% trans 'Exercise database' %}">
     </div>
-    <div class="col-sm-4 col-xs-12">
-        <h4>
-            <span class="{% fa_class 'globe' %}"></span>
-            <strong>
-            {% trans "Join and help" %}
-            </strong>
-        </h4>
-        <a href="https://github.com/wger-project/wger" class="btn btn-primary btn-block">
-            {% trans "Join development" %}
-            <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
-        <a href="{% url 'software:issues' %}" class="btn btn-primary btn-block">
-            {% trans "Problems and wishes" %}
-            <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
-        <a href="https://www.transifex.com/rge/wger-workout-manager/" class="btn btn-primary btn-block">
-            {% trans "Translate" %}
-            <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
+
+    <div class="col-md-4">
+      <p>
+        {% blocktrans %}The exercise database contains around hundred exercises
+        from which you can choose when creating a workout. Some have important notes
+        about the form to perform them. This is displayed in the workout overview
+        page, so you keep them in mind.{% endblocktrans %}
+      </p>
     </div>
-    <div class="col-sm-4 col-xs-12">
-        <h4>
-            <span class="{% fa_class 'retweet' %}"></span>
-            <strong>
-            {% trans "REST API" %}
-            </strong>
-        </h4>
-        <p>{% blocktrans %}wger provides a REST API with full read write access
-to all data. To access publicly accessible data such as exercises you don't need
-any form of authentication, for other objects such as workouts you need to get
-an API key.{% endblocktrans %}</p>
-    </div>
+
 </div>
 
-        <h4>
-            <span class="{% fa_class 'plus' %}"></span>
-            <strong>
-            {% trans "Other features" %}
-            </strong>
-        </h4>
-        <ul>
-            <li>{% trans "Smooth performance and easy user interface." %}</li>
-            <li>{% trans "Export workouts, nutrition plans and routines as PDF" %}</li>
-            <!--<li>{% trans "Create complex routines, specify how much the exercise weights increase each week" %}</li>-->
-            <li>{% trans "Gym-optimised view with countdown to easily log weights during the workout" %}</li>
-            <li>{% trans "Export your routines and workouts to an application such as iCal or google calendar." %}</li>
-            <li>{% trans "Receive email notifications to remind you to change your routine (optional)" %}</li>
-            <li>{% trans "Calendar view with last workouts and weight logs for easy overview and control" %}</li>
-            <li>{% trans "Support for both metric (kg) and imperial (lb) weight units" %}</li>
-            <li>{% trans "Available in many languages" %}</li>
-            <li>{% trans "BMI and daily calories calculator" %}</li>
-            <li>{% trans "Automatically calculated grams of macronutrients per body weight" %}</li>
-            <li>{% trans "Mobile friendly version" %}</li>
-            <li>{% trans "Import and export your weight data to and from CSV" %}</li>
-        </ul>
+
+<div class="row" style="margin-top: 4em;">
+    <h4>
+        <span class="{% fa_class 'home' %}"></span>
+        <strong>
+        {% trans "Gym management" %}
+        </strong>
+    </h4>
+
+    <div class="col-md-8">
+      <img src="{% static 'images/gym-management-1.5.png' %}"
+      class="img-rounded"
+      height="400px";
+      style="width: 100%;"
+      alt="{% trans 'Gym management' %}">
+    </div>
+
+    <div class="col-md-4">
+      <p>
+        {% blocktrans %}Use the application for your gym to manage its
+        members, their workouts and attendance. Keep an eye on inactive members with
+        optional notifications. You can create users with different roles to
+        distribute the administrative tasks such as trainer or gym manager.{% endblocktrans %}
+      </p>
+    </div>
+
+</div>
+
+
+<div class="row" style="margin-top: 4em;">
+    <h4>
+        <span class="{% fa_class 'eye' %}"></span>
+        <strong>
+        {% trans "100% Open Source" %}
+        </strong>
+    </h4>
+    <p>
+        {% blocktrans %}All of the code running wger is open source, allowing
+        the public to openly review its code and security. Anyone can contribute towards
+        the development of wger or deploy private installations.{% endblocktrans %}
+    </p>
+</div>
+
+
+<div class="row" style="margin-top: 4em;">
+    <h4>
+        <span class="{% fa_class 'globe' %}"></span>
+        <strong>
+        {% trans "Join and help" %}
+        </strong>
+    </h4>
+    <a href="https://github.com/wger-project/wger" class="btn btn-primary btn-block">
+        {% trans "Join development" %}
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+    <a href="{% url 'software:issues' %}" class="btn btn-primary btn-block">
+        {% trans "Problems and wishes" %}
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+    <a href="https://www.transifex.com/rge/wger-workout-manager/" class="btn btn-primary btn-block">
+        {% trans "Translate" %}
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div>
+
+
+<div class="row" style="margin-top: 4em;">
+    <h4>
+        <span class="{% fa_class 'retweet' %}"></span>
+        <strong>
+        {% trans "REST API" %}
+        </strong>
+    </h4>
+    <p>
+      {% blocktrans %}wger provides a REST API with full read write access
+      to all data. To access publicly accessible data such as exercises you don't need
+      any form of authentication, for other objects such as workouts you need to get
+      an API key.{% endblocktrans %}
+    </p>
+</div>
+
+
+<div class="row" style="margin-top: 4em;">
+  <h4>
+    <span class="{% fa_class 'plus' %}"></span>
+    <strong>
+      {% trans "Other features" %}
+    </strong>
+  </h4>
+
+  <ul>
+    <li>{% trans "Smooth performance and easy user interface." %}</li>
+    <li>{% trans "Export workouts, nutrition plans and routines as PDF" %}</li>
+    <!--<li>{% trans "Create complex routines, specify how much the exercise weights increase each week" %}</li>-->
+    <li>{% trans "Gym-optimised view with countdown to easily log weights during the workout" %}</li>
+    <li>{% trans "Export your routines and workouts to an application such as iCal or google calendar." %}</li>
+    <li>{% trans "Receive email notifications to remind you to change your routine (optional)" %}</li>
+    <li>{% trans "Calendar view with last workouts and weight logs for easy overview and control" %}</li>
+    <li>{% trans "Support for both metric (kg) and imperial (lb) weight units" %}</li>
+    <li>{% trans "Available in many languages" %}</li>
+    <li>{% trans "BMI and daily calories calculator" %}</li>
+    <li>{% trans "Automatically calculated grams of macronutrients per body weight" %}</li>
+    <li>{% trans "Mobile friendly version" %}</li>
+    <li>{% trans "Import and export your weight data to and from CSV" %}</li>
+  </ul>
+</div>
 {% endblock %}
