@@ -241,18 +241,18 @@ the search.{% endblocktrans %}
     </button>
     <ul class="dropdown-menu">
         <li>
-            <a href="{% url 'nutrition:ingredient:delete' ingredient.id %}"
-               title="{% trans 'Delete ingredient' %}" {% auto_link_css flavour "wger-modal-dialog" %}>
-                <span class="{% fa_class 'trash' %}"></span>
-                {% trans 'Delete' %}</a>
-        </li>
-        <li role="separator" class="divider"></li>
-        <li>
             <a href="{% url 'nutrition:ingredient:edit' ingredient.id %}"
                title="{% trans 'Edit ingredient' %}"
                {% auto_link_css flavour %}>
                 <span class="{% fa_class 'pencil-square-o' %}"></span>
                 {% trans 'Edit ingredient' %}</a>
+        </li>
+        <li role="separator" class="divider"></li>
+        <li>
+            <a href="{% url 'nutrition:ingredient:delete' ingredient.id %}"
+               title="{% trans 'Delete ingredient' %}" {% auto_link_css flavour "wger-modal-dialog" %}>
+                <span class="{% fa_class 'trash' %}"></span>
+                {% trans 'Delete' %}</a>
         </li>
     </ul>
 </div>

@@ -408,11 +408,8 @@ function hex_random() {
  */
 function add_exercise(exercise) {
     var result_div = '<div id="DIV-ID" class="ajax-exercise-select"> \
-<a href="#" data-role="button" class="btn btn-default btn-xs"> \
-<img src="/static/images/icons/status-off.svg" \
-     width="14" \
-     height="14" \
-     alt="Delete"> \
+<a href="#" data-role="button" class="btn btn-default btn-xs" style="margin-top: 0.5em;"> \
+<span class="fa fa-times fa-fw"></span> \
 EXERCISE \
 </a> \
 <input type="hidden" name="exercises" value="EXCERCISE-ID"> \
@@ -450,16 +447,19 @@ function update_all_exercise_formset() {
         $.each($('#exercise-search-log input'), function (index, value) {
 
             var exercise_id = value.value;
+            var promise = $().promise();
             if (exercise_id && parseInt(exercise_id, 10)) {
                 var formset_url = '/' + get_current_language() +
                             '/workout/set/get-formset/' +  exercise_id +
                             '/' + set_value + '/';
-                $.get(formset_url, function (data) {
-                    $('#formset-exercise-' + exercise_id).remove();
-                    $('#formsets').append(data);
-                    $('#exercise-search-log').scrollTop(0);
-                    $('#formsets').trigger("create");
-                });
+                promise.done(function(){
+                    promise = $.get(formset_url, function (data) {
+                                  $('#formset-exercise-' + exercise_id).remove();
+                                  $('#formsets').append(data);
+                                  $('#exercise-search-log').scrollTop(0);
+                                  $('#formsets').trigger("create");
+                              }).promise();
+               });
             }
         });
     }
