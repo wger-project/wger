@@ -158,7 +158,11 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
         '''
         Return a list of the image's thumbnails
         '''
-        image = ExerciseImage.objects.get(pk=pk)
+        try:
+            image = ExerciseImage.objects.get(pk=pk)
+        except ExerciseImage.DoesNotExist:
+            return Response([])
+
         thumbnails = {}
         for alias in aliases.all():
             t = get_thumbnailer(image.image)
