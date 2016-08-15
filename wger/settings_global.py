@@ -93,7 +93,7 @@ INSTALLED_APPS = (
 BOWER_INSTALLED_APPS = (
     'jquery#2.1.x',
     'bootstrap',
-    'd3#3.x',
+    'd3',
     'shariff',
     'tinymce-dist',
     'DataTables',
