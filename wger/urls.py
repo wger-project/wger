@@ -21,6 +21,7 @@ from rest_framework import routers
 from django.conf.urls import include, url
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.i18n import patterns
+from django.contrib.sitemaps.views import sitemap
 
 from wger.nutrition.sitemap import NutritionSitemap
 from wger.exercises.sitemap import ExercisesSitemap
@@ -144,7 +145,7 @@ urlpatterns = i18n_patterns(
     url(r'email/', include('wger.email.urls', namespace='email')),
     url(r'^browserid/', include('django_browserid.urls')),
     url(r'^sitemap\.xml$',
-        'django.contrib.sitemaps.views.sitemap',
+        sitemap,
         {'sitemaps': sitemaps},
         name='sitemap')
 )
