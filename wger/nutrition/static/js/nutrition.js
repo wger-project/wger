@@ -184,7 +184,7 @@ function render_bmi(width_factor)
           .attr("clip-path", "url(#clip)")
           .attr("d", function(d, i) { return area(d[i].data.values); })
           .style("fill", function(d, i) { return z(i); })
-          .style("opacity", 0.6);
+          .style("opacity", 1);
 
       svg.append("g")
           .attr("class", "x axis")
