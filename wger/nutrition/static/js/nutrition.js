@@ -131,36 +131,26 @@ function render_bmi(width_factor)
         width = width_factor - margin.left - margin.right,
         height = height_factor - margin.top - margin.bottom;
 
-    var x = d3.scale.linear()
+    var x = d3.scaleLinear()
         .range([0, width]);
 
-    var y = d3.scale.linear()
+    var y = d3.scaleLinear()
         .range([height, 0]);
 
-    var z = d3.scale.ordinal().range(['#000080', '#0000ff', '#00ffff', '#00ff00', '#ffff00', '#ff7f2a', '#ff0000', '#800000']);
+    var z = d3.scaleOrdinal().range(['#000080', '#0000ff', '#00ffff', '#00ff00', '#ffff00', '#ff7f2a', '#ff0000', '#800000']);
 
-    var xAxis = d3.svg.axis()
-        .scale(x)
-        .orient("bottom");
+    var xAxis = d3.axisBottom(x);
 
-    var yAxis = d3.svg.axis()
-        .scale(y)
-        .orient("left");
+    var yAxis = d3.axisLeft(y);
 
-    var stack = d3.layout.stack()
-        .offset("zero")
-        .values(function(d) { return d.values; })
-        .x(function(d) { return d.height; })
-        .y(function(d) { return d.weight; });
+    var stack = d3.stack();
 
     var nest = d3.nest()
         .key(function(d) { return d.key; });
 
-    var area = d3.svg.area()
-        .interpolate("linear")
+    var area = d3.area()
         .x(function(d) { return x(d.height); })
-        .y0(function(d) { return y(d.y0); })
-        .y1(function(d) { return y(d.y); });
+        .y1(function(d) { return y(d.weight); });
 
 
     var svg = d3.select("#bmi-chart").append("svg")
@@ -179,6 +169,7 @@ function render_bmi(width_factor)
 
     d3.json("/nutrition/calculator/bmi/chart-data", function(data) {
 
+        stack.keys(["filler", "severe_thinness","moderate_thinness","mild_thinness","normal_range","pre_obese","obese_class_2","obese_class_3"]);
         var layers = stack(nest.entries(data));
 
         // Manually set the domains
@@ -191,9 +182,9 @@ function render_bmi(width_factor)
           .attr("class", "layer")
           .attr("id", function(d, i) { return "key-" + d.key; })
           .attr("clip-path", "url(#clip)")
-          .attr("d", function(d) { return area(d.values); })
+          .attr("d", function(d, i) { return area(d[i].data.values); })
           .style("fill", function(d, i) { return z(i); })
-          .style("opacity", 0.6);
+          .style("opacity", 1);
 
       svg.append("g")
           .attr("class", "x axis")
