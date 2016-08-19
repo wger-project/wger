@@ -81,31 +81,31 @@ def chart_data(request):
     '''
 
     data = json.dumps([
-        {'key': 'filler', 'height': 150, 'weight': 36},
-        {'key': 'filler', 'height': 200, 'weight': 64},
+        {'key': 'filler', 'height': 150, 'weight': 00},
+        {'key': 'filler', 'height': 200, 'weight': 30},
 
-        {'key': 'severe_thinness', 'height': 150, 'weight': 36},
-        {'key': 'severe_thinness', 'height': 200, 'weight': 64},
+        {'key': 'severe_thinness', 'height': 150, 'weight': 35.978},
+        {'key': 'severe_thinness', 'height': 200, 'weight': 63.960},
 
-        {'key': 'moderate_thinness', 'height': 150, 'weight': 36.25},
-        {'key': 'moderate_thinness', 'height': 200, 'weight': 64},
+        {'key': 'moderate_thinness', 'height': 150, 'weight': 38.228},
+        {'key': 'moderate_thinness', 'height': 200, 'weight': 67.960},
 
-        {'key': 'mild_thinness', 'height': 150, 'weight': 41.625},
-        {'key': 'mild_thinness', 'height': 200, 'weight': 74},
+        {'key': 'mild_thinness', 'height': 150, 'weight': 41.603},
+        {'key': 'mild_thinness', 'height': 200, 'weight': 73.960},
 
-        {'key': 'normal_range', 'height': 150, 'weight': 56.025},
-        {'key': 'normal_range', 'height': 200, 'weight': 99.6},
+        {'key': 'normal_range', 'height': 150, 'weight': 56.228},
+        {'key': 'normal_range', 'height': 200, 'weight': 99.960},
 
-        {'key': 'pre_obese', 'height': 150, 'weight': 67.275},
-        {'key': 'pre_obese', 'height': 200, 'weight': 119.6},
+        {'key': 'pre_obese', 'height': 150, 'weight': 67.478},
+        {'key': 'pre_obese', 'height': 200, 'weight': 119.960},
 
-        {'key': 'obese_class_1', 'height': 150, 'weight': 78.525},
-        {'key': 'obese_class_1', 'height': 200, 'weight': 139.6},
+        {'key': 'obese_class_1', 'height': 150, 'weight': 78.728},
+        {'key': 'obese_class_1', 'height': 200, 'weight': 139.960},
 
-        {'key': 'obese_class_2', 'height': 150, 'weight': 89.775},
-        {'key': 'obese_class_2', 'height': 200, 'weight': 159},
+        {'key': 'obese_class_2', 'height': 150, 'weight': 89.978},
+        {'key': 'obese_class_2', 'height': 200, 'weight': 159.960},
 
-        {'key': 'obese_class_3', 'height': 150, 'weight': 190},
+        {'key': 'obese_class_3', 'height': 150, 'weight': 90},
         {'key': 'obese_class_3', 'height': 200, 'weight': 190}
     ])
 
