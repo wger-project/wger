@@ -45,13 +45,14 @@
     {% endblock %}
 
 
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
     {% compress css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-common.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/components-font-awesome/css/font-awesome.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">
-
+    <link rel="stylesheet" type="text/css" href="{% static 'css/agency.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/shariff/build/shariff.min.css' %}">
     {% endcompress %}
 
@@ -64,19 +65,16 @@
 
     <title>wger Workout Manager - {% trans "Features" %}</title>
 </head>
-<body>
+
+<body id="page-top" class="index">
 
 {% if user.is_authenticated %}
 {% include 'navigation.html' %}
 {% endif  %}
 
-<div id="main">
-    <div class="container">
-        {% block template %}{% endblock %}
-    </div>
+    {% block template %}{% endblock %}
     <div id="current-url" data-current-url="{{request_full_path}}"></div>
     <div id="current-language" data-current-language="{{language.short_name}}"></div>
-</div>
 
 
 
