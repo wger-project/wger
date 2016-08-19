@@ -36,10 +36,11 @@ Improvements:
 * Better GUI consistency in modal dialogs (thanks `@jstoebel`_ ) `#274`_
 * The dashboard page was improved and made more user friendly `#201`_ (partly)
 * Replace jquery UI's autocompleter and sortable this reduces size of JS and CSS `#78`_ and `#79`_
+* Update to D3js v4 `#314`_, `#302`_
 * Remove hard-coded CC licence from documentation and website `#247`_
 
 Other improvements and bugfixes: `#25`_, `#243`_, `#279`_, `#275`_, `#270`_, `#258`_, `#257`_,
-`#263`_, `#269`_, `#296`_, `#297`_, `#302`_, `#303`_, `#311`_, `#312`_, `#313`_,
+`#263`_, `#269`_, `#296`_, `#297`_, `#303`_, `#311`_, `#312`_, `#313`_,
 
 
 .. _#25: https://github.com/wger-project/wger/issues/25
@@ -69,6 +70,7 @@ Other improvements and bugfixes: `#25`_, `#243`_, `#279`_, `#275`_, `#270`_, `#2
 .. _#311: https://github.com/wger-project/wger/issues/311
 .. _#312: https://github.com/wger-project/wger/issues/312
 .. _#313: https://github.com/wger-project/wger/issues/313
+.. _#314: https://github.com/wger-project/wger/issues/314
 .. _@alelevinas: https://github.com/alelevinas
 .. _@jstoebel: https://github.com/jstoebel
 .. _@alokhan: https://github.com/alokhan
