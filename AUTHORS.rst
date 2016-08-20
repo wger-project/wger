@@ -21,6 +21,7 @@ Developers
 * Alois: https://github.com/alokhan
 * Alelevinas: https://github.com/alelevinas
 * Jacob Stoebel: https://github.com/jstoebel
+* Malcolm Jones: https://github.com/DevloperMal
 
 Translators
 -----------
