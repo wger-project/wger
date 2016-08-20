@@ -1,5 +1,12 @@
 language: python
 
+# Cache the pip files
+cache: pip
+  directories:
+    - $HOME/.nvm
+    - node_modules
+    - wger/node_modules
+
 # Use container infrastructure
 # http://blog.travis-ci.com/2014-12-17-faster-builds-with-container-based-infrastructure/
 sudo: false
