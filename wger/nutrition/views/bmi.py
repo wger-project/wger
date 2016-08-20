@@ -25,7 +25,6 @@ from django.shortcuts import render
 from wger.nutrition.forms import BmiForm
 from wger.utils import helpers
 
-
 logger = logging.getLogger(__name__)
 
 '''
@@ -80,34 +79,64 @@ def chart_data(request):
     * https://de.wikipedia.org/wiki/Body-Mass-Index
     '''
 
-    data = json.dumps([
-        {'key': 'filler', 'height': 150, 'weight': 00},
-        {'key': 'filler', 'height': 200, 'weight': 30},
+    if request.user.userprofile.use_metric:
+        data = json.dumps([
+            {'key': 'filler', 'height': 150, 'weight': 30},
+            {'key': 'filler', 'height': 200, 'weight': 30},
 
-        {'key': 'severe_thinness', 'height': 150, 'weight': 35.978},
-        {'key': 'severe_thinness', 'height': 200, 'weight': 63.960},
+            {'key': 'severe_thinness', 'height': 150, 'weight': 35.978},
+            {'key': 'severe_thinness', 'height': 200, 'weight': 63.960},
 
-        {'key': 'moderate_thinness', 'height': 150, 'weight': 38.228},
-        {'key': 'moderate_thinness', 'height': 200, 'weight': 67.960},
+            {'key': 'moderate_thinness', 'height': 150, 'weight': 38.228},
+            {'key': 'moderate_thinness', 'height': 200, 'weight': 67.960},
 
-        {'key': 'mild_thinness', 'height': 150, 'weight': 41.603},
-        {'key': 'mild_thinness', 'height': 200, 'weight': 73.960},
+            {'key': 'mild_thinness', 'height': 150, 'weight': 41.603},
+            {'key': 'mild_thinness', 'height': 200, 'weight': 73.960},
 
-        {'key': 'normal_range', 'height': 150, 'weight': 56.228},
-        {'key': 'normal_range', 'height': 200, 'weight': 99.960},
+            {'key': 'normal_range', 'height': 150, 'weight': 56.228},
+            {'key': 'normal_range', 'height': 200, 'weight': 99.960},
 
-        {'key': 'pre_obese', 'height': 150, 'weight': 67.478},
-        {'key': 'pre_obese', 'height': 200, 'weight': 119.960},
+            {'key': 'pre_obese', 'height': 150, 'weight': 67.478},
+            {'key': 'pre_obese', 'height': 200, 'weight': 119.960},
 
-        {'key': 'obese_class_1', 'height': 150, 'weight': 78.728},
-        {'key': 'obese_class_1', 'height': 200, 'weight': 139.960},
+            {'key': 'obese_class_1', 'height': 150, 'weight': 78.728},
+            {'key': 'obese_class_1', 'height': 200, 'weight': 139.960},
 
-        {'key': 'obese_class_2', 'height': 150, 'weight': 89.978},
-        {'key': 'obese_class_2', 'height': 200, 'weight': 159.960},
+            {'key': 'obese_class_2', 'height': 150, 'weight': 89.978},
+            {'key': 'obese_class_2', 'height': 200, 'weight': 159.960},
 
-        {'key': 'obese_class_3', 'height': 150, 'weight': 90},
-        {'key': 'obese_class_3', 'height': 200, 'weight': 190}
-    ])
+            {'key': 'obese_class_3', 'height': 150, 'weight': 90},
+            {'key': 'obese_class_3', 'height': 200, 'weight': 190}
+        ])
+    else:
+        data = json.dumps([
+            {'key': 'filler', 'height': 150, 'weight': 66.139},
+            {'key': 'filler', 'height': 200, 'weight': 66.139},
+
+            {'key': 'severe_thinness', 'height': 150, 'weight': 79.317},
+            {'key': 'severe_thinness', 'height': 200, 'weight': 141.008},
+
+            {'key': 'moderate_thinness', 'height': 150, 'weight': 84.277},
+            {'key': 'moderate_thinness', 'height': 200, 'weight': 149.826},
+
+            {'key': 'mild_thinness', 'height': 150, 'weight': 91.718},
+            {'key': 'mild_thinness', 'height': 200, 'weight': 163.054},
+
+            {'key': 'normal_range', 'height': 150, 'weight': 123.960},
+            {'key': 'normal_range', 'height': 200, 'weight': 220.374},
+
+            {'key': 'pre_obese', 'height': 150, 'weight': 148.762},
+            {'key': 'pre_obese', 'height': 200, 'weight': 264.467},
+
+            {'key': 'obese_class_1', 'height': 150, 'weight': 173.564},
+            {'key': 'obese_class_1', 'height': 200, 'weight': 308.559},
+
+            {'key': 'obese_class_2', 'height': 150, 'weight': 198.366},
+            {'key': 'obese_class_2', 'height': 200, 'weight': 352.651},
+
+            {'key': 'obese_class_3', 'height': 150, 'weight': 198.416},
+            {'key': 'obese_class_3', 'height': 200, 'weight': 352.740}
+        ])
 
     # Return the results to the client
     return HttpResponse(data, 'application/json')

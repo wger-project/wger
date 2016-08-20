@@ -172,9 +172,8 @@ function render_bmi(width_factor)
         stack.keys(["filler", "severe_thinness","moderate_thinness","mild_thinness","normal_range","pre_obese","obese_class_2","obese_class_3"]);
         var layers = stack(nest.entries(data));
 
-        // Manually set the domains
-        x.domain([150, 200]); // height, in cm
-        y.domain([30, 160]);  // weight, in kg
+        x.domain(data.map(function(d) { return d.height; }));
+        y.domain([d3.min(data, function(d) { return d.weight; }), d3.max(data, function(d) { return d.weight; }) ]);
 
       svg.selectAll(".layer")
           .data(layers)
