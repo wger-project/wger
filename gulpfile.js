@@ -6,7 +6,7 @@ gulp.task('lint', function () {
     // So, it's best to have gulp ignore the directory as well.
     // Also, Be sure to return the stream from the task;
     // Otherwise, the task may end before the stream has finished.
-    return gulp.src(['wger/nutrition/static/js/nutrition.js','!node_modules/**'])
+    return gulp.src(['**/*.js'])
         // eslint() attaches the lint output to the "eslint" property
         // of the file object so it can be used by other modules.
         .pipe(eslint())
