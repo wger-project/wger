@@ -5,9 +5,19 @@
     "jquery": true
   },
   "globals": {
-        "d3": true
-    },
+    "d3": true
+  },
   "rules": {
-    "func-names": ["error", "never"]
+    "func-names": [
+      "error",
+      "never"
+    ],
+    "no-unused-vars": [
+      2,
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^wger"
+      }
+    ]
   }
 }
