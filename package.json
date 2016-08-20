@@ -24,6 +24,7 @@
     "eslint-plugin-import": "^1.13.0",
     "eslint-plugin-jsx-a11y": "^2.1.0",
     "eslint-plugin-react": "^6.1.2",
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^3.0.1"
   }
 }
