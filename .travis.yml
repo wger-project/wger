@@ -1,8 +1,9 @@
 language: python
 
 # Cache the pip files
-cache: pip
+cache:
   directories:
+    - $HOME/.cache/pip
     - $HOME/.nvm
     - node_modules
     - wger/node_modules
