@@ -17,6 +17,7 @@ env:
   - TEST_MOBILE=True  DB=sqlite
   - TEST_MOBILE=False DB=postgresql
   - TEST_MOBILE=False DB=sqlite
+  - TRAVIS_NODE_VERSION="4"
 
 # Install the application
 install:
@@ -41,6 +42,9 @@ script:
 
   # Formatting
   - pep8 wger
+
+  # Javascript linting
+  - gulp lint
 
   # Code coverage
   - coverage report
