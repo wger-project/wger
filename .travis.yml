@@ -53,15 +53,15 @@ before_script:
 
 # Do the tests
 script:
-
-  # Regular application
-  - coverage run --source='.' ./manage.py test
-
   # Formatting
   - pep8 wger
 
   # Javascript linting
   - gulp lint
+
+  # Regular application
+  - coverage run --source='.' ./manage.py test
+
 
   # Code coverage
   - coverage report
