@@ -6,7 +6,7 @@
 {% block header %}
 <script>
 $(document).ready(function() {
-    init_ingredient_detail("{% url 'api-ingredient-get-values' ingredient.id %}");
+    initIngredientDetail("{% url 'api-ingredient-get-values' ingredient.id %}");
 });
 </script>
 {% endblock %}
