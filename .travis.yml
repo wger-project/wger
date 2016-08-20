@@ -28,6 +28,10 @@ env:
 
 # Install the application
 install:
+  - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION
+  - nvm use $TRAVIS_NODE_VERSION
+  - npm install
+
   - sh -c "if [ '$DB' = 'postgresql' ]; then pip install psycopg2; fi"
 
   - pip install -r requirements_devel.txt
