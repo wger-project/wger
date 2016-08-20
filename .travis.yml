@@ -25,11 +25,13 @@ install:
   - pip install -r requirements_devel.txt
   - sh -c "if [ '$DB' = 'sqlite' ]; then invoke create_settings; fi"
   - sh -c "if [ '$DB' = 'postgresql' ]; then invoke create_settings --database-type postgresql; fi"
+  - npm install
 
 # Create test databases
 before_script:
   - sh -c "if [ '$DB' = 'postgresql' ]; then psql -c 'DROP DATABASE IF EXISTS test_wger;' -U postgres; fi"
   - sh -c "if [ '$DB' = 'postgresql' ]; then psql -c 'CREATE DATABASE test_wger;' -U postgres; fi"
+  - npm install -g gulp
 
 # Do the tests
 script:
