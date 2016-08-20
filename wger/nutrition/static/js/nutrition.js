@@ -43,8 +43,7 @@ function updateIngredientValue(url) {
   });
 }
 
-// noinspection Eslint
-function initIngredientDetail(url) {
+function wgerInitIngredientDetail(url) {
   // Prevent the form from being sent
   $('#nutritional-values-form').submit(function (e) {
     e.preventDefault();
@@ -62,8 +61,7 @@ function initIngredientDetail(url) {
 /*
  * Update the user's preferences
  */
-// noinspection Eslint
-function initIngredientAutocompleter() {
+function wgerInitIngredientAutocompleter() {
   // Init the autocompleter
   $('#id_ingredient_searchfield').devbridgeAutocomplete({
     serviceUrl: '/api/v2/ingredient/search/',
@@ -110,8 +108,7 @@ function initIngredientAutocompleter() {
 /*
  * Draw the BMI chart
  */
-// noinspection Eslint
-function renderBodyMassIndex(w) {
+function wgerRenderBodyMassIndex(w) {
   var svg;
   var area;
   var nest;
@@ -253,8 +250,7 @@ function renderBodyMassIndex(w) {
 /*
  * Calories calculator
  */
-// noinspection Eslint
-function initCaloriesCalculator() {
+function wgerInitCaloriesCalculator() {
   $('#form-transfer-calories').click(function (e) {
     var baseCalories;
     e.preventDefault();
