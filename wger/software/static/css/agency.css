@@ -625,6 +625,7 @@ footer ul.quicklinks {
   text-transform: uppercase;
   text-transform: none;
 }
+footer ul.quicklinks a { color: white; }
 ul.social-buttons {
   margin-bottom: 0;
 }
