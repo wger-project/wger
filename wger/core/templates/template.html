@@ -99,44 +99,45 @@
 <header>
     <div class="container">
         <div class="row">
-        <div class="col-md-offset-9 col-md-3">
-            <a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a>
-            |
+            <div class="col-md-9" style="padding-bottom: 0.5em;">
+                <span class="name">wger</span>
+                <span class="regular">| Workout Manager</span>
+            </div>
+            <div class="col-md-3">
+                <a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a>
+                |
 
-            {#                                         #}
-            {# Render the links to the other languages #}
-            {#                                         #}
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown">
-                    <img src="/static/images/icons/flag-{{language.short_name}}.svg"
-                         width="18"
-                         height="11"
-                         alt="{% trans language.full_name %}"
-                         title="{% trans language.full_name %}"
-                         style="border: 1px solid #151515;">
-                    {{language.full_name}} <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    {% for language in languages %}
-                    {% language_select language %}
-                    {% endfor %}
-                    <li class="divider"></li>
-                    <li>
-                        <a href="https://www.transifex.com/rge/wger-workout-manager/">
-                            <span class="{% fa_class 'plus' %}"></span>
-                            {% trans "Translate" %}
-                        </a>
-                    </li>
-                </ul>
+                {#                                         #}
+                {# Render the links to the other languages #}
+                {#                                         #}
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown">
+                        <img src="/static/images/icons/flag-{{language.short_name}}.svg"
+                             width="18"
+                             height="11"
+                             alt="{% trans language.full_name %}"
+                             title="{% trans language.full_name %}"
+                             style="border: 1px solid #151515;">
+                        {{language.full_name}} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        {% for language in languages %}
+                        {% language_select language %}
+                        {% endfor %}
+                        <li class="divider"></li>
+                        <li>
+                            <a href="https://www.transifex.com/rge/wger-workout-manager/">
+                                <span class="{% fa_class 'plus' %}"></span>
+                                {% trans "Translate" %}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-        </div>
     </div>
 
-    <div class="container">
-        <span class="name">wger</span>
-        <span class="regular">| Workout Manager</span>
-    </div>
+
 </header>
 {% include 'navigation.html' %}
 <div id="main">
