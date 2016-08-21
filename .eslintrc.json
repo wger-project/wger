@@ -5,7 +5,8 @@
     "jquery": true
   },
   "globals": {
-    "d3": true
+    "d3": false,
+    "MozActivity": false
   },
   "rules": {
     "func-names": [
@@ -18,6 +19,7 @@
         "vars": "all",
         "varsIgnorePattern": "^wger"
       }
-    ]
+    ],
+    "no-console": "off"
   }
 }
