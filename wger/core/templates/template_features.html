@@ -104,6 +104,15 @@
                             <span class="{% fa_class 'globe' %}"></span>
                         </a>
                     </li>
+                    <li>
+                      {% if show_shariff %}
+                        {% include 'misc/fragments/shariff_modal.html' %}
+                        <a data-toggle="modal" href="#shariffModal" title="Share">
+                          <span class="{% fa_class 'share-alt' %}"></span>
+                        </a>
+                        <div class="clearfix"></div>
+                      {% endif %}
+                    </li>
                 </ul>
             </div>
             <div class="col-md-4">
