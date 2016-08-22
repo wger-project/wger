@@ -5,8 +5,10 @@
     "jquery": true
   },
   "globals": {
-    "d3": false,
-    "MozActivity": false
+    "d3": true,
+    "MozActivity": true,
+    "Sortable": true,
+    "tinyMCE": true
   },
   "rules": {
     "func-names": [
