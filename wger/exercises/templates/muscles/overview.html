@@ -14,9 +14,9 @@
 $(document).ready(function() {
     //Prefetch the background images
     {% for muscle in muscle_list|first %}
-        prefetch_images(['/static/images/muscles/main/muscle-' + {{muscle.id}} + '.svg']);
+        wgerPrefetchImages(['/static/images/muscles/main/muscle-' + {{muscle.id}} + '.svg']);
     {% endfor %}
-    prefetch_images(['/static/images/muscles/muscular_system_back.svg']);
+    wgerPrefetchImages(['/static/images/muscles/muscular_system_back.svg']);
 
 
     // Hightlight the first element

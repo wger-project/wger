@@ -158,7 +158,7 @@ class ExercisesEditAddView(WgerFormMixin):
     model = Exercise
     sidebar = 'exercise/form.html'
     title = ugettext_lazy('Add exercise')
-    custom_js = 'init_tinymce();'
+    custom_js = 'wgerInitTinymce();'
     clean_html = ('description', )
 
     def get_form_class(self):
@@ -331,7 +331,7 @@ class PendingExerciseListView(LoginRequiredMixin, PermissionRequiredMixin, ListV
         return Exercise.objects.pending().order_by('-creation_date')
 
 
-@permission_required('exercises.add_exercise')
+@permission_required('exercises.addExercise')
 def accept(request, pk):
     '''
     Accepts a pending user submitted exercise and emails the user, if possible
@@ -345,7 +345,7 @@ def accept(request, pk):
     return HttpResponseRedirect(exercise.get_absolute_url())
 
 
-@permission_required('exercises.add_exercise')
+@permission_required('exercises.addExercise')
 def decline(request, pk):
     '''
     Declines and deletes a pending user submitted exercise

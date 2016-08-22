@@ -321,7 +321,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
         This is only used when creating exercises (via web or API)
         '''
-        if request.user.has_perm('exercises.add_exercise'):
+        if request.user.has_perm('exercises.addExercise'):
             self.status = self.STATUS_ACCEPTED
             if not self.license_author:
                 self.license_author = request.get_host().split(':')[0]
