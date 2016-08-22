@@ -331,7 +331,7 @@ class PendingExerciseListView(LoginRequiredMixin, PermissionRequiredMixin, ListV
         return Exercise.objects.pending().order_by('-creation_date')
 
 
-@permission_required('exercises.addExercise')
+@permission_required('exercises.add_exercise')
 def accept(request, pk):
     '''
     Accepts a pending user submitted exercise and emails the user, if possible
@@ -345,7 +345,7 @@ def accept(request, pk):
     return HttpResponseRedirect(exercise.get_absolute_url())
 
 
-@permission_required('exercises.addExercise')
+@permission_required('exercises.add_exercise')
 def decline(request, pk):
     '''
     Declines and deletes a pending user submitted exercise
