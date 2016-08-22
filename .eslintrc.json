@@ -8,7 +8,8 @@
     "d3": true,
     "MozActivity": true,
     "Sortable": true,
-    "tinyMCE": true
+    "tinyMCE": true,
+    "MG": true
   },
   "rules": {
     "func-names": [
