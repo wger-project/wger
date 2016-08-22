@@ -75,7 +75,7 @@
                             {% render_weight_log list exercise_list.div_uuid owner_user %}
                             <script>
                             $(document).ready(function() {
-                            draw_weight_log_chart({{exercise_list.chart_data|safe}},
+                            wgerDrawWeightLogChart({{exercise_list.chart_data|safe}},
                                                   "{{exercise_list.div_uuid}}");
                             });
                             </script>
