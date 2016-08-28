@@ -1,5 +1,6 @@
 const gulp = require('gulp');
 const eslint = require('gulp-eslint');
+const flake8 = require('@petervanderdoes/gulp-flake8');
 
 gulp.task('lint-js', function () {
   // ESLint ignores files with "node_modules" paths.
