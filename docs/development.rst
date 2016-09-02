@@ -172,11 +172,4 @@ Contributing
   tests for the new code. If you use github, configure the awesome Travis CI,
   there is already a .travis file in the sources.
 
-* **Code according to PEP8**: check that the code is structured as per pep8 but
-  with a maximum line length of 100. This can be checked automatically with the
-  pep8 tool (pip install pep8) from the command line (travis will do this as part 
-  of the tests): ``pep8 wger``
-
-* **Code for python3**: while the application should remain compatible with
-  python2, use django's suggestion to mantain sanity: code for py3 and treat
-  py2 as a backwards compatibility requirement. If you need, you can use six.
+* **Code according to the coding style**: :ref:`codingstyle`
