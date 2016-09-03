@@ -475,7 +475,7 @@ function initRemoveExerciseFormset() {
 
 function wgerInitEditSet() {
   // Initialise the autocompleter (our widget, defined above)
-  $('#exercise-search').devbridgeAutocomplete({
+  $('#exercise-search').autocomplete({
     serviceUrl: '/api/v2/exercise/search/?language=' + getCurrentLanguage(),
     showNoSuggestionNotice: true,
     groupBy: 'category',
