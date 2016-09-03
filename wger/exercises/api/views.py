@@ -86,37 +86,41 @@ def search(request):
     '''
     q = request.GET.get('term', None)
     results = []
-    if not q:
-        return Response(results)
+    json_response = {}
 
-    languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES,
-                                    language_code=request.GET.get('language', None))
-    exercises = (Exercise.objects.filter(name__icontains=q)
-                                 .filter(language__in=languages)
-                                 .filter(status=Exercise.STATUS_ACCEPTED)
-                                 .order_by('category__name', 'name')
-                                 .distinct())
+    if q:
+        languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES,
+                                        language_code=request.GET.get('language', None))
+        exercises = (Exercise.objects.filter(name__icontains=q)
+                     .filter(language__in=languages)
+                     .filter(status=Exercise.STATUS_ACCEPTED)
+                     .order_by('category__name', 'name')
+                     .distinct())
 
-    for exercise in exercises:
-        if exercise.main_image:
-            image_obj = exercise.main_image
-            image = image_obj.image.url
-            t = get_thumbnailer(image_obj.image)
-            thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
-        else:
-            image = None
-            thumbnail = None
+        for exercise in exercises:
+            if exercise.main_image:
+                image_obj = exercise.main_image
+                image = image_obj.image.url
+                t = get_thumbnailer(image_obj.image)
+                thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
+            else:
+                image = None
+                thumbnail = None
 
-        exercise_json = {'id': exercise.id,
-                         'name': exercise.name,
-                         'value': exercise.name,
-                         'category': _(exercise.category.name),
-                         'image': image,
-                         'image_thumbnail': thumbnail}
+            exercise_json = {
+                'value': exercise.name,
+                'data': {
+                    'id': exercise.id,
+                    'name': exercise.name,
+                    'category': _(exercise.category.name),
+                    'image': image,
+                    'image_thumbnail': thumbnail
+                }
+            }
+            results.append(exercise_json)
+        json_response['suggestions'] = results
 
-        results.append(exercise_json)
-
-    return Response(results)
+    return Response(json_response)
 
 
 class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
@@ -166,8 +170,10 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
         thumbnails = {}
         for alias in aliases.all():
             t = get_thumbnailer(image.image)
-            thumbnails[alias] = {'url': t.get_thumbnail(aliases.get(alias)).url,
-                                 'settings': aliases.get(alias)}
+            thumbnails[alias] = {
+                'url': t.get_thumbnail(aliases.get(alias)).url,
+                'settings': aliases.get(alias)
+            }
         thumbnails['original'] = image.image.url
         return Response(thumbnails)
 
