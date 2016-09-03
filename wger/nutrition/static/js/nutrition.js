@@ -63,8 +63,10 @@ function wgerInitIngredientDetail(url) {
  */
 function wgerInitIngredientAutocompleter() {
   // Init the autocompleter
-  $('#id_ingredient_searchfield').devbridgeAutocomplete({
+  $('#id_ingredient_searchfield').autocomplete({
     serviceUrl: '/api/v2/ingredient/search/',
+    paramName: 'term',
+    minChars: 3,
     onSelect: function (suggestion) {
       var ingredientId = suggestion.data.id;
 
@@ -91,16 +93,6 @@ function wgerInitIngredientAutocompleter() {
           });
         });
       });
-    },
-    paramName: 'term',
-    transformResult: function (response) {
-      // why is response not already a JSON object??
-      var jsonResponse = $.parseJSON(response);
-      return {
-        suggestions: $.map(jsonResponse, function (item) {
-          return { value: item.value, data: { id: item.id } };
-        })
-      };
     }
   });
 }
