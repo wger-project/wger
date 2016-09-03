@@ -76,15 +76,17 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
         keeps the logic nicely hidden and respects the DRY principle.
         '''
 
-        result = {'energy': 0,
-                  'protein': 0,
-                  'carbohydrates': 0,
-                  'carbohydrates_sugar': 0,
-                  'fat': 0,
-                  'fat_saturated': 0,
-                  'fibres': 0,
-                  'sodium': 0,
-                  'errors': []}
+        result = {
+            'energy': 0,
+            'protein': 0,
+            'carbohydrates': 0,
+            'carbohydrates_sugar': 0,
+            'fat': 0,
+            'fat_saturated': 0,
+            'fibres': 0,
+            'sodium': 0,
+            'errors': []
+        }
         ingredient = self.get_object()
 
         form = UnitChooserForm(request.GET)
@@ -121,25 +123,25 @@ def search(request):
     '''
     q = request.GET.get('term', None)
     results = []
-    if not q:
-        return Response(results)
+    json_response = {}
+    if q:
+        languages = load_ingredient_languages(request)
+        ingredients = Ingredient.objects.filter(name__icontains=q,
+                                                language__in=languages,
+                                                status__in=Ingredient.INGREDIENT_STATUS_OK)
 
-    languages = load_ingredient_languages(request)
+        for ingredient in ingredients:
+            ingredient_json = {
+                'value': ingredient.name,
+                'data': {
+                    'id': ingredient.id,
+                    'name': ingredient.name,
+                }
+            }
+            results.append(ingredient_json)
+        json_response['suggestions'] = results
 
-    # Perform the search
-    q = request.GET.get('term', '')
-    ingredients = Ingredient.objects.filter(name__icontains=q,
-                                            language__in=languages,
-                                            status__in=Ingredient.INGREDIENT_STATUS_OK)
-
-    results = []
-    for ingredient in ingredients:
-        ingredient_json = {'id': ingredient.id,
-                           'name': ingredient.name,
-                           'value': ingredient.name}
-        results.append(ingredient_json)
-
-    return Response(results)
+    return Response(json_response)
 
 
 class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
