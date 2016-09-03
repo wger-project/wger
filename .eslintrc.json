@@ -1,0 +1,28 @@
+{
+  "extends": "airbnb-base/legacy",
+  "env": {
+    "browser": true,
+    "jquery": true
+  },
+  "globals": {
+    "d3": true,
+    "MozActivity": true,
+    "Sortable": true,
+    "tinyMCE": true,
+    "MG": true
+  },
+  "rules": {
+    "func-names": [
+      "error",
+      "never"
+    ],
+    "no-unused-vars": [
+      2,
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^wger"
+      }
+    ],
+    "no-console": "off"
+  }
+}

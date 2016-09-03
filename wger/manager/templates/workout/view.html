@@ -24,15 +24,15 @@
 {#        #}
 {% block header %}
 <script>
-function custom_modal_init()
+function wgerCustomModalInit()
 {
     // Set up the edit set functions on modal dialogs
-    init_edit_set();
+    wgerInitEditSet();
 }
 
-$(document).ready(function() {	
+$(document).ready(function() {
     // Allow the sets to be sortable
-    setup_sortable();
+    wgerSetupSortable();
 
     // Show/Hide the comments to the exercises
     {% if user.userprofile.show_comments %}
@@ -40,7 +40,7 @@ $(document).ready(function() {
     {% else %}
         $(".exercise-comments").hide();
     {% endif %}
-    toggle_comments();
+    wgerToggleComments();
  });
 </script>
 {% endblock %}

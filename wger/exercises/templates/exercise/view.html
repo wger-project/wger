@@ -42,7 +42,7 @@
 {% block header %}
 <script>
 $(document).ready(function() {
-    draw_weight_log_chart({{json|safe}}, "{{svg_uuid}}");
+    wgerDrawWeightLogChart({{json|safe}}, "{{svg_uuid}}");
 });
 </script>
 {% endblock %}
