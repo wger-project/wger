@@ -134,7 +134,7 @@ function wgerRenderBodyMassIndex(w) {
     widthFactor = w;
   }
 
-  heightFactor = widthFactor / (600 * 300);
+  heightFactor = (widthFactor / 600) * 300;
 
   margin = { top: 20, right: 80, bottom: 30, left: 50 };
   width = widthFactor - margin.left - margin.right;
