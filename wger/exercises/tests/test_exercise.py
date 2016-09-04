@@ -363,18 +363,18 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result), 1)
-        self.assertEqual(result[0]['value'], 'Very cool exercise')
-        self.assertEqual(result[0]['id'], 2)
-        self.assertEqual(result[0]['category'], 'Another category')
-        self.assertEqual(result[0]['image'], None)
-        self.assertEqual(result[0]['image_thumbnail'], None)
+        self.assertEqual(result['suggestions'][0]['value'], 'Very cool exercise')
+        self.assertEqual(result['suggestions'][0]['data']['id'], 2)
+        self.assertEqual(result['suggestions'][0]['data']['category'], 'Another category')
+        self.assertEqual(result['suggestions'][0]['data']['image'], None)
+        self.assertEqual(result['suggestions'][0]['data']['image_thumbnail'], None)
 
         # 0 hits, "Pending exercise"
         response = self.client.get(reverse('exercise-search'),
                                    {'term': 'Pending'})
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
-        self.assertEqual(len(result), 0)
+        self.assertEqual(len(result['suggestions']), 0)
 
     def test_search_exercise_anonymous(self):
         '''
