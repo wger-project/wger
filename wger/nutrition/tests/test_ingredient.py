@@ -186,15 +186,15 @@ class IngredientSearchTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('ingredient-search'), {'term': 'test'}, **kwargs)
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
-        self.assertEqual(len(result), 2)
-        self.assertEqual(result[0]['value'], 'Ingredient, test, 2, organic, raw')
-        self.assertEqual(result[1]['value'], 'Test ingredient 1')
+        self.assertEqual(len(result['suggestions']), 2)
+        self.assertEqual(result['suggestions'][0]['value'], 'Ingredient, test, 2, organic, raw')
+        self.assertEqual(result['suggestions'][1]['value'], 'Test ingredient 1')
 
         # Search for an ingredient pending review (0 hits, "Pending ingredient")
         response = self.client.get(reverse('ingredient-search'), {'term': 'Pending'}, **kwargs)
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
-        self.assertEqual(len(result), 0)
+        self.assertEqual(len(result['suggestions']), 0)
 
     def test_search_ingredient_anonymous(self):
         '''
