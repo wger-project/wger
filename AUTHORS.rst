@@ -22,6 +22,7 @@ Developers
 * Alelevinas: https://github.com/alelevinas
 * Jacob Stoebel: https://github.com/jstoebel
 * Peter van der Does: https://github.com/petervanderdoes
+* Malcolm Jones: https://github.com/DevloperMal
 
 Translators
 -----------

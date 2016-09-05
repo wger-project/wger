@@ -45,13 +45,14 @@
     {% endblock %}
 
 
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
     {% compress css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-common.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/components-font-awesome/css/font-awesome.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">
-
+    <link rel="stylesheet" type="text/css" href="{% static 'css/agency.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/shariff/build/shariff.min.css' %}">
     {% endcompress %}
 
@@ -64,39 +65,63 @@
 
     <title>wger Workout Manager - {% trans "Features" %}</title>
 </head>
-<body>
+
+<body id="page-top" class="index">
 
 {% if user.is_authenticated %}
 {% include 'navigation.html' %}
 {% endif  %}
 
-<div id="main">
-    <div class="container">
-        {% block template %}{% endblock %}
-    </div>
+    {% block template %}{% endblock %}
     <div id="current-url" data-current-url="{{request_full_path}}"></div>
     <div id="current-language" data-current-language="{{language.short_name}}"></div>
-</div>
 
 
 
-<footer id="main-footer">
+<footer class="bg-darkest-gray">
     <div class="container">
-        <a href="https://github.com/wger-project/wger" class="no-hover">
-            <img src="{% static 'images/agpl-v3.svg' %}"
-                 width="88"
-                 height="31"
-                 alt="{% trans 'Released under the Affero GPL' %}"
-                 title="{% trans 'Released under the Affero GPL' %}">
-        </a>
+        <div class="row">
+            <div class="col-md-4">
+                <ul class="list-inline quicklinks">
+                    <li><a href="{% url 'software:contribute' %}">{% trans "Contribute!" %}</a></li>
+                    <li><a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul class="list-inline social-buttons">
+                    <li>
+                        <a href="https://github.com/wger-project/wger" title="Github">
+                            <span class="{% fa_class 'github' %}"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/wger_de" title="Twitter">
+                         <span class="{% fa_class 'twitter' %}"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.transifex.com/rge/wger-workout-manager/" title="{% trans 'Translate' %}">
+                            <span class="{% fa_class 'globe' %}"></span>
+                        </a>
+                    </li>
+                    <li>
+                      {% if show_shariff %}
+                        {% include 'misc/fragments/shariff_modal.html' %}
+                        <a data-toggle="modal" href="#shariffModal" title="Share">
+                          <span class="{% fa_class 'share-alt' %}"></span>
+                        </a>
+                        <div class="clearfix"></div>
+                      {% endif %}
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul class="list-inline quicklinks">
+                    <li><a href="{% url 'core:about' %}">{% trans "About" %}</a></li>
 
-        <a href="{% url 'core:about' %}">{% trans "About" %}</a>
-        | <a href="{% url 'software:contribute' %}">{% trans "Contribute!" %}</a>
-        | <a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a>
-        | <a href="{% url 'software:tos' %}">{% trans "Terms of service" %}</a>
-
-        <div class="navbar-right">
-            <em class="text-muted" style="font-size: 80%;">{{version}}</em>
+                    <li><a href="{% url 'software:tos' %}">{% trans "Terms of service" %}</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 </footer>

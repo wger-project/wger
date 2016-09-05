@@ -1,0 +1,186 @@
+{% extends "base_features.html" %}
+{% load i18n staticfiles wger_extras %}
+
+{#           #}
+{# Opengraph #}
+{#           #}
+{% block opengraph %}
+    {{ block.super }}
+    <meta property="og:title" content="{% trans 'Features' %} - wger">
+
+    {% with username=owner_user.username %}
+        <meta property="og:description" content="{% blocktrans %}wger Workout Manager is a free, open source web application that manages your exercises and workouts. {% endblocktrans %}">
+    {% endwith %}
+{% endblock %}
+
+
+{#         #}
+{# Content #}
+{#         #}
+{% block content %}
+    <header>
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-heading">{% trans "Welcome to wger" %}</div>
+                <div class="intro-lead-in">{% trans "Your body." %}</div>
+                <div class="intro-lead-in">{% trans "Your workouts." %}</div>
+                <div class="intro-lead-in">{% trans "Your data." %}</div>
+                <div class="intro-lead-in">{% trans "Your progress." %}</div>
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'core:user:demo-entries' %}" class="page-scroll btn btn-xl">{% trans "Try it now" %}</a>
+                {% endif %}
+
+                {% if not user.is_authenticated or user.userprofile.is_temporary %}
+                    {% if allow_registration %}
+                        <a href="{% url 'core:user:registration' %}" class="page-scroll btn btn-xl">{% trans "Register" %}</a>
+                    {% endif %}
+
+                    <a href="{% url 'core:user:login' %}" class="page-scroll btn btn-xl">{% trans "Login" %}</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section id="services" class="bg-darkest-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-light">{% trans "What does it do" %}</h2>
+                    <h3 class="section-subheading text-muted">{% blocktrans %}wger Workout Manager is a free, open source web application that manages
+your exercises, workouts and nutrition. It started as a pet project of mine to replace my
+growing collection of different spreadsheets, but it has become something other
+people could also find useful.{% endblocktrans %}
+                    </h3>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-user fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading text-light">{% trans "Workouts" %}</h4>
+                    <p class="text-muted">{% blocktrans %}Create and manage your workout routines by selecting how
+          many days your workout consists of, and adding different exercises to each. You can
+          also combine different workouts into a schedule.{% endblocktrans %}</p>
+                </div>
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading text-light">{% trans "Nutrition" %}</h4>
+                    <p class="text-muted">{% blocktrans %}Create a diet plan and see its nutritional
+values (total energy, protein, carbohydrates, and so on) about
+it. Select from more than 8000 ingredients for this.{% endblocktrans %}</p>
+                </div>
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading text-light">Lorem ipsum</h4>
+                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">{% trans "Features" %}</h2>
+                    <h3 class="section-subheading text-muted">{% trans "Among many others" %}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="timeline">
+                        <li>
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="{% static 'images/weight-chart.png' %}" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>{% trans "Weight tracker" %}</h4>
+                                    <h4 class="subheading">{% trans "Weight tracker" %}</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">{% blocktrans %}keep track of your progress with the weight log chart
+        for each exercise and your own body weight. This makes it easy to see if you
+        are reaching your goals or need to adjust something.{% endblocktrans %}</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="{% static 'images/muscle-overview-1.1-en.png' %}" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>{% trans 'Exercise database' %}</h4>
+                                    <h4 class="subheading">Exercises</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">{% blocktrans %}The exercise database contains around hundred exercises
+        from which you can choose when creating a workout. Some have important notes
+        about the form to perform them. This is displayed in the workout overview
+        page, so you keep them in mind.{% endblocktrans %}</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="{% static 'images/gym-management-1.5.png' %}" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>{% trans 'Gym management' %}</h4>
+                                    <h4 class="subheading">Manage Gyms</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">{% blocktrans %}Use the application for your gym to manage its
+        members, their workouts and attendance. Keep an eye on inactive members with
+        optional notifications. You can create users with different roles to
+        distribute the administrative tasks such as trainer or gym manager.{% endblocktrans %}</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="{% static 'images/workout-log.png' %}" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>{% trans 'Workout log' %}</h4>
+                                    <h4 class="subheading">Log Your Workouts</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">{% blocktrans %}You can enter
+          the weights and repetitions you did for each exercise. As with the (body) weight,
+          it will generate some diagrams so you can see at a glance how well you are doing.
+          The raw numbers are still accessible as a table.{% endblocktrans %}
+          {% trans "You can also enter notes and a general impression (great, neutral, etc.)" %}</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <h4>{% blocktrans %}100% Free
+                                    <br>and
+                                    <br>Open Source{% endblocktrans %}
+                                </h4>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+{% endblock %}
