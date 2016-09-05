@@ -43,7 +43,7 @@ Improvements:
 
 Other improvements and bugfixes: `#25`_, `#243`_, `#279`_, `#275`_, `#270`_, `#258`_, `#257`_,
 `#263`_, `#269`_, `#296`_, `#297`_, `#303`_, `#311`_, `#312`_, `#313`_,
-`#324`_, `#325`_
+`#322`_, `#324`_, `#325`_
 
 
 .. _#25: https://github.com/wger-project/wger/issues/25
@@ -76,6 +76,7 @@ Other improvements and bugfixes: `#25`_, `#243`_, `#279`_, `#275`_, `#270`_, `#2
 .. _#314: https://github.com/wger-project/wger/issues/314
 .. _#317: https://github.com/wger-project/wger/issues/317
 .. _#318: https://github.com/wger-project/wger/issues/318
+.. _#322: https://github.com/wger-project/wger/issues/322
 .. _#324: https://github.com/wger-project/wger/issues/324
 .. _#325: https://github.com/wger-project/wger/issues/325
 .. _@petervanderdoes: https://github.com/petervanderdoes
