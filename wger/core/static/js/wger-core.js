@@ -475,9 +475,12 @@ function initRemoveExerciseFormset() {
 
 function wgerInitEditSet() {
   // Initialise the autocompleter (our widget, defined above)
-  $('#exercise-search').devbridgeAutocomplete({
+  $('#exercise-search').autocomplete({
     serviceUrl: '/api/v2/exercise/search/?language=' + getCurrentLanguage(),
     showNoSuggestionNotice: true,
+    groupBy: 'category',
+    paramName: 'term',
+    minChars: 3,
     onSelect: function (suggestion) {
       // Add the exercise to the list
       addExercise({
@@ -494,25 +497,6 @@ function wgerInitEditSet() {
       // Reset the autocompleter
       $(this).val('');
       return false;
-    },
-    groupBy: 'category',
-    paramName: 'term',
-    transformResult: function (response) {
-      // why is response not already a JSON object??
-      var jsonResponse = $.parseJSON(response);
-      return {
-        suggestions: $.map(jsonResponse, function (item) {
-          return {
-            value: item.value,
-            data: {
-              id: item.id,
-              category: item.category,
-              image: item.image,
-              thumbnail: item.image_thumbnail
-            }
-          };
-        })
-      };
     }
   });
 

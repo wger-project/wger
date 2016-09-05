@@ -21,19 +21,7 @@ $(document).ready(function() {
             window.location.href = '/exercise/' + suggestion.data.id + '/view/'
         },
         groupBy: 'category',
-        paramName: 'term',
-        transformResult: function(response) {
-            // why is response not already a JSON object??
-            var jsonResponse = $.parseJSON(response);
-            return {
-                suggestions: $.map(jsonResponse, function(item) {
-                    return {value: item.value, data: {id: item.id,
-                                                      category: item.category,
-                                                      image: item.image,
-                                                      thumbnail: item.image_thumbnail}};
-                })
-            };
-        }
+        paramName: 'term'
     });
 });
 </script>
