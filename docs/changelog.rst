@@ -26,6 +26,7 @@ New languages:
 New features:
 
 * Add repetition (minutes, kilometer, etc.) and weight options (kg, lb, plates, until failure) to sets `#216`_ and `#217`_
+* Much improved landing page (thanks `@DeveloperMal`_) `#307`_
 * Use the metricsgraphics library to more easily draw charts `#188`_
 * Add extended PDF options to schedules as well (thanks `@alelevinas`_ ) `#272`_
 * Show trained secondary muscles in workout view (thanks `@alokhan`_ ) `#282`_
@@ -70,6 +71,7 @@ Other improvements and bugfixes: `#25`_, `#243`_, `#279`_, `#275`_, `#270`_, `#2
 .. _#302: https://github.com/wger-project/wger/issues/302
 .. _#303: https://github.com/wger-project/wger/issues/303
 .. _#304: https://github.com/wger-project/wger/issues/304
+.. _#307: https://github.com/wger-project/wger/issues/307
 .. _#311: https://github.com/wger-project/wger/issues/311
 .. _#312: https://github.com/wger-project/wger/issues/312
 .. _#313: https://github.com/wger-project/wger/issues/313
@@ -80,6 +82,7 @@ Other improvements and bugfixes: `#25`_, `#243`_, `#279`_, `#275`_, `#270`_, `#2
 .. _#324: https://github.com/wger-project/wger/issues/324
 .. _#325: https://github.com/wger-project/wger/issues/325
 .. _@petervanderdoes: https://github.com/petervanderdoes
+.. _@DeveloperMal: https://github.com/DeveloperMal
 .. _@alelevinas: https://github.com/alelevinas
 .. _@jstoebel: https://github.com/jstoebel
 .. _@alokhan: https://github.com/alokhan
