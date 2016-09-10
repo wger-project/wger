@@ -6,7 +6,7 @@
 {% block header %}
 <script>
 $(document).ready(function() {
-    init_ingredient_detail("{% url 'api-ingredient-get-values' ingredient.id %}");
+    wgerInitIngredientDetail("{% url 'api-ingredient-get-values' ingredient.id %}");
 });
 </script>
 {% endblock %}
@@ -235,24 +235,24 @@ the search.{% endblocktrans %}
 {% block options %}
 {% if perms.nutrition.delete_ingredient %}
 <div class="btn-group">
-    <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="{% fa_class 'cog' %}"></span>
         {% trans "Options" %}
     </button>
     <ul class="dropdown-menu">
-        <li>
-            <a href="{% url 'nutrition:ingredient:delete' ingredient.id %}"
-               title="{% trans 'Delete ingredient' %}" {% auto_link_css flavour "wger-modal-dialog" %}>
-                <span class="{% fa_class 'trash' %}"></span>
-                {% trans 'Delete' %}</a>
-        </li>
-        <li role="separator" class="divider"></li>
         <li>
             <a href="{% url 'nutrition:ingredient:edit' ingredient.id %}"
                title="{% trans 'Edit ingredient' %}"
                {% auto_link_css flavour %}>
                 <span class="{% fa_class 'pencil-square-o' %}"></span>
                 {% trans 'Edit ingredient' %}</a>
+        </li>
+        <li role="separator" class="divider"></li>
+        <li>
+            <a href="{% url 'nutrition:ingredient:delete' ingredient.id %}"
+               title="{% trans 'Delete ingredient' %}" {% auto_link_css flavour "wger-modal-dialog" %}>
+                <span class="{% fa_class 'trash' %}"></span>
+                {% trans 'Delete' %}</a>
         </li>
     </ul>
 </div>

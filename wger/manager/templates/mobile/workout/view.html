@@ -24,10 +24,10 @@
 {#        #}
 {% block header %}
 <script>
-function custom_modal_init()
+function wgerCustomModalInit()
 {
     // Set up the edit set functions on modal dialogs
-    init_edit_set();
+    wgerInitEditSet();
 }
 
 
@@ -40,7 +40,7 @@ $(document).ready(function() {
     {% else %}
         $(".exercise-comments").hide();
     {% endif %}
-    toggle_comments();
+    wgerToggleComments();
 
 });
 </script>
@@ -77,7 +77,7 @@ $(document).ready(function() {
     <a href="{% url 'manager:day:add' workout.id %}" {% auto_link_css flavour "wger-modal-dialog" %}>
         {% trans "Add training day" %}
     </a>
-    
+
     <a id="exercise-comments-toggle"
        href="{% url 'core:user:preferences' %}"
        {% auto_link_css flavour %}>
@@ -143,6 +143,9 @@ an appointment for each training day with the appropriate exercises.{% endblockt
                 </a>
                 </p>
             </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+            </div>
         </div>
     </div>
 </div>
@@ -203,6 +206,9 @@ an appointment for each training day with the appropriate exercises.{% endblockt
                 </a>
                 </p>
             </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+            </div>
         </div>
     </div>
 </div>
@@ -213,7 +219,7 @@ an appointment for each training day with the appropriate exercises.{% endblockt
 {#         #}
 {% block options %}
 <div class="btn-group">
-    <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="{% fa_class 'cog' %}"></span>
         {% trans "Options" %}
     </button>

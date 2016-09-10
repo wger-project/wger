@@ -158,7 +158,7 @@ class ExercisesEditAddView(WgerFormMixin):
     model = Exercise
     sidebar = 'exercise/form.html'
     title = ugettext_lazy('Add exercise')
-    custom_js = 'init_tinymce();'
+    custom_js = 'wgerInitTinymce();'
     clean_html = ('description', )
 
     def get_form_class(self):

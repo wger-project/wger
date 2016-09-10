@@ -46,7 +46,6 @@ RUN chmod o+w -R ~/db/ \
     && chmod o+w ~/media \
     && sed -i "/^MEDIA_ROOT/c\MEDIA_ROOT='\/home\/wger\/media'" settings.py \
     && echo STATIC_ROOT=\'/home/wger/static\' >> settings.py \
-    && mkdir /home/wger/src/components \
     && python manage.py collectstatic --noinput
 
 USER root

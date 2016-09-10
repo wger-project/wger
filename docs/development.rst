@@ -3,23 +3,60 @@
 Development
 ===========
 
-First, create a virtual environment::
+Requirements
+------------
+
+Get the code
+~~~~~~~~~~~~
+
+The code is available on Github::
+
+  $ git clone https://github.com/wger-project/wger.git
+
+Create a virtual environment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+It's a best practise to create a Python virtual environment::
 
   $ virtualenv --python python3 venv-wger
   $ source venv-wger/bin/activate
-
-Get the code and start the application. This will create a SQlite database
-and populate it with data on the first run::
-
-  $ git clone https://github.com/wger-project/wger.git
   $ cd wger
+
+
+Install Requirements
+~~~~~~~~~~~~~~~~~~~~
+
+To install the Python requirements::
+
   $ pip install -r requirements_devel.txt
+
+Install NodeJS and npm::
+Follow the instructions on the `NPM website <https://docs.npmjs
+.com/getting-started/installing-node>`_ and make sure to use Node LTS (4
+.x).
+
+Install the npm modules::
+
+  $ npm install
+
+
+Install site
+~~~~~~~~~~~~
+
+To install the server::
+
   $ invoke create_settings \
            --settings-path /home/wger/wger/settings.py \
            --database-path /home/wger/wger/database.sqlite
   $ invoke bootstrap_wger \
            --settings-path /home/wger/wger/settings.py \
            --no-start-server
+
+Start the server
+----------------
+
+To start the server::
+
   $ python manage.py runserver
 
 That's it. You can log in with the default administator user:
@@ -172,11 +209,4 @@ Contributing
   tests for the new code. If you use github, configure the awesome Travis CI,
   there is already a .travis file in the sources.
 
-* **Code according to PEP8**: check that the code is structured as per pep8 but
-  with a maximum line length of 100. This can be checked automatically with the
-  pep8 tool (pip install pep8) from the command line (travis will do this as part 
-  of the tests): ``pep8 wger``
-
-* **Code for python3**: while the application should remain compatible with
-  python2, use django's suggestion to mantain sanity: code for py3 and treat
-  py2 as a backwards compatibility requirement. If you need, you can use six.
+* **Code according to the coding style**: :ref:`codingstyle`

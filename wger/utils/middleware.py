@@ -104,7 +104,7 @@ class JavascriptAJAXRedirectionMiddleware(object):
     This is used for AJAX forms due to limitations of javascript. The way it
     was done before was to load the whole redirected page, then read from a DIV
     in the page and redirect to that URL. This now just sends a header when the
-    form was called via the JS function form_modal_dialog() and no errors are
+    form was called via the JS function wgerFormModalDialog() and no errors are
     present.
     '''
 

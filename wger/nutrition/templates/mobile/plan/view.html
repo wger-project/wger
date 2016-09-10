@@ -23,10 +23,10 @@
 {#        #}
 {% block header %}
 <script>
-function custom_modal_init()
+function wgerCustomModalInit()
 {
     // Init the autocompleter after loading the modal dialog
-    init_ingredient_autocompleter();
+    wgerInitIngredientAutocompleter();
 }
 
 $(document).ready(function() {
@@ -76,6 +76,9 @@ $(document).ready(function() {
                    {% auto_link_css flavour %}>
                          {% trans "Add item to meal" %}
                </a>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
             </div>
         </div>
     </div>
@@ -140,6 +143,9 @@ $(document).ready(function() {
                        {% auto_link_css flavour %}>
                              {% trans "Edit" %}
                     </a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
                 </div>
             </div>
         </div>
@@ -344,7 +350,7 @@ $(document).ready(function() {
 {#         #}
 {% block options %}
 <div class="btn-group">
-    <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="{% fa_class 'cog' %}"></span>
         {% trans "Options" %}
     </button>

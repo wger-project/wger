@@ -81,16 +81,16 @@
             $('.row-offcanvas').toggleClass('active')
         });
 
-        if (typeof custom_page_init != "undefined")
+        if (typeof wgerCustomPageInit != "undefined")
         {
-            custom_page_init();
+            wgerCustomPageInit();
         }
 
         // Init the modal dialog for editing forms
-        form_modal_dialog();
+        wgerFormModalDialog();
 
         // Check for RO-access before allowing sharing
-        toggle_ro_access();
+        wgerToggleReadOnlyAccess();
     });
     </script>
 
@@ -129,6 +129,9 @@
                             {% language_select language %}
                         {% endfor %}
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
                 </div>
             </div>
         </div>
