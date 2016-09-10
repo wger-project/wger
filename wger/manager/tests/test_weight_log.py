@@ -242,7 +242,7 @@ class WeightlogTestCase(WorkoutManagerTestCase):
 
     def test_get_workout_session(self):
         '''
-        Test the get_workout_session method
+        Test the wgerGetWorkoutSession method
         '''
 
         user1 = User.objects.get(pk=1)

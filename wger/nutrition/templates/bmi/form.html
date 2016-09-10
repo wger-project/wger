@@ -26,14 +26,14 @@ div.bmi-legend {
 <script>
 $(document).ready(function () {
 
-    render_bmi({% if flavour = 'mobile'%}$('#content').width() * 0.95{% endif %});
+    wgerRenderBodyMassIndex({% if flavour = 'mobile'%}$('#content').width() * 0.95{% endif %});
 
     /*
      * Process the form
      */
     $("#bmi-form").click(function(e){
         e.preventDefault();
-        render_bmi({% if flavour = 'mobile'%}$('#content').width() * 0.95{% endif %});
+        wgerRenderBodyMassIndex({% if flavour = 'mobile'%}$('#content').width() * 0.95{% endif %});
     });
 
 });

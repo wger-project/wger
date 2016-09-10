@@ -5,80 +5,84 @@
 {% load cache %}
 
 {% block header %}
-<script>
-$(document).ready(function() {
-    // Prevent the form from being submited if JavaScript is enabled
-    $("#search_form").submit(function() {return false;});
+    <script>
+        $(document).ready(function () {
+            // Prevent the form from being submited if JavaScript is enabled
+            $("#search_form").submit(function () {
+                return false;
+            });
 
-    // Init the autocompleter
-    $("#ingredient-search").autocomplete({
-            source: "{% url 'ingredient-search' %}",
-            minLength: 2,
-            select: function(event, ui) {
-
-                // Redirect to exercise after clicking on a result
-                // Path is hard coded here, because we can't use the url-tag
-                window.location.href = '/nutrition/ingredient/' + ui.item.id + '/view/'
-            }
+            // Init the autocompleter
+            $("#ingredient-search").autocomplete({
+                serviceUrl: '/api/v2/ingredient/search/',
+                dataType: 'json',
+                paramName: 'term',
+                minChars: 3,
+                onSelect: function (suggestion) {
+                     window.location.href = '/nutrition/ingredient/' + suggestion.data.id + '/view/'
+                }
+            });
         });
-});
-</script>
+    </script>
 {% endblock %}
 
 {% block title %}{% trans "Ingredient overview" %}{% endblock %}
 
 
 {% block content %}
-{% if ingredients_list %}
-<div class="list-group">
-    {% for ingredient in ingredients_list %}
-        <a  class="list-group-item" href="{{ ingredient.get_absolute_url }}">
-            {% if flavour == 'mobile' %}
-                <span class="glyphicon glyphicon-chevron-right pull-right"></span>
-            {% endif %}
-            {{ ingredient.name }}
-        </a>
-    {% endfor %}
-</div>
-{% else %}
-    <p>
-        <a href="{% url 'nutrition:ingredient:add' %}" class="btn btn-default btn-block">
-        {% trans "No ingredients." %} {% trans "Add one now." %}
-        </a>
-    </p>
-{% endif %}
+    {% if ingredients_list %}
+        <div class="list-group">
+            {% for ingredient in ingredients_list %}
+                <a class="list-group-item"
+                   href="{{ ingredient.get_absolute_url }}">
+                    {% if flavour == 'mobile' %}
+                        <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                    {% endif %}
+                    {{ ingredient.name }}
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>
+            <a href="{% url 'nutrition:ingredient:add' %}"
+               class="btn btn-default btn-block">
+                {% trans "No ingredients." %} {% trans "Add one now." %}
+            </a>
+        </p>
+    {% endif %}
 
 
-<div style="padding-top:3em;"></div>
-{% pagination paginator page_obj %}
+    <div style="padding-top:3em;"></div>
+    {% pagination paginator page_obj %}
 {% endblock %}
 
 {% block sidebar %}
-<p>
-    {% if user.is_authenticated and not user.userprofile.is_temporary %}
-    <a href="{% url 'nutrition:ingredient:add' %}" class="btn btn-success btn-sm">
-        {% trans "Add ingredient" %}
-    </a>
-    {% else %}
-    <a href="#" class="btn btn-success btn-sm disabled">
-        {% trans "Add ingredient" %}<br>
-        <small>
-        {% trans "Only registered users can do this" %}
-        </small>
-    </a>
-    {% endif %}
-</p>
+    <p>
+        {% if user.is_authenticated and not user.userprofile.is_temporary %}
+            <a href="{% url 'nutrition:ingredient:add' %}"
+               class="btn btn-success btn-sm">
+                {% trans "Add ingredient" %}
+            </a>
+        {% else %}
+            <a href="#" class="btn btn-success btn-sm disabled">
+                {% trans "Add ingredient" %}<br>
+                <small>
+                    {% trans "Only registered users can do this" %}
+                </small>
+            </a>
+        {% endif %}
+    </p>
 
-<h4>{% trans "Search" %}</h4>
-<form action="{% url 'ingredient-search' %}"
-        method="get"
-        id="search_form">
-    {% csrf_token %}
-    <input name="term"
-            type="search"
-            id="ingredient-search"
-            class="ajax-form-element form-control"
-            placeholder="{% trans 'ingredient name' %}"
-            style="width:100%;">
-</form>
+    <h4>{% trans "Search" %}</h4>
+    <form action="{% url 'ingredient-search' %}"
+          method="get"
+          id="search_form">
+        {% csrf_token %}
+        <input name="term"
+               type="search"
+               id="ingredient-search"
+               class="ajax-form-element form-control"
+               placeholder="{% trans 'ingredient name' %}"
+               style="width:100%;">
+    </form>
 {% endblock %}

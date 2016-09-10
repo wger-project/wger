@@ -97,7 +97,7 @@ INSTALLED_APPS = (
 BOWER_INSTALLED_APPS = (
     'jquery#2.1.x',
     'bootstrap',
-    'd3#3.x',
+    'd3',
     'shariff',
     'tinymce-dist',
     'DataTables',
@@ -328,8 +328,7 @@ COMPRESS_CSS_FILTERS = (
 )
 COMPRESS_ROOT = STATIC_ROOT
 
-# BOWER components route
-BOWER_COMPONENTS_ROUTE = os.path.join(STATIC_ROOT, 'components')
+# BOWER binary
 if sys.platform.startswith('win32'):
     BOWER_PATH = os.path.join(BASE_DIR, 'node_modules', '.bin', 'bower.cmd')
 else:

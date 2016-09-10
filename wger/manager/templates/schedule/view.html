@@ -51,7 +51,7 @@
                     $.get(current_url, function(data) {
                         $('#schedule-table').html($(data).find('#schedule-table').html());
                         init_sortable();
-                        form_modal_dialog();
+                        wgerFormModalDialog();
                     });
                 }
             });
@@ -242,6 +242,9 @@ an appointment for each training day with the appropriate exercises.{% endblockt
                     </a>
                 </p>
             </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+            </div>
         </div>
     </div>
 </div>
@@ -301,6 +304,9 @@ an appointment for each training day with the appropriate exercises.{% endblockt
                     </a>
                 </p>
             </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+            </div>
         </div>
     </div>
 </div>
@@ -311,7 +317,7 @@ an appointment for each training day with the appropriate exercises.{% endblockt
 {#         #}
 {% block options %}
     <div class="btn-group">
-    <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="{% fa_class 'cog' %}"></span>
         {% trans "Options" %}
     </button>

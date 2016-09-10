@@ -22,7 +22,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMix
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.core.context_processors import csrf
+from django.template.context_processors import csrf
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy, ugettext as _
 from django.forms.models import modelformset_factory
