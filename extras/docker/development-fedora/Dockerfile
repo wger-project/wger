@@ -49,7 +49,7 @@ RUN rm -r node_modules \
     && npm install bower \
     && npm install \
     && mkdir ~/media \
-    && sed -i "/^MEDIA_ROOT/c\MEDIA_ROOT='\/home\/wger\/media'" settings.py
+    && sed -i "/^MEDIA_ROOT/c\MEDIA_ROOT='\/home\/wger\/media'" settings.py \
     && . /home/wger/venv/bin/activate \
     && python manage.py download-exercise-images
 
