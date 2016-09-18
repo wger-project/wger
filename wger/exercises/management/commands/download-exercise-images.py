@@ -16,8 +16,10 @@
 
 import requests
 import os
-from optparse import make_option
 
+from wger import get_version
+from optparse import make_option
+from requests.utils import default_user_agent
 from django.core.exceptions import ImproperlyConfigured
 from django.core.management.base import BaseCommand, CommandError
 from django.core.files import File
@@ -69,8 +71,10 @@ class Command(BaseCommand):
         image_api = "{0}/api/v2/exerciseimage/?exercise={1}"
         thumbnail_api = "{0}/api/v2/exerciseimage/{1}/thumbnails/"
 
+        headers = {'User-agent': default_user_agent('wger/{} + requests'.format(get_version()))}
+
         # Get all exercises
-        result = requests.get(exercise_api.format(remote_url)).json()
+        result = requests.get(exercise_api.format(remote_url), headers=headers).json()
         for exercise_json in result['results']:
             exercise_name = exercise_json['name'].encode('utf-8')
             exercise_uuid = exercise_json['uuid']
@@ -88,13 +92,14 @@ class Command(BaseCommand):
                 continue
 
             # Get all images
-            images = requests.get(image_api.format(remote_url, exercise_id)).json()
+            images = requests.get(image_api.format(remote_url, exercise_id), headers=headers).json()
 
             if images['count']:
 
                 for image_json in images['results']:
                     image_id = image_json['id']
-                    result = requests.get(thumbnail_api.format(remote_url, image_id)).json()
+                    result = requests.get(thumbnail_api.format(remote_url, image_id),
+                                          headers=headers).json()
 
                     image_name = os.path.basename(result['original'])
                     self.stdout.write('    Fetching image {0} - {1}'.format(image_id, image_name))
@@ -110,7 +115,7 @@ class Command(BaseCommand):
 
                     # Save the downloaded image, see link for details
                     # http://stackoverflow.com/questions/1308386/programmatically-saving-image-to-
-                    retrieved_image = requests.get(result['original'])
+                    retrieved_image = requests.get(result['original'], headers=headers)
                     img_temp = NamedTemporaryFile(delete=True)
                     img_temp.write(retrieved_image.content)
                     img_temp.flush()
