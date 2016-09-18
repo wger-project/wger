@@ -32,7 +32,17 @@ RUN . /home/wger/venv/bin/activate \
         --database-path /home/wger/db/database.sqlite \
     && invoke bootstrap_wger \
         --settings-path /home/wger/src/settings.py \
-        --no-start-server \
+        --no-start-server
+
+# Install node modules for JS linting and download the exercise images
+#
+# Note: it seems there are problems with node and docker, so it's necessary
+#       to delete the node_modules folder and install everything again
+#       -> https://github.com/npm/npm/issues/9863
+#       -> https://github.com/npm/npm/issues/13306
+RUN rm -r node_modules \
+    && npm install bower \
+    && npm install \
     && mkdir ~/media \
     && sed -i "/^MEDIA_ROOT/c\MEDIA_ROOT='\/home\/wger\/media'" settings.py \
     && python manage.py download-exercise-images
