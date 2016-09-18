@@ -18,9 +18,10 @@
 from tastypie.api import Api
 from rest_framework import routers
 
+from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.i18n import i18n_patterns
-from django.conf.urls.i18n import patterns
+from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 
 from wger.nutrition.sitemap import NutritionSitemap
@@ -153,7 +154,7 @@ urlpatterns = i18n_patterns(
 #
 # URLs without language prefix
 #
-urlpatterns = urlpatterns + [
+urlpatterns += [
     url(r'^robots\.txt$',
         TextTemplateView.as_view(template_name="robots.txt"),
         name='robots'),
@@ -173,3 +174,9 @@ urlpatterns = urlpatterns + [
         name='ingredient-search'),
     url(r'^api/v2/', include(router.urls)),
 ]
+
+#
+# URL for user uploaded files, served like this during development only
+#
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
