@@ -32,7 +32,10 @@ RUN . /home/wger/venv/bin/activate \
         --database-path /home/wger/db/database.sqlite \
     && invoke bootstrap_wger \
         --settings-path /home/wger/src/settings.py \
-        --no-start-server
+        --no-start-server \
+    && mkdir ~/media \
+    && sed -i "/^MEDIA_ROOT/c\MEDIA_ROOT='\/home\/wger\/media'" settings.py \
+    && python manage.py download-exercise-images
 
 
 CMD ["/bin/bash"]
