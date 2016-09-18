@@ -35,5 +35,5 @@ Check Coding Style
 The coding style is automatically check by Travis-CI. To manually check your
 files you can run the following commands:
 
-* Pyhton: ``pep8 wger``
+* Python: ``pep8 wger``
 * Javascript: ``gulp lint-js``
