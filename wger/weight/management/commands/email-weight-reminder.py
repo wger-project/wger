@@ -35,7 +35,7 @@ class Command(BaseCommand):
 
     help = 'Send out automatic emails to remind the user to enter the weight'
 
-    def handle(self, *args, **options):
+    def handle(self, **options):
 
         profile_list = UserProfile.objects.filter(num_days_weight_reminder__gt=0)
 

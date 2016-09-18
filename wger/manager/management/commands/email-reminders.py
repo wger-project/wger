@@ -35,7 +35,7 @@ class Command(BaseCommand):
 
     help = 'Send out automatic email reminders for workouts'
 
-    def handle(self, *args, **options):
+    def handle(self, **options):
         '''
         Find if the currently active workout is overdue
         '''

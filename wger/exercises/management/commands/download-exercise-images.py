@@ -53,7 +53,7 @@ class Command(BaseCommand):
             '           their UUID field, if you manually edited or changed it\n'
             '           the script will not be able to match them.')
 
-    def handle(self, *args, **options):
+    def handle(self, **options):
 
         if not settings.MEDIA_ROOT:
             raise ImproperlyConfigured('Please set MEDIA_ROOT in your settings file')
