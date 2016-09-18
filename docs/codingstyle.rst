@@ -36,4 +36,5 @@ The coding style is automatically check by Travis-CI. To manually check your
 files you can run the following commands:
 
 * Python: ``pep8 wger``
-* Javascript: ``gulp lint-js``
+* Javascript: ``./node_modules/.bin/gulp lint-js`` (or just ``gulp lint-js`` if
+  you installed the node libraries globally on your system)
