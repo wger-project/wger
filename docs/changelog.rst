@@ -10,8 +10,8 @@ Upgrade steps from 1.7:
 * Django update to 1.9: ``pip install -r requirements.txt``
 * Database upgrade: ``python manage.py migrate``
 * Reset workout cache: ``python manage.py clear-cache --clear-workout-cache``
-* Download new JS packages: ``python manage.py bower install`` (note that you
-  might have to delete first wger/core/static/bower_components)
+* Due to changes in the JS package management, you have to delete
+  wger/core/static/bower_components and do a ``python manage.py bower install``
 * Update static files (only production): ``python manage.py collectstatic``
 * Load new the languages fixtures as well as their configuration
   ``python manage.py loaddata languages`` and
