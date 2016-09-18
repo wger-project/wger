@@ -102,7 +102,7 @@ to src/wger. If this didn't work and you get an error saying that bower is not
 installed, you can manually install it by going to the  project's root directory
 and performing the step manually::
 
-   $ cd wger/wger
+   $ cd src/wger
    $ npm install bower
 
 Alternatively, you can manually set the path to the bower binary by editing
