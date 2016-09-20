@@ -26,10 +26,11 @@ New languages:
 New features:
 
 * Add repetition (minutes, kilometer, etc.) and weight options (kg, lb, plates, until failure) to sets `#216`_ and `#217`_
+* Allow administrators to deactivate the guest user account `#330`_
 * Much improved landing page (thanks `@DeveloperMal`_) `#307`_
-* Use the metricsgraphics library to more easily draw charts `#188`_
 * Add extended PDF options to schedules as well (thanks `@alelevinas`_ ) `#272`_
 * Show trained secondary muscles in workout view (thanks `@alokhan`_ ) `#282`_
+* Use the metricsgraphics library to more easily draw charts `#188`_
 
 Improvements:
 
@@ -42,28 +43,24 @@ Improvements:
 * Update to D3js v4 `#314`_, `#302`_
 * Remove hard-coded CC licence from documentation and website `#247`_
 
-Other improvements and bugfixes: `#25`_, `#243`_, `#279`_, `#275`_, `#270`_, `#258`_, `#257`_,
-`#263`_, `#269`_, `#296`_, `#297`_, `#303`_, `#311`_, `#312`_, `#313`_,
-`#322`_, `#324`_, `#325`_
+Other improvements and bugfixes:     `#25`_, `#243`_, `#279`_, `#275`_, `#270`_,
+`#258`_, `#257`_, `#263`_, `#269`_, `#296`_, `#297`_, `#303`_, `#311`_, `#312`_,
+`#313`_, `#322`_, `#324`_, `#325`_
 
 
 .. _#25: https://github.com/wger-project/wger/issues/25
 .. _#78: https://github.com/wger-project/wger/issues/78
 .. _#79: https://github.com/wger-project/wger/issues/79
 .. _#188: https://github.com/wger-project/wger/issues/188
+.. _#201: https://github.com/wger-project/wger/issues/201
 .. _#216: https://github.com/wger-project/wger/issues/216
 .. _#217: https://github.com/wger-project/wger/issues/217
 .. _#243: https://github.com/wger-project/wger/issues/243
 .. _#247: https://github.com/wger-project/wger/issues/247
-.. _#257: https://github.com/wger-project/wger/issues/257
-.. _#258: https://github.com/wger-project/wger/issues/258
 .. _#263: https://github.com/wger-project/wger/issues/263
 .. _#269: https://github.com/wger-project/wger/issues/269
-.. _#270: https://github.com/wger-project/wger/issues/270
 .. _#272: https://github.com/wger-project/wger/issues/272
 .. _#274: https://github.com/wger-project/wger/issues/274
-.. _#275: https://github.com/wger-project/wger/issues/275
-.. _#279: https://github.com/wger-project/wger/issues/279
 .. _#282: https://github.com/wger-project/wger/issues/282
 .. _#293: https://github.com/wger-project/wger/issues/293
 .. _#296: https://github.com/wger-project/wger/issues/296
@@ -81,6 +78,7 @@ Other improvements and bugfixes: `#25`_, `#243`_, `#279`_, `#275`_, `#270`_, `#2
 .. _#322: https://github.com/wger-project/wger/issues/322
 .. _#324: https://github.com/wger-project/wger/issues/324
 .. _#325: https://github.com/wger-project/wger/issues/325
+.. _#330: https://github.com/wger-project/wger/issues/330
 .. _@petervanderdoes: https://github.com/petervanderdoes
 .. _@DeveloperMal: https://github.com/DeveloperMal
 .. _@alelevinas: https://github.com/alelevinas
