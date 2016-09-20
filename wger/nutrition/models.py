@@ -431,7 +431,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
                 'url': url,
                 'site': Site.objects.get_current().domain
             }
-            message = render_to_string('ingredient/email_new.html', context)
+            message = render_to_string('ingredient/email_new.tpl', context)
             mail.send_mail(subject,
                            message,
                            settings.WGER_SETTINGS['EMAIL_FROM'],
