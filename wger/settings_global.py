@@ -37,7 +37,6 @@ WSGI_APPLICATION = 'wger.wsgi.application'
 
 INSTALLED_APPS = (
     'django.contrib.auth',
-    'django_browserid',  # Load after auth to monkey-patch it.
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
@@ -131,7 +130,6 @@ MIDDLEWARE_CLASSES = (
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'django_browserid.auth.BrowserIDBackend',
     'wger.utils.helpers.EmailAuthBackend'
 )
 

@@ -144,7 +144,6 @@ urlpatterns = i18n_patterns(
     url(r'config/', include('wger.config.urls', namespace='config', app_name='config')),
     url(r'gym/', include('wger.gym.urls', namespace='gym', app_name='gym')),
     url(r'email/', include('wger.email.urls', namespace='email')),
-    url(r'^browserid/', include('django_browserid.urls')),
     url(r'^sitemap\.xml$',
         sitemap,
         {'sitemaps': sitemaps},
@@ -160,9 +159,6 @@ urlpatterns += [
         name='robots'),
     url(r'^manifest\.webapp$', WebappManifestView.as_view(template_name="manifest.webapp")),
     url(r'^amazon-manifest\.webapp$', WebappManifestView.as_view(template_name="amazon-manifest.webapp")),
-
-    # persona (browserID) login
-    url(r'^browserid/', include('django_browserid.urls')),
 
     # API
     url(r'^api/', include(v1_api.urls)),

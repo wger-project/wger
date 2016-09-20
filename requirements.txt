@@ -3,7 +3,6 @@
 #
 
 Django>=1.9,<1.10
-django-browserid>=1.0,<1.1
 django-recaptcha
 reportlab
 django_mobile
@@ -16,7 +15,7 @@ django_compressor
 icalendar
 django-bootstrap-breadcrumbs
 sphinx
-django-sortedm2m 
+django-sortedm2m
 django-bower
 invoke
 

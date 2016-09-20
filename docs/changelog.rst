@@ -31,6 +31,7 @@ New features:
 * Add extended PDF options to schedules as well (thanks `@alelevinas`_ ) `#272`_
 * Show trained secondary muscles in workout view (thanks `@alokhan`_ ) `#282`_
 * Use the metricsgraphics library to more easily draw charts `#188`_
+* Removed persona (browserID) as a login option, the service is being discontinued `#331`_
 
 Improvements:
 
@@ -79,6 +80,7 @@ Other improvements and bugfixes:     `#25`_, `#243`_, `#279`_, `#275`_, `#270`_,
 .. _#324: https://github.com/wger-project/wger/issues/324
 .. _#325: https://github.com/wger-project/wger/issues/325
 .. _#330: https://github.com/wger-project/wger/issues/330
+.. _#331: https://github.com/wger-project/wger/issues/331
 .. _@petervanderdoes: https://github.com/petervanderdoes
 .. _@DeveloperMal: https://github.com/DeveloperMal
 .. _@alelevinas: https://github.com/alelevinas

@@ -36,7 +36,6 @@ NOCAPTCHA = True
 # This is needed for uploaded files and images (exercise images, etc.) to be
 # properly served.
 SITE_URL = '{siteurl}'
-BROWSERID_AUDIENCES = [SITE_URL]
 
 # Path to uploaded files
 # Absolute filesystem path to the directory that will hold user-uploaded files.
