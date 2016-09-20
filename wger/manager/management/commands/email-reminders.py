@@ -110,11 +110,10 @@ class Command(BaseCommand):
 
         # Compose and send the email
         translation.activate(user.userprofile.notification_language.short_name)
-        context = {}
-        context['site'] = Site.objects.get_current()
-        context['workout'] = workout
-        context['expired'] = True if delta.days < 0 else False
-        context['days'] = abs(delta.days)
+        context = {'site': Site.objects.get_current(),
+                   'workout': workout,
+                   'expired': True if delta.days < 0 else False,
+                   'days': abs(delta.days)}
 
         subject = _('Workout will expire soon')
         message = loader.render_to_string('workout/email_reminder.tpl', context)
