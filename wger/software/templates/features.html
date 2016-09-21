@@ -131,8 +131,7 @@
                                         {% blocktrans trimmed %}
                                             Keep track of your progress with the body weight chart. This makes
                                             it easy to see if you are reaching your goals or need to adjust
-                                            something. You can receive reminders so you regularly enter the
-                                            data.
+                                            something.
                                         {% endblocktrans %}
                                     </p>
                                 </div>
@@ -140,7 +139,26 @@
                         </li>
                         <li class="timeline-inverted">
                             <div class="timeline-image">
-                                <img class="img-circle img-responsive" src="{% static 'images/muscle-overview-1.1-en.png' %}" alt="">
+                                <img class="img-circle img-responsive" src="{% static 'images/calendar.png' %}" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>{% trans 'Calendar' %}</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">
+                                        {% blocktrans trimmed %}
+                                            Get an overview of how and when you trained as well as how you
+                                            personally felt you performed. Access all your individual diary
+                                            entries with one click.
+                                        {% endblocktrans %}
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline">
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="{% static 'images/muscle-overview.png' %}" alt="">
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
@@ -149,18 +167,17 @@
                                 <div class="timeline-body">
                                     <p class="text-muted">
                                         {% blocktrans trimmed %}
-                                            The exercise database contains around hundred exercises
-                                            from which you can choose when creating a workout. Some have important notes
-                                            about the form to perform them. This is displayed in the workout overview
-                                            page, so you keep them in mind.
+                                            The exercise database contains more than hundred exercises from
+                                            which you can choose when creating a workout. You can view them by
+                                            category and equipment used or muscles trained.
                                         {% endblocktrans %}
                                     </p>
                                 </div>
                             </div>
                         </li>
-                        <li>
+                        <li class="timeline-inverted">
                             <div class="timeline-image">
-                                <img class="img-circle img-responsive" src="{% static 'images/gym-management-1.5.png' %}" alt="">
+                                <img class="img-circle img-responsive" src="{% static 'images/gym-management.png' %}" alt="">
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
@@ -169,16 +186,15 @@
                                 <div class="timeline-body">
                                     <p class="text-muted">
                                         {% blocktrans trimmed %}
-                                            Use the application for your gym to manage its
-                                            members, their workouts and attendance. Keep an eye on inactive members with
-                                            optional notifications. You can create users with different roles to
-                                            distribute the administrative tasks such as trainer or gym manager.
+                                            Use the application for your gym to manage its members, their
+                                            workouts and attendance. You can manage the members' contracts,
+                                            keep notes and upload any files you might need.
                                         {% endblocktrans %}
                                     </p>
                                 </div>
                             </div>
                         </li>
-                        <li class="timeline-inverted">
+                        <li class="timeline">
                             <div class="timeline-image">
                                 <img class="img-circle img-responsive" src="{% static 'images/rest-api.png' %}" alt="">
                             </div>
@@ -189,16 +205,14 @@
                                 <div class="timeline-body">
                                     <p class="text-muted">
                                         {% blocktrans trimmed %}
-                                            wger provides a REST API with full read write access to all data
-                                            so you can integrate your own application and tools. Publicly accessible
-                                            data such as exercises you don't need any form of authentication,
-                                            for other objects such as workouts you need to get an API key.
+                                            wger provides a REST API with full read and write access to all
+                                            data so you can integrate your own application and tools.
                                         {% endblocktrans %}
                                     </p>
                                 </div>
                             </div>
                         </li>
-                        <li class="timeline-inverted">
+                        <li class="timeline">
                             <div class="timeline-image">
                                 <h4>{% blocktrans trimmed %}100% Free
                                     <br>and
