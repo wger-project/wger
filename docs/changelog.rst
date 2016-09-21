@@ -9,7 +9,7 @@ Upgrade steps from 1.7:
 
 * Django update to 1.9: ``pip install -r requirements.txt``
 * Database upgrade: ``python manage.py migrate``
-* Reset workout cache: ``python manage.py clear-cache --clear-workout-cache``
+* Reset cache: ``python manage.py clear-cache --clear-all``
 * Due to changes in the JS package management, you have to delete
   wger/core/static/bower_components and do a ``python manage.py bower install``
 * Update static files (only production): ``python manage.py collectstatic``
@@ -27,6 +27,7 @@ New features:
 
 * Add repetition (minutes, kilometer, etc.) and weight options (kg, lb, plates, until failure) to sets `#216`_ and `#217`_
 * Allow administrators to deactivate the guest user account `#330`_
+* Exercise names are now capitalized, making them more consistent `#232`_
 * Much improved landing page (thanks `@DeveloperMal`_) `#307`_
 * Add extended PDF options to schedules as well (thanks `@alelevinas`_ ) `#272`_
 * Show trained secondary muscles in workout view (thanks `@alokhan`_ ) `#282`_
@@ -56,6 +57,7 @@ Other improvements and bugfixes:     `#25`_, `#243`_, `#279`_, `#275`_, `#270`_,
 .. _#201: https://github.com/wger-project/wger/issues/201
 .. _#216: https://github.com/wger-project/wger/issues/216
 .. _#217: https://github.com/wger-project/wger/issues/217
+.. _#232: https://github.com/wger-project/wger/issues/232
 .. _#243: https://github.com/wger-project/wger/issues/243
 .. _#247: https://github.com/wger-project/wger/issues/247
 .. _#263: https://github.com/wger-project/wger/issues/263

@@ -35,6 +35,7 @@ from django.core.validators import MinLengthValidator
 from django.conf import settings
 
 from wger.core.models import Language
+from wger.utils.helpers import smart_capitalize
 from wger.utils.managers import SubmissionManager
 from wger.utils.models import AbstractLicenseModel, AbstractSubmissionModel
 from wger.utils.cache import (
@@ -171,6 +172,12 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
     name = models.CharField(max_length=200,
                             verbose_name=_('Name'))
+    '''The exercise's name, with correct upercase'''
+
+    name_original = models.CharField(max_length=200,
+                                     verbose_name=_('Name'),
+                                     default='')
+    '''The exercise's name, as entered by the user'''
 
     muscles = models.ManyToManyField(Muscle,
                                      blank=True,
@@ -222,7 +229,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         '''
         Reset all cached infos
         '''
-
+        self.name = smart_capitalize(self.name_original)
         super(Exercise, self).save(*args, **kwargs)
 
         # Cached objects
