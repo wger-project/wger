@@ -83,11 +83,13 @@
 {# Side bar #}
 {#          #}
 {% block sidebar %}
+{% if is_owner %}
 <p>
     <a href="{% url 'weight:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
         {% trans "Add weight entry" %}
     </a>
 </p>
+{% endif %}
 {% endblock %}
 
 
