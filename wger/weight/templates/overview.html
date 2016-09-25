@@ -40,9 +40,9 @@
 
 
 {% if is_owner %}
-{% if last_five_weight_entries_details %} 
+{% if last_five_weight_entries_details %}
 <table class="table">
-    <tr>  
+    <tr>
         <th>{% trans 'Date' %}</th>
         <th>{% trans 'Weight' %}</th>
         <th>{% trans 'Change' context "Noun, not verb" %}</th>
@@ -64,7 +64,7 @@
                 {% endif %}
             </td>
             <td>
-                {% if entry_detail.2 %} 
+                {% if entry_detail.2 %}
                     {{ entry_detail.2 }}
                 {% else %}
                     -/-
@@ -83,13 +83,6 @@
 {# Side bar #}
 {#          #}
 {% block sidebar %}
-{% if is_owner %}
-<p>
-    <a href="{% url 'weight:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% trans "Add weight entry" %}
-    </a>
-</p>
-{% endif %}
 {% endblock %}
 
 
@@ -119,5 +112,8 @@
         </li>
     </ul>
 </div>
+<a href="{% url 'weight:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+    {% trans "Add" %}
+</a>
 {% endif %}
 {% endblock %}

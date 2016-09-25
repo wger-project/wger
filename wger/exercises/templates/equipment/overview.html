@@ -96,23 +96,6 @@ $(function() {
         Side bar
 -->
 {% block sidebar %}
-<p>
-    {% if user.is_authenticated and not user.userprofile.is_temporary %}
-    <a href="{% url 'exercise:exercise:add' %}" class="btn btn-success btn-sm">
-        {% trans "Add new exercise" %}
-    </a>
-    {% else %}
-    <a href="#" class="btn btn-success btn-sm disabled">
-        {% trans "Add new exercise" %}<br>
-        <small>
-        {% trans "Only registered users can do this" %}
-        </small>
-    </a>
-    {% endif %}
-</p>
-
-
-
 <h4>{% trans "Search" %}</h4>
     <input name="term"
            type="search"
@@ -120,4 +103,20 @@ $(function() {
            class="ajax-form-element form-control"
            placeholder="{% trans 'exercise name' %}"
            style="width:100%;">
+{% endblock %}
+
+
+{% block options %}
+    {% if user.is_authenticated and not user.userprofile.is_temporary %}
+        <a href="{% url 'exercise:exercise:add' %}" class="btn btn-success btn-sm">
+            {% trans "Add new exercise" %}
+        </a>
+    {% else %}
+        <a href="#" class="btn btn-success btn-sm disabled">
+            {% trans "Add new exercise" %}<br>
+            <small>
+            {% trans "Only registered users can do this" %}
+            </small>
+        </a>
+    {% endif %}
 {% endblock %}

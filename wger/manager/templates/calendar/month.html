@@ -106,15 +106,6 @@ $(document).ready(function() {
 {# Side bar #}
 {#          #}
 {% block sidebar %}
-{% if is_owner %}
-<p>
-    <a href="#" id="calendar-day-select-link" data-toggle="modal" data-target="#ecalendar-day-select-popup" class="btn btn-success btn-sm">
-        {% trans "Add new log" %}
-    </a>
-</p>
-{% endif %}
-
-
 <div class="modal fade" id="ecalendar-day-select-popup">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -186,4 +177,13 @@ you can click on them to see the details.{% endblocktrans %}</p>
         </div>
     {% endfor %}
     </div>
+{% endblock %}
+
+
+{% block options %}
+{% if is_owner %}
+    <a href="#" id="calendar-day-select-link" data-toggle="modal" data-target="#ecalendar-day-select-popup" class="btn btn-success btn-sm">
+        {% trans "Add new log" %}
+    </a>
+{% endif %}
 {% endblock %}

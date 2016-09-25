@@ -33,16 +33,13 @@
 
 
 
-
-{% block sidebar %}
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
 {% if perms.core.add_license %}
-<p>
     <a href="{% url 'core:license:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
         {% trans "Add" %}
     </a>
-</p>
-
-<p>{% blocktrans %}If a license has been localized, e.g. the Creative Commons
-licenses for the different countries, add them as separate entries here.{% endblocktrans %}</p>
 {% endif %}
 {% endblock %}

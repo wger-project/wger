@@ -68,25 +68,13 @@
 <tr>
     <td colspan="4">{% trans "This gym has no administrators or trainers" %}</td>
 </tr>
-{% endfor %}   
+{% endfor %}
 </tbody>
 </table>
 {% endblock %}
 
 
 {% block sidebar %}
-{#               #}
-{# Other options #}
-{#               #}
-{% if perms.gym.manage_gym or perms.gym.manage_gyms %}
-<a href="{% url 'gym:gym:add-user' gym.pk %}" class="btn btn-success wger-modal-dialog">
-    {% trans "Add member" %}
-</a>
-<div class="clear-fix" style="margin-bottom: 1em;"></div>
-{% endif %}
-
-
-
 {#             #}
 {# Gym details #}
 {#             #}
@@ -321,5 +309,18 @@
     </tr>
     {% endfor %}
 </table>
+{% endif %}
+{% endblock %}
+
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+{% if perms.gym.manage_gym or perms.gym.manage_gyms %}
+    <a href="{% url 'gym:gym:add-user' gym.pk %}" class="btn btn-success btn-sm wger-modal-dialog">
+        {% trans "Add member" %}
+    </a>
 {% endif %}
 {% endblock %}
