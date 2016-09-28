@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url, include
+from django.conf.urls import url, include
 
 from wger.config.views import language_config
 from wger.config.views import gym_config

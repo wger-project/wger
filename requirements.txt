@@ -2,7 +2,7 @@
 # Requirements for wger for production
 #
 
-Django>=1.9,<1.10
+Django>=1.10,<1.11
 django-recaptcha
 reportlab
 django_mobile
@@ -21,7 +21,7 @@ invoke
 requests
 
 # REST API
-djangorestframework>=3.2,<3.3
+djangorestframework>=3.4,<3.5
 django-filter
 django-tastypie
 django-cors-headers
