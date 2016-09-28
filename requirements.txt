@@ -18,6 +18,7 @@ sphinx
 django-sortedm2m
 django-bower
 invoke
+requests
 
 # REST API
 djangorestframework>=3.2,<3.3
