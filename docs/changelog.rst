@@ -40,6 +40,7 @@ Improvements:
 * BMI calculator now works with pounds as well (thanks `@petervanderdoes`_) `#318`_
 * Give feedback when autocompleter didn't find any results `#293`_
 * Better GUI consistency in modal dialogs (thanks `@jstoebel`_ ) `#274`_
+* Fields in workout log form are no longer required, making it possible to only log weight for certain exercises `#334`_
 * The dashboard page was improved and made more user friendly `#201`_ (partly)
 * Replace jquery UI's autocompleter and sortable this reduces size of JS and CSS `#78`_ and `#79`_
 * Update to D3js v4 `#314`_, `#302`_
@@ -83,6 +84,7 @@ Other improvements and bugfixes:     `#25`_, `#243`_, `#279`_, `#275`_, `#270`_,
 .. _#325: https://github.com/wger-project/wger/issues/325
 .. _#330: https://github.com/wger-project/wger/issues/330
 .. _#331: https://github.com/wger-project/wger/issues/331
+.. _#334: https://github.com/wger-project/wger/issues/334
 .. _@petervanderdoes: https://github.com/petervanderdoes
 .. _@DeveloperMal: https://github.com/DeveloperMal
 .. _@alelevinas: https://github.com/alelevinas

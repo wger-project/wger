@@ -16,7 +16,7 @@ MAINTAINER Roland Geider <roland@geider.net>
 EXPOSE 8000
 
 # Install dependencies
-RUN apt-get install -y vim tmux
+RUN apt-get install -y vim tmux sqlite3
 
 # Set up the application
 USER wger
