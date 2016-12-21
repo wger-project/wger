@@ -4,7 +4,7 @@
 
 Django>=1.9,<1.10
 django-recaptcha
-reportlab
+reportlab>=3.3,<3.4
 django_mobile
 django-formtools>=1.0,<1.1
 bleach
@@ -17,13 +17,13 @@ django-bootstrap-breadcrumbs
 sphinx
 django-sortedm2m
 django-bower
-invoke
+invoke>=0.14,<0.15
 requests
 
 # REST API
 djangorestframework>=3.2,<3.3
 django-filter
-django-tastypie
+django-tastypie>=0.13,<0.14
 django-cors-headers
 
 # Python3 compatibility
