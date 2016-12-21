@@ -38,25 +38,25 @@ WSGI_APPLICATION = 'wger.wsgi.application'
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
 
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
 
     # Apps from wger proper
+    'wger.config',
     'wger.core',
-    'wger.manager',
-    'wger.weight',
+    'wger.email',
     'wger.exercises',
+    'wger.gym',
+    'wger.manager',
     'wger.nutrition',
     'wger.software',
     'wger.utils',
-    'wger.config',
-    'wger.gym',
-    'wger.email',
+    'wger.weight',
 
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
     'captcha',
@@ -90,17 +90,17 @@ INSTALLED_APPS = (
 
 # added list of external libraries to be installed by bower
 BOWER_INSTALLED_APPS = (
-    'jquery#2.1.x',
     'bootstrap',
-    'd3',
-    'shariff',
-    'tinymce-dist',
-    'DataTables',
     'components-font-awesome',
-    'tinymce',
-    'metrics-graphics',
+    'd3',
+    'DataTables',
     'devbridge-autocomplete#1.2.x',
+    'jquery#2.1.x',
+    'metrics-graphics',
+    'shariff',
     'sortablejs#1.4.x',
+    'tinymce',
+    'tinymce-dist',
 )
 
 
