@@ -44,7 +44,7 @@
         {% for exercise, logs in value.logs.items %}
             <table class="table table-hover table-bordered" style="margin-top: 2em;">
             <tr class="active">
-                <th>{{ exercise }}</th>
+                <th><a href="{{ exercise.get_absolute_url }}">{{ exercise }}</a></th>
             </tr>
             {% for log in logs %}
             <tr>
