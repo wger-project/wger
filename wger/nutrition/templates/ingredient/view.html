@@ -22,7 +22,7 @@ $(document).ready(function() {
 
 {% block content %}
 
-{% if ingredient.status == ingredient.INGREDIENT_STATUS_PENDING %}
+{% if ingredient.status == ingredient.STATUS_PENDING %}
 <div class="alert">
 <h4>{% trans "Ingredient is pending review" %}</h4>
 <p>{% blocktrans %}This user submitted ingredient is pending a decision to be
