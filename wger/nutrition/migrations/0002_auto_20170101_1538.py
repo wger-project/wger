@@ -16,6 +16,13 @@ def copy_username(apps, schema_editor):
             ingredient.license_author = 'wger.de'
         ingredient.save()
 
+def update_status(apps, schema_editor):
+    '''
+    Updates the status of the ingredients
+    '''
+    Ingredient = apps.get_model("nutrition", "Ingredient")
+    Ingredient.objects.filter(status__in=('5', '4')).update(status=1)
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -34,6 +41,7 @@ class Migration(migrations.Migration):
             field=models.IntegerField(blank=True, editable=False, verbose_name='Order'),
         ),
         migrations.RunPython(copy_username, reverse_code=migrations.RunPython.noop),
+        migrations.RunPython(update_status, reverse_code=migrations.RunPython.noop),
         migrations.RemoveField(
             model_name='ingredient',
             name='user',
