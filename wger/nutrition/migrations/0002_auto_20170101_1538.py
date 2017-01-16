@@ -21,7 +21,7 @@ def update_status(apps, schema_editor):
     Updates the status of the ingredients
     '''
     Ingredient = apps.get_model("nutrition", "Ingredient")
-    Ingredient.objects.filter(status__in=('5', '4')).update(status=1)
+    Ingredient.objects.filter(status__in=('5', '4')).update(status=2)
 
 class Migration(migrations.Migration):
 
