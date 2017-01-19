@@ -25,6 +25,7 @@ New languages:
 
 New features:
 
+* Big ingredient list in Dutch, many thanks to alphafitness.club!
 * Add repetition (minutes, kilometer, etc.) and weight options (kg, lb, plates, until failure) to sets `#216`_ and `#217`_
 * Allow administrators to deactivate the guest user account `#330`_
 * Exercise names are now capitalized, making them more consistent `#232`_
