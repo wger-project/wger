@@ -42,10 +42,6 @@ class Migration(migrations.Migration):
         ),
         migrations.RunPython(copy_username, reverse_code=migrations.RunPython.noop),
         migrations.RunPython(update_status, reverse_code=migrations.RunPython.noop),
-        migrations.RemoveField(
-            model_name='ingredient',
-            name='user',
-        ),
         migrations.AlterField(
             model_name='ingredient',
             name='status',
