@@ -102,6 +102,8 @@ router.register(r'setting-repetitionunit', core_api_views.RepetitionUnitViewSet,
 router.register(r'setting-weightunit', core_api_views.WeightUnitViewSet, base_name='setting-weight-unit')
 
 # Exercises app
+# Add router for viewing exercise info
+router.register(r'exerciseinfo', exercises_api_views.ExerciseInfoViewset, base_name='exerciseinfo')
 router.register(r'exercise', exercises_api_views.ExerciseViewSet, base_name='exercise')
 router.register(r'equipment', exercises_api_views.EquipmentViewSet, base_name='api')
 router.register(r'exercisecategory', exercises_api_views.ExerciseCategoryViewSet, base_name='exercisecategory')
@@ -165,6 +167,9 @@ urlpatterns += [
     url(r'^api/v2/exercise/search/$',
         exercises_api_views.search,
         name='exercise-search'),
+    url(r'^api/v2/exerciseinfo/search/$',
+        exercises_api_views.search,
+        name='exercise-info'),
     url(r'^api/v2/ingredient/search/$',
         nutrition_api_views.search,
         name='ingredient-search'),
