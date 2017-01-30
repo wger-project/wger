@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% load i18n staticfiles wger_extras %}
+
+{% block title %}{% trans "Add your fitbit account" %}{% endblock %}
+
+{% block content %}
+<a href="{{ fitbit_auth_link }}" class="btn btn-default"> Sync with Fitbit. </a>
+{% endblock %}

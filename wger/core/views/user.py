@@ -63,6 +63,9 @@ from wger.gym.models import (
     GymUserConfig,
     Contract
 )
+from fitbit import FitbitOauth2Client
+import requests
+import base64
 
 logger = logging.getLogger(__name__)
 
@@ -305,6 +308,41 @@ def preferences(request):
         return HttpResponseRedirect(reverse('core:user:preferences'))
     else:
         return render(request, 'user/preferences.html', template_data)
+
+
+@login_required
+def add_fitbit(request, code=None):
+    template_data = {}
+    client_id = '2283MF'
+    client_secret = 'c8ebd0a368cf7f419102198633966039'
+    fitbit_client = FitbitOauth2Client(client_id, client_secret)
+    if 'code' in request.GET:  # get token
+        print('Foo')
+        code = request.GET.get("code", "")
+        form = {
+            'client_secret': client_secret,
+            'code': code,
+            'client_id': client_id,
+            'grant_type': 'client_credentials'
+        }
+        headers = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            "Authorization":'Basic '+ base64.b64encode(form['client_id'] + ":" + form['client_secret'])
+        }
+        response = requests.post(fitbit_client.request_token_url, form, headers=headers).json()
+
+        if "access_token" in response:  # get user data from fitbit
+            token = response['access_token']
+            print(token)
+            headers['Authorization'] = 'Bearer ' + token
+
+            response = requests.get('https://api.fitbit.com/2/user/-/body/log/weight/date/today.json', headers=headers)
+
+        return render(request, 'user/add_fitbit.html', template_data)
+
+    # link to page that makes user authorize wger to access their fitbit
+    template_data['fitbit_auth_link'] = fitbit_client.authorize_token_url(redirect_uri='http://localhost:8000/en/user/add_fitbit')[0]
+    return render(request, 'user/add_fitbit.html', template_data)
 
 
 class UserDeactivateView(LoginRequiredMixin,
