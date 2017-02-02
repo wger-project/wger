@@ -6,7 +6,7 @@ Django>=1.10,<1.11
 django-recaptcha
 reportlab
 django_mobile
-django-formtools>=1.0,<1.1
+django-formtools>=2.0,<3.0
 bleach
 python-mimeparse
 pillow
