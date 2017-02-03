@@ -3,28 +3,28 @@
 #
 
 Django>=1.10,<1.11
-django-recaptcha
-reportlab
-django_mobile
-django-formtools>=2.0,<3.0
 bleach
-python-mimeparse
-pillow
-easy-thumbnails
-django_compressor
-icalendar
 django-bootstrap-breadcrumbs
-sphinx
-django-sortedm2m
 django-bower
-invoke
+django-formtools>=2.0,<3.0
+django-recaptcha
+django-sortedm2m
+django_compressor
+django_mobile
+easy-thumbnails
+icalendar
+invoke>=0.14,<0.15
+pillow
+python-mimeparse
+reportlab>=3.3,<3.4
 requests
+sphinx
 
 # REST API
-djangorestframework>=3.4,<3.5
-django-filter
-django-tastypie
 django-cors-headers
+django-filter
+django-tastypie>=0.13,<0.14
+djangorestframework>=3.4,<3.5
 
 # Python3 compatibility
 six

@@ -27,7 +27,7 @@
                 <div class="intro-lead-in">{% trans "Your data." %}</div>
                 <div class="intro-lead-in">{% trans "Your progress." %}</div>
                 {% if allow_guest_users and not user.is_authenticated %}
-                    <a href="{% url 'core:user:demo-entries' %}" class="page-scroll btn btn-xl" style="margin-top: 1em;">
+                    <a href="{% url 'core:user:demo-entries' %}" class="page-scroll btn btn-xl" rel="nofollow" style="margin-top: 1em;">
                         {% trans "Try it now" %}
                     </a>
                 {% endif %}

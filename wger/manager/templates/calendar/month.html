@@ -58,7 +58,11 @@ $(document).ready(function() {
             {% for exercise, logs in value.logs.items %}
                 <div class="col-sm-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading" style="min-height: 4em;">{{ exercise }}</div>
+                    <div class="panel-heading" style="min-height: 4em;">
+                        <a href="{{ exercise.get_absolute_url }}">
+                            {{ exercise }}
+                        </a>
+                    </div>
                     <ul class="list-group" style="min-height: 10em;">
                     {% for log in logs %}
                         <li class="list-group-item">

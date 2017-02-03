@@ -37,7 +37,7 @@ from wger.core.models import Language
 from wger.utils.constants import TWOPLACES
 from wger.utils.cache import cache_mapper
 from wger.utils.fields import Html5TimeField
-from wger.utils.models import AbstractLicenseModel
+from wger.utils.models import AbstractLicenseModel, AbstractSubmissionModel
 from wger.utils.units import AbstractWeight
 from wger.weight.models import WeightEntry
 
@@ -201,7 +201,7 @@ class NutritionPlan(models.Model):
 
 
 @python_2_unicode_compatible
-class Ingredient(AbstractLicenseModel, models.Model):
+class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     '''
     An ingredient, with some approximate nutrition values
     '''
@@ -212,24 +212,6 @@ class Ingredient(AbstractLicenseModel, models.Model):
     energy amount given (in percent).
     '''
 
-    INGREDIENT_STATUS_PENDING = '1'
-    INGREDIENT_STATUS_ACCEPTED = '2'
-    INGREDIENT_STATUS_DECLINED = '3'
-    INGREDIENT_STATUS_ADMIN = '4'
-    INGREDIENT_STATUS_SYSTEM = '5'
-
-    INGREDIENT_STATUS_OK = (INGREDIENT_STATUS_ACCEPTED,
-                            INGREDIENT_STATUS_ADMIN,
-                            INGREDIENT_STATUS_SYSTEM)
-
-    INGREDIENT_STATUS = (
-        (INGREDIENT_STATUS_PENDING, _('Pending')),
-        (INGREDIENT_STATUS_ACCEPTED, _('Accepted')),
-        (INGREDIENT_STATUS_DECLINED, _('Declined')),
-        (INGREDIENT_STATUS_ADMIN, _('Submitted by administrator')),
-        (INGREDIENT_STATUS_SYSTEM, _('System ingredient')),
-    )
-
     # Metaclass to set some other properties
     class Meta:
         ordering = ["name", ]
@@ -237,19 +219,6 @@ class Ingredient(AbstractLicenseModel, models.Model):
     language = models.ForeignKey(Language,
                                  verbose_name=_('Language'),
                                  editable=False)
-
-    user = models.ForeignKey(User,
-                             verbose_name=_('User'),
-                             null=True,
-                             blank=True,
-                             editable=False)
-    '''The user that submitted the exercise'''
-
-    status = models.CharField(max_length=2,
-                              choices=INGREDIENT_STATUS,
-                              default=INGREDIENT_STATUS_PENDING,
-                              editable=False)
-    '''The status of an ingredient'''
 
     creation_date = models.DateField(_('Date'), auto_now_add=True)
     update_date = models.DateField(_('Date'),
@@ -422,8 +391,13 @@ class Ingredient(AbstractLicenseModel, models.Model):
         Sends an email after being successfully added to the database (for user
         submitted ingredients only)
         '''
-        if self.user and self.user.email:
-            translation.activate(self.user.userprofile.notification_language.short_name)
+        try:
+            user = User.objects.get(username=self.license_author)
+        except User.DoesNotExist:
+            return
+
+        if self.license_author and user.email:
+            translation.activate(user.userprofile.notification_language.short_name)
             url = request.build_absolute_uri(self.get_absolute_url())
             subject = _('Ingredient was successfully added to the general database')
             context = {
@@ -435,8 +409,25 @@ class Ingredient(AbstractLicenseModel, models.Model):
             mail.send_mail(subject,
                            message,
                            settings.WGER_SETTINGS['EMAIL_FROM'],
-                           [self.user.email],
+                           [user.email],
                            fail_silently=True)
+
+    def set_author(self, request):
+        if request.user.has_perm('nutrition.add_ingredient'):
+            self.status = Ingredient.STATUS_ACCEPTED
+            if not self.license_author:
+                self.license_author = request.get_host().split(':')[0]
+        else:
+            if not self.license_author:
+                self.license_author = request.user.username
+
+            # Send email to administrator
+            subject = _('New user submitted ingredient')
+            message = _(u'''The user {0} submitted a new ingredient "{1}".'''.format(
+                request.user.username, self.name))
+            mail.mail_admins(subject,
+                             message,
+                             fail_silently=True)
 
     def get_owner_object(self):
         '''
