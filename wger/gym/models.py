@@ -136,6 +136,13 @@ class GymConfig(m.Model):
     Reminder of inactive members
     '''
 
+    show_name = m.BooleanField(verbose_name=_('Show name in header'),
+                               help_text=_('Show the name of the gym in the site header'),
+                               default=False)
+    '''
+    Show name of the current user's gym in the header, instead of 'wger'
+    '''
+
     def __str__(self):
         '''
         Return a more human-readable representation

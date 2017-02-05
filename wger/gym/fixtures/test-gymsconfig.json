@@ -4,7 +4,8 @@
         "model": "gym.gymconfig", 
         "fields": {
             "gym": 1, 
-            "weeks_inactive": 7
+            "weeks_inactive": 7,
+            "show_name": true
         }
     }, 
     {
@@ -12,7 +13,8 @@
         "model": "gym.gymconfig", 
         "fields": {
             "gym": 3, 
-            "weeks_inactive": 4
+            "weeks_inactive": 4,
+            "show_name": true
         }
     }, 
     {
@@ -20,7 +22,8 @@
         "model": "gym.gymconfig", 
         "fields": {
             "gym": 2, 
-            "weeks_inactive": 2
+            "weeks_inactive": 2,
+            "show_name": false
         }
     }
 ]
