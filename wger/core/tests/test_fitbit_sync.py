@@ -2,7 +2,6 @@ from django.core.urlresolvers import reverse
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
 import requests
 import json
-from mock import patch
 
 
 class SyncWithFitbitTestCase(WorkoutManagerTestCase):
