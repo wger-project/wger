@@ -66,6 +66,7 @@ from wger.gym.models import (
 from fitbit import FitbitOauth2Client
 import requests
 import base64
+import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -312,32 +313,50 @@ def preferences(request):
 
 @login_required
 def add_fitbit(request, code=None):
+    '''
+    Gets data from fitbit upon the user authorizing Wger to access their data
+    '''
     template_data = {}
     client_id = '2283MF'
     client_secret = 'c8ebd0a368cf7f419102198633966039'
     fitbit_client = FitbitOauth2Client(client_id, client_secret)
     if 'code' in request.GET:  # get token
-        print('Foo')
         code = request.GET.get("code", "")
         form = {
             'client_secret': client_secret,
             'code': code,
             'client_id': client_id,
-            'grant_type': 'client_credentials'
+            'grant_type': 'authorization_code',
+            'redirect_uri': 'http://localhost:8000/en/user/add_fitbit'
         }
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
             "Authorization":'Basic '+ base64.b64encode(form['client_id'] + ":" + form['client_secret'])
         }
         response = requests.post(fitbit_client.request_token_url, form, headers=headers).json()
-
         if "access_token" in response:  # get user data from fitbit
             token = response['access_token']
-            print(token)
+            user_id = response['user_id']
             headers['Authorization'] = 'Bearer ' + token
 
-            response = requests.get('https://api.fitbit.com/2/user/-/body/log/weight/date/today.json', headers=headers)
+            response = requests.get('https://api.fitbit.com/1/user/' + user_id + '/profile.json', headers=headers)
+            weight = response.json()['user']['weight']
 
+            # add weight to db
+            try:
+                entry = WeightEntry()
+                entry.weight = weight
+                entry.user = request.user
+                entry.date = datetime.date.today()
+                entry.save()
+                messages.success(request, _('Successfully synced weight data.'))
+            except Exception as error:
+                if "UNIQUE constraint failed" in str(error):
+                    messages.info(request, _('Already synced up for today.'))
+
+            return HttpResponseRedirect(reverse('weight:overview', kwargs={'username': request.user.username}))
+        else:
+            messages.warning(request, _('Something went wrong.'))
         return render(request, 'user/add_fitbit.html', template_data)
 
     # link to page that makes user authorize wger to access their fitbit

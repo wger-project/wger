@@ -200,6 +200,9 @@
                                     <li>
                                         <a href="{% url 'core:user:preferences' %}">{% trans "My preferences" %}</a>
                                     </li>
+                                     <li>
+                                        <a href="{% url 'core:user:fitbit' %}">{% trans "Sync with Fitbit" %}</a>
+                                    </li>
                                     {% if not trainer_identity %}
                                     <li class="divider"></li>
                                     <li>

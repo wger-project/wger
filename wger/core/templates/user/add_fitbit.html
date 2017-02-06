@@ -4,5 +4,8 @@
 {% block title %}{% trans "Add your fitbit account" %}{% endblock %}
 
 {% block content %}
+<p>To synchronize your Wger weight data with Fitbit click the button below. You will be redirected to the authorization 
+where you can grant Wger permission to access your data.
+</p>
 <a href="{{ fitbit_auth_link }}" class="btn btn-default"> Sync with Fitbit. </a>
 {% endblock %}
