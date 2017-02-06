@@ -234,7 +234,8 @@ def registration(request):
             user.save()
 
             # Pre-set some values of the user's profile
-            language = Language.objects.get(short_name=translation.get_language())
+            language = Language.objects.get(
+                short_name=translation.get_language())
             user.userprofile.notification_language = language
 
             # Set default gym, if needed
@@ -279,7 +280,8 @@ def preferences(request):
     # Process the preferences form
     if request.method == 'POST':
 
-        form = UserPreferencesForm(data=request.POST, instance=request.user.userprofile)
+        form = UserPreferencesForm(
+            data=request.POST, instance=request.user.userprofile)
         form.user = request.user
 
         # Save the data if it validates
@@ -291,7 +293,8 @@ def preferences(request):
 
     # Process the email form
     if request.method == 'POST':
-        email_form = UserPersonalInformationForm(data=request.POST, instance=request.user)
+        email_form = UserPersonalInformationForm(
+            data=request.POST, instance=request.user)
 
         if email_form.is_valid() and redirect:
             email_form.save()
@@ -331,15 +334,19 @@ def add_fitbit(request, code=None):
         }
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
-            "Authorization":'Basic '+ base64.b64encode(form['client_id'] + ":" + form['client_secret'])
+            "Authorization": 'Basic ' + base64.b64encode(form['client_id']
+                                                         + ":" + form['client_secret'])
         }
-        response = requests.post(fitbit_client.request_token_url, form, headers=headers).json()
+        response = requests.post(
+            fitbit_client.request_token_url, form, headers=headers).json()
         if "access_token" in response:  # get user data from fitbit
             token = response['access_token']
             user_id = response['user_id']
             headers['Authorization'] = 'Bearer ' + token
 
-            response = requests.get('https://api.fitbit.com/1/user/' + user_id + '/profile.json', headers=headers)
+            response = requests.get(
+                'https://api.fitbit.com/1/user/' + user_id + '/profile.json',
+                headers=headers)
             weight = response.json()['user']['weight']
 
             # add weight to db
@@ -349,18 +356,21 @@ def add_fitbit(request, code=None):
                 entry.user = request.user
                 entry.date = datetime.date.today()
                 entry.save()
-                messages.success(request, _('Successfully synced weight data.'))
+                messages.success(request, _(
+                    'Successfully synced weight data.'))
             except Exception as error:
                 if "UNIQUE constraint failed" in str(error):
                     messages.info(request, _('Already synced up for today.'))
 
-            return HttpResponseRedirect(reverse('weight:overview', kwargs={'username': request.user.username}))
+            return HttpResponseRedirect(reverse('weight:overview',
+                                                kwargs={'username': request.user.username}))
         else:
             messages.warning(request, _('Something went wrong.'))
         return render(request, 'user/add_fitbit.html', template_data)
 
     # link to page that makes user authorize wger to access their fitbit
-    template_data['fitbit_auth_link'] = fitbit_client.authorize_token_url(redirect_uri='http://localhost:8000/en/user/add_fitbit')[0]
+    template_data['fitbit_auth_link'] = fitbit_client.authorize_token_url(
+        redirect_uri='http://localhost:8000/en/user/add_fitbit')[0]
     return render(request, 'user/add_fitbit.html', template_data)
 
 
@@ -372,7 +382,8 @@ class UserDeactivateView(LoginRequiredMixin,
     '''
     permanent = False
     model = User
-    permission_required = ('gym.manage_gym', 'gym.manage_gyms', 'gym.gym_trainer')
+    permission_required = (
+        'gym.manage_gym', 'gym.manage_gyms', 'gym.gym_trainer')
 
     def dispatch(self, request, *args, **kwargs):
         '''
@@ -393,7 +404,8 @@ class UserDeactivateView(LoginRequiredMixin,
         edit_user = get_object_or_404(User, pk=pk)
         edit_user.is_active = False
         edit_user.save()
-        messages.success(self.request, _('The user was successfully deactivated'))
+        messages.success(self.request, _(
+            'The user was successfully deactivated'))
         return reverse('core:user:overview', kwargs=({'pk': pk}))
 
 
@@ -405,7 +417,8 @@ class UserActivateView(LoginRequiredMixin,
     '''
     permanent = False
     model = User
-    permission_required = ('gym.manage_gym', 'gym.manage_gyms', 'gym.gym_trainer')
+    permission_required = (
+        'gym.manage_gym', 'gym.manage_gyms', 'gym.gym_trainer')
 
     def dispatch(self, request, *args, **kwargs):
         '''
@@ -426,7 +439,8 @@ class UserActivateView(LoginRequiredMixin,
         edit_user = get_object_or_404(User, pk=pk)
         edit_user.is_active = True
         edit_user.save()
-        messages.success(self.request, _('The user was successfully activated'))
+        messages.success(self.request, _(
+            'The user was successfully activated'))
         return reverse('core:user:overview', kwargs=({'pk': pk}))
 
 
@@ -469,7 +483,8 @@ class UserEditView(WgerFormMixin,
         Send some additional data to the template
         '''
         context = super(UserEditView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('core:user:edit', kwargs={'pk': self.object.id})
+        context['form_action'] = reverse(
+            'core:user:edit', kwargs={'pk': self.object.id})
         context['title'] = _('Edit {0}'.format(self.object))
         return context
 
@@ -506,7 +521,8 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
     User overview for gyms
     '''
     model = User
-    permission_required = ('gym.manage_gym', 'gym.manage_gyms', 'gym.gym_trainer')
+    permission_required = (
+        'gym.manage_gym', 'gym.manage_gyms', 'gym.gym_trainer')
     template_name = 'user/overview.html'
     context_object_name = 'current_user'
 
@@ -546,8 +562,10 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
             .order_by('-date')[:5]
         context['nutrition_plans'] = NutritionPlan.objects.filter(user=self.object)\
             .order_by('-creation_date')[:5]
-        context['session'] = WorkoutSession.objects.filter(user=self.object).order_by('-date')[:10]
-        context['admin_notes'] = AdminUserNote.objects.filter(member=self.object)[:5]
+        context['session'] = WorkoutSession.objects.filter(
+            user=self.object).order_by('-date')[:10]
+        context['admin_notes'] = AdminUserNote.objects.filter(member=self.object)[
+            :5]
         context['contracts'] = Contract.objects.filter(member=self.object)[:5]
         return context
 
