@@ -48,7 +48,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exercise
         depth = 3
-        fields = ("name", "category", "description", "muscles", "equipment")
+        fields = ("name", "category", "description", "muscles", "muscles_secondary", "equipment")
 
 
 class ExerciseCategorySerializer(serializers.ModelSerializer):
