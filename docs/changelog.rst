@@ -43,6 +43,7 @@ Improvements:
 * Give feedback when autocompleter didn't find any results `#293`_
 * Better GUI consistency in modal dialogs (thanks `@jstoebel`_ ) `#274`_
 * Fields in workout log form are no longer required, making it possible to only log weight for certain exercises `#334`_
+* New, more verbose, API endpoint for exercises, (thanks `@andela-bmwenda`_)
 * The dashboard page was improved and made more user friendly `#201`_ (partly)
 * Replace jquery UI's autocompleter and sortable this reduces size of JS and CSS `#78`_ and `#79`_
 * Update to D3js v4 `#314`_, `#302`_
@@ -63,6 +64,7 @@ Other improvements and bugfixes:     `#25`_, `#243`_, `#279`_, `#275`_, `#270`_,
 .. _#217: https://github.com/wger-project/wger/issues/217
 .. _#232: https://github.com/wger-project/wger/issues/232
 .. _#243: https://github.com/wger-project/wger/issues/243
+.. _#248: https://github.com/wger-project/wger/issues/248
 .. _#247: https://github.com/wger-project/wger/issues/247
 .. _#263: https://github.com/wger-project/wger/issues/263
 .. _#269: https://github.com/wger-project/wger/issues/269
@@ -94,6 +96,7 @@ Other improvements and bugfixes:     `#25`_, `#243`_, `#279`_, `#275`_, `#270`_,
 .. _@jstoebel: https://github.com/jstoebel
 .. _@alokhan: https://github.com/alokhan
 .. _@w00p: https://github.com/w00p
+.. _@andela-bmwenda: https://github.com/andela-bmwenda
 
 
 
