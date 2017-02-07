@@ -21,6 +21,7 @@ import logging
 import bleach
 
 from django.db import models
+from django.db.models import Q
 from django.template.loader import render_to_string
 from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
 from django.contrib.auth.models import User
@@ -76,6 +77,20 @@ class Muscle(models.Model):
         Muscle has no owner information
         '''
         return False
+
+    def delete(self, *args, **kwargs):
+        '''
+        Clear template cache and delete a muscle
+        '''
+        exercises = Exercise.objects.filter(Q(muscles=self) | Q(muscles_secondary=self)).all()
+
+        for exercise in exercises:
+            for language in Language.objects.all():
+                delete_template_fragment_cache('exercise-detail-muscles',
+                                               exercise.id, language.id)
+
+        super(Muscle, self).delete(*args, **kwargs)
+
 
 
 @python_2_unicode_compatible
