@@ -92,7 +92,6 @@ class Muscle(models.Model):
         super(Muscle, self).delete(*args, **kwargs)
 
 
-
 @python_2_unicode_compatible
 class Equipment(models.Model):
     '''
