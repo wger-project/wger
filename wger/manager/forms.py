@@ -26,6 +26,8 @@ from django.forms import (
     MultipleHiddenInput,
     ModelForm,
     DateField,
+    IntegerField,
+    DecimalField,
     CharField,
     widgets,
     ModelChoiceField
@@ -138,7 +140,7 @@ class WorkoutLogForm(ModelForm):
     '''
     Helper form for a WorkoutLog.
 
-    The repetition and weight units are defined here only to make them optional
+    These fields are re-defined here only to make them optional
     '''
     repetition_unit = ModelChoiceField(queryset=RepetitionUnit.objects.all(),
                                        label=_('Unit'),
@@ -146,6 +148,14 @@ class WorkoutLogForm(ModelForm):
     weight_unit = ModelChoiceField(queryset=WeightUnit.objects.all(),
                                    label=_('Unit'),
                                    required=False)
+    exercise = ModelChoiceField(queryset=Exercise.objects.all(),
+                                label=_('Exercise'),
+                                required=False)
+    reps = IntegerField(label=_('Repetitions'),
+                        required=False)
+    weight = DecimalField(label=_('Weight'),
+                          initial=0,
+                          required=False)
 
     class Meta:
         model = WorkoutLog

@@ -57,21 +57,6 @@
 {% endblock %}
 
 {% block sidebar %}
-    <p>
-        {% if user.is_authenticated and not user.userprofile.is_temporary %}
-            <a href="{% url 'nutrition:ingredient:add' %}"
-               class="btn btn-success btn-sm">
-                {% trans "Add ingredient" %}
-            </a>
-        {% else %}
-            <a href="#" class="btn btn-success btn-sm disabled">
-                {% trans "Add ingredient" %}<br>
-                <small>
-                    {% trans "Only registered users can do this" %}
-                </small>
-            </a>
-        {% endif %}
-    </p>
 
     <h4>{% trans "Search" %}</h4>
     <form action="{% url 'ingredient-search' %}"
@@ -85,4 +70,24 @@
                placeholder="{% trans 'ingredient name' %}"
                style="width:100%;">
     </form>
+{% endblock %}
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+    {% if user.is_authenticated and not user.userprofile.is_temporary %}
+        <a href="{% url 'nutrition:ingredient:add' %}"
+           class="btn btn-success btn-sm">
+            {% trans "Add ingredient" %}
+        </a>
+    {% else %}
+        <a href="#" class="btn btn-success btn-sm disabled">
+            {% trans "Add ingredient" %}<br>
+            <small>
+                {% trans "Only registered users can do this" %}
+            </small>
+        </a>
+    {% endif %}
 {% endblock %}

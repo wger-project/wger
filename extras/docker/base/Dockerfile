@@ -8,7 +8,7 @@
 # docker build --tag wger/base .
 #
 
-FROM ubuntu:15.04
+FROM ubuntu:16.04
 
 MAINTAINER Roland Geider <roland@geider.net>
 

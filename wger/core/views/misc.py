@@ -16,6 +16,7 @@
 
 import logging
 
+from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
@@ -59,6 +60,9 @@ def demo_entries(request):
     '''
     Creates a set of sample entries for guest users
     '''
+    if not settings.WGER_SETTINGS['ALLOW_GUEST_USERS']:
+        return HttpResponseRedirect(reverse('software:features'))
+
     if (((not request.user.is_authenticated() or request.user.userprofile.is_temporary)
          and not request.session['has_demo_data'])):
         # If we reach this from a page that has no user created by the

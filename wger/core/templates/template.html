@@ -62,7 +62,7 @@
     {% compress js %}
     <script src="{% static 'bower_components/jquery/dist/jquery.js' %}"></script>
     <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/Sortable.min.js' %}"></script>
+    <script src="{% static 'bower_components/Sortable/Sortable.min.js' %}"></script>
     <script src="{% static 'bower_components/d3/d3.js' %}"></script>
     <script src="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.min.js' %}"></script>
     <script src="{% static 'bower_components/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
@@ -101,8 +101,13 @@
     <div class="container">
         <div class="row">
             <div class="col-md-9" style="padding-bottom: 0.5em;">
-                <span class="name">wger</span>
-                <span class="regular">| Workout Manager</span>
+                {# Show application's name or user's gym #}
+                {% if custom_header %}
+                    <span class="name">{{ custom_header }}</span>
+                {% else %}
+                    <span class="name">wger</span>
+                    <span class="regular">| Workout Manager</span>
+                {% endif %}
             </div>
             <div class="col-md-3">
                 <a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a>

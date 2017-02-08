@@ -233,7 +233,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         count_before = Exercise.objects.count()
         response = self.client.post(reverse('exercise:exercise:add'),
                                     {'category': 2,
-                                     'name': 'my test exercise',
+                                     'name_original': 'my test exercise',
                                      'license': 1,
                                      'muscles': [1, 2]})
         count_after = Exercise.objects.count()
@@ -269,7 +269,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         description = 'a nice, long and accurate description for the exercise'
         response = self.client.post(reverse('exercise:exercise:add'),
                                     {'category': 2,
-                                     'name': 'my test exercise',
+                                     'name_original': 'my test exercise',
                                      'license': 1,
                                      'description': description,
                                      'muscles': [1, 2]})
@@ -297,12 +297,12 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.context['active_tab'], 'exercises')
 
         exercise_1 = Exercise.objects.get(pk=exercise_id)
-        self.assertEqual(exercise_1.name, 'my test exercise')
+        self.assertEqual(exercise_1.name, 'my Test Exercise')
 
         # Wrong category - adding
         response = self.client.post(reverse('exercise:exercise:add'),
                                     {'category': 111,
-                                     'name': 'my test exercise',
+                                     'name_original': 'my test exercise',
                                      'license': 1,
                                      'muscles': [1, 2]})
         self.assertTrue(response.context['form'].errors['category'])
@@ -310,7 +310,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         # Wrong category - editing
         response = self.client.post(reverse('exercise:exercise:edit', kwargs={'pk': '1'}),
                                     {'category': 111,
-                                     'name': 'my test exercise',
+                                     'name_original': 'my test exercise',
                                      'license': 1,
                                      'muscles': [1, 2]})
         if admin:
@@ -321,7 +321,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         # No muscles - adding
         response = self.client.post(reverse('exercise:exercise:add'),
                                     {'category': 1,
-                                     'name': 'my test exercise',
+                                     'name_original': 'my test exercise',
                                      'license': 1,
                                      'muscles': []})
         self.assertFalse(response.context['form'].errors.get('muscles'))
@@ -329,7 +329,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         # No muscles - editing
         response = self.client.post(reverse('exercise:exercise:edit', kwargs={'pk': '1'}),
                                     {'category': 1,
-                                     'name': 'my test exercise',
+                                     'name_original': 'my test exercise',
                                      'license': 1,
                                      'muscles': []})
         if admin:

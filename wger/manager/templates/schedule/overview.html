@@ -33,12 +33,6 @@
 
 
 {% block sidebar %}
-<p>
-    <a href="{% url 'manager:schedule:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% trans "Add schedule" %}
-    </a>
-</p>
-
 <p>{% blocktrans %}Schedules are collections of workouts that you do in
 succession.{% endblocktrans %}</p>
 
@@ -49,4 +43,11 @@ always do the same workouts in succession, e.g. A > B > C > A > B > C and so on.
 <p>{% blocktrans %}The currently active schedule will remain active (and be
 shown e.g. in your dashboard) till it reaches the last workout or till you
 deactivate it, if it is a loop.{% endblocktrans %}</p>
+{% endblock %}
+
+
+{% block options %}
+    <a href="{% url 'manager:schedule:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+        {% trans "Add schedule" %}
+    </a>
 {% endblock %}

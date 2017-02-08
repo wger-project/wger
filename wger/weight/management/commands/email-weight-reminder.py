@@ -35,7 +35,7 @@ class Command(BaseCommand):
 
     help = 'Send out automatic emails to remind the user to enter the weight'
 
-    def handle(self, *args, **options):
+    def handle(self, **options):
 
         profile_list = UserProfile.objects.filter(num_days_weight_reminder__gt=0)
 
@@ -69,11 +69,10 @@ class Command(BaseCommand):
         # Compose and send the email
         translation.activate(user.userprofile.notification_language.short_name)
 
-        context = {}
-        context['site'] = Site.objects.get_current()
-        context['date'] = last_entry
-        context['days'] = datediff
-        context['user'] = user
+        context = {'site': Site.objects.get_current(),
+                   'date': last_entry,
+                   'days': datediff,
+                   'user': user}
 
         subject = _('You have to enter your weight')
         message = loader.render_to_string('workout/email_weight_reminder.tpl', context)

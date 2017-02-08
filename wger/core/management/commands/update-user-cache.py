@@ -29,7 +29,7 @@ class Command(BaseCommand):
            'code used to calculate any of the cached entries is changed and ' \
            'the ones in the database need to be updated to reflect the new logic.'
 
-    def handle(self, *args, **options):
+    def handle(self, **options):
         '''
         Process the options
         '''

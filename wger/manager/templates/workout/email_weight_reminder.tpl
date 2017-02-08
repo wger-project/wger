@@ -9,7 +9,7 @@ Please click the link to access the application and enter a new one.{% endblockt
 {% blocktrans %}If you don't want to ever receive email reminders, deactivate the
 option in your settings.{% endblocktrans %}
 
-{% trans "the wger.de team" %}
+— {% blocktrans %}The {{ site }} team{% endblocktrans %}
 
 
 * https://{{site}}{% url 'weight:overview' user.username %}

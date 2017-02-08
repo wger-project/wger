@@ -36,7 +36,10 @@
 
 
 
-{% block sidebar %}
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
 {% if perms.core.add_license %}
    <a href="{% url 'core:weight-unit:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
    {% trans "Add" %}

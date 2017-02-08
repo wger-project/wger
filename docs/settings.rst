@@ -10,6 +10,10 @@ dictionary in your settings file. Currently the following options are supported:
   Controls whether users can register on their own or if a gym adminstrator has
   to create the user accounts.
 
+**ALLOW_GUEST_USERS**: Default ``True``.
+  Controls whether users can use the site as a guest user or if an administrator
+  has to create the user accounts, as with the option above.
+
 **USE_RECAPTCHA**: Default ``False``.
   Controls whether a captcha challenge will be presented when new users register.
 

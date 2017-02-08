@@ -69,9 +69,12 @@
 
 
 
-{% block sidebar %}
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
 {% if perms.gym.add_userdocument %}
-   <a href="{% url 'gym:document:add' member.pk %}" class="btn btn-success" %}>
+   <a href="{% url 'gym:document:add' member.pk %}" class="btn btn-sm btn-success" %}>
        {% trans "Add" %}
    </a>
 {% endif %}

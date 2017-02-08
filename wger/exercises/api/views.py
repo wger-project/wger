@@ -31,6 +31,7 @@ from wger.exercises.api.serializers import (
     ExerciseSerializer,
     ExerciseImageSerializer,
     ExerciseCategorySerializer,
+    ExerciseInfoSerializer,
     EquipmentSerializer,
     ExerciseCommentSerializer
 )
@@ -121,6 +122,27 @@ def search(request):
         json_response['suggestions'] = results
 
     return Response(json_response)
+
+
+class ExerciseInfoViewset(viewsets.ModelViewSet):
+    '''
+    API endpoint for exercise objects
+    '''
+    queryset = Exercise.objects.all()
+    serializer_class = ExerciseInfoSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
+    ordering_fields = '__all__'
+    filter_fields = ('category',
+                     'creation_date',
+                     'description',
+                     'language',
+                     'muscles',
+                     'muscles_secondary',
+                     'status',
+                     'name',
+                     'equipment',
+                     'license',
+                     'license_author')
 
 
 class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):

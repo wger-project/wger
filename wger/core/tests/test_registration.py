@@ -37,6 +37,7 @@ class RegistrationTestCase(WorkoutManagerTestCase):
         with self.settings(WGER_SETTINGS={'USE_RECAPTCHA': True,
                                           'REMOVE_WHITESPACE': False,
                                           'ALLOW_REGISTRATION': True,
+                                          'ALLOW_GUEST_USERS': True,
                                           'TWITTER': False}):
             response = self.client.get(reverse('core:user:registration'))
             self.assertIsInstance(response.context['form'], RegistrationForm)
@@ -44,6 +45,7 @@ class RegistrationTestCase(WorkoutManagerTestCase):
         with self.settings(WGER_SETTINGS={'USE_RECAPTCHA': False,
                                           'REMOVE_WHITESPACE': False,
                                           'ALLOW_REGISTRATION': True,
+                                          'ALLOW_GUEST_USERS': True,
                                           'TWITTER': False}):
             response = self.client.get(reverse('core:user:registration'))
             self.assertIsInstance(response.context['form'], RegistrationFormNoCaptcha)
@@ -97,6 +99,7 @@ class RegistrationTestCase(WorkoutManagerTestCase):
 
         with self.settings(WGER_SETTINGS={'USE_RECAPTCHA': False,
                                           'REMOVE_WHITESPACE': False,
+                                          'ALLOW_GUEST_USERS': True,
                                           'ALLOW_REGISTRATION': False}):
 
             # Fetch the registration page

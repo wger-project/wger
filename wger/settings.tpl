@@ -36,16 +36,11 @@ NOCAPTCHA = True
 # This is needed for uploaded files and images (exercise images, etc.) to be
 # properly served.
 SITE_URL = '{siteurl}'
-BROWSERID_AUDIENCES = [SITE_URL]
 
 # Path to uploaded files
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 MEDIA_ROOT = {media_folder_path}
-MEDIA_URL = SITE_URL + '/media/'
-if DEBUG:
-    # Serve the uploaded files like this only during development
-    STATICFILES_DIRS = (MEDIA_ROOT, )
-
+MEDIA_URL = '/media/'
 
 # Allow all hosts to access the application. Change if used in production.
 ALLOWED_HOSTS = '*'

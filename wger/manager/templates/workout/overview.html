@@ -29,10 +29,8 @@
 {% endblock %}
 
 
-{% block sidebar %}
-<p>
-    <a href="{% url 'manager:workout:add' %}" class="btn btn-success btn-sm">
-        {% trans "Add workout" %}
-    </a>
-</p>
+{% block options %}
+<a href="{% url 'manager:workout:add' %}" class="btn btn-success btn-sm">
+    {% trans "Add workout" %}
+</a>
 {% endblock %}

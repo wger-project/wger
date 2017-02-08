@@ -196,13 +196,6 @@
 
 
 {% block sidebar %}
-{% if perms.gym.gym_trainer %}
-<a href="{% url 'core:user:trainer-login' current_user.pk %}" class="btn btn-success btn-sm">{% trans "Log in as this user" %}</a>
-<div class="clear-fix" style="margin-bottom: 1em;"></div>
-{% endif %}
-
-
-
 {% if perms.gym.manage_gyms or perms.gym.manage_gym %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
@@ -493,4 +486,14 @@
         </td>
     </tr>
 </table>
+{% endblock %}
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+{% if perms.gym.gym_trainer %}
+    <a href="{% url 'core:user:trainer-login' current_user.pk %}" class="btn btn-success btn-sm">{% trans "Log in as this user" %}</a>
+{% endif %}
 {% endblock %}
