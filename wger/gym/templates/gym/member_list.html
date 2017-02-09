@@ -156,7 +156,13 @@
     </tr>
     <tr>
         <td>{% trans "Show name in header" %}</td>
-        <td style="text-align: right;">{{gym.config.show_name}}</td>
+        <td style="text-align: right;">
+            {% if gym.config.show_name %}
+                <span class="{% fa_class 'check' %}"></span>
+            {% else %}
+                <span class="{% fa_class 'times' %}"></span>
+            {% endif %}
+        </td>
     </tr>
 </table>
 
