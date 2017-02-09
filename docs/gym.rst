@@ -71,3 +71,9 @@ This can be configured in the following ways:
 **user configuration**
   Individual users can be opt-out of being included in the reminder emails if
   they don't want to use the log or any other reason.
+
+Gym name in header
+~~~~~~~~~~~~~~~~~~
+A checkbox to control whether the gym's name will appear in the header instead
+of the application's name for all logged in users of this gym. This applies to
+members, trainers and managers.
