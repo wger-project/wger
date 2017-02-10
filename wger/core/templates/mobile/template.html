@@ -105,7 +105,12 @@
             <span class="glyphicon  glyphicon-th-list"></span>
         </button>
         <span class="center-block application-name">
-            wger
+            {# Show application's name or user's gym #}
+            {% if custom_header %}
+                {{ custom_header }}
+            {% else %}
+                wger
+            {% endif %}
         </span>
     </div>
 

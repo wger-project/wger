@@ -25,8 +25,10 @@ New languages:
 
 New features:
 
+* Big ingredient list in Dutch, many thanks to alphafitness.club!
 * Add repetition (minutes, kilometer, etc.) and weight options (kg, lb, plates, until failure) to sets `#216`_ and `#217`_
 * Allow administrators to deactivate the guest user account `#330`_
+* Add option to show the gym name in the header instead of the application name, part of `#214`_
 * Exercise names are now capitalized, making them more consistent `#232`_
 * Much improved landing page (thanks `@DeveloperMal`_) `#307`_
 * Add extended PDF options to schedules as well (thanks `@alelevinas`_ ) `#272`_
@@ -42,6 +44,7 @@ Improvements:
 * Make exercise names links to their detail page in training log pages `#350`_
 * Better GUI consistency in modal dialogs (thanks `@jstoebel`_ ) `#274`_
 * Fields in workout log form are no longer required, making it possible to only log weight for certain exercises `#334`_
+* New, more verbose, API endpoint for exercises, (thanks `@andela-bmwenda`_)
 * The dashboard page was improved and made more user friendly `#201`_ (partly)
 * Replace jquery UI's autocompleter and sortable this reduces size of JS and CSS `#78`_ and `#79`_
 * Update to D3js v4 `#314`_, `#302`_
@@ -57,10 +60,12 @@ Other improvements and bugfixes:     `#25`_, `#243`_, `#279`_, `#275`_, `#270`_,
 .. _#79: https://github.com/wger-project/wger/issues/79
 .. _#188: https://github.com/wger-project/wger/issues/188
 .. _#201: https://github.com/wger-project/wger/issues/201
+.. _#214: https://github.com/wger-project/wger/issues/214
 .. _#216: https://github.com/wger-project/wger/issues/216
 .. _#217: https://github.com/wger-project/wger/issues/217
 .. _#232: https://github.com/wger-project/wger/issues/232
 .. _#243: https://github.com/wger-project/wger/issues/243
+.. _#248: https://github.com/wger-project/wger/issues/248
 .. _#247: https://github.com/wger-project/wger/issues/247
 .. _#263: https://github.com/wger-project/wger/issues/263
 .. _#269: https://github.com/wger-project/wger/issues/269
@@ -93,6 +98,7 @@ Other improvements and bugfixes:     `#25`_, `#243`_, `#279`_, `#275`_, `#270`_,
 .. _@jstoebel: https://github.com/jstoebel
 .. _@alokhan: https://github.com/alokhan
 .. _@w00p: https://github.com/w00p
+.. _@andela-bmwenda: https://github.com/andela-bmwenda
 
 
 

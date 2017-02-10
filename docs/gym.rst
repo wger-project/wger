@@ -27,7 +27,7 @@ user's name).
 Contracts
 ---------
 
-It is also possible to manage the member's contracts with the application. A
+It is also possible to manage the members' contracts with the application. A
 contract is composed of a base form and optional *type* and *options*. The type
 is a single attribute, such as "Student contract" or "Special offer 2016". The
 options are basically the same but more than one can be selected at once and
@@ -71,3 +71,9 @@ This can be configured in the following ways:
 **user configuration**
   Individual users can be opt-out of being included in the reminder emails if
   they don't want to use the log or any other reason.
+
+Gym name in header
+~~~~~~~~~~~~~~~~~~
+A checkbox to control whether the gym's name will appear in the header instead
+of the application's name for all logged in users of this gym. This applies to
+members, trainers and managers.
