@@ -17,7 +17,7 @@
 import logging
 
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponseForbidden, Http404
 from django.template.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _, ugettext_lazy
@@ -319,9 +319,14 @@ def add_fitbit(request, code=None):
     '''
     Gets data from fitbit upon the user authorizing Wger to access their data
     '''
+    if settings.WGER_SETTINGS['FITBIT_CLIENT_ID'] is None:
+        raise Http404("Synchronization with Fitbit is not available")
+
     template_data = {}
-    client_id = '2283MF'
-    client_secret = 'c8ebd0a368cf7f419102198633966039'
+
+    client_id = settings.WGER_SETTINGS['FITBIT_CLIENT_ID']
+    client_secret = settings.WGER_SETTINGS['FITBIT_CLIENT_SECRET']
+
     fitbit_client = FitbitOauth2Client(client_id, client_secret)
     if 'code' in request.GET:  # get token
         code = request.GET.get("code", "")
