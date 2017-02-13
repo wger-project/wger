@@ -25,6 +25,7 @@ djangorestframework>=3.2,<3.3
 django-filter
 django-tastypie
 django-cors-headers
+fitbit
 
 # Python3 compatibility
 six
