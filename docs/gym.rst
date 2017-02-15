@@ -3,8 +3,18 @@
 Gym admnistration
 =================
 
-wger has basic support for gym management. There are 3 groups used for the
-different administrative roles:
+wger has support for gym and member management, allowing e.g. trainers to follow
+the progress of their athletes and for the gym managers to keep track of the
+member's contracts.
+
+It is possible to manage a single or different ones with one instance of wger.
+If the installation is used for a single gym only, you can set the
+default gym in the global configuration options in the gym list. This will
+update all existing users as well as newly registered ones so they belong
+to that gym.
+
+
+There are 3 groups used for the different administrative roles:
 
 * **general manager:** Can manage (add, edit, delete) the different gyms for the
   installation as well as add gym managers, trainers and member, but is not
@@ -14,15 +24,46 @@ different administrative roles:
 * **trainer:** Can manage the workouts and other data for the members of a
   single gym.
 
+These roles are not mutually exclusive, if your workflow demands it, you can
+combine all three roles into one account.
+
 Except for general managers, administrative users belong to a single gym (the
 one they were created in) and can access only those members. This setting cannot
-be changed later. The user's gym appears in the in the top right menu (with the
-user's name).
+be changed later. The user's gym appears in the top right menu.
 
-.. note:: If the installation is used for a single gym only, you can set the
-    default gym in the global configuration options in the gym list. This will
-    update all existing users as well as newly registered ones so they belong
-    to that gym.
+
+Member management
+-----------------
+You can new members to a gym by clicking the *Add member* button at the top of
+the member overview. After filling in the form, a password will be generated
+for the user. You should save this and give it to the user, as it is not possible
+to retrieve it later. Alternatively you can just instruct the new members to
+use the reset password links when logging in for the first time.
+
+An export of all gym members is available as well from the "actions" button on
+the gym detail table. This provides a CSV file that can be imported into a
+spreadsheet program for further processing.
+
+Trainers can click on a user and access an overview of the user's workouts,
+body weights, nutrition plans, etc. When clicking on the "log in as this user",
+the trainer can assume the identity of the user to create new workouts for
+example.
+
+Individual members can be deactivated by clicking on the "actions" button on
+the top of the member's detail table. Deactivated users can't log in, but are
+not deleted from the system and can be reactivated at any time in the future.
+If you wish to completely delete a user from the system, use the "delete"
+option but keep in mind that this action cannot be undone.
+
+
+Notes and documents
+-------------------
+Trainers can add notes and upload documents related to individual members. A
+note is a free text, while a document can be any file. This information can
+be used to save information on specific injuries or other important notes
+related to the member. Note that these entries are not accessible by the
+members themselves, but only by the trainers.
+
 
 Contracts
 ---------
@@ -41,13 +82,16 @@ contract to a specific user.
 
 Mass emails
 -----------
+It is possible to send an email to all members of a gym. At the moment it is
+not possible to filter this list or send it only to members that fulfill a
+specific criterion.
 
-
-Member management
------------------
-
-
-
+To send this, go to the gym's overview and click "Add" on the Email actions
+button. After filling in the subject and the body you need to accept the
+preview, in order to make sure that the text you wrote is indeed the one
+you intend to send. After submitting the form, the emails will be sent in
+batches (how exactly depends on how you configured the different cron jobs
+needed to run the application).
 
 
 Configuration
