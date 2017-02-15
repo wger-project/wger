@@ -58,10 +58,13 @@
 
 
 
-{% block sidebar %}
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
 {% if perms.gym.add_adminusernote %}
-   <a href="{% url 'gym:admin_note:add' member.pk %}" class="wger-modal-dialog btn btn-success">
-   {% trans "Add" %}
+    <a href="{% url 'gym:admin_note:add' member.pk %}" class="wger-modal-dialog btn btn-success btn-sm">
+        {% trans "Add" %}
     </a>
 {% endif %}
 {% endblock %}

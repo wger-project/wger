@@ -31,12 +31,15 @@
         </li>
     {% endfor %}
 </ul>
-
-
 {% endblock %}
 
-{% block sidebar %}
-    <a href="{% url 'email:email:add-gym' gym.pk %}" class="btn btn-success">
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+    <a href="{% url 'email:email:add-gym' gym.pk %}" class="btn btn-sm btn-success">
         {% trans "Add" %}
     </a>
 {% endblock %}

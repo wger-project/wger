@@ -18,6 +18,7 @@ Custom middleware
 
 import logging
 
+from django.conf import settings
 from django.contrib import auth
 from django.utils.functional import SimpleLazyObject
 from django.contrib.auth import login as django_login
@@ -61,7 +62,9 @@ def get_user(request):
             request.session['has_demo_data'] = False
 
         # Django didn't find a user, so create one now
-        if request.method == 'GET' and create_user and not user.is_authenticated():
+        if settings.WGER_SETTINGS['ALLOW_GUEST_USERS'] and \
+                request.method == 'GET' and \
+                create_user and not user.is_authenticated():
 
             logger.debug('creating a new guest user now')
             user = create_temporary_user()

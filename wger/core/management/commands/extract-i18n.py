@@ -31,7 +31,7 @@ class Command(BaseCommand):
 
     help = 'Read out all strings that have to be included manually in the .po file'
 
-    def handle(self, *args, **options):
+    def handle(self, **options):
 
         # Collect all translatable items
         out = []

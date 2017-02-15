@@ -111,10 +111,10 @@ class AddIngredientTestCase(WorkoutManagerAddTestCase):
         if self.current_user == 'admin':
             ingredient = Ingredient.objects.get(pk=self.pk_after)
             self.assertEqual(ingredient.creation_date, datetime.date.today())
-            self.assertEqual(ingredient.status, Ingredient.INGREDIENT_STATUS_ADMIN)
+            self.assertEqual(ingredient.status, Ingredient.STATUS_ACCEPTED)
         elif self.current_user == 'test':
             ingredient = Ingredient.objects.get(pk=self.pk_after)
-            self.assertEqual(ingredient.status, Ingredient.INGREDIENT_STATUS_PENDING)
+            self.assertEqual(ingredient.status, Ingredient.STATUS_PENDING)
 
 
 class IngredientDetailTestCase(WorkoutManagerTestCase):

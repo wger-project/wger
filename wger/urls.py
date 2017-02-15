@@ -18,9 +18,10 @@
 from tastypie.api import Api
 from rest_framework import routers
 
+from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.i18n import i18n_patterns
-from django.conf.urls.i18n import patterns
+from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 
 from wger.nutrition.sitemap import NutritionSitemap
@@ -101,6 +102,8 @@ router.register(r'setting-repetitionunit', core_api_views.RepetitionUnitViewSet,
 router.register(r'setting-weightunit', core_api_views.WeightUnitViewSet, base_name='setting-weight-unit')
 
 # Exercises app
+# Add router for viewing exercise info
+router.register(r'exerciseinfo', exercises_api_views.ExerciseInfoViewset, base_name='exerciseinfo')
 router.register(r'exercise', exercises_api_views.ExerciseViewSet, base_name='exercise')
 router.register(r'equipment', exercises_api_views.EquipmentViewSet, base_name='api')
 router.register(r'exercisecategory', exercises_api_views.ExerciseCategoryViewSet, base_name='exercisecategory')
@@ -144,7 +147,6 @@ urlpatterns = i18n_patterns(
     url(r'gym/', include('wger.gym.urls', namespace='gym', app_name='gym')),
     url(r'groups/', include('wger.groups.urls', namespace='groups', app_name='groups')),
     url(r'email/', include('wger.email.urls', namespace='email')),
-    url(r'^browserid/', include('django_browserid.urls')),
     url(r'^sitemap\.xml$',
         sitemap,
         {'sitemaps': sitemaps},
@@ -154,15 +156,12 @@ urlpatterns = i18n_patterns(
 #
 # URLs without language prefix
 #
-urlpatterns = urlpatterns + [
+urlpatterns += [
     url(r'^robots\.txt$',
         TextTemplateView.as_view(template_name="robots.txt"),
         name='robots'),
     url(r'^manifest\.webapp$', WebappManifestView.as_view(template_name="manifest.webapp")),
     url(r'^amazon-manifest\.webapp$', WebappManifestView.as_view(template_name="amazon-manifest.webapp")),
-
-    # persona (browserID) login
-    url(r'^browserid/', include('django_browserid.urls')),
 
     # Django Activity Stream
     url('^activity/', include('actstream.urls')),
@@ -172,8 +171,17 @@ urlpatterns = urlpatterns + [
     url(r'^api/v2/exercise/search/$',
         exercises_api_views.search,
         name='exercise-search'),
+    url(r'^api/v2/exerciseinfo/search/$',
+        exercises_api_views.search,
+        name='exercise-info'),
     url(r'^api/v2/ingredient/search/$',
         nutrition_api_views.search,
         name='ingredient-search'),
     url(r'^api/v2/', include(router.urls)),
 ]
+
+#
+# URL for user uploaded files, served like this during development only
+#
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

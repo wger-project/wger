@@ -176,6 +176,15 @@ All the code and the content is freely available:
 * **Mirror:** https://bitbucket.org/rolandgeider/wger
 
 
+Donations
+=========
+wger is free software and will always remain that way, however if you want to
+help and support the project you are more than welcome to donate an amount of
+your choice.
+
+.. image:: https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif
+   :target: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UPMWQJY85JC5N
+
 Licence
 =======
 

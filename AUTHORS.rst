@@ -23,6 +23,7 @@ Developers
 * Jacob Stoebel: https://github.com/jstoebel
 * Peter van der Does: https://github.com/petervanderdoes
 * Malcolm Jones: https://github.com/DevloperMal
+* Boniface Mwenda: https://github.com/andela-bmwenda
 
 Translators
 -----------

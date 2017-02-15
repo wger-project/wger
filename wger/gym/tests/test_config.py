@@ -12,8 +12,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
+from django.core.urlresolvers import reverse
 
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
+from wger.core.tests.base_testcase import WorkoutManagerEditTestCase, WorkoutManagerTestCase
 from wger.gym.models import GymConfig
 
 
@@ -25,7 +26,7 @@ class EditGymConfigTestCase(WorkoutManagerEditTestCase):
     pk = 1
     object_class = GymConfig
     url = 'gym:config:edit'
-    data = {'weeks_inactive': 10}
+    data = {'weeks_inactive': 10, 'show_name': True}
     user_success = ('admin',
                     'manager1',
                     'manager2')

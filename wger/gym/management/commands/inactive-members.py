@@ -34,7 +34,7 @@ class Command(BaseCommand):
     '''
     help = 'Send out emails to trainers with users that have not shown recent activity'
 
-    def handle(self, *args, **options):
+    def handle(self, **options):
         '''
         Process gyms and send emails
         '''

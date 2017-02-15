@@ -58,7 +58,7 @@ class Command(BaseCommand):
     help = 'Clears the application cache. You *must* pass an option selecting ' \
            'what exactly you want to clear. See available options.'
 
-    def handle(self, *args, **options):
+    def handle(self, **options):
         '''
         Process the options
         '''

@@ -61,7 +61,6 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
                      'status',
                      'update_date',
                      'language',
-                     'user',
                      'license',
                      'license_author')
 
@@ -128,7 +127,7 @@ def search(request):
         languages = load_ingredient_languages(request)
         ingredients = Ingredient.objects.filter(name__icontains=q,
                                                 language__in=languages,
-                                                status__in=Ingredient.INGREDIENT_STATUS_OK)
+                                                status=Ingredient.STATUS_ACCEPTED)
 
         for ingredient in ingredients:
             ingredient_json = {

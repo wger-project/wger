@@ -37,28 +37,27 @@ WSGI_APPLICATION = 'wger.wsgi.application'
 
 INSTALLED_APPS = (
     'django.contrib.auth',
-    'django_browserid',  # Load after auth to monkey-patch it.
     'django.contrib.contenttypes',
+    'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
 
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
 
     # Apps from wger proper
+    'wger.config',
     'wger.core',
-    'wger.manager',
-    'wger.weight',
+    'wger.email',
     'wger.exercises',
+    'wger.groups',
+    'wger.gym',
+    'wger.manager',
     'wger.nutrition',
     'wger.software',
     'wger.utils',
-    'wger.config',
-    'wger.gym',
-    'wger.groups',
-    'wger.email',
+    'wger.weight',
 
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
     'captcha',
@@ -95,18 +94,17 @@ INSTALLED_APPS = (
 
 # added list of external libraries to be installed by bower
 BOWER_INSTALLED_APPS = (
-    'jquery#2.1.x',
     'bootstrap',
-    'd3',
-    'shariff',
-    'tinymce-dist',
-    'DataTables',
     'components-font-awesome',
-    'tinymce',
-    'metrics-graphics',
+    'd3',
+    'DataTables',
     'devbridge-autocomplete#1.2.x',
-
-    #  'sortablejs#1.4.x',
+    'jquery#2.1.x',
+    'metrics-graphics',
+    'shariff',
+    'sortablejs#1.4.x',
+    'tinymce',
+    'tinymce-dist',
 )
 
 
@@ -136,7 +134,6 @@ MIDDLEWARE_CLASSES = (
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'django_browserid.auth.BrowserIDBackend',
     'wger.utils.helpers.EmailAuthBackend'
 )
 
@@ -330,9 +327,9 @@ COMPRESS_ROOT = STATIC_ROOT
 
 # BOWER binary
 if sys.platform.startswith('win32'):
-    BOWER_PATH = os.path.join(BASE_DIR, 'node_modules', '.bin', 'bower.cmd')
+    BOWER_PATH = os.path.join('node_modules', '.bin', 'bower.cmd')
 else:
-    BOWER_PATH = os.path.join(BASE_DIR, 'node_modules', '.bin', 'bower')
+    BOWER_PATH = os.path.join('node_modules', '.bin', 'bower')
 
 #
 # Django Rest Framework
@@ -367,10 +364,13 @@ IGNORABLE_404_URLS = (
 #
 # Application specific configuration options
 #
+# Consult docs/settings.rst for more information
+#
 WGER_SETTINGS = {
     'USE_RECAPTCHA': False,
     'REMOVE_WHITESPACE': False,
     'ALLOW_REGISTRATION': True,
+    'ALLOW_GUEST_USERS': True,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'TWITTER': False
 }

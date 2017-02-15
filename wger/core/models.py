@@ -530,7 +530,10 @@ class License(models.Model):
     '''
 
     full_name = models.CharField(max_length=60,
-                                 verbose_name=_('Full name'))
+                                 verbose_name=_('Full name'),
+                                 help_text=_('If a license has been localized, e.g. the Creative '
+                                             'Commons licenses for the different countries, add '
+                                             'them as separate entries here.'))
     '''Full name'''
 
     short_name = models.CharField(max_length=15,

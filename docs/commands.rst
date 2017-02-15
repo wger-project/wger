@@ -239,6 +239,14 @@ management functions that are sometimes needed. Call them with
   its help text as it could save the wrong image to the wrong exercise should
   different IDs match.
 
+**redo-capitalize-names**
+  re-calculates the capitalized exercise names. This command can be called if the
+  current "smart" capitalization algorithm is changed. This is a safe operation,
+  since the original names (as entered by the user) are still available.
+
+**submitted-exercises**
+  simply prints a list of user submitted exercises
+
 **extract-i18n**
   extract strings from the database that have to be inserted manually in the PO
   file when translating. These include e.g. exercise categories.
@@ -247,9 +255,6 @@ management functions that are sometimes needed. Call them with
   clears different application caches. Might be needed after some updates or
   just useful while testing. Please note that you must select what caches to
   clear.
-
-**submitted-exercises**
-  simply prints a list of user submitted exercises
 
 **update-user-cache**
   update the user cache-table. This command is only needed when the python code
@@ -277,5 +282,3 @@ similar
 **inactive-members**
   Sends email for gym members that have not been to the gym for a specified
   amount of weeks.
-  
-  

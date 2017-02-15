@@ -28,7 +28,7 @@ class Command(BaseCommand):
 
     help = 'Deletes all temporary users older than 1 week'
 
-    def handle(self, *args, **options):
+    def handle(self, **options):
 
         profile_list = UserProfile.objects.filter(is_temporary=True)
         counter = 0

@@ -180,7 +180,7 @@ class ExercisesEditAddView(WgerFormMixin):
             class Meta:
                 model = Exercise
                 widgets = {'equipment': TranslatedSelectMultiple()}
-                fields = ['name',
+                fields = ['name_original',
                           'category',
                           'description',
                           'muscles',
@@ -293,7 +293,7 @@ class ExerciseDeleteView(WgerDeleteMixin,
     model = Exercise
     fields = ('category',
               'description',
-              'name',
+              'name_original',
               'muscles',
               'muscles_secondary',
               'equipment')
