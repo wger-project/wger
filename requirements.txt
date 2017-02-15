@@ -19,13 +19,14 @@ django-sortedm2m
 django-bower
 invoke
 requests
+fitbit>=0.3,<0.4
+
 
 # REST API
 djangorestframework>=3.2,<3.3
 django-filter
 django-tastypie
 django-cors-headers
-fitbit
 
 # Python3 compatibility
 six
