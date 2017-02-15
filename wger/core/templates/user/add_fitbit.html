@@ -4,8 +4,14 @@
 {% block title %}{% trans "Add your fitbit account" %}{% endblock %}
 
 {% block content %}
-<p>To synchronize your Wger weight data with Fitbit click the button below. You will be redirected to the authorization 
-where you can grant Wger permission to access your data.
+<p>{% blocktrans trimmed %}
+    To synchronize your fitbit weight data with wger click the button below. You
+    will be redirected to an authorization page where you can grant wger
+    permission to read your data.
+    {% endblocktrans %}
 </p>
-<a href="{{ fitbit_auth_link }}" class="btn btn-default"> Sync with Fitbit. </a>
+
+<p>
+    <a href="{{ fitbit_auth_link }}" class="btn btn-default">{% trans "Sync with Fitbit" %}</a>
+</p>
 {% endblock %}
