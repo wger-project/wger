@@ -14,7 +14,7 @@ from setuptools import (
 from wger import get_version
 
 
-with open('README.rst') as readme:
+with open('README.rst', encoding='utf-8') as readme:
     long_description = readme.read()
 
 with open('requirements.txt') as requirements_production:

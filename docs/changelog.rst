@@ -5,6 +5,14 @@ Changelog
 --------------------
 **2016-XX-XX**
 
+.. warning ::
+   There have been some changes to the installation procedure. Calling 'invoke'
+   on its own has been deprecated, you should use the 'wger' command (which
+   accepts the same options). Also some of these commands have been renamed:
+
+   * ``start_wger`` to ``wger``
+   * ``bootstrap_wger`` ``bootstrap``
+
 Upgrade steps from 1.7:
 
 * Django update to 1.9: ``pip install -r requirements.txt``

@@ -126,7 +126,7 @@ for the engine). Also set ``MEDIA_ROOT`` to ``/home/wger/media`` and
 Run the installation script, this will download some CSS and JS libraries and
 load all initial data::
 
-  invoke bootstrap_wger --settings-path /path/to/settings.py --no-start-server
+  invoke bootstrap --settings-path /path/to/settings.py --no-start-server
 
 
 Collect all static resources::

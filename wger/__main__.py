@@ -28,6 +28,9 @@ invoke_cmd = 'invoke '
 
 
 def main():
+    # Change the working directory so that invoke can find the tasks fiel
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
     args = sys.argv[1:]
     if len(args):
         run(invoke_cmd + ' '.join(args), pty=True)
