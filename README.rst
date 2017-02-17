@@ -31,61 +31,6 @@ Useful to just try it out::
 
 Then just open http://localhost:8000 and log in as: **admin**, password **admin**
 
-
-Development version (from git)
-------------------------------
-
-**Note:** You can safely install from master, it is almost always in a usable
-and stable state.
-
-
-1) Install the necessary packages
-
-::
-
- $ sudo apt-get install python3-dev python-virtualenv nodejs nodejs-legacy npm libjpeg8-dev zlib1g-dev git
-
-
-On fedora 23
-
-::
-
- $ sudo dnf install python3-devel python-virtualenv nodejs npm libjpeg-turbo-devel zlib-devel git
-
-Then install the python packages from pypi in the virtualenv::
-
- $ virtualenv --python python3 venv-django
- $ source venv-django/bin/activate
-
-
-2) Start the application. This will download the required JS and CSS libraries
-   and create a SQlite database and populate it with data on the first run.
-
-::
-
- $ git clone https://github.com/wger-project/wger.git
- $ cd wger
- $ pip install -r requirements.txt  # or requirements_devel.txt to develop
- $ python setup.py develop
- $ wger create_settings \
-        --settings-path /home/wger/wger/settings.py \
-        --database-path /home/wger/wger/database.sqlite
- $ wger bootstrap \
-        --settings-path /home/wger/wger/settings.py \
-        --no-start-server
- $ python manage.py runserver
-
-3) Log in as: **admin**, password **admin**
-
-After the first run you can just use django's development server. You will
-probably want to move the settings and sqlite files to your git folder, see
-the comments in the documentation (development chapter) about this::
-
- $ python manage.py runserver
-
-Docker images
-~~~~~~~~~~~~~
-
 Alternatively, there are docker images for development as well, ``wger/devel``
 and ``wger/devel-fedora``. Both images contain an instance of the application
 running with django's development server using a sqlite database and  can be
@@ -112,6 +57,49 @@ and start the development server
 Then just open http://localhost:8000 and log in as: **admin**, password **admin**
 
 
+Development version (from git)
+------------------------------
+
+**Note:** You can safely install from master, it is almost always in a usable
+and stable state.
+
+
+1) Install the necessary packages
+
+::
+
+ $ sudo apt-get install python3-dev python-virtualenv nodejs nodejs-legacy npm libjpeg8-dev zlib1g-dev git
+
+
+Then install the python packages from pypi in the virtualenv::
+
+ $ virtualenv --python python3 venv-django
+ $ source venv-django/bin/activate
+
+
+2) Start the application. This will download the required JS and CSS libraries
+   and create a SQlite database and populate it with data on the first run.
+
+::
+
+ $ git clone https://github.com/wger-project/wger.git
+ $ cd wger
+ $ pip install -r requirements.txt  # or requirements_devel.txt to develop
+ $ python setup.py develop
+ $ wger create_settings \
+        --settings-path /home/wger/wger/settings.py \
+        --database-path /home/wger/wger/database.sqlite
+ $ wger bootstrap \
+        --settings-path /home/wger/wger/settings.py \
+        --no-start-server
+ $ python manage.py runserver
+
+3) Log in as: **admin**, password **admin**
+
+After the first run you can just use django's development server::
+
+ $ python manage.py runserver
+
 
 Stable version (from PyPI)
 --------------------------
@@ -135,6 +123,11 @@ Stable version (from PyPI)
 
 
 3) Log in as: **admin**, password **admin**
+
+
+4) To start the installation again, just call wger start::
+
+  $ wger start
 
 
 Command line options

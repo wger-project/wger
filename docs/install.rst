@@ -35,6 +35,13 @@ These are the necessary packages for both development and production
                          python-virtualenv python3-dev \
                          libjpeg8-dev zlib1g-dev libwebp-dev
 
+On fedora 23::
+
+    sudo dnf install nodejs npm git \
+                     python-virtualenv python3-devel \
+                     libjpeg-turbo-devel zlib-devel
+
+
 .. note::
     The application is developed with python 3, which these installation
     instructions also use. If you want to use python 2.7, make sure you install
