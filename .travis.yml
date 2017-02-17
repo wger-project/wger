@@ -39,12 +39,17 @@ install:
 
   # Install requirements
   - pip install -r requirements_devel.txt
+  - python setup.py develop
+  - cd wger
   - npm install
   - if [[ "$DB" = "postgresql" ]]; then pip install psycopg2; fi
 
   # Setup application
-  - if [[ "$DB" = "sqlite" ]]; then invoke create_settings; fi
-  - if [[ "$DB" = "postgresql" ]]; then invoke create_settings --database-type postgresql; fi
+  - if [[ "$DB" = "sqlite" ]]; then wger create_settings; fi
+  - if [[ "$DB" = "postgresql" ]]; then wger create_settings --database-type postgresql; fi
+
+  # change back to the source folder
+  - cd ..
 
 # Create test databases
 before_script:
@@ -61,7 +66,6 @@ script:
 
   # Regular application
   - coverage run --source='.' ./manage.py test
-
 
   # Code coverage
   - coverage report
