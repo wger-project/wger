@@ -17,7 +17,8 @@ RUN dnf update;\
     nodejs npm libjpeg-turbo-devel zlib-devel git \
     tmux sudo redhat-rpm-config gcc python-imaging
 
-# Set locale to UTF8, otherwise problems with the encoding can occur
+# Set locale to UTF8, otherwise problems with the encoding can occur, e.g.
+# when using the invoke/wger commands and bower
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en

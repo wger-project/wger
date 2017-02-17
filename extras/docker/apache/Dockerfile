@@ -12,6 +12,14 @@ FROM wger/base
 MAINTAINER Roland Geider <roland@geider.net>
 EXPOSE 80
 
+# Set locale to UTF8, otherwise problems with the encoding can occur, e.g.
+# when using the invoke/wger commands and bower
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+
 # Install dependencies
 RUN apt-get install -y apache2 libapache2-mod-wsgi-py3
 
