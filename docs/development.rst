@@ -29,6 +29,7 @@ Install Requirements
 To install the Python requirements::
 
   $ pip install -r requirements_devel.txt
+  $ python setup.py develop
 
 Install NodeJS and npm::
 Follow the instructions on the `NPM website <https://docs.npmjs
@@ -45,10 +46,10 @@ Install site
 
 To install the server::
 
-  $ invoke create_settings \
+  $ wger create_settings \
            --settings-path /home/wger/wger/settings.py \
            --database-path /home/wger/wger/database.sqlite
-  $ invoke bootstrap \
+  $ wger bootstrap \
            --settings-path /home/wger/wger/settings.py \
            --no-start-server
 

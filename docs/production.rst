@@ -113,8 +113,9 @@ Get the application::
   cd /home/wger/src
   npm install bower
   pip install -r requirements.txt
+  python setup.py develop
   pip install psycopg2 # Only if using postgres
-  invoke create_settings \
+  wger create_settings \
         --settings-path /home/wger/src/settings.py \
         --database-path /home/wger/db/database.sqlite
 
@@ -126,7 +127,7 @@ for the engine). Also set ``MEDIA_ROOT`` to ``/home/wger/media`` and
 Run the installation script, this will download some CSS and JS libraries and
 load all initial data::
 
-  invoke bootstrap --settings-path /path/to/settings.py --no-start-server
+  wger bootstrap --settings-path /path/to/settings.py --no-start-server
 
 
 Collect all static resources::
