@@ -495,6 +495,7 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
 
         new_exercise_overview = cache.get(get_template_cache_name('exercise-detail-muscles', 2))
 
+
 class WorkoutCacheTestCase(WorkoutManagerTestCase):
     '''
     Workout cache test case
