@@ -51,6 +51,7 @@ Improvements:
 * Give feedback when autocompleter didn't find any results `#293`_
 * Make exercise names links to their detail page in training log pages `#350`_
 * Better GUI consistency in modal dialogs (thanks `@jstoebel`_ ) `#274`_
+* Cache is cleared when editing muscles (thanks `@RyanSept`_ `@pythonGeek`_  ) `#260`_
 * Fields in workout log form are no longer required, making it possible to only log weight for certain exercises `#334`_
 * New, more verbose, API endpoint for exercises, (thanks `@andela-bmwenda`_)
 * The dashboard page was improved and made more user friendly `#201`_ (partly)
@@ -75,6 +76,7 @@ Other improvements and bugfixes:     `#25`_, `#243`_, `#279`_, `#275`_, `#270`_,
 .. _#243: https://github.com/wger-project/wger/issues/243
 .. _#248: https://github.com/wger-project/wger/issues/248
 .. _#247: https://github.com/wger-project/wger/issues/247
+.. _#260: https://github.com/wger-project/wger/issues/260
 .. _#263: https://github.com/wger-project/wger/issues/263
 .. _#269: https://github.com/wger-project/wger/issues/269
 .. _#272: https://github.com/wger-project/wger/issues/272
@@ -107,6 +109,8 @@ Other improvements and bugfixes:     `#25`_, `#243`_, `#279`_, `#275`_, `#270`_,
 .. _@alokhan: https://github.com/alokhan
 .. _@w00p: https://github.com/w00p
 .. _@andela-bmwenda: https://github.com/andela-bmwenda
+.. _@RyanSept: https://github.com/RyanSept
+.. _@pythonGeek: https://github.com/pythonGeek
 
 
 
